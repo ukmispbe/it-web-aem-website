@@ -1,0 +1,7 @@
+<button data-sly-use.button="com.waters.aem.core.components.content.Button"
+    data-sly-test="${button.buttonText}">
+    ${button.buttonText}
+</button>
+
+<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+     data-sly-call="${patterns.placeholder @ show=!button.buttonLink, text=component.title}"/>
