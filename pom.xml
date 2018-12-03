@@ -327,6 +327,11 @@
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <version>1.4.1</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>3.5.0.1254</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -467,4 +472,16 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>waters-nexus-repo</id>
+            <name>Waters Nexus Snapshot Repository</name>
+            <url>http://nexusrepo:8081/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>waters-nexus-repo</id>
+            <name>Waters Nexus Release Repository</name>
+            <url>http://nexusrepo:8081/nexus/content/repositories/releases</url>
+        </repository>
+    </distributionManagement>
 </project>
