@@ -12,7 +12,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>waters-aem-core</artifactId>
     <packaging>bundle</packaging>
-    <name>Waters Commercial - Core</name>
+    <name>Waters.com - Core</name>
 
     <build>
         <plugins>
@@ -55,6 +55,12 @@
             <artifactId>org.osgi.compendium</artifactId>
         </dependency>
 
+        <!-- Adobe Core Components -->
+        <dependency>
+            <groupId>com.adobe.cq</groupId>
+            <artifactId>core.wcm.components.core</artifactId>
+        </dependency>
+
         <!-- AEM Library -->
         <dependency>
             <groupId>com.icfolson.aem.library</groupId>
@@ -68,16 +74,16 @@
             <groupId>com.icfolson.aem.library</groupId>
             <artifactId>aem-library-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.icfolson.aem</groupId>
+            <artifactId>multicomposite-addon</artifactId>
+        </dependency>
 
         <!-- Component Annotation -->
         <dependency>
             <groupId>com.citytechinc.cq.cq-component-plugin</groupId>
             <artifactId>cq-component-annotations</artifactId>
             <version>${component.plugin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.icfolson.aem</groupId>
-            <artifactId>multicomposite-addon</artifactId>
         </dependency>
 
         <!-- Test -->
