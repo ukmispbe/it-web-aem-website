@@ -12,7 +12,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>waters-aem-solr</artifactId>
     <packaging>bundle</packaging>
-    <name>Waters Commercial - Solr Integration</name>
+    <name>Waters.com - Solr Integration</name>
 
     <build>
         <plugins>

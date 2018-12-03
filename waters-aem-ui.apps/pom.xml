@@ -12,7 +12,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>waters-aem-ui.apps</artifactId>
     <packaging>content-package</packaging>
-    <name>Waters Commercial - UI Apps</name>
+    <name>Waters.com - UI Apps</name>
 
     <build>
         <resources>
@@ -95,12 +95,12 @@
                     <path>/etc/packages/${package.group}/${project.artifactId}-${project.version}.zip</path>
                     <embeddeds>
                         <embedded>
-                            <groupId>com.waters.aem</groupId>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>${core.artifactId}</artifactId>
                             <target>/apps/waters/install</target>
                         </embedded>
                         <embedded>
-                            <groupId>com.waters.aem</groupId>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>${solr.artifactId}</artifactId>
                             <target>/apps/waters/install</target>
                         </embedded>
@@ -124,11 +124,18 @@
                         <subPackage>
                             <groupId>com.adobe.cq</groupId>
                             <artifactId>core.wcm.components.all</artifactId>
+                            <type>zip</type>
                             <filter>true</filter>
                         </subPackage>
                         <subPackage>
                             <groupId>com.icfolson.aem</groupId>
                             <artifactId>multicomposite-addon</artifactId>
+                            <type>zip</type>
+                            <filter>true</filter>
+                        </subPackage>
+                        <subPackage>
+                            <groupId>com.adobe.acs</groupId>
+                            <artifactId>acs-aem-commons-content</artifactId>
                             <type>zip</type>
                             <filter>true</filter>
                         </subPackage>
@@ -195,6 +202,11 @@
         <dependency>
             <groupId>com.icfolson.aem</groupId>
             <artifactId>multicomposite-addon</artifactId>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.acs</groupId>
+            <artifactId>acs-aem-commons-content</artifactId>
             <type>zip</type>
         </dependency>
     </dependencies>
