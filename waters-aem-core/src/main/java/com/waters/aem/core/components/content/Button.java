@@ -9,14 +9,14 @@ import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.models.annotations.Default;
+import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 
 import javax.inject.Inject;
 
-import static org.apache.sling.models.annotations.DefaultInjectionStrategy.OPTIONAL;
-
 @Component("Button")
-@Model(adaptables = Resource.class, defaultInjectionStrategy = OPTIONAL)
+@Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class Button {
 
     @DialogField(fieldLabel = "Button",
@@ -47,6 +47,7 @@ public final class Button {
         ranking = 4)
     @CheckBox
     @Inject
+    @Default(booleanValues = false)
     private Boolean newWindow;
 
     public String getButtonText() {
