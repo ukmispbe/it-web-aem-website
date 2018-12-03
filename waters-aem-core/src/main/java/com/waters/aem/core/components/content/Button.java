@@ -2,8 +2,8 @@ package com.waters.aem.core.components.content;
 
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
-import com.citytechinc.cq.component.annotations.widgets.CheckBox;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
+import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.models.annotations.LinkInject;
@@ -19,7 +19,7 @@ import javax.inject.Inject;
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class Button {
 
-    @DialogField(fieldLabel = "Button",
+    @DialogField(fieldLabel = "Button Text",
         fieldDescription = "Enter the text for the button",
         required = true,
         ranking = 1)
@@ -45,7 +45,7 @@ public final class Button {
     @DialogField(fieldLabel = "Open in New Window",
         fieldDescription = "Select this option to open in new window",
         ranking = 4)
-    @CheckBox
+    @Switch(offText = "No", onText = "Yes")
     @Inject
     @Default(booleanValues = false)
     private Boolean newWindow;
