@@ -454,6 +454,7 @@
                 <groupId>com.adobe.acs</groupId>
                 <artifactId>acs-aem-commons-content</artifactId>
                 <version>${acs.aem.commons.version}</version>
+                <classifier>min</classifier>
                 <type>zip</type>
             </dependency>
 
@@ -498,7 +499,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
     <distributionManagement>
         <snapshotRepository>
             <id>waters-nexus-repo</id>
