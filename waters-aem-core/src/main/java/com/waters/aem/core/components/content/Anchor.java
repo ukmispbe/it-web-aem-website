@@ -28,6 +28,7 @@ public final class Anchor {
                 new ComponentNodeResourceTypePredicate(SectionContainer.RESOURCE_TYPE))
                 .stream()
                 .map(componentNode -> componentNode.getResource().adaptTo(SectionContainer.class).getAnchorLink())
+                .filter(link -> link.getTitle() != null)
                 .collect(Collectors.toList()))
             .or(Collections.emptyList());
     }

@@ -1,6 +1,9 @@
 <div data-sly-use.sectionContainer="com.waters.aem.core.components.content.applicationnotes.SectionContainer"
-     data-sly-test="${sectionContainer.title}">
+     data-sly-test="${sectionContainer.title}"
+     data-sly-attribute.id="${sectionContainer.id}">
     <h2>${sectionContainer.title}</h2>
+
+    <sly data-sly-resource="${'par' @ resourceType='wcm/foundation/components/parsys'}"/>
 </div>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
