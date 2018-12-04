@@ -79,7 +79,7 @@
                 </executions>
                 <configuration>
                     <componentPathBase>jcr_root/apps/waters/components</componentPathBase>
-                    <defaultComponentGroup>Waters Commercial</defaultComponentGroup>
+                    <defaultComponentGroup>Waters</defaultComponentGroup>
                     <transformerName>lower-case</transformerName>
                     <additionalFeatures>
                         <additionalFeature>rte-touchui</additionalFeature>
@@ -117,6 +117,11 @@
                         <embedded>
                             <groupId>com.icfolson.aem.library</groupId>
                             <artifactId>aem-library-models</artifactId>
+                            <target>/apps/waters/install</target>
+                        </embedded>
+                        <embedded>
+                            <groupId>org.codehaus.groovy</groupId>
+                            <artifactId>groovy-all</artifactId>
                             <target>/apps/waters/install</target>
                         </embedded>
                     </embeddeds>
@@ -181,6 +186,10 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>${solr.artifactId}</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
         </dependency>
         <dependency>
             <groupId>com.icfolson.aem.library</groupId>
