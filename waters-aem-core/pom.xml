@@ -79,6 +79,12 @@
             <artifactId>multicomposite-addon</artifactId>
         </dependency>
 
+        <!-- CSV -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+        </dependency>
+
         <!-- Component Annotation -->
         <dependency>
             <groupId>com.citytechinc.cq.cq-component-plugin</groupId>

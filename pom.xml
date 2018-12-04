@@ -504,6 +504,13 @@
                 <version>${multicompositeaddon.version}</version>
                 <type>zip</type>
             </dependency>
+
+            <!-- CSV -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-csv</artifactId>
+                <version>1.6</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
