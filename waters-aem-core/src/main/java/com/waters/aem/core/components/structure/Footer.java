@@ -73,11 +73,9 @@ public final class Footer extends AbstractComponent {
     private Link legalIcon;
 
     public List<LinkItem> getLinkItems() {
-
         return   getComponentNodes("linkItems").stream()
                 .map( node -> node.getResource().adaptTo(LinkItem.class))
                 .collect(Collectors.toList());
-
     }
 
     public String getLegalText() {

@@ -43,15 +43,9 @@ public class LinkItem {
         return path;
     }
 
-    public void setPath(String path) {
-        this.path = path;
-    }
 
     public String getText() {
         return text;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
 }

@@ -25,11 +25,9 @@ public class ExternalArticles extends AbstractComponent {
     List<LinkItem> linkItems;
 
     public List<LinkItem> getLinkItems() {
-
         return   getComponentNodes("linkItems").stream()
                 .map( node -> node.getResource().adaptTo(LinkItem.class))
                 .collect(Collectors.toList());
-
     }
 
 }
