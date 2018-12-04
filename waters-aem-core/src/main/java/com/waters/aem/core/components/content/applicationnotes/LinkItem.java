@@ -14,31 +14,30 @@ import org.apache.sling.models.annotations.Model;
 import javax.inject.Inject;
 
 @Model(adaptables = { Resource.class, SlingHttpServletRequest.class },
-        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class LinkItem {
 
     @DialogField(fieldLabel = "Link Item Text",
-            fieldDescription = "Enter Link Item Text",
-            required = true,
-            ranking = 1)
+        fieldDescription = "Enter Link Item Text",
+        required = true,
+        ranking = 1)
     @TextField
     @Inject
     private String text;
 
     @DialogField(fieldLabel = "Link Item Path",
-            fieldDescription = "Enter or Select LinkItem Path",
-            required = true,
-            ranking = 2)
+        fieldDescription = "Enter or Select LinkItem Path",
+        required = true,
+        ranking = 2)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject
-    private Link path;
+    private Link link;
 
-    public Link getPath() {
-        return path;
+    public Link getLink() {
+        return link;
     }
 
     public String getText() {
         return text;
     }
-
 }

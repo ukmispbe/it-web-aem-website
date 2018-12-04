@@ -8,7 +8,7 @@ import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
-import com.icfolson.aem.library.models.annotations.ImageInject;
+import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.icfolson.aem.multicompositeaddon.widget.MultiCompositeField;
 import com.waters.aem.core.components.content.applicationnotes.LinkItem;
@@ -17,15 +17,16 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 
-import javax.inject.Inject;
 import java.util.Calendar;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component(value = "Footer",
-    tabs= {@Tab(title="General"),@Tab(title="Advanced")},
+    tabs = {
+        @Tab(title = "General"),
+        @Tab(title = "Advanced")
+    },
     group = ComponentConstants.GROUP_HIDDEN,
-    path = "/structure")
+    path = WatersConstants.COMPONENT_PATH_STRUCTURE)
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class Footer extends AbstractComponent {
 
@@ -42,40 +43,38 @@ public final class Footer extends AbstractComponent {
     }
 
     @DialogField(fieldLabel = "Link Items",
-            fieldDescription = "Enter footer link items",
-            ranking = 2)
+        fieldDescription = "Enter footer link items",
+        ranking = 2)
     @MultiCompositeField
-    @Inject
-    List<LinkItem> linkItems;
+    @InheritInject
+    private List<LinkItem> linkItems;
 
     @DialogField(fieldLabel = "Legal Text",
-            tab = 2,
-            fieldDescription = "Enter the Legal Text",
-            ranking = 1)
+        tab = 2,
+        fieldDescription = "Enter the Legal Text",
+        ranking = 1)
     @TextField
-    @Inject
+    @InheritInject
     private String legalText;
 
     @DialogField(fieldLabel = "Legal Link",
-            tab = 2,
-            fieldDescription = "Enter Legal Link",
-            ranking = 2)
+        tab = 2,
+        fieldDescription = "Enter Legal Link",
+        ranking = 2)
     @TextField
-    @Inject
+    @InheritInject
     private Link legalLink;
 
     @DialogField(fieldLabel = "Legal Icon",
-            tab = 2,
-            fieldDescription = "Select Legal Icon",
-            ranking = 3)
+        tab = 2,
+        fieldDescription = "Select Legal Icon",
+        ranking = 3)
     @PathField(rootPath = WatersConstants.DAM_PATH)
-    @LinkInject
+    @LinkInject(inherit = true)
     private Link legalIcon;
 
     public List<LinkItem> getLinkItems() {
-        return   getComponentNodes("linkItems").stream()
-                .map( node -> node.getResource().adaptTo(LinkItem.class))
-                .collect(Collectors.toList());
+        return linkItems;
     }
 
     public String getLegalText() {
@@ -89,5 +88,4 @@ public final class Footer extends AbstractComponent {
     public Link getLegalIcon() {
         return legalIcon;
     }
-
 }

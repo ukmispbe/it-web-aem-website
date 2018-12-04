@@ -12,18 +12,18 @@ import org.apache.sling.models.annotations.Model;
 
 import java.util.List;
 
-@Component(value = "External Articles" , path = WatersConstants.COMPONENT_PATH_APPLICATION_NOTES)
-@Model(adaptables = { Resource.class}, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Component(value = "External Articles", path = WatersConstants.COMPONENT_PATH_APPLICATION_NOTES)
+@Model(adaptables = { Resource.class }, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class ExternalArticles extends AbstractComponent {
 
     @DialogField(fieldLabel = "Link Items",
-            fieldDescription = "Enter external article details")
+        fieldDescription = "Enter external article details")
     @MultiCompositeField
     @InheritInject
-    List<LinkItem> linkItems;
+    private List<LinkItem> linkItems;
 
     public List<LinkItem> getLinkItems() {
-       return linkItems;
+        return linkItems;
     }
 
 }

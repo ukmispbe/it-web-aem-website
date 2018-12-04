@@ -15,13 +15,13 @@ import org.apache.sling.models.annotations.Model;
 import javax.inject.Inject;
 import java.util.List;
 
-@Component( value = "Tag Cloud" , path = WatersConstants.COMPONENT_PATH_APPLICATION_NOTES)
-@Model(adaptables = Resource.class,defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Component(value = "Tag Cloud", path = WatersConstants.COMPONENT_PATH_APPLICATION_NOTES)
+@Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class TagCloud extends AbstractComponent {
 
     @DialogField(fieldLabel = "Title",
-            fieldDescription = "Enter the Title",
-            ranking = 1)
+        fieldDescription = "Enter the Title",
+        ranking = 1)
     @TextField
     @Inject
     private String title;

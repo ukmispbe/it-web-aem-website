@@ -1,9 +1,9 @@
-<div  data-sly-use.externalArticle="com.waters.aem.core.components.content.applicationnotes.ExternalArticles"
+<div data-sly-use.externalArticle="com.waters.aem.core.components.content.applicationnotes.ExternalArticles"
      data-sly-test="${externalArticle.linkItems}">
-    <ul  data-sly-list.linkItem="${externalArticle.linkItems}">
+    <ul data-sly-list.linkItem="${externalArticle.linkItems}">
         <li>
             <a class="external-article-list"
-               href="${linkItem.path.href}"
+               href="${linkItem.link.href}"
                target="'_blank'">
                 ${linkItem.text}
             </a>
