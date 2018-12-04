@@ -6,6 +6,8 @@ public final class WatersConstants {
 
     public static final String COMPONENT_PATH_APPLICATION_NOTES = "content/applicationnotes";
 
+    public static final String DAM_PATH = "/content/dam/waters";
+
     private WatersConstants() {
 
     }
