@@ -1,3 +1,13 @@
 <footer data-sly-use.footer="com.waters.aem.core.components.structure.Footer" class="">
-    ${footer.copyrightText}
+
+    <div class="footer-menu">
+        <sly data-sly-test="${footer.linkItems}">
+            <nav data-sly-list.footerLinks="${footer.linkItems}">
+                <a href="${footerLinks.path}" target="'_blank'">${footerLinks.text}</a>
+            </nav>
+        </sly>
+
+        <p>${footer.copyrightText}</p>
+    </div>
+
 </footer>

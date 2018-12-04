@@ -1,8 +1,11 @@
 <div data-sly-use.tagCloud="com.waters.aem.core.components.content.applicationnotes.TagCloud"
      data-sly-test="${tagCloud.title}">
     <h4>${tagCloud.title}</h4>
+    <ul data-sly-list.tag="${tagCloud.tagPicker}">
+        <li>${tag.title}</li>
+    </ul>
 </div>
-4
+
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
      data-sly-call="${patterns.placeholder @ show=!tagCloud.title, text=component.title}"/>
 
