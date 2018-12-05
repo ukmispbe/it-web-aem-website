@@ -40,7 +40,7 @@ public final class Meta extends AbstractComponent {
 
     private static final String PROPERTY_META_DESCRIPTION = "metaDescription";
 
-    private static final String DEFAULT_FACEBOOK_APP_ID = ""; // TODO
+    private static final String DEFAULT_FACEBOOK_APP_ID = "";
 
     private static final String DEFAULT_TWITTER_PUBLISHER_HANDLE = "@WatersCorp";
 

@@ -12,5 +12,5 @@ import org.apache.sling.models.annotations.Model;
 @Model(adaptables = SlingHttpServletRequest.class)
 public final class List extends AbstractComponent {
 
-    // public static final String RESOURCE_TYPE = "waters/components/content/list";
+    public static final String RESOURCE_TYPE = "waters/components/content/list";
 }
