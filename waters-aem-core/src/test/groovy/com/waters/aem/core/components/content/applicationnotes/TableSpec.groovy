@@ -26,6 +26,14 @@ Crichton,Bruffell,cbruffell9@vimeo.com"""
         }
     }
 
+    def "get column names"() {
+        setup:
+        def table = getResource("/content/waters/jcr:content/table").adaptTo(Table)
+
+        expect:
+        table.columnNames == ["first_name", "last_name", "email"] as Set
+    }
+
     def "get table rows"() {
         setup:
         def table = getResource("/content/waters/jcr:content/table").adaptTo(Table)
