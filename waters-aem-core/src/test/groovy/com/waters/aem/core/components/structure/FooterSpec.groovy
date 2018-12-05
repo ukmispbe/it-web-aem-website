@@ -23,6 +23,11 @@ class FooterSpec extends AemLibraryModelSpec {
                     }
                 }
             }
+            test {
+                "jcr:content"() {
+                    footer()
+                }
+            }
         }
     }
 
@@ -43,7 +48,7 @@ class FooterSpec extends AemLibraryModelSpec {
 
     def "copyright text returns default value"() {
         setup:
-        def footer = getResource("/content").adaptTo(Footer)
+        def footer = getResource("/content/test/jcr:content/footer").adaptTo(Footer)
         def year = Calendar.instance.get(Calendar.YEAR)
 
         expect:
