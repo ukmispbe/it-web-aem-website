@@ -25,7 +25,7 @@ public final class Text implements com.adobe.cq.wcm.core.components.models.Text 
 
     @Self
     @Via(value = "core/wcm/components/text/v2/text", type = ForcedResourceType.class)
-    private com.adobe.cq.wcm.core.components.models.Text text; // delegate to core component class
+    private com.adobe.cq.wcm.core.components.models.Text delegate; // delegate to core component class
 
     @Inject
     private String title;
@@ -38,16 +38,16 @@ public final class Text implements com.adobe.cq.wcm.core.components.models.Text 
 
     @Override
     public String getText() {
-        return text.getText();
+        return delegate.getText();
     }
 
     @Override
     public boolean isRichText() {
-        return text.isRichText();
+        return delegate.isRichText();
     }
 
     @Override
     public String getExportedType() {
-        return text.getExportedType();
+        return delegate.getExportedType();
     }
 }

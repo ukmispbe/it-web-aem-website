@@ -44,7 +44,7 @@ public final class SectionContainer extends AbstractComponent {
 
     public Link getAnchorLink() {
         // use generated ID for anchor
-        return LinkBuilderFactory.forPath("#" + getId()) // TODO confirm link strategy
+        return LinkBuilderFactory.forPath("#" + getId())
             .setTitle(getTitle())
             .build();
     }
