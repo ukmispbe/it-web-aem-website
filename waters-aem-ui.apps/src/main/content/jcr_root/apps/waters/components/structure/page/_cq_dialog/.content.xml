@@ -24,6 +24,11 @@
                         path="waters/components/structure/page/meta/content/items/Meta"
                         sling:resourceType="granite/ui/components/foundation/include"
                         sling:orderBefore="socialmedia"/>
+                    <applicationNotes
+                        jcr:primaryType="nt:unstructured"
+                        path="waters/components/structure/page/applicationnotes/content/items/ApplicationNotes"
+                        sling:resourceType="granite/ui/components/foundation/include"
+                        sling:orderBefore="socialmedia"/>
                 </items>
             </tabs>
         </items>
