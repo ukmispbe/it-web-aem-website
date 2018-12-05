@@ -170,7 +170,7 @@ public final class Meta extends AbstractComponent {
             robotsTags.add("NOINDEX");
         }
 
-        if (isNoIndex()) {
+        if (isNoFollow()) {
             robotsTags.add("NOFOLLOW");
         }
 
