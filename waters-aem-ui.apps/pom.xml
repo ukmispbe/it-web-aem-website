@@ -108,6 +108,7 @@
                             <groupId>com.icfolson.aem.library</groupId>
                             <artifactId>aem-library-core</artifactId>
                             <target>/apps/waters/install</target>
+                            <excludeTransitive>true</excludeTransitive>
                         </embedded>
                         <embedded>
                             <groupId>com.icfolson.aem.library</groupId>

@@ -37,6 +37,39 @@
         </plugins>
     </build>
 
+    <profiles>
+        <!-- activate this profile to enable logging of test executions -->
+        <profile>
+            <id>test-logging</id>
+            <activation>
+                <property>
+                    <name>test-logging</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                    <version>1.7.21</version>
+                </dependency>
+                <dependency>
+                    <groupId>com.icfolson.aem.prosper</groupId>
+                    <artifactId>prosper</artifactId>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>slf4j-nop</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>org.apache.commons</groupId>
+                            <artifactId>commons-imaging</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
     <dependencies>
         <!-- provided -->
         <dependency>
@@ -96,7 +129,6 @@
         <dependency>
             <groupId>com.icfolson.aem.prosper</groupId>
             <artifactId>prosper</artifactId>
-            <version>11.1.0</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>

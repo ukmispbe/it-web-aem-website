@@ -504,6 +504,11 @@
                 <version>${multicompositeaddon.version}</version>
                 <type>zip</type>
             </dependency>
+            <dependency>
+                <groupId>com.icfolson.aem.prosper</groupId>
+                <artifactId>prosper</artifactId>
+                <version>11.1.0</version>
+            </dependency>
 
             <!-- CSV -->
             <dependency>
