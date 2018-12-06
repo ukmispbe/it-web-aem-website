@@ -30,18 +30,6 @@ import java.util.List;
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class Footer extends AbstractComponent {
 
-    @DialogField(fieldLabel = "Copyright Text", ranking = 1)
-    @TextField
-    public String getCopyrightText() {
-        final String defaultCopyrightText = new StringBuilder()
-            .append("© ")
-            .append(Calendar.getInstance().get(Calendar.YEAR))
-            .append(" Waters.  All rights reserved.")
-            .toString();
-
-        return getInherited("copyrightText", defaultCopyrightText);
-    }
-
     @DialogField(fieldLabel = "Link Items",
         fieldDescription = "Enter footer link items",
         ranking = 2)
@@ -72,6 +60,18 @@ public final class Footer extends AbstractComponent {
     @PathField(rootPath = WatersConstants.DAM_PATH)
     @LinkInject(inherit = true)
     private Link legalIcon;
+
+    @DialogField(fieldLabel = "Copyright Text", ranking = 1)
+    @TextField
+    public String getCopyrightText() {
+        final String defaultCopyrightText = new StringBuilder()
+            .append("© ")
+            .append(Calendar.getInstance().get(Calendar.YEAR))
+            .append(" Waters.  All rights reserved.")
+            .toString();
+
+        return getInherited("copyrightText", defaultCopyrightText);
+    }
 
     public List<LinkItem> getLinkItems() {
         return linkItems;

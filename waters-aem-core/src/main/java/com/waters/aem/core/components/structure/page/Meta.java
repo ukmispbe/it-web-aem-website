@@ -13,6 +13,7 @@ import com.icfolson.aem.library.api.page.enums.TitleType;
 import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.core.constants.PathConstants;
+import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
@@ -23,7 +24,7 @@ import java.util.List;
 
 @Component(value = "Meta",
     group = ComponentConstants.GROUP_HIDDEN,
-    path = "/structure",
+    path = WatersConstants.COMPONENT_PATH_STRUCTURE,
     name = "page",
     editConfig = false,
     fileName = "meta",
@@ -39,7 +40,7 @@ public final class Meta extends AbstractComponent {
 
     private static final String PROPERTY_META_DESCRIPTION = "metaDescription";
 
-    private static final String DEFAULT_FACEBOOK_APP_ID = ""; // TODO
+    private static final String DEFAULT_FACEBOOK_APP_ID = "";
 
     private static final String DEFAULT_TWITTER_PUBLISHER_HANDLE = "@WatersCorp";
 

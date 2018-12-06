@@ -77,6 +77,10 @@
             <artifactId>uber-jar</artifactId>
             <classifier>apis</classifier>
         </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+        </dependency>
 
         <!-- OSGi -->
         <dependency>
@@ -110,6 +114,12 @@
         <dependency>
             <groupId>com.icfolson.aem</groupId>
             <artifactId>multicomposite-addon</artifactId>
+        </dependency>
+
+        <!-- CSV -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
         </dependency>
 
         <!-- Component Annotation -->

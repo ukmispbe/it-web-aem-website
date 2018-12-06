@@ -31,7 +31,7 @@
         <aem.library.version>10.3.1</aem.library.version>
         <core.components.version>2.2.2</core.components.version>
         <multicompositeaddon.version>4.0.0</multicompositeaddon.version>
-        <component.plugin.version>5.1.0</component.plugin.version>
+        <component.plugin.version>5.2.0</component.plugin.version>
         <osgi.bundle.status.plugin.version>2.0.2</osgi.bundle.status.plugin.version>
 
         <!-- defaults -->
@@ -435,6 +435,18 @@
                 <artifactId>jackson-databind</artifactId>
                 <version>2.8.4</version>
             </dependency>
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>3.0.2</version>
+            </dependency>
+
+            <!-- Groovy -->
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy-all</artifactId>
+                <version>2.4.13</version>
+            </dependency>
 
             <!-- Adobe Core Components -->
             <dependency>
@@ -501,6 +513,13 @@
                 <groupId>com.icfolson.aem.prosper</groupId>
                 <artifactId>prosper</artifactId>
                 <version>11.1.0</version>
+            </dependency>
+
+            <!-- CSV -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-csv</artifactId>
+                <version>1.6</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
