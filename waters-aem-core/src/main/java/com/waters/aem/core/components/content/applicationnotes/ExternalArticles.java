@@ -25,5 +25,4 @@ public class ExternalArticles extends AbstractComponent {
     public List<LinkItem> getLinkItems() {
         return linkItems;
     }
-
 }

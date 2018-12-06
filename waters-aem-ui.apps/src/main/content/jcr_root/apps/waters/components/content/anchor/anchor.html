@@ -1,0 +1,9 @@
+<div data-sly-use.anchor="com.waters.aem.core.components.content.Anchor"
+     data-sly-test.links="${anchor.links}">
+    <ul data-sly-list.link="${links}">
+        <li><a href="${link.href}">${link.title}</a></li>
+    </ul>
+</div>
+
+<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+     data-sly-call="${patterns.placeholder @ show=!links, text=component.title}"/>

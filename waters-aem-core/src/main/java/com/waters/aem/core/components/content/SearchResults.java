@@ -6,8 +6,8 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 
-@Component(value = "Horizontal Rule")
+@Component("Search Results")
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public final class HorizontalRule extends AbstractComponent {
+public final class SearchResults extends AbstractComponent {
 
 }

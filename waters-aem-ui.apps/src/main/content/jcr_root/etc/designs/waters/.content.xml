@@ -6,6 +6,6 @@
           jcr:primaryType="cq:Page">
     <jcr:content
         jcr:primaryType="nt:unstructured"
-        jcr:title="Waters Commercial Design"
+        jcr:title="Waters Design"
         sling:resourceType="wcm/core/components/designer"/>
 </jcr:root>

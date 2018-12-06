@@ -10,10 +10,10 @@
                     <content-default
                         jcr:description="Policy for editable layout containers"
                         jcr:primaryType="nt:unstructured"
-                        jcr:title="Waters Commercial Site Default"
+                        jcr:title="Waters.com Default"
                         sling:resourceType="wcm/core/components/policy/policy"
-                        components="[group:Waters Commercial,/apps/waters/components/content/html]"
-                        policyResourceType="wcm/foundation/components/responsivegrid">
+                        components="[group:Waters,/apps/waters/components/content/text]"
+                        policyResourceType="waters/components/content/layoutcontainer">
                         <cq:authoring jcr:primaryType="nt:unstructured"/>
                         <jcr:content
                             jcr:primaryType="nt:unstructured"
