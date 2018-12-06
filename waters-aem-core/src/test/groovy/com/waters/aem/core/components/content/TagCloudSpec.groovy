@@ -10,18 +10,26 @@ class TagCloudSpec extends AemLibraryModelSpec {
     def setupSpec() {
         pageBuilder.content {
             waters {
-                appnotes {
+                one {
                     "jcr:content" {
                         tagcloud()
                     }
                 }
-                appnotesacquity {
+                two {
                     "jcr:content" {
                         tagcloud(
-                            title: "Tags",
-                            tagPicker: "waters:keywords/FoodSafety,waters:keywords/NaturalToxins"
+                                title: "Waters Tags",
+                                tagPicker: ["/etc/tags/waters/tag1", "/etc/tags/waters/tag2"]
                         )
                     }
+                }
+            }
+        }
+        nodeBuilder.etc {
+            tags("sling:Folder") {
+                waters("sling:Folder") {
+                    tag1("cq:Tag", "jcr:title": "uplc")
+                    tag2("cq:Tag", "jcr:title": "hplc")
                 }
             }
         }
@@ -29,28 +37,25 @@ class TagCloudSpec extends AemLibraryModelSpec {
 
     def "get tagcloud title"() {
         setup:
-        def tagcloud = getResource(path).adaptTo(TagCloud)
+        def tagCloud = getResource(path).adaptTo(TagCloud)
 
         expect:
-        tagcloud.title == title
+        tagCloud.title == text
 
         where:
-        path                                     | title
-        "/content/waters/appnotes/jcr:content/tagcloud" | null
-        "/content/waters/appnotesacquity/jcr:content/tagcloud" | "Tags"
+        path                                     | text
+        "/content/waters/one/jcr:content/tagcloud" | null
+        "/content/waters/two/jcr:content/tagcloud" | "Waters Tags"
     }
 
     def "get tagcloud tagpicker"() {
         setup:
-        def tagcloud = getResource(path).adaptTo(TagCloud)
+            def tagCloud = getResource("/content/waters/two/jcr:content/tagcloud").adaptTo(TagCloud)
 
         expect:
-        tagcloud.tagPicker == tagPicker
+        tagCloud.tagPicker.size() == 2
 
-        where:
-        path                                     | tagPicker
-        "/content/waters/appnotes/jcr:content/tagcloud" | null
-        "/content/waters/appnotesacquity/jcr:content/tagcloud" | "waters:keywords/FoodSafety,waters:keywords/NaturalToxins"
+        and:
+        tagCloud.tagPicker.title == ["uplc", "hplc"]
     }
-
 }
