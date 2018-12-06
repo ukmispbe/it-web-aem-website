@@ -31,7 +31,7 @@
         <aem.library.version>10.3.1</aem.library.version>
         <core.components.version>2.2.2</core.components.version>
         <multicompositeaddon.version>4.0.0</multicompositeaddon.version>
-        <component.plugin.version>5.2.0-SNAPSHOT</component.plugin.version>
+        <component.plugin.version>5.2.0</component.plugin.version>
         <osgi.bundle.status.plugin.version>2.0.2</osgi.bundle.status.plugin.version>
 
         <!-- defaults -->
