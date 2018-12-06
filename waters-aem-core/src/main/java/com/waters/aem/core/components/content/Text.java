@@ -8,13 +8,13 @@ import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Via;
 import org.apache.sling.models.annotations.injectorspecific.Self;
-import org.apache.sling.models.annotations.via.ForcedResourceType;
+import org.apache.sling.models.annotations.via.ResourceSuperType;
 
 import javax.inject.Inject;
 
 @Component(value = "Text",
     description = "Rich Text Section",
-    resourceSuperType = "core/wcm/components/text/v2/text",
+    resourceSuperType = Text.RESOURCE_SUPER_TYPE,
     editConfig = false,
     suppressTouchUIDialog = true,
     suppressClassicUIDialog = true)
@@ -24,10 +24,12 @@ import javax.inject.Inject;
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class Text implements com.adobe.cq.wcm.core.components.models.Text {
 
-    public static final String RESOURCE_TYPE = "waters/components/content/text";
+    static final String RESOURCE_SUPER_TYPE = "core/wcm/components/text/v2/text";
+
+    static final String RESOURCE_TYPE = "waters/components/content/text";
 
     @Self
-    @Via(value = "core/wcm/components/text/v2/text", type = ForcedResourceType.class)
+    @Via(type = ResourceSuperType.class)
     private com.adobe.cq.wcm.core.components.models.Text delegate; // delegate to core component class
 
     @Inject
