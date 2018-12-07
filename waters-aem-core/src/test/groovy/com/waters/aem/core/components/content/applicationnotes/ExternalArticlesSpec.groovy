@@ -1,7 +1,6 @@
 package com.waters.aem.core.components.content.applicationnotes
 
 import com.icfolson.aem.library.models.specs.AemLibraryModelSpec
-import com.waters.aem.core.components.content.applicationnotes.TagCloud
 import spock.lang.Unroll
 
 @Unroll
@@ -13,9 +12,9 @@ class ExternalArticlesSpec extends AemLibraryModelSpec {
                 one {
                     "jcr:content" {
                         externalarticles {
-                            linkItems{
-                                item1(link: "www.waters.com" , text: "waters")
-                                item2(link: "www.ta.com" , text: "ta")
+                            linkItems {
+                                item1(link: "www.waters.com", text: "waters")
+                                item2(link: "www.ta.com", text: "ta")
                             }
                         }
                     }

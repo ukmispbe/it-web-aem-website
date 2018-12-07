@@ -18,13 +18,14 @@ class TagCloudSpec extends AemLibraryModelSpec {
                 two {
                     "jcr:content" {
                         tagcloud(
-                                title: "Waters Tags",
-                                tagPicker: ["/etc/tags/waters/tag1", "/etc/tags/waters/tag2"]
+                            title: "Waters Tags",
+                            tagPicker: ["/etc/tags/waters/tag1", "/etc/tags/waters/tag2"]
                         )
                     }
                 }
             }
         }
+
         nodeBuilder.etc {
             tags("sling:Folder") {
                 waters("sling:Folder") {
@@ -43,14 +44,14 @@ class TagCloudSpec extends AemLibraryModelSpec {
         tagCloud.title == text
 
         where:
-        path                                     | text
+        path                                       | text
         "/content/waters/one/jcr:content/tagcloud" | null
         "/content/waters/two/jcr:content/tagcloud" | "Waters Tags"
     }
 
     def "get tagcloud tagpicker"() {
         setup:
-            def tagCloud = getResource("/content/waters/two/jcr:content/tagcloud").adaptTo(TagCloud)
+        def tagCloud = getResource("/content/waters/two/jcr:content/tagcloud").adaptTo(TagCloud)
 
         expect:
         tagCloud.tagPicker.size() == 2
