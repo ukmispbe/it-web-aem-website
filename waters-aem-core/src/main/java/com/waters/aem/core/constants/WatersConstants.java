@@ -1,5 +1,6 @@
 package com.waters.aem.core.constants;
 
+@SuppressWarnings("squid:S1195")
 public final class WatersConstants {
 
     public static final String ROOT_PATH = "/content/waters";

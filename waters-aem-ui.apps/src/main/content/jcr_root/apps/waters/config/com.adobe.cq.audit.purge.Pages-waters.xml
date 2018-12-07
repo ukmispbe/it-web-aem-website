@@ -1,0 +1,9 @@
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="sling:OsgiConfig"
+          auditlog.rule.contentpath="/content/waters"
+          auditlog.rule.minimumage="7"
+          auditlog.rule.name="auditlogpurge"
+          auditlog.rule.types="[PageCreated,PageModified,PageMoved,PageDeleted,PageRestored,PageValid,PageInvalid]"
+          granite.maintenance.schedule="weekly"
+          granite.maintenance.isConservative="false"
+/>
