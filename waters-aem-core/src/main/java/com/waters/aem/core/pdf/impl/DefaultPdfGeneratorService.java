@@ -3,8 +3,8 @@ package com.waters.aem.core.pdf.impl;
 import com.google.common.collect.ImmutableList;
 import com.waters.aem.core.components.content.Text;
 import com.waters.aem.core.components.content.Title;
-import com.waters.aem.core.pdf.PdfContentProvider;
 import com.waters.aem.core.pdf.PdfGeneratorService;
+import com.waters.aem.core.pdf.provider.ContentProvider;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -12,6 +12,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.wrappers.SlingHttpServletRequestWrapper;
+import org.apache.sling.models.factory.ModelClassException;
 import org.apache.sling.models.factory.ModelFactory;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -68,31 +69,43 @@ public final class DefaultPdfGeneratorService implements PdfGeneratorService {
      */
     private void visit(final SlingHttpServletRequest request, final Resource resource,
         final PDPageContentStream contentStream) throws IOException {
-        LOG.info("visiting resource : {}", resource);
+        LOG.debug("visiting resource : {}", resource);
 
         if (CONTENT_RESOURCE_TYPES.contains(resource.getResourceType())) {
-            final SlingHttpServletRequest wrappedRequest = new SlingHttpServletRequestWrapper(request) {
-                @Override
-                @Nonnull
-                public Resource getResource() {
-                    return resource;
-                }
-            };
-
-            final PdfContentProvider pdfContentProvider = (PdfContentProvider) modelFactory.getModelFromRequest(
-                wrappedRequest);
-
-            LOG.info("using model class : {} for resource type : {}", pdfContentProvider.getClass().getName(),
-                resource.getResourceType());
-
-            pdfContentProvider.writePdfContent(contentStream);
-            // resetFont(contentStream);
+            writePdfContentForResource(request, resource, contentStream);
         } else {
-            LOG.info("ignoring content for resource type : {}", resource.getResourceType());
+            LOG.debug("ignoring content for resource type : {}", resource.getResourceType());
         }
 
         for (final Resource child : resource.getChildren()) {
             visit(request, child, contentStream);
+        }
+    }
+
+    private void writePdfContentForResource(final SlingHttpServletRequest request, final Resource resource,
+        final PDPageContentStream contentStream) throws IOException {
+        // override resource type from original request since core models are only adaptable from requests
+        final SlingHttpServletRequest wrappedRequest = new SlingHttpServletRequestWrapper(request) {
+            @Override
+            @Nonnull
+            public Resource getResource() {
+                return resource;
+            }
+        };
+
+        // get the PDF content provider for the current resource type
+        try {
+            final ContentProvider contentProvider = modelFactory.createModel(wrappedRequest, ContentProvider.class);
+
+            LOG.info("using model class : {} for resource type : {}", contentProvider.getClass().getName(),
+                resource.getResourceType());
+
+            contentProvider.writePdfContent(contentStream);
+
+            // reset font after each write operation
+            resetFont(contentStream);
+        } catch (ModelClassException e) {
+            LOG.error("error creating content provider model for resource type : " + resource.getResourceType(), e);
         }
     }
 

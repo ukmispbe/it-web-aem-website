@@ -1,13 +1,10 @@
-package com.waters.aem.core.pdf;
+package com.waters.aem.core.pdf.provider;
 
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 
 import java.io.IOException;
 
-/**
- * Definition for model classes that provide writable PDF content.
- */
-public interface PdfContentProvider {
+public interface ContentProvider {
 
     /**
      * Write PDF content for the current model instance to the PDF content stream.
