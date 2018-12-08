@@ -11,6 +11,8 @@ public final class WatersConstants {
 
     public static final String DAM_PATH = "/content/dam/waters";
 
+    public static final String RESOURCE_TYPE_PAGE = "waters/components/structure/page";
+
     private WatersConstants() {
 
     }
