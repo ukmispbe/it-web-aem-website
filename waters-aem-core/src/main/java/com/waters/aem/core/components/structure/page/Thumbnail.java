@@ -24,7 +24,7 @@ public final class Thumbnail {
     static final String FILE_NAME = "thumbnail";
 
     // use pathfield widget because page properties dialog hides the asset finder
-    @DialogField(fieldLabel = "Thumbnail Image", fieldName = "thumbnailImage/" + Image.PN_REFERENCE)
+    @DialogField(fieldLabel = "Thumbnail Image", name = "./thumbnailImage/" + Image.PN_REFERENCE)
     @PathField(rootPath = WatersConstants.DAM_PATH)
     @ImageInject
     private Image thumbnailImage;
