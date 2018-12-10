@@ -14,6 +14,7 @@ import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 
 import javax.inject.Inject;
+import java.util.Collections;
 import java.util.List;
 
 @Component(value = "Application Notes",
@@ -31,7 +32,7 @@ public final class ApplicationNotes extends AbstractComponent {
     @DialogField(fieldLabel = "Author", ranking = 1)
     @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
     @TagInject
-    private List<Tag> author;
+    private List<Tag> author = Collections.emptyList();
 
     @DialogField(fieldLabel = "Literature Code", ranking = 2)
     @TextField
@@ -41,52 +42,52 @@ public final class ApplicationNotes extends AbstractComponent {
     @DialogField(fieldLabel = "Content Type", ranking = 3)
     @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
     @TagInject
-    private List<Tag> contentType;
+    private List<Tag> contentType = Collections.emptyList();
 
     @DialogField(fieldLabel = "Keyword", ranking = 4)
     @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
     @TagInject
-    private List<Tag> keyword;
+    private List<Tag> keyword = Collections.emptyList();
 
     @DialogField(fieldLabel = "Instrument Type", ranking = 5)
     @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
     @TagInject
-    private List<Tag> instrumentType;
+    private List<Tag> instrumentType = Collections.emptyList();
 
     @DialogField(fieldLabel = "Technique", ranking = 6)
     @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
     @TagInject
-    private List<Tag> technique;
+    private List<Tag> technique = Collections.emptyList();
 
     @DialogField(fieldLabel = "Separation Mode", ranking = 7)
     @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
     @TagInject
-    private List<Tag> separationMode;
+    private List<Tag> separationMode = Collections.emptyList();
 
     @DialogField(fieldLabel = "Compound Class", ranking = 8)
     @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
     @TagInject
-    private List<Tag> compoundClass;
+    private List<Tag> compoundClass = Collections.emptyList();
 
     @DialogField(fieldLabel = "Column Type", ranking = 9)
     @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
     @TagInject
-    private List<Tag> columnType;
+    private List<Tag> columnType = Collections.emptyList();
 
     @DialogField(fieldLabel = "Chromatography Software", ranking = 10)
     @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
     @TagInject
-    private List<Tag> chromatographySoftware;
+    private List<Tag> chromatographySoftware = Collections.emptyList();
 
     @DialogField(fieldLabel = "Market", ranking = 11)
     @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
     @TagInject
-    private List<Tag> market;
+    private List<Tag> market = Collections.emptyList();
 
     @DialogField(fieldLabel = "Year Published", ranking = 12)
     @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
     @TagInject
-    private List<Tag> yearPublished;
+    private List<Tag> yearPublished = Collections.emptyList();
 
     public List<Tag> getAuthor() {
         return author;
