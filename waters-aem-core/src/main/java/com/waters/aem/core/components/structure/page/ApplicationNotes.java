@@ -5,7 +5,6 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.widgets.TagInputField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.tagging.Tag;
-import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.TagInject;
 import com.waters.aem.core.constants.WatersConstants;
@@ -25,7 +24,7 @@ import java.util.List;
     fileName = ApplicationNotes.FILE_NAME,
     touchFileName = ApplicationNotes.FILE_NAME)
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public final class ApplicationNotes extends AbstractComponent {
+public final class ApplicationNotes {
 
     static final String FILE_NAME = "applicationnotes";
 
