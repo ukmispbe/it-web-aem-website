@@ -175,7 +175,7 @@
                             <port>${aem.port.author}</port>
                             <username>${aem.username.author}</username>
                             <password>${aem.password.author}</password>
-                            <retryDelay>5000</retryDelay>
+                            <retryDelay>10000</retryDelay>
                         </configuration>
                     </execution>
                 </executions>
