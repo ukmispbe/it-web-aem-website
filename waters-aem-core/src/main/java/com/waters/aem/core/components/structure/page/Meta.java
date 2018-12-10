@@ -25,12 +25,14 @@ import java.util.List;
 @Component(value = "Meta",
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE,
-    name = "page",
+    name = WatersConstants.COMPONENT_NAME_PAGE,
     editConfig = false,
-    fileName = "meta",
-    touchFileName = "meta")
+    fileName = Meta.FILE_NAME,
+    touchFileName = Meta.FILE_NAME)
 @Model(adaptables = Resource.class)
 public final class Meta extends AbstractComponent {
+
+    static final String FILE_NAME = "meta";
 
     private static final String PROPERTY_CANONICAL_URL = "canonicalUrl";
 
