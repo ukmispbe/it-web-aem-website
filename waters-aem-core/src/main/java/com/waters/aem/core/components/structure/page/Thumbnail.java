@@ -3,9 +3,9 @@ package com.waters.aem.core.components.structure.page;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
+import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.ImageInject;
-import com.waters.aem.core.components.content.Image;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -24,9 +24,9 @@ public final class Thumbnail {
     static final String FILE_NAME = "thumbnail";
 
     // use pathfield widget because page properties dialog hides the asset finder
-    @DialogField(fieldLabel = "Thumbnail Image")
+    @DialogField(fieldLabel = "Thumbnail Image", fieldName = "thumbnailImage/" + Image.PN_REFERENCE)
     @PathField(rootPath = WatersConstants.DAM_PATH)
-    @ImageInject(isSelf = true)
+    @ImageInject
     private Image thumbnailImage;
 
     public Image getThumbnailImage() {
