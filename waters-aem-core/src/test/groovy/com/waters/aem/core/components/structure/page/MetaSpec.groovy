@@ -108,7 +108,6 @@ class MetaSpec extends AemLibraryModelSpec {
         "/content/waters/two" | "http://www.waters.com/content/waters/two.html"
     }
 
-
     def "no index"() {
         setup:
         def meta = getPage(path).contentResource.adaptTo(Meta)

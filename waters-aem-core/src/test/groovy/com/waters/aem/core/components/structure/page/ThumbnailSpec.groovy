@@ -16,6 +16,14 @@ class ThumbnailSpec extends AemLibraryModelSpec {
         }
     }
 
+    def "no thumbnail image"() {
+        setup:
+        def thumbnail = getPage("/content/waters").contentResource.adaptTo(Thumbnail)
+
+        expect:
+        thumbnail.thumbnailImage == null
+    }
+
     def "get thumbnail image"() {
         setup:
         def thumbnail = getPage("/content/waters/application-notes").contentResource.adaptTo(Thumbnail)
