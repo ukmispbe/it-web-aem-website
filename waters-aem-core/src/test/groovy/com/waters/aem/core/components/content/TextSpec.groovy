@@ -18,7 +18,7 @@ class TextSpec extends AemLibraryModelSpec {
                     "jcr:content" {
                        text(
                                title: "Introduction",
-                               text: "Lorem ipsum dolor sit amet, quo ad nihil vituperatoribus." )
+                       )
                     }
                 }
             }
