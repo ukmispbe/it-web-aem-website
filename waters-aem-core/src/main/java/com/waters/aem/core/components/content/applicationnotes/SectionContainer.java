@@ -3,6 +3,7 @@ package com.waters.aem.core.components.content.applicationnotes;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Listener;
+import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.core.components.AbstractComponent;
@@ -21,6 +22,9 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH
 
 @Component(value = "Section Container",
     path = WatersConstants.COMPONENT_PATH_APPLICATION_NOTES,
+    tabs = {
+        @Tab(title = "Properties"),
+    },
     listeners = { // refresh parent resource after edit to prevent issues with anchor component
         @Listener(name = EVENT_AFTER_INSERT, value = REFRESH_PARENT),
         @Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PARENT),
