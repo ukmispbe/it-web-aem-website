@@ -63,7 +63,7 @@ public final class Meta extends AbstractComponent {
     }
 
     @DialogField(fieldLabel = "Canonical URL",
-        fieldDescription = "Defaults to template-specific canonical URL strategy if not provided here.",
+        fieldDescription = "Defaults to current page path.",
         ranking = 1)
     @PathField
     public String getCanonicalUrl() {
@@ -73,7 +73,7 @@ public final class Meta extends AbstractComponent {
     }
 
     @DialogField(fieldLabel = "No Index",
-        fieldDescription = "Add NOINDEX metadata tag",
+        fieldDescription = "Add NOINDEX metadata tag.",
         ranking = 2)
     @Switch(offText = "No", onText = "Yes")
     public Boolean isNoIndex() {
@@ -81,7 +81,7 @@ public final class Meta extends AbstractComponent {
     }
 
     @DialogField(fieldLabel = "No Follow",
-        fieldDescription = "Add NOFOLLOW metadata tag",
+        fieldDescription = "Add NOFOLLOW metadata tag.",
         ranking = 3)
     @Switch(offText = "No", onText = "Yes")
     public Boolean isNoFollow() {
@@ -113,7 +113,9 @@ public final class Meta extends AbstractComponent {
         return get("ogType", DEFAULT_OG_TYPE);
     }
 
-    @DialogField(fieldLabel = "Open Graph Image", ranking = 5)
+    @DialogField(fieldLabel = "Open Graph Image",
+        fieldDescription = "Default to page thumbnail image.",
+        ranking = 5)
     @PathField(rootPath = WatersConstants.DAM_PATH)
     public String getOgImage() {
         return getExternalizedImage("ogImage");
@@ -126,7 +128,7 @@ public final class Meta extends AbstractComponent {
     }
 
     @DialogField(fieldLabel = "Twitter Publisher Handle",
-        fieldDescription = "e.g. @WatersCorp.  If this value is present Twitter metadata will be included on the page.",
+        fieldDescription = "Defaults to @WatersCorp.",
         ranking = 7)
     @TextField
     public String getTwitterPublisherHandle() {
@@ -149,7 +151,9 @@ public final class Meta extends AbstractComponent {
         return get("twitterCard", DEFAULT_TWITTER_CARD);
     }
 
-    @DialogField(fieldLabel = "Twitter Image", ranking = 9)
+    @DialogField(fieldLabel = "Twitter Image",
+        fieldDescription = "Default to page thumbnail image.",
+        ranking = 9)
     @PathField(rootPath = WatersConstants.DAM_PATH)
     public String getTwitterImage() {
         return getExternalizedImage("twitterImage");
