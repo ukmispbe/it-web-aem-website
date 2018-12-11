@@ -12,6 +12,9 @@ class MetaSpec extends AemLibraryModelSpec {
             waters {
                 one {
                     "jcr:content"(
+                        "jcr:title": "One",
+                        "pageTitle": "1",
+                        "jcr:description": "First",
                         canonicalUrl: "/waters",
                         noIndex: false,
                         noFollow: false
@@ -19,15 +22,27 @@ class MetaSpec extends AemLibraryModelSpec {
                 }
                 two {
                     "jcr:content"(
+                        "jcr:title": "Two",
                         noIndex: false,
-                        noFollow: true
+                        noFollow: true,
+                        ogType: "article",
+                        ogImage: "/content/dam/waters/og.png",
+                        facebookAppId: "123",
+                        twitterPublisherHandle: "@Waters",
+                        twitterCard: "summary",
+                        twitterImage: "/content/dam/waters/twitter.png"
                     )
+                    child() {
+
+                    }
                 }
                 three {
                     "jcr:content"(
                         noIndex: true,
                         noFollow: false
-                    )
+                    ) {
+                        thumbnailImage(fileReference: "/content/dam/waters/logo.png")
+                    }
                 }
                 four {
                     "jcr:content"(
@@ -39,6 +54,32 @@ class MetaSpec extends AemLibraryModelSpec {
         }
 
         slingContext.registerService(Externalizer, new MockExternalizer())
+    }
+
+    def "get title"() {
+        setup:
+        def meta = getPage(path).contentResource.adaptTo(Meta)
+
+        expect:
+        meta.title == title
+
+        where:
+        path                  | title
+        "/content/waters/one" | "1"
+        "/content/waters/two" | "Two"
+    }
+
+    def "get description"() {
+        setup:
+        def meta = getPage(path).contentResource.adaptTo(Meta)
+
+        expect:
+        meta.description == description
+
+        where:
+        path                  | description
+        "/content/waters/one" | "First"
+        "/content/waters/two" | null
     }
 
     def "get canonical URL"() {
@@ -53,6 +94,20 @@ class MetaSpec extends AemLibraryModelSpec {
         "/content/waters/one" | "http://www.waters.com/waters.html"
         "/content/waters/two" | "http://www.waters.com/content/waters/two.html"
     }
+
+    def "get externalized page URL"() {
+        setup:
+        def meta = getPage(path).contentResource.adaptTo(Meta)
+
+        expect:
+        meta.externalizedPageUrl == externalizedPageUrl
+
+        where:
+        path                  | externalizedPageUrl
+        "/content/waters/one" | "http://www.waters.com/content/waters/one.html"
+        "/content/waters/two" | "http://www.waters.com/content/waters/two.html"
+    }
+
 
     def "no index"() {
         setup:
@@ -97,5 +152,89 @@ class MetaSpec extends AemLibraryModelSpec {
         "/content/waters/two"   | ["NOFOLLOW"]
         "/content/waters/three" | ["NOINDEX"]
         "/content/waters/four"  | ["NOINDEX", "NOFOLLOW"]
+    }
+
+    def "get og type"() {
+        setup:
+        def meta = getPage(path).contentResource.adaptTo(Meta)
+
+        expect:
+        meta.ogType == ogType
+
+        where:
+        path                  | ogType
+        "/content/waters/one" | "none"
+        "/content/waters/two" | "article"
+    }
+
+    def "get inherited og image"() {
+        setup:
+        def meta = getPage(path).contentResource.adaptTo(Meta)
+
+        expect:
+        meta.ogImage == ogImage
+
+        where:
+        path                        | ogImage
+        "/content/waters/one"       | null
+        "/content/waters/two"       | "http://www.waters.com/content/dam/waters/og.png"
+        "/content/waters/two/child" | "http://www.waters.com/content/dam/waters/og.png"
+        "/content/waters/three"     | "http://www.waters.com/content/dam/waters/logo.png"
+    }
+
+    def "get inherited facebook app ID"() {
+        setup:
+        def meta = getPage(path).contentResource.adaptTo(Meta)
+
+        expect:
+        meta.facebookAppId == facebookAppId
+
+        where:
+        path                        | facebookAppId
+        "/content/waters/one"       | ""
+        "/content/waters/two"       | "123"
+        "/content/waters/two/child" | "123"
+    }
+
+    def "get inherited twitter publisher handle"() {
+        setup:
+        def meta = getPage(path).contentResource.adaptTo(Meta)
+
+        expect:
+        meta.twitterPublisherHandle == twitterPublisherHandle
+
+        where:
+        path                        | twitterPublisherHandle
+        "/content/waters/one"       | "@WatersCorp"
+        "/content/waters/two"       | "@Waters"
+        "/content/waters/two/child" | "@Waters"
+    }
+
+    def "get twitter card"() {
+        setup:
+        def meta = getPage(path).contentResource.adaptTo(Meta)
+
+        expect:
+        meta.twitterCard == twitterCard
+
+        where:
+        path                  | twitterCard
+        "/content/waters/one" | "summary_large_image"
+        "/content/waters/two" | "summary"
+    }
+
+    def "get inherited twitter image"() {
+        setup:
+        def meta = getPage(path).contentResource.adaptTo(Meta)
+
+        expect:
+        meta.twitterImage == twitterImage
+
+        where:
+        path                        | twitterImage
+        "/content/waters/one"       | null
+        "/content/waters/two"       | "http://www.waters.com/content/dam/waters/twitter.png"
+        "/content/waters/two/child" | "http://www.waters.com/content/dam/waters/twitter.png"
+        "/content/waters/three"     | "http://www.waters.com/content/dam/waters/logo.png"
     }
 }
