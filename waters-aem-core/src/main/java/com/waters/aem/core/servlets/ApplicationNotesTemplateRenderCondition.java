@@ -9,6 +9,8 @@ import org.apache.felix.scr.annotations.sling.SlingServlet;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 
@@ -17,6 +19,8 @@ import javax.annotation.Nonnull;
  */
 @SlingServlet(resourceTypes = WatersConstants.RENDER_CONDITION_APPLICATION_NOTES_TEMPLATE, methods = "GET")
 public final class ApplicationNotesTemplateRenderCondition extends SlingSafeMethodsServlet {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ApplicationNotesTemplateRenderCondition.class);
 
     @Override
     protected void doGet(@Nonnull final SlingHttpServletRequest request,
@@ -29,6 +33,8 @@ public final class ApplicationNotesTemplateRenderCondition extends SlingSafeMeth
         final String templatePath = currentPage.getTemplate().getPath();
 
         boolean isApplicationNotesTemplate = WatersConstants.TEMPLATE_APPLICATION_NOTES.equals(templatePath);
+
+        LOG.debug("current page : {}, is application notes template : {}", path, isApplicationNotesTemplate);
 
         request.setAttribute(RenderCondition.class.getName(), new SimpleRenderCondition(isApplicationNotesTemplate));
     }

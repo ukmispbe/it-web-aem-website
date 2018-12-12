@@ -22,17 +22,17 @@
                 <items jcr:primaryType="nt:unstructured">
                     <thumbnail
                         jcr:primaryType="nt:unstructured"
-                        path="waters/components/structure/page/thumbnail/content/items/Thumbnail"
+                        path="waters/components/structure/page/thumbnail/content"
                         sling:resourceType="granite/ui/components/foundation/include"
                         sling:orderBefore="cloudservices"/>
                     <meta
                         jcr:primaryType="nt:unstructured"
-                        path="waters/components/structure/page/meta/content/items/Meta"
+                        path="waters/components/structure/page/meta/content"
                         sling:resourceType="granite/ui/components/foundation/include"
                         sling:orderBefore="socialmedia"/>
                     <applicationNotes
                         jcr:primaryType="nt:unstructured"
-                        path="waters/components/structure/page/applicationnotes/content/items/ApplicationNotes"
+                        path="waters/components/structure/page/applicationnotes/content/items/tabs/items/ApplicationNotes"
                         sling:resourceType="granite/ui/components/foundation/include"
                         sling:orderBefore="socialmedia"/>
                 </items>
