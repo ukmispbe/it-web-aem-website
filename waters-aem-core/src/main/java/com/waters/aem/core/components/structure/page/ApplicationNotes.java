@@ -2,6 +2,7 @@ package com.waters.aem.core.components.structure.page;
 
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
+import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.TagInputField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.tagging.Tag;
@@ -17,6 +18,10 @@ import java.util.Collections;
 import java.util.List;
 
 @Component(value = "Application Notes",
+    tabs = @Tab(
+        title = "Application Notes",
+        renderConditionResourceType = WatersConstants.RENDER_CONDITION_APPLICATION_NOTES_TEMPLATE
+    ),
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE,
     name = WatersConstants.COMPONENT_NAME_PAGE,
