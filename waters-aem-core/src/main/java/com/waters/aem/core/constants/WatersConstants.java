@@ -15,7 +15,9 @@ public final class WatersConstants {
 
     public static final String ROOT_PATH_WATERS_TAGS = "/etc/tags/waters";
 
-    public static final String TEMPLATE_APPLICATION_NOTES = "/conf/waters/settings/wcm/templates/application-notes-page";
+    public static final String TEMPLATE_CONTENT_PAGE = "/conf/waters/settings/wcm/templates/content-page";
+
+    public static final String TEMPLATE_APPLICATION_NOTES_PAGE = "/conf/waters/settings/wcm/templates/application-notes-page";
 
     public static final String RENDER_CONDITION_APPLICATION_NOTES_TEMPLATE = "waters/components/renderconditions/applicationnotestemplate";
 
