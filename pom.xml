@@ -31,7 +31,7 @@
         <aem.library.version>10.3.1</aem.library.version>
         <core.components.version>2.2.2</core.components.version>
         <multicompositeaddon.version>4.0.0</multicompositeaddon.version>
-        <component.plugin.version>5.2.0</component.plugin.version>
+        <component.plugin.version>6.0.0</component.plugin.version>
         <osgi.bundle.status.plugin.version>2.0.2</osgi.bundle.status.plugin.version>
 
         <!-- defaults -->
@@ -248,7 +248,7 @@
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-scr-plugin</artifactId>
-                    <version>1.21.0</version>
+                    <version>1.26.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
@@ -387,13 +387,18 @@
             </dependency>
             <dependency>
                 <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.core</artifactId>
-                <version>5.0.0</version>
+                <artifactId>osgi.core</artifactId>
+                <version>6.0.0</version>
             </dependency>
             <dependency>
                 <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.compendium</artifactId>
-                <version>5.0.0</version>
+                <artifactId>osgi.cmpn</artifactId>
+                <version>6.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>osgi.annotation</artifactId>
+                <version>6.0.1</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -438,7 +443,7 @@
             <dependency>
                 <groupId>com.google.code.findbugs</groupId>
                 <artifactId>jsr305</artifactId>
-                <version>3.0.2</version>
+                <version>2.0.3</version>
             </dependency>
 
             <!-- Groovy -->
@@ -468,18 +473,6 @@
                 <version>${acs.aem.commons.version}</version>
                 <classifier>min</classifier>
                 <type>zip</type>
-            </dependency>
-
-            <!-- OSGi -->
-            <dependency>
-                <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.service.component.annotations</artifactId>
-                <version>1.4.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.service.metatype.annotations</artifactId>
-                <version>1.4.0</version>
             </dependency>
 
             <!-- ICF Olson libraries -->

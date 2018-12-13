@@ -10,7 +10,7 @@
                     <content-default
                         jcr:description="Policy for editable layout containers"
                         jcr:primaryType="nt:unstructured"
-                        jcr:title="Waters.com Default"
+                        jcr:title="Waters Default"
                         sling:resourceType="wcm/core/components/policy/policy"
                         components="[group:Waters,/apps/waters/components/content/text]"
                         policyResourceType="waters/components/content/layoutcontainer">
