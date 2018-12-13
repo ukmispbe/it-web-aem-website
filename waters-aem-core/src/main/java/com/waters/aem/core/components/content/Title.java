@@ -7,8 +7,10 @@ import com.citytechinc.cq.component.annotations.HideDialogField;
 import com.citytechinc.cq.component.annotations.Property;
 import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.RichTextEditor;
+import com.citytechinc.cq.component.annotations.widgets.ToolbarConfig;
 import com.citytechinc.cq.component.annotations.widgets.rte.Format;
 import com.citytechinc.cq.component.annotations.widgets.rte.SubSuperscript;
+import com.citytechinc.cq.component.annotations.widgets.rte.UISettings;
 import com.day.cq.commons.jcr.JcrConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -23,7 +25,6 @@ import javax.annotation.Nonnull;
 @Component(value = "Title",
     description = "Section Heading",
     resourceSuperType = Title.RESOURCE_SUPER_TYPE,
-    editConfig = false,
     tabs = @Tab(title = "Properties", touchUINodeName = "properties"))
 @Model(adaptables = SlingHttpServletRequest.class,
     resourceType = Title.RESOURCE_TYPE,
@@ -48,7 +49,21 @@ public final class Title implements com.adobe.cq.wcm.core.components.models.Titl
         })
     @RichTextEditor(
         format = @Format(underline = false),
-        subsuperscript = @SubSuperscript
+        subsuperscript = @SubSuperscript,
+        uiSettings = @UISettings(
+            inline = @ToolbarConfig(toolbars = {
+                ToolbarConfig.FORMAT_BOLD,
+                ToolbarConfig.FORMAT_ITALIC,
+                ToolbarConfig.SUBSUPERSCRIPT_SUBSCRIPT,
+                ToolbarConfig.SUBSUPERSCRIPT_SUPERSCRIPT
+            }),
+            fullscreen = @ToolbarConfig(toolbars = {
+                ToolbarConfig.FORMAT_BOLD,
+                ToolbarConfig.FORMAT_ITALIC,
+                ToolbarConfig.SUBSUPERSCRIPT_SUBSCRIPT,
+                ToolbarConfig.SUBSUPERSCRIPT_SUPERSCRIPT
+            })
+        )
     )
     @Override
     public String getText() {
