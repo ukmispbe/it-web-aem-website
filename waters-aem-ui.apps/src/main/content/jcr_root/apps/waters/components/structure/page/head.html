@@ -3,20 +3,23 @@
           data-sly-use.headResources="head.resources.html">
     <meta charset="UTF-8">
 
-    <sly data-sly-include="meta.html"></sly>
+    <sly data-sly-include="meta.html"/>
 
     <meta data-sly-test.keywords="${page.keywords}" name="keywords" content="${keywords}"/>
+    <meta data-sly-test.description="${properties['jcr:description']}" name="description" content="${description}"/>
     <meta data-sly-test.templateName="${page.templateName}" name="template" content="${templateName}"/>
 
-    <sly data-sly-include="head.socialmedia.html"></sly>
-    <sly data-sly-include="customheaderlibs.html"></sly>
+    <sly data-sly-include="head.socialmedia.html"/>
+    <sly data-sly-include="customheaderlibs.html"/>
+
     <link rel="stylesheet" href="https://use.typekit.net/fko8taa.css">
-    <link rel="stylesheet" type="text/css" href="/etc/designs/waters/main.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/etc/designs/waters/main.css" media="screen">
+
     <sly data-sly-call="${headlibRenderer.headlibs @
-                                designPath                = page.designPath,
-                                staticDesignPath          = page.staticDesignPath,
-                                clientLibCategories       = page.clientLibCategories,
-                                clientLibCategoriesJsHead = page.clientLibCategoriesJsHead,
-                                hasCloudconfigSupport     = page.hasCloudconfigSupport}"></sly>
-    <sly data-sly-test.appResourcesPath=${page.appResourcesPath} data-sly-call="${headResources.favicons @ path = appResourcesPath}"></sly>
+        designPath                = page.designPath,
+        staticDesignPath          = page.staticDesignPath,
+        clientLibCategories       = page.clientLibCategories,
+        clientLibCategoriesJsHead = page.clientLibCategoriesJsHead,
+        hasCloudconfigSupport     = page.hasCloudconfigSupport}"/>
+    <sly data-sly-test.appResourcesPath=${page.appResourcesPath} data-sly-call="${headResources.favicons @ path = appResourcesPath}"/>
 </template>

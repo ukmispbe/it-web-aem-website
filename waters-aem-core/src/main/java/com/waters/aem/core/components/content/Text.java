@@ -2,6 +2,9 @@ package com.waters.aem.core.components.content;
 
 import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
+import com.citytechinc.cq.component.annotations.DialogField;
+import com.citytechinc.cq.component.annotations.Tab;
+import com.citytechinc.cq.component.annotations.widgets.TextField;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -16,8 +19,7 @@ import javax.inject.Inject;
     description = "Rich Text Section",
     resourceSuperType = Text.RESOURCE_SUPER_TYPE,
     editConfig = false,
-    suppressTouchUIDialog = true,
-    suppressClassicUIDialog = true)
+    tabs = @Tab(title = "Properties", touchUINodeName = "properties"))
 @Model(adaptables = SlingHttpServletRequest.class,
     resourceType = Text.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
@@ -32,6 +34,8 @@ public final class Text implements com.adobe.cq.wcm.core.components.models.Text 
     @Via(type = ResourceSuperType.class)
     private com.adobe.cq.wcm.core.components.models.Text delegate; // delegate to core component class
 
+    @DialogField(fieldLabel = "Title", orderBefore = "text")
+    @TextField
     @Inject
     private String title;
 

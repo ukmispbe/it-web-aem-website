@@ -5,5 +5,5 @@
           ranking="{Long}1">
     <jcr:content
         jcr:primaryType="cq:PageContent"
-        jcr:title="Waters Site Empty Page"/>
+        jcr:title="Waters Content Page"/>
 </jcr:root>

@@ -8,29 +8,32 @@ import com.citytechinc.cq.component.annotations.widgets.Selection;
 import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.commons.Externalizer;
+import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.enums.TitleType;
 import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
-import com.icfolson.aem.library.core.constants.PathConstants;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component(value = "Meta",
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE,
-    name = "page",
+    name = WatersConstants.COMPONENT_NAME_PAGE,
     editConfig = false,
-    fileName = "meta",
-    touchFileName = "meta")
+    fileName = Meta.FILE_NAME,
+    touchFileName = Meta.FILE_NAME)
 @Model(adaptables = Resource.class)
 public final class Meta extends AbstractComponent {
+
+    static final String FILE_NAME = "meta";
 
     private static final String PROPERTY_CANONICAL_URL = "canonicalUrl";
 
@@ -38,16 +41,16 @@ public final class Meta extends AbstractComponent {
 
     private static final String PROPERTY_NO_FOLLOW = "noFollow";
 
-    private static final String PROPERTY_META_DESCRIPTION = "metaDescription";
-
     private static final String DEFAULT_FACEBOOK_APP_ID = "";
 
     private static final String DEFAULT_TWITTER_PUBLISHER_HANDLE = "@WatersCorp";
 
     private static final String DEFAULT_TWITTER_CARD = "summary_large_image";
 
-    @Inject
-    private ResourceResolver resourceResolver;
+    private static final String DEFAULT_OG_TYPE = "none";
+
+    @Self
+    private Resource resource;
 
     @Inject
     private Externalizer externalizer;
@@ -59,12 +62,8 @@ public final class Meta extends AbstractComponent {
         return currentPage.getTitle(TitleType.PAGE_TITLE).or(currentPage.getTitle());
     }
 
-    public String getDescription() {
-        return currentPage.getDescription();
-    }
-
     @DialogField(fieldLabel = "Canonical URL",
-        fieldDescription = "Defaults to template-specific canonical URL strategy if not provided here.",
+        fieldDescription = "Defaults to current page path.",
         ranking = 1)
     @PathField
     public String getCanonicalUrl() {
@@ -73,43 +72,29 @@ public final class Meta extends AbstractComponent {
             .or(externalize(currentPage.getHref()));
     }
 
-    @DialogField(fieldLabel = "Twitter Publisher Handle",
-        fieldDescription = "e.g. @WatersCorp.  If this value is present Twitter metadata will be included on the page.",
+    @DialogField(fieldLabel = "No Index",
+        fieldDescription = "Add NOINDEX metadata tag.",
         ranking = 2)
-    @TextField
-    public String getTwitterPublisherHandle() {
-        return getInherited("twitterPublisherHandle", DEFAULT_TWITTER_PUBLISHER_HANDLE);
+    @Switch(offText = "No", onText = "Yes")
+    public Boolean isNoIndex() {
+        return get(PROPERTY_NO_INDEX, false);
     }
 
-    @DialogField(fieldLabel = "Twitter Card",
-        fieldDescription = "Select the Twitter card type.",
+    @DialogField(fieldLabel = "No Follow",
+        fieldDescription = "Add NOFOLLOW metadata tag.",
         ranking = 3)
-    @Selection(
-        type = Selection.SELECT,
-        options = {
-            @Option(text = "Summary Large Image", value = "summary_large_image"),
-            @Option(text = "Summary", value = "summary"),
-            @Option(text = "App", value = "app"),
-            @Option(text = "Player", value = "player")
-        }
-    )
-    public String getTwitterCard() {
-        return get("twitterCard", DEFAULT_TWITTER_CARD);
-    }
-
-    @DialogField(fieldLabel = "Twitter Image", ranking = 4)
-    @PathField(rootPath = PathConstants.PATH_CONTENT_DAM)
-    public String getTwitterImage() {
-        return getExternalizedImage("twitterImage");
+    @Switch(offText = "No", onText = "Yes")
+    public Boolean isNoFollow() {
+        return get(PROPERTY_NO_FOLLOW, false);
     }
 
     @DialogField(fieldLabel = "Open Graph Type",
         fieldDescription = "Select a type to include Open Graph metadata for the page.",
-        ranking = 5)
+        ranking = 4)
     @Selection(
         type = Selection.SELECT,
         options = {
-            @Option(text = "None", value = "none"),
+            @Option(text = "None", value = DEFAULT_OG_TYPE),
             @Option(text = "Article", value = "article"),
             @Option(text = "Book", value = "book"),
             @Option(text = "Profile", value = "profile"),
@@ -125,43 +110,53 @@ public final class Meta extends AbstractComponent {
         }
     )
     public String getOgType() {
-        return get("ogType", "");
+        return get("ogType", DEFAULT_OG_TYPE);
     }
 
-    @DialogField(fieldLabel = "Open Graph Image", ranking = 6)
-    @PathField(rootPath = PathConstants.PATH_CONTENT_DAM)
+    @DialogField(fieldLabel = "Open Graph Image",
+        fieldDescription = "Default to page thumbnail image.",
+        ranking = 5)
+    @PathField(rootPath = WatersConstants.DAM_PATH)
     public String getOgImage() {
         return getExternalizedImage("ogImage");
     }
 
-    @DialogField(fieldLabel = "Facebook App ID", ranking = 7)
+    @DialogField(fieldLabel = "Facebook App ID", ranking = 6)
     @TextField
     public String getFacebookAppId() {
         return getInherited("facebookAppId", DEFAULT_FACEBOOK_APP_ID);
     }
 
-    @DialogField(fieldLabel = "No Index",
-        fieldDescription = "Add NOINDEX metadata tag",
-        ranking = 8)
-    @Switch(offText = "No", onText = "Yes")
-    public Boolean isNoIndex() {
-        return get(PROPERTY_NO_INDEX, false);
-    }
-
-    @DialogField(fieldLabel = "No Follow",
-        fieldDescription = "Add NOFOLLOW metadata tag",
-        ranking = 9)
-    @Switch(offText = "No", onText = "Yes")
-    public Boolean isNoFollow() {
-        return get(PROPERTY_NO_FOLLOW, false);
-    }
-
-    @DialogField(fieldLabel = "Description",
-        fieldDescription = "Defaults to description if not provided here.",
-        ranking = 10)
+    @DialogField(fieldLabel = "Twitter Publisher Handle",
+        fieldDescription = "Defaults to @WatersCorp.",
+        ranking = 7)
     @TextField
-    public String getMetaDescription() {
-        return get(PROPERTY_META_DESCRIPTION, currentPage.getDescription());
+    public String getTwitterPublisherHandle() {
+        return getInherited("twitterPublisherHandle", DEFAULT_TWITTER_PUBLISHER_HANDLE);
+    }
+
+    @DialogField(fieldLabel = "Twitter Card",
+        fieldDescription = "Select the Twitter card type.",
+        ranking = 8)
+    @Selection(
+        type = Selection.SELECT,
+        options = {
+            @Option(text = "Summary Large Image", value = DEFAULT_TWITTER_CARD),
+            @Option(text = "Summary", value = "summary"),
+            @Option(text = "App", value = "app"),
+            @Option(text = "Player", value = "player")
+        }
+    )
+    public String getTwitterCard() {
+        return get("twitterCard", DEFAULT_TWITTER_CARD);
+    }
+
+    @DialogField(fieldLabel = "Twitter Image",
+        fieldDescription = "Default to page thumbnail image.",
+        ranking = 9)
+    @PathField(rootPath = WatersConstants.DAM_PATH)
+    public String getTwitterImage() {
+        return getExternalizedImage("twitterImage");
     }
 
     public List<String> getRobotsTags() {
@@ -178,13 +173,29 @@ public final class Meta extends AbstractComponent {
         return robotsTags;
     }
 
+    public String getDescription() {
+        return currentPage.getDescription();
+    }
+
+    public String getExternalizedPageUrl() {
+        return externalize(currentPage.getHref());
+    }
+
     private String getExternalizedImage(final String propertyName) {
-        return currentPage.getInherited(propertyName, String.class)
-            .transform(this :: externalize)
-            .orNull();
+        return Optional.ofNullable(currentPage.getInherited(propertyName, getDefaultImage()))
+            .map(this :: externalize)
+            .orElse(null);
+    }
+
+    private String getDefaultImage() {
+        final Thumbnail thumbnail = resource.adaptTo(Thumbnail.class);
+
+        return Optional.ofNullable(thumbnail.getThumbnailImage())
+            .map(Image :: getFileReference)
+            .orElse(null);
     }
 
     private String externalize(final String path) {
-        return externalizer.externalLink(resourceResolver, Externalizer.PUBLISH, path);
+        return externalizer.externalLink(resource.getResourceResolver(), Externalizer.PUBLISH, path);
     }
 }
