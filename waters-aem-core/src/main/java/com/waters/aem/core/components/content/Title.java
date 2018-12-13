@@ -1,5 +1,6 @@
 package com.waters.aem.core.components.content;
 
+import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.HideDialogField;
@@ -11,6 +12,7 @@ import com.citytechinc.cq.component.annotations.widgets.rte.SubSuperscript;
 import com.day.cq.commons.jcr.JcrConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
+import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Via;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -26,6 +28,7 @@ import javax.annotation.Nonnull;
 @Model(adaptables = SlingHttpServletRequest.class,
     resourceType = Title.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class Title implements com.adobe.cq.wcm.core.components.models.Title {
 
     static final String RESOURCE_SUPER_TYPE = "core/wcm/components/title/v2/title";
