@@ -18,8 +18,6 @@
         <profile>
             <id>skip-frontend</id>
             <activation>
-                <!-- TODO: remove this property after frontend code is added -->
-                <activeByDefault>true</activeByDefault>
                 <property>
                     <name>skip-frontend</name>
                 </property>

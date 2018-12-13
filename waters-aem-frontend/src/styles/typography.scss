@@ -1,0 +1,85 @@
+@mixin font-body {
+  font-family: $font-stack;
+  font-size: $font-size-body;
+  font-weight: $font-weight-light;
+  line-height: $line-height-text;
+  color: $color-font-dark;
+  letter-spacing: $letter-spacing-small;
+  margin-bottom: $space-m;
+}
+
+@mixin font-utility {
+  font-family: $font-stack;
+  font-size: $font-size-body;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-text;
+  color: $color-font-medium;
+  letter-spacing: $letter-spacing-small;
+  margin-bottom: $space-m;
+}
+
+@mixin font-small {
+  font-family: $font-stack;
+  font-size: $font-size-small;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-text;
+  color: $color-font-medium;
+  margin-bottom: $space-s;
+}
+
+@mixin font-caption {
+  font-family: $font-stack;
+  font-size: $font-size-body;
+  font-weight: $font-weight-light;
+  line-height: $line-height-text;
+  color: $color-font-dark;
+  letter-spacing: $letter-spacing-small;
+  margin-bottom: $space-m 0;
+  padding-top: $space-m;
+  border-top: 1px solid $color-border-light;
+}
+
+h1 {
+  font-family: $font-stack;
+  font-size: $font-size-h1;
+  font-weight: $font-weight-light;
+  line-height: $line-height-heading;
+  color: $color-font-dark;
+  margin-bottom: $space-l;
+}
+
+h2,
+h3 {
+  font-family: $font-stack;
+  font-size: $font-size-h2;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-text;
+  color: $color-font-medium;
+  margin-bottom: $space-l;
+}
+
+h4 {
+  font-family: $font-stack;
+  font-size: $font-size-h4;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-text;
+  color: $color-font-dark;
+  margin-bottom: $space-m;
+}
+
+ul {
+    @include font-body;
+    list-style-type: square;
+
+    li {
+        font-size: 1.5em;
+    }
+}
+
+ol {
+    @include font-body;
+
+    li {
+        font-size: 1.5em;
+    }
+}
