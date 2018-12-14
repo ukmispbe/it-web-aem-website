@@ -1,0 +1,16 @@
+// Accent Rules
+.cmp-accent-rule {
+    border: 2px solid $color-accent;
+    margin: 0 0 $space-l 0;
+}
+
+// Horizontal Rules
+hr, .cmp-horizontal-rule {
+    border: 1px solid $color-border-light;
+    margin: $space-l 0;
+
+    @media (max-width: 768px) {
+        width: 200%;
+        margin-left: -50%;
+    }
+}
