@@ -27,12 +27,16 @@ public final class ApplicationNotesTemplateRenderConditionServlet extends SlingS
         @Nonnull final SlingHttpServletResponse response) {
         final String path = request.getParameter("item");
 
-        final PageManagerDecorator pageManager = request.getResourceResolver().adaptTo(PageManagerDecorator.class);
-        final PageDecorator currentPage = pageManager.getPage(path);
+        boolean isApplicationNotesTemplate = false;
 
-        final String templatePath = currentPage.getTemplatePath();
+        if (path != null) {
+            final PageManagerDecorator pageManager = request.getResourceResolver().adaptTo(PageManagerDecorator.class);
+            final PageDecorator currentPage = pageManager.getPage(path);
 
-        boolean isApplicationNotesTemplate = WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE.equals(templatePath);
+            final String templatePath = currentPage.getTemplatePath();
+
+            isApplicationNotesTemplate = WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE.equals(templatePath);
+        }
 
         LOG.debug("current page : {}, is application notes template : {}", path, isApplicationNotesTemplate);
 
