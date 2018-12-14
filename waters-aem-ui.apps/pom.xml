@@ -81,6 +81,7 @@
                     <componentPathBase>jcr_root/apps/waters/components</componentPathBase>
                     <defaultComponentGroup>Waters</defaultComponentGroup>
                     <transformerName>lower-case</transformerName>
+                    <generateClassicUiDialogs>false</generateClassicUiDialogs>
                     <useCoral3Dialogs>true</useCoral3Dialogs>
                     <additionalFeatures>
                         <additionalFeature>rte-touchui</additionalFeature>
