@@ -81,6 +81,7 @@
                     <componentPathBase>jcr_root/apps/waters/components</componentPathBase>
                     <defaultComponentGroup>Waters</defaultComponentGroup>
                     <transformerName>lower-case</transformerName>
+                    <generateClassicUiDialogs>false</generateClassicUiDialogs>
                     <useCoral3Dialogs>true</useCoral3Dialogs>
                     <additionalFeatures>
                         <additionalFeature>rte-touchui</additionalFeature>
@@ -136,12 +137,6 @@
                         <subPackage>
                             <groupId>com.adobe.cq</groupId>
                             <artifactId>core.wcm.components.all</artifactId>
-                            <type>zip</type>
-                            <filter>true</filter>
-                        </subPackage>
-                        <subPackage>
-                            <groupId>com.icfolson.aem</groupId>
-                            <artifactId>multicomposite-addon</artifactId>
                             <type>zip</type>
                             <filter>true</filter>
                         </subPackage>
@@ -218,11 +213,6 @@
         <dependency>
             <groupId>com.adobe.cq</groupId>
             <artifactId>core.wcm.components.all</artifactId>
-            <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>com.icfolson.aem</groupId>
-            <artifactId>multicomposite-addon</artifactId>
             <type>zip</type>
         </dependency>
         <dependency>

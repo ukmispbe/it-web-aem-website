@@ -3,6 +3,7 @@ package com.waters.aem.core.components.structure;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
+import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.icfolson.aem.library.api.link.Link;
@@ -10,7 +11,6 @@ import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
-import com.icfolson.aem.multicompositeaddon.widget.MultiCompositeField;
 import com.waters.aem.core.components.content.applicationnotes.LinkItem;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.resource.Resource;
@@ -33,7 +33,7 @@ public final class Footer extends AbstractComponent {
     @DialogField(fieldLabel = "Link Items",
         fieldDescription = "Enter footer link items",
         ranking = 2)
-    @MultiCompositeField
+    @MultiField(composite = true)
     @InheritInject
     private List<LinkItem> linkItems;
 
