@@ -127,10 +127,6 @@
             <groupId>com.icfolson.aem.library</groupId>
             <artifactId>aem-library-core</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.icfolson.aem</groupId>
-            <artifactId>multicomposite-addon</artifactId>
-        </dependency>
 
         <!-- CSV -->
         <dependency>
