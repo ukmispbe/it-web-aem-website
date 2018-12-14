@@ -15,6 +15,7 @@
         <module>waters-aem-solr</module>
         <module>waters-aem-ui.apps</module>
         <module>waters-aem-ui.content</module>
+        <module>waters-aem-ui.tests</module>
     </modules>
 
     <properties>
