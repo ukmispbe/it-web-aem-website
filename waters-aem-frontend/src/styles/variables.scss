@@ -3,7 +3,7 @@ $color-blue-10: desaturate(lighten(#0077bb, 58), 20);
 $color-blue-20: desaturate(lighten(#0077bb, 50), 20);
 $color-blue-30: desaturate(lighten(#0077bb, 30), 20);
 $color-blue-50: #0077BB;
-$color-blue-70: darken(#0077BB, 10% );
+$color-blue-70: darken(#0077BB, 10%);
 
 /*SECONDARY TEAL*/
 $color-teal-10: desaturate(lighten(#0F7F85, 67), 17);
@@ -13,7 +13,8 @@ $color-teal-50: #0F7F85;
 $color-teal-70: darken(#0F7F85, 10%);
 
 /*GRAYSCALE*/
-$color-white: #FFF; $color-gray-10: lighten(#4F5B64, 60%);
+$color-white: #FFF;
+$color-gray-10: lighten(#4F5B64, 60%);
 $color-gray-20: lighten(#4F5B64, 55%);
 $color-gray-30: lighten(#4F5B64, 45%);
 $color-gray-40: lighten(#4F5B64, 30%);
@@ -40,7 +41,7 @@ $color-success: #00871A;
 $color-error: #E60F33;
 
 /*SHADOW*/
-$shadow: 0px 1px 5px 0px rgba(79,91,100,0.2);
+$shadow: 0px 1px 5px 0px rgba(79, 91, 100, 0.2);
 
 /* FONT */
 $font-stack: 'acumin-pro, arial, sans-serif';
@@ -58,15 +59,15 @@ $font-size-small: .9em;
 /*LINE HEIGHT*/
 $line-height-heading: 1.4em;
 $line-height-text: 1.6em;
- 
+
 /*FONT WEIGHT*/
 $font-weight-light: 300;
 $font-weight-regular: 400;
 $font-weight-bold: 500;
- 
+
 /*LETTER SPACING*/
 $letter-spacing-small: .02em;
- 
+
 /*MOBILE STYLING*/
 $font-size-h1-m: 2em;
 
@@ -76,11 +77,11 @@ $icon-m: 1.5em; /* 24px */
 $icon-l: 2em; /* 32px */
 $icon-xl: 4em; /* 64px */
 
-/*SPACE & MARGINS*/ 
+/*SPACE & MARGINS*/
 $space-xxs: .25em;
-$space-xs: .5em; 
+$space-xs: .5em;
 $space-s: 1em;
-$space-m: 1.5em; 
-$space-l: 2em; 
-$space-xl: 3em; 
+$space-m: 1.5em;
+$space-l: 2em;
+$space-xl: 3em;
 $space-xxl: 5em;
