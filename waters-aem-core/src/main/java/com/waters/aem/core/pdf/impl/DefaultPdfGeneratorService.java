@@ -11,7 +11,6 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.wrappers.SlingHttpServletRequestWrapper;
 import org.apache.sling.models.factory.ModelClassException;
 import org.apache.sling.models.factory.ModelFactory;
 import org.osgi.service.component.annotations.Component;
@@ -19,7 +18,6 @@ import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.util.List;
 
@@ -84,18 +82,10 @@ public final class DefaultPdfGeneratorService implements PdfGeneratorService {
 
     private void writePdfContentForResource(final SlingHttpServletRequest request, final Resource resource,
         final PDPageContentStream contentStream) throws IOException {
-        // override resource type from original request since core models are only adaptable from requests
-        final SlingHttpServletRequest wrappedRequest = new SlingHttpServletRequestWrapper(request) {
-            @Override
-            @Nonnull
-            public Resource getResource() {
-                return resource;
-            }
-        };
-
-        // get the PDF content provider for the current resource type
         try {
-            final ContentProvider contentProvider = modelFactory.createModel(wrappedRequest, ContentProvider.class);
+            // get the PDF content provider for the current resource type
+            final ContentProvider contentProvider = modelFactory.getModelFromWrappedRequest(request, resource,
+                ContentProvider.class);
 
             LOG.info("using model class : {} for resource type : {}", contentProvider.getClass().getName(),
                 resource.getResourceType());
