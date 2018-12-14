@@ -15,6 +15,7 @@ compiler.run((err, stats) => {
     fs.rename(css, aemCssPath, (err) => {
         if (err) {
             console.log(err);
+            return;
         }
 
         console.log('CSS Moved to AEM');
@@ -23,6 +24,7 @@ compiler.run((err, stats) => {
     fs.rename(js, aemJsPath, (err) => {
         if (err) {
             console.log(err);
+            return;
         }
 
         console.log('JS Moved to AEM');

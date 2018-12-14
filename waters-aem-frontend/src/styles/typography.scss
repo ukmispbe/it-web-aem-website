@@ -39,6 +39,14 @@
     border-top: 1px solid $color-border-light;
 }
 
+body {
+    @include font-body;
+}
+
+p {
+    @include font-body;
+}
+
 h1 {
     font-family: $font-stack;
     font-size: $font-size-h1;

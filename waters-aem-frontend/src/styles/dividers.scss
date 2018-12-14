@@ -1,11 +1,5 @@
-// Accent Rules
-.cmp-accent-rule {
-    border: 2px solid $color-accent;
-    margin: 0 0 $space-l 0;
-}
-
 // Horizontal Rules
-hr, .cmp-horizontal-rule {
+hr, .cmp-horizontal-rule hr {
     border: 1px solid $color-border-light;
     margin: $space-l 0;
 
@@ -13,4 +7,10 @@ hr, .cmp-horizontal-rule {
         width: 200%;
         margin-left: -50%;
     }
+}
+
+// Accent Rules
+.cmp-accent-rule hr {
+    border: 2px solid $color-accent;
+    margin: 0 0 $space-l 0;
 }
