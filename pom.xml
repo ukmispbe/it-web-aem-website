@@ -78,6 +78,47 @@
     </pluginRepositories>
 
     <profiles>
+        <profile>
+            <id>skip-frontend</id>
+            <modules>
+                <module>waters-aem-core</module>
+                <module>waters-aem-solr</module>
+                <module>waters-aem-ui.apps</module>
+                <module>waters-aem-ui.content</module>
+                <module>waters-aem-ui.tests</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>skip-apps</id>
+            <modules>
+                <module>waters-aem-core</module>
+                <module>waters-aem-solr</module>
+                <module>waters-aem-frontend</module>
+                <module>waters-aem-ui.content</module>
+                <module>waters-aem-ui.tests</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>skip-content</id>
+            <modules>
+                <module>waters-aem-core</module>
+                <module>waters-aem-solr</module>
+                <module>waters-aem-frontend</module>
+                <module>waters-aem-ui.apps</module>
+                <module>waters-aem-ui.tests</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>skip-tests</id>
+            <modules>
+                <module>waters-aem-core</module>
+                <module>waters-aem-solr</module>
+                <module>waters-aem-frontend</module>
+                <module>waters-aem-ui.apps</module>
+                <module>waters-aem-ui.content</module>
+            </modules>
+        </profile>
+
         <!-- Development profile: install only the bundle -->
         <profile>
             <id>install-bundle</id>
