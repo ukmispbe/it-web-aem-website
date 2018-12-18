@@ -2,8 +2,8 @@ package com.waters.aem.core.components.content;
 
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
+import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
-import com.icfolson.aem.multicompositeaddon.widget.MultiCompositeField;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -28,7 +28,7 @@ public final class Share {
     @DialogField(fieldLabel = "Social Media Buttons",
         fieldDescription = "Configure the follow buttons",
         ranking = 2)
-    @MultiCompositeField
+    @MultiField(composite = true)
     @Inject
     private List<SocialMediaButton> socialMediaButtons;
 

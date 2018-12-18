@@ -32,6 +32,9 @@
 /* API function to be called to generate a grid config */
 /* maximum amount of grid cells */
 /* default breakpoint */
+.aem-Grid {
+  width: auto;
+}
 .aem-Grid.aem-Grid--1 > .aem-GridColumn.aem-GridColumn--default--1 {
   float: left;
   clear: none;
@@ -1367,7 +1370,7 @@
   display: none;
 }
 /* phone breakpoint */
-@media (max-width: 768px) {
+@media (max-width: 650px) {
   .aem-Grid.aem-Grid--1 > .aem-GridColumn.aem-GridColumn--phone--1 {
     float: left;
     clear: none;
@@ -1568,7 +1571,7 @@
   }
 }
 /* tablet breakpoint */
-@media (min-width: 769px) and (max-width: 1200px) {
+@media (min-width: 651px) and (max-width: 1200px) {
   .aem-Grid.aem-Grid--1 > .aem-GridColumn.aem-GridColumn--tablet--1 {
     float: left;
     clear: none;

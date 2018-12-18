@@ -45,7 +45,8 @@ public final class Title implements com.adobe.cq.wcm.core.components.models.Titl
         fieldName = "title",
         name = "./" + JcrConstants.JCR_TITLE,
         additionalProperties = {
-            @Property(name = "useFixedInlineToolbar", value = "true")
+            @Property(name = "useFixedInlineToolbar", value = "true"),
+            @Property(name = "removeSingleParagraphContainer", value = "true")
         })
     @RichTextEditor(
         format = @Format(underline = false),
