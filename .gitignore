@@ -174,7 +174,3 @@ nbdist/
 nbactions.xml
 nb-configuration.xml
 .nb-gradle/
-
-### Ignore Compiled Assets
-waters-aem-ui.apps/src/main/content/jcr_root/etc/designs/waters/main.css
-waters-aem-ui.apps/src/main/content/jcr_root/etc/designs/waters/main.js
