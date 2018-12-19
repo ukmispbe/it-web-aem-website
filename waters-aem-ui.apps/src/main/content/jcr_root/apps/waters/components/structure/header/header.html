@@ -1,3 +1,16 @@
 <header data-sly-use.header="com.waters.aem.core.components.structure.Header">
-    <a href="${currentPage.path}.html">Waters</a>
+   <div class="cmp-header">
+        <a class="cmp-header-logo__link" href="${header.logoLink.href}" target="_blank">
+            <img class="cmp-header-logo" src="${header.logo.href}" alt="${header.logo.logoAltText}"/>
+        </a>
+        <ul data-sly-test="${header.linkItems}"
+            data-sly-list.linkItem="${header.linkItems}"
+            class="cmp-header-links">
+            <li class="cmp-header-links__item">
+                <a class="cmp-header-links__link" href="${linkItem.link.href}" target="_blank">${linkItem.text}
+                    <img class="cmp-header-links__icon" data-sly-test="${linkItem.icon.href}" src="${linkItem.icon.href}" />
+                </a>
+            </li>
+        </ul>
+   </div>
 </header>
