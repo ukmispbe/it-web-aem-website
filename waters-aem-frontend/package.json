@@ -8,8 +8,7 @@
         "storybook": "start-storybook -p 9001 -c .storybook",
         "prebuild": "rebuild-node-sass",
         "build": "node scripts/build.js",
-        "dev-server": "webpack -c webpack.config.dev.js",
-        "compile-grid": " lessc src/styles/grid/grid.less src/styles/grid/grid.css"
+        "dev-server": "webpack -c webpack.config.dev.js"
     },
     "author": "",
     "license": "UNLICENSED",
