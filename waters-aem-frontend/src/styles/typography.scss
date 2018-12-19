@@ -32,6 +32,7 @@
     font-size: $font-size-body;
     font-weight: $font-weight-light;
     line-height: $line-height-text;
+    font-style: italic;
     color: $color-font-dark;
     letter-spacing: $letter-spacing-small;
     margin-bottom: $space-m 0;
@@ -45,10 +46,19 @@ html {
 
 body {
     @include font-body;
+
+    @include mobile {
+        font-size: $font-size-body-m;
+    }
 }
 
 p {
+    margin-top: 0;
     @include font-body;
+
+    @include mobile {
+        font-size: $font-size-body-m;
+    }
 }
 
 h1 {
@@ -58,6 +68,10 @@ h1 {
     line-height: $line-height-heading;
     color: $color-font-dark;
     margin-bottom: $space-l;
+
+    @include mobile {
+        font-size: $font-size-h1-m;
+    }
 }
 
 h2,

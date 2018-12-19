@@ -1,0 +1,14 @@
+img {
+    max-width: 100%;
+}
+
+.cmp-image {
+    max-width: 100%;
+    margin: 0 0 $space-l 0;
+}
+
+.cmp-image__title {
+    width: 100%;
+    display: block;
+    @include font-caption;
+}
