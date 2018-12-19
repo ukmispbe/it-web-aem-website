@@ -15,3 +15,26 @@
         padding: 0 40px;
     }
 }
+
+a {
+    @include font-utility;
+    color: $color-link;
+    transition: all 0.25s ease;
+
+    &:hover {
+        color: $color-link-hover;
+    }
+
+    &:active {
+        color: $color-link;
+    }
+
+    &:focus {
+        @include font-utility;
+        color: $color-link-hover;
+        text-decoration: underline;
+        border: 2px solid $color-focus;
+    }
+
+    // add external styling
+}

@@ -5,7 +5,8 @@
     line-height: $line-height-text;
     color: $color-font-dark;
     letter-spacing: $letter-spacing-small;
-    margin-bottom: $space-m;
+    margin-bottom: $space-s;
+    margin-top: 0;
 }
 
 @mixin font-utility {
@@ -15,7 +16,8 @@
     line-height: $line-height-text;
     color: $color-font-medium;
     letter-spacing: $letter-spacing-small;
-    margin-bottom: $space-m;
+    margin-bottom: $space-s;
+    margin-top: 0;
 }
 
 @mixin font-small {
@@ -25,6 +27,7 @@
     line-height: $line-height-text;
     color: $color-font-medium;
     margin-bottom: $space-s;
+    margin-top: 0;
 }
 
 @mixin font-caption {
@@ -68,20 +71,31 @@ h1 {
     line-height: $line-height-heading;
     color: $color-font-dark;
     margin-bottom: $space-l;
+    margin-top: 0;
 
     @include mobile {
         font-size: $font-size-h1-m;
     }
 }
 
-h2,
-h3 {
+h2 {
     font-family: $font-stack;
     font-size: $font-size-h2;
     font-weight: $font-weight-regular;
     line-height: $line-height-text;
     color: $color-font-medium;
-    margin-bottom: $space-l;
+    margin-bottom: $space-s;
+    margin-top: 0;
+}
+
+h3 {
+    font-family: $font-stack;
+    font-size: $font-size-h3;
+    font-weight: $font-weight-regular;
+    line-height: $line-height-text;
+    color: $color-font-dark;
+    margin-bottom: $space-s;
+    margin-top: 0;
 }
 
 h4 {
@@ -90,22 +104,30 @@ h4 {
     font-weight: $font-weight-bold;
     line-height: $line-height-text;
     color: $color-font-dark;
-    margin-bottom: $space-m;
+    margin-bottom: $space-s;
+    margin-top: 0;
 }
 
 ul {
     @include font-body;
     list-style-type: square;
+    padding-left: 1.2em;
 
     li {
-        font-size: 1.5em;
+        @include font-body;
     }
 }
 
 ol {
     @include font-body;
+    padding-left: 1.2em;
 
     li {
-        font-size: 1.5em;
+        @include font-body;
     }
+}
+
+b,
+strong {
+    font-weight: $font-weight-bold;
 }
