@@ -2,10 +2,15 @@
     box-sizing: border-box;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 .container {
     max-width: 1460px;
     margin: 0 auto;
     padding: 0 80px;
+    overflow-x: hidden;
 
     @include mobile {
         padding: 0 20px;
