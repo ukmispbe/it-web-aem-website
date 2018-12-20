@@ -7,6 +7,10 @@
     letter-spacing: $letter-spacing-small;
     margin-bottom: $space-s;
     margin-top: 0;
+
+    @include mobile {
+        font-size: $font-size-body-m;
+    }
 }
 
 @mixin font-utility {
@@ -35,11 +39,16 @@
     font-size: $font-size-body;
     font-weight: $font-weight-light;
     line-height: $line-height-text;
+    font-style: italic;
     color: $color-font-dark;
     letter-spacing: $letter-spacing-small;
-    margin-bottom: $space-m 0;
+    margin: $space-m 0;
     padding-top: $space-m;
     border-top: 1px solid $color-border-light;
+
+    @include mobile {
+        font-size: $font-size-body-m;
+    }
 }
 
 html {
@@ -48,10 +57,21 @@ html {
 
 body {
     @include font-body;
+
+    margin: 0 0 0 0;
+
+    @include mobile {
+        font-size: $font-size-body-m;
+    }
 }
 
 p {
+    margin-top: 0;
     @include font-body;
+
+    @include mobile {
+        font-size: $font-size-body-m;
+    }
 }
 
 h1 {
@@ -60,8 +80,12 @@ h1 {
     font-weight: $font-weight-light;
     line-height: $line-height-heading;
     color: $color-font-dark;
-    margin-bottom: $space-l;
+    margin-bottom: $space-s;
     margin-top: 0;
+
+    @include mobile {
+        font-size: $font-size-h1-m;
+    }
 }
 
 h2 {
@@ -72,6 +96,10 @@ h2 {
     color: $color-font-medium;
     margin-bottom: $space-s;
     margin-top: 0;
+
+    @include mobile {
+        font-size: $font-size-h2-m;
+    }
 }
 
 h3 {
@@ -82,9 +110,15 @@ h3 {
     color: $color-font-dark;
     margin-bottom: $space-s;
     margin-top: 0;
+
+    @include mobile {
+        font-size: $font-size-h3-m;
+    }
 }
 
-h4 {
+h4,
+h5,
+h6 {
     font-family: $font-stack;
     font-size: $font-size-h4;
     font-weight: $font-weight-bold;
@@ -92,24 +126,34 @@ h4 {
     color: $color-font-dark;
     margin-bottom: $space-s;
     margin-top: 0;
+
+    @include mobile {
+        font-size: $font-size-h4-m;
+    }
 }
 
 ul {
-    @include font-body;
     list-style-type: square;
     padding-left: 1.2em;
 
     li {
-        @include font-body;
+        margin-bottom: $space-s;
+
+        @include mobile {
+            font-size: $font-size-body-m;
+        }
     }
 }
 
 ol {
-    @include font-body;
     padding-left: 1.2em;
 
     li {
-        @include font-body;
+        margin-bottom: $space-s;
+
+        @include mobile {
+            font-size: $font-size-body-m;
+        }
     }
 }
 

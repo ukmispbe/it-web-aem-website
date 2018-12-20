@@ -2,16 +2,44 @@
     box-sizing: border-box;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 .container {
     max-width: 1460px;
     margin: 0 auto;
     padding: 0 80px;
+    overflow-x: hidden;
 
-    @media (max-width: 768px) {
-        margin: 0 20px;
+    @include mobile {
+        padding: 0 20px;
     }
 
-    @media (min-width: 769px) and (max-width: 1200px) {
-        margin: 0 40px;
+    @include tablet {
+        padding: 0 40px;
     }
+}
+
+a {
+    @include font-utility;
+    color: $color-link;
+    transition: all 0.25s ease;
+
+    &:hover {
+        color: $color-link-hover;
+    }
+
+    &:active {
+        color: $color-link;
+    }
+
+    &:focus {
+        @include font-utility;
+        color: $color-link-hover;
+        text-decoration: underline;
+        border: 2px solid $color-focus;
+    }
+
+    // add external styling
 }
