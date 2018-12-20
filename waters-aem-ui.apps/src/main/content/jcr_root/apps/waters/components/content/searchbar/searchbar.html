@@ -1,3 +1,7 @@
-<div data-sly-use.searchBar="com.waters.aem.core.components.content.SearchBar">
-    Search Bar
+<div data-sly-use.searchBar="com.waters.aem.core.components.content.SearchBar"
+     class="cmp-search-bar">
+
 </div>
+
+<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+     data-sly-call="${patterns.placeholder @ show=true, text=component.title}"/>
