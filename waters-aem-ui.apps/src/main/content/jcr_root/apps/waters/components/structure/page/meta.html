@@ -1,0 +1,35 @@
+<sly data-sly-use.metaPage="com.waters.aem.core.components.structure.page.Meta">
+    <meta name="twitter:card" content="${metaPage.twitterCard}">
+    <meta name="twitter:site" content="${metaPage.twitterPublisherHandle}">
+    <meta name="twitter:creator" content="${metaPage.twitterPublisherHandle}">
+    <meta name="twitter:title" content="${metaPage.title}">
+    <meta name="twitter:description" content="${metaPage.description}">
+    <meta name="twitter:url" content="${metaPage.externalizedPageUrl}">
+
+    <sly data-sly-test="${metaPage.twitterImage}">
+        <meta name="twitter:image" content="${metaPage.twitterImage}">
+    </sly>
+
+    <sly data-sly-test="${metaPage.ogType != 'none'}">
+        <meta property="og:title" content="${metaPage.title}">
+        <meta property="og:type" content="${metaPage.ogType}">
+        <meta property="og:url" content="${metaPage.externalizedPageUrl}">
+        <meta property="og:description" content="${metaPage.description}">
+
+        <sly data-sly-test="${metaPage.ogImage}">
+            <meta property="og:image" content="${metaPage.ogImage}">
+        </sly>
+    </sly>
+
+    <sly data-sly-test="${metaPage.facebookAppId}">
+        <meta property="fb:app_id" content="${metaPage.facebookAppId}">
+    </sly>
+
+    <sly data-sly-test="${metaPage.robotsTags}">
+        <meta name="robots" content="${metaPage.robotsTags @ join=', '}">
+    </sly>
+
+    <link rel="canonical" href="${metaPage.canonicalUrl}">
+
+    <title>${metaPage.title}</title>
+</sly>
