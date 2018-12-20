@@ -1,15 +1,11 @@
-<div data-sly-use.externalArticle="com.waters.aem.core.components.content.applicationnotes.ExternalArticles"
-     data-sly-test="${externalArticle.linkItems}">
-    <ul data-sly-list.linkItem="${externalArticle.linkItems}">
-        <li>
-            <a class="external-article-list"
-               href="${linkItem.link.href}"
-               target="'_blank'">
-                ${linkItem.text}
-            </a>
-        </li>
-    </ul>
-</div>
+<ul data-sly-use.externalArticle="com.waters.aem.core.components.content.applicationnotes.ExternalArticles"
+    data-sly-test="${externalArticle.linkItems}"
+    data-sly-list.linkItem="${externalArticle.linkItems}"
+    class="cmp-external-articles">
+    <li class="cmp-external-articles__item">
+        <a class="cmp-external-articles__link" href="${linkItem.link.href}" target="_blank">${linkItem.text}</a>
+    </li>
+</ul>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
      data-sly-call="${patterns.placeholder @ show=!externalArticle.linkItems, text=component.title}"/>

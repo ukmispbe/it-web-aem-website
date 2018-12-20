@@ -8,8 +8,7 @@
         "storybook": "start-storybook -p 9001 -c .storybook",
         "prebuild": "rebuild-node-sass",
         "build": "node scripts/build.js",
-        "dev-server": "webpack -c webpack.config.dev.js",
-        "compile-grid": " lessc src/styles/grid/grid.less src/styles/grid/grid.css"
+        "dev-server": "webpack -c webpack.config.dev.js"
     },
     "author": "",
     "license": "UNLICENSED",
@@ -23,6 +22,7 @@
         "css-loader": "^2.0.0",
         "mini-css-extract-plugin": "^0.5.0",
         "node-sass": "^4.11.0",
+        "normalize-scss": "^7.0.1",
         "rebuild-node-sass": "^1.1.0",
         "sass-loader": "^7.1.0",
         "style-loader": "^0.23.1",

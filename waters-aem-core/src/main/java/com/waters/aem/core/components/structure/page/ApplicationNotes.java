@@ -34,7 +34,7 @@ public final class ApplicationNotes {
     static final String FILE_NAME = "applicationnotes";
 
     @DialogField(fieldLabel = "Author", ranking = 1)
-    @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
+    @TagInputField
     @TagInject
     private List<Tag> author = Collections.emptyList();
 
@@ -44,52 +44,52 @@ public final class ApplicationNotes {
     private String literatureCode;
 
     @DialogField(fieldLabel = "Content Type", ranking = 3)
-    @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
+    @TagInputField
     @TagInject
     private List<Tag> contentType = Collections.emptyList();
 
     @DialogField(fieldLabel = "Keyword", ranking = 4)
-    @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
+    @TagInputField
     @TagInject
     private List<Tag> keyword = Collections.emptyList();
 
     @DialogField(fieldLabel = "Instrument Type", ranking = 5)
-    @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
+    @TagInputField
     @TagInject
     private List<Tag> instrumentType = Collections.emptyList();
 
     @DialogField(fieldLabel = "Technique", ranking = 6)
-    @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
+    @TagInputField
     @TagInject
     private List<Tag> technique = Collections.emptyList();
 
     @DialogField(fieldLabel = "Separation Mode", ranking = 7)
-    @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
+    @TagInputField
     @TagInject
     private List<Tag> separationMode = Collections.emptyList();
 
     @DialogField(fieldLabel = "Compound Class", ranking = 8)
-    @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
+    @TagInputField
     @TagInject
     private List<Tag> compoundClass = Collections.emptyList();
 
     @DialogField(fieldLabel = "Column Type", ranking = 9)
-    @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
+    @TagInputField
     @TagInject
     private List<Tag> columnType = Collections.emptyList();
 
     @DialogField(fieldLabel = "Chromatography Software", ranking = 10)
-    @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
+    @TagInputField
     @TagInject
     private List<Tag> chromatographySoftware = Collections.emptyList();
 
     @DialogField(fieldLabel = "Market", ranking = 11)
-    @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
+    @TagInputField
     @TagInject
     private List<Tag> market = Collections.emptyList();
 
     @DialogField(fieldLabel = "Year Published", ranking = 12)
-    @TagInputField(rootPath = WatersConstants.ROOT_PATH_WATERS_TAGS)
+    @TagInputField
     @TagInject
     private List<Tag> yearPublished = Collections.emptyList();
 

@@ -1,9 +1,8 @@
-// Compiled AEM Grid
-@import 'grid/grid.css';
+@import '../../node_modules/normalize-scss/sass/normalize/import-now.scss';
 
 @import 'variables.scss';
-
-@import 'global.scss';
 @import 'typography.scss';
+@import 'global.scss';
 @import 'buttons.scss';
 @import 'dividers.scss';
+@import 'images.scss';
