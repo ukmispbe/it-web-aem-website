@@ -7,7 +7,7 @@
             data-sly-list.linkItem="${header.linkItems}"
             class="cmp-header-links">
             <li class="cmp-header-links__item">
-                <a class="cmp-header-links__link" href="${linkItem.link.href}" target="_blank">${linkItem.text}
+                <a class="cmp-header-links__link" href="${linkItem.link.href}" target="${linkItem.icon.newWindow?'_blank':'_self'}">${linkItem.text}
                     <img class="cmp-header-links__icon" data-sly-test="${linkItem.icon.href}" src="${linkItem.icon.href}" />
                 </a>
             </li>
