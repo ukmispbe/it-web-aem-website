@@ -4,15 +4,15 @@ import com.icfolson.aem.library.models.specs.AemLibraryModelSpec
 import spock.lang.Unroll
 
 @Unroll
-class ExternalArticlesSpec extends AemLibraryModelSpec {
+class ExternalListSpec extends AemLibraryModelSpec {
 
     def setupSpec() {
         pageBuilder.content {
             waters {
                 one {
                     "jcr:content" {
-                        externalarticles {
-                            linkItems {
+                        externallist {
+                            externalLinkItems {
                                 item1(link: "www.waters.com", text: "waters")
                                 item2(link: "www.ta.com", text: "ta")
                             }
@@ -23,17 +23,17 @@ class ExternalArticlesSpec extends AemLibraryModelSpec {
         }
     }
 
-    def "get externalarticle links"() {
+    def "get externallist links"() {
         setup:
-        def externalarticles = getResource("/content/waters/one/jcr:content/externalarticles").adaptTo(ExternalArticles)
+        def externallist = getResource("/content/waters/one/jcr:content/externallist").adaptTo(ExternalList)
 
         expect:
-        externalarticles.linkItems.size() == 2
+        externallist.externalLinkItems.size() == 2
 
         and:
-        externalarticles.linkItems.text == ["waters", "ta"]
+        externallist.externalLinkItems.text == ["waters", "ta"]
 
         and:
-        externalarticles.linkItems.link.href == ["www.waters.com", "www.ta.com"]
+        externallist.externalLinkItems.link.href == ["www.waters.com", "www.ta.com"]
     }
 }
