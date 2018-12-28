@@ -18,8 +18,8 @@ import javax.inject.Inject;
 public class ExternalLinkItem {
 
     @DialogField(fieldLabel = "Link Item Text",
-        fieldDescription = "Enter Link Item Text",
-        required = true,
+            fieldDescription = "Enter Link Item Text",
+            required = true,
         ranking = 1)
     @TextField
     @Inject
@@ -39,5 +39,5 @@ public class ExternalLinkItem {
 
     public String getText() {
         return text;
-    }
+}
 }
