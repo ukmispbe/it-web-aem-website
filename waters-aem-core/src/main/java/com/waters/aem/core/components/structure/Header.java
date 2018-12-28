@@ -11,7 +11,7 @@ import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
-import com.waters.aem.core.components.content.applicationnotes.LinkItemWithIcon;
+import com.waters.aem.core.components.content.applicationnotes.LinkItem;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
@@ -67,7 +67,7 @@ public final class Header {
         tab = 2)
     @MultiField(composite = true)
     @InheritInject
-    private List<LinkItemWithIcon> linkItems;
+    private List<LinkItem> linkItems;
 
     public Link getLogo() {
         return logo;
@@ -85,7 +85,7 @@ public final class Header {
         return newWindow;
     }
 
-    public List<LinkItemWithIcon> getLinkItems() {
+    public List<LinkItem> getLinkItems() {
         return linkItems;
     }
 }

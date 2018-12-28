@@ -17,7 +17,7 @@ import javax.inject.Inject;
 
 @Model(adaptables = { Resource.class, SlingHttpServletRequest.class },
 defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public class LinkItemWithIcon {
+public class LinkItem {
 
     @DialogField(fieldLabel = "Link Item Text",
             fieldDescription = "Enter Link Item Text",
