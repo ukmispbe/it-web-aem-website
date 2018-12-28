@@ -1,6 +1,5 @@
 package com.waters.aem.core.components.structure;
 
-
 import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
@@ -65,6 +64,7 @@ public class ExternalFooter implements ComponentExporter {
             tab=1,
             fieldDescription = "Enter the copyright text",
             ranking = 4)
+    @TextField
     @Inject
     private String copyrightText;
 
@@ -75,20 +75,19 @@ public class ExternalFooter implements ComponentExporter {
     @Inject
     private List<LinkItem> footerLinks;
 
-    public Image getLogoImage() {return logoImage;}
+    public Image getLogoImage() { return logoImage; }
 
-    public Link getLogoLink() {return logoLink;}
+    public Link getLogoLink() { return logoLink; }
 
-    public String getLogoAltText() {return logoAltText;}
+    public String getLogoAltText() { return logoAltText; }
 
-    public String getCopyrightText() {return copyrightText;}
+    public String getCopyrightText() { return copyrightText; }
 
-    public List<LinkItem> getFooterLinks() {return footerLinks;}
+    public List<LinkItem> getFooterLinks() { return footerLinks; }
 
     @Nonnull
     @Override
     public String getExportedType() {
         return resource.getResourceType();
     }
-
 }
