@@ -1,0 +1,49 @@
+<div data-sly-use.externalArticle="com.waters.aem.core.components.content.applicationnotes.ExternalArticles"
+     data-sly-test="${externalArticle.linkItems}">
+    <ul data-sly-list.linkItem="${externalArticle.linkItems}">
+        <li>
+            <a class="external-article-list"
+               href="${linkItem.link.href}"
+               target="'_blank'">
+                ${linkItem.linkText}
+            </a>
+        </li>
+    </ul>
+</div>
+
+<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+     data-sly-call="${patterns.placeholder @ show=!externalArticle.linkItems, text=component.title}"/>
+
+<!--
+To be refactored and delete
+
+<sly data-sly-use.authoredlist="com.waters.aem.components.models.AuthoredList"></sly>
+<sly data-sly-use.templates="/apps/waters-commercial/components/content/common/templates.html"
+     data-sly-test.empty="${!properties.linksList}"/>
+<sly data-sly-call="${templates.placeholder @ isEmpty=empty}"></sly>
+
+<div class="wAuthoredList ${authoredlist.align}" data-sly-test="${!empty}">
+  <h2
+    data-sly-test="${authoredlist.heading}"
+    data-sly-element="${authoredlist.titleType}"
+    class="wAuthoredList__heading">${authoredlist.heading @ context="html"}</h2>
+  <h3
+    data-sly-test="${authoredlist.title}"
+    data-sly-element="${authoredlist.subtitleType}"
+    class="wAuthoredList__title">${authoredlist.title @ context="html"}</h3>
+  <ul class="wAuthoredList__list ${authoredList.iconStyle}  ${authoredlist.linkStyle} ${authoredList.stackable}" data-sly-list.link="${authoredList.linksList}">
+    <li class="wAuthoredList__listItem">
+      <a
+        data-sly-element="${link.linkUrl ? 'a' : 'div'}"
+        class="wAuthoredList__listItemAnchor"
+        href="${link.linkUrl}"
+        target="${link.newTab && link.linkUrl ? '_blank' : ''}"
+        rel="${link.newTab && link.linkUrl ? 'noopener noreferrer':''}">
+        <sly
+          data-sly-test="authoredList.icon && authoredList.iconStyle == 'wAuthoredList__list--icon'"
+          data-sly-call="${templates.svg @ spriteName=authoredList.icon, className='wAuthoredList__svg'}"></sly>
+        <span data-sly-unwrap="${!link.linkUrl}">${link.linkTitle @ context="html"}</span>
+      </a>
+    </li>
+  </ul>
+</div>-->
