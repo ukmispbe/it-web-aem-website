@@ -17,27 +17,29 @@ import javax.inject.Inject;
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class ExternalLinkItem {
 
-    @DialogField(fieldLabel = "Link Item Text",
-        fieldDescription = "Enter Link Item Text",
-        required = true,
-        ranking = 1)
-    @TextField
     @Inject
     private String text;
 
-    @DialogField(fieldLabel = "Link Item Path",
-        fieldDescription = "Enter or Select ExternalLinkItem Path",
-        required = true,
-        ranking = 2)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject
     private Link link;
 
+    @DialogField(fieldLabel = "Link Item Path",
+            fieldDescription = "Enter or Select ExternalLinkItem Path",
+            required = true,
+            ranking = 2)
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject
     public Link getLink() {
         return link;
     }
 
+    @DialogField(fieldLabel = "Link Item Text",
+            fieldDescription = "Enter Link Item Text",
+            required = true,
+            ranking = 1)
+    @TextField
+    @Inject
     public String getText() {
         return text;
-    }
+}
 }
