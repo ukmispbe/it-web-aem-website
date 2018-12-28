@@ -5,6 +5,7 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
+import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
@@ -13,6 +14,7 @@ import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.content.applicationnotes.LinkItemWithIcon;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 
@@ -51,6 +53,15 @@ public final class Header {
     @Inject
     private String logoAltText;
 
+    @DialogField(fieldLabel = "Open in New Window",
+            fieldDescription = "Select this option to open in new window",
+            ranking = 4)
+    @Switch(offText = "No", onText = "Yes")
+    @Inject
+    @Default(booleanValues = false)
+    private Boolean newWindow;
+
+
     @DialogField(fieldLabel = "Link Items",
         fieldDescription = "Enter external article details",
         tab = 2)
@@ -68,6 +79,10 @@ public final class Header {
 
     public String getLogoAltText() {
         return logoAltText;
+    }
+
+    public Boolean isNewWindow() {
+        return newWindow;
     }
 
     public List<LinkItemWithIcon> getLinkItems() {
