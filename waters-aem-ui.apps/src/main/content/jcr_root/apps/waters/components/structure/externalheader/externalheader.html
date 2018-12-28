@@ -1,0 +1,16 @@
+<header data-sly-use.extheader="com.waters.aem.core.components.structure.ExternalHeader">
+   <div class="cmp-extheader">
+        <a class="cmp-extheader-logo__link" href="${extheader.logoLink.href}" target="_blank">
+            <img class="cmp-extheader-logo" src="${extheader.logo.href}" alt="${extheader.logo.logoAltText}"/>
+        </a>
+        <ul data-sly-test="${extheader.linkItems}"
+            data-sly-list.linkItem="${extheader.linkItems}"
+            class="cmp-extheader-links">
+            <li class="cmp-extheader-links__item">
+                <a class="cmp-extheader-links__link" href="${linkItem.link.href}" target="${linkItem.icon.newWindow?'_blank':''}">${linkItem.text}
+                    <img class="cmp-extheader-links__icon" data-sly-test="${linkItem.icon.href}" src="${linkItem.icon.href}" />
+                </a>
+            </li>
+        </ul>
+   </div>
+</header>

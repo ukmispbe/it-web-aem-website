@@ -21,14 +21,14 @@ import org.apache.sling.models.annotations.Model;
 import javax.inject.Inject;
 import java.util.List;
 
-@Component(value = "Header",
+@Component(value = "ExternalHeader",
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE,
     tabs = {@Tab(title = "Properties", touchUINodeName = "properties"),
             @Tab(title = "Header Links", touchUINodeName = "header links")}
      )
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public final class Header {
+public final class ExternalHeader {
 
     @DialogField(fieldLabel = "Header Logo",
         fieldDescription = "select header logo",
