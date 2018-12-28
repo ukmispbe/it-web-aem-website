@@ -16,10 +16,10 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-@Component(value = "External Articles", path = WatersConstants.COMPONENT_PATH_APPLICATION_NOTES)
+@Component(value = "External List", path = WatersConstants.COMPONENT_PATH_APPLICATION_NOTES)
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public class ExternalArticles implements ComponentExporter {
+public class ExternalList implements ComponentExporter {
 
     @Self
     private Resource resource;
@@ -28,7 +28,7 @@ public class ExternalArticles implements ComponentExporter {
         fieldDescription = "Enter external article details")
     @MultiField(composite = true)
     @InheritInject
-    private List<LinkItem> linkItems;
+    private List<ExternalLinkItem> externalLinkItems;
 
     @Nonnull
     @Override
@@ -36,7 +36,7 @@ public class ExternalArticles implements ComponentExporter {
         return resource.getResourceType();
     }
 
-    public List<LinkItem> getLinkItems() {
-        return linkItems;
+    public List<ExternalLinkItem> getExternalLinkItems() {
+        return externalLinkItems;
     }
 }

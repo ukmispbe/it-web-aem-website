@@ -11,7 +11,7 @@ import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
-import com.waters.aem.core.components.content.applicationnotes.LinkItem;
+import com.waters.aem.core.components.content.applicationnotes.ExternalLinkItem;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -35,7 +35,7 @@ public final class Footer extends AbstractComponent {
         ranking = 2)
     @MultiField(composite = true)
     @InheritInject
-    private List<LinkItem> linkItems;
+    private List<ExternalLinkItem> externalLinkItems;
 
     @DialogField(fieldLabel = "Legal Text",
         tab = 2,
@@ -73,8 +73,8 @@ public final class Footer extends AbstractComponent {
         return getInherited("copyrightText", defaultCopyrightText);
     }
 
-    public List<LinkItem> getLinkItems() {
-        return linkItems;
+    public List<ExternalLinkItem> getExternalLinkItems() {
+        return externalLinkItems;
     }
 
     public String getLegalText() {

@@ -15,7 +15,7 @@ import javax.inject.Inject;
 
 @Model(adaptables = { Resource.class, SlingHttpServletRequest.class },
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public class LinkItem {
+public class ExternalLinkItem {
 
     @DialogField(fieldLabel = "Link Item Text",
         fieldDescription = "Enter Link Item Text",
@@ -26,7 +26,7 @@ public class LinkItem {
     private String text;
 
     @DialogField(fieldLabel = "Link Item Path",
-        fieldDescription = "Enter or Select LinkItem Path",
+        fieldDescription = "Enter or Select ExternalLinkItem Path",
         required = true,
         ranking = 2)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
