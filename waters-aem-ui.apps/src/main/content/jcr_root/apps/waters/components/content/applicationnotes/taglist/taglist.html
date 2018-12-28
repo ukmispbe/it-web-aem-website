@@ -1,0 +1,26 @@
+<div data-sly-use.tagList="com.waters.aem.core.components.content.applicationnotes.TagList"
+     data-sly-test="${tagList.tagPicker}"
+     class="cmp-tag-list">
+    <ul class="cmp-tag-list__tags" data-sly-list.tag="${tagList.tagPicker}">
+        <li class="cmp-tag-list__tagitem">${tag.title}</li>
+    </ul>
+</div>
+
+<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+     data-sly-call="${patterns.placeholder @ show=true, text=component.title}"/>
+
+<!--
+ To be refactored and delete
+<sly data-sly-use.tagDisplay="com.waters.aem.components.appNotes.TagDisplay"></sly>
+<sly data-sly-use.templates="/apps/waters-commercial/components/content/common/templates.html"
+	data-sly-test.empty="${!tagDisplay.tagDisplayTitle && !tagDisplay.appNoteTags}"/>
+<sly data-sly-call="${templates.placeholder @ isEmpty=empty}"></sly>
+
+<div class="wTagDisplay" data-sly-test="${!empty}">
+    <div class="wTagDisplay__heading" data-sly-test="${tagDisplay.tagDisplayTitle}">${tagDisplay.tagDisplayTitle}</div>
+    <ul class="wTagDisplay__list" data-sly-list.appNoteTag="${tagDisplay.appNoteTags}">
+        <li class="wTagDisplay__tag">${appNoteTag.tagTitle}</li>
+    </ul>
+</div>
+
+-->
