@@ -9,6 +9,7 @@ import com.citytechinc.cq.component.annotations.widgets.Html5SmartImage;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.models.annotations.LinkInject;
@@ -29,6 +30,7 @@ import java.util.List;
         editConfig = false,
         tabs = { @Tab(title = "Properties", touchUINodeName = "properties"),
                  @Tab(title = "Footer Links", touchUINodeName = "Footer Links") },
+        group = ComponentConstants.GROUP_HIDDEN,
         path = WatersConstants.COMPONENT_PATH_STRUCTURE)
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
