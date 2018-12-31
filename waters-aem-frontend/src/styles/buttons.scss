@@ -8,7 +8,9 @@ button.cmp-button {
     color: $color-font-light;
     text-transform: uppercase;
     background-color: $color-blue-50;
+    border: 2px solid transparent;
     transition: all 0.25s ease;
+    text-decoration: none;
 
     &:hover {
         background-color: $color-blue-70;
@@ -25,8 +27,8 @@ button.cmp-button {
     }
 }
 
-.cmp-button--disabled button,
-.cmp-button--disabled a,
+.cmp-button--disabled button.cmp-button,
+.cmp-button--disabled a.cmp-button,
 a.cmp-button--disabled,
 button.cmp-button--disabled {
     @include font-utility;
@@ -37,8 +39,8 @@ button.cmp-button--disabled {
     background-color: $color-disabled;
 }
 
-.cmp-button--secondary button,
-.cmp-button--secondary a,
+.cmp-button--secondary button.cmp-button,
+.cmp-button--secondary a.cmp-button,
 a.cmp-button--secondary,
 button.cmp-button--secondary {
     @include font-utility;
@@ -66,16 +68,16 @@ button.cmp-button--secondary {
     }
 }
 
-.cmp-button--secondary--disabled button,
-.cmp-button--secondary--disabled a,
+.cmp-button--secondary--disabled button.cmp-button,
+.cmp-button--secondary--disabled a.cmp-button,
 a.cmp-button--secondary--disabled,
 button.cmp-button--secondary--disabled {
     color: $color-disabled;
     border: 1px solid $color-disabled;
 }
 
-.cmp-button--utility button,
-.cmp-button--utility a,
+.cmp-button--utility button.cmp-button,
+.cmp-button--utility a.cmp-button,
 a.cmp-button--utility,
 button.cmp-button--utility {
     padding: 0 $space-s;
@@ -111,8 +113,8 @@ button.cmp-button--utility {
     }
 }
 
-.cmp-button--utility--disabled button,
-.cmp-button--utility--disabled a,
+.cmp-button--utility--disabled button.cmp-button,
+.cmp-button--utility--disabled a.cmp-button,
 a.cmp-button--utility--disabled,
 button.cmp-button--utility--disabled {
     padding: 0 $space-s;
@@ -131,8 +133,8 @@ button.cmp-button--utility--disabled {
     }
 }
 
-.cmp-button--floating-utility button,
-.cmp-button--floating-utility a,
+.cmp-button--floating-utility button.cmp-button,
+.cmp-button--floating-utility a.cmp-button,
 a.cmp-button--floating-utility,
 button.cmp-button--floating-utility {
     border: 1px solid $color-border-light;
@@ -163,8 +165,8 @@ button.cmp-button--floating-utility {
     }
 }
 
-.cmp-button--floating-utility--disabled button,
-.cmp-button--floating-utility--disabled a,
+.cmp-button--floating-utility--disabled button.cmp-button,
+.cmp-button--floating-utility--disabled a.cmp-button,
 a.cmp-button--floating-utility--disabled,
 button.cmp-button--floating-utility--disabled {
     border: 1px solid $color-disabled;
@@ -178,7 +180,6 @@ button.cmp-button--floating-utility--disabled {
         fill: $color-disabled;
     }
 }
-
 
 @media (max-width: 768px) {
     div.cmp-button,
