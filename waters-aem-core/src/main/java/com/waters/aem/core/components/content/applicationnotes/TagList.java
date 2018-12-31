@@ -1,5 +1,6 @@
 package com.waters.aem.core.components.content.applicationnotes;
 
+import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Option;
@@ -18,6 +19,7 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
+import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 
 import javax.inject.Inject;
@@ -29,6 +31,7 @@ import java.util.stream.Collectors;
         tabs = { @Tab (title = "tag list settings")},
         path = WatersConstants.COMPONENT_PATH_APPLICATION_NOTES)
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class TagList extends AbstractComponent {
 
     private static final String TAGS_FROM_PAGE = "tags_from_page";
