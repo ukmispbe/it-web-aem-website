@@ -1,8 +1,9 @@
 <button data-sly-use.button="com.waters.aem.core.components.content.Button"
         data-sly-test="${button.buttonText}"
         class="cmp-button">
-    ${button.buttonText}
+    <a href="${button.buttonLink.href}" target="${button.newWindow?'_blank':''}" title="${button.buttonToolTip}">${button.buttonText}</a>
 </button>
+
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
      data-sly-call="${patterns.placeholder @ show=!button.buttonLink, text=component.title}"/>
