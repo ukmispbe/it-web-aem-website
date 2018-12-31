@@ -3,10 +3,8 @@ package com.waters.aem.core.components.structure;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
-import com.citytechinc.cq.component.annotations.widgets.MultiField;
-import com.citytechinc.cq.component.annotations.widgets.PathField;
-import com.citytechinc.cq.component.annotations.widgets.Switch;
-import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.citytechinc.cq.component.annotations.widgets.*;
+import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.InheritInject;
@@ -34,9 +32,9 @@ public final class ExternalHeader {
         fieldDescription = "select header logo",
         required = true,
         ranking = 1)
-    @PathField(rootPath = WatersConstants.DAM_PATH)
-    @LinkInject
-    private Link logo;
+    @Html5SmartImage(tab = false, allowUpload = false, height = 150)
+    @Inject
+    private Image logo;
 
     @DialogField(fieldLabel = "Logo Link",
         fieldDescription = "Select or Enter Logo Link",
@@ -69,7 +67,7 @@ public final class ExternalHeader {
     @InheritInject
     private List<LinkItem> linkItems;
 
-    public Link getLogo() {
+    public Image getLogo() {
         return logo;
     }
 

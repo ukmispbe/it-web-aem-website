@@ -18,7 +18,6 @@ class ExternalHeaderSpec extends AemLibraryModelSpec {
                     "jcr:content" {
                         externalheader(
                                 logoAltText: "Waters",
-                                logo: "/content/dam/waters/logo/waters.png",
                                 logoLink: "www.waters.com",
                                 newWindow: true
                         )
@@ -39,17 +38,6 @@ class ExternalHeaderSpec extends AemLibraryModelSpec {
         path                                     | logoAltText
         "/content/waters/one/jcr:content/externalheader" | null
         "/content/waters/two/jcr:content/externalheader" | "Waters"
-    }
-
-    def "get header logo"() {
-        setup:
-        def externalheader = getResource("/content/waters/two/jcr:content/externalheader").adaptTo(ExternalHeader)
-
-        expect:
-        externalheader.logo
-
-        and:
-        externalheader.logo.href == "/content/dam/waters/logo/waters.png"
     }
 
     def "get header logo link"() {
