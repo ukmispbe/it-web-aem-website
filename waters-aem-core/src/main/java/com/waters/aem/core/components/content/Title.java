@@ -56,13 +56,19 @@ public final class Title implements com.adobe.cq.wcm.core.components.models.Titl
                 ToolbarConfig.FORMAT_BOLD,
                 ToolbarConfig.FORMAT_ITALIC,
                 ToolbarConfig.SUBSUPERSCRIPT_SUBSCRIPT,
-                ToolbarConfig.SUBSUPERSCRIPT_SUPERSCRIPT
+                ToolbarConfig.SUBSUPERSCRIPT_SUPERSCRIPT,
+                ToolbarConfig.JUSTIFY_JUSITFYLEFT,
+                ToolbarConfig.JUSTIFY_JUSITFYCENTER,
+                ToolbarConfig.JUSTIFY_JUSITFYRIGHT
             }),
             fullscreen = @ToolbarConfig(toolbars = {
                 ToolbarConfig.FORMAT_BOLD,
                 ToolbarConfig.FORMAT_ITALIC,
                 ToolbarConfig.SUBSUPERSCRIPT_SUBSCRIPT,
-                ToolbarConfig.SUBSUPERSCRIPT_SUPERSCRIPT
+                ToolbarConfig.SUBSUPERSCRIPT_SUPERSCRIPT,
+                ToolbarConfig.JUSTIFY_JUSITFYLEFT,
+                ToolbarConfig.JUSTIFY_JUSITFYCENTER,
+                ToolbarConfig.JUSTIFY_JUSITFYRIGHT
             })
         )
     )
