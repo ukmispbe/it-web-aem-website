@@ -1,0 +1,17 @@
+<header data-sly-use.externalHeader="com.waters.aem.core.components.structure.ExternalHeader">
+   <div class="cmp-external-header__logo">
+        <a class="cmp-external-header-logo__link" href="${externalHeader.logoLink.href}" target="${externalHeader.newWindow?'_blank':''}">
+            <img  src="${externalHeader.logo.fileReference}" alt="${externalHeader.logoAltText}"/>
+        </a>
+   </div>
+    <div class="cmp-external-header__links">
+        <ul data-sly-test="${externalHeader.linkItems}"
+            data-sly-list.linkItem="${externalHeader.linkItems}">
+            <li class="cmp-external-header-links__item">
+                <a class="cmp-external-header-links__link" href="${linkItem.link.href}" target="${linkItem.newWindow?'_blank':''}">${linkItem.text}
+                    <img class="cmp-external-header-links__icon" data-sly-test="${linkItem.linkIcon.href}" src="${linkItem.linkIcon.href}" />
+                </a>
+            </li>
+        </ul>
+   </div>
+</header>
