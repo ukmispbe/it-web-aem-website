@@ -5,10 +5,7 @@ import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
-import com.citytechinc.cq.component.annotations.widgets.Html5SmartImage;
-import com.citytechinc.cq.component.annotations.widgets.MultiField;
-import com.citytechinc.cq.component.annotations.widgets.PathField;
-import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.citytechinc.cq.component.annotations.widgets.*;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.link.Link;
@@ -16,6 +13,7 @@ import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.content.applicationnotes.LinkItem;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
@@ -39,7 +37,8 @@ public class ExternalFooter implements ComponentExporter {
     @Self
     private Resource resource;
 
-    @DialogField(fieldLabel="Waters Corporation Logo",
+    @DialogField(fieldLabel="Logo",
+            fieldDescription = "Select the logo image to display on header",
             tab=1,
             ranking=1)
     @Html5SmartImage(tab = false, allowUpload = false, height = 150)
@@ -54,7 +53,7 @@ public class ExternalFooter implements ComponentExporter {
     @LinkInject
     private Link logoLink;
 
-    @DialogField(fieldLabel = "Image Alt Text",
+    @DialogField(fieldLabel = "Logo Alt Text",
             tab=1,
             fieldDescription = "Enter the ALT text for the logo image",
             ranking = 3)
@@ -69,6 +68,14 @@ public class ExternalFooter implements ComponentExporter {
     @TextField
     @Inject
     private String copyrightText;
+
+    @DialogField(fieldLabel = "Open in New Window",
+            fieldDescription = "Select this option to open in new window",
+            ranking = 5)
+    @Switch(offText = "No", onText = "Yes")
+    @Inject
+    @Default(booleanValues = false)
+    private Boolean newWindow;
 
     @DialogField(fieldLabel = "Footer Links",
             tab=2,
