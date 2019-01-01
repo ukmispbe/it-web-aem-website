@@ -6,6 +6,26 @@ html {
     overflow-x: hidden;
 }
 
+.aem-GridColumn {
+    padding: 0 14px;
+
+    &:first-of-type {
+        padding-left: 0;
+    }
+
+    &:last-of-type {
+        padding-right: 0;
+    }
+
+    @media (max-width: 650px) {
+        padding: 0 4px;
+    }
+
+    @media (min-width: 651px) and (max-width: 1200px) {
+        padding: 0 12px;
+    }
+}
+
 .container {
     max-width: 1460px;
     margin: 0 auto;
