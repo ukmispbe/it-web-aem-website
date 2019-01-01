@@ -30,7 +30,6 @@ public final class ExternalHeader {
 
     @DialogField(fieldLabel = "Header Logo",
         fieldDescription = "select header logo",
-        required = true,
         ranking = 1)
     @Html5SmartImage(tab = false, allowUpload = false, height = 150)
     @Inject
@@ -38,7 +37,6 @@ public final class ExternalHeader {
 
     @DialogField(fieldLabel = "Logo Link",
         fieldDescription = "Select or Enter Logo Link",
-        required = true,
         ranking = 2)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject
