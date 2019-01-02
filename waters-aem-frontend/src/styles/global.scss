@@ -45,9 +45,11 @@ a {
     @include font-utility;
     color: $color-link;
     transition: all 0.25s ease;
+    text-decoration: none;
 
     &:hover {
         color: $color-link-hover;
+        text-decoration: underline;
     }
 
     &:active {
