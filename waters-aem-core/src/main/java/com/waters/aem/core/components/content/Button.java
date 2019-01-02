@@ -46,7 +46,7 @@ public final class Button implements ComponentExporter {
     @Inject
     private String buttonToolTip;
 
-    @DialogField(fieldLabel = "Button URL",
+    @DialogField(fieldLabel = "Button Link",
         fieldDescription = "Select or enter the link URL",
         required = true,
         ranking = 3)
