@@ -1,9 +1,7 @@
-addthis.share({
-    container_selector: '.cmp-share',
-    button_selector: '.addthis_share_button'
-}).addEventListener('addthis.menu.share', function (e) {
+/*
+addthis.addEventListener('addthis.menu.share', function (e) {
     if (e.data.service === 'link') {
-        let tooltip = document.querySelector('.cmp-share li[data-service="link"]').data('tooltip');
+        let tooltip = document.querySelector('.cmp-share a.addthis_button_link').data('tooltip');
 
         if (typeof tooltip !== 'undefined') {
             // TODO replace with actual tooltip
@@ -11,3 +9,4 @@ addthis.share({
         }
     }
 });
+*/
