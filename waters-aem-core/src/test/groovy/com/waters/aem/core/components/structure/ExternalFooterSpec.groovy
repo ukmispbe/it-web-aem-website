@@ -1,6 +1,5 @@
 package com.waters.aem.core.components.structure
 
-
 import com.icfolson.aem.library.models.specs.AemLibraryModelSpec
 import spock.lang.Unroll
 
@@ -13,9 +12,9 @@ class ExternalFooterSpec extends AemLibraryModelSpec {
                 one {
                     "jcr:content" {
                         externalfooter(
-                            logoLink : "/content/waters/page1.html",
-                            logoAltText : "Alternative text",
-                            copyrightText : "Waters 2019"
+                            logoLink: "/content/waters/page1.html",
+                            logoAltText: "Alternative text",
+                            copyrightText: "Waters 2019"
                         )
                     }
                 }

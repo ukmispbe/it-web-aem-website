@@ -23,11 +23,13 @@ public final class ErrorPages {
 
     static final String FILE_NAME = "errorpages";
 
-    @DialogField(fieldLabel="Error Pages Path",
+    @DialogField(fieldLabel = "Error Pages Path",
         fieldDescription = "Enter or Select The Path to Error Pages")
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @Inject
     private String errorPages;
 
-    public String getErrorPages() { return errorPages; }
+    public String getErrorPages() {
+        return errorPages;
+    }
 }
