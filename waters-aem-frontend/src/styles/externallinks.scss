@@ -1,0 +1,30 @@
+.cmp-external-list {
+    list-style: none;
+}
+
+.cmp-external-list__item {
+    display: block;
+    float: left;
+    width: 100%;
+}
+
+.cmp-external-list__link {
+    display: block;
+    float: left;
+    width: 100%;
+    margin-bottom: 0;
+
+    & > span {
+        display: block;
+        float: left;
+    }
+
+    & .cmp-external-list__link__icon {
+        margin-top: 0.2em;
+        margin-left: $space-xxs;
+
+        svg {
+            width: $icon-s;
+        }
+    }
+}
