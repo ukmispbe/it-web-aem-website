@@ -25,6 +25,7 @@ import org.apache.sling.models.annotations.Model;
 import javax.inject.Inject;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component(value = "Tag List",
         description = "This is the Tag List component for waters site",
@@ -106,26 +107,24 @@ public final class TagList extends AbstractComponent {
         final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
         final ValueMap valueMap = currentPage.getProperties();
         for (Tag tag : tags) {
-            Object tagValueFromPageProperty  = valueMap.entrySet().stream()
-                                                                  .filter(entry -> entry.getKey().equalsIgnoreCase(tag.getName()))
-                                                                  .map(entry -> entry.getValue())
-                                                                  .findFirst()
-                                                                  .orElse(null);
-
-            if(tagValueFromPageProperty != null){
-                listItems.addAll(Arrays.stream((String[])tagValueFromPageProperty)
-                                       .map(value -> tagManager.resolve(value))
-                                       .collect(Collectors.toList())) ;
-            }
+            final List<Tag> pageTags = valueMap.keySet()
+                    .stream()
+                    .filter(propertyName -> propertyName.equalsIgnoreCase(tag.getName()))
+                    .findFirst()
+                    .map(propertyName -> valueMap.get(propertyName, new String[0])) // get tag IDs from value map
+                    .map(tagIdsForProperty -> Stream.of(tagIdsForProperty) // create a new stream from tag IDs and transform to tag objects
+                            .map(tagManager :: resolve)
+                            .filter(Objects :: nonNull)
+                            .collect(Collectors.toList()))
+                    .orElse(Collections.emptyList()); // return empty list by default
+            listItems.addAll(pageTags);
         }
     }
 
     private void sortListItems() {
-        if(!CollectionUtils.isEmpty(listItems)){
-            listItems = listItems.stream()
-                                 .sorted(Comparator.comparing(Tag::getTitle))
-                                 .collect(Collectors.toList());
-        }
+        listItems = listItems.stream()
+                             .sorted(Comparator.comparing(Tag::getTitle))
+                             .collect(Collectors.toList());
     }
 
     private void setMaxItems() {
