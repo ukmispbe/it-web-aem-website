@@ -1,7 +1,6 @@
-
-<div class="cmp-share">
-
-</div>
-
-<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
-     data-sly-call="${patterns.placeholder @ show=true, text=component.title}"/>
+<ul class="cmp-share">
+    <li class="addthis_share_button" data-service="twitter">Twitter</li>
+    <li class="addthis_share_button" data-service="linkedin">LinkedIn</li>
+    <li class="addthis_share_button" data-service="link" data-tooltip="${'Link Copied!' @ i18n}">Link</li>
+    <li><a class="addthis_button_compact"></a></li>
+</ul>
