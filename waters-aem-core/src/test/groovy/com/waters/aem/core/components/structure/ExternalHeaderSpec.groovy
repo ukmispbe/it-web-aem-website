@@ -1,7 +1,8 @@
 package com.waters.aem.core.components.structure
 
+
 import com.icfolson.aem.library.models.specs.AemLibraryModelSpec
-import com.waters.aem.core.components.content.applicationnotes.ExternalList
+import com.waters.aem.core.components.content.applicationnotes.LinkItem
 import spock.lang.Unroll
 
 @Unroll
@@ -18,30 +19,32 @@ class ExternalHeaderSpec extends AemLibraryModelSpec {
                 two {
                     "jcr:content" {
                         externalheader(
-                                logoAltText: "Waters",
-                                logoLink: "www.waters.com",
-                                newWindow: true
+                            logoAltText: "Waters",
+                            logoLink: "www.waters.com",
+                            newWindow: true
                         ) {
-                            logo(fileReference: "/content/dam/waters/icons/waters.svg")
+                            logo(fileReference: "/content/dam/waters/logo.png")
                         }
                     }
                 }
                 three {
                     "jcr:content" {
                         externalheader(
-                                logoAltText: "Waters",
-                                logoLink: "www.waters.com",
-                                newWindow: true
-                        ){
-                                linkItems {
-                                    item1(link: "www.waters.com", text: "waters", newWindow: true)
-                                    item2(link: "www.ta.com", text: "ta", newWindow: false)
-                                }
+                            logoAltText: "Waters",
+                            logoLink: "www.waters.com",
+                            newWindow: true
+                        ) {
+                            linkItems {
+                                item1(link: "www.waters.com", text: "waters", newWindow: true)
+                                item2(link: "www.ta.com", text: "ta", newWindow: false)
+                            }
                         }
                     }
                 }
             }
         }
+
+        slingContext.addModelsForClasses(LinkItem)
     }
 
     def "get header logo"() {
@@ -49,12 +52,12 @@ class ExternalHeaderSpec extends AemLibraryModelSpec {
         def externalheader = getResource(path).adaptTo(ExternalHeader)
 
         expect:
-        externalheader.logo.fileReference == fileReference
+        externalheader.logo?.fileReference == fileReference
 
         where:
-        path                                     | fileReference
+        path                                             | fileReference
         "/content/waters/one/jcr:content/externalheader" | null
-        "/content/waters/two/jcr:content/externalheader" | "/content/dam/waters/icons/waters.svg"
+        "/content/waters/two/jcr:content/externalheader" | "/content/dam/waters/logo.png"
     }
 
     def "get header logo alt text"() {
@@ -65,7 +68,7 @@ class ExternalHeaderSpec extends AemLibraryModelSpec {
         externalheader.logoAltText == logoAltText
 
         where:
-        path                                     | logoAltText
+        path                                             | logoAltText
         "/content/waters/one/jcr:content/externalheader" | null
         "/content/waters/two/jcr:content/externalheader" | "Waters"
     }
@@ -89,12 +92,12 @@ class ExternalHeaderSpec extends AemLibraryModelSpec {
         externalHeader.newWindow == isNewWindow
 
         where:
-        path                                     | isNewWindow
+        path                                             | isNewWindow
         "/content/waters/one/jcr:content/externalheader" | false
         "/content/waters/two/jcr:content/externalheader" | true
     }
 
-    def "get header links"(){
+    def "get header links"() {
         setup:
         def externalHeader = getResource("/content/waters/three/jcr:content/externalheader").adaptTo(ExternalHeader)
 
