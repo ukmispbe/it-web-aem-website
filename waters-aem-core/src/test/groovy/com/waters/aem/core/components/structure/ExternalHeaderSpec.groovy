@@ -19,10 +19,11 @@ class ExternalHeaderSpec extends AemLibraryModelSpec {
                     "jcr:content" {
                         externalheader(
                                 logoAltText: "Waters",
-                                logo: "/content/dam/waters/icons/waters.svg",
                                 logoLink: "www.waters.com",
                                 newWindow: true
-                        )
+                        ) {
+                            logo(fileReference: "/content/dam/waters/icons/waters.svg")
+                        }
                     }
                 }
                 three {
@@ -30,11 +31,12 @@ class ExternalHeaderSpec extends AemLibraryModelSpec {
                         externalheader(
                                 logoAltText: "Waters",
                                 logoLink: "www.waters.com",
-                                newWindow: true){
-                            linkItems {
-                                item1(link: "www.waters.com", text: "waters", newWindow: true)
-                                item2(link: "www.ta.com", text: "ta", newWindow: false)
-                            }
+                                newWindow: true
+                        ){
+                                linkItems {
+                                    item1(link: "www.waters.com", text: "waters", newWindow: true)
+                                    item2(link: "www.ta.com", text: "ta", newWindow: false)
+                                }
                         }
                     }
                 }
@@ -47,10 +49,10 @@ class ExternalHeaderSpec extends AemLibraryModelSpec {
         def externalheader = getResource(path).adaptTo(ExternalHeader)
 
         expect:
-        externalheader.logo.fileReference == logoAltText
+        externalheader.logo.fileReference == fileReference
 
         where:
-        path                                     | logoAltText
+        path                                     | fileReference
         "/content/waters/one/jcr:content/externalheader" | null
         "/content/waters/two/jcr:content/externalheader" | "/content/dam/waters/icons/waters.svg"
     }
