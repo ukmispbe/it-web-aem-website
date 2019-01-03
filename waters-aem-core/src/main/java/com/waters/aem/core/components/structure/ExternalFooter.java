@@ -13,6 +13,7 @@ import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
+import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.content.applicationnotes.LinkItem;
@@ -31,8 +32,8 @@ import java.util.List;
     description = "This is the External Footer component for Waters site",
     editConfig = false,
     tabs = {
-        @Tab(title = "Properties", touchUINodeName = "properties"),
-        @Tab(title = "Footer Links", touchUINodeName = "Footer Links")
+        @Tab(title = "Properties"),
+        @Tab(title = "Footer Links")
     },
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE)
@@ -47,7 +48,7 @@ public class ExternalFooter implements ComponentExporter {
         fieldDescription = "Select the logo image to display on header",
         ranking = 1)
     @Html5SmartImage(tab = false, allowUpload = false, height = 150)
-    @InheritInject
+    @ImageInject(inherit = true)
     private Image logoImage;
 
     @DialogField(fieldLabel = "Logo Link",
