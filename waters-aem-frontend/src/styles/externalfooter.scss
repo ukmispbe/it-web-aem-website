@@ -1,0 +1,81 @@
+.cmp-external-footer {
+    background-color: $color-gray-50;
+    padding: $space-m 0 11em 0;
+    border-bottom: 1px solid $color-border-light;
+    margin-top: $space-xl;
+}
+
+.cmp-external-footer__logo {
+    width: 115px;
+    float: left;
+    margin-right: 50px;
+
+    img {
+        max-width: 115px;
+    }
+
+
+
+    @include mobile {
+        width: 100%;
+    }
+}
+
+.cmp-external-footer__links {
+    width: 56%;
+    float: left;
+    margin-top: 0.5em;
+    a {
+        @include font-body;
+        color: $color-font-light;
+        margin-left: $space-l;
+        display: inline;
+
+        &:hover {
+            text-decoration: underline;
+            color: $color-font-light;
+        }
+
+        &:first-of-type {
+            padding-left: 0;
+        }
+    }
+    
+
+    @include tablet {
+        width: calc(100% - 165px);
+        float: right;
+        text-align: right;
+    }
+
+    @media (max-width: 860px) {
+        width: 100%;
+
+        a {
+            display: block;
+            float: left;
+            width: 50%;
+            margin-left: 0;
+            text-align: left;
+        }
+    }
+}
+
+.cmp-external-footer__copyright {
+    float: right;
+    margin-top: 0.6em;
+
+    p {
+        @include font-small;
+        color: $color-white;
+    }
+
+    @include tablet {
+        margin-top: $space-m;
+    }
+
+    @include mobile {
+        float: left;
+        margin-top: $space-m;
+    }
+}
