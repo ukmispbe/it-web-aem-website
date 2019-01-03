@@ -30,7 +30,7 @@
 
         <!-- versions -->
         <acs.aem.commons.version>3.19.0</acs.aem.commons.version>
-        <aem.library.version>10.3.1</aem.library.version>
+        <aem.library.version>10.4.0-SNAPSHOT</aem.library.version>
         <core.components.version>2.2.2</core.components.version>
         <component.plugin.version>6.1.2</component.plugin.version>
         <osgi.bundle.status.plugin.version>2.0.2</osgi.bundle.status.plugin.version>
