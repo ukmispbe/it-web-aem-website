@@ -37,6 +37,8 @@ public final class Share {
 
     private static final Logger LOG = LoggerFactory.getLogger(Share.class);
 
+    private static final String RESOURCE_NAME_LOCALES = "shareLocales";
+
     private static final List<String> DEFAULT_SERVICE_CODES = Arrays.asList(
         "twitter",
         "linkedin"
@@ -48,7 +50,7 @@ public final class Share {
     @Inject
     private PageDecorator currentPage;
 
-    @DialogField(fieldLabel = "Locales")
+    @DialogField(fieldLabel = "Locales", fieldDescription = "Mapping of country codes to AddThis service codes.")
     @MultiField(composite = true)
     public List<ShareLocale> getShareLocales() {
         final List<ShareLocale> shareLocales = new ArrayList<>();
@@ -56,7 +58,7 @@ public final class Share {
         final Resource contentPolicyResource = contentPolicy.adaptTo(Resource.class);
 
         if (contentPolicyResource != null) {
-            shareLocales.addAll(Optional.ofNullable(contentPolicyResource.getChild("shareLocales"))
+            shareLocales.addAll(Optional.ofNullable(contentPolicyResource.getChild(RESOURCE_NAME_LOCALES))
                 .map(Resource :: getChildren)
                 .map(resources -> StreamSupport.stream(resources.spliterator(), false)
                     .map(resource -> resource.adaptTo(ShareLocale.class))
@@ -75,7 +77,7 @@ public final class Share {
 
         return getShareLocales()
             .stream()
-            .filter(shareLocale -> shareLocale.getCountryCode().equalsIgnoreCase(locale.getCountry()))
+            .filter(shareLocale -> shareLocale.getCountry().equalsIgnoreCase(locale.getCountry()))
             .findFirst()
             .map(ShareLocale :: getServiceCodes)
             .orElse(DEFAULT_SERVICE_CODES);

@@ -14,12 +14,13 @@ import java.util.List;
 @Model(adaptables = Resource.class)
 public final class ShareLocale {
 
-    @DialogField(fieldLabel = "Country Code",
+    @DialogField(fieldLabel = "Country",
+        fieldDescription = "Country ISO code for this locale, e.g. 'US'.",
         ranking = 1,
         required = true)
     @TextField
     @Inject
-    private String countryCode;
+    private String country;
 
     @DialogField(fieldLabel = "Service Codes",
         fieldDescription = "AddThis service codes for this locale.  See https://www.addthis.com/services.",
@@ -30,8 +31,8 @@ public final class ShareLocale {
     @Inject
     private String[] serviceCodes;
 
-    public String getCountryCode() {
-        return countryCode;
+    public String getCountry() {
+        return country;
     }
 
     public List<String> getServiceCodes() {
@@ -41,7 +42,7 @@ public final class ShareLocale {
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
-            .add("countryCode", getCountryCode())
+            .add("country", getCountry())
             .add("serviceCodes", getServiceCodes())
             .toString();
     }

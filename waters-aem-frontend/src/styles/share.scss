@@ -1,0 +1,14 @@
+.cmp-share {
+    list-style: none;
+}
+
+.cmp-share__item {
+    @include font-small;
+    display: block;
+    float: left;
+    width: 100%;
+}
+
+.cmp-share__link {
+
+}
