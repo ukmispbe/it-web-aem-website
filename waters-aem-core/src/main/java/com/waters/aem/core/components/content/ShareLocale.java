@@ -3,13 +3,15 @@ package com.waters.aem.core.components.content;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
-import org.apache.sling.api.SlingHttpServletRequest;
+import com.google.common.base.Objects;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
 
 import javax.inject.Inject;
+import java.util.Arrays;
 import java.util.List;
 
-@Model(adaptables = SlingHttpServletRequest.class)
+@Model(adaptables = Resource.class)
 public final class ShareLocale {
 
     @DialogField(fieldLabel = "Country Code",
@@ -26,13 +28,21 @@ public final class ShareLocale {
     @MultiField
     @TextField
     @Inject
-    private List<String> serviceCodes;
+    private String[] serviceCodes;
 
     public String getCountryCode() {
         return countryCode;
     }
 
     public List<String> getServiceCodes() {
-        return serviceCodes;
+        return Arrays.asList(serviceCodes);
+    }
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this)
+            .add("countryCode", getCountryCode())
+            .add("serviceCodes", getServiceCodes())
+            .toString();
     }
 }
