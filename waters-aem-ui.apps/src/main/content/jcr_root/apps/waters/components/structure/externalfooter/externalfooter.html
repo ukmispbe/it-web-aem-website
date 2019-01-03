@@ -1,20 +1,32 @@
-<div data-sly-use.externalFooter="com.waters.aem.core.components.structure.ExternalFooter"
-     class="cmp-external-footer">
-    <div lass="cmp-external-footer__logo">
-        <a href="${externalFooter.logoLink.href}"> <img src="${externalFooter.logoImage.fileReference}" alt="${externalFooter.logoAltText}"> </a>
+<div
+	data-sly-use.externalFooter="com.waters.aem.core.components.structure.ExternalFooter"
+	class="cmp-external-footer"
+>
+    <div class="container">
+        <div class="cmp-external-footer__logo">
+            <a
+                href="${externalFooter.logoLink.href}"
+                target="${externalFooter.newWindow ? '_blank' : ''}"
+            >
+                <img
+                    src="${externalFooter.logoImage.fileReference}"
+                    alt="${externalFooter.logoAltText}"
+                />
+            </a>
+        </div>
+        <div class="cmp-external-footer__links">
+            <sly data-sly-test="${externalFooter.footerLinks}">
+                <nav data-sly-list="${externalFooter.footerLinks}">
+                    <a href="${item.link.href}" target="${item.newWindow ? '_blank' : ''}">
+                        ${item.text}
+                        <img data-sly-test="${item.linkIcon}" src="${item.linkIcon.href}"/>
+                    </a>
+                </nav>
+            </sly>
+        </div>
+        <div class="cmp-external-footer__copyright">
+            <p>${externalFooter.copyrightText}</p>
+        </div>
     </div>
-    <div class="cmp-external-footer__links">
-        <sly data-sly-test="${externalFooter.footerLinks}">
-            <nav data-sly-list="${externalFooter.footerLinks}">
-                <a href="${item.link.href}" target="${item.newWindow?'_blank':''}">${item.text}
-                    <img data-sly-test="${item.linkIcon}" src="${item.linkIcon.href}" />
-                </a>
-            </nav>
-        </sly>
-    </div>
-    <div class="cmp-external-footer__copyright">
-       <p>${externalFooter.copyrightText}</p>
-    </div>
-
+	
 </div>
-
