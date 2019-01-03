@@ -3,10 +3,15 @@ package com.waters.aem.core.components.structure;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
-import com.citytechinc.cq.component.annotations.widgets.*;
+import com.citytechinc.cq.component.annotations.widgets.Html5SmartImage;
+import com.citytechinc.cq.component.annotations.widgets.MultiField;
+import com.citytechinc.cq.component.annotations.widgets.PathField;
+import com.citytechinc.cq.component.annotations.widgets.Switch;
+import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
+import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.content.applicationnotes.LinkItem;
@@ -22,9 +27,10 @@ import java.util.List;
 @Component(value = "ExternalHeader",
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE,
-    tabs = {@Tab(title = "Properties", touchUINodeName = "properties"),
-            @Tab(title = "Header Links", touchUINodeName = "header links")}
-     )
+    tabs = {
+        @Tab(title = "Properties", touchUINodeName = "properties"),
+        @Tab(title = "Header Links", touchUINodeName = "header links")
+    })
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class ExternalHeader {
 
@@ -32,7 +38,7 @@ public final class ExternalHeader {
         fieldDescription = "select header logo",
         ranking = 1)
     @Html5SmartImage(tab = false, allowUpload = false, height = 150)
-    @Inject
+    @ImageInject
     private Image logo;
 
     @DialogField(fieldLabel = "Logo Link",
@@ -42,7 +48,7 @@ public final class ExternalHeader {
     @LinkInject
     private Link logoLink;
 
-    @DialogField( fieldLabel = "Log Alt Text",
+    @DialogField(fieldLabel = "Log Alt Text",
         fieldDescription = "Enter Alt Text for Logo",
         ranking = 3)
     @TextField
@@ -50,13 +56,12 @@ public final class ExternalHeader {
     private String logoAltText;
 
     @DialogField(fieldLabel = "Open in New Window",
-            fieldDescription = "Select this option to open in new window",
-            ranking = 4)
+        fieldDescription = "Select this option to open in new window",
+        ranking = 4)
     @Switch(offText = "No", onText = "Yes")
     @Inject
     @Default(booleanValues = false)
     private Boolean newWindow;
-
 
     @DialogField(fieldLabel = "Link Items",
         fieldDescription = "Enter external article details",
