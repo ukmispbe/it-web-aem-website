@@ -41,7 +41,8 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
             document.addField("tags", tag.getTagID());
         }
 
-        // document.addField("category_facet", "");
+        // document.setField("content", "");
+        // document.setField("category_facet", "");
 
         addFields(document);
 
