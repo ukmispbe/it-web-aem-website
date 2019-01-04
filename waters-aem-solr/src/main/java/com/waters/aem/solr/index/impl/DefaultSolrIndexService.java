@@ -5,9 +5,9 @@ import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.solr.index.SolrIndexService;
 import com.waters.aem.solr.index.SolrIndexServiceConfiguration;
+import com.waters.aem.solr.index.builder.ApplicationNotesSolrInputDocumentBuilder;
+import com.waters.aem.solr.index.builder.DefaultSolrInputDocumentBuilder;
 import com.waters.aem.solr.index.builder.SolrInputDocumentBuilder;
-import com.waters.aem.solr.index.builder.impl.ApplicationNotesSolrInputDocumentBuilder;
-import com.waters.aem.solr.index.builder.impl.DefaultSolrInputDocumentBuilder;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
@@ -26,7 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.Map;
 
 @Component(immediate = true, service = SolrIndexService.class)
 @Designate(ocd = SolrIndexServiceConfiguration.class)
@@ -46,6 +45,8 @@ public class DefaultSolrIndexService implements SolrIndexService {
 
     private volatile int commitWithinMs;
 
+    private volatile String collection;
+
     @Override
     public boolean addToIndex(final String path) {
         boolean success = false;
@@ -59,7 +60,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
                 LOG.info("adding solr document to index : {}", document);
 
                 try {
-                    final UpdateResponse updateResponse = solrClient.add(document, commitWithinMs);
+                    final UpdateResponse updateResponse = solrClient.add(collection, document, commitWithinMs);
 
                     success = processResponse(updateResponse);
                 } catch (IOException | SolrServerException e) {
@@ -81,7 +82,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
 
         if (enabled) {
             try {
-                final UpdateResponse updateResponse = solrClient.deleteById(path, commitWithinMs);
+                final UpdateResponse updateResponse = solrClient.deleteById(collection, path, commitWithinMs);
 
                 success = processResponse(updateResponse);
             } catch (IOException | SolrServerException e) {
@@ -101,6 +102,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
     protected void activate(final SolrIndexServiceConfiguration configuration) {
         enabled = configuration.enabled();
         commitWithinMs = configuration.commitWithinMs();
+        collection = configuration.collection();
 
         solrClient = new ConcurrentUpdateSolrClient.Builder(configuration.baseUrl())
             .withConnectionTimeout(configuration.connectionTimeout())
@@ -157,12 +159,6 @@ public class DefaultSolrIndexService implements SolrIndexService {
 
     private boolean processResponse(final UpdateResponse updateResponse) {
         LOG.info("solr update response status = {}", updateResponse.getStatus());
-
-        if (LOG.isDebugEnabled()) {
-            for (final Map.Entry<String, Object> entry : updateResponse.getResponse()) {
-                LOG.debug("response entry name = {}, value = {}", entry.getKey(), entry.getValue());
-            }
-        }
 
         return updateResponse.getStatus() == 0;
     }

@@ -1,4 +1,4 @@
-package com.waters.aem.solr.index.builder.impl;
+package com.waters.aem.solr.index.builder;
 
 import com.icfolson.aem.library.api.page.PageDecorator;
 import org.apache.sling.models.annotations.Model;

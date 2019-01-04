@@ -1,4 +1,4 @@
-package com.waters.aem.solr.index.builder.impl;
+package com.waters.aem.solr.index.builder;
 
 import com.day.cq.tagging.Tag;
 import com.icfolson.aem.library.api.page.PageDecorator;
@@ -13,7 +13,7 @@ public final class ApplicationNotesSolrInputDocumentBuilder extends AbstractSolr
     protected void addFields(final SolrInputDocument document) {
         final ApplicationNotes applicationNotes = page.getContentResource().adaptTo(ApplicationNotes.class);
 
-        document.addField("literaturecode", applicationNotes.getLiteratureCode());
+        document.setField("literaturecode", applicationNotes.getLiteratureCode());
 
         // TODO: determine if we are sending tag IDs or titles to solr depending on translation strategy
         for (final Tag technique : applicationNotes.getTechnique()) {

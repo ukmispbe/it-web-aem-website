@@ -510,6 +510,16 @@
                 <artifactId>org.apache.servicemix.bundles.solr-solrj</artifactId>
                 <version>7.6.0_1</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.servicemix.bundles</groupId>
+                <artifactId>org.apache.servicemix.bundles.noggit</artifactId>
+                <version>0.8_1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>3.4.11</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

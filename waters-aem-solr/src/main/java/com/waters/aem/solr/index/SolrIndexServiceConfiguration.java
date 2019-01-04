@@ -12,9 +12,12 @@ public @interface SolrIndexServiceConfiguration {
     @AttributeDefinition(name = "Solr Base URL")
     String baseUrl() default "http://solrdevmaster.waters.com:8983/solr";
 
+    @AttributeDefinition(name = "Solr Collection")
+    String collection() default "waters";
+
     @AttributeDefinition(name = "Commit Within Milliseconds",
         description = "Add/delete documents within the specified number of milliseconds.")
-    int commitWithinMs() default 1000;
+    int commitWithinMs() default -1;
 
     @AttributeDefinition(name = "Connection Timeout",
         description = "Timeout value in milliseconds when connecting to Solr server.")

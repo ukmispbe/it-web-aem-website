@@ -1,9 +1,8 @@
-package com.waters.aem.solr.index.builder.impl;
+package com.waters.aem.solr.index.builder;
 
 import com.day.cq.commons.Externalizer;
 import com.day.cq.tagging.Tag;
 import com.icfolson.aem.library.api.page.PageDecorator;
-import com.waters.aem.solr.index.builder.SolrInputDocumentBuilder;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.solr.common.SolrInputDocument;
 import org.slf4j.Logger;
@@ -11,6 +10,10 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 
+/**
+ * Base class for Solr input document builders.  Responsible for adding common fields to Solr documents.
+ * Concrete classes will be specific to a given template type.
+ */
 public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocumentBuilder {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractSolrInputDocumentBuilder.class);
@@ -25,13 +28,13 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         final SolrInputDocument document = new SolrInputDocument();
 
         // add common fields for all page types
-        document.addField("id", page.getPath());
-        document.addField("url", externalizer.externalLink(page.getContentResource().getResourceResolver(),
+        document.setField("id", page.getPath());
+        document.setField("url", externalizer.externalLink(page.getContentResource().getResourceResolver(),
             Externalizer.PUBLISH, page.getHref()));
-        document.addField("title", page.getTitle());
-        document.addField("description", page.getDescription());
-        document.addField("isocode", page.getLanguage(false).toString());
-        document.addField("viewname", "aem");
+        document.setField("title", page.getTitle());
+        document.setField("description", page.getDescription());
+        document.setField("isocode", page.getLanguage(false).toString());
+        document.setField("viewname", "aem");
 
         // TODO confirm tag translation strategy
         for (final Tag tag : page.getTags()) {
