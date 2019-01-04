@@ -29,6 +29,7 @@
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Export-Package>!*.impl,com.waters.aem.solr.*</Export-Package>
+                        <Sling-Model-Packages>com.waters.aem.solr</Sling-Model-Packages>
                     </instructions>
                 </configuration>
             </plugin>
@@ -59,6 +60,29 @@
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>osgi.annotation</artifactId>
+        </dependency>
+
+        <!-- AEM Library -->
+        <dependency>
+            <groupId>com.icfolson.aem.library</groupId>
+            <artifactId>aem-library-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.icfolson.aem.library</groupId>
+            <artifactId>aem-library-core</artifactId>
+        </dependency>
+
+        <!-- solr -->
+        <dependency>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.solr-solrj</artifactId>
+        </dependency>
+
+        <!-- waters core -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${core.artifactId}</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>

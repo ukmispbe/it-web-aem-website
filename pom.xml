@@ -503,6 +503,13 @@
                 <artifactId>commons-csv</artifactId>
                 <version>1.6</version>
             </dependency>
+
+            <!-- solr -->
+            <dependency>
+                <groupId>org.apache.servicemix.bundles</groupId>
+                <artifactId>org.apache.servicemix.bundles.solr-solrj</artifactId>
+                <version>7.6.0_1</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
