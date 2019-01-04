@@ -11,6 +11,7 @@ import com.waters.aem.solr.index.builder.impl.DefaultSolrInputDocumentBuilder;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.models.factory.ModelFactory;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.ConcurrentUpdateSolrClient;
 import org.apache.solr.client.solrj.response.UpdateResponse;
@@ -35,6 +36,9 @@ public class DefaultSolrIndexService implements SolrIndexService {
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
+
+    @Reference
+    private ModelFactory modelFactory;
 
     private volatile ConcurrentUpdateSolrClient solrClient;
 
@@ -139,9 +143,9 @@ public class DefaultSolrIndexService implements SolrIndexService {
         final SolrInputDocumentBuilder builder;
 
         if (WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE.equals(templatePath)) {
-            builder = page.adaptTo(ApplicationNotesSolrInputDocumentBuilder.class);
+            builder = modelFactory.createModel(page, ApplicationNotesSolrInputDocumentBuilder.class);
         } else if (WatersConstants.TEMPLATE_CONTENT_PAGE.equals(templatePath)) {
-            builder = page.adaptTo(DefaultSolrInputDocumentBuilder.class);
+            builder = modelFactory.createModel(page, DefaultSolrInputDocumentBuilder.class);
         } else {
             LOG.debug("page is not an application notes or content page template, ignoring : {}", page.getPath());
 
