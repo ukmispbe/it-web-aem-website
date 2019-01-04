@@ -26,6 +26,34 @@ html {
     }
 }
 
+.layoutcontainer > div {
+    margin: 0 -14px;
+
+    @include mobile {
+        margin: 0 -4px;
+    }
+
+    @include tablet {
+        margin: 0 -12px;
+    }
+}
+
+.layoutcontainer .sectioncontainer {
+    padding: 0;
+}
+
+.layoutcontainer .cmp-section-container__title {
+    padding: 0 14px;
+
+    @include mobile {
+        padding: 0 4px;
+    }
+
+    @include tablet {
+        padding: 0 12px;
+    }
+}
+
 .container {
     max-width: 1460px;
     margin: 0 auto;
