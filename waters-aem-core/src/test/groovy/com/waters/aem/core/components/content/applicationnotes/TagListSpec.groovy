@@ -10,12 +10,12 @@ class TagListSpec extends AemLibraryModelSpec {
         pageBuilder.content {
             waters {
                 "jcr:content"(
-                    compoundClass: ["/etc/tags/waters/compoundClass/first"],
+                    compoundMatrix: ["/etc/tags/waters/compoundMatrix/first"],
                     market: ["/etc/tags/waters/market/first", "/etc/tags/waters/market/second"]
                 ) {
                     page(
                         tagListType: TagList.TAGS_FROM_CURRENT_PAGE,
-                        tags: ["/etc/tags/waters/compoundClass", "/etc/tags/waters/market"]
+                        tags: ["/etc/tags/waters/compoundMatrix", "/etc/tags/waters/market"]
                     )
                     fixed(
                         tagListType: TagList.FIXED_TAGS_LIST,
@@ -28,7 +28,7 @@ class TagListSpec extends AemLibraryModelSpec {
         nodeBuilder.etc {
             tags("sling:Folder") {
                 waters("cq:Tag") {
-                    compoundClass("cq:Tag") {
+                    compoundMatrix("cq:Tag") {
                         first("cq:Tag", "jcr:title": "First Class")
                         second("cq:Tag", "jcr:title": "Second Class")
                     }

@@ -48,45 +48,45 @@ public final class ApplicationNotes {
     @TagInject
     private List<Tag> contentType = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Keyword", ranking = 4)
-    @TagInputField
-    @TagInject
-    private List<Tag> keyword = Collections.emptyList();
-
-    @DialogField(fieldLabel = "Instrument Type", ranking = 5)
+    @DialogField(fieldLabel = "Instrument Type", ranking = 4)
     @TagInputField
     @TagInject
     private List<Tag> instrumentType = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Technique", ranking = 6)
+    @DialogField(fieldLabel = "Technique", ranking = 5)
     @TagInputField
     @TagInject
     private List<Tag> technique = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Separation Mode", ranking = 7)
+    @DialogField(fieldLabel = "Separation Mode", ranking = 6)
     @TagInputField
     @TagInject
     private List<Tag> separationMode = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Compound Class", ranking = 8)
+    @DialogField(fieldLabel = "Compound/Matrix", ranking = 7)
     @TagInputField
     @TagInject
-    private List<Tag> compoundClass = Collections.emptyList();
+    private List<Tag> compoundMatrix = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Column Type", ranking = 9)
+    @DialogField(fieldLabel = "Column Type", ranking = 8)
     @TagInputField
     @TagInject
     private List<Tag> columnType = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Chromatography Software", ranking = 10)
+    @DialogField(fieldLabel = "Software", ranking = 9)
     @TagInputField
     @TagInject
-    private List<Tag> chromatographySoftware = Collections.emptyList();
+    private List<Tag> software = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Market", ranking = 11)
+    @DialogField(fieldLabel = "Market", ranking = 10)
     @TagInputField
     @TagInject
     private List<Tag> market = Collections.emptyList();
+
+    @DialogField(fieldLabel = "Month Published", ranking = 11)
+    @TagInputField
+    @TagInject
+    private List<Tag> monthPublished = Collections.emptyList();
 
     @DialogField(fieldLabel = "Year Published", ranking = 12)
     @TagInputField
@@ -105,10 +105,6 @@ public final class ApplicationNotes {
         return contentType;
     }
 
-    public List<Tag> getKeyword() {
-        return keyword;
-    }
-
     public List<Tag> getInstrumentType() {
         return instrumentType;
     }
@@ -125,19 +121,23 @@ public final class ApplicationNotes {
         return columnType;
     }
 
-    public List<Tag> getChromatographySoftware() {
-        return chromatographySoftware;
+    public List<Tag> getSoftware() {
+        return software;
     }
 
     public List<Tag> getMarket() {
         return market;
     }
 
+    public List<Tag> getMonthPublished() {
+        return monthPublished;
+    }
+
     public List<Tag> getYearPublished() {
         return yearPublished;
     }
 
-    public List<Tag> getCompoundClass() {
-        return compoundClass;
+    public List<Tag> getCompoundMatrix() {
+        return compoundMatrix;
     }
 }
