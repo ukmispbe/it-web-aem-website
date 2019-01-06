@@ -13,6 +13,7 @@ class ApplicationNotesSpec extends AemLibraryModelSpec {
                     "jcr:content"(
                         literatureCode: "ABC",
                         author: ["/etc/tags/waters/abc"],
+                        category: ["/etc/tags/waters/abc"],
                         contentType: ["/etc/tags/waters/abc"],
                         instrumentType: ["/etc/tags/waters/abc"],
                         technique: ["/etc/tags/waters/abc"],
@@ -51,6 +52,7 @@ class ApplicationNotesSpec extends AemLibraryModelSpec {
 
         expect: // basic test of field names and values
         applicationNotes.author*.tagID == tagIds
+        applicationNotes.category*.tagID == tagIds
         applicationNotes.contentType*.tagID == tagIds
         applicationNotes.instrumentType*.tagID == tagIds
         applicationNotes.technique*.tagID == tagIds
