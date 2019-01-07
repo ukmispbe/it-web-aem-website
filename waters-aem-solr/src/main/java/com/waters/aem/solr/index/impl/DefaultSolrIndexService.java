@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 @Component(immediate = true, service = SolrIndexService.class)
 @Designate(ocd = SolrIndexServiceConfiguration.class)
@@ -50,27 +51,32 @@ public class DefaultSolrIndexService implements SolrIndexService {
     private volatile String collection;
 
     @Override
-    public boolean addToIndex(final String path) {
+    public boolean addToIndex(final String path, final boolean recursive) {
         boolean success = false;
 
         if (enabled) {
-            final SolrInputDocument document = buildSolrInputDocument(path);
+            final PageDecorator page = getPage(path);
 
-            if (document == null) {
-                LOG.error("solr input document is null, not adding path to index : {}", path);
+            if (page == null) {
+                LOG.error("page not found for path : {}, not updating solr index", path);
             } else {
+                // get template-specific document builder
+                final SolrInputDocument document = getSolrInputDocumentBuilder(page).build();
+
                 LOG.info("adding solr document to index : {}", document);
 
                 try {
-                    final UpdateResponse updateResponse = solrClient.add(collection, document, commitWithinMs);
-
-                    success = processResponse(updateResponse, false);
-
-                    if (success && hardCommit) {
-                        success = processResponse(solrClient.commit(), true);
-                    }
+                    success = processResponse(solrClient.add(collection, document, commitWithinMs));
                 } catch (IOException | SolrServerException e) {
                     LOG.error("error indexing solr document", e);
+                }
+
+                if (recursive) {
+                    final Iterator<PageDecorator> pages = page.listChildPages();
+
+                    while (pages.hasNext()) {
+                        addToIndex(pages.next().getPath(), true);
+                    }
                 }
             }
         } else {
@@ -82,19 +88,14 @@ public class DefaultSolrIndexService implements SolrIndexService {
         return success;
     }
 
+
     @Override
     public boolean deleteFromIndex(final String path) {
         boolean success = false;
 
         if (enabled) {
             try {
-                final UpdateResponse updateResponse = solrClient.deleteById(collection, path, commitWithinMs);
-
-                success = processResponse(updateResponse, false);
-
-                if (success && hardCommit) {
-                    success = processResponse(solrClient.commit(), true);
-                }
+                success = processResponse(solrClient.deleteById(collection, path, commitWithinMs));
             } catch (IOException | SolrServerException e) {
                 LOG.error("error deleting from solr index for path : " + path, e);
             }
@@ -129,24 +130,17 @@ public class DefaultSolrIndexService implements SolrIndexService {
         solrClient = null;
     }
 
-    private SolrInputDocument buildSolrInputDocument(final String path) {
-        SolrInputDocument document = null;
+    private PageDecorator getPage(final String path) {
+        PageDecorator page;
 
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
-            final PageDecorator page = resourceResolver.adaptTo(PageManagerDecorator.class).getPage(path);
-
-            if (page == null) {
-                LOG.error("page is null for path = {}, not adding to solr index", path);
-            } else {
-                // get template-specific document builder
-                document = getSolrInputDocumentBuilder(page).build();
-            }
+            page = resourceResolver.adaptTo(PageManagerDecorator.class).getPage(path);
         } catch (LoginException e) {
             // re-throw as runtime exception to propagate up to the event framework
             throw new RuntimeException(e);
         }
 
-        return document;
+        return page;
     }
 
     private SolrInputDocumentBuilder getSolrInputDocumentBuilder(final PageDecorator page) {
@@ -163,7 +157,17 @@ public class DefaultSolrIndexService implements SolrIndexService {
         return builder;
     }
 
-    private boolean processResponse(final UpdateResponse updateResponse, final boolean isCommit) {
+    private boolean processResponse(final UpdateResponse updateResponse) throws IOException, SolrServerException {
+        boolean success = getStatus(updateResponse, false);
+
+        if (success && hardCommit) {
+            success = getStatus(solrClient.commit(), true);
+        }
+
+        return success;
+    }
+
+    private boolean getStatus(final UpdateResponse updateResponse, final boolean isCommit) {
         LOG.info("solr " + (isCommit ? "commit" : "update") + " response status = {}", updateResponse.getStatus());
 
         return updateResponse.getStatus() == 0;

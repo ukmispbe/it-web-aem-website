@@ -9,9 +9,10 @@ public interface SolrIndexService {
      * Add/update a page in the Solr index.
      *
      * @param path page path
+     * @param recursive if true, all descendant pages of the given path will also be indexed
      * @return true if indexing is successful, false otherwise
      */
-    boolean addToIndex(String path);
+    boolean addToIndex(String path, boolean recursive);
 
     /**
      * Remove a page from the Solr index.
