@@ -8,6 +8,8 @@ import org.apache.sling.api.resource.AbstractResourceVisitor;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.solr.common.SolrInputDocument;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +36,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
                     contentBuilder.append("\n");
                 }
 
-                contentBuilder.append(text);
+                contentBuilder.append(Jsoup.clean(text, Whitelist.none()));
             }
         }
 
