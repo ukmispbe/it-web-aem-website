@@ -51,12 +51,14 @@ public final class SolrIndexJobConsumer implements JobConsumer {
 
         try {
             if (JOB_TOPIC_INDEX_ADD.equals(job.getTopic())) {
-                success = indexService.addToIndex(path);
+                success = indexService.addToIndex(path, false);
             } else {
                 success = indexService.deleteFromIndex(path);
             }
         } catch (Exception e) {
             LOG.error("error processing solr index for path : " + path, e);
+
+            // TODO send email notification
 
             // re-throw exception to cancel the job
             throw e;
@@ -68,5 +70,9 @@ public final class SolrIndexJobConsumer implements JobConsumer {
         LOG.info("finished processing solr index job in {}s with result : {}", duration, result.name());
 
         return result;
+    }
+
+    private void sendNotification() {
+
     }
 }
