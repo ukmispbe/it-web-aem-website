@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Listener for finished replication events to index content in Solr.
+ * Event handler for finished replication events to index content in Solr.
  */
 @Component(immediate = true,
     service = EventHandler.class,
@@ -34,10 +34,10 @@ import java.util.Map;
         EventConstants.EVENT_TOPIC + "=" + NotificationConstants.TOPIC_JOB_FINISHED,
         EventConstants.EVENT_FILTER + "=(" + NotificationConstants.NOTIFICATION_PROPERTY_JOB_TOPIC + "=com/day/cq/replication/job/publish)"
     })
-@Designate(ocd = SolrIndexReplicationListenerConfiguration.class)
-public final class SolrIndexReplicationListener implements EventHandler {
+@Designate(ocd = SolrIndexReplicationEventHandlerConfiguration.class)
+public final class SolrIndexReplicationEventHandler implements EventHandler {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SolrIndexReplicationListener.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SolrIndexReplicationEventHandler.class);
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -85,7 +85,7 @@ public final class SolrIndexReplicationListener implements EventHandler {
     }
 
     @Activate
-    protected void activate(final SolrIndexReplicationListenerConfiguration configuration) {
+    protected void activate(final SolrIndexReplicationEventHandlerConfiguration configuration) {
         includedPaths = Arrays.asList(configuration.includedPaths());
         excludedPaths = Arrays.asList(configuration.excludedPaths());
         includedTemplates = Arrays.asList(configuration.includedTemplates());

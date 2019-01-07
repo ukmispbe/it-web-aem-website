@@ -39,7 +39,7 @@
     </head>
 
     <body class="acs-commons-page coral--light">
-        <div id="acs-commons-${component.name}-app">
+        <div id="waters-${component.name}-app">
             <header acs-coral-tools-header data-context-path="${request.contextPath}" data-page-path="${pagePath}.html" data-title="${pageTitle}"></header>
 
             <cq:include script="/apps/acs-commons/components/utilities/app-page/includes/notifications.jsp"/>

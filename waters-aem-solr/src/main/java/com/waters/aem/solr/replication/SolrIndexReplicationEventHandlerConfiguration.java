@@ -4,8 +4,8 @@ import com.waters.aem.core.constants.WatersConstants;
 import org.osgi.service.metatype.annotations.AttributeDefinition;
 import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 
-@ObjectClassDefinition(name = "Solr Index Replication Listener Configuration")
-public @interface SolrIndexReplicationListenerConfiguration {
+@ObjectClassDefinition(name = "Solr Index Replication Event Handler Configuration")
+public @interface SolrIndexReplicationEventHandlerConfiguration {
 
     @AttributeDefinition(name = "Included Paths", description = "List of paths that should be indexed.")
     String[] includedPaths() default { "/content/waters" };

@@ -8,24 +8,13 @@ angular.module('waters-solr-recovery-app', ['acsCoral', 'ACS.Commons.notificatio
 
             $scope.form = {
                 contentRoot: '/content/waters',
+                action: 'add',
                 includeDescendants: 'false'
             };
 
             $scope.result = {};
 
-            $scope.addToIndex = function () {
-                var url = $scope.app.uri + '.add.json';
-
-                $scope.updateIndex(url);
-            };
-
-            $scope.deleteFromIndex = function () {
-                var url = $scope.app.uri + '.delete.json';
-
-                $scope.updateIndex(url);
-            };
-
-            $scope.updateIndex = function (url) {
+            $scope.updateIndex = function () {
                 var start = new Date().getTime();
 
                 NotificationsService.running(true);
@@ -34,7 +23,7 @@ angular.module('waters-solr-recovery-app', ['acsCoral', 'ACS.Commons.notificatio
 
                 $http({
                     method: 'GET',
-                    url: url + '?' + $('#solr-recovery-form').serialize()
+                    url: $scope.app.uri + '.index.json?' + $('#solr-recovery-form').serialize()
                 }).success(function (data) {
                     var time = new Date().getTime() - start;
 
@@ -48,10 +37,6 @@ angular.module('waters-solr-recovery-app', ['acsCoral', 'ACS.Commons.notificatio
                     NotificationsService.running(false);
                     NotificationsService.add('error', 'ERROR', 'Unable to update Solr index.');
                 });
-            };
-
-            $scope.init = function () {
-
             };
         }]);
 

@@ -12,8 +12,9 @@ import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.models.factory.ModelFactory;
+import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.ConcurrentUpdateSolrClient;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrInputDocument;
 import org.osgi.service.component.annotations.Activate;
@@ -26,7 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.Iterator;
+import java.util.Map;
 
 @Component(immediate = true, service = SolrIndexService.class)
 @Designate(ocd = SolrIndexServiceConfiguration.class)
@@ -40,7 +41,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
     @Reference
     private ModelFactory modelFactory;
 
-    private volatile ConcurrentUpdateSolrClient solrClient;
+    private volatile SolrClient solrClient;
 
     private volatile boolean enabled;
 
@@ -51,18 +52,13 @@ public class DefaultSolrIndexService implements SolrIndexService {
     private volatile String collection;
 
     @Override
-    public boolean addToIndex(final String path, final boolean recursive) {
+    public boolean addToIndex(final String path) {
         boolean success = false;
 
         if (enabled) {
-            final PageDecorator page = getPage(path);
+            final SolrInputDocument document = getSolrInputDocument(path);
 
-            if (page == null) {
-                LOG.error("page not found for path : {}, not updating solr index", path);
-            } else {
-                // get template-specific document builder
-                final SolrInputDocument document = getSolrInputDocumentBuilder(page).build();
-
+            if (document != null) {
                 LOG.info("adding solr document to index : {}", document);
 
                 try {
@@ -70,24 +66,13 @@ public class DefaultSolrIndexService implements SolrIndexService {
                 } catch (IOException | SolrServerException e) {
                     LOG.error("error indexing solr document", e);
                 }
-
-                if (recursive) {
-                    final Iterator<PageDecorator> pages = page.listChildPages();
-
-                    while (pages.hasNext()) {
-                        addToIndex(pages.next().getPath(), true);
-                    }
-                }
             }
         } else {
             LOG.info("solr index service disabled, not adding path to index : {}", path);
-
-            success = true;
         }
 
         return success;
     }
-
 
     @Override
     public boolean deleteFromIndex(final String path) {
@@ -116,7 +101,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
         hardCommit = configuration.hardCommit();
         collection = configuration.collection();
 
-        solrClient = new ConcurrentUpdateSolrClient.Builder(configuration.baseUrl())
+        solrClient = new HttpSolrClient.Builder(configuration.baseUrl())
             .withConnectionTimeout(configuration.connectionTimeout())
             .withSocketTimeout(configuration.socketTimeout())
             .build();
@@ -130,17 +115,24 @@ public class DefaultSolrIndexService implements SolrIndexService {
         solrClient = null;
     }
 
-    private PageDecorator getPage(final String path) {
-        PageDecorator page;
+    private SolrInputDocument getSolrInputDocument(final String path) {
+        SolrInputDocument document = null;
 
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
-            page = resourceResolver.adaptTo(PageManagerDecorator.class).getPage(path);
+            final PageDecorator page = resourceResolver.adaptTo(PageManagerDecorator.class).getPage(path);
+
+            if (page == null) {
+                LOG.error("page not found for path : {}, not updating solr index", path);
+            } else {
+                // get template-specific document builder
+                document = getSolrInputDocumentBuilder(page).build();
+            }
         } catch (LoginException e) {
             // re-throw as runtime exception to propagate up to the event framework
             throw new RuntimeException(e);
         }
 
-        return page;
+        return document;
     }
 
     private SolrInputDocumentBuilder getSolrInputDocumentBuilder(final PageDecorator page) {
@@ -169,6 +161,10 @@ public class DefaultSolrIndexService implements SolrIndexService {
 
     private boolean getStatus(final UpdateResponse updateResponse, final boolean isCommit) {
         LOG.info("solr " + (isCommit ? "commit" : "update") + " response status = {}", updateResponse.getStatus());
+
+        for (final Map.Entry<String, Object> entry : updateResponse.getResponse()) {
+            LOG.info("response entry name = {}, value = {}", entry.getKey(), entry.getValue());
+        }
 
         return updateResponse.getStatus() == 0;
     }
