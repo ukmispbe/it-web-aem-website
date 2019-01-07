@@ -45,7 +45,7 @@ public class ExternalFooter implements ComponentExporter {
     private Resource resource;
 
     @DialogField(fieldLabel = "Logo",
-        fieldDescription = "Select the logo image to display on header",
+        fieldDescription = "Select the logo image to display on footer",
         ranking = 1)
     @Html5SmartImage(tab = false, allowUpload = false, height = 150)
     @ImageInject(inherit = true)
