@@ -27,7 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.Map;
 
 @Component(immediate = true, service = SolrIndexService.class)
 @Designate(ocd = SolrIndexServiceConfiguration.class)
@@ -161,10 +160,6 @@ public class DefaultSolrIndexService implements SolrIndexService {
 
     private boolean getStatus(final UpdateResponse updateResponse, final boolean isCommit) {
         LOG.info("solr " + (isCommit ? "commit" : "update") + " response status = {}", updateResponse.getStatus());
-
-        for (final Map.Entry<String, Object> entry : updateResponse.getResponse()) {
-            LOG.info("response entry name = {}, value = {}", entry.getKey(), entry.getValue());
-        }
 
         return updateResponse.getStatus() == 0;
     }
