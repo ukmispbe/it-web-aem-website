@@ -19,6 +19,10 @@ public @interface SolrIndexServiceConfiguration {
         description = "Add/delete documents within the specified number of milliseconds.")
     int commitWithinMs() default -1;
 
+    @AttributeDefinition(name = "Hard Commit",
+        description = "If true, a hard commit command will be issued after each indexing request.")
+    boolean hardCommit() default false;
+
     @AttributeDefinition(name = "Connection Timeout",
         description = "Timeout value in milliseconds when connecting to Solr server.")
     int connectionTimeout() default 10000;

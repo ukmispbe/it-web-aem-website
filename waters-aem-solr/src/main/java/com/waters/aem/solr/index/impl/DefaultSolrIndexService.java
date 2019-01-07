@@ -45,6 +45,8 @@ public class DefaultSolrIndexService implements SolrIndexService {
 
     private volatile int commitWithinMs;
 
+    private volatile boolean hardCommit;
+
     private volatile String collection;
 
     @Override
@@ -55,14 +57,18 @@ public class DefaultSolrIndexService implements SolrIndexService {
             final SolrInputDocument document = buildSolrInputDocument(path);
 
             if (document == null) {
-                LOG.warn("solr input document is null, not adding path to index : {}", path);
+                LOG.error("solr input document is null, not adding path to index : {}", path);
             } else {
                 LOG.info("adding solr document to index : {}", document);
 
                 try {
                     final UpdateResponse updateResponse = solrClient.add(collection, document, commitWithinMs);
 
-                    success = processResponse(updateResponse);
+                    success = processResponse(updateResponse, false);
+
+                    if (success && hardCommit) {
+                        success = processResponse(solrClient.commit(), true);
+                    }
                 } catch (IOException | SolrServerException e) {
                     LOG.error("error indexing solr document", e);
                 }
@@ -84,7 +90,11 @@ public class DefaultSolrIndexService implements SolrIndexService {
             try {
                 final UpdateResponse updateResponse = solrClient.deleteById(collection, path, commitWithinMs);
 
-                success = processResponse(updateResponse);
+                success = processResponse(updateResponse, false);
+
+                if (success && hardCommit) {
+                    success = processResponse(solrClient.commit(), true);
+                }
             } catch (IOException | SolrServerException e) {
                 LOG.error("error deleting from solr index for path : " + path, e);
             }
@@ -102,6 +112,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
     protected void activate(final SolrIndexServiceConfiguration configuration) {
         enabled = configuration.enabled();
         commitWithinMs = configuration.commitWithinMs();
+        hardCommit = configuration.hardCommit();
         collection = configuration.collection();
 
         solrClient = new ConcurrentUpdateSolrClient.Builder(configuration.baseUrl())
@@ -109,7 +120,8 @@ public class DefaultSolrIndexService implements SolrIndexService {
             .withSocketTimeout(configuration.socketTimeout())
             .build();
 
-        LOG.info("created solr client, enabled : {}", enabled);
+        LOG.info("created solr client, enabled : {}, commit within : {}ms, hard commit : {}, collection : {}", enabled,
+            commitWithinMs, hardCommit, collection);
     }
 
     @Deactivate
@@ -121,19 +133,17 @@ public class DefaultSolrIndexService implements SolrIndexService {
         SolrInputDocument document = null;
 
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
-            final PageManagerDecorator pageManager = resourceResolver.adaptTo(PageManagerDecorator.class);
-            final PageDecorator page = pageManager.getPage(path);
+            final PageDecorator page = resourceResolver.adaptTo(PageManagerDecorator.class).getPage(path);
 
             if (page == null) {
-                LOG.warn("page is null for path = {}, not adding to solr index", path);
+                LOG.error("page is null for path = {}, not adding to solr index", path);
             } else {
                 // get template-specific document builder
-                final SolrInputDocumentBuilder builder = getSolrInputDocumentBuilder(page);
-
-                document = builder == null ? null : builder.build();
+                document = getSolrInputDocumentBuilder(page).build();
             }
         } catch (LoginException e) {
-            LOG.error("error authenticating service resource resolver", e);
+            // re-throw as runtime exception to propagate up to the event framework
+            throw new RuntimeException(e);
         }
 
         return document;
@@ -146,19 +156,15 @@ public class DefaultSolrIndexService implements SolrIndexService {
 
         if (WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE.equals(templatePath)) {
             builder = modelFactory.createModel(page, ApplicationNotesSolrInputDocumentBuilder.class);
-        } else if (WatersConstants.TEMPLATE_CONTENT_PAGE.equals(templatePath)) {
-            builder = modelFactory.createModel(page, DefaultSolrInputDocumentBuilder.class);
         } else {
-            LOG.debug("page is not an application notes or content page template, ignoring : {}", page.getPath());
-
-            builder = null;
+            builder = modelFactory.createModel(page, DefaultSolrInputDocumentBuilder.class);
         }
 
         return builder;
     }
 
-    private boolean processResponse(final UpdateResponse updateResponse) {
-        LOG.info("solr update response status = {}", updateResponse.getStatus());
+    private boolean processResponse(final UpdateResponse updateResponse, final boolean isCommit) {
+        LOG.info("solr " + (isCommit ? "commit" : "update") + " response status = {}", updateResponse.getStatus());
 
         return updateResponse.getStatus() == 0;
     }
