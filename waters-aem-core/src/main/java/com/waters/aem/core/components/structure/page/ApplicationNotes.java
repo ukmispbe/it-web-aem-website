@@ -43,15 +43,15 @@ public final class ApplicationNotes {
     @Inject
     private String literatureCode;
 
-    @DialogField(fieldLabel = "Content Type", ranking = 3)
+    @DialogField(fieldLabel = "Category", ranking = 3)
+    @TagInputField
+    @TagInject
+    private List<Tag> category = Collections.emptyList();
+
+    @DialogField(fieldLabel = "Content Type", ranking = 4)
     @TagInputField
     @TagInject
     private List<Tag> contentType = Collections.emptyList();
-
-    @DialogField(fieldLabel = "Keyword", ranking = 4)
-    @TagInputField
-    @TagInject
-    private List<Tag> keyword = Collections.emptyList();
 
     @DialogField(fieldLabel = "Instrument Type", ranking = 5)
     @TagInputField
@@ -68,27 +68,32 @@ public final class ApplicationNotes {
     @TagInject
     private List<Tag> separationMode = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Compound Class", ranking = 8)
+    @DialogField(fieldLabel = "Compound/Matrix", ranking = 8)
     @TagInputField
     @TagInject
-    private List<Tag> compoundClass = Collections.emptyList();
+    private List<Tag> compoundMatrix = Collections.emptyList();
 
     @DialogField(fieldLabel = "Column Type", ranking = 9)
     @TagInputField
     @TagInject
     private List<Tag> columnType = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Chromatography Software", ranking = 10)
+    @DialogField(fieldLabel = "Software", ranking = 10)
     @TagInputField
     @TagInject
-    private List<Tag> chromatographySoftware = Collections.emptyList();
+    private List<Tag> software = Collections.emptyList();
 
     @DialogField(fieldLabel = "Market", ranking = 11)
     @TagInputField
     @TagInject
     private List<Tag> market = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Year Published", ranking = 12)
+    @DialogField(fieldLabel = "Month Published", ranking = 12)
+    @TagInputField
+    @TagInject
+    private List<Tag> monthPublished = Collections.emptyList();
+
+    @DialogField(fieldLabel = "Year Published", ranking = 13)
     @TagInputField
     @TagInject
     private List<Tag> yearPublished = Collections.emptyList();
@@ -101,12 +106,12 @@ public final class ApplicationNotes {
         return literatureCode;
     }
 
-    public List<Tag> getContentType() {
-        return contentType;
+    public List<Tag> getCategory() {
+        return category;
     }
 
-    public List<Tag> getKeyword() {
-        return keyword;
+    public List<Tag> getContentType() {
+        return contentType;
     }
 
     public List<Tag> getInstrumentType() {
@@ -125,19 +130,23 @@ public final class ApplicationNotes {
         return columnType;
     }
 
-    public List<Tag> getChromatographySoftware() {
-        return chromatographySoftware;
+    public List<Tag> getSoftware() {
+        return software;
     }
 
     public List<Tag> getMarket() {
         return market;
     }
 
+    public List<Tag> getMonthPublished() {
+        return monthPublished;
+    }
+
     public List<Tag> getYearPublished() {
         return yearPublished;
     }
 
-    public List<Tag> getCompoundClass() {
-        return compoundClass;
+    public List<Tag> getCompoundMatrix() {
+        return compoundMatrix;
     }
 }
