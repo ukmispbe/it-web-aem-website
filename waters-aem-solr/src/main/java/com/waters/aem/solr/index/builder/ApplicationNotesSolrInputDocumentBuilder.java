@@ -6,6 +6,8 @@ import com.waters.aem.core.components.structure.page.ApplicationNotes;
 import org.apache.sling.models.annotations.Model;
 import org.apache.solr.common.SolrInputDocument;
 
+import java.time.LocalDate;
+
 @Model(adaptables = PageDecorator.class)
 public final class ApplicationNotesSolrInputDocumentBuilder extends AbstractSolrInputDocumentBuilder {
 
@@ -20,13 +22,8 @@ public final class ApplicationNotesSolrInputDocumentBuilder extends AbstractSolr
         // add application notes facets
         addFacets(document, applicationNotes);
 
-        // add year
-        if (!applicationNotes.getYearPublished().isEmpty()) {
-            final Tag yearPublished = applicationNotes.getYearPublished().get(0);
-
-            // single-valued field
-            document.setField("yearpublished_facet", yearPublished.getTagID());
-        }
+        // add date
+        addDate(document, applicationNotes);
     }
 
     private void addFacets(final SolrInputDocument document, final ApplicationNotes applicationNotes) {
@@ -61,6 +58,30 @@ public final class ApplicationNotesSolrInputDocumentBuilder extends AbstractSolr
 
         for (final Tag market : applicationNotes.getMarket()) {
             document.addField("market_facet", market.getTagID());
+        }
+    }
+
+    private void addDate(final SolrInputDocument document, final ApplicationNotes applicationNotes) {
+        if (!applicationNotes.getYearPublished().isEmpty()) {
+            final Tag yearPublished = applicationNotes.getYearPublished().get(0);
+
+            document.setField("yearpublished_facet", yearPublished.getTagID());
+
+            final int year = Integer.valueOf(yearPublished.getName());
+            final int month;
+
+            if (!applicationNotes.getMonthPublished().isEmpty()) {
+                final Tag monthPublished = applicationNotes.getMonthPublished().get(0);
+
+                month = Integer.valueOf(monthPublished.getName());
+            } else {
+                // default month if not authored
+                month = 1;
+            }
+
+            final LocalDate date = LocalDate.of(year, month, 1);
+
+            // document.setField("", DateTimeFormatter.ISO_INSTANT.format(date));
         }
     }
 }

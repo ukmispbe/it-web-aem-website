@@ -1,4 +1,2 @@
 
-Error adding page ${path} to index.
-
-See system error logs for exception details.
+Error adding page ${path} to index.  See system error logs for exception details.
