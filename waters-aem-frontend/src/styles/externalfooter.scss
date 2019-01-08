@@ -3,12 +3,24 @@
     padding: $space-m 0 11em 0;
     border-bottom: 1px solid $color-border-light;
     margin-top: $space-xl;
+    overflow: hidden;
+
+    a {
+        @include font-body;
+        color: $color-font-light;
+    }
 }
 
 .cmp-external-footer__logo {
     width: 115px;
     float: left;
     margin-right: 50px;
+
+    a {
+        float: left;
+        width: 115px;
+        display: block;
+    }
 
     img {
         max-width: 115px;
@@ -22,12 +34,11 @@
 }
 
 .cmp-external-footer__links {
-    width: 56%;
-    float: left;
+    width: calc(100% - 165px);
+    float: right;
+    text-align: right;
     margin-top: 0.5em;
     a {
-        @include font-body;
-        color: $color-font-light;
         margin-left: $space-l;
         display: inline;
 
@@ -39,13 +50,6 @@
         &:first-of-type {
             padding-left: 0;
         }
-    }
-    
-
-    @include tablet {
-        width: calc(100% - 165px);
-        float: right;
-        text-align: right;
     }
 
     @media (max-width: 860px) {

@@ -1,17 +1,9 @@
-<div
-	data-sly-use.externalFooter="com.waters.aem.core.components.structure.ExternalFooter"
-	class="cmp-external-footer"
->
+<div data-sly-use.externalFooter="com.waters.aem.core.components.structure.ExternalFooter"
+     class="cmp-external-footer">
     <div class="container">
         <div class="cmp-external-footer__logo">
-            <a
-                href="${externalFooter.logoLink.href}"
-                target="${externalFooter.newWindow ? '_blank' : ''}"
-            >
-                <img
-                    src="${externalFooter.logoImage.fileReference}"
-                    alt="${externalFooter.logoAltText}"
-                />
+            <a href="${externalFooter.logoLink.href}" target="${externalFooter.newWindow ? '_blank' : ''}">
+                <img src="${externalFooter.logoImage.fileReference}" alt="${externalFooter.logoAltText}"/>
             </a>
         </div>
         <div class="cmp-external-footer__links">
@@ -19,7 +11,8 @@
                 <nav data-sly-list="${externalFooter.footerLinks}">
                     <a href="${item.link.href}" target="${item.newWindow ? '_blank' : ''}">
                         ${item.text}
-                        <img data-sly-test="${item.linkIcon}" src="${item.linkIcon.href}"/>
+                        <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+                             data-sly-call="${patterns.linkIcon @ linkItem=item}"/>
                     </a>
                 </nav>
             </sly>
@@ -28,5 +21,4 @@
             <p>${externalFooter.copyrightText}</p>
         </div>
     </div>
-	
 </div>
