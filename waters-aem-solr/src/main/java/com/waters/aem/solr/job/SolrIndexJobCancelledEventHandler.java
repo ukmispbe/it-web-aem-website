@@ -35,11 +35,11 @@ public final class SolrIndexJobCancelledEventHandler implements EventHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(SolrIndexJobCancelledEventHandler.class);
 
-    private static final String EMAIL_TEMPLATE_PATH = "/etc/notification/email/waters/solr.txt";
+    private static final String TEMPLATE_ADD = "/etc/notification/email/waters/solr-add.txt";
+
+    private static final String TEMPLATE_DELETE = "/etc/notification/email/waters/solr-delete.txt";
 
     private static final String PARAM_PATH = "path";
-
-    private static final String PARAM_OPERATION = "operation";
 
     @Reference
     private EmailService emailService;
@@ -69,12 +69,13 @@ public final class SolrIndexJobCancelledEventHandler implements EventHandler {
         if (emailRecipients.length > 0) {
             final Map<String, String> params = new HashMap<>();
 
-            // params.put(EmailServiceConstants.SENDER_EMAIL_ADDRESS, "");
             params.put(EmailServiceConstants.SUBJECT, emailSubject);
             params.put(PARAM_PATH, path);
-            params.put(PARAM_OPERATION, SolrIndexJobConsumer.JOB_TOPIC_INDEX_ADD.equals(topic) ? "Add" : "Delete");
 
-            emailService.sendEmail(EMAIL_TEMPLATE_PATH, params, emailRecipients);
+            final String templatePath = SolrIndexJobConsumer.JOB_TOPIC_INDEX_ADD.equals(
+                topic) ? TEMPLATE_ADD : TEMPLATE_DELETE;
+
+            emailService.sendEmail(templatePath, params, emailRecipients);
         } else {
             LOG.warn("no email recipients configured, notification message not sent");
         }
