@@ -5,7 +5,6 @@ import com.citytechinc.cq.component.annotations.DialogFieldOverride;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.icfolson.aem.library.api.link.Link;
-import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
@@ -23,7 +22,7 @@ public final class LinkItem extends ExternalLinkItem {
         fieldDescription = "Select Link Item Icon",
         ranking = 3)
     @PathField(rootPath = WatersConstants.DAM_PATH)
-    @InheritInject
+    @Inject
     private String linkIcon;
 
     @DialogField(fieldLabel = "Open in New Window",
