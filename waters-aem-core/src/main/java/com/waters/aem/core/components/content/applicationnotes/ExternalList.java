@@ -14,7 +14,6 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
-import java.util.Collections;
 import java.util.List;
 
 @Component(value = "External List", path = WatersConstants.COMPONENT_PATH_APPLICATION_NOTES)
