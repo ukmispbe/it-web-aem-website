@@ -3,12 +3,10 @@ package com.waters.aem.core.components.content.applicationnotes;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.DialogFieldOverride;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
-import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.icfolson.aem.library.api.link.Link;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 
@@ -25,14 +23,6 @@ public final class LinkItem extends ExternalLinkItem {
     @Inject
     private String linkIcon;
 
-    @DialogField(fieldLabel = "Open in New Window",
-        fieldDescription = "Select this option to open in new window",
-        ranking = 4)
-    @Switch(offText = "No", onText = "Yes")
-    @Inject
-    @Default(booleanValues = false)
-    private Boolean newWindow;
-
     @DialogFieldOverride(ranking = 2, required = false, hideLabel = false)
     @Override
     public Link getLink() {
@@ -43,10 +33,6 @@ public final class LinkItem extends ExternalLinkItem {
     @Override
     public String getText() {
         return super.getText();
-    }
-
-    public Boolean isNewWindow() {
-        return newWindow;
     }
 
     public Boolean isSvg() {
