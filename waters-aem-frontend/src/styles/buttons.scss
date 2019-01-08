@@ -88,7 +88,7 @@ button.cmp-button--secondary--disabled {
 .cmp-button--utility a.cmp-button,
 a.cmp-button--utility,
 button.cmp-button--utility {
-    padding: 0 $space-s;
+    padding: $space-s $space-s;
     margin: 0 $space-s $space-l 0;
     background-color: $color-white;
     border: 1px solid $color-border-dark;
@@ -125,7 +125,7 @@ button.cmp-button--utility {
 .cmp-button--utility--disabled a.cmp-button,
 a.cmp-button--utility--disabled,
 button.cmp-button--utility--disabled {
-    padding: 0 $space-s;
+    padding: $space-s $space-s;
     margin: 0 $space-s $space-l 0;
     background-color: $color-white;
     border: 1px solid $color-disabled;

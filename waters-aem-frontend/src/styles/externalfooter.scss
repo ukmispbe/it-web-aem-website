@@ -1,7 +1,6 @@
 .cmp-external-footer {
     background-color: $color-gray-50;
     padding: $space-m 0 11em 0;
-    border-bottom: 1px solid $color-border-light;
     margin-top: $space-xl;
 }
 
@@ -9,6 +8,7 @@
     width: 115px;
     float: left;
     margin-right: 50px;
+    margin-bottom: $space-m;
 
     img {
         max-width: 115px;
@@ -30,6 +30,7 @@
         color: $color-font-light;
         margin-left: $space-l;
         display: inline;
+        transition: all 0.25s ease;
 
         &:hover {
             text-decoration: underline;
