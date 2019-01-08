@@ -1,6 +1,5 @@
 package com.waters.aem.core.components.structure
 
-
 import com.icfolson.aem.library.models.specs.AemLibraryModelSpec
 import com.waters.aem.core.components.content.applicationnotes.LinkItem
 import spock.lang.Unroll
