@@ -7,6 +7,7 @@ import org.apache.sling.models.annotations.Model;
 import org.apache.solr.common.SolrInputDocument;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Model(adaptables = PageDecorator.class)
 public final class ApplicationNotesSolrInputDocumentBuilder extends AbstractSolrInputDocumentBuilder {
@@ -81,7 +82,7 @@ public final class ApplicationNotesSolrInputDocumentBuilder extends AbstractSolr
 
             final LocalDate date = LocalDate.of(year, month, 1);
 
-            // document.setField("", DateTimeFormatter.ISO_INSTANT.format(date));
+            document.setField("yearpublished", DateTimeFormatter.ISO_INSTANT.format(date));
         }
     }
 }
