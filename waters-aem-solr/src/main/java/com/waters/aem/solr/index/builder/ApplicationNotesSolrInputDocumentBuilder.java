@@ -6,7 +6,9 @@ import com.waters.aem.core.components.structure.page.ApplicationNotes;
 import org.apache.sling.models.annotations.Model;
 import org.apache.solr.common.SolrInputDocument;
 
-import java.time.LocalDate;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 @Model(adaptables = PageDecorator.class)
@@ -66,8 +68,6 @@ public final class ApplicationNotesSolrInputDocumentBuilder extends AbstractSolr
         if (!applicationNotes.getYearPublished().isEmpty()) {
             final Tag yearPublished = applicationNotes.getYearPublished().get(0);
 
-            document.setField("yearpublished_facet", yearPublished.getTagID());
-
             final int year = Integer.valueOf(yearPublished.getName());
             final int month;
 
@@ -80,7 +80,7 @@ public final class ApplicationNotesSolrInputDocumentBuilder extends AbstractSolr
                 month = 1;
             }
 
-            final LocalDate date = LocalDate.of(year, month, 1);
+            final Instant date = LocalDateTime.of(year, month, 1, 0, 0).toInstant(ZoneOffset.UTC);
 
             document.setField("yearpublished", DateTimeFormatter.ISO_INSTANT.format(date));
         }
