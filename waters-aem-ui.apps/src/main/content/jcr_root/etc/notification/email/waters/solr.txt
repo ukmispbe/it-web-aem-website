@@ -1,0 +1,4 @@
+Path: ${path}
+Operation: ${operation}
+
+See system error logs for exception details.

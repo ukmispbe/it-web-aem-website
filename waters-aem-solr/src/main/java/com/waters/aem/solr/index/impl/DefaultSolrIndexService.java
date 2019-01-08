@@ -51,7 +51,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
     private volatile String collection;
 
     @Override
-    public boolean addToIndex(final String path) {
+    public boolean addToIndex(final String path) throws IOException, SolrServerException {
         boolean success = false;
 
         if (enabled) {
@@ -60,11 +60,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
             if (document != null) {
                 LOG.info("adding solr document to index : {}", document);
 
-                try {
-                    success = processResponse(solrClient.add(collection, document, commitWithinMs));
-                } catch (IOException | SolrServerException e) {
-                    LOG.error("error indexing solr document", e);
-                }
+                success = processResponse(solrClient.add(collection, document, commitWithinMs));
             }
         } else {
             LOG.info("solr index service disabled, not adding path to index : {}", path);
@@ -74,19 +70,15 @@ public class DefaultSolrIndexService implements SolrIndexService {
     }
 
     @Override
-    public boolean deleteFromIndex(final String path) {
-        boolean success = false;
+    public boolean deleteFromIndex(final String path) throws IOException, SolrServerException {
+        boolean success = true;
 
         if (enabled) {
-            try {
-                success = processResponse(solrClient.deleteById(collection, path, commitWithinMs));
-            } catch (IOException | SolrServerException e) {
-                LOG.error("error deleting from solr index for path : " + path, e);
-            }
+            LOG.info("deleting path {} from solr index...", path);
+
+            success = processResponse(solrClient.deleteById(collection, path, commitWithinMs));
         } else {
             LOG.info("solr index service disabled, not deleting path from index : {}", path);
-
-            success = true;
         }
 
         return success;

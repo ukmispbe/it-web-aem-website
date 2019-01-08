@@ -1,7 +1,7 @@
 package com.waters.aem.solr.job;
 
-import com.google.common.collect.Sets;
-import com.waters.aem.core.services.EmailNotificationService;
+import com.adobe.acs.commons.email.EmailService;
+import com.adobe.acs.commons.email.EmailServiceConstants;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.sling.api.SlingConstants;
 import org.apache.sling.event.jobs.NotificationConstants;
@@ -16,7 +16,8 @@ import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Event handler for Solr index job cancellations, providing email notification to a configured list of recipients.
@@ -34,10 +35,16 @@ public final class SolrIndexJobCancelledEventHandler implements EventHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(SolrIndexJobCancelledEventHandler.class);
 
-    @Reference
-    private EmailNotificationService emailNotificationService;
+    private static final String EMAIL_TEMPLATE_PATH = "/etc/notification/email/waters/solr.txt";
 
-    private volatile Set<String> emailRecipients;
+    private static final String PARAM_PATH = "path";
+
+    private static final String PARAM_OPERATION = "operation";
+
+    @Reference
+    private EmailService emailService;
+
+    private volatile String[] emailRecipients;
 
     private volatile String emailSubject;
 
@@ -54,19 +61,22 @@ public final class SolrIndexJobCancelledEventHandler implements EventHandler {
     @Activate
     @Modified
     protected void activate(final SolrIndexJobCancelledEventHandlerConfiguration configuration) {
-        emailRecipients = Sets.newHashSet(ArrayUtils.nullToEmpty(configuration.emailRecipients()));
+        emailRecipients = ArrayUtils.nullToEmpty(configuration.emailRecipients());
         emailSubject = configuration.emailSubject();
     }
 
     private void sendEmailNotification(final String path, final String topic) {
-        final String message = new StringBuilder()
-            .append("Path: ")
-            .append(path)
-            .append('\n')
-            .append("Operation: ")
-            .append(SolrIndexJobConsumer.JOB_TOPIC_INDEX_ADD.equals(topic) ? "Add" : "Delete")
-            .toString();
+        if (emailRecipients.length > 0) {
+            final Map<String, String> params = new HashMap<>();
 
-        emailNotificationService.sendEmail(emailRecipients, emailSubject, message);
+            // params.put(EmailServiceConstants.SENDER_EMAIL_ADDRESS, "");
+            params.put(EmailServiceConstants.SUBJECT, emailSubject);
+            params.put(PARAM_PATH, path);
+            params.put(PARAM_OPERATION, SolrIndexJobConsumer.JOB_TOPIC_INDEX_ADD.equals(topic) ? "Add" : "Delete");
+
+            emailService.sendEmail(EMAIL_TEMPLATE_PATH, params, emailRecipients);
+        } else {
+            LOG.warn("no email recipients configured, notification message not sent");
+        }
     }
 }

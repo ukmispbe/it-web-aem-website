@@ -86,6 +86,12 @@
             <artifactId>jsoup</artifactId>
         </dependency>
 
+        <!-- ACS commons -->
+        <dependency>
+            <groupId>com.adobe.acs</groupId>
+            <artifactId>acs-aem-commons-bundle</artifactId>
+        </dependency>
+
         <!-- waters core -->
         <dependency>
             <groupId>${project.groupId}</groupId>

@@ -57,10 +57,8 @@ public final class SolrIndexJobConsumer implements JobConsumer {
                 success = indexService.deleteFromIndex(path);
             }
         } catch (Exception e) {
-            LOG.error("error processing solr index for path : " + path, e);
-
             // re-throw exception to cancel the job
-            throw e;
+            throw new RuntimeException(e);
         }
 
         final long duration = stopwatch.elapsed(TimeUnit.SECONDS);

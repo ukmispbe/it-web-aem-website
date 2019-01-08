@@ -9,6 +9,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletResourceTypes;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.Nonnull;
 import javax.servlet.Servlet;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -44,25 +46,32 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
         final String action = request.getParameter("action");
         final boolean includeDescendants = Boolean.valueOf(request.getParameter("includeDescendants"));
 
-        final boolean success;
+        boolean success;
 
-        if (ADD.equals(action)) {
-            final PageDecorator page = request.getResourceResolver().adaptTo(PageManagerDecorator.class).getPage(
-                pagePath);
+        try {
+            if (ADD.equals(action)) {
+                final PageDecorator page = request.getResourceResolver().adaptTo(PageManagerDecorator.class).getPage(
+                    pagePath);
 
-            if (page == null) {
-                LOG.error("page not found for path : {}, returning error response", pagePath);
+                if (page == null) {
+                    LOG.error("page not found for path : {}, returning error response", pagePath);
 
-                success = false;
+                    success = false;
+                } else {
+                    LOG.debug("adding path to solr index : {}, including descendants : {}", pagePath,
+                        includeDescendants);
+
+                    success = addToIndex(page, includeDescendants);
+                }
             } else {
-                LOG.debug("adding path to solr index : {}, including descendants : {}", pagePath, includeDescendants);
+                LOG.debug("deleting path from solr index : {}", pagePath);
 
-                success = addToIndex(page, includeDescendants);
+                success = solrIndexService.deleteFromIndex(pagePath);
             }
-        } else {
-            LOG.debug("deleting path from solr index : {}", pagePath);
+        } catch (IOException | SolrServerException e) {
+            LOG.error("error indexing path : " + pagePath, e);
 
-            success = solrIndexService.deleteFromIndex(pagePath);
+            success = false;
         }
 
         if (!success) {
@@ -70,7 +79,8 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
         }
     }
 
-    private boolean addToIndex(final PageDecorator page, final boolean includeDescendants) {
+    private boolean addToIndex(final PageDecorator page, final boolean includeDescendants)
+        throws IOException, SolrServerException {
         final boolean success;
 
         if (includeDescendants) {

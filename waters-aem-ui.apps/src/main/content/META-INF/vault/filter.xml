@@ -4,5 +4,6 @@
     <filter root="/apps/waters"/>
     <filter root="/apps/sling"/>
     <filter root="/etc/designs/waters"/>
+    <filter root="/etc/notification/email/waters"/>
     <filter root="/etc/waters"/>
 </workspaceFilter>

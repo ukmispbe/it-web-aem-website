@@ -479,6 +479,11 @@
                 <classifier>min</classifier>
                 <type>zip</type>
             </dependency>
+            <dependency>
+                <groupId>com.adobe.acs</groupId>
+                <artifactId>acs-aem-commons-bundle</artifactId>
+                <version>${acs.aem.commons.version}</version>
+            </dependency>
 
             <!-- ICF Olson libraries -->
             <dependency>
