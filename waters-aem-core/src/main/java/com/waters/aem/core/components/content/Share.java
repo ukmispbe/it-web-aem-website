@@ -7,6 +7,7 @@ import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.day.cq.wcm.api.policies.ContentPolicy;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,7 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH
         @Listener(name = EVENT_AFTER_INSERT, value = REFRESH_PAGE),
         @Listener(name = EVENT_AFTER_DELETE, value = REFRESH_PAGE)
     })
-@Model(adaptables = Resource.class)
+@Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class Share {
 
     private static final Logger LOG = LoggerFactory.getLogger(Share.class);
@@ -55,16 +56,18 @@ public final class Share {
     public List<ShareLocale> getShareLocales() {
         final List<ShareLocale> shareLocales = new ArrayList<>();
 
-        final Resource contentPolicyResource = contentPolicy.adaptTo(Resource.class);
+        if (contentPolicy != null) {
+            final Resource contentPolicyResource = contentPolicy.adaptTo(Resource.class);
 
-        if (contentPolicyResource != null) {
-            shareLocales.addAll(Optional.ofNullable(contentPolicyResource.getChild(RESOURCE_NAME_LOCALES))
-                .map(Resource :: getChildren)
-                .map(resources -> StreamSupport.stream(resources.spliterator(), false)
-                    .map(resource -> resource.adaptTo(ShareLocale.class))
-                    .filter(Objects :: nonNull)
-                    .collect(Collectors.toList()))
-                .orElse(Collections.emptyList()));
+            if (contentPolicyResource != null) {
+                shareLocales.addAll(Optional.ofNullable(contentPolicyResource.getChild(RESOURCE_NAME_LOCALES))
+                    .map(Resource :: getChildren)
+                    .map(resources -> StreamSupport.stream(resources.spliterator(), false)
+                        .map(resource -> resource.adaptTo(ShareLocale.class))
+                        .filter(Objects :: nonNull)
+                        .collect(Collectors.toList()))
+                    .orElse(Collections.emptyList()));
+            }
         }
 
         LOG.debug("share locales : {}", shareLocales);
