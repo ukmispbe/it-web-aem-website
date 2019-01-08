@@ -26,14 +26,6 @@ public final class LinkItem extends ExternalLinkItem {
     @LinkInject(inherit = true)
     private Link linkIcon;
 
-    @DialogField(fieldLabel = "Open in New Window",
-        fieldDescription = "Select this option to open in new window",
-        ranking = 4)
-    @Switch(offText = "No", onText = "Yes")
-    @Inject
-    @Default(booleanValues = false)
-    private Boolean newWindow;
-
     @DialogFieldOverride(ranking = 2, required = false, hideLabel = false)
     @Override
     public Link getLink() {
@@ -44,10 +36,6 @@ public final class LinkItem extends ExternalLinkItem {
     @Override
     public String getText() {
         return super.getText();
-    }
-
-    public Boolean isNewWindow() {
-        return newWindow;
     }
 
     public Link getLinkIcon() {
