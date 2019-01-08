@@ -174,5 +174,3 @@ nbdist/
 nbactions.xml
 nb-configuration.xml
 .nb-gradle/
-waters-aem-ui.apps/src/main/content/jcr_root/etc/designs/waters/main.js
-waters-aem-ui.apps/src/main/content/jcr_root/etc/designs/waters/main.css
