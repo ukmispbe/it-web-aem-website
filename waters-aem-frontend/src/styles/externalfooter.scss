@@ -84,3 +84,26 @@
         margin-top: $space-l;
     }
 }
+
+.cmp-back-to-top {
+    position: fixed;
+    bottom: 80px;
+    right: 40px;
+    z-index: 9999;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background: #f5f5f5;
+    color: #444;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.cmp-back-to-top:hover {
+    background: #e9ebec;
+}
+
+.cmp-back-to-top-show {
+    display: block;
+}
