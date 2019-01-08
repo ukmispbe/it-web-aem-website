@@ -17,7 +17,6 @@ import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.content.applicationnotes.ExternalLinkItem;
-import com.waters.aem.core.components.content.applicationnotes.LinkItem;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;

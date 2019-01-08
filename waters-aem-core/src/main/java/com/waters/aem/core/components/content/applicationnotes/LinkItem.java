@@ -3,12 +3,10 @@ package com.waters.aem.core.components.content.applicationnotes;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.DialogFieldOverride;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
-import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.icfolson.aem.library.api.link.Link;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 
