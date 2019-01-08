@@ -16,7 +16,7 @@ import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
-import com.waters.aem.core.components.content.applicationnotes.LinkItem;
+import com.waters.aem.core.components.content.applicationnotes.ExternalLinkItem;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
@@ -45,7 +45,7 @@ public class ExternalFooter implements ComponentExporter {
     private Resource resource;
 
     @DialogField(fieldLabel = "Logo",
-        fieldDescription = "Select the logo image to display on header",
+        fieldDescription = "Select the logo image to display on footer",
         ranking = 1)
     @Html5SmartImage(tab = false, allowUpload = false, height = 150)
     @ImageInject(inherit = true)
@@ -85,7 +85,7 @@ public class ExternalFooter implements ComponentExporter {
         ranking = 1)
     @MultiField(composite = true)
     @InheritInject
-    private List<LinkItem> footerLinks;
+    private List<ExternalLinkItem> footerLinks;
 
     public Image getLogoImage() {
         return logoImage;
@@ -107,7 +107,7 @@ public class ExternalFooter implements ComponentExporter {
         return newWindow;
     }
 
-    public List<LinkItem> getFooterLinks() {
+    public List<ExternalLinkItem> getFooterLinks() {
         return footerLinks;
     }
 
