@@ -1,3 +1,7 @@
 <template data-sly-template.placeholder="${@ show, text, style}">
     <div data-sly-test="${show && wcmmode.edit}" class="cq-placeholder" style="${style @ context='unsafe'}" data-emptytext="${text}"></div>
 </template>
+
+<template data-sly-template.linkIcon="${@ linkItem, class}">
+    <img class="${class} ${linkItem.svg ? 'inline-svg' : ''}" data-sly-test="${linkItem.linkIcon}" src="${linkItem.linkIcon}"/>
+</template>
