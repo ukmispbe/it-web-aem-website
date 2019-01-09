@@ -66,7 +66,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
 
         // TODO confirm tag translation strategy
         for (final Tag tag : page.getTags()) {
-            document.addField("tags", tag.getTagID());
+            document.addField("tags", tag.getTitle());
         }
 
         addFields(document);

@@ -32,36 +32,44 @@ public final class ApplicationNotesSolrInputDocumentBuilder extends AbstractSolr
 
     private void addFacets(final SolrInputDocument document, final ApplicationNotes applicationNotes) {
         // TODO: determine if we are sending tag IDs or titles to solr depending on translation strategy
+        for (final Tag category : applicationNotes.getCategory()) {
+            document.addField("category_facet", category.getTagID());
+        }
+
+        for (final Tag content : applicationNotes.getContentType()) {
+            document.addField("contenttype_facet", content.getTitle());
+        }
+
         for (final Tag author : applicationNotes.getAuthor()) {
-            document.addField("author", author.getTagID());
+            document.addField("author", author.getTitle());
         }
 
         for (final Tag technique : applicationNotes.getTechnique()) {
-            document.addField("technique_facet", technique.getTagID());
+            document.addField("technique_facet", technique.getTitle());
         }
 
         for (final Tag instrumentType : applicationNotes.getInstrumentType()) {
-            document.addField("instrumenttype_facet", instrumentType.getTagID());
+            document.addField("instrumenttype_facet", instrumentType.getTitle());
         }
 
         for (final Tag separationMode : applicationNotes.getSeparationMode()) {
-            document.addField("separationmode_facet", separationMode.getTagID());
+            document.addField("separationmode_facet", separationMode.getTitle());
         }
 
         for (final Tag compoundMatrix : applicationNotes.getCompoundMatrix()) {
-            document.addField("compoundmatrix_facet", compoundMatrix.getTagID());
+            document.addField("compoundmatrix_facet", compoundMatrix.getTitle());
         }
 
         for (final Tag columnType : applicationNotes.getColumnType()) {
-            document.addField("columntype_facet", columnType.getTagID());
+            document.addField("columntype_facet", columnType.getTitle());
         }
 
         for (final Tag software : applicationNotes.getSoftware()) {
-            document.addField("software_facet", software.getTagID());
+            document.addField("software_facet", software.getTitle());
         }
 
         for (final Tag market : applicationNotes.getMarket()) {
-            document.addField("market_facet", market.getTagID());
+            document.addField("market_facet", market.getTitle());
         }
     }
 

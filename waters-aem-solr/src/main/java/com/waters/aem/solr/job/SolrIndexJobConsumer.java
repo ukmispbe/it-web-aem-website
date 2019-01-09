@@ -62,7 +62,7 @@ public final class SolrIndexJobConsumer implements JobConsumer {
         }
 
         final long duration = stopwatch.elapsed(TimeUnit.SECONDS);
-        final JobResult result = success ? JobResult.OK : JobResult.FAILED;
+        final JobResult result = success ? JobResult.OK : JobResult.CANCEL;
 
         LOG.info("finished processing solr index job in {}s with result : {}", duration, result.name());
 
