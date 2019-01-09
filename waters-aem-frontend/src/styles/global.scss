@@ -32,7 +32,7 @@ html {
 
 .layoutcontainer .sectioncontainer {
     padding: 0;
-    margin: $space-s 0;
+    margin: $space-l 0;
 }
 
 .layoutcontainer .cmp-section-container__title {
@@ -82,6 +82,7 @@ a {
         color: $color-link-hover;
         text-decoration: underline;
         outline: 2px solid $color-focus;
+        margin-bottom: 0;
     }
 
     // add external styling
