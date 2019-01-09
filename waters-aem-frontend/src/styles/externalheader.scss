@@ -1,5 +1,8 @@
 .cmp-external-header {
     border-bottom: 1px solid $color-gray-30;
+    background-color: $color-white;
+    position: fixed;
+    width: 100%;
 
     &__logo {
         padding: $space-s 0 ($space-s - 0.1em);
