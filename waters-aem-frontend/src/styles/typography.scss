@@ -43,7 +43,7 @@
     color: $color-font-dark;
     letter-spacing: $letter-spacing-small;
     margin: $space-m 0;
-    padding-top: $space-m;
+    padding-top: $space-xs;
     border-top: 1px solid $color-border-light;
 
     @include mobile {
@@ -141,6 +141,8 @@ ul {
 
         @include mobile {
             font-size: $font-size-body-m;
+            line-height: $line-height-text;
+            letter-spacing: $letter-spacing-small;
         }
     }
 }
@@ -161,3 +163,7 @@ b,
 strong {
     font-weight: $font-weight-bold;
 }
+
+.cmp-text {
+    padding-bottom: $space-s;
+    }

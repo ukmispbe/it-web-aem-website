@@ -26,7 +26,7 @@ public class ExternalLinkItem {
     private Link link;
 
     @DialogField(fieldLabel = "Link Item Path",
-        fieldDescription = "Enter or Select ExternalLinkItem Path",
+        fieldDescription = "Enter or Select External Link Item Path",
         required = true,
         ranking = 2)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
