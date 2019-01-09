@@ -1,25 +1,36 @@
-    package com.waters.aem.core.pdf;
+package com.waters.aem.core.pdf;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
+import com.itextpdf.styledxmlparser.css.media.MediaType;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
-    public class PdfUtils {
+public class PdfUtils {
 
-    public static final void convertToPdf(final String html) throws IOException {
-            final File file = new File("/Users/mdaugherty/Downloads/waters.pdf");
+    public static void convertToPdf(final String pageUrl) throws IOException {
+        final File file = new File("/Users/mdaugherty/Downloads/waters.pdf");
 
         final PdfWriter writer = new PdfWriter(file);
 
         final ConverterProperties converterProperties = new ConverterProperties()
-            .setBaseUri("http://localhost:4503");
+            .setBaseUri("https://test-www.waters.com")
+            .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.SCREEN));
 
-        final Document document = HtmlConverter.convertToDocument(html, writer, converterProperties);
+
+        final URL url = new URL(pageUrl);
+
+        final InputStream stream = url.openStream();
+
+        final Document document = HtmlConverter.convertToDocument(stream, writer, converterProperties);
 
         document.close();
+        stream.close();
     }
 }
