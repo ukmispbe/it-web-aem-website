@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-          xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
           jcr:primaryType="nt:unstructured"
           jcr:title="Page"
@@ -19,16 +20,26 @@
                 sling:resourceType="granite/ui/components/coral/foundation/tabs"
                 size="L">
                 <items jcr:primaryType="nt:unstructured">
+                    <thumbnail
+                        jcr:primaryType="nt:unstructured"
+                        path="waters/components/structure/page/thumbnail/content"
+                        sling:resourceType="granite/ui/components/foundation/include"
+                        sling:orderBefore="cloudservices"/>
                     <meta
                         jcr:primaryType="nt:unstructured"
-                        path="waters/components/structure/page/meta/content/items/Meta"
+                        path="waters/components/structure/page/meta/content"
                         sling:resourceType="granite/ui/components/foundation/include"
                         sling:orderBefore="socialmedia"/>
                     <applicationNotes
                         jcr:primaryType="nt:unstructured"
-                        path="waters/components/structure/page/applicationnotes/content/items/ApplicationNotes"
+                        path="waters/components/structure/page/applicationnotes/content/items/tabs/items/ApplicationNotes"
                         sling:resourceType="granite/ui/components/foundation/include"
                         sling:orderBefore="socialmedia"/>
+                    <errorPages
+                        jcr:primaryType="nt:unstructured"
+                        path="waters/components/structure/page/errorpages/content"
+                        sling:resourceType="granite/ui/components/foundation/include"
+                        sling:orderBefore="thumbnail"/>
                 </items>
             </tabs>
         </items>

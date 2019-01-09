@@ -81,6 +81,7 @@
                     <componentPathBase>jcr_root/apps/waters/components</componentPathBase>
                     <defaultComponentGroup>Waters</defaultComponentGroup>
                     <transformerName>lower-case</transformerName>
+                    <generateClassicUiDialogs>false</generateClassicUiDialogs>
                     <useCoral3Dialogs>true</useCoral3Dialogs>
                     <additionalFeatures>
                         <additionalFeature>rte-touchui</additionalFeature>
@@ -155,12 +156,6 @@
                             <filter>true</filter>
                         </subPackage>
                         <subPackage>
-                            <groupId>com.icfolson.aem</groupId>
-                            <artifactId>multicomposite-addon</artifactId>
-                            <type>zip</type>
-                            <filter>true</filter>
-                        </subPackage>
-                        <subPackage>
                             <groupId>com.adobe.acs</groupId>
                             <artifactId>acs-aem-commons-content</artifactId>
                             <type>zip</type>
@@ -191,7 +186,7 @@
                             <port>${aem.port.author}</port>
                             <username>${aem.username.author}</username>
                             <password>${aem.password.author}</password>
-                            <retryDelay>5000</retryDelay>
+                            <retryDelay>10000</retryDelay>
                         </configuration>
                     </execution>
                 </executions>
@@ -245,11 +240,6 @@
         <dependency>
             <groupId>com.adobe.cq</groupId>
             <artifactId>core.wcm.components.all</artifactId>
-            <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>com.icfolson.aem</groupId>
-            <artifactId>multicomposite-addon</artifactId>
             <type>zip</type>
         </dependency>
         <dependency>

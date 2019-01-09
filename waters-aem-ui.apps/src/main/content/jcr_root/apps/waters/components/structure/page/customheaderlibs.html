@@ -1,12 +1,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+<link rel="stylesheet" href="https://use.typekit.net/fko8taa.css">
+
 <sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
-     data-sly-call="${clientlib.js @ categories='waters.dependencies'}"/>
-<sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
-     data-sly-call="${clientlib.css @ categories='waters.base'}"/>
+     data-sly-call="${clientlib.css @ categories='waters.site'}"/>
 
 <!--/* Load authoring related client libraries */-->
-<sly data-sly-test="${wcmmode.preview || wcmmode.edit}" data-sly-call="${clientLib.all @ categories='waters.author'}"/>
+<sly data-sly-test="${wcmmode.preview || wcmmode.edit}"
+     data-sly-call="${clientLib.all @ categories='waters.author'}"/>
 
 <!--/* Include Context Hub */-->
 <sly data-sly-resource="${'contexthub' @ resourceType='granite/contexthub/components/contexthub'}"/>

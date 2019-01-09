@@ -13,8 +13,10 @@
     <modules>
         <module>waters-aem-core</module>
         <module>waters-aem-solr</module>
+        <module>waters-aem-frontend</module>
         <module>waters-aem-ui.apps</module>
         <module>waters-aem-ui.content</module>
+        <module>waters-aem-ui.tests</module>
     </modules>
 
     <properties>
@@ -30,8 +32,7 @@
         <acs.aem.commons.version>3.19.0</acs.aem.commons.version>
         <aem.library.version>10.3.1</aem.library.version>
         <core.components.version>2.2.2</core.components.version>
-        <multicompositeaddon.version>4.0.0</multicompositeaddon.version>
-        <component.plugin.version>5.2.0</component.plugin.version>
+        <component.plugin.version>6.1.2</component.plugin.version>
         <osgi.bundle.status.plugin.version>2.0.2</osgi.bundle.status.plugin.version>
 
         <!-- defaults -->
@@ -331,7 +332,6 @@
                         <targetURL>http://${aem.host}:${aem.port}/crx/packmgr/service.jsp</targetURL>
                         <failOnError>true</failOnError>
                         <failOnMissingEmbed>true</failOnMissingEmbed>
-                        <verbose>true</verbose>
                         <userId>${vault.user}</userId>
                         <password>${vault.password}</password>
                     </configuration>
@@ -507,17 +507,6 @@
                 <groupId>com.icfolson.aem.library</groupId>
                 <artifactId>aem-library-models</artifactId>
                 <version>${aem.library.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.icfolson.aem</groupId>
-                <artifactId>multicomposite-addon</artifactId>
-                <version>${multicompositeaddon.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.icfolson.aem</groupId>
-                <artifactId>multicomposite-addon</artifactId>
-                <version>${multicompositeaddon.version}</version>
-                <type>zip</type>
             </dependency>
             <dependency>
                 <groupId>com.icfolson.aem.prosper</groupId>

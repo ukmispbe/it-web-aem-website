@@ -1,3 +1,4 @@
-#base=.
+#base=css
 
-main.less
+grid.less
+main.css

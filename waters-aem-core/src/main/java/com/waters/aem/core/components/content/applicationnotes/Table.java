@@ -33,6 +33,8 @@ public final class Table {
     @Default(values = "")
     private String csvData;
 
+    private com.google.common.collect.Table<Integer, String, String> table;
+
     private CSVParser csvParser;
 
     public Set<String> getColumnNames() {
@@ -58,28 +60,29 @@ public final class Table {
     }
 
     private com.google.common.collect.Table<Integer, String, String> getTable() {
-        final com.google.common.collect.Table<Integer, String, String> table = HashBasedTable.create();
+        if (table == null) {
+            table = HashBasedTable.create();
 
-        final Map<String, Integer> headerMap = getCsvParser().getHeaderMap();
+            final Map<String, Integer> headerMap = getCsvParser().getHeaderMap();
 
-        int columnKey = 0;
+            int columnKey = 0;
 
-        try {
-            for (final CSVRecord record : getCsvParser().getRecords()) {
-                for (final Map.Entry<String, Integer> entry : headerMap.entrySet()) {
-                    final String columnName = entry.getKey();
-                    final Integer columnIndex = entry.getValue();
+            try {
+                for (final CSVRecord record : getCsvParser().getRecords()) {
+                    for (final Map.Entry<String, Integer> entry : headerMap.entrySet()) {
+                        final String columnName = entry.getKey();
+                        final Integer columnIndex = entry.getValue();
 
-                    final String value = record.get(columnIndex);
+                        final String value = record.get(columnIndex);
 
-                    table.put(columnKey, columnName, value);
+                        table.put(columnKey, columnName, value);
+                    }
 
+                    columnKey++;
                 }
-
-                columnKey++;
+            } catch (IOException e) {
+                LOG.error("error getting records from CSV", e);
             }
-        } catch (IOException e) {
-            LOG.error("error getting records from CSV", e);
         }
 
         return table;

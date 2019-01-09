@@ -127,10 +127,6 @@
             <groupId>com.icfolson.aem.library</groupId>
             <artifactId>aem-library-core</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.icfolson.aem</groupId>
-            <artifactId>multicomposite-addon</artifactId>
-        </dependency>
 
         <!-- CSV -->
         <dependency>
@@ -162,6 +158,12 @@
                     <artifactId>commons-imaging</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-imaging</artifactId>
+            <version>1.0-R1534292</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.icfolson.aem.library</groupId>
