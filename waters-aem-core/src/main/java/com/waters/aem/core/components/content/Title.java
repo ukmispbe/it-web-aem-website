@@ -32,9 +32,9 @@ import javax.annotation.Nonnull;
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class Title implements com.adobe.cq.wcm.core.components.models.Title {
 
-    static final String RESOURCE_SUPER_TYPE = "core/wcm/components/title/v2/title";
+    public static final String RESOURCE_TYPE = "waters/components/content/title";
 
-    static final String RESOURCE_TYPE = "waters/components/content/title";
+    static final String RESOURCE_SUPER_TYPE = "core/wcm/components/title/v2/title";
 
     @Self
     @Via(type = ResourceSuperType.class)
