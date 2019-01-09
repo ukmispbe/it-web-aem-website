@@ -59,7 +59,6 @@ public class DefaultSolrIndexService implements SolrIndexService {
 
             if (document != null) {
                 LOG.info("adding solr document to index : {}", document);
-
                 success = processResponse(solrClient.add(collection, document, commitWithinMs));
             }
         } else {
@@ -144,7 +143,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
         boolean success = getStatus(updateResponse, false);
 
         if (success && hardCommit) {
-            success = getStatus(solrClient.commit(), true);
+            success = getStatus(solrClient.commit(collection), true);
         }
 
         return success;
