@@ -1,0 +1,20 @@
+.form-row {
+    padding-bottom: 1em;
+    clear: both;
+}
+
+.form-row input {
+    width: 75%;
+}
+
+.form-row > label {
+    display: inline;
+    float: left;
+    width: 100px;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.form-row > span {
+    margin-left: 75px;
+}
