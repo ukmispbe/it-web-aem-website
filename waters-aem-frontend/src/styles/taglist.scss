@@ -1,0 +1,52 @@
+.cmp-tag-list {
+    list-style: none;
+    float: left;
+    width: 100%;
+    padding-left: 0;
+
+    &__item {
+        display: inline;
+        margin-left: $space-xxs;
+
+        &:first-of-type {
+            margin-left: 0;
+        }
+    }
+}
+
+.cmp-tag-list--comma-separated {
+    .cmp-tag-list {
+        &__item {
+            &::after {
+                content: ',';
+            }
+
+            &:last-of-type {
+                &::after {
+                    content: '';
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+.cmp-tag-list--stacked {
+    .cmp-tag-list {
+        &__item {
+            display: block;
+        }
+    }
+}
+
+.cmp-tag-list--label {
+    .cmp-tag-list {
+        &__item {
+            font-size: $font-size-small;
+            display: inline-block;
+            padding: $space-xxs $space-xs;
+            background-color: $color-background-dark;
+            color: $color-white;
+        }
+    }
+}
