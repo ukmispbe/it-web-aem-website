@@ -98,12 +98,18 @@
     color: #444;
     cursor: pointer;
     border-radius: 2px;
-}
+    display: none;
 
-.cmp-back-to-top:hover {
-    background: #e9ebec;
-}
+    &:hover {
+        background: #e9ebec;
+    }
 
-.cmp-back-to-top-show {
-    display: block;
+    &.cmp-back-to-top-show {
+        display: block;
+    }
+
+    &.cmp-back-to-top-affix {
+        position: relative;
+        float: right;
+    }
 }
