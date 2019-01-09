@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 @Model(adaptables = PageDecorator.class)
 public final class ApplicationNotesSolrInputDocumentBuilder extends AbstractSolrInputDocumentBuilder {
@@ -20,56 +21,59 @@ public final class ApplicationNotesSolrInputDocumentBuilder extends AbstractSolr
         // get the application notes properties for the current page
         final ApplicationNotes applicationNotes = page.getContentResource().adaptTo(ApplicationNotes.class);
 
+        //get the locale from the current page
+        final Locale locale = page.getLanguage(false);
+        
         // add literature code
         document.setField("literaturecode", applicationNotes.getLiteratureCode());
 
         // add application notes facets
-        addFacets(document, applicationNotes);
+        addFacets(document, applicationNotes,locale);
 
         // add date
         addDate(document, applicationNotes);
     }
 
-    private void addFacets(final SolrInputDocument document, final ApplicationNotes applicationNotes) {
+    private void addFacets(final SolrInputDocument document, final ApplicationNotes applicationNotes,final Locale locale) {
         // TODO: determine if we are sending tag IDs or titles to solr depending on translation strategy
         for (final Tag category : applicationNotes.getCategory()) {
             document.addField("category_facet", category.getTagID());
         }
 
         for (final Tag content : applicationNotes.getContentType()) {
-            document.addField("contenttype_facet", content.getTitle());
+            document.addField("contenttype_facet", content.getTitle(locale));
         }
 
         for (final Tag author : applicationNotes.getAuthor()) {
-            document.addField("author", author.getTitle());
+            document.addField("author", author.getTitle(locale));
         }
 
         for (final Tag technique : applicationNotes.getTechnique()) {
-            document.addField("technique_facet", technique.getTitle());
+            document.addField("technique_facet", technique.getTitle(locale));
         }
 
         for (final Tag instrumentType : applicationNotes.getInstrumentType()) {
-            document.addField("instrumenttype_facet", instrumentType.getTitle());
+            document.addField("instrumenttype_facet", instrumentType.getTitle(locale));
         }
 
         for (final Tag separationMode : applicationNotes.getSeparationMode()) {
-            document.addField("separationmode_facet", separationMode.getTitle());
+            document.addField("separationmode_facet", separationMode.getTitle(locale));
         }
 
         for (final Tag compoundMatrix : applicationNotes.getCompoundMatrix()) {
-            document.addField("compoundmatrix_facet", compoundMatrix.getTitle());
+            document.addField("compoundmatrix_facet", compoundMatrix.getTitle(locale));
         }
 
         for (final Tag columnType : applicationNotes.getColumnType()) {
-            document.addField("columntype_facet", columnType.getTitle());
+            document.addField("columntype_facet", columnType.getTitle(locale));
         }
 
         for (final Tag software : applicationNotes.getSoftware()) {
-            document.addField("software_facet", software.getTitle());
+            document.addField("software_facet", software.getTitle(locale));
         }
 
         for (final Tag market : applicationNotes.getMarket()) {
-            document.addField("market_facet", market.getTitle());
+            document.addField("market_facet", market.getTitle(locale));
         }
     }
 
