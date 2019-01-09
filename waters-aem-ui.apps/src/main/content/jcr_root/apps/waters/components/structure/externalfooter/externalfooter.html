@@ -9,10 +9,7 @@
         <div class="cmp-external-footer__links">
             <sly data-sly-test="${externalFooter.footerLinks}">
                 <nav data-sly-list="${externalFooter.footerLinks}">
-                    <a href="${item.link.href}" target="${item.newWindow ? '_blank' : ''}">
-                        ${item.text}
-                        <img data-sly-test="${item.linkIcon}" src="${item.linkIcon.href}"/>
-                    </a>
+                    <a href="${item.link.href}" target="${item.newWindow ? '_blank' : ''}">${item.text}<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html" data-sly-call="${patterns.linkIcon @ linkItem=item}"/></a>
                 </nav>
             </sly>
         </div>

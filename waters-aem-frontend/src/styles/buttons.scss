@@ -11,8 +11,9 @@ button.cmp-button {
     border: 2px solid transparent;
     transition: all 0.25s ease;
     text-decoration: none;
-    display: block;
+    display: inline-block;
     text-align: center;
+    float: left;
 
     &:hover {
         background-color: $color-blue-70;
@@ -26,6 +27,11 @@ button.cmp-button {
     &:focus {
         background-color: $color-blue-70;
         border: 2px solid $color-focus;
+    }
+
+    @include mobile {
+        width: 100%;
+        float: left;
     }
 }
 
@@ -82,7 +88,7 @@ button.cmp-button--secondary--disabled {
 .cmp-button--utility a.cmp-button,
 a.cmp-button--utility,
 button.cmp-button--utility {
-    padding: 0 $space-s;
+    padding: $space-s $space-s;
     margin: 0 $space-s $space-l 0;
     background-color: $color-white;
     border: 1px solid $color-border-dark;
@@ -119,7 +125,7 @@ button.cmp-button--utility {
 .cmp-button--utility--disabled a.cmp-button,
 a.cmp-button--utility--disabled,
 button.cmp-button--utility--disabled {
-    padding: 0 $space-s;
+    padding: $space-s $space-s;
     margin: 0 $space-s $space-l 0;
     background-color: $color-white;
     border: 1px solid $color-disabled;
@@ -209,4 +215,32 @@ button.cmp-button--floating-utility--disabled {
         width: 100%;
         margin-bottom: $space-s;
     }
+}
+
+.cmp-button--left button.cmp-button,
+.cmp-button--left a.cmp-button,
+a.cmp-button.cmp-button--left,
+button.cmp-button.cmp-button--left {
+    float: left;
+    display: block;
+}
+
+.cmp-button--right button.cmp-button,
+.cmp-button--right a.cmp-button,
+a.cmp-button.cmp-button--right,
+button.cmp-button.cmp-button--right {
+    float: right;
+    display: block;
+}
+
+.cmp-button--center {
+    text-align: center;
+}
+
+.cmp-button--center button.cmp-button,
+.cmp-button--center a.cmp-button,
+a.cmp-button.cmp-button--center,
+button.cmp-button.cmp-button--center {
+    display: inline-block;
+    float: none;
 }

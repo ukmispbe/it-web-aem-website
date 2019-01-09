@@ -9,19 +9,40 @@ html {
 .aem-GridColumn {
     padding: 0 14px;
 
-    &:first-of-type {
-        padding-left: 0;
-    }
-
-    &:last-of-type {
-        padding-right: 0;
-    }
-
     @media (max-width: 650px) {
         padding: 0 4px;
     }
 
     @media (min-width: 651px) and (max-width: 1200px) {
+        padding: 0 12px;
+    }
+}
+
+.layoutcontainer > div {
+    margin: 0 0 0 -14px;
+
+    @include mobile {
+        margin: 0 0 0 -4px;
+    }
+
+    @include tablet {
+        margin: 0 0 0 -12px;
+    }
+}
+
+.layoutcontainer .sectioncontainer {
+    padding: 0;
+    margin: $space-s 0;
+}
+
+.layoutcontainer .cmp-section-container__title {
+    padding: 0 14px;
+
+    @include mobile {
+        padding: 0 4px;
+    }
+
+    @include tablet {
         padding: 0 12px;
     }
 }
@@ -60,7 +81,7 @@ a {
         @include font-utility;
         color: $color-link-hover;
         text-decoration: underline;
-        border: 2px solid $color-focus;
+        outline: 2px solid $color-focus;
     }
 
     // add external styling

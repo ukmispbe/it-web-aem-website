@@ -1,20 +1,30 @@
 .cmp-external-footer {
     background-color: $color-gray-50;
     padding: $space-m 0 11em 0;
-    border-bottom: 1px solid $color-border-light;
     margin-top: $space-xl;
+    overflow: hidden;
+
+    a {
+        @include font-body;
+        color: $color-font-light;
+    }
 }
 
 .cmp-external-footer__logo {
     width: 115px;
     float: left;
-    margin-right: 50px;
+    margin-right: $space-xl;
+    margin-top: $space-xs;
+
+    a {
+        float: left;
+        width: 115px;
+        display: block;
+    }
 
     img {
         max-width: 115px;
     }
-
-
 
     @include mobile {
         width: 100%;
@@ -22,14 +32,15 @@
 }
 
 .cmp-external-footer__links {
-    width: 56%;
-    float: left;
+    width: calc(100% - 165px);
+    float: right;
+    text-align: right;
     margin-top: 0.5em;
     a {
-        @include font-body;
-        color: $color-font-light;
         margin-left: $space-l;
         display: inline;
+        line-height: 2.5em;
+        transition: all 0.25s ease;
 
         &:hover {
             text-decoration: underline;
@@ -39,13 +50,6 @@
         &:first-of-type {
             padding-left: 0;
         }
-    }
-    
-
-    @include tablet {
-        width: calc(100% - 165px);
-        float: right;
-        text-align: right;
     }
 
     @media (max-width: 860px) {
@@ -57,13 +61,14 @@
             width: 50%;
             margin-left: 0;
             text-align: left;
+            line-height: $line-height-text;
         }
     }
 }
 
 .cmp-external-footer__copyright {
     float: right;
-    margin-top: 0.6em;
+    margin-top: $space-l;
 
     p {
         @include font-small;
@@ -71,11 +76,11 @@
     }
 
     @include tablet {
-        margin-top: $space-m;
+        margin-top: $space-l;
     }
 
     @include mobile {
         float: left;
-        margin-top: $space-m;
+        margin-top: $space-l;
     }
 }
