@@ -3,7 +3,7 @@
 a.cmp-button,
 button.cmp-button {
     @include font-utility;
-    padding: $space-s $space-l;
+    padding: $space-xs $space-l;
     margin: 0 $space-s $space-l 0;
     color: $color-font-light;
     text-transform: uppercase;
@@ -26,12 +26,13 @@ button.cmp-button {
 
     &:focus {
         background-color: $color-blue-70;
-        border: 2px solid $color-focus;
+        outline: 2px solid $color-focus;
     }
 
     @include mobile {
         width: 100%;
         float: left;
+        font-size: $font-size-body-m;
     }
 }
 
@@ -40,7 +41,7 @@ button.cmp-button {
 a.cmp-button--disabled,
 button.cmp-button--disabled {
     @include font-utility;
-    padding: $space-s $space-l;
+    padding: $space-xs $space-l;
     margin: 0 $space-s $space-l 0;
     color: $color-font-light;
     text-transform: uppercase;
@@ -52,7 +53,7 @@ button.cmp-button--disabled {
 a.cmp-button--secondary,
 button.cmp-button--secondary {
     @include font-utility;
-    padding: $space-s $space-l;
+    padding: $space-xs $space-l;
     margin: 0 $space-s $space-l 0;
     color: $color-link;
     text-transform: uppercase;
@@ -72,7 +73,7 @@ button.cmp-button--secondary {
 
     &:focus {
         color: $color-link-hover;
-        border: 2px solid $color-focus;
+        outline: 2px solid $color-focus;
     }
 }
 
@@ -112,7 +113,7 @@ button.cmp-button--utility {
     }
 
     &:focus {
-        border: 2px solid $color-focus;
+        outline: 2px solid $color-focus;
         color: $color-link;
 
         .cmp-button--utility__icon {
@@ -165,7 +166,7 @@ button.cmp-button--floating-utility {
     }
 
     &:focus {
-        border: 2px solid $color-focus;
+        outline: 2px solid $color-focus;
 
         .cmp-button--floating-utility__icon {
             fill: $color-link-hover;
