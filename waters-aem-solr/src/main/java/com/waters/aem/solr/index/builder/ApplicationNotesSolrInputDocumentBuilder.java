@@ -8,6 +8,7 @@ import org.apache.solr.common.SolrInputDocument;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
@@ -74,7 +75,7 @@ public final class ApplicationNotesSolrInputDocumentBuilder extends AbstractSolr
             if (!applicationNotes.getMonthPublished().isEmpty()) {
                 final Tag monthPublished = applicationNotes.getMonthPublished().get(0);
 
-                month = Integer.valueOf(monthPublished.getName());
+                month = Month.valueOf(monthPublished.getName().toUpperCase()).getValue();
             } else {
                 // default month if not authored
                 month = 1;
