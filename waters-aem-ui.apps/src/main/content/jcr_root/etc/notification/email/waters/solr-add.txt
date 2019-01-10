@@ -1,0 +1,2 @@
+
+Error adding page ${path} to index.  See system error logs for exception details.

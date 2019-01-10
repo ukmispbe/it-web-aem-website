@@ -1,0 +1,82 @@
+.cmp-external-header {
+    border-bottom: 1px solid $color-gray-30;
+    background-color: $color-white;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    top: 0;
+
+    &__logo {
+        padding: 1.2em 0 ($space-s - 0.1em);
+        width: 115px;
+        float: left;
+
+        img {
+            height: 32px;
+        }
+    }
+
+    &__links {
+        float: right;
+        padding: $space-xs 0 $space-xs 0;
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: $space-xs 0 0;
+        }
+
+        &__item {
+            display: inline-block;
+            margin-left: $space-m;
+            margin-bottom: 0;
+
+            &:first-of-type {
+                margin-left: 0;
+            }
+
+            span {
+                float: left;
+                display: inline-block;
+
+                @include mobile {
+                    display: none;
+                }
+            }
+
+            a {
+                color: $color-gray-50;
+
+                &:hover {
+                    color: $color-link;
+
+                    & svg .st0 {
+                        stroke: $color-link;
+                    }
+                }
+            }
+
+            img.inline-svg {
+                display: none;
+            }
+
+            svg {
+                display: inline-block;
+                float: left;
+                width: 30px;
+                height: 25px;
+                padding-left: 0.3em;
+
+                .st0 {
+                    stroke: $color-gray-50;
+                }
+
+                @include mobile {
+                    width: 34px;
+                    padding-left: 0;
+                    margin-top: -6px;
+                }
+            }
+        }
+    }
+}

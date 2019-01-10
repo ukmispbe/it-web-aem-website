@@ -1,7 +1,12 @@
-<button data-sly-use.button="com.waters.aem.core.components.content.Button"
-    data-sly-test="${button.buttonText}">
+<a data-sly-use.button="com.waters.aem.core.components.content.Button"
+        data-sly-test="${button.buttonText}"
+        class="cmp-button"
+        href="${button.buttonLink.href}"
+        target="${button.newWindow?'_blank':''}" 
+        title="${button.buttonToolTip}">
     ${button.buttonText}
-</button>
+</a>
+
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
      data-sly-call="${patterns.placeholder @ show=!button.buttonLink, text=component.title}"/>

@@ -13,15 +13,16 @@ class ApplicationNotesSpec extends AemLibraryModelSpec {
                     "jcr:content"(
                         literatureCode: "ABC",
                         author: ["/etc/tags/waters/abc"],
+                        category: ["/etc/tags/waters/abc"],
                         contentType: ["/etc/tags/waters/abc"],
-                        keyword: ["/etc/tags/waters/abc"],
                         instrumentType: ["/etc/tags/waters/abc"],
                         technique: ["/etc/tags/waters/abc"],
                         separationMode: ["/etc/tags/waters/abc"],
-                        compoundClass: ["/etc/tags/waters/abc"],
+                        compoundMatrix: ["/etc/tags/waters/abc"],
                         columnType: ["/etc/tags/waters/abc"],
-                        chromatographySoftware: ["/etc/tags/waters/abc"],
+                        software: ["/etc/tags/waters/abc"],
                         market: ["/etc/tags/waters/abc"],
+                        monthPublished: ["/etc/tags/waters/abc"],
                         yearPublished: ["/etc/tags/waters/abc"]
                     )
                 }
@@ -49,22 +50,24 @@ class ApplicationNotesSpec extends AemLibraryModelSpec {
         setup:
         def applicationNotes = getPage(path).contentResource.adaptTo(ApplicationNotes)
 
-        expect: // basic test of field names and values
-        applicationNotes.author*.tagID == tagIds
-        applicationNotes.contentType*.tagID == tagIds
-        applicationNotes.keyword*.tagID == tagIds
-        applicationNotes.instrumentType*.tagID == tagIds
-        applicationNotes.technique*.tagID == tagIds
-        applicationNotes.separationMode*.tagID == tagIds
-        applicationNotes.compoundClass*.tagID == tagIds
-        applicationNotes.columnType*.tagID == tagIds
-        applicationNotes.chromatographySoftware*.tagID == tagIds
-        applicationNotes.market*.tagID == tagIds
-        applicationNotes.yearPublished*.tagID == tagIds
+        expect:
+        // basic test of field names and values
+        applicationNotes.author*.title == title
+        applicationNotes.category*.title == title
+        applicationNotes.contentType*.title == title
+        applicationNotes.instrumentType*.title == title
+        applicationNotes.technique*.title == title
+        applicationNotes.separationMode*.title == title
+        applicationNotes.compoundMatrix*.title == title
+        applicationNotes.columnType*.title == title
+        applicationNotes.software*.title == title
+        applicationNotes.market*.title == title
+        applicationNotes.monthPublished*.title == title
+        applicationNotes.yearPublished*.title == title
 
         where:
-        path                                | tagIds
+        path                                | title
         "/content/waters"                   | []
-        "/content/waters/application-notes" | ["waters:abc"]
+        "/content/waters/application-notes" | ["ABC"]
     }
 }
