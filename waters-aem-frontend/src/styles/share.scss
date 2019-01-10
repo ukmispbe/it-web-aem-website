@@ -2,6 +2,14 @@
     list-style: none;
     padding-left: 0;
     float: right;
+
+    @include tablet {
+        display: none;
+    }
+    
+    @include mobile {
+        display: none;
+    }
 }
 
 .cmp-share__item {
