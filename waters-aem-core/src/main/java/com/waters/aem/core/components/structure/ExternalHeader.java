@@ -24,7 +24,7 @@ import org.apache.sling.models.annotations.Model;
 import javax.inject.Inject;
 import java.util.List;
 
-@Component(value = "ExternalHeader",
+@Component(value = "External Header",
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE,
     tabs = {
@@ -48,7 +48,7 @@ public final class ExternalHeader {
     @LinkInject
     private Link logoLink;
 
-    @DialogField(fieldLabel = "Log Alt Text",
+    @DialogField(fieldLabel = "Logo Alt Text",
         fieldDescription = "Enter Alt Text for Logo",
         ranking = 3)
     @TextField

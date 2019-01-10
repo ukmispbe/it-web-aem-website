@@ -1,9 +1,14 @@
 .cmp-external-header {
     border-bottom: 1px solid $color-gray-30;
+    background-color: $color-white;
+    position: fixed;
+    width: 100%;
+    z-index: 99;
+    top: 0;
 
     &__logo {
         padding: $space-s 0 ($space-s - 0.1em);
-        width: 120px;
+        width: 115px;
         float: left;
     }
 
@@ -45,6 +50,10 @@
                         stroke: $color-link;
                     }
                 }
+            }
+
+            img.inline-svg {
+                display: none;
             }
 
             svg {

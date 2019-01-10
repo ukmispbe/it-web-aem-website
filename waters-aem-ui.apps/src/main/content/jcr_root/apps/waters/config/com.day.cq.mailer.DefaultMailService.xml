@@ -4,8 +4,8 @@
           jcr:primaryType="sling:OsgiConfig"
           debug.email="{Boolean}false"
           from.address="tech_web_team@waters.com"
-          smtp.host="localhost"
-          smtp.port="2500"
+          smtp.host="mail1.waters.com"
+          smtp.port="25"
           smtp.user=""
           smtp.password=""
           smtp.ssl="{Boolean}false"/>

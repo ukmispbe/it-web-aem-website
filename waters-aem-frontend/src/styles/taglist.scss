@@ -3,10 +3,10 @@
     float: left;
     width: 100%;
     padding-left: 0;
+    margin-top: 0;
 
     &__item {
         display: inline;
-        margin-left: $space-xxs;
 
         &:first-of-type {
             margin-left: 0;
@@ -44,7 +44,7 @@
         &__item {
             font-size: $font-size-small;
             display: inline-block;
-            padding: $space-xxs $space-xs;
+            padding: $space-xxs $space-s;
             background-color: $color-background-dark;
             color: $color-white;
         }
