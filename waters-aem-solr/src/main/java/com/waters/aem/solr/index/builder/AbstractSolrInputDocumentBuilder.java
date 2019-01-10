@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import java.util.Locale;
 
 /**
  * Base class for Solr input document builders.  Responsible for adding common fields to Solr documents. Concrete
@@ -64,9 +65,11 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         document.setField("viewname", "aem");
         document.setField("content", getPageContent());
 
-        // TODO confirm tag translation strategy
+        // get the locale from the current page
+        final Locale locale = page.getLanguage(false);
+
         for (final Tag tag : page.getTags()) {
-            document.addField("tags", tag.getTitle());
+            document.addField("tags", tag.getTitle(locale));
         }
 
         addFields(document);

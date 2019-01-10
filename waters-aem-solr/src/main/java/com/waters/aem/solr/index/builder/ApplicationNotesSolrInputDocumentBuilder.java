@@ -21,23 +21,22 @@ public final class ApplicationNotesSolrInputDocumentBuilder extends AbstractSolr
         // get the application notes properties for the current page
         final ApplicationNotes applicationNotes = page.getContentResource().adaptTo(ApplicationNotes.class);
 
-        //get the locale from the current page
-        final Locale locale = page.getLanguage(false);
-        
         // add literature code
         document.setField("literaturecode", applicationNotes.getLiteratureCode());
 
         // add application notes facets
-        addFacets(document, applicationNotes,locale);
+        addFacets(document, applicationNotes);
 
         // add date
         addDate(document, applicationNotes);
     }
 
-    private void addFacets(final SolrInputDocument document, final ApplicationNotes applicationNotes,final Locale locale) {
-        // TODO: determine if we are sending tag IDs or titles to solr depending on translation strategy
+    private void addFacets(final SolrInputDocument document, final ApplicationNotes applicationNotes) {
+        // get the locale from the current page
+        final Locale locale = page.getLanguage(false);
+
         for (final Tag category : applicationNotes.getCategory()) {
-            document.addField("category_facet", category.getTagID());
+            document.addField("category_facet", category.getTitle(locale));
         }
 
         for (final Tag content : applicationNotes.getContentType()) {

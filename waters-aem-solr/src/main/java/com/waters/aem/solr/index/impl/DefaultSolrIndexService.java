@@ -59,6 +59,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
 
             if (document != null) {
                 LOG.info("adding solr document to index : {}", document);
+
                 success = processResponse(solrClient.add(collection, document, commitWithinMs));
             }
         } else {
