@@ -52,6 +52,10 @@
                 }
             }
 
+            img.inline-svg {
+                display: none;
+            }
+
             svg {
                 display: inline-block;
                 float: left;
