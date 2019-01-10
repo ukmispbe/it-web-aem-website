@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Solr Recovery"
+          jcr:description="Add to or remove from the Solr index outside of the normal replication process."
+          icon="dataRefresh"
+          href="/etc/waters/solr-recovery.html"
+          id="waters__solr-recovery"
+          target="_blank"/>

@@ -1,3 +1,4 @@
-#base=js
+#base=.
 
-main.js
+js/main.js
+components/share/share.js

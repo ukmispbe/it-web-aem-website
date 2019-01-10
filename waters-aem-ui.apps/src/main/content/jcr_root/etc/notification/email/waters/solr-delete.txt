@@ -1,0 +1,2 @@
+
+Error deleting page ${path} from index.  See system error logs for exception details.

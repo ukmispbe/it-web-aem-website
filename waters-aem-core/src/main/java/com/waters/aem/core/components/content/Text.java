@@ -28,7 +28,7 @@ public final class Text implements com.adobe.cq.wcm.core.components.models.Text 
 
     static final String RESOURCE_SUPER_TYPE = "core/wcm/components/text/v2/text";
 
-    static final String RESOURCE_TYPE = "waters/components/content/text";
+    public static final String RESOURCE_TYPE = "waters/components/content/text";
 
     @Self
     @Via(type = ResourceSuperType.class)
