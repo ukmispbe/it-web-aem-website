@@ -2,6 +2,7 @@
 
 import './styles/index.scss'
 import './scripts/backtotop'
+import './scripts/share'
 
 var inlineSVG = require('inline-svg')
 

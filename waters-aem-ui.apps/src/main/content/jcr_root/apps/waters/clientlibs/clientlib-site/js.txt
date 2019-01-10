@@ -1,4 +1,3 @@
 #base=.
 
 js/main.js
-components/share/share.js
