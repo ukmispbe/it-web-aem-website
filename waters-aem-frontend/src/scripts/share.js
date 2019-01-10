@@ -1,3 +1,13 @@
+addthis.addEventListener('addthis.ready', function () {
+    var share = document.querySelector('.cmp-share');
+
+    if (share) {
+        var baseUrl = share.getAttribute('data-base-url');
+
+        addthis_share.url = baseUrl + window.location.pathname + window.location.search;
+    }
+});
+
 addthis.addEventListener('addthis.menu.open', function () {
     var style = document.createElement('style');
 
