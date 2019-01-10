@@ -2,10 +2,13 @@ package com.waters.aem.solr.index.builder;
 
 import com.day.cq.commons.Externalizer;
 import com.day.cq.tagging.Tag;
+import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.content.Text;
+import com.waters.aem.core.components.structure.page.Thumbnail;
 import org.apache.sling.api.resource.AbstractResourceVisitor;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.solr.common.SolrInputDocument;
 import org.jsoup.Jsoup;
@@ -54,14 +57,23 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
     public final SolrInputDocument build() {
         final SolrInputDocument document = new SolrInputDocument();
 
+        final ResourceResolver resourceResolver = page.getContentResource().getResourceResolver();
+
         // add common fields for all page types
         document.setField("id", page.getPath());
-        document.setField("url", externalizer.externalLink(page.getContentResource().getResourceResolver(),
-            Externalizer.PUBLISH, page.getHref()));
+        document.setField("url", externalizer.externalLink(resourceResolver, Externalizer.PUBLISH, page.getHref()));
         document.setField("title", page.getTitle());
         document.setField("description", page.getDescription());
         document.setField("isocode", page.getLanguage(false).toString());
         document.setField("viewname", "aem");
+
+        final Image thumbnailImage = page.getContentResource().adaptTo(Thumbnail.class).getThumbnailImage();
+
+        if (thumbnailImage != null) {
+            document.setField("thumbnail", externalizer.externalLink(resourceResolver, Externalizer.PUBLISH,
+                thumbnailImage.getFileReference()));
+        }
+
         document.setField("content", getPageContent());
 
         // TODO confirm tag translation strategy

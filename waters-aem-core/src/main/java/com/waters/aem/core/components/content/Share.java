@@ -4,8 +4,10 @@ import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
+import com.day.cq.commons.Externalizer;
 import com.day.cq.wcm.api.policies.ContentPolicy;
 import com.icfolson.aem.library.api.page.PageDecorator;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
@@ -51,6 +53,9 @@ public final class Share {
     @Inject
     private PageDecorator currentPage;
 
+    @Inject
+    private Externalizer externalizer;
+
     @DialogField(fieldLabel = "Locales", fieldDescription = "Mapping of country codes to AddThis service codes.")
     @MultiField(composite = true)
     public List<ShareLocale> getShareLocales() {
@@ -84,5 +89,10 @@ public final class Share {
             .findFirst()
             .map(ShareLocale :: getServiceCodes)
             .orElse(DEFAULT_SERVICE_CODES);
+    }
+
+    public String getBaseUrl() {
+        return StringUtils.removeEnd(externalizer.externalLink(currentPage.getContentResource().getResourceResolver(),
+            Externalizer.PUBLISH, "/"), "/");
     }
 }
