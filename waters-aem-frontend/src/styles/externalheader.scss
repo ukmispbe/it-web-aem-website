@@ -7,14 +7,14 @@
     top: 0;
 
     &__logo {
-        padding: $space-s 0 ($space-s - 0.1em);
+        padding: 1.2em 0 ($space-s - 0.1em);
         width: 115px;
         float: left;
     }
 
     &__links {
         float: right;
-        padding: $space-s 0 ($space-s - 0.1em);
+        padding: $space-xs 0 $space-xs 0;
 
         ul {
             list-style: none;
