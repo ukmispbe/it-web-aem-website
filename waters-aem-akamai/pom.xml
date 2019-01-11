@@ -29,6 +29,7 @@
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Export-Package>!*.impl,com.waters.aem.akamai.*</Export-Package>
+                        <Embed-Dependency>groupId=com.akamai.edgegrid;scope=compile</Embed-Dependency>
                     </instructions>
                 </configuration>
             </plugin>
@@ -65,14 +66,16 @@
             <artifactId>osgi.annotation</artifactId>
         </dependency>
 
-        <!-- AEM Library -->
+        <!-- Akamai -->
         <dependency>
-            <groupId>com.icfolson.aem.library</groupId>
-            <artifactId>aem-library-api</artifactId>
+            <groupId>com.akamai.edgegrid</groupId>
+            <artifactId>edgegrid-signer-core</artifactId>
+            <version>3.0.1</version>
         </dependency>
         <dependency>
-            <groupId>com.icfolson.aem.library</groupId>
-            <artifactId>aem-library-core</artifactId>
+            <groupId>com.akamai.edgegrid</groupId>
+            <artifactId>edgegrid-signer-apache-http-client</artifactId>
+            <version>3.0.1</version>
         </dependency>
 
         <!-- ACS commons -->

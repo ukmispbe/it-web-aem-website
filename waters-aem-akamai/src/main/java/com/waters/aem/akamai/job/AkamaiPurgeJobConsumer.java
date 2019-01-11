@@ -1,10 +1,12 @@
 package com.waters.aem.akamai.job;
 
 import com.google.common.base.Stopwatch;
+import com.waters.aem.akamai.client.AkamaiEdgeGridClient;
 import org.apache.sling.api.SlingConstants;
 import org.apache.sling.event.jobs.Job;
 import org.apache.sling.event.jobs.consumer.JobConsumer;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +27,9 @@ public final class AkamaiPurgeJobConsumer implements JobConsumer {
 
     private static final Logger LOG = LoggerFactory.getLogger(AkamaiPurgeJobConsumer.class);
 
+    @Reference
+    private AkamaiEdgeGridClient edgeGridClient;
+
     /**
      * Process the indexing job via the Akamai Purge service.
      *
@@ -42,8 +47,7 @@ public final class AkamaiPurgeJobConsumer implements JobConsumer {
         boolean success;
 
         try {
-            // TODO
-            success = true;
+            success = edgeGridClient.invalidate(path);
         } catch (Exception e) {
             // re-throw exception to cancel the job
             throw new RuntimeException(e);
