@@ -4,5 +4,6 @@
           jcr:primaryType="cq:Page">
     <application-notes-page/>
     <content-page/>
+    <redirect-template-page/>
     <rep:policy/>
 </jcr:root>
