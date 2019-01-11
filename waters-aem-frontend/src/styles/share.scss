@@ -1,12 +1,22 @@
 .cmp-share {
     list-style: none;
     padding-left: 0;
+    float: right;
+
+    @include tablet {
+        display: none;
+    }
+
+    @include mobile {
+        display: none;
+    }
 }
 
 .cmp-share__item {
     @include font-small;
     display: block;
     float: left;
+    line-height: 1.8em;
 
     &:first-of-type {
         padding-top: $space-s;
@@ -21,6 +31,7 @@
 
     svg {
         width: 24px;
+        height: 24px;
         fill: $color-gray-30;
     }
 

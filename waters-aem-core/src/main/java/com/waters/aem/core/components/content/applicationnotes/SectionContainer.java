@@ -24,7 +24,7 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH
     path = WatersConstants.COMPONENT_PATH_APPLICATION_NOTES,
     isContainer = true,
     tabs = {
-        @Tab(title = "Properties"),
+        @Tab(title = "Properties")
     },
     listeners = { // refresh parent resource after edit to prevent issues with anchor component
         @Listener(name = EVENT_AFTER_INSERT, value = REFRESH_PARENT),

@@ -6,6 +6,14 @@ html {
     overflow-x: hidden;
 }
 
+body {
+    padding-top: 72px;
+
+    @include mobile {
+        padding-top: 75px;
+    }
+}
+
 .aem-GridColumn {
     padding: 0 14px;
 
@@ -32,7 +40,7 @@ html {
 
 .layoutcontainer .sectioncontainer {
     padding: 0;
-    margin: $space-s 0;
+    margin: $space-m 0;
 }
 
 .layoutcontainer .cmp-section-container__title {
@@ -82,6 +90,7 @@ a {
         color: $color-link-hover;
         text-decoration: underline;
         outline: 2px solid $color-focus;
+        margin-bottom: 0;
     }
 
     // add external styling
