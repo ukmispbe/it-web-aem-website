@@ -44,20 +44,17 @@ public final class AkamaiPurgeJobConsumer implements JobConsumer {
 
         LOG.info("processing akamai purge job for path : {}", path);
 
-        boolean success;
-
         try {
-            success = edgeGridClient.invalidate(path);
+            edgeGridClient.invalidate(path);
         } catch (Exception e) {
             // re-throw exception to cancel the job
             throw new RuntimeException(e);
         }
 
         final long duration = stopwatch.elapsed(TimeUnit.SECONDS);
-        final JobResult result = success ? JobResult.OK : JobResult.CANCEL;
 
-        LOG.info("finished processing akamai purge job in {}s with result : {}", duration, result.name());
+        LOG.info("finished processing akamai purge job in {}s", duration);
 
-        return result;
+        return JobResult.OK;
     }
 }

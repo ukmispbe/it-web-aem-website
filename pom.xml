@@ -28,6 +28,7 @@
         <!-- modules -->
         <core.artifactId>waters-aem-core</core.artifactId>
         <solr.artifactId>waters-aem-solr</solr.artifactId>
+        <akamai.artifactId>waters-aem-akamai</akamai.artifactId>
 
         <!-- versions -->
         <acs.aem.commons.version>3.19.0</acs.aem.commons.version>
@@ -535,6 +536,28 @@
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
                 <version>1.11.3</version>
+            </dependency>
+
+            <!-- akamai -->
+            <dependency>
+                <groupId>com.akamai.edgegrid</groupId>
+                <artifactId>edgegrid-signer-core</artifactId>
+                <version>3.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.akamai.edgegrid</groupId>
+                <artifactId>edgegrid-signer-apache-http-client</artifactId>
+                <version>3.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-configuration2</artifactId>
+                <version>2.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>1.6</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

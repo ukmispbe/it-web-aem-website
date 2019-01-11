@@ -12,8 +12,8 @@ public @interface AkamaiEdgeGridClientConfiguration {
     @AttributeDefinition(name = "Akamai Network", description = "staging or production")
     String network() default "staging";
 
-    @AttributeDefinition(name = "Akamai Hostname")
-    String hostname() default "";
+    @AttributeDefinition(name = "Akamai Base URL")
+    String baseUrl() default "";
 
     @AttributeDefinition(name = "Akamai Access Token")
     String accessToken() default "";

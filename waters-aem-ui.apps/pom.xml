@@ -107,6 +107,11 @@
                             <target>/apps/waters/install</target>
                         </embedded>
                         <embedded>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>${akamai.artifactId}</artifactId>
+                            <target>/apps/waters/install</target>
+                        </embedded>
+                        <embedded>
                             <groupId>com.icfolson.aem.library</groupId>
                             <artifactId>aem-library-core</artifactId>
                             <target>/apps/waters/install</target>
@@ -151,6 +156,14 @@
                             <groupId>org.jsoup</groupId>
                             <artifactId>jsoup</artifactId>
                             <target>/apps/waters/install</target>
+                        </embedded>
+                        <embedded>
+                            <groupId>org.apache.commons</groupId>
+                            <artifactId>commons-configuration2</artifactId>
+                        </embedded>
+                        <embedded>
+                            <groupId>org.apache.commons</groupId>
+                            <artifactId>commons-text</artifactId>
                         </embedded>
                     </embeddeds>
                     <subPackages>
@@ -211,6 +224,11 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${akamai.artifactId}</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
         </dependency>
@@ -233,6 +251,14 @@
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-configuration2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
         </dependency>
         <dependency>
             <groupId>com.icfolson.aem.library</groupId>
