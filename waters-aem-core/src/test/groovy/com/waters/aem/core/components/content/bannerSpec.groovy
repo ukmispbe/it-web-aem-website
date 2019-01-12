@@ -4,7 +4,7 @@ import com.icfolson.aem.library.models.specs.AemLibraryModelSpec
 import spock.lang.Unroll
 
 @Unroll
-class bannerSpec extends AemLibraryModelSpec {
+class BannerSpec extends AemLibraryModelSpec {
 
     def setupSpec() {
         pageBuilder.content {

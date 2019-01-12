@@ -17,8 +17,7 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import javax.annotation.Nonnull;
 
 @Component(value = "Banner",
-    description = "This is the Banner component for Waters site",
-    tabs = @Tab(title = "Properties", touchUINodeName = "properties"))
+    description = "This is the Banner component for Waters site")
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class Banner implements ComponentExporter {
@@ -33,7 +32,9 @@ public final class Banner implements ComponentExporter {
     @ImageInject
     private Image backgroundImage;
 
-    public Image getBackgroundImage() { return backgroundImage; }
+    public Image getBackgroundImage() {
+        return backgroundImage;
+    }
 
     @Nonnull
     @Override
