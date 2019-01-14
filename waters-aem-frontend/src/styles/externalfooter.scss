@@ -1,9 +1,9 @@
 .cmp-external-footer {
     background-color: $color-gray-50;
     padding: $space-m 0 11em 0;
-    border-bottom: 1px solid $color-border-light;
     margin-top: $space-xl;
     overflow: hidden;
+    width: 100%;
 
     a {
         @include font-body;
@@ -14,7 +14,8 @@
 .cmp-external-footer__logo {
     width: 115px;
     float: left;
-    margin-right: 50px;
+    margin-right: $space-xl;
+    margin-top: $space-xs;
 
     a {
         float: left;
@@ -23,10 +24,9 @@
     }
 
     img {
+        height: 32px;
         max-width: 115px;
     }
-
-
 
     @include mobile {
         width: 100%;
@@ -41,6 +41,8 @@
     a {
         margin-left: $space-l;
         display: inline;
+        line-height: 2.5em;
+        transition: all 0.25s ease;
 
         &:hover {
             text-decoration: underline;
@@ -61,13 +63,14 @@
             width: 50%;
             margin-left: 0;
             text-align: left;
+            line-height: $line-height-text;
         }
     }
 }
 
 .cmp-external-footer__copyright {
     float: right;
-    margin-top: 0.6em;
+    margin-top: $space-l;
 
     p {
         @include font-small;
@@ -75,11 +78,90 @@
     }
 
     @include tablet {
-        margin-top: $space-m;
+        margin-top: $space-l;
     }
 
     @include mobile {
         float: left;
-        margin-top: $space-m;
+        margin-top: $space-l;
+    }
+}
+
+.cmp-back-to-top {
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+    z-index: 99;
+    height: 2.75em;
+    width: 2.75em;
+    text-align: center;
+    line-height: 30px;
+    background: #fff;
+    color: $color-font-dark;
+    cursor: pointer;
+    display: block;
+    opacity: 0;
+    border: 1px solid $color-border-light;
+    padding-top: 9px;
+    box-shadow: $shadow;
+    transition: opacity 0.5s ease;
+
+    svg {
+        width: $icon-m;
+        height: 24px;
+
+        .st0 {
+            stroke: $color-gray-50;
+        }
+    }
+
+    &:hover {
+        border: 1px solid $color-border-dark;
+
+        svg {
+            .st0 {
+                stroke: $color-link-hover;
+            }
+        }
+    }
+
+    &:active {
+        border: 1px solid $color-border-light;
+        svg {
+            .st0 {
+                stroke: $color-gray-50;
+            }
+        }
+    }
+
+    &:focus {
+        outline: 2px solid $color-focus;
+        margin-bottom: 1em;
+
+        svg {
+            .st0 {
+                stroke: $color-link-hover;
+            }
+        }
+    }
+
+    &:disabled {
+        border: 1px solid $color-disabled;
+
+        svg {
+            .st0 {
+                stroke: $color-disabled;
+            }
+        }
+    }
+
+    &.cmp-back-to-top-show {
+        opacity: 1;
+    }
+
+    &.cmp-back-to-top-affix {
+        position: relative;
+        float: right;
+        bottom: 6px;
     }
 }

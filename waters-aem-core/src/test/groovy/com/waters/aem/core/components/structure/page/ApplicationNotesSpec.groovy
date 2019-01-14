@@ -50,23 +50,24 @@ class ApplicationNotesSpec extends AemLibraryModelSpec {
         setup:
         def applicationNotes = getPage(path).contentResource.adaptTo(ApplicationNotes)
 
-        expect: // basic test of field names and values
-        applicationNotes.author*.tagID == tagIds
-        applicationNotes.category*.tagID == tagIds
-        applicationNotes.contentType*.tagID == tagIds
-        applicationNotes.instrumentType*.tagID == tagIds
-        applicationNotes.technique*.tagID == tagIds
-        applicationNotes.separationMode*.tagID == tagIds
-        applicationNotes.compoundMatrix*.tagID == tagIds
-        applicationNotes.columnType*.tagID == tagIds
-        applicationNotes.software*.tagID == tagIds
-        applicationNotes.market*.tagID == tagIds
-        applicationNotes.monthPublished*.tagID == tagIds
-        applicationNotes.yearPublished*.tagID == tagIds
+        expect:
+        // basic test of field names and values
+        applicationNotes.author*.title == title
+        applicationNotes.category*.title == title
+        applicationNotes.contentType*.title == title
+        applicationNotes.instrumentType*.title == title
+        applicationNotes.technique*.title == title
+        applicationNotes.separationMode*.title == title
+        applicationNotes.compoundMatrix*.title == title
+        applicationNotes.columnType*.title == title
+        applicationNotes.software*.title == title
+        applicationNotes.market*.title == title
+        applicationNotes.monthPublished*.title == title
+        applicationNotes.yearPublished*.title == title
 
         where:
-        path                                | tagIds
+        path                                | title
         "/content/waters"                   | []
-        "/content/waters/application-notes" | ["waters:abc"]
+        "/content/waters/application-notes" | ["ABC"]
     }
 }
