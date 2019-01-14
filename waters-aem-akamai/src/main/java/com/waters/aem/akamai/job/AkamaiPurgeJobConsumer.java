@@ -10,6 +10,8 @@ import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -46,7 +48,7 @@ public final class AkamaiPurgeJobConsumer implements JobConsumer {
 
         try {
             edgeGridClient.invalidate(path);
-        } catch (Exception e) {
+        } catch (IOException | URISyntaxException e) {
             // re-throw exception to cancel the job
             throw new RuntimeException(e);
         }
