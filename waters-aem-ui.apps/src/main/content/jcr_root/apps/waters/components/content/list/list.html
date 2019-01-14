@@ -1,0 +1,9 @@
+<ul data-sly-use.list="com.waters.aem.core.components.content.list.List"
+    data-sly-list.item="${list.watersListItems}"
+    data-sly-use.itemTemplate="item.html"
+    class="cmp-list">
+    <li class="cmp-list__item" data-sly-call="${itemTemplate.item @ list=list, item=item}"></li>
+</ul>
+
+<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+     data-sly-call="${patterns.placeholder @ show=!list.listItems, text=component.title}"/>
