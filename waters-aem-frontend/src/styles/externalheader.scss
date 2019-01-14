@@ -1,15 +1,24 @@
 .cmp-external-header {
     border-bottom: 1px solid $color-gray-30;
+    background-color: $color-white;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    top: 0;
 
     &__logo {
-        padding: $space-s 0 ($space-s - 0.1em);
-        width: 120px;
+        padding: 1.2em 0 ($space-s - 0.1em);
+        width: 115px;
         float: left;
+
+        img {
+            height: 32px;
+        }
     }
 
     &__links {
         float: right;
-        padding: $space-s 0 ($space-s - 0.1em);
+        padding: $space-xs 0 $space-xs 0;
 
         ul {
             list-style: none;
@@ -47,10 +56,15 @@
                 }
             }
 
+            img.inline-svg {
+                display: none;
+            }
+
             svg {
                 display: inline-block;
                 float: left;
                 width: 30px;
+                height: 25px;
                 padding-left: 0.3em;
 
                 .st0 {

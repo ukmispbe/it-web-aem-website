@@ -3,7 +3,7 @@
 a.cmp-button,
 button.cmp-button {
     @include font-utility;
-    padding: $space-s $space-l;
+    padding: $space-xs $space-l;
     margin: 0 $space-s $space-l 0;
     color: $color-font-light;
     text-transform: uppercase;
@@ -26,12 +26,14 @@ button.cmp-button {
 
     &:focus {
         background-color: $color-blue-70;
-        border: 2px solid $color-focus;
+        outline: 2px solid $color-focus;
     }
 
     @include mobile {
         width: 100%;
         float: left;
+        font-size: $font-size-body-m;
+        margin: 0 0 $space-s 0;
     }
 }
 
@@ -40,7 +42,7 @@ button.cmp-button {
 a.cmp-button--disabled,
 button.cmp-button--disabled {
     @include font-utility;
-    padding: $space-s $space-l;
+    padding: $space-xs $space-l;
     margin: 0 $space-s $space-l 0;
     color: $color-font-light;
     text-transform: uppercase;
@@ -52,7 +54,7 @@ button.cmp-button--disabled {
 a.cmp-button--secondary,
 button.cmp-button--secondary {
     @include font-utility;
-    padding: $space-s $space-l;
+    padding: $space-xs $space-l;
     margin: 0 $space-s $space-l 0;
     color: $color-link;
     text-transform: uppercase;
@@ -72,7 +74,14 @@ button.cmp-button--secondary {
 
     &:focus {
         color: $color-link-hover;
-        border: 2px solid $color-focus;
+        outline: 2px solid $color-focus;
+    }
+
+    @include mobile {
+        width: 100%;
+        float: left;
+        font-size: $font-size-body-m;
+        margin: 0 0 $space-s 0;
     }
 }
 
@@ -88,7 +97,7 @@ button.cmp-button--secondary--disabled {
 .cmp-button--utility a.cmp-button,
 a.cmp-button--utility,
 button.cmp-button--utility {
-    padding: 0 $space-s;
+    padding: $space-s $space-s;
     margin: 0 $space-s $space-l 0;
     background-color: $color-white;
     border: 1px solid $color-border-dark;
@@ -112,7 +121,7 @@ button.cmp-button--utility {
     }
 
     &:focus {
-        border: 2px solid $color-focus;
+        outline: 2px solid $color-focus;
         color: $color-link;
 
         .cmp-button--utility__icon {
@@ -125,7 +134,7 @@ button.cmp-button--utility {
 .cmp-button--utility--disabled a.cmp-button,
 a.cmp-button--utility--disabled,
 button.cmp-button--utility--disabled {
-    padding: 0 $space-s;
+    padding: $space-s $space-s;
     margin: 0 $space-s $space-l 0;
     background-color: $color-white;
     border: 1px solid $color-disabled;
@@ -165,7 +174,7 @@ button.cmp-button--floating-utility {
     }
 
     &:focus {
-        border: 2px solid $color-focus;
+        outline: 2px solid $color-focus;
 
         .cmp-button--floating-utility__icon {
             fill: $color-link-hover;

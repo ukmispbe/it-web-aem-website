@@ -3,6 +3,7 @@ hr,
 .cmp-horizontal-rule hr {
     border-top: 1px solid $color-border-light;
     margin: $space-l 0;
+    color: $color-border-light;
 
     @include mobile {
         width: 200%;
@@ -15,6 +16,7 @@ hr,
     border-top: 2px solid $color-accent;
     margin: 0 0 $space-l 0;
     width: 100%;
+    color: $color-accent;
 
     @include mobile {
         width: 100%;
