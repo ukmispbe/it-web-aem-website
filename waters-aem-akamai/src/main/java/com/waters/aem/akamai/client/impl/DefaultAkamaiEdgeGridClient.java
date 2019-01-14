@@ -66,12 +66,40 @@ public final class DefaultAkamaiEdgeGridClient implements AkamaiEdgeGridClient {
 
     @Override
     public void invalidate(final String path) throws IOException, URISyntaxException {
-        purge(path, "invalidate");
-    }
+        if (enabled) {
+            final String json = getJson(path);
+            final HttpEntity entity = new StringEntity(json, JSON);
 
-    @Override
-    public void delete(final String path) throws IOException, URISyntaxException {
-        purge(path, "delete");
+            final URI uri = new URIBuilder()
+                .setScheme("https")
+                .setHost(hostname)
+                .setPath(new StringBuilder()
+                    .append("/ccu/v3/invalidate/url/")
+                    .append(network)
+                    .toString())
+                .build();
+
+            LOG.info("sending purge request to URI : {} with JSON entity : {}", uri, json);
+
+            final HttpUriRequest request = RequestBuilder.post(uri)
+                .setEntity(entity)
+                .addHeader("Accept", JSON.getMimeType())
+                .addHeader("Content-Type", JSON.getMimeType())
+                .build();
+
+            final HttpResponse response = httpClient.execute(request);
+
+            final StatusLine statusLine = response.getStatusLine();
+            final String responseBody = EntityUtils.toString(response.getEntity());
+
+            LOG.info("response body : {}", responseBody);
+
+            if (statusLine.getStatusCode() >= 300) {
+                throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
+            }
+        } else {
+            LOG.info("akamai client is disabled, purge request not sent for path : {}", path);
+        }
     }
 
     @Activate
@@ -98,45 +126,6 @@ public final class DefaultAkamaiEdgeGridClient implements AkamaiEdgeGridClient {
     @Deactivate
     protected void deactivate() throws IOException {
         httpClient.close();
-    }
-
-    private void purge(final String path, final String operation) throws IOException, URISyntaxException {
-        if (enabled) {
-            final String json = getJson(path);
-            final HttpEntity entity = new StringEntity(json, JSON);
-
-            final URI uri = new URIBuilder()
-                .setScheme("https")
-                .setHost(hostname)
-                .setPath(new StringBuilder()
-                    .append("/ccu/v3/")
-                    .append(operation)
-                    .append("/url/")
-                    .append(network)
-                    .toString())
-                .build();
-
-            LOG.info("sending purge request to URI : {} with JSON entity : {}", uri, json);
-
-            final HttpUriRequest request = RequestBuilder.post(uri)
-                .setEntity(entity)
-                .addHeader("Accept", JSON.getMimeType())
-                .addHeader("Content-Type", JSON.getMimeType())
-                .build();
-
-            final HttpResponse response = httpClient.execute(request);
-
-            final StatusLine statusLine = response.getStatusLine();
-            final String responseBody = EntityUtils.toString(response.getEntity());
-
-            LOG.info("response body : {}", responseBody);
-
-            if (statusLine.getStatusCode() >= 300) {
-                throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
-            }
-        } else {
-            LOG.info("akamai client is disabled, purge request not sent for path : {}", path);
-        }
     }
 
     private String getJson(final String path) throws IOException {
