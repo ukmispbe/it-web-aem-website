@@ -10,10 +10,10 @@ public @interface AkamaiEdgeGridClientConfiguration {
     boolean enabled() default false;
 
     @AttributeDefinition(name = "Akamai Network", description = "staging or production")
-    String network() default "staging";
+    String network() default "production";
 
-    @AttributeDefinition(name = "Akamai Base URL")
-    String baseUrl() default "";
+    @AttributeDefinition(name = "Akamai Hostname")
+    String hostname() default "akab-zai4si42encz4itc-umutbp23o4zar5su.purge.akamaiapis.net";
 
     @AttributeDefinition(name = "Akamai Access Token")
     String accessToken() default "";
