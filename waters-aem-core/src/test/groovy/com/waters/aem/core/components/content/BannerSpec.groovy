@@ -37,5 +37,4 @@ class BannerSpec extends AemLibraryModelSpec {
         "/content/waters/one/jcr:content/banner" | null
         "/content/waters/two/jcr:content/banner" | "/content/dam/waters/logo.png"
     }
-
 }
