@@ -3,7 +3,7 @@
     jcr:primaryType="cq:Template">
     <jcr:content
         jcr:primaryType="cq:PageContent"
-        jcr:title="redirect-template"
+        jcr:title="Waters Redirect Page"
         jcr:description="Template to created redirect pages"
         status="enabled"/>
 </jcr:root>
