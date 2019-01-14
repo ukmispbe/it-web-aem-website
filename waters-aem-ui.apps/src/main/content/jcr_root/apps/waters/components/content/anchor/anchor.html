@@ -1,6 +1,8 @@
 <ul data-sly-use.anchor="com.waters.aem.core.components.content.Anchor"
     data-sly-test.links="${anchor.links}"
     data-sly-list.link="${links}"
+    data-sticky-text="${'Jump to' @ i18n}"
+    data-close-text="${'Close' @ i18n}"
     class="cmp-anchor">
     <li class="cmp-anchor__list">
         <a class="cmp--anchor__link" href="${link.href}">${link.title}</a>

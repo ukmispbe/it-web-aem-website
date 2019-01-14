@@ -6,7 +6,6 @@ import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.node.predicates.ComponentNodeResourceTypePredicate;
 import com.waters.aem.core.components.content.applicationnotes.SectionContainer;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 
 import javax.inject.Inject;
@@ -14,8 +13,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component("Anchor")
-@Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Component(value = "Anchor", description = "This is the Anchor component for Waters site")
+@Model(adaptables = Resource.class)
 public final class Anchor {
 
     @Inject
