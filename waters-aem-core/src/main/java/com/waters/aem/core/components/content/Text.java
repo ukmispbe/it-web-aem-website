@@ -13,6 +13,7 @@ import org.apache.sling.models.annotations.Via;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.via.ResourceSuperType;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 @Component(value = "Text",
@@ -55,8 +56,9 @@ public final class Text implements com.adobe.cq.wcm.core.components.models.Text 
         return delegate.isRichText();
     }
 
+    @Nonnull
     @Override
     public String getExportedType() {
-        return delegate.getExportedType();
+        return RESOURCE_TYPE;
     }
 }
