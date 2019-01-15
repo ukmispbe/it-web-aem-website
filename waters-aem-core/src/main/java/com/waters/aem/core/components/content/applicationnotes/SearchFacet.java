@@ -9,7 +9,6 @@ public final class SearchFacet {
     public SearchFacet(String title, String facetName){
         this.title = title;
         this.filter = facetName+"_facet:"+title; //ex:category_facet:applications
-        System.out.println(this.filter);
     }
 
     public String getTitle() {
