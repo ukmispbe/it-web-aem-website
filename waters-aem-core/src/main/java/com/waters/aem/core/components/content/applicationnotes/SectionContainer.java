@@ -9,6 +9,7 @@ import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.link.builders.factory.LinkBuilderFactory;
 import com.waters.aem.core.constants.WatersConstants;
+import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
@@ -31,7 +32,8 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH
         @Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PARENT),
         @Listener(name = EVENT_AFTER_DELETE, value = REFRESH_PARENT)
     })
-@Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Model(adaptables = { Resource.class, SlingHttpServletRequest.class },
+    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class SectionContainer extends AbstractComponent {
 
     public static final String RESOURCE_TYPE = "waters/components/content/applicationnotes/sectioncontainer";

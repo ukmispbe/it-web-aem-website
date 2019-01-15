@@ -25,8 +25,8 @@ public final class TextContentProvider implements ContentProvider {
     private Text model;
 
     @Override
-    public void writePdfContent(final Document document, final ConverterProperties converterProperties)
-        throws IOException {
+    public void writePdfContent(final SlingHttpServletRequest request, final Document document,
+        final ConverterProperties converterProperties) throws IOException {
         if (StringUtils.isNotEmpty(model.getText())) {
             final Paragraph paragraph = new Paragraph();
 

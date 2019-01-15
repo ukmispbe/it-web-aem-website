@@ -9,6 +9,8 @@ import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
 import com.waters.aem.core.components.content.Text;
 import com.waters.aem.core.components.content.Title;
+import com.waters.aem.core.components.content.applicationnotes.SectionContainer;
+import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.pdf.PdfGeneratorService;
 import com.waters.aem.core.pdf.PdfGeneratorServiceConfiguration;
 import com.waters.aem.core.pdf.provider.ContentProvider;
@@ -36,7 +38,8 @@ public final class DefaultPdfGeneratorService implements PdfGeneratorService {
 
     private static final List<String> CONTENT_RESOURCE_TYPES = ImmutableList.of(
         Text.RESOURCE_TYPE,
-        Title.RESOURCE_TYPE
+        Title.RESOURCE_TYPE,
+        SectionContainer.RESOURCE_TYPE
     );
 
     @Reference
@@ -50,44 +53,38 @@ public final class DefaultPdfGeneratorService implements PdfGeneratorService {
         final PdfDocument pdfDocument = new PdfDocument(new PdfWriter(pdfOutputStream));
         final Document document = new Document(pdfDocument);
 
-        final ConverterProperties converterProperties = new ConverterProperties()
-            .setBaseUri(baseUri)
-            .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT));
+        final Resource rootResource = request.getResource().getChild(WatersConstants.RESOURCE_NAME_ROOT);
 
-        visit(request, request.getResource(), document, converterProperties);
+        // iterate over children of root resource (layout container) to build PDF content
+        for (final Resource child : rootResource.getChildren()) {
+            updatePdfDocument(request, child, document);
+        }
 
         document.close();
 
         return pdfOutputStream;
     }
 
-    @Activate
-    @Modified
-    protected void activate(final PdfGeneratorServiceConfiguration configuration) {
-        baseUri = configuration.baseUri();
-    }
+    @Override
+    public void updatePdfDocument(final SlingHttpServletRequest request, final Resource resource,
+        final Document document) throws IOException {
+        LOG.info("visiting resource : {}", resource);
 
-    /**
-     * Traverse page resource hierarchy and write content to PDF stream.
-     *
-     * @param resource current resource
-     * @param document PDF document
-     * @param converterProperties converter properties
-     * @throws IOException if error occurs writing to PDF stream
-     */
-    private void visit(final SlingHttpServletRequest request, final Resource resource,
-        final Document document, final ConverterProperties converterProperties) throws IOException {
-        LOG.debug("visiting resource : {}", resource);
+        final ConverterProperties converterProperties = new ConverterProperties()
+            .setBaseUri(baseUri)
+            .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT));
 
         if (CONTENT_RESOURCE_TYPES.contains(resource.getResourceType())) {
             writePdfContentForResource(request, resource, document, converterProperties);
         } else {
             LOG.debug("ignoring content for resource type : {}", resource.getResourceType());
         }
+    }
 
-        for (final Resource child : resource.getChildren()) {
-            visit(request, child, document, converterProperties);
-        }
+    @Activate
+    @Modified
+    protected void activate(final PdfGeneratorServiceConfiguration configuration) {
+        baseUri = configuration.baseUri();
     }
 
     private void writePdfContentForResource(final SlingHttpServletRequest request, final Resource resource,
@@ -100,7 +97,7 @@ public final class DefaultPdfGeneratorService implements PdfGeneratorService {
             LOG.info("using model class : {} for resource type : {}", contentProvider.getClass().getName(),
                 resource.getResourceType());
 
-            contentProvider.writePdfContent(document, converterProperties);
+            contentProvider.writePdfContent(request, document, converterProperties);
         } catch (ModelClassException e) {
             LOG.error("error creating content provider model for resource type : " + resource.getResourceType(), e);
         }

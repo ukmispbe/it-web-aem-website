@@ -21,8 +21,8 @@ public final class TitleContentProvider implements ContentProvider {
     private Title model;
 
     @Override
-    public void writePdfContent(final Document document, final ConverterProperties converterProperties)
-        throws IOException {
+    public void writePdfContent(final SlingHttpServletRequest request, final Document document,
+        final ConverterProperties converterProperties) throws IOException {
         final Paragraph paragraph = new Paragraph();
 
         paragraph.add(new Text(model.getText())
