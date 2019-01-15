@@ -153,21 +153,6 @@
                             <target>/apps/waters/install</target>
                         </embedded>
                         <embedded>
-                            <groupId>org.apache.pdfbox</groupId>
-                            <artifactId>pdfbox</artifactId>
-                            <target>/apps/waters/install</target>
-                        </embedded>
-                        <embedded>
-                            <groupId>org.apache.pdfbox</groupId>
-                            <artifactId>fontbox</artifactId>
-                            <target>/apps/waters/install</target>
-                        </embedded>
-                        <embedded>
-                            <groupId>commons-logging</groupId>
-                            <artifactId>commons-logging</artifactId>
-                            <target>/apps/waters/install</target>
-                        </embedded>
-                        <embedded>
                             <groupId>org.bouncycastle</groupId>
                             <artifactId>bcprov-jdk15on</artifactId>
                             <target>/apps/waters/install</target>
@@ -260,24 +245,12 @@
             <artifactId>jsoup</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.pdfbox</groupId>
-            <artifactId>pdfbox</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.pdfbox</groupId>
-            <artifactId>fontbox</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk15on</artifactId>
         </dependency>
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcpkix-jdk15on</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
         </dependency>
         <dependency>
             <groupId>com.icfolson.aem.library</groupId>

@@ -1,9 +1,11 @@
 package com.waters.aem.core.pdf.provider.impl;
 
+import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Text;
 import com.waters.aem.core.components.content.Title;
 import com.waters.aem.core.pdf.provider.ContentProvider;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -19,9 +21,14 @@ public final class TitleContentProvider implements ContentProvider {
     private Title model;
 
     @Override
-    public void writePdfContent(final PDPageContentStream contentStream)
+    public void writePdfContent(final Document document, final ConverterProperties converterProperties)
         throws IOException {
-        contentStream.setFont(PDType1Font.HELVETICA, 16);
-        contentStream.showText(model.getText());
+        final Paragraph paragraph = new Paragraph();
+
+        paragraph.add(new Text(model.getText())
+            .setFontSize(14)
+            .setBold());
+
+        document.add(paragraph);
     }
 }
