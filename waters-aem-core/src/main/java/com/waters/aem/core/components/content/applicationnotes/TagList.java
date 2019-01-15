@@ -12,6 +12,7 @@ import com.day.cq.tagging.TagManager;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.models.annotations.TagInject;
+import com.waters.aem.core.components.content.PageMetaDataExtractor;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -26,9 +27,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component(value = "Tag List",
     description = "This is the Tag List component for waters site",
@@ -111,22 +110,7 @@ public final class TagList extends AbstractComponent {
     private void populateListItemsFromPageTags() {
         final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
         final ValueMap valueMap = currentPage.getProperties();
-
-        for (Tag tag : tags) {
-            final List<Tag> pageTags = valueMap.keySet()
-                .stream()
-                .filter(propertyName -> propertyName.equalsIgnoreCase(tag.getName()))
-                .findFirst()
-                .map(propertyName -> valueMap.get(propertyName, new String[0])) // get tag IDs from value map
-                .map(tagIdsForProperty -> Stream.of(
-                    tagIdsForProperty) // create a new stream from tag IDs and transform to tag objects
-                    .map(tagManager :: resolve)
-                    .filter(Objects :: nonNull)
-                    .collect(Collectors.toList()))
-                .orElse(Collections.emptyList()); // return empty list by default
-
-            listItems.addAll(pageTags);
-        }
+        listItems.addAll(PageMetaDataExtractor.getSearchTags(tagManager,valueMap,tags));
     }
 
     private void sortListItems() {
