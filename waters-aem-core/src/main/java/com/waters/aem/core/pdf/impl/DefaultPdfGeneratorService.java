@@ -2,9 +2,12 @@ package com.waters.aem.core.pdf.impl;
 
 import com.google.common.collect.ImmutableList;
 import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Image;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
 import com.waters.aem.core.components.content.Text;
@@ -28,6 +31,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 @Component(service = PdfGeneratorService.class)
@@ -53,12 +57,16 @@ public final class DefaultPdfGeneratorService implements PdfGeneratorService {
         final PdfDocument pdfDocument = new PdfDocument(new PdfWriter(pdfOutputStream));
         final Document document = new Document(pdfDocument);
 
+        addHeader(document);
+
         final Resource rootResource = request.getResource().getChild(WatersConstants.RESOURCE_NAME_ROOT);
 
         // iterate over children of root resource (layout container) to build PDF content
         for (final Resource child : rootResource.getChildren()) {
             updatePdfDocument(request, child, document);
         }
+
+        addFooter(document);
 
         document.close();
 
@@ -85,6 +93,20 @@ public final class DefaultPdfGeneratorService implements PdfGeneratorService {
     @Modified
     protected void activate(final PdfGeneratorServiceConfiguration configuration) {
         baseUri = configuration.baseUri();
+    }
+
+    private void addHeader(final Document document) {
+        final URL logoImageURL = this.getClass().getResource("/waters-logo-black.png");
+        final ImageData logoImageData = ImageDataFactory.create(logoImageURL);
+        final Image logoImage = new Image(logoImageData);
+
+        logoImage.setWidth(115);
+
+        document.add(logoImage);
+    }
+
+    private void addFooter(final Document document) {
+
     }
 
     private void writePdfContentForResource(final SlingHttpServletRequest request, final Resource resource,
