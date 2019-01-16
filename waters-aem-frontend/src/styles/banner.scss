@@ -1,13 +1,12 @@
 .cmp-banner{
-    @include font-utility;
     margin-bottom: $space-l;
-    background: $color-background-light ;
+    background: $color-background-light;
 }
 
 .cmp-banner--dark .cmp-banner {
-    background: $color-teal-50 ;
+    background: $color-teal-50;
     p, a, h1, h2, h3, h4, h5, h6 {
-            color: $color-font-light ;
+            color: $color-font-light;
     }
 }
 
