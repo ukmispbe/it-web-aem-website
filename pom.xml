@@ -13,6 +13,7 @@
     <modules>
         <module>waters-aem-core</module>
         <module>waters-aem-solr</module>
+        <module>waters-aem-pdf-generator</module>
         <module>waters-aem-frontend</module>
         <module>waters-aem-ui.apps</module>
         <module>waters-aem-ui.content</module>

@@ -1,8 +1,9 @@
-package com.waters.aem.core.pdf;
+package com.waters.aem.pdfgenerator.servlets;
 
 import com.google.common.base.Charsets;
 import com.google.common.net.MediaType;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.pdfgenerator.services.PdfGenerator;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
@@ -29,7 +30,7 @@ public final class PdfGeneratorServlet extends SlingSafeMethodsServlet {
     private static final Logger LOG = LoggerFactory.getLogger(PdfGeneratorServlet.class);
 
     @Reference
-    private PdfGeneratorService pdfGenerator;
+    private PdfGenerator pdfGenerator;
 
     @Override
     protected void doGet(@Nonnull final SlingHttpServletRequest request,

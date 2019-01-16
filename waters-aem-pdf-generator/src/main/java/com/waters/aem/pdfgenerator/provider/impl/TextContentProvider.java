@@ -1,4 +1,4 @@
-package com.waters.aem.core.pdf.provider.impl;
+package com.waters.aem.pdfgenerator.provider.impl;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
@@ -8,7 +8,7 @@ import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Paragraph;
 import com.waters.aem.core.components.content.Text;
-import com.waters.aem.core.pdf.provider.ContentProvider;
+import com.waters.aem.pdfgenerator.provider.PdfContentProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Model;
@@ -17,9 +17,9 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import java.io.IOException;
 
 @Model(adaptables = SlingHttpServletRequest.class,
-    adapters = ContentProvider.class,
+    adapters = PdfContentProvider.class,
     resourceType = Text.RESOURCE_TYPE)
-public final class TextContentProvider implements ContentProvider {
+public final class TextContentProvider implements PdfContentProvider {
 
     @Self
     private Text model;

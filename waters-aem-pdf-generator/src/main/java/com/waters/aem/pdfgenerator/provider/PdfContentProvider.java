@@ -1,4 +1,4 @@
-package com.waters.aem.core.pdf.provider;
+package com.waters.aem.pdfgenerator.provider;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.layout.Document;
@@ -6,7 +6,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 
 import java.io.IOException;
 
-public interface ContentProvider {
+public interface PdfContentProvider {
 
     /**
      * Write PDF content for the current model instance to the PDF content stream.

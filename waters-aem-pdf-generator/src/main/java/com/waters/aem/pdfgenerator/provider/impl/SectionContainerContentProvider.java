@@ -1,12 +1,12 @@
-package com.waters.aem.core.pdf.provider.impl;
+package com.waters.aem.pdfgenerator.provider.impl;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
 import com.waters.aem.core.components.content.applicationnotes.SectionContainer;
-import com.waters.aem.core.pdf.PdfGeneratorService;
-import com.waters.aem.core.pdf.provider.ContentProvider;
+import com.waters.aem.pdfgenerator.provider.PdfContentProvider;
+import com.waters.aem.pdfgenerator.services.PdfGenerator;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
@@ -17,9 +17,9 @@ import javax.inject.Inject;
 import java.io.IOException;
 
 @Model(adaptables = SlingHttpServletRequest.class,
-    adapters = ContentProvider.class,
+    adapters = PdfContentProvider.class,
     resourceType = SectionContainer.RESOURCE_TYPE)
-public final class SectionContainerContentProvider implements ContentProvider {
+public final class SectionContainerContentProvider implements PdfContentProvider {
 
     @Self
     private SectionContainer model;
@@ -28,7 +28,7 @@ public final class SectionContainerContentProvider implements ContentProvider {
     private Resource resource;
 
     @OSGiService
-    private PdfGeneratorService pdfGeneratorService;
+    private PdfGenerator pdfGenerator;
 
     @Override
     public void writePdfContent(final SlingHttpServletRequest request, final Document document,
@@ -44,7 +44,7 @@ public final class SectionContainerContentProvider implements ContentProvider {
         if (par != null) {
             // get content for nested resources
             for (final Resource child : par.getChildren()) {
-                pdfGeneratorService.updatePdfDocument(request, child, document);
+                pdfGenerator.updatePdfDocument(request, child, document);
             }
         }
     }

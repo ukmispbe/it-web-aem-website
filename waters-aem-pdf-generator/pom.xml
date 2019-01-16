@@ -10,9 +10,9 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>waters-aem-core</artifactId>
+    <artifactId>waters-aem-pdf-generator</artifactId>
     <packaging>bundle</packaging>
-    <name>Waters.com - Core</name>
+    <name>Waters.com - PDF Generator</name>
 
     <build>
         <resources>
@@ -33,9 +33,9 @@
                     <instructions>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Name>${project.name}</Bundle-Name>
-                        <Export-Package>!*.impl,com.waters.aem.core.*</Export-Package>
-                        <Import-Package>!com.citytechinc.cq.component.*,*</Import-Package>
-                        <Sling-Model-Packages>com.waters.aem.core</Sling-Model-Packages>
+                        <Export-Package>!*.impl,com.waters.aem.pdfgenerator.*</Export-Package>
+                        <Sling-Model-Packages>com.waters.aem.pdfgenerator</Sling-Model-Packages>
+                        <Embed-Dependency>groupId=com.itextpdf;scope=compile</Embed-Dependency>
                     </instructions>
                 </configuration>
             </plugin>
@@ -87,26 +87,6 @@
             <artifactId>jsr305</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-email</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.servlets.annotations</artifactId>
         </dependency>
@@ -125,37 +105,61 @@
             <artifactId>osgi.annotation</artifactId>
         </dependency>
 
-        <!-- Adobe Core Components -->
+        <!-- iText -->
         <dependency>
-            <groupId>com.adobe.cq</groupId>
-            <artifactId>core.wcm.components.core</artifactId>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>html2pdf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>kernel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>layout</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>forms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>pdfa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>barcodes</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>font-asian</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>hyph</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>styled-xml-parser</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>svg</artifactId>
         </dependency>
 
-        <!-- AEM Library -->
+        <!-- core -->
         <dependency>
-            <groupId>com.icfolson.aem.library</groupId>
-            <artifactId>aem-library-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.icfolson.aem.library</groupId>
-            <artifactId>aem-library-models</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.icfolson.aem.library</groupId>
-            <artifactId>aem-library-core</artifactId>
-        </dependency>
-
-        <!-- CSV -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-csv</artifactId>
-        </dependency>
-
-        <!-- Component Annotation -->
-        <dependency>
-            <groupId>com.citytechinc.cq.cq-component-plugin</groupId>
-            <artifactId>cq-component-annotations</artifactId>
-            <version>${component.plugin.version}</version>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${core.artifactId}</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- Test -->
@@ -174,13 +178,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-imaging</artifactId>
             <version>1.0-R1534292</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.icfolson.aem.library</groupId>
-            <artifactId>aem-library-models</artifactId>
-            <version>${aem.library.version}</version>
-            <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>
     </dependencies>

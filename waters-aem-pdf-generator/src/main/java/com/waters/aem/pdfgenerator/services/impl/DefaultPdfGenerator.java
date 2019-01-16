@@ -1,4 +1,4 @@
-package com.waters.aem.core.pdf.impl;
+package com.waters.aem.pdfgenerator.services.impl;
 
 import com.google.common.collect.ImmutableList;
 import com.itextpdf.html2pdf.ConverterProperties;
@@ -14,9 +14,9 @@ import com.waters.aem.core.components.content.Text;
 import com.waters.aem.core.components.content.Title;
 import com.waters.aem.core.components.content.applicationnotes.SectionContainer;
 import com.waters.aem.core.constants.WatersConstants;
-import com.waters.aem.core.pdf.PdfGeneratorService;
-import com.waters.aem.core.pdf.PdfGeneratorServiceConfiguration;
-import com.waters.aem.core.pdf.provider.ContentProvider;
+import com.waters.aem.pdfgenerator.provider.PdfContentProvider;
+import com.waters.aem.pdfgenerator.services.PdfGenerator;
+import com.waters.aem.pdfgenerator.services.PdfGeneratorConfiguration;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.factory.ModelClassException;
@@ -34,11 +34,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
-@Component(service = PdfGeneratorService.class)
-@Designate(ocd = PdfGeneratorServiceConfiguration.class)
-public final class DefaultPdfGeneratorService implements PdfGeneratorService {
+@Component(service = PdfGenerator.class)
+@Designate(ocd = PdfGeneratorConfiguration.class)
+public final class DefaultPdfGenerator implements PdfGenerator {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DefaultPdfGeneratorService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultPdfGenerator.class);
 
     private static final List<String> CONTENT_RESOURCE_TYPES = ImmutableList.of(
         Text.RESOURCE_TYPE,
@@ -91,7 +91,7 @@ public final class DefaultPdfGeneratorService implements PdfGeneratorService {
 
     @Activate
     @Modified
-    protected void activate(final PdfGeneratorServiceConfiguration configuration) {
+    protected void activate(final PdfGeneratorConfiguration configuration) {
         baseUri = configuration.baseUri();
     }
 
@@ -113,8 +113,8 @@ public final class DefaultPdfGeneratorService implements PdfGeneratorService {
         final Document document, final ConverterProperties converterProperties) throws IOException {
         try {
             // get the PDF content provider for the current resource type
-            final ContentProvider contentProvider = modelFactory.getModelFromWrappedRequest(request, resource,
-                ContentProvider.class);
+            final PdfContentProvider contentProvider = modelFactory.getModelFromWrappedRequest(request, resource,
+                PdfContentProvider.class);
 
             LOG.info("using model class : {} for resource type : {}", contentProvider.getClass().getName(),
                 resource.getResourceType());
