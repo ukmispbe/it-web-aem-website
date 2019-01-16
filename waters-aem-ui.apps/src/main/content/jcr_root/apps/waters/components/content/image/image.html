@@ -10,9 +10,7 @@
      data-title="${image.title || image.alt}"
      class="cmp-image${!wcmmode.disabled ? ' cq-dd-image' : ''}"
      itemscope itemtype="http://schema.org/ImageObject">
-    <div data-sly-test="${image.imageTitle}">
-        <h3>${image.imageTitle}</h3>
-    </div>
+    <h3 data-sly-test="${image.imageTitle}" >${image.imageTitle}</h3>
     <a data-sly-unwrap="${!image.link}"
        class="cmp-image__link" href="${image.link}"
        data-cmp-hook-image="link">
