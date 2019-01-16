@@ -1,8 +1,8 @@
 <div data-sly-use.banner="com.waters.aem.core.components.content.Banner"
-     data-sly-test="${banner.backgroundImage}"
      class="cmp-banner">
-    <img class="cmp-banner__backgroundImage" src="${banner.backgroundImage.fileReference}"/>
-    <sly data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"/>
+    <div class="cmp-banner__backgroundImage" style="background-image:url('${banner.backgroundImage.fileReference @ context='uri'}');">
+        <sly data-sly-resource="${'bannerPar' @ resourceType='wcm/foundation/components/responsivegrid'}"/>
+    </div>
 </div>
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
      data-sly-call="${patterns.placeholder @ show=!banner.backgroundImage, text=component.title}"/>
