@@ -1,4 +1,4 @@
-<div data-sly-use.image="com.adobe.cq.wcm.core.components.models.Image"
+<div data-sly-use.image="com.waters.aem.core.components.content.Image"
      data-sly-use.templates="core/wcm/components/commons/v1/templates.html"
      data-sly-test="${image.src}"
      data-cmp-is="image"
@@ -10,6 +10,9 @@
      data-title="${image.title || image.alt}"
      class="cmp-image${!wcmmode.disabled ? ' cq-dd-image' : ''}"
      itemscope itemtype="http://schema.org/ImageObject">
+    <div data-sly-test="${image.imageTitle}">
+        <h3>${image.imageTitle}</h3>
+    </div>
     <a data-sly-unwrap="${!image.link}"
        class="cmp-image__link" href="${image.link}"
        data-cmp-hook-image="link">
