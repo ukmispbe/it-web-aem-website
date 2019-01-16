@@ -25,7 +25,6 @@ import org.apache.sling.models.annotations.Model;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -96,7 +95,6 @@ public final class TagList extends AbstractComponent {
                 break;
         }
 
-        sortListItems();
         setMaxItems();
     }
 
@@ -111,12 +109,6 @@ public final class TagList extends AbstractComponent {
         final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
         final ValueMap valueMap = currentPage.getProperties();
         listItems.addAll(PageMetaDataExtractor.getSearchTags(tagManager,valueMap,tags));
-    }
-
-    private void sortListItems() {
-        listItems = listItems.stream()
-            .sorted(Comparator.comparing(Tag :: getTitle))
-            .collect(Collectors.toList());
     }
 
     private void setMaxItems() {
