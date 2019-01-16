@@ -45,8 +45,7 @@ public final class SolrIndexJobConsumer implements JobConsumer {
 
         final String path = job.getProperty(SlingConstants.PROPERTY_PATH, String.class);
 
-        LOG.info("processing solr index job for path : {} and topic : {}, retry count : {}", path, job.getTopic(),
-            job.getRetryCount());
+        LOG.info("processing solr index job for path : {} and topic : {}", path, job.getTopic());
 
         boolean success;
 
