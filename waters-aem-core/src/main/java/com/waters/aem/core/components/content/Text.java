@@ -26,15 +26,17 @@ import javax.inject.Inject;
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class Text implements com.adobe.cq.wcm.core.components.models.Text {
 
+    static final String RESOURCE_SUPER_TYPE = "core/wcm/components/text/v2/text";
+
     public static final String RESOURCE_TYPE = "waters/components/content/text";
 
-    static final String RESOURCE_SUPER_TYPE = "core/wcm/components/text/v2/text";
+    public static final String PROPERTY_TEXT = "text";
 
     @Self
     @Via(type = ResourceSuperType.class)
     private com.adobe.cq.wcm.core.components.models.Text delegate; // delegate to core component class
 
-    @DialogField(fieldLabel = "Title", orderBefore = "text")
+    @DialogField(fieldLabel = "Title", orderBefore = PROPERTY_TEXT)
     @TextField
     @Inject
     private String title;
