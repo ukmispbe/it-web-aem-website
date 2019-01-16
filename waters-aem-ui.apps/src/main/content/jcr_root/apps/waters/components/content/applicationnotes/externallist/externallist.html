@@ -1,5 +1,6 @@
-<ul data-sly-use.externalList="com.waters.aem.core.components.content.applicationnotes.ExternalList"
-    data-sly-test="${externalList.externalLinkItems}"
+<sly data-sly-use.externalList="com.waters.aem.core.components.content.applicationnotes.ExternalList"></sly>
+<h3 data-sly-test="${externalList.title}">${externalList.title}</h3>
+<ul data-sly-test="${externalList.externalLinkItems}"
     data-sly-list.linkItem="${externalList.externalLinkItems}"
     class="cmp-external-list">
     <li class="cmp-external-list__item">
