@@ -34,7 +34,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         @Override
         protected void visit(final Resource resource) {
             if (Text.RESOURCE_TYPE.equals(resource.getResourceType())) {
-                final String text = resource.getValueMap().get("text", "");
+                final String text = resource.getValueMap().get(Text.PROPERTY_TEXT, "");
 
                 if (contentBuilder.length() > 0) {
                     contentBuilder.append("\n");
