@@ -22,7 +22,7 @@ public abstract class AbstractJobCancelledEventHandler implements EventHandler {
     private static final String PARAM_PATH = "path";
 
     @Override
-    public void handleEvent(final Event event) {
+    public final void handleEvent(final Event event) {
         final String path = (String) event.getProperty(SlingConstants.PROPERTY_PATH);
         final String topic = (String) event.getProperty(NotificationConstants.NOTIFICATION_PROPERTY_JOB_TOPIC);
 
