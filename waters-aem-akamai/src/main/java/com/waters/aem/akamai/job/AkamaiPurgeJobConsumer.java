@@ -21,11 +21,14 @@ import java.util.concurrent.TimeUnit;
 @Component(immediate = true,
     service = JobConsumer.class,
     property = {
-        JobConsumer.PROPERTY_TOPICS + "=" + AkamaiPurgeJobConsumer.JOB_TOPIC
+        JobConsumer.PROPERTY_TOPICS + "=" + AkamaiPurgeJobConsumer.JOB_TOPIC_INVALIDATE,
+        JobConsumer.PROPERTY_TOPICS + "=" + AkamaiPurgeJobConsumer.JOB_TOPIC_DELETE,
     })
 public final class AkamaiPurgeJobConsumer implements JobConsumer {
 
-    public static final String JOB_TOPIC = "com/waters/events/akamai/purge";
+    public static final String JOB_TOPIC_INVALIDATE = "com/waters/events/akamai/invalidate";
+
+    public static final String JOB_TOPIC_DELETE = "com/waters/events/akamai/delete";
 
     private static final Logger LOG = LoggerFactory.getLogger(AkamaiPurgeJobConsumer.class);
 
@@ -47,7 +50,11 @@ public final class AkamaiPurgeJobConsumer implements JobConsumer {
         LOG.info("processing akamai purge job for path : {}", path);
 
         try {
-            edgeGridClient.invalidate(path);
+            if (JOB_TOPIC_INVALIDATE.equals(job.getTopic())) {
+                edgeGridClient.invalidate(path);
+            } else {
+                edgeGridClient.delete(path);
+            }
         } catch (IOException | URISyntaxException e) {
             // re-throw exception to cancel the job
             throw new RuntimeException(e);
