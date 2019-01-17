@@ -6,6 +6,7 @@ import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.TagInputField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.tagging.Tag;
+import com.google.common.collect.ImmutableList;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.TagInject;
 import com.waters.aem.core.constants.WatersConstants;
@@ -103,6 +104,22 @@ public final class ApplicationNotes {
     @TagInject
     private List<Tag> yearPublished = Collections.emptyList();
 
+    public List<Tag> getAllTags() {
+        return new ImmutableList.Builder<Tag>()
+            .addAll(author)
+            .addAll(category)
+            .addAll(contentType)
+            .addAll(instrumentType)
+            .addAll(technique)
+            .addAll(separationMode)
+            .addAll(columnType)
+            .addAll(software)
+            .addAll(market)
+            .addAll(compoundMatrix)
+            .addAll(affiliations)
+            .build();
+    }
+
     public List<Tag> getAuthor() {
         return author;
     }
@@ -158,5 +175,4 @@ public final class ApplicationNotes {
     public List<Tag> getAffiliations() {
         return affiliations;
     }
-
 }
