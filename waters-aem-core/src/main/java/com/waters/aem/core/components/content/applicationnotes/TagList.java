@@ -3,27 +3,21 @@ package com.waters.aem.core.components.content.applicationnotes;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
+import com.citytechinc.cq.component.annotations.IncludeDialogFields;
 import com.citytechinc.cq.component.annotations.Option;
 import com.citytechinc.cq.component.annotations.widgets.NumberField;
 import com.citytechinc.cq.component.annotations.widgets.Selection;
-import com.citytechinc.cq.component.annotations.widgets.TagInputField;
 import com.day.cq.tagging.Tag;
-import com.day.cq.tagging.TagManager;
-import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.components.AbstractComponent;
-import com.icfolson.aem.library.models.annotations.TagInject;
-import com.waters.aem.core.components.content.PageMetaDataExtractor;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,12 +47,9 @@ public final class TagList extends AbstractComponent {
     @Default(values = TAGS_FROM_CURRENT_PAGE)
     private String tagListType;
 
-    @DialogField(fieldLabel = "Tags",
-        fieldDescription = "choose the tag root path",
-        ranking = 2)
-    @TagInputField
-    @TagInject
-    private List<Tag> tags = Collections.emptyList();
+    @IncludeDialogFields
+    @Self
+    private PageMetadata pageMetadata;
 
     @DialogField(fieldLabel = "Max Items",
         fieldDescription = "Enter Max list items",
@@ -67,55 +58,39 @@ public final class TagList extends AbstractComponent {
     @Inject
     private int maxItems;
 
-    @Inject
-    private PageDecorator currentPage;
-
-    @Inject
-    private ResourceResolver resourceResolver;
-
-    private List<Tag> listItems = new ArrayList<>();
+    private List<Tag> listItems;
 
     public List<Tag> getListItems() {
-        if (listItems.isEmpty()) {
-            populateTagListItems();
+        if (listItems == null) {
+            final List<Tag> tags = getTags();
+
+            listItems = tags.stream()
+                .limit(maxItems != 0 ? maxItems : tags.size())
+                .collect(Collectors.toList());
         }
 
         return listItems;
     }
 
-    private void populateTagListItems() {
+    /**
+     * Tags are assigned as part of Search Meta Data Tab ; EX-applicationNotes to pull the tags assigned to the pages as
+     * part of metadata ; Tag Name must always match with the JCR property name.
+     */
+    private List<Tag> getTags() {
+        final List<Tag> tags;
+
         switch (tagListType) {
             case TAGS_FROM_CURRENT_PAGE:
-                populateListItemsFromPageTags();
+                tags = pageMetadata.getSearchTags();
                 break;
             case FIXED_TAGS_LIST:
-                listItems = tags;
+                tags = pageMetadata.getTags();
                 break;
             default:
+                tags = Collections.emptyList();
                 break;
         }
 
-        setMaxItems();
-    }
-
-    /**
-     * Tags are assigned as part of Search Meta Data Tab ; EX-applicationNotes
-     * to pull the tags assigned to the pages as part of metadata ; Tag Name must always
-     * match with the JCR property name.
-     *
-     * @return
-     */
-    private void populateListItemsFromPageTags() {
-        final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
-        final ValueMap valueMap = currentPage.getProperties();
-        listItems.addAll(PageMetaDataExtractor.getSearchTags(tagManager,valueMap,tags));
-    }
-
-    private void setMaxItems() {
-        if (maxItems != 0) {
-            listItems = listItems.stream()
-                .limit(maxItems)
-                .collect(Collectors.toList());
-        }
+        return tags;
     }
 }
