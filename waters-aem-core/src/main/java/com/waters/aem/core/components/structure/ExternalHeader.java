@@ -29,9 +29,9 @@ import java.util.Locale;
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE,
     tabs = {
-        @Tab(title = "Properties", touchUINodeName = "properties"),
-        @Tab(title = "Header Links", touchUINodeName = "header links"),
-        @Tab(title = "Region Selector", touchUINodeName = "region selector")
+        @Tab(title = "Properties"),
+        @Tab(title = "Header Links"),
+        @Tab(title = "Region Selector")
     })
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class ExternalHeader {
