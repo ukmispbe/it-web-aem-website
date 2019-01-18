@@ -75,7 +75,7 @@ public final class ExternalHeader {
     @InheritInject
     private List<LinkItem> linkItems;
 
-    @DialogField(fieldLabel = "Region Link Details", tab = 3)
+    @DialogField(tab = 3)
     @DialogFieldSet(namePrefix = "./regionLinkItem/")
     @Inject
     private RegionLinkItem regionLinkItem;
