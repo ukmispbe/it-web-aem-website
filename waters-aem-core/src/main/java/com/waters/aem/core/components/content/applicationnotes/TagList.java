@@ -15,6 +15,7 @@ import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.Required;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.inject.Inject;
@@ -49,6 +50,7 @@ public final class TagList extends AbstractComponent {
 
     @IncludeDialogFields
     @Self
+    @Required
     private PageMetadata pageMetadata;
 
     @DialogField(fieldLabel = "Max Items",
