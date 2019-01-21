@@ -1,11 +1,11 @@
 .cmp-banner{
   margin-right: -93px;
   margin-left: -80px;
-  @media (max-width: 650px) {
+  @include mobile {
     margin-right: -24px;
     margin-left: -20px;
   }
-  @media (min-width: 651px) and (max-width: 1200px) {
+  @include tablet  {
     margin-right: -52px;
     margin-left: -40px;
   }
