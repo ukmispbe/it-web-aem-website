@@ -68,7 +68,7 @@ public final class ExternalHeader {
         tab = 2,
         ranking = 1)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
-    @InheritInject
+    @LinkInject(inherit = true)
     private Link searchPath;
 
     @DialogField(fieldLabel = "Link Items",
