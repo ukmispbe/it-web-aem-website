@@ -9,7 +9,6 @@
     <jcr:content
         jcr:primaryType="cq:PageContent"
         sling:resourceType="waters/components/structure/page">
-        <?xml version="1.0" encoding="UTF-8"?>
         <banner
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="waters/components/content/banner"/>
