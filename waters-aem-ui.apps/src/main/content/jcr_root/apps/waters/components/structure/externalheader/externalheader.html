@@ -1,14 +1,8 @@
-<header data-sly-use.externalHeader="com.waters.aem.core.components.structure.ExternalHeader" class="cmp-external-header">
+<header data-sly-use.externalHeader="com.waters.aem.core.components.structure.ExternalHeader" class="cmp-external-header" data-search-path="${externalHeader.searchPath}">
     <div class="container">
         <div class="cmp-external-header__logo">
             <a class="cmp-external-header-logo__link" href="${externalHeader.logoLink.href}" target="${externalHeader.newWindow?'_blank':''}">
                 <img  src="${externalHeader.logo.fileReference}" alt="${externalHeader.logoAltText}"/>
-            </a>
-        </div>
-        <div class="cmp-external-header__search" data-sly-test="${externalHeader.searchPath}">
-            <a class="cmp-external-header-search__link" href="${externalHeader.searchPath.href}">
-                <span>${externalHeader.searchPathText}</span>
-                <img src="/content/dam/waters/brand-assets/icons/search.svg" alt="${externalHeader.searchPathText}" class="inline-svg">
             </a>
         </div>
         <nav class="cmp-external-header__links">
