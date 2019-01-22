@@ -9,6 +9,12 @@
     <jcr:content
         jcr:primaryType="cq:PageContent"
         sling:resourceType="waters/components/structure/page">
+        <banner
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="waters/components/content/banner"/>
+        <share
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="waters/components/content/share"/>
         <searchresults
             jcr:primaryType="nt:unstructured"
             sling:resourceType="waters/components/content/searchresults"/>
