@@ -1,0 +1,53 @@
+.cmp-anchor{
+    list-style: none;
+    padding-left: 0;
+    position: relative;
+    svg {
+          width: $icon-m;
+          float: right;
+          fill: $color-icon;
+
+        }
+    @include mobile{
+        box-shadow: $shadow;
+        background-color: $color-white;
+
+    }
+
+   }
+
+cmp-anchor__icon--hide
+          {
+            display:none;
+          }
+
+.cmp-anchor__list{
+    display: block;
+    float: left;
+    line-height: 1.8em;
+    padding-right: $space-l;
+   @include mobile {
+       &.cmp-anchor-show {
+        padding: $space-s;
+        float: none;
+        display: block;
+        text-align: left;
+        }
+       &.cmp-anchor-hide{
+       display: none;
+       }
+   }
+}
+
+.cmp-anchor__icon {
+        width: $icon-m;
+        float: right;
+        fill: $color-icon;
+    }
+
+.sticky {
+  position: fixed;
+  z-index: 150;
+  width: 100%;
+  top: 0;
+}
