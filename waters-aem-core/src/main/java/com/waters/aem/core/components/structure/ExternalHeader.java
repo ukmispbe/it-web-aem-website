@@ -63,21 +63,34 @@ public final class ExternalHeader {
     @Default(booleanValues = false)
     private Boolean newWindow;
 
+    @DialogField(fieldLabel = "Search Path Text",
+        fieldDescription = "Search Path Text",
+        tab = 2,
+        ranking = 1)
+    @TextField
+    @Inject
+    private String searchPathText;
+
     @DialogField(fieldLabel = "Search Path",
         fieldDescription = "Select Search Path",
         tab = 2,
-        ranking = 1)
+        ranking = 2)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
     private Link searchPath;
 
+
     @DialogField(fieldLabel = "Link Items",
         fieldDescription = "Enter external article details",
         tab = 2,
-        ranking = 2)
+        ranking = 3)
     @MultiField(composite = true)
     @InheritInject
     private List<LinkItem> linkItems;
+
+    public String getSearchPathText() {
+        return searchPathText;
+    }
 
     public Link getSearchPath() {
         return searchPath;

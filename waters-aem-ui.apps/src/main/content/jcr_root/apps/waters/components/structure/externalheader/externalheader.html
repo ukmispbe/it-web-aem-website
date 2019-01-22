@@ -5,6 +5,12 @@
                 <img  src="${externalHeader.logo.fileReference}" alt="${externalHeader.logoAltText}"/>
             </a>
         </div>
+        <div class="cmp-external-header__search" data-sly-test="${externalHeader.searchPath}">
+            <a class="cmp-external-header-search__link" href="${externalHeader.searchPath.href}">
+                <span>${externalHeader.searchPathText}</span>
+                <img src="/content/dam/waters/brand-assets/icons/search.svg" alt="${externalHeader.searchPathText}" class="inline-svg">
+            </a>
+        </div>
         <nav class="cmp-external-header__links">
             <ul data-sly-test="${externalHeader.linkItems}"
                 data-sly-list.linkItem="${externalHeader.linkItems}">
