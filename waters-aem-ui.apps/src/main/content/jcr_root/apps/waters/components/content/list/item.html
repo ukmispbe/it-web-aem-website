@@ -1,0 +1,23 @@
+<template data-sly-template.item="${@ list, item}">
+    <article>
+        <a
+            class="cmp-list__item-link"
+            href="${item.URL}"
+            data-sly-unwrap="${!list.linkItems}"
+        >
+            <span class="cmp-list__item-title">${item.title}</span>
+        </a>
+        <div
+            data-sly-test="${list.showDescription}"
+            class="cmp-list__item-description"
+        >
+            ${item.description}
+        </div>
+        <span
+            data-sly-test="${list.showModificationDate}"
+            class="cmp-list__item-date"
+        >
+            ${'MMMM yyyy' @ format=item.lastModified}
+        </span>
+    </article>
+</template>
