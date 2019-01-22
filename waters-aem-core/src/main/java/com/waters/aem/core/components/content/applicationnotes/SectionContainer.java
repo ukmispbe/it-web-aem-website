@@ -21,8 +21,6 @@ import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.factory.ModelFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -46,15 +44,13 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH
         @Listener(name = EVENT_AFTER_DELETE, value = REFRESH_PARENT)
     })
 @Model(adaptables = SlingHttpServletRequest.class,
-    adapters = { SectionContainer.class, ContainerExporter.class },
+    adapters = { SectionContainer.class, ComponentExporter.class },
     resourceType = SectionContainer.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class SectionContainer extends AbstractComponent implements ContainerExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/applicationnotes/sectioncontainer";
-
-    private static final Logger LOG = LoggerFactory.getLogger(SectionContainer.class);
 
     @Inject
     private SlingModelFilter slingModelFilter;
@@ -103,8 +99,6 @@ public final class SectionContainer extends AbstractComponent implements Contain
                 }
             }
         }
-
-        LOG.info("found {} exported items", exportedItems.size());
 
         return exportedItems;
     }
