@@ -1,27 +1,12 @@
 <div data-sly-use.tagCloud="com.waters.aem.core.components.content.applicationnotes.TagCloud"
-     data-sly-test="${tagCloud.title}"
+     data-sly-test="${tagCloud.searchFacets}"
      class="cmp-tag-cloud">
-    <h4 class="cmp-tag-cloud__title">${tagCloud.title}</h4>
-    <ul class="cmp-tag-cloud__list" data-sly-list.tag="${tagCloud.tagPicker}">
-        <li class="cmp-tag-cloud__item">${tag.title}</li>
+    <h3 data-sly-test="${tagCloud.title}">${tagCloud.title}</h3>
+    <ul class="cmp-tag-cloud__list" data-sly-list.searchFacet="${tagCloud.searchFacets}">
+        <li class="cmp-tag-cloud__item"><a onclick="${searchFacet.filter}" >${searchFacet.title}</a></li>
     </ul>
 </div>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
      data-sly-call="${patterns.placeholder @ show=!tagCloud.title, text=component.title}"/>
 
-<!--
- To be refactored and delete
-<sly data-sly-use.tagDisplay="com.waters.aem.components.appNotes.TagDisplay"></sly>
-<sly data-sly-use.templates="/apps/waters-commercial/components/content/common/templates.html"
-	data-sly-test.empty="${!tagDisplay.tagDisplayTitle && !tagDisplay.appNoteTags}"/>
-<sly data-sly-call="${templates.placeholder @ isEmpty=empty}"></sly>
-
-<div class="wTagDisplay" data-sly-test="${!empty}">
-    <div class="wTagDisplay__heading" data-sly-test="${tagDisplay.tagDisplayTitle}">${tagDisplay.tagDisplayTitle}</div>
-    <ul class="wTagDisplay__list" data-sly-list.appNoteTag="${tagDisplay.appNoteTags}">
-        <li class="wTagDisplay__tag">${appNoteTag.tagTitle}</li>
-    </ul>
-</div>
-
--->

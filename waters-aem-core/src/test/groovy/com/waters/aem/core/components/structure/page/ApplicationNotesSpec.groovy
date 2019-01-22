@@ -13,6 +13,7 @@ class ApplicationNotesSpec extends AemLibraryModelSpec {
                     "jcr:content"(
                         literatureCode: "ABC",
                         author: ["/etc/tags/waters/abc"],
+                        affiliations: ["/etc/tags/waters/abc"],
                         category: ["/etc/tags/waters/abc"],
                         contentType: ["/etc/tags/waters/abc"],
                         instrumentType: ["/etc/tags/waters/abc"],
@@ -64,6 +65,7 @@ class ApplicationNotesSpec extends AemLibraryModelSpec {
         applicationNotes.market*.title == title
         applicationNotes.monthPublished*.title == title
         applicationNotes.yearPublished*.title == title
+        applicationNotes.affiliations*.title == title
 
         where:
         path                                | title

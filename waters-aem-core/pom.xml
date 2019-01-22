@@ -126,6 +126,12 @@
             <artifactId>core.wcm.components.core</artifactId>
         </dependency>
 
+        <!-- ACS commons -->
+        <dependency>
+            <groupId>com.adobe.acs</groupId>
+            <artifactId>acs-aem-commons-bundle</artifactId>
+        </dependency>
+
         <!-- AEM Library -->
         <dependency>
             <groupId>com.icfolson.aem.library</groupId>
@@ -163,7 +169,27 @@
                     <groupId>org.apache.commons</groupId>
                     <artifactId>commons-imaging</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.apache.sling</groupId>
+                    <artifactId>org.apache.sling.models.api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.sling</groupId>
+                    <artifactId>org.apache.sling.models.impl</artifactId>
+                </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.sling</groupId>
+            <artifactId>org.apache.sling.models.api</artifactId>
+            <version>1.3.6</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.sling</groupId>
+            <artifactId>org.apache.sling.models.impl</artifactId>
+            <version>1.4.4</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
