@@ -1,7 +1,7 @@
 package com.waters.aem.core.components.content;
 
 import com.citytechinc.cq.component.annotations.Component;
-import com.waters.aem.core.services.SolrSearchService;
+import com.waters.aem.core.services.solr.SolrSearchService;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
