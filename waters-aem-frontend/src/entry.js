@@ -1,10 +1,12 @@
 // main JS and SCSS entry file
 
-import './styles/index.scss'
-import './scripts/backtotop'
-import './scripts/share'
+import './styles/index.scss';
+import './scripts/backtotop';
+import './scripts/share';
 
-var inlineSVG = require('inline-svg')
+import './index';
+
+var inlineSVG = require('inline-svg');
 
 inlineSVG.init(
     {
@@ -12,4 +14,4 @@ inlineSVG.init(
         initClass: 'svg-inlined', // class added to <html>
     },
     function() {}
-)
+);

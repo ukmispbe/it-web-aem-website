@@ -1,9 +1,7 @@
-<form data-sly-use.searchBar="com.waters.aem.core.components.content.SearchBar"
-      id="form-search-input-inline"
-      class="cmp-search-bar__form" role="search">
-    <div class="cmp-search-bar__group">
-        <input class="cmp-search-bar__input" type="search" id="search-input-inline" placeholder="${'Search by keyword' @ i18n}"
-                    name="keyword"  value="" required="" autocomplete="off">
-        <button class="cmp-search-bar__button" id="search-submit-button" type="submit"><img src="/content/dam/waters/brand-assets/icons/search.svg" class="inline-svg"></button>
-    </div>
-</form>
+<div
+    id="js-search-bar"
+    class="cmp-search-bar__form"
+    data-sly-use.searchBar="com.waters.aem.core.components.content.SearchBar"
+    data-svg-icon-path="/content/dam/waters/brand-assets/icons/search.svg"
+    data-placeholder-text="${'Search by keyword' @ i18n}"
+></div>

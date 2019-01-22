@@ -1,9 +1,9 @@
 // React Search Application
 
-console.log('adding search')
+console.log('adding search');
 
-import React from 'react'
-import ReactDOM from 'react-dom'
-import Search from './search'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Search from './search';
 
-ReactDOM.render(<Search />, document.getElementById('root'))
+ReactDOM.render(<Search />, document.getElementById('js-search-bar'));
