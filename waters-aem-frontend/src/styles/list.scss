@@ -1,9 +1,14 @@
 .cmp-list {
-    list-style: none;
-    padding-left: 0;
     float: left;
     width: 100%;
-    margin: 0;
+
+    &__list {
+        list-style: none;
+        padding-left: 0;
+        float: left;
+        width: 100%;
+        margin: 0;
+    }
 
     &__item {
         display: block;

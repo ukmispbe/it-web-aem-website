@@ -17,7 +17,7 @@
             data-sly-test="${list.showModificationDate}"
             class="cmp-list__item-date"
         >
-            ${list.dateFormatString @ format=item.lastModified}
+            ${'MMMM yyyy' @ format=item.lastModified}
         </span>
     </article>
 </template>
