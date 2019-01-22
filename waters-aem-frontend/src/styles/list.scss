@@ -33,4 +33,31 @@
             }
         }
     }
+
+    &--image {
+        .cmp-list__item-body {
+            float: left;
+            width: calc(100% - 14em);
+            margin-right: $space-l;
+
+            @include mobile {
+                width: 100%;
+            }
+        }
+
+        .cmp-list__item-thumbnail {
+            float: right;
+            width: 12em;
+            border: 1px solid $color-border-light;
+
+            img {
+                width: 100%;
+            }
+
+            @include mobile {
+                width: 100%;
+                margin-bottom: $space-xxs;
+            }
+        }
+    }
 }
