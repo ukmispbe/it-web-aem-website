@@ -55,10 +55,12 @@ public final class List implements com.adobe.cq.wcm.core.components.models.List 
         return title;
     }
 
-    public Collection<WatersListItem> getWatersListItems() {
-        final Collection<WatersListItem> listItems = new ArrayList<>();
+    @Nonnull
+    @Override
+    public Collection<ListItem> getListItems() {
+        final Collection<ListItem> listItems = new ArrayList<>();
 
-        for (final ListItem listItem : getListItems()) {
+        for (final ListItem listItem : delegate.getListItems()) {
             final PageDecorator page = pageManager.getPage(listItem.getPath());
 
             if (page != null) {
@@ -72,12 +74,6 @@ public final class List implements com.adobe.cq.wcm.core.components.models.List 
     @Override
     public Collection<Page> getItems() {
         return delegate.getItems();
-    }
-
-    @Nonnull
-    @Override
-    public Collection<ListItem> getListItems() {
-        return delegate.getListItems();
     }
 
     @Override

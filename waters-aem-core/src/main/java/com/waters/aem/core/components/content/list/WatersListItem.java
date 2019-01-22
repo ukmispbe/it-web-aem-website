@@ -15,7 +15,7 @@ public final class WatersListItem implements ListItem {
 
     private final PageDecorator page;
 
-    public WatersListItem(final ListItem listItem, final PageDecorator page) {
+    WatersListItem(final ListItem listItem, final PageDecorator page) {
         this.listItem = listItem;
         this.page = page;
     }
