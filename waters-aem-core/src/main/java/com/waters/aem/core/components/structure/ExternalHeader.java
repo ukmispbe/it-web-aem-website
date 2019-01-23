@@ -3,11 +3,7 @@ package com.waters.aem.core.components.structure;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
-import com.citytechinc.cq.component.annotations.widgets.Html5SmartImage;
-import com.citytechinc.cq.component.annotations.widgets.MultiField;
-import com.citytechinc.cq.component.annotations.widgets.PathField;
-import com.citytechinc.cq.component.annotations.widgets.Switch;
-import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.citytechinc.cq.component.annotations.widgets.*;
 import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
@@ -15,24 +11,31 @@ import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.content.applicationnotes.LinkItem;
+import com.waters.aem.core.components.content.applicationnotes.RegionLinkItem;
 import com.waters.aem.core.constants.WatersConstants;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
+import com.icfolson.aem.library.api.page.PageDecorator;
 
 import javax.inject.Inject;
-import java.util.List;
+import java.util.*;
 
 @Component(value = "External Header",
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE,
     tabs = {
-        @Tab(title = "Properties", touchUINodeName = "properties"),
-        @Tab(title = "Header Links", touchUINodeName = "header links")
+        @Tab(title = "Properties"),
+        @Tab(title = "Header Links"),
+        @Tab(title = "Region Selector")
     })
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class ExternalHeader {
+
+    @Inject
+    private PageDecorator currentPage;
 
     @DialogField(fieldLabel = "Header Logo",
         fieldDescription = "select header logo",
@@ -79,6 +82,11 @@ public final class ExternalHeader {
     @InheritInject
     private List<LinkItem> linkItems;
 
+    @DialogField(tab = 3)
+    @DialogFieldSet(namePrefix = "./regionLinkItem/")
+    @Inject
+    private RegionLinkItem regionLinkItem;
+
     public Link getSearchPath() {
         return searchPath;
     }
@@ -101,5 +109,28 @@ public final class ExternalHeader {
 
     public List<LinkItem> getLinkItems() {
         return linkItems;
+    }
+
+    public RegionLinkItem getRegionLinkItem() {
+        return regionLinkItem;
+    }
+
+    public String getLanguageLocation(){
+        Locale locale = currentPage.getLanguage(true);
+        String languageCode = locale.getLanguage().toUpperCase();
+        String countryCode =  locale.getCountry();
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if(!StringUtils.isBlank(languageCode)){
+            stringBuilder.append(languageCode);
+        }
+        if(!StringUtils.isBlank(languageCode) && !StringUtils.isBlank(countryCode)){
+            stringBuilder.append("/");
+        }
+        if(!StringUtils.isBlank(countryCode)){
+            stringBuilder.append(countryCode);
+        }
+
+        return stringBuilder.toString();
     }
 }
