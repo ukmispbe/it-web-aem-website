@@ -35,9 +35,9 @@ import java.util.Collection;
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class List implements com.adobe.cq.wcm.core.components.models.List {
 
-    static final String RESOURCE_SUPER_TYPE = "core/wcm/components/list/v2/list";
+    static final String RESOURCE_TYPE = "waters/components/content/list";
 
-    public static final String RESOURCE_TYPE = "waters/components/content/list";
+    static final String RESOURCE_SUPER_TYPE = "core/wcm/components/list/v2/list";
 
     @Self
     @Via(type = ResourceSuperType.class)
@@ -71,6 +71,14 @@ public final class List implements com.adobe.cq.wcm.core.components.models.List 
         return listItems;
     }
 
+    @Nonnull
+    @Override
+    public String getExportedType() {
+        return RESOURCE_TYPE;
+    }
+
+    // delegate methods
+
     @Override
     public Collection<Page> getItems() {
         return delegate.getItems();
@@ -94,11 +102,5 @@ public final class List implements com.adobe.cq.wcm.core.components.models.List 
     @Override
     public String getDateFormatString() {
         return delegate.getDateFormatString();
-    }
-
-    @Nonnull
-    @Override
-    public String getExportedType() {
-        return RESOURCE_TYPE;
     }
 }

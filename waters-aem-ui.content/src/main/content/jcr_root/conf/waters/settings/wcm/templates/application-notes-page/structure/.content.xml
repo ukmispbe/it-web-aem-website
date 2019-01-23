@@ -9,6 +9,9 @@
         cq:template="/conf/waters/settings/wcm/templates/application-notes-page"
         jcr:primaryType="cq:PageContent"
         sling:resourceType="waters/components/structure/page">
+        <applicationnotes
+            jcr:primaryType="nt:unstructured"
+            jcr:mixinTypes="[cq:Taggable]"/>
         <root
             jcr:primaryType="nt:unstructured"
             sling:resourceType="waters/components/content/layoutcontainer"
