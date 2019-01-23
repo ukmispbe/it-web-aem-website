@@ -2,7 +2,7 @@ import scrollToY from './scrollTo';
 var anchorList = document.querySelector('.cmp-anchor__list');
 var anchorElement = document.querySelector('.cmp-anchor');
 //var anchorIcon = document.getElementsByClassName('.cmp-anchor__icon');
-var anchorIcon = document.getElementsByClassName(".cmp-anchor__icon");
+var anchorIcon = document.getElementsByClassName('.cmp-anchor__icon');
 
 // Setup click handler for Anchor Links to scroll in view
 
@@ -19,6 +19,12 @@ anchorLinks.forEach((anchor, i) => {
                 const blockTop = block.offsetTop;
 
                 scrollToY(blockTop - 140, 1000, 'easeOutSine');
+
+                anchorLinks.forEach(anchor => {
+                    anchor.classList.remove('active');
+                });
+
+                anchor.classList.add('active');
             }, 0);
         });
     } catch (e) {
@@ -41,6 +47,22 @@ var anchorSticky = (function() {
             this.addEvents();
             this.position = element.offsetTop;
             this.onScroll();
+
+            this.anchorDestinations = [];
+            // console.log('hello', anchorLinks.length);
+            for (let i = 0; i <= anchorLinks.length; i++) {
+                const anchor = anchorLinks[i];
+
+                if (anchor) {
+                    anchor.classList.remove('active');
+                    this.anchorDestinations.push({
+                        id: anchor.getAttribute('href'),
+                        anchor: anchor,
+                    });
+                }
+            }
+
+            this.getInViewElement();
         },
         aboveScroll: function() {
             return this.position - 73 < window.scrollY;
@@ -51,6 +73,7 @@ var anchorSticky = (function() {
             } else {
                 this.setRelative();
             }
+            this.getInViewElement();
         },
         setFixed: function() {
             this.element.classList.add(CSS_CLASS_ACTIVE);
@@ -61,6 +84,37 @@ var anchorSticky = (function() {
             this.element.classList.remove(CSS_CLASS_ACTIVE);
             anchorList.classList.remove('cmp-anchor-hide');
             //anchorIcon.classList.remove('active');
+        },
+
+        getInViewElement: function() {
+            // var distance = elem.getBoundingClientRect();
+            // const isInView = distance.top <= document.documentElement.clientHeight;
+            if (this.anchorDestinations) {
+                let brokeAt = 0;
+                for (let n = 0; n <= this.anchorDestinations.length; n++) {
+                    const id = this.anchorDestinations[n].id.replace(/#/gi, '');
+                    const link = this.anchorDestinations[n].anchor;
+                    const element = document.getElementById(id);
+                    const elementTop = element.getBoundingClientRect().top;
+                    const docHeight = document.documentElement.clientHeight;
+                    // console.log(elementTop, docHeight);
+                    if (elementTop >= 75 && elementTop <= docHeight) {
+                        link.classList.add('active');
+                        brokeAt = n;
+                        break;
+                    } else {
+                        link.classList.remove('active');
+                    }
+                }
+
+                for (let i = 0; i <= this.anchorDestinations.length; i++) {
+                    if (i !== brokeAt && this.anchorDestinations[i]) {
+                        this.anchorDestinations[i].anchor.classList.remove(
+                            'active'
+                        );
+                    }
+                }
+            }
         },
     };
 
@@ -80,7 +134,7 @@ function toggleMobileNav() {
     } else {
         anchorList.classList.add('cmp-anchor-hide');
         anchorList.classList.remove('cmp-anchor-show');
-       /* anchorIcon[0].classList.add('active');
+        /* anchorIcon[0].classList.add('active');
         anchorIcon[1].classList.remove('active');*/
     }
     //element.classList.contains("highlighted")
