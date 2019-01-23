@@ -1,0 +1,13 @@
+<div data-sly-use.list="com.adobe.cq.wcm.core.components.models.List"
+     data-sly-test="${list.listItems}"
+     class="cmp-list">
+    <h3 data-sly-test="${list.title}" class="cmp-list__title">${list.title}</h3>
+
+    <ul data-sly-list.item="${list.listItems}"
+        data-sly-use.itemTemplate="item.html"
+        class="cmp-list__list">
+        <li class="cmp-list__item" data-sly-call="${itemTemplate.item @ list=list, item=item}"></li>
+    </ul>
+</div>
+<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+     data-sly-call="${patterns.placeholder @ show=!list.listItems, text=component.title}"/>
