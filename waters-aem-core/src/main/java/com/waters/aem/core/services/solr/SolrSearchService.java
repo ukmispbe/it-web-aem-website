@@ -1,4 +1,4 @@
-package com.waters.aem.core.services;
+package com.waters.aem.core.services.solr;
 
 /**
  * Service exposing Solr configuration values.

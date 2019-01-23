@@ -1,4 +1,4 @@
-package com.waters.aem.core.services;
+package com.waters.aem.core.services.solr;
 
 import org.osgi.service.metatype.annotations.AttributeDefinition;
 import org.osgi.service.metatype.annotations.ObjectClassDefinition;

@@ -21,9 +21,7 @@ import org.apache.sling.models.annotations.Model;
 import com.icfolson.aem.library.api.page.PageDecorator;
 
 import javax.inject.Inject;
-import java.util.List;
-import java.util.Locale;
-
+import java.util.*;
 
 @Component(value = "External Header",
     group = ComponentConstants.GROUP_HIDDEN,

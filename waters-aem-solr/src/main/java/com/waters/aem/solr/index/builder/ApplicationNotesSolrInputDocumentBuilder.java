@@ -5,16 +5,27 @@ import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.structure.page.ApplicationNotes;
 import org.apache.sling.models.annotations.Model;
 import org.apache.solr.common.SolrInputDocument;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Model(adaptables = PageDecorator.class)
 public final class ApplicationNotesSolrInputDocumentBuilder extends AbstractSolrInputDocumentBuilder {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ApplicationNotesSolrInputDocumentBuilder.class);
+
+    private static final String FACET_AUTHOR = "author";
+
+    private static final String FACET_SUFFIX = "_facet";
 
     @Override
     protected void addFields(final SolrInputDocument document) {
@@ -35,45 +46,23 @@ public final class ApplicationNotesSolrInputDocumentBuilder extends AbstractSolr
         // get the locale from the current page
         final Locale locale = page.getLanguage(false);
 
-        for (final Tag category : applicationNotes.getCategory()) {
-            document.addField("category_facet", category.getTitle(locale));
-        }
+        // get all application notes tags and group by their parent tag name, which maps to the facet field name
+        final Map<String, List<Tag>> groupedTags = applicationNotes.getAllTags().stream()
+            .collect(Collectors.groupingBy(tag -> tag.getParent().getName()));
 
-        for (final Tag content : applicationNotes.getContentType()) {
-            document.addField("contenttype_facet", content.getTitle(locale));
-        }
+        for (final Map.Entry<String, List<Tag>> entry : groupedTags.entrySet()) {
+            final String fieldName = getFieldName(entry.getKey().toLowerCase());
 
-        for (final Tag author : applicationNotes.getAuthor()) {
-            document.addField("author", author.getTitle(locale));
-        }
+            LOG.info("adding facet with field name : {} and {} values", fieldName, entry.getValue().size());
 
-        for (final Tag technique : applicationNotes.getTechnique()) {
-            document.addField("technique_facet", technique.getTitle(locale));
+            for (final Tag tag : entry.getValue()) {
+                document.addField(fieldName, tag.getTitle(locale));
+            }
         }
+    }
 
-        for (final Tag instrumentType : applicationNotes.getInstrumentType()) {
-            document.addField("instrumenttype_facet", instrumentType.getTitle(locale));
-        }
-
-        for (final Tag separationMode : applicationNotes.getSeparationMode()) {
-            document.addField("separationmode_facet", separationMode.getTitle(locale));
-        }
-
-        for (final Tag compoundMatrix : applicationNotes.getCompoundMatrix()) {
-            document.addField("compoundmatrix_facet", compoundMatrix.getTitle(locale));
-        }
-
-        for (final Tag columnType : applicationNotes.getColumnType()) {
-            document.addField("columntype_facet", columnType.getTitle(locale));
-        }
-
-        for (final Tag software : applicationNotes.getSoftware()) {
-            document.addField("software_facet", software.getTitle(locale));
-        }
-
-        for (final Tag market : applicationNotes.getMarket()) {
-            document.addField("market_facet", market.getTitle(locale));
-        }
+    private String getFieldName(final String parentTagName) {
+        return FACET_AUTHOR.equals(parentTagName) ? parentTagName : parentTagName + FACET_SUFFIX;
     }
 
     private void addDate(final SolrInputDocument document, final ApplicationNotes applicationNotes) {
