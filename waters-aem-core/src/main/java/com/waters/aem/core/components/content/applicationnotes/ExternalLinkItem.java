@@ -54,17 +54,4 @@ public class ExternalLinkItem {
     public Boolean isNewWindow() {
         return newWindow;
     }
-
-    public void setLink(Link link) {
-        this.link = link;
-}
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public void setNewWindow(Boolean isNewWindow) {
-        this.newWindow = isNewWindow;
-    }
-
 }

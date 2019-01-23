@@ -116,7 +116,7 @@ public final class ExternalHeader {
     }
 
     public String getLanguageLocation(){
-        Locale locale = currentPage.getLanguage();
+        Locale locale = currentPage.getLanguage(true);
         String languageCode = locale.getLanguage().toUpperCase();
         String countryCode =  locale.getCountry();
         StringBuilder stringBuilder = new StringBuilder();
