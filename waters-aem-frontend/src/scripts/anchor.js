@@ -1,13 +1,9 @@
 import scrollToY from './scrollTo';
-var anchorList = document.querySelector('.cmp-anchor__list');
 var anchorElement = document.querySelector('.cmp-anchor');
-//var anchorIcon = document.getElementsByClassName('.cmp-anchor__icon');
-var anchorIcon = document.getElementsByClassName('.cmp-anchor__icon');
+var anchorMenu = document.querySelector('.cmp-anchor__list-heading');
 
 // Setup click handler for Anchor Links to scroll in view
-
 var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
-let current = undefined;
 anchorLinks.forEach((anchor, i) => {
     try {
         anchor.addEventListener('click', e => {
@@ -25,6 +21,7 @@ anchorLinks.forEach((anchor, i) => {
                 });
 
                 anchor.classList.add('active');
+                toggleMobileNav(true);
             }, 0);
         });
     } catch (e) {
@@ -47,9 +44,8 @@ var anchorSticky = (function() {
             this.addEvents();
             this.position = element.offsetTop;
             this.onScroll();
-
             this.anchorDestinations = [];
-            // console.log('hello', anchorLinks.length);
+
             for (let i = 0; i <= anchorLinks.length; i++) {
                 const anchor = anchorLinks[i];
 
@@ -77,41 +73,42 @@ var anchorSticky = (function() {
         },
         setFixed: function() {
             this.element.classList.add(CSS_CLASS_ACTIVE);
-            anchorList.classList.add('cmp-anchor-hide');
-            //anchorIcon.classList.add('active');
         },
         setRelative: function() {
             this.element.classList.remove(CSS_CLASS_ACTIVE);
-            anchorList.classList.remove('cmp-anchor-hide');
-            //anchorIcon.classList.remove('active');
         },
 
         getInViewElement: function() {
-            // var distance = elem.getBoundingClientRect();
-            // const isInView = distance.top <= document.documentElement.clientHeight;
             if (this.anchorDestinations) {
                 let brokeAt = 0;
                 for (let n = 0; n <= this.anchorDestinations.length; n++) {
-                    const id = this.anchorDestinations[n].id.replace(/#/gi, '');
-                    const link = this.anchorDestinations[n].anchor;
-                    const element = document.getElementById(id);
-                    const elementTop = element.getBoundingClientRect().top;
-                    const docHeight = document.documentElement.clientHeight;
-                    // console.log(elementTop, docHeight);
-                    if (elementTop >= 75 && elementTop <= docHeight) {
-                        link.classList.add('active');
-                        brokeAt = n;
-                        break;
-                    } else {
-                        link.classList.remove('active');
-                    }
-                }
+                    const id = this.anchorDestinations[n]
+                        ? this.anchorDestinations[n].id.replace(/#/gi, '')
+                        : undefined;
+                    const link = this.anchorDestinations[n]
+                        ? this.anchorDestinations[n].anchor
+                        : undefined;
 
-                for (let i = 0; i <= this.anchorDestinations.length; i++) {
-                    if (i !== brokeAt && this.anchorDestinations[i]) {
-                        this.anchorDestinations[i].anchor.classList.remove(
-                            'active'
-                        );
+                    if (id && link) {
+                        const element = document.getElementById(id);
+                        const elementTop = element.getBoundingClientRect().top;
+                        const docHeight = document.documentElement.clientHeight;
+
+                        if (elementTop >= 75 && elementTop <= docHeight) {
+                            link.classList.add('active');
+                            brokeAt = n;
+                            break;
+                        } else {
+                            link.classList.remove('active');
+                        }
+                    }
+
+                    for (let i = 0; i <= this.anchorDestinations.length; i++) {
+                        if (i !== brokeAt && this.anchorDestinations[i]) {
+                            this.anchorDestinations[i].anchor.classList.remove(
+                                'active'
+                            );
+                        }
                     }
                 }
             }
@@ -122,23 +119,18 @@ var anchorSticky = (function() {
 })();
 
 //  Init Sticky
-
 if (anchorElement) anchorSticky.init(anchorElement);
 
-function toggleMobileNav() {
-    if (anchorList.classList.contains('cmp-anchor-hide')) {
-        anchorList.classList.add('cmp-anchor-show');
-        anchorList.classList.remove('cmp-anchor-hide');
-        /*anchorIcon[1].classList.add('active');
-        anchorIcon[0].classList.remove('active');*/
+function toggleMobileNav(forceClose) {
+    const heading = document.querySelector('.cmp-anchor--sticky');
+    if (!forceClose && heading.classList.contains('closed')) {
+        heading.classList.remove('closed');
+        heading.classList.add('open');
     } else {
-        anchorList.classList.add('cmp-anchor-hide');
-        anchorList.classList.remove('cmp-anchor-show');
-        /* anchorIcon[0].classList.add('active');
-        anchorIcon[1].classList.remove('active');*/
+        heading.classList.add('closed');
+        heading.classList.remove('open');
     }
-    //element.classList.contains("highlighted")
 }
 
 window.addEventListener('scroll', anchorSticky);
-anchorElement.addEventListener('click', toggleMobileNav);
+anchorMenu.addEventListener('click', () => toggleMobileNav());
