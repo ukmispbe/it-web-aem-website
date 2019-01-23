@@ -31,15 +31,15 @@
     margin: 0;
     padding: $space-xs 0;
     @include mobile {
-            &.cmp-anchor-show {
-                float: none;
-                display: block;
-                text-align: left;
-            }
-            &.cmp-anchor-hide {
-                display: none;
-            }
-            }
+        &.cmp-anchor-show {
+            float: none;
+            display: block;
+            text-align: left;
+        }
+        &.cmp-anchor-hide {
+            display: none;
+        }
+    }
 
     &-item {
         display: inline-block;
@@ -47,15 +47,20 @@
         line-height: 1.8em;
         padding-right: $space-l;
 
+        @include mobile {
+            width: 50%;
+            float: left;
+            padding-right: 0;
+        }
     }
 }
 
 .cmp-anchor__icon {
-display: none;
-@include mobile{
-&-show {
-display: block;
-padding: $space-s;
-}
-}
+    display: none;
+    @include mobile {
+        &-show {
+            display: block;
+            padding: $space-s;
+        }
+    }
 }
