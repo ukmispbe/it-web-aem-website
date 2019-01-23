@@ -14,7 +14,7 @@ import javax.inject.Inject;
 
 @Model(adaptables = { Resource.class, SlingHttpServletRequest.class },
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public final class LinkItem extends ExternalLinkItem {
+public class LinkItem extends ExternalLinkItem {
 
     @DialogField(fieldLabel = "Link Item Icon",
         fieldDescription = "Select Link Item Icon",
