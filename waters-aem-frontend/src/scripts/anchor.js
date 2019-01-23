@@ -1,6 +1,8 @@
 import scrollToY from './scrollTo';
 var anchorList = document.querySelector('.cmp-anchor__list');
 var anchorElement = document.querySelector('.cmp-anchor');
+//var anchorIcon = document.getElementsByClassName('.cmp-anchor__icon');
+var anchorIcon = document.getElementsByClassName(".cmp-anchor__icon");
 
 // Setup click handler for Anchor Links to scroll in view
 
@@ -52,9 +54,13 @@ var anchorSticky = (function() {
         },
         setFixed: function() {
             this.element.classList.add(CSS_CLASS_ACTIVE);
+            anchorList.classList.add('cmp-anchor-hide');
+            //anchorIcon.classList.add('active');
         },
         setRelative: function() {
             this.element.classList.remove(CSS_CLASS_ACTIVE);
+            anchorList.classList.remove('cmp-anchor-hide');
+            //anchorIcon.classList.remove('active');
         },
     };
 
@@ -69,11 +75,16 @@ function toggleMobileNav() {
     if (anchorList.classList.contains('cmp-anchor-hide')) {
         anchorList.classList.add('cmp-anchor-show');
         anchorList.classList.remove('cmp-anchor-hide');
+        /*anchorIcon[1].classList.add('active');
+        anchorIcon[0].classList.remove('active');*/
     } else {
         anchorList.classList.add('cmp-anchor-hide');
         anchorList.classList.remove('cmp-anchor-show');
+       /* anchorIcon[0].classList.add('active');
+        anchorIcon[1].classList.remove('active');*/
     }
     //element.classList.contains("highlighted")
 }
 
 window.addEventListener('scroll', anchorSticky);
+anchorElement.addEventListener('click', toggleMobileNav);

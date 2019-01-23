@@ -25,24 +25,13 @@
     }
 }
 
-.cmp-anchor__icon--hide {
-    display: none;
-}
-
 .cmp-anchor__list {
     float: left;
     width: 100%;
     margin: 0;
     padding: $space-xs 0;
-
-    &-item {
-        display: inline-block;
-        margin-bottom: 0;
-        line-height: 1.8em;
-        padding-right: $space-l;
-        @include mobile {
+    @include mobile {
             &.cmp-anchor-show {
-                padding: $space-s;
                 float: none;
                 display: block;
                 text-align: left;
@@ -50,12 +39,23 @@
             &.cmp-anchor-hide {
                 display: none;
             }
-        }
+            }
+
+    &-item {
+        display: inline-block;
+        margin-bottom: 0;
+        line-height: 1.8em;
+        padding-right: $space-l;
+
     }
 }
 
 .cmp-anchor__icon {
-    width: $icon-m;
-    float: right;
-    fill: $color-icon;
+display: none;
+@include mobile{
+&-show {
+display: block;
+padding: $space-s;
+}
+}
 }
