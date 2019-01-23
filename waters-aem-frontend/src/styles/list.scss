@@ -1,0 +1,63 @@
+.cmp-list {
+    float: left;
+    width: 100%;
+
+    &__list {
+        list-style: none;
+        padding-left: 0;
+        float: left;
+        width: 100%;
+        margin: 0;
+    }
+
+    &__item {
+        display: block;
+        float: left;
+        width: 100%;
+
+        &-link {
+            display: block;
+            margin-bottom: 0;
+        }
+
+        &-description {
+            margin: $space-xxs 0;
+            @include multiLineEllipsis($lineCount: 3);
+        }
+
+        &-date {
+            font-size: $font-size-small;
+
+            @include mobile {
+                font-size: $font-size-small-m;
+            }
+        }
+    }
+
+    &--image {
+        .cmp-list__item-body {
+            float: left;
+            width: calc(100% - 14em);
+            margin-right: $space-l;
+
+            @include mobile {
+                width: 100%;
+            }
+        }
+
+        .cmp-list__item-thumbnail {
+            float: right;
+            width: 12em;
+            border: 1px solid $color-border-light;
+
+            img {
+                width: 100%;
+            }
+
+            @include mobile {
+                width: 100%;
+                margin-bottom: $space-xxs;
+            }
+        }
+    }
+}

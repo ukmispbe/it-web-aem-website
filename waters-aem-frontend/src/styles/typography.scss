@@ -51,6 +51,35 @@
     }
 }
 
+@mixin multiLineEllipsis(
+    $lineHeight: $line-height-text,
+    $lineCount: 1,
+    $bgColor: white
+) {
+    overflow: hidden;
+    position: relative;
+    line-height: $lineHeight;
+    max-height: $lineHeight * $lineCount;
+    text-align: justify;
+    margin-right: -0.7em;
+    padding-right: 0.7em;
+    &:before {
+        content: '...';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+    &:after {
+        content: '';
+        position: absolute;
+        right: 0;
+        width: 1em;
+        height: 1em;
+        margin-top: 0.2em;
+        background: $bgColor;
+    }
+}
+
 html {
     font-size: 16px;
 }
@@ -166,4 +195,4 @@ strong {
 
 .cmp-text {
     padding-bottom: $space-s;
-    }
+}
