@@ -24,7 +24,9 @@
                 data-sly-test="${list.showDescription && item.description}"
                 class="cmp-list__item-description"
             >
-                ${item.description}
+                <div class="cmp-list__item-description-text">
+                    ${item.description}
+                </div>
             </div>
             <span
                 data-sly-test="${list.showModificationDate}"
