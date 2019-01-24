@@ -30,6 +30,7 @@ import java.util.Collection;
         @Tab(title = "List Settings", touchUINodeName = "listSettings")
     })
 @Model(adaptables = SlingHttpServletRequest.class,
+    adapters = com.adobe.cq.wcm.core.components.models.List.class,
     resourceType = List.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
