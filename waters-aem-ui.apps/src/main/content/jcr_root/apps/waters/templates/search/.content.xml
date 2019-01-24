@@ -4,7 +4,7 @@
           xmlns:jcr="http://www.jcp.org/jcr/1.0"
           jcr:primaryType="cq:Template"
           jcr:title="Waters Search Page"
-          allowedPaths="[/content/waters]"
+          allowedPaths="[/content/waters(/.*)?]"
           ranking="{Long}100">
     <jcr:content
         jcr:primaryType="cq:PageContent"
