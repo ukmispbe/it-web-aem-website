@@ -5,7 +5,7 @@
           xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="cq:Page">
     <jcr:content
-        cq:allowedTemplates="[/conf/waters/settings/wcm/templates/.*,/apps/waters/templates/.*]"
+        cq:allowedTemplates="[/conf/waters/settings/wcm/templates/.*]"
         cq:deviceGroups="[/etc/mobile/groups/responsive]"
         jcr:primaryType="nt:unstructured"
         jcr:title="Waters"
