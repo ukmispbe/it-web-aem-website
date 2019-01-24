@@ -46,6 +46,9 @@ var anchorSticky = (function() {
             this.onScroll();
             this.anchorDestinations = [];
 
+            this.element.parentNode.style.height =
+                this.element.clientHeight + 'px';
+            console.log(this.element.parentNode);
             for (let i = 0; i <= anchorLinks.length; i++) {
                 const anchor = anchorLinks[i];
 

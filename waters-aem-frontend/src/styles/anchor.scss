@@ -1,4 +1,6 @@
 .cmp-anchor {
+    float: left;
+    width: 100%;
     list-style: none;
     padding-left: 0;
     position: relative;
@@ -35,6 +37,7 @@
         .cmp-anchor__list {
             @include mobile {
                 padding-left: 0;
+                columns: unset;
 
                 .cmp-anchor__list-item {
                     width: 100%;
@@ -112,7 +115,9 @@
     width: 100%;
     margin: 0;
     padding: $space-xs 0;
+
     @include mobile {
+        columns: 2;
         &.cmp-anchor-show {
             margin-bottom: 100%;
             float: none;
@@ -129,10 +134,46 @@
         padding-right: $space-l;
 
         @include mobile {
-            width: 50%;
+            width: 100%;
             float: left;
             padding-right: 0;
             padding-bottom: $space-s;
+        }
+    }
+}
+
+.cmp-anchor--column-1 {
+    .cmp-anchor__list {
+        @include mobile {
+            columns: 1;
+        }
+
+        &-item {
+            width: 100%;
+        }
+    }
+}
+
+.cmp-anchor--column-2 {
+    .cmp-anchor__list {
+        @include mobile {
+            columns: 2;
+        }
+
+        &-item {
+            width: 100%;
+        }
+    }
+}
+
+.cmp-anchor--column-3 {
+    .cmp-anchor__list {
+        @include mobile {
+            columns: 3;
+        }
+
+        &-item {
+            width: 100%;
         }
     }
 }
