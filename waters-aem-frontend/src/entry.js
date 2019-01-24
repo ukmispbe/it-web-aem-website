@@ -3,6 +3,7 @@
 import './styles/index.scss'
 import './scripts/backtotop'
 import './scripts/share'
+import './scripts/anchor'
 
 var inlineSVG = require('inline-svg')
 
