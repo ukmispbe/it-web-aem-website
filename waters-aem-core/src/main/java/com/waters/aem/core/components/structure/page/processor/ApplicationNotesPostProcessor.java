@@ -10,7 +10,6 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.ModifiableValueMap;
 import org.apache.sling.api.resource.PersistenceException;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.servlets.post.Modification;
 import org.apache.sling.servlets.post.SlingPostProcessor;
@@ -33,50 +32,57 @@ public final class ApplicationNotesPostProcessor implements SlingPostProcessor {
     @Override
     public void process(final SlingHttpServletRequest request, final List<Modification> modifications)
         throws PersistenceException {
-        if (isApplicationNotesPage(request)) {
-            final ApplicationNotes applicationNotes = request.getResource().adaptTo(ApplicationNotes.class);
+        final Resource resource = request.getResourceResolver().getResource(request.getResource().getPath());
 
-            LOG.debug("post-processing application notes for resource : {}", request.getResource());
+        if (resource == null) {
+            LOG.debug("resource no longer exists, ignoring");
+        } else {
+            if (isApplicationNotesPage(resource)) {
+                final ApplicationNotes applicationNotes = resource.adaptTo(ApplicationNotes.class);
 
-            final List<String> tagIds = applicationNotes.getAllTags()
-                .stream()
-                .map(Tag :: getTagID)
-                .collect(Collectors.toList());
+                LOG.debug("post-processing application notes for resource : {}", resource);
 
-            processApplicationNotesResource(request, modifications, tagIds);
+                final List<String> tagIds = applicationNotes.getAllTags()
+                    .stream()
+                    .map(Tag :: getTagID)
+                    .collect(Collectors.toList());
+
+                processApplicationNotesResource(resource, modifications, tagIds);
+            } else {
+                LOG.debug("resource is not an application notes page, ignoring");
+            }
         }
     }
 
-    private void processApplicationNotesResource(final SlingHttpServletRequest request,
-        final List<Modification> modifications, final List<String> tagIds) throws PersistenceException {
-        final Resource applicationNotesResource = getApplicationNotesResource(request, modifications);
+    private void processApplicationNotesResource(final Resource resource, final List<Modification> modifications,
+        final List<String> tagIds) throws PersistenceException {
+        final Resource applicationNotesResource = getApplicationNotesResource(resource, modifications);
         final ValueMap properties = applicationNotesResource.adaptTo(ModifiableValueMap.class);
 
         if (tagIds.isEmpty()) {
-            LOG.debug("removing tags property from application notes resource", tagIds.size());
+            LOG.debug("removing tags property from application notes resource : {}", resource);
 
             properties.remove(NameConstants.PN_TAGS);
         } else {
-            LOG.debug("merging {} tags to application notes resource", tagIds.size());
+            LOG.debug("merging {} tags to application notes resource : {}", tagIds.size(), resource);
 
             properties.put(NameConstants.PN_TAGS, tagIds.toArray(new String[0]));
         }
 
+        // add modification to list
         modifications.add(Modification.onModified(applicationNotesResource.getPath()));
     }
 
-    private Resource getApplicationNotesResource(final SlingHttpServletRequest request,
-        final List<Modification> modifications) throws PersistenceException {
-        final ResourceResolver resourceResolver = request.getResourceResolver();
-        final Resource resource = resourceResolver.getResource(request.getResource().getPath());
-
+    private Resource getApplicationNotesResource(final Resource resource, final List<Modification> modifications)
+        throws PersistenceException {
         Resource applicationNotesResource = resource.getChild(RESOURCE_APPLICATION_NOTES);
 
         if (applicationNotesResource == null) {
             final Map<String, Object> properties = Collections.singletonMap(JcrConstants.JCR_MIXINTYPES,
                 TagConstants.NT_TAGGABLE);
 
-            applicationNotesResource = resourceResolver.create(resource, RESOURCE_APPLICATION_NOTES, properties);
+            applicationNotesResource = resource.getResourceResolver().create(resource, RESOURCE_APPLICATION_NOTES,
+                properties);
 
             // add modification for resource created
             modifications.add(Modification.onCreated(applicationNotesResource.getPath()));
@@ -85,8 +91,8 @@ public final class ApplicationNotesPostProcessor implements SlingPostProcessor {
         return applicationNotesResource;
     }
 
-    private boolean isApplicationNotesPage(final SlingHttpServletRequest request) {
-        final ValueMap properties = request.getResource().getValueMap();
+    private boolean isApplicationNotesPage(final Resource resource) {
+        final ValueMap properties = resource.getValueMap();
 
         return WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE.equals(properties.get(NameConstants.PN_TEMPLATE, ""));
     }
