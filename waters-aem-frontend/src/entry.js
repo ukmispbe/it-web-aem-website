@@ -4,7 +4,6 @@ import './styles/index.scss';
 import './scripts/backtotop';
 import './scripts/share';
 import './scripts/anchor';
-import $ from 'jquery';
 
 var inlineSVG = require('inline-svg');
 
@@ -21,20 +20,21 @@ try {
 }
 
 function addEllipses() {
-    var desc = $('.cmp-list__item-description-text');
-
-    $(desc).each(function(index, el) {
-        while (
-            $(el).outerHeight() >
-            $(el)
-                .parent()
-                .height()
-        ) {
-            $(el).text(function(index, text) {
-                return text.replace(/\W*\s(\S)*$/, '...');
-            });
+    const desc = document.querySelectorAll('.cmp-list__item-description-text');
+    let num = 0;
+    for (let i = 0; i <= desc.length; i++) {
+        if (document.querySelectorAll('.cmp-list__item-description-text')[i]) {
+            const eel = desc[i];
+            if (eel) {
+                while (eel.clientHeight > eel.parentElement.clientHeight) {
+                    if (num >= 2000) break;
+                    const text = eel.innerText;
+                    eel.innerText = text.replace(/\W*\s(\S)*$/, '...');
+                    num++;
+                }
+            }
         }
-    });
+    }
 }
 
 addEllipses();

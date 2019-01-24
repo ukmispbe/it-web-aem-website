@@ -48,10 +48,10 @@
         .cmp-list__item-thumbnail {
             float: right;
             width: 12em;
-            border: 1px solid $color-border-light;
 
             img {
                 width: 100%;
+                border: 1px solid $color-border-light;
             }
 
             @include mobile {
