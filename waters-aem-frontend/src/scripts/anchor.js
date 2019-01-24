@@ -48,7 +48,7 @@ var anchorSticky = (function() {
 
             this.element.parentNode.style.height =
                 this.element.clientHeight + 'px';
-            console.log(this.element.parentNode);
+
             for (let i = 0; i <= anchorLinks.length; i++) {
                 const anchor = anchorLinks[i];
 
@@ -75,10 +75,13 @@ var anchorSticky = (function() {
             this.getInViewElement();
         },
         setFixed: function() {
+            this.element.parentNode.style.height =
+                this.element.clientHeight + 'px';
             this.element.classList.add(CSS_CLASS_ACTIVE);
         },
         setRelative: function() {
             this.element.classList.remove(CSS_CLASS_ACTIVE);
+            this.element.parentNode.style.height = 'auto';
         },
 
         getInViewElement: function() {
