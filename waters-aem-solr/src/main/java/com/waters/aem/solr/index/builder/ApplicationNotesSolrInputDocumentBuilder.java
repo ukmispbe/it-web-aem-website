@@ -3,6 +3,7 @@ package com.waters.aem.solr.index.builder;
 import com.day.cq.tagging.Tag;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.structure.page.ApplicationNotes;
+import com.waters.aem.core.utils.SearchUtils;
 import org.apache.sling.models.annotations.Model;
 import org.apache.solr.common.SolrInputDocument;
 import org.slf4j.Logger;
@@ -22,10 +23,6 @@ import java.util.stream.Collectors;
 public final class ApplicationNotesSolrInputDocumentBuilder extends AbstractSolrInputDocumentBuilder {
 
     private static final Logger LOG = LoggerFactory.getLogger(ApplicationNotesSolrInputDocumentBuilder.class);
-
-    private static final String FACET_AUTHOR = "author";
-
-    private static final String FACET_SUFFIX = "_facet";
 
     @Override
     protected void addFields(final SolrInputDocument document) {
@@ -51,7 +48,7 @@ public final class ApplicationNotesSolrInputDocumentBuilder extends AbstractSolr
             .collect(Collectors.groupingBy(tag -> tag.getParent().getName()));
 
         for (final Map.Entry<String, List<Tag>> entry : groupedTags.entrySet()) {
-            final String fieldName = getFieldName(entry.getKey().toLowerCase());
+            final String fieldName = SearchUtils.getSolrFacetName(entry.getKey());
 
             LOG.info("adding facet with field name : {} and {} values", fieldName, entry.getValue().size());
 
@@ -59,10 +56,6 @@ public final class ApplicationNotesSolrInputDocumentBuilder extends AbstractSolr
                 document.addField(fieldName, tag.getTitle(locale));
             }
         }
-    }
-
-    private String getFieldName(final String parentTagName) {
-        return FACET_AUTHOR.equals(parentTagName) ? parentTagName : parentTagName + FACET_SUFFIX;
     }
 
     private void addDate(final SolrInputDocument document, final ApplicationNotes applicationNotes) {
