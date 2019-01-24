@@ -116,11 +116,12 @@
     float: left;
     width: 100%;
     margin: 0;
-    padding: 0 0 $space-xs 0;
+    padding: $space-xs 0;
 
     @include mobile {
         columns: 2;
         margin-top: -$space-s;
+        padding: 0 0 $space-xs 0;
         &.cmp-anchor-show {
             margin-bottom: 100%;
             float: none;
