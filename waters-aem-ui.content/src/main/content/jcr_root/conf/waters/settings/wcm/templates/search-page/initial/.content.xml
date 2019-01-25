@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
+          xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:template="/conf/waters/settings/wcm/templates/search-page"
+        jcr:primaryType="cq:PageContent"
+        sling:resourceType="waters/components/structure/page">
+        <root
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="waters/components/content/layoutcontainer">
+            <cq:responsive jcr:primaryType="nt:unstructured">
+                <phone
+                    jcr:primaryType="nt:unstructured"
+                    width="{Long}4"/>
+                <tablet
+                    jcr:primaryType="nt:unstructured"
+                    width="{Long}8"/>
+                <default
+                    jcr:primaryType="nt:unstructured"
+                    width="{Long}12"/>
+            </cq:responsive>
+        </root>
+    </jcr:content>
+</jcr:root>
