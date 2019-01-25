@@ -1,48 +1,43 @@
 package com.waters.aem.core.components.content;
 
 import com.citytechinc.cq.component.annotations.Component;
-import com.day.cq.tagging.Tag;
-import com.day.cq.tagging.TagManager;
+import com.citytechinc.cq.component.annotations.DialogField;
+import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.icfolson.aem.library.api.page.PageDecorator;
+import com.icfolson.aem.library.core.constants.ComponentConstants;
+import com.waters.aem.core.services.solr.SolrSearchService;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
 import javax.inject.Inject;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Map;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
-@Component("Search Results")
+@Component(value = "Search Results", group = ComponentConstants.GROUP_HIDDEN)
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class SearchResults {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
+    @OSGiService
+    private SolrSearchService searchService;
+
+    @DialogField(fieldLabel = "Categories")
+    @MultiField(composite = true)
     @Inject
-    private PageDecorator currentPage;
+    private List<SearchResultsCategory> categories = Collections.emptyList();
 
-    @Inject
-    private TagManager tagManager;
+    public String getBaseUrl() {
+        return searchService.getBaseUrl();
+    }
 
-    public String getTagsAsJson() throws JsonProcessingException {
-        final Map<String, String> tagIdsToLocalizedTitles = new HashMap<>();
-
-        final Locale locale = currentPage.getLanguage(false);
-
-        for (final Tag namespace : tagManager.getNamespaces()) {
-            final Iterator<Tag> tagsForNamespace = namespace.listAllSubTags();
-
-            while (tagsForNamespace.hasNext()) {
-                final Tag tag = tagsForNamespace.next();
-
-                tagIdsToLocalizedTitles.put(tag.getTagID(), tag.getTitle(locale));
-            }
-        }
-
-        return MAPPER.writeValueAsString(tagIdsToLocalizedTitles);
+    public String getCategoriesAsJson() throws JsonProcessingException {
+        return MAPPER.writeValueAsString(categories.stream()
+            .filter(category -> category.getCategory() != null)
+            .collect(Collectors.toList()));
     }
 }

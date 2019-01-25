@@ -8,7 +8,7 @@
         "storybook": "start-storybook -p 9001 -c .storybook",
         "prebuild": "rebuild-node-sass",
         "build": "node scripts/build.js",
-        "dev-server": "webpack -c webpack.config.dev.js"
+        "watch": "npx webpack-cli --config scripts/webpack.config.dev.js -w --mode development"
     },
     "author": "",
     "license": "UNLICENSED",
@@ -24,6 +24,7 @@
         "node-sass": "^4.11.0",
         "normalize-scss": "^7.0.1",
         "rebuild-node-sass": "^1.1.0",
+        "request": "^2.88.0",
         "sass-loader": "^7.1.0",
         "style-loader": "^0.23.1",
         "webpack": "^4.27.1",

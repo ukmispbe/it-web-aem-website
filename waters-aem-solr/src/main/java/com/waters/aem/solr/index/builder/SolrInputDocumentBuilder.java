@@ -7,5 +7,10 @@ import org.apache.solr.common.SolrInputDocument;
  */
 public interface SolrInputDocumentBuilder {
 
+    /**
+     * Build the Solr input document.
+     *
+     * @return Solr input document
+     */
     SolrInputDocument build();
 }

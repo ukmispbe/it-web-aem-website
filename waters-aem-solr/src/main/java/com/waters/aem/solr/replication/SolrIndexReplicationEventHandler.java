@@ -1,10 +1,9 @@
 package com.waters.aem.solr.replication;
 
-import com.day.cq.replication.ReplicationActionType;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
+import com.waters.aem.core.services.AbstractReplicationEventHandler;
 import com.waters.aem.solr.job.SolrIndexJobConsumer;
-import org.apache.sling.api.SlingConstants;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
@@ -12,8 +11,8 @@ import org.apache.sling.event.jobs.JobManager;
 import org.apache.sling.event.jobs.NotificationConstants;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.event.Event;
 import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
 import org.osgi.service.metatype.annotations.Designate;
@@ -21,9 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Event handler for finished replication events to index content in Solr.
@@ -35,7 +32,7 @@ import java.util.Map;
         EventConstants.EVENT_FILTER + "=(" + NotificationConstants.NOTIFICATION_PROPERTY_JOB_TOPIC + "=com/day/cq/replication/job/publish)"
     })
 @Designate(ocd = SolrIndexReplicationEventHandlerConfiguration.class)
-public final class SolrIndexReplicationEventHandler implements EventHandler {
+public final class SolrIndexReplicationEventHandler extends AbstractReplicationEventHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(SolrIndexReplicationEventHandler.class);
 
@@ -51,70 +48,47 @@ public final class SolrIndexReplicationEventHandler implements EventHandler {
 
     private volatile List<String> includedTemplates;
 
-    /**
-     * Handle the replication event by adding an add/delete index job to the queue for the replicated page path.
-     *
-     * @param event replication event
-     */
     @Override
-    public void handleEvent(final Event event) {
-        final String path = (String) event.getProperty("cq:path");
-        final String type = (String) event.getProperty("cq:type");
+    protected List<String> getIncludedPaths() {
+        return includedPaths;
+    }
 
-        final ReplicationActionType replicationActionType = ReplicationActionType.fromName(type);
+    @Override
+    protected List<String> getExcludedPaths() {
+        return excludedPaths;
+    }
 
-        LOG.debug("handling finished replication event for path = {}", path);
+    @Override
+    protected JobManager getJobManager() {
+        return jobManager;
+    }
 
-        if (isIndexed(path) && isIncludedTemplate(path)) {
-            if (replicationActionType.equals(ReplicationActionType.ACTIVATE)) {
-                LOG.info("handling activate event for path = {}", path);
+    @Override
+    protected boolean accepts(final String path) {
+        return isIndexed(path) && isIncludedTemplate(path);
+    }
 
-                jobManager.addJob(SolrIndexJobConsumer.JOB_TOPIC_INDEX_ADD, getJobProperties(path));
-            } else if (replicationActionType.equals(ReplicationActionType.DEACTIVATE)) {
-                LOG.info("handling deactivate event for path = {}", path);
+    @Override
+    protected void handleActivate(final String path) {
+        addJob(SolrIndexJobConsumer.JOB_TOPIC_INDEX_ADD, path);
+    }
 
-                jobManager.addJob(SolrIndexJobConsumer.JOB_TOPIC_INDEX_DELETE, getJobProperties(path));
-            } else if (replicationActionType.equals(ReplicationActionType.DELETE)) {
-                LOG.info("handling delete event for path = {}", path);
+    @Override
+    protected void handleDeactivate(final String path) {
+        addJob(SolrIndexJobConsumer.JOB_TOPIC_INDEX_DELETE, path);
+    }
 
-                jobManager.addJob(SolrIndexJobConsumer.JOB_TOPIC_INDEX_DELETE, getJobProperties(path));
-            } else {
-                LOG.debug("replication action type = {} not handled for path = {}", type, path);
-            }
-        }
+    @Override
+    protected void handleDelete(final String path) {
+        addJob(SolrIndexJobConsumer.JOB_TOPIC_INDEX_DELETE, path);
     }
 
     @Activate
+    @Modified
     protected void activate(final SolrIndexReplicationEventHandlerConfiguration configuration) {
         includedPaths = Arrays.asList(configuration.includedPaths());
         excludedPaths = Arrays.asList(configuration.excludedPaths());
         includedTemplates = Arrays.asList(configuration.includedTemplates());
-    }
-
-    private Map<String, Object> getJobProperties(final String path) {
-        return Collections.singletonMap(SlingConstants.PROPERTY_PATH, path);
-    }
-
-    /**
-     * Check if the given page path is indexed according to the rules defined in the OSGi service configuration.
-     *
-     * @param path replicated page path
-     * @return true if path is indexed, false if not
-     */
-    private boolean isIndexed(final String path) {
-        boolean isIndexed = includedPaths.stream().anyMatch(path :: startsWith);
-
-        if (isIndexed) {
-            LOG.debug("found indexed path : {}", path);
-
-            isIndexed = excludedPaths.stream().noneMatch(path :: startsWith);
-
-            LOG.debug("path : {}, is excluded : {}", path, !isIndexed);
-        } else {
-            LOG.debug("non-indexed path : {}", path);
-        }
-
-        return isIndexed;
     }
 
     /**

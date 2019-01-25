@@ -3,77 +3,58 @@ package com.waters.aem.solr.index.builder;
 import com.day.cq.tagging.Tag;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.structure.page.ApplicationNotes;
+import com.waters.aem.core.utils.SearchUtils;
 import org.apache.sling.models.annotations.Model;
 import org.apache.solr.common.SolrInputDocument;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Model(adaptables = PageDecorator.class)
 public final class ApplicationNotesSolrInputDocumentBuilder extends AbstractSolrInputDocumentBuilder {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ApplicationNotesSolrInputDocumentBuilder.class);
 
     @Override
     protected void addFields(final SolrInputDocument document) {
         // get the application notes properties for the current page
         final ApplicationNotes applicationNotes = page.getContentResource().adaptTo(ApplicationNotes.class);
 
-        //get the locale from the current page
-        final Locale locale = page.getLanguage(false);
-        
         // add literature code
         document.setField("literaturecode", applicationNotes.getLiteratureCode());
 
         // add application notes facets
-        addFacets(document, applicationNotes,locale);
+        addFacets(document, applicationNotes);
 
         // add date
         addDate(document, applicationNotes);
     }
 
-    private void addFacets(final SolrInputDocument document, final ApplicationNotes applicationNotes,final Locale locale) {
-        // TODO: determine if we are sending tag IDs or titles to solr depending on translation strategy
-        for (final Tag category : applicationNotes.getCategory()) {
-            document.addField("category_facet", category.getTagID());
-        }
+    private void addFacets(final SolrInputDocument document, final ApplicationNotes applicationNotes) {
+        // get the locale from the current page
+        final Locale locale = page.getLanguage(false);
 
-        for (final Tag content : applicationNotes.getContentType()) {
-            document.addField("contenttype_facet", content.getTitle(locale));
-        }
+        // get all application notes tags and group by their parent tag name, which maps to the facet field name
+        final Map<String, List<Tag>> groupedTags = applicationNotes.getAllTags().stream()
+            .collect(Collectors.groupingBy(tag -> tag.getParent().getName()));
 
-        for (final Tag author : applicationNotes.getAuthor()) {
-            document.addField("author", author.getTitle(locale));
-        }
+        for (final Map.Entry<String, List<Tag>> entry : groupedTags.entrySet()) {
+            final String fieldName = SearchUtils.getSolrFacetName(entry.getKey());
 
-        for (final Tag technique : applicationNotes.getTechnique()) {
-            document.addField("technique_facet", technique.getTitle(locale));
-        }
+            LOG.info("adding facet with field name : {} and {} values", fieldName, entry.getValue().size());
 
-        for (final Tag instrumentType : applicationNotes.getInstrumentType()) {
-            document.addField("instrumenttype_facet", instrumentType.getTitle(locale));
-        }
-
-        for (final Tag separationMode : applicationNotes.getSeparationMode()) {
-            document.addField("separationmode_facet", separationMode.getTitle(locale));
-        }
-
-        for (final Tag compoundMatrix : applicationNotes.getCompoundMatrix()) {
-            document.addField("compoundmatrix_facet", compoundMatrix.getTitle(locale));
-        }
-
-        for (final Tag columnType : applicationNotes.getColumnType()) {
-            document.addField("columntype_facet", columnType.getTitle(locale));
-        }
-
-        for (final Tag software : applicationNotes.getSoftware()) {
-            document.addField("software_facet", software.getTitle(locale));
-        }
-
-        for (final Tag market : applicationNotes.getMarket()) {
-            document.addField("market_facet", market.getTitle(locale));
+            for (final Tag tag : entry.getValue()) {
+                document.addField(fieldName, tag.getTitle(locale));
+            }
         }
     }
 

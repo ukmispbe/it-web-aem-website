@@ -13,6 +13,7 @@ class ApplicationNotesSpec extends AemLibraryModelSpec {
                     "jcr:content"(
                         literatureCode: "ABC",
                         author: ["/etc/tags/waters/abc"],
+                        affiliations: ["/etc/tags/waters/abc"],
                         category: ["/etc/tags/waters/abc"],
                         contentType: ["/etc/tags/waters/abc"],
                         instrumentType: ["/etc/tags/waters/abc"],
@@ -46,6 +47,19 @@ class ApplicationNotesSpec extends AemLibraryModelSpec {
         applicationNotes.literatureCode == "ABC"
     }
 
+    def "get all tags"() {
+        setup:
+        def applicationNotes = getPage(path).contentResource.adaptTo(ApplicationNotes)
+
+        expect:
+        applicationNotes.allTags.size() == size
+
+        where:
+        path                                | size
+        "/content/waters"                   | 0
+        "/content/waters/application-notes" | 11
+    }
+
     def "get tags"() {
         setup:
         def applicationNotes = getPage(path).contentResource.adaptTo(ApplicationNotes)
@@ -64,6 +78,7 @@ class ApplicationNotesSpec extends AemLibraryModelSpec {
         applicationNotes.market*.title == title
         applicationNotes.monthPublished*.title == title
         applicationNotes.yearPublished*.title == title
+        applicationNotes.affiliations*.title == title
 
         where:
         path                                | title

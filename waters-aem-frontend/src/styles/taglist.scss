@@ -16,6 +16,7 @@
 
 .cmp-tag-list--comma-separated {
     .cmp-tag-list {
+        margin-bottom: $space-l;
         &__item {
             &::after {
                 content: ',';
@@ -33,6 +34,7 @@
 
 .cmp-tag-list--stacked {
     .cmp-tag-list {
+        margin-bottom: $space-l;
         &__item {
             display: block;
         }
@@ -41,6 +43,7 @@
 
 .cmp-tag-list--label {
     .cmp-tag-list {
+        margin-bottom: $space-s;
         &__item {
             font-size: $font-size-small;
             display: inline-block;

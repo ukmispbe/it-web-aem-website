@@ -7,10 +7,11 @@ html {
 }
 
 body {
-    padding-top: 72px;
+    padding-top: (4.5em + $space-l);
+    overflow-x: hidden;
 
     @include mobile {
-        padding-top: 75px;
+        padding-top: (4.1875em + $space-l);
     }
 }
 
@@ -59,7 +60,6 @@ body {
     max-width: 1460px;
     margin: 0 auto;
     padding: 0 80px;
-    overflow-x: hidden;
 
     @include mobile {
         padding: 0 20px;

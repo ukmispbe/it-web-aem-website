@@ -4,7 +4,7 @@ a.cmp-button,
 button.cmp-button {
     @include font-utility;
     padding: $space-xs $space-l;
-    margin: 0 $space-s $space-l 0;
+    margin: 0 0 $space-l 0;
     color: $color-font-light;
     text-transform: uppercase;
     background-color: $color-blue-50;
@@ -43,7 +43,7 @@ a.cmp-button--disabled,
 button.cmp-button--disabled {
     @include font-utility;
     padding: $space-xs $space-l;
-    margin: 0 $space-s $space-l 0;
+    margin: 0 0 $space-l 0;
     color: $color-font-light;
     text-transform: uppercase;
     background-color: $color-disabled;
@@ -55,7 +55,7 @@ a.cmp-button--secondary,
 button.cmp-button--secondary {
     @include font-utility;
     padding: $space-xs $space-l;
-    margin: 0 $space-s $space-l 0;
+    margin: 0 0 $space-l 0;
     color: $color-link;
     text-transform: uppercase;
     background-color: $color-white;
