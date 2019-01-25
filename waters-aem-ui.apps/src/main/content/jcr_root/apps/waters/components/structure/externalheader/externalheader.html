@@ -6,7 +6,7 @@
             </a>
         </div>
         <nav class="cmp-external-header__links">
-            <ul data-sly-test="${externalHeader.linkItems}">
+            <ul data-sly-test="${externalHeader.linkItems || externalHeader.languageLocation}">
                 <li data-sly-repeat="${externalHeader.linkItems}" class="cmp-external-header__links__item">
                     <a class="cmp-external-header-links__link" href="${item.link.href}" target="${item.newWindow ? '_blank' : ''}">
                         <span>${item.text}</span>
