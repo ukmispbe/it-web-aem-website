@@ -29,7 +29,7 @@ function addEllipses() {
                 while (eel.clientHeight > eel.parentElement.clientHeight) {
                     if (num >= 2000) break;
                     const text = eel.innerText;
-                    eel.innerText = text.replace(/\W*\s(\S)*$/, '...');
+                    eel.innerText = text.replace(/\W*\s(\S)*$/, '…');
                     num++;
                 }
             }
