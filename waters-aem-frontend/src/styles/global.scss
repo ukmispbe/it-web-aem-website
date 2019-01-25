@@ -7,11 +7,11 @@ html {
 }
 
 body {
-    padding-top: 72px;
+    padding-top: (4.5em + $space-l);
     overflow-x: hidden;
 
     @include mobile {
-        padding-top: 75px;
+        padding-top: (4.1875em + $space-l);
     }
 }
 
