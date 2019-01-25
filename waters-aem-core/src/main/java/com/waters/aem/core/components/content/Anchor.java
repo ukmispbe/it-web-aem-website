@@ -5,17 +5,27 @@ import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.node.predicates.ComponentNodeResourceTypePredicate;
 import com.waters.aem.core.components.content.applicationnotes.SectionContainer;
-import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
+import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.apache.sling.models.factory.ModelFactory;
 
 import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component(value = "Anchor", description = "This is the Anchor component for Waters site")
-@Model(adaptables = Resource.class)
+@Model(adaptables = SlingHttpServletRequest.class)
 public final class Anchor {
+
+    @OSGiService
+    private ModelFactory modelFactory;
+
+    @Self
+    private SlingHttpServletRequest request;
 
     @Inject
     private PageDecorator currentPage;
@@ -26,7 +36,10 @@ public final class Anchor {
             .transform(contentNode -> contentNode.findDescendants(
                 new ComponentNodeResourceTypePredicate(SectionContainer.RESOURCE_TYPE))
                 .stream()
-                .map(componentNode -> componentNode.getResource().adaptTo(SectionContainer.class).getAnchorLink())
+                .map(componentNode -> modelFactory.getModelFromWrappedRequest(request, componentNode.getResource(),
+                    SectionContainer.class))
+                .filter(Objects :: nonNull)
+                .map(SectionContainer :: getAnchorLink)
                 .filter(link -> link.getTitle() != null)
                 .collect(Collectors.toList()))
             .or(Collections.emptyList());

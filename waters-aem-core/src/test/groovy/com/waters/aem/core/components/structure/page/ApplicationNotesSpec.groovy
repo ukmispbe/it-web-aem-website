@@ -47,6 +47,19 @@ class ApplicationNotesSpec extends AemLibraryModelSpec {
         applicationNotes.literatureCode == "ABC"
     }
 
+    def "get all tags"() {
+        setup:
+        def applicationNotes = getPage(path).contentResource.adaptTo(ApplicationNotes)
+
+        expect:
+        applicationNotes.allTags.size() == size
+
+        where:
+        path                                | size
+        "/content/waters"                   | 0
+        "/content/waters/application-notes" | 11
+    }
+
     def "get tags"() {
         setup:
         def applicationNotes = getPage(path).contentResource.adaptTo(ApplicationNotes)

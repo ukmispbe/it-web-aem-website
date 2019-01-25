@@ -4,8 +4,10 @@ import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
+import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
@@ -13,6 +15,7 @@ import org.apache.sling.models.annotations.Via;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.via.ResourceSuperType;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 @Component(value = "Text",
@@ -32,6 +35,8 @@ public final class Text implements com.adobe.cq.wcm.core.components.models.Text 
 
     public static final String PROPERTY_TEXT = "text";
 
+    public static final String PROPERTY_INDEXED = "indexed";
+
     @Self
     @Via(type = ResourceSuperType.class)
     private com.adobe.cq.wcm.core.components.models.Text delegate; // delegate to core component class
@@ -41,8 +46,19 @@ public final class Text implements com.adobe.cq.wcm.core.components.models.Text 
     @Inject
     private String title;
 
+    @DialogField(fieldLabel = "Indexed?",
+        fieldDescription = "Select whether this text should be added to the search index.")
+    @Switch(offText = "No", onText = "Yes")
+    @Inject
+    @Default(booleanValues = false)
+    private Boolean indexed;
+
     public String getTitle() {
         return title;
+    }
+
+    public boolean isIndexed() {
+        return indexed;
     }
 
     // delegate methods
@@ -57,8 +73,9 @@ public final class Text implements com.adobe.cq.wcm.core.components.models.Text 
         return delegate.isRichText();
     }
 
+    @Nonnull
     @Override
     public String getExportedType() {
-        return delegate.getExportedType();
+        return RESOURCE_TYPE;
     }
 }

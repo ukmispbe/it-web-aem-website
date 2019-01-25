@@ -9,6 +9,7 @@ import com.waters.aem.core.components.structure.page.Thumbnail;
 import org.apache.sling.api.resource.AbstractResourceVisitor;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.solr.common.SolrInputDocument;
 import org.jsoup.Jsoup;
@@ -34,13 +35,17 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         @Override
         protected void visit(final Resource resource) {
             if (Text.RESOURCE_TYPE.equals(resource.getResourceType())) {
-                final String text = resource.getValueMap().get(Text.PROPERTY_TEXT, "");
+                final ValueMap properties = resource.getValueMap();
 
-                if (contentBuilder.length() > 0) {
-                    contentBuilder.append("\n");
+                if (properties.get(Text.PROPERTY_INDEXED, false)) {
+                    final String text = properties.get(Text.PROPERTY_TEXT, "");
+
+                    if (contentBuilder.length() > 0) {
+                        contentBuilder.append("\n");
+                    }
+
+                    contentBuilder.append(Jsoup.clean(text, Whitelist.none()));
                 }
-
-                contentBuilder.append(Jsoup.clean(text, Whitelist.none()));
             }
         }
 

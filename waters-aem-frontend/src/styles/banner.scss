@@ -1,20 +1,80 @@
-.cmp-banner{
+.cmp-banner {
+    margin: 0 -30%;
+    padding: 0 30%;
+
+    .container {
+        padding: 0;
+        margin: 0;
+    }
+
+    &__backgroundImage {
+        padding: 0 30%;
+        margin: 0 -30%;
+    }
+
+    @media (min-width: 1920px) {
+        margin: 0 -40%;
+        padding: 0 40%;
+
+        &__backgroundImage {
+            padding: 0 40%;
+            margin: 0 -40%;
+        }
+    }
+
+    @include mobile {
+        padding: 0 24px;
+        margin: 0 -24px;
+
+        &__backgroundImage {
+            padding: 0 24px;
+            margin: 0 -24px;
+        }
+
+        // .container {
+        //     padding: 0 4px;
+        // }
+    }
+    @include tablet {
+        padding: 0 52px;
+        margin: 0 -52px;
+
+        &__backgroundImage {
+            padding: 0 52px;
+            margin: 0 -52px;
+        }
+
+        // .container {
+        //     padding: 0 12px;
+        // }
+    }
+}
+
+.cmp-banner--light .cmp-banner {
     margin-bottom: $space-l;
     background: $color-background-light;
 }
 
 .cmp-banner--dark .cmp-banner {
+    margin-bottom: $space-l;
     background: $color-teal-50;
-    p, a, h1, h2, h3, h4, h5, h6 {
-            color: $color-font-light;
+    p,
+    a,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: $color-font-light;
     }
 }
 
-.cmp-banner__parsys{
+.cmp-banner__parsys {
     padding: $space-xl 0;
 }
 
-.cmp-banner__backgroundImage{
+.cmp-banner__backgroundImage {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;

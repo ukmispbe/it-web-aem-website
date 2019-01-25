@@ -1,7 +1,7 @@
-package com.waters.aem.core.components.content
+package com.waters.aem.core.components.content.applicationnotes
 
 import com.icfolson.aem.library.models.specs.AemLibraryModelSpec
-import com.waters.aem.core.components.content.applicationnotes.TagCloud
+import com.waters.aem.core.components.structure.page.ApplicationNotes
 import spock.lang.Unroll
 
 @Unroll
@@ -11,12 +11,12 @@ class TagCloudSpec extends AemLibraryModelSpec {
         pageBuilder.content {
             waters {
                 "jcr:content"(
-                        compoundMatrix: ["/etc/tags/waters/compoundMatrix/first"],
-                        market: ["/etc/tags/waters/market/first", "/etc/tags/waters/market/second"]
+                    compoundMatrix: ["/etc/tags/waters/compoundMatrix/first"],
+                    market: ["/etc/tags/waters/market/first", "/etc/tags/waters/market/second"]
                 ) {
                     page(
-                            title:"keywords",
-                            tags: ["/etc/tags/waters/compoundMatrix", "/etc/tags/waters/market"]
+                        title: "keywords",
+                        tags: ["/etc/tags/waters/compoundMatrix", "/etc/tags/waters/market"]
                     )
                 }
             }
@@ -41,6 +41,8 @@ class TagCloudSpec extends AemLibraryModelSpec {
                 }
             }
         }
+
+        slingContext.addModelsForClasses(ApplicationNotes)
     }
 
     def "get tagcloud title"() {
@@ -49,7 +51,6 @@ class TagCloudSpec extends AemLibraryModelSpec {
 
         expect:
         tagCloud.title == "keywords"
-
     }
 
     def "get tagcloud searchFacets"() {
@@ -63,6 +64,10 @@ class TagCloudSpec extends AemLibraryModelSpec {
         tagCloud.searchFacets*.title == ["First Class", "First Market", "Second Market"]
 
         and:
-        tagCloud.searchFacets*.filter == ["compoundMatrix_facet:First Class", "market_facet:First Market", "market_facet:Second Market"]
+        tagCloud.searchFacets*.filter == [
+            "compoundMatrix_facet:First Class",
+            "market_facet:First Market",
+            "market_facet:Second Market"
+        ]
     }
 }
