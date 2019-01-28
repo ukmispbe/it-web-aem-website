@@ -1,7 +1,7 @@
 <table class="cmp-table"
        data-sly-use.table="com.waters.aem.core.components.content.applicationnotes.Table"
        data-sly-test="${table.tableRows}">
-    <thead>
+    <thead data-sly-test="${table.hasHeader}">
     <tr>
         <th data-sly-repeat.columnName="${table.columnNames}">${columnName}</th>
     </tr>
