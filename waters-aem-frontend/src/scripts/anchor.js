@@ -46,6 +46,9 @@ var anchorSticky = (function() {
             this.onScroll();
             this.anchorDestinations = [];
 
+            this.element.parentNode.style.height =
+                this.element.clientHeight + 'px';
+
             for (let i = 0; i <= anchorLinks.length; i++) {
                 const anchor = anchorLinks[i];
 
@@ -72,10 +75,13 @@ var anchorSticky = (function() {
             this.getInViewElement();
         },
         setFixed: function() {
+            this.element.parentNode.style.height =
+                this.element.clientHeight + 'px';
             this.element.classList.add(CSS_CLASS_ACTIVE);
         },
         setRelative: function() {
             this.element.classList.remove(CSS_CLASS_ACTIVE);
+            this.element.parentNode.style.height = 'auto';
         },
 
         getInViewElement: function() {
@@ -91,10 +97,19 @@ var anchorSticky = (function() {
 
                     if (id && link) {
                         const element = document.getElementById(id);
-                        const elementTop = element.getBoundingClientRect().top;
+                        const elementBoundaries = element.getBoundingClientRect();
+                        const elementTop = elementBoundaries.top;
+                        const elementBottom = elementBoundaries.bottom;
                         const docHeight = document.documentElement.clientHeight;
+                        const halfwayUpPage = docHeight / 1.4;
+                        const stillOnPage = docHeight / 1.55;
 
-                        if (elementTop >= 75 && elementTop <= docHeight) {
+                        if (
+                            (elementTop >= 75 &&
+                                elementTop <= docHeight &&
+                                elementTop <= halfwayUpPage) ||
+                            (elementTop < 150 && elementBottom >= stillOnPage)
+                        ) {
                             link.classList.add('active');
                             brokeAt = n;
                             break;
@@ -133,4 +148,4 @@ function toggleMobileNav(forceClose) {
 }
 
 window.addEventListener('scroll', anchorSticky);
-anchorMenu.addEventListener('click', () => toggleMobileNav());
+if (anchorMenu) anchorMenu.addEventListener('click', () => toggleMobileNav());

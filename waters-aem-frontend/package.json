@@ -8,7 +8,7 @@
         "storybook": "start-storybook -p 9001 -c .storybook",
         "prebuild": "rebuild-node-sass",
         "build": "node scripts/build.js",
-        "watch": "npx webpack-cli --config scripts/webpack.config.dev.js -w"
+        "watch": "npx webpack-cli --config scripts/webpack.config.dev.js -w --mode development"
     },
     "author": "",
     "license": "UNLICENSED",

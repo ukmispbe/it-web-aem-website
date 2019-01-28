@@ -1,18 +1,37 @@
 <template data-sly-template.item="${@ list, item}">
     <article class="${item.thumbnailImage ? 'cmp-list--image' : ''}">
-        <div class="cmp-list__item-thumbnail" data-sly-test="${item.thumbnailImage}">
-            <a class="cmp-list__item-link" href="${item.URL}" data-sly-unwrap="${!list.linkItems}">
-                <img src="${item.thumbnailImage}" alt="${item.title}"/>
+        <div
+            class="cmp-list__item-thumbnail"
+            data-sly-test="${item.thumbnailImage}"
+        >
+            <a
+                class="cmp-list__item-link"
+                href="${item.URL}"
+                data-sly-unwrap="${!list.linkItems}"
+            >
+                <img src="${item.thumbnailImage}" alt="${item.title}" />
             </a>
         </div>
         <div class="cmp-list__item-body">
-            <a class="cmp-list__item-link" href="${item.URL}" data-sly-unwrap="${!list.linkItems}">
+            <a
+                class="cmp-list__item-link"
+                href="${item.URL}"
+                data-sly-unwrap="${!list.linkItems}"
+            >
                 <span class="cmp-list__item-title">${item.title}</span>
             </a>
-            <div data-sly-test="${list.showDescription && item.description}" class="cmp-list__item-description">
-                ${item.description}
+            <div
+                data-sly-test="${list.showDescription && item.description}"
+                class="cmp-list__item-description"
+            >
+                <div class="cmp-list__item-description-text">
+                    ${item.description}
+                </div>
             </div>
-            <span data-sly-test="${list.showModificationDate}" class="cmp-list__item-date">
+            <span
+                data-sly-test="${list.showModificationDate}"
+                class="cmp-list__item-date"
+            >
                 ${'MMMM yyyy' @ format=item.lastModified}
             </span>
         </div>

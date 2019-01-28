@@ -61,24 +61,9 @@
     position: relative;
     line-height: $lineHeight;
     max-height: $lineHeight * $lineCount;
-    text-align: justify;
+    text-align: left;
     margin-right: -0.7em;
     padding-right: 0.7em;
-    &:before {
-        content: '...';
-        position: absolute;
-        right: 0;
-        bottom: 0;
-    }
-    &:after {
-        content: '';
-        position: absolute;
-        right: 0;
-        width: 1em;
-        height: 1em;
-        margin-top: 0.2em;
-        background: $bgColor;
-    }
 }
 
 html {
@@ -201,4 +186,3 @@ strong {
 .cmp-text {
     padding-bottom: $space-m;
 }
-
