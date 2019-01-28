@@ -4,6 +4,7 @@ import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextArea;
+import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.google.common.collect.HashBasedTable;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.commons.csv.CSVFormat;
@@ -29,23 +30,41 @@ public final class Table {
 
     private static final Logger LOG = LoggerFactory.getLogger(Table.class);
 
-    @DialogField(fieldLabel = "CSV Data", ranking = 1)
-    @TextArea
+    @DialogField(fieldLabel = "Title", ranking = 1)
+    @TextField
     @Inject
-    @Default(values = "")
-    private String csvData;
+    private String title;
+
+    @DialogField(fieldLabel = "Caption", ranking = 2)
+    @TextField
+    @Inject
+    private String caption;
 
     @DialogField(fieldLabel = "Has Header?",
         fieldDescription = "Select 'Yes' if the first row in the CSV data is a header.",
-        ranking = 2)
+        ranking = 3)
     @Switch(offText = "No", onText = "Yes")
     @Inject
     @Default(booleanValues = false)
     private boolean hasHeader;
 
+    @DialogField(fieldLabel = "CSV Data", ranking = 4)
+    @TextArea
+    @Inject
+    @Default(values = "")
+    private String csvData;
+
     private com.google.common.collect.Table<Integer, String, String> table;
 
     private CSVParser csvParser;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getCaption() {
+        return caption;
+    }
 
     public boolean isHasHeader() {
         return hasHeader;
