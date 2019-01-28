@@ -1,0 +1,43 @@
+.cmp-table__overflow{
+    overflow-x: auto;
+}
+.cmp-table{
+    border-top: 1px solid $color-teal-30;
+    width:100%;
+    @include font-body;
+    border-collapse: collapse;
+    td,th{
+        padding-right: $space-l;
+    }
+    tr
+    {
+        border-bottom: 1px solid $color-gray-20;
+    }
+    thead
+    {
+        @include font-body;
+        font-weight: $font-weight-bold;
+        text-align: left;
+    }
+}
+
+.cmp-table--collapse .cmp-table{
+    @include mobile{
+        td {
+            display:block;
+            word-wrap: break-word;
+        }
+        td:first-child{
+            padding-top: $space-xs;
+        }
+        td:last-child{
+            padding-bottom: $space-xs;
+        }
+        tr {
+            padding-bottom: $space-xs;
+        }
+        thead{
+            display:none;
+        }
+    }
+}
