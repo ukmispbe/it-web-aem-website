@@ -4,6 +4,7 @@ import com.day.cq.commons.Externalizer;
 import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.page.PageDecorator;
+import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.components.content.Text;
 import com.waters.aem.core.components.structure.page.Thumbnail;
 import org.apache.sling.api.resource.AbstractResourceVisitor;
@@ -55,6 +56,9 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
     }
 
     @Self
+    protected SiteContext siteContext;
+
+    @Self
     protected PageDecorator page;
 
     @Inject
@@ -65,12 +69,15 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
 
         final ResourceResolver resourceResolver = page.getContentResource().getResourceResolver();
 
+        // get the locale from the current page
+        final Locale locale = siteContext.getLocale();
+
         // add common fields for all page types
         document.setField("id", page.getPath());
         document.setField("url", externalizer.externalLink(resourceResolver, Externalizer.PUBLISH, page.getHref()));
         document.setField("title", page.getTitle());
         document.setField("description", page.getDescription());
-        document.setField("isocode", page.getLanguage(false).toString());
+        document.setField("isocode", locale.toString());
         document.setField("viewname", "aem");
 
         final Image thumbnailImage = page.getContentResource().adaptTo(Thumbnail.class).getThumbnailImage();
@@ -81,9 +88,6 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         }
 
         document.setField("content", getPageContent());
-
-        // get the locale from the current page
-        final Locale locale = page.getLanguage(false);
 
         for (final Tag tag : page.getTags()) {
             document.addField("tags", tag.getTitle(locale));
