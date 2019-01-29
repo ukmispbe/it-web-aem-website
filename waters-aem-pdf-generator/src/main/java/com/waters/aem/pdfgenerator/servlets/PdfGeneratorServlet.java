@@ -38,12 +38,17 @@ public final class PdfGeneratorServlet extends SlingSafeMethodsServlet {
         throws IOException {
         LOG.info("generating PDF for page resource : {}", request.getResource().getPath());
 
-        final ByteArrayOutputStream pdfOutputStream = pdfGenerator.generatePdfDocument(request);
-
         response.setCharacterEncoding(Charsets.UTF_8.name());
         response.setContentType(MediaType.PDF.withoutParameters().toString());
-        response.setContentLength(pdfOutputStream.size());
 
-        pdfOutputStream.writeTo(response.getOutputStream());
+        if (Boolean.valueOf(request.getParameter("convert"))) {
+            pdfGenerator.convertPdfDocumentFromHtml(request, response.getOutputStream());
+        } else {
+            final ByteArrayOutputStream pdfOutputStream = pdfGenerator.generatePdfDocument(request);
+
+            response.setContentLength(pdfOutputStream.size());
+
+            pdfOutputStream.writeTo(response.getOutputStream());
+        }
     }
 }

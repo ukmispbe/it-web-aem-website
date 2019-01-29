@@ -1,7 +1,11 @@
 package com.waters.aem.pdfgenerator.services.impl;
 
+import com.day.cq.commons.Externalizer;
 import com.google.common.collect.ImmutableList;
+import com.icfolson.aem.library.api.page.PageDecorator;
+import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -20,6 +24,7 @@ import com.waters.aem.pdfgenerator.services.PdfGenerator;
 import com.waters.aem.pdfgenerator.services.PdfGeneratorConfiguration;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.factory.ModelClassException;
 import org.apache.sling.models.factory.ModelFactory;
 import org.osgi.service.component.annotations.Activate;
@@ -32,6 +37,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.List;
 
@@ -52,7 +59,30 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     @Reference
     private ModelFactory modelFactory;
 
+    @Reference
+    private Externalizer externalizer;
+
     private volatile String baseUri;
+
+    @Override
+    public void convertPdfDocumentFromHtml(final SlingHttpServletRequest request, final OutputStream outputStream)
+        throws IOException {
+        final ResourceResolver resourceResolver = request.getResourceResolver();
+        final PageDecorator page = resourceResolver.adaptTo(PageManagerDecorator.class).getContainingPage(
+            request.getResource());
+
+        final String href = page.getLinkBuilder()
+            .addSelector("print")
+            .build()
+            .getHref();
+
+        final InputStream stream = new URL(externalizer.externalLink(resourceResolver, Externalizer.PUBLISH, href))
+            .openStream();
+
+        HtmlConverter.convertToPdf(stream, outputStream, new ConverterProperties()
+            .setBaseUri(baseUri)
+            .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT)));
+    }
 
     @Override
     public ByteArrayOutputStream generatePdfDocument(final SlingHttpServletRequest request) throws IOException {
@@ -79,7 +109,7 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     @Override
     public void updatePdfDocument(final SlingHttpServletRequest request, final Resource resource,
         final Document document) throws IOException {
-        LOG.info("visiting resource : {}", resource);
+        LOG.debug("visiting resource : {}", resource);
 
         final ConverterProperties converterProperties = new ConverterProperties()
             .setBaseUri(baseUri)

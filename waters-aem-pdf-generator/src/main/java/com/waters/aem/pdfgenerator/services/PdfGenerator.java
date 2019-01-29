@@ -6,8 +6,11 @@ import org.apache.sling.api.resource.Resource;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 public interface PdfGenerator {
+
+    void convertPdfDocumentFromHtml(SlingHttpServletRequest request, OutputStream outputStream) throws IOException;
 
     ByteArrayOutputStream generatePdfDocument(SlingHttpServletRequest request) throws IOException;
 

@@ -64,18 +64,25 @@ public final class ImageContentProvider implements PdfContentProvider {
             document.add(image);
 
             if (StringUtils.isNotEmpty(model.getTitle())) {
-                final Paragraph caption = new Paragraph();
-
-                for (final IElement element : HtmlConverter.convertToElements(model.getTitle(), converterProperties)) {
-                    if (element instanceof IBlockElement) {
-                        caption.add((IBlockElement) element);
-                    } else if (element instanceof ILeafElement) {
-                        caption.add((ILeafElement) element);
-                    }
-                }
+                final Paragraph caption = getRichTextParagraph(model.getTitle(), converterProperties);
 
                 document.add(caption.setItalic());
             }
         }
+    }
+
+    private Paragraph getRichTextParagraph(final String text, final ConverterProperties converterProperties)
+        throws IOException {
+        final Paragraph richTextParagraph = new Paragraph();
+
+        for (final IElement element : HtmlConverter.convertToElements(text, converterProperties)) {
+            if (element instanceof IBlockElement) {
+                richTextParagraph.add((IBlockElement) element);
+            } else if (element instanceof ILeafElement) {
+                richTextParagraph.add((ILeafElement) element);
+            }
+        }
+
+        return richTextParagraph;
     }
 }

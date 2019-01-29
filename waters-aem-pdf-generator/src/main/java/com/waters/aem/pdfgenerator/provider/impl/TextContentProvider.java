@@ -13,6 +13,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -20,6 +22,8 @@ import java.io.IOException;
     adapters = PdfContentProvider.class,
     resourceType = Text.RESOURCE_TYPE)
 public final class TextContentProvider implements PdfContentProvider {
+
+    private static final Logger LOG = LoggerFactory.getLogger(TextContentProvider.class);
 
     @Self
     private Text model;
@@ -37,16 +41,16 @@ public final class TextContentProvider implements PdfContentProvider {
 
             final Paragraph textParagraph = new Paragraph();
 
-            // paragraph.addAll(HtmlConverter.convertToElements(model.getText(), converterProperties));
-
             for (final IElement element : HtmlConverter.convertToElements(model.getText(), converterProperties)) {
+                LOG.info("text paragraph element : {}", element.getClass().getName());
+
                 if (element instanceof IBlockElement) {
                     textParagraph.add((IBlockElement) element);
                 } else if (element instanceof ILeafElement) {
                     textParagraph.add((ILeafElement) element);
                 }
             }
-            
+
             paragraph.add(textParagraph);
 
             document.add(paragraph);
