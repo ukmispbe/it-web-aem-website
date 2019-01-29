@@ -22,11 +22,26 @@ Crichton,Bruffell,cbruffell9@vimeo.com"""
         pageBuilder.content {
             waters {
                 "jcr:content" {
-                    table(csvData: CSV_DATA, hasHeader: true)
+                    table(csvData: CSV_DATA, header: true, title: "Title", caption: "Caption")
                     "table-no-header"(csvData: CSV_DATA.readLines().tail().join("\n"))
                 }
             }
         }
+    }
+
+    def "get properties"() {
+        setup:
+        def table = getResource(path).adaptTo(Table)
+
+        expect:
+        table.header == header
+        table.title == title
+        table.caption == caption
+
+        where:
+        path                                          | header | title   | caption
+        "/content/waters/jcr:content/table"           | true   | "Title" | "Caption"
+        "/content/waters/jcr:content/table-no-header" | false  | null    | null
     }
 
     def "get column names"() {

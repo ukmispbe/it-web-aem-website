@@ -4,7 +4,7 @@
     <h3 data-sly-test="${table.title}" class="cmp-table__title">${table.title}</h3>
 
     <table class="cmp-table__table">
-        <thead data-sly-test="${table.hasHeader}">
+        <thead data-sly-test="${table.header}">
         <tr>
             <th data-sly-repeat.columnName="${table.columnNames}">${columnName}</th>
         </tr>
@@ -16,7 +16,7 @@
         </tbody>
     </table>
 
-    <span class="cmp-table__caption" data-sly-test="${table.caption}">${table.caption}</span>
+    <span class="cmp-table__caption" data-sly-test="${table.caption}">${table.caption @ context='html'}</span>
 </div>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
