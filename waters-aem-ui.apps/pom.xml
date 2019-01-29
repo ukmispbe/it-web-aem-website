@@ -165,10 +165,12 @@
                         <embedded>
                             <groupId>org.apache.commons</groupId>
                             <artifactId>commons-configuration2</artifactId>
+                            <target>/apps/waters/install</target>
                         </embedded>
                         <embedded>
                             <groupId>org.apache.commons</groupId>
                             <artifactId>commons-text</artifactId>
+                            <target>/apps/waters/install</target>
                         </embedded>
                         <embedded>
                             <groupId>org.bouncycastle</groupId>

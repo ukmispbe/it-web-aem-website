@@ -6,6 +6,7 @@ import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.TagInputField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.tagging.Tag;
+import com.google.common.collect.ImmutableList;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.TagInject;
 import com.waters.aem.core.constants.WatersConstants;
@@ -38,65 +39,86 @@ public final class ApplicationNotes {
     @TagInject
     private List<Tag> author = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Literature Code", ranking = 2)
+    @DialogField(fieldLabel = "Affiliations", ranking = 2)
+    @TagInputField
+    @TagInject
+    private List<Tag> affiliations = Collections.emptyList();
+
+    @DialogField(fieldLabel = "Literature Code", ranking = 3)
     @TextField
     @Inject
     private String literatureCode;
 
-    @DialogField(fieldLabel = "Category", ranking = 3)
+    @DialogField(fieldLabel = "Category", ranking = 4)
     @TagInputField
     @TagInject
     private List<Tag> category = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Content Type", ranking = 4)
+    @DialogField(fieldLabel = "Content Type", ranking = 5)
     @TagInputField
     @TagInject
     private List<Tag> contentType = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Instrument Type", ranking = 5)
+    @DialogField(fieldLabel = "Instrument Type", ranking = 6)
     @TagInputField
     @TagInject
     private List<Tag> instrumentType = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Technique", ranking = 6)
+    @DialogField(fieldLabel = "Technique", ranking = 7)
     @TagInputField
     @TagInject
     private List<Tag> technique = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Separation Mode", ranking = 7)
+    @DialogField(fieldLabel = "Separation Mode", ranking = 8)
     @TagInputField
     @TagInject
     private List<Tag> separationMode = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Compound/Matrix", ranking = 8)
+    @DialogField(fieldLabel = "Compound/Matrix", ranking = 9)
     @TagInputField
     @TagInject
     private List<Tag> compoundMatrix = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Column Type", ranking = 9)
+    @DialogField(fieldLabel = "Column Type", ranking = 10)
     @TagInputField
     @TagInject
     private List<Tag> columnType = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Software", ranking = 10)
+    @DialogField(fieldLabel = "Software", ranking = 11)
     @TagInputField
     @TagInject
     private List<Tag> software = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Market", ranking = 11)
+    @DialogField(fieldLabel = "Market", ranking = 12)
     @TagInputField
     @TagInject
     private List<Tag> market = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Month Published", ranking = 12)
+    @DialogField(fieldLabel = "Month Published", ranking = 13)
     @TagInputField
     @TagInject
     private List<Tag> monthPublished = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Year Published", ranking = 13)
+    @DialogField(fieldLabel = "Year Published", ranking = 14)
     @TagInputField
     @TagInject
     private List<Tag> yearPublished = Collections.emptyList();
+
+    public List<Tag> getAllTags() {
+        return new ImmutableList.Builder<Tag>()
+            .addAll(author)
+            .addAll(category)
+            .addAll(contentType)
+            .addAll(instrumentType)
+            .addAll(technique)
+            .addAll(separationMode)
+            .addAll(columnType)
+            .addAll(software)
+            .addAll(market)
+            .addAll(compoundMatrix)
+            .addAll(affiliations)
+            .build();
+    }
 
     public List<Tag> getAuthor() {
         return author;
@@ -148,5 +170,9 @@ public final class ApplicationNotes {
 
     public List<Tag> getCompoundMatrix() {
         return compoundMatrix;
+    }
+
+    public List<Tag> getAffiliations() {
+        return affiliations;
     }
 }

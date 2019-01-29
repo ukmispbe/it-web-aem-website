@@ -10,6 +10,7 @@
 
     @include mobile {
         font-size: $font-size-body-m;
+        line-height: $line-height-text-m;
     }
 }
 
@@ -27,7 +28,7 @@
 @mixin font-small {
     font-family: $font-stack;
     font-size: $font-size-small;
-    font-weight: $font-weight-regular;
+    font-weight: $font-weight-light;
     line-height: $line-height-text;
     color: $color-font-medium;
     margin-bottom: $space-s;
@@ -49,6 +50,20 @@
     @include mobile {
         font-size: $font-size-body-m;
     }
+}
+
+@mixin multiLineEllipsis(
+    $lineHeight: $line-height-text,
+    $lineCount: 1,
+    $bgColor: white
+) {
+    overflow: hidden;
+    position: relative;
+    line-height: $lineHeight;
+    max-height: $lineHeight * $lineCount;
+    text-align: left;
+    margin-right: -0.7em;
+    padding-right: 0.7em;
 }
 
 html {
@@ -108,7 +123,7 @@ h3 {
     font-weight: $font-weight-regular;
     line-height: $line-height-text;
     color: $color-font-dark;
-    margin-bottom: $space-s;
+    margin-bottom: $space-xs;
     margin-top: 0;
 
     @include mobile {
@@ -124,7 +139,7 @@ h6 {
     font-weight: $font-weight-bold;
     line-height: $line-height-text;
     color: $color-font-dark;
-    margin-bottom: $space-s;
+    margin-bottom: $space-xxs;
     margin-top: 0;
 
     @include mobile {
@@ -135,13 +150,14 @@ h6 {
 ul {
     list-style-type: square;
     padding-left: 1.2em;
+    margin-top: 0;
 
     li {
         margin-bottom: $space-s;
 
         @include mobile {
             font-size: $font-size-body-m;
-            line-height: $line-height-text;
+            line-height: $line-height-text-m;
             letter-spacing: $letter-spacing-small;
         }
     }
@@ -149,12 +165,15 @@ ul {
 
 ol {
     padding-left: 1.2em;
+    margin-top: 0;
 
     li {
         margin-bottom: $space-s;
 
         @include mobile {
             font-size: $font-size-body-m;
+            line-height: $line-height-text-m;
+            letter-spacing: $letter-spacing-small;
         }
     }
 }
@@ -165,5 +184,5 @@ strong {
 }
 
 .cmp-text {
-    padding-bottom: $space-s;
-    }
+    padding-bottom: $space-m;
+}

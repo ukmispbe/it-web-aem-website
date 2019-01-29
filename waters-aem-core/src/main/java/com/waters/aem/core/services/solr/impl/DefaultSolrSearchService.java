@@ -1,7 +1,7 @@
-package com.waters.aem.core.services.impl;
+package com.waters.aem.core.services.solr.impl;
 
-import com.waters.aem.core.services.SolrSearchService;
-import com.waters.aem.core.services.SolrSearchServiceConfiguration;
+import com.waters.aem.core.services.solr.SolrSearchService;
+import com.waters.aem.core.services.solr.SolrSearchServiceConfiguration;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
