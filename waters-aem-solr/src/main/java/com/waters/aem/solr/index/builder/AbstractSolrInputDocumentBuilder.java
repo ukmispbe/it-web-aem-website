@@ -4,6 +4,7 @@ import com.day.cq.commons.Externalizer;
 import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.page.PageDecorator;
+import com.icfolson.aem.library.api.page.enums.TitleType;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.components.content.Text;
 import com.waters.aem.core.components.structure.page.Thumbnail;
@@ -75,7 +76,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         // add common fields for all page types
         document.setField("id", page.getPath());
         document.setField("url", externalizer.externalLink(resourceResolver, Externalizer.PUBLISH, page.getHref()));
-        document.setField("title", page.getTitle());
+        document.setField("title", page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle()));
         document.setField("description", page.getDescription());
         document.setField("isocode", locale.toString());
         document.setField("viewname", "aem");
