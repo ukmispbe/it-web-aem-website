@@ -1,43 +1,45 @@
-.cmp-table__overflow{
+.cmp-table {
     overflow-x: auto;
 }
-.cmp-table{
+.cmp-table__table {
     border-top: 1px solid $color-teal-30;
     width:100%;
     @include font-body;
     border-collapse: collapse;
-    td,th{
+    td,th {
         padding-right: $space-l;
     }
-    tr
-    {
+    tr {
         border-bottom: 1px solid $color-gray-20;
     }
-    thead
-    {
+    thead {
         @include font-body;
         font-weight: $font-weight-bold;
         text-align: left;
     }
 }
 
-.cmp-table--collapse .cmp-table{
-    @include mobile{
+.cmp-table--collapse .cmp-table__table {
+    @include mobile {
         td {
             display:block;
             word-wrap: break-word;
         }
-        td:first-child{
+        td:first-child {
             padding-top: $space-xs;
         }
-        td:last-child{
+        td:last-child {
             padding-bottom: $space-xs;
         }
         tr {
             padding-bottom: $space-xs;
         }
-        thead{
+        thead {
             display:none;
         }
     }
+}
+
+.cmp-table__caption {
+    @include font-caption;
 }
