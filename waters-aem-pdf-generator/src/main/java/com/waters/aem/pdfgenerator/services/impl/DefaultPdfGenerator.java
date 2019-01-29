@@ -7,7 +7,6 @@ import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Image;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
 import com.waters.aem.core.components.content.Text;
@@ -43,6 +42,7 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     private static final List<String> CONTENT_RESOURCE_TYPES = ImmutableList.of(
         Text.RESOURCE_TYPE,
         Title.RESOURCE_TYPE,
+        com.waters.aem.core.components.content.Image.RESOURCE_TYPE,
         SectionContainer.RESOURCE_TYPE
     );
 
@@ -98,7 +98,7 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     private void addHeader(final Document document) {
         final URL logoImageURL = this.getClass().getResource("/waters-logo-black.png");
         final ImageData logoImageData = ImageDataFactory.create(logoImageURL);
-        final Image logoImage = new Image(logoImageData);
+        final com.itextpdf.layout.element.Image logoImage = new com.itextpdf.layout.element.Image(logoImageData);
 
         logoImage.setWidth(115);
 
