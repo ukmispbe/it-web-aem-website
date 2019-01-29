@@ -10,6 +10,7 @@ import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.element.ILeafElement;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.svg.converter.SvgConverter;
 import com.waters.aem.core.components.content.Image;
 import com.waters.aem.pdfgenerator.provider.PdfContentProvider;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -21,6 +22,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 @Model(adaptables = SlingHttpServletRequest.class,
     adapters = PdfContentProvider.class,
@@ -39,13 +42,24 @@ public final class ImageContentProvider implements PdfContentProvider {
     public void writePdfContent(final SlingHttpServletRequest request, final Document document,
         final ConverterProperties converterProperties) throws IOException {
         if (model.getSrc() != null) {
-            final String imageUrl = externalizer.externalLink(request.getResourceResolver(), Externalizer.AUTHOR,
+            final String imageUrl = externalizer.externalLink(request.getResourceResolver(), Externalizer.PUBLISH,
                 model.getSrc());
 
             LOG.info("adding image to PDF : {}", imageUrl);
 
-            final ImageData imageData = ImageDataFactory.create(imageUrl);
-            final com.itextpdf.layout.element.Image image = new com.itextpdf.layout.element.Image(imageData);
+            final com.itextpdf.layout.element.Image image;
+
+            if (imageUrl.endsWith(".svg")) {
+                final InputStream stream = new URL(imageUrl).openStream();
+
+                image = SvgConverter.convertToImage(stream, document.getPdfDocument());
+
+                stream.close();
+            } else {
+                final ImageData imageData = ImageDataFactory.create(imageUrl);
+
+                image = new com.itextpdf.layout.element.Image(imageData);
+            }
 
             document.add(image);
 

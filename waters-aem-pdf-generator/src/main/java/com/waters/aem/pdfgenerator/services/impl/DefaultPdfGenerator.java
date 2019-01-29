@@ -9,6 +9,8 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
+import com.waters.aem.core.components.content.Image;
+import com.waters.aem.core.components.content.LayoutContainer;
 import com.waters.aem.core.components.content.Text;
 import com.waters.aem.core.components.content.Title;
 import com.waters.aem.core.components.content.applicationnotes.SectionContainer;
@@ -42,8 +44,9 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     private static final List<String> CONTENT_RESOURCE_TYPES = ImmutableList.of(
         Text.RESOURCE_TYPE,
         Title.RESOURCE_TYPE,
-        com.waters.aem.core.components.content.Image.RESOURCE_TYPE,
-        SectionContainer.RESOURCE_TYPE
+        Image.RESOURCE_TYPE,
+        SectionContainer.RESOURCE_TYPE,
+        LayoutContainer.RESOURCE_TYPE
     );
 
     @Reference

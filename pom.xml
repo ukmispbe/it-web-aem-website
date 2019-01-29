@@ -499,11 +499,6 @@
             </dependency>
             <dependency>
                 <groupId>com.itextpdf</groupId>
-                <artifactId>io</artifactId>
-                <version>${itext.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.itextpdf</groupId>
                 <artifactId>styled-xml-parser</artifactId>
                 <version>${itext.version}</version>
             </dependency>
@@ -521,6 +516,11 @@
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcpkix-jdk15on</artifactId>
                 <version>1.60</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.plexus</groupId>
+                <artifactId>plexus-utils</artifactId>
+                <version>3.1.1</version>
             </dependency>
 
             <!-- Groovy -->

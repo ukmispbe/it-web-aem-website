@@ -32,15 +32,22 @@ public final class TextContentProvider implements PdfContentProvider {
 
             if (StringUtils.isNotEmpty(model.getTitle())) {
                 paragraph.add(new com.itextpdf.layout.element.Text(model.getTitle()).setBold());
+                paragraph.add(new Paragraph(" "));
             }
+
+            final Paragraph textParagraph = new Paragraph();
+
+            // paragraph.addAll(HtmlConverter.convertToElements(model.getText(), converterProperties));
 
             for (final IElement element : HtmlConverter.convertToElements(model.getText(), converterProperties)) {
                 if (element instanceof IBlockElement) {
-                    paragraph.add((IBlockElement) element);
+                    textParagraph.add((IBlockElement) element);
                 } else if (element instanceof ILeafElement) {
-                    paragraph.add((ILeafElement) element);
+                    textParagraph.add((ILeafElement) element);
                 }
             }
+            
+            paragraph.add(textParagraph);
 
             document.add(paragraph);
         }

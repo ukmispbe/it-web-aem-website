@@ -35,7 +35,7 @@
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Export-Package>!*.impl,com.waters.aem.pdfgenerator.*</Export-Package>
                         <Sling-Model-Packages>com.waters.aem.pdfgenerator</Sling-Model-Packages>
-                        <Embed-Dependency>groupId=com.itextpdf;scope=compile</Embed-Dependency>
+                        <Embed-Dependency>groupId=com.itextpdf|org.codehaus.plexus;scope=compile</Embed-Dependency>
                     </instructions>
                 </configuration>
             </plugin>
@@ -144,15 +144,15 @@
         </dependency>
         <dependency>
             <groupId>com.itextpdf</groupId>
-            <artifactId>io</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.itextpdf</groupId>
             <artifactId>styled-xml-parser</artifactId>
         </dependency>
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>svg</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
         </dependency>
 
         <!-- core -->
