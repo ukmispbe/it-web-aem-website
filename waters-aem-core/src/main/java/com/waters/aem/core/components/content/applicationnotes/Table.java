@@ -42,6 +42,7 @@ public final class Table {
 
     @DialogField(fieldLabel = "Caption", ranking = 2)
     @RichTextEditor(
+        useFixedInlineToolbar = false,
         format = @Format(underline = false),
         subsuperscript = @SubSuperscript,
         uiSettings = @UISettings(
