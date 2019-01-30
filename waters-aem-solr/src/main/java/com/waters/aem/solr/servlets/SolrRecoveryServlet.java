@@ -50,23 +50,23 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 
         try {
             if (ADD.equals(action)) {
-                final PageDecorator page = request.getResourceResolver().adaptTo(PageManagerDecorator.class).getPage(
-                    pagePath);
+                final PageDecorator page = request.getResourceResolver().adaptTo(PageManagerDecorator.class)
+                    .getPage(pagePath);
 
                 if (page == null) {
                     LOG.error("page not found for path : {}, returning error response", pagePath);
 
                     success = false;
                 } else {
-                    LOG.debug("adding path to solr index : {}, including descendants : {}", pagePath,
+                    LOG.info("adding path to solr index : {}, including descendants : {}", pagePath,
                         includeDescendants);
 
                     success = addToIndex(page, includeDescendants);
                 }
             } else {
-                LOG.debug("deleting path from solr index : {}", pagePath);
+                LOG.info("deleting path from solr index : {}", pagePath);
 
-                success = solrIndexService.deleteFromIndex(pagePath);
+                success = solrIndexService.deletePageFromIndex(pagePath, false);
             }
         } catch (IOException | SolrServerException e) {
             LOG.error("error indexing path : " + pagePath, e);
@@ -81,22 +81,18 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
 
     private boolean addToIndex(final PageDecorator page, final boolean includeDescendants)
         throws IOException, SolrServerException {
-        final boolean success;
+        final Set<Boolean> results = new HashSet<>();
+
+        results.add(solrIndexService.addPageToIndex(page.getPath(), false));
 
         if (includeDescendants) {
             final Iterator<PageDecorator> pages = page.listChildPages(Predicates.alwaysTrue(), true);
 
-            final Set<Boolean> results = new HashSet<>();
-
             while (pages.hasNext()) {
-                results.add(solrIndexService.addToIndex(pages.next().getPath()));
+                results.add(solrIndexService.addPageToIndex(pages.next().getPath(), false));
             }
-
-            success = !results.contains(false);
-        } else {
-            success = solrIndexService.addToIndex(page.getPath());
         }
 
-        return success;
+        return !results.contains(false);
     }
 }
