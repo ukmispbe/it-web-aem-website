@@ -504,13 +504,6 @@
                 <version>11.1.0</version>
             </dependency>
 
-            <!-- CSV -->
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-csv</artifactId>
-                <version>1.6</version>
-            </dependency>
-
             <!-- solr -->
             <dependency>
                 <groupId>org.apache.servicemix.bundles</groupId>

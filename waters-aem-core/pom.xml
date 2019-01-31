@@ -146,12 +146,6 @@
             <artifactId>aem-library-core</artifactId>
         </dependency>
 
-        <!-- CSV -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-csv</artifactId>
-        </dependency>
-
         <!-- POI -->
         <dependency>
             <groupId>org.apache.servicemix.bundles</groupId>
