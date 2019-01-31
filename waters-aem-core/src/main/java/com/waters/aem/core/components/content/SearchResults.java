@@ -5,7 +5,6 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.waters.aem.core.services.solr.SolrSearchService;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
