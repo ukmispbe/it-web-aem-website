@@ -35,10 +35,10 @@ public final class SolrIndexReplicationEventHandler extends AbstractReplicationE
 
     @Override
     protected boolean accepts(final String path, final ReplicationActionType replicationActionType) {
-        final boolean strict = replicationActionType.equals(ReplicationActionType.ACTIVATE) || replicationActionType
-            .equals(ReplicationActionType.DEACTIVATE);
+        final boolean checkTemplate = replicationActionType.equals(
+            ReplicationActionType.ACTIVATE) || replicationActionType.equals(ReplicationActionType.DEACTIVATE);
 
-        return solrIndexService.isIndexed(path, strict);
+        return solrIndexService.isIndexed(path, checkTemplate);
     }
 
     @Override

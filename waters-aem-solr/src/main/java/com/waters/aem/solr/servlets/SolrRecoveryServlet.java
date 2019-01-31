@@ -90,6 +90,7 @@ public final class SolrRecoveryServlet extends SlingSafeMethodsServlet {
     private boolean deleteFromIndex(final PageDecorator page, final boolean includeDescendants) {
         return getPagePaths(page, includeDescendants)
             .stream()
+            .filter(path -> solrIndexService.isIndexed(path, false))
             .map(this :: deletePageFromIndex)
             .allMatch(result -> true);
     }

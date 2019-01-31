@@ -54,9 +54,8 @@ public interface SolrIndexService extends PageEventHandlerConfiguration {
      * Determine if the given page/asset path is indexed according to the configured rules.
      *
      * @param path page or asset path
-     * @param strict if true, will return true only if page is indexed and still exists (i.e. not necessary for
-     * deletes)
+     * @param checkTemplate if true, page template will be checked in addition to the path
      * @return true if path is indexed
      */
-    boolean isIndexed(String path, boolean strict);
+    boolean isIndexed(String path, boolean checkTemplate);
 }

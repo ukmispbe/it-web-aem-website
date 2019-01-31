@@ -97,8 +97,8 @@ public class DefaultSolrIndexService implements SolrIndexService {
     }
 
     @Override
-    public boolean isIndexed(final String path, final boolean strict) {
-        return isIncludedPath(path) && (!strict || isIncludedTemplate(path));
+    public boolean isIndexed(final String path, final boolean checkTemplate) {
+        return isIncludedPath(path) && (!checkTemplate || isIncludedTemplate(path));
     }
 
     @Override
