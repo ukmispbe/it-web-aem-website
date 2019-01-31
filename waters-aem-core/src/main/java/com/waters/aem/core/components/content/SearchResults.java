@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component(value = "Search Results", group = ComponentConstants.GROUP_HIDDEN)
+@Component(value = "Search Results", description = "This is the Search Results component for Waters site")
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class SearchResults {
 
