@@ -10,13 +10,11 @@
         padding-right: $space-l;
         text-align: left;
     }
+    th{
+        font-weight: $font-weight-regular;
+    }
     tr {
         border-bottom: 1px solid $color-gray-20;
-    }
-    thead {
-        @include font-body;
-        font-weight: $font-weight-bold;
-        text-align: left;
     }
 }
 
