@@ -17,7 +17,7 @@
         <meta property="og:description" content="${metaPage.description}">
 
         <sly data-sly-test="${metaPage.ogImage}">
-            <meta property="og:image" content="${metaPage.ogImage}">
+            <meta property="${metaPage.ogImagePropertyName}" content="${metaPage.ogImage}">
         </sly>
     </sly>
 

@@ -181,6 +181,14 @@ class MetaSpec extends AemLibraryModelSpec {
         "/content/waters/three"     | "http://www.waters.com/content/dam/waters/logo.png"
     }
 
+    def "get og image property name"() {
+        setup:
+        def meta = getPage("/content/waters/three").contentResource.adaptTo(Meta)
+
+        expect:
+        meta.ogImagePropertyName == Meta.PROPERTY_NAME_OG_IMAGE
+    }
+
     def "get inherited facebook app ID"() {
         setup:
         def meta = getPage(path).contentResource.adaptTo(Meta)
