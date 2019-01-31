@@ -8,6 +8,7 @@
     border-collapse: collapse;
     td,th {
         padding-right: $space-l;
+        text-align: left;
     }
     tr {
         border-bottom: 1px solid $color-gray-20;
