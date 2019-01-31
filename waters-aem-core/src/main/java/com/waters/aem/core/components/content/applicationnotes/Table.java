@@ -2,7 +2,7 @@ package com.waters.aem.core.components.content.applicationnotes;
 
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
-import com.citytechinc.cq.component.annotations.widgets.PathField;
+import com.citytechinc.cq.component.annotations.widgets.Html5SmartFile;
 import com.citytechinc.cq.component.annotations.widgets.RichTextEditor;
 import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
@@ -10,7 +10,6 @@ import com.citytechinc.cq.component.annotations.widgets.ToolbarConfig;
 import com.citytechinc.cq.component.annotations.widgets.rte.Format;
 import com.citytechinc.cq.component.annotations.widgets.rte.SubSuperscript;
 import com.citytechinc.cq.component.annotations.widgets.rte.UISettings;
-import com.day.cq.dam.api.Asset;
 import com.google.common.collect.HashBasedTable;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -26,6 +25,8 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.ChildResource;
+import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,6 +47,9 @@ public final class Table {
 
     @Inject
     private ResourceResolver resourceResolver;
+
+    @Self
+    private Resource resource;
 
     @DialogField(fieldLabel = "Title", ranking = 1)
     @TextField
@@ -82,12 +86,17 @@ public final class Table {
     @Default(booleanValues = false)
     private boolean header;
 
-    @DialogField(fieldLabel = "Excel File Path", ranking = 4)
-    @PathField(rootPath = WatersConstants.DAM_PATH)
-    @Inject
-    private String excelFilePath;
-
     private com.google.common.collect.Table<Integer, String, String> table;
+
+    @DialogField(fieldLabel = "Excel File", ranking = 4)
+    @Html5SmartFile(
+        fileNameParameter = "./excelFileName",
+        fileReferenceParameter = "./excelFile",
+        touchUIMimeTypes = {
+            "application/vnd.ms-excel"
+        })
+    @ChildResource
+    private Resource excelFile;
 
     public String getTitle() {
         return title;
@@ -184,8 +193,6 @@ public final class Table {
     }
 
     private InputStream getExcelFileInputStream() {
-        final Resource excelFileResource = resourceResolver.getResource(excelFilePath);
-
-        return excelFileResource == null ? null : excelFileResource.adaptTo(Asset.class).getOriginal().getStream();
+        return excelFile == null ? null : excelFile.adaptTo(InputStream.class);
     }
 }
