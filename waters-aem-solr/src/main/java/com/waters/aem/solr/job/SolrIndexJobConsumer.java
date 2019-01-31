@@ -51,9 +51,9 @@ public final class SolrIndexJobConsumer implements JobConsumer {
 
         try {
             if (JOB_TOPIC_INDEX_ADD.equals(job.getTopic())) {
-                success = solrIndexService.addPageToIndex(path, true);
+                success = solrIndexService.addPageToIndex(path);
             } else {
-                success = solrIndexService.deletePageFromIndex(path, true);
+                success = solrIndexService.deletePageFromIndex(path);
             }
         } catch (Exception e) {
             // re-throw exception to cancel the job

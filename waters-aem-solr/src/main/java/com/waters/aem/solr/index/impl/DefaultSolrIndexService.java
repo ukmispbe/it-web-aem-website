@@ -52,19 +52,15 @@ public class DefaultSolrIndexService implements SolrIndexService {
     private volatile List<String> includedTemplates;
 
     @Override
-    public boolean addPageToIndex(final String path, final boolean force) throws IOException, SolrServerException {
+    public boolean addPageToIndex(final String path) throws IOException, SolrServerException {
         boolean success = true;
 
         if (enabled) {
-            if (force || isIndexed(path)) {
-                final SolrInputDocument document = getSolrInputDocument(path);
+            final SolrInputDocument document = getSolrInputDocument(path);
 
-                LOG.info("adding solr document to index : {}", document);
+            LOG.info("adding solr document to index : {}", document);
 
-                success = solrIndexClient.addToIndex(document);
-            } else {
-                LOG.info("page path {} is not indexed, ignoring", path);
-            }
+            success = solrIndexClient.addToIndex(document);
         } else {
             LOG.info("solr index service disabled, not adding path to index : {}", path);
         }
@@ -73,17 +69,13 @@ public class DefaultSolrIndexService implements SolrIndexService {
     }
 
     @Override
-    public boolean deletePageFromIndex(final String path, final boolean force) throws IOException, SolrServerException {
+    public boolean deletePageFromIndex(final String path) throws IOException, SolrServerException {
         boolean success = true;
 
         if (enabled) {
-            if (force || isIndexed(path)) {
-                LOG.info("deleting path {} from solr index...", path);
+            LOG.info("deleting path {} from solr index...", path);
 
-                success = solrIndexClient.deleteFromIndex(path);
-            } else {
-                LOG.info("page path {} is not indexed, ignoring", path);
-            }
+            success = solrIndexClient.deleteFromIndex(path);
         } else {
             LOG.info("solr index service disabled, not deleting path from index : {}", path);
         }
@@ -92,21 +84,21 @@ public class DefaultSolrIndexService implements SolrIndexService {
     }
 
     @Override
-    public boolean addAssetToIndex(final String path, final boolean force) throws IOException, SolrServerException {
+    public boolean addAssetToIndex(final String path) throws IOException, SolrServerException {
         // not yet implemented
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public boolean deleteAssetFromIndex(final String path, final boolean force)
+    public boolean deleteAssetFromIndex(final String path)
         throws IOException, SolrServerException {
         // not yet implemented
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public boolean isIndexed(final String path) {
-        return isIncludedPath(path) && isIncludedTemplate(path);
+    public boolean isIndexed(final String path, final boolean strict) {
+        return isIncludedPath(path) && (!strict || isIncludedTemplate(path));
     }
 
     @Override

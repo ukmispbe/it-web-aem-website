@@ -1,5 +1,6 @@
 package com.waters.aem.akamai.replication;
 
+import com.day.cq.replication.ReplicationActionType;
 import com.waters.aem.akamai.job.AkamaiPurgeJobConsumer;
 import com.waters.aem.core.services.AbstractReplicationEventHandler;
 import com.waters.aem.core.services.PageEventHandlerConfiguration;
@@ -46,7 +47,7 @@ public final class AkamaiPurgeReplicationEventHandler extends AbstractReplicatio
     }
 
     @Override
-    protected boolean accepts(final String path) {
+    protected boolean accepts(final String path, final ReplicationActionType replicationActionType) {
         return isIncludedPath(path);
     }
 

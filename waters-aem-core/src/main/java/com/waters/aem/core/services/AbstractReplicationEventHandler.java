@@ -25,7 +25,7 @@ public abstract class AbstractReplicationEventHandler implements EventHandler {
 
         final ReplicationActionType replicationActionType = ReplicationActionType.fromName(type);
 
-        if (accepts(path)) {
+        if (accepts(path, replicationActionType)) {
             if (replicationActionType.equals(ReplicationActionType.ACTIVATE)) {
                 LOG.info("handling activate event for path = {}", path);
 
@@ -48,9 +48,10 @@ public abstract class AbstractReplicationEventHandler implements EventHandler {
      * Determine if the replicated path can be accepted by this handler.
      *
      * @param path replicated path
+     * @param replicationActionType replication action type
      * @return true if handler can accept this path
      */
-    protected abstract boolean accepts(final String path);
+    protected abstract boolean accepts(final String path, final ReplicationActionType replicationActionType);
 
     /**
      * Get the Sling job manager for this service.

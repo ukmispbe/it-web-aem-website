@@ -1,5 +1,6 @@
 package com.waters.aem.solr.replication;
 
+import com.day.cq.replication.ReplicationActionType;
 import com.waters.aem.core.services.AbstractReplicationEventHandler;
 import com.waters.aem.solr.index.SolrIndexService;
 import com.waters.aem.solr.job.SolrIndexJobConsumer;
@@ -33,8 +34,11 @@ public final class SolrIndexReplicationEventHandler extends AbstractReplicationE
     }
 
     @Override
-    protected boolean accepts(final String path) {
-        return solrIndexService.isIndexed(path);
+    protected boolean accepts(final String path, final ReplicationActionType replicationActionType) {
+        final boolean strict = replicationActionType.equals(ReplicationActionType.ACTIVATE) || replicationActionType
+            .equals(ReplicationActionType.DEACTIVATE);
+
+        return solrIndexService.isIndexed(path, strict);
     }
 
     @Override
