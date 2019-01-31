@@ -14,6 +14,7 @@ import com.icfolson.aem.library.api.page.enums.TitleType;
 import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.waters.aem.core.constants.WatersConstants;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -32,6 +33,10 @@ import java.util.Optional;
     touchFileName = Meta.FILE_NAME)
 @Model(adaptables = Resource.class)
 public final class Meta extends AbstractComponent {
+
+    public static final String PROPERTY_NAME_OG_IMAGE = "og:image";
+
+    public static final String PROPERTY_NAME_OG_IMAGE_SECURE_URL = "og:image:secure_url";
 
     static final String FILE_NAME = "meta";
 
@@ -119,6 +124,11 @@ public final class Meta extends AbstractComponent {
     @PathField(rootPath = WatersConstants.DAM_PATH)
     public String getOgImage() {
         return getExternalizedImage("ogImage");
+    }
+
+    public String getOgImagePropertyName() {
+        return StringUtils.startsWith(getOgImage(),
+            "https") ? PROPERTY_NAME_OG_IMAGE_SECURE_URL : PROPERTY_NAME_OG_IMAGE;
     }
 
     @DialogField(fieldLabel = "Facebook App ID", ranking = 6)
