@@ -155,7 +155,21 @@ public final class Table {
     private String getCellHtml(final Workbook workbook, final HSSFCell cell) {
         final HSSFFont font = cell.getCellStyle().getFont(workbook);
 
-        String cellHtml = cell.getStringCellValue().trim();
+        String cellHtml;
+
+        switch (cell.getCellType()) {
+            case NUMERIC:
+                cellHtml = String.valueOf(cell.getNumericCellValue());
+                break;
+            case STRING:
+                cellHtml = cell.getStringCellValue().trim();
+                break;
+            case BOOLEAN:
+                cellHtml = String.valueOf(cell.getBooleanCellValue());
+                break;
+            default:
+                cellHtml = "";
+        }
 
         if (font.getBold()) {
             cellHtml = wrapHtmlTag(cellHtml, "b");
