@@ -21,12 +21,10 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ChildResource;
-import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,12 +42,6 @@ import java.util.stream.Collectors;
 public final class Table {
 
     private static final Logger LOG = LoggerFactory.getLogger(Table.class);
-
-    @Inject
-    private ResourceResolver resourceResolver;
-
-    @Self
-    private Resource resource;
 
     @DialogField(fieldLabel = "Title", ranking = 1)
     @TextField
