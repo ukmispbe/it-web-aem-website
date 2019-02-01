@@ -43,7 +43,7 @@
     font-style: italic;
     color: $color-font-dark;
     letter-spacing: $letter-spacing-small;
-    margin: $space-m 0;
+    margin: $space-m 0 $space-xl 0;
     padding-top: $space-xs;
     border-top: 1px solid $color-border-light;
 
@@ -153,7 +153,7 @@ ul {
     margin-top: 0;
 
     li {
-        margin-bottom: $space-s;
+        margin-bottom: $space-xxs;
 
         @include mobile {
             font-size: $font-size-body-m;
@@ -168,7 +168,7 @@ ol {
     margin-top: 0;
 
     li {
-        margin-bottom: $space-s;
+        margin-bottom: $space-xxs;
 
         @include mobile {
             font-size: $font-size-body-m;
@@ -184,5 +184,5 @@ strong {
 }
 
 .cmp-text {
-    padding-bottom: $space-m;
+    padding-bottom: $space-s;
 }
