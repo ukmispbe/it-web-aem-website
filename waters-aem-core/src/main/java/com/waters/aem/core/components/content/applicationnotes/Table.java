@@ -14,11 +14,12 @@ import com.google.common.collect.HashBasedTable;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
@@ -127,8 +128,8 @@ public final class Table {
                 if (excelFileInputStream == null) {
                     LOG.warn("excel file is null, returning empty table");
                 } else {
-                    final Workbook workbook = WorkbookFactory.create(excelFileInputStream);
-                    final Sheet sheet = workbook.getSheetAt(0);
+                    final HSSFWorkbook workbook = (HSSFWorkbook) WorkbookFactory.create(excelFileInputStream);
+                    final HSSFSheet sheet = workbook.getSheetAt(0);
 
                     for (final Row row : sheet) {
                         int cellIndex = 0;
@@ -152,42 +153,87 @@ public final class Table {
         return table;
     }
 
-    private String getCellHtml(final Workbook workbook, final HSSFCell cell) {
+    private String getCellHtml(final HSSFWorkbook workbook, final HSSFCell cell) {
         final HSSFFont font = cell.getCellStyle().getFont(workbook);
 
-        String cellHtml;
+        String value;
 
         switch (cell.getCellType()) {
             case NUMERIC:
-                cellHtml = String.valueOf(cell.getNumericCellValue());
+                value = String.valueOf(cell.getNumericCellValue());
                 break;
             case STRING:
-                cellHtml = cell.getStringCellValue().trim();
+                value = getRichTextCellValue(workbook, cell);
                 break;
             case BOOLEAN:
-                cellHtml = String.valueOf(cell.getBooleanCellValue());
+                value = String.valueOf(cell.getBooleanCellValue());
                 break;
             default:
-                cellHtml = "";
+                value = "";
         }
 
+        return getHtmlValue(value, font);
+    }
+
+    private String getRichTextCellValue(final HSSFWorkbook workbook, final HSSFCell cell) {
+        final HSSFRichTextString richStringCellValue = cell.getRichStringCellValue();
+        final String value = richStringCellValue.getString();
+
+        final String html;
+
+        if (richStringCellValue.numFormattingRuns() > 0) {
+            final StringBuilder builder = new StringBuilder();
+
+            HSSFFont font = workbook.getFontAt((int) richStringCellValue.getFontAtIndex(0));
+
+            final StringBuilder runBuilder = new StringBuilder();
+
+            for (int i = 0; i < value.length(); i++) {
+                final HSSFFont currentFont = workbook.getFontAt((int) richStringCellValue.getFontAtIndex(i));
+
+                if (!font.equals(currentFont)) {
+                    // font changed, terminate run for previous font
+                    builder.append(getHtmlValue(runBuilder.toString(), font));
+                    runBuilder.setLength(0);
+                    font = currentFont;
+                }
+
+                runBuilder.append(value.charAt(i));
+            }
+
+            // append final segment
+            builder.append(getHtmlValue(runBuilder.toString(), font));
+
+            html = builder.toString();
+        } else {
+            final HSSFFont font = cell.getCellStyle().getFont(workbook);
+
+            html = getHtmlValue(value, font);
+        }
+
+        return html;
+    }
+
+    private String getHtmlValue(final String value, final HSSFFont font) {
+        String html = value;
+
         if (font.getBold()) {
-            cellHtml = wrapHtmlTag(cellHtml, "b");
+            html = wrapHtmlTag(html, "b");
         }
 
         if (font.getItalic()) {
-            cellHtml = wrapHtmlTag(cellHtml, "i");
+            html = wrapHtmlTag(html, "i");
         }
 
         if (font.getTypeOffset() == Font.SS_SUB) {
-            cellHtml = wrapHtmlTag(cellHtml, "sub");
+            html = wrapHtmlTag(html, "sub");
         }
 
         if (font.getTypeOffset() == Font.SS_SUPER) {
-            cellHtml = wrapHtmlTag(cellHtml, "sup");
+            html = wrapHtmlTag(html, "sup");
         }
 
-        return cellHtml;
+        return html;
     }
 
     private String wrapHtmlTag(final String text, final String tagName) {
