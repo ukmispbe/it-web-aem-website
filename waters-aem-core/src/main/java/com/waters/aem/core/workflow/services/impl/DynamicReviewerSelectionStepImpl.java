@@ -9,16 +9,12 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.osgi.service.component.annotations.Component;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Component(immediate = true, property = {
     "service.description=Implementation of Dynamic Reviewer chooser",
     "chooser.label=Workflow Reviewer Chooser"
 })
 public class DynamicReviewerSelectionStepImpl implements ParticipantStepChooser {
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private static final String JCR_CONTENT = "/jcr:content";
 
@@ -44,12 +40,6 @@ public class DynamicReviewerSelectionStepImpl implements ParticipantStepChooser 
         String stepTitle = item.getNode().getTitle();
         String id = "";
 
-        logger.info("Assigning Dynamic Participant Step work item to {}", valueMap.get(SCI_OPS_MANAGER).toString());
-        logger.info("Assigning Dynamic Participant Step work item to {}", valueMap.get(MARKET_PRODUCT_MANAGER).toString());
-        logger.info("Assigning Dynamic Participant Step work item to {}", valueMap.get(MARCOM_MANAGER).toString());
-
-        logger.info("Step Title ******** {}", stepTitle);
-
         switch(stepTitle){
             case START_STEP: id = valueMap.get(SCI_OPS_MANAGER).toString();
                 break;
@@ -58,7 +48,7 @@ public class DynamicReviewerSelectionStepImpl implements ParticipantStepChooser 
             case MARKET_PRODUCT_STEP: id = valueMap.get(MARCOM_MANAGER).toString();
                 break;
         }
-        logger.info("Assigning ID ******* {}", id);
+
         return id;
     }
 
