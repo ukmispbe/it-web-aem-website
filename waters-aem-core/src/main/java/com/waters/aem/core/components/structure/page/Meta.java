@@ -34,10 +34,6 @@ import java.util.Optional;
 @Model(adaptables = Resource.class)
 public final class Meta extends AbstractComponent {
 
-    public static final String PROPERTY_NAME_OG_IMAGE = "og:image";
-
-    public static final String PROPERTY_NAME_OG_IMAGE_SECURE_URL = "og:image:secure_url";
-
     static final String FILE_NAME = "meta";
 
     private static final String PROPERTY_CANONICAL_URL = "canonicalUrl";
@@ -124,11 +120,6 @@ public final class Meta extends AbstractComponent {
     @PathField(rootPath = WatersConstants.DAM_PATH)
     public String getOgImage() {
         return getExternalizedImage("ogImage");
-    }
-
-    public String getOgImagePropertyName() {
-        return StringUtils.startsWith(getOgImage(),
-            "https") ? PROPERTY_NAME_OG_IMAGE_SECURE_URL : PROPERTY_NAME_OG_IMAGE;
     }
 
     @DialogField(fieldLabel = "Facebook App ID", ranking = 6)

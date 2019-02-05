@@ -55,7 +55,7 @@ class TableSpec extends AemLibraryModelSpec {
 
         expect:
         firstRow.get("0") == "LC system:"
-        firstRow.get("1") == "ACQUITY UPLC H-Class Bio"
+        firstRow.get("1") == " ACQUITY UPLC H-Class Bio"
 
         where:
         path << [
