@@ -215,7 +215,7 @@ public final class Table {
     }
 
     private String getHtmlValue(final String value, final HSSFFont font) {
-        String html = value;
+        String html = value.replaceAll("\n", "<br>");
 
         if (font.getBold()) {
             html = wrapHtmlTag(html, "b");
