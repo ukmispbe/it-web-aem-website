@@ -9,9 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
+/**
+ * Base class for replication event handlers.
+ */
 public abstract class AbstractReplicationEventHandler implements EventHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractReplicationEventHandler.class);
@@ -23,7 +25,7 @@ public abstract class AbstractReplicationEventHandler implements EventHandler {
 
         final ReplicationActionType replicationActionType = ReplicationActionType.fromName(type);
 
-        if (accepts(path)) {
+        if (accepts(path, replicationActionType)) {
             if (replicationActionType.equals(ReplicationActionType.ACTIVATE)) {
                 LOG.info("handling activate event for path = {}", path);
 
@@ -43,62 +45,20 @@ public abstract class AbstractReplicationEventHandler implements EventHandler {
     }
 
     /**
-     * Check if the given page path is indexed according to the rules defined in the OSGi service configuration.
-     *
-     * @param path replicated page path
-     * @return true if path is indexed, false if not
-     */
-    protected boolean isIndexed(final String path) {
-        boolean isIndexed = getIncludedPaths().stream().anyMatch(path :: startsWith);
-
-        if (isIndexed) {
-            LOG.debug("found indexed path : {}", path);
-
-            isIndexed = getExcludedPaths().stream().noneMatch(path :: startsWith);
-
-            LOG.debug("path : {}, is excluded : {}", path, !isIndexed);
-        } else {
-            LOG.debug("non-indexed path : {}", path);
-        }
-
-        return isIndexed;
-    }
-
-    /**
-     * Add a job to the queue with the given topic and page path.
-     *
-     * @param topic job topic
-     * @param path page path
-     */
-    protected void addJob(final String topic, final String path) {
-        LOG.info("adding job with topic : {} for page path : {}", topic, path);
-
-        getJobManager().addJob(topic, getJobProperties(path));
-    }
-
-    protected abstract JobManager getJobManager();
-
-    /**
-     * Get the list of included paths as defined in the OSGi service configuration.
-     *
-     * @return included page paths
-     */
-    protected abstract List<String> getIncludedPaths();
-
-    /**
-     * Get the list of excluded paths as defined in the OSGi service configuration.
-     *
-     * @return excluded page paths
-     */
-    protected abstract List<String> getExcludedPaths();
-
-    /**
      * Determine if the replicated path can be accepted by this handler.
      *
      * @param path replicated path
+     * @param replicationActionType replication action type
      * @return true if handler can accept this path
      */
-    protected abstract boolean accepts(final String path);
+    protected abstract boolean accepts(final String path, final ReplicationActionType replicationActionType);
+
+    /**
+     * Get the Sling job manager for this service.
+     *
+     * @return job manager
+     */
+    protected abstract JobManager getJobManager();
 
     /**
      * Handle activation event.
@@ -120,6 +80,18 @@ public abstract class AbstractReplicationEventHandler implements EventHandler {
      * @param path payload path
      */
     protected abstract void handleDelete(final String path);
+
+    /**
+     * Add a job to the queue with the given topic and page path.
+     *
+     * @param topic job topic
+     * @param path page path
+     */
+    protected void addJob(final String topic, final String path) {
+        LOG.info("adding job with topic : {} for page path : {}", topic, path);
+
+        getJobManager().addJob(topic, getJobProperties(path));
+    }
 
     /**
      * Get a map of job properties for the given page path.

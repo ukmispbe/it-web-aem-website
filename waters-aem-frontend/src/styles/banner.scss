@@ -76,8 +76,16 @@
     }
 }
 
+.cmp-banner--header .cmp-banner {
+    margin-top: -$space-l;
+}
+
+.cmp-banner--notHeader .cmp-banner {
+    margin-top: 0;
+}
+
 .cmp-banner__parsys {
-    padding: $space-xl 0;
+    padding: $space-xl 0 $space-m 0;
 }
 
 .cmp-banner__backgroundImage {
