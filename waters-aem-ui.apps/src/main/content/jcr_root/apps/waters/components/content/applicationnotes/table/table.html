@@ -5,12 +5,12 @@
         <table class="cmp-table__table">
             <thead data-sly-test="${table.header}">
             <tr>
-                <th data-sly-repeat.columnName="${table.columnNames}">${columnName}</th>
+                <th data-sly-repeat.columnName="${table.columnNames}">${columnName @ context='html'}</th>
             </tr>
             </thead>
             <tbody>
             <tr data-sly-repeat.rowMap="${table.tableRows}">
-                <td data-sly-repeat.column="${rowMap}">${rowMap[column]}</td>
+                <td data-sly-repeat.column="${rowMap}">${rowMap[column] @ context='html'}</td>
             </tr>
             </tbody>
         </table>
