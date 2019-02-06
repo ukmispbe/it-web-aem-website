@@ -1,5 +1,5 @@
-final def page = getPage('/content/waters/language-masters/en')
-final def query = buildQuery(page, 'waters/components/content/applicationnotes/externallist')
+final def page = getPage('/content/waters/language-masters/en/application-notes')
+final def query = buildQuery(page, 'waters/components/content/button');
 final def result = query.execute()
 
 def buildQuery(page, component) {
@@ -9,13 +9,9 @@ def buildQuery(page, component) {
 }
 
 result.nodes.each { node ->
-    node.findAll { it.hasNodes() }.each {
-        if(it.name.contains("externalLinkItems")){
-            it.nodes.each { linkItemNode ->
-                println 'itemNodeLink--'+ linkItemNode.get('link')
-                linkItemNode.set('link',linkItemNode.get('link').replace("http:", "https:"))
-                session.save()
-            }
-        }
-    }
+    println 'buttonPath --'+ node.path
+    println 'buttonLink --'+ node.get('buttonLink')
+    node.set('buttonLink',node.get('buttonLink').replace("http:", "https:"))
+    session.save()
 }
+   
