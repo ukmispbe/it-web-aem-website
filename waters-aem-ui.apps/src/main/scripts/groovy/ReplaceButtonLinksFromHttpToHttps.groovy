@@ -1,5 +1,5 @@
 final def page = getPage('/content/waters/language-masters/en/application-notes')
-final def query = buildQuery(page, 'waters/components/content/button');
+final def query = buildQuery(page, 'waters/components/content/button')
 final def result = query.execute()
 
 def buildQuery(page, component) {
