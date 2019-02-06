@@ -1,9 +1,23 @@
 // React Search Application
-
-console.log('adding search');
-
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Search from './search';
 
-ReactDOM.render(<Search />, document.getElementById('js-search-bar'));
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+const SearchApp = props => {
+    return (
+        <Router>
+            <Route
+                path=""
+                render={() => (
+                    <Search
+                        defaultFacet={props.defaultFacet}
+                        searchDefaults={props.searchDefaults}
+                    />
+                )}
+            />
+        </Router>
+    );
+};
+
+export default SearchApp;
