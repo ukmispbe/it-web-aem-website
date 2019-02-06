@@ -11,7 +11,9 @@
         </thead>
         <tbody>
         <tr data-sly-repeat.rowMap="${table.tableRows}">
-            <td data-sly-repeat.column="${rowMap}">${rowMap[column] @ context='html'}</td>
+            <td data-sly-repeat.column="${rowMap}">
+                <p data-sly-repeat.cell="${rowMap[column]}">${cell @ context='html'}</p>
+            </td>
         </tr>
         </tbody>
     </table>

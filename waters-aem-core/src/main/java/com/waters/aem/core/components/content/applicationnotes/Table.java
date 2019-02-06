@@ -32,9 +32,12 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -79,7 +82,7 @@ public final class Table {
     @Default(booleanValues = false)
     private boolean header;
 
-    private com.google.common.collect.Table<Integer, String, String> table;
+    private com.google.common.collect.Table<Integer, String, List<String>> table;
 
     @DialogField(fieldLabel = "Excel File", ranking = 4)
     @Html5SmartFile(
@@ -107,20 +110,20 @@ public final class Table {
         final Set<String> columnNames = new LinkedHashSet<>();
 
         if (header) {
-            columnNames.addAll(getTable().row(0).values());
+            getTable().row(0).values().forEach(columnNames :: addAll);
         }
 
         return columnNames;
     }
 
-    public List<Map<String, String>> getTableRows() {
+    public List<Map<String, List<String>>> getTableRows() {
         return getTable().rowMap().values()
             .stream()
             .skip(header ? 1 : 0)
             .collect(Collectors.toList());
     }
 
-    private com.google.common.collect.Table<Integer, String, String> getTable() {
+    private com.google.common.collect.Table<Integer, String, List<String>> getTable() {
         if (table == null) {
             table = HashBasedTable.create();
 
@@ -135,7 +138,7 @@ public final class Table {
                         int cellIndex = 0;
 
                         for (final Cell cell : row) {
-                            final String cellHtml = getCellHtml(workbook, (HSSFCell) cell);
+                            final List<String> cellHtml = getCellHtml(workbook, (HSSFCell) cell);
 
                             table.put(row.getRowNum(), String.valueOf(cellIndex), cellHtml);
 
@@ -153,69 +156,85 @@ public final class Table {
         return table;
     }
 
-    private String getCellHtml(final HSSFWorkbook workbook, final HSSFCell cell) {
+    private List<String> getCellHtml(final HSSFWorkbook workbook, final HSSFCell cell) {
         final HSSFFont font = cell.getCellStyle().getFont(workbook);
 
-        String value;
+        List<String> values;
 
         switch (cell.getCellType()) {
             case NUMERIC:
-                value = String.valueOf(cell.getNumericCellValue());
+                values = getCellValues(String.valueOf(cell.getNumericCellValue()), font);
                 break;
             case STRING:
-                value = getRichTextCellValue(workbook, cell);
+                values = getRichTextCellValues(workbook, cell);
                 break;
             case BOOLEAN:
-                value = String.valueOf(cell.getBooleanCellValue());
+                values = getCellValues(String.valueOf(cell.getBooleanCellValue()), font);
                 break;
             default:
-                value = "";
+                values = Collections.emptyList();
         }
 
-        return getHtmlValue(value, font);
+        return values;
     }
 
-    private String getRichTextCellValue(final HSSFWorkbook workbook, final HSSFCell cell) {
+    private List<String> getRichTextCellValues(final HSSFWorkbook workbook, final HSSFCell cell) {
         final HSSFRichTextString richStringCellValue = cell.getRichStringCellValue();
         final String value = richStringCellValue.getString();
 
-        final String html;
+        final Scanner scanner = new Scanner(value);
 
-        if (richStringCellValue.numFormattingRuns() > 0) {
-            final StringBuilder builder = new StringBuilder();
+        final List<String> lines = new ArrayList<>();
 
-            HSSFFont font = workbook.getFontAt((int) richStringCellValue.getFontAtIndex(0));
+        int startIndex = 0;
 
-            final StringBuilder runBuilder = new StringBuilder();
+        HSSFFont font = workbook.getFontAt((int) richStringCellValue.getFontAtIndex(0));
 
-            for (int i = 0; i < value.length(); i++) {
+        while (scanner.hasNextLine()) {
+            String html = scanner.nextLine();
+
+            final int lineLength = html.length();
+
+            final StringBuilder line = new StringBuilder();
+            final StringBuilder run = new StringBuilder();
+
+            for (int i = startIndex; i < startIndex + lineLength; i++) {
                 final HSSFFont currentFont = workbook.getFontAt((int) richStringCellValue.getFontAtIndex(i));
 
                 if (!font.equals(currentFont)) {
                     // font changed, terminate run for previous font
-                    builder.append(getHtmlValue(runBuilder.toString(), font));
-                    runBuilder.setLength(0);
+                    if (run.length() > 0) {
+                        line.append(getHtmlValue(run.toString(), font));
+
+                        // reset builder
+                        run.setLength(0);
+                    }
+
                     font = currentFont;
                 }
 
-                runBuilder.append(value.charAt(i));
+                run.append(value.charAt(i));
             }
 
             // append final segment
-            builder.append(getHtmlValue(runBuilder.toString(), font));
+            line.append(getHtmlValue(run.toString(), font));
 
-            html = builder.toString();
-        } else {
-            final HSSFFont font = cell.getCellStyle().getFont(workbook);
+            // append line
+            lines.add(line.toString());
 
-            html = getHtmlValue(value, font);
+            // increment start index
+            startIndex += lineLength + 1;
         }
 
-        return html;
+        return lines;
+    }
+
+    private List<String> getCellValues(final String value, final HSSFFont font) {
+        return Collections.singletonList(getHtmlValue(value, font));
     }
 
     private String getHtmlValue(final String value, final HSSFFont font) {
-        String html = value.replaceAll("\n", "<br>");
+        String html = value;
 
         if (font.getBold()) {
             html = wrapHtmlTag(html, "b");
