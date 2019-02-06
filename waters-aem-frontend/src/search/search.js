@@ -109,6 +109,7 @@ class Search extends Component {
                     pageCount={state.pagination.amount}
                     pageRangeDisplayed={8}
                     marginPagesDisplayed={0}
+                    containerClassName="paginate__container"
                     onPageChange={this.paginationClickHandler.bind(this)}
                 />
             </div>
