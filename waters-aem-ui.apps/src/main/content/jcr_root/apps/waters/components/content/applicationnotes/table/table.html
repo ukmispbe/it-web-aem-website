@@ -1,23 +1,22 @@
-<div data-sly-use.table="com.waters.aem.core.components.content.applicationnotes.Table"
-     data-sly-test="${table.tableRows}"
-     class="cmp-table">
+<sly data-sly-use.table="com.waters.aem.core.components.content.applicationnotes.Table"
+     data-sly-test="${table.tableRows}">
     <h3 data-sly-test="${table.title}" class="cmp-table__title">${table.title}</h3>
-
-    <table class="cmp-table__table">
-        <thead data-sly-test="${table.header}">
-        <tr>
-            <th data-sly-repeat.columnName="${table.columnNames}">${columnName @ context='html'}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr data-sly-repeat.rowMap="${table.tableRows}">
-            <td data-sly-repeat.column="${rowMap}">${rowMap[column] @ context='html'}</td>
-        </tr>
-        </tbody>
-    </table>
-
+    <div class="cmp-table">
+        <table class="cmp-table__table">
+            <thead data-sly-test="${table.header}">
+            <tr>
+                <th data-sly-repeat.columnName="${table.columnNames}">${columnName @ context='html'}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-sly-repeat.rowMap="${table.tableRows}">
+                <td data-sly-repeat.column="${rowMap}">${rowMap[column] @ context='html'}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
     <span class="cmp-table__caption" data-sly-test="${table.caption}">${table.caption @ context='html'}</span>
-</div>
+</sly>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
      data-sly-call="${patterns.placeholder @ show=!table.tableRows, text=component.title}"/>

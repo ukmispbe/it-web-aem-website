@@ -1,5 +1,6 @@
 .cmp-table {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 .cmp-table__table {
     border-top: 1px solid $color-teal-30;
@@ -7,7 +8,7 @@
     @include font-body;
     border-collapse: collapse;
     td,th {
-        padding-right: $space-l;
+        padding: .25em $space-l .25em 0;
         text-align: left;
     }
     th{
