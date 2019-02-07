@@ -1,0 +1,16 @@
+.paginate__container {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    li {
+        display: inline;
+        a {
+            margin: 0  $space-xxs;
+            border: 1px solid $color-border-dark;
+            float: left;
+            padding: $space-xxs $space-s;
+            text-decoration: none;
+            
+        }
+    }
+}
