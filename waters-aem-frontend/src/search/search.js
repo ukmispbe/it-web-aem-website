@@ -15,7 +15,8 @@ class Search extends Component {
     componentWillMount() {
         this.search = new SearchService(
             this.props.searchDefaults,
-            this.props.defaultFacet
+            this.props.defaultFacet,
+            this.props.searchServicePath
         );
 
         this.setState({
