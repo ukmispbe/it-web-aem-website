@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import SearchBar from './search/components/searchbar';
 import Search from './search/index';
 
-function getAuthoredDataForSearchBar(c) {
+function getAuthoredDataForSearchBar(c, h) {
     return {
-        searchPath: c.dataset.baseUrl,
+        searchPath: h.dataset.searchPath,
         placeholder: c.dataset.placeholder,
         icon: c.dataset.iconUrl,
     };
@@ -13,9 +13,10 @@ function getAuthoredDataForSearchBar(c) {
 function getAuthoredDataForSearchApp() {}
 
 const searchBarContainer = document.getElementById('js-search-bar');
+const header = document.querySelector('.cmp-external-header');
 
-if (searchBarContainer) {
-    const data = getAuthoredDataForSearchBar(searchBarContainer);
+if (searchBarContainer && header) {
+    const data = getAuthoredDataForSearchBar(searchBarContainer, header);
     ReactDOM.render(
         <SearchBar
             iconUrl={data.icon}
