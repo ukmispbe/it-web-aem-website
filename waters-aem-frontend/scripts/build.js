@@ -3,6 +3,9 @@ const config = require('./webpack.config.build.js');
 const fs = require('fs');
 const path = require('path');
 
+process.env.BABEL_ENV = 'production';
+process.env.NODE_ENV = 'production';
+
 const compiler = webpack(
     Object.assign({}, config, { watch: process.env.WATCH_ALIVE === 'true' })
 );

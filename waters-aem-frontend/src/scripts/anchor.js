@@ -148,4 +148,6 @@ function toggleMobileNav(forceClose) {
 }
 
 window.addEventListener('scroll', anchorSticky);
-if (anchorMenu) anchorMenu.addEventListener('click', () => toggleMobileNav());
+if (anchorMenu) {
+    anchorMenu.addEventListener('click', () => toggleMobileNav());
+}
