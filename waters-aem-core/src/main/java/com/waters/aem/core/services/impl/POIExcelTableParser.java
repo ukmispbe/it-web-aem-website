@@ -86,49 +86,48 @@ public final class POIExcelTableParser implements ExcelTableParser {
         final HSSFFont cellFont) {
         final HSSFRichTextString richStringCellValue = cell.getRichStringCellValue();
         final String value = richStringCellValue.getString();
-
-        final Scanner scanner = new Scanner(value);
-
         final List<String> lines = new ArrayList<>();
+        try(Scanner scanner = new Scanner(value)) {
 
-        int startIndex = 0;
+            int startIndex = 0;
 
-        HSSFFont font = getFont(workbook, cell, cellFont, startIndex);
+            HSSFFont font = getFont(workbook, cell, cellFont, startIndex);
 
-        while (scanner.hasNextLine()) {
-            String html = scanner.nextLine();
+            while (scanner.hasNextLine()) {
+                String html = scanner.nextLine();
 
-            final int lineLength = html.length();
+                final int lineLength = html.length();
 
-            final StringBuilder line = new StringBuilder();
-            final StringBuilder run = new StringBuilder();
+                final StringBuilder line = new StringBuilder();
+                final StringBuilder run = new StringBuilder();
 
-            for (int i = startIndex; i < startIndex + lineLength; i++) {
-                final HSSFFont currentFont = getFont(workbook, cell, cellFont, i);
+                for (int i = startIndex; i < startIndex + lineLength; i++) {
+                    final HSSFFont currentFont = getFont(workbook, cell, cellFont, i);
 
-                if (!font.equals(currentFont)) {
-                    // font changed, terminate run for previous font
-                    if (run.length() > 0) {
-                        line.append(getHtmlValue(run.toString(), font));
+                    if (!font.equals(currentFont)) {
+                        // font changed, terminate run for previous font
+                        if (run.length() > 0) {
+                            line.append(getHtmlValue(run.toString(), font));
 
-                        // reset builder
-                        run.setLength(0);
+                            // reset builder
+                            run.setLength(0);
+                        }
+
+                        font = currentFont;
                     }
 
-                    font = currentFont;
+                    run.append(value.charAt(i));
                 }
 
-                run.append(value.charAt(i));
+                // append final segment
+                line.append(getHtmlValue(run.toString(), font));
+
+                // append line
+                lines.add(line.toString());
+
+                // increment start index
+                startIndex += lineLength + 1;
             }
-
-            // append final segment
-            line.append(getHtmlValue(run.toString(), font));
-
-            // append line
-            lines.add(line.toString());
-
-            // increment start index
-            startIndex += lineLength + 1;
         }
 
         return lines;
