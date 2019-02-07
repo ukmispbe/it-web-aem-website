@@ -4,7 +4,9 @@ var anchorMenu = document.querySelector('.cmp-anchor__list-heading');
 
 // Setup click handler for Anchor Links to scroll in view
 var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
-anchorLinks.forEach((anchor, i) => {
+
+[].forEach.call(anchorLinks, (anchor, i) => {
+    console.log(anchor);
     try {
         anchor.addEventListener('click', e => {
             e.preventDefault();
@@ -40,6 +42,7 @@ var anchorSticky = (function() {
             window.addEventListener('scroll', this.onScroll.bind(this));
         },
         init: function(element) {
+            console.log('init');
             this.element = element;
             this.addEvents();
             this.position = element.offsetTop;
@@ -64,11 +67,12 @@ var anchorSticky = (function() {
             this.getInViewElement();
         },
         aboveScroll: function() {
-            return this.position - 73 < window.scrollY;
+            return this.position - 73 < window.pageYOffset;
         },
         onScroll: function(event) {
             if (this.aboveScroll()) {
                 this.setFixed();
+                console.log('fix');
             } else {
                 this.setRelative();
             }
