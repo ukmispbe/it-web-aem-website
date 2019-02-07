@@ -10,34 +10,21 @@ import com.citytechinc.cq.component.annotations.widgets.ToolbarConfig;
 import com.citytechinc.cq.component.annotations.widgets.rte.Format;
 import com.citytechinc.cq.component.annotations.widgets.rte.SubSuperscript;
 import com.citytechinc.cq.component.annotations.widgets.rte.UISettings;
-import com.google.common.collect.HashBasedTable;
 import com.waters.aem.core.constants.WatersConstants;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import com.waters.aem.core.services.ExcelTableParser;
+import org.apache.poi.util.IOUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ChildResource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
 import javax.inject.Inject;
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -45,7 +32,8 @@ import java.util.stream.Collectors;
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class Table {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Table.class);
+    @OSGiService
+    private ExcelTableParser excelTableParser;
 
     @DialogField(fieldLabel = "Title", ranking = 1)
     @TextField
@@ -125,142 +113,14 @@ public final class Table {
 
     private com.google.common.collect.Table<Integer, String, List<String>> getTable() {
         if (table == null) {
-            table = HashBasedTable.create();
+            final InputStream excelFileInputStream = getExcelFileInputStream();
 
-            try (final InputStream excelFileInputStream = getExcelFileInputStream()) {
-                if (excelFileInputStream == null) {
-                    LOG.warn("excel file is null, returning empty table");
-                } else {
-                    final HSSFWorkbook workbook = (HSSFWorkbook) WorkbookFactory.create(excelFileInputStream);
-                    final HSSFSheet sheet = workbook.getSheetAt(0);
+            table = excelTableParser.getTable(excelFileInputStream);
 
-                    for (final Row row : sheet) {
-                        int cellIndex = 0;
-
-                        for (final Cell cell : row) {
-                            final List<String> cellHtml = getCellHtml(workbook, (HSSFCell) cell);
-
-                            table.put(row.getRowNum(), String.valueOf(cellIndex), cellHtml);
-
-                            cellIndex++;
-                        }
-                    }
-
-                    workbook.close();
-                }
-            } catch (IOException e) {
-                LOG.error("error parsing excel file", e);
-            }
+            IOUtils.closeQuietly(excelFileInputStream);
         }
 
         return table;
-    }
-
-    private List<String> getCellHtml(final HSSFWorkbook workbook, final HSSFCell cell) {
-        final HSSFFont font = cell.getCellStyle().getFont(workbook);
-
-        List<String> values;
-
-        switch (cell.getCellType()) {
-            case NUMERIC:
-                values = getCellValues(String.valueOf(cell.getNumericCellValue()), font);
-                break;
-            case STRING:
-                values = getRichTextCellValues(workbook, cell);
-                break;
-            case BOOLEAN:
-                values = getCellValues(String.valueOf(cell.getBooleanCellValue()), font);
-                break;
-            default:
-                values = Collections.emptyList();
-        }
-
-        return values;
-    }
-
-    private List<String> getRichTextCellValues(final HSSFWorkbook workbook, final HSSFCell cell) {
-        final HSSFRichTextString richStringCellValue = cell.getRichStringCellValue();
-        final String value = richStringCellValue.getString();
-
-        final Scanner scanner = new Scanner(value);
-
-        final List<String> lines = new ArrayList<>();
-
-        int startIndex = 0;
-
-        HSSFFont font = workbook.getFontAt((int) richStringCellValue.getFontAtIndex(0));
-
-        while (scanner.hasNextLine()) {
-            String html = scanner.nextLine();
-
-            final int lineLength = html.length();
-
-            final StringBuilder line = new StringBuilder();
-            final StringBuilder run = new StringBuilder();
-
-            for (int i = startIndex; i < startIndex + lineLength; i++) {
-                final HSSFFont currentFont = workbook.getFontAt((int) richStringCellValue.getFontAtIndex(i));
-
-                if (!font.equals(currentFont)) {
-                    // font changed, terminate run for previous font
-                    if (run.length() > 0) {
-                        line.append(getHtmlValue(run.toString(), font));
-
-                        // reset builder
-                        run.setLength(0);
-                    }
-
-                    font = currentFont;
-                }
-
-                run.append(value.charAt(i));
-            }
-
-            // append final segment
-            line.append(getHtmlValue(run.toString(), font));
-
-            // append line
-            lines.add(line.toString());
-
-            // increment start index
-            startIndex += lineLength + 1;
-        }
-
-        return lines;
-    }
-
-    private List<String> getCellValues(final String value, final HSSFFont font) {
-        return Collections.singletonList(getHtmlValue(value, font));
-    }
-
-    private String getHtmlValue(final String value, final HSSFFont font) {
-        String html = value;
-
-        if (font.getBold()) {
-            html = wrapHtmlTag(html, "b");
-        }
-
-        if (font.getItalic()) {
-            html = wrapHtmlTag(html, "i");
-        }
-
-        if (font.getTypeOffset() == Font.SS_SUB) {
-            html = wrapHtmlTag(html, "sub");
-        }
-
-        if (font.getTypeOffset() == Font.SS_SUPER) {
-            html = wrapHtmlTag(html, "sup");
-        }
-
-        return html;
-    }
-
-    private String wrapHtmlTag(final String text, final String tagName) {
-        return new StringBuilder()
-            .append("<").append(tagName).append(">")
-            .append(text)
-            .append("</").append(tagName).append(">")
-            .toString();
     }
 
     private InputStream getExcelFileInputStream() {
