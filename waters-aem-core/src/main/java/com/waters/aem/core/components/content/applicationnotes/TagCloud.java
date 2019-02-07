@@ -6,8 +6,8 @@ import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.IncludeDialogFields;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
-import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.components.AbstractComponent;
+import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -25,6 +25,9 @@ import java.util.stream.Collectors;
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class TagCloud extends AbstractComponent implements ComponentExporter {
 
+    @Self
+    private SiteContext siteContext;
+
     @DialogField(fieldLabel = "Title",
         fieldDescription = "Enter the Title",
         ranking = 1)
@@ -39,13 +42,10 @@ public final class TagCloud extends AbstractComponent implements ComponentExport
     @Self
     private Resource resource;
 
-    @Inject
-    private PageDecorator currentPage;
-
     public List<SearchFacet> getSearchFacets() {
         return pageMetadata.getSearchTags()
             .stream()
-            .map(tag -> new SearchFacet(tag.getTitle(currentPage.getLanguage(false)), tag.getParent().getName()))
+            .map(tag -> new SearchFacet(tag.getTitle(siteContext.getLocale()), tag.getParent().getName()))
             .collect(Collectors.toList());
     }
 

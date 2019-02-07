@@ -7,10 +7,12 @@ import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.day.cq.commons.Externalizer;
 import com.day.cq.wcm.api.policies.ContentPolicy;
 import com.icfolson.aem.library.api.page.PageDecorator;
+import com.waters.aem.core.components.SiteContext;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,6 +49,9 @@ public final class Share {
         "linkedin"
     );
 
+    @Self
+    private SiteContext siteContext;
+
     @Inject
     private ContentPolicy contentPolicy;
 
@@ -81,7 +86,7 @@ public final class Share {
     }
 
     public List<String> getServiceCodes() {
-        final Locale locale = currentPage.getLanguage(false);
+        final Locale locale = siteContext.getLocale();
 
         return getShareLocales()
             .stream()

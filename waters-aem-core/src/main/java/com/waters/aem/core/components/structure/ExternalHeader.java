@@ -3,13 +3,19 @@ package com.waters.aem.core.components.structure;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
-import com.citytechinc.cq.component.annotations.widgets.*;
+import com.citytechinc.cq.component.annotations.widgets.DialogFieldSet;
+import com.citytechinc.cq.component.annotations.widgets.Html5SmartImage;
+import com.citytechinc.cq.component.annotations.widgets.MultiField;
+import com.citytechinc.cq.component.annotations.widgets.PathField;
+import com.citytechinc.cq.component.annotations.widgets.Switch;
+import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
+import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.components.content.applicationnotes.LinkItem;
 import com.waters.aem.core.components.content.applicationnotes.RegionLinkItem;
 import com.waters.aem.core.constants.WatersConstants;
@@ -18,10 +24,11 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
-import com.icfolson.aem.library.api.page.PageDecorator;
+import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.inject.Inject;
-import java.util.*;
+import java.util.List;
+import java.util.Locale;
 
 @Component(value = "External Header",
     group = ComponentConstants.GROUP_HIDDEN,
@@ -34,8 +41,8 @@ import java.util.*;
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class ExternalHeader {
 
-    @Inject
-    private PageDecorator currentPage;
+    @Self
+    private SiteContext siteContext;
 
     @DialogField(fieldLabel = "Header Logo",
         fieldDescription = "select header logo",
@@ -115,19 +122,23 @@ public final class ExternalHeader {
         return regionLinkItem;
     }
 
-    public String getLanguageLocation(){
-        Locale locale = currentPage.getLanguage(true);
-        String languageCode = locale.getLanguage().toUpperCase();
-        String countryCode =  locale.getCountry();
-        StringBuilder stringBuilder = new StringBuilder();
+    public String getLanguageLocation() {
+        final Locale locale = siteContext.getLocale();
 
-        if(!StringUtils.isBlank(languageCode)){
+        final String languageCode = locale.getLanguage().toUpperCase();
+        final String countryCode = locale.getCountry();
+
+        final StringBuilder stringBuilder = new StringBuilder();
+
+        if (!StringUtils.isBlank(languageCode)) {
             stringBuilder.append(languageCode);
         }
-        if(!StringUtils.isBlank(languageCode) && !StringUtils.isBlank(countryCode)){
+
+        if (!StringUtils.isBlank(languageCode) && !StringUtils.isBlank(countryCode)) {
             stringBuilder.append("/");
         }
-        if(!StringUtils.isBlank(countryCode)){
+
+        if (!StringUtils.isBlank(countryCode)) {
             stringBuilder.append(countryCode);
         }
 

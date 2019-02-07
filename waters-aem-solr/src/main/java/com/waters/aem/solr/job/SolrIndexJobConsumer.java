@@ -31,7 +31,7 @@ public final class SolrIndexJobConsumer implements JobConsumer {
     private static final Logger LOG = LoggerFactory.getLogger(SolrIndexJobConsumer.class);
 
     @Reference
-    private SolrIndexService indexService;
+    private SolrIndexService solrIndexService;
 
     /**
      * Process the indexing job via the Solr index service.
@@ -51,9 +51,9 @@ public final class SolrIndexJobConsumer implements JobConsumer {
 
         try {
             if (JOB_TOPIC_INDEX_ADD.equals(job.getTopic())) {
-                success = indexService.addToIndex(path);
+                success = solrIndexService.addPageToIndex(path);
             } else {
-                success = indexService.deleteFromIndex(path);
+                success = solrIndexService.deletePageFromIndex(path);
             }
         } catch (Exception e) {
             // re-throw exception to cancel the job

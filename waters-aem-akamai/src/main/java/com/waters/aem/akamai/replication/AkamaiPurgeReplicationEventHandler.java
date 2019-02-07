@@ -1,7 +1,9 @@
 package com.waters.aem.akamai.replication;
 
+import com.day.cq.replication.ReplicationActionType;
 import com.waters.aem.akamai.job.AkamaiPurgeJobConsumer;
 import com.waters.aem.core.services.AbstractReplicationEventHandler;
+import com.waters.aem.core.services.PageEventHandlerConfiguration;
 import org.apache.sling.event.jobs.JobManager;
 import org.apache.sling.event.jobs.NotificationConstants;
 import org.osgi.service.component.annotations.Activate;
@@ -25,7 +27,7 @@ import java.util.List;
         EventConstants.EVENT_FILTER + "=(" + NotificationConstants.NOTIFICATION_PROPERTY_JOB_TOPIC + "=com/day/cq/replication/job/publish)"
     })
 @Designate(ocd = AkamaiPurgeReplicationEventHandlerConfiguration.class)
-public final class AkamaiPurgeReplicationEventHandler extends AbstractReplicationEventHandler {
+public final class AkamaiPurgeReplicationEventHandler extends AbstractReplicationEventHandler implements PageEventHandlerConfiguration {
 
     @Reference
     private JobManager jobManager;
@@ -35,18 +37,18 @@ public final class AkamaiPurgeReplicationEventHandler extends AbstractReplicatio
     private volatile List<String> excludedPaths;
 
     @Override
-    protected boolean accepts(final String path) {
-        return isIndexed(path);
-    }
-
-    @Override
-    protected List<String> getIncludedPaths() {
+    public List<String> getIncludedPaths() {
         return includedPaths;
     }
 
     @Override
-    protected List<String> getExcludedPaths() {
+    public List<String> getExcludedPaths() {
         return excludedPaths;
+    }
+
+    @Override
+    protected boolean accepts(final String path, final ReplicationActionType replicationActionType) {
+        return isIncludedPath(path);
     }
 
     @Override

@@ -7,11 +7,11 @@ html {
 }
 
 body {
-    padding-top: 72px;
+    padding-top: (4.5em + $space-l);
     overflow-x: hidden;
 
     @include mobile {
-        padding-top: 75px;
+        padding-top: (4.1875em + $space-l);
     }
 }
 
@@ -41,18 +41,22 @@ body {
 
 .layoutcontainer .sectioncontainer {
     padding: 0;
-    margin: $space-m 0;
+    margin: $space-xl 0 $space-l 0;
 }
 
 .layoutcontainer .cmp-section-container__title {
-    padding: 0 14px;
+    padding: $space-s 0 $space-m 0;
+    margin: 0em 14px;
+    border-top: 1px solid $color-border-light;
 
     @include mobile {
-        padding: 0 4px;
+        padding: $space-s 0 $space-m 0;
+        margin: 0 2px;
     }
 
     @include tablet {
-        padding: 0 12px;
+        padding: $space-s 0 $space-m 0;
+        margin: 0 12px;
     }
 }
 
@@ -83,14 +87,7 @@ a {
 
     &:active {
         color: $color-link;
-    }
-
-    &:focus {
-        @include font-utility;
-        color: $color-link-hover;
-        text-decoration: underline;
-        outline: 2px solid $color-focus;
-        margin-bottom: 0;
+        text-decoration: none;
     }
 
     // add external styling

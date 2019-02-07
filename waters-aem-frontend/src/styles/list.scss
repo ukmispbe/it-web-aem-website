@@ -1,6 +1,7 @@
 .cmp-list {
     float: left;
     width: 100%;
+    margin-bottom: $space-m;
 
     &__list {
         list-style: none;
@@ -14,6 +15,10 @@
         display: block;
         float: left;
         width: 100%;
+
+        &-title {
+            font-size: $font-size-h3;
+        }
 
         &-link {
             display: block;
@@ -48,10 +53,10 @@
         .cmp-list__item-thumbnail {
             float: right;
             width: 12em;
-            border: 1px solid $color-border-light;
 
             img {
                 width: 100%;
+                border: 1px solid $color-border-light;
             }
 
             @include mobile {

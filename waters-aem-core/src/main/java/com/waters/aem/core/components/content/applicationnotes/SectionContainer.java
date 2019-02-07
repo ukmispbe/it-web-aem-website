@@ -30,6 +30,7 @@ import java.util.Map;
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_DELETE;
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_EDIT;
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_INSERT;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_MOVE;
 import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH_PARENT;
 
 @Component(value = "Section Container",
@@ -41,6 +42,7 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH
     listeners = { // refresh parent resource after edit to prevent issues with anchor component
         @Listener(name = EVENT_AFTER_INSERT, value = REFRESH_PARENT),
         @Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PARENT),
+        @Listener(name = EVENT_AFTER_MOVE, value = REFRESH_PARENT),
         @Listener(name = EVENT_AFTER_DELETE, value = REFRESH_PARENT)
     })
 @Model(adaptables = SlingHttpServletRequest.class,

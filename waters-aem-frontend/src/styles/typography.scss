@@ -43,7 +43,7 @@
     font-style: italic;
     color: $color-font-dark;
     letter-spacing: $letter-spacing-small;
-    margin: $space-m 0;
+    margin: $space-m 0 $space-xl 0;
     padding-top: $space-xs;
     border-top: 1px solid $color-border-light;
 
@@ -61,24 +61,9 @@
     position: relative;
     line-height: $lineHeight;
     max-height: $lineHeight * $lineCount;
-    text-align: justify;
+    text-align: left;
     margin-right: -0.7em;
     padding-right: 0.7em;
-    &:before {
-        content: '...';
-        position: absolute;
-        right: 0;
-        bottom: 0;
-    }
-    &:after {
-        content: '';
-        position: absolute;
-        right: 0;
-        width: 1em;
-        height: 1em;
-        margin-top: 0.2em;
-        background: $bgColor;
-    }
 }
 
 html {
@@ -168,7 +153,7 @@ ul {
     margin-top: 0;
 
     li {
-        margin-bottom: $space-s;
+        margin-bottom: $space-xxs;
 
         @include mobile {
             font-size: $font-size-body-m;
@@ -183,7 +168,7 @@ ol {
     margin-top: 0;
 
     li {
-        margin-bottom: $space-s;
+        margin-bottom: $space-xxs;
 
         @include mobile {
             font-size: $font-size-body-m;
@@ -199,6 +184,5 @@ strong {
 }
 
 .cmp-text {
-    padding-bottom: $space-m;
+    padding-bottom: $space-s;
 }
-
