@@ -3,17 +3,24 @@ import ReactDOM from 'react-dom';
 import SearchBar from './search/components/searchbar';
 import Search from './search/index';
 
-function getAuthoredDataForSearchBar() {}
+function getAuthoredDataForSearchBar(c) {
+    return {
+        searchPath: c.dataset.baseUrl,
+        placeholder: c.dataset.placeholder,
+        icon: c.dataset.iconUrl,
+    };
+}
 function getAuthoredDataForSearchApp() {}
 
 const searchBarContainer = document.getElementById('js-search-bar');
 
 if (searchBarContainer) {
+    const data = getAuthoredDataForSearchBar(searchBarContainer);
     ReactDOM.render(
         <SearchBar
-            iconUrl="/info/scg.svg"
-            searchPath="http://google.com"
-            placeholder="Search by keyword"
+            iconUrl={data.icon}
+            searchPath={data.searchPath}
+            placeholder={data.placeholder}
         />,
         searchBarContainer
     );
