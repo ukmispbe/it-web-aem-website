@@ -1,5 +1,6 @@
 .cmp-table {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 .cmp-table__table {
     border-top: 1px solid $color-teal-30;
@@ -7,15 +8,18 @@
     @include font-body;
     border-collapse: collapse;
     td,th {
-        padding-right: $space-l;
+        padding: $space-s $space-l $space-xxs 0;
+        text-align: left;
+        vertical-align: top;
+    }
+    td p {
+        margin-bottom: $space-xxs;
+    }
+    th{
+        font-weight: $font-weight-regular;
     }
     tr {
         border-bottom: 1px solid $color-gray-20;
-    }
-    thead {
-        @include font-body;
-        font-weight: $font-weight-bold;
-        text-align: left;
     }
 }
 
@@ -24,12 +28,13 @@
         td {
             display:block;
             word-wrap: break-word;
+            padding: 0 $space-l 0 0;
         }
         td:first-child {
             padding-top: $space-xs;
         }
         td:last-child {
-            padding-bottom: $space-xs;
+            padding-bottom: $space-xxs;
         }
         tr {
             padding-bottom: $space-xs;
@@ -42,4 +47,8 @@
 
 .cmp-table__caption {
     @include font-caption;
+}
+
+div.table {
+    margin-bottom: $space-xl;
 }

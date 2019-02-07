@@ -44,4 +44,8 @@ module.exports = {
             jsPath: '/apps/waters/clientlibs/clientlib-site/js',
         }),
     ],
+    optimization: {
+        // We no not want to minimize our code.
+        minimize: false,
+    },
 };

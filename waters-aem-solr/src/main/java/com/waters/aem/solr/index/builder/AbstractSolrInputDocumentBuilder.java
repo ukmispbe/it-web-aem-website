@@ -96,7 +96,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
 
         addFields(document);
 
-        LOG.info("created solr input document : {}", document);
+        LOG.debug("created solr input document : {}", document);
 
         return document;
     }
