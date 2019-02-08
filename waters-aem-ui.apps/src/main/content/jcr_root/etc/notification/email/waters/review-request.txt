@@ -1,0 +1,23 @@
+Subject: Request for Review
+
+-------------------------------------------------------------------------------------
+Step: Request for Review
+User: ${recipientName}
+Workflow: Design Review
+-------------------------------------------------------------------------------------
+
+Hello ${recipientName},
+
+The Application Note ${pageTitle} is ready for your review and approval. To access the application note ${pageTitle}
+please click on ${path}
+
+
+Application Note: ${path}
+
+
+-------------------------------------------------------------------------------------
+
+View the task in your In box ${inboxUrl}
+
+-------------------------------------------------------------------------------------
+This is an automatically generated message. Please do not reply.

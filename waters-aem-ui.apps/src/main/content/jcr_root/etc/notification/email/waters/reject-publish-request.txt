@@ -1,0 +1,25 @@
+Subject: Request For Publish Rejected
+
+-------------------------------------------------------------------------------------
+Step: Reject Publish Request
+User: ${recipientName}
+Workflow: Design Review
+-------------------------------------------------------------------------------------
+
+Hello ${recipientName},
+
+The Application Note ${pageTitle} has been rejected by ${reviewerName}. To access the application note ${pageTitle} 
+to review comments and reason for rejection please click on ${path}  
+
+Thank You!
+
+
+Application Note: ${path}
+
+
+-------------------------------------------------------------------------------------
+
+View the task in your In box ${inboxUrl}
+
+-------------------------------------------------------------------------------------
+This is an automatically generated message. Please do not reply.
