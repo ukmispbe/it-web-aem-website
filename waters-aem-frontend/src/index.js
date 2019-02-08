@@ -12,7 +12,7 @@ function getAuthoredDataForSearchBar(c, h) {
 }
 function getAuthoredDataForSearchApp(c) {
     return {
-        searchPath: c.baseUrl,
+        searchPath: c.dataset.baseUrl,
     };
 }
 

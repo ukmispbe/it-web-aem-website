@@ -39,13 +39,14 @@ class Search extends Component {
             parse(window.location.search)
         );
 
+        const rows =
+            this.props.searchDefaults && this.props.searchDefaults.rows
+                ? this.props.searchDefaults.rows
+                : 25;
+
         this.setState({ searchParams: query, loading: true, results: {} });
 
         this.search.call(query).then(res => {
-            const rows =
-                this.props.searchDefaults && this.props.searchDefaults.rows
-                    ? this.props.searchDefaults.rows
-                    : 25;
             const newState = Object.assign({}, this.state);
 
             newState.loading = false;
@@ -54,10 +55,12 @@ class Search extends Component {
             newState.query = query.keyword;
             newState.results = newState.results || {};
             newState.results[query.page] = res.documents;
+            newState.noQuery = query.keyword ? false : true;
             newState.pagination = {
                 current: query.page,
                 amount: Math.ceil(res.num_found / rows),
             };
+            newState.noResults = false;
 
             this.setState(Object.assign({}, this.state, newState));
         });
@@ -89,10 +92,8 @@ class Search extends Component {
     render() {
         const state = this.state;
         const searchParams = this.state.searchParams || {};
-        return (
-            <div className="cmp-search__container">
-                {state.loading ? 'Loading' : null}
-
+        const results = (
+            <div>
                 <ResultsCount
                     rows={state.rows}
                     count={state.count}
@@ -102,6 +103,7 @@ class Search extends Component {
                             ? state.pagination.current
                             : 1
                     }
+                    noQuery={state.noQuery}
                 />
 
                 <Results results={state.results[searchParams.page] || []} />
@@ -113,6 +115,12 @@ class Search extends Component {
                     containerClassName="paginate__container"
                     onPageChange={this.paginationClickHandler.bind(this)}
                 />
+            </div>
+        );
+        return (
+            <div className="cmp-search__container">
+                {state.loading ? 'Loading' : null}
+                {!state.loading && state.noResults ? 'No Results' : results}
             </div>
         );
     }
