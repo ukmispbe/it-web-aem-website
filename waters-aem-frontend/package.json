@@ -75,7 +75,7 @@
     "dependencies": {
         "inline-svg": "^2.2.3",
         "prop-types": "^15.6.2",
-        "query-string": "^6.2.0",
+        "query-string": "^5.1.1",
         "react": "^16.7.0",
         "react-dom": "^16.7.0",
         "react-paginate": "^6.2.1",
