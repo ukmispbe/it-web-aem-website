@@ -17,7 +17,7 @@
           htmllibmanager.clientmanager="granite.clientlibrarymanager"
           htmllibmanager.path.list="[/apps,/libs,/etc]"
           htmllibmanager.excluded.path.list="[/etc/commerce/classifications,/etc/commerce/collections,/etc/commerce/payment-methods,/etc/commerce/products,/etc/commerce/shipping-methods,/etc/reports/auditreport,/etc/reports/compreport,/etc/segmentation,/etc/taskmanagement,/etc/workflow/instances]"
-          htmllibmanager.processor.js="min:yui"
+          htmllibmanager.processor.js="min:gcc"
           htmllibmanager.processor.css="min:yui"
           htmllibmanager.longcache.patterns="[]"
           htmllibmanager.longcache.format="lc-%s-lc"
