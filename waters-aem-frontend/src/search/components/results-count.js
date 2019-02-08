@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ResultsCount = ({ current, rows, count, query }) => {
-    const endResults = current * rows;
+    const endResults = count > current * rows ? current * rows : count;
     const startResults = current * rows - rows + 1;
     return (
         <h2 className="cmp-search__resultsCount">

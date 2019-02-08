@@ -39,28 +39,46 @@ class Search extends Component {
             parse(window.location.search)
         );
 
-        this.setState({ searchParams: query, loading: true, results: {} });
+        const rows =
+            this.props.searchDefaults && this.props.searchDefaults.rows
+                ? this.props.searchDefaults.rows
+                : 25;
 
-        this.search.call(query).then(res => {
-            const rows =
-                this.props.searchDefaults && this.props.searchDefaults.rows
-                    ? this.props.searchDefaults.rows
-                    : 25;
+        if (query.keyword) {
+            this.setState({ searchParams: query, loading: true, results: {} });
+
+            this.search.call(query).then(res => {
+                const newState = Object.assign({}, this.state);
+
+                newState.loading = false;
+                newState.rows = rows;
+                newState.count = res.num_found;
+                newState.query = query.keyword;
+                newState.results = newState.results || {};
+                newState.results[query.page] = res.documents;
+                newState.pagination = {
+                    current: query.page,
+                    amount: Math.ceil(res.num_found / rows),
+                };
+                newState.noResults = false;
+
+                this.setState(Object.assign({}, this.state, newState));
+            });
+        } else {
             const newState = Object.assign({}, this.state);
 
             newState.loading = false;
             newState.rows = rows;
-            newState.count = res.num_found;
-            newState.query = query.keyword;
-            newState.results = newState.results || {};
-            newState.results[query.page] = res.documents;
+            newState.count = 0;
+            newState.query = '';
+            newState.results = {};
             newState.pagination = {
-                current: query.page,
-                amount: Math.ceil(res.num_found / rows),
+                current: 1,
+                amount: 0,
             };
-
+            newState.noResults = true;
             this.setState(Object.assign({}, this.state, newState));
-        });
+        }
     }
 
     paginationClickHandler(page) {
@@ -89,10 +107,8 @@ class Search extends Component {
     render() {
         const state = this.state;
         const searchParams = this.state.searchParams || {};
-        return (
-            <div className="cmp-search__container">
-                {state.loading ? 'Loading' : null}
-
+        const results = (
+            <div>
                 <ResultsCount
                     rows={state.rows}
                     count={state.count}
@@ -113,6 +129,12 @@ class Search extends Component {
                     containerClassName="paginate__container"
                     onPageChange={this.paginationClickHandler.bind(this)}
                 />
+            </div>
+        );
+        return (
+            <div className="cmp-search__container">
+                {state.loading ? 'Loading' : null}
+                {!state.loading && state.noResults ? 'No Results' : results}
             </div>
         );
     }
