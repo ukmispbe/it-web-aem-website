@@ -3,6 +3,7 @@ package com.waters.aem.solr.index.impl;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.solr.client.SolrIndexClient;
 import com.waters.aem.solr.index.SolrIndexService;
 import com.waters.aem.solr.index.SolrIndexServiceConfiguration;
 import com.waters.aem.solr.index.builder.ApplicationNotesSolrInputDocumentBuilder;
@@ -12,14 +13,10 @@ import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.models.factory.ModelFactory;
-import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
-import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrInputDocument;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.metatype.annotations.Designate;
@@ -27,6 +24,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Function;
 
 @Component(immediate = true, service = SolrIndexService.class)
 @Designate(ocd = SolrIndexServiceConfiguration.class)
@@ -40,28 +40,27 @@ public class DefaultSolrIndexService implements SolrIndexService {
     @Reference
     private ModelFactory modelFactory;
 
-    private volatile SolrClient solrClient;
+    @Reference
+    private SolrIndexClient solrIndexClient;
 
     private volatile boolean enabled;
 
-    private volatile int commitWithinMs;
+    private volatile List<String> includedPaths;
 
-    private volatile boolean hardCommit;
+    private volatile List<String> excludedPaths;
 
-    private volatile String collection;
+    private volatile List<String> includedTemplates;
 
     @Override
-    public boolean addToIndex(final String path) throws IOException, SolrServerException {
-        boolean success = false;
+    public boolean addPageToIndex(final String path) throws IOException, SolrServerException {
+        boolean success = true;
 
         if (enabled) {
             final SolrInputDocument document = getSolrInputDocument(path);
 
-            if (document != null) {
-                LOG.info("adding solr document to index : {}", document);
+            LOG.info("adding solr document to index : {}", document);
 
-                success = processResponse(solrClient.add(collection, document, commitWithinMs));
-            }
+            success = solrIndexClient.addToIndex(document);
         } else {
             LOG.info("solr index service disabled, not adding path to index : {}", path);
         }
@@ -70,13 +69,13 @@ public class DefaultSolrIndexService implements SolrIndexService {
     }
 
     @Override
-    public boolean deleteFromIndex(final String path) throws IOException, SolrServerException {
+    public boolean deletePageFromIndex(final String path) throws IOException, SolrServerException {
         boolean success = true;
 
         if (enabled) {
             LOG.info("deleting path {} from solr index...", path);
 
-            success = processResponse(solrClient.deleteById(collection, path, commitWithinMs));
+            success = solrIndexClient.deleteFromIndex(path);
         } else {
             LOG.info("solr index service disabled, not deleting path from index : {}", path);
         }
@@ -84,46 +83,56 @@ public class DefaultSolrIndexService implements SolrIndexService {
         return success;
     }
 
+    @Override
+    public boolean addAssetToIndex(final String path) throws IOException, SolrServerException {
+        // not yet implemented
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean deleteAssetFromIndex(final String path)
+        throws IOException, SolrServerException {
+        // not yet implemented
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean isIndexed(final String path, final boolean checkTemplate) {
+        return isIncludedPath(path) && (!checkTemplate || isIncludedTemplate(path));
+    }
+
+    @Override
+    public List<String> getIncludedPaths() {
+        return includedPaths;
+    }
+
+    @Override
+    public List<String> getExcludedPaths() {
+        return excludedPaths;
+    }
+
     @Activate
     @Modified
     protected void activate(final SolrIndexServiceConfiguration configuration) {
         enabled = configuration.enabled();
-        commitWithinMs = configuration.commitWithinMs();
-        hardCommit = configuration.hardCommit();
-        collection = configuration.collection();
-
-        solrClient = new HttpSolrClient.Builder(configuration.baseUrl())
-            .withConnectionTimeout(configuration.connectionTimeout())
-            .withSocketTimeout(configuration.socketTimeout())
-            .build();
-
-        LOG.info("created solr client, enabled : {}, commit within : {}ms, hard commit : {}, collection : {}", enabled,
-            commitWithinMs, hardCommit, collection);
+        includedPaths = Arrays.asList(configuration.includedPaths());
+        excludedPaths = Arrays.asList(configuration.excludedPaths());
+        includedTemplates = Arrays.asList(configuration.includedTemplates());
     }
 
-    @Deactivate
-    protected void deactivate() {
-        solrClient = null;
+    /**
+     * Check if the given path is a page, and if so, if the template is included in the indexing rules.
+     *
+     * @param path replicated page path
+     * @return true if template is indexed, false otherwise
+     */
+    private boolean isIncludedTemplate(final String path) {
+        return applyToPage(path, page -> page != null && includedTemplates.contains(page.getTemplatePath()));
     }
 
     private SolrInputDocument getSolrInputDocument(final String path) {
-        SolrInputDocument document = null;
-
-        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
-            final PageDecorator page = resourceResolver.adaptTo(PageManagerDecorator.class).getPage(path);
-
-            if (page == null) {
-                LOG.error("page not found for path : {}, not updating solr index", path);
-            } else {
-                // get template-specific document builder
-                document = getSolrInputDocumentBuilder(page).build();
-            }
-        } catch (LoginException e) {
-            // re-throw as runtime exception to propagate up to the event framework
-            throw new RuntimeException(e);
-        }
-
-        return document;
+        // get template-specific document builder
+        return applyToPage(path, page -> getSolrInputDocumentBuilder(page).build());
     }
 
     private SolrInputDocumentBuilder getSolrInputDocumentBuilder(final PageDecorator page) {
@@ -140,19 +149,14 @@ public class DefaultSolrIndexService implements SolrIndexService {
         return builder;
     }
 
-    private boolean processResponse(final UpdateResponse updateResponse) throws IOException, SolrServerException {
-        boolean success = getStatus(updateResponse, false);
+    private <T> T applyToPage(final String path, final Function<PageDecorator, T> function) {
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
+            final PageDecorator page = resourceResolver.adaptTo(PageManagerDecorator.class).getPage(path);
 
-        if (success && hardCommit) {
-            success = getStatus(solrClient.commit(collection), true);
+            return function.apply(page);
+        } catch (LoginException e) {
+            // re-throw as runtime exception to propagate up to the event framework
+            throw new RuntimeException(e);
         }
-
-        return success;
-    }
-
-    private boolean getStatus(final UpdateResponse updateResponse, final boolean isCommit) {
-        LOG.info("solr " + (isCommit ? "commit" : "update") + " response status = {}", updateResponse.getStatus());
-
-        return updateResponse.getStatus() == 0;
     }
 }

@@ -4,11 +4,15 @@ img {
 
 .cmp-image {
     max-width: 100%;
-    margin: 0 0 $space-xl 0;
+    margin: 0 0 $space-s 0;
 }
 
 .cmp-image__title {
     width: 100%;
     display: block;
     @include font-caption;
+}
+
+.cmp-image--border img{
+    border: 1px solid $color-border-light;
 }

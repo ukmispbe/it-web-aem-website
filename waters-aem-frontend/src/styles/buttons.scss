@@ -24,11 +24,6 @@ button.cmp-button {
         color: $color-font-light;
     }
 
-    &:focus {
-        background-color: $color-blue-70;
-        outline: 2px solid $color-focus;
-    }
-
     @include mobile {
         width: 100%;
         float: left;
@@ -72,11 +67,6 @@ button.cmp-button--secondary {
         background-color: $color-white;
     }
 
-    &:focus {
-        color: $color-link-hover;
-        outline: 2px solid $color-focus;
-    }
-
     @include mobile {
         width: 100%;
         float: left;
@@ -113,15 +103,6 @@ button.cmp-button--utility {
     }
 
     &:hover {
-        color: $color-link;
-
-        .cmp-button--utility__icon {
-            fill: $color-link;
-        }
-    }
-
-    &:focus {
-        outline: 2px solid $color-focus;
         color: $color-link;
 
         .cmp-button--utility__icon {
@@ -167,14 +148,6 @@ button.cmp-button--floating-utility {
 
     &:hover {
         border: 1px solid $color-border-dark;
-
-        .cmp-button--floating-utility__icon {
-            fill: $color-link-hover;
-        }
-    }
-
-    &:focus {
-        outline: 2px solid $color-focus;
 
         .cmp-button--floating-utility__icon {
             fill: $color-link-hover;
