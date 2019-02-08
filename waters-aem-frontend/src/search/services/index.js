@@ -32,7 +32,6 @@ export class SearchService {
         const facetString = this.getQueryFacetString(facets);
 
         const searchString = `${this.path}/${facetString}?${paramString}`;
-        console.log(searchString);
 
         return window.fetch(searchString).then(response => response.json());
     }
