@@ -44,41 +44,26 @@ class Search extends Component {
                 ? this.props.searchDefaults.rows
                 : 25;
 
-        if (query.keyword) {
-            this.setState({ searchParams: query, loading: true, results: {} });
+        this.setState({ searchParams: query, loading: true, results: {} });
 
-            this.search.call(query).then(res => {
-                const newState = Object.assign({}, this.state);
-
-                newState.loading = false;
-                newState.rows = rows;
-                newState.count = res.num_found;
-                newState.query = query.keyword;
-                newState.results = newState.results || {};
-                newState.results[query.page] = res.documents;
-                newState.pagination = {
-                    current: query.page,
-                    amount: Math.ceil(res.num_found / rows),
-                };
-                newState.noResults = false;
-
-                this.setState(Object.assign({}, this.state, newState));
-            });
-        } else {
+        this.search.call(query).then(res => {
             const newState = Object.assign({}, this.state);
 
             newState.loading = false;
             newState.rows = rows;
-            newState.count = 0;
-            newState.query = '';
-            newState.results = {};
+            newState.count = res.num_found;
+            newState.query = query.keyword;
+            newState.results = newState.results || {};
+            newState.results[query.page] = res.documents;
+            newState.noQuery = query.keyword ? false : true;
             newState.pagination = {
-                current: 1,
-                amount: 0,
+                current: query.page,
+                amount: Math.ceil(res.num_found / rows),
             };
-            newState.noResults = true;
+            newState.noResults = false;
+
             this.setState(Object.assign({}, this.state, newState));
-        }
+        });
     }
 
     paginationClickHandler(page) {
@@ -118,6 +103,7 @@ class Search extends Component {
                             ? state.pagination.current
                             : 1
                     }
+                    noQuery={state.noQuery}
                 />
 
                 <Results results={state.results[searchParams.page] || []} />
