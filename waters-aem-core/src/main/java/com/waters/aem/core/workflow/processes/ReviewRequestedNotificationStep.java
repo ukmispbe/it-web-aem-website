@@ -9,7 +9,6 @@ import com.adobe.granite.workflow.metadata.MetaDataMap;
 import com.waters.aem.core.utils.WorkflowUtils;
 import com.waters.aem.core.workflow.AbstractNotificationWorkflowProcess;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.jackrabbit.api.security.user.UserManager;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;

@@ -10,7 +10,6 @@ import com.waters.aem.core.utils.WorkflowUtils;
 import com.waters.aem.core.workflow.AbstractNotificationWorkflowProcess;
 import com.waters.aem.core.workflow.WorkflowConstants;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.jackrabbit.api.security.user.UserManager;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.osgi.service.component.annotations.Component;
