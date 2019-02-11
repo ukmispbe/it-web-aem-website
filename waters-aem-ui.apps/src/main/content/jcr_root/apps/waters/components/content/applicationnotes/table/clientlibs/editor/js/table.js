@@ -1,7 +1,7 @@
 (function ($) {
-    "use strict";
+    'use strict';
 
-    $(document).on("dialog-loaded", function (e) {
+    $(document).on('dialog-loaded', function (e) {
         var $dialog = e.dialog;
         var thumbnailImage = $dialog.find('coral-fileupload[name="./excelFile"] .cq-FileUpload-thumbnail-img img');
 
