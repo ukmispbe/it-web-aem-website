@@ -138,11 +138,6 @@
                             <target>/apps/waters/install</target>
                         </embedded>
                         <embedded>
-                            <groupId>org.apache.commons</groupId>
-                            <artifactId>commons-csv</artifactId>
-                            <target>/apps/waters/install</target>
-                        </embedded>
-                        <embedded>
                             <groupId>org.apache.servicemix.bundles</groupId>
                             <artifactId>org.apache.servicemix.bundles.solr-solrj</artifactId>
                             <target>/apps/waters/install</target>
@@ -180,6 +175,36 @@
                         <embedded>
                             <groupId>org.bouncycastle</groupId>
                             <artifactId>bcpkix-jdk15on</artifactId>
+                            <target>/apps/waters/install</target>
+                        </embedded>
+                        <embedded>
+                            <groupId>org.apache.servicemix.bundles</groupId>
+                            <artifactId>org.apache.servicemix.bundles.poi</artifactId>
+                            <target>/apps/waters/install</target>
+                        </embedded>
+                        <embedded>
+                            <groupId>commons-codec</groupId>
+                            <artifactId>commons-codec</artifactId>
+                            <target>/apps/waters/install</target>
+                        </embedded>
+                        <embedded>
+                            <groupId>org.apache.commons</groupId>
+                            <artifactId>commons-collections4</artifactId>
+                            <target>/apps/waters/install</target>
+                        </embedded>
+                        <embedded>
+                            <groupId>org.apache.commons</groupId>
+                            <artifactId>commons-math3</artifactId>
+                            <target>/apps/waters/install</target>
+                        </embedded>
+                        <embedded>
+                            <groupId>org.apache.commons</groupId>
+                            <artifactId>commons-compress</artifactId>
+                            <target>/apps/waters/install</target>
+                        </embedded>
+                        <embedded>
+                            <groupId>org.apache.santuario</groupId>
+                            <artifactId>xmlsec</artifactId>
                             <target>/apps/waters/install</target>
                         </embedded>
                     </embeddeds>
@@ -255,10 +280,6 @@
             <artifactId>groovy-all</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-csv</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.apache.servicemix.bundles</groupId>
             <artifactId>org.apache.servicemix.bundles.solr-solrj</artifactId>
         </dependency>
@@ -301,6 +322,30 @@
         <dependency>
             <groupId>com.icfolson.aem.library</groupId>
             <artifactId>aem-library-models</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.poi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.santuario</groupId>
+            <artifactId>xmlsec</artifactId>
         </dependency>
         <dependency>
             <groupId>com.adobe.cq</groupId>

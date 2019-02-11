@@ -146,10 +146,10 @@
             <artifactId>aem-library-core</artifactId>
         </dependency>
 
-        <!-- CSV -->
+        <!-- POI -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-csv</artifactId>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.poi</artifactId>
         </dependency>
 
         <!-- Component Annotation -->

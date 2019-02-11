@@ -28,7 +28,6 @@ $color-font-light: $color-white;
 $color-link: $color-blue-50;
 $color-link-hover: $color-blue-70;
 $color-link-visited: $color-blue-70;
-$color-focus: $color-blue-30;
 $color-disabled: $color-gray-40;
 $color-accent: $color-teal-30;
 $color-border-light: $color-gray-30;
@@ -54,7 +53,7 @@ $font-size-h4: 1em;
 $font-size-h5: 1em;
 $font-size-h6: 1em;
 $font-size-body: 1em;
-$font-size-small: .9em;
+$font-size-small: 0.9em;
 
 /*LINE HEIGHT*/
 $line-height-heading: 1.4em;
@@ -86,6 +85,7 @@ $icon-l: 2em; /* 32px */
 $icon-xl: 4em; /* 64px */
 
 /*SPACE & MARGINS*/
+$space-xxs: 0.25em;
 $space-xxs: 0.5em;
 $space-xs: 0.75em;
 $space-s: 1em;

@@ -2,38 +2,38 @@ package com.waters.aem.core.components.content.applicationnotes;
 
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
+import com.citytechinc.cq.component.annotations.widgets.Html5SmartFile;
 import com.citytechinc.cq.component.annotations.widgets.RichTextEditor;
 import com.citytechinc.cq.component.annotations.widgets.Switch;
-import com.citytechinc.cq.component.annotations.widgets.TextArea;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.citytechinc.cq.component.annotations.widgets.ToolbarConfig;
 import com.citytechinc.cq.component.annotations.widgets.rte.Format;
 import com.citytechinc.cq.component.annotations.widgets.rte.SubSuperscript;
 import com.citytechinc.cq.component.annotations.widgets.rte.UISettings;
-import com.google.common.collect.HashBasedTable;
 import com.waters.aem.core.constants.WatersConstants;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
+import com.waters.aem.core.services.ExcelTableParser;
+import org.apache.poi.util.IOUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.sling.models.annotations.injectorspecific.ChildResource;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
 import javax.inject.Inject;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
+import java.io.InputStream;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.IntStream;
+import java.util.stream.Collectors;
 
 @Component(value = "Table", path = WatersConstants.COMPONENT_PATH_APPLICATION_NOTES)
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class Table {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Table.class);
+    @OSGiService
+    private ExcelTableParser excelTableParser;
 
     @DialogField(fieldLabel = "Title", ranking = 1)
     @TextField
@@ -70,15 +70,17 @@ public final class Table {
     @Default(booleanValues = false)
     private boolean header;
 
-    @DialogField(fieldLabel = "CSV Data", ranking = 4, required = true)
-    @TextArea
-    @Inject
-    @Default(values = "")
-    private String csvData;
+    private com.google.common.collect.Table<Integer, String, List<String>> table;
 
-    private com.google.common.collect.Table<Integer, String, String> table;
-
-    private CSVParser csvParser;
+    @DialogField(fieldLabel = "Excel File", ranking = 4)
+    @Html5SmartFile(
+        fileNameParameter = "./excelFileName",
+        fileReferenceParameter = "./excelFile",
+        touchUIMimeTypes = {
+            "application/vnd.ms-excel"
+        })
+    @ChildResource
+    private Resource excelFile;
 
     public String getTitle() {
         return title;
@@ -93,42 +95,35 @@ public final class Table {
     }
 
     public Set<String> getColumnNames() {
-        return getCsvParser().getHeaderMap() == null ? Collections.emptySet() : getCsvParser().getHeaderMap().keySet();
-    }
+        final Set<String> columnNames = new LinkedHashSet<>();
 
-    public Collection<Map<String, String>> getTableRows() {
-        return getTable().rowMap().values();
-    }
-
-    private CSVParser getCsvParser() {
-        if (csvParser == null) {
-            try {
-                final CSVFormat format = header ? CSVFormat.EXCEL.withFirstRecordAsHeader() : CSVFormat.EXCEL;
-
-                csvParser = CSVParser.parse(csvData, format.withTrim());
-            } catch (IOException e) {
-                LOG.error("error parsing CSV data", e);
-            }
+        if (header) {
+            getTable().row(0).values().forEach(columnNames :: addAll);
         }
 
-        return csvParser;
+        return columnNames;
     }
 
-    private com.google.common.collect.Table<Integer, String, String> getTable() {
+    public List<Map<String, List<String>>> getTableRows() {
+        return getTable().rowMap().values()
+            .stream()
+            .skip(header ? 1 : 0)
+            .collect(Collectors.toList());
+    }
+
+    private com.google.common.collect.Table<Integer, String, List<String>> getTable() {
         if (table == null) {
-            table = HashBasedTable.create();
+            final InputStream excelFileInputStream = getExcelFileInputStream();
 
-            try {
-                getCsvParser().getRecords().forEach(record -> IntStream.range(0, record.size()).forEach(columnIndex -> {
-                    final String value = record.get(columnIndex);
+            table = excelTableParser.getTable(excelFileInputStream);
 
-                    table.put(Math.toIntExact(record.getRecordNumber()), String.valueOf(columnIndex), value);
-                }));
-            } catch (IOException e) {
-                LOG.error("error getting records from CSV", e);
-            }
+            IOUtils.closeQuietly(excelFileInputStream);
         }
 
         return table;
+    }
+
+    private InputStream getExcelFileInputStream() {
+        return excelFile == null ? null : excelFile.adaptTo(InputStream.class);
     }
 }
