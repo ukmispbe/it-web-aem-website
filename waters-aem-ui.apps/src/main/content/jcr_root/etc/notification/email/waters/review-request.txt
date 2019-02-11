@@ -1,7 +1,7 @@
 Subject: Request for Review
 
 -------------------------------------------------------------------------------------
-Step: Request for Review
+Step: ${reviewStep}
 User: ${recipientName}
 Workflow: Design Review
 -------------------------------------------------------------------------------------

@@ -8,7 +8,6 @@ import com.adobe.granite.workflow.metadata.MetaDataMap;
 import com.waters.aem.core.utils.WorkflowUtils;
 import org.osgi.service.component.annotations.Component;
 
-
 @Component(immediate = true, property = {
     "service.description=Implementation of Dynamic Reviewer chooser",
     "chooser.label=Workflow Reviewer Chooser"
@@ -18,9 +17,6 @@ public class DynamicReviewerSelectionStepImpl implements ParticipantStepChooser 
     public String getParticipant(WorkItem item, WorkflowSession wfSession,
                                  MetaDataMap metaDataMap) throws WorkflowException {
 
-        String reviewerId = item.getWorkflowData().getMetaDataMap().get(WorkflowUtils.REVIEWER_ID, String.class);
-
-        return reviewerId;
+        return WorkflowUtils.getReviewerId(item);
     }
-
 }

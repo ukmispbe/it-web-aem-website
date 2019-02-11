@@ -6,49 +6,34 @@ import com.adobe.granite.workflow.exec.WorkItem;
 import com.adobe.granite.workflow.exec.WorkflowProcess;
 import com.adobe.granite.workflow.metadata.MetaDataMap;
 import com.waters.aem.core.utils.WorkflowUtils;
-import org.apache.sling.api.resource.Resource;
+import com.waters.aem.core.workflow.WorkflowConstants;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.osgi.service.component.annotations.Component;
 
 @Component(immediate = true, property = {
-    "service.description= Sets the Reveiwer in the metadata",
+    "service.description= Sets the Reviewer in the metadata",
     "process.label=Set Reviewer Process"
 })
 public class SetReviewerProcess implements WorkflowProcess {
-
-    private static final String SCI_OPS_MANAGER = "sciOpsMgrId";
-
-    private static final String SCI_OPS_STEP = "SciOps Manager Review";
-
-    private static final String MARKET_PRODUCT_MANAGER = "marketMgrId";
-
-    private static final String MARKET_PRODUCT_STEP = "Market/Product Manager Review";
-
-    private static final String MARCOM_MANAGER = "marcomMgrId";
-
-    private static final String MARCOM_STEP = "Marcom Manager Review";
-
-    private static final String REVIEW_STEP = "reviewStep";
 
     @Override
     public void execute(WorkItem item, WorkflowSession wfSession, MetaDataMap args) throws WorkflowException {
 
         ResourceResolver resolver = wfSession.adaptTo(ResourceResolver.class);
-        String path = item.getWorkflowData().getPayload().toString();
-        Resource resource = resolver.getResource(path + WorkflowUtils.JCR_CONTENT);
-        ValueMap valueMap = resource.getValueMap();
-        String reviewStep = item.getWorkflowData().getMetaDataMap().get(REVIEW_STEP, String.class);
+        ValueMap valueMap = WorkflowUtils.getPayloadProperties(resolver, item);
+        MetaDataMap metadataMap = item.getWorkflowData().getMetaDataMap();
+        String reviewStep = WorkflowUtils.getReviewStep(item);
 
         if(reviewStep == null){
-            item.getWorkflowData().getMetaDataMap().put(WorkflowUtils.REVIEWER_ID, valueMap.get(SCI_OPS_MANAGER).toString());
-            item.getWorkflowData().getMetaDataMap().put(REVIEW_STEP, SCI_OPS_STEP);
-        } else if (reviewStep.equals(SCI_OPS_STEP)) {
-            item.getWorkflowData().getMetaDataMap().put(WorkflowUtils.REVIEWER_ID, valueMap.get(MARKET_PRODUCT_MANAGER).toString());
-            item.getWorkflowData().getMetaDataMap().put(REVIEW_STEP, MARKET_PRODUCT_STEP);
-        } else if (reviewStep.equals(MARKET_PRODUCT_STEP)) {
-            item.getWorkflowData().getMetaDataMap().put(WorkflowUtils.REVIEWER_ID, valueMap.get(MARCOM_MANAGER).toString());
-            item.getWorkflowData().getMetaDataMap().put(REVIEW_STEP, MARCOM_STEP);
+            metadataMap.put(WorkflowConstants.REVIEWER_ID, valueMap.get(WorkflowConstants.SCI_OPS_MANAGER_ID).toString());
+            metadataMap.put(WorkflowConstants.REVIEW_STEP, WorkflowConstants.SCI_OPS_REVIEW_STEP);
+        } else if (reviewStep.equals(WorkflowConstants.SCI_OPS_REVIEW_STEP)) {
+            metadataMap.put(WorkflowConstants.REVIEWER_ID, valueMap.get(WorkflowConstants.MARKET_PRODUCT_MANAGER_ID).toString());
+            metadataMap.put(WorkflowConstants.REVIEW_STEP,WorkflowConstants. MARKET_PRODUCT_REVIEW_STEP);
+        } else if (reviewStep.equals(WorkflowConstants.MARKET_PRODUCT_REVIEW_STEP)) {
+            metadataMap.put(WorkflowConstants.REVIEWER_ID, valueMap.get(WorkflowConstants.MARCOM_MANAGER_ID).toString());
+            metadataMap.put(WorkflowConstants.REVIEW_STEP, WorkflowConstants.MARCOM_REVIEW_STEP);
         }
     }
 }
