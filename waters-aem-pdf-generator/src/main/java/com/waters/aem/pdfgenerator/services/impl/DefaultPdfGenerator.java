@@ -1,6 +1,7 @@
 package com.waters.aem.pdfgenerator.services.impl;
 
 import com.day.cq.commons.Externalizer;
+import com.day.cq.tagging.Tag;
 import com.google.common.collect.ImmutableList;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
@@ -18,6 +19,7 @@ import com.waters.aem.core.components.content.LayoutContainer;
 import com.waters.aem.core.components.content.Text;
 import com.waters.aem.core.components.content.Title;
 import com.waters.aem.core.components.content.applicationnotes.SectionContainer;
+import com.waters.aem.core.components.structure.page.ApplicationNotes;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.pdfgenerator.provider.PdfContentProvider;
 import com.waters.aem.pdfgenerator.services.PdfGenerator;
@@ -42,6 +44,8 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkState;
+
 @Component(service = PdfGenerator.class)
 @Designate(ocd = PdfGeneratorConfiguration.class)
 public final class DefaultPdfGenerator implements PdfGenerator {
@@ -56,6 +60,8 @@ public final class DefaultPdfGenerator implements PdfGenerator {
         LayoutContainer.RESOURCE_TYPE
     );
 
+    private static final String DAM_ROOT_PATH = "/content/dam/waters/app-notes/";
+
     @Reference
     private ModelFactory modelFactory;
 
@@ -63,6 +69,21 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     private Externalizer externalizer;
 
     private volatile String baseUri;
+
+    @Override
+    public String getDamAssetPath(final PageDecorator page) {
+        final ApplicationNotes applicationNotes = page.getContentResource().adaptTo(ApplicationNotes.class);
+
+        final List<Tag> yearTags = applicationNotes.getYearPublished();
+
+        checkState(!yearTags.isEmpty(), "Application Note does not have a Year tag, unable to generate PDF.");
+
+        return new StringBuilder(DAM_ROOT_PATH)
+            .append(yearTags.get(0).getName())
+            .append("/")
+            .append(applicationNotes.getLiteratureCode())
+            .toString();
+    }
 
     @Override
     public void convertPdfDocumentFromHtml(final SlingHttpServletRequest request, final OutputStream outputStream)
