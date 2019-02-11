@@ -23,8 +23,9 @@ public abstract class AbstractNotificationWorkflowProcess {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractNotificationWorkflowProcess.class);
 
-    public static void sendNotification(UserManager userManager, ResourceResolver resolver, WorkItem item, String reviewerId, String recipientId, String templatePath, EmailService emailService) {
+    protected void sendNotification(ResourceResolver resolver, WorkItem item, String reviewerId, String recipientId, String templatePath, EmailService emailService) {
 
+        UserManager userManager = resolver.adaptTo(UserManager.class);
         Map<String, String> emailParams = getEmailParams(resolver, item, reviewerId, recipientId);
         String emailAddress = getEmailAddress(userManager, reviewerId);
         if(!StringUtils.isBlank(emailAddress)){
@@ -32,7 +33,7 @@ public abstract class AbstractNotificationWorkflowProcess {
         }
     }
 
-    public static Map<String,String> getEmailParams(ResourceResolver resolver, WorkItem item, String reviewerId, String recipientId) {
+    private Map<String,String> getEmailParams(ResourceResolver resolver, WorkItem item, String reviewerId, String recipientId) {
 
         Map<String, String> emailParams = new HashMap<>();
         String path = item.getWorkflowData().getPayload().toString();
@@ -54,7 +55,7 @@ public abstract class AbstractNotificationWorkflowProcess {
         return emailParams;
     }
 
-    public static String getEmailAddress(UserManager userManager, String id) {
+    private String getEmailAddress(UserManager userManager, String id) {
         String emailAddress = "";
 
         try {

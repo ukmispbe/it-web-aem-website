@@ -29,11 +29,10 @@ public class ReviewRequestedNotificationStep extends AbstractNotificationWorkflo
     public void execute(WorkItem item, WorkflowSession wfSession, MetaDataMap args) throws WorkflowException {
 
         ResourceResolver resolver = wfSession.adaptTo(ResourceResolver.class);
-        UserManager userManager = resolver.adaptTo(UserManager.class);
         String reviewerId = WorkflowUtils.getReviewerId(item);
 
         if(!StringUtils.isBlank(reviewerId)){
-            sendNotification(userManager, resolver, item, reviewerId, reviewerId, TEMPLATE_PATH, emailService);
+            sendNotification(resolver, item, reviewerId, reviewerId, TEMPLATE_PATH, emailService);
         }
 
     }

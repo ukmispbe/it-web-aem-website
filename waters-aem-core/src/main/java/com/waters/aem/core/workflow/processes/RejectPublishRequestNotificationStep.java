@@ -31,17 +31,16 @@ public class RejectPublishRequestNotificationStep extends AbstractNotificationWo
     public void execute(WorkItem item, WorkflowSession wfSession, MetaDataMap metaDataMap) throws WorkflowException {
 
         ResourceResolver resolver = wfSession.adaptTo(ResourceResolver.class);
-        UserManager userManager = resolver.adaptTo(UserManager.class);
         ValueMap valueMap = WorkflowUtils.getPayloadProperties(resolver, item);
         String authorId = valueMap.get(WorkflowConstants.AUTHOR_ID).toString();
         String initiatorId = item.getWorkflow().getInitiator();
         String reviewerId = WorkflowUtils.getReviewerId(item);
 
         if(!StringUtils.isBlank(initiatorId)){
-            sendNotification(userManager, resolver, item, reviewerId, initiatorId, TEMPLATE_PATH, emailService);
+            sendNotification(resolver, item, reviewerId, initiatorId, TEMPLATE_PATH, emailService);
         }
         if(!StringUtils.isBlank(authorId)){
-            sendNotification(userManager, resolver, item, reviewerId, authorId, TEMPLATE_PATH, emailService);
+            sendNotification(resolver, item, reviewerId, authorId, TEMPLATE_PATH, emailService);
         }
     }
 }
