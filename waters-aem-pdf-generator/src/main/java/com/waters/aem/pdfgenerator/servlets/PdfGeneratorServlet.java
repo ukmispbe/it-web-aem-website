@@ -1,5 +1,6 @@
 package com.waters.aem.pdfgenerator.servlets;
 
+import com.day.cq.dam.api.Asset;
 import com.google.common.net.HttpHeaders;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.constants.WatersConstants;
@@ -35,7 +36,7 @@ public final class PdfGeneratorServlet extends SlingSafeMethodsServlet {
     protected void doGet(@Nonnull final SlingHttpServletRequest request,
         @Nonnull final SlingHttpServletResponse response)
         throws IOException {
-        final PageDecorator page = request.getResource().adaptTo(PageDecorator.class);
+        final PageDecorator page = request.getResource().getParent().adaptTo(PageDecorator.class);
 
         if (page == null || !WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE.equals(page.getTemplatePath())) {
             LOG.info("page not found or invalid template type, sending 404 response");
@@ -44,30 +45,24 @@ public final class PdfGeneratorServlet extends SlingSafeMethodsServlet {
         } else {
             LOG.info("generating PDF for page : {}", page.getPath());
 
-            // determine DAM asset path for PDF and send redirect
+            final boolean convert = Boolean.valueOf(request.getParameter("convert"));
+            final boolean force = Boolean.valueOf(request.getParameter("force"));
 
-            final String pdfAssetPath = pdfGenerator.getDamAssetPath(page);
+            // determine DAM asset path for PDF and send redirect
+            final Asset pdfAsset;
+
+            if (convert) {
+                pdfAsset = pdfGenerator.getPdfDocumentFromHtml(request, force);
+            } else {
+                pdfAsset = pdfGenerator.getPdfDocument(request, force);
+            }
+
+            final String pdfAssetPath = pdfAsset.getPath();
 
             LOG.info("redirecting to DAM asset : {}", pdfAssetPath);
 
             response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
             response.setHeader(HttpHeaders.LOCATION, pdfAssetPath);
-
-            /*
-            response.setCharacterEncoding(Charsets.UTF_8.name());
-            response.setContentType(MediaType.PDF.withoutParameters().toString());
-
-            if (Boolean.valueOf(request.getParameter("convert"))) {
-                pdfGenerator.convertPdfDocumentFromHtml(request, response.getOutputStream());
-            } else {
-                // final ByteArrayOutputStream pdfOutputStream = pdfGenerator.generatePdfDocument(request);
-                final ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
-
-                response.setContentLength(pdfOutputStream.size());
-
-                pdfOutputStream.writeTo(response.getOutputStream());
-            }
-            */
         }
     }
 }

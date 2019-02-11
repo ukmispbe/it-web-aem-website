@@ -1,10 +1,13 @@
 package com.waters.aem.pdfgenerator.services.impl;
 
 import com.day.cq.commons.Externalizer;
+import com.day.cq.dam.api.Asset;
+import com.day.cq.dam.api.AssetManager;
 import com.day.cq.tagging.Tag;
 import com.google.common.collect.ImmutableList;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
+import com.icfolson.aem.library.api.page.enums.TitleType;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.io.image.ImageData;
@@ -37,10 +40,10 @@ import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URL;
 import java.util.List;
 
@@ -76,55 +79,33 @@ public final class DefaultPdfGenerator implements PdfGenerator {
 
         final List<Tag> yearTags = applicationNotes.getYearPublished();
 
+        // throw exception if year tag is missing
         checkState(!yearTags.isEmpty(), "Application Note does not have a Year tag, unable to generate PDF.");
+
+        final String literatureCode = applicationNotes.getLiteratureCode();
+        final String languageCode = page.getLanguage(false).getLanguage().toLowerCase();
 
         return new StringBuilder(DAM_ROOT_PATH)
             .append(yearTags.get(0).getName())
             .append("/")
-            .append(applicationNotes.getLiteratureCode())
+            .append(literatureCode)
+            .append("/")
+            .append(literatureCode)
+            .append("-")
+            .append(languageCode)
+            .append(".pdf")
             .toString();
     }
 
     @Override
-    public void convertPdfDocumentFromHtml(final SlingHttpServletRequest request, final OutputStream outputStream)
+    public Asset getPdfDocumentFromHtml(final SlingHttpServletRequest request, final boolean force)
         throws IOException {
-        final ResourceResolver resourceResolver = request.getResourceResolver();
-        final PageDecorator page = resourceResolver.adaptTo(PageManagerDecorator.class).getContainingPage(
-            request.getResource());
-
-        final String href = page.getLinkBuilder()
-            .addSelector("print")
-            .build()
-            .getHref();
-
-        final InputStream stream = new URL(externalizer.externalLink(resourceResolver, Externalizer.PUBLISH, href))
-            .openStream();
-
-        HtmlConverter.convertToPdf(stream, outputStream, new ConverterProperties()
-            .setBaseUri(baseUri)
-            .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT)));
+        return createDamAssetForPdf(request, true, force);
     }
 
     @Override
-    public ByteArrayOutputStream generatePdfDocument(final SlingHttpServletRequest request) throws IOException {
-        final ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
-        final PdfDocument pdfDocument = new PdfDocument(new PdfWriter(pdfOutputStream));
-        final Document document = new Document(pdfDocument);
-
-        addHeader(document);
-
-        final Resource rootResource = request.getResource().getChild(WatersConstants.RESOURCE_NAME_ROOT);
-
-        // iterate over children of root resource (layout container) to build PDF content
-        for (final Resource child : rootResource.getChildren()) {
-            updatePdfDocument(request, child, document);
-        }
-
-        addFooter(document);
-
-        document.close();
-
-        return pdfOutputStream;
+    public Asset getPdfDocument(final SlingHttpServletRequest request, final boolean force) throws IOException {
+        return createDamAssetForPdf(request, false, force);
     }
 
     @Override
@@ -147,6 +128,89 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     @Modified
     protected void activate(final PdfGeneratorConfiguration configuration) {
         baseUri = configuration.baseUri();
+    }
+
+    private PageDecorator getPage(final SlingHttpServletRequest request) {
+        return request.getResourceResolver().adaptTo(PageManagerDecorator.class).getContainingPage(
+            request.getResource());
+    }
+
+    private Asset createDamAssetForPdf(final SlingHttpServletRequest request, final boolean fromHtml,
+        final boolean force) throws IOException {
+        final PageDecorator page = getPage(request);
+        final String damAssetPath = getDamAssetPath(page);
+
+        final ResourceResolver resourceResolver = request.getResourceResolver();
+        final Resource assetResource = resourceResolver.getResource(damAssetPath);
+
+        LOG.info("page : {}, DAM asset resource : {}", page.getPath(), assetResource);
+
+        final Asset asset;
+
+        if (assetResource == null || force) {
+            // generate and store PDF asset
+            try (final ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream()) {
+                if (fromHtml) {
+                    generatePdfDocumentFromHtml(request, pdfOutputStream);
+                } else {
+                    generatePdfDocument(request, pdfOutputStream);
+                }
+
+                // convert output stream to input stream to store asset
+                try (final InputStream assetInputStream = new ByteArrayInputStream(pdfOutputStream.toByteArray())) {
+                    final AssetManager assetManager = resourceResolver.adaptTo(AssetManager.class);
+
+                    asset = assetManager.createAsset(damAssetPath, assetInputStream,
+                        com.google.common.net.MediaType.PDF.withoutParameters().toString(), true);
+                }
+            }
+        } else {
+            // existing asset
+            asset = assetResource.adaptTo(Asset.class);
+        }
+
+        return asset;
+    }
+
+    private void generatePdfDocument(final SlingHttpServletRequest request, final ByteArrayOutputStream pdfOutputStream)
+        throws IOException {
+        final PdfDocument pdfDocument = new PdfDocument(new PdfWriter(pdfOutputStream));
+        final Document document = new Document(pdfDocument);
+
+        final PageDecorator page = getPage(request);
+
+        pdfDocument.getDocumentInfo().setTitle(page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle()));
+
+        addHeader(document);
+
+        final Resource rootResource = request.getResource().getChild(WatersConstants.RESOURCE_NAME_ROOT);
+
+        // iterate over children of root resource (layout container) to build PDF content
+        for (final Resource child : rootResource.getChildren()) {
+            updatePdfDocument(request, child, document);
+        }
+
+        addFooter(document);
+
+        document.close();
+    }
+
+    private void generatePdfDocumentFromHtml(final SlingHttpServletRequest request,
+        final ByteArrayOutputStream pdfOutputStream)
+        throws IOException {
+        final PageDecorator page = getPage(request);
+
+        final String href = page.getLinkBuilder()
+            .addSelector("print")
+            .build()
+            .getHref();
+
+        final InputStream stream = new URL(externalizer.externalLink(request.getResourceResolver(),
+            Externalizer.PUBLISH, href)).openStream();
+
+        HtmlConverter.convertToPdf(stream, pdfOutputStream, new ConverterProperties()
+            .setBaseUri(baseUri)
+            .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT)));
     }
 
     private void addHeader(final Document document) {
