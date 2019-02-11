@@ -7,5 +7,5 @@ import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 public @interface PdfGeneratorConfiguration {
 
     @AttributeDefinition(name = "PDF Base URI", description = "Base URI for converting HTML to PDF elements.")
-    String baseUri() default "https://test-www.waters.com";
+    String baseUri() default "https://nextgen.waters.com";
 }
