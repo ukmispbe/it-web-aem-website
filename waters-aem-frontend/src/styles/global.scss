@@ -65,6 +65,16 @@ body {
     margin: 0 auto;
     padding: 0 80px;
 
+    &__left {
+        width: 18%;
+        float: left;
+    }
+
+    &__content {
+        width: 80%;
+        float: right
+    }
+
     @include mobile {
         padding: 0 20px;
     }
@@ -91,4 +101,10 @@ a {
     }
 
     // add external styling
+}
+
+.clearfix:after {
+    display: table;
+    clear: both;
+    content: "";
 }
