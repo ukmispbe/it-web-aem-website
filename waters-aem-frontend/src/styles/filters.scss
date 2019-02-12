@@ -14,6 +14,7 @@
         background-color: transparent;
         font-size: $font-size-h3;
         outline: none;
+        border: 1px solid $color-font-medium;
     }
     &__filter {
         ul {
@@ -163,5 +164,31 @@
             transform-origin: 0 0;
             font-size: 1.2em;
         }
+    }
+}
+
+.cmp-search__sort-filter {
+    @include tablet-and-under {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: $color-white;
+        
+        padding: 20px;
+        max-height: 100vh;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        &.selected {
+            display: block;
+        }
+    }
+
+    @include mobile {
+        width: 100%;
+    }
+
+    @include tablet {
+        width: 40%;
     }
 }

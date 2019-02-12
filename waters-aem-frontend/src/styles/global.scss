@@ -72,7 +72,15 @@ body {
 
     &__content {
         width: 80%;
-        float: right
+        float: right;
+
+        @include mobile {
+            width: 100%;
+        }
+
+        @include tablet {
+            width: 100%;
+        }
     }
 
     @include mobile {
@@ -101,6 +109,19 @@ a {
     }
 
     // add external styling
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    &.active {
+        display: block;
+    }
 }
 
 .clearfix:after {
