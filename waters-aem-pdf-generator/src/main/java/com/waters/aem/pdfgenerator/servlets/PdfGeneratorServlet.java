@@ -1,6 +1,5 @@
 package com.waters.aem.pdfgenerator.servlets;
 
-import com.google.common.net.HttpHeaders;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.pdfgenerator.services.PdfGenerator;
@@ -53,8 +52,11 @@ public final class PdfGeneratorServlet extends SlingSafeMethodsServlet {
             LOG.info("redirecting to DAM asset : {}", pdfAssetPath);
 
             // send redirect to DAM asset path
-            response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
-            response.setHeader(HttpHeaders.LOCATION, pdfAssetPath);
+            response.sendRedirect(pdfAssetPath);
+
+            // prevent caching of generated PDF in author mode
+            // response.setHeader(HttpHeaders.CACHE_CONTROL, "private, no-store, no-cache, must-revalidate");
+            // response.setHeader(HttpHeaders.PRAGMA, "no-cache");
         }
     }
 }
