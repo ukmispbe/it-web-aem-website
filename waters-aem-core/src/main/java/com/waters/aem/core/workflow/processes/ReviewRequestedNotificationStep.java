@@ -8,8 +8,10 @@ import com.adobe.granite.workflow.exec.WorkflowProcess;
 import com.adobe.granite.workflow.metadata.MetaDataMap;
 import com.waters.aem.core.utils.WorkflowUtils;
 import com.waters.aem.core.workflow.AbstractNotificationWorkflowProcess;
+import com.waters.aem.core.workflow.WorkflowConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ValueMap;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -28,10 +30,21 @@ public class ReviewRequestedNotificationStep extends AbstractNotificationWorkflo
     public void execute(WorkItem item, WorkflowSession wfSession, MetaDataMap args) throws WorkflowException {
 
         ResourceResolver resolver = wfSession.adaptTo(ResourceResolver.class);
+        ValueMap valueMap = WorkflowUtils.getPayloadProperties(resolver, item);
+        String authorId = valueMap.get(WorkflowConstants.SCIENTIST_ID).toString();
+        String initiatorId = item.getWorkflow().getInitiator();
         String reviewerId = WorkflowUtils.getReviewerId(item);
 
         if(!StringUtils.isBlank(reviewerId)){
             sendNotification(resolver, item, reviewerId, reviewerId, TEMPLATE_PATH, emailService);
+        }
+
+        if(!StringUtils.isBlank(initiatorId)) {
+            sendNotification(resolver, item, reviewerId, initiatorId, TEMPLATE_PATH, emailService);
+        }
+
+        if(!StringUtils.isBlank(authorId)) {
+            sendNotification(resolver, item, reviewerId, authorId, TEMPLATE_PATH, emailService);
         }
 
     }
