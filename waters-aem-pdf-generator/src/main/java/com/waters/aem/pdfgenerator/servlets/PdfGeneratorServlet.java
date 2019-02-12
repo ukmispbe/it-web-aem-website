@@ -1,6 +1,5 @@
 package com.waters.aem.pdfgenerator.servlets;
 
-import com.day.cq.dam.api.Asset;
 import com.google.common.net.HttpHeaders;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.constants.WatersConstants;
@@ -23,7 +22,7 @@ import java.io.IOException;
 @SlingServletResourceTypes(
     resourceTypes = WatersConstants.RESOURCE_TYPE_PAGE,
     methods = "GET",
-    extensions = "pdf"
+    extensions = WatersConstants.EXTENSION_PDF
 )
 public final class PdfGeneratorServlet extends SlingSafeMethodsServlet {
 
@@ -39,28 +38,21 @@ public final class PdfGeneratorServlet extends SlingSafeMethodsServlet {
         final PageDecorator page = request.getResource().getParent().adaptTo(PageDecorator.class);
 
         if (page == null || !WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE.equals(page.getTemplatePath())) {
-            LOG.info("page not found or invalid template type, sending 404 response");
+            LOG.debug("page not found or invalid template type, sending 404 response");
 
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         } else {
-            LOG.info("generating PDF for page : {}", page.getPath());
+            // final boolean force = Boolean.valueOf(request.getParameter("force"));
+            final boolean force = true;
 
-            final boolean convert = Boolean.valueOf(request.getParameter("convert"));
-            final boolean force = Boolean.valueOf(request.getParameter("force"));
+            LOG.info("generating PDF for page : {}, force : {}", page.getPath(), force);
 
-            // determine DAM asset path for PDF and send redirect
-            final Asset pdfAsset;
-
-            if (convert) {
-                pdfAsset = pdfGenerator.getPdfDocumentFromHtml(request, force);
-            } else {
-                pdfAsset = pdfGenerator.getPdfDocument(request, force);
-            }
-
-            final String pdfAssetPath = pdfAsset.getPath();
+            // PDF will be generated only if it doesn't exist (or force=true)
+            final String pdfAssetPath = pdfGenerator.generatePdfDocumentFromHtml(page, force).getPath();
 
             LOG.info("redirecting to DAM asset : {}", pdfAssetPath);
 
+            // send redirect to DAM asset path
             response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
             response.setHeader(HttpHeaders.LOCATION, pdfAssetPath);
         }

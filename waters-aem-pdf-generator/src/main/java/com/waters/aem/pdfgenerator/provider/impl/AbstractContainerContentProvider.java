@@ -23,7 +23,7 @@ public abstract class AbstractContainerContentProvider implements PdfContentProv
         if (resource != null) {
             // get content for nested resources
             for (final Resource child : resource.getChildren()) {
-                pdfGenerator.updatePdfDocument(request, child, document);
+                // pdfGenerator.updatePdfDocument(request, child, document);
             }
         }
     }
