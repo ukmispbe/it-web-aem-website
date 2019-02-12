@@ -25,25 +25,31 @@ public final class DesignReview {
     static final String FILE_NAME = "designreview";
 
     @DialogField(fieldLabel = "Scientist Id",
-        fieldDescription = "Enter The Email Address")
+        fieldDescription = "Enter Scientist")
     @AuthorizableAutocomplete(selector = AuthorizableSelector.USER)
     @Inject
     private String scientistId;
 
     @DialogField(fieldLabel = "Sci-Ops Manager Id",
-        fieldDescription = "Enter The Email Address")
+        fieldDescription = "Enter SciOps Manager Reviewer")
     @AuthorizableAutocomplete(selector = AuthorizableSelector.USER)
     @Inject
     private String sciOpsMgrId;
 
     @DialogField(fieldLabel = "Market Manager ID",
-        fieldDescription = "Enter The Email Address")
+        fieldDescription = "Enter Market Manager Reviewer")
     @AuthorizableAutocomplete(selector = AuthorizableSelector.USER)
     @Inject
     private String marketMgrId;
 
+    @DialogField(fieldLabel = "Legal Reviewer ID",
+        fieldDescription = "Enter Legal Reviewer")
+    @AuthorizableAutocomplete(selector = AuthorizableSelector.USER)
+    @Inject
+    private String legalReviewerId;
+
     @DialogField(fieldLabel = "Marcom Manager ID",
-        fieldDescription = "Enter The Email Address")
+        fieldDescription = "Enter The Marcom Reviewer")
     @AuthorizableAutocomplete(selector = AuthorizableSelector.USER)
     @Inject
     private String marcomMgrId;
@@ -58,6 +64,10 @@ public final class DesignReview {
 
     public String getMarcomMgrId() {
         return marcomMgrId;
+    }
+
+    public String getLegalReviewerId() {
+        return legalReviewerId;
     }
 
     public String getMarketMgrId() {

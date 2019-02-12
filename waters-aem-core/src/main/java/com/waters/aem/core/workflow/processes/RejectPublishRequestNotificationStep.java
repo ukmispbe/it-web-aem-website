@@ -31,14 +31,14 @@ public class RejectPublishRequestNotificationStep extends AbstractNotificationWo
 
         ResourceResolver resolver = wfSession.adaptTo(ResourceResolver.class);
         ValueMap valueMap = WorkflowUtils.getPayloadProperties(resolver, item);
-        String authorId = valueMap.get(WorkflowConstants.AUTHOR_ID).toString();
+        String authorId = valueMap.get(WorkflowConstants.SCIENTIST_ID).toString();
         String initiatorId = item.getWorkflow().getInitiator();
         String reviewerId = WorkflowUtils.getReviewerId(item);
 
-        if(!StringUtils.isBlank(initiatorId)){
+        if(!StringUtils.isBlank(initiatorId)) {
             sendNotification(resolver, item, reviewerId, initiatorId, TEMPLATE_PATH, emailService);
         }
-        if(!StringUtils.isBlank(authorId)){
+        if(!StringUtils.isBlank(authorId)) {
             sendNotification(resolver, item, reviewerId, authorId, TEMPLATE_PATH, emailService);
         }
     }

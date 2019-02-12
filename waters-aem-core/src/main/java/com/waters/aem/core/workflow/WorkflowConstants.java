@@ -14,13 +14,19 @@ public class WorkflowConstants {
 
     public static final String REVIEWER_ID = "reviewerId";
 
-    public static final String AUTHOR_ID = "scientistId";
+    public static final String SCIENTIST_ID = "scientistId";
+
+    public static final String SCIENTIST_REVIEW_STEP = "Scientist Review";
 
     public static final String SCI_OPS_MANAGER_ID = "sciOpsMgrId";
 
     public static final String SCI_OPS_REVIEW_STEP = "SciOps Manager Review";
 
     public static final String MARKET_PRODUCT_MANAGER_ID = "marketMgrId";
+
+    public static final String LEGAL_REVIEWER_ID = "legalReviewerId";
+
+    public static final String LEGAL_REVIEW_STEP = "Legal Review";
 
     public static final String MARKET_PRODUCT_REVIEW_STEP = "Market/Product Manager Review";
 
