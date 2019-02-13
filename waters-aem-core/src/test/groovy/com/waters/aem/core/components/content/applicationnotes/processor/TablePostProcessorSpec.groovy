@@ -10,18 +10,6 @@ import spock.lang.Unroll
 @Unroll
 class TablePostProcessorSpec extends AemLibraryModelSpec {
 
-    private static final Map<String, String> TABLE_JSON_MAP = [
-        "/content/waters/table/jcr:content/table-with-header": "[{\"0\":[\"One\"],\"1\":[\"Two\"]},{\"0\":[\"LC " +
-            "system:\"],\"1\":[\" ACQUITY UPLC H-Class Bio\"]},{\"0\":[\"Detection:\"],\"1\":[\" ACQUITY UPLC TUV " +
-            "Detector with 5 mm titanium flow cell\"]},{\"0\":[\"Wavelength:\"],\"1\":[\" 214 nm\"]}," +
-            "{\"0\":[\"Columns:\"],\"1\":[\" ACQUITY UPLC Peptide BEH C18, 130., 1.7 µm, 2.1 x 150 mm (p/n  " +
-            "186003556)\"]}]",
-        "/content/waters/table/jcr:content/table-no-header": "[{\"0\":[\"LC system:\"]," +
-            "\"1\":[\" ACQUITY UPLC H-Class Bio\"]},{\"0\":[\"Detection:\"],\"1\":[\" ACQUITY UPLC TUV Detector with " +
-            "5 mm titanium flow cell\"]},{\"0\":[\"Wavelength:\"],\"1\":[\" 214 nm\"]},{\"0\":[\"Columns:\"]," +
-            "\"1\":[\" ACQUITY UPLC Peptide BEH C18, 130., 1.7 µm, 2.1 x 150 mm (p/n  186003556)\"]}]"
-    ]
-
     @Shared
     TablePostProcessor processor
 
@@ -57,12 +45,19 @@ class TablePostProcessorSpec extends AemLibraryModelSpec {
         processor.process(request, [])
 
         then:
-        getResource(resourcePath).valueMap.get(Table.PROPERTY_TABLE_ROWS_JSON, "") == TABLE_JSON_MAP[resourcePath]
+        getResource(resourcePath).valueMap.get(Table.PROPERTY_TABLE_ROWS_JSON, "") == json
 
         where:
-        resourcePath << [
-            "/content/waters/table/jcr:content/table-with-header",
-            "/content/waters/table/jcr:content/table-no-header"
-        ]
+        resourcePath                                          | json
+        "/content/waters/table/jcr:content/table-with-header" | "[{\"0\":[\"One\"],\"1\":[\"Two\"]},{\"0\":[\"LC " +
+            "system:\"],\"1\":[\" ACQUITY UPLC H-Class Bio\"]},{\"0\":[\"Detection:\"],\"1\":[\" ACQUITY UPLC TUV " +
+            "Detector with 5 mm titanium flow cell\"]},{\"0\":[\"Wavelength:\"],\"1\":[\" 214 nm\"]}," +
+            "{\"0\":[\"Columns:\"],\"1\":[\" ACQUITY UPLC Peptide BEH C18, 130., 1.7 µm, 2.1 x 150 mm (p/n  " +
+            "186003556)\"]}]"
+        "/content/waters/table/jcr:content/table-no-header"   | "[{\"0\":[\"LC system:\"]," +
+            "\"1\":[\" ACQUITY UPLC H-Class Bio\"]},{\"0\":[\"Detection:\"],\"1\":[\" ACQUITY UPLC TUV Detector with " +
+            "5 mm titanium flow cell\"]},{\"0\":[\"Wavelength:\"],\"1\":[\" 214 nm\"]},{\"0\":[\"Columns:\"]," +
+            "\"1\":[\" ACQUITY UPLC Peptide BEH C18, 130., 1.7 µm, 2.1 x 150 mm (p/n  186003556)\"]}]"
+
     }
 }
