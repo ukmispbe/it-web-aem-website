@@ -19,15 +19,13 @@ public interface PdfGenerator {
     ByteArrayOutputStream generatePdfDocumentFromHtml(PageDecorator page) throws IOException;
 
     /**
-     * Generate a PDF document from the published HTML markup of the current page.
+     * Generate a PDF document from the published HTML markup of the current page and store the asset in the DAM.
      *
      * @param page application notes page
-     * @param force if true, force regeneration of the PDF asset even if it already exists
-     * @param publish if true, page will be requested from publish URL instead of author
      * @return DAM asset
      * @throws IOException if error occurs in PDF generation
      */
-    Asset generatePdfDocumentFromHtml(PageDecorator page, boolean force, boolean publish) throws IOException;
+    Asset generatePdfDocumentAssetFromHtml(PageDecorator page) throws IOException;
 
     /**
      * Delete the PDF asset corresponding to the given page.

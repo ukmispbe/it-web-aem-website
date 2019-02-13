@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import javax.servlet.Servlet;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -39,7 +38,7 @@ public final class PdfGeneratorServlet extends SlingSafeMethodsServlet {
 
     @Override
     protected void doGet(@Nonnull final SlingHttpServletRequest request,
-        @Nonnull final SlingHttpServletResponse response) throws IOException, ServletException {
+        @Nonnull final SlingHttpServletResponse response) throws IOException {
         final PageDecorator page = request.getResource().getParent().adaptTo(PageDecorator.class);
 
         if (page == null || !WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE.equals(page.getTemplatePath())) {
@@ -56,6 +55,7 @@ public final class PdfGeneratorServlet extends SlingSafeMethodsServlet {
             response.setContentLength(pdfOutputStream.size());
 
             pdfOutputStream.writeTo(response.getOutputStream());
+            pdfOutputStream.close();
         }
     }
 }

@@ -55,26 +55,22 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     }
 
     @Override
-    public Asset generatePdfDocumentFromHtml(final PageDecorator page, final boolean force, final boolean publish)
+    public Asset generatePdfDocumentAssetFromHtml(final PageDecorator page)
         throws IOException {
-        final ResourceResolver resourceResolver = page.getContentResource().getResourceResolver();
-
-        // get PDF asset path derived from application notes metadata
-        final String pdfAssetPath = page.getContentResource().adaptTo(ApplicationNotes.class).getPdfAssetPath();
-
-        // get existing PDF resource if it exists
-        final Resource pdfAssetResource = resourceResolver.getResource(pdfAssetPath);
-
-        LOG.info("page : {}, PDF asset resource : {}", page.getPath(), pdfAssetResource);
-
         final Asset asset;
 
-        if (pdfAssetResource == null || force) {
-            // generate and store PDF asset
-            asset = createPdfAsset(resourceResolver, page, publish, pdfAssetPath);
-        } else {
-            // return existing asset
-            asset = pdfAssetResource.adaptTo(Asset.class);
+        try (final ByteArrayOutputStream pdfOutputStream = createPdfOutputStream(page, true)) {
+            // convert output stream to input stream to store asset
+            try (final InputStream assetInputStream = new ByteArrayInputStream(pdfOutputStream.toByteArray())) {
+                final AssetManager assetManager = page.getContentResource().getResourceResolver()
+                    .adaptTo(AssetManager.class);
+
+                // get PDF asset path derived from application notes metadata
+                final String pdfAssetPath = page.getContentResource().adaptTo(ApplicationNotes.class).getPdfAssetPath();
+
+                asset = assetManager.createAsset(pdfAssetPath, assetInputStream,
+                    com.google.common.net.MediaType.PDF.withoutParameters().toString(), true);
+            }
         }
 
         return asset;
@@ -105,29 +101,12 @@ public final class DefaultPdfGenerator implements PdfGenerator {
 
     private ByteArrayOutputStream createPdfOutputStream(final PageDecorator page, final boolean publish)
         throws IOException {
-        try (final ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream()) {
-            // write PDF document to new output stream
-            generatePdfDocumentFromHtml(page, publish, pdfOutputStream);
+        final ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
 
-            return pdfOutputStream;
-        }
-    }
+        // write PDF document to new output stream
+        generatePdfDocumentFromHtml(page, publish, pdfOutputStream);
 
-    private Asset createPdfAsset(final ResourceResolver resourceResolver, final PageDecorator page,
-        final boolean publish, final String pdfAssetPath) throws IOException {
-        final Asset asset;
-
-        try (final ByteArrayOutputStream pdfOutputStream = createPdfOutputStream(page, publish)) {
-            // convert output stream to input stream to store asset
-            try (final InputStream assetInputStream = new ByteArrayInputStream(pdfOutputStream.toByteArray())) {
-                final AssetManager assetManager = resourceResolver.adaptTo(AssetManager.class);
-
-                asset = assetManager.createAsset(pdfAssetPath, assetInputStream,
-                    com.google.common.net.MediaType.PDF.withoutParameters().toString(), true);
-            }
-        }
-
-        return asset;
+        return pdfOutputStream;
     }
 
     private void generatePdfDocumentFromHtml(final PageDecorator page, final boolean publish,

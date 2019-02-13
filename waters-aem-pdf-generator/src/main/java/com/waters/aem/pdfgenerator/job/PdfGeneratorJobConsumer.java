@@ -50,7 +50,7 @@ public final class PdfGeneratorJobConsumer implements JobConsumer {
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
             final PageDecorator page = resourceResolver.adaptTo(PageManagerDecorator.class).getPage(path);
 
-            pdfGenerator.generatePdfDocumentFromHtml(page, true, true);
+            pdfGenerator.generatePdfDocumentAssetFromHtml(page);
         } catch (LoginException | IOException e) {
             LOG.error("error generating PDF for path : " + path, e);
 
