@@ -65,6 +65,24 @@ body {
     margin: 0 auto;
     padding: 0 80px;
 
+    &__left {
+        width: 18%;
+        float: left;
+    }
+
+    &__content {
+        width: 80%;
+        float: right;
+
+        @include mobile {
+            width: 100%;
+        }
+
+        @include tablet {
+            width: 100%;
+        }
+    }
+
     @include mobile {
         padding: 0 20px;
     }
@@ -91,4 +109,23 @@ a {
     }
 
     // add external styling
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    &.active {
+        display: block;
+    }
+}
+
+.clearfix:after {
+    display: table;
+    clear: both;
+    content: "";
 }
