@@ -1,29 +1,33 @@
 package com.waters.aem.pdfgenerator.replication;
 
-import com.day.cq.replication.ReplicationAction;
 import com.day.cq.replication.ReplicationActionType;
-import com.day.cq.replication.ReplicationEvent;
-import com.waters.aem.pdfgenerator.services.PdfGenerator;
-import org.apache.commons.lang3.ArrayUtils;
+import com.icfolson.aem.library.api.page.PageDecorator;
+import com.icfolson.aem.library.api.page.PageManagerDecorator;
+import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.services.AbstractReplicationEventHandler;
+import com.waters.aem.pdfgenerator.job.PdfGeneratorJobConsumer;
+import org.apache.sling.api.resource.LoginException;
+import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.event.jobs.JobManager;
+import org.apache.sling.event.jobs.NotificationConstants;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.event.Event;
 import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-
 /**
- * Replication event handler to create or delete Application Note PDFs when pages are activated or deactivated.
+ * Replication event handler to create or delete Application Note PDFs after pages are activated.
  */
-@Component(service = EventHandler.class, property = {
-    EventConstants.EVENT_TOPIC + "=" + ReplicationEvent.EVENT_TOPIC, // event fired in publish
-    EventConstants.EVENT_TOPIC + "=" + ReplicationAction.EVENT_TOPIC // event fired in author
-})
-public final class PdfReplicationEventHandler implements EventHandler {
+@Component(immediate = true,
+    service = EventHandler.class,
+    property = {
+        EventConstants.EVENT_TOPIC + "=" + NotificationConstants.TOPIC_JOB_FINISHED,
+        EventConstants.EVENT_FILTER + "=(" + NotificationConstants.NOTIFICATION_PROPERTY_JOB_TOPIC + "=com/day/cq/replication/job/publish)"
+    })
+public final class PdfReplicationEventHandler extends AbstractReplicationEventHandler implements EventHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(PdfReplicationEventHandler.class);
 
@@ -31,22 +35,46 @@ public final class PdfReplicationEventHandler implements EventHandler {
     private ResourceResolverFactory resourceResolverFactory;
 
     @Reference
-    private PdfGenerator pdfGenerator;
+    private JobManager jobManager;
 
     @Override
-    public void handleEvent(final Event event) {
-        final ReplicationEvent replicationEvent = ReplicationEvent.fromEvent(event);
+    protected boolean accepts(final String path, final ReplicationActionType replicationActionType) {
+        boolean accepted = false;
 
-        if (replicationEvent == null) { // author event (CQ)
-            final String[] paths = ArrayUtils.nullToEmpty(
-                (String[]) event.getProperty(ReplicationAction.PROPERTY_PATHS));
+        if (ReplicationActionType.ACTIVATE.equals(replicationActionType)) {
+            try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
+                final PageDecorator page = resourceResolver.adaptTo(PageManagerDecorator.class).getPage(path);
 
-            LOG.info("event topic : {}, paths : {}", event.getTopic(), Arrays.asList(paths));
-        } else { // publish event (granite)
-            final ReplicationAction replicationAction = replicationEvent.getReplicationAction();
-            final ReplicationActionType replicationActionType = replicationAction.getType();
-
-            LOG.info("event topic : {}, replication action : {}", event.getTopic(), replicationAction);
+                accepted = isApplicationNotesPage(page);
+            } catch (LoginException e) {
+                LOG.error("error authenticating resource resolver", e);
+            }
         }
+
+        return accepted;
+    }
+
+    @Override
+    protected JobManager getJobManager() {
+        return jobManager;
+    }
+
+    @Override
+    protected void handleActivate(final String path) {
+        addJob(PdfGeneratorJobConsumer.JOB_TOPIC_GENERATE, path);
+    }
+
+    @Override
+    protected void handleDeactivate(final String path) {
+        // do nothing
+    }
+
+    @Override
+    protected void handleDelete(final String path) {
+        // do nothing
+    }
+
+    private boolean isApplicationNotesPage(final PageDecorator page) {
+        return page != null && WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE.equals(page.getTemplatePath());
     }
 }

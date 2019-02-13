@@ -4,6 +4,7 @@ import com.day.cq.commons.Externalizer;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.AssetManager;
 import com.day.cq.wcm.api.WCMMode;
+import com.icfolson.aem.library.api.link.builders.LinkBuilder;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
@@ -30,7 +31,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -45,13 +45,17 @@ public final class DefaultPdfGenerator implements PdfGenerator {
 
     private volatile String baseUri;
 
+    private volatile String username;
+
+    private volatile String password;
+
     @Override
-    public OutputStream generatePdfDocumentFromHtml(final PageDecorator page) throws IOException {
-        return null;
+    public ByteArrayOutputStream generatePdfDocumentFromHtml(final PageDecorator page) throws IOException {
+        return createPdfOutputStream(page, false);
     }
 
     @Override
-    public Asset generatePdfDocumentFromHtml(final PageDecorator page, final boolean force)
+    public Asset generatePdfDocumentFromHtml(final PageDecorator page, final boolean force, final boolean publish)
         throws IOException {
         final ResourceResolver resourceResolver = page.getContentResource().getResourceResolver();
 
@@ -67,7 +71,7 @@ public final class DefaultPdfGenerator implements PdfGenerator {
 
         if (pdfAssetResource == null || force) {
             // generate and store PDF asset
-            asset = createPdfAsset(resourceResolver, page, pdfAssetPath);
+            asset = createPdfAsset(resourceResolver, page, publish, pdfAssetPath);
         } else {
             // return existing asset
             asset = pdfAssetResource.adaptTo(Asset.class);
@@ -95,16 +99,25 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     @Modified
     protected void activate(final PdfGeneratorConfiguration configuration) {
         baseUri = configuration.baseUri();
+        username = configuration.username();
+        password = configuration.password();
+    }
+
+    private ByteArrayOutputStream createPdfOutputStream(final PageDecorator page, final boolean publish)
+        throws IOException {
+        try (final ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream()) {
+            // write PDF document to new output stream
+            generatePdfDocumentFromHtml(page, publish, pdfOutputStream);
+
+            return pdfOutputStream;
+        }
     }
 
     private Asset createPdfAsset(final ResourceResolver resourceResolver, final PageDecorator page,
-        final String pdfAssetPath) throws IOException {
+        final boolean publish, final String pdfAssetPath) throws IOException {
         final Asset asset;
 
-        try (final ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream()) {
-            // write PDF document to new output stream
-            generatePdfDocumentFromHtml(page, pdfOutputStream);
-
+        try (final ByteArrayOutputStream pdfOutputStream = createPdfOutputStream(page, publish)) {
             // convert output stream to input stream to store asset
             try (final InputStream assetInputStream = new ByteArrayInputStream(pdfOutputStream.toByteArray())) {
                 final AssetManager assetManager = resourceResolver.adaptTo(AssetManager.class);
@@ -117,37 +130,59 @@ public final class DefaultPdfGenerator implements PdfGenerator {
         return asset;
     }
 
-    private void generatePdfDocumentFromHtml(final PageDecorator page, final ByteArrayOutputStream pdfOutputStream)
+    private void generatePdfDocumentFromHtml(final PageDecorator page, final boolean publish,
+        final ByteArrayOutputStream pdfOutputStream)
         throws IOException {
-        final ResourceResolver resourceResolver = page.getContentResource().getResourceResolver();
-
-        final String externalUrl = externalizer.externalLink(resourceResolver, Externalizer.AUTHOR,
-            page.getLinkBuilder()
-                .addSelector("print")
-                .addParameter("wcmmode", WCMMode.DISABLED.name().toLowerCase())
-                .build()
-                .getHref());
-
-        LOG.info("creating PDF document from page URL : {}", externalUrl);
-
-        // request print view of page with author URL
-        final URL url = new URL(externalUrl);
-        final URLConnection connection = url.openConnection();
-
-        connection.setRequestProperty("Authorization", getAuthorization(resourceResolver));
-
-        final InputStream stream = connection.getInputStream();
+        final InputStream stream = getPageInputStream(page, publish);
 
         final PdfDocument pdfDocument = new PdfDocument(new PdfWriter(pdfOutputStream));
 
-        pdfDocument.getDocumentInfo().setMoreInfo("applicationNotesPagePath", page.getPath());
         // pdfDocument.getDocumentInfo().setTitle(page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle()));
 
         HtmlConverter.convertToPdf(stream, pdfDocument, getConverterProperties());
     }
 
-    private String getAuthorization(final ResourceResolver resourceResolver) {
-        return "Basic " + Base64.encodeBase64URLSafeString("admin:admin".getBytes());
+    private InputStream getPageInputStream(final PageDecorator page, final boolean publish)
+        throws IOException {
+        final String externalUrl = getExternalUrl(page, publish);
+
+        LOG.info("creating PDF document from page URL : {}", externalUrl);
+
+        final InputStream stream;
+
+        if (publish) {
+            stream = new URL(externalUrl).openStream();
+        } else {
+            final URL url = new URL(externalUrl);
+            final URLConnection connection = url.openConnection();
+
+            connection.setRequestProperty("Authorization", getAuthorization());
+
+            stream = connection.getInputStream();
+        }
+
+        return stream;
+    }
+
+    private String getAuthorization() {
+        final String credentials = new StringBuilder()
+            .append(username)
+            .append(":")
+            .append(password)
+            .toString();
+
+        return "Basic " + Base64.encodeBase64URLSafeString(credentials.getBytes());
+    }
+
+    private String getExternalUrl(final PageDecorator page, final boolean publish) {
+        LinkBuilder builder = page.getLinkBuilder().addSelector("print");
+
+        if (!publish) {
+            builder.addParameter("wcmmode", WCMMode.DISABLED.name().toLowerCase());
+        }
+
+        return externalizer.externalLink(page.getContentResource().getResourceResolver(),
+            publish ? Externalizer.PUBLISH : Externalizer.AUTHOR, builder.build().getHref());
     }
 
     private ConverterProperties getConverterProperties() {
