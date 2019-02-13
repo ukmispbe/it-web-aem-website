@@ -35,22 +35,20 @@
 
         <div class="container__left cmp-search__sort-filter selected">
 
-          <!-- SEARCH SORT DROPDOWN - START -->
-          <div id="js-search-sortby" class="cmp-search-sortby">
-            <h2>Sort by</h2>
-            <div id="js-search-sortby" class="cmp-search-sortby__select">
-              <select>
-                <option>Best Match</option>
-                <option>Most Recent</option>
-              </select>
-            </div>
-          </div>
-          <!-- SEARCH SORT DROPDOWN - END -->
-
+          <!-- SEARCH SORT DROPDOWN - RENDERED FROM SORTBY COMPONENT -->
+          <div id="js-search-sortby"></div>
 
           <!-- SEARCH FILTERS - START -->
           <div id="js-search-filters" class="cmp-search-filters">
             <h2>Filter by</h2>
+
+            <!-- SELECTED FILTERS FOR TABLET/MOBILE VIEW -->
+            <div class="cmp-search-filters__selected clearfix">
+              <a href="javascript:void(0);" class="cmp-search-filters__selected__clear">Clear All</a>
+              <a href="javascript:void(0);">CATEGORY 1: ITEM 1</a>
+              <a href="javascript:void(0);">CATEGORY 3: ITEM 2</a>
+            </div>
+
             <ul>
               <!-- DEFAULT INPUT LIST MARKUP -->
               <li class="cmp-search-filters__filter expanded">
