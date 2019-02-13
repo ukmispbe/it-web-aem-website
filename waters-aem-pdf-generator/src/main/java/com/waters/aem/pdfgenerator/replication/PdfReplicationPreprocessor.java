@@ -70,7 +70,7 @@ public final class PdfReplicationPreprocessor implements Preprocessor {
 
     private void preprocessApplicationNotePage(final ReplicationActionType replicationActionType,
         final ResourceResolver resourceResolver, final PageDecorator page) throws ReplicationException {
-        LOG.info("preprocessing replication action type : {} for page : {}", replicationActionType,
+        LOG.debug("preprocessing replication action type : {} for page : {}", replicationActionType,
             page.getPath());
 
         final String assetPath = page.getContentResource().adaptTo(ApplicationNotes.class)
@@ -78,17 +78,17 @@ public final class PdfReplicationPreprocessor implements Preprocessor {
 
         LOG.info("deleting PDF asset : {}", assetPath);
 
+        // delete the previously replicated PDF asset
+        replicator.replicate(resourceResolver.adaptTo(Session.class), replicationActionType, assetPath);
+
         try {
-            // delete the PDF from author before deleting from publish
+            // delete the PDF from author after deleting from publish
             pdfGenerator.deletePdfDocument(page);
         } catch (PersistenceException e) {
             LOG.error("error deleting PDF for page : " + page.getPath() + ", aborting page activation", e);
 
             throw new ReplicationException(e);
         }
-
-        // deactivate/delete the previously replicated PDF asset
-        replicator.replicate(resourceResolver.adaptTo(Session.class), replicationActionType, assetPath);
     }
 
     private List<PageDecorator> getApplicationNotePages(final ReplicationAction replicationAction,

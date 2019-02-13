@@ -46,7 +46,7 @@ public final class PdfGeneratorServlet extends SlingSafeMethodsServlet {
 
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         } else {
-            LOG.info("generating PDF for page : {}", page.getPath());
+            LOG.debug("generating PDF for page : {}", page.getPath());
 
             final ByteArrayOutputStream pdfOutputStream = pdfGenerator.generatePdfDocumentFromHtml(page);
 

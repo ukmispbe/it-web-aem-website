@@ -6,6 +6,9 @@ import org.apache.sling.api.SlingHttpServletRequest;
 
 import java.io.IOException;
 
+/**
+ * Provider interface for generating PDFs from repository content.  Not currently used.
+ */
 public interface PdfContentProvider {
 
     /**

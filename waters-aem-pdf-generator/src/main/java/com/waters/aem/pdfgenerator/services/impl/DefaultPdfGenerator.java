@@ -68,6 +68,7 @@ public final class DefaultPdfGenerator implements PdfGenerator {
                 // get PDF asset path derived from application notes metadata
                 final String pdfAssetPath = page.getContentResource().adaptTo(ApplicationNotes.class).getPdfAssetPath();
 
+                // create/update asset
                 asset = assetManager.createAsset(pdfAssetPath, assetInputStream,
                     com.google.common.net.MediaType.PDF.withoutParameters().toString(), true);
             }
@@ -86,9 +87,10 @@ public final class DefaultPdfGenerator implements PdfGenerator {
         // get existing PDF resource if it exists
         final Resource pdfAssetResource = resourceResolver.getResource(pdfAssetPath);
 
-        LOG.info("deleting PDF asset resource : {}", pdfAssetResource);
+        LOG.debug("deleting PDF asset resource : {}", pdfAssetResource);
 
         resourceResolver.delete(pdfAssetResource);
+        resourceResolver.commit();
     }
 
     @Activate
@@ -125,7 +127,7 @@ public final class DefaultPdfGenerator implements PdfGenerator {
         throws IOException {
         final String externalUrl = getExternalUrl(page, publish);
 
-        LOG.info("creating PDF document from page URL : {}", externalUrl);
+        LOG.debug("creating PDF document from page URL : {}", externalUrl);
 
         final InputStream stream;
 
