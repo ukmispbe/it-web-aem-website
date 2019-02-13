@@ -60,11 +60,13 @@
             img {
                 width: 100%;
                 border: 1px solid $color-border-light;
+                margin-bottom: $space-s;
             }
 
             @include mobile {
                 width: 100%;
-                margin-bottom: $space-xxs;
+                margin-bottom: 0;
+                margin-top: $space-s;
             }
         }
     }

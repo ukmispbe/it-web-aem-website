@@ -62,7 +62,7 @@ $line-height-text: 1.7em;
 /*FONT WEIGHT*/
 $font-weight-light: 300;
 $font-weight-regular: 400;
-$font-weight-bold: 700;
+$font-weight-bold: 500;
 
 /*LETTER SPACING*/
 $letter-spacing-small: 0.02em;
@@ -85,6 +85,7 @@ $icon-l: 2em; /* 32px */
 $icon-xl: 4em; /* 64px */
 
 /*SPACE & MARGINS*/
+$space-xxs: 0.25em;
 $space-xxs: 0.5em;
 $space-xs: 0.75em;
 $space-s: 1em;
@@ -97,6 +98,13 @@ $space-xxl: 5em;
 $max-width: 1460px;
 $desktop-width: 1200px;
 $tablet-width: 650px;
+
+@mixin tablet-and-under {
+    @media (max-width: #{$desktop-width}) {
+        @content;
+    }
+}
+
 
 @mixin tablet {
     @media (min-width: #{$tablet-width + 1px}) and (max-width: #{$desktop-width}) {

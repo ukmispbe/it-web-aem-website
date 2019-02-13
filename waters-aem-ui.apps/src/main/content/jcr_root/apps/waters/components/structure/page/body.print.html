@@ -1,0 +1,9 @@
+<div data-sly-resource="${'externalheader' @ resourceType='waters/components/structure/externalheader', selectors='print'}" data-sly-unwrap="${!isEditMode}"></div>
+
+<div class="container">
+    <sly data-sly-use.templatedContainer="com.day.cq.wcm.foundation.TemplatedContainer"
+         data-sly-repeat.child="${templatedContainer.structureResources}"
+         data-sly-resource="${child.path @ resourceType=child.resourceType, decorationTagName='div'}"/>
+</div>
+
+<div data-sly-resource="${'externalfooter' @ resourceType='waters/components/structure/externalfooter', selectors='print'}" data-sly-unwrap="${!isEditMode}"></div>

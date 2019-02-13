@@ -13,6 +13,7 @@ const SearchApp = props => {
                     <Search
                         defaultFacet={props.defaultFacet}
                         searchDefaults={props.searchDefaults}
+                        searchServicePath={props.searchServicePath}
                     />
                 )}
             />

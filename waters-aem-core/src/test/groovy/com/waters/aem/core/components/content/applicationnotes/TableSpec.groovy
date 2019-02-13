@@ -1,10 +1,16 @@
 package com.waters.aem.core.components.content.applicationnotes
 
 import com.icfolson.aem.library.models.specs.AemLibraryModelSpec
+import com.waters.aem.core.services.ExcelTableParser
+import com.waters.aem.core.services.impl.POIExcelTableParser
 import spock.lang.Unroll
 
 @Unroll
 class TableSpec extends AemLibraryModelSpec {
+
+    def setupSpec() {
+        slingContext.registerService(ExcelTableParser, new POIExcelTableParser())
+    }
 
     def "get properties"() {
         setup:
@@ -54,8 +60,8 @@ class TableSpec extends AemLibraryModelSpec {
         def firstRow = table.tableRows[0]
 
         expect:
-        firstRow.get("0") == "LC system:"
-        firstRow.get("1") == " ACQUITY UPLC H-Class Bio"
+        firstRow.get("0")[0] == "LC system:"
+        firstRow.get("1")[0] == " ACQUITY UPLC H-Class Bio"
 
         where:
         path << [
