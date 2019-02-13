@@ -27,15 +27,15 @@ public abstract class AbstractReplicationEventHandler implements EventHandler {
 
         if (accepts(path, replicationActionType)) {
             if (replicationActionType.equals(ReplicationActionType.ACTIVATE)) {
-                LOG.info("handling activate event for path = {}", path);
+                LOG.debug("handling activate event for path = {}", path);
 
                 handleActivate(path);
             } else if (replicationActionType.equals(ReplicationActionType.DEACTIVATE)) {
-                LOG.info("handling deactivate event for path = {}", path);
+                LOG.debug("handling deactivate event for path = {}", path);
 
                 handleDeactivate(path);
             } else if (replicationActionType.equals(ReplicationActionType.DELETE)) {
-                LOG.info("handling delete event for path = {}", path);
+                LOG.debug("handling delete event for path = {}", path);
 
                 handleDelete(path);
             } else {

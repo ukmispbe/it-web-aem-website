@@ -17,6 +17,8 @@ import org.apache.sling.models.annotations.Model;
 @Model(adaptables = SlingHttpServletRequest.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class LayoutContainer extends ResponsiveGrid {
 
+    public static final String RESOURCE_TYPE = "waters/components/content/layoutcontainer";
+
     @DialogField(fieldLabel = "Background Image")
     @Html5SmartImage(allowUpload = false, tab = false, isSelf = true)
     @ImageInject(isSelf = true)
