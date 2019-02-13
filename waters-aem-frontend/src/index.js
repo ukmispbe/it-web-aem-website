@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './search/components/searchbar';
 import Search from './search/index';
-import SortBy from './search/components/sortby';
 
 function getAuthoredDataForSearchBar(c, h) {
     return {
@@ -43,16 +42,5 @@ if (searchAppContainer) {
             searchServicePath={data.searchPath}
         />,
         searchAppContainer
-    );
-}
-
-
-const searchSortByContainer = document.getElementById('js-search-sortby');
-
-if (searchAppContainer) {
-    const data = getAuthoredDataForSearchApp(searchSortByContainer);
-    ReactDOM.render(
-        <SortBy/>,
-        searchSortByContainer
     );
 }
