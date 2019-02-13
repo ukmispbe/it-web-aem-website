@@ -19,7 +19,12 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Session;
 
 /**
- * DAM Update Asset Workflow event handler to activate Application Note PDFs after the update workflow completes.
+ * DAM Update Asset Workflow event handler to activate Application Note PDFs after the update workflow completes.  The
+ * PDF generation process triggers the DAM Update Asset Workflow, and assets should not be replicated until this
+ * workflow completes.
+ * <p>
+ * Since Application Note PDFs are only generated for page activations, this handler assumes that the PDF should be
+ * activated every time a workflow completes for a PDF in the Application Notes DAM folder.
  */
 @Component(service = EventHandler.class, property = {
     EventConstants.EVENT_TOPIC + "=" + DamEvent.EVENT_TOPIC
@@ -41,6 +46,7 @@ public final class PdfUpdateAssetWorkflowEventHandler implements EventHandler {
         if (damEvent != null && DamEvent.Type.DAM_UPDATE_ASSET_WORKFLOW_COMPLETED.equals(damEvent.getType())) {
             final String pdfAssetPath = damEvent.getAssetPath();
 
+            // check that the updated asset is an application note PDF
             if (pdfAssetPath.startsWith(ApplicationNotes.DAM_ROOT_PATH)) {
                 try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(
                     null)) {

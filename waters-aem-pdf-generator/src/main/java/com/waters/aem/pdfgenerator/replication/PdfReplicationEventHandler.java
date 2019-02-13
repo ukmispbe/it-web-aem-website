@@ -19,7 +19,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Replication event handler to create or delete Application Note PDFs after pages are activated.
+ * Replication event handler to create or delete Application Note PDFs after pages are activated.  A PDF generation job
+ * is added each time an Application Notes page is activated - using the job ensures that the event handler will not be
+ * blacklisted if PDF generator process duration exceeds the blacklist time threshold.
  */
 @Component(immediate = true,
     service = EventHandler.class,

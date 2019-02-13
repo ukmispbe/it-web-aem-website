@@ -27,7 +27,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Replication preprocessor to create or delete Application Note PDFs when pages are activated or deactivated.
+ * Replication preprocessor to delete Application Note PDFs when pages are deactivated or deleted.  This is implemented
+ * in a preprecessor to ensure that the page still exists, since the page metadata is needed to determine the
+ * corresponding PDF asset path.
  */
 @Component(service = Preprocessor.class)
 public final class PdfReplicationPreprocessor implements Preprocessor {

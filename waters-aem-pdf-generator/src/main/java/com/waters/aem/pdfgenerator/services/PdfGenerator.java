@@ -7,6 +7,9 @@ import org.apache.sling.api.resource.PersistenceException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+/**
+ * Service for generating and deleting Application Note PDFs.
+ */
 public interface PdfGenerator {
 
     /**
