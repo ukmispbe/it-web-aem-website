@@ -118,6 +118,7 @@ class Search extends Component {
     }
 
     render() {
+        // console.log(this.props);
         const state = this.state;
         const searchParams = this.state.searchParams || {};
         const overlay = <div class="overlay" />;
@@ -126,6 +127,7 @@ class Search extends Component {
                 <Sort
                     sortHandler={this.sortHandler.bind(this)}
                     sortValue={state.sort === 'most recent' ? 2 : 1}
+                    text={this.props.searchText}
                 />
             </div>
         );
