@@ -14,6 +14,8 @@ function getAuthoredDataForSearchApp(c, s) {
     return {
         searchPath: c.dataset.baseUrl,
         searchText: s,
+        isocode: c.dataset.isocode,
+        locale: c.dataset.locale,
     };
 }
 
