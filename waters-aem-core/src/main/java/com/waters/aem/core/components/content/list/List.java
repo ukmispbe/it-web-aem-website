@@ -59,7 +59,7 @@ public final class List implements com.adobe.cq.wcm.core.components.models.List 
             tab = 2,
             ranking = 4)
     @CheckBox(title = "showThumbNail",
-            text = "Show Thumbnail")
+            text = "Show thumbnail")
     @Inject
     private Boolean showThumbNail;
 
