@@ -21,6 +21,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The Table post processor is responsible for parsing the stored Excel file and serializing the table rows as JSON into
+ * a property value that can be exported to a translation provider.
+ */
 @Component(service = SlingPostProcessor.class)
 public final class TablePostProcessor implements SlingPostProcessor {
 
@@ -43,6 +47,7 @@ public final class TablePostProcessor implements SlingPostProcessor {
                 final Table table = resource.adaptTo(Table.class);
 
                 try {
+                    // get table rows as JSON and persist to a new property
                     final String tableRowsJson = getTableRowsJson(table);
 
                     LOG.debug("persisting table rows JSON : {}", tableRowsJson);
