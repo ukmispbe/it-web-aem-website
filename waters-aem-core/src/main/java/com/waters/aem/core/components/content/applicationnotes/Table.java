@@ -10,18 +10,21 @@ import com.citytechinc.cq.component.annotations.widgets.ToolbarConfig;
 import com.citytechinc.cq.component.annotations.widgets.rte.Format;
 import com.citytechinc.cq.component.annotations.widgets.rte.SubSuperscript;
 import com.citytechinc.cq.component.annotations.widgets.rte.UISettings;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waters.aem.core.constants.WatersConstants;
-import com.waters.aem.core.services.ExcelTableParser;
-import org.apache.poi.util.IOUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ChildResource;
-import org.apache.sling.models.annotations.injectorspecific.OSGiService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +35,13 @@ import java.util.stream.Collectors;
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class Table {
 
-    @OSGiService
-    private ExcelTableParser excelTableParser;
+    public static final String RESOURCE_TYPE = "waters/components/content/applicationnotes/table";
+
+    public static final String PROPERTY_TABLE_ROWS_JSON = "tableRowsJson";
+
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    private static final Logger LOG = LoggerFactory.getLogger(Table.class);
 
     @DialogField(fieldLabel = "Title", ranking = 1)
     @TextField
@@ -70,8 +78,6 @@ public final class Table {
     @Default(booleanValues = false)
     private boolean header;
 
-    private com.google.common.collect.Table<Integer, String, List<String>> table;
-
     @DialogField(fieldLabel = "Excel File", ranking = 4)
     @Html5SmartFile(
         fileNameParameter = "./excelFileName",
@@ -81,6 +87,11 @@ public final class Table {
         })
     @ChildResource
     private Resource excelFile;
+
+    @Inject
+    private String tableRowsJson;
+
+    private List<Map<String, List<String>>> tableRows;
 
     public String getTitle() {
         return title;
@@ -94,36 +105,43 @@ public final class Table {
         return header;
     }
 
-    public Set<String> getColumnNames() {
+    public InputStream getExcelFileInputStream() {
+        return excelFile == null ? null : excelFile.adaptTo(InputStream.class);
+    }
+
+    public Set<String> getColumnNames() throws IOException {
         final Set<String> columnNames = new LinkedHashSet<>();
 
         if (header) {
-            getTable().row(0).values().forEach(columnNames :: addAll);
+            getTableRowsFromJson().get(0).values().forEach(columnNames :: addAll);
         }
 
         return columnNames;
     }
 
-    public List<Map<String, List<String>>> getTableRows() {
-        return getTable().rowMap().values()
+    public List<Map<String, List<String>>> getTableRows() throws IOException {
+        return getTableRowsFromJson()
             .stream()
             .skip(header ? 1 : 0)
             .collect(Collectors.toList());
     }
 
-    private com.google.common.collect.Table<Integer, String, List<String>> getTable() {
-        if (table == null) {
-            final InputStream excelFileInputStream = getExcelFileInputStream();
+    private List<Map<String, List<String>>> getTableRowsFromJson() throws IOException {
+        if (tableRows == null) {
+            if (tableRowsJson == null) {
+                tableRows = Collections.emptyList();
+            } else {
+                try {
+                    tableRows = MAPPER.readValue(tableRowsJson, new TypeReference<List<Map<String, List<String>>>>() {
+                    });
+                } catch (IOException e) {
+                    LOG.error("error reading table rows from JSON : " + tableRowsJson, e);
 
-            table = excelTableParser.getTable(excelFileInputStream);
-
-            IOUtils.closeQuietly(excelFileInputStream);
+                    throw e;
+                }
+            }
         }
 
-        return table;
-    }
-
-    private InputStream getExcelFileInputStream() {
-        return excelFile == null ? null : excelFile.adaptTo(InputStream.class);
+        return tableRows;
     }
 }
