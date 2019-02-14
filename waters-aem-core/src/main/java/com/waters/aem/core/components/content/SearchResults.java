@@ -35,6 +35,20 @@ public final class SearchResults {
     @Inject
     private List<SearchResultsCategory> categories = Collections.emptyList();
 
+    /**
+     * Get isocode to send to search service.
+     *
+     * @return isocode from page locale
+     */
+    public String getIsocode() {
+        return siteContext.getLocale().toString();
+    }
+
+    /**
+     * Get language code to use for translation.
+     *
+     * @return language code from page locale
+     */
     public String getLocale() {
         return siteContext.getLocale().getLanguage();
     }

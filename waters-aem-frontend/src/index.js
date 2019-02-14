@@ -13,6 +13,8 @@ function getAuthoredDataForSearchBar(c, h) {
 function getAuthoredDataForSearchApp(c) {
     return {
         searchPath: c.dataset.baseUrl,
+        isocode: c.dataset.isocode,
+        locale: c.dataset.locale
     };
 }
 
