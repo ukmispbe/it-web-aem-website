@@ -9,5 +9,16 @@
     ${searchResults.categoriesAsJson @ context='unsafe'}
 </script>
 
+<script type="application/json" id="search-results-translations-json">
+    {
+        'sortByHeading': '${"Sort by" @ i18n, context="scriptString"}',
+        'sortByBestMatch': '${"Best Match" @ i18n, context="scriptString"}',
+        'sortByMostRecent': '${"Most Recent" @ i18n, context="scriptString"}',
+        'filterByHeading': '${"Filter by" @ i18n, context="scriptString"}',
+        'clearAllFilters': '${"Clear All" @ i18n, context="scriptString"}',
+        'filterSearchPlaceholder': '${"Search" @ i18n, context="scriptString"}'
+    }
+</script>
+
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
      data-sly-call="${patterns.placeholder @ show=true, text=component.title}"/>
