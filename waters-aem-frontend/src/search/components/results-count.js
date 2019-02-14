@@ -8,7 +8,7 @@ const ResultsCount = ({ current, rows, count, query, noQuery }) => {
             for <strong>{query}</strong>
         </span>
     );
-    console.log(noQuery);
+
     return (
         <h2 className="cmp-search__resultsCount">
             Showing {startResults}-{endResults} of {count} results{' '}
