@@ -12,6 +12,7 @@ import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.link.Link;
+import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
@@ -26,6 +27,7 @@ import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
+import java.util.Calendar;
 import java.util.List;
 
 @Component(value = "External Footer",
@@ -39,7 +41,7 @@ import java.util.List;
     path = WatersConstants.COMPONENT_PATH_STRUCTURE)
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public class ExternalFooter implements ComponentExporter {
+public class ExternalFooter extends AbstractComponent implements ComponentExporter {
 
     @Self
     private Resource resource;
@@ -69,8 +71,16 @@ public class ExternalFooter implements ComponentExporter {
         fieldDescription = "Enter the copyright text",
         ranking = 4)
     @TextField
-    @InheritInject
-    private String copyrightText;
+    public String getCopyrightText() {
+        final String defaultCopyrightText = new StringBuilder()
+            .append("© ")
+            .append(Calendar.getInstance().get(Calendar.YEAR))
+            .append(" Waters Corporation. All Rights Reserved.")
+            .toString();
+
+        return getInherited("copyrightText", defaultCopyrightText);
+    }
+
 
     @DialogField(fieldLabel = "Open in New Window",
         fieldDescription = "Select this option to open in new window",
@@ -97,10 +107,6 @@ public class ExternalFooter implements ComponentExporter {
 
     public String getLogoAltText() {
         return logoAltText;
-    }
-
-    public String getCopyrightText() {
-        return copyrightText;
     }
 
     public Boolean isNewWindow() {
