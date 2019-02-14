@@ -27,7 +27,7 @@ public abstract class AbstractNotificationWorkflowProcess {
 
         UserManager userManager = resolver.adaptTo(UserManager.class);
         Map<String, String> emailParams = getEmailParams(resolver, item, reviewerId, recipientId);
-        String emailAddress = getEmailAddress(userManager, reviewerId);
+        String emailAddress = getEmailAddress(userManager, recipientId);
         if(!StringUtils.isBlank(emailAddress)){
             emailService.sendEmail(templatePath, emailParams , emailAddress);
         }
