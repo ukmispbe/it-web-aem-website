@@ -8,16 +8,16 @@
     @include font-body;
     border-collapse: collapse;
     td,th {
-        padding: $space-s $space-l $space-xxs 0;
+        padding: $space-xs $space-l $space-xxxs 0;
         text-align: left;
         vertical-align: top;
     }
     td p {
         margin-bottom: $space-xxs;
     }
-    th{
-        font-weight: $font-weight-regular;
-        padding-bottom: $space-s;
+    th p {
+        font-weight: $font-weight-bold;
+        margin-bottom: $space-xxs;
     }
     tr {
         border-bottom: 1px solid $color-gray-20;
@@ -43,6 +43,21 @@
         thead {
             display:none;
         }
+    }
+}
+
+.cmp-table .cmp-table__table {
+    @include mobile {
+        td p {
+            font-size: $font-size-body;
+            line-height: $line-height-text;
+            letter-spacing: $letter-spacing-small;
+            }
+        th p {
+            font-size: $font-size-body;
+            line-height: $line-height-text;
+            letter-spacing: $letter-spacing-small;
+            }
     }
 }
 
