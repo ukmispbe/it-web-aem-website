@@ -1,0 +1,43 @@
+// Styles for both lists and search results
+
+@mixin list-container {
+    float: left;
+    width: 100%;
+    margin-bottom: $space-m;
+}
+
+@mixin list-styles {
+    list-style: none;
+    padding-left: 0;
+    float: left;
+    width: 100%;
+    margin: 0;
+}
+
+@mixin list-item {
+    display: block;
+    float:left;
+    width: 100%;
+
+    &-title {
+        font-size: $font-size-h3;
+    }
+
+    &-link {
+        display: block;
+        margin-bottom: 0;
+    }
+
+    &-description {
+        margin: $space-xxs 0;
+        @include multiLineEllipsis($lineCount: 3);
+    }
+
+    &-date {
+        font-size: $font-size-small;
+
+        @include mobile {
+            font-size: $font-size-small-m;
+        }
+    }
+}
