@@ -10,9 +10,12 @@ function getAuthoredDataForSearchBar(c, h) {
         icon: c.dataset.iconUrl,
     };
 }
-function getAuthoredDataForSearchApp(c) {
+function getAuthoredDataForSearchApp(c, s) {
     return {
         searchPath: c.dataset.baseUrl,
+        searchText: s,
+        isocode: c.dataset.isocode,
+        locale: c.dataset.locale,
     };
 }
 
@@ -34,12 +37,17 @@ if (searchBarContainer && header) {
 const searchAppContainer = document.getElementById('js-search-app');
 
 if (searchAppContainer) {
+    const text = JSON.parse(
+        document.getElementById('search-results-translations-json').innerHTML
+    );
+    console.log(text);
     const data = getAuthoredDataForSearchApp(searchAppContainer);
     ReactDOM.render(
         <Search
             defaultFacet="category_facet:waters%253Acategory%252Fapplicationslibrary"
             searchDefaults={{ rows: 25 }}
             searchServicePath={data.searchPath}
+            searchText={text}
         />,
         searchAppContainer
     );
