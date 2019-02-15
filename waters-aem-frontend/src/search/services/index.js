@@ -36,10 +36,14 @@ export class SearchService {
         return window.fetch(searchString).then(response => response.json());
     }
 
-    getQueryParamString({ keyword = '*:*', page = 1 } = {}, facets) {
+    getQueryParamString(
+        { keyword = '*:*', page = 1, sort = 'most relevant' } = {},
+        facets
+    ) {
         const fullParams = Object.assign({}, this.options, {
             keyword,
             page,
+            sort,
         });
 
         let paramString = queryString.stringify(fullParams);

@@ -18,7 +18,11 @@ const Results = ({ results }) => {
         return <Result result={result} key={i} />;
     });
 
-    return <ul className="cmp-search__results">{mappedResults}</ul>;
+    return (
+        <div className="cmp-search__results-container">
+            <ul className="cmp-search__results">{mappedResults}</ul>
+        </div>
+    );
 };
 
 export default Results;

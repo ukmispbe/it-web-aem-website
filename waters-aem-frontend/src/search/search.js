@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { SearchService } from './services/index';
 import { parse } from 'query-string';
 import { withRouter } from 'react-router-dom';
@@ -6,6 +6,8 @@ import ReactPaginate from 'react-paginate';
 
 import ResultsCount from './components/results-count';
 import Results from './components/results';
+
+import Sort from './components/sort';
 
 class Search extends Component {
     constructor() {
@@ -26,7 +28,9 @@ class Search extends Component {
             rows: this.props.searchDefaults
                 ? this.props.searchDefaults && this.props.searchDefaults.rows
                 : 25,
+            sort: 'most relevant',
         });
+
         this.performSearch();
     }
 
@@ -35,9 +39,13 @@ class Search extends Component {
     }
 
     performSearch() {
-        const query = this.search.createQueryObject(
+        let query = this.search.createQueryObject(
             parse(window.location.search)
         );
+
+        if (!query.sort && this.state) {
+            query = Object.assign({}, query, { sort: this.state.sort });
+        }
 
         const rows =
             this.props.searchDefaults && this.props.searchDefaults.rows
@@ -89,11 +97,42 @@ class Search extends Component {
         );
     }
 
-    render() {
+    sortHandler(e) {
+        const sortOption =
+            parseInt(e.target.value) === 1 ? 'most relevant' : 'most recent';
         const state = this.state;
         const searchParams = this.state.searchParams || {};
+
+        this.setState(Object.assign({}, state, { sort: sortOption }));
+
+        const qString = `?${this.search.getQueryParamString(
+            {
+                keyword: state.query,
+                page: 1,
+                sort: sortOption,
+            },
+            searchParams.facets
+        )}`;
+
+        this.props.history.push(qString);
+    }
+
+    render() {
+        // console.log(this.props);
+        const state = this.state;
+        const searchParams = this.state.searchParams || {};
+        const overlay = <div class="overlay" />;
+        const aside = (
+            <div className="container__left cmp-search__sort-filter">
+                <Sort
+                    sortHandler={this.sortHandler.bind(this)}
+                    sortValue={state.sort === 'most recent' ? 2 : 1}
+                    text={this.props.searchText}
+                />
+            </div>
+        );
         const results = (
-            <div>
+            <div className="cmp-search__container">
                 <ResultsCount
                     rows={state.rows}
                     count={state.count}
@@ -118,7 +157,8 @@ class Search extends Component {
             </div>
         );
         return (
-            <div className="cmp-search__container">
+            <div>
+                {aside}
                 {state.loading ? 'Loading' : null}
                 {!state.loading && state.noResults ? 'No Results' : results}
             </div>

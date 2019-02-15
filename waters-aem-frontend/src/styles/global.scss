@@ -66,12 +66,12 @@ body {
     padding: 0 80px;
 
     &__left {
-        width: 18%;
+        width: 25%;
         float: left;
     }
 
     &__content {
-        width: 80%;
+        width: 75%;
         float: right;
 
         @include mobile {
@@ -114,7 +114,7 @@ a {
 .overlay {
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.6);
     position: absolute;
     top: 0;
     left: 0;
@@ -127,5 +127,5 @@ a {
 .clearfix:after {
     display: table;
     clear: both;
-    content: "";
+    content: '';
 }
