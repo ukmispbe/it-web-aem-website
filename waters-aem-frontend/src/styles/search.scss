@@ -5,10 +5,14 @@
 
     @include tablet {
         width: 100%;
+        float: none;
+        padding-left: 0;
     }
 
     @include mobile {
         width: 100%;
+        float: none;
+        padding-left: 0;
     }
 }
 
@@ -61,5 +65,13 @@
                 color: $color-font-light;
             }
         }
+    }
+}
+
+.btn-show-sort-filter {
+    float: right;
+    display: none;
+    @include tablet-and-under {
+        display: block;
     }
 }
