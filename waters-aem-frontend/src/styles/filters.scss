@@ -231,3 +231,21 @@
         width: 40%;
     }
 }
+
+.show-sort-filters {
+    .cmp-search__sort-filter, .overlay {
+        @include tablet-and-under {
+            display: block;
+        }
+    }
+    .cmp-search__sort-filter {
+        @include tablet-and-under {
+            height: 100%;
+            z-index: 1;
+        }
+    }
+    .container {
+        max-height: calc(100vh - 6.5em);
+        overflow: hidden;
+    }
+}
