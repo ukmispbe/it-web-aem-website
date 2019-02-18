@@ -8,6 +8,7 @@ import ResultsCount from './components/results-count';
 import Results from './components/results';
 
 import Sort from './components/sort';
+import BtnShowSortFilter from './components/btn-show-sort-filter'; 
 
 class Search extends Component {
     constructor() {
@@ -105,6 +106,8 @@ class Search extends Component {
 
         this.setState(Object.assign({}, state, { sort: sortOption }));
 
+        document.body.classList.remove('show-sort-filters');
+
         const qString = `?${this.search.getQueryParamString(
             {
                 keyword: state.query,
@@ -133,6 +136,9 @@ class Search extends Component {
         );
         const results = (
             <div className="cmp-search__container">
+
+                <BtnShowSortFilter />
+
                 <ResultsCount
                     rows={state.rows}
                     count={state.count}
