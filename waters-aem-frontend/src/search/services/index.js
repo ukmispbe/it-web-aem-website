@@ -27,8 +27,13 @@ export class SearchService {
         this.defaultFacet = defaultFacet;
     }
 
-    call({ keyword = '*:*', facets = {}, page = 1 } = {}) {
-        const paramString = this.getQueryParamString({ keyword, page });
+    call({
+        keyword = '*:*',
+        facets = {},
+        page = 1,
+        sort = 'most relevant',
+    } = {}) {
+        const paramString = this.getQueryParamString({ keyword, page, sort });
         const facetString = this.getQueryFacetString(facets);
 
         const searchString = `${this.path}/${facetString}?${paramString}`;
@@ -97,6 +102,7 @@ export class SearchService {
         obj['keyword'] = params.keyword;
         obj['page'] = params.page || 1;
         obj['facets'] = {};
+        obj['sort'] = params.sort;
 
         if (params.facet) {
             const facets = params.facet;

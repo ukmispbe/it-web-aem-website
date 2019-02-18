@@ -15,16 +15,15 @@ class ShowSortFilter extends Component {
     render() {
         const props = this.props;
         return (
-            <a 
-            href="javascript:void(0);"
-            onClick={this.handleInput}
-            class="btn-show-sort-filter"
+            <a
+                href="javascript:void(0);"
+                onClick={this.handleInput}
+                className="btn-show-sort-filter"
             >
                 Sort and Filter
             </a>
         );
     }
-
-};
+}
 
 export default ShowSortFilter;

@@ -8,7 +8,7 @@ import ResultsCount from './components/results-count';
 import Results from './components/results';
 
 import Sort from './components/sort';
-import BtnShowSortFilter from './components/btn-show-sort-filter'; 
+import BtnShowSortFilter from './components/btn-show-sort-filter';
 
 class Search extends Component {
     constructor() {
@@ -39,10 +39,10 @@ class Search extends Component {
         this.performSearch();
     }
 
-    performSearch() {
-        let query = this.search.createQueryObject(
-            parse(window.location.search)
-        );
+    performSearch(q) {
+        let query = q
+            ? this.search.createQueryObject(q)
+            : this.search.createQueryObject(parse(window.location.search));
 
         if (!query.sort && this.state) {
             query = Object.assign({}, query, { sort: this.state.sort });
@@ -118,10 +118,11 @@ class Search extends Component {
         )}`;
 
         this.props.history.push(qString);
+
+        this.performSearch(qString);
     }
 
     render() {
-        // console.log(this.props);
         const state = this.state;
         const searchParams = this.state.searchParams || {};
         const overlay = <div class="overlay" />;
@@ -136,7 +137,6 @@ class Search extends Component {
         );
         const results = (
             <div className="cmp-search__container">
-
                 <BtnShowSortFilter />
 
                 <ResultsCount
