@@ -21,7 +21,7 @@ import org.osgi.service.component.annotations.Reference;
 })
 public class RejectPublishRequestNotificationStep extends AbstractNotificationWorkflowProcess implements WorkflowProcess {
 
-    private static final String TEMPLATE_PATH = "/etc/notification/email/waters/reject-publish-request.txt";
+    private static final String TEMPLATE_PATH = "/etc/notification/email/waters/design-review-email-template.html";
 
     @Reference
     private EmailService emailService;
@@ -34,6 +34,9 @@ public class RejectPublishRequestNotificationStep extends AbstractNotificationWo
         String authorId = valueMap.get(WorkflowConstants.SCIENTIST_ID).toString();
         String initiatorId = item.getWorkflow().getInitiator();
         String reviewerId = WorkflowUtils.getReviewerId(item);
+
+        MetaDataMap metadataMap = item.getWorkflowData().getMetaDataMap();
+        metadataMap.put(WorkflowConstants.REVIEW_STEP,WorkflowConstants.PUBLISH_REQUEST_REJECTED);
 
         if(!StringUtils.isBlank(initiatorId)) {
             sendNotification(resolver, item, reviewerId, initiatorId, TEMPLATE_PATH, emailService);
