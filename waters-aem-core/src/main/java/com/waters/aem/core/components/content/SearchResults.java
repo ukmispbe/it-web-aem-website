@@ -50,7 +50,7 @@ public final class SearchResults {
      * @return language code from page locale
      */
     public String getLocale() {
-        return siteContext.getLocale().getLanguage();
+        return siteContext.getLocale().toLanguageTag();
     }
 
     public String getBaseUrl() {

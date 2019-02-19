@@ -14,6 +14,9 @@ const clientlibPath =
     'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-site';
 
 compiler.run((err, stats) => {
+    if (err) {
+        console.log(err);
+    }
     console.log('Compiler Finished, moving files to AEM');
     const css = path.resolve(__dirname, '../', 'build', 'main.css');
     const js = path.resolve(__dirname, '../', 'build', 'main.js');
