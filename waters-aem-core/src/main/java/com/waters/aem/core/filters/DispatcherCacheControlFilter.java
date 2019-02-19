@@ -82,12 +82,12 @@ public final class DispatcherCacheControlFilter implements Filter {
 
     @Override
     public void init(final FilterConfig filterConfig) {
-
+        // do nothing
     }
 
     @Override
     public void destroy() {
-
+        // do nothing
     }
 
     @Activate
