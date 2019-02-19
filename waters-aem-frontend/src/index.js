@@ -62,21 +62,18 @@ if (searchAppContainer) {
 }
 
 const tagCloudContainer = document.getElementById('js-tag-cloud');
-const header = document.querySelector('.cmp-external-header');
 
 if (tagCloudContainer) {
-    const tagFacets = JSON.parse(
+    var text = JSON.parse(
         document.getElementById('tag-cloud-facets-json').innerHTML
     );
-    console.log(tagFacets);
+    console.log(text);
     const data = getAuthoredDataForTagCloud(header, tagCloudContainer);
     ReactDOM.render(
         <TagCloud
-            defaultFacet="category_facet:waters%253Acategory%252Fapplicationslibrary"
-            searchDefaults={{ rows: 25 }}
-            searchServicePath={data.searchPath}
-            tagCloudTitle={data.tagTitle}
-            tagFacets={text}
+            tagtitle={data.tagTitle}
+            searchPath={data.searchPath}
+            keywords={text}
         />,
         tagCloudContainer
     );
