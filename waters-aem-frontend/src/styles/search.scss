@@ -41,6 +41,22 @@
     @include list-item-thumbnail;
 }
 
+.cmp-search__no-results {
+    border: 1px solid $color-gray-30;
+    text-align: center;
+    padding: $space-xxl 0;
+    .icon {
+        margin: 0 auto $space-s auto;
+        height: $icon-xl;
+        width: $icon-xl;
+        svg {
+            .st0 {
+                stroke: $color-gray-30;
+            }
+        }
+    }
+}
+
 .paginate__container {
     display: flex;
     align-items: center;
