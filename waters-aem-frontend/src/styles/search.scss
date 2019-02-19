@@ -28,6 +28,19 @@
     @include list-item;
 }
 
+.cmp-search__results-body {
+    width: 100%;
+    float: left;
+
+    &--image {
+        @include list-item-body-includes-thumbnail;
+    }
+}
+
+.cmp-search__results-thumbnail {
+    @include list-item-thumbnail;
+}
+
 .paginate__container {
     display: flex;
     align-items: center;
@@ -63,6 +76,47 @@
             a {
                 background: $color-background-dark;
                 color: $color-font-light;
+            }
+        }
+
+        &.next,
+        &.previous {
+            a {
+                &:hover {
+                    svg .st0 {
+                        stroke: $color-link;
+                    }
+                }
+            }
+            > a > div {
+                height: 24px;
+                width: 15px;
+            }
+            svg {
+                width: 24px;
+                height: 20px;
+                margin-left: -5px;
+                margin-top: 3px;
+
+                .st0 {
+                    stroke: $color-font-dark;
+                }
+            }
+
+            &.disabled {
+                a {
+                    cursor: default;
+
+                    svg .st0 {
+                        stroke: $color-disabled;
+                    }
+
+                    &:hover {
+                        svg .st0 {
+                            stroke: $color-disabled;
+                        }
+                    }
+                }
             }
         }
     }

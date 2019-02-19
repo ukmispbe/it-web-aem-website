@@ -3,6 +3,7 @@ import { SearchService } from './services/index';
 import { parse } from 'query-string';
 import { withRouter } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
+import ReactSVG from 'react-svg';
 
 import ResultsCount from './components/results-count';
 import Results from './components/results';
@@ -124,6 +125,7 @@ class Search extends Component {
     }
 
     render() {
+        console.log(this.props);
         const state = this.state;
         const searchParams = this.state.searchParams || {};
         const overlay = <div class="overlay" />;
@@ -136,7 +138,11 @@ class Search extends Component {
                 />
             </div>
         );
-        console.log(this.props.searchText);
+        const locale = this.props.searchLocale;
+        console.log(this.props.searchText.previousIcon);
+        const previousIcon = (
+            <ReactSVG src={this.props.searchText.previousIcon} />
+        );
         const results = (
             <div className="cmp-search__container">
                 <BtnShowSortFilter />
@@ -153,7 +159,10 @@ class Search extends Component {
                     noQuery={state.noQuery}
                 />
 
-                <Results results={state.results[searchParams.page] || []} />
+                <Results
+                    results={state.results[searchParams.page] || []}
+                    locale={locale}
+                />
 
                 <ReactPaginate
                     pageCount={state.pagination.amount}
@@ -161,10 +170,13 @@ class Search extends Component {
                     marginPagesDisplayed={0}
                     containerClassName="paginate__container"
                     onPageChange={this.paginationClickHandler.bind(this)}
+                    previousLabel={previousIcon}
+                    nextLabel={
+                        <ReactSVG src={this.props.searchText.nextIcon} />
+                    }
                 />
             </div>
         );
-        console.log(state.noResults);
         return (
             <div>
                 {!state.loading && state.noResults ? null : aside}

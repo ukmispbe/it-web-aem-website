@@ -1,5 +1,5 @@
 .cmp-list {
-     @include list-container;
+    @include list-container;
     // float: left;
     // width: 100%;
     // margin-bottom: $space-m;
@@ -44,30 +44,11 @@
 
     &--image {
         .cmp-list__item-body {
-            float: left;
-            width: calc(100% - 14em);
-            margin-right: $space-l;
-
-            @include mobile {
-                width: 100%;
-            }
+            @include list-item-body-includes-thumbnail;
         }
 
         .cmp-list__item-thumbnail {
-            float: right;
-            width: 12em;
-
-            img {
-                width: 100%;
-                border: 1px solid $color-border-light;
-                margin-bottom: $space-s;
-            }
-
-            @include mobile {
-                width: 100%;
-                margin-bottom: 0;
-                margin-top: $space-s;
-            }
+            @include list-item-thumbnail;
         }
     }
 }

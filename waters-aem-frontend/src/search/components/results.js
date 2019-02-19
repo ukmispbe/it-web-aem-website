@@ -1,21 +1,47 @@
 import React from 'react';
 
-const Result = ({ result }) => {
+const monthNameFormatter = (date, locale = 'en-us') => {
+    return date.toLocaleString(locale, { month: 'long' });
+};
+
+const Result = ({ result, locale }) => {
+    const thumbnail = (
+        <div className="cmp-search__results-thumbnail">
+            <a className="cmp-search__results-link" href={result.url}>
+                <img src={result.thumbnail} alt={result.title} />
+            </a>
+        </div>
+    );
+    console.log('LOCALE:', locale);
+    const date = new Date(result.yearpublished);
+    const monthName = monthNameFormatter(date, locale);
+    const formattedDate = monthName + ' ' + date.getFullYear();
     return (
         <li className="cmp-search__results-item" key={result.literaturecode}>
+            {result.thumbnail && thumbnail}
+            <div
+                className={`cmp-search__results-body ${
+                    result.thumbnail ? 'cmp-search__results-body--image' : ''
+                }`}
+            />
             <a href={result.url} className="cmp-search__results-item-link">
                 {result.title}
             </a>
             <p className="cmp-search__results-item-description">
                 {result.description}
             </p>
+            {result.yearpublished && (
+                <span className="cmp-search__results-date">
+                    {formattedDate}
+                </span>
+            )}
         </li>
     );
 };
 
-const Results = ({ results }) => {
+const Results = ({ results, locale }) => {
     const mappedResults = results.map((result, i) => {
-        return <Result result={result} key={i} />;
+        return <Result result={result} locale={locale} key={i} />;
     });
 
     return (
