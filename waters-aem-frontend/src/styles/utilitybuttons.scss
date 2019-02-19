@@ -21,6 +21,11 @@
         .st0 {
             stroke: $color-gray-50;
         }
+
+        @include mobile {
+            float: right;
+            height: auto;
+        }
     }
 
     &:hover {
@@ -43,5 +48,12 @@
                 stroke: $color-disabled;
             }
         }
+    }
+
+    @include mobile {
+        width: 100%;
+        float: left;
+        font-size: $font-size-body-m;
+        margin: 0 0 $space-s 0;
     }
 }
