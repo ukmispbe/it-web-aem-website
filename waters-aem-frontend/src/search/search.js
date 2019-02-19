@@ -6,6 +6,7 @@ import ReactPaginate from 'react-paginate';
 
 import ResultsCount from './components/results-count';
 import Results from './components/results';
+import NoResults from './components/no-results';
 
 import Sort from './components/sort';
 import BtnShowSortFilter from './components/btn-show-sort-filter';
@@ -69,7 +70,7 @@ class Search extends Component {
                 current: query.page,
                 amount: Math.ceil(res.num_found / rows),
             };
-            newState.noResults = false;
+            newState.noResults = !newState.results[query.page].length;
 
             this.setState(Object.assign({}, this.state, newState));
         });
@@ -135,6 +136,7 @@ class Search extends Component {
                 />
             </div>
         );
+        console.log(this.props.searchText);
         const results = (
             <div className="cmp-search__container">
                 <BtnShowSortFilter />
@@ -162,11 +164,16 @@ class Search extends Component {
                 />
             </div>
         );
+        console.log(state.noResults);
         return (
             <div>
-                {aside}
+                {!state.loading && state.noResults ? null : aside}
                 {state.loading ? 'Loading' : null}
-                {!state.loading && state.noResults ? 'No Results' : results}
+                {!state.loading && state.noResults ? (
+                    <NoResults searchText={this.props.searchText} />
+                ) : (
+                    results
+                )}
             </div>
         );
     }
