@@ -35,21 +35,6 @@
             <div class="overlay"></div>
 
             <div class="container__left cmp-search__sort-filter selected">
-                <!-- SEARCH SORT DROPDOWN -->
-                <div
-                    id="js-search-sortby"
-                    class="cmp-search-sortby"
-                    style="display: none;"
-                >
-                    <h2>Sort by</h2>
-                    <div class="cmp-search-sortby__select">
-                        <select>
-                            <option value="1">Best Match</option>
-                            <option value="2">Most Recent</option>
-                        </select>
-                    </div>
-                </div>
-
                 <!-- SEARCH FILTERS - START -->
                 <div
                     id="js-search-filters"
@@ -452,7 +437,7 @@
                 data-icon-url="/path/icon.svg"
                 data-placeholder="Search by keyword"
             ></div>
-            <div id="js-search-app" class=""></div>
+            <div id="js-search-app" class="" data-locale="en-gb"></div>
         </div>
 
         <script type="application/json" id="search-results-translations-json">
@@ -462,7 +447,13 @@
                 "sortByMostRecent": "Most Recent",
                 "filterByHeading": "Filter by",
                 "clearAllFilters": "Clear All",
-                "filterSearchPlaceholder": "Search"
+                "filterSearchPlaceholder": "Search",
+                "resultsText": "Showing {0}-{1} of {2} results",
+                "noResultsTitle": "We didn't find any results for your search.",
+                "noResultsDescription": "Check your spelling or broaden your search by using fewer or more general keywords.",
+                "noResultsIcon": "/repeat.svg",
+                "nextIcon": "/next.svg",
+                "previousIcon": "/previous.svg"
             }
         </script>
 

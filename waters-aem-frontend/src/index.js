@@ -47,6 +47,7 @@ if (searchAppContainer) {
             defaultFacet="category_facet:waters%253Acategory%252Fapplicationslibrary"
             searchDefaults={{ rows: 25 }}
             searchServicePath={data.searchPath}
+            searchLocale={data.locale}
             searchText={text}
         />,
         searchAppContainer

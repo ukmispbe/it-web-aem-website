@@ -3,11 +3,14 @@ import { SearchService } from './services/index';
 import { parse } from 'query-string';
 import { withRouter } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
+import ReactSVG from 'react-svg';
 
 import ResultsCount from './components/results-count';
 import Results from './components/results';
+import NoResults from './components/no-results';
 
 import Sort from './components/sort';
+import BtnShowSortFilter from './components/btn-show-sort-filter';
 
 class Search extends Component {
     constructor() {
@@ -38,10 +41,10 @@ class Search extends Component {
         this.performSearch();
     }
 
-    performSearch() {
-        let query = this.search.createQueryObject(
-            parse(window.location.search)
-        );
+    performSearch(q) {
+        let query = q
+            ? this.search.createQueryObject(q)
+            : this.search.createQueryObject(parse(window.location.search));
 
         if (!query.sort && this.state) {
             query = Object.assign({}, query, { sort: this.state.sort });
@@ -68,7 +71,7 @@ class Search extends Component {
                 current: query.page,
                 amount: Math.ceil(res.num_found / rows),
             };
-            newState.noResults = false;
+            newState.noResults = !newState.results[query.page].length;
 
             this.setState(Object.assign({}, this.state, newState));
         });
@@ -105,6 +108,8 @@ class Search extends Component {
 
         this.setState(Object.assign({}, state, { sort: sortOption }));
 
+        document.body.classList.remove('show-sort-filters');
+
         const qString = `?${this.search.getQueryParamString(
             {
                 keyword: state.query,
@@ -115,10 +120,12 @@ class Search extends Component {
         )}`;
 
         this.props.history.push(qString);
+
+        this.performSearch(qString);
     }
 
     render() {
-        // console.log(this.props);
+        console.log(this.props);
         const state = this.state;
         const searchParams = this.state.searchParams || {};
         const overlay = <div class="overlay" />;
@@ -131,8 +138,15 @@ class Search extends Component {
                 />
             </div>
         );
+        const locale = this.props.searchLocale;
+        console.log(this.props.searchText.previousIcon);
+        const previousIcon = (
+            <ReactSVG src={this.props.searchText.previousIcon} />
+        );
         const results = (
             <div className="cmp-search__container">
+                <BtnShowSortFilter />
+
                 <ResultsCount
                     rows={state.rows}
                     count={state.count}
@@ -145,7 +159,10 @@ class Search extends Component {
                     noQuery={state.noQuery}
                 />
 
-                <Results results={state.results[searchParams.page] || []} />
+                <Results
+                    results={state.results[searchParams.page] || []}
+                    locale={locale}
+                />
 
                 <ReactPaginate
                     pageCount={state.pagination.amount}
@@ -153,14 +170,22 @@ class Search extends Component {
                     marginPagesDisplayed={0}
                     containerClassName="paginate__container"
                     onPageChange={this.paginationClickHandler.bind(this)}
+                    previousLabel={previousIcon}
+                    nextLabel={
+                        <ReactSVG src={this.props.searchText.nextIcon} />
+                    }
                 />
             </div>
         );
         return (
             <div>
-                {aside}
+                {!state.loading && state.noResults ? null : aside}
                 {state.loading ? 'Loading' : null}
-                {!state.loading && state.noResults ? 'No Results' : results}
+                {!state.loading && state.noResults ? (
+                    <NoResults searchText={this.props.searchText} />
+                ) : (
+                    results
+                )}
             </div>
         );
     }
