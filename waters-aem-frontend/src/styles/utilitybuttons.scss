@@ -1,18 +1,17 @@
 .cmp-utility-button {
-
-      padding: 0.6em $space-xs $space-xs;
-      margin: 0 $space-s $space-l 0;
-      background-color: $color-white;
-      border: 1px solid $color-border-dark;
-      height: 2.75em;
-      @include font-utility;
-      color: $color-font-medium;
-      transition: all 0.25s ease;
-      text-decoration: none;
+    padding: 0.6em $space-xs $space-xs;
+    margin: 0 $space-s $space-l 0;
+    background-color: $color-white;
+    border: 1px solid $color-border-dark;
+    height: 2.75em;
+    @include font-utility;
+    color: $color-font-medium;
+    transition: all 0.25s ease;
+    text-decoration: none;
 
     img.inline-svg {
-          display: none;
-         }
+        display: none;
+    }
 
     svg {
         width: $icon-m;
@@ -32,18 +31,18 @@
     &:hover {
         color: $color-link;
         text-decoration: none;
+
         svg {
             .st0 {
                 stroke: $color-link;
             }
         }
-
-
     }
 
     &:disabled {
         border: 1px solid $color-disabled;
         color: $color-disabled;
+
         svg {
             .st0 {
                 stroke: $color-disabled;

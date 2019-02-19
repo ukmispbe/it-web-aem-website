@@ -10,8 +10,6 @@ public class WorkflowConstants {
 
     public static final String INBOX_PATH = "/aem/inbox";
 
-    public static final String STEP_TITLE = "reviewStep";
-
     public static final String REVIEWER_ID = "reviewerId";
 
     public static final String SCIENTIST_ID = "scientistId";
@@ -37,6 +35,14 @@ public class WorkflowConstants {
     public static final String REVIEW_STEP = "reviewStep";
 
     public static final String PROFILE_EMAIL = "profile/email";
+
+    public static final String PUBLISH_REQUEST_REJECTED = "Publish Request Rejected";
+
+    public static final String EDITOR_HTML = "/editor.html";
+
+    public static final String REVIEW_NOTIFICATION_TEXT = "The Application Note <b>${pageTitle}</b> is ready for your review and approval.";
+
+    public static final String REJECTION_NOTIFICATION_TEXT = "There have been revisions requested for Application Note <b>${pageTitle}</b>";
 
     private WorkflowConstants() {
 

@@ -1,0 +1,24 @@
+.cmp-tag-cloud__list {
+    float: left;
+    list-style: none;
+}
+
+.cmp-tag-cloud__item {
+    @include font-small;
+    float: left;
+    padding: $space-xxs $space-xs;
+    margin: 0 $space-s $space-s 0;
+    background-color: $color-blue-10;
+    a {
+        text-decoration: none;
+    }
+    &:hover {
+        background-color: $color-blue-20;
+        color: $color-link-hover;
+        cursor:pointer;
+    }
+    &:active {
+        background-color: $color-blue-10;
+        color: $color-link;
+    }
+}
