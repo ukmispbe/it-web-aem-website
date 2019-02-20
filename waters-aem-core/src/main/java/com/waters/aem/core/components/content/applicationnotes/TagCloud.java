@@ -54,10 +54,7 @@ public final class TagCloud extends AbstractComponent implements ComponentExport
     }
 
     public String getTagCloudFacetsAsJson() throws JsonProcessingException {
-        return MAPPER.writeValueAsString(pageMetadata.getSearchTags()
-                .stream()
-                .map(tag -> new SearchFacet(tag.getTitle(siteContext.getLocale()), tag.getParent().getName()))
-                .collect(Collectors.toList()));
+        return MAPPER.writeValueAsString(getSearchFacets());
     }
 
     public String getTitle() {
