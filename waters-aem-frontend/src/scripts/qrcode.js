@@ -7,6 +7,7 @@ qrCode.toDataURL(url, function (err, url) {
     var img = document.createElement('img');
 
     img.src = url;
+    img.setAttribute('class', 'cmp-qr-code__img');
 
     component.appendChild(img);
 });
