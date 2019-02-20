@@ -7,8 +7,8 @@
 .cmp-tag-cloud__item {
     @include font-small;
     float: left;
-    padding: $space-xxs $space-xs;
-    margin: 0 $space-s $space-s 0;
+    padding: $space-xxxs $space-xs $space-xxs $space-xs;
+    margin: 0 $space-xs $space-xs 0;
     background-color: $color-blue-10;
     a {
         text-decoration: none;
