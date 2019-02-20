@@ -21,7 +21,7 @@ import org.osgi.service.component.annotations.Reference;
 })
 public class ReviewRequestedNotificationStep extends AbstractNotificationWorkflowProcess implements WorkflowProcess {
 
-    private static final String TEMPLATE_PATH = "/etc/notification/email/waters/review-request.txt";
+    private static final String TEMPLATE_PATH = "/etc/notification/email/waters/design-review-email-template.html";
 
     @Reference
     private EmailService emailService;
@@ -34,6 +34,7 @@ public class ReviewRequestedNotificationStep extends AbstractNotificationWorkflo
         String authorId = valueMap.get(WorkflowConstants.SCIENTIST_ID).toString();
         String initiatorId = item.getWorkflow().getInitiator();
         String reviewerId = WorkflowUtils.getReviewerId(item);
+        String reviewStep = WorkflowUtils.getReviewStep(item);
 
         if(!StringUtils.isBlank(reviewerId)){
             sendNotification(resolver, item, reviewerId, reviewerId, TEMPLATE_PATH, emailService);
@@ -43,7 +44,7 @@ public class ReviewRequestedNotificationStep extends AbstractNotificationWorkflo
             sendNotification(resolver, item, reviewerId, initiatorId, TEMPLATE_PATH, emailService);
         }
 
-        if(!StringUtils.isBlank(authorId)) {
+        if(!StringUtils.isBlank(authorId) && !reviewStep.equals(WorkflowConstants.SCIENTIST_REVIEW_STEP)) {
             sendNotification(resolver, item, reviewerId, authorId, TEMPLATE_PATH, emailService);
         }
 

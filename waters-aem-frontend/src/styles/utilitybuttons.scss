@@ -8,8 +8,8 @@
       text-decoration: none;
 
     img.inline-svg {
-          display: none;
-         }
+        display: none;
+    }
 
     svg {
         width: $icon-m;
@@ -31,18 +31,18 @@
     &:hover {
         color: $color-link;
         text-decoration: none;
+
         svg {
             .st0 {
                 stroke: $color-link;
             }
         }
-
-
     }
 
     &:disabled {
         border: 1px solid $color-disabled;
         color: $color-disabled;
+
         svg {
             .st0 {
                 stroke: $color-disabled;
