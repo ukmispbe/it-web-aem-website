@@ -1,13 +1,8 @@
-<div
-     id="js-tag-cloud"
+<div id="js-tag-cloud"
      data-sly-use.tagCloud="com.waters.aem.core.components.content.applicationnotes.TagCloud"
      data-sly-test="${tagCloud.searchFacets}"
      data-title="${tagCloud.title}"
      class="cmp-tag-cloud">
-    <h3 data-sly-test="${tagCloud.title}">${tagCloud.title}</h3>
-    <!--<ul class="cmp-tag-cloud__list" data-sly-list.searchFacet="${tagCloud.searchFacets}">
-        <li class="cmp-tag-cloud__item"><a onclick="${searchFacet.filter}" >${searchFacet.title}</a></li>
-    </ul>-->
 </div>
 
 <script type="application/json" id="tag-cloud-facets-json">

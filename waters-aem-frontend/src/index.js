@@ -71,7 +71,7 @@ if (tagCloudContainer) {
     const data = getAuthoredDataForTagCloud(header, tagCloudContainer);
     ReactDOM.render(
         <TagCloud
-            tagtitle={data.tagTitle}
+            tagCloudTitle={data.tagTitle}
             searchPath={data.searchPath}
             keywords={text}
         />,
