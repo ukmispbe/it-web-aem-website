@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './search/components/searchbar';
 import Search from './search/index';
+import TagCloud from './search/components/tagcloud';
 
 function getAuthoredDataForSearchBar(c, h) {
     return {
@@ -17,6 +18,13 @@ function getAuthoredDataForSearchApp(c, s) {
         isocode: c.dataset.isocode,
         locale: c.dataset.locale,
     };
+}
+
+function getAuthoredDataForTagCloud(h, t){
+     return {
+            searchPath: h.dataset.searchPath,
+            tagTitle: t.dataset.title,
+        };
 }
 
 const searchBarContainer = document.getElementById('js-search-bar');
@@ -51,5 +59,23 @@ if (searchAppContainer) {
             searchText={text}
         />,
         searchAppContainer
+    );
+}
+
+const tagCloudContainer = document.getElementById('js-tag-cloud');
+
+if (tagCloudContainer) {
+    var text = JSON.parse(
+        document.getElementById('tag-cloud-facets-json').innerHTML
+    );
+    console.log(text);
+    const data = getAuthoredDataForTagCloud(header, tagCloudContainer);
+    ReactDOM.render(
+        <TagCloud
+            tagCloudTitle={data.tagTitle}
+            searchPath={data.searchPath}
+            keywords={text}
+        />,
+        tagCloudContainer
     );
 }
