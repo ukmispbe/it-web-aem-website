@@ -1,3 +1,6 @@
+.cmp-title__print{
+    display:none
+}
 @media print {
     @page {
         margin: 60px;
@@ -41,7 +44,7 @@
         float: right;
         p {
            font-size: 0.9em;
-           color: red;
+           color: $color-gray-50;
         }
     }
 
@@ -64,7 +67,7 @@
         }
     }
 
-    .cmp-title__text {
+    .cmp-title__print {
         border-top: 1px solid #c6cdd2;
         width: 100%;
         @include font-small;
