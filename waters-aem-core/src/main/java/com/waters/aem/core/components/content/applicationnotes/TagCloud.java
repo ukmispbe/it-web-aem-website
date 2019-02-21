@@ -6,6 +6,8 @@ import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.IncludeDialogFields;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
@@ -24,6 +26,8 @@ import java.util.stream.Collectors;
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class TagCloud extends AbstractComponent implements ComponentExporter {
+
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @Self
     private SiteContext siteContext;
@@ -47,6 +51,10 @@ public final class TagCloud extends AbstractComponent implements ComponentExport
             .stream()
             .map(tag -> new SearchFacet(tag.getTitle(siteContext.getLocale()), tag.getParent().getName()))
             .collect(Collectors.toList());
+    }
+
+    public String getTagCloudFacetsAsJson() throws JsonProcessingException {
+        return MAPPER.writeValueAsString(getSearchFacets());
     }
 
     public String getTitle() {

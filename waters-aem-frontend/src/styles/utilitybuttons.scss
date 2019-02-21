@@ -1,13 +1,11 @@
 .cmp-utility-button {
-    padding: 0.6em $space-xs $space-xs;
-    margin: 0 $space-s $space-l 0;
-    background-color: $color-white;
-    border: 1px solid $color-border-dark;
-    height: 2.75em;
-    @include font-utility;
-    color: $color-font-medium;
-    transition: all 0.25s ease;
-    text-decoration: none;
+
+      padding: ($space-xxs + 0.1em) $space-xs $space-xs $space-s;
+      background-color: $color-white;
+      border: 1px solid $color-border-dark;
+      @include font-utility;
+      transition: all 0.25s ease;
+      text-decoration: none;
 
     img.inline-svg {
         display: none;
@@ -15,7 +13,7 @@
 
     svg {
         width: $icon-m;
-        height: 24px;
+        height: $icon-m;
         vertical-align: text-top;
 
         .st0 {
@@ -25,6 +23,8 @@
         @include mobile {
             float: right;
             height: auto;
+            width: $icon-m;
+            height: ($icon-m + .25em);
         }
     }
 
@@ -54,6 +54,11 @@
         width: 100%;
         float: left;
         font-size: $font-size-body-m;
-        margin: 0 0 $space-s 0;
+        padding: $space-xxs $space-xs $space-xxs $space-xs;
+        margin: 0 0 0 0;
     }
+}
+
+div.pdfbutton {
+    margin-bottom: $space-l;
 }
