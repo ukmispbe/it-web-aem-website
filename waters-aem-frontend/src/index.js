@@ -20,11 +20,11 @@ function getAuthoredDataForSearchApp(c, s) {
     };
 }
 
-function getAuthoredDataForTagCloud(h, t){
-     return {
-            searchPath: h.dataset.searchPath,
-            tagTitle: t.dataset.title,
-        };
+function getAuthoredDataForTagCloud(h, t) {
+    return {
+        searchPath: h.dataset.searchPath,
+        tagTitle: t.dataset.title,
+    };
 }
 
 const searchBarContainer = document.getElementById('js-search-bar');

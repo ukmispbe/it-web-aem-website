@@ -41,6 +41,13 @@ export class SearchService {
         return window.fetch(searchString).then(response => response.json());
     }
 
+    getParamsFromString() {
+        const str = window.location.search;
+        const obj = queryString.parse(str);
+
+        return obj;
+    }
+
     getQueryParamString(
         { keyword = '*:*', page = 1, sort = 'most relevant' } = {},
         facets
