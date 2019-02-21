@@ -1,4 +1,5 @@
 <div data-sly-use.qrCode="com.waters.aem.core.components.content.applicationnotes.QrCode"
-     class="cmp-qr-code">
-    <img class="cmp-qr-code__img" src="${qrCode.imageSource}">
+     class="cmp-qr-code"
+     data-url="${qrCode.externalizedPageUrl}">
+    <span class="cmp-qr-code__text">${qrCode.text @ context='html'}</span>
 </div>
