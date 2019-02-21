@@ -1,3 +1,4 @@
 #base=.
 
+js/es6-promise.js
 js/main.js

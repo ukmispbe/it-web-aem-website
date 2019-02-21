@@ -7,9 +7,7 @@ const monthNameFormatter = (date, locale = 'en-us') => {
 const Result = ({ result, locale }) => {
     const thumbnail = (
         <div className="cmp-search__results-thumbnail">
-            <a className="cmp-search__results-link" href={result.url}>
                 <img src={result.thumbnail} alt={result.title} />
-            </a>
         </div>
     );
     console.log('LOCALE:', locale);

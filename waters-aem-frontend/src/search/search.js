@@ -24,14 +24,19 @@ class Search extends Component {
             this.props.searchServicePath
         );
 
+        const query = this.search.getParamsFromString();
+        this.query = query;
+
         this.setState({
             loading: true,
             results: {},
-            pagination: {},
+            pagination: {
+                current: this.query.page ? this.query.page : 1,
+            },
             rows: this.props.searchDefaults
                 ? this.props.searchDefaults && this.props.searchDefaults.rows
                 : 25,
-            sort: 'most relevant',
+            sort: this.query.sort ? this.query.sort : 'most relevant',
         });
 
         this.performSearch();
@@ -83,6 +88,7 @@ class Search extends Component {
 
         const newState = Object.assign({}, this.state, {
             pagination: {
+                amount: state.pagination.amount,
                 current: page.selected + 1,
             },
         });
@@ -125,7 +131,6 @@ class Search extends Component {
     }
 
     render() {
-        console.log(this.props);
         const state = this.state;
         const searchParams = this.state.searchParams || {};
         const overlay = <div class="overlay" />;
@@ -139,7 +144,6 @@ class Search extends Component {
             </div>
         );
         const locale = this.props.searchLocale;
-        console.log(this.props.searchText.previousIcon);
         const previousIcon = (
             <ReactSVG src={this.props.searchText.previousIcon} />
         );
@@ -170,9 +174,15 @@ class Search extends Component {
                     marginPagesDisplayed={0}
                     containerClassName="paginate__container"
                     onPageChange={this.paginationClickHandler.bind(this)}
+                    breakLabel={'…'}
                     previousLabel={previousIcon}
                     nextLabel={
                         <ReactSVG src={this.props.searchText.nextIcon} />
+                    }
+                    initialPage={
+                        state.pagination.current
+                            ? state.pagination.current - 1
+                            : 0
                     }
                 />
             </div>
