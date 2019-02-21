@@ -1,23 +1,24 @@
-.cmp-title__print{
-    display:none
+.cmp-title__print {
+    display: none;
 }
+
 @media print {
     @page {
         margin: 60px;
         size: letter;
-            @bottom-right {
-                content: counter(page);
-            }
-    }
-
-    @page:first {
-        .cmp-title__text{
-            display:none;
+        @bottom-right {
+            content: counter(page);
         }
     }
 
-    .cmp-anchor , .cmp-external-header__links, .mopinion-survey-content, .cmp-share, a.cmp-back-to-top, .cmp-external-footer__links, .cmp-external-list__link::after{
-        display:none;
+    @page :first {
+        .cmp-title__text {
+            display: none;
+        }
+    }
+
+    .cmp-anchor, .cmp-external-header__links, .mopinion-survey-content, .cmp-share, a.cmp-back-to-top, .cmp-external-footer__links, .cmp-external-list__link::after {
+        display: none;
     }
 
     .layoutcontainer .cmp-section-container__title {
@@ -37,14 +38,15 @@
     }
 
     .cmp-external-footer__logo {
-        float:left;
+        float: left;
     }
 
     .cmp-external-footer__copyright {
         float: right;
+
         p {
-           font-size: 0.9em;
-           color: $color-gray-50;
+            font-size: 0.9em;
+            color: $color-gray-50;
         }
     }
 
@@ -59,9 +61,10 @@
     }
 
     .cmp-qr-code__img {
-        float:right;
+        float: right;
         height: 75px;
         width: 75px;
+
         &::after {
             border-bottom: 1px solid #c6cdd2;
         }
@@ -72,8 +75,8 @@
         width: 100%;
         @include font-small;
         padding-top: $space-xs;
-        float:left;
+        float: left;
         bottom: 0;
-        position:fixed
+        position: fixed
     }
 }
