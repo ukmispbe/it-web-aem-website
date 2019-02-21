@@ -3,7 +3,7 @@ import React from 'react';
 const Sort = props => {
     return (
         <div className="cmp-search-sortby">
-            <h2>{props.text.sortByHeading}</h2>
+            <h3>{props.text.sortByHeading}</h3>
             <div className="cmp-search-sortby__select">
                 <select
                     onChange={e => props.sortHandler(e)}
