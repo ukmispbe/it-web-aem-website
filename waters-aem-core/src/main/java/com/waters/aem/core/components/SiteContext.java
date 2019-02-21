@@ -6,6 +6,7 @@ import com.icfolson.aem.library.api.page.PageDecorator;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.i18n.ResourceBundleProvider;
+import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
@@ -16,7 +17,8 @@ import java.util.ResourceBundle;
 /**
  * Model that can be injected into component classes to provide the site context (i.e. locale/language).
  */
-@Model(adaptables = { SlingHttpServletRequest.class, Resource.class })
+@Model(adaptables = { SlingHttpServletRequest.class, Resource.class },
+    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class SiteContext {
 
     @OSGiService(filter = "(component.name=org.apache.sling.i18n.impl.JcrResourceBundleProvider)")
