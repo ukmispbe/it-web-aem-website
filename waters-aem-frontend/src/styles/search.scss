@@ -22,10 +22,18 @@
 
 .cmp-search__results {
     @include list-styles;
+    @include mobile {
+        &-thumbnail {
+            display: none;
+        }
+    }
 }
 
 .cmp-search__results-item {
     @include list-item;
+    @include mobile {
+        margin-bottom: $space-l;
+    }
 }
 
 .cmp-search__results-body {
