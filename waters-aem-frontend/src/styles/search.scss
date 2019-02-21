@@ -74,6 +74,10 @@
     clear: both;
     li {
         display: inline;
+
+        @include mobile {
+            display: none;
+        }
         a {
             cursor: pointer;
             margin: 0 $space-xxs;
@@ -101,6 +105,10 @@
                 background: $color-background-dark;
                 color: $color-font-light;
             }
+
+            @include mobile {
+                display: inline;
+            }
         }
 
         &.next,
@@ -125,6 +133,10 @@
                 .st0 {
                     stroke: $color-font-dark;
                 }
+            }
+
+            @include mobile {
+                display: inline;
             }
 
             &.disabled {
