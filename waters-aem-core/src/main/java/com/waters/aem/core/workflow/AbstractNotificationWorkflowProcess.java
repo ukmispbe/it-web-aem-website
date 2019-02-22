@@ -25,6 +25,8 @@ public abstract class AbstractNotificationWorkflowProcess {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractNotificationWorkflowProcess.class);
 
+    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm:ss");
+
     protected void sendNotification(ResourceResolver resolver, WorkItem item, String reviewerId, String recipientId, String templatePath, EmailService emailService) {
 
         UserManager userManager = resolver.adaptTo(UserManager.class);
@@ -48,7 +50,6 @@ public abstract class AbstractNotificationWorkflowProcess {
 
         String stepTitle = WorkflowUtils.getReviewStep(item);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm:ss");
         LocalDateTime localDateTime = LocalDateTime.now();
         String formattedDateTime = localDateTime.format(formatter);
 

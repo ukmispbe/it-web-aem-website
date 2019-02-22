@@ -30,11 +30,11 @@ public class WorkflowCompletedNotificationStep extends AbstractNotificationWorkf
 
         ResourceResolver resolver = wfSession.adaptTo(ResourceResolver.class);
         String initiatorId = item.getWorkflow().getInitiator();
-        String workflowTitle = item.getWorkflow().getWorkflowModel().getTitle();
+        String workflowId = item.getWorkflow().getWorkflowModel().getId();
         String stepTitle = WorkflowUtils.getReviewStep(item);
 
-        if(workflowTitle.equals("Design Review Workflow") && !stepTitle.equals(WorkflowConstants.PUBLISH_REQUEST_REJECTED) ||
-            !workflowTitle.equals("Design Review Workflow")) {
+        if(workflowId.equals(WorkflowConstants.WORKFLOW_ID) && !stepTitle.equals(WorkflowConstants.PUBLISH_REQUEST_REJECTED) ||
+            !workflowId.equals(WorkflowConstants.WORKFLOW_ID)) {
 
             MetaDataMap metadataMap = item.getWorkflowData().getMetaDataMap();
             metadataMap.put(WorkflowConstants.REVIEW_STEP,WorkflowConstants.WORKFLOW_COMPLETED);
