@@ -98,7 +98,7 @@ class Search extends Component {
         this.props.history.push(
             `?${this.search.getQueryParamString(
                 {
-                    keyword: state.query,
+                    keyword: searchParams.keyword,
                     page: page.selected + 1,
                 },
                 searchParams.facets
