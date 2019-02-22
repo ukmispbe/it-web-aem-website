@@ -38,11 +38,17 @@ public class WorkflowConstants {
 
     public static final String PUBLISH_REQUEST_REJECTED = "Publish Request Rejected";
 
+    public static final String APPLICATION_NOTES_DESIGN_REVIEW = "Application Notes Design Review";
+
     public static final String EDITOR_HTML = "/editor.html";
 
     public static final String REVIEW_NOTIFICATION_TEXT = "The Application Note <b>${pageTitle}</b> is ready for your review and approval.";
 
     public static final String REJECTION_NOTIFICATION_TEXT = "There have been revisions requested for Application Note <b>${pageTitle}</b>";
+
+    public static final String WORKFLOW_COMPLETED = "WorkflowCompleted";
+
+    public static final String WORKFLOW_COMPLETED_EMAIL_SUBJECT = "Workflow notification: WorkflowCompleted";
 
     private WorkflowConstants() {
 

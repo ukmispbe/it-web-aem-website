@@ -14,6 +14,8 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.jcr.RepositoryException;
 import java.util.HashMap;
@@ -45,17 +47,22 @@ public abstract class AbstractNotificationWorkflowProcess {
         String externalizedInboxUrl = externalizer.authorLink(resolver, WorkflowConstants.INBOX_PATH);
 
         String stepTitle = WorkflowUtils.getReviewStep(item);
-        String emailText = stepTitle.equals(WorkflowConstants.PUBLISH_REQUEST_REJECTED) ? WorkflowConstants.REJECTION_NOTIFICATION_TEXT : WorkflowConstants.REVIEW_NOTIFICATION_TEXT;
 
-        emailParams.put("emailText", emailText);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm:ss");
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String formattedDateTime = localDateTime.format(formatter);
+
         emailParams.put(EmailServiceConstants.SENDER_EMAIL_ADDRESS, "no-reply@waters.com");
-        emailParams.put("subject", "Application Notes Design Review");
+        emailParams.put(EmailServiceConstants.SUBJECT, getEmailSubject(stepTitle));
+        emailParams.put("emailText", getEmailText(stepTitle));
         emailParams.put("stepTitle", stepTitle);
         emailParams.put("recipientName", AuthorizableUtil.getFormattedName(resolver, recipientId));
         emailParams.put("reviewerName", AuthorizableUtil.getFormattedName(resolver, reviewerId));
         emailParams.put("pageTitle", valueMap.get(JcrConstants.JCR_TITLE, ""));
+        emailParams.put("workflowTitle", item.getWorkflow().getWorkflowModel().getTitle());
         emailParams.put("pageUrl", externalizedPageUrl);
         emailParams.put("inboxUrl", externalizedInboxUrl);
+        emailParams.put("timeStamp", formattedDateTime);
 
         return emailParams;
     }
@@ -71,5 +78,22 @@ public abstract class AbstractNotificationWorkflowProcess {
         }
 
         return emailAddress;
+    }
+
+    private String getEmailSubject(String stepTitle) {
+        String subject;
+        switch(stepTitle) {
+            case WorkflowConstants.PUBLISH_REQUEST_REJECTED: subject = WorkflowConstants.PUBLISH_REQUEST_REJECTED;
+                break;
+            case WorkflowConstants.WORKFLOW_COMPLETED: subject = WorkflowConstants.WORKFLOW_COMPLETED_EMAIL_SUBJECT;
+                break;
+            default: subject = WorkflowConstants.APPLICATION_NOTES_DESIGN_REVIEW;
+                break;
+        }
+        return subject;
+    }
+
+    private String getEmailText(String stepTitle) {
+        return stepTitle.equals(WorkflowConstants.PUBLISH_REQUEST_REJECTED) ? WorkflowConstants.REJECTION_NOTIFICATION_TEXT : WorkflowConstants.REVIEW_NOTIFICATION_TEXT;
     }
 }
