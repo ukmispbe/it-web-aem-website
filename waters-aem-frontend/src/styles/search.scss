@@ -186,3 +186,13 @@ div.cmp-search__no-results {
         display: block;
     }
 }
+
+.cmp-search__resultsCount{
+    margin-top: -10%;
+    margin-bottom: 10%;
+    margin-left: -37%;
+    @include tablet-and-under {
+        margin:unset;
+        padding-bottom:$space-l;
+    }
+}
