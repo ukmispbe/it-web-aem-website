@@ -7,7 +7,7 @@ const monthNameFormatter = (date, locale = 'en-us') => {
 const Result = ({ result, locale }) => {
     const thumbnail = (
         <div className="cmp-search__results-thumbnail">
-                <img src={result.thumbnail} alt={result.title} />
+            <img src={result.thumbnail} alt={result.title} />
         </div>
     );
     console.log('LOCALE:', locale);
@@ -21,18 +21,23 @@ const Result = ({ result, locale }) => {
                 className={`cmp-search__results-body ${
                     result.thumbnail ? 'cmp-search__results-body--image' : ''
                 }`}
-            />
-            <a href={result.url} className="cmp-search__results-item-link">
-                {result.title}
-            </a>
-            <p className="cmp-search__results-item-description">
-                {result.description}
-            </p>
-            {result.yearpublished && (
-                <span className="cmp-search__results-date">
-                    {formattedDate}
-                </span>
-            )}
+            >
+                <a href={result.url} className="cmp-search__results-item-link">
+                    <span class="cmp-search__results-item-title">
+                        {result.title}
+                    </span>
+                </a>
+                <div className="cmp-search__results-item-description">
+                    <div className="cmp-search__results-item-description-text">
+                        {result.description}
+                    </div>
+                </div>
+                {result.yearpublished && (
+                    <span className="cmp-search__results-item-date">
+                        {formattedDate}
+                    </span>
+                )}
+            </div>
         </li>
     );
 };
