@@ -88,13 +88,17 @@ div.cmp-search__no-results {
         }
         a {
             cursor: pointer;
-            margin: 0 $space-xxs;
+            margin: 0 $space-xxs 0 0;
             border: 1px solid $color-border-dark;
             float: left;
-            padding: $space-xxs $space-s;
-            font-size: (#{$font-size-small-m - 0.1em});
+            padding-top: ($space-xxs - .1em);
+            font-size: $font-size-body;
             color: $color-font-medium;
             text-decoration: none;
+            text-align: center;
+            height: 2.75em;
+            width: 2.75em;
+
             &:hover {
                 color: $color-link;
             }
@@ -112,6 +116,7 @@ div.cmp-search__no-results {
             a {
                 background: $color-background-dark;
                 color: $color-font-light;
+                border: 1px solid $color-background-dark;
             }
 
             @include mobile {
@@ -133,10 +138,14 @@ div.cmp-search__no-results {
                 width: 15px;
             }
             svg {
-                width: 24px;
+                width: $icon-m;
                 height: 20px;
-                margin-left: -5px;
-                margin-top: 3px;
+                margin-left: $space-xxs;
+                margin-top: $space-xxxs;
+
+                @include mobile {
+                    height: 24px;
+                }
 
                 .st0 {
                     stroke: $color-font-dark;
