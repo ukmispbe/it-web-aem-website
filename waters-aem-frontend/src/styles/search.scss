@@ -52,7 +52,7 @@
 .cmp-search__no-results {
     border: 1px solid $color-gray-30;
     text-align: center;
-    padding: $space-xxl 0;
+    padding: $space-xl 0$space-xl;
     .icon {
         margin: 0 auto $space-s auto;
         height: $icon-xl;
@@ -62,6 +62,14 @@
                 stroke: $color-gray-30;
             }
         }
+    }
+}
+
+div.cmp-search__no-results {
+    padding: $space-xl $space-xl;
+    
+    @include mobile {
+        padding: $space-l $space-l;
     }
 }
 
