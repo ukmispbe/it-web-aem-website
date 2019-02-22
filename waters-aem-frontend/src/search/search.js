@@ -192,7 +192,10 @@ class Search extends Component {
                 {!state.loading && state.noResults ? null : aside}
                 {state.loading ? 'Loading' : null}
                 {!state.loading && state.noResults ? (
-                    <NoResults searchText={this.props.searchText} />
+                    <NoResults
+                       searchText={this.props.searchText}
+                       query={state.query}
+                    />
                 ) : (
                     results
                 )}
