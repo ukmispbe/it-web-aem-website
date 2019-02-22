@@ -5,7 +5,7 @@ const ResultsCount = ({ current, rows, count, query, noQuery }) => {
     const startResults = current * rows - rows + 1;
     const forQuery = (
         <span>
-            for <strong>{query}</strong>
+            for <strong><q className="query">{query}</q></strong>
         </span>
     );
 

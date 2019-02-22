@@ -36,7 +36,7 @@ class Search extends Component {
             rows: this.props.searchDefaults
                 ? this.props.searchDefaults && this.props.searchDefaults.rows
                 : 25,
-            sort: this.query.sort ? this.query.sort : 'most relevant',
+            sort: this.query.sort ? this.query.sort : 'most-relevant',
         });
 
         this.performSearch();
@@ -109,7 +109,7 @@ class Search extends Component {
     sortHandler(e) {
         console.log('handler');
         const sortOption =
-            parseInt(e.target.value) === 1 ? 'most relevant' : 'most recent';
+            parseInt(e.target.value) === 1 ? 'most-relevant' : 'most-recent';
         const state = this.state;
         const searchParams = this.state.searchParams || {};
 
@@ -137,7 +137,7 @@ class Search extends Component {
             <div className="container__left cmp-search__sort-filter">
                 <Sort
                     sortHandler={this.sortHandler.bind(this)}
-                    sortValue={state.sort === 'most recent' ? 2 : 1}
+                    sortValue={state.sort === 'most-recent' ? 2 : 1}
                     text={this.props.searchText}
                 />
             </div>
