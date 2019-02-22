@@ -107,6 +107,7 @@ class Search extends Component {
     }
 
     sortHandler(e) {
+        console.log('handler');
         const sortOption =
             parseInt(e.target.value) === 1 ? 'most relevant' : 'most recent';
         const state = this.state;
@@ -126,8 +127,6 @@ class Search extends Component {
         )}`;
 
         this.props.history.push(qString);
-
-        this.performSearch(qString);
     }
 
     render() {
