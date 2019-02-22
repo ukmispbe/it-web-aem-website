@@ -98,7 +98,7 @@ class Search extends Component {
         this.props.history.push(
             `?${this.search.getQueryParamString(
                 {
-                    keyword: state.query,
+                    keyword: searchParams.keyword,
                     page: page.selected + 1,
                 },
                 searchParams.facets
@@ -191,7 +191,10 @@ class Search extends Component {
                 {!state.loading && state.noResults ? null : aside}
                 {state.loading ? 'Loading' : null}
                 {!state.loading && state.noResults ? (
-                    <NoResults searchText={this.props.searchText} />
+                    <NoResults
+                       searchText={this.props.searchText}
+                       query={state.query}
+                    />
                 ) : (
                     results
                 )}
