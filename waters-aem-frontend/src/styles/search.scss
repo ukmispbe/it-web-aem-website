@@ -27,6 +27,11 @@
             display: none;
         }
     }
+    &Count {
+        .query {
+            color: $color-font-dark;
+        }
+    }
 }
 
 .cmp-search__results-item {
