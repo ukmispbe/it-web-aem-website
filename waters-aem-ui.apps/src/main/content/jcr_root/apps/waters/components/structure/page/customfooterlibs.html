@@ -6,4 +6,10 @@
 </script>
 <!-- Mopinion end -->
 
+<!--launch script-->
+<sly data-sly-use.externalFooter="com.waters.aem.core.components.structure.ExternalFooter">
+    <script src="${externalFooter.launchScript}" async></script>
+</sly>
+<!-- launch script end -->
+
 <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html" data-sly-call="${clientlib.js @ categories='waters.site'}"/>
