@@ -25,7 +25,7 @@ public abstract class AbstractNotificationWorkflowProcess {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractNotificationWorkflowProcess.class);
 
-    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm:ss");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm:ss");
 
     protected void sendNotification(ResourceResolver resolver, WorkItem item, String reviewerId, String recipientId, String templatePath, EmailService emailService) {
 
@@ -51,7 +51,7 @@ public abstract class AbstractNotificationWorkflowProcess {
         String stepTitle = WorkflowUtils.getReviewStep(item);
 
         LocalDateTime localDateTime = LocalDateTime.now();
-        String formattedDateTime = localDateTime.format(formatter);
+        String formattedDateTime = localDateTime.format(FORMATTER);
 
         emailParams.put(EmailServiceConstants.SENDER_EMAIL_ADDRESS, "no-reply@waters.com");
         emailParams.put(EmailServiceConstants.SUBJECT, getEmailSubject(stepTitle));
