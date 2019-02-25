@@ -5,6 +5,6 @@
           baseUrl="http://solrprodmaster.waters.com:8983/solr"
           collection="waters"
           hardCommit="{Boolean}false"
-          connectionTimeout="{Integer}10000"
-          socketTimeout="{Integer}10000"
-          commitWithinMs="{Integer}-1"/>
+          connectionTimeout="{Long}10000"
+          socketTimeout="{Long}10000"
+          commitWithinMs="{Long}-1"/>
