@@ -23,7 +23,7 @@ const Result = ({ result, locale }) => {
                 }`}
             >
                 <a href={result.url} className="cmp-search__results-item-link">
-                    <span class="cmp-search__results-item-title">
+                    <span className="cmp-search__results-item-title">
                         {result.title}
                     </span>
                 </a>
