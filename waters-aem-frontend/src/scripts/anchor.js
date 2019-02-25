@@ -1,12 +1,12 @@
 import scrollToY from './scrollTo';
+
 var anchorElement = document.querySelector('.cmp-anchor');
 var anchorMenu = document.querySelector('.cmp-anchor__list-heading');
 
 // Setup click handler for Anchor Links to scroll in view
 var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
 
-[].forEach.call(anchorLinks, (anchor, i) => {
-    console.log(anchor);
+[].forEach.call(anchorLinks, (anchor) => {
     try {
         anchor.addEventListener('click', e => {
             e.preventDefault();
@@ -32,17 +32,16 @@ var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
 });
 
 // Sticky Nav Component
-var anchorSticky = (function() {
+var anchorSticky = (function () {
     var CSS_CLASS_ACTIVE = 'cmp-anchor--sticky';
 
     var Sticky = {
         element: null,
         position: 0,
-        addEvents: function() {
+        addEvents: function () {
             window.addEventListener('scroll', this.onScroll.bind(this));
         },
-        init: function(element) {
-            console.log('init');
+        init: function (element) {
             this.element = element;
             this.addEvents();
             this.position = element.offsetTop;
@@ -66,29 +65,28 @@ var anchorSticky = (function() {
 
             this.getInViewElement();
         },
-        aboveScroll: function() {
+        aboveScroll: function () {
             return this.position - 73 < window.pageYOffset;
         },
-        onScroll: function(event) {
+        onScroll: function () {
             if (this.aboveScroll()) {
                 this.setFixed();
-                console.log('fix');
             } else {
                 this.setRelative();
             }
             this.getInViewElement();
         },
-        setFixed: function() {
+        setFixed: function () {
             this.element.parentNode.style.height =
                 this.element.clientHeight + 'px';
             this.element.classList.add(CSS_CLASS_ACTIVE);
         },
-        setRelative: function() {
+        setRelative: function () {
             this.element.classList.remove(CSS_CLASS_ACTIVE);
             this.element.parentNode.style.height = 'auto';
         },
 
-        getInViewElement: function() {
+        getInViewElement: function () {
             if (this.anchorDestinations) {
                 let brokeAt = 0;
                 for (let n = 0; n <= this.anchorDestinations.length; n++) {

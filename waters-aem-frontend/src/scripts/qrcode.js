@@ -1,13 +1,16 @@
 var qrCode = require('qrcode');
 
 var component = document.querySelector('.cmp-qr-code');
-var url = component.dataset.url;
 
-qrCode.toDataURL(url, function (err, url) {
-    var img = document.createElement('img');
+if (component) {
+    var url = component.dataset.url;
 
-    img.src = url;
-    img.setAttribute('class', 'cmp-qr-code__img');
+    qrCode.toDataURL(url, function (err, url) {
+        var img = document.createElement('img');
 
-    component.appendChild(img);
-});
+        img.src = url;
+        img.setAttribute('class', 'cmp-qr-code__img');
+
+        component.appendChild(img);
+    });
+}

@@ -48,7 +48,6 @@ if (searchAppContainer) {
     const text = JSON.parse(
         document.getElementById('search-results-translations-json').innerHTML
     );
-    console.log(text);
     const data = getAuthoredDataForSearchApp(searchAppContainer);
     ReactDOM.render(
         <Search
@@ -68,8 +67,9 @@ if (tagCloudContainer) {
     var text = JSON.parse(
         document.getElementById('tag-cloud-facets-json').innerHTML
     );
-    console.log(text);
+
     const data = getAuthoredDataForTagCloud(header, tagCloudContainer);
+
     ReactDOM.render(
         <TagCloud
             tagCloudTitle={data.tagTitle}
