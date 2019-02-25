@@ -18,9 +18,9 @@ class SearchBar extends Component {
     _handleKeyPress = e => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            console.log('submit search to', this.props.searchPath);
+            const searchTerm =  this.state.value ? this.state.value : '*:*';
             window.location.href = `${this.props.searchPath}?keyword=${
-                this.state.value
+                searchTerm
             }`;
         }
     };

@@ -36,7 +36,7 @@ class Search extends Component {
             rows: this.props.searchDefaults
                 ? this.props.searchDefaults && this.props.searchDefaults.rows
                 : 25,
-            sort: this.query.sort ? this.query.sort : 'most relevant',
+            sort: this.query.sort ? this.query.sort : 'most-relevant',
         });
 
         this.performSearch();
@@ -98,7 +98,7 @@ class Search extends Component {
         this.props.history.push(
             `?${this.search.getQueryParamString(
                 {
-                    keyword: state.query,
+                    keyword: searchParams.keyword,
                     page: page.selected + 1,
                 },
                 searchParams.facets
@@ -107,8 +107,9 @@ class Search extends Component {
     }
 
     sortHandler(e) {
+        console.log('handler');
         const sortOption =
-            parseInt(e.target.value) === 1 ? 'most relevant' : 'most recent';
+            parseInt(e.target.value) === 1 ? 'most-relevant' : 'most-recent';
         const state = this.state;
         const searchParams = this.state.searchParams || {};
 
@@ -126,8 +127,6 @@ class Search extends Component {
         )}`;
 
         this.props.history.push(qString);
-
-        this.performSearch(qString);
     }
 
     render() {
@@ -138,7 +137,7 @@ class Search extends Component {
             <div className="container__left cmp-search__sort-filter">
                 <Sort
                     sortHandler={this.sortHandler.bind(this)}
-                    sortValue={state.sort === 'most recent' ? 2 : 1}
+                    sortValue={state.sort === 'most-recent' ? 2 : 1}
                     text={this.props.searchText}
                 />
             </div>
@@ -192,7 +191,10 @@ class Search extends Component {
                 {!state.loading && state.noResults ? null : aside}
                 {state.loading ? 'Loading' : null}
                 {!state.loading && state.noResults ? (
-                    <NoResults searchText={this.props.searchText} />
+                    <NoResults
+                       searchText={this.props.searchText}
+                       query={state.query}
+                    />
                 ) : (
                     results
                 )}
