@@ -104,6 +104,8 @@ class Search extends Component {
                 searchParams.facets
             )}`
         );
+
+        window.scrollTo(0, 0);
     }
 
     sortHandler(e) {
