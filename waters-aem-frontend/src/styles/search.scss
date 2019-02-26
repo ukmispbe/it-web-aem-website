@@ -46,6 +46,10 @@
     float: left;
     padding-bottom: $space-m;
 
+    @include mobile {
+        padding-bottom: 0;
+    }
+
     &--image {
         @include list-item-body-includes-thumbnail;
     }
