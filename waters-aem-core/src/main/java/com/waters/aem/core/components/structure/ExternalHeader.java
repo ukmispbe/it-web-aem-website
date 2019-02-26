@@ -19,11 +19,13 @@ import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.components.content.applicationnotes.LinkItem;
 import com.waters.aem.core.components.content.applicationnotes.RegionLinkItem;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.services.launch.AdobeLaunchService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.inject.Inject;
@@ -43,6 +45,9 @@ public final class ExternalHeader {
 
     @Self
     private SiteContext siteContext;
+
+    @OSGiService
+    private AdobeLaunchService adobeLaunchService;
 
     @DialogField(fieldLabel = "Header Logo",
         fieldDescription = "select header logo",
@@ -143,5 +148,9 @@ public final class ExternalHeader {
         }
 
         return stringBuilder.toString();
+    }
+
+    public String getLaunchScript() {
+        return adobeLaunchService.getLaunchScript();
     }
 }
