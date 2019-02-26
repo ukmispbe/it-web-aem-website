@@ -4,7 +4,7 @@
 
 @media print {
     @page {
-        margin: 60px;
+        // margin: 60px;
         size: letter;
         @bottom-right {
             content: counter(page);
@@ -17,8 +17,22 @@
         }
     }
 
+    .container {
+        padding: 0 20px;
+    }
+
     .cmp-anchor, .cmp-external-header__links, .mopinion-survey-content, .cmp-share, a.cmp-back-to-top, .cmp-external-footer__links, .cmp-external-list__link::after {
         display: none;
+    }
+
+    .layoutcontainer .sectioncontainer {
+        margin: $space-m 0 $space-s 0;
+        // break-before: page;
+        break-inside: avoid-page;
+        // break-after: page;
+        // page-break-before: always;
+        // page-break-inside: avoid;
+        // page-break-after: always;
     }
 
     .layoutcontainer .cmp-section-container__title {
@@ -48,10 +62,6 @@
             font-size: 0.9em;
             color: $color-gray-50;
         }
-    }
-
-    .cmp-section-container {
-        page-break-inside: avoid;
     }
 
     .cmp-external-header {
