@@ -10,6 +10,7 @@ import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.licensekey.LicenseKey;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
 import com.waters.aem.core.components.structure.page.ApplicationNotes;
@@ -99,6 +100,11 @@ public final class DefaultPdfGenerator implements PdfGenerator {
         baseUri = configuration.baseUri();
         username = configuration.username();
         password = configuration.password();
+
+        // load itext license
+        final InputStream licenseFileInputStream = this.getClass().getResourceAsStream("/itextkey.xml");
+
+        LicenseKey.loadLicenseFile(licenseFileInputStream);
     }
 
     private ByteArrayOutputStream createPdfOutputStream(final PageDecorator page, final boolean publish)
@@ -118,6 +124,9 @@ public final class DefaultPdfGenerator implements PdfGenerator {
 
         final PdfDocument pdfDocument = new PdfDocument(new PdfWriter(pdfOutputStream));
 
+        // pdfDocument.setDefaultPageSize(PageSize.LETTER);
+
+        // pdfDocument.addEventHandler(PdfDocumentEvent.END_PAGE, new FooterEventHandler());
         // pdfDocument.getDocumentInfo().setTitle(page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle()));
 
         HtmlConverter.convertToPdf(stream, pdfDocument, getConverterProperties());
@@ -167,8 +176,12 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     }
 
     private ConverterProperties getConverterProperties() {
+        final MediaDeviceDescription mediaDeviceDescription = new MediaDeviceDescription(MediaType.PRINT);
+
+        // mediaDeviceDescription.setWidth(PageSize.LETTER.getWidth());
+
         return new ConverterProperties()
             .setBaseUri(baseUri)
-            .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT));
+            .setMediaDeviceDescription(mediaDeviceDescription);
     }
 }
