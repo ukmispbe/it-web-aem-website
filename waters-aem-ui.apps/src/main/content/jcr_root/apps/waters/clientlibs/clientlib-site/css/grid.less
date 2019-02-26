@@ -1,4 +1,5 @@
 @import "/etc/clientlibs/wcm/foundation/grid/grid_base.less";
+@import "grid_print.less";
 
 /* maximum amount of grid cells */
 @max_col_desktop: 12;
@@ -12,15 +13,24 @@
 }
 
 /* phone breakpoint */
-@media (max-width: 650px) {
+@media screen and (max-width: 650px) {
     .aem-Grid {
         .generate-grid(phone, @max-col_mobile);
     }
 }
 
 /* tablet breakpoint */
-@media (min-width: 651px) and (max-width: 1200px) {
+@media screen and (min-width: 651px) and (max-width: 1200px) {
     .aem-Grid {
         .generate-grid(tablet, @max_col_tablet);
     }
 }
+
+/* print breakpoint */
+/*
+@media print {
+    .aem-Grid {
+        .generate-grid-print(print, @max_col_desktop);
+    }
+}
+*/

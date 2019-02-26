@@ -1,0 +1,64 @@
+/* Generates all the rules for the grid columns up to the given amount of column */
+.generate-columns-print(@columnTotal, @column: 1) when (@column =< @columnTotal) {
+
+    > .aem-GridColumn.aem-GridColumn--@{breakPoint}--@{column} {
+        float: left;
+        clear: none;
+        // width: (@column * 100% / @columnTotal);
+        width: 100%;
+    }
+
+    .generate-columns-print(@columnTotal, (@column + 1));
+}
+
+/* Generates all the rules for the grid column offset up to the given amount of column */
+.generate-offsets-print(@columnTotal, @column: 0) when (@column =< @columnTotal) {
+
+    > .aem-GridColumn.aem-GridColumn--offset--@{breakPoint}--@{column} {
+        margin-left: (@column * 100% / @columnTotal);
+    }
+
+    .generate-offsets-print(@columnTotal, (@column + 1));
+}
+
+/* Generates all the rules for the grid and columns for the given break point and total of columns */
+.generate-grid-columns-print(@breakPoint, @columnTotal) when (@columnTotal > 0) {
+
+    &.aem-Grid--@{columnTotal} {
+        .generate-columns-print(@columnTotal);
+        .generate-offsets-print(@columnTotal);
+    }
+
+    &.aem-Grid--@{breakPoint}--@{columnTotal} {
+        .generate-columns-print(@columnTotal);
+        .generate-offsets-print(@columnTotal);
+    }
+}
+
+/* Generates all the rules for the grids and columns */
+.grid-loop-print(@breakPoint, @columnTotal, @column: 1) when (@column =< @columnTotal) {
+    .generate-grid-columns-print(@breakPoint, @column);
+    .grid-loop-print(@breakPoint, @columnTotal, (@column + 1));
+}
+
+/* API function to be called to generate a grid config */
+.generate-grid-print(@breakPoint, @columnTotal) {
+    .grid-loop-print(@breakPoint, @columnTotal);
+
+    >.aem-GridColumn.aem-GridColumn--@{breakPoint}--newline {
+        /* newline behavior */
+        display: block;
+        clear: both !important;
+    }
+
+    >.aem-GridColumn.aem-GridColumn--@{breakPoint}--none {
+        /* none behavior */
+        display: block;
+        clear: none !important;
+    }
+
+    >.aem-GridColumn.aem-GridColumn--@{breakPoint}--hide {
+        /* hide behavior */
+        display: none;
+    }
+}
