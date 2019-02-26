@@ -18,11 +18,11 @@ body {
 .aem-GridColumn {
     padding: 0 14px;
 
-    @media (max-width: 650px) {
+    @include mobile {
         padding: 0 4px;
     }
 
-    @media (min-width: 651px) and (max-width: 1200px) {
+    @include tablet {
         padding: 0 12px;
     }
 }
@@ -119,6 +119,7 @@ a {
     top: 0;
     left: 0;
     display: none;
+
     &.active {
         display: block;
     }
