@@ -21,6 +21,10 @@
         padding: 0 20px;
     }
 
+    .cmp-section-container .cmp-image {
+        width: 100%;
+    }
+
     .cmp-anchor, .cmp-external-header__links, .mopinion-survey-content, .cmp-share, a.cmp-back-to-top, .cmp-external-footer__links, .cmp-external-list__link::after {
         display: none;
     }
