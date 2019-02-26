@@ -10,7 +10,10 @@ import Results from './components/results';
 import NoResults from './components/no-results';
 
 import Sort from './components/sort';
+import Filter from './components/filter';
 import BtnShowSortFilter from './components/btn-show-sort-filter';
+import BtnHideSortFilter from './components/btn-hide-sort-filter';
+import BtnApplySortFilter from './components/btn-apply-sort-filter';
 
 class Search extends Component {
     constructor() {
@@ -137,9 +140,19 @@ class Search extends Component {
         const overlay = <div class="overlay" />;
         const aside = (
             <div className="container__left cmp-search__sort-filter">
+                <BtnHideSortFilter
+                    text={this.props.searchText}
+                />
+
+                <BtnApplySortFilter />
+
                 <Sort
                     sortHandler={this.sortHandler.bind(this)}
                     sortValue={state.sort === 'most-recent' ? 2 : 1}
+                    text={this.props.searchText}
+                />
+
+                <Filter
                     text={this.props.searchText}
                 />
             </div>

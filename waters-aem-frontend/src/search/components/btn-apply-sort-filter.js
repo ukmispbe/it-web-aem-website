@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class ShowSortFilter extends Component {
+class ApplySortFilter extends Component {
     constructor(props) {
         super(props);
         this.state = { value: '' };
@@ -8,24 +8,23 @@ class ShowSortFilter extends Component {
     }
 
     handleInput(e) {
-        document.body.classList.add('show-sort-filters');
         this.setState({ showSortFilters: true });
     }
 
     render() {
         const props = this.props;
         return (
-            <div className="cmp-search-show-btn">
+            <div class="cmp-search-apply-btn">
                 <a
                     href="javascript:void(0);"
                     onClick={this.handleInput}
-                    className="btn-show-sort-filter"
+                    className="btn-apply-sort-filter"
                 >
-                    Sort and Filter
+                    Apply
                 </a>
             </div>
         );
     }
 }
 
-export default ShowSortFilter;
+export default ApplySortFilter;
