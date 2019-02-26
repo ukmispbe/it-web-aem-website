@@ -1,6 +1,7 @@
 .cmp-search-bar {
     width: 100%;
     float: left;
+    margin-bottom: $space-m;
 
     &__input {
         float: left;
@@ -11,10 +12,7 @@
         @include font-utility;
 
         font-size: $font-size-h3;
+        color: $color-font-dark;
 
-        &:focus {
-            outline-width: 2px;
-            outline-color: $color-blue-30;
-        }
     }
 }

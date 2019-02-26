@@ -19,11 +19,13 @@ import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.content.applicationnotes.ExternalLinkItem;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.services.launch.AdobeLaunchService;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
@@ -45,6 +47,9 @@ public class ExternalFooter extends AbstractComponent implements ComponentExport
 
     @Self
     private Resource resource;
+
+    @OSGiService
+    private AdobeLaunchService adobeLaunchService;
 
     @DialogField(fieldLabel = "Logo",
         fieldDescription = "Select the logo image to display on footer",
@@ -122,4 +127,9 @@ public class ExternalFooter extends AbstractComponent implements ComponentExport
     public String getExportedType() {
         return resource.getResourceType();
     }
+
+    public String getLaunchScript() {
+        return adobeLaunchService.getLaunchScript();
+    }
+
 }

@@ -44,6 +44,11 @@
 .cmp-search__results-body {
     width: 100%;
     float: left;
+    padding-bottom: $space-m;
+
+    @include mobile {
+        padding-bottom: 0;
+    }
 
     &--image {
         @include list-item-body-includes-thumbnail;
@@ -57,7 +62,7 @@
 .cmp-search__no-results {
     border: 1px solid $color-gray-30;
     text-align: center;
-    padding: $space-xxl 0;
+    padding: $space-xl 0$space-xl;
     .icon {
         margin: 0 auto $space-s auto;
         height: $icon-xl;
@@ -67,6 +72,14 @@
                 stroke: $color-gray-30;
             }
         }
+    }
+}
+
+div.cmp-search__no-results {
+    padding: $space-xl $space-xl;
+    
+    @include mobile {
+        padding: $space-l $space-l;
     }
 }
 
@@ -85,13 +98,17 @@
         }
         a {
             cursor: pointer;
-            margin: 0 $space-xxs;
+            margin: 0 $space-xxs 0 0;
             border: 1px solid $color-border-dark;
             float: left;
-            padding: $space-xxs $space-s;
-            font-size: (#{$font-size-small-m - 0.1em});
+            padding-top: ($space-xxs - .1em);
+            font-size: $font-size-body;
             color: $color-font-medium;
             text-decoration: none;
+            text-align: center;
+            height: 2.75em;
+            width: 2.75em;
+
             &:hover {
                 color: $color-link;
             }
@@ -109,6 +126,7 @@
             a {
                 background: $color-background-dark;
                 color: $color-font-light;
+                border: 1px solid $color-background-dark;
             }
 
             @include mobile {
@@ -130,10 +148,14 @@
                 width: 15px;
             }
             svg {
-                width: 24px;
+                width: $icon-m;
                 height: 20px;
-                margin-left: -5px;
-                margin-top: 3px;
+                margin-left: $space-xxs;
+                margin-top: $space-xxxs;
+
+                @include mobile {
+                    height: 24px;
+                }
 
                 .st0 {
                     stroke: $color-font-dark;
@@ -172,5 +194,15 @@
     display: none;
     @include tablet-and-under {
         display: block;
+    }
+}
+
+.cmp-search__resultsCount{
+    margin-top: -10%;
+    margin-bottom: 10%;
+    margin-left: -37%;
+    @include tablet-and-under {
+        margin:unset;
+        padding-bottom:$space-l;
     }
 }
