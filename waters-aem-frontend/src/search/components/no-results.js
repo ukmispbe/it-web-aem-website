@@ -8,7 +8,7 @@ const NoResults = ({ searchText , query }) => {
         </span>
     );
     return ([
-        <h2 className="cmp-search__resultsCount">
+        <h2 className="cmp-search__resultsCount noresults">
              Showing 0 results{' '} {forQuery}
         </h2>,
         <div className="cmp-search__no-results">

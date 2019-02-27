@@ -6,7 +6,8 @@ import './../../styles/index.scss';
 class SearchBar extends Component {
     constructor(props) {
         super(props);
-        this.state = { value: '' };
+        const searchValue = this.getUrlParameter('keyword');
+        this.state = { value: searchValue ? searchValue : '' };
         this.handleInput = this.handleInput.bind(this);
         // this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -14,6 +15,19 @@ class SearchBar extends Component {
     handleInput(e) {
         this.setState({ value: e.target.value });
     }
+
+    getUrlParameter(sParam) {
+        const sPageURL = window.location.search.substring(1);
+        const sURLVariables = sPageURL.split('&');
+
+        for (let i = 0; i < sURLVariables.length; i++) {
+          const sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+    };
 
     _handleKeyPress = e => {
         if (e.key === 'Enter') {

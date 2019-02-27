@@ -5,11 +5,7 @@ import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
-import com.citytechinc.cq.component.annotations.widgets.Html5SmartImage;
-import com.citytechinc.cq.component.annotations.widgets.MultiField;
-import com.citytechinc.cq.component.annotations.widgets.PathField;
-import com.citytechinc.cq.component.annotations.widgets.Switch;
-import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.citytechinc.cq.component.annotations.widgets.*;
 import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.core.components.AbstractComponent;
@@ -47,9 +43,6 @@ public class ExternalFooter extends AbstractComponent implements ComponentExport
 
     @Self
     private Resource resource;
-
-    @OSGiService
-    private AdobeLaunchService adobeLaunchService;
 
     @DialogField(fieldLabel = "Logo",
         fieldDescription = "Select the logo image to display on footer",
@@ -126,10 +119,6 @@ public class ExternalFooter extends AbstractComponent implements ComponentExport
     @Override
     public String getExportedType() {
         return resource.getResourceType();
-    }
-
-    public String getLaunchScript() {
-        return adobeLaunchService.getLaunchScript();
     }
 
 }
