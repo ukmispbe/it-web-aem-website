@@ -66,6 +66,16 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>itext</id>
+            <url>https://repo.itextsupport.com/releases</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
@@ -506,6 +516,11 @@
                 <groupId>com.itextpdf</groupId>
                 <artifactId>svg</artifactId>
                 <version>${itext.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>itext-licensekey</artifactId>
+                <version>3.0.4</version>
             </dependency>
             <dependency>
                 <groupId>org.bouncycastle</groupId>
