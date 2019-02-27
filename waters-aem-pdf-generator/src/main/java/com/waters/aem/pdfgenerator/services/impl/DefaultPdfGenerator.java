@@ -124,8 +124,6 @@ public final class DefaultPdfGenerator implements PdfGenerator {
 
         final PdfDocument pdfDocument = new PdfDocument(new PdfWriter(pdfOutputStream));
 
-        // pdfDocument.setDefaultPageSize(PageSize.LETTER);
-
         // pdfDocument.addEventHandler(PdfDocumentEvent.END_PAGE, new FooterEventHandler());
         // pdfDocument.getDocumentInfo().setTitle(page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle()));
 
@@ -176,12 +174,8 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     }
 
     private ConverterProperties getConverterProperties() {
-        final MediaDeviceDescription mediaDeviceDescription = new MediaDeviceDescription(MediaType.PRINT);
-
-        // mediaDeviceDescription.setWidth(PageSize.LETTER.getWidth());
-
         return new ConverterProperties()
             .setBaseUri(baseUri)
-            .setMediaDeviceDescription(mediaDeviceDescription);
+            .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT));
     }
 }
