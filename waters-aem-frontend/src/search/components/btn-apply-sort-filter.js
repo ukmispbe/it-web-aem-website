@@ -14,7 +14,7 @@ class ApplySortFilter extends Component {
     render() {
         const props = this.props;
         return (
-            <div class="cmp-search-apply-btn">
+            <div className="cmp-search-apply-btn">
                 <a
                     href="javascript:void(0);"
                     onClick={this.handleInput}

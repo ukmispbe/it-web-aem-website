@@ -146,15 +146,17 @@ class Search extends Component {
 
                 <BtnApplySortFilter />
 
-                <Sort
-                    sortHandler={this.sortHandler.bind(this)}
-                    sortValue={state.sort === 'most-recent' ? 2 : 1}
-                    text={this.props.searchText}
-                />
+                <div className="cmp-search__sort-filter__container">
+                    <Sort
+                        sortHandler={this.sortHandler.bind(this)}
+                        sortValue={state.sort === 'most-recent' ? 2 : 1}
+                        text={this.props.searchText}
+                    />
 
-                <Filter
-                    text={this.props.searchText}
-                />
+                    <Filter
+                        text={this.props.searchText}
+                    />
+                </div>
             </div>
         );
         const locale = this.props.searchLocale;

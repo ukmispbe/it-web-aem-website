@@ -53,12 +53,17 @@
                     right: 16px;
                     width: 20px;
                     height: 20px;
+
+                    @include tablet-and-under {
+                        background-image: url("data:image/svg+xml,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%23000000;stroke-linecap:round;stroke-linejoin:round;%7D%0A%3C/style%3E%3Cpolyline class='st0' points='8.8,20.5 17.2,12 8.8,3.5 '/%3E%3C/svg%3E");
+                    }
                 }
             }
         }
         &:last-child {
             h3 {
                 border-bottom: 1px solid $color-font-medium;
+                height: calc(2.75em + 2px);
             }
         }
         &__item {
@@ -93,6 +98,7 @@
             }
         }
         &__search {
+            display: none;
             position: relative;
             &,
             input[type='input'] {
@@ -111,6 +117,7 @@
             }
         }
         &__year {
+            display: none;
             margin: $space-xs auto;
             width: 180px;
             &__min,
@@ -142,7 +149,7 @@
                     }
                 }
             }
-            ul {
+            ul, .cmp-search-filters__filter__search, .cmp-search-filters__filter__year {
                 display: block;
             }
         }
@@ -249,12 +256,6 @@
             height: 20px;
         }
     }
-
-    @include tablet-and-under {
-        h3 {
-            display: none;
-        }
-    }
 }
 
 .cmp-search__sort-filter {
@@ -268,10 +269,16 @@
 
         padding: 20px;
         max-height: 100vh;
-        overflow-y: scroll;
+        overflow-y: hidden;
         overflow-x: hidden;
         &.selected {
             display: block;
+        }
+        &__container {
+            overflow-y: scroll;
+            height: 100%;
+            padding-bottom: $space-xxl;
+            position: relative;
         }
     }
 
@@ -292,6 +299,7 @@
         .cmp-search__sort-filter {
             height: 100%;
             z-index: 1;
+            padding-bottom: $space-xxl;
         }
         .container {
             max-height: calc(100vh - 6.5em);
