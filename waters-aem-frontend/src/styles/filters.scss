@@ -15,7 +15,7 @@
         padding: 0 $space-xs;
         background-color: transparent;
         outline: none;
-        border: 1px solid $color-font-medium;
+        border: 1px solid $color-gray-40;
         color: $color-font-medium;
     }
     &__filter {
@@ -30,7 +30,7 @@
         }
         h3 {
             @include font-utility;
-            border-top: 1px solid $color-font-medium;
+            border-top: 1px solid $color-gray-40;
             margin: 0;
             position: relative;
             height: $input-height;
@@ -62,7 +62,7 @@
         }
         &:last-child {
             h3 {
-                border-bottom: 1px solid $color-font-medium;
+                border-bottom: 1px solid $color-gray-40;
                 height: calc(2.75em + 2px);
             }
         }
@@ -72,7 +72,7 @@
             }
             input[type='checkbox'] {
                 appearance: none;
-                border: 1px solid $color-font-medium;
+                border: 1px solid $color-gray-40;
                 height: $font-size-body-m;
                 width: $font-size-body-m;
                 vertical-align: -3px;
@@ -307,13 +307,16 @@
     }
 }
 
+$header-height: 74px;
+
 .show-sort-filters {
     @include tablet-and-under {
         .cmp-search__sort-filter, .overlay {
             display: block;
         }
         .cmp-search__sort-filter {
-            height: 100%;
+            height: calc(100% + #{$header-height});
+            max-height: calc(100vh + #{$header-height});
             z-index: 1;
             padding-bottom: $space-xxl;
         }
@@ -351,6 +354,9 @@
                     }
                 }
             }
+        }
+        .cmp-search__sort-filter {
+            top: $header-height;
         }
     }
 }
