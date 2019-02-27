@@ -2,6 +2,9 @@ import React from 'react';
 import ReactSVG from 'react-svg';
 
 const FilterTags = props => {
+
+    //TODO: add functionality for tags
+
     return (
         <div className="cmp-search-filters__tags clearfix">
           <a href="javascript:void(0);" className="cmp-search-filters__tags__clear">Clear All</a>

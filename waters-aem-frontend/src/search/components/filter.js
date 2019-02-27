@@ -50,9 +50,9 @@ class Filter extends Component {
     }
 
     getFilters() {
-        //use a proper object here
+        //TODO: use a proper object here
         const categories = [{name:'Category 1'}, {name:'Category 2'}, {name:'Category 3'}];
-        
+
         const current = this;
         const state = current.state;
         const filters = categories.map((item, index) =>

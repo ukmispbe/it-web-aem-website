@@ -14,6 +14,7 @@ import Filter from './components/filter';
 import BtnShowSortFilter from './components/btn-show-sort-filter';
 import BtnHideSortFilter from './components/btn-hide-sort-filter';
 import BtnApplySortFilter from './components/btn-apply-sort-filter';
+import BtnDoneSortFilter from './components/btn-done-sort-filter';
 
 class Search extends Component {
     constructor() {
@@ -145,6 +146,8 @@ class Search extends Component {
                 />
 
                 <BtnApplySortFilter />
+
+                <BtnDoneSortFilter />
 
                 <div className="cmp-search__sort-filter__container">
                     <Sort

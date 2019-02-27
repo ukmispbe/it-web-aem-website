@@ -209,6 +209,22 @@
     }
 }
 
+.cmp-search-done-btn {
+    display: none;
+    a {
+        @include font-utility;
+        border: 1px solid $color-blue-50;
+        text-align: center;
+        padding: 0 $space-xs;
+        margin-bottom: $space-s;
+        color: $color-blue-50;
+        height: $input-height;
+        line-height: $input-height;
+        width: 100%;
+        display: block;
+    }
+}
+
 .cmp-search-hide-btn {
     display: none;
 
@@ -304,6 +320,37 @@
         .container {
             max-height: calc(100vh - 6.5em);
             overflow: hidden;
+        }
+
+
+        &.filter-active {
+            .cmp-search {
+                &-apply-btn, &-sortby, &-filters h3, &-filters__tags, &-filters__filter {
+                    display: none;
+                }
+                &-done-btn {
+                    display: block;
+                }
+                &-filters__filter {
+                    &.expanded {
+                        display: block;
+                        h3 {
+                            display: block;
+                            border: none;
+                            a {
+                                @include font-utility;
+                                background-color: transparent;
+                                &:before {
+                                    background-image: none;
+                                }
+                            }
+                        }
+                        ul {
+                            max-height: none;
+                        }
+                    }
+                }
+            }
         }
     }
 }
