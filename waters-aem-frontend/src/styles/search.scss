@@ -77,7 +77,7 @@
 
 div.cmp-search__no-results {
     padding: $space-xl $space-xl;
-    
+
     @include mobile {
         padding: $space-l $space-l;
     }
@@ -101,7 +101,7 @@ div.cmp-search__no-results {
             margin: 0 $space-xxs 0 0;
             border: 1px solid $color-border-dark;
             float: left;
-            padding-top: ($space-xxs - .1em);
+            padding-top: ($space-xxs - 0.1em);
             font-size: $font-size-body;
             color: $color-font-medium;
             text-decoration: none;
@@ -197,17 +197,20 @@ div.cmp-search__no-results {
     }
 }
 
-.cmp-search__resultsCount{
+.cmp-search__resultsCount {
     margin-top: -10%;
     margin-bottom: 10%;
     margin-left: -37%;
+    float: left;
+
     &.noresults{
         margin: unset;
         margin-top: -6%;
         margin-bottom: 6%;
     }
+    
     @include tablet-and-under {
-        margin:unset;
-        padding-bottom:$space-l;
+        margin: unset;
+        padding-bottom: $space-l;
     }
 }
