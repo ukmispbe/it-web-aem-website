@@ -3,7 +3,6 @@
 }
 
 @media print {
-
     @page {
         size: A4;
         @bottom-right {
@@ -16,8 +15,19 @@
         padding: 0;
     }
 
+    // hide images for debugging
+    .cmp-section-container .aem-Grid > .image {
+        display: none;
+    }
+
     .cmp-anchor, .cmp-external-header__links, .mopinion-survey-content, .cmp-share, a.cmp-back-to-top, .cmp-external-footer__links, .cmp-external-list__link::after, a.cmp-button {
         display: none;
+    }
+
+    .layoutcontainer .sectioncontainer {
+        margin: $space-m 0 $space-s 0;
+        page-break-inside: avoid;
+        page-break-after: always;
     }
 
     .layoutcontainer .cmp-section-container__title {
@@ -49,11 +59,14 @@
         }
     }
 
+    /*
     .cmp-section-container {
         page-break-inside: avoid;
     }
+    */
 
     .cmp-external-header {
+        border-bottom: none;
         background-color: $color-white;
         width: 100%;
         z-index: 100;
