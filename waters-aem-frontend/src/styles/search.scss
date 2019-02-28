@@ -203,6 +203,12 @@ div.cmp-search__no-results {
     margin-left: -37%;
     float: left;
 
+    &.noresults{
+        margin: unset;
+        margin-top: -6%;
+        margin-bottom: 6%;
+    }
+    
     @include tablet-and-under {
         margin: unset;
         padding-bottom: $space-l;
