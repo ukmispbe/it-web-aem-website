@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          jcr:primaryType="sling:OsgiConfig"
+          rolloutmgr.threadpool.maxsize="{Integer}5"
+          rolloutmgr.conflicthandling.enabled="{Boolean}true"
+          rolloutmgr.excludedprops.default="[sling:(?!(vanityPath|redirect)$).*,jcr:.*,cq:.*]"
+          rolloutmgr.threadpool.priority="MIN"
+          rolloutmgr.excludedparagraphprops.default="[cq:propertyInheritanceCancelled,jcr:frozenUuid,jcr:uuid]"
+          rolloutmgr.threadpool.maxshutdowntime="{Integer}10"
+          rolloutmgr.commit.size="{Integer}500"
+          rolloutmgr.excludednodetypes.default="[cq:LiveSyncAction,cq:LiveSyncConfig,cq:BlueprintSyncConfig,cq:LiveCopy]"
+          event.filter="(!(event.application\=*))"
+          configured=""/>

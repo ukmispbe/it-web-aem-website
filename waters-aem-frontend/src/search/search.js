@@ -109,7 +109,6 @@ class Search extends Component {
     }
 
     sortHandler(e) {
-        console.log('handler');
         const sortOption =
             parseInt(e.target.value) === 1 ? 'most-relevant' : 'most-recent';
         const state = this.state;
@@ -194,8 +193,8 @@ class Search extends Component {
                 {state.loading ? 'Loading' : null}
                 {!state.loading && state.noResults ? (
                     <NoResults
-                       searchText={this.props.searchText}
-                       query={state.query}
+                        searchText={this.props.searchText}
+                        query={state.query}
                     />
                 ) : (
                     results
