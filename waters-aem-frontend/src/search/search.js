@@ -122,6 +122,7 @@ class Search extends Component {
         this.setState(Object.assign({}, state, { sort: sortOption }));
 
         document.body.classList.remove('show-sort-filters');
+        document.body.classList.remove('filter-active');
 
         const qString = `?${this.search.getQueryParamString(
             {
