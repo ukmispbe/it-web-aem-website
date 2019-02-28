@@ -10,6 +10,7 @@ class HideSortFilter extends Component {
 
     handleInput(e) {
         document.body.classList.remove('show-sort-filters');
+        document.body.classList.remove('filter-active');
         this.setState({ showSortFilters: true });
     }
 
