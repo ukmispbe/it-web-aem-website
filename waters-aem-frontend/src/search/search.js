@@ -168,19 +168,22 @@ class Search extends Component {
         );
         const results = (
             <div className="cmp-search__container">
-                <BtnShowSortFilter />
 
-                <ResultsCount
-                    rows={state.rows}
-                    count={state.count}
-                    query={state.query}
-                    current={
-                        state.pagination && state.pagination.current
-                            ? state.pagination.current
-                            : 1
-                    }
-                    noQuery={state.noQuery}
-                />
+                <div class="cmp-search__container__header cleafix">
+                    <ResultsCount
+                        rows={state.rows}
+                        count={state.count}
+                        query={state.query}
+                        current={
+                            state.pagination && state.pagination.current
+                                ? state.pagination.current
+                                : 1
+                        }
+                        noQuery={state.noQuery}
+                    />
+
+                    <BtnShowSortFilter />
+                </div>
 
                 <Results
                     results={state.results[searchParams.page] || []}
