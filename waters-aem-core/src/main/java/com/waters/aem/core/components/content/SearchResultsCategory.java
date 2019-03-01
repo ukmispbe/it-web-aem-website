@@ -35,7 +35,7 @@ public final class SearchResultsCategory {
     @TagInject
     private List<Tag> orderedFacetTags = Collections.emptyList();
 
-    public String getFacetTitle() {
+    public String getFacetValue() {
         return categoryTag == null ? null : categoryTag.getTitle(siteContext.getLocale());
     }
 
@@ -43,7 +43,7 @@ public final class SearchResultsCategory {
         return categoryTag == null ? null : SearchUtils.getSolrFacetName(categoryTag.getName());
     }
 
-    public List<String> getOrderedFacets() {
+    public List<String> getOrderedFacetNames() {
         return orderedFacetTags.stream()
             .map(tag -> SearchUtils.getSolrFacetName(tag.getName()))
             .collect(Collectors.toList());
