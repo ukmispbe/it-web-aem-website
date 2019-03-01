@@ -1,4 +1,5 @@
 import React from 'react';
+import LinesEllipsis from 'react-lines-ellipsis';
 
 const monthNameFormatter = (date, locale = 'en-us') => {
     return date.toLocaleString(locale, { month: 'long' });
@@ -10,10 +11,11 @@ const Result = ({ result, locale }) => {
             <img src={result.thumbnail} alt={result.title} />
         </div>
     );
-    console.log('LOCALE:', locale);
+
     const date = new Date(result.yearpublished);
     const monthName = monthNameFormatter(date, locale);
     const formattedDate = monthName + ' ' + date.getFullYear();
+
     return (
         <li className="cmp-search__results-item" key={result.literaturecode}>
             {result.thumbnail && thumbnail}
@@ -29,7 +31,14 @@ const Result = ({ result, locale }) => {
                 </a>
                 <div className="cmp-search__results-item-description">
                     <div className="cmp-search__results-item-description-text">
-                        {result.description}
+                        <LinesEllipsis
+                            text={result.description}
+                            maxLine="3"
+                            ellipsis="…"
+                            trimRight
+                            basedOn="words"
+                            clamped="true"
+                        />
                     </div>
                 </div>
                 {result.yearpublished && (
