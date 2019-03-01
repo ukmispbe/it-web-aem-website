@@ -3,6 +3,7 @@ package com.waters.aem.core.components.content;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.widgets.TagInputField;
 import com.day.cq.tagging.Tag;
+import com.google.common.collect.ImmutableMap;
 import com.icfolson.aem.library.models.annotations.TagInject;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.utils.SearchUtils;
@@ -13,6 +14,7 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
@@ -35,17 +37,20 @@ public final class SearchResultsCategory {
     @TagInject
     private List<Tag> orderedFacetTags = Collections.emptyList();
 
-    public String getFacetValue() {
+    public String getCategoryFacetValue() {
         return categoryTag == null ? null : categoryTag.getTitle(siteContext.getLocale());
     }
 
-    public String getFacetName() {
+    public String getCategoryFacetName() {
         return categoryTag == null ? null : SearchUtils.getSolrFacetName(categoryTag.getName());
     }
 
-    public List<String> getOrderedFacetNames() {
+    public List<Map<String, String>> getOrderedFacets() {
         return orderedFacetTags.stream()
-            .map(tag -> SearchUtils.getSolrFacetName(tag.getName()))
+            .map(tag -> ImmutableMap.<String, String>builder()
+                .put("facetName", SearchUtils.getSolrFacetName(tag.getName()))
+                .put("facetValue", tag.getTitle(siteContext.getLocale()))
+                .build())
             .collect(Collectors.toList());
     }
 }

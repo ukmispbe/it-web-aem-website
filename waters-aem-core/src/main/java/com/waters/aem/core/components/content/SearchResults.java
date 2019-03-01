@@ -73,7 +73,7 @@ public final class SearchResults {
 
     public String getCategoriesAsJson() throws JsonProcessingException {
         return MAPPER.writeValueAsString(categories.stream()
-            .filter(category -> category.getFacetName() != null)
+            .filter(category -> category.getCategoryFacetName() != null)
             .collect(Collectors.toList()));
     }
 }
