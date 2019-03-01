@@ -48,6 +48,8 @@ public class ExternalFooter extends AbstractComponent implements ComponentExport
     @Self
     private AppnotePageAnalyticsModel analyticsModel;
 
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
     @DialogField(fieldLabel = "Logo",
         fieldDescription = "Select the logo image to display on footer",
         ranking = 1)
@@ -120,11 +122,10 @@ public class ExternalFooter extends AbstractComponent implements ComponentExport
     }
 
     public String getDataLayer(){
-        ObjectMapper mapper = new ObjectMapper();
         String jsonString = "";
 
         try{
-            jsonString = mapper.writeValueAsString(analyticsModel);
+            jsonString = MAPPER.writeValueAsString(analyticsModel);
         }catch(JsonProcessingException e){
 
         }
