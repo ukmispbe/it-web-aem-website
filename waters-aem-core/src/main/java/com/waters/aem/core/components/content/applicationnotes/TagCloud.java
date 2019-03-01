@@ -22,7 +22,9 @@ import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component(value = "Tag Cloud", path = WatersConstants.COMPONENT_PATH_APPLICATION_NOTES)
+@Component(value = "Tag Cloud",
+    description = "This is the Tag Cloud component for Waters site",
+    path = WatersConstants.COMPONENT_PATH_APPLICATION_NOTES)
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class TagCloud extends AbstractComponent implements ComponentExporter {

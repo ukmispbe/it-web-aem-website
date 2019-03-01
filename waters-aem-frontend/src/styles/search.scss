@@ -36,6 +36,11 @@
 
 .cmp-search__results-item {
     @include list-item;
+
+    &-title {
+        font-size: $font-size-h3;
+    }
+    
     @include mobile {
         margin-bottom: $space-l;
     }
@@ -44,7 +49,7 @@
 .cmp-search__results-body {
     width: 100%;
     float: left;
-    padding-bottom: $space-m;
+    padding-bottom: $space-s;
 
     @include mobile {
         padding-bottom: 0;
@@ -62,7 +67,7 @@
 .cmp-search__no-results {
     border: 1px solid $color-gray-30;
     text-align: center;
-    padding: $space-xl 0$space-xl;
+    padding: $space-xl 0 $space-xl;
     .icon {
         margin: 0 auto $space-s auto;
         height: $icon-xl;
@@ -198,15 +203,15 @@ div.cmp-search__no-results {
 }
 
 .cmp-search__resultsCount {
-    margin-top: -10%;
-    margin-bottom: 10%;
+    margin-top: -3.5em;
+    margin-bottom: 3.5em;
     margin-left: -37%;
     float: left;
 
     &.noresults{
         margin: unset;
-        margin-top: -6%;
-        margin-bottom: 6%;
+        margin-top: -3.5em;
+        margin-bottom: 3.5em;
     }
     
     @include tablet-and-under {

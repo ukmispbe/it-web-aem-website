@@ -19,10 +19,6 @@
     float: left;
     width: 100%;
 
-    &-title {
-        font-size: $font-size-h3;
-    }
-
     &-link {
         display: block;
         margin-bottom: 0;
@@ -39,6 +35,9 @@
         @include mobile {
             font-size: $font-size-small-m;
         }
+    }
+    &-title {
+        font-size: $font-size-h3;
     }
 }
 
