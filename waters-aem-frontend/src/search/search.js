@@ -100,6 +100,7 @@ class Search extends Component {
                 {
                     keyword: searchParams.keyword,
                     page: page.selected + 1,
+                    sort: searchParams.sort
                 },
                 searchParams.facets
             )}`
