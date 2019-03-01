@@ -131,6 +131,7 @@ class Search extends Component {
     }
 
     render() {
+
         const state = this.state;
         const searchParams = this.state.searchParams || {};
         const overlay = <div class="overlay" />;

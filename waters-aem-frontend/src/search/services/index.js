@@ -10,7 +10,7 @@ export class SearchService {
             isocode = 'en_US',
             page = 1,
             rows = 25,
-            sort = 'most recent',
+            sort = 'most-recent',
             multiselect = true,
         } = {},
         defaultFacet,
@@ -31,11 +31,17 @@ export class SearchService {
         keyword = '*:*',
         facets = {},
         page = 1,
-        sort = 'most relevant',
+        sort = 'most-recent',
     } = {}) {
-        const paramString = this.getQueryParamString({ keyword, page, sort });
-        const facetString = this.getQueryFacetString(facets);
 
+        if ((keyword === '*:*' || keyword === '') && sort === 'most-recent'){sort = 'most-recent';}else{sort = 'most-relevant';}
+
+        console.log('call keyword  |' + keyword + '|');
+        console.log('call sort ' + sort);
+        const paramString = this.getQueryParamString({ keyword, page, sort });
+        console.log('call After getQueryParamString ' + paramString);
+        const facetString = this.getQueryFacetString(facets);
+        console.log('call After getQueryFacetString ' + paramString);
         const searchString = `${this.path}/${facetString}?${paramString}`;
 
         return window.fetch(searchString).then(response => response.json());
@@ -49,7 +55,7 @@ export class SearchService {
     }
 
     getQueryParamString(
-        { keyword = '*:*', page = 1, sort = 'most relevant' } = {},
+        { keyword = '*:*', page = 1, sort = 'most-recent' } = {},
         facets
     ) {
         const fullParams = Object.assign({}, this.options, {
@@ -57,7 +63,7 @@ export class SearchService {
             page,
             sort,
         });
-
+        console.log('getQueryParamString ' + fullParams);
         let paramString = queryString.stringify(fullParams);
 
         if (facets) {
@@ -76,7 +82,7 @@ export class SearchService {
 
     getQueryFacetString(facets) {
         let facetString = '';
-
+        console.log('getQueryFacetString' + facets);
         for (let i = 0; i <= Object.keys(facets).length; i++) {
             const category = Object.keys(facets)[i];
             const facet = facets[category];
