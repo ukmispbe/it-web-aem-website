@@ -1,17 +1,14 @@
 package com.waters.aem.core.servlets;
 
-import com.day.cq.commons.Externalizer;
 import com.day.cq.wcm.commons.AbstractImageServlet;
 import com.day.image.Layer;
 import com.google.zxing.WriterException;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.qrcode.encoder.Encoder;
 import com.google.zxing.qrcode.encoder.QRCode;
-import com.waters.aem.core.components.structure.page.ApplicationNotes;
-import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.components.content.applicationnotes.QrCode;
 import org.apache.sling.servlets.annotations.SlingServletResourceTypes;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,8 +19,7 @@ import java.io.IOException;
 
 @Component(service = Servlet.class)
 @SlingServletResourceTypes(
-    resourceTypes = WatersConstants.RESOURCE_TYPE_PAGE,
-    selectors = "qrcode",
+    resourceTypes = QrCode.RESOURCE_TYPE,
     methods = "GET",
     extensions = "png"
 )
@@ -33,12 +29,9 @@ public final class QrCodeServlet extends AbstractImageServlet {
 
     private static final int DEFAULT_SIZE = 75;
 
-    @Reference
-    private Externalizer externalizer;
-
     @Override
     protected Layer createLayer(final ImageContext imageContext) throws IOException {
-        final String externalizedPageUrl = getExternalizedPageUrl(imageContext);
+        final String externalizedPageUrl = imageContext.request.adaptTo(QrCode.class).getExternalizedPageUrl();
 
         LOG.debug("creating QR code image for URL : {}", externalizedPageUrl);
 
@@ -72,8 +65,8 @@ public final class QrCodeServlet extends AbstractImageServlet {
             graphics.fillRect(0, 0, size, size);
             graphics.setColor(Color.BLACK);
 
-            for (int i = 0; i < qrBaseSize; ++i) {
-                for (int j = 0; j < qrBaseSize; ++j) {
+            for (int i = 0; i < qrBaseSize; i++) {
+                for (int j = 0; j < qrBaseSize; j++) {
                     if (qrcode.at(i, j) == 1) {
                         graphics.fillRect(startPos + i * qrActualSize, startPos + j * qrActualSize, qrActualSize,
                             qrActualSize);
@@ -89,13 +82,5 @@ public final class QrCodeServlet extends AbstractImageServlet {
         }
 
         return layer;
-    }
-
-    private String getExternalizedPageUrl(final ImageContext imageContext) {
-        final ApplicationNotes applicationNotes = imageContext.currentPage.getContentResource().adaptTo(
-            ApplicationNotes.class);
-
-        return externalizer.externalLink(imageContext.resolver, Externalizer.PUBLISH,
-            "/" + applicationNotes.getLiteratureCode());
     }
 }

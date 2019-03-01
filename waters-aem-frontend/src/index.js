@@ -48,6 +48,7 @@ if (searchAppContainer) {
     const text = JSON.parse(
         document.getElementById('search-results-translations-json').innerHTML
     );
+
     const data = getAuthoredDataForSearchApp(searchAppContainer);
     ReactDOM.render(
         <Search

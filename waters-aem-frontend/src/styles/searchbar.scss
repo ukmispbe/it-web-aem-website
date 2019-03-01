@@ -8,11 +8,13 @@
         width: 100%;
         border: 1px solid $color-border-light;
         background: $color-white;
-        padding: $space-s;
+        padding: ($space-s - .1em) $space-s $space-s $space-s;
         @include font-utility;
-
         font-size: $font-size-h3;
         color: $color-font-dark;
 
+        &:focus {
+            outline: 2px solid $color-focus;
+        }
     }
 }
