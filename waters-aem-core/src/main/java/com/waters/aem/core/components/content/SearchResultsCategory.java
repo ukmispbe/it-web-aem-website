@@ -35,8 +35,12 @@ public final class SearchResultsCategory {
     @TagInject
     private List<Tag> orderedFacetTags = Collections.emptyList();
 
-    public String getCategory() {
+    public String getFacetTitle() {
         return categoryTag == null ? null : categoryTag.getTitle(siteContext.getLocale());
+    }
+
+    public String getFacetName() {
+        return categoryTag == null ? null : SearchUtils.getSolrFacetName(categoryTag.getName());
     }
 
     public List<String> getOrderedFacets() {

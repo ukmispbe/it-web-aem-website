@@ -2,6 +2,7 @@ package com.waters.aem.core.components.content;
 
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
+import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,7 +19,20 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component(value = "Search Results", description = "This is the Search Results component for Waters site")
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_DELETE;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_EDIT;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_INSERT;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_MOVE;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH_PARENT;
+
+@Component(value = "Search Results",
+    description = "This is the Search Results component for Waters site",
+    listeners = {
+        @Listener(name = EVENT_AFTER_INSERT, value = REFRESH_PARENT),
+        @Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PARENT),
+        @Listener(name = EVENT_AFTER_MOVE, value = REFRESH_PARENT),
+        @Listener(name = EVENT_AFTER_DELETE, value = REFRESH_PARENT)
+    })
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class SearchResults {
 
@@ -59,7 +73,7 @@ public final class SearchResults {
 
     public String getCategoriesAsJson() throws JsonProcessingException {
         return MAPPER.writeValueAsString(categories.stream()
-            .filter(category -> category.getCategory() != null)
+            .filter(category -> category.getFacetName() != null)
             .collect(Collectors.toList()));
     }
 }
