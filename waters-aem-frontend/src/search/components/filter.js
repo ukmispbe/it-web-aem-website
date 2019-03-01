@@ -54,6 +54,7 @@ class Filter extends Component {
         const categories = [{name:'Category 1'}, {name:'Category 2'}, {name:'Category 3'}];
 
         const current = this;
+        const props = this.props;
         const state = current.state;
         const filters = categories.map((item, index) =>
                             <FilterSection
@@ -61,6 +62,7 @@ class Filter extends Component {
                                 selected={state.activeIndex}
                                 item={index}
                                 handleInput={current.filterHandler.bind(current)}
+                                text={props.text}
                             />
                         );
         return <ul>{ filters }</ul>;
@@ -72,7 +74,9 @@ class Filter extends Component {
             <div id="js-search-filters" className="cmp-search-filters">
                 <h3>Filter by</h3>
 
-                <FilterTags />
+                <FilterTags
+                    text={props.text}
+                />
 
                 {this.getFilters()}
                 

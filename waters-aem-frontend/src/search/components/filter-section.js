@@ -19,11 +19,15 @@ class FilterSection extends Component {
                         item={props.item}
                         onClick={e => props.handleInput(e, props.item)}
                     >
+                        <ReactSVG src={props.text.expandIcon} className="expandIcon" />
+                        <ReactSVG src={props.text.collapseIcon} className="collapseIcon" />
+                        <ReactSVG src={props.text.nextIcon} className="mobileIcon" />
                         CATEGORY NAME
                     </a>
                 </h3>
 
                 <div className="cmp-search-filters__filter__search">
+                    <ReactSVG src={props.text.searchIcon} className="searchIcon" />
                     <input type="input" placeholder="Search" />
                 </div>
 

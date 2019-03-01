@@ -183,7 +183,9 @@ class Search extends Component {
                         noQuery={state.noQuery}
                     />
 
-                    <BtnShowSortFilter />
+                    <BtnShowSortFilter
+                        text={this.props.searchText}
+                    />
                 </div>
 
                 <Results

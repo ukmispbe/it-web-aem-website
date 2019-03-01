@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactSVG from 'react-svg';
 
 class ShowSortFilter extends Component {
     constructor(props) {
@@ -21,6 +22,7 @@ class ShowSortFilter extends Component {
                     onClick={this.handleInput}
                     className="btn-show-sort-filter"
                 >
+                    <ReactSVG src={props.text.filterIcon} className="filterIcon" />
                     Sort and Filter
                 </a>
             </div>

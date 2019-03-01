@@ -199,15 +199,22 @@ div.cmp-search__no-results {
         display: none;
         @include font-utility;
         border: 1px solid $color-gray-40;
-        padding: 0 $space-xs;
+        padding: 0 $space-l 0 $space-xs;
         margin-bottom: $space-xl;
         height: $input-height;
         line-height: $input-height;
         width: 100%;
-        background-image: url("data:image/svg+xml,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%23000000;stroke-linecap:round;stroke-linejoin:round;%7D%0A%3C/style%3E%3Cpolygon class='st0' points='22,3 2,3 10,12.5 10,19 14,21 14,12.5 '/%3E%3C/svg%3E");
-        background-position: 95% 10px;
-        background-repeat: no-repeat;
-        background-size: 25px 25px;
+        position: relative;
+        svg {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            width: 25px;
+            height: 25px;
+            .st0 {
+                stroke: $color-icon;
+            }
+        }
         @include tablet-and-under {
             display: block;
         }

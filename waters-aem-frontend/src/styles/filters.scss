@@ -44,18 +44,35 @@
                 text-decoration: none;
                 height: $input-height;
                 line-height: $input-height;
-                &:before {
-                    content: '';
-                    background-image: url("data:image/svg+xml,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%23000000;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;%7D%0A%3C/style%3E%3Cline class='st0' x1='12' y1='5' x2='12' y2='19'/%3E%3Cline class='st0' x1='5' y1='12' x2='19' y2='12'/%3E%3C/svg%3E%0A");
-                    display: block;
+                position: relative;
+                svg {
                     position: absolute;
                     top: 12px;
-                    right: 16px;
+                    right: 13px;
                     width: 20px;
                     height: 20px;
-
-                    @include tablet-and-under {
-                        background-image: url("data:image/svg+xml,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%23000000;stroke-linecap:round;stroke-linejoin:round;%7D%0A%3C/style%3E%3Cpolyline class='st0' points='8.8,20.5 17.2,12 8.8,3.5 '/%3E%3C/svg%3E");
+                    .st0 {
+                        stroke: $color-icon;
+                    }
+                }
+                .expandIcon {
+                    display: block;
+                }
+                .collapseIcon {
+                    display: none;
+                    .st0 {
+                        stroke: $color-white;
+                    }
+                }
+                .mobileIcon {
+                    display: none;
+                }
+                @include tablet-and-under {
+                    .expandIcon {
+                        display: none;
+                    }
+                    .mobileIcon {
+                        display: block;
                     }
                 }
             }
@@ -106,14 +123,18 @@
                 position: relative;
                 margin-bottom: 0;
             }
-            &:before {
-                content: '';
-                background-image: url("data:image/svg+xml,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%23000000;stroke-linecap:round;stroke-linejoin:round;%7D%0A%3C/style%3E%3Ccircle class='st0' cx='11' cy='11' r='8'/%3E%3Cline class='st0' x1='21' y1='21' x2='16.9' y2='16.9'/%3E%3C/svg%3E%0A");
+            input[type='input'] {
+                padding-right: $space-xl;
+            }
+            svg {
                 position: absolute;
                 top: 10px;
-                right: 12px;
+                right: 9px;
                 width: 25px;
                 height: 25px;
+                .st0 {
+                    stroke: $color-icon;
+                }
             }
         }
         &__year {
@@ -144,8 +165,16 @@
                 a {
                     background-color: $color-font-medium;
                     color: $color-white;
-                    &:before {
-                        background-image: url("data:image/svg+xml,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%23FFFFFF;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;%7D%0A%3C/style%3E%3Cline class='st0' x1='5' y1='12' x2='19' y2='12'/%3E%3C/svg%3E%0A");
+                    .expandIcon {
+                        display: none;
+                    }
+                    .collapseIcon {
+                        display: block;
+                    }
+                    @include tablet-and-under {
+                        .collapseIcon, .mobileIcon {
+                            display: none;
+                        }
                     }
                 }
             }
@@ -166,17 +195,26 @@
             text-decoration: none;
             font-size: $font-size-small;
             background-color: $color-gray-10;
-            background-image: url("data:image/svg+xml,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%23000000;stroke-linecap:round;stroke-linejoin:round;%7D%0A%3C/style%3E%3Cline class='st0' x1='18' y1='6' x2='6' y2='18'/%3E%3Cline class='st0' x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-size: 16px 16px;
-            background-position: 3px 6px;
+            position: relative;
+            svg {
+                position: absolute;
+                top: 6px;
+                left: 4px;
+                width: 16px;
+                height: 16px;
+                .st0 {
+                    stroke: $color-icon;
+                }
+            }
             &:hover {
                 background-color: $color-gray-20;
             }
             &.cmp-search-filters__tags__clear {
                 color: $color-white;
                 background-color: $color-gray-50;
-                background-image: url("data:image/svg+xml,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%23FFFFFF;stroke-linecap:round;stroke-linejoin:round;%7D%0A%3C/style%3E%3Cline class='st0' x1='18' y1='6' x2='6' y2='18'/%3E%3Cline class='st0' x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E");
+                .st0 {
+                    stroke: $color-white;
+                }
                 &:hover {
                     background-color: $color-gray-50;
                 }
@@ -233,6 +271,9 @@
         height: 30px;
         display: block;
         float: right;
+        .st0 {
+            stroke: $color-icon;
+        }
     }
 
     @include tablet-and-under {
