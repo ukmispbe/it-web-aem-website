@@ -5,20 +5,6 @@
 @media print {
     @page {
         size: A4;
-        margin-bottom: 80px;
-
-        @bottom-right-corner {
-            content: counter(page);
-        }
-
-        @bottom-left {
-            border-top: 1pt solid black;
-            content: string(heading, first);
-        }
-    }
-
-    .cmp-title__text h1 {
-        string-set: heading content();
     }
 
     .container {
@@ -58,8 +44,7 @@
         }
     }
 
-    .cmp-section-container, .cmp-image {
-        page-break-after: always;
+    .cmp-section-container, .cmp-image, .cmp-text {
         page-break-inside: avoid;
     }
 
@@ -80,8 +65,6 @@
 
     .cmp-qr-code__img {
         vertical-align: middle;
-        height: 75px;
-        width: 75px;
 
         &::after {
             border-bottom: 1px solid #c6cdd2;
@@ -89,7 +72,6 @@
     }
 
     .cmp-title__print {
-        display: unset;
         border-top: 1px solid #c6cdd2;
         width: 100%;
         @include font-small;
