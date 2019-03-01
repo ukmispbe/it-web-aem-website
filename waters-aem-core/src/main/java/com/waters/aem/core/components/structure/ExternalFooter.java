@@ -24,6 +24,8 @@ import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import java.util.Calendar;
@@ -47,6 +49,8 @@ public class ExternalFooter extends AbstractComponent implements ComponentExport
 
     @Self
     private AppnotePageAnalyticsModel analyticsModel;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExternalFooter.class);
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -127,7 +131,7 @@ public class ExternalFooter extends AbstractComponent implements ComponentExport
         try{
             jsonString = MAPPER.writeValueAsString(analyticsModel);
         }catch(JsonProcessingException e){
-
+            LOGGER.error("JsonProcessingException:", e);
         }
         return jsonString;
     }
