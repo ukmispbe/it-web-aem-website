@@ -17,6 +17,8 @@
             <p>${externalFooter.copyrightText}</p>
         </div>
     </div>
-    <div id="datalayer"  data-datalayer="${externalFooter.dataLayer}" style="display:none;">${externalFooter.dataLayer}</div>
 </div>
 
+<script id="datalayer" type="text/javascript">
+    window.dataLayer = '${externalFooter.dataLayer @ context="unsafe"}';
+ </script> 

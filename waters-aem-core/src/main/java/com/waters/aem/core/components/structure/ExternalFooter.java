@@ -28,6 +28,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.Calendar;
 import java.util.List;
 
@@ -47,7 +49,8 @@ public class ExternalFooter extends AbstractComponent implements ComponentExport
     @Self
     private Resource resource;
 
-    @Self
+    @Inject
+    @Named("../")
     private AppnotePageAnalyticsModel analyticsModel;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExternalFooter.class);
@@ -125,15 +128,8 @@ public class ExternalFooter extends AbstractComponent implements ComponentExport
         return footerLinks;
     }
 
-    public String getDataLayer(){
-        String jsonString = "";
-
-        try{
-            jsonString = MAPPER.writeValueAsString(analyticsModel);
-        }catch(JsonProcessingException e){
-            LOGGER.error("JsonProcessingException:", e);
-        }
-        return jsonString;
+    public String getDataLayer() throws JsonProcessingException {
+        return MAPPER.writeValueAsString(analyticsModel);
     }
 
     @Nonnull
