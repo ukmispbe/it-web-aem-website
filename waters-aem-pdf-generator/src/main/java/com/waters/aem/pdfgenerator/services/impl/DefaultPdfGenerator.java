@@ -51,8 +51,9 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     private volatile String password;
 
     @Override
-    public ByteArrayOutputStream generatePdfDocumentFromHtml(final PageDecorator page) throws IOException {
-        return createPdfOutputStream(page, false);
+    public ByteArrayOutputStream generatePdfDocumentFromHtml(final PageDecorator page, final boolean publish)
+        throws IOException {
+        return createPdfOutputStream(page, publish);
     }
 
     @Override
@@ -124,6 +125,7 @@ public final class DefaultPdfGenerator implements PdfGenerator {
 
         final PdfDocument pdfDocument = new PdfDocument(new PdfWriter(pdfOutputStream));
 
+        // pdfDocument.addEventHandler(PdfDocumentEvent.END_PAGE, new FooterEventHandler());
         // pdfDocument.getDocumentInfo().setTitle(page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle()));
 
         HtmlConverter.convertToPdf(stream, pdfDocument, getConverterProperties());
@@ -162,7 +164,7 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     }
 
     private String getExternalUrl(final PageDecorator page, final boolean publish) {
-        LinkBuilder builder = page.getLinkBuilder().addSelector("print");
+        LinkBuilder builder = page.getLinkBuilder();//.addSelector("print");
 
         if (!publish) {
             builder.addParameter("wcmmode", WCMMode.DISABLED.name().toLowerCase());
