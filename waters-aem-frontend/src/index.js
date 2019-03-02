@@ -70,6 +70,7 @@ if (tagCloudContainer) {
     );
 
     const data = getAuthoredDataForTagCloud(header, tagCloudContainer);
+
     ReactDOM.render(
         <TagCloud
             tagCloudTitle={data.tagTitle}

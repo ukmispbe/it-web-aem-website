@@ -65,8 +65,8 @@ public final class QrCodeServlet extends AbstractImageServlet {
             graphics.fillRect(0, 0, size, size);
             graphics.setColor(Color.BLACK);
 
-            for (int i = 0; i < qrBaseSize; ++i) {
-                for (int j = 0; j < qrBaseSize; ++j) {
+            for (int i = 0; i < qrBaseSize; i++) {
+                for (int j = 0; j < qrBaseSize; j++) {
                     if (qrcode.at(i, j) == 1) {
                         graphics.fillRect(startPos + i * qrActualSize, startPos + j * qrActualSize, qrActualSize,
                             qrActualSize);

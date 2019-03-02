@@ -1,5 +1,6 @@
 package com.waters.aem.pdfgenerator.servlets;
 
+import com.day.cq.commons.Externalizer;
 import com.google.common.base.Charsets;
 import com.google.common.net.MediaType;
 import com.icfolson.aem.library.api.page.PageDecorator;
@@ -9,6 +10,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletResourceTypes;
+import org.apache.sling.settings.SlingSettingsService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
@@ -36,6 +38,9 @@ public final class PdfGeneratorServlet extends SlingSafeMethodsServlet {
     @Reference
     private PdfGenerator pdfGenerator;
 
+    @Reference
+    private SlingSettingsService settingsService;
+
     @Override
     protected void doGet(@Nonnull final SlingHttpServletRequest request,
         @Nonnull final SlingHttpServletResponse response) throws IOException {
@@ -48,7 +53,9 @@ public final class PdfGeneratorServlet extends SlingSafeMethodsServlet {
         } else {
             LOG.debug("generating PDF for page : {}", page.getPath());
 
-            final ByteArrayOutputStream pdfOutputStream = pdfGenerator.generatePdfDocumentFromHtml(page);
+            final boolean publish = settingsService.getRunModes().contains(Externalizer.PUBLISH);
+
+            final ByteArrayOutputStream pdfOutputStream = pdfGenerator.generatePdfDocumentFromHtml(page, publish);
 
             response.setCharacterEncoding(Charsets.UTF_8.name());
             response.setContentType(MediaType.PDF.withoutParameters().toString());
