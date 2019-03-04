@@ -4,12 +4,58 @@ import ReactSVG from 'react-svg';
 class FilterSection extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            showSearch: false,
+            showSearchMin: 2, //Set proper default here
+            initialItems: props.facet.orderedFacets,
+            items: []
+        }
     }
 
-    //TODO: add functionality filter
+    componentWillMount(){
+        this.setState({items: this.state.initialItems})
+    }
+
+    filterList(event){
+        const state = this.state;
+        var updatedList = state.initialItems;
+        updatedList = updatedList.filter(function(item){
+            return item.facetValue.toLowerCase().search(
+              event.target.value.toLowerCase()) !== -1;
+        });
+        this.setState({items: updatedList});
+    }
+
+    getFacetOptions() {
+        const options = this.state.items;
+        const option = options.map((item, index) =>
+          <li className="cmp-search-filters__filter__item" key={`${item.facetName}#_${index}`}>
+            <input type="checkbox" name="CATEGORY2_ITEM-NAME1" value={item.facetName} /><label htmlFor="CATEGORY2_ITEM-NAME1">{item.facetValue} <span className="cmp-search-filters__filter__item__count">(COUNT)</span></label>
+          </li>
+        );
+        return option
+    }
+
+    showSearcbar() {
+        const props = this.props;
+        const options = props.facet.orderedFacets;
+        let search = '';
+
+        if (options.length > this.state.showSearchMin) {
+            search = (
+              <div className="cmp-search-filters__filter__search">
+                <ReactSVG src={props.text.searchIcon} className="searchIcon" />
+                <input type="input" placeholder="Search" onChange={this.filterList.bind(this)} />
+              </div>
+            );
+        }
+
+        return search
+    }
 
     render() {
         const props = this.props;
+        
         return (
             <li className={ (props.item == props.selected) && (props.last != props.selected) ? 'cmp-search-filters__filter expanded': 'cmp-search-filters__filter'}>
 
@@ -22,31 +68,14 @@ class FilterSection extends Component {
                         <ReactSVG src={props.text.expandIcon} className="expandIcon" />
                         <ReactSVG src={props.text.collapseIcon} className="collapseIcon" />
                         <ReactSVG src={props.text.nextIcon} className="mobileIcon" />
-                        CATEGORY NAME
+                        {props.facet.categoryFacetValue}
                     </a>
                 </h3>
 
-                <div className="cmp-search-filters__filter__search">
-                    <ReactSVG src={props.text.searchIcon} className="searchIcon" />
-                    <input type="input" placeholder="Search" />
-                </div>
+                {this.showSearcbar()}
 
                 <ul>
-                    <li className="cmp-search-filters__filter__item">
-                        <input type="checkbox" name="CATEGORY2_ITEM-NAME1" /><label htmlFor="CATEGORY2_ITEM-NAME1">ITEM NAME <span className="cmp-search-filters__filter__item__count">(COUNT)</span></label>
-                    </li>
-                    <li className="cmp-search-filters__filter__item">
-                        <input type="checkbox" name="CATEGORY2_ITEM-NAME2" /><label htmlFor="CATEGORY2_ITEM-NAME2">ITEM NAME <span className="cmp-search-filters__filter__item__count">(COUNT)</span></label>
-                    </li>
-                    <li className="cmp-search-filters__filter__item">
-                        <input type="checkbox" name="CATEGORY2_ITEM-NAME3" /><label htmlFor="CATEGORY2_ITEM-NAME3">ITEM NAME <span className="cmp-search-filters__filter__item__count">(COUNT)</span></label>
-                    </li>
-                    <li className="cmp-search-filters__filter__item">
-                        <input type="checkbox" name="CATEGORY2_ITEM-NAME4" /><label htmlFor="CATEGORY2_ITEM-NAME4">ITEM NAME <span className="cmp-search-filters__filter__item__count">(COUNT)</span></label>
-                    </li>
-                    <li className="cmp-search-filters__filter__item">
-                        <input type="checkbox" name="CATEGORY2_ITEM-NAME5" /><label htmlFor="CATEGORY2_ITEM-NAME5">ITEM NAME <span className="cmp-search-filters__filter__item__count">(COUNT)</span></label>
-                    </li>
+                    {this.getFacetOptions()}
                 </ul>
 
                 <div className="cmp-search-filters__filter__year clearfix">

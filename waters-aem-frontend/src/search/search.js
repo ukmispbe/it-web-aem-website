@@ -81,6 +81,7 @@ class Search extends Component {
                 amount: Math.ceil(res.num_found / rows),
             };
             newState.noResults = !newState.results[query.page].length;
+            newState.facets = res.facets;
 
             this.setState(Object.assign({}, this.state, newState));
         });
@@ -158,6 +159,7 @@ class Search extends Component {
                     />
 
                     <Filter
+                        facets={state.facets}
                         text={this.props.searchText}
                     />
                 </div>
@@ -170,7 +172,7 @@ class Search extends Component {
         const results = (
             <div className="cmp-search__container">
 
-                <div class="cmp-search__container__header cleafix">
+                <div className="cmp-search__container__header cleafix">
                     <ResultsCount
                         rows={state.rows}
                         count={state.count}

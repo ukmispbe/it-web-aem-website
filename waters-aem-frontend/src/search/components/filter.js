@@ -50,19 +50,62 @@ class Filter extends Component {
     }
 
     getFilters() {
-        //TODO: use a proper object here
-        const categories = [{name:'Category 1'}, {name:'Category 2'}, {name:'Category 3'}];
-
         const current = this;
         const props = this.props;
         const state = current.state;
+
+        //TODO: use a proper object here
+        // replace categories with props.facets when implementation is ready
+        const categories = [{
+            "categoryFacetName": "applicationslibrary_facet1",
+            "categoryFacetValue": "Applications Library 1",
+            "orderedFacets": [{
+                "facetName": "instrumenttype_facet1",
+                "facetValue": "Instrument Type"
+            }, {
+                "facetName": "technique_facet1",
+                "facetValue": "Technique"
+            }, {
+                "facetName": "separationmode_facet1",
+                "facetValue": "Separation Mode"
+            }]
+        },{
+            "categoryFacetName": "applicationslibrary_facet2",
+            "categoryFacetValue": "Applications Library 2",
+            "orderedFacets": [{
+                "facetName": "instrumenttype_facet2",
+                "facetValue": "Instrument Type"
+            }, {
+                "facetName": "technique_facet2",
+                "facetValue": "Technique"
+            }, {
+                "facetName": "separationmode_facet2",
+                "facetValue": "Separation Mode"
+            }]
+        },{
+            "categoryFacetName": "applicationslibrary_facet3",
+            "categoryFacetValue": "Applications Library 3",
+            "orderedFacets": [{
+                "facetName": "instrumenttype_facet3",
+                "facetValue": "Instrument Type"
+            }, {
+                "facetName": "technique_facet3",
+                "facetValue": "Technique"
+            }, {
+                "facetName": "separationmode_facet3",
+                "facetValue": "Separation Mode"
+            }]
+        }];
+
         const filters = categories.map((item, index) =>
                             <FilterSection
+                                key={`${item.categoryFacetName}#_${index}`}
                                 last={state.lastIndex}
                                 selected={state.activeIndex}
                                 item={index}
                                 handleInput={current.filterHandler.bind(current)}
                                 text={props.text}
+                                facet={item}
                             />
                         );
         return <ul>{ filters }</ul>;
