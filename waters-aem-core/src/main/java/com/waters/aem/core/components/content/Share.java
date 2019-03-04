@@ -9,6 +9,7 @@ import com.day.cq.wcm.api.policies.ContentPolicy;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.SiteContext;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
@@ -37,7 +38,8 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH
         @Listener(name = EVENT_AFTER_INSERT, value = REFRESH_PAGE),
         @Listener(name = EVENT_AFTER_DELETE, value = REFRESH_PAGE)
     })
-@Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Model(adaptables = SlingHttpServletRequest.class,
+    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class Share {
 
     private static final Logger LOG = LoggerFactory.getLogger(Share.class);

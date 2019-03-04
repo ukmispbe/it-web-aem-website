@@ -1,5 +1,7 @@
 package com.waters.aem.core.components.content.applicationnotes;
 
+import com.adobe.cq.export.json.ComponentExporter;
+import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.widgets.Html5SmartFile;
@@ -10,17 +12,21 @@ import com.citytechinc.cq.component.annotations.widgets.ToolbarConfig;
 import com.citytechinc.cq.component.annotations.widgets.rte.Format;
 import com.citytechinc.cq.component.annotations.widgets.rte.SubSuperscript;
 import com.citytechinc.cq.component.annotations.widgets.rte.UISettings;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waters.aem.core.constants.WatersConstants;
+import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
+import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ChildResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,8 +38,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component(value = "Table", path = WatersConstants.COMPONENT_PATH_APPLICATION_NOTES)
-@Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public final class Table {
+@Model(adaptables = SlingHttpServletRequest.class,
+    adapters = { Table.class, ComponentExporter.class },
+    resourceType = Table.RESOURCE_TYPE,
+    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
+    extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+public final class Table implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/applicationnotes/table";
 
@@ -93,6 +104,12 @@ public final class Table {
 
     private List<Map<String, List<String>>> tableRows;
 
+    @Nonnull
+    @Override
+    public String getExportedType() {
+        return RESOURCE_TYPE;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -105,6 +122,7 @@ public final class Table {
         return header;
     }
 
+    @JsonIgnore
     public InputStream getExcelFileInputStream() {
         return excelFile == null ? null : excelFile.adaptTo(InputStream.class);
     }

@@ -35,7 +35,8 @@ import java.util.Collection;
     adapters = com.adobe.cq.wcm.core.components.models.List.class,
     resourceType = List.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
+    extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class List implements com.adobe.cq.wcm.core.components.models.List {
 
     static final String RESOURCE_TYPE = "waters/components/content/list";
@@ -55,11 +56,11 @@ public final class List implements com.adobe.cq.wcm.core.components.models.List 
     private String title;
 
     @DialogField(fieldDescription = "Select this option to show thumbnail",
-            value = "true",
-            tab = 2,
-            ranking = 4)
+        value = "true",
+        tab = 2,
+        ranking = 4)
     @CheckBox(title = "showThumbNail",
-            text = "Show thumbnail")
+        text = "Show thumbnail")
     @Inject
     private Boolean showThumbNail;
 

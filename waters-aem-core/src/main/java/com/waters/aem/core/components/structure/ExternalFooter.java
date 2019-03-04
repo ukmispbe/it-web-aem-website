@@ -5,8 +5,14 @@ import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
-import com.citytechinc.cq.component.annotations.widgets.*;
+import com.citytechinc.cq.component.annotations.widgets.Html5SmartImage;
+import com.citytechinc.cq.component.annotations.widgets.MultiField;
+import com.citytechinc.cq.component.annotations.widgets.PathField;
+import com.citytechinc.cq.component.annotations.widgets.Switch;
+import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.wcm.foundation.Image;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.link.Link;
@@ -18,12 +24,11 @@ import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.content.applicationnotes.ExternalLinkItem;
 import com.waters.aem.core.components.structure.page.AppnotePageAnalyticsModel;
 import com.waters.aem.core.constants.WatersConstants;
-import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -40,18 +45,21 @@ import java.util.List;
     },
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE)
-@Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public class ExternalFooter extends AbstractComponent implements ComponentExporter {
+@Model(adaptables = SlingHttpServletRequest.class,
+    adapters = { ExternalFooter.class, ComponentExporter.class },
+    resourceType = ExternalFooter.RESOURCE_TYPE,
+    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
+    extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+public final class ExternalFooter extends AbstractComponent implements ComponentExporter {
 
-    @Self
-    private Resource resource;
+    public static final String RESOURCE_TYPE = "waters/components/structure/externalfooter";
+
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @Inject
     @Named("../")
     private AppnotePageAnalyticsModel analyticsModel;
-
-    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @DialogField(fieldLabel = "Logo",
         fieldDescription = "Select the logo image to display on footer",
@@ -78,6 +86,7 @@ public class ExternalFooter extends AbstractComponent implements ComponentExport
         fieldDescription = "Enter the copyright text",
         ranking = 4)
     @TextField
+    @JsonProperty
     public String getCopyrightText() {
         final String defaultCopyrightText = new StringBuilder()
             .append("© ")
@@ -87,7 +96,6 @@ public class ExternalFooter extends AbstractComponent implements ComponentExport
 
         return getInherited("copyrightText", defaultCopyrightText);
     }
-
 
     @DialogField(fieldLabel = "Open in New Window",
         fieldDescription = "Select this option to open in new window",
@@ -104,22 +112,32 @@ public class ExternalFooter extends AbstractComponent implements ComponentExport
     @InheritInject
     private List<ExternalLinkItem> footerLinks;
 
+    @JsonIgnore
     public Image getLogoImage() {
         return logoImage;
     }
 
+    @JsonProperty("logoImage")
+    public String getLogoImageFileReference() {
+        return logoImage == null ? null : logoImage.getFileReference();
+    }
+
+    @JsonProperty
     public Link getLogoLink() {
         return logoLink;
     }
 
+    @JsonProperty
     public String getLogoAltText() {
         return logoAltText;
     }
 
+    @JsonProperty
     public Boolean isNewWindow() {
         return newWindow;
     }
 
+    @JsonProperty
     public List<ExternalLinkItem> getFooterLinks() {
         return footerLinks;
     }
@@ -131,7 +149,6 @@ public class ExternalFooter extends AbstractComponent implements ComponentExport
     @Nonnull
     @Override
     public String getExportedType() {
-        return resource.getResourceType();
+        return RESOURCE_TYPE;
     }
-
 }
