@@ -3,7 +3,6 @@ package com.waters.aem.core.components.structure.page;
 import com.day.cq.tagging.Tag;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.SiteContext;
-import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
@@ -22,9 +21,6 @@ public class AppnotePageAnalyticsModel {
     @Inject
     private PageDecorator currentPage;
 
-    @Inject
-    private ResourceResolver resolver;
-
     @Self
     private SiteContext siteContext;
 
@@ -38,11 +34,11 @@ public class AppnotePageAnalyticsModel {
     }
 
     public List<String> getTags() {
-        return getTagIds(applicationNotes.getAllTags());
+        return getLocalizedTitle(applicationNotes.getAllTags());
     }
 
     public List<String> getPublishYear() {
-        return getTagIds(applicationNotes.getYearPublished());
+        return getLocalizedTitle(applicationNotes.getYearPublished());
     }
 
     public String getEditDate() {
@@ -65,14 +61,14 @@ public class AppnotePageAnalyticsModel {
     }
 
     public List<String> getType() {
-        return getTagIds(applicationNotes.getContentType());
+        return getLocalizedTitle(applicationNotes.getContentType());
     }
 
     public List<String> getCategory() {
-        return getTagIds(applicationNotes.getCategory());
+        return getLocalizedTitle(applicationNotes.getCategory());
     }
 
-    public List<String> getTagIds(List<Tag> tags) {
-        return tags.stream().map(tag -> tag.getLocalTagID()).collect(Collectors.toList());
+    public List<String> getLocalizedTitle(List<Tag> tags) {
+        return tags.stream().map(tag -> tag.getTitle(siteContext.getLocale())).collect(Collectors.toList());
     }
 }
