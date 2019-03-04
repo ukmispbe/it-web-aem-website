@@ -88,7 +88,6 @@ public final class Button implements ComponentExporter {
     }
 
     public String getAssetMetadataJson() throws JsonProcessingException {
-
         return MAPPER.writeValueAsString(getAssetMetadata());
     }
 
