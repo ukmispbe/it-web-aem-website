@@ -69,6 +69,21 @@ public class AppnotePageAnalyticsModel {
     }
 
     public List<String> getLocalizedTitle(List<Tag> tags) {
-        return tags.stream().map(tag -> tag.getTitle(siteContext.getLocale())).collect(Collectors.toList());
+        return tags.stream().map(tag -> getTagTitlePath(tag)).collect(Collectors.toList());
+    }
+
+    public String getTagTitlePath(Tag tag) {
+        List<String> titlesInPath = new ArrayList<>();
+        titlesInPath.add(tag.getTitle(siteContext.getLocale()));
+        
+        Tag parent = tag.getParent();
+
+        while(parent != null) {
+            titlesInPath.add(parent.getTitle(siteContext.getLocale()));
+            parent = parent.getParent();
+        }
+
+        Collections.reverse(titlesInPath);
+        return String.join("|", titlesInPath);
     }
 }
