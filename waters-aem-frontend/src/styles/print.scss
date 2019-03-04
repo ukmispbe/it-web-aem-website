@@ -5,13 +5,33 @@
 @media print {
     @page {
         size: A4;
+
+        @bottom-left {
+            content: element(header);
+            border-top: 1px solid #c6cdd2;
+            @include font-small;
+            margin-top: -40px;
+            margin-right: -235px;
+        }
+
+        @bottom-right {
+             content: counter(page);
+             border-top: 1px solid #c6cdd2;
+             @include font-small;
+             margin-top: -40px;
+        }
+    }
+
+    .cmp-title__print {
+        display:block;
+        position: running(header);
     }
 
     .container {
         padding: 5px;
     }
 
-    .cmp-anchor, .cmp-external-header__links, .mopinion-survey-content, .cmp-share, a.cmp-back-to-top, .cmp-external-footer__links, .cmp-external-list__link::after, a.cmp-button {
+    .cmp-anchor, .cmp-external-header__links, .mopinion-survey-content, .cmp-share, a.cmp-back-to-top, .cmp-external-footer__links, .cmp-external-list__link::after, a.cmp-button ,a.cmp-utility-button{
         display: none;
     }
 
@@ -44,7 +64,17 @@
         }
     }
 
-    .sectioncontainer, .image, .text, .table {
+    .sectioncontainer {
+        float:none !important;
+        page-break-before: always;
+    }
+
+    p {
+        widows: 3;
+        orphans: 3;
+    }
+
+    .image, .table {
         page-break-inside: avoid;
     }
 
@@ -69,15 +99,5 @@
         &::after {
             border-bottom: 1px solid #c6cdd2;
         }
-    }
-
-    .cmp-title__print {
-        border-top: 1px solid #c6cdd2;
-        width: 100%;
-        @include font-small;
-        padding-top: $space-xs;
-        float: left;
-        bottom: 0;
-        position: fixed;
     }
 }
