@@ -11,7 +11,6 @@ import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.dam.api.Asset;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.core.constants.PathConstants;
 import com.icfolson.aem.library.models.annotations.LinkInject;
@@ -34,7 +33,7 @@ import java.util.Map;
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class Button implements ComponentExporter {
 
-    private static final ObjectMapper MAPPER = new ObjectMapper().configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, true);
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @Self
     private Resource resource;
