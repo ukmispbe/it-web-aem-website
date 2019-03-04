@@ -11,6 +11,7 @@ import NoResults from './components/no-results';
 
 import Sort from './components/sort';
 import Filter from './components/filter';
+import FilterTags from './components/filter-tags';
 import BtnShowSortFilter from './components/btn-show-sort-filter';
 import BtnHideSortFilter from './components/btn-hide-sort-filter';
 import BtnApplySortFilter from './components/btn-apply-sort-filter';
@@ -189,6 +190,10 @@ class Search extends Component {
                         text={this.props.searchText}
                     />
                 </div>
+
+                <FilterTags
+                    text={this.props.searchText}
+                />
 
                 <Results
                     results={state.results[searchParams.page] || []}
