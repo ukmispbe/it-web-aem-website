@@ -23,11 +23,11 @@
     }
 
     .cmp-title__print {
+        position: fixed;
         display:block;
         @include font-xsmall;
         bottom: 0;
         position: running(header);
-        position: fixed;
     }
 
     * {
