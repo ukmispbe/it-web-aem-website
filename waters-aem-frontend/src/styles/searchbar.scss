@@ -17,29 +17,37 @@
         &:focus {
             outline: 2px solid $color-focus;
         }
+
+        &::-ms-clear {
+            display: none;
+        }
     }
 
     &__icon-search {
-        position: absolute;
-        right: 17px;
-        top: 17px;
-        width: 34px;
-        height: 34px;
-
-        svg .st0 {
-            stroke: $color-background-dark;
+        svg {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            width: 34px;
+            height: 34px;
+            
+            .st0 {
+                stroke: $color-background-dark;
+            }
         }
 
         &--clear {
-            position: absolute;
-            right: 17px;
-            top: 17px;
-            width: 34px;
-            height: 34px;
-            cursor: pointer;
+            svg {
+                position: absolute;
+                right: 15px;
+                top: 15px;
+                width: 34px;
+                height: 34px;
+                cursor: pointer;
 
-            svg .st0 {
-                stroke: $color-background-dark;
+                .st0 {
+                    stroke: $color-background-dark;
+                }
             }
         }
     }
