@@ -18,6 +18,7 @@ class Search extends Component {
     }
 
     componentWillMount() {
+
         this.search = new SearchService(
             this.props.searchDefaults,
             this.props.defaultFacet,
@@ -26,6 +27,13 @@ class Search extends Component {
 
         const query = this.search.getParamsFromString();
         this.query = query;
+
+        if (typeof this.query.keyword === "undefined") {
+            this.query.sort = "most-recent"
+        }
+        else {
+            this.query.sort = "most-relevant"
+        }
 
         this.setState({
             loading: true,
@@ -36,17 +44,18 @@ class Search extends Component {
             rows: this.props.searchDefaults
                 ? this.props.searchDefaults && this.props.searchDefaults.rows
                 : 25,
-            sort: this.query.sort ? this.query.sort : 'most-relevant',
+            sort: this.query.sort,
         });
 
         this.performSearch();
     }
 
     componentWillReceiveProps() {
-        this.performSearch();
+            this.performSearch();
     }
 
     performSearch(q) {
+
         let query = q
             ? this.search.createQueryObject(q)
             : this.search.createQueryObject(parse(window.location.search));
@@ -72,6 +81,8 @@ class Search extends Component {
             newState.results = newState.results || {};
             newState.results[query.page] = res.documents;
             newState.noQuery = query.keyword ? false : true;
+            newState.sort = this.state.sort;
+
             newState.pagination = {
                 current: query.page,
                 amount: Math.ceil(res.num_found / rows),
@@ -100,7 +111,7 @@ class Search extends Component {
                 {
                     keyword: searchParams.keyword,
                     page: page.selected + 1,
-                    sort: searchParams.sort
+                    sort: state.sort
                 },
                 searchParams.facets
             )}`
@@ -112,6 +123,7 @@ class Search extends Component {
     sortHandler(e) {
         const sortOption =
             parseInt(e.target.value) === 1 ? 'most-relevant' : 'most-recent';
+
         const state = this.state;
         const searchParams = this.state.searchParams || {};
 
@@ -132,9 +144,9 @@ class Search extends Component {
     }
 
     render() {
-
         const state = this.state;
         const searchParams = this.state.searchParams || {};
+
         const overlay = <div class="overlay" />;
         const aside = (
             <div className="container__left cmp-search__sort-filter">
@@ -145,6 +157,7 @@ class Search extends Component {
                 />
             </div>
         );
+
         const locale = this.props.searchLocale;
         const previousIcon = (
             <ReactSVG src={this.props.searchText.previousIcon} />
