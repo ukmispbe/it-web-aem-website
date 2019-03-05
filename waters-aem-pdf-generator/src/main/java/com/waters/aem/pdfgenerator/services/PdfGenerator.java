@@ -16,10 +16,11 @@ public interface PdfGenerator {
      * Generate a PDF document from the HTML markup of the current page.
      *
      * @param page application notes page
+     * @param publish if true, request page HTML from publish instead of author
      * @return PDF output stream
      * @throws IOException if error occurs in PDF generation
      */
-    ByteArrayOutputStream generatePdfDocumentFromHtml(PageDecorator page) throws IOException;
+    ByteArrayOutputStream generatePdfDocumentFromHtml(PageDecorator page, boolean publish) throws IOException;
 
     /**
      * Generate a PDF document from the published HTML markup of the current page and store the asset in the DAM.

@@ -3,7 +3,7 @@
           xmlns:jcr="http://www.jcp.org/jcr/1.0"
           jcr:primaryType="sling:OsgiConfig"
           smtp.host="mail1.waters.com"
-          smtp.port="{Integer}25"
+          smtp.port="{Long}25"
           smtp.user="waters"
           smtp.password="waters123$"
           smtp.ssl="{Boolean}false"

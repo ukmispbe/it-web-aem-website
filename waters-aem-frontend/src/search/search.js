@@ -18,7 +18,6 @@ class Search extends Component {
     }
 
     componentWillMount() {
-
         this.search = new SearchService(
             this.props.searchDefaults,
             this.props.defaultFacet,
@@ -51,11 +50,10 @@ class Search extends Component {
     }
 
     componentWillReceiveProps() {
-            this.performSearch();
+        this.performSearch();
     }
 
     performSearch(q) {
-
         let query = q
             ? this.search.createQueryObject(q)
             : this.search.createQueryObject(parse(window.location.search));
@@ -123,7 +121,6 @@ class Search extends Component {
     sortHandler(e) {
         const sortOption =
             parseInt(e.target.value) === 1 ? 'most-relevant' : 'most-recent';
-
         const state = this.state;
         const searchParams = this.state.searchParams || {};
 
@@ -146,7 +143,6 @@ class Search extends Component {
     render() {
         const state = this.state;
         const searchParams = this.state.searchParams || {};
-
         const overlay = <div class="overlay" />;
         const aside = (
             <div className="container__left cmp-search__sort-filter">
@@ -157,7 +153,6 @@ class Search extends Component {
                 />
             </div>
         );
-
         const locale = this.props.searchLocale;
         const previousIcon = (
             <ReactSVG src={this.props.searchText.previousIcon} />
@@ -177,6 +172,13 @@ class Search extends Component {
                     }
                     noQuery={state.noQuery}
                 />
+
+                <div className="cmp-search__sorted-by">
+                    {this.props.searchText.sortedBy}:{' '}
+                    {this.state.sort === 'most-relevant'
+                        ? this.props.searchText.sortByBestMatch
+                        : this.props.searchText.sortByMostRecent}
+                </div>
 
                 <Results
                     results={state.results[searchParams.page] || []}
