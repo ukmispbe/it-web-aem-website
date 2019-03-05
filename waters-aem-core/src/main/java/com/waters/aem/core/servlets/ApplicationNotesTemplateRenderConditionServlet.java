@@ -5,6 +5,7 @@ import com.adobe.granite.ui.components.rendercondition.SimpleRenderCondition;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
@@ -39,9 +40,7 @@ public final class ApplicationNotesTemplateRenderConditionServlet extends SlingS
             final PageManagerDecorator pageManager = request.getResourceResolver().adaptTo(PageManagerDecorator.class);
             final PageDecorator currentPage = pageManager.getPage(path);
 
-            final String templatePath = currentPage.getTemplatePath();
-
-            isApplicationNotesTemplate = WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE.equals(templatePath);
+            isApplicationNotesTemplate = Templates.isApplicationNotesPage(currentPage);
         }
 
         LOG.debug("current page : {}, is application notes template : {}", path, isApplicationNotesTemplate);
