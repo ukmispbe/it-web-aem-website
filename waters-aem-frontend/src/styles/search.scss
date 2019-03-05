@@ -204,9 +204,13 @@ div.cmp-search__no-results {
 
 .cmp-search__resultsCount {
     margin-top: -3.5em;
-    margin-bottom: 3.5em;
+    margin-bottom: 0;
     margin-left: -37%;
     float: left;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     &.noresults {
         margin: unset;
@@ -217,6 +221,9 @@ div.cmp-search__no-results {
     @include tablet-and-under {
         margin: unset;
         padding-bottom: $space-l;
+        overflow: visible;
+        text-overflow: unset;
+        white-space: normal;
     }
 }
 

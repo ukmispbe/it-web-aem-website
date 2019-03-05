@@ -9,7 +9,7 @@
         width: 100%;
         border: 1px solid $color-border-light;
         background: $color-white;
-        padding: ($space-s - 0.1em) $space-s $space-s $space-s;
+        padding: ($space-s - 0.1em) $space-xl $space-s $space-s;
         @include font-utility;
         font-size: $font-size-h3;
         color: $color-font-dark;
