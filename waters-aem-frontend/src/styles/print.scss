@@ -25,13 +25,18 @@
     .cmp-title__print {
         display:block;
         @include font-xsmall;
+        bottom: 0;
         position: running(header);
+        position: fixed;
     }
 
     * {
         float:none !important;
     }
 
+    body{
+        padding: 0;
+    }
 
     .container {
         padding: 5px;
@@ -42,9 +47,7 @@
     }
 
     .layoutcontainer .cmp-section-container__title{
-        padding: $space-xxs 0 $space-xxs $space-xxs;
-        margin-bottom: 1.5em;
-        border: none;
+        padding: 0.5em 0 0.5em 0;
     }
 
     .cmp-external-footer {
@@ -57,14 +60,13 @@
     }
 
     .cmp-external-footer__logo {
-        float: left;
+        float: left !important;
     }
 
     .cmp-external-footer__copyright {
-        float: right;
+        float: right !important;
 
         p {
-            font-size: font-size-xsmall;
             color: $color-gray-50;
         }
     }
@@ -84,13 +86,14 @@
 
     .cmp-external-header {
         border-bottom: none;
+        width: 100%;
     }
 
     .cmp-qr-code {
         @include font-xsmall;
         padding-top: $space-xs;
         display: unset;
-        float: right;
+        float: right !important;
     }
 
     .cmp-qr-code__img {
@@ -120,21 +123,22 @@
     }
 
     h1 {
-       font-size: $font-size-h1-pcss;
+       font-size: $font-size-h1-s;
        padding-bottom: $space-s;
        margin-right: -135px;
     }
 
     h2 {
-       font-size: $font-size-h2-pcss;
+       font-size: $font-size-h2-s;
     }
 
     h3 {
-       font-size: $font-size-h3-pcss;
+       font-size: $font-size-h3-s;
        font-weight: medium;
     }
 
-    h4 , li{
-       font-size: $font-size-h4-pcss;
+    p , h4 , li{
+       font-size: $font-size-h4-s;
     }
+
 }
