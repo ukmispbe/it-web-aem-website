@@ -22,9 +22,9 @@
     &__icon-search {
         position: absolute;
         right: 17px;
-        top: 17px;
-        width: 34px;
-        height: 34px;
+        top: 14px;
+        width: $icon-l;
+        height: $icon-l;
 
         svg .st0 {
             stroke: $color-background-dark;
@@ -33,9 +33,9 @@
         &--clear {
             position: absolute;
             right: 17px;
-            top: 17px;
-            width: 34px;
-            height: 34px;
+            top: 14px;
+            width: $icon-l;
+            height: $icon-l;
             cursor: pointer;
 
             svg .st0 {
