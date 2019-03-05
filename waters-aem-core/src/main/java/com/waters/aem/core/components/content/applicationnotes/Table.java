@@ -38,7 +38,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component(value = "Table", path = WatersConstants.COMPONENT_PATH_APPLICATION_NOTES)
-@Model(adaptables = SlingHttpServletRequest.class,
+@Model(adaptables = { SlingHttpServletRequest.class, Resource.class },
     adapters = { Table.class, ComponentExporter.class },
     resourceType = Table.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)

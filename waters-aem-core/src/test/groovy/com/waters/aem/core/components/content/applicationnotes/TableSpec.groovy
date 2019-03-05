@@ -28,7 +28,7 @@ class TableSpec extends AemLibraryModelSpec {
         // post-process to set JSON data
         processor.process(request, [])
 
-        def table = request.resource.adaptTo(Table)
+        def table = request.adaptTo(Table)
 
         expect:
         table.header == header
@@ -50,7 +50,7 @@ class TableSpec extends AemLibraryModelSpec {
         // post-process to set JSON data
         processor.process(request, [])
 
-        def table = request.resource.adaptTo(Table)
+        def table = request.adaptTo(Table)
 
         expect:
         table.columnNames == columnNames
@@ -70,7 +70,7 @@ class TableSpec extends AemLibraryModelSpec {
         // post-process to set JSON data
         processor.process(request, [])
 
-        def table = request.resource.adaptTo(Table)
+        def table = request.adaptTo(Table)
 
         expect:
         table.tableRows.size() == 4
@@ -91,7 +91,7 @@ class TableSpec extends AemLibraryModelSpec {
         // post-process to set JSON data
         processor.process(request, [])
 
-        def table = request.resource.adaptTo(Table)
+        def table = request.adaptTo(Table)
 
         def firstRow = table.tableRows[0]
 

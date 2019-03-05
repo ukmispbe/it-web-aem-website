@@ -11,7 +11,6 @@ import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.wcm.foundation.Image;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -112,14 +111,9 @@ public final class ExternalFooter extends AbstractComponent implements Component
     @InheritInject
     private List<ExternalLinkItem> footerLinks;
 
-    @JsonIgnore
+    @JsonProperty
     public Image getLogoImage() {
         return logoImage;
-    }
-
-    @JsonProperty("logoImage")
-    public String getLogoImageFileReference() {
-        return logoImage == null ? null : logoImage.getFileReference();
     }
 
     @JsonProperty
