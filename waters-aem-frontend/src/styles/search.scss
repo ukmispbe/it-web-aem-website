@@ -40,7 +40,7 @@
     &-title {
         font-size: $font-size-h3;
     }
-    
+
     @include mobile {
         margin-bottom: $space-l;
     }
@@ -208,14 +208,30 @@ div.cmp-search__no-results {
     margin-left: -37%;
     float: left;
 
-    &.noresults{
+    &.noresults {
         margin: unset;
         margin-top: -3.5em;
         margin-bottom: 3.5em;
     }
-    
+
     @include tablet-and-under {
         margin: unset;
         padding-bottom: $space-l;
+    }
+}
+
+.cmp-search__sorted-by {
+    display: none;
+    float: left;
+    width: 100%;
+    @include font-utility;
+    font-size: $font-size-small;
+
+    @include mobile {
+        display: block;
+    }
+
+    @include tablet {
+        display: block;
     }
 }
