@@ -1,5 +1,7 @@
 package com.waters.aem.core.components.content;
 
+import com.adobe.cq.export.json.ComponentExporter;
+import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Listener;
@@ -12,11 +14,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
+import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,8 +43,14 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH
         @Listener(name = EVENT_AFTER_DELETE, value = REFRESH_PAGE)
     })
 @Model(adaptables = SlingHttpServletRequest.class,
+    adapters = { Share.class, ComponentExporter.class },
+    resourceType = Share.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public final class Share {
+@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
+    extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+public final class Share implements ComponentExporter {
+
+    public static final String RESOURCE_TYPE = "waters/components/content/share";
 
     private static final Logger LOG = LoggerFactory.getLogger(Share.class);
 
@@ -62,6 +72,12 @@ public final class Share {
 
     @Inject
     private Externalizer externalizer;
+
+    @Nonnull
+    @Override
+    public String getExportedType() {
+        return RESOURCE_TYPE;
+    }
 
     @DialogField(fieldLabel = "Locales", fieldDescription = "Mapping of country codes to AddThis service codes.")
     @MultiField(composite = true)
