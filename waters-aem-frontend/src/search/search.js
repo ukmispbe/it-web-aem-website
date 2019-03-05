@@ -100,7 +100,7 @@ class Search extends Component {
                 {
                     keyword: searchParams.keyword,
                     page: page.selected + 1,
-                    sort: searchParams.sort
+                    sort: searchParams.sort,
                 },
                 searchParams.facets
             )}`
@@ -163,6 +163,13 @@ class Search extends Component {
                     }
                     noQuery={state.noQuery}
                 />
+
+                <div className="cmp-search__sorted-by">
+                    {this.props.searchText.sortedBy}:{' '}
+                    {this.state.sort === 'most-relevant'
+                        ? this.props.searchText.sortByBestMatch
+                        : this.props.searchText.sortByMostRecent}
+                </div>
 
                 <Results
                     results={state.results[searchParams.page] || []}
