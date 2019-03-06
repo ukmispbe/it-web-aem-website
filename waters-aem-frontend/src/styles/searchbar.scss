@@ -20,27 +20,35 @@
     }
 
     &__icon-search {
-        position: absolute;
-        right: 17px;
-        top: 14px;
-        width: $icon-l;
-        height: $icon-l;
-
-        svg .st0 {
-            stroke: $color-background-dark;
+        svg {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            width: $icon-l;
+            height: $icon-l;
+            
+            .st0 {
+                stroke: $color-background-dark;
+            }
         }
 
         &--clear {
-            position: absolute;
-            right: 17px;
-            top: 14px;
-            width: $icon-l;
-            height: $icon-l;
-            cursor: pointer;
+            svg {
+                position: absolute;
+                right: 15px;
+                top: 15px;
+                width: $icon-l;
+                height: $icon-l;
+                cursor: pointer;
 
-            svg .st0 {
-                stroke: $color-background-dark;
+                .st0 {
+                    stroke: $color-background-dark;
+                }
             }
+        }
+
+        &::-ms-clear {
+            display: none;
         }
     }
 }
