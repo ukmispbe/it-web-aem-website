@@ -11,25 +11,27 @@ import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.constants.WatersConstants;
-import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 @Component(value = "Button",
     description = "This is the Button component for Waters site",
-    tabs = @Tab(title = "Properties", touchUINodeName = "properties"))
-@Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+    tabs = @Tab(title = "Properties"))
+@Model(adaptables = SlingHttpServletRequest.class,
+    adapters = { Button.class, ComponentExporter.class },
+    resourceType = Button.RESOURCE_TYPE,
+    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
+    extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class Button implements ComponentExporter {
 
-    @Self
-    private Resource resource;
+    public static final String RESOURCE_TYPE = "waters/components/content/button";
 
     @DialogField(fieldLabel = "Button Text",
         fieldDescription = "Enter the text for the button",
@@ -81,6 +83,6 @@ public final class Button implements ComponentExporter {
     @Nonnull
     @Override
     public String getExportedType() {
-        return resource.getResourceType();
+        return RESOURCE_TYPE;
     }
 }

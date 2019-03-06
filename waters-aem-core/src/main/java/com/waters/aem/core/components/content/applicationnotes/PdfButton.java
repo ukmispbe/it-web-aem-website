@@ -23,7 +23,8 @@ import javax.inject.Inject;
     adapters = { PdfButton.class, ComponentExporter.class },
     resourceType = PdfButton.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
+    extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class PdfButton implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/applicationnotes/pdfbutton";

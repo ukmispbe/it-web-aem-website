@@ -14,7 +14,6 @@ import org.apache.sling.models.annotations.via.ResourceSuperType;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 @Component(value = "Image",
     description = "Smart Adaptive Image",
     resourceSuperType = Image.RESOURCE_SUPER_TYPE,
@@ -46,7 +45,7 @@ public final class Image implements com.adobe.cq.wcm.core.components.models.Imag
     }
 
     @Override
-    public String getAlt(){
+    public String getAlt() {
         return delegate.getAlt();
     }
 
