@@ -140,5 +140,7 @@
     p , h4 , li{
        font-size: $font-size-h4-s;
     }
-
+    div.container div.root>div.aem-Grid>div:nth-child(4) {
+        width: 100%;
+    }
 }
