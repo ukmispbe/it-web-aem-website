@@ -27,6 +27,13 @@ class Search extends Component {
         const query = this.search.getParamsFromString();
         this.query = query;
 
+        if (typeof this.query.keyword === "undefined") {
+            this.query.sort = "most-recent"
+        }
+        else {
+            this.query.sort = "most-relevant"
+        }
+
         this.setState({
             loading: true,
             results: {},
@@ -36,7 +43,7 @@ class Search extends Component {
             rows: this.props.searchDefaults
                 ? this.props.searchDefaults && this.props.searchDefaults.rows
                 : 25,
-            sort: this.query.sort ? this.query.sort : 'most-relevant',
+            sort: this.query.sort,
         });
 
         this.performSearch();
@@ -72,6 +79,8 @@ class Search extends Component {
             newState.results = newState.results || {};
             newState.results[query.page] = res.documents;
             newState.noQuery = query.keyword ? false : true;
+            newState.sort = this.state.sort;
+
             newState.pagination = {
                 current: query.page,
                 amount: Math.ceil(res.num_found / rows),
@@ -100,7 +109,7 @@ class Search extends Component {
                 {
                     keyword: searchParams.keyword,
                     page: page.selected + 1,
-                    sort: searchParams.sort,
+                    sort: state.sort
                 },
                 searchParams.facets
             )}`

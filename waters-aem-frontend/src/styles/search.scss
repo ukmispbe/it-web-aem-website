@@ -206,11 +206,6 @@ div.cmp-search__no-results {
     margin-top: -3.5em;
     margin-bottom: 0;
     margin-left: -37%;
-    float: left;
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 
     &.noresults {
         margin: unset;
