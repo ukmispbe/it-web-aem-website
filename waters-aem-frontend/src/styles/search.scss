@@ -206,8 +206,10 @@ div.cmp-search__no-results {
     margin-top: -3.5em;
     margin-bottom: 0;
     margin-left: -37%;
+    width: 100%;
 
     &.noresults {
+        width: 70%;
         margin: unset;
         margin-top: -3.5em;
         margin-bottom: 3.5em;
@@ -219,6 +221,11 @@ div.cmp-search__no-results {
         overflow: visible;
         text-overflow: unset;
         white-space: normal;
+
+        &.noresults {
+            width: 100%;
+            margin: 0;
+        }
     }
 }
 
