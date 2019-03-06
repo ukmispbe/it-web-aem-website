@@ -5,8 +5,7 @@
 @media print {
     @page {
 
-        size: A4;
-
+        margin-top: 20px;
         @bottom-left {
             content: element(header);
             border-top: 1px solid #c6cdd2;
@@ -65,8 +64,10 @@
 
     .cmp-external-footer__copyright {
         float: right !important;
+        margin-top: 0px;
 
         p {
+            font-size: $font-size-h4-s;
             color: $color-gray-50;
         }
     }
@@ -97,7 +98,7 @@
     }
 
     .cmp-qr-code__img {
-        vertical-align: middle;
+        margin-bottom: -35px;
 
         &::after {
             border-bottom: 1px solid #c6cdd2;
