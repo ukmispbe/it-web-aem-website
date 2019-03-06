@@ -7,7 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.services.solr.SolrSearchService;
-import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
@@ -18,8 +18,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component(value = "Search Results", description = "This is the Search Results component for Waters site")
-@Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Component(value = "Search Results",
+    description = "This is the Search Results component for Waters site")
+@Model(adaptables = SlingHttpServletRequest.class,
+    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class SearchResults {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();

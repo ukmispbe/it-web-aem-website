@@ -5,10 +5,9 @@
      class="cmp-tag-cloud">
 </div>
 
-<script type="application/json" id="tag-cloud-facets-json">
+<script type="application/json" id="tag-cloud-facets-json" data-sly-test="${tagCloud.searchFacets}">
     ${tagCloud.tagCloudFacetsAsJson @ context='unsafe'}
 </script>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
-     data-sly-call="${patterns.placeholder @ show=!tagCloud.title, text=component.title}"/>
-
+     data-sly-call="${patterns.placeholder @ show=!tagCloud.title || !tagCloud.searchFacets, text=component.title}"/>

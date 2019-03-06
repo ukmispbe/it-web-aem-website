@@ -49,7 +49,10 @@ class TagCloudSpec extends AemLibraryModelSpec {
 
     def "get tagcloud title"() {
         setup:
-        def tagCloud = getResource("/content/waters/jcr:content/page").adaptTo(TagCloud)
+        def tagCloud = requestBuilder
+            .setPath("/content/waters/jcr:content/page")
+            .build()
+            .adaptTo(TagCloud)
 
         expect:
         tagCloud.title == "keywords"
@@ -57,7 +60,10 @@ class TagCloudSpec extends AemLibraryModelSpec {
 
     def "get tagcloud searchFacets"() {
         setup:
-        def tagCloud = getResource("/content/waters/jcr:content/page").adaptTo(TagCloud)
+        def tagCloud = requestBuilder
+            .setPath("/content/waters/jcr:content/page")
+            .build()
+            .adaptTo(TagCloud)
 
         expect:
         tagCloud.searchFacets.size() == 3

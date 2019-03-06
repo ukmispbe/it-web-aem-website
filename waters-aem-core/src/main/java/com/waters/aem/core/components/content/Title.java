@@ -29,7 +29,8 @@ import javax.annotation.Nonnull;
 @Model(adaptables = SlingHttpServletRequest.class,
     resourceType = Title.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
+    extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class Title implements com.adobe.cq.wcm.core.components.models.Title {
 
     public static final String RESOURCE_TYPE = "waters/components/content/title";

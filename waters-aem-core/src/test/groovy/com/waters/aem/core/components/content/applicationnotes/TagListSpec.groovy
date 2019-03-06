@@ -51,23 +51,29 @@ class TagListSpec extends AemLibraryModelSpec {
 
     def "tags from current page"() {
         setup:
-        def tagList = getResource("/content/waters/jcr:content/page").adaptTo(TagList)
+        def tagList = requestBuilder
+            .setPath("/content/waters/jcr:content/page")
+            .build()
+            .adaptTo(TagList)
 
         expect:
         tagList.listItems.size() == 3
 
         and:
-        tagList.listItems*.title == ["First Class", "First Market", "Second Market"]
+        tagList.listItems == ["First Class", "First Market", "Second Market"]
     }
 
     def "fixed tag list"() {
         setup:
-        def tagList = getResource("/content/waters/jcr:content/fixed").adaptTo(TagList)
+        def tagList = requestBuilder
+            .setPath("/content/waters/jcr:content/fixed")
+            .build()
+            .adaptTo(TagList)
 
         expect:
         tagList.listItems.size() == 2
 
         and:
-        tagList.listItems*.title == ["2018", "2019"]
+        tagList.listItems == ["2018", "2019"]
     }
 }
