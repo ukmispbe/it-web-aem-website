@@ -15,14 +15,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.link.Link;
+import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.content.applicationnotes.ExternalLinkItem;
+import com.waters.aem.core.components.structure.page.AnalyticsPageModel;
 import com.waters.aem.core.components.structure.page.AppnotePageAnalyticsModel;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -57,8 +60,15 @@ public final class ExternalFooter extends AbstractComponent implements Component
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @Inject
+    private static PageDecorator currentPage;
+
+    @Inject
     @Named("../")
     private AppnotePageAnalyticsModel analyticsModel;
+
+    @Inject
+    @Named("../")
+    private AnalyticsPageModel pageModel;
 
     @DialogField(fieldLabel = "Logo",
         fieldDescription = "Select the logo image to display on footer",
@@ -137,6 +147,13 @@ public final class ExternalFooter extends AbstractComponent implements Component
     }
 
     public String getDataLayer() throws JsonProcessingException {
+        /*
+        String jsonString;
+        if(Templates.isApplicationNotesPage(currentPage)){
+            jsonString = MAPPER.writeValueAsString(analyticsModel);
+        } else {
+            jsonString = MAPPER.writeValueAsString(pageModel);
+        } */
         return MAPPER.writeValueAsString(analyticsModel);
     }
 
