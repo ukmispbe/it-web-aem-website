@@ -154,6 +154,8 @@ public final class ExternalFooter extends AbstractComponent implements Component
         } else {
             jsonString = MAPPER.writeValueAsString(pageModel);
         } */
+
+        //AppnotePageAnalyticsModel model = new AppnotePageAnalyticsModel();
         return MAPPER.writeValueAsString(analyticsModel);
     }
 

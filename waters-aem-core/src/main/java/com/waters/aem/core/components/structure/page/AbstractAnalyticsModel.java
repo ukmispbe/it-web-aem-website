@@ -9,30 +9,29 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by 35243 on 3/6/19.
- */
 public abstract class AbstractAnalyticsModel {
 
     @Self
-    private static SiteContext siteContext;
+    private SiteContext siteContext;
 
-    public static List<String> getLocalizedTitle(List<Tag> tags) {
-        return tags.stream().map(tag -> getTagTitlePath(tag)).collect(Collectors.toList());
+    public List<String> getLocalizedTitle(final List<Tag> tags) {
+        return tags.stream().map(this :: getTagTitlePath).collect(Collectors.toList());
     }
 
-    public static String getTagTitlePath(Tag tag) {
-        List<String> titlesInPath = new ArrayList<>();
+    private String getTagTitlePath(final Tag tag) {
+        final List<String> titlesInPath = new ArrayList<>();
+
         titlesInPath.add(tag.getTitle(siteContext.getLocale()));
 
         Tag parent = tag.getParent();
 
-        while(parent != null) {
+        while (parent != null) {
             titlesInPath.add(parent.getTitle(siteContext.getLocale()));
             parent = parent.getParent();
         }
 
         Collections.reverse(titlesInPath);
+
         return String.join("|", titlesInPath);
     }
 }
