@@ -48,10 +48,13 @@ class ExternalHeaderSpec extends AemLibraryModelSpec {
 
     def "get header logo"() {
         setup:
-        def externalheader = getResource(path).adaptTo(ExternalHeader)
+        def externalHeader = requestBuilder
+            .setPath(path)
+            .build()
+            .adaptTo(ExternalHeader)
 
         expect:
-        externalheader.logo?.fileReference == fileReference
+        externalHeader.logo?.fileReference == fileReference
 
         where:
         path                                             | fileReference
@@ -61,10 +64,13 @@ class ExternalHeaderSpec extends AemLibraryModelSpec {
 
     def "get header logo alt text"() {
         setup:
-        def externalheader = getResource(path).adaptTo(ExternalHeader)
+        def externalHeader = requestBuilder
+            .setPath(path)
+            .build()
+            .adaptTo(ExternalHeader)
 
         expect:
-        externalheader.logoAltText == logoAltText
+        externalHeader.logoAltText == logoAltText
 
         where:
         path                                             | logoAltText
@@ -74,18 +80,24 @@ class ExternalHeaderSpec extends AemLibraryModelSpec {
 
     def "get header logo link"() {
         setup:
-        def externalheader = getResource("/content/waters/two/jcr:content/externalheader").adaptTo(ExternalHeader)
+        def externalHeader = requestBuilder
+            .setPath("/content/waters/two/jcr:content/externalheader")
+            .build()
+            .adaptTo(ExternalHeader)
 
         expect:
-        externalheader.logoLink
+        externalHeader.logoLink
 
         and:
-        externalheader.logoLink.href == "www.waters.com"
+        externalHeader.logoLink.href == "www.waters.com"
     }
 
     def "is open in new window?"() {
         setup:
-        def externalHeader = getResource(path).adaptTo(ExternalHeader)
+        def externalHeader = requestBuilder
+            .setPath(path)
+            .build()
+            .adaptTo(ExternalHeader)
 
         expect:
         externalHeader.newWindow == isNewWindow
@@ -98,7 +110,10 @@ class ExternalHeaderSpec extends AemLibraryModelSpec {
 
     def "get header links"() {
         setup:
-        def externalHeader = getResource("/content/waters/three/jcr:content/externalheader").adaptTo(ExternalHeader)
+        def externalHeader = requestBuilder
+            .setPath("/content/waters/three/jcr:content/externalheader")
+            .build()
+            .adaptTo(ExternalHeader)
 
         expect:
         externalHeader.linkItems.size() == 2
@@ -109,6 +124,4 @@ class ExternalHeaderSpec extends AemLibraryModelSpec {
         and:
         externalHeader.linkItems.link.href == ["www.waters.com", "www.ta.com"]
     }
-
-
 }

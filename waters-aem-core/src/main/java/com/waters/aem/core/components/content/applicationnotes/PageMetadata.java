@@ -6,7 +6,7 @@ import com.day.cq.tagging.Tag;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.models.annotations.TagInject;
 import com.waters.aem.core.components.structure.page.ApplicationNotes;
-import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 
@@ -16,7 +16,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Model(adaptables = SlingHttpServletRequest.class,
+    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class PageMetadata {
 
     @Inject

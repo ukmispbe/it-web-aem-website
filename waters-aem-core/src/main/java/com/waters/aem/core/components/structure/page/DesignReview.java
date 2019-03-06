@@ -73,5 +73,4 @@ public final class DesignReview {
     public String getMarketMgrId() {
         return marketMgrId;
     }
-
 }

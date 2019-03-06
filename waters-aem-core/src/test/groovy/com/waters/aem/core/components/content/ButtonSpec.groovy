@@ -30,7 +30,10 @@ class ButtonSpec extends AemLibraryModelSpec {
 
     def "get button text"() {
         setup:
-        def button = getResource(path).adaptTo(Button)
+        def button = requestBuilder
+            .setPath(path)
+            .build()
+            .adaptTo(Button)
 
         expect:
         button.buttonText == text
@@ -43,7 +46,10 @@ class ButtonSpec extends AemLibraryModelSpec {
 
     def "get button tooltip"() {
         setup:
-        def button = getResource(path).adaptTo(Button)
+        def button = requestBuilder
+            .setPath(path)
+            .build()
+            .adaptTo(Button)
 
         expect:
         button.buttonToolTip == toolTip
@@ -56,7 +62,10 @@ class ButtonSpec extends AemLibraryModelSpec {
 
     def "button link is null when no values are authored"() {
         setup:
-        def button = getResource("/content/waters/one/jcr:content/button").adaptTo(Button)
+        def button = requestBuilder
+            .setPath("/content/waters/one/jcr:content/button")
+            .build()
+            .adaptTo(Button)
 
         expect:
         button.buttonLink == null
@@ -64,7 +73,10 @@ class ButtonSpec extends AemLibraryModelSpec {
 
     def "get button link"() {
         setup:
-        def button = getResource("/content/waters/two/jcr:content/button").adaptTo(Button)
+        def button = requestBuilder
+            .setPath("/content/waters/two/jcr:content/button")
+            .build()
+            .adaptTo(Button)
 
         expect:
         button.buttonLink // groovy truth check for non-null
@@ -75,7 +87,10 @@ class ButtonSpec extends AemLibraryModelSpec {
 
     def "is open in new window?"() {
         setup:
-        def button = getResource(path).adaptTo(Button)
+        def button = requestBuilder
+            .setPath(path)
+            .build()
+            .adaptTo(Button)
 
         expect:
         button.newWindow == isNewWindow

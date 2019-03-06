@@ -7,22 +7,24 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.widgets.Html5SmartImage;
 import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.models.annotations.ImageInject;
-import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
 
 @Component(value = "Banner",
     description = "This is the Banner component for Waters site")
-@Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+@Model(adaptables = SlingHttpServletRequest.class,
+    adapters = { Banner.class, ComponentExporter.class },
+    resourceType = Banner.RESOURCE_TYPE,
+    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
+    extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class Banner implements ComponentExporter {
 
-    @Self
-    private Resource resource;
+    public static final String RESOURCE_TYPE = "waters/components/content/banner";
 
     @DialogField(fieldLabel = "Background Image",
         fieldDescription = "Select background image for the banner",
@@ -38,6 +40,6 @@ public final class Banner implements ComponentExporter {
     @Nonnull
     @Override
     public String getExportedType() {
-        return resource.getResourceType();
+        return RESOURCE_TYPE;
     }
 }
