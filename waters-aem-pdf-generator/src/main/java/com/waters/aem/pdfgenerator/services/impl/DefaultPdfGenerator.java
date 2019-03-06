@@ -8,8 +8,6 @@ import com.icfolson.aem.library.api.link.builders.LinkBuilder;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.licensekey.LicenseKey;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
@@ -123,12 +121,9 @@ public final class DefaultPdfGenerator implements PdfGenerator {
         throws IOException {
         final InputStream stream = getPageInputStream(page, publish);
 
-        final PdfDocument pdfDocument = new PdfDocument(new PdfWriter(pdfOutputStream));
-
-        // pdfDocument.addEventHandler(PdfDocumentEvent.END_PAGE, new FooterEventHandler());
-        // pdfDocument.getDocumentInfo().setTitle(page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle()));
-
-        HtmlConverter.convertToPdf(stream, pdfDocument, getConverterProperties());
+        HtmlConverter.convertToPdf(stream, pdfOutputStream, new ConverterProperties()
+            .setBaseUri(baseUri)
+            .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT)));
     }
 
     private InputStream getPageInputStream(final PageDecorator page, final boolean publish)
@@ -172,11 +167,5 @@ public final class DefaultPdfGenerator implements PdfGenerator {
 
         return externalizer.externalLink(page.getContentResource().getResourceResolver(),
             publish ? Externalizer.PUBLISH : Externalizer.AUTHOR, builder.build().getHref());
-    }
-
-    private ConverterProperties getConverterProperties() {
-        return new ConverterProperties()
-            .setBaseUri(baseUri)
-            .setMediaDeviceDescription(new MediaDeviceDescription(MediaType.PRINT));
     }
 }
