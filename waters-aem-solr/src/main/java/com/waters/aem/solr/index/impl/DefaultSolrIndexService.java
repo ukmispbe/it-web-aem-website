@@ -2,7 +2,7 @@ package com.waters.aem.solr.index.impl;
 
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
-import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.utils.Templates;
 import com.waters.aem.solr.client.SolrIndexClient;
 import com.waters.aem.solr.index.SolrIndexService;
 import com.waters.aem.solr.index.SolrIndexServiceConfiguration;
@@ -136,11 +136,9 @@ public class DefaultSolrIndexService implements SolrIndexService {
     }
 
     private SolrInputDocumentBuilder getSolrInputDocumentBuilder(final PageDecorator page) {
-        final String templatePath = page.getTemplatePath();
-
         final SolrInputDocumentBuilder builder;
 
-        if (WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE.equals(templatePath)) {
+        if (Templates.isApplicationNotesPage(page)) {
             builder = modelFactory.createModel(page, ApplicationNotesSolrInputDocumentBuilder.class);
         } else {
             builder = modelFactory.createModel(page, DefaultSolrInputDocumentBuilder.class);

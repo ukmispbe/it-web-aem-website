@@ -5,6 +5,7 @@ import com.google.common.base.Charsets;
 import com.google.common.net.MediaType;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.utils.Templates;
 import com.waters.aem.pdfgenerator.services.PdfGenerator;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
@@ -46,13 +47,10 @@ public final class PdfGeneratorServlet extends SlingSafeMethodsServlet {
         @Nonnull final SlingHttpServletResponse response) throws IOException {
         final PageDecorator page = request.getResource().getParent().adaptTo(PageDecorator.class);
 
-        if (page == null || !WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE.equals(page.getTemplatePath())) {
-            LOG.debug("page not found or invalid template type, sending 404 response");
-
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
-        } else {
+        if (Templates.isApplicationNotesPage(page)) {
             LOG.debug("generating PDF for page : {}", page.getPath());
 
+            // if request is from the publish environment, generate the PDF from the published page
             final boolean publish = settingsService.getRunModes().contains(Externalizer.PUBLISH);
 
             final ByteArrayOutputStream pdfOutputStream = pdfGenerator.generatePdfDocumentFromHtml(page, publish);
@@ -63,6 +61,10 @@ public final class PdfGeneratorServlet extends SlingSafeMethodsServlet {
 
             pdfOutputStream.writeTo(response.getOutputStream());
             pdfOutputStream.close();
+        } else {
+            LOG.debug("page not found or invalid template type, sending 404 response");
+
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 }

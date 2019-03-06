@@ -9,6 +9,7 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.link.builders.factory.LinkBuilderFactory;
@@ -49,7 +50,8 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH
     adapters = { SectionContainer.class, ComponentExporter.class },
     resourceType = SectionContainer.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
+    extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class SectionContainer extends AbstractComponent implements ContainerExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/applicationnotes/sectioncontainer";
@@ -75,10 +77,12 @@ public final class SectionContainer extends AbstractComponent implements Contain
     @Inject
     private String title;
 
+    @JsonProperty
     public String getTitle() {
         return title;
     }
 
+    @JsonProperty
     public Link getAnchorLink() {
         // use generated ID for anchor
         return LinkBuilderFactory.forPath("#" + getId())

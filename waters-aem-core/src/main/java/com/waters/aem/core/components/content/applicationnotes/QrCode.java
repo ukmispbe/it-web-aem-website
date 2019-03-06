@@ -25,7 +25,8 @@ import javax.inject.Inject;
     adapters = { QrCode.class, ComponentExporter.class },
     resourceType = QrCode.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
+    extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class QrCode implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/applicationnotes/qrcode";

@@ -10,7 +10,7 @@ import com.google.common.collect.ImmutableList;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.waters.aem.core.components.structure.page.ApplicationNotes;
-import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.utils.Templates;
 import com.waters.aem.pdfgenerator.services.PdfGenerator;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.PersistenceException;
@@ -97,11 +97,7 @@ public final class PdfReplicationPreprocessor implements Preprocessor {
         final PageManagerDecorator pageManager) {
         return Arrays.stream(replicationAction.getPaths())
             .map(pageManager :: getPage)
-            .filter(this :: isApplicationNotesPage)
+            .filter(Templates :: isApplicationNotesPage)
             .collect(Collectors.toList());
-    }
-
-    private boolean isApplicationNotesPage(final PageDecorator page) {
-        return page != null && WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE.equals(page.getTemplatePath());
     }
 }

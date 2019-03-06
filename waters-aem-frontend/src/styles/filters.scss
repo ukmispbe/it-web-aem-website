@@ -189,6 +189,10 @@
             &:hover,
             &:focus {
                 outline: none;
+                &::-ms-value {
+                    color: inherit;
+                    background-color: transparent;
+                }
             }
             &::-ms-expand {
                 display: none;
