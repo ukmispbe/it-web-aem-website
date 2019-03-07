@@ -27,11 +27,11 @@ class Search extends Component {
         const query = this.search.getParamsFromString();
         this.query = query;
 
-        if (typeof this.query.keyword === "undefined") {
-            this.query.sort = "most-recent"
+        if ((typeof this.query.keyword === "undefined" || this.query.keyword === '*:*' ) && typeof this.query.sort === "undefined"){
+               this.query.sort = "most-recent";
         }
         else {
-            this.query.sort = "most-relevant"
+               this.query.sort = (typeof this.query.sort === "undefined") ? 'most-relevant' : this.query.sort;
         }
 
         this.setState({
