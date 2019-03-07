@@ -26,10 +26,9 @@ class AnchorSpec extends AemLibraryModelSpec {
 
     def "get anchor links"() {
         setup:
-        def anchor = requestBuilder
-            .setPath("/content/waters/application-notes/test/jcr:content/anchor")
-            .build()
-            .adaptTo(Anchor)
+        def anchor = requestBuilder.build {
+            path = "/content/waters/application-notes/test/jcr:content/anchor"
+        }.adaptTo(Anchor)
 
         expect:
         anchor.links.size() == 3

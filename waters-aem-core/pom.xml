@@ -143,6 +143,10 @@
             <artifactId>commons-email</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-imaging</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>osgi.core</artifactId>
         </dependency>
@@ -185,12 +189,6 @@
             <artifactId>prosper</artifactId>
             <scope>test</scope>
             <exclusions>
-                <!--
-                <exclusion>
-                    <groupId>org.apache.commons</groupId>
-                    <artifactId>commons-imaging</artifactId>
-                </exclusion>
-                -->
                 <exclusion>
                     <groupId>org.apache.sling</groupId>
                     <artifactId>org.apache.sling.models.api</artifactId>
@@ -213,14 +211,13 @@
             <version>1.4.4</version>
             <scope>test</scope>
         </dependency>
-        <!--
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-imaging</artifactId>
-            <version>1.0-R1534292</version>
+            <groupId>com.icfolson.aem.library</groupId>
+            <artifactId>aem-library-core</artifactId>
+            <version>${aem.library.version}</version>
+            <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>
-        -->
         <dependency>
             <groupId>com.icfolson.aem.library</groupId>
             <artifactId>aem-library-models</artifactId>

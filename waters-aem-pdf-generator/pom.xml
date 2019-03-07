@@ -88,6 +88,18 @@
 
         <!-- provided -->
         <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.jcr</groupId>
+            <artifactId>jcr</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
         </dependency>
@@ -99,6 +111,15 @@
             <groupId>org.osgi</groupId>
             <artifactId>osgi.cmpn</artifactId>
         </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.icfolson.aem.library</groupId>
+            <artifactId>aem-library-api</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>html2pdf</artifactId>
