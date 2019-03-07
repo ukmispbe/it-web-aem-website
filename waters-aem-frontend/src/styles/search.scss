@@ -207,12 +207,17 @@ div.cmp-search__no-results {
     margin-bottom: 0;
     margin-left: -37%;
     width: 100%;
+    overflow: hidden;
+    height: 70px;
 
     &.noresults {
         width: 70%;
         margin: unset;
         margin-top: -3.5em;
         margin-bottom: 3.5em;
+        overflow: visible;
+        height: auto;
+
     }
 
     @include tablet-and-under {
@@ -221,6 +226,8 @@ div.cmp-search__no-results {
         overflow: visible;
         text-overflow: unset;
         white-space: normal;
+        overflow: visible;
+        height: auto;
 
         &.noresults {
             width: 100%;
