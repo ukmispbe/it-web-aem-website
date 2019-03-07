@@ -17,6 +17,10 @@
         &:focus {
             outline: 2px solid $color-focus;
         }
+
+        &::-ms-clear {
+            display: none;
+        }
     }
 
     &__icon-search {
@@ -45,10 +49,6 @@
                     stroke: $color-background-dark;
                 }
             }
-        }
-
-        &::-ms-clear {
-            display: none;
         }
     }
 }
