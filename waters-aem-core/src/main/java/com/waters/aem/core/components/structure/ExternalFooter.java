@@ -14,6 +14,7 @@ import com.day.cq.wcm.foundation.Image;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.components.AbstractComponent;
@@ -31,10 +32,10 @@ import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.ChildResource;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.Calendar;
 import java.util.List;
 
@@ -60,14 +61,12 @@ public final class ExternalFooter extends AbstractComponent implements Component
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @Inject
-    private static PageDecorator currentPage;
+    private PageDecorator currentPage;
 
-    @Inject
-    @Named("../")
+    @ChildResource(name = "../")
     private AppnotePageAnalyticsModel analyticsModel;
 
-    @Inject
-    @Named("../")
+    @ChildResource(name = "../")
     private AnalyticsPageModel pageModel;
 
     @DialogField(fieldLabel = "Logo",
@@ -147,16 +146,9 @@ public final class ExternalFooter extends AbstractComponent implements Component
     }
 
     public String getDataLayer() throws JsonProcessingException {
-        /*
-        String jsonString;
-        if(Templates.isApplicationNotesPage(currentPage)){
-            jsonString = MAPPER.writeValueAsString(analyticsModel);
-        } else {
-            jsonString = MAPPER.writeValueAsString(pageModel);
-        } */
-
-        //AppnotePageAnalyticsModel model = new AppnotePageAnalyticsModel();
-        return MAPPER.writeValueAsString(analyticsModel);
+        return (Templates.isApplicationNotesPage(currentPage)) ?
+            MAPPER.configure(SerializationFeature.WRAP_ROOT_VALUE, false).writeValueAsString(analyticsModel) :
+            MAPPER.enable(SerializationFeature.WRAP_ROOT_VALUE).writeValueAsString(pageModel);
     }
 
     @Nonnull
