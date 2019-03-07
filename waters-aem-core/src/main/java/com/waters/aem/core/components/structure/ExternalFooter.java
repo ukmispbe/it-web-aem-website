@@ -28,10 +28,9 @@ import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.ChildResource;
 
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.Calendar;
 import java.util.List;
 
@@ -56,8 +55,7 @@ public final class ExternalFooter extends AbstractComponent implements Component
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    @Inject
-    @Named("../")
+    @ChildResource(name = "../")
     private AppnotePageAnalyticsModel analyticsModel;
 
     @DialogField(fieldLabel = "Logo",
