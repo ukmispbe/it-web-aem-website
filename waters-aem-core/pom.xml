@@ -86,11 +86,37 @@
     </profiles>
 
     <dependencies>
+        <!-- compile -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>osgi.annotation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.sling</groupId>
+            <artifactId>org.apache.sling.servlets.annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.citytechinc.cq.cq-component-plugin</groupId>
+            <artifactId>cq-component-annotations</artifactId>
+            <version>${component.plugin.version}</version>
+        </dependency>
+
         <!-- provided -->
         <dependency>
-            <groupId>com.adobe.aem</groupId>
-            <artifactId>uber-jar</artifactId>
-            <classifier>apis</classifier>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.jcr</groupId>
+            <artifactId>jcr</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
         </dependency>
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
@@ -109,19 +135,13 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-email</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.sling</groupId>
-            <artifactId>org.apache.sling.servlets.annotations</artifactId>
-        </dependency>
-
-        <!-- OSGi -->
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>osgi.core</artifactId>
@@ -131,23 +151,17 @@
             <artifactId>osgi.cmpn</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>osgi.annotation</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
-
-        <!-- Adobe Core Components -->
         <dependency>
             <groupId>com.adobe.cq</groupId>
             <artifactId>core.wcm.components.core</artifactId>
         </dependency>
-
-        <!-- ACS commons -->
         <dependency>
             <groupId>com.adobe.acs</groupId>
             <artifactId>acs-aem-commons-bundle</artifactId>
         </dependency>
-
-        <!-- AEM Library -->
         <dependency>
             <groupId>com.icfolson.aem.library</groupId>
             <artifactId>aem-library-api</artifactId>
@@ -160,30 +174,23 @@
             <groupId>com.icfolson.aem.library</groupId>
             <artifactId>aem-library-core</artifactId>
         </dependency>
-
-        <!-- POI -->
         <dependency>
             <groupId>org.apache.servicemix.bundles</groupId>
             <artifactId>org.apache.servicemix.bundles.poi</artifactId>
         </dependency>
 
-        <!-- Component Annotation -->
-        <dependency>
-            <groupId>com.citytechinc.cq.cq-component-plugin</groupId>
-            <artifactId>cq-component-annotations</artifactId>
-            <version>${component.plugin.version}</version>
-        </dependency>
-
-        <!-- Test -->
+        <!-- test -->
         <dependency>
             <groupId>com.icfolson.aem.prosper</groupId>
             <artifactId>prosper</artifactId>
             <scope>test</scope>
             <exclusions>
+                <!--
                 <exclusion>
                     <groupId>org.apache.commons</groupId>
                     <artifactId>commons-imaging</artifactId>
                 </exclusion>
+                -->
                 <exclusion>
                     <groupId>org.apache.sling</groupId>
                     <artifactId>org.apache.sling.models.api</artifactId>
@@ -206,18 +213,27 @@
             <version>1.4.4</version>
             <scope>test</scope>
         </dependency>
+        <!--
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-imaging</artifactId>
             <version>1.0-R1534292</version>
             <scope>test</scope>
         </dependency>
+        -->
         <dependency>
             <groupId>com.icfolson.aem.library</groupId>
             <artifactId>aem-library-models</artifactId>
             <version>${aem.library.version}</version>
             <classifier>tests</classifier>
             <scope>test</scope>
+        </dependency>
+
+        <!-- uber jar last to allow overrides for newer dependency versions -->
+        <dependency>
+            <groupId>com.adobe.aem</groupId>
+            <artifactId>uber-jar</artifactId>
+            <classifier>apis</classifier>
         </dependency>
     </dependencies>
 </project>
