@@ -56,13 +56,15 @@ export class SearchService {
                 obj.selectedFacets[facetSplit[0]].push(facetSplit[1]);
             }
         } else {
-            const facetSplit = obj.facet.split(':');
+            if (obj.facet) {
+                const facetSplit = obj.facet.split(':');
 
-            if (!obj.selectedFacets[facetSplit[0]]) {
-                obj.selectedFacets[facetSplit[0]] = [];
+                if (!obj.selectedFacets[facetSplit[0]]) {
+                    obj.selectedFacets[facetSplit[0]] = [];
+                }
+
+                obj.selectedFacets[facetSplit[0]].push(facetSplit[1]);
             }
-
-            obj.selectedFacets[facetSplit[0]].push(facetSplit[1]);
         }
 
         return obj;
