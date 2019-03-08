@@ -105,7 +105,7 @@ class Filter extends Component {
         const props = this.props;
         return (
             <div id="js-search-filters" className="cmp-search-filters">
-                <h3>Filter by</h3>
+                <h3>{props.text.filterByHeading}</h3>
 
                 {props.filterTags}
 
