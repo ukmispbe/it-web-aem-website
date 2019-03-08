@@ -1,6 +1,5 @@
 package com.waters.aem.core.components.structure.page;
 
-import com.day.cq.tagging.Tag;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.waters.aem.core.components.SiteContext;
 import org.apache.sling.api.resource.Resource;
