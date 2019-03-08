@@ -187,7 +187,6 @@
         <dependency>
             <groupId>com.icfolson.aem.prosper</groupId>
             <artifactId>prosper</artifactId>
-            <scope>test</scope>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.sling</groupId>
