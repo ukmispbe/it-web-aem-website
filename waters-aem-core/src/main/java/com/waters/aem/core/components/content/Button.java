@@ -8,10 +8,14 @@ import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.day.cq.dam.api.Asset;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.link.Link;
+import com.icfolson.aem.library.core.constants.PathConstants;
 import com.icfolson.aem.library.models.annotations.LinkInject;
-import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -19,6 +23,8 @@ import org.apache.sling.models.annotations.Model;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component(value = "Button",
     description = "This is the Button component for Waters site",
@@ -31,7 +37,12 @@ import javax.inject.Inject;
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class Button implements ComponentExporter {
 
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
     public static final String RESOURCE_TYPE = "waters/components/content/button";
+
+    @Inject
+    private Resource resource;
 
     @DialogField(fieldLabel = "Button Text",
         fieldDescription = "Enter the text for the button",
@@ -52,7 +63,7 @@ public final class Button implements ComponentExporter {
         fieldDescription = "Select or enter the link URL",
         required = true,
         ranking = 3)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @PathField(rootPath = PathConstants.PATH_CONTENT)
     @LinkInject
     private Link buttonLink;
 
@@ -63,6 +74,8 @@ public final class Button implements ComponentExporter {
     @Inject
     @Default(booleanValues = false)
     private Boolean newWindow;
+
+    private Map<String, Object> assetMetadata;
 
     public String getButtonText() {
         return buttonText;
@@ -80,9 +93,33 @@ public final class Button implements ComponentExporter {
         return newWindow;
     }
 
+    public String getAssetMetadataJson() throws JsonProcessingException {
+        return MAPPER.writeValueAsString(getAssetMetadata());
+    }
+
     @Nonnull
     @Override
     public String getExportedType() {
         return RESOURCE_TYPE;
+    }
+
+    private Map<String, Object> getAssetMetadata() {
+        if (assetMetadata == null) {
+            assetMetadata = new HashMap<>();
+
+            if (isAsset()) {
+                final Resource assetResource = resource.getResourceResolver().getResource(buttonLink.getPath());
+
+                if (assetResource != null) {
+                    assetMetadata = assetResource.adaptTo(Asset.class).getMetadata();
+                }
+            }
+        }
+
+        return assetMetadata;
+    }
+
+    private Boolean isAsset() {
+        return buttonLink != null && buttonLink.getPath().startsWith(PathConstants.PATH_CONTENT_DAM);
     }
 }

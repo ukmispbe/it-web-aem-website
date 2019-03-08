@@ -81,10 +81,11 @@ $font-size-small-m: 1em;
 $line-height-text-m: 1.5em;
 
 /*PRINTCSS STYLING*/
-$font-size-h1-s: $font-size-h1-m;
-$font-size-h2-s: 1.2em;
-$font-size-h3-s: 0.9em;
-$font-size-h4-s: 0.8em;
+$font-size-h1-pcs: 2em;
+$font-size-h2-pcs: 1.3em;
+$font-size-h3-pcs: 1em;
+$font-size-h4-pcs: 0.9em;
+$font-size-text-pcs: 0.8em;
 
 /*ICON SIZES*/
 $icon-s: 1em; /* 16px */
@@ -101,6 +102,9 @@ $space-m: 1.5em;
 $space-l: 2em;
 $space-xl: 3em;
 $space-xxl: 5em;
+
+/*INPUT*/
+$input-height: 2.75em;
 
 /* Breakpoints */
 $max-width: 1460px;

@@ -43,6 +43,29 @@ export class SearchService {
     getParamsFromString() {
         const str = window.location.search;
         const obj = queryString.parse(str);
+        obj.selectedFacets = {};
+
+        if (Array.isArray(obj.facet)) {
+            for (let i = 0; i < obj.facet.length; i++) {
+                const facetSplit = obj.facet[i].split(':');
+
+                if (!obj.selectedFacets[facetSplit[0]]) {
+                    obj.selectedFacets[facetSplit[0]] = [];
+                }
+
+                obj.selectedFacets[facetSplit[0]].push(facetSplit[1]);
+            }
+        } else {
+            if (obj.facet) {
+                const facetSplit = obj.facet.split(':');
+
+                if (!obj.selectedFacets[facetSplit[0]]) {
+                    obj.selectedFacets[facetSplit[0]] = [];
+                }
+
+                obj.selectedFacets[facetSplit[0]].push(facetSplit[1]);
+            }
+        }
 
         return obj;
     }
@@ -64,7 +87,11 @@ export class SearchService {
                 const facet = facets[key];
 
                 if (facet) {
-                    paramString = paramString + `&facet=${key}:${facet}`;
+                    for (let n = 0; n < facet.length; n++) {
+                        const f = facet[n];
+                        paramString =
+                            paramString + `&facet=${key}:${encodeURI(f)}`;
+                    }
                 }
             }
         }
@@ -73,27 +100,33 @@ export class SearchService {
     }
 
     getQueryFacetString(facets) {
-        let facetString = '';
+        let facetString = this.defaultFacet;
+
         for (let i = 0; i <= Object.keys(facets).length; i++) {
             const category = Object.keys(facets)[i];
             const facet = facets[category];
 
-            if (facet) {
-                if (this.defaultFacet && i === 0) {
+            if (facet && category) {
+                if (i === 0) {
                     facetString =
-                        facetString + `${this.defaultFacet}&${category}:`;
-                } else if (!this.defaultFacet && i === 0) {
-                    facetString = facetString + `${category}:`;
+                        facetString +
+                        `${this.defaultFacet.length ? '&' : ''}${category}:`;
                 } else {
                     facetString = facetString + `&${category}:`;
                 }
 
                 for (let f = 0; f <= facet.length; f++) {
                     const filter = facet[f];
-                    facetString = filter
-                        ? facetString + `${f > 0 ? '||' : ''}${filter}`
-                        : facetString;
+
+                    if (filter) {
+                        facetString = filter
+                            ? facetString +
+                              `${f > 0 ? '||' : ''}${encodeURI(filter)}`
+                            : facetString;
+                    }
                 }
+            } else if (category) {
+                facetString = facetString + `&${category}:`;
             }
         }
 
