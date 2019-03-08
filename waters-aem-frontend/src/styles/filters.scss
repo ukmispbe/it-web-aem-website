@@ -9,12 +9,13 @@
         margin-bottom: 0;
     }
     input[type='input'] {
-        height: 50px;
-        padding: 0 10px;
+        @include font-utility;
+        height: $input-height;
+        line-height: $input-height;
+        padding: 0 $space-xs;
         background-color: transparent;
-        font-size: $font-size-h3;
         outline: none;
-        border: 1px solid $color-font-medium;
+        border: 1px solid $color-gray-40;
         color: $color-font-medium;
     }
     &__filter {
@@ -22,37 +23,64 @@
             display: none;
             max-height: 200px;
             overflow-y: scroll;
-            padding: 10px 10px 10px 10px;
+            padding: $space-xs;
             li {
                 padding: 5px 0;
             }
         }
         h3 {
-            border-top: 1px solid $color-font-medium;
+            @include font-utility;
+            border-top: 1px solid $color-gray-40;
             margin: 0;
             position: relative;
+            height: $input-height;
             a {
+                @include font-utility;
                 display: block;
                 background-color: $color-white;
                 color: $color-font-medium;
-                padding: 10px 10px;
+                padding: 0 $space-xs;
                 margin: 0;
                 text-decoration: none;
-                &:before {
-                    content: '';
-                    background-image: url("data:image/svg+xml,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%23000000;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;%7D%0A%3C/style%3E%3Cline class='st0' x1='12' y1='5' x2='12' y2='19'/%3E%3Cline class='st0' x1='5' y1='12' x2='19' y2='12'/%3E%3C/svg%3E%0A");
-                    display: block;
+                height: $input-height;
+                line-height: $input-height;
+                position: relative;
+                svg {
                     position: absolute;
-                    top: 15px;
-                    right: 16px;
+                    top: 12px;
+                    right: 13px;
                     width: 20px;
                     height: 20px;
+                    .st0 {
+                        stroke: $color-icon;
+                    }
+                }
+                .expandIcon {
+                    display: block;
+                }
+                .collapseIcon {
+                    display: none;
+                    .st0 {
+                        stroke: $color-white;
+                    }
+                }
+                .mobileIcon {
+                    display: none;
+                }
+                @include tablet-and-under {
+                    .expandIcon {
+                        display: none;
+                    }
+                    .mobileIcon {
+                        display: block;
+                    }
                 }
             }
         }
         &:last-child {
             h3 {
-                border-bottom: 1px solid $color-font-medium;
+                border-bottom: 1px solid $color-gray-40;
+                height: calc(2.75em + 2px);
             }
         }
         &__item {
@@ -61,9 +89,9 @@
             }
             input[type='checkbox'] {
                 appearance: none;
-                border: 1px solid $color-font-medium;
-                height: 1.1em;
-                width: 1.1em;
+                border: 1px solid $color-gray-40;
+                height: $font-size-body-m;
+                width: $font-size-body-m;
                 vertical-align: -3px;
                 margin-right: 10px;
                 &:checked {
@@ -87,24 +115,31 @@
             }
         }
         &__search {
+            display: none;
             position: relative;
             &,
             input[type='input'] {
                 width: 100%;
                 position: relative;
+                margin-bottom: 0;
             }
-            &:before {
-                content: '';
-                background-image: url("data:image/svg+xml,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%23000000;stroke-linecap:round;stroke-linejoin:round;%7D%0A%3C/style%3E%3Ccircle class='st0' cx='11' cy='11' r='8'/%3E%3Cline class='st0' x1='21' y1='21' x2='16.9' y2='16.9'/%3E%3C/svg%3E%0A");
+            input[type='input'] {
+                padding-right: $space-xl;
+            }
+            svg {
                 position: absolute;
-                top: 12px;
-                right: 12px;
+                top: 10px;
+                right: 9px;
                 width: 25px;
                 height: 25px;
+                .st0 {
+                    stroke: $color-icon;
+                }
             }
         }
         &__year {
-            margin: 10px auto;
+            display: none;
+            margin: $space-xs auto;
             width: 180px;
             &__min,
             &__max {
@@ -130,48 +165,128 @@
                 a {
                     background-color: $color-font-medium;
                     color: $color-white;
-                    &:before {
-                        background-image: url("data:image/svg+xml,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%23FFFFFF;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;%7D%0A%3C/style%3E%3Cline class='st0' x1='5' y1='12' x2='19' y2='12'/%3E%3C/svg%3E%0A");
+                    .expandIcon {
+                        display: none;
+                    }
+                    .collapseIcon {
+                        display: block;
+                    }
+                    @include tablet-and-under {
+                        .collapseIcon,
+                        .mobileIcon {
+                            display: none;
+                        }
                     }
                 }
             }
-            ul {
+            ul,
+            .cmp-search-filters__filter__search,
+            .cmp-search-filters__filter__year {
                 display: block;
             }
         }
     }
-    &__selected {
+    &__tags {
+        margin-top: $input-height;
         margin-bottom: 1em;
         a {
             color: $color-font-medium;
             display: block;
             float: left;
-            padding: 2px 10px 2px 20px;
+            padding: 2px $space-xs 2px $space-m;
             margin: 0 8px 8px 0;
             text-decoration: none;
             font-size: $font-size-small;
             background-color: $color-gray-10;
-            background-image: url("data:image/svg+xml,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%23000000;stroke-linecap:round;stroke-linejoin:round;%7D%0A%3C/style%3E%3Cline class='st0' x1='18' y1='6' x2='6' y2='18'/%3E%3Cline class='st0' x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-size: 16px 16px;
-            background-position: 3px 6px;
+            position: relative;
+            svg {
+                position: absolute;
+                top: 6px;
+                left: 4px;
+                width: 16px;
+                height: 16px;
+                .st0 {
+                    stroke: $color-icon;
+                }
+            }
             &:hover {
                 background-color: $color-gray-20;
             }
-            &.cmp-search-filters__selected__clear {
+            &.cmp-search-filters__tags__clear {
                 color: $color-white;
                 background-color: $color-gray-50;
-                background-image: url("data:image/svg+xml,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%23FFFFFF;stroke-linecap:round;stroke-linejoin:round;%7D%0A%3C/style%3E%3Cline class='st0' x1='18' y1='6' x2='6' y2='18'/%3E%3Cline class='st0' x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E");
+                .st0 {
+                    stroke: $color-white;
+                }
                 &:hover {
                     background-color: $color-gray-50;
                 }
             }
         }
+        @include tablet-and-under {
+            margin-top: 0;
+            display: none;
+        }
+    }
+}
+
+.cmp-search-apply-btn {
+    display: none;
+
+    a {
+        @include font-utility;
+        background-color: $color-blue-50;
+        text-align: center;
+        padding: 0 $space-xs;
+        margin-bottom: $space-s;
+        color: $color-white;
+        height: $input-height;
+        line-height: $input-height;
+        width: 100%;
+        display: block;
+    }
+
+    @include tablet-and-under {
+        display: block;
+    }
+}
+
+.cmp-search-done-btn {
+    display: none;
+    a {
+        @include font-utility;
+        border: 1px solid $color-blue-50;
+        text-align: center;
+        padding: 0 $space-xs;
+        margin-bottom: $space-s;
+        color: $color-blue-50;
+        height: $input-height;
+        line-height: $input-height;
+        width: 100%;
+        display: block;
+    }
+}
+
+.cmp-search-hide-btn {
+    display: none;
+
+    a {
+        width: 30px;
+        height: 30px;
+        display: block;
+        float: right;
+        .st0 {
+            stroke: $color-icon;
+        }
+    }
+
+    @include tablet-and-under {
+        display: block;
     }
 }
 
 .cmp-search-sortby {
-    margin-bottom: 50px;
+    margin-bottom: $space-l;
     &__select {
         position: relative;
         select {
@@ -183,7 +298,7 @@
             appearance: none;
             width: 100%;
             height: 2.75em;
-            padding: 0 $space-xs .1em $space-xs;
+            padding: 0 $space-xs 0.1em $space-xs;
             border: 1px solid $color-gray-40;
             position: relative;
             &:hover,
@@ -212,6 +327,10 @@
 }
 
 .cmp-search__sort-filter {
+    .cmp-search-filters__tags {
+        display: none;
+    }
+
     @include tablet-and-under {
         display: none;
         position: absolute;
@@ -221,9 +340,18 @@
 
         padding: 20px;
         max-height: 100vh;
-        overflow-y: scroll;
+        overflow-y: hidden;
         overflow-x: hidden;
         &.selected {
+            display: block;
+        }
+        &__container {
+            overflow-y: scroll;
+            height: 100%;
+            padding-bottom: $space-xxl;
+            position: relative;
+        }
+        .cmp-search-filters__tags {
             display: block;
         }
     }
@@ -237,20 +365,60 @@
     }
 }
 
+$header-height: 74px;
+
 .show-sort-filters {
-    .cmp-search__sort-filter, .overlay {
-        @include tablet-and-under {
+    @include tablet-and-under {
+        .cmp-search__sort-filter,
+        .overlay {
             display: block;
         }
-    }
-    .cmp-search__sort-filter {
-        @include tablet-and-under {
+        .cmp-search__sort-filter {
             height: 100%;
+            max-height: 100vh;
             z-index: 1;
+            padding-bottom: $space-xxl;
         }
-    }
-    .container {
-        max-height: calc(100vh - 6.5em);
-        overflow: hidden;
+        .container {
+            max-height: calc(100vh - 6.5em);
+            overflow: hidden;
+        }
+
+        &.filter-active {
+            .cmp-search {
+                &-apply-btn,
+                &-sortby,
+                &-filters h3,
+                &-filters__tags,
+                &-filters__filter {
+                    display: none;
+                }
+                &-done-btn {
+                    display: block;
+                }
+                &-filters__filter {
+                    &.expanded {
+                        display: block;
+                        h3 {
+                            display: block;
+                            border: none;
+                            a {
+                                @include font-utility;
+                                background-color: transparent;
+                                &:before {
+                                    background-image: none;
+                                }
+                            }
+                        }
+                        ul {
+                            max-height: none;
+                        }
+                    }
+                }
+            }
+        }
+        .cmp-search__sort-filter {
+            padding-top: $header-height;
+        }
     }
 }

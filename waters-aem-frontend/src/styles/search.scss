@@ -194,11 +194,46 @@ div.cmp-search__no-results {
     }
 }
 
-.btn-show-sort-filter {
-    float: right;
-    display: none;
-    @include tablet-and-under {
-        display: block;
+.cmp-search-show-btn {
+    .btn-show-sort-filter {
+        display: none;
+        @include font-utility;
+        border: 1px solid $color-gray-40;
+        padding: 0 $space-l 0 $space-xs;
+        margin-bottom: $space-xl;
+        height: $input-height;
+        line-height: $input-height;
+        width: 100%;
+        position: relative;
+        svg {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            width: 25px;
+            height: 25px;
+            .st0 {
+                stroke: $color-icon;
+            }
+        }
+        @include tablet-and-under {
+            display: block;
+        }
+        @include tablet {
+            max-width: 160px;
+            float: right;
+        }
+        @include mobile {
+            float: none;
+            background-position: 95% 13px;
+        }
+    }
+    @include tablet {
+        float: right;
+        width: 30%;
+    }
+    @include mobile {
+        float: none;
+        width: 100%;
     }
 }
 
@@ -249,5 +284,13 @@ div.cmp-search__no-results {
 
     @include tablet {
         display: block;
+    }
+    @include tablet {
+        float: left;
+        width: 70%;
+    }
+    @include mobile {
+        float: none;
+        width: 100%;
     }
 }

@@ -2,6 +2,7 @@ package com.waters.aem.core.components.content;
 
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
+import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -61,7 +62,7 @@ public final class SearchResults {
 
     public String getCategoriesAsJson() throws JsonProcessingException {
         return MAPPER.writeValueAsString(categories.stream()
-            .filter(category -> category.getCategory() != null)
+            .filter(category -> category.getCategoryFacetName() != null)
             .collect(Collectors.toList()));
     }
 }
