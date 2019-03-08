@@ -187,6 +187,10 @@ class Search extends Component {
 
                 <ReactPaginate
                     pageCount={state.pagination.amount}
+                    forcePage={
+                        state.pagination.current
+                            ? state.pagination.current - 1
+                            : 0}
                     pageRangeDisplayed={8}
                     marginPagesDisplayed={0}
                     containerClassName="paginate__container"
