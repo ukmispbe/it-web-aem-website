@@ -27,7 +27,10 @@ class BannerSpec extends AemLibraryModelSpec {
 
     def "get background image"() {
         setup:
-        def banner = getResource(path).adaptTo(Banner)
+        def banner = requestBuilder
+            .setPath(path)
+            .build()
+            .adaptTo(Banner)
 
         expect:
         banner.backgroundImage?.fileReference == fileReference

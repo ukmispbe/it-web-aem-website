@@ -3,8 +3,8 @@ package com.waters.aem.pdfgenerator.replication;
 import com.day.cq.replication.ReplicationActionType;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
-import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.AbstractReplicationEventHandler;
+import com.waters.aem.core.utils.Templates;
 import com.waters.aem.pdfgenerator.job.PdfGeneratorJobConsumer;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -47,7 +47,7 @@ public final class PdfReplicationEventHandler extends AbstractReplicationEventHa
             try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
                 final PageDecorator page = resourceResolver.adaptTo(PageManagerDecorator.class).getPage(path);
 
-                accepted = isApplicationNotesPage(page);
+                accepted = Templates.isApplicationNotesPage(page);
             } catch (LoginException e) {
                 LOG.error("error authenticating resource resolver", e);
             }
@@ -74,9 +74,5 @@ public final class PdfReplicationEventHandler extends AbstractReplicationEventHa
     @Override
     protected void handleDelete(final String path) {
         // do nothing
-    }
-
-    private boolean isApplicationNotesPage(final PageDecorator page) {
-        return page != null && WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE.equals(page.getTemplatePath());
     }
 }

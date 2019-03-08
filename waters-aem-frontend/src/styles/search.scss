@@ -40,7 +40,7 @@
     &-title {
         font-size: $font-size-h3;
     }
-    
+
     @include mobile {
         margin-bottom: $space-l;
     }
@@ -239,19 +239,51 @@ div.cmp-search__no-results {
 
 .cmp-search__resultsCount {
     margin-top: -3.5em;
-    margin-bottom: 3.5em;
+    margin-bottom: 0;
     margin-left: -37%;
-    float: left;
+    width: 100%;
+    overflow: hidden;
+    height: 70px;
 
-    &.noresults{
+    &.noresults {
+        width: 70%;
         margin: unset;
         margin-top: -3.5em;
         margin-bottom: 3.5em;
+        overflow: visible;
+        height: auto;
+
     }
-    
+
     @include tablet-and-under {
         margin: unset;
         padding-bottom: $space-l;
+        overflow: visible;
+        text-overflow: unset;
+        white-space: normal;
+        overflow: visible;
+        height: auto;
+
+        &.noresults {
+            width: 100%;
+            margin: 0;
+        }
+    }
+}
+
+.cmp-search__sorted-by {
+    display: none;
+    float: left;
+    width: 100%;
+    @include font-utility;
+    font-size: $font-size-small;
+
+    @include mobile {
+        display: block;
+    }
+
+    @include tablet {
+        display: block;
     }
     @include tablet {
         float: left;

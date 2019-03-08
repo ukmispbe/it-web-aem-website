@@ -26,7 +26,8 @@ import javax.inject.Inject;
 @Model(adaptables = SlingHttpServletRequest.class,
     resourceType = Text.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
+    extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class Text implements com.adobe.cq.wcm.core.components.models.Text {
 
     static final String RESOURCE_SUPER_TYPE = "core/wcm/components/text/v2/text";

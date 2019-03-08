@@ -35,6 +35,16 @@
     margin-top: 0;
 }
 
+@mixin font-xsmall {
+    font-family: $font-stack;
+    font-size: $font-size-xsmall;
+    font-weight: light;
+    line-height: $line-height-text;
+    color: $color-font-medium;
+    margin-bottom: $space-s;
+    margin-top: 0;
+}
+
 @mixin font-caption {
     font-family: $font-stack;
     font-size: $font-size-body;

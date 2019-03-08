@@ -8,7 +8,8 @@ function getAuthoredDataForSearchBar(c, h) {
     return {
         searchPath: h.dataset.searchPath,
         placeholder: c.dataset.placeholder,
-        icon: c.dataset.iconUrl,
+        iconSearch: c.dataset.iconSearch,
+        iconClear: c.dataset.iconClear,
     };
 }
 function getAuthoredDataForSearchApp(c, s) {
@@ -34,7 +35,8 @@ if (searchBarContainer && header) {
     const data = getAuthoredDataForSearchBar(searchBarContainer, header);
     ReactDOM.render(
         <SearchBar
-            iconUrl={data.icon}
+            iconSearch={data.iconSearch}
+            iconClear={data.iconClear}
             searchPath={data.searchPath}
             placeholder={data.placeholder}
         />,
@@ -75,6 +77,7 @@ if (tagCloudContainer) {
     );
 
     const data = getAuthoredDataForTagCloud(header, tagCloudContainer);
+
     ReactDOM.render(
         <TagCloud
             tagCloudTitle={data.tagTitle}

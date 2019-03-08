@@ -14,7 +14,8 @@ import org.apache.sling.models.annotations.Model;
     resourceSuperType = "wcm/foundation/components/responsivegrid",
     isContainer = true,
     editConfig = false)
-@Model(adaptables = SlingHttpServletRequest.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Model(adaptables = SlingHttpServletRequest.class,
+    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class LayoutContainer extends ResponsiveGrid {
 
     public static final String RESOURCE_TYPE = "waters/components/content/layoutcontainer";

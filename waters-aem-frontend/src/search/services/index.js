@@ -10,7 +10,7 @@ export class SearchService {
             isocode = 'en_US',
             page = 1,
             rows = 25,
-            sort = 'most recent',
+            sort = 'most-recent',
             multiselect = true,
         } = {},
         defaultFacet,
@@ -31,11 +31,10 @@ export class SearchService {
         keyword = '*:*',
         facets = {},
         page = 1,
-        sort = 'most relevant',
+        sort = 'most-recent',
     } = {}) {
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const facetString = this.getQueryFacetString(facets);
-
         const searchString = `${this.path}/${facetString}?${paramString}`;
 
         return window.fetch(searchString).then(response => response.json());
@@ -49,7 +48,7 @@ export class SearchService {
     }
 
     getQueryParamString(
-        { keyword = '*:*', page = 1, sort = 'most relevant' } = {},
+        { keyword = '*:*', page = 1, sort = 'most-recent' } = {},
         facets
     ) {
         const fullParams = Object.assign({}, this.options, {
@@ -57,7 +56,6 @@ export class SearchService {
             page,
             sort,
         });
-
         let paramString = queryString.stringify(fullParams);
 
         if (facets) {

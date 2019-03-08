@@ -32,7 +32,11 @@ class Search extends Component {
         const query = this.search.getParamsFromString();
         this.query = query;
 
-        // const selectedFacets = query.
+        if (typeof this.query.keyword === 'undefined') {
+            this.query.sort = 'most-recent';
+        } else {
+            this.query.sort = 'most-relevant';
+        }
 
         this.setState({
             loading: true,
@@ -43,7 +47,7 @@ class Search extends Component {
             rows: this.props.searchDefaults
                 ? this.props.searchDefaults && this.props.searchDefaults.rows
                 : 25,
-            sort: this.query.sort ? this.query.sort : 'most-relevant',
+            sort: this.query.sort,
             selectedFacets: {},
             unappliedFilters: {},
             isDesktop: false,
@@ -93,6 +97,8 @@ class Search extends Component {
             newState.results = newState.results || {};
             newState.results[query.page] = res.documents;
             newState.noQuery = query.keyword ? false : true;
+            newState.sort = this.state.sort;
+
             newState.pagination = {
                 current: query.page,
                 amount: Math.ceil(res.num_found / rows),
@@ -150,7 +156,7 @@ class Search extends Component {
                     page: 1,
                     sort: sortOption,
                 },
-                searchParams.facets
+                state.selectedFacets
             );
         } else {
             const newState = Object.assign({}, state);
@@ -305,6 +311,13 @@ class Search extends Component {
     applyFilters() {
         document.body.classList.remove('show-sort-filters');
         document.body.classList.remove('filter-active');
+        const newSearch = Object.assign({}, this.state.searchParams, {
+            sort: this.state.unappliedFilters.sort,
+        });
+        const selectedFacets = Object.assign(
+            {},
+            this.state.unappliedFilters.selectedFacets
+        );
         this.setState(
             Object.assign({}, this.state, {
                 sort: this.state.unappliedFilters.sort,
@@ -313,14 +326,7 @@ class Search extends Component {
             })
         );
 
-        setTimeout(
-            () =>
-                this.pushToHistory(
-                    this.state.searchParams,
-                    this.state.selectedFacets
-                ),
-            0
-        );
+        setTimeout(() => this.pushToHistory(newSearch, selectedFacets), 0);
     }
 
     clearUnappliedFilters() {
@@ -439,6 +445,13 @@ class Search extends Component {
                 </div>
 
                 {filterTags}
+
+                <div className="cmp-search__sorted-by">
+                    {this.props.searchText.sortedBy}:{' '}
+                    {this.state.sort === 'most-relevant'
+                        ? this.props.searchText.sortByBestMatch
+                        : this.props.searchText.sortByMostRecent}
+                </div>
 
                 <Results
                     results={state.results[searchParams.page] || []}

@@ -172,13 +172,16 @@
                         display: block;
                     }
                     @include tablet-and-under {
-                        .collapseIcon, .mobileIcon {
+                        .collapseIcon,
+                        .mobileIcon {
                             display: none;
                         }
                     }
                 }
             }
-            ul, .cmp-search-filters__filter__search, .cmp-search-filters__filter__year {
+            ul,
+            .cmp-search-filters__filter__search,
+            .cmp-search-filters__filter__year {
                 display: block;
             }
         }
@@ -294,13 +297,17 @@
             -moz-appearance: none;
             appearance: none;
             width: 100%;
-            height: $input-height;
-            padding: 0 $space-xs;
+            height: 2.75em;
+            padding: 0 $space-xs 0.1em $space-xs;
             border: 1px solid $color-gray-40;
             position: relative;
             &:hover,
             &:focus {
                 outline: none;
+                &::-ms-value {
+                    color: inherit;
+                    background-color: transparent;
+                }
             }
             &::-ms-expand {
                 display: none;
@@ -308,16 +315,18 @@
         }
         svg {
             position: absolute;
-            top: 15px;
+            top: 14px;
             right: 13px;
             width: 20px;
             height: 20px;
+            .st0 {
+                stroke: $color-icon;
+            }
         }
     }
 }
 
 .cmp-search__sort-filter {
-
     .cmp-search-filters__tags {
         display: none;
     }
@@ -360,7 +369,8 @@ $header-height: 74px;
 
 .show-sort-filters {
     @include tablet-and-under {
-        .cmp-search__sort-filter, .overlay {
+        .cmp-search__sort-filter,
+        .overlay {
             display: block;
         }
         .cmp-search__sort-filter {
@@ -374,10 +384,13 @@ $header-height: 74px;
             overflow: hidden;
         }
 
-
         &.filter-active {
             .cmp-search {
-                &-apply-btn, &-sortby, &-filters h3, &-filters__tags, &-filters__filter {
+                &-apply-btn,
+                &-sortby,
+                &-filters h3,
+                &-filters__tags,
+                &-filters__filter {
                     display: none;
                 }
                 &-done-btn {

@@ -24,7 +24,10 @@ class ExternalFooterSpec extends AemLibraryModelSpec {
 
     def "get logo link"() {
         setup:
-        def externalFooter = getResource("/content/waters/one/jcr:content/externalfooter").adaptTo(ExternalFooter)
+        def externalFooter = requestBuilder
+            .setPath("/content/waters/one/jcr:content/externalfooter")
+            .build()
+            .adaptTo(ExternalFooter)
 
         expect:
         externalFooter.logoLink.href == "/content/waters/page1.html"
@@ -32,7 +35,10 @@ class ExternalFooterSpec extends AemLibraryModelSpec {
 
     def "get alt text"() {
         setup:
-        def externalFooter = getResource("/content/waters/one/jcr:content/externalfooter").adaptTo(ExternalFooter)
+        def externalFooter = requestBuilder
+            .setPath("/content/waters/one/jcr:content/externalfooter")
+            .build()
+            .adaptTo(ExternalFooter)
 
         expect:
         externalFooter.logoAltText == "Alternative text"
@@ -40,7 +46,10 @@ class ExternalFooterSpec extends AemLibraryModelSpec {
 
     def "get copyright text"() {
         setup:
-        def externalFooter = getResource("/content/waters/one/jcr:content/externalfooter").adaptTo(ExternalFooter)
+        def externalFooter = requestBuilder
+            .setPath("/content/waters/one/jcr:content/externalfooter")
+            .build()
+            .adaptTo(ExternalFooter)
 
         expect:
         externalFooter.copyrightText == "Waters 2019"

@@ -2,23 +2,28 @@
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 }
+
 .cmp-table__table {
     border-top: 1px solid $color-teal-30;
-    width:100%;
+    width: 100%;
     @include font-body;
     border-collapse: collapse;
-    td,th {
+
+    td, th {
         padding: $space-xs $space-l $space-xxxs 0;
         text-align: left;
         vertical-align: top;
     }
+
     td p {
         margin-bottom: $space-xxs;
     }
+
     th p {
         font-weight: $font-weight-bold;
         margin-bottom: $space-xxs;
     }
+
     tr {
         border-bottom: 1px solid $color-gray-20;
     }
@@ -27,7 +32,7 @@
 .cmp-table--collapse .cmp-table__table {
     @include mobile {
         td {
-            display:block;
+            display: block;
             word-wrap: break-word;
             padding: 0 $space-l 0 0;
         }
@@ -41,7 +46,7 @@
             padding-bottom: $space-xs;
         }
         thead {
-            display:none;
+            display: none;
         }
     }
 }
@@ -52,12 +57,12 @@
             font-size: $font-size-body;
             line-height: $line-height-text;
             letter-spacing: $letter-spacing-small;
-            }
+        }
         th p {
             font-size: $font-size-body;
             line-height: $line-height-text;
             letter-spacing: $letter-spacing-small;
-            }
+        }
     }
 }
 
