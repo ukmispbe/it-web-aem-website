@@ -48,7 +48,7 @@ class Search extends Component {
                 ? this.props.searchDefaults && this.props.searchDefaults.rows
                 : 25,
             sort: this.query.sort,
-            selectedFacets: {},
+            selectedFacets: this.query.selectedFacets || {},
             unappliedFilters: {},
             isDesktop: false,
         });
@@ -165,7 +165,7 @@ class Search extends Component {
         }
     }
 
-    filterSelectHandler(facet, categoryId, category, e) {
+    filterSelectHandler(facet, categoryId, e) {
         const state = this.state;
         const isChecked = e.target.checked;
 
@@ -175,17 +175,12 @@ class Search extends Component {
                 if (!newState.selectedFacets[`${categoryId}`]) {
                     newState.selectedFacets[`${categoryId}`] = [];
                 }
-                newState.selectedFacets[`${categoryId}`].push({
-                    facet,
-                    categoryId,
-                    category,
-                    index: newState.selectedFacets[`${categoryId}`].length,
-                });
+                newState.selectedFacets[`${categoryId}`].push(facet);
             } else {
                 const filteredArr = newState.selectedFacets[
                     `${categoryId}`
                 ].filter((f, index) => {
-                    if (f.facet === facet) {
+                    if (f === facet) {
                         return false;
                     } else {
                         return true;
@@ -218,20 +213,12 @@ class Search extends Component {
                 }
                 unappliedState.unappliedFilters.selectedFacets[
                     `${categoryId}`
-                ].push({
-                    facet,
-                    categoryId,
-                    category,
-                    index:
-                        unappliedState.unappliedFilters.selectedFacets[
-                            `${categoryId}`
-                        ].length,
-                });
+                ].push(facet);
             } else {
                 const filteredArr = unappliedState.unappliedFilters.selectedFacets[
                     `${categoryId}`
                 ].filter((f, index) => {
-                    if (f.facet === facet) {
+                    if (f === facet) {
                         return false;
                     } else {
                         return true;
@@ -274,7 +261,7 @@ class Search extends Component {
             const filteredArr = newState.selectedFacets[
                 `${tag.categoryId}`
             ].filter((f, index) => {
-                if (f.facet === tag.facet) {
+                if (f === tag.facet) {
                     return false;
                 } else {
                     return true;
@@ -294,7 +281,7 @@ class Search extends Component {
             const filteredArr = unappliedState.unappliedFilters.selectedFacets[
                 `${tag.categoryId}`
             ].filter((f, index) => {
-                if (f.facet === tag.facet) {
+                if (f === tag.facet) {
                     return false;
                 } else {
                     return true;
@@ -365,8 +352,11 @@ class Search extends Component {
                         ? state.unappliedFilters.selectedFacets
                         : state.selectedFacets
                 }
+                facets={state.facets}
                 clearTag={this.clearTag.bind(this)}
                 removeTag={this.removeTag.bind(this)}
+                filterMap={this.props.filterMap}
+                defaultFacet={this.props.defaultFacet}
             />
         );
 

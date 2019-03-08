@@ -42,7 +42,7 @@ class FilterSection extends Component {
                     const f = this.props.selectedFacets[this.props.facet.name][
                         i
                     ];
-                    if (f.facet === item.value) checked = true;
+                    if (f === item.value) checked = true;
                 }
             }
             return (
@@ -57,7 +57,6 @@ class FilterSection extends Component {
                             this.props.selectHandler(
                                 item.value,
                                 this.props.facet.name,
-                                this.props.facet.category,
                                 e
                             )
                         }

@@ -43,6 +43,27 @@ export class SearchService {
     getParamsFromString() {
         const str = window.location.search;
         const obj = queryString.parse(str);
+        obj.selectedFacets = {};
+
+        if (Array.isArray(obj.facet)) {
+            for (let i = 0; i < obj.facet.length; i++) {
+                const facetSplit = obj.facet[i].split(':');
+
+                if (!obj.selectedFacets[facetSplit[0]]) {
+                    obj.selectedFacets[facetSplit[0]] = [];
+                }
+
+                obj.selectedFacets[facetSplit[0]].push(facetSplit[1]);
+            }
+        } else {
+            const facetSplit = obj.facet.split(':');
+
+            if (!obj.selectedFacets[facetSplit[0]]) {
+                obj.selectedFacets[facetSplit[0]] = [];
+            }
+
+            obj.selectedFacets[facetSplit[0]].push(facetSplit[1]);
+        }
 
         return obj;
     }
@@ -67,7 +88,7 @@ export class SearchService {
                     for (let n = 0; n < facet.length; n++) {
                         const f = facet[n];
                         paramString =
-                            paramString + `&facet=${key}:${encodeURI(f.facet)}`;
+                            paramString + `&facet=${key}:${encodeURI(f)}`;
                     }
                 }
             }
