@@ -17,7 +17,7 @@ class ApplySortFilter extends Component {
             <div className="cmp-search-apply-btn">
                 <a
                     href="javascript:void(0);"
-                    onClick={this.handleInput}
+                    onClick={e => props.applyFilters()}
                     className="btn-apply-sort-filter"
                 >
                     Apply

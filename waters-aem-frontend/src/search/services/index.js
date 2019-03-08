@@ -66,7 +66,11 @@ export class SearchService {
                 const facet = facets[key];
 
                 if (facet) {
-                    paramString = paramString + `&facet=${key}:${facet}`;
+                    for (let n = 0; n < facet.length; n++) {
+                        const f = facet[n];
+                        paramString =
+                            paramString + `&facet=${key}:${encodeURI(f.facet)}`;
+                    }
                 }
             }
         }
@@ -75,28 +79,33 @@ export class SearchService {
     }
 
     getQueryFacetString(facets) {
-        let facetString = '';
+        let facetString = this.defaultFacet;
 
         for (let i = 0; i <= Object.keys(facets).length; i++) {
             const category = Object.keys(facets)[i];
             const facet = facets[category];
 
-            if (facet) {
-                if (this.defaultFacet && i === 0) {
+            if (facet && category) {
+                if (i === 0) {
                     facetString =
-                        facetString + `${this.defaultFacet}&${category}:`;
-                } else if (!this.defaultFacet && i === 0) {
-                    facetString = facetString + `${category}:`;
+                        facetString +
+                        `${this.defaultFacet.length ? '&' : ''}${category}:`;
                 } else {
                     facetString = facetString + `&${category}:`;
                 }
 
                 for (let f = 0; f <= facet.length; f++) {
                     const filter = facet[f];
-                    facetString = filter
-                        ? facetString + `${f > 0 ? '||' : ''}${filter}`
-                        : facetString;
+
+                    if (filter) {
+                        facetString = filter
+                            ? facetString +
+                              `${f > 0 ? '||' : ''}${encodeURI(filter)}`
+                            : facetString;
+                    }
                 }
+            } else if (category) {
+                facetString = facetString + `&${category}:`;
             }
         }
 

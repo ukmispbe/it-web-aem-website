@@ -49,6 +49,10 @@ if (searchAppContainer) {
         document.getElementById('search-results-translations-json').innerHTML
     );
 
+    const filterMap = JSON.parse(
+        document.getElementById('search-results-categories-json').innerHTML
+    );
+
     const data = getAuthoredDataForSearchApp(searchAppContainer);
     ReactDOM.render(
         <Search
@@ -57,6 +61,7 @@ if (searchAppContainer) {
             searchServicePath={data.searchPath}
             searchLocale={data.locale}
             searchText={text}
+            filterMap={filterMap}
         />,
         searchAppContainer
     );

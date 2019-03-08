@@ -11,6 +11,7 @@ class ShowSortFilter extends Component {
     handleInput(e) {
         document.body.classList.add('show-sort-filters');
         this.setState({ showSortFilters: true });
+        this.props.setupFilters();
     }
 
     render() {
@@ -22,7 +23,10 @@ class ShowSortFilter extends Component {
                     onClick={this.handleInput}
                     className="btn-show-sort-filter"
                 >
-                    <ReactSVG src={props.text.filterIcon} className="filterIcon" />
+                    <ReactSVG
+                        src={props.text.filterIcon}
+                        className="filterIcon"
+                    />
                     Sort and Filter
                 </a>
             </div>

@@ -32,6 +32,8 @@ class Search extends Component {
         const query = this.search.getParamsFromString();
         this.query = query;
 
+        // const selectedFacets = query.
+
         this.setState({
             loading: true,
             results: {},
@@ -42,8 +44,22 @@ class Search extends Component {
                 ? this.props.searchDefaults && this.props.searchDefaults.rows
                 : 25,
             sort: this.query.sort ? this.query.sort : 'most-relevant',
+            selectedFacets: {},
+            unappliedFilters: {},
+            isDesktop: false,
         });
 
+        const checkWindowWidth = () => {
+            const newState = Object.assign({}, this.state);
+            const desktop = window.matchMedia('screen and (min-width: 1200px)');
+            newState.isDesktop = desktop.matches;
+
+            this.setState(newState);
+        };
+
+        window.addEventListener('resize', checkWindowWidth);
+
+        checkWindowWidth();
         this.performSearch();
     }
 
@@ -88,6 +104,12 @@ class Search extends Component {
         });
     }
 
+    pushToHistory(query, facets) {
+        this.props.history.push(`?
+            ${this.search.getQueryParamString(query, facets)}
+        `);
+    }
+
     paginationClickHandler(page) {
         const state = this.state;
         const searchParams = this.state.searchParams || {};
@@ -101,15 +123,13 @@ class Search extends Component {
 
         this.setState(newState);
 
-        this.props.history.push(
-            `?${this.search.getQueryParamString(
-                {
-                    keyword: searchParams.keyword,
-                    page: page.selected + 1,
-                    sort: searchParams.sort
-                },
-                searchParams.facets
-            )}`
+        this.pushToHistory(
+            {
+                keyword: searchParams.keyword,
+                page: page.selected + 1,
+                sort: searchParams.sort,
+            },
+            searchParams.facets
         );
 
         window.scrollTo(0, 0);
@@ -121,47 +141,273 @@ class Search extends Component {
         const state = this.state;
         const searchParams = this.state.searchParams || {};
 
-        this.setState(Object.assign({}, state, { sort: sortOption }));
+        if (state.isDesktop) {
+            this.setState(Object.assign({}, state, { sort: sortOption }));
 
+            this.pushToHistory(
+                {
+                    keyword: state.query,
+                    page: 1,
+                    sort: sortOption,
+                },
+                searchParams.facets
+            );
+        } else {
+            const newState = Object.assign({}, state);
+            newState.unappliedFilters.sort = sortOption;
+            this.setState(newState);
+        }
+    }
+
+    filterSelectHandler(facet, categoryId, category, e) {
+        const state = this.state;
+        const isChecked = e.target.checked;
+
+        if (state.isDesktop) {
+            const newState = Object.assign({}, this.state);
+            if (isChecked) {
+                if (!newState.selectedFacets[`${categoryId}`]) {
+                    newState.selectedFacets[`${categoryId}`] = [];
+                }
+                newState.selectedFacets[`${categoryId}`].push({
+                    facet,
+                    categoryId,
+                    category,
+                    index: newState.selectedFacets[`${categoryId}`].length,
+                });
+            } else {
+                const filteredArr = newState.selectedFacets[
+                    `${categoryId}`
+                ].filter((f, index) => {
+                    if (f.facet === facet) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                });
+
+                newState.selectedFacets[`${categoryId}`] = filteredArr;
+            }
+
+            this.setState(newState);
+            setTimeout(
+                () =>
+                    this.pushToHistory(
+                        this.state.searchParams,
+                        this.state.selectedFacets
+                    ),
+                0
+            );
+        } else {
+            const unappliedState = Object.assign({}, this.state);
+            if (isChecked) {
+                if (
+                    !unappliedState.unappliedFilters.selectedFacets[
+                        `${categoryId}`
+                    ]
+                ) {
+                    unappliedState.unappliedFilters.selectedFacets[
+                        `${categoryId}`
+                    ] = [];
+                }
+                unappliedState.unappliedFilters.selectedFacets[
+                    `${categoryId}`
+                ].push({
+                    facet,
+                    categoryId,
+                    category,
+                    index:
+                        unappliedState.unappliedFilters.selectedFacets[
+                            `${categoryId}`
+                        ].length,
+                });
+            } else {
+                const filteredArr = unappliedState.unappliedFilters.selectedFacets[
+                    `${categoryId}`
+                ].filter((f, index) => {
+                    if (f.facet === facet) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                });
+
+                unappliedState.unappliedFilters.selectedFacets[
+                    `${categoryId}`
+                ] = filteredArr;
+            }
+
+            this.setState(unappliedState);
+        }
+    }
+
+    clearTag() {
+        if (this.state.isDesktop) {
+            const newState = Object.assign({}, this.state);
+            newState.selectedFacets = {};
+            this.setState(newState);
+
+            setTimeout(
+                () =>
+                    this.pushToHistory(
+                        this.state.searchParams,
+                        this.state.selectedFacets
+                    ),
+                0
+            );
+        } else {
+            const unappliedState = Object.assign({}, this.state);
+            unappliedState.unappliedFilters.selectedFacets = {};
+            this.setState(unappliedState);
+        }
+    }
+
+    removeTag(tag) {
+        if (this.state.isDesktop) {
+            const newState = Object.assign({}, this.state);
+            const filteredArr = newState.selectedFacets[
+                `${tag.categoryId}`
+            ].filter((f, index) => {
+                if (f.facet === tag.facet) {
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+
+            newState.selectedFacets[`${tag.categoryId}`] = filteredArr;
+
+            this.setState(newState);
+
+            this.pushToHistory(
+                this.state.searchParams,
+                this.state.selectedFacets
+            );
+        } else {
+            const unappliedState = Object.assign({}, this.state);
+            const filteredArr = unappliedState.unappliedFilters.selectedFacets[
+                `${tag.categoryId}`
+            ].filter((f, index) => {
+                if (f.facet === tag.facet) {
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+
+            unappliedState.unappliedFilters.selectedFacets[
+                `${tag.categoryId}`
+            ] = filteredArr;
+            this.setState(unappliedState);
+        }
+    }
+
+    applyFilters() {
         document.body.classList.remove('show-sort-filters');
         document.body.classList.remove('filter-active');
+        this.setState(
+            Object.assign({}, this.state, {
+                sort: this.state.unappliedFilters.sort,
+                selectedFacets: this.state.unappliedFilters.selectedFacets,
+                unappliedFilters: {},
+            })
+        );
 
-        const qString = `?${this.search.getQueryParamString(
-            {
-                keyword: state.query,
-                page: 1,
-                sort: sortOption,
-            },
-            searchParams.facets
-        )}`;
+        setTimeout(
+            () =>
+                this.pushToHistory(
+                    this.state.searchParams,
+                    this.state.selectedFacets
+                ),
+            0
+        );
+    }
 
-        this.props.history.push(qString);
+    clearUnappliedFilters() {
+        this.setState(
+            Object.assign({}, this.state, {
+                unappliedFilters: {},
+            })
+        );
+    }
+
+    setupFilters() {
+        if (!this.state.isDesktop) {
+            this.setState(
+                Object.assign({}, this.state, {
+                    unappliedFilters: {
+                        selectedFacets: Object.assign(
+                            {},
+                            this.state.selectedFacets
+                        ),
+                    },
+                })
+            );
+        }
     }
 
     render() {
         const state = this.state;
         const searchParams = this.state.searchParams || {};
-        const overlay = <div class="overlay" />;
+        const overlay = <div className="overlay" />;
+        const filterTags = (
+            <FilterTags
+                text={this.props.searchText}
+                selectedFacets={
+                    state.unappliedFilters &&
+                    state.unappliedFilters.selectedFacets
+                        ? state.unappliedFilters.selectedFacets
+                        : state.selectedFacets
+                }
+                clearTag={this.clearTag.bind(this)}
+                removeTag={this.removeTag.bind(this)}
+            />
+        );
+
         const aside = (
             <div className="container__left cmp-search__sort-filter">
                 <BtnHideSortFilter
                     text={this.props.searchText}
+                    clearUnappliedFilters={this.clearUnappliedFilters.bind(
+                        this
+                    )}
                 />
 
-                <BtnApplySortFilter />
+                <BtnApplySortFilter
+                    applyFilters={this.applyFilters.bind(this)}
+                />
 
                 <BtnDoneSortFilter />
 
                 <div className="cmp-search__sort-filter__container">
                     <Sort
                         sortHandler={this.sortHandler.bind(this)}
-                        sortValue={state.sort === 'most-recent' ? 2 : 1}
+                        sortValue={
+                            state.unappliedFilters &&
+                            state.unappliedFilters.sort
+                                ? state.unappliedFilters.sort === 'most-recent'
+                                    ? 2
+                                    : 1
+                                : state.sort === 'most-recent'
+                                ? 2
+                                : 1
+                        }
                         text={this.props.searchText}
                     />
 
                     <Filter
                         facets={state.facets}
                         text={this.props.searchText}
+                        filterMap={this.props.filterMap}
+                        defaultFacet={this.props.defaultFacet}
+                        selectHandler={this.filterSelectHandler.bind(this)}
+                        selectedFacets={
+                            state.unappliedFilters &&
+                            state.unappliedFilters.selectedFacets
+                                ? state.unappliedFilters.selectedFacets
+                                : state.selectedFacets
+                        }
+                        filterTags={filterTags}
                     />
                 </div>
             </div>
@@ -170,9 +416,9 @@ class Search extends Component {
         const previousIcon = (
             <ReactSVG src={this.props.searchText.previousIcon} />
         );
+
         const results = (
             <div className="cmp-search__container">
-
                 <div className="cmp-search__container__header cleafix">
                     <ResultsCount
                         rows={state.rows}
@@ -188,12 +434,11 @@ class Search extends Component {
 
                     <BtnShowSortFilter
                         text={this.props.searchText}
+                        setupFilters={this.setupFilters.bind(this)}
                     />
                 </div>
 
-                <FilterTags
-                    text={this.props.searchText}
-                />
+                {filterTags}
 
                 <Results
                     results={state.results[searchParams.page] || []}
@@ -221,6 +466,7 @@ class Search extends Component {
         );
         return (
             <div>
+                {overlay}
                 {!state.loading && state.noResults ? null : aside}
                 {state.loading ? 'Loading' : null}
                 {!state.loading && state.noResults ? (
