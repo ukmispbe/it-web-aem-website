@@ -48,9 +48,10 @@ public final class QrCode implements ComponentExporter {
     public String getExternalizedPageUrl() {
         if (externalizedPageUrl == null) {
             final ApplicationNotes applicationNotes = currentPage.getContentResource().adaptTo(ApplicationNotes.class);
+            final String languageCode = currentPage.getLanguage(false).getLanguage().toUpperCase();
 
             externalizedPageUrl = externalizer.externalLink(resourceResolver, Externalizer.PUBLISH,
-                "/" + applicationNotes.getLiteratureCode());
+                    "/" + applicationNotes.getLiteratureCode() + languageCode + ".html");
         }
 
         return externalizedPageUrl;

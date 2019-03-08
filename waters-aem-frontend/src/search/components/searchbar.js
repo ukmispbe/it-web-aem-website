@@ -36,9 +36,10 @@ class SearchBar extends Component {
         if (e.key === 'Enter') {
             e.preventDefault();
             const searchTerm = this.state.value ? this.state.value : '*:*';
+            const defaultSort = searchTerm === '*:*' ? 'most-recent' : 'most-relevant';
             window.location.href = `${
                 this.props.searchPath
-            }?keyword=${searchTerm}`;
+            }?keyword=${searchTerm}&sort=${defaultSort}`;
         }
     };
 

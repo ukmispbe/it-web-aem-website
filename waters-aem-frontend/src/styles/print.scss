@@ -46,20 +46,16 @@
     }
 
     .layoutcontainer .cmp-section-container__title{
-        padding: 0.5em 0 0.5em 0;
+        padding: 0.5em 0 1.5em 0;
     }
 
     .cmp-external-footer {
         background-color: $color-white;
-        padding: $space-m 0 $space-m 0;
-        margin-top: $space-xl;
-        overflow: hidden;
-        clear: both;
-        border-top: 1px solid #c6cdd2;
+        padding:  1.5em 0 1.5em 0;
     }
 
     .cmp-external-footer__logo {
-        float: left !important;
+        display: hide;
     }
 
     .cmp-external-footer__copyright {
@@ -67,7 +63,7 @@
         margin-top: 0px;
 
         p {
-            font-size: $font-size-h4-s;
+            font-size: $font-size-text-pcs;
             color: $color-gray-50;
         }
     }
@@ -76,7 +72,7 @@
         page-break-before: always;
     }
 
-    h4, p {
+    h4, p, li {
         widows: 3;
         orphans: 3;
     }
@@ -91,10 +87,16 @@
     }
 
     .cmp-qr-code {
-        @include font-xsmall;
-        padding-top: $space-xs;
+        font-family: "acumin-pro", arial, sans-serif;
+        font-size: 0.8em;
+        font-weight: light;
+        line-height: 1.7em;
+        color: #4f5b64;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding-top: 0.75em;
         display: unset;
-        float: right !important;
+        float: left !important;
     }
 
     .cmp-qr-code__img {
@@ -112,7 +114,7 @@
     }
 
     .cmp-image__title {
-        font-size: $font-size-xsmall;
+        font-size: $font-size-text-pcs;
     }
 
     .cmp-accent-rule hr {
@@ -120,28 +122,33 @@
     }
 
     .cmp-tag-list--label .cmp-tag-list__item {
-       font-size: $font-size-xsmall;
+       font-size: $font-size-text-pcs;
     }
 
     h1 {
-       font-size: $font-size-h1-s;
+       font-size: $font-size-h1-pcs;
        padding-bottom: $space-s;
        margin-right: -135px;
     }
 
     h2 {
-       font-size: $font-size-h2-s;
+       font-size: $font-size-h2-pcs;
     }
 
     h3 {
-       font-size: $font-size-h3-s;
-       font-weight: medium;
+       font-size: $font-size-h3-pcs;
+       color: $color-teal-50;
     }
 
     p , h4 , li{
-       font-size: $font-size-h4-s;
+       font-size: $font-size-text-pcs;
     }
-    div.container div.root>div.aem-Grid>div:nth-child(4) {
-        width: 100%;
+
+    .cmp-title {
+       width: 500px;
+    }
+
+    .cmp-tag-list {
+       width: 500px;
     }
 }
