@@ -44,7 +44,7 @@ public class AppnotePageAnalyticsModel extends AbstractAnalyticsModel{
             return currentPage.getProperties().get("literatureCode", "");
         }
 
-        public String getFirstPublishYear() {
+        public String getFirstPublishDate() {
             StringBuilder stringBuilder = new StringBuilder();
 
             if(!StringUtils.isEmpty(getMonthPublished())) {
