@@ -27,7 +27,7 @@ class ShowSortFilter extends Component {
                         src={props.text.filterIcon}
                         className="filterIcon"
                     />
-                    Sort and Filter
+                    {props.text.sortAndFilterButton}
                 </a>
             </div>
         );
