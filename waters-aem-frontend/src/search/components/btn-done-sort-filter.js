@@ -9,7 +9,6 @@ class DoneSortFilter extends Component {
 
     handleInput(e) {
         document.body.classList.remove('filter-active');
-        
 
         //TODO: add functionality to remove expanded class from current selected filter
     }
@@ -23,7 +22,7 @@ class DoneSortFilter extends Component {
                     onClick={this.handleInput}
                     className="btn-done-sort-filter"
                 >
-                    Done
+                    {props.text.doneButton}
                 </a>
             </div>
         );

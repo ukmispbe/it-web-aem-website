@@ -370,10 +370,11 @@ class Search extends Component {
                 />
 
                 <BtnApplySortFilter
+                    text={this.props.searchText}
                     applyFilters={this.applyFilters.bind(this)}
                 />
 
-                <BtnDoneSortFilter />
+                <BtnDoneSortFilter text={this.props.searchText} />
 
                 <div className="cmp-search__sort-filter__container">
                     <Sort

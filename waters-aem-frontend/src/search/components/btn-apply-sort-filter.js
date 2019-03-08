@@ -20,7 +20,7 @@ class ApplySortFilter extends Component {
                     onClick={e => props.applyFilters()}
                     className="btn-apply-sort-filter"
                 >
-                    Apply
+                    {props.text.applyButton}
                 </a>
             </div>
         );
