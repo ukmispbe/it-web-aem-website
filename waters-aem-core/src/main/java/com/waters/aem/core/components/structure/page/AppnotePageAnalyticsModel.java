@@ -47,13 +47,13 @@ public class AppnotePageAnalyticsModel extends AbstractAnalyticsModel{
         public String getFirstPublishYear() {
             StringBuilder stringBuilder = new StringBuilder();
 
-            if(!StringUtils.isBlank(getMonthPublished())) {
+            if(!StringUtils.isEmpty(getMonthPublished())) {
                 stringBuilder.append(getMonthPublished());
             }
-            if(!StringUtils.isBlank(getMonthPublished()) && !StringUtils.isBlank(getYearPublished())) {
+            if(!StringUtils.isEmpty(getMonthPublished()) && !StringUtils.isEmpty(getYearPublished())) {
                 stringBuilder.append("|");
             }
-            if(!StringUtils.isBlank(getYearPublished())) {
+            if(!StringUtils.isEmpty(getYearPublished())) {
                 stringBuilder.append(getYearPublished());
             }
 
@@ -62,12 +62,12 @@ public class AppnotePageAnalyticsModel extends AbstractAnalyticsModel{
 
         @JsonIgnore
         public String getYearPublished() {
-            return applicationNotes.getYearPublished().get(0).getTitle(siteContext.getLocale());
+            return getLocalizedTitle(applicationNotes.getYearPublished());
         }
 
         @JsonIgnore
         public String getMonthPublished() {
-            return applicationNotes.getMonthPublished().get(0).getTitle(siteContext.getLocale());
+            return getLocalizedTitle(applicationNotes.getMonthPublished());
         }
 
         public String getLastPublishDate() {
@@ -75,8 +75,8 @@ public class AppnotePageAnalyticsModel extends AbstractAnalyticsModel{
         }
 
         public List<String> getTags() {
-            List<String> tagList = getLocalizedTitle(applicationNotes.getAuthor());
-            tagList.addAll(getLocalizedTitle(applicationNotes.getAffiliations()));
+            List<String> tagList = getLocalizedTitles(applicationNotes.getAuthor());
+            tagList.addAll(getLocalizedTitles(applicationNotes.getAffiliations()));
             return tagList;
         }
 

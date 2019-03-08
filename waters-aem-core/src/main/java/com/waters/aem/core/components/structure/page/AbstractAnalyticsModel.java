@@ -14,7 +14,15 @@ public abstract class AbstractAnalyticsModel {
     @Self
     private SiteContext siteContext;
 
-    public List<String> getLocalizedTitle(final List<Tag> tags) {
+    public String getLocalizedTitle(List<Tag> tags) {
+        return !tags.isEmpty() ? tags.get(0).getTitle(siteContext.getLocale()) : "";
+    }
+
+    public String getFirstLocalizedTitle(List<Tag> tags) {
+        return !tags.isEmpty() ? getLocalizedTitles(tags).get(0) : "";
+    }
+
+    public List<String> getLocalizedTitles(final List<Tag> tags) {
         return tags.stream().map(this :: getTagTitlePath).collect(Collectors.toList());
     }
 

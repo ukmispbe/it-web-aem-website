@@ -1,5 +1,6 @@
 package com.waters.aem.core.components.structure.page;
 
+import com.day.cq.tagging.Tag;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.waters.aem.core.components.SiteContext;
 import org.apache.sling.api.resource.Resource;
@@ -18,7 +19,7 @@ public class AnalyticsPageModel extends AbstractAnalyticsModel{
     private ApplicationNotes applicationNotes;
 
     public String getCategory() {
-        return !applicationNotes.getCategory().isEmpty() ? getLocalizedTitle(applicationNotes.getCategory()).get(0) : "";
+        return getFirstLocalizedTitle(applicationNotes.getCategory());
     }
 
     public String getCountry() {
@@ -30,7 +31,7 @@ public class AnalyticsPageModel extends AbstractAnalyticsModel{
     }
 
     public String getType() {
-        return !applicationNotes.getContentType().isEmpty() ? getLocalizedTitle(applicationNotes.getContentType()).get(0) : "";
+        return getFirstLocalizedTitle(applicationNotes.getContentType());
     }
 
 }
