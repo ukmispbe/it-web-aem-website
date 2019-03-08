@@ -47,7 +47,7 @@
         &__item {
             font-size: $font-size-small;
             display: inline-block;
-            padding: $space-xxs $space-s;
+            padding: $space-xxxs $space-xs ($space-xxs - .1em) $space-xs;
             background-color: $color-background-dark;
             color: $color-white;
         }
