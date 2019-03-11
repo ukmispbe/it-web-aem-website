@@ -319,7 +319,7 @@ class Search extends Component {
                 sort: this.state.unappliedFilters.sort,
                 selectedFacets: this.state.unappliedFilters.selectedFacets,
                 unappliedFilters: {},
-                searchParams.page: 1,
+                page: 1,
             })
         );
 
