@@ -26,6 +26,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.google.common.base.Preconditions.checkState;
+
 /**
  * Replication preprocessor to delete Application Note PDFs when pages are deactivated or deleted.  This is implemented
  * in a preprecessor to ensure that the page still exists, since the page metadata is needed to determine the
@@ -75,13 +77,15 @@ public final class PdfReplicationPreprocessor implements Preprocessor {
         LOG.debug("preprocessing replication action type : {} for page : {}", replicationActionType,
             page.getPath());
 
-        final String assetPath = page.getContentResource().adaptTo(ApplicationNotes.class)
+        final String pdfAssetPath = page.getContentResource().adaptTo(ApplicationNotes.class)
             .getPdfAssetPath();
 
-        LOG.info("deleting PDF asset : {}", assetPath);
+        checkState(pdfAssetPath != null, "PDF asset path is null for page : " + page.getPath());
+
+        LOG.info("deleting PDF asset : {}", pdfAssetPath);
 
         // delete the previously replicated PDF asset
-        replicator.replicate(resourceResolver.adaptTo(Session.class), replicationActionType, assetPath);
+        replicator.replicate(resourceResolver.adaptTo(Session.class), replicationActionType, pdfAssetPath);
 
         try {
             // delete the PDF from author after deleting from publish

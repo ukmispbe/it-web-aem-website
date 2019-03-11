@@ -20,8 +20,6 @@ import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
 
-import static com.google.common.base.Preconditions.checkState;
-
 @Component(value = "Application Notes",
     tabs = @Tab(
         title = "Application Notes",
@@ -37,8 +35,6 @@ import static com.google.common.base.Preconditions.checkState;
 public final class ApplicationNotes {
 
     static final String FILE_NAME = "applicationnotes";
-
-    public static final String DAM_ROOT_PATH = "/content/dam/waters/app-notes/";
 
     @Self
     private Resource resource;
@@ -189,27 +185,47 @@ public final class ApplicationNotes {
     }
 
     /**
+     * Get the DAM asset folder path for this page's year and literature code.
+     *
+     * @return asset folder path or null if page is missing required metadata
+     */
+    public String getAssetFolderPath() {
+        String assetFolderPath = null;
+
+        if (!yearPublished.isEmpty() && literatureCode != null) {
+            assetFolderPath = new StringBuilder(WatersConstants.DAM_PATH_APP_NOTES)
+                .append(yearPublished.get(0).getName())
+                .append("/")
+                .append(literatureCode)
+                .toString();
+        }
+
+        return assetFolderPath;
+    }
+
+    /**
      * Get the DAM asset path of the generated PDF for the current page.
      *
-     * @return PDF asset path
+     * @return PDF asset path or null if page is missing required metadata
      */
     public String getPdfAssetPath() {
-        // throw exception if year tag is missing
-        checkState(!yearPublished.isEmpty(),
-            "Application Note does not have a Year tag, unable to get PDF asset path.");
+        final String assetFolderPath = getAssetFolderPath();
 
-        final String languageCode = page.getLanguage(false).getLanguage().toLowerCase();
+        String pdfAssetPath = null;
 
-        return new StringBuilder(DAM_ROOT_PATH)
-            .append(yearPublished.get(0).getName())
-            .append("/")
-            .append(literatureCode)
-            .append("/")
-            .append(literatureCode)
-            .append("-")
-            .append(languageCode)
-            .append(".pdf")
-            .toString();
+        if (assetFolderPath != null) {
+            final String languageCode = page.getLanguage(false).getLanguage().toLowerCase();
+
+            pdfAssetPath = new StringBuilder(assetFolderPath)
+                .append("/")
+                .append(literatureCode)
+                .append("-")
+                .append(languageCode)
+                .append(".pdf")
+                .toString();
+        }
+
+        return pdfAssetPath;
     }
 
     public Resource getResource() {

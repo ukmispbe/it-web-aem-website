@@ -4,7 +4,7 @@ import com.day.cq.dam.api.DamEvent;
 import com.day.cq.replication.ReplicationActionType;
 import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
-import com.waters.aem.core.components.structure.page.ApplicationNotes;
+import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
@@ -47,7 +47,7 @@ public final class PdfUpdateAssetWorkflowEventHandler implements EventHandler {
             final String pdfAssetPath = damEvent.getAssetPath();
 
             // check that the updated asset is an application note PDF
-            if (pdfAssetPath.startsWith(ApplicationNotes.DAM_ROOT_PATH)) {
+            if (pdfAssetPath.startsWith(WatersConstants.DAM_PATH_APP_NOTES)) {
                 try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(
                     null)) {
                     LOG.info("activating PDF asset : {}", pdfAssetPath);
