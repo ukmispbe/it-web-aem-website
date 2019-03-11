@@ -14,6 +14,7 @@ import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.inject.Inject;
 import java.util.Collections;
@@ -38,6 +39,9 @@ public final class ApplicationNotes {
     static final String FILE_NAME = "applicationnotes";
 
     public static final String DAM_ROOT_PATH = "/content/dam/waters/app-notes/";
+
+    @Self
+    private Resource resource;
 
     @Inject
     private PageDecorator page;
@@ -206,5 +210,9 @@ public final class ApplicationNotes {
             .append(languageCode)
             .append(".pdf")
             .toString();
+    }
+
+    public Resource getResource() {
+        return resource;
     }
 }
