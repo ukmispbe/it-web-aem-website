@@ -196,7 +196,7 @@ class Search extends Component {
 
                 newState.selectedFacets[`${categoryId}`] = filteredArr;
             }
-
+            newState.searchParams.page = 1;
             this.setState(newState);
             setTimeout(
                 () =>
@@ -245,6 +245,7 @@ class Search extends Component {
         if (this.state.isDesktop) {
             const newState = Object.assign({}, this.state);
             newState.selectedFacets = {};
+            newState.searchParams.page = 1;
             this.setState(newState);
 
             setTimeout(
@@ -276,7 +277,7 @@ class Search extends Component {
             });
 
             newState.selectedFacets[`${tag.categoryId}`] = filteredArr;
-
+            newState.searchParams.page = 1;
             this.setState(newState);
 
             this.pushToHistory(
@@ -307,6 +308,7 @@ class Search extends Component {
         document.body.classList.remove('filter-active');
         const newSearch = Object.assign({}, this.state.searchParams, {
             sort: this.state.unappliedFilters.sort,
+            page: 1,
         });
         const selectedFacets = Object.assign(
             {},
@@ -317,6 +319,7 @@ class Search extends Component {
                 sort: this.state.unappliedFilters.sort,
                 selectedFacets: this.state.unappliedFilters.selectedFacets,
                 unappliedFilters: {},
+                searchParams.page: 1,
             })
         );
 
