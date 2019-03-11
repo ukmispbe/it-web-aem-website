@@ -196,7 +196,7 @@ class Search extends Component {
 
                 newState.selectedFacets[`${categoryId}`] = filteredArr;
             }
-             newState.searchParams.page = 1;
+            newState.searchParams.page = 1;
             this.setState(newState);
             setTimeout(
                 () =>
@@ -308,7 +308,7 @@ class Search extends Component {
         document.body.classList.remove('filter-active');
         const newSearch = Object.assign({}, this.state.searchParams, {
             sort: this.state.unappliedFilters.sort,
-            page :1,
+            page: 1,
         });
         const selectedFacets = Object.assign(
             {},
@@ -319,7 +319,7 @@ class Search extends Component {
                 sort: this.state.unappliedFilters.sort,
                 selectedFacets: this.state.unappliedFilters.selectedFacets,
                 unappliedFilters: {},
-                page :1,
+
             })
         );
 
