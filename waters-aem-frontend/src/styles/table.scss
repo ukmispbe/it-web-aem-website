@@ -51,21 +51,6 @@
     }
 }
 
-.cmp-table .cmp-table__table {
-    @include mobile {
-        td p {
-            font-size: $font-size-body;
-            line-height: $line-height-text;
-            letter-spacing: $letter-spacing-small;
-        }
-        th p {
-            font-size: $font-size-body;
-            line-height: $line-height-text;
-            letter-spacing: $letter-spacing-small;
-        }
-    }
-}
-
 .cmp-table__caption {
     @include font-caption;
 }
