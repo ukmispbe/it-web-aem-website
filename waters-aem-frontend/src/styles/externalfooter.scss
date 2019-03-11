@@ -6,7 +6,6 @@
     width: 100%;
 
     a {
-        @include font-body;
         color: $color-font-light;
     }
 }
@@ -63,7 +62,6 @@
             width: 50%;
             margin-left: 0;
             text-align: left;
-            line-height: $line-height-text;
         }
     }
 }
@@ -74,7 +72,7 @@
 
     p {
         @include font-small;
-        color: $color-white;
+        color: $color-font-light;
     }
 
     @include tablet {
@@ -89,7 +87,7 @@
 
 .cmp-back-to-top {
     position: fixed;
-    bottom: 10px;
+    bottom: 20px;
     right: 20px;
     z-index: 99;
     height: 2.75em;
@@ -151,6 +149,6 @@
     &.cmp-back-to-top-affix {
         position: relative;
         float: right;
-        bottom: 6px;
+        bottom: 20px;
     }
 }

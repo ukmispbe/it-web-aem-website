@@ -27,7 +27,6 @@ button.cmp-button {
     @include mobile {
         width: 100%;
         float: left;
-        font-size: $font-size-body-m;
         margin: 0 0 $space-s 0;
     }
 }
@@ -70,7 +69,6 @@ button.cmp-button--secondary {
     @include mobile {
         width: 100%;
         float: left;
-        font-size: $font-size-body-m;
         margin: 0 0 $space-s 0;
     }
 }

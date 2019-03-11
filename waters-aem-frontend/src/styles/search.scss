@@ -103,12 +103,11 @@ div.cmp-search__no-results {
         }
         a {
             cursor: pointer;
+            @include font-utility;
             margin: 0 $space-xxs 0 0;
             border: 1px solid $color-border-dark;
             float: left;
             padding-top: ($space-xxs - 0.1em);
-            font-size: $font-size-body;
-            color: $color-font-medium;
             text-decoration: none;
             text-align: center;
             height: 2.75em;
@@ -275,11 +274,10 @@ div.cmp-search__no-results {
     display: none;
     float: left;
     width: 100%;
-    @include font-utility;
-    font-size: $font-size-small;
 
     @include mobile {
         display: block;
+        padding-bottom: $space-m;
     }
 
     @include tablet {

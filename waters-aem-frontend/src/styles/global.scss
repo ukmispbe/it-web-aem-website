@@ -93,7 +93,6 @@ body {
 }
 
 a {
-    @include font-utility;
     color: $color-link;
     transition: all 0.25s ease;
     text-decoration: none;

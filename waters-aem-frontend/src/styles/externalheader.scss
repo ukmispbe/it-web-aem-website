@@ -45,13 +45,21 @@
             }
 
             a {
-                color: $color-gray-50;
+                @include font-utility;
 
                 &:hover {
                     color: $color-link;
 
                     & svg .st0 {
                         stroke: $color-link;
+                    }
+                }
+
+                &:active {
+                    @include font-utility;
+
+                    & svg .st0 {
+                        stroke: $color-icon;
                     }
                 }
             }

@@ -70,7 +70,7 @@ const FilterTags = props => {
                     onClick={() => props.clearTag()}
                 >
                     <ReactSVG src={props.text.closeIcon} />
-                    <span>props.text.clearAllFilters</span>
+                    <span>{props.text.clearAllFilters}</span>
                 </a>
             ) : null}
             {props.selectedFacets && tags}
