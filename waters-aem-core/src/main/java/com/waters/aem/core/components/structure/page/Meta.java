@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Component(value = "Meta",
+@Component(value = "Open Graph",
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE,
     name = WatersConstants.COMPONENT_NAME_PAGE,
