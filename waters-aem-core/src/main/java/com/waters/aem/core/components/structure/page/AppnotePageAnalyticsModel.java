@@ -2,7 +2,6 @@ package com.waters.aem.core.components.structure.page;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.icfolson.aem.library.api.page.PageDecorator;
-import com.waters.aem.core.components.SiteContext;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -12,14 +11,12 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import javax.inject.Inject;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Optional;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public class AppnotePageAnalyticsModel extends AbstractAnalyticsModel{
+public class AppnotePageAnalyticsModel extends AbstractAnalyticsModel {
 
     private static final String DATE_FORMAT = "yyyy-MM-dd";
-
-    @Self
-    private SiteContext siteContext;
 
     @Inject
     private PageDecorator currentPage;
@@ -30,11 +27,11 @@ public class AppnotePageAnalyticsModel extends AbstractAnalyticsModel{
     @Self
     private AnalyticsPageModel pageModel;
 
-    public Document getDocument(){
+    public Document getDocument() {
         return new Document();
     }
 
-    public AnalyticsPageModel getPage(){
+    public AnalyticsPageModel getPage() {
         return pageModel;
     }
 
@@ -47,13 +44,13 @@ public class AppnotePageAnalyticsModel extends AbstractAnalyticsModel{
         public String getFirstPublishDate() {
             StringBuilder stringBuilder = new StringBuilder();
 
-            if(!StringUtils.isEmpty(getMonthPublished())) {
+            if (!StringUtils.isEmpty(getMonthPublished())) {
                 stringBuilder.append(getMonthPublished());
             }
-            if(!StringUtils.isEmpty(getMonthPublished()) && !StringUtils.isEmpty(getYearPublished())) {
+            if (!StringUtils.isEmpty(getMonthPublished()) && !StringUtils.isEmpty(getYearPublished())) {
                 stringBuilder.append("|");
             }
-            if(!StringUtils.isEmpty(getYearPublished())) {
+            if (!StringUtils.isEmpty(getYearPublished())) {
                 stringBuilder.append(getYearPublished());
             }
 
@@ -71,7 +68,9 @@ public class AppnotePageAnalyticsModel extends AbstractAnalyticsModel{
         }
 
         public String getLastPublishDate() {
-            return new SimpleDateFormat(DATE_FORMAT).format(currentPage.getLastModified().getTime());
+            return Optional.ofNullable(currentPage.getLastModified())
+                .map(date -> new SimpleDateFormat(DATE_FORMAT).format(date.getTime()))
+                .orElse("");
         }
 
         public List<String> getTags() {

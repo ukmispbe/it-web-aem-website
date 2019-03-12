@@ -33,6 +33,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
+import static com.google.common.base.Preconditions.checkState;
+
 @Component(service = PdfGenerator.class)
 @Designate(ocd = PdfGeneratorConfiguration.class)
 public final class DefaultPdfGenerator implements PdfGenerator {
@@ -68,6 +70,8 @@ public final class DefaultPdfGenerator implements PdfGenerator {
                 // get PDF asset path derived from application notes metadata
                 final String pdfAssetPath = page.getContentResource().adaptTo(ApplicationNotes.class).getPdfAssetPath();
 
+                checkState(pdfAssetPath != null, "PDF asset path is null for page : " + page.getPath());
+
                 // create/update asset
                 asset = assetManager.createAsset(pdfAssetPath, assetInputStream,
                     com.google.common.net.MediaType.PDF.withoutParameters().toString(), true);
@@ -81,6 +85,8 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     public void deletePdfDocument(final PageDecorator page) throws PersistenceException {
         // get PDF asset path derived from application notes metadata
         final String pdfAssetPath = page.getContentResource().adaptTo(ApplicationNotes.class).getPdfAssetPath();
+
+        checkState(pdfAssetPath != null, "PDF asset path is null for page : " + page.getPath());
 
         final ResourceResolver resourceResolver = page.getContentResource().getResourceResolver();
 
