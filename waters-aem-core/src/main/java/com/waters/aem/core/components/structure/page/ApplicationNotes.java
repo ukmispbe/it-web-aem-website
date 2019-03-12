@@ -36,6 +36,8 @@ public final class ApplicationNotes {
 
     static final String FILE_NAME = "applicationnotes";
 
+    public static final String PROPERTY_LITERATURE_CODE = "literatureCode";
+
     @Self
     private Resource resource;
 

@@ -25,6 +25,8 @@ public final class WatersConstants {
 
     public static final String EXTENSION_PDF = "pdf";
 
+    public static final int LEVEL_SITE_ROOT = 2;
+
     private WatersConstants() {
 
     }
