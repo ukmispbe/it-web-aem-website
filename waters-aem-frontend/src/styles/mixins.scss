@@ -31,10 +31,6 @@
 
     &-date {
         font-size: $font-size-small;
-
-        @include mobile {
-            font-size: $font-size-small-m;
-        }
     }
     &-title {
         font-size: $font-size-h3;

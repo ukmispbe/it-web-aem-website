@@ -1,8 +1,8 @@
 package com.waters.aem.core.components.structure.page;
 
-import com.day.cq.tagging.Tag;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.icfolson.aem.library.api.page.PageDecorator;
-import com.waters.aem.core.components.SiteContext;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
@@ -10,13 +10,11 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.inject.Inject;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public class AppnotePageAnalyticsModel {
+public class AppnotePageAnalyticsModel extends AbstractAnalyticsModel {
 
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
@@ -24,65 +22,65 @@ public class AppnotePageAnalyticsModel {
     private PageDecorator currentPage;
 
     @Self
-    private SiteContext siteContext;
-
-    @Self
     private ApplicationNotes applicationNotes;
 
-    public String getName() {
-        return currentPage.getTitle();
+    @Self
+    private AnalyticsPageModel pageModel;
+
+    public Document getDocument() {
+        return new Document();
     }
 
-    public List<String> getTags() {
-        return getLocalizedTitle(applicationNotes.getAllTags());
+    public AnalyticsPageModel getPage() {
+        return pageModel;
     }
 
-    public List<String> getPublishYear() {
-        return getLocalizedTitle(applicationNotes.getYearPublished());
-    }
+    public class Document {
 
-    public String getEditDate() {
-        return new SimpleDateFormat(DATE_FORMAT).format(currentPage.getLastModified().getTime());
-    }
-
-    public String getLanguage() {
-        return siteContext.getLocale().getLanguage();
-    }
-
-    public String getLitCode() {
-        return currentPage.getProperties().get("literatureCode", "");
-    }
-
-    public String getCountry() {
-        return siteContext.getLocale().getCountry();
-    }
-
-    public List<String> getType() {
-        return getLocalizedTitle(applicationNotes.getContentType());
-    }
-
-    public List<String> getCategory() {
-        return getLocalizedTitle(applicationNotes.getCategory());
-    }
-
-    private List<String> getLocalizedTitle(final List<Tag> tags) {
-        return tags.stream().map(this :: getTagTitlePath).collect(Collectors.toList());
-    }
-
-    private String getTagTitlePath(final Tag tag) {
-        final List<String> titlesInPath = new ArrayList<>();
-
-        titlesInPath.add(tag.getTitle(siteContext.getLocale()));
-
-        Tag parent = tag.getParent();
-
-        while (parent != null) {
-            titlesInPath.add(parent.getTitle(siteContext.getLocale()));
-            parent = parent.getParent();
+        public String getId() {
+            return currentPage.getProperties().get("literatureCode", "");
         }
 
-        Collections.reverse(titlesInPath);
+        public String getFirstPublishDate() {
+            StringBuilder stringBuilder = new StringBuilder();
 
-        return String.join("|", titlesInPath);
+            if (!StringUtils.isEmpty(getMonthPublished())) {
+                stringBuilder.append(getMonthPublished());
+            }
+            if (!StringUtils.isEmpty(getMonthPublished()) && !StringUtils.isEmpty(getYearPublished())) {
+                stringBuilder.append("|");
+            }
+            if (!StringUtils.isEmpty(getYearPublished())) {
+                stringBuilder.append(getYearPublished());
+            }
+
+            return stringBuilder.toString();
+        }
+
+        @JsonIgnore
+        public String getYearPublished() {
+            return getLocalizedTitle(applicationNotes.getYearPublished());
+        }
+
+        @JsonIgnore
+        public String getMonthPublished() {
+            return getLocalizedTitle(applicationNotes.getMonthPublished());
+        }
+
+        public String getLastPublishDate() {
+            return Optional.ofNullable(currentPage.getLastModified())
+                .map(date -> new SimpleDateFormat(DATE_FORMAT).format(date.getTime()))
+                .orElse("");
+        }
+
+        public List<String> getTags() {
+            List<String> tagList = getLocalizedTitles(applicationNotes.getAuthor());
+            tagList.addAll(getLocalizedTitles(applicationNotes.getAffiliations()));
+            return tagList;
+        }
+
+        public String getTitle() {
+            return currentPage.getTitle();
+        }
     }
 }

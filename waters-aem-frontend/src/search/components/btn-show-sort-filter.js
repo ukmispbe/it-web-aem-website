@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactSVG from 'react-svg';
 
 class ShowSortFilter extends Component {
     constructor(props) {
@@ -10,18 +11,25 @@ class ShowSortFilter extends Component {
     handleInput(e) {
         document.body.classList.add('show-sort-filters');
         this.setState({ showSortFilters: true });
+        this.props.setupFilters();
     }
 
     render() {
         const props = this.props;
         return (
-            <a
-                href="javascript:void(0);"
-                onClick={this.handleInput}
-                className="btn-show-sort-filter"
-            >
-                Sort and Filter
-            </a>
+            <div className="cmp-search-show-btn">
+                <a
+                    href="javascript:void(0);"
+                    onClick={this.handleInput}
+                    className="btn-show-sort-filter"
+                >
+                    <ReactSVG
+                        src={props.text.filterIcon}
+                        className="filterIcon"
+                    />
+                    {props.text.sortAndFilterButton}
+                </a>
+            </div>
         );
     }
 }

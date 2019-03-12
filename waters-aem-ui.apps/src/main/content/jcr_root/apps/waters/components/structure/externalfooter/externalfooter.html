@@ -19,6 +19,14 @@
     </div>
 </div>
 
-<script type="application/json" id="datalayer">
-    ${externalFooter.dataLayer @ context="unsafe"}
- </script> 
+<script type="text/javascript" id="datalayer">
+    var parsedData = JSON.parse('${externalFooter.dataLayer @ context="unsafe"}');
+
+    if(parsedData.page){
+        parsedData.page.serverName = window.location.hostname;
+    }
+
+    window.digitalData = parsedData;
+
+    document.dispatchEvent(new CustomEvent('digitalDataReady', {}));
+</script> 
