@@ -38,6 +38,8 @@ public final class ApplicationNotes {
 
     static final String FILE_NAME = "applicationnotes";
 
+    public static final String PROPERTY_LITERATURE_CODE = "literatureCode";
+
     public static final String DAM_ROOT_PATH = "/content/dam/waters/app-notes/";
 
     @Self
