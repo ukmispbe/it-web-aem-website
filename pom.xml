@@ -34,7 +34,7 @@
 
         <!-- versions -->
         <acs.aem.commons.version>3.19.0</acs.aem.commons.version>
-        <aem.library.version>12.0.0-SNAPSHOT</aem.library.version>
+        <aem.library.version>12.0.0</aem.library.version>
         <core.components.version>2.3.0</core.components.version>
         <component.plugin.version>6.4.0</component.plugin.version>
         <itext.version>7.1.4</itext.version>
@@ -429,13 +429,6 @@
                 <artifactId>commons-imaging</artifactId>
                 <version>1.0-R1534292</version>
             </dependency>
-            <!--
-            <dependency>
-                <groupId>org.apache.jackrabbit</groupId>
-                <artifactId>jackrabbit-api</artifactId>
-                <version>2.14.3</version>
-            </dependency>
-            -->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
