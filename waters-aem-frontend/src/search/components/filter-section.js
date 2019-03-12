@@ -29,6 +29,10 @@ class FilterSection extends Component {
         this.setState({ items: updatedList });
     }
 
+    checkHandler(event) {
+        event.currentTarget.nextElementSibling.click();
+    }
+
     getFacetOptions() {
         const options = this.state.items;
         const option = options.map((item, index) => {
@@ -50,6 +54,15 @@ class FilterSection extends Component {
                     className="cmp-search-filters__filter__item"
                     key={`${item.value}#_${index}`}
                 >
+                    <a 
+                        href="javascript:void(0)"
+                        className={"checkbox " + (checked ? 'checked' : '')}
+                        onClick={this.checkHandler.bind(this)}
+                    >
+                        <ReactSVG
+                            src={this.props.text.checkmarkIcon}
+                        />
+                    </a>
                     <input
                         type="checkbox"
                         name={`${this.props.name}:${item.value}`}

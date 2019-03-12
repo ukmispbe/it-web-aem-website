@@ -88,29 +88,32 @@
                 color: $color-font-medium;
             }
             input[type='checkbox'] {
+                display: none;
+            }
+            .checkbox {
+                display: inline-block;
                 appearance: none;
                 border: 1px solid $color-gray-40;
                 height: 1rem;
                 width: 1em;
-                vertical-align: -3px;
+                vertical-align: -2px;
                 margin-right: 10px;
-                &:checked {
-                    background-color: $color-background-dark;
-                    &:after {
-                        content: '\2713';
-                        display: inline-block;
-                        color: $color-white;
-                        margin-left: 2px;
-                        vertical-align: 3px;
+                svg {
+                    display: none;
+                    width: $icon-s;
+                    height: $icon-s;
+                    transform: rotate(-10deg);
+                    .st0 {
+                        stroke: $color-white;
+                        stroke-width: 3;
                     }
                 }
-                &:checked,
-                &:hover,
-                &:focus {
-                    outline: none;
-                }
-                &:hover {
-                    cursor: pointer;
+                &.checked {
+                    border: 1px solid $color-background-dark;
+                    background-color: $color-background-dark;
+                    svg {
+                        display: block;
+                    }
                 }
             }
         }
