@@ -30,7 +30,7 @@
     }
 
     &-date {
-        font-size: $font-size-small;
+        @include font-small;
     }
     &-title {
         font-size: $font-size-h3;
