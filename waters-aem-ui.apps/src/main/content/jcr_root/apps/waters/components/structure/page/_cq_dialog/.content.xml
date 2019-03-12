@@ -40,6 +40,11 @@
                         path="waters/components/structure/page/errorpages/content"
                         sling:resourceType="granite/ui/components/foundation/include"
                         sling:orderBefore="thumbnail"/>
+                    <designReview
+                        jcr:primaryType="nt:unstructured"
+                        path="waters/components/structure/page/designreview/content"
+                        sling:resourceType="granite/ui/components/foundation/include"
+                        sling:orderBefore="thumbnail"/>
                 </items>
             </tabs>
         </items>

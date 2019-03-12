@@ -1,24 +1,66 @@
 import React from 'react';
+import LinesEllipsis from 'react-lines-ellipsis';
 
-const Result = ({ result }) => {
+const monthNameFormatter = (date, locale = 'en-us') => {
+    return date.toLocaleString(locale, { month: 'long' });
+};
+
+const Result = ({ result, locale }) => {
+    const thumbnail = (
+        <div className="cmp-search__results-thumbnail">
+            <img src={result.thumbnail} alt={result.title} />
+        </div>
+    );
+
+    const date = new Date(result.yearpublished);
+    const monthName = monthNameFormatter(date, locale);
+    const formattedDate = monthName + ' ' + date.getFullYear();
+
     return (
         <li className="cmp-search__results-item" key={result.literaturecode}>
-            <a href={result.url} className="cmp-search__results-item-link">
-                {result.title}
-            </a>
-            <p className="cmp-search__results-item-description">
-                {result.description}
-            </p>
+            {result.thumbnail && thumbnail}
+            <div
+                className={`cmp-search__results-body ${
+                    result.thumbnail ? 'cmp-search__results-body--image' : ''
+                }`}
+            >
+                <a href={result.url} className="cmp-search__results-item-link">
+                    <span className="cmp-search__results-item-title">
+                        {result.title}
+                    </span>
+                </a>
+                <div className="cmp-search__results-item-description">
+                    <div className="cmp-search__results-item-description-text">
+                        <LinesEllipsis
+                            text={result.description}
+                            maxLine="3"
+                            ellipsis="…"
+                            trimRight
+                            basedOn="words"
+                            clamped="true"
+                        />
+                    </div>
+                </div>
+                {result.yearpublished && (
+                    <span className="cmp-search__results-item-date">
+                        {formattedDate}
+                    </span>
+                )}
+            </div>
         </li>
     );
 };
 
-const Results = ({ results }) => {
+const Results = ({ results, locale }) => {
     const mappedResults = results.map((result, i) => {
-        return <Result result={result} key={i} />;
+        return <Result result={result} locale={locale} key={i} />;
     });
 
-    return <ul className="cmp-search__results">{mappedResults}</ul>;
+    return (
+        <div className="cmp-search__results-container">
+            <ul className="cmp-search__results">{mappedResults}</ul>
+        </div>
+    );
 };
 
 export default Results;

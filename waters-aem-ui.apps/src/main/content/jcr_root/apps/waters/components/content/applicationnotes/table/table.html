@@ -5,7 +5,9 @@
         <table class="cmp-table__table">
             <thead data-sly-test="${table.header}">
             <tr>
-                <th data-sly-repeat.columnName="${table.columnNames}">${columnName @ context='html'}</th>
+                <th data-sly-repeat.columnName="${table.columnNames}">
+                    <p>${columnName @ context='html'}</p>
+                </th>
             </tr>
             </thead>
             <tbody>

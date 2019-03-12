@@ -1,70 +1,54 @@
 .cmp-list {
-    float: left;
-    width: 100%;
-    margin-bottom: $space-m;
+    @include list-container;
+    // float: left;
+    // width: 100%;
+    // margin-bottom: $space-m;
 
     &__list {
-        list-style: none;
-        padding-left: 0;
-        float: left;
-        width: 100%;
-        margin: 0;
+        @include list-styles;
+        // list-style: none;
+        // padding-left: 0;
+        // float: left;
+        // width: 100%;
+        // margin: 0;
     }
 
     &__item {
-        display: block;
-        float: left;
-        width: 100%;
+        @include list-item;
+        // display: block;
+        // float: left;
+        // width: 100%;
 
-        &-title {
-            font-size: $font-size-h3;
-        }
+        // &-title {
+        //     font-size: $font-size-h3;
+        // }
 
-        &-link {
-            display: block;
-            margin-bottom: 0;
-        }
+        // &-link {
+        //     display: block;
+        //     margin-bottom: 0;
+        // }
 
-        &-description {
-            margin: $space-xxs 0;
-            @include multiLineEllipsis($lineCount: 3);
-        }
+        // &-description {
+        //     margin: $space-xxs 0;
+        //     @include multiLineEllipsis($lineCount: 3);
+        // }
 
-        &-date {
-            font-size: $font-size-small;
+        // &-date {
+        //     font-size: $font-size-small;
 
-            @include mobile {
-                font-size: $font-size-small-m;
-            }
-        }
+        //     @include mobile {
+        //         font-size: $font-size-small-m;
+        //     }
+        // }
     }
 
     &--image {
         .cmp-list__item-body {
-            float: left;
-            width: calc(100% - 14em);
-            margin-right: $space-l;
-
-            @include mobile {
-                width: 100%;
-            }
+            @include list-item-body-includes-thumbnail;
         }
 
         .cmp-list__item-thumbnail {
-            float: right;
-            width: 12em;
-
-            img {
-                width: 100%;
-                border: 1px solid $color-border-light;
-                margin-bottom: $space-s;
-            }
-
-            @include mobile {
-                width: 100%;
-                margin-bottom: 0;
-                margin-top: $space-s;
-            }
+            @include list-item-thumbnail;
         }
     }
 }

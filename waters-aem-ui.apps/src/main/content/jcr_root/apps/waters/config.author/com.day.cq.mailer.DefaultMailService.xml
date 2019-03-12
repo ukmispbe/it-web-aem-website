@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          jcr:primaryType="sling:OsgiConfig"
+          smtp.host="mail1.waters.com"
+          smtp.port="{Long}25"
+          smtp.user="waters"
+          smtp.password="waters123$"
+          smtp.ssl="{Boolean}false"
+          smtp.starttls="{Boolean}false"
+          from.address="noreply_aem@waters.com"
+          debug.email="{Boolean}false"/>

@@ -1,9 +1,10 @@
 // Horizontal Rules
 hr,
 .cmp-horizontal-rule hr {
-    border-top: 1px solid $color-border-light;
     margin: $space-l 0;
-    color: $color-border-light;
+    background-color: $color-border-light;
+    border: none;
+    height: 1px;
 
     @include mobile {
         width: 200%;
@@ -13,10 +14,11 @@ hr,
 
 // Accent Rules
 .cmp-accent-rule hr {
-    border-top: 2px solid $color-accent;
     margin: 0 0 $space-l 0;
     width: 100%;
-    color: $color-accent;
+    background-color: $color-accent;
+    height: 2px;
+    border: none;
 
     @include mobile {
         width: 100%;

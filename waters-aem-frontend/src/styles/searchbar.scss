@@ -1,20 +1,54 @@
 .cmp-search-bar {
     width: 100%;
     float: left;
+    margin-bottom: $space-m;
+    position: relative;
 
     &__input {
         float: left;
         width: 100%;
         border: 1px solid $color-border-light;
         background: $color-white;
-        padding: $space-s;
+        padding: ($space-s - 0.1em) $space-xl $space-s $space-s;
         @include font-utility;
-
         font-size: $font-size-h3;
+        color: $color-font-dark;
 
         &:focus {
-            outline-width: 2px;
-            outline-color: $color-blue-30;
+            outline: 2px solid $color-focus;
+        }
+
+        &::-ms-clear {
+            display: none;
+        }
+    }
+
+    &__icon-search {
+        svg {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            width: $icon-l;
+            height: $icon-l;
+            
+            .st0 {
+                stroke: $color-background-dark;
+            }
+        }
+
+        &--clear {
+            svg {
+                position: absolute;
+                right: 15px;
+                top: 15px;
+                width: $icon-l;
+                height: $icon-l;
+                cursor: pointer;
+
+                .st0 {
+                    stroke: $color-background-dark;
+                }
+            }
         }
     }
 }

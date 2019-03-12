@@ -17,7 +17,7 @@
 @mixin font-utility {
     font-family: $font-stack;
     font-size: $font-size-body;
-    font-weight: $font-weight-regular;
+    font-weight: $font-weight-light;
     line-height: $line-height-text;
     color: $color-font-medium;
     letter-spacing: $letter-spacing-small;
@@ -35,6 +35,16 @@
     margin-top: 0;
 }
 
+@mixin font-xsmall {
+    font-family: $font-stack;
+    font-size: $font-size-xsmall;
+    font-weight: light;
+    line-height: $line-height-text;
+    color: $color-font-medium;
+    margin-bottom: $space-s;
+    margin-top: 0;
+}
+
 @mixin font-caption {
     font-family: $font-stack;
     font-size: $font-size-body;
@@ -43,7 +53,7 @@
     font-style: italic;
     color: $color-font-dark;
     letter-spacing: $letter-spacing-small;
-    margin: $space-m 0 $space-xl 0;
+    margin: $space-m 0 0 0;
     padding-top: $space-xs;
     border-top: 1px solid $color-border-light;
 
@@ -106,7 +116,7 @@ h1 {
 h2 {
     font-family: $font-stack;
     font-size: $font-size-h2;
-    font-weight: $font-weight-regular;
+    font-weight: $font-weight-light;
     line-height: $line-height-text;
     color: $color-font-medium;
     margin-bottom: $space-s;

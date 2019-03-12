@@ -14,6 +14,8 @@ const SearchApp = props => {
                         defaultFacet={props.defaultFacet}
                         searchDefaults={props.searchDefaults}
                         searchServicePath={props.searchServicePath}
+                        searchText={props.searchText}
+                        searchLocale={props.searchLocale}
                     />
                 )}
             />

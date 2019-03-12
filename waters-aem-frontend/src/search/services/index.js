@@ -10,7 +10,7 @@ export class SearchService {
             isocode = 'en_US',
             page = 1,
             rows = 25,
-            sort = 'most recent',
+            sort = 'most-recent',
             multiselect = true,
         } = {},
         defaultFacet,
@@ -27,21 +27,35 @@ export class SearchService {
         this.defaultFacet = defaultFacet;
     }
 
-    call({ keyword = '*:*', facets = {}, page = 1 } = {}) {
-        const paramString = this.getQueryParamString({ keyword, page });
+    call({
+        keyword = '*:*',
+        facets = {},
+        page = 1,
+        sort = 'most-recent',
+    } = {}) {
+        const paramString = this.getQueryParamString({ keyword, page, sort });
         const facetString = this.getQueryFacetString(facets);
-
         const searchString = `${this.path}/${facetString}?${paramString}`;
 
         return window.fetch(searchString).then(response => response.json());
     }
 
-    getQueryParamString({ keyword = '*:*', page = 1 } = {}, facets) {
+    getParamsFromString() {
+        const str = window.location.search;
+        const obj = queryString.parse(str);
+
+        return obj;
+    }
+
+    getQueryParamString(
+        { keyword = '*:*', page = 1, sort = 'most-recent' } = {},
+        facets
+    ) {
         const fullParams = Object.assign({}, this.options, {
             keyword,
             page,
+            sort,
         });
-
         let paramString = queryString.stringify(fullParams);
 
         if (facets) {
@@ -60,7 +74,6 @@ export class SearchService {
 
     getQueryFacetString(facets) {
         let facetString = '';
-
         for (let i = 0; i <= Object.keys(facets).length; i++) {
             const category = Object.keys(facets)[i];
             const facet = facets[category];
@@ -93,6 +106,7 @@ export class SearchService {
         obj['keyword'] = params.keyword;
         obj['page'] = params.page || 1;
         obj['facets'] = {};
+        obj['sort'] = params.sort;
 
         if (params.facet) {
             const facets = params.facet;

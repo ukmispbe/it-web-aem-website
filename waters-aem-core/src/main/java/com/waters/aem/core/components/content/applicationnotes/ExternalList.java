@@ -7,23 +7,26 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.waters.aem.core.constants.WatersConstants;
-import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.util.List;
 
-@Component(value = "External List", path = WatersConstants.COMPONENT_PATH_APPLICATION_NOTES)
-@Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+@Component(value = "External List",
+    path = WatersConstants.COMPONENT_PATH_APPLICATION_NOTES)
+@Model(adaptables = SlingHttpServletRequest.class,
+    adapters = { ExternalList.class, ComponentExporter.class },
+    resourceType = ExternalList.RESOURCE_TYPE,
+    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
+    extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class ExternalList implements ComponentExporter {
 
-    @Self
-    private Resource resource;
+    public static final String RESOURCE_TYPE = "waters/components/content/applicationnotes/externallist";
 
     @DialogField(fieldLabel = "Title",
         fieldDescription = "Enter title for external list",
@@ -42,7 +45,7 @@ public final class ExternalList implements ComponentExporter {
     @Nonnull
     @Override
     public String getExportedType() {
-        return resource.getResourceType();
+        return RESOURCE_TYPE;
     }
 
     public String getTitle() {

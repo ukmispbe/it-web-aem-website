@@ -6,14 +6,15 @@ public final class SearchFacet {
 
     private final String filter;
 
-    public SearchFacet(String title, String facetName){
+    SearchFacet(String title, String facetName) {
         this.title = title;
-        this.filter = facetName+"_facet:"+title; //ex:category_facet:applications
+        this.filter = facetName + "_facet:" + title; // ex:category_facet:applications
     }
 
     public String getTitle() {
         return title;
     }
+
     public String getFilter() {
         return filter;
     }

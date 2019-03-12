@@ -9,6 +9,7 @@ import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -62,18 +63,19 @@ public final class POIExcelTableParser implements ExcelTableParser {
 
     private List<String> getCellHtml(final HSSFWorkbook workbook, final HSSFCell cell) {
         final HSSFFont font = cell.getCellStyle().getFont(workbook);
+        final String formattedValue = new DataFormatter().formatCellValue(cell);
 
         List<String> values;
 
         switch (cell.getCellType()) {
             case NUMERIC:
-                values = getCellValues(String.valueOf(cell.getNumericCellValue()), font);
+                values = getCellValues(formattedValue, font);
                 break;
             case STRING:
-                values = getRichTextCellValues(workbook, cell, font);
+                values = getRichTextCellValues(workbook, cell, font, formattedValue);
                 break;
             case BOOLEAN:
-                values = getCellValues(String.valueOf(cell.getBooleanCellValue()), font);
+                values = getCellValues(formattedValue, font);
                 break;
             default:
                 values = Collections.emptyList();
@@ -83,12 +85,10 @@ public final class POIExcelTableParser implements ExcelTableParser {
     }
 
     private List<String> getRichTextCellValues(final HSSFWorkbook workbook, final HSSFCell cell,
-        final HSSFFont cellFont) {
-        final HSSFRichTextString richStringCellValue = cell.getRichStringCellValue();
-        final String value = richStringCellValue.getString();
+        final HSSFFont cellFont, final String formattedValue) {
         final List<String> lines = new ArrayList<>();
-        try(Scanner scanner = new Scanner(value)) {
 
+        try (final Scanner scanner = new Scanner(formattedValue)) {
             int startIndex = 0;
 
             HSSFFont font = getFont(workbook, cell, cellFont, startIndex);
@@ -116,7 +116,7 @@ public final class POIExcelTableParser implements ExcelTableParser {
                         font = currentFont;
                     }
 
-                    run.append(value.charAt(i));
+                    run.append(formattedValue.charAt(i));
                 }
 
                 // append final segment

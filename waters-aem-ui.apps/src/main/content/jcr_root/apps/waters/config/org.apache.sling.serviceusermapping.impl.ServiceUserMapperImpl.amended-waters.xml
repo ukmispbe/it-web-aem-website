@@ -2,4 +2,4 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
           xmlns:jcr="http://www.jcp.org/jcr/1.0"
           jcr:primaryType="sling:OsgiConfig"
-          user.mapping="[waters-aem-core=waters-system-user,waters-aem-solr=waters-system-user,waters-aem-akamai=waters-system-user,aem-library-core=waters-system-user]"/>
+          user.mapping="[waters-aem-core=waters-system-user,waters-aem-solr=waters-system-user,waters-aem-akamai=waters-system-user,waters-aem-pdf-generator=waters-system-user,aem-library-core=waters-system-user]"/>

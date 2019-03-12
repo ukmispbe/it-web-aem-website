@@ -5,6 +5,7 @@ import com.adobe.cq.wcm.core.components.models.ListItem;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
+import com.citytechinc.cq.component.annotations.widgets.CheckBox;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.wcm.api.Page;
 import com.icfolson.aem.library.api.page.PageDecorator;
@@ -27,13 +28,15 @@ import java.util.Collection;
     resourceSuperType = List.RESOURCE_SUPER_TYPE,
     editConfig = false,
     tabs = {
-        @Tab(title = "List Settings", touchUINodeName = "listSettings")
+        @Tab(title = "List Settings", touchUINodeName = "listSettings"),
+        @Tab(title = "Item Settings", touchUINodeName = "itemSettings")
     })
 @Model(adaptables = SlingHttpServletRequest.class,
     adapters = com.adobe.cq.wcm.core.components.models.List.class,
     resourceType = List.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
+    extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class List implements com.adobe.cq.wcm.core.components.models.List {
 
     static final String RESOURCE_TYPE = "waters/components/content/list";
@@ -52,8 +55,21 @@ public final class List implements com.adobe.cq.wcm.core.components.models.List 
     @Inject
     private String title;
 
+    @DialogField(fieldDescription = "Select this option to show thumbnail",
+        value = "true",
+        tab = 2,
+        ranking = 4)
+    @CheckBox(title = "showThumbNail",
+        text = "Show thumbnail")
+    @Inject
+    private Boolean showThumbNail;
+
     public String getTitle() {
         return title;
+    }
+
+    public Boolean isShowThumbNail() {
+        return showThumbNail;
     }
 
     @Nonnull

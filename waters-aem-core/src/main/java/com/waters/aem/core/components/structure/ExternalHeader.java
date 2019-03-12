@@ -1,5 +1,7 @@
 package com.waters.aem.core.components.structure;
 
+import com.adobe.cq.export.json.ComponentExporter;
+import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
@@ -19,13 +21,17 @@ import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.components.content.applicationnotes.LinkItem;
 import com.waters.aem.core.components.content.applicationnotes.RegionLinkItem;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.services.launch.AdobeLaunchService;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
+import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Locale;
@@ -38,11 +44,21 @@ import java.util.Locale;
         @Tab(title = "Header Links"),
         @Tab(title = "Region Selector")
     })
-@Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public final class ExternalHeader {
+@Model(adaptables = SlingHttpServletRequest.class,
+    adapters = { ExternalHeader.class, ComponentExporter.class },
+    resourceType = ExternalHeader.RESOURCE_TYPE,
+    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
+    extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+public final class ExternalHeader implements ComponentExporter {
+
+    public static final String RESOURCE_TYPE = "waters/components/structure/externalheader";
 
     @Self
     private SiteContext siteContext;
+
+    @OSGiService
+    private AdobeLaunchService adobeLaunchService;
 
     @DialogField(fieldLabel = "Header Logo",
         fieldDescription = "select header logo",
@@ -94,6 +110,12 @@ public final class ExternalHeader {
     @Inject
     private RegionLinkItem regionLinkItem;
 
+    @Nonnull
+    @Override
+    public String getExportedType() {
+        return RESOURCE_TYPE;
+    }
+
     public Link getSearchPath() {
         return searchPath;
     }
@@ -143,5 +165,9 @@ public final class ExternalHeader {
         }
 
         return stringBuilder.toString();
+    }
+
+    public String getLaunchScript() {
+        return adobeLaunchService.getLaunchScript();
     }
 }

@@ -25,5 +25,9 @@
             header="false">
             <excelFile/>
         </table-no-header>
+        <table-empty
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="waters/components/content/applicationnotes/table">
+        </table-empty>
     </jcr:content>
 </jcr:root>

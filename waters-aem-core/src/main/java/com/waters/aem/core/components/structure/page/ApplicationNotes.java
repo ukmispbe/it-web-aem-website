@@ -7,6 +7,7 @@ import com.citytechinc.cq.component.annotations.widgets.TagInputField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.tagging.Tag;
 import com.google.common.collect.ImmutableList;
+import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.TagInject;
 import com.waters.aem.core.constants.WatersConstants;
@@ -17,6 +18,8 @@ import org.apache.sling.models.annotations.Model;
 import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
+
+import static com.google.common.base.Preconditions.checkState;
 
 @Component(value = "Application Notes",
     tabs = @Tab(
@@ -33,6 +36,11 @@ import java.util.List;
 public final class ApplicationNotes {
 
     static final String FILE_NAME = "applicationnotes";
+
+    public static final String DAM_ROOT_PATH = "/content/dam/waters/app-notes/";
+
+    @Inject
+    private PageDecorator page;
 
     @DialogField(fieldLabel = "Author", ranking = 1)
     @TagInputField
@@ -174,5 +182,29 @@ public final class ApplicationNotes {
 
     public List<Tag> getAffiliations() {
         return affiliations;
+    }
+
+    /**
+     * Get the DAM asset path of the generated PDF for the current page.
+     *
+     * @return PDF asset path
+     */
+    public String getPdfAssetPath() {
+        // throw exception if year tag is missing
+        checkState(!yearPublished.isEmpty(),
+            "Application Note does not have a Year tag, unable to get PDF asset path.");
+
+        final String languageCode = page.getLanguage(false).getLanguage().toLowerCase();
+
+        return new StringBuilder(DAM_ROOT_PATH)
+            .append(yearPublished.get(0).getName())
+            .append("/")
+            .append(literatureCode)
+            .append("/")
+            .append(literatureCode)
+            .append("-")
+            .append(languageCode)
+            .append(".pdf")
+            .toString();
     }
 }

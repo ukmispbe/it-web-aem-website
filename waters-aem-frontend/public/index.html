@@ -26,15 +26,440 @@
     </head>
     <body>
         <noscript> You need to enable JavaScript to run this app. </noscript>
-        <div
-            id="js-search-bar"
-            data-base-url="/"
-            class="cmp-search-results"
-            id="js-search-app"
-            data-icon-url="/path/icon.svg"
-            data-placeholder="Search by keyword"
-        ></div>
-        <div id="js-search-app"></div>
+
+        <!--
+          OVERLAY FOR SORT FILTER IN TABLET VIEW
+          Add class "active" to show
+        -->
+        <div class="container">
+            <div class="overlay"></div>
+
+            <div class="container__left cmp-search__sort-filter selected">
+                <!-- SEARCH FILTERS - START -->
+                <div
+                    id="js-search-filters"
+                    class="cmp-search-filters"
+                    style="display: none;"
+                >
+                    <h2>Filter by</h2>
+
+                    <!-- SELECTED FILTERS FOR TABLET/MOBILE VIEW -->
+                    <div class="cmp-search-filters__selected clearfix">
+                        <a
+                            href="javascript:void(0);"
+                            class="cmp-search-filters__selected__clear"
+                            >Clear All</a
+                        >
+                        <a href="javascript:void(0);">CATEGORY 1: ITEM 1</a>
+                        <a href="javascript:void(0);">CATEGORY 3: ITEM 2</a>
+                    </div>
+
+                    <ul>
+                        <!-- DEFAULT INPUT LIST MARKUP -->
+                        <li class="cmp-search-filters__filter expanded">
+                            <h3>
+                                <a href="javascript:void(0);">CATEGORY 1</a>
+                            </h3>
+                            <ul>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY1_ITEM-NAME1"
+                                    /><label for="CATEGORY1_ITEM-NAME1"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY1_ITEM-NAME2"
+                                    /><label for="CATEGORY1_ITEM-NAME2"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY1_ITEM-NAME3"
+                                    /><label for="CATEGORY1_ITEM-NAME3"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY1_ITEM-NAME4"
+                                    /><label for="CATEGORY1_ITEM-NAME4"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY1_ITEM-NAME5"
+                                    /><label for="CATEGORY1_ITEM-NAME5"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY1_ITEM-NAME6"
+                                    /><label for="CATEGORY1_ITEM-NAME6"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY1_ITEM-NAME7"
+                                    /><label for="CATEGORY1_ITEM-NAME7"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY1_ITEM-NAME8"
+                                    /><label for="CATEGORY1_ITEM-NAME8"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY1_ITEM-NAME9"
+                                    /><label for="CATEGORY1_ITEM-NAME9"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY1_ITEM-NAME10"
+                                    /><label for="CATEGORY1_ITEM-NAME10"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- WITH SEARCH INPUT -->
+                        <li class="cmp-search-filters__filter expanded">
+                            <h3>
+                                <a href="javascript:void(0);">CATEGORY 2</a>
+                            </h3>
+                            <div class="cmp-search-filters__filter__search">
+                                <input type="input" placeholder="Search" />
+                            </div>
+                            <ul>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY2_ITEM-NAME1"
+                                    /><label for="CATEGORY2_ITEM-NAME1"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY2_ITEM-NAME2"
+                                    /><label for="CATEGORY2_ITEM-NAME2"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY2_ITEM-NAME3"
+                                    /><label for="CATEGORY2_ITEM-NAME3"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY2_ITEM-NAME4"
+                                    /><label for="CATEGORY2_ITEM-NAME4"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY2_ITEM-NAME5"
+                                    /><label for="CATEGORY2_ITEM-NAME5"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- REPEATED MARKUP OF DEFAULT -->
+                        <li class="cmp-search-filters__filter">
+                            <h3>
+                                <a href="javascript:void(0);">CATEGORY 3</a>
+                            </h3>
+                            <ul>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY3_ITEM-NAME1"
+                                    /><label for="CATEGORY3_ITEM-NAME1"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY3_ITEM-NAME2"
+                                    /><label for="CATEGORY3_ITEM-NAME2"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY3_ITEM-NAME3"
+                                    /><label for="CATEGORY3_ITEM-NAME3"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY3_ITEM-NAME4"
+                                    /><label for="CATEGORY3_ITEM-NAME4"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY3_ITEM-NAME5"
+                                    /><label for="CATEGORY3_ITEM-NAME5"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- REPEATED MARKUP OF DEFAULT -->
+                        <li class="cmp-search-filters__filter">
+                            <h3>
+                                <a href="javascript:void(0);">CATEGORY 4</a>
+                            </h3>
+                            <ul>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY4_ITEM-NAME1"
+                                    /><label for="CATEGORY4_ITEM-NAME1"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY4_ITEM-NAME2"
+                                    /><label for="CATEGORY4_ITEM-NAME2"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY4_ITEM-NAME3"
+                                    /><label for="CATEGORY4_ITEM-NAME3"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY4_ITEM-NAME4"
+                                    /><label for="CATEGORY4_ITEM-NAME4"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                                <li class="cmp-search-filters__filter__item">
+                                    <input
+                                        type="checkbox"
+                                        name="CATEGORY4_ITEM-NAME5"
+                                    /><label for="CATEGORY4_ITEM-NAME5"
+                                        >ITEM NAME
+                                        <span
+                                            class="cmp-search-filters__filter__item__count"
+                                            >(COUNT)</span
+                                        ></label
+                                    >
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- YEAR RANGE -->
+                        <li class="cmp-search-filters__filter expanded">
+                            <h3>
+                                <a href="javascript:void(0);">YEAR PUBLISHED</a>
+                            </h3>
+                            <div
+                                class="cmp-search-filters__filter__year clearfix"
+                            >
+                                <div
+                                    class="cmp-search-filters__filter__year__min"
+                                >
+                                    <label for="year-min">Min</label>
+                                    <input
+                                        name="year-min"
+                                        type="input"
+                                        placeholder="2009"
+                                    />
+                                </div>
+                                <div
+                                    class="cmp-search-filters__filter__year__max"
+                                >
+                                    <label for="year-max">Max</label>
+                                    <input
+                                        name="year-max"
+                                        type="input"
+                                        placeholder="2019"
+                                    />
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- SEARCH FILTERS - END -->
+            </div>
+            <div class="cmp-external-header"></div>
+            <div
+                id="js-search-bar"
+                data-base-url="/"
+                class="cmp-search-results aem-GridColumn"
+                id="js-search-app"
+                data-icon-search="search.svg"
+                data-placeholder="Search by keyword"
+                data-icon-clear="close.svg"
+            ></div>
+            <div id="js-search-app" class="" data-locale="en-gb"></div>
+        </div>
+
+        <script type="application/json" id="search-results-translations-json">
+            {
+                "sortByHeading": "Sort by",
+                "sortedBy": "Sorted By",
+                "sortByBestMatch": "Best Match",
+                "sortByMostRecent": "Most Recent",
+                "filterByHeading": "Filter by",
+                "clearAllFilters": "Clear All",
+                "filterSearchPlaceholder": "Search",
+                "resultsText": "Showing {0}-{1} of {2} results",
+                "noResultsTitle": "We didn't find any results for your search.",
+                "noResultsDescription": "Check your spelling or broaden your search by using fewer or more general keywords.",
+                "noResultsIcon": "/repeat.svg",
+                "nextIcon": "/next.svg",
+                "previousIcon": "/previous.svg",
+                "downIcon": "/down.svg"
+            }
+        </script>
+
         <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

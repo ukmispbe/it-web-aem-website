@@ -1,20 +1,34 @@
 package com.waters.aem.core.components.content.applicationnotes
 
 import com.icfolson.aem.library.models.specs.AemLibraryModelSpec
+import com.waters.aem.core.components.content.applicationnotes.processor.TablePostProcessor
 import com.waters.aem.core.services.ExcelTableParser
 import com.waters.aem.core.services.impl.POIExcelTableParser
+import spock.lang.Shared
 import spock.lang.Unroll
 
 @Unroll
 class TableSpec extends AemLibraryModelSpec {
 
+    @Shared
+    TablePostProcessor processor
+
     def setupSpec() {
         slingContext.registerService(ExcelTableParser, new POIExcelTableParser())
+
+        processor = slingContext.registerInjectActivateService(new TablePostProcessor())
     }
 
     def "get properties"() {
         setup:
-        def table = getResource(path).adaptTo(Table)
+        def request = requestBuilder.build {
+            path = resourcePath
+        }
+
+        // post-process to set JSON data
+        processor.process(request, [])
+
+        def table = request.adaptTo(Table)
 
         expect:
         table.header == header
@@ -22,33 +36,47 @@ class TableSpec extends AemLibraryModelSpec {
         table.caption == caption
 
         where:
-        path                                                  | header | title               | caption
+        resourcePath                                          | header | title               | caption
         "/content/waters/table/jcr:content/table-with-header" | true   | "Table With Header" | "Caption"
         "/content/waters/table/jcr:content/table-no-header"   | false  | null                | null
     }
 
     def "get column names"() {
         setup:
-        def table = getResource(path).adaptTo(Table)
+        def request = requestBuilder.build {
+            path = resourcePath
+        }
+
+        // post-process to set JSON data
+        processor.process(request, [])
+
+        def table = request.adaptTo(Table)
 
         expect:
         table.columnNames == columnNames
 
         where:
-        path                                                  | columnNames
+        resourcePath                                          | columnNames
         "/content/waters/table/jcr:content/table-with-header" | ["One", "Two"] as Set
         "/content/waters/table/jcr:content/table-no-header"   | Collections.emptySet()
     }
 
     def "get table rows"() {
         setup:
-        def table = getResource(path).adaptTo(Table)
+        def request = requestBuilder.build {
+            path = resourcePath
+        }
+
+        // post-process to set JSON data
+        processor.process(request, [])
+
+        def table = request.adaptTo(Table)
 
         expect:
         table.tableRows.size() == 4
 
         where:
-        path << [
+        resourcePath << [
             "/content/waters/table/jcr:content/table-with-header",
             "/content/waters/table/jcr:content/table-no-header"
         ]
@@ -56,7 +84,15 @@ class TableSpec extends AemLibraryModelSpec {
 
     def "get first table row"() {
         setup:
-        def table = getResource(path).adaptTo(Table)
+        def request = requestBuilder.build {
+            path = resourcePath
+        }
+
+        // post-process to set JSON data
+        processor.process(request, [])
+
+        def table = request.adaptTo(Table)
+
         def firstRow = table.tableRows[0]
 
         expect:
@@ -64,7 +100,7 @@ class TableSpec extends AemLibraryModelSpec {
         firstRow.get("1")[0] == " ACQUITY UPLC H-Class Bio"
 
         where:
-        path << [
+        resourcePath << [
             "/content/waters/table/jcr:content/table-with-header",
             "/content/waters/table/jcr:content/table-no-header"
         ]

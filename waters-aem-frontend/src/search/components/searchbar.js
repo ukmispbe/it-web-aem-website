@@ -6,7 +6,9 @@ import './../../styles/index.scss';
 class SearchBar extends Component {
     constructor(props) {
         super(props);
-        this.state = { value: '' };
+        let searchValue = this.getUrlParameter('keyword');
+        if (searchValue === '*:*') searchValue = '';
+        this.state = { value: searchValue ? searchValue : '' };
         this.handleInput = this.handleInput.bind(this);
         // this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -15,18 +17,39 @@ class SearchBar extends Component {
         this.setState({ value: e.target.value });
     }
 
+    getUrlParameter(sParam) {
+        const sPageURL = window.location.search.substring(1);
+        const sURLVariables = sPageURL.split('&');
+
+        for (let i = 0; i < sURLVariables.length; i++) {
+            const sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined
+                    ? true
+                    : decodeURIComponent(sParameterName[1]);
+            }
+        }
+    }
+
     _handleKeyPress = e => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            console.log('submit search to', this.props.searchPath);
-            window.location.href = `${this.props.searchPath}?keyword=${
-                this.state.value
-            }`;
+            const searchTerm = this.state.value ? this.state.value : '*:*';
+            const defaultSort = searchTerm === '*:*' ? 'most-recent' : 'most-relevant';
+            window.location.href = `${
+                this.props.searchPath
+            }?keyword=${searchTerm}&sort=${defaultSort}`;
         }
+    };
+
+    _clearSearchVal = e => {
+        this.setState({ value: '' });
     };
 
     render() {
         const props = this.props;
+        console.log(this.props);
         return (
             <form className="cmp-search-bar" id="notesSearch">
                 <input
@@ -37,7 +60,19 @@ class SearchBar extends Component {
                     onKeyDown={this._handleKeyPress}
                     placeholder={this.props.placeholder}
                 />
-                <ReactSVG />
+                {!this.state.value && (
+                    <ReactSVG
+                        src={this.props.iconSearch}
+                        className="cmp-search-bar__icon-search"
+                    />
+                )}
+                {this.state.value && (
+                    <ReactSVG
+                        src={this.props.iconClear}
+                        className="cmp-search-bar__icon-search--clear"
+                        onClick={e => this._clearSearchVal(e)}
+                    />
+                )}
             </form>
         );
     }

@@ -3,7 +3,7 @@ addthis.addEventListener('addthis.ready', function () {
 
     if (share) {
         var baseUrl = share.getAttribute('data-base-url');
-
+        share.classList.remove('hidden');
         addthis_share.url = baseUrl + window.location.pathname + window.location.search;
     }
 });

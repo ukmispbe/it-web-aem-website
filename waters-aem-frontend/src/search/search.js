@@ -1,11 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { SearchService } from './services/index';
 import { parse } from 'query-string';
 import { withRouter } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
+import ReactSVG from 'react-svg';
 
 import ResultsCount from './components/results-count';
 import Results from './components/results';
+import NoResults from './components/no-results';
+
+import Sort from './components/sort';
+import BtnShowSortFilter from './components/btn-show-sort-filter';
 
 class Search extends Component {
     constructor() {
@@ -19,14 +24,28 @@ class Search extends Component {
             this.props.searchServicePath
         );
 
+        const query = this.search.getParamsFromString();
+        this.query = query;
+
+        if ((typeof this.query.keyword === "undefined" || this.query.keyword === '*:*' ) && typeof this.query.sort === "undefined"){
+               this.query.sort = "most-recent";
+        }
+        else {
+               this.query.sort = (typeof this.query.sort === "undefined") ? 'most-relevant' : this.query.sort;
+        }
+
         this.setState({
             loading: true,
             results: {},
-            pagination: {},
+            pagination: {
+                current: this.query.page ? this.query.page : 1,
+            },
             rows: this.props.searchDefaults
                 ? this.props.searchDefaults && this.props.searchDefaults.rows
                 : 25,
+            sort: this.query.sort,
         });
+
         this.performSearch();
     }
 
@@ -34,10 +53,14 @@ class Search extends Component {
         this.performSearch();
     }
 
-    performSearch() {
-        const query = this.search.createQueryObject(
-            parse(window.location.search)
-        );
+    performSearch(q) {
+        let query = q
+            ? this.search.createQueryObject(q)
+            : this.search.createQueryObject(parse(window.location.search));
+
+        if (!query.sort && this.state) {
+            query = Object.assign({}, query, { sort: this.state.sort });
+        }
 
         const rows =
             this.props.searchDefaults && this.props.searchDefaults.rows
@@ -56,11 +79,13 @@ class Search extends Component {
             newState.results = newState.results || {};
             newState.results[query.page] = res.documents;
             newState.noQuery = query.keyword ? false : true;
+            newState.sort = this.state.sort;
+
             newState.pagination = {
                 current: query.page,
                 amount: Math.ceil(res.num_found / rows),
             };
-            newState.noResults = false;
+            newState.noResults = !newState.results[query.page].length;
 
             this.setState(Object.assign({}, this.state, newState));
         });
@@ -72,6 +97,7 @@ class Search extends Component {
 
         const newState = Object.assign({}, this.state, {
             pagination: {
+                amount: state.pagination.amount,
                 current: page.selected + 1,
             },
         });
@@ -81,19 +107,60 @@ class Search extends Component {
         this.props.history.push(
             `?${this.search.getQueryParamString(
                 {
-                    keyword: state.query,
+                    keyword: searchParams.keyword,
                     page: page.selected + 1,
+                    sort: state.sort
                 },
                 searchParams.facets
             )}`
         );
+
+        window.scrollTo(0, 0);
+    }
+
+    sortHandler(e) {
+        const sortOption =
+            parseInt(e.target.value) === 1 ? 'most-relevant' : 'most-recent';
+        const state = this.state;
+        const searchParams = this.state.searchParams || {};
+
+        this.setState(Object.assign({}, state, { sort: sortOption }));
+
+        document.body.classList.remove('show-sort-filters');
+
+        const qString = `?${this.search.getQueryParamString(
+            {
+                keyword: state.query,
+                page: 1,
+                sort: sortOption,
+            },
+            searchParams.facets
+        )}`;
+
+        this.props.history.push(qString);
     }
 
     render() {
         const state = this.state;
         const searchParams = this.state.searchParams || {};
+        const overlay = <div class="overlay" />;
+        const aside = (
+            <div className="container__left cmp-search__sort-filter">
+                <Sort
+                    sortHandler={this.sortHandler.bind(this)}
+                    sortValue={state.sort === 'most-recent' ? 2 : 1}
+                    text={this.props.searchText}
+                />
+            </div>
+        );
+        const locale = this.props.searchLocale;
+        const previousIcon = (
+            <ReactSVG src={this.props.searchText.previousIcon} />
+        );
         const results = (
-            <div>
+            <div className="cmp-search__container">
+                <BtnShowSortFilter />
+
                 <ResultsCount
                     rows={state.rows}
                     count={state.count}
@@ -106,21 +173,53 @@ class Search extends Component {
                     noQuery={state.noQuery}
                 />
 
-                <Results results={state.results[searchParams.page] || []} />
+                <div className="cmp-search__sorted-by">
+                    {this.props.searchText.sortedBy}:{' '}
+                    {this.state.sort === 'most-relevant'
+                        ? this.props.searchText.sortByBestMatch
+                        : this.props.searchText.sortByMostRecent}
+                </div>
+
+                <Results
+                    results={state.results[searchParams.page] || []}
+                    locale={locale}
+                />
 
                 <ReactPaginate
                     pageCount={state.pagination.amount}
+                    forcePage={
+                        state.pagination.current
+                            ? state.pagination.current - 1
+                            : 0}
                     pageRangeDisplayed={8}
                     marginPagesDisplayed={0}
                     containerClassName="paginate__container"
                     onPageChange={this.paginationClickHandler.bind(this)}
+                    breakLabel={'…'}
+                    previousLabel={previousIcon}
+                    nextLabel={
+                        <ReactSVG src={this.props.searchText.nextIcon} />
+                    }
+                    initialPage={
+                        state.pagination.current
+                            ? state.pagination.current - 1
+                            : 0
+                    }
                 />
             </div>
         );
         return (
-            <div className="cmp-search__container">
+            <div>
+                {!state.loading && state.noResults ? null : aside}
                 {state.loading ? 'Loading' : null}
-                {!state.loading && state.noResults ? 'No Results' : results}
+                {!state.loading && state.noResults ? (
+                    <NoResults
+                        searchText={this.props.searchText}
+                        query={state.query}
+                    />
+                ) : (
+                    results
+                )}
             </div>
         );
     }

@@ -92,7 +92,7 @@
             <artifactId>acs-aem-commons-bundle</artifactId>
         </dependency>
 
-        <!-- waters core -->
+        <!-- core -->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>${core.artifactId}</artifactId>

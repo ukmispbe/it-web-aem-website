@@ -1,12 +1,33 @@
 <div data-sly-use.searchResults="com.waters.aem.core.components.content.SearchResults"
      data-base-url="${searchResults.baseUrl}"
-     class="cmp-search-results"
+     data-isocode="${searchResults.isocode}"
+     data-locale="${searchResults.locale}"
+     class="cmp-search-results aem-GridColumn"
      id="js-search-app">
 
 </div>
 
 <script type="application/json" id="search-results-categories-json">
     ${searchResults.categoriesAsJson @ context='unsafe'}
+</script>
+
+<script type="application/json" id="search-results-translations-json">
+    {
+        "sortByHeading": "${'Sort by' @ i18n, context='scriptString'}",
+        "sortedBy": "${'Sorted by' @ i18n, context='scriptString'}",
+        "sortByBestMatch": "${'Best Match' @ i18n, context='scriptString'}",
+        "sortByMostRecent": "${'Most Recent' @ i18n, context='scriptString'}",
+        "filterByHeading": "${'Filter by' @ i18n, context='scriptString'}",
+        "clearAllFilters": "${'Clear All' @ i18n, context='scriptString'}",
+        "filterSearchPlaceholder": "${'Search' @ i18n, context='scriptString'}",
+        "resultsText": "${'Showing {0}-{1} of {2} results' @ format=['{}', '{}', '{}'], i18n, context='scriptString'}",
+        "noResultsTitle": "${'We didn\'t find any results for your search.' @ i18n, context='unsafe'}",
+        "noResultsDescription": "${'Check your spelling or broaden your search by using fewer or more general keywords.' @ i18n, context='scriptString'}",
+        "noResultsIcon": "/content/dam/waters/brand-assets/icons/repeat.svg",
+        "nextIcon": "/content/dam/waters/brand-assets/icons/right.svg",
+        "previousIcon": "/content/dam/waters/brand-assets/icons/left.svg",
+        "downIcon": "/content/dam/waters/brand-assets/icons/down.svg"
+    }
 </script>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"

@@ -2,8 +2,9 @@
    data-sly-test="${button.buttonText}"
    class="cmp-button"
    href="${button.buttonLink.href}"
-   target="${button.newWindow?'_blank':''}"
-   title="${button.buttonToolTip}">
+   target="${button.newWindow ? '_blank' : ''}"
+   title="${button.buttonToolTip}"
+   data-asset-metadata="${button.assetMetadataJson}">
     ${button.buttonText}
 </a>
 
