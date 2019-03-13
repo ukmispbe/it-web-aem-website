@@ -51,10 +51,9 @@ class TagListSpec extends AemLibraryModelSpec {
 
     def "tags from current page"() {
         setup:
-        def tagList = requestBuilder
-            .setPath("/content/waters/jcr:content/page")
-            .build()
-            .adaptTo(TagList)
+        def tagList = requestBuilder.build {
+            path = "/content/waters/jcr:content/page"
+        }.adaptTo(TagList)
 
         expect:
         tagList.listItems.size() == 3
@@ -65,10 +64,9 @@ class TagListSpec extends AemLibraryModelSpec {
 
     def "fixed tag list"() {
         setup:
-        def tagList = requestBuilder
-            .setPath("/content/waters/jcr:content/fixed")
-            .build()
-            .adaptTo(TagList)
+        def tagList = requestBuilder.build {
+            path = "/content/waters/jcr:content/fixed"
+        }.adaptTo(TagList)
 
         expect:
         tagList.listItems.size() == 2

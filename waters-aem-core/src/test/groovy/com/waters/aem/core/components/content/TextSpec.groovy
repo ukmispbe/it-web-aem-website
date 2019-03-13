@@ -27,16 +27,15 @@ class TextSpec extends AemLibraryModelSpec {
 
     def "get title"() {
         setup:
-        def textComponent = requestBuilder
-            .setPath(path)
-            .build()
-            .adaptTo(Text)
+        def textComponent = requestBuilder.build {
+            path = resourcePath
+        }.adaptTo(Text)
 
         expect:
         textComponent.title == title
 
         where:
-        path                                   | title
+        resourcePath                           | title
         "/content/waters/one/jcr:content/text" | null
         "/content/waters/two/jcr:content/text" | "Introduction"
     }

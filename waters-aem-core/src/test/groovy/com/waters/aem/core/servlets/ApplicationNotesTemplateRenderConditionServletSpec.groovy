@@ -22,7 +22,7 @@ class ApplicationNotesTemplateRenderConditionServletSpec extends AemLibraryModel
     def "application notes template render condition"() {
         setup:
         def request = requestBuilder.build {
-            parameters = ["item": path]
+            parameterMap = ["item": path]
         }
 
         def response = responseBuilder.build()
