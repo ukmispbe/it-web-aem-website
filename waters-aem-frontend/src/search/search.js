@@ -334,6 +334,13 @@ class Search extends Component {
         );
     }
 
+    collapseFilters() {
+        var fitlers = document.querySelectorAll('.cmp-search-filters__filter');
+        [].forEach.call(fitlers, function(el) {
+            el.classList.remove('expanded');
+        });
+    }
+
     setupFilters() {
         if (!this.state.isDesktop) {
             this.setState(
@@ -377,6 +384,7 @@ class Search extends Component {
                     clearUnappliedFilters={this.clearUnappliedFilters.bind(
                         this
                     )}
+                    collapseFilters={this.collapseFilters}
                 />
 
                 <BtnApplySortFilter
@@ -384,7 +392,10 @@ class Search extends Component {
                     applyFilters={this.applyFilters.bind(this)}
                 />
 
-                <BtnDoneSortFilter text={this.props.searchText} />
+                <BtnDoneSortFilter 
+                    text={this.props.searchText}
+                    collapseFilters={this.collapseFilters}
+                />
 
                 <div className="cmp-search__sort-filter__container">
                     <Sort

@@ -1,11 +1,10 @@
 .cmp-utility-button {
-
-      padding: ($space-xxs + 0.1em) $space-xs $space-xs $space-s;
-      background-color: $color-white;
-      border: 1px solid $color-border-dark;
-      @include font-utility;
-      transition: all 0.25s ease;
-      text-decoration: none;
+    padding: ($space-xxs + 0.1em) $space-xs $space-xs $space-s;
+    background-color: $color-white;
+    border: 1px solid $color-border-dark;
+    @include font-utility;
+    transition: all 0.25s ease;
+    text-decoration: none;
 
     img.inline-svg {
         display: none;
@@ -22,7 +21,6 @@
 
         @include mobile {
             float: right;
-            height: auto;
             width: $icon-m;
             height: ($icon-m + .25em);
         }
@@ -55,6 +53,12 @@
         float: left;
         padding: $space-xxs $space-xs $space-xxs $space-xs;
         margin: 0 0 0 0;
+    }
+
+    &.method-file-button {
+        @include tablet-and-under {
+            display: none;
+        }
     }
 }
 

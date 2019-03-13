@@ -14,6 +14,7 @@ class HideSortFilter extends Component {
         this.setState({ showSortFilters: true });
 
         this.props.clearUnappliedFilters();
+        this.props.collapseFilters();
     }
 
     render() {

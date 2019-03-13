@@ -125,6 +125,7 @@ class FilterSection extends Component {
             >
                     <a
                         href="javascript:void(0);"
+                        className="filter-toggle"
                         item={props.item}
                         onClick={e => props.handleInput(e, props.item)}
                     >

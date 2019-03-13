@@ -21,7 +21,7 @@ class ThumbnailSpec extends AemLibraryModelSpec {
         def thumbnail = getPage("/content/waters").contentResource.adaptTo(Thumbnail)
 
         expect:
-        thumbnail.thumbnailImage == null
+        !thumbnail.thumbnailImage
     }
 
     def "get thumbnail image"() {
@@ -29,9 +29,14 @@ class ThumbnailSpec extends AemLibraryModelSpec {
         def thumbnail = getPage("/content/waters/application-notes").contentResource.adaptTo(Thumbnail)
 
         expect:
-        thumbnail.thumbnailImage
-
-        and:
         thumbnail.thumbnailImage.fileReference == "/content/dam/waters/logo.png"
+    }
+
+    def "get thumbnail image path"() {
+        setup:
+        def thumbnail = getPage("/content/waters/application-notes").contentResource.adaptTo(Thumbnail)
+
+        expect:
+        thumbnail.thumbnailImageRendition == "/content/dam/waters/logo.png/jcr:content/renditions/cq5dam.thumbnail.140.100.png"
     }
 }
