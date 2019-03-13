@@ -54,14 +54,14 @@
         padding: $space-xxs $space-xs $space-xxs $space-xs;
         margin: 0 0 0 0;
     }
+
+    &.method-file-button {
+        @include tablet-and-under {
+            display: none;
+        }
+    }
 }
 
 div.pdfbutton {
     margin: $space-s 0 $space-xxl 0;
-}
-
-div.methodfilebutton {
-    @include tablet-and-under {
-        display: none;
-    }
 }
