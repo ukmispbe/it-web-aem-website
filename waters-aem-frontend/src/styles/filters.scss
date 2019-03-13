@@ -28,14 +28,10 @@
                 padding: 5px 0;
             }
         }
-        h3 {
-            @include font-utility;
-            border-top: 1px solid $color-gray-40;
-            margin: 0;
-            position: relative;
-            height: $input-height;
+
             a {
                 @include font-utility;
+                border-top: 1px solid $color-gray-40;
                 display: block;
                 background-color: $color-white;
                 padding: 0 $space-xs;
@@ -75,7 +71,7 @@
                     }
                 }
             }
-        }
+
         &:last-child {
             h3 {
                 border-bottom: 1px solid $color-gray-40;
@@ -161,7 +157,6 @@
             }
         }
         &.expanded {
-            h3 {
                 a {
                     background-color: $color-font-medium;
                     color: $color-white;
@@ -177,7 +172,6 @@
                             display: none;
                         }
                     }
-                }
             }
             ul,
             .cmp-search-filters__filter__search,
