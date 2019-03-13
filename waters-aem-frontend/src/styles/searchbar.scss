@@ -5,13 +5,13 @@
     position: relative;
 
     &__input {
+        @include font-body;
+        font-size: $font-size-h3;
         float: left;
         width: 100%;
         border: 1px solid $color-border-light;
         background: $color-white;
-        padding: ($space-s - 0.1em) $space-xl $space-s $space-s;
-        @include font-utility;
-        font-size: $font-size-h3;
+        padding: $space-s $space-xl $space-s $space-s;
         color: $color-font-dark;
 
         &:focus {
@@ -26,27 +26,27 @@
     &__icon-search {
         svg {
             position: absolute;
-            right: 15px;
-            top: 15px;
+            right: $space-s;
+            top: $space-s;
             width: $icon-l;
             height: $icon-l;
             
             .st0 {
-                stroke: $color-background-dark;
+                stroke: $color-icon;
             }
         }
 
         &--clear {
             svg {
                 position: absolute;
-                right: 15px;
-                top: 15px;
+                right: $space-s;
+                top: $space-s;
                 width: $icon-l;
                 height: $icon-l;
                 cursor: pointer;
 
                 .st0 {
-                    stroke: $color-background-dark;
+                    stroke: $color-icon;
                 }
             }
         }

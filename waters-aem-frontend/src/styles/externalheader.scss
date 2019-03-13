@@ -1,5 +1,5 @@
 .cmp-external-header {
-    border-bottom: 1px solid $color-gray-30;
+    border-bottom: 1px solid $color-border-light;
     background-color: $color-white;
     position: fixed;
     width: 100%;
@@ -23,7 +23,7 @@
         ul {
             list-style: none;
             padding: 0;
-            margin: $space-xs 0 0;
+            margin: ($space-xs + .2em) 0 0;
         }
 
         &__item {

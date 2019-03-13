@@ -20,10 +20,13 @@
     }
     &__filter {
         ul {
-            display: none;
-            max-height: 200px;
+            transition: all 0.4s ease-out;
+            max-height: 0px;
             overflow-y: scroll;
-            padding: $space-xs;
+            padding-top: 0;
+            padding-bottom: 0;
+            padding-left: $space-xs;
+            padding-right: $space-xs;
             li {
                 padding: 5px 0;
                 display: table;
@@ -188,7 +191,10 @@
             ul,
             .cmp-search-filters__filter__search,
             .cmp-search-filters__filter__year {
-                display: block;
+                transition: all 0.4s ease-out;
+                max-height: 200px;
+                padding-top: $space-xs;
+                padding-bottom: $space-xs;
             }
         }
     }
