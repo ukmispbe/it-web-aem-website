@@ -110,7 +110,6 @@ class FilterSection extends Component {
                         : 'cmp-search-filters__filter'
                 }
             >
-                <h3>
                     <a
                         href="javascript:void(0);"
                         item={props.item}
@@ -130,7 +129,6 @@ class FilterSection extends Component {
                         />
                         {props.facet.category}
                     </a>
-                </h3>
 
                 {/* WIP Search  */}
                 {/* {this.showSearcbar()} */}
