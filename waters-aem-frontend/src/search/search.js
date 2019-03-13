@@ -119,7 +119,7 @@ class Search extends Component {
 
     pushToHistory(query, facets) {
         this.props.history.push(
-            `${this.search.getQueryParamString(query, facets)}`
+            `?${this.search.getQueryParamString(query, facets)}`
         );
     }
 
