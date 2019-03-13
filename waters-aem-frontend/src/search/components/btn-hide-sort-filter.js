@@ -26,6 +26,7 @@ class HideSortFilter extends Component {
                     className="btn-hide-sort-filter"
                 >
                     <ReactSVG src={props.text.closeIcon} />
+                    {props.text.sortAndFilterButton}
                 </a>
             </div>
         );
