@@ -27,7 +27,6 @@
     margin-bottom: $space-s;
     margin-top: 0;
 }
-
 @mixin font-caption {
     font-style: italic;
     margin-top: $space-m;
@@ -99,7 +98,7 @@ h6 {
     font-size: $font-size-h4;
     font-weight: $font-weight-bold;
     line-height: $line-height-text;
-    margin-bottom: $space-s;
+    margin-bottom: $space-xxs;
     margin-top: 0;
 }
 
