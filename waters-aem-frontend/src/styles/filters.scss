@@ -100,12 +100,17 @@
                 margin-right: 10px;
                 svg {
                     display: none;
-                    width: $icon-s;
-                    height: $icon-s;
+                    width: 0.8em;
+                    height: 0.8em;
+                    margin-left: 1px;
+                    margin-top: 1px;
+                    -moz-transform: rotate(-10deg);
+                    -o-transform: rotate(-10deg);
+                    -webkit-transform: rotate(-10deg);
                     transform: rotate(-10deg);
                     .st0 {
                         stroke: $color-white;
-                        stroke-width: 3;
+                        stroke-width: 4;
                     }
                 }
                 &.checked {
