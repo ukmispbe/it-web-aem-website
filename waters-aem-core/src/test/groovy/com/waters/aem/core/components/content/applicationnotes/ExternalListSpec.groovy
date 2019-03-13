@@ -25,10 +25,9 @@ class ExternalListSpec extends AemLibraryModelSpec {
 
     def "get externallist links"() {
         setup:
-        def externalList = requestBuilder
-            .setPath("/content/waters/one/jcr:content/externallist")
-            .build()
-            .adaptTo(ExternalList)
+        def externalList = requestBuilder.build {
+            path = "/content/waters/one/jcr:content/externallist"
+        }.adaptTo(ExternalList)
 
         expect:
         externalList.externalLinkItems.size() == 2
