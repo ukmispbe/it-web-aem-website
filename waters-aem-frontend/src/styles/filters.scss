@@ -36,48 +36,48 @@
             }
         }
 
-            a {
-                @include font-utility;
-                border-top: 1px solid $color-gray-40;
-                display: block;
-                background-color: $color-white;
-                padding: 0 $space-xs;
-                margin: 0;
-                text-decoration: none;
-                height: $input-height;
-                line-height: $input-height;
-                position: relative;
-                svg {
-                    position: absolute;
-                    top: 12px;
-                    right: 13px;
-                    width: 20px;
-                    height: 20px;
-                    .st0 {
-                        stroke: $color-icon;
-                    }
-                }
-                .expandIcon {
-                    display: block;
-                }
-                .collapseIcon {
-                    display: none;
-                    .st0 {
-                        stroke: $color-white;
-                    }
-                }
-                .mobileIcon {
-                    display: none;
-                }
-                @include tablet-and-under {
-                    .expandIcon {
-                        display: none;
-                    }
-                    .mobileIcon {
-                        display: block;
-                    }
+        a.filter-toggle {
+            @include font-utility;
+            border-top: 1px solid $color-gray-40;
+            display: block;
+            background-color: $color-white;
+            padding: 0 $space-xs;
+            margin: 0;
+            text-decoration: none;
+            height: $input-height;
+            line-height: $input-height;
+            position: relative;
+            svg {
+                position: absolute;
+                top: 12px;
+                right: 13px;
+                width: 20px;
+                height: 20px;
+                .st0 {
+                    stroke: $color-icon;
                 }
             }
+            .expandIcon {
+                display: block;
+            }
+            .collapseIcon {
+                display: none;
+                .st0 {
+                    stroke: $color-white;
+                }
+            }
+            .mobileIcon {
+                display: none;
+            }
+            @include tablet-and-under {
+                .expandIcon {
+                    display: none;
+                }
+                .mobileIcon {
+                    display: block;
+                }
+            }
+        }
 
         &:last-child {
             h3 {
@@ -101,6 +101,7 @@
                 width: 1em;
                 vertical-align: -2px;
                 margin-right: 10px;
+                transition: none;
                 svg {
                     display: none;
                     width: 0.8em;
@@ -172,21 +173,21 @@
             }
         }
         &.expanded {
-                a {
-                    background-color: $color-font-medium;
-                    color: $color-white;
-                    .expandIcon {
+            a.filter-toggle {
+                background-color: $color-font-medium;
+                color: $color-white;
+                .expandIcon {
+                    display: none;
+                }
+                .collapseIcon {
+                    display: block;
+                }
+                @include tablet-and-under {
+                    .collapseIcon,
+                    .mobileIcon {
                         display: none;
                     }
-                    .collapseIcon {
-                        display: block;
-                    }
-                    @include tablet-and-under {
-                        .collapseIcon,
-                        .mobileIcon {
-                            display: none;
-                        }
-                    }
+                }
             }
             ul,
             .cmp-search-filters__filter__search,
