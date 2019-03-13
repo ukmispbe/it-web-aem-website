@@ -1,13 +1,11 @@
 package com.waters.aem.core.components.content.list;
 
 import com.adobe.cq.wcm.core.components.models.ListItem;
-import com.day.cq.commons.DownloadResource;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.structure.page.Thumbnail;
 
 import javax.annotation.Nullable;
 import java.util.Calendar;
-import java.util.Optional;
 
 public final class WatersListItem implements ListItem {
 
@@ -57,10 +55,6 @@ public final class WatersListItem implements ListItem {
     }
 
     public String getThumbnailImage() {
-        final Thumbnail thumbnail = page.getContentResource().adaptTo(Thumbnail.class);
-
-        return Optional.ofNullable(thumbnail.getThumbnailImage())
-            .map(DownloadResource :: getFileReference)
-            .orElse(null);
+        return page.getContentResource().adaptTo(Thumbnail.class).getThumbnailImageRendition();
     }
 }

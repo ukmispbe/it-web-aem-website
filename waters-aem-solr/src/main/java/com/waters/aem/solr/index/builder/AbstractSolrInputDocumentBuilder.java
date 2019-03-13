@@ -2,7 +2,6 @@ package com.waters.aem.solr.index.builder;
 
 import com.day.cq.commons.Externalizer;
 import com.day.cq.tagging.Tag;
-import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.enums.TitleType;
 import com.waters.aem.core.components.SiteContext;
@@ -81,11 +80,11 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         document.setField("isocode", locale.toString());
         document.setField("viewname", "aem");
 
-        final Image thumbnailImage = page.getContentResource().adaptTo(Thumbnail.class).getThumbnailImage();
+        final String thumbnailImage = page.getContentResource().adaptTo(Thumbnail.class).getThumbnailImageRendition();
 
         if (thumbnailImage != null) {
             document.setField("thumbnail", externalizer.externalLink(resourceResolver, Externalizer.PUBLISH,
-                thumbnailImage.getFileReference()));
+                thumbnailImage));
         }
 
         document.setField("content", getPageContent());
