@@ -283,6 +283,8 @@
         width: 100%;
         position: relative;
         text-decoration: none;
+        margin: 0px 0 1.5em -6%;
+        padding: 0 0 0 5%;
         svg {
             position: absolute;
             top: 8px;
@@ -293,17 +295,21 @@
                 stroke: $color-icon;
             }
         }
-        @include tablet-and-under {
-            display: block;
-        }
-
         a:hover {
             text-decoration: none;
         }
 
+        @include tablet-and-under {
+            display: block;
+        }
+
         @include mobile {
+            width: 113%;
             float: none;
             background-position: 95% 13px;
+            svg {
+                margin: 0 2% 0 0;
+            }
         }
     }
     @include mobile {
@@ -403,7 +409,7 @@ $header-height: 74px;
         .cmp-search__sort-filter {
             height: 100%;
             max-height: 100vh;
-            z-index: 1;
+            z-index: 2;
             padding-bottom: $space-xxl;
         }
         .container {
