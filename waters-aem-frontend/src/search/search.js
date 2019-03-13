@@ -469,7 +469,7 @@ class Search extends Component {
                     pageRangeDisplayed={8}
                     marginPagesDisplayed={0}
                     containerClassName="paginate__container"
-                    onPageChange={(page) => this.paginationClickHandler.bind(page)}
+                    onPageChange={this.paginationClickHandler.bind(this)}
                     breakLabel={'…'}
                     previousLabel={previousIcon}
                     nextLabel={
