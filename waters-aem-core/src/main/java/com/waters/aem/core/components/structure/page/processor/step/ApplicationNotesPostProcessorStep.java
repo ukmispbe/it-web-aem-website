@@ -2,6 +2,7 @@ package com.waters.aem.core.components.structure.page.processor.step;
 
 import com.waters.aem.core.components.structure.page.ApplicationNotes;
 import org.apache.sling.api.resource.PersistenceException;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.servlets.post.Modification;
 
 import java.util.List;
@@ -19,4 +20,12 @@ public interface ApplicationNotesPostProcessorStep {
      * @throws PersistenceException if error occurs when modifying application notes resource
      */
     void process(ApplicationNotes applicationNotes, List<Modification> modifications) throws PersistenceException;
+
+    /**
+     * Determine if this processor step accepts the given resource.
+     *
+     * @param resource page content resource
+     * @return true if this resource can be processed
+     */
+    boolean accepts(Resource resource);
 }

@@ -2,7 +2,9 @@ package com.waters.aem.core.components.structure.page.processor.step;
 
 import com.day.cq.wcm.api.NameConstants;
 import com.waters.aem.core.components.structure.page.ApplicationNotes;
+import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.resource.ModifiableValueMap;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.servlets.post.Modification;
 import org.osgi.service.component.annotations.Component;
@@ -30,5 +32,10 @@ public final class VanityUrlApplicationNotesPostProcessorStep implements Applica
 
             modifications.add(Modification.onModified(applicationNotes.getResource().getPath()));
         }
+    }
+
+    @Override
+    public boolean accepts(final Resource resource) {
+        return Templates.isApplicationNotesPage(resource) || Templates.isLibraryPage(resource);
     }
 }
