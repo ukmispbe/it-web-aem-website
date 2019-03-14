@@ -16,6 +16,7 @@ import BtnShowSortFilter from './components/btn-show-sort-filter';
 import BtnHideSortFilter from './components/btn-hide-sort-filter';
 import BtnApplySortFilter from './components/btn-apply-sort-filter';
 import BtnDoneSortFilter from './components/btn-done-sort-filter';
+import Spinner from './components/spinner';
 
 class Search extends Component {
     constructor() {
@@ -498,7 +499,7 @@ class Search extends Component {
             <div>
                 {overlay}
                 {!state.loading && state.noResults ? null : aside}
-                {state.loading ? 'Loading' : null}
+                {state.loading ? <Spinner loading={state.loading} /> : null}
                 {!state.loading && state.noResults ? (
                     <NoResults
                         searchText={this.props.searchText}
