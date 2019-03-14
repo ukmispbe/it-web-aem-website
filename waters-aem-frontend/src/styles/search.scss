@@ -2,24 +2,38 @@
     width: 75%;
     float: left;
     padding-left: 2%;
+    &__header {
+        width: 60%;
+        margin-left: -15%;
 
+        @include tablet {
+            width: 100%;
+            float: none;
+            padding-left: 0;
+            margin-left: 0;
+        }
+
+        @include mobile {
+            width: 100%;
+            float: none;
+            padding-left: 0;
+            margin-left: 0;
+        }
+    }
     @include tablet {
         width: 100%;
         float: none;
         padding-left: 0;
     }
-
     @include mobile {
         width: 100%;
         float: none;
         padding-left: 0;
     }
 }
-
 .cmp-search__results-container {
     @include list-container;
 }
-
 .cmp-search__results {
     @include list-styles;
     @include mobile {
@@ -33,37 +47,29 @@
         }
     }
 }
-
 .cmp-search__results-item {
     @include list-item;
-
     &-title {
         font-size: $font-size-h3;
     }
-
     @include mobile {
         margin-bottom: $space-l;
     }
 }
-
 .cmp-search__results-body {
     width: 100%;
     float: left;
     padding-bottom: $space-s;
-
     @include mobile {
         padding-bottom: 0;
     }
-
     &--image {
         @include list-item-body-includes-thumbnail;
     }
 }
-
 .cmp-search__results-thumbnail {
     @include list-item-thumbnail;
 }
-
 .cmp-search__no-results {
     border: 1px solid $color-gray-30;
     text-align: center;
@@ -79,15 +85,12 @@
         }
     }
 }
-
 div.cmp-search__no-results {
     padding: $space-xl $space-xl;
-
     @include mobile {
         padding: $space-l $space-l;
     }
 }
-
 .paginate__container {
     display: flex;
     align-items: center;
@@ -95,13 +98,11 @@ div.cmp-search__no-results {
     margin: 0;
     padding-top: $space-xxl;
     clear: both;
-
     @include mobile {
         padding: 0;
     }
     li {
         display: inline;
-
         @include mobile {
             display: none;
         }
@@ -116,7 +117,6 @@ div.cmp-search__no-results {
             text-align: center;
             height: 2.75em;
             width: 2.75em;
-
             &:hover {
                 color: $color-link;
             }
@@ -136,12 +136,10 @@ div.cmp-search__no-results {
                 color: $color-font-light;
                 border: 1px solid $color-background-dark;
             }
-
             @include mobile {
                 display: inline;
             }
         }
-
         &.next,
         &.previous {
             a {
@@ -160,28 +158,22 @@ div.cmp-search__no-results {
                 height: 20px;
                 margin-left: $space-xxs;
                 margin-top: $space-xxxs;
-
                 @include mobile {
                     height: 24px;
                 }
-
                 .st0 {
                     stroke: $color-font-dark;
                 }
             }
-
             @include mobile {
                 display: inline;
             }
-
             &.disabled {
                 a {
                     cursor: default;
-
                     svg .st0 {
                         stroke: $color-disabled;
                     }
-
                     &:hover {
                         svg .st0 {
                             stroke: $color-disabled;
@@ -190,13 +182,11 @@ div.cmp-search__no-results {
                 }
             }
         }
-
         &.break {
             display: none;
         }
     }
 }
-
 .cmp-search-show-btn {
     .btn-show-sort-filter {
         display: none;
@@ -206,18 +196,18 @@ div.cmp-search__no-results {
         margin-bottom: $space-xl;
         position: relative;
         text-decoration: none;
-
         &:hover {
             color: $color-link;
             text-decoration: none;
-    
+
             svg {
                 .st0 {
                     stroke: $color-link;
                 }
             }
         }
-
+        width: 100%;
+        transition: none;
         svg {
             position: absolute;
             top: 13px;
@@ -239,6 +229,20 @@ div.cmp-search__no-results {
             float: right;
         }
         @include mobile {
+            svg {
+                margin: 0 2% 0 0;
+            }
+            &--sticky {
+                position: fixed;
+                background-color: $color-white;
+                z-index: 1;
+                width: 103%;
+                top: 72px;
+                box-shadow: 0px 1px 5px 0px rgba(79, 91, 100, 0.2);
+                border:none;
+                margin: 0 0 0 -7%;
+                padding: 0 0 0 7%;
+            }
             float: none;
             background-position: 95% 13px;
         }
@@ -252,7 +256,6 @@ div.cmp-search__no-results {
         width: 100%;
     }
 }
-
 .cmp-search__resultsCount {
     margin-top: -3.5em;
     margin-bottom: 2em;
@@ -260,7 +263,6 @@ div.cmp-search__no-results {
     width: 100%;
     overflow: hidden;
     height: 70px;
-
     &.noresults {
         width: 70%;
         margin-left: 0;
@@ -269,7 +271,6 @@ div.cmp-search__no-results {
         overflow: visible;
         height: auto;
     }
-
     @include tablet-and-under {
         margin: unset;
         padding-bottom: $space-l;
@@ -278,24 +279,20 @@ div.cmp-search__no-results {
         white-space: normal;
         overflow: visible;
         height: auto;
-
         &.noresults {
             width: 100%;
             margin: 0;
         }
     }
 }
-
 .cmp-search__sorted-by {
     display: none;
     float: left;
     width: 100%;
-
     @include mobile {
         display: block;
         padding-bottom: $space-m;
     }
-
     @include tablet {
         display: block;
         padding-top: $space-s;
@@ -309,7 +306,6 @@ div.cmp-search__no-results {
         width: 100%;
     }
 }
-
 .cmp-search-overlay {
     position: absolute;
     top: 0;
@@ -319,12 +315,10 @@ div.cmp-search__no-results {
     height: 100%;
     z-index: 9;
     padding: 25% 50%;
-
     > div {
         margin-left: -75px;
     }
 }
-
 html.showing-spinner {
     overflow: hidden;
     height: 100%;
