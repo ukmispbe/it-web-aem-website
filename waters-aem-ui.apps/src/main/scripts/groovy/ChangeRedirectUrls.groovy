@@ -10,6 +10,6 @@ def buildQuery(page, template){
 }
 
 result.nodes.each { node ->
-    node.setProperty("redirectTarget", "en/search")
+    node.setProperty("redirectTarget", "/content/waters/language-masters/en/search")
     session.save()
 }
