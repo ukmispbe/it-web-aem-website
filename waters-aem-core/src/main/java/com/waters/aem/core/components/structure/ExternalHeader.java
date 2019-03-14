@@ -28,6 +28,7 @@ import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.ChildResource;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
@@ -107,7 +108,7 @@ public final class ExternalHeader implements ComponentExporter {
 
     @DialogField(tab = 3)
     @DialogFieldSet(namePrefix = "./regionLinkItem/")
-    @Inject
+    @ChildResource
     private RegionLinkItem regionLinkItem;
 
     @Nonnull
