@@ -5,6 +5,6 @@
     <jcr:content
         cq:templateType="/conf/waters/settings/wcm/template-types/content-page"
         jcr:primaryType="cq:PageContent"
-        jcr:title="Waters Application Notes Page"
+        jcr:title="Waters Library Page"
         status="enabled"/>
 </jcr:root>
