@@ -1,10 +1,10 @@
 .cmp-search-filters {
+    border-bottom: 1px solid $color-border-light;
     ul {
         padding: 0;
         margin: 0;
     }
     li {
-        @include font-utility;
         list-style: none;
         margin-bottom: 0;
     }
@@ -38,21 +38,19 @@
 
         a.filter-toggle {
             @include font-utility;
-            border-top: 1px solid $color-gray-40;
+            border-top: 1px solid $color-border-light;
             display: block;
             background-color: $color-white;
-            padding: 0 $space-xs;
+            padding: $space-xs $space-s $space-xs $space-s;
             margin: 0;
             text-decoration: none;
-            height: $input-height;
-            line-height: $input-height;
             position: relative;
             svg {
                 position: absolute;
-                top: 12px;
+                top: 13px;
                 right: 13px;
-                width: 20px;
-                height: 20px;
+                width: $icon-m;
+                height: $icon-m;
                 .st0 {
                     stroke: $color-icon;
                 }
@@ -97,7 +95,7 @@
                 display: inline-block;
                 appearance: none;
                 border: 1px solid $color-gray-40;
-                height: 1rem;
+                height: 1em;
                 width: 1em;
                 vertical-align: -2px;
                 margin-right: 10px;
@@ -116,6 +114,9 @@
                         stroke: $color-white;
                         stroke-width: 4;
                     }
+                }
+                &:hover {
+                    border: 1px solid $color-blue-50;
                 }
                 &.checked {
                     border: 1px solid $color-background-dark;
@@ -206,17 +207,17 @@
             @include font-small;
             display: block;
             float: left;
-            padding: 2px $space-xs 2px $space-m;
-            margin: 0 8px 8px 0;
+            padding: $space-xxxs $space-xs ($space-xxs - .1em) ($space-l - .1em);
+            margin: 0 $space-xs $space-xs 0;
             text-decoration: none;
             background-color: $color-gray-10;
             position: relative;
             svg {
                 position: absolute;
-                top: 6px;
-                left: 4px;
-                width: 16px;
-                height: 16px;
+                top: 10px;
+                left: 9px;
+                width: $icon-s;
+                height: $icon-s;
                 .st0 {
                     stroke: $color-icon;
                 }
@@ -302,6 +303,7 @@
     &__select {
         position: relative;
         select {
+            @include font-body;
             @include font-utility;
             background-color: transparent;
             border-radius: 0;
@@ -309,9 +311,8 @@
             -moz-appearance: none;
             appearance: none;
             width: 100%;
-            height: 2.75em;
-            padding: 0 $space-xs 0.1em $space-xs;
-            border: 1px solid $color-gray-40;
+            padding: $space-xs $space-s $space-xs $space-s;
+            border: 1px solid $color-border-dark;
             position: relative;
             &:hover,
             &:focus {
@@ -327,16 +328,22 @@
         }
         svg {
             position: absolute;
-            top: 14px;
-            right: 13px;
-            width: 20px;
-            height: 20px;
+            top: 15px;
+            right: 15px;
+            width: $icon-m;
+            height: $icon-m;
             .st0 {
                 stroke: $color-icon;
             }
         }
     }
 }
+
+.cmp-search-filters__tags.clearfix {
+    &:after {
+        display: block;
+    }
+ }
 
 .cmp-search__sort-filter {
     .cmp-search-filters__tags {

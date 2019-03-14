@@ -93,8 +93,12 @@ div.cmp-search__no-results {
     align-items: center;
     justify-content: center;
     margin: 0;
-    padding: $space-xxl 0;
+    padding-top: $space-xxl;
     clear: both;
+
+    @include mobile {
+        padding: 0;
+    }
     li {
         display: inline;
 
@@ -107,7 +111,7 @@ div.cmp-search__no-results {
             margin: 0 $space-xxs 0 0;
             border: 1px solid $color-border-dark;
             float: left;
-            padding-top: ($space-xxs - 0.1em);
+            padding-top: $space-xxs;
             text-decoration: none;
             text-align: center;
             height: 2.75em;
@@ -198,27 +202,40 @@ div.cmp-search__no-results {
         display: none;
         @include font-utility;
         border: 1px solid $color-border-dark;
-        padding: 0 $space-l 0 $space-xs;
+        padding: $space-xs ($space-xl +.1em) $space-xs $space-s;
         margin-bottom: $space-xl;
-        height: $input-height;
-        line-height: $input-height;
-        width: 100%;
         position: relative;
+        text-decoration: none;
+
+        &:hover {
+            color: $color-link;
+            text-decoration: none;
+    
+            svg {
+                .st0 {
+                    stroke: $color-link;
+                }
+            }
+        }
+
         svg {
             position: absolute;
-            top: 10px;
-            right: 12px;
+            top: 13px;
+            right: 14px;
             width: $icon-m;
             height: $icon-m;
             .st0 {
                 stroke: $color-icon;
+            }
+            @include mobile {
+                top: 15px;
+                right: 16px;
             }
         }
         @include tablet-and-under {
             display: block;
         }
         @include tablet {
-            max-width: 160px;
             float: right;
         }
         @include mobile {
@@ -281,6 +298,7 @@ div.cmp-search__no-results {
 
     @include tablet {
         display: block;
+        padding-top: $space-s;
     }
     @include tablet {
         float: left;
@@ -296,7 +314,7 @@ div.cmp-search__no-results {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, .8);
     width: 100%;
     height: 100%;
     z-index: 9;
