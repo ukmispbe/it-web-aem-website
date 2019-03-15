@@ -2,7 +2,6 @@ package com.waters.aem.core.components.structure.page.processor;
 
 import com.waters.aem.core.components.structure.page.ApplicationNotes;
 import com.waters.aem.core.components.structure.page.processor.step.ApplicationNotesPostProcessorStep;
-import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.PersistenceException;
 import org.apache.sling.api.resource.Resource;
@@ -31,20 +30,16 @@ public final class ApplicationNotesPostProcessor implements SlingPostProcessor {
         throws PersistenceException {
         final Resource resource = request.getResourceResolver().getResource(request.getResource().getPath());
 
-        if (resource == null) {
-            LOG.debug("resource no longer exists, ignoring");
-        } else {
-            if (Templates.isApplicationNotesPage(resource)) {
-                final ApplicationNotes applicationNotes = resource.adaptTo(ApplicationNotes.class);
+        if (resource != null) {
+            final ApplicationNotes applicationNotes = resource.adaptTo(ApplicationNotes.class);
 
-                for (final ApplicationNotesPostProcessorStep step : applicationNotesPostProcessorSteps) {
+            for (final ApplicationNotesPostProcessorStep step : applicationNotesPostProcessorSteps) {
+                if (step.accepts(resource)) {
                     LOG.debug("post-processing application notes for resource : {} with step class : {}", resource,
                         step.getClass().getName());
 
                     step.process(applicationNotes, modifications);
                 }
-            } else {
-                LOG.debug("resource is not an application notes page, ignoring");
             }
         }
     }
