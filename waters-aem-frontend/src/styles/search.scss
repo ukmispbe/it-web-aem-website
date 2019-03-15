@@ -218,11 +218,13 @@ div.cmp-search__no-results {
         @include font-utility;
         border: 1px solid $color-border-dark;
         padding: 0 $space-l 0 $space-xs;
-        margin-bottom: $space-xl;
+        margin-bottom: $space-m;
         height: $input-height;
         line-height: $input-height;
         width: 100%;
         position: relative;
+        text-decoration: none;
+        transition: none;
         svg {
             position: absolute;
             top: 10px;
@@ -241,6 +243,20 @@ div.cmp-search__no-results {
             float: right;
         }
         @include mobile {
+            svg {
+                margin: 0 2% 0 0;
+            }
+            &--sticky {
+                position: fixed;
+                background-color: $color-white;
+                z-index: 1;
+                width: 103%;
+                top: 72px;
+                box-shadow: 0px 1px 5px 0px rgba(79, 91, 100, 0.2);
+                border:none;
+                margin: 0 0 0 -7%;
+                padding: 0 0 0 7%;
+            }
             float: none;
             background-position: 95% 13px;
         }
