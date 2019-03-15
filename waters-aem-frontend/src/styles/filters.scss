@@ -34,6 +34,9 @@
                     display: table-cell;
                 }
             }
+            @include tablet-and-under {
+                transition: none;
+            }
         }
 
         a.filter-toggle {
@@ -68,6 +71,7 @@
                 display: none;
             }
             @include tablet-and-under {
+                transition: none;
                 .expandIcon {
                     display: none;
                 }
@@ -464,6 +468,12 @@ $header-height: 74px;
                         }
                         ul {
                             max-height: none;
+                            @include mobile {
+                                max-height: 49vh;
+                            }
+                            @include tablet {
+                                max-height: 53vh;
+                            }
                         }
                     }
                 }
