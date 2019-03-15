@@ -1,10 +1,9 @@
 function handleSticky(targetClass, stickyClass) {
     const sourceClass = document.querySelector("."+targetClass);
     const sourceTop = sourceClass.offsetTop;
-
     if (window.scrollY > sourceTop) {
         sourceClass.classList.add(stickyClass);
-        document.body.style.paddingTop = sourceClass.offsetHeight+'px';
+        // document.body.style.paddingTop = sourceClass.offsetHeight+'px';
     } else {
         sourceClass.classList.remove(stickyClass);
     }
