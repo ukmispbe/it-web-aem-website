@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { RingLoader } from 'react-spinners';
+import { ClipLoader } from 'react-spinners';
 
 class LoadingSpinner extends Component {
     constructor() {
@@ -18,10 +18,10 @@ class LoadingSpinner extends Component {
     render() {
         return (
             <div className="cmp-search-overlay">
-                <RingLoader
+                <ClipLoader
                     sizeUnit={'px'}
-                    size={150}
-                    color={'#0f7f85'}
+                    size={64}
+                    color={'#9CA7B0'}
                     loading={this.props.loading}
                 />
             </div>
