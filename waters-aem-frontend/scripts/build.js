@@ -3,15 +3,14 @@ const config = require('./webpack.config.build.js');
 const fs = require('fs');
 const path = require('path');
 
-process.env.BABEL_ENV = 'development';
-process.env.NODE_ENV = 'development';
+process.env.BABEL_ENV = 'production';
+process.env.NODE_ENV = 'production';
 
 const compiler = webpack(
-    Object.assign({}, config, { watch: process.env.WATCH_ALIVE === 'true' })
+    Object.assign({}, config, {watch: process.env.WATCH_ALIVE === 'true'})
 );
 
-const clientlibPath =
-    'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-site';
+const rootPath = 'waters-aem-ui.apps/src/main/content/jcr_root';
 
 compiler.run((err, stats) => {
     if (err) {
@@ -23,13 +22,13 @@ compiler.run((err, stats) => {
     const aemCssPath = path.resolve(
         __dirname,
         '../../',
-        clientlibPath + '/css',
+        rootPath + '/etc/designs/waters',
         'main.css'
     );
     const aemJsPath = path.resolve(
         __dirname,
         '../../',
-        clientlibPath + '/js',
+        rootPath + '/apps/waters/clientlibs/clientlib-site/js',
         'main.js'
     );
 
