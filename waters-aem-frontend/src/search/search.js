@@ -471,28 +471,32 @@ class Search extends Component {
                     locale={locale}
                 />
 
-                <ReactPaginate
-                    pageCount={state.pagination.amount}
-                    forcePage={
-                        state.pagination.current
-                            ? state.pagination.current - 1
-                            : 0
-                    }
-                    pageRangeDisplayed={8}
-                    marginPagesDisplayed={0}
-                    containerClassName="paginate__container"
-                    onPageChange={this.paginationClickHandler.bind(this)}
-                    breakLabel={'…'}
-                    previousLabel={previousIcon}
-                    nextLabel={
-                        <ReactSVG src={this.props.searchText.nextIcon} />
-                    }
-                    initialPage={
-                        state.pagination.current
-                            ? state.pagination.current - 1
-                            : 0
-                    }
-                />
+                {state.count > this.props.searchDefaults.rows ? 
+                    (
+                        <ReactPaginate
+                            pageCount={state.pagination.amount}
+                            forcePage={
+                                state.pagination.current
+                                    ? state.pagination.current - 1
+                                    : 0
+                            }
+                            pageRangeDisplayed={8}
+                            marginPagesDisplayed={0}
+                            containerClassName="paginate__container"
+                            onPageChange={this.paginationClickHandler.bind(this)}
+                            breakLabel={'…'}
+                            previousLabel={previousIcon}
+                            nextLabel={
+                                <ReactSVG src={this.props.searchText.nextIcon} />
+                            }
+                            initialPage={
+                                state.pagination.current
+                                    ? state.pagination.current - 1
+                                    : 0
+                            }
+                        />
+                    ) : null
+                }
             </div>
         );
         return (
