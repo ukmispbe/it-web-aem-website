@@ -32,9 +32,11 @@ result.nodes.each { node ->
 def createTagCloud(rootNode) {
     def tagCloudNode = rootNode.addNode('tagcloud', 'nt:unstructured')
 
+    String[] tags = ['waters:instrumenttype', 'waters:technique', 'waters:compoundmatrix', 'waters:market']
+
     tagCloudNode.setProperty('sling:resourceType', 'waters/components/content/applicationnotes/tagcloud')
     tagCloudNode.setProperty('title', 'Tags')
-    tagCloudNode.setProperty('tags', 'waters:technique')
+    tagCloudNode.setProperty('tags', tags)
 
     def cqResponsiveNode = tagCloudNode.addNode('cq:responsive', 'nt:unstructured')
 
