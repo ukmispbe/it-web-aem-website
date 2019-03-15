@@ -59,7 +59,7 @@ class Search extends Component {
             selectedFacets: this.query.selectedFacets || {},
             unappliedFilters: {},
             isDesktop: false,
-            initialRender: true
+            initialRender: (this.query.keyword === 'undefined' || this.query.keyword === '*:*') ? true : false
         });
 
         const checkWindowWidth = () => {
