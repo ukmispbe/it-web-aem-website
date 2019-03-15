@@ -3,7 +3,6 @@ function handleSticky(targetClass, stickyClass) {
     const sourceTop = sourceClass.offsetTop;
     if (window.scrollY > sourceTop) {
         sourceClass.classList.add(stickyClass);
-        // document.body.style.paddingTop = sourceClass.offsetHeight+'px';
     } else {
         sourceClass.classList.remove(stickyClass);
     }
