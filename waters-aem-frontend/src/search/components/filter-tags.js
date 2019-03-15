@@ -61,9 +61,17 @@ const FilterTags = props => {
               return category;
           })
         : null;
+
+        let showClearButton = false;
+        if(Object.keys(props.selectedFacets)[0]){
+            if ( Object.values(props.selectedFacets)[0].length > 0) {
+                showClearButton = true;
+            }        
+        }
+        
     return (
         <div className="cmp-search-filters__tags clearfix">
-            {Object.keys(props.selectedFacets).length > 0 ? (
+            {showClearButton === true ? (
                 <a
                     href="javascript:void(0);"
                     className="cmp-search-filters__tags__clear"
