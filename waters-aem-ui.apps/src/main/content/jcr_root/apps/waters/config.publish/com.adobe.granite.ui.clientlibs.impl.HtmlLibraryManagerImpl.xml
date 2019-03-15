@@ -6,7 +6,7 @@
           htmllibmanager.debug.console="{Boolean}false"
           htmllibmanager.firebuglite.path="/libs/granite/ui/content/firebug-lite/source/firebug-lite.js#startOpened=true"
           htmllibmanager.debug.init.js="window.CQ_initial_log_level='INFO';"
-          htmllibmanager.minify="{Boolean}false"
+          htmllibmanager.minify="{Boolean}true"
           htmllibmanager.debug="{Boolean}false"
           htmllibmanager.gzip="{Boolean}true"
           htmllibmanager.maxDataUriSize="{Long}0"

@@ -61,9 +61,21 @@ const FilterTags = props => {
               return category;
           })
         : null;
+
+        let showClearButton = false;
+        if (Object.keys(props.selectedFacets)[0]) {
+            if (Object.values(props.selectedFacets).length > 0) {
+                for (var i = 0; i < Object.values(props.selectedFacets).length; i++) {
+                    if (Object.values(props.selectedFacets)[i].length > 0) {
+                        showClearButton = true;
+                    }
+                }
+            }
+        }
+
     return (
         <div className="cmp-search-filters__tags clearfix">
-            {Object.keys(props.selectedFacets).length > 0 ? (
+            {showClearButton === true ? (
                 <a
                     href="javascript:void(0);"
                     className="cmp-search-filters__tags__clear"

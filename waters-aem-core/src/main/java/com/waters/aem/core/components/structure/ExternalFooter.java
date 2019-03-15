@@ -113,9 +113,17 @@ public final class ExternalFooter extends AbstractComponent implements Component
     @Default(booleanValues = false)
     private Boolean newWindow;
 
-    @DialogField(fieldLabel = "Footer Links",
+    @DialogField(fieldLabel = "Cookies Link",
+        fieldDescription = "Select or enter the link URL",
         tab = 2,
         ranking = 1)
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject(inherit = true)
+    private Link cookiesLink;
+
+    @DialogField(fieldLabel = "Footer Links",
+        tab = 2,
+        ranking = 2)
     @MultiField(composite = true)
     @InheritInject
     private List<ExternalLinkItem> footerLinks;
@@ -141,12 +149,17 @@ public final class ExternalFooter extends AbstractComponent implements Component
     }
 
     @JsonProperty
+    public Link getCookiesLink() {
+        return cookiesLink;
+    }
+
+    @JsonProperty
     public List<ExternalLinkItem> getFooterLinks() {
         return footerLinks;
     }
 
     public String getDataLayer() throws JsonProcessingException {
-        return (Templates.isApplicationNotesPage(currentPage)) ?
+        return Templates.isApplicationNotesPage(currentPage) ?
             MAPPER.configure(SerializationFeature.WRAP_ROOT_VALUE, false).writeValueAsString(analyticsModel) :
             MAPPER.enable(SerializationFeature.WRAP_ROOT_VALUE).writeValueAsString(pageModel);
     }

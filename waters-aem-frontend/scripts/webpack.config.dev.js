@@ -6,7 +6,7 @@ module.exports = {
     entry: './src/entry.js',
     output: {
         filename: 'main.js',
-        path: path.resolve(__dirname, '../', 'build'),
+        path: path.resolve(__dirname, '../', 'build')
     },
     module: {
         rules: [
@@ -14,38 +14,37 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
-                    loader: 'babel-loader',
-                },
+                    loader: 'babel-loader'
+                }
             },
             {
                 test: /\.scss$/,
                 use: [
                     {
                         // loader: 'style-loader'
-                        loader: MiniCssExtractPlugin.loader,
+                        loader: MiniCssExtractPlugin.loader
                     },
                     {
-                        loader: 'css-loader',
+                        loader: 'css-loader'
                     },
                     {
-                        loader: 'sass-loader',
-                    },
-                ],
-            },
-        ],
+                        loader: 'sass-loader'
+                    }
+                ]
+            }
+        ]
     },
     plugins: [
         new MiniCssExtractPlugin({
             filename: '[name].css',
-            chunkFilename: '[id].css',
+            chunkFilename: '[id].css'
         }),
         new WebpackSlangPlugin({
-            cssPath: '/apps/waters/clientlibs/clientlib-site/css',
-            jsPath: '/apps/waters/clientlibs/clientlib-site/js',
-        }),
+            cssPath: '/etc/designs/waters',
+            jsPath: '/apps/waters/clientlibs/clientlib-site/js'
+        })
     ],
     optimization: {
-        // We no not want to minimize our code.
-        minimize: false,
-    },
+        minimize: false
+    }
 };
