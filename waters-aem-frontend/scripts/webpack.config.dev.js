@@ -40,7 +40,7 @@ module.exports = {
             chunkFilename: '[id].css'
         }),
         new WebpackSlangPlugin({
-            cssPath: '/apps/waters/clientlibs',
+            cssPath: '/etc/designs/waters',
             jsPath: '/apps/waters/clientlibs/clientlib-site/js'
         })
     ],
