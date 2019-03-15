@@ -5,6 +5,7 @@ import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.wcm.api.NameConstants;
 import com.waters.aem.core.components.structure.page.ApplicationNotes;
+import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.resource.ModifiableValueMap;
 import org.apache.sling.api.resource.PersistenceException;
 import org.apache.sling.api.resource.Resource;
@@ -35,6 +36,11 @@ public final class ApplicationNotesTagsPostProcessorStep implements ApplicationN
             .collect(Collectors.toList());
 
         processApplicationNotesResource(applicationNotes.getResource(), modifications, tagIds);
+    }
+
+    @Override
+    public boolean accepts(final Resource resource) {
+        return Templates.isApplicationNotesPage(resource);
     }
 
     private void processApplicationNotesResource(final Resource resource, final List<Modification> modifications,

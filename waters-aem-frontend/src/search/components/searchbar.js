@@ -32,19 +32,25 @@ class SearchBar extends Component {
         }
     }
 
+    setUrlParamter() {
+        const searchTerm = this.state.value ? this.state.value : '*:*';
+        const defaultSort = searchTerm === '*:*' ? 'most-recent' : 'most-relevant';
+        window.location.href = `${
+            this.props.searchPath
+        }?keyword=${searchTerm}&sort=${defaultSort}`;
+    }
+
     _handleKeyPress = e => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            const searchTerm = this.state.value ? this.state.value : '*:*';
-            const defaultSort = searchTerm === '*:*' ? 'most-recent' : 'most-relevant';
-            window.location.href = `${
-                this.props.searchPath
-            }?keyword=${searchTerm}&sort=${defaultSort}`;
+            this.setUrlParamter();
         }
     };
 
     _clearSearchVal = e => {
-        this.setState({ value: '' });
+        this.setState({ value: '' }, () => {
+            this.setUrlParamter();
+        });
     };
 
     render() {

@@ -21,6 +21,8 @@ public final class WatersConstants {
 
     public static final String TEMPLATE_APPLICATION_NOTES_PAGE = "/conf/waters/settings/wcm/templates/application-notes-page";
 
+    public static final String TEMPLATE_LIBRARY_PAGE = "/conf/waters/settings/wcm/templates/library-page";
+
     public static final String RENDER_CONDITION_APPLICATION_NOTES_TEMPLATE = "waters/components/renderconditions/applicationnotestemplate";
 
     public static final String EXTENSION_PDF = "pdf";
