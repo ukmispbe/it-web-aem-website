@@ -7,15 +7,17 @@
         </div>
         <nav class="cmp-external-header__links">
             <ul data-sly-test="${externalHeader.linkItems || externalHeader.languageLocation}">
-                <li data-sly-repeat="${externalHeader.linkItems}" class="cmp-external-header__links__item">
-                    <a data-sly-test="${item.link.href}" class="cmp-external-header-links__link" href="${item.link.href}" target="${item.newWindow ? '_blank' : ''}">
-                        <span>${item.text}</span>
-                        <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
-                             data-sly-call="${patterns.linkIcon @ linkItem=item, class='cmp-external-header-links__icon'}"/>
-                    </a>
-                </li>
+                <sly data-sly-list.item="${externalHeader.linkItems}" >
+                    <li data-sly-test="${item.link}" class="cmp-external-header__links__item">
+                        <a class="cmp-external-header-links__link" href="${item.link.href}" target="${item.newWindow ? '_blank' : ''}">
+                            <span>${item.text}</span>
+                            <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+                                 data-sly-call="${patterns.linkIcon @ linkItem=item, class='cmp-external-header-links__icon'}"/>
+                        </a>
+                    </li>
+                </sly>
                 <li class="cmp-external-header__links__item"
-                    data-sly-test="${externalHeader.regionLinkItem.link.href}">
+                    data-sly-test="${externalHeader.regionLinkItem.link}">
                     <a class="cmp-external-header-links__link" href="${externalHeader.regionLinkItem.link.href}" target="${externalHeader.regionLinkItem.newWindow ? '_blank' : ''}">
                         <span>${externalHeader.languageLocation}</span>
                         <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
