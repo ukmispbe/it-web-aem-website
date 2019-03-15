@@ -235,6 +235,10 @@
                     background-color: $color-gray-50;
                 }
             }
+
+            @include mobile {
+                padding: $space-xxxs $space-xs $space-xxs ($space-l - .1em);
+            }
         }
         @include tablet-and-under {
             margin-top: 0;
@@ -248,15 +252,15 @@
 
     a {
         @include font-utility;
+        font-size: $font-size-h3;
         background-color: $color-blue-50;
         text-align: center;
-        padding: 0 $space-xs;
-        margin-bottom: $space-s;
+        padding: $space-xs $space-l;
+        margin-bottom: $space-m;
         color: $color-white;
-        height: $input-height;
-        line-height: $input-height;
         width: 100%;
         display: block;
+        text-transform: uppercase;
     }
 
     @include tablet-and-under {
@@ -270,13 +274,12 @@
         @include font-utility;
         border: 1px solid $color-blue-50;
         text-align: center;
-        padding: 0 $space-xs;
-        margin-bottom: $space-s;
+        padding: $space-xs $space-l;
+        margin-bottom: $space-m;
         color: $color-blue-50;
-        height: $input-height;
-        line-height: $input-height;
         width: 100%;
         display: block;
+        text-transform: uppercase;
     }
 }
 
@@ -284,22 +287,20 @@
     .btn-hide-sort-filter {
         display: none;
         @include font-utility;
-        padding: 0 $space-l 0 $space-xs;
+        font-size: $font-size-h3;
+        padding: $space-xs $space-xs $space-xs 6%;
         margin: 0 0 $space-m -5.5%;
-        box-shadow: 0px 1px 5px 0px rgba(79, 91, 100, 0.2);
-        height: $input-height;
-        line-height: $input-height;
-        width: 100%;
+        box-shadow: $shadow;
+        width: 116%;
         position: relative;
         text-decoration: none;
         margin: 0px 0 1.5em -6%;
-        padding: 0 0 0 5%;
         svg {
             position: absolute;
-            top: 8px;
-            right: 10px;
-            width: 25px;
-            height: 25px;
+            top: 12px;
+            right: 8%;
+            width: $icon-m;
+            height: $icon-m;
             .st0 {
                 stroke: $color-icon;
             }
@@ -313,11 +314,14 @@
         }
 
         @include mobile {
-            width: 113%;
+            width: 114%;
             float: none;
             background-position: 95% 13px;
+            padding: $space-xs $space-xs $space-xs 7%;
             svg {
                 margin: 0 2% 0 0;
+                top: 16px;
+                right: 3%;
             }
         }
     }
