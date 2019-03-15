@@ -23,12 +23,12 @@
         ul {
             list-style: none;
             padding: 0;
-            margin: ($space-xs + .2em) 0 0;
+            margin: $space-xs 0 0 0;
         }
 
         &__item {
             display: inline-block;
-            margin-left: $space-m;
+            margin-left: $space-xxs;
             margin-bottom: 0;
 
             &:first-of-type {
