@@ -3,6 +3,6 @@
      data-sly-use.template="core/wcm/components/commons/v1/templates.html"
      data-sly-test.text="${title.text}">
     <h1 class="cmp-title__text" data-sly-element="${title.type}">${text @ context='html'}</h1>
-    <p class="cmp-title__print">${text @ context='html'}</p>
+    <div class="cmp-title__print">${text @ context='html'}</div>
 </div>
 <sly data-sly-call="${template.placeholder @ isEmpty=!text, classAppend='cmp-title'}"></sly>
