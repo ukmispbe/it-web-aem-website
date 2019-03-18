@@ -26,76 +26,76 @@ public final class WatersTagManager implements TagManager {
     }
 
     @Override
-    public Tag resolve(final String s) {
-        return Optional.ofNullable(tagManager.resolve(s))
+    public Tag resolve(final String tagId) {
+        return Optional.ofNullable(tagManager.resolve(tagId))
             .map(WatersTag ::new)
             .orElse(null);
     }
 
     @Override
-    public Tag resolveByTitle(final String s) {
-        return Optional.ofNullable(tagManager.resolveByTitle(s))
+    public Tag resolveByTitle(final String tagTitlePath) {
+        return Optional.ofNullable(tagManager.resolveByTitle(tagTitlePath))
             .map(WatersTag ::new)
             .orElse(null);
     }
 
     @Override
-    public Tag resolveByTitle(final String s, final Locale locale) {
-        return Optional.ofNullable(tagManager.resolveByTitle(s, locale))
+    public Tag resolveByTitle(final String tagTitlePath, final Locale locale) {
+        return Optional.ofNullable(tagManager.resolveByTitle(tagTitlePath, locale))
             .map(WatersTag ::new)
             .orElse(null);
     }
 
     @Override
-    public boolean canCreateTag(final String s) throws InvalidTagFormatException {
-        return tagManager.canCreateTag(s);
+    public boolean canCreateTag(final String tagId) throws InvalidTagFormatException {
+        return tagManager.canCreateTag(tagId);
     }
 
     @Override
-    public boolean canCreateTagByTitle(final String s) throws InvalidTagFormatException {
-        return tagManager.canCreateTagByTitle(s);
+    public boolean canCreateTagByTitle(final String titlePath) throws InvalidTagFormatException {
+        return tagManager.canCreateTagByTitle(titlePath);
     }
 
     @Override
-    public boolean canCreateTagByTitle(final String s, final Locale locale) throws InvalidTagFormatException {
-        return tagManager.canCreateTagByTitle(s, locale);
+    public boolean canCreateTagByTitle(final String titlePath, final Locale locale) throws InvalidTagFormatException {
+        return tagManager.canCreateTagByTitle(titlePath, locale);
     }
 
     @Override
-    public Tag createTag(final String s, final String s1, final String s2)
+    public Tag createTag(final String tagId, final String title, final String description)
         throws AccessControlException, InvalidTagFormatException {
-        return Optional.ofNullable(tagManager.createTag(s, s1, s2))
+        return Optional.ofNullable(tagManager.createTag(tagId, title, description))
             .map(WatersTag ::new)
             .orElse(null);
     }
 
     @Override
-    public Tag createTag(final String s, final String s1, final String s2, final boolean b)
+    public Tag createTag(final String tagId, final String title, final String description, final boolean autoSave)
         throws AccessControlException, InvalidTagFormatException {
-        return Optional.ofNullable(tagManager.createTag(s, s1, s2, b))
+        return Optional.ofNullable(tagManager.createTag(tagId, title, description, autoSave))
             .map(WatersTag ::new)
             .orElse(null);
     }
 
     @Override
-    public Tag createTagByTitle(final String s) throws AccessControlException, InvalidTagFormatException {
-        return Optional.ofNullable(tagManager.createTagByTitle(s))
+    public Tag createTagByTitle(final String titlePath) throws AccessControlException, InvalidTagFormatException {
+        return Optional.ofNullable(tagManager.createTagByTitle(titlePath))
             .map(WatersTag ::new)
             .orElse(null);
     }
 
     @Override
-    public Tag createTagByTitle(final String s, final boolean b)
+    public Tag createTagByTitle(final String titlePath, final boolean autoSave)
         throws AccessControlException, InvalidTagFormatException {
-        return Optional.ofNullable(tagManager.createTagByTitle(s, b))
+        return Optional.ofNullable(tagManager.createTagByTitle(titlePath, autoSave))
             .map(WatersTag ::new)
             .orElse(null);
     }
 
     @Override
-    public Tag createTagByTitle(final String s, final Locale locale)
+    public Tag createTagByTitle(final String titlePath, final Locale locale)
         throws AccessControlException, InvalidTagFormatException {
-        return Optional.ofNullable(tagManager.createTagByTitle(s, locale))
+        return Optional.ofNullable(tagManager.createTagByTitle(titlePath, locale))
             .map(WatersTag ::new)
             .orElse(null);
     }
@@ -106,40 +106,40 @@ public final class WatersTagManager implements TagManager {
     }
 
     @Override
-    public void deleteTag(final Tag tag, final boolean b) throws AccessControlException {
-        tagManager.deleteTag(tag, b);
+    public void deleteTag(final Tag tag, final boolean autoSave) throws AccessControlException {
+        tagManager.deleteTag(tag, autoSave);
     }
 
     @Override
-    public RangeIterator<Resource> find(final String s) {
-        return tagManager.find(s);
+    public RangeIterator<Resource> find(final String tagId) {
+        return tagManager.find(tagId);
     }
 
     @Override
-    public FindResults findByTitle(final String s) {
-        return tagManager.findByTitle(s);
+    public FindResults findByTitle(final String title) {
+        return tagManager.findByTitle(title);
     }
 
     @Override
-    public Tag[] findTagsByTitle(final String s, final Locale locale) {
-        return Arrays.stream(tagManager.findTagsByTitle(s, locale))
+    public Tag[] findTagsByTitle(final String title, final Locale locale) {
+        return Arrays.stream(tagManager.findTagsByTitle(title, locale))
             .map(WatersTag ::new)
             .toArray(Tag[] ::new);
     }
 
     @Override
-    public RangeIterator<Resource> find(final String s, final String[] strings) {
-        return tagManager.find(s, strings);
+    public RangeIterator<Resource> find(final String basePath, final String[] tagIds) {
+        return tagManager.find(basePath, tagIds);
     }
 
     @Override
-    public RangeIterator<Resource> find(final String s, final String[] strings, final boolean b) {
-        return tagManager.find(s, strings, b);
+    public RangeIterator<Resource> find(final String basePath, final String[] tagIds, final boolean oneMatchIsEnough) {
+        return tagManager.find(basePath, tagIds, oneMatchIsEnough);
     }
 
     @Override
-    public RangeIterator<Resource> find(final String s, final List<String[]> list) {
-        return tagManager.find(s, list);
+    public RangeIterator<Resource> find(final String basePath, final List<String[]> tagIds) {
+        return tagManager.find(basePath, tagIds);
     }
 
     @Override
@@ -167,13 +167,13 @@ public final class WatersTagManager implements TagManager {
     }
 
     @Override
-    public void setTags(final Resource resource, final Tag[] tags, final boolean b) {
-        tagManager.setTags(resource, tags, b);
+    public void setTags(final Resource resource, final Tag[] tags, final boolean autoSave) {
+        tagManager.setTags(resource, tags, autoSave);
     }
 
     @Override
-    public Tag[] getTagsForSubtree(final Resource resource, final boolean b) {
-        return Arrays.stream(tagManager.getTagsForSubtree(resource, b))
+    public Tag[] getTagsForSubtree(final Resource resource, final boolean shallow) {
+        return Arrays.stream(tagManager.getTagsForSubtree(resource, shallow))
             .map(WatersTag ::new)
             .toArray(Tag[] ::new);
     }
@@ -190,13 +190,13 @@ public final class WatersTagManager implements TagManager {
     }
 
     @Override
-    public Tag moveTag(final Tag tag, final String s)
+    public Tag moveTag(final Tag tag, final String destination)
         throws AccessControlException, InvalidTagFormatException, TagException {
-        return new WatersTag(tagManager.moveTag(tag, s));
+        return new WatersTag(tagManager.moveTag(tag, destination));
     }
 
     @Override
-    public void mergeTag(final Tag tag, final Tag tag1) throws AccessControlException, TagException {
-        tagManager.mergeTag(tag, tag1);
+    public void mergeTag(final Tag tag, final Tag destination) throws AccessControlException, TagException {
+        tagManager.mergeTag(tag, destination);
     }
 }

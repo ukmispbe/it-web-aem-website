@@ -122,13 +122,13 @@ public final class WatersTag implements Tag {
     }
 
     @Override
-    public String getXPathSearchExpression(final String s) {
-        return tag.getXPathSearchExpression(s);
+    public String getXPathSearchExpression(final String property) {
+        return tag.getXPathSearchExpression(property);
     }
 
     @Override
-    public String getGQLSearchExpression(final String s) {
-        return tag.getGQLSearchExpression(s);
+    public String getGQLSearchExpression(final String property) {
+        return tag.getGQLSearchExpression(property);
     }
 
     @Override
