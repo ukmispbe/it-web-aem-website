@@ -55,7 +55,7 @@ class SearchBar extends Component {
 
     render() {
         const props = this.props;
-        console.log(this.props);
+
         return (
             <form className="cmp-search-bar" id="notesSearch">
                 <input
