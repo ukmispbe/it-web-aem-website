@@ -21,7 +21,7 @@ public final class WatersListItem implements ListItem {
     @Override
     @Nullable
     public String getURL() {
-        return listItem.getURL();
+        return page.getHref();
     }
 
     @Override
