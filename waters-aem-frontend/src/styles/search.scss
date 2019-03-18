@@ -324,3 +324,15 @@ html.showing-spinner {
     overflow: hidden;
     height: 100%;
 }
+
+.show-sort-filters {
+    @include mobile {
+        .cmp-search-show-btn {
+            .btn-show-sort-filter {
+                &--sticky {
+                    display: none;
+                }
+            }
+        }
+    }
+}
