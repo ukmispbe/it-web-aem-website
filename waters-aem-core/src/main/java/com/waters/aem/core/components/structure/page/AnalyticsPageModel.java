@@ -8,7 +8,7 @@ import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-@JsonRootName(value = "Page")
+@JsonRootName(value = "page")
 public class AnalyticsPageModel extends AbstractAnalyticsModel{
 
     @Self
@@ -18,7 +18,7 @@ public class AnalyticsPageModel extends AbstractAnalyticsModel{
     private ApplicationNotes applicationNotes;
 
     public String getCategory() {
-        return getFirstLocalizedTitle(applicationNotes.getCategory());
+        return getFirstTagTitle(applicationNotes.getCategory());
     }
 
     public String getCountry() {
@@ -30,7 +30,7 @@ public class AnalyticsPageModel extends AbstractAnalyticsModel{
     }
 
     public String getType() {
-        return getFirstLocalizedTitle(applicationNotes.getContentType());
+        return getFirstTagTitle(applicationNotes.getContentType());
     }
 
 }

@@ -9,6 +9,7 @@ import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.inject.Inject;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +18,10 @@ import java.util.Optional;
 public class AppnotePageAnalyticsModel extends AbstractAnalyticsModel {
 
     private static final String DATE_FORMAT = "yyyy-MM-dd";
+
+    private static final String FIRST_PUBLISH_DATE_FORMAT = "yyyy-MMM-dd";
+
+    private static final String DEFAULT_DAY_NUMBER = "01";
 
     @Inject
     private PageDecorator currentPage;
@@ -41,30 +46,20 @@ public class AppnotePageAnalyticsModel extends AbstractAnalyticsModel {
             return currentPage.getProperties().get("literatureCode", "");
         }
 
-        public String getFirstPublishDate() {
-            StringBuilder stringBuilder = new StringBuilder();
-
-            if (!StringUtils.isEmpty(getMonthPublished())) {
-                stringBuilder.append(getMonthPublished());
-            }
-            if (!StringUtils.isEmpty(getMonthPublished()) && !StringUtils.isEmpty(getYearPublished())) {
-                stringBuilder.append("|");
-            }
-            if (!StringUtils.isEmpty(getYearPublished())) {
-                stringBuilder.append(getYearPublished());
-            }
-
-            return stringBuilder.toString();
+        public String getFirstPublishDate() throws ParseException {
+            return !StringUtils.isEmpty(getMonthPublished()) && !StringUtils.isEmpty(getYearPublished()) ?
+                new SimpleDateFormat(DATE_FORMAT)
+                .format(new SimpleDateFormat(FIRST_PUBLISH_DATE_FORMAT).parse(getYearPublished() + "-" + getMonthPublished() + "-" + DEFAULT_DAY_NUMBER)) : "";
         }
 
         @JsonIgnore
         public String getYearPublished() {
-            return getLocalizedTitle(applicationNotes.getYearPublished());
+            return getTagTitle(applicationNotes.getYearPublished());
         }
 
         @JsonIgnore
         public String getMonthPublished() {
-            return getLocalizedTitle(applicationNotes.getMonthPublished());
+            return getTagTitle(applicationNotes.getMonthPublished());
         }
 
         public String getLastPublishDate() {
@@ -74,8 +69,8 @@ public class AppnotePageAnalyticsModel extends AbstractAnalyticsModel {
         }
 
         public List<String> getTags() {
-            List<String> tagList = getLocalizedTitles(applicationNotes.getAuthor());
-            tagList.addAll(getLocalizedTitles(applicationNotes.getAffiliations()));
+            List<String> tagList = getTagTitles(applicationNotes.getAuthor());
+            tagList.addAll(getTagTitles(applicationNotes.getAffiliations()));
             return tagList;
         }
 
