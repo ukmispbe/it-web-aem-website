@@ -3,6 +3,7 @@ package com.waters.aem.core.tagging;
 import com.day.cq.commons.Filter;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.tagging.Tag;
+import com.google.common.base.Objects;
 import com.google.common.collect.Iterators;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
@@ -152,6 +153,14 @@ public final class WatersTag implements Tag {
     @Override
     public String getPath() {
         return tag.getPath();
+    }
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this)
+            .add("tagID", getTagID())
+            .add("title", getTitle())
+            .toString();
     }
 
     private String getLocalizedTitle(final Locale locale, final boolean fallback) {
