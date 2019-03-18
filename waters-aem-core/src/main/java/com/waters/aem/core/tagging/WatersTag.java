@@ -12,6 +12,7 @@ import javax.annotation.Nonnull;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 
 public final class WatersTag implements Tag {
 
@@ -98,7 +99,9 @@ public final class WatersTag implements Tag {
 
     @Override
     public Tag getParent() {
-        return new WatersTag(tag.getParent());
+        return Optional.ofNullable(tag.getParent())
+            .map(WatersTag ::new)
+            .orElse(null);
     }
 
     @Override
