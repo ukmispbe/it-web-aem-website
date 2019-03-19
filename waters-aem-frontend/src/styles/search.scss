@@ -192,7 +192,7 @@ div.cmp-search__no-results {
         display: none;
         @include font-utility;
         border: 1px solid $color-border-dark;
-        padding: $space-xs ($space-xl +.1em) $space-xs $space-s;
+        padding: $space-xs ($space-xl - .25em) $space-xs $space-s;
         margin-bottom: $space-xl;
         position: relative;
         text-decoration: none;
@@ -236,8 +236,8 @@ div.cmp-search__no-results {
                 position: fixed;
                 background-color: $color-white;
                 z-index: 1;
-                width: 103%;
-                top: 77px;
+                width: 101%;
+                top: 76px;
                 box-shadow: $shadow;
                 border:none;
                 margin: 0 0 0 -7%;
@@ -311,7 +311,7 @@ div.cmp-search__no-results {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: rgba(255, 255, 255, 0);
+    background-color: rgba(255, 255, 255, 0.8);
     width: 100%;
     height: 100%;
     z-index: 9;
@@ -323,4 +323,16 @@ div.cmp-search__no-results {
 html.showing-spinner {
     overflow: hidden;
     height: 100%;
+}
+
+.show-sort-filters {
+    @include mobile {
+        .cmp-search-show-btn {
+            .btn-show-sort-filter {
+                &--sticky {
+                    display: none;
+                }
+            }
+        }
+    }
 }
