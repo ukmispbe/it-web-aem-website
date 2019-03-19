@@ -50,7 +50,7 @@ public final class SitemapIndexServlet extends SlingSafeMethodsServlet {
         final List<PageDecorator> languageRootPages = siteRepository.getLanguageRootPages(
             request.getResourceResolver());
 
-        LOG.info("creating sitemap index for {} language root pages", languageRootPages.size());
+        LOG.info("creating sitemap index for {} language root page(s)", languageRootPages.size());
 
         final XMLOutputFactory outputFactory = XMLOutputFactory.newFactory();
 
@@ -78,9 +78,7 @@ public final class SitemapIndexServlet extends SlingSafeMethodsServlet {
         throws XMLStreamException {
         stream.writeStartElement(NS, "sitemap");
 
-        final String loc = externalizer.externalLink(resourceResolver, Externalizer.PUBLISH, page.getHref());
-
-        writeElement(stream, "loc", loc);
+        writeElement(stream, "loc", externalizer.externalLink(resourceResolver, Externalizer.PUBLISH, page.getHref()));
 
         final Calendar lastModified = page.getLastModified();
 
