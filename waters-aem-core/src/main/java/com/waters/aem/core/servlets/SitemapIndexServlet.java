@@ -4,6 +4,7 @@ import com.day.cq.commons.Externalizer;
 import com.google.common.base.Charsets;
 import com.google.common.net.MediaType;
 import com.icfolson.aem.library.api.page.PageDecorator;
+import com.icfolson.aem.library.core.link.builders.factory.LinkBuilderFactory;
 import com.waters.aem.core.services.SiteRepository;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -74,11 +75,16 @@ public final class SitemapIndexServlet extends SlingSafeMethodsServlet {
         }
     }
 
-    private void write(PageDecorator page, XMLStreamWriter stream, ResourceResolver resourceResolver)
+    private void write(final PageDecorator page, final XMLStreamWriter stream, final ResourceResolver resourceResolver)
         throws XMLStreamException {
         stream.writeStartElement(NS, "sitemap");
 
-        writeElement(stream, "loc", externalizer.externalLink(resourceResolver, Externalizer.PUBLISH, page.getHref()));
+        writeElement(stream, "loc", externalizer.externalLink(resourceResolver, Externalizer.PUBLISH,
+            LinkBuilderFactory.forPage(page)
+                .addSelector("sitemap")
+                .setExtension("xml")
+                .build()
+                .getHref()));
 
         final Calendar lastModified = page.getLastModified();
 
