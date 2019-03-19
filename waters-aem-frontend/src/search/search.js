@@ -59,7 +59,7 @@ class Search extends Component {
             selectedFacets: this.query.selectedFacets || {},
             unappliedFilters: {},
             isDesktop: false,
-            initialRender: (this.query.keyword === 'undefined' || this.query.keyword === '*:*') ? true : false
+            initialRender: true,
         });
 
         const checkWindowWidth = () => {
@@ -80,7 +80,7 @@ class Search extends Component {
         if (this.state.initialRender != true) {
             this.performSearch();
         } else {
-            this.setState({initialRender: false});
+            this.setState({ initialRender: false });
         }
     }
 
@@ -158,186 +158,103 @@ class Search extends Component {
         const sortOption =
             parseInt(e.target.value) === 1 ? 'most-relevant' : 'most-recent';
         const state = this.state;
-        const searchParams = this.state.searchParams || {};
 
-        if (state.isDesktop) {
-            this.setState(Object.assign({}, state, { sort: sortOption }));
+        this.setState(Object.assign({}, state, { sort: sortOption }));
 
-            this.pushToHistory(
-                {
-                    keyword: state.query,
-                    page: 1,
-                    sort: sortOption,
-                },
-                state.selectedFacets
-            );
-        } else {
-            const newState = Object.assign({}, state);
-            newState.unappliedFilters.sort = sortOption;
-            this.setState(newState);
-        }
+        this.pushToHistory(
+            {
+                keyword: state.query,
+                page: 1,
+                sort: sortOption,
+            },
+            state.selectedFacets
+        );
     }
 
     filterSelectHandler(facet, categoryId, e) {
-        const state = this.state;
         const isChecked = e.target.checked;
 
-        if (state.isDesktop) {
-            const newState = Object.assign({}, this.state);
-            if (isChecked) {
-                if (!newState.selectedFacets[`${categoryId}`]) {
-                    newState.selectedFacets[`${categoryId}`] = [];
-                }
-                newState.selectedFacets[`${categoryId}`].push(facet);
-            } else {
-                const filteredArr = newState.selectedFacets[
-                    `${categoryId}`
-                ].filter((f, index) => {
-                    if (f === facet) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                });
-
-                newState.selectedFacets[`${categoryId}`] = filteredArr;
+        const newState = Object.assign({}, this.state);
+        if (isChecked) {
+            if (!newState.selectedFacets[`${categoryId}`]) {
+                newState.selectedFacets[`${categoryId}`] = [];
             }
-            newState.searchParams.page = 1;
-            this.setState(newState);
-            setTimeout(
-                () =>
-                    this.pushToHistory(
-                        this.state.searchParams,
-                        this.state.selectedFacets
-                    ),
-                0
-            );
+            newState.selectedFacets[`${categoryId}`].push(facet);
         } else {
-            const unappliedState = Object.assign({}, this.state);
-            if (isChecked) {
-                if (
-                    !unappliedState.unappliedFilters.selectedFacets[
-                        `${categoryId}`
-                    ]
-                ) {
-                    unappliedState.unappliedFilters.selectedFacets[
-                        `${categoryId}`
-                    ] = [];
-                }
-                unappliedState.unappliedFilters.selectedFacets[
-                    `${categoryId}`
-                ].push(facet);
-            } else {
-                const filteredArr = unappliedState.unappliedFilters.selectedFacets[
-                    `${categoryId}`
-                ].filter((f, index) => {
+            const filteredArr = newState.selectedFacets[`${categoryId}`].filter(
+                (f, index) => {
                     if (f === facet) {
                         return false;
                     } else {
                         return true;
                     }
-                });
+                }
+            );
 
-                unappliedState.unappliedFilters.selectedFacets[
-                    `${categoryId}`
-                ] = filteredArr;
-            }
-
-            this.setState(unappliedState);
+            newState.selectedFacets[`${categoryId}`] = filteredArr;
         }
+        newState.searchParams.page = 1;
+        this.setState(newState);
+        setTimeout(
+            () =>
+                this.pushToHistory(
+                    this.state.searchParams,
+                    this.state.selectedFacets
+                ),
+            0
+        );
     }
 
     clearTag() {
-        if (this.state.isDesktop) {
-            const newState = Object.assign({}, this.state);
-            newState.selectedFacets = {};
-            newState.searchParams.page = 1;
-            this.setState(newState);
+        const newState = Object.assign({}, this.state);
+        newState.selectedFacets = {};
+        newState.searchParams.page = 1;
+        this.setState(newState);
 
-            setTimeout(
-                () =>
-                    this.pushToHistory(
-                        this.state.searchParams,
-                        this.state.selectedFacets
-                    ),
-                0
-            );
-        } else {
-            const unappliedState = Object.assign({}, this.state);
-            unappliedState.unappliedFilters.selectedFacets = {};
-            this.setState(unappliedState);
-        }
+        setTimeout(
+            () =>
+                this.pushToHistory(
+                    this.state.searchParams,
+                    this.state.selectedFacets
+                ),
+            0
+        );
     }
 
     removeTag(tag) {
-        if (this.state.isDesktop) {
-            const newState = Object.assign({}, this.state);
-            const filteredArr = newState.selectedFacets[
-                `${tag.categoryId}`
-            ].filter((f, index) => {
+        const newState = Object.assign({}, this.state);
+        const filteredArr = newState.selectedFacets[`${tag.categoryId}`].filter(
+            (f, index) => {
                 if (f === tag.facet) {
                     return false;
                 } else {
                     return true;
                 }
-            });
+            }
+        );
 
-            newState.selectedFacets[`${tag.categoryId}`] = filteredArr;
-            newState.searchParams.page = 1;
-            this.setState(newState);
+        newState.selectedFacets[`${tag.categoryId}`] = filteredArr;
+        newState.searchParams.page = 1;
+        this.setState(newState);
 
-            this.pushToHistory(
-                this.state.searchParams,
-                this.state.selectedFacets
-            );
-        } else {
-            const unappliedState = Object.assign({}, this.state);
-            const filteredArr = unappliedState.unappliedFilters.selectedFacets[
-                `${tag.categoryId}`
-            ].filter((f, index) => {
-                if (f === tag.facet) {
-                    return false;
-                } else {
-                    return true;
-                }
-            });
-
-            unappliedState.unappliedFilters.selectedFacets[
-                `${tag.categoryId}`
-            ] = filteredArr;
-            this.setState(unappliedState);
-        }
+        this.pushToHistory(this.state.searchParams, this.state.selectedFacets);
     }
 
     applyFilters() {
         document.body.classList.remove('show-sort-filters');
         document.body.classList.remove('filter-active');
-        const newSearch = Object.assign({}, this.state.searchParams, {
-            sort: this.state.unappliedFilters.sort,
-            page: 1,
-        });
-        const selectedFacets = Object.assign(
-            {},
-            this.state.unappliedFilters.selectedFacets
-        );
-        this.setState(
-            Object.assign({}, this.state, {
-                sort: this.state.unappliedFilters.sort,
-                selectedFacets: this.state.unappliedFilters.selectedFacets,
-                unappliedFilters: {},
-                searchParams: {page: 1},
-            })
-        );
 
-        setTimeout(() => this.pushToHistory(newSearch, selectedFacets), 0);
+        this.clearUnappliedFilters();
     }
 
     clearUnappliedFilters() {
-        this.setState(
-            Object.assign({}, this.state, {
-                unappliedFilters: {},
-            })
-        );
+        this.setState({
+            savedState: {},
+        });
+    }
+
+    resetToSavedState() {
+        this.setState(Object.assign({}, this.state.savedState));
     }
 
     collapseFilters() {
@@ -349,16 +266,10 @@ class Search extends Component {
 
     setupFilters() {
         if (!this.state.isDesktop) {
-            this.setState(
-                Object.assign({}, this.state, {
-                    unappliedFilters: {
-                        selectedFacets: Object.assign(
-                            {},
-                            this.state.selectedFacets
-                        ),
-                    },
-                })
-            );
+            const state = Object.assign({}, this.state);
+            this.setState({
+                savedState: state,
+            });
         }
     }
 
@@ -387,9 +298,7 @@ class Search extends Component {
             <div className="container__left cmp-search__sort-filter">
                 <BtnHideSortFilter
                     text={this.props.searchText}
-                    clearUnappliedFilters={this.clearUnappliedFilters.bind(
-                        this
-                    )}
+                    resetToSavedState={this.resetToSavedState.bind(this)}
                     collapseFilters={this.collapseFilters}
                 />
 
@@ -398,7 +307,7 @@ class Search extends Component {
                     applyFilters={this.applyFilters.bind(this)}
                 />
 
-                <BtnDoneSortFilter 
+                <BtnDoneSortFilter
                     text={this.props.searchText}
                     collapseFilters={this.collapseFilters}
                 />
@@ -425,12 +334,7 @@ class Search extends Component {
                         filterMap={this.props.filterMap}
                         defaultFacet={this.props.defaultFacet}
                         selectHandler={this.filterSelectHandler.bind(this)}
-                        selectedFacets={
-                            state.unappliedFilters &&
-                            state.unappliedFilters.selectedFacets
-                                ? state.unappliedFilters.selectedFacets
-                                : state.selectedFacets
-                        }
+                        selectedFacets={state.selectedFacets}
                         filterTags={filterTags}
                     />
                 </div>
@@ -476,32 +380,30 @@ class Search extends Component {
                     locale={locale}
                 />
 
-                {state.count > this.props.searchDefaults.rows ? 
-                    (
-                        <ReactPaginate
-                            pageCount={state.pagination.amount}
-                            forcePage={
-                                state.pagination.current
-                                    ? state.pagination.current - 1
-                                    : 0
-                            }
-                            pageRangeDisplayed={8}
-                            marginPagesDisplayed={0}
-                            containerClassName="paginate__container"
-                            onPageChange={this.paginationClickHandler.bind(this)}
-                            breakLabel={'…'}
-                            previousLabel={previousIcon}
-                            nextLabel={
-                                <ReactSVG src={this.props.searchText.nextIcon} />
-                            }
-                            initialPage={
-                                state.pagination.current
-                                    ? state.pagination.current - 1
-                                    : 0
-                            }
-                        />
-                    ) : null
-                }
+                {state.count > this.props.searchDefaults.rows ? (
+                    <ReactPaginate
+                        pageCount={state.pagination.amount}
+                        forcePage={
+                            state.pagination.current
+                                ? state.pagination.current - 1
+                                : 0
+                        }
+                        pageRangeDisplayed={8}
+                        marginPagesDisplayed={0}
+                        containerClassName="paginate__container"
+                        onPageChange={this.paginationClickHandler.bind(this)}
+                        breakLabel={'…'}
+                        previousLabel={previousIcon}
+                        nextLabel={
+                            <ReactSVG src={this.props.searchText.nextIcon} />
+                        }
+                        initialPage={
+                            state.pagination.current
+                                ? state.pagination.current - 1
+                                : 0
+                        }
+                    />
+                ) : null}
             </div>
         );
         return (

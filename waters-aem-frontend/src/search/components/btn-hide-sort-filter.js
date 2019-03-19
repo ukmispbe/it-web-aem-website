@@ -13,7 +13,7 @@ class HideSortFilter extends Component {
         document.body.classList.remove('filter-active');
         this.setState({ showSortFilters: true });
 
-        this.props.clearUnappliedFilters();
+        this.props.resetToSavedState();
         this.props.collapseFilters();
     }
 
