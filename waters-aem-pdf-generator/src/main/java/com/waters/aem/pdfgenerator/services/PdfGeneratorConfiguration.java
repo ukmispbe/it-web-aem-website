@@ -7,6 +7,10 @@ import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 @ObjectClassDefinition(name = "PDF Generator Configuration")
 public @interface PdfGeneratorConfiguration {
 
+    @AttributeDefinition(name = "Enable PDF Generator?",
+        description = "Enable replication event handlers for PDF generation.")
+    boolean enabled() default false;
+
     @AttributeDefinition(name = "PDF Base URI",
         description = "Base URI for converting HTML to PDF elements.")
     String baseUri() default "https://nextgen.waters.com";

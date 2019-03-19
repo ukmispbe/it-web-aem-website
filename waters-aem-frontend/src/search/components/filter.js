@@ -13,10 +13,6 @@ class Filter extends Component {
         };
     }
 
-    componentWillMount() {}
-
-    componentWillReceiveProps() {}
-
     filterHandler(e, index) {
         const state = this.state;
         const lastIndex = this.state.activeIndex;
@@ -98,6 +94,7 @@ class Filter extends Component {
                 />
             );
         });
+
         return <ul>{filters}</ul>;
     }
 
