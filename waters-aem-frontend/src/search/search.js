@@ -59,6 +59,7 @@ class Search extends Component {
             selectedFacets: this.query.selectedFacets || {},
             unappliedFilters: {},
             isDesktop: false,
+            initialRender: (this.query.keyword === 'undefined' || this.query.keyword === '*:*') ? true : false
         });
 
         const checkWindowWidth = () => {
@@ -76,7 +77,11 @@ class Search extends Component {
     }
 
     componentWillReceiveProps() {
-        this.performSearch();
+        if (this.state.initialRender != true) {
+            this.performSearch();
+        } else {
+            this.setState({initialRender: false});
+        }
     }
 
     performSearch(q) {

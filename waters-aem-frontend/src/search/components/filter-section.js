@@ -7,13 +7,8 @@ class FilterSection extends Component {
         this.state = {
             showSearch: false,
             showSearchMin: 2, //Set proper default here
-            initialItems: props.facet.facets,
-            items: [],
+            items: props.facet.facets,
         };
-    }
-
-    componentWillMount() {
-        this.setState({ items: this.state.initialItems });
     }
 
     filterList(event) {
@@ -34,7 +29,10 @@ class FilterSection extends Component {
     }
 
     getFacetOptions() {
-        const options = this.state.items;
+        const options =
+            this.props.facet && this.props.facet.facets
+                ? this.props.facet.facets
+                : [];
         const option = options.map((item, index) => {
             let checked = false;
             if (this.props.selectedFacets[this.props.facet.name]) {
