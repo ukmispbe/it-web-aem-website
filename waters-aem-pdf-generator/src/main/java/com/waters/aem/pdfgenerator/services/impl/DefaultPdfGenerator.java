@@ -44,11 +44,18 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     @Reference
     private Externalizer externalizer;
 
+    private volatile boolean enabled;
+
     private volatile String baseUri;
 
     private volatile String username;
 
     private volatile String password;
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
 
     @Override
     public ByteArrayOutputStream generatePdfDocumentFromHtml(final PageDecorator page, final boolean publish)
@@ -57,8 +64,7 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     }
 
     @Override
-    public Asset generatePdfDocumentAssetFromHtml(final PageDecorator page)
-        throws IOException {
+    public Asset generatePdfDocumentAssetFromHtml(final PageDecorator page) throws IOException {
         final Asset asset;
 
         try (final ByteArrayOutputStream pdfOutputStream = createPdfOutputStream(page, true)) {
@@ -102,6 +108,7 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     @Activate
     @Modified
     protected void activate(final PdfGeneratorConfiguration configuration) {
+        enabled = configuration.enabled();
         baseUri = configuration.baseUri();
         username = configuration.username();
         password = configuration.password();

@@ -13,6 +13,13 @@ import java.io.IOException;
 public interface PdfGenerator {
 
     /**
+     * Check if the PDF generator service is enabled.
+     *
+     * @return true if enabled
+     */
+    boolean isEnabled();
+
+    /**
      * Generate a PDF document from the HTML markup of the current page.
      *
      * @param page application notes page
