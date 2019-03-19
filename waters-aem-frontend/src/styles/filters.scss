@@ -425,8 +425,7 @@ $header-height: 74px;
 
 .show-sort-filters {
     @include tablet-and-under {
-        .cmp-search__sort-filter,
-        .overlay {
+        .cmp-search__sort-filter {
             display: block;
         }
         .cmp-search__sort-filter {
@@ -481,6 +480,17 @@ $header-height: 74px;
         }
         .cmp-search__sort-filter {
             padding-top: $header-height;
+        }
+    }
+    @include mobile {
+        .cmp-search__sort-filter {
+            max-height: none;
+            overflow: visible;
+        }
+    }
+    @include tablet {
+        .overlay {
+            display: block;
         }
     }
 }

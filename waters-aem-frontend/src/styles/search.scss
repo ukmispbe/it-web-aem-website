@@ -326,6 +326,11 @@ html.showing-spinner {
 }
 
 .show-sort-filters {
+    @include tablet-and-under {
+        #surveyContent {
+            display: none;
+        }
+    }
     @include mobile {
         .cmp-search-show-btn {
             .btn-show-sort-filter {
@@ -334,5 +339,12 @@ html.showing-spinner {
                 }
             }
         }
+        .cmp-search__container, .cmp-external-footer {
+            display: none;
+        }
+    }
+
+    @include tablet {
+        height: 100vh;
     }
 }
