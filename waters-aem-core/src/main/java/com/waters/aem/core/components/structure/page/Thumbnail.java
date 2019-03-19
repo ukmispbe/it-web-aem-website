@@ -28,7 +28,7 @@ public final class Thumbnail {
 
     static final String FILE_NAME = "thumbnail";
 
-    private static final String RENDITION_PREFIX = "cq5dam.thumbnail.140.100.png";
+    private static final String RENDITION_PREFIX = "cq5dam.thumbnail.319.212.png";
 
     @Inject
     private ResourceResolver resourceResolver;
