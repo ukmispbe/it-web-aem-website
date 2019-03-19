@@ -57,7 +57,7 @@ public final class PdfReplicationPreprocessor implements Preprocessor {
         throws ReplicationException {
         final ReplicationActionType replicationActionType = replicationAction.getType();
 
-        if (SUPPORTED_ACTION_TYPES.contains(replicationAction.getType())) {
+        if (pdfGenerator.isEnabled() && SUPPORTED_ACTION_TYPES.contains(replicationAction.getType())) {
             try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
                 final PageManagerDecorator pageManager = resourceResolver.adaptTo(PageManagerDecorator.class);
 

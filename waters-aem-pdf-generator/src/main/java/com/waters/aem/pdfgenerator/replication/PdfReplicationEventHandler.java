@@ -6,6 +6,7 @@ import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.waters.aem.core.services.AbstractReplicationEventHandler;
 import com.waters.aem.core.utils.Templates;
 import com.waters.aem.pdfgenerator.job.PdfGeneratorJobConsumer;
+import com.waters.aem.pdfgenerator.services.PdfGenerator;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
@@ -39,11 +40,14 @@ public final class PdfReplicationEventHandler extends AbstractReplicationEventHa
     @Reference
     private JobManager jobManager;
 
+    @Reference
+    private PdfGenerator pdfGenerator;
+
     @Override
     protected boolean accepts(final String path, final ReplicationActionType replicationActionType) {
         boolean accepted = false;
 
-        if (ReplicationActionType.ACTIVATE.equals(replicationActionType)) {
+        if (pdfGenerator.isEnabled() && ReplicationActionType.ACTIVATE.equals(replicationActionType)) {
             try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
                 final PageDecorator page = resourceResolver.adaptTo(PageManagerDecorator.class).getPage(path);
 
