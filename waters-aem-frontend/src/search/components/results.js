@@ -12,7 +12,7 @@ const Result = ({ result, locale }) => {
         </div>
     );
 
-    const date = new Date(result.yearpublished);
+    const date = new Date(result.datepublished);
     const monthName = monthNameFormatter(date, locale);
     const formattedDate = monthName + ' ' + date.getFullYear();
 
@@ -41,7 +41,7 @@ const Result = ({ result, locale }) => {
                         />
                     </div>
                 </div>
-                {result.yearpublished && (
+                {result.datepublished && (
                     <span className="cmp-search__results-item-date">
                         {formattedDate}
                     </span>
