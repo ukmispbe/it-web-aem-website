@@ -48,22 +48,24 @@ export class SearchService {
         if (Array.isArray(obj.facet)) {
             for (let i = 0; i < obj.facet.length; i++) {
                 const facetSplit = obj.facet[i].split(':');
+                const decodedFacetValue = decodeURIComponent(facetSplit[1]);
 
                 if (!obj.selectedFacets[facetSplit[0]]) {
                     obj.selectedFacets[facetSplit[0]] = [];
                 }
 
-                obj.selectedFacets[facetSplit[0]].push(facetSplit[1]);
+                obj.selectedFacets[facetSplit[0]].push(decodedFacetValue);
             }
         } else {
             if (obj.facet) {
                 const facetSplit = obj.facet.split(':');
+                const decodedFacetValue = decodeURIComponent(facetSplit[1]);
 
                 if (!obj.selectedFacets[facetSplit[0]]) {
                     obj.selectedFacets[facetSplit[0]] = [];
                 }
 
-                obj.selectedFacets[facetSplit[0]].push(facetSplit[1]);
+                obj.selectedFacets[facetSplit[0]].push(decodedFacetValue);
             }
         }
 
@@ -88,7 +90,7 @@ export class SearchService {
 
                 if (facet) {
                     for (let n = 0; n < facet.length; n++) {
-                        const f = facet[n];
+                        const f = encodeURIComponent(facet[n]);
                         paramString =
                             paramString + `&facet=${key}:${encodeURI(f)}`;
                     }
