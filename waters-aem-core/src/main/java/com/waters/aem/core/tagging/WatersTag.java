@@ -29,6 +29,7 @@ public final class WatersTag implements Tag {
 
     @CheckForNull
     @Override
+    @SuppressWarnings("squid:S00119")
     public <AdapterType> AdapterType adaptTo(@Nonnull final Class<AdapterType> type) {
         return tag.adaptTo(type);
     }
