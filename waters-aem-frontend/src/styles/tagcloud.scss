@@ -2,6 +2,7 @@
     float: left;
     list-style: none;
     padding-left:0.1em;
+    margin-bottom: $space-l;
 }
 
 .cmp-tag-cloud__item {
@@ -12,14 +13,13 @@
     background-color: $color-blue-10;
     a {
         text-decoration: none;
+        color: $color-link-hover;
     }
     &:hover {
         background-color: $color-blue-20;
-        color: $color-link-hover;
         cursor:pointer;
     }
     &:active {
         background-color: $color-blue-10;
-        color: $color-link;
     }
 }
