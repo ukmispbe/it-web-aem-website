@@ -36,7 +36,7 @@ public final class LibraryPageJobConsumer extends AbstractJobConsumer {
     private LibraryPageManager libraryPageManager;
 
     @Override
-    protected void processJob(final String path) {
+    protected JobResult processJob(final String topic, final String path) {
         LOG.info("processing library page job for path : {}", path);
 
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
@@ -49,5 +49,7 @@ public final class LibraryPageJobConsumer extends AbstractJobConsumer {
             // re-throw exception to cancel the job
             throw new RuntimeException(e);
         }
+
+        return JobResult.OK;
     }
 }

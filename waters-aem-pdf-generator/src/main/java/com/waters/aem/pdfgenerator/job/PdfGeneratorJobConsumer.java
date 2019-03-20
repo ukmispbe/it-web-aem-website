@@ -37,7 +37,7 @@ public final class PdfGeneratorJobConsumer extends AbstractJobConsumer {
     private PdfGenerator pdfGenerator;
 
     @Override
-    protected void processJob(final String path) {
+    protected JobResult processJob(final String topic, final String path) {
         LOG.info("processing PDF generator job for path : {}", path);
 
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
@@ -50,5 +50,7 @@ public final class PdfGeneratorJobConsumer extends AbstractJobConsumer {
             // re-throw exception to cancel the job
             throw new RuntimeException(e);
         }
+
+        return JobResult.OK;
     }
 }

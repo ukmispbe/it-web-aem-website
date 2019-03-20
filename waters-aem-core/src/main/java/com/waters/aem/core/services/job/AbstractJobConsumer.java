@@ -22,14 +22,21 @@ public abstract class AbstractJobConsumer implements JobConsumer {
 
         final String path = job.getProperty(SlingConstants.PROPERTY_PATH, String.class);
 
-        processJob(path);
+        final JobResult result = processJob(job.getTopic(), path);
 
         final long duration = stopwatch.elapsed(TimeUnit.SECONDS);
 
-        LOG.info("finished processing job in {}s", duration);
+        LOG.info("finished processing job in {}s with result : {}", duration, result.name());
 
-        return JobResult.OK;
+        return result;
     }
 
-    protected abstract void processJob(final String path);
+    /**
+     * Process the current job for the given path and topic.
+     *
+     * @param topic job topic
+     * @param path resource path
+     * @return result
+     */
+    protected abstract JobResult processJob(final String topic, final String path);
 }
