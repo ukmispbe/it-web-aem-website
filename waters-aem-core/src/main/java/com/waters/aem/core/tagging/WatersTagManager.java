@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+@SuppressWarnings("squid:S1196")
 public final class WatersTagManager implements TagManager {
 
     private final TagManager tagManager;
