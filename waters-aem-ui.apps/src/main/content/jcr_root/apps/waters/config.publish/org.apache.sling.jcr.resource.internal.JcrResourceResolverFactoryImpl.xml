@@ -2,7 +2,7 @@
           jcr:primaryType="sling:OsgiConfig"
           resource.resolver.allowDirect="{Boolean}true"
           resource.resolver.manglenamespaces="{Boolean}true"
-          resource.resolver.map.location="/etc/map"
+          resource.resolver.map.location="/etc/map.publish"
           resource.resolver.mapping="[/-/,/content/waters/:/]"
           resource.resolver.searchpath="[/apps,/libs]"
           resource.resolver.virtual="[/:/]"
