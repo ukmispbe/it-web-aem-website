@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-@SuppressWarnings("squid:S1196")
+@SuppressWarnings("squid:RedundantThrowsDeclarationCheck")
 public final class WatersTagManager implements TagManager {
 
     private final TagManager tagManager;
@@ -181,6 +181,7 @@ public final class WatersTagManager implements TagManager {
 
     @Override
     @Deprecated
+    @SuppressWarnings("squid:MissingDeprecatedCheck,squid:S1133")
     public Session getSession() {
         return tagManager.getSession();
     }

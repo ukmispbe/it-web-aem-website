@@ -31,7 +31,7 @@ public final class WatersTagAdapterFactory implements AdapterFactory {
 
     @CheckForNull
     @Override
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("squid:S00119")
     public <AdapterType> AdapterType getAdapter(@Nonnull final Object adaptable,
         @Nonnull final Class<AdapterType> type) {
         AdapterType adapter = null;
