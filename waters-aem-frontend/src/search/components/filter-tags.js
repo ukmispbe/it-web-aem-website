@@ -63,10 +63,14 @@ const FilterTags = props => {
         : null;
 
         let showClearButton = false;
+
         if (Object.keys(props.selectedFacets)[0]) {
-            if (Object.values(props.selectedFacets).length > 0) {
-                for (var i = 0; i < Object.values(props.selectedFacets).length; i++) {
-                    if (Object.values(props.selectedFacets)[i].length > 0) {
+            const selectedFacets = Object.keys(props.selectedFacets).map(function(key) {
+                return props.selectedFacets[key];
+            });
+            if (selectedFacets.length > 0) {
+                for (var i = 0; i < selectedFacets.length; i++) {
+                    if (selectedFacets[i].length > 0) {
                         showClearButton = true;
                     }
                 }
