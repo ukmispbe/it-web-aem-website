@@ -21,6 +21,7 @@ import Spinner from './components/spinner';
 class Search extends Component {
     constructor() {
         super();
+        this.savedSelectFilterState = null;
     }
 
     componentWillMount() {
@@ -254,7 +255,9 @@ class Search extends Component {
     }
 
     resetToSavedState() {
-        this.setState(Object.assign({}, this.state.savedState));
+        var savedState = this.state.savedState;
+        savedState.selectedFacets = JSON.parse(this.savedSelectFilterState);
+        this.setState(Object.assign({}, savedState));
     }
 
     collapseFilters() {
@@ -267,6 +270,7 @@ class Search extends Component {
     setupFilters() {
         if (!this.state.isDesktop) {
             const state = Object.assign({}, this.state);
+            this.savedSelectFilterState = JSON.stringify(state.selectedFacets);
             this.setState({
                 savedState: state,
             });
