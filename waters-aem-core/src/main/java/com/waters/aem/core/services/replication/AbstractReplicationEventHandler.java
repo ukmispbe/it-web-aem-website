@@ -1,4 +1,4 @@
-package com.waters.aem.core.services;
+package com.waters.aem.core.services.replication;
 
 import com.day.cq.replication.ReplicationActionType;
 import org.apache.sling.api.SlingConstants;

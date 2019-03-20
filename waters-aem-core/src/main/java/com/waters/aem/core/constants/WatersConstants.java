@@ -27,6 +27,8 @@ public final class WatersConstants {
 
     public static final String EXTENSION_PDF = "pdf";
 
+    public static final String TAG_APPLICATIONS_LIBRARY = "waters:category/applicationslibrary";
+
     public static final int LEVEL_SITE_ROOT = 2;
 
     private WatersConstants() {
