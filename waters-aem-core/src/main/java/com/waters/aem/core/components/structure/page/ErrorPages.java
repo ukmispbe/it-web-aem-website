@@ -27,6 +27,7 @@ public final class ErrorPages {
         fieldDescription = "Enter or Select The Path to Error Pages")
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @Inject
+    @SuppressWarnings("squid:S1700")
     private String errorPages;
 
     public String getErrorPages() {

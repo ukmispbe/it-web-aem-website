@@ -127,6 +127,7 @@ public final class ApplicationNotes {
             .addAll(market)
             .addAll(compoundMatrix)
             .addAll(affiliations)
+            .addAll(yearPublished)
             .build();
     }
 

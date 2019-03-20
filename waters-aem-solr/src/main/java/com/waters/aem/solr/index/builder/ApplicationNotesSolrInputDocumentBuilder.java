@@ -76,7 +76,7 @@ public final class ApplicationNotesSolrInputDocumentBuilder extends AbstractSolr
 
             final Instant date = LocalDateTime.of(year, month, 1, 0, 0).toInstant(ZoneOffset.UTC);
 
-            document.setField("yearpublished", DateTimeFormatter.ISO_INSTANT.format(date));
+            document.setField("datepublished", DateTimeFormatter.ISO_INSTANT.format(date));
         }
     }
 }

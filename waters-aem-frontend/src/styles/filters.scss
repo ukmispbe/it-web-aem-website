@@ -503,6 +503,11 @@ $header-height: 74px;
             max-height: none;
             overflow: visible;
         }
+        &.filter-active {
+            .cmp-search__sort-filter__container {
+                overflow: visible;
+            }
+        }
     }
     @include tablet {
         .overlay {
