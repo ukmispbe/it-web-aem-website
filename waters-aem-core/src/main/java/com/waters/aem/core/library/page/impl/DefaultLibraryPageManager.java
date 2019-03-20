@@ -5,6 +5,7 @@ import com.day.cq.replication.ReplicationActionType;
 import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.WCMException;
+import com.day.cq.wcm.msm.api.RolloutManager;
 import com.day.text.Text;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
@@ -30,6 +31,9 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
 
     @Reference
     private Replicator replicator;
+
+    @Reference
+    private RolloutManager rolloutManager;
 
     @Override
     public PageDecorator getLibraryPage(final LibraryAsset asset) {
@@ -69,6 +73,7 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
         }
 
         updateLibraryPageProperties(asset, libraryPage);
+        rolloutLibraryPage(libraryPage);
 
         try {
             replicator.replicate(resourceResolver.adaptTo(Session.class), ReplicationActionType.ACTIVATE,
@@ -119,6 +124,14 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
 
             throw e;
         }
+    }
+
+    private void rolloutLibraryPage(final PageDecorator libraryPage) throws WCMException {
+        final RolloutManager.RolloutParams rolloutParams = new RolloutManager.RolloutParams();
+
+        rolloutParams.master = libraryPage;
+
+        rolloutManager.rollout(rolloutParams);
     }
 
     private String getLibraryPagePath(final LibraryAsset asset) {
