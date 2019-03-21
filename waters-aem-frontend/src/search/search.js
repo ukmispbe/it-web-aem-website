@@ -245,6 +245,10 @@ class Search extends Component {
         document.body.classList.remove('show-sort-filters');
         document.body.classList.remove('filter-active');
 
+        setTimeout(() => {
+            window.scrollTo(0, 0);
+        }, 1000);
+
         this.clearUnappliedFilters();
     }
 
