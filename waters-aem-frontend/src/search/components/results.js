@@ -16,6 +16,14 @@ const Result = ({ result, locale }) => {
     const monthName = monthNameFormatter(date, locale);
     const formattedDate = monthName + ' ' + date.getFullYear();
 
+    const setScrollPosition = () => {
+        const scrolled =
+            (window.pageYOffset || window.document.scrollTop) -
+            (window.document.clientTop || 0);
+
+        window.sessionStorage.setItem('waters.previousPagePosition', scrolled);
+    };
+
     return (
         <li className="cmp-search__results-item" key={result.literaturecode}>
             {result.thumbnail && thumbnail}
@@ -24,7 +32,11 @@ const Result = ({ result, locale }) => {
                     result.thumbnail ? 'cmp-search__results-body--image' : ''
                 }`}
             >
-                <a href={result.url} className="cmp-search__results-item-link">
+                <a
+                    href={result.url}
+                    onClick={() => setScrollPosition()}
+                    className="cmp-search__results-item-link"
+                >
                     <span className="cmp-search__results-item-title">
                         {result.title}
                     </span>
