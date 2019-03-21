@@ -29,6 +29,8 @@ public final class WatersConstants {
 
     public static final String TAG_APPLICATIONS_LIBRARY = "waters:category/applicationslibrary";
 
+    public static final String PROPERTY_LIBRARY_ASSET_PATH = "libraryAssetPath";
+
     public static final int LEVEL_SITE_ROOT = 2;
 
     private WatersConstants() {

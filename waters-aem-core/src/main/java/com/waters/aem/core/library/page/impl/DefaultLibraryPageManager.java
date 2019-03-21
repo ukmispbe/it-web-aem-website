@@ -5,6 +5,8 @@ import com.day.cq.replication.ReplicationActionType;
 import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.WCMException;
+import com.day.cq.wcm.msm.api.LiveRelationship;
+import com.day.cq.wcm.msm.api.LiveRelationshipManager;
 import com.day.cq.wcm.msm.api.RolloutManager;
 import com.day.text.Text;
 import com.icfolson.aem.library.api.page.PageDecorator;
@@ -22,6 +24,7 @@ import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.jcr.RangeIterator;
 import javax.jcr.Session;
 
 @Component(service = LibraryPageManager.class)
@@ -34,6 +37,9 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
 
     @Reference
     private RolloutManager rolloutManager;
+
+    @Reference
+    private LiveRelationshipManager liveRelationshipManager;
 
     @Override
     public PageDecorator getLibraryPage(final LibraryAsset asset) {
@@ -73,16 +79,12 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
         }
 
         updateLibraryPageProperties(asset, libraryPage);
+
+        // roll out changes to all live copies
         rolloutLibraryPage(libraryPage);
 
-        try {
-            replicator.replicate(resourceResolver.adaptTo(Session.class), ReplicationActionType.ACTIVATE,
-                libraryPagePath);
-        } catch (ReplicationException e) {
-            LOG.error("error replicating library page : " + libraryPagePath, e);
-
-            throw e;
-        }
+        // replicate library page live copies
+        replicateLibraryPages(resourceResolver, libraryPage);
 
         return libraryPage;
     }
@@ -115,7 +117,10 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
         final ValueMap properties = libraryPageContentResource.adaptTo(ModifiableValueMap.class);
 
         // copy all of the metadata properties from the asset to the page
-        properties.putAll(asset.getMetadata());
+        properties.putAll(asset.getProperties());
+
+        // set asset path on page for use in iframe component
+        properties.put(WatersConstants.PROPERTY_LIBRARY_ASSET_PATH, asset.getPath());
 
         try {
             resourceResolver.commit();
@@ -132,6 +137,29 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
         rolloutParams.master = libraryPage;
 
         rolloutManager.rollout(rolloutParams);
+    }
+
+    private void replicateLibraryPages(final ResourceResolver resourceResolver, final PageDecorator libraryPage)
+        throws ReplicationException, WCMException {
+        final RangeIterator liveRelationships = liveRelationshipManager.getLiveRelationships(
+            libraryPage.getContentResource(), null, null);
+
+        while (liveRelationships.hasNext()) {
+            final LiveRelationship liveRelationship = (LiveRelationship) liveRelationships.next();
+
+            LOG.info("replicating library page live copy : {}", liveRelationship);
+
+            final String targetPagePath = liveRelationship.getTargetPath();
+
+            try {
+                replicator.replicate(resourceResolver.adaptTo(Session.class), ReplicationActionType.ACTIVATE,
+                    targetPagePath);
+            } catch (ReplicationException e) {
+                LOG.error("error replicating library page live copy : " + targetPagePath, e);
+
+                throw e;
+            }
+        }
     }
 
     private String getLibraryPagePath(final LibraryAsset asset) {
