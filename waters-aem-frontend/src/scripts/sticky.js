@@ -1,10 +1,12 @@
 function handleSticky(targetClass, stickyClass) {
     const sourceClass = document.querySelector("."+targetClass);
-    const sourceTop = sourceClass.offsetTop;
-    if (window.scrollY > sourceTop) {
-        sourceClass.classList.add(stickyClass);
-    } else {
-        sourceClass.classList.remove(stickyClass);
+    if (sourceClass){
+        const sourceTop = sourceClass.offsetTop;
+            if (window.scrollY > sourceTop) {
+                sourceClass.classList.add(stickyClass);
+            } else {
+                sourceClass.classList.remove(stickyClass);
+            }
     }
 }
 

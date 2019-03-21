@@ -8,7 +8,7 @@
           priority.properties="[]"
           damassets.property=""
           damassets.types="[]"
-          exclude.property=""
+          exclude.property="hideInNav"
           include.inherit="{Boolean}true"
           extensionless.urls="{Boolean}false"
           remove.slash="{Boolean}false"
