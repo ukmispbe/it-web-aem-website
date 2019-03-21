@@ -55,14 +55,18 @@ public final class LibraryAssetReplicationPreprocessor extends AbstractReplicati
 
         final PageDecorator libraryPage = libraryPageManager.getLibraryPage(asset);
 
-        // deactivate/delete the previously replicated page
-        replicator.replicate(resourceResolver.adaptTo(Session.class), replicationActionType, libraryPage.getPath());
+        if (libraryPage == null) {
+            LOG.info("library page not found for asset : {}, ignoring", asset);
+        } else {
+            // deactivate/delete the previously replicated page
+            replicator.replicate(resourceResolver.adaptTo(Session.class), replicationActionType, libraryPage.getPath());
 
-        if (ReplicationActionType.DELETE.equals(replicationActionType)) {
-            try {
-                libraryPageManager.deleteLibraryPage(asset);
-            } catch (WCMException e) {
-                throw new ReplicationException(e);
+            if (ReplicationActionType.DELETE.equals(replicationActionType)) {
+                try {
+                    libraryPageManager.deleteLibraryPage(asset);
+                } catch (WCMException e) {
+                    throw new ReplicationException(e);
+                }
             }
         }
     }

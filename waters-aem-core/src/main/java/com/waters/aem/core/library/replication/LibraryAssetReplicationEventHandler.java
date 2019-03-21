@@ -38,7 +38,8 @@ public final class LibraryAssetReplicationEventHandler extends AbstractReplicati
 
     @Override
     protected boolean accepts(final String path, final ReplicationActionType replicationActionType) {
-        return path.startsWith(WatersConstants.DAM_PATH) && isLibraryAsset(path);
+        return ReplicationActionType.ACTIVATE.equals(replicationActionType) && path.startsWith(
+            WatersConstants.DAM_PATH) && isLibraryAsset(path);
     }
 
     @Override
