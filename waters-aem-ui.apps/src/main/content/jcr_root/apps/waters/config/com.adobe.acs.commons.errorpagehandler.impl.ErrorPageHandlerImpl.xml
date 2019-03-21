@@ -7,5 +7,5 @@
           serve-authenticated-from-cache="{Boolean}true"
           ttl="{Long}300"
           error-page.system-path="/us/en/errors/404"
-          paths="[/us/en:errors]"
+          paths="[/us/en/errors:404]"
           error-page.fallback-name="500"/>
