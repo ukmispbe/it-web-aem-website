@@ -188,7 +188,11 @@ class Search extends Component {
             scrolled
         );
 
-        window.scrollTo(0, 0);
+        const reactAppTop = this.refs.main.getBoundingClientRect().top - 72;
+
+        console.log(reactAppTop);
+
+        const searchTop = window.scrollTo(0, reactAppTop);
     }
 
     sortHandler(e) {
@@ -447,7 +451,7 @@ class Search extends Component {
             </div>
         );
         return (
-            <div>
+            <div ref="main">
                 {overlay}
                 {!state.loading && state.noResults ? null : aside}
                 {state.loading ? <Spinner loading={state.loading} /> : null}
