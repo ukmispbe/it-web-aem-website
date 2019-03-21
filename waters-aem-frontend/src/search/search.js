@@ -121,6 +121,33 @@ class Search extends Component {
             newState.facets = res.facets;
 
             this.setState(Object.assign({}, this.state, newState));
+
+            const scrollToPosition = window.sessionStorage.getItem(
+                'waters.previousPagePosition'
+            );
+
+            if (scrollToPosition) {
+                window.scrollTo(0, scrollToPosition);
+                window.sessionStorage.removeItem('waters.previousPagePosition');
+            }
+
+            const previousPagePosition = window.sessionStorage.getItem(
+                'waters.previousPaginationClick'
+            );
+
+            if (
+                this.props.history &&
+                this.props.history.action === 'POP' &&
+                previousPagePosition &&
+                previousPagePosition !== 'NaN'
+            ) {
+                setTimeout(() => {
+                    window.scrollTo(0, previousPagePosition);
+                    window.sessionStorage.removeItem(
+                        'waters.previousPaginationClick'
+                    );
+                }, 0);
+            }
         });
     }
 
@@ -141,6 +168,10 @@ class Search extends Component {
             },
         });
 
+        const scrolled =
+            (window.pageYOffset || window.document.scrollTop) -
+            (window.document.clientTop || 0);
+
         this.setState(newState);
 
         this.pushToHistory(
@@ -150,6 +181,11 @@ class Search extends Component {
                 sort: searchParams.sort,
             },
             searchParams.facets
+        );
+
+        window.sessionStorage.setItem(
+            'waters.previousPaginationClick',
+            scrolled
         );
 
         window.scrollTo(0, 0);
