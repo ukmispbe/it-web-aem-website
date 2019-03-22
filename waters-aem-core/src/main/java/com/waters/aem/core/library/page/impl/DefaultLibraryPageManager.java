@@ -123,26 +123,6 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
         return libraryPage;
     }
 
-    @Override
-    public void deleteLibraryPage(final LibraryAsset asset) throws WCMException {
-        final PageManagerDecorator pageManager = getPageManager(asset);
-        final PageDecorator libraryPage = getLibraryPage(asset);
-
-        if (libraryPage == null) {
-            LOG.error("library page does not exist for asset : {}", asset);
-        } else {
-            LOG.info("deleting library page : {} for asset : {}", libraryPage, asset);
-
-            try {
-                pageManager.delete(libraryPage, false);
-            } catch (WCMException e) {
-                LOG.error("error deleting library page for asset : " + asset, e);
-
-                throw e;
-            }
-        }
-    }
-
     private void updateLibraryPageProperties(final LibraryAsset asset, final PageDecorator libraryPage) {
         final ValueMap properties = libraryPage.getContentResource().adaptTo(ModifiableValueMap.class);
 
