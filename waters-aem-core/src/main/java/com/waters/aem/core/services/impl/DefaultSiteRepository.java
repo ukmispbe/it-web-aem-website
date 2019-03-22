@@ -8,6 +8,7 @@ import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.SiteRepository;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
@@ -76,7 +77,9 @@ public final class DefaultSiteRepository implements SiteRepository {
         boolean liveCopy = false;
 
         try {
-            liveCopy = liveRelationshipManager.getLiveRelationship(page.getContentResource(), false) != null;
+            final Resource resource = page.getContentResource();
+
+            liveCopy = resource != null && liveRelationshipManager.getLiveRelationship(resource, false) != null;
         } catch (WCMException e) {
             LOG.error("error getting live relationship for resource : " + page.getContentResource(), e);
         }
