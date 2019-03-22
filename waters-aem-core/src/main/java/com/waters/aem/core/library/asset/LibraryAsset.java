@@ -45,16 +45,6 @@ public final class LibraryAsset implements ContentClassification, Asset {
 
     private static final String RELATIVE_PATH_METADATA = "jcr:content/metadata";
 
-    private static final List<String> METADATA_PROPERTY_NAMES = ImmutableList.of(
-        DamConstants.DC_DESCRIPTION,
-        "literatureCode",
-        "category",
-        "contentType",
-        "productType",
-        "monthPublished",
-        "yearPublished"
-    );
-
     private static final Map<String, String> METADATA_PROPERTIES = new ImmutableMap.Builder<String, String>()
         .put(DamConstants.DC_DESCRIPTION, JcrConstants.JCR_DESCRIPTION)
         .build();
@@ -218,6 +208,7 @@ public final class LibraryAsset implements ContentClassification, Asset {
 
     @Override
     @Deprecated
+    @SuppressWarnings("squid:MissingDeprecatedCheck,squid:S1133")
     public Rendition getCurrentOriginal() {
         return asset.getCurrentOriginal();
     }
@@ -234,12 +225,14 @@ public final class LibraryAsset implements ContentClassification, Asset {
 
     @Override
     @Deprecated
+    @SuppressWarnings("squid:MissingDeprecatedCheck,squid:S1133")
     public Resource setRendition(final String name, final InputStream is, final String mimeType) {
         return asset.setRendition(name, is, mimeType);
     }
 
     @Override
     @Deprecated
+    @SuppressWarnings("squid:MissingDeprecatedCheck,squid:S1133")
     public void setCurrentOriginal(final String name) {
         asset.setCurrentOriginal(name);
     }
@@ -336,7 +329,7 @@ public final class LibraryAsset implements ContentClassification, Asset {
 
     @Override
     @CheckForNull
-    public <AdapterType> AdapterType adaptTo(@Nonnull final Class<AdapterType> type) {
+    public <T> T adaptTo(@Nonnull final Class<T> type) {
         return asset.adaptTo(type);
     }
 }

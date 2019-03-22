@@ -5,6 +5,7 @@ import com.day.cq.wcm.api.WCMException;
 import com.waters.aem.core.library.asset.LibraryAsset;
 import com.waters.aem.core.library.page.LibraryPageManager;
 import com.waters.aem.core.services.job.AbstractJobConsumer;
+import org.apache.sling.api.SlingException;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.PersistenceException;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -47,7 +48,7 @@ public final class LibraryPageJobConsumer extends AbstractJobConsumer {
             LOG.error("error creating/updating library page for path : " + path, e);
 
             // re-throw exception to cancel the job
-            throw new RuntimeException(e);
+            throw new SlingException(null, e);
         }
 
         return JobResult.OK;

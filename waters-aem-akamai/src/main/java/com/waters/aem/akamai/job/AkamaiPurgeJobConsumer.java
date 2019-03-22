@@ -2,6 +2,7 @@ package com.waters.aem.akamai.job;
 
 import com.waters.aem.akamai.client.AkamaiEdgeGridClient;
 import com.waters.aem.core.services.job.AbstractJobConsumer;
+import org.apache.sling.api.SlingException;
 import org.apache.sling.event.jobs.consumer.JobConsumer;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -44,7 +45,7 @@ public final class AkamaiPurgeJobConsumer extends AbstractJobConsumer {
             }
         } catch (IOException | URISyntaxException e) {
             // re-throw exception to cancel the job
-            throw new RuntimeException(e);
+            throw new SlingException(null, e);
         }
 
         return JobResult.OK;

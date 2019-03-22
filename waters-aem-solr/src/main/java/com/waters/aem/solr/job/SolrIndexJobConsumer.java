@@ -2,6 +2,7 @@ package com.waters.aem.solr.job;
 
 import com.waters.aem.core.services.job.AbstractJobConsumer;
 import com.waters.aem.solr.index.SolrIndexService;
+import org.apache.sling.api.SlingException;
 import org.apache.sling.event.jobs.consumer.JobConsumer;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -43,7 +44,7 @@ public final class SolrIndexJobConsumer extends AbstractJobConsumer {
             }
         } catch (Exception e) {
             // re-throw exception to cancel the job
-            throw new RuntimeException(e);
+            throw new SlingException(null, e);
         }
 
         return success ? JobResult.OK : JobResult.CANCEL;

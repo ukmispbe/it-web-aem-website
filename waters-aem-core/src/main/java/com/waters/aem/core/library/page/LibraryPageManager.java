@@ -1,6 +1,5 @@
 package com.waters.aem.core.library.page;
 
-import com.day.cq.replication.ReplicationException;
 import com.day.cq.wcm.api.WCMException;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.library.asset.LibraryAsset;
@@ -40,5 +39,5 @@ public interface LibraryPageManager {
      * @throws WCMException if error occurs creating page
      */
     PageDecorator createOrUpdateLibraryPage(LibraryAsset asset)
-        throws PersistenceException, ReplicationException, WCMException;
+        throws PersistenceException, WCMException;
 }

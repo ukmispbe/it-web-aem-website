@@ -4,6 +4,7 @@ import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.waters.aem.core.services.job.AbstractJobConsumer;
 import com.waters.aem.pdfgenerator.services.PdfGenerator;
+import org.apache.sling.api.SlingException;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
@@ -48,7 +49,7 @@ public final class PdfGeneratorJobConsumer extends AbstractJobConsumer {
             LOG.error("error generating PDF for path : " + path, e);
 
             // re-throw exception to cancel the job
-            throw new RuntimeException(e);
+            throw new SlingException(null, e);
         }
 
         return JobResult.OK;
