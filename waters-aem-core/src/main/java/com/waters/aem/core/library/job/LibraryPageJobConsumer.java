@@ -1,6 +1,5 @@
 package com.waters.aem.core.library.job;
 
-import com.day.cq.replication.ReplicationException;
 import com.day.cq.wcm.api.WCMException;
 import com.waters.aem.core.library.asset.LibraryAsset;
 import com.waters.aem.core.library.page.LibraryPageManager;
@@ -44,7 +43,7 @@ public final class LibraryPageJobConsumer extends AbstractJobConsumer {
             final LibraryAsset asset = resourceResolver.getResource(path).adaptTo(LibraryAsset.class);
 
             libraryPageManager.createOrUpdateLibraryPage(asset);
-        } catch (LoginException | PersistenceException | WCMException | ReplicationException e) {
+        } catch (LoginException | PersistenceException | WCMException e) {
             LOG.error("error creating/updating library page for path : " + path, e);
 
             // re-throw exception to cancel the job
