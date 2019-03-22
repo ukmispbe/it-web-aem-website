@@ -187,6 +187,11 @@
             a.filter-toggle {
                 background-color: $color-font-medium;
                 color: $color-white;
+                &:hover {
+                    & svg .st0 {
+                        stroke: $color-white;
+                    }
+                }
                 .expandIcon {
                     display: none;
                 }
@@ -380,6 +385,7 @@
             right: 15px;
             width: $icon-m;
             height: $icon-m;
+            z-index:1;
             .st0 {
                 stroke: $color-icon;
                 }
