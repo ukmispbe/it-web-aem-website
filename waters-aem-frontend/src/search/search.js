@@ -61,6 +61,7 @@ class Search extends Component {
             unappliedFilters: {},
             isDesktop: false,
             initialRender: true,
+            performedSearches: 0,
         });
 
         const checkWindowWidth = () => {
@@ -112,6 +113,7 @@ class Search extends Component {
             newState.results[query.page] = res.documents;
             newState.noQuery = query.keyword ? false : true;
             newState.sort = this.state.sort;
+            newState.performedSearches = this.state.performedSearches + 1;
 
             newState.pagination = {
                 current: query.page,
@@ -147,6 +149,13 @@ class Search extends Component {
                         'waters.previousPaginationClick'
                     );
                 }, 0);
+            } else if (!scrollToPosition) {
+                const reactAppTop =
+                    this.refs.main.getBoundingClientRect().top - 72;
+
+                if (newState.performedSearches > 1) {
+                    window.scrollTo(0, reactAppTop);
+                }
             }
         });
     }
@@ -187,12 +196,6 @@ class Search extends Component {
             'waters.previousPaginationClick',
             scrolled
         );
-
-        const reactAppTop = this.refs.main.getBoundingClientRect().top - 72;
-
-        console.log(reactAppTop);
-
-        const searchTop = window.scrollTo(0, reactAppTop);
     }
 
     sortHandler(e) {
