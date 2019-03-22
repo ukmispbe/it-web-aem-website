@@ -144,14 +144,16 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
     }
 
     private void updateLibraryPageProperties(final LibraryAsset asset, final PageDecorator libraryPage) {
-        final Resource libraryPageContentResource = libraryPage.getContentResource();
-        final ValueMap properties = libraryPageContentResource.adaptTo(ModifiableValueMap.class);
+        final ValueMap properties = libraryPage.getContentResource().adaptTo(ModifiableValueMap.class);
 
         // copy all of the metadata properties from the asset to the page
         properties.putAll(asset.getProperties());
 
         // set asset path on page for use in iframe component
         properties.put(WatersConstants.PROPERTY_LIBRARY_ASSET_PATH, asset.getPath());
+
+        // set vanity URL
+        properties.put(NameConstants.PN_SLING_VANITY_PATH, "/" + asset.getLiteratureCode());
     }
 
     private PageDecorator getParentPage(final LibraryAsset asset)

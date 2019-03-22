@@ -124,6 +124,16 @@ public final class LibraryAsset implements ContentClassification, Asset {
         return productType;
     }
 
+    @Override
+    public List<Tag> getAllTags() {
+        return new ImmutableList.Builder<Tag>()
+            .addAll(category)
+            .addAll(contentType)
+            .addAll(productType)
+            .addAll(yearPublished)
+            .build();
+    }
+
     public String getTitle() {
         return getMetadataValue(DamConstants.DC_TITLE);
     }

@@ -18,4 +18,6 @@ public interface ContentClassification {
     List<Tag> getMonthPublished();
 
     List<Tag> getYearPublished();
+
+    List<Tag> getAllTags();
 }

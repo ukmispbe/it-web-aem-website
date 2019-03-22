@@ -115,6 +115,7 @@ public final class ApplicationNotes implements ContentClassification {
     @TagInject
     private List<Tag> yearPublished = Collections.emptyList();
 
+    @Override
     public List<Tag> getAllTags() {
         return new ImmutableList.Builder<Tag>()
             .addAll(author)
