@@ -114,6 +114,7 @@ class Search extends Component {
             newState.noQuery = query.keyword ? false : true;
             newState.sort = this.state.sort;
             newState.performedSearches = this.state.performedSearches + 1;
+            newState.initialRender = false;
 
             newState.pagination = {
                 current: query.page,
@@ -166,7 +167,7 @@ class Search extends Component {
         );
     }
 
-    paginationClickHandler(page) {
+    paginationClickHandler(page, e) {
         const state = this.state;
         const searchParams = this.state.searchParams || {};
 
@@ -192,10 +193,12 @@ class Search extends Component {
             searchParams.facets
         );
 
-        window.sessionStorage.setItem(
-            'waters.previousPaginationClick',
-            scrolled
-        );
+        if (e === 'clicked') {
+            window.sessionStorage.setItem(
+                'waters.previousPaginationClick',
+                scrolled
+            );
+        }
     }
 
     sortHandler(e) {
@@ -217,7 +220,6 @@ class Search extends Component {
 
     filterSelectHandler(facet, categoryId, e) {
         const isChecked = e.target.checked;
-
         const newState = Object.assign({}, this.state);
         if (isChecked) {
             if (!newState.selectedFacets[`${categoryId}`]) {
@@ -238,7 +240,9 @@ class Search extends Component {
             newState.selectedFacets[`${categoryId}`] = filteredArr;
         }
         newState.searchParams.page = 1;
+
         this.setState(newState);
+
         setTimeout(
             () =>
                 this.pushToHistory(
@@ -438,7 +442,13 @@ class Search extends Component {
                         pageRangeDisplayed={8}
                         marginPagesDisplayed={0}
                         containerClassName="paginate__container"
-                        onPageChange={this.paginationClickHandler.bind(this)}
+                        onPageChange={num =>
+                            this.paginationClickHandler.bind(
+                                this,
+                                num,
+                                'clicked'
+                            )()
+                        }
                         breakLabel={'…'}
                         previousLabel={previousIcon}
                         nextLabel={
@@ -449,6 +459,7 @@ class Search extends Component {
                                 ? state.pagination.current - 1
                                 : 0
                         }
+                        disableInitialCallback={true}
                     />
                 ) : null}
             </div>
