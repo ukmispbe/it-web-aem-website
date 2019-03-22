@@ -14,7 +14,7 @@ const NoResults = ({ searchText , query }) => {
         <div className="cmp-search__no-results">
             <ReactSVG className="icon" src={searchText.noResultsIcon} />
             <h2>{searchText.noResultsTitle}</h2>
-            <p>{searchText.noResultsDescription}</p>
+            <p>{searchText.noResultsDescription}<a href={window.location.href.split('?')[0]}>{searchText.noResultsSearchLinkText}</a></p>
         </div>
         ]
     );
