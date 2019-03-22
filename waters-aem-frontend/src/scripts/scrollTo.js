@@ -1,4 +1,8 @@
 function scrollToY(scrollTargetY, speed, easing) {
+
+    var footerComponent = document.querySelector('.cmp-external-footer');
+    footerComponent.style.display='none';
+
     var scrollY = window.scrollY || document.documentElement.scrollTop,
         scrollTargetY = scrollTargetY || 0,
         speed = speed || 2000,
@@ -32,11 +36,12 @@ function scrollToY(scrollTargetY, speed, easing) {
         var t = easingEquations[easing](p);
 
         if (p < 1) {
-            requestAnimFrame(tick);
+            requestAnimFrame(tick);    
 
             window.scrollTo(0, scrollY + (scrollTargetY - scrollY) * t);
         } else {
             window.scrollTo(0, scrollTargetY);
+            footerComponent.style.display='block';
         }
     }
 
