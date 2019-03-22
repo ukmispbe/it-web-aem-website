@@ -406,10 +406,6 @@
     }
 
     @include tablet-and-under {
-        /*
-        display: none;
-        position: absolute;
-        */
         position: fixed;
         top: 0;
         right: 0;
@@ -444,6 +440,7 @@
     @include tablet {
         display: none;
         width: 40%;
+        height: 100%;
     }
 }
 
@@ -454,20 +451,6 @@
         .cmp-search__sort-filter {
             overflow: hidden;
         }
-        /*
-        .cmp-search__sort-filter {
-            height: 100%;
-            max-height: 100vh;
-            z-index: 2;
-            padding-bottom: $space-xxl;
-        }
-        
-        .container {
-            max-height: calc(100vh - 6.5em);
-            overflow: hidden;
-        }
-        */
-
         &.filter-active {
             .cmp-search {
                 &-apply-btn,
