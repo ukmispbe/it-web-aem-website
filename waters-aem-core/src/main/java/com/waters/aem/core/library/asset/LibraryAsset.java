@@ -1,12 +1,16 @@
 package com.waters.aem.core.library.asset;
 
+import com.day.cq.commons.LanguageUtil;
+import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.dam.api.Asset;
+import com.day.cq.dam.api.DamConstants;
 import com.day.cq.dam.api.Rendition;
 import com.day.cq.dam.api.RenditionPicker;
 import com.day.cq.dam.api.Revision;
 import com.day.cq.tagging.Tag;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.icfolson.aem.library.models.annotations.TagInject;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.metadata.ContentClassification;
@@ -21,6 +25,7 @@ import org.apache.sling.models.annotations.via.ChildResource;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.jcr.RepositoryException;
 import java.io.InputStream;
 import java.util.Calendar;
@@ -28,6 +33,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -40,6 +46,7 @@ public final class LibraryAsset implements ContentClassification, Asset {
     private static final String RELATIVE_PATH_METADATA = "jcr:content/metadata";
 
     private static final List<String> METADATA_PROPERTY_NAMES = ImmutableList.of(
+        DamConstants.DC_DESCRIPTION,
         "literatureCode",
         "category",
         "contentType",
@@ -47,6 +54,10 @@ public final class LibraryAsset implements ContentClassification, Asset {
         "monthPublished",
         "yearPublished"
     );
+
+    private static final Map<String, String> METADATA_PROPERTIES = new ImmutableMap.Builder<String, String>()
+        .put(DamConstants.DC_DESCRIPTION, JcrConstants.JCR_DESCRIPTION)
+        .build();
 
     @Self
     @Required
@@ -79,6 +90,11 @@ public final class LibraryAsset implements ContentClassification, Asset {
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> yearPublished = Collections.emptyList();
 
+    @Inject
+    @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
+    @Named(DamConstants.DC_LANGUAGE)
+    private String languageCode;
+
     @Override
     public String getLiteratureCode() {
         return literatureCode;
@@ -108,6 +124,14 @@ public final class LibraryAsset implements ContentClassification, Asset {
         return productType;
     }
 
+    public String getTitle() {
+        return getMetadataValue(DamConstants.DC_TITLE);
+    }
+
+    public Locale getLocale() {
+        return languageCode == null ? Locale.getDefault() : LanguageUtil.getLocale(languageCode);
+    }
+
     /**
      * Get a map of library metadata properties.
      *
@@ -117,8 +141,8 @@ public final class LibraryAsset implements ContentClassification, Asset {
         return metadata.getValueMap()
             .entrySet()
             .stream()
-            .filter(entry -> METADATA_PROPERTY_NAMES.contains(entry.getKey()))
-            .collect(Collectors.toMap(Map.Entry :: getKey, Map.Entry :: getValue));
+            .filter(entry -> METADATA_PROPERTIES.keySet().contains(entry.getKey()))
+            .collect(Collectors.toMap(entry -> METADATA_PROPERTIES.get(entry.getKey()), Map.Entry :: getValue));
     }
 
     /**
@@ -134,6 +158,7 @@ public final class LibraryAsset implements ContentClassification, Asset {
     public String toString() {
         return Objects.toStringHelper(this)
             .add("path", getPath())
+            .add("title", getTitle())
             .add("category", category.stream().map(Tag :: getTitle).collect(Collectors.toList()))
             .add("literatureCode", literatureCode)
             .toString();

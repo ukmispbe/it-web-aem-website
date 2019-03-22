@@ -5,6 +5,8 @@ public final class WatersConstants {
 
     public static final String ROOT_PATH = "/content/waters";
 
+    public static final String ROOT_PATH_LANGUAGE_MASTERS = ROOT_PATH + "/language-masters";
+
     public static final String COMPONENT_NAME_PAGE = "page";
 
     public static final String COMPONENT_PATH_STRUCTURE = "/structure";
@@ -23,6 +25,8 @@ public final class WatersConstants {
 
     public static final String TEMPLATE_LIBRARY_PAGE = "/conf/waters/settings/wcm/templates/library-page";
 
+    public static final String TEMPLATE_REDIRECT_PAGE = "/conf/waters/settings/wcm/templates/redirect-page";
+
     public static final String RENDER_CONDITION_APPLICATION_NOTES_TEMPLATE = "waters/components/renderconditions/applicationnotestemplate";
 
     public static final String EXTENSION_PDF = "pdf";
@@ -31,7 +35,11 @@ public final class WatersConstants {
 
     public static final String PROPERTY_LIBRARY_ASSET_PATH = "libraryAssetPath";
 
+    public static final String PROPERTY_REDIRECT_TARGET = "cq:redirectTarget";
+
     public static final int LEVEL_SITE_ROOT = 2;
+
+    public static final int LEVEL_LANGUAGE_ROOT = 3;
 
     private WatersConstants() {
 

@@ -7,6 +7,7 @@ import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.WCMException;
 import com.icfolson.aem.library.api.page.PageDecorator;
+import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.library.asset.LibraryAsset;
 import com.waters.aem.core.library.page.LibraryPageManager;
@@ -58,15 +59,15 @@ public final class LibraryAssetReplicationPreprocessor extends AbstractReplicati
         if (libraryPage == null) {
             LOG.info("library page not found for asset : {}, ignoring", asset);
         } else {
-            // deactivate/delete the previously replicated page
-            replicator.replicate(resourceResolver.adaptTo(Session.class), replicationActionType, libraryPage.getPath());
-
-            if (ReplicationActionType.DELETE.equals(replicationActionType)) {
-                try {
-                    libraryPageManager.deleteLibraryPage(asset);
-                } catch (WCMException e) {
-                    throw new ReplicationException(e);
+            try {
+                // deactivate/delete live copies first
+                for (final PageDecorator page : libraryPageManager.getLibraryPageLiveCopies(asset)) {
+                    processLibraryPage(resourceResolver, replicationActionType, page);
                 }
+
+                processLibraryPage(resourceResolver, replicationActionType, libraryPage);
+            } catch (WCMException e) {
+                throw new ReplicationException(e);
             }
         }
     }
@@ -85,5 +86,18 @@ public final class LibraryAssetReplicationPreprocessor extends AbstractReplicati
     @Override
     protected ResourceResolverFactory getResourceResolverFactory() {
         return resourceResolverFactory;
+    }
+
+    private void processLibraryPage(final ResourceResolver resourceResolver,
+        final ReplicationActionType replicationActionType, final PageDecorator page)
+        throws ReplicationException, WCMException {
+        replicator.replicate(resourceResolver.adaptTo(Session.class), replicationActionType,
+            page.getPath());
+
+        final PageManagerDecorator pageManager = resourceResolver.adaptTo(PageManagerDecorator.class);
+
+        if (ReplicationActionType.DELETE.equals(replicationActionType)) {
+            pageManager.delete(page, false);
+        }
     }
 }

@@ -1,16 +1,14 @@
 package com.waters.aem.core.library.page.impl;
 
 import com.day.cq.commons.jcr.JcrUtil;
-import com.day.cq.replication.ReplicationActionType;
-import com.day.cq.replication.ReplicationException;
-import com.day.cq.replication.Replicator;
+import com.day.cq.tagging.Tag;
+import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.WCMException;
 import com.day.cq.wcm.msm.api.LiveRelationship;
 import com.day.cq.wcm.msm.api.LiveRelationshipManager;
-import com.day.cq.wcm.msm.api.RolloutManager;
-import com.day.text.Text;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
+import com.icfolson.aem.library.core.link.builders.factory.LinkBuilderFactory;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.library.asset.LibraryAsset;
 import com.waters.aem.core.library.page.LibraryPageManager;
@@ -25,18 +23,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.RangeIterator;
-import javax.jcr.Session;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
+
+import static com.google.common.base.Preconditions.checkState;
 
 @Component(service = LibraryPageManager.class)
 public final class DefaultLibraryPageManager implements LibraryPageManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultLibraryPageManager.class);
 
-    @Reference
-    private Replicator replicator;
-
-    @Reference
-    private RolloutManager rolloutManager;
+    private static final String LIBRARY_PAGE_TITLE = "Library";
 
     @Reference
     private LiveRelationshipManager liveRelationshipManager;
@@ -49,26 +47,59 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
     }
 
     @Override
-    public PageDecorator createOrUpdateLibraryPageForAsset(final LibraryAsset asset)
-        throws PersistenceException, ReplicationException, WCMException {
-        final ResourceResolver resourceResolver = asset.adaptTo(Resource.class).getResourceResolver();
-        final PageManagerDecorator pageManager = resourceResolver.adaptTo(PageManagerDecorator.class);
+    public List<PageDecorator> getLibraryPageLiveCopies(final LibraryAsset asset) throws WCMException {
+        final PageDecorator libraryPage = getLibraryPage(asset);
 
-        final String libraryPagePath = getLibraryPagePath(asset);
+        final List<PageDecorator> libraryPageLiveCopies = new ArrayList<>();
+
+        if (libraryPage == null) {
+            LOG.debug("library page is null, no live copies");
+        } else {
+            final RangeIterator liveRelationships = liveRelationshipManager.getLiveRelationships(
+                libraryPage.getContentResource(), null, null);
+
+            final PageManagerDecorator pageManager = libraryPage.getPageManager();
+
+            while (liveRelationships.hasNext()) {
+                final LiveRelationship liveRelationship = (LiveRelationship) liveRelationships.next();
+                final PageDecorator libraryPageLiveCopy = pageManager.getContainingPage(
+                    liveRelationship.getTargetPath());
+
+                if (libraryPageLiveCopy != null) {
+                    libraryPageLiveCopies.add(libraryPageLiveCopy);
+                }
+            }
+
+            LOG.debug("found {} live copies for library page : {}", libraryPageLiveCopies.size(), libraryPage);
+        }
+
+        return libraryPageLiveCopies;
+    }
+
+    @Override
+    public PageDecorator createOrUpdateLibraryPage(final LibraryAsset asset)
+        throws PersistenceException, WCMException {
+        final ResourceResolver resourceResolver = asset.adaptTo(Resource.class).getResourceResolver();
+
+        final PageDecorator parentPage = getParentPage(asset);
+
+        final String title = asset.getTitle();
+
+        checkState(title != null, "missing title for library asset %s", asset);
+
+        final String name = getPageName(title);
+        final String libraryPagePath = parentPage.getPath() + "/" + name;
+
+        final PageManagerDecorator pageManager = parentPage.getPageManager();
 
         PageDecorator libraryPage = pageManager.getPage(libraryPagePath);
 
         if (libraryPage == null) { // create new library page
             LOG.info("creating new library page for asset : {} with path : {}", asset, libraryPagePath);
 
-            // TODO
-            final String parentPath = Text.getRelativeParent(libraryPagePath, 1);
-            final String title = "";
-            final String name = JcrUtil.createValidName(title.replaceAll("[^a-zA-Z0-9 ]+", ""),
-                JcrUtil.HYPHEN_LABEL_CHAR_MAPPING);
-
             try {
-                libraryPage = pageManager.create(parentPath, name, WatersConstants.TEMPLATE_LIBRARY_PAGE, title, false);
+                libraryPage = pageManager.create(parentPage.getPath(), name, WatersConstants.TEMPLATE_LIBRARY_PAGE,
+                    title, false);
             } catch (WCMException e) {
                 LOG.error("error creating library page for path : " + libraryPagePath, e);
 
@@ -80,11 +111,14 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
 
         updateLibraryPageProperties(asset, libraryPage);
 
-        // roll out changes to all live copies
-        rolloutLibraryPage(libraryPage);
+        // commit changes
+        try {
+            resourceResolver.commit();
+        } catch (PersistenceException e) {
+            LOG.error("error committing updates to library page : " + libraryPage, e);
 
-        // replicate library page live copies
-        replicateLibraryPages(resourceResolver, libraryPage);
+            throw e;
+        }
 
         return libraryPage;
     }
@@ -109,11 +143,8 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
         }
     }
 
-    private void updateLibraryPageProperties(final LibraryAsset asset, final PageDecorator libraryPage)
-        throws PersistenceException {
+    private void updateLibraryPageProperties(final LibraryAsset asset, final PageDecorator libraryPage) {
         final Resource libraryPageContentResource = libraryPage.getContentResource();
-        final ResourceResolver resourceResolver = libraryPageContentResource.getResourceResolver();
-
         final ValueMap properties = libraryPageContentResource.adaptTo(ModifiableValueMap.class);
 
         // copy all of the metadata properties from the asset to the page
@@ -121,51 +152,100 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
 
         // set asset path on page for use in iframe component
         properties.put(WatersConstants.PROPERTY_LIBRARY_ASSET_PATH, asset.getPath());
-
-        try {
-            resourceResolver.commit();
-        } catch (PersistenceException e) {
-            LOG.error("error committing updates to library page : " + libraryPage, e);
-
-            throw e;
-        }
     }
 
-    private void rolloutLibraryPage(final PageDecorator libraryPage) throws WCMException {
-        final RolloutManager.RolloutParams rolloutParams = new RolloutManager.RolloutParams();
+    private PageDecorator getParentPage(final LibraryAsset asset)
+        throws WCMException {
+        final PageManagerDecorator pageManager = getPageManager(asset);
 
-        rolloutParams.master = libraryPage;
+        final String languageRootPath = getLanguageRootPath(asset);
+        final PageDecorator languageRootPage = pageManager.getPage(languageRootPath);
 
-        rolloutManager.rollout(rolloutParams);
-    }
+        checkState(languageRootPage != null, "language root page does not exist for asset locale : %s",
+            asset.getLocale().getLanguage());
 
-    private void replicateLibraryPages(final ResourceResolver resourceResolver, final PageDecorator libraryPage)
-        throws ReplicationException, WCMException {
-        final RangeIterator liveRelationships = liveRelationshipManager.getLiveRelationships(
-            libraryPage.getContentResource(), null, null);
+        final PageDecorator libraryPage = getOrCreatePage(languageRootPage, LIBRARY_PAGE_TITLE);
+        final PageDecorator contentTypePage = getOrCreatePage(libraryPage, getContentType(asset));
+        final PageDecorator yearPage = getOrCreatePage(contentTypePage, getYearPublished(asset));
 
-        while (liveRelationships.hasNext()) {
-            final LiveRelationship liveRelationship = (LiveRelationship) liveRelationships.next();
+        LOG.debug("found parent page : {} for asset : {}", yearPage, asset);
 
-            LOG.info("replicating library page live copy : {}", liveRelationship);
-
-            final String targetPagePath = liveRelationship.getTargetPath();
-
-            try {
-                replicator.replicate(resourceResolver.adaptTo(Session.class), ReplicationActionType.ACTIVATE,
-                    targetPagePath);
-            } catch (ReplicationException e) {
-                LOG.error("error replicating library page live copy : " + targetPagePath, e);
-
-                throw e;
-            }
-        }
+        return yearPage;
     }
 
     private String getLibraryPagePath(final LibraryAsset asset) {
-        final String libraryPagePath = ""; // TODO
+        final StringBuilder builder = new StringBuilder();
 
-        return libraryPagePath;
+        builder.append(getLanguageRootPath(asset));
+
+        Stream.of(LIBRARY_PAGE_TITLE, getContentType(asset), getYearPublished(asset), asset.getTitle())
+            .map(this :: getPageName)
+            .forEach(name -> builder.append("/").append(name));
+
+        return builder.toString();
+    }
+
+    private String getLanguageRootPath(final LibraryAsset asset) {
+        return new StringBuilder(WatersConstants.ROOT_PATH_LANGUAGE_MASTERS)
+            .append("/")
+            .append(asset.getLocale().getLanguage())
+            .toString();
+    }
+
+    private PageDecorator getOrCreatePage(final PageDecorator parentPage, final String title)
+        throws WCMException {
+        final PageManagerDecorator pageManager = parentPage.getPageManager();
+        final String name = getPageName(title);
+
+        PageDecorator page = pageManager.getPage(parentPage.getPath() + "/" + name);
+
+        if (page == null) {
+            page = pageManager.create(parentPage.getPath(), name, WatersConstants.TEMPLATE_REDIRECT_PAGE, title, false);
+
+            final ValueMap properties = page.getContentResource().adaptTo(ModifiableValueMap.class);
+
+            // set redirect path
+            properties.put(WatersConstants.PROPERTY_REDIRECT_TARGET, getRedirectTarget(parentPage));
+
+            // set hide in nav
+            properties.put(NameConstants.PN_HIDE_IN_NAV, true);
+
+            LOG.info("created new redirect page : {}", page);
+        } else {
+            LOG.debug("found existing redirect page : {}", page);
+        }
+
+        return page;
+    }
+
+    private String getRedirectTarget(final PageDecorator parentPage) {
+        // get search page path for current language root
+        final String searchPagePath = parentPage.getAbsoluteParent(WatersConstants.LEVEL_LANGUAGE_ROOT)
+            .getPath() + "/search";
+
+        return LinkBuilderFactory.forPath(searchPagePath)
+            .addParameter("facet", "category_facet:library") // TODO verify facet parameter value
+            .build()
+            .getHref();
+    }
+
+    private String getContentType(final LibraryAsset asset) {
+        return getPageTitle(asset, asset.getContentType());
+    }
+
+    private String getYearPublished(final LibraryAsset asset) {
+        return getPageTitle(asset, asset.getYearPublished());
+    }
+
+    private String getPageTitle(final LibraryAsset asset, final List<Tag> tags) {
+        return tags.stream()
+            .findFirst()
+            .map(Tag :: getTitle)
+            .orElseThrow(() -> new IllegalStateException("library asset missing required tags : " + asset.getPath()));
+    }
+
+    private String getPageName(final String title) {
+        return JcrUtil.createValidName(title.replaceAll("[^\\p{L}0-9\\-/ ]+", ""), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING);
     }
 
     private PageManagerDecorator getPageManager(final LibraryAsset asset) {

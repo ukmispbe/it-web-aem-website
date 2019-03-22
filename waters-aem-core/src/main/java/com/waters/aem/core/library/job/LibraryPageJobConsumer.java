@@ -42,7 +42,7 @@ public final class LibraryPageJobConsumer extends AbstractJobConsumer {
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
             final LibraryAsset asset = resourceResolver.getResource(path).adaptTo(LibraryAsset.class);
 
-            libraryPageManager.createOrUpdateLibraryPageForAsset(asset);
+            libraryPageManager.createOrUpdateLibraryPage(asset);
         } catch (LoginException | PersistenceException | WCMException | ReplicationException e) {
             LOG.error("error creating/updating library page for path : " + path, e);
 
