@@ -33,6 +33,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
+import static com.google.common.base.Preconditions.checkState;
+
 @Component(service = PdfGenerator.class)
 @Designate(ocd = PdfGeneratorConfiguration.class)
 public final class DefaultPdfGenerator implements PdfGenerator {
@@ -42,11 +44,18 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     @Reference
     private Externalizer externalizer;
 
+    private volatile boolean enabled;
+
     private volatile String baseUri;
 
     private volatile String username;
 
     private volatile String password;
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
 
     @Override
     public ByteArrayOutputStream generatePdfDocumentFromHtml(final PageDecorator page, final boolean publish)
@@ -55,8 +64,7 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     }
 
     @Override
-    public Asset generatePdfDocumentAssetFromHtml(final PageDecorator page)
-        throws IOException {
+    public Asset generatePdfDocumentAssetFromHtml(final PageDecorator page) throws IOException {
         final Asset asset;
 
         try (final ByteArrayOutputStream pdfOutputStream = createPdfOutputStream(page, true)) {
@@ -67,6 +75,8 @@ public final class DefaultPdfGenerator implements PdfGenerator {
 
                 // get PDF asset path derived from application notes metadata
                 final String pdfAssetPath = page.getContentResource().adaptTo(ApplicationNotes.class).getPdfAssetPath();
+
+                checkState(pdfAssetPath != null, "PDF asset path is null for page : " + page.getPath());
 
                 // create/update asset
                 asset = assetManager.createAsset(pdfAssetPath, assetInputStream,
@@ -82,6 +92,8 @@ public final class DefaultPdfGenerator implements PdfGenerator {
         // get PDF asset path derived from application notes metadata
         final String pdfAssetPath = page.getContentResource().adaptTo(ApplicationNotes.class).getPdfAssetPath();
 
+        checkState(pdfAssetPath != null, "PDF asset path is null for page : " + page.getPath());
+
         final ResourceResolver resourceResolver = page.getContentResource().getResourceResolver();
 
         // get existing PDF resource if it exists
@@ -96,6 +108,7 @@ public final class DefaultPdfGenerator implements PdfGenerator {
     @Activate
     @Modified
     protected void activate(final PdfGeneratorConfiguration configuration) {
+        enabled = configuration.enabled();
         baseUri = configuration.baseUri();
         username = configuration.username();
         password = configuration.password();

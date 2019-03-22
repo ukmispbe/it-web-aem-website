@@ -2,24 +2,38 @@
     width: 75%;
     float: left;
     padding-left: 2%;
+    &__header {
+        width: 60%;
+        margin-left: -15%;
 
+        @include tablet {
+            width: 100%;
+            float: none;
+            padding-left: 0;
+            margin-left: 0;
+        }
+
+        @include mobile {
+            width: 100%;
+            float: none;
+            padding-left: 0;
+            margin-left: 0;
+        }
+    }
     @include tablet {
         width: 100%;
         float: none;
         padding-left: 0;
     }
-
     @include mobile {
         width: 100%;
         float: none;
         padding-left: 0;
     }
 }
-
 .cmp-search__results-container {
     @include list-container;
 }
-
 .cmp-search__results {
     @include list-styles;
     @include mobile {
@@ -33,37 +47,29 @@
         }
     }
 }
-
 .cmp-search__results-item {
     @include list-item;
-
     &-title {
         font-size: $font-size-h3;
     }
-
     @include mobile {
         margin-bottom: $space-l;
     }
 }
-
 .cmp-search__results-body {
     width: 100%;
     float: left;
     padding-bottom: $space-s;
-
     @include mobile {
         padding-bottom: 0;
     }
-
     &--image {
         @include list-item-body-includes-thumbnail;
     }
 }
-
 .cmp-search__results-thumbnail {
     @include list-item-thumbnail;
 }
-
 .cmp-search__no-results {
     border: 1px solid $color-gray-30;
     text-align: center;
@@ -79,41 +85,38 @@
         }
     }
 }
-
 div.cmp-search__no-results {
     padding: $space-xl $space-xl;
-
     @include mobile {
         padding: $space-l $space-l;
     }
 }
-
 .paginate__container {
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0;
-    padding: $space-xxl 0;
+    padding-top: $space-xxl;
     clear: both;
+    @include mobile {
+        padding: 0;
+    }
     li {
         display: inline;
-
         @include mobile {
             display: none;
         }
         a {
             cursor: pointer;
+            @include font-utility;
             margin: 0 $space-xxs 0 0;
             border: 1px solid $color-border-dark;
             float: left;
-            padding-top: ($space-xxs - 0.1em);
-            font-size: $font-size-body;
-            color: $color-font-medium;
+            padding-top: $space-xxs;
             text-decoration: none;
             text-align: center;
             height: 2.75em;
             width: 2.75em;
-
             &:hover {
                 color: $color-link;
             }
@@ -133,12 +136,10 @@ div.cmp-search__no-results {
                 color: $color-font-light;
                 border: 1px solid $color-background-dark;
             }
-
             @include mobile {
                 display: inline;
             }
         }
-
         &.next,
         &.previous {
             a {
@@ -157,28 +158,22 @@ div.cmp-search__no-results {
                 height: 20px;
                 margin-left: $space-xxs;
                 margin-top: $space-xxxs;
-
                 @include mobile {
                     height: 24px;
                 }
-
                 .st0 {
                     stroke: $color-font-dark;
                 }
             }
-
             @include mobile {
                 display: inline;
             }
-
             &.disabled {
                 a {
                     cursor: default;
-
                     svg .st0 {
                         stroke: $color-disabled;
                     }
-
                     &:hover {
                         svg .st0 {
                             stroke: $color-disabled;
@@ -187,21 +182,81 @@ div.cmp-search__no-results {
                 }
             }
         }
-
         &.break {
             display: none;
         }
     }
 }
+.cmp-search-show-btn {
+    .btn-show-sort-filter {
+        display: none;
+        @include font-utility;
+        border: 1px solid $color-border-dark;
+        padding: $space-xs ($space-xl - .25em) $space-xs $space-s;
+        margin-bottom: $space-xl;
+        position: relative;
+        text-decoration: none;
+        &:hover {
+            color: $color-link;
+            text-decoration: none;
 
-.btn-show-sort-filter {
-    float: right;
-    display: none;
-    @include tablet-and-under {
-        display: block;
+            svg {
+                .st0 {
+                    stroke: $color-link;
+                }
+            }
+        }
+        transition: none;
+        svg {
+            position: absolute;
+            top: 14px;
+            right: 13px;
+            width: $icon-m;
+            height: $icon-m;
+            .st0 {
+                stroke: $color-icon;
+            }
+            @include mobile {
+                top: 13px;
+                right: 10px;
+            }
+        }
+        @include tablet-and-under {
+            display: block;
+        }
+        @include tablet {
+            float: right;
+        }
+        @include mobile {
+            font-size: $font-size-h3;
+            svg {
+                margin: 0 2% 0 0;
+            }
+            &--sticky {
+                position: fixed;
+                background-color: $color-white;
+                z-index: 1;
+                width: 101%;
+                top: 76px;
+                box-shadow: $shadow;
+                border:none;
+                margin: 0 0 0 -7%;
+                padding: ($space-xxs + .05em) $space-xs $space-xs $space-m;
+                height: 52px;
+            }
+            float: none;
+            background-position: 95% 13px;
+        }
+    }
+    @include tablet {
+        float: right;
+        width: 30%;
+    }
+    @include mobile {
+        float: none;
+        width: 100%;
     }
 }
-
 .cmp-search__resultsCount {
     margin-top: -3.5em;
     margin-bottom: 2em;
@@ -209,17 +264,14 @@ div.cmp-search__no-results {
     width: 100%;
     overflow: hidden;
     height: 70px;
-
     &.noresults {
         width: 70%;
-        margin: unset;
+        margin-left: 0;
         margin-top: -3.5em;
         margin-bottom: 2em;
         overflow: visible;
         height: auto;
-
     }
-
     @include tablet-and-under {
         margin: unset;
         padding-bottom: $space-l;
@@ -228,26 +280,71 @@ div.cmp-search__no-results {
         white-space: normal;
         overflow: visible;
         height: auto;
-
         &.noresults {
             width: 100%;
             margin: 0;
         }
     }
 }
-
 .cmp-search__sorted-by {
     display: none;
     float: left;
     width: 100%;
-    @include font-utility;
-    font-size: $font-size-small;
-
     @include mobile {
         display: block;
+        padding-bottom: $space-m;
+    }
+    @include tablet {
+        display: block;
+        padding-top: $space-s;
+    }
+    @include tablet {
+        float: left;
+        width: 70%;
+    }
+    @include mobile {
+        float: none;
+        width: 100%;
+    }
+}
+.cmp-search-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    padding: 25% 50%;
+    > div {
+        margin-left: -32px;
+    }
+}
+html.showing-spinner {
+    overflow: hidden;
+    height: 100%;
+}
+
+.show-sort-filters {
+    @include tablet-and-under {
+        #surveyContent {
+            display: none;
+        }
+    }
+    @include mobile {
+        .cmp-search-show-btn {
+            .btn-show-sort-filter {
+                &--sticky {
+                    display: none;
+                }
+            }
+        }
+        .cmp-search__container, .cmp-external-footer {
+            display: none;
+        }
     }
 
     @include tablet {
-        display: block;
+        height: 100vh;
     }
 }

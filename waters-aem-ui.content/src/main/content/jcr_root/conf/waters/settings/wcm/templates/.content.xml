@@ -6,6 +6,8 @@
           jcr:primaryType="cq:Page">
     <application-notes-page/>
     <content-page/>
+    <search-page/>
+    <library-page/>
     <redirect-page/>
     <rep:policy/>
 </jcr:root>

@@ -178,7 +178,7 @@ class MetaSpec extends AemLibraryModelSpec {
         "/content/waters/one"       | null
         "/content/waters/two"       | "http://www.waters.com/content/dam/waters/og.png"
         "/content/waters/two/child" | "http://www.waters.com/content/dam/waters/og.png"
-        "/content/waters/three"     | "http://www.waters.com/content/dam/waters/logo.png"
+        "/content/waters/three"     | "http://www.waters.com/content/dam/waters/logo.png/jcr:content/renditions/cq5dam.thumbnail.319.212.png"
     }
 
     def "get inherited facebook app ID"() {
@@ -234,6 +234,6 @@ class MetaSpec extends AemLibraryModelSpec {
         "/content/waters/one"       | null
         "/content/waters/two"       | "http://www.waters.com/content/dam/waters/twitter.png"
         "/content/waters/two/child" | "http://www.waters.com/content/dam/waters/twitter.png"
-        "/content/waters/three"     | "http://www.waters.com/content/dam/waters/logo.png"
+        "/content/waters/three"     | "http://www.waters.com/content/dam/waters/logo.png/jcr:content/renditions/cq5dam.thumbnail.319.212.png"
     }
 }

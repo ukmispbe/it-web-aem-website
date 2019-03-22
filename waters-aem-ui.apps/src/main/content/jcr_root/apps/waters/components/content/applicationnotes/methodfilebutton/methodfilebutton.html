@@ -1,0 +1,12 @@
+<a data-sly-use.methodFileButton="com.waters.aem.core.components.content.applicationnotes.MethodFileButton"
+   data-sly-test="${methodFileButton.methodFilePath}"
+   class="cmp-utility-button method-file-button"
+   href="${methodFileButton.methodFilePath}"
+   target="_blank"
+   title="${'Method File' @ i18n}">
+    <span>${'Method File' @ i18n} </span>
+    <img alt="${'Method File' @ i18n}" src="/content/dam/waters/brand-assets/icons/download.svg" class="inline-svg">
+</a>
+
+<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+     data-sly-call="${patterns.placeholder @ show=true, text=component.title}"/>

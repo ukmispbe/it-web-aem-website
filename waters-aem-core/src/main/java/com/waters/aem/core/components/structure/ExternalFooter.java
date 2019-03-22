@@ -14,24 +14,28 @@ import com.day.cq.wcm.foundation.Image;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.icfolson.aem.library.api.link.Link;
+import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.content.applicationnotes.ExternalLinkItem;
+import com.waters.aem.core.components.structure.page.AnalyticsPageModel;
 import com.waters.aem.core.components.structure.page.AppnotePageAnalyticsModel;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.ChildResource;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.Calendar;
 import java.util.List;
 
@@ -57,8 +61,13 @@ public final class ExternalFooter extends AbstractComponent implements Component
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @Inject
-    @Named("../")
+    private PageDecorator currentPage;
+
+    @ChildResource(name = "../")
     private AppnotePageAnalyticsModel analyticsModel;
+
+    @ChildResource(name = "../")
+    private AnalyticsPageModel pageModel;
 
     @DialogField(fieldLabel = "Logo",
         fieldDescription = "Select the logo image to display on footer",
@@ -104,9 +113,17 @@ public final class ExternalFooter extends AbstractComponent implements Component
     @Default(booleanValues = false)
     private Boolean newWindow;
 
-    @DialogField(fieldLabel = "Footer Links",
+    @DialogField(fieldLabel = "Cookies Link",
+        fieldDescription = "Select or enter the link URL",
         tab = 2,
         ranking = 1)
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject(inherit = true)
+    private Link cookiesLink;
+
+    @DialogField(fieldLabel = "Footer Links",
+        tab = 2,
+        ranking = 2)
     @MultiField(composite = true)
     @InheritInject
     private List<ExternalLinkItem> footerLinks;
@@ -132,12 +149,19 @@ public final class ExternalFooter extends AbstractComponent implements Component
     }
 
     @JsonProperty
+    public Link getCookiesLink() {
+        return cookiesLink;
+    }
+
+    @JsonProperty
     public List<ExternalLinkItem> getFooterLinks() {
         return footerLinks;
     }
 
     public String getDataLayer() throws JsonProcessingException {
-        return MAPPER.writeValueAsString(analyticsModel);
+        return Templates.isApplicationNotesPage(currentPage) ?
+            MAPPER.configure(SerializationFeature.WRAP_ROOT_VALUE, false).writeValueAsString(analyticsModel) :
+            MAPPER.enable(SerializationFeature.WRAP_ROOT_VALUE).writeValueAsString(pageModel);
     }
 
     @Nonnull

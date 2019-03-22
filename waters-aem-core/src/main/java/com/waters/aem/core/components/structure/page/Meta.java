@@ -8,7 +8,6 @@ import com.citytechinc.cq.component.annotations.widgets.Selection;
 import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.commons.Externalizer;
-import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.enums.TitleType;
 import com.icfolson.aem.library.core.components.AbstractComponent;
@@ -23,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Component(value = "Meta",
+@Component(value = "Open Graph",
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE,
     name = WatersConstants.COMPONENT_NAME_PAGE,
@@ -188,11 +187,7 @@ public final class Meta extends AbstractComponent {
     }
 
     private String getDefaultImage() {
-        final Thumbnail thumbnail = resource.adaptTo(Thumbnail.class);
-
-        return Optional.ofNullable(thumbnail.getThumbnailImage())
-            .map(Image :: getFileReference)
-            .orElse(null);
+        return resource.adaptTo(Thumbnail.class).getThumbnailImageRendition();
     }
 
     private String externalize(final String path) {

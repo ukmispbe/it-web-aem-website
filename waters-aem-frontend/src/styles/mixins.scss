@@ -1,4 +1,22 @@
-// Styles for both lists and search results
+@mixin tablet-and-under {
+    @media screen and (max-width: #{$desktop-width}) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media screen and (min-width: #{$tablet-width + 1px}) and (max-width: #{$desktop-width}) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media screen and (max-width: #{$tablet-width}) {
+        @content;
+    }
+}
+
+// Lists and Search Results
 
 @mixin list-container {
     float: left;
@@ -30,11 +48,7 @@
     }
 
     &-date {
-        font-size: $font-size-small;
-
-        @include mobile {
-            font-size: $font-size-small-m;
-        }
+        @include font-small;
     }
     &-title {
         font-size: $font-size-h3;
@@ -67,3 +81,4 @@
         width: 100%;
     }
 }
+

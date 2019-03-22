@@ -4,7 +4,6 @@
 
 @media print {
     @page {
-
         margin-top: 20px;
         @bottom-left {
             content: element(header);
@@ -23,17 +22,17 @@
 
     .cmp-title__print {
         position: fixed;
-        display:block;
+        display: block;
         @include font-xsmall;
         bottom: 0;
         position: running(header);
     }
 
     * {
-        float:none !important;
+        float: none !important;
     }
 
-    body{
+    body {
         padding: 0;
     }
 
@@ -41,21 +40,21 @@
         padding: 5px;
     }
 
-    .cmp-anchor, .cmp-external-header__links, .mopinion-survey-content, .cmp-share, a.cmp-back-to-top, .cmp-external-footer__links, .cmp-external-list__link::after, a.cmp-button ,a.cmp-utility-button{
+    .cmp-anchor, .cmp-external-header__links, .mopinion-survey-content, .cmp-share, a.cmp-back-to-top, .cmp-external-footer__links, .cmp-external-list__link::after, a.cmp-button, a.cmp-utility-button {
         display: none;
     }
 
-    .layoutcontainer .cmp-section-container__title{
+    .layoutcontainer .cmp-section-container__title {
         padding: 0.5em 0 1.5em 0;
     }
 
     .cmp-external-footer {
         background-color: $color-white;
-        padding:  1.5em 0 1.5em 0;
+        padding: 1.5em 0 1.5em 0;
     }
 
     .cmp-external-footer__logo {
-        display: hide;
+        display: none;
     }
 
     .cmp-external-footer__copyright {
@@ -89,7 +88,7 @@
     .cmp-qr-code {
         font-family: "acumin-pro", arial, sans-serif;
         font-size: 0.8em;
-        font-weight: light;
+        font-weight: lighter;
         line-height: 1.7em;
         color: #4f5b64;
         margin-bottom: 0;
@@ -107,8 +106,8 @@
         }
     }
 
-    .cmp-section-container .cmp-text{
-        p,li{
+    .cmp-section-container .cmp-text {
+        p, li {
             width: 120%;
         }
     }
@@ -118,37 +117,37 @@
     }
 
     .cmp-accent-rule hr {
-       width: 4em;
+        width: 4em;
     }
 
     .cmp-tag-list--label .cmp-tag-list__item {
-       font-size: $font-size-text-pcs;
+        font-size: $font-size-text-pcs;
     }
 
     h1 {
-       font-size: $font-size-h1-pcs;
-       padding-bottom: $space-s;
-       margin-right: -135px;
+        font-size: $font-size-h1-pcs;
+        padding-bottom: $space-s;
+        margin-right: -135px;
     }
 
     h2 {
-       font-size: $font-size-h2-pcs;
+        font-size: $font-size-h2-pcs;
     }
 
     h3 {
-       font-size: $font-size-h3-pcs;
-       color: $color-teal-50;
+        font-size: $font-size-h3-pcs;
+        color: $color-teal-50;
     }
 
-    p , h4 , li{
-       font-size: $font-size-text-pcs;
+    p, h4, li {
+        font-size: $font-size-text-pcs;
     }
 
     .cmp-title {
-       width: 500px;
+        width: 500px;
     }
 
     .cmp-tag-list {
-       width: 500px;
+        width: 500px;
     }
 }

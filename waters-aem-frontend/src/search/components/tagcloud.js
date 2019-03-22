@@ -6,7 +6,10 @@ class TagCloud extends Component {
     }
 
     handleRelatedSearch(keyword){
-        window.location.href = `${this.props.searchPath}?facet=${keyword}`;
+        const filter = keyword.split(':');
+        const filterCategory = filter[0]
+        const filterValue = encodeURI(encodeURIComponent(filter[1]));
+        window.location.href = `${this.props.searchPath}?facet=${filterCategory}:${filterValue}`;
     }
 
     render() {

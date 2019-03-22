@@ -9,9 +9,13 @@
             </a>
         </div>
         <div class="cmp-external-footer__links">
-            <sly data-sly-test="${externalFooter.footerLinks}">
-                <nav data-sly-list="${externalFooter.footerLinks}"><a href="${item.link.href}" target="${item.newWindow ? '_blank' : ''}">${item.text}<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html" data-sly-call="${patterns.linkIcon @ linkItem=item}"/></a></nav>
-            </sly>
+            <nav data-sly-test="${externalFooter.footerLinks}">
+                <a data-sly-repeat="${externalFooter.footerLinks}" href="${item.link.href}" target="${item.newWindow ? '_blank' : ''}">
+                    ${item.text}<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html" data-sly-call="${patterns.linkIcon @ linkItem=item}"/>
+                </a>
+                <a data-sly-test="${externalFooter.cookiesLink}" href="${externalFooter.cookiesLink.href}" target="_blank">${'Cookies' @ i18n}</a>
+                <a class="optanon-toggle-display dl_Anchor" href="#">${'Cookie Preferences' @ i18n}</a>
+            </nav>
         </div>
         <div class="cmp-external-footer__copyright">
             <p>${externalFooter.copyrightText}</p>
@@ -19,6 +23,14 @@
     </div>
 </div>
 
-<script type="application/json" id="datalayer">
-    ${externalFooter.dataLayer @ context="unsafe"}
- </script> 
+<script type="text/javascript" id="datalayer">
+    var parsedData = JSON.parse('${externalFooter.dataLayer @ context="unsafe"}');
+
+    if (parsedData.page) {
+        parsedData.page.serverName = window.location.hostname;
+    }
+
+    window.digitalData = parsedData;
+
+    document.dispatchEvent(new CustomEvent('digitalDataReady', {}));
+</script>

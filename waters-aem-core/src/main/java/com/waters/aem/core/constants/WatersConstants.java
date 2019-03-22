@@ -13,15 +13,21 @@ public final class WatersConstants {
 
     public static final String DAM_PATH = "/content/dam/waters";
 
+    public static final String DAM_PATH_APP_NOTES = "/content/dam/waters/app-notes/";
+
     public static final String RESOURCE_TYPE_PAGE = "waters/components/structure/page";
 
     public static final String TEMPLATE_CONTENT_PAGE = "/conf/waters/settings/wcm/templates/content-page";
 
     public static final String TEMPLATE_APPLICATION_NOTES_PAGE = "/conf/waters/settings/wcm/templates/application-notes-page";
 
+    public static final String TEMPLATE_LIBRARY_PAGE = "/conf/waters/settings/wcm/templates/library-page";
+
     public static final String RENDER_CONDITION_APPLICATION_NOTES_TEMPLATE = "waters/components/renderconditions/applicationnotestemplate";
 
     public static final String EXTENSION_PDF = "pdf";
+
+    public static final int LEVEL_SITE_ROOT = 2;
 
     private WatersConstants() {
 

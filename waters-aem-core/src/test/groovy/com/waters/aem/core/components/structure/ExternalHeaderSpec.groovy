@@ -48,42 +48,39 @@ class ExternalHeaderSpec extends AemLibraryModelSpec {
 
     def "get header logo"() {
         setup:
-        def externalHeader = requestBuilder
-            .setPath(path)
-            .build()
-            .adaptTo(ExternalHeader)
+        def externalHeader = requestBuilder.build {
+            path = resourcePath
+        }.adaptTo(ExternalHeader)
 
         expect:
         externalHeader.logo?.fileReference == fileReference
 
         where:
-        path                                             | fileReference
+        resourcePath                                     | fileReference
         "/content/waters/one/jcr:content/externalheader" | null
         "/content/waters/two/jcr:content/externalheader" | "/content/dam/waters/logo.png"
     }
 
     def "get header logo alt text"() {
         setup:
-        def externalHeader = requestBuilder
-            .setPath(path)
-            .build()
-            .adaptTo(ExternalHeader)
+        def externalHeader = requestBuilder.build {
+            path = resourcePath
+        }.adaptTo(ExternalHeader)
 
         expect:
         externalHeader.logoAltText == logoAltText
 
         where:
-        path                                             | logoAltText
+        resourcePath                                     | logoAltText
         "/content/waters/one/jcr:content/externalheader" | null
         "/content/waters/two/jcr:content/externalheader" | "Waters"
     }
 
     def "get header logo link"() {
         setup:
-        def externalHeader = requestBuilder
-            .setPath("/content/waters/two/jcr:content/externalheader")
-            .build()
-            .adaptTo(ExternalHeader)
+        def externalHeader = requestBuilder.build {
+            path = "/content/waters/two/jcr:content/externalheader"
+        }.adaptTo(ExternalHeader)
 
         expect:
         externalHeader.logoLink
@@ -94,26 +91,24 @@ class ExternalHeaderSpec extends AemLibraryModelSpec {
 
     def "is open in new window?"() {
         setup:
-        def externalHeader = requestBuilder
-            .setPath(path)
-            .build()
-            .adaptTo(ExternalHeader)
+        def externalHeader = requestBuilder.build {
+            path = resourcePath
+        }.adaptTo(ExternalHeader)
 
         expect:
         externalHeader.newWindow == isNewWindow
 
         where:
-        path                                             | isNewWindow
+        resourcePath                                     | isNewWindow
         "/content/waters/one/jcr:content/externalheader" | false
         "/content/waters/two/jcr:content/externalheader" | true
     }
 
     def "get header links"() {
         setup:
-        def externalHeader = requestBuilder
-            .setPath("/content/waters/three/jcr:content/externalheader")
-            .build()
-            .adaptTo(ExternalHeader)
+        def externalHeader = requestBuilder.build {
+            path = "/content/waters/three/jcr:content/externalheader"
+        }.adaptTo(ExternalHeader)
 
         expect:
         externalHeader.linkItems.size() == 2

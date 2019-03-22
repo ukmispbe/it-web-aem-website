@@ -1,5 +1,5 @@
 .cmp-external-header {
-    border-bottom: 1px solid $color-gray-30;
+    border-bottom: 1px solid $color-border-light;
     background-color: $color-white;
     position: fixed;
     width: 100%;
@@ -23,12 +23,12 @@
         ul {
             list-style: none;
             padding: 0;
-            margin: $space-xs 0 0;
+            margin: $space-xs 0 0 0;
         }
 
         &__item {
             display: inline-block;
-            margin-left: $space-m;
+            margin-left: $space-s;
             margin-bottom: 0;
 
             &:first-of-type {
@@ -45,13 +45,21 @@
             }
 
             a {
-                color: $color-gray-50;
+                @include font-utility;
 
                 &:hover {
                     color: $color-link;
 
                     & svg .st0 {
                         stroke: $color-link;
+                    }
+                }
+
+                &:active {
+                    @include font-utility;
+
+                    & svg .st0 {
+                        stroke: $color-icon;
                     }
                 }
             }

@@ -16,6 +16,7 @@ const SearchApp = props => {
                         searchServicePath={props.searchServicePath}
                         searchText={props.searchText}
                         searchLocale={props.searchLocale}
+                        filterMap={props.filterMap}
                     />
                 )}
             />
