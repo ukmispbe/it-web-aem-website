@@ -33,6 +33,7 @@ import java.util.List;
     fileName = ApplicationNotes.FILE_NAME,
     touchFileName = ApplicationNotes.FILE_NAME)
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@SuppressWarnings({"common-java:DuplicatedBlocks"})
 public final class ApplicationNotes implements ContentClassification {
 
     static final String FILE_NAME = "applicationnotes";

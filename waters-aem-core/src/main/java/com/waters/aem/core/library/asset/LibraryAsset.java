@@ -41,6 +41,7 @@ import java.util.stream.Collectors;
  * Model for Waters library assets containing classification metadata.
  */
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@SuppressWarnings({"common-java:DuplicatedBlocks"})
 public final class LibraryAsset implements ContentClassification, Asset {
 
     private static final String RELATIVE_PATH_METADATA = "jcr:content/metadata";

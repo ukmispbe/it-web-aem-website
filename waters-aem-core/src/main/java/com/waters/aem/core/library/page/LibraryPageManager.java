@@ -38,6 +38,7 @@ public interface LibraryPageManager {
      * @throws PersistenceException if error occurs while saving changes
      * @throws WCMException if error occurs creating page
      */
+    @SuppressWarnings({"squid:RedundantThrowsDeclarationCheck"})
     PageDecorator createOrUpdateLibraryPage(LibraryAsset asset)
         throws PersistenceException, WCMException;
 }
