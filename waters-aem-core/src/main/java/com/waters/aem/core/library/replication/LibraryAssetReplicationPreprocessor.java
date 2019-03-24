@@ -31,6 +31,7 @@ import java.util.stream.Collectors;
  * corresponding Library page path.
  */
 @Component(service = Preprocessor.class)
+@SuppressWarnings({"squid:RedundantThrowsDeclarationCheck"})
 public final class LibraryAssetReplicationPreprocessor extends AbstractReplicationPreprocessor<LibraryAsset> {
 
     private static final Logger LOG = LoggerFactory.getLogger(LibraryAssetReplicationPreprocessor.class);

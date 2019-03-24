@@ -208,7 +208,7 @@ public final class LibraryAsset implements ContentClassification, Asset {
 
     @Override
     @Deprecated
-    @SuppressWarnings("squid:MissingDeprecatedCheck,squid:S1133")
+    @SuppressWarnings({"squid:MissingDeprecatedCheck","squid:S1133"})
     public Rendition getCurrentOriginal() {
         return asset.getCurrentOriginal();
     }
@@ -225,14 +225,14 @@ public final class LibraryAsset implements ContentClassification, Asset {
 
     @Override
     @Deprecated
-    @SuppressWarnings("squid:MissingDeprecatedCheck,squid:S1133")
+    @SuppressWarnings({"squid:MissingDeprecatedCheck","squid:S1133"})
     public Resource setRendition(final String name, final InputStream is, final String mimeType) {
         return asset.setRendition(name, is, mimeType);
     }
 
     @Override
     @Deprecated
-    @SuppressWarnings("squid:MissingDeprecatedCheck,squid:S1133")
+    @SuppressWarnings({"squid:MissingDeprecatedCheck","squid:S1133"})
     public void setCurrentOriginal(final String name) {
         asset.setCurrentOriginal(name);
     }
