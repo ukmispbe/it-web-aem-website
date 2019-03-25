@@ -1,5 +1,7 @@
 package com.waters.aem.core.constants;
 
+import org.apache.commons.lang3.time.FastDateFormat;
+
 @SuppressWarnings("squid:S1195")
 public final class WatersConstants {
 
@@ -40,6 +42,8 @@ public final class WatersConstants {
     public static final int LEVEL_SITE_ROOT = 2;
 
     public static final int LEVEL_LANGUAGE_ROOT = 3;
+
+    public static final FastDateFormat DATE_FORMAT_ISO_8601 = FastDateFormat.getInstance("yyyy-MM-dd");
 
     private WatersConstants() {
 
