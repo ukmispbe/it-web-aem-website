@@ -5,7 +5,6 @@ import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
-import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.library.asset.LibraryAsset;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Exporter;
@@ -27,7 +26,7 @@ public final class Iframe implements ComponentExporter {
     public static final String RESOURCE_TYPE = "waters/components/content/iframe";
 
     @Inject
-    private PageDecorator currentPage;
+    private LibraryAsset libraryAsset;
 
     @DialogField(fieldLabel = "Source")
     @TextField
@@ -35,7 +34,7 @@ public final class Iframe implements ComponentExporter {
     private String source;
 
     public String getSource() {
-        return Optional.ofNullable(getLibraryAsset())
+        return Optional.ofNullable(libraryAsset)
             .map(LibraryAsset :: getPath)
             .orElse(source);
     }
@@ -44,9 +43,5 @@ public final class Iframe implements ComponentExporter {
     @Override
     public String getExportedType() {
         return RESOURCE_TYPE;
-    }
-
-    private LibraryAsset getLibraryAsset() {
-        return currentPage.getContentResource().adaptTo(LibraryAsset.class);
     }
 }

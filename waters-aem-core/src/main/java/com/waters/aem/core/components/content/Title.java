@@ -12,6 +12,7 @@ import com.citytechinc.cq.component.annotations.widgets.rte.Format;
 import com.citytechinc.cq.component.annotations.widgets.rte.SubSuperscript;
 import com.citytechinc.cq.component.annotations.widgets.rte.UISettings;
 import com.day.cq.commons.jcr.JcrConstants;
+import com.waters.aem.core.library.asset.LibraryAsset;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -21,6 +22,8 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.via.ResourceSuperType;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
+import java.util.Optional;
 
 @Component(value = "Title",
     description = "Section Heading",
@@ -36,6 +39,9 @@ public final class Title implements com.adobe.cq.wcm.core.components.models.Titl
     public static final String RESOURCE_TYPE = "waters/components/content/title";
 
     static final String RESOURCE_SUPER_TYPE = "core/wcm/components/title/v2/title";
+
+    @Inject
+    private LibraryAsset libraryAsset;
 
     @Self
     @Via(type = ResourceSuperType.class)
@@ -75,7 +81,9 @@ public final class Title implements com.adobe.cq.wcm.core.components.models.Titl
     )
     @Override
     public String getText() {
-        return delegate.getText();
+        return Optional.ofNullable(libraryAsset)
+            .map(LibraryAsset :: getTitle)
+            .orElse(delegate.getText());
     }
 
     @DialogField

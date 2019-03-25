@@ -13,7 +13,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.core.constants.PathConstants;
+import com.icfolson.aem.library.core.link.builders.factory.LinkBuilderFactory;
 import com.icfolson.aem.library.models.annotations.LinkInject;
+import com.waters.aem.core.library.asset.LibraryAsset;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
@@ -25,6 +27,7 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Component(value = "Button",
     description = "This is the Button component for Waters site",
@@ -43,6 +46,9 @@ public final class Button implements ComponentExporter {
 
     @Inject
     private Resource resource;
+
+    @Inject
+    private LibraryAsset libraryAsset;
 
     @DialogField(fieldLabel = "Button Text",
         fieldDescription = "Enter the text for the button",
@@ -86,7 +92,10 @@ public final class Button implements ComponentExporter {
     }
 
     public Link getButtonLink() {
-        return buttonLink;
+        // if this is a library page, build the button link from the library asset path
+        return Optional.ofNullable(libraryAsset)
+            .map(asset -> LinkBuilderFactory.forPath(libraryAsset.getPath()).build())
+            .orElse(buttonLink);
     }
 
     public Boolean isNewWindow() {
