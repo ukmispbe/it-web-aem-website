@@ -61,6 +61,7 @@ class Search extends Component {
             unappliedFilters: {},
             isDesktop: false,
             initialRender: true,
+            performedSearches: 0,
         });
 
         const checkWindowWidth = () => {
@@ -112,6 +113,8 @@ class Search extends Component {
             newState.results[query.page] = res.documents;
             newState.noQuery = query.keyword ? false : true;
             newState.sort = this.state.sort;
+            newState.performedSearches = this.state.performedSearches + 1;
+            newState.initialRender = false;
 
             newState.pagination = {
                 current: query.page,
@@ -147,6 +150,13 @@ class Search extends Component {
                         'waters.previousPaginationClick'
                     );
                 }, 0);
+            } else if (!scrollToPosition) {
+                const reactAppTop =
+                    this.refs.main.getBoundingClientRect().top - 72;
+
+                if (newState.performedSearches > 1) {
+                    window.scrollTo(0, reactAppTop);
+                }
             }
         });
     }
@@ -157,7 +167,7 @@ class Search extends Component {
         );
     }
 
-    paginationClickHandler(page) {
+    paginationClickHandler(page, e) {
         const state = this.state;
         const searchParams = this.state.searchParams || {};
 
@@ -183,16 +193,12 @@ class Search extends Component {
             searchParams.facets
         );
 
-        window.sessionStorage.setItem(
-            'waters.previousPaginationClick',
-            scrolled
-        );
-
-        const reactAppTop = this.refs.main.getBoundingClientRect().top - 72;
-
-        console.log(reactAppTop);
-
-        const searchTop = window.scrollTo(0, reactAppTop);
+        if (e === 'clicked') {
+            window.sessionStorage.setItem(
+                'waters.previousPaginationClick',
+                scrolled
+            );
+        }
     }
 
     sortHandler(e) {
@@ -214,7 +220,6 @@ class Search extends Component {
 
     filterSelectHandler(facet, categoryId, e) {
         const isChecked = e.target.checked;
-
         const newState = Object.assign({}, this.state);
         if (isChecked) {
             if (!newState.selectedFacets[`${categoryId}`]) {
@@ -235,7 +240,9 @@ class Search extends Component {
             newState.selectedFacets[`${categoryId}`] = filteredArr;
         }
         newState.searchParams.page = 1;
+
         this.setState(newState);
+
         setTimeout(
             () =>
                 this.pushToHistory(
@@ -435,7 +442,13 @@ class Search extends Component {
                         pageRangeDisplayed={8}
                         marginPagesDisplayed={0}
                         containerClassName="paginate__container"
-                        onPageChange={this.paginationClickHandler.bind(this)}
+                        onPageChange={num =>
+                            this.paginationClickHandler.bind(
+                                this,
+                                num,
+                                'clicked'
+                            )()
+                        }
                         breakLabel={'…'}
                         previousLabel={previousIcon}
                         nextLabel={
@@ -446,6 +459,7 @@ class Search extends Component {
                                 ? state.pagination.current - 1
                                 : 0
                         }
+                        disableInitialCallback={true}
                     />
                 ) : null}
             </div>

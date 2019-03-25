@@ -24,14 +24,14 @@ public final class DesignReview {
 
     static final String FILE_NAME = "designreview";
 
-    @DialogField(fieldLabel = "Scientist Id",
+    @DialogField(fieldLabel = "Scientist ID",
         fieldDescription = "Enter Scientist")
     @AuthorizableAutocomplete(selector = AuthorizableSelector.USER)
     @Inject
     private String scientistId;
 
-    @DialogField(fieldLabel = "Sci-Ops Manager Id",
-        fieldDescription = "Enter SciOps Manager Reviewer")
+    @DialogField(fieldLabel = "Sci-Ops Manager ID",
+        fieldDescription = "Enter Sci-Ops Manager Reviewer")
     @AuthorizableAutocomplete(selector = AuthorizableSelector.USER)
     @Inject
     private String sciOpsMgrId;

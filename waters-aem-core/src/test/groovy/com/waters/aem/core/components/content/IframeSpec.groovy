@@ -39,4 +39,5 @@ class IframeSpec extends AemLibraryModelSpec {
         "/content/waters/one/jcr:content/iframe" | null
         "/content/waters/two/jcr:content/iframe" | "/content/dam/waters/pdf-test/test-pdf.pdf"
     }
+
 }

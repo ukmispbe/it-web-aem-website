@@ -50,6 +50,8 @@ import java.util.ResourceBundle;
     extensions = PathConstants.EXTENSION_JSON,
     methods = "GET"
 )
+
+@SuppressWarnings({"squid:CallToDeprecatedMethod"})
 public final class TagListServlet extends AbstractListServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(TagListServlet.class);
@@ -158,6 +160,7 @@ public final class TagListServlet extends AbstractListServlet {
         writer.endObject();
     }
 
+    @SuppressWarnings({"squid:S1192"})
     private void writeTag(final JSONWriter writer, final Tag tag, final boolean writeCount) throws JSONException {
         writer.key("path").value(tag.getPath());
         writer.key("tagID").value(tag.getTagID());

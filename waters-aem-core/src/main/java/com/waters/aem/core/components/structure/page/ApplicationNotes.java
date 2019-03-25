@@ -11,6 +11,7 @@ import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.TagInject;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.metadata.ContentClassification;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
@@ -32,7 +33,8 @@ import java.util.List;
     fileName = ApplicationNotes.FILE_NAME,
     touchFileName = ApplicationNotes.FILE_NAME)
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public final class ApplicationNotes {
+@SuppressWarnings({"common-java:DuplicatedBlocks"})
+public final class ApplicationNotes implements ContentClassification {
 
     static final String FILE_NAME = "applicationnotes";
 
@@ -114,6 +116,7 @@ public final class ApplicationNotes {
     @TagInject
     private List<Tag> yearPublished = Collections.emptyList();
 
+    @Override
     public List<Tag> getAllTags() {
         return new ImmutableList.Builder<Tag>()
             .addAll(author)
@@ -131,20 +134,33 @@ public final class ApplicationNotes {
             .build();
     }
 
-    public List<Tag> getAuthor() {
-        return author;
-    }
-
+    @Override
     public String getLiteratureCode() {
         return literatureCode;
     }
 
+    @Override
     public List<Tag> getCategory() {
         return category;
     }
 
+    @Override
     public List<Tag> getContentType() {
         return contentType;
+    }
+
+    @Override
+    public List<Tag> getMonthPublished() {
+        return monthPublished;
+    }
+
+    @Override
+    public List<Tag> getYearPublished() {
+        return yearPublished;
+    }
+
+    public List<Tag> getAuthor() {
+        return author;
     }
 
     public List<Tag> getInstrumentType() {
@@ -169,14 +185,6 @@ public final class ApplicationNotes {
 
     public List<Tag> getMarket() {
         return market;
-    }
-
-    public List<Tag> getMonthPublished() {
-        return monthPublished;
-    }
-
-    public List<Tag> getYearPublished() {
-        return yearPublished;
     }
 
     public List<Tag> getCompoundMatrix() {
