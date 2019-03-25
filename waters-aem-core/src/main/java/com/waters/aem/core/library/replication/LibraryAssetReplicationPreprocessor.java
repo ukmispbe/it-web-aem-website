@@ -95,10 +95,8 @@ public final class LibraryAssetReplicationPreprocessor extends AbstractReplicati
         replicator.replicate(resourceResolver.adaptTo(Session.class), replicationActionType,
             page.getPath());
 
-        final PageManagerDecorator pageManager = resourceResolver.adaptTo(PageManagerDecorator.class);
-
         if (ReplicationActionType.DELETE.equals(replicationActionType)) {
-            pageManager.delete(page, false);
+            resourceResolver.adaptTo(PageManagerDecorator.class).delete(page, false);
         }
     }
 }
