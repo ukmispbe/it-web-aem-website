@@ -57,8 +57,8 @@ public final class Iframe implements ComponentExporter {
 
     public String getSource() {
         return Optional.ofNullable(getLibraryAsset())
-                .map(LibraryAsset :: getPath)
-                .orElse(source);
+            .map(LibraryAsset :: getPath)
+            .orElse(source);
     }
 
     public String getHeight() {
