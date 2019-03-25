@@ -71,7 +71,7 @@ public final class LibraryAsset implements ContentClassification, Asset {
 
     @TagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
-    private List<Tag> productType = Collections.emptyList();
+    private List<Tag> product = Collections.emptyList();
 
     @TagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
@@ -111,8 +111,8 @@ public final class LibraryAsset implements ContentClassification, Asset {
         return yearPublished;
     }
 
-    public List<Tag> getProductType() {
-        return productType;
+    public List<Tag> getProduct() {
+        return product;
     }
 
     @Override
@@ -120,7 +120,7 @@ public final class LibraryAsset implements ContentClassification, Asset {
         return new ImmutableList.Builder<Tag>()
             .addAll(category)
             .addAll(contentType)
-            .addAll(productType)
+            .addAll(product)
             .addAll(yearPublished)
             .build();
     }
