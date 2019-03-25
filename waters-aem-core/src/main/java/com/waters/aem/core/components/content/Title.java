@@ -19,6 +19,7 @@ import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Via;
 import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.apache.sling.models.annotations.via.ResourceSuperType;
 
 import javax.annotation.Nonnull;
@@ -42,6 +43,9 @@ public final class Title implements com.adobe.cq.wcm.core.components.models.Titl
 
     @Inject
     private LibraryAsset libraryAsset;
+
+    @ValueMapValue(name = JcrConstants.JCR_TITLE)
+    private String title;
 
     @Self
     @Via(type = ResourceSuperType.class)
@@ -81,9 +85,12 @@ public final class Title implements com.adobe.cq.wcm.core.components.models.Titl
     )
     @Override
     public String getText() {
-        return Optional.ofNullable(libraryAsset)
+        final String libraryAssetTitle = Optional.ofNullable(libraryAsset)
             .map(LibraryAsset :: getTitle)
             .orElse(delegate.getText());
+
+        // check authored title first, then library asset, then page title (from delegate model)
+        return Optional.ofNullable(title).orElse(libraryAssetTitle);
     }
 
     @DialogField

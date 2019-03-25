@@ -67,7 +67,6 @@ public final class Button implements ComponentExporter {
 
     @DialogField(fieldLabel = "Button Link",
         fieldDescription = "Select or enter the link URL",
-        required = true,
         ranking = 3)
     @PathField(rootPath = PathConstants.PATH_CONTENT)
     @LinkInject
@@ -92,10 +91,12 @@ public final class Button implements ComponentExporter {
     }
 
     public Link getButtonLink() {
-        // if this is a library page, build the button link from the library asset path
-        return Optional.ofNullable(libraryAsset)
-            .map(asset -> LinkBuilderFactory.forPath(libraryAsset.getPath()).build())
-            .orElse(buttonLink);
+        final Link libraryAssetLink = Optional.ofNullable(libraryAsset)
+            .map(asset -> LinkBuilderFactory.forPath(asset.getPath()).build())
+            .orElse(null);
+
+        // check the authored link first, then default to the library asset link if available, otherwise return null
+        return Optional.ofNullable(buttonLink).orElse(libraryAssetLink);
     }
 
     public Boolean isNewWindow() {

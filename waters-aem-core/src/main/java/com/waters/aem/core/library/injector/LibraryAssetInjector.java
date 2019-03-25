@@ -2,6 +2,7 @@ package com.waters.aem.core.library.injector;
 
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
+import com.waters.aem.core.components.structure.page.LibraryPage;
 import com.waters.aem.core.library.asset.LibraryAsset;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
@@ -15,7 +16,11 @@ import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Type;
+import java.util.Optional;
 
+/**
+ * Injects library assets into model objects on library pages.
+ */
 @Component(service = Injector.class)
 public final class LibraryAssetInjector implements Injector {
 
@@ -34,18 +39,22 @@ public final class LibraryAssetInjector implements Injector {
     public Object getValue(@Nonnull final Object adaptable, final String name, @Nonnull final Type type,
         @Nonnull final AnnotatedElement annotatedElement,
         @Nonnull final DisposalCallbackRegistry disposalCallbackRegistry) {
-        final Resource resource = getResource(adaptable);
-
         LibraryAsset libraryAsset = null;
 
-        if (resource != null) {
-            final PageDecorator currentPage = resource.getResourceResolver().adaptTo(PageManagerDecorator.class)
-                .getContainingPage(resource);
+        if (type == LibraryAsset.class) {
+            final Resource resource = getResource(adaptable);
 
-            if (currentPage != null) {
-                libraryAsset = currentPage.getContentResource().adaptTo(LibraryAsset.class);
+            if (resource != null) {
+                final PageDecorator currentPage = resource.getResourceResolver().adaptTo(PageManagerDecorator.class)
+                    .getContainingPage(resource);
 
-                LOG.debug("returning library asset : {} for page : {}", libraryAsset, currentPage);
+                if (currentPage != null) {
+                    libraryAsset = Optional.ofNullable(currentPage.getContentResource().adaptTo(LibraryPage.class))
+                        .map(LibraryPage :: getLibraryAsset)
+                        .orElse(null);
+
+                    LOG.debug("returning library asset : {} for page : {}", libraryAsset, currentPage);
+                }
             }
         }
 
