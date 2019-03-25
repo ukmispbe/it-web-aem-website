@@ -2,7 +2,7 @@ package com.waters.aem.akamai.replication;
 
 import com.day.cq.replication.ReplicationActionType;
 import com.waters.aem.akamai.job.AkamaiPurgeJobConsumer;
-import com.waters.aem.core.services.AbstractReplicationEventHandler;
+import com.waters.aem.core.services.replication.AbstractReplicationEventHandler;
 import com.waters.aem.core.services.PageEventHandlerConfiguration;
 import org.apache.sling.event.jobs.JobManager;
 import org.apache.sling.event.jobs.NotificationConstants;

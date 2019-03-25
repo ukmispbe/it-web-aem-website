@@ -4,15 +4,13 @@ import com.day.cq.replication.Preprocessor;
 import com.day.cq.replication.ReplicationAction;
 import com.day.cq.replication.ReplicationActionType;
 import com.day.cq.replication.ReplicationException;
-import com.day.cq.replication.ReplicationOptions;
 import com.day.cq.replication.Replicator;
-import com.google.common.collect.ImmutableList;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.waters.aem.core.components.structure.page.ApplicationNotes;
+import com.waters.aem.core.services.replication.AbstractReplicationPreprocessor;
 import com.waters.aem.core.utils.Templates;
 import com.waters.aem.pdfgenerator.services.PdfGenerator;
-import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.PersistenceException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
@@ -34,14 +32,9 @@ import static com.google.common.base.Preconditions.checkState;
  * corresponding PDF asset path.
  */
 @Component(service = Preprocessor.class)
-public final class PdfReplicationPreprocessor implements Preprocessor {
+public final class PdfReplicationPreprocessor extends AbstractReplicationPreprocessor<PageDecorator> {
 
     private static final Logger LOG = LoggerFactory.getLogger(PdfReplicationPreprocessor.class);
-
-    private static final List<ReplicationActionType> SUPPORTED_ACTION_TYPES = ImmutableList.of(
-        ReplicationActionType.DEACTIVATE,
-        ReplicationActionType.DELETE
-    );
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -53,26 +46,12 @@ public final class PdfReplicationPreprocessor implements Preprocessor {
     private Replicator replicator;
 
     @Override
-    public void preprocess(final ReplicationAction replicationAction, final ReplicationOptions replicationOptions)
-        throws ReplicationException {
-        final ReplicationActionType replicationActionType = replicationAction.getType();
-
-        if (pdfGenerator.isEnabled() && SUPPORTED_ACTION_TYPES.contains(replicationAction.getType())) {
-            try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
-                final PageManagerDecorator pageManager = resourceResolver.adaptTo(PageManagerDecorator.class);
-
-                for (final PageDecorator page : getApplicationNotePages(replicationAction, pageManager)) {
-                    preprocessApplicationNotePage(replicationActionType, resourceResolver, page);
-                }
-            } catch (LoginException e) {
-                LOG.error("error authenticating resource resolver", e);
-
-                throw new ReplicationException(e);
-            }
-        }
+    protected boolean isEnabled() {
+        return pdfGenerator.isEnabled();
     }
 
-    private void preprocessApplicationNotePage(final ReplicationActionType replicationActionType,
+    @Override
+    protected void preprocessItem(final ReplicationActionType replicationActionType,
         final ResourceResolver resourceResolver, final PageDecorator page) throws ReplicationException {
         LOG.debug("preprocessing replication action type : {} for page : {}", replicationActionType,
             page.getPath());
@@ -97,11 +76,19 @@ public final class PdfReplicationPreprocessor implements Preprocessor {
         }
     }
 
-    private List<PageDecorator> getApplicationNotePages(final ReplicationAction replicationAction,
-        final PageManagerDecorator pageManager) {
+    @Override
+    protected List<PageDecorator> getItems(final ReplicationAction replicationAction,
+        final ResourceResolver resourceResolver) {
+        final PageManagerDecorator pageManager = resourceResolver.adaptTo(PageManagerDecorator.class);
+
         return Arrays.stream(replicationAction.getPaths())
             .map(pageManager :: getPage)
             .filter(Templates :: isApplicationNotesPage)
             .collect(Collectors.toList());
+    }
+
+    @Override
+    protected ResourceResolverFactory getResourceResolverFactory() {
+        return resourceResolverFactory;
     }
 }
