@@ -14,8 +14,6 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -30,8 +28,6 @@ import javax.inject.Inject;
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public class Iframe implements ComponentExporter{
-
-    private Logger log = LoggerFactory.getLogger(Iframe.class);
 
     public static final String RESOURCE_TYPE = "waters/components/content/iframe";
 
@@ -66,11 +62,11 @@ public class Iframe implements ComponentExporter{
 
         if (contentPolicyManager != null) {
             ContentPolicy contentPolicy = contentPolicyManager.getPolicy(resource);
-            if (contentPolicy != null) {
+            if (contentPolicy != null && contentPolicy.getProperties().get(HEIGHT) != null) {
                 height = (String) contentPolicy.getProperties().get(HEIGHT);
             }
         }
-        log.info("Height Property {}", height);
+
         return height;
     }
 
@@ -78,6 +74,7 @@ public class Iframe implements ComponentExporter{
     @Override
     public String getExportedType() {
         return RESOURCE_TYPE;
+
     }
 
 }
