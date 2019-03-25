@@ -26,12 +26,12 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * Replication preprocessor to delete Library pages when Library assets are deactivated or deleted.  This is implemented
- * in a preprecessor to ensure that the asset still exists, since the asset metadata is needed to determine the
- * corresponding Library page path.
+ * Replication preprocessor to deactivate/delete Library pages when Library assets are deactivated or deleted.  This is
+ * implemented in a preprecessor to ensure that the asset still exists, since the asset metadata is needed to determine
+ * the corresponding Library page path.
  */
 @Component(service = Preprocessor.class)
-@SuppressWarnings({"squid:RedundantThrowsDeclarationCheck"})
+@SuppressWarnings({ "squid:RedundantThrowsDeclarationCheck" })
 public final class LibraryAssetReplicationPreprocessor extends AbstractReplicationPreprocessor<LibraryAsset> {
 
     private static final Logger LOG = LoggerFactory.getLogger(LibraryAssetReplicationPreprocessor.class);
@@ -47,6 +47,7 @@ public final class LibraryAssetReplicationPreprocessor extends AbstractReplicati
 
     @Override
     protected boolean isEnabled() {
+        // always enabled
         return true;
     }
 
@@ -55,6 +56,7 @@ public final class LibraryAssetReplicationPreprocessor extends AbstractReplicati
         final ResourceResolver resourceResolver, final LibraryAsset asset) throws ReplicationException {
         LOG.info("preprocessing replication action type : {} for asset : {}", replicationActionType, asset);
 
+        // get the library page corresponding to the asset being deactivated/deleted
         final PageDecorator libraryPage = libraryPageManager.getLibraryPage(asset);
 
         if (libraryPage == null) {
@@ -66,8 +68,10 @@ public final class LibraryAssetReplicationPreprocessor extends AbstractReplicati
                     processLibraryPage(resourceResolver, replicationActionType, page);
                 }
 
+                // deactivate/delete the blueprint page
                 processLibraryPage(resourceResolver, replicationActionType, libraryPage);
             } catch (WCMException e) {
+                // re-throw as replication exception to abort the replication process
                 throw new ReplicationException(e);
             }
         }
@@ -95,6 +99,7 @@ public final class LibraryAssetReplicationPreprocessor extends AbstractReplicati
         replicator.replicate(resourceResolver.adaptTo(Session.class), replicationActionType,
             page.getPath());
 
+        // check for delete action - if the asset is being deactivated, the page will be deactivated but not deleted
         if (ReplicationActionType.DELETE.equals(replicationActionType)) {
             resourceResolver.adaptTo(PageManagerDecorator.class).delete(page, false);
         }
