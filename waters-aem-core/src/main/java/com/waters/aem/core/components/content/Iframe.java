@@ -50,7 +50,9 @@ public final class Iframe implements ComponentExporter {
     @Inject
     private ContentPolicyManager contentPolicyManager;
 
-    @DialogField(fieldLabel = "Source")
+    @DialogField(fieldLabel = "Source",
+        fieldDescription = "Enter the source for the iframe",
+        required = true)
     @TextField
     @Inject
     private String source;
