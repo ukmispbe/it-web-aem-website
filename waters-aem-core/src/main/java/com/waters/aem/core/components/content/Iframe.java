@@ -55,7 +55,7 @@ public final class Iframe implements ComponentExporter {
     }
 
     public String getHeight() {
-        return (contentPolicy != null) ? contentPolicy.getProperties().get(HEIGHT, DEFAULT_HEIGHT) : DEFAULT_HEIGHT;
+        return contentPolicy != null ? contentPolicy.getProperties().get(HEIGHT, DEFAULT_HEIGHT) : DEFAULT_HEIGHT;
     }
 
     @Nonnull
