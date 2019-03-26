@@ -1,13 +1,9 @@
-<div id="js-tag-cloud"
-     data-sly-use.tagCloud="com.waters.aem.core.components.content.applicationnotes.TagCloud"
+<div data-sly-use.tagCloud="com.waters.aem.core.components.content.applicationnotes.TagCloud"
      data-sly-test="${tagCloud.searchFacets}"
      data-title="${tagCloud.title}"
+     data-json='${tagCloud.tagCloudFacetsAsJson @ context="unsafe"}'
      class="cmp-tag-cloud">
 </div>
-
-<script type="application/json" id="tag-cloud-facets-json" data-sly-test="${tagCloud.searchFacets}">
-    ${tagCloud.tagCloudFacetsAsJson @ context='unsafe'}
-</script>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
      data-sly-call="${patterns.placeholder @ show=!tagCloud.title || !tagCloud.searchFacets, text=component.title}"/>

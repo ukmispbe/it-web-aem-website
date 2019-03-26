@@ -69,21 +69,21 @@ if (searchAppContainer) {
     );
 }
 
-const tagCloudContainer = document.getElementById('js-tag-cloud');
+const tagCloudContainers = document.querySelectorAll('.cmp-tag-cloud');
 
-if (tagCloudContainer) {
-    var text = JSON.parse(
-        document.getElementById('tag-cloud-facets-json').innerHTML
-    );
+if (tagCloudContainers) {
+    tagCloudContainers.forEach((item, index) => {
+        const json = JSON.parse(item.getAttribute('data-json'));
 
-    const data = getAuthoredDataForTagCloud(header, tagCloudContainer);
+        const data = getAuthoredDataForTagCloud(header, item);
 
-    ReactDOM.render(
-        <TagCloud
-            tagCloudTitle={data.tagTitle}
-            searchPath={data.searchPath}
-            keywords={text}
-        />,
-        tagCloudContainer
-    );
+        ReactDOM.render(
+            <TagCloud
+                tagCloudTitle={data.tagTitle}
+                searchPath={data.searchPath}
+                keywords={json}
+            />,
+            item
+        );
+    });
 }
