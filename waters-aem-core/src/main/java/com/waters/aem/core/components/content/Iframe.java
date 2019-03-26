@@ -7,12 +7,9 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.wcm.api.policies.ContentPolicy;
-import com.day.cq.wcm.api.policies.ContentPolicyManager;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.library.asset.LibraryAsset;
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
@@ -42,13 +39,7 @@ public final class Iframe implements ComponentExporter {
     private PageDecorator currentPage;
 
     @Inject
-    private Resource resource;
-
-    @Inject
-    private ResourceResolver resourceResolver;
-
-    @Inject
-    private ContentPolicyManager contentPolicyManager;
+    private ContentPolicy contentPolicy;
 
     @DialogField(fieldLabel = "Source",
         fieldDescription = "Enter the source for the iframe",
@@ -66,13 +57,8 @@ public final class Iframe implements ComponentExporter {
     public String getHeight() {
         String height = DEFAULT_HEIGHT;
 
-        contentPolicyManager = resourceResolver.adaptTo(ContentPolicyManager.class);
-
-        if (contentPolicyManager != null) {
-            ContentPolicy contentPolicy = contentPolicyManager.getPolicy(resource);
-            if (contentPolicy != null && contentPolicy.getProperties().get(HEIGHT) != null) {
-                height = (String) contentPolicy.getProperties().get(HEIGHT);
-            }
+        if (contentPolicy != null && contentPolicy.getProperties().get(HEIGHT) != null) {
+            height = (String) contentPolicy.getProperties().get(HEIGHT);
         }
 
         return height;
