@@ -12,7 +12,6 @@ class ShowSortFilter extends Component {
         document.body.classList.add('show-sort-filters');
         this.setState({ showSortFilters: true });
         this.props.setupFilters();
-        window.scrollTo(0, 0);
     }
 
     render() {

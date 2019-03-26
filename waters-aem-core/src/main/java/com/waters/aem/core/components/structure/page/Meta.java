@@ -8,10 +8,13 @@ import com.citytechinc.cq.component.annotations.widgets.Selection;
 import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.commons.Externalizer;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.enums.TitleType;
 import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
+import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
@@ -19,8 +22,11 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component(value = "Open Graph",
     group = ComponentConstants.GROUP_HIDDEN,
@@ -33,6 +39,8 @@ import java.util.Optional;
 public final class Meta extends AbstractComponent {
 
     static final String FILE_NAME = "meta";
+
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     private static final String PROPERTY_CANONICAL_URL = "canonicalUrl";
 
@@ -51,6 +59,15 @@ public final class Meta extends AbstractComponent {
     @Self
     private Resource resource;
 
+    @Self
+    private SiteContext siteContext;
+
+    @Self
+    private ApplicationNotes applicationNotes;
+
+    @Self
+    private Thumbnail thumbnail;
+
     @Inject
     private Externalizer externalizer;
 
@@ -59,6 +76,10 @@ public final class Meta extends AbstractComponent {
 
     public String getTitle() {
         return currentPage.getTitle(TitleType.PAGE_TITLE).or(currentPage.getTitle());
+    }
+
+    public String getDescription() {
+        return currentPage.getDescription();
     }
 
     @DialogField(fieldLabel = "Canonical URL",
@@ -172,22 +193,43 @@ public final class Meta extends AbstractComponent {
         return robotsTags;
     }
 
-    public String getDescription() {
-        return currentPage.getDescription();
-    }
-
     public String getExternalizedPageUrl() {
         return externalize(currentPage.getHref());
     }
 
-    private String getExternalizedImage(final String propertyName) {
-        return Optional.ofNullable(currentPage.getInherited(propertyName, getDefaultImage()))
+    public String getSchemaJson() throws JsonProcessingException {
+        final Map<String, Object> properties = new HashMap<>();
+
+        properties.put("@context", "http://schema.org");
+        properties.put("@type", "TechArticle");
+        properties.put("author", getAuthor());
+        properties.put("datePublished", applicationNotes.getFormattedPublishDate());
+        properties.put("description", getDescription());
+        properties.put("headline", getTitle());
+        properties.put("image", getThumbnailImage());
+        properties.put("publisher", "Waters Corporation");
+        properties.put("url", getCanonicalUrl());
+
+        return MAPPER.writeValueAsString(properties);
+    }
+
+    private String getThumbnailImage() {
+        return Optional.ofNullable(thumbnail.getThumbnailImageRendition())
             .map(this :: externalize)
             .orElse(null);
     }
 
-    private String getDefaultImage() {
-        return resource.adaptTo(Thumbnail.class).getThumbnailImageRendition();
+    private String getAuthor() {
+        return applicationNotes.getAuthor()
+            .stream()
+            .map(tag -> tag.getTitle(siteContext.getLocale()))
+            .collect(Collectors.joining(", "));
+    }
+
+    private String getExternalizedImage(final String propertyName) {
+        return Optional.ofNullable(currentPage.getInherited(propertyName, thumbnail.getThumbnailImageRendition()))
+            .map(this :: externalize)
+            .orElse(null);
     }
 
     private String externalize(final String path) {

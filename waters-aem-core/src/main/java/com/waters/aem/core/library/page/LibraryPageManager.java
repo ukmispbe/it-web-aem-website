@@ -13,7 +13,7 @@ import java.util.List;
 public interface LibraryPageManager {
 
     /**
-     * Get the master (blueprint) library page corresponding to the given library DAM asset.
+     * Get the blueprint library page (i.e. "Language Master") corresponding to the given library DAM asset.
      *
      * @param asset library asset with required metadata
      * @return library page or null if page cannot be found for asset
@@ -38,7 +38,7 @@ public interface LibraryPageManager {
      * @throws PersistenceException if error occurs while saving changes
      * @throws WCMException if error occurs creating page
      */
-    @SuppressWarnings({"squid:RedundantThrowsDeclarationCheck"})
+    @SuppressWarnings({ "squid:RedundantThrowsDeclarationCheck" })
     PageDecorator createOrUpdateLibraryPage(LibraryAsset asset)
         throws PersistenceException, WCMException;
 }
