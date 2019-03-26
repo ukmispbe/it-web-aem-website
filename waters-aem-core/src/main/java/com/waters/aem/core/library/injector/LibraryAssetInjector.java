@@ -4,6 +4,7 @@ import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.waters.aem.core.components.structure.page.LibraryPage;
 import com.waters.aem.core.library.asset.LibraryAsset;
+import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.spi.DisposalCallbackRegistry;
@@ -48,7 +49,7 @@ public final class LibraryAssetInjector implements Injector {
                 final PageDecorator currentPage = resource.getResourceResolver().adaptTo(PageManagerDecorator.class)
                     .getContainingPage(resource);
 
-                if (currentPage != null) {
+                if (Templates.isLibraryPage(currentPage)) {
                     libraryAsset = Optional.ofNullable(currentPage.getContentResource().adaptTo(LibraryPage.class))
                         .map(LibraryPage :: getLibraryAsset)
                         .orElse(null);
