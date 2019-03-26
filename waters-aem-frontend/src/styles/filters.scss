@@ -404,29 +404,31 @@
     }
  }
 
+ $header-height: 74px;
+
 .cmp-search__sort-filter {
     .cmp-search-filters__tags {
         display: none;
     }
 
     @include tablet-and-under {
-        display: none;
-        position: absolute;
+        position: fixed;
         top: 0;
         right: 0;
         background: $color-white;
-
-        padding: 20px;
+        padding: $header-height 20px 20px 20px;
         max-height: 100vh;
         overflow-y: hidden;
         overflow-x: hidden;
+        z-index: 3;
+
         &.selected {
             display: block;
         }
         &__container {
             overflow-y: scroll;
             height: 100%;
-            padding-bottom: $space-xxl;
+            padding-bottom: 10em;
             position: relative;
         }
         .cmp-search-filters__tags {
@@ -436,31 +438,25 @@
 
     @include mobile {
         width: 100%;
+        display: block;
+        height: 0;
+        transition: height 1s ease;
     }
 
     @include tablet {
+        display: none;
         width: 40%;
+        height: 100%;
     }
 }
 
-$header-height: 74px;
+
 
 .show-sort-filters {
     @include tablet-and-under {
         .cmp-search__sort-filter {
-            display: block;
-        }
-        .cmp-search__sort-filter {
-            height: 100%;
-            max-height: 100vh;
-            z-index: 2;
-            padding-bottom: $space-xxl;
-        }
-        .container {
-            max-height: calc(100vh - 6.5em);
             overflow: hidden;
         }
-
         &.filter-active {
             .cmp-search {
                 &-apply-btn,
@@ -500,14 +496,11 @@ $header-height: 74px;
                 }
             }
         }
-        .cmp-search__sort-filter {
-            padding-top: $header-height;
-        }
     }
     @include mobile {
         .cmp-search__sort-filter {
-            max-height: none;
-            overflow: visible;
+            height: 100vh;
+            transition: height 1s ease;
         }
         &.filter-active {
             .cmp-search__sort-filter__container {
@@ -516,6 +509,9 @@ $header-height: 74px;
         }
     }
     @include tablet {
+        .cmp-search__sort-filter {
+            display: block;
+        }
         .overlay {
             display: block;
         }
