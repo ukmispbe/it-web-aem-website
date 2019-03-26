@@ -48,7 +48,7 @@ public final class PageMetadata {
             .map(LibraryAsset :: getAllTags)
             .orElse(currentPage.getContentResource().adaptTo(ApplicationNotes.class).getAllTags());
 
-        LOG.info("selected tags : {}, page tags : {}", getTagTitles(tags), getTagTitles(pageMetadataTags));
+        LOG.debug("selected tags : {}, page tags : {}", getTagTitles(tags), getTagTitles(pageMetadataTags));
 
         final List<Tag> searchTags = new ArrayList<>();
 
@@ -60,7 +60,7 @@ public final class PageMetadata {
             searchTags.addAll(pageTags);
         }
 
-        LOG.info("search tags : {}", getTagTitles(searchTags));
+        LOG.debug("search tags : {}", getTagTitles(searchTags));
 
         return searchTags;
     }
