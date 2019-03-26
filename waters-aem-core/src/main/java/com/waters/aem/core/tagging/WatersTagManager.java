@@ -181,7 +181,7 @@ public final class WatersTagManager implements TagManager {
 
     @Override
     @Deprecated
-    @SuppressWarnings("squid:MissingDeprecatedCheck,squid:S1133")
+    @SuppressWarnings({"squid:MissingDeprecatedCheck","squid:S1133"})
     public Session getSession() {
         return tagManager.getSession();
     }

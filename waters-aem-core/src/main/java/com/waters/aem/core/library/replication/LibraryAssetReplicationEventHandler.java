@@ -1,12 +1,10 @@
-package com.waters.aem.pdfgenerator.replication;
+package com.waters.aem.core.library.replication;
 
 import com.day.cq.replication.ReplicationActionType;
-import com.icfolson.aem.library.api.page.PageDecorator;
-import com.icfolson.aem.library.api.page.PageManagerDecorator;
+import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.library.asset.LibraryAsset;
+import com.waters.aem.core.library.job.LibraryPageJobConsumer;
 import com.waters.aem.core.services.replication.AbstractReplicationEventHandler;
-import com.waters.aem.core.utils.Templates;
-import com.waters.aem.pdfgenerator.job.PdfGeneratorJobConsumer;
-import com.waters.aem.pdfgenerator.services.PdfGenerator;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
@@ -20,9 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Replication event handler to create or delete Application Note PDFs after pages are activated.  A PDF generation job
- * is added each time an Application Notes page is activated - using the job ensures that the event handler will not be
- * blacklisted if PDF generator process duration exceeds the blacklist time threshold.
+ * Replication event handler to create/update Library pages when Library assets are replicated.
  */
 @Component(immediate = true,
     service = EventHandler.class,
@@ -30,9 +26,9 @@ import org.slf4j.LoggerFactory;
         EventConstants.EVENT_TOPIC + "=" + NotificationConstants.TOPIC_JOB_FINISHED,
         EventConstants.EVENT_FILTER + "=(" + NotificationConstants.NOTIFICATION_PROPERTY_JOB_TOPIC + "=com/day/cq/replication/job/publish)"
     })
-public final class PdfReplicationEventHandler extends AbstractReplicationEventHandler implements EventHandler {
+public final class LibraryAssetReplicationEventHandler extends AbstractReplicationEventHandler {
 
-    private static final Logger LOG = LoggerFactory.getLogger(PdfReplicationEventHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LibraryAssetReplicationEventHandler.class);
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -40,24 +36,10 @@ public final class PdfReplicationEventHandler extends AbstractReplicationEventHa
     @Reference
     private JobManager jobManager;
 
-    @Reference
-    private PdfGenerator pdfGenerator;
-
     @Override
     protected boolean accepts(final String path, final ReplicationActionType replicationActionType) {
-        boolean accepted = false;
-
-        if (pdfGenerator.isEnabled() && ReplicationActionType.ACTIVATE.equals(replicationActionType)) {
-            try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
-                final PageDecorator page = resourceResolver.adaptTo(PageManagerDecorator.class).getPage(path);
-
-                accepted = Templates.isApplicationNotesPage(page);
-            } catch (LoginException e) {
-                LOG.error("error authenticating resource resolver", e);
-            }
-        }
-
-        return accepted;
+        return ReplicationActionType.ACTIVATE.equals(replicationActionType) && path.startsWith(
+            WatersConstants.DAM_PATH) && isLibraryAsset(path);
     }
 
     @Override
@@ -67,7 +49,7 @@ public final class PdfReplicationEventHandler extends AbstractReplicationEventHa
 
     @Override
     protected void handleActivate(final String path) {
-        addJob(PdfGeneratorJobConsumer.JOB_TOPIC, path);
+        addJob(LibraryPageJobConsumer.JOB_TOPIC, path);
     }
 
     @Override
@@ -78,5 +60,19 @@ public final class PdfReplicationEventHandler extends AbstractReplicationEventHa
     @Override
     protected void handleDelete(final String path) {
         // do nothing
+    }
+
+    private boolean isLibraryAsset(final String path) {
+        boolean libraryAsset = false;
+
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
+            final LibraryAsset asset = resourceResolver.getResource(path).adaptTo(LibraryAsset.class);
+
+            libraryAsset = asset.isLibraryAsset();
+        } catch (LoginException e) {
+            LOG.error("error authenticating resource resolver", e);
+        }
+
+        return libraryAsset;
     }
 }

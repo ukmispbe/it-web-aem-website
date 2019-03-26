@@ -235,14 +235,14 @@ div.cmp-search__no-results {
             &--sticky {
                 position: fixed;
                 background-color: $color-white;
-                z-index: 1;
+                z-index: 4;
                 width: 101%;
                 top: 76px;
                 box-shadow: $shadow;
                 border:none;
                 margin: 0 0 0 -7%;
-                padding: ($space-xxs + .05em) $space-xs $space-xs $space-m;
-                height: 52px;
+                padding: .65em $space-xs $space-xs 1.32em;
+                height: 54px;
             }
             float: none;
             background-position: 95% 13px;
@@ -339,7 +339,10 @@ html.showing-spinner {
                 }
             }
         }
-        .cmp-search__container, .cmp-external-footer {
+        .btn-show-sort-filter--sticky {
+            z-index: 2;
+        }
+        .cccmp-search__container, .cmp-external-footer, .cmp-back-to-top {
             display: none;
         }
     }

@@ -10,14 +10,20 @@ import com.google.common.collect.ImmutableList;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.TagInject;
+import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.metadata.ContentClassification;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.inject.Inject;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Component(value = "Application Notes",
@@ -32,14 +38,22 @@ import java.util.List;
     fileName = ApplicationNotes.FILE_NAME,
     touchFileName = ApplicationNotes.FILE_NAME)
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public final class ApplicationNotes {
+@SuppressWarnings({ "common-java:DuplicatedBlocks" })
+public final class ApplicationNotes implements ContentClassification {
 
     static final String FILE_NAME = "applicationnotes";
 
     public static final String PROPERTY_LITERATURE_CODE = "literatureCode";
 
+    private static final String DEFAULT_DAY_NUMBER = "01";
+
+    private static final String FIRST_PUBLISH_DATE_FORMAT = "yyyy-MMM-dd";
+
     @Self
     private Resource resource;
+
+    @Self
+    private SiteContext siteContext;
 
     @Inject
     private PageDecorator page;
@@ -114,6 +128,7 @@ public final class ApplicationNotes {
     @TagInject
     private List<Tag> yearPublished = Collections.emptyList();
 
+    @Override
     public List<Tag> getAllTags() {
         return new ImmutableList.Builder<Tag>()
             .addAll(author)
@@ -131,20 +146,33 @@ public final class ApplicationNotes {
             .build();
     }
 
-    public List<Tag> getAuthor() {
-        return author;
-    }
-
+    @Override
     public String getLiteratureCode() {
         return literatureCode;
     }
 
+    @Override
     public List<Tag> getCategory() {
         return category;
     }
 
+    @Override
     public List<Tag> getContentType() {
         return contentType;
+    }
+
+    @Override
+    public List<Tag> getMonthPublished() {
+        return monthPublished;
+    }
+
+    @Override
+    public List<Tag> getYearPublished() {
+        return yearPublished;
+    }
+
+    public List<Tag> getAuthor() {
+        return author;
     }
 
     public List<Tag> getInstrumentType() {
@@ -169,14 +197,6 @@ public final class ApplicationNotes {
 
     public List<Tag> getMarket() {
         return market;
-    }
-
-    public List<Tag> getMonthPublished() {
-        return monthPublished;
-    }
-
-    public List<Tag> getYearPublished() {
-        return yearPublished;
     }
 
     public List<Tag> getCompoundMatrix() {
@@ -233,5 +253,36 @@ public final class ApplicationNotes {
 
     public Resource getResource() {
         return resource;
+    }
+
+    public String getFormattedPublishDate() {
+        final String year = getDateTagName(yearPublished);
+        final String month = getDateTagName(monthPublished);
+
+        String formattedPublishDate = "";
+
+        if (StringUtils.isNotEmpty(year) && StringUtils.isNotEmpty(month)) {
+            try {
+                final String dateString = new StringBuilder()
+                    .append(year)
+                    .append("-")
+                    .append(month)
+                    .append("-")
+                    .append(DEFAULT_DAY_NUMBER)
+                    .toString();
+
+                final Date date = new SimpleDateFormat(FIRST_PUBLISH_DATE_FORMAT).parse(dateString);
+
+                formattedPublishDate = WatersConstants.DATE_FORMAT_ISO_8601.format(date);
+            } catch (ParseException e) {
+                // ignore
+            }
+        }
+
+        return formattedPublishDate;
+    }
+
+    private String getDateTagName(final List<Tag> tags) {
+        return tags.isEmpty() ? "" : tags.get(0).getName();
     }
 }

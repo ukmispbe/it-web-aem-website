@@ -14,27 +14,28 @@ public abstract class AbstractAnalyticsModel {
     @Self
     private SiteContext siteContext;
 
-    public String getTagTitle(List<Tag> tags) {
-        return !tags.isEmpty() ? tags.get(0).getTitle() : "";
+    protected String getTagTitle(final List<Tag> tags) {
+        return !tags.isEmpty() ? tags.get(0).getTitle(siteContext.getLocale()) : "";
     }
 
-    public String getFirstTagTitle(List<Tag> tags) {
+    protected String getFirstTagTitle(final List<Tag> tags) {
         return !tags.isEmpty() ? getTagTitles(tags).get(0) : "";
     }
 
-    public List<String> getTagTitles(final List<Tag> tags) {
+    protected List<String> getTagTitles(final List<Tag> tags) {
         return tags.stream().map(this :: getTagTitlePath).collect(Collectors.toList());
     }
 
     private String getTagTitlePath(final Tag tag) {
         final List<String> titlesInPath = new ArrayList<>();
 
-        titlesInPath.add(tag.getTitle());
+        titlesInPath.add(tag.getTitle(siteContext.getLocale()));
 
         Tag parent = tag.getParent();
 
         while (parent != null) {
-            titlesInPath.add(parent.getTitle());
+            titlesInPath.add(parent.getTitle(siteContext.getLocale()));
+
             parent = parent.getParent();
         }
 

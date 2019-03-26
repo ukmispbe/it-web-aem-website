@@ -13,7 +13,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.core.constants.PathConstants;
+import com.icfolson.aem.library.core.link.builders.factory.LinkBuilderFactory;
 import com.icfolson.aem.library.models.annotations.LinkInject;
+import com.waters.aem.core.library.asset.LibraryAsset;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
@@ -25,6 +27,7 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Component(value = "Button",
     description = "This is the Button component for Waters site",
@@ -44,6 +47,9 @@ public final class Button implements ComponentExporter {
     @Inject
     private Resource resource;
 
+    @Inject
+    private LibraryAsset libraryAsset;
+
     @DialogField(fieldLabel = "Button Text",
         fieldDescription = "Enter the text for the button",
         required = true,
@@ -61,7 +67,6 @@ public final class Button implements ComponentExporter {
 
     @DialogField(fieldLabel = "Button Link",
         fieldDescription = "Select or enter the link URL",
-        required = true,
         ranking = 3)
     @PathField(rootPath = PathConstants.PATH_CONTENT)
     @LinkInject
@@ -86,7 +91,12 @@ public final class Button implements ComponentExporter {
     }
 
     public Link getButtonLink() {
-        return buttonLink;
+        final Link libraryAssetLink = Optional.ofNullable(libraryAsset)
+            .map(asset -> LinkBuilderFactory.forPath(asset.getPath()).build())
+            .orElse(null);
+
+        // check the authored link first, then default to the library asset link if available, otherwise return null
+        return Optional.ofNullable(buttonLink).orElse(libraryAssetLink);
     }
 
     public Boolean isNewWindow() {
