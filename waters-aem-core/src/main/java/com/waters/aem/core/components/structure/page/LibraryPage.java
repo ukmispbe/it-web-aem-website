@@ -10,11 +10,23 @@ import org.apache.sling.models.annotations.injectorspecific.ResourcePath;
 
 import java.util.List;
 
+/**
+ * Library page with an associated DAM asset.
+ */
 @Model(adaptables = Resource.class)
 public final class LibraryPage implements ContentClassification {
 
     @ResourcePath(name = WatersConstants.PROPERTY_LIBRARY_ASSET_PATH)
     private LibraryAsset libraryAsset;
+
+    /**
+     * Get the DAM asset associated with this page.
+     *
+     * @return library asset
+     */
+    public LibraryAsset getLibraryAsset() {
+        return libraryAsset;
+    }
 
     @Override
     public String getLiteratureCode() {
