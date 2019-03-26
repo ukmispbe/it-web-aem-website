@@ -9,7 +9,7 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @JsonRootName(value = "page")
-public class AnalyticsPageModel extends AbstractAnalyticsModel{
+public final class AnalyticsPageModel extends AbstractAnalyticsModel {
 
     @Self
     private SiteContext siteContext;
@@ -32,6 +32,5 @@ public class AnalyticsPageModel extends AbstractAnalyticsModel{
     public String getType() {
         return getFirstTagTitle(applicationNotes.getContentType());
     }
-
 }
 

@@ -10,15 +10,20 @@ import com.google.common.collect.ImmutableList;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.TagInject;
+import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.metadata.ContentClassification;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.inject.Inject;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Component(value = "Application Notes",
@@ -33,15 +38,22 @@ import java.util.List;
     fileName = ApplicationNotes.FILE_NAME,
     touchFileName = ApplicationNotes.FILE_NAME)
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-@SuppressWarnings({"common-java:DuplicatedBlocks"})
+@SuppressWarnings({ "common-java:DuplicatedBlocks" })
 public final class ApplicationNotes implements ContentClassification {
 
     static final String FILE_NAME = "applicationnotes";
 
     public static final String PROPERTY_LITERATURE_CODE = "literatureCode";
 
+    private static final String DEFAULT_DAY_NUMBER = "01";
+
+    private static final String FIRST_PUBLISH_DATE_FORMAT = "yyyy-MMM-dd";
+
     @Self
     private Resource resource;
+
+    @Self
+    private SiteContext siteContext;
 
     @Inject
     private PageDecorator page;
@@ -241,5 +253,36 @@ public final class ApplicationNotes implements ContentClassification {
 
     public Resource getResource() {
         return resource;
+    }
+
+    public String getFormattedPublishDate() {
+        final String year = getDateTagName(yearPublished);
+        final String month = getDateTagName(monthPublished);
+
+        String formattedPublishDate = "";
+
+        if (StringUtils.isNotEmpty(year) && StringUtils.isNotEmpty(month)) {
+            try {
+                final String dateString = new StringBuilder()
+                    .append(year)
+                    .append("-")
+                    .append(month)
+                    .append("-")
+                    .append(DEFAULT_DAY_NUMBER)
+                    .toString();
+
+                final Date date = new SimpleDateFormat(FIRST_PUBLISH_DATE_FORMAT).parse(dateString);
+
+                formattedPublishDate = WatersConstants.DATE_FORMAT_ISO_8601.format(date);
+            } catch (ParseException e) {
+                // ignore
+            }
+        }
+
+        return formattedPublishDate;
+    }
+
+    private String getDateTagName(final List<Tag> tags) {
+        return tags.isEmpty() ? "" : tags.get(0).getName();
     }
 }

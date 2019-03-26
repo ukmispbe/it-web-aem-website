@@ -34,4 +34,8 @@
     <link rel="icon" sizes="192x192" href="/etc.clientlibs/waters/clientlibs/clientlib-resources/resources/icon-192x192.png">
 
     <title>${metaPage.title}</title>
+
+    <script type="application/ld+json">
+        ${metaPage.schemaJson @ context='unsafe'}
+    </script>
 </sly>
