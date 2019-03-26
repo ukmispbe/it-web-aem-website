@@ -53,9 +53,9 @@ public final class DefaultSiteRepository implements SiteRepository {
     }
 
     @Override
-    @SuppressWarnings({"squid:S1854","squid:S1481"})
     public PageDecorator getLanguageRootPage(final ResourceResolver resourceResolver, final String countryCode,
         final String languageCode) {
+        @SuppressWarnings({ "squid:S1854", "squid:S1481" })
         final LiveRelationshipManager liveRelationshipManager = resourceResolver.adaptTo(LiveRelationshipManager.class);
 
         final PageDecorator countryRootPage = getCountryRootPage(resourceResolver, countryCode);

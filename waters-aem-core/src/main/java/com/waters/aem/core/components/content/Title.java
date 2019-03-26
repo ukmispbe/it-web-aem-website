@@ -45,6 +45,7 @@ public final class Title implements com.adobe.cq.wcm.core.components.models.Titl
     private LibraryAsset libraryAsset;
 
     @ValueMapValue(name = JcrConstants.JCR_TITLE)
+    @SuppressWarnings("squid:S1700")
     private String title;
 
     @Self
