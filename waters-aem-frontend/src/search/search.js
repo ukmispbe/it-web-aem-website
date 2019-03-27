@@ -418,6 +418,8 @@ class Search extends Component {
                     <BtnShowSortFilter
                         text={this.props.searchText}
                         setupFilters={this.setupFilters.bind(this)}
+                        resetToSavedState={this.resetToSavedState.bind(this)}
+                        collapseFilters={this.collapseFilters}
                     />
                 </div>
 

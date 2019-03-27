@@ -333,6 +333,7 @@
         }
 
         @include mobile {
+            display: none;
             width: 114%;
             float: none;
             background-position: 95% 13px;
@@ -416,7 +417,6 @@
         top: 0;
         right: 0;
         background: $color-white;
-        padding: $header-height 20px 20px 20px;
         max-height: 100vh;
         overflow-y: hidden;
         overflow-x: hidden;
@@ -440,13 +440,16 @@
         width: 100%;
         display: block;
         height: 0;
-        transition: height 1s ease;
+        transition: height 1s ease, padding 1s ease;
+        margin-top: 120px;
+        padding: 0 20px;
     }
 
     @include tablet {
         display: none;
         width: 40%;
         height: 100%;
+        padding: $header-height 20px 20px 20px;
     }
 }
 
@@ -500,7 +503,11 @@
     @include mobile {
         .cmp-search__sort-filter {
             height: 100vh;
-            transition: height 1s ease;
+            transition: height 1s ease, padding 1s ease;
+            padding: 40px 20px 80px 20px;
+        }
+        .cmp-search__sort-filter__container {
+            height: 105%;
         }
         &.filter-active {
             .cmp-search__sort-filter__container {

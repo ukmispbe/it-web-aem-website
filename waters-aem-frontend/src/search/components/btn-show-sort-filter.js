@@ -9,9 +9,19 @@ class ShowSortFilter extends Component {
     }
 
     handleInput(e) {
-        document.body.classList.add('show-sort-filters');
-        this.setState({ showSortFilters: true });
-        this.props.setupFilters();
+        const showFilterClass = 'show-sort-filters';
+        if (document.body.classList.contains(showFilterClass)) {
+            document.body.classList.remove('show-sort-filters');
+            document.body.classList.remove('filter-active');
+            this.setState({ showSortFilters: true });
+
+            this.props.resetToSavedState();
+            this.props.collapseFilters();
+        } else {
+            document.body.classList.add('show-sort-filters');
+            this.setState({ showSortFilters: true });
+            this.props.setupFilters();
+        }
     }
 
     render() {
@@ -26,6 +36,10 @@ class ShowSortFilter extends Component {
                     <ReactSVG
                         src={props.text.filterIcon}
                         className="filterIcon"
+                    />
+                    <ReactSVG 
+                        src={props.text.closeIcon}
+                        className="closeIcon"
                     />
                     {props.text.sortAndFilterButton}
                 </a>

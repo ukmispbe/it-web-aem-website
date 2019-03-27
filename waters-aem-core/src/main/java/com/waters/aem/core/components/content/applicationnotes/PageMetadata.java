@@ -10,6 +10,8 @@ import com.waters.aem.core.library.asset.LibraryAsset;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -21,6 +23,8 @@ import java.util.stream.Collectors;
 @Model(adaptables = SlingHttpServletRequest.class,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class PageMetadata {
+
+    private static final Logger LOG = LoggerFactory.getLogger(PageMetadata.class);
 
     @Inject
     private PageDecorator currentPage;
@@ -44,6 +48,8 @@ public final class PageMetadata {
             .map(LibraryAsset :: getAllTags)
             .orElse(currentPage.getContentResource().adaptTo(ApplicationNotes.class).getAllTags());
 
+        LOG.debug("selected tags : {}, page tags : {}", getTagTitles(tags), getTagTitles(pageMetadataTags));
+
         final List<Tag> searchTags = new ArrayList<>();
 
         for (final Tag tag : tags) {
@@ -54,6 +60,14 @@ public final class PageMetadata {
             searchTags.addAll(pageTags);
         }
 
+        LOG.debug("search tags : {}", getTagTitles(searchTags));
+
         return searchTags;
+    }
+
+    private List<String> getTagTitles(final List<Tag> tags) {
+        return tags.stream()
+            .map(Tag :: getTitle)
+            .collect(Collectors.toList());
     }
 }

@@ -1,7 +1,11 @@
-<div class="cmp-iframe"
-     data-sly-use.iframe="com.waters.aem.core.components.content.Iframe"
-     data-sly-test="${iframe.source}">
-    <iframe src="${iframe.source}"></iframe>
+<div data-sly-use.iframe="com.waters.aem.core.components.content.Iframe"
+     data-sly-test="${iframe.source}"
+     class="cmp-iframe">
+    <iframe src="${iframe.source}"
+            height="${iframe.height}"
+            scrolling="auto"
+            allowfullscreen seamless>
+    </iframe>
 </div>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
