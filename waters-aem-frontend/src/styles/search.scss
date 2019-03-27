@@ -187,6 +187,21 @@ div.cmp-search__no-results {
         }
     }
 }
+
+@mixin sticky-show-sort {
+    position: fixed;
+    background-color: $color-white;
+    z-index: 4;
+    width: 100%;
+    top: 76px;
+    left: 0;
+    box-shadow: $shadow;
+    border:none;
+    margin: 0;
+    padding: .65em $space-xs $space-xs 1.32em;
+    height: 54px;
+}
+
 .cmp-search-show-btn {
     .btn-show-sort-filter {
         display: none;
@@ -207,6 +222,15 @@ div.cmp-search__no-results {
             }
         }
         transition: none;
+        .closeIcon, .filterIcon {
+            transition: opacity 1s ease;
+        }
+        .closeIcon {
+            opacity: 0;
+        }
+        .filterIcon {
+            opacity: 1;
+        }
         svg {
             position: absolute;
             top: 14px;
@@ -233,16 +257,7 @@ div.cmp-search__no-results {
                 margin: 0 2% 0 0;
             }
             &--sticky {
-                position: fixed;
-                background-color: $color-white;
-                z-index: 4;
-                width: 101%;
-                top: 76px;
-                box-shadow: $shadow;
-                border:none;
-                margin: 0 0 0 -7%;
-                padding: .65em $space-xs $space-xs 1.32em;
-                height: 54px;
+                @include sticky-show-sort;
             }
             float: none;
             background-position: 95% 13px;
@@ -334,13 +349,21 @@ html.showing-spinner {
     @include mobile {
         .cmp-search-show-btn {
             .btn-show-sort-filter {
-                &--sticky {
-                    display: none;
+                display: block;
+                @include sticky-show-sort;
+                .filterIcon, .closeIcon {
+                    transition: opacity 1s ease;
+                }
+                .filterIcon {
+                    opacity: 0;
+                }
+                .closeIcon {
+                    opacity: 1;
                 }
             }
         }
-        .btn-show-sort-filter--sticky {
-            z-index: 2;
+        .btn-show-sort-filter{
+            z-index: 4;
         }
         .cccmp-search__container, .cmp-external-footer, .cmp-back-to-top {
             display: none;
