@@ -147,10 +147,10 @@ class MetaSpec extends AemLibraryModelSpec {
 
         where:
         path                    | tags
-        "/content/waters/one"   | []
-        "/content/waters/two"   | ["NOFOLLOW"]
-        "/content/waters/three" | ["NOINDEX"]
-        "/content/waters/four"  | ["NOINDEX", "NOFOLLOW"]
+        "/content/waters/one"   | ["index", "follow"]
+        "/content/waters/two"   | ["index", "nofollow"]
+        "/content/waters/three" | ["noindex", "follow"]
+        "/content/waters/four"  | ["noindex", "nofollow"]
     }
 
     def "get og type"() {
