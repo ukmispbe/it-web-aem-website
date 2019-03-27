@@ -41,7 +41,7 @@ import java.util.stream.Collectors;
  * Model for Waters library assets containing classification metadata.
  */
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-@SuppressWarnings({"common-java:DuplicatedBlocks"})
+@SuppressWarnings({ "common-java:DuplicatedBlocks" })
 public final class LibraryAsset implements ContentClassification, Asset {
 
     private static final String RELATIVE_PATH_METADATA = "jcr:content/metadata";
@@ -72,6 +72,10 @@ public final class LibraryAsset implements ContentClassification, Asset {
     @TagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> product = Collections.emptyList();
+
+    @TagInject
+    @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
+    private List<Tag> market = Collections.emptyList();
 
     @TagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
@@ -111,6 +115,10 @@ public final class LibraryAsset implements ContentClassification, Asset {
         return yearPublished;
     }
 
+    public List<Tag> getMarket() {
+        return market;
+    }
+
     public List<Tag> getProduct() {
         return product;
     }
@@ -121,6 +129,7 @@ public final class LibraryAsset implements ContentClassification, Asset {
             .addAll(category)
             .addAll(contentType)
             .addAll(product)
+            .addAll(market)
             .addAll(yearPublished)
             .build();
     }
@@ -209,7 +218,7 @@ public final class LibraryAsset implements ContentClassification, Asset {
 
     @Override
     @Deprecated
-    @SuppressWarnings({"squid:MissingDeprecatedCheck","squid:S1133"})
+    @SuppressWarnings({ "squid:MissingDeprecatedCheck", "squid:S1133" })
     public Rendition getCurrentOriginal() {
         return asset.getCurrentOriginal();
     }
@@ -226,14 +235,14 @@ public final class LibraryAsset implements ContentClassification, Asset {
 
     @Override
     @Deprecated
-    @SuppressWarnings({"squid:MissingDeprecatedCheck","squid:S1133"})
+    @SuppressWarnings({ "squid:MissingDeprecatedCheck", "squid:S1133" })
     public Resource setRendition(final String name, final InputStream is, final String mimeType) {
         return asset.setRendition(name, is, mimeType);
     }
 
     @Override
     @Deprecated
-    @SuppressWarnings({"squid:MissingDeprecatedCheck","squid:S1133"})
+    @SuppressWarnings({ "squid:MissingDeprecatedCheck", "squid:S1133" })
     public void setCurrentOriginal(final String name) {
         asset.setCurrentOriginal(name);
     }
