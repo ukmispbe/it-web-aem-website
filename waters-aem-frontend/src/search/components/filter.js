@@ -91,6 +91,8 @@ class Filter extends Component {
                     facet={item}
                     selectHandler={props.selectHandler}
                     selectedFacets={props.selectedFacets}
+                    minItemSearch={21}
+                    minCharSearch={2}
                 />
             );
         });
