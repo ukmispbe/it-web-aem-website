@@ -183,11 +183,15 @@ public final class Meta extends AbstractComponent {
         final List<String> robotsTags = new ArrayList<>();
 
         if (isNoIndex()) {
-            robotsTags.add("NOINDEX");
+            robotsTags.add("noindex");
+        } else {
+            robotsTags.add("index");
         }
 
         if (isNoFollow()) {
-            robotsTags.add("NOFOLLOW");
+            robotsTags.add("nofollow");
+        } else {
+            robotsTags.add("follow");
         }
 
         return robotsTags;
