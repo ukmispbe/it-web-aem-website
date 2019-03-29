@@ -34,7 +34,7 @@ class FilterSection extends Component {
             */
 
             if (this.searchRef.current && !this.isEmpty(this.searchRef.current.value)) {
-                this.handleSearchChange(this.searchRef.current.value);
+                this.handleSearchChange(this.searchRef.current.value, this.props.minCharSearch, this.props.facet.facets);
             }
         }
     }
@@ -49,8 +49,8 @@ class FilterSection extends Component {
 
     filterList = (value, minCharSearch, items) => (this.isEmpty(value) || this.lengthLessThan(value, minCharSearch) ? items : items.filter(item => this.valueStartsWith(item.value, value)));
 
-    handleSearchChange = (value) => {
-        this.setStateForItems(this.filterList(value, this.props.minCharSearch, this.props.facet.facets));
+    handleSearchChange = (value, minCharSearch, items) => {
+        this.setStateForItems(this.filterList(value, this.props.minCharSearch, items));
     }
 
     checkHandler(event) {
@@ -124,7 +124,7 @@ class FilterSection extends Component {
                     <input
                         type="input"
                         placeholder="Search"
-                        onChange={e => this.handleSearchChange(e.target.value)}
+                        onChange={e => this.handleSearchChange(e.target.value, this.props.minCharSearch, this.props.facet.facets)}
                         ref={this.searchRef}
                     />
                 </div>
