@@ -872,6 +872,21 @@
                                         jcr:primaryType="nt:unstructured"
                                         visibilityCascading="default"/>
                                 </_x0031_552412802309>
+                                <_x0031_553879329709
+                                        cq:showOnCreate="{Boolean}true"
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="dam/gui/components/admin/schemafield"
+                                        allowCreate="{Boolean}true"
+                                        cq-msm-lockable="cq:tags"
+                                        fieldLabel="Market"
+                                        metaType="tags"
+                                        multiple="true"
+                                        name="./jcr:content/metadata/market"
+                                        resourceType="cq/gui/components/coral/common/form/tagfield">
+                                    <granite:data
+                                            jcr:primaryType="nt:unstructured"
+                                            visibilityCascading="default"/>
+                                </_x0031_553879329709>
                                 <_x0031_553609729175
                                     cq:showOnCreate="{Boolean}true"
                                     jcr:primaryType="nt:unstructured"
