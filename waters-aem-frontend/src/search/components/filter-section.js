@@ -1,27 +1,56 @@
 import React, { Component } from 'react';
 import ReactSVG from 'react-svg';
+import validator from 'validator';
+import PropTypes from 'prop-types';
 
 class FilterSection extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            showSearch: false,
-            showSearchMin: 2, //Set proper default here
-            items: props.facet.facets,
+            items: props.facet.facets
         };
+
+        this.searchRef = React.createRef();
     }
 
-    filterList(event) {
-        const state = this.state;
-        var updatedList = state.initialItems;
-        updatedList = updatedList.filter(function(item) {
-            return (
-                item.facetValue
-                    .toLowerCase()
-                    .search(event.target.value.toLowerCase()) !== -1
-            );
-        });
-        this.setState({ items: updatedList });
+    componentDidUpdate(prevProps) {
+        /*
+            This will check if the facets have been modified
+            due to other facets being checked off.  If so,
+            set state using the updated facets props.
+        */
+        
+        const prevFacets = JSON.stringify(prevProps.facet.facets);
+        const currFacets = JSON.stringify(this.props.facet.facets);
+
+        if (!validator.equals(prevFacets, currFacets)) {
+            this.setStateForItems(this.props.facet.facets);
+            
+            /* 
+                Since the facets prop has changed check to see
+                if there is a search value so it can be
+                applied on the updated facets props
+            */
+
+            if (this.searchRef.current && !this.isEmpty(this.searchRef.current.value)) {
+                this.handleSearchChange(this.searchRef.current.value, this.props.minCharSearch, this.props.facet.facets);
+            }
+        }
+    }
+
+    setStateForItems = (items) => this.setState({items});
+
+    isEmpty = (value) => validator.isEmpty(value, { ignore_whitespace: false });
+
+    lengthLessThan = (value, lengthComparison) => value.length < lengthComparison;
+
+    valueStartsWith = (value, valueComparison) => value.toLowerCase().startsWith(valueComparison.toLowerCase());
+
+    filterList = (value, minCharSearch, items) => (this.isEmpty(value) || this.lengthLessThan(value, minCharSearch) ? items : items.filter(item => this.valueStartsWith(item.value, value)));
+
+    handleSearchChange = (value, minCharSearch, items) => {
+        this.setStateForItems(this.filterList(value, this.props.minCharSearch, items));
     }
 
     checkHandler(event) {
@@ -29,10 +58,8 @@ class FilterSection extends Component {
     }
 
     getFacetOptions() {
-        const options =
-            this.props.facet && this.props.facet.facets
-                ? this.props.facet.facets
-                : [];
+        const options = this.state.items;
+
         const option = options.map((item, index) => {
             let checked = false;
             if (this.props.selectedFacets[this.props.facet.name]) {
@@ -86,28 +113,23 @@ class FilterSection extends Component {
         return option;
     }
 
-    showSearcbar() {
-        const props = this.props;
-        const options = props.facet.orderedFacets;
-        let search = '';
-
-        if (options.length > this.state.showSearchMin) {
-            search = (
+    getFacetSearch = (items, minItemSearch) => {
+        if (items.length >= minItemSearch) {
+            return (
                 <div className="cmp-search-filters__filter__search">
                     <ReactSVG
-                        src={props.text.searchIcon}
+                        src={this.props.text.searchIcon}
                         className="searchIcon"
                     />
                     <input
                         type="input"
                         placeholder="Search"
-                        onChange={this.filterList.bind(this)}
+                        onChange={e => this.handleSearchChange(e.target.value, this.props.minCharSearch, this.props.facet.facets)}
+                        ref={this.searchRef}
                     />
                 </div>
             );
         }
-
-        return search;
     }
 
     render() {
@@ -142,10 +164,10 @@ class FilterSection extends Component {
                         {props.facet.category}
                     </a>
 
-                {/* WIP Search  */}
-                {/* {this.showSearcbar()} */}
-
-                <ul>{this.getFacetOptions()}</ul>
+                <ul>
+                    {this.getFacetSearch(this.props.facet.facets, this.props.minItemSearch)}
+                    {this.getFacetOptions()}
+                </ul>
 
                 {/* <div className="cmp-search-filters__filter__year clearfix">
                     <div className="cmp-search-filters__filter__year__min">
@@ -169,5 +191,18 @@ class FilterSection extends Component {
         );
     }
 }
+
+FilterSection.propTypes = {
+    facet: PropTypes.object.isRequired,
+    handleInput: PropTypes.func.isRequired,
+    item: PropTypes.number.isRequired,
+    last: PropTypes.number.isRequired,
+    minCharSearch: PropTypes.number.isRequired,
+    minItemSearch: PropTypes.number.isRequired,
+    selectHandler: PropTypes.func.isRequired,
+    selected: PropTypes.number.isRequired,
+    selectedFacets: PropTypes.object,
+    text: PropTypes.object.isRequired
+};
 
 export default FilterSection;
