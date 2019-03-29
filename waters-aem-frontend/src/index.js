@@ -72,18 +72,16 @@ if (searchAppContainer) {
 const tagCloudContainers = document.querySelectorAll('.cmp-tag-cloud');
 
 if (tagCloudContainers) {
-    tagCloudContainers.forEach((item, index) => {
-        const json = JSON.parse(item.getAttribute('data-json'));
-
-        const data = getAuthoredDataForTagCloud(header, item);
-
+    for (var i = 0; i < tagCloudContainers.length; i++) {
+        const json = JSON.parse(tagCloudContainers[i].getAttribute('data-json'));
+        const data = getAuthoredDataForTagCloud(header, tagCloudContainers[i]);
         ReactDOM.render(
             <TagCloud
-                tagCloudTitle={data.tagTitle}
-                searchPath={data.searchPath}
-                keywords={json}
+            tagCloudTitle={data.tagTitle}
+            searchPath={data.searchPath}
+            keywords={json}
             />,
-            item
+            tagCloudContainers[i]
         );
-    });
+    }
 }
