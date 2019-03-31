@@ -136,3 +136,10 @@ button.cmp-button.cmp-button--center {
     display: inline-block;
     float: none;
 }
+
+.cmp-button--fullWidth .cmp-button {
+    width: 100%;
+    @include tablet {
+        width: auto;
+    }
+}
