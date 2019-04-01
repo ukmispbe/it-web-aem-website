@@ -9,10 +9,9 @@ import com.day.cq.tagging.Tag;
 import com.google.common.collect.ImmutableList;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
-import com.icfolson.aem.library.models.annotations.TagInject;
-import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.metadata.ContentClassification;
+import com.waters.aem.core.tagging.WatersTagInject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -52,20 +51,17 @@ public final class ApplicationNotes implements ContentClassification {
     @Self
     private Resource resource;
 
-    @Self
-    private SiteContext siteContext;
-
     @Inject
     private PageDecorator page;
 
     @DialogField(fieldLabel = "Author", ranking = 1)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> author = Collections.emptyList();
 
     @DialogField(fieldLabel = "Affiliations", ranking = 2)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> affiliations = Collections.emptyList();
 
     @DialogField(fieldLabel = "Literature Code", ranking = 3)
@@ -75,57 +71,57 @@ public final class ApplicationNotes implements ContentClassification {
 
     @DialogField(fieldLabel = "Category", ranking = 4)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> category = Collections.emptyList();
 
     @DialogField(fieldLabel = "Content Type", ranking = 5)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> contentType = Collections.emptyList();
 
     @DialogField(fieldLabel = "Instrument Type", ranking = 6)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> instrumentType = Collections.emptyList();
 
     @DialogField(fieldLabel = "Technique", ranking = 7)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> technique = Collections.emptyList();
 
     @DialogField(fieldLabel = "Separation Mode", ranking = 8)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> separationMode = Collections.emptyList();
 
     @DialogField(fieldLabel = "Compound/Matrix", ranking = 9)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> compoundMatrix = Collections.emptyList();
 
     @DialogField(fieldLabel = "Column Type", ranking = 10)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> columnType = Collections.emptyList();
 
     @DialogField(fieldLabel = "Software", ranking = 11)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> software = Collections.emptyList();
 
     @DialogField(fieldLabel = "Market", ranking = 12)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> market = Collections.emptyList();
 
     @DialogField(fieldLabel = "Month Published", ranking = 13)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> monthPublished = Collections.emptyList();
 
     @DialogField(fieldLabel = "Year Published", ranking = 14)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> yearPublished = Collections.emptyList();
 
     @Override

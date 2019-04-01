@@ -4,8 +4,8 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.widgets.TagInputField;
 import com.day.cq.tagging.Tag;
 import com.google.common.collect.ImmutableMap;
-import com.icfolson.aem.library.models.annotations.TagInject;
 import com.waters.aem.core.components.SiteContext;
+import com.waters.aem.core.tagging.WatersTagInject;
 import com.waters.aem.core.utils.SearchUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -27,14 +27,14 @@ public final class SearchResultsCategory {
         fieldDescription = "Select a tag corresponding to a top-level search category.",
         ranking = 1)
     @TagInputField(multiple = false)
-    @TagInject
+    @WatersTagInject
     private Tag categoryTag;
 
     @DialogField(fieldLabel = "Ordered Facets",
         fieldDescription = "Select facet tags in the order that they should be displayed on the Search Results page.",
         ranking = 2)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> orderedFacetTags = Collections.emptyList();
 
     public String getCategoryFacetValue() {

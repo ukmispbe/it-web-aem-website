@@ -146,7 +146,8 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         final Locale locale = page.getLanguage(false);
 
         // get all tags and group by their parent tag name, which maps to the facet field name
-        final Map<String, List<Tag>> groupedTags = contentClassification.getAllTags().stream()
+        final Map<String, List<Tag>> groupedTags = contentClassification.getAllTags()
+            .stream()
             .collect(Collectors.groupingBy(tag -> tag.getParent().getName()));
 
         for (final Map.Entry<String, List<Tag>> entry : groupedTags.entrySet()) {
