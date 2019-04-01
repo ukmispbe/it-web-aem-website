@@ -2,6 +2,7 @@
     iframe {
         width: 100%;
         outline: none;
-        border: none;
+        border: 1px solid $color-border-light;
+        margin-bottom: $space-l;
     }
 }
