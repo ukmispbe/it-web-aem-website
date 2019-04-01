@@ -50,7 +50,6 @@ import java.util.ResourceBundle;
     extensions = PathConstants.EXTENSION_JSON,
     methods = "GET"
 )
-
 @SuppressWarnings({"squid:CallToDeprecatedMethod"})
 public final class TagListServlet extends AbstractListServlet {
 
