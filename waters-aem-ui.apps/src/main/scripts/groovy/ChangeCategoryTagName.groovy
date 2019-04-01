@@ -17,7 +17,7 @@ result.nodes.each { node ->
             def valueList = []
 
             prop.getValues().findAll { it.getString() == 'waters:category/applicationslibrary' }.each { val ->
-                val.getString().equals('waters:category/applicationslibrary') ? valueList.push('waters:category/library') : valueList.push(val.getString())
+                val.getString() == 'waters:category/applicationslibrary' ? valueList.push('waters:category/library') : valueList.push(val.getString())
             }
 
             if(valueList){
