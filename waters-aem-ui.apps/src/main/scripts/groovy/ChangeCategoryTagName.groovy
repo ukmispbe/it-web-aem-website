@@ -16,11 +16,11 @@ result.nodes.each { node ->
 
             def valueList = []
 
-            prop.getValues().findAll { it.getString().equals('waters:category/applicationslibrary') }.each { val ->
+            prop.getValues().findAll { it.getString() == 'waters:category/applicationslibrary' }.each { val ->
                 val.getString().equals('waters:category/applicationslibrary') ? valueList.push('waters:category/library') : valueList.push(val.getString())
             }
 
-            if(valueList.size() > 0){
+            if(valueList){
                 nonEmptyNode.setProperty(prop.getName(), valueList as String[])
             }
 
