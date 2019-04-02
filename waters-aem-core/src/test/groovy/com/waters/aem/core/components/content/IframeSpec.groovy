@@ -1,13 +1,13 @@
 package com.waters.aem.core.components.content
 
 import com.day.cq.wcm.api.policies.ContentPolicyManager
-import com.icfolson.aem.library.models.specs.AemLibraryModelSpec
+import com.waters.aem.core.WatersSpec
 import org.apache.sling.api.adapter.AdapterFactory
 import org.apache.sling.api.resource.ResourceResolver
 import spock.lang.Unroll
 
 @Unroll
-class IframeSpec extends AemLibraryModelSpec {
+class IframeSpec extends WatersSpec {
 
     static class MockContentPolicyManagerAdapterFactory implements AdapterFactory {
 

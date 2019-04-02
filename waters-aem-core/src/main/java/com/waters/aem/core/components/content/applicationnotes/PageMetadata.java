@@ -4,9 +4,9 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.widgets.TagInputField;
 import com.day.cq.tagging.Tag;
 import com.icfolson.aem.library.api.page.PageDecorator;
-import com.icfolson.aem.library.models.annotations.TagInject;
 import com.waters.aem.core.components.structure.page.ApplicationNotes;
 import com.waters.aem.core.library.asset.LibraryAsset;
+import com.waters.aem.core.tagging.WatersTagInject;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
@@ -36,7 +36,7 @@ public final class PageMetadata {
         fieldDescription = "Select the Tags",
         ranking = 2)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> tags = Collections.emptyList();
 
     protected List<Tag> getTags() {

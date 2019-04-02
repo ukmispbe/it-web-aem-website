@@ -1,10 +1,10 @@
 package com.waters.aem.core.components.structure
 
-import com.icfolson.aem.library.models.specs.AemLibraryModelSpec
+import com.waters.aem.core.WatersSpec
 import spock.lang.Unroll
 
 @Unroll
-class ExternalFooterSpec extends AemLibraryModelSpec {
+class ExternalFooterSpec extends WatersSpec {
 
     def setupSpec() {
         pageBuilder.content {

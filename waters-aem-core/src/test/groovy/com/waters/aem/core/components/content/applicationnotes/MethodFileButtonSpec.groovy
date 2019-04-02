@@ -1,10 +1,11 @@
 package com.waters.aem.core.components.content.applicationnotes
 
-import com.icfolson.aem.library.models.specs.AemLibraryModelSpec
+
+import com.waters.aem.core.WatersSpec
 import spock.lang.Unroll
 
 @Unroll
-class MethodFileButtonSpec extends AemLibraryModelSpec {
+class MethodFileButtonSpec extends WatersSpec {
 
     def setupSpec() {
         nodeBuilder.content {

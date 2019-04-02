@@ -1,19 +1,19 @@
 package com.waters.aem.core.library.asset;
 
 import com.day.cq.commons.LanguageUtil;
-import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.dam.api.Rendition;
 import com.day.cq.dam.api.RenditionPicker;
 import com.day.cq.dam.api.Revision;
 import com.day.cq.tagging.Tag;
+import com.day.cq.wcm.api.NameConstants;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.icfolson.aem.library.models.annotations.TagInject;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.metadata.ContentClassification;
+import com.waters.aem.core.tagging.WatersTagInject;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
@@ -47,7 +47,8 @@ public final class LibraryAsset implements ContentClassification, Asset {
     private static final String RELATIVE_PATH_METADATA = "jcr:content/metadata";
 
     private static final Map<String, String> METADATA_PROPERTIES = new ImmutableMap.Builder<String, String>()
-        .put(DamConstants.DC_DESCRIPTION, JcrConstants.JCR_DESCRIPTION)
+        .put(DamConstants.DC_TITLE, NameConstants.PN_PAGE_TITLE)
+        .put(DamConstants.DC_DESCRIPTION, NameConstants.PN_DESCRIPTION)
         .build();
 
     @Self
@@ -61,27 +62,43 @@ public final class LibraryAsset implements ContentClassification, Asset {
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private String literatureCode;
 
-    @TagInject
+    @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> category = Collections.emptyList();
 
-    @TagInject
+    @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> contentType = Collections.emptyList();
 
-    @TagInject
+    @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> product = Collections.emptyList();
 
-    @TagInject
+    @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> market = Collections.emptyList();
+
+    @WatersTagInject
+    @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
+    private List<Tag> instrumentType = Collections.emptyList();
+
+    @TagInject
+    @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
+    private List<Tag> technique = Collections.emptyList();
+
+    @TagInject
+    @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
+    private List<Tag> separationMode = Collections.emptyList();
+
+    @TagInject
+    @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
+    private List<Tag> event = Collections.emptyList();
 
     @TagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> monthPublished = Collections.emptyList();
 
-    @TagInject
+    @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> yearPublished = Collections.emptyList();
 
@@ -123,6 +140,22 @@ public final class LibraryAsset implements ContentClassification, Asset {
         return product;
     }
 
+    public List<Tag> getInstrumentType() {
+        return instrumentType;
+    }
+
+    public List<Tag> getTechnique() {
+        return technique;
+    }
+
+    public List<Tag> getSeparationMode() {
+        return separationMode;
+    }
+
+    public List<Tag> getEvent() {
+        return event;
+    }
+
     @Override
     public List<Tag> getAllTags() {
         return new ImmutableList.Builder<Tag>()
@@ -131,6 +164,10 @@ public final class LibraryAsset implements ContentClassification, Asset {
             .addAll(product)
             .addAll(market)
             .addAll(yearPublished)
+            .addAll(separationMode)
+            .addAll(technique)
+            .addAll(instrumentType)
+            .addAll(event)
             .build();
     }
 

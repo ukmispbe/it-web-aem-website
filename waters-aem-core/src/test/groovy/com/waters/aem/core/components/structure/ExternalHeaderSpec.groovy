@@ -1,11 +1,11 @@
 package com.waters.aem.core.components.structure
 
-import com.icfolson.aem.library.models.specs.AemLibraryModelSpec
+import com.waters.aem.core.WatersSpec
 import com.waters.aem.core.components.content.applicationnotes.LinkItem
 import spock.lang.Unroll
 
 @Unroll
-class ExternalHeaderSpec extends AemLibraryModelSpec {
+class ExternalHeaderSpec extends WatersSpec {
 
     def setupSpec() {
         pageBuilder.content {
