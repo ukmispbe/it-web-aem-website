@@ -212,14 +212,7 @@ div.cmp-search__no-results {
         position: relative;
         text-decoration: none;
         &:hover {
-            color: $color-link;
             text-decoration: none;
-
-            svg {
-                .st0 {
-                    stroke: $color-link;
-                }
-            }
         }
         transition: none;
         .closeIcon, .filterIcon {
