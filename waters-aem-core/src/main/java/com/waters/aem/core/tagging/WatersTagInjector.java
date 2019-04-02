@@ -23,7 +23,6 @@ import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -43,6 +42,7 @@ public final class WatersTagInjector implements Injector, InjectAnnotationProces
 
     @CheckForNull
     @Override
+    @SuppressWarnings("squid:S2259")
     public Object getValue(@Nonnull final Object adaptable, final String name, @Nonnull final Type type,
         @Nonnull final AnnotatedElement element, @Nonnull final DisposalCallbackRegistry disposalCallbackRegistry) {
         final WatersTagInject annotation = element.getAnnotation(WatersTagInject.class);
@@ -52,11 +52,6 @@ public final class WatersTagInjector implements Injector, InjectAnnotationProces
 
         if (clazz == WatersTag.class || clazz == Tag.class) {
             final Resource resource = getResource(adaptable);
-
-            if(resource == null) {
-                LOG.warn("Requesting Tag Values for non-existent resource ; returning null for [ {} ]", name);
-                return value;
-            }
 
             final TagManager tagManager = resource.getResourceResolver().adaptTo(TagManager.class);
 
@@ -85,13 +80,9 @@ public final class WatersTagInjector implements Injector, InjectAnnotationProces
         return annotation == null ? null : new TagAnnotationProcessor(annotation);
     }
 
+    @SuppressWarnings("squid:S2259")
     private List<String> getTagIds(final WatersTagInject annotation, final String name, final Resource resource) {
         final ComponentNode componentNode = resource.adaptTo(ComponentNode.class);
-
-        if(componentNode == null){
-            LOG.warn("Requesting TagId's for non-existent componentNode [ {} ]; returning empty list.", name);
-            return Collections.emptyList();
-        }
 
         final List<String> tagIds;
 
