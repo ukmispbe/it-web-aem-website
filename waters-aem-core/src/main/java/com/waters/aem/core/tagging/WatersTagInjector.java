@@ -23,6 +23,7 @@ import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -51,6 +52,12 @@ public final class WatersTagInjector implements Injector, InjectAnnotationProces
 
         if (clazz == WatersTag.class || clazz == Tag.class) {
             final Resource resource = getResource(adaptable);
+
+            if(resource == null) {
+                LOG.warn("Requesting Tag Values for non-existent resource ; returning null for [ {} ]", name);
+                return value;
+            }
+
             final TagManager tagManager = resource.getResourceResolver().adaptTo(TagManager.class);
 
             final List<Tag> tags = getTagIds(annotation, name, resource)
@@ -80,6 +87,11 @@ public final class WatersTagInjector implements Injector, InjectAnnotationProces
 
     private List<String> getTagIds(final WatersTagInject annotation, final String name, final Resource resource) {
         final ComponentNode componentNode = resource.adaptTo(ComponentNode.class);
+
+        if(componentNode == null){
+            LOG.warn("Requesting TagId's for non-existent componentNode [ {} ]; returning empty list.", name);
+            return Collections.emptyList();
+        }
 
         final List<String> tagIds;
 
