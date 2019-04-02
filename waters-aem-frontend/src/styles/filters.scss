@@ -439,7 +439,6 @@
         width: 100%;
         display: block;
         height: 0;
-        transition: height 1s ease, padding 1s ease;
         margin-top: 120px;
         padding: 0 20px;
     }
@@ -502,7 +501,6 @@
     @include mobile {
         .cmp-search__sort-filter {
             height: 100vh;
-            transition: height 1s ease, padding 1s ease;
             padding: 40px 20px 80px 20px;
         }
         .cmp-search__sort-filter__container {
