@@ -830,18 +830,6 @@
                                         jcr:primaryType="nt:unstructured"
                                         visibilityCascading="default"/>
                                 </_x0031_552412705041>
-                                <_x0031_552412762707
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="dam/gui/components/admin/schemafield"
-                                    fieldLabel="Literature Code"
-                                    name="./jcr:content/metadata/literatureCode"
-                                    resourceType="granite/ui/components/coral/foundation/form/textfield">
-                                    <granite:data
-                                        jcr:primaryType="nt:unstructured"
-                                        metaType="text"
-                                        requiredCascading="default"
-                                        visibilityCascading="default"/>
-                                </_x0031_552412762707>
                                 <_x0031_552412730633
                                     cq:showOnCreate="{Boolean}true"
                                     jcr:primaryType="nt:unstructured"
@@ -873,21 +861,6 @@
                                         visibilityCascading="default"/>
                                 </_x0031_552412802309>
                                 <_x0031_553879329709
-                                        cq:showOnCreate="{Boolean}true"
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="dam/gui/components/admin/schemafield"
-                                        allowCreate="{Boolean}true"
-                                        cq-msm-lockable="cq:tags"
-                                        fieldLabel="Market"
-                                        metaType="tags"
-                                        multiple="true"
-                                        name="./jcr:content/metadata/market"
-                                        resourceType="cq/gui/components/coral/common/form/tagfield">
-                                    <granite:data
-                                            jcr:primaryType="nt:unstructured"
-                                            visibilityCascading="default"/>
-                                </_x0031_553879329709>
-                                <_x0031_553609729175
                                     cq:showOnCreate="{Boolean}true"
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="dam/gui/components/admin/schemafield"
@@ -901,7 +874,67 @@
                                     <granite:data
                                         jcr:primaryType="nt:unstructured"
                                         visibilityCascading="default"/>
+                                </_x0031_553879329709>
+                                <_x0031_553609729175
+                                    cq:showOnCreate="{Boolean}true"
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="dam/gui/components/admin/schemafield"
+                                    allowCreate="{Boolean}true"
+                                    cq-msm-lockable="cq:tags"
+                                    fieldLabel="Instrument Type"
+                                    metaType="tags"
+                                    multiple="true"
+                                    name="./jcr:content/metadata/instrumentType"
+                                    resourceType="cq/gui/components/coral/common/form/tagfield">
+                                    <granite:data
+                                        jcr:primaryType="nt:unstructured"
+                                        visibilityCascading="default"/>
                                 </_x0031_553609729175>
+                                <_x0031_554156961000
+                                    cq:showOnCreate="{Boolean}true"
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="dam/gui/components/admin/schemafield"
+                                    allowCreate="{Boolean}true"
+                                    cq-msm-lockable="cq:tags"
+                                    fieldLabel="Technique"
+                                    metaType="tags"
+                                    multiple="true"
+                                    name="./jcr:content/metadata/technique"
+                                    resourceType="cq/gui/components/coral/common/form/tagfield">
+                                    <granite:data
+                                        jcr:primaryType="nt:unstructured"
+                                        visibilityCascading="default"/>
+                                </_x0031_554156961000>
+                                <_x0031_554156974484
+                                    cq:showOnCreate="{Boolean}true"
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="dam/gui/components/admin/schemafield"
+                                    allowCreate="{Boolean}true"
+                                    cq-msm-lockable="cq:tags"
+                                    fieldLabel="Separation Mode"
+                                    metaType="tags"
+                                    multiple="true"
+                                    name="./jcr:content/metadata/SeparationMode"
+                                    resourceType="cq/gui/components/coral/common/form/tagfield">
+                                    <granite:data
+                                        jcr:primaryType="nt:unstructured"
+                                        visibilityCascading="default"/>
+                                </_x0031_554156974484>
+                                <_x0031_554156967122
+                                    cq:showOnCreate="{Boolean}true"
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="dam/gui/components/admin/schemafield"
+                                    allowCreate="{Boolean}true"
+                                    cq-msm-lockable="cq:tags"
+                                    fieldLabel="Event"
+                                    metaType="tags"
+                                    multiple="true"
+                                    name="./jcr:content/metadata/event"
+                                    resourceType="cq/gui/components/coral/common/form/tagfield">
+                                    <granite:data
+                                        jcr:primaryType="nt:unstructured"
+                                        visibilityCascading="default"/>
+                                </_x0031_554156967122>
                                 <_x0031_552412808036
                                     cq:showOnCreate="{Boolean}true"
                                     jcr:primaryType="nt:unstructured"
@@ -932,6 +965,18 @@
                                         jcr:primaryType="nt:unstructured"
                                         visibilityCascading="default"/>
                                 </_x0031_552412804795>
+                                <_x0031_552412762707
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="dam/gui/components/admin/schemafield"
+                                    fieldLabel="Literature Code (without language code)"
+                                    name="./jcr:content/metadata/literatureCode"
+                                    resourceType="granite/ui/components/coral/foundation/form/textfield">
+                                    <granite:data
+                                        jcr:primaryType="nt:unstructured"
+                                        metaType="text"
+                                        requiredCascading="default"
+                                        visibilityCascading="default"/>
+                                </_x0031_552412762707>
                             </items>
                         </col1>
                         <col2
