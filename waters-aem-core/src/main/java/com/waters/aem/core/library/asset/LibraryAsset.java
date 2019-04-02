@@ -1,11 +1,7 @@
 package com.waters.aem.core.library.asset;
 
 import com.day.cq.commons.LanguageUtil;
-import com.day.cq.dam.api.Asset;
-import com.day.cq.dam.api.DamConstants;
-import com.day.cq.dam.api.Rendition;
-import com.day.cq.dam.api.RenditionPicker;
-import com.day.cq.dam.api.Revision;
+import com.day.cq.dam.api.*;
 import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.api.NameConstants;
 import com.google.common.base.Objects;
@@ -28,13 +24,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.jcr.RepositoryException;
 import java.io.InputStream;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
