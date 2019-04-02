@@ -163,6 +163,10 @@ public final class LibraryAsset implements ContentClassification, Asset {
             .addAll(product)
             .addAll(market)
             .addAll(yearPublished)
+            .addAll(separationMode)
+            .addAll(technique)
+            .addAll(instrumentType)
+            .addAll(event)
             .build();
     }
 
