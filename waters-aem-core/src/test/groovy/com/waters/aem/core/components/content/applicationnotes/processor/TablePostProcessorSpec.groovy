@@ -1,6 +1,6 @@
 package com.waters.aem.core.components.content.applicationnotes.processor
 
-import com.icfolson.aem.library.models.specs.AemLibraryModelSpec
+import com.waters.aem.core.WatersSpec
 import com.waters.aem.core.components.content.applicationnotes.Table
 import com.waters.aem.core.services.ExcelTableParser
 import com.waters.aem.core.services.impl.POIExcelTableParser
@@ -8,7 +8,7 @@ import spock.lang.Shared
 import spock.lang.Unroll
 
 @Unroll
-class TablePostProcessorSpec extends AemLibraryModelSpec {
+class TablePostProcessorSpec extends WatersSpec {
 
     @Shared
     TablePostProcessor processor

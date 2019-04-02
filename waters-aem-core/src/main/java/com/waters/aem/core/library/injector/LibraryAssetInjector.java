@@ -38,8 +38,7 @@ public final class LibraryAssetInjector implements Injector {
     @CheckForNull
     @Override
     public Object getValue(@Nonnull final Object adaptable, final String name, @Nonnull final Type type,
-        @Nonnull final AnnotatedElement annotatedElement,
-        @Nonnull final DisposalCallbackRegistry disposalCallbackRegistry) {
+        @Nonnull final AnnotatedElement element, @Nonnull final DisposalCallbackRegistry disposalCallbackRegistry) {
         LibraryAsset libraryAsset = null;
 
         if (type == LibraryAsset.class) {

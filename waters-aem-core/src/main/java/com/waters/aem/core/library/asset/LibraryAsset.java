@@ -11,9 +11,9 @@ import com.day.cq.wcm.api.NameConstants;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.icfolson.aem.library.models.annotations.TagInject;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.metadata.ContentClassification;
+import com.waters.aem.core.tagging.WatersTagInject;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
@@ -62,23 +62,23 @@ public final class LibraryAsset implements ContentClassification, Asset {
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private String literatureCode;
 
-    @TagInject
+    @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> category = Collections.emptyList();
 
-    @TagInject
+    @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> contentType = Collections.emptyList();
 
-    @TagInject
+    @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> product = Collections.emptyList();
 
-    @TagInject
+    @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> market = Collections.emptyList();
 
-    @TagInject
+    @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> instrumentType = Collections.emptyList();
 
@@ -98,7 +98,7 @@ public final class LibraryAsset implements ContentClassification, Asset {
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> monthPublished = Collections.emptyList();
 
-    @TagInject
+    @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> yearPublished = Collections.emptyList();
 
