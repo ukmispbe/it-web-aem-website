@@ -1,11 +1,11 @@
 package com.waters.aem.core.components.content.applicationnotes
 
-import com.icfolson.aem.library.models.specs.AemLibraryModelSpec
+import com.waters.aem.core.WatersSpec
 import com.waters.aem.core.components.structure.page.ApplicationNotes
 import spock.lang.Unroll
 
 @Unroll
-class TagListSpec extends AemLibraryModelSpec {
+class TagListSpec extends WatersSpec {
 
     def setupSpec() {
         pageBuilder.content {
