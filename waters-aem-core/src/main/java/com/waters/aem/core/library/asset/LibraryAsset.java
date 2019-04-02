@@ -82,19 +82,19 @@ public final class LibraryAsset implements ContentClassification, Asset {
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> instrumentType = Collections.emptyList();
 
-    @TagInject
+    @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> technique = Collections.emptyList();
 
-    @TagInject
+    @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> separationMode = Collections.emptyList();
 
-    @TagInject
+    @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> event = Collections.emptyList();
 
-    @TagInject
+    @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> monthPublished = Collections.emptyList();
 
