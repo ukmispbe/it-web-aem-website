@@ -80,6 +80,22 @@ public final class LibraryAsset implements ContentClassification, Asset {
 
     @TagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
+    private List<Tag> instrumentType = Collections.emptyList();
+
+    @TagInject
+    @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
+    private List<Tag> technique = Collections.emptyList();
+
+    @TagInject
+    @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
+    private List<Tag> separationMode = Collections.emptyList();
+
+    @TagInject
+    @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
+    private List<Tag> event = Collections.emptyList();
+
+    @TagInject
+    @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> monthPublished = Collections.emptyList();
 
     @TagInject
@@ -124,6 +140,22 @@ public final class LibraryAsset implements ContentClassification, Asset {
         return product;
     }
 
+    public List<Tag> getInstrumentType() {
+        return instrumentType;
+    }
+
+    public List<Tag> getTechnique() {
+        return technique;
+    }
+
+    public List<Tag> getSeparationMode() {
+        return separationMode;
+    }
+
+    public List<Tag> getEvent() {
+        return event;
+    }
+
     @Override
     public List<Tag> getAllTags() {
         return new ImmutableList.Builder<Tag>()
@@ -132,6 +164,10 @@ public final class LibraryAsset implements ContentClassification, Asset {
             .addAll(product)
             .addAll(market)
             .addAll(yearPublished)
+            .addAll(separationMode)
+            .addAll(technique)
+            .addAll(instrumentType)
+            .addAll(event)
             .build();
     }
 
