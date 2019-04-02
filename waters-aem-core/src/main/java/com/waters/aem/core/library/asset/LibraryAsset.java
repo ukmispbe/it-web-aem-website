@@ -1,13 +1,13 @@
 package com.waters.aem.core.library.asset;
 
 import com.day.cq.commons.LanguageUtil;
-import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.dam.api.Rendition;
 import com.day.cq.dam.api.RenditionPicker;
 import com.day.cq.dam.api.Revision;
 import com.day.cq.tagging.Tag;
+import com.day.cq.wcm.api.NameConstants;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -47,7 +47,8 @@ public final class LibraryAsset implements ContentClassification, Asset {
     private static final String RELATIVE_PATH_METADATA = "jcr:content/metadata";
 
     private static final Map<String, String> METADATA_PROPERTIES = new ImmutableMap.Builder<String, String>()
-        .put(DamConstants.DC_DESCRIPTION, JcrConstants.JCR_DESCRIPTION)
+        .put(DamConstants.DC_TITLE, NameConstants.PN_PAGE_TITLE)
+        .put(DamConstants.DC_DESCRIPTION, NameConstants.PN_DESCRIPTION)
         .build();
 
     @Self
