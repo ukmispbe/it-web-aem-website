@@ -202,7 +202,7 @@ public final class LibraryAsset implements ContentClassification, Asset {
      * @return true if tagged with library category tag
      */
     public boolean isLibraryAsset() {
-        return category.stream().anyMatch(tag -> WatersConstants.TAG_LIBRARY.equals(tag.getTagID()));
+        return category.stream().anyMatch(tag -> WatersConstants.TAG_APPLICATIONS_LIBRARY.equals(tag.getTagID()));
     }
 
     @Override
