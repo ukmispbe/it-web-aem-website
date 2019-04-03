@@ -167,20 +167,28 @@ public final class ApplicationNotes implements ContentClassification {
         return yearPublished;
     }
 
-    public List<Tag> getAuthor() {
-        return author;
-    }
-
+    @Override
     public List<Tag> getInstrumentType() {
         return instrumentType;
     }
 
+    @Override
     public List<Tag> getTechnique() {
         return technique;
     }
 
+    @Override
     public List<Tag> getSeparationMode() {
         return separationMode;
+    }
+
+    @Override
+    public List<Tag> getMarket() {
+        return market;
+    }
+
+    public List<Tag> getAuthor() {
+        return author;
     }
 
     public List<Tag> getColumnType() {
@@ -189,10 +197,6 @@ public final class ApplicationNotes implements ContentClassification {
 
     public List<Tag> getSoftware() {
         return software;
-    }
-
-    public List<Tag> getMarket() {
-        return market;
     }
 
     public List<Tag> getCompoundMatrix() {
