@@ -815,6 +815,18 @@
                             sling:resourceType="granite/ui/components/coral/foundation/container"
                             listOrder="0">
                             <items jcr:primaryType="nt:unstructured">
+                                <_x0031_552412762707
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="dam/gui/components/admin/schemafield"
+                                        fieldLabel="Literature Code (without language code)"
+                                        name="./jcr:content/metadata/literatureCode"
+                                        resourceType="granite/ui/components/coral/foundation/form/textfield">
+                                    <granite:data
+                                            jcr:primaryType="nt:unstructured"
+                                            metaType="text"
+                                            requiredCascading="default"
+                                            visibilityCascading="default"/>
+                                </_x0031_552412762707>
                                 <_x0031_552412705041
                                     cq:showOnCreate="{Boolean}true"
                                     jcr:primaryType="nt:unstructured"
@@ -965,18 +977,6 @@
                                         jcr:primaryType="nt:unstructured"
                                         visibilityCascading="default"/>
                                 </_x0031_552412804795>
-                                <_x0031_552412762707
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="dam/gui/components/admin/schemafield"
-                                    fieldLabel="Literature Code (without language code)"
-                                    name="./jcr:content/metadata/literatureCode"
-                                    resourceType="granite/ui/components/coral/foundation/form/textfield">
-                                    <granite:data
-                                        jcr:primaryType="nt:unstructured"
-                                        metaType="text"
-                                        requiredCascading="default"
-                                        visibilityCascading="default"/>
-                                </_x0031_552412762707>
                             </items>
                         </col1>
                         <col2
