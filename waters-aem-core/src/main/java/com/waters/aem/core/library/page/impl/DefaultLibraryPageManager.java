@@ -30,7 +30,7 @@ import java.util.stream.Stream;
 import static com.google.common.base.Preconditions.checkState;
 
 @Component(service = LibraryPageManager.class)
-@SuppressWarnings({"squid:RedundantThrowsDeclarationCheck"})
+@SuppressWarnings({ "squid:RedundantThrowsDeclarationCheck" })
 public final class DefaultLibraryPageManager implements LibraryPageManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultLibraryPageManager.class);
@@ -78,7 +78,7 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
     }
 
     @Override
-    @SuppressWarnings({"squid:RedundantThrowsDeclarationCheck"})
+    @SuppressWarnings({ "squid:RedundantThrowsDeclarationCheck" })
     public PageDecorator createOrUpdateLibraryPage(final LibraryAsset asset)
         throws PersistenceException, WCMException {
         final ResourceResolver resourceResolver = asset.adaptTo(Resource.class).getResourceResolver();
@@ -148,9 +148,9 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
         checkState(languageRootPage != null, "language root page does not exist for asset locale : %s",
             asset.getLocale().getLanguage());
 
-        final PageDecorator libraryPage = getOrCreatePage(languageRootPage, LIBRARY_PAGE_TITLE);
-        final PageDecorator contentTypePage = getOrCreatePage(libraryPage, getContentType(asset));
-        final PageDecorator yearPage = getOrCreatePage(contentTypePage, getYearPublished(asset));
+        final PageDecorator libraryPage = getOrCreateRedirectPage(languageRootPage, LIBRARY_PAGE_TITLE);
+        final PageDecorator contentTypePage = getOrCreateRedirectPage(libraryPage, getContentType(asset));
+        final PageDecorator yearPage = getOrCreateRedirectPage(contentTypePage, getYearPublished(asset));
 
         LOG.debug("found parent page : {} for asset : {}", yearPage, asset);
 
@@ -176,7 +176,7 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
             .toString();
     }
 
-    private PageDecorator getOrCreatePage(final PageDecorator parentPage, final String title)
+    private PageDecorator getOrCreateRedirectPage(final PageDecorator parentPage, final String title)
         throws WCMException {
         final PageManagerDecorator pageManager = parentPage.getPageManager();
         final String name = getPageName(title);
