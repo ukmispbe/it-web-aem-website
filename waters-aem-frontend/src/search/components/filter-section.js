@@ -50,7 +50,7 @@ class FilterSection extends Component {
     filterList = (value, minCharSearch, items) => (this.isEmpty(value) || this.lengthLessThan(value, minCharSearch) ? items : items.filter(item => this.valueStartsWith(item.value, value)));
 
     handleSearchChange = (value, minCharSearch, items) => {
-        this.setStateForItems(this.filterList(value, this.props.minCharSearch, items));
+        this.setStateForItems(this.filterList(value, minCharSearch, items));
     }
 
     checkHandler(event) {
@@ -164,10 +164,12 @@ class FilterSection extends Component {
                         {props.facet.category}
                     </a>
 
-                <ul>
+                <div className="facet-container">
                     {this.getFacetSearch(this.props.facet.facets, this.props.minItemSearch)}
-                    {this.getFacetOptions()}
-                </ul>
+                    <ul>
+                        {this.getFacetOptions()}
+                    </ul>
+                </div>
 
                 {/* <div className="cmp-search-filters__filter__year clearfix">
                     <div className="cmp-search-filters__filter__year__min">
