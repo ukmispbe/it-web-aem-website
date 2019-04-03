@@ -47,7 +47,7 @@ class LibraryPageSpec extends WatersLibrarySpec {
         libraryPage.literatureCode == "123"
 
         and:
-        libraryPage.category*.tagID == ["waters:category/library"]
+        libraryPage.category*.tagID == ["waters:category/applicationslibrary"]
 
         and:
         libraryPage.contentType*.tagID == ["waters:contenttype/applicationnotes"]

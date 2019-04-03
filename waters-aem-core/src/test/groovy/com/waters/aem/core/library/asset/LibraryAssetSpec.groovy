@@ -48,7 +48,7 @@ class LibraryAssetSpec extends WatersLibrarySpec {
         libraryAsset.literatureCode == "123"
 
         and:
-        libraryAsset.category*.tagID == ["waters:category/library"]
+        libraryAsset.category*.tagID == ["waters:category/applicationslibrary"]
 
         and:
         libraryAsset.contentType*.tagID == ["waters:contenttype/applicationnotes"]
