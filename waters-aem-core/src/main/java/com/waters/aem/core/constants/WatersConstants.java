@@ -33,7 +33,7 @@ public final class WatersConstants {
 
     public static final String EXTENSION_PDF = "pdf";
 
-    public static final String TAG_APPLICATIONS_LIBRARY = "waters:category/applicationslibrary";
+    public static final String TAG_LIBRARY = "waters:category/library";
 
     public static final String PROPERTY_LIBRARY_ASSET_PATH = "libraryAssetPath";
 
