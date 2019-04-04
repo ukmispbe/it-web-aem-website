@@ -129,16 +129,14 @@ class Search extends Component {
                 'waters.previousPagePosition'
             );
 
-            if (scrollToPosition) {
-                window.scrollTo(0, scrollToPosition);
-                window.sessionStorage.removeItem('waters.previousPagePosition');
-            }
-
             const previousPagePosition = window.sessionStorage.getItem(
                 'waters.previousPaginationClick'
             );
 
-            if (
+            if (scrollToPosition) {
+                window.scrollTo(0, scrollToPosition);
+                window.sessionStorage.removeItem('waters.previousPagePosition');
+            } else if (
                 this.props.history &&
                 this.props.history.action === 'POP' &&
                 previousPagePosition &&
@@ -150,7 +148,9 @@ class Search extends Component {
                         'waters.previousPaginationClick'
                     );
                 }, 0);
-            } else if (!scrollToPosition) {
+            } else if (!scrollToPosition && previousPagePosition) {
+                window.scrollTo(0, 0);
+            } else {
                 const reactAppTop =
                     this.refs.main.getBoundingClientRect().top - 72;
 
