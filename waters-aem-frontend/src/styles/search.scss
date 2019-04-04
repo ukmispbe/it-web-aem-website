@@ -215,9 +215,6 @@ div.cmp-search__no-results {
             text-decoration: none;
         }
         transition: none;
-        .closeIcon, .filterIcon {
-            transition: opacity 1s ease;
-        }
         .closeIcon {
             opacity: 0;
         }
@@ -344,9 +341,6 @@ html.showing-spinner {
             .btn-show-sort-filter {
                 display: block;
                 @include sticky-show-sort;
-                .filterIcon, .closeIcon {
-                    transition: opacity 1s ease;
-                }
                 .filterIcon {
                     opacity: 0;
                 }
