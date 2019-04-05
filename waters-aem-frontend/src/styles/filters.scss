@@ -19,11 +19,13 @@
     }
     &__filter {
         div.facet-container {
-            overflow-y: scroll;
+            overflow-y: hidden;
             max-height: 0px;
             transition: all 0.4s ease-out;
         }
         ul {
+            overflow-y: auto;
+            max-height: 140px;
             padding-top: 0;
             padding-bottom: 0;
             padding-left: $space-xs;
@@ -205,7 +207,7 @@
                     }
                 }
             }
-            ul, div.facet-container,
+            div.facet-container,
             .cmp-search-filters__filter__search,
             .cmp-search-filters__filter__year {
                 transition: all 0.4s ease-out;
