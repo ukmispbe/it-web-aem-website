@@ -9,24 +9,24 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 @PageObject
 public class TestPage extends AemAuthorPage<TestPage> {
 
-  @Inject
-  private BobcatWait bobcatWait;
+    @Inject
+    private BobcatWait bobcatWait;
 
-  private String title = "English";
+    private String title = "English";
 
-  public String getTitle() {
-    return title;
-  }
+    public String getTitle() {
+        return title;
+    }
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-  public boolean isDisplayed() {
-    return bobcatWait.isConditionMet(ExpectedConditions.titleIs(getTitle()));
-  }
+    public boolean isDisplayed() {
+        return bobcatWait.isConditionMet(ExpectedConditions.titleIs(getTitle()));
+    }
 
-  public boolean isNotAvailable() {
-    return bobcatWait.isConditionMet(ExpectedConditions.titleContains("404 Resource"));
-  }
+    public boolean isNotAvailable() {
+        return bobcatWait.isConditionMet(ExpectedConditions.titleContains("404 Resource"));
+    }
 }
