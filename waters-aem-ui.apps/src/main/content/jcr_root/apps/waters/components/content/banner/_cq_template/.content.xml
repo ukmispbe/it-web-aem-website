@@ -21,7 +21,7 @@
     </par>
     <backgroundimage
             jcr:primaryType="nt:unstructured"
-            sling:resourceType="/apps/waters/components/content/image">
+            sling:resourceType="waters/components/content/image">
     </backgroundimage>
     <cq:responsive jcr:primaryType="nt:unstructured">
         <default
