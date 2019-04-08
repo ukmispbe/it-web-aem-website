@@ -10,7 +10,7 @@ abstract class WatersLibrarySpec extends WatersSpec {
                         "asset.pdf"("dam:Asset") {
                             "jcr:content"("dam:AssetContent") {
                                 metadata(
-                                    "category": ["waters:category/applicationslibrary"],
+                                    "category": ["waters:category/library"],
                                     "contentType": ["waters:contenttype/applicationnotes"],
                                     "dc:language": "en",
                                     "dc:description": "Library Asset Description",
@@ -36,7 +36,7 @@ abstract class WatersLibrarySpec extends WatersSpec {
             tags("sling:Folder") {
                 waters("cq:Tag") {
                     category("cq:Tag") {
-                        applicationslibrary("cq:Tag", "jcr:title": "Library")
+                        library("cq:Tag", "jcr:title": "Library")
                     }
                     contenttype("cq:Tag") {
                         applicationnotes("cq:Tag", "jcr:title": "Application Notes")
