@@ -17,6 +17,7 @@ import BtnHideSortFilter from './components/btn-hide-sort-filter';
 import BtnApplySortFilter from './components/btn-apply-sort-filter';
 import BtnDoneSortFilter from './components/btn-done-sort-filter';
 import Spinner from './components/spinner';
+import {ContentTypeMenu} from './components/content-type-menu';
 
 class Search extends Component {
     constructor() {
@@ -30,6 +31,7 @@ class Search extends Component {
             this.props.defaultFacet,
             this.props.searchServicePath
         );
+        debugger;
 
         const query = this.search.getParamsFromString();
         this.query = query;
@@ -62,6 +64,9 @@ class Search extends Component {
             isDesktop: false,
             initialRender: true,
             performedSearches: 0,
+            contentType: (this.query.content_type) ? this.query.content_type : '',
+            contentTypes: [],
+            facets: []
         });
 
         const checkWindowWidth = () => {
@@ -87,6 +92,8 @@ class Search extends Component {
     }
 
     performSearch(q) {
+        debugger;
+
         let query = q
             ? this.search.createQueryObject(q)
             : this.search.createQueryObject(parse(window.location.search));
@@ -101,64 +108,83 @@ class Search extends Component {
                 : 25;
 
         this.setState({ searchParams: query, loading: true, results: {} });
+        debugger;
 
-        this.search.call(query).then(res => {
-            const newState = Object.assign({}, this.state);
+        if (this.isInitialLoad()) {
+            this.search.initial(query).then(res => this.searchOnSuccess(query, rows, res));
+        } else {
+            this.search.contentType('applicationnotes', 'Application Note', query).then(res => this.searchOnSuccess(query, rows, res));
+        }
 
-            newState.loading = false;
-            newState.rows = rows;
-            newState.count = res.num_found;
-            newState.query = query.keyword;
-            newState.results = newState.results || {};
-            newState.results[query.page] = res.documents;
-            newState.noQuery = query.keyword ? false : true;
-            newState.sort = this.state.sort;
-            newState.performedSearches = this.state.performedSearches + 1;
-            newState.initialRender = false;
 
-            newState.pagination = {
-                current: query.page,
-                amount: Math.ceil(res.num_found / rows),
-            };
-            newState.noResults = !newState.results[query.page].length;
+    }
+
+    isInitialLoad = () => (this.query.content_type) ? false : true;
+
+    searchOnSuccess = (query, rows, res) => {
+        const newState = Object.assign({}, this.state);
+
+        newState.loading = false;
+        newState.rows = rows;
+        newState.count = res.num_found;
+        newState.query = query.keyword;
+        newState.results = newState.results || {};
+        newState.results[query.page] = res.documents;
+        newState.noQuery = query.keyword ? false : true;
+        newState.sort = this.state.sort;
+        newState.performedSearches = this.state.performedSearches + 1;
+        newState.initialRender = false;
+
+        newState.pagination = {
+            current: query.page,
+            amount: Math.ceil(res.num_found / rows),
+        };
+        
+        newState.noResults = !newState.results[query.page].length;
+
+        debugger;
+
+        if (this.isInitialLoad()) {
+            newState.contentTypes = res.facets.contenttype_facet;
+        } else {
             newState.facets = res.facets;
+        }
 
-            this.setState(Object.assign({}, this.state, newState));
+        this.setState(Object.assign({}, this.state, newState));
 
-            const scrollToPosition = window.sessionStorage.getItem(
-                'waters.previousPagePosition'
-            );
+        const scrollToPosition = window.sessionStorage.getItem(
+            'waters.previousPagePosition'
+        );
 
-            const previousPagePosition = window.sessionStorage.getItem(
-                'waters.previousPaginationClick'
-            );
+        const previousPagePosition = window.sessionStorage.getItem(
+            'waters.previousPaginationClick'
+        );
 
-            if (scrollToPosition) {
-                window.scrollTo(0, scrollToPosition);
-                window.sessionStorage.removeItem('waters.previousPagePosition');
-            } else if (
-                this.props.history &&
-                this.props.history.action === 'POP' &&
-                previousPagePosition &&
-                previousPagePosition !== 'NaN'
-            ) {
-                setTimeout(() => {
-                    window.scrollTo(0, previousPagePosition);
-                    window.sessionStorage.removeItem(
-                        'waters.previousPaginationClick'
-                    );
-                }, 0);
-            } else if (!scrollToPosition && previousPagePosition) {
-                window.scrollTo(0, 0);
-            } else {
-                const reactAppTop =
-                    this.refs.main.getBoundingClientRect().top - 72;
+        if (scrollToPosition) {
+            window.scrollTo(0, scrollToPosition);
+            window.sessionStorage.removeItem('waters.previousPagePosition');
+        } else if (
+            this.props.history &&
+            this.props.history.action === 'POP' &&
+            previousPagePosition &&
+            previousPagePosition !== 'NaN'
+        ) {
+            setTimeout(() => {
+                window.scrollTo(0, previousPagePosition);
+                window.sessionStorage.removeItem(
+                    'waters.previousPaginationClick'
+                );
+            }, 0);
+        } else if (!scrollToPosition && previousPagePosition) {
+            window.scrollTo(0, 0);
+        } else {
+            const reactAppTop =
+                this.refs.main.getBoundingClientRect().top - 72;
 
-                if (newState.performedSearches > 1) {
-                    window.scrollTo(0, reactAppTop);
-                }
+            if (newState.performedSearches > 1) {
+                window.scrollTo(0, reactAppTop);
             }
-        });
+        }
     }
 
     pushToHistory(query, facets) {
@@ -219,6 +245,8 @@ class Search extends Component {
     }
 
     filterSelectHandler(facet, categoryId, e) {
+        debugger;
+
         const isChecked = e.target.checked;
         const newState = Object.assign({}, this.state);
         if (isChecked) {
@@ -328,6 +356,28 @@ class Search extends Component {
         }
     }
 
+    handleContentTypeItemClick = (item) => {
+        console.warn(item);
+    }
+
+    getContentMenuOrFilter = (filterTags) => {
+        if (this.isInitialLoad()) {
+            return <ContentTypeMenu
+                        items={this.state.contentTypes}
+                        click={this.handleContentTypeItemClick} />
+        } else {
+            return <Filter
+                        facets={this.state.facets}
+                        text={this.props.searchText}
+                        filterMap={this.props.filterMap}
+                        defaultFacet={this.props.defaultFacet}
+                        selectHandler={this.filterSelectHandler.bind(this)}
+                        selectedFacets={this.state.selectedFacets}
+                        filterTags={filterTags}
+                    />
+        }
+    }
+
     render() {
         const state = this.state;
         const searchParams = this.state.searchParams || {};
@@ -383,15 +433,8 @@ class Search extends Component {
                         text={this.props.searchText}
                     />
 
-                    <Filter
-                        facets={state.facets}
-                        text={this.props.searchText}
-                        filterMap={this.props.filterMap}
-                        defaultFacet={this.props.defaultFacet}
-                        selectHandler={this.filterSelectHandler.bind(this)}
-                        selectedFacets={state.selectedFacets}
-                        filterTags={filterTags}
-                    />
+                    
+                    {this.getContentMenuOrFilter(filterTags)}
                 </div>
             </div>
         );

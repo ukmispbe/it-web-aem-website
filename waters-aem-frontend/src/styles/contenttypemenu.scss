@@ -1,0 +1,24 @@
+.content-type-menu-container {
+    border: solid thin #000;
+}
+
+.content-type-menu-container__heading {
+    padding-top: 10px;
+    padding-left: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.content-type-menu-container__item {
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 10px;
+    border: solid thin lighten($color: #000000, $amount: 75);
+    color: lighten($color: #000000, $amount: 45);
+    cursor: pointer;
+}
+
+.content-type-menu-container__item:last-child {
+    margin-bottom: 25px;
+}

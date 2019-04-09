@@ -14,9 +14,15 @@ export class SearchService {
             multiselect = true,
         } = {},
         defaultFacet,
-        path = 'https://dev-www.waters.com:8443/api/waters/search'
+        path = 'https://dev-www.waters.com:8443/api/waters/search',
+        endpoints = {
+            initial: 'https://dev-www.waters.com:8443/api/waters/search/category_facet$library:Library',
+            contentTypeSelected: 'https://dev-www.waters.com:8443/api/waters/search/contenttype_facet$',
+            facetSelected: 'https://dev-www.waters.com:8443/api/waters/search/contentype_facet$'
+        }
     ) {
         this.path = path;
+        this.endpoints = endpoints;
         this.options = {
             isocode,
             page,
@@ -27,12 +33,45 @@ export class SearchService {
         this.defaultFacet = defaultFacet;
     }
 
+    initial = ({
+        keyword = '*:*',
+        facets = {},
+        page = 1,       
+        sort = 'most-recent',
+    } = {}) => {
+        const paramString = this.getQueryParamString({ keyword, page, sort });
+        const searchString = `${this.endpoints.initial}?${paramString}`;
+
+        return window.fetch(searchString).then(response => response.json());
+    }
+
+    contentType = (
+        contentTypeKey,
+        contentTypeValue,
+        {
+            keyword = '*:*',
+            facets = {},
+            page = 1,       
+            sort = 'most-recent',
+        } = {}
+    ) => {
+        debugger;
+        const paramString = this.getQueryParamString({ keyword, page, sort });
+        const searchString = `${this.endpoints.contentTypeSelected}${contentTypeKey}:${contentTypeValue}?${paramString}`;
+
+        return window.fetch(searchString).then(response => response.json());
+    }
+
+
+
+    // DEPRECATED
     call({
         keyword = '*:*',
         facets = {},
-        page = 1,
+        page = 1,       
         sort = 'most-recent',
     } = {}) {
+        debugger;
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const facetString = this.getQueryFacetString(facets);
         const searchString = `${this.path}/${facetString}?${paramString}`;
@@ -73,13 +112,14 @@ export class SearchService {
     }
 
     getQueryParamString(
-        { keyword = '*:*', page = 1, sort = 'most-recent' } = {},
+        { keyword = '*:*', page = 1, sort = 'most-recent', content_type = '' } = {},
         facets
     ) {
         const fullParams = Object.assign({}, this.options, {
             keyword,
             page,
             sort,
+            content_type
         });
         let paramString = queryString.stringify(fullParams);
 
@@ -142,6 +182,7 @@ export class SearchService {
         obj['page'] = params.page || 1;
         obj['facets'] = {};
         obj['sort'] = params.sort;
+        obj['content_type'] = params.content_type;
 
         if (params.facet) {
             const facets = params.facet;
