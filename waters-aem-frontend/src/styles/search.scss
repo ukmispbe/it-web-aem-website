@@ -231,8 +231,8 @@ div.cmp-search__no-results {
                 stroke: $color-icon;
             }
             @include mobile {
-                top: 13px;
-                right: 10px;
+                top: 15px;
+                right: 12px;
             }
         }
         @include tablet-and-under {
