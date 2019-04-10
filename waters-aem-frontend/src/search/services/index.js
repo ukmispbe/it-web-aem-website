@@ -121,6 +121,9 @@ export class SearchService {
             sort,
             content_type
         });
+
+        if (!fullParams.content_type) delete fullParams.content_type;
+
         let paramString = queryString.stringify(fullParams);
 
         if (facets) {
@@ -182,7 +185,8 @@ export class SearchService {
         obj['page'] = params.page || 1;
         obj['facets'] = {};
         obj['sort'] = params.sort;
-        obj['content_type'] = params.content_type;
+
+        if(params.content_type) obj['content_type'] = params.content_type;
 
         if (params.facet) {
             const facets = params.facet;

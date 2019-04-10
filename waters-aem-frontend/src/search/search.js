@@ -11,7 +11,7 @@ import NoResults from './components/no-results';
 
 import Sort from './components/sort';
 import Filter from './components/filter';
-import FilterTags from './components/filter-tags';
+import FilterTags, {ContentTypeTags} from './components/filter-tags';
 import BtnShowSortFilter from './components/btn-show-sort-filter';
 import BtnHideSortFilter from './components/btn-hide-sort-filter';
 import BtnApplySortFilter from './components/btn-apply-sort-filter';
@@ -65,6 +65,7 @@ class Search extends Component {
             initialRender: true,
             performedSearches: 0,
             contentType: (this.query.content_type) ? this.query.content_type : '',
+            contentTypeSelected: (this.query.content_type) ? {value: 'Application Note', count: 89} : {},
             contentTypes: [],
             facets: []
         });
@@ -110,7 +111,7 @@ class Search extends Component {
         this.setState({ searchParams: query, loading: true, results: {} });
         debugger;
 
-        if (this.isInitialLoad()) {
+        if (this.isInitialLoad(query.content_type)) {
             this.search.initial(query).then(res => this.searchOnSuccess(query, rows, res));
         } else {
             this.search.contentType('applicationnotes', 'Application Note', query).then(res => this.searchOnSuccess(query, rows, res));
@@ -119,7 +120,7 @@ class Search extends Component {
 
     }
 
-    isInitialLoad = () => (this.query.content_type) ? false : true;
+    isInitialLoad = (content_type) => (content_type) ? false : true;
 
     searchOnSuccess = (query, rows, res) => {
         const newState = Object.assign({}, this.state);
@@ -144,7 +145,7 @@ class Search extends Component {
 
         debugger;
 
-        if (this.isInitialLoad()) {
+        if (this.isInitialLoad(this.state.contentType)) {
             newState.contentTypes = res.facets.contenttype_facet;
         } else {
             newState.facets = res.facets;
@@ -360,8 +361,27 @@ class Search extends Component {
         console.warn(item);
     }
 
+    handleContentTypeTagRemoval = () => {
+        let query = this.search.createQueryObject(parse(window.location.search));
+        
+        delete query.content_type;
+
+        query.page = 1;
+
+        this.setState({searchParams: query, selectedFacets: {}, contentType: '', contentTypeSelected: {}});
+
+        setTimeout(
+            () =>
+                this.pushToHistory(
+                    this.state.searchParams,
+                    this.state.selectedFacets
+                ),
+            0
+        );
+    }
+
     getContentMenuOrFilter = (filterTags) => {
-        if (this.isInitialLoad()) {
+        if (this.isInitialLoad(this.state.contentType)) {
             return <ContentTypeMenu
                         items={this.state.contentTypes}
                         click={this.handleContentTypeItemClick} />
@@ -383,20 +403,10 @@ class Search extends Component {
         const searchParams = this.state.searchParams || {};
         const overlay = <div className="overlay" />;
         const filterTags = (
-            <FilterTags
-                text={this.props.searchText}
-                selectedFacets={
-                    state.unappliedFilters &&
-                    state.unappliedFilters.selectedFacets
-                        ? state.unappliedFilters.selectedFacets
-                        : state.selectedFacets
-                }
-                facets={state.facets}
-                clearTag={this.clearTag.bind(this)}
-                removeTag={this.removeTag.bind(this)}
-                filterMap={this.props.filterMap}
-                defaultFacet={this.props.defaultFacet}
-            />
+            <ContentTypeTags 
+                text={this.props.searchText} 
+                selected={this.state.contentTypeSelected} 
+                remove={this.handleContentTypeTagRemoval} />
         );
 
         const aside = (

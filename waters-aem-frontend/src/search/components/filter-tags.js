@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
+import PropTypes from 'prop-types';
 
 const FilterTags = props => {
     const facets = props.facets ? props.facets : {};
@@ -94,4 +95,38 @@ const FilterTags = props => {
     );
 };
 
+const ContentTypeTags = props => {
+    const showTags = Object.entries(props.selected).length !== 0 ? true : false;
+
+    if (!showTags) return <></>;
+
+    return(<>
+        <div className="cmp-search-filters__tags clearfix">
+            <a href="javascript:void(0);"
+                className="cmp-search-filters__tags__clear"
+                onClick={props.remove}>
+                <ReactSVG src={props.text.closeIcon} />
+                <span>{props.text.clearAllFilters}</span>
+            </a>
+
+            <a href="javascript:void(0);"
+                onClick={props.remove}>
+                <ReactSVG src={props.text.closeIcon} />
+                <span>{props.selected.value}</span>
+            </a>
+        </div>
+    </>);
+}
+
+ContentTypeTags.proptTypes = {
+    selected: PropTypes.object.isRequired,
+    text: PropTypes.object.isRequired,
+    remove: PropTypes.func.isRequired
+}
+
+ContentTypeTags.defaultProps = {
+    selected: {}
+}
+
 export default FilterTags;
+export { ContentTypeTags }
