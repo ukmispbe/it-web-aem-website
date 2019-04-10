@@ -54,7 +54,35 @@ public final class LibraryPage implements ContentClassification {
     }
 
     @Override
+    public List<Tag> getMarket() {
+        return libraryAsset.getMarket();
+    }
+
+    @Override
+    public List<Tag> getInstrumentType() {
+        return libraryAsset.getInstrumentType();
+    }
+
+    @Override
+    public List<Tag> getTechnique() {
+        return libraryAsset.getTechnique();
+    }
+
+    @Override
+    public List<Tag> getSeparationMode() {
+        return libraryAsset.getSeparationMode();
+    }
+
+    @Override
     public List<Tag> getAllTags() {
         return libraryAsset.getAllTags();
+    }
+
+    public List<Tag> getProduct() {
+        return libraryAsset.getProduct();
+    }
+
+    public List<Tag> getEvent() {
+        return libraryAsset.getEvent();
     }
 }

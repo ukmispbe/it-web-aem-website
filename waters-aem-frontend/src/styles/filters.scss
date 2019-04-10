@@ -9,22 +9,23 @@
         margin-bottom: 0;
     }
     input[type='input'] {
+        font-family: $font-stack;
         @include font-utility;
-        height: $input-height;
-        line-height: $input-height;
-        padding: 0 $space-xs;
+        font-weight: $font-weight-light;
+        padding: $space-xs;
         background-color: transparent;
         outline: none;
         border: 1px solid $color-gray-40;
-        color: $color-font-medium;
     }
     &__filter {
         div.facet-container {
-            overflow-y: scroll;
+            overflow-y: hidden;
             max-height: 0px;
             transition: all 0.4s ease-out;
         }
         ul {
+            overflow-y: auto;
+            max-height: 140px;
             padding-top: 0;
             padding-bottom: 0;
             padding-left: $space-xs;
@@ -152,7 +153,7 @@
             }
             svg {
                 position: absolute;
-                top: 10px;
+                top: 9px;
                 right: 10px;
                 width: 25px;
                 height: 25px;
@@ -206,7 +207,7 @@
                     }
                 }
             }
-            ul, div.facet-container,
+            div.facet-container,
             .cmp-search-filters__filter__search,
             .cmp-search-filters__filter__year {
                 transition: all 0.4s ease-out;
