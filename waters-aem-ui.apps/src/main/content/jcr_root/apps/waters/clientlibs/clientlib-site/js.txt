@@ -1,4 +1,5 @@
 #base=.
 
+js/object-polyfill.js
 js/es6-promise.js
 js/main.js

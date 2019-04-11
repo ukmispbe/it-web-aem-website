@@ -2,8 +2,6 @@ import 'whatwg-fetch';
 
 const queryString = require('query-string');
 
-// new searchService({}, 'category_facet:waters%253Acategory%252Fapplicationslibrary');
-
 export class SearchService {
     constructor(
         {
@@ -15,14 +13,9 @@ export class SearchService {
         } = {},
         defaultFacet,
         path = 'https://dev-www.waters.com:8443/api/waters/search',
-        endpoints = {
-            initial: 'https://dev-www.waters.com:8443/api/waters/search/category_facet$library:Library',
-            contentTypeSelected: 'https://dev-www.waters.com:8443/api/waters/search/contenttype_facet$',
-            facetSelected: 'https://dev-www.waters.com:8443/api/waters/search/contentype_facet$'
-        }
+        facetSelected = '/contentype_facet$'
     ) {
         this.path = path;
-        this.endpoints = endpoints;
         this.options = {
             isocode,
             page,
@@ -40,7 +33,7 @@ export class SearchService {
         sort = 'most-recent',
     } = {}) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
-        const searchString = `${this.endpoints.initial}?${paramString}`;
+        const searchString = `${this.path}/category_facet$library:Library?${paramString}`;
 
         return window.fetch(searchString).then(response => response.json());
     }
@@ -55,9 +48,8 @@ export class SearchService {
             sort = 'most-recent',
         } = {}
     ) => {
-        debugger;
         const paramString = this.getQueryParamString({ keyword, page, sort });
-        const searchString = `${this.endpoints.contentTypeSelected}${contentTypeKey}:${contentTypeValue}?${paramString}`;
+        const searchString = `${this.path}/contenttype_facet$${contentTypeKey}:${contentTypeValue}?${paramString}`;
 
         return window.fetch(searchString).then(response => response.json());
     }

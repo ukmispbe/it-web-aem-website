@@ -11,7 +11,7 @@ import NoResults from './components/no-results';
 
 import Sort from './components/sort';
 import Filter from './components/filter';
-import FilterTags, {ContentTypeTags} from './components/filter-tags';
+import {ContentTypeTags} from './components/filter-tags';
 import BtnShowSortFilter from './components/btn-show-sort-filter';
 import BtnHideSortFilter from './components/btn-hide-sort-filter';
 import BtnApplySortFilter from './components/btn-apply-sort-filter';
@@ -31,7 +31,6 @@ class Search extends Component {
             this.props.defaultFacet,
             this.props.searchServicePath
         );
-        debugger;
 
         const query = this.search.getParamsFromString();
         this.query = query;
@@ -48,6 +47,12 @@ class Search extends Component {
                     ? 'most-relevant'
                     : this.query.sort;
         }
+        debugger;
+
+        const contentType = (this.query.content_type) ? this.query.content_type : null;
+        const contentTypeElement = this.props.filterMap.find(element => element.categoryFacetName.startsWith(contentType));
+        const contentTypeSelected = (contentTypeElement) ? {value: contentTypeElement.categoryFacetValue } : {};
+
 
         this.setState({
             loading: true,
@@ -64,8 +69,8 @@ class Search extends Component {
             isDesktop: false,
             initialRender: true,
             performedSearches: 0,
-            contentType: (this.query.content_type) ? this.query.content_type : '',
-            contentTypeSelected: (this.query.content_type) ? {value: 'Application Note', count: 89} : {},
+            contentType,
+            contentTypeSelected,
             contentTypes: [],
             facets: []
         });
@@ -93,8 +98,6 @@ class Search extends Component {
     }
 
     performSearch(q) {
-        debugger;
-
         let query = q
             ? this.search.createQueryObject(q)
             : this.search.createQueryObject(parse(window.location.search));
@@ -114,10 +117,11 @@ class Search extends Component {
         if (this.isInitialLoad(query.content_type)) {
             this.search.initial(query).then(res => this.searchOnSuccess(query, rows, res));
         } else {
-            this.search.contentType('applicationnotes', 'Application Note', query).then(res => this.searchOnSuccess(query, rows, res));
+            const contentTypeElement = this.props.filterMap.find(element => element.categoryFacetName.startsWith(query.content_type));
+            const contentTypeValue = 'Application Note'; // (contentTypeElement) ? contentTypeElement.categoryFacetValue: 'N/A';
+
+            this.search.contentType(query.content_type, contentTypeValue, query).then(res => this.searchOnSuccess(query, rows, res));
         }
-
-
     }
 
     isInitialLoad = (content_type) => (content_type) ? false : true;
@@ -142,8 +146,6 @@ class Search extends Component {
         };
         
         newState.noResults = !newState.results[query.page].length;
-
-        debugger;
 
         if (this.isInitialLoad(this.state.contentType)) {
             newState.contentTypes = res.facets.contenttype_facet;
@@ -246,8 +248,6 @@ class Search extends Component {
     }
 
     filterSelectHandler(facet, categoryId, e) {
-        debugger;
-
         const isChecked = e.target.checked;
         const newState = Object.assign({}, this.state);
         if (isChecked) {
@@ -358,7 +358,28 @@ class Search extends Component {
     }
 
     handleContentTypeItemClick = (item) => {
-        console.warn(item);
+        const contentTypeElement = this.props.filterMap.find(element => element.categoryFacetValue.startsWith(item.value));
+        
+        if(contentTypeElement) {
+            const contentType = contentTypeElement.categoryFacetName.replace('_facet', '');
+
+            let query = this.search.createQueryObject(parse(window.location.search));
+
+            query.content_type = contentType;
+
+            query.page = 1;
+
+            this.setState({searchParams: query, contentType, contentTypeSelected: item});
+
+            setTimeout(
+                () =>
+                    this.pushToHistory(
+                        this.state.searchParams,
+                        this.state.selectedFacets
+                    ),
+                0
+            );
+        }
     }
 
     handleContentTypeTagRemoval = () => {
@@ -384,7 +405,7 @@ class Search extends Component {
         if (this.isInitialLoad(this.state.contentType)) {
             return <ContentTypeMenu
                         items={this.state.contentTypes}
-                        click={this.handleContentTypeItemClick} />
+                        click={this.handleContentTypeItemClick.bind(this)} />
         } else {
             return <Filter
                         facets={this.state.facets}
@@ -394,6 +415,7 @@ class Search extends Component {
                         selectHandler={this.filterSelectHandler.bind(this)}
                         selectedFacets={this.state.selectedFacets}
                         filterTags={filterTags}
+                        contentType={this.state.contentType}
                     />
         }
     }
