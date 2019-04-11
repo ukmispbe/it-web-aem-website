@@ -41,7 +41,7 @@
         margin-left: $space-l;
         display: inline;
         line-height: 2.5em;
-        transition: all 0.25s ease;
+        transition: $hover-transition;
 
         &:hover {
             text-decoration: underline;
