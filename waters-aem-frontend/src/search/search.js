@@ -31,7 +31,7 @@ class Search extends Component {
             this.props.defaultFacet,
             this.props.searchServicePath
         );
-
+        debugger;
         const query = this.search.getParamsFromString();
         this.query = query;
 
@@ -47,11 +47,10 @@ class Search extends Component {
                     ? 'most-relevant'
                     : this.query.sort;
         }
-        debugger;
 
         const contentType = (this.query.content_type) ? this.query.content_type : null;
-        const contentTypeElement = this.props.filterMap.find(element => element.categoryFacetName.startsWith(contentType));
-        const contentTypeSelected = (contentTypeElement) ? {value: contentTypeElement.categoryFacetValue } : {};
+        const contentTypeElement = this.findContentType(this.props.filterMap, contentType);
+        const contentTypeSelected = (contentTypeElement) ? contentTypeElement : {};
 
 
         this.setState({
@@ -71,7 +70,6 @@ class Search extends Component {
             performedSearches: 0,
             contentType,
             contentTypeSelected,
-            contentTypes: [],
             facets: []
         });
 
@@ -98,6 +96,8 @@ class Search extends Component {
     }
 
     performSearch(q) {
+        debugger;
+
         let query = q
             ? this.search.createQueryObject(q)
             : this.search.createQueryObject(parse(window.location.search));
@@ -112,19 +112,34 @@ class Search extends Component {
                 : 25;
 
         this.setState({ searchParams: query, loading: true, results: {} });
-        debugger;
 
         if (this.isInitialLoad(query.content_type)) {
+            // deselects content type when user clicks the back button on browser
+            this.setState({contentType: null, contentTypeSelected: {}});
+
             this.search.initial(query).then(res => this.searchOnSuccess(query, rows, res));
-        } else {
-            const contentTypeElement = this.props.filterMap.find(element => element.categoryFacetName.startsWith(query.content_type));
-            const contentTypeValue = 'Application Note'; // (contentTypeElement) ? contentTypeElement.categoryFacetValue: 'N/A';
+        } else if(!this.isFacetsSelected(query.facets)) {
+            // no sub-facets have been selected, only the content type has been selected
+            const contentTypeElement = this.findContentType(this.props.filterMap, query.content_type);
+            const contentTypeValue = (contentTypeElement) ? contentTypeElement.categoryFacetValue: 'NA';
 
             this.search.contentType(query.content_type, contentTypeValue, query).then(res => this.searchOnSuccess(query, rows, res));
+        } else {
+            // sub-facets have been selected
+            const contentTypeElement = this.findContentType(this.props.filterMap, query.content_type);
+            const contentTypeValue = (contentTypeElement) ? contentTypeElement.categoryFacetValue: 'NA';
+
+            //this.search.subFacet(contentTypeValue, query).then(res => this.searchOnSuccess(query, rows, res));
+            console.warn('search by sub facets is pending');
+            this.setState({loading: false});
         }
     }
 
+    findContentType = (items, content_type) => items.find(element => element.categoryFacetName === `${content_type}_facet`);
+
     isInitialLoad = (content_type) => (content_type) ? false : true;
+
+    isFacetsSelected = (selectedFacets) => (Object.entries(selectedFacets).length !== 0) ? true : false;
 
     searchOnSuccess = (query, rows, res) => {
         const newState = Object.assign({}, this.state);
@@ -147,11 +162,7 @@ class Search extends Component {
         
         newState.noResults = !newState.results[query.page].length;
 
-        if (this.isInitialLoad(this.state.contentType)) {
-            newState.contentTypes = res.facets.contenttype_facet;
-        } else {
-            newState.facets = res.facets;
-        }
+        newState.facets = res.facets;
 
         this.setState(Object.assign({}, this.state, newState));
 
@@ -358,28 +369,24 @@ class Search extends Component {
     }
 
     handleContentTypeItemClick = (item) => {
-        const contentTypeElement = this.props.filterMap.find(element => element.categoryFacetValue.startsWith(item.value));
-        
-        if(contentTypeElement) {
-            const contentType = contentTypeElement.categoryFacetName.replace('_facet', '');
+        const contentType = item.categoryFacetName.replace('_facet', '');
 
-            let query = this.search.createQueryObject(parse(window.location.search));
+        let query = this.search.createQueryObject(parse(window.location.search));
 
-            query.content_type = contentType;
+        query.content_type = contentType;
 
-            query.page = 1;
+        query.page = 1;
 
-            this.setState({searchParams: query, contentType, contentTypeSelected: item});
+        this.setState({searchParams: query, contentType, contentTypeSelected: item});
 
-            setTimeout(
-                () =>
-                    this.pushToHistory(
-                        this.state.searchParams,
-                        this.state.selectedFacets
-                    ),
-                0
-            );
-        }
+        setTimeout(
+            () =>
+                this.pushToHistory(
+                    this.state.searchParams,
+                    this.state.selectedFacets
+                ),
+            0
+        );
     }
 
     handleContentTypeTagRemoval = () => {
@@ -403,20 +410,31 @@ class Search extends Component {
 
     getContentMenuOrFilter = (filterTags) => {
         if (this.isInitialLoad(this.state.contentType)) {
-            return <ContentTypeMenu
-                        items={this.state.contentTypes}
-                        click={this.handleContentTypeItemClick.bind(this)} />
-        } else {
-            return <Filter
-                        facets={this.state.facets}
+            return <>
+                    <ContentTypeMenu
                         text={this.props.searchText}
-                        filterMap={this.props.filterMap}
-                        defaultFacet={this.props.defaultFacet}
-                        selectHandler={this.filterSelectHandler.bind(this)}
-                        selectedFacets={this.state.selectedFacets}
-                        filterTags={filterTags}
-                        contentType={this.state.contentType}
-                    />
+                        items={this.props.filterMap}
+                        click={this.handleContentTypeItemClick.bind(this)} />
+                </>
+        } else {
+            return <>
+                    <ContentTypeMenu
+                        text={this.props.searchText}
+                        items={this.props.filterMap}
+                        click={this.handleContentTypeItemClick.bind(this)}
+                        selectedValue={this.state.contentTypeSelected.categoryFacetValue}
+                        clear={this.handleContentTypeTagRemoval.bind(this)}>
+                        <Filter
+                            facets={this.state.facets}
+                            text={this.props.searchText}
+                            filterMap={this.props.filterMap}
+                            defaultFacet={this.props.defaultFacet}
+                            selectHandler={this.filterSelectHandler.bind(this)}
+                            selectedFacets={this.state.selectedFacets}
+                            filterTags={filterTags}
+                            contentType={this.state.contentType} />
+                    </ContentTypeMenu>
+                </>
         }
     }
 

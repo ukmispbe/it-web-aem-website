@@ -54,7 +54,22 @@ export class SearchService {
         return window.fetch(searchString).then(response => response.json());
     }
 
+    subFacet = (
+        contentTypeValue,
+        {
+            keyword = '*:*',
+            facets = {},
+            page = 1,       
+            sort = 'most-recent',
+        } = {}
+        ) => {
+            debugger;
+            const paramString = this.getQueryParamString({ keyword, page, sort });
+            const facetString = this.getQueryFacetString(facets);
+            const searchString = `${this.path}/contentype_facet$contenttype:${contentTypeValue}${facetString}?${paramString}`;
 
+        return window.fetch(searchString).then(response => response.json());
+    }
 
     // DEPRECATED
     call({

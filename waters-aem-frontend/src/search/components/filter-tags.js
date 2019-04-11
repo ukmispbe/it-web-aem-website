@@ -112,7 +112,7 @@ const ContentTypeTags = props => {
             <a href="javascript:void(0);"
                 onClick={props.remove}>
                 <ReactSVG src={props.text.closeIcon} />
-                <span>{props.selected.value}</span>
+                <span>{props.selected.categoryFacetValue}</span>
             </a>
         </div>
     </>);
