@@ -65,28 +65,28 @@ public final class ExternalHeader implements ComponentExporter {
         fieldDescription = "select header logo",
         ranking = 1)
     @Html5SmartImage(tab = false, allowUpload = false, height = 150)
-    @ImageInject
+    @ImageInject(inherit = true)
     private Image logo;
 
     @DialogField(fieldLabel = "Logo Link",
         fieldDescription = "Select or Enter Logo Link",
         ranking = 2)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
-    @LinkInject
+    @LinkInject(inherit = true)
     private Link logoLink;
 
     @DialogField(fieldLabel = "Logo Alt Text",
         fieldDescription = "Enter Alt Text for Logo",
         ranking = 3)
     @TextField
-    @Inject
+    @InheritInject
     private String logoAltText;
 
     @DialogField(fieldLabel = "Open in New Window",
         fieldDescription = "Select this option to open in new window",
         ranking = 4)
     @Switch(offText = "No", onText = "Yes")
-    @Inject
+    @InheritInject
     @Default(booleanValues = false)
     private Boolean newWindow;
 
@@ -108,6 +108,7 @@ public final class ExternalHeader implements ComponentExporter {
 
     @DialogField(tab = 3)
     @DialogFieldSet(namePrefix = "./regionLinkItem/")
+    @InheritInject
     @ChildResource
     private RegionLinkItem regionLinkItem;
 
