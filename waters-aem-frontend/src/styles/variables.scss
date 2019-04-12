@@ -102,11 +102,12 @@ $space-l: 2em;
 $space-xl: 3em;
 $space-xxl: 5em;
 
-// Input
-$input-height: 2.75em;
+// Size
+$button-fixed: 2.75em;
 
 // Animation
 $hover-transition: all 0.25s ease;
+$fade-transition: opacity 0.5s ease;
 
 // Breakpoints
 $max-width: 1460px;

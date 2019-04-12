@@ -87,29 +87,26 @@
 
 .cmp-back-to-top {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: $space-m;
+    right: $space-m;
     z-index: 99;
-    height: 2.75em;
-    width: 2.75em;
-    text-align: center;
-    line-height: 30px;
-    background: #fff;
-    color: $color-font-dark;
+    height: $button-fixed;
+    width: $button-fixed;
+    background: $color-white;
     cursor: pointer;
     display: block;
     opacity: 0;
     border: 1px solid $color-border-light;
-    padding-top: 9px;
+    padding: $space-xxs;
     box-shadow: $shadow;
-    transition: opacity 0.5s ease;
+    transition: $fade-transition;
 
     svg {
         width: $icon-m;
-        height: 24px;
+        height: $icon-m;
 
         .st0 {
-            stroke: $color-gray-50;
+            stroke: $color-icon;
         }
     }
 
@@ -118,7 +115,7 @@
 
         svg {
             .st0 {
-                stroke: $color-link-hover;
+                stroke: $color-link;
             }
         }
     }
@@ -127,17 +124,7 @@
         border: 1px solid $color-border-light;
         svg {
             .st0 {
-                stroke: $color-gray-50;
-            }
-        }
-    }
-
-    &:disabled {
-        border: 1px solid $color-disabled;
-
-        svg {
-            .st0 {
-                stroke: $color-disabled;
+                stroke: $color-icon;
             }
         }
     }
@@ -149,6 +136,6 @@
     &.cmp-back-to-top-affix {
         position: relative;
         float: right;
-        bottom: 20px;
+        bottom: $space-m;
     }
 }
