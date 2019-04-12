@@ -38,20 +38,18 @@
     width: 100%;
 
     &-link {
+        font-size: $font-size-h3;
         display: block;
-        margin-bottom: 0;
+        margin-bottom: $space-xxs;
     }
 
     &-description {
-        margin: $space-xxs 0;
         @include multiLineEllipsis($lineCount: 3);
+        margin-bottom: $space-xxs;
     }
 
     &-date {
         @include font-small;
-    }
-    &-title {
-        font-size: $font-size-h3;
     }
 }
 
