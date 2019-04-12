@@ -13,6 +13,7 @@ import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.link.Link;
+import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
@@ -28,12 +29,10 @@ import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.injectorspecific.ChildResource;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Locale;
 
@@ -51,7 +50,7 @@ import java.util.Locale;
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public final class ExternalHeader implements ComponentExporter {
+public final class ExternalHeader extends AbstractComponent implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/structure/externalheader";
 
@@ -108,9 +107,11 @@ public final class ExternalHeader implements ComponentExporter {
 
     @DialogField(tab = 3)
     @DialogFieldSet(namePrefix = "./regionLinkItem/")
-    @InheritInject
-    @ChildResource
-    private RegionLinkItem regionLinkItem;
+    public RegionLinkItem getRegionLinkItem() {
+        return getComponentNodeInherited("regionLinkItem")
+            .transform(componentNode -> componentNode.getResource().adaptTo(RegionLinkItem.class))
+            .orNull();
+    }
 
     @Nonnull
     @Override
@@ -140,10 +141,6 @@ public final class ExternalHeader implements ComponentExporter {
 
     public List<LinkItem> getLinkItems() {
         return linkItems;
-    }
-
-    public RegionLinkItem getRegionLinkItem() {
-        return regionLinkItem;
     }
 
     public String getLanguageLocation() {
