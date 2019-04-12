@@ -54,6 +54,7 @@ export class SearchService {
     }
 
     subFacet = (
+        contentTypeName,
         contentTypeValue,
         {
             keyword = '*:*',
@@ -64,23 +65,9 @@ export class SearchService {
         ) => {
             const paramString = this.getQueryParamString({ keyword, page, sort });
             const facetString = this.getQueryFacetString(facets);
-            const searchString = `${this.path}/contentype_facet$contenttype:${contentTypeValue}${facetString}?${paramString}`;
+            const searchString = `${this.path}/contenttype_facet$${contentTypeName.replace('_facet', '')}:${contentTypeValue}${facetString}?${paramString}`;
 
             return window.fetch(searchString).then(response => response.json());
-    }
-
-    // DEPRECATED
-    call({
-        keyword = '*:*',
-        facets = {},
-        page = 1,       
-        sort = 'most-recent',
-    } = {}) {
-        const paramString = this.getQueryParamString({ keyword, page, sort });
-        const facetString = this.getQueryFacetString(facets);
-        const searchString = `${this.path}/${facetString}?${paramString}`;
-
-        return window.fetch(searchString).then(response => response.json());
     }
 
     getParamsFromString() {
@@ -148,28 +135,12 @@ export class SearchService {
         return paramString;
     }
 
-    getFacetKey(facet) {
-        let returnValue = '';
-
-        switch (facet) {
-            case 'instrumenttype_facet':
-                returnValue = `${facet}$instrument`;
-                break;
-            
-            default:
-                returnValue = `${facet}$${facet}`;
-                break;
-        }
-
-        return returnValue;
-    }
-
     getQueryFacetString(facets) {
         let facetString = '';
 
         for (let i = 0; i <= Object.keys(facets).length; i++) {
             const facetName = Object.keys(facets)[i];
-            const category = (facetName) ? this.getFacetKey(facetName) : null;
+            const category = (facetName) ? `${facetName}$${facetName.replace('_facet', '')}` : null;
             const facet = facets[facetName];
 
             if (facet && category) {

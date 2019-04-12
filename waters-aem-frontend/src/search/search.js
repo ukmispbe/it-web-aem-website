@@ -125,9 +125,10 @@ class Search extends Component {
         } else {
             // sub-facets have been selected
             const contentTypeElement = this.findContentType(this.props.filterMap, query.content_type);
+            const contentTypeName = (contentTypeElement) ? contentTypeElement.categoryFacetName: 'NA';
             const contentTypeValue = (contentTypeElement) ? contentTypeElement.categoryFacetValue: 'NA';
 
-            this.search.subFacet(contentTypeValue, query)
+            this.search.subFacet(contentTypeName, contentTypeValue, query)
                 .then(res => this.searchOnSuccess(query, rows, res))
                 .catch(error => this.searchOnError(error));
         }
@@ -234,14 +235,17 @@ class Search extends Component {
 
         this.setState(newState);
 
-        this.pushToHistory(
-            {
-                keyword: searchParams.keyword,
-                page: page.selected + 1,
-                sort: searchParams.sort,
-            },
-            searchParams.facets
-        );
+        const query = {
+            keyword: searchParams.keyword,
+            page: page.selected + 1,
+            sort: searchParams.sort,
+        };
+        
+        if (this.state.contentType) {
+            query.content_type = this.state.contentType;
+        }
+
+        this.pushToHistory(query, searchParams.facets);
 
         if (e === 'clicked') {
             window.sessionStorage.setItem(
@@ -252,20 +256,22 @@ class Search extends Component {
     }
 
     sortHandler(e) {
-        const sortOption =
-            parseInt(e.target.value) === 1 ? 'most-relevant' : 'most-recent';
+        const sortOption = parseInt(e.target.value) === 1 ? 'most-relevant' : 'most-recent';
         const state = this.state;
 
         this.setState(Object.assign({}, state, { sort: sortOption }));
 
-        this.pushToHistory(
-            {
-                keyword: state.query,
-                page: 1,
-                sort: sortOption,
-            },
-            state.selectedFacets
-        );
+        const query = {
+            keyword: state.query,
+            page: 1,
+            sort: sortOption,
+        };
+
+        if (this.state.contentType) {
+            query.content_type = this.state.contentType;
+        }
+
+        this.pushToHistory(query, state.selectedFacets);
     }
 
     filterSelectHandler(facet, categoryId, e) {
