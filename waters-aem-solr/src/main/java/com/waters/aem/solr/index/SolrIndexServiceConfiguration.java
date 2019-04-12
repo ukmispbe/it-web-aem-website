@@ -17,5 +17,8 @@ public @interface SolrIndexServiceConfiguration {
     String[] excludedPaths() default { "/content/waters/language-masters" };
 
     @AttributeDefinition(name = "Included Templates", description = "List of templates that should be indexed.")
-    String[] includedTemplates() default { WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE };
+    String[] includedTemplates() default {
+        WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE,
+        WatersConstants.TEMPLATE_LIBRARY_PAGE
+    };
 }
