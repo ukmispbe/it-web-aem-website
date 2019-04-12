@@ -31,7 +31,7 @@ class Search extends Component {
             this.props.defaultFacet,
             this.props.searchServicePath
         );
-        debugger;
+        
         const query = this.search.getParamsFromString();
         this.query = query;
 
@@ -96,8 +96,6 @@ class Search extends Component {
     }
 
     performSearch(q) {
-        debugger;
-
         let query = q
             ? this.search.createQueryObject(q)
             : this.search.createQueryObject(parse(window.location.search));
@@ -129,9 +127,9 @@ class Search extends Component {
             const contentTypeElement = this.findContentType(this.props.filterMap, query.content_type);
             const contentTypeValue = (contentTypeElement) ? contentTypeElement.categoryFacetValue: 'NA';
 
-            //this.search.subFacet(contentTypeValue, query).then(res => this.searchOnSuccess(query, rows, res));
-            console.warn('search by sub facets is pending');
-            this.setState({loading: false});
+            this.search.subFacet(contentTypeValue, query)
+                .then(res => this.searchOnSuccess(query, rows, res))
+                .catch(error => this.searchOnError(error));
         }
     }
 
@@ -199,6 +197,18 @@ class Search extends Component {
                 window.scrollTo(0, reactAppTop);
             }
         }
+    }
+
+    searchOnError = error => {
+        const newState = Object.assign({}, this.state);
+
+        newState.loading = false;
+        newState.rows = [];
+        newState.count = 0;
+        newState.noResults = true;
+        newState.results = {};
+
+        this.setState(Object.assign({}, this.state, newState));
     }
 
     pushToHistory(query, facets) {

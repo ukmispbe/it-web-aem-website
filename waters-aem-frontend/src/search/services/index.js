@@ -12,8 +12,7 @@ export class SearchService {
             multiselect = true,
         } = {},
         defaultFacet,
-        path = 'https://dev-www.waters.com:8443/api/waters/search',
-        facetSelected = '/contentype_facet$'
+        path = 'https://dev-www.waters.com:8443/api/waters/search'
     ) {
         this.path = path;
         this.options = {
@@ -63,12 +62,11 @@ export class SearchService {
             sort = 'most-recent',
         } = {}
         ) => {
-            debugger;
             const paramString = this.getQueryParamString({ keyword, page, sort });
             const facetString = this.getQueryFacetString(facets);
             const searchString = `${this.path}/contentype_facet$contenttype:${contentTypeValue}${facetString}?${paramString}`;
 
-        return window.fetch(searchString).then(response => response.json());
+            return window.fetch(searchString).then(response => response.json());
     }
 
     // DEPRECATED
@@ -78,7 +76,6 @@ export class SearchService {
         page = 1,       
         sort = 'most-recent',
     } = {}) {
-        debugger;
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const facetString = this.getQueryFacetString(facets);
         const searchString = `${this.path}/${facetString}?${paramString}`;
@@ -151,18 +148,35 @@ export class SearchService {
         return paramString;
     }
 
+    getFacetKey(facet) {
+        let returnValue = '';
+
+        switch (facet) {
+            case 'instrumenttype_facet':
+                returnValue = `${facet}$instrument`;
+                break;
+            
+            default:
+                returnValue = `${facet}$${facet}`;
+                break;
+        }
+
+        return returnValue;
+    }
+
     getQueryFacetString(facets) {
-        let facetString = this.defaultFacet;
+        let facetString = '';
 
         for (let i = 0; i <= Object.keys(facets).length; i++) {
-            const category = Object.keys(facets)[i];
-            const facet = facets[category];
+            const facetName = Object.keys(facets)[i];
+            const category = (facetName) ? this.getFacetKey(facetName) : null;
+            const facet = facets[facetName];
 
             if (facet && category) {
                 if (i === 0) {
                     facetString =
                         facetString +
-                        `${this.defaultFacet.length ? '&' : ''}${category}:`;
+                        `&${category}:`;
                 } else {
                     facetString = facetString + `&${category}:`;
                 }
