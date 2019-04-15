@@ -1,8 +1,8 @@
-.content-type-menu-container {
+.categories-type-menu-container {
     border: solid thin #000;
 }
 
-.content-type-menu-container__heading {
+.categories-type-menu-container__heading {
     padding-top: 10px;
     padding-left: 10px;
     font-size: 1rem;
@@ -21,13 +21,13 @@
     }
 }
 
-.content-type-menu-container__body {
+.categories-type-menu-container__body {
     padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
 }
 
-.content-type-menu-container__item {
+.categories-type-menu-container__item {
     display: flex;
     margin-bottom: 10px;
     padding: 10px;
@@ -46,6 +46,6 @@
     }
 }
 
-.content-type-menu-container__item:last-child {
+.categories-type-menu-container__item:last-child {
     margin-bottom: 25px;
 }

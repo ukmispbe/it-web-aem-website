@@ -2,7 +2,7 @@ import React from 'react';
 import ReactSVG from 'react-svg';
 import PropTypes from 'prop-types';
 
-export const ContentTypeMenu = (props) => {
+export const CategoriesMenu = (props) => {
     const hasChildren = (props.children) ? true: false;
     const items = props.items.filter(item => item.categoryFacetName !== 'library_facet');
 
@@ -12,27 +12,27 @@ export const ContentTypeMenu = (props) => {
             : <div>Content Type</div>
     }
 
-    const getDisplay = () => {
+    const getBody = () => {
         return hasChildren ? props.children : items.map((item, index) => {
-            return <div key={item.categoryFacetName} className="content-type-menu-container__item" onClick={e => props.click(item)}>
+            return <div key={item.categoryFacetName} className="categories-type-menu-container__item" onClick={e => props.click(item)}>
                     <div>{item.categoryFacetValue}</div>
                     <ReactSVG src={props.text.nextIcon} />
                 </div>});
     }
 
     return (<>
-        <div className="content-type-menu-container">
-            <div className="content-type-menu-container__heading">
+        <div className="categories-type-menu-container">
+            <div className="categories-type-menu-container__heading">
                 {getHeading()}
             </div>
-            <div className="content-type-menu-container__body">
-                {getDisplay()}
+            <div className="categories-type-menu-container__body">
+                {getBody()}
             </div>
         </div>
     </>);
 }
 
-ContentTypeMenu.propTypes = {
+CategoriesMenu.propTypes = {
     text: PropTypes.object,
     selectedValue: PropTypes.string,
     items: PropTypes.array,

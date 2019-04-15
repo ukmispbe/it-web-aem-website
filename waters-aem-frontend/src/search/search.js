@@ -17,7 +17,7 @@ import BtnHideSortFilter from './components/btn-hide-sort-filter';
 import BtnApplySortFilter from './components/btn-apply-sort-filter';
 import BtnDoneSortFilter from './components/btn-done-sort-filter';
 import Spinner from './components/spinner';
-import {ContentTypeMenu} from './components/content-type-menu';
+import {CategoriesMenu} from './components/categories-menu';
 
 class Search extends Component {
     constructor() {
@@ -427,14 +427,14 @@ class Search extends Component {
     getContentMenuOrFilter = (filterTags) => {
         if (this.isInitialLoad(this.state.contentType)) {
             return <>
-                    <ContentTypeMenu
+                    <CategoriesMenu
                         text={this.props.searchText}
                         items={this.props.filterMap}
                         click={this.handleContentTypeItemClick.bind(this)} />
                 </>
         } else {
             return <>
-                    <ContentTypeMenu
+                    <CategoriesMenu
                         text={this.props.searchText}
                         items={this.props.filterMap}
                         click={this.handleContentTypeItemClick.bind(this)}
@@ -449,7 +449,7 @@ class Search extends Component {
                             selectedFacets={this.state.selectedFacets}
                             filterTags={filterTags}
                             contentType={this.state.contentType} />
-                    </ContentTypeMenu>
+                    </CategoriesMenu>
                 </>
         }
     }
