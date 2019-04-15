@@ -8,8 +8,8 @@ export const CategoriesMenu = (props) => {
 
     const getHeading = () => {
         return hasChildren 
-            ? <div className="bread-crumb"><a href="javascript:void(0)" onClick={props.clear}>Content Type</a> <ReactSVG src={props.text.nextIcon} /> {props.selectedValue}</div> 
-            : <div>Content Type</div>
+            ? <div className="bread-crumb"><a href="javascript:void(0)" onClick={props.clear}>{props.text[props.headingKey]}</a> <ReactSVG src={props.text.nextIcon} /> {props.selectedValue}</div> 
+            : <div>{props.text[props.headingKey]}</div>
     }
 
     const getBody = () => {
@@ -34,6 +34,7 @@ export const CategoriesMenu = (props) => {
 
 CategoriesMenu.propTypes = {
     text: PropTypes.object,
+    headingKey: PropTypes.string,
     selectedValue: PropTypes.string,
     items: PropTypes.array,
     click: PropTypes.func,
