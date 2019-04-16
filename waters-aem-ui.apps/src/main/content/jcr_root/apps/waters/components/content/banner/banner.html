@@ -1,5 +1,5 @@
 <div data-sly-use.banner="com.waters.aem.core.components.content.Banner"
-     class="cmp-banner">
+     class="cmp-banner ${isAuthor ? 'is-author' : ''}">
     <div class="cmp-banner__parsys"
          data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
     <div class="cmp-banner__background-overlay"></div>

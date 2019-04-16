@@ -4,6 +4,7 @@
     margin-top: -$space-l;
     position: relative;
     overflow-y: hidden;
+    z-index: -3;
 
     .container {
         padding: 0;
@@ -27,10 +28,15 @@
         img {
             width: 100%;
             object-fit: cover;
+            height: 100%;
 
             @include mobile {
                 height: 100%;
             }
+        }
+
+        .cmp-image__title {
+            display: none;
         }
     }
 
@@ -49,22 +55,19 @@
 
     @include mobile {
         margin-top: -$space-l;
-
-        // .container {
-        //     padding: 0 4px;
-        // }
     }
+
     @include tablet {
         margin-top: -$space-l;
+    }
+}
 
-        &__background-image {
-            padding: 0 52px;
-            margin: 0 -52px;
-        }
+.is-author .cmp-banner {
+    padding-top: 25px;
 
-        // .container {
-        //     padding: 0 12px;
-        // }
+    &__background-image {
+        position: relative;
+        z-index: 0;
     }
 }
 
