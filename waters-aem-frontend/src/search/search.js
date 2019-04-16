@@ -11,7 +11,7 @@ import NoResults from './components/no-results';
 
 import Sort from './components/sort';
 import Filter from './components/filter';
-import {ContentTypeTags} from './components/filter-tags';
+import {CategoryTags} from './components/filter-tags';
 import BtnShowSortFilter from './components/btn-show-sort-filter';
 import BtnHideSortFilter from './components/btn-hide-sort-filter';
 import BtnApplySortFilter from './components/btn-apply-sort-filter';
@@ -429,7 +429,7 @@ class Search extends Component {
             return <>
                     <CategoriesMenu
                         text={this.props.searchText}
-                        headingKey="contentType"
+                        categoryKey="contentType"
                         items={this.props.filterMap}
                         click={this.handleContentTypeItemClick.bind(this)} />
                 </>
@@ -437,7 +437,7 @@ class Search extends Component {
             return <>
                     <CategoriesMenu
                         text={this.props.searchText}
-                        headingKey="contentType"
+                        categoryKey="contentType"
                         items={this.props.filterMap}
                         click={this.handleContentTypeItemClick.bind(this)}
                         selectedValue={this.state.contentTypeSelected.categoryFacetValue}
@@ -461,7 +461,8 @@ class Search extends Component {
         const searchParams = this.state.searchParams || {};
         const overlay = <div className="overlay" />;
         const filterTags = (
-            <ContentTypeTags 
+            <CategoryTags 
+                categoryKey="contentType"
                 text={this.props.searchText} 
                 selected={this.state.contentTypeSelected} 
                 remove={this.handleContentTypeTagRemoval} />

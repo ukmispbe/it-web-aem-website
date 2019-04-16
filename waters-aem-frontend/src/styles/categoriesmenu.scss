@@ -1,15 +1,12 @@
-.categories-type-menu-container {
-    border: solid thin #000;
-}
-
 .categories-type-menu-container__heading {
     padding-top: 10px;
-    padding-left: 10px;
-    font-size: 1rem;
-    font-weight: bold;
 
     .bread-crumb {
         display: flex;
+    }
+
+    a:hover {
+        text-decoration: none;
     }
 
     svg {
@@ -21,12 +18,6 @@
     }
 }
 
-.categories-type-menu-container__body {
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
 .categories-type-menu-container__item {
     display: flex;
     margin-bottom: 10px;
@@ -35,6 +26,10 @@
     color: lighten($color: #000000, $amount: 45);
     cursor: pointer;
 
+    a {
+        color: $color-gray-50;
+    }
+
     div:first-child {
         flex-grow: 1;
     }
@@ -42,7 +37,19 @@
     svg {
         width: 1.5em;
         height: 1.5em;
-        
+    }
+}
+
+.categories-type-menu-container__item:hover {
+    a {
+        color: $color-blue-50;
+        text-decoration: none;
+    }
+
+    svg {
+        polyline {
+            stroke: $color-blue-50
+        }
     }
 }
 
