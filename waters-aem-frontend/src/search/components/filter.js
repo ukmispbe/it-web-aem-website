@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import ReactSVG from 'react-svg';
-
-import FilterTags from './filter-tags';
 import FilterSection from './filter-section';
 
 class Filter extends Component {
@@ -56,10 +53,9 @@ class Filter extends Component {
         const state = current.state;
         const facets = props.facets;
         const defaultFacetSplit = decodeURI(props.defaultFacet).split('%2F');
-        const defaultFacet =
-            defaultFacetSplit[defaultFacetSplit.length - 1] + '_facet';
+        const defaultFacet = this.props.contentType + '_facet';
         const mapping = [];
-
+        
         for (let i = 0; i < props.filterMap.length; i++) {
             if (props.filterMap[i].categoryFacetName === defaultFacet) {
                 const appLibrary = props.filterMap[i];

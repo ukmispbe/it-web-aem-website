@@ -11,12 +11,13 @@ import NoResults from './components/no-results';
 
 import Sort from './components/sort';
 import Filter from './components/filter';
-import FilterTags from './components/filter-tags';
+import {ContentTypeTags} from './components/filter-tags';
 import BtnShowSortFilter from './components/btn-show-sort-filter';
 import BtnHideSortFilter from './components/btn-hide-sort-filter';
 import BtnApplySortFilter from './components/btn-apply-sort-filter';
 import BtnDoneSortFilter from './components/btn-done-sort-filter';
 import Spinner from './components/spinner';
+import {CategoriesMenu} from './components/categories-menu';
 
 class Search extends Component {
     constructor() {
@@ -30,7 +31,7 @@ class Search extends Component {
             this.props.defaultFacet,
             this.props.searchServicePath
         );
-
+        
         const query = this.search.getParamsFromString();
         this.query = query;
 
@@ -47,6 +48,11 @@ class Search extends Component {
                     : this.query.sort;
         }
 
+        const contentType = (this.query.content_type) ? this.query.content_type : null;
+        const contentTypeElement = this.findContentType(this.props.filterMap, contentType);
+        const contentTypeSelected = (contentTypeElement) ? contentTypeElement : {};
+
+
         this.setState({
             loading: true,
             results: {},
@@ -62,6 +68,9 @@ class Search extends Component {
             isDesktop: false,
             initialRender: true,
             performedSearches: 0,
+            contentType,
+            contentTypeSelected,
+            facets: []
         });
 
         const checkWindowWidth = () => {
@@ -102,63 +111,105 @@ class Search extends Component {
 
         this.setState({ searchParams: query, loading: true, results: {} });
 
-        this.search.call(query).then(res => {
-            const newState = Object.assign({}, this.state);
+        if (this.isInitialLoad(query.content_type)) {
+            // deselects content type when user clicks the back button on browser
+            this.setState({contentType: null, contentTypeSelected: {}});
 
-            newState.loading = false;
-            newState.rows = rows;
-            newState.count = res.num_found;
-            newState.query = query.keyword;
-            newState.results = newState.results || {};
-            newState.results[query.page] = res.documents;
-            newState.noQuery = query.keyword ? false : true;
-            newState.sort = this.state.sort;
-            newState.performedSearches = this.state.performedSearches + 1;
-            newState.initialRender = false;
+            this.search.initial(query).then(res => this.searchOnSuccess(query, rows, res));
+        } else if(!this.isFacetsSelected(query.facets)) {
+            // no sub-facets have been selected, only the content type has been selected
+            const contentTypeElement = this.findContentType(this.props.filterMap, query.content_type);
+            const contentTypeValue = (contentTypeElement) ? contentTypeElement.categoryFacetValue: 'NA';
 
-            newState.pagination = {
-                current: query.page,
-                amount: Math.ceil(res.num_found / rows),
-            };
-            newState.noResults = !newState.results[query.page].length;
-            newState.facets = res.facets;
+            this.search.contentType(query.content_type, contentTypeValue, query).then(res => this.searchOnSuccess(query, rows, res));
+        } else {
+            // sub-facets have been selected
+            const contentTypeElement = this.findContentType(this.props.filterMap, query.content_type);
+            const contentTypeName = (contentTypeElement) ? contentTypeElement.categoryFacetName: 'NA';
+            const contentTypeValue = (contentTypeElement) ? contentTypeElement.categoryFacetValue: 'NA';
 
-            this.setState(Object.assign({}, this.state, newState));
+            this.search.subFacet(contentTypeName, contentTypeValue, query)
+                .then(res => this.searchOnSuccess(query, rows, res))
+                .catch(error => this.searchOnError(error));
+        }
+    }
 
-            const scrollToPosition = window.sessionStorage.getItem(
-                'waters.previousPagePosition'
-            );
+    findContentType = (items, content_type) => items.find(element => element.categoryFacetName === `${content_type}_facet`);
 
-            const previousPagePosition = window.sessionStorage.getItem(
-                'waters.previousPaginationClick'
-            );
+    isInitialLoad = (content_type) => (content_type) ? false : true;
 
-            if (scrollToPosition) {
-                window.scrollTo(0, scrollToPosition);
-                window.sessionStorage.removeItem('waters.previousPagePosition');
-            } else if (
-                this.props.history &&
-                this.props.history.action === 'POP' &&
-                previousPagePosition &&
-                previousPagePosition !== 'NaN'
-            ) {
-                setTimeout(() => {
-                    window.scrollTo(0, previousPagePosition);
-                    window.sessionStorage.removeItem(
-                        'waters.previousPaginationClick'
-                    );
-                }, 0);
-            } else if (!scrollToPosition && previousPagePosition) {
-                window.scrollTo(0, 0);
-            } else {
-                const reactAppTop =
-                    this.refs.main.getBoundingClientRect().top - 72;
+    isFacetsSelected = (selectedFacets) => (Object.entries(selectedFacets).length !== 0) ? true : false;
 
-                if (newState.performedSearches > 1) {
-                    window.scrollTo(0, reactAppTop);
-                }
+    searchOnSuccess = (query, rows, res) => {
+        const newState = Object.assign({}, this.state);
+
+        newState.loading = false;
+        newState.rows = rows;
+        newState.count = res.num_found;
+        newState.query = query.keyword;
+        newState.results = newState.results || {};
+        newState.results[query.page] = res.documents;
+        newState.noQuery = query.keyword ? false : true;
+        newState.sort = this.state.sort;
+        newState.performedSearches = this.state.performedSearches + 1;
+        newState.initialRender = false;
+
+        newState.pagination = {
+            current: query.page,
+            amount: Math.ceil(res.num_found / rows),
+        };
+        
+        newState.noResults = !newState.results[query.page].length;
+
+        newState.facets = res.facets;
+
+        this.setState(Object.assign({}, this.state, newState));
+
+        const scrollToPosition = window.sessionStorage.getItem(
+            'waters.previousPagePosition'
+        );
+
+        const previousPagePosition = window.sessionStorage.getItem(
+            'waters.previousPaginationClick'
+        );
+
+        if (scrollToPosition) {
+            window.scrollTo(0, scrollToPosition);
+            window.sessionStorage.removeItem('waters.previousPagePosition');
+        } else if (
+            this.props.history &&
+            this.props.history.action === 'POP' &&
+            previousPagePosition &&
+            previousPagePosition !== 'NaN'
+        ) {
+            setTimeout(() => {
+                window.scrollTo(0, previousPagePosition);
+                window.sessionStorage.removeItem(
+                    'waters.previousPaginationClick'
+                );
+            }, 0);
+        } else if (!scrollToPosition && previousPagePosition) {
+            window.scrollTo(0, 0);
+        } else {
+            const reactAppTop =
+                this.refs.main.getBoundingClientRect().top - 72;
+
+            if (newState.performedSearches > 1) {
+                window.scrollTo(0, reactAppTop);
             }
-        });
+        }
+    }
+
+    searchOnError = error => {
+        const newState = Object.assign({}, this.state);
+
+        newState.loading = false;
+        newState.rows = [];
+        newState.count = 0;
+        newState.noResults = true;
+        newState.results = {};
+
+        this.setState(Object.assign({}, this.state, newState));
     }
 
     pushToHistory(query, facets) {
@@ -184,14 +235,17 @@ class Search extends Component {
 
         this.setState(newState);
 
-        this.pushToHistory(
-            {
-                keyword: searchParams.keyword,
-                page: page.selected + 1,
-                sort: searchParams.sort,
-            },
-            searchParams.facets
-        );
+        const query = {
+            keyword: searchParams.keyword,
+            page: page.selected + 1,
+            sort: searchParams.sort,
+        };
+        
+        if (this.state.contentType) {
+            query.content_type = this.state.contentType;
+        }
+
+        this.pushToHistory(query, searchParams.facets);
 
         if (e === 'clicked') {
             window.sessionStorage.setItem(
@@ -202,20 +256,22 @@ class Search extends Component {
     }
 
     sortHandler(e) {
-        const sortOption =
-            parseInt(e.target.value) === 1 ? 'most-relevant' : 'most-recent';
+        const sortOption = parseInt(e.target.value) === 1 ? 'most-relevant' : 'most-recent';
         const state = this.state;
 
         this.setState(Object.assign({}, state, { sort: sortOption }));
 
-        this.pushToHistory(
-            {
-                keyword: state.query,
-                page: 1,
-                sort: sortOption,
-            },
-            state.selectedFacets
-        );
+        const query = {
+            keyword: state.query,
+            page: 1,
+            sort: sortOption,
+        };
+
+        if (this.state.contentType) {
+            query.content_type = this.state.contentType;
+        }
+
+        this.pushToHistory(query, state.selectedFacets);
     }
 
     filterSelectHandler(facet, categoryId, e) {
@@ -328,25 +384,87 @@ class Search extends Component {
         }
     }
 
+    handleContentTypeItemClick = (item) => {
+        const contentType = item.categoryFacetName.replace('_facet', '');
+
+        let query = this.search.createQueryObject(parse(window.location.search));
+
+        query.content_type = contentType;
+
+        query.page = 1;
+
+        this.setState({searchParams: query, contentType, contentTypeSelected: item});
+
+        setTimeout(
+            () =>
+                this.pushToHistory(
+                    this.state.searchParams,
+                    this.state.selectedFacets
+                ),
+            0
+        );
+    }
+
+    handleContentTypeTagRemoval = () => {
+        let query = this.search.createQueryObject(parse(window.location.search));
+        
+        delete query.content_type;
+
+        query.page = 1;
+
+        this.setState({searchParams: query, selectedFacets: {}, contentType: '', contentTypeSelected: {}});
+
+        setTimeout(
+            () =>
+                this.pushToHistory(
+                    this.state.searchParams,
+                    this.state.selectedFacets
+                ),
+            0
+        );
+    }
+
+    getContentMenuOrFilter = (filterTags) => {
+        if (this.isInitialLoad(this.state.contentType)) {
+            return <>
+                    <CategoriesMenu
+                        text={this.props.searchText}
+                        headingKey="contentType"
+                        items={this.props.filterMap}
+                        click={this.handleContentTypeItemClick.bind(this)} />
+                </>
+        } else {
+            return <>
+                    <CategoriesMenu
+                        text={this.props.searchText}
+                        headingKey="contentType"
+                        items={this.props.filterMap}
+                        click={this.handleContentTypeItemClick.bind(this)}
+                        selectedValue={this.state.contentTypeSelected.categoryFacetValue}
+                        clear={this.handleContentTypeTagRemoval.bind(this)}>
+                        <Filter
+                            facets={this.state.facets}
+                            text={this.props.searchText}
+                            filterMap={this.props.filterMap}
+                            defaultFacet={this.props.defaultFacet}
+                            selectHandler={this.filterSelectHandler.bind(this)}
+                            selectedFacets={this.state.selectedFacets}
+                            filterTags={filterTags}
+                            contentType={this.state.contentType} />
+                    </CategoriesMenu>
+                </>
+        }
+    }
+
     render() {
         const state = this.state;
         const searchParams = this.state.searchParams || {};
         const overlay = <div className="overlay" />;
         const filterTags = (
-            <FilterTags
-                text={this.props.searchText}
-                selectedFacets={
-                    state.unappliedFilters &&
-                    state.unappliedFilters.selectedFacets
-                        ? state.unappliedFilters.selectedFacets
-                        : state.selectedFacets
-                }
-                facets={state.facets}
-                clearTag={this.clearTag.bind(this)}
-                removeTag={this.removeTag.bind(this)}
-                filterMap={this.props.filterMap}
-                defaultFacet={this.props.defaultFacet}
-            />
+            <ContentTypeTags 
+                text={this.props.searchText} 
+                selected={this.state.contentTypeSelected} 
+                remove={this.handleContentTypeTagRemoval} />
         );
 
         const aside = (
@@ -383,15 +501,8 @@ class Search extends Component {
                         text={this.props.searchText}
                     />
 
-                    <Filter
-                        facets={state.facets}
-                        text={this.props.searchText}
-                        filterMap={this.props.filterMap}
-                        defaultFacet={this.props.defaultFacet}
-                        selectHandler={this.filterSelectHandler.bind(this)}
-                        selectedFacets={state.selectedFacets}
-                        filterTags={filterTags}
-                    />
+                    
+                    {this.getContentMenuOrFilter(filterTags)}
                 </div>
             </div>
         );
