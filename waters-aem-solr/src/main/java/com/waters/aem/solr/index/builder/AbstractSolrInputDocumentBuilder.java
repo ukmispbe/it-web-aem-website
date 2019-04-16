@@ -9,6 +9,7 @@ import com.waters.aem.core.components.content.Text;
 import com.waters.aem.core.components.structure.page.Thumbnail;
 import com.waters.aem.core.metadata.ContentClassification;
 import com.waters.aem.core.utils.SearchUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.AbstractResourceVisitor;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -87,7 +88,13 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         document.setField("id", page.getPath());
         document.setField("url", externalizer.externalLink(resourceResolver, Externalizer.PUBLISH, page.getHref()));
         document.setField("title", page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle()));
-        document.setField("description", page.getDescription());
+
+        final String description = page.getDescription();
+
+        if (StringUtils.isNotEmpty(description)) {
+            document.setField("description", description);
+        }
+
         document.setField("isocode", locale.toString());
         document.setField("viewname", "aem");
 
@@ -98,7 +105,11 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
                 thumbnailImage));
         }
 
-        document.setField("content", getPageContent());
+        final String content = getPageContent();
+
+        if (StringUtils.isNotEmpty(content)) {
+            document.setField("content", content);
+        }
 
         for (final Tag tag : page.getTags()) {
             document.addField("tags", tag.getTitle(locale));
@@ -119,17 +130,23 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
     protected abstract Optional<ContentClassification> getContentClassification();
 
     private void addContentClassification(final SolrInputDocument document) {
-        final Optional<ContentClassification> classification = getContentClassification();
+        final Optional<ContentClassification> classificationOptional = getContentClassification();
 
-        if (classification.isPresent()) {
-            // add literature code
-            document.setField("literaturecode", classification.get().getLiteratureCode());
+        if (classificationOptional.isPresent()) {
+            final ContentClassification classification = classificationOptional.get();
+
+            final String literatureCode = classification.getLiteratureCode();
+
+            if (StringUtils.isNotEmpty(literatureCode)) {
+                // add literature code
+                document.setField("literaturecode", literatureCode);
+            }
 
             // add facets
-            addFacets(document, classification.get());
+            addFacets(document, classification);
 
             // add date
-            addDate(document, classification.get());
+            addDate(document, classification);
         }
     }
 
