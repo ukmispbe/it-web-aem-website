@@ -95,7 +95,7 @@ const FilterTags = props => {
     );
 };
 
-const ContentTypeTags = props => {
+const CategoryTags = props => {
     const showTags = Object.entries(props.selected).length !== 0 ? true : false;
 
     if (!showTags) return <></>;
@@ -112,21 +112,22 @@ const ContentTypeTags = props => {
             <a href="javascript:void(0);"
                 onClick={props.remove}>
                 <ReactSVG src={props.text.closeIcon} />
-                <span>{props.selected.categoryFacetValue}</span>
+                <span>{`${props.text[props.categoryKey]}: ${props.selected.categoryFacetValue}`}</span>
             </a>
         </div>
     </>);
 }
 
-ContentTypeTags.proptTypes = {
+CategoryTags.proptTypes = {
+    categoryKey: PropTypes.string,
     selected: PropTypes.object.isRequired,
     text: PropTypes.object.isRequired,
     remove: PropTypes.func.isRequired
 }
 
-ContentTypeTags.defaultProps = {
+CategoryTags.defaultProps = {
     selected: {}
 }
 
 export default FilterTags;
-export { ContentTypeTags }
+export { CategoryTags }
