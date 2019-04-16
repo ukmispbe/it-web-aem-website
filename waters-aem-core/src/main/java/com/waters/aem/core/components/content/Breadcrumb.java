@@ -4,7 +4,6 @@ import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.models.NavigationItem;
 import com.citytechinc.cq.component.annotations.Component;
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
@@ -13,7 +12,6 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.via.ResourceSuperType;
 
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
 import java.util.Collection;
 
 @Component(value = "Breadcrumb",
@@ -30,9 +28,6 @@ public class Breadcrumb implements com.adobe.cq.wcm.core.components.models.Bread
     static final String RESOURCE_SUPER_TYPE = "core/wcm/components/breadcrumb/v2/breadcrumb";
 
     public static final String RESOURCE_TYPE = "waters/components/content/breadcrumb";
-
-    @Inject
-    ResourceResolver resolver;
 
     @Self
     @Via(type = ResourceSuperType.class)
