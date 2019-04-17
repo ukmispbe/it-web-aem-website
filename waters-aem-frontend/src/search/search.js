@@ -11,7 +11,7 @@ import NoResults from './components/no-results';
 
 import Sort from './components/sort';
 import Filter from './components/filter';
-import {CategoryTags} from './components/filter-tags';
+import {SubFacetTags, CategoryTags} from './components/filter-tags';
 import BtnShowSortFilter from './components/btn-show-sort-filter';
 import BtnHideSortFilter from './components/btn-hide-sort-filter';
 import BtnApplySortFilter from './components/btn-apply-sort-filter';
@@ -309,22 +309,6 @@ class Search extends Component {
         );
     }
 
-    clearTag() {
-        const newState = Object.assign({}, this.state);
-        newState.selectedFacets = {};
-        newState.searchParams.page = 1;
-        this.setState(newState);
-
-        setTimeout(
-            () =>
-                this.pushToHistory(
-                    this.state.searchParams,
-                    this.state.selectedFacets
-                ),
-            0
-        );
-    }
-
     removeTag(tag) {
         const newState = Object.assign({}, this.state);
         const filteredArr = newState.selectedFacets[`${tag.categoryId}`].filter(
@@ -339,6 +323,7 @@ class Search extends Component {
 
         newState.selectedFacets[`${tag.categoryId}`] = filteredArr;
         newState.searchParams.page = 1;
+
         this.setState(newState);
 
         this.pushToHistory(this.state.searchParams, this.state.selectedFacets);
@@ -456,17 +441,44 @@ class Search extends Component {
         }
     }
 
+    getFilterTags = () => {
+        return <div className="cmp-search-filters__tags clearfix">
+                <CategoryTags 
+                    categoryKey="contentType"
+                    text={this.props.searchText} 
+                    selected={this.state.contentTypeSelected} 
+                    remove={this.handleContentTypeTagRemoval} />
+                {this.getSubFacetTags()}
+            </div>;
+    }
+
+    getSubFacetTags = () => {
+        if (this.isInitialLoad(this.state.contentType) || !this.isFacetsSelected(this.state.searchParams.facets)) {
+            return <></>;
+        }
+
+        return <>
+            <SubFacetTags
+                text={this.props.searchText}
+                selectedFacets={
+                    this.state.unappliedFilters &&
+                    this.state.unappliedFilters.selectedFacets
+                        ? this.state.unappliedFilters.selectedFacets
+                        : this.state.selectedFacets
+                }
+                facets={this.state.facets}
+                removeTag={this.removeTag.bind(this)}
+                filterMap={this.props.filterMap}
+                defaultFacet={this.state.contentType}
+            />
+        </>;
+    }
+
     render() {
         const state = this.state;
         const searchParams = this.state.searchParams || {};
         const overlay = <div className="overlay" />;
-        const filterTags = (
-            <CategoryTags 
-                categoryKey="contentType"
-                text={this.props.searchText} 
-                selected={this.state.contentTypeSelected} 
-                remove={this.handleContentTypeTagRemoval} />
-        );
+        const filterTags = this.getFilterTags();
 
         const aside = (
             <div className="container__left cmp-search__sort-filter">
