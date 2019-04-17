@@ -8,7 +8,6 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,10 +15,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Modules(BobcatRunModule.class)
 @Epic("Waters Automation Tests")
 @Feature("Application Notes Page")
-@Disabled
 public class ApplicationNotesPageTest extends AbstractApplicationNotesPageTest {
 
     @BeforeEach
+    @Override
     public void loginAndCreateApplicationNotesPage() throws ActionException {
         super.loginAndCreateApplicationNotesPage();
     }
@@ -32,6 +31,7 @@ public class ApplicationNotesPageTest extends AbstractApplicationNotesPageTest {
     }
 
     @AfterEach
+    @Override
     public void deleteApplicationNotesPage() throws ActionException {
         super.deleteApplicationNotesPage();
     }

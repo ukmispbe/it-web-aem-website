@@ -19,7 +19,7 @@ public abstract class AbstractApplicationNotesPageTest {
 
     protected ApplicationNotesPage applicationNotesPage;
 
-    protected void loginAndCreateApplicationNotesPage() throws ActionException {
+    public void loginAndCreateApplicationNotesPage() throws ActionException {
         controller.execute(AemActions.LOG_IN);
 
         final SlingPageData pageData = new SlingPageData(WatersAutomationTestConstants.APPLICATION_NOTES_PAGE_PATH,
@@ -37,7 +37,7 @@ public abstract class AbstractApplicationNotesPageTest {
         applicationNotesPage = bobcatPageFactory.create(path, ApplicationNotesPage.class).open();
     }
 
-    protected void deleteApplicationNotesPage() throws ActionException {
+    public void deleteApplicationNotesPage() throws ActionException {
         controller.execute(AemActions.DELETE_PAGE_VIA_SLING,
             new SlingPageData(WatersAutomationTestConstants.APPLICATION_NOTES_PAGE_PATH));
     }

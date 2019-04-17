@@ -26,6 +26,7 @@ public class TextComponentTest extends AbstractApplicationNotesPageTest {
     private ActionsController controller;
 
     @BeforeEach
+    @Override
     public void loginAndCreateApplicationNotesPage() throws ActionException {
         super.loginAndCreateApplicationNotesPage();
 
@@ -49,6 +50,7 @@ public class TextComponentTest extends AbstractApplicationNotesPageTest {
     }
 
     @AfterEach
+    @Override
     public void deleteApplicationNotesPage() throws ActionException {
         super.deleteApplicationNotesPage();
     }
