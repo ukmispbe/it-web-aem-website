@@ -4,9 +4,8 @@
 }
 
 .cmp-table__table {
-    border-top: 1px solid $color-teal-30;
+    border-top: 1px solid $color-border-accent;
     width: 100%;
-    @include font-body;
     border-collapse: collapse;
 
     td, th {
@@ -25,7 +24,7 @@
     }
 
     tr {
-        border-bottom: 1px solid $color-gray-20;
+        border-bottom: 1px solid $color-border-rule;
     }
 }
 
@@ -34,7 +33,7 @@
         td {
             display: block;
             word-wrap: break-word;
-            padding: 0 $space-l 0 0;
+            padding: 0;
         }
         td:first-child {
             padding-top: $space-xs;

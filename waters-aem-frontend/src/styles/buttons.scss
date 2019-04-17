@@ -2,14 +2,12 @@
 .cmp-button a,
 a.cmp-button,
 button.cmp-button {
-    @include font-utility;
     padding: $space-xs $space-l;
-    margin: 0 0 $space-l 0;
+    margin-bottom: $space-l;
     color: $color-font-light;
     text-transform: uppercase;
     background-color: $color-blue-50;
-    border: 2px solid transparent;
-    transition: all 0.25s ease;
+    transition: $hover-transition;
     text-decoration: none;
     display: inline-block;
     text-align: center;
@@ -27,7 +25,7 @@ button.cmp-button {
     @include mobile {
         width: 100%;
         float: left;
-        margin: 0 0 $space-s 0;
+        margin-bottom: $space-s;
     }
 }
 
@@ -35,9 +33,8 @@ button.cmp-button {
 .cmp-button--disabled a.cmp-button,
 a.cmp-button--disabled,
 button.cmp-button--disabled {
-    @include font-utility;
     padding: $space-xs $space-l;
-    margin: 0 0 $space-l 0;
+    margin-bottom: $space-l;
     color: $color-font-light;
     text-transform: uppercase;
     background-color: $color-disabled;
@@ -47,14 +44,13 @@ button.cmp-button--disabled {
 .cmp-button--secondary a.cmp-button,
 a.cmp-button--secondary,
 button.cmp-button--secondary {
-    @include font-utility;
     padding: $space-xs $space-l;
-    margin: 0 0 $space-l 0;
+    margin-bottom: $space-l;
     color: $color-link;
     text-transform: uppercase;
     background-color: $color-white;
     border: 1px solid $color-link;
-    transition: all 0.25s ease;
+    transition: $hover-transition;
 
     &:hover {
         color: $color-link-hover;
@@ -69,7 +65,7 @@ button.cmp-button--secondary {
     @include mobile {
         width: 100%;
         float: left;
-        margin: 0 0 $space-s 0;
+        margin-bottom: $space-s;
     }
 }
 

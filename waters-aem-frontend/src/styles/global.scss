@@ -94,7 +94,7 @@ body {
 
 a {
     color: $color-link;
-    transition: all 0.25s ease;
+    transition: $hover-transition;
     text-decoration: none;
 
     &:hover {

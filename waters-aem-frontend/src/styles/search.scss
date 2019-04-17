@@ -115,8 +115,8 @@ div.cmp-search__no-results {
             padding-top: $space-xxs;
             text-decoration: none;
             text-align: center;
-            height: 2.75em;
-            width: 2.75em;
+            height: $button-fixed;
+            width: $button-fixed;
             &:hover {
                 color: $color-link;
             }
@@ -231,8 +231,8 @@ div.cmp-search__no-results {
                 stroke: $color-icon;
             }
             @include mobile {
-                top: 13px;
-                right: 10px;
+                top: 15px;
+                right: 12px;
             }
         }
         @include tablet-and-under {
