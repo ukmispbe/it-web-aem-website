@@ -22,7 +22,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfEl
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 /**
- * Default implementation of {@link ConfigDialog} for AEM 6.4
+ * Override of {@link ConfigDialog} for AEM 6.3
  */
 @PageObject(css = ConfigDialogImpl.FORM_CQ_DIALOG)
 public class ConfigDialogImpl implements ConfigDialog {

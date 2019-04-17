@@ -45,8 +45,10 @@ public class PathBrowser implements DialogField {
             input.clear();
             input.sendKeys(String.valueOf(value));
         }
+
         bobcatWait.until(ExpectedConditions.visibilityOfElementLocated(
             By.cssSelector(".foundation-picker-buttonlist.coral-Overlay.is-open")));
+
         currentScope.findElement(By.className("coral-Form-fieldlabel")).click();
     }
 

@@ -28,7 +28,9 @@ public class Select implements DialogField {
     @Override
     public void setValue(Object value) {
         selectField.click();
+
         List<WebElement> options = selectField.findElements(By.cssSelector(SELECT_OPTIONS_CSS));
+
         options.stream().filter(o -> value.toString().equals(o.getText()))
             .findFirst()
             .orElseThrow(() -> new NoSuchElementException(

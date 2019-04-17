@@ -6,6 +6,7 @@ import com.cognifide.qa.bb.aem.core.component.dialog.DialogFieldRetriever;
 import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOption;
 import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOptions;
 import com.cognifide.qa.bb.aem.core.component.toolbar.ComponentToolbar;
+import com.cognifide.qa.bb.aem.core.component.toolbar.ComponentToolbarImpl;
 import com.cognifide.qa.bb.aem.core.component.toolbar.ToolbarOption;
 import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.google.inject.multibindings.MapBinder;
@@ -13,7 +14,6 @@ import com.waters.aem.automationtests.core.actions.ConfigureComponent;
 import com.waters.aem.automationtests.core.actions.EditComponent;
 import com.waters.aem.automationtests.core.dialog.ConfigDialogImpl;
 import com.waters.aem.automationtests.core.dialog.DialogFieldRetrieverImpl;
-import com.waters.aem.automationtests.core.toolbar.ComponentToolbarImpl;
 
 import java.util.Arrays;
 

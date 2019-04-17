@@ -8,6 +8,9 @@ import com.cognifide.qa.bb.aem.core.modules.AemSitesAdminModule;
 import com.cognifide.qa.bb.aem.core.modules.SlingPageActionsModule;
 import com.google.inject.AbstractModule;
 
+/**
+ * Overrides default Bobcat AEM 6.4 module.
+ */
 public class Aem63FullModule extends AbstractModule {
 
     @Override

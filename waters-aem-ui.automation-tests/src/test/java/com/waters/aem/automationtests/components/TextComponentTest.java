@@ -36,17 +36,11 @@ public class TextComponentTest extends AbstractApplicationNotesPageTest {
     }
 
     @Test
-    public void getTitle() {
+    public void getTitleAndText() {
         final Text textComponent = applicationNotesPage.getContent(Text.class, 0);
 
         assertThat(textComponent.getTitle().equals("Text Component Title"));
-    }
-
-    @Test
-    public void getText() {
-        final Text textComponent = applicationNotesPage.getContent(Text.class, 0);
-
-        assertThat(textComponent.getTitle().equals("Text Component Text"));
+        assertThat(textComponent.getText().equals("Text Component Text"));
     }
 
     @AfterEach

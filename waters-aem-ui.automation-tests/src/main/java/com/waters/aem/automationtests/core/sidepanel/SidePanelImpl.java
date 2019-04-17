@@ -62,8 +62,7 @@ public class SidePanelImpl implements SidePanel {
 
     @Override
     public WebElement selectComponentToEdit(String path, String component, int elementNumber) {
-        return ComponentTreeLocatorHelper
-            .getComponentWebElement(path, component, elementNumber, currentScope);
+        return ComponentTreeLocatorHelper.getComponentWebElement(path, component, elementNumber, currentScope);
     }
 
     @Override

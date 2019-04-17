@@ -43,7 +43,7 @@ import com.waters.aem.automationtests.core.dialog.dialogfields.text.ControlToolb
 import com.waters.aem.automationtests.core.dialog.dialogfields.text.JustifyDialogPanel;
 
 /**
- * This module contains bindings for TouchUI dialog fields
+ * This module contains bindings for TouchUI dialog fields.
  */
 public class AemFieldsModule extends AbstractModule {
 

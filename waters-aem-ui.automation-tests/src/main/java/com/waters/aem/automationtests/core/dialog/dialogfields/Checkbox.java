@@ -32,5 +32,4 @@ public class Checkbox implements DialogField {
             select();
         }
     }
-
 }

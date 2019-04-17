@@ -10,12 +10,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
- * Implementation of {@link ControlToolbar} for AEM 6.4
+ * Override of {@link ControlToolbar} for AEM 6.3.
  */
 @PageObject(css = ".coral-ButtonGroup.rte-toolbar.is-active")
 public class ControlToolbarImpl implements ControlToolbar {
 
-    static final String TOOLBAR_ITEM_SELECTOR = ".rte-toolbar-item";
+    private static final String TOOLBAR_ITEM_SELECTOR = ".rte-toolbar-item";
 
     @Inject
     @CurrentScope

@@ -33,9 +33,9 @@ public class Multifield implements DialogField {
     @Override
     public void setValue(Object value) {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-        List<MultifieldEntry> cfg =
-            mapper.convertValue(value, new TypeReference<List<MultifieldEntry>>() {
-            });
+
+        List<MultifieldEntry> cfg = mapper.convertValue(value, new TypeReference<List<MultifieldEntry>>() {
+        });
 
         items.forEach(MultifieldItem :: deleteItem);
 
@@ -53,9 +53,11 @@ public class Multifield implements DialogField {
      */
     public MultifieldItem getItemAtIndex(int index) {
         int itemsSize = items.size();
+
         if (itemsSize > index) {
             return items.get(index);
         }
+
         throw new BobcatRuntimeException(String
             .format("Tried to get item at index %s but there are only %s elements", index, itemsSize));
     }

@@ -22,6 +22,7 @@ public class RadioGroup implements DialogField {
         WebElement radioLabel = radioOptions.stream()
             .filter(radioOption -> radioOption.getText().equals(value)).findFirst().orElseThrow(
                 () -> new IllegalStateException("Provided option is not present in the group"));
+
         radioLabel.findElement(By.xpath(".//..")).click();
     }
 }

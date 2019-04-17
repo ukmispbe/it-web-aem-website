@@ -16,7 +16,7 @@ import java.util.Map;
 import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
 
 /**
- * Default AEM 6.4 Bobcat implementation of the {@link DialogFieldRetriever}
+ * Override of {@link DialogFieldRetriever} for AEM 6.3.
  */
 public class DialogFieldRetrieverImpl implements DialogFieldRetriever {
 
