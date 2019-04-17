@@ -5,6 +5,7 @@
     position: relative;
     overflow-y: hidden;
     z-index: -3;
+    min-height: 200px;
 
     .container {
         padding: 0;
@@ -64,6 +65,8 @@
 
 .is-author .cmp-banner {
     padding-top: 25px;
+    float: left;
+    width: 100%;
 
     &__background-image {
         position: relative;
