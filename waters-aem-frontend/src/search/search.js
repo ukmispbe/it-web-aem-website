@@ -23,6 +23,7 @@ class Search extends Component {
     constructor() {
         super();
         this.savedSelectFilterState = null;
+        this.parentCategory = 'contenttype_facet';
     }
 
     componentWillMount() {
@@ -70,7 +71,8 @@ class Search extends Component {
             performedSearches: 0,
             contentType,
             contentTypeSelected,
-            facets: []
+            facets: [],
+            filterMap: []
         });
 
         const checkWindowWidth = () => {
@@ -115,7 +117,7 @@ class Search extends Component {
             // deselects content type when user clicks the back button on browser
             this.setState({contentType: null, contentTypeSelected: {}});
 
-            this.search.initial(query).then(res => this.searchOnSuccess(query, rows, res));
+            this.search.initial(query).then(res => this.searchOnSuccess(query, rows, res, true));
         } else if(!this.isFacetsSelected(query.facets)) {
             // no sub-facets have been selected, only the content type has been selected
             const contentTypeElement = this.findContentType(this.props.filterMap, query.content_type);
@@ -140,8 +142,16 @@ class Search extends Component {
 
     isFacetsSelected = (selectedFacets) => (Object.entries(selectedFacets).length !== 0) ? true : false;
 
-    searchOnSuccess = (query, rows, res) => {
+    getFilterMap = (authoredCategories, backendCategories) => {
+        return authoredCategories.filter(authoredItem => {
+            return (backendCategories.find(backendItem => backendItem.value === authoredItem.categoryFacetValue));
+        });
+    }
+
+    searchOnSuccess = (query, rows, res, initCategories = false) => {
         const newState = Object.assign({}, this.state);
+        
+        newState.filterMap = initCategories ? this.getFilterMap(this.props.filterMap, res.facets[this.parentCategory]) : [];
 
         newState.loading = false;
         newState.rows = rows;
@@ -415,7 +425,7 @@ class Search extends Component {
                     <CategoriesMenu
                         text={this.props.searchText}
                         categoryKey="contentType"
-                        items={this.props.filterMap}
+                        items={this.state.filterMap}
                         click={this.handleContentTypeItemClick.bind(this)} />
                 </>
         } else {
@@ -423,7 +433,7 @@ class Search extends Component {
                     <CategoriesMenu
                         text={this.props.searchText}
                         categoryKey="contentType"
-                        items={this.props.filterMap}
+                        items={this.state.filterMap}
                         click={this.handleContentTypeItemClick.bind(this)}
                         selectedValue={this.state.contentTypeSelected.categoryFacetValue}
                         clear={this.handleContentTypeTagRemoval.bind(this)}>

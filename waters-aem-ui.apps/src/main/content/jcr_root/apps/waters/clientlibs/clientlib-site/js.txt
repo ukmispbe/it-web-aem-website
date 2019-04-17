@@ -1,5 +1,6 @@
 #base=.
 
+js/array.prototype.filter.js
 js/array.prototype.find.js
 js/object-polyfill.js
 js/es6-promise.js
