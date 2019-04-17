@@ -151,7 +151,9 @@ class Search extends Component {
     searchOnSuccess = (query, rows, res, initCategories = false) => {
         const newState = Object.assign({}, this.state);
         
-        newState.filterMap = initCategories ? this.getFilterMap(this.props.filterMap, res.facets[this.parentCategory]) : [];
+        newState.filterMap = (initCategories && res.num_found !== 0) 
+            ? this.getFilterMap(this.props.filterMap, res.facets[this.parentCategory]) 
+            : [];
 
         newState.loading = false;
         newState.rows = rows;
