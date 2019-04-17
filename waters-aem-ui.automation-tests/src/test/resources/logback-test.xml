@@ -20,9 +20,11 @@
   -->
 <configuration>
 
-    <timestamp key="day" datePattern="yyyy-MM-dd"/>
+    <timestamp key="day"
+               datePattern="yyyy-MM-dd"/>
 
-    <appender name="FILE_DEFAULT" class="ch.qos.logback.core.FileAppender">
+    <appender name="FILE_DEFAULT"
+              class="ch.qos.logback.core.FileAppender">
         <file>build/logs/default_${day}.log</file>
         <append>true</append>
         <encoder>
@@ -31,13 +33,18 @@
         </encoder>
     </appender>
 
-    <logger name="com.cognifide.qa.bb" level="DEBUG"/>
+    <logger name="com.cognifide.qa.bb"
+            level="DEBUG"/>
 
-    <logger name="com.cognifide.qa.bb.proxy.record.TrafficLogAnalyzer" level="DEBUG"/>
-    <logger name="com.cognifide.qa.bb.scope.frame.type" level="DEBUG"/>
+    <logger name="com.cognifide.qa.bb.proxy.record.TrafficLogAnalyzer"
+            level="DEBUG"/>
+    <logger name="com.cognifide.qa.bb.scope.frame.type"
+            level="DEBUG"/>
 
-    <logger name="org.apache.http.wire" level="WARN"/>
-    <logger name="net.lightbody.bmp.proxy" level="WARN"/>
+    <logger name="org.apache.http.wire"
+            level="WARN"/>
+    <logger name="net.lightbody.bmp.proxy"
+            level="WARN"/>
 
     <root level="INFO">
         <appender-ref ref="FILE_DEFAULT"/>

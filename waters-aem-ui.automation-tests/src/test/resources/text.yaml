@@ -1,0 +1,7 @@
+Properties:
+  - label: Title
+    type: TEXTFIELD
+    value: Text Component Title
+  - label:
+    type: RICHTEXT
+    value: Text Component Text
