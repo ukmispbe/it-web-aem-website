@@ -185,8 +185,7 @@ FilterSection.propTypes = {
     selectHandler: PropTypes.func.isRequired,
     selected: PropTypes.number.isRequired,
     selectedFacets: PropTypes.object,
-    text: PropTypes.object.isRequired,
-    searchValue: PropTypes.string
+    text: PropTypes.object.isRequired
 };
 
 export default FilterSection;
