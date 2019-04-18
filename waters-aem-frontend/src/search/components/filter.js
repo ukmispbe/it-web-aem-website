@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import FilterSection from './filter-section';
 import validator from 'validator';
-import PropTypes from 'prop-types';
 
 class Filter extends Component {
     constructor(props) {
