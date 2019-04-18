@@ -1,4 +1,4 @@
-package com.waters.aem.automationtests.core.dialog.dialogfields;
+package com.waters.aem.automationtests.bobcat.dialog.dialogfields;
 
 import com.cognifide.qa.bb.aem.core.component.configuration.MultifieldEntry;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;

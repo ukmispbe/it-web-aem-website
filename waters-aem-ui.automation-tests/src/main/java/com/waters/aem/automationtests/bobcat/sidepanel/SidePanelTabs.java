@@ -1,4 +1,4 @@
-package com.waters.aem.automationtests.core.sidepanel;
+package com.waters.aem.automationtests.bobcat.sidepanel;
 
 /**
  * Enum containing the Side Panel tabs.

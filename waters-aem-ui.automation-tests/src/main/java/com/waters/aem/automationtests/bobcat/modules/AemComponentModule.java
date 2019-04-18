@@ -1,4 +1,4 @@
-package com.waters.aem.automationtests.core.modules;
+package com.waters.aem.automationtests.bobcat.modules;
 
 import com.cognifide.qa.bb.aem.core.api.AemActions;
 import com.cognifide.qa.bb.aem.core.component.dialog.ConfigDialog;
@@ -10,10 +10,10 @@ import com.cognifide.qa.bb.aem.core.component.toolbar.ComponentToolbarImpl;
 import com.cognifide.qa.bb.aem.core.component.toolbar.ToolbarOption;
 import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.google.inject.multibindings.MapBinder;
-import com.waters.aem.automationtests.core.actions.ConfigureComponent;
-import com.waters.aem.automationtests.core.actions.EditComponent;
-import com.waters.aem.automationtests.core.dialog.ConfigDialogImpl;
-import com.waters.aem.automationtests.core.dialog.DialogFieldRetrieverImpl;
+import com.waters.aem.automationtests.bobcat.actions.ConfigureComponent;
+import com.waters.aem.automationtests.bobcat.actions.EditComponent;
+import com.waters.aem.automationtests.bobcat.dialog.ConfigDialogImpl;
+import com.waters.aem.automationtests.bobcat.dialog.DialogFieldRetrieverImpl;
 
 import java.util.Arrays;
 

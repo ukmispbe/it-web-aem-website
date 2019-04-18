@@ -1,4 +1,4 @@
-package com.waters.aem.automationtests.core.modules;
+package com.waters.aem.automationtests.bobcat.modules;
 
 import com.cognifide.qa.bb.aem.core.modules.AemConfigModule;
 import com.cognifide.qa.bb.aem.core.modules.AemCoreModule;

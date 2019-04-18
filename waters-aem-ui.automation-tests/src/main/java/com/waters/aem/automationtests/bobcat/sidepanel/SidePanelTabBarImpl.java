@@ -1,4 +1,4 @@
-package com.waters.aem.automationtests.core.sidepanel;
+package com.waters.aem.automationtests.bobcat.sidepanel;
 
 import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelTabBar;
 import com.cognifide.qa.bb.qualifier.CurrentScope;

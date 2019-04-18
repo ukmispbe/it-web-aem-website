@@ -1,4 +1,4 @@
-package com.waters.aem.automationtests.core.sidepanel;
+package com.waters.aem.automationtests.bobcat.sidepanel;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;

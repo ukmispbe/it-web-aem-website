@@ -1,10 +1,10 @@
-package com.waters.aem.automationtests.core.modules;
+package com.waters.aem.automationtests.bobcat.modules;
 
 import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanel;
 import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelTabBar;
 import com.google.inject.AbstractModule;
-import com.waters.aem.automationtests.core.sidepanel.SidePanelImpl;
-import com.waters.aem.automationtests.core.sidepanel.SidePanelTabBarImpl;
+import com.waters.aem.automationtests.bobcat.sidepanel.SidePanelImpl;
+import com.waters.aem.automationtests.bobcat.sidepanel.SidePanelTabBarImpl;
 
 /**
  * Overridden bindings for AEM's Side Panel.

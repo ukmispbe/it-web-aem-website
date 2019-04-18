@@ -1,4 +1,4 @@
-package com.waters.aem.automationtests.core.modules;
+package com.waters.aem.automationtests.bobcat.modules;
 
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Fields;
@@ -12,16 +12,16 @@ import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ListContr
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ListDialogPanel;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
-import com.waters.aem.automationtests.core.dialog.dialogfields.Checkbox;
-import com.waters.aem.automationtests.core.dialog.dialogfields.Multifield;
-import com.waters.aem.automationtests.core.dialog.dialogfields.MultifieldItem;
-import com.waters.aem.automationtests.core.dialog.dialogfields.PathBrowser;
-import com.waters.aem.automationtests.core.dialog.dialogfields.RadioGroup;
-import com.waters.aem.automationtests.core.dialog.dialogfields.RichText;
-import com.waters.aem.automationtests.core.dialog.dialogfields.Select;
-import com.waters.aem.automationtests.core.dialog.dialogfields.Textfield;
-import com.waters.aem.automationtests.core.dialog.dialogfields.text.ControlToolbarImpl;
-import com.waters.aem.automationtests.core.dialog.dialogfields.text.JustifyDialogPanel;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.Checkbox;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.Multifield;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.MultifieldItem;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.PathBrowser;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.RadioGroup;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.RichText;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.Select;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.Textfield;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.text.ControlToolbarImpl;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.text.JustifyDialogPanel;
 
 /**
  * This module contains bindings for TouchUI dialog fields.

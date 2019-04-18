@@ -1,4 +1,4 @@
-package com.waters.aem.automationtests.core.actions;
+package com.waters.aem.automationtests.bobcat.actions;
 
 import com.cognifide.qa.bb.aem.core.component.actions.ComponentData;
 import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOptions;
@@ -8,7 +8,7 @@ import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.waters.aem.automationtests.core.sidepanel.SidePanelTabs;
+import com.waters.aem.automationtests.bobcat.sidepanel.SidePanelTabs;
 import io.qameta.allure.Step;
 
 /**

@@ -1,4 +1,4 @@
-package com.waters.aem.automationtests.core.dialog;
+package com.waters.aem.automationtests.bobcat.dialog;
 
 import com.cognifide.qa.bb.aem.core.component.AuthorLoader;
 import com.cognifide.qa.bb.aem.core.component.configuration.ComponentConfiguration;

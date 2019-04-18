@@ -1,4 +1,4 @@
-package com.waters.aem.automationtests.core.dialog.dialogfields.text;
+package com.waters.aem.automationtests.bobcat.dialog.dialogfields.text;
 
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ControlToolbar;
