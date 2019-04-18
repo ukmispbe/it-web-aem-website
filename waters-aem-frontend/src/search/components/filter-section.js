@@ -170,25 +170,6 @@ class FilterSection extends Component {
                         {this.getFacetOptions()}
                     </ul>
                 </div>
-
-                {/* <div className="cmp-search-filters__filter__year clearfix">
-                    <div className="cmp-search-filters__filter__year__min">
-                        <label htmlFor="year-min">Min</label>
-                        <input
-                            name="year-min"
-                            type="input"
-                            placeholder="2009"
-                        />
-                    </div>
-                    <div className="cmp-search-filters__filter__year__max">
-                        <label htmlFor="year-max">Max</label>
-                        <input
-                            name="year-max"
-                            type="input"
-                            placeholder="2019"
-                        />
-                    </div>
-                </div> */}
             </li>
         );
     }
@@ -204,7 +185,8 @@ FilterSection.propTypes = {
     selectHandler: PropTypes.func.isRequired,
     selected: PropTypes.number.isRequired,
     selectedFacets: PropTypes.object,
-    text: PropTypes.object.isRequired
+    text: PropTypes.object.isRequired,
+    searchValue: PropTypes.string
 };
 
 export default FilterSection;
