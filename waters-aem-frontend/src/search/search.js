@@ -454,14 +454,18 @@ class Search extends Component {
     }
 
     getFilterTags = () => {
-        return <div className="cmp-search-filters__tags clearfix">
-                <CategoryTags 
-                    categoryKey="contentType"
-                    text={this.props.searchText} 
-                    selected={this.state.contentTypeSelected} 
-                    remove={this.handleContentTypeTagRemoval} />
-                {this.getSubFacetTags()}
-            </div>;
+        if (Object.entries(this.state.contentTypeSelected).length !== 0) {
+            return <div className="cmp-search-filters__tags clearfix">
+                    <CategoryTags 
+                        categoryKey="contentType"
+                        text={this.props.searchText} 
+                        selected={this.state.contentTypeSelected} 
+                        remove={this.handleContentTypeTagRemoval} />
+                    {this.getSubFacetTags()}
+                </div>;
+        } else {
+            return <div className="cmp-search-filters__emptytags"></div>;
+        }
     }
 
     getSubFacetTags = () => {
