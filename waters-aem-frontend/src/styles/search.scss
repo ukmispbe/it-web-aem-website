@@ -33,6 +33,7 @@
 }
 .cmp-search__results-container {
     @include list-container;
+    
 }
 .cmp-search__results {
     @include list-styles;
