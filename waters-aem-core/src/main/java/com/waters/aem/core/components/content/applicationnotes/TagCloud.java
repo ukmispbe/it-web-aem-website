@@ -7,10 +7,13 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.IncludeDialogFields;
 import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.day.cq.tagging.Tag;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.SiteContext;
+import com.waters.aem.core.components.structure.page.ApplicationNotes;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -52,6 +55,9 @@ public final class TagCloud implements ComponentExporter {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
+    @Inject
+    private PageDecorator currentPage;
+
     @Self
     private SiteContext siteContext;
 
@@ -72,7 +78,8 @@ public final class TagCloud implements ComponentExporter {
         if (searchFacets == null) {
             searchFacets = pageMetadata.getSearchTags()
                 .stream()
-                .map(tag -> new SearchFacet(tag.getTitle(siteContext.getLocale()), tag.getParent().getName()))
+                .map(tag -> new SearchFacet(tag.getTitle(siteContext.getLocale()), tag.getName(),
+                    tag.getParent().getName()))
                 .collect(Collectors.toList());
         }
 
@@ -81,6 +88,15 @@ public final class TagCloud implements ComponentExporter {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getContentType() {
+        return currentPage.getContentResource().adaptTo(ApplicationNotes.class)
+            .getContentType()
+            .stream()
+            .findFirst()
+            .map(Tag :: getName)
+            .orElse(null);
     }
 
     @JsonIgnore

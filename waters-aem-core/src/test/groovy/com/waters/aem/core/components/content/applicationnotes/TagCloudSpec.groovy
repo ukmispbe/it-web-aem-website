@@ -67,6 +67,9 @@ class TagCloudSpec extends WatersSpec {
         tagCloud.searchFacets.size() == 3
 
         and:
+        tagCloud.searchFacets*.name == ["first", "first", "second"]
+
+        and:
         tagCloud.searchFacets*.title == ["First Class", "First Market", "Second Market"]
 
         and:
