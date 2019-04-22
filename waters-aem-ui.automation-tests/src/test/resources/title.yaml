@@ -1,0 +1,7 @@
+Properties:
+  - label: Title
+    type: RICHTEXT
+    value: Title Test
+  - label: Type / Size
+    type: SELECT
+    value: h2
