@@ -8,6 +8,7 @@ import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriv
 import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriverWrapper;
 import com.cognifide.qa.bb.provider.selenium.webdriver.close.WebDriverClosedListener;
 import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.WebDriverModifiers;
+import com.google.common.collect.ImmutableList;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.name.Named;
@@ -19,10 +20,16 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.events.WebDriverEventListener;
 
+import java.util.List;
 import java.util.Set;
 
 @ThreadScoped
 public class ChromeDriverProvider implements Provider<WebDriver> {
+
+    private static final List<String> ARGUMENTS = ImmutableList.of(
+        "--disable-dev-shm-usage",
+        "--no-sandbox"
+    );
 
     private ClosingAwareWebDriver cachedWebDriver;
 
@@ -72,7 +79,11 @@ public class ChromeDriverProvider implements Provider<WebDriver> {
             .usingPort(9515)
             .build();
 
-        final WebDriver raw = new ChromeDriver(service, new ChromeOptions().merge(modifiedCapabilities));
+        final ChromeOptions options = new ChromeOptions()
+            .addArguments(ARGUMENTS)
+            .merge(modifiedCapabilities);
+
+        final WebDriver raw = new ChromeDriver(service, options);
 
         final WebDriver modified = webDriverModifiers.modifyWebDriver(raw);
 
