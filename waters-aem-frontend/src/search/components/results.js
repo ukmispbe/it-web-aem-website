@@ -16,12 +16,16 @@ const Result = ({ result, locale }) => {
     const monthName = monthNameFormatter(date, locale);
     const formattedDate = monthName + ' ' + date.getFullYear();
 
-    const setScrollPosition = () => {
+    const setStorageProperties = () => {
         const scrolled =
             (window.pageYOffset || window.document.scrollTop) -
             (window.document.clientTop || 0);
 
         window.sessionStorage.setItem('waters.previousPagePosition', scrolled);
+        window.sessionStorage.setItem(
+            'waters.fromSearchURL',
+            JSON.stringify(window.location.href)
+        );
     };
 
     return (
@@ -34,7 +38,7 @@ const Result = ({ result, locale }) => {
             >
                 <a
                     href={result.url}
-                    onClick={() => setScrollPosition()}
+                    onClick={e => setStorageProperties()}
                     className="cmp-search__results-item-link"
                 >
                     <span className="cmp-search__results-item-title">
