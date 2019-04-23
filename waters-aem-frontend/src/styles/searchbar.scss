@@ -3,14 +3,33 @@
     float: left;
     margin-bottom: $space-m;
     position: relative;
+    background-color: $color-white;
+    z-index: 9999;
 
     .react-autosuggest__suggestions-container {
-        position: relative;
-        clear: left;
-        top: -15px;
+        position: absolute;
+        width: 100%;
+        padding: 0 $space-s $space-s $space-s;
+        border: $color-border-light;
+        background-color: $color-white;
+        top: $space-xxl;
+        @include font-body;
+
+        .react-autosuggest__suggestions-list {
+            list-style: none;
+            padding-left: 0px;
+
+            .react-autosuggest__suggestion:hover {
+                color: $color-link;
+                cursor: pointer;
+            }
+
+            .emphasis-matching-characters {
+                border-bottom: 1px solid $color-teal-50;
+            }
+        }
     }
 
-    // &__input, 
     .react-autosuggest__input {
         @include font-body;
         font-size: $font-size-h3;
@@ -29,35 +48,6 @@
             display: none;
         }
     }
-
-    // &__icon-search {
-    //     svg {
-    //         position: absolute;
-    //         right: $space-s;
-    //         top: $space-s;
-    //         width: $icon-l;
-    //         height: $icon-l;
-            
-    //         .st0 {
-    //             stroke: $color-icon;
-    //         }
-    //     }
-
-    //     &--clear {
-    //         svg {
-    //             position: absolute;
-    //             right: $space-s;
-    //             top: $space-s;
-    //             width: $icon-l;
-    //             height: $icon-l;
-    //             cursor: pointer;
-
-    //             .st0 {
-    //                 stroke: $color-icon;
-    //             }
-    //         }
-    //     }
-    // }
 
     &__icons {
         display: flex;

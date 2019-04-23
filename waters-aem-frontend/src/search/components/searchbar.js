@@ -2,41 +2,8 @@ import React, { Component } from 'react';
 import ReactSVG from 'react-svg';
 import Autosuggest from 'react-autosuggest';
 import { SearchService } from '../services/index';
+import OverLay from './overlay';
 import './../../styles/index.scss';
-
-// Imagine you have a list of languages that you'd like to autosuggest.
-const languages = [
-    {
-      name: 'Metabolites',
-      year: 1972
-    },
-    {
-      name: 'Method',
-      year: 2012
-    },
-  ];
-  
-  // Teach Autosuggest how to calculate suggestions for any given input value.
-  const getSuggestions = value => {
-    const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;
-  
-    return inputLength === 0 ? [] : languages.filter(lang =>
-      lang.name.toLowerCase().slice(0, inputLength) === inputValue
-    );
-  };
-  
-  // When suggestion is clicked, Autosuggest needs to populate the input
-  // based on the clicked suggestion. Teach Autosuggest how to calculate the
-  // input value for every given suggestion.
-  const getSuggestionValue = suggestion => suggestion.name;
-  
-  // Use your imagination to render suggestions.
-  const renderSuggestion = suggestion => (
-    <div>
-      {suggestion.name}
-    </div>
-  );
 
 class SearchBar extends Component {
     constructor(props) {
@@ -55,13 +22,7 @@ class SearchBar extends Component {
 
         let suggestions = [];
 
-        this.state = { value: searchValue ? searchValue : '', suggestions};
-
-        this.handleInput = this.handleInput.bind(this);
-    }
-
-    handleInput(e) {
-        this.setState({ value: e.target.value });
+        this.state = { value: searchValue ? searchValue : '', suggestions, openOverlay: false};
     }
 
     getUrlParameter(sParam) {
@@ -90,7 +51,7 @@ class SearchBar extends Component {
     _handleKeyPress = e => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            this.setUrlParamter();
+            this.setState({suggestions: [], openOverlay: false})
         }
     };
 
@@ -100,60 +61,35 @@ class SearchBar extends Component {
         if (!querystringParams.keyword || querystringParams.keyword === '*:*') {
             // no keyword have been selected so no need to reload page
             // simply clear out the search value and suggestions array
-            this.setState({value: '', suggestions: []});
+            this.setState({value: '', suggestions: [], openOverlay: false});
         } else {
             // keyword has been selected so need to reload page
             // and clear the state of the component
-            this.setState({ value: '', suggestions: []}, () => {
+            this.setState({ value: '', suggestions: [], openOverlay: false}, () => {
                 this.setUrlParamter();
             });
         }
     };
 
     render() {
-        const props = this.props;
-
-        // Autosuggest will pass through all these props to the input.
         const inputProps = {
             placeholder: this.props.placeholder,
             value: this.state.value,
-            onChange: this.onChange
+            onChange: this.onChange ,
+            onKeyPress: this._handleKeyPress
         };
 
         return (
             <>
-                <form className="cmp-search-bar" id="notesSearch">
-                    {/* <input
-                        className="cmp-search-bar__input"
-                        type="text"
-                        value={this.state.value}
-                        onChange={this.handleInput}
-                        onKeyDown={this._handleKeyPress}
-                        placeholder={this.props.placeholder}
-                    />
-                    {!this.state.value && (
-                        <ReactSVG
-                            src={this.props.iconSearch}
-                            className="cmp-search-bar__icon-search"
-                        />
-                    )}
-                    {this.state.value && (
-                        <ReactSVG
-                            src={this.props.iconClear}
-                            className="cmp-search-bar__icon-search--clear"
-                            onClick={e => this._clearSearchVal(e)}
-                        />
-                    )} */}
-                    {/* <div className="cmp-search-bar__autosuggest-wrapper">
-                        
-                    </div> */}
+                <OverLay isOpen={this.state.openOverlay} />
+                <div className="cmp-search-bar" id="notesSearch">
                     <Autosuggest
                         suggestions={this.state.suggestions}
                         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
                         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                         onSuggestionSelected={this.onSuggestionSelected}
-                        getSuggestionValue={getSuggestionValue}
-                        renderSuggestion={renderSuggestion}
+                        getSuggestionValue={this.getSuggestionValue}
+                        renderSuggestion={this.renderSuggestion}
                         inputProps={inputProps}/>
                     
                     <div className="cmp-search-bar__icons">
@@ -169,32 +105,39 @@ class SearchBar extends Component {
                             src={this.props.iconSearch}
                             className="cmp-search-bar__icons-search"/>
                     </div>
-                </form>
+                </div>
             </>
         );
     }
 
     onChange = (event, { newValue }) => {
-        this.setState({
-          value: newValue
-        });
-      };
-    
-    // Autosuggest will call this function every time you need to update suggestions.
-    // You already implemented this logic above, so just use it.
-    onSuggestionsFetchRequested = ({ value }) => {
-        this.setState({
-            suggestions: getSuggestions(value)
-        });
+        this.setState({value: newValue});
     };
 
-    onSuggestionsClearRequested = () => { /* leave the body empty */ };
+    onSuggestionsFetchRequested = async ({ value }) => {
+        const suggestions = await this.search.getSuggestedKeywords(value);
+
+        this.setState({suggestions, openOverlay: true});
+    };
+
+    onSuggestionsClearRequested = () => { 
+        // need to delay this when users click on the clear icon in the search textbox
+        setTimeout(() => {
+            this.setState({suggestions: [], openOverlay: false});
+        }, 125);
+    };
 
     onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => {
-        this.setState({value: suggestionValue}, () => {
+        this.setState({value: suggestionValue, openOverlay: false}, () => {
             this.setUrlParamter();
         });
     }
+
+    getSuggestionValue = suggestion => suggestion.name;
+
+    renderSuggestion = suggestion => <div>{this.formatSuggesion(suggestion.name)}</div>;
+
+    formatSuggesion = name => <><span className="emphasis-matching-characters">{name.substring(0, this.state.value.length)}</span>{name.substring(this.state.value.length, name.length)}</>;
 }
 
 export default SearchBar;

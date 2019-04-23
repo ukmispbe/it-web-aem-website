@@ -70,6 +70,43 @@ export class SearchService {
             return window.fetch(searchString).then(response => response.json());
     }
 
+    getSuggestedKeywords = async (value) => {
+        // TODO: replace this with actual API call
+        const mockKeywords = [
+            {
+              name: 'ammonia'
+            },
+            {
+              name: 'ammonium acetate'
+            },
+            {
+              name: 'ammonium carbonate'
+            },
+            {
+              name: 'ammonium chloride'
+            },
+            {
+              name: 'ammonium dichromate'
+            },
+            {
+              name: 'ammonium hydroxide'
+            },
+            {
+              name: 'metabolites'
+            },
+            {
+              name: 'method'
+            }
+          ];
+        
+        const inputValue = value.trim().toLowerCase();
+        const inputLength = inputValue.length;
+    
+        return inputLength === 0 ? [] : mockKeywords.filter(item =>
+            item.name.toLowerCase().slice(0, inputLength) === inputValue
+        );
+    }
+
     getParamsFromString() {
         const str = window.location.search;
         const obj = queryString.parse(str);
