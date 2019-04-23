@@ -10,6 +10,7 @@ import com.cognifide.qa.bb.modules.BobcatRunModule;
 import com.waters.aem.automationtests.pages.AbstractApplicationNotesPageTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Modules(BobcatRunModule.class)
 @Epic("Waters Automation Tests")
 @Feature("Title Component")
+@Disabled
 public class TitleComponentTest extends AbstractApplicationNotesPageTest {
 
     @Override
