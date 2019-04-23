@@ -4,7 +4,14 @@
     margin-bottom: $space-m;
     position: relative;
 
-    &__input {
+    .react-autosuggest__suggestions-container {
+        position: relative;
+        clear: left;
+        top: -15px;
+    }
+
+    // &__input, 
+    .react-autosuggest__input {
         @include font-body;
         font-size: $font-size-h3;
         float: left;
@@ -23,24 +30,56 @@
         }
     }
 
-    &__icon-search {
-        svg {
-            position: absolute;
-            right: $space-s;
-            top: $space-s;
-            width: $icon-l;
-            height: $icon-l;
+    // &__icon-search {
+    //     svg {
+    //         position: absolute;
+    //         right: $space-s;
+    //         top: $space-s;
+    //         width: $icon-l;
+    //         height: $icon-l;
             
-            .st0 {
-                stroke: $color-icon;
+    //         .st0 {
+    //             stroke: $color-icon;
+    //         }
+    //     }
+
+    //     &--clear {
+    //         svg {
+    //             position: absolute;
+    //             right: $space-s;
+    //             top: $space-s;
+    //             width: $icon-l;
+    //             height: $icon-l;
+    //             cursor: pointer;
+
+    //             .st0 {
+    //                 stroke: $color-icon;
+    //             }
+    //         }
+    //     }
+    // }
+
+    &__icons {
+        display: flex;
+        position: absolute;
+        top: $space-s;
+        right: $space-s;
+
+        &-search {
+            svg {
+                width: $icon-l;
+                height: $icon-l;
+                
+                .st0 {
+                    stroke: $color-icon;
+                }
             }
         }
 
-        &--clear {
+        &-clear {
+            margin-right: $space-m;
+
             svg {
-                position: absolute;
-                right: $space-s;
-                top: $space-s;
                 width: $icon-l;
                 height: $icon-l;
                 cursor: pointer;
