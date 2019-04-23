@@ -1,7 +1,7 @@
 Properties:
   - label: Title
     type: TEXTFIELD
-    value: Text Component Title
+    value: Title Test
   - label:
     type: RICHTEXT
-    value: Text Component Text
+    value: Text Test
