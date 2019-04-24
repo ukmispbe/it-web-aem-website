@@ -7,11 +7,14 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.IncludeDialogFields;
 import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.day.cq.tagging.Tag;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.metadata.ContentClassification;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -20,7 +23,9 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_COPY;
@@ -52,6 +57,12 @@ public final class TagCloud implements ComponentExporter {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
+    @Inject
+    private PageDecorator currentPage;
+
+    @Inject
+    private ContentClassification contentClassification;
+
     @Self
     private SiteContext siteContext;
 
@@ -72,7 +83,8 @@ public final class TagCloud implements ComponentExporter {
         if (searchFacets == null) {
             searchFacets = pageMetadata.getSearchTags()
                 .stream()
-                .map(tag -> new SearchFacet(tag.getTitle(siteContext.getLocale()), tag.getParent().getName()))
+                .map(tag -> new SearchFacet(tag.getTitle(siteContext.getLocale()), tag.getName(),
+                    tag.getParent().getName()))
                 .collect(Collectors.toList());
         }
 
@@ -81,6 +93,17 @@ public final class TagCloud implements ComponentExporter {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getContentType() {
+        final List<Tag> contentTypeTags = Optional.ofNullable(contentClassification)
+            .map(ContentClassification :: getContentType)
+            .orElse(Collections.emptyList());
+
+        return contentTypeTags.stream()
+            .findFirst()
+            .map(Tag :: getName)
+            .orElse(null);
     }
 
     @JsonIgnore
