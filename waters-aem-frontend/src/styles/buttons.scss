@@ -22,6 +22,14 @@ button.cmp-button {
         color: $color-font-light;
     }
 
+    &.cmp-button--no-border {
+        border: 0;
+
+        &:hover {
+            border: 0;
+        }
+    }
+
     @include mobile {
         width: 100%;
         float: left;
@@ -66,6 +74,42 @@ button.cmp-button--secondary {
         width: 100%;
         float: left;
         margin-bottom: $space-s;
+    }
+
+    &.cmp-button--no-border {
+        border: 0;
+
+        &:hover {
+            border: 0;
+        }
+    }
+
+    &.cmp-button--with-icon {
+        text-transform: none;
+        cursor: pointer;
+        padding-left: 0;
+        transition: $hover-transition;
+
+        svg {
+            width: 24px;
+            height: 24px;
+            display: block;
+            float: left;
+            margin-right: $space-xxs;
+            margin-top: 3px;
+
+            .st0 {
+                stroke: $color-link;
+            }
+        }
+
+        &:hover {
+            color: $color-link-hover;
+
+            svg .st0 {
+                stroke: $color-link-hover;
+            }
+        }
     }
 }
 
