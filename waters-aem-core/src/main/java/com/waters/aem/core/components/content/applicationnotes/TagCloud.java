@@ -11,7 +11,6 @@ import com.day.cq.tagging.Tag;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.metadata.ContentClassification;
@@ -57,12 +56,6 @@ public final class TagCloud implements ComponentExporter {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    @Inject
-    private PageDecorator currentPage;
-
-    @Inject
-    private ContentClassification contentClassification;
-
     @Self
     private SiteContext siteContext;
 
@@ -96,7 +89,7 @@ public final class TagCloud implements ComponentExporter {
     }
 
     public String getContentType() {
-        final List<Tag> contentTypeTags = Optional.ofNullable(contentClassification)
+        final List<Tag> contentTypeTags = Optional.ofNullable(pageMetadata.getContentClassification())
             .map(ContentClassification :: getContentType)
             .orElse(Collections.emptyList());
 

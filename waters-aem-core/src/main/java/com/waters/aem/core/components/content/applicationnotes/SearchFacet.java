@@ -1,5 +1,7 @@
 package com.waters.aem.core.components.content.applicationnotes;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public final class SearchFacet {
 
     private final String title;
@@ -24,5 +26,10 @@ public final class SearchFacet {
 
     public String getFilter() {
         return filter;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }
