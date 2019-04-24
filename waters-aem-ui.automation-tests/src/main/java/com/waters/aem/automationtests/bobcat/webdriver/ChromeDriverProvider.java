@@ -27,8 +27,9 @@ import java.util.Set;
 public class ChromeDriverProvider implements Provider<WebDriver> {
 
     private static final List<String> ARGUMENTS = ImmutableList.of(
-        "--disable-dev-shm-usage",
-        "--no-sandbox"
+        "--headless",
+        "--disable-gpu",
+        "--window-size=1280,800"
     );
 
     private ClosingAwareWebDriver cachedWebDriver;
