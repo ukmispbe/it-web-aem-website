@@ -8,7 +8,7 @@ class Filter extends Component {
         this.state = {
             activeIndex: -1,
             lastIndex: -1,
-            facetName: ''
+            facetName: '',
         };
     }
 
@@ -18,13 +18,13 @@ class Filter extends Component {
             If the facet groups have been modified due to other facets being checked off,
             then this will recaludate the active index because it may have changed.
         */
-        
+
         if (this.state.activeIndex !== -1) {
             const prevFacets = JSON.stringify(prevProps.facets);
             const currFacets = JSON.stringify(this.props.facets);
 
             if (!validator.equals(prevFacets, currFacets)) {
-                /* 
+                /*
                     Since the facets prop has changed check to see
                     if the active index has changed
                 */
@@ -32,10 +32,12 @@ class Filter extends Component {
                 // get mappings because they have been reordered
                 const mappings = this.getMappings();
 
-                const indexOfSelectedFacet = mappings.findIndex(element => element.name === this.state.facetName);
+                const indexOfSelectedFacet = mappings.findIndex(
+                    element => element.name === this.state.facetName
+                );
 
                 if (indexOfSelectedFacet !== -1) {
-                    this.setState({activeIndex: indexOfSelectedFacet});
+                    this.setState({ activeIndex: indexOfSelectedFacet });
                 }
             }
         }
@@ -49,7 +51,7 @@ class Filter extends Component {
             Object.assign({}, state, {
                 activeIndex: index,
                 lastIndex: lastIndex,
-                facetName
+                facetName,
             })
         );
 
@@ -62,7 +64,7 @@ class Filter extends Component {
                 Object.assign({}, state, {
                     activeIndex: index,
                     lastIndex: -1,
-                    facetName
+                    facetName,
                 })
             );
         }
@@ -83,7 +85,7 @@ class Filter extends Component {
     getMappings = () => {
         const defaultFacet = this.props.contentType + '_facet';
         const mapping = [];
-        
+
         for (let i = 0; i < this.props.filterMap.length; i++) {
             if (this.props.filterMap[i].categoryFacetName === defaultFacet) {
                 const categories = this.props.filterMap[i].orderedFacets;
@@ -103,7 +105,7 @@ class Filter extends Component {
         }
 
         return mapping;
-    }
+    };
 
     getFilters() {
         const props = this.props;
@@ -134,8 +136,6 @@ class Filter extends Component {
         const props = this.props;
         return (
             <div id="js-search-filters" className="cmp-search-filters">
-                <h3>{props.text.filterByHeading}</h3>
-
                 {props.filterTags}
 
                 {props.facets && this.getFilters()}
