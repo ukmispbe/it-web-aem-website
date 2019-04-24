@@ -1,4 +1,4 @@
-package com.waters.aem.core.library.injector;
+package com.waters.aem.core.library.injectors;
 
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;

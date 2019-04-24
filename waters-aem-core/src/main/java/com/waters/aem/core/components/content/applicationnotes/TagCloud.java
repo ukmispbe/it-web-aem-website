@@ -13,8 +13,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.SiteContext;
-import com.waters.aem.core.components.structure.page.ApplicationNotes;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.metadata.ContentClassification;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -23,7 +23,9 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_COPY;
@@ -58,6 +60,9 @@ public final class TagCloud implements ComponentExporter {
     @Inject
     private PageDecorator currentPage;
 
+    @Inject
+    private ContentClassification contentClassification;
+
     @Self
     private SiteContext siteContext;
 
@@ -91,9 +96,11 @@ public final class TagCloud implements ComponentExporter {
     }
 
     public String getContentType() {
-        return currentPage.getContentResource().adaptTo(ApplicationNotes.class)
-            .getContentType()
-            .stream()
+        final List<Tag> contentTypeTags = Optional.ofNullable(contentClassification)
+            .map(ContentClassification :: getContentType)
+            .orElse(Collections.emptyList());
+
+        return contentTypeTags.stream()
             .findFirst()
             .map(Tag :: getName)
             .orElse(null);
