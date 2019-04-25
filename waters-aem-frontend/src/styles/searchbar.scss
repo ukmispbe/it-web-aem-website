@@ -9,7 +9,7 @@
     .react-autosuggest__suggestions-container {
         position: absolute;
         width: 100%;
-        padding: 0 $space-s $space-s $space-s;
+        padding: 0;
         border: $color-border-light;
         background-color: $color-white;
         top: $space-xxl;
@@ -17,7 +17,7 @@
 
         .react-autosuggest__suggestions-list {
             list-style: none;
-            padding-left: 0px;
+            padding-left: $space-s;
 
             .react-autosuggest__suggestion:hover {
                 color: $color-link;
@@ -28,6 +28,8 @@
                 border-bottom: 1px solid $color-teal-50;
             }
         }
+
+        margin-bottom: 0px;
     }
 
     .react-autosuggest__input {
@@ -78,6 +80,23 @@
                     stroke: $color-icon;
                 }
             }
+        }
+    }
+}
+
+/*
+    These overrides prevents the auto suggestions list from the following:
+    -   getting cut off due to the banner overflow-y property
+    -   the sort by drop down and icon from displaying on top
+*/
+body.cmp-search-bar__auto-suggest--open {
+    .cmp-banner {
+        overflow-y: unset;
+    }
+
+    .cmp-search-sortby__select {
+        select, svg {
+            z-index: -1;
         }
     }
 }

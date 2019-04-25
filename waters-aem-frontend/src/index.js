@@ -6,6 +6,7 @@ import TagCloud from './search/components/tagcloud';
 
 function getAuthoredDataForSearchBar(c, h) {
     return {
+        baseUrl: c.dataset.baseUrl,
         searchPath: h.dataset.searchPath,
         placeholder: c.dataset.placeholder,
         iconSearch: c.dataset.iconSearch,
@@ -40,6 +41,7 @@ if (searchBarContainer && header) {
             iconClear={data.iconClear}
             searchPath={data.searchPath}
             placeholder={data.placeholder}
+            baseUrl={data.baseUrl}
         />,
         searchBarContainer
     );
@@ -56,7 +58,7 @@ if (searchAppContainer) {
         document.getElementById('search-results-categories-json').innerHTML
     );
 
-    const data = getAuthoredDataForSearchApp(searchAppContainer);
+    const data = getAuthoredDataForSearchApp(searchAppContainer);   
     ReactDOM.render(
         <Search
             defaultFacet="category_facet:waters%253Acategory%252Fapplicationslibrary"
