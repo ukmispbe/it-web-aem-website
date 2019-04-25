@@ -142,14 +142,6 @@
             <artifactId>bb-aem-64</artifactId>
             <version>${bobcat.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.adobe.cq</groupId>
-            <artifactId>core.wcm.components.core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>${core.artifactId}</artifactId>
-        </dependency>
 
         <!-- test -->
         <dependency>
@@ -169,13 +161,6 @@
             <artifactId>allure-junit5</artifactId>
             <version>${allure.version}</version>
             <scope>test</scope>
-        </dependency>
-
-        <!-- uber jar last to allow overrides for newer dependency versions -->
-        <dependency>
-            <groupId>com.adobe.aem</groupId>
-            <artifactId>uber-jar</artifactId>
-            <classifier>apis</classifier>
         </dependency>
     </dependencies>
 </project>

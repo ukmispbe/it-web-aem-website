@@ -1,9 +1,9 @@
 package com.waters.aem.automationtests.components.impl;
 
-import com.adobe.cq.wcm.core.components.models.Title;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
+import com.waters.aem.automationtests.components.Title;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -21,6 +21,6 @@ public class TitleImpl implements Title {
 
     @Override
     public String getType() {
-        return component.findElements(By.xpath(".//")).get(0).getTagName();
+        return component.findElements(By.cssSelector("*")).get(0).getTagName();
     }
 }

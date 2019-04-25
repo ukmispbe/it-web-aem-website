@@ -1,8 +1,8 @@
 package com.waters.aem.automationtests.modules;
 
-import com.adobe.cq.wcm.core.components.models.Title;
 import com.google.inject.AbstractModule;
 import com.waters.aem.automationtests.components.Text;
+import com.waters.aem.automationtests.components.Title;
 import com.waters.aem.automationtests.components.impl.TextImpl;
 import com.waters.aem.automationtests.components.impl.TitleImpl;
 

@@ -15,9 +15,9 @@ import java.util.List;
 @PageObject
 public class Select implements DialogField {
 
-    private static final String SELECT_OPTIONS_CSS = ".coral-SelectList-item";
+    private static final String SELECT_OPTIONS_CSS = ".coral3-SelectList-item";
 
-    @FindBy(css = ".coral-Select")
+    @FindBy(css = ".coral3-Select")
     private WebElement selectField;
 
     /**

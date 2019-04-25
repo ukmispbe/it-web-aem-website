@@ -1,5 +1,5 @@
 Properties:
-  - label: Title
+  - label:
     type: RICHTEXT
     value: Title Test
   - label: Type / Size
