@@ -51,10 +51,10 @@ class LibraryAssetSpec extends WatersLibrarySpec {
         libraryAsset.category*.tagID == ["waters:category/library"]
 
         and:
-        libraryAsset.contentType*.tagID == ["waters:contenttype/applicationnotes"]
+        libraryAsset.contentType*.tagID == ["waters:contenttype/applicationnote"]
 
         and:
-        libraryAsset.market*.tagID == ["waters:market/test"]
+        libraryAsset.market*.tagID == ["waters:market/first", "waters:market/second"]
 
         and:
         libraryAsset.product*.tagID == ["waters:product/test"]
@@ -72,6 +72,6 @@ class LibraryAssetSpec extends WatersLibrarySpec {
         libraryAsset.yearPublished*.tagID == ["waters:year/2019"]
 
         and:
-        libraryAsset.allTags.size() == 9
+        libraryAsset.allTags.size() == 10
     }
 }

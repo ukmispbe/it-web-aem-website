@@ -49,9 +49,6 @@
 }
 .cmp-search__results-item {
     @include list-item;
-    &-title {
-        font-size: $font-size-h3;
-    }
     @include mobile {
         margin-bottom: $space-l;
     }
