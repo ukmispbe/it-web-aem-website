@@ -22,6 +22,9 @@
         <allure.version>2.7.0</allure.version>
         <junit.jupiter.version>5.4.1</junit.jupiter.version>
         <junit.platform.version>1.2.0</junit.platform.version>
+
+        <!-- disable automation tests by default -->
+        <maven.test.skip>true</maven.test.skip>
     </properties>
 
     <profiles>
@@ -34,6 +37,7 @@
             </activation>
             <properties>
                 <bobcat.config.contexts>locator,dev</bobcat.config.contexts>
+                <maven.test.skip>false</maven.test.skip>
             </properties>
         </profile>
         <profile>
@@ -45,6 +49,7 @@
             </activation>
             <properties>
                 <bobcat.config.contexts>locator,test</bobcat.config.contexts>
+                <maven.test.skip>false</maven.test.skip>
             </properties>
         </profile>
         <profile>
@@ -56,6 +61,7 @@
             </activation>
             <properties>
                 <bobcat.config.contexts>locator,stage</bobcat.config.contexts>
+                <maven.test.skip>false</maven.test.skip>
             </properties>
         </profile>
     </profiles>
