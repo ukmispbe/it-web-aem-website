@@ -9,3 +9,5 @@ dev:
   publish.ip: http://192.139.20.26:4503
   publish.login: automation
   publish.password: automation
+
+  webdriver.arguments: --headless,--disable-gpu,--window-size=1280,800

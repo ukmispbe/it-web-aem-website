@@ -8,7 +8,6 @@ import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriv
 import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriverWrapper;
 import com.cognifide.qa.bb.provider.selenium.webdriver.close.WebDriverClosedListener;
 import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.WebDriverModifiers;
-import com.google.common.collect.ImmutableList;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.name.Named;
@@ -20,17 +19,14 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.events.WebDriverEventListener;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @ThreadScoped
 public class ChromeDriverProvider implements Provider<WebDriver> {
-
-    private static final List<String> ARGUMENTS = ImmutableList.of(
-        "--headless",
-        "--disable-gpu",
-        "--window-size=1280,800"
-    );
 
     private ClosingAwareWebDriver cachedWebDriver;
 
@@ -64,6 +60,10 @@ public class ChromeDriverProvider implements Provider<WebDriver> {
     @Inject
     private Set<WebDriverEventListener> listeners;
 
+    @Inject(optional = true)
+    @Named("webdriver.arguments")
+    private String arguments;
+
     @Override
     public WebDriver get() {
         if (cachedWebDriver == null || !cachedWebDriver.isAlive()) {
@@ -81,7 +81,7 @@ public class ChromeDriverProvider implements Provider<WebDriver> {
             .build();
 
         final ChromeOptions options = new ChromeOptions()
-            .addArguments(ARGUMENTS)
+            .addArguments(getArguments())
             .merge(modifiedCapabilities);
 
         final WebDriver raw = new ChromeDriver(service, options);
@@ -108,5 +108,11 @@ public class ChromeDriverProvider implements Provider<WebDriver> {
 
     private void registerEventListeners(final EventFiringWebDriver closingWebDriver) {
         listeners.forEach(closingWebDriver :: register);
+    }
+
+    private List<String> getArguments() {
+        return Optional.ofNullable(arguments)
+            .map(arguments -> Arrays.asList(arguments.split(",")))
+            .orElse(Collections.emptyList());
     }
 }
