@@ -43,7 +43,7 @@ public final class ContentClassificationInjector implements Injector {
 
                 if (Templates.isLibraryPage(currentPage)) {
                     contentClassification = currentPage.getContentResource().adaptTo(LibraryPage.class);
-                } else if (Templates.isApplicationNotesPage(currentPage)) {
+                } else {
                     contentClassification = currentPage.getContentResource().adaptTo(ApplicationNotes.class);
                 }
             }

@@ -42,7 +42,7 @@ class DefaultLibraryPageManagerSpec extends WatersLibrarySpec {
         def libraryPage = slingContext.getService(LibraryPageManager).createOrUpdateLibraryPage(libraryAsset)
 
         expect:
-        libraryPage.path == ROOT_PATH + "/library/application-notes/2019/library-asset"
+        libraryPage.path == ROOT_PATH + "/library/application-note/2019/library-asset"
 
         and:
         libraryPage.title == "Library Asset"
@@ -61,7 +61,7 @@ class DefaultLibraryPageManagerSpec extends WatersLibrarySpec {
         where:
         level | title
         1     | "2019"
-        2     | "Application Notes"
+        2     | "Application Note"
         3     | "Library"
     }
 
@@ -88,7 +88,7 @@ class DefaultLibraryPageManagerSpec extends WatersLibrarySpec {
         def libraryPage = slingContext.getService(LibraryPageManager).getLibraryPage(libraryAsset)
 
         expect:
-        libraryPage.path == ROOT_PATH + "/library/application-notes/2019/library-asset"
+        libraryPage.path == ROOT_PATH + "/library/application-note/2019/library-asset"
     }
 
     def "get library page throws exception for non-library asset"() {

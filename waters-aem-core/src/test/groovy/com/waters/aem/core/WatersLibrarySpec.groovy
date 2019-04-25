@@ -11,12 +11,12 @@ abstract class WatersLibrarySpec extends WatersSpec {
                             "jcr:content"("dam:AssetContent") {
                                 metadata(
                                     "category": ["waters:category/library"],
-                                    "contentType": ["waters:contenttype/applicationnotes"],
+                                    "contentType": ["waters:contenttype/applicationnote"],
                                     "dc:language": "en",
                                     "dc:description": "Library Asset Description",
                                     "dc:title": "Library Asset",
                                     "literatureCode": "123",
-                                    "market": ["waters:market/test"],
+                                    "market": ["waters:market/first", "waters:market/second"],
                                     "product": ["waters:product/test"],
                                     "technique": ["waters:technique/test"],
                                     "instrumentType": ["waters:instrumenttype/test"],
@@ -39,10 +39,15 @@ abstract class WatersLibrarySpec extends WatersSpec {
                         library("cq:Tag", "jcr:title": "Library")
                     }
                     contenttype("cq:Tag") {
-                        applicationnotes("cq:Tag", "jcr:title": "Application Notes")
+                        applicationnote("cq:Tag", "jcr:title": "Application Note")
                     }
                     market("cq:Tag") {
-                        test("cq:Tag", "jcr:title": "Test")
+                        first("cq:Tag", "jcr:title": "First Market")
+                        second("cq:Tag", "jcr:title": "Second Market")
+                    }
+                    compoundmatrix("cq:Tag") {
+                        first("cq:Tag", "jcr:title": "First Class")
+                        second("cq:Tag", "jcr:title": "Second Class")
                     }
                     product("cq:Tag") {
                         test("cq:Tag", "jcr:title": "Test")
@@ -63,6 +68,8 @@ abstract class WatersLibrarySpec extends WatersSpec {
                         june("cq:Tag", "jcr:title": "June")
                     }
                     year("cq:Tag") {
+                        "2017"("cq:Tag", "jcr:title": "2017")
+                        "2018"("cq:Tag", "jcr:title": "2018")
                         "2019"("cq:Tag", "jcr:title": "2019")
                     }
                 }
