@@ -26,10 +26,8 @@
         ul {
             overflow-y: auto;
             max-height: 140px;
-            padding-top: 0;
-            padding-bottom: 0;
-            padding-left: $space-xs;
-            padding-right: $space-xs;
+            padding: $space-xs;
+
             li {
                 padding: 5px 0 5px 10px;
                 display: table;
@@ -215,9 +213,7 @@
                     transition: none;
                 }
                 max-height: 200px;
-                padding-bottom: $space-xs;
-                padding-left: 0px;
-                padding-right: 0px;
+                padding: 0 $space-xs 0 0;
             }
         }
     }
