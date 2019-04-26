@@ -6,7 +6,7 @@ import OverLay from './overlay';
 import PropTypes from 'prop-types';
 import './../../styles/index.scss';
 
-const autoSuggestOpenClassName = "cmp-search-bar__auto-suggest--open";
+const cssOverridesClassName = "cmp-search-bar__auto-suggest--open";
 
 class SearchBar extends Component {
     constructor(props) {
@@ -14,56 +14,14 @@ class SearchBar extends Component {
 
         this.search = new SearchService({path: this.props.baseUrl});
 
-        let searchValue = this.getUrlParameter('keyword');
+        let searchValue = this.getUrlParameter('keyword', window.location.search.substring(1));
 
         if (searchValue === '*:*') searchValue = '';
 
-        let suggestions = [];
-
-        this.state = { value: searchValue ? searchValue : '', suggestions, openOverlay: false};
+        this.state = { value: searchValue ? searchValue : '', suggestions: [], openOverlay: false};
     }
 
-    render() {
-        const inputProps = {
-            placeholder: this.props.placeholder,
-            value: this.state.value,
-            onChange: this.onChange ,
-            onKeyPress: this._handleKeyPress
-        };
-
-        return (
-            <>
-                <OverLay isOpen={this.state.openOverlay} />
-                <div className="cmp-search-bar" id="notesSearch">
-                    <Autosuggest
-                        suggestions={this.state.suggestions}
-                        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                        onSuggestionSelected={this.onSuggestionSelected}
-                        getSuggestionValue={this.getSuggestionValue}
-                        renderSuggestion={this.renderSuggestion}
-                        inputProps={inputProps}/>
-                    
-                    <div className="cmp-search-bar__icons">
-                        {this.getClearIcon()}
-                        <ReactSVG
-                            src={this.props.iconSearch}
-                            className="cmp-search-bar__icons-search"/>
-                    </div>
-                </div>
-            </>
-        );
-    }
-
-    getClearIcon = () => (this.state.value) 
-    ? <ReactSVG 
-        src={this.props.iconClear} 
-        className="cmp-search-bar__icons-clear" 
-        onClick={e => this._clearSearchVal(e)}/>
-    : <></>;
-
-    getUrlParameter(sParam) {
-        const sPageURL = window.location.search.substring(1);
+    getUrlParameter = (sParam, sPageURL) => {
         const sURLVariables = sPageURL.split('&');
 
         for (let i = 0; i < sURLVariables.length; i++) {
@@ -77,23 +35,73 @@ class SearchBar extends Component {
         }
     }
 
-    setUrlParamter() {
-        const searchTerm = this.state.value ? this.state.value : '*:*';
-        const defaultSort = searchTerm === '*:*' ? 'most-recent' : 'most-relevant';
-        window.location.href = `${
-            this.props.searchPath
-        }?keyword=${searchTerm}&sort=${defaultSort}`;
+    setUrlParameter = () => {
+        const parameters = this.buildParameters(this.state.value);
+        const querystring = this.stringifyParameters(parameters);
+
+        window.location.href = `${this.props.searchPath}?${querystring}`;
     }
 
-    _handleKeyPress = e => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            document.getElementsByTagName('body')[0].classList.remove(autoSuggestOpenClassName);
-            this.setState({suggestions: [], openOverlay: false})
-        }
+    buildParameters = (searchValue) => {
+        const keyword = searchValue ? searchValue : '*:*';
+        const sort = keyword === '*:*' ? 'most-recent' : 'most-relevant';
+
+        return { keyword, sort };
+    }
+
+    stringifyParameters = (parameters) => (Object.keys(parameters).length !== 0)
+            ? Object.keys(parameters).reduce((accumulator, currentValue) => 
+                `${accumulator}=${parameters[accumulator]}&${currentValue}=${parameters[currentValue]}`)
+            : '';
+
+    render() {
+        return (
+            <>
+                <OverLay isOpen={this.state.openOverlay} />
+                <div className="cmp-search-bar" id="notesSearch">
+                    {this.renderAutoSuggest()}
+                    <div className="cmp-search-bar__icons">
+                        {this.renderHideClearIcon()}
+                        {this.renderSearchIcon()}
+                    </div>
+                </div>
+            </>
+        );
+    }
+
+    renderAutoSuggest = () => {
+        const inputProps = {
+            placeholder: this.props.placeholder,
+            value: this.state.value,
+            onChange: this.handleSearchValueChange ,
+            onKeyPress: this.handleSearchValuePress
+        };
+
+        return(<Autosuggest
+                    suggestions={this.state.suggestions}
+                    onSuggestionsFetchRequested={this.handleSuggestionsFetchRequested}
+                    onSuggestionsClearRequested={this.handleSuggestionsClearRequested}
+                    onSuggestionSelected={this.handleSuggestionSelected}
+                    getSuggestionValue={this.getSuggestionValueCallback}
+                    renderSuggestion={this.renderSuggestionCallback}
+                    inputProps={inputProps}/>);
     };
 
-    _clearSearchVal = e => {
+    renderHideClearIcon = () => (this.state.value) ? this.renderClearIcon() : <></>;
+
+    renderClearIcon = () => <ReactSVG src={this.props.iconClear} className="cmp-search-bar__icons-clear" onClick={e => this.handleClearIconClick(e)}/>
+
+    renderSearchIcon = () => <ReactSVG src={this.props.iconSearch} className="cmp-search-bar__icons-search"/>;
+
+    handleSearchValuePress = e => {
+        if (e.key !== 'Enter') return;
+
+        e.preventDefault();
+        this.removeCssOverrides();
+        this.setState({suggestions: [], openOverlay: false});
+    };
+
+    handleClearIconClick = e => {
         const querystringParams = this.search.getParamsFromString();
 
         if (!querystringParams.keyword || querystringParams.keyword === '*:*') {
@@ -103,59 +111,46 @@ class SearchBar extends Component {
         } else {
             // keyword has been selected so need to reload page
             // and clear the state of the component
-            this.setState({ value: '', suggestions: [], openOverlay: false}, () => {
-                this.setUrlParamter();
-            });
+            this.setState({ value: '', suggestions: [], openOverlay: false}, () => this.setUrlParameter());
         }
     };
 
-    onChange = (event, { newValue }) => {
+    handleSearchValueChange = (event, { newValue }) => this.setState({value: newValue});
 
-        if (this.state.openOverlay && newValue.length < this.props.minSearchCharacters) {
-            // clear out suggestions and remove the overlay 
-            // as user removes characters and goes under the minimum search characters
-            this.setState({openOverlay: false, suggestions: []});
-
-            document.getElementsByTagName('body')[0].classList.remove(autoSuggestOpenClassName);
-        }
-
-        this.setState({value: newValue});
-    }
-
-    onSuggestionsFetchRequested = async ({ value }) => {
-        if (value.length < this.props.minSearchCharacters) return;
-
-        const suggestions = (await this.search.getSuggestedKeywords(value)).slice(0, this.props.maxSuggestions);
+    handleSuggestionsFetchRequested = async ({ value }) => {
+        const suggestions = !(value.length < this.props.minSearchCharacters) 
+            ? (await this.search.getSuggestedKeywords(value)).slice(0, this.props.maxSuggestions)
+            : [];
 
         const openOverlay = suggestions.length !== 0;
 
         if (openOverlay) {
-            document.getElementsByTagName('body')[0].classList.add(autoSuggestOpenClassName);
+            this.addCssOverrides();
+        } else {
+            this.removeCssOverrides();
         }
 
         this.setState({suggestions, openOverlay});
     };
 
-    onSuggestionsClearRequested = () => { 
+    handleSuggestionsClearRequested = () => { 
         // when user clicks on the clear icon, this function should execute after the icon's click event
         // therefore, need to delay this when users click on the clear icon otherwise the clear icon
         // click event will never execute because this function will eventually prevent propagation
-        setTimeout(() => {
-            this.setState({suggestions: [], openOverlay: false});
-        }, 125);
+        setTimeout(() => this.setState({suggestions: [], openOverlay: false}), 125);
 
-        document.getElementsByTagName('body')[0].classList.remove(autoSuggestOpenClassName);
+        this.removeCssOverrides();
     };
 
-    onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => {
-        this.setState({value: suggestionValue, openOverlay: false}, () => {
-            this.setUrlParamter();
-        });
-    }
+    getSuggestionValueCallback = suggestion => suggestion.name;
 
-    getSuggestionValue = suggestion => suggestion.name;
+    renderSuggestionCallback = suggestion => <div>{this.formatSuggesion(suggestion.name)}</div>;
 
-    renderSuggestion = suggestion => <div>{this.formatSuggesion(suggestion.name)}</div>;
+    handleSuggestionSelected = (event, { suggestionValue}) => this.setState({value: suggestionValue, openOverlay: false}, () => this.setUrlParameter());
+
+    addCssOverrides = () => document.getElementsByTagName('body')[0].classList.add(cssOverridesClassName);
+
+    removeCssOverrides = () => document.getElementsByTagName('body')[0].classList.remove(cssOverridesClassName);
 
     formatSuggesion = name => <><span className="emphasis-matching-characters">{name.substring(0, this.state.value.length)}</span>{name.substring(this.state.value.length, name.length)}</>;
 }

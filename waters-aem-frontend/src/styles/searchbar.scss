@@ -3,7 +3,6 @@
     float: left;
     margin-bottom: $space-m;
     position: relative;
-    background-color: $color-white;
     z-index: 9999;
 
     .react-autosuggest__suggestions-container {
@@ -87,7 +86,9 @@
 /*
     These overrides prevents the auto suggestions list from the following:
     -   getting cut off due to the banner overflow-y property
-    -   the sort by drop down and icon from displaying on top
+    -   showing the sort by drop down and icon on top
+    -   showing the search results on top
+    -   displaying a gap between the search textbox and suggestions list
 */
 body.cmp-search-bar__auto-suggest--open {
     .cmp-banner {
@@ -98,5 +99,14 @@ body.cmp-search-bar__auto-suggest--open {
         select, svg {
             z-index: -1;
         }
+    }
+
+    .searchresults {
+        z-index: -1;
+        position: relative;
+    }
+
+    .cmp-search-bar {
+        background-color: $color-white;
     }
 }
