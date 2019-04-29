@@ -4,7 +4,8 @@
         padding-left: 0;
         list-style: none;
         position: relative;
-        margin-bottom: 0;
+        margin-bottom: $space-xl;
+        margin-top: $space-s;
     }
 
     &__item {
