@@ -7,10 +7,13 @@ import PropTypes from 'prop-types';
 import './../../styles/index.scss';
 
 const cssOverridesClassName = "cmp-search-bar__auto-suggest--open";
+const searchBarFocusClassName = 'cmp-search-bar--focus';
 
 class SearchBar extends Component {
     constructor(props) {
         super(props);
+
+        this.searchBarRef = React.createRef();
 
         this.search = new SearchService({path: this.props.baseUrl});
 
@@ -58,7 +61,7 @@ class SearchBar extends Component {
         return (
             <>
                 <OverLay isOpen={this.state.openOverlay} />
-                <div className="cmp-search-bar" id="notesSearch">
+                <div ref={this.searchBarRef} className="cmp-search-bar" id="notesSearch" onClick={this.handleAutosuggestClick}>
                     {this.renderAutoSuggest()}
                     <div className="cmp-search-bar__icons">
                         {this.renderHideClearIcon()}
@@ -74,7 +77,8 @@ class SearchBar extends Component {
             placeholder: this.props.placeholder,
             value: this.state.value,
             onChange: this.handleSearchValueChange ,
-            onKeyPress: this.handleSearchValuePress
+            onKeyPress: this.handleSearchValuePress,
+            onBlur: this.handleSearchValueBlur
         };
 
         return(<Autosuggest
@@ -91,7 +95,13 @@ class SearchBar extends Component {
 
     renderClearIcon = () => <ReactSVG src={this.props.iconClear} className="cmp-search-bar__icons-clear" onClick={e => this.handleClearIconClick(e)}/>
 
-    renderSearchIcon = () => <ReactSVG src={this.props.iconSearch} className="cmp-search-bar__icons-search"/>;
+    renderSearchIcon = () => <ReactSVG src={this.props.iconSearch} className="cmp-search-bar__icons-search" onClick={e => this.handleSearchIconClick(e)} />;
+
+    handleAutosuggestClick = (e) => {
+        if(Array.from(e.target.classList).find(element => element === 'react-autosuggest__input--focused')) {
+            this.addSearchBarFocusCss();
+        }
+    }
 
     handleSearchValuePress = e => {
         if (e.key !== 'Enter') return;
@@ -100,6 +110,12 @@ class SearchBar extends Component {
         this.removeCssOverrides();
         this.setState({suggestions: [], openOverlay: false});
     };
+
+    handleSearchIconClick = e => {
+        if (this.state.value.length !== 0) {
+            this.handleSuggestionSelected(e, { suggestionValue: this.state.value });
+        }
+    }
 
     handleClearIconClick = e => {
         const querystringParams = this.search.getParamsFromString();
@@ -116,6 +132,8 @@ class SearchBar extends Component {
     };
 
     handleSearchValueChange = (event, { newValue }) => this.setState({value: newValue});
+
+    handleSearchValueBlur = (event, { highlightedSuggestion }) => this.removeSearchBarFocusCss();
 
     handleSuggestionsFetchRequested = async ({ value }) => {
         const suggestions = !(value.length < this.props.minSearchCharacters) 
@@ -153,6 +171,10 @@ class SearchBar extends Component {
     removeCssOverrides = () => document.getElementsByTagName('body')[0].classList.remove(cssOverridesClassName);
 
     formatSuggesion = name => <><span className="emphasis-matching-characters">{name.substring(0, this.state.value.length)}</span>{name.substring(this.state.value.length, name.length)}</>;
+
+    addSearchBarFocusCss = () => this.searchBarRef.current.classList.add(searchBarFocusClassName);
+
+    removeSearchBarFocusCss = () => this.searchBarRef.current.classList.remove(searchBarFocusClassName);
 }
 
 SearchBar.propTypes = {

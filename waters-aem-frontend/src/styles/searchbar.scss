@@ -60,6 +60,7 @@
             svg {
                 width: $icon-l;
                 height: $icon-l;
+                cursor: pointer;
                 
                 .st0 {
                     stroke: $color-icon;
@@ -78,6 +79,16 @@
                 .st0 {
                     stroke: $color-icon;
                 }
+            }
+        }
+    }
+}
+
+.cmp-search-bar--focus {
+    .cmp-search-bar__icons-search {
+        svg {
+            .st0 {
+                stroke: $color-link;
             }
         }
     }
