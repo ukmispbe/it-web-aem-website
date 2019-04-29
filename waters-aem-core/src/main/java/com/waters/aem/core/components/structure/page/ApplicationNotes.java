@@ -138,6 +138,7 @@ public final class ApplicationNotes implements ContentClassification {
             .addAll(market)
             .addAll(compoundMatrix)
             .addAll(yearPublished)
+            .addAll(affiliations)
             .build();
     }
 
