@@ -230,7 +230,8 @@
             @include font-small;
             display: block;
             float: left;
-            padding: $space-xxxs $space-xs ($space-xxs - .1em) ($space-l - .1em);
+            padding: $space-xxxs $space-xs ($space-xxs - 0.1em)
+                ($space-l - 0.1em);
             margin: 0 $space-xs $space-xs 0;
             text-decoration: none;
             background-color: $color-gray-10;
@@ -257,9 +258,10 @@
                 &:hover {
                     background-color: $color-gray-50;
                 }
-            } 
+            }
             @include mobile {
-                padding: $space-xxxs $space-xs ($space-xxs - .2em) ($space-l - .1em);
+                padding: $space-xxxs $space-xs ($space-xxs - 0.2em)
+                    ($space-l - 0.1em);
             }
         }
         @include tablet-and-under {
@@ -268,7 +270,7 @@
         }
     }
     &__emptytags {
-        height: .5em;
+        height: 0.5em;
     }
 }
 
@@ -394,26 +396,26 @@
             right: 15px;
             width: $icon-m;
             height: $icon-m;
-            z-index:1;
+            z-index: -1;
             .st0 {
                 stroke: $color-icon;
-                }
             }
-            &:hover {
-                & svg .st0 {
-                    stroke: $color-link;
-                }
+        }
+        &:hover {
+            & svg .st0 {
+                stroke: $color-link;
             }
         }
     }
+}
 
 .cmp-search-filters__tags.clearfix {
     &:after {
         display: block;
     }
- }
+}
 
- $header-height: 74px;
+$header-height: 74px;
 
 .cmp-search__sort-filter {
     .cmp-search-filters__tags {
@@ -460,8 +462,6 @@
     }
 }
 
-
-
 .show-sort-filters {
     @include tablet-and-under {
         .cmp-search__sort-filter {
@@ -493,7 +493,8 @@
                                 }
                             }
                         }
-                        ul, div.facet-container {
+                        ul,
+                        div.facet-container {
                             max-height: none;
                             @include mobile {
                                 max-height: 49vh;
