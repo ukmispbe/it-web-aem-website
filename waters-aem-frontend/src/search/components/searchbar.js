@@ -106,9 +106,9 @@ class SearchBar extends Component {
     handleSearchValuePress = e => {
         if (e.key !== 'Enter') return;
 
-        e.preventDefault();
-        this.removeCssOverrides();
-        this.setState({suggestions: [], openOverlay: false});
+        if (this.state.value.length !== 0) {
+            this.handleSuggestionSelected(e, { suggestionValue: this.state.value });
+        }
     };
 
     handleSearchIconClick = e => {
