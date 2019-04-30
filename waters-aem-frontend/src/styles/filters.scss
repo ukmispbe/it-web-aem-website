@@ -12,7 +12,7 @@
         font-family: $font-stack;
         @include font-utility;
         font-weight: $font-weight-light;
-        padding: $space-xs;
+        padding: $space-xs $space-s;
         background-color: transparent;
         outline: none;
         border: 1px solid $color-gray-40;
@@ -25,13 +25,11 @@
         }
         ul {
             overflow-y: auto;
-            max-height: 140px;
-            padding-top: 0;
-            padding-bottom: 0;
-            padding-left: $space-xs;
-            padding-right: $space-xs;
+            max-height: 12em;
+            padding: $space-xs $space-s 0 $space-s;
+
             li {
-                padding: 5px 0 5px 10px;
+                padding: 0 0 $space-xs 0;
                 display: table;
                 label {
                     display: table-cell;
@@ -47,7 +45,7 @@
             border-top: 1px solid $color-border-light;
             display: block;
             background-color: $color-white;
-            padding: $space-xs $space-s $space-xs $space-s;
+            padding: $space-xs $space-s;
             margin: 0;
             text-decoration: none;
             position: relative;
@@ -111,7 +109,7 @@
                 height: 1em;
                 width: 1em;
                 vertical-align: -2px;
-                margin-right: 10px;
+                margin-right: $space-xxs;
                 transition: none;
                 svg {
                     display: none;
@@ -215,9 +213,7 @@
                     transition: none;
                 }
                 max-height: 200px;
-                padding-bottom: $space-xs;
-                padding-left: 0px;
-                padding-right: 0px;
+                padding: 0;
             }
         }
     }

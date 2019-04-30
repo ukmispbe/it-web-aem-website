@@ -15,9 +15,13 @@
     svg {
         position: relative;
         top: 3px;
-        margin-right: 3px;
-        width: 1rem;
-        height: 1rem;
+        margin: 0 $space-xxxs;
+        width: $icon-s;
+        height: $icon-s;
+
+        .st0 {
+            stroke: $color-icon;
+        }
     }
 }
 

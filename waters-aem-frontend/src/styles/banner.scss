@@ -75,9 +75,14 @@
     }
 }
 
-.cmp-banner--overlay .cmp-banner__background-overlay {
-    background-color: $color-teal-50;
-    opacity: 0.9;
+.cmp-banner__parsys {
+    padding: $space-xl 0 $space-m 0;
+}
+
+.cmp-banner__backgroundImage {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
 }
 
 .cmp-banner--light .cmp-banner {
@@ -85,8 +90,9 @@
     background: $color-background-light;
 }
 
-.cmp-banner--dark .cmp-banner {
-    margin-bottom: $space-xxl;
+// Style System
+
+.cmp-banner--accent .cmp-banner {
     background: $color-teal-50;
     p,
     a,
@@ -100,7 +106,114 @@
     ol li {
         color: $color-font-light;
     }
+
+    .cmp-banner__background-overlay {
+        background-color: $color-teal-50;
+        opacity: 0.9;
+    }
+
+    .cmp-button button, .cmp-button a, a.cmp-button, button.cmp-button {
+        background-color: transparent;
+        border: 1px solid $color-white;
+        color: $color-font-light;
+
+        &:hover {
+            color: $color-gray-20;
+            border: 1px solid $color-gray-20;
+            background: none;
+        }
+        &:active {
+            color: $color-font-light;
+            border: 1px solid $color-white;
+            background: none;
+        }
+    }
+
+    .cmp-button--secondary button.cmp-button, .cmp-button--secondary a.cmp-button, a.cmp-button--secondary, button.cmp-button--secondaryn {
+        color: $color-font-light;
+        border: 1px solid $color-white;
+        background: none;
+
+        &:hover {
+            color: $color-gray-20;
+            border: 1px solid $color-gray-20;
+            background: none;
+        }
+        &:active {
+            color: $color-font-light;
+            border: 1px solid $color-white;
+            background: none;
+        }
+    }
+
 }
+
+.cmp-banner--dark .cmp-banner {
+    background: $color-background-dark;
+    p,
+    a,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ul li,
+    ol li {
+        color: $color-font-light;
+    }
+
+    .cmp-banner__background-overlay {
+        background-color: $color-background-dark;
+        opacity: 0.95;
+    }
+
+    .cmp-button button, .cmp-button a, a.cmp-button, button.cmp-button {
+        background-color: transparent;
+        border: 1px solid $color-white;
+        color: $color-font-light;
+
+        &:hover {
+            color: $color-gray-20;
+            border: 1px solid $color-gray-20;
+            background: none;
+        }
+        &:active {
+            color: $color-font-light;
+            border: 1px solid $color-white;
+            background: none;
+        }
+    }
+
+    .cmp-button--secondary button.cmp-button, .cmp-button--secondary a.cmp-button, a.cmp-button--secondary, button.cmp-button--secondaryn {
+        color: $color-font-light;
+        border: 1px solid $color-white;
+        background: none;
+
+        &:hover {
+            color: $color-gray-20;
+            border: 1px solid $color-gray-20;
+            background: none;
+        }
+        &:active {
+            color: $color-font-light;
+            border: 1px solid $color-white;
+            background: none;
+        }
+    }
+
+}
+
+.cmp-banner--light .cmp-banner {
+    background: $color-background-light;
+
+    .cmp-banner__background-overlay {
+        background-color: $color-background-light;
+        opacity: 0.95;
+    }
+
+}
+
 
 .cmp-banner--header .cmp-banner {
     margin-top: -$space-l;
@@ -108,14 +221,4 @@
 
 .cmp-banner--notHeader .cmp-banner {
     margin-top: 0;
-}
-
-.cmp-banner__parsys {
-    padding: $space-xl 0 $space-m 0;
-}
-
-.cmp-banner__backgroundImage {
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
 }

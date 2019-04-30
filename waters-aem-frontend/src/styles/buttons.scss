@@ -56,7 +56,7 @@ button.cmp-button--secondary {
     margin-bottom: $space-l;
     color: $color-link;
     text-transform: uppercase;
-    background-color: $color-white;
+    background-color: transparent;
     border: 1px solid $color-link;
     transition: $hover-transition;
 
@@ -91,8 +91,8 @@ button.cmp-button--secondary {
         transition: $hover-transition;
 
         svg {
-            width: 24px;
-            height: 24px;
+            width: $icon-m;
+            height: $icon-m;
             display: block;
             float: left;
             margin-right: $space-xxs;
