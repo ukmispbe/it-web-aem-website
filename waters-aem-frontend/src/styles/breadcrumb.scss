@@ -35,6 +35,10 @@
     &--disable {
         display: none;
     }
+
+    @include mobile {
+        display: none;
+    }
 }
 
 .cmp-breadcrumb-search {
