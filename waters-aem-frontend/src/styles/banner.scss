@@ -1,7 +1,6 @@
 .cmp-banner {
-    margin: 0 -30%;
+    margin: -$space-l -30% $space-l;
     padding: 0 30%;
-    margin-top: -$space-l;
     position: relative;
     overflow-y: hidden;
     z-index: 0;
