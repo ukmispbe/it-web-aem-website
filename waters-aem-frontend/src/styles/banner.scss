@@ -76,6 +76,15 @@
 
 .cmp-banner__parsys {
     padding: $space-xl 0 $space-m 0;
+    margin: 0 -14px;
+
+    @include mobile {
+        margin: 0 0 0 -4px;
+    }
+
+    @include tablet {
+        margin: 0 0 0 -12px;
+    }
 }
 
 .cmp-banner__backgroundImage {
@@ -111,7 +120,10 @@
         opacity: 0.9;
     }
 
-    .cmp-button button, .cmp-button a, a.cmp-button, button.cmp-button {
+    .cmp-button button,
+    .cmp-button a,
+    a.cmp-button,
+    button.cmp-button {
         background-color: transparent;
         border: 1px solid $color-white;
         color: $color-font-light;
@@ -128,7 +140,10 @@
         }
     }
 
-    .cmp-button--secondary button.cmp-button, .cmp-button--secondary a.cmp-button, a.cmp-button--secondary, button.cmp-button--secondaryn {
+    .cmp-button--secondary button.cmp-button,
+    .cmp-button--secondary a.cmp-button,
+    a.cmp-button--secondary,
+    button.cmp-button--secondaryn {
         color: $color-font-light;
         border: 1px solid $color-white;
         background: none;
@@ -144,7 +159,6 @@
             background: none;
         }
     }
-
 }
 
 .cmp-banner--dark .cmp-banner {
@@ -167,7 +181,10 @@
         opacity: 0.95;
     }
 
-    .cmp-button button, .cmp-button a, a.cmp-button, button.cmp-button {
+    .cmp-button button,
+    .cmp-button a,
+    a.cmp-button,
+    button.cmp-button {
         background-color: transparent;
         border: 1px solid $color-white;
         color: $color-font-light;
@@ -184,7 +201,10 @@
         }
     }
 
-    .cmp-button--secondary button.cmp-button, .cmp-button--secondary a.cmp-button, a.cmp-button--secondary, button.cmp-button--secondaryn {
+    .cmp-button--secondary button.cmp-button,
+    .cmp-button--secondary a.cmp-button,
+    a.cmp-button--secondary,
+    button.cmp-button--secondaryn {
         color: $color-font-light;
         border: 1px solid $color-white;
         background: none;
@@ -200,7 +220,6 @@
             background: none;
         }
     }
-
 }
 
 .cmp-banner--light .cmp-banner {
@@ -210,9 +229,7 @@
         background-color: $color-background-light;
         opacity: 0.95;
     }
-
 }
-
 
 .cmp-banner--header .cmp-banner {
     margin-top: -$space-l;
