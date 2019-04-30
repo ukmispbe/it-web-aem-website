@@ -42,6 +42,11 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
         assertThat(textComponent.getText().equals("Text Test"));
     }
 
+    @Test
+    public void anchor() {
+
+    }
+
     @Override
     protected String getPagePath() {
         return WatersAutomationTestConstants.APPLICATION_NOTES_PAGE_PATH;
