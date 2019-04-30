@@ -56,7 +56,7 @@ button.cmp-button--secondary {
     margin-bottom: $space-l;
     color: $color-link;
     text-transform: uppercase;
-    background-color: transparent;
+    background-color: $color-white;
     border: 1px solid $color-link;
     transition: $hover-transition;
 
