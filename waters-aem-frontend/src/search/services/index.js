@@ -70,7 +70,13 @@ export class SearchService {
             return window.fetch(searchString).then(response => response.json());
     }
 
-    getSuggestedKeywords = async (value) => {
+    getSuggestedKeywords = async (rows, term) => {
+        const searchString = `${this.path}/v1/autocomplete?rows=${rows}&term=${term}`;
+
+        const response = await (await window.fetch(searchString)).json();
+
+        return response.suggestions;
+
         // TODO: replace this with actual API call
         const mockKeywords = [
             {
@@ -132,7 +138,7 @@ export class SearchService {
             }
           ];
         
-        const inputValue = value.trim().toLowerCase();
+        const inputValue = term.trim().toLowerCase();
         const inputLength = inputValue.length;
     
         return inputLength === 0 ? [] : mockKeywords.filter(item =>

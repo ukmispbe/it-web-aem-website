@@ -137,7 +137,7 @@ class SearchBar extends Component {
 
     handleSuggestionsFetchRequested = async ({ value }) => {
         const suggestions = !(value.length < this.props.minSearchCharacters) 
-            ? (await this.search.getSuggestedKeywords(value)).slice(0, this.props.maxSuggestions)
+            ? this.formatSuggestions(value.trim(), (await this.search.getSuggestedKeywords(this.props.maxSuggestions, value)))
             : [];
 
         const openOverlay = suggestions.length !== 0;
@@ -160,9 +160,9 @@ class SearchBar extends Component {
         this.removeCssOverrides();
     };
 
-    getSuggestionValueCallback = suggestion => suggestion.name;
+    getSuggestionValueCallback = suggestion => suggestion.key;
 
-    renderSuggestionCallback = suggestion => <div>{this.formatSuggesion(suggestion.name)}</div>;
+    renderSuggestionCallback = suggestion => <div>{suggestion.value}</div>;
 
     handleSuggestionSelected = (event, { suggestionValue}) => this.setState({value: suggestionValue, openOverlay: false}, () => this.setUrlParameter());
 
@@ -170,7 +170,16 @@ class SearchBar extends Component {
 
     removeCssOverrides = () => document.getElementsByTagName('body')[0].classList.remove(cssOverridesClassName);
 
-    formatSuggesion = name => <><span className="emphasis-matching-characters">{name.substring(0, this.state.value.length)}</span>{name.substring(this.state.value.length, name.length)}</>;
+    formatSuggestions = (term, suggestions) => suggestions.map(suggestion => {
+        return {
+            key: suggestion,
+            value: this.formatSuggestion(term, suggestion).reduce((accumulator, currentValue) => <>{accumulator} {currentValue}</>)
+        }
+    });
+
+    formatSuggestion = (term, suggestion) => suggestion.split(' ').map(item => item.startsWith(term) ? this.formatWord(item, term.length) : <>{item}</>);
+
+    formatWord = (word, termLength) => <><span className="emphasis-matching-characters">{word.substring(0, termLength)}</span>{word.substring(termLength, word.length)}</>;
 
     addSearchBarFocusCss = () => this.searchBarRef.current.classList.add(searchBarFocusClassName);
 
