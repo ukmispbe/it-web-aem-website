@@ -203,11 +203,8 @@ class Search extends Component {
         } else if (!scrollToPosition && previousPagePosition) {
             window.scrollTo(0, 0);
         } else {
-            const reactAppTop =
-                this.refs.main.getBoundingClientRect().top - 72;
-
             if (newState.performedSearches > 1) {
-                window.scrollTo(0, reactAppTop);
+                window.scrollTo(0, 0);
             }
         }
     }

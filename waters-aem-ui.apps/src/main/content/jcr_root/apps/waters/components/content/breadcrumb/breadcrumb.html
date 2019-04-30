@@ -10,12 +10,19 @@
             <a href="${navItem.URL}"
                class="cmp-breadcrumb__item-link"
                itemprop="item"
-               data-sly-unwrap="${navItem.active}">
-                <span itemprop="name">${navItem.title}</span>
-            </a>
+               data-sly-unwrap="${navItem.active}"><span itemprop="name">${navItem.title}</span></a>
             <meta itemprop="position" content="${navItemList.count}" />
         </li>
     </ol>
+</nav>
+<nav class="cmp-breadcrumb-search cmp-breadcrumb-search--disable">
+    <a
+        class="cmp-breadcrumb-search__link cmp-button--secondary cmp-button--no-border cmp-button--with-icon"
+        href="${button.buttonLink.href}"
+        title="${'Back to Search' @ i18n, context='scriptString'}">
+        <img alt="${'Back to Search Results' @ i18n}" class="inline-svg"  src="/content/dam/waters/brand-assets/icons/search.svg"/>
+        <span>${'Back to Search Results' @ i18n}</span>
+    </a>
 </nav>
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
      data-sly-call="${patterns.placeholder @ show=!breadcrumb.items, text=component.title}"/>

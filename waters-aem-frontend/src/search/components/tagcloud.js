@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class TagCloud extends Component {
     constructor(props) {
@@ -9,7 +10,7 @@ class TagCloud extends Component {
         const filter = keyword.split(':');
         const filterCategory = filter[0]
         const filterValue = encodeURI(encodeURIComponent(filter[1]));
-        window.location.href = `${this.props.searchPath}?facet=${filterCategory}:${filterValue}`;
+        window.location.href = `${this.props.searchPath}?content_type=${this.props.contentType}&facet=${filterCategory}:${filterValue}`;
     }
 
     render() {
@@ -26,6 +27,13 @@ class TagCloud extends Component {
             </ul>
         ]);
     }
+}
+
+TagCloud.propTypes = {
+    contentType: PropTypes.string,
+    keywords: PropTypes.array,
+    searchPath: PropTypes.string,
+    tagCloudTitle: PropTypes.string
 }
 
 export default TagCloud;

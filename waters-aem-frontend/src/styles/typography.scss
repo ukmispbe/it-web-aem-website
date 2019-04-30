@@ -135,16 +135,22 @@ strong {
     padding-bottom: $space-s;
 }
 
+
+//Style System
+
 .cmp-text--notification .cmp-text {
     background-color: $color-teal-10;
-    border: 1px solid $color-teal-20; 
     padding: $space-xs 0;
     margin-bottom: $space-l;
     text-align: center;
 
     p {
-        color: $color-teal-50;
         margin-bottom: 0;
         padding-bottom: 0;
     }
+}
+
+.cmp-text--finePrint .cmp-text {
+    @include font-small;
+    font-style: italic;
 }

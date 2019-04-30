@@ -57,7 +57,7 @@ class ApplicationNotesSpec extends WatersSpec {
         where:
         path                                | size
         "/content/waters"                   | 0
-        "/content/waters/application-notes" | 11
+        "/content/waters/application-notes" | 12
     }
 
     def "get tags"() {

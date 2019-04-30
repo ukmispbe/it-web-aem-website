@@ -50,10 +50,10 @@ class LibraryPageSpec extends WatersLibrarySpec {
         libraryPage.category*.tagID == ["waters:category/library"]
 
         and:
-        libraryPage.contentType*.tagID == ["waters:contenttype/applicationnotes"]
+        libraryPage.contentType*.tagID == ["waters:contenttype/applicationnote"]
 
         and:
-        libraryPage.market*.tagID == ["waters:market/test"]
+        libraryPage.market*.tagID == ["waters:market/first", "waters:market/second"]
 
         and:
         libraryPage.product*.tagID == ["waters:product/test"]
@@ -71,7 +71,7 @@ class LibraryPageSpec extends WatersLibrarySpec {
         libraryPage.yearPublished*.tagID == ["waters:year/2019"]
 
         and:
-        libraryPage.allTags.size() == 9
+        libraryPage.allTags.size() == 10
     }
 
     def "library page is null when asset path is null"() {

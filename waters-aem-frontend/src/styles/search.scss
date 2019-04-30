@@ -49,9 +49,6 @@
 }
 .cmp-search__results-item {
     @include list-item;
-    &-title {
-        font-size: $font-size-h3;
-    }
     @include mobile {
         margin-bottom: $space-l;
     }
@@ -96,7 +93,7 @@ div.cmp-search__no-results {
     align-items: center;
     justify-content: center;
     margin: 0;
-    padding-top: $space-xxl;
+    padding: $space-xl 0;
     clear: both;
     @include mobile {
         padding: 0;
