@@ -8,15 +8,24 @@
     .react-autosuggest__suggestions-container {
         position: absolute;
         width: 100%;
-        padding: 0;
+        padding: $space-s;
         border: $color-border-light;
-        background-color: $color-white;
+        background-color: inherit;
         top: $space-xxl;
         @include font-body;
 
         .react-autosuggest__suggestions-list {
             list-style: none;
-            padding-left: $space-s;
+            padding-left: 0;
+            margin-top: $space-s * -1;
+            margin-bottom: $space-s * -1;
+
+            .react-autosuggest__suggestion {
+                .formatted-suggestion {
+                    display: flex;
+                    white-space: pre-wrap;
+                }
+            }
 
             .react-autosuggest__suggestion:hover {
                 color: $color-link;
@@ -29,6 +38,10 @@
         }
 
         margin-bottom: 0px;
+    }
+
+    .react-autosuggest__suggestions-container--open {
+        background-color: $color-white;
     }
 
     .react-autosuggest__input {

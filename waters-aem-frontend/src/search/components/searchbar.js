@@ -17,7 +17,7 @@ class SearchBar extends Component {
 
         this.search = new SearchService({path: this.props.baseUrl});
 
-        let searchValue = this.getUrlParameter('keyword', window.location.search.substring(1));
+        let searchValue = this.getUrlParameter('keyword', window.location.search.substring(1)); 
 
         if (searchValue === '*:*') searchValue = '';
 
@@ -173,13 +173,24 @@ class SearchBar extends Component {
     formatSuggestions = (term, suggestions) => suggestions.map(suggestion => {
         return {
             key: suggestion,
-            value: this.formatSuggestion(term, suggestion).reduce((accumulator, currentValue) => <>{accumulator} {currentValue}</>)
+            value: <span className="formatted-suggestion">{this.formatSuggestion(term, suggestion).reduce((accumulator, currentValue) => <>{accumulator} {currentValue}</>)}</span>
         }
     });
 
-    formatSuggestion = (term, suggestion) => suggestion.split(' ').map(item => item.startsWith(term) ? this.formatWord(item, term.length) : <>{item}</>);
+    formatSuggestion = (term, suggestion) =>{
+        // wrap the matching characters with a pipe |
+        const delimittedSuggestion = suggestion.replace(new RegExp(`\\b${term}`, 'ig'), `|${term}|`);
 
-    formatWord = (word, termLength) => <><span className="emphasis-matching-characters">{word.substring(0, termLength)}</span>{word.substring(termLength, word.length)}</>;
+        // convert string to array split with pipe |
+        // this will isolate the matching characters into it's own location in the array
+        const words = delimittedSuggestion.split('|').filter(word => word !== '');
+
+        // create a new array that will wrap the matching characters into a styled span to highlight
+        // non-matching characters will simply display inside a span element
+        return words.map(item => item.toLowerCase() === term.toLowerCase() ? this.formatWord(item, term.length) : <span>{item}</span>);
+    }
+
+    formatWord = (word, termLength) => <span className="emphasis-matching-characters">{word.substring(0, termLength)}</span>;
 
     addSearchBarFocusCss = () => this.searchBarRef.current.classList.add(searchBarFocusClassName);
 
@@ -198,7 +209,7 @@ SearchBar.propTypes = {
 
 SearchBar.defaultProps = {
     maxSuggestions: 10,
-    minSearchCharacters: 3
+    minSearchCharacters: 1
 }
 
 export default SearchBar;
