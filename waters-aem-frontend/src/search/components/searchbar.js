@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import ReactSVG from 'react-svg';
 import Autosuggest from 'react-autosuggest';
+import { debounce } from 'throttle-debounce';
 import { SearchService } from '../services/index';
+import SessionService from '../services/session-service';
 import OverLay from './overlay';
 import PropTypes from 'prop-types';
 import './../../styles/index.scss';
@@ -17,45 +19,28 @@ class SearchBar extends Component {
 
         this.search = new SearchService({path: this.props.baseUrl});
 
-        let searchValue = this.getUrlParameter('keyword', window.location.search.substring(1)); 
+        this.sessionService = new SessionService();
 
-        if (searchValue === '*:*') searchValue = '';
+        let searchValue = this.search.getUrlParameter('keyword', window.location.search.substring(1)); 
+
+        if (this.search.isDefaultKeyword(searchValue)) searchValue = '';
 
         this.state = { value: searchValue ? searchValue : '', suggestions: [], openOverlay: false};
+
+        this.handleSuggestionsFetchRequestedDebounce = debounce(250, this.handleSuggestionsFetchRequested);
     }
 
-    getUrlParameter = (sParam, sPageURL) => {
-        const sURLVariables = sPageURL.split('&');
+    componentDidMount = () => {
+        const querystringParams = this.search.getParamsFromString();
 
-        for (let i = 0; i < sURLVariables.length; i++) {
-            const sParameterName = sURLVariables[i].split('=');
+        if (!querystringParams.keyword || this.search.isDefaultKeyword(querystringParams.keyword)) {
+            const searchTerm = this.sessionService.getSearchTerm();
 
-            if (sParameterName[0] === sParam) {
-                return sParameterName[1] === undefined
-                    ? true
-                    : decodeURIComponent(sParameterName[1]);
+            if (searchTerm) {
+                this.setState({value: searchTerm}, () => this.search.setUrlParameter(this.state.value, this.props.searchPath));
             }
         }
     }
-
-    setUrlParameter = () => {
-        const parameters = this.buildParameters(this.state.value);
-        const querystring = this.stringifyParameters(parameters);
-
-        window.location.href = `${this.props.searchPath}?${querystring}`;
-    }
-
-    buildParameters = (searchValue) => {
-        const keyword = searchValue ? searchValue : '*:*';
-        const sort = keyword === '*:*' ? 'most-recent' : 'most-relevant';
-
-        return { keyword, sort };
-    }
-
-    stringifyParameters = (parameters) => (Object.keys(parameters).length !== 0)
-            ? Object.keys(parameters).reduce((accumulator, currentValue) => 
-                `${accumulator}=${parameters[accumulator]}&${currentValue}=${parameters[currentValue]}`)
-            : '';
 
     render() {
         return (
@@ -83,7 +68,7 @@ class SearchBar extends Component {
 
         return(<Autosuggest
                     suggestions={this.state.suggestions}
-                    onSuggestionsFetchRequested={this.handleSuggestionsFetchRequested}
+                    onSuggestionsFetchRequested={this.handleSuggestionsFetchRequestedDebounce}
                     onSuggestionsClearRequested={this.handleSuggestionsClearRequested}
                     onSuggestionSelected={this.handleSuggestionSelected}
                     getSuggestionValue={this.getSuggestionValueCallback}
@@ -120,14 +105,19 @@ class SearchBar extends Component {
     handleClearIconClick = e => {
         const querystringParams = this.search.getParamsFromString();
 
-        if (!querystringParams.keyword || querystringParams.keyword === '*:*') {
-            // no keyword have been selected so no need to reload page
-            // simply clear out the search value and suggestions array
+        if (!querystringParams.keyword || this.search.isDefaultKeyword(querystringParams.keyword)) {
+            // no keyword has been selected so no need to reload page
             this.setState({value: '', suggestions: [], openOverlay: false});
+        } else if(querystringParams.keyword === this.state.value.toLowerCase()) {
+            // keyword has been selected and search term has not changed 
+            // so need to remove search term from session and reload page
+            this.sessionService.removeSearchTerm();
+
+            this.setState({ value: '', suggestions: [], openOverlay: false}, () => this.search.setUrlParameter(this.state.value, this.props.searchPath));
         } else {
-            // keyword has been selected so need to reload page
-            // and clear the state of the component
-            this.setState({ value: '', suggestions: [], openOverlay: false}, () => this.setUrlParameter());
+            // keyword has been selected and search term has changed so no need to reload page
+            // simply reset the search term with the previously selected search term
+            this.setState({value: querystringParams.keyword, suggestions: [], openOverlay: false});
         }
     };
 
@@ -164,7 +154,11 @@ class SearchBar extends Component {
 
     renderSuggestionCallback = suggestion => <div>{suggestion.value}</div>;
 
-    handleSuggestionSelected = (event, { suggestionValue}) => this.setState({value: suggestionValue, openOverlay: false}, () => this.setUrlParameter());
+    handleSuggestionSelected = (event, { suggestionValue}) => {
+        this.sessionService.setSearchTerm(suggestionValue);
+
+        this.setState({value: suggestionValue, openOverlay: false}, () => this.search.setUrlParameter(this.state.value, this.props.searchPath));
+    }
 
     addCssOverrides = () => document.getElementsByTagName('body')[0].classList.add(cssOverridesClassName);
 
