@@ -4,8 +4,7 @@
         padding-left: 0;
         list-style: none;
         position: relative;
-        margin-bottom: $space-xl;
-        margin-top: $space-s;
+        margin: $space-s 0 $space-xl 0;
     }
 
     &__item {
@@ -42,6 +41,7 @@
 }
 
 .cmp-breadcrumb-search {
+    margin: $space-s 0 $space-xl 0;
     &--disable {
         display: none;
     }
