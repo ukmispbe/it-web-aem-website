@@ -6,21 +6,19 @@ import com.cognifide.qa.bb.aem.core.component.configuration.ResourceFileLocation
 import com.cognifide.qa.bb.api.actions.ActionException;
 import com.cognifide.qa.bb.junit5.guice.Modules;
 import com.cognifide.qa.bb.modules.BobcatRunModule;
+import com.waters.aem.automationtests.components.Anchor;
 import com.waters.aem.automationtests.components.Text;
 import com.waters.aem.automationtests.components.Title;
 import com.waters.aem.automationtests.constants.WatersAutomationTestConstants;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Modules(BobcatRunModule.class)
 @Epic("Waters Automation Tests")
 @Feature("Application Notes Page")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ApplicationNotesPageTest extends AbstractWatersPageTest {
 
     @Test
@@ -30,8 +28,8 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
 
         final Title titleComponent = page.getContent(Title.class, 0);
 
-        assertThat(titleComponent.getText().equals("Title Test"));
-        assertThat(titleComponent.getType().equals("h2"));
+        assertThat(titleComponent.getText()).isEqualTo("Title Test");
+        assertThat(titleComponent.getType()).isEqualTo("h2");
     }
 
     @Test
@@ -41,14 +39,15 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
 
         final Text textComponent = page.getContent(Text.class, 0);
 
-        assertThat(textComponent.getTitle().equals("Title Test"));
-        assertThat(textComponent.getText().equals("Text Test"));
+        assertThat(textComponent.getTitle()).isEqualTo("Title Test");
+        assertThat(textComponent.getText()).isEqualTo("Text Test");
     }
 
     @Test
-    @Disabled
     public void anchor() {
+        final Anchor anchorComponent = page.getContent(Anchor.class, 0);
 
+        assertThat(anchorComponent.getLinkTitles()).containsExactly("Section 1", "Section 2", "Section 3");
     }
 
     @Override
