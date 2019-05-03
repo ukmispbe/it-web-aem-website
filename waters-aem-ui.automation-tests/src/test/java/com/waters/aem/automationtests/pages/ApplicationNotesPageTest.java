@@ -11,13 +11,16 @@ import com.waters.aem.automationtests.components.Title;
 import com.waters.aem.automationtests.constants.WatersAutomationTestConstants;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Modules(BobcatRunModule.class)
 @Epic("Waters Automation Tests")
 @Feature("Application Notes Page")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ApplicationNotesPageTest extends AbstractWatersPageTest {
 
     @Test
@@ -43,6 +46,7 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
     }
 
     @Test
+    @Disabled
     public void anchor() {
 
     }

@@ -7,7 +7,8 @@ import com.cognifide.qa.bb.api.actions.ActionException;
 import com.cognifide.qa.bb.api.actions.ActionsController;
 import com.cognifide.qa.bb.page.BobcatPageFactory;
 import com.google.inject.Inject;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 public abstract class AbstractWatersPageTest {
@@ -24,7 +25,7 @@ public abstract class AbstractWatersPageTest {
 
     protected abstract String getPageXmlFileName();
 
-    @BeforeEach
+    @BeforeAll
     public void loginAndCreatePage() throws ActionException {
         controller.execute(AemActions.LOG_IN);
 
@@ -34,17 +35,31 @@ public abstract class AbstractWatersPageTest {
         // create page
         controller.execute(AemActions.CREATE_PAGE_VIA_SLING, pageData);
 
-        final String path = new StringBuilder("/editor.html")
+        // open page
+        //page = bobcatPageFactory.create(getEditorPagePath(), WatersPage.class).open();
+
+        //controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container", "Title", 0,
+        //    new ResourceFileLocation("title.yaml")));
+
+        //controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container", "Text", 0,
+        //    new ResourceFileLocation("text.yaml")));
+    }
+
+    @BeforeEach
+    public void openPage() {
+        // open page
+        page = bobcatPageFactory.create(getEditorPagePath(), WatersPage.class).open();
+    }
+
+    @AfterAll
+    public void deletePage() throws ActionException {
+        controller.execute(AemActions.DELETE_PAGE_VIA_SLING, new SlingPageData(getPagePath()));
+    }
+
+    private String getEditorPagePath() {
+        return new StringBuilder("/editor.html")
             .append(getPagePath())
             .append(".html")
             .toString();
-
-        // open page
-        page = bobcatPageFactory.create(path, WatersPage.class).open();
-    }
-
-    @AfterEach
-    public void deletePage() throws ActionException {
-        controller.execute(AemActions.DELETE_PAGE_VIA_SLING, new SlingPageData(getPagePath()));
     }
 }
