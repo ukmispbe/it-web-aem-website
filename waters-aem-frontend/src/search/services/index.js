@@ -87,7 +87,7 @@ export class SearchService {
     }
 
     getSuggestedKeywords = async (rows, term) => {
-        const searchString = `${this.path}/v1/autocomplete?rows=${rows}&term=${term}`;
+        const searchString = `${this.path}/v1/autocomplete?term=${term}&rows=${rows}&isocode=${parameterDefaults.isocode}`;
 
         const response = await (await window.fetch(searchString)).json();
 
