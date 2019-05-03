@@ -1,0 +1,7 @@
+Properties:
+  - label: Title
+    type: TEXTFIELD
+    value: Title Test
+  - label:
+    type: RICHTEXT
+    value: Text Test

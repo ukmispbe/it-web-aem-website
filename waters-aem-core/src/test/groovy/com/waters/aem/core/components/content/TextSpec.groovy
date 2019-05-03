@@ -17,7 +17,8 @@ class TextSpec extends WatersSpec {
                 two {
                     "jcr:content" {
                         text(
-                            title: "Introduction"
+                            title: "Introduction",
+                            indexed: true
                         )
                     }
                 }
@@ -38,5 +39,20 @@ class TextSpec extends WatersSpec {
         resourcePath                           | title
         "/content/waters/one/jcr:content/text" | null
         "/content/waters/two/jcr:content/text" | "Introduction"
+    }
+
+    def "is indexed"() {
+        setup:
+        def textComponent = requestBuilder.build {
+            path = resourcePath
+        }.adaptTo(Text)
+
+        expect:
+        textComponent.indexed == indexed
+
+        where:
+        resourcePath                           | indexed
+        "/content/waters/one/jcr:content/text" | false
+        "/content/waters/two/jcr:content/text" | true
     }
 }
