@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import { SearchService } from './services/index';
+import { SearchService, parameterDefaults } from './services/index';
+import SessionService from './services/session-service';
 import { parse } from 'query-string';
 import { withRouter } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
@@ -11,7 +12,7 @@ import NoResults from './components/no-results';
 
 import Sort from './components/sort';
 import Filter from './components/filter';
-import {SubFacetTags, CategoryTags} from './components/filter-tags';
+import {SubFacetTags, CategoryTags, ClearAllTag, KeywordTag} from './components/filter-tags';
 import BtnShowSortFilter from './components/btn-show-sort-filter';
 import BtnHideSortFilter from './components/btn-hide-sort-filter';
 import BtnApplySortFilter from './components/btn-apply-sort-filter';
@@ -24,6 +25,7 @@ class Search extends Component {
         super();
         this.savedSelectFilterState = null;
         this.parentCategory = 'contenttype_facet';
+        this.sessionService = new SessionService();
     }
 
     componentWillMount() {
@@ -72,7 +74,8 @@ class Search extends Component {
             contentType,
             contentTypeSelected,
             facets: [],
-            filterMap: []
+            filterMap: [],
+            keyword: this.query.keyword
         });
 
         const checkWindowWidth = () => {
@@ -399,23 +402,28 @@ class Search extends Component {
         );
     }
 
-    handleContentTypeTagRemoval = () => {
+    handleResetSearchToDefault = () => {
         let query = this.search.createQueryObject(parse(window.location.search));
-        
-        delete query.content_type;
 
-        query.page = 1;
+        if(query.keyword && !this.search.isDefaultKeyword(query.keyword)) {
+            this.sessionService.removeSearchTerm();
+            this.search.setUrlParameter('', window.location.search.split('?')[0]);
+        } else {
+            delete query.content_type;
 
-        this.setState({searchParams: query, selectedFacets: {}, contentType: '', contentTypeSelected: {}});
+            query.page = parameterDefaults.page;
 
-        setTimeout(
-            () =>
-                this.pushToHistory(
-                    this.state.searchParams,
-                    this.state.selectedFacets
-                ),
-            0
-        );
+            this.setState({searchParams: query, selectedFacets: {}, contentType: '', contentTypeSelected: {}});
+
+            setTimeout(
+                () =>
+                    this.pushToHistory(
+                        this.state.searchParams,
+                        this.state.selectedFacets
+                    ),
+                0
+            );
+        }
     }
 
     getContentMenuOrFilter = (filterTags) => {
@@ -435,7 +443,7 @@ class Search extends Component {
                         items={this.state.filterMap}
                         click={this.handleContentTypeItemClick.bind(this)}
                         selectedValue={this.state.contentTypeSelected.categoryFacetValue}
-                        clear={this.handleContentTypeTagRemoval.bind(this)}>
+                        clear={this.handleResetSearchToDefault.bind(this)}>
                         <Filter
                             facets={this.state.facets}
                             text={this.props.searchText}
@@ -451,19 +459,38 @@ class Search extends Component {
     }
 
     getFilterTags = () => {
-        if (Object.entries(this.state.contentTypeSelected).length !== 0) {
+        if (this.isKeywordSelected() || this.isContentTypeSelected()) {
             return <div className="cmp-search-filters__tags clearfix">
-                    <CategoryTags 
-                        categoryKey="contentType"
-                        text={this.props.searchText} 
-                        selected={this.state.contentTypeSelected} 
-                        remove={this.handleContentTypeTagRemoval} />
+                    <ClearAllTag 
+                        text={this.props.searchText}
+                        onRemove={this.handleResetSearchToDefault} />
+                    {this.getKeywordTag()}
+                    {this.getCategoryTags()}
                     {this.getSubFacetTags()}
                 </div>;
         } else {
             return <div className="cmp-search-filters__emptytags"></div>;
         }
     }
+
+    isContentTypeSelected = () => (Object.entries(this.state.contentTypeSelected).length !== 0);
+
+    isKeywordSelected = () => !this.search.isDefaultKeyword(this.state.keyword);
+
+    getCategoryTags = () => this.isContentTypeSelected()
+        ? <CategoryTags 
+            categoryKey="contentType"
+            text={this.props.searchText} 
+            selected={this.state.contentTypeSelected} 
+            onRemove={this.handleResetSearchToDefault} />
+        : <></>;
+
+    getKeywordTag = () => this.isKeywordSelected()
+        ? <KeywordTag 
+            keyword={this.state.keyword} 
+            text={this.props.searchText}
+            onRemove={this.handleResetSearchToDefault}  /> 
+        : <></>;
 
     getSubFacetTags = () => {
         if (this.isInitialLoad(this.state.contentType) || !this.isFacetsSelected(this.state.searchParams.facets)) {
