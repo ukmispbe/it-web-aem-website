@@ -21,6 +21,8 @@
             margin-bottom: $space-s * -1;
 
             .react-autosuggest__suggestion {
+                color: $color-font-dark;
+                
                 .formatted-suggestion {
                     display: flex;
                     white-space: pre-wrap;
