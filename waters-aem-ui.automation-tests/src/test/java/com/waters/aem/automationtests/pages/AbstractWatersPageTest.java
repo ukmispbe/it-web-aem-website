@@ -34,13 +34,13 @@ public abstract class AbstractWatersPageTest {
         // create page
         controller.execute(AemActions.CREATE_PAGE_VIA_SLING, pageData);
 
-        final String path = new StringBuilder("/editor.html")
+        final String editorPagePath = new StringBuilder("/editor.html")
             .append(getPagePath())
             .append(".html")
             .toString();
 
         // open page
-        page = bobcatPageFactory.create(path, WatersPage.class).open();
+        page = bobcatPageFactory.create(editorPagePath, WatersPage.class).open();
     }
 
     @AfterEach
