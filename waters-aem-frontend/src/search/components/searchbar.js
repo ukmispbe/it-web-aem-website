@@ -17,7 +17,7 @@ class SearchBar extends Component {
 
         this.searchBarRef = React.createRef();
 
-        this.search = new SearchService({path: this.props.baseUrl});
+        this.search = new SearchService({}, '', this.props.baseUrl);
 
         this.sessionService = new SessionService();
 
