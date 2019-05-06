@@ -3,8 +3,48 @@
     float: left;
     margin-bottom: $space-m;
     position: relative;
+    z-index: 9999;
 
-    &__input {
+    .react-autosuggest__suggestions-container {
+        position: absolute;
+        width: 100%;
+        padding: $space-s;
+        border: $color-border-light;
+        background-color: inherit;
+        top: $space-xxl;
+        @include font-body;
+
+        .react-autosuggest__suggestions-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: $space-s * -1;
+            margin-bottom: $space-s * -1;
+
+            .react-autosuggest__suggestion {
+                .formatted-suggestion {
+                    display: flex;
+                    white-space: pre-wrap;
+                }
+            }
+
+            .react-autosuggest__suggestion:hover {
+                color: $color-link;
+                cursor: pointer;
+            }
+
+            .emphasis-matching-characters {
+                border-bottom: 1px solid $color-teal-50;
+            }
+        }
+
+        margin-bottom: 0px;
+    }
+
+    .react-autosuggest__suggestions-container--open {
+        background-color: $color-white;
+    }
+
+    .react-autosuggest__input {
         @include font-body;
         font-size: $font-size-h3;
         float: left;
@@ -23,24 +63,28 @@
         }
     }
 
-    &__icon-search {
-        svg {
-            position: absolute;
-            right: $space-s;
-            top: $space-s;
-            width: $icon-l;
-            height: $icon-l;
-            
-            .st0 {
-                stroke: $color-icon;
+    &__icons {
+        display: flex;
+        position: absolute;
+        top: $space-s;
+        right: $space-s;
+
+        &-search {
+            svg {
+                width: $icon-l;
+                height: $icon-l;
+                cursor: pointer;
+                
+                .st0 {
+                    stroke: $color-icon;
+                }
             }
         }
 
-        &--clear {
+        &-clear {
+            margin-right: $space-m;
+
             svg {
-                position: absolute;
-                right: $space-s;
-                top: $space-s;
                 width: $icon-l;
                 height: $icon-l;
                 cursor: pointer;
@@ -50,5 +94,43 @@
                 }
             }
         }
+    }
+}
+
+.cmp-search-bar--focus {
+    .cmp-search-bar__icons-search {
+        svg {
+            .st0 {
+                stroke: $color-link;
+            }
+        }
+    }
+}
+
+/*
+    These overrides prevents the auto suggestions list from the following:
+    -   getting cut off due to the banner overflow-y property
+    -   showing the sort by drop down and icon on top
+    -   showing the search results on top
+    -   displaying a gap between the search textbox and suggestions list
+*/
+body.cmp-search-bar__auto-suggest--open {
+    .cmp-banner {
+        overflow-y: unset;
+    }
+
+    .cmp-search-sortby__select {
+        select, svg {
+            z-index: -1;
+        }
+    }
+
+    .searchresults {
+        z-index: -1;
+        position: relative;
+    }
+
+    .cmp-search-bar {
+        background-color: $color-white;
     }
 }
