@@ -117,6 +117,11 @@
                             <target>/apps/waters/install</target>
                         </embedded>
                         <embedded>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>${hybris.artifactId}</artifactId>
+                            <target>/apps/waters/install</target>
+                        </embedded>
+                        <embedded>
                             <groupId>com.icfolson.aem.library</groupId>
                             <artifactId>aem-library-core</artifactId>
                             <target>/apps/waters/install</target>
@@ -273,6 +278,11 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>${pdfgenerator.artifactId}</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${hybris.artifactId}</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
