@@ -15,7 +15,7 @@ const parameterDefaults = {
     rows: 25,
     keyword: '*:*',
     content_type: '',
-    sort: parameterValues.mostRecent
+    sort: parameterValues.sort.mostRecent
 }
 
 class SearchService {

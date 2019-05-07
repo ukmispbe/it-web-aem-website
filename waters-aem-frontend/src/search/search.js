@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { SearchService, parameterDefaults } from './services/index';
 import SessionService from './services/session-service';
-import { parse } from 'query-string';
+import { parse, stringify } from 'query-string';
 import { withRouter } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import ReactSVG from 'react-svg';
@@ -60,12 +60,12 @@ class Search extends Component {
             loading: true,
             results: {},
             pagination: {
-                current: this.query.page ? this.query.page : 1,
+                current: this.query.page ? this.query.page : parameterDefaults.page,
             },
             rows: this.props.searchDefaults
                 ? this.props.searchDefaults && this.props.searchDefaults.rows
                 : 25,
-            sort: this.query.sort,
+            sort: this.query.sort ? this.query.sort : parameterDefaults.sort,
             selectedFacets: this.query.selectedFacets || {},
             unappliedFilters: {},
             isDesktop: false,
@@ -75,7 +75,7 @@ class Search extends Component {
             contentTypeSelected,
             facets: [],
             filterMap: [],
-            keyword: this.query.keyword
+            keyword: this.query.keyword ? this.query.keyword : parameterDefaults.keyword
         });
 
         const checkWindowWidth = () => {
@@ -406,9 +406,14 @@ class Search extends Component {
         let query = this.search.createQueryObject(parse(window.location.search));
 
         if(query.keyword && !this.search.isDefaultKeyword(query.keyword)) {
+            // removing the keyword tag requires a reload of the page 
+            // so the search bar also removes the search term
+
             this.sessionService.removeSearchTerm();
-            this.search.setUrlParameter('', window.location.search.split('?')[0]);
+            this.search.setUrlParameter('', window.location.pathname);
         } else {
+            // no keyword has been selected so no need to reload page
+            // simply clear active filters and update the route
             delete query.content_type;
 
             query.page = parameterDefaults.page;
@@ -424,6 +429,40 @@ class Search extends Component {
                 0
             );
         }
+    }
+
+    handleRemoveKeyword = () => {
+        // removing the keyword tag requires a reload of the page 
+        // so the search bar also removes the search term
+        // however, this will retain other active filters
+
+        this.sessionService.removeSearchTerm();
+
+        const parameters = parse(window.location.search);
+
+        parameters.keyword = parameterDefaults.keyword;
+        parameters.page = parameterDefaults.page;
+
+        window.location.href = `${window.location.pathname}?${stringify(parameters)}`;
+    }
+
+    handleRemoveCategory = () => {
+        const parameters = parse(window.location.search);
+
+        delete parameters.content_type;
+
+        parameters.page = parameterDefaults.page;
+
+        this.setState({searchParams: parameters, selectedFacets: {}, contentType: '', contentTypeSelected: {}});
+
+        setTimeout(
+            () =>
+                this.pushToHistory(
+                    this.state.searchParams,
+                    this.state.selectedFacets
+                ),
+            0
+        );
     }
 
     getContentMenuOrFilter = (filterTags) => {
@@ -482,14 +521,14 @@ class Search extends Component {
             categoryKey="contentType"
             text={this.props.searchText} 
             selected={this.state.contentTypeSelected} 
-            onRemove={this.handleResetSearchToDefault} />
+            onRemove={this.handleRemoveCategory} />
         : <></>;
 
     getKeywordTag = () => this.isKeywordSelected()
         ? <KeywordTag 
             keyword={this.state.keyword} 
             text={this.props.searchText}
-            onRemove={this.handleResetSearchToDefault}  /> 
+            onRemove={this.handleRemoveKeyword}  /> 
         : <></>;
 
     getSubFacetTags = () => {
