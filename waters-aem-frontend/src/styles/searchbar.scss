@@ -12,7 +12,6 @@
         border: $color-border-light;
         background-color: inherit;
         top: $space-xxl;
-        @include font-body;
 
         .react-autosuggest__suggestions-list {
             list-style: none;
@@ -21,6 +20,8 @@
             margin-bottom: $space-s * -1;
 
             .react-autosuggest__suggestion {
+                @include font-body;
+
                 .formatted-suggestion {
                     display: flex;
                     white-space: pre-wrap;
