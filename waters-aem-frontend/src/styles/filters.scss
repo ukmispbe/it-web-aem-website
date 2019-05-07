@@ -150,6 +150,7 @@
                 padding-right: $space-xl;
             }
             svg {
+                z-index: 1;
                 position: absolute;
                 top: 9px;
                 right: 10px;
@@ -158,6 +159,10 @@
                 .st0 {
                     stroke: $color-icon;
                 }
+            }
+
+            .closeIcon {
+                cursor: pointer;
             }
         }
         &__year {
