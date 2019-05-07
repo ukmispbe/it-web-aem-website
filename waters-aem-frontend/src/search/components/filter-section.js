@@ -69,7 +69,6 @@ class FilterSection extends Component {
     };
 
     handleClearClick = (minCharSearch, items) => {
-        console.log('hello');
         this.setStateForSearchValue('');
         this.setStateForItems(this.filterList('', minCharSearch, items));
     };
