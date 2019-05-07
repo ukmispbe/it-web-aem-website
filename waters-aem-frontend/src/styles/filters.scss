@@ -377,6 +377,7 @@
             padding: $space-xs $space-s;
             border: 1px solid $color-border-dark;
             position: relative;
+            cursor: pointer;
             &:hover,
             &:focus {
                 color: $color-link;
@@ -398,6 +399,7 @@
             width: $icon-m;
             height: $icon-m;
             z-index: -1;
+            cursor: pointer;
             .st0 {
                 stroke: $color-icon;
             }

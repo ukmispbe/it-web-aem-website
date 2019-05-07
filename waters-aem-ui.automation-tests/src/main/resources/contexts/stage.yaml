@@ -1,0 +1,2 @@
+stage:
+  webdriver.arguments: --headless,--disable-gpu,--window-size=1280,800

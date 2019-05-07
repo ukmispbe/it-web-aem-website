@@ -54,20 +54,20 @@ public final class ApplicationNotes implements ContentClassification {
     @Inject
     private PageDecorator page;
 
-    @DialogField(fieldLabel = "Author", ranking = 1)
+    @DialogField(fieldLabel = "Literature Code (without language code)", ranking = 1)
+    @TextField
+    @Inject
+    private String literatureCode;
+
+    @DialogField(fieldLabel = "Author", ranking = 2)
     @TagInputField
     @WatersTagInject
     private List<Tag> author = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Affiliations", ranking = 2)
+    @DialogField(fieldLabel = "Affiliations", ranking = 3)
     @TagInputField
     @WatersTagInject
     private List<Tag> affiliations = Collections.emptyList();
-
-    @DialogField(fieldLabel = "Literature Code", ranking = 3)
-    @TextField
-    @Inject
-    private String literatureCode;
 
     @DialogField(fieldLabel = "Category", ranking = 4)
     @TagInputField

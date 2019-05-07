@@ -19,6 +19,7 @@
         <module>waters-aem-ui.apps</module>
         <module>waters-aem-ui.content</module>
         <module>waters-aem-ui.tests</module>
+        <module>waters-aem-ui.automation-tests</module>
     </modules>
 
     <properties>
@@ -259,7 +260,6 @@
                     <artifactId>maven-bundle-plugin</artifactId>
                     <version>4.1.0</version>
                     <extensions>true</extensions>
-                    <!--<inherited>true</inherited>-->
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>

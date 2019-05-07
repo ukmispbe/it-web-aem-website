@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
+          xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="cq:Page">
+    <jcr:content
+        jcr:primaryType="cq:PageContent"
+        cq:template="/conf/waters/settings/wcm/templates/application-notes-page"
+        sling:resourceType="waters/components/structure/page"
+        jcr:title="Application Notes Page Title"
+        jcr:description="Application Notes Page Description"
+        browserTitle="Application Notes Page Title"
+        pageTitle="Application Notes Page Title"
+        affiliations="[waters:affiliations/waters-corporation]"
+        author="[waters:author/michael-s-young,waters:author/kim-van-tran]"
+        category="[waters:category/library]"
+        columnType="[waters:columntype/uplc]"
+        compoundMatrix="[waters:compoundmatrix/mycotoxins,waters:compoundmatrix/wheat]"
+        contentType="[waters:contenttype/applicationbrief]"
+        instrumentType="[waters:instrumenttype/uplc]"
+        literatureCode="720005893"
+        market="[waters:market/food]"
+        monthPublished="[waters:monthpublished/march]"
+        separationMode="[waters:technique/lc-ms-or-ms]"
+        software="[waters:software/masslynx]"
+        technique="[waters:separationmode/reversed-phase]"
+        yearPublished="[waters:yearpublished/2018]">
+        <root
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="waters/components/content/layoutcontainer">
+            <title
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="waters/components/content/title"/>
+            <text
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="waters/components/content/text"/>
+            <taglist
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="waters/components/content/applicationnotes/taglist"
+                tagListType="tags_from_current_page"
+                tags="[waters:contenttype]"/>
+            <button
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="waters/components/content/button"
+                buttonLink="https://www.waters.com/webassets/cms/library/docs/720005893en.pdf"
+                buttonText="Download PDF"
+                buttonToolTip="Download PDF"
+                newWindow="true"/>
+            <anchor
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="waters/components/content/anchor"/>
+            <sectioncontainer1
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="waters/components/content/applicationnotes/sectioncontainer"
+                title="Section 1"/>
+            <sectioncontainer2
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="waters/components/content/applicationnotes/sectioncontainer"
+                title="Section 2"/>
+            <sectioncontainer3
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="waters/components/content/applicationnotes/sectioncontainer"
+                title="Section 3"/>
+        </root>
+    </jcr:content>
+</jcr:root>
