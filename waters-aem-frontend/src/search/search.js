@@ -638,6 +638,7 @@ class Search extends Component {
                 <Results
                     results={state.results[searchParams.page] || []}
                     locale={locale}
+                    nextIcon={this.props.searchText.nextIcon}
                 />
 
                 {state.count > this.props.searchDefaults.rows ? (
