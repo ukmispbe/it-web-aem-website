@@ -109,8 +109,8 @@ class SearchBar extends Component {
     handleSearchValueBlur = (event, { highlightedSuggestion }) => this.removeSearchBarFocusCss();
 
     handleSuggestionsFetchRequested = async ({ value }) => {
-        const suggestions = !(value.length < this.props.minSearchCharacters) 
-            ? this.formatSuggestions(value.trim(), (await this.search.getSuggestedKeywords(this.props.maxSuggestions, value)))
+        const suggestions = !(this.state.value.length < this.props.minSearchCharacters) 
+            ? this.formatSuggestions(this.state.value.trim(), (await this.search.getSuggestedKeywords(this.props.maxSuggestions, this.state.value)))
             : [];
 
         const openOverlay = suggestions.length !== 0;
