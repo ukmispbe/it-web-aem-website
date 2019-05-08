@@ -13,9 +13,9 @@ class Category {
 
     String url
 
-    List<Category> subcategories
+    List<Category> subcategories = []
 
-    List<Product> products
+    List<Product> products = []
 
     @JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     Calendar lastModified

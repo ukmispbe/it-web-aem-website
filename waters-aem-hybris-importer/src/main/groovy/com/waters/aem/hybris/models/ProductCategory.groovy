@@ -3,13 +3,9 @@ package com.waters.aem.hybris.models
 import groovy.transform.ToString
 
 @ToString(includePackage = false, includeNames = true)
-class Price {
+class ProductCategory {
 
-    String currencyIso
+    String code
 
-    String priceType
-
-    Double value
-
-    String formattedValue
+    String url
 }

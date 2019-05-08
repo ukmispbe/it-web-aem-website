@@ -10,5 +10,5 @@ public interface HybrisClient {
 
     Category getRootCategory() throws URISyntaxException, IOException;
 
-    Product getProduct(String productId) throws URISyntaxException, IOException;
+    Product getProduct(String productCode) throws URISyntaxException, IOException;
 }

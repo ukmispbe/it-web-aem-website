@@ -3,7 +3,11 @@ package com.waters.aem.hybris.models
 import groovy.transform.ToString
 
 @ToString(includePackage = false, includeNames = true)
-class CatalogList {
+class Classification {
 
-    List<Catalog> catalogs
+    String code
+
+    List<Feature> features = []
+
+    String name
 }

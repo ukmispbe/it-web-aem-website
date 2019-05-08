@@ -3,9 +3,7 @@ package com.waters.aem.hybris.models
 import groovy.transform.ToString
 
 @ToString(includePackage = false, includeNames = true)
-class StockLevelStatus {
+class FeatureUnitValue {
 
-    String code
-
-    String codeLowerCase
+    String value
 }

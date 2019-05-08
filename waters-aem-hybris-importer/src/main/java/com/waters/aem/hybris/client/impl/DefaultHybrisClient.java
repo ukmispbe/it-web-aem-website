@@ -28,6 +28,8 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collections;
+import java.util.Map;
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 
@@ -53,43 +55,30 @@ public final class DefaultHybrisClient implements HybrisClient {
 
     @Override
     public Category getRootCategory() throws URISyntaxException, IOException {
-        final URI uri = new URIBuilder()
-            .setScheme("https")
-            .setHost(hostname)
-            .setPath(new StringBuilder()
-                .append("/waterscommercewebservices/v2/waters/catalogs/")
-                .append(catalogId)
-                .append("/")
-                .append(catalogVersionId)
-                .append("/categories/")
-                .append(webRootCategoryId)
-                .toString())
-            .build();
+        final String path = new StringBuilder()
+            .append("/catalogs/")
+            .append(catalogId)
+            .append("/")
+            .append(catalogVersionId)
+            .append("/categories/")
+            .append(webRootCategoryId)
+            .toString();
 
-        LOG.debug("getting root category for URI : {}", uri.toString());
+        final Map<String, String> queryParams = Collections.singletonMap("fields", "FULL");
 
-        final HttpUriRequest request = RequestBuilder.get(uri)
-            .addHeader(HttpHeaders.ACCEPT, JSON.getMimeType())
-            .addHeader(HttpHeaders.CONTENT_TYPE, JSON.getMimeType())
-            .build();
-
-        final HttpResponse response = httpClient.execute(request);
-
-        final StatusLine statusLine = response.getStatusLine();
-        final String responseBody = EntityUtils.toString(response.getEntity());
-
-        LOG.debug("response body : {}", responseBody);
-
-        if (statusLine.getStatusCode() >= 300) {
-            throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
-        }
-
-        return MAPPER.readValue(responseBody, Category.class);
+        return getModel(path, queryParams, Category.class);
     }
 
     @Override
-    public Product getProduct(final String productId) {
-        return null;
+    public Product getProduct(final String productCode) throws URISyntaxException, IOException {
+        final String path = new StringBuilder()
+            .append("/products/")
+            .append(productCode)
+            .toString();
+
+        final Map<String, String> queryParams = Collections.singletonMap("fields", "FULL");
+
+        return getModel(path, queryParams, Product.class);
     }
 
     @Activate
@@ -113,5 +102,44 @@ public final class DefaultHybrisClient implements HybrisClient {
     @Deactivate
     protected void deactivate() throws IOException {
         httpClient.close();
+    }
+
+    private <T> T getModel(final String path, final Map<String, String> queryParams, final Class<T> clazz)
+        throws IOException, URISyntaxException {
+        final URI uri = buildUri(path, queryParams);
+
+        LOG.debug("sending request for URI : {}", uri.toString());
+
+        final HttpUriRequest request = RequestBuilder.get(uri)
+            .addHeader(HttpHeaders.ACCEPT, JSON.getMimeType())
+            .addHeader(HttpHeaders.CONTENT_TYPE, JSON.getMimeType())
+            .build();
+
+        final HttpResponse response = httpClient.execute(request);
+
+        final StatusLine statusLine = response.getStatusLine();
+        final String responseBody = EntityUtils.toString(response.getEntity());
+
+        LOG.debug("response body : {}", responseBody);
+
+        if (statusLine.getStatusCode() >= 300) {
+            throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
+        }
+
+        return MAPPER.readValue(responseBody, clazz);
+    }
+
+    private URI buildUri(final String path, final Map<String, String> queryParams) throws URISyntaxException {
+        final URIBuilder builder = new URIBuilder()
+            .setScheme("https")
+            .setHost(hostname)
+            .setPath(new StringBuilder()
+                .append("/waterscommercewebservices/v2/waters")
+                .append(path)
+                .toString());
+
+        queryParams.forEach(builder :: addParameter);
+
+        return builder.build();
     }
 }

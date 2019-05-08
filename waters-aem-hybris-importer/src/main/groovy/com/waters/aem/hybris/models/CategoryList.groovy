@@ -12,5 +12,5 @@ class CategoryList {
     @JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     Calendar lastModified
 
-    List<Category> categories
+    List<Category> categories = []
 }
