@@ -102,24 +102,7 @@ class SearchBar extends Component {
         }
     }
 
-    handleClearIconClick = e => {
-        const querystringParams = this.search.getParamsFromString();
-
-        if (!querystringParams.keyword || this.search.isDefaultKeyword(querystringParams.keyword)) {
-            // no keyword has been selected so no need to reload page
-            this.setState({value: '', suggestions: [], openOverlay: false});
-        } else if(querystringParams.keyword === this.state.value.toLowerCase()) {
-            // keyword has been selected and search term has not changed 
-            // so need to remove search term from session and reload page
-            this.sessionService.removeSearchTerm();
-
-            this.setState({ value: '', suggestions: [], openOverlay: false}, () => this.search.setUrlParameter(this.state.value, this.props.searchPath));
-        } else {
-            // keyword has been selected and search term has changed so no need to reload page
-            // simply reset the search term with the previously selected search term
-            this.setState({value: querystringParams.keyword, suggestions: [], openOverlay: false});
-        }
-    };
+    handleClearIconClick = e => this.setState({value: '', suggestions: [], openOverlay: false});
 
     handleSearchValueChange = (event, { newValue }) => this.setState({value: newValue});
 
