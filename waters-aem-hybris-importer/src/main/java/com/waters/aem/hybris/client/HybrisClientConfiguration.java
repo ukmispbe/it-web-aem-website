@@ -17,4 +17,7 @@ public @interface HybrisClientConfiguration {
 
     @AttributeDefinition(name = "Web Root Category ID")
     String webRootCategoryId() default "Web";
+
+    @AttributeDefinition(name = "Product List Page Size")
+    int pageSize() default 50;
 }

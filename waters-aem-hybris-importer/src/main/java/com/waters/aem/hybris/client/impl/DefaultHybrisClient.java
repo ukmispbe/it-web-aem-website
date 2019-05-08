@@ -1,10 +1,13 @@
 package com.waters.aem.hybris.client.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.ImmutableMap;
 import com.waters.aem.hybris.client.HybrisClient;
 import com.waters.aem.hybris.client.HybrisClientConfiguration;
+import com.waters.aem.hybris.constants.HybrisImporterConstants;
 import com.waters.aem.hybris.models.Category;
 import com.waters.aem.hybris.models.Product;
+import com.waters.aem.hybris.models.ProductList;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -28,6 +31,8 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Map;
 
@@ -53,6 +58,8 @@ public final class DefaultHybrisClient implements HybrisClient {
 
     private volatile String webRootCategoryId;
 
+    private volatile Integer pageSize;
+
     @Override
     public Category getRootCategory() throws URISyntaxException, IOException {
         final String path = new StringBuilder()
@@ -67,6 +74,30 @@ public final class DefaultHybrisClient implements HybrisClient {
         final Map<String, String> queryParams = Collections.singletonMap("fields", "FULL");
 
         return getModel(path, queryParams, Category.class);
+    }
+
+    @Override
+    public ProductList getProductList(final Integer pageNumber) throws URISyntaxException, IOException {
+        return getProductList(pageNumber, null);
+    }
+
+    @Override
+    public ProductList getProductList(final Integer pageNumber, final Calendar modifiedAfterTime)
+        throws URISyntaxException, IOException {
+
+        final ImmutableMap.Builder<String, String> queryParamsBuilder = new ImmutableMap.Builder<String, String>()
+            .put("catalog", catalogId)
+            .put("version", catalogVersionId)
+            .put("currentPage", String.valueOf(pageNumber))
+            .put("pageSize", String.valueOf(pageSize))
+            .put("fields", "FULL");
+
+        if (modifiedAfterTime != null) {
+            queryParamsBuilder.put("timestamp", new SimpleDateFormat(HybrisImporterConstants.DATE_FORMAT_PATTERN)
+                .format(modifiedAfterTime.getTime()));
+        }
+
+        return getModel("/export/products", queryParamsBuilder.build(), ProductList.class);
     }
 
     @Override
@@ -97,6 +128,7 @@ public final class DefaultHybrisClient implements HybrisClient {
         catalogId = configuration.catalogId();
         catalogVersionId = configuration.catalogVersionId();
         webRootCategoryId = configuration.webRootCategoryId();
+        pageSize = configuration.pageSize();
     }
 
     @Deactivate
