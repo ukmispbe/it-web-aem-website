@@ -2,9 +2,9 @@ package com.waters.aem.hybris.models
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonFormat.Shape
-import groovy.transform.ToString
+import com.google.common.base.Objects
+import com.waters.aem.hybris.constants.HybrisImporterConstants
 
-@ToString(includePackage = false, includeNames = true, excludes = ["subcategories", "products"])
 class Category {
 
     String id
@@ -15,8 +15,19 @@ class Category {
 
     List<Category> subcategories = []
 
-    List<Product> products = []
+    // List<Product> products = []
 
-    @JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+    @JsonFormat(shape = Shape.STRING, pattern = HybrisImporterConstants.DATE_FORMAT_PATTERN)
     Calendar lastModified
+
+    @Override
+    String toString() {
+        Objects.toStringHelper(this)
+            .add("id", id)
+            .add("name", name)
+            .add("url", url)
+            .add("subcategories", subcategories)
+            .add("lastModified", lastModified.format(HybrisImporterConstants.DATE_FORMAT_PATTERN))
+            .toString()
+    }
 }
