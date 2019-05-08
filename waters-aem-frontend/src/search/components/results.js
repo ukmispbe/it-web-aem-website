@@ -13,10 +13,6 @@ const Result = ({ result, locale, nextIcon }) => {
         </div>
     );
 
-    const date = new Date(result.datepublished);
-    const monthName = monthNameFormatter(date, locale);
-    const formattedDate = monthName + ' ' + date.getFullYear();
-
     const setStorageProperties = () => {
         const scrolled =
             (window.pageYOffset || window.document.scrollTop) -
