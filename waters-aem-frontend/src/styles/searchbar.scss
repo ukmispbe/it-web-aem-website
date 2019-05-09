@@ -114,6 +114,7 @@
     -   showing the sort by drop down and icon on top
     -   showing the search results on top
     -   displaying a gap between the search textbox and suggestions list
+    -   hiding the title under the overlay
 */
 body.cmp-search-bar__auto-suggest--open {
     .cmp-banner {
@@ -133,5 +134,10 @@ body.cmp-search-bar__auto-suggest--open {
 
     .cmp-search-bar {
         background-color: $color-white;
+    }
+
+    .cmp-title {
+        position: relative;
+        z-index: 9999;
     }
 }
