@@ -482,7 +482,7 @@ class Search extends Component {
                         items={this.state.filterMap}
                         click={this.handleContentTypeItemClick.bind(this)}
                         selectedValue={this.state.contentTypeSelected.categoryFacetValue}
-                        clear={this.handleResetSearchToDefault.bind(this)}>
+                        clear={this.handleRemoveCategory.bind(this)}>
                         <Filter
                             facets={this.state.facets}
                             text={this.props.searchText}
@@ -638,6 +638,7 @@ class Search extends Component {
                 <Results
                     results={state.results[searchParams.page] || []}
                     locale={locale}
+                    nextIcon={this.props.searchText.nextIcon}
                 />
 
                 {state.count > this.props.searchDefaults.rows ? (
