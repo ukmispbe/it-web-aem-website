@@ -139,8 +139,8 @@ class SearchBar extends Component {
 
     handleSuggestionSelected = (event, { suggestionValue}) => {
         this.sessionService.setSearchTerm(suggestionValue);
-
-        this.setState({value: suggestionValue, openOverlay: false}, () => this.search.setUrlParameter(this.state.value, this.props.searchPath));
+        this.removeCssOverrides();
+        this.setState({value: suggestionValue, suggestions: [], openOverlay: false}, () => this.search.setUrlParameter(this.state.value, this.props.searchPath));
     }
 
     addCssOverrides = () => document.getElementsByTagName('body')[0].classList.add(cssOverridesClassName);
