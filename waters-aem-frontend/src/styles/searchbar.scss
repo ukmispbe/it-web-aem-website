@@ -15,7 +15,7 @@
 
         .react-autosuggest__suggestions-list {
             list-style: none;
-            padding-left: 0;
+            padding-left: $space-xxxs;
             margin-top: $space-s * -1;
             margin-bottom: $space-s * -1;
 
@@ -34,7 +34,7 @@
             }
 
             .emphasis-matching-characters {
-                border-bottom: 1px solid $color-teal-50;
+                font-weight: $font-weight-bold;
             }
         }
 
@@ -68,7 +68,7 @@
         display: flex;
         position: absolute;
         top: $space-s;
-        right: $space-s;
+        right: $space-m;
 
         &-search {
             svg {
