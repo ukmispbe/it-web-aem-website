@@ -10,6 +10,7 @@ import com.waters.aem.hybris.audit.HybrisImporterAuditService;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
 import com.waters.aem.hybris.executor.HybrisCatalogImporterExecutor;
 import com.waters.aem.hybris.importer.HybrisCatalogImporter;
+import com.waters.aem.hybris.notification.HybrisImporterNotificationService;
 import com.waters.aem.hybris.result.HybrisImporterExecutionResult;
 import com.waters.aem.hybris.result.HybrisImporterResult;
 import org.osgi.service.component.annotations.Activate;
@@ -34,6 +35,9 @@ public final class DefaultHybrisCatalogImporterExecutor implements HybrisCatalog
 
     @Reference
     private HybrisImporterAuditService auditService;
+
+    @Reference
+    private HybrisImporterNotificationService notificationService;
 
     /** Single-thread executor for asynchronous import will block to ensure only one import process runs at a time. **/
     private ListeningExecutorService executorService;
@@ -66,6 +70,7 @@ public final class DefaultHybrisCatalogImporterExecutor implements HybrisCatalog
                 LOG.info("import success, creating audit record...");
 
                 auditService.createAuditRecord(result);
+                notificationService.notify(result);
             }
 
             @Override
@@ -73,6 +78,7 @@ public final class DefaultHybrisCatalogImporterExecutor implements HybrisCatalog
                 LOG.error("import failure, creating audit record...", throwable);
 
                 auditService.createAuditRecord(throwable);
+                notificationService.notify(throwable);
             }
         }, executorService);
 

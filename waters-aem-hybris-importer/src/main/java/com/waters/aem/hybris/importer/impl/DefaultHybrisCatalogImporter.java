@@ -120,12 +120,14 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             results.addAll(importCategoryPage(pageManager, categoryPage, subcategory));
         }
 
+        // TODO import products for category
+
         return results;
     }
 
     private HybrisImporterResult importPage(final PageManagerDecorator pageManager, final PageDecorator parentPage,
         final Category category) throws WCMException {
-        LOG.info("importing page for category = {}", category);
+        LOG.info("importing page for category : {}", category);
 
         final String name = getPageName(category.getName());
 
@@ -137,7 +139,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             page = pageManager.create(parentPage.getPath(), name, WatersConstants.TEMPLATE_CATEGORY_PAGE,
                 category.getName(), false);
 
-            LOG.info("created category page = {}", page.getPath());
+            LOG.info("created category page : {}", page.getPath());
 
             status = HybrisImportStatus.CREATED;
         } else {
@@ -151,7 +153,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
                 status = HybrisImportStatus.IGNORED;
             }
 
-            LOG.info("found existing category page = {}, status = {}", page.getPath(), status.name());
+            LOG.info("found existing category page : {}, status : {}", page.getPath(), status.name());
         }
 
         if (status != HybrisImportStatus.IGNORED) {

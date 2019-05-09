@@ -13,4 +13,3 @@ public interface HybrisCatalogImporter {
      */
     List<HybrisImporterResult> importCatalogPages();
 }
-

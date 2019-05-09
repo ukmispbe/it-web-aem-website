@@ -24,7 +24,7 @@ public final class HybrisImporterResult {
 
     private HybrisImportStatus status;
 
-    public HybrisImporterResult(final String path, final String title, final HybrisImportStatus status) {
+    private HybrisImporterResult(final String path, final String title, final HybrisImportStatus status) {
         this.path = path;
         this.title = title;
         this.status = status;

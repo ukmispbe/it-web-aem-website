@@ -8,13 +8,48 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Calendar;
 
+/**
+ * REST client for consuming catalog data from hybris OCC services.
+ */
 public interface HybrisClient {
 
+    /**
+     * Get the web root category.
+     *
+     * @return category model
+     * @throws URISyntaxException if hybris OCC URI is invalid
+     * @throws IOException if HTTP request returns an invalid response
+     */
     Category getRootCategory() throws URISyntaxException, IOException;
 
+    /**
+     * Get a list of products.
+     *
+     * @param pageNumber result set page number (starting with 0)
+     * @return product list model
+     * @throws URISyntaxException if hybris OCC URI is invalid
+     * @throws IOException if HTTP request returns an invalid response
+     */
     ProductList getProductList(Integer pageNumber) throws URISyntaxException, IOException;
 
+    /**
+     * Get a list of products.
+     *
+     * @param pageNumber result set page number (starting with 0)
+     * @param modifiedAfterTime if specified, only products updated after the given time will be included
+     * @return product list model
+     * @throws URISyntaxException if hybris OCC URI is invalid
+     * @throws IOException if HTTP request returns an invalid response
+     */
     ProductList getProductList(Integer pageNumber, Calendar modifiedAfterTime) throws URISyntaxException, IOException;
 
+    /**
+     * Get the product for the given product code.
+     *
+     * @param productCode product code
+     * @return product model
+     * @throws URISyntaxException if hybris OCC URI is invalid
+     * @throws IOException if HTTP request returns an invalid response
+     */
     Product getProduct(String productCode) throws URISyntaxException, IOException;
 }

@@ -134,9 +134,7 @@ public final class DefaultHybrisImporterAuditService implements HybrisImporterAu
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
             final Resource auditResource = resourceResolver.getResource(PATH_AUDIT);
 
-            Calendar currentDate = startDate;
-
-            while (!currentDate.after(endDate)) {
+            while (!startDate.after(endDate)) {
                 final String currentDateRelativePath = dateFormat.format(startDate.getTime());
 
                 final Resource currentDateResource = auditResource.getChild(currentDateRelativePath);
@@ -147,7 +145,7 @@ public final class DefaultHybrisImporterAuditService implements HybrisImporterAu
                     }
                 }
 
-                currentDate.add(Calendar.DAY_OF_MONTH, 1);
+                startDate.add(Calendar.DAY_OF_MONTH, 1);
             }
         } catch (LoginException e) {
             throw new RuntimeException(e);

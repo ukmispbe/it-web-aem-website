@@ -15,8 +15,6 @@ class Category {
 
     List<Category> subcategories = []
 
-    // List<Product> products = []
-
     @JsonFormat(shape = Shape.STRING, pattern = HybrisImporterConstants.DATE_FORMAT_PATTERN)
     Calendar lastModified
 
