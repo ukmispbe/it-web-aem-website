@@ -118,6 +118,7 @@
 */
 body.cmp-search-bar__auto-suggest--open {
     .cmp-banner {
+        -ms-overflow-y: visible;
         overflow-y: unset;
     }
 
@@ -140,4 +141,15 @@ body.cmp-search-bar__auto-suggest--open {
         position: relative;
         z-index: 9999;
     }
+}
+
+/*
+    These are IE specific overrides that cannot be account for using -ms prefix
+*/
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+	.cmp-search-bar {
+		.react-autosuggest__suggestions-container {
+			top: $space-xxl - 1;
+		}
+	}
 }
