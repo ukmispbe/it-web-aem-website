@@ -24,7 +24,6 @@
 
                 .formatted-suggestion {
                     display: flex;
-                    white-space: pre-wrap;
                 }
             }
 
@@ -34,7 +33,12 @@
             }
 
             .emphasis-matching-characters {
-                border-bottom: 1px solid $color-teal-50;
+                font-weight: $font-weight-bold + 100;
+            }
+
+            .white-text {
+                color: $color-white;
+                font-size: $font-size-body / 2;
             }
         }
 

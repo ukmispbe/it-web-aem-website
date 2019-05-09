@@ -164,10 +164,22 @@ class SearchBar extends Component {
 
         // create a new array that will wrap the matching characters into a styled span to highlight
         // non-matching characters will simply display inside a span element
-        return words.map(item => item.toLowerCase() === term.toLowerCase() ? this.formatWord(item, term.length) : <span>{item}</span>);
+        return words.map(item => item.toLowerCase() === term.toLowerCase() ? this.formatMatchingWord(item, term.length) : this.formatNonMatchingWords(item));
     }
 
-    formatWord = (word, termLength) => <span className="emphasis-matching-characters">{word.substring(0, termLength)}</span>;
+    formatMatchingWord = (word, termLength) => <span className="emphasis-matching-characters">{word.substring(0, termLength)}</span>;
+
+    formatNonMatchingWords = value => {
+        // wrap spaces with a pipe | & split into an array
+        const words = value.replace(new RegExp(/\s/, 'g'), '| |').split('|').filter(word => word !== '');;
+
+        // use an underscore instead of a space to preserve the space in the flex row
+        // this is needed because IE doesn't handle white-space: pre-wrap the same as other browsers
+        // therefore, pre-wrap is not need since we are replacing the space with an underscore
+        const formattedWords = words.map(word => word === ' ' ? <span className="white-text">_</span> : <span>{word}</span>);
+
+        return formattedWords.reduce((accumulator, currentValue) => <>{accumulator}{currentValue}</> );
+    }
 
     addSearchBarFocusCss = () => this.searchBarRef.current.classList.add(searchBarFocusClassName);
 
