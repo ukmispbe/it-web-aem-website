@@ -52,6 +52,22 @@
     @include mobile {
         margin-bottom: $space-l;
     }
+
+    &-breadcrumb {
+        display: flex;
+        @include font-small;
+
+        svg {
+            margin-left: $space-xxxs;
+            margin-right: $space-xxxs;
+            width: $icon-xs;
+            height: $icon-xs;
+
+            .st0 {
+                stroke: $color-icon;
+            }
+        }
+    }
 }
 .cmp-search__results-body {
     width: 100%;

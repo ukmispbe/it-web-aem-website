@@ -1,20 +1,17 @@
 import React from 'react';
+import ReactSVG from 'react-svg';
 import LinesEllipsis from 'react-lines-ellipsis';
 
 const monthNameFormatter = (date, locale = 'en-us') => {
     return date.toLocaleString(locale, { month: 'long' });
 };
 
-const Result = ({ result, locale }) => {
+const Result = ({ result, locale, nextIcon }) => {
     const thumbnail = (
         <div className="cmp-search__results-thumbnail">
             <img src={result.thumbnail} alt={result.title} />
         </div>
     );
-
-    const date = new Date(result.datepublished);
-    const monthName = monthNameFormatter(date, locale);
-    const formattedDate = monthName + ' ' + date.getFullYear();
 
     const setStorageProperties = () => {
         const scrolled =
@@ -57,19 +54,19 @@ const Result = ({ result, locale }) => {
                         />
                     </div>
                 </div>
-                {result.datepublished && (
-                    <span className="cmp-search__results-item-date">
-                        {formattedDate}
-                    </span>
-                )}
+                <div className="cmp-search__results-item-breadcrumb">
+                    <div>{result.category_facet}</div>
+                    <ReactSVG src={nextIcon} />
+                    <div>{result.contenttype_facet}</div>
+                </div>
             </div>
         </li>
     );
 };
 
-const Results = ({ results, locale }) => {
+const Results = ({ results, locale, nextIcon }) => {
     const mappedResults = results.map((result, i) => {
-        return <Result result={result} locale={locale} key={i} />;
+        return <Result result={result} locale={locale} nextIcon={nextIcon} key={i} />;
     });
 
     return (
