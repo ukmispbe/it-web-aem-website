@@ -33,9 +33,7 @@ class SearchBar extends Component {
     }
 
     componentDidMount = () => {
-        this.inputElement = document.getElementsByClassName('cmp-search-bar')[0]
-                                    .getElementsByClassName('react-autosuggest__container')[0]
-                                    .getElementsByClassName('react-autosuggest__input')[0];
+        this.inputElement = document.querySelectorAll('.cmp-search-bar .react-autosuggest__container .react-autosuggest__input')[0];
 
         const querystringParams = this.search.getParamsFromString();
 
