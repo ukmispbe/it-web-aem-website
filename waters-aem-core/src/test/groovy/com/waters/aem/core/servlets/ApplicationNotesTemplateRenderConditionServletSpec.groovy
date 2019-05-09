@@ -2,12 +2,12 @@ package com.waters.aem.core.servlets
 
 import com.adobe.granite.ui.components.rendercondition.RenderCondition
 import com.day.cq.wcm.api.NameConstants
-import com.icfolson.aem.library.models.specs.AemLibraryModelSpec
+import com.waters.aem.core.WatersSpec
 import com.waters.aem.core.constants.WatersConstants
 import spock.lang.Unroll
 
 @Unroll
-class ApplicationNotesTemplateRenderConditionServletSpec extends AemLibraryModelSpec {
+class ApplicationNotesTemplateRenderConditionServletSpec extends WatersSpec {
 
     def setupSpec() {
         pageBuilder.content {

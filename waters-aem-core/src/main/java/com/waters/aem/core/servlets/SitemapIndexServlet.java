@@ -5,8 +5,8 @@ import com.google.common.base.Charsets;
 import com.google.common.net.MediaType;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.link.builders.factory.LinkBuilderFactory;
+import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.SiteRepository;
-import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -31,8 +31,6 @@ import java.util.List;
 public final class SitemapIndexServlet extends SlingSafeMethodsServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(SitemapIndexServlet.class);
-
-    private static final FastDateFormat DATE_FORMAT = FastDateFormat.getInstance("yyyy-MM-dd");
 
     private static final String NS = "http://www.sitemaps.org/schemas/sitemap/0.9";
 
@@ -89,7 +87,7 @@ public final class SitemapIndexServlet extends SlingSafeMethodsServlet {
         final Calendar lastModified = page.getLastModified();
 
         if (lastModified != null) {
-            writeElement(stream, "lastmod", DATE_FORMAT.format(lastModified));
+            writeElement(stream, "lastmod", WatersConstants.DATE_FORMAT_ISO_8601.format(lastModified));
         }
 
         stream.writeEndElement();

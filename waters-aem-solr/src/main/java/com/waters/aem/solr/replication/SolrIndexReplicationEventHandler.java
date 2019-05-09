@@ -1,7 +1,7 @@
 package com.waters.aem.solr.replication;
 
 import com.day.cq.replication.ReplicationActionType;
-import com.waters.aem.core.services.AbstractReplicationEventHandler;
+import com.waters.aem.core.services.replication.AbstractReplicationEventHandler;
 import com.waters.aem.solr.index.SolrIndexService;
 import com.waters.aem.solr.job.SolrIndexJobConsumer;
 import org.apache.sling.event.jobs.JobManager;

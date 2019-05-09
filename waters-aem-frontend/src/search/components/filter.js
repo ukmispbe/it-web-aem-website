@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import ReactSVG from 'react-svg';
-
-import FilterTags from './filter-tags';
 import FilterSection from './filter-section';
+import validator from 'validator';
 
 class Filter extends Component {
     constructor(props) {
@@ -10,10 +8,42 @@ class Filter extends Component {
         this.state = {
             activeIndex: -1,
             lastIndex: -1,
+            facetName: '',
         };
     }
 
-    filterHandler(e, index) {
+    componentDidUpdate(prevProps) {
+        /*
+            This will validate the selected facet group.
+            If the facet groups have been modified due to other facets being checked off,
+            then this will recaludate the active index because it may have changed.
+        */
+
+        if (this.state.activeIndex !== -1) {
+            const prevFacets = JSON.stringify(prevProps.facets);
+            const currFacets = JSON.stringify(this.props.facets);
+
+            if (!validator.equals(prevFacets, currFacets)) {
+                /*
+                    Since the facets prop has changed check to see
+                    if the active index has changed
+                */
+
+                // get mappings because they have been reordered
+                const mappings = this.getMappings();
+
+                const indexOfSelectedFacet = mappings.findIndex(
+                    element => element.name === this.state.facetName
+                );
+
+                if (indexOfSelectedFacet !== -1) {
+                    this.setState({ activeIndex: indexOfSelectedFacet });
+                }
+            }
+        }
+    }
+
+    filterHandler(facetName, index) {
         const state = this.state;
         const lastIndex = this.state.activeIndex;
 
@@ -21,6 +51,7 @@ class Filter extends Component {
             Object.assign({}, state, {
                 activeIndex: index,
                 lastIndex: lastIndex,
+                facetName,
             })
         );
 
@@ -33,6 +64,7 @@ class Filter extends Component {
                 Object.assign({}, state, {
                     activeIndex: index,
                     lastIndex: -1,
+                    facetName,
                 })
             );
         }
@@ -50,47 +82,49 @@ class Filter extends Component {
         }
     }
 
-    getFilters() {
-        const current = this;
-        const props = this.props;
-        const state = current.state;
-        const facets = props.facets;
-        const defaultFacetSplit = decodeURI(props.defaultFacet).split('%2F');
-        const defaultFacet =
-            defaultFacetSplit[defaultFacetSplit.length - 1] + '_facet';
+    getMappings = () => {
+        const defaultFacet = this.props.contentType + '_facet';
         const mapping = [];
 
-        for (let i = 0; i < props.filterMap.length; i++) {
-            if (props.filterMap[i].categoryFacetName === defaultFacet) {
-                const appLibrary = props.filterMap[i];
-                const categories = appLibrary.orderedFacets;
+        for (let i = 0; i < this.props.filterMap.length; i++) {
+            if (this.props.filterMap[i].categoryFacetName === defaultFacet) {
+                const categories = this.props.filterMap[i].orderedFacets;
 
                 for (let c = 0; c < categories.length; c++) {
                     const category = categories[c];
 
-                    if (facets[category.facetName]) {
+                    if (this.props.facets[category.facetName]) {
                         mapping.push({
                             name: category.facetName,
                             category: category.facetValue,
-                            facets: facets[category.facetName],
+                            facets: this.props.facets[category.facetName],
                         });
                     }
                 }
             }
         }
 
-        const filters = mapping.map((item, index) => {
+        return mapping;
+    };
+
+    getFilters() {
+        const props = this.props;
+        const mappings = this.getMappings();
+
+        const filters = mappings.map((item, index) => {
             return (
                 <FilterSection
                     key={`${item.category}#_${index}`}
-                    last={state.lastIndex}
-                    selected={state.activeIndex}
+                    last={this.state.lastIndex}
+                    selected={this.state.activeIndex}
                     item={index}
-                    handleInput={current.filterHandler.bind(current)}
+                    handleInput={e => this.filterHandler(item.name, index)}
                     text={props.text}
                     facet={item}
                     selectHandler={props.selectHandler}
                     selectedFacets={props.selectedFacets}
+                    minItemSearch={21}
+                    minCharSearch={2}
                 />
             );
         });
@@ -102,8 +136,6 @@ class Filter extends Component {
         const props = this.props;
         return (
             <div id="js-search-filters" className="cmp-search-filters">
-                <h3>{props.text.filterByHeading}</h3>
-
                 {props.filterTags}
 
                 {props.facets && this.getFilters()}

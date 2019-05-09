@@ -1,4 +1,4 @@
-package com.waters.aem.core.services;
+package com.waters.aem.core.services.replication;
 
 import com.day.cq.replication.ReplicationActionType;
 import org.apache.sling.api.SlingConstants;
@@ -27,20 +27,24 @@ public abstract class AbstractReplicationEventHandler implements EventHandler {
 
         if (accepts(path, replicationActionType)) {
             if (replicationActionType.equals(ReplicationActionType.ACTIVATE)) {
-                LOG.debug("handling activate event for path = {}", path);
+                logEvent(path, replicationActionType);
 
                 handleActivate(path);
             } else if (replicationActionType.equals(ReplicationActionType.DEACTIVATE)) {
-                LOG.debug("handling deactivate event for path = {}", path);
+                logEvent(path, replicationActionType);
 
                 handleDeactivate(path);
             } else if (replicationActionType.equals(ReplicationActionType.DELETE)) {
-                LOG.debug("handling delete event for path = {}", path);
+                logEvent(path, replicationActionType);
 
                 handleDelete(path);
             } else {
-                LOG.debug("replication action type = {} not handled for path = {}", type, path);
+                LOG.debug("{} : replication action type = {} not handled for path = {}", this.getClass().getName(),
+                    type, path);
             }
+        } else {
+            LOG.debug("{} : event not accepted for path : {} and action type : {}, ignoring", this.getClass().getName(),
+                path, replicationActionType);
         }
     }
 
@@ -101,5 +105,10 @@ public abstract class AbstractReplicationEventHandler implements EventHandler {
      */
     private Map<String, Object> getJobProperties(final String path) {
         return Collections.singletonMap(SlingConstants.PROPERTY_PATH, path);
+    }
+
+    private void logEvent(final String path, final ReplicationActionType replicationActionType) {
+        LOG.debug("{} : handling {} event for path : {}", this.getClass().getName(), replicationActionType.getName(),
+            path);
     }
 }

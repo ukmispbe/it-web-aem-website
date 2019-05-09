@@ -25,6 +25,7 @@ function getAuthoredDataForTagCloud(h, t) {
     return {
         searchPath: h.dataset.searchPath,
         tagTitle: t.dataset.title,
+        contentType: t.dataset.contentType
     };
 }
 
@@ -69,21 +70,20 @@ if (searchAppContainer) {
     );
 }
 
-const tagCloudContainer = document.getElementById('js-tag-cloud');
+const tagCloudContainers = document.querySelectorAll('.cmp-tag-cloud');
 
-if (tagCloudContainer) {
-    var text = JSON.parse(
-        document.getElementById('tag-cloud-facets-json').innerHTML
-    );
-
-    const data = getAuthoredDataForTagCloud(header, tagCloudContainer);
-
-    ReactDOM.render(
-        <TagCloud
-            tagCloudTitle={data.tagTitle}
-            searchPath={data.searchPath}
-            keywords={text}
-        />,
-        tagCloudContainer
-    );
+if (tagCloudContainers) {
+    for (var i = 0; i < tagCloudContainers.length; i++) {
+        const json = JSON.parse(tagCloudContainers[i].getAttribute('data-json'));
+        const data = getAuthoredDataForTagCloud(header, tagCloudContainers[i]);
+        ReactDOM.render(
+            <TagCloud
+                tagCloudTitle={data.tagTitle}
+                searchPath={data.searchPath}
+                keywords={json}
+                contentType={data.contentType}
+            />,
+            tagCloudContainers[i]
+        );
+    }
 }

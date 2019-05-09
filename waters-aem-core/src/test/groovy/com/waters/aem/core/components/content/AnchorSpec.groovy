@@ -1,9 +1,9 @@
 package com.waters.aem.core.components.content
 
-import com.icfolson.aem.library.models.specs.AemLibraryModelSpec
+import com.waters.aem.core.WatersSpec
 import com.waters.aem.core.components.content.applicationnotes.SectionContainer
 
-class AnchorSpec extends AemLibraryModelSpec {
+class AnchorSpec extends WatersSpec {
 
     def setupSpec() {
         pageBuilder.content {

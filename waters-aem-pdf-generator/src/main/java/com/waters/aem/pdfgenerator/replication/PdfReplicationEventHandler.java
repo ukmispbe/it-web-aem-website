@@ -3,7 +3,7 @@ package com.waters.aem.pdfgenerator.replication;
 import com.day.cq.replication.ReplicationActionType;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
-import com.waters.aem.core.services.AbstractReplicationEventHandler;
+import com.waters.aem.core.services.replication.AbstractReplicationEventHandler;
 import com.waters.aem.core.utils.Templates;
 import com.waters.aem.pdfgenerator.job.PdfGeneratorJobConsumer;
 import com.waters.aem.pdfgenerator.services.PdfGenerator;
@@ -67,7 +67,7 @@ public final class PdfReplicationEventHandler extends AbstractReplicationEventHa
 
     @Override
     protected void handleActivate(final String path) {
-        addJob(PdfGeneratorJobConsumer.JOB_TOPIC_GENERATE, path);
+        addJob(PdfGeneratorJobConsumer.JOB_TOPIC, path);
     }
 
     @Override

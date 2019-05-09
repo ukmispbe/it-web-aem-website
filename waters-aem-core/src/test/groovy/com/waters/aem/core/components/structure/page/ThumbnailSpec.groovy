@@ -1,8 +1,8 @@
 package com.waters.aem.core.components.structure.page
 
-import com.icfolson.aem.library.models.specs.AemLibraryModelSpec
+import com.waters.aem.core.WatersSpec
 
-class ThumbnailSpec extends AemLibraryModelSpec {
+class ThumbnailSpec extends WatersSpec {
 
     def setupSpec() {
         pageBuilder.content {
@@ -37,6 +37,7 @@ class ThumbnailSpec extends AemLibraryModelSpec {
         def thumbnail = getPage("/content/waters/application-notes").contentResource.adaptTo(Thumbnail)
 
         expect:
-        thumbnail.thumbnailImageRendition == "/content/dam/waters/logo.png/jcr:content/renditions/cq5dam.thumbnail.319.212.png"
+        thumbnail.thumbnailImageRendition == "/content/dam/waters/logo.png/jcr:content/renditions/cq5dam.thumbnail" +
+            ".319.212.png"
     }
 }

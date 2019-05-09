@@ -7,6 +7,9 @@ import com.icfolson.aem.library.api.page.enums.TitleType;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.components.content.Text;
 import com.waters.aem.core.components.structure.page.Thumbnail;
+import com.waters.aem.core.metadata.ContentClassification;
+import com.waters.aem.core.utils.SearchUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.AbstractResourceVisitor;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -19,7 +22,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Base class for Solr input document builders.  Responsible for adding common fields to Solr documents. Concrete
@@ -76,7 +88,13 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         document.setField("id", page.getPath());
         document.setField("url", externalizer.externalLink(resourceResolver, Externalizer.PUBLISH, page.getHref()));
         document.setField("title", page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle()));
-        document.setField("description", page.getDescription());
+
+        final String description = page.getDescription();
+
+        if (StringUtils.isNotEmpty(description)) {
+            document.setField("description", description);
+        }
+
         document.setField("isocode", locale.toString());
         document.setField("viewname", "aem");
 
@@ -87,20 +105,50 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
                 thumbnailImage));
         }
 
-        document.setField("content", getPageContent());
+        final String content = getPageContent();
+
+        if (StringUtils.isNotEmpty(content)) {
+            document.setField("content", content);
+        }
 
         for (final Tag tag : page.getTags()) {
             document.addField("tags", tag.getTitle(locale));
         }
 
-        addFields(document);
+        addContentClassification(document);
 
         LOG.debug("created solr input document : {}", document);
 
         return document;
     }
 
-    protected abstract void addFields(SolrInputDocument document);
+    /**
+     * Get the content classification model for this builder.
+     *
+     * @return classification model or empty if not used for this builder
+     */
+    protected abstract Optional<ContentClassification> getContentClassification();
+
+    private void addContentClassification(final SolrInputDocument document) {
+        final Optional<ContentClassification> classificationOptional = getContentClassification();
+
+        if (classificationOptional.isPresent()) {
+            final ContentClassification classification = classificationOptional.get();
+
+            final String literatureCode = classification.getLiteratureCode();
+
+            if (StringUtils.isNotEmpty(literatureCode)) {
+                // add literature code
+                document.setField("literaturecode", literatureCode);
+            }
+
+            // add facets
+            addFacets(document, classification);
+
+            // add date
+            addDate(document, classification);
+        }
+    }
 
     private String getPageContent() {
         final TextResourceVisitor visitor = new TextResourceVisitor();
@@ -108,5 +156,47 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         visitor.accept(page.getContentResource());
 
         return visitor.getContent();
+    }
+
+    private void addFacets(final SolrInputDocument document, final ContentClassification contentClassification) {
+        // get the locale from the current page
+        final Locale locale = page.getLanguage(false);
+
+        // get all tags and group by their parent tag name, which maps to the facet field name
+        final Map<String, List<Tag>> groupedTags = contentClassification.getAllTags()
+            .stream()
+            .collect(Collectors.groupingBy(tag -> tag.getParent().getName()));
+
+        for (final Map.Entry<String, List<Tag>> entry : groupedTags.entrySet()) {
+            final String fieldName = SearchUtils.getSolrFacetName(entry.getKey());
+
+            LOG.info("adding facet with field name : {} and {} values", fieldName, entry.getValue().size());
+
+            for (final Tag tag : entry.getValue()) {
+                document.addField(fieldName, tag.getTitle(locale));
+            }
+        }
+    }
+
+    private void addDate(final SolrInputDocument document, final ContentClassification contentClassification) {
+        if (!contentClassification.getYearPublished().isEmpty()) {
+            final Tag yearPublished = contentClassification.getYearPublished().get(0);
+
+            final int year = Integer.valueOf(yearPublished.getName());
+            final int month;
+
+            if (!contentClassification.getMonthPublished().isEmpty()) {
+                final Tag monthPublished = contentClassification.getMonthPublished().get(0);
+
+                month = Month.valueOf(monthPublished.getName().toUpperCase()).getValue();
+            } else {
+                // default month if not authored
+                month = 1;
+            }
+
+            final Instant date = LocalDateTime.of(year, month, 1, 0, 0).toInstant(ZoneOffset.UTC);
+
+            document.setField("datepublished", DateTimeFormatter.ISO_INSTANT.format(date));
+        }
     }
 }

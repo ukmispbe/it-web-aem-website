@@ -2,8 +2,6 @@ import 'whatwg-fetch';
 
 const queryString = require('query-string');
 
-// new searchService({}, 'category_facet:waters%253Acategory%252Fapplicationslibrary');
-
 export class SearchService {
     constructor(
         {
@@ -27,17 +25,49 @@ export class SearchService {
         this.defaultFacet = defaultFacet;
     }
 
-    call({
+    initial = ({
         keyword = '*:*',
         facets = {},
-        page = 1,
+        page = 1,       
         sort = 'most-recent',
-    } = {}) {
+    } = {}) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
-        const facetString = this.getQueryFacetString(facets);
-        const searchString = `${this.path}/${facetString}?${paramString}`;
+        const searchString = `${this.path}/category_facet$library:Library?${paramString}`;
 
         return window.fetch(searchString).then(response => response.json());
+    }
+
+    contentType = (
+        contentTypeKey,
+        contentTypeValue,
+        {
+            keyword = '*:*',
+            facets = {},
+            page = 1,       
+            sort = 'most-recent',
+        } = {}
+    ) => {
+        const paramString = this.getQueryParamString({ keyword, page, sort });
+        const searchString = `${this.path}/contenttype_facet$${contentTypeKey}:${contentTypeValue}?${paramString}`;
+
+        return window.fetch(searchString).then(response => response.json());
+    }
+
+    subFacet = (
+        contentTypeName,
+        contentTypeValue,
+        {
+            keyword = '*:*',
+            facets = {},
+            page = 1,       
+            sort = 'most-recent',
+        } = {}
+        ) => {
+            const paramString = this.getQueryParamString({ keyword, page, sort });
+            const facetString = this.getQueryFacetString(facets);
+            const searchString = `${this.path}/contenttype_facet$${contentTypeName.replace('_facet', '')}:${contentTypeValue}${facetString}?${paramString}`;
+
+            return window.fetch(searchString).then(response => response.json());
     }
 
     getParamsFromString() {
@@ -73,14 +103,18 @@ export class SearchService {
     }
 
     getQueryParamString(
-        { keyword = '*:*', page = 1, sort = 'most-recent' } = {},
+        { keyword = '*:*', page = 1, sort = 'most-recent', content_type = '' } = {},
         facets
     ) {
         const fullParams = Object.assign({}, this.options, {
             keyword,
             page,
             sort,
+            content_type
         });
+
+        if (!fullParams.content_type) delete fullParams.content_type;
+
         let paramString = queryString.stringify(fullParams);
 
         if (facets) {
@@ -102,17 +136,18 @@ export class SearchService {
     }
 
     getQueryFacetString(facets) {
-        let facetString = this.defaultFacet;
+        let facetString = '';
 
         for (let i = 0; i <= Object.keys(facets).length; i++) {
-            const category = Object.keys(facets)[i];
-            const facet = facets[category];
+            const facetName = Object.keys(facets)[i];
+            const category = (facetName) ? `${facetName}$${facetName.replace('_facet', '')}` : null;
+            const facet = facets[facetName];
 
             if (facet && category) {
                 if (i === 0) {
                     facetString =
                         facetString +
-                        `${this.defaultFacet.length ? '&' : ''}${category}:`;
+                        `&${category}:`;
                 } else {
                     facetString = facetString + `&${category}:`;
                 }
@@ -142,6 +177,8 @@ export class SearchService {
         obj['page'] = params.page || 1;
         obj['facets'] = {};
         obj['sort'] = params.sort;
+
+        if(params.content_type) obj['content_type'] = params.content_type;
 
         if (params.facet) {
             const facets = params.facet;

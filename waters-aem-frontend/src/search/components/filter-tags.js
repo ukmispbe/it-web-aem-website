@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
+import PropTypes from 'prop-types';
 
-const FilterTags = props => {
+const SubFacetTags = props => {
     const facets = props.facets ? props.facets : {};
-    const defaultFacetSplit = decodeURI(props.defaultFacet).split('%2F');
-    const defaultFacet =
-        defaultFacetSplit[defaultFacetSplit.length - 1] + '_facet';
+    const defaultFacet = `${props.defaultFacet}_facet`;
     const mapping = [];
 
     for (let i = 0; i < props.filterMap.length; i++) {
@@ -62,36 +61,53 @@ const FilterTags = props => {
           })
         : null;
 
-        let showClearButton = false;
-
-        if (Object.keys(props.selectedFacets)[0]) {
-            const selectedFacets = Object.keys(props.selectedFacets).map(function(key) {
-                return props.selectedFacets[key];
-            });
-            if (selectedFacets.length > 0) {
-                for (var i = 0; i < selectedFacets.length; i++) {
-                    if (selectedFacets[i].length > 0) {
-                        showClearButton = true;
-                    }
-                }
-            }
-        }
-
     return (
-        <div className="cmp-search-filters__tags clearfix">
-            {showClearButton === true ? (
-                <a
-                    href="javascript:void(0);"
-                    className="cmp-search-filters__tags__clear"
-                    onClick={() => props.clearTag()}
-                >
-                    <ReactSVG src={props.text.closeIcon} />
-                    <span>{props.text.clearAllFilters}</span>
-                </a>
-            ) : null}
+        <>
             {props.selectedFacets && tags}
-        </div>
+        </>
     );
 };
 
-export default FilterTags;
+const CategoryTags = props => {
+    const showTags = Object.entries(props.selected).length !== 0 ? true : false;
+
+    if (!showTags) return <></>;
+
+    return(<>
+        <>
+            <a href="javascript:void(0);"
+                className="cmp-search-filters__tags__clear"
+                onClick={props.remove}>
+                <ReactSVG src={props.text.closeIcon} />
+                <span>{props.text.clearAllFilters}</span>
+            </a>
+
+            <a href="javascript:void(0);"
+                onClick={props.remove}>
+                <ReactSVG src={props.text.closeIcon} />
+                <span>{`${props.text[props.categoryKey]}: ${props.selected.categoryFacetValue}`}</span>
+            </a>
+        </>
+    </>);
+}
+
+SubFacetTags.propTypes = {
+    filterMap: PropTypes.array.isRequired,
+    defaultFacet: PropTypes.string.isRequired,
+    removeTag: PropTypes.func.isRequired,
+    selectedFacets: PropTypes.object.isRequired,
+    text: PropTypes.object.isRequired,
+}
+
+CategoryTags.proptTypes = {
+    categoryKey: PropTypes.string,
+    selected: PropTypes.object.isRequired,
+    text: PropTypes.object.isRequired,
+    remove: PropTypes.func.isRequired
+}
+
+CategoryTags.defaultProps = {
+    selected: {}
+}
+
+export { SubFacetTags, CategoryTags }

@@ -9,15 +9,20 @@ import com.day.cq.tagging.Tag;
 import com.google.common.collect.ImmutableList;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
-import com.icfolson.aem.library.models.annotations.TagInject;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.metadata.ContentClassification;
+import com.waters.aem.core.tagging.WatersTagInject;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.inject.Inject;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Component(value = "Application Notes",
@@ -32,11 +37,16 @@ import java.util.List;
     fileName = ApplicationNotes.FILE_NAME,
     touchFileName = ApplicationNotes.FILE_NAME)
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public final class ApplicationNotes {
+@SuppressWarnings({ "common-java:DuplicatedBlocks" })
+public final class ApplicationNotes implements ContentClassification {
 
     static final String FILE_NAME = "applicationnotes";
 
     public static final String PROPERTY_LITERATURE_CODE = "literatureCode";
+
+    private static final String DEFAULT_DAY_NUMBER = "01";
+
+    private static final String FIRST_PUBLISH_DATE_FORMAT = "yyyy-MMM-dd";
 
     @Self
     private Resource resource;
@@ -46,12 +56,12 @@ public final class ApplicationNotes {
 
     @DialogField(fieldLabel = "Author", ranking = 1)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> author = Collections.emptyList();
 
     @DialogField(fieldLabel = "Affiliations", ranking = 2)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> affiliations = Collections.emptyList();
 
     @DialogField(fieldLabel = "Literature Code", ranking = 3)
@@ -61,59 +71,60 @@ public final class ApplicationNotes {
 
     @DialogField(fieldLabel = "Category", ranking = 4)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> category = Collections.emptyList();
 
     @DialogField(fieldLabel = "Content Type", ranking = 5)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> contentType = Collections.emptyList();
 
     @DialogField(fieldLabel = "Instrument Type", ranking = 6)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> instrumentType = Collections.emptyList();
 
     @DialogField(fieldLabel = "Technique", ranking = 7)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> technique = Collections.emptyList();
 
     @DialogField(fieldLabel = "Separation Mode", ranking = 8)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> separationMode = Collections.emptyList();
 
     @DialogField(fieldLabel = "Compound/Matrix", ranking = 9)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> compoundMatrix = Collections.emptyList();
 
     @DialogField(fieldLabel = "Column Type", ranking = 10)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> columnType = Collections.emptyList();
 
     @DialogField(fieldLabel = "Software", ranking = 11)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> software = Collections.emptyList();
 
     @DialogField(fieldLabel = "Market", ranking = 12)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> market = Collections.emptyList();
 
     @DialogField(fieldLabel = "Month Published", ranking = 13)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> monthPublished = Collections.emptyList();
 
     @DialogField(fieldLabel = "Year Published", ranking = 14)
     @TagInputField
-    @TagInject
+    @WatersTagInject
     private List<Tag> yearPublished = Collections.emptyList();
 
+    @Override
     public List<Tag> getAllTags() {
         return new ImmutableList.Builder<Tag>()
             .addAll(author)
@@ -126,37 +137,58 @@ public final class ApplicationNotes {
             .addAll(software)
             .addAll(market)
             .addAll(compoundMatrix)
-            .addAll(affiliations)
             .addAll(yearPublished)
+            .addAll(affiliations)
             .build();
     }
 
-    public List<Tag> getAuthor() {
-        return author;
-    }
-
+    @Override
     public String getLiteratureCode() {
         return literatureCode;
     }
 
+    @Override
     public List<Tag> getCategory() {
         return category;
     }
 
+    @Override
     public List<Tag> getContentType() {
         return contentType;
     }
 
+    @Override
+    public List<Tag> getMonthPublished() {
+        return monthPublished;
+    }
+
+    @Override
+    public List<Tag> getYearPublished() {
+        return yearPublished;
+    }
+
+    @Override
     public List<Tag> getInstrumentType() {
         return instrumentType;
     }
 
+    @Override
     public List<Tag> getTechnique() {
         return technique;
     }
 
+    @Override
     public List<Tag> getSeparationMode() {
         return separationMode;
+    }
+
+    @Override
+    public List<Tag> getMarket() {
+        return market;
+    }
+
+    public List<Tag> getAuthor() {
+        return author;
     }
 
     public List<Tag> getColumnType() {
@@ -165,18 +197,6 @@ public final class ApplicationNotes {
 
     public List<Tag> getSoftware() {
         return software;
-    }
-
-    public List<Tag> getMarket() {
-        return market;
-    }
-
-    public List<Tag> getMonthPublished() {
-        return monthPublished;
-    }
-
-    public List<Tag> getYearPublished() {
-        return yearPublished;
     }
 
     public List<Tag> getCompoundMatrix() {
@@ -233,5 +253,36 @@ public final class ApplicationNotes {
 
     public Resource getResource() {
         return resource;
+    }
+
+    public String getFormattedPublishDate() {
+        final String year = getDateTagName(yearPublished);
+        final String month = getDateTagName(monthPublished);
+
+        String formattedPublishDate = "";
+
+        if (StringUtils.isNotEmpty(year) && StringUtils.isNotEmpty(month)) {
+            try {
+                final String dateString = new StringBuilder()
+                    .append(year)
+                    .append("-")
+                    .append(month)
+                    .append("-")
+                    .append(DEFAULT_DAY_NUMBER)
+                    .toString();
+
+                final Date date = new SimpleDateFormat(FIRST_PUBLISH_DATE_FORMAT).parse(dateString);
+
+                formattedPublishDate = WatersConstants.DATE_FORMAT_ISO_8601.format(date);
+            } catch (ParseException e) {
+                // ignore
+            }
+        }
+
+        return formattedPublishDate;
+    }
+
+    private String getDateTagName(final List<Tag> tags) {
+        return tags.isEmpty() ? "" : tags.get(0).getName();
     }
 }

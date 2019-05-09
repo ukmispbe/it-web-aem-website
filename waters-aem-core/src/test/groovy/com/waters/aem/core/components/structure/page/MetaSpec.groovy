@@ -1,11 +1,11 @@
 package com.waters.aem.core.components.structure.page
 
 import com.day.cq.commons.Externalizer
-import com.icfolson.aem.library.models.specs.AemLibraryModelSpec
+import com.waters.aem.core.WatersSpec
 import spock.lang.Unroll
 
 @Unroll
-class MetaSpec extends AemLibraryModelSpec {
+class MetaSpec extends WatersSpec {
 
     def setupSpec() {
         pageBuilder.content {
@@ -147,10 +147,10 @@ class MetaSpec extends AemLibraryModelSpec {
 
         where:
         path                    | tags
-        "/content/waters/one"   | []
-        "/content/waters/two"   | ["NOFOLLOW"]
-        "/content/waters/three" | ["NOINDEX"]
-        "/content/waters/four"  | ["NOINDEX", "NOFOLLOW"]
+        "/content/waters/one"   | ["index", "follow"]
+        "/content/waters/two"   | ["index", "nofollow"]
+        "/content/waters/three" | ["noindex", "follow"]
+        "/content/waters/four"  | ["noindex", "nofollow"]
     }
 
     def "get og type"() {
@@ -178,7 +178,8 @@ class MetaSpec extends AemLibraryModelSpec {
         "/content/waters/one"       | null
         "/content/waters/two"       | "http://www.waters.com/content/dam/waters/og.png"
         "/content/waters/two/child" | "http://www.waters.com/content/dam/waters/og.png"
-        "/content/waters/three"     | "http://www.waters.com/content/dam/waters/logo.png/jcr:content/renditions/cq5dam.thumbnail.319.212.png"
+        "/content/waters/three"     | "http://www.waters.com/content/dam/waters/logo" +
+            ".png/jcr:content/renditions/cq5dam.thumbnail.319.212.png"
     }
 
     def "get inherited facebook app ID"() {
@@ -234,6 +235,7 @@ class MetaSpec extends AemLibraryModelSpec {
         "/content/waters/one"       | null
         "/content/waters/two"       | "http://www.waters.com/content/dam/waters/twitter.png"
         "/content/waters/two/child" | "http://www.waters.com/content/dam/waters/twitter.png"
-        "/content/waters/three"     | "http://www.waters.com/content/dam/waters/logo.png/jcr:content/renditions/cq5dam.thumbnail.319.212.png"
+        "/content/waters/three"     | "http://www.waters.com/content/dam/waters/logo" +
+            ".png/jcr:content/renditions/cq5dam.thumbnail.319.212.png"
     }
 }

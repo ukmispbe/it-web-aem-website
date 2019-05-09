@@ -49,9 +49,6 @@
 }
 .cmp-search__results-item {
     @include list-item;
-    &-title {
-        font-size: $font-size-h3;
-    }
     @include mobile {
         margin-bottom: $space-l;
     }
@@ -96,7 +93,7 @@ div.cmp-search__no-results {
     align-items: center;
     justify-content: center;
     margin: 0;
-    padding-top: $space-xxl;
+    padding: $space-xl 0;
     clear: both;
     @include mobile {
         padding: 0;
@@ -115,8 +112,8 @@ div.cmp-search__no-results {
             padding-top: $space-xxs;
             text-decoration: none;
             text-align: center;
-            height: 2.75em;
-            width: 2.75em;
+            height: $button-fixed;
+            width: $button-fixed;
             &:hover {
                 color: $color-link;
             }
@@ -187,6 +184,21 @@ div.cmp-search__no-results {
         }
     }
 }
+
+@mixin sticky-show-sort {
+    position: fixed;
+    background-color: $color-white;
+    z-index: 4;
+    width: 100%;
+    top: 76px;
+    left: 0;
+    box-shadow: $shadow;
+    border:none;
+    margin: 0;
+    padding: .65em $space-xs $space-xs 1.32em;
+    height: 54px;
+}
+
 .cmp-search-show-btn {
     .btn-show-sort-filter {
         display: none;
@@ -197,16 +209,15 @@ div.cmp-search__no-results {
         position: relative;
         text-decoration: none;
         &:hover {
-            color: $color-link;
             text-decoration: none;
-
-            svg {
-                .st0 {
-                    stroke: $color-link;
-                }
-            }
         }
         transition: none;
+        .closeIcon {
+            opacity: 0;
+        }
+        .filterIcon {
+            opacity: 1;
+        }
         svg {
             position: absolute;
             top: 14px;
@@ -217,8 +228,8 @@ div.cmp-search__no-results {
                 stroke: $color-icon;
             }
             @include mobile {
-                top: 13px;
-                right: 10px;
+                top: 15px;
+                right: 12px;
             }
         }
         @include tablet-and-under {
@@ -233,16 +244,7 @@ div.cmp-search__no-results {
                 margin: 0 2% 0 0;
             }
             &--sticky {
-                position: fixed;
-                background-color: $color-white;
-                z-index: 1;
-                width: 101%;
-                top: 76px;
-                box-shadow: $shadow;
-                border:none;
-                margin: 0 0 0 -7%;
-                padding: ($space-xxs + .05em) $space-xs $space-xs $space-m;
-                height: 52px;
+                @include sticky-show-sort;
             }
             float: none;
             background-position: 95% 13px;
@@ -334,12 +336,20 @@ html.showing-spinner {
     @include mobile {
         .cmp-search-show-btn {
             .btn-show-sort-filter {
-                &--sticky {
-                    display: none;
+                display: block;
+                @include sticky-show-sort;
+                .filterIcon {
+                    opacity: 0;
+                }
+                .closeIcon {
+                    opacity: 1;
                 }
             }
         }
-        .cmp-search__container, .cmp-external-footer {
+        .btn-show-sort-filter{
+            z-index: 4;
+        }
+        .cccmp-search__container, .cmp-external-footer, .cmp-back-to-top {
             display: none;
         }
     }
