@@ -15,6 +15,8 @@ class SearchBar extends Component {
     constructor(props) {
         super(props);
 
+        this.inputElement = null;
+
         this.searchBarRef = React.createRef();
 
         this.search = new SearchService({}, '', this.props.baseUrl);
@@ -31,6 +33,10 @@ class SearchBar extends Component {
     }
 
     componentDidMount = () => {
+        this.inputElement = document.getElementsByClassName('cmp-search-bar')[0]
+                                    .getElementsByClassName('react-autosuggest__container')[0]
+                                    .getElementsByClassName('react-autosuggest__input')[0];
+
         const querystringParams = this.search.getParamsFromString();
 
         if (!querystringParams.keyword || this.search.isDefaultKeyword(querystringParams.keyword)) {
@@ -102,7 +108,11 @@ class SearchBar extends Component {
         }
     }
 
-    handleClearIconClick = e => this.setState({value: '', suggestions: [], openOverlay: false});
+    handleClearIconClick = e => {
+        this.inputElement.focus();
+        this.addSearchBarFocusCss();
+        this.setState({value: '', suggestions: [], openOverlay: false});
+    }
 
     handleSearchValueChange = (event, { newValue }) => this.setState({value: newValue});
 
