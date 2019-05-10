@@ -11,6 +11,8 @@ class Product {
 
     List<Classification> classifications = []
 
+    List<Image> images
+
     String code
 
     String description

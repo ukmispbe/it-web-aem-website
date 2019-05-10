@@ -3,11 +3,15 @@ package com.waters.aem.hybris.models
 import groovy.transform.ToString
 
 @ToString(includePackage = false, includeNames = true)
-class ProductCategory {
+class Image {
 
-    String code
+    String altText
+
+    String format
+
+    Integer galleryIndex
+
+    ImageType imageType
 
     String url
-
-    Image image
 }
