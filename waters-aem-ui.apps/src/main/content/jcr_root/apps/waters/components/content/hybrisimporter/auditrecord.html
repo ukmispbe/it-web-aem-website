@@ -1,10 +1,10 @@
 <sly data-sly-use.importerAudit="com.waters.aem.hybris.components.HybrisImporterAudit">
-    <sly data-sly-test="${importerAudit.auditRecord.exceptionStackTrace}">
+    <div class="col-12" data-sly-test="${importerAudit.auditRecord.exceptionStackTrace}">
         <h2>Exception Stack Trace</h2>
         <pre class="alert alert-danger">${importerAudit.auditRecord.exceptionStackTrace}</pre>
-    </sly>
+    </div>
 
-    <sly data-sly-test="${!importerAudit.auditRecord.exceptionStackTrace}">
+    <div class="col-12" data-sly-test="${!importerAudit.auditRecord.exceptionStackTrace}">
         <div class="card card-body mb-3 bg-light">
             <ul>
                 <li>${importerAudit.auditRecord.statusCounts['CREATED']} items created</li>
@@ -19,6 +19,7 @@
             <tr>
                 <th>Path</th>
                 <th>Title</th>
+                <th>Content Type</th>
                 <th>Status</th>
             </tr>
             </thead>
@@ -26,5 +27,5 @@
 
             </tbody>
         </table>
-    </sly>
+    </div>
 </sly>

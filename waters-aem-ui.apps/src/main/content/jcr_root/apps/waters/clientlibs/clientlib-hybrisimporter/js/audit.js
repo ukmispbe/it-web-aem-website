@@ -16,6 +16,7 @@ HybrisImporter.Audit = function () {
                 columns: [
                     {data: 'path'},
                     {data: 'title'},
+                    {data: 'contentType'},
                     {data: 'status'}
                 ],
                 processing: true,

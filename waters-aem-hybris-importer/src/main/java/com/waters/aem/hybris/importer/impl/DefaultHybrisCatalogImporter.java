@@ -160,7 +160,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             updatePageProperties(page, category);
         }
 
-        return HybrisImporterResult.fromPage(page, status);
+        return HybrisImporterResult.fromCategoryPage(page, status);
     }
 
     private void updatePageProperties(final PageDecorator page, final Category category) {
