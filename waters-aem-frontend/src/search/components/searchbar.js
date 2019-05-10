@@ -15,6 +15,8 @@ class SearchBar extends Component {
     constructor(props) {
         super(props);
 
+        this.inputElement = null;
+
         this.searchBarRef = React.createRef();
 
         this.search = new SearchService({}, '', this.props.baseUrl);
@@ -31,6 +33,8 @@ class SearchBar extends Component {
     }
 
     componentDidMount = () => {
+        this.inputElement = document.querySelectorAll('.cmp-search-bar .react-autosuggest__container .react-autosuggest__input')[0];
+
         const querystringParams = this.search.getParamsFromString();
 
         if (!querystringParams.keyword || this.search.isDefaultKeyword(querystringParams.keyword)) {
@@ -102,7 +106,11 @@ class SearchBar extends Component {
         }
     }
 
-    handleClearIconClick = e => this.setState({value: '', suggestions: [], openOverlay: false});
+    handleClearIconClick = e => {
+        this.inputElement.focus();
+        this.addSearchBarFocusCss();
+        this.setState({value: '', suggestions: [], openOverlay: false}, () => this.removeCssOverrides());
+    }
 
     handleSearchValueChange = (event, { newValue }) => this.setState({value: newValue});
 
@@ -115,13 +123,13 @@ class SearchBar extends Component {
 
         const openOverlay = suggestions.length !== 0;
 
-        if (openOverlay) {
-            this.addCssOverrides();
-        } else {
-            this.removeCssOverrides();
-        }
-
-        this.setState({suggestions, openOverlay});
+        this.setState({suggestions, openOverlay}, () => {
+            if (openOverlay) {
+                this.addCssOverrides();
+            } else {
+                this.removeCssOverrides();
+            }
+        });
     };
 
     handleSuggestionsClearRequested = () => { 
@@ -139,8 +147,8 @@ class SearchBar extends Component {
 
     handleSuggestionSelected = (event, { suggestionValue}) => {
         this.sessionService.setSearchTerm(suggestionValue);
-
-        this.setState({value: suggestionValue, openOverlay: false}, () => this.search.setUrlParameter(this.state.value, this.props.searchPath));
+        this.removeCssOverrides();
+        this.setState({value: suggestionValue, suggestions: [], openOverlay: false}, () => this.search.setUrlParameter(this.state.value, this.props.searchPath));
     }
 
     addCssOverrides = () => document.getElementsByTagName('body')[0].classList.add(cssOverridesClassName);
@@ -164,10 +172,22 @@ class SearchBar extends Component {
 
         // create a new array that will wrap the matching characters into a styled span to highlight
         // non-matching characters will simply display inside a span element
-        return words.map(item => item.toLowerCase() === term.toLowerCase() ? this.formatWord(item, term.length) : <span>{item}</span>);
+        return words.map(item => item.toLowerCase() === term.toLowerCase() ? this.formatMatchingWord(item, term.length) : this.formatNonMatchingWords(item));
     }
 
-    formatWord = (word, termLength) => <span className="emphasis-matching-characters">{word.substring(0, termLength)}</span>;
+    formatMatchingWord = (word, termLength) => <span className="emphasis-matching-characters">{word.substring(0, termLength)}</span>;
+
+    formatNonMatchingWords = value => {
+        // wrap spaces with a pipe | & split into an array
+        const words = value.replace(new RegExp(/\s/, 'g'), '| |').split('|').filter(word => word !== '');;
+
+        // use an underscore instead of a space to preserve the space in the flex row
+        // this is needed because IE doesn't handle white-space: pre-wrap the same as other browsers
+        // therefore, pre-wrap is not need since we are replacing the space with an underscore
+        const formattedWords = words.map(word => word === ' ' ? <span className="white-text">_</span> : <span>{word}</span>);
+
+        return formattedWords.reduce((accumulator, currentValue) => <>{accumulator}{currentValue}</> );
+    }
 
     addSearchBarFocusCss = () => this.searchBarRef.current.classList.add(searchBarFocusClassName);
 
