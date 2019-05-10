@@ -1,6 +1,6 @@
 package com.waters.aem.hybris.job;
 
-import com.waters.aem.hybris.executor.HybrisCatalogImporterExecutor;
+import com.waters.aem.hybris.executor.HybrisImporterExecutorService;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
@@ -16,7 +16,7 @@ public final class HybrisImporterScheduledJob implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(HybrisImporterScheduledJob.class);
 
     @Reference
-    private HybrisCatalogImporterExecutor catalogImporterExecutor;
+    private HybrisImporterExecutorService catalogImporterExecutor;
 
     private volatile boolean enabled;
 
@@ -25,7 +25,7 @@ public final class HybrisImporterScheduledJob implements Runnable {
         if (enabled) {
             LOG.info("running hybris importer job...");
 
-            catalogImporterExecutor.executeCatalogImport();
+            catalogImporterExecutor.execute();
         } else {
             LOG.info("hybris importer job is disabled");
         }

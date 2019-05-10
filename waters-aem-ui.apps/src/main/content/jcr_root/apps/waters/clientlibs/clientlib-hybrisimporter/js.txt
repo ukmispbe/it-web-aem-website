@@ -1,0 +1,9 @@
+#base=js
+
+bootstrap.min.js
+namespace.js
+moment.min.js
+datatables.min.js
+datatables.bootstrap4.min.js
+daterangepicker.js
+audit.js

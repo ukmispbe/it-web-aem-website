@@ -4,13 +4,16 @@ import com.icfolson.aem.library.core.link.builders.factory.LinkBuilderFactory;
 import com.icfolson.aem.library.core.servlets.AbstractJsonResponseServlet;
 import com.waters.aem.hybris.audit.HybrisImporterAuditRecord;
 import com.waters.aem.hybris.audit.HybrisImporterAuditService;
+import com.waters.aem.hybris.constants.HybrisImporterConstants;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.servlets.annotations.SlingServletPaths;
+import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import javax.annotation.Nonnull;
+import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.text.ParseException;
@@ -24,6 +27,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @SlingServletPaths("/bin/importer/audit")
+@Component(service = Servlet.class)
 public final class HybrisImporterAuditServlet extends AbstractJsonResponseServlet {
 
     private static final String PARAMETER_START_DATE = "startDate";
@@ -49,7 +53,7 @@ public final class HybrisImporterAuditServlet extends AbstractJsonResponseServle
             data = getAuditRecords(request)
                 .stream()
                 .map(auditRecord -> {
-                    final String href = LinkBuilderFactory.forPath("")
+                    final String href = LinkBuilderFactory.forPath(HybrisImporterConstants.REDIRECT_PATH)
                         .addSelector("audit")
                         .setSuffix(auditRecord.getPath())
                         .build()
@@ -58,10 +62,11 @@ public final class HybrisImporterAuditServlet extends AbstractJsonResponseServle
                     final Map<String, Object> map = new HashMap<>();
 
                     map.put("href", href);
-                    map.put("duration", auditRecord.getDuration());
+                    map.put("duration", auditRecord.getDuration() + "s");
                     map.put("date", new SimpleDateFormat(DATE_FORMAT_DISPLAY).format(auditRecord.getDate().getTime()));
                     map.put("success", auditRecord.getExceptionStackTrace().isEmpty());
                     map.put("exceptionStackTrace", auditRecord.getExceptionStackTrace());
+                    map.put("count", auditRecord.getResults().size());
 
                     for (final HybrisImportStatus status : HybrisImportStatus.values()) {
                         map.put(status.name().toLowerCase(), auditRecord.getResults()

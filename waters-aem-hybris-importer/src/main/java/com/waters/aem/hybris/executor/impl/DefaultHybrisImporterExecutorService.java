@@ -8,7 +8,7 @@ import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.waters.aem.hybris.audit.HybrisImporterAuditService;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
-import com.waters.aem.hybris.executor.HybrisCatalogImporterExecutor;
+import com.waters.aem.hybris.executor.HybrisImporterExecutorService;
 import com.waters.aem.hybris.importer.HybrisCatalogImporter;
 import com.waters.aem.hybris.notification.HybrisImporterNotificationService;
 import com.waters.aem.hybris.result.HybrisImporterExecutionResult;
@@ -25,10 +25,10 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-@Component(service = HybrisCatalogImporterExecutor.class)
-public final class DefaultHybrisCatalogImporterExecutor implements HybrisCatalogImporterExecutor {
+@Component(service = HybrisImporterExecutorService.class)
+public final class DefaultHybrisImporterExecutorService implements HybrisImporterExecutorService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DefaultHybrisCatalogImporterExecutor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultHybrisImporterExecutorService.class);
 
     @Reference
     private HybrisCatalogImporter hybrisCatalogImporter;
@@ -46,7 +46,7 @@ public final class DefaultHybrisCatalogImporterExecutor implements HybrisCatalog
     private ListenableFuture<HybrisImporterExecutionResult> result;
 
     @Override
-    public ListenableFuture<HybrisImporterExecutionResult> executeCatalogImport() {
+    public ListenableFuture<HybrisImporterExecutionResult> execute() {
         result = executorService.submit(() -> {
             final Stopwatch stopwatch = Stopwatch.createStarted();
 
@@ -82,6 +82,11 @@ public final class DefaultHybrisCatalogImporterExecutor implements HybrisCatalog
             }
         }, executorService);
 
+        return result;
+    }
+
+    @Override
+    public ListenableFuture<HybrisImporterExecutionResult> getResult() {
         return result;
     }
 

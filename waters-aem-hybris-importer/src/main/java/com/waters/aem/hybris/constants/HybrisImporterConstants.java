@@ -22,6 +22,8 @@ public final class HybrisImporterConstants {
 
     public static final String PROPERTY_LAST_MODIFIED = "importer:lastModified";
 
+    public static final String REDIRECT_PATH = "/etc/waters/hybris-importer";
+
     private HybrisImporterConstants() {
 
     }
