@@ -27,9 +27,8 @@ import javax.jcr.Session;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkArgument;
 
 @Component(service = HybrisImporterAuditService.class)
 public final class DefaultHybrisImporterAuditService implements HybrisImporterAuditService {
@@ -37,8 +36,6 @@ public final class DefaultHybrisImporterAuditService implements HybrisImporterAu
     private static final Logger LOG = LoggerFactory.getLogger(DefaultHybrisImporterAuditService.class);
 
     private static final Joiner.MapJoiner MAP_JOINER = Joiner.on("|").withKeyValueSeparator(":");
-
-    private static final String DATE_FORMAT = "yyyy/MM/dd";
 
     private static final String NAME_AUDIT = "audit";
 
@@ -119,37 +116,7 @@ public final class DefaultHybrisImporterAuditService implements HybrisImporterAu
             throw new RuntimeException(e);
         }
 
-        return auditRecords;
-    }
-
-    @Override
-    public List<HybrisImporterAuditRecord> getAuditRecords(final Calendar startDate, final Calendar endDate) {
-        final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-
-        checkArgument(!startDate.after(endDate), "start date %s must not be after end date %s",
-            dateFormat.format(startDate.getTime()), dateFormat.format(endDate.getTime()));
-
-        final List<HybrisImporterAuditRecord> auditRecords = new ArrayList<>();
-
-        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
-            final Resource auditResource = resourceResolver.getResource(PATH_AUDIT);
-
-            while (!startDate.after(endDate)) {
-                final String currentDateRelativePath = dateFormat.format(startDate.getTime());
-
-                final Resource currentDateResource = auditResource.getChild(currentDateRelativePath);
-
-                if (currentDateResource != null) {
-                    for (final Resource child : currentDateResource.getChildren()) {
-                        auditRecords.add(child.adaptTo(HybrisImporterAuditRecord.class));
-                    }
-                }
-
-                startDate.add(Calendar.DAY_OF_MONTH, 1);
-            }
-        } catch (LoginException e) {
-            throw new RuntimeException(e);
-        }
+        auditRecords.sort(Comparator.comparing(auditRecord -> auditRecord.getDate().getTimeInMillis()));
 
         return auditRecords;
     }

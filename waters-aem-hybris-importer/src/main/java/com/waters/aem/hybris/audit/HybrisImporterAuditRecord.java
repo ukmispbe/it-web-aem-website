@@ -1,6 +1,7 @@
 package com.waters.aem.hybris.audit;
 
 import com.day.cq.commons.jcr.JcrConstants;
+import com.google.common.base.Objects;
 import com.google.common.base.Splitter;
 import com.waters.aem.hybris.constants.HybrisImporterConstants;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
@@ -13,6 +14,7 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
 import javax.annotation.PostConstruct;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -82,5 +84,16 @@ public final class HybrisImporterAuditRecord {
 
     public String getExceptionStackTrace() {
         return exceptionStackTrace;
+    }
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this)
+            .add("path", getPath())
+            .add("date", new SimpleDateFormat(HybrisImporterConstants.DATE_FORMAT_PATTERN).format(date.getTime()))
+            .add("duration", duration)
+            .add("success", exceptionStackTrace.isEmpty())
+            .add("results", results.size())
+            .toString();
     }
 }

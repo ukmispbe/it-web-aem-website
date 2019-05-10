@@ -1,13 +1,4 @@
 $(function () {
-    $('#date-range').daterangepicker({
-        maxDate: moment()
-    }).on('apply.daterangepicker', function (e, picker) {
-        var startDate = picker.startDate.format('YYYY-MM-DD');
-        var endDate = picker.endDate.format('YYYY-MM-DD');
-
-        HybrisImporter.Audit.loadAuditRecords(startDate, endDate);
-    });
-
     HybrisImporter.Audit.initialize();
 });
 
@@ -55,14 +46,10 @@ HybrisImporter.Audit = function () {
                 processing: true,
                 order: [[0, 'desc']],
                 rowCallback: function (row, data) {
-                    $('td:eq(0)', row).html('<a target="_blank" href="' + data.href + '">' + data.date + '</a>');
+                    $('td:eq(0)', row).html('<a href="' + data.href + '">' + data.date + '</a>');
                     $('td:eq(1)', row).html(data.success ? 'Yes' : 'No');
                 }
             });
-        },
-
-        loadAuditRecords: function (startDate, endDate) {
-            table.api().ajax.url('/bin/importer/audit.json?startDate=' + startDate + '&endDate=' + endDate).load();
         }
     };
 }();

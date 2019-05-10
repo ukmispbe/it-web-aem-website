@@ -1,11 +1,9 @@
 package com.waters.aem.hybris.components;
 
 import com.google.common.collect.Iterables;
-import com.google.common.util.concurrent.ListenableFuture;
 import com.waters.aem.hybris.audit.HybrisImporterAuditRecord;
 import com.waters.aem.hybris.audit.HybrisImporterAuditService;
 import com.waters.aem.hybris.executor.HybrisImporterExecutorService;
-import com.waters.aem.hybris.result.HybrisImporterExecutionResult;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
 
@@ -13,7 +11,6 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 @Model(adaptables = Resource.class)
 public final class HybrisImporterStatus {
@@ -43,21 +40,7 @@ public final class HybrisImporterStatus {
     }
 
     public boolean isSuccess() {
-        boolean success = true;
-
-        final ListenableFuture<HybrisImporterExecutionResult> result = executorService.getResult();
-
-        if (result == null) {
-            success = false;
-        } else {
-            try {
-                result.get();
-            } catch (ExecutionException | InterruptedException e) {
-                success = false;
-            }
-        }
-
-        return success;
+        return lastAuditRecord.getExceptionStackTrace().isEmpty();
     }
 
     public Boolean isRunning() {
