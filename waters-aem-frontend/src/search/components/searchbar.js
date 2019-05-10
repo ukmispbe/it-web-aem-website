@@ -109,7 +109,8 @@ class SearchBar extends Component {
     handleClearIconClick = e => {
         this.inputElement.focus();
         this.addSearchBarFocusCss();
-        this.setState({value: '', suggestions: [], openOverlay: false}, () => this.removeCssOverrides());
+        this.setState({value: '', suggestions: [], openOverlay: false});
+        setTimeout(() => this.removeCssOverrides(), 0);
     }
 
     handleSearchValueChange = (event, { newValue }) => this.setState({value: newValue});
@@ -123,13 +124,15 @@ class SearchBar extends Component {
 
         const openOverlay = suggestions.length !== 0;
 
-        this.setState({suggestions, openOverlay}, () => {
-            if (openOverlay) {
-                this.addCssOverrides();
-            } else {
-                this.removeCssOverrides();
-            }
-        });
+        if(openOverlay) {
+            this.addCssOverrides();
+        }
+
+        this.setState({suggestions, openOverlay});
+
+        if(!openOverlay) {
+            setTimeout(() => this.removeCssOverrides(), 0);
+        }
     };
 
     handleSuggestionsClearRequested = () => { 
