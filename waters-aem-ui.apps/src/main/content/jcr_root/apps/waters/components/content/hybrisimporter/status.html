@@ -3,7 +3,11 @@
 <div class="row" data-sly-use.importerStatus="com.waters.aem.hybris.components.HybrisImporterStatus">
     <div class="col-12">
         <div data-sly-test="${importerStatus.running}" class="alert alert-primary" role="alert">
-            Hybris Import running...
+            Hybris import running...
+        </div>
+
+        <div data-sly-test="${!importerStatus.running && !importerStatus.lastImportDate}" class="alert alert-info" role="alert">
+            No Hybris imports have been executed.
         </div>
 
         <div data-sly-test="${!importerStatus.running && importerStatus.lastImportDate && importerStatus.success}" class="alert alert-success" role="alert">

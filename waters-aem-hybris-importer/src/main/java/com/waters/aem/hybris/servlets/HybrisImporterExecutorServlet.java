@@ -26,7 +26,7 @@ public final class HybrisImporterExecutorServlet extends AbstractJsonResponseSer
         @Nonnull final SlingHttpServletResponse response) throws IOException {
         executorService.execute();
 
-        response.sendRedirect(LinkBuilderFactory.forPath(HybrisImporterConstants.REDIRECT_PATH)
+        response.sendRedirect(LinkBuilderFactory.forPath(HybrisImporterConstants.IMPORTER_PAGE_PATH)
             .build()
             .getHref());
     }

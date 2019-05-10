@@ -58,7 +58,7 @@ public class HybrisImporterEmailNotificationService implements HybrisImporterNot
 
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
             params.put("href", externalizer.externalLink(resourceResolver, Externalizer.AUTHOR,
-                LinkBuilderFactory.forPath(HybrisImporterConstants.REDIRECT_PATH)
+                LinkBuilderFactory.forPath(HybrisImporterConstants.IMPORTER_PAGE_PATH)
                     .addSelector("audit")
                     .build()
                     .getHref()));

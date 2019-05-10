@@ -8,8 +8,6 @@ public final class HybrisImporterConstants {
 
     public static final String DATE_FORMAT_PATTERN = "yyyy-MM-dd'T'HH:mm:ssX";
 
-    public static final String PATH_COMMERCE = "/etc/commerce";
-
     public static final String PROPERTY_ID = "importer:id";
 
     public static final String PROPERTY_URL = "importer:url";
@@ -22,7 +20,7 @@ public final class HybrisImporterConstants {
 
     public static final String PROPERTY_LAST_MODIFIED = "importer:lastModified";
 
-    public static final String REDIRECT_PATH = "/etc/waters/hybris-importer";
+    public static final String IMPORTER_PAGE_PATH = "/etc/waters/hybris-importer";
 
     private HybrisImporterConstants() {
 

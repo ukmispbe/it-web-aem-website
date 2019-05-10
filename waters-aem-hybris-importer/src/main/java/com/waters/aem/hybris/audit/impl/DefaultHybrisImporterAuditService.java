@@ -41,7 +41,8 @@ public final class DefaultHybrisImporterAuditService implements HybrisImporterAu
 
     private static final String NAME_PREFIX_RECORD = "record";
 
-    private static final String PATH_AUDIT = HybrisImporterConstants.PATH_COMMERCE + "/" + NAME_AUDIT;
+    private static final String PATH_AUDIT = HybrisImporterConstants.IMPORTER_PAGE_PATH + "/" + JcrConstants.JCR_CONTENT
+        + "/" + NAME_AUDIT;
 
     private static final String DATE_FORMAT_YEAR = "yyyy";
 
@@ -174,12 +175,13 @@ public final class DefaultHybrisImporterAuditService implements HybrisImporterAu
 
     private void createAuditNode(final ResourceResolver resourceResolver) throws RepositoryException {
         final Session session = resourceResolver.adaptTo(Session.class);
-        final Node commerceRootNode = session.getNode(HybrisImporterConstants.PATH_COMMERCE);
+        final Node importerPageContentNode = session.getNode(HybrisImporterConstants.IMPORTER_PAGE_PATH).getNode(
+            JcrConstants.JCR_CONTENT);
 
-        if (!commerceRootNode.hasNode(NAME_AUDIT)) {
+        if (!importerPageContentNode.hasNode(NAME_AUDIT)) {
             LOG.info("audit folder node does not exist, adding");
 
-            commerceRootNode.addNode(NAME_AUDIT, JcrResourceConstants.NT_SLING_FOLDER);
+            importerPageContentNode.addNode(NAME_AUDIT);
 
             session.save();
         }
