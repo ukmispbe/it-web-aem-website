@@ -21,7 +21,9 @@ public class Textfield implements DialogField {
      */
     @Override
     public void setValue(Object value) {
-        input.clear();
-        input.sendKeys(String.valueOf(value));
+        if(input.isEnabled()){
+            input.clear();
+            input.sendKeys(String.valueOf(value));
+        }
     }
 }
