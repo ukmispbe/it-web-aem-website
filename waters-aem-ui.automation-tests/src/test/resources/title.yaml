@@ -4,4 +4,4 @@ Properties:
     value: Title Test
   - label: Type / Size
     type: SELECT
-    value: h2
+    value: H2

@@ -15,10 +15,10 @@ const parameterDefaults = {
     rows: 25,
     keyword: '*:*',
     content_type: '',
-    sort: parameterValues.mostRecent
+    sort: parameterValues.sort.mostRecent
 }
 
-export class SearchService {
+class SearchService {
     constructor(
         {
             isocode = parameterDefaults.isocode,
@@ -268,3 +268,5 @@ export class SearchService {
 
     isDefaultKeyword = value => value === parameterDefaults.keyword;
 }
+
+export { SearchService, parameterDefaults }

@@ -1,0 +1,18 @@
+Asset:
+  - label:
+    type: IMAGE
+    value: brand-masslynx-software.png
+  - label: Title
+    type: TEXTFIELD
+    value: Title Test
+
+Metadata:
+  - label: Get alternative text from DAM
+    type: CHECKBOX
+    value: true
+  - label: Alternative Text
+    type: TEXTFIELD
+    value: Alternative Text Test
+  - label: Link
+    type: PATHBROWSER
+    value: /content/waters/test.html

@@ -2,7 +2,6 @@ package com.waters.aem.automationtests.bobcat.modules;
 
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Fields;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Image;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ControlToolbar;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.FontFormat;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.JustifyControls;
@@ -13,6 +12,7 @@ import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ListDialo
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
 import com.waters.aem.automationtests.bobcat.dialog.dialogfields.Checkbox;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.Image;
 import com.waters.aem.automationtests.bobcat.dialog.dialogfields.Multifield;
 import com.waters.aem.automationtests.bobcat.dialog.dialogfields.MultifieldItem;
 import com.waters.aem.automationtests.bobcat.dialog.dialogfields.PathBrowser;
