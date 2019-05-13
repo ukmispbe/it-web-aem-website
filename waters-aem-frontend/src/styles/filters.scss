@@ -148,6 +148,10 @@
             }
             input[type='input'] {
                 padding-right: $space-xl;
+
+                &::-ms-clear {
+                    display: none;
+                }
             }
             svg {
                 z-index: 1;

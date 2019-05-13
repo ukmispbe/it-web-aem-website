@@ -7,6 +7,7 @@ import com.cognifide.qa.bb.api.actions.ActionException;
 import com.cognifide.qa.bb.junit5.guice.Modules;
 import com.cognifide.qa.bb.modules.BobcatRunModule;
 import com.waters.aem.automationtests.components.Anchor;
+import com.waters.aem.automationtests.components.Image;
 import com.waters.aem.automationtests.components.Text;
 import com.waters.aem.automationtests.components.Title;
 import com.waters.aem.automationtests.constants.WatersAutomationTestConstants;
@@ -48,6 +49,19 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
         final Anchor anchorComponent = page.getContent(Anchor.class, 0);
 
         assertThat(anchorComponent.getLinkTitles()).containsExactly("Section 1", "Section 2", "Section 3");
+    }
+
+    @Test
+    public void image() throws ActionException {
+        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container", "Image", 0,
+            new ResourceFileLocation("image.yaml")));
+
+        final Image imageComponent = page.getContent(Image.class, 0);
+
+        assertThat(imageComponent.getTitle()).isEqualTo("Title Test");
+        assertThat(imageComponent.getSrc().substring(imageComponent.getSrc().lastIndexOf("/") + 1)).isEqualTo("brand-masslynx-software.png");
+        assertThat(imageComponent.getAlt()).isEqualTo("Alternative Text Test");
+        assertThat(imageComponent.getLink().substring(imageComponent.getLink().lastIndexOf("/") + 1)).isEqualTo("test.html");
     }
 
     @Override

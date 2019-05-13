@@ -3,7 +3,6 @@ import ReactSVG from 'react-svg';
 import Autosuggest from 'react-autosuggest';
 import { debounce } from 'throttle-debounce';
 import { SearchService } from '../services/index';
-import SessionService from '../services/session-service';
 import OverLay from './overlay';
 import PropTypes from 'prop-types';
 import './../../styles/index.scss';
@@ -21,8 +20,6 @@ class SearchBar extends Component {
 
         this.search = new SearchService({}, '', this.props.baseUrl);
 
-        this.sessionService = new SessionService();
-
         let searchValue = this.search.getUrlParameter('keyword', window.location.search.substring(1)); 
 
         if (this.search.isDefaultKeyword(searchValue)) searchValue = '';
@@ -34,16 +31,6 @@ class SearchBar extends Component {
 
     componentDidMount = () => {
         this.inputElement = document.querySelectorAll('.cmp-search-bar .react-autosuggest__container .react-autosuggest__input')[0];
-
-        const querystringParams = this.search.getParamsFromString();
-
-        if (!querystringParams.keyword || this.search.isDefaultKeyword(querystringParams.keyword)) {
-            const searchTerm = this.sessionService.getSearchTerm();
-
-            if (searchTerm) {
-                this.setState({value: searchTerm}, () => this.search.setUrlParameter(this.state.value, this.props.searchPath));
-            }
-        }
     }
 
     render() {
@@ -120,25 +107,21 @@ class SearchBar extends Component {
         const suggestions = !(this.state.value.length < this.props.minSearchCharacters) 
             ? this.formatSuggestions(this.state.value.trim(), (await this.search.getSuggestedKeywords(this.props.maxSuggestions, this.state.value)))
             : [];
-
+        
         const openOverlay = suggestions.length !== 0;
 
-        this.setState({suggestions, openOverlay}, () => {
-            if (openOverlay) {
-                this.addCssOverrides();
-            } else {
-                this.removeCssOverrides();
-            }
-        });
+        if(openOverlay) {
+            this.addCssOverrides();
+        }
+
+        this.setState({suggestions, openOverlay}, () => { if(!openOverlay) this.removeCssOverrides() });
     };
 
     handleSuggestionsClearRequested = () => { 
         // when user clicks on the clear icon, this function should execute after the icon's click event
         // therefore, need to delay this when users click on the clear icon otherwise the clear icon
         // click event will never execute because this function will eventually prevent propagation
-        setTimeout(() => this.setState({suggestions: [], openOverlay: false}), 125);
-
-        this.removeCssOverrides();
+        setTimeout(() => this.setState({suggestions: [], openOverlay: false}, () => this.removeCssOverrides()), 125);
     };
 
     getSuggestionValueCallback = suggestion => suggestion.key;
@@ -146,9 +129,10 @@ class SearchBar extends Component {
     renderSuggestionCallback = suggestion => <div>{suggestion.value}</div>;
 
     handleSuggestionSelected = (event, { suggestionValue}) => {
-        this.sessionService.setSearchTerm(suggestionValue);
-        this.removeCssOverrides();
-        this.setState({value: suggestionValue, suggestions: [], openOverlay: false}, () => this.search.setUrlParameter(this.state.value, this.props.searchPath));
+        this.setState({value: suggestionValue, suggestions: [], openOverlay: false}, () => {
+            this.removeCssOverrides();
+            this.search.setUrlParameter(this.state.value, this.props.searchPath)
+        });
     }
 
     addCssOverrides = () => document.getElementsByTagName('body')[0].classList.add(cssOverridesClassName);
@@ -179,7 +163,7 @@ class SearchBar extends Component {
 
     formatNonMatchingWords = value => {
         // wrap spaces with a pipe | & split into an array
-        const words = value.replace(new RegExp(/\s/, 'g'), '| |').split('|').filter(word => word !== '');;
+        const words = value.replace(/\s/g, '| |').split('|').filter(word => word !== '');
 
         // use an underscore instead of a space to preserve the space in the flex row
         // this is needed because IE doesn't handle white-space: pre-wrap the same as other browsers

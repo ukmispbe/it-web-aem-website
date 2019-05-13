@@ -1,15 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import { SearchService, parameterDefaults } from './services/index';
-import SessionService from './services/session-service';
 import { parse, stringify } from 'query-string';
 import { withRouter } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import ReactSVG from 'react-svg';
-
 import ResultsCount from './components/results-count';
 import Results from './components/results';
 import NoResults from './components/no-results';
-
 import Sort from './components/sort';
 import Filter from './components/filter';
 import {SubFacetTags, CategoryTags, ClearAllTag, KeywordTag} from './components/filter-tags';
@@ -25,7 +22,6 @@ class Search extends Component {
         super();
         this.savedSelectFilterState = null;
         this.parentCategory = 'contenttype_facet';
-        this.sessionService = new SessionService();
     }
 
     componentWillMount() {
@@ -163,7 +159,7 @@ class Search extends Component {
         newState.count = res.num_found;
         newState.query = query.keyword;
         newState.results = newState.results || {};
-        newState.results[query.page] = res.documents;
+        newState.results[query.page] = res.num_found !== 0 ? res.documents : [];
         newState.noQuery = query.keyword ? false : true;
         newState.sort = this.state.sort;
         newState.performedSearches = this.state.performedSearches + 1;
@@ -406,10 +402,6 @@ class Search extends Component {
         let query = this.search.createQueryObject(parse(window.location.search));
 
         if(query.keyword && !this.search.isDefaultKeyword(query.keyword)) {
-            // removing the keyword tag requires a reload of the page 
-            // so the search bar also removes the search term
-
-            this.sessionService.removeSearchTerm();
             this.search.setUrlParameter('', window.location.pathname);
         } else {
             // no keyword has been selected so no need to reload page
@@ -432,12 +424,6 @@ class Search extends Component {
     }
 
     handleRemoveKeyword = () => {
-        // removing the keyword tag requires a reload of the page 
-        // so the search bar also removes the search term
-        // however, this will retain other active filters
-
-        this.sessionService.removeSearchTerm();
-
         const parameters = parse(window.location.search);
 
         parameters.keyword = parameterDefaults.keyword;
@@ -552,6 +538,10 @@ class Search extends Component {
             />
         </>;
     }
+
+    renderResults = (results) => (!this.state.loading && this.state.noResults) 
+        ? <NoResults searchText={this.props.searchText} query={this.state.query} />
+        : results;
 
     render() {
         const state = this.state;
@@ -679,14 +669,7 @@ class Search extends Component {
                 {overlay}
                 {!state.loading && state.noResults ? null : aside}
                 {state.loading ? <Spinner loading={state.loading} /> : null}
-                {!state.loading && state.noResults ? (
-                    <NoResults
-                        searchText={this.props.searchText}
-                        query={state.query}
-                    />
-                ) : (
-                    results
-                )}
+                {this.renderResults(results)}
             </div>
         );
     }

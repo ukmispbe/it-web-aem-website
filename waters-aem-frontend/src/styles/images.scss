@@ -24,7 +24,19 @@ div.image {
 .inline-svg {
     display: none;
 
+    svg {
+        display: none;
+    }
+
     &.inlined-svg {
         display: block;
+
+        svg {
+            display: block;
+        }
     }
+}
+
+svg.inline-svg {
+    display: block;
 }
