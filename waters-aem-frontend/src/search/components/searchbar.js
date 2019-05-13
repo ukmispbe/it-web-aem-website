@@ -7,7 +7,8 @@ import OverLay from './overlay';
 import PropTypes from 'prop-types';
 import './../../styles/index.scss';
 
-const cssOverridesClassName = "cmp-search-bar__auto-suggest--open";
+const cssOverridesForSearchBar = "cmp-search-bar__auto-suggest--open";
+const cssOverridesForSearchBody = "cmp-search-body__auto-suggest--open";
 const searchBarFocusClassName = 'cmp-search-bar--focus';
 
 class SearchBar extends Component {
@@ -60,7 +61,7 @@ class SearchBar extends Component {
         return(<Autosuggest
                     suggestions={this.state.suggestions}
                     onSuggestionsFetchRequested={this.handleSuggestionsFetchRequestedDebounce}
-                    onSuggestionsClearRequested={this.handleSuggestionsClearRequested}
+                    onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                     onSuggestionSelected={this.handleSuggestionSelected}
                     getSuggestionValue={this.getSuggestionValueCallback}
                     renderSuggestion={this.renderSuggestionCallback}
@@ -96,10 +97,23 @@ class SearchBar extends Component {
     handleClearIconClick = e => {
         this.inputElement.focus();
         this.addSearchBarFocusCss();
-        this.setState({value: '', suggestions: [], openOverlay: false}, () => this.removeCssOverrides());
+        this.setState({value: '', suggestions: [], openOverlay: false}, () => this.removeCssOverridesForSearchBody());
     }
 
-    handleSearchValueChange = (event, { newValue }) => this.setState({value: newValue});
+    handleSearchValueChange = (event, { newValue }) => {
+        if(newValue.length === 0) {
+            // this will prevent white space from appearing below the search bar
+            // as the user backspaces and deletes all of the characters
+            this.removeCssOverridesForSearchBar();
+        }
+        
+        this.setState({value: newValue}, () => {
+            if(newValue.length === 0) {
+                // the user has manually cleared the search bar so need to update the state
+                this.setState({suggestions: [], openOverlay: false}, () => this.removeCssOverridesForSearchBody());
+            }
+        });
+    }
 
     handleSearchValueBlur = (event, { highlightedSuggestion }) => this.removeSearchBarFocusCss();
 
@@ -111,33 +125,36 @@ class SearchBar extends Component {
         const openOverlay = suggestions.length !== 0;
 
         if(openOverlay) {
-            this.addCssOverrides();
+            this.addCssOverridesForSearchBar();
+            this.addCssOverridesForSearchBody();
+        } else {
+            this.removeCssOverridesForSearchBar();
         }
 
-        this.setState({suggestions, openOverlay}, () => { if(!openOverlay) this.removeCssOverrides() });
+        this.setState({suggestions, openOverlay}, () => { if(!openOverlay) this.removeCssOverridesForSearchBody(); });
     };
 
-    handleSuggestionsClearRequested = () => { 
-        // when user clicks on the clear icon, this function should execute after the icon's click event
-        // therefore, need to delay this when users click on the clear icon otherwise the clear icon
-        // click event will never execute because this function will eventually prevent propagation
-        setTimeout(() => this.setState({suggestions: [], openOverlay: false}, () => this.removeCssOverrides()), 125);
-    };
+    onSuggestionsClearRequested = () => this.removeCssOverridesForSearchBar();
 
     getSuggestionValueCallback = suggestion => suggestion.key;
 
     renderSuggestionCallback = suggestion => <div>{suggestion.value}</div>;
 
     handleSuggestionSelected = (event, { suggestionValue}) => {
+        this.removeCssOverridesForSearchBar();
         this.setState({value: suggestionValue, suggestions: [], openOverlay: false}, () => {
-            this.removeCssOverrides();
+            this.removeCssOverridesForSearchBody();
             this.search.setUrlParameter(this.state.value, this.props.searchPath)
         });
     }
 
-    addCssOverrides = () => document.getElementsByTagName('body')[0].classList.add(cssOverridesClassName);
+    addCssOverridesForSearchBar = () => document.getElementsByTagName('body')[0].classList.add(cssOverridesForSearchBar);
 
-    removeCssOverrides = () => document.getElementsByTagName('body')[0].classList.remove(cssOverridesClassName);
+    removeCssOverridesForSearchBar = () => document.getElementsByTagName('body')[0].classList.remove(cssOverridesForSearchBar);
+
+    addCssOverridesForSearchBody = () => document.getElementsByTagName('body')[0].classList.add(cssOverridesForSearchBody);
+
+    removeCssOverridesForSearchBody = () => document.getElementsByTagName('body')[0].classList.remove(cssOverridesForSearchBody);
 
     formatSuggestions = (term, suggestions) => suggestions.map(suggestion => {
         return {
