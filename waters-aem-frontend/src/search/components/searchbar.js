@@ -96,8 +96,7 @@ class SearchBar extends Component {
     handleClearIconClick = e => {
         this.inputElement.focus();
         this.addSearchBarFocusCss();
-        this.setState({value: '', suggestions: [], openOverlay: false});
-        setTimeout(() => this.removeCssOverrides(), 0);
+        this.setState({value: '', suggestions: [], openOverlay: false}, () => this.removeCssOverrides());
     }
 
     handleSearchValueChange = (event, { newValue }) => this.setState({value: newValue});
@@ -108,27 +107,21 @@ class SearchBar extends Component {
         const suggestions = !(this.state.value.length < this.props.minSearchCharacters) 
             ? this.formatSuggestions(this.state.value.trim(), (await this.search.getSuggestedKeywords(this.props.maxSuggestions, this.state.value)))
             : [];
-
+        
         const openOverlay = suggestions.length !== 0;
 
         if(openOverlay) {
             this.addCssOverrides();
         }
 
-        this.setState({suggestions, openOverlay});
-
-        if(!openOverlay) {
-            setTimeout(() => this.removeCssOverrides(), 0);
-        }
+        this.setState({suggestions, openOverlay}, () => { if(!openOverlay) this.removeCssOverrides() });
     };
 
     handleSuggestionsClearRequested = () => { 
         // when user clicks on the clear icon, this function should execute after the icon's click event
         // therefore, need to delay this when users click on the clear icon otherwise the clear icon
         // click event will never execute because this function will eventually prevent propagation
-        setTimeout(() => this.setState({suggestions: [], openOverlay: false}), 125);
-
-        this.removeCssOverrides();
+        setTimeout(() => this.setState({suggestions: [], openOverlay: false}, () => this.removeCssOverrides()), 125);
     };
 
     getSuggestionValueCallback = suggestion => suggestion.key;
@@ -136,8 +129,10 @@ class SearchBar extends Component {
     renderSuggestionCallback = suggestion => <div>{suggestion.value}</div>;
 
     handleSuggestionSelected = (event, { suggestionValue}) => {
-        this.removeCssOverrides();
-        this.setState({value: suggestionValue, suggestions: [], openOverlay: false}, () => this.search.setUrlParameter(this.state.value, this.props.searchPath));
+        this.setState({value: suggestionValue, suggestions: [], openOverlay: false}, () => {
+            this.removeCssOverrides();
+            this.search.setUrlParameter(this.state.value, this.props.searchPath)
+        });
     }
 
     addCssOverrides = () => document.getElementsByTagName('body')[0].classList.add(cssOverridesClassName);
@@ -168,7 +163,7 @@ class SearchBar extends Component {
 
     formatNonMatchingWords = value => {
         // wrap spaces with a pipe | & split into an array
-        const words = value.replace(new RegExp(/\s/, 'g'), '| |').split('|').filter(word => word !== '');;
+        const words = value.replace(/\s/g, '| |').split('|').filter(word => word !== '');
 
         // use an underscore instead of a space to preserve the space in the flex row
         // this is needed because IE doesn't handle white-space: pre-wrap the same as other browsers
