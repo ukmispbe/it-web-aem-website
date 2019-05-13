@@ -1,17 +1,15 @@
 import React, { Component, Fragment } from 'react';
-import { SearchService } from './services/index';
-import { parse } from 'query-string';
+import { SearchService, parameterDefaults } from './services/index';
+import { parse, stringify } from 'query-string';
 import { withRouter } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import ReactSVG from 'react-svg';
-
 import ResultsCount from './components/results-count';
 import Results from './components/results';
 import NoResults from './components/no-results';
-
 import Sort from './components/sort';
 import Filter from './components/filter';
-import {SubFacetTags, CategoryTags} from './components/filter-tags';
+import {SubFacetTags, CategoryTags, ClearAllTag, KeywordTag} from './components/filter-tags';
 import BtnShowSortFilter from './components/btn-show-sort-filter';
 import BtnHideSortFilter from './components/btn-hide-sort-filter';
 import BtnApplySortFilter from './components/btn-apply-sort-filter';
@@ -58,12 +56,12 @@ class Search extends Component {
             loading: true,
             results: {},
             pagination: {
-                current: this.query.page ? this.query.page : 1,
+                current: this.query.page ? this.query.page : parameterDefaults.page,
             },
             rows: this.props.searchDefaults
                 ? this.props.searchDefaults && this.props.searchDefaults.rows
                 : 25,
-            sort: this.query.sort,
+            sort: this.query.sort ? this.query.sort : parameterDefaults.sort,
             selectedFacets: this.query.selectedFacets || {},
             unappliedFilters: {},
             isDesktop: false,
@@ -72,7 +70,8 @@ class Search extends Component {
             contentType,
             contentTypeSelected,
             facets: [],
-            filterMap: []
+            filterMap: [],
+            keyword: this.query.keyword ? this.query.keyword : parameterDefaults.keyword
         });
 
         const checkWindowWidth = () => {
@@ -160,7 +159,7 @@ class Search extends Component {
         newState.count = res.num_found;
         newState.query = query.keyword;
         newState.results = newState.results || {};
-        newState.results[query.page] = res.documents;
+        newState.results[query.page] = res.num_found !== 0 ? res.documents : [];
         newState.noQuery = query.keyword ? false : true;
         newState.sort = this.state.sort;
         newState.performedSearches = this.state.performedSearches + 1;
@@ -399,14 +398,48 @@ class Search extends Component {
         );
     }
 
-    handleContentTypeTagRemoval = () => {
+    handleResetSearchToDefault = () => {
         let query = this.search.createQueryObject(parse(window.location.search));
-        
-        delete query.content_type;
 
-        query.page = 1;
+        if(query.keyword && !this.search.isDefaultKeyword(query.keyword)) {
+            this.search.setUrlParameter('', window.location.pathname);
+        } else {
+            // no keyword has been selected so no need to reload page
+            // simply clear active filters and update the route
+            delete query.content_type;
 
-        this.setState({searchParams: query, selectedFacets: {}, contentType: '', contentTypeSelected: {}});
+            query.page = parameterDefaults.page;
+
+            this.setState({searchParams: query, selectedFacets: {}, contentType: '', contentTypeSelected: {}});
+
+            setTimeout(
+                () =>
+                    this.pushToHistory(
+                        this.state.searchParams,
+                        this.state.selectedFacets
+                    ),
+                0
+            );
+        }
+    }
+
+    handleRemoveKeyword = () => {
+        const parameters = parse(window.location.search);
+
+        parameters.keyword = parameterDefaults.keyword;
+        parameters.page = parameterDefaults.page;
+
+        window.location.href = `${window.location.pathname}?${stringify(parameters)}`;
+    }
+
+    handleRemoveCategory = () => {
+        const parameters = parse(window.location.search);
+
+        delete parameters.content_type;
+
+        parameters.page = parameterDefaults.page;
+
+        this.setState({searchParams: parameters, selectedFacets: {}, contentType: '', contentTypeSelected: {}});
 
         setTimeout(
             () =>
@@ -435,7 +468,7 @@ class Search extends Component {
                         items={this.state.filterMap}
                         click={this.handleContentTypeItemClick.bind(this)}
                         selectedValue={this.state.contentTypeSelected.categoryFacetValue}
-                        clear={this.handleContentTypeTagRemoval.bind(this)}>
+                        clear={this.handleRemoveCategory.bind(this)}>
                         <Filter
                             facets={this.state.facets}
                             text={this.props.searchText}
@@ -451,19 +484,38 @@ class Search extends Component {
     }
 
     getFilterTags = () => {
-        if (Object.entries(this.state.contentTypeSelected).length !== 0) {
+        if (this.isKeywordSelected() || this.isContentTypeSelected()) {
             return <div className="cmp-search-filters__tags clearfix">
-                    <CategoryTags 
-                        categoryKey="contentType"
-                        text={this.props.searchText} 
-                        selected={this.state.contentTypeSelected} 
-                        remove={this.handleContentTypeTagRemoval} />
+                    <ClearAllTag 
+                        text={this.props.searchText}
+                        onRemove={this.handleResetSearchToDefault} />
+                    {this.getKeywordTag()}
+                    {this.getCategoryTags()}
                     {this.getSubFacetTags()}
                 </div>;
         } else {
             return <div className="cmp-search-filters__emptytags"></div>;
         }
     }
+
+    isContentTypeSelected = () => (Object.entries(this.state.contentTypeSelected).length !== 0);
+
+    isKeywordSelected = () => !this.search.isDefaultKeyword(this.state.keyword);
+
+    getCategoryTags = () => this.isContentTypeSelected()
+        ? <CategoryTags 
+            categoryKey="contentType"
+            text={this.props.searchText} 
+            selected={this.state.contentTypeSelected} 
+            onRemove={this.handleRemoveCategory} />
+        : <></>;
+
+    getKeywordTag = () => this.isKeywordSelected()
+        ? <KeywordTag 
+            keyword={this.state.keyword} 
+            text={this.props.searchText}
+            onRemove={this.handleRemoveKeyword}  /> 
+        : <></>;
 
     getSubFacetTags = () => {
         if (this.isInitialLoad(this.state.contentType) || !this.isFacetsSelected(this.state.searchParams.facets)) {
@@ -486,6 +538,10 @@ class Search extends Component {
             />
         </>;
     }
+
+    renderResults = (results) => (!this.state.loading && this.state.noResults) 
+        ? <NoResults searchText={this.props.searchText} query={this.state.query} />
+        : results;
 
     render() {
         const state = this.state;
@@ -572,6 +628,7 @@ class Search extends Component {
                 <Results
                     results={state.results[searchParams.page] || []}
                     locale={locale}
+                    nextIcon={this.props.searchText.nextIcon}
                 />
 
                 {state.count > this.props.searchDefaults.rows ? (
@@ -612,14 +669,7 @@ class Search extends Component {
                 {overlay}
                 {!state.loading && state.noResults ? null : aside}
                 {state.loading ? <Spinner loading={state.loading} /> : null}
-                {!state.loading && state.noResults ? (
-                    <NoResults
-                        searchText={this.props.searchText}
-                        query={state.query}
-                    />
-                ) : (
-                    results
-                )}
+                {this.renderResults(results)}
             </div>
         );
     }

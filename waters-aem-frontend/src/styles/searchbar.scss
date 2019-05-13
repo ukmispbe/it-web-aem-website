@@ -24,7 +24,6 @@
 
                 .formatted-suggestion {
                     display: flex;
-                    white-space: pre-wrap;
                 }
             }
 
@@ -34,7 +33,12 @@
             }
 
             .emphasis-matching-characters {
-                border-bottom: 1px solid $color-teal-50;
+                font-weight: $font-weight-bold + 100;
+            }
+
+            .white-text {
+                color: $color-white;
+                font-size: $font-size-body / 2;
             }
         }
 
@@ -114,9 +118,11 @@
     -   showing the sort by drop down and icon on top
     -   showing the search results on top
     -   displaying a gap between the search textbox and suggestions list
+    -   hiding the title under the overlay
 */
 body.cmp-search-bar__auto-suggest--open {
     .cmp-banner {
+        -ms-overflow-y: visible;
         overflow-y: unset;
     }
 
@@ -134,4 +140,20 @@ body.cmp-search-bar__auto-suggest--open {
     .cmp-search-bar {
         background-color: $color-white;
     }
+
+    .cmp-title {
+        position: relative;
+        z-index: 9999;
+    }
+}
+
+/*
+    These are IE specific overrides that cannot be account for using -ms prefix
+*/
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+	.cmp-search-bar {
+		.react-autosuggest__suggestions-container {
+			top: $space-xxl - 1;
+		}
+	}
 }
