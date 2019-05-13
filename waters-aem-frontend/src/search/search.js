@@ -5,11 +5,9 @@ import { parse, stringify } from 'query-string';
 import { withRouter } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import ReactSVG from 'react-svg';
-
 import ResultsCount from './components/results-count';
 import Results from './components/results';
 import NoResults from './components/no-results';
-
 import Sort from './components/sort';
 import Filter from './components/filter';
 import {SubFacetTags, CategoryTags, ClearAllTag, KeywordTag} from './components/filter-tags';
@@ -163,7 +161,7 @@ class Search extends Component {
         newState.count = res.num_found;
         newState.query = query.keyword;
         newState.results = newState.results || {};
-        newState.results[query.page] = res.documents;
+        newState.results[query.page] = res.num_found !== 0 ? res.documents : [];
         newState.noQuery = query.keyword ? false : true;
         newState.sort = this.state.sort;
         newState.performedSearches = this.state.performedSearches + 1;
@@ -553,6 +551,10 @@ class Search extends Component {
         </>;
     }
 
+    renderResults = (results) => (!this.state.loading && this.state.noResults) 
+        ? <NoResults searchText={this.props.searchText} query={this.state.query} />
+        : results;
+
     render() {
         const state = this.state;
         const searchParams = this.state.searchParams || {};
@@ -679,14 +681,7 @@ class Search extends Component {
                 {overlay}
                 {!state.loading && state.noResults ? null : aside}
                 {state.loading ? <Spinner loading={state.loading} /> : null}
-                {!state.loading && state.noResults ? (
-                    <NoResults
-                        searchText={this.props.searchText}
-                        query={state.query}
-                    />
-                ) : (
-                    results
-                )}
+                {this.renderResults(results)}
             </div>
         );
     }
