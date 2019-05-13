@@ -11,6 +11,7 @@ import com.waters.aem.hybris.enums.HybrisImportStatus;
 import com.waters.aem.hybris.executor.HybrisImporterExecutorService;
 import com.waters.aem.hybris.importer.HybrisCatalogImporter;
 import com.waters.aem.hybris.notification.HybrisImporterNotificationService;
+import com.waters.aem.hybris.replication.HybrisImporterReplicationService;
 import com.waters.aem.hybris.result.HybrisImporterExecutionResult;
 import com.waters.aem.hybris.result.HybrisImporterResult;
 import org.osgi.service.component.annotations.Activate;
@@ -39,6 +40,9 @@ public final class DefaultHybrisImporterExecutorService implements HybrisImporte
     @Reference
     private HybrisImporterNotificationService notificationService;
 
+    @Reference
+    private HybrisImporterReplicationService replicationService;
+
     /** Single-thread executor for asynchronous import will block to ensure only one import process runs at a time. **/
     private ListeningExecutorService executorService;
 
@@ -60,6 +64,8 @@ public final class DefaultHybrisImporterExecutorService implements HybrisImporte
                 LOG.info("import status : {}, total pages : {}", status.name(),
                     results.stream().filter(result -> result.getStatus() == status).count());
             }
+
+            replicationService.replicate(results);
 
             return new HybrisImporterExecutionResult(results, duration);
         });

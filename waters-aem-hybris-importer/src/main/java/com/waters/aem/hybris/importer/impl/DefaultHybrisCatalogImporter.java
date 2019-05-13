@@ -65,7 +65,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             final Category rootCategory = hybrisClient.getRootCategory();
 
             for (final Category category : rootCategory.getSubcategories()) {
-                results.addAll(importCategoryPage(pageManager, parentPage, category));
+                results.addAll(processCategoryPage(pageManager, parentPage, category));
             }
 
             resourceResolver.commit();
@@ -105,11 +105,11 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         }
     }
 
-    private List<HybrisImporterResult> importCategoryPage(final PageManagerDecorator pageManager,
+    private List<HybrisImporterResult> processCategoryPage(final PageManagerDecorator pageManager,
         final PageDecorator parentPage, final Category category) throws WCMException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
-        final HybrisImporterResult result = importPage(pageManager, parentPage, category);
+        final HybrisImporterResult result = importCategoryPage(pageManager, parentPage, category);
 
         results.add(result);
 
@@ -117,7 +117,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         final PageDecorator categoryPage = pageManager.getPage(result.getPath());
 
         for (final Category subcategory : category.getSubcategories()) {
-            results.addAll(importCategoryPage(pageManager, categoryPage, subcategory));
+            results.addAll(processCategoryPage(pageManager, categoryPage, subcategory));
         }
 
         // TODO import products for category
@@ -125,8 +125,8 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         return results;
     }
 
-    private HybrisImporterResult importPage(final PageManagerDecorator pageManager, final PageDecorator parentPage,
-        final Category category) throws WCMException {
+    private HybrisImporterResult importCategoryPage(final PageManagerDecorator pageManager,
+        final PageDecorator parentPage, final Category category) throws WCMException {
         LOG.info("importing page for category : {}", category);
 
         final String name = getPageName(category.getName());
@@ -146,6 +146,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             final Calendar pageLastModified = page.get(HybrisImporterConstants.PROPERTY_LAST_MODIFIED, Calendar.class)
                 .orNull();
 
+            // TODO check for disabled/deleted status
             if (category.getLastModified() == null || pageLastModified == null || category.getLastModified().after(
                 pageLastModified)) {
                 status = HybrisImportStatus.UPDATED;
@@ -157,13 +158,13 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         }
 
         if (status != HybrisImportStatus.IGNORED) {
-            updatePageProperties(page, category);
+            updateCategoryPageProperties(page, category);
         }
 
         return HybrisImporterResult.fromCategoryPage(page, status);
     }
 
-    private void updatePageProperties(final PageDecorator page, final Category category) {
+    private void updateCategoryPageProperties(final PageDecorator page, final Category category) {
         final ValueMap properties = page.getContentResource().adaptTo(ModifiableValueMap.class);
 
         properties.put(HybrisImporterConstants.PROPERTY_ID, category.getId());
