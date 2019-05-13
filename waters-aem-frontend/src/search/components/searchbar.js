@@ -97,7 +97,7 @@ class SearchBar extends Component {
         this.inputElement.focus();
         this.addSearchBarFocusCss();
         this.setState({value: '', suggestions: [], openOverlay: false});
-        setTimeout(() => this.removeCssOverrides(), 0);
+        setTimeout(() => this.removeCssOverrides(), 500);
     }
 
     handleSearchValueChange = (event, { newValue }) => this.setState({value: newValue});
@@ -108,18 +108,16 @@ class SearchBar extends Component {
         const suggestions = !(this.state.value.length < this.props.minSearchCharacters) 
             ? this.formatSuggestions(this.state.value.trim(), (await this.search.getSuggestedKeywords(this.props.maxSuggestions, this.state.value)))
             : [];
-
+        
         const openOverlay = suggestions.length !== 0;
 
         if(openOverlay) {
             this.addCssOverrides();
+        } else {
+            setTimeout(() => this.removeCssOverrides(), 500);
         }
 
         this.setState({suggestions, openOverlay});
-
-        if(!openOverlay) {
-            setTimeout(() => this.removeCssOverrides(), 0);
-        }
     };
 
     handleSuggestionsClearRequested = () => { 
@@ -128,7 +126,7 @@ class SearchBar extends Component {
         // click event will never execute because this function will eventually prevent propagation
         setTimeout(() => this.setState({suggestions: [], openOverlay: false}), 125);
 
-        this.removeCssOverrides();
+        setTimeout(() => this.removeCssOverrides(), 500);
     };
 
     getSuggestionValueCallback = suggestion => suggestion.key;
@@ -136,7 +134,7 @@ class SearchBar extends Component {
     renderSuggestionCallback = suggestion => <div>{suggestion.value}</div>;
 
     handleSuggestionSelected = (event, { suggestionValue}) => {
-        this.removeCssOverrides();
+        setTimeout(() => this.removeCssOverrides(), 500);
         this.setState({value: suggestionValue, suggestions: [], openOverlay: false}, () => this.search.setUrlParameter(this.state.value, this.props.searchPath));
     }
 
@@ -168,7 +166,7 @@ class SearchBar extends Component {
 
     formatNonMatchingWords = value => {
         // wrap spaces with a pipe | & split into an array
-        const words = value.replace(new RegExp(/\s/, 'g'), '| |').split('|').filter(word => word !== '');;
+        const words = value.replace(/\s/g, '| |').split('|').filter(word => word !== '');
 
         // use an underscore instead of a space to preserve the space in the flex row
         // this is needed because IE doesn't handle white-space: pre-wrap the same as other browsers
