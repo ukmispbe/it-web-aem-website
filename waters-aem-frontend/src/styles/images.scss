@@ -24,7 +24,17 @@ div.image {
 .inline-svg {
     display: none;
 
+    svg {
+        display: none;
+    }
+
     &.inlined-svg {
         display: block;
+
+        svg {
+            display: block;
+            height: 24px;
+            width: 24px;
+        }
     }
 }
