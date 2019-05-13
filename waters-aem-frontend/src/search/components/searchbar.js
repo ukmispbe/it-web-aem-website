@@ -96,8 +96,7 @@ class SearchBar extends Component {
     handleClearIconClick = e => {
         this.inputElement.focus();
         this.addSearchBarFocusCss();
-        this.setState({value: '', suggestions: [], openOverlay: false});
-        setTimeout(() => this.removeCssOverrides(), 500);
+        this.setState({value: '', suggestions: [], openOverlay: false}, () => this.removeCssOverrides());
     }
 
     handleSearchValueChange = (event, { newValue }) => this.setState({value: newValue});
@@ -113,20 +112,16 @@ class SearchBar extends Component {
 
         if(openOverlay) {
             this.addCssOverrides();
-        } else {
-            setTimeout(() => this.removeCssOverrides(), 500);
         }
 
-        this.setState({suggestions, openOverlay});
+        this.setState({suggestions, openOverlay}, () => { if(!openOverlay) this.removeCssOverrides() });
     };
 
     handleSuggestionsClearRequested = () => { 
         // when user clicks on the clear icon, this function should execute after the icon's click event
         // therefore, need to delay this when users click on the clear icon otherwise the clear icon
         // click event will never execute because this function will eventually prevent propagation
-        setTimeout(() => this.setState({suggestions: [], openOverlay: false}), 125);
-
-        setTimeout(() => this.removeCssOverrides(), 500);
+        setTimeout(() => this.setState({suggestions: [], openOverlay: false}, () => this.removeCssOverrides()), 125);
     };
 
     getSuggestionValueCallback = suggestion => suggestion.key;
@@ -134,8 +129,10 @@ class SearchBar extends Component {
     renderSuggestionCallback = suggestion => <div>{suggestion.value}</div>;
 
     handleSuggestionSelected = (event, { suggestionValue}) => {
-        setTimeout(() => this.removeCssOverrides(), 500);
-        this.setState({value: suggestionValue, suggestions: [], openOverlay: false}, () => this.search.setUrlParameter(this.state.value, this.props.searchPath));
+        this.setState({value: suggestionValue, suggestions: [], openOverlay: false}, () => {
+            this.removeCssOverrides();
+            this.search.setUrlParameter(this.state.value, this.props.searchPath)
+        });
     }
 
     addCssOverrides = () => document.getElementsByTagName('body')[0].classList.add(cssOverridesClassName);
