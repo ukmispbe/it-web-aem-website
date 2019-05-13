@@ -1,7 +1,7 @@
 Properties:
   - label:
     type: RICHTEXT
-    value: Title Test
+    value: Search Library
   - label: Type / Size
     type: SELECT
-    value: H2
+    value: H1

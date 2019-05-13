@@ -32,7 +32,7 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
         assertThat(titleComponent.getType()).isEqualTo("h2");
     }
 
-    @Test
+  /*  @Test
     public void text() throws ActionException {
         controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container", "Text", 0,
             new ResourceFileLocation("text.yaml")));
@@ -49,7 +49,7 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
 
         assertThat(anchorComponent.getLinkTitles()).containsExactly("Section 1", "Section 2", "Section 3");
     }
-
+*/
     @Override
     protected String getPagePath() {
         return WatersAutomationTestConstants.APPLICATION_NOTES_PAGE_PATH;
