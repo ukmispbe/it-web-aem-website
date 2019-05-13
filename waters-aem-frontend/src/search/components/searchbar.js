@@ -3,7 +3,6 @@ import ReactSVG from 'react-svg';
 import Autosuggest from 'react-autosuggest';
 import { debounce } from 'throttle-debounce';
 import { SearchService } from '../services/index';
-import SessionService from '../services/session-service';
 import OverLay from './overlay';
 import PropTypes from 'prop-types';
 import './../../styles/index.scss';
@@ -21,8 +20,6 @@ class SearchBar extends Component {
 
         this.search = new SearchService({}, '', this.props.baseUrl);
 
-        this.sessionService = new SessionService();
-
         let searchValue = this.search.getUrlParameter('keyword', window.location.search.substring(1)); 
 
         if (this.search.isDefaultKeyword(searchValue)) searchValue = '';
@@ -34,16 +31,6 @@ class SearchBar extends Component {
 
     componentDidMount = () => {
         this.inputElement = document.querySelectorAll('.cmp-search-bar .react-autosuggest__container .react-autosuggest__input')[0];
-
-        const querystringParams = this.search.getParamsFromString();
-
-        if (!querystringParams.keyword || this.search.isDefaultKeyword(querystringParams.keyword)) {
-            const searchTerm = this.sessionService.getSearchTerm();
-
-            if (searchTerm) {
-                this.setState({value: searchTerm}, () => this.search.setUrlParameter(this.state.value, this.props.searchPath));
-            }
-        }
     }
 
     render() {
@@ -149,7 +136,6 @@ class SearchBar extends Component {
     renderSuggestionCallback = suggestion => <div>{suggestion.value}</div>;
 
     handleSuggestionSelected = (event, { suggestionValue}) => {
-        this.sessionService.setSearchTerm(suggestionValue);
         this.removeCssOverrides();
         this.setState({value: suggestionValue, suggestions: [], openOverlay: false}, () => this.search.setUrlParameter(this.state.value, this.props.searchPath));
     }

@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { SearchService, parameterDefaults } from './services/index';
-import SessionService from './services/session-service';
 import { parse, stringify } from 'query-string';
 import { withRouter } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
@@ -23,7 +22,6 @@ class Search extends Component {
         super();
         this.savedSelectFilterState = null;
         this.parentCategory = 'contenttype_facet';
-        this.sessionService = new SessionService();
     }
 
     componentWillMount() {
@@ -404,10 +402,6 @@ class Search extends Component {
         let query = this.search.createQueryObject(parse(window.location.search));
 
         if(query.keyword && !this.search.isDefaultKeyword(query.keyword)) {
-            // removing the keyword tag requires a reload of the page 
-            // so the search bar also removes the search term
-
-            this.sessionService.removeSearchTerm();
             this.search.setUrlParameter('', window.location.pathname);
         } else {
             // no keyword has been selected so no need to reload page
@@ -430,12 +424,6 @@ class Search extends Component {
     }
 
     handleRemoveKeyword = () => {
-        // removing the keyword tag requires a reload of the page 
-        // so the search bar also removes the search term
-        // however, this will retain other active filters
-
-        this.sessionService.removeSearchTerm();
-
         const parameters = parse(window.location.search);
 
         parameters.keyword = parameterDefaults.keyword;
