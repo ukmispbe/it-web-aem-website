@@ -33,8 +33,10 @@ div.image {
 
         svg {
             display: block;
-            height: 24px;
-            width: 24px;
         }
     }
+}
+
+svg.inline-svg {
+    display: block;
 }
