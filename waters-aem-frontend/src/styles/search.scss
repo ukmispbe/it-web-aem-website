@@ -320,6 +320,11 @@ div.cmp-search__no-results {
         color: $color-link;
         height: 1em;
         padding: 0 $space-xxs;
+        cursor: pointer;
+    }
+
+    .item:hover {
+        text-decoration: underline;
     }
 }
 

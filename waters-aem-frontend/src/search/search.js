@@ -546,6 +546,14 @@ class Search extends Component {
         </>;
     }
 
+    handleRelatedSuggestionClick = (suggestion) => {
+        const parameters = parse(window.location.search);
+
+        parameters.keyword = suggestion;
+
+        window.location.href = `${window.location.pathname}?${stringify(parameters)}`;
+    }
+
     renderResults = (results) => (!this.state.loading && this.state.noResults) 
         ? <NoResults searchText={this.props.searchText} query={this.state.query} />
         : results;
@@ -616,6 +624,7 @@ class Search extends Component {
                         spell_check={state.spell_check}
                         spell_related_suggestions={state.spell_related_suggestions}
                         spell_suggestion={state.spell_suggestion}
+                        onRelatedSuggestionClick={this.handleRelatedSuggestionClick}
                     />
 
                     <BtnShowSortFilter
