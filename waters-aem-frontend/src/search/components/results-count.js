@@ -36,7 +36,7 @@ const ResultsCount = (props) => {
 
     const getRelatedSuggestions = () => (props.spell_related_suggestions.length === 1) 
         ? <a className="item" onClick={e => props.onRelatedSuggestionClick(props.spell_related_suggestions[0])}>{props.spell_related_suggestions[0]}</a> 
-        : props.spell_related_suggestions.reduce((previous, current) => <><a href="javascript:void(0)" className="item" onClick={e => props.onRelatedSuggestionClick(previous)}>{previous}</a>&#124;<a href="javascript:void(0)" onClick={e => props.onRelatedSuggestionClick(current)} className="item">{current}</a></>);
+        : props.spell_related_suggestions.reduce((previous, current) => <><a href="javascript:void(0)" className="item" onClick={e => props.onRelatedSuggestionClick(previous)}>{previous}</a><span className="vertical-bar">&#124;</span><a href="javascript:void(0)" onClick={e => props.onRelatedSuggestionClick(current)} className="item">{current}</a></>);
 
     return <>
         <h2 className="cmp-search__resultsCount">
