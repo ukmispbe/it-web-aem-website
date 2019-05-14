@@ -71,7 +71,10 @@ class Search extends Component {
             contentTypeSelected,
             facets: [],
             filterMap: [],
-            keyword: this.query.keyword ? this.query.keyword : parameterDefaults.keyword
+            keyword: this.query.keyword ? this.query.keyword : parameterDefaults.keyword,
+            spell_check: false,
+            spell_related_suggestions: [],
+            spell_suggestion: ""
         });
 
         const checkWindowWidth = () => {
@@ -173,6 +176,10 @@ class Search extends Component {
         newState.noResults = !newState.results[query.page].length;
 
         newState.facets = res.facets;
+
+        newState.spell_check = res.hasOwnProperty('spell_check') ? res.spell_check : false;
+        newState.spell_related_suggestions = res.hasOwnProperty('spell_related_suggestions') ? res.spell_related_suggestions : [];
+        newState.spell_suggestion = res.hasOwnProperty('spell_suggestion') ? res.spell_suggestion : "";
 
         this.setState(Object.assign({}, this.state, newState));
 
@@ -606,6 +613,9 @@ class Search extends Component {
                                 : 1
                         }
                         noQuery={state.noQuery}
+                        spell_check={state.spell_check}
+                        spell_related_suggestions={state.spell_related_suggestions}
+                        spell_suggestion={state.spell_suggestion}
                     />
 
                     <BtnShowSortFilter

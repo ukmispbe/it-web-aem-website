@@ -303,7 +303,26 @@ div.cmp-search__no-results {
             margin: 0;
         }
     }
+
+    .text-strike {
+        text-decoration: line-through;
+    }
 }
+
+.cmp-search__related-suggestions {
+    @include font-body;
+    margin-top: -4.5em;
+    margin-left: -37%;
+    margin-bottom: 3em;
+    color: $color-font-medium;
+
+    .item {
+        color: $color-link;
+        height: 1em;
+        padding: 0 $space-xxs;
+    }
+}
+
 .cmp-search__sorted-by {
     display: none;
     float: left;
