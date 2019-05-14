@@ -136,7 +136,8 @@ class SearchBar extends Component {
 
     onSuggestionsClearRequested = () => {
         this.removeCssOverridesForSearchBar();
-        this.setState({suggestions: [], openOverlay: false}, () => this.removeCssOverridesForSearchBody());
+        this.removeCssOverridesForSearchBody();
+        setTimeout(() => this.setState({openOverlay: false}), 125);
     };
 
     getSuggestionValueCallback = suggestion => suggestion.key;
