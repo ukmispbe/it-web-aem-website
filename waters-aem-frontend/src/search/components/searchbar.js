@@ -3,23 +3,23 @@ import ReactSVG from 'react-svg';
 import Autosuggest from 'react-autosuggest';
 import { debounce } from 'throttle-debounce';
 import { SearchService } from '../services/index';
-import SessionService from '../services/session-service';
 import OverLay from './overlay';
 import PropTypes from 'prop-types';
 import './../../styles/index.scss';
 
-const cssOverridesClassName = "cmp-search-bar__auto-suggest--open";
+const cssOverridesForSearchBar = "cmp-search-bar__auto-suggest--open";
+const cssOverridesForSearchBody = "cmp-search-body__auto-suggest--open";
 const searchBarFocusClassName = 'cmp-search-bar--focus';
 
 class SearchBar extends Component {
     constructor(props) {
         super(props);
 
+        this.inputElement = null;
+
         this.searchBarRef = React.createRef();
 
         this.search = new SearchService({}, '', this.props.baseUrl);
-
-        this.sessionService = new SessionService();
 
         let searchValue = this.search.getUrlParameter('keyword', window.location.search.substring(1)); 
 
@@ -31,15 +31,7 @@ class SearchBar extends Component {
     }
 
     componentDidMount = () => {
-        const querystringParams = this.search.getParamsFromString();
-
-        if (!querystringParams.keyword || this.search.isDefaultKeyword(querystringParams.keyword)) {
-            const searchTerm = this.sessionService.getSearchTerm();
-
-            if (searchTerm) {
-                this.setState({value: searchTerm}, () => this.search.setUrlParameter(this.state.value, this.props.searchPath));
-            }
-        }
+        this.inputElement = document.querySelectorAll('.cmp-search-bar .react-autosuggest__container .react-autosuggest__input')[0];
     }
 
     render() {
@@ -69,7 +61,7 @@ class SearchBar extends Component {
         return(<Autosuggest
                     suggestions={this.state.suggestions}
                     onSuggestionsFetchRequested={this.handleSuggestionsFetchRequestedDebounce}
-                    onSuggestionsClearRequested={this.handleSuggestionsClearRequested}
+                    onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                     onSuggestionSelected={this.handleSuggestionSelected}
                     getSuggestionValue={this.getSuggestionValueCallback}
                     renderSuggestion={this.renderSuggestionCallback}
@@ -102,9 +94,26 @@ class SearchBar extends Component {
         }
     }
 
-    handleClearIconClick = e => this.setState({value: '', suggestions: [], openOverlay: false});
+    handleClearIconClick = e => {
+        this.inputElement.focus();
+        this.addSearchBarFocusCss();
+        this.setState({value: '', suggestions: [], openOverlay: false}, () => this.removeCssOverridesForSearchBody());
+    }
 
-    handleSearchValueChange = (event, { newValue }) => this.setState({value: newValue});
+    handleSearchValueChange = (event, { newValue }) => {
+        if(newValue.length === 0) {
+            // this will prevent white space from appearing below the search bar
+            // as the user backspaces and deletes all of the characters
+            this.removeCssOverridesForSearchBar();
+        }
+        
+        this.setState({value: newValue}, () => {
+            if(newValue.length === 0) {
+                // the user has manually cleared the search bar so need to update the state
+                this.setState({suggestions: [], openOverlay: false}, () => this.removeCssOverridesForSearchBody());
+            }
+        });
+    }
 
     handleSearchValueBlur = (event, { highlightedSuggestion }) => this.removeSearchBarFocusCss();
 
@@ -112,40 +121,40 @@ class SearchBar extends Component {
         const suggestions = !(this.state.value.length < this.props.minSearchCharacters) 
             ? this.formatSuggestions(this.state.value.trim(), (await this.search.getSuggestedKeywords(this.props.maxSuggestions, this.state.value)))
             : [];
-
+        
         const openOverlay = suggestions.length !== 0;
 
-        if (openOverlay) {
-            this.addCssOverrides();
+        if(openOverlay) {
+            this.addCssOverridesForSearchBar();
+            this.addCssOverridesForSearchBody();
         } else {
-            this.removeCssOverrides();
+            this.removeCssOverridesForSearchBar();
         }
 
-        this.setState({suggestions, openOverlay});
+        this.setState({suggestions, openOverlay}, () => { if(!openOverlay) this.removeCssOverridesForSearchBody(); });
     };
 
-    handleSuggestionsClearRequested = () => { 
-        // when user clicks on the clear icon, this function should execute after the icon's click event
-        // therefore, need to delay this when users click on the clear icon otherwise the clear icon
-        // click event will never execute because this function will eventually prevent propagation
-        setTimeout(() => this.setState({suggestions: [], openOverlay: false}), 125);
-
-        this.removeCssOverrides();
-    };
+    onSuggestionsClearRequested = () => this.removeCssOverridesForSearchBar();
 
     getSuggestionValueCallback = suggestion => suggestion.key;
 
     renderSuggestionCallback = suggestion => <div>{suggestion.value}</div>;
 
     handleSuggestionSelected = (event, { suggestionValue}) => {
-        this.sessionService.setSearchTerm(suggestionValue);
-
-        this.setState({value: suggestionValue, openOverlay: false}, () => this.search.setUrlParameter(this.state.value, this.props.searchPath));
+        this.removeCssOverridesForSearchBar();
+        this.setState({value: suggestionValue, suggestions: [], openOverlay: false}, () => {
+            this.removeCssOverridesForSearchBody();
+            this.search.setUrlParameter(this.state.value, this.props.searchPath)
+        });
     }
 
-    addCssOverrides = () => document.getElementsByTagName('body')[0].classList.add(cssOverridesClassName);
+    addCssOverridesForSearchBar = () => document.getElementsByTagName('body')[0].classList.add(cssOverridesForSearchBar);
 
-    removeCssOverrides = () => document.getElementsByTagName('body')[0].classList.remove(cssOverridesClassName);
+    removeCssOverridesForSearchBar = () => document.getElementsByTagName('body')[0].classList.remove(cssOverridesForSearchBar);
+
+    addCssOverridesForSearchBody = () => document.getElementsByTagName('body')[0].classList.add(cssOverridesForSearchBody);
+
+    removeCssOverridesForSearchBody = () => document.getElementsByTagName('body')[0].classList.remove(cssOverridesForSearchBody);
 
     formatSuggestions = (term, suggestions) => suggestions.map(suggestion => {
         return {
@@ -164,10 +173,22 @@ class SearchBar extends Component {
 
         // create a new array that will wrap the matching characters into a styled span to highlight
         // non-matching characters will simply display inside a span element
-        return words.map(item => item.toLowerCase() === term.toLowerCase() ? this.formatWord(item, term.length) : <span>{item}</span>);
+        return words.map(item => item.toLowerCase() === term.toLowerCase() ? this.formatMatchingWord(item, term.length) : this.formatNonMatchingWords(item));
     }
 
-    formatWord = (word, termLength) => <span className="emphasis-matching-characters">{word.substring(0, termLength)}</span>;
+    formatMatchingWord = (word, termLength) => <span className="emphasis-matching-characters">{word.substring(0, termLength)}</span>;
+
+    formatNonMatchingWords = value => {
+        // wrap spaces with a pipe | & split into an array
+        const words = value.replace(/\s/g, '| |').split('|').filter(word => word !== '');
+
+        // use an underscore instead of a space to preserve the space in the flex row
+        // this is needed because IE doesn't handle white-space: pre-wrap the same as other browsers
+        // therefore, pre-wrap is not need since we are replacing the space with an underscore
+        const formattedWords = words.map(word => word === ' ' ? <span className="white-text">_</span> : <span>{word}</span>);
+
+        return formattedWords.reduce((accumulator, currentValue) => <>{accumulator}{currentValue}</> );
+    }
 
     addSearchBarFocusCss = () => this.searchBarRef.current.classList.add(searchBarFocusClassName);
 

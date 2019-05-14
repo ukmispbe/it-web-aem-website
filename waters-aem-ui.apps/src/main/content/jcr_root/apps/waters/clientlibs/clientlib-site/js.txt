@@ -1,6 +1,5 @@
 #base=.
 
-js/element.classlist.js
 js/string.prototype.startsWith.js
 js/array.prototype.filter.js
 js/array.prototype.find.js

@@ -7,6 +7,7 @@ import com.cognifide.qa.bb.api.actions.ActionException;
 import com.cognifide.qa.bb.junit5.guice.Modules;
 import com.cognifide.qa.bb.modules.BobcatRunModule;
 import com.waters.aem.automationtests.components.Anchor;
+import com.waters.aem.automationtests.components.Image;
 import com.waters.aem.automationtests.components.Text;
 import com.waters.aem.automationtests.components.Title;
 import com.waters.aem.automationtests.constants.WatersAutomationTestConstants;
@@ -32,7 +33,7 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
         assertThat(titleComponent.getType()).isEqualTo("h2");
     }
 
-  /*  @Test
+    @Test
     public void text() throws ActionException {
         controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container", "Text", 0,
             new ResourceFileLocation("text.yaml")));
@@ -49,7 +50,24 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
 
         assertThat(anchorComponent.getLinkTitles()).containsExactly("Section 1", "Section 2", "Section 3");
     }
-*/
+
+
+
+
+    @Test
+    public void image() throws ActionException {
+        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container", "Image", 0,
+            new ResourceFileLocation("image.yaml")));
+
+        final Image imageComponent = page.getContent(Image.class, 0);
+
+        assertThat(imageComponent.getTitle()).isEqualTo("Title Test");
+        assertThat(imageComponent.getSrc().substring(imageComponent.getSrc().lastIndexOf("/") + 1)).isEqualTo("brand-masslynx-software.png");
+        assertThat(imageComponent.getAlt()).isEqualTo("Alternative Text Test");
+        assertThat(imageComponent.getLink().substring(imageComponent.getLink().lastIndexOf("/") + 1)).isEqualTo("test.html");
+    }
+
+
     @Override
     protected String getPagePath() {
         return WatersAutomationTestConstants.APPLICATION_NOTES_PAGE_PATH;
