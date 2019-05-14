@@ -326,6 +326,10 @@ div.cmp-search__no-results {
     .item:hover {
         text-decoration: underline;
     }
+
+    .vertical-bar {
+        color: $color-border-light;
+    }
 }
 
 .cmp-search__sorted-by {
