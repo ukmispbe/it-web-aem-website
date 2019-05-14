@@ -22,6 +22,10 @@ public final class HybrisImporterConstants {
 
     public static final String IMPORTER_PAGE_PATH = "/etc/waters/hybris-importer";
 
+    public static final Integer PRODUCT_CODE_PREFIX_LENGTH = 3;
+
+    public static final String PATH_COMMERCE_PRODUCTS = "/etc/commerce/products";
+
     private HybrisImporterConstants() {
 
     }

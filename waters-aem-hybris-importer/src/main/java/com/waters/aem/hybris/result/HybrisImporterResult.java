@@ -6,6 +6,8 @@ import com.waters.aem.hybris.enums.HybrisImportContentType;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
 import java.util.Map;
 
 public final class HybrisImporterResult {
@@ -14,8 +16,9 @@ public final class HybrisImporterResult {
         return new HybrisImporterResult(page.getPath(), page.getTitle(), HybrisImportContentType.CATEGORY, status);
     }
 
-    public static HybrisImporterResult fromSku(final PageDecorator page, final HybrisImportStatus status) {
-        return new HybrisImporterResult(page.getPath(), page.getTitle(), HybrisImportContentType.SKU, status);
+    public static HybrisImporterResult fromProduct(final Node node, final HybrisImportStatus status)
+        throws RepositoryException {
+        return new HybrisImporterResult(node.getPath(), node.getName(), HybrisImportContentType.PRODUCT, status);
     }
 
     public static HybrisImporterResult fromMap(final Map<String, String> map) {

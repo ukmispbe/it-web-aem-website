@@ -1,11 +1,9 @@
 package com.waters.aem.hybris.importer.impl;
 
-import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.WCMException;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.waters.aem.core.constants.WatersConstants;
-import com.waters.aem.hybris.client.HybrisClient;
 import com.waters.aem.hybris.constants.HybrisImporterConstants;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
 import com.waters.aem.hybris.exceptions.HybrisImporterException;
@@ -13,6 +11,7 @@ import com.waters.aem.hybris.importer.HybrisCatalogImporter;
 import com.waters.aem.hybris.importer.HybrisCatalogImporterConfiguration;
 import com.waters.aem.hybris.models.Category;
 import com.waters.aem.hybris.result.HybrisImporterResult;
+import com.waters.aem.hybris.utils.HybrisImporterUtils;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ModifiableValueMap;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -30,7 +29,6 @@ import javax.jcr.NamespaceRegistry;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -47,13 +45,10 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
 
-    @Reference
-    private HybrisClient hybrisClient;
-
     private volatile String catalogRootPath;
 
     @Override
-    public List<HybrisImporterResult> importCatalogPages() {
+    public List<HybrisImporterResult> importCatalogPages(final Category rootCategory) {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
@@ -62,14 +57,12 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             final PageDecorator parentPage = checkNotNull(pageManager.getPage(catalogRootPath),
                 "catalog root page is null : %s", catalogRootPath);
 
-            final Category rootCategory = hybrisClient.getRootCategory();
-
             for (final Category category : rootCategory.getSubcategories()) {
                 results.addAll(processCategoryPage(pageManager, parentPage, category));
             }
 
             resourceResolver.commit();
-        } catch (LoginException | IOException | URISyntaxException | WCMException e) {
+        } catch (LoginException | IOException | WCMException e) {
             LOG.error("error importing hybris catalog pages", e);
 
             throw new HybrisImporterException(e);
@@ -129,7 +122,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         final PageDecorator parentPage, final Category category) throws WCMException {
         LOG.info("importing page for category : {}", category);
 
-        final String name = getPageName(category.getName());
+        final String name = HybrisImporterUtils.getValidJcrName(category.getName());
 
         final HybrisImportStatus status;
 
@@ -173,9 +166,5 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         if (category.getLastModified() != null) {
             properties.put(HybrisImporterConstants.PROPERTY_LAST_MODIFIED, category.getLastModified());
         }
-    }
-
-    private String getPageName(final String title) {
-        return JcrUtil.createValidName(title.replaceAll("[^\\p{L}0-9\\-/ ]+", ""), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING);
     }
 }
