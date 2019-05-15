@@ -425,6 +425,9 @@
 $header-height: 74px;
 
 .cmp-search__sort-filter {
+    position: relative;
+    top: -55px;
+    
     .cmp-search-filters__tags {
         display: none;
     }

@@ -554,6 +554,26 @@ class Search extends Component {
         window.location.href = `${window.location.pathname}?${stringify(parameters)}`;
     }
 
+    renderResultsCount = () => {
+        if(this.state.noResults) return <></>;
+        
+        return <ResultsCount
+            rows={this.state.rows}
+            count={this.state.count}
+            query={this.state.query}
+            current={
+                this.state.pagination && this.state.pagination.current
+                    ? this.state.pagination.current
+                    : 1
+            }
+            noQuery={this.state.noQuery}
+            spell_check={this.state.spell_check}
+            spell_related_suggestions={this.state.spell_related_suggestions}
+            spell_suggestion={this.state.spell_suggestion}
+            onRelatedSuggestionClick={this.handleRelatedSuggestionClick}
+        />
+    }
+
     renderResults = (results) => (!this.state.loading && this.state.noResults) 
         ? <NoResults searchText={this.props.searchText} query={this.state.query} />
         : results;
@@ -611,22 +631,6 @@ class Search extends Component {
         const results = (
             <div className="cmp-search__container">
                 <div className="cmp-search__container__header cleafix">
-                    <ResultsCount
-                        rows={state.rows}
-                        count={state.count}
-                        query={state.query}
-                        current={
-                            state.pagination && state.pagination.current
-                                ? state.pagination.current
-                                : 1
-                        }
-                        noQuery={state.noQuery}
-                        spell_check={state.spell_check}
-                        spell_related_suggestions={state.spell_related_suggestions}
-                        spell_suggestion={state.spell_suggestion}
-                        onRelatedSuggestionClick={this.handleRelatedSuggestionClick}
-                    />
-
                     <BtnShowSortFilter
                         text={this.props.searchText}
                         setupFilters={this.setupFilters.bind(this)}
@@ -686,6 +690,7 @@ class Search extends Component {
         return (
             <div ref="main">
                 {overlay}
+                {this.renderResultsCount()}
                 {!state.loading && state.noResults ? null : aside}
                 {state.loading ? <Spinner loading={state.loading} /> : null}
                 {this.renderResults(results)}
