@@ -15,11 +15,26 @@ class Filter extends Component {
 
     componentDidUpdate(prevProps) {
         /*
+            Check if content type was removed and there is an expanded filter.
+            If so, reset state so all filters are collapsed.
+        */
+        if(prevProps.contentType && !this.props.contentType && this.state.activeIndex !== -1) {
+            const classNameFilterActive = 'filter-active';
+
+            if(Array.from(document.body.classList).find(item => item === classNameFilterActive)) {
+                document.body.classList.remove(classNameFilterActive);
+            }
+
+            this.setState({activeIndex: -1, facetName: "", lastIndex: -1});
+            return;
+        }
+
+
+        /*
             This will validate the selected facet group.
             If the facet groups have been modified due to other facets being checked off,
             then this will recaludate the active index because it may have changed.
         */
-
         if (this.state.activeIndex !== -1) {
             const prevFacets = JSON.stringify(prevProps.facets);
             const currFacets = JSON.stringify(this.props.facets);
