@@ -19,7 +19,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.events.WebDriverEventListener;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -78,7 +77,6 @@ public class ChromeDriverProvider implements Provider<WebDriver> {
         final Capabilities modifiedCapabilities = webDriverModifiers.modifyCapabilities(capabilities);
 
         final ChromeDriverService service = new ChromeDriverService.Builder()
-            .usingDriverExecutable(new File("/usr/local/bin/chromedriver"))
             .usingPort(9515)
             .build();
 
@@ -86,13 +84,9 @@ public class ChromeDriverProvider implements Provider<WebDriver> {
             .addArguments(getArguments())
             .merge(modifiedCapabilities);
 
-        //final WebDriver raw = new ChromeDriver(service, options);
+        final WebDriver raw = new ChromeDriver(service, options);
 
-        WebDriver driver = new ChromeDriver();
-        driver.get("http://www.google.com");
-
-
-        final WebDriver modified = webDriverModifiers.modifyWebDriver(driver);
+        final WebDriver modified = webDriverModifiers.modifyWebDriver(raw);
 
         final ClosingAwareWebDriverWrapper closingAwareWebDriver = wrapInClosingAwareWebDriver(modified);
 
