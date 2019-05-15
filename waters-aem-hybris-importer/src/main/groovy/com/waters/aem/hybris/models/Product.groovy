@@ -7,13 +7,11 @@ class Product {
 
     Boolean availableForPickup
 
-    List<ProductCategory> categories = []
-
-    List<Classification> classifications = []
-
-    List<Image> images
+    String baseProduct
 
     String code
+
+    String manufacturer
 
     String description
 
@@ -21,19 +19,27 @@ class Product {
 
     Integer numberOfReviews
 
-    Object priceRange
-
     Boolean proprietary
 
     Boolean purchasable
 
     String salesStatus
 
-    Stock stock
-
     String summary
 
     Boolean terminated
 
     String url
+
+    Stock stock
+
+    List<ProductCategory> categories = []
+
+    List<Price> prices = []
+
+    List<Classification> classifications = []
+
+    List<Image> images = []
+
+    List<Promotion> potentialPromotions = []
 }

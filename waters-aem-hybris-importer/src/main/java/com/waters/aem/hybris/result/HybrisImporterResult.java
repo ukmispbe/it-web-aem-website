@@ -1,10 +1,10 @@
 package com.waters.aem.hybris.result;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.hybris.enums.HybrisImportContentType;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
@@ -69,6 +69,11 @@ public final class HybrisImporterResult {
 
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this);
+        return Objects.toStringHelper(this)
+            .add("path", path)
+            .add("title", title)
+            .add("contentType", contentType.name())
+            .add("status", status.name())
+            .toString();
     }
 }

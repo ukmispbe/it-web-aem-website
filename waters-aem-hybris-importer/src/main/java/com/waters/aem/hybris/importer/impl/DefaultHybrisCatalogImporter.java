@@ -1,6 +1,7 @@
 package com.waters.aem.hybris.importer.impl;
 
 import com.day.cq.wcm.api.WCMException;
+import com.google.common.base.Stopwatch;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.waters.aem.core.constants.WatersConstants;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -51,6 +53,8 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     public List<HybrisImporterResult> importCatalogPages(final Category rootCategory) {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
+        final Stopwatch stopwatch = Stopwatch.createStarted();
+
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
             final PageManagerDecorator pageManager = resourceResolver.adaptTo(PageManagerDecorator.class);
 
@@ -62,6 +66,8 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             }
 
             resourceResolver.commit();
+
+            LOG.info("imported {} catalog pages in {}ms", results.size(), stopwatch.elapsed(TimeUnit.MILLISECONDS));
         } catch (LoginException | IOException | WCMException e) {
             LOG.error("error importing hybris catalog pages", e);
 
