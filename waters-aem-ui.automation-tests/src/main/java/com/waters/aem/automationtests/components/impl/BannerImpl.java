@@ -6,7 +6,6 @@ import com.google.inject.Inject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-
 @PageObject(css = ".cmp-banner")
 public class BannerImpl {
 

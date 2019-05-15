@@ -28,6 +28,9 @@
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="waters/components/content/searchbar"/>
                 </par>
+                <backgroundimage
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="waters/components/content/image"/>
             </banner>
         </root>
     </jcr:content>

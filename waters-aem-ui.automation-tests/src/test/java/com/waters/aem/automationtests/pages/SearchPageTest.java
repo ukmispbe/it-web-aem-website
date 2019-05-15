@@ -22,37 +22,30 @@ public class SearchPageTest extends AbstractWatersPageTest {
 
     @Test
     public void banner() throws ActionException {
-        //controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container", "Banner", 0,
-        //new ResourceFileLocation("title.yaml")));
+        configureBannerTitle();
+        configureBannerimage();
 
-        //bannerTitle();
+        final Title bannerTitleComponent = page.getContent(Title.class, 0);
 
-        image();
+        assertThat(bannerTitleComponent.getText()).isEqualTo("Search Library");
+        assertThat(bannerTitleComponent.getType()).isEqualTo("h1");
 
-        final Title bannerComponent = page.getContent(Title.class, 0);
+        final Image bannerImageComponent = page.getContent(Image.class, 0);
 
-       // assertThat(titleComponent.getText()).isEqualTo("Title Test");
-        //assertThat(titleComponent.getType()).isEqualTo("h2");
+        assertThat(bannerImageComponent.getTitle()).isEqualTo("Title Test");
+        assertThat(bannerImageComponent.getSrc().substring(bannerImageComponent.getSrc().lastIndexOf("/") + 1)).isEqualTo("brand-masslynx-software.png");
+        assertThat(bannerImageComponent.getAlt()).isEqualTo("Alternative Text Test");
+        assertThat(bannerImageComponent.getLink().substring(bannerImageComponent.getLink().lastIndexOf("/") + 1)).isEqualTo("test.html");
     }
 
-
-    public void bannerTitle() throws ActionException {
+    public void configureBannerTitle() throws ActionException {
         controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container[1]", "Title", 0,
         new ResourceFileLocation("banner-title.yaml")));
-
-        final Title titleComponent = page.getContent(Title.class, 0);
     }
 
-    public void image() throws ActionException {
+    public void configureBannerimage() throws ActionException {
         controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("Image", "Image", 0,
         new ResourceFileLocation("image.yaml")));
-
-        final Image imageComponent = page.getContent(Image.class, 0);
-
-        //assertThat(imageComponent.getTitle()).isEqualTo("Title Test");
-        //assertThat(imageComponent.getSrc().substring(imageComponent.getSrc().lastIndexOf("/") + 1)).isEqualTo("brand-masslynx-software.png");
-        //assertThat(imageComponent.getAlt()).isEqualTo("Alternative Text Test");
-        //assertThat(imageComponent.getLink().substring(imageComponent.getLink().lastIndexOf("/") + 1)).isEqualTo("test.html");
     }
 
     @Override

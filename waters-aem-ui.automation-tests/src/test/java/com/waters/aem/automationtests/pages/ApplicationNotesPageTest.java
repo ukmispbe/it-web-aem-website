@@ -51,9 +51,6 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
         assertThat(anchorComponent.getLinkTitles()).containsExactly("Section 1", "Section 2", "Section 3");
     }
 
-
-
-
     @Test
     public void image() throws ActionException {
         controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container", "Image", 0,
@@ -66,7 +63,6 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
         assertThat(imageComponent.getAlt()).isEqualTo("Alternative Text Test");
         assertThat(imageComponent.getLink().substring(imageComponent.getLink().lastIndexOf("/") + 1)).isEqualTo("test.html");
     }
-
 
     @Override
     protected String getPagePath() {
