@@ -16,6 +16,10 @@ public final class HybrisImporterResult {
         return new HybrisImporterResult(page.getPath(), page.getTitle(), HybrisImportContentType.CATEGORY, status);
     }
 
+    public static HybrisImporterResult fromSkuPage(final PageDecorator page, final HybrisImportStatus status) {
+        return new HybrisImporterResult(page.getPath(), page.getTitle(), HybrisImportContentType.SKU, status);
+    }
+
     public static HybrisImporterResult fromProduct(final Node node, final HybrisImportStatus status)
         throws RepositoryException {
         return new HybrisImporterResult(node.getPath(), node.getName(), HybrisImportContentType.PRODUCT, status);

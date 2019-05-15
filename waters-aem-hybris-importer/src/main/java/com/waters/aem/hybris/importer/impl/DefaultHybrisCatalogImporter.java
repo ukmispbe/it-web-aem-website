@@ -1,16 +1,23 @@
 package com.waters.aem.hybris.importer.impl;
 
+import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.WCMException;
 import com.google.common.base.Stopwatch;
+import com.google.common.collect.ImmutableList;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
+import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
+import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.hybris.client.HybrisClient;
 import com.waters.aem.hybris.constants.HybrisImporterConstants;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
 import com.waters.aem.hybris.exceptions.HybrisImporterException;
 import com.waters.aem.hybris.importer.HybrisCatalogImporter;
 import com.waters.aem.hybris.importer.HybrisCatalogImporterConfiguration;
+import com.waters.aem.hybris.importer.HybrisProductImporter;
 import com.waters.aem.hybris.models.Category;
+import com.waters.aem.hybris.models.Product;
 import com.waters.aem.hybris.result.HybrisImporterResult;
 import com.waters.aem.hybris.utils.HybrisImporterUtils;
 import org.apache.sling.api.resource.LoginException;
@@ -30,11 +37,13 @@ import javax.jcr.NamespaceRegistry;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -44,13 +53,24 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultHybrisCatalogImporter.class);
 
+    private static final List<HybrisImportStatus> CREATED_OR_UPDATED = new ImmutableList.Builder<HybrisImportStatus>()
+        .add(HybrisImportStatus.CREATED)
+        .add(HybrisImportStatus.UPDATED)
+        .build();
+
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
+
+    @Reference
+    private HybrisClient hybrisClient;
+
+    @Reference
+    private HybrisProductImporter hybrisProductImporter;
 
     private volatile String catalogRootPath;
 
     @Override
-    public List<HybrisImporterResult> importCatalogPages(final Category rootCategory) {
+    public List<HybrisImporterResult> importCatalogPages() {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         final Stopwatch stopwatch = Stopwatch.createStarted();
@@ -61,6 +81,8 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             final PageDecorator parentPage = checkNotNull(pageManager.getPage(catalogRootPath),
                 "catalog root page is null : %s", catalogRootPath);
 
+            final Category rootCategory = hybrisClient.getRootCategory();
+
             for (final Category category : rootCategory.getSubcategories()) {
                 results.addAll(processCategoryPage(pageManager, parentPage, category));
             }
@@ -68,7 +90,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             resourceResolver.commit();
 
             LOG.info("imported {} catalog pages in {}ms", results.size(), stopwatch.elapsed(TimeUnit.MILLISECONDS));
-        } catch (LoginException | IOException | WCMException e) {
+        } catch (LoginException | IOException | WCMException | URISyntaxException e) {
             LOG.error("error importing hybris catalog pages", e);
 
             throw new HybrisImporterException(e);
@@ -105,7 +127,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     }
 
     private List<HybrisImporterResult> processCategoryPage(final PageManagerDecorator pageManager,
-        final PageDecorator parentPage, final Category category) throws WCMException {
+        final PageDecorator parentPage, final Category category) throws WCMException, IOException, URISyntaxException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         final HybrisImporterResult result = importCategoryPage(pageManager, parentPage, category);
@@ -119,9 +141,79 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             results.addAll(processCategoryPage(pageManager, categoryPage, subcategory));
         }
 
-        // TODO import products for category
+        results.addAll(processProductPagesForCategory(categoryPage, category));
 
         return results;
+    }
+
+    private List<HybrisImporterResult> processProductPagesForCategory(final PageDecorator categoryPage,
+        final Category category) throws WCMException, IOException, URISyntaxException {
+        final List<HybrisImporterResult> results = new ArrayList<>();
+
+        final List<Product> productsForCategory = hybrisClient.getProductsForCategory(category.getId());
+
+        if (productsForCategory.isEmpty()) {
+            LOG.info("no products found for category : {}, ignoring", category.getId());
+        } else {
+            results.addAll(hybrisProductImporter.importProducts(productsForCategory));
+
+            final List<String> productResourcePaths = results
+                .stream()
+                .filter(result -> CREATED_OR_UPDATED.contains(result.getStatus()))
+                .map(HybrisImporterResult :: getPath)
+                .collect(Collectors.toList());
+
+            LOG.info("importing {} product pages for category : {}", productResourcePaths.size(), category.getId());
+
+            results.addAll(importProductPages(categoryPage, productResourcePaths));
+        }
+
+        return results;
+    }
+
+    private List<HybrisImporterResult> importProductPages(final PageDecorator categoryPage,
+        final List<String> productResourcePaths) throws WCMException {
+        final List<HybrisImporterResult> results = new ArrayList<>();
+
+        final ResourceResolver resourceResolver = categoryPage.getContentResource().getResourceResolver();
+
+        for (final String productResourcePath : productResourcePaths) {
+            // create/update product pages for each imported commerce product
+            final Sku sku = resourceResolver.getResource(productResourcePath).adaptTo(Sku.class);
+
+            results.add(importSkuPage(categoryPage, sku));
+        }
+
+        return results;
+    }
+
+    private HybrisImporterResult importSkuPage(final PageDecorator categoryPage, final Sku sku) throws WCMException {
+        final PageManagerDecorator pageManager = categoryPage.getPageManager();
+
+        final String skuPageName = HybrisImporterUtils.getValidJcrName(sku.getTitle());
+
+        final HybrisImportStatus status;
+
+        PageDecorator skuPage = pageManager.getPage(categoryPage.getPath() + "/" + skuPageName);
+
+        if (skuPage == null) {
+            skuPage = pageManager.create(categoryPage.getPath(), skuPageName, WatersConstants.TEMPLATE_SKU_PAGE,
+                sku.getTitle(), false);
+
+            LOG.info("created sku page : {}", skuPage.getPath());
+
+            status = HybrisImportStatus.CREATED;
+        } else {
+            LOG.info("found existing sku page : {}", skuPage.getPath());
+
+            status = HybrisImportStatus.UPDATED;
+        }
+
+        if (status != HybrisImportStatus.IGNORED) {
+            updateSkuPageProperties(skuPage, sku);
+        }
+
+        return HybrisImporterResult.fromSkuPage(skuPage, status);
     }
 
     private HybrisImporterResult importCategoryPage(final PageManagerDecorator pageManager,
@@ -172,5 +264,13 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         if (category.getLastModified() != null) {
             properties.put(HybrisImporterConstants.PROPERTY_LAST_MODIFIED, category.getLastModified());
         }
+    }
+
+    private void updateSkuPageProperties(final PageDecorator page, final Sku sku) {
+        final ValueMap properties = page.getContentResource().adaptTo(ModifiableValueMap.class);
+
+        properties.put(WatersCommerceConstants.PROPERTY_PRODUCT_RESOURCE_PATH, sku.getPath());
+        properties.put(JcrConstants.JCR_DESCRIPTION, sku.getDescription());
+        properties.put(WatersCommerceConstants.PROPERTY_CODE, sku.getCode());
     }
 }

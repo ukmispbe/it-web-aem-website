@@ -60,6 +60,10 @@ public final class WatersCommerceConstants {
 
     public static final String PROPERTY_STOCK_LEVEL_STATUS = "stockLevelStatus";
 
+    // sku page properties
+
+    public static final String PROPERTY_PRODUCT_RESOURCE_PATH = "productResourcePath";
+
     private WatersCommerceConstants() {
 
     }

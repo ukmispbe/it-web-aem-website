@@ -159,7 +159,12 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
     private void setStock(final Node productNode, final Stock stock) throws RepositoryException {
         if (stock != null) {
-            setNodeProperties(productNode, WatersCommerceConstants.RESOURCE_NAME_STOCK, getStockProperties(stock));
+            final Map<String, Object> properties = new HashMap<>();
+
+            properties.put(WatersCommerceConstants.PROPERTY_STOCK_LEVEL, stock.getStockLevel());
+            properties.put(WatersCommerceConstants.PROPERTY_STOCK_LEVEL_STATUS, stock.getStockLevelStatus());
+
+            setNodeProperties(productNode, WatersCommerceConstants.RESOURCE_NAME_STOCK, properties);
         }
     }
 
@@ -172,52 +177,42 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
                     final String priceNodeName = price.getCurrencyIso() + "-" + country;
                     final Node priceNode = JcrUtils.getOrAddNode(pricesNode, priceNodeName);
 
-                    setNodeProperties(priceNode, getPriceProperties(price, country));
+                    final Map<String, Object> properties = new HashMap<>();
+
+                    properties.put(WatersCommerceConstants.PROPERTY_COUNTRY, country);
+                    properties.put(WatersCommerceConstants.PROPERTY_CURRENCY_ISO, price.getCurrencyIso());
+                    properties.put(WatersCommerceConstants.PROPERTY_FORMATTED_VALUE, price.getFormattedValue());
+                    properties.put(WatersCommerceConstants.PROPERTY_MAX_QUANTITY, price.getMaxQuantity());
+                    properties.put(WatersCommerceConstants.PROPERTY_MIN_QUANTITY, price.getMinQuantity());
+                    properties.put(WatersCommerceConstants.PROPERTY_PRICE_TYPE, price.getPriceType() == null ? null :
+                        price.getPriceType().name());
+                    properties.put(WatersCommerceConstants.PROPERTY_VALUE, price.getValue());
+
+                    setNodeProperties(priceNode, properties);
                 }
             }
         }
     }
 
-    private void setClassifications(final Node productNode, final List<Classification> classifications) {
+    private void setClassifications(final Node productNode, final List<Classification> classifications)
+        throws RepositoryException {
         if (!classifications.isEmpty()) {
-
+            final Node classificationsNode = JcrUtils.getOrAddNode(productNode,
+                WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATIONS);
         }
     }
 
-    private void setImages(final Node productNode, final List<Image> images) {
+    private void setImages(final Node productNode, final List<Image> images) throws RepositoryException {
         if (!images.isEmpty()) {
-
+            final Node imagesNode = JcrUtils.getOrAddNode(productNode, WatersCommerceConstants.RESOURCE_NAME_IMAGES);
         }
     }
 
-    private void setPromotions(final Node productNode, final List<Promotion> promotions) {
+    private void setPromotions(final Node productNode, final List<Promotion> promotions) throws RepositoryException {
         if (!promotions.isEmpty()) {
-
+            final Node promotionsNode = JcrUtils.getOrAddNode(productNode,
+                WatersCommerceConstants.RESOURCE_NAME_PROMOTIONS);
         }
-    }
-
-    private Map<String, Object> getStockProperties(final Stock stock) {
-        final Map<String, Object> properties = new HashMap<>();
-
-        properties.put(WatersCommerceConstants.PROPERTY_STOCK_LEVEL, stock.getStockLevel());
-        properties.put(WatersCommerceConstants.PROPERTY_STOCK_LEVEL_STATUS, stock.getStockLevelStatus());
-
-        return properties;
-    }
-
-    private Map<String, Object> getPriceProperties(final Price price, final String country) {
-        final Map<String, Object> properties = new HashMap<>();
-
-        properties.put(WatersCommerceConstants.PROPERTY_COUNTRY, country);
-        properties.put(WatersCommerceConstants.PROPERTY_CURRENCY_ISO, price.getCurrencyIso());
-        properties.put(WatersCommerceConstants.PROPERTY_FORMATTED_VALUE, price.getFormattedValue());
-        properties.put(WatersCommerceConstants.PROPERTY_MAX_QUANTITY, price.getMaxQuantity());
-        properties.put(WatersCommerceConstants.PROPERTY_MIN_QUANTITY, price.getMinQuantity());
-        properties.put(WatersCommerceConstants.PROPERTY_PRICE_TYPE, price.getPriceType() == null ? null :
-            price.getPriceType().name());
-        properties.put(WatersCommerceConstants.PROPERTY_VALUE, price.getValue());
-
-        return properties;
     }
 
     private void setNodeProperties(final Node node, final Map<String, Object> properties) throws RepositoryException {

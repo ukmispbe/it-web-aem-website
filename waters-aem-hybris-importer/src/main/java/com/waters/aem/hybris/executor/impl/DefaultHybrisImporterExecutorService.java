@@ -7,11 +7,9 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.waters.aem.hybris.audit.HybrisImporterAuditService;
-import com.waters.aem.hybris.client.HybrisClient;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
 import com.waters.aem.hybris.executor.HybrisImporterExecutorService;
 import com.waters.aem.hybris.importer.HybrisCatalogImporter;
-import com.waters.aem.hybris.models.Category;
 import com.waters.aem.hybris.notification.HybrisImporterNotificationService;
 import com.waters.aem.hybris.replication.HybrisImporterReplicationService;
 import com.waters.aem.hybris.result.HybrisImporterExecutionResult;
@@ -32,9 +30,6 @@ import java.util.concurrent.TimeUnit;
 public final class DefaultHybrisImporterExecutorService implements HybrisImporterExecutorService {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultHybrisImporterExecutorService.class);
-
-    @Reference
-    private HybrisClient hybrisClient;
 
     @Reference
     private HybrisCatalogImporter hybrisCatalogImporter;
@@ -59,9 +54,7 @@ public final class DefaultHybrisImporterExecutorService implements HybrisImporte
         result = executorService.submit(() -> {
             final Stopwatch stopwatch = Stopwatch.createStarted();
 
-            final Category rootCategory = hybrisClient.getRootCategory();
-
-            final List<HybrisImporterResult> results = hybrisCatalogImporter.importCatalogPages(rootCategory);
+            final List<HybrisImporterResult> results = hybrisCatalogImporter.importCatalogPages();
 
             final long duration = stopwatch.elapsed(TimeUnit.SECONDS);
 
