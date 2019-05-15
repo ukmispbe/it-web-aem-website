@@ -64,6 +64,10 @@ public final class WatersCommerceConstants {
 
     public static final String PROPERTY_PRODUCT_RESOURCE_PATH = "productResourcePath";
 
+    public static final String PATH_COMMERCE_PRODUCTS = "/etc/commerce/products";
+
+    public static final Integer PRODUCT_CODE_PREFIX_LENGTH = 3;
+
     private WatersCommerceConstants() {
 
     }

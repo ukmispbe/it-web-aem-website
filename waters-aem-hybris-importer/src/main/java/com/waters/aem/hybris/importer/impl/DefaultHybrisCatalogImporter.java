@@ -9,6 +9,7 @@ import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
 import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.utils.TextUtils;
 import com.waters.aem.hybris.client.HybrisClient;
 import com.waters.aem.hybris.constants.HybrisImporterConstants;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
@@ -19,7 +20,6 @@ import com.waters.aem.hybris.importer.HybrisProductImporter;
 import com.waters.aem.hybris.models.Category;
 import com.waters.aem.hybris.models.Product;
 import com.waters.aem.hybris.result.HybrisImporterResult;
-import com.waters.aem.hybris.utils.HybrisImporterUtils;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ModifiableValueMap;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -190,7 +190,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     private HybrisImporterResult importSkuPage(final PageDecorator categoryPage, final Sku sku) throws WCMException {
         final PageManagerDecorator pageManager = categoryPage.getPageManager();
 
-        final String skuPageName = HybrisImporterUtils.getValidJcrName(sku.getTitle());
+        final String skuPageName = TextUtils.getValidJcrName(sku.getTitle());
 
         final HybrisImportStatus status;
 
@@ -220,7 +220,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         final PageDecorator parentPage, final Category category) throws WCMException {
         LOG.info("importing page for category : {}", category);
 
-        final String name = HybrisImporterUtils.getValidJcrName(category.getName());
+        final String name = TextUtils.getValidJcrName(category.getName());
 
         final HybrisImportStatus status;
 

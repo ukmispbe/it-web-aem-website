@@ -4,7 +4,7 @@ import com.day.cq.commons.jcr.JcrConstants;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
-import com.waters.aem.hybris.constants.HybrisImporterConstants;
+import com.waters.aem.core.utils.TextUtils;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
 import com.waters.aem.hybris.exceptions.HybrisImporterException;
 import com.waters.aem.hybris.importer.HybrisProductImporter;
@@ -16,7 +16,6 @@ import com.waters.aem.hybris.models.ProductCategory;
 import com.waters.aem.hybris.models.Promotion;
 import com.waters.aem.hybris.models.Stock;
 import com.waters.aem.hybris.result.HybrisImporterResult;
-import com.waters.aem.hybris.utils.HybrisImporterUtils;
 import org.apache.jackrabbit.commons.JcrUtils;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -65,7 +64,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
             final Session session = resourceResolver.adaptTo(Session.class);
-            final Node productsNode = session.getNode(HybrisImporterConstants.PATH_COMMERCE_PRODUCTS);
+            final Node productsNode = session.getNode(WatersCommerceConstants.PATH_COMMERCE_PRODUCTS);
 
             final Map<String, List<Product>> groupedProducts = products
                 .stream()
@@ -73,7 +72,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
             for (final Map.Entry<String, List<Product>> entry : groupedProducts.entrySet()) {
                 final String productCodePrefix = entry.getKey();
-                final String productCodePrefixNodeName = HybrisImporterUtils.getValidJcrName(productCodePrefix);
+                final String productCodePrefixNodeName = TextUtils.getValidJcrName(productCodePrefix);
 
                 final Node productCodePrefixNode = JcrUtils.getOrAddNode(productsNode, productCodePrefixNodeName,
                     JcrResourceConstants.NT_SLING_FOLDER);
@@ -100,7 +99,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         for (final Product product : products) {
-            final String productNodeName = HybrisImporterUtils.getValidJcrName(product.getCode());
+            final String productNodeName = TextUtils.getValidJcrName(product.getCode());
 
             final Node productNode;
             final HybrisImportStatus status;
@@ -259,6 +258,6 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
     }
 
     private String getProductCodePrefix(final Product product) {
-        return product.getCode().substring(0, HybrisImporterConstants.PRODUCT_CODE_PREFIX_LENGTH);
+        return product.getCode().substring(0, WatersCommerceConstants.PRODUCT_CODE_PREFIX_LENGTH);
     }
 }

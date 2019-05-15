@@ -1,6 +1,7 @@
 package com.waters.aem.core.commerce.models;
 
 import com.day.cq.commons.jcr.JcrConstants;
+import com.google.common.base.Objects;
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -82,5 +83,12 @@ public final class Sku {
 
     public Boolean isAvailableForPickup() {
         return availableForPickup;
+    }
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this)
+            .add("resource", resource.getPath())
+            .toString();
     }
 }

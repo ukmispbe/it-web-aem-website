@@ -4,8 +4,8 @@ import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.waters.aem.core.components.structure.page.LibraryPage;
 import com.waters.aem.core.library.asset.LibraryAsset;
+import com.waters.aem.core.utils.InjectorUtils;
 import com.waters.aem.core.utils.Templates;
-import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.spi.DisposalCallbackRegistry;
 import org.apache.sling.models.spi.Injector;
@@ -42,7 +42,7 @@ public final class LibraryAssetInjector implements Injector {
         LibraryAsset libraryAsset = null;
 
         if (type == LibraryAsset.class) {
-            final Resource resource = getResource(adaptable);
+            final Resource resource = InjectorUtils.getResource(adaptable);
 
             if (resource != null) {
                 final PageDecorator currentPage = resource.getResourceResolver().adaptTo(PageManagerDecorator.class)
@@ -59,17 +59,5 @@ public final class LibraryAssetInjector implements Injector {
         }
 
         return libraryAsset;
-    }
-
-    private Resource getResource(final Object adaptable) {
-        Resource resource = null;
-
-        if (adaptable instanceof SlingHttpServletRequest) {
-            resource = ((SlingHttpServletRequest) adaptable).getResource();
-        } else if (adaptable instanceof Resource) {
-            resource = (Resource) adaptable;
-        }
-
-        return resource;
     }
 }
