@@ -448,14 +448,7 @@ class Search extends Component {
 
         this.setState({searchParams: parameters, selectedFacets: {}, contentType: '', contentTypeSelected: {}});
 
-        setTimeout(
-            () =>
-                this.pushToHistory(
-                    this.state.searchParams,
-                    this.state.selectedFacets
-                ),
-            0
-        );
+        setTimeout(() => this.pushToHistory(this.state.searchParams, this.state.selectedFacets), 0);
     }
 
     getContentMenuOrFilter = (filterTags) => {

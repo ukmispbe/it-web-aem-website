@@ -429,5 +429,9 @@ html.showing-spinner {
             position: relative;
             z-index: -1;
         }
+
+        .cmp-search-bar {
+            z-index: -1;
+        }
     }
 }
