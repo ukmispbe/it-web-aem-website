@@ -448,14 +448,7 @@ class Search extends Component {
 
         this.setState({searchParams: parameters, selectedFacets: {}, contentType: '', contentTypeSelected: {}});
 
-        setTimeout(
-            () =>
-                this.pushToHistory(
-                    this.state.searchParams,
-                    this.state.selectedFacets
-                ),
-            0
-        );
+        setTimeout(() => this.pushToHistory(this.state.searchParams, this.state.selectedFacets), 0);
     }
 
     getContentMenuOrFilter = (filterTags) => {
@@ -465,7 +458,14 @@ class Search extends Component {
                         text={this.props.searchText}
                         categoryKey="contentType"
                         items={this.state.filterMap}
-                        click={this.handleContentTypeItemClick.bind(this)} />
+                        click={this.handleContentTypeItemClick.bind(this)}
+                        showBothChildrenAndItems={true}>
+                        <Filter
+                            text={this.props.searchText}
+                            selectHandler={this.filterSelectHandler.bind(this)}
+                            filterTags={filterTags}
+                            showTagsOnly={true} />    
+                    </CategoriesMenu>
                 </>
         } else {
             return <>

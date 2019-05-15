@@ -61,11 +61,9 @@ const SubFacetTags = props => {
           })
         : null;
 
-    return (
-        <>
+    return <>
             {props.selectedFacets && tags}
-        </>
-    );
+        </>;
 };
 
 const CategoryTags = props => {
@@ -73,40 +71,28 @@ const CategoryTags = props => {
 
     if (!showTags) return <></>;
 
-    return(<>
-        <>
-            <a href="javascript:void(0);"
-                onClick={props.onRemove}>
-                <ReactSVG src={props.text.closeIcon} />
-                <span>{`${props.text[props.categoryKey]}: ${props.selected.categoryFacetValue}`}</span>
-            </a>
-        </>
-    </>);
+    return <a href="javascript:void(0);"
+            onClick={props.onRemove}>
+            <ReactSVG src={props.text.closeIcon} />
+            <span>{`${props.text[props.categoryKey]}: ${props.selected.categoryFacetValue}`}</span>
+        </a>;
 }
 
 const ClearAllTag = props => {
-    return(<>
-        <>
-            <a href="javascript:void(0);"
-                className="cmp-search-filters__tags__clear"
-                onClick={props.onRemove}>
-                <ReactSVG src={props.text.closeIcon} />
-                <span>{props.text.clearAllFilters}</span>
-            </a>
-        </>
-    </>);
+    return <a href="javascript:void(0);"
+            className="cmp-search-filters__tags__clear"
+            onClick={props.onRemove}>
+            <ReactSVG src={props.text.closeIcon} />
+            <span>{props.text.clearAllFilters}</span>
+        </a>;
 }
 
 const KeywordTag = props => {
-    return(<>
-        <>
-            <a href="javascript:void(0);"
-                onClick={props.onRemove}>
-                <ReactSVG src={props.text.closeIcon} />
-                <span>{`${props.text.keyWordLabel}: ${props.keyword}`}</span>
-            </a>
-        </>
-    </>);
+    return <a href="javascript:void(0);"
+            onClick={props.onRemove}>
+            <ReactSVG src={props.text.closeIcon} />
+            <span>{`${props.text.keyWordLabel}: ${props.keyword}`}</span>
+        </a>;
 }
 
 SubFacetTags.propTypes = {
