@@ -555,8 +555,8 @@ class Search extends Component {
     }
 
     renderResultsCount = () => {
-        if(this.state.noResults) return <></>;
-        
+        if(this.state.noResults || this.state.loading) return <></>;
+
         return <ResultsCount
             rows={this.state.rows}
             count={this.state.count}
