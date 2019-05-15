@@ -23,7 +23,7 @@ const ResultsCount = (props) => {
         return <span>
             for&nbsp;
             <strong>
-                <q className="query">{searchQuery}</q>
+                <q className="query">{searchQuery}</q>.
             </strong>
         </span>;
     }
@@ -38,13 +38,13 @@ const ResultsCount = (props) => {
         ? <a className="item" onClick={e => props.onRelatedSuggestionClick(props.spell_related_suggestions[0])}>{props.spell_related_suggestions[0]}</a> 
         : props.spell_related_suggestions.reduce((previous, current) => <><a href="javascript:void(0)" className="item" onClick={e => props.onRelatedSuggestionClick(previous)}>{previous}</a><span className="vertical-bar">&#124;</span><a href="javascript:void(0)" onClick={e => props.onRelatedSuggestionClick(current)} className="item">{current}</a></>);
 
-    return <>
+    return <div className="cmp-search__resultsCount-container">
         <h2 className="cmp-search__resultsCount">
             Showing {startResults}-{endResults} of {props.count} results{' '}
             {props.noQuery || props.query === '*:*' ? null : renderSearchTerm()}
         </h2>
         {renderRelatedSuggestions()}
-    </>
+    </div>
 };
 
 export default ResultsCount;
