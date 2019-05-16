@@ -79,12 +79,13 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
             final Calendar lastImportDate = productsResource.getValueMap().get(
                 HybrisImporterConstants.PROPERTY_LAST_IMPORT_DATE, Calendar.class);
+            final Calendar currentImportDate = Calendar.getInstance();
 
             results.addAll(importProductLists(resourceResolver, productsNode, lastImportDate));
 
             // set last import date
             productsResource.adaptTo(ModifiableValueMap.class).put(HybrisImporterConstants.PROPERTY_LAST_IMPORT_DATE,
-                Calendar.getInstance());
+                currentImportDate);
 
             resourceResolver.commit();
 

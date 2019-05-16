@@ -5,7 +5,7 @@ import com.waters.aem.core.commerce.models.Sku;
 import org.apache.sling.api.resource.ResourceResolver;
 
 /**
- *
+ * Repository for SKU models.
  */
 public interface SkuRepository {
 

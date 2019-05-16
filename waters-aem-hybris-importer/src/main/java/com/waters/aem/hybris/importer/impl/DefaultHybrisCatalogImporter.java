@@ -145,8 +145,11 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             results.addAll(processCategoryPage(pageManager, categoryPage, subcategory, categoryIdToProductCodeMap));
         }
 
-        // after processing category page, proceed with the product pages for the current category (if any)
-        results.addAll(processProductPagesForCategory(categoryPage, category, categoryIdToProductCodeMap));
+        // only process product pages for leaf categories
+        if (category.getSubcategories().isEmpty()) {
+            // after processing category page, proceed with the product pages for the current category (if any)
+            results.addAll(processProductPagesForCategory(categoryPage, category, categoryIdToProductCodeMap));
+        }
 
         return results;
     }

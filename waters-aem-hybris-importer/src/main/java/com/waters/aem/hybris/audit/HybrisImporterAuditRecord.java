@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class HybrisImporterAuditRecord {
 
-    private static final Splitter.MapSplitter MAP_SPLITTER = Splitter.on("|").withKeyValueSeparator(":");
+    private static final Splitter.MapSplitter MAP_SPLITTER = Splitter.on("|").withKeyValueSeparator("=");
 
     @Self
     private Resource resource;
