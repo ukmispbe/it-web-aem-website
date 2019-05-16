@@ -11,7 +11,7 @@
         padding: $space-s;
         border: $color-border-light;
         background-color: inherit;
-        top: $space-xxl;
+        top: $space-xl + 1;
 
         .react-autosuggest__suggestions-list {
             list-style: none;
@@ -150,15 +150,4 @@ body.cmp-search-body__auto-suggest--open {
         z-index: -1;
         position: relative;
     }
-}
-
-/*
-    These are IE specific overrides that cannot be account for using -ms prefix
-*/
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-	.cmp-search-bar {
-		.react-autosuggest__suggestions-container {
-			top: $space-xxl - 1;
-		}
-	}
 }
