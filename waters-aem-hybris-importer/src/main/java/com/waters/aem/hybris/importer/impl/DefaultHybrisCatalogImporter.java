@@ -209,7 +209,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         if (skuPage == null) {
             skuPage = pageManager.create(categoryPage.getPath(), skuPageName, WatersConstants.TEMPLATE_SKU_PAGE,
-                sku.getTitle(), false);
+                sku.getTitle());
 
             LOG.info("created sku page : {}", skuPage.getPath());
 
@@ -239,7 +239,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         if (page == null) {
             page = pageManager.create(parentPage.getPath(), name, WatersConstants.TEMPLATE_CATEGORY_PAGE,
-                category.getName(), false);
+                category.getName());
 
             LOG.info("created category page : {}", page.getPath());
 

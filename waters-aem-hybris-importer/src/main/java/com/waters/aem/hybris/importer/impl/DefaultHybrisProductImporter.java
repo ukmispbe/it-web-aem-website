@@ -117,8 +117,6 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
         int currentPage = 0;
 
-        // limiting to 3 pages for testing
-        // while (currentPage < totalPages && currentPage < 3) {
         while (currentPage < totalPages) {
             results.addAll(importProductsForProductList(productsNode, productList));
 
@@ -128,7 +126,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
             // periodically commit changes
             if (currentPage % 10 == 0) {
-                LOG.info("current page : {}, committing changes...", currentPage);
+                LOG.info("committing changes...");
 
                 resourceResolver.commit();
             }

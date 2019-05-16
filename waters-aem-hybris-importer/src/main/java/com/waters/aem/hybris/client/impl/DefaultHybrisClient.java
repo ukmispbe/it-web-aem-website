@@ -47,8 +47,6 @@ public final class DefaultHybrisClient implements HybrisClient {
 
     private static final ObjectMapper MAPPER = new ObjectMapper().configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-    private static final ContentType JSON = ContentType.APPLICATION_JSON;
-
     private volatile CloseableHttpClient httpClient;
 
     private volatile String hostname;
@@ -148,8 +146,8 @@ public final class DefaultHybrisClient implements HybrisClient {
         LOG.debug("sending request for URI : {}", uri.toString());
 
         final HttpUriRequest request = RequestBuilder.get(uri)
-            .addHeader(HttpHeaders.ACCEPT, JSON.getMimeType())
-            .addHeader(HttpHeaders.CONTENT_TYPE, JSON.getMimeType())
+            .addHeader(HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType())
+            .addHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType())
             .build();
 
         final HttpResponse response = httpClient.execute(request);

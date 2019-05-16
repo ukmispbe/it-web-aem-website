@@ -4,10 +4,13 @@ import com.waters.aem.hybris.result.HybrisImporterResult;
 
 import java.util.List;
 
+/**
+ * Create category/sku pages from the Hybris catalog export.
+ */
 public interface HybrisCatalogImporter {
 
     /**
-     * Import Hybris catalog pages.
+     * Import category/sku pages.
      *
      * @return list of importer results
      */

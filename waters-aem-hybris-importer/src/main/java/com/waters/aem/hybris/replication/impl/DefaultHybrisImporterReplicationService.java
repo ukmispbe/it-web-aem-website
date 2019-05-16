@@ -61,6 +61,8 @@ public final class DefaultHybrisImporterReplicationService implements HybrisImpo
         final List<HybrisImporterResult> results) throws ReplicationException {
         final ReplicationActionType replicationActionType = REPLICATION_ACTION_TYPES.get(status);
 
+        // TODO group results by content type if distinct actions are needed
+
         if (replicationActionType == null) {
             LOG.info("no replication action type for status : {}, ignoring", status);
         } else {
