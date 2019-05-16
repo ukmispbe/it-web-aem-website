@@ -1,8 +1,14 @@
 .categories-type-menu-container {
     margin-top: $space-xl;
+
+    @include tablet-and-under { 
+        margin-top: $space-l;
+    }
 }
 
 .categories-type-menu-container__heading {
+    display: flex;
+    flex-direction: column;
 
     .bread-crumb {
         display: flex;

@@ -453,29 +453,27 @@ class Search extends Component {
 
     getContentMenuOrFilter = (filterTags) => {
         if (this.isInitialLoad(this.state.contentType)) {
-            return <>
-                    <CategoriesMenu
+            return <CategoriesMenu
                         text={this.props.searchText}
                         categoryKey="contentType"
                         items={this.state.filterMap}
                         click={this.handleContentTypeItemClick.bind(this)}
-                        showBothChildrenAndItems={true}>
+                        showBothChildrenAndItems={true}
+                        filterTags={filterTags}>
                         <Filter
                             text={this.props.searchText}
                             selectHandler={this.filterSelectHandler.bind(this)}
-                            filterTags={filterTags}
                             showTagsOnly={true} />    
-                    </CategoriesMenu>
-                </>
+                    </CategoriesMenu>;
         } else {
-            return <>
-                    <CategoriesMenu
+            return <CategoriesMenu
                         text={this.props.searchText}
                         categoryKey="contentType"
                         items={this.state.filterMap}
                         click={this.handleContentTypeItemClick.bind(this)}
                         selectedValue={this.state.contentTypeSelected.categoryFacetValue}
-                        clear={this.handleRemoveCategory.bind(this)}>
+                        clear={this.handleRemoveCategory.bind(this)}
+                        filterTags={filterTags}>
                         <Filter
                             facets={this.state.facets}
                             text={this.props.searchText}
@@ -483,10 +481,8 @@ class Search extends Component {
                             defaultFacet={this.props.defaultFacet}
                             selectHandler={this.filterSelectHandler.bind(this)}
                             selectedFacets={this.state.selectedFacets}
-                            filterTags={filterTags}
                             contentType={this.state.contentType} />
-                    </CategoriesMenu>
-                </>
+                    </CategoriesMenu>;
         }
     }
 

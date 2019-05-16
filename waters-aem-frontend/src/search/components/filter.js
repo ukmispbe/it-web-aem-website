@@ -151,14 +151,9 @@ class Filter extends Component {
     }
 
     render() {
-        const props = this.props;
-        return (
-            <div id="js-search-filters" className="cmp-search-filters">
-                {props.filterTags}
-
-                {props.facets && this.getFilters()}
-            </div>
-        );
+        return <div id="js-search-filters" className="cmp-search-filters">
+                {this.props.facets && this.getFilters()}
+            </div>;
     }
 }
 
@@ -167,7 +162,6 @@ Filter.propTypes = {
     defaultFacet: PropTypes.string,
     facets: PropTypes.any,
     filterMap: PropTypes.array,
-    filterTags: PropTypes.object,
     selectHandler: PropTypes.func.isRequired,
     selectedFacets: PropTypes.object,
     text: PropTypes.object.isRequired,
