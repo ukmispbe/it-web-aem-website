@@ -74,7 +74,7 @@ public final class HybrisImporterAuditServlet extends AbstractJsonResponseServle
             data = auditService.getAuditRecord(suffix)
                 .getResults()
                 .stream()
-                .map(result -> new HashMap<String, Object>(result.toMap()))
+                .map(result -> new HashMap<String, Object>(result.toMap(true)))
                 .collect(Collectors.toList());
         }
 

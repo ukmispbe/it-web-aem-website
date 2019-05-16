@@ -55,6 +55,7 @@ public final class Sku {
 
     // private Stock stock;
 
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_SUMMARY)
     private String summary;
 
     private Boolean terminated;
@@ -75,6 +76,10 @@ public final class Sku {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getSummary() {
+        return summary;
     }
 
     public String getTitle() {

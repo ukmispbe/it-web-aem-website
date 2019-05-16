@@ -18,6 +18,8 @@ public final class HybrisImporterConstants {
 
     public static final String PROPERTY_DURATION = "importer:duration";
 
+    public static final String PROPERTY_LAST_IMPORT_DATE = "importer:lastImportDate";
+
     public static final String PROPERTY_LAST_MODIFIED = "importer:lastModified";
 
     public static final String IMPORTER_PAGE_PATH = "/etc/waters/hybris-importer";

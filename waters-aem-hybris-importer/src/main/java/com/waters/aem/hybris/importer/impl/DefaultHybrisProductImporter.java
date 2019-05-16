@@ -5,6 +5,8 @@ import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
 import com.waters.aem.core.utils.TextUtils;
+import com.waters.aem.hybris.client.HybrisClient;
+import com.waters.aem.hybris.constants.HybrisImporterConstants;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
 import com.waters.aem.hybris.exceptions.HybrisImporterException;
 import com.waters.aem.hybris.importer.HybrisProductImporter;
@@ -13,11 +15,14 @@ import com.waters.aem.hybris.models.Image;
 import com.waters.aem.hybris.models.Price;
 import com.waters.aem.hybris.models.Product;
 import com.waters.aem.hybris.models.ProductCategory;
+import com.waters.aem.hybris.models.ProductList;
 import com.waters.aem.hybris.models.Promotion;
 import com.waters.aem.hybris.models.Stock;
 import com.waters.aem.hybris.result.HybrisImporterResult;
 import org.apache.jackrabbit.commons.JcrUtils;
 import org.apache.sling.api.resource.LoginException;
+import org.apache.sling.api.resource.ModifiableValueMap;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.jcr.resource.api.JcrResourceConstants;
@@ -29,9 +34,10 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
-import javax.jcr.Session;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -56,39 +62,94 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
 
+    @Reference
+    private HybrisClient hybrisClient;
+
     @Override
-    public List<HybrisImporterResult> importProducts(final List<Product> products) {
+    public List<HybrisImporterResult> importProducts() {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         final Stopwatch stopwatch = Stopwatch.createStarted();
 
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
-            final Session session = resourceResolver.adaptTo(Session.class);
-            final Node productsNode = session.getNode(WatersCommerceConstants.PATH_COMMERCE_PRODUCTS);
+            final Resource productsResource = resourceResolver.getResource(
+                WatersCommerceConstants.PATH_COMMERCE_PRODUCTS);
 
-            final Map<String, List<Product>> groupedProducts = products
-                .stream()
-                .collect(Collectors.groupingBy(this :: getProductCodePrefix));
+            final Node productsNode = productsResource.adaptTo(Node.class);
 
-            for (final Map.Entry<String, List<Product>> entry : groupedProducts.entrySet()) {
-                final String productCodePrefix = entry.getKey();
-                final String productCodePrefixNodeName = TextUtils.getValidJcrName(productCodePrefix);
+            final Calendar lastImportDate = productsResource.getValueMap().get(
+                HybrisImporterConstants.PROPERTY_LAST_IMPORT_DATE, Calendar.class);
 
-                final Node productCodePrefixNode = JcrUtils.getOrAddNode(productsNode, productCodePrefixNodeName,
-                    JcrResourceConstants.NT_SLING_FOLDER);
+            results.addAll(importProductLists(productsNode, lastImportDate));
 
-                LOG.info("importing products for code prefix : {}", productCodePrefix);
-
-                results.addAll(importProductsForProductCodePrefix(productCodePrefixNode, entry.getValue()));
-            }
+            // set last import date
+            productsResource.adaptTo(ModifiableValueMap.class).put(HybrisImporterConstants.PROPERTY_LAST_IMPORT_DATE,
+                Calendar.getInstance());
 
             resourceResolver.commit();
 
             LOG.info("imported {} products in {}ms", results.size(), stopwatch.elapsed(TimeUnit.MILLISECONDS));
-        } catch (LoginException | IOException | RepositoryException e) {
+        } catch (LoginException | IOException | RepositoryException | URISyntaxException e) {
             LOG.error("error importing hybris products", e);
 
             throw new HybrisImporterException(e);
+        }
+
+        return results;
+    }
+
+    private List<HybrisImporterResult> importProductLists(final Node productsNode, final Calendar lastImportDate)
+        throws IOException, URISyntaxException, RepositoryException {
+        if (lastImportDate == null) {
+            LOG.info("no last import date, importing all products...");
+        } else {
+            LOG.info("importing products updated after last import date : {}",
+                new SimpleDateFormat(HybrisImporterConstants.DATE_FORMAT_PATTERN).format(lastImportDate.getTime()));
+        }
+
+        final List<HybrisImporterResult> results = new ArrayList<>();
+
+        ProductList productList = hybrisClient.getProductList(0, lastImportDate);
+
+        final int totalPages = productList.getTotalPageCount();
+
+        int currentPage = 0;
+
+        // limiting to 3 pages for testing
+        while (currentPage < totalPages && currentPage < 3) {
+            results.addAll(importProductsForProductList(productsNode, productList));
+
+            currentPage++;
+
+            productList = hybrisClient.getProductList(currentPage, lastImportDate);
+        }
+
+        return results;
+    }
+
+    private List<HybrisImporterResult> importProductsForProductList(final Node productsNode,
+        final ProductList productList) throws RepositoryException {
+        final List<HybrisImporterResult> results = new ArrayList<>();
+
+        final List<Product> products = productList.getProducts();
+
+        LOG.info("importing {} products for page number {} of {}", products.size(), productList.getCurrentPage(),
+            productList.getTotalPageCount());
+
+        final Map<String, List<Product>> groupedProducts = products
+            .stream()
+            .collect(Collectors.groupingBy(this :: getProductCodePrefix));
+
+        for (final Map.Entry<String, List<Product>> entry : groupedProducts.entrySet()) {
+            final String productCodePrefix = entry.getKey();
+            final String productCodePrefixNodeName = TextUtils.getValidJcrName(productCodePrefix);
+
+            final Node productCodePrefixNode = JcrUtils.getOrAddNode(productsNode, productCodePrefixNodeName,
+                JcrResourceConstants.NT_SLING_FOLDER);
+
+            LOG.info("importing products for code prefix : {}", productCodePrefix);
+
+            results.addAll(importProductsForProductCodePrefix(productCodePrefixNode, entry.getValue()));
         }
 
         return results;
@@ -107,17 +168,22 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
             if (productCodePrefixNode.hasNode(productNodeName)) {
                 productNode = productCodePrefixNode.getNode(productNodeName);
 
+                LOG.info("found existing product node : {}", productNode.getPath());
+
+                // TODO determine if product is actually updated, or if status should be 'IGNORED'
                 status = HybrisImportStatus.UPDATED;
             } else {
                 productNode = productCodePrefixNode.addNode(productNodeName, JcrConstants.NT_UNSTRUCTURED);
                 productNode.addMixin(JcrConstants.MIX_CREATED);
+
+                LOG.info("created product node : {}", productNode.getPath());
 
                 status = HybrisImportStatus.CREATED;
             }
 
             updateProductProperties(productNode, product);
 
-            results.add(HybrisImporterResult.fromProduct(productNode, status));
+            results.add(HybrisImporterResult.fromProduct(productNode, product.getName(), status));
         }
 
         return results;
@@ -128,6 +194,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
         properties.put(JcrConstants.JCR_TITLE, product.getName());
         properties.put(JcrConstants.JCR_DESCRIPTION, product.getDescription());
+        properties.put(JcrConstants.JCR_LASTMODIFIED, Calendar.getInstance());
         properties.put(WatersCommerceConstants.PROPERTY_CODE, product.getCode());
         properties.put(WatersCommerceConstants.PROPERTY_SUMMARY, product.getSummary());
         properties.put(WatersCommerceConstants.PROPERTY_CATEGORIES, product.getCategories()

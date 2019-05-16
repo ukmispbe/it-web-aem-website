@@ -24,7 +24,7 @@ class Category {
             .add("id", id)
             .add("name", name)
             .add("url", url)
-            .add("subcategories", subcategories)
+            .add("subcategories", subcategories.size())
             .add("lastModified", lastModified.format(HybrisImporterConstants.DATE_FORMAT_PATTERN))
             .toString()
     }

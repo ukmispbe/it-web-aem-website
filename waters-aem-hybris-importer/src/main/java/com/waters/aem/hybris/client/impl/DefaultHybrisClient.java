@@ -7,7 +7,6 @@ import com.waters.aem.hybris.client.HybrisClientConfiguration;
 import com.waters.aem.hybris.constants.HybrisImporterConstants;
 import com.waters.aem.hybris.models.Category;
 import com.waters.aem.hybris.models.Product;
-import com.waters.aem.hybris.models.ProductCategory;
 import com.waters.aem.hybris.models.ProductList;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
@@ -37,7 +36,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 
@@ -63,9 +61,6 @@ public final class DefaultHybrisClient implements HybrisClient {
 
     private volatile Integer pageSize;
 
-    // TODO remove - for local testing only
-    private volatile List<Product> products;
-
     @Override
     public Category getRootCategory() throws URISyntaxException, IOException {
         final String path = new StringBuilder()
@@ -90,7 +85,6 @@ public final class DefaultHybrisClient implements HybrisClient {
     @Override
     public ProductList getProductList(final Integer pageNumber, final Calendar modifiedAfterTime)
         throws URISyntaxException, IOException {
-
         final ImmutableMap.Builder<String, String> queryParamsBuilder = new ImmutableMap.Builder<String, String>()
             .put("catalog", catalogId)
             .put("version", catalogVersionId)
@@ -120,14 +114,7 @@ public final class DefaultHybrisClient implements HybrisClient {
 
     @Override
     public List<Product> getProductsForCategory(final String categoryId) throws IOException, URISyntaxException {
-        // TODO
-        return products.stream()
-            .filter(product -> product.getCategories()
-                .stream()
-                .map(ProductCategory :: getCode)
-                .collect(Collectors.toList())
-                .contains(categoryId))
-            .collect(Collectors.toList());
+        return null;
     }
 
     @Activate
@@ -138,9 +125,6 @@ public final class DefaultHybrisClient implements HybrisClient {
             .build();
 
         modified(configuration);
-
-        // TODO remove
-        products = getProductList(0).getProducts();
     }
 
     @Modified
@@ -155,9 +139,6 @@ public final class DefaultHybrisClient implements HybrisClient {
     @Deactivate
     protected void deactivate() throws IOException {
         httpClient.close();
-
-        // TODO remove
-        products = null;
     }
 
     private <T> T getModel(final String path, final Map<String, String> queryParams, final Class<T> clazz)

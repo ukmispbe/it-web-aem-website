@@ -7,7 +7,6 @@ import com.waters.aem.hybris.audit.HybrisImporterAuditRecord;
 import com.waters.aem.hybris.audit.HybrisImporterAuditService;
 import com.waters.aem.hybris.constants.HybrisImporterConstants;
 import com.waters.aem.hybris.result.HybrisImporterExecutionResult;
-import com.waters.aem.hybris.result.HybrisImporterResult;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.PersistenceException;
@@ -60,7 +59,7 @@ public final class DefaultHybrisImporterAuditService implements HybrisImporterAu
 
             auditRecordNode.setProperty(HybrisImporterConstants.PROPERTY_RESULTS, result.getResults()
                 .stream()
-                .map(HybrisImporterResult :: toMap)
+                .map(r -> r.toMap(false))
                 .map(MAP_JOINER :: join)
                 .toArray(String[] :: new));
             auditRecordNode.setProperty(HybrisImporterConstants.PROPERTY_DURATION, result.getDuration());

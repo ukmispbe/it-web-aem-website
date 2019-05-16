@@ -10,6 +10,7 @@ import com.waters.aem.hybris.audit.HybrisImporterAuditService;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
 import com.waters.aem.hybris.executor.HybrisImporterExecutorService;
 import com.waters.aem.hybris.importer.HybrisCatalogImporter;
+import com.waters.aem.hybris.importer.HybrisProductImporter;
 import com.waters.aem.hybris.notification.HybrisImporterNotificationService;
 import com.waters.aem.hybris.replication.HybrisImporterReplicationService;
 import com.waters.aem.hybris.result.HybrisImporterExecutionResult;
@@ -22,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -33,6 +35,9 @@ public final class DefaultHybrisImporterExecutorService implements HybrisImporte
 
     @Reference
     private HybrisCatalogImporter hybrisCatalogImporter;
+
+    @Reference
+    private HybrisProductImporter hybrisProductImporter;
 
     @Reference
     private HybrisImporterAuditService auditService;
@@ -54,14 +59,17 @@ public final class DefaultHybrisImporterExecutorService implements HybrisImporte
         result = executorService.submit(() -> {
             final Stopwatch stopwatch = Stopwatch.createStarted();
 
-            final List<HybrisImporterResult> results = hybrisCatalogImporter.importCatalogPages();
+            final List<HybrisImporterResult> results = new ArrayList<>();
+
+            results.addAll(hybrisProductImporter.importProducts());
+            results.addAll(hybrisCatalogImporter.importCatalogPages());
 
             final long duration = stopwatch.elapsed(TimeUnit.SECONDS);
 
-            LOG.info("imported {} pages in {}s", results.size(), duration);
+            LOG.info("imported {} items in {}s", results.size(), duration);
 
             for (final HybrisImportStatus status : HybrisImportStatus.values()) {
-                LOG.info("import status : {}, total pages : {}", status.name(),
+                LOG.info("import status : {}, total items : {}", status.name(),
                     results.stream().filter(result -> result.getStatus() == status).count());
             }
 

@@ -13,16 +13,16 @@ import java.util.Map;
 public final class HybrisImporterResult {
 
     public static HybrisImporterResult fromCategoryPage(final PageDecorator page, final HybrisImportStatus status) {
-        return new HybrisImporterResult(page.getPath(), page.getTitle(), HybrisImportContentType.CATEGORY, status);
+        return new HybrisImporterResult(page.getPath(), page.getTitle(), HybrisImportContentType.CATEGORY_PAGE, status);
     }
 
     public static HybrisImporterResult fromSkuPage(final PageDecorator page, final HybrisImportStatus status) {
-        return new HybrisImporterResult(page.getPath(), page.getTitle(), HybrisImportContentType.SKU, status);
+        return new HybrisImporterResult(page.getPath(), page.getTitle(), HybrisImportContentType.SKU_PAGE, status);
     }
 
-    public static HybrisImporterResult fromProduct(final Node node, final HybrisImportStatus status)
+    public static HybrisImporterResult fromProduct(final Node node, final String title, final HybrisImportStatus status)
         throws RepositoryException {
-        return new HybrisImporterResult(node.getPath(), node.getName(), HybrisImportContentType.PRODUCT, status);
+        return new HybrisImporterResult(node.getPath(), title, HybrisImportContentType.PRODUCT, status);
     }
 
     public static HybrisImporterResult fromMap(final Map<String, String> map) {
@@ -62,12 +62,12 @@ public final class HybrisImporterResult {
         return status;
     }
 
-    public Map<String, String> toMap() {
+    public Map<String, String> toMap(final Boolean displayable) {
         return new ImmutableMap.Builder<String, String>()
             .put("path", path)
             .put("title", title)
-            .put("contentType", contentType.name())
-            .put("status", status.name())
+            .put("contentType", displayable ? contentType.getDescription() : contentType.name())
+            .put("status", displayable ? status.getDescription() : status.name())
             .build();
     }
 
