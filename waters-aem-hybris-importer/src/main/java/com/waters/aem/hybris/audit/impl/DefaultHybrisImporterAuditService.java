@@ -34,7 +34,7 @@ public final class DefaultHybrisImporterAuditService implements HybrisImporterAu
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultHybrisImporterAuditService.class);
 
-    private static final Joiner.MapJoiner MAP_JOINER = Joiner.on("|").withKeyValueSeparator(":");
+    private static final Joiner.MapJoiner MAP_JOINER = Joiner.on("|").withKeyValueSeparator("=");
 
     private static final String NAME_AUDIT = "audit";
 

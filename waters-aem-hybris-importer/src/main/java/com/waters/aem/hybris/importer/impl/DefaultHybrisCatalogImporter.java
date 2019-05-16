@@ -20,6 +20,7 @@ import com.waters.aem.hybris.models.Category;
 import com.waters.aem.hybris.result.HybrisImporterResult;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ModifiableValueMap;
+import org.apache.sling.api.resource.PersistenceException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
@@ -131,7 +132,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
     private List<HybrisImporterResult> processCategoryPage(final PageManagerDecorator pageManager,
         final PageDecorator parentPage, final Category category,
-        final Map<String, List<String>> categoryIdToProductCodeMap) throws WCMException {
+        final Map<String, List<String>> categoryIdToProductCodeMap) throws WCMException, PersistenceException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         final HybrisImporterResult result = importCategoryPage(pageManager, parentPage, category);
@@ -155,7 +156,8 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     }
 
     private List<HybrisImporterResult> processProductPagesForCategory(final PageDecorator categoryPage,
-        final Category category, final Map<String, List<String>> categoryIdToProductCodeMap) throws WCMException {
+        final Category category, final Map<String, List<String>> categoryIdToProductCodeMap)
+        throws WCMException, PersistenceException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         final List<String> productCodesForCategory = categoryIdToProductCodeMap.getOrDefault(category.getId(),
@@ -174,20 +176,24 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
             LOG.info("importing {} product pages for category : {}", skus.size(), category.getId());
 
-            results.addAll(importProductPages(categoryPage, skus));
+            results.addAll(importProductPages(resourceResolver, categoryPage, skus));
         }
 
         return results;
     }
 
-    private List<HybrisImporterResult> importProductPages(final PageDecorator categoryPage, final List<Sku> skus)
-        throws WCMException {
+    private List<HybrisImporterResult> importProductPages(final ResourceResolver resourceResolver,
+        final PageDecorator categoryPage, final List<Sku> skus)
+        throws WCMException, PersistenceException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         for (final Sku sku : skus) {
             // create/update product pages for each imported commerce product
             results.add(importSkuPage(categoryPage, sku));
         }
+
+        // commit changes
+        resourceResolver.commit();
 
         return results;
     }
