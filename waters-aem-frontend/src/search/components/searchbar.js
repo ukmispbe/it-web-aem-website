@@ -58,14 +58,14 @@ class SearchBar extends Component {
             onBlur: this.handleSearchValueBlur
         };
 
-        return(<Autosuggest
+        return <Autosuggest
                     suggestions={this.state.suggestions}
                     onSuggestionsFetchRequested={this.handleSuggestionsFetchRequestedDebounce}
                     onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                     onSuggestionSelected={this.handleSuggestionSelected}
                     getSuggestionValue={this.getSuggestionValueCallback}
                     renderSuggestion={this.renderSuggestionCallback}
-                    inputProps={inputProps}/>);
+                    inputProps={inputProps}/>;
     };
 
     renderHideClearIcon = () => (this.state.value) ? this.renderClearIcon() : <></>;
