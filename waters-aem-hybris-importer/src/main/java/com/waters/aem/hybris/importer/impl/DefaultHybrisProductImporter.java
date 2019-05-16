@@ -80,7 +80,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
             final Calendar lastImportDate = productsResource.getValueMap().get(
                 HybrisImporterConstants.PROPERTY_LAST_IMPORT_DATE, Calendar.class);
 
-            results.addAll(importProductLists(productsNode, lastImportDate));
+            results.addAll(importProductLists(resourceResolver, productsNode, lastImportDate));
 
             // set last import date
             productsResource.adaptTo(ModifiableValueMap.class).put(HybrisImporterConstants.PROPERTY_LAST_IMPORT_DATE,
@@ -98,7 +98,8 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         return results;
     }
 
-    private List<HybrisImporterResult> importProductLists(final Node productsNode, final Calendar lastImportDate)
+    private List<HybrisImporterResult> importProductLists(final ResourceResolver resourceResolver,
+        final Node productsNode, final Calendar lastImportDate)
         throws IOException, URISyntaxException, RepositoryException {
         if (lastImportDate == null) {
             LOG.info("no last import date, importing all products...");
@@ -116,12 +117,20 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         int currentPage = 0;
 
         // limiting to 3 pages for testing
-        while (currentPage < totalPages && currentPage < 3) {
+        // while (currentPage < totalPages && currentPage < 3) {
+        while (currentPage < totalPages) {
             results.addAll(importProductsForProductList(productsNode, productList));
 
             currentPage++;
 
             productList = hybrisClient.getProductList(currentPage, lastImportDate);
+
+            // periodically commit changes
+            if (currentPage % 10 == 0) {
+                LOG.info("current page : {}, committing changes...", currentPage);
+
+                resourceResolver.commit();
+            }
         }
 
         return results;
