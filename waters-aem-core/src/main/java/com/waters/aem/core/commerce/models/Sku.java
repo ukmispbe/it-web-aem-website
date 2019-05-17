@@ -9,8 +9,10 @@ import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class Sku {
@@ -88,6 +90,20 @@ public final class Sku {
 
     public Boolean isAvailableForPickup() {
         return availableForPickup;
+    }
+
+    public BigDecimal getPrice(final String country, final String currencyIso) {
+        final String priceResourcePath = new StringBuilder(WatersCommerceConstants.RESOURCE_NAME_PRICES)
+            .append("/")
+            .append(currencyIso)
+            .append("-")
+            .append(country)
+            .toString();
+
+        return Optional.ofNullable(resource.getChild(priceResourcePath))
+            .map(priceResource -> priceResource.getValueMap().get(WatersCommerceConstants.PROPERTY_VALUE,
+                BigDecimal.class))
+            .orElse(null);
     }
 
     @Override

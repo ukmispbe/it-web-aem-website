@@ -7,6 +7,10 @@ class Product {
 
     Boolean availableForPickup
 
+    Boolean coldStorage
+
+    Boolean hazardousHandling
+
     String baseProduct
 
     String code
@@ -31,8 +35,6 @@ class Product {
 
     String url
 
-    Stock stock
-
     List<ProductCategory> categories = []
 
     List<Price> prices = []
@@ -42,4 +44,6 @@ class Product {
     List<Image> images = []
 
     List<Promotion> potentialPromotions = []
+
+    List<ProductReference> productReferences = []
 }

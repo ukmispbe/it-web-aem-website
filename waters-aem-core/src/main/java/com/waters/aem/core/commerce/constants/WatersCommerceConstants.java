@@ -28,6 +28,10 @@ public final class WatersCommerceConstants {
 
     public static final String PROPERTY_URL = "url";
 
+    public static final String PROPERTY_COLD_STORAGE = "coldStorage";
+
+    public static final String PROPERTY_HAZARDOUS_HANDLING = "hazardousHandling";
+
     public static final String RESOURCE_NAME_CLASSIFICATIONS = "classifications";
 
     public static final String RESOURCE_NAME_PROMOTIONS = "promotions";
@@ -36,7 +40,7 @@ public final class WatersCommerceConstants {
 
     public static final String RESOURCE_NAME_PRICES = "prices";
 
-    public static final String RESOURCE_NAME_STOCK = "stock";
+    public static final String RESOURCE_NAME_PRODUCT_REFERENCES = "productreferences";
 
     // price properties
 
@@ -54,11 +58,31 @@ public final class WatersCommerceConstants {
 
     public static final String PROPERTY_VALUE = "value";
 
-    // stock properties
+    // product reference properties
 
-    public static final String PROPERTY_STOCK_LEVEL = "stockLevel";
+    public static final String PROPERTY_PRESELECTED = "preselected";
 
-    public static final String PROPERTY_STOCK_LEVEL_STATUS = "stockLevelStatus";
+    public static final String PROPERTY_DESCRIPTION = "description";
+
+    public static final String RESOURCE_NAME_PRODUCT_REFERENCE = "productreference";
+
+    // classification properties
+
+    public static final String PROPERTY_NAME = "name";
+
+    public static final String RESOURCE_NAME_CLASSIFICATION = "classification";
+
+    // image properties
+
+    public static final String PROPERTY_ALT_TEXT = "altText";
+
+    public static final String PROPERTY_FORMAT = "format";
+
+    public static final String PROPERTY_IMAGE_TYPE = "imageType";
+
+    public static final String PROPERTY_GALLERY_INDEX = "galleryIndex";
+
+    public static final String RESOURCE_NAME_IMAGE = "image";
 
     // sku page properties
 

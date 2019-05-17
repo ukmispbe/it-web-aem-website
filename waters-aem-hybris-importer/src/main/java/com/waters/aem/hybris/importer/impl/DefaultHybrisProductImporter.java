@@ -2,7 +2,6 @@ package com.waters.aem.hybris.importer.impl;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.google.common.base.Stopwatch;
-import com.google.common.collect.ImmutableList;
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
 import com.waters.aem.core.utils.TextUtils;
 import com.waters.aem.hybris.client.HybrisClient;
@@ -16,8 +15,8 @@ import com.waters.aem.hybris.models.Price;
 import com.waters.aem.hybris.models.Product;
 import com.waters.aem.hybris.models.ProductCategory;
 import com.waters.aem.hybris.models.ProductList;
-import com.waters.aem.hybris.models.Promotion;
-import com.waters.aem.hybris.models.Stock;
+import com.waters.aem.hybris.models.ProductReference;
+import com.waters.aem.hybris.models.ProductReferenceTarget;
 import com.waters.aem.hybris.result.HybrisImporterResult;
 import org.apache.jackrabbit.commons.JcrUtils;
 import org.apache.sling.api.resource.LoginException;
@@ -44,20 +43,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Component(service = HybrisProductImporter.class)
 public final class DefaultHybrisProductImporter implements HybrisProductImporter {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultHybrisProductImporter.class);
-
-    private static final List<String> PRODUCT_NODE_NAMES = new ImmutableList.Builder<String>()
-        .add(WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATIONS)
-        .add(WatersCommerceConstants.RESOURCE_NAME_PRICES)
-        .add(WatersCommerceConstants.RESOURCE_NAME_PROMOTIONS)
-        .add(WatersCommerceConstants.RESOURCE_NAME_IMAGES)
-        .add(WatersCommerceConstants.RESOURCE_NAME_STOCK)
-        .build();
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -218,27 +210,41 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         properties.put(WatersCommerceConstants.PROPERTY_MANUFACTURER, product.getManufacturer());
         properties.put(WatersCommerceConstants.PROPERTY_NUMBER_OF_REVIEWS, product.getNumberOfReviews());
         properties.put(WatersCommerceConstants.PROPERTY_SALES_STATUS, product.getSalesStatus());
+        properties.put(WatersCommerceConstants.PROPERTY_COLD_STORAGE, product.getColdStorage());
+        properties.put(WatersCommerceConstants.PROPERTY_HAZARDOUS_HANDLING, product.getHazardousHandling());
 
         setNodeProperties(productNode, properties);
 
         // remove existing nodes to prevent stale data from persisting
         removeProductNodes(productNode);
 
-        setStock(productNode, product.getStock());
         setPrices(productNode, product.getPrices());
         setClassifications(productNode, product.getClassifications());
         setImages(productNode, product.getImages());
-        setPromotions(productNode, product.getPotentialPromotions());
+        setProductReferences(productNode, product.getProductReferences());
     }
 
-    private void setStock(final Node productNode, final Stock stock) throws RepositoryException {
-        if (stock != null) {
-            final Map<String, Object> properties = new HashMap<>();
+    private void setProductReferences(final Node productNode, final List<ProductReference> productReferences)
+        throws RepositoryException {
+        if (!productReferences.isEmpty()) {
+            final Node productReferencesNode = JcrUtils.getOrAddNode(productNode,
+                WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCES);
 
-            properties.put(WatersCommerceConstants.PROPERTY_STOCK_LEVEL, stock.getStockLevel());
-            properties.put(WatersCommerceConstants.PROPERTY_STOCK_LEVEL_STATUS, stock.getStockLevelStatus());
+            setItemNodes(productReferencesNode, WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCE,
+                productReferences, productReference -> {
+                    final Map<String, Object> properties = new HashMap<>();
 
-            setNodeProperties(productNode, WatersCommerceConstants.RESOURCE_NAME_STOCK, properties);
+                    properties.put(WatersCommerceConstants.PROPERTY_PRESELECTED, productReference.getPreselected());
+                    properties.put(WatersCommerceConstants.PROPERTY_DESCRIPTION, productReference.getDescription());
+
+                    final ProductReferenceTarget target = productReference.getTarget();
+
+                    properties.put(WatersCommerceConstants.PROPERTY_CODE, target.getCode());
+                    properties.put(WatersCommerceConstants.PROPERTY_PROPRIETARY, target.getProprietary());
+                    properties.put(WatersCommerceConstants.PROPERTY_TERMINATED, target.getTerminated());
+
+                    return properties;
+                });
         }
     }
 
@@ -273,19 +279,51 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         if (!classifications.isEmpty()) {
             final Node classificationsNode = JcrUtils.getOrAddNode(productNode,
                 WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATIONS);
+
+            setItemNodes(classificationsNode, WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATION, classifications,
+                classification -> {
+                    final Map<String, Object> properties = new HashMap<>();
+
+                    properties.put(WatersCommerceConstants.PROPERTY_CODE, classification.getCode());
+                    properties.put(WatersCommerceConstants.PROPERTY_NAME, classification.getName());
+
+                    // TODO features
+
+                    return properties;
+                });
         }
     }
 
     private void setImages(final Node productNode, final List<Image> images) throws RepositoryException {
         if (!images.isEmpty()) {
             final Node imagesNode = JcrUtils.getOrAddNode(productNode, WatersCommerceConstants.RESOURCE_NAME_IMAGES);
+
+            setItemNodes(imagesNode, WatersCommerceConstants.RESOURCE_NAME_IMAGE, images, image -> {
+                final Map<String, Object> properties = new HashMap<>();
+
+                properties.put(WatersCommerceConstants.PROPERTY_URL, image.getUrl());
+                properties.put(WatersCommerceConstants.PROPERTY_ALT_TEXT, image.getAltText());
+                properties.put(WatersCommerceConstants.PROPERTY_FORMAT, image.getFormat());
+                properties.put(WatersCommerceConstants.PROPERTY_GALLERY_INDEX, image.getGalleryIndex());
+                properties.put(WatersCommerceConstants.PROPERTY_IMAGE_TYPE, image.getImageType().name());
+
+                return properties;
+            });
         }
     }
 
-    private void setPromotions(final Node productNode, final List<Promotion> promotions) throws RepositoryException {
-        if (!promotions.isEmpty()) {
-            final Node promotionsNode = JcrUtils.getOrAddNode(productNode,
-                WatersCommerceConstants.RESOURCE_NAME_PROMOTIONS);
+    private <T> void setItemNodes(final Node parentNode, final String itemNodeNamePrefix, final List<T> items,
+        final Function<T, Map<String, Object>> itemPropertiesFunction) throws RepositoryException {
+        int count = 1;
+
+        for (final T item : items) {
+            final Node itemNode = JcrUtils.getOrAddNode(parentNode, itemNodeNamePrefix + count);
+
+            final Map<String, Object> properties = itemPropertiesFunction.apply(item);
+
+            setNodeProperties(itemNode, properties);
+
+            count++;
         }
     }
 
@@ -293,13 +331,6 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         for (final Map.Entry<String, Object> entry : properties.entrySet()) {
             setProperty(node, entry.getKey(), entry.getValue());
         }
-    }
-
-    private void setNodeProperties(final Node parentNode, final String nodeName, final Map<String, Object> properties)
-        throws RepositoryException {
-        final Node node = JcrUtils.getOrAddNode(parentNode, nodeName);
-
-        setNodeProperties(node, properties);
     }
 
     private void setProperty(final Node node, final String name, final Object value) throws RepositoryException {
@@ -324,11 +355,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         final NodeIterator nodes = productNode.getNodes();
 
         while (nodes.hasNext()) {
-            final Node node = nodes.nextNode();
-
-            if (PRODUCT_NODE_NAMES.contains(node.getName())) {
-                node.remove();
-            }
+            nodes.nextNode().remove();
         }
     }
 

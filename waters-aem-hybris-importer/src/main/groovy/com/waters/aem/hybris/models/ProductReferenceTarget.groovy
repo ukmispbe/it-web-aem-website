@@ -3,9 +3,15 @@ package com.waters.aem.hybris.models
 import groovy.transform.ToString
 
 @ToString(includePackage = false, includeNames = true)
-class Stock {
+class ProductReferenceTarget {
 
-    Integer stockLevel
+    String code
 
-    String stockLevelStatus
+    String name
+
+    Boolean proprietary
+
+    Boolean terminated
+
+    String url
 }
