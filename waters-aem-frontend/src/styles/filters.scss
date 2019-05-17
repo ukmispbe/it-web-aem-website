@@ -273,7 +273,11 @@
         }
     }
     &__emptytags {
-        height: 0;
+        height: 0.5em;
+
+        @include tablet-and-under {
+            height: 0;
+        }
     }
 }
 
