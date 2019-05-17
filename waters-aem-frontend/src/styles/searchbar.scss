@@ -16,7 +16,7 @@
         .react-autosuggest__suggestions-list {
             list-style: none;
             padding-left: $space-xxxs;
-            margin-top: $space-s * -1;
+            margin-top: $space-xxxs;
             margin-bottom: $space-s * -1;
 
             .react-autosuggest__suggestion {
@@ -46,7 +46,7 @@
     }
 
     .react-autosuggest__suggestions-container--open {
-        background-color: $color-white;
+        background-color: $color-white; 
     }
 
     .react-autosuggest__input {
