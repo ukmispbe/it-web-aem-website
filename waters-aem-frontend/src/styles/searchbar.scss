@@ -15,8 +15,8 @@
 
         .react-autosuggest__suggestions-list {
             list-style: none;
-            padding-left: 0;
-            margin-top: $space-s * -1;
+            padding-left: $space-xxxs;
+            margin-top: $space-xxxs;
             margin-bottom: $space-s * -1;
 
             .react-autosuggest__suggestion {
@@ -33,7 +33,7 @@
             }
 
             .emphasis-matching-characters {
-                font-weight: $font-weight-bold + 100;
+                font-weight: $font-weight-bold;
             }
 
             .white-text {
@@ -46,7 +46,7 @@
     }
 
     .react-autosuggest__suggestions-container--open {
-        background-color: $color-white;
+        background-color: $color-white; 
     }
 
     .react-autosuggest__input {
@@ -72,7 +72,7 @@
         display: flex;
         position: absolute;
         top: $space-s;
-        right: $space-s;
+        right: $space-m;
 
         &-search {
             svg {

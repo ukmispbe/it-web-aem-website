@@ -58,12 +58,12 @@
     &-breadcrumb {
         display: flex;
         @include font-small;
+        margin-top: $space-xs;
 
         svg {
-            margin-left: $space-xxxs;
-            margin-right: $space-xxxs;
-            width: $icon-xs;
-            height: $icon-xs;
+            margin: ($space-xxxs + .2em) $space-xxxs 0 $space-xxxs;
+            width: $icon-s;
+            height: $icon-s;
 
             .st0 {
                 stroke: $color-icon;
