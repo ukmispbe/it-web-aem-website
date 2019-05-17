@@ -234,15 +234,14 @@
             @include font-small;
             display: block;
             float: left;
-            padding: $space-xxxs $space-xs ($space-xxs - 0.1em)
-                ($space-l - 0.1em);
+            padding: $space-xxxs $space-xs $space-xxxs ($space-l - 0.1em);
             margin: 0 $space-xs $space-xs 0;
             text-decoration: none;
             background-color: $color-gray-10;
             position: relative;
             svg {
                 position: absolute;
-                top: 11px;
+                top: 10px;
                 left: 9px;
                 width: $icon-s;
                 height: $icon-s;
