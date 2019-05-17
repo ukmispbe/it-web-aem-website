@@ -3,7 +3,7 @@ package com.waters.aem.automationtests.components.impl;
 import com.waters.aem.automationtests.components.LinkItem;
 
 
-public class LinkItemImpl implements LinkItem{
+public class LinkItemImpl implements LinkItem {
 
     private String link;
     private String text;

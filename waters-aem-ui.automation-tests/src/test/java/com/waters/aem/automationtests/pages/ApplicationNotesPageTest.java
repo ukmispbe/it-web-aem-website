@@ -6,7 +6,11 @@ import com.cognifide.qa.bb.aem.core.component.configuration.ResourceFileLocation
 import com.cognifide.qa.bb.api.actions.ActionException;
 import com.cognifide.qa.bb.junit5.guice.Modules;
 import com.cognifide.qa.bb.modules.BobcatRunModule;
-import com.waters.aem.automationtests.components.*;
+import com.waters.aem.automationtests.components.Anchor;
+import com.waters.aem.automationtests.components.Image;
+import com.waters.aem.automationtests.components.Text;
+import com.waters.aem.automationtests.components.Title;
+import com.waters.aem.automationtests.components.ExternalHeader;
 import com.waters.aem.automationtests.constants.WatersAutomationTestConstants;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;

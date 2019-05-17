@@ -11,7 +11,16 @@ import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ListContr
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ListDialogPanel;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
-import com.waters.aem.automationtests.bobcat.dialog.dialogfields.*;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.Checkbox;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.Image;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.Multifield;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.MultifieldItem;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.PathBrowser;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.RadioGroup;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.RichText;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.Select;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.Textfield;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.Switch;
 import com.waters.aem.automationtests.bobcat.dialog.dialogfields.text.ControlToolbarImpl;
 import com.waters.aem.automationtests.bobcat.dialog.dialogfields.text.JustifyDialogPanel;
 
