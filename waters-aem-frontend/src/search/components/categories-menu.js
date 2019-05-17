@@ -42,6 +42,7 @@ export const CategoriesMenu = (props) => {
     return (<>
         <div className="categories-type-menu-container">
             <div className="categories-type-menu-container__heading">
+                {props.filterTags}
                 {getHeading()}
             </div>
             <div className="categories-type-menu-container__body">
@@ -58,7 +59,8 @@ CategoriesMenu.propTypes = {
     items: PropTypes.array,
     click: PropTypes.func,
     clear: PropTypes.func,
-    showBothChildrenAndItems: PropTypes.bool
+    showBothChildrenAndItems: PropTypes.bool,
+    filterTags: PropTypes.object
 }
 
 CategoriesMenu.defaultProps = {

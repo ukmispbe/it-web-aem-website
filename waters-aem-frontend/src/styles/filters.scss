@@ -270,6 +270,7 @@
         @include tablet-and-under {
             margin-top: 0;
             display: none;
+            margin-bottom: 0;
         }
     }
     &__emptytags {
@@ -468,7 +469,7 @@ $header-height: 74px;
 
     @include tablet {
         display: none;
-        width: 40%;
+        width: 41%;
         height: 100%;
         padding: $header-height 20px 20px 20px;
     }
