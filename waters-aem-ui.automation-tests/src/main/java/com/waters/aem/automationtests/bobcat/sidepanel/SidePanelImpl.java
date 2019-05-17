@@ -117,7 +117,4 @@ public class SidePanelImpl implements SidePanel {
         return currentScope.findElement(By.xpath(String.format(COMPONENT_XPATH_FORMAT, componentName, componentName)));
     }
 
-    public WebElement getComponentWebElement(String componentName, WebElement currentScope) {
-        return currentScope.findElement(By.xpath(String.format(COMPONENT_XPATH_FORMAT, componentName, componentName)));
-    }
 }
