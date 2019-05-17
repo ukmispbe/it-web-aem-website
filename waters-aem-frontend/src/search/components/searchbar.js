@@ -127,16 +127,22 @@ class SearchBar extends Component {
         if(openOverlay) {
             this.addCssOverridesForSearchBar();
             this.addCssOverridesForSearchBody();
-        } else {
-            this.removeCssOverridesForSearchBar();
         }
 
-        this.setState({suggestions, openOverlay}, () => { if(!openOverlay) this.removeCssOverridesForSearchBody(); });
+        this.setState({suggestions, openOverlay}, () => {
+            if(!openOverlay) {
+                this.removeCssOverridesForSearchBar();
+                this.removeCssOverridesForSearchBody();
+            }
+        });
     };
 
     onSuggestionsClearRequested = () => {
         this.removeCssOverridesForSearchBar();
-        setTimeout(() => this.setState({openOverlay: false}, () => this.removeCssOverridesForSearchBody()), 125);
+        
+        // delay updating the state so the onClick of the X icon is not ignored
+        // otherwise, the event handler for the X icon will never execute
+        setTimeout(() => this.setState({openOverlay: false, suggestions: []}, () => this.removeCssOverridesForSearchBody()), 125);
     };
 
     getSuggestionValueCallback = suggestion => suggestion.key;
