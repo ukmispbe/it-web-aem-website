@@ -6,11 +6,7 @@ import com.cognifide.qa.bb.aem.core.component.configuration.ResourceFileLocation
 import com.cognifide.qa.bb.api.actions.ActionException;
 import com.cognifide.qa.bb.junit5.guice.Modules;
 import com.cognifide.qa.bb.modules.BobcatRunModule;
-import com.waters.aem.automationtests.components.Anchor;
-import com.waters.aem.automationtests.components.Image;
-import com.waters.aem.automationtests.components.Text;
-import com.waters.aem.automationtests.components.Title;
-import com.waters.aem.automationtests.components.ExternalHeader;
+import com.waters.aem.automationtests.components.*;
 import com.waters.aem.automationtests.constants.WatersAutomationTestConstants;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -90,6 +86,33 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
         assertThat(imageComponent.getSrc().substring(imageComponent.getSrc().lastIndexOf("/") + 1)).isEqualTo("brand-masslynx-software.png");
         assertThat(imageComponent.getAlt()).isEqualTo("Alternative Text Test");
         assertThat(imageComponent.getLink().substring(imageComponent.getLink().lastIndexOf("/") + 1)).isEqualTo("test.html");
+    }
+
+    @Test
+    public void externalFooter() throws ActionException {
+        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("External Footer", "External Footer", 0,
+            new ResourceFileLocation("external-footer.yaml")));
+
+        final ExternalFooter externalFooterComponent = page.getContent(ExternalFooter.class, 0);
+
+        //test Properties Tab
+        assertThat(externalFooterComponent.getLogo().substring(externalFooterComponent.getLogo().lastIndexOf("/") + 1)).isEqualTo("waters-logo-white.svg");
+        assertThat(externalFooterComponent.getLogoLink().substring(externalFooterComponent.getLogoLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
+        assertThat(externalFooterComponent.getLogoAltText()).isEqualTo("Alt Text Test");
+        assertThat(externalFooterComponent.isNewWindow()).isEqualTo(true);
+        assertThat(externalFooterComponent.getCopyrightText()).isEqualTo("© 2019 Waters Corporation. All Rights Reserved.");
+
+        //Test Footer Links Tab
+        //Link Item 1
+        assertThat(externalFooterComponent.getCookiesLink().substring(externalFooterComponent.getCookiesLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
+        assertThat(externalFooterComponent.getLinkItems().get(0).getText()).isEqualTo("Terms of Use");
+        assertThat(externalFooterComponent.getLinkItems().get(0).getLink().substring(externalFooterComponent.getLinkItems().get(0).getLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
+        assertThat(externalFooterComponent.getLinkItems().get(0).isNewWindow()).isEqualTo(true);
+
+        //Link Item 2
+        assertThat(externalFooterComponent.getLinkItems().get(1).getText()).isEqualTo("Privacy");
+        assertThat(externalFooterComponent.getLinkItems().get(1).getLink().substring(externalFooterComponent.getLinkItems().get(0).getLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
+        assertThat(externalFooterComponent.getLinkItems().get(1).isNewWindow()).isEqualTo(false);
     }
 
     @Override

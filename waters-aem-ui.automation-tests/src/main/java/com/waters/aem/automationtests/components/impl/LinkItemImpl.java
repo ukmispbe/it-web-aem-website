@@ -10,10 +10,16 @@ public class LinkItemImpl implements LinkItem {
     private boolean linkIcon;
     private boolean newWindow;
 
-    public LinkItemImpl(String text, String link, boolean linkIcon, boolean newWindow){
+    public LinkItemImpl(String text, String link, boolean linkIcon, boolean newWindow) {
         this.text = text;
         this.link = link;
         this.linkIcon = linkIcon;
+        this.newWindow = newWindow;
+    }
+
+    public LinkItemImpl(String text, String link, boolean newWindow) {
+        this.text = text;
+        this.link = link;
         this.newWindow = newWindow;
     }
 

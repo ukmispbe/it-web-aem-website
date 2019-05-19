@@ -43,7 +43,7 @@ public class ExternalHeaderImpl implements ExternalHeader {
     }
 
     @Override
-    public List<LinkItemImpl> getLinkItems(){
+    public List<LinkItemImpl> getLinkItems() {
         return component.findElements(By.cssSelector(".cmp-external-header-links__link"))
         .stream()
         .map(link -> new LinkItemImpl(link.getText(), link.getAttribute("href"), link.findElement(By.tagName("svg")).isDisplayed(), !link.getAttribute("target").isEmpty()))

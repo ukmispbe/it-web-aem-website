@@ -1,0 +1,41 @@
+Properties:
+  - label:
+    type: IMAGE
+    value: waters-logo-white.svg
+  - label: Logo Link
+    type: PATHBROWSER
+    value: /content/waters/language-masters/en/search.html
+  - label: Logo Alt Text
+    type: TEXTFIELD
+    value: Alt Text Test
+  - label: Open in New Window
+    type: SWITCH
+    value: true
+
+Footer Links:
+  - label: Cookies Link
+    type: PATHBROWSER
+    value: /content/waters/language-masters/en/search.html
+  - label: Footer Links
+    type: MULTIFIELD
+    value:
+      - item:
+        - label: Link Item Text
+          type: TEXTFIELD
+          value: Terms of Use
+        - label: Link Item Path
+          type: PATHBROWSER
+          value: /content/waters/language-masters/en/search.html
+        - label: Open in New Window
+          type: SWITCH
+          value: true
+      - item:
+        - label: Link Item Text
+          type: TEXTFIELD
+          value: Privacy
+        - label: Link Item Path
+          type: PATHBROWSER
+          value: /content/waters/language-masters/en/search.html
+        - label: Open in New Window
+          type: SWITCH
+          value: false
