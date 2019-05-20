@@ -1,6 +1,8 @@
 package com.waters.aem.hybris.importer.impl;
 
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.tagging.Tag;
+import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.WCMException;
 import com.google.common.base.Stopwatch;
 import com.icfolson.aem.library.api.page.PageDecorator;
@@ -215,7 +217,9 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
             status = HybrisImportStatus.CREATED;
         } else {
-            LOG.info("found existing sku page : {}", skuPage.getPath());
+            // TODO check if product has actually been updated
+
+            LOG.debug("found existing sku page : {}", skuPage.getPath());
 
             status = HybrisImportStatus.UPDATED;
         }
@@ -256,7 +260,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
                 status = HybrisImportStatus.IGNORED;
             }
 
-            LOG.info("found existing category page : {}, status : {}", page.getPath(), status.name());
+            LOG.debug("found existing category page : {}, status : {}", page.getPath(), status.name());
         }
 
         if (status != HybrisImportStatus.IGNORED) {
@@ -269,6 +273,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     private void updateCategoryPageProperties(final PageDecorator page, final Category category) {
         final ValueMap properties = page.getContentResource().adaptTo(ModifiableValueMap.class);
 
+        properties.put(JcrConstants.JCR_LASTMODIFIED, Calendar.getInstance());
         properties.put(HybrisImporterConstants.PROPERTY_ID, category.getId());
         properties.put(HybrisImporterConstants.PROPERTY_URL, category.getUrl());
 
@@ -280,9 +285,16 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     private void updateSkuPageProperties(final PageDecorator page, final Sku sku) {
         final ValueMap properties = page.getContentResource().adaptTo(ModifiableValueMap.class);
 
+        properties.put(JcrConstants.JCR_LASTMODIFIED, Calendar.getInstance());
         properties.put(WatersCommerceConstants.PROPERTY_PRODUCT_RESOURCE_PATH, sku.getPath());
         properties.put(JcrConstants.JCR_DESCRIPTION, sku.getDescription());
         properties.put(WatersCommerceConstants.PROPERTY_CODE, sku.getCode());
+
+        // TODO do existing/authored tags need to be preserved?
+        properties.put(NameConstants.PN_TAGS, sku.getTags()
+            .stream()
+            .map(Tag :: getTagID)
+            .toArray(String[] :: new));
     }
 
     private Map<String, List<String>> getCategoryIdToProductCodeMap(final ResourceResolver resourceResolver) {
@@ -310,7 +322,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             }
         }
 
-        LOG.info("mapped {} category IDs to product codes", categoryIdToProductCodeMap.size());
+        LOG.debug("mapped {} category IDs to product codes", categoryIdToProductCodeMap.size());
 
         return categoryIdToProductCodeMap;
     }

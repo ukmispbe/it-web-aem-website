@@ -1,7 +1,9 @@
 package com.waters.aem.core.commerce.models;
 
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.tagging.Tag;
 import com.google.common.base.Objects;
+import com.icfolson.aem.library.models.annotations.TagInject;
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -10,6 +12,7 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -64,6 +67,9 @@ public final class Sku {
 
     private String url;
 
+    @TagInject
+    private List<Tag> tags = new ArrayList<>();
+
     public String getPath() {
         return resource.getPath();
     }
@@ -82,6 +88,10 @@ public final class Sku {
 
     public String getSummary() {
         return summary;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
     }
 
     public String getTitle() {
