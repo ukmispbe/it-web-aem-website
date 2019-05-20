@@ -193,25 +193,19 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         final Map<String, Object> properties = new HashMap<>();
 
         // TODO account for translatable properties
-
-        properties.put(JcrConstants.JCR_TITLE, product.getName());
-        properties.put(JcrConstants.JCR_DESCRIPTION, product.getDescription());
+        // set modification timestamp
         properties.put(JcrConstants.JCR_LASTMODIFIED, Calendar.getInstance());
-        properties.put(WatersCommerceConstants.PROPERTY_CODE, product.getCode());
-        properties.put(WatersCommerceConstants.PROPERTY_SUMMARY, product.getSummary());
+
+        properties.put(WatersCommerceConstants.PROPERTY_SKU_ID, product.getCode());
+        properties.put(WatersCommerceConstants.PROPERTY_SKU_TITLE, product.getName());
+        properties.put(WatersCommerceConstants.PROPERTY_SHORT_DESCRIPTION, product.getDescription());
+        properties.put(WatersCommerceConstants.PROPERTY_LONG_DESCRIPTION, product.getSummary());
         properties.put(WatersCommerceConstants.PROPERTY_CATEGORIES, product.getCategories()
             .stream()
             .map(ProductCategory :: getCode)
             .toArray(String[] :: new));
-        properties.put(WatersCommerceConstants.PROPERTY_URL, product.getUrl());
-        properties.put(WatersCommerceConstants.PROPERTY_PURCHASABLE, product.getPurchasable());
         properties.put(WatersCommerceConstants.PROPERTY_TERMINATED, product.getTerminated());
         properties.put(WatersCommerceConstants.PROPERTY_PROPRIETARY, product.getProprietary());
-        properties.put(WatersCommerceConstants.PROPERTY_AVAILABLE_FOR_PICKUP, product.getAvailableForPickup());
-        properties.put(WatersCommerceConstants.PROPERTY_BASE_PRODUCT, product.getBaseProduct());
-        properties.put(WatersCommerceConstants.PROPERTY_MANUFACTURER, product.getManufacturer());
-        properties.put(WatersCommerceConstants.PROPERTY_NUMBER_OF_REVIEWS, product.getNumberOfReviews());
-        properties.put(WatersCommerceConstants.PROPERTY_SALES_STATUS, product.getSalesStatus());
         properties.put(WatersCommerceConstants.PROPERTY_COLD_STORAGE, product.getColdStorage());
         properties.put(WatersCommerceConstants.PROPERTY_HAZARDOUS_HANDLING, product.getHazardousHandling());
 
@@ -240,7 +234,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
                     final ProductReferenceTarget target = productReference.getTarget();
 
-                    properties.put(WatersCommerceConstants.PROPERTY_CODE, target.getCode());
+                    properties.put(WatersCommerceConstants.PROPERTY_SKU_ID, target.getCode());
                     properties.put(WatersCommerceConstants.PROPERTY_PROPRIETARY, target.getProprietary());
                     properties.put(WatersCommerceConstants.PROPERTY_TERMINATED, target.getTerminated());
 

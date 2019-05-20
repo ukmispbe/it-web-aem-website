@@ -1,9 +1,7 @@
 package com.waters.aem.core.commerce.models;
 
 import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.tagging.Tag;
 import com.google.common.base.Objects;
-import com.icfolson.aem.library.models.annotations.TagInject;
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -12,7 +10,6 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -23,52 +20,32 @@ public final class Sku {
     @Self
     private Resource resource;
 
-    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_AVAILABLE_FOR_PICKUP)
-    private Boolean availableForPickup;
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_SKU_ID)
+    private String id;
 
     @ValueMapValue(name = WatersCommerceConstants.PROPERTY_CATEGORIES)
     private String[] categories;
 
-    // private List<Classification> classifications;
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_SHORT_DESCRIPTION)
+    private String shortDescription;
 
-    // private List<Image> images;
-
-    // private List<Promotion> promotions;
-
-    private String baseProduct;
-
-    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_CODE)
-    private String code;
-
-    private String manufacturer;
-
-    @ValueMapValue(name = JcrConstants.JCR_DESCRIPTION)
-    private String description;
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_LONG_DESCRIPTION)
+    private String longDescription;
 
     @ValueMapValue(name = JcrConstants.JCR_TITLE)
     private String title;
 
-    private Integer numberOfReviews;
-
-    // private Price price;
-
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_PROPRIETARY)
     private Boolean proprietary;
 
-    private Boolean purchasable;
-
-    private String salesStatus;
-
-    // private Stock stock;
-
-    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_SUMMARY)
-    private String summary;
-
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_PROPRIETARY)
     private Boolean terminated;
 
-    private String url;
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_COLD_STORAGE)
+    private Boolean coldStorage;
 
-    @TagInject
-    private List<Tag> tags = new ArrayList<>();
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_HAZARDOUS_HANDLING)
+    private Boolean hazardousHandling;
 
     public String getPath() {
         return resource.getPath();
@@ -78,28 +55,36 @@ public final class Sku {
         return Arrays.asList(categories);
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public List<Tag> getTags() {
-        return tags;
+    public String getId() {
+        return id;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public Boolean isAvailableForPickup() {
-        return availableForPickup;
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public String getLongDescription() {
+        return longDescription;
+    }
+
+    public Boolean isProprietary() {
+        return proprietary;
+    }
+
+    public Boolean isTerminated() {
+        return terminated;
+    }
+
+    public Boolean isColdStorage() {
+        return coldStorage;
+    }
+
+    public Boolean isHazardousHandling() {
+        return hazardousHandling;
     }
 
     public BigDecimal getPrice(final String country, final String currencyIso) {
