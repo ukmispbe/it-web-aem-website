@@ -59,6 +59,53 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultHybrisCatalogImporter.class);
 
+    private static class CatalogImporterContext {
+
+        private final ResourceResolver resourceResolver;
+
+        private final PageManagerDecorator pageManager;
+
+        private final Map<String, List<String>> categoryIdToProductCodeMap;
+
+        private final PageDecorator parentPage;
+
+        private final Category category;
+
+        private CatalogImporterContext(final ResourceResolver resourceResolver,
+            final Map<String, List<String>> categoryIdToProductCodeMap, final PageDecorator parentPage,
+            final Category category) {
+            this.resourceResolver = resourceResolver;
+            this.pageManager = resourceResolver.adaptTo(PageManagerDecorator.class);
+            this.categoryIdToProductCodeMap = categoryIdToProductCodeMap;
+            this.parentPage = parentPage;
+            this.category = category;
+        }
+
+        public ResourceResolver getResourceResolver() {
+            return resourceResolver;
+        }
+
+        public PageManagerDecorator getPageManager() {
+            return pageManager;
+        }
+
+        public PageDecorator getParentPage() {
+            return parentPage;
+        }
+
+        public Category getCategory() {
+            return category;
+        }
+
+        public Map<String, List<String>> getCategoryIdToProductCodeMap() {
+            return categoryIdToProductCodeMap;
+        }
+
+        public CatalogImporterContext withSubcategory(final PageDecorator categoryPage, final Category subcategory) {
+            return new CatalogImporterContext(resourceResolver, categoryIdToProductCodeMap, categoryPage, subcategory);
+        }
+    }
+
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
 
@@ -90,7 +137,10 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             final Category rootCategory = hybrisClient.getRootCategory();
 
             for (final Category category : rootCategory.getSubcategories()) {
-                results.addAll(processCategoryPage(pageManager, catalogRootPage, category, categoryIdToProductCodeMap));
+                final CatalogImporterContext context = new CatalogImporterContext(resourceResolver,
+                    categoryIdToProductCodeMap, catalogRootPage, category);
+
+                results.addAll(processCategoryPage(context));
             }
 
             resourceResolver.commit();
@@ -132,43 +182,53 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         }
     }
 
-    private List<HybrisImporterResult> processCategoryPage(final PageManagerDecorator pageManager,
-        final PageDecorator parentPage, final Category category,
-        final Map<String, List<String>> categoryIdToProductCodeMap) throws WCMException, PersistenceException {
+    private List<HybrisImporterResult> processCategoryPage(final CatalogImporterContext context)
+        throws WCMException, PersistenceException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
-        final HybrisImporterResult result = importCategoryPage(pageManager, parentPage, category);
+        final HybrisImporterResult result = importCategoryPage(context);
 
         results.add(result);
 
+        final Category category = context.getCategory();
+
         // get category page for use as new parent page
-        final PageDecorator categoryPage = pageManager.getPage(result.getPath());
+        final PageDecorator categoryPage = context.getPageManager().getPage(result.getPath());
 
         for (final Category subcategory : category.getSubcategories()) {
-            results.addAll(processCategoryPage(pageManager, categoryPage, subcategory, categoryIdToProductCodeMap));
+            final CatalogImporterContext subcategoryContext = context.withSubcategory(categoryPage, subcategory);
+
+            results.addAll(processCategoryPage(subcategoryContext));
         }
 
         // only process product pages for leaf categories
         if (category.getSubcategories().isEmpty()) {
             // after processing category page, proceed with the product pages for the current category (if any)
-            results.addAll(processProductPagesForCategory(categoryPage, category, categoryIdToProductCodeMap));
+            results.addAll(processProductPagesForCategory(context, categoryPage));
         }
+
+        // commit changes after each category
+        LOG.debug("committing changes...");
+
+        context.getResourceResolver().commit();
 
         return results;
     }
 
-    private List<HybrisImporterResult> processProductPagesForCategory(final PageDecorator categoryPage,
-        final Category category, final Map<String, List<String>> categoryIdToProductCodeMap)
+    private List<HybrisImporterResult> processProductPagesForCategory(final CatalogImporterContext context,
+        final PageDecorator categoryPage)
         throws WCMException, PersistenceException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
-        final List<String> productCodesForCategory = categoryIdToProductCodeMap.getOrDefault(category.getId(),
-            Collections.emptyList());
+        final Category category = context.getCategory();
+
+        final List<String> productCodesForCategory = context.getCategoryIdToProductCodeMap()
+            .getOrDefault(category.getId(), Collections.emptyList());
 
         if (productCodesForCategory.isEmpty()) {
             LOG.info("no products found for category : {}, ignoring", category.getId());
         } else {
-            final ResourceResolver resourceResolver = categoryPage.getContentResource().getResourceResolver();
+            final ResourceResolver resourceResolver = context.getResourceResolver();
 
             final List<Sku> skus = productCodesForCategory
                 .stream()
@@ -189,9 +249,19 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         throws WCMException, PersistenceException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
+        int count = 0;
+
         for (final Sku sku : skus) {
             // create/update product pages for each imported commerce product
             results.add(importSkuPage(categoryPage, sku));
+
+            if (count % 10 == 0) {
+                LOG.debug("committing changes...");
+
+                resourceResolver.commit();
+            }
+
+            count++;
         }
 
         // commit changes
@@ -203,7 +273,10 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     private HybrisImporterResult importSkuPage(final PageDecorator categoryPage, final Sku sku) throws WCMException {
         final PageManagerDecorator pageManager = categoryPage.getPageManager();
 
-        final String skuPageName = TextUtils.getValidJcrName(sku.getTitle());
+        final String skuPageName = new StringBuilder(TextUtils.getValidJcrName(sku.getCode()))
+            .append("-")
+            .append(TextUtils.getValidJcrName(sku.getTitle()))
+            .toString();
 
         final HybrisImportStatus status;
 
@@ -211,7 +284,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         if (skuPage == null) {
             skuPage = pageManager.create(categoryPage.getPath(), skuPageName, WatersConstants.TEMPLATE_SKU_PAGE,
-                sku.getTitle());
+                sku.getTitle(), false);
 
             LOG.info("created sku page : {}", skuPage.getPath());
 
@@ -231,19 +304,22 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         return HybrisImporterResult.fromSkuPage(skuPage, status);
     }
 
-    private HybrisImporterResult importCategoryPage(final PageManagerDecorator pageManager,
-        final PageDecorator parentPage, final Category category) throws WCMException {
+    private HybrisImporterResult importCategoryPage(final CatalogImporterContext context) throws WCMException {
+        final Category category = context.getCategory();
+
         LOG.info("importing page for category : {}", category);
 
         final String name = TextUtils.getValidJcrName(category.getName());
 
         final HybrisImportStatus status;
 
-        PageDecorator page = pageManager.getPage(parentPage.getPath() + "/" + name);
+        final PageManagerDecorator pageManager = context.getPageManager();
+
+        PageDecorator page = pageManager.getPage(context.getParentPage().getPath() + "/" + name);
 
         if (page == null) {
-            page = pageManager.create(parentPage.getPath(), name, WatersConstants.TEMPLATE_CATEGORY_PAGE,
-                category.getName());
+            page = pageManager.create(context.getParentPage().getPath(), name, WatersConstants.TEMPLATE_CATEGORY_PAGE,
+                category.getName(), false);
 
             LOG.info("created category page : {}", page.getPath());
 

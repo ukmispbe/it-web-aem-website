@@ -1,9 +1,6 @@
 package com.waters.aem.hybris.importer.impl;
 
 import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.tagging.Tag;
-import com.day.cq.tagging.TagManager;
-import com.day.cq.wcm.api.NameConstants;
 import com.google.common.base.Stopwatch;
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
 import com.waters.aem.core.utils.TextUtils;
@@ -11,7 +8,6 @@ import com.waters.aem.hybris.client.HybrisClient;
 import com.waters.aem.hybris.constants.HybrisImporterConstants;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
 import com.waters.aem.hybris.exceptions.HybrisImporterException;
-import com.waters.aem.hybris.importer.HybrisClassificationImporter;
 import com.waters.aem.hybris.importer.HybrisProductImporter;
 import com.waters.aem.hybris.models.Image;
 import com.waters.aem.hybris.models.Price;
@@ -54,16 +50,11 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultHybrisProductImporter.class);
 
-    private static final int CLASSIFICATION_TAG_DEPTH = 8;
-
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
 
     @Reference
     private HybrisClient hybrisClient;
-
-    @Reference
-    private HybrisClassificationImporter hybrisClassificationImporter;
 
     @Override
     public List<HybrisImporterResult> importProducts() {
@@ -190,20 +181,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
                 status = HybrisImportStatus.CREATED;
             }
 
-            // import classification tags for this product
-            final List<HybrisImporterResult> classificationTagResults = hybrisClassificationImporter
-                .importClassificationTags(product);
-
-            // filter ignored tag results, since they are not actionable
-            results.addAll(classificationTagResults
-                .stream()
-                .filter(result -> result.getStatus() != HybrisImportStatus.IGNORED)
-                .collect(Collectors.toList()));
-
-            final List<String> classificationTagIds = getClassificationTagIds(resourceResolver,
-                classificationTagResults);
-
-            updateProductProperties(productNode, product, classificationTagIds);
+            updateProductProperties(productNode, product);
 
             results.add(HybrisImporterResult.fromProduct(productNode, product.getName(), status));
         }
@@ -211,8 +189,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         return results;
     }
 
-    private void updateProductProperties(final Node productNode, final Product product,
-        final List<String> classificationTagIds) throws RepositoryException {
+    private void updateProductProperties(final Node productNode, final Product product) throws RepositoryException {
         final Map<String, Object> properties = new HashMap<>();
 
         // TODO account for translatable properties
@@ -237,9 +214,6 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         properties.put(WatersCommerceConstants.PROPERTY_SALES_STATUS, product.getSalesStatus());
         properties.put(WatersCommerceConstants.PROPERTY_COLD_STORAGE, product.getColdStorage());
         properties.put(WatersCommerceConstants.PROPERTY_HAZARDOUS_HANDLING, product.getHazardousHandling());
-
-        // set classification tags
-        properties.put(NameConstants.PN_TAGS, classificationTagIds.toArray(new String[0]));
 
         setNodeProperties(productNode, properties);
 
@@ -356,20 +330,6 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
                 node.setProperty(name, (BigDecimal) value);
             }
         }
-    }
-
-    private List<String> getClassificationTagIds(final ResourceResolver resourceResolver,
-        final List<HybrisImporterResult> classificationTagResults) {
-        // refresh to ensure that newly-created tags are found
-        resourceResolver.refresh();
-
-        final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
-
-        return classificationTagResults.stream()
-            .map(result -> tagManager.resolve(result.getPath()))
-            .filter(tag -> tag.getPath().split("/").length == CLASSIFICATION_TAG_DEPTH)
-            .map(Tag :: getTagID)
-            .collect(Collectors.toList());
     }
 
     private void removeProductNodes(final Node productNode) throws RepositoryException {
