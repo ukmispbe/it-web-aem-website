@@ -3,8 +3,6 @@ const bannerReplacement = function() {
     if(!objectFitIsSupported()) {
         const bannerImages = Array.from(document.querySelectorAll('.cmp-banner .cmp-image'));
 
-        console.dir(bannerImages);
-
         bannerImages.forEach(imageContainer => replaceBannerImage(imageContainer));
     }
 
