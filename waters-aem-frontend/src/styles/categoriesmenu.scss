@@ -8,10 +8,11 @@
 
 .categories-type-menu-container__heading {
     display: flex;
-    flex-direction: column;
+    flex-flow: wrap;
 
     .bread-crumb {
         display: flex;
+        flex-flow: wrap;
     }
 
     a:hover {
