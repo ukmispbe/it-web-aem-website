@@ -71,7 +71,10 @@ class Search extends Component {
             contentTypeSelected,
             facets: [],
             filterMap: [],
-            keyword: this.query.keyword ? this.query.keyword : parameterDefaults.keyword
+            keyword: this.query.keyword ? this.query.keyword : parameterDefaults.keyword,
+            spell_check: false,
+            spell_related_suggestions: [],
+            spell_suggestion: ""
         });
 
         const checkWindowWidth = () => {
@@ -173,6 +176,10 @@ class Search extends Component {
         newState.noResults = !newState.results[query.page].length;
 
         newState.facets = res.facets;
+
+        newState.spell_check = res.hasOwnProperty('spell_check') ? res.spell_check : false;
+        newState.spell_related_suggestions = res.hasOwnProperty('spell_related_suggestions') ? res.spell_related_suggestions : [];
+        newState.spell_suggestion = res.hasOwnProperty('spell_suggestion') ? res.spell_suggestion : "";
 
         this.setState(Object.assign({}, this.state, newState));
 
@@ -441,34 +448,32 @@ class Search extends Component {
 
         this.setState({searchParams: parameters, selectedFacets: {}, contentType: '', contentTypeSelected: {}});
 
-        setTimeout(
-            () =>
-                this.pushToHistory(
-                    this.state.searchParams,
-                    this.state.selectedFacets
-                ),
-            0
-        );
+        setTimeout(() => this.pushToHistory(this.state.searchParams, this.state.selectedFacets), 0);
     }
 
     getContentMenuOrFilter = (filterTags) => {
         if (this.isInitialLoad(this.state.contentType)) {
-            return <>
-                    <CategoriesMenu
+            return <CategoriesMenu
                         text={this.props.searchText}
                         categoryKey="contentType"
                         items={this.state.filterMap}
-                        click={this.handleContentTypeItemClick.bind(this)} />
-                </>
+                        click={this.handleContentTypeItemClick.bind(this)}
+                        showBothChildrenAndItems={true}
+                        filterTags={filterTags}>
+                        <Filter
+                            text={this.props.searchText}
+                            selectHandler={this.filterSelectHandler.bind(this)}
+                            showTagsOnly={true} />    
+                    </CategoriesMenu>;
         } else {
-            return <>
-                    <CategoriesMenu
+            return <CategoriesMenu
                         text={this.props.searchText}
                         categoryKey="contentType"
                         items={this.state.filterMap}
                         click={this.handleContentTypeItemClick.bind(this)}
                         selectedValue={this.state.contentTypeSelected.categoryFacetValue}
-                        clear={this.handleRemoveCategory.bind(this)}>
+                        clear={this.handleRemoveCategory.bind(this)}
+                        filterTags={filterTags}>
                         <Filter
                             facets={this.state.facets}
                             text={this.props.searchText}
@@ -476,10 +481,8 @@ class Search extends Component {
                             defaultFacet={this.props.defaultFacet}
                             selectHandler={this.filterSelectHandler.bind(this)}
                             selectedFacets={this.state.selectedFacets}
-                            filterTags={filterTags}
                             contentType={this.state.contentType} />
-                    </CategoriesMenu>
-                </>
+                    </CategoriesMenu>;
         }
     }
 
@@ -539,6 +542,34 @@ class Search extends Component {
         </>;
     }
 
+    handleRelatedSuggestionClick = (suggestion) => {
+        const parameters = parse(window.location.search);
+
+        parameters.keyword = suggestion;
+
+        window.location.href = `${window.location.pathname}?${stringify(parameters)}`;
+    }
+
+    renderResultsCount = () => {
+        if(this.state.noResults || this.state.loading) return <></>;
+
+        return <ResultsCount
+            rows={this.state.rows}
+            count={this.state.count}
+            query={this.state.query}
+            current={
+                this.state.pagination && this.state.pagination.current
+                    ? this.state.pagination.current
+                    : 1
+            }
+            noQuery={this.state.noQuery}
+            spell_check={this.state.spell_check}
+            spell_related_suggestions={this.state.spell_related_suggestions}
+            spell_suggestion={this.state.spell_suggestion}
+            onRelatedSuggestionClick={this.handleRelatedSuggestionClick}
+        />
+    }
+
     renderResults = (results) => (!this.state.loading && this.state.noResults) 
         ? <NoResults searchText={this.props.searchText} query={this.state.query} />
         : results;
@@ -596,18 +627,6 @@ class Search extends Component {
         const results = (
             <div className="cmp-search__container">
                 <div className="cmp-search__container__header cleafix">
-                    <ResultsCount
-                        rows={state.rows}
-                        count={state.count}
-                        query={state.query}
-                        current={
-                            state.pagination && state.pagination.current
-                                ? state.pagination.current
-                                : 1
-                        }
-                        noQuery={state.noQuery}
-                    />
-
                     <BtnShowSortFilter
                         text={this.props.searchText}
                         setupFilters={this.setupFilters.bind(this)}
@@ -667,6 +686,7 @@ class Search extends Component {
         return (
             <div ref="main">
                 {overlay}
+                {this.renderResultsCount()}
                 {!state.loading && state.noResults ? null : aside}
                 {state.loading ? <Spinner loading={state.loading} /> : null}
                 {this.renderResults(results)}

@@ -1,11 +1,18 @@
 .categories-type-menu-container {
     margin-top: $space-xl;
+
+    @include tablet-and-under { 
+        margin-top: $space-l;
+    }
 }
 
 .categories-type-menu-container__heading {
+    display: flex;
+    flex-flow: wrap;
 
     .bread-crumb {
         display: flex;
+        flex-flow: wrap;
     }
 
     a:hover {
