@@ -5,7 +5,6 @@ import com.google.common.base.Objects;
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
 import com.waters.aem.core.commerce.services.SkuRepository;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
@@ -13,11 +12,15 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class Sku {
@@ -117,43 +120,27 @@ public final class Sku {
     }
 
     public List<SkuImage> getImages() {
-        final List<SkuImage> images = new ArrayList<>();
-
-        final Resource imagesResource = resource.getChild(WatersCommerceConstants.RESOURCE_NAME_IMAGES);
-
-        if (imagesResource != null) {
-            for (final Resource imageResource : imagesResource.getChildren()) {
-                images.add(imageResource.adaptTo(SkuImage.class));
-            }
-        }
-
-        return images;
+        return getResourceModels(WatersCommerceConstants.RESOURCE_NAME_IMAGES,
+            resource -> true,
+            resource -> resource.adaptTo(SkuImage.class));
     }
 
     public List<Sku> getRelatedSkus() {
-        final List<Sku> relatedSkus = new ArrayList<>();
+        // TODO do we need to check the 'terminated' property?
+        return getResourceModels(WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCES,
+            resource -> !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PROPRIETARY, false),
+            resource -> skuRepository.getRelatedSku(resource));
+    }
 
-        final Resource productReferencesResource = resource.getChild(
-            WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCES);
-
-        if (productReferencesResource != null) {
-            for (final Resource productReferenceResource : productReferencesResource.getChildren()) {
-                final ValueMap properties = productReferenceResource.getValueMap();
-
-                // TODO do we need to check the 'terminated' property?
-                if (!properties.get(WatersCommerceConstants.PROPERTY_PROPRIETARY, false)) {
-                    final String productCode = properties.get(WatersCommerceConstants.PROPERTY_SKU_ID, "");
-
-                    final Sku relatedSku = skuRepository.getSku(resource.getResourceResolver(), productCode);
-
-                    if (relatedSku != null) {
-                        relatedSkus.add(relatedSku);
-                    }
-                }
-            }
-        }
-
-        return relatedSkus;
+    private <T> List<T> getResourceModels(final String resourceName, final Predicate<Resource> resourceFilter,
+        final Function<Resource, T> resourceToModelFunction) {
+        return Optional.of(resource.getChild(resourceName))
+            .map(modelsResource -> StreamSupport.stream(modelsResource.getChildren().spliterator(), false)
+                .filter(resourceFilter)
+                .map(resourceToModelFunction)
+                .filter(java.util.Objects :: nonNull)
+                .collect(Collectors.toList()))
+            .orElse(Collections.emptyList());
     }
 
     @Override

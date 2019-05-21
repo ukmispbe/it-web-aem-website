@@ -2,6 +2,7 @@ package com.waters.aem.core.commerce.services;
 
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.commerce.models.Sku;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 
 /**
@@ -25,4 +26,12 @@ public interface SkuRepository {
      * @return SKU or null if not found
      */
     Sku getSku(ResourceResolver resourceResolver, String productCode);
+
+    /**
+     * Get a related SKU for the given product reference resource.
+     *
+     * @param resource product reference resource
+     * @return related SKU or null if SKU is not valid for resource
+     */
+    Sku getRelatedSku(Resource resource);
 }
