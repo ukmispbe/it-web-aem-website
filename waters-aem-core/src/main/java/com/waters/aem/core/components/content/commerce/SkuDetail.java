@@ -4,12 +4,15 @@ import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.waters.aem.core.commerce.models.Sku;
+import com.waters.aem.core.components.SiteContext;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
+import java.math.BigDecimal;
 
 /**
  * Stub for SKU detail - not a real component, but used to demonstrate how to inject the Sku model class into a
@@ -28,12 +31,18 @@ public final class SkuDetail implements ComponentExporter {
     @Inject
     private Sku sku;
 
+    @Self
+    private SiteContext siteContext;
+
     public String getTitle() {
         return sku.getTitle();
     }
 
-    public String getSummary() {
-        return sku.getSummary();
+    public BigDecimal getPrice() {
+        final String country = siteContext.getLocale().getCountry();
+        final String currencyIsoCode = siteContext.getCurrencyIsoCode();
+
+        return sku.getPrice(country, currencyIsoCode);
     }
 
     @Nonnull
