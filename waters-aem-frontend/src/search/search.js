@@ -446,11 +446,12 @@ class Search extends Component {
         query.content_type = contentType;
 
         query.page = 1;
-
+        
         this.setState({
             searchParams: query,
             contentType,
             contentTypeSelected: item,
+            loading: true
         });
 
         setTimeout(
@@ -695,6 +696,7 @@ class Search extends Component {
         const searchParams = this.state.searchParams || {};
         const overlay = <div className="overlay" />;
         const filterTags = this.getFilterTags();
+        const sortFilterIsPristine = (!this.state.loading && (this.state.contentType || this.state.keyword !== parameterDefaults.keyword)) ? false : true;
 
         const aside = (
             <div className="container__left cmp-search__sort-filter">
@@ -707,6 +709,8 @@ class Search extends Component {
                 <BtnApplySortFilter
                     text={this.props.searchText}
                     applyFilters={this.applyFilters.bind(this)}
+                    isPristine={sortFilterIsPristine}
+                    count={this.state.count}
                 />
 
                 <BtnDoneSortFilter
