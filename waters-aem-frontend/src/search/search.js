@@ -322,7 +322,6 @@ class Search extends Component {
     }
 
     sortHandler(e) {
-        console.log(e);
         const sortOption =
             parseInt(e.value) === 1 ? 'most-relevant' : 'most-recent';
         const state = this.state;
