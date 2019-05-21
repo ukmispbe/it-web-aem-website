@@ -10,6 +10,7 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -107,6 +108,20 @@ public final class Sku {
             .map(priceResource -> priceResource.getValueMap().get(WatersCommerceConstants.PROPERTY_VALUE,
                 BigDecimal.class))
             .orElse(null);
+    }
+
+    public List<SkuImage> getImages() {
+        final List<SkuImage> images = new ArrayList<>();
+
+        final Resource imagesResource = resource.getChild(WatersCommerceConstants.RESOURCE_NAME_IMAGES);
+
+        if (imagesResource != null) {
+            for (final Resource imageResource : imagesResource.getChildren()) {
+                images.add(imageResource.adaptTo(SkuImage.class));
+            }
+        }
+
+        return images;
     }
 
     @Override
