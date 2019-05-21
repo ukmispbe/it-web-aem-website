@@ -69,6 +69,20 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
     }
 
     @Test
+    public void button() throws ActionException {
+        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container", "Button", 0,
+            new ResourceFileLocation("button.yaml")));
+
+        final Button buttonComponent = page.getContent(Button.class, 0);
+
+        assertThat(buttonComponent.getButtonText()).isEqualTo("DOWNLOAD PDF");
+        assertThat(buttonComponent.getButtonToolTip()).isEqualTo("Download PDF");
+        assertThat(buttonComponent.getButtonHref()).isEqualTo("https://www.waters.com/webassets/cms/library/docs/720005893en.pdf");
+        assertThat(buttonComponent.isNewWindow()).isEqualTo(true);
+
+    }
+
+    @Test
     public void anchor() {
         final Anchor anchorComponent = page.getContent(Anchor.class, 0);
 
