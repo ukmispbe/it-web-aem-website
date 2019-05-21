@@ -1,7 +1,6 @@
 package com.waters.aem.automationtests.components;
 
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
-import com.waters.aem.automationtests.components.impl.LinkItemImpl;
 
 import java.util.List;
 
@@ -20,5 +19,5 @@ public interface ExternalFooter {
 
     String getCopyrightText();
 
-    List<LinkItemImpl> getLinkItems();
+    List<LinkItem> getLinkItems();
 }

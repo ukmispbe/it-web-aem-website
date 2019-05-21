@@ -1,7 +1,6 @@
 package com.waters.aem.automationtests.components;
 
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
-import com.waters.aem.automationtests.components.impl.LinkItemImpl;
 
 import java.util.List;
 
@@ -10,5 +9,5 @@ public interface ExternalList {
 
     String getTitle();
 
-    List<LinkItemImpl> getLinkItems();
+    List<LinkItem> getLinkItems();
 }
