@@ -57,7 +57,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
     private HybrisClient hybrisClient;
 
     @Override
-    public List<HybrisImporterResult> importProducts() {
+    public List<HybrisImporterResult> importProducts(final Boolean force) {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         final Stopwatch stopwatch = Stopwatch.createStarted();
@@ -72,11 +72,14 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
                 HybrisImporterConstants.PROPERTY_LAST_IMPORT_DATE, Calendar.class);
             final Calendar currentImportDate = Calendar.getInstance();
 
-            results.addAll(importProductLists(resourceResolver, productsNode, lastImportDate));
+            results.addAll(importProductLists(resourceResolver, productsNode, lastImportDate, force));
 
             // set last import date
-            productsResource.adaptTo(ModifiableValueMap.class).put(HybrisImporterConstants.PROPERTY_LAST_IMPORT_DATE,
-                currentImportDate);
+            if (!force) {
+                productsResource.adaptTo(ModifiableValueMap.class)
+                    .put(HybrisImporterConstants.PROPERTY_LAST_IMPORT_DATE, currentImportDate);
+            }
+
 
             resourceResolver.commit();
 
@@ -124,10 +127,10 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
     }
 
     private List<HybrisImporterResult> importProductLists(final ResourceResolver resourceResolver,
-        final Node productsNode, final Calendar lastImportDate)
+        final Node productsNode, final Calendar lastImportDate, final Boolean force)
         throws IOException, URISyntaxException, RepositoryException {
-        if (lastImportDate == null) {
-            LOG.info("no last import date, importing all products...");
+        if (lastImportDate == null || force) {
+            LOG.info("no last import date or force=true, importing all products...");
         } else {
             LOG.info("importing products updated after last import date : {}",
                 new SimpleDateFormat(HybrisImporterConstants.DATE_FORMAT_PATTERN).format(lastImportDate.getTime()));

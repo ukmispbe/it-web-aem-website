@@ -66,7 +66,7 @@ public final class DefaultHybrisImporterExecutorService implements HybrisImporte
 
             // import products first
             if (options.getProductCodes().isEmpty()) {
-                results.addAll(hybrisProductImporter.importProducts());
+                results.addAll(hybrisProductImporter.importProducts(options.isForce()));
             } else {
                 results.addAll(hybrisProductImporter.importProducts(options.getProductCodes()));
             }

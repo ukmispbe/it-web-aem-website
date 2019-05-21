@@ -12,9 +12,10 @@ public interface HybrisProductImporter {
     /**
      * Import all products that have been modified since the last import date.
      *
+     * @param force if true, force an update of all products and ignore the last import date
      * @return list of importer results
      */
-    List<HybrisImporterResult> importProducts();
+    List<HybrisImporterResult> importProducts(Boolean force);
 
     /**
      * Import products for the given list of product codes.

@@ -10,6 +10,8 @@ import java.util.List;
 
 public final class HybrisImporterOptions {
 
+    private static final String PARAMETER_FORCE = "force";
+
     private static final String PARAMETER_REPLICATE = "replicate";
 
     private static final String PARAMETER_PRODUCT_CODE = "productCode";
@@ -18,19 +20,31 @@ public final class HybrisImporterOptions {
     public static final HybrisImporterOptions DEFAULT = new HybrisImporterOptions();
 
     public static HybrisImporterOptions fromRequest(final SlingHttpServletRequest request) {
+        final Boolean force = Boolean.valueOf(request.getParameter(PARAMETER_FORCE));
         final Boolean replicate = Boolean.valueOf(request.getParameter(PARAMETER_REPLICATE));
         final List<String> productCodes = Arrays.asList(
             ArrayUtils.nullToEmpty(request.getParameterValues(PARAMETER_PRODUCT_CODE)));
 
-        return new HybrisImporterOptions().withProductCodes(productCodes).replicate(replicate);
+        return new HybrisImporterOptions()
+            .withProductCodes(productCodes)
+            .force(force)
+            .replicate(replicate);
     }
 
     private List<String> productCodes = Collections.emptyList();
 
     private Boolean replicate = true;
 
+    private Boolean force = false;
+
     public HybrisImporterOptions withProductCodes(final List<String> productCodes) {
         this.productCodes = productCodes;
+
+        return this;
+    }
+
+    public HybrisImporterOptions force(final Boolean force) {
+        this.force = force;
 
         return this;
     }
@@ -49,11 +63,16 @@ public final class HybrisImporterOptions {
         return replicate;
     }
 
+    public Boolean isForce() {
+        return force;
+    }
+
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
             .add("productCodes", productCodes)
             .add("replicate", replicate)
+            .add("force", force)
             .toString();
     }
 }
