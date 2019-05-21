@@ -11,6 +11,7 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +47,9 @@ public final class Sku {
 
     @ValueMapValue(name = WatersCommerceConstants.PROPERTY_HAZARDOUS_HANDLING)
     private Boolean hazardousHandling;
+
+    @ValueMapValue(name = JcrConstants.JCR_LASTMODIFIED)
+    private Calendar lastModified;
 
     public String getPath() {
         return resource.getPath();
@@ -85,6 +89,10 @@ public final class Sku {
 
     public Boolean isHazardousHandling() {
         return hazardousHandling;
+    }
+
+    public Calendar getLastModified() {
+        return lastModified;
     }
 
     public BigDecimal getPrice(final String country, final String currencyIso) {

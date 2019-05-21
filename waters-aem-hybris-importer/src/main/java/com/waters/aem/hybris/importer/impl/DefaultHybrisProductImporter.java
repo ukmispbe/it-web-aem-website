@@ -90,6 +90,39 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         return results;
     }
 
+    @Override
+    public List<HybrisImporterResult> importProducts(final List<String> productCodes) {
+        final List<HybrisImporterResult> results = new ArrayList<>();
+
+        final Stopwatch stopwatch = Stopwatch.createStarted();
+
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
+            final Resource productsResource = resourceResolver.getResource(
+                WatersCommerceConstants.PATH_COMMERCE_PRODUCTS);
+
+            final Node productsNode = productsResource.adaptTo(Node.class);
+
+            for (final String productCode : productCodes) {
+                final Product product = hybrisClient.getProduct(productCode);
+
+                final String productCodePrefix = getProductCodePrefix(product);
+                final Node productCodePrefixNode = getProductCodePrefixNode(productsNode, productCodePrefix);
+
+                results.add(importProduct(productCodePrefixNode, product));
+            }
+
+            resourceResolver.commit();
+
+            LOG.info("imported {} products in {}ms", results.size(), stopwatch.elapsed(TimeUnit.MILLISECONDS));
+        } catch (LoginException | IOException | RepositoryException | URISyntaxException e) {
+            LOG.error("error importing hybris products", e);
+
+            throw new HybrisImporterException(e);
+        }
+
+        return results;
+    }
+
     private List<HybrisImporterResult> importProductLists(final ResourceResolver resourceResolver,
         final Node productsNode, final Calendar lastImportDate)
         throws IOException, URISyntaxException, RepositoryException {
@@ -109,7 +142,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         int currentPage = 0;
 
         while (currentPage < totalPages) {
-            results.addAll(importProductsForProductList(resourceResolver, productsNode, productList));
+            results.addAll(importProductsForProductList(productsNode, productList));
 
             currentPage++;
 
@@ -126,8 +159,8 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         return results;
     }
 
-    private List<HybrisImporterResult> importProductsForProductList(final ResourceResolver resourceResolver,
-        final Node productsNode, final ProductList productList) throws RepositoryException {
+    private List<HybrisImporterResult> importProductsForProductList(final Node productsNode,
+        final ProductList productList) throws RepositoryException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         final List<Product> products = productList.getProducts();
@@ -141,52 +174,44 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
         for (final Map.Entry<String, List<Product>> entry : groupedProducts.entrySet()) {
             final String productCodePrefix = entry.getKey();
-            final String productCodePrefixNodeName = TextUtils.getValidJcrName(productCodePrefix);
-
-            final Node productCodePrefixNode = JcrUtils.getOrAddNode(productsNode, productCodePrefixNodeName,
-                JcrResourceConstants.NT_SLING_FOLDER);
+            final Node productCodePrefixNode = getProductCodePrefixNode(productsNode, productCodePrefix);
 
             LOG.info("importing products for code prefix : {}", productCodePrefix);
 
-            results.addAll(importProductsForProductCodePrefix(resourceResolver, productCodePrefixNode,
-                entry.getValue()));
+            for (final Product product : products) {
+                results.add(importProduct(productCodePrefixNode, product));
+            }
         }
 
         return results;
     }
 
-    private List<HybrisImporterResult> importProductsForProductCodePrefix(final ResourceResolver resourceResolver,
-        final Node productCodePrefixNode, final List<Product> products) throws RepositoryException {
-        final List<HybrisImporterResult> results = new ArrayList<>();
+    private HybrisImporterResult importProduct(final Node productCodePrefixNode, final Product product)
+        throws RepositoryException {
+        final String productNodeName = TextUtils.getValidJcrName(product.getCode());
 
-        for (final Product product : products) {
-            final String productNodeName = TextUtils.getValidJcrName(product.getCode());
+        final Node productNode;
+        final HybrisImportStatus status;
 
-            final Node productNode;
-            final HybrisImportStatus status;
+        if (productCodePrefixNode.hasNode(productNodeName)) {
+            productNode = productCodePrefixNode.getNode(productNodeName);
 
-            if (productCodePrefixNode.hasNode(productNodeName)) {
-                productNode = productCodePrefixNode.getNode(productNodeName);
+            LOG.debug("found existing product node : {}", productNode.getPath());
 
-                LOG.debug("found existing product node : {}", productNode.getPath());
+            // TODO determine if product is actually updated, or if status should be 'IGNORED'
+            status = HybrisImportStatus.UPDATED;
+        } else {
+            productNode = productCodePrefixNode.addNode(productNodeName, JcrConstants.NT_UNSTRUCTURED);
+            productNode.addMixin(JcrConstants.MIX_CREATED);
 
-                // TODO determine if product is actually updated, or if status should be 'IGNORED'
-                status = HybrisImportStatus.UPDATED;
-            } else {
-                productNode = productCodePrefixNode.addNode(productNodeName, JcrConstants.NT_UNSTRUCTURED);
-                productNode.addMixin(JcrConstants.MIX_CREATED);
+            LOG.info("created product node : {}", productNode.getPath());
 
-                LOG.info("created product node : {}", productNode.getPath());
-
-                status = HybrisImportStatus.CREATED;
-            }
-
-            updateProductProperties(productNode, product);
-
-            results.add(HybrisImporterResult.fromProduct(productNode, product.getName(), status));
+            status = HybrisImportStatus.CREATED;
         }
 
-        return results;
+        updateProductProperties(productNode, product);
+
+        return HybrisImporterResult.fromProduct(productNode, product.getName(), status);
     }
 
     private void updateProductProperties(final Node productNode, final Product product) throws RepositoryException {
@@ -336,5 +361,12 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
     private String getProductCodePrefix(final Product product) {
         return product.getCode().substring(0, WatersCommerceConstants.PRODUCT_CODE_PREFIX_LENGTH);
+    }
+
+    private Node getProductCodePrefixNode(final Node productsNode, final String productCodePrefix)
+        throws RepositoryException {
+        final String productCodePrefixNodeName = TextUtils.getValidJcrName(productCodePrefix);
+
+        return JcrUtils.getOrAddNode(productsNode, productCodePrefixNodeName, JcrResourceConstants.NT_SLING_FOLDER);
     }
 }

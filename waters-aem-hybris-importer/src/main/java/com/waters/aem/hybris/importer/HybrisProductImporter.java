@@ -15,4 +15,12 @@ public interface HybrisProductImporter {
      * @return list of importer results
      */
     List<HybrisImporterResult> importProducts();
+
+    /**
+     * Import products for the given list of product codes.
+     *
+     * @param productCodes list of product codes to import
+     * @return list of importer results
+     */
+    List<HybrisImporterResult> importProducts(List<String> productCodes);
 }

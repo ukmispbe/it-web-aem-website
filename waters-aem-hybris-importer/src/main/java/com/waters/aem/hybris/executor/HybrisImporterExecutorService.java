@@ -1,6 +1,7 @@
 package com.waters.aem.hybris.executor;
 
 import com.google.common.util.concurrent.ListenableFuture;
+import com.waters.aem.hybris.executor.options.HybrisImporterOptions;
 import com.waters.aem.hybris.result.HybrisImporterExecutionResult;
 
 /**
@@ -11,9 +12,10 @@ public interface HybrisImporterExecutorService {
     /**
      * Execute a Hybris import.
      *
+     * @param options importer options
      * @return future containing the result of the asynchronous import process
      */
-    ListenableFuture<HybrisImporterExecutionResult> execute();
+    ListenableFuture<HybrisImporterExecutionResult> execute(HybrisImporterOptions options);
 
     /**
      * Get the result of the last Hybris import.

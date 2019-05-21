@@ -9,6 +9,7 @@ import com.google.common.util.concurrent.MoreExecutors;
 import com.waters.aem.hybris.audit.HybrisImporterAuditService;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
 import com.waters.aem.hybris.executor.HybrisImporterExecutorService;
+import com.waters.aem.hybris.executor.options.HybrisImporterOptions;
 import com.waters.aem.hybris.importer.HybrisCatalogImporter;
 import com.waters.aem.hybris.importer.HybrisProductImporter;
 import com.waters.aem.hybris.notification.HybrisImporterNotificationService;
@@ -55,14 +56,18 @@ public final class DefaultHybrisImporterExecutorService implements HybrisImporte
     private ListenableFuture<HybrisImporterExecutionResult> result;
 
     @Override
-    public ListenableFuture<HybrisImporterExecutionResult> execute() {
+    public ListenableFuture<HybrisImporterExecutionResult> execute(final HybrisImporterOptions options) {
         result = executorService.submit(() -> {
             final Stopwatch stopwatch = Stopwatch.createStarted();
 
             final List<HybrisImporterResult> results = new ArrayList<>();
 
             // import products first
-            results.addAll(hybrisProductImporter.importProducts());
+            if (options.getProductCodes().isEmpty()) {
+                results.addAll(hybrisProductImporter.importProducts());
+            } else {
+                results.addAll(hybrisProductImporter.importProducts(options.getProductCodes()));
+            }
 
             // import categories (product pages will be created for each category based on the result of the preceding
             // product import)
@@ -77,7 +82,9 @@ public final class DefaultHybrisImporterExecutorService implements HybrisImporte
                     results.stream().filter(result -> result.getStatus() == status).count());
             }
 
-            replicationService.replicate(results);
+            if (options.isReplicate()) {
+                replicationService.replicate(results);
+            }
 
             return new HybrisImporterExecutionResult(results, duration);
         });

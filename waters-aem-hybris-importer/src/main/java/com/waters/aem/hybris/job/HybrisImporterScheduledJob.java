@@ -1,6 +1,7 @@
 package com.waters.aem.hybris.job;
 
 import com.waters.aem.hybris.executor.HybrisImporterExecutorService;
+import com.waters.aem.hybris.executor.options.HybrisImporterOptions;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
@@ -25,7 +26,7 @@ public final class HybrisImporterScheduledJob implements Runnable {
         if (enabled) {
             LOG.info("running hybris importer job...");
 
-            catalogImporterExecutor.execute();
+            catalogImporterExecutor.execute(HybrisImporterOptions.DEFAULT);
         } else {
             LOG.info("hybris importer job is disabled");
         }

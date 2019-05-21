@@ -288,11 +288,16 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
             status = HybrisImportStatus.CREATED;
         } else {
-            // TODO check if product has actually been updated
+            final Calendar skuPageLastModified = skuPage.get(JcrConstants.JCR_LASTMODIFIED, Calendar.class).orNull();
 
-            LOG.debug("found existing sku page : {}", skuPage.getPath());
+            // if product has been updated more recently than this page, update the page properties
+            if (sku.getLastModified().after(skuPageLastModified)) {
+                status = HybrisImportStatus.UPDATED;
+            } else {
+                status = HybrisImportStatus.IGNORED;
+            }
 
-            status = HybrisImportStatus.UPDATED;
+            LOG.debug("found existing sku page : {}, status : {}", skuPage.getPath(), status);
         }
 
         if (status != HybrisImportStatus.IGNORED) {
