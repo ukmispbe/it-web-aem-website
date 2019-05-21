@@ -446,7 +446,7 @@ class Search extends Component {
         query.content_type = contentType;
 
         query.page = 1;
-        
+
         this.setState({
             searchParams: query,
             contentType,
@@ -677,6 +677,7 @@ class Search extends Component {
                 spell_related_suggestions={this.state.spell_related_suggestions}
                 spell_suggestion={this.state.spell_suggestion}
                 onRelatedSuggestionClick={this.handleRelatedSuggestionClick}
+                text={this.props.searchText}
             />
         );
     };
