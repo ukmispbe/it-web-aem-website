@@ -15,6 +15,7 @@ import com.cognifide.qa.bb.wait.BobcatWait;
 import com.cognifide.qa.bb.wait.Timings;
 import com.google.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
@@ -34,6 +35,9 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllE
 public class SidePanelImpl implements SidePanel {
 
     private static final String IS_CLOSED = "sidepanel-closed";
+
+    private static final String COMPONENT_XPATH_FORMAT =
+    "//coral-tree-item/div/div/coral-tree-item-content/span/span[@class='editor-ContentTree-itemTitle'and (text()='%s' or text()='%s: ') ]";
 
     @Inject
     private DragAndDropFactory dragAndDropFactory;
@@ -62,7 +66,8 @@ public class SidePanelImpl implements SidePanel {
 
     @Override
     public WebElement selectComponentToEdit(String path, String component, int elementNumber) {
-        return ComponentTreeLocatorHelper.getComponentWebElement(path, component, elementNumber, currentScope);
+        return !path.contains("container") ? getComponentWebElement(component, currentScope) :
+            ComponentTreeLocatorHelper.getComponentWebElement(path, component, elementNumber, currentScope);
     }
 
     @Override
@@ -97,14 +102,19 @@ public class SidePanelImpl implements SidePanel {
         bobcatWait.tweak(Timings.MEDIUM_EXPLICIT).until(invisibilityOf(resultsLoader));
 
         bobcatWait.tweak(Timings.MEDIUM_EXPLICIT).ignoring(StaleElementReferenceException.class)
-            .until(visibilityOfAllElements(searchResults));
+        .until(visibilityOfAllElements(searchResults));
     }
 
     private WebElement getResult(String asset) {
         return searchResults.stream() //
-            .filter(element -> StringUtils
-                .contains(element.getAttribute(HtmlTags.Attributes.DATA_PATH), asset)) //
-            .findFirst() //
-            .orElseThrow(() -> new IllegalStateException(asset + " asset was not found"));
+        .filter(element -> StringUtils
+        .contains(element.getAttribute(HtmlTags.Attributes.DATA_PATH), asset)) //
+        .findFirst() //
+        .orElseThrow(() -> new IllegalStateException(asset + " asset was not found"));
     }
+
+    public WebElement getComponentWebElement(String componentName, WebElement currentScope) {
+        return currentScope.findElement(By.xpath(String.format(COMPONENT_XPATH_FORMAT, componentName, componentName)));
+    }
+
 }

@@ -11,12 +11,12 @@
         padding: $space-s;
         border: $color-border-light;
         background-color: inherit;
-        top: $space-xxl;
+        top: $space-xl + 1;
 
         .react-autosuggest__suggestions-list {
             list-style: none;
-            padding-left: 0;
-            margin-top: $space-s * -1;
+            padding-left: $space-xxxs;
+            margin-top: $space-xxxs;
             margin-bottom: $space-s * -1;
 
             .react-autosuggest__suggestion {
@@ -33,7 +33,7 @@
             }
 
             .emphasis-matching-characters {
-                font-weight: $font-weight-bold + 100;
+                font-weight: $font-weight-bold;
             }
 
             .white-text {
@@ -46,7 +46,7 @@
     }
 
     .react-autosuggest__suggestions-container--open {
-        background-color: $color-white;
+        background-color: $color-white; 
     }
 
     .react-autosuggest__input {
@@ -72,7 +72,7 @@
         display: flex;
         position: absolute;
         top: $space-s;
-        right: $space-s;
+        right: $space-m;
 
         &-search {
             svg {
@@ -124,10 +124,6 @@ body.cmp-search-bar__auto-suggest--open {
         overflow-y: unset;
     }
 
-    .cmp-search-bar {
-        background-color: $color-white;
-    }
-
     .cmp-title {
         position: relative;
         z-index: 9999;
@@ -150,15 +146,4 @@ body.cmp-search-body__auto-suggest--open {
         z-index: -1;
         position: relative;
     }
-}
-
-/*
-    These are IE specific overrides that cannot be account for using -ms prefix
-*/
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-	.cmp-search-bar {
-		.react-autosuggest__suggestions-container {
-			top: $space-xxl - 1;
-		}
-	}
 }

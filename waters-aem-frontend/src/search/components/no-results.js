@@ -10,7 +10,7 @@ const NoResults = ({ searchText , query }) => {
     return <>
             <h2 className="cmp-search__resultsCount noresults">
                 Showing 0 results{' '} {forQuery}
-            </h2>,
+            </h2>
             <div className="cmp-search__no-results">
                 <ReactSVG className="icon" src={searchText.noResultsIcon} />
                 <h2>{searchText.noResultsTitle}</h2>

@@ -16,7 +16,7 @@ public class TitleImpl implements Title {
 
     @Override
     public String getText() {
-        return component.findElement(By.tagName("h2")).getText();
+        return component.findElement(By.className("cmp-title__text")).getText();
     }
 
     @Override

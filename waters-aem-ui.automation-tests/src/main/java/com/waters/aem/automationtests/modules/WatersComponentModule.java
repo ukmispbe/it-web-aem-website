@@ -5,10 +5,14 @@ import com.waters.aem.automationtests.components.Anchor;
 import com.waters.aem.automationtests.components.Text;
 import com.waters.aem.automationtests.components.Title;
 import com.waters.aem.automationtests.components.Image;
+import com.waters.aem.automationtests.components.ExternalHeader;
+import com.waters.aem.automationtests.components.ExternalFooter;
 import com.waters.aem.automationtests.components.impl.AnchorImpl;
 import com.waters.aem.automationtests.components.impl.TextImpl;
 import com.waters.aem.automationtests.components.impl.TitleImpl;
 import com.waters.aem.automationtests.components.impl.ImageImpl;
+import com.waters.aem.automationtests.components.impl.ExternalHeaderImpl;
+import com.waters.aem.automationtests.components.impl.ExternalFooterImpl;
 
 /**
  * Module for Waters components.
@@ -21,5 +25,7 @@ public class WatersComponentModule extends AbstractModule {
         bind(Title.class).to(TitleImpl.class);
         bind(Anchor.class).to(AnchorImpl.class);
         bind(Image.class).to(ImageImpl.class);
+        bind(ExternalHeader.class).to(ExternalHeaderImpl.class);
+        bind(ExternalFooter.class).to(ExternalFooterImpl.class);
     }
 }

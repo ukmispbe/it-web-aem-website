@@ -1,5 +1,4 @@
 .cmp-search-filters {
-    border-bottom: 1px solid $color-border-light;
     ul {
         padding: 0;
         margin: 0;
@@ -235,15 +234,14 @@
             @include font-small;
             display: block;
             float: left;
-            padding: $space-xxxs $space-xs ($space-xxs - 0.1em)
-                ($space-l - 0.1em);
+            padding: $space-xxxs $space-xs $space-xxxs ($space-l - 0.1em);
             margin: 0 $space-xs $space-xs 0;
             text-decoration: none;
             background-color: $color-gray-10;
             position: relative;
             svg {
                 position: absolute;
-                top: 11px;
+                top: 10px;
                 left: 9px;
                 width: $icon-s;
                 height: $icon-s;
@@ -272,10 +270,15 @@
         @include tablet-and-under {
             margin-top: 0;
             display: none;
+            margin-bottom: 0;
         }
     }
     &__emptytags {
         height: 0.5em;
+
+        @include tablet-and-under {
+            height: 0;
+        }
     }
 }
 
@@ -375,6 +378,9 @@
 $header-height: 74px;
 
 .cmp-search__sort-filter {
+    position: relative;
+    top: -55px;
+    
     .cmp-search-filters__tags {
         display: none;
     }
@@ -413,7 +419,7 @@ $header-height: 74px;
 
     @include tablet {
         display: none;
-        width: 40%;
+        width: 41%;
         height: 100%;
         padding: $header-height 20px 20px 20px;
     }
