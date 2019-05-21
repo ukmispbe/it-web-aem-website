@@ -16,6 +16,7 @@ import com.waters.aem.hybris.models.ProductCategory;
 import com.waters.aem.hybris.models.ProductList;
 import com.waters.aem.hybris.models.ProductReference;
 import com.waters.aem.hybris.models.ProductReferenceTarget;
+import com.waters.aem.hybris.models.ProductReferenceType;
 import com.waters.aem.hybris.result.HybrisImporterResult;
 import org.apache.jackrabbit.commons.JcrUtils;
 import org.apache.sling.api.resource.LoginException;
@@ -253,8 +254,14 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
             final Node productReferencesNode = JcrUtils.getOrAddNode(productNode,
                 WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCES);
 
+            // filter references for 'OTHERS' type
+            final List<ProductReference> validProductReferences = productReferences
+                .stream()
+                .filter(productReference -> productReference.getReferenceType().equals(ProductReferenceType.OTHERS))
+                .collect(Collectors.toList());
+
             setItemNodes(productReferencesNode, WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCE,
-                productReferences, productReference -> {
+                validProductReferences, productReference -> {
                     final Map<String, Object> properties = new HashMap<>();
 
                     properties.put(WatersCommerceConstants.PROPERTY_PRESELECTED, productReference.getPreselected());

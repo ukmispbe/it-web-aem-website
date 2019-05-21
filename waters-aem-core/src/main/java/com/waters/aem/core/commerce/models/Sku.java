@@ -3,9 +3,12 @@ package com.waters.aem.core.commerce.models;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.google.common.base.Objects;
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
+import com.waters.aem.core.commerce.services.SkuRepository;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
@@ -18,6 +21,9 @@ import java.util.Optional;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class Sku {
+
+    @OSGiService
+    private SkuRepository skuRepository;
 
     @Self
     private Resource resource;
@@ -122,6 +128,32 @@ public final class Sku {
         }
 
         return images;
+    }
+
+    public List<Sku> getRelatedSkus() {
+        final List<Sku> relatedSkus = new ArrayList<>();
+
+        final Resource productReferencesResource = resource.getChild(
+            WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCES);
+
+        if (productReferencesResource != null) {
+            for (final Resource productReferenceResource : productReferencesResource.getChildren()) {
+                final ValueMap properties = productReferenceResource.getValueMap();
+
+                // TODO do we need to check the 'terminated' property?
+                if (!properties.get(WatersCommerceConstants.PROPERTY_PROPRIETARY, false)) {
+                    final String productCode = properties.get(WatersCommerceConstants.PROPERTY_SKU_ID, "");
+
+                    final Sku relatedSku = skuRepository.getSku(resource.getResourceResolver(), productCode);
+
+                    if (relatedSku != null) {
+                        relatedSkus.add(relatedSku);
+                    }
+                }
+            }
+        }
+
+        return relatedSkus;
     }
 
     @Override

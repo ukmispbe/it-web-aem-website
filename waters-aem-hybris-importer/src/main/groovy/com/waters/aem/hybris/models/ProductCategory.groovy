@@ -7,7 +7,5 @@ class ProductCategory {
 
     String code
 
-    String url
-
     Image image
 }

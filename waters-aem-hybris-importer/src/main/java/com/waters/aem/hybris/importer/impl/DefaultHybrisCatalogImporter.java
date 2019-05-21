@@ -386,7 +386,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
                         final List<String> productCodes = categoryIdToProductCodeMap.containsKey(
                             categoryId) ? categoryIdToProductCodeMap.get(categoryId) : new ArrayList<>();
 
-                        productCodes.add(properties.get(WatersCommerceConstants.PROPERTY_CODE, ""));
+                        productCodes.add(properties.get(WatersCommerceConstants.PROPERTY_SKU_ID, ""));
 
                         categoryIdToProductCodeMap.put(categoryId, productCodes);
                     }
