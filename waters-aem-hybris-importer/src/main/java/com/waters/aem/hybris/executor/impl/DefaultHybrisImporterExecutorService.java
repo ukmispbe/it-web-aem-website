@@ -60,6 +60,8 @@ public final class DefaultHybrisImporterExecutorService implements HybrisImporte
         result = executorService.submit(() -> {
             final Stopwatch stopwatch = Stopwatch.createStarted();
 
+            LOG.info("starting hybris import with options : {}", options);
+
             final List<HybrisImporterResult> results = new ArrayList<>();
 
             // import products first
