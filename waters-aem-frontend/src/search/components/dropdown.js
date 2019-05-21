@@ -73,13 +73,18 @@ const Dropdown = props => {
                 onChange={props.onChange}
                 isSearchable={props.isSearchable}
                 styles={customStyles}
-                placeholder={''}
+                placeholder={props.placeholder}
                 classNamePrefix={'cmp-custom-dropdown'}
                 components={{ DropdownIndicator }}
                 theme={{ dropdownIndicator: props.text.downIcon }}
             />
         </div>
     );
+};
+
+Dropdown.defaultProps = {
+    isSearchable: false,
+    placeholder: '',
 };
 
 export default Dropdown;
