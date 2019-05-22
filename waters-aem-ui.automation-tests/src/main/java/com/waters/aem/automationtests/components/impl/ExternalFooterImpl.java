@@ -4,6 +4,7 @@ import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 import com.waters.aem.automationtests.components.ExternalFooter;
+import com.waters.aem.automationtests.components.LinkItem;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -48,7 +49,7 @@ public class ExternalFooterImpl implements ExternalFooter{
     }
 
     @Override
-    public List<LinkItemImpl> getLinkItems() {
+    public List<LinkItem> getLinkItems() {
         return component.findElement(By.cssSelector(".cmp-external-footer__links")).findElements(By.tagName("a"))
         .stream()
         .map(link -> new LinkItemImpl(link.getText(), link.getAttribute("href"), !link.getAttribute("target").isEmpty()))
