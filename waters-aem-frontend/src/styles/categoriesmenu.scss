@@ -13,10 +13,6 @@
     .bread-crumb {
         display: flex;
         flex-flow: wrap;
-
-        @include tablet-and-under {
-            display: none;
-        }
     }
 
     a:hover {
@@ -39,6 +35,12 @@
         h3 {
             flex-basis: 100%;
         }
+    }
+}
+
+.filter-active {
+    .bread-crumb {
+        display: none;
     }
 }
 
