@@ -4,6 +4,7 @@ import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 import com.waters.aem.automationtests.components.ExternalHeader;
+import com.waters.aem.automationtests.components.LinkItem;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -43,7 +44,7 @@ public class ExternalHeaderImpl implements ExternalHeader {
     }
 
     @Override
-    public List<LinkItemImpl> getLinkItems() {
+    public List<LinkItem> getLinkItems() {
         return component.findElements(By.cssSelector(".cmp-external-header-links__link"))
         .stream()
         .map(link -> new LinkItemImpl(link.getText(), link.getAttribute("href"), link.findElement(By.tagName("svg")).isDisplayed(), !link.getAttribute("target").isEmpty()))

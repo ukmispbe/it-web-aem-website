@@ -65,6 +65,9 @@
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="waters/components/content/applicationnotes/sectioncontainer"
                 title="Section 3"/>
+            <externallist
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="waters/components/content/applicationnotes/externallist"/>
         </root>
     </jcr:content>
 </jcr:root>
