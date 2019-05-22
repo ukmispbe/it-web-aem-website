@@ -30,6 +30,12 @@
             stroke: $color-icon;
         }
     }
+
+    @include tablet {
+        h3 {
+            flex-basis: 100%;
+        }
+    }
 }
 
 .categories-type-menu-container__item {
