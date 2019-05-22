@@ -14,6 +14,14 @@ public abstract class AbstractAnalyticsModel {
     @Self
     private SiteContext siteContext;
 
+    protected String getCountry() {
+        return siteContext.getLocale().getCountry();
+    }
+
+    protected String getLanguage() {
+        return siteContext.getLocale().getLanguage();
+    }
+
     protected String getTagTitle(final List<Tag> tags) {
         return !tags.isEmpty() ? tags.get(0).getTitle(siteContext.getLocale()) : "";
     }

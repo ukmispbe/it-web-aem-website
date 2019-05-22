@@ -1,24 +1,32 @@
 package com.waters.aem.core.components.structure.page;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.SiteContext;
+import com.waters.aem.core.metadata.ContentClassification;
+import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
+import javax.inject.Inject;
+
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @JsonRootName(value = "page")
-public final class AnalyticsPageModel extends AbstractAnalyticsModel {
+public class AnalyticsPageData extends AbstractAnalyticsModel{
 
     @Self
     private SiteContext siteContext;
 
-    @Self
-    private ApplicationNotes applicationNotes;
+    @Inject
+    private PageDecorator currentPage;
+
+    @Inject
+    private ContentClassification contentClassification;
 
     public String getCategory() {
-        return getFirstTagTitle(applicationNotes.getCategory());
+        return getFirstTagTitle(contentClassification.getCategory());
     }
 
     public String getCountry() {
@@ -30,7 +38,10 @@ public final class AnalyticsPageModel extends AbstractAnalyticsModel {
     }
 
     public String getType() {
-        return getFirstTagTitle(applicationNotes.getContentType());
+        return getFirstTagTitle(contentClassification.getContentType());
+    }
+
+    public ContentClassification setContentClassification() {
+        return contentClassification = Templates.isApplicationNotesPage(currentPage) ? new ApplicationNotes() : new LibraryPage();
     }
 }
-
