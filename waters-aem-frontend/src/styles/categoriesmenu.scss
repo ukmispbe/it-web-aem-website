@@ -1,7 +1,7 @@
 .categories-type-menu-container {
     margin-top: $space-xl;
 
-    @include tablet-and-under { 
+    @include tablet-and-under {
         margin-top: $space-l;
     }
 }
@@ -38,6 +38,12 @@
     }
 }
 
+.filter-active {
+    .bread-crumb {
+        display: none;
+    }
+}
+
 .categories-type-menu-container__item {
     display: flex;
     padding: $space-xs $space-xs $space-xs $space-s;
@@ -69,7 +75,7 @@
             color: $color-link;
             text-decoration: none;
         }
-        
+
         & svg .st0 {
             stroke: $color-link;
         }
