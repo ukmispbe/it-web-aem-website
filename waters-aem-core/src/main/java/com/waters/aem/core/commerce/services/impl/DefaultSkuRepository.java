@@ -28,10 +28,11 @@ public final class DefaultSkuRepository implements SkuRepository {
     }
 
     @Override
-    public Sku getRelatedSku(final Resource resource) {
-        final String productCode = resource.getValueMap().get(WatersCommerceConstants.PROPERTY_SKU_ID, "");
+    public Sku getRelatedSku(final Resource productReferenceResource) {
+        final String productCode = productReferenceResource.getValueMap()
+            .get(WatersCommerceConstants.PROPERTY_CODE, "");
 
-        return getSku(resource.getResourceResolver(), productCode);
+        return getSku(productReferenceResource.getResourceResolver(), productCode);
     }
 
     private Sku getSkuForProductResourcePath(final ResourceResolver resourceResolver,

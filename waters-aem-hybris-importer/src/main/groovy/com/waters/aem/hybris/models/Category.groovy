@@ -11,8 +11,6 @@ class Category {
 
     String name
 
-    String url
-
     List<Category> subcategories = []
 
     @JsonFormat(shape = Shape.STRING, pattern = HybrisImporterConstants.DATE_FORMAT_PATTERN)
@@ -23,7 +21,6 @@ class Category {
         Objects.toStringHelper(this)
             .add("id", id)
             .add("name", name)
-            .add("url", url)
             .add("subcategories", subcategories.size())
             .add("lastModified", lastModified.format(HybrisImporterConstants.DATE_FORMAT_PATTERN))
             .toString()

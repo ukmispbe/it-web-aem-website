@@ -225,8 +225,8 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         // set modification timestamp
         properties.put(JcrConstants.JCR_LASTMODIFIED, Calendar.getInstance());
 
-        properties.put(WatersCommerceConstants.PROPERTY_SKU_ID, product.getCode());
-        properties.put(WatersCommerceConstants.PROPERTY_SKU_TITLE, product.getName());
+        properties.put(WatersCommerceConstants.PROPERTY_CODE, product.getCode());
+        properties.put(WatersCommerceConstants.PROPERTY_NAME, product.getName());
         properties.put(WatersCommerceConstants.PROPERTY_SHORT_DESCRIPTION, product.getDescription());
         properties.put(WatersCommerceConstants.PROPERTY_LONG_DESCRIPTION, product.getSummary());
         properties.put(WatersCommerceConstants.PROPERTY_CATEGORIES, product.getCategories()
@@ -269,7 +269,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
                     final ProductReferenceTarget target = productReference.getTarget();
 
-                    properties.put(WatersCommerceConstants.PROPERTY_SKU_ID, target.getCode());
+                    properties.put(WatersCommerceConstants.PROPERTY_CODE, target.getCode());
                     properties.put(WatersCommerceConstants.PROPERTY_PROPRIETARY, target.getProprietary());
                     properties.put(WatersCommerceConstants.PROPERTY_TERMINATED, target.getTerminated());
 

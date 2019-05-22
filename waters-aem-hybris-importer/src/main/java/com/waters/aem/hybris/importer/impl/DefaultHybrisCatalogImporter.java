@@ -3,6 +3,7 @@ package com.waters.aem.hybris.importer.impl;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.WCMException;
 import com.google.common.base.Stopwatch;
+import com.google.common.collect.ImmutableMap;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
@@ -56,6 +57,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultHybrisCatalogImporter.class);
+
+    private static final Map<String, String> NAMESPACES = new ImmutableMap.Builder<String, String>()
+        .put(HybrisImporterConstants.NAMESPACE_PREFIX_HYBRIS, HybrisImporterConstants.NAMESPACE_URI_HYBRIS)
+        .put(HybrisImporterConstants.NAMESPACE_PREFIX_IMPORTER, HybrisImporterConstants.NAMESPACE_URI_IMPORTER)
+        .build();
 
     private static class CatalogImporterContext {
 
@@ -166,17 +172,23 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     }
 
     private void checkImporterNamespace() throws RepositoryException, LoginException {
-        // check to ensure that importer namespace is registered
+        // check to ensure that namespaces are registered
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
             final Session session = resourceResolver.adaptTo(Session.class);
             final NamespaceRegistry namespaceRegistry = session.getWorkspace().getNamespaceRegistry();
 
-            if (!Arrays.asList(namespaceRegistry.getPrefixes()).contains(HybrisImporterConstants.NAMESPACE_PREFIX)) {
-                namespaceRegistry.registerNamespace(HybrisImporterConstants.NAMESPACE_PREFIX,
-                    HybrisImporterConstants.NAMESPACE_URI);
+            final List<String> registeredNamespacePrefixes = Arrays.asList(namespaceRegistry.getPrefixes());
 
-                session.save();
+            for (final Map.Entry<String, String> namespaceEntry : NAMESPACES.entrySet()) {
+                final String prefix = namespaceEntry.getKey();
+                final String uri = namespaceEntry.getValue();
+
+                if (!registeredNamespacePrefixes.contains(prefix)) {
+                    namespaceRegistry.registerNamespace(prefix, uri);
+                }
             }
+
+            session.save();
         }
     }
 
@@ -328,7 +340,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
             status = HybrisImportStatus.CREATED;
         } else {
-            final Calendar pageLastModified = page.get(HybrisImporterConstants.PROPERTY_LAST_MODIFIED, Calendar.class)
+            final Calendar pageLastModified = page.get(WatersCommerceConstants.PROPERTY_LAST_MODIFIED, Calendar.class)
                 .orNull();
 
             // TODO check for disabled/deleted status
@@ -353,11 +365,10 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         final ValueMap properties = page.getContentResource().adaptTo(ModifiableValueMap.class);
 
         properties.put(JcrConstants.JCR_LASTMODIFIED, Calendar.getInstance());
-        properties.put(HybrisImporterConstants.PROPERTY_ID, category.getId());
-        properties.put(HybrisImporterConstants.PROPERTY_URL, category.getUrl());
+        properties.put(WatersCommerceConstants.PROPERTY_ID, category.getId());
 
         if (category.getLastModified() != null) {
-            properties.put(HybrisImporterConstants.PROPERTY_LAST_MODIFIED, category.getLastModified());
+            properties.put(WatersCommerceConstants.PROPERTY_LAST_MODIFIED, category.getLastModified());
         }
     }
 
@@ -366,7 +377,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         properties.put(JcrConstants.JCR_LASTMODIFIED, Calendar.getInstance());
         properties.put(WatersCommerceConstants.PROPERTY_PRODUCT_RESOURCE_PATH, sku.getPath());
-        properties.put(WatersCommerceConstants.PROPERTY_SKU_ID, sku.getId());
+        properties.put(WatersCommerceConstants.PROPERTY_CODE, sku.getId());
     }
 
     private Map<String, List<String>> getCategoryIdToProductCodeMap(final ResourceResolver resourceResolver) {
@@ -386,7 +397,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
                         final List<String> productCodes = categoryIdToProductCodeMap.containsKey(
                             categoryId) ? categoryIdToProductCodeMap.get(categoryId) : new ArrayList<>();
 
-                        productCodes.add(properties.get(WatersCommerceConstants.PROPERTY_SKU_ID, ""));
+                        productCodes.add(properties.get(WatersCommerceConstants.PROPERTY_CODE, ""));
 
                         categoryIdToProductCodeMap.put(categoryId, productCodes);
                     }

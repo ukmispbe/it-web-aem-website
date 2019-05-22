@@ -2,27 +2,31 @@ package com.waters.aem.core.commerce.constants;
 
 public final class WatersCommerceConstants {
 
+    // category properties
+
+    public static final String PROPERTY_ID = "hybris:id";
+
+    public static final String PROPERTY_LAST_MODIFIED = "hybris:lastModified";
+
     // sku properties
 
-    public static final String PROPERTY_SKU_ID = "skuId";
+    public static final String PROPERTY_CODE = "hybris:code";
 
-    public static final String PROPERTY_SKU_TITLE = "skuTitle";
+    public static final String PROPERTY_NAME = "hybris:name";
 
-    public static final String PROPERTY_CODE = "code";
+    public static final String PROPERTY_SHORT_DESCRIPTION = "hybris:shortDescription";
 
-    public static final String PROPERTY_SHORT_DESCRIPTION = "shortDescription";
+    public static final String PROPERTY_LONG_DESCRIPTION = "hybris:longDescription";
 
-    public static final String PROPERTY_LONG_DESCRIPTION = "longDescription";
+    public static final String PROPERTY_CATEGORIES = "hybris:categories";
 
-    public static final String PROPERTY_CATEGORIES = "categories";
+    public static final String PROPERTY_PROPRIETARY = "hybris:proprietary";
 
-    public static final String PROPERTY_PROPRIETARY = "proprietary";
+    public static final String PROPERTY_TERMINATED = "hybris:terminated";
 
-    public static final String PROPERTY_TERMINATED = "terminated";
+    public static final String PROPERTY_COLD_STORAGE = "hybris:coldStorage";
 
-    public static final String PROPERTY_COLD_STORAGE = "coldStorage";
-
-    public static final String PROPERTY_HAZARDOUS_HANDLING = "hazardousHandling";
+    public static final String PROPERTY_HAZARDOUS_HANDLING = "hybris:hazardousHandling";
 
     public static final String RESOURCE_NAME_IMAGES = "images";
 
@@ -32,45 +36,45 @@ public final class WatersCommerceConstants {
 
     // price properties
 
-    public static final String PROPERTY_COUNTRY = "country";
+    public static final String PROPERTY_COUNTRY = "hybris:country";
 
-    public static final String PROPERTY_CURRENCY_ISO = "currencyIso";
+    public static final String PROPERTY_CURRENCY_ISO = "hybris:currencyIso";
 
-    public static final String PROPERTY_FORMATTED_VALUE = "formattedValue";
+    public static final String PROPERTY_FORMATTED_VALUE = "hybris:formattedValue";
 
-    public static final String PROPERTY_MAX_QUANTITY = "maxQuantity";
+    public static final String PROPERTY_MAX_QUANTITY = "hybris:maxQuantity";
 
-    public static final String PROPERTY_MIN_QUANTITY = "minQuantity";
+    public static final String PROPERTY_MIN_QUANTITY = "hybris:minQuantity";
 
-    public static final String PROPERTY_PRICE_TYPE = "priceType";
+    public static final String PROPERTY_PRICE_TYPE = "hybris:priceType";
 
-    public static final String PROPERTY_VALUE = "value";
+    public static final String PROPERTY_VALUE = "hybris:value";
 
     // product reference properties
 
-    public static final String PROPERTY_PRESELECTED = "preselected";
+    public static final String PROPERTY_PRESELECTED = "hybris:preselected";
 
-    public static final String PROPERTY_DESCRIPTION = "description";
+    public static final String PROPERTY_DESCRIPTION = "hybris:description";
 
     public static final String RESOURCE_NAME_PRODUCT_REFERENCE = "productreference";
 
     // image properties
 
-    public static final String PROPERTY_URL = "url";
+    public static final String PROPERTY_URL = "hybris:url";
 
-    public static final String PROPERTY_ALT_TEXT = "altText";
+    public static final String PROPERTY_ALT_TEXT = "hybris:altText";
 
-    public static final String PROPERTY_FORMAT = "format";
+    public static final String PROPERTY_FORMAT = "hybris:format";
 
-    public static final String PROPERTY_IMAGE_TYPE = "imageType";
+    public static final String PROPERTY_IMAGE_TYPE = "hybris:imageType";
 
-    public static final String PROPERTY_GALLERY_INDEX = "galleryIndex";
+    public static final String PROPERTY_GALLERY_INDEX = "hybris:galleryIndex";
 
     public static final String RESOURCE_NAME_IMAGE = "image";
 
     // sku page properties
 
-    public static final String PROPERTY_PRODUCT_RESOURCE_PATH = "productResourcePath";
+    public static final String PROPERTY_PRODUCT_RESOURCE_PATH = "hybris:productResourcePath";
 
     public static final String PATH_COMMERCE_PRODUCTS = "/etc/commerce/products";
 

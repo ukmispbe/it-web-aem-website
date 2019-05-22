@@ -30,8 +30,8 @@ public interface SkuRepository {
     /**
      * Get a related SKU for the given product reference resource.
      *
-     * @param resource product reference resource
+     * @param productReferenceResource product reference resource
      * @return related SKU or null if SKU is not valid for resource
      */
-    Sku getRelatedSku(Resource resource);
+    Sku getRelatedSku(Resource productReferenceResource);
 }

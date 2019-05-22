@@ -22,8 +22,8 @@ public final class HybrisImporterOptions {
     public static HybrisImporterOptions fromRequest(final SlingHttpServletRequest request) {
         final Boolean force = Boolean.valueOf(request.getParameter(PARAMETER_FORCE));
         final Boolean replicate = Boolean.valueOf(request.getParameter(PARAMETER_REPLICATE));
-        final List<String> productCodes = Arrays.asList(
-            ArrayUtils.nullToEmpty(request.getParameterValues(PARAMETER_PRODUCT_CODE)));
+        final List<String> productCodes = Arrays.asList(ArrayUtils.nullToEmpty(request
+            .getParameterValues(PARAMETER_PRODUCT_CODE)));
 
         return new HybrisImporterOptions()
             .withProductCodes(productCodes)

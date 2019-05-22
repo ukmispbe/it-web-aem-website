@@ -31,7 +31,7 @@ public final class Sku {
     @Self
     private Resource resource;
 
-    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_SKU_ID)
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_CODE)
     private String id;
 
     @ValueMapValue(name = WatersCommerceConstants.PROPERTY_CATEGORIES)
@@ -43,13 +43,13 @@ public final class Sku {
     @ValueMapValue(name = WatersCommerceConstants.PROPERTY_LONG_DESCRIPTION)
     private String longDescription;
 
-    @ValueMapValue(name = JcrConstants.JCR_TITLE)
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_NAME)
     private String title;
 
     @ValueMapValue(name = WatersCommerceConstants.PROPERTY_PROPRIETARY)
     private Boolean proprietary;
 
-    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_PROPRIETARY)
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_TERMINATED)
     private Boolean terminated;
 
     @ValueMapValue(name = WatersCommerceConstants.PROPERTY_COLD_STORAGE)
