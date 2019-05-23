@@ -277,8 +277,7 @@
         }
         @include tablet-and-under {
             margin-top: 0;
-            display: none;
-            margin-bottom: $space-m;
+           	margin-bottom: 0;
         }
     }
     &__emptytags {
