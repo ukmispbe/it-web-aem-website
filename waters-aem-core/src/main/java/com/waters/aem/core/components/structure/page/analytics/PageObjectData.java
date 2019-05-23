@@ -27,10 +27,6 @@ public class PageObjectData extends AbstractAnalyticsModel {
     @Inject
     private ContentClassification contentClassification;
 
-    public ContentClassification setContentClassification() {
-        return contentClassification = Templates.isApplicationNotesPage(currentPage) ? new ApplicationNotes() : new LibraryPage();
-    }
-
     public String getCategory() {
         return getFirstTagTitle(contentClassification.getCategory());
     }

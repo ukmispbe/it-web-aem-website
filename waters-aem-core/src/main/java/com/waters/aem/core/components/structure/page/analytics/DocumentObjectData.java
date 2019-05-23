@@ -32,10 +32,6 @@ public class DocumentObjectData extends AbstractAnalyticsModel{
     @Inject
     private ContentClassification contentClassification;
 
-    public ContentClassification setContentClassification() {
-        return contentClassification = Templates.isApplicationNotesPage(currentPage) ? new ApplicationNotes() : new LibraryPage();
-    }
-
     public String getId() {
         return contentClassification.getLiteratureCode();
     }
