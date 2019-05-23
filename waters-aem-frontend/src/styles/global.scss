@@ -139,8 +139,11 @@ a {
         width: 23px;
         height: 20px;
 
-        svg .st0 {
-            stroke: $color-icon;
+        svg {
+            height: 20px;
+            .st0 {
+                stroke: $color-icon;
+            }
         }
     }
     &:hover {
@@ -149,8 +152,10 @@ a {
         }
 
         .cmp-custom-dropdown__dropdown-indicator > div {
-            svg .st0 {
-                stroke: $color-link;
+            svg {
+                .st0 {
+                    stroke: $color-link;
+                }
             }
         }
     }
