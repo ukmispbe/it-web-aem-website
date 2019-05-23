@@ -64,4 +64,4 @@ const pdfPluginVerification = function() {
     };
 }
 
-window.onload = pdfPluginVerification;
+window.addEventListener('load', pdfPluginVerification);

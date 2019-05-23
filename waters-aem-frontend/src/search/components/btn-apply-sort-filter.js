@@ -11,19 +11,17 @@ class ApplySortFilter extends Component {
         this.setState({ showSortFilters: true });
     }
 
+    buttonCaption = () => this.props.isPristine ? this.props.text.applyButton : this.props.text.showResultCount.replace(/[{]count[}]/, this.props.count);
+
     render() {
-        const props = this.props;
-        return (
-            <div className="cmp-search-apply-btn">
+        return <div className="cmp-search-apply-btn">
                 <a
                     href="javascript:void(0);"
-                    onClick={e => props.applyFilters()}
-                    className="btn-apply-sort-filter"
-                >
-                    {props.text.applyButton}
+                    onClick={e => this.props.applyFilters()}
+                    className="btn-apply-sort-filter">
+                    {this.buttonCaption()}
                 </a>
-            </div>
-        );
+            </div>;
     }
 }
 

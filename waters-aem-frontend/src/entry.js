@@ -7,6 +7,7 @@ import './scripts/anchor';
 import './scripts/sticky';
 import './scripts/iframe';
 import './scripts/backtosearch';
+import './scripts/banner';
 import './index';
 
 var inlineSVG = require('inline-svg');
