@@ -267,9 +267,9 @@
                     ($space-l - 0.1em);
             }
         }
-       @include tablet-and-under {
+        @include tablet-and-under {
             margin-top: 0;
-            margin-bottom: 0;
+           	margin-bottom: 0;
         }
     }
     &__emptytags {
