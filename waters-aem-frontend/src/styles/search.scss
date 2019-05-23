@@ -20,6 +20,7 @@
             float: none;
             padding-left: 0;
             margin-left: 0;
+            margin-top: $space-s * -1;
         }
     }
     @include tablet {
@@ -31,6 +32,17 @@
         width: 100%;
         float: none;
         padding-left: 0;
+    }
+
+    .cmp-search-filters__tags {
+        @include mobile {
+            margin-top: -30px;
+            margin-bottom: $space-l;
+        }
+
+        @include tablet {
+            margin-top: -20px;
+        }
     }
 }
 .cmp-search__results-container {
@@ -318,6 +330,10 @@ div.cmp-search__no-results {
         }
     }
 
+    @include mobile {
+        text-align: center;
+    }
+
     .text-strike {
         text-decoration: line-through;
     }
@@ -345,10 +361,7 @@ div.cmp-search__no-results {
 
     @include tablet-and-under {
         top: -13px;
-    }
-
-    @include mobile {
-        margin-bottom: $space-xl + 1;
+        margin-bottom: $space-xxl;
     }
 }
 

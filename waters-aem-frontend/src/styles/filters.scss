@@ -500,4 +500,19 @@ $header-height: 74px;
             display: block;
         }
     }
+
+    .cmp-search__container {
+        .cmp-search-filters__tags {
+            @include mobile {
+                margin-top: -30px;
+                margin-bottom: $space-l;
+            }
+    
+            @include tablet {
+                position: relative;
+                z-index: -1;
+                margin-top: -20px;
+            }
+        }
+    }
 }
