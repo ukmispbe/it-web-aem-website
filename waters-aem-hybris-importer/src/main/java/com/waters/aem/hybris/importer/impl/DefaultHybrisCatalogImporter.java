@@ -63,7 +63,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         .put(HybrisImporterConstants.NAMESPACE_PREFIX_IMPORTER, HybrisImporterConstants.NAMESPACE_URI_IMPORTER)
         .build();
 
-    private static class CatalogImporterContext {
+    static class CatalogImporterContext {
 
         private final ResourceResolver resourceResolver;
 
@@ -75,7 +75,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         private final Category category;
 
-        private CatalogImporterContext(final ResourceResolver resourceResolver,
+        CatalogImporterContext(final ResourceResolver resourceResolver,
             final Map<String, List<String>> categoryIdToProductCodeMap, final PageDecorator parentPage,
             final Category category) {
             this.resourceResolver = resourceResolver;
@@ -85,27 +85,27 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             this.category = category;
         }
 
-        public ResourceResolver getResourceResolver() {
+        ResourceResolver getResourceResolver() {
             return resourceResolver;
         }
 
-        public PageManagerDecorator getPageManager() {
+        PageManagerDecorator getPageManager() {
             return pageManager;
         }
 
-        public PageDecorator getParentPage() {
+        PageDecorator getParentPage() {
             return parentPage;
         }
 
-        public Category getCategory() {
+        Category getCategory() {
             return category;
         }
 
-        public Map<String, List<String>> getCategoryIdToProductCodeMap() {
+        Map<String, List<String>> getCategoryIdToProductCodeMap() {
             return categoryIdToProductCodeMap;
         }
 
-        public CatalogImporterContext withSubcategory(final PageDecorator categoryPage, final Category subcategory) {
+        CatalogImporterContext withSubcategory(final PageDecorator categoryPage, final Category subcategory) {
             return new CatalogImporterContext(resourceResolver, categoryIdToProductCodeMap, categoryPage, subcategory);
         }
     }
