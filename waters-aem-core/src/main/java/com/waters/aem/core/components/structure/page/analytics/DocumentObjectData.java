@@ -1,11 +1,13 @@
-package com.waters.aem.core.components.structure.page;
+package com.waters.aem.core.components.structure.page.analytics;
 
-import com.drew.lang.annotations.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.SiteContext;
+import com.waters.aem.core.components.structure.page.ApplicationNotes;
+import com.waters.aem.core.components.structure.page.LibraryPage;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.metadata.ContentClassification;
 import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -13,13 +15,13 @@ import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @JsonRootName(value = "document")
-public class AnalyticsDocumentData extends AbstractAnalyticsModel{
+public class DocumentObjectData extends AbstractAnalyticsModel{
 
     @Self
     private SiteContext siteContext;
@@ -27,28 +29,29 @@ public class AnalyticsDocumentData extends AbstractAnalyticsModel{
     @Inject
     private PageDecorator currentPage;
 
-    @Self
-    private ApplicationNotes applicationNotes;
+    @Inject
+    private ContentClassification contentClassification;
 
-    @Self
-    private LibraryPage libraryPage;
+    public ContentClassification setContentClassification() {
+        return contentClassification = Templates.isApplicationNotesPage(currentPage) ? new ApplicationNotes() : new LibraryPage();
+    }
 
     public String getId() {
-        return Templates.isApplicationNotesPage(currentPage) ? applicationNotes.getLiteratureCode() : libraryPage.getLiteratureCode();
+        return contentClassification.getLiteratureCode();
     }
 
     public String getFirstPublishDate() {
-        return applicationNotes.getFormattedPublishDate();
+        return getFormattedPublishDate(getYearPublished(), getMonthPublished());
     }
 
     @JsonIgnore
     public String getYearPublished() {
-        return Templates.isApplicationNotesPage(currentPage) ? getTagTitle(applicationNotes.getYearPublished()) : getTagTitle(libraryPage.getYearPublished());
+        return getTagTitle(contentClassification.getYearPublished());
     }
 
     @JsonIgnore
     public String getMonthPublished() {
-        return Templates.isApplicationNotesPage(currentPage) ? getTagTitle(applicationNotes.getMonthPublished()) : getTagTitle(libraryPage.getMonthPublished());
+        return getTagTitle(contentClassification.getMonthPublished());
     }
 
     public String getLastPublishDate() {
@@ -58,13 +61,10 @@ public class AnalyticsDocumentData extends AbstractAnalyticsModel{
     }
 
     public List<String> getTags() {
-        List<String> tagList = new ArrayList<>();
-        if(Templates.isApplicationNotesPage(currentPage)){
-            tagList = getTagTitles(applicationNotes.getAuthor());
+        List<String> tagList = getTagTitles(contentClassification.getAllTags());
 
-            tagList.addAll(getTagTitles(applicationNotes.getAffiliations()));
-        } else {
-            tagList.addAll(getTagTitles(libraryPage.getAllTags()));
+        if(Templates.isApplicationNotesPage(currentPage)){
+            tagList = tagList.stream().filter(tag -> tag.contains("Authors") || tag.contains("Affiliations")).collect(Collectors.toList());
         }
 
         return tagList;
