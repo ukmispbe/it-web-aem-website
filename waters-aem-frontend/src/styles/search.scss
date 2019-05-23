@@ -50,15 +50,15 @@
     }
 }
 .cmp-search__results-item {
+    border-top: 1px solid $color-border-rule;
+    padding-top: $space-m;
     @include list-item;
-    @include mobile {
-        margin-bottom: $space-l;
-    }
 
     &-breadcrumb {
         display: flex;
         @include font-small;
-        margin-top: $space-xs;
+        margin-top: $space-s;
+        padding-bottom: 0;
 
         svg {
             margin: ($space-xxxs + .2em) $space-xxxs 0 $space-xxxs;
@@ -74,7 +74,6 @@
 .cmp-search__results-body {
     width: 100%;
     float: left;
-    padding-bottom: $space-s;
     @include mobile {
         padding-bottom: 0;
     }
