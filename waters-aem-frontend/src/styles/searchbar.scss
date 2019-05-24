@@ -151,3 +151,17 @@ body.cmp-search-body__auto-suggest--open {
         position: relative;
     }
 }
+
+// Firefox CSS Hacks
+@-moz-document url-prefix() {
+    .cmp-search-bar .react-autosuggest__suggestions-container {
+        top: 4.15em;
+    }
+}
+
+// Edge CSS Hack 
+@supports (-ms-ime-align: auto) {
+    .cmp-search-bar .react-autosuggest__suggestions-container {
+        top: 4.2em; 
+    }
+} 
