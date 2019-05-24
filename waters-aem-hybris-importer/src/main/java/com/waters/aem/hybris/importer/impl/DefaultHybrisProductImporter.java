@@ -81,7 +81,6 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
                     .put(HybrisImporterConstants.PROPERTY_LAST_IMPORT_DATE, currentImportDate);
             }
 
-
             resourceResolver.commit();
 
             LOG.info("imported {} products in {}ms", results.size(), stopwatch.elapsed(TimeUnit.MILLISECONDS));
@@ -139,7 +138,13 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
         final List<HybrisImporterResult> results = new ArrayList<>();
 
-        ProductList productList = hybrisClient.getProductList(0, lastImportDate);
+        ProductList productList;
+
+        if (force) {
+            productList = hybrisClient.getProductList(0);
+        } else {
+            productList = hybrisClient.getProductList(0, lastImportDate);
+        }
 
         final int totalPages = productList.getTotalPageCount();
 
@@ -150,7 +155,11 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
             currentPage++;
 
-            productList = hybrisClient.getProductList(currentPage, lastImportDate);
+            if (force) {
+                productList = hybrisClient.getProductList(currentPage);
+            } else {
+                productList = hybrisClient.getProductList(currentPage, lastImportDate);
+            }
 
             // periodically commit changes
             if (currentPage % 10 == 0) {

@@ -31,8 +31,12 @@ public final class HybrisImporterResult {
     }
 
     public static HybrisImporterResult fromMap(final Map<String, String> map) {
-        return new HybrisImporterResult(map.get("path"), map.get("title"),
-            HybrisImportContentType.valueOf(map.get("contentType")), HybrisImportStatus.valueOf(map.get("status")));
+        return new HybrisImporterResult(
+            map.get("path"),
+            map.get("title"),
+            HybrisImportContentType.valueOf(map.get("contentType")),
+            HybrisImportStatus.valueOf(map.get("status"))
+        );
     }
 
     private String path;

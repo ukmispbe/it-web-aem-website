@@ -34,7 +34,6 @@ import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
@@ -110,13 +109,8 @@ public final class DefaultHybrisClient implements HybrisClient {
         return getModel(path, queryParams, Product.class);
     }
 
-    @Override
-    public List<Product> getProductsForCategory(final String categoryId) throws IOException, URISyntaxException {
-        return null;
-    }
-
     @Activate
-    protected void activate(final HybrisClientConfiguration configuration) throws IOException, URISyntaxException {
+    protected void activate(final HybrisClientConfiguration configuration) {
         // create OCC client
         httpClient = HttpClientBuilder.create()
             .setConnectionManager(new PoolingHttpClientConnectionManager())

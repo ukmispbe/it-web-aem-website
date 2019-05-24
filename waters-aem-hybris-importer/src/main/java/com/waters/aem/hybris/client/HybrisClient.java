@@ -7,7 +7,6 @@ import com.waters.aem.hybris.models.ProductList;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Calendar;
-import java.util.List;
 
 /**
  * REST client for consuming catalog data from hybris OCC services.
@@ -53,14 +52,4 @@ public interface HybrisClient {
      * @throws IOException if HTTP request returns an invalid response
      */
     Product getProduct(String productCode) throws URISyntaxException, IOException;
-
-    /**
-     * Get products for a given category.
-     *
-     * @param categoryId category identifier
-     * @return list of products for category
-     * @throws URISyntaxException if hybris OCC URI is invalid
-     * @throws IOException if HTTP request returns an invalid response
-     */
-    List<Product> getProductsForCategory(String categoryId) throws IOException, URISyntaxException;
 }

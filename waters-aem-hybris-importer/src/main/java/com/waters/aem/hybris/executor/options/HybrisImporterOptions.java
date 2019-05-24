@@ -8,6 +8,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Options builder for Hybris import executions.
+ */
 public final class HybrisImporterOptions {
 
     private static final String PARAMETER_FORCE = "force";
