@@ -13,14 +13,17 @@ var isInViewport = function(elem) {
 //    return { top: rect.top + scrollTop, left: rect.left + scrollLeft };
 //};
 
-var resizeFilterSortContainer =  function() {
-    var filerSortContainerList = document.getElementsByClassName('cmp-search__sort-filter__container');
-    var filerSortContainer = filerSortContainerList[0];   var bannerList = document.getElementsByClassName('banner');
+var resizeFilterSortContainer = function() {
+    var filerSortContainerList = document.getElementsByClassName(
+        'cmp-search__sort-filter__container'
+    );
+    var filerSortContainer = filerSortContainerList[0];
+    var bannerList = document.getElementsByClassName('banner');
     var banner = bannerList[0];
     var bannerWidth = banner.clientWidth;
     //console.log('bannerWidth : ' + bannerWidth);
     var containerWidth = bannerWidth / 4.2;
-    filerSortContainer.style.width = containerWidth + "px";
+    filerSortContainer.style.width = containerWidth + 'px';
 };
 
 var goTopBtn = document.querySelector('.cmp-back-to-top');
@@ -43,31 +46,29 @@ function trackScroll() {
     var scrolled = window.pageYOffset;
     var coords = document.documentElement.clientHeight;
     var footer = document.querySelector('.cmp-external-footer');
+    let isDesktop = window.matchMedia('(min-width: 1200px)').matches;
+    const headerHeight = document.querySelector('.cmp-external-header')
+        .offsetHeight;
 
-    var filerSortContainerList = document.getElementsByClassName('cmp-search__sort-filter__container');
+    var filerSortContainerList = document.getElementsByClassName(
+        'cmp-search__sort-filter__container'
+    );
     var filerSortContainer = filerSortContainerList[0];
 
     var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
+    if (isDesktop) {
+        if (originalTopPos === 0) {
+            originalTopPos =
+                filerSortContainer.getBoundingClientRect().top + scrollTop;
+        }
+        resizeFilterSortContainer();
 
-    if (originalTopPos  === 0){
-        originalTopPos = filerSortContainer.getBoundingClientRect().top + scrollTop;
-    }
-
-    resizeFilterSortContainer();
-    console.log('Hi 26');
-//    console.log('coords : ' + coords);
-//    console.log('scrolled : ' + scrolled);
-//   console.log('originalTopPos : ' + originalTopPos);
-
-
-
-
-
-    if (scrolled > originalTopPos) {
-        filerSortContainer.classList.add('sort-filter-container-sticky');
-    } else {
-        filerSortContainer.classList.remove('sort-filter-container-sticky');
+        if (scrolled > originalTopPos) {
+            filerSortContainer.classList.add('sort-filter-container-sticky');
+        } else {
+            filerSortContainer.classList.remove('sort-filter-container-sticky');
+        }
     }
 
     if (scrolled > coords * 2) {
@@ -82,7 +83,8 @@ function trackScroll() {
         if (gotBottomPosition === false) {
             bottomPosition = scrolled;
             gotBottomPosition = true;
-            filerSortContainer.style.top = scrolled  - (1 / 2 * coords)  + 74 + "px";
+            filerSortContainer.style.top =
+                scrolled - (1 / 2) * coords + 74 + 'px';
         }
 
         goTopBtn.classList.add('cmp-back-to-top-affix');
@@ -92,8 +94,8 @@ function trackScroll() {
         filerSortContainer.classList.remove('sort-filter-container-affix');
         gotBottomPosition = false;
         bottomPosition = 0;
-        filerSortContainer.style.top = "";
-   }
+        filerSortContainer.style.top = '';
+    }
 }
 
 window.addEventListener('scroll', trackScroll);
