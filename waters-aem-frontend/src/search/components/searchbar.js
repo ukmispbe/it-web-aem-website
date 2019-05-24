@@ -152,6 +152,10 @@ class SearchBar extends Component {
     handleSuggestionSelected = (event, { suggestionValue}) => {
         this.removeCssOverridesForSearchBar();
         this.setState({value: suggestionValue, suggestions: [], openOverlay: false}, () => {
+            // removing these session variables ensures the page position is set to the top after keyword search
+            window.sessionStorage.removeItem('waters.previousPaginationClick');
+            window.sessionStorage.removeItem('waters.previousPagePosition');
+            
             this.removeCssOverridesForSearchBody();
             this.search.setUrlParameter(this.state.value, this.props.searchPath)
         });

@@ -91,6 +91,10 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+
+    .cmp-image__image {
+        opacity: 0;
+    }
 }
 
 .cmp-banner--light .cmp-banner {

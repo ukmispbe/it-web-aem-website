@@ -1,5 +1,6 @@
 #base=.
 
+js/modernizr.js
 js/string.prototype.startsWith.js
 js/array.prototype.filter.js
 js/array.prototype.find.js
