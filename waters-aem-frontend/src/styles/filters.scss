@@ -390,6 +390,7 @@ $header-height: 74px;
     
     .cmp-search-filters__tags {
         display: none;
+        margin-bottom: $space-m;
     }
 
     @include tablet-and-under {
