@@ -3,14 +3,12 @@ package com.waters.aem.core.components.structure.page.analytics;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.icfolson.aem.library.api.page.PageDecorator;
-import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.metadata.ContentClassification;
 import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -20,9 +18,6 @@ import java.util.stream.Collectors;
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @JsonRootName(value = "document")
 public class DocumentObjectData extends AbstractAnalyticsModel{
-
-    @Self
-    private SiteContext siteContext;
 
     @Inject
     private PageDecorator currentPage;
