@@ -13,7 +13,6 @@ import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.wcm.foundation.Image;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.components.AbstractComponent;
@@ -54,8 +53,6 @@ import java.util.List;
 public final class ExternalFooter extends AbstractComponent implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/structure/externalfooter";
-
-    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @Inject
     private PageDecorator currentPage;

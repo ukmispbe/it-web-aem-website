@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.SiteContext;
-import com.waters.aem.core.components.structure.page.ApplicationNotes;
-import com.waters.aem.core.components.structure.page.LibraryPage;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.metadata.ContentClassification;
 import com.waters.aem.core.utils.Templates;
