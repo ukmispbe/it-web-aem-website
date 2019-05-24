@@ -20,7 +20,7 @@ const customStyles = {
     control: (provided, state) => ({
         ...provided,
         'border-radius': '0',
-        padding: '0.5em',
+        padding: '0.3em 0.5em',
         color: '#4f5b64',
         'border-color': state.isFocused ? '#9ca7b0' : '#9ca7b0',
         outline: 'none',
