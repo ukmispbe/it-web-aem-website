@@ -614,7 +614,7 @@ class Search extends Component {
     getKeywordTag = () =>
         this.isKeywordSelected() ? (
             <KeywordTag
-                keyword={this.state.keyword}
+                keyword={this.state.spell_suggestion ? this.state.spell_suggestion : this.state.keyword}
                 text={this.props.searchText}
                 onRemove={this.handleRemoveKeyword}
             />
