@@ -42,11 +42,7 @@
                 tags="[waters:contenttype]"/>
             <button
                 jcr:primaryType="nt:unstructured"
-                sling:resourceType="waters/components/content/button"
-                buttonLink="https://www.waters.com/webassets/cms/library/docs/720005893en.pdf"
-                buttonText="Download PDF"
-                buttonToolTip="Download PDF"
-                newWindow="true"/>
+                sling:resourceType="waters/components/content/button"/>
             <image
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="waters/components/content/image"/>
