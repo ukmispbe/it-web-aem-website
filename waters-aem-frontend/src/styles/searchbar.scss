@@ -3,7 +3,7 @@
     float: left;
     margin-bottom: $space-m;
     position: relative;
-    z-index: 9999;
+    z-index: 0;
 
     .react-autosuggest__suggestions-container {
         position: absolute;
@@ -46,7 +46,7 @@
     }
 
     .react-autosuggest__suggestions-container--open {
-        background-color: $color-white; 
+        background-color: $color-white;
     }
 
     .react-autosuggest__input {
@@ -79,7 +79,7 @@
                 width: $icon-l;
                 height: $icon-l;
                 cursor: pointer;
-                
+
                 .st0 {
                     stroke: $color-icon;
                 }
@@ -119,6 +119,9 @@
     -   hiding the title under the overlay
 */
 body.cmp-search-bar__auto-suggest--open {
+    .cmp-search-bar {
+        z-index: 9999;
+    }
     .cmp-banner {
         -ms-overflow-y: visible;
         overflow-y: unset;
@@ -137,7 +140,8 @@ body.cmp-search-bar__auto-suggest--open {
 */
 body.cmp-search-body__auto-suggest--open {
     .cmp-search-sortby__select {
-        select, svg {
+        select,
+        svg {
             z-index: -1;
         }
     }
@@ -147,3 +151,17 @@ body.cmp-search-body__auto-suggest--open {
         position: relative;
     }
 }
+
+// Firefox CSS Hacks
+@-moz-document url-prefix() {
+    .cmp-search-bar .react-autosuggest__suggestions-container {
+        top: 4.15em;
+    }
+}
+
+// Edge CSS Hack 
+@supports (-ms-ime-align: auto) {
+    .cmp-search-bar .react-autosuggest__suggestions-container {
+        top: 4.2em; 
+    }
+} 

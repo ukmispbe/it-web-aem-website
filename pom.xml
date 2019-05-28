@@ -40,7 +40,8 @@
         <aem.library.version>12.0.0</aem.library.version>
         <core.components.version>2.3.0</core.components.version>
         <component.plugin.version>6.4.0</component.plugin.version>
-        <itext.version>7.1.4</itext.version>
+        <itext.version>7.1.7-SNAPSHOT</itext.version>
+        <itext.html2pdf.version>2.1.4-SNAPSHOT</itext.html2pdf.version>
         <osgi.bundle.status.plugin.version>2.0.2</osgi.bundle.status.plugin.version>
 
         <!-- defaults -->
@@ -70,13 +71,23 @@
             </snapshots>
         </repository>
         <repository>
-            <id>itext</id>
+            <id>itext-releases</id>
             <url>https://repo.itextsupport.com/releases</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
             <snapshots>
                 <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>itext-snapshots</id>
+            <url>https://repo.itextsupport.com/snapshot</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
             </snapshots>
         </repository>
     </repositories>
@@ -466,7 +477,7 @@
             <dependency>
                 <groupId>com.itextpdf</groupId>
                 <artifactId>html2pdf</artifactId>
-                <version>2.1.1</version>
+                <version>${itext.html2pdf.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.itextpdf</groupId>

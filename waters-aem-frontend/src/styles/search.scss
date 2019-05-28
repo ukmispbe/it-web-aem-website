@@ -20,6 +20,7 @@
             float: none;
             padding-left: 0;
             margin-left: 0;
+            margin-top: $space-s * -1;
         }
     }
     @include tablet {
@@ -31,6 +32,17 @@
         width: 100%;
         float: none;
         padding-left: 0;
+    }
+
+    .cmp-search-filters__tags {
+        @include mobile {
+            margin-top: -30px;
+            margin-bottom: $space-l;
+        }
+
+        @include tablet {
+            margin-top: -20px;
+        }
     }
 }
 .cmp-search__results-container {
@@ -50,15 +62,15 @@
     }
 }
 .cmp-search__results-item {
+    border-top: 1px solid $color-border-rule;
+    padding-top: $space-m;
     @include list-item;
-    @include mobile {
-        margin-bottom: $space-l;
-    }
 
     &-breadcrumb {
         display: flex;
         @include font-small;
-        margin-top: $space-xs;
+        margin-top: $space-s;
+        padding-bottom: $space-xs;
 
         svg {
             margin: ($space-xxxs + .2em) $space-xxxs 0 $space-xxxs;
@@ -74,7 +86,6 @@
 .cmp-search__results-body {
     width: 100%;
     float: left;
-    padding-bottom: $space-s;
     @include mobile {
         padding-bottom: 0;
     }
@@ -170,9 +181,9 @@ div.cmp-search__no-results {
             }
             svg {
                 width: $icon-m;
-                height: 20px;
-                margin-left: $space-xxs;
-                margin-top: $space-xxxs;
+                height: 24px;
+                margin-left: ($space-xxs + .15em);
+                margin-top: ($space-xxxs - .15em);
                 @include mobile {
                     height: 24px;
                 }
@@ -346,10 +357,7 @@ div.cmp-search__no-results {
 
     @include tablet-and-under {
         top: -13px;
-    }
-
-    @include mobile {
-        margin-bottom: $space-xl + 1;
+        margin-bottom: $space-xxl;
     }
 }
 

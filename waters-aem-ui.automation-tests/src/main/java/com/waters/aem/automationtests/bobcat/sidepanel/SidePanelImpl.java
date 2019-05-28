@@ -102,18 +102,19 @@ public class SidePanelImpl implements SidePanel {
         bobcatWait.tweak(Timings.MEDIUM_EXPLICIT).until(invisibilityOf(resultsLoader));
 
         bobcatWait.tweak(Timings.MEDIUM_EXPLICIT).ignoring(StaleElementReferenceException.class)
-            .until(visibilityOfAllElements(searchResults));
+        .until(visibilityOfAllElements(searchResults));
     }
 
     private WebElement getResult(String asset) {
         return searchResults.stream() //
-            .filter(element -> StringUtils
-                .contains(element.getAttribute(HtmlTags.Attributes.DATA_PATH), asset)) //
-            .findFirst() //
-            .orElseThrow(() -> new IllegalStateException(asset + " asset was not found"));
+        .filter(element -> StringUtils
+        .contains(element.getAttribute(HtmlTags.Attributes.DATA_PATH), asset)) //
+        .findFirst() //
+        .orElseThrow(() -> new IllegalStateException(asset + " asset was not found"));
     }
 
     public WebElement getComponentWebElement(String componentName, WebElement currentScope) {
         return currentScope.findElement(By.xpath(String.format(COMPONENT_XPATH_FORMAT, componentName, componentName)));
     }
+
 }

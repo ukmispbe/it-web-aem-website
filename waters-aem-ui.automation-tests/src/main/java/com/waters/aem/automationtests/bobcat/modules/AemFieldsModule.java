@@ -20,6 +20,7 @@ import com.waters.aem.automationtests.bobcat.dialog.dialogfields.RadioGroup;
 import com.waters.aem.automationtests.bobcat.dialog.dialogfields.RichText;
 import com.waters.aem.automationtests.bobcat.dialog.dialogfields.Select;
 import com.waters.aem.automationtests.bobcat.dialog.dialogfields.Textfield;
+import com.waters.aem.automationtests.bobcat.dialog.dialogfields.Switch;
 import com.waters.aem.automationtests.bobcat.dialog.dialogfields.text.ControlToolbarImpl;
 import com.waters.aem.automationtests.bobcat.dialog.dialogfields.text.JustifyDialogPanel;
 
@@ -27,6 +28,8 @@ import com.waters.aem.automationtests.bobcat.dialog.dialogfields.text.JustifyDia
  * This module contains bindings for TouchUI dialog fields.
  */
 public class AemFieldsModule extends AbstractModule {
+
+    public static final String SWITCH = "SWITCH";
 
     @Override
     protected void configure() {
@@ -38,6 +41,7 @@ public class AemFieldsModule extends AbstractModule {
             .newMapBinder(binder(), String.class, DialogField.class);
 
         fieldsBinder.addBinding(Fields.CHECKBOX).to(Checkbox.class);
+        fieldsBinder.addBinding(SWITCH).to(Switch.class);
         fieldsBinder.addBinding(Fields.TEXTFIELD).to(Textfield.class);
         fieldsBinder.addBinding(Fields.IMAGE).to(Image.class);
         fieldsBinder.addBinding(Fields.PATHBROWSER).to(PathBrowser.class);

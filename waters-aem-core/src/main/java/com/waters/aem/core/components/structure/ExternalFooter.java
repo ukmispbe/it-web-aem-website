@@ -13,8 +13,6 @@ import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.wcm.foundation.Image;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.components.AbstractComponent;
@@ -23,10 +21,8 @@ import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.content.applicationnotes.ExternalLinkItem;
-import com.waters.aem.core.components.structure.page.AnalyticsPageModel;
-import com.waters.aem.core.components.structure.page.AppnotePageAnalyticsModel;
+import com.waters.aem.core.components.structure.page.analytics.DataLayer;
 import com.waters.aem.core.constants.WatersConstants;
-import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -58,16 +54,11 @@ public final class ExternalFooter extends AbstractComponent implements Component
 
     public static final String RESOURCE_TYPE = "waters/components/structure/externalfooter";
 
-    private static final ObjectMapper MAPPER = new ObjectMapper();
-
     @Inject
     private PageDecorator currentPage;
 
     @ChildResource(name = "../")
-    private AppnotePageAnalyticsModel analyticsModel;
-
-    @ChildResource(name = "../")
-    private AnalyticsPageModel pageModel;
+    private DataLayer dataLayer;
 
     @DialogField(fieldLabel = "Logo",
         fieldDescription = "Select the logo image to display on footer",
@@ -159,9 +150,7 @@ public final class ExternalFooter extends AbstractComponent implements Component
     }
 
     public String getDataLayer() throws JsonProcessingException {
-        return Templates.isApplicationNotesPage(currentPage) ?
-            MAPPER.configure(SerializationFeature.WRAP_ROOT_VALUE, false).writeValueAsString(analyticsModel) :
-            MAPPER.enable(SerializationFeature.WRAP_ROOT_VALUE).writeValueAsString(pageModel);
+        return dataLayer.getJsonData();
     }
 
     @Nonnull

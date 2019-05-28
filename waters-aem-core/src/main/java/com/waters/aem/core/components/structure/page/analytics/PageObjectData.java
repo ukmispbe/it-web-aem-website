@@ -1,24 +1,25 @@
-package com.waters.aem.core.components.structure.page;
+package com.waters.aem.core.components.structure.page.analytics;
 
-import com.fasterxml.jackson.annotation.JsonRootName;
 import com.waters.aem.core.components.SiteContext;
+import com.waters.aem.core.metadata.ContentClassification;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
+import javax.inject.Inject;
+
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-@JsonRootName(value = "page")
-public final class AnalyticsPageModel extends AbstractAnalyticsModel {
+public class PageObjectData extends AbstractAnalyticsModel {
 
     @Self
-    private SiteContext siteContext;
+    SiteContext siteContext;
 
-    @Self
-    private ApplicationNotes applicationNotes;
+    @Inject
+    private ContentClassification contentClassification;
 
     public String getCategory() {
-        return getFirstTagTitle(applicationNotes.getCategory());
+        return getFirstTagTitle(contentClassification.getCategory());
     }
 
     public String getCountry() {
@@ -29,8 +30,9 @@ public final class AnalyticsPageModel extends AbstractAnalyticsModel {
         return siteContext.getLocale().getLanguage();
     }
 
-    public String getType() {
-        return getFirstTagTitle(applicationNotes.getContentType());
-    }
-}
 
+    public String getType() {
+        return getFirstTagTitle(contentClassification.getContentType());
+    }
+
+}
