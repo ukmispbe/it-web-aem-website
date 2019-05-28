@@ -83,6 +83,12 @@
     .cmp-external-header {
         border-bottom: none;
         width: 100%;
+        &__logo {
+            img {
+                height: 32px;
+                width: 115px;
+            }
+        }
     }
 
     .cmp-qr-code {
