@@ -70,7 +70,7 @@
         display: flex;
         @include font-small;
         margin-top: $space-s;
-        padding-bottom: 0;
+        padding-bottom: $space-xs;
 
         svg {
             margin: ($space-xxxs + .2em) $space-xxxs 0 $space-xxxs;
@@ -181,9 +181,9 @@ div.cmp-search__no-results {
             }
             svg {
                 width: $icon-m;
-                height: 20px;
-                margin-left: $space-xxs;
-                margin-top: $space-xxxs;
+                height: 24px;
+                margin-left: ($space-xxs + .15em);
+                margin-top: ($space-xxxs - .15em);
                 @include mobile {
                     height: 24px;
                 }
@@ -328,10 +328,6 @@ div.cmp-search__no-results {
             width: 100%;
             margin: 0;
         }
-    }
-
-    @include mobile {
-        text-align: center;
     }
 
     .text-strike {
