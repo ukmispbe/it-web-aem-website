@@ -29,14 +29,16 @@ div.image {
     }
 
     &.inlined-svg {
-        display: block;
+        display: inline-block;
 
         svg {
-            display: block;
+            display: inline-block;
         }
     }
 }
 
 svg.inline-svg {
-    display: block;
+    display: inline-block;
+    min-height: 50px;
+    padding-bottom: $space-m;
 }
