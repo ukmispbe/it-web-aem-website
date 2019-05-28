@@ -1,6 +1,7 @@
 package com.waters.aem.hybris.importer.impl;
 
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.WCMException;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableMap;
@@ -362,22 +363,34 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     }
 
     private void updateCategoryPageProperties(final PageDecorator page, final Category category) {
-        final ValueMap properties = page.getContentResource().adaptTo(ModifiableValueMap.class);
+        final Map<String, Object> updatedProperties = new HashMap<>();
 
-        properties.put(JcrConstants.JCR_LASTMODIFIED, Calendar.getInstance());
-        properties.put(WatersCommerceConstants.PROPERTY_ID, category.getId());
+        updatedProperties.put(WatersCommerceConstants.PROPERTY_ID, category.getId());
 
         if (category.getLastModified() != null) {
-            properties.put(WatersCommerceConstants.PROPERTY_LAST_MODIFIED, category.getLastModified());
+            updatedProperties.put(WatersCommerceConstants.PROPERTY_LAST_MODIFIED, category.getLastModified());
         }
+
+        updatePageProperties(page, updatedProperties);
     }
 
     private void updateSkuPageProperties(final PageDecorator page, final Sku sku) {
+        final Map<String, Object> updatedProperties = new HashMap<>();
+
+        updatedProperties.put(WatersCommerceConstants.PROPERTY_PRODUCT_RESOURCE_PATH, sku.getPath());
+        updatedProperties.put(WatersCommerceConstants.PROPERTY_CODE, sku.getId());
+
+        updatePageProperties(page, updatedProperties);
+    }
+
+    private void updatePageProperties(final PageDecorator page, final Map<String, Object> updatedProperties) {
         final ValueMap properties = page.getContentResource().adaptTo(ModifiableValueMap.class);
 
-        properties.put(JcrConstants.JCR_LASTMODIFIED, Calendar.getInstance());
-        properties.put(WatersCommerceConstants.PROPERTY_PRODUCT_RESOURCE_PATH, sku.getPath());
-        properties.put(WatersCommerceConstants.PROPERTY_CODE, sku.getId());
+        final Calendar lastModifiedDate = Calendar.getInstance();
+
+        properties.put(JcrConstants.JCR_LASTMODIFIED, lastModifiedDate);
+        properties.put(NameConstants.PN_PAGE_LAST_MOD, lastModifiedDate);
+        properties.putAll(updatedProperties);
     }
 
     private Map<String, List<String>> getCategoryIdToProductCodeMap(final ResourceResolver resourceResolver) {
