@@ -14,7 +14,7 @@
         padding: $space-xs $space-s;
         background-color: transparent;
         outline: none;
-        border: 1px solid $color-gray-40;
+        border: 1px solid $color-border-light;
     }
     &__filter {
         div.facet-container {
@@ -25,7 +25,7 @@
         ul {
             overflow-y: auto;
             max-height: 12em;
-            padding: $space-xs $space-s 0 $space-s;
+            padding: 0 $space-xs;
 
             li {
                 padding: 0 0 $space-xs 0;
@@ -44,7 +44,7 @@
             border-top: 1px solid $color-border-light;
             display: block;
             background-color: $color-white;
-            padding: $space-xs $space-s;
+            padding: $space-xs $space-s $space-xs 0;
             margin: 0;
             text-decoration: none;
             position: relative;
@@ -147,6 +147,7 @@
             }
             input[type='input'] {
                 padding-right: $space-xl;
+                margin-bottom: $space-xs;
 
                 &::-ms-clear {
                     display: none;
@@ -193,17 +194,20 @@
         }
         &.expanded {
             a.filter-toggle {
-                background-color: $color-font-medium;
-                color: $color-white;
+                color: $color-font-dark;
+                font-weight: $font-weight-bold;
                 &:hover {
                     & svg .st0 {
-                        stroke: $color-white;
+                        stroke: $color-link;
                     }
                 }
                 .expandIcon {
                     display: none;
                 }
                 .collapseIcon {
+                    & svg .st0 {
+                        stroke: $color-icon;
+                    }
                     display: block;
                 }
                 @include tablet-and-under {
@@ -247,6 +251,10 @@
                 height: $icon-s;
                 .st0 {
                     stroke: $color-icon;
+                }
+                @include tablet-and-under {
+                    top: 11px;
+                    left: 6px;
                 }
             }
             &:hover {
@@ -307,11 +315,11 @@
     display: none;
     a {
         @include font-utility;
-        border: 1px solid $color-blue-50;
+        background: $color-blue-10;
         text-align: center;
         padding: $space-xs $space-l;
         margin-bottom: $space-m;
-        color: $color-blue-50;
+        color: $color-blue-70;
         width: 100%;
         display: block;
         text-transform: uppercase;
@@ -383,6 +391,7 @@ $header-height: 74px;
     
     .cmp-search-filters__tags {
         display: none;
+        margin-bottom: $space-m;
     }
 
     @include tablet-and-under {
@@ -419,7 +428,7 @@ $header-height: 74px;
 
     @include tablet {
         display: none;
-        width: 41%;
+        width: 40%;
         height: 100%;
         padding: $header-height 20px 20px 20px;
     }

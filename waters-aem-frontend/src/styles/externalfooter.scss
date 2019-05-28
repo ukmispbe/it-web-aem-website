@@ -97,7 +97,7 @@
     display: block;
     opacity: 0;
     border: 1px solid $color-border-light;
-    padding: $space-xxs;
+    padding: ($space-xxs + .05em);
     box-shadow: $shadow;
     transition: $fade-transition;
 
