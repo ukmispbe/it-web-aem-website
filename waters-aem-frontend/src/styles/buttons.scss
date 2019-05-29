@@ -183,3 +183,9 @@ button.cmp-button.cmp-button--center {
         width: auto;
     }
 }
+
+.cmp-button-container {
+    .cmp-button {
+        margin-right: $space-xs;
+    }
+}
