@@ -15,6 +15,7 @@
         <module>waters-aem-solr</module>
         <module>waters-aem-pdf-generator</module>
         <module>waters-aem-akamai</module>
+        <module>waters-aem-hybris-importer</module>
         <module>waters-aem-frontend</module>
         <module>waters-aem-ui.apps</module>
         <module>waters-aem-ui.content</module>
@@ -32,6 +33,7 @@
         <solr.artifactId>waters-aem-solr</solr.artifactId>
         <pdfgenerator.artifactId>waters-aem-pdf-generator</pdfgenerator.artifactId>
         <akamai.artifactId>waters-aem-akamai</akamai.artifactId>
+        <hybris.artifactId>waters-aem-hybris-importer</hybris.artifactId>
 
         <!-- versions -->
         <acs.aem.commons.version>3.19.0</acs.aem.commons.version>
@@ -641,6 +643,20 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-text</artifactId>
                 <version>1.6</version>
+            </dependency>
+
+            <!-- HTTP client -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.4</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpcore</artifactId>
+                <version>4.4.8</version>
+                <scope>provided</scope>
             </dependency>
 
             <!-- POI -->
