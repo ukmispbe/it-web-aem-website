@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@SuppressWarnings({ "squid:HiddenFieldCheck" })
 public final class Sku {
 
     @OSGiService
