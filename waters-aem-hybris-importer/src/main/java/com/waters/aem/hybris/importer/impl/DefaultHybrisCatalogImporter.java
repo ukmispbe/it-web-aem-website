@@ -326,21 +326,25 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         } else {
             final String skuPagePath = categoryPage.getPath() + "/" + skuPageName;
 
-            if (existingSkuPagePath.equals(skuPagePath)) {
-                skuPage = pageManager.getPage(skuPagePath);
+            // disabling 'move' functionality until hybris catalog is restructured to ensure that skus only exist in a
+            // single category
 
-                // found existing page in same category
-                final Calendar skuPageLastModified = skuPage.get(JcrConstants.JCR_LASTMODIFIED, Calendar.class)
-                    .orNull();
+            // if (existingSkuPagePath.equals(skuPagePath)) {
+            skuPage = pageManager.getPage(skuPagePath);
 
-                // if product has been updated more recently than this page, update the page properties
-                if (sku.getLastModified().after(skuPageLastModified)) {
-                    status = HybrisImportStatus.UPDATED;
-                } else {
-                    status = HybrisImportStatus.IGNORED;
-                }
+            // found existing page in same category
+            final Calendar skuPageLastModified = skuPage.get(JcrConstants.JCR_LASTMODIFIED, Calendar.class)
+                .orNull();
 
-                LOG.debug("found existing sku page : {}, status : {}", skuPage.getPath(), status);
+            // if product has been updated more recently than this page, update the page properties
+            if (sku.getLastModified().after(skuPageLastModified)) {
+                status = HybrisImportStatus.UPDATED;
+            } else {
+                status = HybrisImportStatus.IGNORED;
+            }
+
+            LOG.debug("found existing sku page : {}, status : {}", skuPage.getPath(), status);
+            /*
             } else {
                 // sku page needs to be moved to new category
                 skuPage = moveSkuPage(context, existingSkuPagePath, skuPagePath);
@@ -349,6 +353,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
                 status = HybrisImportStatus.MOVED;
             }
+            */
         }
 
         if (status != HybrisImportStatus.IGNORED) {
