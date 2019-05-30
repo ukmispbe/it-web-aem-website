@@ -1,5 +1,7 @@
 package com.waters.aem.core.constants;
 
+import com.google.common.base.Predicate;
+import com.icfolson.aem.library.api.page.PageDecorator;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 @SuppressWarnings("squid:S1195")
@@ -32,6 +34,9 @@ public final class WatersConstants {
     public static final String TEMPLATE_CATEGORY_PAGE = "/conf/waters/settings/wcm/templates/section-page";
 
     public static final String TEMPLATE_SKU_PAGE = "/conf/waters/settings/wcm/templates/product-page";
+
+    public static final Predicate<PageDecorator> PREDICATE_SKU_PAGE = page -> TEMPLATE_SKU_PAGE.equals(
+        page.getTemplatePath());
 
     public static final String RENDER_CONDITION_APPLICATION_NOTES_TEMPLATE = "waters/components/renderconditions/applicationnotestemplate";
 

@@ -32,7 +32,7 @@ public final class Sku {
     private Resource resource;
 
     @ValueMapValue(name = WatersCommerceConstants.PROPERTY_CODE)
-    private String id;
+    private String code;
 
     @ValueMapValue(name = WatersCommerceConstants.PROPERTY_CATEGORIES)
     private String[] categories;
@@ -69,8 +69,8 @@ public final class Sku {
         return Arrays.asList(categories);
     }
 
-    public String getId() {
-        return id;
+    public String getCode() {
+        return code;
     }
 
     public String getTitle() {
