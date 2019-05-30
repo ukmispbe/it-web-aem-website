@@ -242,11 +242,9 @@ div.cmp-search__no-results {
         }
         transition: none;
         .closeIcon {
-            //opacity: 0;
             display: none;
         }
         .filterIcon {
-            //opacity: 1;
             display: block;
         }
         svg {
@@ -414,11 +412,9 @@ html.showing-spinner {
                 display: block;
                 @include sticky-show-sort;
                 .filterIcon {
-                    //opacity: 0;
                     display: none;
                 }
                 .closeIcon {
-                    //opacity: 1;
                     display: block;
                 }
             }
