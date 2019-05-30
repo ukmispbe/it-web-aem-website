@@ -6,5 +6,7 @@
     <filter root="/etc/designs/waters"/>
     <filter root="/etc/map.publish"/>
     <filter root="/etc/notification/email/waters"/>
-    <filter root="/etc/waters"/>
+    <filter root="/etc/waters">
+        <exclude pattern="/etc/waters/hybris-importer/jcr:content/(.*)?"/>
+    </filter>
 </workspaceFilter>

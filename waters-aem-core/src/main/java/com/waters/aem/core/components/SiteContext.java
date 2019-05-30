@@ -1,7 +1,6 @@
 package com.waters.aem.core.components;
 
 import com.day.cq.i18n.I18n;
-import com.google.common.annotations.Beta;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
@@ -11,6 +10,7 @@ import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
 import javax.inject.Inject;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -34,13 +34,14 @@ public final class SiteContext {
     }
 
     /**
-     * Get the commerce currency ISO code.
+     * Get the commerce currency ISO code, defaulting to the ISO code for the current locale.
      *
      * @return ISO code that maps to the commerce pricing value
      */
-    @Beta
     public String getCurrencyIsoCode() {
-        return currentPage.getInherited("currencyIsoCode", "");
+        final Currency defaultCurrency = Currency.getInstance(getLocale());
+
+        return currentPage.getInherited("currencyIsoCode", defaultCurrency.getCurrencyCode());
     }
 
     public String getTranslation(final String key) {

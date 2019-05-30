@@ -40,3 +40,9 @@ div.image {
 svg.inline-svg {
     display: block;
 }
+
+a.method-file-button > svg.inlined-svg{
+    display: inline-block;
+    min-height: 50px;
+    padding-bottom: $space-m;
+}

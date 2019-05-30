@@ -1,0 +1,10 @@
+<h1>Audit History</h1>
+
+<div class="row" data-sly-use.importerAudit="com.waters.aem.hybris.components.HybrisImporterAudit">
+    <sly data-sly-test.displayAuditRecord="${importerAudit.displayAuditRecord}">
+        <sly data-sly-include="auditrecord.html"/>
+    </sly>
+    <sly data-sly-test="${!displayAuditRecord}">
+        <sly data-sly-include="auditrecords.html"/>
+    </sly>
+</div>

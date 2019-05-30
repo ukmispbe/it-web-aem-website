@@ -29,6 +29,10 @@ public final class WatersConstants {
 
     public static final String TEMPLATE_REDIRECT_PAGE = "/conf/waters/settings/wcm/templates/redirect-page";
 
+    public static final String TEMPLATE_CATEGORY_PAGE = "/conf/waters/settings/wcm/templates/section-page";
+
+    public static final String TEMPLATE_SKU_PAGE = "/conf/waters/settings/wcm/templates/product-page";
+
     public static final String RENDER_CONDITION_APPLICATION_NOTES_TEMPLATE = "waters/components/renderconditions/applicationnotestemplate";
 
     public static final String EXTENSION_PDF = "pdf";
