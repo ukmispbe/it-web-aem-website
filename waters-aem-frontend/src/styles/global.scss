@@ -133,3 +133,30 @@ a {
     clear: both;
     content: '';
 }
+
+.cmp-custom-dropdown__control {
+    .cmp-custom-dropdown__dropdown-indicator > div {
+        width: 23px;
+        height: 20px;
+
+        svg {
+            height: 20px;
+            .st0 {
+                stroke: $color-icon;
+            }
+        }
+    }
+    &:hover {
+        .cmp-custom-dropdown__value-container {
+            color: $color-link !important;
+        }
+
+        .cmp-custom-dropdown__dropdown-indicator > div {
+            svg {
+                .st0 {
+                    stroke: $color-link;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,13 @@
+Properties:
+  - label: Button Text
+    type: TEXTFIELD
+    value: Download PDF
+  - label: Button Tool Tip
+    type: TEXTFIELD
+    value: Download PDF
+  - label: Button Link
+    type: PATHBROWSER
+    value: https://www.waters.com/webassets/cms/library/docs/720005893en.pdf
+  - label: Open in New Window
+    type: SWITCH
+    value: true

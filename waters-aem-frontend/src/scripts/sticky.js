@@ -1,16 +1,53 @@
-function handleSticky(targetClass, stickyClass) {
-    const sourceClass = document.querySelector("."+targetClass);
-    if (sourceClass){
-        const sourceTop = sourceClass.offsetTop;
-            if (window.scrollY > sourceTop) {
+const isMobile = window.matchMedia('(max-width: 649px)').matches;
+
+function createSticky(target, stick, element) {
+    const sourcePosition = {
+        [target]: element.getBoundingClientRect().top,
+    };
+
+    function handleSticky(targetClass, stickyClass) {
+        const sourceClass = element;
+        const headerHeight = document.querySelector('.cmp-external-header')
+            .offsetHeight;
+
+        if (sourceClass) {
+            const sourceTop = sourceClass.getBoundingClientRect().top;
+
+            if (!sourcePosition[targetClass]) {
+                sourcePosition[targetClass] = sourceTop;
+            }
+
+            if (window.scrollY > sourcePosition[targetClass] - headerHeight) {
                 sourceClass.classList.add(stickyClass);
             } else {
                 sourceClass.classList.remove(stickyClass);
             }
+        }
+    }
+
+    if (isMobile) {
+        window.addEventListener('scroll', () => {
+            handleSticky(target, stick);
+        });
     }
 }
 
-//inputs to this function are the targetClass and StickyClass
-window.addEventListener('scroll', () => {
-    handleSticky('btn-show-sort-filter', 'btn-show-sort-filter--sticky');
+function ready(fn) {
+    if (
+        document.attachEvent
+            ? document.readyState === 'complete'
+            : document.readyState !== 'loading'
+    ) {
+        fn();
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+
+ready(() => {
+    const filterBtnClass = 'btn-show-sort-filter';
+    const filterBtnStickyClass = 'btn-show-sort-filter--sticky';
+    const filterBtnElement = document.querySelector(`.${filterBtnClass}`);
+
+    createSticky(filterBtnClass, filterBtnStickyClass, filterBtnElement);
 });

@@ -1,8 +1,11 @@
 #base=.
 
+js/modernizr.js
+js/string.prototype.startsWith.js
 js/array.prototype.filter.js
 js/array.prototype.find.js
 js/array.prototype.findIndex.js
+js/array.from.js
 js/object-polyfill.js
 js/es6-promise.js
 js/main.js

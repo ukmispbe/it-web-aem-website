@@ -1,5 +1,4 @@
 .cmp-search-filters {
-    border-bottom: 1px solid $color-border-light;
     ul {
         padding: 0;
         margin: 0;
@@ -15,7 +14,7 @@
         padding: $space-xs $space-s;
         background-color: transparent;
         outline: none;
-        border: 1px solid $color-gray-40;
+        border: 1px solid $color-border-light;
     }
     &__filter {
         div.facet-container {
@@ -26,7 +25,7 @@
         ul {
             overflow-y: auto;
             max-height: 12em;
-            padding: $space-xs $space-s 0 $space-s;
+            padding: 0 $space-xs;
 
             li {
                 padding: 0 0 $space-xs 0;
@@ -45,7 +44,7 @@
             border-top: 1px solid $color-border-light;
             display: block;
             background-color: $color-white;
-            padding: $space-xs $space-s;
+            padding: $space-xs $space-s $space-xs 0;
             margin: 0;
             text-decoration: none;
             position: relative;
@@ -148,8 +147,14 @@
             }
             input[type='input'] {
                 padding-right: $space-xl;
+                margin-bottom: $space-xs;
+
+                &::-ms-clear {
+                    display: none;
+                }
             }
             svg {
+                z-index: 1;
                 position: absolute;
                 top: 9px;
                 right: 10px;
@@ -158,6 +163,10 @@
                 .st0 {
                     stroke: $color-icon;
                 }
+            }
+
+            .closeIcon {
+                cursor: pointer;
             }
         }
         &__year {
@@ -185,17 +194,20 @@
         }
         &.expanded {
             a.filter-toggle {
-                background-color: $color-font-medium;
-                color: $color-white;
+                color: $color-font-dark;
+                font-weight: $font-weight-bold;
                 &:hover {
                     & svg .st0 {
-                        stroke: $color-white;
+                        stroke: $color-link;
                     }
                 }
                 .expandIcon {
                     display: none;
                 }
                 .collapseIcon {
+                    & svg .st0 {
+                        stroke: $color-icon;
+                    }
                     display: block;
                 }
                 @include tablet-and-under {
@@ -226,20 +238,23 @@
             @include font-small;
             display: block;
             float: left;
-            padding: $space-xxxs $space-xs ($space-xxs - 0.1em)
-                ($space-l - 0.1em);
+            padding: $space-xxxs $space-xs $space-xxxs ($space-l - 0.1em);
             margin: 0 $space-xs $space-xs 0;
             text-decoration: none;
             background-color: $color-gray-10;
             position: relative;
             svg {
                 position: absolute;
-                top: 11px;
+                top: 10px;
                 left: 9px;
                 width: $icon-s;
                 height: $icon-s;
                 .st0 {
                     stroke: $color-icon;
+                }
+                @include tablet-and-under {
+                    top: 11px;
+                    left: 6px;
                 }
             }
             &:hover {
@@ -262,11 +277,15 @@
         }
         @include tablet-and-under {
             margin-top: 0;
-            display: none;
+            margin-bottom: 0;
         }
     }
     &__emptytags {
-        height: 0;
+        height: 0.5em;
+
+        @include tablet-and-under {
+            height: 0;
+        }
     }
 }
 
@@ -296,11 +315,11 @@
     display: none;
     a {
         @include font-utility;
-        border: 1px solid $color-blue-50;
+        background: $color-blue-10;
         text-align: center;
         padding: $space-xs $space-l;
         margin-bottom: $space-m;
-        color: $color-blue-50;
+        color: $color-blue-70;
         width: 100%;
         display: block;
         text-transform: uppercase;
@@ -357,56 +376,6 @@
     }
 }
 
-.cmp-search-sortby {
-    &__select {
-        position: relative;
-        select {
-            @include font-body;
-            @include font-utility;
-            background-color: transparent;
-            border-radius: 0;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            width: 100%;
-            padding: $space-xs $space-s;
-            border: 1px solid $color-border-dark;
-            position: relative;
-            cursor: pointer;
-            &:hover,
-            &:focus {
-                color: $color-link;
-                outline: none;
-                &::-ms-value {
-                    color: inherit;
-                    background-color: transparent;
-                }
-            }
-            &::-ms-expand {
-                display: none;
-            }
-            margin-bottom: 0px;
-        }
-        svg {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            width: $icon-m;
-            height: $icon-m;
-            z-index: -1;
-            cursor: pointer;
-            .st0 {
-                stroke: $color-icon;
-            }
-        }
-        &:hover {
-            & svg .st0 {
-                stroke: $color-link;
-            }
-        }
-    }
-}
-
 .cmp-search-filters__tags.clearfix {
     &:after {
         display: block;
@@ -416,8 +385,13 @@
 $header-height: 74px;
 
 .cmp-search__sort-filter {
+    position: relative;
+    top: -55px;
+    // height: 100vh;
+
     .cmp-search-filters__tags {
         display: none;
+        margin-bottom: $space-m;
     }
 
     @include tablet-and-under {
@@ -528,4 +502,28 @@ $header-height: 74px;
             display: block;
         }
     }
+
+    .cmp-search__container {
+        .cmp-search-filters__tags {
+            @include mobile {
+                margin-top: -30px;
+                margin-bottom: $space-l;
+            }
+
+            @include tablet {
+                position: relative;
+                z-index: -1;
+                margin-top: -20px;
+            }
+        }
+    }
 }
+
+// .sort-filter-container-sticky {
+//      position: fixed;
+//      top: 78px;
+//  }
+
+// .sort-filter-container-affix {
+//      position: relative;
+//  }

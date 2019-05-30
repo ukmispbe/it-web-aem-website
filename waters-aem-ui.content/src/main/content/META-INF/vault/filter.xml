@@ -2,6 +2,7 @@
 <workspaceFilter version="1.0">
     <filter root="/conf/global"/>
     <filter root="/conf/waters" mode="merge"/>
+    <filter root="/content/catalogs/waters" mode="merge"/>
     <filter root="/content/dam/waters/jcr:content" mode="update"/>
     <filter root="/content/waters" mode="merge"/>
 </workspaceFilter>

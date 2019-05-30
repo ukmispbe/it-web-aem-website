@@ -61,11 +61,9 @@ const SubFacetTags = props => {
           })
         : null;
 
-    return (
-        <>
+    return <>
             {props.selectedFacets && tags}
-        </>
-    );
+        </>;
 };
 
 const CategoryTags = props => {
@@ -73,22 +71,28 @@ const CategoryTags = props => {
 
     if (!showTags) return <></>;
 
-    return(<>
-        <>
-            <a href="javascript:void(0);"
-                className="cmp-search-filters__tags__clear"
-                onClick={props.remove}>
-                <ReactSVG src={props.text.closeIcon} />
-                <span>{props.text.clearAllFilters}</span>
-            </a>
+    return <a href="javascript:void(0);"
+            onClick={props.onRemove}>
+            <ReactSVG src={props.text.closeIcon} />
+            <span>{`${props.text[props.categoryKey]}: ${props.selected.categoryFacetValue}`}</span>
+        </a>;
+}
 
-            <a href="javascript:void(0);"
-                onClick={props.remove}>
-                <ReactSVG src={props.text.closeIcon} />
-                <span>{`${props.text[props.categoryKey]}: ${props.selected.categoryFacetValue}`}</span>
-            </a>
-        </>
-    </>);
+const ClearAllTag = props => {
+    return <a href="javascript:void(0);"
+            className="cmp-search-filters__tags__clear"
+            onClick={props.onRemove}>
+            <ReactSVG src={props.text.closeIcon} />
+            <span>{props.text.clearAllFilters}</span>
+        </a>;
+}
+
+const KeywordTag = props => {
+    return <a href="javascript:void(0);"
+            onClick={props.onRemove}>
+            <ReactSVG src={props.text.closeIcon} />
+            <span>{`${props.text.keyWordLabel}: ${props.keyword}`}</span>
+        </a>;
 }
 
 SubFacetTags.propTypes = {
@@ -103,11 +107,22 @@ CategoryTags.proptTypes = {
     categoryKey: PropTypes.string,
     selected: PropTypes.object.isRequired,
     text: PropTypes.object.isRequired,
-    remove: PropTypes.func.isRequired
+    onRemove: PropTypes.func.isRequired
+}
+
+ClearAllTag.proptTypes = {
+    text: PropTypes.object.isRequired,
+    onRemove: PropTypes.func.isRequired
+}
+
+KeywordTag.propTypes = {
+    keyword: PropTypes.string,
+    text: PropTypes.object.isRequired,
+    onRemove: PropTypes.func.isRequired
 }
 
 CategoryTags.defaultProps = {
     selected: {}
 }
 
-export { SubFacetTags, CategoryTags }
+export { SubFacetTags, CategoryTags, ClearAllTag, KeywordTag }

@@ -2,13 +2,29 @@ import 'whatwg-fetch';
 
 const queryString = require('query-string');
 
-export class SearchService {
+const parameterValues = {
+    sort: {
+        mostRecent: 'most-recent',
+        mostRelevant: 'most-relevant'
+    }
+}
+
+const parameterDefaults = {
+    isocode: 'en_US',
+    page: 1,
+    rows: 25,
+    keyword: '*:*',
+    content_type: '',
+    sort: parameterValues.sort.mostRecent
+}
+
+class SearchService {
     constructor(
         {
-            isocode = 'en_US',
-            page = 1,
-            rows = 25,
-            sort = 'most-recent',
+            isocode = parameterDefaults.isocode,
+            page = parameterDefaults.page,
+            rows = parameterDefaults.rows,
+            sort = parameterDefaults.sort,
             multiselect = true,
         } = {},
         defaultFacet,
@@ -26,10 +42,10 @@ export class SearchService {
     }
 
     initial = ({
-        keyword = '*:*',
+        keyword = parameterDefaults.keyword,
         facets = {},
-        page = 1,       
-        sort = 'most-recent',
+        page = parameterDefaults.page,       
+        sort = parameterDefaults.sort,
     } = {}) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const searchString = `${this.path}/category_facet$library:Library?${paramString}`;
@@ -41,10 +57,10 @@ export class SearchService {
         contentTypeKey,
         contentTypeValue,
         {
-            keyword = '*:*',
+            keyword = parameterDefaults.keyword,
             facets = {},
-            page = 1,       
-            sort = 'most-recent',
+            page = parameterDefaults.page,       
+            sort = parameterDefaults.sort,
         } = {}
     ) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
@@ -57,10 +73,10 @@ export class SearchService {
         contentTypeName,
         contentTypeValue,
         {
-            keyword = '*:*',
+            keyword = parameterDefaults.keyword,
             facets = {},
-            page = 1,       
-            sort = 'most-recent',
+            page = parameterDefaults.page,       
+            sort = parameterDefaults.sort,
         } = {}
         ) => {
             const paramString = this.getQueryParamString({ keyword, page, sort });
@@ -68,6 +84,14 @@ export class SearchService {
             const searchString = `${this.path}/contenttype_facet$${contentTypeName.replace('_facet', '')}:${contentTypeValue}${facetString}?${paramString}`;
 
             return window.fetch(searchString).then(response => response.json());
+    }
+
+    getSuggestedKeywords = async (rows, term) => {
+        const searchString = `${this.path}/v1/autocomplete?term=${term}&rows=${rows}&isocode=${parameterDefaults.isocode}`;
+
+        const response = await (await window.fetch(searchString)).json();
+
+        return response.suggestions;
     }
 
     getParamsFromString() {
@@ -103,7 +127,12 @@ export class SearchService {
     }
 
     getQueryParamString(
-        { keyword = '*:*', page = 1, sort = 'most-recent', content_type = '' } = {},
+        { 
+            keyword = parameterDefaults.keyword, 
+            page = parameterDefaults.page, 
+            sort = parameterDefaults.sort, 
+            content_type = parameterDefaults.content_type
+        } = {},
         facets
     ) {
         const fullParams = Object.assign({}, this.options, {
@@ -174,7 +203,7 @@ export class SearchService {
         const obj = {};
 
         obj['keyword'] = params.keyword;
-        obj['page'] = params.page || 1;
+        obj['page'] = params.page || parameterDefaults.page;
         obj['facets'] = {};
         obj['sort'] = params.sort;
 
@@ -203,4 +232,41 @@ export class SearchService {
 
         return obj;
     }
+
+    getUrlParameter = (sParam, sPageURL) => {
+        const sURLVariables = sPageURL.split('&');
+
+        for (let i = 0; i < sURLVariables.length; i++) {
+            const sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined
+                    ? true
+                    : decodeURIComponent(sParameterName[1]);
+            }
+        }
+    }
+
+    buildParameters = (searchValue) => {
+        const keyword = searchValue ? searchValue : parameterDefaults.keyword;
+        const sort = keyword === parameterDefaults.keyword ? parameterDefaults.sort : parameterValues.sort.mostRelevant;
+
+        return { keyword, sort };
+    }
+
+    stringifyParameters = (parameters) => (Object.keys(parameters).length !== 0)
+            ? Object.keys(parameters).reduce((accumulator, currentValue) => 
+                `${accumulator}=${parameters[accumulator]}&${currentValue}=${parameters[currentValue]}`)
+            : '';
+
+    setUrlParameter = (searchTerm, searchPath) => {
+        const parameters = this.buildParameters(searchTerm);
+        const querystring = this.stringifyParameters(parameters);
+
+        window.location.href = `${searchPath}?${querystring}`;
+    }
+
+    isDefaultKeyword = value => value === parameterDefaults.keyword;
 }
+
+export { SearchService, parameterDefaults }

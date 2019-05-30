@@ -1,0 +1,3 @@
+- com.waters.aem.automationtests.bobcat.modules.CoreModule
+- com.waters.aem.automationtests.bobcat.modules.Aem63FullModule
+- com.waters.aem.automationtests.modules.WatersComponentModule

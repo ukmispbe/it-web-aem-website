@@ -1,0 +1,7 @@
+Properties:
+  - label:
+    type: RICHTEXT
+    value: Search Library
+  - label: Type / Size
+    type: SELECT
+    value: H1

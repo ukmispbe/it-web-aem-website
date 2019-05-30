@@ -1,4 +1,6 @@
 .cmp-search__container {
+    position: relative;
+    top: -55px;
     width: 75%;
     float: left;
     padding-left: 2%;
@@ -18,6 +20,7 @@
             float: none;
             padding-left: 0;
             margin-left: 0;
+            margin-top: $space-s * -1;
         }
     }
     @include tablet {
@@ -29,6 +32,17 @@
         width: 100%;
         float: none;
         padding-left: 0;
+    }
+
+    .cmp-search-filters__tags {
+        @include mobile {
+            margin-top: -30px;
+            margin-bottom: $space-l;
+        }
+
+        @include tablet {
+            margin-top: -20px;
+        }
     }
 }
 .cmp-search__results-container {
@@ -48,15 +62,30 @@
     }
 }
 .cmp-search__results-item {
+    border-top: 1px solid $color-border-rule;
+    padding-top: $space-m;
     @include list-item;
-    @include mobile {
-        margin-bottom: $space-l;
+
+    &-breadcrumb {
+        display: flex;
+        @include font-small;
+        margin-top: $space-s;
+        padding-bottom: $space-xs;
+
+        svg {
+            margin: ($space-xxxs + .2em) $space-xxxs 0 $space-xxxs;
+            width: $icon-s;
+            height: $icon-s;
+
+            .st0 {
+                stroke: $color-icon;
+            }
+        }
     }
 }
 .cmp-search__results-body {
     width: 100%;
     float: left;
-    padding-bottom: $space-s;
     @include mobile {
         padding-bottom: 0;
     }
@@ -152,9 +181,9 @@ div.cmp-search__no-results {
             }
             svg {
                 width: $icon-m;
-                height: 20px;
-                margin-left: $space-xxs;
-                margin-top: $space-xxxs;
+                height: 24px;
+                margin-left: ($space-xxs + .15em);
+                margin-top: ($space-xxxs - .15em);
                 @include mobile {
                     height: 24px;
                 }
@@ -213,10 +242,10 @@ div.cmp-search__no-results {
         }
         transition: none;
         .closeIcon {
-            opacity: 0;
+            display: none;
         }
         .filterIcon {
-            opacity: 1;
+            display: block;
         }
         svg {
             position: absolute;
@@ -259,18 +288,31 @@ div.cmp-search__no-results {
         width: 100%;
     }
 }
+
+.cmp-search__resultsCount-container {
+    position: relative;
+    top: -73px;
+    width: 70%;
+
+    @include tablet-and-under {
+        top: 0;
+        width: 100%;
+    }
+
+    @include tablet {
+        margin-bottom: $space-xl + 0.5;
+    }
+
+    @include mobile {
+        margin-bottom: $space-xl;
+    }
+}
+
 .cmp-search__resultsCount {
-    margin-top: -3.5em;
-    margin-bottom: 2em;
-    margin-left: -37%;
-    width: 100%;
-    overflow: hidden;
-    height: 70px;
     &.noresults {
         width: 70%;
         margin-left: 0;
         margin-top: -3.5em;
-        margin-bottom: 2em;
         overflow: visible;
         height: auto;
     }
@@ -287,7 +329,38 @@ div.cmp-search__no-results {
             margin: 0;
         }
     }
+
+    .text-strike {
+        text-decoration: line-through;
+    }
 }
+
+.cmp-search__related-suggestions {
+    position: relative;
+    @include font-body;
+    color: $color-font-medium;
+
+    .item {
+        color: $color-link;
+        height: 1em;
+        padding: 0 $space-xxs;
+        cursor: pointer;
+    }
+
+    .item:hover {
+        text-decoration: underline;
+    }
+
+    .vertical-bar {
+        color: $color-border-light;
+    }
+
+    @include tablet-and-under {
+        top: -13px;
+        margin-bottom: $space-xxl;
+    }
+}
+
 .cmp-search__sorted-by {
     display: none;
     float: left;
@@ -339,10 +412,10 @@ html.showing-spinner {
                 display: block;
                 @include sticky-show-sort;
                 .filterIcon {
-                    opacity: 0;
+                    display: none;
                 }
                 .closeIcon {
-                    opacity: 1;
+                    display: block;
                 }
             }
         }
@@ -356,5 +429,18 @@ html.showing-spinner {
 
     @include tablet {
         height: 100vh;
+
+        .cmp-search__resultsCount-container {
+            z-index: -1;
+        }
+
+        .cmp-search__results-container {
+            position: relative;
+            z-index: -1;
+        }
+
+        .cmp-search-bar {
+            z-index: -1;
+        }
     }
 }

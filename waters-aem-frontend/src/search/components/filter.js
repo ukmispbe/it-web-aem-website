@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FilterSection from './filter-section';
 import validator from 'validator';
+import PropTypes from 'prop-types';
 
 class Filter extends Component {
     constructor(props) {
@@ -14,11 +15,26 @@ class Filter extends Component {
 
     componentDidUpdate(prevProps) {
         /*
+            Check if content type was removed and there is an expanded filter.
+            If so, reset state so all filters are collapsed.
+        */
+        if(prevProps.contentType && !this.props.contentType && this.state.activeIndex !== -1) {
+            const classNameFilterActive = 'filter-active';
+
+            if(Array.from(document.body.classList).find(item => item === classNameFilterActive)) {
+                document.body.classList.remove(classNameFilterActive);
+            }
+
+            this.setState({activeIndex: -1, facetName: "", lastIndex: -1});
+            return;
+        }
+
+
+        /*
             This will validate the selected facet group.
             If the facet groups have been modified due to other facets being checked off,
             then this will recaludate the active index because it may have changed.
         */
-
         if (this.state.activeIndex !== -1) {
             const prevFacets = JSON.stringify(prevProps.facets);
             const currFacets = JSON.stringify(this.props.facets);
@@ -108,6 +124,8 @@ class Filter extends Component {
     };
 
     getFilters() {
+        if(this.props.showTagsOnly) return <></>;
+
         const props = this.props;
         const mappings = this.getMappings();
 
@@ -133,15 +151,27 @@ class Filter extends Component {
     }
 
     render() {
-        const props = this.props;
-        return (
-            <div id="js-search-filters" className="cmp-search-filters">
-                {props.filterTags}
-
-                {props.facets && this.getFilters()}
-            </div>
-        );
+        return <div id="js-search-filters" className="cmp-search-filters">
+                {this.props.facets && this.getFilters()}
+            </div>;
     }
+}
+
+Filter.propTypes = {
+    contentType: PropTypes.string,
+    defaultFacet: PropTypes.string,
+    facets: PropTypes.any,
+    filterMap: PropTypes.array,
+    selectHandler: PropTypes.func.isRequired,
+    selectedFacets: PropTypes.object,
+    text: PropTypes.object.isRequired,
+    showTagsOnly: PropTypes.bool
+}
+
+Filter.defaultProps = {
+    facets: null,
+    filterMap: [],
+    showTagsOnly: false
 }
 
 export default Filter;

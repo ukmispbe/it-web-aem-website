@@ -13,10 +13,45 @@ img {
     @include font-caption;
 }
 
-.cmp-image--border img{
+.cmp-image--border img {
     border: 1px solid $color-border-light;
 }
 
 div.image {
     margin-bottom: 2em;
+}
+
+.inline-svg {
+    display: none;
+
+    svg {
+        display: none;
+    }
+
+    &.inlined-svg {
+        display: block;
+
+        svg {
+            display: block;
+        }
+    }
+}
+
+svg.inline-svg {
+    display: block;
+}
+
+a.cmp-utility-button {
+    > svg {
+        min-height: 50px;
+        padding-bottom: $space-m;
+
+        &.inline-svg {
+            display: none;
+        }
+
+        &.inlined-svg {
+            display: inline-block;
+        }
+    }
 }

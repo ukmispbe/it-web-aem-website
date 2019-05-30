@@ -19,6 +19,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component(service = SiteRepository.class)
+@SuppressWarnings({ "squid:S1854" })
 public final class DefaultSiteRepository implements SiteRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultSiteRepository.class);

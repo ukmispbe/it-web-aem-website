@@ -54,20 +54,17 @@ a.cmp-button--secondary,
 button.cmp-button--secondary {
     padding: $space-xs $space-l;
     margin-bottom: $space-l;
-    color: $color-link;
+    color: $color-blue-70;
     text-transform: uppercase;
-    background-color: $color-white;
-    border: 1px solid $color-link;
+    background-color: $color-blue-10;
     transition: $hover-transition;
 
     &:hover {
-        color: $color-link-hover;
-        border: 1px solid $color-link-hover;
+        background: $color-blue-20;
     }
 
     &:active {
-        color: $color-link;
-        background-color: $color-white;
+        background: $color-blue-20;
     }
 
     @include mobile {
@@ -181,5 +178,11 @@ button.cmp-button.cmp-button--center {
     width: 100%;
     @include tablet {
         width: auto;
+    }
+}
+
+.cmp-button-container {
+    .cmp-button {
+        margin-right: $space-xs;
     }
 }

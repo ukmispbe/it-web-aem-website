@@ -15,10 +15,12 @@
         <module>waters-aem-solr</module>
         <module>waters-aem-pdf-generator</module>
         <module>waters-aem-akamai</module>
+        <module>waters-aem-hybris-importer</module>
         <module>waters-aem-frontend</module>
         <module>waters-aem-ui.apps</module>
         <module>waters-aem-ui.content</module>
         <module>waters-aem-ui.tests</module>
+        <module>waters-aem-ui.automation-tests</module>
     </modules>
 
     <properties>
@@ -31,13 +33,15 @@
         <solr.artifactId>waters-aem-solr</solr.artifactId>
         <pdfgenerator.artifactId>waters-aem-pdf-generator</pdfgenerator.artifactId>
         <akamai.artifactId>waters-aem-akamai</akamai.artifactId>
+        <hybris.artifactId>waters-aem-hybris-importer</hybris.artifactId>
 
         <!-- versions -->
         <acs.aem.commons.version>3.19.0</acs.aem.commons.version>
         <aem.library.version>12.0.0</aem.library.version>
         <core.components.version>2.3.0</core.components.version>
         <component.plugin.version>6.4.0</component.plugin.version>
-        <itext.version>7.1.4</itext.version>
+        <itext.version>7.1.7-SNAPSHOT</itext.version>
+        <itext.html2pdf.version>2.1.4-SNAPSHOT</itext.html2pdf.version>
         <osgi.bundle.status.plugin.version>2.0.2</osgi.bundle.status.plugin.version>
 
         <!-- defaults -->
@@ -67,13 +71,23 @@
             </snapshots>
         </repository>
         <repository>
-            <id>itext</id>
+            <id>itext-releases</id>
             <url>https://repo.itextsupport.com/releases</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
             <snapshots>
                 <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>itext-snapshots</id>
+            <url>https://repo.itextsupport.com/snapshot</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
             </snapshots>
         </repository>
     </repositories>
@@ -259,7 +273,6 @@
                     <artifactId>maven-bundle-plugin</artifactId>
                     <version>4.1.0</version>
                     <extensions>true</extensions>
-                    <!--<inherited>true</inherited>-->
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
@@ -464,7 +477,7 @@
             <dependency>
                 <groupId>com.itextpdf</groupId>
                 <artifactId>html2pdf</artifactId>
-                <version>2.1.1</version>
+                <version>${itext.html2pdf.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.itextpdf</groupId>
@@ -630,6 +643,20 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-text</artifactId>
                 <version>1.6</version>
+            </dependency>
+
+            <!-- HTTP client -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.4</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpcore</artifactId>
+                <version>4.4.8</version>
+                <scope>provided</scope>
             </dependency>
 
             <!-- POI -->

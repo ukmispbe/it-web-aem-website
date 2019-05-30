@@ -1,0 +1,13 @@
+<template data-sly-template.head="${ @ page }"
+          data-sly-use.headlibRenderer="headlibs.html">
+
+    <sly data-sly-include="customheaderlibs.html"/>
+
+    <sly data-sly-call="${headlibRenderer.headlibs @
+        designPath                = page.designPath,
+        staticDesignPath          = page.staticDesignPath,
+        clientLibCategories       = page.clientLibCategories,
+        clientLibCategoriesJsHead = page.clientLibCategoriesJsHead,
+        hasCloudconfigSupport     = page.hasCloudconfigSupport}"/>
+
+</template>
