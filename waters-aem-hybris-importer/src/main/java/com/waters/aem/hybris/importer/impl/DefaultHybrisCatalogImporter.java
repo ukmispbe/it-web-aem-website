@@ -303,8 +303,6 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     private HybrisImporterResult importSkuPage(final CatalogImporterContext context, final PageDecorator categoryPage,
         final Sku sku) throws WCMException {
         final String code = sku.getCode();
-        final String existingSkuPagePath = context.getProductCodeToSkuPagePathMap().get(code);
-
         final String skuPageName = new StringBuilder(TextUtils.getValidJcrName(code))
             .append("-")
             .append(TextUtils.getValidJcrName(sku.getTitle()))
@@ -312,10 +310,13 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         final PageManagerDecorator pageManager = categoryPage.getPageManager();
 
-        final HybrisImportStatus status;
-        final PageDecorator skuPage;
+        final String skuPagePath = categoryPage.getPath() + "/" + skuPageName;
 
-        if (existingSkuPagePath == null) {
+        PageDecorator skuPage = pageManager.getPage(skuPagePath);
+
+        final HybrisImportStatus status;
+
+        if (skuPage == null) {
             // create new page
             skuPage = pageManager.create(categoryPage.getPath(), skuPageName, WatersConstants.TEMPLATE_SKU_PAGE,
                 sku.getTitle(), false);
@@ -324,14 +325,6 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
             status = HybrisImportStatus.CREATED;
         } else {
-            final String skuPagePath = categoryPage.getPath() + "/" + skuPageName;
-
-            // disabling 'move' functionality until hybris catalog is restructured to ensure that skus only exist in a
-            // single category
-
-            // if (existingSkuPagePath.equals(skuPagePath)) {
-            skuPage = pageManager.getPage(skuPagePath);
-
             // found existing page in same category
             final Calendar skuPageLastModified = skuPage.get(JcrConstants.JCR_LASTMODIFIED, Calendar.class)
                 .orNull();
@@ -344,16 +337,6 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             }
 
             LOG.debug("found existing sku page : {}, status : {}", skuPage.getPath(), status);
-            /*
-            } else {
-                // sku page needs to be moved to new category
-                skuPage = moveSkuPage(context, existingSkuPagePath, skuPagePath);
-
-                LOG.info("moved existing sku page : {} to new path : {}", existingSkuPagePath, skuPagePath);
-
-                status = HybrisImportStatus.MOVED;
-            }
-            */
         }
 
         if (status != HybrisImportStatus.IGNORED) {
