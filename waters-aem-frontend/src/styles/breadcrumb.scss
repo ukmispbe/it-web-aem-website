@@ -9,7 +9,7 @@
 
     &__item {
         display: inline;
-        padding-left: ($space-s + .35em);
+        padding-left: ($space-s + 0.35em);
         position: relative;
 
         &:before {
@@ -43,6 +43,16 @@
 .cmp-breadcrumb-search {
     margin: $space-s 0 $space-xl 0;
     &--disable {
-        display: none;
+        display: block;
+    }
+}
+
+.cmp-breadcrumb-search a.cmp-breadcrumb-search__link {
+    background-color: $color-white;
+    color: $color-link;
+
+    &:hover {
+        color: $color-link-hover;
+        background-color: $color-white;
     }
 }
