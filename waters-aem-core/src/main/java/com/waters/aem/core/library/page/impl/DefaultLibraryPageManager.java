@@ -188,8 +188,11 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
 
             final ValueMap properties = page.getContentResource().adaptTo(ModifiableValueMap.class);
 
+            final String redirectTarget = getRedirectTarget(parentPage);
+
             // set redirect path
-            properties.put(WatersConstants.PROPERTY_REDIRECT_TARGET, getRedirectTarget(parentPage));
+            properties.put(WatersConstants.PROPERTY_REDIRECT_TARGET, redirectTarget);
+            properties.put(NameConstants.PN_REDIRECT_TARGET, redirectTarget);
 
             // set hide in nav
             properties.put(NameConstants.PN_HIDE_IN_NAV, true);

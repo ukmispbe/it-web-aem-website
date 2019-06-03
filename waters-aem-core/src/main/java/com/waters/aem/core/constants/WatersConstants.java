@@ -41,7 +41,7 @@ public final class WatersConstants {
 
     public static final String PROPERTY_LIBRARY_ASSET_PATH = "libraryAssetPath";
 
-    public static final String PROPERTY_REDIRECT_TARGET = "cq:redirectTarget";
+    public static final String PROPERTY_REDIRECT_TARGET = "redirectTarget";
 
     public static final int LEVEL_SITE_ROOT = 2;
 
