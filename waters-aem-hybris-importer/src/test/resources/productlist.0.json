@@ -1,0 +1,2178 @@
+{
+    "catalog": "watersProductCatalog",
+    "currentPage": 0,
+    "products": [
+        {
+            "availableForPickup": false,
+            "categories": [
+                {
+                    "code": "PFCAnalysisKit",
+                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/PFCAnalysisKit"
+                }
+            ],
+            "classifications": [
+                {
+                    "code": "ConsumablesAndSpares",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/ConsumablesAndSpares.jaggaercategory",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 99,
+                                    "value": "Chemical Reagent Kits"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Jaggaer Category",
+                            "range": false
+                        }
+                    ],
+                    "name": "Consumables And Spares"
+                },
+                {
+                    "code": "Products",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/Products.company",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 5,
+                                    "value": "Waters"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Company",
+                            "position": 10,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.unspsc",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "41116104"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "UNSPSC",
+                            "position": 17,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.application",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 15,
+                                    "value": "PFC"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application",
+                            "position": 20,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.business",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "Chemistry"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Business",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.productfamily",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 7,
+                                    "value": "Application Kits"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Product Family",
+                            "range": false
+                        }
+                    ],
+                    "name": "Products"
+                }
+            ],
+            "code": "176001744",
+            "description": "Waters ACQUITY UPLC total solution for the analysis of Perfluorinated Compounds (PFCs).  The kit contains ACQUITY BEH C18 column, PFC isolator column, and other PFCs-free components optimized for use with the ACQUITY system.  Sample preparation consumables such as Oasis HLB cartridges, PFC calibration standards, PFC unknown QC standards, and sample vials are also included.",
+            "images": [
+                {
+                    "imageType": "PRIMARY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/176001744.png"
+                }
+            ],
+            "name": "PFC Analysis Kit",
+            "numberOfReviews": 0,
+            "priceRange": {
+            },
+            "prices": [
+                {
+                    "countries": "NZ,FJ,VA,AS",
+                    "currencyIso": "AUD",
+                    "value": 11093.0
+                },
+                {
+                    "countries": "ME,YE,SV,SY,TC,UZ,KZ,PS,AM,AJ,BA,BS,BU,CY,EG,GR,IZ,KU,LE,MK,MT,MU,PK,BY,GG,QA,RO,RU,SA,RS,UA,JO,AL,CE,LY,AU,CR,TU",
+                    "currencyIso": "EUR",
+                    "value": 7091.0
+                },
+                {
+                    "countries": "BE,LU",
+                    "currencyIso": "EUR",
+                    "value": 7091.0
+                },
+                {
+                    "countries": "BR",
+                    "currencyIso": "BRL",
+                    "value": 0.05
+                },
+                {
+                    "countries": "CA",
+                    "currencyIso": "CAD",
+                    "value": 9945.0
+                },
+                {
+                    "countries": "CN",
+                    "currencyIso": "CNY",
+                    "value": 61290.0
+                },
+                {
+                    "countries": "CX,SK",
+                    "currencyIso": "CZK",
+                    "value": 180821.0
+                },
+                {
+                    "countries": "DA",
+                    "currencyIso": "DKK",
+                    "value": 53127.0
+                },
+                {
+                    "countries": "EI",
+                    "currencyIso": "EUR",
+                    "value": 7091.0
+                },
+                {
+                    "countries": "LV,EE,FI,LN",
+                    "currencyIso": "EUR",
+                    "value": 7091.0
+                },
+                {
+                    "countries": "SG,NC,FP,AG,ET,FR,GA,TS,NI,MO,GH",
+                    "currencyIso": "EUR",
+                    "value": 7091.0
+                },
+                {
+                    "countries": "GE",
+                    "currencyIso": "EUR",
+                    "value": 7091.0
+                },
+                {
+                    "countries": "HK,MC",
+                    "currencyIso": "HKD",
+                    "value": 65250.0
+                },
+                {
+                    "countries": "HU",
+                    "currencyIso": "HUF",
+                    "value": 2176937.0
+                },
+                {
+                    "countries": "BG,NP,IN",
+                    "currencyIso": "INR",
+                    "value": 661775.0
+                },
+                {
+                    "countries": "IS",
+                    "currencyIso": "USD",
+                    "value": 7650.0
+                },
+                {
+                    "countries": "IT",
+                    "currencyIso": "EUR",
+                    "value": 7091.0
+                },
+                {
+                    "countries": "JP",
+                    "currencyIso": "JPY",
+                    "value": 924000.0
+                },
+                {
+                    "countries": "KS",
+                    "currencyIso": "WON",
+                    "value": 1.12512E+7
+                },
+                {
+                    "countries": "MX",
+                    "currencyIso": "USD",
+                    "value": 10175.0
+                },
+                {
+                    "countries": "MY",
+                    "currencyIso": "MYR",
+                    "value": 33700.0
+                },
+                {
+                    "countries": "NL",
+                    "currencyIso": "EUR",
+                    "value": 7091.0
+                },
+                {
+                    "countries": "NO",
+                    "currencyIso": "NOK",
+                    "value": 56912.0
+                },
+                {
+                    "countries": "PL",
+                    "currencyIso": "PLN",
+                    "value": 26591.0
+                },
+                {
+                    "countries": "PO",
+                    "currencyIso": "EUR",
+                    "value": 7091.0
+                },
+                {
+                    "countries": "RQ",
+                    "currencyIso": "USD",
+                    "value": 8415.0
+                },
+                {
+                    "countries": "GQ,BM,RP,ID,TH,BX,SN,VM,CB",
+                    "currencyIso": "USD",
+                    "value": 8415.0
+                },
+                {
+                    "countries": "ES",
+                    "currencyIso": "EUR",
+                    "value": 7091.0
+                },
+                {
+                    "countries": "SW,IC",
+                    "currencyIso": "SEK",
+                    "value": 64068.0
+                },
+                {
+                    "countries": "SZ",
+                    "currencyIso": "CHF",
+                    "value": 8838.0
+                },
+                {
+                    "countries": "UK,JE,GI",
+                    "currencyIso": "GBP",
+                    "value": 4876.0
+                },
+                {
+                    "countries": "KE,BC,CS,GP,NT,PA,SF,ZA,AR,BF,BD,BL,CO,EC,GT,JM,NF,PN,PE,ST,VE,UY,HO,US,CI,HA,VI,ES,NU,TD,CF,GJ,AY,BH",
+                    "currencyIso": "USD",
+                    "value": 7650.0
+                },
+                {
+                    "countries": "TW",
+                    "currencyIso": "NTD",
+                    "value": 232700.0
+                }
+            ],
+            "proprietary": false,
+            "purchasable": true,
+            "salesStatus": "Active",
+            "stock": {
+                "stockLevel": 0,
+                "stockLevelStatus": "inStock"
+            },
+            "summary": "Waters ACQUITY UPLC total solution for the analysis of Perfluorinated Compounds (PFCs).  The kit contains ACQUITY BEH C18 column, PFC isolator column, and other PFCs-free components optimized for use with the ACQUITY system.  Sample preparation consumables such as Oasis HLB cartridges, PFC calibration standards, PFC unknown QC standards, and sample vials are also included.",
+            "terminated": false,
+            "url": "/waters/products/176001744"
+        },
+        {
+            "availableForPickup": false,
+            "categories": [
+                {
+                    "code": "ApplicationKits",
+                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/ApplicationKits"
+                }
+            ],
+            "classifications": [
+                {
+                    "code": "ConsumablesAndSpares",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/ConsumablesAndSpares.jaggaercategory",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 460,
+                                    "value": "Sample Extraction System Accessories"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Jaggaer Category",
+                            "range": false
+                        }
+                    ],
+                    "name": "Consumables And Spares"
+                },
+                {
+                    "code": "Products",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/Products.saphierarchy",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "023A3AA70"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Sap Hierarchy",
+                            "position": 1,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.remainingshelflife",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "0"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Remaining Shelf Life",
+                            "position": 3,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.company",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 5,
+                                    "value": "Waters"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Company",
+                            "position": 10,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.weight",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "0"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Weight",
+                            "position": 12,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.weightunit",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "KGM"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Weight UOM",
+                            "position": 15,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.unspsc",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "41115712"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "UNSPSC",
+                            "position": 17,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.application",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 23,
+                                    "value": "Method Development"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application",
+                            "position": 20,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.business",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "Chemistry"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Business",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.productfamily",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 7,
+                                    "value": "Application Kits"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Product Family",
+                            "range": false
+                        }
+                    ],
+                    "name": "Products"
+                }
+            ],
+            "code": "176001836",
+            "description": "The HPLC Therapeutic Peptide Method Development kit simplifies the process of sample preparation and LC method development for the analysis of therapeutic peptides in plasma. The kit contains one 96-well Oasis Peptide ?Elution Method Development Plate (186004713), one XBridge UPLC 3.5 µm BEH 300Å C18 reversed-phase 2.1x50 mm column (186003607), three 96-well 1 mL collection plates and cap mats (600001043), and a detailed screening protocol.",
+            "name": "HPLC Therapeutic Peptide Method Development Kit",
+            "numberOfReviews": 0,
+            "priceRange": {
+            },
+            "prices": [
+                {
+                    "countries": "NZ,FJ,VA,AS",
+                    "currencyIso": "AUD",
+                    "value": 1494.0
+                },
+                {
+                    "countries": "ME,YE,SV,SY,TC,UZ,KZ,PS,AM,AJ,BA,BS,BU,CY,EG,GR,IZ,KU,LE,MK,MT,MU,PK,BY,GG,QA,RO,RU,SA,RS,UA,JO,AL,CE,LY,AU,CR,TU",
+                    "currencyIso": "EUR",
+                    "value": 987.0
+                },
+                {
+                    "countries": "BE,LU",
+                    "currencyIso": "EUR",
+                    "value": 987.0
+                },
+                {
+                    "countries": "BR",
+                    "currencyIso": "BRL",
+                    "value": 0.01
+                },
+                {
+                    "countries": "CA",
+                    "currencyIso": "CAD",
+                    "value": 1340.0
+                },
+                {
+                    "countries": "CN",
+                    "currencyIso": "CNY",
+                    "value": 10280.0
+                },
+                {
+                    "countries": "CX,SK",
+                    "currencyIso": "CZK",
+                    "value": 25169.0
+                },
+                {
+                    "countries": "DA",
+                    "currencyIso": "DKK",
+                    "value": 7413.0
+                },
+                {
+                    "countries": "EI",
+                    "currencyIso": "EUR",
+                    "value": 987.0
+                },
+                {
+                    "countries": "LV,EE,FI,LN",
+                    "currencyIso": "EUR",
+                    "value": 987.0
+                },
+                {
+                    "countries": "SG,NC,FP,AG,ET,FR,GA,TS,NI,MO,GH",
+                    "currencyIso": "EUR",
+                    "value": 987.0
+                },
+                {
+                    "countries": "GE",
+                    "currencyIso": "EUR",
+                    "value": 987.0
+                },
+                {
+                    "countries": "HK,MC",
+                    "currencyIso": "HKD",
+                    "value": 8790.0
+                },
+                {
+                    "countries": "HU",
+                    "currencyIso": "HUF",
+                    "value": 303009.0
+                },
+                {
+                    "countries": "BG,NP,IN",
+                    "currencyIso": "INR",
+                    "value": 90318.0
+                },
+                {
+                    "countries": "IS",
+                    "currencyIso": "USD",
+                    "value": 1030.0
+                },
+                {
+                    "countries": "IT",
+                    "currencyIso": "EUR",
+                    "value": 987.0
+                },
+                {
+                    "countries": "KS",
+                    "currencyIso": "WON",
+                    "value": 1558800.0
+                },
+                {
+                    "countries": "MX",
+                    "currencyIso": "USD",
+                    "value": 1370.0
+                },
+                {
+                    "countries": "MY",
+                    "currencyIso": "MYR",
+                    "value": 4800.0
+                },
+                {
+                    "countries": "NL",
+                    "currencyIso": "EUR",
+                    "value": 987.0
+                },
+                {
+                    "countries": "NO",
+                    "currencyIso": "NOK",
+                    "value": 7911.0
+                },
+                {
+                    "countries": "PL",
+                    "currencyIso": "PLN",
+                    "value": 3701.0
+                },
+                {
+                    "countries": "PO",
+                    "currencyIso": "EUR",
+                    "value": 987.0
+                },
+                {
+                    "countries": "RQ",
+                    "currencyIso": "USD",
+                    "value": 1135.0
+                },
+                {
+                    "countries": "GQ,BM,RP,ID,TH,BX,SN,VM,CB",
+                    "currencyIso": "USD",
+                    "value": 1133.0
+                },
+                {
+                    "countries": "ES",
+                    "currencyIso": "EUR",
+                    "value": 987.0
+                },
+                {
+                    "countries": "SW,IC",
+                    "currencyIso": "SEK",
+                    "value": 8894.0
+                },
+                {
+                    "countries": "SZ",
+                    "currencyIso": "CHF",
+                    "value": 1245.0
+                },
+                {
+                    "countries": "UK,JE,GI",
+                    "currencyIso": "GBP",
+                    "value": 637.0
+                },
+                {
+                    "countries": "KE,BC,CS,GP,NT,PA,SF,ZA,AR,BF,BD,BL,CO,EC,GT,JM,NF,PN,PE,ST,VE,UY,HO,US,CI,HA,VI,ES,NU,TD,CF,GJ,AY,BH",
+                    "currencyIso": "USD",
+                    "value": 1030.0
+                },
+                {
+                    "countries": "TW",
+                    "currencyIso": "NTD",
+                    "value": 36000.0
+                }
+            ],
+            "productReferences": [
+                {
+                    "referenceType": "OTHERS",
+                    "target": {
+                        "code": "186001861",
+                        "name": "186001861",
+                        "proprietary": false,
+                        "terminated": false,
+                        "url": "/c/productName/p/186001861"
+                    },
+                    "preselected": false
+                },
+                {
+                    "referenceType": "OTHERS",
+                    "target": {
+                        "code": "186002338",
+                        "name": "186002338",
+                        "proprietary": false,
+                        "terminated": false,
+                        "url": "/c/productName/p/186002338"
+                    },
+                    "preselected": false
+                },
+                {
+                    "referenceType": "OTHERS",
+                    "target": {
+                        "code": "186001829",
+                        "name": "186001829",
+                        "proprietary": false,
+                        "terminated": false,
+                        "url": "/c/productName/p/186001829"
+                    },
+                    "preselected": false
+                },
+                {
+                    "referenceType": "OTHERS",
+                    "target": {
+                        "code": "186002499",
+                        "proprietary": false,
+                        "terminated": false,
+                        "url": "/c/productName/p/186002499"
+                    },
+                    "preselected": false
+                },
+                {
+                    "referenceType": "OTHERS",
+                    "target": {
+                        "code": "186003287",
+                        "name": "186003287",
+                        "proprietary": false,
+                        "terminated": false,
+                        "url": "/c/productName/p/186003287"
+                    },
+                    "preselected": false
+                }
+            ],
+            "proprietary": false,
+            "purchasable": true,
+            "salesStatus": "Active",
+            "stock": {
+                "stockLevel": 0,
+                "stockLevelStatus": "inStock"
+            },
+            "summary": "The HPLC Therapeutic Peptide Method Development kit simplifies the process of sample preparation and LC method development for the analysis of therapeutic peptides in plasma. The kit contains one 96-well Oasis Peptide ?Elution Method Development Plate (186004713), one XBridge UPLC 3.5 µm BEH 300Å C18 reversed-phase 2.1x50 mm column (186003607), three 96-well 1 mL collection plates and cap mats (600001043), and a detailed screening protocol.",
+            "terminated": false,
+            "url": "/waters/products/176001836"
+        },
+        {
+            "availableForPickup": false,
+            "categories": [
+                {
+                    "code": "Automation",
+                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/Automation"
+                },
+                {
+                    "code": "GlycanStandardKits",
+                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/GlycanStandardKits"
+                },
+                {
+                    "code": "GlycoWorksRapiFluorMSNGlycanKit",
+                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/GlycoWorksRapiFluorMSNGlycanKit"
+                }
+            ],
+            "classifications": [
+                {
+                    "code": "ApplicationKits",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitsnumberofanalysis",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 3,
+                                    "value": "96"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits Number of Analysis",
+                            "position": 2510,
+                            "publicWebLabel": "Number of Analysis",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitstype",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 5,
+                                    "value": "Sample Preparation Workflow"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits Type",
+                            "position": 2520,
+                            "publicWebLabel": "Type",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitsseparationmode",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "HILIC"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits Separation Mode",
+                            "position": 2540,
+                            "publicWebLabel": "Separation Mode",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitsdetectionmethod",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 3,
+                                    "value": "MS"
+                                },
+                                {
+                                    "position": 4,
+                                    "value": "MS/MS"
+                                },
+                                {
+                                    "position": 6,
+                                    "value": "UV"
+                                },
+                                {
+                                    "position": 2,
+                                    "value": "HRMS"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits Detection Method",
+                            "position": 2550,
+                            "publicWebLabel": "Detection Method",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitsstorage",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "Refer to the storage recommendations of each sub-package"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits Storage",
+                            "position": 2560,
+                            "publicWebLabel": "Storage",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitssystemtype",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 2,
+                                    "value": "LC-MS"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits System Type",
+                            "position": 2570,
+                            "publicWebLabel": "System Type",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitsshelflife",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "Refer to the storage recommendations of each sub-package"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits Shelf Life",
+                            "position": 2580,
+                            "publicWebLabel": "Shelf Life",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitsshipping",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "Cold-Chain"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits Shipping",
+                            "position": 2590,
+                            "publicWebLabel": "Shipping",
+                            "range": false
+                        }
+                    ],
+                    "name": "Application Kits"
+                },
+                {
+                    "code": "ConsumablesAndSpares",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/ConsumablesAndSpares.unitsperpackage",
+                            "comparable": true,
+                            "featureUnit": {
+                                "name": "Units Per Package UOM",
+                                "symbol": "pk",
+                                "unitType": "unitsPerPackageUOM"
+                            },
+                            "featureValues": [
+                                {
+                                    "featureUnitValue": {
+                                        "value": "pk"
+                                    },
+                                    "position": 1001,
+                                    "value": "1"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Units per Package",
+                            "position": 110,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ConsumablesAndSpares.coldchainshipping",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "true"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Cold Chain Shipping",
+                            "position": 150,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ConsumablesAndSpares.jaggaercategory",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 243,
+                                    "value": "Glycoprotein Analysis Kits"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Jaggaer Category",
+                            "range": false
+                        }
+                    ],
+                    "name": "Consumables And Spares"
+                },
+                {
+                    "code": "Products",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/Products.company",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 5,
+                                    "value": "Waters"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Company",
+                            "position": 10,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.unspsc",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "41116104"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "UNSPSC",
+                            "position": 17,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.application",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 20,
+                                    "value": "Released n-glycan Analysis"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application",
+                            "position": 20,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.brand",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 24,
+                                    "value": "GlycoWorks"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Brand",
+                            "position": 30,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.business",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "Chemistry"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Business",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.productfamily",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 7,
+                                    "value": "Application Kits"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Product Family",
+                            "range": false
+                        }
+                    ],
+                    "name": "Products"
+                }
+            ],
+            "code": "176004151",
+            "description": "The GlycoWorks RapiFluor-MS N-Glycan Script Starter Kit – Automation has been designed for use with automated platforms enabling high-throughput glycoprotein sample preparation for analysis of N-glycans with minimal user intervention. This protocol is validated using monoclonal antibodies and has also been tested to perform for a wide range of other N-linked glycoproteins.  All reagents in the kit are scaled to residual volumes needed for many automated instrumentation allowing for versatility when choosing your platform.   The kit is in a 2 x 48 format.\n\nThe GlycoWorks RapiFluor-MS N-Glycan Script Starter Kit contains the addition of a CD and Workstation requirements document that contains the script developed during verification testing when using a Tecan® Freedom EVO® 100/4 as well as a RFMS labeled standard, column and mobile phase concentrate which are the recommended for use with the RapiFluor-MS Library.",
+            "images": [
+                {
+                    "imageType": "PRIMARY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/glycoworks-rapifluor-ms-nglycan-starter-kit-automation.png"
+                },
+                {
+                    "imageType": "GALLERY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/rapifluor-ms-reagent-vial-55mg.png"
+                },
+                {
+                    "imageType": "GALLERY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/intact-mab-mass-check-standard.png"
+                },
+                {
+                    "imageType": "GALLERY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/clear-vial-10-20mg-aluminum-cap.png"
+                },
+                {
+                    "imageType": "GALLERY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/reagent-solvent-vial-1mL.png"
+                },
+                {
+                    "imageType": "GALLERY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/elution-buffer-vial-12mL.png"
+                },
+                {
+                    "imageType": "GALLERY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/glycoworks-rapid-buffer-vial-25mL.png"
+                },
+                {
+                    "imageType": "GALLERY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/pcr-plate-200ul.png"
+                },
+                {
+                    "imageType": "GALLERY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/wash-solvent-vial-70mL.png"
+                },
+                {
+                    "imageType": "GALLERY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/equilibration-solvent-vial-18mL.png"
+                },
+                {
+                    "imageType": "GALLERY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/rapid-PNGaseF-enzyme-vial-035mL.png"
+                },
+                {
+                    "imageType": "GALLERY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/waste-tray.png"
+                },
+                {
+                    "imageType": "GALLERY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/collection-tray-round-1mL.png"
+                },
+                {
+                    "imageType": "GALLERY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/cap-mat-pre-slit.png"
+                },
+                {
+                    "imageType": "GALLERY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/brown-bottle-15mL-brown-cap.png"
+                },
+                {
+                    "imageType": "GALLERY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/oasis-96-well-uelution-plate.tif.png"
+                },
+                {
+                    "imageType": "GALLERY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/uplc-column-21x50mm.png"
+                }
+            ],
+            "name": "GlycoWorks RapiFluor-MS N-Glycan Script Starter Kit-Automation",
+            "numberOfReviews": 0,
+            "priceRange": {
+            },
+            "prices": [
+                {
+                    "countries": "NZ,FJ,VA,AS",
+                    "currencyIso": "AUD",
+                    "value": 12695.0
+                },
+                {
+                    "countries": "ME,YE,SV,SY,TC,UZ,KZ,PS,AM,AJ,BA,BS,BU,CY,EG,GR,IZ,KU,LE,MK,MT,MU,PK,BY,GG,QA,RO,RU,SA,RS,UA,JO,AL,CE,LY,AU,CR,TU",
+                    "currencyIso": "EUR",
+                    "value": 8705.0
+                },
+                {
+                    "countries": "BE,LU",
+                    "currencyIso": "EUR",
+                    "value": 8705.0
+                },
+                {
+                    "countries": "BR",
+                    "currencyIso": "BRL",
+                    "value": 0.07
+                },
+                {
+                    "countries": "CA",
+                    "currencyIso": "CAD",
+                    "value": 11380.0
+                },
+                {
+                    "countries": "CX,SK",
+                    "currencyIso": "CZK",
+                    "value": 221978.0
+                },
+                {
+                    "countries": "DA",
+                    "currencyIso": "DKK",
+                    "value": 65283.0
+                },
+                {
+                    "countries": "EI",
+                    "currencyIso": "EUR",
+                    "value": 8705.0
+                },
+                {
+                    "countries": "LV,EE,FI,LN",
+                    "currencyIso": "EUR",
+                    "value": 8705.0
+                },
+                {
+                    "countries": "SG,NC,FP,AG,ET,FR,GA,TS,NI,MO,GH",
+                    "currencyIso": "EUR",
+                    "value": 8705.0
+                },
+                {
+                    "countries": "GE",
+                    "currencyIso": "EUR",
+                    "value": 8705.0
+                },
+                {
+                    "countries": "HK,MC",
+                    "currencyIso": "HKD",
+                    "value": 74670.0
+                },
+                {
+                    "countries": "HU",
+                    "currencyIso": "HUF",
+                    "value": 2672435.0
+                },
+                {
+                    "countries": "BG,NP,IN",
+                    "currencyIso": "INR",
+                    "value": 780071.0
+                },
+                {
+                    "countries": "IS",
+                    "currencyIso": "USD",
+                    "value": 8755.0
+                },
+                {
+                    "countries": "IT",
+                    "currencyIso": "EUR",
+                    "value": 8705.0
+                },
+                {
+                    "countries": "MX",
+                    "currencyIso": "USD",
+                    "value": 11644.0
+                },
+                {
+                    "countries": "MY",
+                    "currencyIso": "MYR",
+                    "value": 41100.0
+                },
+                {
+                    "countries": "NL",
+                    "currencyIso": "EUR",
+                    "value": 8705.0
+                },
+                {
+                    "countries": "NO",
+                    "currencyIso": "NOK",
+                    "value": 69634.0
+                },
+                {
+                    "countries": "PL",
+                    "currencyIso": "PLN",
+                    "value": 32644.0
+                },
+                {
+                    "countries": "PO",
+                    "currencyIso": "EUR",
+                    "value": 8705.0
+                },
+                {
+                    "countries": "RQ",
+                    "currencyIso": "USD",
+                    "value": 9630.0
+                },
+                {
+                    "countries": "GQ,BM,RP,ID,TH,BX,SN,VM,CB",
+                    "currencyIso": "USD",
+                    "value": 9631.0
+                },
+                {
+                    "countries": "ES",
+                    "currencyIso": "EUR",
+                    "value": 8705.0
+                },
+                {
+                    "countries": "SW,IC",
+                    "currencyIso": "SEK",
+                    "value": 78338.0
+                },
+                {
+                    "countries": "SZ",
+                    "currencyIso": "CHF",
+                    "value": 10602.0
+                },
+                {
+                    "countries": "UK,JE,GI",
+                    "currencyIso": "GBP",
+                    "value": 6561.0
+                },
+                {
+                    "countries": "KE,BC,CS,GP,NT,PA,SF,ZA,AR,BF,BD,BL,CO,EC,GT,JM,NF,PN,PE,ST,VE,UY,HO,US,CI,HA,VI,ES,NU,TD,CF,GJ,AY,BH",
+                    "currencyIso": "USD",
+                    "value": 8755.0
+                },
+                {
+                    "countries": "TW",
+                    "currencyIso": "NTD",
+                    "value": 308600.0
+                }
+            ],
+            "proprietary": false,
+            "purchasable": true,
+            "salesStatus": "Active",
+            "stock": {
+                "stockLevel": 0,
+                "stockLevelStatus": "inStock"
+            },
+            "summary": "The GlycoWorks RapiFluor-MS N-Glycan Script Starter Kit – Automation has been designed for use with automated platforms enabling high-throughput glycoprotein sample preparation for analysis of N-glycans with minimal user intervention. This protocol is validated using monoclonal antibodies and has also been tested to perform for a wide range of other N-linked glycoproteins.  All reagents in the kit are scaled to residual volumes needed for many automated instrumentation allowing for versatility when choosing your platform.   The kit is in a 2 x 48 format.  \nThe GlycoWorks RapiFluor-MS N-Glycan Script Starter Kit contains the addition of a CD and Workstation requirements document that contains the script developed during verification testing when using a Tecan® Freedom EVO® 100/4 as well as a RFMS labeled standard, column and mobile phase concentrate which are the recommended for use with the RapiFluor-MS Library.",
+            "terminated": false,
+            "url": "/waters/products/176004151"
+        },
+        {
+            "availableForPickup": false,
+            "categories": [
+                {
+                    "code": "QualityControlReferenceMaterials",
+                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/QualityControlReferenceMaterials"
+                },
+                {
+                    "code": "SystemPerformanceStandards",
+                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/SystemPerformanceStandards"
+                }
+            ],
+            "classifications": [
+                {
+                    "code": "ApplicationKits",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitsdetectionmethod",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 3,
+                                    "value": "MS"
+                                },
+                                {
+                                    "position": 4,
+                                    "value": "MS/MS"
+                                },
+                                {
+                                    "position": 6,
+                                    "value": "UV"
+                                },
+                                {
+                                    "position": 2,
+                                    "value": "HRMS"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits Detection Method",
+                            "position": 2550,
+                            "publicWebLabel": "Detection Method",
+                            "range": false
+                        }
+                    ],
+                    "name": "Application Kits"
+                },
+                {
+                    "code": "ConsumablesAndSpares",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/ConsumablesAndSpares.jaggaercategory",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 493,
+                                    "value": "Standards"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Jaggaer Category",
+                            "range": false
+                        }
+                    ],
+                    "name": "Consumables And Spares"
+                },
+                {
+                    "code": "Products",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/Products.saphierarchy",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "024H4HC01"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Sap Hierarchy",
+                            "position": 1,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.remainingshelflife",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "90"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Remaining Shelf Life",
+                            "position": 3,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.hazardmaterialnumber",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "30"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Hazardous Material Number",
+                            "position": 5,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.hazardmaterialtext",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "Flammable liquid"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Hazardous Material Text",
+                            "position": 6,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.company",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 5,
+                                    "value": "Waters"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Company",
+                            "position": 10,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.weight",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "79"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Weight",
+                            "position": 12,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.weightunit",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "GRM"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Weight UOM",
+                            "position": 15,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.harmonizationcode",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "3822000030"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Harmonization Code",
+                            "position": 16,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.unspsc",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "41116107"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "UNSPSC",
+                            "position": 17,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.business",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "Chemistry"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Business",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.productfamily",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 7,
+                                    "value": "Application Kits"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Product Family",
+                            "range": false
+                        }
+                    ],
+                    "name": "Products"
+                }
+            ],
+            "code": "186007362",
+            "description": "Quad LCMS QC Reference Material A quality control reference material intended to be used to benchmark and assess the performance of your UPLC system including a single or triple quad mass spectrometer.     Kit contains 1 mL of a 8 component mix including 100ug/mL Acetaminophen, 50ug/mL Sulfaguanidine, 10 ug/mL Sulfadimethoxine, 25 ug/mL Val,-Tyr,-Val, 6 ug/mL Verapamil, 6 ug/mL Terfenadine, 25 ug/mL Leucine Enkephalin, and 18 ug/mL Reserpine in 19/81 Acetonitrile/water 0.008% formic acid.",
+            "images": [
+                {
+                    "imageType": "PRIMARY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/amber-ampule-1-2-5mL.png"
+                }
+            ],
+            "name": "Quad LCMS QCRM",
+            "numberOfReviews": 0,
+            "priceRange": {
+            },
+            "prices": [
+                {
+                    "countries": "NZ,FJ,VA,AS",
+                    "currencyIso": "AUD",
+                    "value": 174.0
+                },
+                {
+                    "countries": "ME,YE,SV,SY,TC,UZ,KZ,PS,AM,AJ,BA,BS,BU,CY,EG,GR,IZ,KU,LE,MK,MT,MU,PK,BY,GG,QA,RO,RU,SA,RS,UA,JO,AL,CE,LY,AU,CR,TU",
+                    "currencyIso": "EUR",
+                    "value": 100.0
+                },
+                {
+                    "countries": "BE,LU",
+                    "currencyIso": "EUR",
+                    "value": 100.0
+                },
+                {
+                    "countries": "BR",
+                    "currencyIso": "BRL",
+                    "value": 0.01
+                },
+                {
+                    "countries": "CA",
+                    "currencyIso": "CAD",
+                    "value": 155.0
+                },
+                {
+                    "countries": "CN",
+                    "currencyIso": "CNY",
+                    "value": 1050.0
+                },
+                {
+                    "countries": "CX,SK",
+                    "currencyIso": "CZK",
+                    "value": 2550.0
+                },
+                {
+                    "countries": "DA",
+                    "currencyIso": "DKK",
+                    "value": 754.0
+                },
+                {
+                    "countries": "EI",
+                    "currencyIso": "EUR",
+                    "value": 100.0
+                },
+                {
+                    "countries": "LV,EE,FI,LN",
+                    "currencyIso": "EUR",
+                    "value": 100.0
+                },
+                {
+                    "countries": "SG,NC,FP,AG,ET,FR,GA,TS,NI,MO,GH",
+                    "currencyIso": "EUR",
+                    "value": 100.0
+                },
+                {
+                    "countries": "GE",
+                    "currencyIso": "EUR",
+                    "value": 100.0
+                },
+                {
+                    "countries": "HK,MC",
+                    "currencyIso": "HKD",
+                    "value": 1030.0
+                },
+                {
+                    "countries": "HU",
+                    "currencyIso": "HUF",
+                    "value": 30700.0
+                },
+                {
+                    "countries": "BG,NP,IN",
+                    "currencyIso": "INR",
+                    "value": 10692.0
+                },
+                {
+                    "countries": "IS",
+                    "currencyIso": "USD",
+                    "value": 120.0
+                },
+                {
+                    "countries": "IT",
+                    "currencyIso": "EUR",
+                    "value": 100.0
+                },
+                {
+                    "countries": "JP",
+                    "currencyIso": "JPY",
+                    "value": 14000.0
+                },
+                {
+                    "countries": "KS",
+                    "currencyIso": "WON",
+                    "value": 193200.0
+                },
+                {
+                    "countries": "MX",
+                    "currencyIso": "USD",
+                    "value": 160.0
+                },
+                {
+                    "countries": "MY",
+                    "currencyIso": "MYR",
+                    "value": 480.0
+                },
+                {
+                    "countries": "NL",
+                    "currencyIso": "EUR",
+                    "value": 100.0
+                },
+                {
+                    "countries": "NO",
+                    "currencyIso": "NOK",
+                    "value": 808.0
+                },
+                {
+                    "countries": "PL",
+                    "currencyIso": "PLN",
+                    "value": 375.0
+                },
+                {
+                    "countries": "PO",
+                    "currencyIso": "EUR",
+                    "value": 100.0
+                },
+                {
+                    "countries": "RQ",
+                    "currencyIso": "USD",
+                    "value": 130.0
+                },
+                {
+                    "countries": "GQ,BM,RP,ID,TH,BX,SN,VM,CB",
+                    "currencyIso": "USD",
+                    "value": 132.0
+                },
+                {
+                    "countries": "ES",
+                    "currencyIso": "EUR",
+                    "value": 100.0
+                },
+                {
+                    "countries": "SW,IC",
+                    "currencyIso": "SEK",
+                    "value": 909.0
+                },
+                {
+                    "countries": "SZ",
+                    "currencyIso": "CHF",
+                    "value": 125.0
+                },
+                {
+                    "countries": "UK,JE,GI",
+                    "currencyIso": "GBP",
+                    "value": 73.16
+                },
+                {
+                    "countries": "KE,BC,CS,GP,NT,PA,SF,ZA,AR,BF,BD,BL,CO,EC,GT,JM,NF,PN,PE,ST,VE,UY,HO,US,CI,HA,VI,ES,NU,TD,CF,GJ,AY,BH",
+                    "currencyIso": "USD",
+                    "value": 120.0
+                },
+                {
+                    "countries": "TW",
+                    "currencyIso": "NTD",
+                    "value": 3500.0
+                }
+            ],
+            "proprietary": false,
+            "purchasable": true,
+            "salesStatus": "Active",
+            "stock": {
+                "stockLevel": 0,
+                "stockLevelStatus": "inStock"
+            },
+            "summary": "Quad LCMS QC Reference Material A quality control reference material intended to be used to benchmark and assess the performance of your UPLC system including a single or triple quad mass spectrometer.     Kit contains 1 mL of a 8 component mix including 100ug/mL Acetaminophen, 50ug/mL Sulfaguanidine, 10 ug/mL Sulfadimethoxine, 25 ug/mL Val,-Tyr,-Val, 6 ug/mL Verapamil, 6 ug/mL Terfenadine, 25 ug/mL Leucine Enkephalin, and 18 ug/mL Reserpine in 19/81 Acetonitrile/water 0.008% formic acid.",
+            "terminated": false,
+            "url": "/waters/products/186007362"
+        },
+        {
+            "availableForPickup": false,
+            "categories": [
+                {
+                    "code": "ProteinWorks_spk",
+                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/ProteinWorks_spk"
+                }
+            ],
+            "classifications": [
+                {
+                    "code": "ApplicationKits",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitsnumberofanalysis",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 3,
+                                    "value": "96"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits Number of Analysis",
+                            "position": 2510,
+                            "publicWebLabel": "Number of Analysis",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitstype",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 5,
+                                    "value": "Sample Preparation Workflow"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits Type",
+                            "position": 2520,
+                            "publicWebLabel": "Type",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitsseparationmode",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 3,
+                                    "value": "RPLC"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits Separation Mode",
+                            "position": 2540,
+                            "publicWebLabel": "Separation Mode",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitsdetectionmethod",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 4,
+                                    "value": "MS/MS"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits Detection Method",
+                            "position": 2550,
+                            "publicWebLabel": "Detection Method",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitsstorage",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "Refer to the storage recommendations of each sub-package"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits Storage",
+                            "position": 2560,
+                            "publicWebLabel": "Storage",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitssystemtype",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 2,
+                                    "value": "LC-MS"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits System Type",
+                            "position": 2570,
+                            "publicWebLabel": "System Type",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitsshelflife",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "Refer to the storage recommendations of each sub-package"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits Shelf Life",
+                            "position": 2580,
+                            "publicWebLabel": "Shelf Life",
+                            "range": false
+                        }
+                    ],
+                    "name": "Application Kits"
+                },
+                {
+                    "code": "ConsumablesAndSpares",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/ConsumablesAndSpares.unitsperpackage",
+                            "comparable": true,
+                            "featureUnit": {
+                                "name": "Units Per Package UOM",
+                                "symbol": "pk",
+                                "unitType": "unitsPerPackageUOM"
+                            },
+                            "featureValues": [
+                                {
+                                    "featureUnitValue": {
+                                        "value": "pk"
+                                    },
+                                    "position": 1001,
+                                    "value": "1"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Units per Package",
+                            "position": 110,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ConsumablesAndSpares.jaggaercategory",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 448,
+                                    "value": "Protein Standards"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Jaggaer Category",
+                            "range": false
+                        }
+                    ],
+                    "name": "Consumables And Spares"
+                },
+                {
+                    "code": "Products",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/Products.saphierarchy",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "024E4EC01"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Sap Hierarchy",
+                            "position": 1,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.remainingshelflife",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "0"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Remaining Shelf Life",
+                            "position": 3,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.company",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 5,
+                                    "value": "Waters"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Company",
+                            "position": 10,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.weight",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "445"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Weight",
+                            "position": 12,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.weightunit",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "GRM"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Weight UOM",
+                            "position": 15,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.harmonizationcode",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "8421290090"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Harmonization Code",
+                            "position": 16,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.unspsc",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "value": "41116104"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "UNSPSC",
+                            "position": 17,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.application",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 18,
+                                    "value": "Protein Bioanalysis"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application",
+                            "position": 20,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.brand",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 40,
+                                    "value": "ProteinWorks"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Brand",
+                            "position": 30,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.business",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "Chemistry"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Business",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.productfamily",
+                            "comparable": true,
+                            "featureValues": [
+                                {
+                                    "position": 7,
+                                    "value": "Application Kits"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Product Family",
+                            "range": false
+                        }
+                    ],
+                    "name": "Products"
+                }
+            ],
+            "code": "186008304",
+            "description": "The ProteinWorks uElution SPE Clean-up Kit is designed for post-digestion peptide clean-up in LC-MS protein quantification via the surrogate peptide approach.  This kit includes an optimized SPE protocol and Oasis uElution technology delivering maximum peptide recovery and the removal of digest reagents and other matrix interferences.  The uElution Clean-up kit enhances assay sensitivity and improves LC-MS system robustness.",
+            "images": [
+                {
+                    "imageType": "PRIMARY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/186008304.png"
+                }
+            ],
+            "name": "ProteinWorks uElution SPE Clean-up Kit",
+            "numberOfReviews": 0,
+            "priceRange": {
+            },
+            "prices": [
+                {
+                    "countries": "NZ,FJ,VA,AS",
+                    "currencyIso": "AUD",
+                    "value": 508.0
+                },
+                {
+                    "countries": "ME,YE,SV,SY,TC,UZ,KZ,PS,AM,AJ,BA,BS,BU,CY,EG,GR,IZ,KU,LE,MK,MT,MU,PK,BY,GG,QA,RO,RU,SA,RS,UA,JO,AL,CE,LY,AU,CR,TU",
+                    "currencyIso": "EUR",
+                    "value": 355.0
+                },
+                {
+                    "countries": "BE,LU",
+                    "currencyIso": "EUR",
+                    "value": 355.0
+                },
+                {
+                    "countries": "BR",
+                    "currencyIso": "BRL",
+                    "value": 0.01
+                },
+                {
+                    "countries": "CA",
+                    "currencyIso": "CAD",
+                    "value": 455.0
+                },
+                {
+                    "countries": "CN",
+                    "currencyIso": "CNY",
+                    "value": 3220.0
+                },
+                {
+                    "countries": "CX,SK",
+                    "currencyIso": "CZK",
+                    "value": 9053.0
+                },
+                {
+                    "countries": "DA",
+                    "currencyIso": "DKK",
+                    "value": 2476.0
+                },
+                {
+                    "countries": "EI",
+                    "currencyIso": "EUR",
+                    "value": 355.0
+                },
+                {
+                    "countries": "LV,EE,FI,LN",
+                    "currencyIso": "EUR",
+                    "value": 355.0
+                },
+                {
+                    "countries": "SG,NC,FP,AG,ET,FR,GA,TS,NI,MO,GH",
+                    "currencyIso": "EUR",
+                    "value": 355.0
+                },
+                {
+                    "countries": "GE",
+                    "currencyIso": "EUR",
+                    "value": 355.0
+                },
+                {
+                    "countries": "HK,MC",
+                    "currencyIso": "HKD",
+                    "value": 2990.0
+                },
+                {
+                    "countries": "HU",
+                    "currencyIso": "HUF",
+                    "value": 108985.0
+                },
+                {
+                    "countries": "BG,NP,IN",
+                    "currencyIso": "INR",
+                    "value": 31203.0
+                },
+                {
+                    "countries": "IS",
+                    "currencyIso": "USD",
+                    "value": 350.0
+                },
+                {
+                    "countries": "IT",
+                    "currencyIso": "EUR",
+                    "value": 355.0
+                },
+                {
+                    "countries": "JP",
+                    "currencyIso": "JPY",
+                    "value": 48000.0
+                },
+                {
+                    "countries": "KS",
+                    "currencyIso": "WON",
+                    "value": 448800.0
+                },
+                {
+                    "countries": "MX",
+                    "currencyIso": "USD",
+                    "value": 466.0
+                },
+                {
+                    "countries": "MY",
+                    "currencyIso": "MYR",
+                    "value": 1600.0
+                },
+                {
+                    "countries": "NL",
+                    "currencyIso": "EUR",
+                    "value": 355.0
+                },
+                {
+                    "countries": "NO",
+                    "currencyIso": "NOK",
+                    "value": 3006.0
+                },
+                {
+                    "countries": "PL",
+                    "currencyIso": "PLN",
+                    "value": 1331.0
+                },
+                {
+                    "countries": "PO",
+                    "currencyIso": "EUR",
+                    "value": 355.0
+                },
+                {
+                    "countries": "RQ",
+                    "currencyIso": "USD",
+                    "value": 385.0
+                },
+                {
+                    "countries": "GQ,BM,RP,ID,TH,BX,SN,VM,CB",
+                    "currencyIso": "USD",
+                    "value": 385.0
+                },
+                {
+                    "countries": "ES",
+                    "currencyIso": "EUR",
+                    "value": 355.0
+                },
+                {
+                    "countries": "SW,IC",
+                    "currencyIso": "SEK",
+                    "value": 3254.0
+                },
+                {
+                    "countries": "SZ",
+                    "currencyIso": "CHF",
+                    "value": 430.0
+                },
+                {
+                    "countries": "UK,JE,GI",
+                    "currencyIso": "GBP",
+                    "value": 259.0
+                },
+                {
+                    "countries": "KE,BC,CS,GP,NT,PA,SF,ZA,AR,BF,BD,BL,CO,EC,GT,JM,NF,PN,PE,ST,VE,UY,HO,US,CI,HA,VI,ES,NU,TD,CF,GJ,AY,BH",
+                    "currencyIso": "USD",
+                    "value": 350.0
+                },
+                {
+                    "countries": "TW",
+                    "currencyIso": "NTD",
+                    "value": 12000.0
+                }
+            ],
+            "productReferences": [
+                {
+                    "referenceType": "OTHERS",
+                    "target": {
+                        "code": "176003688",
+                        "proprietary": false,
+                        "terminated": false,
+                        "url": "/c/productName/p/176003688"
+                    },
+                    "preselected": false
+                },
+                {
+                    "referenceType": "OTHERS",
+                    "target": {
+                        "code": "176003689",
+                        "proprietary": false,
+                        "terminated": false,
+                        "url": "/c/productName/p/176003689"
+                    },
+                    "preselected": false
+                },
+                {
+                    "referenceType": "OTHERS",
+                    "target": {
+                        "code": "176003695",
+                        "proprietary": false,
+                        "terminated": false,
+                        "url": "/c/productName/p/176003695"
+                    },
+                    "preselected": false
+                },
+                {
+                    "referenceType": "OTHERS",
+                    "target": {
+                        "code": "176003696",
+                        "proprietary": false,
+                        "terminated": false,
+                        "url": "/c/productName/p/176003696"
+                    },
+                    "preselected": false
+                }
+            ],
+            "proprietary": false,
+            "purchasable": true,
+            "salesStatus": "Active",
+            "stock": {
+                "stockLevel": 0,
+                "stockLevelStatus": "inStock"
+            },
+            "summary": "The ProteinWorks uElution SPE Clean-up Kit is designed for post-digestion peptide clean-up in LC-MS protein quantification via the surrogate peptide approach.  This kit includes an optimized SPE protocol and Oasis uElution technology delivering maximum peptide recovery and the removal of digest reagents and other matrix interferences.  The uElution Clean-up kit enhances assay sensitivity and improves LC-MS system robustness.",
+            "terminated": false,
+            "url": "/waters/products/186008304"
+        }
+    ],
+    "totalPageCount": 3247,
+    "totalProductCount": 16231,
+    "version": "Online"
+}
