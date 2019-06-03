@@ -43,6 +43,8 @@ public final class WatersConstants {
 
     public static final String PROPERTY_REDIRECT_TARGET = "cq:redirectTarget";
 
+    public static final String DAM_ICON_PATH = "/content/dam/waters/brand-assets/icons";
+
     public static final int LEVEL_SITE_ROOT = 2;
 
     public static final int LEVEL_LANGUAGE_ROOT = 3;
