@@ -42,12 +42,15 @@ svg.inline-svg {
 }
 
 a.cmp-utility-button {
+    img.inline-svg {
+        display: none;
+    }
     > svg {
         min-height: 50px;
         padding-bottom: $space-m;
 
         &.inline-svg {
-            display: none;
+            display: inline-block;
         }
 
         &.inlined-svg {
