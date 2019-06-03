@@ -1,5 +1,6 @@
 package com.waters.aem.core.library.page.impl;
 
+import com.day.cq.commons.Externalizer;
 import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.api.NameConstants;
@@ -39,6 +40,9 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
 
     @Reference
     private LiveRelationshipManager liveRelationshipManager;
+
+    @Reference
+    private Externalizer externalizer;
 
     @Override
     public PageDecorator getLibraryPage(final LibraryAsset asset) {
@@ -210,10 +214,13 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
         final String searchPagePath = parentPage.getAbsoluteParent(WatersConstants.LEVEL_LANGUAGE_ROOT)
             .getPath() + "/search";
 
-        return LinkBuilderFactory.forPath(searchPagePath)
+        final String searchHref = LinkBuilderFactory.forPath(searchPagePath)
             .addParameter("facet", "category_facet:library") // TODO verify facet parameter value
             .build()
             .getHref();
+
+        return externalizer.externalLink(parentPage.getContentResource().getResourceResolver(), Externalizer.PUBLISH,
+            searchHref);
     }
 
     private String getContentType(final LibraryAsset asset) {
