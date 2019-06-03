@@ -5,6 +5,7 @@ import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.metadata.ContentClassification;
 import com.waters.aem.core.utils.Templates;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
@@ -62,8 +63,7 @@ public class DocumentObjectData extends AbstractAnalyticsModel{
     }
 
     public String getName() {
-        String pagePath = currentPage.getPath();
-        return pagePath.substring(pagePath.lastIndexOf("/")+1);
+        return StringUtils.substringAfterLast(currentPage.getPath(), "/");
     }
 
 }
