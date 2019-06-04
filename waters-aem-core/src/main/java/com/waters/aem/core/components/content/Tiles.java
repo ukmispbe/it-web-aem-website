@@ -28,7 +28,7 @@ public class Tiles implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/tiles";
 
-    @DialogField()
+    @DialogField(fieldLabel = "Tiles List")
     @MultiField(composite = true)
     @Inject
     List<Tile> tiles;
