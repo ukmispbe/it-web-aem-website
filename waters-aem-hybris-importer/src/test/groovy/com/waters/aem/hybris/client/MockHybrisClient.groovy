@@ -4,9 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.waters.aem.hybris.models.Category
 import com.waters.aem.hybris.models.Product
 import com.waters.aem.hybris.models.ProductList
+import groovy.util.logging.Slf4j
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES
 
+@Slf4j("LOG")
 class MockHybrisClient implements HybrisClient {
 
     private static final ObjectMapper MAPPER = new ObjectMapper().configure(FAIL_ON_UNKNOWN_PROPERTIES, false)
@@ -32,6 +34,8 @@ class MockHybrisClient implements HybrisClient {
     }
 
     private <T> T getModel(String jsonFileName, Class<T> clazz) {
+        LOG.debug("getting hybris model for file name : {}", jsonFileName)
+
         def stream = this.class.getResourceAsStream("/$jsonFileName")
 
         MAPPER.readValue(stream, clazz)

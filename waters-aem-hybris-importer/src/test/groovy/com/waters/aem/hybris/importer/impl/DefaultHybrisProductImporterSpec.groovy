@@ -5,7 +5,9 @@ import com.waters.aem.hybris.enums.HybrisImportContentType
 import com.waters.aem.hybris.enums.HybrisImportStatus
 import com.waters.aem.hybris.importer.HybrisProductImporter
 import spock.lang.Shared
+import spock.lang.Unroll
 
+@Unroll
 class DefaultHybrisProductImporterSpec extends AbstractHybrisImporterSpec {
 
     @Shared
@@ -30,9 +32,20 @@ class DefaultHybrisProductImporterSpec extends AbstractHybrisImporterSpec {
         result.contentType == HybrisImportContentType.PRODUCT
         result.status == HybrisImportStatus.CREATED
 
+        cleanup:
+        removeAllNodes()
+
         where:
         index | path                                   | title
         0     | "/etc/commerce/products/176/176001744" | "PFC Analysis Kit"
         1     | "/etc/commerce/products/186/186007362" | "Quad LCMS QCRM"
+    }
+
+    def "import all products"() {
+        setup:
+        def results = hybrisProductImporter.importProducts(false)
+
+        expect:
+        results.size() == 12
     }
 }

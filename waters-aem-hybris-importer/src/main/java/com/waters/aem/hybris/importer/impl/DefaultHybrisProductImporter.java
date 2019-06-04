@@ -136,30 +136,20 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
                 new SimpleDateFormat(HybrisImporterConstants.DATE_FORMAT_PATTERN).format(lastImportDate.getTime()));
         }
 
-        final List<HybrisImporterResult> results = new ArrayList<>();
+        int currentPage = 0;
 
-        ProductList productList;
+        ProductList productList = getProductList(currentPage, lastImportDate, force);
 
-        if (force) {
-            productList = hybrisClient.getProductList(0);
-        } else {
-            productList = hybrisClient.getProductList(0, lastImportDate);
-        }
+        final List<HybrisImporterResult> results = importProductsForProductList(productsNode, productList);
 
         final int totalPages = productList.getTotalPageCount();
 
-        int currentPage = 0;
-
         while (currentPage < totalPages) {
-            results.addAll(importProductsForProductList(productsNode, productList));
-
             currentPage++;
 
-            if (force) {
-                productList = hybrisClient.getProductList(currentPage);
-            } else {
-                productList = hybrisClient.getProductList(currentPage, lastImportDate);
-            }
+            productList = getProductList(currentPage, lastImportDate, force);
+
+            results.addAll(importProductsForProductList(productsNode, productList));
 
             // periodically commit changes
             if (currentPage % 10 == 0) {
@@ -170,6 +160,19 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         }
 
         return results;
+    }
+
+    private ProductList getProductList(final Integer currentPage, final Calendar lastImportDate, final Boolean force)
+        throws IOException, URISyntaxException {
+        final ProductList productList;
+
+        if (force) {
+            productList = hybrisClient.getProductList(currentPage);
+        } else {
+            productList = hybrisClient.getProductList(currentPage, lastImportDate);
+        }
+
+        return productList;
     }
 
     private List<HybrisImporterResult> importProductsForProductList(final Node productsNode,
@@ -187,11 +190,12 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
         for (final Map.Entry<String, List<Product>> entry : groupedProducts.entrySet()) {
             final String productCodePrefix = entry.getKey();
+            final List<Product> productsForProductCodePrefix = entry.getValue();
             final Node productCodePrefixNode = getProductCodePrefixNode(productsNode, productCodePrefix);
 
             LOG.info("importing products for code prefix : {}", productCodePrefix);
 
-            for (final Product product : products) {
+            for (final Product product : productsForProductCodePrefix) {
                 results.add(importProduct(productCodePrefixNode, product));
             }
         }
