@@ -31,7 +31,7 @@ public class Tiles implements ComponentExporter {
     @DialogField(fieldLabel = "Tiles List")
     @MultiField(composite = true)
     @Inject
-    List<Tile> tiles;
+    private List<Tile> tiles;
 
     public List<Tile> getTiles() {
         return tiles;
