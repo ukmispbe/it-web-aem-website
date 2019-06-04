@@ -1,0 +1,12 @@
+<div data-sly-use.notification="com.waters.aem.core.components.content.Notification">
+
+    <div>
+      ${notification.title} ${notification.description}
+        <span><img class="${notification.svg ? 'inline-svg' : ''}" data-sly-test="${notification.icon}" src="${notification.icon}"/></span>
+    </div>
+
+    <ul data-sly-list.item="${notification.linkItems}">
+        <li><a href="${item.link.href}" target="${item.newWindow ? '_blank' : ''}">${item.text}</a></li>
+    </ul>
+
+</div>
