@@ -6,7 +6,6 @@ import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
-import com.icfolson.aem.library.models.annotations.InheritInject;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -29,8 +28,7 @@ public class Tiles implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/tiles";
 
-    @DialogField(fieldLabel = "Tiles",
-    fieldDescription = "Tiles")
+    @DialogField()
     @MultiField(composite = true)
     @Inject
     List<Tile> tiles;
