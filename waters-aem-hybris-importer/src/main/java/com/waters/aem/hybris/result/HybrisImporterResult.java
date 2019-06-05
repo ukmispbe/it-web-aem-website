@@ -1,6 +1,5 @@
 package com.waters.aem.hybris.result;
 
-import com.day.cq.tagging.Tag;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 import com.icfolson.aem.library.api.page.PageDecorator;
@@ -24,10 +23,6 @@ public final class HybrisImporterResult {
     public static HybrisImporterResult fromProduct(final Node node, final String title, final HybrisImportStatus status)
         throws RepositoryException {
         return new HybrisImporterResult(node.getPath(), title, HybrisImportContentType.PRODUCT, status);
-    }
-
-    public static HybrisImporterResult fromTag(final Tag tag, final HybrisImportStatus status) {
-        return new HybrisImporterResult(tag.getPath(), tag.getTitle(), HybrisImportContentType.TAG, status);
     }
 
     public static HybrisImporterResult fromMap(final Map<String, String> map) {

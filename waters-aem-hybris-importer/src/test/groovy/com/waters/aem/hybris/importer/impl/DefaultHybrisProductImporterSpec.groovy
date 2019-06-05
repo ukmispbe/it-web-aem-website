@@ -1,6 +1,5 @@
 package com.waters.aem.hybris.importer.impl
 
-
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants
 import com.waters.aem.hybris.AbstractHybrisImporterSpec
 import com.waters.aem.hybris.enums.HybrisImportContentType
@@ -17,10 +16,6 @@ class DefaultHybrisProductImporterSpec extends AbstractHybrisImporterSpec {
 
     def setupSpec() {
         hybrisProductImporter = slingContext.registerInjectActivateService(new DefaultHybrisProductImporter())
-    }
-
-    def cleanup() {
-        removeAllNodes()
     }
 
     def "import products for product codes"() {

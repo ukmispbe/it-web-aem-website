@@ -28,4 +28,8 @@ abstract class AbstractHybrisImporterSpec extends ProsperSpec {
             }
         }
     }
+
+    def cleanup() {
+        removeAllNodes()
+    }
 }
