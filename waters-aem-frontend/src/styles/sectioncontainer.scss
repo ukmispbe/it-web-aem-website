@@ -1,6 +1,27 @@
 .layoutcontainer {
     position: relative;
 
+    .sectioncontainer {
+        padding: 0;
+        margin: $space-xl 0 $space-l 0;
+    }
+
+    .cmp-section-container__title {
+        padding: $space-s 0 $space-m 0;
+        margin: 0em 14px;
+        border-top: 1px solid $color-border-light;
+
+        @include mobile {
+            padding: $space-s 0 $space-m 0;
+            margin: 0 2px;
+        }
+
+        @include tablet {
+            padding: $space-s 0 $space-m 0;
+            margin: 0 12px;
+        }
+    }
+
     .cmp-section-container__background {
         display: none;
     }
