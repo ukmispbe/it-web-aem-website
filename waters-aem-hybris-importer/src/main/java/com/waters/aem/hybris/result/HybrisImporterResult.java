@@ -5,6 +5,8 @@ import com.google.common.collect.ImmutableMap;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.hybris.enums.HybrisImportContentType;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
@@ -73,6 +75,16 @@ public final class HybrisImporterResult {
             .put("contentType", displayable ? contentType.getDescription() : contentType.name())
             .put("status", displayable ? status.getDescription() : status.name())
             .build();
+    }
+
+    @Override
+    public boolean equals(final Object result) {
+        return EqualsBuilder.reflectionEquals(this, result);
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 
     @Override

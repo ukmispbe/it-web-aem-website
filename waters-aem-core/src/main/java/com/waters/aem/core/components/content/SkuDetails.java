@@ -1,4 +1,4 @@
-package com.waters.aem.core.components.content.commerce;
+package com.waters.aem.core.components.content;
 
 import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
@@ -18,21 +18,25 @@ import java.math.BigDecimal;
  * Stub for SKU detail - not a real component, but used to demonstrate how to inject the Sku model class into a
  * component.
  */
-@Component(value = "SKU Detail")
+@Component(value = "SKU Details")
 @Model(adaptables = SlingHttpServletRequest.class,
-    adapters = { SkuDetail.class, ComponentExporter.class },
-    resourceType = SkuDetail.RESOURCE_TYPE)
+    adapters = { SkuDetails.class, ComponentExporter.class },
+    resourceType = SkuDetails.RESOURCE_TYPE)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public final class SkuDetail implements ComponentExporter {
+public final class SkuDetails implements ComponentExporter {
 
-    public static final String RESOURCE_TYPE = "waters/components/content/commerce/skudetail";
+    public static final String RESOURCE_TYPE = "waters/components/content/skudetails";
 
     @Inject
     private Sku sku;
 
     @Self
     private SiteContext siteContext;
+
+    public String getCode() {
+        return sku.getCode();
+    }
 
     public String getTitle() {
         return sku.getTitle();

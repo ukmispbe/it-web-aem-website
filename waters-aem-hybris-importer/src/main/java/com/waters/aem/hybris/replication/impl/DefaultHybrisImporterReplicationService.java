@@ -93,7 +93,7 @@ public final class DefaultHybrisImporterReplicationService implements HybrisImpo
                 replicator.replicate(session, replicationActionType, result.getPath());
             }
         } else {
-            // TODO verify if this is required
+            // TODO verify if page activation is required
             final PageManagerDecorator pageManager = resourceResolver.adaptTo(PageManagerDecorator.class);
 
             for (final HybrisImporterResult result : resultsForContentType) {
