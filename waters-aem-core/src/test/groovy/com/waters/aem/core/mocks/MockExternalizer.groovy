@@ -1,4 +1,4 @@
-package com.waters.aem.core.components.structure.page
+package com.waters.aem.core.mocks
 
 import com.day.cq.commons.Externalizer
 import org.apache.sling.api.SlingHttpServletRequest
