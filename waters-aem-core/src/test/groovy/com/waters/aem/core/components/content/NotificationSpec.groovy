@@ -89,7 +89,6 @@ class NotificationSpec extends WatersSpec {
         "/content/waters/two/jcr:content/notification" | "/content/dam/waters/brand-assets/icons/externallink.svg"
     }
 
-
     def "get notification link items"() {
         setup:
         def notification = requestBuilder.build {
