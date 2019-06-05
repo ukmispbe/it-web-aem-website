@@ -2,9 +2,14 @@
          data-sly-test="${sectionContainer.title}"
          data-sly-attribute.id="${sectionContainer.id}"
          class="cmp-section-container">
-    <h2 class="cmp-section-container__title">${sectionContainer.title}</h2>
+    <div class="cmp-section-container__wrapper">
+            <div class="cmp-section-container__background"></div>
+        <h2 class="cmp-section-container__title">${sectionContainer.title}</h2>
 
-    <sly data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"/>
+        <sly data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"/>
+    </div>
+
+
 </section>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"

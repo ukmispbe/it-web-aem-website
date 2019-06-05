@@ -1,0 +1,31 @@
+.layoutcontainer {
+    position: relative;
+
+    .cmp-section-container__background {
+        display: none;
+    }
+    .cmp-section-container–-light {
+        overflow-y: hidden;
+        .cmp-section-container__wrapper {
+            padding: $space-s 0 !important;
+        }
+
+        .cmp-section-container__background {
+            display: block;
+            position: absolute;
+            background-color: $color-background-light;
+            width: 100vw;
+            left: 50%;
+            right: 50%;
+            top: 3em;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            height: calc(100% - 5em);
+            z-index: -1;
+        }
+
+        .cmp-section-container__title {
+            border: none;
+        }
+    }
+}
