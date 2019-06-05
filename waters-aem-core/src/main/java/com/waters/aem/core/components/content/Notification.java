@@ -24,7 +24,7 @@ import java.util.List;
     tabs = @Tab(title = "Properties"))
 @Model(adaptables = SlingHttpServletRequest.class,
     adapters = { Notification.class, ComponentExporter.class },
-    resourceType = Button.RESOURCE_TYPE,
+    resourceType = Notification.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
