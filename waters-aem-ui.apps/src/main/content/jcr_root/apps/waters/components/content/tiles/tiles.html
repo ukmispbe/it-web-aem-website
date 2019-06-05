@@ -1,0 +1,14 @@
+<div data-sly-use.tilesComponent="com.waters.aem.core.components.content.Tiles"
+     class="cmp-tiles">
+    <ul class="cmp-tiles__list" data-sly-test="${tilesComponent.tiles}">
+        <li class="cmp-tiles__tile" data-sly-repeat="${tilesComponent.tiles}">
+            <a href="${item.link.href}" target="${item.newWindow ? '_blank' : ''}">
+                <span><img class="${item.svg ? 'inline-svg' : ''}" data-sly-test="${item.icon}" src="${item.icon}"/></span>
+                <h3>${item.title}</h3>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+     data-sly-call="${patterns.placeholder @ show=!tiles.tiles, text=component.title}"/>
