@@ -63,7 +63,7 @@ public class DocumentObjectData extends AbstractAnalyticsModel{
     }
 
     public String getName() {
-        return StringUtils.substringAfterLast(currentPage.getPath(), "/");
+        return currentPage.getName();
     }
 
 }
