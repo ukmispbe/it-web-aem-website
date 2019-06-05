@@ -20,20 +20,21 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Component(value = "Notification",
-description = "This is the Button component for Waters site",
-tabs = @Tab(title = "Properties"))
+    description = "This is the Notification component for Waters site",
+    tabs = @Tab(title = "Properties"))
 @Model(adaptables = SlingHttpServletRequest.class,
-adapters = { Notification.class, ComponentExporter.class },
-resourceType = Button.RESOURCE_TYPE,
-defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+    adapters = { Notification.class, ComponentExporter.class },
+    resourceType = Button.RESOURCE_TYPE,
+    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
-extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+    extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public class Notification implements  ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/notification";
 
     @DialogField(fieldLabel = "Title",
         fieldDescription = "Enter the Title",
+        required = true,
         ranking = 1)
     @TextField
     @Inject
@@ -41,13 +42,14 @@ public class Notification implements  ComponentExporter {
 
     @DialogField(fieldLabel = "Description",
         fieldDescription = "Enter the description",
-        ranking = 1)
+        ranking = 2)
     @TextField
     @Inject
     private String description;
 
-    @DialogField(fieldLabel = "Link Item Icon",
+    @DialogField(fieldLabel = "Icon",
         fieldDescription = "Select the Icon to be displayed on the Tile",
+        required = true,
         ranking = 3)
     @PathField(rootPath = WatersConstants.DAM_ICON_PATH)
     @Inject
