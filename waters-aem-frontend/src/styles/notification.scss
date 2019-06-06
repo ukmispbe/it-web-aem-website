@@ -1,0 +1,61 @@
+.notification {
+    background-color: $color-background-light;
+    padding: $space-s;
+}
+.cmp-notification {
+    &-wrapper {
+        display: block;
+        svg {
+            height: $icon-m;
+            padding-right: $space-xs;
+            .st0 {
+               stroke: $color-icon;
+            }
+        }
+
+        @include mobile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            svg {
+                height: $icon-l;
+            }
+        }
+    }
+
+    &-body {
+        float: left;
+        width: 93%;
+        @include mobile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    &-description {
+        display:inline;
+        text-align: center;
+    }
+
+    &-title {
+        font-weight: $font-weight-bold;
+        padding-right: $space-xs;
+        display:inline;
+    }
+
+    &-icon{
+        float: left;
+    }
+
+    &-links {
+        display: inline;
+        list-style-type: none;
+        padding-left: 0;
+        li{
+            display: inline;
+        }
+    }
+}
+
+
