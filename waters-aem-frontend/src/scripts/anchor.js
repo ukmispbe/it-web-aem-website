@@ -3,8 +3,6 @@ import scrollToY from './scrollTo';
 var anchorElement = document.querySelector('.cmp-anchor');
 var anchorMenu = document.querySelector('.cmp-anchor__list-heading');
 
-console.log('02_anchor.js');
-
 // Setup click handler for Anchor Links to scroll in view
 var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
 [].forEach.call(anchorLinks, (anchor) => {
