@@ -185,4 +185,10 @@ button.cmp-button.cmp-button--center {
     .cmp-button {
         margin-right: $space-xs;
     }
+
+    .methodfilebutton,
+    .pdfbutton {
+        display: inline-block;
+        margin-right: $space-xs;
+    }
 }
