@@ -136,22 +136,24 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
                 new SimpleDateFormat(HybrisImporterConstants.DATE_FORMAT_PATTERN).format(lastImportDate.getTime()));
         }
 
+        // hybris product list is paginated, so send request for each page until total number of pages is reached
         int currentPage = 0;
 
         ProductList productList = getProductList(currentPage, lastImportDate, force);
 
+        // initialize the results list with the first page and subsequently add to list with results for following pages
         final List<HybrisImporterResult> results = importProductsForProductList(productsNode, productList);
 
-        final int totalPages = productList.getTotalPageCount();
-
-        while (currentPage < totalPages) {
+        while (currentPage < productList.getTotalPageCount()) {
             currentPage++;
 
+            // get the next page of products and add import results to list
             productList = getProductList(currentPage, lastImportDate, force);
 
             results.addAll(importProductsForProductList(productsNode, productList));
 
-            // periodically commit changes
+            // periodically commit changes to avoid keeping a huge volume of changes in the transient session (i.e.
+            // limit memory overhead)
             if (currentPage % 10 == 0) {
                 LOG.info("committing changes...");
 
@@ -166,6 +168,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         throws IOException, URISyntaxException {
         final ProductList productList;
 
+        // if force=true, ignore last import date and request full product list
         if (force) {
             productList = hybrisClient.getProductList(currentPage);
         } else {
@@ -184,6 +187,8 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         LOG.info("importing {} products for page number {} of {}", products.size(), productList.getCurrentPage(),
             productList.getTotalPageCount());
 
+        // group products by the first three characters of their product code so they can be stored in bucketed folder
+        // nodes
         final Map<String, List<Product>> groupedProducts = products
             .stream()
             .collect(Collectors.groupingBy(this :: getProductCodePrefix));
@@ -191,10 +196,13 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         for (final Map.Entry<String, List<Product>> entry : groupedProducts.entrySet()) {
             final String productCodePrefix = entry.getKey();
             final List<Product> productsForProductCodePrefix = entry.getValue();
+
+            // get (or create if needed) the product code prefix folder node
             final Node productCodePrefixNode = getProductCodePrefixNode(productsNode, productCodePrefix);
 
             LOG.info("importing products for code prefix : {}", productCodePrefix);
 
+            // import the products for the current code prefix and store as children of the bucket node
             for (final Product product : productsForProductCodePrefix) {
                 results.add(importProduct(productCodePrefixNode, product));
             }
@@ -226,7 +234,9 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
             status = HybrisImportStatus.CREATED;
         }
 
-        updateProductProperties(productNode, product);
+        if (status != HybrisImportStatus.IGNORED) {
+            updateProductProperties(productNode, product);
+        }
 
         return HybrisImporterResult.fromProduct(productNode, product.getName(), status);
     }
