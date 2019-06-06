@@ -25,7 +25,7 @@
     }
 
     @include tablet {
-        width: 48%;
+        width: calc(50% - 10px);
         height: 98px;
     }
 
