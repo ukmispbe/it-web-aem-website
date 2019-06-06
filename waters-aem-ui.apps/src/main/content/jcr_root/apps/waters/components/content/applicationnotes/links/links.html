@@ -1,0 +1,12 @@
+<sly data-sly-use.links="com.waters.aem.core.components.content.applicationnotes.Links"></sly>
+<h3 data-sly-test="${links.title}">${links.title}</h3>
+<ul data-sly-test="${links.externalLinkItems}"
+    data-sly-list.linkItem="${links.externalLinkItems}"
+    class="cmp-links">
+    <li class="cmp-links__item">
+        <a class="cmp-links__link" href="${linkItem.link.href}" target="_blank">${linkItem.text}</a>
+    </li>
+</ul>
+
+<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+     data-sly-call="${patterns.placeholder @ show=!links.externalLinkItems, text=component.title}"/>
