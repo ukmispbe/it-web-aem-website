@@ -3,9 +3,10 @@ import scrollToY from './scrollTo';
 var anchorElement = document.querySelector('.cmp-anchor');
 var anchorMenu = document.querySelector('.cmp-anchor__list-heading');
 
+console.log('02_anchor.js');
+
 // Setup click handler for Anchor Links to scroll in view
 var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
-
 [].forEach.call(anchorLinks, (anchor) => {
     try {
         anchor.addEventListener('click', e => {
@@ -113,7 +114,7 @@ var anchorSticky = (function () {
                             (elementTop < 150 && elementBottom >= stillOnPage)
                         ) {
                             link.classList.add('active');
-                            brokeAt = n;
+                            //brokeAt = n;
                             break;
                         } else {
                             link.classList.remove('active');
@@ -139,6 +140,7 @@ var anchorSticky = (function () {
 if (anchorElement) anchorSticky.init(anchorElement);
 
 function toggleMobileNav(forceClose) {
+
     const heading = document.querySelector('.cmp-anchor--sticky');
     if (!forceClose && heading.classList.contains('closed')) {
         heading.classList.remove('closed');
@@ -149,7 +151,103 @@ function toggleMobileNav(forceClose) {
     }
 }
 
+function showScrollBars(el) {
+    el.classList.add("show-scroll-bar");
+}
+
+function hideScrollBars(el) {
+    el.classList.remove("show-scroll-bar");
+}
+
+function anchorChange(el) {
+    // el.scrollLeft - Position scrolled from Left of Div
+    // el.scrollWidth - Full width of the Div
+    // el.clientWidth width of the Div Displayed to the user
+    //var anchorCutoff = el.clientWidth - el.scrollLeft;
+    var anchorCutoff = el.clientWidth;
+
+    // Get Child List Items class cmp-anchor__list-item
+    var listItems = document.querySelectorAll('.cmp-anchor__list-item');
+
+    for (var i = 0; i < listItems.length; i++) {
+        var rect = listItems[i].getBoundingClientRect();
+
+        clearLHSGradients();
+
+        if (rect.left > 0 && rect.left < 80 && el.scrollLeft > 2) {
+
+            if (listItems[i].childNodes[1].classList.contains('active')) {
+                listItems[i].classList.add("lhs-gradient-fade-selected");
+                break;
+            }
+            else {
+                listItems[i].classList.add("lhs-gradient-fade");
+                break;
+            }
+        }
+
+    }
+
+    for (i = 0; i < listItems.length; i++) {
+
+        rect = listItems[i].getBoundingClientRect();
+        clearRHSGradients();
+        if (rect.left + rect.width > anchorCutoff + 40) {
+
+            if (listItems[i].childNodes[1].classList.contains('active')) {
+                listItems[i].classList.add("rhs-gradient-fade-selected");
+                break;
+            }
+            else {
+                listItems[i].classList.add("rhs-gradient-fade");
+                break;
+            }
+        }
+    }
+}
+
+function resizeWindow(el) {
+    anchorChange(el);
+    var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
+    if (!hasHorizontalScrollbar) {
+        // Remove class from all items
+        clearRHSGradients();
+        clearLHSGradients();
+    }
+}
+
+function clearRHSGradients() {
+    var listItems = document.querySelectorAll('.cmp-anchor__list-item');
+    for (var j = 0; j < listItems.length; j++) {
+        listItems[j].classList.remove("rhs-gradient-fade");
+        listItems[j].classList.remove("rhs-gradient-fade-selected");
+    }
+}
+
+function clearLHSGradients() {
+    var listItems = document.querySelectorAll('.cmp-anchor__list-item');
+    for (var j = 0; j < listItems.length; j++) {
+        listItems[j].classList.remove("lhs-gradient-fade");
+        listItems[j].classList.remove("lhs-gradient-fade-selected");
+    }
+}
+
 window.addEventListener('scroll', anchorSticky);
 if (anchorMenu) {
     anchorMenu.addEventListener('click', () => toggleMobileNav());
 }
+
+var mediaQueryListener = window.matchMedia('(max-width: 650px)');
+function anchorChangeToMobile() {
+    if (mediaQueryListener.matches) {
+        clearGradients();
+    }
+}
+mediaQueryListener.addListener(anchorChangeToMobile);
+
+var anchorList = document.querySelector('.cmp-anchor__list');
+anchorList.addEventListener('mouseover', () => showScrollBars(anchorList));
+anchorList.addEventListener('mouseout', () => hideScrollBars(anchorList));
+anchorList.addEventListener('scroll', () => anchorChange(anchorList));
+window.addEventListener('resize', () => resizeWindow(anchorList));
+

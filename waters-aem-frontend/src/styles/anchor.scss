@@ -1,3 +1,5 @@
+
+
 .cmp-anchor {
     float: left;
     width: 100%;
@@ -15,6 +17,15 @@
     }
 
     &__list {
+        @include tablet-and-over {
+        white-space: nowrap;
+        overflow-x: hidden;
+        a {
+            text-decoration: none;
+        }
+        }
+
+
         &-heading {
             display: none;
             font-size: $font-size-h3;
@@ -115,6 +126,10 @@
 
     .cmp-anchor__link.active {
         color: $color-font-dark;
+        @include tablet-and-over {
+            padding-bottom: 12px;
+            border-bottom: 3px teal solid;
+        }
     }
 }
 
@@ -124,6 +139,7 @@
     margin: 0;
     padding: $space-xs 0;
 
+    
     @include mobile {
         columns: 2;
         margin-top: -$space-s;
@@ -151,6 +167,38 @@
             padding-top: $space-s;
         }
     }
+}
+
+.rhs-gradient-fade {
+    background: linear-gradient(to right, #0077BB, white);
+    -webkit-background: linear-gradient(to right 80%, #0077BB , white);  
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text; 
+    background-clip: text; 
+}
+
+.rhs-gradient-fade-selected {
+    background: linear-gradient(to right, #2d3439, white);
+    -webkit-background: linear-gradient(to right 80%, #2d3439 , white);  
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text; 
+    background-clip: text; 
+}
+
+.lhs-gradient-fade {
+    background: linear-gradient(to left, #0077BB, white);
+    -webkit-background: linear-gradient(to right 80%, #0077BB , white);  
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text; 
+    background-clip: text; 
+}
+
+.lhs-gradient-fade-selected {
+    background: linear-gradient(to left, #2d3439, white);
+    -webkit-background: linear-gradient(to right 80%, #2d3439 , white);  
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text; 
+    background-clip: text; 
 }
 
 .cmp-anchor--column-1 {
@@ -186,5 +234,15 @@
         &-item {
             width: 100%;
         }
+    }
+}
+
+@include tablet-and-over {
+    .hide-scroll-bar {
+        overflow-x: hidden;
+    }
+        
+    .show-scroll-bar {
+        overflow-x: auto;
     }
 }

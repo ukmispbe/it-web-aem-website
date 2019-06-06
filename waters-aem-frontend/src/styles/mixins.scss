@@ -16,6 +16,11 @@
     }
 }
 
+@mixin tablet-and-over {
+    @media screen and (min-width: #{$tablet-width + 1px}) {
+        @content;
+    }
+}
 // Lists and Search Results
 
 @mixin list-container {
