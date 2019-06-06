@@ -8,6 +8,7 @@ import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.Tab;
+import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.icfolson.aem.library.api.link.Link;
@@ -16,6 +17,7 @@ import com.icfolson.aem.library.core.link.builders.factory.LinkBuilderFactory;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
@@ -77,9 +79,20 @@ public final class SectionContainer extends AbstractComponent implements Contain
     @Inject
     private String title;
 
+    @DialogField(fieldLabel = "Collapse on Mobile",
+            ranking = 2)
+    @Switch(offText = "No", onText = "Yes")
+    @Inject
+    @Default(booleanValues = false)
+    private Boolean collapseOnMobile;
+
     @JsonProperty
     public String getTitle() {
         return title;
+    }
+
+    public Boolean isCollapseOnMobile() {
+        return collapseOnMobile;
     }
 
     @JsonProperty
