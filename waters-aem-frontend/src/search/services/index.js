@@ -10,7 +10,6 @@ const parameterValues = {
 }
 
 const parameterDefaults = {
-    isocode: 'en_US',
     page: 1,
     rows: 25,
     keyword: '*:*',
@@ -20,15 +19,12 @@ const parameterDefaults = {
 
 class SearchService {
     constructor(
-        {
-            isocode = parameterDefaults.isocode,
-            page = parameterDefaults.page,
-            rows = parameterDefaults.rows,
-            sort = parameterDefaults.sort,
-            multiselect = true,
-        } = {},
-        defaultFacet,
-        path = 'https://dev-www.waters.com:8443/api/waters/search'
+        isocode,
+        path = 'https://dev-www.waters.com:8443/api/waters/search',
+        page = parameterDefaults.page,
+        rows = parameterDefaults.rows,
+        sort = parameterDefaults.sort,
+        multiselect = true
     ) {
         this.path = path;
         this.options = {
@@ -38,7 +34,6 @@ class SearchService {
             sort,
             multiselect,
         };
-        this.defaultFacet = defaultFacet;
     }
 
     initial = ({
@@ -87,7 +82,7 @@ class SearchService {
     }
 
     getSuggestedKeywords = async (rows, term) => {
-        const searchString = `${this.path}/v1/autocomplete?term=${term}&rows=${rows}&isocode=${parameterDefaults.isocode}`;
+        const searchString = `${this.path}/v1/autocomplete?term=${term}&rows=${rows}&isocode=${this.options.isocode}`;
 
         const response = await (await window.fetch(searchString)).json();
 
