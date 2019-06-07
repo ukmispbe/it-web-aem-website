@@ -127,8 +127,8 @@
     .cmp-anchor__link.active {
         color: $color-font-dark;
         @include tablet-and-over {
-            padding-bottom: 12px;
-            border-bottom: 3px teal solid;
+            padding-bottom: $space-xxs;
+            border-bottom: 4px $color-teal-50 solid;
         }
     }
 }
@@ -170,7 +170,7 @@
 }
 
 .rhs-gradient-fade {
-    background: linear-gradient(to right, #0077BB, white);
+    background: linear-gradient(to right, $color-link, white);
     -webkit-background: linear-gradient(to right 80%, #0077BB , white);  
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text; 
@@ -178,8 +178,8 @@
 }
 
 .rhs-gradient-fade-selected {
-    background: linear-gradient(to right, #2d3439, white);
-    -webkit-background: linear-gradient(to right 80%, #2d3439 , white);  
+    background: linear-gradient(to right, $color-font-dark, white);
+    -webkit-background: linear-gradient(to right 80%, $color-font-dark , white);
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text; 
     background-clip: text; 
@@ -187,15 +187,15 @@
 
 .lhs-gradient-fade {
     background: linear-gradient(to left, #0077BB, white);
-    -webkit-background: linear-gradient(to right 80%, #0077BB , white);  
+    -webkit-background: linear-gradient(to right 80%, $color-link, white);
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text; 
     background-clip: text; 
 }
 
 .lhs-gradient-fade-selected {
-    background: linear-gradient(to left, #2d3439, white);
-    -webkit-background: linear-gradient(to right 80%, #2d3439 , white);  
+    background: linear-gradient(to left, $color-font-dark, white);
+    -webkit-background: linear-gradient(to right 80%, $color-font-dark, white);
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text; 
     background-clip: text; 
