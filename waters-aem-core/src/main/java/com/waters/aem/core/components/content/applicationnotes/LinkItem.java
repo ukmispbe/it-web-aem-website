@@ -2,6 +2,7 @@ package com.waters.aem.core.components.content.applicationnotes;
 
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.DialogFieldOverride;
+import com.citytechinc.cq.component.annotations.Property;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.icfolson.aem.library.api.link.Link;
 import com.waters.aem.core.constants.WatersConstants;
@@ -31,6 +32,14 @@ public class LinkItem extends ExternalLinkItem {
     @Override
     public String getText() {
         return super.getText();
+    }
+
+    @DialogFieldOverride(ranking = 5, required = false, hideLabel = true, additionalProperties = {
+    @Property(name = "cq:hideOnEdit", value = "true")
+    })
+    @Override
+    public Boolean isExternal() {
+        return super.isExternal();
     }
 
     public Boolean isSvg() {
