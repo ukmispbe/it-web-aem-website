@@ -244,8 +244,10 @@ function anchorChangeToMobile() {
 mediaQueryListener.addListener(anchorChangeToMobile);
 
 var anchorList = document.querySelector('.cmp-anchor__list');
-anchorList.addEventListener('mouseover', () => showScrollBars(anchorList));
-anchorList.addEventListener('mouseout', () => hideScrollBars(anchorList));
-anchorList.addEventListener('scroll', () => anchorChange(anchorList));
-window.addEventListener('resize', () => resizeWindow(anchorList));
+if (anchorList){
+    anchorList.addEventListener('mouseover', () => showScrollBars(anchorList));
+    anchorList.addEventListener('mouseout', () => hideScrollBars(anchorList));
+    anchorList.addEventListener('scroll', () => anchorChange(anchorList));
+    window.addEventListener('resize', () => resizeWindow(anchorList));
+}
 
