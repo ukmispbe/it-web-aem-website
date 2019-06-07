@@ -6,6 +6,7 @@ import com.citytechinc.cq.component.annotations.Component;
 import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.components.SiteContext;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -14,14 +15,11 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.math.BigDecimal;
 
-/**
- * Stub for SKU detail - not a real component, but used to demonstrate how to inject the Sku model class into a
- * component.
- */
 @Component(value = "SKU Details")
 @Model(adaptables = SlingHttpServletRequest.class,
     adapters = { SkuDetails.class, ComponentExporter.class },
-    resourceType = SkuDetails.RESOURCE_TYPE)
+    resourceType = SkuDetails.RESOURCE_TYPE,
+    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class SkuDetails implements ComponentExporter {
@@ -33,6 +31,10 @@ public final class SkuDetails implements ComponentExporter {
 
     @Self
     private SiteContext siteContext;
+
+    public Sku getSku() {
+        return sku;
+    }
 
     public String getCode() {
         return sku.getCode();
