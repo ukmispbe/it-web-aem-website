@@ -5,7 +5,7 @@ import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import java.util.List;
 
 @PageObjectInterface
-public interface ExternalList {
+public interface Links {
 
     String getTitle();
 

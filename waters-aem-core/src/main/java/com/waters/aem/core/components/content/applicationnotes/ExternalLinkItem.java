@@ -23,6 +23,9 @@ public class ExternalLinkItem {
     @LinkInject
     private Link link;
 
+    @Inject
+    private Boolean external;
+
     @DialogField(fieldLabel = "Link Item Path",
         fieldDescription = "Enter or Select External Link Item Path",
         required = true,
@@ -48,6 +51,16 @@ public class ExternalLinkItem {
     @Inject
     @Default(booleanValues = false)
     private Boolean newWindow;
+
+    @DialogField(fieldLabel = "External Link",
+    fieldDescription = "Select this option to indicate the link is external",
+    ranking = 5)
+    @Switch(offText = "No", onText = "Yes")
+    @Inject
+    @Default(booleanValues = false)
+    public Boolean isExternal() {
+        return external;
+    }
 
     public Boolean isNewWindow() {
         return newWindow;

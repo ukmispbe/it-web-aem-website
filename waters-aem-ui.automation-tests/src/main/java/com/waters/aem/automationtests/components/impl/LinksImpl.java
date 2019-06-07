@@ -3,7 +3,7 @@ package com.waters.aem.automationtests.components.impl;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
-import com.waters.aem.automationtests.components.ExternalList;
+import com.waters.aem.automationtests.components.Links;
 import com.waters.aem.automationtests.components.LinkItem;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -11,8 +11,8 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@PageObject(css = ".externallist")
-public class ExternalListImpl implements ExternalList {
+@PageObject(css = ".links")
+public class LinksImpl implements Links {
 
     @Inject
     @CurrentScope

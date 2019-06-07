@@ -16,17 +16,17 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.util.List;
 
-@Component(value = "External List",
+@Component(value = "Links",
     path = WatersConstants.COMPONENT_PATH_APPLICATION_NOTES)
 @Model(adaptables = SlingHttpServletRequest.class,
-    adapters = { ExternalList.class, ComponentExporter.class },
-    resourceType = ExternalList.RESOURCE_TYPE,
+    adapters = { Links.class, ComponentExporter.class },
+    resourceType = Links.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public final class ExternalList implements ComponentExporter {
+public final class Links implements ComponentExporter {
 
-    public static final String RESOURCE_TYPE = "waters/components/content/applicationnotes/externallist";
+    public static final String RESOURCE_TYPE = "waters/components/content/applicationnotes/links";
 
     @DialogField(fieldLabel = "Title",
         fieldDescription = "Enter title for external list",

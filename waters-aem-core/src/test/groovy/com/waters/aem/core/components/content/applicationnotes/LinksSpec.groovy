@@ -4,14 +4,14 @@ import com.waters.aem.core.WatersSpec
 import spock.lang.Unroll
 
 @Unroll
-class ExternalListSpec extends WatersSpec {
+class LinksSpec extends WatersSpec {
 
     def setupSpec() {
         pageBuilder.content {
             waters {
                 one {
                     "jcr:content" {
-                        externallist {
+                        links {
                             externalLinkItems {
                                 item1(link: "www.waters.com", text: "waters")
                                 item2(link: "www.ta.com", text: "ta")
@@ -23,19 +23,19 @@ class ExternalListSpec extends WatersSpec {
         }
     }
 
-    def "get externallist links"() {
+    def "get links links"() {
         setup:
-        def externalList = requestBuilder.build {
-            path = "/content/waters/one/jcr:content/externallist"
-        }.adaptTo(ExternalList)
+        def links = requestBuilder.build {
+            path = "/content/waters/one/jcr:content/links"
+        }.adaptTo(Links)
 
         expect:
-        externalList.externalLinkItems.size() == 2
+        links.externalLinkItems.size() == 2
 
         and:
-        externalList.externalLinkItems.text == ["waters", "ta"]
+        links.externalLinkItems.text == ["waters", "ta"]
 
         and:
-        externalList.externalLinkItems.link.href == ["www.waters.com", "www.ta.com"]
+        links.externalLinkItems.link.href == ["www.waters.com", "www.ta.com"]
     }
 }
