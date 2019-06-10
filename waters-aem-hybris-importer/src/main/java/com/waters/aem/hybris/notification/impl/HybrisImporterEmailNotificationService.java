@@ -37,6 +37,10 @@ public class HybrisImporterEmailNotificationService implements HybrisImporterNot
 
     private static final String TEMPLATE_PATH_FAILURE = "/etc/notification/email/waters/hybris-importer-failure.html";
 
+    private static final String PARAM_HREF = "href";
+
+    private static final String PARAM_STACK_TRACE = "stackTrace";
+
     @Reference
     private EmailService emailService;
 
@@ -57,7 +61,7 @@ public class HybrisImporterEmailNotificationService implements HybrisImporterNot
         params.put(EmailServiceConstants.SUBJECT, SUBJECT);
 
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
-            params.put("href", externalizer.externalLink(resourceResolver, Externalizer.AUTHOR,
+            params.put(PARAM_HREF, externalizer.externalLink(resourceResolver, Externalizer.AUTHOR,
                 LinkBuilderFactory.forPath(HybrisImporterConstants.IMPORTER_PAGE_PATH)
                     .addSelector("audit")
                     .build()
@@ -83,7 +87,7 @@ public class HybrisImporterEmailNotificationService implements HybrisImporterNot
         final Map<String, String> params = new HashMap<>();
 
         params.put(EmailServiceConstants.SUBJECT, SUBJECT);
-        params.put("stackTrace", ExceptionUtils.getStackTrace(throwable));
+        params.put(PARAM_STACK_TRACE, ExceptionUtils.getStackTrace(throwable));
 
         sendEmail(TEMPLATE_PATH_FAILURE, params);
     }
