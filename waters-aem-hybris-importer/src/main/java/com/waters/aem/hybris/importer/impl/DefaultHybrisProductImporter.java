@@ -223,7 +223,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
             LOG.debug("found existing product node : {}", productNode.getPath());
 
-            // TODO determine if product is actually updated, or if status should be 'IGNORED'
+            // TODO determine if product is actually updated, or if status should be null
             status = HybrisImportStatus.UPDATED;
         } else {
             productNode = productCodePrefixNode.addNode(productNodeName, JcrConstants.NT_UNSTRUCTURED);
@@ -234,9 +234,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
             status = HybrisImportStatus.CREATED;
         }
 
-        if (status != HybrisImportStatus.IGNORED) {
-            updateProductProperties(productNode, product);
-        }
+        updateProductProperties(productNode, product);
 
         return HybrisImporterResult.fromProduct(productNode, product.getName(), status);
     }

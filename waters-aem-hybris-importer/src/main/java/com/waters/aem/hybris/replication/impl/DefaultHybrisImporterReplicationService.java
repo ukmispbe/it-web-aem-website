@@ -33,7 +33,6 @@ public final class DefaultHybrisImporterReplicationService implements HybrisImpo
     private static final Map<HybrisImportStatus, ReplicationActionType> REPLICATION_ACTION_TYPES =
         new ImmutableMap.Builder<HybrisImportStatus, ReplicationActionType>()
             .put(HybrisImportStatus.CREATED, ReplicationActionType.ACTIVATE)
-            .put(HybrisImportStatus.MOVED, ReplicationActionType.ACTIVATE)
             .put(HybrisImportStatus.UPDATED, ReplicationActionType.ACTIVATE)
             .put(HybrisImportStatus.DELETED, ReplicationActionType.DEACTIVATE)
             .build();

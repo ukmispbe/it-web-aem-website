@@ -121,7 +121,7 @@ class DefaultHybrisImporterAuditServiceSpec extends AbstractHybrisImporterSpec {
         auditRecord.duration == 1
         !auditRecord.exceptionStackTrace
         auditRecord.results == results
-        auditRecord.statusCounts == [MOVED: 0L, CREATED: 1L, UPDATED: 1L, DELETED: 0L, IGNORED: 0L]
+        auditRecord.statusCounts == [CREATED: 1L, UPDATED: 1L, DELETED: 0L]
     }
 
     def "get audit record for throwable"() {
@@ -145,7 +145,7 @@ class DefaultHybrisImporterAuditServiceSpec extends AbstractHybrisImporterSpec {
         !auditRecord.duration
         !auditRecord.results
         auditRecord.exceptionStackTrace
-        auditRecord.statusCounts == [MOVED: 0L, CREATED: 0L, UPDATED: 0L, DELETED: 0L, IGNORED: 0L]
+        auditRecord.statusCounts == [CREATED: 0L, UPDATED: 0L, DELETED: 0L]
     }
 
     def "get audit records"() {
