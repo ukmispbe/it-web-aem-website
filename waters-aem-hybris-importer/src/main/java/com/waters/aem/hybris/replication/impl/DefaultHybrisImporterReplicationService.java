@@ -92,7 +92,6 @@ public final class DefaultHybrisImporterReplicationService implements HybrisImpo
                 replicator.replicate(session, replicationActionType, result.getPath());
             }
         } else {
-            // TODO verify if page activation is required
             final PageManagerDecorator pageManager = resourceResolver.adaptTo(PageManagerDecorator.class);
 
             for (final HybrisImporterResult result : resultsForContentType) {
@@ -100,6 +99,8 @@ public final class DefaultHybrisImporterReplicationService implements HybrisImpo
 
                 // activate only if page was previously activated
                 if (isPublished(page)) {
+                    LOG.debug("activating result for previous published page : {}", result);
+
                     replicator.replicate(session, replicationActionType, result.getPath());
                 } else {
                     LOG.debug("page was not previously activated for result : {}, ignoring", result);

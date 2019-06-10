@@ -42,6 +42,7 @@ public final class DefaultSiteRepository implements SiteRepository {
             .stream()
             .map(languageBlueprintPage -> pageManager.getPage(languageBlueprintPage.getPath() + relativePath))
             .filter(Objects :: nonNull)
+            .filter(page -> !page.getPath().equals(blueprintPage.getPath()))
             .collect(Collectors.toList());
     }
 
