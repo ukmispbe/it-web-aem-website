@@ -103,23 +103,23 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
     }
 
     @Test
-    public void externalList() throws ActionException {
+    public void Links() throws ActionException {
         controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container", "External List", 0,
-        new ResourceFileLocation("external-list.yaml")));
+        new ResourceFileLocation("links.yaml")));
 
-        final ExternalList externalListComponent = page.getContent(ExternalList.class, 0);
+        final Links LinksComponent = page.getContent(Links.class, 0);
 
-        assertThat(externalListComponent.getTitle()).isEqualTo("External List Title Test");
+        assertThat(LinksComponent.getTitle()).isEqualTo("External List Title Test");
 
         //Link Item 1
-        assertThat(externalListComponent.getLinkItems().get(0).getText()).isEqualTo("Waters Site");
-        assertThat(externalListComponent.getLinkItems().get(0).getLink()).isEqualTo("https://www.waters.com/waters/home.htm");
-        assertThat(externalListComponent.getLinkItems().get(0).isNewWindow()).isEqualTo(true);
+        assertThat(LinksComponent.getLinkItems().get(0).getText()).isEqualTo("Waters Site");
+        assertThat(LinksComponent.getLinkItems().get(0).getLink()).isEqualTo("https://www.waters.com/waters/home.htm");
+        assertThat(LinksComponent.getLinkItems().get(0).isNewWindow()).isEqualTo(true);
 
         //Link Item 2
-        assertThat(externalListComponent.getLinkItems().get(1).getText()).isEqualTo("ICF");
-        assertThat(externalListComponent.getLinkItems().get(1).getLink()).isEqualTo("https://www.icf.com/next");
-        assertThat(externalListComponent.getLinkItems().get(1).isNewWindow()).isEqualTo(true);
+        assertThat(LinksComponent.getLinkItems().get(1).getText()).isEqualTo("ICF");
+        assertThat(LinksComponent.getLinkItems().get(1).getLink()).isEqualTo("https://www.icf.com/next");
+        assertThat(LinksComponent.getLinkItems().get(1).isNewWindow()).isEqualTo(true);
 
     }
 

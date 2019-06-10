@@ -31,9 +31,11 @@ class Search extends Component {
 
     componentWillMount() {
         this.search = new SearchService(
-            this.props.searchDefaults,
-            this.props.defaultFacet,
-            this.props.searchServicePath
+            this.props.isocode,
+            this.props.searchServicePath,
+            parameterDefaults.page,
+            this.props.searchDefaults.rows,
+            parameterDefaults.sort
         );
 
         const query = this.search.getParamsFromString();
