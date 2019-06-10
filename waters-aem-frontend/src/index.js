@@ -11,6 +11,7 @@ function getAuthoredDataForSearchBar(c, h) {
         placeholder: c.dataset.placeholder,
         iconSearch: c.dataset.iconSearch,
         iconClear: c.dataset.iconClear,
+        isocode: c.dataset.isocode,
     };
 }
 function getAuthoredDataForSearchApp(c, s) {
