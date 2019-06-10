@@ -42,6 +42,7 @@ if (searchBarContainer && header) {
             searchPath={data.searchPath}
             placeholder={data.placeholder}
             baseUrl={data.baseUrl}
+            isocode={data.isocode}
         />,
         searchBarContainer
     );
@@ -67,6 +68,7 @@ if (searchAppContainer) {
             searchLocale={data.locale}
             searchText={text}
             filterMap={filterMap}
+            isocode={data.isocode}
         />,
         searchAppContainer
     );
