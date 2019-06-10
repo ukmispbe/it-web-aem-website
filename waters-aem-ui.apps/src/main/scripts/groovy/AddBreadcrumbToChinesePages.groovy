@@ -21,6 +21,8 @@ result.nodes.each { node ->
         root.orderBefore('breadcrumb','share')
     }
 
+    node.setProperty('cq:lastModified', Calendar.getInstance())
+
     session.save()
 }
 
