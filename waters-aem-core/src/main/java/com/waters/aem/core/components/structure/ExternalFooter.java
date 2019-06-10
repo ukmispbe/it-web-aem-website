@@ -13,6 +13,7 @@ import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.wcm.foundation.Image;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.common.collect.ImmutableList;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.components.AbstractComponent;
@@ -40,7 +41,12 @@ import java.util.List;
     editConfig = false,
     tabs = {
         @Tab(title = "Properties"),
-        @Tab(title = "Footer Links")
+        @Tab(title = "Footer Links"),
+        @Tab(title = "Content List 1"),
+        @Tab(title = "Content List 2"),
+        @Tab(title = "Content List 3"),
+        @Tab(title = "Content List 4"),
+        @Tab(title = "Content List 5")
     },
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE)
@@ -118,6 +124,71 @@ public final class ExternalFooter extends AbstractComponent implements Component
     @MultiField(composite = true)
     @InheritInject
     private List<ExternalLinkItem> footerLinks;
+
+    @DialogField(fieldLabel = "Content List 1 Links",
+    tab = 3,
+    ranking = 1)
+    @MultiField(composite = true)
+    @InheritInject
+    private List<ExternalLinkItem> contentList1;
+
+    @DialogField(fieldLabel = "Content List 2 Links",
+    tab = 4,
+    ranking = 1)
+    @MultiField(composite = true)
+    @InheritInject
+    private List<ExternalLinkItem> contentList2;
+
+    @DialogField(fieldLabel = "Content List 3 Links",
+    tab = 5,
+    ranking = 1)
+    @MultiField(composite = true)
+    @InheritInject
+    private List<ExternalLinkItem> contentList3;
+
+    @DialogField(fieldLabel = "Content List 4 Links",
+    tab = 6,
+    ranking = 1)
+    @MultiField(composite = true)
+    @InheritInject
+    private List<ExternalLinkItem> contentList4;
+
+    @DialogField(fieldLabel = "Content List 5 Links",
+    tab = 7,
+    ranking = 1)
+    @MultiField(composite = true)
+    @InheritInject
+    private List<ExternalLinkItem> contentList5;
+
+    public List<ExternalLinkItem> getContentList1() {
+        return contentList1;
+    }
+
+    public List<ExternalLinkItem> getContentList2() {
+        return contentList2;
+    }
+
+    public List<ExternalLinkItem> getContentList3() {
+        return contentList3;
+    }
+
+    public List<ExternalLinkItem> getContentList4() {
+        return contentList4;
+    }
+
+    public List<ExternalLinkItem> getContentList5() {
+        return contentList5;
+    }
+
+    public List<List<ExternalLinkItem>> getContentLists() {
+        return new ImmutableList.Builder<List<ExternalLinkItem>>()
+            .add(contentList1)
+            .add(contentList2)
+            .add(contentList3)
+            .add(contentList4)
+            .add(contentList5)
+            .build();
+    }
 
     @JsonProperty
     public Image getLogoImage() {
