@@ -1,6 +1,7 @@
 package com.waters.aem.core.services.impl;
 
 import com.day.cq.wcm.api.WCMException;
+import com.day.cq.wcm.msm.api.LiveRelationship;
 import com.day.cq.wcm.msm.api.LiveRelationshipManager;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
@@ -8,13 +9,17 @@ import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.SiteRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.jcr.RangeIterator;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -23,6 +28,52 @@ import java.util.stream.Collectors;
 public final class DefaultSiteRepository implements SiteRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultSiteRepository.class);
+
+    @Override
+    public List<PageDecorator> getLanguageCopyPages(final PageDecorator blueprintPage) {
+        final String languageRootPath = blueprintPage.getAbsoluteParent(WatersConstants.LEVEL_LANGUAGE_ROOT)
+            .getPath();
+        final String relativePath = StringUtils.removeStart(blueprintPage.getPath(), languageRootPath);
+
+        final PageManagerDecorator pageManager = blueprintPage.getPageManager();
+        final PageDecorator languageMastersRootPage = pageManager.getPage(WatersConstants.ROOT_PATH_LANGUAGE_MASTERS);
+
+        return languageMastersRootPage.getChildren()
+            .stream()
+            .map(languageBlueprintPage -> pageManager.getPage(languageBlueprintPage.getPath() + relativePath))
+            .filter(Objects :: nonNull)
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PageDecorator> getLiveCopyPages(final PageDecorator blueprintPage) {
+        final Resource blueprintPageContentResource = blueprintPage.getContentResource();
+
+        final LiveRelationshipManager liveRelationshipManager = blueprintPageContentResource.getResourceResolver()
+            .adaptTo(LiveRelationshipManager.class);
+
+        final List<PageDecorator> liveCopyPages = new ArrayList<>();
+
+        try {
+            final RangeIterator liveRelationships = liveRelationshipManager.getLiveRelationships(
+                blueprintPageContentResource, WatersConstants.ROOT_PATH, null);
+
+            final PageManagerDecorator pageManager = blueprintPage.getPageManager();
+
+            while (liveRelationships.hasNext()) {
+                final LiveRelationship liveRelationship = (LiveRelationship) liveRelationships.next();
+                final String targetPath = liveRelationship.getTargetPath();
+
+                liveCopyPages.add(pageManager.getContainingPage(targetPath));
+            }
+        } catch (WCMException e) {
+            LOG.error("error getting live relationships for blueprint : " + blueprintPageContentResource, e);
+        }
+
+        LOG.info("found {} live copy pages for blueprint page : {}", liveCopyPages.size(), blueprintPage.getPath());
+
+        return liveCopyPages;
+    }
 
     @Override
     public List<PageDecorator> getCountryRootPages(final ResourceResolver resourceResolver) {
