@@ -11,6 +11,7 @@ function getAuthoredDataForSearchBar(c, h) {
         placeholder: c.dataset.placeholder,
         iconSearch: c.dataset.iconSearch,
         iconClear: c.dataset.iconClear,
+        isocode: c.dataset.isocode,
     };
 }
 function getAuthoredDataForSearchApp(c, s) {
@@ -42,6 +43,7 @@ if (searchBarContainer && header) {
             searchPath={data.searchPath}
             placeholder={data.placeholder}
             baseUrl={data.baseUrl}
+            isocode={data.isocode}
         />,
         searchBarContainer
     );
@@ -67,6 +69,7 @@ if (searchAppContainer) {
             searchLocale={data.locale}
             searchText={text}
             filterMap={filterMap}
+            isocode={data.isocode}
         />,
         searchAppContainer
     );
