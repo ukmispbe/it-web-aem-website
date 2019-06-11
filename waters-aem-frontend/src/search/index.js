@@ -17,6 +17,7 @@ const SearchApp = props => {
                         searchText={props.searchText}
                         searchLocale={props.searchLocale}
                         filterMap={props.filterMap}
+                        isocode={props.isocode}
                     />
                 )}
             />

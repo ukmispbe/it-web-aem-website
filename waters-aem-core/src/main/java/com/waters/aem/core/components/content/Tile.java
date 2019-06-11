@@ -1,4 +1,4 @@
-package com.waters.aem.core.components.content.applicationnotes;
+package com.waters.aem.core.components.content;
 
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
@@ -15,54 +15,57 @@ import org.apache.sling.models.annotations.Model;
 import javax.inject.Inject;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public class ExternalLinkItem {
+public class Tile {
 
-    @DialogField(fieldLabel = "Link Item Text",
-        fieldDescription = "Enter Link Item Text",
-        required = true,
-        ranking = 1)
+    @DialogField(fieldLabel = "Title",
+    fieldDescription = "Enter the Title for the tile",
+    required = true,
+    ranking = 1)
     @TextField
     @Inject
-    private String text;
+    private String title;
 
-    @DialogField(fieldLabel = "Link Item Path",
-        fieldDescription = "Enter or Select External Link Item Path",
-        required = true,
-        ranking = 2)
+    @DialogField(fieldLabel = "Icon",
+    fieldDescription = "Select the Icon to be displayed on the Tile",
+    required = true,
+    ranking = 2)
+    @PathField(rootPath = WatersConstants.DAM_ICON_PATH)
+    @Inject
+    private String icon;
+
+    @DialogField(fieldLabel = "Link",
+    fieldDescription = "Select or enter the link URL",
+    required = true,
+    ranking = 3)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject
     private Link link;
 
     @DialogField(fieldLabel = "Open in New Window",
-        fieldDescription = "Select this option to open in new window",
-        ranking = 4)
+    fieldDescription = "Select this option to open in new window",
+    ranking = 4)
     @Switch(offText = "No", onText = "Yes")
     @Inject
     @Default(booleanValues = false)
     private Boolean newWindow;
 
-    @DialogField(fieldLabel = "External Link",
-        fieldDescription = "Select this option to indicate the link is external",
-        ranking = 5)
-    @Switch(offText = "No", onText = "Yes")
-    @Inject
-    @Default(booleanValues = false)
-    private Boolean external;
+    public String getTitle() {
+        return title;
+    }
 
     public Link getLink() {
         return link;
     }
 
-
-    public String getText() {
-        return text;
-    }
-
-    public Boolean isExternal() {
-        return external;
+    public String getIcon() {
+        return icon;
     }
 
     public Boolean isNewWindow() {
         return newWindow;
+    }
+
+    public Boolean isSvg() {
+        return icon != null && icon.endsWith(".svg");
     }
 }

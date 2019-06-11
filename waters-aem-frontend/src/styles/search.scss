@@ -73,7 +73,7 @@
         padding-bottom: $space-xs;
 
         svg {
-            margin: ($space-xxxs + .2em) $space-xxxs 0 $space-xxxs;
+            margin: ($space-xxxs + 0.2em) $space-xxxs 0 $space-xxxs;
             width: $icon-s;
             height: $icon-s;
 
@@ -182,8 +182,8 @@ div.cmp-search__no-results {
             svg {
                 width: $icon-m;
                 height: 24px;
-                margin-left: ($space-xxs + .15em);
-                margin-top: ($space-xxxs - .15em);
+                margin-left: ($space-xxs + 0.15em);
+                margin-top: ($space-xxxs - 0.15em);
                 @include mobile {
                     height: 24px;
                 }
@@ -222,9 +222,9 @@ div.cmp-search__no-results {
     top: 76px;
     left: 0;
     box-shadow: $shadow;
-    border:none;
+    border: none;
     margin: 0;
-    padding: .65em $space-xs $space-xs 1.32em;
+    padding: 0.65em $space-xs $space-xs 1.32em;
     height: 54px;
 }
 
@@ -233,7 +233,7 @@ div.cmp-search__no-results {
         display: none;
         @include font-utility;
         border: 1px solid $color-border-dark;
-        padding: $space-xs ($space-xl - .25em) $space-xs $space-s;
+        padding: $space-xs ($space-xl - 0.25em) $space-xs $space-s;
         margin-bottom: $space-xl;
         position: relative;
         text-decoration: none;
@@ -386,11 +386,13 @@ div.cmp-search__no-results {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: rgba(255, 255, 255, 0.8);
-    width: 100%;
+    background-color: hsla(0, 0%, 100%, 0.8);
+    width: 200%;
     height: 100%;
-    z-index: 9;
-    padding: 25% 50%;
+    padding: 50% 80%;
+    margin: -30%;
+    z-index: 9999;
+
     > div {
         margin-left: -32px;
     }
@@ -419,10 +421,12 @@ html.showing-spinner {
                 }
             }
         }
-        .btn-show-sort-filter{
+        .btn-show-sort-filter {
             z-index: 4;
         }
-        .cccmp-search__container, .cmp-external-footer, .cmp-back-to-top {
+        .cccmp-search__container,
+        .cmp-external-footer,
+        .cmp-back-to-top {
             display: none;
         }
     }

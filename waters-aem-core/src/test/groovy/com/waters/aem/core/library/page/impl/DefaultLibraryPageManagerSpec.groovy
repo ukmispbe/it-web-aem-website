@@ -1,10 +1,14 @@
 package com.waters.aem.core.library.page.impl
 
+import com.day.cq.commons.Externalizer
 import com.day.cq.dam.api.DamConstants
+import com.day.cq.wcm.msm.api.LiveRelationshipManager
 import com.waters.aem.core.WatersLibrarySpec
 import com.waters.aem.core.constants.WatersConstants
 import com.waters.aem.core.library.asset.LibraryAsset
 import com.waters.aem.core.library.page.LibraryPageManager
+import com.waters.aem.core.mocks.MockExternalizer
+import com.waters.aem.core.mocks.MockLiveRelationshipManager
 import spock.lang.Stepwise
 import spock.lang.Unroll
 
@@ -33,7 +37,9 @@ class DefaultLibraryPageManagerSpec extends WatersLibrarySpec {
             }
         }
 
-        slingContext.registerService(LibraryPageManager, new DefaultLibraryPageManager())
+        slingContext.registerService(LiveRelationshipManager, new MockLiveRelationshipManager())
+        slingContext.registerService(Externalizer, new MockExternalizer())
+        slingContext.registerInjectActivateService(new DefaultLibraryPageManager())
     }
 
     def "create library page"() {
@@ -56,7 +62,8 @@ class DefaultLibraryPageManagerSpec extends WatersLibrarySpec {
         parentPage.templatePath == WatersConstants.TEMPLATE_REDIRECT_PAGE
         parentPage.hideInNav
         parentPage.title == title
-        parentPage.get(WatersConstants.PROPERTY_REDIRECT_TARGET, "") == ROOT_PATH + "/search.html?facet=category_facet%3Alibrary"
+        parentPage.get(WatersConstants.PROPERTY_REDIRECT_TARGET, "") == "http://www.waters.com" + ROOT_PATH +
+            "/search.html?facet=category_facet%3Alibrary"
 
         where:
         level | title

@@ -2,6 +2,7 @@ package com.waters.aem.core.components.structure.page
 
 import com.day.cq.commons.Externalizer
 import com.waters.aem.core.WatersSpec
+import com.waters.aem.core.mocks.MockExternalizer
 import spock.lang.Unroll
 
 @Unroll
