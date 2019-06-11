@@ -9,9 +9,8 @@
                 ${notification.description}
                 <ul class="cmp-notification-links" data-sly-test="${notification.linkItems}" data-sly-list.item="${notification.linkItems}">
                     <li>
-                        <a href="${item.link.href}" target="${item.newWindow ? '_blank' : ''}">${item.text}
-                            <span class="separator" data-sly-test="${!itemList.last}"> &#124; </span>
-                        </a>
+                        <a href="${item.link.href}" target="${item.newWindow ? '_blank' : ''}">${item.text}</a>
+                        <span class="cmp-notification-separator" data-sly-test="${!itemList.last}"> &#124; </span>
                     </li>
                 </ul>
             </div>
