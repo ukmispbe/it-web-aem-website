@@ -8,7 +8,7 @@ import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
-import com.waters.aem.core.components.content.applicationnotes.ExternalLinkItem;
+import com.waters.aem.core.components.content.applicationnotes.BasicLinkItem;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -60,7 +60,7 @@ public class Notification implements  ComponentExporter {
         ranking = 4)
     @MultiField(composite = true)
     @Inject
-    private List<ExternalLinkItem> linkItems;
+    private List<BasicLinkItem> linkItems;
 
     public String getTitle() {
         return title;
@@ -74,7 +74,7 @@ public class Notification implements  ComponentExporter {
         return icon;
     }
 
-    public List<ExternalLinkItem> getLinkItems() {
+    public List<BasicLinkItem> getLinkItems() {
         return linkItems;
     }
 
