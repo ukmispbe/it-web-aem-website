@@ -71,24 +71,31 @@ public final class ResizeImageServlet extends SlingSafeMethodsServlet implements
     @Override
     protected void doGet(@Nonnull final SlingHttpServletRequest request,
         @Nonnull final SlingHttpServletResponse response) throws IOException {
+        // get the image object for the requested DAM asset
         final Image image = getImage(request);
         final String mimeType = getMimeType(image);
 
         LOG.debug("image : {}, mime type : {}", image, mimeType);
 
+        // transform image using the resize transformer from ACS AEM Commons
         final Layer layer = transform(getLayer(image), request);
 
         response.setContentType(mimeType);
 
+        // write resized image using default quality setting
         layer.write(mimeType, DEFAULT_QUALITY / QUALITY_DENOMINATOR, response.getOutputStream());
 
         response.flushBuffer();
     }
 
+    // most of the logic below was lifted from the ACS AEM Commons Named Image Transform Servlet
+
     private Image getImage(final SlingHttpServletRequest request) {
         final Resource assetResource = request.getResource();
 
         final Asset asset = DamUtil.resolveToAsset(assetResource);
+
+        // get the web rendition or the original if not found
         final Rendition rendition = Optional.ofNullable(asset.getRendition(renditionPatternPicker))
             .orElse(asset.getOriginal());
 
@@ -139,7 +146,7 @@ public final class ResizeImageServlet extends SlingSafeMethodsServlet implements
 
                 transformedLayer = resizeImageTransformer.transform(layer, transformParams);
             } catch (NumberFormatException e) {
-                LOG.error("invalid width selector : " + selectors[0], e);
+                LOG.error("invalid width selector : " + selectors[0] + ", returning original image", e);
             }
         } else {
             LOG.debug("no width selector provided, returning original image");

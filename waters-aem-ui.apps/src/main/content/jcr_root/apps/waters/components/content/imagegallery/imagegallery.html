@@ -1,13 +1,13 @@
 <div class="cmp-image-gallery"
      data-sly-use.imageGallery="com.waters.aem.core.components.content.ImageGallery"
-     data-sly-test="${imageGallery.src}"
-     data-templates="${imageGallery.uriTemplatesJson}"
-     data-widths="${imageGallery.widthsJson}"
-     data-src="${imageGallery.src}"
-     data-alt="${imageGallery.alt}">
+     data-sly-test="${imageGallery.src}">
     <!-- TODO replace <img> tag with javascript to pick rendition using widths/template attrs -->
     <img src="${imageGallery.src}" alt="${imageGallery.alt}">
+
+    <script type="application/json">
+        ${imageGallery.json @ context='unsafe'}
+    </script>
 </div>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
-     data-sly-call="${patterns.placeholder @ show=true, text=component.title}"/>
+     data-sly-call="${patterns.placeholder @ show=!imageGallery.src, text=component.title}"/>
