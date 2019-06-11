@@ -4,7 +4,8 @@
 }
 .cmp-notification {
     &-wrapper {
-        display: block;
+        display: flex;
+        justify-content: center;
         svg {
             height: $icon-m;
             padding-right: $space-xs;
@@ -23,9 +24,11 @@
         }
     }
 
+    &-separator {
+        color : $color-gray-30;
+    }
+
     &-body {
-        float: left;
-        width: 93%;
         @include mobile {
             display: flex;
             flex-direction: column;
@@ -42,10 +45,6 @@
         font-weight: $font-weight-bold;
         padding-right: $space-xs;
         display:inline;
-    }
-
-    &-icon{
-        float: left;
     }
 
     &-links {
