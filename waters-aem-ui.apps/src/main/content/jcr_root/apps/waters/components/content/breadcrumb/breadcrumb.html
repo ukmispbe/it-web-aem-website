@@ -1,3 +1,12 @@
+<nav class="cmp-breadcrumb-search cmp-breadcrumb-search--disable">
+    <a
+        class="cmp-breadcrumb-search__link cmp-button--secondary cmp-button--no-border cmp-button--with-icon"
+        href=""
+        title="${'Back to Search' @ i18n, context='scriptString'}">
+        <img alt="${'Back to Search Results' @ i18n}" class="inline-svg"  src="/content/dam/waters/brand-assets/icons/search.svg"/>
+        <span>${'Back to Search Results' @ i18n}</span>
+    </a>
+</nav>
 <nav class="cmp-breadcrumb"
      data-sly-use.breadcrumb="com.waters.aem.core.components.content.Breadcrumb"
      data-sly-use.template="core/wcm/components/commons/v1/templates.html"
@@ -7,22 +16,13 @@
         data-sly-list.navItem="${breadcrumb.items}">
         <li class="cmp-breadcrumb__item${navItem.active ? ' cmp-breadcrumb__item--active' : ''}"
             itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-            <a href="${navItem.URL}"
+            <a href="${navItem.uRL}"
                class="cmp-breadcrumb__item-link"
                itemprop="item"
                data-sly-unwrap="${navItem.active}"><span itemprop="name">${navItem.title}</span></a>
             <meta itemprop="position" content="${navItemList.count}" />
         </li>
     </ol>
-</nav>
-<nav class="cmp-breadcrumb-search cmp-breadcrumb-search--disable">
-    <a
-        class="cmp-breadcrumb-search__link cmp-button--secondary cmp-button--no-border cmp-button--with-icon"
-        href="${button.buttonLink.href}"
-        title="${'Back to Search' @ i18n, context='scriptString'}">
-        <img alt="${'Back to Search Results' @ i18n}" class="inline-svg"  src="/content/dam/waters/brand-assets/icons/search.svg"/>
-        <span>${'Back to Search Results' @ i18n}</span>
-    </a>
 </nav>
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
      data-sly-call="${patterns.placeholder @ show=!breadcrumb.items, text=component.title}"/>
