@@ -12,28 +12,25 @@ import com.day.cq.dam.api.DamConstants;
 import com.day.cq.wcm.api.designer.Style;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.net.MediaType;
 import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.commerce.models.SkuImage;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.servlets.ResizeImageServlet;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.commons.mime.MimeTypeService;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
-import org.apache.sling.models.annotations.injectorspecific.Self;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -51,12 +48,7 @@ public final class ImageGallery implements ComponentExporter {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    private static final Logger LOG = LoggerFactory.getLogger(ImageGallery.class);
-
     private static final String SRC_URI_TEMPLATE_WIDTH = "{{width}}";
-
-    @Self
-    private SlingHttpServletRequest request;
 
     @Inject
     private Resource resource;
@@ -66,9 +58,6 @@ public final class ImageGallery implements ComponentExporter {
 
     @Inject
     private Sku sku;
-
-    @OSGiService
-    private MimeTypeService mimeTypeService;
 
     @DialogField(fieldLabel = "Primary Image",
         fieldDescription = "Primary Image to be displayed",
@@ -101,63 +90,50 @@ public final class ImageGallery implements ComponentExporter {
         return RESOURCE_TYPE;
     }
 
+    public String getJson() throws JsonProcessingException {
+        final Map<String, Object> json = new HashMap<>();
+
+        json.put("src", getSrc());
+        json.put("alt", getAlt());
+        json.put("templates", getUriTemplates());
+        json.put("widths", getWidths());
+
+        return MAPPER.writeValueAsString(json);
+    }
+
     public String getSrc() {
-        return getPrimaryImageAsset() == null ? null : buildUri(getPrimaryImageAsset().getPath(), false);
+        return getPrimaryImageAsset() == null ? null : buildUri(getPrimaryImageAsset(), false);
     }
 
     public String getAlt() {
-        return getPrimaryImageAsset() == null ? null : Optional.ofNullable(primaryImageAltText).orElse(
+        return getPrimaryImageAsset() == null ? "" : Optional.ofNullable(primaryImageAltText).orElse(
             getAltText(getPrimaryImageAsset()));
     }
 
-    public String getUriTemplatesJson() throws JsonProcessingException {
-        return MAPPER.writeValueAsString(getUriTemplates());
-    }
-
-    public String getWidthsJson() throws JsonProcessingException {
-        return MAPPER.writeValueAsString(getWidths());
-    }
-
-    public List<String> getUriTemplates() {
-        final List<String> uriTemplates = new ArrayList<>();
-
-        if (sku == null) {
-            uriTemplates.add(buildUri(primaryImage, true));
-
-            for (final String secondaryImage : secondaryImages) {
-                uriTemplates.add(buildUri(secondaryImage, true));
-            }
-        } else {
-            for (final SkuImage skuImage : sku.getImages()) {
-                uriTemplates.add(buildUri(skuImage.getPath(), true));
-            }
-        }
-
-        return uriTemplates
+    private List<String> getUriTemplates() {
+        return getAssets()
             .stream()
-            .filter(Objects :: nonNull)
+            .map(asset -> buildUri(asset, true))
             .collect(Collectors.toList());
     }
 
-    public Boolean isHasMultipleWidths() {
-        return getWidths().size() > 1;
-    }
-
-    public List<String> getWidths() {
+    private List<String> getWidths() {
         return Arrays.asList(currentStyle.get(Image.PN_DESIGN_ALLOWED_RENDITION_WIDTHS, new String[0]));
     }
 
-    public List<Asset> getAssets() {
+    private List<Asset> getAssets() {
         if (assets == null) {
             assets = new ArrayList<>();
 
             if (sku == null) {
+                // if the sku is null, use the authored images
                 assets.add(getAsset(primaryImage));
 
                 for (final String secondaryImage : secondaryImages) {
                     assets.add(getAsset(secondaryImage));
                 }
             } else {
+                // if the sku exists, get the images imported from hybris
                 final List<SkuImage> skuImages = sku.getImages();
 
                 assets.addAll(skuImages
@@ -170,51 +146,46 @@ public final class ImageGallery implements ComponentExporter {
         return assets.stream().filter(Objects :: nonNull).collect(Collectors.toList());
     }
 
+    /**
+     * Get the asset for the primary image - either from the Sku model if it exists or the authored image.
+     *
+     * @return DAM asset for the primary image file reference
+     */
     private Asset getPrimaryImageAsset() {
         final List<Asset> assets = getAssets();
 
         return assets.isEmpty() ? null : assets.get(0);
     }
 
-    private String buildUri(final String fileReference, final Boolean template) {
-        final Asset asset = getAsset(fileReference);
+    private String buildUri(final Asset asset, final boolean template) {
+        final StringBuilder builder = new StringBuilder();
 
-        String uri = null;
+        // append the DAM asset path
+        builder.append(asset.getPath());
 
-        if (asset == null) {
-            LOG.error("asset is null for file reference : {}, ignoring", fileReference);
-        } else {
-            final StringBuilder builder = new StringBuilder();
+        if (template) {
+            builder.append(".");
 
-            builder.append(resource.getResourceResolver().map(request, fileReference));
+            // width selector
+            builder.append(SRC_URI_TEMPLATE_WIDTH);
+            builder.append(".");
 
-            if (template) {
-                builder.append(".");
-                builder.append(SRC_URI_TEMPLATE_WIDTH);
-                builder.append(".");
-                builder.append(ResizeImageServlet.RESIZE_EXTENSION);
-                builder.append("/");
-                builder.append(ResizeImageServlet.SUFFIX_NAME);
-                builder.append(".");
-                builder.append(getExtension(asset));
-            }
+            // 'resize' extension to resolve the resize image servlet
+            builder.append(ResizeImageServlet.RESIZE_EXTENSION);
+            builder.append("/");
+            builder.append(ResizeImageServlet.SUFFIX_NAME);
+            builder.append(".");
 
-            uri = builder.toString();
+            // add the extension derived from DAM asset name
+            builder.append(FilenameUtils.getExtension(asset.getName()));
         }
 
-        return uri;
+        return builder.toString();
     }
 
     private String getAltText(final Asset asset) {
         return Optional.ofNullable(asset.getMetadataValue(DamConstants.DC_DESCRIPTION))
             .orElse(asset.getMetadataValue(DamConstants.DC_TITLE));
-    }
-
-    private String getExtension(final Asset asset) {
-        final String mimeType = Optional.ofNullable(asset.getMimeType())
-            .orElse(MediaType.PNG.toString());
-
-        return mimeTypeService.getExtension(mimeType.split(";")[0]);
     }
 
     private Asset getAsset(final String fileReference) {
