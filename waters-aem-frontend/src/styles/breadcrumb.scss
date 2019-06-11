@@ -46,10 +46,7 @@
         display: none;
     }
 
-    
-    // @include mobile {
-    //     display: none;
-    // }
+
     @include mobile {
         vertical-align: top;
         padding-top: $space-xs;
