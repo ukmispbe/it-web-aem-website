@@ -1,6 +1,6 @@
 package com.waters.aem.hybris
 
-import com.icfolson.aem.prosper.specs.ProsperSpec
+import com.icfolson.aem.library.core.specs.AemLibrarySpec
 import com.waters.aem.core.commerce.services.SkuRepository
 import com.waters.aem.core.commerce.services.impl.DefaultSkuRepository
 import com.waters.aem.core.services.SiteRepository
@@ -11,7 +11,7 @@ import com.waters.aem.hybris.importer.HybrisCatalogImporter
 import com.waters.aem.hybris.importer.impl.DefaultHybrisCatalogImporter
 import spock.lang.Shared
 
-abstract class AbstractHybrisImporterSpec extends ProsperSpec {
+abstract class AbstractHybrisImporterSpec extends AemLibrarySpec {
 
     @Shared
     HybrisCatalogImporter hybrisCatalogImporter
