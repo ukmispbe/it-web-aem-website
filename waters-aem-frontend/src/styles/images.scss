@@ -40,3 +40,18 @@ div.image {
 svg.inline-svg {
     display: block;
 }
+
+a.cmp-utility-button {
+    > svg {
+        min-height: 50px;
+        padding-bottom: $space-m;
+
+        &.inline-svg {
+            display: none;
+        }
+
+        &.inlined-svg {
+            display: inline-block;
+        }
+    }
+}

@@ -39,8 +39,10 @@
 }
 
 .filter-active {
-    .bread-crumb {
-        display: none;
+    @include mobile {
+        .bread-crumb {
+            display: none;
+        }
     }
 }
 
