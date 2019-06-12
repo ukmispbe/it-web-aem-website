@@ -230,6 +230,11 @@ function clearLHSGradients() {
     }
 }
 
+function clearGradients() {
+    clearLHSGradients();
+    clearRHSGradients();
+}
+
 window.addEventListener('scroll', anchorSticky);
 if (anchorMenu) {
     anchorMenu.addEventListener('click', () => toggleMobileNav());

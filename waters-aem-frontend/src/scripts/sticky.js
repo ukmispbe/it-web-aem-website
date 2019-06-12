@@ -48,6 +48,8 @@ ready(() => {
     const filterBtnClass = 'btn-show-sort-filter';
     const filterBtnStickyClass = 'btn-show-sort-filter--sticky';
     const filterBtnElement = document.querySelector(`.${filterBtnClass}`);
-
-    createSticky(filterBtnClass, filterBtnStickyClass, filterBtnElement);
+    
+    if (filterBtnElement) {
+        createSticky(filterBtnClass, filterBtnStickyClass, filterBtnElement);
+    }
 });
