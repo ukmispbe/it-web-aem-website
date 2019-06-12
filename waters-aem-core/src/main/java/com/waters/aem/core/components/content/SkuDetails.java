@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.math.BigDecimal;
 
-@Component(value = "SKU Details")
+@Component(value = "SKU Details", noDecoration = true)
 @Model(adaptables = SlingHttpServletRequest.class,
     adapters = { SkuDetails.class, ComponentExporter.class },
     resourceType = SkuDetails.RESOURCE_TYPE,
