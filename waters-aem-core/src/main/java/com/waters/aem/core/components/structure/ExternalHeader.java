@@ -144,26 +144,7 @@ public final class ExternalHeader extends AbstractComponent implements Component
     }
 
     public String getLanguageLocation() {
-        final Locale locale = siteContext.getLocale();
-
-        final String languageCode = locale.getLanguage().toUpperCase();
-        final String countryCode = locale.getCountry();
-
-        final StringBuilder stringBuilder = new StringBuilder();
-
-        if (!StringUtils.isBlank(languageCode)) {
-            stringBuilder.append(languageCode);
-        }
-
-        if (!StringUtils.isBlank(languageCode) && !StringUtils.isBlank(countryCode)) {
-            stringBuilder.append("/");
-        }
-
-        if (!StringUtils.isBlank(countryCode)) {
-            stringBuilder.append(countryCode);
-        }
-
-        return stringBuilder.toString();
+        return siteContext.getLanguageLocation();
     }
 
     public String getLaunchScript() {

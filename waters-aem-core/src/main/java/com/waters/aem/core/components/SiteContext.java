@@ -2,6 +2,7 @@ package com.waters.aem.core.components;
 
 import com.day.cq.i18n.I18n;
 import com.icfolson.aem.library.api.page.PageDecorator;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.i18n.ResourceBundleProvider;
@@ -61,5 +62,28 @@ public final class SiteContext {
         }
 
         return i18n;
+    }
+
+    public String getLanguageLocation() {
+        final Locale locale = getLocale();
+
+        final String languageCode = locale.getLanguage().toUpperCase();
+        final String countryCode = locale.getCountry();
+
+        final StringBuilder stringBuilder = new StringBuilder();
+
+        if (!StringUtils.isBlank(languageCode)) {
+            stringBuilder.append(languageCode);
+        }
+
+        if (!StringUtils.isBlank(languageCode) && !StringUtils.isBlank(countryCode)) {
+            stringBuilder.append("/");
+        }
+
+        if (!StringUtils.isBlank(countryCode)) {
+            stringBuilder.append(countryCode);
+        }
+
+        return stringBuilder.toString();
     }
 }
