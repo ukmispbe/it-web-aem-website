@@ -9,6 +9,7 @@ import com.waters.aem.hybris.constants.HybrisImporterConstants;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
 import com.waters.aem.hybris.exceptions.HybrisImporterException;
 import com.waters.aem.hybris.importer.HybrisProductImporter;
+import com.waters.aem.hybris.models.Classification;
 import com.waters.aem.hybris.models.Image;
 import com.waters.aem.hybris.models.Price;
 import com.waters.aem.hybris.models.Product;
@@ -264,6 +265,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         // remove existing nodes to prevent stale data from persisting
         removeProductNodes(productNode);
 
+        setClassifications(productNode, product.getClassifications());
         setPrices(productNode, product.getPrices());
         setImages(productNode, product.getImages());
         setProductReferences(productNode, product.getProductReferences());
@@ -322,6 +324,26 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
                     setNodeProperties(priceNode, properties);
                 }
             }
+        }
+    }
+
+    private void setClassifications(final Node productNode, final List<Classification> classifications)
+        throws RepositoryException {
+        if (!classifications.isEmpty()) {
+            final Node classificationsNode = JcrUtils.getOrAddNode(productNode,
+                WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATIONS);
+
+            setItemNodes(classificationsNode, WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATION, classifications,
+                classification -> {
+                    final Map<String, Object> properties = new HashMap<>();
+
+                    properties.put(WatersCommerceConstants.PROPERTY_CODE, classification.getCode());
+                    properties.put(WatersCommerceConstants.PROPERTY_NAME, classification.getName());
+
+                    // TODO features
+
+                    return properties;
+                });
         }
     }
 
