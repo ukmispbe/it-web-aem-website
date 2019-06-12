@@ -53,7 +53,7 @@ function changeBreadcrumb(source) {
 
         var breadcrumbContainer = document.querySelector('.breadcrumb');
 
-        var breadcrumbContainerWidth = breadcrumbContainer.clientWidth;
+        var breadcrumbContainerWidth = breadcrumbContainer ? breadcrumbContainer.clientWidth : 0;
 
         var listItems = document.querySelectorAll('.cmp-breadcrumb__item');
         for (var i = 0; i < listItems.length; i++) {
