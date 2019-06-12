@@ -115,11 +115,11 @@ a {
 
 .cmp-custom-dropdown__control {
     .cmp-custom-dropdown__dropdown-indicator > div {
-        width: 23px;
-        height: 20px;
+        width: $icon-m;
+        height: $icon-m;
 
         svg {
-            height: 20px;
+            height: ($icon-m + .1em);
             .st0 {
                 stroke: $color-icon;
             }
