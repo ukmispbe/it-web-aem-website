@@ -68,54 +68,6 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         .put(HybrisImporterConstants.NAMESPACE_PREFIX_IMPORTER, HybrisImporterConstants.NAMESPACE_URI_IMPORTER)
         .build();
 
-    static class CatalogImporterContext {
-
-        private final ResourceResolver resourceResolver;
-
-        private final PageManagerDecorator pageManager;
-
-        private final Map<String, Set<String>> categoryIdToProductCodeMap;
-
-        private final PageDecorator parentPage;
-
-        private final Category category;
-
-        CatalogImporterContext(final ResourceResolver resourceResolver,
-            final Map<String, Set<String>> categoryIdToProductCodeMap,
-            final PageDecorator parentPage,
-            final Category category) {
-            this.resourceResolver = resourceResolver;
-            this.pageManager = resourceResolver.adaptTo(PageManagerDecorator.class);
-            this.categoryIdToProductCodeMap = categoryIdToProductCodeMap;
-            this.parentPage = parentPage;
-            this.category = category;
-        }
-
-        ResourceResolver getResourceResolver() {
-            return resourceResolver;
-        }
-
-        PageManagerDecorator getPageManager() {
-            return pageManager;
-        }
-
-        PageDecorator getParentPage() {
-            return parentPage;
-        }
-
-        Category getCategory() {
-            return category;
-        }
-
-        Map<String, Set<String>> getCategoryIdToProductCodeMap() {
-            return categoryIdToProductCodeMap;
-        }
-
-        CatalogImporterContext withSubcategory(final PageDecorator categoryPage, final Category subcategory) {
-            return new CatalogImporterContext(resourceResolver, categoryIdToProductCodeMap, categoryPage, subcategory);
-        }
-    }
-
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
 
