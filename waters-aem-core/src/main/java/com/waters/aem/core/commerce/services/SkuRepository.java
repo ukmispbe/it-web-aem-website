@@ -6,32 +6,52 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 
 /**
- * Repository for SKU models.
+ * Repository for Sku models.
  */
 public interface SkuRepository {
 
     /**
-     * Get the SKU for the given sku page.
+     * Get the Sku for the given sku page.
      *
      * @param page sku page
-     * @return SKU or null if not found or page is not a SKU page
+     * @return Sku or null if not found or page is not a SKU page
      */
     Sku getSku(PageDecorator page);
 
     /**
-     * Get the SKU corresponding to the given product code.
+     * Get the Sku corresponding to the given product code.
      *
      * @param resourceResolver resource resolver for current request
      * @param productCode product code
-     * @return SKU or null if not found
+     * @return Sku or null if not found
      */
     Sku getSku(ResourceResolver resourceResolver, String productCode);
 
     /**
-     * Get a related SKU for the given product reference resource.
+     * Get a related Sku for the given product reference resource.
      *
      * @param productReferenceResource product reference resource
-     * @return related SKU or null if SKU is not valid for resource
+     * @return related Sku or null if SKU is not valid for resource
      */
     Sku getRelatedSku(Resource productReferenceResource);
+
+    /**
+     * Get the Sku page for the current site and given Hybris product code.
+     *
+     * @param currentPage current page, which will be used to determine the country/language site for which to get the
+     * Sku page
+     * @param productCode Hybris product code
+     * @return Sku page or null if not found
+     */
+    PageDecorator getSkuPage(PageDecorator currentPage, String productCode);
+
+    /**
+     * Get the Sku page for the current site and given Sku model based on the Hybris product code.
+     *
+     * @param currentPage current page, which will be used to determine the country/language site for which to get the
+     * Sku page
+     * @param sku sku model
+     * @return Sku page or null if not found
+     */
+    PageDecorator getSkuPage(PageDecorator currentPage, Sku sku);
 }

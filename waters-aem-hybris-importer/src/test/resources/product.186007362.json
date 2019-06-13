@@ -1,0 +1,240 @@
+{
+    "availableForPickup": false,
+    "categories": [
+        {
+            "code": "Intrigo_QualityControlReferenceMaterials",
+            "url": "/Intrigo-root-category/Standards-and-Reagents/Quality-Control-Reference-Materials/c/Intrigo_QualityControlReferenceMaterials"
+        },
+        {
+            "code": "Intrigo_SystemPerformanceStandards",
+            "url": "/Intrigo-root-category/Standards-and-Reagents/System-Performance-Standards/c/Intrigo_SystemPerformanceStandards"
+        },
+        {
+            "code": "QualityControlReferenceMaterials",
+            "url": "/Web-root-category/Analytical-Standards-%26-Reagents/Quality-Control-Reference-Materials/c/QualityControlReferenceMaterials"
+        },
+        {
+            "code": "SystemPerformanceStandards",
+            "url": "/Web-root-category/Analytical-Standards-%26-Reagents/System-Performance-Standards/c/SystemPerformanceStandards"
+        }
+    ],
+    "classifications": [
+        {
+            "code": "ApplicationKits",
+            "features": [
+                {
+                    "code": "WatersClassification/1.0/ApplicationKits.applicationkitsdetectionmethod",
+                    "comparable": true,
+                    "featureValues": [
+                        {
+                            "position": 3,
+                            "value": "MS"
+                        },
+                        {
+                            "position": 4,
+                            "value": "MS/MS"
+                        },
+                        {
+                            "position": 6,
+                            "value": "UV"
+                        },
+                        {
+                            "position": 2,
+                            "value": "HRMS"
+                        }
+                    ],
+                    "internalOnly": false,
+                    "name": "Application Kits Detection Method",
+                    "position": 2550,
+                    "publicWebLabel": "Detection Method",
+                    "range": false
+                }
+            ],
+            "name": "Application Kits"
+        },
+        {
+            "code": "ConsumablesAndSpares",
+            "features": [
+                {
+                    "code": "WatersClassification/1.0/ConsumablesAndSpares.jaggaercategory",
+                    "comparable": true,
+                    "featureValues": [
+                        {
+                            "position": 493,
+                            "value": "Standards"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Jaggaer Category",
+                    "range": false
+                }
+            ],
+            "name": "Consumables And Spares"
+        },
+        {
+            "code": "Products",
+            "features": [
+                {
+                    "code": "WatersClassification/1.0/Products.saphierarchy",
+                    "comparable": true,
+                    "featureValues": [
+                        {
+                            "value": "024H4HC01"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Sap Hierarchy",
+                    "position": 1,
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.remainingshelflife",
+                    "comparable": true,
+                    "featureValues": [
+                        {
+                            "value": "90"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Remaining Shelf Life",
+                    "position": 3,
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.hazardmaterialnumber",
+                    "comparable": true,
+                    "featureValues": [
+                        {
+                            "value": "30"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Hazardous Material Number",
+                    "position": 5,
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.hazardmaterialtext",
+                    "comparable": true,
+                    "featureValues": [
+                        {
+                            "value": "Flammable liquid"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Hazardous Material Text",
+                    "position": 6,
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.company",
+                    "comparable": true,
+                    "featureValues": [
+                        {
+                            "position": 5,
+                            "value": "Waters"
+                        }
+                    ],
+                    "internalOnly": false,
+                    "name": "Company",
+                    "position": 10,
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.weight",
+                    "comparable": true,
+                    "featureValues": [
+                        {
+                            "value": "79"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Weight",
+                    "position": 12,
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.weightunit",
+                    "comparable": true,
+                    "featureValues": [
+                        {
+                            "value": "GRM"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Weight UOM",
+                    "position": 15,
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.harmonizationcode",
+                    "comparable": true,
+                    "featureValues": [
+                        {
+                            "value": "3822000030"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Harmonization Code",
+                    "position": 16,
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.unspsc",
+                    "comparable": true,
+                    "featureValues": [
+                        {
+                            "value": "41116107"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "UNSPSC",
+                    "position": 17,
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.business",
+                    "comparable": true,
+                    "featureValues": [
+                        {
+                            "position": 1,
+                            "value": "Chemistry"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Business",
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.productfamily",
+                    "comparable": true,
+                    "featureValues": [
+                        {
+                            "position": 7,
+                            "value": "Application Kits"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Product Family",
+                    "range": false
+                }
+            ],
+            "name": "Products"
+        }
+    ],
+    "code": "186007362",
+    "description": "Quad LCMS QC Reference Material A quality control reference material intended to be used to benchmark and assess the performance of your UPLC system including a single or triple quad mass spectrometer.     Kit contains 1 mL of a 8 component mix including 100ug/mL Acetaminophen, 50ug/mL Sulfaguanidine, 10 ug/mL Sulfadimethoxine, 25 ug/mL Val,-Tyr,-Val, 6 ug/mL Verapamil, 6 ug/mL Terfenadine, 25 ug/mL Leucine Enkephalin, and 18 ug/mL Reserpine in 19/81 Acetonitrile/water 0.008% formic acid.",
+    "name": "Quad LCMS QCRM",
+    "numberOfReviews": 0,
+    "priceRange": {},
+    "proprietary": false,
+    "purchasable": false,
+    "salesStatus": "Active",
+    "stock": {
+        "stockLevel": 0,
+        "stockLevelStatus": "inStock"
+    },
+    "summary": "Quad LCMS QC Reference Material A quality control reference material intended to be used to benchmark and assess the performance of your UPLC system including a single or triple quad mass spectrometer.     Kit contains 1 mL of a 8 component mix including 100ug/mL Acetaminophen, 50ug/mL Sulfaguanidine, 10 ug/mL Sulfadimethoxine, 25 ug/mL Val,-Tyr,-Val, 6 ug/mL Verapamil, 6 ug/mL Terfenadine, 25 ug/mL Leucine Enkephalin, and 18 ug/mL Reserpine in 19/81 Acetonitrile/water 0.008% formic acid.",
+    "terminated": false,
+    "url": "/waters/products/186007362"
+}

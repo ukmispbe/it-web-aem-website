@@ -17,7 +17,7 @@ public final class HybrisImporterScheduledJob implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(HybrisImporterScheduledJob.class);
 
     @Reference
-    private HybrisImporterExecutorService catalogImporterExecutor;
+    private HybrisImporterExecutorService executorService;
 
     private volatile boolean enabled;
 
@@ -26,7 +26,7 @@ public final class HybrisImporterScheduledJob implements Runnable {
         if (enabled) {
             LOG.info("running hybris importer job...");
 
-            catalogImporterExecutor.execute(HybrisImporterOptions.DEFAULT);
+            executorService.execute(HybrisImporterOptions.DEFAULT);
         } else {
             LOG.info("hybris importer job is disabled");
         }
