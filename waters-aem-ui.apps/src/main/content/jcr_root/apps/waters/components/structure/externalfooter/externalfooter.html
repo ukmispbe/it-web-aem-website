@@ -5,17 +5,11 @@
 
     <div class="cmp-external-footer__parsys" data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
 
-    <div class="cmp-external-footer__region-link">
-        <a href="${externalFooter.regionLinkItem.link.href}" target="${externalFooter.regionLinkItem.newWindow ? '_blank' : ''}">
-            <span>${externalFooter.languageLocation}</span>
-            <img class="${externalFooter.svg ? 'inline-svg' : ''}" data-sly-test="${externalFooter.regionLink.linkIcon}" src="${externalFooter.regionLink.linkIcon}"/>
-        </a>
-    </div>
-
     <div class="cmp-external-footer__social-links">
+        <div class="social-links-text">${'Follow our channels' @ i18n}</div>
         <ul data-sly-test="${externalFooter.socialLinks}">
             <li data-sly-repeat="${externalFooter.socialLinks}" class="cmp-external-footer__social-links__item">
-                <a class="cmp-external-footer-share-links__link" href="${item.link.href}" target="_blank">
+                <a class="cmp-external-footer-social-links__link" href="${item.link.href}" target="_blank">
                     <img class="${externalFooter.svg ? 'inline-svg' : ''}" data-sly-test="${item.linkIcon}" src="${item.linkIcon}"/>
                 </a>
             </li>
