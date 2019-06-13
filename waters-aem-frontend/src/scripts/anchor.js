@@ -158,13 +158,27 @@ function hideScrollBars(el) {
 }
 
 function anchorChange(el) {
-    // el.scrollLeft - Position scrolled from Left of Div
-    // el.scrollWidth - Full width of the Div
-    // el.clientWidth width of the Div Displayed to the user
-    //var anchorCutoff = el.clientWidth - el.scrollLeft;
+
     var anchorCutoff = el.clientWidth;
 
-    // Get Child List Items class cmp-anchor__list-item
+    var listItems = document.querySelectorAll('.cmp-anchor__list-item');
+
+    for (var i = 0; i < listItems.length; i++) {
+
+        var rect = listItems[i].getBoundingClientRect();
+
+        clearRHSGradients();
+        
+        if (rect.left + rect.width > anchorCutoff + 35) {
+            listItems[i].classList.add("rhs-gradient-fade");
+            break;
+        }
+    }
+}
+
+function anchorChangeScroll(el) {
+
+    var anchorCutoff = el.clientWidth;
     var listItems = document.querySelectorAll('.cmp-anchor__list-item');
 
     for (var i = 0; i < listItems.length; i++) {
@@ -172,16 +186,10 @@ function anchorChange(el) {
 
         clearLHSGradients();
 
-        if (rect.left > 0 && rect.left < 80 && el.scrollLeft > 2) {
+        if (((rect.left + rect.width) > 77)  && rect.left < 81 && el.scrollLeft > 2) {
 
-            if (listItems[i].childNodes[1].classList.contains('active')) {
-                listItems[i].classList.add("lhs-gradient-fade-selected");
-                break;
-            }
-            else {
-                listItems[i].classList.add("lhs-gradient-fade");
-                break;
-            }
+            listItems[i].classList.add("lhs-gradient-fade");
+            break;
         }
 
     }
@@ -189,17 +197,12 @@ function anchorChange(el) {
     for (i = 0; i < listItems.length; i++) {
 
         rect = listItems[i].getBoundingClientRect();
-        clearRHSGradients();
-        if (rect.left + rect.width > anchorCutoff + 40) {
 
-            if (listItems[i].childNodes[1].classList.contains('active')) {
-                listItems[i].classList.add("rhs-gradient-fade-selected");
-                break;
-            }
-            else {
-                listItems[i].classList.add("rhs-gradient-fade");
-                break;
-            }
+        clearRHSGradients();
+        if ((rect.left + rect.width > anchorCutoff + 37) && (rect.left + rect.width - 40) >= el.clientWidth) {
+
+            listItems[i].classList.add("rhs-gradient-fade");
+            break;
         }
     }
 }
@@ -208,11 +211,20 @@ function resizeWindow(el) {
     anchorChange(el);
     var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
     if (!hasHorizontalScrollbar) {
-        // Remove class from all items
         clearRHSGradients();
         clearLHSGradients();
     }
 }
+
+function scrollWindow(el) {
+    anchorChangeScroll(el);
+    var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
+    if (!hasHorizontalScrollbar) {
+        clearRHSGradients();
+        clearLHSGradients();
+    }
+}
+
 
 function clearRHSGradients() {
     var listItems = document.querySelectorAll('.cmp-anchor__list-item');
@@ -247,7 +259,8 @@ var anchorList = document.querySelector('.cmp-anchor__list');
 if (anchorList){
     anchorList.addEventListener('mouseover', () => showScrollBars(anchorList));
     anchorList.addEventListener('mouseout', () => hideScrollBars(anchorList));
-    anchorList.addEventListener('scroll', () => anchorChange(anchorList));
+    anchorList.addEventListener('scroll', () => scrollWindow(anchorList));
+    window.addEventListener('load', () => resizeWindow(anchorList));
     window.addEventListener('resize', () => resizeWindow(anchorList));
 }
 
