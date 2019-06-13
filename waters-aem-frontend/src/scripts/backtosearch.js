@@ -37,7 +37,7 @@ function hideBreadcrumbShowBackToSearch(link) {
 function clearRHSGradients() {
     var listItems = document.querySelectorAll('.cmp-breadcrumb__item');
     for (var i = 0; i < listItems.length; i++) {
-        listItems[i].classList.remove("rhs-gradient-fade");
+        listItems[i].classList.remove('rhs-gradient-fade');
     }
 }
 
@@ -53,19 +53,24 @@ function changeBreadcrumb(source) {
 
         var breadcrumbContainer = document.querySelector('.breadcrumb');
 
-        var breadcrumbContainerWidth = breadcrumbContainer ? breadcrumbContainer.clientWidth : 0;
+        var breadcrumbContainerWidth = breadcrumbContainer
+            ? breadcrumbContainer.clientWidth
+            : 0;
 
         var listItems = document.querySelectorAll('.cmp-breadcrumb__item');
         for (var i = 0; i < listItems.length; i++) {
             var rect = listItems[i].getBoundingClientRect();
             var rhsItem = rect.left + rect.width;
             if (breadcrumbContainerWidth < rhsItem + scrollOffset) {
-                if (breadcrumbContainer.clientWidth + breadcrumbContainer.scrollLeft < breadcrumbContainer.scrollWidth - 3) {
-                    listItems[i].classList.add("rhs-gradient-fade");
+                if (
+                    breadcrumbContainer.clientWidth +
+                        breadcrumbContainer.scrollLeft <
+                    breadcrumbContainer.scrollWidth - 3
+                ) {
+                    listItems[i].classList.add('rhs-gradient-fade');
                 }
                 break;
             }
-
         }
     }
 }
@@ -73,14 +78,16 @@ function changeBreadcrumb(source) {
 mediaQueryListener.addListener(changeBreadcrumb);
 
 var breadcrumbDiv = document.querySelector('.breadcrumb');
-if (breadcrumbDiv) {
-    breadcrumbDiv.addEventListener('scroll', () => changeBreadcrumb('FromScroll'));
-}
 
+if (breadcrumbDiv) {
+    breadcrumbDiv.addEventListener('scroll', () =>
+        changeBreadcrumb('FromScroll')
+    );
+    window.addEventListener('load', () => changeBreadcrumb('FromScroll'));
+    window.addEventListener('resize', () => changeBreadcrumb('FromScroll'));
+}
 const link = checkForSessionLink();
 
 if (link) {
     hideBreadcrumbShowBackToSearch(link);
 }
-
-
