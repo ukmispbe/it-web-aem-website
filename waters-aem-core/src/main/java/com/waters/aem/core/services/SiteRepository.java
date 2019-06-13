@@ -11,6 +11,22 @@ import java.util.List;
 public interface SiteRepository {
 
     /**
+     * Get a list of language copy pages for a given page.
+     *
+     * @param blueprintPage blueprint page (language master) in any language
+     * @return list of language copies (blueprint pages) for all languages
+     */
+    List<PageDecorator> getLanguageCopyPages(PageDecorator blueprintPage);
+
+    /**
+     * Get a list of live copy pages for a given blueprint page in a single language.
+     *
+     * @param blueprintPage blueprint page (language master)
+     * @return list of live copy pages for the given blueprint
+     */
+    List<PageDecorator> getLiveCopyPages(PageDecorator blueprintPage);
+
+    /**
      * Get all country root pages (e.g. /content/waters/us).
      *
      * @param resourceResolver resource resolver

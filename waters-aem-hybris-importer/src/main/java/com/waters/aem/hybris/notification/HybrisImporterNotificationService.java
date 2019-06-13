@@ -2,6 +2,10 @@ package com.waters.aem.hybris.notification;
 
 import com.waters.aem.hybris.result.HybrisImporterExecutionResult;
 
+/**
+ * Notification service for Hybris import executions.  Email notifications are implemented by default, but additional
+ * notification types can be provided by services implementing this interface.
+ */
 public interface HybrisImporterNotificationService {
 
     /**

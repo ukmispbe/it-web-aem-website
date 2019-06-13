@@ -1,0 +1,10 @@
+<div data-sly-use.skuDetails="com.waters.aem.core.components.content.SkuDetails"
+     data-sly-test.sku="${skuDetails.sku}"
+     class="cmp-sku-details">
+    <h1>${skuDetails.title}</h1>
+    <h3>${skuDetails.code}</h3>
+    <hr>
+</div>
+
+<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+     data-sly-call="${patterns.placeholder @ show=!sku, text=component.title}"/>

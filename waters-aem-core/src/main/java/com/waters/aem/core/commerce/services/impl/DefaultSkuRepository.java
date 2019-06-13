@@ -1,16 +1,40 @@
 package com.waters.aem.core.commerce.services.impl;
 
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.search.Predicate;
+import com.day.cq.search.PredicateGroup;
+import com.day.cq.search.Query;
+import com.day.cq.search.QueryBuilder;
+import com.day.cq.search.eval.JcrPropertyPredicateEvaluator;
+import com.day.cq.search.eval.PathPredicateEvaluator;
+import com.day.cq.search.result.Hit;
+import com.day.cq.wcm.api.NameConstants;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
 import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.commerce.services.SkuRepository;
+import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.utils.TextUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
+import java.util.List;
+
+import static com.day.cq.search.eval.TypePredicateEvaluator.TYPE;
 
 @Component(service = SkuRepository.class)
 public final class DefaultSkuRepository implements SkuRepository {
+
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultSkuRepository.class);
+
+    @Reference
+    private QueryBuilder queryBuilder;
 
     @Override
     public Sku getSku(final PageDecorator page) {
@@ -35,6 +59,16 @@ public final class DefaultSkuRepository implements SkuRepository {
         return getSku(productReferenceResource.getResourceResolver(), productCode);
     }
 
+    @Override
+    public PageDecorator getSkuPage(final PageDecorator currentPage, final String productCode) {
+        return findSkuPage(currentPage, productCode);
+    }
+
+    @Override
+    public PageDecorator getSkuPage(final PageDecorator currentPage, final Sku sku) {
+        return findSkuPage(currentPage, sku.getCode());
+    }
+
     private Sku getSkuForProductResourcePath(final ResourceResolver resourceResolver,
         final String productResourcePath) {
         final Resource skuResource = resourceResolver.getResource(productResourcePath);
@@ -51,5 +85,44 @@ public final class DefaultSkuRepository implements SkuRepository {
             .append("/")
             .append(productCodeNodeName)
             .toString();
+    }
+
+    private PageDecorator findSkuPage(final PageDecorator currentPage, final String productCode) {
+        // build a query predicate to find the sku page using the product code property value
+        final PredicateGroup skuPagePredicate = buildSkuPagePredicate(currentPage, productCode);
+
+        final ResourceResolver resourceResolver = currentPage.getContentResource().getResourceResolver();
+        final Query query = queryBuilder.createQuery(skuPagePredicate, resourceResolver.adaptTo(Session.class));
+
+        PageDecorator skuPage = null;
+
+        final List<Hit> hits = query.getResult().getHits();
+
+        if (!hits.isEmpty()) {
+            try {
+                // return first hit since there should be one unique sku page for a given product code per language
+                skuPage = hits.get(0).getResource().adaptTo(PageDecorator.class);
+            } catch (RepositoryException e) {
+                LOG.error("error getting resource for sku page hit, returning null", e);
+            }
+        }
+
+        return skuPage;
+    }
+
+    private PredicateGroup buildSkuPagePredicate(final PageDecorator currentPage, final String productCode) {
+        final PredicateGroup predicateGroup = new PredicateGroup();
+
+        final String rootPath = currentPage.getAbsoluteParent(WatersConstants.LEVEL_LANGUAGE_ROOT).getPath();
+
+        predicateGroup.add(new Predicate(TYPE).set(TYPE, NameConstants.NT_PAGE));
+        predicateGroup.add(new Predicate(PathPredicateEvaluator.PATH)
+            .set(PathPredicateEvaluator.PATH, rootPath));
+        predicateGroup.add(new Predicate(JcrPropertyPredicateEvaluator.PROPERTY)
+            .set(JcrPropertyPredicateEvaluator.PROPERTY,
+                JcrConstants.JCR_CONTENT + "/" + WatersCommerceConstants.PROPERTY_CODE)
+            .set(JcrPropertyPredicateEvaluator.VALUE, productCode));
+
+        return predicateGroup;
     }
 }
