@@ -74,7 +74,8 @@ mediaQueryListener.addListener(changeBreadcrumb);
 
 var breadcrumbDiv = document.querySelector('.breadcrumb');
 breadcrumbDiv.addEventListener('scroll', () => changeBreadcrumb('FromScroll'));
-
+window.addEventListener('load', () => changeBreadcrumb('FromScroll'));
+window.addEventListener('resize', () => changeBreadcrumb('FromScroll'));
 const link = checkForSessionLink();
 
 if (link) {
