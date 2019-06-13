@@ -1,12 +1,10 @@
-
-
 .cmp-anchor {
     float: left;
     width: 100%;
     list-style: none;
     padding-left: 0;
     position: relative;
-    background-color: $color-white;  
+    background-color: $color-white;
     padding-top: 2em;
 
     svg {
@@ -18,13 +16,16 @@
 
     &__list {
         @include tablet-and-over {
-        white-space: nowrap;
-        overflow-x: hidden;
-        a {
-            text-decoration: none;
-        }
+            white-space: nowrap;
+            overflow-x: hidden;
+            a {
+                text-decoration: none;
+            }
         }
 
+        a:hover {
+            text-decoration: underline;
+        }
 
         &-heading {
             display: none;
@@ -127,8 +128,8 @@
     .cmp-anchor__link.active {
         color: $color-font-dark;
         @include tablet-and-over {
-            padding-bottom: $space-xxs;
-            border-bottom: 4px $color-teal-50 solid;
+            padding-bottom: $space-xs;
+            border-bottom: 2px solid $color-border-accent;
         }
     }
 }
@@ -139,7 +140,7 @@
     margin: 0;
     padding: $space-xs 0;
 
-    
+
     @include mobile {
         columns: 2;
         margin-top: -$space-s;
@@ -169,43 +170,38 @@
     }
 }
 
-@include tablet-and-over {
-    .rhs-gradient-fade, .rhs-gradient-fade-selected {
-        position: relative;
-    }
-    .rhs-gradient-fade:after, .rhs-gradient-fade-selected:after {
-        content: '';
-        display: inline-block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-
-        background: -webkit-linear-gradient(right, rgba(255,255,255,0.8) 30%,rgba(255,255,255,0.2) 100%);
-        background:    -moz-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
-        background:     -ms-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
-        background:      -o-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
-        background:         linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);    }
-
-    .lhs-gradient-fade, .lhs-gradient-fade-selected {
-        position: relative;
-    }
-    .lhs-gradient-fade:after, .lhs-gradient-fade-selected:after {
-        content: '';
-        display: inline-block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-
-        background: -webkit-linear-gradient(left, rgba(255,255,255,0.8) 30%,rgba(255,255,255,0.2) 100%);
-        background:    -moz-linear-gradient(left, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
-        background:     -ms-linear-gradient(left, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
-        background:      -o-linear-gradient(left, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
-        background:         linear-gradient(left, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);    }
+.rhs-gradient-fade {
+    background: linear-gradient(to right, $color-link, white);
+    -webkit-background: linear-gradient(to right 80%, #0077BB , white);  
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text; 
+    background-clip: text; 
 }
+
+.rhs-gradient-fade-selected {
+    background: linear-gradient(to right, $color-font-dark, white);
+    -webkit-background: linear-gradient(to right 80%, $color-font-dark , white);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text; 
+    background-clip: text; 
+}
+
+.lhs-gradient-fade {
+    background: linear-gradient(to left, #0077BB, white);
+    -webkit-background: linear-gradient(to right 80%, $color-link, white);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text; 
+    background-clip: text; 
+}
+
+.lhs-gradient-fade-selected {
+    background: linear-gradient(to left, $color-font-dark, white);
+    -webkit-background: linear-gradient(to right 80%, $color-font-dark, white);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text; 
+    background-clip: text; 
+}
+
 .cmp-anchor--column-1 {
     .cmp-anchor__list {
         @include mobile {
@@ -246,7 +242,7 @@
     .hide-scroll-bar {
         overflow-x: hidden;
     }
-        
+
     .show-scroll-bar {
         overflow-x: auto;
     }
