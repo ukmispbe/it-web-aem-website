@@ -27,7 +27,7 @@ public class IconLink extends BasicLink {
     @DialogField(fieldLabel = "Link Item Icon",
         fieldDescription = "Select Link Item Icon",
         ranking = 2)
-    @PathField(rootPath = WatersConstants.DAM_PATH)
+    @PathField(rootPath = WatersConstants.DAM_ICON_PATH)
     @Inject
     private String linkIcon;
 

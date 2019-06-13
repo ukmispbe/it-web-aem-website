@@ -1,7 +1,7 @@
 package com.waters.aem.core.components.structure
 
 import com.waters.aem.core.WatersSpec
-import com.waters.aem.core.components.content.applicationnotes.LinkItem
+import com.waters.aem.core.components.content.links.NewWindowLink
 import spock.lang.Unroll
 
 @Unroll
@@ -43,7 +43,7 @@ class ExternalHeaderSpec extends WatersSpec {
             }
         }
 
-        slingContext.addModelsForClasses(LinkItem)
+        slingContext.addModelsForClasses(NewWindowLink)
     }
 
     def "get header logo"() {

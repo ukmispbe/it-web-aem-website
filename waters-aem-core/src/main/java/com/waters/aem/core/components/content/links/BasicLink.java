@@ -15,13 +15,17 @@ import javax.inject.Inject;
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class BasicLink {
 
+    @Inject
+    private String text;
+
     @DialogField(fieldLabel = "Link Item Text",
         fieldDescription = "Enter Link Item Text",
         required = true,
         ranking = 1)
     @TextField
-    @Inject
-    private String text;
+    public String getText() {
+        return text;
+    }
 
     @DialogField(fieldLabel = "Link Item Path",
         fieldDescription = "Enter or Select Link Item Path",
@@ -30,11 +34,6 @@ public class BasicLink {
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject
     private Link link;
-
-
-    public String getText() {
-        return text;
-    }
 
     public Link getLink() {
         return link;

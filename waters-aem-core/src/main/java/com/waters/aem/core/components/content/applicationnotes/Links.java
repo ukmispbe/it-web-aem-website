@@ -53,7 +53,7 @@ public final class Links implements ComponentExporter {
         return title;
     }
 
-    public List<BasicLink> getExternalLinkItems() {
+    public List<BasicLink> getLinkItems() {
         return linkItems;
     }
 }

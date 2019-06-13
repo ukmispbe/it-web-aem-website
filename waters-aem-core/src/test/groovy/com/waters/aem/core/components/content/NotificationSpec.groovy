@@ -1,7 +1,7 @@
 package com.waters.aem.core.components.content
 
 import com.waters.aem.core.WatersSpec
-import com.waters.aem.core.components.content.applicationnotes.LinkItem
+import com.waters.aem.core.components.content.links.NewWindowLink
 import spock.lang.Unroll
 
 @Unroll
@@ -41,7 +41,7 @@ class NotificationSpec extends WatersSpec {
 
             }
         }
-        slingContext.addModelsForClasses(LinkItem)
+        slingContext.addModelsForClasses(NewWindowLink)
     }
 
     def "get notification title"() {
