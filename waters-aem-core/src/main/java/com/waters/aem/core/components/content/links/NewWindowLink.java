@@ -13,8 +13,8 @@ import javax.inject.Inject;
 public class NewWindowLink extends BasicLink {
 
     @DialogField(fieldLabel = "Open in New Window",
-    fieldDescription = "Select this option to open in new window",
-    ranking = 4)
+        fieldDescription = "Select this option to open in new window",
+        ranking = 4)
     @Switch(offText = "No", onText = "Yes")
     @Inject
     @Default(booleanValues = false)

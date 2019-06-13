@@ -1,7 +1,7 @@
 <sly data-sly-use.links="com.waters.aem.core.components.content.applicationnotes.Links"></sly>
 <h3 data-sly-test="${links.title}">${links.title}</h3>
 <ul data-sly-test="${links.externalLinkItems}"
-    data-sly-list.linkItem="${links.externalLinkItems}"
+    data-sly-list.linkItem="${links.linkItems}"
     class="cmp-links">
     <li class="cmp-links__item">
         <a class="cmp-links__link cmp-links__external-link--${linkItem.external}" href="${linkItem.link.href}" target="${linkItem.newWindow ? '_blank' : ''}">${linkItem.text}</a>

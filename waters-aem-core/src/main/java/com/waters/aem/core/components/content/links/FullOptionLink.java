@@ -13,8 +13,8 @@ import javax.inject.Inject;
 public class FullOptionLink extends NewWindowLink {
 
     @DialogField(fieldLabel = "Link Item Icon",
-    fieldDescription = "Select Link Item Icon",
-    ranking = 3)
+        fieldDescription = "Select Link Item Icon",
+        ranking = 3)
     @PathField(rootPath = WatersConstants.DAM_PATH)
     @Inject
     private String linkIcon;

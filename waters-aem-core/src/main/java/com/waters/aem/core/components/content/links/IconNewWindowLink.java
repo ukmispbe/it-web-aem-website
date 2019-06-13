@@ -10,7 +10,7 @@ import org.apache.sling.models.annotations.Model;
 import javax.inject.Inject;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public class IconOnlyWithNewWindowLink extends IconOnlyLink {
+public class IconNewWindowLink extends IconLink {
 
     @DialogField(fieldLabel = "Open in New Window",
         fieldDescription = "Select this option to open in new window",

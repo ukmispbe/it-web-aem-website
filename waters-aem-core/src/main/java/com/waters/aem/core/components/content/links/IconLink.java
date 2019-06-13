@@ -1,6 +1,8 @@
 package com.waters.aem.core.components.content.links;
 
 import com.citytechinc.cq.component.annotations.DialogField;
+import com.citytechinc.cq.component.annotations.DialogFieldOverride;
+import com.citytechinc.cq.component.annotations.Property;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.models.annotations.LinkInject;
@@ -12,15 +14,15 @@ import org.apache.sling.models.annotations.Model;
 import javax.inject.Inject;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public class IconOnlyLink {
+public class IconLink extends BasicLink {
 
-    @DialogField(fieldLabel = "Link Item Path",
-        fieldDescription = "Enter or Select Link Item Path",
-        required = true,
-        ranking = 1)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
-    @LinkInject
-    private Link link;
+    @DialogFieldOverride(ranking = 1, required = false, hideLabel = true, additionalProperties = {
+    @Property(name = "cq:hideOnEdit", value = "true")
+    })
+    @Override
+    public String getText() {
+        return super.getText();
+    }
 
     @DialogField(fieldLabel = "Link Item Icon",
         fieldDescription = "Select Link Item Icon",

@@ -16,17 +16,17 @@ import javax.inject.Inject;
 public class BasicLink {
 
     @DialogField(fieldLabel = "Link Item Text",
-    fieldDescription = "Enter Link Item Text",
-    required = true,
-    ranking = 1)
+        fieldDescription = "Enter Link Item Text",
+        required = true,
+        ranking = 1)
     @TextField
     @Inject
     private String text;
 
     @DialogField(fieldLabel = "Link Item Path",
-    fieldDescription = "Enter or Select Link Item Path",
-    required = true,
-    ranking = 2)
+        fieldDescription = "Enter or Select Link Item Path",
+        required = true,
+        ranking = 2)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject
     private Link link;
@@ -38,5 +38,9 @@ public class BasicLink {
 
     public Link getLink() {
         return link;
+    }
+
+    public Boolean isExternal() {
+        return !link.getHref().startsWith("/");
     }
 }
