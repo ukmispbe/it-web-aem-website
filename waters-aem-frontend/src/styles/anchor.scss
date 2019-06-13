@@ -18,13 +18,16 @@
 
     &__list {
         @include tablet-and-over {
-        white-space: nowrap;
-        overflow-x: hidden;
-        a {
-            text-decoration: none;
-        }
+            white-space: nowrap;
+            overflow-x: hidden;
+            a {
+                text-decoration: none;
+            }
         }
 
+        a:hover {
+            text-decoration: underline;
+        }
 
         &-heading {
             display: none;

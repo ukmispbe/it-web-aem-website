@@ -1,4 +1,15 @@
+.breadcrumb {
+    white-space: nowrap;
+    @include mobile {
+        overflow-y: hidden;
+         overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
 .cmp-breadcrumb {
+    display: inline-block;
+
     &__list {
         display: block;
         padding-left: 0;
@@ -35,12 +46,15 @@
         display: none;
     }
 
+
     @include mobile {
-        display: none;
+        vertical-align: top;
+        padding-top: $space-xs;
     }
 }
 
 .cmp-breadcrumb-search {
+    display: inline-block;
     margin: $space-s 0 $space-xl 0;
     &--disable {
         display: none;
@@ -50,9 +64,23 @@
 .cmp-breadcrumb-search a.cmp-breadcrumb-search__link {
     background-color: $color-white;
     color: $color-link;
+    padding-right: $space-xs;
+
+    span {            
+        border-right: 2px solid $color-blue-50;
+        padding-right: $space-xs;
+    }
 
     &:hover {
         color: $color-link-hover;
         background-color: $color-white;
     }
+}
+
+.rhs-gradient-fade {
+    background: linear-gradient(to right, $color-link, white);
+    -webkit-background: linear-gradient(to right 80%, $color-link , white);  
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text; 
+    background-clip: text; 
 }
