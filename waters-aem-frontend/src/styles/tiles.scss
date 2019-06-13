@@ -1,13 +1,19 @@
 .cmp-tiles__list {
+    padding: 0px;
     list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .cmp-tiles__tile  {
+    margin-right: 10px;
     width: 300px;
     height: 300px;
     background-color: $color-white;
     box-shadow: $shadow;
     padding: $space-xl;
+    overflow-y: auto;
 
     @include tablet-and-under {
         display: flex;
@@ -15,13 +21,22 @@
     }
 
     @include mobile {
+        margin-right: 0px;
         width: 100%;
         height: 113px;
+        padding-left: $space-s;
+        padding-top: $space-s;
+        padding-right: $space-s;
+        padding-bottom: 0;
     }
 
     @include tablet {
-        width: 400px;
+        width: calc(50% - 10px);
         height: 98px;
+        padding-top: $space-s;
+        padding-left: $space-s;
+        padding-right: $space-s;
+        padding-bottom: 0;
     }
 
     a {
@@ -43,6 +58,7 @@
         }
 
         svg {
+            min-width: $icon-xl;
             width: $icon-xl;
             padding-bottom: $space-s;
 
@@ -54,6 +70,10 @@
         h3 {
             @include font-utility;
             text-align: center;
+
+            @include mobile {
+                text-align: left;
+            }
         }
     }
 

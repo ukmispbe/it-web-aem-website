@@ -17,29 +17,21 @@ import javax.inject.Inject;
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class ExternalLinkItem {
 
+    @DialogField(fieldLabel = "Link Item Text",
+        fieldDescription = "Enter Link Item Text",
+        required = true,
+        ranking = 1)
+    @TextField
     @Inject
     private String text;
-
-    @LinkInject
-    private Link link;
 
     @DialogField(fieldLabel = "Link Item Path",
         fieldDescription = "Enter or Select External Link Item Path",
         required = true,
         ranking = 2)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
-    public Link getLink() {
-        return link;
-    }
-
-    @DialogField(fieldLabel = "Link Item Text",
-        fieldDescription = "Enter Link Item Text",
-        required = true,
-        ranking = 1)
-    @TextField
-    public String getText() {
-        return text;
-    }
+    @LinkInject
+    private Link link;
 
     @DialogField(fieldLabel = "Open in New Window",
         fieldDescription = "Select this option to open in new window",
@@ -48,6 +40,27 @@ public class ExternalLinkItem {
     @Inject
     @Default(booleanValues = false)
     private Boolean newWindow;
+
+    @DialogField(fieldLabel = "External Link",
+        fieldDescription = "Select this option to indicate the link is external",
+        ranking = 5)
+    @Switch(offText = "No", onText = "Yes")
+    @Inject
+    @Default(booleanValues = false)
+    private Boolean external;
+
+    public Link getLink() {
+        return link;
+    }
+
+
+    public String getText() {
+        return text;
+    }
+
+    public Boolean isExternal() {
+        return external;
+    }
 
     public Boolean isNewWindow() {
         return newWindow;

@@ -1,3 +1,5 @@
+
+
 .cmp-anchor {
     float: left;
     width: 100%;
@@ -15,6 +17,15 @@
     }
 
     &__list {
+        @include tablet-and-over {
+        white-space: nowrap;
+        overflow-x: hidden;
+        a {
+            text-decoration: none;
+        }
+        }
+
+
         &-heading {
             display: none;
             font-size: $font-size-h3;
@@ -115,6 +126,10 @@
 
     .cmp-anchor__link.active {
         color: $color-font-dark;
+        @include tablet-and-over {
+            padding-bottom: $space-xxs;
+            border-bottom: 4px $color-teal-50 solid;
+        }
     }
 }
 
@@ -124,6 +139,7 @@
     margin: 0;
     padding: $space-xs 0;
 
+    
     @include mobile {
         columns: 2;
         margin-top: -$space-s;
@@ -153,6 +169,43 @@
     }
 }
 
+@include tablet-and-over {
+    .rhs-gradient-fade, .rhs-gradient-fade-selected {
+        position: relative;
+    }
+    .rhs-gradient-fade:after, .rhs-gradient-fade-selected:after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+
+        background: -webkit-linear-gradient(right, rgba(255,255,255,0.8) 30%,rgba(255,255,255,0.2) 100%);
+        background:    -moz-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+        background:     -ms-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+        background:      -o-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+        background:         linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);    }
+
+    .lhs-gradient-fade, .lhs-gradient-fade-selected {
+        position: relative;
+    }
+    .lhs-gradient-fade:after, .lhs-gradient-fade-selected:after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+
+        background: -webkit-linear-gradient(left, rgba(255,255,255,0.8) 30%,rgba(255,255,255,0.2) 100%);
+        background:    -moz-linear-gradient(left, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+        background:     -ms-linear-gradient(left, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+        background:      -o-linear-gradient(left, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+        background:         linear-gradient(left, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);    }
+}
 .cmp-anchor--column-1 {
     .cmp-anchor__list {
         @include mobile {
@@ -186,5 +239,15 @@
         &-item {
             width: 100%;
         }
+    }
+}
+
+@include tablet-and-over {
+    .hide-scroll-bar {
+        overflow-x: hidden;
+    }
+        
+    .show-scroll-bar {
+        overflow-x: auto;
     }
 }

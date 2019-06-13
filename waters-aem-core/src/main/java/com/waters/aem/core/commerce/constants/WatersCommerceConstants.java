@@ -72,6 +72,12 @@ public final class WatersCommerceConstants {
 
     public static final String RESOURCE_NAME_IMAGE = "image";
 
+    // classification properties
+
+    public static final String RESOURCE_NAME_CLASSIFICATIONS = "classifications";
+
+    public static final String RESOURCE_NAME_CLASSIFICATION = "classification";
+
     // sku page properties
 
     public static final String PROPERTY_PRODUCT_RESOURCE_PATH = "hybris:productResourcePath";
