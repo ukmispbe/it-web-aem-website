@@ -1,11 +1,14 @@
 package com.waters.aem.core.commerce.injectors;
 
+import com.adobe.cq.sightly.WCMBindings;
+import com.day.cq.wcm.api.Page;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.commerce.services.SkuRepository;
 import com.waters.aem.core.utils.InjectorUtils;
-import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.scripting.SlingBindings;
 import org.apache.sling.models.spi.DisposalCallbackRegistry;
 import org.apache.sling.models.spi.Injector;
 import org.osgi.service.component.annotations.Component;
@@ -41,10 +44,10 @@ public final class SkuInjector implements Injector {
         Sku sku = null;
 
         if (type == Sku.class) {
-            final Resource resource = InjectorUtils.getResource(adaptable);
+            final SlingHttpServletRequest request = InjectorUtils.getRequest(adaptable);
 
-            if (resource != null) {
-                final PageDecorator currentPage = getCurrentPage(resource);
+            if (request != null) {
+                final PageDecorator currentPage = getCurrentPage(request);
 
                 sku = skuRepository.getSku(currentPage);
 
@@ -55,9 +58,17 @@ public final class SkuInjector implements Injector {
         return sku;
     }
 
-    private PageDecorator getCurrentPage(final Resource resource) {
-        final PageManagerDecorator pageManager = resource.getResourceResolver().adaptTo(PageManagerDecorator.class);
+    private PageDecorator getCurrentPage(final SlingHttpServletRequest request) {
+        final SlingBindings bindings = (SlingBindings) request.getAttribute(SlingBindings.class.getName());
 
-        return pageManager.getContainingPage(resource);
+        PageDecorator currentPage = null;
+
+        if (bindings != null && bindings.containsKey(WCMBindings.CURRENT_PAGE)) {
+            final PageManagerDecorator pageManager = request.getResourceResolver().adaptTo(PageManagerDecorator.class);
+
+            currentPage = pageManager.getPage((Page) bindings.get(WCMBindings.CURRENT_PAGE));
+        }
+
+        return currentPage;
     }
 }

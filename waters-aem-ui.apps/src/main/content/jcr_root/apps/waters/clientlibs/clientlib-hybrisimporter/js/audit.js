@@ -17,7 +17,8 @@ HybrisImporter.Audit = function () {
                     {data: 'path'},
                     {data: 'title'},
                     {data: 'contentType'},
-                    {data: 'status'}
+                    {data: 'status'},
+                    {data: 'lastReplicated'}
                 ],
                 processing: true,
                 language: {

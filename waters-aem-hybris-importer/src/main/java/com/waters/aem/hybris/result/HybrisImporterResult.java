@@ -1,11 +1,12 @@
 package com.waters.aem.hybris.result;
 
-import com.day.cq.tagging.Tag;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.hybris.enums.HybrisImportContentType;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
@@ -24,10 +25,6 @@ public final class HybrisImporterResult {
     public static HybrisImporterResult fromProduct(final Node node, final String title, final HybrisImportStatus status)
         throws RepositoryException {
         return new HybrisImporterResult(node.getPath(), title, HybrisImportContentType.PRODUCT, status);
-    }
-
-    public static HybrisImporterResult fromTag(final Tag tag, final HybrisImportStatus status) {
-        return new HybrisImporterResult(tag.getPath(), tag.getTitle(), HybrisImportContentType.TAG, status);
     }
 
     public static HybrisImporterResult fromMap(final Map<String, String> map) {
@@ -78,6 +75,16 @@ public final class HybrisImporterResult {
             .put("contentType", displayable ? contentType.getDescription() : contentType.name())
             .put("status", displayable ? status.getDescription() : status.name())
             .build();
+    }
+
+    @Override
+    public boolean equals(final Object result) {
+        return EqualsBuilder.reflectionEquals(this, result);
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 
     @Override
