@@ -1,6 +1,10 @@
 .notification {
     background-color: $color-background-light;
     padding: $space-s;
+
+    @include mobile {
+        padding: $space-m;
+    }
 }
 .cmp-notification {
     &-wrapper {
@@ -9,9 +13,14 @@
         svg {
             height: $icon-m;
             width: $icon-l;
-            padding-right: $space-xs;
+            padding-right: $space-xxs;
+            margin-top: .1em;
             .st0 {
                stroke: $color-icon;
+            }
+
+            @include mobile {
+                margin-bottom: $space-xxs;
             }
         }
 
@@ -27,6 +36,8 @@
 
     &-separator {
         color : $color-gray-30;
+        padding-right: $space-xxxs;
+        padding-left: $space-xxxs;
     }
 
     &-body {
@@ -44,14 +55,14 @@
 
     &-title {
         font-weight: $font-weight-bold;
-        padding-right: $space-xs;
+        padding-right: $space-xxs;
         display:inline;
     }
 
     &-links {
         display: inline;
         list-style-type: none;
-        padding-left: 0;
+        padding-left: $space-xxs;
         li{
             display: inline;
         }

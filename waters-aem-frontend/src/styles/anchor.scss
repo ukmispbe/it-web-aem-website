@@ -128,8 +128,8 @@
     .cmp-anchor__link.active {
         color: $color-font-dark;
         @include tablet-and-over {
-            padding-bottom: $space-xxs;
-            border-bottom: 4px $color-teal-50 solid;
+            padding-bottom: $space-xs;
+            border-bottom: 2px solid $color-border-accent;
         }
     }
 }
