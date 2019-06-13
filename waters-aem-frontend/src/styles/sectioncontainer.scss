@@ -6,7 +6,7 @@
     }
 
     .cmp-section-container {
-        margin: $space-xl 0 $space-l 0;
+        padding: $space-xl 0 $space-l 0;
 
         @include mobile {
             &.cmp-section-container--collapse {
@@ -90,7 +90,7 @@
             z-index: 0;
 
             @include mobile {
-                padding: 0 30%; 
+                padding: 0 30%;
             }
         }
 
