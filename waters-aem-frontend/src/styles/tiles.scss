@@ -16,8 +16,7 @@
     overflow-y: auto;
 
     @include tablet-and-under {
-        display: flex;
-        flex-direction: row;
+        display: block;
     }
 
     @include mobile {
@@ -51,10 +50,12 @@
 
         @include mobile {
             margin-top: 0px;
+            align-items: flex-start;
         }
 
         @include tablet {
             margin-top: 10px;
+            align-items: flex-start;
         }
 
         svg {
@@ -69,10 +70,17 @@
 
         h3 {
             @include font-utility;
+            width: 100%;
             text-align: center;
 
             @include mobile {
                 text-align: left;
+                align-self: center;
+            }
+
+            @include tablet {
+                align-self: center;
+                width: auto;
             }
         }
     }
