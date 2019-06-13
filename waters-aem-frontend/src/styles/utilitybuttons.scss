@@ -62,4 +62,8 @@
 
 div.pdfbutton {
     margin: $space-s 0 $space-xxl 0;
+
+    @include mobile {
+        margin: 0 0 $space-s 0;
+    }
 }
