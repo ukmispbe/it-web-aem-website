@@ -10,17 +10,17 @@ import org.apache.sling.models.annotations.Model;
 import javax.inject.Inject;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public class ExternalLink extends BasicLink{
+public class IconOnlyWithNewWindowLink extends IconOnlyLink {
 
-    @DialogField(fieldLabel = "External Link",
-    fieldDescription = "Select this option to open in new window and display default icon",
-    ranking = 5)
+    @DialogField(fieldLabel = "Open in New Window",
+        fieldDescription = "Select this option to open in new window",
+        ranking = 4)
     @Switch(offText = "No", onText = "Yes")
     @Inject
     @Default(booleanValues = false)
-    private Boolean external;
+    private Boolean newWindow;
 
-    public Boolean isExternal() {
-        return external;
+    public Boolean isNewWindow() {
+        return newWindow;
     }
 }

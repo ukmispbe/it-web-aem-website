@@ -10,7 +10,7 @@ import org.apache.sling.models.annotations.Model;
 import javax.inject.Inject;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public class IconLink extends NewWindowLink {
+public class FullOptionLink extends NewWindowLink {
 
     @DialogField(fieldLabel = "Link Item Icon",
     fieldDescription = "Select Link Item Icon",
