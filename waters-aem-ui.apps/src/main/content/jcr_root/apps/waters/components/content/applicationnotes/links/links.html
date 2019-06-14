@@ -4,7 +4,7 @@
     data-sly-list.linkItem="${links.externalLinkItems}"
     class="cmp-links">
     <li class="cmp-links__item">
-        <a class="cmp-links__link cmp-links__external-link--${linkItem.external}" href="${linkItem.link.href}" target="${linkItem.newWindow ? '_blank' : ''}">${linkItem.text}</a>
+        <a class="cmp-links__link cmp-links__external-link--${linkItem.external}" href="${linkItem.link.href}" target="${linkItem.external ? '_blank' : ''}">${linkItem.text}</a>
     </li>
 </ul>
 
