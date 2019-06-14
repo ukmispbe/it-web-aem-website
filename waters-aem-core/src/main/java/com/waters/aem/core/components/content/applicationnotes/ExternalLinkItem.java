@@ -33,14 +33,6 @@ public class ExternalLinkItem {
     @LinkInject
     private Link link;
 
-    @DialogField(fieldLabel = "Open in New Window",
-        fieldDescription = "Select this option to open in new window",
-        ranking = 4)
-    @Switch(offText = "No", onText = "Yes")
-    @Inject
-    @Default(booleanValues = false)
-    private Boolean newWindow;
-
     @DialogField(fieldLabel = "External Link",
         fieldDescription = "Select this option to indicate the link is external",
         ranking = 5)
@@ -60,9 +52,5 @@ public class ExternalLinkItem {
 
     public Boolean isExternal() {
         return external;
-    }
-
-    public Boolean isNewWindow() {
-        return newWindow;
     }
 }
