@@ -17,9 +17,11 @@ const toggleBody = el => {
 };
 
 if (sectionContainers.length > 0) {
-    sectionContainers.forEach((el, i) => {
+    for (let i = 0; i < sectionContainers.length; i++) {
+        const el = sectionContainers[i];
+
         const title = el.querySelector('.cmp-section-container__title');
 
         title.addEventListener('click', e => toggleBody(el));
-    });
+    }
 }
