@@ -21,9 +21,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_COPY;
-import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_DELETE;
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_EDIT;
-import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_INSERT;
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_MOVE;
 import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH_PAGE;
 
@@ -31,11 +29,9 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH
     description = "This is the Notification component for Waters site",
     tabs = @Tab(title = "Properties"),
     listeners = {
-            @Listener(name = EVENT_AFTER_INSERT, value = REFRESH_PAGE),
             @Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
             @Listener(name = EVENT_AFTER_MOVE, value = REFRESH_PAGE),
-            @Listener(name = EVENT_AFTER_COPY, value = REFRESH_PAGE),
-            @Listener(name = EVENT_AFTER_DELETE, value = REFRESH_PAGE)
+            @Listener(name = EVENT_AFTER_COPY, value = REFRESH_PAGE)
     })
 @Model(adaptables = SlingHttpServletRequest.class,
     adapters = { Notification.class, ComponentExporter.class },
