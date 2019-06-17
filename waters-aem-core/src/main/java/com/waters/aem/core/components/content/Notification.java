@@ -4,6 +4,7 @@ import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
+import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
@@ -19,9 +20,19 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.util.List;
 
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_COPY;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_EDIT;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_MOVE;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH_PAGE;
+
 @Component(value = "Notification",
     description = "This is the Notification component for Waters site",
-    tabs = @Tab(title = "Properties"))
+    tabs = @Tab(title = "Properties"),
+    listeners = {
+            @Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
+            @Listener(name = EVENT_AFTER_MOVE, value = REFRESH_PAGE),
+            @Listener(name = EVENT_AFTER_COPY, value = REFRESH_PAGE)
+    })
 @Model(adaptables = SlingHttpServletRequest.class,
     adapters = { Notification.class, ComponentExporter.class },
     resourceType = Notification.RESOURCE_TYPE,
