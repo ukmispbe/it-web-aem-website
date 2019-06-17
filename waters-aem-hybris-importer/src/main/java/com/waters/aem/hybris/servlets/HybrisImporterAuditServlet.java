@@ -1,12 +1,16 @@
 package com.waters.aem.hybris.servlets;
 
+import com.day.cq.replication.ReplicationStatus;
 import com.icfolson.aem.library.core.link.builders.factory.LinkBuilderFactory;
 import com.icfolson.aem.library.core.servlets.AbstractJsonResponseServlet;
 import com.waters.aem.hybris.audit.HybrisImporterAuditService;
 import com.waters.aem.hybris.constants.HybrisImporterConstants;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
+import com.waters.aem.hybris.result.HybrisImporterResult;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.servlets.annotations.SlingServletPaths;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -74,11 +78,32 @@ public final class HybrisImporterAuditServlet extends AbstractJsonResponseServle
             data = auditService.getAuditRecord(suffix)
                 .getResults()
                 .stream()
-                .map(result -> new HashMap<String, Object>(result.toMap(true)))
+                .map(result -> getResultMap(request.getResourceResolver(), result))
                 .collect(Collectors.toList());
         }
 
         writeJsonResponse(response, Collections.singletonMap("data", data));
+    }
 
+    private Map<String, Object> getResultMap(final ResourceResolver resourceResolver,
+        final HybrisImporterResult result) {
+        final Map<String, Object> resultMap = new HashMap<>(result.toMap(true));
+
+        final Resource resource = resourceResolver.getResource(result.getPath());
+
+        String lastReplicated = "";
+
+        if (resource != null) {
+            final ReplicationStatus replicationStatus = resource.adaptTo(ReplicationStatus.class);
+
+            if (replicationStatus != null && replicationStatus.getLastPublished() != null) {
+                lastReplicated = new SimpleDateFormat(DATE_FORMAT_DISPLAY).format(
+                    replicationStatus.getLastPublished().getTime());
+            }
+        }
+
+        resultMap.put("lastReplicated", lastReplicated);
+
+        return resultMap;
     }
 }

@@ -1,15 +1,26 @@
 .notification {
     background-color: $color-background-light;
     padding: $space-s;
+
+    @include mobile {
+        padding: $space-m;
+    }
 }
 .cmp-notification {
     &-wrapper {
-        display: block;
+        display: flex;
+        justify-content: center;
         svg {
             height: $icon-m;
-            padding-right: $space-xs;
+            width: $icon-l;
+            padding-right: $space-xxs;
+            margin-top: .1em;
             .st0 {
                stroke: $color-icon;
+            }
+
+            @include mobile {
+                margin-bottom: $space-xxs;
             }
         }
 
@@ -23,9 +34,13 @@
         }
     }
 
+    &-separator {
+        color : $color-gray-30;
+        padding-right: $space-xxxs;
+        padding-left: $space-xxxs;
+    }
+
     &-body {
-        float: left;
-        width: 93%;
         @include mobile {
             display: flex;
             flex-direction: column;
@@ -40,18 +55,14 @@
 
     &-title {
         font-weight: $font-weight-bold;
-        padding-right: $space-xs;
+        padding-right: $space-xxs;
         display:inline;
-    }
-
-    &-icon{
-        float: left;
     }
 
     &-links {
         display: inline;
         list-style-type: none;
-        padding-left: 0;
+        padding-left: $space-xxs;
         li{
             display: inline;
         }

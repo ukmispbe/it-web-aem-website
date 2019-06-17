@@ -1,4 +1,16 @@
+.breadcrumb {
+    white-space: nowrap;
+    @include mobile {
+        overflow-y: hidden;
+        overflow-x: scroll;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
 .cmp-breadcrumb {
+    display: inline-block;
+
     &__list {
         display: block;
         padding-left: 0;
@@ -36,23 +48,74 @@
     }
 
     @include mobile {
-        display: none;
+        vertical-align: top;
+        padding-top: $space-xs;
     }
 }
 
 .cmp-breadcrumb-search {
+    display: inline-block;
     margin: $space-s 0 $space-xl 0;
     &--disable {
         display: none;
+    }
+
+    @include mobile {
+        margin-bottom: 0;
     }
 }
 
 .cmp-breadcrumb-search a.cmp-breadcrumb-search__link {
     background-color: $color-white;
     color: $color-link;
+    padding-right: $space-xs;
+
+    span {
+        border-right: 1px solid $color-border-light;
+        padding-right: $space-xs;
+    }
 
     &:hover {
         color: $color-link-hover;
         background-color: $color-white;
     }
+}
+
+.rhs-gradient-fade {
+    position: relative;
+}
+.rhs-gradient-fade:after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    background: -webkit-linear-gradient(
+        right,
+        rgba(255, 255, 255, 0.8) 30%,
+        rgba(255, 255, 255, 0.2) 100%
+    );
+    background: -moz-linear-gradient(
+        right,
+        rgba(255, 255, 255, 0.8) 30%,
+        rgba(255, 255, 255, 0.2) 100%
+    );
+    background: -ms-linear-gradient(
+        right,
+        rgba(255, 255, 255, 0.8) 30%,
+        rgba(255, 255, 255, 0.2) 100%
+    );
+    background: -o-linear-gradient(
+        right,
+        rgba(255, 255, 255, 0.8) 30%,
+        rgba(255, 255, 255, 0.2) 100%
+    );
+    background: linear-gradient(
+        right,
+        rgba(255, 255, 255, 0.8) 30%,
+        rgba(255, 255, 255, 0.2) 100%
+    );
 }

@@ -1,0 +1,122 @@
+{
+    "availableForPickup": false,
+    "categories": [
+        {
+            "code": "Intrigo_EnvironmentalKits",
+            "url": "/Intrigo-root-category/Application-Kits/Environmental-Kits/c/Intrigo_EnvironmentalKits"
+        },
+        {
+            "code": "PFCAnalysisKit",
+            "url": "/Web-root-category/Sample-Preparation-Products/Sample-Preparation-Kits/PFC-Analysis-Kit/c/PFCAnalysisKit"
+        }
+    ],
+    "classifications": [
+        {
+            "code": "ConsumablesAndSpares",
+            "features": [
+                {
+                    "code": "WatersClassification/1.0/ConsumablesAndSpares.jaggaercategory",
+                    "comparable": true,
+                    "featureValues": [
+                        {
+                            "position": 99,
+                            "value": "Chemical Reagent Kits"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Jaggaer Category",
+                    "range": false
+                }
+            ],
+            "name": "Consumables And Spares"
+        },
+        {
+            "code": "Products",
+            "features": [
+                {
+                    "code": "WatersClassification/1.0/Products.company",
+                    "comparable": true,
+                    "featureValues": [
+                        {
+                            "position": 5,
+                            "value": "Waters"
+                        }
+                    ],
+                    "internalOnly": false,
+                    "name": "Company",
+                    "position": 10,
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.unspsc",
+                    "comparable": true,
+                    "featureValues": [
+                        {
+                            "value": "41116104"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "UNSPSC",
+                    "position": 17,
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.application",
+                    "comparable": true,
+                    "featureValues": [
+                        {
+                            "position": 15,
+                            "value": "PFC"
+                        }
+                    ],
+                    "internalOnly": false,
+                    "name": "Application",
+                    "position": 20,
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.business",
+                    "comparable": true,
+                    "featureValues": [
+                        {
+                            "position": 1,
+                            "value": "Chemistry"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Business",
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.productfamily",
+                    "comparable": true,
+                    "featureValues": [
+                        {
+                            "position": 7,
+                            "value": "Application Kits"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Product Family",
+                    "range": false
+                }
+            ],
+            "name": "Products"
+        }
+    ],
+    "code": "176001744",
+    "description": "Waters ACQUITY UPLC total solution for the analysis of Perfluorinated Compounds (PFCs).  The kit contains ACQUITY BEH C18 column, PFC isolator column, and other PFCs-free components optimized for use with the ACQUITY system.  Sample preparation consumables such as Oasis HLB cartridges, PFC calibration standards, PFC unknown QC standards, and sample vials are also included.",
+    "name": "PFC Analysis Kit",
+    "numberOfReviews": 0,
+    "priceRange": {},
+    "proprietary": false,
+    "purchasable": false,
+    "salesStatus": "Active",
+    "stock": {
+        "stockLevel": 0,
+        "stockLevelStatus": "inStock"
+    },
+    "summary": "Waters ACQUITY UPLC total solution for the analysis of Perfluorinated Compounds (PFCs).  The kit contains ACQUITY BEH C18 column, PFC isolator column, and other PFCs-free components optimized for use with the ACQUITY system.  Sample preparation consumables such as Oasis HLB cartridges, PFC calibration standards, PFC unknown QC standards, and sample vials are also included.",
+    "terminated": false,
+    "url": "/waters/products/176001744"
+}

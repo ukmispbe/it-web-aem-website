@@ -22,7 +22,7 @@ import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.SiteContext;
-import com.waters.aem.core.components.content.applicationnotes.ExternalLinkItem;
+import com.waters.aem.core.components.content.applicationnotes.BasicLinkItem;
 import com.waters.aem.core.components.content.applicationnotes.RegionLinkItem;
 import com.waters.aem.core.components.content.applicationnotes.SocialLinkItem;
 import com.waters.aem.core.components.structure.page.analytics.DataLayer;
@@ -135,7 +135,7 @@ public final class ExternalFooter extends AbstractComponent implements Component
         ranking = 2)
     @MultiField(composite = true)
     @InheritInject
-    private List<ExternalLinkItem> footerLinks;
+    private List<BasicLinkItem> footerLinks;
 
     @DialogField(fieldLabel = "Social Links",
         tab = 4)
@@ -169,7 +169,7 @@ public final class ExternalFooter extends AbstractComponent implements Component
     }
 
     @JsonProperty
-    public List<ExternalLinkItem> getFooterLinks() {
+    public List<BasicLinkItem> getFooterLinks() {
         return footerLinks;
     }
 

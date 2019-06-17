@@ -19,14 +19,7 @@ function checkForSessionLink() {
 }
 
 function hideBreadcrumbShowBackToSearch(link) {
-    const breadcrumb = document.querySelectorAll('.cmp-breadcrumb');
     const searchButton = document.querySelectorAll('.cmp-breadcrumb-search');
-
-    for (let i = 0; i < breadcrumb.length; i++) {
-        const crumb = breadcrumb[i];
-
-        crumb.classList.add('cmp-breadcrumb--disable');
-    }
 
     for (let n = 0; n < searchButton.length; n++) {
         const button = searchButton[n];
@@ -39,6 +32,59 @@ function hideBreadcrumbShowBackToSearch(link) {
             removeFromSession();
         });
     }
+}
+
+function clearRHSGradients() {
+    var listItems = document.querySelectorAll('.cmp-breadcrumb__item');
+    for (var i = 0; i < listItems.length; i++) {
+        listItems[i].classList.remove('rhs-gradient-fade');
+    }
+}
+
+var mediaQueryListener = window.matchMedia('(max-width: 650px)');
+
+function changeBreadcrumb(source) {
+    var scrollOffset = 40;
+    if (source === 'FromScroll') {
+        scrollOffset = 10;
+    }
+    if (mediaQueryListener.matches) {
+        clearRHSGradients();
+
+        var breadcrumbContainer = document.querySelector('.breadcrumb');
+
+        var breadcrumbContainerWidth = breadcrumbContainer
+            ? breadcrumbContainer.clientWidth
+            : 0;
+
+        var listItems = document.querySelectorAll('.cmp-breadcrumb__item');
+        for (var i = 0; i < listItems.length; i++) {
+            var rect = listItems[i].getBoundingClientRect();
+            var rhsItem = rect.left + rect.width;
+            if (breadcrumbContainerWidth < rhsItem + scrollOffset) {
+                if (
+                    breadcrumbContainer.clientWidth +
+                        breadcrumbContainer.scrollLeft <
+                    breadcrumbContainer.scrollWidth - 3
+                ) {
+                    listItems[i].classList.add('rhs-gradient-fade');
+                }
+                break;
+            }
+        }
+    }
+}
+
+mediaQueryListener.addListener(changeBreadcrumb);
+
+var breadcrumbDiv = document.querySelector('.breadcrumb');
+
+if (breadcrumbDiv) {
+    breadcrumbDiv.addEventListener('scroll', () =>
+        changeBreadcrumb('FromScroll')
+    );
+    window.addEventListener('load', () => changeBreadcrumb('FromScroll'));
+    window.addEventListener('resize', () => changeBreadcrumb('FromScroll'));
 }
 const link = checkForSessionLink();
 
