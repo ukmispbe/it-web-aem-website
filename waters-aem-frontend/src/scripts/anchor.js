@@ -157,6 +157,7 @@ function hideScrollBars(el) {
     el.classList.remove("show-scroll-bar");
 }
 
+
 function anchorChange(el) {
 
     var anchorCutoff = el.clientWidth;
@@ -168,7 +169,7 @@ function anchorChange(el) {
         var rect = listItems[i].getBoundingClientRect();
 
         clearRHSGradients();
-        
+
         if (rect.left + rect.width > anchorCutoff + 35) {
             listItems[i].classList.add("rhs-gradient-fade");
             break;
@@ -178,7 +179,6 @@ function anchorChange(el) {
 
 function anchorChangeScroll(el) {
 
-    var anchorCutoff = el.clientWidth;
     var listItems = document.querySelectorAll('.cmp-anchor__list-item');
 
     for (var i = 0; i < listItems.length; i++) {
@@ -186,7 +186,7 @@ function anchorChangeScroll(el) {
 
         clearLHSGradients();
 
-        if (((rect.left + rect.width) > 77)  && rect.left < 81 && el.scrollLeft > 2) {
+        if ((rect.left + rect.width > 37)  && (rect.left + rect.width > 75)  && (rect.left < 80) && (el.scrollLeft > 2)) {
 
             listItems[i].classList.add("lhs-gradient-fade");
             break;
@@ -197,9 +197,8 @@ function anchorChangeScroll(el) {
     for (i = 0; i < listItems.length; i++) {
 
         rect = listItems[i].getBoundingClientRect();
-
         clearRHSGradients();
-        if ((rect.left + rect.width > anchorCutoff + 37) && (rect.left + rect.width - 40) >= el.clientWidth) {
+        if (rect.left + rect.width > el.clientWidth + 37 &&  (el.scrollLeft + el.clientWidth < el.scrollWidth - 2) ) {
 
             listItems[i].classList.add("rhs-gradient-fade");
             break;
@@ -247,13 +246,7 @@ if (anchorMenu) {
     anchorMenu.addEventListener('click', () => toggleMobileNav());
 }
 
-var mediaQueryListener = window.matchMedia('(max-width: 650px)');
-function anchorChangeToMobile() {
-    if (mediaQueryListener.matches) {
-        clearGradients();
-    }
-}
-mediaQueryListener.addListener(anchorChangeToMobile);
+
 
 var anchorList = document.querySelector('.cmp-anchor__list');
 if (anchorList){
@@ -262,5 +255,12 @@ if (anchorList){
     anchorList.addEventListener('scroll', () => scrollWindow(anchorList));
     window.addEventListener('load', () => resizeWindow(anchorList));
     window.addEventListener('resize', () => resizeWindow(anchorList));
+    var mediaQueryListener = window.matchMedia('(max-width: 650px)');
+    function anchorChangeToMobile() {
+        if (mediaQueryListener.matches) {
+            clearGradients();
+        }
+    }
+    mediaQueryListener.addListener(anchorChangeToMobile);
 }
 
