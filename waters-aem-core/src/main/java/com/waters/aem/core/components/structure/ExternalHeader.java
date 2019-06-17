@@ -23,7 +23,6 @@ import com.waters.aem.core.components.content.applicationnotes.LinkItem;
 import com.waters.aem.core.components.content.applicationnotes.RegionLinkItem;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.launch.AdobeLaunchService;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -34,7 +33,6 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.Locale;
 
 @Component(value = "External Header",
     group = ComponentConstants.GROUP_HIDDEN,
