@@ -19,8 +19,8 @@ import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.SiteContext;
-import com.waters.aem.core.components.content.links.FullOptionLink;
-import com.waters.aem.core.components.content.links.IconNewWindowLink;
+import com.waters.aem.core.components.content.links.ExtendedLink;
+import com.waters.aem.core.components.content.links.IconOnlyLink;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.launch.AdobeLaunchService;
 import org.apache.commons.lang3.StringUtils;
@@ -103,13 +103,13 @@ public final class ExternalHeader extends AbstractComponent implements Component
         ranking = 2)
     @MultiField(composite = true)
     @InheritInject
-    private List<FullOptionLink> linkItems;
+    private List<ExtendedLink> linkItems;
 
     @DialogField(tab = 3)
     @DialogFieldSet(namePrefix = "./regionLinkItem/")
-    public IconNewWindowLink getRegionLinkItem() {
+    public IconOnlyLink getRegionLinkItem() {
         return getComponentNodeInherited("regionLinkItem")
-            .transform(componentNode -> componentNode.getResource().adaptTo(IconNewWindowLink.class))
+            .transform(componentNode -> componentNode.getResource().adaptTo(IconOnlyLink.class))
             .orNull();
     }
 
@@ -139,7 +139,7 @@ public final class ExternalHeader extends AbstractComponent implements Component
         return newWindow;
     }
 
-    public List<FullOptionLink> getLinkItems() {
+    public List<ExtendedLink> getLinkItems() {
         return linkItems;
     }
 

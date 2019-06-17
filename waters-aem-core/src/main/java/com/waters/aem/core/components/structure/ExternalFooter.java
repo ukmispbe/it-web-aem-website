@@ -20,7 +20,7 @@ import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
-import com.waters.aem.core.components.content.links.NewWindowLink;
+import com.waters.aem.core.components.content.links.BasicLink;
 import com.waters.aem.core.components.structure.page.analytics.DataLayer;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -117,7 +117,7 @@ public final class ExternalFooter extends AbstractComponent implements Component
         ranking = 2)
     @MultiField(composite = true)
     @InheritInject
-    private List<NewWindowLink> footerLinks;
+    private List<BasicLink> footerLinks;
 
     @JsonProperty
     public Image getLogoImage() {
@@ -145,7 +145,7 @@ public final class ExternalFooter extends AbstractComponent implements Component
     }
 
     @JsonProperty
-    public List<NewWindowLink> getFooterLinks() {
+    public List<BasicLink> getFooterLinks() {
         return footerLinks;
     }
 
