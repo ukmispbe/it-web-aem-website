@@ -7,7 +7,7 @@ import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public class IconOnlyLink extends ExtendedLink {
+public class IconOnlyLink extends LinkWithIcon {
 
     @DialogFieldOverride(ranking = 1, required = false, hideLabel = true, additionalProperties = {
     @Property(name = "cq:hideOnEdit", value = "true")

@@ -23,6 +23,7 @@ import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.content.links.BasicLink;
 import com.waters.aem.core.components.structure.page.analytics.DataLayer;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.utils.LinkUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -96,14 +97,6 @@ public final class ExternalFooter extends AbstractComponent implements Component
         return getInherited("copyrightText", defaultCopyrightText);
     }
 
-    @DialogField(fieldLabel = "Open in New Window",
-        fieldDescription = "Select this option to open in new window",
-        ranking = 5)
-    @Switch(offText = "No", onText = "Yes")
-    @InheritInject
-    @Default(booleanValues = false)
-    private Boolean newWindow;
-
     @DialogField(fieldLabel = "Cookies Link",
         fieldDescription = "Select or enter the link URL",
         tab = 2,
@@ -135,10 +128,9 @@ public final class ExternalFooter extends AbstractComponent implements Component
     }
 
     @JsonProperty
-    public Boolean isNewWindow() {
-        return newWindow;
+    public Boolean isExternal() {
+        return LinkUtils.isExternal(logoLink);
     }
-
     @JsonProperty
     public Link getCookiesLink() {
         return cookiesLink;

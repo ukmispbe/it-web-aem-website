@@ -19,10 +19,11 @@ import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.SiteContext;
-import com.waters.aem.core.components.content.links.ExtendedLink;
+import com.waters.aem.core.components.content.links.LinkWithIcon;
 import com.waters.aem.core.components.content.links.IconOnlyLink;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.launch.AdobeLaunchService;
+import com.waters.aem.core.utils.LinkUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Default;
@@ -81,14 +82,6 @@ public final class ExternalHeader extends AbstractComponent implements Component
     @InheritInject
     private String logoAltText;
 
-    @DialogField(fieldLabel = "Open in New Window",
-        fieldDescription = "Select this option to open in new window",
-        ranking = 4)
-    @Switch(offText = "No", onText = "Yes")
-    @InheritInject
-    @Default(booleanValues = false)
-    private Boolean newWindow;
-
     @DialogField(fieldLabel = "Search Path",
         fieldDescription = "Select Search Path",
         tab = 2,
@@ -103,7 +96,7 @@ public final class ExternalHeader extends AbstractComponent implements Component
         ranking = 2)
     @MultiField(composite = true)
     @InheritInject
-    private List<ExtendedLink> linkItems;
+    private List<LinkWithIcon> linkItems;
 
     @DialogField(tab = 3)
     @DialogFieldSet(namePrefix = "./regionLinkItem/")
@@ -135,11 +128,11 @@ public final class ExternalHeader extends AbstractComponent implements Component
         return logoAltText;
     }
 
-    public Boolean isNewWindow() {
-        return newWindow;
+    public Boolean isExternal() {
+        return LinkUtils.isExternal(logoLink);
     }
 
-    public List<ExtendedLink> getLinkItems() {
+    public List<LinkWithIcon> getLinkItems() {
         return linkItems;
     }
 
