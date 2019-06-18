@@ -2,6 +2,20 @@
 
 <div data-sly-use.externalFooter="com.waters.aem.core.components.structure.ExternalFooter"
      class="cmp-external-footer">
+
+    <div class="cmp-external-footer__parsys" data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+
+    <div class="cmp-external-footer__social-links">
+        <div class="social-links-text">${'Follow our channels' @ i18n}</div>
+        <ul data-sly-test="${externalFooter.socialLinks}">
+            <li data-sly-repeat="${externalFooter.socialLinks}" class="cmp-external-footer__social-links__item">
+                <a class="cmp-external-footer-social-links__link" href="${item.link.href}" target="_blank">
+                    <img class="${externalFooter.svg ? 'inline-svg' : ''}" data-sly-test="${item.linkIcon}" src="${item.linkIcon}"/>
+                </a>
+            </li>
+        </ul>
+    </div>
+
     <div class="container">
         <div class="cmp-external-footer__logo">
             <a href="${externalFooter.logoLink.href}" target="${externalFooter.newWindow ? '_blank' : ''}">

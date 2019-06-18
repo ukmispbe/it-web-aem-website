@@ -5,6 +5,7 @@ import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
+import com.citytechinc.cq.component.annotations.widgets.DialogFieldSet;
 import com.citytechinc.cq.component.annotations.widgets.Html5SmartImage;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
@@ -20,7 +21,10 @@ import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
+import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.components.content.applicationnotes.BasicLinkItem;
+import com.waters.aem.core.components.content.applicationnotes.RegionLinkItem;
+import com.waters.aem.core.components.content.applicationnotes.SocialLinkItem;
 import com.waters.aem.core.components.structure.page.analytics.DataLayer;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -29,6 +33,7 @@ import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ChildResource;
+import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -37,10 +42,13 @@ import java.util.List;
 
 @Component(value = "External Footer",
     description = "This is the External Footer component for Waters site",
+    isContainer = true,
     editConfig = false,
     tabs = {
         @Tab(title = "Properties"),
-        @Tab(title = "Footer Links")
+        @Tab(title = "Region Selector"),
+        @Tab(title = "Footer Links"),
+        @Tab(title = "Share Links")
     },
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE)
@@ -53,6 +61,9 @@ import java.util.List;
 public final class ExternalFooter extends AbstractComponent implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/structure/externalfooter";
+
+    @Self
+    private SiteContext siteContext;
 
     @Inject
     private PageDecorator currentPage;
@@ -104,20 +115,34 @@ public final class ExternalFooter extends AbstractComponent implements Component
     @Default(booleanValues = false)
     private Boolean newWindow;
 
+    @DialogField(tab = 2)
+    @DialogFieldSet(namePrefix = "./regionLinkItem/")
+    public RegionLinkItem getRegionLinkItem() {
+        return getComponentNodeInherited("regionLinkItem")
+        .transform(componentNode -> componentNode.getResource().adaptTo(RegionLinkItem.class))
+        .orNull();
+    }
+
     @DialogField(fieldLabel = "Cookies Link",
         fieldDescription = "Select or enter the link URL",
-        tab = 2,
+        tab = 3,
         ranking = 1)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
     private Link cookiesLink;
 
     @DialogField(fieldLabel = "Footer Links",
-        tab = 2,
+        tab = 3,
         ranking = 2)
     @MultiField(composite = true)
     @InheritInject
     private List<BasicLinkItem> footerLinks;
+
+    @DialogField(fieldLabel = "Social Links",
+        tab = 4)
+    @MultiField(composite = true)
+    @InheritInject
+    private List<SocialLinkItem> socialLinks;
 
     @JsonProperty
     public Image getLogoImage() {
@@ -149,8 +174,16 @@ public final class ExternalFooter extends AbstractComponent implements Component
         return footerLinks;
     }
 
+    public List<SocialLinkItem> getSocialLinks() {
+        return socialLinks;
+    }
+
     public String getDataLayer() throws JsonProcessingException {
         return dataLayer.getJsonData();
+    }
+
+    public String getLanguageLocation() {
+        return siteContext.getLanguageLocation();
     }
 
     @Nonnull
