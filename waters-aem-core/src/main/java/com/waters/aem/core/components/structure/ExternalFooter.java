@@ -8,7 +8,6 @@ import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.Html5SmartImage;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
-import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.wcm.foundation.Image;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,16 +19,18 @@ import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
+import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.components.content.links.BasicLink;
+import com.waters.aem.core.components.content.links.IconOnlyLink;
 import com.waters.aem.core.components.structure.page.analytics.DataLayer;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.utils.LinkUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ChildResource;
+import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -38,10 +39,13 @@ import java.util.List;
 
 @Component(value = "External Footer",
     description = "This is the External Footer component for Waters site",
+    isContainer = true,
     editConfig = false,
     tabs = {
         @Tab(title = "Properties"),
-        @Tab(title = "Footer Links")
+        @Tab(title = "Region Selector"),
+        @Tab(title = "Footer Links"),
+        @Tab(title = "Share Links")
     },
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE)
@@ -54,6 +58,9 @@ import java.util.List;
 public final class ExternalFooter extends AbstractComponent implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/structure/externalfooter";
+
+    @Self
+    private SiteContext siteContext;
 
     @Inject
     private PageDecorator currentPage;
@@ -99,18 +106,24 @@ public final class ExternalFooter extends AbstractComponent implements Component
 
     @DialogField(fieldLabel = "Cookies Link",
         fieldDescription = "Select or enter the link URL",
-        tab = 2,
+        tab = 3,
         ranking = 1)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
     private Link cookiesLink;
 
     @DialogField(fieldLabel = "Footer Links",
-        tab = 2,
+        tab = 3,
         ranking = 2)
     @MultiField(composite = true)
     @InheritInject
     private List<BasicLink> footerLinks;
+
+    @DialogField(fieldLabel = "Social Links",
+        tab = 4)
+    @MultiField(composite = true)
+    @InheritInject
+    private List<IconOnlyLink> socialLinks;
 
     @JsonProperty
     public Image getLogoImage() {
@@ -141,8 +154,16 @@ public final class ExternalFooter extends AbstractComponent implements Component
         return footerLinks;
     }
 
+    public List<IconOnlyLink> getSocialLinks() {
+        return socialLinks;
+    }
+
     public String getDataLayer() throws JsonProcessingException {
         return dataLayer.getJsonData();
+    }
+
+    public String getLanguageLocation() {
+        return siteContext.getLanguageLocation();
     }
 
     @Nonnull
