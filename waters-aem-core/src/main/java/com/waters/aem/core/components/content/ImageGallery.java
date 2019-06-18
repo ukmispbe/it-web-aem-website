@@ -78,7 +78,7 @@ public final class ImageGallery implements ComponentExporter {
         fieldDescription = "Secondary Images to be displayed",
         ranking = 3)
     @MultiField
-    @PathField(rootPath = WatersConstants.DAM_PATH)
+    @TextField
     @Inject
     private String[] secondaryImages = new String[0];
 
