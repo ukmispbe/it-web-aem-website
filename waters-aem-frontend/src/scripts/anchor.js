@@ -5,7 +5,7 @@ var anchorMenu = document.querySelector('.cmp-anchor__list-heading');
 
 // Setup click handler for Anchor Links to scroll in view
 var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
-[].forEach.call(anchorLinks, (anchor) => {
+[].forEach.call(anchorLinks, anchor => {
     try {
         anchor.addEventListener('click', e => {
             e.preventDefault();
@@ -31,16 +31,16 @@ var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
 });
 
 // Sticky Nav Component
-var anchorSticky = (function () {
+var anchorSticky = (function() {
     var CSS_CLASS_ACTIVE = 'cmp-anchor--sticky';
 
     var Sticky = {
         element: null,
         position: 0,
-        addEvents: function () {
+        addEvents: function() {
             window.addEventListener('scroll', this.onScroll.bind(this));
         },
-        init: function (element) {
+        init: function(element) {
             this.element = element;
             this.addEvents();
             this.position = element.offsetTop;
@@ -64,10 +64,10 @@ var anchorSticky = (function () {
 
             this.getInViewElement();
         },
-        aboveScroll: function () {
+        aboveScroll: function() {
             return this.position - 73 < window.pageYOffset;
         },
-        onScroll: function () {
+        onScroll: function() {
             if (this.aboveScroll()) {
                 this.setFixed();
             } else {
@@ -75,19 +75,19 @@ var anchorSticky = (function () {
             }
             this.getInViewElement();
         },
-        setFixed: function () {
+        setFixed: function() {
             this.element.parentNode.style.height =
                 this.element.clientHeight + 'px';
             this.element.classList.add(CSS_CLASS_ACTIVE);
         },
-        setRelative: function () {
+        setRelative: function() {
             this.element.classList.remove(CSS_CLASS_ACTIVE);
             this.element.parentNode.style.height = 'auto';
         },
-
-        getInViewElement: function () {
+        brokeAt: 0,
+        getInViewElement: function() {
+            let multipleInView = [];
             if (this.anchorDestinations) {
-                let brokeAt = 0;
                 for (let n = 0; n <= this.anchorDestinations.length; n++) {
                     const id = this.anchorDestinations[n]
                         ? this.anchorDestinations[n].id.replace(/#/gi, '')
@@ -112,19 +112,21 @@ var anchorSticky = (function () {
                             (elementTop < 150 && elementBottom >= stillOnPage)
                         ) {
                             link.classList.add('active');
-                            //brokeAt = n;
-                            break;
+                            this.brokeAt = n;
+                            multipleInView.push(n);
                         } else {
                             link.classList.remove('active');
                         }
                     }
+                }
 
-                    for (let i = 0; i <= this.anchorDestinations.length; i++) {
-                        if (i !== brokeAt && this.anchorDestinations[i]) {
-                            this.anchorDestinations[i].anchor.classList.remove(
-                                'active'
-                            );
-                        }
+                if (multipleInView.length > 1) {
+                    for (let i = 1; i < multipleInView.length; i++) {
+                        const inView = multipleInView[i];
+
+                        this.anchorDestinations[inView].anchor.classList.remove(
+                            'active'
+                        );
                     }
                 }
             }
@@ -138,7 +140,6 @@ var anchorSticky = (function () {
 if (anchorElement) anchorSticky.init(anchorElement);
 
 function toggleMobileNav(forceClose) {
-
     const heading = document.querySelector('.cmp-anchor--sticky');
     if (!forceClose && heading.classList.contains('closed')) {
         heading.classList.remove('closed');
@@ -150,28 +151,26 @@ function toggleMobileNav(forceClose) {
 }
 
 function showScrollBars(el) {
-    el.classList.add("show-scroll-bar");
+    el.classList.add('show-scroll-bar');
 }
 
 function hideScrollBars(el) {
-    el.classList.remove("show-scroll-bar");
+    el.classList.remove('show-scroll-bar');
 }
 
 
 function anchorChange(el) {
-
     var anchorCutoff = el.clientWidth;
 
     var listItems = document.querySelectorAll('.cmp-anchor__list-item');
 
     for (var i = 0; i < listItems.length; i++) {
-
         var rect = listItems[i].getBoundingClientRect();
 
         clearRHSGradients();
 
         if (rect.left + rect.width > anchorCutoff + 35) {
-            listItems[i].classList.add("rhs-gradient-fade");
+            listItems[i].classList.add('rhs-gradient-fade');
             break;
         }
     }
@@ -187,19 +186,16 @@ function anchorChangeScroll(el) {
         clearLHSGradients();
 
         if ((rect.left + rect.width > 37)  && (rect.left + rect.width > 75)  && (rect.left < 80) && (el.scrollLeft > 2)) {
-
             listItems[i].classList.add("lhs-gradient-fade");
             break;
         }
-
     }
 
     for (i = 0; i < listItems.length; i++) {
-
         rect = listItems[i].getBoundingClientRect();
         clearRHSGradients();
-        if (rect.left + rect.width > el.clientWidth + 37 &&  (el.scrollLeft + el.clientWidth < el.scrollWidth - 2) ) {
 
+        if (rect.left + rect.width > el.clientWidth + 37 &&  (el.scrollLeft + el.clientWidth < el.scrollWidth - 2) ) {
             listItems[i].classList.add("rhs-gradient-fade");
             break;
         }
@@ -224,20 +220,19 @@ function scrollWindow(el) {
     }
 }
 
-
 function clearRHSGradients() {
     var listItems = document.querySelectorAll('.cmp-anchor__list-item');
     for (var j = 0; j < listItems.length; j++) {
-        listItems[j].classList.remove("rhs-gradient-fade");
-        listItems[j].classList.remove("rhs-gradient-fade-selected");
+        listItems[j].classList.remove('rhs-gradient-fade');
+        listItems[j].classList.remove('rhs-gradient-fade-selected');
     }
 }
 
 function clearLHSGradients() {
     var listItems = document.querySelectorAll('.cmp-anchor__list-item');
     for (var j = 0; j < listItems.length; j++) {
-        listItems[j].classList.remove("lhs-gradient-fade");
-        listItems[j].classList.remove("lhs-gradient-fade-selected");
+        listItems[j].classList.remove('lhs-gradient-fade');
+        listItems[j].classList.remove('lhs-gradient-fade-selected');
     }
 }
 
@@ -254,7 +249,7 @@ if (anchorMenu) {
 
 
 var anchorList = document.querySelector('.cmp-anchor__list');
-if (anchorList){
+if (anchorList) {
     anchorList.addEventListener('mouseover', () => showScrollBars(anchorList));
     anchorList.addEventListener('mouseout', () => hideScrollBars(anchorList));
     anchorList.addEventListener('scroll', () => scrollWindow(anchorList));
@@ -268,4 +263,3 @@ if (anchorList){
     }
     mediaQueryListener.addListener(anchorChangeToMobile);
 }
-
