@@ -45,6 +45,8 @@ class ImageCarousel extends React.Component {
         key={template}
         template={template}
         widths={this.props.widths}
+        zoomInIcon={this.props.zoomInIcon}
+        zoomOutIcon={this.props.zoomOutIcon}
         onZoomIn={this.handleZoomIn}
         onZoomOut={this.handleZoomOut}
         onCalculate={this.handleImageViewerCalculate} />;
@@ -54,7 +56,9 @@ class ImageCarousel extends React.Component {
 
 ImageCarousel.propTypes = {
     templates: PropTypes.arrayOf(PropTypes.string).isRequired,
-    widths: PropTypes.arrayOf(PropTypes.string).isRequired
+    widths: PropTypes.arrayOf(PropTypes.string).isRequired,
+    zoomInIcon: PropTypes.string.isRequired,
+    zoomOutIcon: PropTypes.string.isRequired
 }
 
 export default ImageCarousel;
