@@ -50,6 +50,12 @@
     }
 }
 
+.cmp-table--divide .cmp-table {
+    column-count:2;
+    -moz-column-count:2;
+    -webkit-column-count:2;
+}
+
 .cmp-table__caption {
     @include font-caption;
 }
