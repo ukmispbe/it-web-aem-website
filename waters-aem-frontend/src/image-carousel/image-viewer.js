@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
+import ReactSVG from 'react-svg';
 
 class ImageViewer extends React.Component {
     constructor() {
@@ -97,9 +98,7 @@ class ImageViewer extends React.Component {
             src={this.state.imageSrc}
             alt=""/>
           </figure>
-          <div
-            className="image-viewer-container__image-zoom"
-            onClick={this.handleMagnifyClick}>
+          <div className="image-viewer-container__image-zoom">
             <div>{this.renderZoomIcon()}</div>
           </div>
         </div>
@@ -127,7 +126,9 @@ class ImageViewer extends React.Component {
         window.removeEventListener("deviceorientation", this.calculateWidth);
     }
 
-    renderZoomIcon = () => (this.state.magnified ? "-" : "+");
+    renderZoomIcon = () => this.state.magnified
+        ? <ReactSVG src={this.props.zoomOutIcon} onClick={this.handleMagnifyClick} /> 
+        : <ReactSVG src={this.props.zoomInIcon} onClick={this.handleMagnifyClick} />;
 
     getClosestWidth = containerWidth => this.props.widths.reduce((prev, curr) => curr > containerWidth ? prev : curr);
 
@@ -170,6 +171,8 @@ class ImageViewer extends React.Component {
 ImageViewer.propTypes = {
     template: PropTypes.string.isRequired,
     widths: PropTypes.arrayOf(PropTypes.string).isRequired,
+    zoomInIcon: PropTypes.string.isRequired,
+    zoomOutIcon: PropTypes.string.isRequired,
     onCalculate: PropTypes.func,
     onZoomIn: PropTypes.func,
     onZoomOut: PropTypes.func
