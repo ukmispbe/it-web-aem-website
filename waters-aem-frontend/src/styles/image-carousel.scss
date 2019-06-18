@@ -1,0 +1,103 @@
+.image-carousel {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    border: medium dotted red;
+}
+
+.image-viewer-container {
+    width: 100%;
+}
+
+.image-viewer-container__image-figure {
+    border: 2px solid gray;
+    margin: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    background-position: 50% 50%;
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-clip: border-box;
+    touch-action: none;
+  }
+  
+  .image-viewer-container__image-figure--true
+    > .image-viewer-container__image-element {
+    opacity: 0;
+  }
+  
+  .image-viewer-container__image-display {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .image-viewer-container__image-element {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .image-viewer-container__image-zoom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .image-carousel__thumbnails {
+    display: flex;
+  }
+  
+  .image-carousel__thumbnails .alice-carousel {
+    width: 75%;
+  }
+  
+  .image-carousel__thumbnails .alice-carousel__stage-item {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  
+  .image-viewer-container__image-zoom > div {
+    height: 50px;
+    font-size: 1.25em;
+  }
+
+  .image-thumbnail-wrapper {
+      background-color: gainsboro;
+      display: inline-block;
+      text-align: left;
+  }
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .image-viewer-container__image-display {
+        display: static;
+    }
+
+    .image-thumbnail-wrapper {
+        display: static;
+    }
+
+    .image-viewer-container__image-zoom {
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+// Edge CSS Hack 
+@supports (-ms-ime-align: auto) {
+    .image-viewer-container__image-zoom {
+        bottom: 15px;
+        right: 15px;
+    }
+} 
