@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import SearchBar from './search/components/searchbar';
 import Search from './search/index';
 import TagCloud from './search/components/tagcloud';
+import ImageCarousel from './image-carousel';
 
 function getAuthoredDataForSearchBar(c, h) {
     return {
@@ -91,4 +92,14 @@ if (tagCloudContainers) {
             tagCloudContainers[i]
         );
     }
+}
+
+const imageGalleryContainers = Array.from(document.querySelectorAll('.cmp-image-gallery'));
+
+if (imageGalleryContainers) {
+    imageGalleryContainers.forEach(container => {
+        const json = JSON.parse(container.getAttribute('data-json'));
+
+        ReactDOM.render(<ImageCarousel templates={json.templates} widths={json.widths} />, container);
+    });
 }
