@@ -14,8 +14,10 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.util.Currency;
+import java.util.Locale;
 
-@Component(value = "SKU Details", noDecoration = true)
+@Component(value = "SKU Details")
 @Model(adaptables = SlingHttpServletRequest.class,
     adapters = { SkuDetails.class, ComponentExporter.class },
     resourceType = SkuDetails.RESOURCE_TYPE,
@@ -42,6 +44,12 @@ public final class SkuDetails implements ComponentExporter {
 
     public String getTitle() {
         return sku.getTitle();
+    }
+
+    public String getCurrencySymbol() {
+        final Locale locale = siteContext.getLocale();
+
+        return Currency.getInstance(locale).getSymbol(locale);
     }
 
     public BigDecimal getPrice() {
