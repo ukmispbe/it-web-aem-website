@@ -104,7 +104,7 @@ class ImageViewer extends React.Component {
             // delay so the figure element rendering completes
             // the figure element is referenced to get image height
             // 1 second delay works on all browser and devices
-            setTimeout(() => this.setStateImageHeight(), 1000);
+            setTimeout(() => this.setStateImageHeight(), 1500);
         }
 
         if (prevState.imageWidth !== this.state.imageWidth && this.props.onCalculate) {
