@@ -100,6 +100,11 @@ if (imageGalleryContainers) {
     imageGalleryContainers.forEach(container => {
         const json = JSON.parse(container.getAttribute('data-json'));
 
-        ReactDOM.render(<ImageCarousel templates={json.templates} widths={json.widths} />, container);
+        ReactDOM.render(<ImageCarousel 
+            templates={json.templates} 
+            widths={json.widths}
+            alt={json.alt}
+            zoomInIcon="/content/dam/waters/brand-assets/icons/zoom-in.svg"
+            zoomOutIcon="/content/dam/waters/brand-assets/icons/zoom-out.svg" />, container);
     });
 }

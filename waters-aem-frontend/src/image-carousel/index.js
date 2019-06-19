@@ -30,7 +30,7 @@ class ImageCarousel extends React.Component {
                     dotsDisabled={true}
                     mouseDragEnabled={this.state.mouseDragEnabled}
                     swipeDisabled={this.state.swipeDisabled}
-                    slideToIndex={this.state.activeIndex}
+                    startIndex={this.state.activeIndex}
                     onSlideChanged={this.handleSlideChanged} />
             </div>
             <div className="image-thumbnail-wrapper" style={this.state.thumbnailStyles}>
@@ -45,6 +45,9 @@ class ImageCarousel extends React.Component {
         key={template}
         template={template}
         widths={this.props.widths}
+        alt={this.props.alt}
+        zoomInIcon={this.props.zoomInIcon}
+        zoomOutIcon={this.props.zoomOutIcon}
         onZoomIn={this.handleZoomIn}
         onZoomOut={this.handleZoomOut}
         onCalculate={this.handleImageViewerCalculate} />;
@@ -53,8 +56,11 @@ class ImageCarousel extends React.Component {
 }
 
 ImageCarousel.propTypes = {
+    alt: PropTypes.string,
     templates: PropTypes.arrayOf(PropTypes.string).isRequired,
-    widths: PropTypes.arrayOf(PropTypes.string).isRequired
+    widths: PropTypes.arrayOf(PropTypes.string).isRequired,
+    zoomInIcon: PropTypes.string.isRequired,
+    zoomOutIcon: PropTypes.string.isRequired
 }
 
 export default ImageCarousel;

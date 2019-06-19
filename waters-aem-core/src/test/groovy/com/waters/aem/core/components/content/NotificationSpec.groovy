@@ -1,7 +1,7 @@
 package com.waters.aem.core.components.content
 
 import com.waters.aem.core.WatersSpec
-import com.waters.aem.core.components.content.applicationnotes.LinkItem
+import com.waters.aem.core.components.content.links.BasicLink
 import spock.lang.Unroll
 
 @Unroll
@@ -32,8 +32,8 @@ class NotificationSpec extends WatersSpec {
                                 icon: "/content/dam/waters/brand-assets/icons/externallink.svg",
                         ) {
                             linkItems {
-                                item1(link: "www.waters.com", text: "details", newWindow: true)
-                                item2(link: "www.test.com", text: "apply to cart", newWindow: false)
+                                item1(link: "www.waters.com", text: "details", external: true)
+                                item2(link: "www.test.com", text: "apply to cart", external: false)
                             }
                         }
                     }
@@ -41,7 +41,7 @@ class NotificationSpec extends WatersSpec {
 
             }
         }
-        slingContext.addModelsForClasses(LinkItem)
+        slingContext.addModelsForClasses(BasicLink)
     }
 
     def "get notification title"() {
@@ -103,8 +103,5 @@ class NotificationSpec extends WatersSpec {
 
         and:
         notification.linkItems.link.href == ["www.waters.com", "www.test.com"]
-
-        and:
-        notification.linkItems.newWindow == [true, false]
     }
 }
