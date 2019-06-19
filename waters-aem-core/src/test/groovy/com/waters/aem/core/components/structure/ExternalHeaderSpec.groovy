@@ -1,7 +1,7 @@
 package com.waters.aem.core.components.structure
 
 import com.waters.aem.core.WatersSpec
-import com.waters.aem.core.components.content.applicationnotes.LinkItem
+import com.waters.aem.core.components.content.links.BasicLink
 import spock.lang.Unroll
 
 @Unroll
@@ -20,7 +20,6 @@ class ExternalHeaderSpec extends WatersSpec {
                         externalheader(
                             logoAltText: "Waters",
                             logoLink: "www.waters.com",
-                            newWindow: true
                         ) {
                             logo(fileReference: "/content/dam/waters/logo.png")
                         }
@@ -31,11 +30,10 @@ class ExternalHeaderSpec extends WatersSpec {
                         externalheader(
                             logoAltText: "Waters",
                             logoLink: "www.waters.com",
-                            newWindow: true
                         ) {
                             linkItems {
-                                item1(link: "www.waters.com", text: "waters", newWindow: true)
-                                item2(link: "www.ta.com", text: "ta", newWindow: false)
+                                item1(link: "www.waters.com", text: "waters", external: true)
+                                item2(link: "www.ta.com", text: "ta", external: false)
                             }
                         }
                     }
@@ -43,7 +41,7 @@ class ExternalHeaderSpec extends WatersSpec {
             }
         }
 
-        slingContext.addModelsForClasses(LinkItem)
+        slingContext.addModelsForClasses(BasicLink)
     }
 
     def "get header logo"() {
@@ -87,21 +85,6 @@ class ExternalHeaderSpec extends WatersSpec {
 
         and:
         externalHeader.logoLink.href == "www.waters.com"
-    }
-
-    def "is open in new window?"() {
-        setup:
-        def externalHeader = requestBuilder.build {
-            path = resourcePath
-        }.adaptTo(ExternalHeader)
-
-        expect:
-        externalHeader.newWindow == isNewWindow
-
-        where:
-        resourcePath                                     | isNewWindow
-        "/content/waters/one/jcr:content/externalheader" | false
-        "/content/waters/two/jcr:content/externalheader" | true
     }
 
     def "get header links"() {
