@@ -26,6 +26,8 @@ class ImageViewer extends React.Component {
         // which is specified in the stylesheet ruleset
         this.figureRef.current.style.backgroundPosition = "";
 
+        this.setStateImageHeight();
+
         const magnified = !this.state.magnified;
 
         if (magnified && this.props.onZoomIn) {
@@ -99,14 +101,6 @@ class ImageViewer extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        // check if image rendition as changed
-        if (prevState.imageSrc !== this.state.imageSrc) {
-            // delay so the figure element rendering completes
-            // the figure element is referenced to get image height
-            // 1 second delay works on all browser and devices
-            setTimeout(() => this.setStateImageHeight(), 1500);
-        }
-
         if (prevState.imageWidth !== this.state.imageWidth && this.props.onCalculate) {
             this.props.onCalculate(this.state);
         }
@@ -166,7 +160,10 @@ class ImageViewer extends React.Component {
         // keep tracking of image height to calculate zoomin-in percentage
         // which requires increasing background size (width and height)
         const imageHeight = this.figureRef.current.getBoundingClientRect().height;
-        this.setState({imageHeight});
+
+        if (imageHeight !== this.state.imageHeight) {
+            this.setState({imageHeight});
+        }
     }
     
     getFigureStyle = () => 
