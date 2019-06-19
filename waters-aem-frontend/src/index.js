@@ -103,6 +103,7 @@ if (imageGalleryContainers) {
         ReactDOM.render(<ImageCarousel 
             templates={json.templates} 
             widths={json.widths}
+            alt={json.alt}
             zoomInIcon="/content/dam/waters/brand-assets/icons/zoom-in.svg"
             zoomOutIcon="/content/dam/waters/brand-assets/icons/zoom-out.svg" />, container);
     });
