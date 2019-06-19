@@ -25,7 +25,7 @@ import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ChildResource;
-import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.apache.sling.api.resource.ResourceResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -105,7 +105,10 @@ public final class Table implements ComponentExporter {
     @Inject
     private String tableRowsJson;
 
-    @Self
+    @Inject
+    private ResourceResolver resourceResolver;
+
+    @Inject
     private Resource resource;
 
     private List<Map<String, List<String>>> tableRows;
@@ -170,11 +173,11 @@ public final class Table implements ComponentExporter {
     }
 
     public boolean isApplyTableSplit(){
-        ContentPolicyManager contentPolicyManager = resource.getResourceResolver().adaptTo(ContentPolicyManager.class);
+        ContentPolicyManager contentPolicyManager = resourceResolver.adaptTo(ContentPolicyManager.class);
         ContentPolicy contentPolicy = contentPolicyManager.getPolicy(resource);
         if (contentPolicy != null) {
             final Long splitPolicy = contentPolicy.getProperties().get("tableSplit", Long.class);
-            return splitPolicy < tableRows.size();
+            return tableRows.size() > splitPolicy;
         }
         return false;
     }
