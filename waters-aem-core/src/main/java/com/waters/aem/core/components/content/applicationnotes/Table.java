@@ -12,6 +12,8 @@ import com.citytechinc.cq.component.annotations.widgets.ToolbarConfig;
 import com.citytechinc.cq.component.annotations.widgets.rte.Format;
 import com.citytechinc.cq.component.annotations.widgets.rte.SubSuperscript;
 import com.citytechinc.cq.component.annotations.widgets.rte.UISettings;
+import com.day.cq.wcm.api.policies.ContentPolicy;
+import com.day.cq.wcm.api.policies.ContentPolicyManager;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,6 +25,7 @@ import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ChildResource;
+import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -102,6 +105,9 @@ public final class Table implements ComponentExporter {
     @Inject
     private String tableRowsJson;
 
+    @Self
+    private Resource resource;
+
     private List<Map<String, List<String>>> tableRows;
 
     @Nonnull
@@ -161,5 +167,15 @@ public final class Table implements ComponentExporter {
         }
 
         return tableRows;
+    }
+
+    public boolean isApplyTableSplit(){
+        ContentPolicyManager contentPolicyManager = resource.getResourceResolver().adaptTo(ContentPolicyManager.class);
+        ContentPolicy contentPolicy = contentPolicyManager.getPolicy(resource);
+        if (contentPolicy != null) {
+            final Long splitPolicy = contentPolicy.getProperties().get("tableSplit", Long.class);
+            return splitPolicy < tableRows.size();
+        }
+        return false;
     }
 }
