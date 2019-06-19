@@ -1,3 +1,12 @@
+@supports not (touch-action: none) {
+    body.lock-scroll {
+      height: 100%;
+      overflow: hidden;
+      width: 100%;
+      position: fixed;
+    }
+}
+
 .image-carousel {
     position: relative;
     width: 100%;
@@ -15,6 +24,7 @@
     margin-block-end: 0;
     margin-inline-start: 0;
     margin-inline-end: 0;
+    padding: 5px;
     background-position: 50% 50%;
     position: relative;
     overflow: hidden;
@@ -40,16 +50,11 @@
 
 .image-viewer-container__image-zoom {
     position: absolute;
-    bottom: 12px;
-    right: 14px;
+    bottom: 22px;
+    right: 19px;
     z-index: 1;
 
     @include mobile {
-        bottom: 9px;
-    }
-
-    @include tablet {
-        bottom: 16px;
         right: 18px;
     }
 
@@ -65,7 +70,7 @@
 }
 
 .image-thumbnail-wrapper {
-    display: none; // TODO: add this style back when thumbnails are added => inline-block;
+    display: inline-block; // none; // TODO: add this style back when thumbnails are added => inline-block;
     text-align: left;
 }
 
@@ -82,6 +87,13 @@
     margin-right: 0px;
 }
 
+// react-alice-carouselt overrides
+.image-carousel {
+    .alice-carousel__stage-item * {
+        line-height: 0;
+    }
+}
+
 // IE CSS Hacks
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
     .image-viewer-container__image-display {
@@ -93,16 +105,16 @@
     }
 
     .image-viewer-container__image-zoom {
-        bottom: 15px;
-        right: 16px;
+        bottom: 23px;
+        right: 19px;
     }
 }
 
 // Edge CSS Hacks
 @supports (-ms-ime-align: auto) {
     .image-viewer-container__image-zoom {
-        bottom: 15px;
-        right: 16px;
+        bottom: 23px;
+        right: 19px;
     }
 } 
 
@@ -110,7 +122,7 @@
 @-moz-document url-prefix() { 
     .image-viewer-container__image-zoom {
         position: absolute;
-        bottom: 14px;
-        right: 16px;
+        bottom: 23px;
+        right: 20px;
     }
 }
