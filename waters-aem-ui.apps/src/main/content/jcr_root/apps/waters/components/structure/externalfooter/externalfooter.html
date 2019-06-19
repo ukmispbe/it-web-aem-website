@@ -10,7 +10,7 @@
         <ul data-sly-test="${externalFooter.socialLinks}">
             <li data-sly-repeat="${externalFooter.socialLinks}" class="cmp-external-footer__social-links__item">
                 <a class="cmp-external-footer-social-links__link" href="${item.link.href}" target="_blank">
-                    <img class="${externalFooter.svg ? 'inline-svg' : ''}" data-sly-test="${item.linkIcon}" src="${item.linkIcon}"/>
+                    <img class="${item.svg ? 'inline-svg' : ''}" data-sly-test="${item.linkIcon}" src="${item.linkIcon}"/>
                 </a>
             </li>
         </ul>
