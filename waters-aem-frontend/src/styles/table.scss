@@ -1,10 +1,10 @@
 .cmp-table {
+    border-top: 1px solid $color-border-accent;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 }
 
 .cmp-table__table {
-    border-top: 1px solid $color-border-accent;
     width: 100%;
     border-collapse: collapse;
 
@@ -50,10 +50,12 @@
     }
 }
 
-.cmp-table--divide .cmp-table {
+.cmp-table--divide {
     column-count:2;
     -moz-column-count:2;
     -webkit-column-count:2;
+     border-top: 1px solid $color-border-accent;
+    column-gap: $space-l;
 }
 
 .cmp-table__caption {
