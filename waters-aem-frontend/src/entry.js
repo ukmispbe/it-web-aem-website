@@ -47,5 +47,17 @@ function addEllipses() {
     }
 }
 
+function checkIfFirefox() {
+    const firefox = window.navigator.userAgent.search('Firefox');
+
+    if (firefox > -1) {
+        const body = document.body;
+
+        body.classList.add('column-table-support-false');
+    }
+}
+
+checkIfFirefox();
+
 addEllipses();
 window.addEventListener('resize', addEllipses);
