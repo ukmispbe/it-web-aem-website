@@ -4,6 +4,7 @@ import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.waters.aem.core.commerce.models.Sku;
+import com.waters.aem.core.commerce.models.SkuSalesStatus;
 import com.waters.aem.core.components.SiteContext;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -57,6 +58,10 @@ public final class SkuDetails implements ComponentExporter {
         final String currencyIsoCode = siteContext.getCurrencyIsoCode();
 
         return sku.getPrice(country, currencyIsoCode);
+    }
+
+    public boolean isActive() {
+        return sku.getSalesStatus() == SkuSalesStatus.Active && !sku.isTerminated();
     }
 
     @Nonnull
