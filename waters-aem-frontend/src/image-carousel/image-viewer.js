@@ -9,7 +9,6 @@ class ImageViewer extends React.Component {
         this.state = {
           containerWidth: 0,
           imageWidth: 0,
-          imageHeight: 0,
           imageSrc: "",
           magnified: false
         };
@@ -20,13 +19,11 @@ class ImageViewer extends React.Component {
     
     handleOnDragStart = e => e.preventDefault();
 
-    handleMagnifyClick = () => {
+    handleMagnifyClick = (e) => {
         // clear background position so subsequent clicks
         // position the background to the center of the image
         // which is specified in the stylesheet ruleset
-        this.figureRef.current.style.backgroundPosition = "";
-
-        this.setStateImageHeight();
+        setTimeout(() => this.figureRef.current.style.backgroundPosition = "", 0);
 
         const magnified = !this.state.magnified;
 
@@ -107,6 +104,8 @@ class ImageViewer extends React.Component {
     }
 
     componentDidMount() {
+        this.figureRef.current.style.backgroundPosition = "50% 50%";
+
         this.calculateWidth();
 
         // this is for desktop
@@ -128,14 +127,14 @@ class ImageViewer extends React.Component {
     renderImageDisplay = () => <figure
         ref={this.figureRef}
         className={`image-viewer-container__image-figure image-viewer-container__image-figure--${this.state.magnified}`}
-        style={this.getFigureStyle()}
+        style={{backgroundImage: `url(${this.state.imageSrc})`}}
         onDragStart={this.handleOnDragStart}
         onMouseMove={this.handleFigureMouseMove}
         onTouchStart={this.handleFigureTouchStart}
         onTouchEnd={this.handleFigureTouchEnd}
         onTouchMove={this.handleFigureTouchMove}>
         
-        <img
+        <img 
             className="image-viewer-container__image-element"
             src={this.state.imageSrc}
             alt={this.props.alt}/>
@@ -155,24 +154,6 @@ class ImageViewer extends React.Component {
 
         this.setState({containerWidth, imageWidth, imageSrc});
     };
-
-    setStateImageHeight = () => {
-        // keep tracking of image height to calculate zoomin-in percentage
-        // which requires increasing background size (width and height)
-        const imageHeight = this.figureRef.current.getBoundingClientRect().height;
-
-        if (imageHeight !== this.state.imageHeight) {
-            this.setState({imageHeight});
-        }
-    }
-    
-    getFigureStyle = () => 
-        this.state.magnified
-        ? {
-            backgroundImage: `url(${this.state.imageSrc})`,
-            backgroundSize: `${this.state.imageWidth * 2}px ${this.state.imageHeight * 2}px`
-        }
-        : {};
 }
 
 ImageViewer.propTypes = {

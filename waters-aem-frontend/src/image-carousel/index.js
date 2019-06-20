@@ -52,7 +52,7 @@ class ImageCarousel extends React.Component {
         onZoomOut={this.handleZoomOut}
         onCalculate={this.handleImageViewerCalculate} />;
 
-    getThumbnails = () => <></>;
+    getThumbnails = () => <>Thumbnails</>;
 }
 
 ImageCarousel.propTypes = {
