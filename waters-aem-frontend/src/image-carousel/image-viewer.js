@@ -35,7 +35,17 @@ class ImageViewer extends React.Component {
             this.props.onZoomOut();
         }
 
-        this.setState({ magnified });
+        if (magnified) {
+            this.setState({ magnified }, () => {
+                if (this.state.magnified) {
+                    setTimeout(() => {
+                        this.figureRef.current.classList.add('image-viewer-container__image-figure--zoomin-background');
+                    }, 500);
+                }
+            });
+        } else {
+            this.setState({magnified}, () => this.figureRef.current.classList.remove('image-viewer-container__image-figure--zoomin-background'));
+        }
     };
 
     handleFigureMove = (magnified, offsetX, offsetY, figureElement) => {
@@ -126,7 +136,7 @@ class ImageViewer extends React.Component {
 
     renderImageDisplay = () => <figure
         ref={this.figureRef}
-        className={`image-viewer-container__image-figure image-viewer-container__image-figure--${this.state.magnified}`}
+        className={`image-viewer-container__image-figure image-viewer-container__image-figure--${this.state.magnified} image-viewer-container__image-figure--zoomin-${this.state.magnified}`}
         style={{backgroundImage: `url(${this.state.imageSrc})`}}
         onDragStart={this.handleOnDragStart}
         onMouseMove={this.handleFigureMouseMove}
