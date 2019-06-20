@@ -22,10 +22,6 @@ public final class HybrisImporterConstants {
 
     public static final String IMPORTER_PAGE_PATH = "/etc/waters/hybris-importer";
 
-    public static final String VANITY_PATH_PREFIX = "/skudetails/";
-
-    public static final String PROPERTY_VANITY_PATH = "sling:vanityPath";
-
     private HybrisImporterConstants() {
 
     }
