@@ -20,9 +20,7 @@ class ImageViewer extends React.Component {
     handleOnDragStart = e => e.preventDefault();
 
     handleMagnifyClick = (e) => {
-        // clear background position so subsequent clicks
-        // position the background to the center of the image
-        // which is specified in the stylesheet ruleset
+        // delay clearing background position so the image gets rendered on the page
         setTimeout(() => this.figureRef.current.style.backgroundPosition = "", 0);
 
         const magnified = !this.state.magnified;
@@ -38,13 +36,21 @@ class ImageViewer extends React.Component {
         if (magnified) {
             this.setState({ magnified }, () => {
                 if (this.state.magnified) {
+                    // CSS hack for browsers that do not support background-size transitions
+                    // delay 500ms to allow the transform transition to conplete
                     setTimeout(() => {
                         this.figureRef.current.classList.add('image-viewer-container__image-figure--zoomin-background');
+                        this.figureRef.current.classList.remove('image-viewer-container__image-figure--zoomout-background');
                     }, 500);
                 }
             });
         } else {
-            this.setState({magnified}, () => this.figureRef.current.classList.remove('image-viewer-container__image-figure--zoomin-background'));
+            // CSS hack for browsers that do not support background-size transitions
+            this.figureRef.current.classList.add('image-viewer-container__image-figure--zoomout-background');
+            this.figureRef.current.classList.remove('image-viewer-container__image-figure--zoomin-background');
+
+            // delay to allow the CSS ruleset above to render
+            setTimeout(() => this.setState({magnified}), 0);
         }
     };
 
