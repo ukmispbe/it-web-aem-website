@@ -100,7 +100,38 @@
 }
 
 // IE CSS Hacks
+// for browsers that do not support background-size transitions
+// zoom element position that varies between browsers
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .image-viewer-container__image-display {
+        overflow: hidden;
+    }
+
+    .image-viewer-container__image-figure {
+        -ms-transition: transform 500ms ease-in-out;
+    }
+
+    .image-viewer-container__image-figure--zoomin-true {
+        background-size: 100%;
+        transform: scale(2);
+    }
+
+    .image-viewer-container__image-figure--zoomin-false {
+        transform: scale(1);
+    }
+
+    .image-viewer-container__image-figure--zoomin-background {
+        -ms-transition: none;
+        transform: scale(1);
+        background-size: 200%;
+    }
+
+    .image-viewer-container__image-figure--zoomout-background {
+        -ms-transition: none;
+        transform: scale(2);
+        background-size: 100%;
+    }
+
     .image-viewer-container__image-display {
         display: static;
     }
@@ -116,6 +147,7 @@
 }
 
 // Edge CSS Hacks
+// zoom element position that varies between browsers
 @supports (-ms-ime-align: auto) {
     .image-viewer-container__image-zoom {
         bottom: 23px;
@@ -124,6 +156,7 @@
 } 
 
 // Firefox CSS Hacks
+// zoom element position that varies between browsers
 @-moz-document url-prefix() { 
     .image-viewer-container__image-zoom {
         position: absolute;
