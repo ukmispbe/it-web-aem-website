@@ -1,5 +1,12 @@
 <div data-sly-use.skuList="com.waters.aem.core.components.content.SkuList"
      class="cmp-sku-list">
+    <div>SKU List</div>
+    <div data-sly-repeat.sku="${skuList.skus}">
+        <img src="${sku.primaryImageSrc}" alt="${sku.primaryImageAlt}">
+        <h1>${sku.title}</h1>
+        <h3>${sku.code}</h3>
+        <div>Price: ${sku.currencySymbol}${'#,###.00' @ format=sku.price}</div>
+    </div>
 </div>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
