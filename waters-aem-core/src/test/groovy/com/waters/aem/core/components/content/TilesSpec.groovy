@@ -13,8 +13,8 @@ class TilesSpec extends WatersSpec{
                     "jcr:content" {
                         tiles {
                             tiles {
-                                item1(title: "Download Users Manual", icon: "/content/dam/waters/brand-assets/icons/close.svg", link: "www.waters.com", newWindow: true)
-                                item2(title: "Request Certificate of Analysis", icon: "/content/dam/waters/brand-assets/icons/attention.svg", link: "www.test.com", newWindow: false)
+                                item1(title: "Download Users Manual", icon: "/content/dam/waters/brand-assets/icons/close.svg", link: "www.waters.com")
+                                item2(title: "Request Certificate of Analysis", icon: "/content/dam/waters/brand-assets/icons/attention.svg", link: "www.test.com")
                             }
                         }
                     }
@@ -37,8 +37,6 @@ class TilesSpec extends WatersSpec{
 
         and:
         tileList.tiles.link.href == ["www.waters.com", "www.test.com"]
-
-        and:
-        tileList.tiles.newWindow == [true, false]
     }
+
 }
