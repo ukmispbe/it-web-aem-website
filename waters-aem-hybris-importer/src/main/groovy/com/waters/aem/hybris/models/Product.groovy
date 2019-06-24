@@ -19,6 +19,8 @@ class Product {
 
     String summary
 
+    SalesStatus salesStatus
+
     Boolean terminated
 
     List<ProductCategory> categories = []

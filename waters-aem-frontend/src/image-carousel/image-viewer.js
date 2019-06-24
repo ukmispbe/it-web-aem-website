@@ -20,9 +20,7 @@ class ImageViewer extends React.Component {
     handleOnDragStart = e => e.preventDefault();
 
     handleMagnifyClick = (e) => {
-        // clear background position so subsequent clicks
-        // position the background to the center of the image
-        // which is specified in the stylesheet ruleset
+        // delay clearing background position so the image gets rendered on the page
         setTimeout(() => this.figureRef.current.style.backgroundPosition = "", 0);
 
         const magnified = !this.state.magnified;
@@ -35,7 +33,25 @@ class ImageViewer extends React.Component {
             this.props.onZoomOut();
         }
 
-        this.setState({ magnified });
+        if (magnified) {
+            this.setState({ magnified }, () => {
+                if (this.state.magnified) {
+                    // CSS hack for browsers that do not support background-size transitions
+                    // delay 500ms to allow the transform transition to conplete
+                    setTimeout(() => {
+                        this.figureRef.current.classList.add('image-viewer-container__image-figure--zoomin-background');
+                        this.figureRef.current.classList.remove('image-viewer-container__image-figure--zoomout-background');
+                    }, 500);
+                }
+            });
+        } else {
+            // CSS hack for browsers that do not support background-size transitions
+            this.figureRef.current.classList.add('image-viewer-container__image-figure--zoomout-background');
+            this.figureRef.current.classList.remove('image-viewer-container__image-figure--zoomin-background');
+
+            // delay to allow the CSS ruleset above to render
+            setTimeout(() => this.setState({magnified}), 0);
+        }
     };
 
     handleFigureMove = (magnified, offsetX, offsetY, figureElement) => {
@@ -126,7 +142,7 @@ class ImageViewer extends React.Component {
 
     renderImageDisplay = () => <figure
         ref={this.figureRef}
-        className={`image-viewer-container__image-figure image-viewer-container__image-figure--${this.state.magnified}`}
+        className={`image-viewer-container__image-figure image-viewer-container__image-figure--${this.state.magnified} image-viewer-container__image-figure--zoomin-${this.state.magnified}`}
         style={{backgroundImage: `url(${this.state.imageSrc})`}}
         onDragStart={this.handleOnDragStart}
         onMouseMove={this.handleFigureMouseMove}

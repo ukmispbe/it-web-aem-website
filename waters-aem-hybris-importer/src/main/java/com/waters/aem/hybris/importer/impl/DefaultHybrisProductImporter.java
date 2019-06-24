@@ -251,6 +251,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         properties.put(WatersCommerceConstants.PROPERTY_NAME, product.getName());
         properties.put(WatersCommerceConstants.PROPERTY_SHORT_DESCRIPTION, product.getDescription());
         properties.put(WatersCommerceConstants.PROPERTY_LONG_DESCRIPTION, product.getSummary());
+        properties.put(WatersCommerceConstants.PROPERTY_SALES_STATUS, product.getSalesStatus().toString());
         properties.put(WatersCommerceConstants.PROPERTY_CATEGORIES, product.getCategories()
             .stream()
             .map(ProductCategory :: getCode)

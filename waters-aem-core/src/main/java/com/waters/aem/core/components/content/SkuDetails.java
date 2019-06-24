@@ -4,6 +4,7 @@ import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.waters.aem.core.commerce.models.Sku;
+import com.waters.aem.core.commerce.models.SkuSalesStatus;
 import com.waters.aem.core.components.SiteContext;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -14,8 +15,10 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.util.Currency;
+import java.util.Locale;
 
-@Component(value = "SKU Details", noDecoration = true)
+@Component(value = "SKU Details")
 @Model(adaptables = SlingHttpServletRequest.class,
     adapters = { SkuDetails.class, ComponentExporter.class },
     resourceType = SkuDetails.RESOURCE_TYPE,
@@ -44,11 +47,21 @@ public final class SkuDetails implements ComponentExporter {
         return sku.getTitle();
     }
 
+    public String getCurrencySymbol() {
+        final Locale locale = siteContext.getLocale();
+
+        return Currency.getInstance(locale).getSymbol(locale);
+    }
+
     public BigDecimal getPrice() {
         final String country = siteContext.getLocale().getCountry();
         final String currencyIsoCode = siteContext.getCurrencyIsoCode();
 
         return sku.getPrice(country, currencyIsoCode);
+    }
+
+    public boolean isActive() {
+        return sku.getSalesStatus() == SkuSalesStatus.Active && !sku.isTerminated();
     }
 
     @Nonnull
