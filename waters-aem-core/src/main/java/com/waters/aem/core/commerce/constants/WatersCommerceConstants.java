@@ -18,6 +18,8 @@ public final class WatersCommerceConstants {
 
     public static final String PROPERTY_LONG_DESCRIPTION = "hybris:longDescription";
 
+    public static final String PROPERTY_SALES_STATUS = "hybris:salesStatus";
+
     public static final String PROPERTY_CATEGORIES = "hybris:categories";
 
     public static final String PROPERTY_PROPRIETARY = "hybris:proprietary";

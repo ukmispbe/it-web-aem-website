@@ -76,6 +76,7 @@ public final class ImageGallery implements ComponentExporter {
 
     @DialogField(fieldLabel = "Secondary Images",
         fieldDescription = "Secondary Images to be displayed",
+        renderReadOnly = false,
         ranking = 3)
     @MultiField
     @PathField(rootPath = WatersConstants.DAM_PATH)

@@ -4,6 +4,7 @@ import com.day.cq.commons.jcr.JcrConstants;
 import com.google.common.base.Objects;
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
 import com.waters.aem.core.commerce.services.SkuRepository;
+import org.apache.commons.lang3.EnumUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
@@ -53,6 +54,9 @@ public final class Sku {
     @ValueMapValue(name = WatersCommerceConstants.PROPERTY_TERMINATED)
     private Boolean terminated;
 
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_SALES_STATUS)
+    private String salesStatus;
+
     @ValueMapValue(name = WatersCommerceConstants.PROPERTY_COLD_STORAGE)
     private Boolean coldStorage;
 
@@ -92,6 +96,10 @@ public final class Sku {
 
     public Boolean isTerminated() {
         return terminated;
+    }
+
+    public SkuSalesStatus getSalesStatus() {
+        return EnumUtils.isValidEnum(SkuSalesStatus.class, salesStatus) ? SkuSalesStatus.valueOf(salesStatus) : null;
     }
 
     public Boolean isColdStorage() {
