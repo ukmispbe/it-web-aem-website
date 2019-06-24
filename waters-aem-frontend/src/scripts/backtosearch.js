@@ -63,9 +63,9 @@ function changeBreadcrumb(source) {
             var rhsItem = rect.left + rect.width;
             if (breadcrumbContainerWidth < rhsItem + scrollOffset) {
                 if (
-                    breadcrumbContainer.clientWidth +
+                    (breadcrumbContainer.clientWidth +
                         breadcrumbContainer.scrollLeft <
-                    breadcrumbContainer.scrollWidth - 3
+                    breadcrumbContainer.scrollWidth - 3 ) && !listItems[i].classList.contains("cmp-breadcrumb__item--active")
                 ) {
                     listItems[i].classList.add('rhs-gradient-fade');
                 }
