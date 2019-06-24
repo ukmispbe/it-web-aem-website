@@ -1,6 +1,5 @@
 .cmp-external-footer {
-    background-color: $color-gray-50;
-    padding: $space-m 0 11em 0;
+    padding: $space-xl 0;
     margin-top: $space-xl;
     overflow: hidden;
     width: 100%;
@@ -8,37 +7,84 @@
     a {
         color: $color-font-light;
     }
+
+    .cmp-button {
+        background-color: $color-background-dark;
+        opacity: 0.9;
+        display: inline-block;
+        border: 1px solid $color-white;
+        color: $color-font-light;
+        width: 100%;
+        &:hover {
+            background-color: $color-background-dark;
+            opacity: 0.9;
+            border: 1px solid $color-gray-20;
+            color: $color-gray-20;
+        }
+    }
+
+    h3 {
+        color: $color-white;
+    }
+
+    .links {
+        color: $color-white;
+        display:    inline-block;
+    }
+
+    .container1 {
+        background-color: $color-background-dark;
+        opacity: 0.9;
+        max-width: 1480px;
+        //position: static;
+        margin: 0 auto;
+        padding: $space-xl $space-xl $space-l $space-xl; 
+        display: block;
+        text-align: left;
+    }
+
+    .container1_wrapper {
+        background-color: $color-background-dark;
+        opacity: 0.9;
+    }
+    .container2 {
+        background-color: $color-background-dark;
+        max-width: 1480px;
+        padding: 0 $space-xl $space-l;
+        clear: both;
+        width: 100%;
+        display: block;
+        margin: -$space-xxs auto 0 auto;
+    }
+    .container2_wrapper {
+        background-color: $color-background-dark;
+    }
 }
 
 .cmp-external-footer__logo {
-    width: 115px;
-    float: left;
-    margin-right: $space-xl;
-    margin-top: $space-xs;
-
-    a {
-        float: left;
-        width: 115px;
-        display: block;
-    }
+    max-width: 115px;
+    height: 32px;
+    margin-bottom: $space-xs;
 
     img {
         height: 32px;
         max-width: 115px;
+        margin-bottom: $space-l;;
     }
 
     @include mobile {
         width: 100%;
+        display: inline-block
     }
 }
 
 .cmp-external-footer__links {
+  
     width: calc(100% - 165px);
-    float: right;
-    text-align: right;
-    margin-top: 0.5em;
+    text-align: left;
+    display: inline-block;
     a {
-        margin-left: $space-l;
+        margin-right: $space-l;
         display: inline;
         line-height: 2.5em;
         transition: $hover-transition;
@@ -68,7 +114,7 @@
 
 .cmp-external-footer__copyright {
     float: right;
-    margin-top: $space-l;
+    margin-top: $space-xxs;
 
     p {
         @include font-small;
@@ -82,6 +128,7 @@
     @include mobile {
         float: left;
         margin-top: $space-l;
+        text-align: left;
     }
 }
 
@@ -138,4 +185,54 @@
         float: right;
         bottom: $space-m;
     }
+}
+
+.cmp-external-footer__social-links {
+
+    .social-links-text {
+        color: $color-font-light;
+        text-align: right;
+        padding-bottom: $space-s;
+
+        @include mobile {
+            text-align: left;
+        }
+
+    }
+
+    .inline-svg {
+        display: inline-block;
+    }
+
+    ul {
+        float: right;
+        @include mobile {
+            float: left;
+            padding-inline-start: 0;
+        }
+        li {
+            list-style-type: none;
+            display: inline-block;
+            a {
+                text-decoration: none;
+                padding-left: $space-m;
+                padding-right: 0;
+
+                @include mobile {
+                    padding-right: $space-m;
+                    padding-left: 0;
+                }
+
+                svg {
+                    width: $icon-m;
+                    height: $icon-m;
+                    fill: $color-white;
+                }
+            }
+        }
+    }   
+}
+
+.cmp-external-footer .cmp-links__external-link--true::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' width='18' height='25' viewBox='0 0 24 24' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-external-link'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E");
 }
