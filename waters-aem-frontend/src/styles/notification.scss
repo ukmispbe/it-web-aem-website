@@ -1,22 +1,20 @@
-.notification {
-    background-color: $color-background-light;
-    padding: $space-s;
-
-    @include mobile {
-        padding: $space-m;
-    }
-}
 .cmp-notification {
     &-wrapper {
         display: flex;
         justify-content: center;
+        background-color: $color-background-light;
+        padding: $space-s;
+
+        @include mobile {
+            padding: $space-m;
+        }
         svg {
             height: $icon-m;
             width: $icon-l;
             padding-right: $space-xxs;
-            margin-top: .1em;
+            margin-top: 0.1em;
             .st0 {
-               stroke: $color-icon;
+                stroke: $color-icon;
             }
 
             @include mobile {
@@ -35,7 +33,7 @@
     }
 
     &-separator {
-        color : $color-gray-30;
+        color: $color-gray-30;
         padding-right: $space-xxxs;
         padding-left: $space-xxxs;
     }
@@ -49,24 +47,44 @@
     }
 
     &-description {
-        display:inline;
+        display: inline;
         text-align: center;
     }
 
     &-title {
         font-weight: $font-weight-bold;
         padding-right: $space-xxs;
-        display:inline;
+        display: inline;
     }
 
     &-links {
         display: inline;
         list-style-type: none;
         padding-left: $space-xxs;
-        li{
+        li {
             display: inline;
         }
     }
 }
 
+.cmp-notification--error {
+    .cmp-notification-wrapper {
+        background-color: lighten($color-error, 50%);
+        border: 1px solid lighten($color-error, 40%);
+        transition: transform 200ms ease-in-out;
+    }
+}
 
+.cmp-notification--dynamic {
+    height: 0;
+    .cmp-notification-wrapper {
+        transform: scale(0);
+    }
+
+    &.error {
+        height: auto;
+        .cmp-notification-wrapper {
+            transform: scale(1);
+        }
+    }
+}
