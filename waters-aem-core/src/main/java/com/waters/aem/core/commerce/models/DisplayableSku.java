@@ -13,16 +13,25 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public final class SkuDetailsHelper {
+import static com.google.common.base.Preconditions.checkNotNull;
+
+/**
+ * A helper class for a Sku used to display Sku information on the page.
+ */
+public final class DisplayableSku {
 
     private Sku sku;
     private Resource resource;
     private SiteContext siteContext;
 
-    public SkuDetailsHelper(Sku sku, Resource resource, SiteContext siteContext) {
-        this.sku = sku;
-        this.resource = resource;
-        this.siteContext = siteContext;
+    public DisplayableSku(Sku sku, Resource resource, SiteContext siteContext) {
+        this.sku = checkNotNull(sku);
+        this.resource = checkNotNull(resource);
+        this.siteContext = checkNotNull(siteContext);
+    }
+
+    public Sku getSku() {
+        return sku;
     }
 
     public String getCode() {

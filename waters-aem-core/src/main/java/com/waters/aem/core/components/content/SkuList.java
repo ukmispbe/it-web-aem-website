@@ -8,7 +8,7 @@ import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.waters.aem.core.commerce.models.Sku;
-import com.waters.aem.core.commerce.models.SkuDetailsHelper;
+import com.waters.aem.core.commerce.models.DisplayableSku;
 import com.waters.aem.core.commerce.services.SkuRepository;
 import com.waters.aem.core.components.SiteContext;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -24,6 +24,7 @@ import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component(value = "SKU List",
@@ -42,7 +43,7 @@ public final class SkuList implements ComponentExporter {
     private Sku sku;
 
     @OSGiService
-    SkuRepository skuRepository;
+    private SkuRepository skuRepository;
 
     @Inject
     private Resource resource;
@@ -50,8 +51,8 @@ public final class SkuList implements ComponentExporter {
     @Self
     private SiteContext siteContext;
 
-    @DialogField(fieldLabel = "Sku Number",
-        fieldDescription = "Enter the Sku Number",
+    @DialogField(fieldLabel = "Sku Numbers",
+        fieldDescription = "List of Skus to display when this component is authored on a non-Sku page.",
         renderReadOnly = false,
         required = true)
     @MultiField
@@ -59,13 +60,7 @@ public final class SkuList implements ComponentExporter {
     @Inject
     private String[] skuNumbers = new String[0];
 
-    public List<Sku> buildSkuListFromDialogInput() {
-        return Arrays.asList(skuNumbers).stream()
-                .map(skuNumber -> skuRepository.getSku(resource.getResourceResolver(), skuNumber))
-                .collect(Collectors.toList());
-    }
-
-    public List<SkuDetailsHelper> getSkus() {
+    public List<DisplayableSku> getDisplayableSkus() {
         final List<Sku> skus;
 
         if (sku == null) {
@@ -75,7 +70,14 @@ public final class SkuList implements ComponentExporter {
         }
 
         return skus.stream()
-                .map(relatedSku -> new SkuDetailsHelper(relatedSku, resource, siteContext))
+                .map(relatedSku -> new DisplayableSku(relatedSku, resource, siteContext))
+                .collect(Collectors.toList());
+    }
+
+    private List<Sku> buildSkuListFromDialogInput() {
+        return Arrays.asList(skuNumbers).stream()
+                .map(skuNumber -> skuRepository.getSku(resource.getResourceResolver(), skuNumber))
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 

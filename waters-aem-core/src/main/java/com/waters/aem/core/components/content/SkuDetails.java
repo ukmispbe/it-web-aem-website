@@ -4,7 +4,7 @@ import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.waters.aem.core.commerce.models.Sku;
-import com.waters.aem.core.commerce.models.SkuDetailsHelper;
+import com.waters.aem.core.commerce.models.DisplayableSku;
 import com.waters.aem.core.components.SiteContext;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
@@ -36,14 +36,14 @@ public final class SkuDetails implements ComponentExporter {
     @Self
     private SiteContext siteContext;
 
-    private SkuDetailsHelper skuDetailsHelper;
+    private DisplayableSku displayableSku;
 
-    public SkuDetailsHelper getSku() {
-        if (skuDetailsHelper == null) {
-            skuDetailsHelper = new SkuDetailsHelper(sku, resource, siteContext);
+    public DisplayableSku getDisplayableSku() {
+        if (displayableSku == null) {
+            displayableSku = new DisplayableSku(sku, resource, siteContext);
         }
 
-        return skuDetailsHelper;
+        return displayableSku;
     }
 
     @Nonnull
