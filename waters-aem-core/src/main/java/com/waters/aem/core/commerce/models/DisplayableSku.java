@@ -1,6 +1,7 @@
 package com.waters.aem.core.commerce.models;
 
 import com.day.cq.dam.api.Asset;
+import com.google.common.collect.ImmutableMap;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.utils.AssetUtils;
 import org.apache.sling.api.resource.Resource;
@@ -8,7 +9,7 @@ import org.apache.sling.api.resource.Resource;
 import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,15 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * A helper class for a Sku used to display Sku information on the page.
  */
 public final class DisplayableSku {
+
+    // Waters' SAP system has a few countries using a non-standard currency ISO code.
+    // For example, Taiwan's standard currency code is 'TWD', but Waters' SAP uses 'NTD' instead.
+    // This map is used to lookup those exceptions so that we can still display the correct currency symbol for these countries.
+    private static final Map<String, String> NON_STANDARD_CURRENCY_ISO_CODES =
+            new ImmutableMap.Builder<String, String>()
+                    .put("NTD", "TWD")
+                    .put("WON", "KRW")
+                    .build();
 
     private Sku sku;
     private Resource resource;
@@ -46,9 +56,22 @@ public final class DisplayableSku {
     }
 
     public String getCurrencySymbol() {
-        final Locale locale = siteContext.getLocale();
+        String symbol;
+        String currencyIsoCode = siteContext.getCurrencyIsoCode();
 
-        return Currency.getInstance(locale).getSymbol(locale);
+        if (NON_STANDARD_CURRENCY_ISO_CODES.containsKey(currencyIsoCode)) {
+            currencyIsoCode = NON_STANDARD_CURRENCY_ISO_CODES.get(currencyIsoCode);
+        }
+
+        final Currency currency = Currency.getInstance(currencyIsoCode);
+
+        if (currency != null) {
+            symbol = currency.getSymbol(siteContext.getLocale());
+        } else {
+            symbol = currencyIsoCode;
+        }
+
+        return symbol;
     }
 
     public BigDecimal getPrice() {
