@@ -53,6 +53,10 @@
 @mixin font-small {
     font-size: $font-size-small;
     color: $color-font-medium;
+
+    @include mobile {
+        font-size: $font-size-small-m;
+    }
 }
 
 @mixin font-xsmall {
@@ -151,22 +155,18 @@ strong {
     padding-bottom: $space-s;
 }
 
+blockquote {
+    @include font-h2;
+    font-style: italic;
+    padding-left: $space-s;
+    border-left: 2px solid $color-border-accent;
+    margin: $space-l 0 $space-l 0;
+}
 
 //Style System
-
-.cmp-text--notification .cmp-text {
-    background-color: $color-teal-10;
-    padding: $space-xs 0;
-    margin-bottom: $space-l;
-    text-align: center;
-
-    p {
-        margin-bottom: 0;
-        padding-bottom: 0;
-    }
-}
 
 .cmp-text--finePrint .cmp-text {
     @include font-small;
     font-style: italic;
 }
+
