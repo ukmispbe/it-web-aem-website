@@ -12,6 +12,8 @@ import com.citytechinc.cq.component.annotations.widgets.ToolbarConfig;
 import com.citytechinc.cq.component.annotations.widgets.rte.Format;
 import com.citytechinc.cq.component.annotations.widgets.rte.SubSuperscript;
 import com.citytechinc.cq.component.annotations.widgets.rte.UISettings;
+import com.day.cq.wcm.api.policies.ContentPolicy;
+import com.day.cq.wcm.api.policies.ContentPolicyManager;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -102,6 +104,9 @@ public final class Table implements ComponentExporter {
     @Inject
     private String tableRowsJson;
 
+    @Inject
+    private Resource resource;
+
     private List<Map<String, List<String>>> tableRows;
 
     @Nonnull
@@ -161,5 +166,15 @@ public final class Table implements ComponentExporter {
         }
 
         return tableRows;
+    }
+
+    public boolean isApplyTableSplit(){
+        ContentPolicyManager contentPolicyManager = resource.getResourceResolver().adaptTo(ContentPolicyManager.class);
+        ContentPolicy contentPolicy = contentPolicyManager.getPolicy(resource);
+        if (contentPolicy != null) {
+            final Long splitPolicy = contentPolicy.getProperties().get("tableSplit", Long.class);
+            return tableRows.size() > splitPolicy;
+        }
+        return false;
     }
 }

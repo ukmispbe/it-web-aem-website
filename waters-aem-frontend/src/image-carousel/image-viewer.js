@@ -9,7 +9,6 @@ class ImageViewer extends React.Component {
         this.state = {
           containerWidth: 0,
           imageWidth: 0,
-          imageHeight: 0,
           imageSrc: "",
           magnified: false
         };
@@ -20,8 +19,9 @@ class ImageViewer extends React.Component {
     
     handleOnDragStart = e => e.preventDefault();
 
-    handleMagnifyClick = () => {
-        this.figureRef.current.style.backgroundPosition = "";
+    handleMagnifyClick = (e) => {
+        // delay clearing background position so the image gets rendered on the page
+        setTimeout(() => this.figureRef.current.style.backgroundPosition = "", 0);
 
         const magnified = !this.state.magnified;
 
@@ -33,7 +33,25 @@ class ImageViewer extends React.Component {
             this.props.onZoomOut();
         }
 
-        this.setState({ magnified });
+        if (magnified) {
+            this.setState({ magnified }, () => {
+                if (this.state.magnified) {
+                    // CSS hack for browsers that do not support background-size transitions
+                    // delay 500ms to allow the transform transition to conplete
+                    setTimeout(() => {
+                        this.figureRef.current.classList.add('image-viewer-container__image-figure--zoomin-background');
+                        this.figureRef.current.classList.remove('image-viewer-container__image-figure--zoomout-background');
+                    }, 500);
+                }
+            });
+        } else {
+            // CSS hack for browsers that do not support background-size transitions
+            this.figureRef.current.classList.add('image-viewer-container__image-figure--zoomout-background');
+            this.figureRef.current.classList.remove('image-viewer-container__image-figure--zoomin-background');
+
+            // delay to allow the CSS ruleset above to render
+            setTimeout(() => this.setState({magnified}), 0);
+        }
     };
 
     handleFigureMove = (magnified, offsetX, offsetY, figureElement) => {
@@ -70,6 +88,9 @@ class ImageViewer extends React.Component {
     };
 
     handleFigureTouchStart = e => {
+        // touch-action property prevents scrolling during touchmove event
+        // check if browser supports this property so locking scrolling is
+        // handled using a stylesheet ruleset
         if (CSS && !CSS.supports("touch-action", "none")) {
             document.body.classList.add("lock-scroll");
         }
@@ -84,20 +105,7 @@ class ImageViewer extends React.Component {
     render() {
         return <div ref={this.containerRef} className="image-viewer-container">
         <div className="image-viewer-container__image-display">
-          <figure
-            onDragStart={this.handleOnDragStart}
-            ref={this.figureRef}
-            className={`image-viewer-container__image-figure image-viewer-container__image-figure--${this.state.magnified}`}
-            style={this.getFigureStyle()}
-            onMouseMove={this.handleFigureMouseMove}
-            onTouchStart={this.handleFigureTouchStart}
-            onTouchEnd={this.handleFigureTouchEnd}
-            onTouchMove={this.handleFigureTouchMove}>
-            <img
-            className="image-viewer-container__image-element"
-            src={this.state.imageSrc}
-            alt=""/>
-          </figure>
+          {this.renderImageDisplay()}
           <div className="image-viewer-container__image-zoom">
             <div>{this.renderZoomIcon()}</div>
           </div>
@@ -105,12 +113,18 @@ class ImageViewer extends React.Component {
       </div>
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.imageWidth !== this.state.imageWidth && this.props.onCalculate) {
+            this.props.onCalculate(this.state);
+        }
+    }
+
     componentDidMount() {
+        this.figureRef.current.style.backgroundPosition = "50% 50%";
+
         this.calculateWidth();
 
-        // delay so the figure element contains the calculated image
-        setTimeout(() => this.setStateImageHeight(), 500);
-
+        // this is for desktop
         window.addEventListener("resize", this.calculateWidth);
 
         // this is for iPad orientation
@@ -126,10 +140,27 @@ class ImageViewer extends React.Component {
         window.removeEventListener("deviceorientation", this.calculateWidth);
     }
 
+    renderImageDisplay = () => <figure
+        ref={this.figureRef}
+        className={`image-viewer-container__image-figure image-viewer-container__image-figure--${this.state.magnified} image-viewer-container__image-figure--zoomin-${this.state.magnified}`}
+        style={{backgroundImage: `url(${this.state.imageSrc})`}}
+        onDragStart={this.handleOnDragStart}
+        onMouseMove={this.handleFigureMouseMove}
+        onTouchStart={this.handleFigureTouchStart}
+        onTouchEnd={this.handleFigureTouchEnd}
+        onTouchMove={this.handleFigureTouchMove}>
+        
+        <img 
+            className="image-viewer-container__image-element"
+            src={this.state.imageSrc}
+            alt={this.props.alt}/>
+    </figure>
+
     renderZoomIcon = () => this.state.magnified
         ? <ReactSVG src={this.props.zoomOutIcon} onClick={this.handleMagnifyClick} /> 
         : <ReactSVG src={this.props.zoomInIcon} onClick={this.handleMagnifyClick} />;
 
+    // get the largest width that is less than the container width
     getClosestWidth = containerWidth => this.props.widths.reduce((prev, curr) => curr > containerWidth ? prev : curr);
 
     calculateWidth = () => {
@@ -137,40 +168,14 @@ class ImageViewer extends React.Component {
         const imageWidth = this.getClosestWidth(containerWidth);
         const imageSrc = this.props.template.replace(/{{width}}/gi, imageWidth);
 
-        this.setState({
-            containerWidth,
-            imageWidth,
-            imageSrc
-        });
-
-        if (this.props.onCalculate) {
-            setTimeout(() => {
-                this.setStateImageHeight();
-                this.props.onCalculate(this.state), 500
-            });
-        }
+        this.setState({containerWidth, imageWidth, imageSrc});
     };
-
-    setStateImageHeight = () => {
-        const imageHeight = this.figureRef.current.getBoundingClientRect().height;
-        this.setState({imageHeight});
-    }
-    
-    getFigureStyle = () => 
-        this.state.magnified
-        ? {
-            backgroundImage: `url(${this.state.imageSrc})`,
-            backgroundSize: `${this.state.imageWidth * 2}px ${this.state.imageHeight * 2}px`,
-            maxWidth: `${this.state.imageWidth}px`
-        }
-        : {
-            maxWidth: `${this.state.imageWidth}px`
-        };
 }
 
 ImageViewer.propTypes = {
     template: PropTypes.string.isRequired,
     widths: PropTypes.arrayOf(PropTypes.string).isRequired,
+    alt: PropTypes.string,
     zoomInIcon: PropTypes.string.isRequired,
     zoomOutIcon: PropTypes.string.isRequired,
     onCalculate: PropTypes.func,
