@@ -50,14 +50,13 @@
     }
 
     .react-autosuggest__input {
-        @include font-body;
-        font-size: $font-size-h3;
+        font-family: $font-stack;
+        @include font-h3;
         float: left;
         width: 100%;
         border: 1px solid $color-border-light;
         background: $color-white;
         padding: $space-s $space-xl $space-s $space-s;
-        color: $color-font-dark;
 
         &:focus {
             outline: 2px solid $color-focus;

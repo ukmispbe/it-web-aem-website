@@ -15,7 +15,6 @@
     padding-right: 27px;
     margin-bottom: 0;
     position: relative;
-    font-size: $font-size-h3;
 }
 
 .cmp-links__external-link--true::after {
@@ -41,6 +40,6 @@
 
 
 
-div.externallist {
-    margin-bottom: $space-m;
+div.links {
+    margin-bottom: $space-s;
 }
