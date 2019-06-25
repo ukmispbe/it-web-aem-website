@@ -12,7 +12,14 @@
     display: inline-block;
 
     &__list {
-        display: block;
+        @include mobile {
+            display: block;
+            margin: $space-s 0 $space-s 0;
+        }
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        line-height: 1;
         padding-left: 0;
         list-style: none;
         position: relative;
@@ -21,23 +28,29 @@
 
     &__item {
         display: inline;
-        padding-left: ($space-s + 0.35em);
         position: relative;
-
-        &:before {
+        padding-left: 1.35em;
+        &:after {
             content: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%234f5b64;stroke-linecap:round;stroke-linejoin:round;%7D%0A%3C/style%3E%3Cpolyline class='st0' points='8.8,20.5 17.2,12 8.8,3.5 '/%3E%3C/svg%3E%0A");
             display: block;
-            left: 0;
-            top: 2px;
-            position: absolute;
+            float: right;
             width: $icon-s;
             height: $icon-s;
+            margin-top: 3px;
+            padding: 0 0.25em;
+            @include mobile {
+                right: -17px;
+                position: absolute;
+                top: 2px;
+            }
         }
 
-        &:first-of-type {
+        &:nth-child(2) {
             padding-left: 0;
+         }
 
-            &:before {
+        &:last-of-type {
+            &:after {
                 display: none;
             }
         }
@@ -55,7 +68,6 @@
 
 .cmp-breadcrumb-search {
     display: inline-block;
-    margin: $space-s 0 $space-xl 0;
     &--disable {
         display: none;
     }
@@ -69,6 +81,7 @@
     background-color: $color-white;
     color: $color-link;
     padding-right: $space-xs;
+    float: unset;
 
     span {
         border-right: 1px solid $color-border-light;
