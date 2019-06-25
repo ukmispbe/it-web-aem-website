@@ -1,8 +1,8 @@
 package com.waters.aem.core.commerce.models;
 
 import com.day.cq.dam.api.Asset;
-import com.day.cq.dam.api.DamConstants;
 import com.waters.aem.core.components.SiteContext;
+import com.waters.aem.core.utils.AssetUtils;
 import org.apache.sling.api.resource.Resource;
 
 import java.math.BigDecimal;
@@ -10,7 +10,6 @@ import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -64,7 +63,7 @@ public final class DisplayableSku {
     }
 
     public String getPrimaryImageAlt() {
-        return getPrimaryImageAsset() == null ? "" : getAltText(getPrimaryImageAsset());
+        return getPrimaryImageAsset() == null ? "" : AssetUtils.getAltText(getPrimaryImageAsset());
     }
 
     private Asset getPrimaryImageAsset() {
@@ -79,19 +78,9 @@ public final class DisplayableSku {
 
         final List<Asset> assets = skuImages
                 .stream()
-                .map(skuImage -> getAsset(skuImage.getPath())).collect(Collectors.toList());
+                .map(skuImage -> AssetUtils.getAsset(resource.getResourceResolver(), skuImage.getPath()))
+                .collect(Collectors.toList());
 
-        return assets.stream().filter(Objects:: nonNull).collect(Collectors.toList());
-    }
-
-    private String getAltText(final Asset asset) {
-        return Optional.ofNullable(asset.getMetadataValue(DamConstants.DC_DESCRIPTION))
-                .orElse(asset.getMetadataValue(DamConstants.DC_TITLE));
-    }
-
-    private Asset getAsset(final String fileReference) {
-        final Resource assetResource = resource.getResourceResolver().getResource(fileReference);
-
-        return assetResource == null ? null : assetResource.adaptTo(Asset.class);
+        return assets.stream().filter(Objects :: nonNull).collect(Collectors.toList());
     }
 }
