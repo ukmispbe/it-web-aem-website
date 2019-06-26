@@ -1,3 +1,5 @@
+
+
 .cmp-anchor {
     float: left;
     width: 100%;
@@ -15,6 +17,7 @@
     }
 
     &__list {
+        max-width: 1285px;
         @include tablet-and-over {
             white-space: nowrap;
             overflow-x: hidden;
@@ -23,9 +26,6 @@
             }
         }
 
-        a:hover {
-            text-decoration: underline;
-        }
 
         &-heading {
             display: none;
@@ -42,12 +42,18 @@
         margin: 0 -0% 0 -50%;
         padding: 0 162.5% 0 50%;
         border-top: 1px solid $color-border-light;
+        white-space: nowrap;
+        overflow-x: hidden;
 
         @include mobile {
             padding: 0 158.5% 0 50%;
             overflow-y: hidden;
             height: 52px;
             top: 74px;
+        }
+
+        @include tablet {
+            width: 300%;
         }
 
         .cmp-anchor__list {
@@ -128,8 +134,8 @@
     .cmp-anchor__link.active {
         color: $color-font-dark;
         @include tablet-and-over {
-            padding-bottom: $space-xs;
-            border-bottom: 2px solid $color-border-accent;
+            padding-bottom: $space-xxs;
+            border-bottom: 2px $color-teal-30 solid;
         }
     }
 }
@@ -170,38 +176,43 @@
     }
 }
 
-.rhs-gradient-fade {
-    background: linear-gradient(to right, $color-link, white);
-    -webkit-background: linear-gradient(to right 80%, #0077BB , white);  
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text; 
-    background-clip: text; 
-}
+@include tablet-and-over {
+    .rhs-gradient-fade, .rhs-gradient-fade-selected {
+        position: relative;
+    }
+    .rhs-gradient-fade::after, .rhs-gradient-fade-selected::after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
 
-.rhs-gradient-fade-selected {
-    background: linear-gradient(to right, $color-font-dark, white);
-    -webkit-background: linear-gradient(to right 80%, $color-font-dark , white);
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text; 
-    background-clip: text; 
-}
+        background: -webkit-linear-gradient(right, rgba(255,255,255,0.8) 30%,rgba(255,255,255,0.2) 100%);
+        background:    -moz-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+        background:     -ms-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+        background:      -o-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+        background:         linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);    }
 
-.lhs-gradient-fade {
-    background: linear-gradient(to left, #0077BB, white);
-    -webkit-background: linear-gradient(to right 80%, $color-link, white);
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text; 
-    background-clip: text; 
-}
+    .lhs-gradient-fade, .lhs-gradient-fade-selected {
+        position: relative;
+    }
+    .lhs-gradient-fade::after, .lhs-gradient-fade-selected::after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
 
-.lhs-gradient-fade-selected {
-    background: linear-gradient(to left, $color-font-dark, white);
-    -webkit-background: linear-gradient(to right 80%, $color-font-dark, white);
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text; 
-    background-clip: text; 
+        background: -webkit-linear-gradient(left, rgba(255,255,255,0.8) 30%,rgba(255,255,255,0.2) 100%);
+        background:    -moz-linear-gradient(left, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+        background:     -ms-linear-gradient(left, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+        background:      -o-linear-gradient(left, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+        background:         linear-gradient(left, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);    }
 }
-
 .cmp-anchor--column-1 {
     .cmp-anchor__list {
         @include mobile {
