@@ -119,7 +119,7 @@ a {
         height: $icon-m;
 
         svg {
-            height: ($icon-m + .1em);
+            height: ($icon-m + 0.1em);
             .st0 {
                 stroke: $color-icon;
             }
@@ -138,4 +138,10 @@ a {
             }
         }
     }
+}
+
+.container .st0,
+.cmp-external-footer .st0,
+.cmp-back-to-top .st0 {
+    fill: none;
 }
