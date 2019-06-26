@@ -143,7 +143,7 @@ public final class Sku {
 
     private <T> List<T> getResourceModels(final String resourceName, final Predicate<Resource> resourceFilter,
         final Function<Resource, T> resourceToModelFunction) {
-        return Optional.of(resource.getChild(resourceName))
+        return Optional.ofNullable(resource.getChild(resourceName))
             .map(modelsResource -> StreamSupport.stream(modelsResource.getChildren().spliterator(), false)
                 .filter(resourceFilter)
                 .map(resourceToModelFunction)

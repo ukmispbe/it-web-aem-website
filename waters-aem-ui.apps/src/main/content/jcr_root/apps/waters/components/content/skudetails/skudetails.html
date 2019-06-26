@@ -1,15 +1,13 @@
 <div data-sly-use.skuDetails="com.waters.aem.core.components.content.SkuDetails"
-     data-sly-test.sku="${skuDetails.sku}"
+     data-sly-test.sku="${skuDetails.displayableSku}"
      class="cmp-sku-details">
-    <h1>${skuDetails.title}</h1>
-    <h3>${skuDetails.code}</h3>
-    <sly data-sly-test.price="${skuDetails.price}">
-        <div class="cmp-sku-details__price" data-sly-test="${skuDetails.active}">
-            ${skuDetails.currencySymbol}${'#,###.00' @ format=price}
+    <h1>${sku.title}</h1>
+    <h3>${sku.code}</h3>
+    <sly data-sly-test.price="${sku.price}">
+        <div class="cmp-sku-details__price" data-sly-test="${sku.active}">
+            ${sku.currencySymbol}${'#,###.00' @ format=price}
         </div>
     </sly>
-
-    <!--/* TODO include primary image */-->
     <hr>
 </div>
 

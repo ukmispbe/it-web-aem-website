@@ -8,7 +8,6 @@ import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.dam.api.Asset;
-import com.day.cq.dam.api.DamConstants;
 import com.day.cq.wcm.api.designer.Style;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,6 +15,7 @@ import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.commerce.models.SkuImage;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.servlets.ResizeImageServlet;
+import com.waters.aem.core.utils.AssetUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
@@ -108,7 +108,7 @@ public final class ImageGallery implements ComponentExporter {
 
     public String getAlt() {
         return getPrimaryImageAsset() == null ? "" : Optional.ofNullable(primaryImageAltText).orElse(
-            getAltText(getPrimaryImageAsset()));
+            AssetUtils.getAltText(getPrimaryImageAsset()));
     }
 
     private List<String> getUriTemplates() {
@@ -128,10 +128,10 @@ public final class ImageGallery implements ComponentExporter {
 
             if (sku == null) {
                 // if the sku is null, use the authored images
-                assets.add(getAsset(primaryImage));
+                assets.add(AssetUtils.getAsset(resource.getResourceResolver(), primaryImage));
 
                 for (final String secondaryImage : secondaryImages) {
-                    assets.add(getAsset(secondaryImage));
+                    assets.add(AssetUtils.getAsset(resource.getResourceResolver(), secondaryImage));
                 }
             } else {
                 // if the sku exists, get the images imported from hybris
@@ -139,7 +139,7 @@ public final class ImageGallery implements ComponentExporter {
 
                 assets.addAll(skuImages
                     .stream()
-                    .map(skuImage -> getAsset(skuImage.getPath()))
+                    .map(skuImage -> AssetUtils.getAsset(resource.getResourceResolver(), skuImage.getPath()))
                     .collect(Collectors.toList()));
             }
         }
@@ -182,16 +182,5 @@ public final class ImageGallery implements ComponentExporter {
         }
 
         return builder.toString();
-    }
-
-    private String getAltText(final Asset asset) {
-        return Optional.ofNullable(asset.getMetadataValue(DamConstants.DC_DESCRIPTION))
-            .orElse(asset.getMetadataValue(DamConstants.DC_TITLE));
-    }
-
-    private Asset getAsset(final String fileReference) {
-        final Resource assetResource = resource.getResourceResolver().getResource(fileReference);
-
-        return assetResource == null ? null : assetResource.adaptTo(Asset.class);
     }
 }
