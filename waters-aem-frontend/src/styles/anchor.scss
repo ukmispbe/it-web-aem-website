@@ -11,7 +11,7 @@
         width: $icon-m;
         float: right;
         fill: $color-icon;
-        margin-top: -.15em;
+        margin-top: -0.15em;
     }
 
     &__list {
@@ -20,6 +20,10 @@
             overflow-x: hidden;
             a {
                 text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
             }
         }
 
@@ -30,6 +34,16 @@
         &-heading {
             display: none;
             font-size: $font-size-h3;
+        }
+
+        @include mobile {
+            a {
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: none;
+                }
+            }
         }
     }
 
@@ -96,13 +110,11 @@
             &.open {
                 height: 100vh;
                 .cmp-anchor__list-heading--closed {
-
                     opacity: 0;
                     height: 0;
                 }
 
                 .cmp-anchor__list-heading--open {
-
                     opacity: 1;
                 }
             }
@@ -110,12 +122,10 @@
             &.closed {
                 height: 52px;
                 .cmp-anchor__list-heading--closed {
-
                     opacity: 1;
                 }
 
                 .cmp-anchor__list-heading--open {
-
                     opacity: 0;
                     position: absolute;
                     top: 0;
@@ -139,7 +149,6 @@
     width: 100%;
     margin: 0;
     padding: $space-xs 0;
-
 
     @include mobile {
         columns: 2;
@@ -172,34 +181,34 @@
 
 .rhs-gradient-fade {
     background: linear-gradient(to right, $color-link, white);
-    -webkit-background: linear-gradient(to right 80%, #0077BB , white);  
+    -webkit-background: linear-gradient(to right 80%, #0077bb, white);
     -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text; 
-    background-clip: text; 
+    -webkit-background-clip: text;
+    background-clip: text;
 }
 
 .rhs-gradient-fade-selected {
     background: linear-gradient(to right, $color-font-dark, white);
-    -webkit-background: linear-gradient(to right 80%, $color-font-dark , white);
+    -webkit-background: linear-gradient(to right 80%, $color-font-dark, white);
     -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text; 
-    background-clip: text; 
+    -webkit-background-clip: text;
+    background-clip: text;
 }
 
 .lhs-gradient-fade {
-    background: linear-gradient(to left, #0077BB, white);
+    background: linear-gradient(to left, #0077bb, white);
     -webkit-background: linear-gradient(to right 80%, $color-link, white);
     -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text; 
-    background-clip: text; 
+    -webkit-background-clip: text;
+    background-clip: text;
 }
 
 .lhs-gradient-fade-selected {
     background: linear-gradient(to left, $color-font-dark, white);
     -webkit-background: linear-gradient(to right 80%, $color-font-dark, white);
     -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text; 
-    background-clip: text; 
+    -webkit-background-clip: text;
+    background-clip: text;
 }
 
 .cmp-anchor--column-1 {
