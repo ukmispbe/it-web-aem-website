@@ -85,10 +85,10 @@ var anchorSticky = (function () {
             this.element.classList.remove(CSS_CLASS_ACTIVE);
             this.element.parentNode.style.height = 'auto';
         },
-
-        getInViewElement: function () {
+		brokeAt: 0,
+        getInViewElement: function() {
+            let multipleInView = [];
             if (this.anchorDestinations) {
-                let brokeAt = 0;
                 for (let n = 0; n <= this.anchorDestinations.length; n++) {
                     const id = this.anchorDestinations[n]
                         ? this.anchorDestinations[n].id.replace(/#/gi, '')
@@ -113,19 +113,21 @@ var anchorSticky = (function () {
                             (elementTop < 150 && elementBottom >= stillOnPage)
                         ) {
                             link.classList.add('active');
-                            //brokeAt = n;
-                            break;
+                            this.brokeAt = n;
+                            multipleInView.push(n);
                         } else {
                             link.classList.remove('active');
                         }
                     }
+                }
 
-                    for (let i = 0; i <= this.anchorDestinations.length; i++) {
-                        if (i !== brokeAt && this.anchorDestinations[i]) {
-                            this.anchorDestinations[i].anchor.classList.remove(
-                                'active'
-                            );
-                        }
+                if (multipleInView.length > 1) {
+                    for (let i = 1; i < multipleInView.length; i++) {
+                        const inView = multipleInView[i];
+
+                        this.anchorDestinations[inView].anchor.classList.remove(
+                            'active'
+                        );
                     }
                 }
             }
