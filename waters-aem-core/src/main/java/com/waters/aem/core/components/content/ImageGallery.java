@@ -4,6 +4,7 @@ import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
+import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
@@ -35,7 +36,15 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Component(value = "Image Gallery")
+import static com.icfolson.aem.library.core.constants.ComponentConstants.*;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH_PAGE;
+
+@Component(value = "Image Gallery",
+    listeners = {
+        @Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
+        @Listener(name = EVENT_AFTER_MOVE, value = REFRESH_PAGE),
+        @Listener(name = EVENT_AFTER_COPY, value = REFRESH_PAGE)
+    })
 @Model(adaptables = SlingHttpServletRequest.class,
     adapters = { ImageGallery.class, ComponentExporter.class },
     resourceType = ImageGallery.RESOURCE_TYPE,
