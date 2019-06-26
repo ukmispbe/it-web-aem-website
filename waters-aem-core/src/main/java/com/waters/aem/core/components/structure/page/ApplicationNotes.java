@@ -237,7 +237,7 @@ public final class ApplicationNotes implements ContentClassification {
         String pdfAssetPath = null;
 
         if (assetFolderPath != null) {
-            final String languageCode = getLanguageCode();//page.getLanguage(false).getLanguage().toLowerCase();
+            final String languageCode = getLanguageCode();
 
             pdfAssetPath = new StringBuilder(assetFolderPath)
                 .append("/")
