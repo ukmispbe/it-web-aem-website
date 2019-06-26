@@ -45,6 +45,11 @@
                         path="waters/components/structure/page/designreview/content"
                         sling:resourceType="granite/ui/components/foundation/include"
                         sling:orderBefore="thumbnail"/>
+                    <commerce
+                        jcr:primaryType="nt:unstructured"
+                        path="waters/components/structure/page/commerce/content"
+                        sling:resourceType="granite/ui/components/foundation/include"
+                        sling:orderBefore="thumbnail"/>
                 </items>
             </tabs>
         </items>
