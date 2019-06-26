@@ -36,7 +36,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.icfolson.aem.library.core.constants.ComponentConstants.*;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_COPY;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_EDIT;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_MOVE;
 import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH_PAGE;
 
 @Component(value = "Image Gallery",
