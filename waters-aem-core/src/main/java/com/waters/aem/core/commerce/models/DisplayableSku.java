@@ -84,13 +84,17 @@ public final class DisplayableSku {
     }
 
     public String getPrimaryImageSrc() {
-        return getPrimaryImageAsset() == null ? null : new PrefixRenditionPicker(WatersConstants.THUMBNAIL_RENDITION_PREFIX, true)
-            .getRendition(getPrimaryImageAsset())
-            .getPath();
+        return getPrimaryImageAsset() == null ? null : getPrimaryImageAsset().getPath();
     }
 
     public String getPrimaryImageAlt() {
         return getPrimaryImageAsset() == null ? "" : AssetUtils.getAltText(getPrimaryImageAsset());
+    }
+
+    public String getPrimaryImageThumbnail() {
+        return getPrimaryImageAsset() == null ? null : new PrefixRenditionPicker(WatersConstants.THUMBNAIL_RENDITION_PREFIX, true)
+            .getRendition(getPrimaryImageAsset())
+            .getPath();
     }
 
     private Asset getPrimaryImageAsset() {
