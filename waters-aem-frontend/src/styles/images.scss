@@ -18,7 +18,11 @@ img {
 }
 
 div.image {
-    margin-bottom: 2em;
+    margin-bottom: $space-l;
+
+    @include mobile {
+        margin-bottom: $space-s;
+    }
 }
 
 .inline-svg {

@@ -16,7 +16,7 @@
 
     // Grayscale
     $color-white: #fff;
-    $color-gray-10: lighten(#4f5b64, 60%);
+    $color-gray-10: adjust_hue(saturate(lighten(#4F5B64, 61), 3), -15);
     $color-gray-20: lighten(#4f5b64, 55%);
     $color-gray-30: lighten(#4f5b64, 45%);
     $color-gray-40: lighten(#4f5b64, 30%);
@@ -39,7 +39,7 @@
     $color-background-light: $color-gray-10;
     $color-background-dark: $color-gray-50;
     $color-icon: $color-gray-50;
-    $color-success: #00871a;
+    $color-success: $color-teal-50;
     $color-error: #e60f33;
     $color-focus: $color-blue-30;
 
@@ -74,6 +74,7 @@
 
     // Mobile
     $font-size-h1-m: 1.6em;
+    $font-size-small-m: .8em;
 
    // Print
     $font-size-h1-pcs: 2em;

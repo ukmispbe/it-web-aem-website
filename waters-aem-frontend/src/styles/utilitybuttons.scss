@@ -5,6 +5,7 @@
     border: 1px solid $color-border-dark;
     transition: $hover-transition;
     text-decoration: none;
+    margin-bottom: $space-l;
 
     span {
         padding-right: $space-xxxs;
@@ -49,7 +50,7 @@
     @include mobile {
         width: 100%;
         float: left;
-        margin: 0;
+        margin: 0 0 $space-s 0;
         height: 55px;
     }
 
@@ -61,7 +62,7 @@
 }
 
 div.pdfbutton {
-    margin: $space-s 0 $space-xxl 0;
+    margin: $space-s 0 $space-l 0;
 
     @include mobile {
         margin: 0 0 $space-s 0;

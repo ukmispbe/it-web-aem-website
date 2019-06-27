@@ -8,9 +8,10 @@
 .cmp-tag-cloud__item {
     @include font-small;
     float: left;
-    padding: $space-xxxs $space-xs ($space-xxs - .1em) $space-xs;
-    margin: 0 $space-xxs $space-xxs 0;
+    padding: ($space-xxxs - .05em) $space-s ($space-xxxs + .05em) $space-s;
+    margin: 0 $space-xxs $space-xs 0;
     background-color: $color-blue-10;
+    border-radius: 1.5em;
     a {
         text-decoration: none;
         color: $color-link-hover;

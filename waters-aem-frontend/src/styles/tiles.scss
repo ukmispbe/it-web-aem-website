@@ -60,6 +60,9 @@
                 padding-bottom: 0;
                 padding-right: $space-xxs;
             }
+            @include mobile {
+                padding-right: $space-s;
+            }
         }
 
         h3 {

@@ -22,5 +22,6 @@ hr,
 
     @include mobile {
         width: 100%;
+        margin: 0 0 $space-s 0;
     }
 }
