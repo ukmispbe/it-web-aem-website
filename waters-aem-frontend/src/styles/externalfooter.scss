@@ -9,15 +9,13 @@
     }
 
     .cmp-button {
-        background-color: $color-background-dark;
-        opacity: 0.9;
+        background-color: transparent;
         display: inline-block;
         border: 1px solid $color-white;
         color: $color-font-light;
         width: 100%;
         &:hover {
-            background-color: $color-background-dark;
-            opacity: 0.9;
+            background-color: transparent;
             border: 1px solid $color-gray-20;
             color: $color-gray-20;
         }
@@ -37,13 +35,13 @@
         opacity: 0.9;
         max-width: 1480px;
         //position: static;
-        margin: 0 auto;
+        margin: -$space-xxs auto 0 auto;
         padding: $space-xl $space-xxl; 
         display: block;
         text-align: left;
 
         @include mobile {
-            padding: $space-s;
+            padding: 0  $space-m  $space-m  $space-m;
         }
 
         @include tablet {
@@ -70,7 +68,7 @@
         }
 
         @include tablet {
-            padding: 0  $space-l  $space-l  $space-l;
+            padding: $space-l;
         }
     }
     .container2_wrapper {
@@ -99,11 +97,13 @@
 
 .cmp-footer__links {
   
-    width: calc(100% - 165px);
+    width: 100%;
     text-align: left;
     display: inline-block;
     margin-left: $space-s; 
     @include mobile {
+        width: 100%;
+        margin-right: 0;
         margin-left: 0; 
         column-count:2; 
         -moz-column-count:2; 
@@ -114,8 +114,13 @@
         margin-right: $space-l;
         display: inline;
         @include mobile {
+            line-height: $line-height-text;
+            padding: $space-xxs 0;
             display: block;
             width: 100%;
+        }
+        @include tablet {
+            display: inline-block;
         }
         line-height: 2.5em;
         transition: $hover-transition;
@@ -274,4 +279,7 @@
 
 .cmp-footer .cmp-links__external-link--true::after {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' width='18' height='25' viewBox='0 0 24 24' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-external-link'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E");
+}
+.cmp-footer .cmp-links__external-link--true:hover:after {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='25' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-external-link'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3'/%3E%3C/svg%3E");
 }
