@@ -4,7 +4,11 @@
         <img src="${sku.primaryImageSrc}" alt="${sku.primaryImageAlt}">
         <h1>${sku.title}</h1>
         <h3>${sku.code}</h3>
-        <div>Price: ${sku.currencySymbol}${'#,###.00' @ format=sku.price}</div>
+        <sly data-sly-test.price="${sku.price}">
+            <div class="cmp-sku-list__price">
+                ${sku.currencySymbol}${'#,###.00' @ format=price}
+            </div>
+        </sly>
     </div>
 </div>
 
