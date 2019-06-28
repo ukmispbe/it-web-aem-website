@@ -76,20 +76,8 @@ class ImageViewer extends React.Component {
     handleFigureMove = (magnified, offsetX, offsetY, figureElement) => {
         if (!magnified) return;
 
-        let x = (offsetX / figureElement.offsetWidth) * 35;
-        let y = (offsetY / figureElement.offsetHeight) * 35;
-
-        if (x > 100) {
-            x = 100;
-        } else if (x < 0) {
-            x = 0;
-        }
-
-        if (y > 100) {
-            y = 100;
-        } else if (y < 0) {
-            y = 0;
-        }
+        let x = (offsetX / figureElement.offsetWidth) * 100;
+        let y = (offsetY / figureElement.offsetHeight) * 100;
 
         figureElement.style.backgroundPosition = `${x}% ${y}%`;
     };

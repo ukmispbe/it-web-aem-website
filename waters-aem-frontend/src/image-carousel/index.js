@@ -28,15 +28,7 @@ class ImageCarousel extends React.Component {
         return (
             <div className="image-carousel">
                 <div className="image-viewer-wrapper">
-                    <AliceCarousel
-                        items={this.getImageViewerComponents()}
-                        buttonsDisabled={true}
-                        dotsDisabled={true}
-                        mouseDragEnabled={this.state.mouseDragEnabled}
-                        swipeDisabled={this.state.swipeDisabled}
-                        startIndex={this.state.activeIndex}
-                        onSlideChanged={this.handleSlideChanged}
-                    />
+                    {this.mapTemplateToImageViewer(this.props.templates[this.state.activeIndex])}
                 </div>
                 <div
                     className="image-thumbnail-wrapper"
