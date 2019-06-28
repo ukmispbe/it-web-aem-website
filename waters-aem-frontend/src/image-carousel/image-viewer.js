@@ -202,16 +202,11 @@ class ImageViewer extends React.Component {
     renderZoomIcon = () =>
         this.state.magnified ? (
             <div onClick={this.handleMagnifyClick}>
-                <ReactSVG
-                    src={this.props.zoomOutIcon}
-                    onClick={this.handleMagnifyClick}
-                />
-                Zoom
+                <ReactSVG src={this.props.zoomOutIcon} />
             </div>
         ) : (
             <div onClick={this.handleMagnifyClick}>
                 <ReactSVG src={this.props.zoomInIcon} />
-                Zoom
             </div>
         );
 
