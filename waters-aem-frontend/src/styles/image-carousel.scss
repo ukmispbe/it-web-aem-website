@@ -1,11 +1,11 @@
-@supports not (touch-action: none) {
-    body.lock-scroll {
-      height: 100%;
-      overflow: hidden;
-      width: 100%;
-      position: fixed;
-    }
-}
+// @supports not (touch-action: none) {
+//     body.lock-scroll {
+//       height: 100%;
+//       overflow: hidden;
+//       width: 100%;
+//       position: fixed;
+//     }
+// }
 
 .image-carousel {
     position: relative;
