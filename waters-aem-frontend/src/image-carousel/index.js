@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ImageViewer from './image-viewer';
-import AliceCarousel from 'react-alice-carousel';
-import 'react-alice-carousel/lib/scss/alice-carousel.scss';
 
 class ImageCarousel extends React.Component {
     constructor() {
@@ -10,19 +8,11 @@ class ImageCarousel extends React.Component {
 
         this.state = {
             activeIndex: 0,
-            mouseDragEnabled: true,
-            swipeDisabled: false,
             thumbnailStyles: {},
         };
     }
 
-    handleImageViewerCalculate = data =>
-        this.setState({ thumbnailStyles: { width: `${data.imageWidth}px` } });
-    handleZoomIn = () =>
-        this.setState({ mouseDragEnabled: false, swipeDisabled: true });
-    handleZoomOut = () =>
-        this.setState({ mouseDragEnabled: true, swipeDisabled: false });
-    handleSlideChanged = e => this.setState({ activeIndex: e.slide });
+    handleImageViewerCalculate = data => this.setState({ thumbnailStyles: { width: `${data.imageWidth}px` } });
 
     render() {
         return (
