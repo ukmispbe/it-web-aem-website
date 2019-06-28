@@ -111,13 +111,13 @@ class ImageViewer extends React.Component {
         // check if browser supports this property so locking scrolling is
         // handled using a stylesheet ruleset
         if (CSS && !CSS.supports('touch-action', 'none')) {
-            document.body.classList.add('lock-scroll');
+            //document.body.classList.add('lock-scroll');
         }
     };
 
     handleFigureTouchEnd = e => {
         if (CSS && !CSS.supports('touch-action', 'none')) {
-            document.body.classList.remove('lock-scroll');
+            //document.body.classList.remove('lock-scroll');
         }
     };
 
