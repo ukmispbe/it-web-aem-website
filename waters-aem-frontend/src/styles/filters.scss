@@ -231,18 +231,23 @@
         display: flex;
         flex-wrap: wrap;
         margin-top: 2.75em;
-        margin-bottom: 1.5em;
+        margin-bottom: $space-s;
+
         a {
             @include font-small;
-            color: $color-font-dark;
             display: block;
             float: left;
-            padding: ($space-xxxs - .05em) $space-s ($space-xxxs + .05em) ($space-l - 0.1em);
+            padding: ($space-xxxs - .05em) $space-s ($space-xxxs + .05em) $space-l;
             margin: 0 $space-xxs $space-xs 0;
             text-decoration: none;
             background-color: $color-gray-20;
             position: relative;
             border-radius: 1.5em;
+
+            @include mobile {
+                padding: ($space-xxxs - .15em) $space-s ($space-xxxs + .05em) $space-l;
+            }
+
             svg {
                 position: absolute;
                 top: 9px;
@@ -254,8 +259,8 @@
                     stroke-width: 2px;
                 }
                 @include tablet-and-under {
-                    top: 11px;
-                    left: 10px;
+                    top: 10px;
+                    margin: 0;
                 }
             }
             &:hover {
@@ -277,10 +282,6 @@
                 &:hover {
                     background-color: $color-gray-50;
                 }
-            }
-            @include mobile {
-                padding: $space-xxxs $space-s ($space-xxs - 0.2em)
-                    ($space-l - 0.1em);
             }
         }
         @include tablet-and-under {
@@ -512,7 +513,6 @@ $header-height: 74px;
         .cmp-search-filters__tags {
             @include mobile {
                 margin-top: -30px;
-                margin-bottom: $space-l;
             }
 
             @include tablet {

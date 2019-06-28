@@ -1,7 +1,7 @@
 .cmp-table {
-    border-top: 1px solid $color-border-accent;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    margin-bottom: $space-m;
 }
 
 .cmp-table__table {
@@ -25,7 +25,7 @@
     }
 
     tr {
-        border-bottom: 1px solid $color-border-rule;
+        border-top: 1px solid $color-border-rule;
     }
 }
 
@@ -40,7 +40,7 @@
             padding-top: $space-xs;
         }
         td:last-child {
-            padding-bottom: $space-xxs;
+            padding-bottom: $space-xxxs;
         }
         tr {
             padding-bottom: $space-xs;
@@ -53,7 +53,6 @@
 
 .cmp-table--divide {
         @include tablet-and-over {
-            border-top: 1px solid $color-border-accent;
             column-count: 2;
             -webkit-column-count: 2;
             column-gap: $space-l;
@@ -111,7 +110,6 @@
 .column-table-support-false .cmp-table--divide .cmp-table {
     column-count: unset;
     -webkit-column-count: 2;
-    border-top: 1px solid $color-border-accent;
     column-gap: unset;
     column-fill: unset;
 
@@ -127,9 +125,12 @@
 }
 
 .cmp-table__caption {
-    @include font-caption;
+
+    p {
+        @include font-caption;
+    }
 }
 
 div.table {
-    margin-bottom: $space-xl;
+    margin-bottom: $space-m;
 }
