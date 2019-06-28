@@ -172,7 +172,7 @@ class ImageViewer extends React.Component {
             } image-viewer-container__image-figure--zoomin-${
                 this.state.magnified
             }`}
-            style={{ backgroundImage: `url(${this.state.imageSrc})` }}
+            style={{ backgroundImage: `url(${this.state.imageSrc})` }} 
             onDragStart={this.handleOnDragStart}
             onMouseMove={this.handleFigureMouseMove}
             onTouchStart={this.handleFigureTouchStart}
