@@ -95,6 +95,8 @@ class ImageViewer extends React.Component {
     };
 
     handleFigureTouchMove = e => {
+        e.preventDefault();
+        
         const offsetX = e.nativeEvent.touches[0].pageX;
         const offsetY = e.nativeEvent.touches[0].pageY;
 
