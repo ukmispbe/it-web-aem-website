@@ -193,6 +193,8 @@ class ImageViewer extends React.Component {
             onDragStart={this.handleOnDragStart}
             onMouseMove={this.handleFigureMouseMove}
             onTouchMove={this.handleFigureTouchMove}
+            onTouchStart={this.handleFigureTouchStart}
+            onTouchEnd={this.handleFigureTouchEnd}
         >
             <img
                 className="image-viewer-container__image-element"
