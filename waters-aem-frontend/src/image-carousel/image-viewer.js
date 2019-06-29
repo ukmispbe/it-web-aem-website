@@ -19,8 +19,7 @@ class ImageViewer extends React.Component {
             containerWidth: 0,
             imageWidth: 0,
             imageSrc: '',
-            magnified: false,
-            overlayOpen: false
+            magnified: false
         };
 
         this.containerRef = React.createRef();
@@ -130,21 +129,19 @@ class ImageViewer extends React.Component {
         // touch-action property prevents scrolling during touchmove event 
         // check if browser supports this property so locking scrolling is 
         // handled using an overlay component
-        if (CSS && !CSS.supports('touch-action', 'none')) { 
-            this.setState({overlayOpen: true});
+        if (CSS && !CSS.supports('touch-action', 'none') && this.state.magnified) { 
+            document.getElementsByTagName('body')[0].classList.add('lock-screen');
         } 
     };
 
     handleFigureTouchEnd = e => { 
-        if (CSS && !CSS.supports('touch-action', 'none')) { 
-            this.setState({overlayOpen: false});
+        if (CSS && !CSS.supports('touch-action', 'none') && this.state.magnified) { 
+            document.getElementsByTagName('body')[0].classList.remove('lock-screen');
         } 
     }; 
 
     render() {
-        return <>
-            <OverLay isOpen={this.state.overlayOpen} darkOverlay={false} />
-            <div ref={this.containerRef} className="image-viewer-container">
+        return <div ref={this.containerRef} className="image-viewer-container">
                 <div className="image-viewer-container__image-display">
                     {this.renderImageDisplay()}
                     <div className="image-viewer-container__image-zoom">
@@ -152,7 +149,6 @@ class ImageViewer extends React.Component {
                     </div>
                 </div>
             </div>
-        </>;
     }
 
     componentDidUpdate(prevProps, prevState) {
