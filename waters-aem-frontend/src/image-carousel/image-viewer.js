@@ -45,6 +45,14 @@ class ImageViewer extends React.Component {
             this.props.onZoomOut();
         }
 
+        if (magnified && this.touchActionNotSupported()) {
+            this.lockScreen();
+        }
+
+        if (!magnified && this.touchActionNotSupported()) {
+            this.unLockScreen();
+        }
+
         if (magnified) {
             this.setState({ magnified }, () => {
                 if (this.state.magnified) {
@@ -125,20 +133,11 @@ class ImageViewer extends React.Component {
         );
     };
 
-    handleFigureTouchStart = e => { 
-        // touch-action property prevents scrolling during touchmove event 
-        // check if browser supports this property so locking scrolling is 
-        // handled using an overlay component
-        if (CSS && !CSS.supports('touch-action', 'none') && this.state.magnified) { 
-            document.getElementsByTagName('body')[0].classList.add('lock-screen');
-        } 
-    };
+    touchActionNotSupported = () => CSS && !CSS.supports('touch-action', 'none');
 
-    handleFigureTouchEnd = e => { 
-        if (CSS && !CSS.supports('touch-action', 'none') && this.state.magnified) { 
-            document.getElementsByTagName('body')[0].classList.remove('lock-screen');
-        } 
-    }; 
+    lockScreen = () => document.getElementsByTagName('body')[0].classList.add('lock-screen');
+
+    unLockScreen = () => document.getElementsByTagName('body')[0].classList.remove('lock-screen');
 
     render() {
         return <div ref={this.containerRef} className="image-viewer-container">
@@ -193,8 +192,6 @@ class ImageViewer extends React.Component {
             onDragStart={this.handleOnDragStart}
             onMouseMove={this.handleFigureMouseMove}
             onTouchMove={this.handleFigureTouchMove}
-            onTouchStart={this.handleFigureTouchStart}
-            onTouchEnd={this.handleFigureTouchEnd}
         >
             <img
                 className="image-viewer-container__image-element"
