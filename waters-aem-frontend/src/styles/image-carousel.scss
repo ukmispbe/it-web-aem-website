@@ -16,6 +16,7 @@
     margin-inline-start: 0;
     margin-inline-end: 0;
     padding: 5px;
+    z-index: 9999;
     background-position: 50% 50%;
     background-size: 100%;
     position: relative;
@@ -48,7 +49,7 @@
     position: absolute;
     bottom: 22px;
     right: 19px;
-    z-index: 1;
+    z-index: 9999;
 
     @include mobile {
         right: 18px;
