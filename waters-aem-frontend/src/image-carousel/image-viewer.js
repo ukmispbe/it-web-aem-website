@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactSVG from 'react-svg';
+import OverLay from '../search/components/overlay';
 
 class ImageViewer extends React.Component {
     constructor() {
@@ -19,6 +20,7 @@ class ImageViewer extends React.Component {
             imageWidth: 0,
             imageSrc: '',
             magnified: false,
+            overlayOpen: false
         };
 
         this.containerRef = React.createRef();
@@ -124,8 +126,24 @@ class ImageViewer extends React.Component {
         );
     };
 
+    handleFigureTouchStart = e => { 
+        // touch-action property prevents scrolling during touchmove event 
+        // check if browser supports this property so locking scrolling is 
+        // handled using an overlay component
+        if (CSS && !CSS.supports('touch-action', 'none')) { 
+            this.setState({overlayOpen: true});
+        } 
+    };
+
+    handleFigureTouchEnd = e => { 
+        if (CSS && !CSS.supports('touch-action', 'none')) { 
+            this.setState({overlayOpen: false});
+        } 
+    }; 
+
     render() {
-        return (
+        return <>
+            <OverLay isOpen={this.state.overlayOpen} darkOverlay={false} />
             <div ref={this.containerRef} className="image-viewer-container">
                 <div className="image-viewer-container__image-display">
                     {this.renderImageDisplay()}
@@ -134,7 +152,7 @@ class ImageViewer extends React.Component {
                     </div>
                 </div>
             </div>
-        );
+        </>;
     }
 
     componentDidUpdate(prevProps, prevState) {
