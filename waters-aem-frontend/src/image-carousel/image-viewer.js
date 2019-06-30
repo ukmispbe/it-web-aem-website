@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactSVG from 'react-svg';
-import OverLay from '../search/components/overlay';
 
 class ImageViewer extends React.Component {
     constructor() {
@@ -43,14 +42,6 @@ class ImageViewer extends React.Component {
 
         if (!magnified && this.props.onZoomOut) {
             this.props.onZoomOut();
-        }
-
-        if (magnified && this.touchActionNotSupported()) {
-            this.lockScreen();
-        }
-
-        if (!magnified && this.touchActionNotSupported()) {
-            this.unLockScreen();
         }
 
         if (magnified) {
@@ -120,8 +111,11 @@ class ImageViewer extends React.Component {
     };
 
     handleFigureTouchMove = e => {
-        console.clear();
-        console.log(e.nativeEvent.touches[0]);
+        // prevents window scrolling
+        if (this.state.magnified) {
+            e.nativeEvent.preventDefault();
+        }
+
         const offsetX = e.nativeEvent.touches[0].pageX - e.nativeEvent.touches[0].target.x;
         const offsetY = e.nativeEvent.touches[0].pageY - e.nativeEvent.touches[0].target.y;
 
@@ -132,12 +126,6 @@ class ImageViewer extends React.Component {
             e.currentTarget
         );
     };
-
-    touchActionNotSupported = () => CSS && !CSS.supports('touch-action', 'none');
-
-    lockScreen = () => document.getElementsByTagName('body')[0].classList.add('lock-screen');
-
-    unLockScreen = () => document.getElementsByTagName('body')[0].classList.remove('lock-screen');
 
     render() {
         return <div ref={this.containerRef} className="image-viewer-container">

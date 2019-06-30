@@ -1,12 +1,3 @@
-@supports not (touch-action: none) {
-    .lock-screen {
-        height: 100%;
-        overflow: hidden;
-        width: 100%;
-        position: fixed;
-    }
-}
-
 .image-carousel {
     position: relative;
     width: 100%;
