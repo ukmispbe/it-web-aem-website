@@ -116,9 +116,11 @@ class ImageViewer extends React.Component {
             e.nativeEvent.preventDefault();
             e.nativeEvent.stopPropagation();
         }
+        console.clear();
+        console.log(e.nativeEvent.touches[0]);
 
         const offsetX = e.nativeEvent.touches[0].pageX - e.nativeEvent.touches[0].target.x;
-        const offsetY = e.nativeEvent.touches[0].pageY - e.nativeEvent.touches[0].target.y;
+        const offsetY = e.nativeEvent.touches[0].clientY - e.nativeEvent.touches[0].target.y;
 
         this.handleFigureMove(
             this.state.magnified,
