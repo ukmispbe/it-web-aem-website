@@ -4,7 +4,7 @@
         <img src="${sku.primaryImageThumbnail}" alt="${sku.primaryImageAlt}">
         <h1>${sku.title}</h1>
         <h3>${sku.code}</h3>
-        <div>Price: ${sku.currencySymbol}${'#,###.00' @ format=sku.price}</div>
+        <div>Price: ${sku.formattedPrice}</div>
     </div>
 </div>
 

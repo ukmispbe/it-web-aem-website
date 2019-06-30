@@ -5,7 +5,7 @@
     <h3>${sku.code}</h3>
     <sly data-sly-test.price="${sku.price}">
         <div class="cmp-sku-details__price" data-sly-test="${sku.active}">
-            ${sku.currencySymbol}${'#,###.00' @ format=price}
+            ${skuDetails.formattedPrice}
         </div>
     </sly>
     <hr>

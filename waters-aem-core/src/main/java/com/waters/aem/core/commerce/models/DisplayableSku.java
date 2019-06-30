@@ -9,6 +9,7 @@ import com.waters.aem.core.utils.AssetUtils;
 import org.apache.sling.api.resource.Resource;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.List;
 import java.util.Map;
@@ -81,6 +82,10 @@ public final class DisplayableSku {
         final String currencyIsoCode = siteContext.getCurrencyIsoCode();
 
         return sku.getPrice(country, currencyIsoCode);
+    }
+
+    public String getFormattedPrice() {
+        return NumberFormat.getCurrencyInstance(siteContext.getLocale()).format(getPrice());
     }
 
     public String getPrimaryImageSrc() {
