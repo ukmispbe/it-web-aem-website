@@ -114,6 +114,7 @@ class ImageViewer extends React.Component {
         // prevents window scrolling
         if (this.state.magnified) {
             e.nativeEvent.preventDefault();
+            e.nativeEvent.stopPropagation();
         }
 
         const offsetX = e.nativeEvent.touches[0].pageX - e.nativeEvent.touches[0].target.x;
