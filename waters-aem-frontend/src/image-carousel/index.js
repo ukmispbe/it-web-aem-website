@@ -17,7 +17,6 @@ class ImageCarousel extends React.Component {
     render() {
         return (
             <div className="image-carousel">
-                <div style={{height: '800px'}}>test</div>
                 <div className="image-viewer-wrapper">
                     {this.mapTemplateToImageViewer(this.props.templates[this.state.activeIndex])}
                 </div>
