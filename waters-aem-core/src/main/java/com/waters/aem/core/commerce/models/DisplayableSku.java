@@ -1,8 +1,10 @@
 package com.waters.aem.core.commerce.models;
 
 import com.day.cq.dam.api.Asset;
+import com.day.cq.dam.commons.util.PrefixRenditionPicker;
 import com.google.common.collect.ImmutableMap;
 import com.waters.aem.core.components.SiteContext;
+import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.utils.AssetUtils;
 import org.apache.sling.api.resource.Resource;
 
@@ -87,6 +89,12 @@ public final class DisplayableSku {
 
     public String getPrimaryImageAlt() {
         return getPrimaryImageAsset() == null ? "" : AssetUtils.getAltText(getPrimaryImageAsset());
+    }
+
+    public String getPrimaryImageThumbnail() {
+        return getPrimaryImageAsset() == null ? null : new PrefixRenditionPicker(WatersConstants.THUMBNAIL_RENDITION_PREFIX, true)
+            .getRendition(getPrimaryImageAsset())
+            .getPath();
     }
 
     private Asset getPrimaryImageAsset() {

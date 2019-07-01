@@ -56,6 +56,8 @@ public final class WatersConstants {
 
     public static final FastDateFormat DATE_FORMAT_ISO_8601 = FastDateFormat.getInstance("yyyy-MM-dd");
 
+    public static final String THUMBNAIL_RENDITION_PREFIX = "cq5dam.thumbnail.319";
+
     private WatersConstants() {
 
     }
