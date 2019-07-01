@@ -41,7 +41,7 @@
         text-align: left;
 
         @include mobile {
-            padding: 0  $space-m  $space-m  $space-m;
+            padding: 0 20px;
         }
 
         @include tablet {
@@ -64,7 +64,7 @@
         margin: -$space-xxs auto 0 auto;
 
         @include mobile {
-            padding: 0  $space-m  $space-m  $space-m;
+            padding: 0 20px;
         }
 
         @include tablet {

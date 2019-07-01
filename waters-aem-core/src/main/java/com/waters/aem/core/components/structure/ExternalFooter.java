@@ -39,7 +39,6 @@ import java.util.List;
 
 @Component(value = "External Footer",
     description = "This is the External Footer component for Waters site",
-    isContainer = true,
     editConfig = false,
     tabs = {
         @Tab(title = "Properties"),
