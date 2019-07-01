@@ -3,10 +3,8 @@
      class="cmp-sku-details">
     <h1>${sku.title}</h1>
     <h3>${sku.code}</h3>
-    <sly data-sly-test.price="${sku.price}">
-        <div class="cmp-sku-details__price" data-sly-test="${sku.active}">
-            ${skuDetails.formattedPrice}
-        </div>
+    <sly data-sly-test.price="${sku.formattedPrice}">
+        <div class="cmp-sku-details__price" data-sly-test="${sku.active}">${price}</div>
     </sly>
     <hr>
 </div>
