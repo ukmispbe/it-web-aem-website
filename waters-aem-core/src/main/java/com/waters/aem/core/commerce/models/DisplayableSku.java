@@ -66,7 +66,7 @@ public final class DisplayableSku {
             .getPath();
     }
 
-    private BigDecimal getPrice() {
+    public BigDecimal getPrice() {
         final String country = siteContext.getLocale().getCountry();
         final String currencyIsoCode = siteContext.getCurrencyIsoCode();
 
