@@ -18,7 +18,7 @@ class ImageViewer extends React.Component {
             containerWidth: 0,
             imageWidth: 0,
             imageSrc: '',
-            magnified: false,
+            magnified: false
         };
 
         this.containerRef = React.createRef();
@@ -79,6 +79,22 @@ class ImageViewer extends React.Component {
         let x = (offsetX / figureElement.offsetWidth) * 100;
         let y = (offsetY / figureElement.offsetHeight) * 100;
 
+        if (x > 100) {
+            x = 100;
+        }
+
+        if (x < 0) {
+            x = 0;
+        }
+
+        if (y > 100) {
+            y = 100;
+        }
+
+        if (y < 0) {
+            y = 0;
+        }
+
         figureElement.style.backgroundPosition = `${x}% ${y}%`;
     };
 
@@ -95,8 +111,16 @@ class ImageViewer extends React.Component {
     };
 
     handleFigureTouchMove = e => {
-        const offsetX = e.nativeEvent.touches[0].pageX;
-        const offsetY = e.nativeEvent.touches[0].pageY;
+        // prevents window scrolling
+        if (this.state.magnified) {
+            e.nativeEvent.preventDefault();
+            e.nativeEvent.stopPropagation();
+        }
+        console.clear();
+        console.log(e.nativeEvent.touches[0]);
+
+        const offsetX = e.nativeEvent.touches[0].pageX - e.nativeEvent.touches[0].target.x;
+        const offsetY = e.nativeEvent.touches[0].clientY - e.nativeEvent.touches[0].target.y;
 
         this.handleFigureMove(
             this.state.magnified,
@@ -106,24 +130,8 @@ class ImageViewer extends React.Component {
         );
     };
 
-    handleFigureTouchStart = e => {
-        // touch-action property prevents scrolling during touchmove event
-        // check if browser supports this property so locking scrolling is
-        // handled using a stylesheet ruleset
-        if (CSS && !CSS.supports('touch-action', 'none')) {
-            document.body.classList.add('lock-scroll');
-        }
-    };
-
-    handleFigureTouchEnd = e => {
-        if (CSS && !CSS.supports('touch-action', 'none')) {
-            document.body.classList.remove('lock-scroll');
-        }
-    };
-
     render() {
-        return (
-            <div ref={this.containerRef} className="image-viewer-container">
+        return <div ref={this.containerRef} className="image-viewer-container">
                 <div className="image-viewer-container__image-display">
                     {this.renderImageDisplay()}
                     <div className="image-viewer-container__image-zoom">
@@ -131,7 +139,6 @@ class ImageViewer extends React.Component {
                     </div>
                 </div>
             </div>
-        );
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -175,8 +182,6 @@ class ImageViewer extends React.Component {
             style={{ backgroundImage: `url(${this.state.imageSrc})` }} 
             onDragStart={this.handleOnDragStart}
             onMouseMove={this.handleFigureMouseMove}
-            onTouchStart={this.handleFigureTouchStart}
-            onTouchEnd={this.handleFigureTouchEnd}
             onTouchMove={this.handleFigureTouchMove}
         >
             <img

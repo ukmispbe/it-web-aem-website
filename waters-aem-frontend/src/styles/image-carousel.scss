@@ -1,12 +1,3 @@
-// @supports not (touch-action: none) {
-//     body.lock-scroll {
-//       height: 100%;
-//       overflow: hidden;
-//       width: 100%;
-//       position: fixed;
-//     }
-// }
-
 .image-carousel {
     position: relative;
     width: 100%;
@@ -57,7 +48,6 @@
     position: absolute;
     bottom: 22px;
     right: 19px;
-    z-index: 1;
 
     @include mobile {
         right: 18px;
