@@ -79,6 +79,8 @@ class ImageViewer extends React.Component {
         let x = (offsetX / figureElement.offsetWidth) * 100;
         let y = (offsetY / figureElement.offsetHeight) * 100;
 
+        // prevent user from scrolling off the boundary of the figure element
+        // which will also prevent from the image going blank when touch is out of boundary
         if (x > 100) {
             x = 100;
         }
@@ -113,14 +115,14 @@ class ImageViewer extends React.Component {
     handleFigureTouchMove = e => {
         // prevents window scrolling
         if (this.state.magnified) {
+            e.preventDefault();
+            e.stopPropagation();
             e.nativeEvent.preventDefault();
             e.nativeEvent.stopPropagation();
         }
-        console.clear();
-        console.log(e.nativeEvent.touches[0]);
-
-        const offsetX = e.nativeEvent.touches[0].pageX - e.nativeEvent.touches[0].target.x;
-        const offsetY = e.nativeEvent.touches[0].clientY - e.nativeEvent.touches[0].target.y;
+        const rectObj = e.nativeEvent.touches[0].target.getBoundingClientRect();
+        const offsetX = e.nativeEvent.touches[0].pageX - rectObj.left - window.pageXOffset;
+        const offsetY = e.nativeEvent.touches[0].pageY - rectObj.top - window.pageYOffset;
 
         this.handleFigureMove(
             this.state.magnified,

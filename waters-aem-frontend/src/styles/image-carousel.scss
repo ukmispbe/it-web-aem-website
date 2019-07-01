@@ -48,6 +48,7 @@
     position: absolute;
     bottom: 22px;
     right: 19px;
+    z-index: 9999;
 
     @include mobile {
         right: 18px;
