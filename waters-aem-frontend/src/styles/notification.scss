@@ -4,8 +4,7 @@
         justify-content: center;
         background-color: $color-background-light;
         padding: $space-s;
-
-        @include mobile {
+        margin-bottom: $space-l @include mobile {
             padding: $space-m;
         }
         svg {
@@ -19,6 +18,7 @@
 
             @include mobile {
                 margin-bottom: $space-xxs;
+                padding-right: 0;
             }
         }
 

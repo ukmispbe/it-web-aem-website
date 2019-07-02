@@ -80,6 +80,7 @@
 
     @include mobile {
         margin: 0 0 0 -4px;
+        padding: $space-l 0 0 0;
     }
 
     @include tablet {

@@ -28,7 +28,7 @@ public final class VanityUrlApplicationNotesPostProcessorStep implements Applica
         } else {
             final ValueMap properties = applicationNotes.getResource().adaptTo(ModifiableValueMap.class);
 
-            properties.put(NameConstants.PN_SLING_VANITY_PATH, "/" + literatureCode);
+            properties.put(NameConstants.PN_SLING_VANITY_PATH, "/" + literatureCode + applicationNotes.getLanguageCode());
 
             modifications.add(Modification.onModified(applicationNotes.getResource().getPath()));
         }

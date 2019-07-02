@@ -16,7 +16,7 @@
 
     // Grayscale
     $color-white: #fff;
-    $color-gray-10: lighten(#4f5b64, 60%);
+    $color-gray-10: adjust_hue(saturate(lighten(#4F5B64, 61), 3), -15);
     $color-gray-20: lighten(#4f5b64, 55%);
     $color-gray-30: lighten(#4f5b64, 45%);
     $color-gray-40: lighten(#4f5b64, 30%);
@@ -39,7 +39,7 @@
     $color-background-light: $color-gray-10;
     $color-background-dark: $color-gray-50;
     $color-icon: $color-gray-50;
-    $color-success: #00871a;
+    $color-success: $color-teal-50;
     $color-error: #e60f33;
     $color-focus: $color-blue-30;
 
@@ -51,7 +51,7 @@
 
     // Font Size
     $font-size-h1: 2.25em;
-    $font-size-h2: 1.3em;
+    $font-size-h2: 1.2em;
     $font-size-h3: 1.1em;
     $font-size-h4: 1em;
     $font-size-h5: 1em;
@@ -74,6 +74,7 @@
 
     // Mobile
     $font-size-h1-m: 1.6em;
+    $font-size-small-m: .8em;
 
    // Print
     $font-size-h1-pcs: 2em;
@@ -93,7 +94,7 @@ $icon-m: 1.5em;
 $icon-l: 2em;
 $icon-xl: 4em;
 
-// Soacing
+// Spacing
 $space-xxxs: 0.25em;
 $space-xxs: 0.5em;
 $space-xs: 0.75em;

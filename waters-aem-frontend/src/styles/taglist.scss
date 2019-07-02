@@ -29,6 +29,10 @@
                 }
             }
         }
+
+        @include mobile {
+            margin-bottom: $space-s;
+        }
     }
 }
 
@@ -38,6 +42,10 @@
         &__item {
             display: block;
         }
+
+        @include mobile {
+            margin-bottom: $space-s;
+        }
     }
 }
 
@@ -45,11 +53,13 @@
     .cmp-tag-list {
         margin-bottom: $space-s;
         &__item {
-            font-size: $font-size-small;
+            @include font-small;
             display: inline-block;
-            padding: $space-xxxs $space-xs ($space-xxs - .1em) $space-xs;
+            padding: ($space-xxxs - .05em) $space-s ($space-xxxs + .05em) $space-s;         
+            margin: 0 $space-xxs $space-xs 0;
             background-color: $color-background-dark;
-            color: $color-white;
+            color: $color-font-light;
+            border-radius: 1.5em;
         }
     }
 }

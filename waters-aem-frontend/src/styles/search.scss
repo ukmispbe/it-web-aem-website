@@ -37,7 +37,6 @@
     .cmp-search-filters__tags {
         @include mobile {
             margin-top: -30px;
-            margin-bottom: $space-l;
         }
 
         @include tablet {
@@ -62,15 +61,14 @@
     }
 }
 .cmp-search__results-item {
-    border-top: 1px solid $color-border-rule;
-    padding-top: $space-m;
+    padding: $space-m;
+    background-color: $color-background-light;
     @include list-item;
 
     &-breadcrumb {
         display: flex;
         @include font-small;
         margin-top: $space-s;
-        padding-bottom: $space-xs;
 
         svg {
             margin: ($space-xxxs + 0.2em) $space-xxxs 0 $space-xxxs;
@@ -136,15 +134,17 @@ div.cmp-search__no-results {
             cursor: pointer;
             @include font-utility;
             margin: 0 $space-xxs 0 0;
-            border: 1px solid $color-border-dark;
+            border: 1px solid $color-border-light;
             float: left;
             padding-top: $space-xxs;
             text-decoration: none;
             text-align: center;
             height: $button-fixed;
             width: $button-fixed;
+
             &:hover {
                 color: $color-link;
+                border: 1px solid $color-border-dark;
             }
         }
         &.disabled {
@@ -158,9 +158,7 @@ div.cmp-search__no-results {
         }
         &.selected {
             a {
-                background: $color-background-dark;
-                color: $color-font-light;
-                border: 1px solid $color-background-dark;
+                border: 2px solid $color-border-accent;
             }
             @include mobile {
                 display: inline;
@@ -169,6 +167,7 @@ div.cmp-search__no-results {
         &.next,
         &.previous {
             a {
+                border: none;
                 &:hover {
                     svg .st0 {
                         stroke: $color-link;
@@ -224,7 +223,7 @@ div.cmp-search__no-results {
     box-shadow: $shadow;
     border: none;
     margin: 0;
-    padding: 0.65em $space-xs $space-xs 1.32em;
+    padding: $space-xs $space-xs $space-xs 1.32em;
     height: 54px;
 }
 
@@ -268,7 +267,6 @@ div.cmp-search__no-results {
             float: right;
         }
         @include mobile {
-            font-size: $font-size-h3;
             svg {
                 margin: 0 2% 0 0;
             }
@@ -367,20 +365,20 @@ div.cmp-search__no-results {
     width: 100%;
     @include mobile {
         display: block;
-        padding-bottom: $space-m;
+        padding: $space-m 0;
+        float: none;
+        width: 100%;
     }
     @include tablet {
         display: block;
         padding-top: $space-s;
-    }
-    @include tablet {
         float: left;
         width: 70%;
     }
-    @include mobile {
-        float: none;
-        width: 100%;
-    }
+}
+
+div.cmp-search__sorted-by {
+    padding: $space-s 0;
 }
 .cmp-search-overlay {
     position: absolute;
@@ -425,7 +423,7 @@ html.showing-spinner {
             z-index: 4;
         }
         .cccmp-search__container,
-        .cmp-external-footer,
+        .cmp-footer,
         .cmp-back-to-top {
             display: none;
         }

@@ -1,0 +1,157 @@
+.image-carousel {
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+.image-viewer-container {
+    width: 100%;
+}
+
+.image-viewer-container__image-figure {
+    border: thin solid $color-border-light;
+    margin: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding: 0;
+    background-position: 50% 50%;
+    background-size: 100%;
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-clip: content-box;
+    touch-action: none;
+    
+    -webkit-transition: background-size 500ms ease-in-out;
+    -moz-transition: background-size 500ms ease-in-out;
+    -ms-transition: background-size 500ms ease-in-out;
+    -o-transition: background-size 500ms ease-in-out;
+    transition: background-size 500ms ease-in-out;
+
+    .image-viewer-container__image-element {
+        opacity: 0;
+    }
+}
+
+.image-viewer-container__image-figure--true {
+    background-size: 200%;
+}
+
+.image-viewer-container__image-display {
+    position: relative;
+    display: inline-block;
+}
+
+.image-viewer-container__image-zoom {
+    position: absolute;
+    bottom: 22px;
+    right: 19px;
+    z-index: 99;
+
+    @include mobile {
+        right: 18px;
+    }
+
+    svg {
+        width: $icon-l;
+        height: $icon-l;
+        cursor: pointer;
+
+        .st0 {
+            stroke: $color-icon;
+        }
+    }
+}
+
+.image-thumbnail-wrapper {
+    display: inline-block;
+    text-align: left;
+}
+
+.image-carousel__thumbnails {
+    display: flex;
+}
+
+.image-carousel__thumbnails .alice-carousel {
+    width: 75%;
+}
+
+.image-carousel__thumbnails .alice-carousel__stage-item {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+// react-alice-carouselt overrides
+.image-carousel {
+    .alice-carousel__stage-item * {
+        line-height: 0;
+    }
+}
+
+// IE CSS Hacks
+// for browsers that do not support background-size transitions
+// zoom element position that varies between browsers
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .image-viewer-container__image-display {
+        overflow: hidden;
+    }
+
+    .image-viewer-container__image-figure {
+        -ms-transition: transform 500ms ease-in-out;
+    }
+
+    .image-viewer-container__image-figure--zoomin-true {
+        background-size: 100%;
+        transform: scale(2);
+    }
+
+    .image-viewer-container__image-figure--zoomin-false {
+        transform: scale(1);
+    }
+
+    .image-viewer-container__image-figure--zoomin-background {
+        -ms-transition: none;
+        transform: scale(1);
+        background-size: 200%;
+    }
+
+    .image-viewer-container__image-figure--zoomout-background {
+        -ms-transition: none;
+        transform: scale(2);
+        background-size: 100%;
+    }
+
+    .image-viewer-container__image-display {
+        display: static;
+    }
+
+    .image-thumbnail-wrapper {
+        display: static;
+    }
+
+    .image-viewer-container__image-zoom {
+        bottom: 23px;
+        right: 19px;
+    }
+}
+
+// Edge CSS Hacks
+// zoom element position that varies between browsers
+@supports (-ms-ime-align: auto) {
+    .image-viewer-container__image-zoom {
+        bottom: 23px;
+        right: 19px;
+    }
+} 
+
+// Firefox CSS Hacks
+// zoom element position that varies between browsers
+@-moz-document url-prefix() { 
+    .image-viewer-container__image-zoom {
+        position: absolute;
+        bottom: 23px;
+        right: 20px;
+    }
+}

@@ -70,6 +70,7 @@ var anchorSticky = (function () {
         onScroll: function () {
             if (this.aboveScroll()) {
                 this.setFixed();
+                
             } else {
                 this.setRelative();
             }
@@ -84,10 +85,10 @@ var anchorSticky = (function () {
             this.element.classList.remove(CSS_CLASS_ACTIVE);
             this.element.parentNode.style.height = 'auto';
         },
-
-        getInViewElement: function () {
+		brokeAt: 0,
+        getInViewElement: function() {
+            let multipleInView = [];
             if (this.anchorDestinations) {
-                let brokeAt = 0;
                 for (let n = 0; n <= this.anchorDestinations.length; n++) {
                     const id = this.anchorDestinations[n]
                         ? this.anchorDestinations[n].id.replace(/#/gi, '')
@@ -112,19 +113,21 @@ var anchorSticky = (function () {
                             (elementTop < 150 && elementBottom >= stillOnPage)
                         ) {
                             link.classList.add('active');
-                            //brokeAt = n;
-                            break;
+                            this.brokeAt = n;
+                            multipleInView.push(n);
                         } else {
                             link.classList.remove('active');
                         }
                     }
+                }
 
-                    for (let i = 0; i <= this.anchorDestinations.length; i++) {
-                        if (i !== brokeAt && this.anchorDestinations[i]) {
-                            this.anchorDestinations[i].anchor.classList.remove(
-                                'active'
-                            );
-                        }
+                if (multipleInView.length > 1) {
+                    for (let i = 1; i < multipleInView.length; i++) {
+                        const inView = multipleInView[i];
+
+                        this.anchorDestinations[inView].anchor.classList.remove(
+                            'active'
+                        );
                     }
                 }
             }
@@ -157,19 +160,18 @@ function hideScrollBars(el) {
     el.classList.remove("show-scroll-bar");
 }
 
+
 function anchorChange(el) {
 
-    var anchorCutoff = el.clientWidth;
-
+    var anchorRect = el.getBoundingClientRect();
+    var anchorStartPosition = anchorRect.left;
     var listItems = document.querySelectorAll('.cmp-anchor__list-item');
 
     for (var i = 0; i < listItems.length; i++) {
-
         var rect = listItems[i].getBoundingClientRect();
-
         clearRHSGradients();
-        
-        if (rect.left + rect.width > anchorCutoff + 35) {
+
+        if (rect.left - anchorStartPosition + rect.width > el.clientWidth + 5) {
             listItems[i].classList.add("rhs-gradient-fade");
             break;
         }
@@ -178,7 +180,8 @@ function anchorChange(el) {
 
 function anchorChangeScroll(el) {
 
-    var anchorCutoff = el.clientWidth;
+    var anchorRect = el.getBoundingClientRect();
+    var anchorStartPosition = anchorRect.left;
     var listItems = document.querySelectorAll('.cmp-anchor__list-item');
 
     for (var i = 0; i < listItems.length; i++) {
@@ -186,7 +189,7 @@ function anchorChangeScroll(el) {
 
         clearLHSGradients();
 
-        if (((rect.left + rect.width) > 77)  && rect.left < 81 && el.scrollLeft > 2) {
+        if ((rect.left - anchorStartPosition + rect.width > 10) && (rect.left - anchorStartPosition < 80) && (el.scrollLeft > 2)) {
 
             listItems[i].classList.add("lhs-gradient-fade");
             break;
@@ -197,9 +200,8 @@ function anchorChangeScroll(el) {
     for (i = 0; i < listItems.length; i++) {
 
         rect = listItems[i].getBoundingClientRect();
-
         clearRHSGradients();
-        if ((rect.left + rect.width > anchorCutoff + 37) && (rect.left + rect.width - 40) >= el.clientWidth) {
+        if (rect.left - anchorStartPosition + rect.width > el.clientWidth + 10 &&  (el.scrollLeft + el.clientWidth < el.scrollWidth - 2) ) {
 
             listItems[i].classList.add("rhs-gradient-fade");
             break;
@@ -242,23 +244,12 @@ function clearLHSGradients() {
     }
 }
 
-function clearGradients() {
-    clearLHSGradients();
-    clearRHSGradients();
-}
-
 window.addEventListener('scroll', anchorSticky);
 if (anchorMenu) {
     anchorMenu.addEventListener('click', () => toggleMobileNav());
 }
 
-var mediaQueryListener = window.matchMedia('(max-width: 650px)');
-function anchorChangeToMobile() {
-    if (mediaQueryListener.matches) {
-        clearGradients();
-    }
-}
-mediaQueryListener.addListener(anchorChangeToMobile);
+
 
 var anchorList = document.querySelector('.cmp-anchor__list');
 if (anchorList){
@@ -267,5 +258,12 @@ if (anchorList){
     anchorList.addEventListener('scroll', () => scrollWindow(anchorList));
     window.addEventListener('load', () => resizeWindow(anchorList));
     window.addEventListener('resize', () => resizeWindow(anchorList));
+    var mediaQueryListener = window.matchMedia('(max-width: 650px)');
+    function anchorChangeToMobile() {
+        if (mediaQueryListener.matches) {
+            clearGradients();
+        }
+    }
+    mediaQueryListener.addListener(anchorChangeToMobile);
 }
 

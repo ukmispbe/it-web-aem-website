@@ -9,7 +9,6 @@ import com.citytechinc.cq.component.annotations.widgets.DialogFieldSet;
 import com.citytechinc.cq.component.annotations.widgets.Html5SmartImage;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
-import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.link.Link;
@@ -19,13 +18,12 @@ import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.SiteContext;
-import com.waters.aem.core.components.content.applicationnotes.LinkItem;
-import com.waters.aem.core.components.content.applicationnotes.RegionLinkItem;
+import com.waters.aem.core.components.content.links.IconOnlyLink;
+import com.waters.aem.core.components.content.links.LinkWithIcon;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.launch.AdobeLaunchService;
-import org.apache.commons.lang3.StringUtils;
+import com.waters.aem.core.utils.LinkUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
@@ -34,7 +32,6 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.Locale;
 
 @Component(value = "External Header",
     group = ComponentConstants.GROUP_HIDDEN,
@@ -81,14 +78,6 @@ public final class ExternalHeader extends AbstractComponent implements Component
     @InheritInject
     private String logoAltText;
 
-    @DialogField(fieldLabel = "Open in New Window",
-        fieldDescription = "Select this option to open in new window",
-        ranking = 4)
-    @Switch(offText = "No", onText = "Yes")
-    @InheritInject
-    @Default(booleanValues = false)
-    private Boolean newWindow;
-
     @DialogField(fieldLabel = "Search Path",
         fieldDescription = "Select Search Path",
         tab = 2,
@@ -103,13 +92,13 @@ public final class ExternalHeader extends AbstractComponent implements Component
         ranking = 2)
     @MultiField(composite = true)
     @InheritInject
-    private List<LinkItem> linkItems;
+    private List<LinkWithIcon> linkItems;
 
     @DialogField(tab = 3)
     @DialogFieldSet(namePrefix = "./regionLinkItem/")
-    public RegionLinkItem getRegionLinkItem() {
+    public IconOnlyLink getRegionLinkItem() {
         return getComponentNodeInherited("regionLinkItem")
-            .transform(componentNode -> componentNode.getResource().adaptTo(RegionLinkItem.class))
+            .transform(componentNode -> componentNode.getResource().adaptTo(IconOnlyLink.class))
             .orNull();
     }
 
@@ -135,35 +124,16 @@ public final class ExternalHeader extends AbstractComponent implements Component
         return logoAltText;
     }
 
-    public Boolean isNewWindow() {
-        return newWindow;
+    public Boolean isExternal() {
+        return LinkUtils.isExternal(logoLink);
     }
 
-    public List<LinkItem> getLinkItems() {
+    public List<LinkWithIcon> getLinkItems() {
         return linkItems;
     }
 
     public String getLanguageLocation() {
-        final Locale locale = siteContext.getLocale();
-
-        final String languageCode = locale.getLanguage().toUpperCase();
-        final String countryCode = locale.getCountry();
-
-        final StringBuilder stringBuilder = new StringBuilder();
-
-        if (!StringUtils.isBlank(languageCode)) {
-            stringBuilder.append(languageCode);
-        }
-
-        if (!StringUtils.isBlank(languageCode) && !StringUtils.isBlank(countryCode)) {
-            stringBuilder.append("/");
-        }
-
-        if (!StringUtils.isBlank(countryCode)) {
-            stringBuilder.append(countryCode);
-        }
-
-        return stringBuilder.toString();
+        return siteContext.getLanguageLocation();
     }
 
     public String getLaunchScript() {

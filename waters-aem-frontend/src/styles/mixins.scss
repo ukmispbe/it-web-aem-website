@@ -43,7 +43,7 @@
     width: 100%;
 
     &-link {
-        font-size: $font-size-h3;
+        @include font-h3;
         display: block;
         margin-bottom: $space-xxs;
     }

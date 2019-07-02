@@ -12,7 +12,7 @@ class LinksSpec extends WatersSpec {
                 one {
                     "jcr:content" {
                         links {
-                            externalLinkItems {
+                            linkItems {
                                 item1(link: "www.waters.com", text: "waters")
                                 item2(link: "www.ta.com", text: "ta")
                             }
@@ -30,12 +30,12 @@ class LinksSpec extends WatersSpec {
         }.adaptTo(Links)
 
         expect:
-        links.externalLinkItems.size() == 2
+        links.linkItems.size() == 2
 
         and:
-        links.externalLinkItems.text == ["waters", "ta"]
+        links.linkItems.text == ["waters", "ta"]
 
         and:
-        links.externalLinkItems.link.href == ["www.waters.com", "www.ta.com"]
+        links.linkItems.link.href == ["www.waters.com", "www.ta.com"]
     }
 }
