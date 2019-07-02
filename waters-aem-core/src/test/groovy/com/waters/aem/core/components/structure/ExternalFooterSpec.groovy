@@ -23,8 +23,8 @@ class ExternalFooterSpec extends WatersSpec {
                             logoImage(fileReference: "/content/dam/waters/logo.png")
 
                             footerLinks {
-                                item1(link: "www.waters.com", text: "waters", external: true)
-                                item2(link: "www.ta.com", text: "ta", external: false)
+                                item1(link: "www.waters.com", text: "waters")
+                                item2(link: "www.ta.com", text: "ta")
                             }
 
                             socialLinks {
