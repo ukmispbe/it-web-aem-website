@@ -110,9 +110,12 @@ class Search extends Component {
         this.performSearch();
     }
 
-    componentWillReceiveProps() {
-        console.log('new props');
-        if (this.state.initialRender != true) {
+    componentWillReceiveProps(props) {
+        if (props.hasError) {
+            this.setState({ keyword: parameterDefaults.keyword }, () =>
+                this.performSearch('')
+            );
+        } else if (this.state.initialRender != true) {
             this.performSearch();
         } else {
             this.setState({ initialRender: false });
@@ -145,19 +148,10 @@ class Search extends Component {
                         this.searchOnSuccess(query, rows, res, true);
                     } else {
                         this.search.initial().then(results => {
-                            if (!results) {
-                                console.log('call broken still');
-                            } else {
-                                const newQuery = Object.assign({}, query, {
-                                    keyword: '',
-                                });
-                                this.searchOnSuccess(
-                                    newQuery,
-                                    rows,
-                                    results,
-                                    true
-                                );
-                            }
+                            const newQuery = Object.assign({}, query, {
+                                keyword: '',
+                            });
+                            this.searchOnSuccess(newQuery, rows, results, true);
                         });
                     }
                 });
@@ -260,10 +254,8 @@ class Search extends Component {
         newState.spell_suggestion = res.hasOwnProperty('spell_suggestion')
             ? res.spell_suggestion
             : '';
-        console.log(res, newState);
-        this.setState(Object.assign({}, this.state, newState), () => {
-            console.log('after set state');
-        });
+
+        this.setState(Object.assign({}, this.state, newState));
 
         const scrollToPosition = window.sessionStorage.getItem(
             'waters.previousPagePosition'
@@ -844,19 +836,19 @@ class Search extends Component {
             </div>
         );
 
-        if (this.props.hasError) {
-            return <>Blah</>;
-        } else {
-            return (
-                <div ref="main">
-                    {overlay}
-                    {this.renderResultsCount()}
-                    {!state.loading && state.noResults ? null : aside}
-                    {state.loading ? <Spinner loading={state.loading} /> : null}
-                    {this.renderResults(results)}
-                </div>
-            );
-        }
+        // if (this.props.hasError) {
+        //     return <>Blah</>;
+        // } else {
+        return (
+            <div ref="main">
+                {overlay}
+                {this.renderResultsCount()}
+                {!state.loading && state.noResults ? null : aside}
+                {state.loading ? <Spinner loading={state.loading} /> : null}
+                {this.renderResults(results)}
+            </div>
+        );
+        // }
     }
 }
 
