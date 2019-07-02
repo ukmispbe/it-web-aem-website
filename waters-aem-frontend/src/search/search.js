@@ -35,7 +35,9 @@ class Search extends Component {
             this.props.searchServicePath,
             parameterDefaults.page,
             this.props.searchDefaults.rows,
-            parameterDefaults.sort
+            parameterDefaults.sort,
+            undefined,
+            () => this.props.setErrorBoundaryToTrue()
         );
 
         const query = this.search.getParamsFromString();
@@ -108,8 +110,12 @@ class Search extends Component {
         this.performSearch();
     }
 
-    componentWillReceiveProps() {
-        if (this.state.initialRender != true) {
+    componentWillReceiveProps(props) {
+        if (props.hasError) {
+            this.setState({ keyword: parameterDefaults.keyword }, () =>
+                this.performSearch('')
+            );
+        } else if (this.state.initialRender != true) {
             this.performSearch();
         } else {
             this.setState({ initialRender: false });
@@ -136,9 +142,20 @@ class Search extends Component {
             // deselects content type when user clicks the back button on browser
             this.setState({ contentType: null, contentTypeSelected: {} });
 
-            this.search
-                .initial(query)
-                .then(res => this.searchOnSuccess(query, rows, res, true));
+            if (!this.props.hasError) {
+                this.search.initial(query).then(res => {
+                    if (res && !this.props.hasError) {
+                        this.searchOnSuccess(query, rows, res, true);
+                    } else {
+                        this.search.initial().then(results => {
+                            const newQuery = Object.assign({}, query, {
+                                keyword: '',
+                            });
+                            this.searchOnSuccess(newQuery, rows, results, true);
+                        });
+                    }
+                });
+            }
         } else if (!this.isFacetsSelected(query.facets)) {
             // no sub-facets have been selected, only the content type has been selected
             const contentTypeElement = this.findContentType(
@@ -151,7 +168,9 @@ class Search extends Component {
 
             this.search
                 .contentType(query.content_type, contentTypeValue, query)
-                .then(res => this.searchOnSuccess(query, rows, res));
+                .then(res =>
+                    this.searchOnSuccess(query, rows, res, false, 'success')
+                );
         } else {
             // sub-facets have been selected
             const contentTypeElement = this.findContentType(
@@ -167,7 +186,9 @@ class Search extends Component {
 
             this.search
                 .subFacet(contentTypeName, contentTypeValue, query)
-                .then(res => this.searchOnSuccess(query, rows, res))
+                .then(res =>
+                    this.searchOnSuccess(query, rows, res, false, 'success')
+                )
                 .catch(error => this.searchOnError(error));
         }
     }
@@ -453,7 +474,7 @@ class Search extends Component {
             searchParams: query,
             contentType,
             contentTypeSelected: item,
-            loading: true
+            loading: true,
         });
 
         setTimeout(
@@ -616,7 +637,11 @@ class Search extends Component {
     getKeywordTag = () =>
         this.isKeywordSelected() ? (
             <KeywordTag
-                keyword={this.state.spell_suggestion ? this.state.spell_suggestion : this.state.keyword}
+                keyword={
+                    this.state.spell_suggestion
+                        ? this.state.spell_suggestion
+                        : this.state.keyword
+                }
                 text={this.props.searchText}
                 onRemove={this.handleRemoveKeyword}
             />
@@ -699,7 +724,12 @@ class Search extends Component {
         const searchParams = this.state.searchParams || {};
         const overlay = <div className="overlay" />;
         const filterTags = this.getFilterTags();
-        const sortFilterIsPristine = (!this.state.loading && (this.state.contentType || this.state.keyword !== parameterDefaults.keyword)) ? false : true;
+        const sortFilterIsPristine =
+            !this.state.loading &&
+            (this.state.contentType ||
+                this.state.keyword !== parameterDefaults.keyword)
+                ? false
+                : true;
 
         const aside = (
             <div className="container__left cmp-search__sort-filter">
@@ -805,6 +835,10 @@ class Search extends Component {
                 ) : null}
             </div>
         );
+
+        // if (this.props.hasError) {
+        //     return <>Blah</>;
+        // } else {
         return (
             <div ref="main">
                 {overlay}
@@ -814,6 +848,7 @@ class Search extends Component {
                 {this.renderResults(results)}
             </div>
         );
+        // }
     }
 }
 
