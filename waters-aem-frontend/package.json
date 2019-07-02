@@ -75,6 +75,7 @@
         "workbox-webpack-plugin": "3.6.3"
     },
     "dependencies": {
+        "hammerjs": "^2.0.8",
         "inline-svg": "^2.2.3",
         "prop-types": "^15.6.2",
         "query-string": "^5.1.1",

@@ -2,16 +2,14 @@ package com.waters.aem.core.commerce.models;
 
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.commons.util.PrefixRenditionPicker;
-import com.google.common.collect.ImmutableMap;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.utils.AssetUtils;
 import org.apache.sling.api.resource.Resource;
 
 import java.math.BigDecimal;
-import java.util.Currency;
+import java.text.NumberFormat;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -21,15 +19,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * A helper class for a Sku used to display Sku information on the page.
  */
 public final class DisplayableSku {
-
-    // Waters' SAP system has a few countries using a non-standard currency ISO code.
-    // For example, Taiwan's standard currency code is 'TWD', but Waters' SAP uses 'NTD' instead.
-    // This map is used to lookup those exceptions so that we can still display the correct currency symbol for these countries.
-    private static final Map<String, String> NON_STANDARD_CURRENCY_ISO_CODES =
-            new ImmutableMap.Builder<String, String>()
-                    .put("NTD", "TWD")
-                    .put("WON", "KRW")
-                    .build();
 
     private Sku sku;
     private Resource resource;
@@ -57,30 +46,10 @@ public final class DisplayableSku {
         return sku.getSalesStatus() == SkuSalesStatus.Active && !sku.isTerminated();
     }
 
-    public String getCurrencySymbol() {
-        String symbol;
-        String currencyIsoCode = siteContext.getCurrencyIsoCode();
+    public String getFormattedPrice() {
+        final BigDecimal price = getPrice();
 
-        if (NON_STANDARD_CURRENCY_ISO_CODES.containsKey(currencyIsoCode)) {
-            currencyIsoCode = NON_STANDARD_CURRENCY_ISO_CODES.get(currencyIsoCode);
-        }
-
-        final Currency currency = Currency.getInstance(currencyIsoCode);
-
-        if (currency != null) {
-            symbol = currency.getSymbol(siteContext.getLocale());
-        } else {
-            symbol = currencyIsoCode;
-        }
-
-        return symbol;
-    }
-
-    public BigDecimal getPrice() {
-        final String country = siteContext.getLocale().getCountry();
-        final String currencyIsoCode = siteContext.getCurrencyIsoCode();
-
-        return sku.getPrice(country, currencyIsoCode);
+        return price == null ? null : NumberFormat.getCurrencyInstance(siteContext.getLocale()).format(price);
     }
 
     public String getPrimaryImageSrc() {
@@ -95,6 +64,13 @@ public final class DisplayableSku {
         return getPrimaryImageAsset() == null ? null : new PrefixRenditionPicker(WatersConstants.THUMBNAIL_RENDITION_PREFIX, true)
             .getRendition(getPrimaryImageAsset())
             .getPath();
+    }
+
+    public BigDecimal getPrice() {
+        final String country = siteContext.getLocale().getCountry();
+        final String currencyIsoCode = siteContext.getCurrencyIsoCode();
+
+        return sku.getPrice(country, currencyIsoCode);
     }
 
     private Asset getPrimaryImageAsset() {
