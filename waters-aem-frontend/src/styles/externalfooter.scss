@@ -9,13 +9,13 @@
     }
 
     .cmp-button {
-        background-color: transparent;
+        background-color: $color-background-dark;
         display: inline-block;
         border: 1px solid $color-white;
         color: $color-font-light;
         width: 100%;
         &:hover {
-            background-color: transparent;
+            background-color: $color-background-dark;
             border: 1px solid $color-gray-20;
             color: $color-gray-20;
         }
