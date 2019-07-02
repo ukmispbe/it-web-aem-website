@@ -2,6 +2,7 @@
      data-sly-use.breadcrumb="com.waters.aem.core.components.content.Breadcrumb"
      data-sly-use.template="core/wcm/components/commons/v1/templates.html"
      data-sly-test="${breadcrumb.items.size > 0}">
+    <div class="cmp-breadcrumb-gradient-right"></div>
     <ol class="cmp-breadcrumb__list"
         itemscope itemtype="http://schema.org/BreadcrumbList"
         data-sly-list.navItem="${breadcrumb.items}">
@@ -22,6 +23,7 @@
             <meta itemprop="position" content="${navItemList.count}" />
         </li>
     </ol>
+    <div class="cmp-breadcrumb-gradient-left"></div>
 </nav>
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
      data-sly-call="${patterns.placeholder @ show=!breadcrumb.items, text=component.title}"/>

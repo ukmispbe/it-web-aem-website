@@ -32,18 +32,25 @@
         @include mobile {
             padding-left: 1.35em;
         }
+        span {
+                white-space: normal;
+                line-height: $line-height-text;
+                @include mobile {
+                    white-space: unset;
+                }
+              }
         &:after {
             content: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%234f5b64;stroke-linecap:round;stroke-linejoin:round;%7D%0A%3C/style%3E%3Cpolyline class='st0' points='8.8,20.5 17.2,12 8.8,3.5 '/%3E%3C/svg%3E%0A");
             display: block;
             float: right;
             width: $icon-s;
             height: $icon-s;
-            margin-top: 3px;
+            margin-top: 6px;
             padding: 0 0.25em;
             @include mobile {
                 right: -17px;
                 position: absolute;
-                top: 2px;
+                top: 0;
             }
         }
 
@@ -63,8 +70,42 @@
     }
 
     @include mobile {
-        vertical-align: top;;
+        vertical-align: top;
     }
+
+
+    &-gradient-left {
+        @include mobile {
+            height: 50px;
+            width: 50px;
+            z-index: 2;
+            position: absolute;
+            top: 0px;
+            right: 0;
+
+            background: -webkit-linear-gradient(right, rgba(255,255,255,0.8) 30%,rgba(255,255,255,0.2) 100%);
+            background:    -moz-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+            background:     -ms-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+            background:      -o-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+            background:         linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+        }
+    }
+
+    &-gradient-right {
+        @include mobile {
+             width: 50px;
+             height: 50px;
+             z-index: 1;
+             position: absolute;
+             left: -4px;
+
+            background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
+            background:    -moz-linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
+            background:     -ms-linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
+            background:      -o-linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
+            background:         linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
+            }
+        }
 }
 
 .cmp-breadcrumb-search {
@@ -95,43 +136,4 @@
         color: $color-link-hover;
         background-color: $color-white;
     }
-}
-
-.rhs-gradient-fade {
-    position: relative;
-}
-.rhs-gradient-fade:after {
-    content: '';
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-
-    background: -webkit-linear-gradient(
-        right,
-        rgba(255, 255, 255, 0.8) 30%,
-        rgba(255, 255, 255, 0.2) 100%
-    );
-    background: -moz-linear-gradient(
-        right,
-        rgba(255, 255, 255, 0.8) 30%,
-        rgba(255, 255, 255, 0.2) 100%
-    );
-    background: -ms-linear-gradient(
-        right,
-        rgba(255, 255, 255, 0.8) 30%,
-        rgba(255, 255, 255, 0.2) 100%
-    );
-    background: -o-linear-gradient(
-        right,
-        rgba(255, 255, 255, 0.8) 30%,
-        rgba(255, 255, 255, 0.2) 100%
-    );
-    background: linear-gradient(
-        right,
-        rgba(255, 255, 255, 0.8) 30%,
-        rgba(255, 255, 255, 0.2) 100%
-    );
 }
