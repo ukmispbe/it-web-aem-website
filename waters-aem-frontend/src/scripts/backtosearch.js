@@ -35,8 +35,8 @@ function hideBreadcrumbShowBackToSearch(link) {
 }
 
 function clearGradients() {
-    rhsGradientFade[0].style.display = 'unset';
-    lhsGradientFade[0].style.display = 'unset';
+    rhsGradientFade[0].style.display = 'block';
+    lhsGradientFade[0].style.display = 'block';
 }
 
 var mediaQueryListener = window.matchMedia('(max-width: 650px)');
