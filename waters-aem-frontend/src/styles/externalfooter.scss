@@ -9,13 +9,13 @@
     }
 
     .cmp-button {
-        background-color: transparent;
+        background-color: $color-background-dark;
         display: inline-block;
         border: 1px solid $color-white;
         color: $color-font-light;
         width: 100%;
         &:hover {
-            background-color: transparent;
+            background-color: $color-background-dark;
             border: 1px solid $color-gray-20;
             color: $color-gray-20;
         }
@@ -41,7 +41,7 @@
         text-align: left;
 
         @include mobile {
-            padding: 0  $space-m  $space-m  $space-m;
+            padding: 0 20px;
         }
 
         @include tablet {
@@ -64,7 +64,7 @@
         margin: -$space-xxs auto 0 auto;
 
         @include mobile {
-            padding: 0  $space-m  $space-m  $space-m;
+            padding: 0 20px;
         }
 
         @include tablet {
