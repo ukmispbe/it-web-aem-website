@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactSVG from 'react-svg';
+import Hammer from 'hammerjs';
 
 class ImageViewer extends React.Component {
     constructor() {
@@ -113,13 +114,6 @@ class ImageViewer extends React.Component {
     };
 
     handleFigureTouchMove = e => {
-        // prevents window scrolling
-        if (this.state.magnified) {
-            e.preventDefault();
-            e.stopPropagation();
-            e.nativeEvent.preventDefault();
-            e.nativeEvent.stopPropagation();
-        }
         const rectObj = e.nativeEvent.touches[0].target.getBoundingClientRect();
         const offsetX = e.nativeEvent.touches[0].pageX - rectObj.left - window.pageXOffset;
         const offsetY = e.nativeEvent.touches[0].pageY - rectObj.top - window.pageYOffset;
@@ -153,6 +147,8 @@ class ImageViewer extends React.Component {
     }
 
     componentDidMount() {
+        this.touchActionPolyfill();
+
         this.figureRef.current.style.backgroundPosition = '50% 50%';
 
         this.calculateWidth();
@@ -165,6 +161,12 @@ class ImageViewer extends React.Component {
 
         // this is for mobile devices
         window.addEventListener('deviceorientation', this.calculateWidth);
+    }
+
+    touchActionPolyfill = () => {
+        if (typeof(CSS) != "undefined" && !CSS.supports('touch-action', 'none')) {
+            const mc = Hammer(this.figureRef.current, { touchAction: 'pan-x' });
+        }
     }
 
     componentWillUnmount() {
