@@ -90,17 +90,30 @@
 }
 
 html {
+    @include font-body;
     font-size: 16px;
+
+    &[lang='zh'],
+    &[lang='zh-CN'] {
+        font-family: $zh-font-stack;
+    }
+
+    &[lang='ja-JP'],
+    &[lang='ja'] {
+        font-family: $ja-font-stack;
+
+        // $font-weight-light: 400;
+
+        // $font-weight-bold: 700;
+    }
 }
 
 body {
-    @include font-body;
     margin: 0 0 0 0;
 
     @include mobile {
         font-size: 1.1em;
     }
-
 }
 
 p {
@@ -169,4 +182,3 @@ blockquote {
     @include font-small;
     font-style: italic;
 }
-

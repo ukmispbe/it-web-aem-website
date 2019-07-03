@@ -1,94 +1,95 @@
 // COLORS
 
-    // Primary Blue
-    $color-blue-10: desaturate(lighten(#0077bb, 58), 20);
-    $color-blue-20: desaturate(lighten(#0077bb, 50), 20);
-    $color-blue-30: desaturate(lighten(#0077bb, 30), 20);
-    $color-blue-50: #0077bb;
-    $color-blue-70: darken(#0077bb, 10%);
+// Primary Blue
+$color-blue-10: desaturate(lighten(#0077bb, 58), 20);
+$color-blue-20: desaturate(lighten(#0077bb, 50), 20);
+$color-blue-30: desaturate(lighten(#0077bb, 30), 20);
+$color-blue-50: #0077bb;
+$color-blue-70: darken(#0077bb, 10%);
 
-    // Secondary Teal
-    $color-teal-10: desaturate(lighten(#0f7f85, 67), 17);
-    $color-teal-20: desaturate(lighten(#0f7f85, 50), 20);
-    $color-teal-30: lighten(#0f7f85, 10%);
-    $color-teal-50: #0f7f85;
-    $color-teal-70: darken(#0f7f85, 10%);
+// Secondary Teal
+$color-teal-10: desaturate(lighten(#0f7f85, 67), 17);
+$color-teal-20: desaturate(lighten(#0f7f85, 50), 20);
+$color-teal-30: lighten(#0f7f85, 10%);
+$color-teal-50: #0f7f85;
+$color-teal-70: darken(#0f7f85, 10%);
 
-    // Grayscale
-    $color-white: #fff;
-    $color-gray-10: adjust_hue(saturate(lighten(#4F5B64, 61), 3), -15);
-    $color-gray-20: lighten(#4f5b64, 55%);
-    $color-gray-30: lighten(#4f5b64, 45%);
-    $color-gray-40: lighten(#4f5b64, 30%);
-    $color-gray-50: #4f5b64;
-    $color-black: darken(#4f5b64, 15%);
+// Grayscale
+$color-white: #fff;
+$color-gray-10: adjust_hue(saturate(lighten(#4f5b64, 61), 3), -15);
+$color-gray-20: lighten(#4f5b64, 55%);
+$color-gray-30: lighten(#4f5b64, 45%);
+$color-gray-40: lighten(#4f5b64, 30%);
+$color-gray-50: #4f5b64;
+$color-black: darken(#4f5b64, 15%);
 
-    // Color Use-specific
-    $color-font-dark: $color-black;
-    $color-font-medium: $color-gray-50;
-    $color-font-light: $color-white;
-    $color-link: $color-blue-50;
-    $color-link-hover: $color-blue-70;
-    $color-link-visited: $color-blue-70;
-    $color-disabled: $color-gray-40;
-    $color-accent: $color-teal-30;
-    $color-border-light: $color-gray-30;
-    $color-border-dark: $color-gray-40;
-    $color-border-rule: $color-gray-20;
-    $color-border-accent: $color-teal-30;
-    $color-background-light: $color-gray-10;
-    $color-background-dark: $color-gray-50;
-    $color-icon: $color-gray-50;
-    $color-success: $color-teal-50;
-    $color-error: #e60f33;
-    $color-focus: $color-blue-30;
-
+// Color Use-specific
+$color-font-dark: $color-black;
+$color-font-medium: $color-gray-50;
+$color-font-light: $color-white;
+$color-link: $color-blue-50;
+$color-link-hover: $color-blue-70;
+$color-link-visited: $color-blue-70;
+$color-disabled: $color-gray-40;
+$color-accent: $color-teal-30;
+$color-border-light: $color-gray-30;
+$color-border-dark: $color-gray-40;
+$color-border-rule: $color-gray-20;
+$color-border-accent: $color-teal-30;
+$color-background-light: $color-gray-10;
+$color-background-dark: $color-gray-50;
+$color-icon: $color-gray-50;
+$color-success: $color-teal-50;
+$color-error: #e60f33;
+$color-focus: $color-blue-30;
 
 //FONTS
 
-    // Font Stack
-    $font-stack: 'acumin-pro', arial, sans-serif;
+// Font Stack
+$font-stack: 'acumin-pro', arial, sans-serif;
+$zh-font-stack: arial, sans-serif, 'SimSun', '宋体', 'STSong', '华文宋体';
+$ja-font-stack: arial, sans-serif, “Yu Gothic”, “Meiryo UI”, “メイリオ”,
+    “Hiragino Kaku Gothic Pro”, “Meiryo”;
 
-    // Font Size
-    $font-size-h1: 2.25em;
-    $font-size-h2: 1.2em;
-    $font-size-h3: 1.1em;
-    $font-size-h4: 1em;
-    $font-size-h5: 1em;
-    $font-size-h6: 1em;
-    $font-size-body: 1em;
-    $font-size-small: 0.9em;
-    $font-size-xsmall: 0.8em;
+// Font Size
+$font-size-h1: 2.25em;
+$font-size-h2: 1.2em;
+$font-size-h3: 1.1em;
+$font-size-h4: 1em;
+$font-size-h5: 1em;
+$font-size-h6: 1em;
+$font-size-body: 1em;
+$font-size-small: 0.9em;
+$font-size-xsmall: 0.8em;
 
-    // Line Height
-    $line-height-text: 1.6em;
-    $line-height-heading: 1.4em;
+// Line Height
+$line-height-text: 1.6em;
+$line-height-heading: 1.4em;
 
-    // Font Weight
-    $font-weight-light: 300;
-    $font-weight-regular: 400;
-    $font-weight-bold: 500;
+// Font Weight
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-bold: 500;
 
-    // Letter Spacing
-    $letter-spacing-small: 0.02em;
+// Letter Spacing
+$letter-spacing-small: 0.02em;
 
-    // Mobile
-    $font-size-h1-m: 1.6em;
-    $font-size-small-m: .8em;
+// Mobile
+$font-size-h1-m: 1.6em;
+$font-size-small-m: 0.8em;
 
-   // Print
-    $font-size-h1-pcs: 2em;
-    $font-size-h2-pcs: 1.3em;
-    $font-size-h3-pcs: 1em;
-    $font-size-h4-pcs: 0.9em;
-    $font-size-text-pcs: 0.8em;
-
+// Print
+$font-size-h1-pcs: 2em;
+$font-size-h2-pcs: 1.3em;
+$font-size-h3-pcs: 1em;
+$font-size-h4-pcs: 0.9em;
+$font-size-text-pcs: 0.8em;
 
 // Shadow
 $shadow: 0px 1px 5px 0px rgba(79, 91, 100, 0.2);
 
 // Icons
-$icon-xs: .5em;
+$icon-xs: 0.5em;
 $icon-s: 1em;
 $icon-m: 1.5em;
 $icon-l: 2em;
@@ -115,5 +116,3 @@ $fade-transition: opacity 0.5s ease;
 $max-width: 1460px;
 $desktop-width: 1200px;
 $tablet-width: 650px;
-
-
