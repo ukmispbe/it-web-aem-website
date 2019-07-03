@@ -72,9 +72,13 @@
 
 .cmp-notification--error {
     .cmp-notification-wrapper {
-        background-color: lighten($color-error, 50%);
-        border: 1px solid lighten($color-error, 40%);
         transition: transform 200ms ease-in-out;
+
+        svg {
+            .st0 {
+                stroke: $color-error;
+            }
+        }
     }
 }
 

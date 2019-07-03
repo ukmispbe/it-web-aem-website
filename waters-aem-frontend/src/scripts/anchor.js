@@ -15,7 +15,7 @@ var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
                 const block = document.getElementById(href);
                 const blockTop = block.offsetTop;
 
-                scrollToY(blockTop - 140, 1000, 'easeOutSine');
+                scrollToY(blockTop - 10, 1000, 'easeOutSine');
 
                 anchorLinks.forEach(anchor => {
                     anchor.classList.remove('active');
@@ -119,7 +119,7 @@ var anchorSticky = (function () {
                             link.classList.remove('active');
                         }
                     }
-                }
+
 
                 if (multipleInView.length > 1) {
                     for (let i = 1; i < multipleInView.length; i++) {
@@ -128,6 +128,7 @@ var anchorSticky = (function () {
                         this.anchorDestinations[inView].anchor.classList.remove(
                             'active'
                         );
+                        }
                     }
                 }
             }
@@ -248,8 +249,6 @@ window.addEventListener('scroll', anchorSticky);
 if (anchorMenu) {
     anchorMenu.addEventListener('click', () => toggleMobileNav());
 }
-
-
 
 var anchorList = document.querySelector('.cmp-anchor__list');
 if (anchorList){
