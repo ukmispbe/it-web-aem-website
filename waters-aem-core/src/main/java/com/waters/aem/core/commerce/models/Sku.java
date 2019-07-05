@@ -4,6 +4,7 @@ import com.day.cq.commons.jcr.JcrConstants;
 import com.google.common.base.Objects;
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
 import com.waters.aem.core.commerce.services.SkuRepository;
+import com.waters.aem.core.utils.ResourceUtils;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -15,13 +16,8 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @SuppressWarnings({ "squid:HiddenFieldCheck" })
@@ -129,27 +125,22 @@ public final class Sku {
     }
 
     public List<SkuImage> getImages() {
-        return getResourceModels(WatersCommerceConstants.RESOURCE_NAME_IMAGES,
+        return ResourceUtils.getResourceModels(resource, WatersCommerceConstants.RESOURCE_NAME_IMAGES,
             resource -> true,
             resource -> resource.adaptTo(SkuImage.class));
     }
 
     public List<Sku> getRelatedSkus() {
         // TODO do we need to check the 'terminated' property?
-        return getResourceModels(WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCES,
+        return ResourceUtils.getResourceModels(resource, WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCES,
             resource -> !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PROPRIETARY, false),
             resource -> skuRepository.getRelatedSku(resource));
     }
 
-    private <T> List<T> getResourceModels(final String resourceName, final Predicate<Resource> resourceFilter,
-        final Function<Resource, T> resourceToModelFunction) {
-        return Optional.ofNullable(resource.getChild(resourceName))
-            .map(modelsResource -> StreamSupport.stream(modelsResource.getChildren().spliterator(), false)
-                .filter(resourceFilter)
-                .map(resourceToModelFunction)
-                .filter(java.util.Objects :: nonNull)
-                .collect(Collectors.toList()))
-            .orElse(Collections.emptyList());
+    public List<Classification> getClassifications() {
+        return ResourceUtils.getResourceModels(resource, WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATIONS,
+                resource -> true,
+                resource -> resource.adaptTo(Classification.class));
     }
 
     @Override
