@@ -10,6 +10,9 @@ import com.waters.aem.hybris.enums.HybrisImportStatus;
 import com.waters.aem.hybris.exceptions.HybrisImporterException;
 import com.waters.aem.hybris.importer.HybrisProductImporter;
 import com.waters.aem.hybris.models.Classification;
+import com.waters.aem.hybris.models.Feature;
+import com.waters.aem.hybris.models.FeatureUnit;
+import com.waters.aem.hybris.models.FeatureValue;
 import com.waters.aem.hybris.models.Image;
 import com.waters.aem.hybris.models.Price;
 import com.waters.aem.hybris.models.Product;
@@ -19,6 +22,7 @@ import com.waters.aem.hybris.models.ProductReference;
 import com.waters.aem.hybris.models.ProductReferenceTarget;
 import com.waters.aem.hybris.models.ProductReferenceType;
 import com.waters.aem.hybris.result.HybrisImporterResult;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.commons.JcrUtils;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ModifiableValueMap;
@@ -334,14 +338,47 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
             final Node classificationsNode = JcrUtils.getOrAddNode(productNode,
                 WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATIONS);
 
-            setItemNodes(classificationsNode, WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATION, classifications,
-                classification -> {
+            int count = 1;
+
+            for (final Classification classification : classifications) {
+                final Node classificationNode = JcrUtils.getOrAddNode(classificationsNode,
+                        WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATION + count);
+
+                final Map<String, Object> properties = new HashMap<>();
+
+                properties.put(WatersCommerceConstants.PROPERTY_CODE, classification.getCode());
+                properties.put(WatersCommerceConstants.PROPERTY_NAME, classification.getName());
+
+                setNodeProperties(classificationNode, properties);
+
+                setFeatures(classificationNode, classification.getFeatures());
+
+                count++;
+            }
+        }
+    }
+
+    private void setFeatures(final Node classificationNode, final List<Feature> features)
+            throws RepositoryException {
+
+        if (!features.isEmpty()) {
+            final Node featuresNode = JcrUtils.getOrAddNode(classificationNode,
+                    WatersCommerceConstants.RESOURCE_NAME_FEATURES);
+
+            setItemNodes(featuresNode, WatersCommerceConstants.RESOURCE_NAME_FEATURE, features,
+                feature -> {
                     final Map<String, Object> properties = new HashMap<>();
 
-                    properties.put(WatersCommerceConstants.PROPERTY_CODE, classification.getCode());
-                    properties.put(WatersCommerceConstants.PROPERTY_NAME, classification.getName());
-
-                    // TODO features
+                    properties.put(WatersCommerceConstants.PROPERTY_NAME, StringUtils.isNotEmpty(
+                            feature.getPublicWebLabel()) ? feature.getPublicWebLabel() : feature.getName());
+                    properties.put(WatersCommerceConstants.PROPERTY_CODE, feature.getCode());
+                    properties.put(WatersCommerceConstants.PROPERTY_FACET, feature.getFacet());
+                    properties.put(WatersCommerceConstants.PROPERTY_FEATURE_VALUES, feature.getFeatureValues()
+                            .stream()
+                            .map(FeatureValue::getValue)
+                            .toArray(String[]::new));
+                    properties.put(WatersCommerceConstants.PROPERTY_UNIT, feature.getFeatureUnit() == null ? null :
+                            feature.getFeatureUnit().getSymbol());
 
                     return properties;
                 });
