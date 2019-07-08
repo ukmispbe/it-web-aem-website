@@ -1,6 +1,8 @@
 <div data-sly-use.skuDetails="com.waters.aem.core.components.content.SkuDetails"
      data-sly-test.sku="${skuDetails.displayableSku}"
      class="cmp-sku-details">
+    <!--/* TODO update display image thumbnail when transitioning to sticky header view */-->
+    <img class="cmp-sku-details__sticky__img" src="${sku.primaryImageThumbnail}" alt="${sku.primaryImageAlt}" style="display: none;">
     <h1>${sku.title}</h1>
     <h3>${sku.code}</h3>
     <sly data-sly-test.price="${sku.formattedPrice}">
