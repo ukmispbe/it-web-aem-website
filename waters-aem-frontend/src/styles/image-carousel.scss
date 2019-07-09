@@ -9,7 +9,7 @@
 }
 
 .image-viewer-container__image-figure {
-    border: thin solid $color-border-light;
+    border: 1px solid $color-border-light;
     margin: 0;
     margin-block-start: 0;
     margin-block-end: 0;
@@ -65,30 +65,106 @@
     }
 }
 
-.image-thumbnail-wrapper {
+.image-thumbnails-placeholder {
     display: inline-block;
     text-align: left;
 }
 
-.image-carousel__thumbnails {
+.image-thumbnails-wrapper {
     display: flex;
 }
 
-.image-carousel__thumbnails .alice-carousel {
-    width: 75%;
+.image-thumbnails-container {
+    position: relative;
+    display: flex;
+    width: 100%;
+    overflow: hidden;
 }
 
-.image-carousel__thumbnails .alice-carousel__stage-item {
-    margin-left: 0px;
-    margin-right: 0px;
+.image-thumbnails-container__item {
+    position: relative;
+    display: flex;
+    width: 134px;
+    height: 91px;
+    margin: 5px;
+    border: 1px solid $color-border-light;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 0;
+    flex-shrink: 0;
+    transition: margin-left 500ms linear;
+    cursor: pointer;
 }
 
-// react-alice-carouselt overrides
-.image-carousel {
-    .alice-carousel__stage-item * {
-        line-height: 0;
+.image-thumbnails-container__item:hover {
+    border: 1px solid $color-border-dark;
+    transition: border 500ms linear;
+}
+
+.image-thumbnails-container__item--visible {
+    margin-left: 5px;
+}
+
+.image-thumbnails-container__item--hidden {
+    margin-left: -139px;
+}
+
+.image-thumbnails-container__item--selected,
+.image-thumbnails-container__item--selected:hover {
+    border: 2px solid $color-gray-50;
+}
+
+.image-thumbnails-container__image {
+    width: 128px;
+    height: 85px;
+    background-repeat: no-repeat;
+}
+
+.image-thumbnails-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    align-self: center;
+
+    svg {
+        width: $icon-m;
+        height: 24px;
+        cursor: pointer;
+
+        .st0 {
+            stroke: $color-font-dark;
+        }
     }
 }
+
+.image-thumbnails-button:hover {
+    svg {
+        .st0 {
+            stroke: $color-link-hover;
+        }
+    }
+}
+
+.image-thumbails-button--disabled,
+.image-thumbails-button--disabled:hover {
+    svg {
+        cursor: default;
+        .st0 {
+            stroke: $color-font-medium;
+        }
+    }
+}
+
+.image-thumbnails-wrapper--no-x-scroll {
+    .image-thumbnails-button {
+        display: none;
+    }
+}
+
 
 // IE CSS Hacks
 // for browsers that do not support background-size transitions
@@ -127,7 +203,7 @@
         display: static;
     }
 
-    .image-thumbnail-wrapper {
+    .image-thumbnails-placeholder {
         display: static;
     }
 

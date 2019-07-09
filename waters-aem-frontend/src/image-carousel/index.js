@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ImageViewer from './image-viewer';
+import ImageThumbnails from './image-thumbnails';
 
 class ImageCarousel extends React.Component {
     constructor() {
@@ -8,22 +9,36 @@ class ImageCarousel extends React.Component {
 
         this.state = {
             activeIndex: 0,
+            figureWidth: 0,
             thumbnailStyles: {},
+            thumbnailClicked: false
         };
     }
 
-    handleImageViewerCalculate = data => this.setState({ thumbnailStyles: { width: `${data.imageWidth}px` } });
+    handleImageViewerCalculate = data => {
+        // skip setting with width when users are clicking through the thumbnails
+        // this will prevent the thumbnail carousel from resizing during clicks
+        if (this.state.thumbnailClicked) {
+            this.setState({thumbnailClicked: false});
+            return;
+        }
+
+        const width = `${data.figureWidth}px`;
+
+        if (this.state.thumbnailStyles.width !== width) {
+            this.setState({ figureWidth: data.figureWidth, thumbnailStyles: { width }});
+        }
+    }
+
+    handleThumbnailClick = e => this.setState({activeIndex: e.index, thumbnailClicked: true});
 
     render() {
         return (
             <div className="image-carousel">
-                <div className="image-viewer-wrapper">
+                <div className="image-viewer-placeholder">
                     {this.mapTemplateToImageViewer(this.props.templates[this.state.activeIndex])}
                 </div>
-                <div
-                    className="image-thumbnail-wrapper"
-                    style={this.state.thumbnailStyles}
-                >
+                <div className="image-thumbnails-placeholder">
                     {this.getThumbnails()}
                 </div>
             </div>
@@ -49,7 +64,11 @@ class ImageCarousel extends React.Component {
         />
     );
 
-    getThumbnails = () => <></>;
+    getThumbnails = () => <ImageThumbnails items={this.getThumbnailImages()} onItemClick={this.handleThumbnailClick} width={this.state.figureWidth} />;
+
+    getThumbnailImages = () => this.props.templates.map(template => this.mapTemplateToElement(template));
+
+    mapTemplateToElement = template => <div className="image-thumbnails-container__image" style={{backgroundImage: `url(${template.replace(/{{width}}/gi, this.props.widths[0])})`}}></div>
 }
 
 ImageCarousel.defaultProps = {
