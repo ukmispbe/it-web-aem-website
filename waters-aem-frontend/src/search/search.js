@@ -94,6 +94,7 @@ class Search extends Component {
             spell_check: false,
             spell_related_suggestions: [],
             spell_suggestion: '',
+            erroredOut: false,
         });
 
         const checkWindowWidth = () => {
@@ -148,10 +149,22 @@ class Search extends Component {
                         this.searchOnSuccess(query, rows, res, true);
                     } else {
                         this.search.initial().then(results => {
-                            const newQuery = Object.assign({}, query, {
-                                keyword: '',
-                            });
-                            this.searchOnSuccess(newQuery, rows, results, true);
+                            if (!results) {
+                                this.setState({
+                                    loading: false,
+                                    erroredOut: true,
+                                });
+                            } else {
+                                const newQuery = Object.assign({}, query, {
+                                    keyword: '',
+                                });
+                                this.searchOnSuccess(
+                                    newQuery,
+                                    rows,
+                                    results,
+                                    true
+                                );
+                            }
                         });
                     }
                 });
@@ -233,6 +246,7 @@ class Search extends Component {
         newState.sort = this.state.sort;
         newState.performedSearches = this.state.performedSearches + 1;
         newState.initialRender = false;
+        newState.erroredOut = false;
 
         newState.pagination = {
             current: query.page,
@@ -836,19 +850,19 @@ class Search extends Component {
             </div>
         );
 
-        // if (this.props.hasError) {
-        //     return <>Blah</>;
-        // } else {
-        return (
-            <div ref="main">
-                {overlay}
-                {this.renderResultsCount()}
-                {!state.loading && state.noResults ? null : aside}
-                {state.loading ? <Spinner loading={state.loading} /> : null}
-                {this.renderResults(results)}
-            </div>
-        );
-        // }
+        if (this.state.erroredOut) {
+            return <></>;
+        } else {
+            return (
+                <div ref="main">
+                    {overlay}
+                    {this.renderResultsCount()}
+                    {!state.loading && state.noResults ? null : aside}
+                    {state.loading ? <Spinner loading={state.loading} /> : null}
+                    {this.renderResults(results)}
+                </div>
+            );
+        }
     }
 }
 
