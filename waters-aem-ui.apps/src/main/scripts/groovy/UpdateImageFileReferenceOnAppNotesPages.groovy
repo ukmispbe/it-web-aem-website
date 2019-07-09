@@ -9,21 +9,9 @@ def buildQuery(page){
 }
 
 result.nodes.each { node ->
-    node.getProperty('sling:resourceType').getString() == 'waters/components/structure/page' ?  processThumbnail(node) : processImage(node)
+    node.hasNode('thumbnailImage') ? processImage(node.getNode('thumbnailImage')) : processImage(node)
 
     session.save()
-}
-
-
-def processThumbnail(node) {
-    if (node.hasNode('thumbnailImage')){
-
-        def thumbnailNode = node.getNode('thumbnailImage')
-
-        if(thumbnailNode.hasProperty('fileReference') && thumbnailNode.getProperty('fileReference').getString().endsWith('png')) {
-            thumbnailNode.setProperty('fileReference', thumbnailNode.getProperty('fileReference').getString().replaceAll('png', 'jpg'))
-        }
-    }
 }
 
 def processImage(node) {
