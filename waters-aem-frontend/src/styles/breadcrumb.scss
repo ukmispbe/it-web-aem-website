@@ -75,7 +75,7 @@
     }
 
 
-    &-gradient-left {
+    &-gradient-right {
         @include mobile {
             height: 50px;
             width: 50px;
@@ -92,7 +92,7 @@
         }
     }
 
-    &-gradient-right {
+    &-gradient-left {
         @include mobile {
              width: 50px;
              height: 50px;
