@@ -168,7 +168,7 @@ function anchorChange(el) {
         lhsGradientFade[0].style.display = 'block';
     }
 
-    if (Math.round(anchorElementId.scrollWidth - anchorElementId.getBoundingClientRect().width) != Math.round(anchorElementId.scrollLeft)) {
+    if (Math.ceil(anchorElementId.scrollWidth - anchorElementId.getBoundingClientRect().width) != Math.ceil(anchorElementId.scrollLeft)) {
         rhsGradientFade[0].style.display = 'block';
     }
 }
