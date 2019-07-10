@@ -161,87 +161,36 @@ function hideScrollBars(el) {
     el.classList.remove("show-scroll-bar");
 }
 
-
 function anchorChange(el) {
+    clearGradients();
+    var anchorElementId = document.getElementById("cmp-anchor");
+    if (anchorElementId.scrollLeft > 0) {
+        lhsGradientFade[0].style.display = 'block';
+    }
 
-    var anchorRect = el.getBoundingClientRect();
-    var anchorStartPosition = anchorRect.left;
-    var listItems = document.querySelectorAll('.cmp-anchor__list-item');
-
-    for (var i = 0; i < listItems.length; i++) {
-        var rect = listItems[i].getBoundingClientRect();
-        clearRHSGradients();
-
-        if (rect.left - anchorStartPosition + rect.width > el.clientWidth + 5) {
-            listItems[i].classList.add("rhs-gradient-fade");
-            break;
-        }
+    if (Math.round(anchorElementId.scrollWidth - anchorElementId.getBoundingClientRect().width) != Math.round(anchorElementId.scrollLeft)) {
+        rhsGradientFade[0].style.display = 'block';
     }
 }
 
-function anchorChangeScroll(el) {
-
-    var anchorRect = el.getBoundingClientRect();
-    var anchorStartPosition = anchorRect.left;
-    var listItems = document.querySelectorAll('.cmp-anchor__list-item');
-
-    for (var i = 0; i < listItems.length; i++) {
-        var rect = listItems[i].getBoundingClientRect();
-
-        clearLHSGradients();
-
-        if ((rect.left - anchorStartPosition + rect.width > 10) && (rect.left - anchorStartPosition < 80) && (el.scrollLeft > 2)) {
-
-            listItems[i].classList.add("lhs-gradient-fade");
-            break;
-        }
-
-    }
-
-    for (i = 0; i < listItems.length; i++) {
-
-        rect = listItems[i].getBoundingClientRect();
-        clearRHSGradients();
-        if (rect.left - anchorStartPosition + rect.width > el.clientWidth + 10 &&  (el.scrollLeft + el.clientWidth < el.scrollWidth - 2) ) {
-
-            listItems[i].classList.add("rhs-gradient-fade");
-            break;
-        }
-    }
+function clearGradients() {
+    rhsGradientFade[0].style.display = 'none';
+    lhsGradientFade[0].style.display = 'none';
 }
 
 function resizeWindow(el) {
     anchorChange(el);
     var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
     if (!hasHorizontalScrollbar) {
-        clearRHSGradients();
-        clearLHSGradients();
+        clearGradients();
     }
 }
 
 function scrollWindow(el) {
-    anchorChangeScroll(el);
+    anchorChange(el);
     var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
     if (!hasHorizontalScrollbar) {
-        clearRHSGradients();
-        clearLHSGradients();
-    }
-}
-
-
-function clearRHSGradients() {
-    var listItems = document.querySelectorAll('.cmp-anchor__list-item');
-    for (var j = 0; j < listItems.length; j++) {
-        listItems[j].classList.remove("rhs-gradient-fade");
-        listItems[j].classList.remove("rhs-gradient-fade-selected");
-    }
-}
-
-function clearLHSGradients() {
-    var listItems = document.querySelectorAll('.cmp-anchor__list-item');
-    for (var j = 0; j < listItems.length; j++) {
-        listItems[j].classList.remove("lhs-gradient-fade");
-        listItems[j].classList.remove("lhs-gradient-fade-selected");
+        clearGradients();
     }
 }
 
@@ -251,6 +200,9 @@ if (anchorMenu) {
 }
 
 var anchorList = document.querySelector('.cmp-anchor__list');
+var rhsGradientFade = document.getElementsByClassName('cmp-anchor-gradient-right');
+var lhsGradientFade = document.getElementsByClassName('cmp-anchor-gradient-left');
+
 if (anchorList){
     anchorList.addEventListener('mouseover', () => showScrollBars(anchorList));
     anchorList.addEventListener('mouseout', () => hideScrollBars(anchorList));
@@ -265,4 +217,3 @@ if (anchorList){
     }
     mediaQueryListener.addListener(anchorChangeToMobile);
 }
-

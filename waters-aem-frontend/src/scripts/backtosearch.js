@@ -50,12 +50,12 @@ function changeBreadcrumb(source) {
         clearGradients();
         var breadcrumbContainer = document.querySelector('.breadcrumb');
         var breadcrumbElement = document.querySelector('.cmp-breadcrumb');
-        if (breadcrumbElement.getBoundingClientRect().left >= 20 ){
-            rhsGradientFade[0].style.display = 'none';
+        if (breadcrumbContainer.scrollLeft <= 0){
+            lhsGradientFade[0].style.display = 'none';
         }
 
-        if (breadcrumbElement.getBoundingClientRect().right -1 < breadcrumbContainer.getBoundingClientRect().width ){
-            lhsGradientFade[0].style.display = 'none';
+        if (breadcrumbElement.clientWidth - breadcrumbContainer.clientWidth == breadcrumbContainer.scrollLeft - (breadcrumbContainer.scrollWidth - breadcrumbElement.scrollWidth)){
+            rhsGradientFade[0].style.display = 'none';
         }
     }
 }

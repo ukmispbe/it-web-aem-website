@@ -65,6 +65,10 @@
             width: 300%;
         }
 
+        .cmp-anchor-gradient-right {
+            right: 54%;
+        }
+
         .cmp-anchor__list {
             @include mobile {
                 padding-left: 0;
@@ -147,6 +151,35 @@
     @include mobile {
         padding-top: 0;
     }
+
+    &-gradient-left {
+        @include tablet-and-over {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+
+            background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
+            background:    -moz-linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
+            background:     -ms-linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
+            background:      -o-linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
+            background:         linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
+        }
+    }
+
+    &-gradient-right {
+        @include tablet-and-over {
+            height: 50px;
+            width: 50px;
+            position: absolute;
+            right: 0;
+
+            background: -webkit-linear-gradient(right, rgba(255,255,255,0.8) 30%,rgba(255,255,255,0.2) 100%);
+            background:    -moz-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+            background:     -ms-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+            background:      -o-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+            background:         linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+        }
+    }
 }
 
 .cmp-anchor__list {
@@ -183,89 +216,6 @@
     }
 }
 
-@include tablet-and-over {
-    .rhs-gradient-fade,
-    .rhs-gradient-fade-selected {
-        position: relative;
-    }
-    .rhs-gradient-fade::after,
-    .rhs-gradient-fade-selected::after {
-        content: '';
-        display: inline-block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-
-        background: -webkit-linear-gradient(
-            right,
-            rgba(255, 255, 255, 0.8) 30%,
-            rgba(255, 255, 255, 0.2) 100%
-        );
-        background: -moz-linear-gradient(
-            right,
-            rgba(255, 255, 255, 0.8) 30%,
-            rgba(255, 255, 255, 0.2) 100%
-        );
-        background: -ms-linear-gradient(
-            right,
-            rgba(255, 255, 255, 0.8) 30%,
-            rgba(255, 255, 255, 0.2) 100%
-        );
-        background: -o-linear-gradient(
-            right,
-            rgba(255, 255, 255, 0.8) 30%,
-            rgba(255, 255, 255, 0.2) 100%
-        );
-        background: linear-gradient(
-            right,
-            rgba(255, 255, 255, 0.8) 30%,
-            rgba(255, 255, 255, 0.2) 100%
-        );
-    }
-
-    .lhs-gradient-fade,
-    .lhs-gradient-fade-selected {
-        position: relative;
-    }
-    .lhs-gradient-fade::after,
-    .lhs-gradient-fade-selected::after {
-        content: '';
-        display: inline-block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-
-        background: -webkit-linear-gradient(
-            left,
-            rgba(255, 255, 255, 0.8) 30%,
-            rgba(255, 255, 255, 0.2) 100%
-        );
-        background: -moz-linear-gradient(
-            left,
-            rgba(255, 255, 255, 0.8) 30%,
-            rgba(255, 255, 255, 0.2) 100%
-        );
-        background: -ms-linear-gradient(
-            left,
-            rgba(255, 255, 255, 0.8) 30%,
-            rgba(255, 255, 255, 0.2) 100%
-        );
-        background: -o-linear-gradient(
-            left,
-            rgba(255, 255, 255, 0.8) 30%,
-            rgba(255, 255, 255, 0.2) 100%
-        );
-        background: linear-gradient(
-            left,
-            rgba(255, 255, 255, 0.8) 30%,
-            rgba(255, 255, 255, 0.2) 100%
-        );
-    }
-}
 .cmp-anchor--column-1 {
     .cmp-anchor__list {
         @include mobile {
