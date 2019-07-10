@@ -45,14 +45,18 @@
 }
 
 .image-viewer-container__image-zoom {
+    right: 1px;
+    bottom: 1px;
+    width: 64px;
+    height: 64px;
     position: absolute;
-    bottom: 22px;
-    right: 19px;
     z-index: 99;
-
-    @include mobile {
-        right: 18px;
-    }
+    background: $color-white;
+    opacity: .8;
+    float: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     svg {
         width: $icon-l;
@@ -205,29 +209,5 @@
 
     .image-thumbnails-placeholder {
         display: static;
-    }
-
-    .image-viewer-container__image-zoom {
-        bottom: 23px;
-        right: 19px;
-    }
-}
-
-// Edge CSS Hacks
-// zoom element position that varies between browsers
-@supports (-ms-ime-align: auto) {
-    .image-viewer-container__image-zoom {
-        bottom: 23px;
-        right: 19px;
-    }
-} 
-
-// Firefox CSS Hacks
-// zoom element position that varies between browsers
-@-moz-document url-prefix() { 
-    .image-viewer-container__image-zoom {
-        position: absolute;
-        bottom: 23px;
-        right: 20px;
     }
 }
