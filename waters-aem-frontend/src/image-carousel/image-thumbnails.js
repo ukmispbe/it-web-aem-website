@@ -3,7 +3,7 @@ import ReactSVG from 'react-svg';
 
 const PREV = -1;
 const NEXT = 1;
-const WIDTH_PER_THUMBNAIL = 134;
+const WIDTH_PER_THUMBNAIL = 86;
 
 class ImageThumbnails extends React.Component {
   constructor(props) {
@@ -25,7 +25,9 @@ class ImageThumbnails extends React.Component {
     const newIndex = this.state.firstIndex + dir;
 
     // check the boundaries to prevent sliding beyond left/right boundary
-    if (newIndex === -1 || newIndex === this.getLastIndex(this.props.width, this.props.items.length) + 1) return;
+    if (dir === PREV && newIndex === -1) { return }
+    
+    if (dir === NEXT && newIndex >= this.getLastIndex(this.props.width, this.props.items.length) + 1) { return }
 
     if (dir === NEXT) {
       this.handleSlideNext(this.state.firstIndex, newIndex);
