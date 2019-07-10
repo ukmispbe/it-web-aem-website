@@ -212,3 +212,10 @@
         display: static;
     }
 }
+
+// react-alice-carousel CSS overrides
+.alice-carousel {
+    .alice-carousel__stage-item {
+        vertical-align: initial;
+    }
+}

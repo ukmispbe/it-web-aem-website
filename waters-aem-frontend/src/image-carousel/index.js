@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ImageViewer from './image-viewer';
 import ImageThumbnails from './image-thumbnails';
+import AliceCarousel from 'react-alice-carousel';
+import "react-alice-carousel/lib/scss/alice-carousel.scss";
 
 class ImageCarousel extends React.Component {
     constructor() {
@@ -36,7 +38,11 @@ class ImageCarousel extends React.Component {
         return (
             <div className="image-carousel">
                 <div className="image-viewer-placeholder">
-                    {this.mapTemplateToImageViewer(this.props.templates[this.state.activeIndex])}
+                    <AliceCarousel
+                        items={this.getImageViewerComponents()}
+                        buttonsDisabled={true}
+                        dotsDisabled={true}
+                        startIndex={this.state.activeIndex} />
                 </div>
                 <div className="image-thumbnails-placeholder">
                     {this.getThumbnails()}
@@ -45,10 +51,7 @@ class ImageCarousel extends React.Component {
         );
     }
 
-    getImageViewerComponents = () =>
-        this.props.templates.map(template =>
-            this.mapTemplateToImageViewer(template)
-        );
+    getImageViewerComponents = () => this.props.templates.map(template => this.mapTemplateToImageViewer(template));
 
     mapTemplateToImageViewer = template => (
         <ImageViewer
