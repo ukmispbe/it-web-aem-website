@@ -60,16 +60,14 @@ function changeBreadcrumb(source) {
     }
 }
 
-mediaQueryListener.addListener(changeBreadcrumb);
-
 var breadcrumbDiv = document.querySelector('.breadcrumb');
 var rhsGradientFade = document.getElementsByClassName('cmp-breadcrumb-gradient-right');
 var lhsGradientFade = document.getElementsByClassName('cmp-breadcrumb-gradient-left');
 
 if (breadcrumbDiv) {
-    breadcrumbDiv.addEventListener('scroll', () =>
-        changeBreadcrumb('FromScroll')
-    );
+    mediaQueryListener.addListener(changeBreadcrumb);
+
+    breadcrumbDiv.addEventListener('scroll', () => changeBreadcrumb('FromScroll'));
     window.addEventListener('load', () => changeBreadcrumb('FromScroll'));
     window.addEventListener('resize', () => changeBreadcrumb('FromScroll'));
 }
