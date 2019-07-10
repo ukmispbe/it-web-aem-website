@@ -42,7 +42,9 @@ class ImageCarousel extends React.Component {
                         items={this.getImageViewerComponents()}
                         buttonsDisabled={true}
                         dotsDisabled={true}
-                        startIndex={this.state.activeIndex} />
+                        startIndex={this.state.activeIndex} 
+                        swipeDisabled={true}
+                        mouseDragEnabled={false}/>
                 </div>
                 <div className="image-thumbnails-placeholder">
                     {this.getThumbnails()}
