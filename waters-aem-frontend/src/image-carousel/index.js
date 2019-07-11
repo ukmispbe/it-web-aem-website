@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ImageViewer from './image-viewer';
 import ImageThumbnails from './image-thumbnails';
-import AliceCarousel from 'react-alice-carousel';
-import "react-alice-carousel/lib/scss/alice-carousel.scss";
 
 class ImageCarousel extends React.Component {
     constructor() {
@@ -12,39 +10,29 @@ class ImageCarousel extends React.Component {
         this.state = {
             activeIndex: 0,
             figureWidth: 0,
-            thumbnailStyles: {},
             thumbnailClicked: false
         };
     }
 
     handleImageViewerCalculate = data => {
-        // skip setting with width when users are clicking through the thumbnails
-        // this will prevent the thumbnail carousel from resizing during clicks
+        // this will prevent the thumbnail width from changing when user clicks on thumbnails
         if (this.state.thumbnailClicked) {
             this.setState({thumbnailClicked: false});
             return;
         }
-
-        const width = `${data.figureWidth}px`;
-
-        if (this.state.thumbnailStyles.width !== width) {
-            this.setState({ figureWidth: data.figureWidth, thumbnailStyles: { width }});
+        
+        if (this.state.figureWidth !== data.figureWidth && data.figureWidth !== 0) {
+            this.setState({ figureWidth: data.figureWidth });
         }
     }
 
-    handleThumbnailClick = e => this.setState({activeIndex: e.index, thumbnailClicked: true});
+    handleThumbnailClick = e => this.setState({ activeIndex: e.index, thumbnailClicked: true });
 
     render() {
         return (
             <div className="image-carousel">
                 <div className="image-viewer-placeholder">
-                    <AliceCarousel
-                        items={this.getImageViewerComponents()}
-                        buttonsDisabled={true}
-                        dotsDisabled={true}
-                        startIndex={this.state.activeIndex} 
-                        swipeDisabled={true}
-                        mouseDragEnabled={false}/>
+                    {this.getImageViewerComponents()}
                 </div>
                 <div className="image-thumbnails-placeholder">
                     {this.getThumbnails()}
@@ -53,9 +41,9 @@ class ImageCarousel extends React.Component {
         );
     }
 
-    getImageViewerComponents = () => this.props.templates.map(template => this.mapTemplateToImageViewer(template));
+    getImageViewerComponents = () => this.props.templates.map((template, index) => this.mapTemplateToImageViewer(template, index));
 
-    mapTemplateToImageViewer = template => (
+    mapTemplateToImageViewer = (template, index) => <div style={{display: this.state.activeIndex === index ? 'block' : 'none'}}>
         <ImageViewer
             key={template}
             template={template}
@@ -67,7 +55,7 @@ class ImageCarousel extends React.Component {
             onZoomOut={this.handleZoomOut}
             onCalculate={this.handleImageViewerCalculate}
         />
-    );
+    </div>;
 
     getThumbnails = () => <ImageThumbnails items={this.getThumbnailImages()} onItemClick={this.handleThumbnailClick} width={this.state.figureWidth} />;
 
