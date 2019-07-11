@@ -1,5 +1,6 @@
 import React from "react";
 import ReactSVG from 'react-svg';
+import PropTypes from 'prop-types';
 
 const PREV = -1;
 const NEXT = 1;
@@ -26,7 +27,7 @@ class ImageThumbnails extends React.Component {
 
     // check the boundaries to prevent sliding beyond left/right boundary
     if (dir === PREV && newIndex === -1) { return }
-    
+
     if (dir === NEXT && newIndex >= this.getLastIndex(this.props.width, this.props.items.length) + 1) { return }
 
     if (dir === NEXT) {
@@ -181,6 +182,11 @@ class ImageThumbnails extends React.Component {
       </div>
     );
   }
+}
+
+ImageThumbnails.propTypes = {
+    items: PropTypes.array.isRequired,
+    width: PropTypes.number.isRequired
 }
 
 export default ImageThumbnails;
