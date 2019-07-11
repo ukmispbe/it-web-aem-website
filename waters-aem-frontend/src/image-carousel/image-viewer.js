@@ -18,6 +18,7 @@ class ImageViewer extends React.Component {
         this.state = {
             containerWidth: 0,
             imageWidth: 0,
+            figureWidth: 0,
             imageSrc: '',
             magnified: false
         };
@@ -126,6 +127,11 @@ class ImageViewer extends React.Component {
         );
     };
 
+    handleImageLoad = e => {
+        const figureWidth = this.figureRef.current.getBoundingClientRect().width;
+        this.setState({ figureWidth });
+    }
+
     render() {
         return <div ref={this.containerRef} className="image-viewer-container">
                 <div className="image-viewer-container__image-display">
@@ -139,7 +145,14 @@ class ImageViewer extends React.Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (
-            prevState.imageWidth !== this.state.imageWidth &&
+            (
+                prevState.imageWidth !== this.state.imageWidth 
+                || 
+                prevState.containerWidth !== this.state.containerWidth 
+                || 
+                prevState.figureWidth !== this.state.figureWidth
+            )
+            &&
             this.props.onCalculate
         ) {
             this.props.onCalculate(this.state);
@@ -192,6 +205,7 @@ class ImageViewer extends React.Component {
                 className="image-viewer-container__image-element"
                 src={this.state.imageSrc}
                 alt={this.props.alt}
+                onLoad={this.handleImageLoad}
             />
         </figure>
     );
@@ -219,12 +233,12 @@ class ImageViewer extends React.Component {
     };
 
     calculateWidth = () => {
-        const containerWidth = this.containerRef.current.getBoundingClientRect()
-            .width;
+        const containerWidth = this.containerRef.current.getBoundingClientRect().width;
         const imageWidth = this.getClosestWidth(containerWidth);
+        const figureWidth = this.figureRef.current.getBoundingClientRect().width;
         const imageSrc = this.props.template.replace(/{{width}}/gi, imageWidth);
 
-        this.setState({ containerWidth, imageWidth, imageSrc });
+        this.setState({ containerWidth, imageWidth, figureWidth, imageSrc });
     };
 }
 

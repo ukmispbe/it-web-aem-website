@@ -3,6 +3,7 @@
     <filter root="/apps/cq"/>
     <filter root="/apps/waters"/>
     <filter root="/apps/sling"/>
+    <filter root="/apps/foundation/components/redirect"/>
     <filter root="/etc/designs/waters"/>
     <filter root="/etc/map.publish"/>
     <filter root="/etc/notification/email/waters"/>
