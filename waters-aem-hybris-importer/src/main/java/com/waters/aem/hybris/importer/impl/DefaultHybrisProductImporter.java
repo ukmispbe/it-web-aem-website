@@ -11,7 +11,6 @@ import com.waters.aem.hybris.exceptions.HybrisImporterException;
 import com.waters.aem.hybris.importer.HybrisProductImporter;
 import com.waters.aem.hybris.models.Classification;
 import com.waters.aem.hybris.models.Feature;
-import com.waters.aem.hybris.models.FeatureUnit;
 import com.waters.aem.hybris.models.FeatureValue;
 import com.waters.aem.hybris.models.Image;
 import com.waters.aem.hybris.models.Price;
@@ -311,7 +310,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
             final Node pricesNode = JcrUtils.getOrAddNode(productNode, WatersCommerceConstants.RESOURCE_NAME_PRICES);
 
             for (final Price price : prices) {
-                for (final String country : price.getCountries().split(",")) {
+                for (final String country : price.getCountries()) {
                     final String priceNodeName = price.getCurrencyIso() + "-" + country;
                     final Node priceNode = JcrUtils.getOrAddNode(pricesNode, priceNodeName);
 
