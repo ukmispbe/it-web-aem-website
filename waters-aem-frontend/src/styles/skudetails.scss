@@ -8,6 +8,9 @@
             width: $icon-m;
             fill: $color-link;
             float:left;
+            .st0 , .st1 {
+                   stroke: $color-link;
+            }
         }
 
         &__ecom {
@@ -40,6 +43,11 @@
             @include font-h3 ;
             margin-top: -1em;
             border-left: 1px solid $color-border-light;
+            svg {
+                .st0 {
+                       stroke: $color-success;
+                }
+            }
         }
 
         &__order {
