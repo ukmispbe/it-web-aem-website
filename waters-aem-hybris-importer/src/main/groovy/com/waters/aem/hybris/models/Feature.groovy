@@ -9,6 +9,8 @@ class Feature {
 
     Boolean comparable
 
+    Boolean facet
+
     FeatureUnit featureUnit
 
     List<FeatureValue> featureValues = []
