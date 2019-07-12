@@ -1,6 +1,7 @@
 package com.waters.aem.core.components;
 
 import com.day.cq.i18n.I18n;
+import com.day.cq.wcm.api.LanguageManager;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -28,10 +29,29 @@ public final class SiteContext {
     @Inject
     private PageDecorator currentPage;
 
+    @OSGiService
+    private LanguageManager languageManager;
+
     private I18n i18n;
 
     public Locale getLocale() {
         return currentPage.getLanguage(false);
+    }
+
+    /**
+     * If a country is not already defined in the current page's locale a new locale with a
+     * configured default country is returned.
+     *
+     * @return a locale with a country
+     */
+    public Locale getLocaleWithCountry() {
+        Locale locale = getLocale();
+
+        if (StringUtils.isEmpty(locale.getCountry())) {
+            locale = new Locale(locale.getLanguage(), languageManager.getIsoCountry(locale));
+        }
+
+        return locale;
     }
 
     /**
@@ -40,7 +60,7 @@ public final class SiteContext {
      * @return ISO code that maps to the commerce pricing value
      */
     public String getCurrencyIsoCode() {
-        final Currency defaultCurrency = Currency.getInstance(getLocale());
+        final Currency defaultCurrency = Currency.getInstance(getLocaleWithCountry());
 
         return currentPage.getInherited("currencyIsoCode", defaultCurrency.getCurrencyCode());
     }
