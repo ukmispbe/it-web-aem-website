@@ -82,15 +82,15 @@ public final class WatersCommerceConstants {
 
     // feature properties
 
-    public static final String RESOURCE_NAME_FEATURES = "features";
-
-    public static final String RESOURCE_NAME_FEATURE = "feature";
-
     public static final String PROPERTY_FACET = "hybris:facet";
 
     public static final String PROPERTY_FEATURE_VALUES = "hybris:featureValues";
 
-    public static final String PROPERTY_UNIT = "hybris:unit";
+    public static final String PROPERTY_UNIT_NAME = "hybris:unitName";
+
+    public static final String PROPERTY_UNIT_SYMBOL = "hybris:unitSymbol";
+
+    public static final String PROPERTY_POSITION = "hybris:position";
 
     // sku page properties
 

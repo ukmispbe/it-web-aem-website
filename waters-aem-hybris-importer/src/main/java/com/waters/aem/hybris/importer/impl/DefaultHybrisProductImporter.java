@@ -43,6 +43,7 @@ import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -332,39 +333,19 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
     }
 
     private void setClassifications(final Node productNode, final List<Classification> classifications)
-        throws RepositoryException {
+            throws RepositoryException {
         if (!classifications.isEmpty()) {
             final Node classificationsNode = JcrUtils.getOrAddNode(productNode,
-                WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATIONS);
+                    WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATIONS);
 
-            int count = 1;
+            final List<Feature> flattenedFeatures = classifications.stream()
+                    .map(Classification::getFeatures)
+                    .flatMap(List::stream)
+                    .filter(feature -> !feature.getInternalOnly())
+                    .sorted(Comparator.comparing(Feature::getPosition))
+                    .collect(Collectors.toList());
 
-            for (final Classification classification : classifications) {
-                final Node classificationNode = JcrUtils.getOrAddNode(classificationsNode,
-                        WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATION + count);
-
-                final Map<String, Object> properties = new HashMap<>();
-
-                properties.put(WatersCommerceConstants.PROPERTY_CODE, classification.getCode());
-                properties.put(WatersCommerceConstants.PROPERTY_NAME, classification.getName());
-
-                setNodeProperties(classificationNode, properties);
-
-                setFeatures(classificationNode, classification.getFeatures());
-
-                count++;
-            }
-        }
-    }
-
-    private void setFeatures(final Node classificationNode, final List<Feature> features)
-            throws RepositoryException {
-
-        if (!features.isEmpty()) {
-            final Node featuresNode = JcrUtils.getOrAddNode(classificationNode,
-                    WatersCommerceConstants.RESOURCE_NAME_FEATURES);
-
-            setItemNodes(featuresNode, WatersCommerceConstants.RESOURCE_NAME_FEATURE, features,
+            setItemNodes(classificationsNode, WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATION, flattenedFeatures,
                 feature -> {
                     final Map<String, Object> properties = new HashMap<>();
 
@@ -372,12 +353,16 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
                             feature.getPublicWebLabel()) ? feature.getPublicWebLabel() : feature.getName());
                     properties.put(WatersCommerceConstants.PROPERTY_CODE, feature.getCode());
                     properties.put(WatersCommerceConstants.PROPERTY_FACET, feature.getFacet());
+                    properties.put(WatersCommerceConstants.PROPERTY_UNIT_NAME, feature.getFeatureUnit() == null ? null :
+                            feature.getFeatureUnit().getName());
+                    properties.put(WatersCommerceConstants.PROPERTY_UNIT_SYMBOL, feature.getFeatureUnit() == null ? null :
+                            feature.getFeatureUnit().getSymbol());
                     properties.put(WatersCommerceConstants.PROPERTY_FEATURE_VALUES, feature.getFeatureValues()
                             .stream()
+                            .sorted(Comparator.comparing(FeatureValue::getPosition))
                             .map(FeatureValue::getValue)
                             .toArray(String[]::new));
-                    properties.put(WatersCommerceConstants.PROPERTY_UNIT, feature.getFeatureUnit() == null ? null :
-                            feature.getFeatureUnit().getSymbol());
+                    properties.put(WatersCommerceConstants.PROPERTY_POSITION, feature.getPosition());
 
                     return properties;
                 });
