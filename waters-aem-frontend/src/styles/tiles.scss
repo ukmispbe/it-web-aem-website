@@ -49,6 +49,7 @@
         svg {
             min-width: $icon-xl;
             width: $icon-xl;
+            height: ($icon-xl + 1em);
             padding: 0 0 $space-s 0;
 
             .st0 {
@@ -59,6 +60,7 @@
             @include tablet-and-under {
                 padding-bottom: 0;
                 padding-right: $space-xxs;
+                height: $icon-xl;
             }
             @include mobile {
                 padding-right: $space-s;
