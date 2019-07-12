@@ -147,15 +147,14 @@ public final class Sku {
                 resource -> resource.adaptTo(Classification.class));
     }
 
-    private <T> List<T> getResourceModels(final String resourceName,
-                                                final Predicate<Resource> resourceFilter,
-                                                final Function<Resource, T> resourceToModelFunction) {
+    private <T> List<T> getResourceModels(final String resourceName, final Predicate<Resource> resourceFilter,
+        final Function<Resource, T> resourceToModelFunction) {
         return Optional.ofNullable(resource.getChild(resourceName))
             .map(modelsResource -> StreamSupport.stream(modelsResource.getChildren().spliterator(), false)
-                    .filter(resourceFilter)
-                    .map(resourceToModelFunction)
-                    .filter(java.util.Objects :: nonNull)
-                    .collect(Collectors.toList()))
+                .filter(resourceFilter)
+                .map(resourceToModelFunction)
+                .filter(java.util.Objects :: nonNull)
+                .collect(Collectors.toList()))
             .orElse(Collections.emptyList());
     }
 
