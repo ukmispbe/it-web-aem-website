@@ -49,7 +49,7 @@
         svg {
             min-width: $icon-xl;
             width: $icon-xl;
-            height: $icon-xl + 1em;
+            height: ($icon-xl + 1em);
             padding: 0 0 $space-s 0;
 
             .st0 {
