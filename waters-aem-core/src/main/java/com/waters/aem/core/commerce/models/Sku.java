@@ -141,6 +141,12 @@ public final class Sku {
             resource -> skuRepository.getRelatedSku(resource));
     }
 
+    public List<Classification> getClassifications() {
+        return getResourceModels(WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATIONS,
+                resource -> true,
+                resource -> resource.adaptTo(Classification.class));
+    }
+
     private <T> List<T> getResourceModels(final String resourceName, final Predicate<Resource> resourceFilter,
         final Function<Resource, T> resourceToModelFunction) {
         return Optional.ofNullable(resource.getChild(resourceName))

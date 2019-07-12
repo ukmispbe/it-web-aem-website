@@ -5,7 +5,7 @@ import groovy.transform.ToString
 @ToString(includePackage = false, includeNames = true)
 class Price {
 
-    String countries
+    String[] countries
 
     String currencyIso
 

@@ -10,6 +10,8 @@ import com.waters.aem.hybris.enums.HybrisImportStatus;
 import com.waters.aem.hybris.exceptions.HybrisImporterException;
 import com.waters.aem.hybris.importer.HybrisProductImporter;
 import com.waters.aem.hybris.models.Classification;
+import com.waters.aem.hybris.models.Feature;
+import com.waters.aem.hybris.models.FeatureValue;
 import com.waters.aem.hybris.models.Image;
 import com.waters.aem.hybris.models.Price;
 import com.waters.aem.hybris.models.Product;
@@ -19,6 +21,7 @@ import com.waters.aem.hybris.models.ProductReference;
 import com.waters.aem.hybris.models.ProductReferenceTarget;
 import com.waters.aem.hybris.models.ProductReferenceType;
 import com.waters.aem.hybris.result.HybrisImporterResult;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.commons.JcrUtils;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ModifiableValueMap;
@@ -40,6 +43,7 @@ import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -307,7 +311,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
             final Node pricesNode = JcrUtils.getOrAddNode(productNode, WatersCommerceConstants.RESOURCE_NAME_PRICES);
 
             for (final Price price : prices) {
-                for (final String country : price.getCountries().split(",")) {
+                for (final String country : price.getCountries()) {
                     final String priceNodeName = price.getCurrencyIso() + "-" + country;
                     final Node priceNode = JcrUtils.getOrAddNode(pricesNode, priceNodeName);
 
@@ -329,19 +333,37 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
     }
 
     private void setClassifications(final Node productNode, final List<Classification> classifications)
-        throws RepositoryException {
+            throws RepositoryException {
         if (!classifications.isEmpty()) {
             final Node classificationsNode = JcrUtils.getOrAddNode(productNode,
-                WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATIONS);
+                    WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATIONS);
 
-            setItemNodes(classificationsNode, WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATION, classifications,
-                classification -> {
+            final List<Feature> flattenedFeatures = classifications.stream()
+                    .map(Classification::getFeatures)
+                    .flatMap(List::stream)
+                    .filter(feature -> !feature.getInternalOnly())
+                    .sorted(Comparator.comparing(Feature::getPosition))
+                    .collect(Collectors.toList());
+
+            setItemNodes(classificationsNode, WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATION, flattenedFeatures,
+                feature -> {
                     final Map<String, Object> properties = new HashMap<>();
 
-                    properties.put(WatersCommerceConstants.PROPERTY_CODE, classification.getCode());
-                    properties.put(WatersCommerceConstants.PROPERTY_NAME, classification.getName());
-
-                    // TODO features
+                    properties.put(WatersCommerceConstants.PROPERTY_NAME, StringUtils.isNotEmpty(
+                            feature.getPublicWebLabel()) ? feature.getPublicWebLabel() : feature.getName());
+                    properties.put(WatersCommerceConstants.PROPERTY_CODE, feature.getCode());
+                    properties.put(WatersCommerceConstants.PROPERTY_FACET, feature.getFacet());
+                    properties.put(WatersCommerceConstants.PROPERTY_UNIT_NAME, feature.getFeatureUnit() == null ? null :
+                            feature.getFeatureUnit().getName());
+                    properties.put(WatersCommerceConstants.PROPERTY_UNIT_SYMBOL, feature.getFeatureUnit() == null ? null :
+                            feature.getFeatureUnit().getSymbol());
+                    properties.put(WatersCommerceConstants.PROPERTY_FEATURE_VALUES, feature.getFeatureValues()
+                            .stream()
+                            .sorted(Comparator.comparing(FeatureValue::getPosition))
+                            .map(FeatureValue::getValue)
+                            .toArray(String[]::new));
+                    properties.put(WatersCommerceConstants.PROPERTY_POSITION, feature.getPosition());
+                    properties.put(WatersCommerceConstants.PROPERTY_RANGE, feature.getRange());
 
                     return properties;
                 });

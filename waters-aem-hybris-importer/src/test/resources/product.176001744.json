@@ -1,13 +1,8 @@
 {
-    "availableForPickup": false,
     "categories": [
         {
-            "code": "Intrigo_EnvironmentalKits",
-            "url": "/Intrigo-root-category/Application-Kits/Environmental-Kits/c/Intrigo_EnvironmentalKits"
-        },
-        {
             "code": "PFCAnalysisKit",
-            "url": "/Web-root-category/Sample-Preparation-Products/Sample-Preparation-Kits/PFC-Analysis-Kit/c/PFCAnalysisKit"
+            "url": "/waters/catalogs/watersProductCatalog/Online/categories/PFCAnalysisKit"
         }
     ],
     "classifications": [
@@ -17,6 +12,7 @@
                 {
                     "code": "WatersClassification/1.0/ConsumablesAndSpares.jaggaercategory",
                     "comparable": true,
+                    "facet": false,
                     "featureValues": [
                         {
                             "position": 99,
@@ -36,6 +32,7 @@
                 {
                     "code": "WatersClassification/1.0/Products.company",
                     "comparable": true,
+                    "facet": false,
                     "featureValues": [
                         {
                             "position": 5,
@@ -50,6 +47,7 @@
                 {
                     "code": "WatersClassification/1.0/Products.unspsc",
                     "comparable": true,
+                    "facet": false,
                     "featureValues": [
                         {
                             "value": "41116104"
@@ -63,6 +61,7 @@
                 {
                     "code": "WatersClassification/1.0/Products.application",
                     "comparable": true,
+                    "facet": true,
                     "featureValues": [
                         {
                             "position": 15,
@@ -77,6 +76,7 @@
                 {
                     "code": "WatersClassification/1.0/Products.business",
                     "comparable": true,
+                    "facet": false,
                     "featureValues": [
                         {
                             "position": 1,
@@ -90,6 +90,7 @@
                 {
                     "code": "WatersClassification/1.0/Products.productfamily",
                     "comparable": true,
+                    "facet": false,
                     "featureValues": [
                         {
                             "position": 7,
@@ -106,16 +107,351 @@
     ],
     "code": "176001744",
     "description": "Waters ACQUITY UPLC total solution for the analysis of Perfluorinated Compounds (PFCs).  The kit contains ACQUITY BEH C18 column, PFC isolator column, and other PFCs-free components optimized for use with the ACQUITY system.  Sample preparation consumables such as Oasis HLB cartridges, PFC calibration standards, PFC unknown QC standards, and sample vials are also included.",
+    "images": [
+        {
+            "imageType": "PRIMARY",
+            "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/176001744.png"
+        }
+    ],
     "name": "PFC Analysis Kit",
-    "numberOfReviews": 0,
-    "priceRange": {},
+    "prices": [
+        {
+            "countries": [
+                "NZ",
+                "FJ",
+                "VA",
+                "AS"
+            ],
+            "currencyIso": "AUD",
+            "value": 11093
+        },
+        {
+            "countries": [
+                "ME",
+                "YE",
+                "SV",
+                "SY",
+                "TC",
+                "UZ",
+                "KZ",
+                "PS",
+                "AM",
+                "AJ",
+                "BA",
+                "BS",
+                "BU",
+                "CY",
+                "EG",
+                "GR",
+                "IZ",
+                "KU",
+                "LE",
+                "MK",
+                "MT",
+                "MU",
+                "PK",
+                "BY",
+                "GG",
+                "QA",
+                "RO",
+                "RU",
+                "SA",
+                "RS",
+                "UA",
+                "JO",
+                "AL",
+                "CE",
+                "LY",
+                "AU",
+                "CR",
+                "TU"
+            ],
+            "currencyIso": "EUR",
+            "value": 7091
+        },
+        {
+            "countries": [
+                "BE",
+                "LU"
+            ],
+            "currencyIso": "EUR",
+            "value": 7091
+        },
+        {
+            "countries": [
+                "BR"
+            ],
+            "currencyIso": "BRL",
+            "value": 0.05
+        },
+        {
+            "countries": [
+                "CA"
+            ],
+            "currencyIso": "CAD",
+            "value": 9945
+        },
+        {
+            "countries": [
+                "CN"
+            ],
+            "currencyIso": "CNY",
+            "value": 61290
+        },
+        {
+            "countries": [
+                "CX",
+                "SK"
+            ],
+            "currencyIso": "CZK",
+            "value": 180821
+        },
+        {
+            "countries": [
+                "DA"
+            ],
+            "currencyIso": "DKK",
+            "value": 53127
+        },
+        {
+            "countries": [
+                "EI"
+            ],
+            "currencyIso": "EUR",
+            "value": 7091
+        },
+        {
+            "countries": [
+                "LV",
+                "EE",
+                "FI",
+                "LN"
+            ],
+            "currencyIso": "EUR",
+            "value": 7091
+        },
+        {
+            "countries": [
+                "SG",
+                "NC",
+                "FP",
+                "AG",
+                "ET",
+                "FR",
+                "GA",
+                "TS",
+                "NI",
+                "MO",
+                "GH"
+            ],
+            "currencyIso": "EUR",
+            "value": 7091
+        },
+        {
+            "countries": [
+                "GE"
+            ],
+            "currencyIso": "EUR",
+            "value": 7091
+        },
+        {
+            "countries": [
+                "HK",
+                "MC"
+            ],
+            "currencyIso": "HKD",
+            "value": 65250
+        },
+        {
+            "countries": [
+                "HU"
+            ],
+            "currencyIso": "HUF",
+            "value": 2176937
+        },
+        {
+            "countries": [
+                "BG",
+                "NP",
+                "IN"
+            ],
+            "currencyIso": "INR",
+            "value": 661775
+        },
+        {
+            "countries": [
+                "IS"
+            ],
+            "currencyIso": "USD",
+            "value": 7650
+        },
+        {
+            "countries": [
+                "IT"
+            ],
+            "currencyIso": "EUR",
+            "value": 7091
+        },
+        {
+            "countries": [
+                "JP"
+            ],
+            "currencyIso": "JPY",
+            "value": 924000
+        },
+        {
+            "countries": [
+                "KS"
+            ],
+            "currencyIso": "WON",
+            "value": 11251200
+        },
+        {
+            "countries": [
+                "MX"
+            ],
+            "currencyIso": "USD",
+            "value": 10175
+        },
+        {
+            "countries": [
+                "MY"
+            ],
+            "currencyIso": "MYR",
+            "value": 33700
+        },
+        {
+            "countries": [
+                "NL"
+            ],
+            "currencyIso": "EUR",
+            "value": 7091
+        },
+        {
+            "countries": [
+                "NO"
+            ],
+            "currencyIso": "NOK",
+            "value": 56912
+        },
+        {
+            "countries": [
+                "PL"
+            ],
+            "currencyIso": "PLN",
+            "value": 26591
+        },
+        {
+            "countries": [
+                "PO"
+            ],
+            "currencyIso": "EUR",
+            "value": 7091
+        },
+        {
+            "countries": [
+                "RQ"
+            ],
+            "currencyIso": "USD",
+            "value": 8415
+        },
+        {
+            "countries": [
+                "GQ",
+                "BM",
+                "RP",
+                "ID",
+                "TH",
+                "BX",
+                "SN",
+                "VM",
+                "CB"
+            ],
+            "currencyIso": "USD",
+            "value": 8415
+        },
+        {
+            "countries": [
+                "ES"
+            ],
+            "currencyIso": "EUR",
+            "value": 7091
+        },
+        {
+            "countries": [
+                "SW",
+                "IC"
+            ],
+            "currencyIso": "SEK",
+            "value": 64068
+        },
+        {
+            "countries": [
+                "SZ"
+            ],
+            "currencyIso": "CHF",
+            "value": 8838
+        },
+        {
+            "countries": [
+                "UK",
+                "JE",
+                "GI"
+            ],
+            "currencyIso": "GBP",
+            "value": 4876
+        },
+        {
+            "countries": [
+                "KE",
+                "BC",
+                "CS",
+                "GP",
+                "NT",
+                "PA",
+                "SF",
+                "ZA",
+                "AR",
+                "BF",
+                "BD",
+                "BL",
+                "CO",
+                "EC",
+                "GT",
+                "JM",
+                "NF",
+                "PN",
+                "PE",
+                "ST",
+                "VE",
+                "UY",
+                "HO",
+                "US",
+                "CI",
+                "HA",
+                "VI",
+                "ES",
+                "NU",
+                "TD",
+                "CF",
+                "GJ",
+                "AY",
+                "BH"
+            ],
+            "currencyIso": "USD",
+            "value": 7650
+        },
+        {
+            "countries": [
+                "TW"
+            ],
+            "currencyIso": "NTD",
+            "value": 232700
+        }
+    ],
     "proprietary": false,
-    "purchasable": false,
+    "purchasable": true,
     "salesStatus": "Active",
-    "stock": {
-        "stockLevel": 0,
-        "stockLevelStatus": "inStock"
-    },
     "summary": "Waters ACQUITY UPLC total solution for the analysis of Perfluorinated Compounds (PFCs).  The kit contains ACQUITY BEH C18 column, PFC isolator column, and other PFCs-free components optimized for use with the ACQUITY system.  Sample preparation consumables such as Oasis HLB cartridges, PFC calibration standards, PFC unknown QC standards, and sample vials are also included.",
     "terminated": false,
     "url": "/waters/products/176001744"
