@@ -129,34 +129,33 @@ public final class Sku {
     }
 
     public List<SkuImage> getImages() {
-        return getResourceModels(resource, WatersCommerceConstants.RESOURCE_NAME_IMAGES,
+        return getResourceModels(WatersCommerceConstants.RESOURCE_NAME_IMAGES,
             resource -> true,
             resource -> resource.adaptTo(SkuImage.class));
     }
 
     public List<Sku> getRelatedSkus() {
         // TODO do we need to check the 'terminated' property?
-        return getResourceModels(resource, WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCES,
+        return getResourceModels(WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCES,
             resource -> !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PROPRIETARY, false),
             resource -> skuRepository.getRelatedSku(resource));
     }
 
     public List<Classification> getClassifications() {
-        return getResourceModels(resource, WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATIONS,
+        return getResourceModels(WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATIONS,
                 resource -> true,
                 resource -> resource.adaptTo(Classification.class));
     }
 
-    private <T> List<T> getResourceModels(final Resource resource, final String resourceName,
-                                                final Predicate<Resource> resourceFilter,
-                                                final Function<Resource, T> resourceToModelFunction) {
+    private <T> List<T> getResourceModels(final String resourceName, final Predicate<Resource> resourceFilter,
+        final Function<Resource, T> resourceToModelFunction) {
         return Optional.ofNullable(resource.getChild(resourceName))
-                .map(modelsResource -> StreamSupport.stream(modelsResource.getChildren().spliterator(), false)
-                        .filter(resourceFilter)
-                        .map(resourceToModelFunction)
-                        .filter(java.util.Objects :: nonNull)
-                        .collect(Collectors.toList()))
-                .orElse(Collections.emptyList());
+            .map(modelsResource -> StreamSupport.stream(modelsResource.getChildren().spliterator(), false)
+                .filter(resourceFilter)
+                .map(resourceToModelFunction)
+                .filter(java.util.Objects :: nonNull)
+                .collect(Collectors.toList()))
+            .orElse(Collections.emptyList());
     }
 
     @Override

@@ -92,6 +92,8 @@ public final class WatersCommerceConstants {
 
     public static final String PROPERTY_POSITION = "hybris:position";
 
+    public static final String PROPERTY_RANGE = "hybris:range";
+
     // sku page properties
 
     public static final String PROPERTY_PRODUCT_RESOURCE_PATH = "hybris:productResourcePath";

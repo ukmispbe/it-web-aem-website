@@ -67,7 +67,7 @@ class DefaultHybrisProductImporterSpec extends AbstractHybrisImporterSpec {
             "with the ACQUITY system.  Sample preparation consumables such as Oasis HLB cartridges, PFC calibration " +
             "standards, PFC unknown QC standards, and sample vials are also included."
         properties.get(WatersCommerceConstants.PROPERTY_CATEGORIES,
-            new String[0]) == ["Intrigo_EnvironmentalKits", "PFCAnalysisKit"] as String[]
+            new String[0]) == ["PFCAnalysisKit"] as String[]
 
         and:
         !properties.get(WatersCommerceConstants.PROPERTY_TERMINATED, false)
