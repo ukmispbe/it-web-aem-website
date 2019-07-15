@@ -1,18 +1,21 @@
 <sly data-sly-use.specificationsTable="com.waters.aem.core.components.content.SpecificationsTable"
-     data-sly-test.sku="${specificationsTable.sku}">
+     data-sly-test.specifications="${specificationsTable.specifications}">
     <h3 class="cmp-table__title">${'Specifications' @ i18n}</h3>
     <div class="cmp-table--divide cmp-table">
         <table class="cmp-table__table">
             <tbody>
-                <tr data-sly-repeat.classification="${specificationsTable.sku.classifications}">
-                    <td>
-                        <p>${classification.title} - ${classification.displayableFeatureValues @ join=', '}</p>
-                    </td>
-                </tr>
+            <tr data-sly-repeat.specification="${specifications}">
+                <td>
+                    <p><strong>${specification.title}</strong></p>
+                </td>
+                <td>
+                    <p>${specification.displayableFeatureValues @ join=', '}</p>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
 </sly>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
-     data-sly-call="${patterns.placeholder @ show=!sku, text=component.title}"/>
+     data-sly-call="${patterns.placeholder @ show=!specifications, text=component.title}"/>

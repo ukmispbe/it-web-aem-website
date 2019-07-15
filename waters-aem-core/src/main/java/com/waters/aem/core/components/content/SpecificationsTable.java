@@ -10,11 +10,9 @@ import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
+import java.util.Collections;
 import java.util.List;
 
 @Component(value = "Specifications Table")
@@ -28,19 +26,11 @@ public final class SpecificationsTable implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/specificationstable";
 
-    private Logger log = LoggerFactory.getLogger(SpecificationsTable.class);
-
     @Inject
     private Sku sku;
 
-    public Sku getSku() {
-        sku.getClassifications().forEach(item-> log.info("item ---- {}", item.getTitle()));
-        log.info("SkU Test Classifications - {}", sku.getPath());
-        return sku;
-    }
-
     public List<Classification> getSpecifications() {
-        return sku.getClassifications();
+        return sku != null ? sku.getClassifications() : Collections.emptyList();
     }
 
     @Nonnull
