@@ -4,7 +4,7 @@ import './styles/index.scss';
 import './scripts/backtotop';
 import './scripts/share';
 import './scripts/anchor';
-import './scripts/sticky';
+import './scripts/sticky-sort-filter';
 import './scripts/iframe';
 import './scripts/backtosearch';
 import './scripts/banner';
