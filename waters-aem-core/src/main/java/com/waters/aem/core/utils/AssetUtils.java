@@ -5,7 +5,6 @@ import com.day.cq.dam.api.DamConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 
-import java.util.List;
 import java.util.Optional;
 
 public final class AssetUtils {

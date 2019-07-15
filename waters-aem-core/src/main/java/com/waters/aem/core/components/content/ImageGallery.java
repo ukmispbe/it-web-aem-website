@@ -113,6 +113,7 @@ public final class ImageGallery implements ComponentExporter {
         return MAPPER.writeValueAsString(json);
     }
 
+    @SuppressWarnings("squid:S2259")
     public String getSrc() {
         return getPrimaryImageAsset() == null ? null : buildUri(getPrimaryImageAsset(), false);
     }
@@ -164,9 +165,9 @@ public final class ImageGallery implements ComponentExporter {
      * @return DAM asset for the primary image file reference
      */
     private Asset getPrimaryImageAsset() {
-        final List<Asset> assets = getAssets();
+        final List<Asset> primaryImgAssets = getAssets();
 
-        return assets.isEmpty() ? null : assets.get(0);
+        return primaryImgAssets.isEmpty() ? null : primaryImgAssets.get(0);
     }
 
     private String buildUri(final Asset asset, final boolean template) {
