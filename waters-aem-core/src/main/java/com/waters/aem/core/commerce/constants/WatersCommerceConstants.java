@@ -26,9 +26,9 @@ public final class WatersCommerceConstants {
 
     public static final String PROPERTY_TERMINATED = "hybris:terminated";
 
-    public static final String PROPERTY_COLD_STORAGE = "hybris:coldStorage";
+    public static final String PROPERTY_COLD_CHAIN_SHIPPING = "hybris:coldChainShipping";
 
-    public static final String PROPERTY_HAZARDOUS_HANDLING = "hybris:hazardousHandling";
+    public static final String PROPERTY_HAZARDOUS = "hybris:hazardous";
 
     public static final String RESOURCE_NAME_IMAGES = "images";
 
