@@ -334,6 +334,8 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
     private void setClassifications(final Node productNode, final List<Classification> classifications)
             throws RepositoryException {
+        final String productNodePath = productNode.getPath();
+
         if (!classifications.isEmpty()) {
             final Node classificationsNode = JcrUtils.getOrAddNode(productNode,
                     WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATIONS);
@@ -349,6 +351,13 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
                 feature -> {
                     final Map<String, Object> properties = new HashMap<>();
 
+                    for (FeatureValue featureValue : feature.getFeatureValues()) {
+                        if (featureValue.getPosition() == null) {
+                            LOG.warn("missing featureValue.position on sku {} and feature {}",
+                                productNodePath.substring(productNodePath.lastIndexOf("/") + 1), feature.getCode());
+                        }
+                    }
+
                     properties.put(WatersCommerceConstants.PROPERTY_NAME, StringUtils.isNotEmpty(
                             feature.getPublicWebLabel()) ? feature.getPublicWebLabel() : feature.getName());
                     properties.put(WatersCommerceConstants.PROPERTY_CODE, feature.getCode());
@@ -359,7 +368,8 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
                             feature.getFeatureUnit().getSymbol());
                     properties.put(WatersCommerceConstants.PROPERTY_FEATURE_VALUES, feature.getFeatureValues()
                             .stream()
-                            .sorted(Comparator.comparing(FeatureValue::getPosition))
+                            .sorted(Comparator.comparing(featureValue -> featureValue.getPosition() == null ? 0 :
+                                    featureValue.getPosition()))
                             .map(FeatureValue::getValue)
                             .toArray(String[]::new));
                     properties.put(WatersCommerceConstants.PROPERTY_POSITION, feature.getPosition());
