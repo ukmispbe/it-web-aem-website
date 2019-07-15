@@ -9,12 +9,12 @@
         <img alt="${'Login' @ i18n}" src="/content/dam/waters/brand-assets/icons/user.svg" class="inline-svg">
         <span>${'Sign in to view your price' @ i18n}</span>
     </a>-->
-    <div class="cmp-sku-details__ecom">
+    <div class="cmp-sku-details__ecom" data-sly-test="${sku.active}">
         <div class="cmp-sku-details__buyinfo">
             <div class="cmp-sku-details__priceinfo">
                 <sly data-sly-test.price="${sku.formattedPrice}">
                     <span>List Price</span>
-                    <div class="cmp-sku-details__price" data-sly-test="${sku.active}">${price}</div>
+                    <div class="cmp-sku-details__price">${price}</div>
                 </sly>
             </div>
             <div class="cmp-sku-details__availability"
