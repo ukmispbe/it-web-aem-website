@@ -73,7 +73,7 @@
     display: inline-block;
     text-align: left;
     position: relative;
-    top: -2px;
+    margin-top: 8px;
 }
 
 .image-thumbnails-wrapper {
@@ -219,16 +219,5 @@
 
     .image-thumbnails-placeholder {
         display: static;
-    }
-}
-
-// react-alice-carousel CSS overrides
-.alice-carousel {
-    .alice-carousel__stage-item {
-        vertical-align: initial;
-    }
-
-    .alice-carousel__stage-item * {
-        line-height: inherit;
     }
 }

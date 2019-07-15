@@ -49,7 +49,7 @@ public final class DisplayableSku {
     public String getFormattedPrice() {
         final BigDecimal price = getPrice();
 
-        return price == null ? null : NumberFormat.getCurrencyInstance(siteContext.getLocale()).format(price);
+        return price == null ? null : NumberFormat.getCurrencyInstance(siteContext.getLocaleWithCountry()).format(price);
     }
 
     public String getPrimaryImageSrc() {
@@ -67,7 +67,7 @@ public final class DisplayableSku {
     }
 
     public BigDecimal getPrice() {
-        final String country = siteContext.getLocale().getCountry();
+        final String country = siteContext.getLocaleWithCountry().getCountry();
         final String currencyIsoCode = siteContext.getCurrencyIsoCode();
 
         return sku.getPrice(country, currencyIsoCode);
