@@ -6,6 +6,7 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.waters.aem.core.commerce.models.Sku;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -54,6 +55,9 @@ public final class Text implements com.adobe.cq.wcm.core.components.models.Text 
     @Default(booleanValues = false)
     private Boolean indexed;
 
+    @Inject
+    private Sku sku;
+
     public String getTitle() {
         return title;
     }
@@ -66,6 +70,11 @@ public final class Text implements com.adobe.cq.wcm.core.components.models.Text 
 
     @Override
     public String getText() {
+
+        if(sku != null){
+            return sku.getLongDescription();
+        }
+
         return delegate.getText();
     }
 
