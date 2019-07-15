@@ -359,7 +359,8 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
                             feature.getFeatureUnit().getSymbol());
                     properties.put(WatersCommerceConstants.PROPERTY_FEATURE_VALUES, feature.getFeatureValues()
                             .stream()
-                            .sorted(Comparator.comparing(FeatureValue::getPosition))
+                            .sorted(Comparator.comparing(featureValue -> featureValue.getPosition() == null ? 0 :
+                                    featureValue.getPosition()))
                             .map(FeatureValue::getValue)
                             .toArray(String[]::new));
                     properties.put(WatersCommerceConstants.PROPERTY_POSITION, feature.getPosition());
