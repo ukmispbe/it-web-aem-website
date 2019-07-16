@@ -1,6 +1,5 @@
 <sly data-sly-use.specificationsTable="com.waters.aem.core.components.content.SpecificationsTable"
      data-sly-test.specifications="${specificationsTable.specifications}">
-    <h3 class="cmp-table__title">${'Specifications' @ i18n}</h3>
     <div class="cmp-table--divide cmp-table">
         <table class="cmp-table__table">
             <tbody>
@@ -9,7 +8,7 @@
                     <p><strong>${specification.title}</strong></p>
                 </td>
                 <td>
-                    <p>${specification.displayableFeatureValues @ join=', '}</p>
+                    <p>${specification.formattedFeatureValues}</p>
                 </td>
             </tr>
             </tbody>
