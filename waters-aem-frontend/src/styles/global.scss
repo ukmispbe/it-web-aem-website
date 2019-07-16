@@ -7,12 +7,7 @@ html {
 }
 
 body {
-    padding-top: (4.5em + $space-l);
     overflow-x: hidden;
-
-    @include mobile {
-        padding-top: (4.1875em + $space-l);
-    }
 }
 
 .aem-GridColumn {
