@@ -334,8 +334,6 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
     private void setClassifications(final Node productNode, final List<Classification> classifications)
             throws RepositoryException {
-        final String productNodePath = productNode.getPath();
-
         if (!classifications.isEmpty()) {
             final Node classificationsNode = JcrUtils.getOrAddNode(productNode,
                     WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATIONS);
@@ -350,13 +348,6 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
             setItemNodes(classificationsNode, WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATION, flattenedFeatures,
                 feature -> {
                     final Map<String, Object> properties = new HashMap<>();
-
-                    for (FeatureValue featureValue : feature.getFeatureValues()) {
-                        if (featureValue.getPosition() == null) {
-                            LOG.warn("missing featureValue.position on sku {} and feature {}",
-                                productNodePath.substring(productNodePath.lastIndexOf("/") + 1), feature.getCode());
-                        }
-                    }
 
                     properties.put(WatersCommerceConstants.PROPERTY_NAME, StringUtils.isNotEmpty(
                             feature.getPublicWebLabel()) ? feature.getPublicWebLabel() : feature.getName());
