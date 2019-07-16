@@ -36,6 +36,7 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+@SuppressWarnings("squid:S1700")
 public class Tiles implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/tiles";

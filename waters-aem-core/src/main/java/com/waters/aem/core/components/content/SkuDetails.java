@@ -36,8 +36,6 @@ public final class SkuDetails implements ComponentExporter {
     @Self
     private SiteContext siteContext;
 
-    private DisplayableSku displayableSku;
-
     public DisplayableSku getDisplayableSku() {
         return sku == null ? null : new DisplayableSku(sku, resource, siteContext);
     }
