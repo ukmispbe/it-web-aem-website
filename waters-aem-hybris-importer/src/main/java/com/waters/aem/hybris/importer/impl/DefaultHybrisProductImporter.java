@@ -262,8 +262,8 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
             .toArray(String[] :: new));
         properties.put(WatersCommerceConstants.PROPERTY_TERMINATED, product.getTerminated());
         properties.put(WatersCommerceConstants.PROPERTY_PROPRIETARY, product.getProprietary());
-        properties.put(WatersCommerceConstants.PROPERTY_COLD_STORAGE, product.getColdStorage());
-        properties.put(WatersCommerceConstants.PROPERTY_HAZARDOUS_HANDLING, product.getHazardousHandling());
+        properties.put(WatersCommerceConstants.PROPERTY_COLD_CHAIN_SHIPPING, product.getColdChainShipping());
+        properties.put(WatersCommerceConstants.PROPERTY_HAZARDOUS, product.getHazardous());
 
         setNodeProperties(productNode, properties);
 

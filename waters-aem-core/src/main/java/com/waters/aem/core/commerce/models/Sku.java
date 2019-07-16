@@ -57,11 +57,11 @@ public final class Sku {
     @ValueMapValue(name = WatersCommerceConstants.PROPERTY_SALES_STATUS)
     private String salesStatus;
 
-    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_COLD_STORAGE)
-    private Boolean coldStorage;
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_COLD_CHAIN_SHIPPING)
+    private Boolean coldChainShipping;
 
-    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_HAZARDOUS_HANDLING)
-    private Boolean hazardousHandling;
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_HAZARDOUS)
+    private Boolean hazardous;
 
     @ValueMapValue(name = JcrConstants.JCR_LASTMODIFIED)
     private Calendar lastModified;
@@ -102,12 +102,12 @@ public final class Sku {
         return EnumUtils.isValidEnum(SkuSalesStatus.class, salesStatus) ? SkuSalesStatus.valueOf(salesStatus) : null;
     }
 
-    public Boolean isColdStorage() {
-        return coldStorage;
+    public Boolean isColdChainShipping() {
+        return coldChainShipping;
     }
 
-    public Boolean isHazardousHandling() {
-        return hazardousHandling;
+    public Boolean isHazardous() {
+        return hazardous;
     }
 
     public Calendar getLastModified() {
