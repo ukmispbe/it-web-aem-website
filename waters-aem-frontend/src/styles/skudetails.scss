@@ -80,12 +80,41 @@
         .cmp-sku-details__wrapper {
             display: flex;
             align-items: flex-start;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            width: 100%;
+            height: 80px;
+            margin: 0 auto;
+            border-bottom: 1px solid $color-border-light;
+            padding: $space-xs 162px;
+            background-color: $color-white;
+
+            @include mobile {
+                height: 100px;
+                padding: $space-xs;
+            }
+
+            @include tablet {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
         }
 
         .cmp-sku-details__heading {
+            position: relative;
             display: flex;
             align-items: center;
             flex-grow: 1;
+
+            @include tablet {
+                width: 47%;
+            }
+
+            @include mobile {
+                display: none;
+            }
 
             img {
                 display: block;
@@ -97,11 +126,26 @@
             }
 
             .cmp-sku-details__info {
+                width: 100%;
+
+                @include tablet {
+                    width: 60%;
+                }
+
                 h1 {
                     @include font-h3;
 
                     margin-block-start: 0;
                     margin-block-end: 0;
+
+                    width: 100%;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+
+                    // @include tablet {
+                    //     width: 90%;
+                    // }
                 }
 
                 h3 {
@@ -116,6 +160,10 @@
         .cmp-sku-details__ecom {
             background: none;
             padding: 0;
+
+            @include mobile {
+                width: 100%;
+            }
         }
 
         .cmp-sku-details__buyinfo {
@@ -124,6 +172,10 @@
 
         .cmp-sku-details__priceinfo {
             background: none;
+
+            @include mobile {
+                display: none;
+            }
 
             span {
                 @include font-body;
@@ -140,6 +192,13 @@
 
         .cmp-sku-details__web-quote {
             display: none;
+        }
+
+        .cmp-sku-details__buttons {
+
+            @include mobile {
+                width: 100%;
+            }
         }
     }
 }
