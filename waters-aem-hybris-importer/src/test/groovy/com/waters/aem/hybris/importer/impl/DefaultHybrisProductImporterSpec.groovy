@@ -73,6 +73,6 @@ class DefaultHybrisProductImporterSpec extends AbstractHybrisImporterSpec {
         !properties.get(WatersCommerceConstants.PROPERTY_TERMINATED, false)
         !properties.get(WatersCommerceConstants.PROPERTY_PROPRIETARY, false)
         !properties.get(WatersCommerceConstants.PROPERTY_COLD_CHAIN_SHIPPING, false)
-        !properties.get(WatersCommerceConstants.PROPERTY_HAZARDOUS, false)
+        properties.get(WatersCommerceConstants.PROPERTY_HAZARDOUS, false)
     }
 }

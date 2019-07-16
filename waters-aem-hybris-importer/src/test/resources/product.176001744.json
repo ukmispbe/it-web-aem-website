@@ -106,6 +106,8 @@
         }
     ],
     "code": "176001744",
+    "coldChainShipping": false,
+    "hazardous": true,
     "description": "Waters ACQUITY UPLC total solution for the analysis of Perfluorinated Compounds (PFCs).  The kit contains ACQUITY BEH C18 column, PFC isolator column, and other PFCs-free components optimized for use with the ACQUITY system.  Sample preparation consumables such as Oasis HLB cartridges, PFC calibration standards, PFC unknown QC standards, and sample vials are also included.",
     "images": [
         {

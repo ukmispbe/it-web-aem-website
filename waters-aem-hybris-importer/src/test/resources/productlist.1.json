@@ -257,6 +257,8 @@
                 }
             ],
             "code": "201000147",
+            "coldChainShipping": false,
+            "hazardous": false,
             "description": "The Waters® Performance Maintenance Kit for the GCT Mass Spectrometer contains all the Waters Quality Parts® necessary to keep your instrument operating at peak performance on an annual basis.  The Waters® Performance Maintenance Kit includes the following parts: Source components and vacuum pump components.",
             "images": [
                 {
@@ -862,6 +864,8 @@
                 }
             ],
             "code": "201000188",
+            "coldChainShipping": true,
+            "hazardous": false,
             "description": "The Waters® Performance Maintenance Kit for the GCT Premier Mass Spectrometer contains all the Waters Quality Parts® necessary to keep your instrument operating at peak performance on an annual basis. The Waters® Performance Maintenance Kit for the GCT Premier Mass Spectrometer includes the following parts: Source components and vacuum pump components.",
             "images": [
                 {
@@ -1467,6 +1471,8 @@
                 }
             ],
             "code": "201000218",
+            "coldChainShipping": true,
+            "hazardous": false,
             "description": "The Waters® Performance Maintenance Kit for the LCT Premier/XE (scroll) Mass Spectrometer contains all the Waters Quality Parts® necessary to keep your instrument operating at peak performance on an annual basis. The Waters® Performance Maintenance Kit includes the following parts: Source component, ESI probe components, reference probe components and vacuum pump components. The original part number was 201000191.  This particular part number does not deliver a chemical kit which is required to complete the performance testing.   The part number for a Waters® Performance Maintenance Kit and a chemical kit is 176002061",
             "images": [
                 {
@@ -2460,6 +2466,8 @@
                 }
             ],
             "code": "176001562",
+            "coldChainShipping": true,
+            "hazardous": false,
             "description": "ACQUITY UPLC HSS C18 SB columns are used for low pH separations that contain complex mixtures of basic and non-basic compounds.  ACQUITY HSS C18 SB columns give you alternative analyte selectivity compared to most modern, high coverage, fully endcapped C18 stationary phases.  ACQUITY HSS C18 SB columns are fully scalable and transferable to HPLC separations.",
             "images": [
                 {
@@ -3495,6 +3503,8 @@
                 }
             ],
             "code": "176001806",
+            "coldChainShipping": true,
+            "hazardous": false,
             "description": "ACQUITY BEH Phenyl columns provide complementary selectivity to C18 stationary phases, especially for polyaromatic compounds. This sorbent, along with the XBridge BEH Phenyl, provide you with the most chemiscally stable phenyl sorbent on the market and provides you with ultra-low column bleed, long column lifetimes and excellent peak shape.",
             "images": [
                 {
