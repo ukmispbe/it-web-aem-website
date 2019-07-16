@@ -13,6 +13,12 @@
             }
         }
 
+        &__heading {
+            img {
+                display: none;
+            }
+        }
+
         &__ecom {
             background: $color-background-light;
             padding: $space-l;
@@ -69,4 +75,89 @@
             @include font-utility;
         }
     }
+
+    &-details--sticky {
+        .cmp-sku-details__wrapper {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .cmp-sku-details__heading {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+
+            img {
+                display: block;
+                width: 92px;
+                height: 63px;
+                
+                border: 1px solid $color-border-light;
+                margin-right: $space-m
+            }
+
+            .cmp-sku-details__info {
+                h1 {
+                    @include font-h3;
+
+                    margin-block-start: 0;
+                    margin-block-end: 0;
+                }
+
+                h3 {
+                    @include font-utility;
+
+                    margin-block-start: 0;
+                    margin-block-end: 0;
+                }
+            }
+        }
+
+        .cmp-sku-details__ecom {
+            background: none;
+            padding: 0;
+        }
+
+        .cmp-sku-details__buyinfo {
+            margin-top: 10px;
+        }
+
+        .cmp-sku-details__priceinfo {
+            background: none;
+
+            span {
+                @include font-body;
+            }
+
+            .cmp-sku-details__price {
+                @include font-h3;
+            }
+        }
+
+        .cmp-sku-details__availability {
+            display: none;
+        }
+
+        .cmp-sku-details__web-quote {
+            display: none;
+        }
+    }
 }
+
+// IE 11 CSS hacks
+@media all and (-ms-high-contrast:none) {
+    .cmp-sku-details__info {
+        h3 {
+            display: inline;
+        }
+    }
+}
+
+// Edge Css hacks
+@supports (-ms-ime-align: auto) {
+    .cmp-sku-details__info {
+        h3 {
+            display: inline;
+        }
+    }
+  }

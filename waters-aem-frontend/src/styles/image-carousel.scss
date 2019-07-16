@@ -10,6 +10,7 @@
 
 .image-viewer-container__image-figure {
     border: 1px solid $color-border-light;
+    line-height: 0;
     margin: 0;
     margin-block-start: 0;
     margin-block-end: 0;
@@ -17,7 +18,7 @@
     margin-inline-end: 0;
     padding: 0px;
     background-position: 50% 50%;
-    background-size: 100%;
+    background-size: 102%;
     position: relative;
     overflow: hidden;
     background-repeat: no-repeat;
@@ -45,8 +46,8 @@
 }
 
 .image-viewer-container__image-zoom {
-    right: 1px;
-    bottom: 1px;
+    right: 0;
+    bottom: 0;
     width: 4em;
     height: 4em;
     position: absolute;
@@ -152,6 +153,9 @@
         .st0 {
             stroke: $color-font-dark;
         }
+        @include tablet-and-under {
+            display: none;
+        }
     }
 }
 
@@ -168,7 +172,7 @@
     svg {
         cursor: default;
         .st0 {
-            stroke: $color-font-medium;
+            stroke: $color-disabled;
         }
     }
 }

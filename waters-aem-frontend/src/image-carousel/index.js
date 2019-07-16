@@ -57,7 +57,7 @@ class ImageCarousel extends React.Component {
         />
     </div>;
 
-    getThumbnails = () => <ImageThumbnails items={this.getThumbnailImages()} onItemClick={this.handleThumbnailClick} width={this.state.figureWidth} />;
+    getThumbnails = () => this.props.templates.length > 1 ? <ImageThumbnails items={this.getThumbnailImages()} onItemClick={this.handleThumbnailClick} width={this.state.figureWidth} /> : <></>;
 
     getThumbnailImages = () => this.props.templates.map(template => this.mapTemplateToElement(template));
 

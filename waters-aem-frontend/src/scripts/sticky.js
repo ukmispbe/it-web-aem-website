@@ -1,55 +1,32 @@
-const isMobile = window.matchMedia('(max-width: 649px)').matches;
+const Sticky = (targetClassName, stickyClassName, topThreshold, topSticky, onStickyCallback = null, onNonStickyCallback = null) => {
+    let isSticky = false;
+    let scrollYSticky = -1;
 
-function createSticky(target, stick, element) {
-    const sourcePosition = {
-        [target]: element.getBoundingClientRect().top,
-    };
+    const targetElement = document.querySelector(`.${targetClassName}`);
 
-    function handleSticky(targetClass, stickyClass) {
-        const sourceClass = element;
-        const headerHeight = document.querySelector('.cmp-external-header')
-            .offsetHeight;
+    if (!targetElement) { return }
 
-        if (sourceClass) {
-            const sourceTop = sourceClass.getBoundingClientRect().top;
+    return function() {
+        if (!isSticky && targetElement.getBoundingClientRect().top < topThreshold) {
+            isSticky = true;
+            scrollYSticky = window.scrollY;
+            targetElement.classList.add(stickyClassName);
+            targetElement.style.top = `${topSticky}px`;
 
-            if (!sourcePosition[targetClass]) {
-                sourcePosition[targetClass] = sourceTop;
+            if (onStickyCallback) {
+                onStickyCallback();
             }
+        } else if (isSticky && window.scrollY < scrollYSticky ) {
+            isSticky = false;
+            scrollYSticky = -1;
+            targetElement.classList.remove(stickyClassName);
+            targetElement.style.top = '';
 
-            if (window.scrollY > sourcePosition[targetClass] - headerHeight) {
-                sourceClass.classList.add(stickyClass);
-            } else {
-                sourceClass.classList.remove(stickyClass);
+            if (onNonStickyCallback) {
+                onNonStickyCallback()
             }
-        }
-    }
-
-    if (isMobile) {
-        window.addEventListener('scroll', () => {
-            handleSticky(target, stick);
-        });
+        } 
     }
 }
 
-function ready(fn) {
-    if (
-        document.attachEvent
-            ? document.readyState === 'complete'
-            : document.readyState !== 'loading'
-    ) {
-        fn();
-    } else {
-        document.addEventListener('DOMContentLoaded', fn);
-    }
-}
-
-ready(() => {
-    const filterBtnClass = 'btn-show-sort-filter';
-    const filterBtnStickyClass = 'btn-show-sort-filter--sticky';
-    const filterBtnElement = document.querySelector(`.${filterBtnClass}`);
-    
-    if (filterBtnElement) {
-        createSticky(filterBtnClass, filterBtnStickyClass, filterBtnElement);
-    }
-});
+export default Sticky;
