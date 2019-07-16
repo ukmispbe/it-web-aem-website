@@ -1,36 +1,41 @@
 <div data-sly-use.skuDetails="com.waters.aem.core.components.content.SkuDetails"
      data-sly-test.sku="${skuDetails.displayableSku}"
      class="cmp-sku-details">
-    <!--/* TODO update display image thumbnail when transitioning to sticky header view */-->
-    <img class="cmp-sku-details__sticky__img" src="${sku.primaryImageThumbnail}" alt="${sku.primaryImageAlt}" style="display: none;">
-    <h3>${sku.code}</h3>
-    <h1>${sku.title}</h1>
-    <!--<a href="#">
-        <img alt="${'Login' @ i18n}" src="/content/dam/waters/brand-assets/icons/user.svg" class="inline-svg">
-        <span>${'Sign in to view your price' @ i18n}</span>
-    </a>-->
-    <div class="cmp-sku-details__ecom">
-        <div class="cmp-sku-details__buyinfo">
-            <div class="cmp-sku-details__priceinfo">
-                <sly data-sly-test.price="${sku.formattedPrice}">
-                    <span>List Price</span>
-                    <div class="cmp-sku-details__price" data-sly-test="${sku.active}">${price}</div>
-                </sly>
+    <div class="cmp-sku-details__wrapper">
+        <div class="cmp-sku-details__heading">
+            <img src="${sku.primaryImageThumbnail}" alt="${sku.primaryImageAlt}">
+            <div class="cmp-sku-details__info">
+                <h3>${sku.code}</h3>
+                <h1>${sku.title}</h1>
             </div>
-            <div class="cmp-sku-details__availability"
-                 data-instock="instock"
-                 data-lowstock = "lowstock"
-                 data-out-of-stock="out-of-stock">
-                <span class="cmp-sku-details__stockdetails">Instock</span>
-                <img alt="${'Login' @ i18n}" src="/content/dam/waters/brand-assets/icons/success.svg" class="inline-svg">
-                <div class="cmp-sku-details__order">${'Order now' @ i18n}</div>
-            </div>
-            <div class="cmp-sku-details__buttons">
-                <input type="text" placeholder="Qty" maxlength="3" value="">
-                <a class="cmp-button">${'ADD TO CART' @ i18n}</a>
-            </div>
+            <!--<a href="#" class="cmp-sku-details__signin">
+                <img alt="${'Login' @ i18n}" src="/content/dam/waters/brand-assets/icons/user.svg" class="inline-svg">
+                <span>${'Sign in to view your price' @ i18n}</span>
+            </a>-->
         </div>
-        <a href="#">${'Do you need a web quote?' @ i18n}</a>
+        <div class="cmp-sku-details__ecom">
+            <div class="cmp-sku-details__buyinfo">
+                <div class="cmp-sku-details__priceinfo">
+                    <sly data-sly-test.price="${sku.formattedPrice}">
+                        <span>List Price</span>
+                        <div class="cmp-sku-details__price" data-sly-test="${sku.active}">${price}</div>
+                    </sly>
+                </div>
+                <div class="cmp-sku-details__availability"
+                    data-instock="instock"
+                    data-lowstock = "lowstock"
+                    data-out-of-stock="out-of-stock">
+                    <span class="cmp-sku-details__stockdetails">Instock</span>
+                    <img alt="${'Login' @ i18n}" src="/content/dam/waters/brand-assets/icons/success.svg" class="inline-svg">
+                    <div class="cmp-sku-details__order">${'Order now' @ i18n}</div>
+                </div>
+                <div class="cmp-sku-details__buttons">
+                    <input type="text" placeholder="Qty" maxlength="3" value="">
+                    <a class="cmp-button">${'ADD TO CART' @ i18n}</a>
+                </div>
+            </div>
+            <a class="cmp-sku-details__web-quote" href="#">${'Do you need a web quote?' @ i18n}</a>
+        </div>
     </div>
     <hr>
 </div>
