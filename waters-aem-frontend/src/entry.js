@@ -5,6 +5,7 @@ import './scripts/backtotop';
 import './scripts/share';
 import './scripts/anchor';
 import './scripts/sticky-sort-filter';
+import './scripts/sticky-sku-details';
 import './scripts/iframe';
 import './scripts/backtosearch';
 import './scripts/banner';
