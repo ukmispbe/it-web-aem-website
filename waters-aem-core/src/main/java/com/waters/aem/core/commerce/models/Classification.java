@@ -26,6 +26,9 @@ public final class Classification {
     @ValueMapValue(name = WatersCommerceConstants.PROPERTY_UNIT_SYMBOL)
     private String unitSymbol;
 
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_RANGE)
+    private Boolean range;
+
     public String getPath() {
         return resource.getPath();
     }
@@ -39,9 +42,13 @@ public final class Classification {
     }
 
     public String[] getDisplayableFeatureValues() {
-        return unitSymbol == null ? getFeatureValues() : Arrays.stream(featureValues)
+        return unitSymbol == null || range ? getFeatureValues() : Arrays.stream(featureValues)
                 .map(featureValue -> featureValue + " " + unitSymbol)
                 .toArray(String[] :: new);
+    }
+
+    public String getFormattedFeatureValues() {
+        return range ? String.join("-", getDisplayableFeatureValues()) + " " + unitSymbol : String.join(", ", getDisplayableFeatureValues());
     }
 
     @Override
