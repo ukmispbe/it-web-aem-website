@@ -48,7 +48,8 @@ public final class Classification {
     }
 
     public String getFormattedFeatureValues() {
-        return range ? String.join("-", getDisplayableFeatureValues()) + " " + unitSymbol : String.join(", ", getDisplayableFeatureValues());
+        return range ? String.join("-", getDisplayableFeatureValues()) + " " + unitSymbol :
+                String.join(", ", getDisplayableFeatureValues());
     }
 
     @Override
