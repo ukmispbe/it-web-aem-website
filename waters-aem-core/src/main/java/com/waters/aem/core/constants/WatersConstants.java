@@ -31,6 +31,8 @@ public final class WatersConstants {
 
     public static final String TEMPLATE_REDIRECT_PAGE = "/conf/waters/settings/wcm/templates/redirect-page";
 
+    public static final String TEMPLATE_CATALOG_PAGE = "/conf/waters/settings/wcm/templates/catalog-page";
+
     public static final String TEMPLATE_CATEGORY_PAGE = "/conf/waters/settings/wcm/templates/section-page";
 
     public static final String TEMPLATE_SKU_PAGE = "/conf/waters/settings/wcm/templates/sku-page";
