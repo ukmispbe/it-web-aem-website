@@ -2,8 +2,6 @@ package com.waters.aem.core.commerce.models;
 
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.commons.util.PrefixRenditionPicker;
-import com.icfolson.aem.library.api.page.PageDecorator;
-import com.waters.aem.core.commerce.services.SkuRepository;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.utils.AssetUtils;
@@ -25,15 +23,12 @@ public final class DisplayableSku {
     private Sku sku;
     private Resource resource;
     private SiteContext siteContext;
-    private PageDecorator currentPage;
-    private SkuRepository skuRepository;
 
-    public DisplayableSku(Sku sku, Resource resource, SiteContext siteContext, PageDecorator currentPage, SkuRepository skuRepository) {
+
+    public DisplayableSku(Sku sku, Resource resource, SiteContext siteContext) {
         this.sku = checkNotNull(sku);
         this.resource = checkNotNull(resource);
         this.siteContext = checkNotNull(siteContext);
-        this.currentPage = checkNotNull(currentPage);
-        this.skuRepository = checkNotNull(skuRepository);
     }
 
     public Sku getSku() {
@@ -41,7 +36,7 @@ public final class DisplayableSku {
     }
 
     public String getSkuPageHref() {
-        return skuRepository.getSkuPage(currentPage, sku).getHref();
+        return sku.getSkuPage(siteContext.getPageDecorator()).getHref();
     }
 
     public String getCode() {

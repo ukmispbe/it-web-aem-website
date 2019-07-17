@@ -74,7 +74,7 @@ public final class SkuList implements ComponentExporter {
         }
 
         return skus.stream()
-                .map(relatedSku -> new DisplayableSku(relatedSku, resource, siteContext, currentPage, skuRepository))
+                .map(relatedSku -> new DisplayableSku(relatedSku, resource, siteContext))
                 .collect(Collectors.toList());
     }
 

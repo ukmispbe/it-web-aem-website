@@ -106,4 +106,8 @@ public final class SiteContext {
 
         return stringBuilder.toString();
     }
+
+    public PageDecorator getPageDecorator() {
+        return currentPage;
+    }
 }

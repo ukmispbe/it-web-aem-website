@@ -46,7 +46,7 @@ public final class SkuDetails implements ComponentExporter {
     private SkuRepository skuRepository;
 
     public DisplayableSku getDisplayableSku() {
-        return sku == null ? null : new DisplayableSku(sku, resource, siteContext, currentPage, skuRepository);
+        return sku == null ? null : new DisplayableSku(sku, resource, siteContext);
     }
 
     @Nonnull
