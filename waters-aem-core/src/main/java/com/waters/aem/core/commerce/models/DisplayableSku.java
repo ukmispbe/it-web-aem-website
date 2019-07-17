@@ -34,6 +34,10 @@ public final class DisplayableSku {
         return sku;
     }
 
+    public String getSkuPageHref() {
+        return sku.getSkuPage(siteContext.getPage()).getHref();
+    }
+
     public String getCode() {
         return sku.getCode();
     }
