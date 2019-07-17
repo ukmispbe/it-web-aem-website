@@ -2,6 +2,7 @@ package com.waters.aem.core.commerce.models;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.google.common.base.Objects;
+import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
 import com.waters.aem.core.commerce.services.SkuRepository;
 import org.apache.commons.lang3.EnumUtils;
@@ -137,8 +138,17 @@ public final class Sku {
     public List<Sku> getRelatedSkus() {
         // TODO do we need to check the 'terminated' property?
         return getResourceModels(WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCES,
-            resource -> !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PROPRIETARY, false),
+            resource -> !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PROPRIETARY, false) &&
+                    resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PRODUCT_REFERENCE_TYPE).equals(SkuReferenceType.OTHERS.toString()),
             resource -> skuRepository.getRelatedSku(resource));
+    }
+
+    public List<Sku> getReplacementSkus() {
+        // TODO do we need to check the 'terminated' property?
+        return getResourceModels(WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCES,
+                resource -> !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PROPRIETARY, false) &&
+                    resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PRODUCT_REFERENCE_TYPE).equals(SkuReferenceType.REPLACEMENT_PART.toString()),
+                resource -> skuRepository.getRelatedSku(resource));
     }
 
     public List<Classification> getClassifications() {

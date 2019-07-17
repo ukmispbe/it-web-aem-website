@@ -73,6 +73,13 @@ public final class DisplayableSku {
         return sku.getPrice(country, currencyIsoCode);
     }
 
+    public String getReplacementSkuCode() {
+        return sku.getReplacementSkus().stream()
+                .findFirst()
+                .map(Sku :: getCode)
+                .orElse(null);
+    }
+
     private Asset getPrimaryImageAsset() {
         final List<Asset> assets = getAssets();
 
