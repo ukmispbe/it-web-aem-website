@@ -7,6 +7,7 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.commerce.models.DisplayableSku;
 import com.waters.aem.core.commerce.services.SkuRepository;
@@ -48,6 +49,9 @@ public final class SkuList implements ComponentExporter {
     @Inject
     private Resource resource;
 
+    @Inject
+    private PageDecorator currentPage;
+
     @Self
     private SiteContext siteContext;
 
@@ -70,7 +74,7 @@ public final class SkuList implements ComponentExporter {
         }
 
         return skus.stream()
-                .map(relatedSku -> new DisplayableSku(relatedSku, resource, siteContext))
+                .map(relatedSku -> new DisplayableSku(relatedSku, resource, siteContext, currentPage, skuRepository))
                 .collect(Collectors.toList());
     }
 
