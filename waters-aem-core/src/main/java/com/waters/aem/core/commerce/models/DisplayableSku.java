@@ -3,7 +3,6 @@ package com.waters.aem.core.commerce.models;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.commons.util.PrefixRenditionPicker;
 import com.icfolson.aem.library.api.page.PageDecorator;
-import com.icfolson.aem.library.core.link.builders.factory.LinkBuilderFactory;
 import com.waters.aem.core.commerce.services.SkuRepository;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
