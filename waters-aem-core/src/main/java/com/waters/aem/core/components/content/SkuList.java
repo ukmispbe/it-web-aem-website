@@ -7,9 +7,8 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
-import com.icfolson.aem.library.api.page.PageDecorator;
-import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.commerce.models.DisplayableSku;
+import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.commerce.services.SkuRepository;
 import com.waters.aem.core.components.SiteContext;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -48,9 +47,6 @@ public final class SkuList implements ComponentExporter {
 
     @Inject
     private Resource resource;
-
-    @Inject
-    private PageDecorator currentPage;
 
     @Self
     private SiteContext siteContext;
