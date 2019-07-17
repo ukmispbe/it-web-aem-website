@@ -2,7 +2,6 @@ package com.waters.aem.core.commerce.models;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.google.common.base.Objects;
-import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
 import com.waters.aem.core.commerce.services.SkuRepository;
 import org.apache.commons.lang3.EnumUtils;
