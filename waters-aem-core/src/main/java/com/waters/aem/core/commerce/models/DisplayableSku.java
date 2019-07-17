@@ -24,7 +24,6 @@ public final class DisplayableSku {
     private Resource resource;
     private SiteContext siteContext;
 
-
     public DisplayableSku(Sku sku, Resource resource, SiteContext siteContext) {
         this.sku = checkNotNull(sku);
         this.resource = checkNotNull(resource);
