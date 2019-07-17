@@ -60,6 +60,8 @@ public final class WatersCommerceConstants {
 
     public static final String RESOURCE_NAME_PRODUCT_REFERENCE = "productreference";
 
+    public static final String PROPERTY_PRODUCT_REFERENCE_TYPE = "hybris:productReferenceType";
+
     // image properties
 
     public static final String PROPERTY_URL = "hybris:url";

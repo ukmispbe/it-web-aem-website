@@ -36,6 +36,21 @@
             </div>
             <a class="cmp-sku-details__web-quote" href="#">${'Do you need a web quote?' @ i18n}</a>
         </div>
+        <div class="cmp-notification-wrapper" data-sly-test="${!sku.active}">
+            <div class="cmp-notification-icon">
+                <img class="inline-svg" src="/content/dam/waters/brand-assets/icons/attention.svg"/>
+            </div>
+            <div class="cmp-notification-body">
+                <div class="cmp-notification-title"></div>
+                <div class="cmp-notification-description">
+                    ${'This part number you selected is no longer available' @ i18n}
+                    <sly data-sly-test="${sku.replacementSkuCode}">
+                        ${',but there is a replacement. Please see the replacement part number' @ i18n}
+                        <a class="cmp-notification-links" href="">${sku.replacementSkuCode}</a>
+                    </sly>
+                </div>
+            </div>
+        </div>
     </div>
     <hr>
 </div>
