@@ -9,12 +9,14 @@ import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.components.content.links.BasicLink;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
+import org.codehaus.plexus.util.StringUtils;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -73,6 +75,9 @@ public class Notification implements  ComponentExporter {
     @Inject
     private List<BasicLink> linkItems;
 
+    @Inject
+    private Sku sku;
+
     public String getTitle() {
         return title;
     }
@@ -83,6 +88,11 @@ public class Notification implements  ComponentExporter {
 
     public String getIcon() {
         return icon;
+    }
+
+    public boolean isDisplay(){
+        return sku != null ? ( sku.isHazardous() && icon.contains("hazardous") )
+                || (sku.isColdChainShipping() && icon.contains("coldchain")) : StringUtils.isNotBlank(title);
     }
 
     public List<BasicLink> getLinkItems() {
