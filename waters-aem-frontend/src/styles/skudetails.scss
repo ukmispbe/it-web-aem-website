@@ -1,28 +1,31 @@
 .cmp-sku {
-    &-details {
-        h3{
-            @include font-h2;
+    &-details , &-list {
+        &__signin{
+            svg {
+                width: $icon-m;
+                fill: $color-link;
+                float:left;
+                .st0 , .st1 {
+                       stroke: $color-link;
+                }
+            }
         }
 
-        svg {
-            width: $icon-m;
-            fill: $color-link;
+        &__stockdetails {
             float:left;
-            .st0 , .st1 {
-                   stroke: $color-link;
+            &:hover {
+                color: $color-link;
+            }
+            svg {
+                width: $icon-m;
+                fill: $color-icon;
+                float:right;
+                &:hover {
+                    color: $color-link;
+                }
             }
         }
 
-        &__heading {
-            img {
-                display: none;
-            }
-        }
-
-        &__ecom {
-            background: $color-background-light;
-            padding: $space-l;
-        }
         &__buyinfo {
             display: flex;
             flex-flow: row;
@@ -39,17 +42,18 @@
             @include font-h1;
         }
 
-        &__stockdetails {
-            float:left;
-        }
-
         &__availability{
             padding: 0 $space-l 0 $space-s;
             padding-right: $space-s;
             @include font-h3 ;
             margin-top: -1em;
             border-left: 1px solid $color-border-light;
+        }
+
+        &__stockdetails{
             svg {
+                width:$icon-m;
+                fill: $color-success;
                 .st0 {
                        stroke: $color-success;
                 }
@@ -73,6 +77,9 @@
             border: 1px solid $color-border-light;
             background: $color-white;
             @include font-utility;
+            &:active {
+                border: 2px solid $color-focus;
+            }
         }
     }
 
@@ -119,7 +126,6 @@
                 display: block;
                 width: 92px;
                 height: 63px;
-                
                 border: 1px solid $color-border-light;
                 margin-right: $space-m
             }
@@ -200,6 +206,73 @@
             }
         }
     }
+}
+
+.cmp-sku-details {
+
+    h3{
+        @include font-h2;
+    }
+
+    &__heading {
+        img {
+            display: none;
+        }
+     }
+    &__ecom {
+        background: $color-background-light;
+        padding: $space-l;
+    }
+}
+
+.cmp-sku-list {
+
+    h3 {
+        @include font-small;
+    }
+
+    &__checkavailability {
+        svg {
+            width: $icon-m;
+            fill: $color-icon;
+            float:right;
+            &:hover {
+                .st0 , .st1 {
+                    stroke: $color-link;
+                }
+            }
+        }
+        &:hover {
+            color: $color-link;
+            svg {
+                .st0 , .st1 {
+                    stroke: $color-link;
+                }
+            }
+        }
+    }
+
+    h1 {
+         @include font-h3;
+    }
+
+    &__container{
+        background-color: $color-background-light;
+        padding: $space-m $space-m 0 $space-m;
+        margin-bottom: $space-m;
+        width: 100%;
+        margin-bottom: 2em;
+        clear:both;
+    }
+
+    &__right {
+        @include list-item-thumbnail;
+
+        @include mobile {
+            display: none;
+        }
+    }
+
 }
 
 // IE 11 CSS hacks
