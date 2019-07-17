@@ -2,7 +2,7 @@
          data-sly-test="${sectionContainer.title}"
          data-sly-attribute.id="${sectionContainer.id}"
          class="cmp-section-container ${sectionContainer.collapseOnMobile ? 'cmp-section-container--collapse' : ''}">
-    <div class="cmp-section-container__wrapper">
+    <div class="cmp-section-container__wrapper" data-sly-test="${isAuthor || sectionContainer.displaySectionContainer}">
             <div class="cmp-section-container__background"></div>
         <h2 class="cmp-section-container__title">${sectionContainer.title}</h2>
 

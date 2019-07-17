@@ -50,6 +50,16 @@ public final class Templates {
         return isPage(resource, WatersConstants.TEMPLATE_LIBRARY_PAGE);
     }
 
+    /**
+     * Check if the given page is a sku page.
+     *
+     * @param page page
+     * @return true if page is non-null and is a library template
+     */
+    public static boolean isSkuPage(final PageDecorator page) {
+        return isPage(page, WatersConstants.TEMPLATE_SKU_PAGE);
+    }
+
     private static boolean isPage(final PageDecorator page, final String template) {
         return page != null && isPage(page.getContentResource(), template);
     }
