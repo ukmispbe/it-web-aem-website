@@ -38,6 +38,10 @@ public final class SiteContext {
         return currentPage.getLanguage(false);
     }
 
+    public PageDecorator getPage() {
+        return currentPage;
+    }
+
     /**
      * If a country is not already defined in the current page's locale a new locale with a
      * configured default country is returned.
@@ -107,7 +111,4 @@ public final class SiteContext {
         return stringBuilder.toString();
     }
 
-    public PageDecorator getPageDecorator() {
-        return currentPage;
-    }
 }
