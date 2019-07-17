@@ -24,7 +24,7 @@ class ShowSortFilter extends Component {
             this.props.resetToSavedState();
             this.props.collapseFilters();
             
-            header.style.top = '';
+            header.style.display = '';
             sortFilterModal.style.top = '';
         } else {
             document.body.classList.add(showFilterClass);
@@ -32,8 +32,8 @@ class ShowSortFilter extends Component {
             this.props.setupFilters();
 
             if (screenSizes.isMobile()) {
-                // shift the header up so the sort filter is fixed at the top of the page
-                header.style.top = `${header.getBoundingClientRect().height * -1}px`;
+                // hide header so the sort filter is fixed at the top of the page
+                header.style.display = 'none';
 
                 // shift the sort filter modal to the bottom of the sort filter button
                 const sortFilterButtonBottom = this.sortFilterBtnRef.current.getBoundingClientRect().bottom;

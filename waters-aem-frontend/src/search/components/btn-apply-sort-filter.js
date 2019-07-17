@@ -19,9 +19,9 @@ class ApplySortFilter extends Component {
         this.props.applyFilters();
 
         if (screenSizes.isMobile()) {
-            // reposition the header back to its original top location after filters are applied
+            // show the header after filters are applied
             const header = domElements.getHeader();
-            header.style.top = '';
+            header.style.display = '';
         }
     }
 
