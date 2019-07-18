@@ -3,8 +3,13 @@
     background-color: $color-white;
     position: relative;
     width: 100%;
-    height: 77px;
+    height: 74px;
     z-index: 100;
+    margin-bottom: $space-l;
+    
+    @include mobile {
+        margin-bottom: $space-m;
+    }
 
     &__logo {
         padding: 1.2em 0 ($space-s - 0.1em);
