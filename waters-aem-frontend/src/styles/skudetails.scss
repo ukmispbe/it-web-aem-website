@@ -49,8 +49,8 @@
 
         &__availability{
             padding: 0 $space-m 0 $space-s;
-                        @include font-h3;
-                        margin-top: $space-xxxs;
+            @include font-h3;
+            margin-top: $space-xxxs;
             border-left: 1px solid $color-border-light;
             @include mobile {
                padding: 0 0 0 $space-xxs;
@@ -59,10 +59,14 @@
 
         &__stockdetails{
             svg {
-                width:$icon-m;
+                width: ($icon-m - .25em);
                 fill: $color-success;
-                .st0 {
+                margin-left: $space-xxxs;
+                margin-top: ($space-xxxs - .1em);
+                float:left;
+                .st0 , .st1 {
                        stroke: $color-success;
+                       stroke-width: 2px;
                 }
             }
         }
