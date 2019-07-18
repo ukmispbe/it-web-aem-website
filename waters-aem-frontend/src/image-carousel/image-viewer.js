@@ -144,6 +144,11 @@ class ImageViewer extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+
+        if (this.props.isActive !== prevProps.isActive) {
+            this.setState({ magnified: false });
+        }
+       
         if (
             (
                 prevState.imageWidth !== this.state.imageWidth 
@@ -251,6 +256,7 @@ ImageViewer.propTypes = {
     onCalculate: PropTypes.func,
     onZoomIn: PropTypes.func,
     onZoomOut: PropTypes.func,
+    isActive: PropTypes.bool,
 };
 
 export default ImageViewer;
