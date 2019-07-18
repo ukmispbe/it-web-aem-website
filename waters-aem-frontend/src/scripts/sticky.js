@@ -1,4 +1,4 @@
-const Sticky = (targetClassName, stickyClassName, topThreshold, topSticky, onStickyCallback = null, onNonStickyCallback = null) => {
+const Sticky = (targetClassName, stickyClassName, topThreshold, topSticky) => {
     let isSticky = false;
     let scrollYSticky = -1;
 
@@ -9,22 +9,14 @@ const Sticky = (targetClassName, stickyClassName, topThreshold, topSticky, onSti
     return function() {
         if (!isSticky && targetElement.getBoundingClientRect().top < topThreshold) {
             isSticky = true;
-            scrollYSticky = window.scrollY;
+            scrollYSticky = window.pageYOffset;
             targetElement.classList.add(stickyClassName);
             targetElement.style.top = `${topSticky}px`;
-
-            if (onStickyCallback) {
-                onStickyCallback();
-            }
-        } else if (isSticky && window.scrollY < scrollYSticky ) {
+        } else if (isSticky && window.pageYOffset < scrollYSticky ) {
             isSticky = false;
             scrollYSticky = -1;
             targetElement.classList.remove(stickyClassName);
             targetElement.style.top = '';
-
-            if (onNonStickyCallback) {
-                onNonStickyCallback()
-            }
         } 
     }
 }

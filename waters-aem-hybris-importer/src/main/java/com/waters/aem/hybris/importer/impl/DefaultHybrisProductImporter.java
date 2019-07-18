@@ -282,14 +282,8 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
             final Node productReferencesNode = JcrUtils.getOrAddNode(productNode,
                 WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCES);
 
-            // filter references for 'OTHERS' type
-            final List<ProductReference> validProductReferences = productReferences
-                .stream()
-                .filter(productReference -> productReference.getReferenceType().equals(ProductReferenceType.OTHERS))
-                .collect(Collectors.toList());
-
             setItemNodes(productReferencesNode, WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCE,
-                validProductReferences, productReference -> {
+                    productReferences, productReference -> {
                     final Map<String, Object> properties = new HashMap<>();
 
                     properties.put(WatersCommerceConstants.PROPERTY_PRESELECTED, productReference.getPreselected());
@@ -300,6 +294,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
                     properties.put(WatersCommerceConstants.PROPERTY_CODE, target.getCode());
                     properties.put(WatersCommerceConstants.PROPERTY_PROPRIETARY, target.getProprietary());
                     properties.put(WatersCommerceConstants.PROPERTY_TERMINATED, target.getTerminated());
+                    properties.put(WatersCommerceConstants.PROPERTY_PRODUCT_REFERENCE_TYPE, productReference.getReferenceType().toString());
 
                     return properties;
                 });
