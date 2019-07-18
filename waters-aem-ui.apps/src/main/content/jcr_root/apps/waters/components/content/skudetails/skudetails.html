@@ -13,19 +13,19 @@
                 <span>${'Sign in to view your price' @ i18n}</span>
             </a>-->
         </div>
-        <div class="cmp-sku-details__ecom">
+        <div class="cmp-sku-details__ecom" data-sly-test="${sku.active}">
             <div class="cmp-sku-details__buyinfo">
                 <div class="cmp-sku-details__priceinfo">
                     <sly data-sly-test.price="${sku.formattedPrice}">
-                        <span>${'List Price' @ i18n}</span>
-                        <div class="cmp-sku-details__price" data-sly-test="${sku.active}">${price}</div>
+                        <span>{'List Price' @ i18n}</span>
+                        <div class="cmp-sku-details__price">${price}</div>
                     </sly>
                 </div>
                 <div class="cmp-sku-details__availability"
                     data-instock="instock"
                     data-lowstock = "lowstock"
                     data-out-of-stock="out-of-stock">
-                    <span class="cmp-sku-details__stockdetails">Instock</span>
+                    <span class="cmp-sku-details__stockdetails">In stock</span>
                     <img alt="${'Login' @ i18n}" src="/content/dam/waters/brand-assets/icons/success.svg" class="inline-svg">
                     <div class="cmp-sku-details__order">${'Order now' @ i18n}</div>
                 </div>
@@ -36,8 +36,22 @@
             </div>
             <a class="cmp-sku-details__web-quote" href="#">${'Do you need a web quote?' @ i18n}</a>
         </div>
+        <div class="cmp-notification-wrapper" data-sly-test="${!sku.active}">
+            <div class="cmp-notification-icon">
+                <img class="inline-svg" src="/content/dam/waters/brand-assets/icons/attention.svg"/>
+            </div>
+            <div class="cmp-notification-body">
+                <div class="cmp-notification-title"></div>
+                <div class="cmp-notification-description">
+                    ${'This part number you selected is no longer available' @ i18n}
+                    <sly data-sly-test="${sku.replacementSkuCode}">
+                        ${', but there is a replacement. Please see the replacement part number' @ i18n}
+                        <a class="cmp-notification-links" href="">${sku.replacementSkuCode}</a>
+                    </sly>
+                </div>
+            </div>
+        </div>
     </div>
-    <hr>
 </div>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"

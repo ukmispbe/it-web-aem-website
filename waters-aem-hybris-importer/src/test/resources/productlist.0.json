@@ -110,6 +110,8 @@
                 }
             ],
             "code": "176001744",
+            "coldChainShipping": true,
+            "hazardous": false,
             "description": "Waters ACQUITY UPLC total solution for the analysis of Perfluorinated Compounds (PFCs).  The kit contains ACQUITY BEH C18 column, PFC isolator column, and other PFCs-free components optimized for use with the ACQUITY system.  Sample preparation consumables such as Oasis HLB cartridges, PFC calibration standards, PFC unknown QC standards, and sample vials are also included.",
             "images": [
                 {
@@ -624,6 +626,8 @@
                 }
             ],
             "code": "176001836",
+            "coldChainShipping": true,
+            "hazardous": false,
             "description": "The HPLC Therapeutic Peptide Method Development kit simplifies the process of sample preparation and LC method development for the analysis of therapeutic peptides in plasma. The kit contains one 96-well Oasis Peptide ?Elution Method Development Plate (186004713), one XBridge UPLC 3.5 µm BEH 300Å C18 reversed-phase 2.1x50 mm column (186003607), three 96-well 1 mL collection plates and cap mats (600001043), and a detailed screening protocol.",
             "name": "HPLC Therapeutic Peptide Method Development Kit",
             "prices": [
@@ -1331,6 +1335,8 @@
                 }
             ],
             "code": "176004151",
+            "coldChainShipping": true,
+            "hazardous": false,
             "description": "The GlycoWorks RapiFluor-MS N-Glycan Script Starter Kit – Automation has been designed for use with automated platforms enabling high-throughput glycoprotein sample preparation for analysis of N-glycans with minimal user intervention. This protocol is validated using monoclonal antibodies and has also been tested to perform for a wide range of other N-linked glycoproteins.  All reagents in the kit are scaled to residual volumes needed for many automated instrumentation allowing for versatility when choosing your platform.   The kit is in a 2 x 48 format.\n\nThe GlycoWorks RapiFluor-MS N-Glycan Script Starter Kit contains the addition of a CD and Workstation requirements document that contains the script developed during verification testing when using a Tecan® Freedom EVO® 100/4 as well as a RFMS labeled standard, column and mobile phase concentrate which are the recommended for use with the RapiFluor-MS Library.",
             "images": [
                 {
@@ -1953,6 +1959,8 @@
                 }
             ],
             "code": "186007362",
+            "coldChainShipping": true,
+            "hazardous": false,
             "description": "Quad LCMS QC Reference Material A quality control reference material intended to be used to benchmark and assess the performance of your UPLC system including a single or triple quad mass spectrometer.     Kit contains 1 mL of a 8 component mix including 100ug/mL Acetaminophen, 50ug/mL Sulfaguanidine, 10 ug/mL Sulfadimethoxine, 25 ug/mL Val,-Tyr,-Val, 6 ug/mL Verapamil, 6 ug/mL Terfenadine, 25 ug/mL Leucine Enkephalin, and 18 ug/mL Reserpine in 19/81 Acetonitrile/water 0.008% formic acid.",
             "images": [
                 {
@@ -2637,6 +2645,8 @@
                 }
             ],
             "code": "186008304",
+            "coldChainShipping": true,
+            "hazardous": false,
             "description": "The ProteinWorks uElution SPE Clean-up Kit is designed for post-digestion peptide clean-up in LC-MS protein quantification via the surrogate peptide approach.  This kit includes an optimized SPE protocol and Oasis uElution technology delivering maximum peptide recovery and the removal of digest reagents and other matrix interferences.  The uElution Clean-up kit enhances assay sensitivity and improves LC-MS system robustness.",
             "images": [
                 {

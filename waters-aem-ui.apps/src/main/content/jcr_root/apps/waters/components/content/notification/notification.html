@@ -1,5 +1,6 @@
 <div data-sly-use.notification="com.waters.aem.core.components.content.Notification"
-     class="cmp-notification-wrapper">
+     class="cmp-notification-wrapper"
+     data-sly-test="${notification.title}">
         <div class="cmp-notification-icon">
             <img class="${notification.svg ? 'inline-svg' : ''}" data-sly-test="${notification.icon}" src="${notification.icon}"/>
         </div>

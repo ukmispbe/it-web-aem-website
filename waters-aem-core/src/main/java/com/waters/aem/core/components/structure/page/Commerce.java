@@ -12,7 +12,9 @@ import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 
 @Component(value = "Commerce",
-    tabs = @Tab(title = "Commerce"),
+    tabs = @Tab(
+        title = "Commerce",
+        renderConditionResourceType = WatersConstants.RENDER_CONDITION_CATALOG_TEMPLATE),
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE,
     name = WatersConstants.COMPONENT_NAME_PAGE,

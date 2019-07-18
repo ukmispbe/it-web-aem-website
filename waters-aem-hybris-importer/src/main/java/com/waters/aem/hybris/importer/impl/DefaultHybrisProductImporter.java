@@ -262,8 +262,8 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
             .toArray(String[] :: new));
         properties.put(WatersCommerceConstants.PROPERTY_TERMINATED, product.getTerminated());
         properties.put(WatersCommerceConstants.PROPERTY_PROPRIETARY, product.getProprietary());
-        properties.put(WatersCommerceConstants.PROPERTY_COLD_STORAGE, product.getColdStorage());
-        properties.put(WatersCommerceConstants.PROPERTY_HAZARDOUS_HANDLING, product.getHazardousHandling());
+        properties.put(WatersCommerceConstants.PROPERTY_COLD_CHAIN_SHIPPING, product.getColdChainShipping());
+        properties.put(WatersCommerceConstants.PROPERTY_HAZARDOUS, product.getHazardous());
 
         setNodeProperties(productNode, properties);
 
@@ -282,14 +282,8 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
             final Node productReferencesNode = JcrUtils.getOrAddNode(productNode,
                 WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCES);
 
-            // filter references for 'OTHERS' type
-            final List<ProductReference> validProductReferences = productReferences
-                .stream()
-                .filter(productReference -> productReference.getReferenceType().equals(ProductReferenceType.OTHERS))
-                .collect(Collectors.toList());
-
             setItemNodes(productReferencesNode, WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCE,
-                validProductReferences, productReference -> {
+                    productReferences, productReference -> {
                     final Map<String, Object> properties = new HashMap<>();
 
                     properties.put(WatersCommerceConstants.PROPERTY_PRESELECTED, productReference.getPreselected());
@@ -300,6 +294,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
                     properties.put(WatersCommerceConstants.PROPERTY_CODE, target.getCode());
                     properties.put(WatersCommerceConstants.PROPERTY_PROPRIETARY, target.getProprietary());
                     properties.put(WatersCommerceConstants.PROPERTY_TERMINATED, target.getTerminated());
+                    properties.put(WatersCommerceConstants.PROPERTY_PRODUCT_REFERENCE_TYPE, productReference.getReferenceType().toString());
 
                     return properties;
                 });
@@ -334,8 +329,6 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
     private void setClassifications(final Node productNode, final List<Classification> classifications)
             throws RepositoryException {
-        final String productNodePath = productNode.getPath();
-
         if (!classifications.isEmpty()) {
             final Node classificationsNode = JcrUtils.getOrAddNode(productNode,
                     WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATIONS);
@@ -350,13 +343,6 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
             setItemNodes(classificationsNode, WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATION, flattenedFeatures,
                 feature -> {
                     final Map<String, Object> properties = new HashMap<>();
-
-                    for (FeatureValue featureValue : feature.getFeatureValues()) {
-                        if (featureValue.getPosition() == null) {
-                            LOG.warn("missing featureValue.position on sku {} and feature {}",
-                                productNodePath.substring(productNodePath.lastIndexOf("/") + 1), feature.getCode());
-                        }
-                    }
 
                     properties.put(WatersCommerceConstants.PROPERTY_NAME, StringUtils.isNotEmpty(
                             feature.getPublicWebLabel()) ? feature.getPublicWebLabel() : feature.getName());

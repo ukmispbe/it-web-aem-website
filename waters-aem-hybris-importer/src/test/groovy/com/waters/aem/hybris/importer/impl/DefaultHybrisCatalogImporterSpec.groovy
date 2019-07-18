@@ -11,8 +11,10 @@ class DefaultHybrisCatalogImporterSpec extends AbstractHybrisImporterSpec {
             waters {
                 "language-masters" {
                     en {
-                        products {
+                        shop {
+                            products {
 
+                            }
                         }
                     }
                 }

@@ -14,4 +14,6 @@ class ProductReferenceTarget {
     Boolean terminated
 
     String url
+
+    String type
 }
