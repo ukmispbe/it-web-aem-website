@@ -11,6 +11,7 @@ import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.collect.ImmutableList;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.node.ComponentNode;
 import com.icfolson.aem.library.api.page.PageDecorator;
@@ -19,6 +20,9 @@ import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.core.link.builders.factory.LinkBuilderFactory;
 import com.icfolson.aem.library.core.node.predicates.ComponentNodePropertyExistsPredicate;
 import com.waters.aem.core.components.EmptyComponent;
+import com.waters.aem.core.components.content.SkuList;
+import com.waters.aem.core.components.content.SpecificationsTable;
+import com.waters.aem.core.components.content.Text;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -66,6 +70,14 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH
 public final class SectionContainer extends AbstractComponent implements ContainerExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/applicationnotes/sectioncontainer";
+
+    // currently used for sku pages only. section containers holding sku components that do not have
+    // any PIM data to display should be hidden.
+    private static final List<String> SUPPORTED_SKU_RESOURCE_TYPES = ImmutableList.of(
+            Text.RESOURCE_TYPE,
+            SkuList.RESOURCE_TYPE,
+            SpecificationsTable.RESOURCE_TYPE
+    );
 
     @Inject
     private SlingModelFilter slingModelFilter;
@@ -159,6 +171,7 @@ public final class SectionContainer extends AbstractComponent implements Contain
                 new ComponentNodePropertyExistsPredicate(ResourceResolver.PROPERTY_RESOURCE_TYPE));
 
         return sectionComponents.stream()
+            .filter(componentNode -> SUPPORTED_SKU_RESOURCE_TYPES.contains(componentNode.getResource().getResourceType()))
             .map(componentNode ->
                     modelFactory.getModelFromWrappedRequest(request, componentNode.getResource(), EmptyComponent.class))
             .filter(Objects::nonNull)
