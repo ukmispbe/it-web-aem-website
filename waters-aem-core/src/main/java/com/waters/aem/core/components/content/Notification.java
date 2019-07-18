@@ -74,9 +74,6 @@ public class Notification implements  ComponentExporter {
     @Inject
     private List<BasicLink> linkItems;
 
-    @Inject
-    private Sku sku;
-
     public String getTitle() {
         return title;
     }
