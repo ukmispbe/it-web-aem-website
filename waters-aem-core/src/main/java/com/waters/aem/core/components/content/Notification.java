@@ -16,7 +16,6 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
-import org.codehaus.plexus.util.StringUtils;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -88,11 +87,6 @@ public class Notification implements  ComponentExporter {
 
     public String getIcon() {
         return icon;
-    }
-
-    public boolean isDisplay(){
-        return sku != null ? ( sku.isHazardous() && icon.contains("hazardous") )
-                || (sku.isColdChainShipping() && icon.contains("coldchain")) : StringUtils.isNotBlank(title);
     }
 
     public List<BasicLink> getLinkItems() {

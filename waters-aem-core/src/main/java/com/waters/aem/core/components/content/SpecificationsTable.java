@@ -33,6 +33,10 @@ public final class SpecificationsTable implements ComponentExporter {
         return sku != null ? sku.getClassifications() : Collections.emptyList();
     }
 
+    public Sku getSku(){
+        return sku;
+    }
+
     @Nonnull
     @Override
     public String getExportedType() {
