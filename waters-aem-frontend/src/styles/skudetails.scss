@@ -1,37 +1,32 @@
 .cmp-sku {
-    &-details {
-        margin-bottom: $space-l;
-        h3{
-            @include font-h2;
-            margin-bottom: $space-xxs;
+    &-details , &-list {
+    margin-bottom: $space-l;
+        &__signin{
+            svg {
+                width: $icon-m;
+                fill: $color-link;
+                float:left;
+                .st0 , .st1 {
+                       stroke: $color-link;
+                }
+            }
         }
 
-        svg {
-            width: ($icon-m - .25em);
-            fill: $color-success;
-            margin-left: $space-xxxs;
-            margin-top: ($space-xxxs - .1em);
+        &__stockdetails {
             float:left;
-            .st0 , .st1 {
-                   stroke: $color-success;
-                   stroke-width: 2px;
+            &:hover {
+                color: $color-link;
+            }
+            svg {
+                width: $icon-m;
+                fill: $color-icon;
+                float:right;
+                &:hover {
+                    color: $color-link;
+                }
             }
         }
 
-        &__heading {
-            img {
-                display: none;
-            }
-        }
-
-        &__ecom {
-            background: $color-background-light;
-            padding: $space-l;
-
-            @include mobile {
-                padding: $space-m;
-            }
-        }
         &__buyinfo {
             display: flex;
             flex-flow: row;
@@ -57,14 +52,22 @@
             @include font-h3;
             margin-top: $space-xxxs;
             border-left: 1px solid $color-border-light;
-            svg {
-                .st0 {
-                       stroke: $color-success;
-                }
-            }
-
             @include mobile {
-                padding: 0 0 0 $space-xxs;
+               padding: 0 0 0 $space-xxs;
+            }
+        }
+
+        &__stockdetails{
+            svg {
+                width: ($icon-m - .25em);
+                fill: $color-success;
+                margin-left: $space-xxxs;
+                margin-top: ($space-xxxs - .1em);
+                float:left;
+                .st0 , .st1 {
+                       stroke: $color-success;
+                       stroke-width: 2px;
+                }
             }
         }
 
@@ -93,6 +96,9 @@
             border: 1px solid $color-border-light;
             background: $color-white;
             @include font-utility;
+            &:active {
+                border: 2px solid $color-focus;
+            }
             font-family: $font-stack;
             font-weight: $font-weight-light;
             text-align: center;
@@ -100,10 +106,6 @@
             &:focus {
                 outline: 2px solid $color-focus;
             }
-        }
-
-        &__web-quote {
-            @include font-h3;
         }
     }
 
@@ -133,6 +135,7 @@
         }
 
         .cmp-sku-details__heading {
+            width: 65%;
             position: relative;
             display: flex;
             align-items: center;
@@ -150,13 +153,12 @@
                 display: block;
                 width: 92px;
                 height: 63px;
-                
                 border: 1px solid $color-border-light;
                 margin-right: $space-m
             }
 
             .cmp-sku-details__info {
-                width: 100%;
+                width: 80%;
 
                 @include tablet {
                     width: 60%;
@@ -196,14 +198,10 @@
             }
         }
 
-        .cmp-sku-details__buyinfo {
-            margin-top: 10px;
-        }
-
         .cmp-sku-details__priceinfo {
             background: none;
 
-            @include mobile {
+            @include tablet-and-under {
                 display: none;
             }
 
@@ -231,6 +229,80 @@
             }
         }
     }
+}
+
+.cmp-sku-details {
+
+    h3{
+                @include font-h2;
+                margin-bottom: $space-xxs;
+            }
+
+    &__heading {
+        img {
+            display: none;
+        }
+     }
+    &__ecom {
+        background: $color-background-light;
+        padding: $space-l;
+         @include mobile {
+                        padding: $space-m;
+                    }
+    }
+    &__web-quote {
+        @include font-h3;
+    }
+}
+
+.cmp-sku-list {
+
+    h3 {
+        @include font-small;
+    }
+
+    &__checkavailability {
+        svg {
+            width: $icon-m;
+            fill: $color-icon;
+            float:right;
+            &:hover {
+                .st0 , .st1 {
+                    stroke: $color-link;
+                }
+            }
+        }
+        &:hover {
+            color: $color-link;
+            svg {
+                .st0 , .st1 {
+                    stroke: $color-link;
+                }
+            }
+        }
+    }
+
+    h1 {
+         @include font-h3;
+    }
+
+    &__container{
+        background-color: $color-background-light;
+        padding: $space-m $space-m 0 $space-m;
+        margin-bottom: $space-m;
+        width: 100%;
+        margin-bottom: 2em;
+        clear:both;
+    }
+
+    &__right {
+        @include list-item-thumbnail;
+
+        @include mobile {
+            display: none;
+        }
+    }
+
 }
 
 // IE 11 CSS hacks

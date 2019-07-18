@@ -49,6 +49,7 @@ class ImageCarousel extends React.Component {
             template={template}
             widths={this.props.widths}
             alt={this.props.alt}
+            isActive={index === this.state.activeIndex}
             zoomInIcon={this.props.zoomInIcon}
             zoomOutIcon={this.props.zoomOutIcon}
             onZoomIn={this.handleZoomIn}
