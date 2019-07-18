@@ -12,21 +12,6 @@
             }
         }
 
-        &__stockdetails {
-            float:left;
-            &:hover {
-                color: $color-link;
-            }
-            svg {
-                width: $icon-m;
-                fill: $color-icon;
-                float:right;
-                &:hover {
-                    color: $color-link;
-                }
-            }
-        }
-
         &__buyinfo {
             display: flex;
             flex-flow: row;
@@ -43,9 +28,6 @@
             margin-bottom: $space-xxs;
         }
 
-        &__stockdetails {
-            float:left;
-        }
 
         &__availability{
             padding: 0 $space-m 0 $space-s;
@@ -63,7 +45,7 @@
                 fill: $color-success;
                 margin-left: $space-xxxs;
                 margin-top: ($space-xxxs - .1em);
-                float:left;
+                float: right;
                 .st0 , .st1 {
                        stroke: $color-success;
                        stroke-width: 2px;
@@ -82,16 +64,16 @@
 
             @include mobile {
                 margin-top: 0;
-                margin-bottom: $space-m;
+                margin-bottom: $space-s;
                 width: 100%;
             }
         }
 
         input[type="text"] {
             margin: 0 $space-xxs 0 0;
-            padding: $space-xxs;
+            padding: ($space-xxs - .2em) $space-xxs $space-xxs $space-xxs;
             width: 65px;
-            height: 3.15em;
+            height: 3.1em;
             float:left;
             border: 1px solid $color-border-light;
             background: $color-white;
@@ -120,17 +102,18 @@
             width: 100%;
             height: 100px;
             margin: 0 auto;
-            border-bottom: 1px solid $color-border-light;
             padding: $space-xs $space-xxl;
             background-color: $color-white;
 
             @include mobile {
-                padding: $space-xs $space-s;
+                box-shadow: $shadow;
+                padding: $space-s $space-s 0 $space-s;
+                height: 92px;
             }
 
             @include tablet {
-                padding-left: $space-l + .5em;
-                padding-right: $space-l + .5em;
+                padding-left: ($space-l + .5em);
+                padding-right: ($space-l + .5em);
             }
         }
 
@@ -140,6 +123,7 @@
             display: flex;
             align-items: center;
             flex-grow: 1;
+            padding-top: $space-xxxs;
 
             @include tablet {
                 width: 47%;
@@ -153,8 +137,7 @@
                 display: block;
                 width: 92px;
                 height: 63px;
-                border: 1px solid $color-border-light;
-                margin-right: $space-m
+                margin-right: $space-s;
             }
 
             .cmp-sku-details__info {
@@ -181,7 +164,7 @@
                 }
 
                 h3 {
-                    @include font-utility;
+                    @include font-small;
 
                     margin-block-start: 0;
                     margin-block-end: 0;
@@ -200,6 +183,7 @@
 
         .cmp-sku-details__priceinfo {
             background: none;
+            padding-right: $space-s;
 
             @include tablet-and-under {
                 display: none;
