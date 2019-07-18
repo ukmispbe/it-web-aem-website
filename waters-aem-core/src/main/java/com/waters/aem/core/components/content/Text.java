@@ -7,6 +7,8 @@ import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.waters.aem.core.commerce.models.Sku;
+import com.waters.aem.core.components.EmptyComponent;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -24,12 +26,13 @@ import javax.inject.Inject;
     resourceSuperType = Text.RESOURCE_SUPER_TYPE,
     editConfig = false,
     tabs = @Tab(title = "Properties", touchUINodeName = "properties"))
-@Model(adaptables = SlingHttpServletRequest.class,
+@Model(adaptables = { SlingHttpServletRequest.class },
+    adapters = { Text.class, EmptyComponent.class },
     resourceType = Text.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public final class Text implements com.adobe.cq.wcm.core.components.models.Text {
+public final class Text implements com.adobe.cq.wcm.core.components.models.Text, EmptyComponent {
 
     static final String RESOURCE_SUPER_TYPE = "core/wcm/components/text/v2/text";
 
@@ -70,8 +73,7 @@ public final class Text implements com.adobe.cq.wcm.core.components.models.Text 
 
     @Override
     public String getText() {
-
-        if(sku != null){
+        if (sku != null) {
             return sku.getLongDescription();
         }
 
@@ -81,6 +83,11 @@ public final class Text implements com.adobe.cq.wcm.core.components.models.Text 
     @Override
     public boolean isRichText() {
         return delegate.isRichText();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return StringUtils.isEmpty(getText());
     }
 
     @Nonnull

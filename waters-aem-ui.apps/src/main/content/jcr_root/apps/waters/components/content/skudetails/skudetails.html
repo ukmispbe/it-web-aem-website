@@ -17,7 +17,7 @@
             <div class="cmp-sku-details__buyinfo">
                 <div class="cmp-sku-details__priceinfo">
                     <sly data-sly-test.price="${sku.formattedPrice}">
-                        <span>List Price</span>
+                        <span>${'List Price' @ i18n}</span>
                         <div class="cmp-sku-details__price" data-sly-test="${sku.active}">${price}</div>
                     </sly>
                 </div>

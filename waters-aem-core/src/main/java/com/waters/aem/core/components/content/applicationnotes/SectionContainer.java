@@ -12,15 +12,18 @@ import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.icfolson.aem.library.api.link.Link;
+import com.icfolson.aem.library.api.node.ComponentNode;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.components.AbstractComponent;
+import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.core.link.builders.factory.LinkBuilderFactory;
-import com.waters.aem.core.commerce.models.Sku;
+import com.icfolson.aem.library.core.node.predicates.ComponentNodePropertyExistsPredicate;
+import com.waters.aem.core.components.EmptyComponent;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.utils.Templates;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -32,7 +35,9 @@ import org.apache.sling.models.factory.ModelFactory;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_DELETE;
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_EDIT;
@@ -75,9 +80,6 @@ public final class SectionContainer extends AbstractComponent implements Contain
     private Resource resource;
 
     @Inject
-    private Sku sku;
-
-    @Inject
     private PageDecorator currentPage;
 
     private Map<String, ComponentExporter> exportedItems;
@@ -106,38 +108,11 @@ public final class SectionContainer extends AbstractComponent implements Contain
     }
 
     public Boolean isDisplaySectionContainer() {
-        return !Templates.isSkuPage(currentPage) || (sku != null && componentContentIsValid());
-    }
-
-    public Boolean componentContentIsValid() {
-        boolean valid = false;
-
-        for(Resource child : resource.getChild("par").getChildren()) {
-            valid = validateContent(child.getResourceType());
-            if(valid) {
-                break;
-            }
+        if (Templates.isSkuPage(currentPage)) {
+            return isComponentDataEmpty();
+        } else {
+            return true;
         }
-
-        return valid;
-    }
-
-    public Boolean validateContent(String resourceType) {
-        boolean isValid = false;
-
-        switch(resourceType) {
-            case "waters/components/content/text":
-                isValid = !StringUtils.isBlank(sku.getLongDescription());
-                break;
-            case "waters/components/content/specificationstable":
-                isValid = sku.getClassifications().size() > 0;
-                break;
-            case "waters/components/content/skulist":
-                isValid = sku.getRelatedSkus().size() > 0;
-                break;
-        }
-
-        return isValid;
     }
 
     @JsonProperty
@@ -177,5 +152,16 @@ public final class SectionContainer extends AbstractComponent implements Contain
     @Override
     public String getExportedType() {
         return RESOURCE_TYPE;
+    }
+
+    private boolean isComponentDataEmpty() {
+        final List<ComponentNode> sectionComponents = getComponentNodes(ComponentConstants.NODE_NAME_PAR,
+                new ComponentNodePropertyExistsPredicate(ResourceResolver.PROPERTY_RESOURCE_TYPE));
+
+        return sectionComponents.stream()
+            .map(componentNode ->
+                    modelFactory.getModelFromWrappedRequest(request, componentNode.getResource(), EmptyComponent.class))
+            .filter(Objects::nonNull)
+            .noneMatch(EmptyComponent::isEmpty);
     }
 }
