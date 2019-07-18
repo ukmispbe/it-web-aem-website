@@ -58,6 +58,10 @@
         font-weight: $font-weight-bold;
         padding-right: $space-xxs;
         display: inline;
+
+        @include mobile {
+            padding-right:0;
+        }
     }
 
     &-links {

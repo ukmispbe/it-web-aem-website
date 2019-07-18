@@ -1,6 +1,7 @@
 import React from "react";
 import ReactSVG from 'react-svg';
 import PropTypes from 'prop-types';
+import screenSizes from '../scripts/screenSizes';
 
 const PREV = -1;
 const NEXT = 1;
@@ -9,6 +10,9 @@ const WIDTH_PER_THUMBNAIL = 86;
 class ImageThumbnails extends React.Component {
   constructor(props) {
     super(props);
+
+    this.gradientLeftRef = React.createRef();
+    this.gradientRightRef = React.createRef();
 
     this.refs = [];
 
@@ -162,6 +166,48 @@ class ImageThumbnails extends React.Component {
     return ''
   }
 
+  gradientLeft = () => {
+    if (this.state.firstIndex !== 0) {
+      this.addGradientLeft();
+    } else {
+      this.removeGradientLeft();
+    }
+  }
+
+  gradientRight = () => {
+    const lastIndex = this.getLastIndex(this.props.width, this.props.items.length);
+
+    if (this.state.firstIndex < lastIndex) {
+      this.addGradientRight();
+    } else {
+      this.removeGradientRight();
+    }
+  }
+
+  addGradientLeft = () => {
+    if (this.gradientLeftRef.current) {
+      this.gradientLeftRef.current.style.display = 'block';
+    }
+  }
+
+  removeGradientLeft = () => {
+    if (this.gradientLeftRef.current) {
+      this.gradientLeftRef.current.style.display = 'none';
+    }
+  }
+
+  addGradientRight = () => {
+    if (this.gradientRightRef.current) {
+      this.gradientRightRef.current.style.display = 'block';
+    }
+  }
+
+  removeGradientRight = () => {
+    if (this.gradientRightRef.current) {
+      this.gradientRightRef.current.style.display = 'none';
+    }
+  }
+
   render() {
     return (
       <div className={`image-thumbnails-wrapper ${this.getImageThumbnailsWrapperClassName()}`} style={this.getImageThumbnailsWrapperStyle()}>
@@ -174,13 +220,22 @@ class ImageThumbnails extends React.Component {
           onTouchMove={this.handleTouchMove}
           onTouchEnd={this.handleTouchEnd}
         >
+          <div ref={this.gradientLeftRef} class="image-thumbnails-wrapper__gradient-left"></div>
           {this.renderItems()}
+          <div ref={this.gradientRightRef} class="image-thumbnails-wrapper__gradient-right"></div>
         </div>
         <div className={`image-thumbnails-button ${this.getNextButtonClassName()}`} onClick={e => this.handleSlide(NEXT)}>
             <ReactSVG src="/content/dam/waters/brand-assets/icons/right.svg" />
         </div>
       </div>
     );
+  }
+
+  componentDidUpdate(prevProps) {
+    if (screenSizes.isTabletAndUnder()) {
+      this.gradientLeft();
+      this.gradientRight();
+    }
   }
 }
 

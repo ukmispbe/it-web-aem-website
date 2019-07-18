@@ -1,10 +1,41 @@
 <div data-sly-use.skuList="com.waters.aem.core.components.content.SkuList"
      class="cmp-sku-list">
-    <div data-sly-repeat.sku="${skuList.displayableSkus}">
-        <img src="${sku.primaryImageThumbnail}" alt="${sku.primaryImageAlt}">
-        <h1>${sku.title}</h1>
-        <h3>${sku.code}</h3>
-        <div>Price: ${sku.formattedPrice}</div>
+    <!--<a class="cmp-sku-list__signin" href="#">
+        <img alt="${'Login' @ i18n}" src="/content/dam/waters/brand-assets/icons/user.svg" class="inline-svg">
+        <span>${'Sign in to view your price' @ i18n}</span>
+    </a>-->
+    <div class="cmp-sku-list__container" data-sly-repeat.sku="${skuList.displayableSkus}">
+        <div class="cmp-sku-list__right">
+            <img src="${sku.primaryImageThumbnail}" alt="${sku.primaryImageAlt}">
+        </div>
+        <div class="cmp-sku-list__left">
+            <h3>${sku.code}</h3>
+            <a href="#">
+                <h1>${sku.title}</h1>
+            </a>
+            <div class="cmp-sku-list__buyinfo">
+                <div class="cmp-sku-list__priceinfo">
+                    <span>List Price:</span>
+                    <div class="cmp-sku-list__price"> ${sku.formattedPrice}</div>
+                </div>
+                <div class="cmp-sku-list__availability"
+                     data-instock="instock"
+                     data-lowstock = "lowstock"
+                     data-out-of-stock="out-of-stock">
+                    <span class="cmp-sku-list__checkavailability">${'See Availability'  @ i18n}
+                        <img alt="${'See Availability' @ i18n}" src="/content/dam/waters/brand-assets/icons/refresh.svg" class="inline-svg">
+                    </span>
+                    <!--<span class="cmp-sku-list__stockdetails">${'Instock' @ i18n}
+                    <img alt="${'Login' @ i18n}" src="/content/dam/waters/brand-assets/icons/success.svg" class="inline-svg">
+                    </span>
+                    <div class="cmp-sku-list__order">${'Order now' @ i18n}</div>-->
+                </div>
+                <div class="cmp-sku-list__buttons">
+                    <input type="text" placeholder="Qty" maxlength="3" value="">
+                    <a class="cmp-button">${'ADD TO CART' @ i18n}</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

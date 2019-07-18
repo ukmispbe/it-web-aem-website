@@ -46,8 +46,8 @@
 }
 
 .image-viewer-container__image-zoom {
-    right: 0;
-    bottom: 0;
+    right: 1px;
+    bottom: 1px;
     width: 4em;
     height: 4em;
     position: absolute;
@@ -79,6 +79,41 @@
 
 .image-thumbnails-wrapper {
     display: flex;
+}
+
+.image-thumbnails-wrapper__gradient-left {
+    display: none;
+
+    @include tablet-and-under {
+        width: 40px;
+        height: 50px;
+        position: absolute;
+        z-index: 1;
+
+        background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
+        background:    -moz-linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
+        background:     -ms-linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
+        background:      -o-linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
+        background:         linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
+    }
+}
+
+.image-thumbnails-wrapper__gradient-right {
+    display: none;
+
+    @include tablet-and-under {
+        width: 40px;
+        height: 50px;
+        position: absolute;
+        z-index: 1;
+        right: 0;
+
+        background: -webkit-linear-gradient(right, rgba(255,255,255,0.8) 30%,rgba(255,255,255,0.2) 100%);
+        background:    -moz-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+        background:     -ms-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+        background:      -o-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+        background:         linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+    }
 }
 
 .image-thumbnails-container {

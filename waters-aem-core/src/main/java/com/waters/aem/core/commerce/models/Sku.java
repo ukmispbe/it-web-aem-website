@@ -168,6 +168,10 @@ public final class Sku {
             .orElse(Collections.emptyList());
     }
 
+    public PageDecorator getSkuPage(PageDecorator currentPage) {
+        return skuRepository.getSkuPage(currentPage, getCode());
+    }
+
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
