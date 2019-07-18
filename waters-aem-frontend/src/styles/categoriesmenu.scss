@@ -59,8 +59,9 @@
     }
 
     svg {
-        width: ($icon-m + .1em);
-        height: ($icon-m + .1em);
+        width: $icon-m;
+        height: $icon-m;
+        margin-top: ($space-xxxs - .2em);
 
         .st0 {
             stroke: $color-icon;
