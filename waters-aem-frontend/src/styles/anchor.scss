@@ -144,7 +144,7 @@
         color: $color-font-dark;
         @include tablet-and-over {
             padding-bottom: ($space-xs + .05em);
-            border-bottom: 2px solid $color-teal-30;
+            border-bottom: 2px solid $color-gray-50;
         }
     }
 

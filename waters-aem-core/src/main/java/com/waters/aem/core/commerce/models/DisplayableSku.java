@@ -34,6 +34,10 @@ public final class DisplayableSku {
         return sku;
     }
 
+    public String getSkuPageHref() {
+        return sku.getSkuPage(siteContext.getPage()).getHref();
+    }
+
     public String getCode() {
         return sku.getCode();
     }
@@ -52,6 +56,7 @@ public final class DisplayableSku {
         return price == null ? null : NumberFormat.getCurrencyInstance(siteContext.getLocaleWithCountry()).format(price);
     }
 
+    @SuppressWarnings("squid:S2259")
     public String getPrimaryImageSrc() {
         return getPrimaryImageAsset() == null ? null : getPrimaryImageAsset().getPath();
     }

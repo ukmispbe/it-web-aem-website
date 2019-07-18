@@ -136,7 +136,7 @@ div.cmp-search__no-results {
             margin: 0 $space-xxs 0 0;
             border: 1px solid $color-border-light;
             float: left;
-            padding-top: $space-xxs;
+            padding-top: ($space-xxs - .1em);
             text-decoration: none;
             text-align: center;
             height: $button-fixed;
@@ -158,7 +158,8 @@ div.cmp-search__no-results {
         }
         &.selected {
             a {
-                border: 2px solid $color-border-accent;
+                border: 2px solid $color-gray-50;
+                font-weight: $font-weight-bold;
             }
             @include mobile {
                 display: inline;
