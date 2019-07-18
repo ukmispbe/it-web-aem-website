@@ -135,6 +135,7 @@
         }
 
         .cmp-sku-details__heading {
+            width: 65%;
             position: relative;
             display: flex;
             align-items: center;
@@ -157,7 +158,7 @@
             }
 
             .cmp-sku-details__info {
-                width: 100%;
+                width: 80%;
 
                 @include tablet {
                     width: 60%;
@@ -197,14 +198,10 @@
             }
         }
 
-        .cmp-sku-details__buyinfo {
-            margin-top: 10px;
-        }
-
         .cmp-sku-details__priceinfo {
             background: none;
 
-            @include mobile {
+            @include tablet-and-under {
                 display: none;
             }
 
