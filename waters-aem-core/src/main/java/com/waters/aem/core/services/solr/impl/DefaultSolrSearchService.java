@@ -20,7 +20,7 @@ public final class DefaultSolrSearchService implements SolrSearchService {
 
     @Activate
     @Modified
-    protected void activate(final  WatersServiceConfiguration configuration) {
+    protected void activate(final WatersServiceConfiguration configuration) {
         baseUrl = configuration.searchBaseUrl();
     }
 }
