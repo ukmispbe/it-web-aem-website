@@ -34,6 +34,10 @@ public final class SpecificationsTable implements EmptyComponent, ComponentExpor
         return sku != null ? sku.getClassifications() : Collections.emptyList();
     }
 
+    public Sku getSku(){
+        return sku;
+    }
+
     @Override
     public boolean isEmpty() {
         return getSpecifications().isEmpty();
