@@ -23,7 +23,6 @@
     overflow: hidden;
     background-repeat: no-repeat;
     background-clip: border-box;
-    touch-action: none;
     
     -webkit-transition: background-size 500ms ease-in-out;
     -moz-transition: background-size 500ms ease-in-out;
@@ -38,6 +37,7 @@
 
 .image-viewer-container__image-figure--true {
     background-size: 200%;
+    touch-action: none;
 }
 
 .image-viewer-container__image-display {
