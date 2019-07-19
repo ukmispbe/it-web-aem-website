@@ -41,11 +41,11 @@ class ImageThumbnails extends React.Component {
     }
   };
 
+  getSlideDelay = () => screenSizes.isTabletAndUnder() ? 125 : 250;
+
   handleSlideNext = (currentIndex, newIndex) => {
     // delay so the CSS transition for sliding is not prevented
-    setTimeout(() => {
-      this.refs[currentIndex].current.style.display = "none";
-    }, 500);
+    setTimeout(() => this.refs[currentIndex].current.style.display = "none", this.getSlideDelay());
 
     this.setState({ firstIndex: newIndex });
   };
@@ -53,7 +53,7 @@ class ImageThumbnails extends React.Component {
   handleSlidePrev = (currentIndex, newIndex) => {
     // delay both statements to allow fast continous sliding
     // this will happend if the user continously clicks the previous button
-    setTimeout(() => (this.refs[newIndex].current.style.display = ""), 25);
+    setTimeout(() => this.refs[newIndex].current.style.display = "", 25);
     setTimeout(() => this.setState({ firstIndex: newIndex }), 50);
   };
 
@@ -136,7 +136,7 @@ class ImageThumbnails extends React.Component {
     return '';
   }
 
-  getTotalVisibleItems = (width, widthPerThumbnail) => Math.floor((width - 100) / widthPerThumbnail);
+  getTotalVisibleItems = (width, widthPerThumbnail) => Math.floor((width - (screenSizes.isTabletAndUnder() ? 0 : 100)) / widthPerThumbnail);
 
   getLastIndex = (width, totalItems) => totalItems - this.getTotalVisibleItems(width, WIDTH_PER_THUMBNAIL);
 
