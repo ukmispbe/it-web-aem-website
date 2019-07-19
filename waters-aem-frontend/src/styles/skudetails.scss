@@ -90,7 +90,7 @@
             }
         }
 
-        input[type='text'] {
+        input[type='number'] {
             margin: 0 $space-xxs 0 0;
             padding: $space-xxs;
             width: 65px;
@@ -109,6 +109,23 @@
             &:focus {
                 outline: 2px solid $color-focus;
             }
+        }
+
+        input[type='number']:focus::-webkit-input-placeholder {
+            color: transparent;
+        }
+        input[type='number']:focus:-moz-placeholder {
+            color: transparent;
+        } /* FF 4-18 */
+        input[type='number']:focus::-moz-placeholder {
+            color: transparent;
+        } /* FF 19+ */
+        input[type='number']:focus:-ms-input-placeholder {
+            color: transparent;
+        } /* IE 10+ */
+
+        &__web-quote {
+            @include font-h3;
         }
     }
 
