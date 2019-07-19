@@ -2,6 +2,10 @@
     &-details,
     &-list {
         margin-bottom: $space-l;
+        .cmp-sku-details__code {
+            @include font-h2;
+            margin-bottom: $space-xxs;
+        }
         &__signin {
             svg {
                 width: $icon-m;
@@ -14,18 +18,18 @@
             }
         }
 
-        &__stockdetails {
-            float: left;
-            &:hover {
-                color: $color-link;
+        &__heading {
+            img {
+                display: none;
             }
-            svg {
-                width: $icon-m;
-                fill: $color-icon;
-                float: right;
-                &:hover {
-                    color: $color-link;
-                }
+        }
+
+        &__ecom {
+            background: $color-background-light;
+            padding: $space-l;
+
+            @include mobile {
+                padding: $space-m;
             }
         }
 
@@ -216,7 +220,7 @@
                     // }
                 }
 
-                h3 {
+                .cmp-sku-details__code {
                     @include font-utility;
 
                     margin-block-start: 0;
@@ -347,7 +351,7 @@
         }
 
         .cmp-sku-details__info {
-            h3 {
+            .cmp-sku-details__code {
                 display: inline;
             }
         }
@@ -362,7 +366,7 @@
         }
 
         .cmp-sku-details__info {
-            h3 {
+            .cmp-sku-details__code {
                 display: inline;
             }
         }
