@@ -17,7 +17,7 @@
             <div class="cmp-sku-details__buyinfo">
                 <div class="cmp-sku-details__priceinfo">
                     <sly data-sly-test.price="${sku.formattedPrice}">
-                        <span>List Price</span>
+                        <span>${'List Price' @ i18n}</span>
                         <div class="cmp-sku-details__price">${price}</div>
                     </sly>
                 </div>
@@ -25,12 +25,13 @@
                     data-instock="instock"
                     data-lowstock = "lowstock"
                     data-out-of-stock="out-of-stock">
-                    <span class="cmp-sku-details__stockdetails">In stock</span>
-                    <img alt="${'Login' @ i18n}" src="/content/dam/waters/brand-assets/icons/success.svg" class="inline-svg">
+                    <span class="cmp-sku-details__stockdetails">${'Instock' @ i18n}
+                        <img alt="${'In Stock' @ i18n}" src="/content/dam/waters/brand-assets/icons/success.svg" class="inline-svg">
+                    </span>
                     <div class="cmp-sku-details__order">${'Order now' @ i18n}</div>
                 </div>
                 <div class="cmp-sku-details__buttons">
-                    <input type="text" placeholder="Qty" maxlength="3" value="">
+                    <input type="number" placeholder="Qty" maxlength="3" value="">
                     <a class="cmp-button">${'ADD TO CART' @ i18n}</a>
                 </div>
             </div>
@@ -41,11 +42,10 @@
                 <img class="inline-svg" src="/content/dam/waters/brand-assets/icons/attention.svg"/>
             </div>
             <div class="cmp-notification-body">
-                <div class="cmp-notification-title"></div>
                 <div class="cmp-notification-description">
                     ${'This part number you selected is no longer available' @ i18n}
                     <sly data-sly-test="${sku.replacementSkuCode}">
-                        ${', but there is a replacement. Please see the replacement part number' @ i18n}
+                        ${', but there is a replacement. Please see the replacement part number.' @ i18n}
                         <a class="cmp-notification-links" href="">${sku.replacementSkuCode}</a>
                     </sly>
                 </div>
