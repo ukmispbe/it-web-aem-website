@@ -1,7 +1,7 @@
 .cmp-sku {
     &-details {
         margin-bottom: $space-l;
-        h3{
+        .cmp-sku-details__code {
             @include font-h2;
             margin-bottom: $space-xxs;
         }
@@ -178,7 +178,7 @@
                     // }
                 }
 
-                h3 {
+                .cmp-sku-details__code {
                     @include font-utility;
 
                     margin-block-start: 0;
@@ -241,7 +241,7 @@
         }
 
         .cmp-sku-details__info {
-            h3 {
+            .cmp-sku-details__code {
                 display: inline;
             }
         }
@@ -256,7 +256,7 @@
         }
 
         .cmp-sku-details__info {
-            h3 {
+            .cmp-sku-details__code {
                 display: inline;
             }
         }
