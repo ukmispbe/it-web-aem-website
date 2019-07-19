@@ -136,7 +136,7 @@ class ImageThumbnails extends React.Component {
     return '';
   }
 
-  getTotalVisibleItems = (width, widthPerThumbnail) => Math.floor((width - 100) / widthPerThumbnail);
+  getTotalVisibleItems = (width, widthPerThumbnail) => Math.floor((width - (screenSizes.isTabletAndUnder() ? 0 : 100)) / widthPerThumbnail);
 
   getLastIndex = (width, totalItems) => totalItems - this.getTotalVisibleItems(width, WIDTH_PER_THUMBNAIL);
 

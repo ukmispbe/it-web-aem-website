@@ -188,9 +188,10 @@
         .st0 {
             stroke: $color-font-dark;
         }
-        @include tablet-and-under {
-            display: none;
-        }
+    }
+
+    @include tablet-and-under {
+        display: none;
     }
 }
 
