@@ -172,6 +172,10 @@ public final class Sku {
         return skuRepository.getSkuPage(currentPage, getCode());
     }
 
+    public PageDecorator getSkuPage(PageDecorator currentPage,String code) {
+        return skuRepository.getSkuPage(currentPage, code);
+    }
+
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
