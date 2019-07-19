@@ -1,13 +1,30 @@
 .cmp-sku {
-    &-details , &-list {
-    margin-bottom: $space-l;
-        &__signin{
+    &-details,
+    &-list {
+        margin-bottom: $space-l;
+        &__signin {
             svg {
                 width: $icon-m;
                 fill: $color-link;
-                float:left;
-                .st0 , .st1 {
-                       stroke: $color-link;
+                float: left;
+                .st0,
+                .st1 {
+                    stroke: $color-link;
+                }
+            }
+        }
+
+        &__stockdetails {
+            float: left;
+            &:hover {
+                color: $color-link;
+            }
+            svg {
+                width: $icon-m;
+                fill: $color-icon;
+                float: right;
+                &:hover {
+                    color: $color-link;
                 }
             }
         }
@@ -28,20 +45,23 @@
             margin-bottom: $space-xxs;
         }
 
+        &__stockdetails {
+            float: left;
+        }
 
-        &__availability{
+        &__availability {
             padding: 0 $space-m 0 $space-s;
             @include font-h3;
             margin-top: $space-xxxs;
             border-left: 1px solid $color-border-light;
             @include mobile {
-               padding: 0 0 0 $space-xxs;
+                padding: 0 0 0 $space-xxs;
             }
         }
 
-        &__stockdetails{
+        &__stockdetails {
             svg {
-                width: ($icon-m - .25em);
+                width: ($icon-m - 0.25em);
                 fill: $color-success;
                 margin-left: $space-xxxs;
                 margin-top: ($space-xxxs - .1em);
@@ -49,6 +69,7 @@
                 .st0 , .st1 {
                        stroke: $color-success;
                        stroke-width: 2px;
+
                 }
             }
         }
@@ -58,8 +79,8 @@
             font-weight: $font-weight-light;
         }
 
-        &__buttons{
-            display:flex;
+        &__buttons {
+            display: flex;
             margin-top: $space-xs;
 
             @include mobile {
@@ -69,7 +90,7 @@
             }
         }
 
-        input[type="text"] {
+        input[type='number'] {
             margin: 0 $space-xxs 0 0;
             padding: ($space-xxs - .2em) $space-xxs $space-xxs $space-xxs;
             width: 65px;
@@ -88,6 +109,15 @@
             &:focus {
                 outline: 2px solid $color-focus;
             }
+        }
+        
+        input[type="text"]:focus::-webkit-input-placeholder { color:transparent; }
+        input[type="text"]:focus:-moz-placeholder { color:transparent; } /* FF 4-18 */
+        input[type="text"]:focus::-moz-placeholder { color:transparent; } /* FF 19+ */
+        input[type="text"]:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
+
+        &__web-quote {
+            @include font-h3;
         }
     }
 
@@ -207,7 +237,6 @@
         }
 
         .cmp-sku-details__buttons {
-
             @include mobile {
                 width: 100%;
             }
@@ -216,23 +245,22 @@
 }
 
 .cmp-sku-details {
-
-    h3{
-                @include font-h2;
-                margin-bottom: $space-xxs;
-            }
+    h3 {
+        @include font-h2;
+        margin-bottom: $space-xxs;
+    }
 
     &__heading {
         img {
             display: none;
         }
-     }
+    }
     &__ecom {
         background: $color-background-light;
         padding: $space-l;
-         @include mobile {
-                        padding: $space-m;
-                    }
+        @include mobile {
+            padding: $space-m;
+        }
     }
     &__web-quote {
         @include font-h3;
@@ -240,7 +268,6 @@
 }
 
 .cmp-sku-list {
-
     h3 {
         @include font-small;
     }
@@ -249,9 +276,10 @@
         svg {
             width: $icon-m;
             fill: $color-icon;
-            float:right;
+            float: right;
             &:hover {
-                .st0 , .st1 {
+                .st0,
+                .st1 {
                     stroke: $color-link;
                 }
             }
@@ -259,7 +287,8 @@
         &:hover {
             color: $color-link;
             svg {
-                .st0 , .st1 {
+                .st0,
+                .st1 {
                     stroke: $color-link;
                 }
             }
@@ -267,16 +296,16 @@
     }
 
     h1 {
-         @include font-h3;
+        @include font-h3;
     }
 
-    &__container{
+    &__container {
         background-color: $color-background-light;
         padding: $space-m $space-m 0 $space-m;
         margin-bottom: $space-m;
         width: 100%;
         margin-bottom: 2em;
-        clear:both;
+        clear: both;
     }
 
     &__right {
@@ -286,11 +315,10 @@
             display: none;
         }
     }
-
 }
 
 // IE 11 CSS hacks
-@media all and (-ms-high-contrast:none) {
+@media all and (-ms-high-contrast: none) {
     .cmp-sku-details--sticky {
         .cmp-sku-details__wrapper {
             height: 85px;

@@ -1,21 +1,21 @@
 <div data-sly-use.notification="com.waters.aem.core.components.content.Notification"
      class="cmp-notification-wrapper"
      data-sly-test="${notification.title}">
-        <div class="cmp-notification-icon">
-            <img class="${notification.svg ? 'inline-svg' : ''}" data-sly-test="${notification.icon}" src="${notification.icon}"/>
+    <div class="cmp-notification-icon">
+        <img class="${notification.svg ? 'inline-svg' : ''}" data-sly-test="${notification.icon}" src="${notification.icon}"/>
+    </div>
+    <div class="cmp-notification-body">
+        <div class="cmp-notification-title">${notification.title}</div>
+        <div class="cmp-notification-description">
+            ${notification.description}
+            <ul class="cmp-notification-links" data-sly-test="${notification.linkItems}" data-sly-list.item="${notification.linkItems}">
+                <li>
+                    <a href="${item.link.href}" target="${item.external ? '_blank' : ''}">${item.text}</a>
+                    <span class="cmp-notification-separator" data-sly-test="${!itemList.last}"> &#124; </span>
+                </li>
+            </ul>
         </div>
-        <div class="cmp-notification-body">
-            <div class="cmp-notification-title">${notification.title}</div>
-            <div class="cmp-notification-description">
-                ${notification.description}
-                <ul class="cmp-notification-links" data-sly-test="${notification.linkItems}" data-sly-list.item="${notification.linkItems}">
-                    <li>
-                        <a href="${item.link.href}" target="${item.external ? '_blank' : ''}">${item.text}</a>
-                        <span class="cmp-notification-separator" data-sly-test="${!itemList.last}"> &#124; </span>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    </div>
 </div>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"

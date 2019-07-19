@@ -17,7 +17,7 @@
             <div class="cmp-sku-details__buyinfo">
                 <div class="cmp-sku-details__priceinfo">
                     <sly data-sly-test.price="${sku.formattedPrice}">
-                        <span>List Price</span>
+                        <span>${'List Price' @ i18n}</span>
                         <div class="cmp-sku-details__price">${price}</div>
                     </sly>
                 </div>
@@ -31,7 +31,7 @@
                     <div class="cmp-sku-details__order">${'Order now' @ i18n}</div>
                 </div>
                 <div class="cmp-sku-details__buttons">
-                    <input type="text" placeholder="Qty" maxlength="3" value="">
+                    <input type="number" placeholder="Qty" maxlength="3" value="">
                     <a class="cmp-button">${'ADD TO CART' @ i18n}</a>
                 </div>
             </div>
@@ -42,7 +42,6 @@
                 <img class="inline-svg" src="/content/dam/waters/brand-assets/icons/attention.svg"/>
             </div>
             <div class="cmp-notification-body">
-                <div class="cmp-notification-title"></div>
                 <div class="cmp-notification-description">
                     ${'This part number you selected is no longer available' @ i18n}
                     <sly data-sly-test="${sku.replacementSkuCode}">
