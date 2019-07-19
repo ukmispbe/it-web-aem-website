@@ -68,12 +68,12 @@
                 width: ($icon-m - 0.25em);
                 fill: $color-success;
                 margin-left: $space-xxxs;
-                margin-top: ($space-xxxs - 0.1em);
-                float: left;
-                .st0,
-                .st1 {
-                    stroke: $color-success;
-                    stroke-width: 2px;
+                margin-top: ($space-xxxs - .1em);
+                float: right;
+                .st0 , .st1 {
+                       stroke: $color-success;
+                       stroke-width: 2px;
+
                 }
             }
         }
@@ -89,17 +89,17 @@
 
             @include mobile {
                 margin-top: 0;
-                margin-bottom: $space-m;
+                margin-bottom: $space-s;
                 width: 100%;
             }
         }
 
         input[type='number'] {
             margin: 0 $space-xxs 0 0;
-            padding: $space-xxs;
+            padding: ($space-xxs - .2em) $space-xxs $space-xxs $space-xxs;
             width: 65px;
-            height: 3.15em;
-            float: left;
+            height: 3.1em;
+            float:left;
             border: 1px solid $color-border-light;
             background: $color-white;
             @include font-utility;
@@ -149,12 +149,14 @@
             justify-content: center;
 
             @include mobile {
-                padding: $space-xs $space-s;
+                box-shadow: $shadow;
+                padding: $space-s $space-s 0 $space-s;
+                height: 92px;
             }
 
             @include tablet {
-                padding-left: $space-l + 0.5em;
-                padding-right: $space-l + 0.5em;
+                padding-left: ($space-l + .5em);
+                padding-right: ($space-l + .5em);
             }
         }
 
@@ -180,6 +182,7 @@
             display: flex;
             align-items: center;
             flex-grow: 1;
+            padding-top: $space-xxxs;
 
             @include tablet {
                 width: 47%;
@@ -193,8 +196,7 @@
                 display: block;
                 width: 92px;
                 height: 63px;
-                border: 1px solid $color-border-light;
-                margin-right: $space-m;
+                margin-right: $space-s;
             }
 
             .cmp-sku-details__info {
@@ -220,8 +222,8 @@
                     // }
                 }
 
-                .cmp-sku-details__code {
-                    @include font-utility;
+                h3 {
+                    @include font-small;
 
                     margin-block-start: 0;
                     margin-block-end: 0;
@@ -240,6 +242,7 @@
 
         .cmp-sku-details__priceinfo {
             background: none;
+            padding-right: $space-s;
 
             @include tablet-and-under {
                 display: none;
