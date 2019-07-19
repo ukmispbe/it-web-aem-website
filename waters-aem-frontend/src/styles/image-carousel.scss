@@ -132,8 +132,12 @@
     align-items: center;
     flex-grow: 0;
     flex-shrink: 0;
-    transition: margin-left 500ms linear;
+    transition: margin-left 250ms linear;
     cursor: pointer;
+
+    @include tablet-and-under {
+        transition: margin-left 125ms linear;
+    }
 
     .image-thumbnails-container__image {
         border: 1px solid $color-border-light;
@@ -188,9 +192,10 @@
         .st0 {
             stroke: $color-font-dark;
         }
-        @include tablet-and-under {
-            display: none;
-        }
+    }
+
+    @include tablet-and-under {
+        display: none;
     }
 }
 
