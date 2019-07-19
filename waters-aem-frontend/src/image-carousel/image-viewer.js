@@ -7,6 +7,8 @@ class ImageViewer extends React.Component {
     constructor() {
         super();
 
+        this.touchActionPolyfill = null;
+
         if (this.props && this.props.widths.length === 0) {
             this.widths = [128, 140, 256, 320, 375, 620, 770, 1280];
         } else if (this.props && this.props.widths.length > 0) {
@@ -26,6 +28,8 @@ class ImageViewer extends React.Component {
         this.containerRef = React.createRef();
         this.figureRef = React.createRef();
     }
+
+    touchActionNotSupported = () => typeof(CSS) != "undefined" && !CSS.supports('touch-action', 'none');
 
     handleOnDragStart = e => e.preventDefault();
 
@@ -144,6 +148,12 @@ class ImageViewer extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        if (this.state.magnified && !prevState.magnified && this.touchActionNotSupported()) {
+            this.touchActionPolyfill = Hammer(this.figureRef.current, { touchAction: 'pan-x' });
+        } else if (!this.state.magnified && prevState.magnified && this.touchActionNotSupported()) {
+            this.touchActionPolyfill.destroy();
+            this.touchActionPolyfill = null;
+        }
 
         if (this.props.isActive !== prevProps.isActive) {
             this.setState({ magnified: false });
@@ -165,8 +175,6 @@ class ImageViewer extends React.Component {
     }
 
     componentDidMount() {
-        this.touchActionPolyfill();
-
         this.figureRef.current.style.backgroundPosition = '50% 50%';
 
         this.calculateWidth();
@@ -179,12 +187,6 @@ class ImageViewer extends React.Component {
 
         // this is for mobile devices
         window.addEventListener('deviceorientation', this.calculateWidth);
-    }
-
-    touchActionPolyfill = () => {
-        if (typeof(CSS) != "undefined" && !CSS.supports('touch-action', 'none')) {
-            const mc = Hammer(this.figureRef.current, { touchAction: 'pan-x' });
-        }
     }
 
     componentWillUnmount() {
