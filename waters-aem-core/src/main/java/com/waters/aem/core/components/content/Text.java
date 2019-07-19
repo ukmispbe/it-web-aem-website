@@ -26,7 +26,7 @@ import javax.inject.Inject;
     resourceSuperType = Text.RESOURCE_SUPER_TYPE,
     editConfig = false,
     tabs = @Tab(title = "Properties", touchUINodeName = "properties"))
-@Model(adaptables = { SlingHttpServletRequest.class },
+@Model(adaptables = SlingHttpServletRequest.class,
     adapters = { Text.class, EmptyComponent.class },
     resourceType = Text.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
