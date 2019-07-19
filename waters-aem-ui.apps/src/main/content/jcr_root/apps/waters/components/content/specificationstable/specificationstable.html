@@ -15,13 +15,13 @@
         </table>
     </div>
 
-    <div class="cmp-notification-icon" data-sly-test="${specificationsTable.sku.hazardous}">
+    <div class="cmp-notification-wrapper" data-sly-test="${specificationsTable.sku.hazardous}">
         <img class="inline-svg"  src="/content/dam/waters/brand-assets/icons/hazardous.svg"/>
         <span class="cmp-notification-title">${'Hazaradous Material' @ i18n}</span>
         <span class="cmp-notification-description">${'This product contains hazardous material which requires special freight handling. Additional charges may apply.' @ i18n}</span>
     </div>
 
-    <div class="cmp-notification-icon" data-sly-test="${specificationsTable.sku.coldChainShipping}">
+    <div class="cmp-notification-wrapper" data-sly-test="${specificationsTable.sku.coldChainShipping}">
         <img class="inline-svg"  src="/content/dam/waters/brand-assets/icons/coldchain.svg"/>
         <span class="cmp-notification-title">${'Cold Shipping' @ i18n}</span>
         <span class="cmp-notification-description">${'This part will be shipped cold and shipping and handling fees will be applied to your cart.' @ i18n}</span>
