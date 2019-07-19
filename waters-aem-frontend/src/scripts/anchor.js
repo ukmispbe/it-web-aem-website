@@ -1,11 +1,12 @@
 import scrollToY from './scrollTo';
+import screenSizes from './screenSizes';
 
 var anchorElement = document.querySelector('.cmp-anchor');
 var anchorMenu = document.querySelector('.cmp-anchor__list-heading');
 
 // Setup click handler for Anchor Links to scroll in view
 var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
-[].forEach.call(anchorLinks, (anchor) => {
+[].forEach.call(anchorLinks, anchor => {
     try {
         anchor.addEventListener('click', e => {
             e.preventDefault();
@@ -31,16 +32,16 @@ var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
 });
 
 // Sticky Nav Component
-var anchorSticky = (function () {
+var anchorSticky = (function() {
     var CSS_CLASS_ACTIVE = 'cmp-anchor--sticky';
 
     var Sticky = {
         element: null,
         position: 0,
-        addEvents: function () {
+        addEvents: function() {
             window.addEventListener('scroll', this.onScroll.bind(this));
         },
-        init: function (element) {
+        init: function(element) {
             this.element = element;
             this.addEvents();
             this.position = element.offsetTop;
@@ -64,28 +65,27 @@ var anchorSticky = (function () {
 
             this.getInViewElement();
         },
-        aboveScroll: function () {
+        aboveScroll: function() {
             return this.position - 73 < window.pageYOffset;
         },
-        onScroll: function () {
+        onScroll: function() {
             if (this.aboveScroll()) {
                 this.setFixed();
-                
             } else {
                 this.setRelative();
             }
             this.getInViewElement();
         },
-        setFixed: function () {
+        setFixed: function() {
             this.element.parentNode.style.height =
                 this.element.clientHeight + 'px';
             this.element.classList.add(CSS_CLASS_ACTIVE);
         },
-        setRelative: function () {
+        setRelative: function() {
             this.element.classList.remove(CSS_CLASS_ACTIVE);
             this.element.parentNode.style.height = 'auto';
         },
-		brokeAt: 0,
+        brokeAt: 0,
         getInViewElement: function() {
             let multipleInView = [];
             if (this.anchorDestinations) {
@@ -120,14 +120,13 @@ var anchorSticky = (function () {
                         }
                     }
 
+                    if (multipleInView.length > 1) {
+                        for (let i = 1; i < multipleInView.length; i++) {
+                            const inView = multipleInView[i];
 
-                if (multipleInView.length > 1) {
-                    for (let i = 1; i < multipleInView.length; i++) {
-                        const inView = multipleInView[i];
-
-                        this.anchorDestinations[inView].anchor.classList.remove(
-                            'active'
-                        );
+                            this.anchorDestinations[
+                                inView
+                            ].anchor.classList.remove('active');
                         }
                     }
                 }
@@ -138,11 +137,7 @@ var anchorSticky = (function () {
     return Sticky;
 })();
 
-//  Init Sticky
-if (anchorElement) anchorSticky.init(anchorElement);
-
 function toggleMobileNav(forceClose) {
-
     const heading = document.querySelector('.cmp-anchor--sticky');
     if (!forceClose && heading.classList.contains('closed')) {
         heading.classList.remove('closed');
@@ -154,21 +149,26 @@ function toggleMobileNav(forceClose) {
 }
 
 function showScrollBars(el) {
-    el.classList.add("show-scroll-bar");
+    el.classList.add('show-scroll-bar');
 }
 
 function hideScrollBars(el) {
-    el.classList.remove("show-scroll-bar");
+    el.classList.remove('show-scroll-bar');
 }
 
 function anchorChange(el) {
     clearGradients();
-    var anchorElementId = document.getElementById("cmp-anchor");
+    var anchorElementId = document.getElementById('cmp-anchor');
     if (anchorElementId.scrollLeft > 0) {
         lhsGradientFade[0].style.display = 'block';
     }
 
-    if (Math.ceil(anchorElementId.scrollWidth - anchorElementId.getBoundingClientRect().width) != Math.ceil(anchorElementId.scrollLeft)) {
+    if (
+        Math.ceil(
+            anchorElementId.scrollWidth -
+                anchorElementId.getBoundingClientRect().width
+        ) != Math.ceil(anchorElementId.scrollLeft)
+    ) {
         rhsGradientFade[0].style.display = 'block';
     }
 }
@@ -194,26 +194,51 @@ function scrollWindow(el) {
     }
 }
 
-window.addEventListener('scroll', anchorSticky);
-if (anchorMenu) {
-    anchorMenu.addEventListener('click', () => toggleMobileNav());
-}
-
 var anchorList = document.querySelector('.cmp-anchor__list');
-var rhsGradientFade = document.getElementsByClassName('cmp-anchor-gradient-right');
-var lhsGradientFade = document.getElementsByClassName('cmp-anchor-gradient-left');
+var rhsGradientFade = document.getElementsByClassName(
+    'cmp-anchor-gradient-right'
+);
+var lhsGradientFade = document.getElementsByClassName(
+    'cmp-anchor-gradient-left'
+);
 
-if (anchorList){
-    anchorList.addEventListener('mouseover', () => showScrollBars(anchorList));
-    anchorList.addEventListener('mouseout', () => hideScrollBars(anchorList));
-    anchorList.addEventListener('scroll', () => scrollWindow(anchorList));
-    window.addEventListener('load', () => resizeWindow(anchorList));
-    window.addEventListener('resize', () => resizeWindow(anchorList));
-    var mediaQueryListener = window.matchMedia('(max-width: 650px)');
-    function anchorChangeToMobile() {
-        if (mediaQueryListener.matches) {
-            clearGradients();
+if (anchorList) {
+    const isMobile = screenSizes.isMobile();
+    const sectionContainers = document.querySelectorAll(
+        '.cmp-section-container--collapse'
+    );
+
+    if (isMobile && sectionContainers.length) {
+        console.log('section containers');
+        anchorElement.style.display = 'none';
+    } else {
+        //  Init Sticky
+        if (anchorElement) anchorSticky.init(anchorElement);
+        window.addEventListener('scroll', anchorSticky);
+
+        if (anchorMenu) {
+            anchorMenu.addEventListener('click', () => toggleMobileNav());
         }
+
+        anchorList.addEventListener('mouseover', () =>
+            showScrollBars(anchorList)
+        );
+
+        anchorList.addEventListener('mouseout', () =>
+            hideScrollBars(anchorList)
+        );
+
+        anchorList.addEventListener('scroll', () => scrollWindow(anchorList));
+        window.addEventListener('load', () => resizeWindow(anchorList));
+        window.addEventListener('resize', () => resizeWindow(anchorList));
+        var mediaQueryListener = window.matchMedia('(max-width: 650px)');
+
+        function anchorChangeToMobile() {
+            if (isMobile) {
+                clearGradients();
+            }
+        }
+
+        mediaQueryListener.addListener(anchorChangeToMobile);
     }
-    mediaQueryListener.addListener(anchorChangeToMobile);
 }
