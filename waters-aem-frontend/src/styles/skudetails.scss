@@ -64,12 +64,12 @@
                 width: ($icon-m - 0.25em);
                 fill: $color-success;
                 margin-left: $space-xxxs;
-                margin-top: ($space-xxxs - .1em);
+                margin-top: ($space-xxxs - 0.1em);
                 float: right;
-                .st0 , .st1 {
-                       stroke: $color-success;
-                       stroke-width: 2px;
-
+                .st0,
+                .st1 {
+                    stroke: $color-success;
+                    stroke-width: 2px;
                 }
             }
         }
@@ -90,12 +90,12 @@
             }
         }
 
-        input[type='number'] {
+        &__quantity {
             margin: 0 $space-xxs 0 0;
-            padding: ($space-xxs - .2em) $space-xxs $space-xxs $space-xxs;
+            padding: ($space-xxs - 0.2em) $space-xxs $space-xxs $space-xxs;
             width: 65px;
             height: 3.1em;
-            float:left;
+            float: left;
             border: 1px solid $color-border-light;
             background: $color-white;
             @include font-utility;
@@ -109,20 +109,20 @@
             &:focus {
                 outline: 2px solid $color-focus;
             }
-        }
 
-        input[type='number']:focus::-webkit-input-placeholder {
-            color: transparent;
+            &:focus::-webkit-input-placeholder {
+                color: transparent;
+            }
+            &:focus:-moz-placeholder {
+                color: transparent;
+            } /* FF 4-18 */
+            &:focus::-moz-placeholder {
+                color: transparent;
+            } /* FF 19+ */
+            &:focus:-ms-input-placeholder {
+                color: transparent;
+            } /* IE 10+ */
         }
-        input[type='number']:focus:-moz-placeholder {
-            color: transparent;
-        } /* FF 4-18 */
-        input[type='number']:focus::-moz-placeholder {
-            color: transparent;
-        } /* FF 19+ */
-        input[type='number']:focus:-ms-input-placeholder {
-            color: transparent;
-        } /* IE 10+ */
 
         &__web-quote {
             @include font-h3;
@@ -151,8 +151,8 @@
             }
 
             @include tablet {
-                padding-left: ($space-l + .5em);
-                padding-right: ($space-l + .5em);
+                padding-left: ($space-l + 0.5em);
+                padding-right: ($space-l + 0.5em);
             }
         }
 
