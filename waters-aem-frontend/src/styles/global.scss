@@ -7,12 +7,7 @@ html {
 }
 
 body {
-    padding-top: (4.5em + $space-l);
     overflow-x: hidden;
-
-    @include mobile {
-        padding-top: (4.1875em + $space-l);
-    }
 }
 
 .aem-GridColumn {
@@ -36,27 +31,6 @@ body {
 
     @include tablet {
         margin: 0 0 0 -12px;
-    }
-}
-
-.layoutcontainer .sectioncontainer {
-    padding: 0;
-    margin: $space-xl 0 $space-l 0;
-}
-
-.layoutcontainer .cmp-section-container__title {
-    padding: $space-s 0 $space-m 0;
-    margin: 0em 14px;
-    border-top: 1px solid $color-border-light;
-
-    @include mobile {
-        padding: $space-s 0 $space-m 0;
-        margin: 0 2px;
-    }
-
-    @include tablet {
-        padding: $space-s 0 $space-m 0;
-        margin: 0 12px;
     }
 }
 
@@ -116,8 +90,8 @@ a {
 
 .overlay {
     width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    height: 200%;
+    background: rgba(45, 52, 57, 0.5);
     position: absolute;
     top: 0;
     left: 0;
@@ -136,11 +110,13 @@ a {
 
 .cmp-custom-dropdown__control {
     .cmp-custom-dropdown__dropdown-indicator > div {
-        width: 23px;
-        height: 20px;
+        width: $icon-m;
+        height: $icon-m;
 
         svg {
-            height: 20px;
+            height: $icon-m;
+            margin-top: ($space-xxxs - .2em);
+            
             .st0 {
                 stroke: $color-icon;
             }
@@ -159,4 +135,10 @@ a {
             }
         }
     }
+}
+
+.container .st0,
+.cmp-footer .st0,
+.cmp-back-to-top .st0 {
+    fill: none;
 }

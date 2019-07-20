@@ -1,0 +1,127 @@
+.layoutcontainer {
+    position: relative;
+
+    .sectioncontainer {
+        padding: 0;
+    }
+
+    .cmp-section-container {
+        padding: $space-s 0 $space-l 0;
+
+        @include mobile {
+            padding: $space-s 0 0 0;
+
+            &.cmp-section-container--collapse {
+                margin: 0;
+                padding: 0;
+
+                .cmp-section-container__title {
+                    padding: $space-s 0;
+                }
+            }
+        }
+    }
+
+    .cmp-section-container__title {
+        padding: $space-s 0 $space-m 0;
+        margin: 0em 14px;
+        border-top: 1px solid $color-border-light;
+
+        @include mobile {
+            padding: $space-s 0 $space-m 0;
+            margin: 0 2px;
+        }
+
+        @include tablet {
+            padding: $space-s 0 $space-m 0;
+            margin: 0 12px;
+        }
+    }
+
+    .cmp-section-container__background {
+        display: none;
+    }
+
+    .cmp-section-container--collapse {
+        @include mobile {
+            .cmp-section-container__title {
+                position: relative;
+                cursor: pointer;
+                padding: 0.9em 0 1em;
+
+                &::after {
+                    position: absolute;
+                    display: block;
+                    height: $icon-m;
+                    width: $icon-m;
+                    content: '';
+                    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%234f5b64;stroke-linecap:round;stroke-linejoin:round;%7D%0A%3C/style%3E%3Cline class='st0' x1='12' y1='5' x2='12' y2='19'/%3E%3Cline class='st0' x1='5' y1='12' x2='19' y2='12'/%3E%3C/svg%3E%0A");
+                    right: 0;
+                    top: 1em;
+                    transition: background-image 0.3s ease;
+                }
+
+                &.open {
+                    &::after {
+                        background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%234f5b64;stroke-linecap:round;stroke-linejoin:round;%7D%0A%3C/style%3E%3Cline class='st0' x1='5' y1='12' x2='19' y2='12'/%3E%3C/svg%3E%0A");
+                    }
+                }
+            }
+
+            .cmp-section-container__body {
+                height: auto;
+                overflow: hidden;
+                transition: all 0.4s ease;
+                max-height: 0;
+                transform-origin: top;
+                opacity: 0;
+
+                &.open {
+                    opacity: 1;
+                    max-height: 9999px;
+                }
+            }
+        }
+    }
+
+    .cmp-section-container–-light {
+        .cmp-section-container__wrapper {
+            margin: 0 -30% 2em;
+            padding: 2em 30%;
+            position: relative;
+            overflow-y: hidden;
+            z-index: 0;
+
+            @include mobile {
+                padding: 0 30%;
+            }
+        }
+
+        .cmp-section-container__background {
+            display: block;
+            position: absolute;
+            background-color: $color-background-light;
+            z-index: -1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .cmp-section-container__title {
+            border: none;
+        }
+
+        .cmp-section-container--collapse {
+            .cmp-section-container__background {
+                height: 100%;
+            }
+
+            .cmp-section-container__title {
+                @include mobile {
+                    border-top: 1px solid $color-white;
+                }
+            }
+        }
+    }
+}

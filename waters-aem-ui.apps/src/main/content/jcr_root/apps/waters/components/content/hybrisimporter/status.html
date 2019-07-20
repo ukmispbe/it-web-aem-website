@@ -21,7 +21,19 @@
 
     <div class="col-6">
         <form method="POST" action="/bin/importer/executor">
-            <button type="submit" class="btn btn-primary">Run Import</button>
+            <div>
+                <div>
+                    <label for="force">Force</label>
+                    <input type="checkbox" name="force" id="force" value="true"/>
+                </div>
+                <div>
+                    <label for="replicate">Replicate</label>
+                    <input type="checkbox" name="replicate" id="replicate" value="true" checked/>
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Run Import</button>
+            </div>
         </form>
     </div>
 </div>

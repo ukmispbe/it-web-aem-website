@@ -237,7 +237,7 @@ public final class ApplicationNotes implements ContentClassification {
         String pdfAssetPath = null;
 
         if (assetFolderPath != null) {
-            final String languageCode = page.getLanguage(false).getLanguage().toLowerCase();
+            final String languageCode = getLanguageCode();
 
             pdfAssetPath = new StringBuilder(assetFolderPath)
                 .append("/")
@@ -284,5 +284,9 @@ public final class ApplicationNotes implements ContentClassification {
 
     private String getDateTagName(final List<Tag> tags) {
         return tags.isEmpty() ? "" : tags.get(0).getName();
+    }
+
+    public String getLanguageCode() {
+        return page.getLanguage(false).getLanguage().toLowerCase();
     }
 }

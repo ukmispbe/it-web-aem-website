@@ -1,0 +1,3934 @@
+{
+    "catalog": "watersProductCatalog",
+    "currentPage": 1,
+    "products": [
+        {
+            "categories": [
+                {
+                    "code": "SparePartsCatalog",
+                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/SparePartsCatalog"
+                }
+            ],
+            "classifications": [
+                {
+                    "code": "ApplicationKits",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitstype",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 2,
+                                    "value": "Performance Maintenance"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits Type",
+                            "position": 2520,
+                            "publicWebLabel": "Type",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitssystemtype",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 3,
+                                    "value": "MS"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits System Type",
+                            "position": 2570,
+                            "publicWebLabel": "System Type",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitsreplacementschedule",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "Annual"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits Replacement Schedule",
+                            "position": 2620,
+                            "publicWebLabel": "Replacement Schedule",
+                            "range": false
+                        }
+                    ],
+                    "name": "Application Kits"
+                },
+                {
+                    "code": "ConsumablesAndSpares",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/ConsumablesAndSpares.unitsperpackage",
+                            "comparable": true,
+                            "facet": false,
+                            "featureUnit": {
+                                "name": "Units Per Package UOM",
+                                "symbol": "pk",
+                                "unitType": "unitsPerPackageUOM"
+                            },
+                            "featureValues": [
+                                {
+                                    "featureUnitValue": {
+                                        "value": "pk"
+                                    },
+                                    "position": 1001,
+                                    "value": "1"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Units per Package",
+                            "position": 110,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ConsumablesAndSpares.jaggaercategory",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 393,
+                                    "value": "Mass Spectrometer Components"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Jaggaer Category",
+                            "range": false
+                        }
+                    ],
+                    "name": "Consumables And Spares"
+                },
+                {
+                    "code": "Products",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/Products.saphierarchy",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "0347MS902"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Sap Hierarchy",
+                            "position": 1,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.remainingshelflife",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "0"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Remaining Shelf Life",
+                            "position": 3,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.company",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 5,
+                                    "value": "Waters"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Company",
+                            "position": 10,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.weight",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "10"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Weight",
+                            "position": 12,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.weightunit",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "KGM"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Weight UOM",
+                            "position": 15,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.harmonizationcode",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "XG"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Harmonization Code",
+                            "position": 16,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.unspsc",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "41115404"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "UNSPSC",
+                            "position": 17,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.brand",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 64,
+                                    "value": "Waters Quality Parts"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Brand",
+                            "position": 30,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.business",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 5,
+                                    "value": "Service"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Business",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.productfamily",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 7,
+                                    "value": "Application Kits"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Product Family",
+                            "range": false
+                        }
+                    ],
+                    "name": "Products"
+                }
+            ],
+            "code": "201000147",
+            "coldChainShipping": false,
+            "hazardous": false,
+            "description": "The Waters® Performance Maintenance Kit for the GCT Mass Spectrometer contains all the Waters Quality Parts® necessary to keep your instrument operating at peak performance on an annual basis.  The Waters® Performance Maintenance Kit includes the following parts: Source components and vacuum pump components.",
+            "images": [
+                {
+                    "imageType": "PRIMARY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/brand-assets/icons/spares-thumbnail.png"
+                }
+            ],
+            "name": "GCT Performance Maintenance Kit",
+            "prices": [
+                {
+                    "countries": [
+                        "NZ",
+                        "FJ",
+                        "VA",
+                        "AS"
+                    ],
+                    "currencyIso": "AUD",
+                    "value": 8314
+                },
+                {
+                    "countries": [
+                        "ME",
+                        "YE",
+                        "SV",
+                        "SY",
+                        "TC",
+                        "UZ",
+                        "KZ",
+                        "PS",
+                        "AM",
+                        "AJ",
+                        "BA",
+                        "BS",
+                        "BU",
+                        "CY",
+                        "EG",
+                        "GR",
+                        "IZ",
+                        "KU",
+                        "LE",
+                        "MK",
+                        "MT",
+                        "MU",
+                        "PK",
+                        "BY",
+                        "GG",
+                        "QA",
+                        "RO",
+                        "RU",
+                        "SA",
+                        "RS",
+                        "UA",
+                        "JO",
+                        "AL",
+                        "CE",
+                        "LY",
+                        "AU",
+                        "CR",
+                        "TU"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 4969
+                },
+                {
+                    "countries": [
+                        "BE",
+                        "LU"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 4969
+                },
+                {
+                    "countries": [
+                        "BR"
+                    ],
+                    "currencyIso": "BRL",
+                    "value": 0.04
+                },
+                {
+                    "countries": [
+                        "CA"
+                    ],
+                    "currencyIso": "CAD",
+                    "value": 7785
+                },
+                {
+                    "countries": [
+                        "CN"
+                    ],
+                    "currencyIso": "CNY",
+                    "value": 49462
+                },
+                {
+                    "countries": [
+                        "CX",
+                        "SK"
+                    ],
+                    "currencyIso": "CZK",
+                    "value": 126710
+                },
+                {
+                    "countries": [
+                        "DA"
+                    ],
+                    "currencyIso": "DKK",
+                    "value": 37270
+                },
+                {
+                    "countries": [
+                        "EI"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 4969
+                },
+                {
+                    "countries": [
+                        "LV",
+                        "EE",
+                        "FI",
+                        "LN"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 4969
+                },
+                {
+                    "countries": [
+                        "SG",
+                        "NC",
+                        "FP",
+                        "AG",
+                        "ET",
+                        "FR",
+                        "GA",
+                        "TS",
+                        "NI",
+                        "MO",
+                        "GH"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 4969
+                },
+                {
+                    "countries": [
+                        "GE"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 4969
+                },
+                {
+                    "countries": [
+                        "HK",
+                        "MC"
+                    ],
+                    "currencyIso": "HKD",
+                    "value": 51090
+                },
+                {
+                    "countries": [
+                        "HU"
+                    ],
+                    "currencyIso": "HUF",
+                    "value": 1525500
+                },
+                {
+                    "countries": [
+                        "BG",
+                        "NP",
+                        "IN"
+                    ],
+                    "currencyIso": "INR",
+                    "value": 390461
+                },
+                {
+                    "countries": [
+                        "IS"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 5990
+                },
+                {
+                    "countries": [
+                        "IT"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 4969
+                },
+                {
+                    "countries": [
+                        "JP"
+                    ],
+                    "currencyIso": "JPY",
+                    "value": 540000
+                },
+                {
+                    "countries": [
+                        "KS"
+                    ],
+                    "currencyIso": "WON",
+                    "value": 8901000
+                },
+                {
+                    "countries": [
+                        "MX"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 7967
+                },
+                {
+                    "countries": [
+                        "MY"
+                    ],
+                    "currencyIso": "MYR",
+                    "value": 26800
+                },
+                {
+                    "countries": [
+                        "NL"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 4969
+                },
+                {
+                    "countries": [
+                        "NO"
+                    ],
+                    "currencyIso": "NOK",
+                    "value": 42240
+                },
+                {
+                    "countries": [
+                        "PL"
+                    ],
+                    "currencyIso": "PLN",
+                    "value": 18630
+                },
+                {
+                    "countries": [
+                        "PO"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 4969
+                },
+                {
+                    "countries": [
+                        "RQ"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 6590
+                },
+                {
+                    "countries": [
+                        "GQ",
+                        "BM",
+                        "RP",
+                        "ID",
+                        "TH",
+                        "BX",
+                        "SN",
+                        "VM",
+                        "CB"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 6600
+                },
+                {
+                    "countries": [
+                        "ES"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 4969
+                },
+                {
+                    "countries": [
+                        "SW",
+                        "IC"
+                    ],
+                    "currencyIso": "SEK",
+                    "value": 47210
+                },
+                {
+                    "countries": [
+                        "SZ"
+                    ],
+                    "currencyIso": "CHF",
+                    "value": 7205
+                },
+                {
+                    "countries": [
+                        "UK",
+                        "JE",
+                        "GI"
+                    ],
+                    "currencyIso": "GBP",
+                    "value": 3478
+                },
+                {
+                    "countries": [
+                        "KE",
+                        "BC",
+                        "CS",
+                        "GP",
+                        "NT",
+                        "PA",
+                        "SF",
+                        "ZA",
+                        "AR",
+                        "BF",
+                        "BD",
+                        "BL",
+                        "CO",
+                        "EC",
+                        "GT",
+                        "JM",
+                        "NF",
+                        "PN",
+                        "PE",
+                        "ST",
+                        "VE",
+                        "UY",
+                        "HO",
+                        "US",
+                        "CI",
+                        "HA",
+                        "VI",
+                        "ES",
+                        "NU",
+                        "TD",
+                        "CF",
+                        "GJ",
+                        "AY",
+                        "BH"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 5990
+                },
+                {
+                    "countries": [
+                        "TW"
+                    ],
+                    "currencyIso": "NTD",
+                    "value": 180400
+                }
+            ],
+            "proprietary": false,
+            "purchasable": true,
+            "salesStatus": "Active",
+            "summary": "The Waters® Performance Maintenance Kit for the GCT Mass Spectrometer contains all the Waters Quality Parts® necessary to keep your instrument operating at peak performance on an annual basis.  The Waters® Performance Maintenance Kit includes the following parts: Source components and vacuum pump components.",
+            "terminated": false,
+            "url": "/waters/products/201000147"
+        },
+        {
+            "categories": [
+                {
+                    "code": "SparePartsCatalog",
+                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/SparePartsCatalog"
+                }
+            ],
+            "classifications": [
+                {
+                    "code": "ApplicationKits",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitstype",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 2,
+                                    "value": "Performance Maintenance"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits Type",
+                            "position": 2520,
+                            "publicWebLabel": "Type",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitssystemtype",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 3,
+                                    "value": "MS"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits System Type",
+                            "position": 2570,
+                            "publicWebLabel": "System Type",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitsreplacementschedule",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "Annual"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits Replacement Schedule",
+                            "position": 2620,
+                            "publicWebLabel": "Replacement Schedule",
+                            "range": false
+                        }
+                    ],
+                    "name": "Application Kits"
+                },
+                {
+                    "code": "ConsumablesAndSpares",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/ConsumablesAndSpares.unitsperpackage",
+                            "comparable": true,
+                            "facet": false,
+                            "featureUnit": {
+                                "name": "Units Per Package UOM",
+                                "symbol": "pk",
+                                "unitType": "unitsPerPackageUOM"
+                            },
+                            "featureValues": [
+                                {
+                                    "featureUnitValue": {
+                                        "value": "pk"
+                                    },
+                                    "position": 1001,
+                                    "value": "1"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Units per Package",
+                            "position": 110,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ConsumablesAndSpares.jaggaercategory",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 393,
+                                    "value": "Mass Spectrometer Components"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Jaggaer Category",
+                            "range": false
+                        }
+                    ],
+                    "name": "Consumables And Spares"
+                },
+                {
+                    "code": "Products",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/Products.saphierarchy",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "0347MS902"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Sap Hierarchy",
+                            "position": 1,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.remainingshelflife",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "0"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Remaining Shelf Life",
+                            "position": 3,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.company",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 5,
+                                    "value": "Waters"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Company",
+                            "position": 10,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.weight",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "5"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Weight",
+                            "position": 12,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.weightunit",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "KGM"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Weight UOM",
+                            "position": 15,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.harmonizationcode",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "XG"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Harmonization Code",
+                            "position": 16,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.unspsc",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "41115404"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "UNSPSC",
+                            "position": 17,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.brand",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 64,
+                                    "value": "Waters Quality Parts"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Brand",
+                            "position": 30,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.business",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 5,
+                                    "value": "Service"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Business",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.productfamily",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 7,
+                                    "value": "Application Kits"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Product Family",
+                            "range": false
+                        }
+                    ],
+                    "name": "Products"
+                }
+            ],
+            "code": "201000188",
+            "coldChainShipping": true,
+            "hazardous": false,
+            "description": "The Waters® Performance Maintenance Kit for the GCT Premier Mass Spectrometer contains all the Waters Quality Parts® necessary to keep your instrument operating at peak performance on an annual basis. The Waters® Performance Maintenance Kit for the GCT Premier Mass Spectrometer includes the following parts: Source components and vacuum pump components.",
+            "images": [
+                {
+                    "imageType": "PRIMARY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/brand-assets/icons/spares-thumbnail.png"
+                }
+            ],
+            "name": "GCT Premier Performance Maintenance Kit",
+            "prices": [
+                {
+                    "countries": [
+                        "NZ",
+                        "FJ",
+                        "VA",
+                        "AS"
+                    ],
+                    "currencyIso": "AUD",
+                    "value": 10496
+                },
+                {
+                    "countries": [
+                        "ME",
+                        "YE",
+                        "SV",
+                        "SY",
+                        "TC",
+                        "UZ",
+                        "KZ",
+                        "PS",
+                        "AM",
+                        "AJ",
+                        "BA",
+                        "BS",
+                        "BU",
+                        "CY",
+                        "EG",
+                        "GR",
+                        "IZ",
+                        "KU",
+                        "LE",
+                        "MK",
+                        "MT",
+                        "MU",
+                        "PK",
+                        "BY",
+                        "GG",
+                        "QA",
+                        "RO",
+                        "RU",
+                        "SA",
+                        "RS",
+                        "UA",
+                        "JO",
+                        "AL",
+                        "CE",
+                        "LY",
+                        "AU",
+                        "CR",
+                        "TU"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 6419
+                },
+                {
+                    "countries": [
+                        "BE",
+                        "LU"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 6419
+                },
+                {
+                    "countries": [
+                        "BR"
+                    ],
+                    "currencyIso": "BRL",
+                    "value": 0.05
+                },
+                {
+                    "countries": [
+                        "CA"
+                    ],
+                    "currencyIso": "CAD",
+                    "value": 9645
+                },
+                {
+                    "countries": [
+                        "CN"
+                    ],
+                    "currencyIso": "CNY",
+                    "value": 62426
+                },
+                {
+                    "countries": [
+                        "CX",
+                        "SK"
+                    ],
+                    "currencyIso": "CZK",
+                    "value": 163680
+                },
+                {
+                    "countries": [
+                        "DA"
+                    ],
+                    "currencyIso": "DKK",
+                    "value": 48140
+                },
+                {
+                    "countries": [
+                        "EI"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 6419
+                },
+                {
+                    "countries": [
+                        "LV",
+                        "EE",
+                        "FI",
+                        "LN"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 6419
+                },
+                {
+                    "countries": [
+                        "SG",
+                        "NC",
+                        "FP",
+                        "AG",
+                        "ET",
+                        "FR",
+                        "GA",
+                        "TS",
+                        "NI",
+                        "MO",
+                        "GH"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 6419
+                },
+                {
+                    "countries": [
+                        "GE"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 6419
+                },
+                {
+                    "countries": [
+                        "HK",
+                        "MC"
+                    ],
+                    "currencyIso": "HKD",
+                    "value": 63290
+                },
+                {
+                    "countries": [
+                        "HU"
+                    ],
+                    "currencyIso": "HUF",
+                    "value": 1970600
+                },
+                {
+                    "countries": [
+                        "BG",
+                        "NP",
+                        "IN"
+                    ],
+                    "currencyIso": "INR",
+                    "value": 472470
+                },
+                {
+                    "countries": [
+                        "IS"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 7420
+                },
+                {
+                    "countries": [
+                        "IT"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 6419
+                },
+                {
+                    "countries": [
+                        "JP"
+                    ],
+                    "currencyIso": "JPY",
+                    "value": 459000
+                },
+                {
+                    "countries": [
+                        "KS"
+                    ],
+                    "currencyIso": "WON",
+                    "value": 11022000
+                },
+                {
+                    "countries": [
+                        "MX"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 9869
+                },
+                {
+                    "countries": [
+                        "MY"
+                    ],
+                    "currencyIso": "MYR",
+                    "value": 33800
+                },
+                {
+                    "countries": [
+                        "NL"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 6419
+                },
+                {
+                    "countries": [
+                        "NO"
+                    ],
+                    "currencyIso": "NOK",
+                    "value": 54560
+                },
+                {
+                    "countries": [
+                        "PL"
+                    ],
+                    "currencyIso": "PLN",
+                    "value": 24070
+                },
+                {
+                    "countries": [
+                        "PO"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 6419
+                },
+                {
+                    "countries": [
+                        "RQ"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 8160
+                },
+                {
+                    "countries": [
+                        "GQ",
+                        "BM",
+                        "RP",
+                        "ID",
+                        "TH",
+                        "BX",
+                        "SN",
+                        "VM",
+                        "CB"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 8200
+                },
+                {
+                    "countries": [
+                        "ES"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 6419
+                },
+                {
+                    "countries": [
+                        "SW",
+                        "IC"
+                    ],
+                    "currencyIso": "SEK",
+                    "value": 60980
+                },
+                {
+                    "countries": [
+                        "SZ"
+                    ],
+                    "currencyIso": "CHF",
+                    "value": 9308
+                },
+                {
+                    "countries": [
+                        "UK",
+                        "JE",
+                        "GI"
+                    ],
+                    "currencyIso": "GBP",
+                    "value": 4493
+                },
+                {
+                    "countries": [
+                        "KE",
+                        "BC",
+                        "CS",
+                        "GP",
+                        "NT",
+                        "PA",
+                        "SF",
+                        "ZA",
+                        "AR",
+                        "BF",
+                        "BD",
+                        "BL",
+                        "CO",
+                        "EC",
+                        "GT",
+                        "JM",
+                        "NF",
+                        "PN",
+                        "PE",
+                        "ST",
+                        "VE",
+                        "UY",
+                        "HO",
+                        "US",
+                        "CI",
+                        "HA",
+                        "VI",
+                        "ES",
+                        "NU",
+                        "TD",
+                        "CF",
+                        "GJ",
+                        "AY",
+                        "BH"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 7420
+                },
+                {
+                    "countries": [
+                        "TW"
+                    ],
+                    "currencyIso": "NTD",
+                    "value": 234400
+                }
+            ],
+            "proprietary": false,
+            "purchasable": true,
+            "salesStatus": "Active",
+            "summary": "The Waters® Performance Maintenance Kit for the GCT Premier Mass Spectrometer contains all the Waters Quality Parts® necessary to keep your instrument operating at peak performance on an annual basis. The Waters® Performance Maintenance Kit for the GCT Premier Mass Spectrometer includes the following parts: Source components and vacuum pump components.",
+            "terminated": false,
+            "url": "/waters/products/201000188"
+        },
+        {
+            "categories": [
+                {
+                    "code": "SparePartsCatalog",
+                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/SparePartsCatalog"
+                }
+            ],
+            "classifications": [
+                {
+                    "code": "ApplicationKits",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitstype",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 2,
+                                    "value": "Performance Maintenance"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits Type",
+                            "position": 2520,
+                            "publicWebLabel": "Type",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitssystemtype",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 3,
+                                    "value": "MS"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits System Type",
+                            "position": 2570,
+                            "publicWebLabel": "System Type",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ApplicationKits.applicationkitsreplacementschedule",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "Annual"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Application Kits Replacement Schedule",
+                            "position": 2620,
+                            "publicWebLabel": "Replacement Schedule",
+                            "range": false
+                        }
+                    ],
+                    "name": "Application Kits"
+                },
+                {
+                    "code": "ConsumablesAndSpares",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/ConsumablesAndSpares.unitsperpackage",
+                            "comparable": true,
+                            "facet": false,
+                            "featureUnit": {
+                                "name": "Units Per Package UOM",
+                                "symbol": "pk",
+                                "unitType": "unitsPerPackageUOM"
+                            },
+                            "featureValues": [
+                                {
+                                    "featureUnitValue": {
+                                        "value": "pk"
+                                    },
+                                    "position": 1001,
+                                    "value": "1"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Units per Package",
+                            "position": 110,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ConsumablesAndSpares.jaggaercategory",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 393,
+                                    "value": "Mass Spectrometer Components"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Jaggaer Category",
+                            "range": false
+                        }
+                    ],
+                    "name": "Consumables And Spares"
+                },
+                {
+                    "code": "Products",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/Products.saphierarchy",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "0347MS902"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Sap Hierarchy",
+                            "position": 1,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.remainingshelflife",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "0"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Remaining Shelf Life",
+                            "position": 3,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.company",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 5,
+                                    "value": "Waters"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Company",
+                            "position": 10,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.weight",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "1.600"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Weight",
+                            "position": 12,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.weightunit",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "KGM"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Weight UOM",
+                            "position": 15,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.harmonizationcode",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "9027900000"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Harmonization Code",
+                            "position": 16,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.unspsc",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "41115404"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "UNSPSC",
+                            "position": 17,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.brand",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 64,
+                                    "value": "Waters Quality Parts"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Brand",
+                            "position": 30,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.business",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 5,
+                                    "value": "Service"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Business",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.productfamily",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 7,
+                                    "value": "Application Kits"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Product Family",
+                            "range": false
+                        }
+                    ],
+                    "name": "Products"
+                }
+            ],
+            "code": "201000218",
+            "coldChainShipping": true,
+            "hazardous": false,
+            "description": "The Waters® Performance Maintenance Kit for the LCT Premier/XE (scroll) Mass Spectrometer contains all the Waters Quality Parts® necessary to keep your instrument operating at peak performance on an annual basis. The Waters® Performance Maintenance Kit includes the following parts: Source component, ESI probe components, reference probe components and vacuum pump components. The original part number was 201000191.  This particular part number does not deliver a chemical kit which is required to complete the performance testing.   The part number for a Waters® Performance Maintenance Kit and a chemical kit is 176002061",
+            "images": [
+                {
+                    "imageType": "PRIMARY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/brand-assets/icons/spares-thumbnail.png"
+                }
+            ],
+            "name": "LCT P/XE (Scroll) Performance Maintenance Kit",
+            "prices": [
+                {
+                    "countries": [
+                        "NZ",
+                        "FJ",
+                        "VA",
+                        "AS"
+                    ],
+                    "currencyIso": "AUD",
+                    "value": 7897
+                },
+                {
+                    "countries": [
+                        "ME",
+                        "YE",
+                        "SV",
+                        "SY",
+                        "TC",
+                        "UZ",
+                        "KZ",
+                        "PS",
+                        "AM",
+                        "AJ",
+                        "BA",
+                        "BS",
+                        "BU",
+                        "CY",
+                        "EG",
+                        "GR",
+                        "IZ",
+                        "KU",
+                        "LE",
+                        "MK",
+                        "MT",
+                        "MU",
+                        "PK",
+                        "BY",
+                        "GG",
+                        "QA",
+                        "RO",
+                        "RU",
+                        "SA",
+                        "RS",
+                        "UA",
+                        "JO",
+                        "AL",
+                        "CE",
+                        "LY",
+                        "AU",
+                        "CR",
+                        "TU"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 4969
+                },
+                {
+                    "countries": [
+                        "BE",
+                        "LU"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 4969
+                },
+                {
+                    "countries": [
+                        "BR"
+                    ],
+                    "currencyIso": "BRL",
+                    "value": 0.04
+                },
+                {
+                    "countries": [
+                        "CA"
+                    ],
+                    "currencyIso": "CAD",
+                    "value": 7110
+                },
+                {
+                    "countries": [
+                        "CN"
+                    ],
+                    "currencyIso": "CNY",
+                    "value": 46046
+                },
+                {
+                    "countries": [
+                        "CX",
+                        "SK"
+                    ],
+                    "currencyIso": "CZK",
+                    "value": 126710
+                },
+                {
+                    "countries": [
+                        "DA"
+                    ],
+                    "currencyIso": "DKK",
+                    "value": 37270
+                },
+                {
+                    "countries": [
+                        "EI"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 4969
+                },
+                {
+                    "countries": [
+                        "LV",
+                        "EE",
+                        "FI",
+                        "LN"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 4969
+                },
+                {
+                    "countries": [
+                        "SG",
+                        "NC",
+                        "FP",
+                        "AG",
+                        "ET",
+                        "FR",
+                        "GA",
+                        "TS",
+                        "NI",
+                        "MO",
+                        "GH"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 4969
+                },
+                {
+                    "countries": [
+                        "GE"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 4969
+                },
+                {
+                    "countries": [
+                        "HK",
+                        "MC"
+                    ],
+                    "currencyIso": "HKD",
+                    "value": 46660
+                },
+                {
+                    "countries": [
+                        "HU"
+                    ],
+                    "currencyIso": "HUF",
+                    "value": 1525500
+                },
+                {
+                    "countries": [
+                        "BG",
+                        "NP",
+                        "IN"
+                    ],
+                    "currencyIso": "INR",
+                    "value": 405331
+                },
+                {
+                    "countries": [
+                        "IS"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 5470
+                },
+                {
+                    "countries": [
+                        "IT"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 4969
+                },
+                {
+                    "countries": [
+                        "JP"
+                    ],
+                    "currencyIso": "JPY",
+                    "value": 489500
+                },
+                {
+                    "countries": [
+                        "KS"
+                    ],
+                    "currencyIso": "WON",
+                    "value": 8128000
+                },
+                {
+                    "countries": [
+                        "MX"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 7275
+                },
+                {
+                    "countries": [
+                        "MY"
+                    ],
+                    "currencyIso": "MYR",
+                    "value": 25000
+                },
+                {
+                    "countries": [
+                        "NL"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 4969
+                },
+                {
+                    "countries": [
+                        "NO"
+                    ],
+                    "currencyIso": "NOK",
+                    "value": 42240
+                },
+                {
+                    "countries": [
+                        "PL"
+                    ],
+                    "currencyIso": "PLN",
+                    "value": 18630
+                },
+                {
+                    "countries": [
+                        "PO"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 4969
+                },
+                {
+                    "countries": [
+                        "RQ"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 6015
+                },
+                {
+                    "countries": [
+                        "GQ",
+                        "BM",
+                        "RP",
+                        "ID",
+                        "TH",
+                        "BX",
+                        "SN",
+                        "VM",
+                        "CB"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 6000
+                },
+                {
+                    "countries": [
+                        "ES"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 4969
+                },
+                {
+                    "countries": [
+                        "SW",
+                        "IC"
+                    ],
+                    "currencyIso": "SEK",
+                    "value": 47210
+                },
+                {
+                    "countries": [
+                        "SZ"
+                    ],
+                    "currencyIso": "CHF",
+                    "value": 7205
+                },
+                {
+                    "countries": [
+                        "UK",
+                        "JE",
+                        "GI"
+                    ],
+                    "currencyIso": "GBP",
+                    "value": 3478
+                },
+                {
+                    "countries": [
+                        "KE",
+                        "BC",
+                        "CS",
+                        "GP",
+                        "NT",
+                        "PA",
+                        "SF",
+                        "ZA",
+                        "AR",
+                        "BF",
+                        "BD",
+                        "BL",
+                        "CO",
+                        "EC",
+                        "GT",
+                        "JM",
+                        "NF",
+                        "PN",
+                        "PE",
+                        "ST",
+                        "VE",
+                        "UY",
+                        "HO",
+                        "US",
+                        "CI",
+                        "HA",
+                        "VI",
+                        "ES",
+                        "NU",
+                        "TD",
+                        "CF",
+                        "GJ",
+                        "AY",
+                        "BH"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 5470
+                },
+                {
+                    "countries": [
+                        "TW"
+                    ],
+                    "currencyIso": "NTD",
+                    "value": 189100
+                }
+            ],
+            "proprietary": false,
+            "purchasable": true,
+            "salesStatus": "Active",
+            "summary": "The Waters® Performance Maintenance Kit for the LCT Premier/XE (scroll) Mass Spectrometer contains all the Waters Quality Parts® necessary to keep your instrument operating at peak performance on an annual basis. The Waters® Performance Maintenance Kit includes the following parts: Source component, ESI probe components, reference probe components and vacuum pump components. The original part number was 201000191.  This particular part number does not deliver a chemical kit which is required to complete the performance testing.   The part number for a Waters® Performance Maintenance Kit and a chemical kit is 176002061",
+            "terminated": false,
+            "url": "/waters/products/201000218"
+        },
+        {
+            "categories": [
+                {
+                    "code": "ACQUITYUPLCColumns",
+                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/ACQUITYUPLCColumns"
+                },
+                {
+                    "code": "HSSColumns",
+                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/HSSColumns"
+                },
+                {
+                    "code": "Columns",
+                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/Columns"
+                }
+            ],
+            "classifications": [
+                {
+                    "code": "Column",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/Column.columncarbonload",
+                            "comparable": true,
+                            "facet": false,
+                            "featureUnit": {
+                                "name": "Column Carbon Load",
+                                "symbol": "%",
+                                "unitType": "ColumnCarbonLoadUOM"
+                            },
+                            "featureValues": [
+                                {
+                                    "featureUnitValue": {
+                                        "value": "%"
+                                    },
+                                    "position": 1027,
+                                    "value": "8.5"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Carbon Load",
+                            "position": 0,
+                            "publicWebLabel": "Carbon Load",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnbondingtechnology",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 2,
+                                    "value": "C18 SB"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Bonding Technology",
+                            "position": 1,
+                            "publicWebLabel": "Bonding Technology",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnchemistrytype",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 10,
+                                    "value": "C18"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Chemistry Type",
+                            "position": 2,
+                            "publicWebLabel": "Chemistry",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnendcapped",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "No"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Endcapped",
+                            "position": 3,
+                            "publicWebLabel": "Endcapped",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnendfittingtype",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 4,
+                                    "value": "Parker-style"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Endfitting Type",
+                            "position": 4,
+                            "publicWebLabel": "Endfitting Type",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnformat",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 6,
+                                    "value": "Column"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Format",
+                            "position": 5,
+                            "publicWebLabel": "Format",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columninnerdiameter",
+                            "comparable": true,
+                            "facet": false,
+                            "featureUnit": {
+                                "name": "Column Inner Diameter",
+                                "symbol": "mm",
+                                "unitType": "ColumnInnerDiameterUOM"
+                            },
+                            "featureValues": [
+                                {
+                                    "featureUnitValue": {
+                                        "value": "mm"
+                                    },
+                                    "position": 2008,
+                                    "value": "2.1"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Inner Diameter",
+                            "position": 6,
+                            "publicWebLabel": "Inner Diameter",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnlength",
+                            "comparable": true,
+                            "facet": true,
+                            "featureUnit": {
+                                "name": "Column Length",
+                                "symbol": "mm",
+                                "unitType": "ColumnLengthUOM"
+                            },
+                            "featureValues": [
+                                {
+                                    "featureUnitValue": {
+                                        "value": "mm"
+                                    },
+                                    "position": 1005,
+                                    "value": "150"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Length",
+                            "position": 8,
+                            "publicWebLabel": "Length",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnseparationmode",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 10,
+                                    "value": "Reversed-Phase"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Separation Mode",
+                            "position": 9,
+                            "publicWebLabel": "Separation Mode",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnparticleshape",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 2,
+                                    "value": "Spherical"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Particle Shape",
+                            "position": 12,
+                            "publicWebLabel": "Particle Shape",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnparticlesize",
+                            "comparable": true,
+                            "facet": true,
+                            "featureUnit": {
+                                "name": "Column Particle Size",
+                                "symbol": "µm",
+                                "unitType": "ColumnParticleSizeUOM"
+                            },
+                            "featureValues": [
+                                {
+                                    "featureUnitValue": {
+                                        "value": "µm"
+                                    },
+                                    "position": 1005,
+                                    "value": "1.8"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Particle Size",
+                            "position": 13,
+                            "publicWebLabel": "Particle Size",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnparticlesubstrate",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 6,
+                                    "value": "Silica"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Particle Substrate",
+                            "position": 14,
+                            "publicWebLabel": "Particle Substrate",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnporesize",
+                            "comparable": true,
+                            "facet": true,
+                            "featureUnit": {
+                                "name": "Column Pore Size",
+                                "symbol": "Å",
+                                "unitType": "ColumnPoreSizeUOM"
+                            },
+                            "featureValues": [
+                                {
+                                    "featureUnitValue": {
+                                        "value": "Å"
+                                    },
+                                    "position": 1001,
+                                    "value": "100"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Pore Size",
+                            "position": 15,
+                            "publicWebLabel": "Pore Size",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnsilanolactivity",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "High"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Silanol Activity",
+                            "position": 17,
+                            "publicWebLabel": "Silanol Activity",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnsurfacearea",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 9,
+                                    "value": "230"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Surface Area",
+                            "position": 19,
+                            "publicWebLabel": "Surface Area",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnsystem",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 9,
+                                    "value": "UPLC"
+                                },
+                                {
+                                    "position": 7,
+                                    "value": "UHPLC"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column System",
+                            "position": 20,
+                            "publicWebLabel": "System",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnparticletechnology",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 3,
+                                    "value": "HSS"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Particle Technology",
+                            "position": 21,
+                            "publicWebLabel": "Particle Technology",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnuspclassification",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "L1"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column USP Classification",
+                            "position": 22,
+                            "publicWebLabel": "USP Classification",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnphrangemin",
+                            "comparable": true,
+                            "facet": false,
+                            "featureUnit": {
+                                "name": "Column pH Range Min",
+                                "symbol": "pH",
+                                "unitType": "ColumnpHRangeMinUOM"
+                            },
+                            "featureValues": [
+                                {
+                                    "featureUnitValue": {
+                                        "value": "pH"
+                                    },
+                                    "position": 1003,
+                                    "value": "2"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column pH Range Min",
+                            "position": 23,
+                            "publicWebLabel": "pH Range",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnphrangemax",
+                            "comparable": true,
+                            "facet": false,
+                            "featureUnit": {
+                                "name": "Column pH Range Max",
+                                "symbol": "pH",
+                                "unitType": "ColumnpHRangeMaxUOM"
+                            },
+                            "featureValues": [
+                                {
+                                    "featureUnitValue": {
+                                        "value": "pH"
+                                    },
+                                    "position": 1008,
+                                    "value": "8"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column pH Range Max",
+                            "position": 24,
+                            "publicWebLabel": "pH Range",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columntemperaturelimits",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 2,
+                                    "value": "45"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Temperature Limits",
+                            "position": 26,
+                            "publicWebLabel": "Temperature Limits",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnmaximumpressure",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 4,
+                                    "value": "18000 psi (1240 Bar)"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Maximum Pressure",
+                            "position": 27,
+                            "publicWebLabel": "Maximum Pressure",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnecord",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "Yes"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column eCord",
+                            "position": 28,
+                            "publicWebLabel": "eCord",
+                            "range": false
+                        }
+                    ],
+                    "name": "Column"
+                },
+                {
+                    "code": "ConsumablesAndSpares",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/ConsumablesAndSpares.unitsperpackage",
+                            "comparable": true,
+                            "facet": false,
+                            "featureUnit": {
+                                "name": "Units Per Package UOM",
+                                "symbol": "pk",
+                                "unitType": "unitsPerPackageUOM"
+                            },
+                            "featureValues": [
+                                {
+                                    "featureUnitValue": {
+                                        "value": "pk"
+                                    },
+                                    "position": 1003,
+                                    "value": "3"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Units per Package",
+                            "position": 110,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ConsumablesAndSpares.jaggaercategory",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 519,
+                                    "value": "Ultra Performance LC Columns"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Jaggaer Category",
+                            "range": false
+                        }
+                    ],
+                    "name": "Consumables And Spares"
+                },
+                {
+                    "code": "Products",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/Products.saphierarchy",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "022E2EA12"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Sap Hierarchy",
+                            "position": 1,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.remainingshelflife",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "0"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Remaining Shelf Life",
+                            "position": 3,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.company",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 5,
+                                    "value": "Waters"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Company",
+                            "position": 10,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.weight",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "0"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Weight",
+                            "position": 12,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.weightunit",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "KGM"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Weight UOM",
+                            "position": 15,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.harmonizationcode",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "8421290090"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Harmonization Code",
+                            "position": 16,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.unspsc",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "41115709"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "UNSPSC",
+                            "position": 17,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.brand",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 10,
+                                    "value": "ACQUITY UPLC"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Brand",
+                            "position": 30,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.business",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "Chemistry"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Business",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.productfamily",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "Columns"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Product Family",
+                            "range": false
+                        }
+                    ],
+                    "name": "Products"
+                }
+            ],
+            "code": "176001562",
+            "coldChainShipping": true,
+            "hazardous": false,
+            "description": "ACQUITY UPLC HSS C18 SB columns are used for low pH separations that contain complex mixtures of basic and non-basic compounds.  ACQUITY HSS C18 SB columns give you alternative analyte selectivity compared to most modern, high coverage, fully endcapped C18 stationary phases.  ACQUITY HSS C18 SB columns are fully scalable and transferable to HPLC separations.",
+            "images": [
+                {
+                    "imageType": "GALLERY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/columns/yellow-fob.png"
+                },
+                {
+                    "imageType": "PRIMARY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/columns/uplc-column-21x150mm-3pkg.png"
+                }
+            ],
+            "name": "ACQUITY UPLC HSS C18 SB Column, 100Å, 1.8 µm, 2.1 mm X 150 mm, 3/pk",
+            "prices": [
+                {
+                    "countries": [
+                        "NZ",
+                        "FJ",
+                        "VA",
+                        "AS"
+                    ],
+                    "currencyIso": "AUD",
+                    "value": 3857
+                },
+                {
+                    "countries": [
+                        "ME",
+                        "YE",
+                        "SV",
+                        "SY",
+                        "TC",
+                        "UZ",
+                        "KZ",
+                        "PS",
+                        "AM",
+                        "AJ",
+                        "BA",
+                        "BS",
+                        "BU",
+                        "CY",
+                        "EG",
+                        "GR",
+                        "IZ",
+                        "KU",
+                        "LE",
+                        "MK",
+                        "MT",
+                        "MU",
+                        "PK",
+                        "BY",
+                        "GG",
+                        "QA",
+                        "RO",
+                        "RU",
+                        "SA",
+                        "RS",
+                        "UA",
+                        "JO",
+                        "AL",
+                        "CE",
+                        "LY",
+                        "AU",
+                        "CR",
+                        "TU"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 2284
+                },
+                {
+                    "countries": [
+                        "BE",
+                        "LU"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 2284
+                },
+                {
+                    "countries": [
+                        "BR"
+                    ],
+                    "currencyIso": "BRL",
+                    "value": 0.02
+                },
+                {
+                    "countries": [
+                        "CA"
+                    ],
+                    "currencyIso": "CAD",
+                    "value": 3460
+                },
+                {
+                    "countries": [
+                        "CN"
+                    ],
+                    "currencyIso": "CNY",
+                    "value": 19890
+                },
+                {
+                    "countries": [
+                        "CX",
+                        "SK"
+                    ],
+                    "currencyIso": "CZK",
+                    "value": 58242
+                },
+                {
+                    "countries": [
+                        "DA"
+                    ],
+                    "currencyIso": "DKK",
+                    "value": 17714
+                },
+                {
+                    "countries": [
+                        "EI"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 2284
+                },
+                {
+                    "countries": [
+                        "LV",
+                        "EE",
+                        "FI",
+                        "LN"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 2284
+                },
+                {
+                    "countries": [
+                        "SG",
+                        "NC",
+                        "FP",
+                        "AG",
+                        "ET",
+                        "FR",
+                        "GA",
+                        "TS",
+                        "NI",
+                        "MO",
+                        "GH"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 2284
+                },
+                {
+                    "countries": [
+                        "GE"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 2284
+                },
+                {
+                    "countries": [
+                        "HK",
+                        "MC"
+                    ],
+                    "currencyIso": "HKD",
+                    "value": 22690
+                },
+                {
+                    "countries": [
+                        "HU"
+                    ],
+                    "currencyIso": "HUF",
+                    "value": 701188
+                },
+                {
+                    "countries": [
+                        "BG",
+                        "NP",
+                        "IN"
+                    ],
+                    "currencyIso": "INR",
+                    "value": 207934
+                },
+                {
+                    "countries": [
+                        "IS"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 2660
+                },
+                {
+                    "countries": [
+                        "IT"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 2284
+                },
+                {
+                    "countries": [
+                        "JP"
+                    ],
+                    "currencyIso": "JPY",
+                    "value": 290000
+                },
+                {
+                    "countries": [
+                        "KS"
+                    ],
+                    "currencyIso": "WON",
+                    "value": 3721200
+                },
+                {
+                    "countries": [
+                        "MX"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 3538
+                },
+                {
+                    "countries": [
+                        "MY"
+                    ],
+                    "currencyIso": "MYR",
+                    "value": 11500
+                },
+                {
+                    "countries": [
+                        "NL"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 2284
+                },
+                {
+                    "countries": [
+                        "NO"
+                    ],
+                    "currencyIso": "NOK",
+                    "value": 18963
+                },
+                {
+                    "countries": [
+                        "PL"
+                    ],
+                    "currencyIso": "PLN",
+                    "value": 8565
+                },
+                {
+                    "countries": [
+                        "PO"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 2284
+                },
+                {
+                    "countries": [
+                        "RQ"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 2925
+                },
+                {
+                    "countries": [
+                        "GQ",
+                        "BM",
+                        "RP",
+                        "ID",
+                        "TH",
+                        "BX",
+                        "SN",
+                        "VM",
+                        "CB"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 2926
+                },
+                {
+                    "countries": [
+                        "ES"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 2284
+                },
+                {
+                    "countries": [
+                        "SW",
+                        "IC"
+                    ],
+                    "currencyIso": "SEK",
+                    "value": 21395
+                },
+                {
+                    "countries": [
+                        "SZ"
+                    ],
+                    "currencyIso": "CHF",
+                    "value": 2847
+                },
+                {
+                    "countries": [
+                        "UK",
+                        "JE",
+                        "GI"
+                    ],
+                    "currencyIso": "GBP",
+                    "value": 1502
+                },
+                {
+                    "countries": [
+                        "KE",
+                        "BC",
+                        "CS",
+                        "GP",
+                        "NT",
+                        "PA",
+                        "SF",
+                        "ZA",
+                        "AR",
+                        "BF",
+                        "BD",
+                        "BL",
+                        "CO",
+                        "EC",
+                        "GT",
+                        "JM",
+                        "NF",
+                        "PN",
+                        "PE",
+                        "ST",
+                        "VE",
+                        "UY",
+                        "HO",
+                        "US",
+                        "CI",
+                        "HA",
+                        "VI",
+                        "ES",
+                        "NU",
+                        "TD",
+                        "CF",
+                        "GJ",
+                        "AY",
+                        "BH"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 2660
+                },
+                {
+                    "countries": [
+                        "TW"
+                    ],
+                    "currencyIso": "NTD",
+                    "value": 75900
+                }
+            ],
+            "productReferences": [
+                {
+                    "referenceType": "OTHERS",
+                    "target": {
+                        "code": "186004136",
+                        "name": "186004136",
+                        "proprietary": false,
+                        "terminated": false,
+                        "url": "/c/productName/p/186004136"
+                    },
+                    "preselected": false
+                },
+                {
+                    "referenceType": "OTHERS",
+                    "target": {
+                        "code": "186005666CV",
+                        "name": "186005666CV",
+                        "proprietary": false,
+                        "terminated": false,
+                        "url": "/c/productName/p/186005666CV"
+                    },
+                    "preselected": false
+                },
+                {
+                    "referenceType": "OTHERS",
+                    "target": {
+                        "code": "186006363",
+                        "name": "186006363",
+                        "proprietary": false,
+                        "terminated": false,
+                        "url": "/c/productName/p/186006363"
+                    },
+                    "preselected": false
+                },
+                {
+                    "referenceType": "OTHERS",
+                    "target": {
+                        "code": "186004475",
+                        "name": "186004475",
+                        "proprietary": false,
+                        "terminated": false,
+                        "url": "/c/productName/p/186004475"
+                    },
+                    "preselected": false
+                },
+                {
+                    "referenceType": "OTHERS",
+                    "target": {
+                        "code": "186005837",
+                        "name": "186005837",
+                        "proprietary": false,
+                        "terminated": false,
+                        "url": "/c/productName/p/186005837"
+                    },
+                    "preselected": false
+                },
+                {
+                    "referenceType": "OTHERS",
+                    "target": {
+                        "code": "186006360",
+                        "name": "186006360",
+                        "proprietary": false,
+                        "terminated": false,
+                        "url": "/c/productName/p/186006360"
+                    },
+                    "preselected": false
+                }
+            ],
+            "proprietary": false,
+            "purchasable": true,
+            "salesStatus": "Active",
+            "summary": "ACQUITY UPLC HSS C18 SB columns are used for low pH separations that contain complex mixtures of basic and non-basic compounds.  ACQUITY HSS C18 SB columns give you alternative analyte selectivity compared to most modern, high coverage, fully endcapped C18 stationary phases.  ACQUITY HSS C18 SB columns are fully scalable and transferable to HPLC separations.",
+            "terminated": false,
+            "url": "/waters/products/176001562"
+        },
+        {
+            "categories": [
+                {
+                    "code": "ACQUITYUPLCColumns",
+                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/ACQUITYUPLCColumns"
+                },
+                {
+                    "code": "BEHColumns",
+                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/BEHColumns"
+                },
+                {
+                    "code": "Columns",
+                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/Columns"
+                }
+            ],
+            "classifications": [
+                {
+                    "code": "Column",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/Column.columncarbonload",
+                            "comparable": true,
+                            "facet": false,
+                            "featureUnit": {
+                                "name": "Column Carbon Load",
+                                "symbol": "%",
+                                "unitType": "ColumnCarbonLoadUOM"
+                            },
+                            "featureValues": [
+                                {
+                                    "featureUnitValue": {
+                                        "value": "%"
+                                    },
+                                    "position": 1006,
+                                    "value": "15"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Carbon Load",
+                            "position": 0,
+                            "publicWebLabel": "Carbon Load",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnbondingtechnology",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 9,
+                                    "value": "Phenyl-Hexyl"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Bonding Technology",
+                            "position": 1,
+                            "publicWebLabel": "Bonding Technology",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnchemistrytype",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 28,
+                                    "value": "Phenyl"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Chemistry Type",
+                            "position": 2,
+                            "publicWebLabel": "Chemistry",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnendcapped",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 2,
+                                    "value": "Yes"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Endcapped",
+                            "position": 3,
+                            "publicWebLabel": "Endcapped",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnendfittingtype",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 4,
+                                    "value": "Parker-style"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Endfitting Type",
+                            "position": 4,
+                            "publicWebLabel": "Endfitting Type",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnformat",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 6,
+                                    "value": "Column"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Format",
+                            "position": 5,
+                            "publicWebLabel": "Format",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columninnerdiameter",
+                            "comparable": true,
+                            "facet": false,
+                            "featureUnit": {
+                                "name": "Column Inner Diameter",
+                                "symbol": "mm",
+                                "unitType": "ColumnInnerDiameterUOM"
+                            },
+                            "featureValues": [
+                                {
+                                    "featureUnitValue": {
+                                        "value": "mm"
+                                    },
+                                    "position": 2013,
+                                    "value": "3"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Inner Diameter",
+                            "position": 6,
+                            "publicWebLabel": "Inner Diameter",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnlength",
+                            "comparable": true,
+                            "facet": true,
+                            "featureUnit": {
+                                "name": "Column Length",
+                                "symbol": "mm",
+                                "unitType": "ColumnLengthUOM"
+                            },
+                            "featureValues": [
+                                {
+                                    "featureUnitValue": {
+                                        "value": "mm"
+                                    },
+                                    "position": 1010,
+                                    "value": "30"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Length",
+                            "position": 8,
+                            "publicWebLabel": "Length",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnseparationmode",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 10,
+                                    "value": "Reversed-Phase"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Separation Mode",
+                            "position": 9,
+                            "publicWebLabel": "Separation Mode",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnparticleshape",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 2,
+                                    "value": "Spherical"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Particle Shape",
+                            "position": 12,
+                            "publicWebLabel": "Particle Shape",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnparticlesize",
+                            "comparable": true,
+                            "facet": true,
+                            "featureUnit": {
+                                "name": "Column Particle Size",
+                                "symbol": "µm",
+                                "unitType": "ColumnParticleSizeUOM"
+                            },
+                            "featureValues": [
+                                {
+                                    "featureUnitValue": {
+                                        "value": "µm"
+                                    },
+                                    "position": 1002,
+                                    "value": "1.7"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Particle Size",
+                            "position": 13,
+                            "publicWebLabel": "Particle Size",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnparticlesubstrate",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 2,
+                                    "value": "Hybrid"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Particle Substrate",
+                            "position": 14,
+                            "publicWebLabel": "Particle Substrate",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnporesize",
+                            "comparable": true,
+                            "facet": true,
+                            "featureUnit": {
+                                "name": "Column Pore Size",
+                                "symbol": "Å",
+                                "unitType": "ColumnPoreSizeUOM"
+                            },
+                            "featureValues": [
+                                {
+                                    "featureUnitValue": {
+                                        "value": "Å"
+                                    },
+                                    "position": 1008,
+                                    "value": "130"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Pore Size",
+                            "position": 15,
+                            "publicWebLabel": "Pore Size",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnsilanolactivity",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 2,
+                                    "value": "Low"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Silanol Activity",
+                            "position": 17,
+                            "publicWebLabel": "Silanol Activity",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnsurfacearea",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 6,
+                                    "value": "185"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Surface Area",
+                            "position": 19,
+                            "publicWebLabel": "Surface Area",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnsystem",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 9,
+                                    "value": "UPLC"
+                                },
+                                {
+                                    "position": 7,
+                                    "value": "UHPLC"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column System",
+                            "position": 20,
+                            "publicWebLabel": "System",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnparticletechnology",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "BEH"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Particle Technology",
+                            "position": 21,
+                            "publicWebLabel": "Particle Technology",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnuspclassification",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 3,
+                                    "value": "L11"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column USP Classification",
+                            "position": 22,
+                            "publicWebLabel": "USP Classification",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnphrangemin",
+                            "comparable": true,
+                            "facet": false,
+                            "featureUnit": {
+                                "name": "Column pH Range Min",
+                                "symbol": "pH",
+                                "unitType": "ColumnpHRangeMinUOM"
+                            },
+                            "featureValues": [
+                                {
+                                    "featureUnitValue": {
+                                        "value": "pH"
+                                    },
+                                    "position": 1002,
+                                    "value": "1"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column pH Range Min",
+                            "position": 23,
+                            "publicWebLabel": "pH Range",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnphrangemax",
+                            "comparable": true,
+                            "facet": false,
+                            "featureUnit": {
+                                "name": "Column pH Range Max",
+                                "symbol": "pH",
+                                "unitType": "ColumnpHRangeMaxUOM"
+                            },
+                            "featureValues": [
+                                {
+                                    "featureUnitValue": {
+                                        "value": "pH"
+                                    },
+                                    "position": 1003,
+                                    "value": "12"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column pH Range Max",
+                            "position": 24,
+                            "publicWebLabel": "pH Range",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnmaximumpressure",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 4,
+                                    "value": "18000 psi (1240 Bar)"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column Maximum Pressure",
+                            "position": 27,
+                            "publicWebLabel": "Maximum Pressure",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Column.columnecord",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "Yes"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Column eCord",
+                            "position": 28,
+                            "publicWebLabel": "eCord",
+                            "range": false
+                        }
+                    ],
+                    "name": "Column"
+                },
+                {
+                    "code": "ConsumablesAndSpares",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/ConsumablesAndSpares.unitsperpackage",
+                            "comparable": true,
+                            "facet": false,
+                            "featureUnit": {
+                                "name": "Units Per Package UOM",
+                                "symbol": "pk",
+                                "unitType": "unitsPerPackageUOM"
+                            },
+                            "featureValues": [
+                                {
+                                    "featureUnitValue": {
+                                        "value": "pk"
+                                    },
+                                    "position": 1003,
+                                    "value": "3"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Units per Package",
+                            "position": 110,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/ConsumablesAndSpares.jaggaercategory",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 519,
+                                    "value": "Ultra Performance LC Columns"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Jaggaer Category",
+                            "range": false
+                        }
+                    ],
+                    "name": "Consumables And Spares"
+                },
+                {
+                    "code": "Products",
+                    "features": [
+                        {
+                            "code": "WatersClassification/1.0/Products.saphierarchy",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "022E2EA04"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Sap Hierarchy",
+                            "position": 1,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.remainingshelflife",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "0"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Remaining Shelf Life",
+                            "position": 3,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.company",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 5,
+                                    "value": "Waters"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Company",
+                            "position": 10,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.weight",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "0"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Weight",
+                            "position": 12,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.weightunit",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "KGM"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Weight UOM",
+                            "position": 15,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.unspsc",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "value": "41115709"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "UNSPSC",
+                            "position": 17,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.brand",
+                            "comparable": true,
+                            "facet": true,
+                            "featureValues": [
+                                {
+                                    "position": 10,
+                                    "value": "ACQUITY UPLC"
+                                }
+                            ],
+                            "internalOnly": false,
+                            "name": "Brand",
+                            "position": 30,
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.business",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "Chemistry"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Business",
+                            "range": false
+                        },
+                        {
+                            "code": "WatersClassification/1.0/Products.productfamily",
+                            "comparable": true,
+                            "facet": false,
+                            "featureValues": [
+                                {
+                                    "position": 1,
+                                    "value": "Columns"
+                                }
+                            ],
+                            "internalOnly": true,
+                            "name": "Product Family",
+                            "range": false
+                        }
+                    ],
+                    "name": "Products"
+                }
+            ],
+            "code": "176001806",
+            "coldChainShipping": true,
+            "hazardous": false,
+            "description": "ACQUITY BEH Phenyl columns provide complementary selectivity to C18 stationary phases, especially for polyaromatic compounds. This sorbent, along with the XBridge BEH Phenyl, provide you with the most chemiscally stable phenyl sorbent on the market and provides you with ultra-low column bleed, long column lifetimes and excellent peak shape.",
+            "images": [
+                {
+                    "imageType": "GALLERY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/columns/yellow-fob.png"
+                },
+                {
+                    "imageType": "PRIMARY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/columns/uplc-column-3x30mm.png"
+                }
+            ],
+            "name": "ACQUITY UPLC BEH Phenyl-Hexyl Column, 130Å, 1.7 µm, 3 mm X 30 mm, 3/pk",
+            "prices": [
+                {
+                    "countries": [
+                        "NZ",
+                        "FJ",
+                        "VA",
+                        "AS"
+                    ],
+                    "currencyIso": "AUD",
+                    "value": 3524
+                },
+                {
+                    "countries": [
+                        "ME",
+                        "YE",
+                        "SV",
+                        "SY",
+                        "TC",
+                        "UZ",
+                        "KZ",
+                        "PS",
+                        "AM",
+                        "AJ",
+                        "BA",
+                        "BS",
+                        "BU",
+                        "CY",
+                        "EG",
+                        "GR",
+                        "IZ",
+                        "KU",
+                        "LE",
+                        "MK",
+                        "MT",
+                        "MU",
+                        "PK",
+                        "BY",
+                        "GG",
+                        "QA",
+                        "RO",
+                        "RU",
+                        "SA",
+                        "RS",
+                        "UA",
+                        "JO",
+                        "AL",
+                        "CE",
+                        "LY",
+                        "AU",
+                        "CR",
+                        "TU"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 1954
+                },
+                {
+                    "countries": [
+                        "BE",
+                        "LU"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 1954
+                },
+                {
+                    "countries": [
+                        "BR"
+                    ],
+                    "currencyIso": "BRL",
+                    "value": 0.02
+                },
+                {
+                    "countries": [
+                        "CA"
+                    ],
+                    "currencyIso": "CAD",
+                    "value": 3160
+                },
+                {
+                    "countries": [
+                        "CN"
+                    ],
+                    "currencyIso": "CNY",
+                    "value": 22030
+                },
+                {
+                    "countries": [
+                        "CX",
+                        "SK"
+                    ],
+                    "currencyIso": "CZK",
+                    "value": 49827
+                },
+                {
+                    "countries": [
+                        "DA"
+                    ],
+                    "currencyIso": "DKK",
+                    "value": 14710
+                },
+                {
+                    "countries": [
+                        "EI"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 1954
+                },
+                {
+                    "countries": [
+                        "LV",
+                        "EE",
+                        "FI",
+                        "LN"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 1954
+                },
+                {
+                    "countries": [
+                        "SG",
+                        "NC",
+                        "FP",
+                        "AG",
+                        "ET",
+                        "FR",
+                        "GA",
+                        "TS",
+                        "NI",
+                        "MO",
+                        "GH"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 1954
+                },
+                {
+                    "countries": [
+                        "GE"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 1954
+                },
+                {
+                    "countries": [
+                        "HK",
+                        "MC"
+                    ],
+                    "currencyIso": "HKD",
+                    "value": 20730
+                },
+                {
+                    "countries": [
+                        "HU"
+                    ],
+                    "currencyIso": "HUF",
+                    "value": 599878
+                },
+                {
+                    "countries": [
+                        "BG",
+                        "NP",
+                        "IN"
+                    ],
+                    "currencyIso": "INR",
+                    "value": 196037
+                },
+                {
+                    "countries": [
+                        "IS"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 2430
+                },
+                {
+                    "countries": [
+                        "IT"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 1954
+                },
+                {
+                    "countries": [
+                        "JP"
+                    ],
+                    "currencyIso": "JPY",
+                    "value": 255000
+                },
+                {
+                    "countries": [
+                        "KS"
+                    ],
+                    "currencyIso": "WON",
+                    "value": 3397200
+                },
+                {
+                    "countries": [
+                        "MX"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 3232
+                },
+                {
+                    "countries": [
+                        "MY"
+                    ],
+                    "currencyIso": "MYR",
+                    "value": 10800
+                },
+                {
+                    "countries": [
+                        "NL"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 1954
+                },
+                {
+                    "countries": [
+                        "NO"
+                    ],
+                    "currencyIso": "NOK",
+                    "value": 15710
+                },
+                {
+                    "countries": [
+                        "PL"
+                    ],
+                    "currencyIso": "PLN",
+                    "value": 7328
+                },
+                {
+                    "countries": [
+                        "PO"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 1954
+                },
+                {
+                    "countries": [
+                        "RQ"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 2675
+                },
+                {
+                    "countries": [
+                        "GQ",
+                        "BM",
+                        "RP",
+                        "ID",
+                        "TH",
+                        "BX",
+                        "SN",
+                        "VM",
+                        "CB"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 2673
+                },
+                {
+                    "countries": [
+                        "ES"
+                    ],
+                    "currencyIso": "EUR",
+                    "value": 1954
+                },
+                {
+                    "countries": [
+                        "SW",
+                        "IC"
+                    ],
+                    "currencyIso": "SEK",
+                    "value": 17673
+                },
+                {
+                    "countries": [
+                        "SZ"
+                    ],
+                    "currencyIso": "CHF",
+                    "value": 2421
+                },
+                {
+                    "countries": [
+                        "UK",
+                        "JE",
+                        "GI"
+                    ],
+                    "currencyIso": "GBP",
+                    "value": 1285
+                },
+                {
+                    "countries": [
+                        "KE",
+                        "BC",
+                        "CS",
+                        "GP",
+                        "NT",
+                        "PA",
+                        "SF",
+                        "ZA",
+                        "AR",
+                        "BF",
+                        "BD",
+                        "BL",
+                        "CO",
+                        "EC",
+                        "GT",
+                        "JM",
+                        "NF",
+                        "PN",
+                        "PE",
+                        "ST",
+                        "VE",
+                        "UY",
+                        "HO",
+                        "US",
+                        "CI",
+                        "HA",
+                        "VI",
+                        "ES",
+                        "NU",
+                        "TD",
+                        "CF",
+                        "GJ",
+                        "AY",
+                        "BH"
+                    ],
+                    "currencyIso": "USD",
+                    "value": 2430
+                },
+                {
+                    "countries": [
+                        "TW"
+                    ],
+                    "currencyIso": "NTD",
+                    "value": 76500
+                }
+            ],
+            "productReferences": [
+                {
+                    "referenceType": "OTHERS",
+                    "target": {
+                        "code": "186003979",
+                        "name": "186003979",
+                        "proprietary": false,
+                        "terminated": false,
+                        "url": "/c/productName/p/186003979"
+                    },
+                    "preselected": false
+                },
+                {
+                    "referenceType": "OTHERS",
+                    "target": {
+                        "code": "186005666CV",
+                        "name": "186005666CV",
+                        "proprietary": false,
+                        "terminated": false,
+                        "url": "/c/productName/p/186005666CV"
+                    },
+                    "preselected": false
+                },
+                {
+                    "referenceType": "OTHERS",
+                    "target": {
+                        "code": "186004475",
+                        "name": "186004475",
+                        "proprietary": false,
+                        "terminated": false,
+                        "url": "/c/productName/p/186004475"
+                    },
+                    "preselected": false
+                },
+                {
+                    "referenceType": "OTHERS",
+                    "target": {
+                        "code": "186005837",
+                        "name": "186005837",
+                        "proprietary": false,
+                        "terminated": false,
+                        "url": "/c/productName/p/186005837"
+                    },
+                    "preselected": false
+                },
+                {
+                    "referenceType": "OTHERS",
+                    "target": {
+                        "code": "186006360",
+                        "name": "186006360",
+                        "proprietary": false,
+                        "terminated": false,
+                        "url": "/c/productName/p/186006360"
+                    },
+                    "preselected": false
+                },
+                {
+                    "referenceType": "OTHERS",
+                    "target": {
+                        "code": "186006363",
+                        "name": "186006363",
+                        "proprietary": false,
+                        "terminated": false,
+                        "url": "/c/productName/p/186006363"
+                    },
+                    "preselected": false
+                }
+            ],
+            "proprietary": false,
+            "purchasable": true,
+            "salesStatus": "Active",
+            "summary": "ACQUITY BEH Phenyl columns provide complementary selectivity to C18 stationary phases, especially for polyaromatic compounds. This sorbent, along with the XBridge BEH Phenyl, provide you with the most chemiscally stable phenyl sorbent on the market and provides you with ultra-low column bleed, long column lifetimes and excellent peak shape.",
+            "terminated": false,
+            "url": "/waters/products/176001806"
+        }
+    ],
+    "totalPageCount": 2,
+    "totalProductCount": 12,
+    "version": "Online"
+}

@@ -1,0 +1,581 @@
+{
+    "categories": [
+        {
+            "code": "QualityControlReferenceMaterials",
+            "url": "/waters/catalogs/watersProductCatalog/Online/categories/QualityControlReferenceMaterials"
+        },
+        {
+            "code": "SystemPerformanceStandards",
+            "url": "/waters/catalogs/watersProductCatalog/Online/categories/SystemPerformanceStandards"
+        }
+    ],
+    "classifications": [
+        {
+            "code": "ApplicationKits",
+            "features": [
+                {
+                    "code": "WatersClassification/1.0/ApplicationKits.applicationkitsdetectionmethod",
+                    "comparable": true,
+                    "facet": true,
+                    "featureValues": [
+                        {
+                            "position": 3,
+                            "value": "MS"
+                        },
+                        {
+                            "position": 4,
+                            "value": "MS/MS"
+                        },
+                        {
+                            "position": 6,
+                            "value": "UV"
+                        },
+                        {
+                            "position": 2,
+                            "value": "HRMS"
+                        }
+                    ],
+                    "internalOnly": false,
+                    "name": "Application Kits Detection Method",
+                    "position": 2550,
+                    "publicWebLabel": "Detection Method",
+                    "range": false
+                }
+            ],
+            "name": "Application Kits"
+        },
+        {
+            "code": "ConsumablesAndSpares",
+            "features": [
+                {
+                    "code": "WatersClassification/1.0/ConsumablesAndSpares.jaggaercategory",
+                    "comparable": true,
+                    "facet": false,
+                    "featureValues": [
+                        {
+                            "position": 493,
+                            "value": "Standards"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Jaggaer Category",
+                    "range": false
+                }
+            ],
+            "name": "Consumables And Spares"
+        },
+        {
+            "code": "Products",
+            "features": [
+                {
+                    "code": "WatersClassification/1.0/Products.saphierarchy",
+                    "comparable": true,
+                    "facet": false,
+                    "featureValues": [
+                        {
+                            "value": "024H4HC01"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Sap Hierarchy",
+                    "position": 1,
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.remainingshelflife",
+                    "comparable": true,
+                    "facet": false,
+                    "featureValues": [
+                        {
+                            "value": "90"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Remaining Shelf Life",
+                    "position": 3,
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.hazardmaterialnumber",
+                    "comparable": true,
+                    "facet": false,
+                    "featureValues": [
+                        {
+                            "value": "30"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Hazardous Material Number",
+                    "position": 5,
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.hazardmaterialtext",
+                    "comparable": true,
+                    "facet": false,
+                    "featureValues": [
+                        {
+                            "value": "Flammable liquid"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Hazardous Material Text",
+                    "position": 6,
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.company",
+                    "comparable": true,
+                    "facet": false,
+                    "featureValues": [
+                        {
+                            "position": 5,
+                            "value": "Waters"
+                        }
+                    ],
+                    "internalOnly": false,
+                    "name": "Company",
+                    "position": 10,
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.weight",
+                    "comparable": true,
+                    "facet": false,
+                    "featureValues": [
+                        {
+                            "value": "79"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Weight",
+                    "position": 12,
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.weightunit",
+                    "comparable": true,
+                    "facet": false,
+                    "featureValues": [
+                        {
+                            "value": "GRM"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Weight UOM",
+                    "position": 15,
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.harmonizationcode",
+                    "comparable": true,
+                    "facet": false,
+                    "featureValues": [
+                        {
+                            "value": "3822000030"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Harmonization Code",
+                    "position": 16,
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.unspsc",
+                    "comparable": true,
+                    "facet": false,
+                    "featureValues": [
+                        {
+                            "value": "41116107"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "UNSPSC",
+                    "position": 17,
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.business",
+                    "comparable": true,
+                    "facet": false,
+                    "featureValues": [
+                        {
+                            "position": 1,
+                            "value": "Chemistry"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Business",
+                    "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.productfamily",
+                    "comparable": true,
+                    "facet": false,
+                    "featureValues": [
+                        {
+                            "position": 7,
+                            "value": "Application Kits"
+                        }
+                    ],
+                    "internalOnly": true,
+                    "name": "Product Family",
+                    "range": false
+                }
+            ],
+            "name": "Products"
+        }
+    ],
+    "code": "186007362",
+    "coldChainShipping": false,
+    "hazardous": true,
+    "description": "Quad LCMS QC Reference Material A quality control reference material intended to be used to benchmark and assess the performance of your UPLC system including a single or triple quad mass spectrometer.     Kit contains 1 mL of a 8 component mix including 100ug/mL Acetaminophen, 50ug/mL Sulfaguanidine, 10 ug/mL Sulfadimethoxine, 25 ug/mL Val,-Tyr,-Val, 6 ug/mL Verapamil, 6 ug/mL Terfenadine, 25 ug/mL Leucine Enkephalin, and 18 ug/mL Reserpine in 19/81 Acetonitrile/water 0.008% formic acid.",
+    "images": [
+        {
+            "imageType": "PRIMARY",
+            "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/amber-ampule-1-2-5mL.png"
+        }
+    ],
+    "name": "Quad LCMS QCRM",
+    "prices": [
+        {
+            "countries": [
+                "NZ",
+                "FJ",
+                "VA",
+                "AS"
+            ],
+            "currencyIso": "AUD",
+            "value": 174
+        },
+        {
+            "countries": [
+                "ME",
+                "YE",
+                "SV",
+                "SY",
+                "TC",
+                "UZ",
+                "KZ",
+                "PS",
+                "AM",
+                "AJ",
+                "BA",
+                "BS",
+                "BU",
+                "CY",
+                "EG",
+                "GR",
+                "IZ",
+                "KU",
+                "LE",
+                "MK",
+                "MT",
+                "MU",
+                "PK",
+                "BY",
+                "GG",
+                "QA",
+                "RO",
+                "RU",
+                "SA",
+                "RS",
+                "UA",
+                "JO",
+                "AL",
+                "CE",
+                "LY",
+                "AU",
+                "CR",
+                "TU"
+            ],
+            "currencyIso": "EUR",
+            "value": 100
+        },
+        {
+            "countries": [
+                "BE",
+                "LU"
+            ],
+            "currencyIso": "EUR",
+            "value": 100
+        },
+        {
+            "countries": [
+                "BR"
+            ],
+            "currencyIso": "BRL",
+            "value": 0.01
+        },
+        {
+            "countries": [
+                "CA"
+            ],
+            "currencyIso": "CAD",
+            "value": 155
+        },
+        {
+            "countries": [
+                "CN"
+            ],
+            "currencyIso": "CNY",
+            "value": 1050
+        },
+        {
+            "countries": [
+                "CX",
+                "SK"
+            ],
+            "currencyIso": "CZK",
+            "value": 2550
+        },
+        {
+            "countries": [
+                "DA"
+            ],
+            "currencyIso": "DKK",
+            "value": 754
+        },
+        {
+            "countries": [
+                "EI"
+            ],
+            "currencyIso": "EUR",
+            "value": 100
+        },
+        {
+            "countries": [
+                "LV",
+                "EE",
+                "FI",
+                "LN"
+            ],
+            "currencyIso": "EUR",
+            "value": 100
+        },
+        {
+            "countries": [
+                "SG",
+                "NC",
+                "FP",
+                "AG",
+                "ET",
+                "FR",
+                "GA",
+                "TS",
+                "NI",
+                "MO",
+                "GH"
+            ],
+            "currencyIso": "EUR",
+            "value": 100
+        },
+        {
+            "countries": [
+                "GE"
+            ],
+            "currencyIso": "EUR",
+            "value": 100
+        },
+        {
+            "countries": [
+                "HK",
+                "MC"
+            ],
+            "currencyIso": "HKD",
+            "value": 1030
+        },
+        {
+            "countries": [
+                "HU"
+            ],
+            "currencyIso": "HUF",
+            "value": 30700
+        },
+        {
+            "countries": [
+                "BG",
+                "NP",
+                "IN"
+            ],
+            "currencyIso": "INR",
+            "value": 10692
+        },
+        {
+            "countries": [
+                "IS"
+            ],
+            "currencyIso": "USD",
+            "value": 120
+        },
+        {
+            "countries": [
+                "IT"
+            ],
+            "currencyIso": "EUR",
+            "value": 100
+        },
+        {
+            "countries": [
+                "JP"
+            ],
+            "currencyIso": "JPY",
+            "value": 14000
+        },
+        {
+            "countries": [
+                "KS"
+            ],
+            "currencyIso": "WON",
+            "value": 193200
+        },
+        {
+            "countries": [
+                "MX"
+            ],
+            "currencyIso": "USD",
+            "value": 160
+        },
+        {
+            "countries": [
+                "MY"
+            ],
+            "currencyIso": "MYR",
+            "value": 480
+        },
+        {
+            "countries": [
+                "NL"
+            ],
+            "currencyIso": "EUR",
+            "value": 100
+        },
+        {
+            "countries": [
+                "NO"
+            ],
+            "currencyIso": "NOK",
+            "value": 808
+        },
+        {
+            "countries": [
+                "PL"
+            ],
+            "currencyIso": "PLN",
+            "value": 375
+        },
+        {
+            "countries": [
+                "PO"
+            ],
+            "currencyIso": "EUR",
+            "value": 100
+        },
+        {
+            "countries": [
+                "RQ"
+            ],
+            "currencyIso": "USD",
+            "value": 130
+        },
+        {
+            "countries": [
+                "GQ",
+                "BM",
+                "RP",
+                "ID",
+                "TH",
+                "BX",
+                "SN",
+                "VM",
+                "CB"
+            ],
+            "currencyIso": "USD",
+            "value": 132
+        },
+        {
+            "countries": [
+                "ES"
+            ],
+            "currencyIso": "EUR",
+            "value": 100
+        },
+        {
+            "countries": [
+                "SW",
+                "IC"
+            ],
+            "currencyIso": "SEK",
+            "value": 909
+        },
+        {
+            "countries": [
+                "SZ"
+            ],
+            "currencyIso": "CHF",
+            "value": 125
+        },
+        {
+            "countries": [
+                "UK",
+                "JE",
+                "GI"
+            ],
+            "currencyIso": "GBP",
+            "value": 73.16
+        },
+        {
+            "countries": [
+                "KE",
+                "BC",
+                "CS",
+                "GP",
+                "NT",
+                "PA",
+                "SF",
+                "ZA",
+                "AR",
+                "BF",
+                "BD",
+                "BL",
+                "CO",
+                "EC",
+                "GT",
+                "JM",
+                "NF",
+                "PN",
+                "PE",
+                "ST",
+                "VE",
+                "UY",
+                "HO",
+                "US",
+                "CI",
+                "HA",
+                "VI",
+                "ES",
+                "NU",
+                "TD",
+                "CF",
+                "GJ",
+                "AY",
+                "BH"
+            ],
+            "currencyIso": "USD",
+            "value": 120
+        },
+        {
+            "countries": [
+                "TW"
+            ],
+            "currencyIso": "NTD",
+            "value": 3500
+        }
+    ],
+    "proprietary": false,
+    "purchasable": true,
+    "salesStatus": "Active",
+    "summary": "Quad LCMS QC Reference Material A quality control reference material intended to be used to benchmark and assess the performance of your UPLC system including a single or triple quad mass spectrometer.     Kit contains 1 mL of a 8 component mix including 100ug/mL Acetaminophen, 50ug/mL Sulfaguanidine, 10 ug/mL Sulfadimethoxine, 25 ug/mL Val,-Tyr,-Val, 6 ug/mL Verapamil, 6 ug/mL Terfenadine, 25 ug/mL Leucine Enkephalin, and 18 ug/mL Reserpine in 19/81 Acetonitrile/water 0.008% formic acid.",
+    "terminated": false,
+    "url": "/waters/products/186007362"
+}

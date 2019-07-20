@@ -1,24 +1,48 @@
 <a class="cmp-back-to-top" href="#" title="${'Back To Top' @ i18n}"><img alt="${'Back To Top' @ i18n}" src="/content/dam/waters/brand-assets/icons/up.svg" class="inline-svg"></a>
 
-<div data-sly-use.externalFooter="com.waters.aem.core.components.structure.ExternalFooter"
-     class="cmp-external-footer">
-    <div class="container">
-        <div class="cmp-external-footer__logo">
-            <a href="${externalFooter.logoLink.href}" target="${externalFooter.newWindow ? '_blank' : ''}">
-                <img src="${externalFooter.logoImage.fileReference}" alt="${externalFooter.logoAltText}"/>
-            </a>
-        </div>
-        <div class="cmp-external-footer__links">
-            <nav data-sly-test="${externalFooter.footerLinks}">
-                <a data-sly-repeat="${externalFooter.footerLinks}" href="${item.link.href}" target="${item.newWindow ? '_blank' : ''}">
-                    ${item.text}<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html" data-sly-call="${patterns.linkIcon @ linkItem=item}"/>
+<div data-sly-use.externalFooter="com.waters.aem.core.components.structure.ExternalFooter" class="cmp-footer">
+    <div class="container1_wrapper">
+        <div class="container1">
+            <div class="cmp-footer__linksdiv">
+                <div class="cmp-footer__parsys"
+                    data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+            </div>
+            <div class="cmp-footer__logo">
+                <a href="${externalFooter.logoLink.href}" target="${externalFooter.newWindow ? '_blank' : ''}">
+                    <img src="${externalFooter.logoImage.fileReference}" alt="${externalFooter.logoAltText}" />
                 </a>
-                <a data-sly-test="${externalFooter.cookiesLink}" href="${externalFooter.cookiesLink.href}" target="_blank">${'Cookies' @ i18n}</a>
-                <a class="optanon-toggle-display dl_Anchor" href="#">${'Cookie Preferences' @ i18n}</a>
-            </nav>
+            </div>
+            <div class="cmp-footer__social-links">
+                <div class="social-links-text">${'Follow our channels' @ i18n}</div>
+                <ul data-sly-test="${externalFooter.socialLinks}">
+                    <li data-sly-repeat="${externalFooter.socialLinks}" class="cmp-footer__social-links__item">
+                        <a class="cmp-footer-social-links__link" href="${item.link.href}" target="_blank">
+                            <img class="${item.svg ? 'inline-svg' : ''}" data-sly-test="${item.linkIcon}"
+                                src="${item.linkIcon}" />
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="cmp-external-footer__copyright">
-            <p>${externalFooter.copyrightText}</p>
+    </div>
+    <div class="container2_wrapper">
+        <div class="container2">
+            <div class="cmp-footer__copyright">
+                <p>${externalFooter.copyrightText}</p>
+            </div>
+            <div class="cmp-footer__links">
+                <nav data-sly-test="${externalFooter.footerLinks}">
+                    <a data-sly-repeat="${externalFooter.footerLinks}" href="${item.link.href}"
+                        target="${item.newWindow ? '_blank' : ''}">
+                        ${item.text}
+                        <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+                            data-sly-call="${patterns.linkIcon @ linkItem=item}" />
+                    </a>
+                    <a data-sly-test="${externalFooter.cookiesLink}" href="${externalFooter.cookiesLink.href}"
+                        target="_blank">${'Cookies' @ i18n}</a>
+                    <a class="optanon-toggle-display dl_Anchor" href="#">${'Cookie Preferences' @ i18n}</a>
+                </nav>
+            </div>
         </div>
     </div>
 </div>

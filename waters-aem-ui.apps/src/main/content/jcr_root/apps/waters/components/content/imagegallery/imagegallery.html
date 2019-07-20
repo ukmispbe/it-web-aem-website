@@ -1,0 +1,8 @@
+<div class="cmp-image-gallery"
+     data-sly-use.imageGallery="com.waters.aem.core.components.content.ImageGallery"
+     data-sly-test="${imageGallery.src}"
+     data-json='${imageGallery.json  @ context="unsafe"}'>
+</div>
+
+<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+     data-sly-call="${patterns.placeholder @ show=!imageGallery.src, text=component.title}"/>

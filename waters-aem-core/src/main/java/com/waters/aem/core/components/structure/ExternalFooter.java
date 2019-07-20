@@ -8,7 +8,6 @@ import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.Html5SmartImage;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
-import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.wcm.foundation.Image;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,15 +19,18 @@ import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
-import com.waters.aem.core.components.content.applicationnotes.ExternalLinkItem;
+import com.waters.aem.core.components.SiteContext;
+import com.waters.aem.core.components.content.links.BasicLink;
+import com.waters.aem.core.components.content.links.IconOnlyLink;
 import com.waters.aem.core.components.structure.page.analytics.DataLayer;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.utils.LinkUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ChildResource;
+import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -40,7 +42,9 @@ import java.util.List;
     editConfig = false,
     tabs = {
         @Tab(title = "Properties"),
-        @Tab(title = "Footer Links")
+        @Tab(title = "Region Selector"),
+        @Tab(title = "Footer Links"),
+        @Tab(title = "Share Links")
     },
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE)
@@ -53,6 +57,9 @@ import java.util.List;
 public final class ExternalFooter extends AbstractComponent implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/structure/externalfooter";
+
+    @Self
+    private SiteContext siteContext;
 
     @Inject
     private PageDecorator currentPage;
@@ -96,28 +103,26 @@ public final class ExternalFooter extends AbstractComponent implements Component
         return getInherited("copyrightText", defaultCopyrightText);
     }
 
-    @DialogField(fieldLabel = "Open in New Window",
-        fieldDescription = "Select this option to open in new window",
-        ranking = 5)
-    @Switch(offText = "No", onText = "Yes")
-    @InheritInject
-    @Default(booleanValues = false)
-    private Boolean newWindow;
-
     @DialogField(fieldLabel = "Cookies Link",
         fieldDescription = "Select or enter the link URL",
-        tab = 2,
+        tab = 3,
         ranking = 1)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
     private Link cookiesLink;
 
     @DialogField(fieldLabel = "Footer Links",
-        tab = 2,
+        tab = 3,
         ranking = 2)
     @MultiField(composite = true)
     @InheritInject
-    private List<ExternalLinkItem> footerLinks;
+    private List<BasicLink> footerLinks;
+
+    @DialogField(fieldLabel = "Social Links",
+        tab = 4)
+    @MultiField(composite = true)
+    @InheritInject
+    private List<IconOnlyLink> socialLinks;
 
     @JsonProperty
     public Image getLogoImage() {
@@ -135,22 +140,29 @@ public final class ExternalFooter extends AbstractComponent implements Component
     }
 
     @JsonProperty
-    public Boolean isNewWindow() {
-        return newWindow;
+    public Boolean isExternal() {
+        return LinkUtils.isExternal(logoLink);
     }
-
     @JsonProperty
     public Link getCookiesLink() {
         return cookiesLink;
     }
 
     @JsonProperty
-    public List<ExternalLinkItem> getFooterLinks() {
+    public List<BasicLink> getFooterLinks() {
         return footerLinks;
+    }
+
+    public List<IconOnlyLink> getSocialLinks() {
+        return socialLinks;
     }
 
     public String getDataLayer() throws JsonProcessingException {
         return dataLayer.getJsonData();
+    }
+
+    public String getLanguageLocation() {
+        return siteContext.getLanguageLocation();
     }
 
     @Nonnull

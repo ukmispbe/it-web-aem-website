@@ -9,8 +9,7 @@
     }
     input[type='input'] {
         font-family: $font-stack;
-        @include font-utility;
-        font-weight: $font-weight-light;
+        @include font-body;
         padding: $space-xs $space-s;
         background-color: transparent;
         outline: none;
@@ -95,8 +94,7 @@
         }
         &__item {
             &__count {
-                font-style: italic;
-                color: $color-font-medium;
+                @include font-utility;
             }
             input[type='checkbox'] {
                 display: none;
@@ -194,9 +192,9 @@
         }
         &.expanded {
             a.filter-toggle {
-                color: $color-font-dark;
-                font-weight: $font-weight-bold;
+                @include font-h4;
                 &:hover {
+                    color: $color-font-dark;
                     & svg .st0 {
                         stroke: $color-link;
                     }
@@ -233,46 +231,50 @@
         display: flex;
         flex-wrap: wrap;
         margin-top: 2.75em;
-        margin-bottom: 1.5em;
+        margin-bottom: $space-s;
+
         a {
             @include font-small;
             display: block;
             float: left;
-            padding: $space-xxxs $space-xs $space-xxxs ($space-l - 0.1em);
-            margin: 0 $space-xs $space-xs 0;
+            padding: ($space-xxxs - .05em) $space-xs ($space-xxxs + .05em) $space-l;
+            margin: 0 $space-xxs $space-xs 0;
             text-decoration: none;
             background-color: $color-gray-10;
             position: relative;
+            border-radius: .25em;
+
+            @include mobile {
+                padding: ($space-xxxs - .15em) $space-s ($space-xxxs + .05em) $space-l;
+            }
+
             svg {
                 position: absolute;
-                top: 10px;
-                left: 9px;
+                top: 9px;
+                left: 10px;
                 width: $icon-s;
                 height: $icon-s;
                 .st0 {
                     stroke: $color-icon;
+                    stroke-width: 2px;
                 }
                 @include tablet-and-under {
-                    top: 11px;
-                    left: 6px;
+                    top: 10px;
+                    margin: 0;
                 }
             }
             &:hover {
                 background-color: $color-gray-20;
+                color: $color-white;
+
+                svg {
+                    .st0 {
+                        stroke: $color-white;
+                    }
+                }
             }
             &.cmp-search-filters__tags__clear {
-                color: $color-white;
-                background-color: $color-gray-50;
-                .st0 {
-                    stroke: $color-white;
-                }
-                &:hover {
-                    background-color: $color-gray-50;
-                }
-            }
-            @include mobile {
-                padding: $space-xxxs $space-xs ($space-xxs - 0.2em)
-                    ($space-l - 0.1em);
+                background-color: $color-gray-20;
             }
         }
         @include tablet-and-under {
@@ -293,8 +295,6 @@
     display: none;
 
     a {
-        @include font-utility;
-        font-size: $font-size-h3;
         background-color: $color-blue-50;
         text-align: center;
         padding: $space-xs $space-l;
@@ -314,7 +314,6 @@
 .cmp-search-done-btn {
     display: none;
     a {
-        @include font-utility;
         background: $color-blue-10;
         text-align: center;
         padding: $space-xs $space-l;
@@ -329,9 +328,8 @@
 
 .cmp-search-hide-btn {
     .btn-hide-sort-filter {
-        display: none;
         @include font-utility;
-        font-size: $font-size-h3;
+        display: none;
         padding: $space-xs $space-xs $space-xs 6%;
         margin: 0 0 $space-m -5.5%;
         box-shadow: $shadow;
@@ -422,7 +420,6 @@ $header-height: 74px;
         width: 100%;
         display: block;
         height: 0;
-        margin-top: 120px;
         padding: 0 20px;
     }
 
@@ -500,6 +497,7 @@ $header-height: 74px;
         }
         .overlay {
             display: block;
+            margin: -40px;
         }
     }
 
@@ -507,7 +505,6 @@ $header-height: 74px;
         .cmp-search-filters__tags {
             @include mobile {
                 margin-top: -30px;
-                margin-bottom: $space-l;
             }
 
             @include tablet {
@@ -527,3 +524,4 @@ $header-height: 74px;
 // .sort-filter-container-affix {
 //      position: relative;
 //  }
+

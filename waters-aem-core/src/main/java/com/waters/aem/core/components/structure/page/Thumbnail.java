@@ -28,8 +28,6 @@ public final class Thumbnail {
 
     static final String FILE_NAME = "thumbnail";
 
-    private static final String RENDITION_PREFIX = "cq5dam.thumbnail.319";
-
     @Inject
     private ResourceResolver resourceResolver;
 
@@ -52,7 +50,7 @@ public final class Thumbnail {
             if (assetResource != null) {
                 final Asset asset = assetResource.adaptTo(Asset.class);
 
-                thumbnailImageRendition = new PrefixRenditionPicker(RENDITION_PREFIX, true)
+                thumbnailImageRendition = new PrefixRenditionPicker(WatersConstants.THUMBNAIL_RENDITION_PREFIX, true)
                     .getRendition(asset)
                     .getPath();
             }

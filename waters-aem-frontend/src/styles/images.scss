@@ -18,7 +18,11 @@ img {
 }
 
 div.image {
-    margin-bottom: 2em;
+    margin-bottom: $space-l;
+
+    @include mobile {
+        margin-bottom: $space-s;
+    }
 }
 
 .inline-svg {
@@ -42,12 +46,15 @@ svg.inline-svg {
 }
 
 a.cmp-utility-button {
+    img.inline-svg {
+        display: none;
+    }
     > svg {
         min-height: 50px;
         padding-bottom: $space-m;
 
         &.inline-svg {
-            display: none;
+            display: inline-block;
         }
 
         &.inlined-svg {

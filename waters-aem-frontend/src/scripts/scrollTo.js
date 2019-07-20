@@ -1,6 +1,6 @@
 function scrollToY(scrollTargetY, speed, easing) {
 
-    var footerComponent = document.querySelector('.cmp-external-footer');
+    var footerComponent = document.querySelector('.cmp-footer');
     footerComponent.style.display='none';
 
     var scrollY = window.scrollY || document.documentElement.scrollTop,

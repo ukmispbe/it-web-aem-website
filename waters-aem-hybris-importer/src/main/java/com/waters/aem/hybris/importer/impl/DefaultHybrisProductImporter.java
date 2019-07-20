@@ -9,6 +9,9 @@ import com.waters.aem.hybris.constants.HybrisImporterConstants;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
 import com.waters.aem.hybris.exceptions.HybrisImporterException;
 import com.waters.aem.hybris.importer.HybrisProductImporter;
+import com.waters.aem.hybris.models.Classification;
+import com.waters.aem.hybris.models.Feature;
+import com.waters.aem.hybris.models.FeatureValue;
 import com.waters.aem.hybris.models.Image;
 import com.waters.aem.hybris.models.Price;
 import com.waters.aem.hybris.models.Product;
@@ -18,6 +21,7 @@ import com.waters.aem.hybris.models.ProductReference;
 import com.waters.aem.hybris.models.ProductReferenceTarget;
 import com.waters.aem.hybris.models.ProductReferenceType;
 import com.waters.aem.hybris.result.HybrisImporterResult;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.commons.JcrUtils;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ModifiableValueMap;
@@ -39,6 +43,7 @@ import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -136,32 +141,24 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
                 new SimpleDateFormat(HybrisImporterConstants.DATE_FORMAT_PATTERN).format(lastImportDate.getTime()));
         }
 
-        final List<HybrisImporterResult> results = new ArrayList<>();
-
-        ProductList productList;
-
-        if (force) {
-            productList = hybrisClient.getProductList(0);
-        } else {
-            productList = hybrisClient.getProductList(0, lastImportDate);
-        }
-
-        final int totalPages = productList.getTotalPageCount();
-
+        // hybris product list is paginated, so send request for each page until total number of pages is reached
         int currentPage = 0;
 
-        while (currentPage < totalPages) {
-            results.addAll(importProductsForProductList(productsNode, productList));
+        ProductList productList = getProductList(currentPage, lastImportDate, force);
 
+        // initialize the results list with the first page and subsequently add to list with results for following pages
+        final List<HybrisImporterResult> results = importProductsForProductList(productsNode, productList);
+
+        while (currentPage < productList.getTotalPageCount()) {
             currentPage++;
 
-            if (force) {
-                productList = hybrisClient.getProductList(currentPage);
-            } else {
-                productList = hybrisClient.getProductList(currentPage, lastImportDate);
-            }
+            // get the next page of products and add import results to list
+            productList = getProductList(currentPage, lastImportDate, force);
 
-            // periodically commit changes
+            results.addAll(importProductsForProductList(productsNode, productList));
+
+            // periodically commit changes to avoid keeping a huge volume of changes in the transient session (i.e.
+            // limit memory overhead)
             if (currentPage % 10 == 0) {
                 LOG.info("committing changes...");
 
@@ -170,6 +167,20 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         }
 
         return results;
+    }
+
+    private ProductList getProductList(final Integer currentPage, final Calendar lastImportDate, final Boolean force)
+        throws IOException, URISyntaxException {
+        final ProductList productList;
+
+        // if force=true, ignore last import date and request full product list
+        if (force) {
+            productList = hybrisClient.getProductList(currentPage);
+        } else {
+            productList = hybrisClient.getProductList(currentPage, lastImportDate);
+        }
+
+        return productList;
     }
 
     private List<HybrisImporterResult> importProductsForProductList(final Node productsNode,
@@ -181,17 +192,23 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         LOG.info("importing {} products for page number {} of {}", products.size(), productList.getCurrentPage(),
             productList.getTotalPageCount());
 
+        // group products by the first three characters of their product code so they can be stored in bucketed folder
+        // nodes
         final Map<String, List<Product>> groupedProducts = products
             .stream()
             .collect(Collectors.groupingBy(this :: getProductCodePrefix));
 
         for (final Map.Entry<String, List<Product>> entry : groupedProducts.entrySet()) {
             final String productCodePrefix = entry.getKey();
+            final List<Product> productsForProductCodePrefix = entry.getValue();
+
+            // get (or create if needed) the product code prefix folder node
             final Node productCodePrefixNode = getProductCodePrefixNode(productsNode, productCodePrefix);
 
             LOG.info("importing products for code prefix : {}", productCodePrefix);
 
-            for (final Product product : products) {
+            // import the products for the current code prefix and store as children of the bucket node
+            for (final Product product : productsForProductCodePrefix) {
                 results.add(importProduct(productCodePrefixNode, product));
             }
         }
@@ -211,7 +228,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
             LOG.debug("found existing product node : {}", productNode.getPath());
 
-            // TODO determine if product is actually updated, or if status should be 'IGNORED'
+            // TODO determine if product is actually updated, or if status should be null
             status = HybrisImportStatus.UPDATED;
         } else {
             productNode = productCodePrefixNode.addNode(productNodeName, JcrConstants.NT_UNSTRUCTURED);
@@ -238,20 +255,22 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         properties.put(WatersCommerceConstants.PROPERTY_NAME, product.getName());
         properties.put(WatersCommerceConstants.PROPERTY_SHORT_DESCRIPTION, product.getDescription());
         properties.put(WatersCommerceConstants.PROPERTY_LONG_DESCRIPTION, product.getSummary());
+        properties.put(WatersCommerceConstants.PROPERTY_SALES_STATUS, product.getSalesStatus().toString());
         properties.put(WatersCommerceConstants.PROPERTY_CATEGORIES, product.getCategories()
             .stream()
             .map(ProductCategory :: getCode)
             .toArray(String[] :: new));
         properties.put(WatersCommerceConstants.PROPERTY_TERMINATED, product.getTerminated());
         properties.put(WatersCommerceConstants.PROPERTY_PROPRIETARY, product.getProprietary());
-        properties.put(WatersCommerceConstants.PROPERTY_COLD_STORAGE, product.getColdStorage());
-        properties.put(WatersCommerceConstants.PROPERTY_HAZARDOUS_HANDLING, product.getHazardousHandling());
+        properties.put(WatersCommerceConstants.PROPERTY_COLD_CHAIN_SHIPPING, product.getColdChainShipping());
+        properties.put(WatersCommerceConstants.PROPERTY_HAZARDOUS, product.getHazardous());
 
         setNodeProperties(productNode, properties);
 
         // remove existing nodes to prevent stale data from persisting
         removeProductNodes(productNode);
 
+        setClassifications(productNode, product.getClassifications());
         setPrices(productNode, product.getPrices());
         setImages(productNode, product.getImages());
         setProductReferences(productNode, product.getProductReferences());
@@ -263,14 +282,8 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
             final Node productReferencesNode = JcrUtils.getOrAddNode(productNode,
                 WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCES);
 
-            // filter references for 'OTHERS' type
-            final List<ProductReference> validProductReferences = productReferences
-                .stream()
-                .filter(productReference -> productReference.getReferenceType().equals(ProductReferenceType.OTHERS))
-                .collect(Collectors.toList());
-
             setItemNodes(productReferencesNode, WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCE,
-                validProductReferences, productReference -> {
+                    productReferences, productReference -> {
                     final Map<String, Object> properties = new HashMap<>();
 
                     properties.put(WatersCommerceConstants.PROPERTY_PRESELECTED, productReference.getPreselected());
@@ -281,6 +294,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
                     properties.put(WatersCommerceConstants.PROPERTY_CODE, target.getCode());
                     properties.put(WatersCommerceConstants.PROPERTY_PROPRIETARY, target.getProprietary());
                     properties.put(WatersCommerceConstants.PROPERTY_TERMINATED, target.getTerminated());
+                    properties.put(WatersCommerceConstants.PROPERTY_PRODUCT_REFERENCE_TYPE, productReference.getReferenceType().toString());
 
                     return properties;
                 });
@@ -292,7 +306,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
             final Node pricesNode = JcrUtils.getOrAddNode(productNode, WatersCommerceConstants.RESOURCE_NAME_PRICES);
 
             for (final Price price : prices) {
-                for (final String country : price.getCountries().split(",")) {
+                for (final String country : price.getCountries()) {
                     final String priceNodeName = price.getCurrencyIso() + "-" + country;
                     final Node priceNode = JcrUtils.getOrAddNode(pricesNode, priceNodeName);
 
@@ -310,6 +324,45 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
                     setNodeProperties(priceNode, properties);
                 }
             }
+        }
+    }
+
+    private void setClassifications(final Node productNode, final List<Classification> classifications)
+            throws RepositoryException {
+        if (!classifications.isEmpty()) {
+            final Node classificationsNode = JcrUtils.getOrAddNode(productNode,
+                    WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATIONS);
+
+            final List<Feature> flattenedFeatures = classifications.stream()
+                    .map(Classification::getFeatures)
+                    .flatMap(List::stream)
+                    .filter(feature -> !feature.getInternalOnly())
+                    .sorted(Comparator.comparing(Feature::getPosition))
+                    .collect(Collectors.toList());
+
+            setItemNodes(classificationsNode, WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATION, flattenedFeatures,
+                feature -> {
+                    final Map<String, Object> properties = new HashMap<>();
+
+                    properties.put(WatersCommerceConstants.PROPERTY_NAME, StringUtils.isNotEmpty(
+                            feature.getPublicWebLabel()) ? feature.getPublicWebLabel() : feature.getName());
+                    properties.put(WatersCommerceConstants.PROPERTY_CODE, feature.getCode());
+                    properties.put(WatersCommerceConstants.PROPERTY_FACET, feature.getFacet());
+                    properties.put(WatersCommerceConstants.PROPERTY_UNIT_NAME, feature.getFeatureUnit() == null ? null :
+                            feature.getFeatureUnit().getName());
+                    properties.put(WatersCommerceConstants.PROPERTY_UNIT_SYMBOL, feature.getFeatureUnit() == null ? null :
+                            feature.getFeatureUnit().getSymbol());
+                    properties.put(WatersCommerceConstants.PROPERTY_FEATURE_VALUES, feature.getFeatureValues()
+                            .stream()
+                            .sorted(Comparator.comparing(featureValue -> featureValue.getPosition() == null ? 0 :
+                                    featureValue.getPosition()))
+                            .map(FeatureValue::getValue)
+                            .toArray(String[]::new));
+                    properties.put(WatersCommerceConstants.PROPERTY_POSITION, feature.getPosition());
+                    properties.put(WatersCommerceConstants.PROPERTY_RANGE, feature.getRange());
+
+                    return properties;
+                });
         }
     }
 

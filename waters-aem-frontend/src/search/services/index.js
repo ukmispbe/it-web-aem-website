@@ -5,17 +5,17 @@ const queryString = require('query-string');
 const parameterValues = {
     sort: {
         mostRecent: 'most-recent',
-        mostRelevant: 'most-relevant'
-    }
-}
+        mostRelevant: 'most-relevant',
+    },
+};
 
 const parameterDefaults = {
     page: 1,
     rows: 25,
     keyword: '*:*',
     content_type: '',
-    sort: parameterValues.sort.mostRecent
-}
+    sort: parameterValues.sort.mostRecent,
+};
 
 class SearchService {
     constructor(
@@ -24,7 +24,8 @@ class SearchService {
         page = parameterDefaults.page,
         rows = parameterDefaults.rows,
         sort = parameterDefaults.sort,
-        multiselect = true
+        multiselect = true,
+        throwError
     ) {
         this.path = path;
         this.options = {
@@ -34,6 +35,7 @@ class SearchService {
             sort,
             multiselect,
         };
+        this.throwError = throwError;
     }
 
     initial = ({
@@ -43,10 +45,21 @@ class SearchService {
         sort = parameterDefaults.sort,
     } = {}) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
-        const searchString = `${this.path}/category_facet$library:Library?${paramString}`;
+        const searchString = `${
+            this.path
+        }/category_facet$library:Library?${paramString}`;
 
-        return window.fetch(searchString).then(response => response.json());
-    }
+        return window
+            .fetch(searchString)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    this.throwError(response);
+                }
+            })
+            .catch(err => console.log(err));
+    };
 
     contentType = (
         contentTypeKey,
@@ -59,10 +72,19 @@ class SearchService {
         } = {}
     ) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
-        const searchString = `${this.path}/contenttype_facet$${contentTypeKey}:${contentTypeValue}?${paramString}`;
+        const searchString = `${
+            this.path
+        }/contenttype_facet$${contentTypeKey}:${contentTypeValue}?${paramString}`;
 
-        return window.fetch(searchString).then(response => response.json());
-    }
+        return window.fetch(searchString).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                this.throwError(response);
+                return response;
+            }
+        });
+    };
 
     subFacet = (
         contentTypeName,
@@ -73,21 +95,47 @@ class SearchService {
             page = parameterDefaults.page,
             sort = parameterDefaults.sort,
         } = {}
-        ) => {
-            const paramString = this.getQueryParamString({ keyword, page, sort });
-            const facetString = this.getQueryFacetString(facets);
-            const searchString = `${this.path}/contenttype_facet$${contentTypeName.replace('_facet', '')}:${contentTypeValue}${facetString}?${paramString}`;
+    ) => {
+        const paramString = this.getQueryParamString({ keyword, page, sort });
+        const facetString = this.getQueryFacetString(facets);
+        const searchString = `${
+            this.path
+        }/contenttype_facet$${contentTypeName.replace(
+            '_facet',
+            ''
+        )}:${contentTypeValue}${facetString}?${paramString}`;
 
-            return window.fetch(searchString).then(response => response.json());
-    }
+        return window.fetch(searchString).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                this.throwError(response);
+                return response;
+            }
+        });
+    };
 
     getSuggestedKeywords = async (rows, term) => {
-        const searchString = `${this.path}/v1/autocomplete?term=${term}&rows=${rows}&isocode=${this.options.isocode}`;
 
-        const response = await (await window.fetch(searchString)).json();
+        const searchString = `${
+            this.path
+        }/v1/autocomplete?term=${term}&rows=${rows}&isocode=${
+            this.options.isocode
+        }`;
+
+        const callService = window.fetch(searchString).then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                this.throwError(response);
+                return response;
+            }
+        });
+
+        const response = await callService.json();
 
         return response.suggestions;
-    }
+    };
 
     getParamsFromString() {
         const str = window.location.search;
@@ -122,11 +170,11 @@ class SearchService {
     }
 
     getQueryParamString(
-        { 
-            keyword = parameterDefaults.keyword, 
-            page = parameterDefaults.page, 
-            sort = parameterDefaults.sort, 
-            content_type = parameterDefaults.content_type
+        {
+            keyword = parameterDefaults.keyword,
+            page = parameterDefaults.page,
+            sort = parameterDefaults.sort,
+            content_type = parameterDefaults.content_type,
         } = {},
         facets
     ) {
@@ -134,7 +182,7 @@ class SearchService {
             keyword,
             page,
             sort,
-            content_type
+            content_type,
         });
 
         if (!fullParams.content_type) delete fullParams.content_type;
@@ -164,14 +212,14 @@ class SearchService {
 
         for (let i = 0; i <= Object.keys(facets).length; i++) {
             const facetName = Object.keys(facets)[i];
-            const category = (facetName) ? `${facetName}$${facetName.replace('_facet', '')}` : null;
+            const category = facetName
+                ? `${facetName}$${facetName.replace('_facet', '')}`
+                : null;
             const facet = facets[facetName];
 
             if (facet && category) {
                 if (i === 0) {
-                    facetString =
-                        facetString +
-                        `&${category}:`;
+                    facetString = facetString + `&${category}:`;
                 } else {
                     facetString = facetString + `&${category}:`;
                 }
@@ -202,7 +250,7 @@ class SearchService {
         obj['facets'] = {};
         obj['sort'] = params.sort;
 
-        if(params.content_type) obj['content_type'] = params.content_type;
+        if (params.content_type) obj['content_type'] = params.content_type;
 
         if (params.facet) {
             const facets = params.facet;
@@ -240,18 +288,26 @@ class SearchService {
                     : decodeURIComponent(sParameterName[1]);
             }
         }
-    }
+    };
 
-    buildParameters = (searchValue) => {
+    buildParameters = searchValue => {
         const keyword = searchValue ? searchValue : parameterDefaults.keyword;
-        const sort = keyword === parameterDefaults.keyword ? parameterDefaults.sort : parameterValues.sort.mostRelevant;
+        const sort =
+            keyword === parameterDefaults.keyword
+                ? parameterDefaults.sort
+                : parameterValues.sort.mostRelevant;
 
         return { keyword, sort };
-    }
+    };
 
-    stringifyParameters = (parameters) => (Object.keys(parameters).length !== 0)
-            ? Object.keys(parameters).reduce((accumulator, currentValue) => 
-                `${accumulator}=${parameters[accumulator]}&${currentValue}=${parameters[currentValue]}`)
+    stringifyParameters = parameters =>
+        Object.keys(parameters).length !== 0
+            ? Object.keys(parameters).reduce(
+                  (accumulator, currentValue) =>
+                      `${accumulator}=${
+                          parameters[accumulator]
+                      }&${currentValue}=${parameters[currentValue]}`
+              )
             : '';
 
     setUrlParameter = (searchTerm, searchPath) => {
@@ -259,9 +315,9 @@ class SearchService {
         const querystring = this.stringifyParameters(parameters);
 
         window.location.href = `${searchPath}?${querystring}`;
-    }
+    };
 
     isDefaultKeyword = value => value === parameterDefaults.keyword;
 }
 
-export { SearchService, parameterDefaults }
+export { SearchService, parameterDefaults };

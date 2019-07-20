@@ -15,10 +15,6 @@
         flex-flow: wrap;
     }
 
-    a:hover {
-        text-decoration: none;
-    }
-
     svg {
         position: relative;
         top: 3px;
@@ -65,6 +61,7 @@
     svg {
         width: $icon-m;
         height: $icon-m;
+        margin-top: ($space-xxxs - .2em);
 
         .st0 {
             stroke: $color-icon;

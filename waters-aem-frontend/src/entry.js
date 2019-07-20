@@ -4,10 +4,12 @@ import './styles/index.scss';
 import './scripts/backtotop';
 import './scripts/share';
 import './scripts/anchor';
-import './scripts/sticky';
+import './scripts/sticky-sort-filter';
+import './scripts/sticky-sku-details';
 import './scripts/iframe';
 import './scripts/backtosearch';
 import './scripts/banner';
+import './scripts/collapsible';
 import './index';
 
 var inlineSVG = require('inline-svg');
@@ -21,7 +23,7 @@ try {
         function() {}
     );
 } catch (e) {
-    console.log(e);
+    // console.log(e);
 }
 
 function addEllipses() {
@@ -45,6 +47,18 @@ function addEllipses() {
         }
     }
 }
+
+function checkIfFirefox() {
+    const firefox = window.navigator.userAgent.search('Firefox');
+
+    if (firefox > -1) {
+        const body = document.body;
+
+        body.classList.add('column-table-support-false');
+    }
+}
+
+checkIfFirefox();
 
 addEllipses();
 window.addEventListener('resize', addEllipses);

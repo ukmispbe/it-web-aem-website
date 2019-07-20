@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import SearchBar from './search/components/searchbar';
 import Search from './search/index';
 import TagCloud from './search/components/tagcloud';
+import ImageCarousel from './image-carousel';
 
 function getAuthoredDataForSearchBar(c, h) {
     return {
@@ -27,7 +28,7 @@ function getAuthoredDataForTagCloud(h, t) {
     return {
         searchPath: h.dataset.searchPath,
         tagTitle: t.dataset.title,
-        contentType: t.dataset.contentType
+        contentType: t.dataset.contentType,
     };
 }
 
@@ -60,7 +61,7 @@ if (searchAppContainer) {
         document.getElementById('search-results-categories-json').innerHTML
     );
 
-    const data = getAuthoredDataForSearchApp(searchAppContainer);   
+    const data = getAuthoredDataForSearchApp(searchAppContainer);
     ReactDOM.render(
         <Search
             defaultFacet="category_facet:waters%253Acategory%252Fapplicationslibrary"
@@ -79,7 +80,9 @@ const tagCloudContainers = document.querySelectorAll('.cmp-tag-cloud');
 
 if (tagCloudContainers) {
     for (var i = 0; i < tagCloudContainers.length; i++) {
-        const json = JSON.parse(tagCloudContainers[i].getAttribute('data-json'));
+        const json = JSON.parse(
+            tagCloudContainers[i].getAttribute('data-json')
+        );
         const data = getAuthoredDataForTagCloud(header, tagCloudContainers[i]);
         ReactDOM.render(
             <TagCloud
@@ -91,4 +94,25 @@ if (tagCloudContainers) {
             tagCloudContainers[i]
         );
     }
+}
+
+const imageGalleryContainers = Array.from(
+    document.querySelectorAll('.cmp-image-gallery')
+);
+
+if (imageGalleryContainers) {
+    imageGalleryContainers.forEach(container => {
+        const json = JSON.parse(container.getAttribute('data-json'));
+
+        ReactDOM.render(
+            <ImageCarousel
+                templates={json.templates}
+                widths={json.widths}
+                alt={json.alt}
+                zoomInIcon="/content/dam/waters/brand-assets/icons/zoom-in.svg"
+                zoomOutIcon="/content/dam/waters/brand-assets/icons/zoom-out.svg"
+            />,
+            container
+        );
+    });
 }

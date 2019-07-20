@@ -45,7 +45,7 @@ window.requestAnimFrame = (function() {
 function trackScroll() {
     var scrolled = window.pageYOffset;
     var coords = document.documentElement.clientHeight;
-    var footer = document.querySelector('.cmp-external-footer');
+    var footer = document.querySelector('.cmp-footer');
 
     if (scrolled > coords * 2) {
         goTopBtn.classList.add('cmp-back-to-top-show');

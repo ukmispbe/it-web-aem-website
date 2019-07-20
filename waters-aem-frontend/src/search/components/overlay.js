@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const OverLay = (props) => {
-    const getContent = () => props.isOpen ? <div className="overlay-container"></div> : <></>;
+    const className = props.darkOverlay ?  'overlay-container' : 'overlay-container--light';
+    const getContent = () => props.isOpen ? <div className={className}></div> : <></>;
 
     return (<>{getContent()}</>);
 }
@@ -12,7 +13,8 @@ OverLay.propTypes = {
 }
 
 OverLay.defaultProps = {
-    isOpen: false
+    isOpen: false,
+    darkOverlay: true
 }
 
 export default OverLay;
