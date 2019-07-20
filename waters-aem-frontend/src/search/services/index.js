@@ -116,6 +116,7 @@ class SearchService {
     };
 
     getSuggestedKeywords = async (rows, term) => {
+
         const searchString = `${
             this.path
         }/v1/autocomplete?term=${term}&rows=${rows}&isocode=${
