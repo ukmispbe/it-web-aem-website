@@ -88,13 +88,11 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         document.setField("id", page.getPath());
         document.setField("url", externalizer.externalLink(resourceResolver, Externalizer.PUBLISH, page.getHref()));
         document.setField("title", page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle()));
-        document.addField("autosuggest"+"_"+locale.toString(), page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle()));
 
         final String description = page.getDescription();
 
         if (StringUtils.isNotEmpty(description)) {
             document.setField("description", description);
-            document.addField("autosuggest"+"_"+locale.toString(), description);
         }
 
         document.setField("isocode", locale.toString());
