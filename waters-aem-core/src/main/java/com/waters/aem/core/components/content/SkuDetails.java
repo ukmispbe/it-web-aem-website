@@ -45,6 +45,24 @@ public final class SkuDetails implements ComponentExporter {
         return sku == null ? null : new DisplayableSku(sku, resource, siteContext);
     }
 
+    /**
+     * Get isocode to send to be used by front end SKU service.
+     *
+     * @return isocode from page locale
+     */
+    public String getIsoCode() {
+        return siteContext.getLocale().toString();
+    }
+
+    /**
+     * Get country code from page locale to be used by front end SKU service.
+     *
+     * @return country code from page locale
+     */
+    public String getCountryCode() {
+        return siteContext.getLocaleWithCountry().getCountry();
+    }
+
     public String getSkuAvailabilityUrl() {
         return watersCommerceService.getSkuAvailabilityUrl();
     }
