@@ -70,6 +70,26 @@ public final class Templates {
         return isPage(resource, WatersConstants.TEMPLATE_CATALOG_PAGE);
     }
 
+    /**
+     * Check if the given page is a home page.
+     *
+     * @param page page
+     * @return true if page is non-null and is a home page template
+     */
+    public static boolean isHomePage(final PageDecorator page) {
+        return isPage(page, WatersConstants.TEMPLATE_HOME_PAGE);
+    }
+
+    /**
+     * Check if the given content resource is a home page.
+     *
+     * @param resource page jcr:content resource
+     * @return true if resource is non-null and is a home page template
+     */
+    public static boolean isHomePage(final Resource resource) {
+        return isPage(resource, WatersConstants.TEMPLATE_HOME_PAGE);
+    }
+
     private static boolean isPage(final PageDecorator page, final String template) {
         return page != null && isPage(page.getContentResource(), template);
     }
