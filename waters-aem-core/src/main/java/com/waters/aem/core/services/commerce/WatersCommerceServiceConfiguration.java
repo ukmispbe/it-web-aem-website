@@ -1,13 +1,10 @@
-package com.waters.aem.core.services;
+package com.waters.aem.core.services.commerce;
 
 import org.osgi.service.metatype.annotations.AttributeDefinition;
 import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 
-@ObjectClassDefinition(name = "Waters Service Configuration")
-public @interface WatersServiceConfiguration {
-
-    @AttributeDefinition(name = "Search Base URL", description = "Base URL for Waters Search Service.")
-    String searchBaseUrl() default "https://dev-www.waters.com:8443/api/waters/search";
+@ObjectClassDefinition(name = "Waters Commerce Service Configuration")
+public @interface WatersCommerceServiceConfiguration {
 
     @AttributeDefinition(name = "Sku Availability Endpoint", description = "URL for the Sku Availability endpoint")
     String skuAvailabilityUrl() default "https://dev-www.waters.com:8443/product/v1/availability/{partnumber}/{isocode}";
