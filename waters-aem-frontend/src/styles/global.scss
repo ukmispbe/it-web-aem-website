@@ -143,7 +143,7 @@ a {
     fill: none;
 }
 
-input,number{
+input{
     &:focus::-webkit-input-placeholder {
         color: transparent;
     }
