@@ -4,6 +4,9 @@ import com.day.cq.commons.Externalizer;
 import com.day.cq.tagging.Tag;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.enums.TitleType;
+import com.waters.aem.core.commerce.models.Classification;
+import com.waters.aem.core.commerce.models.DisplayableSku;
+import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.components.content.Text;
 import com.waters.aem.core.components.structure.page.Thumbnail;
@@ -22,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -116,6 +120,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         }
 
         addContentClassification(document);
+        addSkuData(document);
 
         LOG.debug("created solr input document : {}", document);
 
@@ -128,6 +133,13 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
      * @return classification model or empty if not used for this builder
      */
     protected abstract Optional<ContentClassification> getContentClassification();
+
+    /**
+     * Get the sku model for this builder.
+     *
+     * @return sku model or empty if not used for this builder
+     */
+    protected abstract Optional<Sku> getSku();
 
     private void addContentClassification(final SolrInputDocument document) {
         final Optional<ContentClassification> classificationOptional = getContentClassification();
@@ -147,6 +159,26 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
 
             // add date
             addDate(document, classification);
+        }
+    }
+
+    private void addSkuData(final SolrInputDocument document) {
+        final Optional<Sku> skuOptional = getSku();
+
+        if (skuOptional.isPresent()) {
+            final Sku sku = skuOptional.get();
+
+            //TODO add sku data to document
+
+            final String title = sku.getTitle();
+
+            final BigDecimal price = sku.getPrice(
+                    siteContext.getLocaleWithCountry().getCountry(), siteContext.getCurrencyIsoCode());
+
+            final List<Classification> classifications = sku.getClassifications();
+
+            final String primaryImage = new DisplayableSku(sku, page.getContentResource(), siteContext)
+                    .getPrimaryImageSrc();
         }
     }
 
