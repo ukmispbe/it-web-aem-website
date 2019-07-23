@@ -23,6 +23,8 @@ public final class WatersConstants {
 
     public static final String RESOURCE_TYPE_PAGE = "waters/components/structure/page";
 
+    public static final String TEMPLATE_HOME_PAGE = "/conf/waters/settings/wcm/templates/home-page";
+
     public static final String TEMPLATE_CONTENT_PAGE = "/conf/waters/settings/wcm/templates/content-page";
 
     public static final String TEMPLATE_APPLICATION_NOTES_PAGE = "/conf/waters/settings/wcm/templates/application-notes-page";
