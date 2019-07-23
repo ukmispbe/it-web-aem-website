@@ -159,17 +159,8 @@
         .cmp-sku-details__container {
             width: 100%;
             display: flex;
-            max-width: 1400px;
-            padding: 0 80px;
+            max-width: 1305px;
             align-items: flex-start;
-
-            @include mobile {
-                padding: 0 20px;
-            }
-
-            @include tablet {
-                padding: 0 40px;
-            }
         }
 
         .cmp-sku-details__heading {
