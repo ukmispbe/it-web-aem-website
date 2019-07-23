@@ -136,11 +136,11 @@ public final class Sku {
     }
 
     public List<Sku> getRelatedSkus() {
-        // TODO do we need to check the 'terminated' property?
         return getResourceModels(WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCES,
-            resource -> !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PROPRIETARY, false) &&
+                resource -> !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PROPRIETARY, false) &&
+                    !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_TERMINATED, false) &&
                     resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PRODUCT_REFERENCE_TYPE).equals(SkuReferenceType.OTHERS.toString()),
-            resource -> skuRepository.getRelatedSku(resource));
+                resource -> skuRepository.getRelatedSku(resource));
     }
 
     public List<Sku> getReplacementSkus() {
