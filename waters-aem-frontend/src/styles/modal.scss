@@ -1,0 +1,166 @@
+#modal {
+    width: 100%;
+    height: 100vh;
+}
+
+.cmp-modal {
+    background-color: $color-white;
+    height: auto;
+    position: relative;
+    width: 40%;
+    top: 20%;
+    left: 30%;
+    @include tablet {
+        width: 70%;
+        top: 20%;
+        left: 15%;
+    }
+
+    @include mobile {
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    .cmp-modal__box {
+        padding: $space-m $space-xl;
+        @include mobile {
+            padding: $space-s;
+        }
+    }
+
+    .cmp-modal__close-icon {
+        border: none;
+        padding: 0;
+        margin-bottom: $space-s;
+        @include mobile {
+            display: contents;
+        }
+        svg {
+            cursor: pointer;
+            position: absolute;
+            top: $space-s;
+            right: $space-s;
+            width: $icon-l;
+            height: $icon-l;
+            float: right;
+            @include mobile {
+                top: $space-s;
+                width: (($icon-l + $icon-m) / 2);
+                height: (($icon-l + $icon-m) / 2);
+            }
+        }
+    }
+
+    .cmp-modal__title {
+        .cmp-modal__title-icon {
+            margin-right: $space-s;
+            height: $icon-l;
+            width: $icon-l;
+            display: inline-block;
+            @include mobile {
+                height: $icon-m;
+                width: $icon-m;
+            }
+            svg {
+                vertical-align: bottom;
+                polyline {
+                    stroke-width: 0.09em;
+                    stroke: $color-teal-30;
+                }
+            }
+        }
+        .cmp-modal__title-text {
+            color: $color-font-medium;
+            display: inline-block;
+            font-size: $font-size-h2;
+
+            @include mobile {
+                font-size: $font-size-small;
+            }
+        }
+
+        @include mobile {
+            top: $space-s;
+            width: 115%;
+            left: -3px;
+            position: absolute;
+            -webkit-box-shadow: 0px 4px 2px -2px $color-gray-20;
+            -moz-box-shadow: 0px 4px 2px -2px $color-gray-20;
+            box-shadow: 0px 4px 2px -2px $color-gray-20;
+            padding-bottom: $space-xs;
+            padding-left: $space-xs;
+        }
+    }
+
+    .cmp-modal__information {
+        margin-top: $space-l;
+
+        @include mobile {
+            margin-top: $space-xl + 1;
+        }
+
+        .cmp-modal__information-header {
+            font-size: $font-size-small;
+            color: $color-gray-40;
+
+            @include mobile {
+                font-size: $font-size-xsmall;
+                color: $color-gray-40;
+            }
+        }
+
+        .cmp-modal__information-text {
+            font-size: $font-size-h3;
+            color: $color-black;
+
+            @include mobile {
+                font-size: $font-size-small;
+            }
+        }
+    }
+
+    .cmp-modal__btn {
+        margin-top: $space-m;
+
+        .cmp-modal__btn-main {
+            .cmp-button {
+                @include tablet-and-over {
+                    width: 100%;
+                    padding: $space-s $space-l;
+                }
+                cursor: pointer;
+                background-color: $color-blue-50;
+                color: $color-white;
+                float: none;
+                margin-bottom: $space-s;
+
+                @include mobile {
+                    font-size: $font-size-small;
+                }
+            }
+        }
+
+        .cmp-modal__btn-alt {
+            .cmp-button {
+                @include tablet-and-over {
+                    width: 100%;
+                    padding: $space-s $space-l;
+                }
+
+                cursor: pointer;
+                text-transform: capitalize;
+                color: $color-blue-50;
+                background: none;
+                border: none;
+                float: none;
+                margin-bottom: 0;
+
+                @include mobile {
+                    font-size: $font-size-small;
+                }
+            }
+        }
+    }
+}

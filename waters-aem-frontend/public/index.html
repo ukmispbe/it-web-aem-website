@@ -41,9 +41,36 @@
                 class="cmp-search-results aem-GridColumn"
                 data-icon-search="search.svg"
                 data-placeholder="Search by keyword"
-                data-icon-clear="close.svg"></div>
+                data-icon-clear="close.svg"
+            ></div>
             <div id="js-search-app" class="" data-locale="en-gb"></div>
         </div>
+        <button
+            class="cmp-modal-btn"
+            data-theme="addToCart"
+            data-config="cmp-modal-btn-0001"
+        >
+            show modal
+        </button>
+        <script type="application/json" id="cmp-modal-btn-0001">
+            {
+                "icon": "path/to/icon.svg",
+                "title": "Hello World",
+                "textHeading": "Small heading",
+                "text": "Hello, World, from React Modal",
+                "buttons": [
+                    {
+                        "text": "Cancel",
+                        "action": "close"
+                    },
+                    {
+                        "text": "View Cart",
+                        "action": "https://www.waters.com/waters/shoppingCart.htm"
+                    }
+                ]
+            }
+        </script>
+        <div class="cmp-modal-container"></div>
 
         <script type="application/json" id="search-results-categories-json">
             [{"categoryFacetName":"library_facet","categoryFacetValue":"Library","orderedFacets":[{"facetName":"applicationnote_facet","facetValue":"Application Note"},{"facetName":"applicationbrief_facet","facetValue":"Application Brief"},{"facetName":"posters_facet","facetValue":"Posters"}]},{"categoryFacetName":"applicationnote_facet","categoryFacetValue":"Application Note","orderedFacets":[{"facetName":"technique_facet","facetValue":"Technique"},{"facetName":"market_facet","facetValue":"Market"},{"facetName":"software_facet","facetValue":"Software"},{"facetName":"yearpublished_facet","facetValue":"Year"},{"facetName":"compoundmatrix_facet","facetValue":"Compound Class/Matrix"},{"facetName":"instrumenttype_facet","facetValue":"Instrument Type"},{"facetName":"separationmode_facet","facetValue":"Separation Mode"},{"facetName":"columntype_facet","facetValue":"Column Type"}]},{"categoryFacetName":"posters_facet","categoryFacetValue":"Posters","orderedFacets":[{"facetName":"market_facet","facetValue":"Market"},{"facetName":"yearpublished_facet","facetValue":"Year"}]}]

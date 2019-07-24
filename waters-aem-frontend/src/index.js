@@ -4,6 +4,7 @@ import SearchBar from './search/components/searchbar';
 import Search from './search/index';
 import TagCloud from './search/components/tagcloud';
 import ImageCarousel from './image-carousel';
+import Modal from './modal';
 
 function getAuthoredDataForSearchBar(c, h) {
     return {
@@ -114,5 +115,26 @@ if (imageGalleryContainers) {
             />,
             container
         );
+    });
+}
+
+const modalContainer = document.querySelector('.cmp-modal-container');
+
+if (modalContainer) {
+    window.cmp = {};
+    ReactDOM.render(<Modal />, modalContainer);
+}
+
+const modalOpenButton = document.querySelectorAll('.cmp-modal-btn');
+
+if (modalOpenButton.length) {
+    modalOpenButton.forEach(btn => {
+        const theme = btn.dataset.theme;
+        const configElement = document.getElementById(btn.dataset.config);
+        const config = JSON.parse(configElement.innerHTML);
+
+        btn.addEventListener('click', () => {
+            window.cmp.modal.showModal(theme, config);
+        });
     });
 }
