@@ -109,19 +109,6 @@
             &:focus {
                 outline: 2px solid $color-focus;
             }
-
-            &:focus::-webkit-input-placeholder {
-                color: transparent;
-            }
-            &:focus:-moz-placeholder {
-                color: transparent;
-            } /* FF 4-18 */
-            &:focus::-moz-placeholder {
-                color: transparent;
-            } /* FF 19+ */
-            &:focus:-ms-input-placeholder {
-                color: transparent;
-            } /* IE 10+ */
         }
 
         &__web-quote {
@@ -159,21 +146,12 @@
         .cmp-sku-details__container {
             width: 100%;
             display: flex;
-            max-width: 1400px;
-            padding: 0 80px;
+            max-width: 1305px;
             align-items: flex-start;
-
-            @include mobile {
-                padding: 0 20px;
-            }
-
-            @include tablet {
-                padding: 0 40px;
-            }
         }
 
         .cmp-sku-details__heading {
-            width: 65%;
+            width: 62%;
             position: relative;
             display: flex;
             align-items: center;

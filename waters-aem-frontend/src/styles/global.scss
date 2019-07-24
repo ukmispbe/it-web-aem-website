@@ -142,3 +142,18 @@ a {
 .cmp-back-to-top .st0 {
     fill: none;
 }
+
+input{
+    &:focus::-webkit-input-placeholder {
+        color: transparent;
+    }
+    &:focus:-moz-placeholder {
+        color: transparent;
+    } /* FF 4-18 */
+    &:focus::-moz-placeholder {
+        color: transparent;
+    } /* FF 19+ */
+    &:focus:-ms-input-placeholder {
+        color: transparent;
+    } /* IE 10+ */
+}

@@ -2,7 +2,7 @@ import 'whatwg-fetch';
 
 class SkuService {
     constructor(
-        isocode,
+        isocode = 'us',
         sku = {
             path: 'https://dev-www.waters.com:8443/api/waters/',
             endpoints: {
