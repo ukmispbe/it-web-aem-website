@@ -8,8 +8,14 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
 
 const SearchApp = props => {
-    const [hidden, setHidden] = useState(true);
-
+    const [modalOpen, setModalOpen] = useState(false);
+    const toggleModal = () => {
+        if (modalOpen) {
+            setModalOpen(false);
+        } else {
+            setModalOpen(true);
+        }
+    };
     return (
         <>
             <Router>
@@ -30,9 +36,11 @@ const SearchApp = props => {
                     )}
                 />
             </Router>
-            <button>Toggle Modal</button>
+            {/* Remove the button and Modal from here before PR */}
+            <button onClick={toggleModal}>Toggle Modal</button>
             <Modal
-                open={hidden}
+                toggleModal={toggleModal}
+                open={modalOpen}
                 theme="callToAction"
                 config={{
                     icon: 'path/to/icon.svg',

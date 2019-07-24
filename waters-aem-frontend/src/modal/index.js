@@ -5,15 +5,21 @@ class Modal extends React.Component {
     constructor(props) {
         super(props);
 
-        if (props.config) {
-            this.setState({
+        if (props.config && props.open && props.theme && props.toggleModal) {
+            this.state = {
+                open: props.open,
                 config: props.config,
-            });
+                theme: props.theme,
+            };
         }
     }
 
     componentWillReceiveProps(props) {
-        console.log('component receiving props', props);
+        this.setState({
+            open: props.open,
+            config: props.config,
+            theme: props.theme,
+        });
     }
 
     showModal = (theme, config) => {
@@ -31,11 +37,20 @@ class Modal extends React.Component {
     };
 
     closeModal = () => {
-        this.setState({
-            open: false,
-            theme: null,
-            config: null,
-        });
+        if (this.props.toggleModal) {
+            this.props.toggleModal();
+
+            this.setState({
+                theme: null,
+                config: null,
+            });
+        } else {
+            this.setState({
+                open: false,
+                theme: null,
+                config: null,
+            });
+        }
     };
 
     shouldRender = {
