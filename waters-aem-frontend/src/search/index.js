@@ -44,19 +44,18 @@ const SearchApp = props => {
                 theme="callToAction"
                 config={{
                     icon: 'path/to/icon.svg',
-                    title: 'Hello World',
-                    textHeading: 'Small heading',
-                    text: 'Hello, World, from React Modal',
-                    buttons: [
+                    "title": "Item Added to Cart",
+                    "textHeading": "1860004623",
+                    "text": "ACQUITY UPLC Protein BEH C4 VanGuard Pre-column, 300A, 1.7 um, 2.1 mm X 5 mm, 3/pk",
+                    "buttons": [
                         {
-                            text: 'Cancel',
-                            action: 'close',
+                            "text": "View Cart",
+                            "action": "https://www.waters.com/waters/shoppingCart.htm"
                         },
                         {
-                            text: 'View Cart',
-                            action:
-                                'https://www.waters.com/waters/shoppingCart.htm',
-                        },
+                            "text": "Continue Shopping",
+                            "action": "close"
+                        }
                     ],
                 }}
             />

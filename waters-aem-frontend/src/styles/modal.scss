@@ -1,15 +1,22 @@
-#modal {
+.cmp-modal-box {
     width: 100%;
     height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: rgba($color-black, 0.7);
+    z-index: 100;
 }
 
 .cmp-modal {
+
     background-color: $color-white;
     height: auto;
     position: relative;
-    width: 40%;
-    top: 20%;
-    left: 30%;
+    width: 30%;
+    top: 225px;
+    left: 35%;
+
     @include tablet {
         width: 70%;
         top: 20%;
@@ -49,6 +56,7 @@
                 top: $space-s;
                 width: (($icon-l + $icon-m) / 2);
                 height: (($icon-l + $icon-m) / 2);
+                stroke: $color-icon;
             }
         }
     }
@@ -66,15 +74,15 @@
             svg {
                 vertical-align: bottom;
                 polyline {
-                    stroke-width: 0.09em;
-                    stroke: $color-teal-30;
+                    stroke-width: 2px;
+                    stroke: $color-accent;
                 }
             }
         }
         .cmp-modal__title-text {
-            color: $color-font-medium;
+            @include font-h2;
             display: inline-block;
-            font-size: $font-size-h2;
+            margin-bottom: 0;
 
             @include mobile {
                 font-size: $font-size-small;
@@ -103,7 +111,7 @@
 
         .cmp-modal__information-header {
             font-size: $font-size-small;
-            color: $color-gray-40;
+            @include font-utility;
 
             @include mobile {
                 font-size: $font-size-xsmall;
@@ -112,7 +120,7 @@
         }
 
         .cmp-modal__information-text {
-            font-size: $font-size-h3;
+            @include font-h3;
             color: $color-black;
 
             @include mobile {
@@ -125,41 +133,38 @@
         margin-top: $space-m;
 
         .cmp-modal__btn-main {
-            .cmp-button {
-                @include tablet-and-over {
-                    width: 100%;
-                    padding: $space-s $space-l;
-                }
-                cursor: pointer;
-                background-color: $color-blue-50;
-                color: $color-white;
-                float: none;
-                margin-bottom: $space-s;
+            @include tablet-and-over {
+                width: 100%;
+                padding: $space-s $space-l;
+            }
+            cursor: pointer;
+            background-color: $color-blue-50;
+            color: $color-white;
+            float: none;
+            margin-bottom: $space-s;
 
-                @include mobile {
-                    font-size: $font-size-small;
-                }
+            @include mobile {
+                font-size: $font-size-small;
             }
         }
 
         .cmp-modal__btn-alt {
-            .cmp-button {
-                @include tablet-and-over {
-                    width: 100%;
-                    padding: $space-s $space-l;
-                }
+            @include tablet-and-over {
+                width: 100%;
+                padding: $space-s $space-l;
+            }
 
-                cursor: pointer;
-                text-transform: capitalize;
-                color: $color-blue-50;
-                background: none;
-                border: none;
-                float: none;
-                margin-bottom: 0;
+            cursor: pointer;
+            text-transform: capitalize;
+            background: none;
+            border: none;
+            float: none;
+            @include font-body;
+            margin-bottom: 0;
+            color: $color-link;
 
-                @include mobile {
-                    font-size: $font-size-small;
-                }
+            @include mobile {
+                font-size: $font-size-small;
             }
         }
     }

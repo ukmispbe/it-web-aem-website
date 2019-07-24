@@ -97,7 +97,7 @@ class Modal extends React.Component {
                         return (
                             <button
                                 onClick={() => this.closeModal()}
-                                className={btn.className}
+                                className="cmp-button cmp-modal__btn-alt"
                             >
                                 {btn.text}
                             </button>
@@ -109,7 +109,7 @@ class Modal extends React.Component {
                         return (
                             <a
                                 href={btn.action}
-                                className={btn.action}
+                                className="cmp-button cmp-modal__btn-main"
                                 target={btn.target || ''}
                             >
                                 {btn.text}
@@ -122,7 +122,7 @@ class Modal extends React.Component {
                         {buttons.map((btn, index) => {
                             return (
                                 <div
-                                    className="cmp-modal__btn-main cmp-button--fullWidth"
+                                    className="cmp-button--fullWidth"
                                     key={`modal-btn-${index}`}
                                 >
                                     {btn.text ? determineButtonType(btn) : null}
@@ -141,25 +141,27 @@ class Modal extends React.Component {
         const state = this.state || {};
         if (state.open && state.theme && state.theme.length && state.config) {
             return (
-                <div className="cmp-modal">
-                    <div className="cmp-modal__box">
-                        {this.props.closeIcon && (
-                            <div className="cmp-modal__close-icon cmp-utility-button">
-                                <ReactSVG src={this.props.closeIcon} />
-                            </div>
-                        )}
+                <div className="cmp-modal-box">
+                    <div className="cmp-modal">
+                        <div className="cmp-modal__box">
+                            {state.config.closeIcon && (
+                                <div className="cmp-modal__close-icon cmp-utility-button">
+                                    <ReactSVG src={state.config.closeIcon} />
+                                </div>
+                            )}
 
-                        {this.shouldRender.title(
-                            state.config.title,
-                            state.config.icon
-                        )}
+                            {this.shouldRender.title(
+                                state.config.title,
+                                state.config.icon
+                            )}
 
-                        {this.shouldRender.body(
-                            state.config.text,
-                            state.config.textHeading
-                        )}
+                            {this.shouldRender.body(
+                                state.config.text,
+                                state.config.textHeading
+                            )}
 
-                        {this.shouldRender.buttons(state.config.buttons)}
+                            {this.shouldRender.buttons(state.config.buttons)}
+                        </div>
                     </div>
                 </div>
             );
