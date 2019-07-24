@@ -7,6 +7,8 @@ class ImageViewer extends React.Component {
     constructor() {
         super();
 
+        this.touchActionPolyfill = null;
+
         if (this.props && this.props.widths.length === 0) {
             this.widths = [128, 140, 256, 320, 375, 620, 770, 1280];
         } else if (this.props && this.props.widths.length > 0) {
@@ -18,6 +20,7 @@ class ImageViewer extends React.Component {
         this.state = {
             containerWidth: 0,
             imageWidth: 0,
+            figureWidth: 0,
             imageSrc: '',
             magnified: false
         };
@@ -25,6 +28,8 @@ class ImageViewer extends React.Component {
         this.containerRef = React.createRef();
         this.figureRef = React.createRef();
     }
+
+    touchActionNotSupported = () => typeof(CSS) != "undefined" && !CSS.supports('touch-action', 'none');
 
     handleOnDragStart = e => e.preventDefault();
 
@@ -126,6 +131,11 @@ class ImageViewer extends React.Component {
         );
     };
 
+    handleImageLoad = e => {
+        const figureWidth = this.figureRef.current.getBoundingClientRect().width;
+        this.setState({ figureWidth });
+    }
+
     render() {
         return <div ref={this.containerRef} className="image-viewer-container">
                 <div className="image-viewer-container__image-display">
@@ -138,8 +148,26 @@ class ImageViewer extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        if (this.state.magnified && !prevState.magnified && this.touchActionNotSupported()) {
+            this.touchActionPolyfill = Hammer(this.figureRef.current, { touchAction: 'pan-x' });
+        } else if (!this.state.magnified && prevState.magnified && this.touchActionNotSupported()) {
+            this.touchActionPolyfill.destroy();
+            this.touchActionPolyfill = null;
+        }
+
+        if (this.props.isActive !== prevProps.isActive) {
+            this.setState({ magnified: false });
+        }
+       
         if (
-            prevState.imageWidth !== this.state.imageWidth &&
+            (
+                prevState.imageWidth !== this.state.imageWidth 
+                || 
+                prevState.containerWidth !== this.state.containerWidth 
+                || 
+                prevState.figureWidth !== this.state.figureWidth
+            )
+            &&
             this.props.onCalculate
         ) {
             this.props.onCalculate(this.state);
@@ -147,8 +175,6 @@ class ImageViewer extends React.Component {
     }
 
     componentDidMount() {
-        this.touchActionPolyfill();
-
         this.figureRef.current.style.backgroundPosition = '50% 50%';
 
         this.calculateWidth();
@@ -161,12 +187,6 @@ class ImageViewer extends React.Component {
 
         // this is for mobile devices
         window.addEventListener('deviceorientation', this.calculateWidth);
-    }
-
-    touchActionPolyfill = () => {
-        if (typeof(CSS) != "undefined" && !CSS.supports('touch-action', 'none')) {
-            const mc = Hammer(this.figureRef.current, { touchAction: 'pan-x' });
-        }
     }
 
     componentWillUnmount() {
@@ -192,6 +212,7 @@ class ImageViewer extends React.Component {
                 className="image-viewer-container__image-element"
                 src={this.state.imageSrc}
                 alt={this.props.alt}
+                onLoad={this.handleImageLoad}
             />
         </figure>
     );
@@ -219,12 +240,12 @@ class ImageViewer extends React.Component {
     };
 
     calculateWidth = () => {
-        const containerWidth = this.containerRef.current.getBoundingClientRect()
-            .width;
+        const containerWidth = this.containerRef.current.getBoundingClientRect().width;
         const imageWidth = this.getClosestWidth(containerWidth);
+        const figureWidth = this.figureRef.current.getBoundingClientRect().width;
         const imageSrc = this.props.template.replace(/{{width}}/gi, imageWidth);
 
-        this.setState({ containerWidth, imageWidth, imageSrc });
+        this.setState({ containerWidth, imageWidth, figureWidth, imageSrc });
     };
 }
 
@@ -237,6 +258,7 @@ ImageViewer.propTypes = {
     onCalculate: PropTypes.func,
     onZoomIn: PropTypes.func,
     onZoomOut: PropTypes.func,
+    isActive: PropTypes.bool,
 };
 
 export default ImageViewer;

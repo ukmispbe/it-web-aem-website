@@ -3,7 +3,6 @@
     "currentPage": 0,
     "products": [
         {
-            "availableForPickup": false,
             "categories": [
                 {
                     "code": "PFCAnalysisKit",
@@ -17,6 +16,7 @@
                         {
                             "code": "WatersClassification/1.0/ConsumablesAndSpares.jaggaercategory",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 99,
@@ -36,6 +36,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.company",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 5,
@@ -50,6 +51,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.unspsc",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "41116104"
@@ -63,6 +65,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.application",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 15,
@@ -77,6 +80,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.business",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 1,
@@ -90,6 +94,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.productfamily",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 7,
@@ -105,6 +110,8 @@
                 }
             ],
             "code": "176001744",
+            "coldChainShipping": true,
+            "hazardous": false,
             "description": "Waters ACQUITY UPLC total solution for the analysis of Perfluorinated Compounds (PFCs).  The kit contains ACQUITY BEH C18 column, PFC isolator column, and other PFCs-free components optimized for use with the ACQUITY system.  Sample preparation consumables such as Oasis HLB cartridges, PFC calibration standards, PFC unknown QC standards, and sample vials are also included.",
             "images": [
                 {
@@ -113,189 +120,349 @@
                 }
             ],
             "name": "PFC Analysis Kit",
-            "numberOfReviews": 0,
-            "priceRange": {
-            },
             "prices": [
                 {
-                    "countries": "NZ,FJ,VA,AS",
+                    "countries": [
+                        "NZ",
+                        "FJ",
+                        "VA",
+                        "AS"
+                    ],
                     "currencyIso": "AUD",
-                    "value": 11093.0
+                    "value": 11093
                 },
                 {
-                    "countries": "ME,YE,SV,SY,TC,UZ,KZ,PS,AM,AJ,BA,BS,BU,CY,EG,GR,IZ,KU,LE,MK,MT,MU,PK,BY,GG,QA,RO,RU,SA,RS,UA,JO,AL,CE,LY,AU,CR,TU",
+                    "countries": [
+                        "ME",
+                        "YE",
+                        "SV",
+                        "SY",
+                        "TC",
+                        "UZ",
+                        "KZ",
+                        "PS",
+                        "AM",
+                        "AJ",
+                        "BA",
+                        "BS",
+                        "BU",
+                        "CY",
+                        "EG",
+                        "GR",
+                        "IZ",
+                        "KU",
+                        "LE",
+                        "MK",
+                        "MT",
+                        "MU",
+                        "PK",
+                        "BY",
+                        "GG",
+                        "QA",
+                        "RO",
+                        "RU",
+                        "SA",
+                        "RS",
+                        "UA",
+                        "JO",
+                        "AL",
+                        "CE",
+                        "LY",
+                        "AU",
+                        "CR",
+                        "TU"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 7091.0
+                    "value": 7091
                 },
                 {
-                    "countries": "BE,LU",
+                    "countries": [
+                        "BE",
+                        "LU"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 7091.0
+                    "value": 7091
                 },
                 {
-                    "countries": "BR",
+                    "countries": [
+                        "BR"
+                    ],
                     "currencyIso": "BRL",
                     "value": 0.05
                 },
                 {
-                    "countries": "CA",
+                    "countries": [
+                        "CA"
+                    ],
                     "currencyIso": "CAD",
-                    "value": 9945.0
+                    "value": 9945
                 },
                 {
-                    "countries": "CN",
+                    "countries": [
+                        "CN"
+                    ],
                     "currencyIso": "CNY",
-                    "value": 61290.0
+                    "value": 61290
                 },
                 {
-                    "countries": "CX,SK",
+                    "countries": [
+                        "CX",
+                        "SK"
+                    ],
                     "currencyIso": "CZK",
-                    "value": 180821.0
+                    "value": 180821
                 },
                 {
-                    "countries": "DA",
+                    "countries": [
+                        "DA"
+                    ],
                     "currencyIso": "DKK",
-                    "value": 53127.0
+                    "value": 53127
                 },
                 {
-                    "countries": "EI",
+                    "countries": [
+                        "EI"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 7091.0
+                    "value": 7091
                 },
                 {
-                    "countries": "LV,EE,FI,LN",
+                    "countries": [
+                        "LV",
+                        "EE",
+                        "FI",
+                        "LN"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 7091.0
+                    "value": 7091
                 },
                 {
-                    "countries": "SG,NC,FP,AG,ET,FR,GA,TS,NI,MO,GH",
+                    "countries": [
+                        "SG",
+                        "NC",
+                        "FP",
+                        "AG",
+                        "ET",
+                        "FR",
+                        "GA",
+                        "TS",
+                        "NI",
+                        "MO",
+                        "GH"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 7091.0
+                    "value": 7091
                 },
                 {
-                    "countries": "GE",
+                    "countries": [
+                        "GE"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 7091.0
+                    "value": 7091
                 },
                 {
-                    "countries": "HK,MC",
+                    "countries": [
+                        "HK",
+                        "MC"
+                    ],
                     "currencyIso": "HKD",
-                    "value": 65250.0
+                    "value": 65250
                 },
                 {
-                    "countries": "HU",
+                    "countries": [
+                        "HU"
+                    ],
                     "currencyIso": "HUF",
-                    "value": 2176937.0
+                    "value": 2176937
                 },
                 {
-                    "countries": "BG,NP,IN",
+                    "countries": [
+                        "BG",
+                        "NP",
+                        "IN"
+                    ],
                     "currencyIso": "INR",
-                    "value": 661775.0
+                    "value": 661775
                 },
                 {
-                    "countries": "IS",
+                    "countries": [
+                        "IS"
+                    ],
                     "currencyIso": "USD",
-                    "value": 7650.0
+                    "value": 7650
                 },
                 {
-                    "countries": "IT",
+                    "countries": [
+                        "IT"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 7091.0
+                    "value": 7091
                 },
                 {
-                    "countries": "JP",
+                    "countries": [
+                        "JP"
+                    ],
                     "currencyIso": "JPY",
-                    "value": 924000.0
+                    "value": 924000
                 },
                 {
-                    "countries": "KS",
+                    "countries": [
+                        "KS"
+                    ],
                     "currencyIso": "WON",
-                    "value": 1.12512E+7
+                    "value": 11251200
                 },
                 {
-                    "countries": "MX",
+                    "countries": [
+                        "MX"
+                    ],
                     "currencyIso": "USD",
-                    "value": 10175.0
+                    "value": 10175
                 },
                 {
-                    "countries": "MY",
+                    "countries": [
+                        "MY"
+                    ],
                     "currencyIso": "MYR",
-                    "value": 33700.0
+                    "value": 33700
                 },
                 {
-                    "countries": "NL",
+                    "countries": [
+                        "NL"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 7091.0
+                    "value": 7091
                 },
                 {
-                    "countries": "NO",
+                    "countries": [
+                        "NO"
+                    ],
                     "currencyIso": "NOK",
-                    "value": 56912.0
+                    "value": 56912
                 },
                 {
-                    "countries": "PL",
+                    "countries": [
+                        "PL"
+                    ],
                     "currencyIso": "PLN",
-                    "value": 26591.0
+                    "value": 26591
                 },
                 {
-                    "countries": "PO",
+                    "countries": [
+                        "PO"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 7091.0
+                    "value": 7091
                 },
                 {
-                    "countries": "RQ",
+                    "countries": [
+                        "RQ"
+                    ],
                     "currencyIso": "USD",
-                    "value": 8415.0
+                    "value": 8415
                 },
                 {
-                    "countries": "GQ,BM,RP,ID,TH,BX,SN,VM,CB",
+                    "countries": [
+                        "GQ",
+                        "BM",
+                        "RP",
+                        "ID",
+                        "TH",
+                        "BX",
+                        "SN",
+                        "VM",
+                        "CB"
+                    ],
                     "currencyIso": "USD",
-                    "value": 8415.0
+                    "value": 8415
                 },
                 {
-                    "countries": "ES",
+                    "countries": [
+                        "ES"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 7091.0
+                    "value": 7091
                 },
                 {
-                    "countries": "SW,IC",
+                    "countries": [
+                        "SW",
+                        "IC"
+                    ],
                     "currencyIso": "SEK",
-                    "value": 64068.0
+                    "value": 64068
                 },
                 {
-                    "countries": "SZ",
+                    "countries": [
+                        "SZ"
+                    ],
                     "currencyIso": "CHF",
-                    "value": 8838.0
+                    "value": 8838
                 },
                 {
-                    "countries": "UK,JE,GI",
+                    "countries": [
+                        "UK",
+                        "JE",
+                        "GI"
+                    ],
                     "currencyIso": "GBP",
-                    "value": 4876.0
+                    "value": 4876
                 },
                 {
-                    "countries": "KE,BC,CS,GP,NT,PA,SF,ZA,AR,BF,BD,BL,CO,EC,GT,JM,NF,PN,PE,ST,VE,UY,HO,US,CI,HA,VI,ES,NU,TD,CF,GJ,AY,BH",
+                    "countries": [
+                        "KE",
+                        "BC",
+                        "CS",
+                        "GP",
+                        "NT",
+                        "PA",
+                        "SF",
+                        "ZA",
+                        "AR",
+                        "BF",
+                        "BD",
+                        "BL",
+                        "CO",
+                        "EC",
+                        "GT",
+                        "JM",
+                        "NF",
+                        "PN",
+                        "PE",
+                        "ST",
+                        "VE",
+                        "UY",
+                        "HO",
+                        "US",
+                        "CI",
+                        "HA",
+                        "VI",
+                        "ES",
+                        "NU",
+                        "TD",
+                        "CF",
+                        "GJ",
+                        "AY",
+                        "BH"
+                    ],
                     "currencyIso": "USD",
-                    "value": 7650.0
+                    "value": 7650
                 },
                 {
-                    "countries": "TW",
+                    "countries": [
+                        "TW"
+                    ],
                     "currencyIso": "NTD",
-                    "value": 232700.0
+                    "value": 232700
                 }
             ],
             "proprietary": false,
             "purchasable": true,
             "salesStatus": "Active",
-            "stock": {
-                "stockLevel": 0,
-                "stockLevelStatus": "inStock"
-            },
             "summary": "Waters ACQUITY UPLC total solution for the analysis of Perfluorinated Compounds (PFCs).  The kit contains ACQUITY BEH C18 column, PFC isolator column, and other PFCs-free components optimized for use with the ACQUITY system.  Sample preparation consumables such as Oasis HLB cartridges, PFC calibration standards, PFC unknown QC standards, and sample vials are also included.",
             "terminated": false,
             "url": "/waters/products/176001744"
         },
         {
-            "availableForPickup": false,
             "categories": [
                 {
                     "code": "ApplicationKits",
@@ -309,6 +476,7 @@
                         {
                             "code": "WatersClassification/1.0/ConsumablesAndSpares.jaggaercategory",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 460,
@@ -328,6 +496,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.saphierarchy",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "023A3AA70"
@@ -341,6 +510,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.remainingshelflife",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "0"
@@ -354,6 +524,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.company",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 5,
@@ -368,6 +539,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.weight",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "0"
@@ -381,6 +553,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.weightunit",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "KGM"
@@ -394,6 +567,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.unspsc",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "41115712"
@@ -407,6 +581,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.application",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 23,
@@ -421,6 +596,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.business",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 1,
@@ -434,6 +610,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.productfamily",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 7,
@@ -449,171 +626,336 @@
                 }
             ],
             "code": "176001836",
+            "coldChainShipping": true,
+            "hazardous": false,
             "description": "The HPLC Therapeutic Peptide Method Development kit simplifies the process of sample preparation and LC method development for the analysis of therapeutic peptides in plasma. The kit contains one 96-well Oasis Peptide ?Elution Method Development Plate (186004713), one XBridge UPLC 3.5 µm BEH 300Å C18 reversed-phase 2.1x50 mm column (186003607), three 96-well 1 mL collection plates and cap mats (600001043), and a detailed screening protocol.",
             "name": "HPLC Therapeutic Peptide Method Development Kit",
-            "numberOfReviews": 0,
-            "priceRange": {
-            },
             "prices": [
                 {
-                    "countries": "NZ,FJ,VA,AS",
+                    "countries": [
+                        "NZ",
+                        "FJ",
+                        "VA",
+                        "AS"
+                    ],
                     "currencyIso": "AUD",
-                    "value": 1494.0
+                    "value": 1494
                 },
                 {
-                    "countries": "ME,YE,SV,SY,TC,UZ,KZ,PS,AM,AJ,BA,BS,BU,CY,EG,GR,IZ,KU,LE,MK,MT,MU,PK,BY,GG,QA,RO,RU,SA,RS,UA,JO,AL,CE,LY,AU,CR,TU",
+                    "countries": [
+                        "ME",
+                        "YE",
+                        "SV",
+                        "SY",
+                        "TC",
+                        "UZ",
+                        "KZ",
+                        "PS",
+                        "AM",
+                        "AJ",
+                        "BA",
+                        "BS",
+                        "BU",
+                        "CY",
+                        "EG",
+                        "GR",
+                        "IZ",
+                        "KU",
+                        "LE",
+                        "MK",
+                        "MT",
+                        "MU",
+                        "PK",
+                        "BY",
+                        "GG",
+                        "QA",
+                        "RO",
+                        "RU",
+                        "SA",
+                        "RS",
+                        "UA",
+                        "JO",
+                        "AL",
+                        "CE",
+                        "LY",
+                        "AU",
+                        "CR",
+                        "TU"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 987.0
+                    "value": 987
                 },
                 {
-                    "countries": "BE,LU",
+                    "countries": [
+                        "BE",
+                        "LU"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 987.0
+                    "value": 987
                 },
                 {
-                    "countries": "BR",
+                    "countries": [
+                        "BR"
+                    ],
                     "currencyIso": "BRL",
                     "value": 0.01
                 },
                 {
-                    "countries": "CA",
+                    "countries": [
+                        "CA"
+                    ],
                     "currencyIso": "CAD",
-                    "value": 1340.0
+                    "value": 1340
                 },
                 {
-                    "countries": "CN",
+                    "countries": [
+                        "CN"
+                    ],
                     "currencyIso": "CNY",
-                    "value": 10280.0
+                    "value": 10280
                 },
                 {
-                    "countries": "CX,SK",
+                    "countries": [
+                        "CX",
+                        "SK"
+                    ],
                     "currencyIso": "CZK",
-                    "value": 25169.0
+                    "value": 25169
                 },
                 {
-                    "countries": "DA",
+                    "countries": [
+                        "DA"
+                    ],
                     "currencyIso": "DKK",
-                    "value": 7413.0
+                    "value": 7413
                 },
                 {
-                    "countries": "EI",
+                    "countries": [
+                        "EI"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 987.0
+                    "value": 987
                 },
                 {
-                    "countries": "LV,EE,FI,LN",
+                    "countries": [
+                        "LV",
+                        "EE",
+                        "FI",
+                        "LN"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 987.0
+                    "value": 987
                 },
                 {
-                    "countries": "SG,NC,FP,AG,ET,FR,GA,TS,NI,MO,GH",
+                    "countries": [
+                        "SG",
+                        "NC",
+                        "FP",
+                        "AG",
+                        "ET",
+                        "FR",
+                        "GA",
+                        "TS",
+                        "NI",
+                        "MO",
+                        "GH"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 987.0
+                    "value": 987
                 },
                 {
-                    "countries": "GE",
+                    "countries": [
+                        "GE"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 987.0
+                    "value": 987
                 },
                 {
-                    "countries": "HK,MC",
+                    "countries": [
+                        "HK",
+                        "MC"
+                    ],
                     "currencyIso": "HKD",
-                    "value": 8790.0
+                    "value": 8790
                 },
                 {
-                    "countries": "HU",
+                    "countries": [
+                        "HU"
+                    ],
                     "currencyIso": "HUF",
-                    "value": 303009.0
+                    "value": 303009
                 },
                 {
-                    "countries": "BG,NP,IN",
+                    "countries": [
+                        "BG",
+                        "NP",
+                        "IN"
+                    ],
                     "currencyIso": "INR",
-                    "value": 90318.0
+                    "value": 90318
                 },
                 {
-                    "countries": "IS",
+                    "countries": [
+                        "IS"
+                    ],
                     "currencyIso": "USD",
-                    "value": 1030.0
+                    "value": 1030
                 },
                 {
-                    "countries": "IT",
+                    "countries": [
+                        "IT"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 987.0
+                    "value": 987
                 },
                 {
-                    "countries": "KS",
+                    "countries": [
+                        "KS"
+                    ],
                     "currencyIso": "WON",
-                    "value": 1558800.0
+                    "value": 1558800
                 },
                 {
-                    "countries": "MX",
+                    "countries": [
+                        "MX"
+                    ],
                     "currencyIso": "USD",
-                    "value": 1370.0
+                    "value": 1370
                 },
                 {
-                    "countries": "MY",
+                    "countries": [
+                        "MY"
+                    ],
                     "currencyIso": "MYR",
-                    "value": 4800.0
+                    "value": 4800
                 },
                 {
-                    "countries": "NL",
+                    "countries": [
+                        "NL"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 987.0
+                    "value": 987
                 },
                 {
-                    "countries": "NO",
+                    "countries": [
+                        "NO"
+                    ],
                     "currencyIso": "NOK",
-                    "value": 7911.0
+                    "value": 7911
                 },
                 {
-                    "countries": "PL",
+                    "countries": [
+                        "PL"
+                    ],
                     "currencyIso": "PLN",
-                    "value": 3701.0
+                    "value": 3701
                 },
                 {
-                    "countries": "PO",
+                    "countries": [
+                        "PO"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 987.0
+                    "value": 987
                 },
                 {
-                    "countries": "RQ",
+                    "countries": [
+                        "RQ"
+                    ],
                     "currencyIso": "USD",
-                    "value": 1135.0
+                    "value": 1135
                 },
                 {
-                    "countries": "GQ,BM,RP,ID,TH,BX,SN,VM,CB",
+                    "countries": [
+                        "GQ",
+                        "BM",
+                        "RP",
+                        "ID",
+                        "TH",
+                        "BX",
+                        "SN",
+                        "VM",
+                        "CB"
+                    ],
                     "currencyIso": "USD",
-                    "value": 1133.0
+                    "value": 1133
                 },
                 {
-                    "countries": "ES",
+                    "countries": [
+                        "ES"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 987.0
+                    "value": 987
                 },
                 {
-                    "countries": "SW,IC",
+                    "countries": [
+                        "SW",
+                        "IC"
+                    ],
                     "currencyIso": "SEK",
-                    "value": 8894.0
+                    "value": 8894
                 },
                 {
-                    "countries": "SZ",
+                    "countries": [
+                        "SZ"
+                    ],
                     "currencyIso": "CHF",
-                    "value": 1245.0
+                    "value": 1245
                 },
                 {
-                    "countries": "UK,JE,GI",
+                    "countries": [
+                        "UK",
+                        "JE",
+                        "GI"
+                    ],
                     "currencyIso": "GBP",
-                    "value": 637.0
+                    "value": 637
                 },
                 {
-                    "countries": "KE,BC,CS,GP,NT,PA,SF,ZA,AR,BF,BD,BL,CO,EC,GT,JM,NF,PN,PE,ST,VE,UY,HO,US,CI,HA,VI,ES,NU,TD,CF,GJ,AY,BH",
+                    "countries": [
+                        "KE",
+                        "BC",
+                        "CS",
+                        "GP",
+                        "NT",
+                        "PA",
+                        "SF",
+                        "ZA",
+                        "AR",
+                        "BF",
+                        "BD",
+                        "BL",
+                        "CO",
+                        "EC",
+                        "GT",
+                        "JM",
+                        "NF",
+                        "PN",
+                        "PE",
+                        "ST",
+                        "VE",
+                        "UY",
+                        "HO",
+                        "US",
+                        "CI",
+                        "HA",
+                        "VI",
+                        "ES",
+                        "NU",
+                        "TD",
+                        "CF",
+                        "GJ",
+                        "AY",
+                        "BH"
+                    ],
                     "currencyIso": "USD",
-                    "value": 1030.0
+                    "value": 1030
                 },
                 {
-                    "countries": "TW",
+                    "countries": [
+                        "TW"
+                    ],
                     "currencyIso": "NTD",
-                    "value": 36000.0
+                    "value": 36000
                 }
             ],
             "productReferences": [
@@ -675,16 +1017,11 @@
             "proprietary": false,
             "purchasable": true,
             "salesStatus": "Active",
-            "stock": {
-                "stockLevel": 0,
-                "stockLevelStatus": "inStock"
-            },
             "summary": "The HPLC Therapeutic Peptide Method Development kit simplifies the process of sample preparation and LC method development for the analysis of therapeutic peptides in plasma. The kit contains one 96-well Oasis Peptide ?Elution Method Development Plate (186004713), one XBridge UPLC 3.5 µm BEH 300Å C18 reversed-phase 2.1x50 mm column (186003607), three 96-well 1 mL collection plates and cap mats (600001043), and a detailed screening protocol.",
             "terminated": false,
             "url": "/waters/products/176001836"
         },
         {
-            "availableForPickup": false,
             "categories": [
                 {
                     "code": "Automation",
@@ -706,6 +1043,7 @@
                         {
                             "code": "WatersClassification/1.0/ApplicationKits.applicationkitsnumberofanalysis",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 3,
@@ -721,6 +1059,7 @@
                         {
                             "code": "WatersClassification/1.0/ApplicationKits.applicationkitstype",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 5,
@@ -736,6 +1075,7 @@
                         {
                             "code": "WatersClassification/1.0/ApplicationKits.applicationkitsseparationmode",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 1,
@@ -751,6 +1091,7 @@
                         {
                             "code": "WatersClassification/1.0/ApplicationKits.applicationkitsdetectionmethod",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 3,
@@ -778,6 +1119,7 @@
                         {
                             "code": "WatersClassification/1.0/ApplicationKits.applicationkitsstorage",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 1,
@@ -793,6 +1135,7 @@
                         {
                             "code": "WatersClassification/1.0/ApplicationKits.applicationkitssystemtype",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 2,
@@ -808,6 +1151,7 @@
                         {
                             "code": "WatersClassification/1.0/ApplicationKits.applicationkitsshelflife",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 1,
@@ -823,6 +1167,7 @@
                         {
                             "code": "WatersClassification/1.0/ApplicationKits.applicationkitsshipping",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 1,
@@ -844,6 +1189,7 @@
                         {
                             "code": "WatersClassification/1.0/ConsumablesAndSpares.unitsperpackage",
                             "comparable": true,
+                            "facet": false,
                             "featureUnit": {
                                 "name": "Units Per Package UOM",
                                 "symbol": "pk",
@@ -866,6 +1212,7 @@
                         {
                             "code": "WatersClassification/1.0/ConsumablesAndSpares.coldchainshipping",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "true"
@@ -879,6 +1226,7 @@
                         {
                             "code": "WatersClassification/1.0/ConsumablesAndSpares.jaggaercategory",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 243,
@@ -898,6 +1246,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.company",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 5,
@@ -912,6 +1261,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.unspsc",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "41116104"
@@ -925,6 +1275,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.application",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 20,
@@ -939,6 +1290,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.brand",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 24,
@@ -953,6 +1305,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.business",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 1,
@@ -966,6 +1319,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.productfamily",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 7,
@@ -981,12 +1335,10 @@
                 }
             ],
             "code": "176004151",
+            "coldChainShipping": true,
+            "hazardous": false,
             "description": "The GlycoWorks RapiFluor-MS N-Glycan Script Starter Kit – Automation has been designed for use with automated platforms enabling high-throughput glycoprotein sample preparation for analysis of N-glycans with minimal user intervention. This protocol is validated using monoclonal antibodies and has also been tested to perform for a wide range of other N-linked glycoproteins.  All reagents in the kit are scaled to residual volumes needed for many automated instrumentation allowing for versatility when choosing your platform.   The kit is in a 2 x 48 format.\n\nThe GlycoWorks RapiFluor-MS N-Glycan Script Starter Kit contains the addition of a CD and Workstation requirements document that contains the script developed during verification testing when using a Tecan® Freedom EVO® 100/4 as well as a RFMS labeled standard, column and mobile phase concentrate which are the recommended for use with the RapiFluor-MS Library.",
             "images": [
-                {
-                    "imageType": "PRIMARY",
-                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/glycoworks-rapifluor-ms-nglycan-starter-kit-automation.png"
-                },
                 {
                     "imageType": "GALLERY",
                     "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/rapifluor-ms-reagent-vial-55mg.png"
@@ -1050,177 +1402,335 @@
                 {
                     "imageType": "GALLERY",
                     "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/uplc-column-21x50mm.png"
+                },
+                {
+                    "imageType": "PRIMARY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/glycoworks-rapifluor-ms-nglycan-starter-kit-automation.png"
                 }
             ],
             "name": "GlycoWorks RapiFluor-MS N-Glycan Script Starter Kit-Automation",
-            "numberOfReviews": 0,
-            "priceRange": {
-            },
             "prices": [
                 {
-                    "countries": "NZ,FJ,VA,AS",
+                    "countries": [
+                        "NZ",
+                        "FJ",
+                        "VA",
+                        "AS"
+                    ],
                     "currencyIso": "AUD",
-                    "value": 12695.0
+                    "value": 12695
                 },
                 {
-                    "countries": "ME,YE,SV,SY,TC,UZ,KZ,PS,AM,AJ,BA,BS,BU,CY,EG,GR,IZ,KU,LE,MK,MT,MU,PK,BY,GG,QA,RO,RU,SA,RS,UA,JO,AL,CE,LY,AU,CR,TU",
+                    "countries": [
+                        "ME",
+                        "YE",
+                        "SV",
+                        "SY",
+                        "TC",
+                        "UZ",
+                        "KZ",
+                        "PS",
+                        "AM",
+                        "AJ",
+                        "BA",
+                        "BS",
+                        "BU",
+                        "CY",
+                        "EG",
+                        "GR",
+                        "IZ",
+                        "KU",
+                        "LE",
+                        "MK",
+                        "MT",
+                        "MU",
+                        "PK",
+                        "BY",
+                        "GG",
+                        "QA",
+                        "RO",
+                        "RU",
+                        "SA",
+                        "RS",
+                        "UA",
+                        "JO",
+                        "AL",
+                        "CE",
+                        "LY",
+                        "AU",
+                        "CR",
+                        "TU"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 8705.0
+                    "value": 8705
                 },
                 {
-                    "countries": "BE,LU",
+                    "countries": [
+                        "BE",
+                        "LU"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 8705.0
+                    "value": 8705
                 },
                 {
-                    "countries": "BR",
+                    "countries": [
+                        "BR"
+                    ],
                     "currencyIso": "BRL",
                     "value": 0.07
                 },
                 {
-                    "countries": "CA",
+                    "countries": [
+                        "CA"
+                    ],
                     "currencyIso": "CAD",
-                    "value": 11380.0
+                    "value": 11380
                 },
                 {
-                    "countries": "CX,SK",
+                    "countries": [
+                        "CX",
+                        "SK"
+                    ],
                     "currencyIso": "CZK",
-                    "value": 221978.0
+                    "value": 221978
                 },
                 {
-                    "countries": "DA",
+                    "countries": [
+                        "DA"
+                    ],
                     "currencyIso": "DKK",
-                    "value": 65283.0
+                    "value": 65283
                 },
                 {
-                    "countries": "EI",
+                    "countries": [
+                        "EI"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 8705.0
+                    "value": 8705
                 },
                 {
-                    "countries": "LV,EE,FI,LN",
+                    "countries": [
+                        "LV",
+                        "EE",
+                        "FI",
+                        "LN"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 8705.0
+                    "value": 8705
                 },
                 {
-                    "countries": "SG,NC,FP,AG,ET,FR,GA,TS,NI,MO,GH",
+                    "countries": [
+                        "SG",
+                        "NC",
+                        "FP",
+                        "AG",
+                        "ET",
+                        "FR",
+                        "GA",
+                        "TS",
+                        "NI",
+                        "MO",
+                        "GH"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 8705.0
+                    "value": 8705
                 },
                 {
-                    "countries": "GE",
+                    "countries": [
+                        "GE"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 8705.0
+                    "value": 8705
                 },
                 {
-                    "countries": "HK,MC",
+                    "countries": [
+                        "HK",
+                        "MC"
+                    ],
                     "currencyIso": "HKD",
-                    "value": 74670.0
+                    "value": 74670
                 },
                 {
-                    "countries": "HU",
+                    "countries": [
+                        "HU"
+                    ],
                     "currencyIso": "HUF",
-                    "value": 2672435.0
+                    "value": 2672435
                 },
                 {
-                    "countries": "BG,NP,IN",
+                    "countries": [
+                        "BG",
+                        "NP",
+                        "IN"
+                    ],
                     "currencyIso": "INR",
-                    "value": 780071.0
+                    "value": 780071
                 },
                 {
-                    "countries": "IS",
+                    "countries": [
+                        "IS"
+                    ],
                     "currencyIso": "USD",
-                    "value": 8755.0
+                    "value": 8755
                 },
                 {
-                    "countries": "IT",
+                    "countries": [
+                        "IT"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 8705.0
+                    "value": 8705
                 },
                 {
-                    "countries": "MX",
+                    "countries": [
+                        "MX"
+                    ],
                     "currencyIso": "USD",
-                    "value": 11644.0
+                    "value": 11644
                 },
                 {
-                    "countries": "MY",
+                    "countries": [
+                        "MY"
+                    ],
                     "currencyIso": "MYR",
-                    "value": 41100.0
+                    "value": 41100
                 },
                 {
-                    "countries": "NL",
+                    "countries": [
+                        "NL"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 8705.0
+                    "value": 8705
                 },
                 {
-                    "countries": "NO",
+                    "countries": [
+                        "NO"
+                    ],
                     "currencyIso": "NOK",
-                    "value": 69634.0
+                    "value": 69634
                 },
                 {
-                    "countries": "PL",
+                    "countries": [
+                        "PL"
+                    ],
                     "currencyIso": "PLN",
-                    "value": 32644.0
+                    "value": 32644
                 },
                 {
-                    "countries": "PO",
+                    "countries": [
+                        "PO"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 8705.0
+                    "value": 8705
                 },
                 {
-                    "countries": "RQ",
+                    "countries": [
+                        "RQ"
+                    ],
                     "currencyIso": "USD",
-                    "value": 9630.0
+                    "value": 9630
                 },
                 {
-                    "countries": "GQ,BM,RP,ID,TH,BX,SN,VM,CB",
+                    "countries": [
+                        "GQ",
+                        "BM",
+                        "RP",
+                        "ID",
+                        "TH",
+                        "BX",
+                        "SN",
+                        "VM",
+                        "CB"
+                    ],
                     "currencyIso": "USD",
-                    "value": 9631.0
+                    "value": 9631
                 },
                 {
-                    "countries": "ES",
+                    "countries": [
+                        "ES"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 8705.0
+                    "value": 8705
                 },
                 {
-                    "countries": "SW,IC",
+                    "countries": [
+                        "SW",
+                        "IC"
+                    ],
                     "currencyIso": "SEK",
-                    "value": 78338.0
+                    "value": 78338
                 },
                 {
-                    "countries": "SZ",
+                    "countries": [
+                        "SZ"
+                    ],
                     "currencyIso": "CHF",
-                    "value": 10602.0
+                    "value": 10602
                 },
                 {
-                    "countries": "UK,JE,GI",
+                    "countries": [
+                        "UK",
+                        "JE",
+                        "GI"
+                    ],
                     "currencyIso": "GBP",
-                    "value": 6561.0
+                    "value": 6561
                 },
                 {
-                    "countries": "KE,BC,CS,GP,NT,PA,SF,ZA,AR,BF,BD,BL,CO,EC,GT,JM,NF,PN,PE,ST,VE,UY,HO,US,CI,HA,VI,ES,NU,TD,CF,GJ,AY,BH",
+                    "countries": [
+                        "KE",
+                        "BC",
+                        "CS",
+                        "GP",
+                        "NT",
+                        "PA",
+                        "SF",
+                        "ZA",
+                        "AR",
+                        "BF",
+                        "BD",
+                        "BL",
+                        "CO",
+                        "EC",
+                        "GT",
+                        "JM",
+                        "NF",
+                        "PN",
+                        "PE",
+                        "ST",
+                        "VE",
+                        "UY",
+                        "HO",
+                        "US",
+                        "CI",
+                        "HA",
+                        "VI",
+                        "ES",
+                        "NU",
+                        "TD",
+                        "CF",
+                        "GJ",
+                        "AY",
+                        "BH"
+                    ],
                     "currencyIso": "USD",
-                    "value": 8755.0
+                    "value": 8755
                 },
                 {
-                    "countries": "TW",
+                    "countries": [
+                        "TW"
+                    ],
                     "currencyIso": "NTD",
-                    "value": 308600.0
+                    "value": 308600
                 }
             ],
             "proprietary": false,
             "purchasable": true,
             "salesStatus": "Active",
-            "stock": {
-                "stockLevel": 0,
-                "stockLevelStatus": "inStock"
-            },
             "summary": "The GlycoWorks RapiFluor-MS N-Glycan Script Starter Kit – Automation has been designed for use with automated platforms enabling high-throughput glycoprotein sample preparation for analysis of N-glycans with minimal user intervention. This protocol is validated using monoclonal antibodies and has also been tested to perform for a wide range of other N-linked glycoproteins.  All reagents in the kit are scaled to residual volumes needed for many automated instrumentation allowing for versatility when choosing your platform.   The kit is in a 2 x 48 format.  \nThe GlycoWorks RapiFluor-MS N-Glycan Script Starter Kit contains the addition of a CD and Workstation requirements document that contains the script developed during verification testing when using a Tecan® Freedom EVO® 100/4 as well as a RFMS labeled standard, column and mobile phase concentrate which are the recommended for use with the RapiFluor-MS Library.",
             "terminated": false,
             "url": "/waters/products/176004151"
         },
         {
-            "availableForPickup": false,
             "categories": [
                 {
                     "code": "QualityControlReferenceMaterials",
@@ -1238,6 +1748,7 @@
                         {
                             "code": "WatersClassification/1.0/ApplicationKits.applicationkitsdetectionmethod",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 3,
@@ -1271,6 +1782,7 @@
                         {
                             "code": "WatersClassification/1.0/ConsumablesAndSpares.jaggaercategory",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 493,
@@ -1290,6 +1802,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.saphierarchy",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "024H4HC01"
@@ -1303,6 +1816,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.remainingshelflife",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "90"
@@ -1316,6 +1830,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.hazardmaterialnumber",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "30"
@@ -1329,6 +1844,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.hazardmaterialtext",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "Flammable liquid"
@@ -1342,6 +1858,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.company",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 5,
@@ -1356,6 +1873,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.weight",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "79"
@@ -1369,6 +1887,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.weightunit",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "GRM"
@@ -1382,6 +1901,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.harmonizationcode",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "3822000030"
@@ -1395,6 +1915,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.unspsc",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "41116107"
@@ -1408,6 +1929,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.business",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 1,
@@ -1421,6 +1943,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.productfamily",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 7,
@@ -1436,6 +1959,8 @@
                 }
             ],
             "code": "186007362",
+            "coldChainShipping": true,
+            "hazardous": false,
             "description": "Quad LCMS QC Reference Material A quality control reference material intended to be used to benchmark and assess the performance of your UPLC system including a single or triple quad mass spectrometer.     Kit contains 1 mL of a 8 component mix including 100ug/mL Acetaminophen, 50ug/mL Sulfaguanidine, 10 ug/mL Sulfadimethoxine, 25 ug/mL Val,-Tyr,-Val, 6 ug/mL Verapamil, 6 ug/mL Terfenadine, 25 ug/mL Leucine Enkephalin, and 18 ug/mL Reserpine in 19/81 Acetonitrile/water 0.008% formic acid.",
             "images": [
                 {
@@ -1444,189 +1969,349 @@
                 }
             ],
             "name": "Quad LCMS QCRM",
-            "numberOfReviews": 0,
-            "priceRange": {
-            },
             "prices": [
                 {
-                    "countries": "NZ,FJ,VA,AS",
+                    "countries": [
+                        "NZ",
+                        "FJ",
+                        "VA",
+                        "AS"
+                    ],
                     "currencyIso": "AUD",
-                    "value": 174.0
+                    "value": 174
                 },
                 {
-                    "countries": "ME,YE,SV,SY,TC,UZ,KZ,PS,AM,AJ,BA,BS,BU,CY,EG,GR,IZ,KU,LE,MK,MT,MU,PK,BY,GG,QA,RO,RU,SA,RS,UA,JO,AL,CE,LY,AU,CR,TU",
+                    "countries": [
+                        "ME",
+                        "YE",
+                        "SV",
+                        "SY",
+                        "TC",
+                        "UZ",
+                        "KZ",
+                        "PS",
+                        "AM",
+                        "AJ",
+                        "BA",
+                        "BS",
+                        "BU",
+                        "CY",
+                        "EG",
+                        "GR",
+                        "IZ",
+                        "KU",
+                        "LE",
+                        "MK",
+                        "MT",
+                        "MU",
+                        "PK",
+                        "BY",
+                        "GG",
+                        "QA",
+                        "RO",
+                        "RU",
+                        "SA",
+                        "RS",
+                        "UA",
+                        "JO",
+                        "AL",
+                        "CE",
+                        "LY",
+                        "AU",
+                        "CR",
+                        "TU"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 100.0
+                    "value": 100
                 },
                 {
-                    "countries": "BE,LU",
+                    "countries": [
+                        "BE",
+                        "LU"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 100.0
+                    "value": 100
                 },
                 {
-                    "countries": "BR",
+                    "countries": [
+                        "BR"
+                    ],
                     "currencyIso": "BRL",
                     "value": 0.01
                 },
                 {
-                    "countries": "CA",
+                    "countries": [
+                        "CA"
+                    ],
                     "currencyIso": "CAD",
-                    "value": 155.0
+                    "value": 155
                 },
                 {
-                    "countries": "CN",
+                    "countries": [
+                        "CN"
+                    ],
                     "currencyIso": "CNY",
-                    "value": 1050.0
+                    "value": 1050
                 },
                 {
-                    "countries": "CX,SK",
+                    "countries": [
+                        "CX",
+                        "SK"
+                    ],
                     "currencyIso": "CZK",
-                    "value": 2550.0
+                    "value": 2550
                 },
                 {
-                    "countries": "DA",
+                    "countries": [
+                        "DA"
+                    ],
                     "currencyIso": "DKK",
-                    "value": 754.0
+                    "value": 754
                 },
                 {
-                    "countries": "EI",
+                    "countries": [
+                        "EI"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 100.0
+                    "value": 100
                 },
                 {
-                    "countries": "LV,EE,FI,LN",
+                    "countries": [
+                        "LV",
+                        "EE",
+                        "FI",
+                        "LN"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 100.0
+                    "value": 100
                 },
                 {
-                    "countries": "SG,NC,FP,AG,ET,FR,GA,TS,NI,MO,GH",
+                    "countries": [
+                        "SG",
+                        "NC",
+                        "FP",
+                        "AG",
+                        "ET",
+                        "FR",
+                        "GA",
+                        "TS",
+                        "NI",
+                        "MO",
+                        "GH"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 100.0
+                    "value": 100
                 },
                 {
-                    "countries": "GE",
+                    "countries": [
+                        "GE"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 100.0
+                    "value": 100
                 },
                 {
-                    "countries": "HK,MC",
+                    "countries": [
+                        "HK",
+                        "MC"
+                    ],
                     "currencyIso": "HKD",
-                    "value": 1030.0
+                    "value": 1030
                 },
                 {
-                    "countries": "HU",
+                    "countries": [
+                        "HU"
+                    ],
                     "currencyIso": "HUF",
-                    "value": 30700.0
+                    "value": 30700
                 },
                 {
-                    "countries": "BG,NP,IN",
+                    "countries": [
+                        "BG",
+                        "NP",
+                        "IN"
+                    ],
                     "currencyIso": "INR",
-                    "value": 10692.0
+                    "value": 10692
                 },
                 {
-                    "countries": "IS",
+                    "countries": [
+                        "IS"
+                    ],
                     "currencyIso": "USD",
-                    "value": 120.0
+                    "value": 120
                 },
                 {
-                    "countries": "IT",
+                    "countries": [
+                        "IT"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 100.0
+                    "value": 100
                 },
                 {
-                    "countries": "JP",
+                    "countries": [
+                        "JP"
+                    ],
                     "currencyIso": "JPY",
-                    "value": 14000.0
+                    "value": 14000
                 },
                 {
-                    "countries": "KS",
+                    "countries": [
+                        "KS"
+                    ],
                     "currencyIso": "WON",
-                    "value": 193200.0
+                    "value": 193200
                 },
                 {
-                    "countries": "MX",
+                    "countries": [
+                        "MX"
+                    ],
                     "currencyIso": "USD",
-                    "value": 160.0
+                    "value": 160
                 },
                 {
-                    "countries": "MY",
+                    "countries": [
+                        "MY"
+                    ],
                     "currencyIso": "MYR",
-                    "value": 480.0
+                    "value": 480
                 },
                 {
-                    "countries": "NL",
+                    "countries": [
+                        "NL"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 100.0
+                    "value": 100
                 },
                 {
-                    "countries": "NO",
+                    "countries": [
+                        "NO"
+                    ],
                     "currencyIso": "NOK",
-                    "value": 808.0
+                    "value": 808
                 },
                 {
-                    "countries": "PL",
+                    "countries": [
+                        "PL"
+                    ],
                     "currencyIso": "PLN",
-                    "value": 375.0
+                    "value": 375
                 },
                 {
-                    "countries": "PO",
+                    "countries": [
+                        "PO"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 100.0
+                    "value": 100
                 },
                 {
-                    "countries": "RQ",
+                    "countries": [
+                        "RQ"
+                    ],
                     "currencyIso": "USD",
-                    "value": 130.0
+                    "value": 130
                 },
                 {
-                    "countries": "GQ,BM,RP,ID,TH,BX,SN,VM,CB",
+                    "countries": [
+                        "GQ",
+                        "BM",
+                        "RP",
+                        "ID",
+                        "TH",
+                        "BX",
+                        "SN",
+                        "VM",
+                        "CB"
+                    ],
                     "currencyIso": "USD",
-                    "value": 132.0
+                    "value": 132
                 },
                 {
-                    "countries": "ES",
+                    "countries": [
+                        "ES"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 100.0
+                    "value": 100
                 },
                 {
-                    "countries": "SW,IC",
+                    "countries": [
+                        "SW",
+                        "IC"
+                    ],
                     "currencyIso": "SEK",
-                    "value": 909.0
+                    "value": 909
                 },
                 {
-                    "countries": "SZ",
+                    "countries": [
+                        "SZ"
+                    ],
                     "currencyIso": "CHF",
-                    "value": 125.0
+                    "value": 125
                 },
                 {
-                    "countries": "UK,JE,GI",
+                    "countries": [
+                        "UK",
+                        "JE",
+                        "GI"
+                    ],
                     "currencyIso": "GBP",
                     "value": 73.16
                 },
                 {
-                    "countries": "KE,BC,CS,GP,NT,PA,SF,ZA,AR,BF,BD,BL,CO,EC,GT,JM,NF,PN,PE,ST,VE,UY,HO,US,CI,HA,VI,ES,NU,TD,CF,GJ,AY,BH",
+                    "countries": [
+                        "KE",
+                        "BC",
+                        "CS",
+                        "GP",
+                        "NT",
+                        "PA",
+                        "SF",
+                        "ZA",
+                        "AR",
+                        "BF",
+                        "BD",
+                        "BL",
+                        "CO",
+                        "EC",
+                        "GT",
+                        "JM",
+                        "NF",
+                        "PN",
+                        "PE",
+                        "ST",
+                        "VE",
+                        "UY",
+                        "HO",
+                        "US",
+                        "CI",
+                        "HA",
+                        "VI",
+                        "ES",
+                        "NU",
+                        "TD",
+                        "CF",
+                        "GJ",
+                        "AY",
+                        "BH"
+                    ],
                     "currencyIso": "USD",
-                    "value": 120.0
+                    "value": 120
                 },
                 {
-                    "countries": "TW",
+                    "countries": [
+                        "TW"
+                    ],
                     "currencyIso": "NTD",
-                    "value": 3500.0
+                    "value": 3500
                 }
             ],
             "proprietary": false,
             "purchasable": true,
             "salesStatus": "Active",
-            "stock": {
-                "stockLevel": 0,
-                "stockLevelStatus": "inStock"
-            },
             "summary": "Quad LCMS QC Reference Material A quality control reference material intended to be used to benchmark and assess the performance of your UPLC system including a single or triple quad mass spectrometer.     Kit contains 1 mL of a 8 component mix including 100ug/mL Acetaminophen, 50ug/mL Sulfaguanidine, 10 ug/mL Sulfadimethoxine, 25 ug/mL Val,-Tyr,-Val, 6 ug/mL Verapamil, 6 ug/mL Terfenadine, 25 ug/mL Leucine Enkephalin, and 18 ug/mL Reserpine in 19/81 Acetonitrile/water 0.008% formic acid.",
             "terminated": false,
             "url": "/waters/products/186007362"
         },
         {
-            "availableForPickup": false,
             "categories": [
                 {
                     "code": "ProteinWorks_spk",
@@ -1640,6 +2325,7 @@
                         {
                             "code": "WatersClassification/1.0/ApplicationKits.applicationkitsnumberofanalysis",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 3,
@@ -1655,6 +2341,7 @@
                         {
                             "code": "WatersClassification/1.0/ApplicationKits.applicationkitstype",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 5,
@@ -1670,6 +2357,7 @@
                         {
                             "code": "WatersClassification/1.0/ApplicationKits.applicationkitsseparationmode",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 3,
@@ -1685,6 +2373,7 @@
                         {
                             "code": "WatersClassification/1.0/ApplicationKits.applicationkitsdetectionmethod",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 4,
@@ -1700,6 +2389,7 @@
                         {
                             "code": "WatersClassification/1.0/ApplicationKits.applicationkitsstorage",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 1,
@@ -1715,6 +2405,7 @@
                         {
                             "code": "WatersClassification/1.0/ApplicationKits.applicationkitssystemtype",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 2,
@@ -1730,6 +2421,7 @@
                         {
                             "code": "WatersClassification/1.0/ApplicationKits.applicationkitsshelflife",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 1,
@@ -1751,6 +2443,7 @@
                         {
                             "code": "WatersClassification/1.0/ConsumablesAndSpares.unitsperpackage",
                             "comparable": true,
+                            "facet": false,
                             "featureUnit": {
                                 "name": "Units Per Package UOM",
                                 "symbol": "pk",
@@ -1773,6 +2466,7 @@
                         {
                             "code": "WatersClassification/1.0/ConsumablesAndSpares.jaggaercategory",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 448,
@@ -1792,6 +2486,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.saphierarchy",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "024E4EC01"
@@ -1805,6 +2500,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.remainingshelflife",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "0"
@@ -1818,6 +2514,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.company",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 5,
@@ -1832,6 +2529,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.weight",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "445"
@@ -1845,6 +2543,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.weightunit",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "GRM"
@@ -1858,6 +2557,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.harmonizationcode",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "8421290090"
@@ -1871,6 +2571,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.unspsc",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "41116104"
@@ -1884,6 +2585,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.application",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 18,
@@ -1898,6 +2600,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.brand",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 40,
@@ -1912,6 +2615,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.business",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 1,
@@ -1925,6 +2629,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.productfamily",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 7,
@@ -1940,6 +2645,8 @@
                 }
             ],
             "code": "186008304",
+            "coldChainShipping": true,
+            "hazardous": false,
             "description": "The ProteinWorks uElution SPE Clean-up Kit is designed for post-digestion peptide clean-up in LC-MS protein quantification via the surrogate peptide approach.  This kit includes an optimized SPE protocol and Oasis uElution technology delivering maximum peptide recovery and the removal of digest reagents and other matrix interferences.  The uElution Clean-up kit enhances assay sensitivity and improves LC-MS system robustness.",
             "images": [
                 {
@@ -1948,174 +2655,339 @@
                 }
             ],
             "name": "ProteinWorks uElution SPE Clean-up Kit",
-            "numberOfReviews": 0,
-            "priceRange": {
-            },
             "prices": [
                 {
-                    "countries": "NZ,FJ,VA,AS",
+                    "countries": [
+                        "NZ",
+                        "FJ",
+                        "VA",
+                        "AS"
+                    ],
                     "currencyIso": "AUD",
-                    "value": 508.0
+                    "value": 508
                 },
                 {
-                    "countries": "ME,YE,SV,SY,TC,UZ,KZ,PS,AM,AJ,BA,BS,BU,CY,EG,GR,IZ,KU,LE,MK,MT,MU,PK,BY,GG,QA,RO,RU,SA,RS,UA,JO,AL,CE,LY,AU,CR,TU",
+                    "countries": [
+                        "ME",
+                        "YE",
+                        "SV",
+                        "SY",
+                        "TC",
+                        "UZ",
+                        "KZ",
+                        "PS",
+                        "AM",
+                        "AJ",
+                        "BA",
+                        "BS",
+                        "BU",
+                        "CY",
+                        "EG",
+                        "GR",
+                        "IZ",
+                        "KU",
+                        "LE",
+                        "MK",
+                        "MT",
+                        "MU",
+                        "PK",
+                        "BY",
+                        "GG",
+                        "QA",
+                        "RO",
+                        "RU",
+                        "SA",
+                        "RS",
+                        "UA",
+                        "JO",
+                        "AL",
+                        "CE",
+                        "LY",
+                        "AU",
+                        "CR",
+                        "TU"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 355.0
+                    "value": 355
                 },
                 {
-                    "countries": "BE,LU",
+                    "countries": [
+                        "BE",
+                        "LU"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 355.0
+                    "value": 355
                 },
                 {
-                    "countries": "BR",
+                    "countries": [
+                        "BR"
+                    ],
                     "currencyIso": "BRL",
                     "value": 0.01
                 },
                 {
-                    "countries": "CA",
+                    "countries": [
+                        "CA"
+                    ],
                     "currencyIso": "CAD",
-                    "value": 455.0
+                    "value": 455
                 },
                 {
-                    "countries": "CN",
+                    "countries": [
+                        "CN"
+                    ],
                     "currencyIso": "CNY",
-                    "value": 3220.0
+                    "value": 3220
                 },
                 {
-                    "countries": "CX,SK",
+                    "countries": [
+                        "CX",
+                        "SK"
+                    ],
                     "currencyIso": "CZK",
-                    "value": 9053.0
+                    "value": 9053
                 },
                 {
-                    "countries": "DA",
+                    "countries": [
+                        "DA"
+                    ],
                     "currencyIso": "DKK",
-                    "value": 2476.0
+                    "value": 2476
                 },
                 {
-                    "countries": "EI",
+                    "countries": [
+                        "EI"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 355.0
+                    "value": 355
                 },
                 {
-                    "countries": "LV,EE,FI,LN",
+                    "countries": [
+                        "LV",
+                        "EE",
+                        "FI",
+                        "LN"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 355.0
+                    "value": 355
                 },
                 {
-                    "countries": "SG,NC,FP,AG,ET,FR,GA,TS,NI,MO,GH",
+                    "countries": [
+                        "SG",
+                        "NC",
+                        "FP",
+                        "AG",
+                        "ET",
+                        "FR",
+                        "GA",
+                        "TS",
+                        "NI",
+                        "MO",
+                        "GH"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 355.0
+                    "value": 355
                 },
                 {
-                    "countries": "GE",
+                    "countries": [
+                        "GE"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 355.0
+                    "value": 355
                 },
                 {
-                    "countries": "HK,MC",
+                    "countries": [
+                        "HK",
+                        "MC"
+                    ],
                     "currencyIso": "HKD",
-                    "value": 2990.0
+                    "value": 2990
                 },
                 {
-                    "countries": "HU",
+                    "countries": [
+                        "HU"
+                    ],
                     "currencyIso": "HUF",
-                    "value": 108985.0
+                    "value": 108985
                 },
                 {
-                    "countries": "BG,NP,IN",
+                    "countries": [
+                        "BG",
+                        "NP",
+                        "IN"
+                    ],
                     "currencyIso": "INR",
-                    "value": 31203.0
+                    "value": 31203
                 },
                 {
-                    "countries": "IS",
+                    "countries": [
+                        "IS"
+                    ],
                     "currencyIso": "USD",
-                    "value": 350.0
+                    "value": 350
                 },
                 {
-                    "countries": "IT",
+                    "countries": [
+                        "IT"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 355.0
+                    "value": 355
                 },
                 {
-                    "countries": "JP",
+                    "countries": [
+                        "JP"
+                    ],
                     "currencyIso": "JPY",
-                    "value": 48000.0
+                    "value": 48000
                 },
                 {
-                    "countries": "KS",
+                    "countries": [
+                        "KS"
+                    ],
                     "currencyIso": "WON",
-                    "value": 448800.0
+                    "value": 448800
                 },
                 {
-                    "countries": "MX",
+                    "countries": [
+                        "MX"
+                    ],
                     "currencyIso": "USD",
-                    "value": 466.0
+                    "value": 466
                 },
                 {
-                    "countries": "MY",
+                    "countries": [
+                        "MY"
+                    ],
                     "currencyIso": "MYR",
-                    "value": 1600.0
+                    "value": 1600
                 },
                 {
-                    "countries": "NL",
+                    "countries": [
+                        "NL"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 355.0
+                    "value": 355
                 },
                 {
-                    "countries": "NO",
+                    "countries": [
+                        "NO"
+                    ],
                     "currencyIso": "NOK",
-                    "value": 3006.0
+                    "value": 3006
                 },
                 {
-                    "countries": "PL",
+                    "countries": [
+                        "PL"
+                    ],
                     "currencyIso": "PLN",
-                    "value": 1331.0
+                    "value": 1331
                 },
                 {
-                    "countries": "PO",
+                    "countries": [
+                        "PO"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 355.0
+                    "value": 355
                 },
                 {
-                    "countries": "RQ",
+                    "countries": [
+                        "RQ"
+                    ],
                     "currencyIso": "USD",
-                    "value": 385.0
+                    "value": 385
                 },
                 {
-                    "countries": "GQ,BM,RP,ID,TH,BX,SN,VM,CB",
+                    "countries": [
+                        "GQ",
+                        "BM",
+                        "RP",
+                        "ID",
+                        "TH",
+                        "BX",
+                        "SN",
+                        "VM",
+                        "CB"
+                    ],
                     "currencyIso": "USD",
-                    "value": 385.0
+                    "value": 385
                 },
                 {
-                    "countries": "ES",
+                    "countries": [
+                        "ES"
+                    ],
                     "currencyIso": "EUR",
-                    "value": 355.0
+                    "value": 355
                 },
                 {
-                    "countries": "SW,IC",
+                    "countries": [
+                        "SW",
+                        "IC"
+                    ],
                     "currencyIso": "SEK",
-                    "value": 3254.0
+                    "value": 3254
                 },
                 {
-                    "countries": "SZ",
+                    "countries": [
+                        "SZ"
+                    ],
                     "currencyIso": "CHF",
-                    "value": 430.0
+                    "value": 430
                 },
                 {
-                    "countries": "UK,JE,GI",
+                    "countries": [
+                        "UK",
+                        "JE",
+                        "GI"
+                    ],
                     "currencyIso": "GBP",
-                    "value": 259.0
+                    "value": 259
                 },
                 {
-                    "countries": "KE,BC,CS,GP,NT,PA,SF,ZA,AR,BF,BD,BL,CO,EC,GT,JM,NF,PN,PE,ST,VE,UY,HO,US,CI,HA,VI,ES,NU,TD,CF,GJ,AY,BH",
+                    "countries": [
+                        "KE",
+                        "BC",
+                        "CS",
+                        "GP",
+                        "NT",
+                        "PA",
+                        "SF",
+                        "ZA",
+                        "AR",
+                        "BF",
+                        "BD",
+                        "BL",
+                        "CO",
+                        "EC",
+                        "GT",
+                        "JM",
+                        "NF",
+                        "PN",
+                        "PE",
+                        "ST",
+                        "VE",
+                        "UY",
+                        "HO",
+                        "US",
+                        "CI",
+                        "HA",
+                        "VI",
+                        "ES",
+                        "NU",
+                        "TD",
+                        "CF",
+                        "GJ",
+                        "AY",
+                        "BH"
+                    ],
                     "currencyIso": "USD",
-                    "value": 350.0
+                    "value": 350
                 },
                 {
-                    "countries": "TW",
+                    "countries": [
+                        "TW"
+                    ],
                     "currencyIso": "NTD",
-                    "value": 12000.0
+                    "value": 12000
                 }
             ],
             "productReferences": [
@@ -2163,10 +3035,6 @@
             "proprietary": false,
             "purchasable": true,
             "salesStatus": "Active",
-            "stock": {
-                "stockLevel": 0,
-                "stockLevelStatus": "inStock"
-            },
             "summary": "The ProteinWorks uElution SPE Clean-up Kit is designed for post-digestion peptide clean-up in LC-MS protein quantification via the surrogate peptide approach.  This kit includes an optimized SPE protocol and Oasis uElution technology delivering maximum peptide recovery and the removal of digest reagents and other matrix interferences.  The uElution Clean-up kit enhances assay sensitivity and improves LC-MS system robustness.",
             "terminated": false,
             "url": "/waters/products/186008304"

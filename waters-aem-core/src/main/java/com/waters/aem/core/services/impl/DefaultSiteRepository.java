@@ -65,7 +65,11 @@ public final class DefaultSiteRepository implements SiteRepository {
                 final LiveRelationship liveRelationship = (LiveRelationship) liveRelationships.next();
                 final String targetPath = liveRelationship.getTargetPath();
 
-                liveCopyPages.add(pageManager.getContainingPage(targetPath));
+                final PageDecorator targetPage = pageManager.getContainingPage(targetPath);
+
+                if (targetPage != null) {
+                    liveCopyPages.add(targetPage);
+                }
             }
         } catch (WCMException e) {
             LOG.error("error getting live relationships for blueprint : " + blueprintPageContentResource, e);
@@ -96,6 +100,7 @@ public final class DefaultSiteRepository implements SiteRepository {
     }
 
     @Override
+    @SuppressWarnings({"squid:S1481" })
     public List<PageDecorator> getLanguageRootPages(final ResourceResolver resourceResolver) {
         final LiveRelationshipManager liveRelationshipManager = resourceResolver.adaptTo(LiveRelationshipManager.class);
 

@@ -4,7 +4,8 @@ import './styles/index.scss';
 import './scripts/backtotop';
 import './scripts/share';
 import './scripts/anchor';
-import './scripts/sticky';
+import './scripts/sticky-sort-filter';
+import './scripts/sticky-sku-details';
 import './scripts/iframe';
 import './scripts/backtosearch';
 import './scripts/banner';
@@ -22,7 +23,7 @@ try {
         function() {}
     );
 } catch (e) {
-    console.log(e);
+    // console.log(e);
 }
 
 function addEllipses() {

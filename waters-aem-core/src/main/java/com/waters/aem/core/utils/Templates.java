@@ -50,6 +50,26 @@ public final class Templates {
         return isPage(resource, WatersConstants.TEMPLATE_LIBRARY_PAGE);
     }
 
+    /**
+     * Check if the given page is a category page.
+     *
+     * @param page page
+     * @return true if page is non-null and is an application notes template
+     */
+    public static boolean isCatalogPage(final PageDecorator page) {
+        return isPage(page, WatersConstants.TEMPLATE_CATALOG_PAGE);
+    }
+
+    /**
+     * Check if the given content resource is a category page.
+     *
+     * @param resource page jcr:content resource
+     * @return true if resource is non-null and is an application notes template
+     */
+    public static boolean isCatalogPage(final Resource resource) {
+        return isPage(resource, WatersConstants.TEMPLATE_CATALOG_PAGE);
+    }
+
     private static boolean isPage(final PageDecorator page, final String template) {
         return page != null && isPage(page.getContentResource(), template);
     }

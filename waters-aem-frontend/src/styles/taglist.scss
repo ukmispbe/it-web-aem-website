@@ -16,7 +16,7 @@
 
 .cmp-tag-list--comma-separated {
     .cmp-tag-list {
-        margin-bottom: $space-l;
+        margin-bottom: $space-s;
         &__item {
             &::after {
                 content: ',';
@@ -35,6 +35,30 @@
         }
     }
 }
+
+.cmp-tag-list--comma-separated-small {
+    .cmp-tag-list {
+        @include font-small;
+        margin-bottom: $space-l;
+        &__item {
+            &::after {
+                content: ',';
+            }
+
+            &:last-of-type {
+                &::after {
+                    content: '';
+                    display: none;
+                }
+            }
+        }
+
+        @include mobile {
+            margin-bottom: $space-l;
+        }
+    }
+}
+
 
 .cmp-tag-list--stacked {
     .cmp-tag-list {
@@ -55,11 +79,11 @@
         &__item {
             @include font-small;
             display: inline-block;
-            padding: ($space-xxxs - .05em) $space-s ($space-xxxs + .05em) $space-s;         
+            padding: ($space-xxxs - .05em) $space-xs ($space-xxxs + .05em) $space-xs;         
             margin: 0 $space-xxs $space-xs 0;
             background-color: $color-background-dark;
             color: $color-font-light;
-            border-radius: 1.5em;
+            border-radius: .25em;
         }
     }
 }

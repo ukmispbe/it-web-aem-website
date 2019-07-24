@@ -9,20 +9,20 @@
 }
 
 .image-viewer-container__image-figure {
-    border: thin solid $color-border-light;
+    border: 1px solid $color-border-light;
+    line-height: 0;
     margin: 0;
     margin-block-start: 0;
     margin-block-end: 0;
     margin-inline-start: 0;
     margin-inline-end: 0;
-    padding: 0;
+    padding: 0px;
     background-position: 50% 50%;
-    background-size: 100%;
+    background-size: 102%;
     position: relative;
     overflow: hidden;
     background-repeat: no-repeat;
-    background-clip: content-box;
-    touch-action: none;
+    background-clip: border-box;
     
     -webkit-transition: background-size 500ms ease-in-out;
     -moz-transition: background-size 500ms ease-in-out;
@@ -37,6 +37,7 @@
 
 .image-viewer-container__image-figure--true {
     background-size: 200%;
+    touch-action: none;
 }
 
 .image-viewer-container__image-display {
@@ -45,14 +46,18 @@
 }
 
 .image-viewer-container__image-zoom {
+    right: 1px;
+    bottom: 1px;
+    width: 4em;
+    height: 4em;
     position: absolute;
-    bottom: 22px;
-    right: 19px;
     z-index: 99;
-
-    @include mobile {
-        right: 18px;
-    }
+    background: $color-white;
+    opacity: .8;
+    float: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     svg {
         width: $icon-l;
@@ -65,30 +70,159 @@
     }
 }
 
-.image-thumbnail-wrapper {
+.image-thumbnails-placeholder {
     display: inline-block;
     text-align: left;
+    position: relative;
+    margin-top: 8px;
 }
 
-.image-carousel__thumbnails {
+.image-thumbnails-wrapper {
     display: flex;
 }
 
-.image-carousel__thumbnails .alice-carousel {
-    width: 75%;
-}
+.image-thumbnails-wrapper__gradient-left {
+    display: none;
 
-.image-carousel__thumbnails .alice-carousel__stage-item {
-    margin-left: 0px;
-    margin-right: 0px;
-}
+    @include tablet-and-under {
+        width: 40px;
+        height: 50px;
+        position: absolute;
+        z-index: 1;
 
-// react-alice-carouselt overrides
-.image-carousel {
-    .alice-carousel__stage-item * {
-        line-height: 0;
+        background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
+        background:    -moz-linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
+        background:     -ms-linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
+        background:      -o-linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
+        background:         linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
     }
 }
+
+.image-thumbnails-wrapper__gradient-right {
+    display: none;
+
+    @include tablet-and-under {
+        width: 40px;
+        height: 50px;
+        position: absolute;
+        z-index: 1;
+        right: 0;
+
+        background: -webkit-linear-gradient(right, rgba(255,255,255,0.8) 30%,rgba(255,255,255,0.2) 100%);
+        background:    -moz-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+        background:     -ms-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+        background:      -o-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+        background:         linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
+    }
+}
+
+.image-thumbnails-container {
+    position: relative;
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+}
+
+.image-thumbnails-container__item {
+    position: relative;
+    display: flex;
+    margin: 3px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 0;
+    flex-shrink: 0;
+    transition: margin-left 250ms linear;
+    cursor: pointer;
+
+    @include tablet-and-under {
+        transition: margin-left 125ms linear;
+    }
+
+    .image-thumbnails-container__image {
+        border: 1px solid $color-border-light;
+    }
+}
+
+.image-thumbnails-container__item:hover {
+    .image-thumbnails-container__image {
+        border: 1px solid $color-border-dark;
+        transition: border 500ms linear;
+    }
+}
+
+.image-thumbnails-container__item--visible {
+    margin-left: 5px;
+}
+
+.image-thumbnails-container__item--hidden {
+    margin-left: -83px;
+}
+
+.image-thumbnails-container__item--selected,
+.image-thumbnails-container__item--selected:hover {
+    .image-thumbnails-container__image {
+        border: 2px solid $color-gray-50;
+        transition: none;
+    }
+}
+
+.image-thumbnails-container__image {
+    width: 80px;
+    height: 48px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-clip: border-box;
+}
+
+.image-thumbnails-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    align-self: center;
+
+    svg {
+        width: $icon-m;
+        height: 24px;
+        cursor: pointer;
+
+        .st0 {
+            stroke: $color-font-dark;
+        }
+    }
+
+    @include tablet-and-under {
+        display: none;
+    }
+}
+
+.image-thumbnails-button:hover {
+    svg {
+        .st0 {
+            stroke: $color-link-hover;
+        }
+    }
+}
+
+.image-thumbails-button--disabled,
+.image-thumbails-button--disabled:hover {
+    svg {
+        cursor: default;
+        .st0 {
+            stroke: $color-disabled;
+        }
+    }
+}
+
+.image-thumbnails-wrapper--no-x-scroll {
+    .image-thumbnails-button {
+        display: none;
+    }
+}
+
 
 // IE CSS Hacks
 // for browsers that do not support background-size transitions
@@ -127,31 +261,7 @@
         display: static;
     }
 
-    .image-thumbnail-wrapper {
+    .image-thumbnails-placeholder {
         display: static;
-    }
-
-    .image-viewer-container__image-zoom {
-        bottom: 23px;
-        right: 19px;
-    }
-}
-
-// Edge CSS Hacks
-// zoom element position that varies between browsers
-@supports (-ms-ime-align: auto) {
-    .image-viewer-container__image-zoom {
-        bottom: 23px;
-        right: 19px;
-    }
-} 
-
-// Firefox CSS Hacks
-// zoom element position that varies between browsers
-@-moz-document url-prefix() { 
-    .image-viewer-container__image-zoom {
-        position: absolute;
-        bottom: 23px;
-        right: 20px;
     }
 }

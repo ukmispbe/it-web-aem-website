@@ -34,11 +34,9 @@ function hideBreadcrumbShowBackToSearch(link) {
     }
 }
 
-function clearRHSGradients() {
-    var listItems = document.querySelectorAll('.cmp-breadcrumb__item');
-    for (var i = 0; i < listItems.length; i++) {
-        listItems[i].classList.remove('rhs-gradient-fade');
-    }
+function clearGradients() {
+    rhsGradientFade[0].style.display = 'block';
+    lhsGradientFade[0].style.display = 'block';
 }
 
 var mediaQueryListener = window.matchMedia('(max-width: 650px)');
@@ -49,40 +47,27 @@ function changeBreadcrumb(source) {
         scrollOffset = 10;
     }
     if (mediaQueryListener.matches) {
-        clearRHSGradients();
-
+        clearGradients();
         var breadcrumbContainer = document.querySelector('.breadcrumb');
+        var breadcrumbElement = document.querySelector('.cmp-breadcrumb');
+        if (breadcrumbContainer.scrollLeft <= 0){
+            lhsGradientFade[0].style.display = 'none';
+        }
 
-        var breadcrumbContainerWidth = breadcrumbContainer
-            ? breadcrumbContainer.clientWidth
-            : 0;
-
-        var listItems = document.querySelectorAll('.cmp-breadcrumb__item');
-        for (var i = 0; i < listItems.length; i++) {
-            var rect = listItems[i].getBoundingClientRect();
-            var rhsItem = rect.left + rect.width;
-            if (breadcrumbContainerWidth < rhsItem + scrollOffset) {
-                if (
-                    (breadcrumbContainer.clientWidth +
-                        breadcrumbContainer.scrollLeft <
-                    breadcrumbContainer.scrollWidth - 3 ) && !listItems[i].classList.contains("cmp-breadcrumb__item--active")
-                ) {
-                    listItems[i].classList.add('rhs-gradient-fade');
-                }
-                break;
-            }
+        if (breadcrumbElement.clientWidth - breadcrumbContainer.clientWidth == breadcrumbContainer.scrollLeft - (breadcrumbContainer.scrollWidth - breadcrumbElement.scrollWidth)){
+            rhsGradientFade[0].style.display = 'none';
         }
     }
 }
 
-mediaQueryListener.addListener(changeBreadcrumb);
-
 var breadcrumbDiv = document.querySelector('.breadcrumb');
+var rhsGradientFade = document.getElementsByClassName('cmp-breadcrumb-gradient-right');
+var lhsGradientFade = document.getElementsByClassName('cmp-breadcrumb-gradient-left');
 
 if (breadcrumbDiv) {
-    breadcrumbDiv.addEventListener('scroll', () =>
-        changeBreadcrumb('FromScroll')
-    );
+    mediaQueryListener.addListener(changeBreadcrumb);
+
+    breadcrumbDiv.addEventListener('scroll', () => changeBreadcrumb('FromScroll'));
     window.addEventListener('load', () => changeBreadcrumb('FromScroll'));
     window.addEventListener('resize', () => changeBreadcrumb('FromScroll'));
 }

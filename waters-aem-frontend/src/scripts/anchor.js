@@ -1,11 +1,12 @@
 import scrollToY from './scrollTo';
+import screenSizes from './screenSizes';
 
 var anchorElement = document.querySelector('.cmp-anchor');
 var anchorMenu = document.querySelector('.cmp-anchor__list-heading');
 
 // Setup click handler for Anchor Links to scroll in view
 var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
-[].forEach.call(anchorLinks, (anchor) => {
+[].forEach.call(anchorLinks, anchor => {
     try {
         anchor.addEventListener('click', e => {
             e.preventDefault();
@@ -15,7 +16,7 @@ var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
                 const block = document.getElementById(href);
                 const blockTop = block.offsetTop;
 
-                scrollToY(blockTop - 140, 1000, 'easeOutSine');
+                scrollToY(blockTop - 10, 1000, 'easeOutSine');
 
                 anchorLinks.forEach(anchor => {
                     anchor.classList.remove('active');
@@ -31,16 +32,16 @@ var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
 });
 
 // Sticky Nav Component
-var anchorSticky = (function () {
+var anchorSticky = (function() {
     var CSS_CLASS_ACTIVE = 'cmp-anchor--sticky';
 
     var Sticky = {
         element: null,
         position: 0,
-        addEvents: function () {
+        addEvents: function() {
             window.addEventListener('scroll', this.onScroll.bind(this));
         },
-        init: function (element) {
+        init: function(element) {
             this.element = element;
             this.addEvents();
             this.position = element.offsetTop;
@@ -64,28 +65,27 @@ var anchorSticky = (function () {
 
             this.getInViewElement();
         },
-        aboveScroll: function () {
+        aboveScroll: function() {
             return this.position - 73 < window.pageYOffset;
         },
-        onScroll: function () {
+        onScroll: function() {
             if (this.aboveScroll()) {
                 this.setFixed();
-                
             } else {
                 this.setRelative();
             }
             this.getInViewElement();
         },
-        setFixed: function () {
+        setFixed: function() {
             this.element.parentNode.style.height =
                 this.element.clientHeight + 'px';
             this.element.classList.add(CSS_CLASS_ACTIVE);
         },
-        setRelative: function () {
+        setRelative: function() {
             this.element.classList.remove(CSS_CLASS_ACTIVE);
             this.element.parentNode.style.height = 'auto';
         },
-		brokeAt: 0,
+        brokeAt: 0,
         getInViewElement: function() {
             let multipleInView = [];
             if (this.anchorDestinations) {
@@ -119,15 +119,15 @@ var anchorSticky = (function () {
                             link.classList.remove('active');
                         }
                     }
-                }
 
-                if (multipleInView.length > 1) {
-                    for (let i = 1; i < multipleInView.length; i++) {
-                        const inView = multipleInView[i];
+                    if (multipleInView.length > 1) {
+                        for (let i = 1; i < multipleInView.length; i++) {
+                            const inView = multipleInView[i];
 
-                        this.anchorDestinations[inView].anchor.classList.remove(
-                            'active'
-                        );
+                            this.anchorDestinations[
+                                inView
+                            ].anchor.classList.remove('active');
+                        }
                     }
                 }
             }
@@ -137,11 +137,7 @@ var anchorSticky = (function () {
     return Sticky;
 })();
 
-//  Init Sticky
-if (anchorElement) anchorSticky.init(anchorElement);
-
 function toggleMobileNav(forceClose) {
-
     const heading = document.querySelector('.cmp-anchor--sticky');
     if (!forceClose && heading.classList.contains('closed')) {
         heading.classList.remove('closed');
@@ -153,117 +149,96 @@ function toggleMobileNav(forceClose) {
 }
 
 function showScrollBars(el) {
-    el.classList.add("show-scroll-bar");
+    el.classList.add('show-scroll-bar');
 }
 
 function hideScrollBars(el) {
-    el.classList.remove("show-scroll-bar");
+    el.classList.remove('show-scroll-bar');
 }
-
 
 function anchorChange(el) {
+    clearGradients();
+    var anchorElementId = document.getElementById('cmp-anchor');
+    if (anchorElementId.scrollLeft > 0) {
+        lhsGradientFade[0].style.display = 'block';
+    }
 
-    var anchorRect = el.getBoundingClientRect();
-    var anchorStartPosition = anchorRect.left;
-    var listItems = document.querySelectorAll('.cmp-anchor__list-item');
-
-    for (var i = 0; i < listItems.length; i++) {
-        var rect = listItems[i].getBoundingClientRect();
-        clearRHSGradients();
-
-        if (rect.left - anchorStartPosition + rect.width > el.clientWidth + 5) {
-            listItems[i].classList.add("rhs-gradient-fade");
-            break;
-        }
+    if (
+        Math.ceil(
+            anchorElementId.scrollWidth -
+                anchorElementId.getBoundingClientRect().width
+        ) != Math.ceil(anchorElementId.scrollLeft)
+    ) {
+        rhsGradientFade[0].style.display = 'block';
     }
 }
 
-function anchorChangeScroll(el) {
-
-    var anchorRect = el.getBoundingClientRect();
-    var anchorStartPosition = anchorRect.left;
-    var listItems = document.querySelectorAll('.cmp-anchor__list-item');
-
-    for (var i = 0; i < listItems.length; i++) {
-        var rect = listItems[i].getBoundingClientRect();
-
-        clearLHSGradients();
-
-        if ((rect.left - anchorStartPosition + rect.width > 10) && (rect.left - anchorStartPosition < 80) && (el.scrollLeft > 2)) {
-
-            listItems[i].classList.add("lhs-gradient-fade");
-            break;
-        }
-
-    }
-
-    for (i = 0; i < listItems.length; i++) {
-
-        rect = listItems[i].getBoundingClientRect();
-        clearRHSGradients();
-        if (rect.left - anchorStartPosition + rect.width > el.clientWidth + 10 &&  (el.scrollLeft + el.clientWidth < el.scrollWidth - 2) ) {
-
-            listItems[i].classList.add("rhs-gradient-fade");
-            break;
-        }
-    }
+function clearGradients() {
+    rhsGradientFade[0].style.display = 'none';
+    lhsGradientFade[0].style.display = 'none';
 }
 
 function resizeWindow(el) {
     anchorChange(el);
     var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
     if (!hasHorizontalScrollbar) {
-        clearRHSGradients();
-        clearLHSGradients();
+        clearGradients();
     }
 }
 
 function scrollWindow(el) {
-    anchorChangeScroll(el);
+    anchorChange(el);
     var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
     if (!hasHorizontalScrollbar) {
-        clearRHSGradients();
-        clearLHSGradients();
+        clearGradients();
     }
 }
-
-
-function clearRHSGradients() {
-    var listItems = document.querySelectorAll('.cmp-anchor__list-item');
-    for (var j = 0; j < listItems.length; j++) {
-        listItems[j].classList.remove("rhs-gradient-fade");
-        listItems[j].classList.remove("rhs-gradient-fade-selected");
-    }
-}
-
-function clearLHSGradients() {
-    var listItems = document.querySelectorAll('.cmp-anchor__list-item');
-    for (var j = 0; j < listItems.length; j++) {
-        listItems[j].classList.remove("lhs-gradient-fade");
-        listItems[j].classList.remove("lhs-gradient-fade-selected");
-    }
-}
-
-window.addEventListener('scroll', anchorSticky);
-if (anchorMenu) {
-    anchorMenu.addEventListener('click', () => toggleMobileNav());
-}
-
-
 
 var anchorList = document.querySelector('.cmp-anchor__list');
-if (anchorList){
-    anchorList.addEventListener('mouseover', () => showScrollBars(anchorList));
-    anchorList.addEventListener('mouseout', () => hideScrollBars(anchorList));
-    anchorList.addEventListener('scroll', () => scrollWindow(anchorList));
-    window.addEventListener('load', () => resizeWindow(anchorList));
-    window.addEventListener('resize', () => resizeWindow(anchorList));
-    var mediaQueryListener = window.matchMedia('(max-width: 650px)');
-    function anchorChangeToMobile() {
-        if (mediaQueryListener.matches) {
-            clearGradients();
-        }
-    }
-    mediaQueryListener.addListener(anchorChangeToMobile);
-}
+var rhsGradientFade = document.getElementsByClassName(
+    'cmp-anchor-gradient-right'
+);
+var lhsGradientFade = document.getElementsByClassName(
+    'cmp-anchor-gradient-left'
+);
 
+if (anchorList) {
+    const isMobile = screenSizes.isMobile();
+    const sectionContainers = document.querySelectorAll(
+        '.cmp-section-container--collapse'
+    );
+
+    if (isMobile && sectionContainers.length) {
+        console.log('section containers');
+        anchorElement.style.display = 'none';
+    } else {
+        //  Init Sticky
+        if (anchorElement) anchorSticky.init(anchorElement);
+        window.addEventListener('scroll', anchorSticky);
+
+        if (anchorMenu) {
+            anchorMenu.addEventListener('click', () => toggleMobileNav());
+        }
+
+        anchorList.addEventListener('mouseover', () =>
+            showScrollBars(anchorList)
+        );
+
+        anchorList.addEventListener('mouseout', () =>
+            hideScrollBars(anchorList)
+        );
+
+        anchorList.addEventListener('scroll', () => scrollWindow(anchorList));
+        window.addEventListener('load', () => resizeWindow(anchorList));
+        window.addEventListener('resize', () => resizeWindow(anchorList));
+        var mediaQueryListener = window.matchMedia('(max-width: 650px)');
+
+        function anchorChangeToMobile() {
+            if (isMobile) {
+                clearGradients();
+            }
+        }
+
+        mediaQueryListener.addListener(anchorChangeToMobile);
+    }
+}

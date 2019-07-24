@@ -5,9 +5,9 @@ import groovy.transform.ToString
 @ToString(includePackage = false, includeNames = true)
 class Product {
 
-    Boolean coldStorage
+    Boolean coldChainShipping
 
-    Boolean hazardousHandling
+    Boolean hazardous
 
     String code
 

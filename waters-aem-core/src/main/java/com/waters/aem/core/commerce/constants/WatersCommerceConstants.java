@@ -26,9 +26,9 @@ public final class WatersCommerceConstants {
 
     public static final String PROPERTY_TERMINATED = "hybris:terminated";
 
-    public static final String PROPERTY_COLD_STORAGE = "hybris:coldStorage";
+    public static final String PROPERTY_COLD_CHAIN_SHIPPING = "hybris:coldChainShipping";
 
-    public static final String PROPERTY_HAZARDOUS_HANDLING = "hybris:hazardousHandling";
+    public static final String PROPERTY_HAZARDOUS = "hybris:hazardous";
 
     public static final String RESOURCE_NAME_IMAGES = "images";
 
@@ -60,6 +60,8 @@ public final class WatersCommerceConstants {
 
     public static final String RESOURCE_NAME_PRODUCT_REFERENCE = "productreference";
 
+    public static final String PROPERTY_PRODUCT_REFERENCE_TYPE = "hybris:productReferenceType";
+
     // image properties
 
     public static final String PROPERTY_URL = "hybris:url";
@@ -79,6 +81,20 @@ public final class WatersCommerceConstants {
     public static final String RESOURCE_NAME_CLASSIFICATIONS = "classifications";
 
     public static final String RESOURCE_NAME_CLASSIFICATION = "classification";
+
+    // feature properties
+
+    public static final String PROPERTY_FACET = "hybris:facet";
+
+    public static final String PROPERTY_FEATURE_VALUES = "hybris:featureValues";
+
+    public static final String PROPERTY_UNIT_NAME = "hybris:unitName";
+
+    public static final String PROPERTY_UNIT_SYMBOL = "hybris:unitSymbol";
+
+    public static final String PROPERTY_POSITION = "hybris:position";
+
+    public static final String PROPERTY_RANGE = "hybris:range";
 
     // sku page properties
 

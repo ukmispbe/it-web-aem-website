@@ -34,6 +34,10 @@ public final class DisplayableSku {
         return sku;
     }
 
+    public String getSkuPageHref() {
+        return sku.getSkuPage(siteContext.getPage()).getHref();
+    }
+
     public String getCode() {
         return sku.getCode();
     }
@@ -49,9 +53,10 @@ public final class DisplayableSku {
     public String getFormattedPrice() {
         final BigDecimal price = getPrice();
 
-        return price == null ? null : NumberFormat.getCurrencyInstance(siteContext.getLocale()).format(price);
+        return price == null ? null : NumberFormat.getCurrencyInstance(siteContext.getLocaleWithCountry()).format(price);
     }
 
+    @SuppressWarnings("squid:S2259")
     public String getPrimaryImageSrc() {
         return getPrimaryImageAsset() == null ? null : getPrimaryImageAsset().getPath();
     }
@@ -67,10 +72,21 @@ public final class DisplayableSku {
     }
 
     public BigDecimal getPrice() {
-        final String country = siteContext.getLocale().getCountry();
+        final String country = siteContext.getLocaleWithCountry().getCountry();
         final String currencyIsoCode = siteContext.getCurrencyIsoCode();
 
         return sku.getPrice(country, currencyIsoCode);
+    }
+
+    public String getReplacementSkuCode() {
+        return sku.getReplacementSkus().stream()
+                .findFirst()
+                .map(Sku :: getCode)
+                .orElse(null);
+    }
+
+    public String getReplacementSkuPageHref() {
+        return sku.getSkuPage(siteContext.getPage(),getReplacementSkuCode()).getHref();
     }
 
     private Asset getPrimaryImageAsset() {

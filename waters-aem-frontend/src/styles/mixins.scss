@@ -64,8 +64,8 @@
 
     img {
         width: 100%;
-        border: 1px solid $color-border-light;
         margin-bottom: $space-s;
+        background: $color-white;
     }
 
     @include mobile {

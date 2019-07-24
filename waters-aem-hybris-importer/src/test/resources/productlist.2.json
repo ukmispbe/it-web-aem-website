@@ -3,7 +3,6 @@
     "currentPage": 2,
     "products": [
         {
-            "availableForPickup": false,
             "categories": [
                 {
                     "code": "ACQUITYUPLCColumns",
@@ -29,6 +28,7 @@
                         {
                             "code": "WatersClassification/1.0/Column.columncarbonload",
                             "comparable": true,
+                            "facet": false,
                             "featureUnit": {
                                 "name": "Column Carbon Load",
                                 "symbol": "%",
@@ -45,13 +45,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Carbon Load",
-                            "position": 210,
+                            "position": 0,
                             "publicWebLabel": "Carbon Load",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnbondingtechnology",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 16,
@@ -60,13 +61,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Bonding Technology",
-                            "position": 220,
+                            "position": 1,
                             "publicWebLabel": "Bonding Technology",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnchemistrytype",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 10,
@@ -75,13 +77,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Chemistry Type",
-                            "position": 230,
+                            "position": 2,
                             "publicWebLabel": "Chemistry",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnendcapped",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 2,
@@ -90,13 +93,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Endcapped",
-                            "position": 240,
+                            "position": 3,
                             "publicWebLabel": "Endcapped",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnendfittingtype",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 4,
@@ -105,13 +109,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Endfitting Type",
-                            "position": 250,
+                            "position": 4,
                             "publicWebLabel": "Endfitting Type",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnformat",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 6,
@@ -120,13 +125,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Format",
-                            "position": 260,
+                            "position": 5,
                             "publicWebLabel": "Format",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columninnerdiameter",
                             "comparable": true,
+                            "facet": false,
                             "featureUnit": {
                                 "name": "Column Inner Diameter",
                                 "symbol": "mm",
@@ -143,13 +149,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Inner Diameter",
-                            "position": 270,
+                            "position": 6,
                             "publicWebLabel": "Inner Diameter",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnlength",
                             "comparable": true,
+                            "facet": true,
                             "featureUnit": {
                                 "name": "Column Length",
                                 "symbol": "mm",
@@ -166,13 +173,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Length",
-                            "position": 290,
+                            "position": 8,
                             "publicWebLabel": "Length",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnseparationmode",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 10,
@@ -181,13 +189,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Separation Mode",
-                            "position": 310,
+                            "position": 9,
                             "publicWebLabel": "Separation Mode",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnparticleshape",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 2,
@@ -196,13 +205,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Particle Shape",
-                            "position": 330,
+                            "position": 12,
                             "publicWebLabel": "Particle Shape",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnparticlesize",
                             "comparable": true,
+                            "facet": true,
                             "featureUnit": {
                                 "name": "Column Particle Size",
                                 "symbol": "µm",
@@ -219,13 +229,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Particle Size",
-                            "position": 340,
+                            "position": 13,
                             "publicWebLabel": "Particle Size",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnparticlesubstrate",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 6,
@@ -234,13 +245,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Particle Substrate",
-                            "position": 350,
+                            "position": 14,
                             "publicWebLabel": "Particle Substrate",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnporesize",
                             "comparable": true,
+                            "facet": true,
                             "featureUnit": {
                                 "name": "Column Pore Size",
                                 "symbol": "Å",
@@ -257,13 +269,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Pore Size",
-                            "position": 360,
+                            "position": 15,
                             "publicWebLabel": "Pore Size",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnsilanolactivity",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 3,
@@ -272,13 +285,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Silanol Activity",
-                            "position": 380,
+                            "position": 17,
                             "publicWebLabel": "Silanol Activity",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnsurfacearea",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 9,
@@ -287,13 +301,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Surface Area",
-                            "position": 410,
+                            "position": 19,
                             "publicWebLabel": "Surface Area",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnsystem",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 9,
@@ -306,13 +321,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column System",
-                            "position": 420,
+                            "position": 20,
                             "publicWebLabel": "System",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnparticletechnology",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 3,
@@ -321,13 +337,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Particle Technology",
-                            "position": 430,
+                            "position": 21,
                             "publicWebLabel": "Particle Technology",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnuspclassification",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 1,
@@ -336,13 +353,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column USP Classification",
-                            "position": 440,
+                            "position": 22,
                             "publicWebLabel": "USP Classification",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnphrangemin",
                             "comparable": true,
+                            "facet": false,
                             "featureUnit": {
                                 "name": "Column pH Range Min",
                                 "symbol": "pH",
@@ -359,13 +377,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column pH Range Min",
-                            "position": 450,
+                            "position": 23,
                             "publicWebLabel": "pH Range",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnphrangemax",
                             "comparable": true,
+                            "facet": false,
                             "featureUnit": {
                                 "name": "Column pH Range Max",
                                 "symbol": "pH",
@@ -382,13 +401,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column pH Range Max",
-                            "position": 451,
+                            "position": 24,
                             "publicWebLabel": "pH Range",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columntemperaturelimits",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 2,
@@ -397,13 +417,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Temperature Limits",
-                            "position": 470,
+                            "position": 26,
                             "publicWebLabel": "Temperature Limits",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnmaximumpressure",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 4,
@@ -412,13 +433,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Maximum Pressure",
-                            "position": 480,
+                            "position": 27,
                             "publicWebLabel": "Maximum Pressure",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnecord",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 1,
@@ -427,7 +449,7 @@
                             ],
                             "internalOnly": false,
                             "name": "Column eCord",
-                            "position": 490,
+                            "position": 28,
                             "publicWebLabel": "eCord",
                             "range": false
                         }
@@ -440,6 +462,7 @@
                         {
                             "code": "WatersClassification/1.0/ConsumablesAndSpares.unitsperpackage",
                             "comparable": true,
+                            "facet": false,
                             "featureUnit": {
                                 "name": "Units Per Package UOM",
                                 "symbol": "pk",
@@ -462,6 +485,7 @@
                         {
                             "code": "WatersClassification/1.0/ConsumablesAndSpares.jaggaercategory",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 519,
@@ -481,6 +505,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.saphierarchy",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "022E2EA10"
@@ -494,6 +519,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.remainingshelflife",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "0"
@@ -507,6 +533,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.company",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 5,
@@ -521,6 +548,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.weight",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "0"
@@ -534,6 +562,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.weightunit",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "KGM"
@@ -547,6 +576,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.harmonizationcode",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "8421290090"
@@ -560,6 +590,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.unspsc",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "41115709"
@@ -573,6 +604,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.brand",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 10,
@@ -587,6 +619,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.business",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 1,
@@ -600,6 +633,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.productfamily",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 1,
@@ -615,183 +649,351 @@
                 }
             ],
             "code": "176001815",
+            "coldChainShipping": true,
+            "hazardous": false,
             "description": "The universal, silica-based bonded phase used for the ACQUITY HSS T3 sorbents is compatible with 100% aqueous mobile phase and should be your first choice when developing separations for polar and non-polar compounds. The ACQUITY HSS T3 UPLC columns exhibit ultra-low MS bleed and are fully scalable and transferable to HPLC separations.",
             "images": [
                 {
-                    "imageType": "PRIMARY",
-                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/columns/uplc-column-3x100mm.png"
-                },
-                {
                     "imageType": "GALLERY",
                     "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/columns/yellow-fob.png"
+                },
+                {
+                    "imageType": "PRIMARY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/columns/uplc-column-3x100mm.png"
                 }
             ],
             "name": "ACQUITY UPLC HSS T3 Column, 100Å, 1.8 µm, 3 mm X 100 mm, 3/pk",
-            "numberOfReviews": 0,
-            "priceRange": {},
             "prices": [
                 {
-                    "countries": "NZ,FJ,VA,AS",
+                    "countries": [
+                        "NZ",
+                        "FJ",
+                        "VA",
+                        "AS"
+                    ],
                     "currencyIso": "AUD",
                     "value": 3676
                 },
                 {
-                    "countries": "ME,YE,SV,SY,TC,UZ,KZ,PS,AM,AJ,BA,BS,BU,CY,EG,GR,IZ,KU,LE,MK,MT,MU,PK,BY,GG,QA,RO,RU,SA,RS,UA,JO,AL,CE,LY,AU,CR,TU",
+                    "countries": [
+                        "ME",
+                        "YE",
+                        "SV",
+                        "SY",
+                        "TC",
+                        "UZ",
+                        "KZ",
+                        "PS",
+                        "AM",
+                        "AJ",
+                        "BA",
+                        "BS",
+                        "BU",
+                        "CY",
+                        "EG",
+                        "GR",
+                        "IZ",
+                        "KU",
+                        "LE",
+                        "MK",
+                        "MT",
+                        "MU",
+                        "PK",
+                        "BY",
+                        "GG",
+                        "QA",
+                        "RO",
+                        "RU",
+                        "SA",
+                        "RS",
+                        "UA",
+                        "JO",
+                        "AL",
+                        "CE",
+                        "LY",
+                        "AU",
+                        "CR",
+                        "TU"
+                    ],
                     "currencyIso": "EUR",
                     "value": 2145
                 },
                 {
-                    "countries": "BE,LU",
+                    "countries": [
+                        "BE",
+                        "LU"
+                    ],
                     "currencyIso": "EUR",
                     "value": 2145
                 },
                 {
-                    "countries": "BR",
+                    "countries": [
+                        "BR"
+                    ],
                     "currencyIso": "BRL",
                     "value": 0.02
                 },
                 {
-                    "countries": "CA",
+                    "countries": [
+                        "CA"
+                    ],
                     "currencyIso": "CAD",
                     "value": 3295
                 },
                 {
-                    "countries": "CN",
+                    "countries": [
+                        "CN"
+                    ],
                     "currencyIso": "CNY",
                     "value": 22030
                 },
                 {
-                    "countries": "CX,SK",
+                    "countries": [
+                        "CX",
+                        "SK"
+                    ],
                     "currencyIso": "CZK",
                     "value": 54698
                 },
                 {
-                    "countries": "DA",
+                    "countries": [
+                        "DA"
+                    ],
                     "currencyIso": "DKK",
                     "value": 15995
                 },
                 {
-                    "countries": "EI",
+                    "countries": [
+                        "EI"
+                    ],
                     "currencyIso": "EUR",
                     "value": 2145
                 },
                 {
-                    "countries": "LV,EE,FI,LN",
+                    "countries": [
+                        "LV",
+                        "EE",
+                        "FI",
+                        "LN"
+                    ],
                     "currencyIso": "EUR",
                     "value": 2145
                 },
                 {
-                    "countries": "SG,NC,FP,AG,ET,FR,GA,TS,NI,MO,GH",
+                    "countries": [
+                        "SG",
+                        "NC",
+                        "FP",
+                        "AG",
+                        "ET",
+                        "FR",
+                        "GA",
+                        "TS",
+                        "NI",
+                        "MO",
+                        "GH"
+                    ],
                     "currencyIso": "EUR",
                     "value": 2145
                 },
                 {
-                    "countries": "GE",
+                    "countries": [
+                        "GE"
+                    ],
                     "currencyIso": "EUR",
                     "value": 2145
                 },
                 {
-                    "countries": "HK,MC",
+                    "countries": [
+                        "HK",
+                        "MC"
+                    ],
                     "currencyIso": "HKD",
                     "value": 21620
                 },
                 {
-                    "countries": "HU",
+                    "countries": [
+                        "HU"
+                    ],
                     "currencyIso": "HUF",
                     "value": 658515
                 },
                 {
-                    "countries": "BG,NP,IN",
+                    "countries": [
+                        "BG",
+                        "NP",
+                        "IN"
+                    ],
                     "currencyIso": "INR",
                     "value": 196037
                 },
                 {
-                    "countries": "IS",
+                    "countries": [
+                        "IS"
+                    ],
                     "currencyIso": "USD",
                     "value": 2535
                 },
                 {
-                    "countries": "IT",
+                    "countries": [
+                        "IT"
+                    ],
                     "currencyIso": "EUR",
                     "value": 2145
                 },
                 {
-                    "countries": "JP",
+                    "countries": [
+                        "JP"
+                    ],
                     "currencyIso": "JPY",
                     "value": 270000
                 },
                 {
-                    "countries": "KS",
+                    "countries": [
+                        "KS"
+                    ],
                     "currencyIso": "WON",
                     "value": 3544800
                 },
                 {
-                    "countries": "MX",
+                    "countries": [
+                        "MX"
+                    ],
                     "currencyIso": "USD",
                     "value": 3372
                 },
                 {
-                    "countries": "MY",
+                    "countries": [
+                        "MY"
+                    ],
                     "currencyIso": "MYR",
                     "value": 10800
                 },
                 {
-                    "countries": "NL",
+                    "countries": [
+                        "NL"
+                    ],
                     "currencyIso": "EUR",
                     "value": 2145
                 },
                 {
-                    "countries": "NO",
+                    "countries": [
+                        "NO"
+                    ],
                     "currencyIso": "NOK",
                     "value": 17108
                 },
                 {
-                    "countries": "PL",
+                    "countries": [
+                        "PL"
+                    ],
                     "currencyIso": "PLN",
                     "value": 8044
                 },
                 {
-                    "countries": "PO",
+                    "countries": [
+                        "PO"
+                    ],
                     "currencyIso": "EUR",
                     "value": 2145
                 },
                 {
-                    "countries": "RQ",
+                    "countries": [
+                        "RQ"
+                    ],
                     "currencyIso": "USD",
                     "value": 2790
                 },
                 {
-                    "countries": "GQ,BM,RP,ID,TH,BX,SN,VM,CB",
+                    "countries": [
+                        "GQ",
+                        "BM",
+                        "RP",
+                        "ID",
+                        "TH",
+                        "BX",
+                        "SN",
+                        "VM",
+                        "CB"
+                    ],
                     "currencyIso": "USD",
                     "value": 2789
                 },
                 {
-                    "countries": "ES",
+                    "countries": [
+                        "ES"
+                    ],
                     "currencyIso": "EUR",
                     "value": 2145
                 },
                 {
-                    "countries": "SW,IC",
+                    "countries": [
+                        "SW",
+                        "IC"
+                    ],
                     "currencyIso": "SEK",
                     "value": 19305
                 },
                 {
-                    "countries": "SZ",
+                    "countries": [
+                        "SZ"
+                    ],
                     "currencyIso": "CHF",
                     "value": 2639
                 },
                 {
-                    "countries": "UK,JE,GI",
+                    "countries": [
+                        "UK",
+                        "JE",
+                        "GI"
+                    ],
                     "currencyIso": "GBP",
                     "value": 1423
                 },
                 {
-                    "countries": "KE,BC,CS,GP,NT,PA,SF,ZA,AR,BF,BD,BL,CO,EC,GT,JM,NF,PN,PE,ST,VE,UY,HO,US,CI,HA,VI,ES,NU,TD,CF,GJ,AY,BH",
+                    "countries": [
+                        "KE",
+                        "BC",
+                        "CS",
+                        "GP",
+                        "NT",
+                        "PA",
+                        "SF",
+                        "ZA",
+                        "AR",
+                        "BF",
+                        "BD",
+                        "BL",
+                        "CO",
+                        "EC",
+                        "GT",
+                        "JM",
+                        "NF",
+                        "PN",
+                        "PE",
+                        "ST",
+                        "VE",
+                        "UY",
+                        "HO",
+                        "US",
+                        "CI",
+                        "HA",
+                        "VI",
+                        "ES",
+                        "NU",
+                        "TD",
+                        "CF",
+                        "GJ",
+                        "AY",
+                        "BH"
+                    ],
                     "currencyIso": "USD",
                     "value": 2535
                 },
                 {
-                    "countries": "TW",
+                    "countries": [
+                        "TW"
+                    ],
                     "currencyIso": "NTD",
                     "value": 76500
                 }
@@ -867,16 +1069,11 @@
             "proprietary": false,
             "purchasable": true,
             "salesStatus": "Active",
-            "stock": {
-                "stockLevel": 0,
-                "stockLevelStatus": "inStock"
-            },
             "summary": "The universal, silica-based bonded phase used for the ACQUITY HSS T3 sorbents is compatible with 100% aqueous mobile phase and should be your first choice when developing separations for polar and non-polar compounds. The ACQUITY HSS T3 UPLC columns exhibit ultra-low MS bleed and are fully scalable and transferable to HPLC separations.",
             "terminated": false,
             "url": "/waters/products/176001815"
         },
         {
-            "availableForPickup": false,
             "categories": [
                 {
                     "code": "ACQUITYUPLCColumns",
@@ -898,6 +1095,7 @@
                         {
                             "code": "WatersClassification/1.0/Column.columncarbonload",
                             "comparable": true,
+                            "facet": false,
                             "featureUnit": {
                                 "name": "Column Carbon Load",
                                 "symbol": "%",
@@ -914,13 +1112,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Carbon Load",
-                            "position": 210,
+                            "position": 0,
                             "publicWebLabel": "Carbon Load",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnchemistrytype",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 10,
@@ -929,13 +1128,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Chemistry Type",
-                            "position": 230,
+                            "position": 2,
                             "publicWebLabel": "Chemistry",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnendcapped",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 2,
@@ -944,13 +1144,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Endcapped",
-                            "position": 240,
+                            "position": 3,
                             "publicWebLabel": "Endcapped",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnendfittingtype",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 4,
@@ -959,13 +1160,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Endfitting Type",
-                            "position": 250,
+                            "position": 4,
                             "publicWebLabel": "Endfitting Type",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnformat",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 6,
@@ -974,13 +1176,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Format",
-                            "position": 260,
+                            "position": 5,
                             "publicWebLabel": "Format",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columninnerdiameter",
                             "comparable": true,
+                            "facet": false,
                             "featureUnit": {
                                 "name": "Column Inner Diameter",
                                 "symbol": "mm",
@@ -997,13 +1200,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Inner Diameter",
-                            "position": 270,
+                            "position": 6,
                             "publicWebLabel": "Inner Diameter",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnlength",
                             "comparable": true,
+                            "facet": true,
                             "featureUnit": {
                                 "name": "Column Length",
                                 "symbol": "mm",
@@ -1020,13 +1224,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Length",
-                            "position": 290,
+                            "position": 8,
                             "publicWebLabel": "Length",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnseparationmode",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 10,
@@ -1035,13 +1240,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Separation Mode",
-                            "position": 310,
+                            "position": 9,
                             "publicWebLabel": "Separation Mode",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnparticleshape",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 2,
@@ -1050,13 +1256,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Particle Shape",
-                            "position": 330,
+                            "position": 12,
                             "publicWebLabel": "Particle Shape",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnparticlesize",
                             "comparable": true,
+                            "facet": true,
                             "featureUnit": {
                                 "name": "Column Particle Size",
                                 "symbol": "µm",
@@ -1073,13 +1280,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Particle Size",
-                            "position": 340,
+                            "position": 13,
                             "publicWebLabel": "Particle Size",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnparticlesubstrate",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 6,
@@ -1088,13 +1296,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Particle Substrate",
-                            "position": 350,
+                            "position": 14,
                             "publicWebLabel": "Particle Substrate",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnporesize",
                             "comparable": true,
+                            "facet": true,
                             "featureUnit": {
                                 "name": "Column Pore Size",
                                 "symbol": "Å",
@@ -1111,13 +1320,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Pore Size",
-                            "position": 360,
+                            "position": 15,
                             "publicWebLabel": "Pore Size",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnsilanolactivity",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 2,
@@ -1126,13 +1336,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Silanol Activity",
-                            "position": 380,
+                            "position": 17,
                             "publicWebLabel": "Silanol Activity",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnsurfacearea",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 9,
@@ -1141,13 +1352,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Surface Area",
-                            "position": 410,
+                            "position": 19,
                             "publicWebLabel": "Surface Area",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnsystem",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 9,
@@ -1160,13 +1372,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column System",
-                            "position": 420,
+                            "position": 20,
                             "publicWebLabel": "System",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnparticletechnology",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 3,
@@ -1175,13 +1388,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Particle Technology",
-                            "position": 430,
+                            "position": 21,
                             "publicWebLabel": "Particle Technology",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnuspclassification",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 1,
@@ -1190,13 +1404,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column USP Classification",
-                            "position": 440,
+                            "position": 22,
                             "publicWebLabel": "USP Classification",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnphrangemin",
                             "comparable": true,
+                            "facet": false,
                             "featureUnit": {
                                 "name": "Column pH Range Min",
                                 "symbol": "pH",
@@ -1213,13 +1428,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column pH Range Min",
-                            "position": 450,
+                            "position": 23,
                             "publicWebLabel": "pH Range",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnphrangemax",
                             "comparable": true,
+                            "facet": false,
                             "featureUnit": {
                                 "name": "Column pH Range Max",
                                 "symbol": "pH",
@@ -1236,13 +1452,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column pH Range Max",
-                            "position": 451,
+                            "position": 24,
                             "publicWebLabel": "pH Range",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columntemperaturelimits",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 2,
@@ -1251,13 +1468,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Temperature Limits",
-                            "position": 470,
+                            "position": 26,
                             "publicWebLabel": "Temperature Limits",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnmaximumpressure",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 4,
@@ -1266,13 +1484,14 @@
                             ],
                             "internalOnly": false,
                             "name": "Column Maximum Pressure",
-                            "position": 480,
+                            "position": 27,
                             "publicWebLabel": "Maximum Pressure",
                             "range": false
                         },
                         {
                             "code": "WatersClassification/1.0/Column.columnecord",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 1,
@@ -1281,7 +1500,7 @@
                             ],
                             "internalOnly": false,
                             "name": "Column eCord",
-                            "position": 490,
+                            "position": 28,
                             "publicWebLabel": "eCord",
                             "range": false
                         }
@@ -1294,6 +1513,7 @@
                         {
                             "code": "WatersClassification/1.0/ConsumablesAndSpares.unitsperpackage",
                             "comparable": true,
+                            "facet": false,
                             "featureUnit": {
                                 "name": "Units Per Package UOM",
                                 "symbol": "pk",
@@ -1316,6 +1536,7 @@
                         {
                             "code": "WatersClassification/1.0/ConsumablesAndSpares.jaggaercategory",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 519,
@@ -1335,6 +1556,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.saphierarchy",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "022E2EA11"
@@ -1348,6 +1570,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.remainingshelflife",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "0"
@@ -1361,6 +1584,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.company",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 5,
@@ -1375,6 +1599,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.weight",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "0"
@@ -1388,6 +1613,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.weightunit",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "KGM"
@@ -1401,6 +1627,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.harmonizationcode",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "8421290090"
@@ -1414,6 +1641,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.unspsc",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "value": "41115709"
@@ -1427,6 +1655,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.brand",
                             "comparable": true,
+                            "facet": true,
                             "featureValues": [
                                 {
                                     "position": 10,
@@ -1441,6 +1670,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.business",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 1,
@@ -1454,6 +1684,7 @@
                         {
                             "code": "WatersClassification/1.0/Products.productfamily",
                             "comparable": true,
+                            "facet": false,
                             "featureValues": [
                                 {
                                     "position": 1,
@@ -1469,183 +1700,351 @@
                 }
             ],
             "code": "176001818",
+            "coldChainShipping": true,
+            "hazardous": false,
             "description": "ACQUITY UPLC HSS C18 chemistry is an ultra-performance general purpose C18 bonded phase that provides superior peak shape for bases, increased retention (vs. ACQUITY UPLC BEH C18 columns), and extremely long column lifetimes at low pH.  ACQUITY HSS C18 columns are fully scalable and transferable to HPLC separations.",
             "images": [
                 {
-                    "imageType": "PRIMARY",
-                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/columns/uplc-column-3x50mm.png"
-                },
-                {
                     "imageType": "GALLERY",
                     "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/columns/yellow-fob.png"
+                },
+                {
+                    "imageType": "PRIMARY",
+                    "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/columns/uplc-column-3x50mm.png"
                 }
             ],
             "name": "ACQUITY UPLC HSS C18 Column, 100Å, 1.8 µm, 3 mm X 50 mm, 3/pk",
-            "numberOfReviews": 0,
-            "priceRange": {},
             "prices": [
                 {
-                    "countries": "NZ,FJ,VA,AS",
+                    "countries": [
+                        "NZ",
+                        "FJ",
+                        "VA",
+                        "AS"
+                    ],
                     "currencyIso": "AUD",
                     "value": 3604
                 },
                 {
-                    "countries": "ME,YE,SV,SY,TC,UZ,KZ,PS,AM,AJ,BA,BS,BU,CY,EG,GR,IZ,KU,LE,MK,MT,MU,PK,BY,GG,QA,RO,RU,SA,RS,UA,JO,AL,CE,LY,AU,CR,TU",
+                    "countries": [
+                        "ME",
+                        "YE",
+                        "SV",
+                        "SY",
+                        "TC",
+                        "UZ",
+                        "KZ",
+                        "PS",
+                        "AM",
+                        "AJ",
+                        "BA",
+                        "BS",
+                        "BU",
+                        "CY",
+                        "EG",
+                        "GR",
+                        "IZ",
+                        "KU",
+                        "LE",
+                        "MK",
+                        "MT",
+                        "MU",
+                        "PK",
+                        "BY",
+                        "GG",
+                        "QA",
+                        "RO",
+                        "RU",
+                        "SA",
+                        "RS",
+                        "UA",
+                        "JO",
+                        "AL",
+                        "CE",
+                        "LY",
+                        "AU",
+                        "CR",
+                        "TU"
+                    ],
                     "currencyIso": "EUR",
                     "value": 2015
                 },
                 {
-                    "countries": "BE,LU",
+                    "countries": [
+                        "BE",
+                        "LU"
+                    ],
                     "currencyIso": "EUR",
                     "value": 2015
                 },
                 {
-                    "countries": "BR",
+                    "countries": [
+                        "BR"
+                    ],
                     "currencyIso": "BRL",
                     "value": 0.02
                 },
                 {
-                    "countries": "CA",
+                    "countries": [
+                        "CA"
+                    ],
                     "currencyIso": "CAD",
                     "value": 3230
                 },
                 {
-                    "countries": "CN",
+                    "countries": [
+                        "CN"
+                    ],
                     "currencyIso": "CNY",
                     "value": 22030
                 },
                 {
-                    "countries": "CX,SK",
+                    "countries": [
+                        "CX",
+                        "SK"
+                    ],
                     "currencyIso": "CZK",
                     "value": 51383
                 },
                 {
-                    "countries": "DA",
+                    "countries": [
+                        "DA"
+                    ],
                     "currencyIso": "DKK",
                     "value": 15231
                 },
                 {
-                    "countries": "EI",
+                    "countries": [
+                        "EI"
+                    ],
                     "currencyIso": "EUR",
                     "value": 2015
                 },
                 {
-                    "countries": "LV,EE,FI,LN",
+                    "countries": [
+                        "LV",
+                        "EE",
+                        "FI",
+                        "LN"
+                    ],
                     "currencyIso": "EUR",
                     "value": 2015
                 },
                 {
-                    "countries": "SG,NC,FP,AG,ET,FR,GA,TS,NI,MO,GH",
+                    "countries": [
+                        "SG",
+                        "NC",
+                        "FP",
+                        "AG",
+                        "ET",
+                        "FR",
+                        "GA",
+                        "TS",
+                        "NI",
+                        "MO",
+                        "GH"
+                    ],
                     "currencyIso": "EUR",
                     "value": 2015
                 },
                 {
-                    "countries": "GE",
+                    "countries": [
+                        "GE"
+                    ],
                     "currencyIso": "EUR",
                     "value": 2015
                 },
                 {
-                    "countries": "HK,MC",
+                    "countries": [
+                        "HK",
+                        "MC"
+                    ],
                     "currencyIso": "HKD",
                     "value": 21200
                 },
                 {
-                    "countries": "HU",
+                    "countries": [
+                        "HU"
+                    ],
                     "currencyIso": "HUF",
                     "value": 618605
                 },
                 {
-                    "countries": "BG,NP,IN",
+                    "countries": [
+                        "BG",
+                        "NP",
+                        "IN"
+                    ],
                     "currencyIso": "INR",
                     "value": 196037
                 },
                 {
-                    "countries": "IS",
+                    "countries": [
+                        "IS"
+                    ],
                     "currencyIso": "USD",
                     "value": 2485
                 },
                 {
-                    "countries": "IT",
+                    "countries": [
+                        "IT"
+                    ],
                     "currencyIso": "EUR",
                     "value": 2015
                 },
                 {
-                    "countries": "JP",
+                    "countries": [
+                        "JP"
+                    ],
                     "currencyIso": "JPY",
                     "value": 255000
                 },
                 {
-                    "countries": "KS",
+                    "countries": [
+                        "KS"
+                    ],
                     "currencyIso": "WON",
                     "value": 3475200
                 },
                 {
-                    "countries": "MX",
+                    "countries": [
+                        "MX"
+                    ],
                     "currencyIso": "USD",
                     "value": 3305
                 },
                 {
-                    "countries": "MY",
+                    "countries": [
+                        "MY"
+                    ],
                     "currencyIso": "MYR",
                     "value": 10800
                 },
                 {
-                    "countries": "NL",
+                    "countries": [
+                        "NL"
+                    ],
                     "currencyIso": "EUR",
                     "value": 2015
                 },
                 {
-                    "countries": "NO",
+                    "countries": [
+                        "NO"
+                    ],
                     "currencyIso": "NOK",
                     "value": 16340
                 },
                 {
-                    "countries": "PL",
+                    "countries": [
+                        "PL"
+                    ],
                     "currencyIso": "PLN",
                     "value": 7556
                 },
                 {
-                    "countries": "PO",
+                    "countries": [
+                        "PO"
+                    ],
                     "currencyIso": "EUR",
                     "value": 2015
                 },
                 {
-                    "countries": "RQ",
+                    "countries": [
+                        "RQ"
+                    ],
                     "currencyIso": "USD",
                     "value": 2735
                 },
                 {
-                    "countries": "GQ,BM,RP,ID,TH,BX,SN,VM,CB",
+                    "countries": [
+                        "GQ",
+                        "BM",
+                        "RP",
+                        "ID",
+                        "TH",
+                        "BX",
+                        "SN",
+                        "VM",
+                        "CB"
+                    ],
                     "currencyIso": "USD",
                     "value": 2734
                 },
                 {
-                    "countries": "ES",
+                    "countries": [
+                        "ES"
+                    ],
                     "currencyIso": "EUR",
                     "value": 2015
                 },
                 {
-                    "countries": "SW,IC",
+                    "countries": [
+                        "SW",
+                        "IC"
+                    ],
                     "currencyIso": "SEK",
                     "value": 18430
                 },
                 {
-                    "countries": "SZ",
+                    "countries": [
+                        "SZ"
+                    ],
                     "currencyIso": "CHF",
                     "value": 2496
                 },
                 {
-                    "countries": "UK,JE,GI",
+                    "countries": [
+                        "UK",
+                        "JE",
+                        "GI"
+                    ],
                     "currencyIso": "GBP",
                     "value": 1340
                 },
                 {
-                    "countries": "KE,BC,CS,GP,NT,PA,SF,ZA,AR,BF,BD,BL,CO,EC,GT,JM,NF,PN,PE,ST,VE,UY,HO,US,CI,HA,VI,ES,NU,TD,CF,GJ,AY,BH",
+                    "countries": [
+                        "KE",
+                        "BC",
+                        "CS",
+                        "GP",
+                        "NT",
+                        "PA",
+                        "SF",
+                        "ZA",
+                        "AR",
+                        "BF",
+                        "BD",
+                        "BL",
+                        "CO",
+                        "EC",
+                        "GT",
+                        "JM",
+                        "NF",
+                        "PN",
+                        "PE",
+                        "ST",
+                        "VE",
+                        "UY",
+                        "HO",
+                        "US",
+                        "CI",
+                        "HA",
+                        "VI",
+                        "ES",
+                        "NU",
+                        "TD",
+                        "CF",
+                        "GJ",
+                        "AY",
+                        "BH"
+                    ],
                     "currencyIso": "USD",
                     "value": 2485
                 },
                 {
-                    "countries": "TW",
+                    "countries": [
+                        "TW"
+                    ],
                     "currencyIso": "NTD",
                     "value": 76500
                 }
@@ -1720,10 +2119,6 @@
             "proprietary": false,
             "purchasable": true,
             "salesStatus": "Active",
-            "stock": {
-                "stockLevel": 0,
-                "stockLevelStatus": "inStock"
-            },
             "summary": "ACQUITY UPLC HSS C18 chemistry is an ultra-performance general purpose C18 bonded phase that provides superior peak shape for bases, increased retention (vs. ACQUITY UPLC BEH C18 columns), and extremely long column lifetimes at low pH.  ACQUITY HSS C18 columns are fully scalable and transferable to HPLC separations.",
             "terminated": false,
             "url": "/waters/products/176001818"

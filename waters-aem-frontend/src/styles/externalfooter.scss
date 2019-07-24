@@ -52,7 +52,7 @@
 
     .container1_wrapper {
         background-color: $color-background-dark;
-        opacity: 0.9;
+        opacity: 0.95;
     }
     .container2 {
         background-color: $color-background-dark;
@@ -64,7 +64,7 @@
         margin: -$space-xxs auto 0 auto;
 
         @include mobile {
-            padding: 0 20px;
+            padding: 0 20px $space-l 20px;
         }
 
         @include tablet {

@@ -1,4 +1,5 @@
 <nav class="cmp-anchor closed" data-sly-use.anchor="com.waters.aem.core.components.content.Anchor" data-sly-test.links="${anchor.links}">
+    <div class="cmp-anchor-gradient-left"></div>
     <ul data-sly-list.link="${links}" class="cmp-anchor__list" id="cmp-anchor">
         <div data-sly-test="${linkList.first}" class="cmp-anchor__list-heading">
             <div class="cmp-anchor__list-heading--closed">
@@ -32,6 +33,7 @@
             <a class="cmp-anchor__link" href="${link.href}">${link.title}</a>
         </li>
     </ul>
+    <div class="cmp-anchor-gradient-right"></div>
 </nav>
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
      data-sly-call="${patterns.placeholder @ show=!links, text=component.title}"/>
