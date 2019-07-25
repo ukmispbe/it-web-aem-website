@@ -7,9 +7,9 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "storybook": "start-storybook -p 9001 -c .storybook",
         "prebuild": "rebuild-node-sass",
-        "build": "NODE_ENV=production node scripts/build.js",
+        "build": "cross-env NODE_ENV=production node scripts/build.js",
         "dev-server": "node scripts/start.js",
-        "watch": "NODE_ENV=production npx webpack-cli --config scripts/webpack.config.dev.js -w"
+        "watch": "cross-env NODE_ENV=production npx webpack-cli --config scripts/webpack.config.dev.js -w"
     },
     "author": "",
     "license": "UNLICENSED",
