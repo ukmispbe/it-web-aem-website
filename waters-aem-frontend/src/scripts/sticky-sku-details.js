@@ -13,9 +13,18 @@ const SKUDetatilsSticky = () => {
         window.addEventListener('scroll', stickyFunc);
 
         const anchorSticky = document.querySelector('.cmp-anchor');
+        const targetElement = document.querySelector('.cmp-sku-details');
 
         if (anchorSticky) {
             anchorSticky.classList.add('cmp-anchor--sticky-sku');
+
+            targetElement.addEventListener('Sticky-Stuck', function () {
+               anchorSticky.setAttribute('data-overrideScroll', true);
+            });
+
+            targetElement.addEventListener('Sticky-Unstuck', function () {
+               anchorSticky.setAttribute('data-overrideScroll', false);
+            });
         }
     }
 };

@@ -65,8 +65,11 @@ var anchorSticky = (function() {
 
             this.getInViewElement();
         },
-        aboveScroll: function() {
-            return this.position - 73 < window.pageYOffset;
+        getOverride: function() {
+           return this.element.getAttribute('data-overrideScroll') ? this.element.getAttribute('data-overrideScroll') === 'true' : false;
+        },
+        aboveScroll: function() { 
+           return ((this.position - 73 < window.pageYOffset) || this.getOverride());
         },
         onScroll: function() {
             if (this.aboveScroll()) {
