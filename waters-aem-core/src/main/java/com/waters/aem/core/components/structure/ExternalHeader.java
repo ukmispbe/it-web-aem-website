@@ -18,7 +18,6 @@ import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.SiteContext;
-import com.waters.aem.core.components.content.links.IconOnlyLink;
 import com.waters.aem.core.components.content.links.LinkWithIcon;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.launch.AdobeLaunchService;
@@ -38,8 +37,7 @@ import java.util.List;
     path = WatersConstants.COMPONENT_PATH_STRUCTURE,
     tabs = {
         @Tab(title = "Properties"),
-        @Tab(title = "Header Links"),
-        @Tab(title = "Region Selector")
+        @Tab(title = "Header Links")
     })
 @Model(adaptables = SlingHttpServletRequest.class,
     adapters = { ExternalHeader.class, ComponentExporter.class },
@@ -93,14 +91,6 @@ public final class ExternalHeader extends AbstractComponent implements Component
     @MultiField(composite = true)
     @InheritInject
     private List<LinkWithIcon> linkItems;
-
-    @DialogField(tab = 3)
-    @DialogFieldSet(namePrefix = "./regionLinkItem/")
-    public IconOnlyLink getRegionLinkItem() {
-        return getComponentNodeInherited("regionLinkItem")
-            .transform(componentNode -> componentNode.getResource().adaptTo(IconOnlyLink.class))
-            .orNull();
-    }
 
     @Nonnull
     @Override

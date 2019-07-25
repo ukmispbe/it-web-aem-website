@@ -9,6 +9,7 @@ import './scripts/sticky-sku-details';
 import './scripts/iframe';
 import './scripts/backtosearch';
 import './scripts/banner';
+import './scripts/header';
 import './scripts/collapsible';
 import './index';
 
