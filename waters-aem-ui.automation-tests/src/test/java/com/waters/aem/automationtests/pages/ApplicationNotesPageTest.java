@@ -20,30 +20,30 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ApplicationNotesPageTest extends AbstractWatersPageTest {
 
     @Test
-    public void externalHeader() throws ActionException {
+    public void Header() throws ActionException {
         controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("External Header", "External Header", 0,
         new ResourceFileLocation("external-header.yaml")));
 
-        final ExternalHeader externalHeaderComponent = page.getContent(ExternalHeader.class, 0);
+        final Header headerComponent = page.getContent(Header.class, 0);
 
         //test Properties Tab
-        assertThat(externalHeaderComponent.getLogo().substring(externalHeaderComponent.getLogo().lastIndexOf("/") + 1)).isEqualTo("waters-logo-black.svg");
-        assertThat(externalHeaderComponent.getLogoLink().substring(externalHeaderComponent.getLogoLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
-        assertThat(externalHeaderComponent.getLogoAltText()).isEqualTo("Alt Text Test");
-        assertThat(externalHeaderComponent.isNewWindow()).isEqualTo(true);
+        assertThat(headerComponent.getLogo().substring(headerComponent.getLogo().lastIndexOf("/") + 1)).isEqualTo("waters-logo-black.svg");
+        assertThat(headerComponent.getLogoLink().substring(headerComponent.getLogoLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
+        assertThat(headerComponent.getLogoAltText()).isEqualTo("Alt Text Test");
+        assertThat(headerComponent.isNewWindow()).isEqualTo(true);
 
         //Test Header Links Tab
-        assertThat(externalHeaderComponent.getSearchPath().substring(externalHeaderComponent.getSearchPath().lastIndexOf("/") + 1)).isEqualTo("search.html");
-        assertThat(externalHeaderComponent.getLinkItems().get(0).getText()).isEqualTo("Search Application");
-        assertThat(externalHeaderComponent.getLinkItems().get(0).getLink().substring(externalHeaderComponent.getLinkItems().get(0).getLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
-        assertThat(externalHeaderComponent.getLinkItems().get(0).isNewWindow()).isEqualTo(true);
-        assertThat(externalHeaderComponent.getLinkItems().get(0).hasLinkIcon()).isEqualTo(true);
+        assertThat(headerComponent.getSearchPath().substring(headerComponent.getSearchPath().lastIndexOf("/") + 1)).isEqualTo("search.html");
+        assertThat(headerComponent.getLinkItems().get(0).getText()).isEqualTo("Search Application");
+        assertThat(headerComponent.getLinkItems().get(0).getLink().substring(headerComponent.getLinkItems().get(0).getLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
+        assertThat(headerComponent.getLinkItems().get(0).isNewWindow()).isEqualTo(true);
+        assertThat(headerComponent.getLinkItems().get(0).hasLinkIcon()).isEqualTo(true);
 
         //Test Region Selector Tab
-        assertThat(externalHeaderComponent.getLinkItems().get(1).getText()).isEqualTo("EN/US");
-        assertThat(externalHeaderComponent.getLinkItems().get(1).getLink().substring(externalHeaderComponent.getLinkItems().get(0).getLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
-        assertThat(externalHeaderComponent.getLinkItems().get(1).isNewWindow()).isEqualTo(false);
-        assertThat(externalHeaderComponent.getLinkItems().get(1).hasLinkIcon()).isEqualTo(true);
+        assertThat(headerComponent.getLinkItems().get(1).getText()).isEqualTo("EN/US");
+        assertThat(headerComponent.getLinkItems().get(1).getLink().substring(headerComponent.getLinkItems().get(0).getLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
+        assertThat(headerComponent.getLinkItems().get(1).isNewWindow()).isEqualTo(false);
+        assertThat(headerComponent.getLinkItems().get(1).hasLinkIcon()).isEqualTo(true);
     }
 
     @Test
