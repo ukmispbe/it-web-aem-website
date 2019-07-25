@@ -1,16 +1,20 @@
-.cmp-navigation {
-   
+.navigation {
+   height: 67px;
+   padding: 0 $space-xl;
+   margin: 0 (($space-xl - (14/(16*1.1)))*-1)!important; 
    &:hover {
       box-shadow: 0px 2px 1px -1px rgba(79, 91, 100, 0.2);
    }
+}
 
-   .cmp-navigation__group {
+nav.cmp-navigation {
+   & > .cmp-navigation__group {
       padding: 0;
       
-      .cmp-navigation__item {
+      & > .cmp-navigation__item {
          @include font-h3;
          margin-right: $space-xl;
-   
+         margin-bottom: 0;
          display: inline-block;
 
          &--level-0 {
@@ -19,17 +23,28 @@
             display: inline-grid;
 
             &:hover {
+               cursor: pointer;
                border-top: 3px solid $color-gray-50;
             }
          }
 
-         &-link {
+         & > .cmp-navigation__item-link {
             color: $color-font-medium;
 
             &:hover {
                color: $color-font-dark;
                text-decoration: none;
             }
+         }
+
+         & > .cmp-navigation__group {
+            position: absolute;
+            top: 67px;
+            visibility: hidden;
+         }
+
+         &:hover > .cmp-navigation__group {
+            visibility: visible;
          }
       }
    }
