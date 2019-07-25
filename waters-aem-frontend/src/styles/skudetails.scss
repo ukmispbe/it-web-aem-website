@@ -131,6 +131,10 @@
             background-color: $color-white;
             justify-content: center;
 
+            &-noBorder {
+               border-bottom: none;
+            }
+
             @include mobile {
                 box-shadow: $shadow;
                 padding: $space-s $space-s 0 $space-s;
