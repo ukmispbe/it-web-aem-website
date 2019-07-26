@@ -2,6 +2,10 @@
     position: relative;
     width: 100%;
     text-align: center;
+    
+    @include mobile {
+        margin-bottom: $space-l;
+    }
 }
 
 .image-viewer-container {
@@ -168,8 +172,8 @@
 }
 
 .image-thumbnails-container__image {
-    width: 80px;
-    height: 48px;
+    width: 79px;
+    height: 52px;
     background-repeat: no-repeat;
     background-size: cover;
     background-clip: border-box;
