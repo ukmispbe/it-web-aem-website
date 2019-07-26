@@ -243,3 +243,46 @@
 .cmp-banner--notHeader .cmp-banner {
     margin-top: 0;
 }
+
+.cmp-banner--left .cmp-banner {
+    padding-right: 90%;
+
+    @include tablet {
+        padding-right: 80%;
+        padding-left: 40%;
+    }
+
+    @include mobile {
+        padding-right: 30%;
+        overflow-x: hidden;
+    }
+
+    .cmp-banner__parsys {
+        padding: $space-xl 0;
+
+        .cmp-title__text div {
+            text-align: left;
+        }
+
+        .cmp-button {
+            float: unset;
+        }
+    }
+
+    .cmp-banner__background-overlay {
+        width: 33%;
+        left: 15%;
+        opacity: 0.8;
+
+        @include tablet {
+            left: 20%
+        }
+
+        @include mobile {
+            width: 100%;
+            height: 80%;
+            top: 10%;
+            left: 14%;
+        }
+    }
+}

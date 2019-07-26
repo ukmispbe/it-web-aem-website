@@ -125,14 +125,14 @@ class SearchService {
 
         const callService = window.fetch(searchString).then(response => {
             if (response.ok) {
-                return response;
+                return response.json();
             } else {
                 this.throwError(response);
-                return response;
+                return response.json();
             }
         });
 
-        const response = await callService.json();
+        const response = await callService;
 
         return response.suggestions;
     };

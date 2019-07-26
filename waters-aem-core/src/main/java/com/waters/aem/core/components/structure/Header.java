@@ -5,9 +5,7 @@ import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
-import com.citytechinc.cq.component.annotations.widgets.DialogFieldSet;
 import com.citytechinc.cq.component.annotations.widgets.Html5SmartImage;
-import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.wcm.foundation.Image;
@@ -17,9 +15,8 @@ import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
-import com.waters.aem.core.components.SiteContext;
-import com.waters.aem.core.components.content.links.LinkWithIcon;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.services.authentication.WatersAuthenticationService;
 import com.waters.aem.core.services.launch.AdobeLaunchService;
 import com.waters.aem.core.utils.LinkUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -27,30 +24,25 @@ import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
-import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 
-@Component(value = "External Header",
+@Component(value = "Header",
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE,
-    tabs = {
-        @Tab(title = "Properties"),
-        @Tab(title = "Header Links")
-    })
+    tabs = @Tab(title = "Properties"))
 @Model(adaptables = SlingHttpServletRequest.class,
-    adapters = { ExternalHeader.class, ComponentExporter.class },
-    resourceType = ExternalHeader.RESOURCE_TYPE,
+    adapters = { Header.class, ComponentExporter.class },
+    resourceType = Header.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public final class ExternalHeader extends AbstractComponent implements ComponentExporter {
+public final class Header extends AbstractComponent implements ComponentExporter {
 
-    public static final String RESOURCE_TYPE = "waters/components/structure/externalheader";
+    public static final String RESOURCE_TYPE = "waters/components/structure/header";
 
-    @Self
-    private SiteContext siteContext;
+    @OSGiService
+    private WatersAuthenticationService watersAuthenticationService;
 
     @OSGiService
     private AdobeLaunchService adobeLaunchService;
@@ -78,19 +70,11 @@ public final class ExternalHeader extends AbstractComponent implements Component
 
     @DialogField(fieldLabel = "Search Path",
         fieldDescription = "Select Search Path",
-        tab = 2,
-        ranking = 1)
+        ranking = 4)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
     private Link searchPath;
 
-    @DialogField(fieldLabel = "Link Items",
-        fieldDescription = "Enter external article details",
-        tab = 2,
-        ranking = 2)
-    @MultiField(composite = true)
-    @InheritInject
-    private List<LinkWithIcon> linkItems;
 
     @Nonnull
     @Override
@@ -118,12 +102,16 @@ public final class ExternalHeader extends AbstractComponent implements Component
         return LinkUtils.isExternal(logoLink);
     }
 
-    public List<LinkWithIcon> getLinkItems() {
-        return linkItems;
+    public String getSignInUrl() {
+        return watersAuthenticationService.getSignInUrl();
     }
 
-    public String getLanguageLocation() {
-        return siteContext.getLanguageLocation();
+    public String getSignOutUrl() {
+        return watersAuthenticationService.getSignOutUrl();
+    }
+
+    public String getMyAccountUrl() {
+        return watersAuthenticationService.getMyAccountUrl();
     }
 
     public String getLaunchScript() {

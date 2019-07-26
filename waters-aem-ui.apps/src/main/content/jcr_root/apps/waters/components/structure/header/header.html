@@ -1,0 +1,27 @@
+<header data-sly-use.header="com.waters.aem.core.components.structure.Header" class="cmp-external-header" data-search-path="${header.searchPath.href}">
+    <div class="container">
+        <div class="cmp-external-header__logo">
+            <a class="cmp-external-header-logo__link" href="${header.logoLink.href}" target="${header.external ? '_blank' :''}">
+                <img src="${header.logo.fileReference}" alt="${header.logoAltText}"/>
+            </a>
+        </div>
+        <nav class="cmp-external-header__links">
+            <ul>
+                <li class="cmp-external-header__links__item">
+                    <a class="cmp-external-header-links__link" href="${header.searchPath.href}">
+                        <span>${'Search Library' @ i18n}
+                            <img alt="${'See Availability' @ i18n}" src="/content/dam/waters/brand-assets/icons/search.svg" class="inline-svg">
+                        </span>
+                    </a>
+                </li>
+                <li class="cmp-external-header__links__item">
+                    <a class="cmp-external-header-links__link" href="#" >
+                        <span>${'Sign In' @ i18n}
+                            <img alt="${'See Availability' @ i18n}" src="/content/dam/waters/brand-assets/icons/user.svg" class="inline-svg">
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
