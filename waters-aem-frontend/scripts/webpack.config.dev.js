@@ -1,7 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackSlangPlugin = require('./webpack-slang/index');
-const ExtraWatchWebpackPlugin = require('extra-watch-webpack-plugin');
 
 module.exports = {
     entry: './src/entry.js',
