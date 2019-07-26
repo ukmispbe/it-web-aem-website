@@ -59,6 +59,10 @@
             }
         }
 
+        &__stockcontainer {
+            display: inherit;
+        }
+
         &__stockdetails {
             svg {
                 width: ($icon-m - 0.25em);
