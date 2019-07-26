@@ -4,4 +4,4 @@
           jcr:primaryType="sling:OsgiConfig"
           skuAvailabilityUrl="https://dev-www.waters.com:8443/product/v1/availability/{partnumber}/{isocode}"
           skuCustomerPriceUrl="https://dev-www.waters.com:8443/product/v1/customerprice"
-          cartUrl="https://www.waters.com/waters/ajax.htm?handler=shoppingHandler&action=processExternalCart"/>
+          cartUrl="https://www.waters.com/waters/ajax.htm?handler=shoppingHandler&amp;action=processExternalCart"/>
