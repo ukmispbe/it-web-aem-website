@@ -1,5 +1,5 @@
 const domElements = {
-    getHeader: () => document.querySelector('.cmp-external-header'),
+    getHeader: () => document.querySelector('.cmp-header'),
     getSortFilterhModal: () => document.querySelector('.cmp-search__sort-filter'),
     getCookie: (cname) => {
         var name = cname + "=";

@@ -1,4 +1,4 @@
-.cmp-external-header {
+.cmp-header {
     border-bottom: 1px solid $color-border-light;
     background-color: $color-white;
     position: relative;
@@ -157,11 +157,13 @@
 
         &.loggedIn{    
 
-            a:hover{
-                color: $color-icon;
-            }
 
             #{$user}__link{
+
+                &:hover{
+                    color: $color-icon;
+                }
+
                 svg .st1,
                 svg .st0{
                     stroke: $color-link;

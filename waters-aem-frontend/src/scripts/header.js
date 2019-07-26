@@ -11,9 +11,9 @@ const headerInit = function() {
 }
 
 function domReferences() { 
-    loginNavItem = document.querySelector('.cmp-external-header__user');
-    loginList = document.querySelector('.cmp-external-header__user__link');
-    greetingText = document.querySelector('.cmp-external-header__user__link__greeting-text');
+    loginNavItem = document.querySelector('.cmp-header__user');
+    loginList = document.querySelector('.cmp-header__user__link');
+    greetingText = document.querySelector('.cmp-header__user__link__greeting-text');
 }
 
 function addEventListeners() { 
