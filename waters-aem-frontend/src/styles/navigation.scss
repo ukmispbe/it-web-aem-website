@@ -1,5 +1,10 @@
 .navigation {
+   position: relative;
+   float: none!important;
+   background-color: $color-white;
+   z-index: 998;
    height: 67px;
+   width: 105%!important;
    padding: 0 $space-xl;
    margin: 0 (($space-xl - (14/(16*1.1)))*-1)!important; 
    &:hover {
@@ -26,6 +31,17 @@ nav.cmp-navigation {
                cursor: pointer;
                border-top: 3px solid $color-gray-50;
             }
+
+            &::after {
+               content: '';
+               margin-top: -48px;
+               width: $space-xl + 0.3em;
+               position: relative;
+               top: -70%;
+               left: 100%;
+               float: right;
+               margin-bottom: -19px;
+            }
          }
 
          & > .cmp-navigation__item-link {
@@ -49,3 +65,11 @@ nav.cmp-navigation {
       }
    }
 }
+
+.cmp-navigation-overlay__container {
+   &.overlay-container {
+      z-index: 97;
+      visibility: hidden;
+   }
+}
+
