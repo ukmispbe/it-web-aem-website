@@ -16,6 +16,7 @@ import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.services.authentication.WatersAuthenticationService;
 import com.waters.aem.core.services.launch.AdobeLaunchService;
 import com.waters.aem.core.utils.LinkUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -39,6 +40,9 @@ import javax.annotation.Nonnull;
 public final class Header extends AbstractComponent implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/structure/header";
+
+    @OSGiService
+    private WatersAuthenticationService watersAuthenticationService;
 
     @OSGiService
     private AdobeLaunchService adobeLaunchService;
@@ -96,6 +100,18 @@ public final class Header extends AbstractComponent implements ComponentExporter
 
     public Boolean isExternal() {
         return LinkUtils.isExternal(logoLink);
+    }
+
+    public String getSignInUrl() {
+        return watersAuthenticationService.getSignInUrl();
+    }
+
+    public String getSignOutUrl() {
+        return watersAuthenticationService.getSignOutUrl();
+    }
+
+    public String getMyAccountUrl() {
+        return watersAuthenticationService.getMyAccountUrl();
     }
 
     public String getLaunchScript() {
