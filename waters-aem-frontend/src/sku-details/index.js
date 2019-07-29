@@ -27,20 +27,45 @@ class SkuDetails extends React.Component {
         this.state = {
             modalShown: false,
             config: config,
-            quantity: this.props.quantity
+            quantity: this.props.quantity,
+            shipByDate: this.props.shipByDate
         };
     }
 
     toggleModal = () => this.setState({modalShown: !this.state.modalShown});
+
+    renderStock = () => {
+        if (this.state.quantity > 10) {
+            return (
+                <div className="cmp-sku-details__availability" data-instock="instock" data-lowstock="lowstock" data-out-of-stock="out-of-stock">
+                    <span className="cmp-sku-details__stockdetails">In stock</span>
+                    <ReactSVG src={""} />
+                    <div className="cmp-sku-details__order">Order now</div>
+                </div>
+            );
+        } else if (this.state.quantity > 0) {
+            return (
+                <div className="cmp-sku-details__availability" data-instock="instock" data-lowstock="lowstock" data-out-of-stock="out-of-stock">
+                    <span className="cmp-sku-details__stockdetails">Only {this.state.quantity} in stock</span>
+                    <ReactSVG src={""} />
+                    <div className="cmp-sku-details__order">Order soon</div>
+                </div>
+            );
+        } else {
+            return (
+                <div className="cmp-sku-details__availability" data-instock="instock" data-lowstock="lowstock" data-out-of-stock="out-of-stock">
+                    <span className="cmp-sku-details__stockdetails">Out of stock</span>
+                    <ReactSVG src={""} />
+                    <div className="cmp-sku-details__order">Ships by {this.state.shipByDate}</div>
+                </div>
+            );
+        }
+    };
     
     render() {
         return (
             <>
-            <div className="cmp-sku-details__availability" data-instock="instock" data-lowstock="lowstock" data-out-of-stock="out-of-stock">
-                <span className="cmp-sku-details__stockdetails">In Stock</span>
-                <ReactSVG src={""} />
-                <div className="cmp-sku-details__order">Order now</div>
-            </div>
+            {this.renderStock()}
             <div className="cmp-sku-details__buttons">
                 <form>
                     <input className="cmp-sku-details__quantity" type="number" placeholder="Qty" max={this.state.quantity} min="1" />
@@ -58,10 +83,11 @@ class SkuDetails extends React.Component {
     };
 };
 
-SkuDetails.PropTypes = {
+SkuDetails.propTypes = {
     sku: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    quantity: PropTypes.number.isRequired
+    quantity: PropTypes.number.isRequired,
+    shipByDate: PropTypes.string
 };
 
 export default SkuDetails;

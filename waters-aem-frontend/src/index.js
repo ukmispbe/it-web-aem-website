@@ -147,6 +147,6 @@ if (skuDetailsContainer) {
         <SkuDetails 
             sku="WAT036980"
             name="Nova-Pak Silica Cartridge, 60Å, 4 µm, 3.9 mm X 150 mm, 1/pk"
-            quantity={11}
+            quantity={20}
         />, skuDetailsContainer);
 }
