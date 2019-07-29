@@ -16,7 +16,7 @@ import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.constants.WatersConstants;
-import com.waters.aem.core.services.authentication.WatersAuthenticationService;
+import com.waters.aem.core.services.account.WatersAccountService;
 import com.waters.aem.core.services.launch.AdobeLaunchService;
 import com.waters.aem.core.utils.LinkUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -42,7 +42,7 @@ public final class Header extends AbstractComponent implements ComponentExporter
     public static final String RESOURCE_TYPE = "waters/components/structure/header";
 
     @OSGiService
-    private WatersAuthenticationService watersAuthenticationService;
+    private WatersAccountService watersAccountService;
 
     @OSGiService
     private AdobeLaunchService adobeLaunchService;
@@ -103,15 +103,19 @@ public final class Header extends AbstractComponent implements ComponentExporter
     }
 
     public String getSignInUrl() {
-        return watersAuthenticationService.getSignInUrl();
+        return watersAccountService.getSignInUrl();
     }
 
     public String getSignOutUrl() {
-        return watersAuthenticationService.getSignOutUrl();
+        return watersAccountService.getSignOutUrl();
     }
 
     public String getMyAccountUrl() {
-        return watersAuthenticationService.getMyAccountUrl();
+        return watersAccountService.getMyAccountUrl();
+    }
+
+    public String getLegacySearchUrl() {
+        return watersAccountService.getLegacySearchUrl();
     }
 
     public String getLaunchScript() {

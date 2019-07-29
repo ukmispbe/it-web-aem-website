@@ -1,0 +1,198 @@
+.cmp-header {
+    border-bottom: 1px solid $color-border-light;
+    background-color: $color-white;
+    position: relative;
+    width: 100%;
+    height: auto;
+    z-index: 100;
+    margin-bottom: $space-l;
+
+    .container{
+        display: flex;
+    }
+
+    @include mobile {
+        margin-bottom: $space-m;
+    }
+
+    &__logo {
+        padding: ($space-s + $space-xxxs) 0 $space-s 0;
+        width: 115px;
+        
+        img {
+            height: 32px;
+        }
+    }
+
+    &__links {
+        margin-left: auto;
+        align-self: center;
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: $space-xs 0 0 0;
+        }
+
+        &__item {
+            display: inline-block;
+            margin-left: $space-s;
+            margin-bottom: 0;
+
+            &:first-of-type {
+                margin-left: 0;
+            }
+
+            span {
+                float: left;
+                display: inline-block;
+
+                @include mobile {
+                    display: none;
+                }
+            }
+
+            a {
+                @include font-utility;
+                display: inline-block;
+
+                &:hover {
+                    color: $color-link;
+
+                    & svg .st0,
+                    & svg .st1 {
+                        stroke: $color-link;
+                    }
+                }
+
+                &:active {
+                    @include font-utility;
+
+                    & svg .st0,
+                    & svg .st1 {
+                        stroke: $color-icon;
+                    }
+                }
+            }
+
+            img.inline-svg {
+                display: none;
+            }
+
+            svg {
+                display: inline-block;
+                float: left;
+                width: 30px;
+                height: 25px;
+                padding-left: 0.3em;
+
+                .st0,
+                .st1 {
+                    stroke: $color-gray-50;
+                }
+
+                @include mobile {
+                    width: 26px;
+                    height: 26px;
+                    padding-left: 0;
+                }
+            }
+        }
+    }
+
+    &__user {
+        $user: &;
+        position: relative;
+        min-width: 135px;
+
+        @include mobile {
+            min-width: 0 !important;
+        }
+
+        span#{$user}__link__greeting-text {
+            display: none;
+        }
+
+        &__dropdown {
+            width: 100%;
+            position: absolute;
+            top: 47px;
+            background-color: $color-white;
+            margin:0 !important;
+            padding-bottom: $space-s !important;
+            border-top: 3px solid $color-gray-50;
+            opacity: 0;
+            transition: all 0.25s ease;
+            visibility: hidden;
+            box-shadow: $shadow;
+
+
+            &__item{
+
+                margin-bottom: 0;
+
+                a {
+                    span{
+                        display: block;
+                        float: none;
+                        padding: 14px 10px 2px 23px;
+                    }
+
+                    @include font-utility;
+                    transition: $hover-transition;
+    
+                    &:hover {
+                        color: $color-link;
+                    }
+    
+                    &:active {
+                        @include font-utility;
+                    }
+                }
+                a:hover{
+                    text-decoration: none;
+                }
+            }
+        }
+
+        &.loggedIn{    
+
+
+            #{$user}__link{
+
+                &:hover{
+                    color: $color-icon;
+                }
+
+                svg .st1,
+                svg .st0{
+                    stroke: $color-link;
+                }  
+            }
+
+            span#{$user}__link__greeting-text {
+                display: inline-block;
+
+                @include mobile {
+                    display: none
+                }
+            }
+    
+            span#{$user}__link__sign-in-text {
+                display: none;
+            }
+
+            @include tablet-and-over{
+                &:hover{
+                    #{$user}__dropdown{
+                        visibility: visible;
+                        opacity: 1;
+                    }
+                }
+            }
+
+
+
+        }
+    }
+}
