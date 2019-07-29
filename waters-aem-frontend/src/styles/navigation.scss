@@ -12,7 +12,14 @@
       }
 
       & > .cmp-navigation__item:nth-child(#{$i}) {
+         -ms-grid-row: $row; 
+         -ms-grid-column: $column;
+
          grid-area: column#{$column}_row#{$row};
+
+         @if $i > $itemsPerRow {
+            padding-left: $space-m;
+         }
       }
    }
 }
@@ -93,12 +100,22 @@ nav.cmp-navigation {
          & > .cmp-navigation__group.cmp-navigation__group--col-1 {
             display: flex;
             flex-direction: column;
+
+            & > .cmp-navigation__item {
+               width: 335px;
+            }
          }
 
          & > .cmp-navigation__group.cmp-navigation__group--col-2 {
+            display: -ms-grid;
             display: grid;
+            
+            -ms-grid-rows: auto;
             grid-template-rows: auto;
-            grid-template-columns: auto auto;
+            
+            -ms-grid-columns: 335px 335px;
+            grid-template-columns: 335px 335px;
+
             grid-template-areas:
                "column1_row1 column2_row1"
                "column1_row2 column2_row2"
@@ -108,16 +125,21 @@ nav.cmp-navigation {
                "column1_row6 column2_row6"
                "column1_row7 column2_row7"
                "column1_row8 column2_row8";
-            grid-column-gap: $space-m;
 
             // include up to 16 areas for 2 columns of 8
             @include level2GridAreas(1, 16);
          }
 
          & > .cmp-navigation__group.cmp-navigation__group--col-3 {
+            display: -ms-grid;
             display: grid;
+
+            -ms-grid-rows: auto;
             grid-template-rows: auto;
-            grid-template-columns: auto auto auto;
+
+            -ms-grid-columns: 335px 335px 1fr;
+            grid-template-columns: 335px 335px 1fr;
+
             grid-template-areas:
                "column1_row1 column2_row1 column3_row1"
                "column1_row2 column2_row2 column3_row2"
@@ -127,7 +149,6 @@ nav.cmp-navigation {
                "column1_row6 column2_row6 column3_row6"
                "column1_row7 column2_row7 column3_row7"
                "column1_row8 column2_row8 column3_row8";
-            grid-column-gap: $space-m;
 
              // include up to 24 areas for 3 columns of 8
              @include level2GridAreas(1, 24);
