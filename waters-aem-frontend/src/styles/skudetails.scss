@@ -330,7 +330,7 @@
         }
     }
 
-    h1 {
+    .cmp-sku-details__title {
         @include font-h3;
         margin-bottom: $space-xs;
     }
