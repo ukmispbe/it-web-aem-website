@@ -1,3 +1,22 @@
+@mixin level2GridAreas($from, $through) {
+   $itemsPerRow: 8;
+   $column: 0;
+   $row: 0;
+
+   @for $i from $from through $through {
+      $row: $row + 1;
+      $column: ceil($i / $itemsPerRow);
+
+      @if $row > $itemsPerRow {
+         $row: 1;
+      }
+
+      & > .cmp-navigation__item:nth-child(#{$i}) {
+         grid-area: column#{$column}_row#{$row};
+      }
+   }
+}
+
 .navigation {
    position: relative;
    float: none!important;
@@ -56,7 +75,62 @@ nav.cmp-navigation {
          & > .cmp-navigation__group {
             position: absolute;
             top: 67px;
+            left: 0;
+            z-index: 99;
             visibility: hidden;
+            list-style: none;
+            padding: $space-l $space-xl  $space-xl $space-xl;
+            background-color: $color-white;
+            width: 100%;
+
+            & > .cmp-navigation__item {
+               @include font-h3;
+               margin-bottom: 0;
+               padding-bottom: $space-s;
+            }
+         }
+
+         & > .cmp-navigation__group.cmp-navigation__group--col-1 {
+            display: flex;
+            flex-direction: column;
+         }
+
+         & > .cmp-navigation__group.cmp-navigation__group--col-2 {
+            display: grid;
+            grid-template-rows: auto;
+            grid-template-columns: auto auto;
+            grid-template-areas:
+               "column1_row1 column2_row1"
+               "column1_row2 column2_row2"
+               "column1_row3 column2_row3"
+               "column1_row4 column2_row4"
+               "column1_row5 column2_row5"
+               "column1_row6 column2_row6"
+               "column1_row7 column2_row7"
+               "column1_row8 column2_row8";
+            grid-column-gap: $space-m;
+
+            // include up to 16 areas for 2 columns of 8
+            @include level2GridAreas(1, 16);
+         }
+
+         & > .cmp-navigation__group.cmp-navigation__group--col-3 {
+            display: grid;
+            grid-template-rows: auto;
+            grid-template-columns: auto auto auto;
+            grid-template-areas:
+               "column1_row1 column2_row1 column3_row1"
+               "column1_row2 column2_row2 column3_row2"
+               "column1_row3 column2_row3 column3_row3"
+               "column1_row4 column2_row4 column3_row4"
+               "column1_row5 column2_row5 column3_row5"
+               "column1_row6 column2_row6 column3_row6"
+               "column1_row7 column2_row7 column3_row7"
+               "column1_row8 column2_row8 column3_row8";
+            grid-column-gap: $space-m;
+
+             // include up to 24 areas for 3 columns of 8
+             @include level2GridAreas(1, 24);
          }
 
          &:hover > .cmp-navigation__group {
@@ -72,4 +146,3 @@ nav.cmp-navigation {
       visibility: hidden;
    }
 }
-

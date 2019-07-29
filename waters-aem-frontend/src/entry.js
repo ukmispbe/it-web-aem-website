@@ -7,6 +7,7 @@ import './scripts/anchor';
 import './scripts/sticky-sort-filter';
 import './scripts/sticky-sku-details';
 import './scripts/navigation-overlay';
+import './scripts/navigation-level2';
 import './scripts/iframe';
 import './scripts/backtosearch';
 import './scripts/banner';
