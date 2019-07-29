@@ -3,14 +3,13 @@
     overflow-x: scroll;
 
     & .fader-container {
-        height: 100%;
-        width: 150px;
+        height: 90%;
+        margin-top: 3px;
         position: absolute;
         top: 0;
         visibility: hidden;
 
         &--left {
-            left: 0;
             background: -webkit-linear-gradient(left,hsla(0,0%,100%,.8) 30%,hsla(0,0%,100%,.2));
             background: -moz-linear-gradient(left,hsla(0,0%,100%,.8) 30%,hsla(0,0%,100%,.2) 100%);
             background: -ms-linear-gradient(left,hsla(0,0%,100%,.8) 30%,hsla(0,0%,100%,.2) 100%);
@@ -38,5 +37,11 @@
         &--right {
             visibility: visible;
         }
+    }
+}
+
+.cmp-anchor--sticky .cmp-anchor__list.fader-fade .fader-container{
+    &--right {
+        right: 57.6%;
     }
 }

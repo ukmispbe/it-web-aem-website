@@ -1,5 +1,6 @@
 import scrollToY from './scrollTo';
 import screenSizes from './screenSizes';
+import Fader from './fade-x';
 
 var anchorElement = document.querySelector('.cmp-anchor');
 var anchorMenu = document.querySelector('.cmp-anchor__list-heading');
@@ -158,18 +159,12 @@ function hideScrollBars(el) {
 
 function anchorChange(el) {
     clearGradients();
-    var anchorElementId = document.getElementById('cmp-anchor');
-    if (anchorElementId.scrollLeft > 0) {
-        lhsGradientFade[0].style.display = 'block';
-    }
+    const ancFader = Fader('cmp-anchor__list', 0, 75);
 
-    if (
-        Math.ceil(
-            anchorElementId.scrollWidth -
-                anchorElementId.getBoundingClientRect().width
-        ) != Math.ceil(anchorElementId.scrollLeft)
-    ) {
-        rhsGradientFade[0].style.display = 'block';
+    var anchorElementId = document.getElementById('cmp-anchor');
+
+    if (ancFader) {
+        anchorElementId.addEventListener('scroll', ancFader);
     }
 }
 
@@ -179,7 +174,7 @@ function clearGradients() {
 }
 
 function resizeWindow(el) {
-    anchorChange(el);
+    // anchorChange(el);
     var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
     if (!hasHorizontalScrollbar) {
         clearGradients();
@@ -187,7 +182,7 @@ function resizeWindow(el) {
 }
 
 function scrollWindow(el) {
-    anchorChange(el);
+    // anchorChange(el);
     var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
     if (!hasHorizontalScrollbar) {
         clearGradients();
@@ -215,6 +210,7 @@ if (anchorList) {
         //  Init Sticky
         if (anchorElement) anchorSticky.init(anchorElement);
         window.addEventListener('scroll', anchorSticky);
+        anchorChange();
 
         if (anchorMenu) {
             anchorMenu.addEventListener('click', () => toggleMobileNav());
