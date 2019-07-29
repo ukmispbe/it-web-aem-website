@@ -2,6 +2,10 @@
     position: relative;
     width: 100%;
     text-align: center;
+    
+    @include mobile {
+        margin-bottom: $space-l;
+    }
 }
 
 .image-viewer-container {
@@ -85,8 +89,8 @@
     display: none;
 
     @include tablet-and-under {
-        width: 40px;
-        height: 50px;
+        width: 20px;
+        height: 51px;
         position: absolute;
         z-index: 1;
 
@@ -102,8 +106,8 @@
     display: none;
 
     @include tablet-and-under {
-        width: 40px;
-        height: 50px;
+        width: 20px;
+        height: 51px;
         position: absolute;
         z-index: 1;
         right: 0;
@@ -168,8 +172,8 @@
 }
 
 .image-thumbnails-container__image {
-    width: 80px;
-    height: 48px;
+    width: 79px;
+    height: 52px;
     background-repeat: no-repeat;
     background-size: cover;
     background-clip: border-box;
@@ -264,4 +268,11 @@
     .image-thumbnails-placeholder {
         display: static;
     }
+}
+
+
+// Style System
+
+.image-carousel--hero .image-carousel {
+    margin-top: $space-xl;
 }

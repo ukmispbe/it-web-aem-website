@@ -44,6 +44,7 @@
             padding-right: $space-xs;
             line-height: 1em;
         }
+
         &__price {
             @include font-h1;
             margin-bottom: $space-xxs;
@@ -52,10 +53,11 @@
         &__availability {
             padding: 0 $space-m 0 $space-s;
             @include font-h3;
+            height: 3em;
             margin-top: $space-xxxs;
             border-left: 1px solid $color-border-light;
             @include mobile {
-                padding: 0 0 0 $space-xxs;
+                padding: 0 0 0 $space-xs;
             }
         }
 
@@ -143,6 +145,12 @@
             }
         }
 
+        .cmp-sku-details__code {
+            @include font-utility;
+            font-size: $font-size-body;
+            margin-bottom: 0;
+        }
+
         .cmp-sku-details__container {
             width: 100%;
             display: flex;
@@ -169,7 +177,7 @@
             img {
                 display: block;
                 width: 92px;
-                height: 63px;
+                height: 61px;
                 border: 1px solid $color-border-light;
                 margin-right: $space-s;
             }
@@ -195,13 +203,6 @@
                     // @include tablet {
                     //     width: 90%;
                     // }
-                }
-
-                h3 {
-                    @include font-small;
-
-                    margin-block-start: 0;
-                    margin-block-end: 0;
                 }
             }
         }
@@ -249,7 +250,7 @@
 }
 
 .cmp-sku-details {
-    h3 {
+    &__code {
         @include font-h2;
         margin-bottom: $space-xxs;
     }
@@ -272,23 +273,53 @@
 }
 
 .cmp-sku-list {
-    h3 {
-        @include font-small;
+
+    &__code {
+        @include font-body;
+        @include font-utility;
+        margin-bottom: $space-xxxs;
+    }
+
+    &__availability {
+        @include font-body;
+        @include font-utility;
+        height: 3em;
+        padding-top: ($space-xxs + .1em);
+    }
+
+    &__priceinfo {
+        padding-right: $space-s;
+
+        span {
+            margin-bottom: $space-xxxs;
+            line-height: $line-height-text;
+        }
     }
 
     &__checkavailability {
+        padding-right: $space-xxxs;
+        @include font-body;
+        @include font-utility;
+        padding-top: $space-xxs;
+        cursor: pointer;
+
         svg {
-            width: $icon-m;
             fill: $color-icon;
             float: right;
+            width: ($icon-m - 0.25em);
+            margin-top: ($space-xxxs - 0.1em);
+
             &:hover {
+                transition: $hover-transition;
                 .st0,
                 .st1 {
                     stroke: $color-link;
                 }
             }
         }
+
         &:hover {
+            transition: $hover-transition;
             color: $color-link;
             svg {
                 .st0,
@@ -301,14 +332,14 @@
 
     h1 {
         @include font-h3;
+        margin-bottom: $space-xs;
     }
 
     &__container {
         background-color: $color-background-light;
         padding: $space-m $space-m 0 $space-m;
-        margin-bottom: $space-m;
         width: 100%;
-        margin-bottom: 2em;
+        margin-bottom: $space-s;
         clear: both;
     }
 
@@ -318,6 +349,10 @@
         @include mobile {
             display: none;
         }
+    }
+
+    &__price {
+        @include font-h3;
     }
 }
 
