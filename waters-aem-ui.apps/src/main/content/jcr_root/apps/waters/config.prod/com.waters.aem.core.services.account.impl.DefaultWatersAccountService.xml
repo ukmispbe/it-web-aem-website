@@ -5,4 +5,4 @@
           signInUrl="https://www.waters.com/waters/login.htm"
           signOutUrl="https://www.waters.com/waters/logout.htm"
           myAccountUrl="https://www.waters.com/waters/My-Account/nav.htm?cid=2243096"
-          searchPageUrl="https://www.waters.com/waters/keywordSearch.htm"/>
+          legacySearchUrl="https://www.waters.com/waters/keywordSearch.htm"/>

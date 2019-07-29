@@ -5,4 +5,4 @@
           signInUrl="https://wwwdt1.waters.com/waters/login.htm"
           signOutUrl="https://wwwdt1.waters.com/waters/logout.htm"
           myAccountUrl="https://wwwdt1.waters.com/waters/My-Account/nav.htm?cid=2243096"
-          searchPageUrl="https://wwwdt1.waters.com/waters/keywordSearch.htm"/>
+          legacySearchUrl="https://wwwdt1.waters.com/waters/keywordSearch.htm"/>
