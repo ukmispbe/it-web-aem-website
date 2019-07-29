@@ -4,4 +4,5 @@
           jcr:primaryType="sling:OsgiConfig"
           signInUrl="https://wwwsb.waters.com/waters/login.htm"
           signOutUrl="https://wwwsb.waters.com/waters/logout.htm"
-          myAccountUrl="https://wwwsb.waters.com/waters/My-Account/nav.htm?cid=2243096"/>
+          myAccountUrl="https://wwwsb.waters.com/waters/My-Account/nav.htm?cid=2243096"
+          legacySearchUrl="https://wwwsb.waters.com/waters/keywordSearch.htm"/>
