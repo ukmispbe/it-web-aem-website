@@ -4,7 +4,6 @@ import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
-import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.icfolson.aem.library.core.components.AbstractComponent;
@@ -19,8 +18,7 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 @Component(value = "Modal",
-    description = "This is the Modal component for Waters site",
-    tabs = @Tab(title = "Properties"))
+    description = "This is the Modal component for Waters site")
 @Model(adaptables = SlingHttpServletRequest.class,
     adapters = { Modal.class, ComponentExporter.class },
     resourceType = Modal.RESOURCE_TYPE,
