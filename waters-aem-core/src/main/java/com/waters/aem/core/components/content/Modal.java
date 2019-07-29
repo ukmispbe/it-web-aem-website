@@ -34,7 +34,7 @@ public class Modal extends AbstractComponent implements ComponentExporter {
     @DialogField(fieldLabel = "Source Text",
         fieldDescription = "Enter the source text",
         required = true,
-        ranking = 2)
+        ranking = 1)
     @TextField
     @Inject
     private String sourceText;
