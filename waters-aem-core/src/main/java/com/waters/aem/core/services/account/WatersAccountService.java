@@ -1,6 +1,6 @@
-package com.waters.aem.core.services.authentication;
+package com.waters.aem.core.services.account;
 
-public interface WatersAuthenticationService {
+public interface WatersAccountService {
 
     /**
      * Get the configured loginURL.
@@ -22,4 +22,11 @@ public interface WatersAuthenticationService {
      * @return my account URL
      */
     String getMyAccountUrl();
+
+    /**
+     * Get the configured search page URL.
+     *
+     * @return my account URL
+     */
+    String getLegacySearchUrl();
 }
