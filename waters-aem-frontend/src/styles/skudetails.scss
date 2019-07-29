@@ -189,7 +189,7 @@
                     width: 60%;
                 }
 
-                h1 {
+                .cmp-sku-details__title {
                     @include font-h3;
 
                     margin-block-start: 0;
@@ -330,7 +330,7 @@
         }
     }
 
-    h1 {
+    .cmp-sku-details__title {
         @include font-h3;
         margin-bottom: $space-xs;
     }
