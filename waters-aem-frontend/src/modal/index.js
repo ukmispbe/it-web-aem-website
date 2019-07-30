@@ -146,7 +146,7 @@ class Modal extends React.Component {
                         <div className="cmp-modal__box">
                             {state.config.closeIcon && (
                                 <div className="cmp-modal__close-icon cmp-utility-button">
-                                    <ReactSVG src={state.config.closeIcon} />
+                                    <ReactSVG onClick={() => this.closeModal()} src={state.config.closeIcon} />
                                 </div>
                             )}
 

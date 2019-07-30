@@ -141,12 +141,13 @@ if (imageGalleryContainers) {
 // }
 
 const skuDetailsContainer = document.querySelector('.cmp-sku-details__stockcontainer');
+const skuConfig = JSON.parse(
+    document.getElementById('cmp-sku-details-0001').innerHTML
+);
 
 if (skuDetailsContainer) {
     ReactDOM.render(
-        <SkuDetails 
-            sku="WAT036980"
-            name="Nova-Pak Silica Cartridge, 60Å, 4 µm, 3.9 mm X 150 mm, 1/pk"
-            quantity={20}
+        <SkuDetails
+            config={skuConfig}
         />, skuDetailsContainer);
 }
