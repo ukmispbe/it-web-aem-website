@@ -12,9 +12,6 @@
       }
 
       & > .cmp-navigation__item:nth-child(#{$i}) {
-         -ms-grid-row: $row; 
-         -ms-grid-column: $column;
-
          grid-area: column#{$column}_row#{$row};
 
          @if $i > $itemsPerRow {
@@ -107,13 +104,8 @@ nav.cmp-navigation {
          }
 
          & > .cmp-navigation__group.cmp-navigation__group--col-2 {
-            display: -ms-grid;
             display: grid;
-            
-            -ms-grid-rows: auto;
             grid-template-rows: auto;
-            
-            -ms-grid-columns: 335px 335px;
             grid-template-columns: 335px 335px;
 
             grid-template-areas:
@@ -131,13 +123,8 @@ nav.cmp-navigation {
          }
 
          & > .cmp-navigation__group.cmp-navigation__group--col-3 {
-            display: -ms-grid;
             display: grid;
-
-            -ms-grid-rows: auto;
             grid-template-rows: auto;
-
-            -ms-grid-columns: 335px 335px 1fr;
             grid-template-columns: 335px 335px 1fr;
 
             grid-template-areas:
