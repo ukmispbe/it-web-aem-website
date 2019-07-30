@@ -1,5 +1,4 @@
 .cmp-header {
-    border-bottom: 1px solid $color-border-light;
     background-color: $color-white;
     position: relative;
     width: 100%;
@@ -7,8 +6,9 @@
     z-index: 100;
     margin-bottom: $space-l;
 
-    .container{
+    .container:first-of-type{
         display: flex;
+        border-bottom: 1px solid #c6cdd2;
     }
 
     @include mobile {
@@ -116,11 +116,12 @@
         &__dropdown {
             width: 100%;
             position: absolute;
-            top: 47px;
+            z-index: 999;
+            top: 44px;
             background-color: $color-white;
             margin:0 !important;
             padding-bottom: $space-s !important;
-            border-top: 3px solid $color-gray-50;
+            border-top: 4px solid $color-gray-50;
             opacity: 0;
             transition: all 0.25s ease;
             visibility: hidden;
@@ -161,12 +162,12 @@
             #{$user}__link{
 
                 &:hover{
-                    color: $color-icon;
+                    color: $color-link;
                 }
 
                 svg .st1,
                 svg .st0{
-                    stroke: $color-link;
+                    stroke: $color-teal-30;
                 }  
             }
 
