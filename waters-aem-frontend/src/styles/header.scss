@@ -117,11 +117,11 @@
             width: 100%;
             position: absolute;
             z-index: 999;
-            top: 47px;
+            top: 44px;
             background-color: $color-white;
             margin:0 !important;
             padding-bottom: $space-s !important;
-            border-top: 3px solid $color-gray-50;
+            border-top: 4px solid $color-gray-50;
             opacity: 0;
             transition: all 0.25s ease;
             visibility: hidden;
@@ -162,12 +162,12 @@
             #{$user}__link{
 
                 &:hover{
-                    color: $color-icon;
+                    color: $color-link;
                 }
 
                 svg .st1,
                 svg .st0{
-                    stroke: $color-link;
+                    stroke: $color-teal-30;
                 }  
             }
 
