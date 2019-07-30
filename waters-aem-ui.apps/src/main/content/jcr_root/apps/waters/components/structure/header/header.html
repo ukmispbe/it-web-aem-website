@@ -7,7 +7,7 @@
         </div>
         <nav class="cmp-header__links">
             <ul>
-                <li class="cmp-header__links__item">
+                <li class="cmp-header__links__item cmp-header__search">
                     <a class="cmp-header-links__link" href="${header.searchPath.href}">
                         <span>${'Search Library' @ i18n}</span>
                         <img alt="${'See Availability' @ i18n}" src="/content/dam/waters/brand-assets/icons/search.svg" class="inline-svg">
@@ -34,8 +34,8 @@
                     </ul>
                 </li>
 
-                <li class="cmp-external-header__links__item">
-                    <!-- //is-active -->
+                <li class="cmp-header__links__item cmp-header__mobile">
+                    <div class="cmp-header__mobile__divider"></div>
                     <button class="hamburger hamburger--slider" type="button">
                       <span class="hamburger-box">
                         <span class="hamburger-inner"></span>
@@ -43,7 +43,6 @@
                     </button>
                 </li>
             </ul>
-
         </nav>
     </div>
 </header>

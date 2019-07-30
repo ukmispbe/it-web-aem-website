@@ -2,6 +2,7 @@
     border-bottom: 1px solid $color-border-light;
     background-color: $color-white;
     position: relative;
+    z-index: 999;
     width: 100%;
     height: auto;
     z-index: 100;
@@ -29,6 +30,7 @@
         align-self: center;
 
         ul {
+            display: flex;
             list-style: none;
             padding: 0;
             margin: $space-xs 0 0 0;
@@ -39,13 +41,14 @@
             margin-left: $space-s;
             margin-bottom: 0;
 
-            &:first-of-type {
+            &:first-of-type,
+            &:last-of-type {
                 margin-left: 0;
             }
 
             span {
-                float: left;
                 display: inline-block;
+                float: left;
 
                 @include mobile {
                     display: none;
@@ -193,6 +196,18 @@
 
 
 
+        }
+    }
+
+
+    &__mobile {
+        @include tablet-and-over {
+            display: none;
+        }
+        &__divider {
+            border-left: 1px solid $color-border-light;
+            height: 2em;
+            margin: 0 $space-s;
         }
     }
 }

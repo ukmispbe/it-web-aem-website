@@ -2,7 +2,7 @@ import domElements from '../scripts/domElements';
 import loginStatus from '../scripts/loginStatus';
 import screenSizes from '../scripts/screenSizes';
 
-let loginNavItem, loginList, greetingText;
+let loginNavItem, loginList, greetingText, mobileMenuToggle;
 
 const headerInit = function() {
     domReferences();
@@ -14,10 +14,12 @@ function domReferences() {
     loginNavItem = document.querySelector('.cmp-header__user');
     loginList = document.querySelector('.cmp-header__user__link');
     greetingText = document.querySelector('.cmp-header__user__link__greeting-text');
+    mobileMenuToggle = document.querySelector('.cmp-header__mobile button');
 }
 
 function addEventListeners() { 
     loginList.addEventListener('click', loginListHandler);
+    mobileMenuToggle.addEventListener('click', toggleMobileMenu);
 }
 
 function render() { 
@@ -40,6 +42,14 @@ function loginListHandler(e) {
         if (e.currentTarget.dataset.loginUrl) { 
             window.open(e.currentTarget.dataset.loginUrl, e.currentTarget.target);
         }
+    }
+}
+
+function toggleMobileMenu(e) { 
+    if (domElements.hasClass(e.currentTarget, 'is-active')) {
+        domElements.removeClass(e.currentTarget, 'is-active');
+    } else { 
+    domElements.addClass(e.currentTarget, 'is-active');
     }
 }
 
