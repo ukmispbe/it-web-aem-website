@@ -2,7 +2,7 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
           xmlns:jcr="http://www.jcp.org/jcr/1.0"
           jcr:primaryType="sling:OsgiConfig"
-          signInUrl="https://www.waters.com/waters/login.htm"
-          signOutUrl="https://www.waters.com/waters/logout.htm"
+          signInUrl="https://www.waters.com/waters/login.htm?redirectUrl=https://www.waters.com"
+          signOutUrl="https://www.waters.com/waters/logOut.htm"
           myAccountUrl="https://www.waters.com/waters/My-Account/nav.htm?cid=2243096"
           legacySearchUrl="https://www.waters.com/waters/keywordSearch.htm"/>
