@@ -2,16 +2,21 @@ package com.waters.aem.solr.index.builder;
 
 import com.day.cq.commons.Externalizer;
 import com.day.cq.tagging.Tag;
+import com.day.cq.wcm.api.NameConstants;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.enums.TitleType;
+import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
 import com.waters.aem.core.commerce.models.Classification;
 import com.waters.aem.core.commerce.models.DisplayableSku;
 import com.waters.aem.core.commerce.models.Sku;
+import com.waters.aem.core.commerce.models.SkuSalesStatus;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.components.content.Text;
 import com.waters.aem.core.components.structure.page.Thumbnail;
+import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.metadata.ContentClassification;
 import com.waters.aem.core.utils.SearchUtils;
+import com.waters.aem.core.utils.Templates;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.AbstractResourceVisitor;
 import org.apache.sling.api.resource.Resource;
@@ -31,6 +36,8 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -106,7 +113,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
 
         if (thumbnailImage != null) {
             document.setField("thumbnail", externalizer.externalLink(resourceResolver, Externalizer.PUBLISH,
-                thumbnailImage));
+            thumbnailImage));
         }
 
         final String content = getPageContent();
@@ -120,6 +127,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         }
 
         addContentClassification(document);
+
         addSkuData(document);
 
         LOG.debug("created solr input document : {}", document);
@@ -168,17 +176,64 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         if (skuOptional.isPresent()) {
             final Sku sku = skuOptional.get();
 
-            //TODO add sku data to document
+            final DisplayableSku displayableSku = new DisplayableSku(sku, page.getContentResource(), siteContext);
 
-            final String title = sku.getTitle();
+            final String skuCode = sku.getCode();
+
+            if(StringUtils.isNotEmpty(skuCode)){
+                document.setField("skucode", skuCode);
+            }
+
+            final String currencyIso = siteContext.getCurrencyIsoCode();
+
+            if(StringUtils.isNotEmpty(currencyIso)){
+                document.setField("currencuCode", currencyIso);
+            }
+
+            final String status = sku.getSalesStatus().toString();
+
+            if(StringUtils.isNotEmpty(status)){
+                document.setField("status", status);
+            }
 
             final BigDecimal price = sku.getPrice(
-                    siteContext.getLocaleWithCountry().getCountry(), siteContext.getCurrencyIsoCode());
+                    siteContext.getLocaleWithCountry().getCountry(), currencyIso);
+
+            if(price != null && price.compareTo(BigDecimal.ZERO) > 0) {
+                document.setField("price", price);
+            }
+
+            final String replacementSkuCode = displayableSku.getReplacementSkuCode();
+
+            if(StringUtils.isNotEmpty(replacementSkuCode)){
+                document.setField("replacementskucode", replacementSkuCode);
+            }
+
+            final String replacementSkuHref = displayableSku.getReplacementSkuPageHref();
+
+            if(StringUtils.isNotEmpty(replacementSkuHref)){
+                document.setField("replacementskuurl", replacementSkuHref);
+            }
+
+            if(StringUtils.isNotEmpty(status)){
+                document.setField("currencuCode", currencyIso);
+            }
 
             final List<Classification> classifications = sku.getClassifications();
 
-            final String primaryImage = new DisplayableSku(sku, page.getContentResource(), siteContext)
-                    .getPrimaryImageSrc();
+            for (final Classification classification : classifications) {
+                if(classification.getFacet()) {
+                    document.setField(SearchUtils.getSolrFacetName(classification.getTitle()), classification.getFormattedFeatureValues());
+                }
+            }
+
+            final Date datePublished = page.getProperties().get(NameConstants.PN_PAGE_LAST_REPLICATED, Date.class);
+
+            if(datePublished != null) {
+                final String formattedDate = WatersConstants.DATE_FORMAT_ISO_8601.format(datePublished);
+                document.setField("yearpublished_facet", formattedDate);
+            }
+
         }
     }
 
@@ -208,6 +263,14 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
                 document.addField(fieldName, tag.getTitle(locale));
             }
         }
+    }
+
+    private String getYear(Date datePublished) {
+
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(datePublished);
+
+        return  WatersConstants.DATE_FORMAT_ISO_8601.format(datePublished);
     }
 
     private void addDate(final SolrInputDocument document, final ContentClassification contentClassification) {
