@@ -17,6 +17,7 @@ import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.account.WatersAccountService;
+import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.waters.aem.core.services.launch.AdobeLaunchService;
 import com.waters.aem.core.utils.LinkUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -43,6 +44,9 @@ public final class Header extends AbstractComponent implements ComponentExporter
 
     @OSGiService
     private WatersAccountService watersAccountService;
+
+    @OSGiService
+    private WatersCommerceService watersCommerceService;
 
     @OSGiService
     private AdobeLaunchService adobeLaunchService;
@@ -116,6 +120,10 @@ public final class Header extends AbstractComponent implements ComponentExporter
 
     public String getLegacySearchUrl() {
         return watersAccountService.getLegacySearchUrl();
+    }
+
+    public String getCartUrl() {
+        return watersCommerceService.getCartUrl();
     }
 
     public String getLaunchScript() {
