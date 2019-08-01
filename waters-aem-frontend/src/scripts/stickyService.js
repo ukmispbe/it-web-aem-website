@@ -241,6 +241,10 @@ class Sticky {
             return wait(sticky.add(el));
         }
 
+        if (!el.element) {
+            return;
+        }
+
         const rect = el.element.getBoundingClientRect();
         el.boundingClient = Object.assign(
             {},
