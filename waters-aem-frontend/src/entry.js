@@ -1,6 +1,7 @@
 // main JS and SCSS entry file
 
 import './styles/index.scss';
+import './scripts/stickyService';
 import './scripts/backtotop';
 import './scripts/share';
 import './scripts/anchor';

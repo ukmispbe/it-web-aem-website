@@ -1,7 +1,6 @@
 var Slang = require('./slang');
 var path = require('path');
 var requireContext = require('require-context');
-const glob = require('glob');
 
 function WebpackSlangPlugin(options) {
     this.jsPath = options.jsPath;
