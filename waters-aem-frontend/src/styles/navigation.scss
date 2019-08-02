@@ -52,7 +52,7 @@ nav.cmp-navigation {
 
             &:hover {
                cursor: pointer;
-               border-top: 3px solid $color-gray-50;
+               border-top: 3px solid transparent;
             }
 
             &::after {
