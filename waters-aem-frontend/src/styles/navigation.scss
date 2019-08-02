@@ -36,9 +36,6 @@
 }
 
 nav.cmp-navigation {
-   white-space: nowrap;
-   overflow-x: scroll;
-
    & > .cmp-navigation__group {
       padding: 0;
       
@@ -56,7 +53,7 @@ nav.cmp-navigation {
 
             &:hover {
                cursor: pointer;
-               border-top: 3px solid $color-gray-50;
+               border-top: 3px solid  $color-gray-50;
             }
 
             &::after {
