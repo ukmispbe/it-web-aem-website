@@ -13,6 +13,8 @@
 }
 
 nav.cmp-navigation {
+   white-space: no-wrap;
+   
    & > .cmp-navigation__group {
       padding: 0;
       
