@@ -1,49 +1,52 @@
 <header data-sly-use.header="com.waters.aem.core.components.structure.Header" class="cmp-header" data-search-path="${header.searchPath.href}">
-    <div class="container">
-        <div class="cmp-header__logo">
-            <a class="cmp-header-logo__link" href="${header.logoLink.href}" target="${header.external ? '_blank' :''}">
-                <img src="${header.logo.fileReference}" alt="${header.logoAltText}"/>
-            </a>
+    <div class="cmp-header__overlay overlay"></div>
+    <div class="cmp-header__top-bar">
+        <div class="container">
+            <div class="cmp-header__top-bar__logo">
+                <a class="cmp-header__top-bar__logo__link cmp-header-links__link" href="${header.logoLink.href}" target="${header.external ? '_blank' :''}">
+                    <img src="${header.logo.fileReference}" alt="${header.logoAltText}"/>
+                </a>
+            </div>
+            <nav class="cmp-header__top-bar__nav">
+                <ul>
+                    <li class="top-bar__nav__search top-bar__nav__item">
+                        <a class="cmp-header-links__link" href="${header.legacySearchUrl}">
+                            <span>${'Search' @ i18n}</span>
+                            <img alt="${'Search' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/search.svg" class="inline-svg">
+                        </a>
+                    </li>
+                    <li class="top-bar__nav__user top-bar__nav__item">
+                        <a class="top-bar__nav__user__link cmp-header-links__link" href="javascript:;" target="_self" data-login-url="${header.signInUrl}">
+                            <span class="sign-in-text">Sign In</span>
+                            <span class="greeting-text"></span>
+                            <img alt="${'Sign In' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/user.svg" class="inline-svg">
+                        </a>
+
+                        <ul class="top-bar__nav__user__dropdown">
+                            <li class="top-bar__nav__user__dropdown__item">
+                                <a class="cmp-header-links__link" href="${header.myAccountUrl}" target="_self">
+                                    <span>My Account</span>
+                                </a>
+                            </li>
+                            <li class="top-bar__nav__user__dropdown__item">
+                                <a class="cmp-header-links__link" href="${header.signOutUrl}" target="_self">
+                                    <span>Sign Out</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="top-bar__nav__cart top-bar__nav__item">
+                        <a class="cmp-header-links__link" href="${header.cartUrl}">
+                            <span>${'Cart' @ i18n}</span>
+                            <img alt="${'Cart' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/cart.svg" class="inline-svg">
+                        </a>
+                    </li>
+                </ul>
+
+            </nav>
         </div>
-        <nav class="cmp-header__links">
-            <ul>
-                <li class="cmp-header__links__item">
-                    <a class="cmp-header-links__link" href="${header.legacySearchUrl}">
-                        <span>${'Search' @ i18n}</span>
-                        <img alt="${'Search' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/search.svg" class="inline-svg">
-                    </a>
-                </li>
-                <li class="cmp-header__links__item cmp-header__user">
-                    <a class="cmp-header-links__link cmp-header__user__link" href="javascript:;" target="_self" data-login-url="${header.signInUrl}">
-                        <span class="cmp-header__user__link__sign-in-text">Sign In</span>
-                        <span class="cmp-header__user__link__greeting-text"></span>
-                        <img alt="${'Sign In' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/user.svg" class="inline-svg">
-                    </a>
-
-                    <ul class="cmp-header__user__dropdown">
-                        <li class="cmp-header__user__dropdown__item">
-                            <a class="cmp-header__user__dropdown__link" href="${header.myAccountUrl}" target="_self">
-                                <span>My Account</span>
-                            </a>
-                        </li>
-                        <li class="cmp-header__user__dropdown__item">
-                            <a class="cmp-header__user__dropdown__link" href="${header.signOutUrl}" target="_self">
-                                <span>Sign Out</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="cmp-header__links__item">
-                    <a class="cmp-header-links__link" href="${header.cartUrl}">
-                        <span>${'Cart' @ i18n}</span>
-                        <img alt="${'Cart' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/cart.svg" class="inline-svg">
-                    </a>
-                </li>
-            </ul>
-
-        </nav>
     </div>
-    <div class="container">
+    <div class="cmp-header__navigation container">
         <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
     </div>
 </header>
