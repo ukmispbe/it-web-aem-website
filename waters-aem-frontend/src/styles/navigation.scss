@@ -13,8 +13,9 @@
 }
 
 nav.cmp-navigation {
-   white-space: no-wrap;
-   
+   white-space: nowrap;
+   overflow-x: scroll;
+
    & > .cmp-navigation__group {
       padding: 0;
       
