@@ -1,5 +1,4 @@
 import screenSizes from './screenSizes';
-import Sticky from './sticky';
 import sticky from './stickyService';
 
 const SortFilterSticky = () => {
