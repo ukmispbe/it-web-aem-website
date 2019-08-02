@@ -1,213 +1,233 @@
+@import "hamburgers";
+
 .cmp-header {
-    border-bottom: 1px solid $color-border-light;
     background-color: $color-white;
     position: relative;
-    z-index: 999;
     width: 100%;
     height: auto;
     z-index: 100;
     margin-bottom: $space-l;
 
-    .container{
-        display: flex;
-    }
-
     @include mobile {
         margin-bottom: $space-m;
     }
 
-    &__logo {
-        padding: ($space-s + $space-xxxs) 0 $space-s 0;
-        width: 115px;
-        
-        img {
-            height: 32px;
-        }
-    }
-
-    &__links {
-        margin-left: auto;
-        align-self: center;
-
-        ul {
-            display: flex;
-            list-style: none;
-            padding: 0;
-            margin: $space-xs 0 0 0;
-        }
-
-        &__item {
-            display: inline-block;
-            margin-left: $space-s;
-            margin-bottom: 0;
-
-            &:first-of-type,
-            &:last-of-type {
-                margin-left: 0;
-            }
-
-            span {
-                display: inline-block;
-                float: left;
-
-                @include mobile {
-                    display: none;
-                }
-            }
-
-            a {
-                @include font-utility;
-                display: inline-block;
-
-                &:hover {
-                    color: $color-link;
-
-                    & svg .st0,
-                    & svg .st1 {
-                        stroke: $color-link;
-                    }
-                }
-
-                &:active {
-                    @include font-utility;
-
-                    & svg .st0,
-                    & svg .st1 {
-                        stroke: $color-icon;
-                    }
-                }
-            }
-
-            img.inline-svg {
-                display: none;
-            }
-
-            svg {
-                display: inline-block;
-                float: left;
-                width: 30px;
-                height: 25px;
-                padding-left: 0.3em;
-
-                .st0,
-                .st1 {
-                    stroke: $color-gray-50;
-                }
-
-                @include mobile {
-                    width: 26px;
-                    height: 26px;
-                    padding-left: 0;
-                }
-            }
-        }
-    }
-
-    &__user {
-        $user: &;
-        position: relative;
-        min-width: 135px;
+    &__overlay.overlay{
+        z-index: 999;
+        height: 1000%;
 
         @include mobile {
-            min-width: 0 !important;
-        }
-
-        span#{$user}__link__greeting-text {
-            display: none;
-        }
-
-        &__dropdown {
-            width: 100%;
-            position: absolute;
-            top: 47px;
-            background-color: $color-white;
-            margin:0 !important;
-            padding-bottom: $space-s !important;
-            border-top: 3px solid $color-gray-50;
-            opacity: 0;
-            transition: all 0.25s ease;
-            visibility: hidden;
-            box-shadow: $shadow;
-
-
-            &__item{
-
-                margin-bottom: 0;
-
-                a {
-                    span{
-                        display: block;
-                        float: none;
-                        padding: 14px 10px 2px 23px;
-                    }
-
-                    @include font-utility;
-                    transition: $hover-transition;
-    
-                    &:hover {
-                        color: $color-link;
-                    }
-    
-                    &:active {
-                        @include font-utility;
-                    }
-                }
-                a:hover{
-                    text-decoration: none;
-                }
-            }
-        }
-
-        &.loggedIn{    
-
-
-            #{$user}__link{
-
-                &:hover{
-                    color: $color-icon;
-                }
-
-                svg .st1,
-                svg .st0{
-                    stroke: $color-link;
-                }  
-            }
-
-            span#{$user}__link__greeting-text {
-                display: inline-block;
-
-                @include mobile {
-                    display: none
-                }
-            }
-    
-            span#{$user}__link__sign-in-text {
-                display: none;
-            }
-
-            @include tablet-and-over{
-                &:hover{
-                    #{$user}__dropdown{
-                        visibility: visible;
-                        opacity: 1;
-                    }
-                }
-            }
-
-
-
+            display: none !important;
         }
     }
 
+    &__top-bar{
+        position: relative;
+        z-index: 1000;
+        background: $color-white;
+        border-bottom: 1px solid #c6cdd2;
 
-    &__mobile {
-        @include tablet-and-over {
-            display: none;
+        .container {
+            display: flex;
+            
         }
-        &__divider {
-            border-left: 1px solid $color-border-light;
-            height: 2em;
-            margin: 0 $space-s;
+
+        &__logo {
+            padding: ($space-s + $space-xxxs) 0 $space-s 0;
+            width: 115px;
+            
+            img {
+                height: 32px;
+            }
+        }
+    
+        &__nav {
+            margin-left: auto;
+    
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                height: 100%;
+
+                li {
+                    height: 100%;
+                    display: inline-flex;
+                    align-items: center;
+                    margin-left: $space-s;
+                    margin-bottom: 0;
+        
+                    &:first-of-type {
+                        margin-left: 0;
+                    }
+        
+                    span {
+                        float: left;
+                        // display: inline-block;
+        
+                        @include mobile {
+                            display: none;
+                        }
+                    }
+        
+                    svg,
+                    img.inline-svg {
+                        display: inline-block;
+                        float: left;
+                        width: 30px;
+                        height: 25px;
+                        padding-left: 0.3em;
+        
+                        .st0,
+                        .st1 {
+                            stroke: $color-gray-50;
+                        }
+        
+                        @include mobile {
+                            width: 26px;
+                            height: 26px;
+                            padding-left: 0;
+                        }
+                    }
+                }
+            }
+    
+
+
+            .top-bar__nav__user {
+                position: relative;
+                z-index: 1000;
+        
+                @include mobile {
+                    min-width: 0 !important;
+                }
+        
+                .greeting-text {
+                    display: none;
+                }
+        
+                &__dropdown {
+                    width: 100%;
+                    height: auto;
+                    min-width: 135px;
+                    position: absolute;
+                    top: 74px;
+                    background-color: $color-white;
+                    margin:0 !important;
+                    padding-bottom: $space-s !important;
+                    border-top: 4px solid $color-gray-50;
+                    opacity: 0;
+                    transition: all 0.25s ease;
+                    visibility: hidden;
+                    box-shadow: $shadow;
+        
+        
+                    &__item{
+                        margin: 0;
+                        width: 100%;
+        
+                        a {
+                            span{
+                                display: block;
+                                float: none;
+                                padding: 14px 10px 2px 23px;
+                            }
+        
+                            @include font-utility;
+                            transition: $hover-transition;
+            
+                            &:hover {
+                                color: $color-link;
+                            }
+            
+                            &:active {
+                                @include font-utility;
+                            }
+                        }
+                        a:hover{
+                            text-decoration: none;
+                        }
+                    }
+                }
+        
+                &.loggedIn{      
+                    .top-bar__nav__user__link{
+        
+                        &:hover{
+                            color: $color-link;
+                        }
+        
+                        svg .st1,
+                        svg .st0{
+                            stroke: $color-teal-30;
+                        }  
+                    }
+        
+                    .greeting-text {
+                        display: inline-block;
+        
+                        @include mobile {
+                            display: none
+                        }
+                    }
+            
+                    .sign-in-text {
+                        display: none;
+                    }
+        
+                    @include tablet-and-over{
+                        &:hover{
+                            .top-bar__nav__user__dropdown{
+                                visibility: visible;
+                                opacity: 1;
+                            }
+                        }
+                    }
+        
+        
+        
+                }
+            }
+        }
+    
+        &__mobile {
+            @include tablet-and-over {
+                display: none;
+            }
+            &__divider {
+                border-left: 1px solid $color-border-light;
+                height: 2em;
+                margin: 0 $space-s;
+            }
+        }
+
+
+    }
+
+
+
+
+}
+
+.cmp-header-links__link{
+    @include font-utility;
+    display: inline-block;
+
+    &:hover {
+        color: $color-link;
+        & svg .st0,
+        & svg .st1 {
+            stroke: $color-link;
+        }
+    }
+    &:active {
+        @include font-utility;
+        & svg .st0,
+        & svg .st1 {
+            stroke: $color-icon;
         }
     }
 }
+
+
+

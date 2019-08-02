@@ -2,7 +2,7 @@ import domElements from '../scripts/domElements';
 import loginStatus from '../scripts/loginStatus';
 import screenSizes from '../scripts/screenSizes';
 
-let loginNavItem, loginList, greetingText, mobileMenuToggle;
+let loginNavItem, headerOverlay, loginList, greetingText, mobileMenuToggle;
 
 const headerInit = function() {
     domReferences();
@@ -11,15 +11,18 @@ const headerInit = function() {
 }
 
 function domReferences() { 
-    loginNavItem = document.querySelector('.cmp-header__user');
-    loginList = document.querySelector('.cmp-header__user__link');
-    greetingText = document.querySelector('.cmp-header__user__link__greeting-text');
+    loginNavItem = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
+    headerOverlay = document.querySelector('.cmp-header__overlay.overlay');
+    loginList = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link');
+    greetingText = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link .greeting-text');
     mobileMenuToggle = document.querySelector('.cmp-header__mobile button');
 }
 
 function addEventListeners() { 
     loginList.addEventListener('click', loginListHandler);
     mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+    loginNavItem.addEventListener('mouseover', updateOverlay);
+    loginNavItem.addEventListener('mouseleave', updateOverlay);
 }
 
 function render() { 
@@ -45,11 +48,19 @@ function loginListHandler(e) {
     }
 }
 
-function toggleMobileMenu(e) { 
+function updateOverlay(e){ 
+    if (e.type == 'mouseover') {
+        domElements.addClass(headerOverlay, 'active');
+    } else { 
+        domElements.removeClass(headerOverlay, 'active');
+    }
+}
+
+function toggleMobileMenu(e) {
     if (domElements.hasClass(e.currentTarget, 'is-active')) {
         domElements.removeClass(e.currentTarget, 'is-active');
-    } else { 
-    domElements.addClass(e.currentTarget, 'is-active');
+    } else {
+        domElements.addClass(e.currentTarget, 'is-active');
     }
 }
 

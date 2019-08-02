@@ -178,3 +178,7 @@ blockquote {
     @include font-small;
     font-style: italic;
 }
+
+.cmp-text--noPadding .cmp-text {
+    padding-bottom: 0;
+}
