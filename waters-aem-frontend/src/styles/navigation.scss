@@ -49,10 +49,11 @@ nav.cmp-navigation {
             height: 67px;
             align-content: center;
             display: inline-grid;
+            border-top: 3px solid transparent;
 
             &:hover {
                cursor: pointer;
-               border-top: 3px solid transparent;
+               border-top: 3px solid  $color-gray-50;
             }
 
             &::after {
