@@ -61,7 +61,7 @@
                         margin-left: 0;
                     }
         
-                    span {
+                    .cmp-header-links__link > span {
                         float: left;
                         // display: inline-block;
         
@@ -188,20 +188,18 @@
         
                 }
             }
-        }
-    
-        &__mobile {
-            @include tablet-and-over {
-                display: none;
-            }
-            &__divider {
-                border-left: 1px solid $color-border-light;
-                height: 2em;
-                margin: 0 $space-s;
-            }
-        }
 
-
+            .top-bar__nav__mobile {
+                @include tablet-and-over {
+                    display: none;
+                }
+                &__divider {
+                    border-left: 1px solid $color-border-light;
+                    height: 2em;
+                    margin: 0 $space-s;
+                }
+            }
+        }
     }
 
 

@@ -15,7 +15,7 @@ function domReferences() {
     headerOverlay = document.querySelector('.cmp-header__overlay.overlay');
     loginList = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link');
     greetingText = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link .greeting-text');
-    mobileMenuToggle = document.querySelector('.cmp-header__mobile button');
+    mobileMenuToggle = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile button');
 }
 
 function addEventListeners() { 
