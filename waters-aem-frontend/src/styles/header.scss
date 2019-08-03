@@ -161,10 +161,6 @@
 
             #{$user}__link{
 
-                &:hover{
-                    color: $color-link;
-                }
-
                 svg .st1,
                 svg .st0{
                     stroke: $color-teal-30;
