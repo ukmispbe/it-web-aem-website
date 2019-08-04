@@ -19,7 +19,7 @@ public final class WatersConstants {
 
     public static final String DAM_PATH = "/content/dam/waters";
 
-    public static final String DAM_PATH_APP_NOTES = "/content/dam/waters/app-notes/";
+    public static final String DAM_PATH_APP_NOTES = "/content/dam/waters/en/app-notes/";
 
     public static final String RESOURCE_TYPE_PAGE = "waters/components/structure/page";
 
@@ -54,7 +54,7 @@ public final class WatersConstants {
 
     public static final String PROPERTY_REDIRECT_TARGET = "redirectTarget";
 
-    public static final String DAM_ICON_PATH = "/content/dam/waters/brand-assets/icons";
+    public static final String DAM_ICON_PATH = "/content/dam/waters/en/brand-assets/icons";
 
     public static final int LEVEL_SITE_ROOT = 2;
 
