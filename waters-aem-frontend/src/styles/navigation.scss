@@ -30,18 +30,37 @@
    width: 105%!important;
    padding: 0 $space-xl;
    margin: 0 (($space-xl - (14/(16*1.1)))*-1)!important; 
-   &:hover {
-      box-shadow: 0px 2px 1px -1px rgba(79, 91, 100, 0.2);
-   }
 }
 
 nav.cmp-navigation {
    white-space: nowrap;
    overflow-x: scroll;
+   height: inherit;
+
+   &::after {
+       width: 100%;
+       height: 67px;
+       content: '';
+       position: absolute;
+       box-shadow: $shadow; 
+       left: 0;
+       top: 0;
+       z-index: 1000;
+       visibility: hidden;
+       background: none;
+       pointer-events: none;
+   }
+
+   &:hover {
+      &::after {
+         visibility: visible;
+      }
+   }
 
    & > .cmp-navigation__group {
       padding: 0;
-      
+      margin-bottom: 0;
+
       & > .cmp-navigation__item {
          @include font-h3;
          margin-right: $space-xl;
@@ -50,6 +69,7 @@ nav.cmp-navigation {
 
          &--level-0 {
             height: 67px;
+            z-index: 1001;
             align-content: center;
             display: inline-grid;
             border-top: 3px solid transparent;
