@@ -36,6 +36,9 @@
 }
 
 nav.cmp-navigation {
+   white-space: nowrap;
+   overflow-x: scroll;
+
    & > .cmp-navigation__group {
       padding: 0;
       
@@ -60,7 +63,7 @@ nav.cmp-navigation {
                content: '';
                margin-top: -48px;
                width: $space-xl + 0.3em;
-               position: relative;
+               position: absolute;
                top: -70%;
                left: 100%;
                float: right;
@@ -70,6 +73,10 @@ nav.cmp-navigation {
 
          & > .cmp-navigation__item-link {
             color: $color-font-medium;
+            -webkit-transition: none;
+            -o-transition: none;
+            -moz-transition: none;
+            transition: none;
 
             &:hover {
                color: $color-font-dark;
@@ -144,9 +151,23 @@ nav.cmp-navigation {
 
          &:hover > .cmp-navigation__group {
             visibility: visible;
+
+            & .cmp-navigation__item-link {
+               -webkit-transition: none;
+               -o-transition: none;
+               -moz-transition: none;
+               transition: none;
+            }
          }
       }
    }
+}
+
+.cmp-navigation__item-link {
+   -webkit-transition: none;
+   -o-transition: none;
+   -moz-transition: none;
+   transition: none;
 }
 
 .cmp-navigation-overlay__container {
