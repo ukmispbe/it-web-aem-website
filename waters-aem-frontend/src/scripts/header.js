@@ -2,7 +2,7 @@ import domElements from '../scripts/domElements';
 import loginStatus from '../scripts/loginStatus';
 import screenSizes from '../scripts/screenSizes';
 
-let loginNavItem, loginList, greetingText;
+let loginNavItem, headerOverlay, loginList, greetingText;
 
 const headerInit = function() {
     domReferences();
@@ -11,13 +11,16 @@ const headerInit = function() {
 }
 
 function domReferences() { 
-    loginNavItem = document.querySelector('.cmp-header__user');
-    loginList = document.querySelector('.cmp-header__user__link');
-    greetingText = document.querySelector('.cmp-header__user__link__greeting-text');
+    loginNavItem = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
+    headerOverlay = document.querySelector('.cmp-header__overlay.overlay');
+    loginList = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link');
+    greetingText = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link .greeting-text');    
 }
 
 function addEventListeners() { 
     loginList.addEventListener('click', loginListHandler);
+    loginNavItem.addEventListener('mouseover', updateOverlay);
+    loginNavItem.addEventListener('mouseleave', updateOverlay);
 }
 
 function render() { 
@@ -40,6 +43,14 @@ function loginListHandler(e) {
         if (e.currentTarget.dataset.loginUrl) { 
             window.open(e.currentTarget.dataset.loginUrl, e.currentTarget.target);
         }
+    }
+}
+
+function updateOverlay(e){ 
+    if (e.type == 'mouseover') {
+        domElements.addClass(headerOverlay, 'active');
+    } else { 
+        domElements.removeClass(headerOverlay, 'active');
     }
 }
 
