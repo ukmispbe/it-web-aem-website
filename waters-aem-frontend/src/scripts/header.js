@@ -2,7 +2,7 @@ import domElements from '../scripts/domElements';
 import loginStatus from '../scripts/loginStatus';
 import screenSizes from '../scripts/screenSizes';
 
-let loginNavItem, headerOverlay, loginList, greetingText, mobileMenuToggle;
+let loginNavItem, headerOverlay, loginList, greetingText, mobileMenuToggle, headerNavigation;
 
 const headerInit = function() {
     domReferences();
@@ -16,6 +16,7 @@ function domReferences() {
     loginList = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link');
     greetingText = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link .greeting-text');
     mobileMenuToggle = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile button');
+    headerNavigation = document.querySelector('.cmp-header__navigation');    
 }
 
 function addEventListeners() { 
@@ -48,20 +49,27 @@ function loginListHandler(e) {
     }
 }
 
-function updateOverlay(e){ 
-    if (e.type == 'mouseover') {
-        domElements.addClass(headerOverlay, 'active');
-    } else { 
-        domElements.removeClass(headerOverlay, 'active');
+function updateOverlay(e) { 
+    let loggedIn = loginStatus.state();
+    
+    if (loggedIn) {
+        if (e.type == 'mouseover') {
+            domElements.addClass(headerOverlay, 'active');
+        } else {
+            domElements.removeClass(headerOverlay, 'active');
+        }
     }
 }
 
 function toggleMobileMenu(e) {
     if (domElements.hasClass(e.currentTarget, 'is-active')) {
         domElements.removeClass(e.currentTarget, 'is-active');
+        domElements.removeClass(headerNavigation, 'is-active');
     } else {
         domElements.addClass(e.currentTarget, 'is-active');
+        domElements.addClass(headerNavigation, 'is-active');
     }
 }
+
 
 window.addEventListener('load', headerInit);

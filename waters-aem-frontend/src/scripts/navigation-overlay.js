@@ -1,3 +1,5 @@
+import screenSizes from '../scripts/screenSizes';
+
 let elem = document.querySelector('.cmp-navigation');
 
 if (elem) {
@@ -7,11 +9,16 @@ if (elem) {
    elem.parentElement.after(overlay);
 
    Array.from(document.querySelector('.navigation .cmp-navigation .cmp-navigation__group').children).forEach(function(e){
-      e.addEventListener('mouseover', function() {
-         overlay.style.visibility = "visible";
+      e.addEventListener('mouseover', function () {
+
+         if (screenSizes.isTabletAndOver()) { 
+            overlay.style.visibility = "visible";
+         }
       });
-      e.addEventListener('mouseleave', function() {
-         overlay.style.visibility = "hidden";
+      e.addEventListener('mouseleave', function () {
+         if (screenSizes.isTabletAndOver()) {
+            overlay.style.visibility = "hidden";
+         }
       });
    });
 

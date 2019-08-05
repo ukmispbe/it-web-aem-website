@@ -54,6 +54,7 @@
                     height: 100%;
                     display: inline-flex;
                     align-items: center;
+                    vertical-align: top;
                     margin-left: $space-s;
                     margin-bottom: 0;
         
@@ -202,11 +203,25 @@
         }
     }
 
-    &__navigation.container{
-        padding: 0;
+    &__navigation{
+        @include mobile {
+            transition: $fade-transition;
+            opacity: 0;
+            display: none;
+        }
+
+        .container{
+            padding: 0;
+        }
     }
 
-
+    
+    &__navigation.is-active{
+        @include mobile {
+            opacity: 1;
+            display: block;
+        }
+    }
 }
 
 .cmp-header-links__link{
