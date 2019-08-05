@@ -34,7 +34,7 @@
 
 nav.cmp-navigation {
    white-space: nowrap;
-   overflow-x: scroll;
+   overflow: hidden;
    height: inherit;
 
    &::after {
@@ -59,6 +59,7 @@ nav.cmp-navigation {
 
    & > .cmp-navigation__group {
       padding: 0;
+      overflow-x: scroll;
       margin-bottom: 0;
 
       & > .cmp-navigation__item {
@@ -78,7 +79,16 @@ nav.cmp-navigation {
                cursor: pointer;
                border-top: 3px solid  $color-gray-50;
             }
-
+            
+            &::after {
+               content: '';
+               margin-top: -49px;
+               margin-bottom: -18px;
+               position: relative;
+               left: 100%;
+               width: 3.3em;
+               max-width: 3.3em;
+            }
          }
 
          & > .cmp-navigation__item-link {
@@ -91,15 +101,6 @@ nav.cmp-navigation {
             &:hover {
                color: $color-font-dark;
                text-decoration: none;
-            }
-
-            &::after {
-               content: '';
-               margin-top: -20px;
-               width: $space-xl + 0.3em;
-               position: absolute;
-               float: right;
-               height: 67px;
             }
 
          }
