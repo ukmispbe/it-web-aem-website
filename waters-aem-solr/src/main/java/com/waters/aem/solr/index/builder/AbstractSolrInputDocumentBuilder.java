@@ -219,8 +219,8 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
 
         // get all tags and group by their parent tag name, which maps to the facet field name
         final Map<String, List<Tag>> groupedTags = contentClassification.getAllTags()
-        .stream()
-        .collect(Collectors.groupingBy(tag -> tag.getParent().getName()));
+            .stream()
+            .collect(Collectors.groupingBy(tag -> tag.getParent().getName()));
 
         for (final Map.Entry<String, List<Tag>> entry : groupedTags.entrySet()) {
             final String fieldName = SearchUtils.getSolrFacetName(entry.getKey());
