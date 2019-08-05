@@ -64,12 +64,26 @@
             }
         }
 
+        &__stockcontainer {
+            display: inherit;
+        }
+
+        &__stockdetails-container {
+            display: inline-flex;
+            margin-top: 0.3em;
+        }
+
         &__stockdetails {
+            float: left;
+
+            div {
+                display: inline;
+            }
             svg {
                 width: ($icon-m - 0.25em);
                 fill: $color-success;
                 margin-left: $space-xxxs;
-                margin-top: ($space-xxxs - 0.1em);
+                margin-top: ($space-xxxs);
                 float: right;
                 .st0,
                 .st1 {
