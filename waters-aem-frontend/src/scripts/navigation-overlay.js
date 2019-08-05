@@ -10,14 +10,15 @@ if (elem) {
 
    Array.from(document.querySelector('.navigation .cmp-navigation .cmp-navigation__group').children).forEach(function(e){
       e.addEventListener('mouseover', function () {
-
          if (screenSizes.isTabletAndOver()) { 
             overlay.style.visibility = "visible";
+            elem.classList.add('cmp-navigation--shadow');
          }
       });
       e.addEventListener('mouseleave', function () {
          if (screenSizes.isTabletAndOver()) {
             overlay.style.visibility = "hidden";
+            elem.classList.remove('cmp-navigation--shadow');
          }
       });
    });

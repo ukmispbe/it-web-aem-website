@@ -49,11 +49,43 @@
 
 nav.cmp-navigation {
    white-space: nowrap;
-   overflow-x: scroll;
+   overflow: hidden;
+   height: inherit;
+
+   &::after {
+       width: 102.5%;
+       height: 67px;
+       content: '';
+       position: absolute;
+       box-shadow: none; 
+       left: -1.25%;
+       top: 0;
+       z-index: 1000;
+       visibility: hidden;
+       background: none;
+       pointer-events: none;
+   }
+
+   &.cmp-navigation--shadow::after {
+       box-shadow: 0px 15px 5px -15px rgba(79, 91, 100, 0.2); 
+   }
+
+   &:hover {
+      &::after {
+         visibility: visible;
+      }
+   }
 
    & > .cmp-navigation__group {
       padding: 0;
-      
+      -ms-overflow-style: none;
+      overflow-x: scroll;
+      margin-bottom: 0;
+
+      &::-webkit-scrollbar {
+         display: none;
+      }
+
       & > .cmp-navigation__item {
          @include font-h3;
          margin-right: $space-xl;
@@ -62,6 +94,7 @@ nav.cmp-navigation {
 
          &--level-0 {
             height: 67px;
+            z-index: 1001;
             align-content: center;
             display: inline-grid;
             border-top: 3px solid transparent;
@@ -100,30 +133,16 @@ nav.cmp-navigation {
                   border-top: 0px none transparent;
               }
             }
-
+            
             &::after {
                content: '';
-               margin-top: -48px;
-               width: $space-xl + 0.3em;
-               position: absolute;
-               top: -70%;
+               margin-top: -49px;
+               margin-bottom: -18px;
+               position: relative;
                left: 100%;
-               float: right;
-               margin-bottom: -19px;
+               margin-right: -3.3em;
+               max-width: 3.3em;
             }
-
-            // @include mobile {
-            //    &::after {
-            //       width: $icon-m;
-            //       height: $icon-m;
-            //       right: 28px;
-            //       background-image: url('/content/dam/waters/en/brand-assets/icons/right.svg');
-            //       top: 0;
-            //       bottom: 0;
-            //       margin-top: auto;
-            //       margin-bottom: auto;
-            //    }
-            // }
          }
 
          & > .cmp-navigation__item-link {
@@ -142,9 +161,11 @@ nav.cmp-navigation {
                color: $color-font-dark;
                text-decoration: none;
             }
+
          }
 
          & > .cmp-navigation__group {
+            white-space: normal;
             position: absolute;
             top: 67px;
             left: 0;
