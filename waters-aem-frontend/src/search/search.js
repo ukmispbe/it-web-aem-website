@@ -286,7 +286,9 @@ class Search extends Component {
             this.props.history &&
             this.props.history.action === 'POP' &&
             previousPagePosition &&
-            previousPagePosition !== 'NaN'
+            previousPagePosition !== 'NaN' &&
+            this.props.resetToDefault &&
+            this.props.resetToDefault === false
         ) {
             setTimeout(() => {
                 window.scrollTo(0, previousPagePosition);
@@ -301,6 +303,7 @@ class Search extends Component {
                 window.scrollTo(0, 0);
             }
         }
+        this.props.resetToDefault = false;
     };
 
     searchOnError = error => {
@@ -502,6 +505,7 @@ class Search extends Component {
     };
 
     handleResetSearchToDefault = () => {
+        this.props.resetToDefault = true;
         let query = this.search.createQueryObject(
             parse(window.location.search)
         );
