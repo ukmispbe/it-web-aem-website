@@ -209,7 +209,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         if (StringUtils.isNotEmpty(replacementSkuCode)) {
             document.setField("replacementskucode", replacementSkuCode);
 
-            setDocumentField(document, "replacementskuurl", displayableSku.getReplacementSkuPageHref());
+            setDocumentStringField(document, "replacementskuurl", displayableSku.getReplacementSkuPageHref());
         }
     }
 
