@@ -79,16 +79,6 @@ nav.cmp-navigation {
                border-top: 3px solid  $color-gray-50;
             }
 
-            &::after {
-               content: '';
-               margin-top: -48px;
-               width: $space-xl + 0.3em;
-               position: absolute;
-               top: -70%;
-               left: 100%;
-               float: right;
-               margin-bottom: -19px;
-            }
          }
 
          & > .cmp-navigation__item-link {
@@ -102,6 +92,16 @@ nav.cmp-navigation {
                color: $color-font-dark;
                text-decoration: none;
             }
+
+            &::after {
+               content: '';
+               margin-top: -20px;
+               width: $space-xl + 0.3em;
+               position: absolute;
+               float: right;
+               height: 67px;
+            }
+
          }
 
          & > .cmp-navigation__group {
