@@ -63,8 +63,13 @@ nav.cmp-navigation {
 
    & > .cmp-navigation__group {
       padding: 0;
+      -ms-overflow-style: none;
       overflow-x: scroll;
       margin-bottom: 0;
+
+      &::-webkit-scrollbar {
+         display: none;
+      }
 
       & > .cmp-navigation__item {
          @include font-h3;
