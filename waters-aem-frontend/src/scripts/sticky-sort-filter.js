@@ -1,21 +1,20 @@
 import screenSizes from './screenSizes';
-import Sticky from './sticky';
+import sticky from './stickyService';
 
 const SortFilterSticky = () => {
-    const stickyFunc = Sticky('btn-show-sort-filter', 'btn-show-sort-filter--sticky', 0, 0);
-
-    if (stickyFunc) {
-        // target element was found so proceed with binding the event listener
-        const sortFilterStickyEventListener = function() {
-            // need to recheck screen size in case user rotates device
-            if (screenSizes.isMobile()) { 
-                // execute the sticky function
-                stickyFunc();
-            }
-        }
-
-        window.addEventListener('scroll', sortFilterStickyEventListener);
+    if (screenSizes.isMobile()) {
+        sticky.add({
+            element: document.querySelector('.btn-show-sort-filter'),
+            priority: 1,
+            modifier: 'btn-show-sort-filter--sticky',
+            offset: {
+                position: 'top',
+                amount: 0,
+            },
+            fillHeight: 56,
+            stickyHeight: 54,
+        });
     }
-}
+};
 
 document.addEventListener('DOMContentLoaded', SortFilterSticky);
