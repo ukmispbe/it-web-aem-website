@@ -95,7 +95,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         document.setField("url", externalizer.externalLink(resourceResolver, Externalizer.PUBLISH, page.getHref()));
         document.setField("title", page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle()));
 
-        setDocumentField(document, "description", page.getDescription());
+        setDocumentStringField(document, "description", page.getDescription());
 
         document.setField("isocode", locale.toString());
         document.setField("viewname", "aem");
@@ -107,7 +107,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
             thumbnailImage));
         }
 
-        setDocumentField(document, "content", getPageContent());
+        setDocumentStringField(document, "content", getPageContent());
 
         for (final Tag tag : page.getTags()) {
             document.addField("tags", tag.getTitle(locale));
@@ -143,7 +143,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
             final ContentClassification classification = classificationOptional.get();
 
             // add literature code
-            setDocumentField(document, "literaturecode", classification.getLiteratureCode());
+            setDocumentStringField(document, "literaturecode", classification.getLiteratureCode());
 
             // add facets
             addFacets(document, classification);
@@ -162,11 +162,11 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
             final DisplayableSku displayableSku = new DisplayableSku(sku, page.getContentResource(), siteContext);
 
             if (displayableSku.isActive()) {
-                setDocumentField(document, "skucode", sku.getCode());
+                setDocumentStringField(document, "skucode", sku.getCode());
 
-                setDocumentField(document, "currencycode", siteContext.getCurrencyIsoCode());
+                setDocumentStringField(document, "currencycode", siteContext.getCurrencyIsoCode());
 
-                setDocumentField(document, "status", sku.getSalesStatus().toString());
+                setDocumentStringField(document, "status", sku.getSalesStatus().toString());
 
                 final BigDecimal price = displayableSku.getPrice();
 
@@ -197,7 +197,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         return visitor.getContent();
     }
 
-    private void setDocumentField(final SolrInputDocument document, final String fieldName, final String fieldValue) {
+    private void setDocumentStringField(final SolrInputDocument document, final String fieldName, final String fieldValue) {
         if (StringUtils.isNotEmpty(fieldValue)) {
             document.setField(fieldName, fieldValue);
         }
