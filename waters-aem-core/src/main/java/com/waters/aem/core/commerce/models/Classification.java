@@ -44,7 +44,7 @@ public final class Classification {
         return featureValues;
     }
 
-    public Boolean getFacet() {
+    public Boolean isFacet() {
         return facet;
     }
 

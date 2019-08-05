@@ -86,7 +86,8 @@ public final class DisplayableSku {
     }
 
     public String getReplacementSkuPageHref() {
-        return sku.getSkuPage(siteContext.getPage(),getReplacementSkuCode()).getHref();
+        return sku.getSkuPage(siteContext.getPage(),getReplacementSkuCode()) != null ?
+                    sku.getSkuPage(siteContext.getPage(),getReplacementSkuCode()).getHref() : "";
     }
 
     private Asset getPrimaryImageAsset() {
