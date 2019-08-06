@@ -171,7 +171,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
                 final BigDecimal price = displayableSku.getPrice();
 
                 if (price != null) {
-                    document.setField("price", price);
+                    document.setField("price", price.doubleValue()); // convert BigDecimal to double per Solr schema
                 }
 
                 final List<String> categories = sku.getCategories();
