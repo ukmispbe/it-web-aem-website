@@ -34,11 +34,18 @@
 
         &__logo {
             padding: ($space-s + $space-xxxs) 0 $space-s 0;
-            width: 115px;
             
+
+
             img {
                 height: 32px;
                 width: 115px;
+
+                @include mobile-xs{
+                    width: 100px;
+                    height: 30px;
+                }
+
             }
         }
     
@@ -59,6 +66,9 @@
                     margin-left: $space-s;
                     margin-bottom: 0;
         
+                    @include mobile-xs{
+                        margin-left: $space-xxs;
+                    }
                     &:first-of-type,
                     &:last-of-type {
                         margin-left: 0;
@@ -90,6 +100,11 @@
                             width: 26px;
                             height: 26px;
                             padding-left: 0;
+                        }
+
+                        @include mobile-xs{
+                            width: 22px;
+                            height: 22px;
                         }
                     }
                 }
@@ -201,6 +216,10 @@
                     border-left: 1px solid $color-border-light;
                     height: 2em;
                     margin: 0 $space-s;
+
+                    @include mobile-xs{
+                        margin: 0 $space-xxs;
+                    }
                 }
             }
         }

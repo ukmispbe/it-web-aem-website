@@ -81,15 +81,28 @@ nav.cmp-navigation {
             }
 
             @include mobile {
-
-               @supports (display: grid) {
-                  display: grid;
-                  grid-template-columns: 9fr 1fr;
-               }
+               display: flex;
                margin: 0;
-               padding: $space-m;
+               padding: 0;
                border-top: 0px none transparent;
                border-bottom: 1px solid $color-border-rule;
+
+               & > .cmp-navigation__container{
+                  display: flex;
+                  padding: $space-m;
+                  flex-grow: 1;
+               }
+
+               & > .cmp-navigation__container > a {
+                  align-self: center;
+               }
+
+               & > .cmp-navigation__container > svg,
+               & > .cmp-navigation__container > img.inline-svg {
+                  align-self: center;
+                  margin-left: auto;
+               }
+
             }
 
             svg,
@@ -118,19 +131,21 @@ nav.cmp-navigation {
             }
 
             
-            &::after {
-               content: '';
-               margin-top: -49px;
-               margin-bottom: -18px;
-               position: relative;
-               left: 100%;
-               margin-right: -3.3em;
-               max-width: 3.3em;
-               display: block;
-               height: 117px;
+            @include tablet-and-over {
+               &::after {
+                  content: '';
+                  margin-top: -49px;
+                  margin-bottom: -18px;
+                  position: relative;
+                  left: 100%;
+                  margin-right: -3.3em;
+                  max-width: 3.3em;
+                  display: block;
+                  height: 117px;
 
-               @supports (display: inline-grid) {
-                  height: 67px;
+                  @supports (display: inline-grid) {
+                     height: 67px;
+                  }
                }
             }
          }
@@ -171,6 +186,10 @@ nav.cmp-navigation {
             padding: $space-l $space-xl  $space-xl $space-xl;
             background-color: $color-white;
             width: 100%;
+
+            @include mobile {
+               padding: $space-s $space-m  $space-m $space-m
+            }
 
             & > .cmp-navigation__item {
                margin-bottom: 0;

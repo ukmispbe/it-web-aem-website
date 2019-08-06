@@ -19,16 +19,19 @@ const navigationLevel2 = function () {
 
         }
 
-        group.addEventListener('click', function (event) { 
-            const level0Item = event.currentTarget;
+        const container = group.querySelector('.cmp-navigation__container')
+        container.addEventListener('click', function (event) { 
+            const level0Item = event.currentTarget.parentElement;
             const active = 'is-active';
-            if (screenSizes.isMobile()) { 
+            if (screenSizes.isMobile()) {
                 event.preventDefault();
                 if (level0Item.classList.contains(active)) {
                     level0Item.classList.remove(active);
                 } else { 
                     level0Item.classList.add(active);
                 }
+
+
             }
         });
     });
