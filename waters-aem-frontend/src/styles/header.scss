@@ -246,9 +246,11 @@
     }
 }
 
-.cmp-header.is-fixed {
-    position: fixed;
-    height: 100%;
+@include mobile {
+    .cmp-header.is-fixed {
+        position: fixed;
+        height: 100%;
+    }
 }
 
 .cmp-header-links__link{

@@ -30,8 +30,6 @@ const navigationLevel2 = function () {
                 } else { 
                     level0Item.classList.add(active);
                 }
-
-
             }
         });
     });
