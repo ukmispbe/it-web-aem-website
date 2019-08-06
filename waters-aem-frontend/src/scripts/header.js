@@ -2,7 +2,7 @@ import domElements from '../scripts/domElements';
 import loginStatus from '../scripts/loginStatus';
 import screenSizes from '../scripts/screenSizes';
 
-let loginNavItem, headerOverlay, loginList, greetingText, mobileMenuToggle, headerNavigation;
+let header, loginNavItem, headerOverlay, loginList, greetingText, mobileMenuToggle, headerNavigation;
 
 const headerInit = function() {
     domReferences();
@@ -10,7 +10,8 @@ const headerInit = function() {
     render();
 }
 
-function domReferences() { 
+function domReferences() {
+    header = document.querySelector('header.cmp-header');
     loginNavItem = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
     headerOverlay = document.querySelector('.cmp-header__overlay.overlay');
     loginList = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link');
@@ -65,9 +66,11 @@ function toggleMobileMenu(e) {
     if (domElements.hasClass(e.currentTarget, 'is-active')) {
         domElements.removeClass(e.currentTarget, 'is-active');
         domElements.removeClass(headerNavigation, 'is-active');
+        domElements.removeClass(header, 'is-fixed');
     } else {
         domElements.addClass(e.currentTarget, 'is-active');
         domElements.addClass(headerNavigation, 'is-active');
+        domElements.addClass(header, 'is-fixed');
     }
 }
 

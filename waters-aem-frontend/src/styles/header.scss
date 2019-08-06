@@ -59,7 +59,8 @@
                     margin-left: $space-s;
                     margin-bottom: 0;
         
-                    &:first-of-type {
+                    &:first-of-type,
+                    &:last-of-type {
                         margin-left: 0;
                     }
         
@@ -223,6 +224,11 @@
             display: block;
         }
     }
+}
+
+.cmp-header.is-fixed {
+    position: fixed;
+    height: 100%;
 }
 
 .cmp-header-links__link{

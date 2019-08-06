@@ -79,7 +79,7 @@ nav.cmp-navigation {
             @include mobile {
                display: grid;
                grid-template-columns: 9fr 1fr;
-               position: relative;
+               // position: relative;
                margin: 0;
                padding: $space-m;
                border-top: 0px none transparent;
@@ -156,39 +156,53 @@ nav.cmp-navigation {
             & > .cmp-navigation__item {
                margin-bottom: 0;
                padding-bottom: $space-s;
+
+               svg,
+               img.inline-svg {
+                  display: none;
+               }
             }
          }
 
-         & > .cmp-navigation__group.cmp-navigation__group--col-1 {
-            columns: 1;
-         }
-
-         & > .cmp-navigation__group.cmp-navigation__group--col-2 {
-            columns: 2;
-
-            & > .cmp-navigation__item {
-               break-inside: avoid;
-            }
-         }
-
-         & > .cmp-navigation__group.cmp-navigation__group--col-3 {
-            columns: 3;
-
-            & > .cmp-navigation__item {
-               break-inside: avoid;
-            }
-         }
-
-         &:hover > .cmp-navigation__group {
+         &.is-active > .cmp-navigation__group {
             visibility: visible;
-
-            & .cmp-navigation__item-link {
-               -webkit-transition: none;
-               -o-transition: none;
-               -moz-transition: none;
-               transition: none;
-            }
          }
+         
+         @include tablet-and-over {
+            & > .cmp-navigation__group.cmp-navigation__group--col-1 {
+               columns: 1;
+            }
+
+            & > .cmp-navigation__group.cmp-navigation__group--col-2 {
+               columns: 2;
+
+               & > .cmp-navigation__item {
+                  break-inside: avoid;
+               }
+            }
+
+            & > .cmp-navigation__group.cmp-navigation__group--col-3 {
+               columns: 3;
+
+               & > .cmp-navigation__item {
+                  break-inside: avoid;
+               }
+            }
+
+            &:hover > .cmp-navigation__group {
+               visibility: visible;
+   
+               & .cmp-navigation__item-link {
+                  -webkit-transition: none;
+                  -o-transition: none;
+                  -moz-transition: none;
+                  transition: none;
+               }
+            }
+
+         }
+
+
       }
    }
 }
