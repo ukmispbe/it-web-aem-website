@@ -58,12 +58,16 @@ nav.cmp-navigation {
             height: 67px;
             z-index: 1001;
             align-content: center;
-            display: inline-grid;
+            display: inline-table;
             border-top: 3px solid transparent;
+
+            @supports (display: inline-grid) {
+               display: inline-grid;
+            }
 
             &:hover {
                cursor: pointer;
-               border-top: 3px solid  $color-gray-50;
+               border-top: 3px solid $color-gray-50;
             }
             
             &::after {
@@ -74,6 +78,12 @@ nav.cmp-navigation {
                left: 100%;
                margin-right: -3.3em;
                max-width: 3.3em;
+               display: block;
+               height: 117px;
+
+               @supports (display: inline-grid) {
+                  height: 67px;
+               }
             }
          }
 
@@ -83,6 +93,12 @@ nav.cmp-navigation {
             -o-transition: none;
             -moz-transition: none;
             transition: none;
+            vertical-align: middle;
+            display: table-cell;
+
+            @supports (display: inline-grid) {
+               display: block;
+            }
 
             &:hover {
                color: $color-font-dark;
