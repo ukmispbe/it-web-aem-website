@@ -104,7 +104,6 @@ nav.cmp-navigation {
             width: 100%;
 
             & > .cmp-navigation__item {
-               @include font-h3;
                margin-bottom: 0;
                padding-bottom: $space-s;
             }
