@@ -61,6 +61,10 @@ nav.cmp-navigation {
       }
    }
 
+   .cmp-navigation__group {
+      cursor: default;
+   }
+
    & > .cmp-navigation__group {
       padding: 0;
       -ms-overflow-style: none;
