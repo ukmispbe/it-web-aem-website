@@ -78,13 +78,11 @@ var anchorSticky = (function() {
             this.getInViewElement();
         },
         setFixed: function() {
-            anchorChange();
             this.element.parentNode.style.height =
                 this.element.clientHeight + 'px';
-            this.element.classList.add(CSS_CLASS_ACTIVE);            
+            this.element.classList.add(CSS_CLASS_ACTIVE);
         },
         setRelative: function() {
-            anchorChange();
             this.element.classList.remove(CSS_CLASS_ACTIVE);
             this.element.parentNode.style.height = 'auto';
         },
@@ -160,7 +158,6 @@ function hideScrollBars(el) {
 }
 
 function anchorChange(el) {
-    clearGradients();
     const ancFader = Fader('cmp-anchor__list', 0, 75);
 
     var anchorElementId = document.getElementById('cmp-anchor');
@@ -171,12 +168,14 @@ function anchorChange(el) {
 }
 
 function clearGradients() {
-    rhsGradientFade[0].style.display = 'none';
-    lhsGradientFade[0].style.display = 'none';
+    let lhsGradient = document.querySelector('.cmp-anchor__list .fader-container--left');
+    let rhsGradient = document.querySelector('.cmp-anchor__list .fader-container--right');
+
+    lhsGradient.style.display = 'none';
+    rhsGradient.style.display = 'none';
 }
 
 function resizeWindow(el) {
-    // anchorChange(el);
     var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
     if (!hasHorizontalScrollbar) {
         clearGradients();
@@ -184,7 +183,6 @@ function resizeWindow(el) {
 }
 
 function scrollWindow(el) {
-    // anchorChange(el);
     var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
     if (!hasHorizontalScrollbar) {
         clearGradients();
@@ -192,12 +190,6 @@ function scrollWindow(el) {
 }
 
 var anchorList = document.querySelector('.cmp-anchor__list');
-var rhsGradientFade = document.getElementsByClassName(
-    'cmp-anchor-gradient-right'
-);
-var lhsGradientFade = document.getElementsByClassName(
-    'cmp-anchor-gradient-left'
-);
 
 if (anchorList) {
     const isMobile = screenSizes.isMobile();
@@ -233,8 +225,8 @@ if (anchorList) {
 
         if (isTabletAndUnder && !isMobile) {
             window.addEventListener('load', () => showScrollBars(anchorList));
-        }   
-        
+        }
+
         var mediaQueryListener = window.matchMedia('(max-width: 650px)');
 
         function anchorChangeToMobile() {

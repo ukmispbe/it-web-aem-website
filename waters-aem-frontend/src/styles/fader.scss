@@ -8,6 +8,7 @@
         position: absolute;
         top: 0;
         visibility: hidden;
+        pointer-events: none;
 
         &--left {
             background: -webkit-linear-gradient(left,hsla(0,0%,100%,.8) 30%,hsla(0,0%,100%,.2));
@@ -42,6 +43,6 @@
 
 .cmp-anchor--sticky .cmp-anchor__list.fader-fade .fader-container{
     &--right {
-        right: 57.6%;
+        right: 57.5%;
     }
 }
