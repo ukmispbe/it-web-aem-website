@@ -15,17 +15,7 @@ const Fader = (targetClassName, offsetWidth=0, maxFadeWidth=Number.POSITIVE_INFI
     lDiv.classList.add('fader-container--left');
     rDiv.classList.add('fader-container--right');
 
-    // IE11 Polyfill
-    if (!targetElement.prepend) {
-        let firstChild = targetElement.firstChild;
-        if (firstChild) {
-            targetElement.insertBefore(lDiv, firstChild);
-        } else {
-            targetElement.appendChild(lDiv);
-        }
-    } else {
-        targetElement.prepend(lDiv);
-    }
+    targetElement.prepend(lDiv);
     targetElement.appendChild(rDiv);
 
     let scrollCheck = function () {
