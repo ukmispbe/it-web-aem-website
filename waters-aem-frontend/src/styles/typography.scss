@@ -157,7 +157,7 @@ ol {
 
 b,
 strong {
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-regular;
 }
 
 .cmp-text {
@@ -177,4 +177,8 @@ blockquote {
 .cmp-text--finePrint .cmp-text {
     @include font-small;
     font-style: italic;
+}
+
+.cmp-text--noPadding .cmp-text {
+    padding-bottom: 0;
 }

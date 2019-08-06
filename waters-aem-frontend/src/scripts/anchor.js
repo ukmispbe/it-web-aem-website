@@ -78,11 +78,13 @@ var anchorSticky = (function() {
             this.getInViewElement();
         },
         setFixed: function() {
+            anchorChange();
             this.element.parentNode.style.height =
                 this.element.clientHeight + 'px';
-            this.element.classList.add(CSS_CLASS_ACTIVE);
+            this.element.classList.add(CSS_CLASS_ACTIVE);            
         },
         setRelative: function() {
+            anchorChange();
             this.element.classList.remove(CSS_CLASS_ACTIVE);
             this.element.parentNode.style.height = 'auto';
         },
@@ -199,6 +201,7 @@ var lhsGradientFade = document.getElementsByClassName(
 
 if (anchorList) {
     const isMobile = screenSizes.isMobile();
+    const isTabletAndUnder = screenSizes.isTabletAndUnder();
     const sectionContainers = document.querySelectorAll(
         '.cmp-section-container--collapse'
     );
@@ -227,6 +230,11 @@ if (anchorList) {
         anchorList.addEventListener('scroll', () => scrollWindow(anchorList));
         window.addEventListener('load', () => resizeWindow(anchorList));
         window.addEventListener('resize', () => resizeWindow(anchorList));
+
+        if (isTabletAndUnder && !isMobile) {
+            window.addEventListener('load', () => showScrollBars(anchorList));
+        }   
+        
         var mediaQueryListener = window.matchMedia('(max-width: 650px)');
 
         function anchorChangeToMobile() {

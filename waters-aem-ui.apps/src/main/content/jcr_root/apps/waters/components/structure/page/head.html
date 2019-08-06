@@ -1,7 +1,7 @@
 <template data-sly-template.head="${ @ page }"
           data-sly-use.headlibRenderer="headlibs.html"
           data-sly-use.headResources="head.resources.html"
-          data-sly-use.externalHeader="com.waters.aem.core.components.structure.ExternalHeader">
+          data-sly-use.header="com.waters.aem.core.components.structure.Header">
 
     <meta charset="UTF-8">
 
@@ -23,5 +23,5 @@
     <sly data-sly-test.appResourcesPath=${page.appResourcesPath} data-sly-call="${headResources.favicons @ path = appResourcesPath}"/>
 
     <!--launch script-->
-    <script data-sly-test="${externalHeader.launchScript}" src="${externalHeader.launchScript}"></script>
+    <script data-sly-test="${header.launchScript}" src="${header.launchScript}"></script>
 </template>
