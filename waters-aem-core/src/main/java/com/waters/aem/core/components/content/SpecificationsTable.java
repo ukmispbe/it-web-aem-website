@@ -3,6 +3,7 @@ package com.waters.aem.core.components.content;
 import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
+import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
 import com.waters.aem.core.commerce.models.Classification;
 import com.waters.aem.core.commerce.models.Sku;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -14,6 +15,7 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component(value = "Specifications Table")
 @Model(adaptables = SlingHttpServletRequest.class,
@@ -30,7 +32,10 @@ public final class SpecificationsTable implements ComponentExporter {
     private Sku sku;
 
     public List<Classification> getSpecifications() {
-        return sku != null ? sku.getClassifications() : Collections.emptyList();
+        return sku == null ?  Collections.emptyList() : sku.getClassifications()
+                .stream()
+                .filter(classification -> !classification.getTitle().equals(WatersCommerceConstants.COLD_CHAIN_SHIPPING))
+                .collect(Collectors.toList());
     }
 
     public Sku getSku(){
