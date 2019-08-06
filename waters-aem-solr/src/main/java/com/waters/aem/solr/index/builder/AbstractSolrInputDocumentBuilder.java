@@ -2,6 +2,7 @@ package com.waters.aem.solr.index.builder;
 
 import com.day.cq.commons.Externalizer;
 import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.NameConstants;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.enums.TitleType;
@@ -11,6 +12,7 @@ import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.components.content.Text;
 import com.waters.aem.core.components.structure.page.Thumbnail;
+import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.metadata.ContentClassification;
 import com.waters.aem.core.utils.SearchUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -182,8 +184,13 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
                     setDocumentStringField(document, SearchUtils.getSolrFacetName("contenttype"), categories.get(0));
                 }
 
-                setDocumentStringField(document, SearchUtils.getSolrFacetName("category"),
-                        SkuSolrInputDocumentBuilder.TAG_SHOP);
+                final Tag shopTag = page.getContentResource().getResourceResolver().adaptTo(TagManager.class).
+                        resolve(WatersConstants.TAG_SHOP);
+
+                if (shopTag != null) {
+                    setDocumentStringField(document, SearchUtils.getSolrFacetName("category"),
+                            shopTag.getTitle(siteContext.getLocale()));
+                }
 
                 addReplacementSku(document, displayableSku);
 
