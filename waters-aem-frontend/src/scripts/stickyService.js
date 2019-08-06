@@ -264,11 +264,15 @@ class Sticky {
     }
 
     attachToScrollListener(fn) {
-        if (!this) {
+        if (!this || !this.attachedFunctions) {
             return wait(sticky.attachToScrollListener(fn));
         }
 
-        this.attachedFunctions.push(fn);
+        try {
+            this.attachedFunctions.push(fn);
+        } catch (e) {
+            wait(sticky.attachToScrollListener(fn));
+        }
     }
 }
 
