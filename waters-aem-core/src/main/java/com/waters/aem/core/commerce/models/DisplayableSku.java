@@ -2,6 +2,7 @@ package com.waters.aem.core.commerce.models;
 
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.commons.util.PrefixRenditionPicker;
+import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.utils.AssetUtils;
@@ -86,7 +87,9 @@ public final class DisplayableSku {
     }
 
     public String getReplacementSkuPageHref() {
-        return sku.getSkuPage(siteContext.getPage(),getReplacementSkuCode()).getHref();
+        final PageDecorator page = sku.getSkuPage(siteContext.getPage(), getReplacementSkuCode());
+
+        return page != null ? page.getHref() : "";
     }
 
     private Asset getPrimaryImageAsset() {
