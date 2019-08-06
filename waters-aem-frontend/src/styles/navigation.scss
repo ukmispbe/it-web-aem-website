@@ -73,13 +73,19 @@ nav.cmp-navigation {
             height: 67px;
             z-index: 1001;
             align-content: center;
-            display: inline-grid;
+            display: inline-table;
             border-top: 3px solid transparent;
 
+            @supports (display: inline-grid) {
+               display: inline-grid;
+            }
+
             @include mobile {
-               display: grid;
-               grid-template-columns: 9fr 1fr;
-               // position: relative;
+
+               @supports (display: grid) {
+                  display: grid;
+                  grid-template-columns: 9fr 1fr;
+               }
                margin: 0;
                padding: $space-m;
                border-top: 0px none transparent;
@@ -108,8 +114,9 @@ nav.cmp-navigation {
                border-top: 3px solid  $color-gray-50;
                @include mobile {
                   border-top: 0px none transparent;
-              }
+               }
             }
+
             
             &::after {
                content: '';
@@ -119,6 +126,12 @@ nav.cmp-navigation {
                left: 100%;
                margin-right: -3.3em;
                max-width: 3.3em;
+               display: block;
+               height: 117px;
+
+               @supports (display: inline-grid) {
+                  height: 67px;
+               }
             }
          }
 
@@ -129,6 +142,12 @@ nav.cmp-navigation {
             -o-transition: none;
             -moz-transition: none;
             transition: none;
+            vertical-align: middle;
+            display: table-cell;
+
+            @supports (display: inline-grid) {
+               display: block;
+            }
 
             @include mobile {
                margin: 0;
