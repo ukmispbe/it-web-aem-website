@@ -82,7 +82,9 @@ public final class WatersCommerceConstants {
 
     public static final String RESOURCE_NAME_CLASSIFICATION = "classification";
 
-    public static final String COLD_CHAIN_SHIPPING = "Cold Chain Shipping";
+    public static final String COLD_CHAIN_SHIPPING_CODE = "WatersClassification/1.0/ConsumablesAndSpares.coldchainshipping";
+
+    public static final String HAZARDOUS_CODE = "WatersClassification/1.0/Products.hazardmaterialnumber";
 
     // feature properties
 

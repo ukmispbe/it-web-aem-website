@@ -29,6 +29,9 @@ public final class Classification {
     @ValueMapValue(name = WatersCommerceConstants.PROPERTY_RANGE)
     private Boolean range;
 
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_CODE)
+    private String code;
+
     public String getPath() {
         return resource.getPath();
     }
@@ -39,6 +42,10 @@ public final class Classification {
 
     public String[] getFeatureValues() {
         return featureValues;
+    }
+
+    public String getCode() {
+        return code;
     }
 
     public String[] getDisplayableFeatureValues() {

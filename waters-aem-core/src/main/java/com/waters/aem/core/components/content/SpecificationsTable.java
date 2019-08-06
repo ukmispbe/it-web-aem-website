@@ -34,7 +34,8 @@ public final class SpecificationsTable implements ComponentExporter {
     public List<Classification> getSpecifications() {
         return sku == null ?  Collections.emptyList() : sku.getClassifications()
                 .stream()
-                .filter(classification -> !classification.getTitle().equals(WatersCommerceConstants.COLD_CHAIN_SHIPPING))
+                .filter(classification -> !classification.getCode().equals(WatersCommerceConstants.COLD_CHAIN_SHIPPING_CODE) &&
+                    !classification.getCode().equals(WatersCommerceConstants.HAZARDOUS_CODE))
                 .collect(Collectors.toList());
     }
 
