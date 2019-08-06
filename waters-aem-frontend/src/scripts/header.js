@@ -46,11 +46,15 @@ function loginListHandler(e) {
     }
 }
 
-function updateOverlay(e){ 
-    if (e.type == 'mouseover') {
-        domElements.addClass(headerOverlay, 'active');
-    } else { 
-        domElements.removeClass(headerOverlay, 'active');
+function updateOverlay(e) { 
+    let loggedIn = loginStatus.state();
+    
+    if (loggedIn) {
+        if (e.type == 'mouseover') {
+            domElements.addClass(headerOverlay, 'active');
+        } else {
+            domElements.removeClass(headerOverlay, 'active');
+        }
     }
 }
 

@@ -273,7 +273,7 @@
 
     .cmp-banner__background-overlay {
         width: 30%;
-        left: unset;
+        left: auto;
         opacity: 0.8;
 
         @include tablet {
