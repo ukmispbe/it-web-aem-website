@@ -12,6 +12,8 @@ import java.util.Optional;
 @Model(adaptables = PageDecorator.class)
 public final class SkuSolrInputDocumentBuilder extends AbstractSolrInputDocumentBuilder {
 
+    public static final String TAG_SHOP = "shop";
+
     @OSGiService
     private SkuRepository skuRepository;
 

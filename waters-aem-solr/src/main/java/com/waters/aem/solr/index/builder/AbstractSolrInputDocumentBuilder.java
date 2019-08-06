@@ -177,8 +177,11 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
                 final List<String> categories = sku.getCategories();
 
                 if (!categories.isEmpty()) {
-                    document.setField("contenttype_facet", categories.get(0));
+                    setDocumentStringField(document, SearchUtils.getSolrFacetName("contenttype"), categories.get(0));
                 }
+
+                setDocumentStringField(document, SearchUtils.getSolrFacetName("category"),
+                        SkuSolrInputDocumentBuilder.TAG_SHOP);
 
                 addReplacementSku(document, displayableSku);
 
