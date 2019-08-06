@@ -6,7 +6,7 @@
    height: 67px;
    width: 105%!important;
    padding: 0 $space-xl;
-   margin: 0 (($space-xl - (14/(16*1.1)))*-1)!important;
+   margin: 0 ($space-xl * -1)!important;
 }
 
 nav.cmp-navigation {
