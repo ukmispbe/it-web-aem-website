@@ -9,11 +9,15 @@ if (elem) {
 
    Array.from(document.querySelector('.navigation .cmp-navigation .cmp-navigation__group').children).forEach(function(e){
       e.addEventListener('mouseover', function() {
+         overlay.style.opacity = "0.5";
          overlay.style.visibility = "visible";
+         overlay.style.transitionDelay = "0s, 0s";
          elem.classList.add('cmp-navigation--shadow');
       });
       e.addEventListener('mouseleave', function() {
+         overlay.style.opacity = "0";
          overlay.style.visibility = "hidden";
+         overlay.style.transitionDelay = "0s, 0s";
          elem.classList.remove('cmp-navigation--shadow');
       });
    });

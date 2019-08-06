@@ -63,7 +63,8 @@ nav.cmp-navigation {
             z-index: 1001;
             align-content: center;
             display: inline-table;
-            border-top: 3px solid transparent;
+            border-top: 3px solid adjust-color($color-gray-50, $alpha: -1);
+            transition: $hover-transition;
 
             @supports (display: inline-grid) {
                display: inline-grid;
@@ -118,6 +119,8 @@ nav.cmp-navigation {
             left: 0;
             z-index: 99;
             visibility: hidden;
+            opacity: 0;
+            transition: $fade-transition;
             list-style: none;
             padding: $space-l $space-xl  $space-xl $space-xl;
             background-color: $color-white;
@@ -151,6 +154,7 @@ nav.cmp-navigation {
 
          &:hover > .cmp-navigation__group {
             visibility: visible;
+            opacity: 1;
 
             & .cmp-navigation__item-link {
                -webkit-transition: none;
@@ -174,5 +178,12 @@ nav.cmp-navigation {
    &.overlay-container {
       z-index: 97;
       visibility: hidden;
+      opacity: 0;
+      transition: $fade-transition;
+      transition-timing-function: linear;
+      transition-duration: 0.25s;
+      transition-property: visibility, opacity;
+      transition-delay: 0.25s, 0s;
+      pointer-events: none;
    }
 }
