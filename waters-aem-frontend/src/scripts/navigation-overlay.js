@@ -5,23 +5,7 @@ if (elem) {
    overlay.classList.add('cmp-navigation-overlay__container');
    overlay.classList.add('overlay-container');
 
-   // Polyfill for IE11
-   if (!elem.parentElement.after) {
-      let parent = elem.parentElement;
-      let grandparent = parent.parentElement;
-      if (parent !== null && grandparent !== null) {
-         if (overlay instanceof Node) {
-            parent=parent.nextSibling;
-            if (parent !== null) {
-               grandparent.insertBefore(overlay,parent);
-            } else {
-               grandparent.appendChild(overlay);
-            }
-         }
-      }
-   } else {
-      elem.parentElement.after(overlay);
-   }
+   elem.parentElement.after(overlay);
 
    Array.from(document.querySelector('.navigation .cmp-navigation .cmp-navigation__group').children).forEach(function(e){
       e.addEventListener('mouseover', function() {
