@@ -59,9 +59,11 @@ nav.cmp-navigation {
             z-index: 1001;
             align-content: center;
             display: inline-table;
-            display: inline-grid;
             border-top: 3px solid transparent;
 
+            @supports (display: inline-grid) {
+               display: inline-grid;
+            }
 
             &:hover {
                cursor: pointer;
