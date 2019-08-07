@@ -4,21 +4,17 @@ class SkuService {
     constructor(
         isocode = 'us',
         sku = {
-            path: 'https://dev-www.waters.com:8443/api/waters/',
-            endpoints: {
-                availability: 'availability/',
-                customerPrice: 'customerprice/',
-            },
+            availability:
+                'https://dev-www.waters.com:8443/api/waters/product/v1/availability/{partnumber}/{isocode}',
+            price:
+                'https://dev-www.waters.com:8443/api/waters/product/v1/customerprice',
         },
-        addToCart = {
-            path:
-                'https://www.waters.com/waters/ajax.htm?handler=shoppingHandler&action=processExternalCart',
-        },
+        addToCart = 'https://www.waters.com/waters/ajax.htm?handler=shoppingHandler&action=processExternalCart',
         throwError
     ) {
         this.isocode = isocode;
         this.skuOptions = sku;
-        this.addToCartOptions = addToCart;
+        this.addToCartPath = addToCart;
         this.throwError = throwError;
     }
 
@@ -33,45 +29,56 @@ class SkuService {
                         this.throwError(response);
                         reject(response);
                     }
+                })
+                .catch(err => {
+                    this.throwError(err);
+                    reject(err);
                 });
         });
     }
 
     createAvailabilityRequest(partNo) {
-        const path = `${this.skuOptions.path}/product/v1/`;
-        const endpoint = this.skuOptions.endpoints.availability;
-        const request = `${path}${endpoint}/${partNo}/${this.isocode}`;
+        const url = this.skuOptions.availability
+            .replace('{partnumber}', partNo)
+            .replace('{isocode}', this.isocode);
 
-        return request;
+        return url;
     }
 
     getPrice(partNo) {
         return new Promise((resolve, reject) => {
-            window.fetch(this.createPriceRequest(partNo)).then(response => {
-                if (response.ok) {
-                    resolve(response.json());
-                } else {
-                    this.throwError(response);
-                    reject(response);
-                }
-            });
+            window
+                .fetch(this.createPriceRequest(partNo))
+                .then(response => {
+                    if (response.ok) {
+                        resolve(response.json());
+                    } else {
+                        this.throwError(response);
+                        reject(response);
+                    }
+                })
+                .catch(err => {
+                    this.throwError(err);
+                    reject(err);
+                });
         });
     }
 
     createPriceRequest(partNo) {
-        const path = `${this.skuOptions.path}/product/v1/`;
-        const endpoint = this.skuOptions.endpoints.customerPrice;
-        const request = `${path}${endpoint}/${partNo}/${this.isocode}`;
+        const url = this.skuOptions.price
+            .replace('{partnumber}', partNo)
+            .replace('{countrycode}', this.isocode);
 
-        return request;
+        return url;
     }
 
     addToCart(partNo, quantity) {
-        const path = this.addToCartOptions.path;
+        const path = this.addToCartPath;
         return new Promise((resolve, reject) => {
             window
                 .fetch(path, {
                     method: 'post',
+                    credentials: 'include',
                     body: JSON.stringify({
                         partNumbers: partNo,
                         quantity: quantity,
@@ -84,6 +91,10 @@ class SkuService {
                         this.throwError(response);
                         reject(response);
                     }
+                })
+                .catch(err => {
+                    this.throwError(err);
+                    reject(err);
                 });
         });
     }

@@ -3,42 +3,91 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from '../modal/index';
 import Stock from './views/stock';
+import SkuService from './services';
 
 class SkuDetails extends React.Component {
     constructor(props) {
         super(props);
-        // sku = props.modalInfo.textHeading
+
         this.state = {
             modalShown: false,
             modalConfig: this.props.config.modalInfo,
             skuConfig: this.props.config.skuInfo,
             skuNumber: this.props.config.modalInfo.textHeading,
             // userCountry: this.props.config.countryCode,
-            userCountry: 'US',
+            userCountry: 'US', // remove after Eric's PR is approved and merged
             availabilityAPI: this.props.config.availabilityUrl,
             skuAvailability: {},
+            addToCartQty: undefined,
         };
+
+        this.request = new SkuService(
+            this.state.userCountry,
+            {
+                availability: this.props.config.availabilityUrl,
+                price: this.props.config.pricingUrl,
+            },
+            this.props.config.addToCartUrl,
+            err => console.log(err)
+        );
     }
 
     componentDidMount() {
-        // Get the availability data
-        const url = this.state.availabilityAPI
-            .replace('{partnumber}', this.state.skuNumber)
-            .replace('{isocode}', this.state.userCountry);
-
-        fetch(url)
-            .then(response => response.json())
-            .then(data => this.setState({ skuAvailability: data }))
-            .catch();
+        this.request.getAvailability(this.state.skuNumber).then(response => {
+            this.setState({ skuAvailability: response });
+        });
     }
 
     toggleModal = () => {
         this.setState({ modalShown: !this.state.modalShown });
     };
 
+    quantityInput = e => {
+        let value = e.target.value;
+
+        if (value > this.state.skuConfig.maxAmount) {
+            value = this.state.skuConfig.maxAmount;
+        }
+
+        this.setState({
+            addToCartQty: value,
+        });
+    };
+
+    addToCart = () => {
+        if (this.state.addToCartQty > 0) {
+            this.request
+                .addToCart(this.state.skuNumber, this.state.addToCartQty)
+                .then(response => {
+                    this.toggleModal();
+                })
+                .catch(err => {
+                    console.log('SHOULD WE HAVE AN ERROR MODAL?');
+                });
+        } else {
+            this.setState(
+                {
+                    addToCartQty: 1,
+                },
+                () =>
+                    this.request
+                        .addToCart(
+                            this.state.skuNumber,
+                            this.state.addToCartQty
+                        )
+                        .then(response => {
+                            this.toggleModal();
+                        })
+                        .catch(err => {
+                            console.log('SHOULD WE HAVE AN ERROR MODAL?');
+                        })
+            );
+        }
+    };
+
     render() {
         return (
-            <span>
+            <>
                 <Stock
                     skuConfig={this.state.skuConfig}
                     skuNumber={this.state.skuNumber}
@@ -49,13 +98,15 @@ class SkuDetails extends React.Component {
                         <input
                             className="cmp-sku-details__quantity"
                             type="number"
-                            placeholder="Qty"
-                            max={this.state.skuConfig.quantity}
+                            placeholder={this.props.config.qtyLabel}
+                            max={this.state.skuConfig.maxAmount}
                             min="1"
+                            value={this.state.addToCartQty}
+                            onChange={this.quantityInput}
                         />
                     </form>
-                    <a className="cmp-button" onClick={this.toggleModal}>
-                        ADD TO CART
+                    <a className="cmp-button" onClick={() => this.addToCart()}>
+                        {this.props.config.addToCartLabel}
                     </a>
                 </div>
                 <Modal
@@ -64,7 +115,7 @@ class SkuDetails extends React.Component {
                     theme="callToAction"
                     config={this.state.modalConfig}
                 />
-            </span>
+            </>
         );
     }
 }

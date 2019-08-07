@@ -128,5 +128,6 @@ if (skuDetailsContainer) {
     const config = JSON.parse(
         document.getElementById('commerce-configs-json').innerHTML
     );
+
     ReactDOM.render(<SkuDetails config={config} />, skuDetailsContainer);
 }
