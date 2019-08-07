@@ -98,40 +98,52 @@
                     <div class="cmp-sku-details__ecom">
                         <div class="cmp-sku-details__buyinfo">
                             <div class="cmp-sku-details__priceinfo">
-                                    <span>List Price</span>
-                                    <div class="cmp-sku-details__price">$665.00</div>
-
+                                <span>List Price</span>
+                                <div class="cmp-sku-details__price">
+                                    $665.00
+                                </div>
                             </div>
                             <div class="cmp-sku-details__stockcontainer"></div>
                         </div>
-                        <a class="cmp-sku-details__web-quote" href="#">Do you need a web quote?</a>
+                        <a class="cmp-sku-details__web-quote" href="#"
+                            >Do you need a web quote?</a
+                        >
                     </div>
-
                 </div>
             </div>
         </div>
-        <script type="application/json" id="cmp-sku-details-0001">
+        <script type="application/json" id="commerce-configs-json">
             {
+                "locale": "${skuDetails.locale}",
+                "availabilityUrl": "${skuDetails.skuAvailabilityUrl @ context='unsafe'}",
+                "pricingUrl": "${skuDetails.skuCustomerPriceUrl @ context='unsafe'}",
+                "cartUrl": "${skuDetails.cartUrl @ context='unsafe'}",
+                "countryCode": "${skuDetails.countryCode @ context='scriptString'}",
+                "isoCode": "${skuDetails.isoCode @ context='scriptString'}",
                 "skuInfo": {
-                    "shipByDate": "July 19, 2020",
-                    "quantity": 20,
-                    "inStockIcon": "in-stock.svg",
-                    "lowStockIcon": "low-stock.svg",
-                    "outOfStockIcon": "out-stock.svg"
+                    "inStockLabel": "${'In Stock' @ i18n, context='scriptString'}",
+                    "outOfStockLabel": "${'Out of Stock' @ i18n, context='scriptString'}",
+                    "orderNowLabel": "${'Order Now' @ i18n, context='scriptString'}",
+                    "orderSoonLabel": "${'Order Soon' @ i18n, context='scriptString'}",
+                    "shipsByLabel": "${'Ships by {0}' @ format=['{shipByDate}'], i18n, context='scriptString'}",
+                    "onlyXInStockLabel": "${'Only {0} in stock' @ format=['{quantity}'], i18n, context='scriptString'}",
+                    "inStockIcon": "/content/dam/waters/brand-assets/icons/success.svg",
+                    "lowStockIcon": "/content/dam/waters/brand-assets/icons/low-stock.svg",
+                    "outOfStockIcon": "/content/dam/waters/brand-assets/icons/out-stock.svg"
                 },
                 "modalInfo": {
-                    "icon": "checkmark.svg",
-                    "closeIcon": "close.svg",
-                    "title": "Item Added to Cart",
-                    "textHeading": "WAT036980",
-                    "text": "Nova-Pak Silica Cartridge, 60Å, 4 µm, 3.9 mm X 150 mm, 1/pk",
+                    "icon": "/content/dam/waters/brand-assets/icons/checkmark.svg",
+                    "closeIcon": "/content/dam/waters/brand-assets/icons/close.svg",
+                    "title": "${'Item Added to Cart' @ i18n, context='scriptString'}",
+                    "textHeading": "${sku.code @ context='scriptString'}",
+                    "text": "${sku.title @ context='scriptString'}",
                     "buttons": [
                         {
-                            "text": "View Cart",
-                            "action": "https://www.waters.com/waters/shoppingCart.htm"
+                            "text": "${'View Cart' @ i18n, context='scriptString'}",
+                            "action": "${skuDetails.cartUrl @ context='unsafe'}"
                         },
                         {
-                            "text": "Continue Shopping",
+                            "text": "${'Continue Shopping' @ i18n, context='scriptString'}",
                             "action": "close"
                         }
                     ]

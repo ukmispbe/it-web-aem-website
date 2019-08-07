@@ -1,4 +1,4 @@
-import './polyfills'
+import './polyfills';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './search/components/searchbar';
@@ -120,35 +120,13 @@ if (imageGalleryContainers) {
     });
 }
 
-// const modalContainer = document.querySelector('.cmp-modal-container');
-
-// if (modalContainer) {
-//     window.cmp = {};
-//     ReactDOM.render(<Modal />, modalContainer);
-// }
-
-// const modalOpenButton = document.querySelectorAll('.cmp-modal-btn');
-
-// if (modalOpenButton.length) {
-//     modalOpenButton.forEach(btn => {
-//         const theme = btn.dataset.theme;
-//         const configElement = document.getElementById(btn.dataset.config);
-//         const config = JSON.parse(configElement.innerHTML);
-
-//         btn.addEventListener('click', () => {
-//             window.cmp.modal.showModal(theme, config);
-//         });
-//     });
-// }
-
-const skuDetailsContainer = document.querySelector('.cmp-sku-details__stockcontainer');
-const skuConfig = JSON.parse(
-    document.getElementById('cmp-sku-details-0001').innerHTML
+const skuDetailsContainer = document.querySelector(
+    '.cmp-sku-details__stockcontainer'
 );
 
 if (skuDetailsContainer) {
-    ReactDOM.render(
-        <SkuDetails
-            config={skuConfig}
-        />, skuDetailsContainer);
+    const config = JSON.parse(
+        document.getElementById('commerce-configs-json').innerHTML
+    );
+    ReactDOM.render(<SkuDetails config={config} />, skuDetailsContainer);
 }

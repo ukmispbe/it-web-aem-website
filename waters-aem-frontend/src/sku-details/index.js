@@ -13,32 +13,50 @@ class SkuDetails extends React.Component {
             modalConfig: this.props.config.modalInfo,
             skuConfig: this.props.config.skuInfo,
             skuNumber: this.props.config.modalInfo.textHeading,
-            userCountry: 'US', //TODO: We will want to get this from AEM
-            availabilityAPI: 'https://dev-www.waters.com:8443/api/waters/product/v1/availability/', //TODO: we will want to get this from AEM
-            skuAvailability: {}
+            // userCountry: this.props.config.countryCode,
+            userCountry: 'US',
+            availabilityAPI: this.props.config.availabilityUrl,
+            skuAvailability: {},
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         // Get the availability data
-        fetch(`${this.state.availabilityAPI}${this.state.skuNumber}/${this.state.userCountry}`)
+        const url = this.state.availabilityAPI
+            .replace('{partnumber}', this.state.skuNumber)
+            .replace('{isocode}', this.state.userCountry);
+
+        fetch(url)
             .then(response => response.json())
-            .then(data => this.setState({skuAvailability: data}))
-            .catch()
+            .then(data => this.setState({ skuAvailability: data }))
+            .catch();
     }
 
-    toggleModal = () => this.setState({modalShown: !this.state.modalShown});
-
+    toggleModal = () => {
+        this.setState({ modalShown: !this.state.modalShown });
+    };
 
     render() {
         return (
             <span>
-                <Stock skuConfig={this.state.skuConfig} skuNumber={this.state.skuNumber} skuAvailability={this.state.skuAvailability}></Stock>
+                <Stock
+                    skuConfig={this.state.skuConfig}
+                    skuNumber={this.state.skuNumber}
+                    skuAvailability={this.state.skuAvailability}
+                />
                 <div className="cmp-sku-details__buttons">
                     <form>
-                        <input className="cmp-sku-details__quantity" type="number" placeholder="Qty" max={this.state.skuConfig.quantity} min="1" />
+                        <input
+                            className="cmp-sku-details__quantity"
+                            type="number"
+                            placeholder="Qty"
+                            max={this.state.skuConfig.quantity}
+                            min="1"
+                        />
                     </form>
-                    <a className="cmp-button" onClick={this.toggleModal}>ADD TO CART</a>
+                    <a className="cmp-button" onClick={this.toggleModal}>
+                        ADD TO CART
+                    </a>
                 </div>
                 <Modal
                     toggleModal={this.toggleModal}
@@ -48,11 +66,11 @@ class SkuDetails extends React.Component {
                 />
             </span>
         );
-    };
-};
+    }
+}
 
 SkuDetails.propTypes = {
-    config: PropTypes.object.isRequired
+    config: PropTypes.object.isRequired,
 };
 
 export default SkuDetails;
