@@ -9,6 +9,7 @@ import com.waters.aem.solr.index.SolrIndexServiceConfiguration;
 import com.waters.aem.solr.index.builder.ApplicationNotesSolrInputDocumentBuilder;
 import com.waters.aem.solr.index.builder.DefaultSolrInputDocumentBuilder;
 import com.waters.aem.solr.index.builder.LibrarySolrInputDocumentBuilder;
+import com.waters.aem.solr.index.builder.SkuSolrInputDocumentBuilder;
 import com.waters.aem.solr.index.builder.SolrInputDocumentBuilder;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -143,6 +144,8 @@ public class DefaultSolrIndexService implements SolrIndexService {
             builder = modelFactory.createModel(page, ApplicationNotesSolrInputDocumentBuilder.class);
         } else if (Templates.isLibraryPage(page)) {
             builder = modelFactory.createModel(page, LibrarySolrInputDocumentBuilder.class);
+        } else if (Templates.isSkuPage(page)) {
+            builder = modelFactory.createModel(page, SkuSolrInputDocumentBuilder.class);
         } else {
             builder = modelFactory.createModel(page, DefaultSolrInputDocumentBuilder.class);
         }
