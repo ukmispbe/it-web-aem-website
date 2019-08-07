@@ -63,6 +63,7 @@ class SkuDetails extends React.Component {
                 })
                 .catch(err => {
                     console.log('SHOULD WE HAVE AN ERROR MODAL?');
+                    this.toggleModal();
                 });
         } else {
             this.setState(
@@ -80,6 +81,7 @@ class SkuDetails extends React.Component {
                         })
                         .catch(err => {
                             console.log('SHOULD WE HAVE AN ERROR MODAL?');
+                            this.toggleModal();
                         })
             );
         }
