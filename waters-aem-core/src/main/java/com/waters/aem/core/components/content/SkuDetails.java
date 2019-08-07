@@ -71,8 +71,12 @@ public final class SkuDetails implements ComponentExporter {
         return watersCommerceService.getSkuCustomerPriceUrl();
     }
 
-    public String getCartUrl() {
-        return watersCommerceService.getCartUrl();
+    public String getAddToCartUrl() {
+        return watersCommerceService.getAddToCartUrl();
+    }
+
+    public String viewCartUrl() {
+        return watersCommerceService.getViewCartUrl();
     }
     
     public String getLocale() {

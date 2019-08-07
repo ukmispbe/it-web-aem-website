@@ -7,11 +7,14 @@ import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 public @interface WatersCommerceServiceConfiguration {
 
     @AttributeDefinition(name = "Sku Availability Endpoint", description = "URL for the Sku Availability endpoint")
-    String skuAvailabilityUrl() default "https://dev-www.waters.com:8443/api/waters/product/v1/availability/{partnumber}/{isocode}";
+    String skuAvailabilityUrl() default "https://dev-www.waters.com:8443/api/waters/product/v1/availability/{partnumber}/{countryCode}";
 
     @AttributeDefinition(name = "Customer Price Endpoint", description = "URL for the Sku Customer Price endpoint")
-    String skuCustomerPriceUrl() default "https://dev-www.waters.com:8443/api/waters/product/v1/customerprice";
+    String skuCustomerPriceUrl() default "https://dev-www.waters.com:8443/api/waters/product/v1/customerprice/{partnumber}/{countryCode}";
 
-    @AttributeDefinition(name = "Cart Endpoint", description = "URL for the Cart endpoint")
-    String cartUrl() default "https://www.waters.com/waters/ajax.htm?handler=shoppingHandler&action=processExternalCart";
+    @AttributeDefinition(name = "Add to Cart Endpoint", description = "URL for the Add to Cart endpoint")
+    String addToCartUrl() default "https://www.waters.com/waters/ajax.htm?handler=shoppingHandler&action=processExternalCart";
+
+    @AttributeDefinition(name = "View Cart URL", description = "URL for the View Cart button")
+    String viewCartUrl() default "https://www.waters.com/waters/shoppingCart.htm";
 }

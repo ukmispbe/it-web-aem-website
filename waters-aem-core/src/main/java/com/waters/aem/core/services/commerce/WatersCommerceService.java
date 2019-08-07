@@ -17,10 +17,17 @@ public interface WatersCommerceService {
     String getSkuCustomerPriceUrl();
 
     /**
-     * Get the configured cart URL.
+     * Get the configured add to cart URL.
      *
-     * @return cart URL
+     * @return add to cart URL
      */
-    String getCartUrl();
+    String getAddToCartUrl();
+
+    /**
+     * Get the configured view cart URL.
+     *
+     * @return add to cart URL
+     */
+    String getViewCartUrl();
 
 }
