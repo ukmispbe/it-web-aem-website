@@ -2,7 +2,7 @@ import domElements from '../scripts/domElements';
 import loginStatus from '../scripts/loginStatus';
 import screenSizes from '../scripts/screenSizes';
 
-let header, loginNavItem, headerOverlay, loginList, greetingText, mobileMenuToggle, headerNavigation;
+let header, headerTB_user, headerOverlay, headerTB_user_link, headerTB_user_link_greetingText, headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, headerNavigation;
 
 const headerInit = function() {
     domReferences();
@@ -12,36 +12,50 @@ const headerInit = function() {
 
 function domReferences() {
     header = document.querySelector('header.cmp-header');
-    loginNavItem = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
     headerOverlay = document.querySelector('.cmp-header__overlay.overlay');
-    loginList = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link');
-    greetingText = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link .greeting-text');
-    mobileMenuToggle = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile button');
-    headerNavigation = document.querySelector('.cmp-header__navigation');    
+
+    headerTB_user = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
+    headerTB_user_link = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link');
+    headerTB_user_link_greetingText = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link .greeting-text');
+    
+    headerTB_mobile = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile');
+    headerTB_mobile_btn = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile button');
+    
+    headerNavigation = document.querySelector('.cmp-header__navigation');  
+    headerNavigation_comp = document.querySelector('.cmp-header__navigation nav.cmp-navigation'); 
+
 }
 
 function addEventListeners() { 
-    loginList.addEventListener('click', loginListHandler);
-    mobileMenuToggle.addEventListener('click', toggleMobileMenu);
-    loginNavItem.addEventListener('mouseover', updateOverlay);
-    loginNavItem.addEventListener('mouseleave', updateOverlay);
-    window.addEventListener('resize', resize);
+    headerTB_user_link.addEventListener('click', headerTB_user_linkHandler);
+    headerTB_user.addEventListener('mouseover', updateOverlay);
+    headerTB_user.addEventListener('mouseleave', updateOverlay);
+
+    if (headerNavigation_comp) { 
+        headerTB_mobile_btn.addEventListener('click', toggleMobileMenu);
+        window.addEventListener('resize', resize);
+    }
 }
 
 function render() { 
     const loggedInClass = 'loggedIn';
     if (loginStatus.state()) {
-        domElements.addClass(loginNavItem, loggedInClass);
+        domElements.addClass(headerTB_user, loggedInClass);
         let greeting = loginStatus.getGreeting();
         if (greeting) {
-            greetingText.innerHTML = greeting;
+            headerTB_user_link_greetingText.innerHTML = greeting;
         }
     } else {
-        domElements.removeClass(loginNavItem, loggedInClass)
+        domElements.removeClass(headerTB_user, loggedInClass)
+    }
+
+    const isUsed = 'is-used';
+    if (headerNavigation_comp) { 
+        domElements.addClass(headerTB_mobile, isUsed);
     }
 }
 
-function loginListHandler(e) { 
+function headerTB_user_linkHandler(e) { 
     e.preventDefault();
     let loggedIn = loginStatus.state();
 
@@ -66,7 +80,7 @@ function updateOverlay(e) {
 }
 
 function toggleMobileMenu(e) {
-    if (domElements.hasClass(mobileMenuToggle, 'is-active')) {
+    if (domElements.hasClass(headerTB_mobile_btn, 'is-active')) {
         hideMobileNav();
     } else {
         showMobileNav();
@@ -74,20 +88,19 @@ function toggleMobileMenu(e) {
 }
 
 function hideMobileNav() { 
-    domElements.removeClass(mobileMenuToggle, 'is-active');
+    domElements.removeClass(headerTB_mobile_btn, 'is-active');
     domElements.removeClass(headerNavigation, 'is-active');
     domElements.removeClass(header, 'is-fixed');
 }
 
 function showMobileNav() { 
-    domElements.addClass(mobileMenuToggle, 'is-active');
+    domElements.addClass(headerTB_mobile_btn, 'is-active');
     domElements.addClass(headerNavigation, 'is-active');
     domElements.addClass(header, 'is-fixed');
 }
 
 function resize() { 
-    console.log('resize');
-    if (!screenSizes.isMobile() && domElements.hasClass(mobileMenuToggle, 'is-active') ||
+    if (!screenSizes.isMobile() && domElements.hasClass(headerTB_mobile_btn, 'is-active') ||
         !screenSizes.isMobile() && domElements.hasClass(headerNavigation, 'is-active') ||
         !screenSizes.isMobile() && domElements.hasClass(header, 'is-active') 
     ) { 
