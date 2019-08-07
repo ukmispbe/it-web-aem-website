@@ -1,9 +1,5 @@
 <div data-sly-use.skuDetails="com.waters.aem.core.components.content.SkuDetails"
      data-sly-test.sku="${skuDetails.displayableSku}"
-     data-availability-url="${skuDetails.skuAvailabilityUrl}"
-     data-pricing-url="${skuDetails.skuCustomerPriceUrl}"
-     data-cart-url="${skuDetails.cartUrl}"
-     data-locale="${skuDetails.locale}"
      class="cmp-sku-details">
     <div class="cmp-sku-details__wrapper">
         <div class="cmp-sku-details__container">
@@ -63,8 +59,9 @@
     </div>
     <script type="application/json">
         {
-            "locale": "en-US",
+            "locale": "${skuDetails.locale}",
             "availabilityUrl": "${skuDetails.skuAvailabilityUrl}",
+            "priceUrl": "${skuDetails.skuCustomerPriceUrl}",
             "skuInfo": {
                 "outOfStock": "${'Out of Stock' @ i18n}",
                 "orderSoon": "${'Order Soon' @ i18n}",
@@ -72,13 +69,13 @@
                 "orderNow": "${'Order Now' @ i18n}",
                 "inStock": "${'In Stock' @ i18n}",
                 "shipsBy": "${'Ships by {date}' @ i18n}",
-                "inStockIcon": "in-stock.svg",
-                "lowStockIcon": "low-stock.svg",
-                "outOfStockIcon": "out-stock.svg"
+                "inStockIcon": "/content/dam/waters/brand-assets/icons/in-stock.svg",
+                "lowStockIcon": "/content/dam/waters/brand-assets/icons/low-stock.svg",
+                "outOfStockIcon": "/content/dam/waters/brand-assets/icons/out-stock.svg"
             },
             "modalInfo": {
-                "icon": "checkmark.svg",
-                "closeIcon": "close.svg",
+                "icon": "/content/dam/waters/brand-assets/icons/checkmark.svg",
+                "closeIcon": "/content/dam/waters/brand-assets/icons/close.svg",
                 "title": "${'Item Added to Cart' @ i18n}",
                 "textHeading": "${sku.code}",
                 "text": "${sku.title}",
