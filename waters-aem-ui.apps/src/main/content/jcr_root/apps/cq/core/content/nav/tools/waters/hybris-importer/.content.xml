@@ -3,7 +3,7 @@
           xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="nt:unstructured"
           jcr:title="Hybris Importer"
-          jcr:description="Access Hybris Importer"
+          jcr:description="Access Hybris Importer Manual Import"
           icon="dataRefresh"
           href="/etc/waters/hybris-importer.html"
           target="_blank"/>
