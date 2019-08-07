@@ -144,19 +144,28 @@
     display: inline-block;
     margin-left: $space-s;
 
+    @include mobile {
+        margin-left: 0px;
+    }
+
     span {
           color: $color-disabled;
           padding-right: $space-xxs;
-          font-weight: $font-weight-regular;
+          font-weight: $font-weight-bold;
+          font-size: 15px;
+          line-height: 22px;
+
     }
 
     a {
         margin-right: $space-xxs;
-        font-size: $font-size-small;
+        font-size: 15px;
+        font-weight: $font-weight-light;
         display: inline;
         color: $color-disabled;
-        line-height: 1em;
+        line-height: 22px;
         transition: $hover-transition;
+        text-decoration: none solid rgb(156, 167, 176);
 
         &:hover {
             text-decoration: underline;
