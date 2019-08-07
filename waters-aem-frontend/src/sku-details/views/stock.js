@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
+import Utilities from '../utils/utils';
 // import PropTypes from 'prop-types';
 // import { Modal } from '../modal/index';
 
@@ -42,7 +43,7 @@ class Stock extends React.Component {
                             <ReactSVG src={this.props.skuConfig.outOfStockIcon} />
                         </span>
                     </div>
-                    <div className="cmp-sku-details__order">Ships by {this.props.skuAvailability.availableDate}</div>
+                    <div className="cmp-sku-details__order">Ships by {Utilities.dateFormatter(this.props.skuAvailability.availableDate)}</div>
                 </div>
             );
         }
