@@ -40,7 +40,7 @@ class SkuService {
     createAvailabilityRequest(partNo) {
         const url = this.skuOptions.availability
             .replace('{partnumber}', partNo)
-            .replace('{isocode}', this.isocode);
+            .replace('{countryCode}', this.isocode);
 
         return url;
     }
@@ -67,7 +67,7 @@ class SkuService {
     createPriceRequest(partNo) {
         const url = this.skuOptions.price
             .replace('{partnumber}', partNo)
-            .replace('{countrycode}', this.isocode);
+            .replace('{countryCode}', this.isocode);
 
         return url;
     }
