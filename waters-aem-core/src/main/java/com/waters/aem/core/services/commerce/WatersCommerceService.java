@@ -26,7 +26,7 @@ public interface WatersCommerceService {
     /**
      * Get the configured view cart URL.
      *
-     * @return add to cart URL
+     * @return View Cart URL
      */
     String getViewCartUrl();
 
