@@ -14,8 +14,7 @@ class SkuDetails extends React.Component {
             modalConfig: this.props.config.modalInfo,
             skuConfig: this.props.config.skuInfo,
             skuNumber: this.props.config.modalInfo.textHeading,
-            // userCountry: this.props.config.countryCode,
-            userCountry: 'US', // remove after Eric's PR is approved and merged
+            userCountry: this.props.config.countryCode,
             availabilityAPI: this.props.config.availabilityUrl,
             skuAvailability: {},
             addToCartQty: undefined,
