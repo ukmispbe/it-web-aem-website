@@ -1,7 +1,9 @@
 package com.waters.aem.hybris.importer.impl;
 
+import com.day.cq.commons.DownloadResource;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.NameConstants;
+import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.WCMException;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableMap;
@@ -22,6 +24,7 @@ import com.waters.aem.hybris.importer.HybrisCatalogImporter;
 import com.waters.aem.hybris.importer.HybrisCatalogImporterConfiguration;
 import com.waters.aem.hybris.models.Category;
 import com.waters.aem.hybris.result.HybrisImporterResult;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ModifiableValueMap;
 import org.apache.sling.api.resource.PersistenceException;
@@ -244,7 +247,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     }
 
     private List<HybrisImporterResult> importPagesForSku(final CatalogImporterContext context,
-        final PageDecorator categoryPage, final Sku sku) throws WCMException {
+        final PageDecorator categoryPage, final Sku sku) throws WCMException, PersistenceException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         final String skuPageName = new StringBuilder(TextUtils.getValidJcrName(sku.getCode()))
@@ -265,6 +268,8 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
                 sku.getTitle(), false);
 
             LOG.info("created sku page : {}", skuPage.getPath());
+
+            setPageThumbnail(context.getResourceResolver(), sku, skuPage);
 
             status = HybrisImportStatus.CREATED;
         } else {
@@ -451,6 +456,21 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             .map(page -> page.getProperties().get(WatersCommerceConstants.PROPERTY_CODE, String.class))
             .filter(Objects :: nonNull)
             .collect(Collectors.toSet());
+    }
+
+    private void setPageThumbnail(final ResourceResolver resolver, final Sku sku, final Page page) throws PersistenceException {
+        final String thumbNailImage = sku.getPrimaryImageThumbnail();
+
+        if (StringUtils.isNotEmpty(thumbNailImage)) {
+            final Map<String, Object> properties = new HashMap<>();
+
+            properties.put(JcrConstants.JCR_PRIMARYTYPE, JcrConstants.NT_UNSTRUCTURED);
+            properties.put(DownloadResource.PN_REFERENCE, thumbNailImage);
+
+            resolver.create(page.getContentResource(), "thumbnailImage", properties);
+
+            resolver.commit();
+        }
     }
 
     private Map<String, Set<String>> getCategoryIdToProductCodeMap(final ResourceResolver resourceResolver) {

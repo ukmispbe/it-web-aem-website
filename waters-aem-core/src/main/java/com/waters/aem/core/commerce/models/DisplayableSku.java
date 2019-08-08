@@ -59,17 +59,15 @@ public final class DisplayableSku {
 
     @SuppressWarnings("squid:S2259")
     public String getPrimaryImageSrc() {
-        return getPrimaryImageAsset() == null ? null : getPrimaryImageAsset().getPath();
+        return sku.getPrimaryImageAsset() == null ? null :  sku.getPrimaryImageAsset().getPath();
     }
 
     public String getPrimaryImageAlt() {
-        return getPrimaryImageAsset() == null ? "" : AssetUtils.getAltText(getPrimaryImageAsset());
+        return sku.getPrimaryImageAsset() == null ? "" : AssetUtils.getAltText(sku.getPrimaryImageAsset());
     }
 
     public String getPrimaryImageThumbnail() {
-        return getPrimaryImageAsset() == null ? null : new PrefixRenditionPicker(WatersConstants.THUMBNAIL_RENDITION_PREFIX, true)
-            .getRendition(getPrimaryImageAsset())
-            .getPath();
+        return sku.getPrimaryImageThumbnail();
     }
 
     public BigDecimal getPrice() {
@@ -90,23 +88,5 @@ public final class DisplayableSku {
         final PageDecorator page = sku.getSkuPage(siteContext.getPage(), getReplacementSkuCode());
 
         return page != null ? page.getHref() : "";
-    }
-
-    private Asset getPrimaryImageAsset() {
-        final List<Asset> assets = getAssets();
-
-        return assets.isEmpty() ? null : assets.get(0);
-    }
-
-    private List<Asset> getAssets() {
-
-        final List<SkuImage> skuImages = sku.getImages();
-
-        final List<Asset> assets = skuImages
-                .stream()
-                .map(skuImage -> AssetUtils.getAsset(resource.getResourceResolver(), skuImage.getPath()))
-                .collect(Collectors.toList());
-
-        return assets.stream().filter(Objects :: nonNull).collect(Collectors.toList());
     }
 }
