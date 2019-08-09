@@ -163,8 +163,6 @@ class Sticky {
 
                 this.sumHeight += q.stickyHeight;
             });
-
-            window.scrollTo(0, last_known_scroll_position);
         }
     }
 
