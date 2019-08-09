@@ -64,6 +64,8 @@ public final class WatersConstants {
 
     public static final String THUMBNAIL_RENDITION_PREFIX = "cq5dam.thumbnail.319";
 
+    public static final String THUMBNAIL_IMAGE = "thumbnailImage";
+
     private WatersConstants() {
 
     }

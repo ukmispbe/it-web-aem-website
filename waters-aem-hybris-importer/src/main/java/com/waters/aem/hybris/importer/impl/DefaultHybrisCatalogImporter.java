@@ -467,7 +467,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             properties.put(JcrConstants.JCR_PRIMARYTYPE, JcrConstants.NT_UNSTRUCTURED);
             properties.put(DownloadResource.PN_REFERENCE, thumbNailImage);
 
-            resolver.create(page.getContentResource(), "thumbnailImage", properties);
+            resolver.create(page.getContentResource(), WatersConstants.THUMBNAIL_IMAGE, properties);
 
             resolver.commit();
         }
