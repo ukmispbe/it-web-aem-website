@@ -250,7 +250,8 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
 
         for (final Classification classification : classifications) {
             if (classification.isFacet()) {
-                document.setField(SearchUtils.getSolrFacetName(classification.getTitle()), classification.getFormattedFeatureValues());
+                final String title =  classification.getTitle().replaceAll("\\s+","");
+                document.setField(SearchUtils.getSolrFacetName(title), classification.getFormattedFeatureValues());
             }
         }
     }
