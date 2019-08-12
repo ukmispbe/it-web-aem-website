@@ -1,7 +1,7 @@
 <sly data-sly-use.table="com.waters.aem.core.components.content.applicationnotes.Table"
      data-sly-test="${table.tableRows}">
     <h3 data-sly-test="${table.title}" class="cmp-table__title">${table.title}</h3>
-    <div class="cmp-table">
+    <div class="${table.applyTableSplit ? 'cmp-table--divide cmp-table' :'cmp-table'}">
         <table class="cmp-table__table">
             <thead data-sly-test="${table.header}">
             <tr>

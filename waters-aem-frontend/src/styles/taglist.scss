@@ -16,6 +16,29 @@
 
 .cmp-tag-list--comma-separated {
     .cmp-tag-list {
+        margin-bottom: $space-s;
+        &__item {
+            &::after {
+                content: ',';
+            }
+
+            &:last-of-type {
+                &::after {
+                    content: '';
+                    display: none;
+                }
+            }
+        }
+
+        @include mobile {
+            margin-bottom: $space-s;
+        }
+    }
+}
+
+.cmp-tag-list--comma-separated-small {
+    .cmp-tag-list {
+        @include font-small;
         margin-bottom: $space-l;
         &__item {
             &::after {
@@ -29,14 +52,23 @@
                 }
             }
         }
+
+        @include mobile {
+            margin-bottom: $space-l;
+        }
     }
 }
+
 
 .cmp-tag-list--stacked {
     .cmp-tag-list {
         margin-bottom: $space-l;
         &__item {
             display: block;
+        }
+
+        @include mobile {
+            margin-bottom: $space-s;
         }
     }
 }
@@ -45,11 +77,13 @@
     .cmp-tag-list {
         margin-bottom: $space-s;
         &__item {
-            font-size: $font-size-small;
+            @include font-small;
             display: inline-block;
-            padding: $space-xxxs $space-xs ($space-xxs - .1em) $space-xs;
+            padding: ($space-xxxs - .05em) $space-xs ($space-xxxs + .05em) $space-xs;         
+            margin: 0 $space-xxs $space-xs 0;
             background-color: $color-background-dark;
-            color: $color-white;
+            color: $color-font-light;
+            border-radius: .25em;
         }
     }
 }

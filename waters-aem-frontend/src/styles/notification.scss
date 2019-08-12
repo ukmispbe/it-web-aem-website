@@ -1,0 +1,101 @@
+.cmp-notification {
+    &-wrapper {
+        display: flex;
+        justify-content: center;
+        background-color: $color-background-light;
+        padding: $space-s;
+        margin-bottom: $space-l;
+
+        @include mobile {
+            padding: $space-m;
+        }
+
+        svg {
+            height: $icon-m;
+            width: $icon-l;
+            padding-right: $space-xxs;
+            margin-top: 0.1em;
+            .st0 {
+                stroke: $color-icon;
+            }
+
+            @include mobile {
+                margin-bottom: $space-xxs;
+                padding-right: 0;
+            }
+        }
+
+        @include mobile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            svg {
+                height: $icon-l;
+            }
+        }
+    }
+
+    &-separator {
+        color: $color-gray-30;
+        padding-right: $space-xxxs;
+        padding-left: $space-xxxs;
+    }
+
+    &-body {
+        @include mobile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    &-description {
+        display: inline;
+        text-align: center;
+    }
+
+    &-title {
+        font-weight: $font-weight-bold;
+        padding-right: $space-xxs;
+        display: inline;
+
+        @include mobile {
+            padding-right:0;
+        }
+    }
+
+    &-links {
+        display: inline;
+        list-style-type: none;
+        padding-left: $space-xxs;
+        li {
+            display: inline;
+        }
+    }
+}
+
+.cmp-notification--error {
+    .cmp-notification-wrapper {
+        transition: transform 200ms ease-in-out;
+
+        svg {
+            .st0 {
+                stroke: $color-error;
+            }
+        }
+    }
+}
+
+.cmp-notification--dynamic {
+    height: 0;
+    .cmp-notification-wrapper {
+        transform: scale(0);
+    }
+
+    &.error {
+        height: auto;
+        .cmp-notification-wrapper {
+            transform: scale(1);
+        }
+    }
+}

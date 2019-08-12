@@ -60,4 +60,9 @@ public class DocumentObjectData extends AbstractAnalyticsModel{
     public String getTitle() {
         return currentPage.getTitle();
     }
+
+    public String getName() {
+        return currentPage.getName();
+    }
+
 }

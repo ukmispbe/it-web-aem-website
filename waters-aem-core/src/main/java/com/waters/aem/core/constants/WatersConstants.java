@@ -1,5 +1,7 @@
 package com.waters.aem.core.constants;
 
+import com.google.common.base.Predicate;
+import com.icfolson.aem.library.api.page.PageDecorator;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 @SuppressWarnings("squid:S1195")
@@ -17,9 +19,11 @@ public final class WatersConstants {
 
     public static final String DAM_PATH = "/content/dam/waters";
 
-    public static final String DAM_PATH_APP_NOTES = "/content/dam/waters/app-notes/";
+    public static final String DAM_PATH_APP_NOTES = "/content/dam/waters/en/app-notes/";
 
     public static final String RESOURCE_TYPE_PAGE = "waters/components/structure/page";
+
+    public static final String TEMPLATE_HOME_PAGE = "/conf/waters/settings/wcm/templates/home-page";
 
     public static final String TEMPLATE_CONTENT_PAGE = "/conf/waters/settings/wcm/templates/content-page";
 
@@ -29,11 +33,18 @@ public final class WatersConstants {
 
     public static final String TEMPLATE_REDIRECT_PAGE = "/conf/waters/settings/wcm/templates/redirect-page";
 
+    public static final String TEMPLATE_CATALOG_PAGE = "/conf/waters/settings/wcm/templates/catalog-page";
+
     public static final String TEMPLATE_CATEGORY_PAGE = "/conf/waters/settings/wcm/templates/section-page";
 
-    public static final String TEMPLATE_SKU_PAGE = "/conf/waters/settings/wcm/templates/product-page";
+    public static final String TEMPLATE_SKU_PAGE = "/conf/waters/settings/wcm/templates/sku-page";
+
+    public static final Predicate<PageDecorator> PREDICATE_SKU_PAGE = page -> TEMPLATE_SKU_PAGE.equals(
+        page.getTemplatePath());
 
     public static final String RENDER_CONDITION_APPLICATION_NOTES_TEMPLATE = "waters/components/renderconditions/applicationnotestemplate";
+
+    public static final String RENDER_CONDITION_CATALOG_TEMPLATE = "waters/components/renderconditions/catelogtemplate";
 
     public static final String EXTENSION_PDF = "pdf";
 
@@ -41,13 +52,17 @@ public final class WatersConstants {
 
     public static final String PROPERTY_LIBRARY_ASSET_PATH = "libraryAssetPath";
 
-    public static final String PROPERTY_REDIRECT_TARGET = "cq:redirectTarget";
+    public static final String PROPERTY_REDIRECT_TARGET = "redirectTarget";
+
+    public static final String DAM_ICON_PATH = "/content/dam/waters/en/brand-assets/icons";
 
     public static final int LEVEL_SITE_ROOT = 2;
 
     public static final int LEVEL_LANGUAGE_ROOT = 3;
 
     public static final FastDateFormat DATE_FORMAT_ISO_8601 = FastDateFormat.getInstance("yyyy-MM-dd");
+
+    public static final String THUMBNAIL_RENDITION_PREFIX = "cq5dam.thumbnail.319";
 
     private WatersConstants() {
 

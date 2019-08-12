@@ -4,16 +4,16 @@ import com.google.inject.AbstractModule;
 import com.waters.aem.automationtests.components.Anchor;
 import com.waters.aem.automationtests.components.Button;
 import com.waters.aem.automationtests.components.ExternalFooter;
-import com.waters.aem.automationtests.components.ExternalHeader;
-import com.waters.aem.automationtests.components.ExternalList;
+import com.waters.aem.automationtests.components.Header;
 import com.waters.aem.automationtests.components.Image;
+import com.waters.aem.automationtests.components.Links;
 import com.waters.aem.automationtests.components.Text;
 import com.waters.aem.automationtests.components.Title;
 import com.waters.aem.automationtests.components.impl.AnchorImpl;
 import com.waters.aem.automationtests.components.impl.ButtonImpl;
 import com.waters.aem.automationtests.components.impl.ExternalFooterImpl;
-import com.waters.aem.automationtests.components.impl.ExternalHeaderImpl;
-import com.waters.aem.automationtests.components.impl.ExternalListImpl;
+import com.waters.aem.automationtests.components.impl.HeaderImpl;
+import com.waters.aem.automationtests.components.impl.LinksImpl;
 import com.waters.aem.automationtests.components.impl.ImageImpl;
 import com.waters.aem.automationtests.components.impl.TextImpl;
 import com.waters.aem.automationtests.components.impl.TitleImpl;
@@ -29,9 +29,9 @@ public class WatersComponentModule extends AbstractModule {
         bind(Title.class).to(TitleImpl.class);
         bind(Anchor.class).to(AnchorImpl.class);
         bind(Image.class).to(ImageImpl.class);
-        bind(ExternalHeader.class).to(ExternalHeaderImpl.class);
+        bind(Header.class).to(HeaderImpl.class);
         bind(ExternalFooter.class).to(ExternalFooterImpl.class);
-        bind(ExternalList.class).to(ExternalListImpl.class);
+        bind(Links.class).to(LinksImpl.class);
         bind(Button.class).to(ButtonImpl.class);
 
 

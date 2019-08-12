@@ -80,6 +80,7 @@
 
     @include mobile {
         margin: 0 0 0 -4px;
+        padding: $space-l 0 0 0;
     }
 
     @include tablet {
@@ -208,7 +209,7 @@
     .cmp-button--secondary button.cmp-button,
     .cmp-button--secondary a.cmp-button,
     a.cmp-button--secondary,
-    button.cmp-button--secondaryn {
+    button.cmp-button--secondary {
         color: $color-font-light;
         border: 1px solid $color-white;
         background: none;
@@ -241,4 +242,62 @@
 
 .cmp-banner--notHeader .cmp-banner {
     margin-top: 0;
+}
+
+.cmp-banner--left .cmp-banner {
+    padding-right: 80%;
+
+    @include tablet {
+        padding-right: 50%;
+        padding-left: 31%;
+    }
+
+    @include mobile {
+        padding-right: 30%;
+        overflow-x: hidden;
+    }
+
+    .cmp-banner__parsys {
+        padding: $space-xl 0 ($space-xl + $space-xxs 0);
+        margin: 0 $space-xl;
+
+        .cmp-title__text div {
+            text-align: left;
+        }
+
+        @include mobile {
+            margin: 0;
+            padding: $space-l 0;
+        }
+    }
+
+    .cmp-banner__background-overlay {
+        width: 30%;
+        left: auto;
+        opacity: 0.8;
+
+        @include tablet {
+            width: 50%;
+            left: 19%
+        }
+
+        @include mobile {
+            width: 100%;
+            left: 14%;
+        }
+    }
+
+    .cmp-button button,
+    .cmp-button a,
+    a.cmp-button,
+    button.cmp-button {
+        margin-bottom: 0;
+    }
+
+    .cmp-button--secondary button.cmp-button,
+    .cmp-button--secondary a.cmp-button,
+    a.cmp-button--secondary,
+    button.cmp-button--secondary {
+        margin-bottom: 0;
+    }
 }

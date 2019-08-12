@@ -34,7 +34,7 @@ function init(options = {}) {
     return setOptions(options);
 }
 
-function up(file, pathOverride) {
+function up(file, pathOverride, noResolve) {
     if (!HOST) {
         setOptions();
     }
@@ -48,7 +48,10 @@ function up(file, pathOverride) {
     let sendTo = undefined;
 
     // if jcr_root is in file system path, remove before setting destination
-    if (pathOverride) {
+    if (noResolve && pathOverride) {
+        const fileName = path.basename(file);
+        sendTo = pathOverride + fileName;
+    } else if (pathOverride) {
         const fileName = path.basename(file);
         sendTo = path.resolve(pathOverride, fileName);
     } else if (path.dirname(file).indexOf('jcr_root') !== -1) {

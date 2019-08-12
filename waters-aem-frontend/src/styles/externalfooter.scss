@@ -1,6 +1,5 @@
-.cmp-external-footer {
-    background-color: $color-gray-50;
-    padding: $space-m 0 11em 0;
+.cmp-footer {
+    padding: $space-xl 0;
     margin-top: $space-xl;
     overflow: hidden;
     width: 100%;
@@ -8,19 +7,84 @@
     a {
         color: $color-font-light;
     }
+
+    .cmp-button {
+        background-color: $color-background-dark;
+        display: inline-block;
+        border: 1px solid $color-white;
+        color: $color-font-light;
+        width: 100%;
+        &:hover {
+            background-color: $color-background-dark;
+            border: 1px solid $color-gray-20;
+            color: $color-gray-20;
+        }
+    }
+
+    h3 {
+        color: $color-white;
+    }
+
+    .links {
+        color: $color-white;
+        display:    inline-block;
+    }
+
+    .container1 {
+        background-color: $color-background-dark;
+        opacity: 0.9;
+        max-width: 1480px;
+        //position: static;
+        margin: -$space-xxs auto 0 auto;
+        padding: $space-xl $space-xxl; 
+        display: block;
+        text-align: left;
+
+        @include mobile {
+            padding: 0 20px;
+        }
+
+        @include tablet {
+            padding: $space-l;
+        }
+
+    }
+
+    .container1_wrapper {
+        background-color: $color-background-dark;
+        opacity: 0.95;
+    }
+    .container2 {
+        background-color: $color-background-dark;
+        max-width: 1480px;
+        padding: $space-xl $space-xxl; 
+        clear: both;
+        width: 100%;
+        display: block;
+        margin: -$space-xxs auto 0 auto;
+
+        @include mobile {
+            padding: 0 20px $space-l 20px;
+        }
+
+        @include tablet {
+            padding: $space-l;
+        }
+        .cmp-footer__yamcontainer{
+             margin-top: $space-l;
+        }
+    }
+    .container2_wrapper {
+        background-color: $color-background-dark;
+    }
 }
 
-.cmp-external-footer__logo {
-    width: 115px;
-    float: left;
-    margin-right: $space-xl;
-    margin-top: $space-xs;
-
-    a {
-        float: left;
-        width: 115px;
-        display: block;
-    }
+.cmp-footer__logo {
+    max-width: 115px;
+    height: 32px;
+    margin-top: $space-l;
+    margin-left: $space-s;
+    display: inline-block;
 
     img {
         height: 32px;
@@ -29,17 +93,37 @@
 
     @include mobile {
         width: 100%;
+        display: inline-block;
+        margin-left: 0;
     }
 }
 
-.cmp-external-footer__links {
-    width: calc(100% - 165px);
-    float: right;
-    text-align: right;
-    margin-top: 0.5em;
+.cmp-footer__links {
+    width: 100%;
+    text-align: left;
+    display: inline-block;
+    margin-left: $space-s; 
+    @include mobile {
+        width: 100%;
+        margin-right: 0;
+        margin-left: 0; 
+        column-count:2; 
+        -moz-column-count:2; 
+        -webkit-column-count:2; 
+    }
+
     a {
-        margin-left: $space-l;
+        margin-right: $space-l;
         display: inline;
+        @include mobile {
+            line-height: $line-height-text;
+            padding: $space-xxs 0;
+            display: block;
+            width: 100%;
+        }
+        @include tablet {
+            display: inline-block;
+        }
         line-height: 2.5em;
         transition: $hover-transition;
 
@@ -52,24 +136,52 @@
             padding-left: 0;
         }
     }
+}
 
-    @media (max-width: 860px) {
-        width: 100%;
+.cmp-footer__yamlinks {
+    width: 100%;
+    text-align: left;
+    display: inline-block;
+    margin-left: $space-s;
 
-        a {
-            display: block;
-            float: left;
-            width: 50%;
-            margin-left: 0;
-            text-align: left;
+    @include mobile {
+        margin-left: 0px;
+    }
+
+    span {
+          color: $color-disabled;
+          padding-right: $space-xxs;
+          font-weight: $font-weight-bold;
+          font-size: 15px;
+          line-height: 22px;
+
+    }
+
+    a {
+        margin-right: $space-xxs;
+        font-size: 15px;
+        font-weight: $font-weight-light;
+        display: inline;
+        color: $color-disabled;
+        line-height: 22px;
+        transition: $hover-transition;
+        text-decoration: none solid rgb(156, 167, 176);
+
+        &:hover {
+            text-decoration: underline;
+            color: $color-gray-20;
+        }
+
+        &:first-of-type {
+            padding-left: 0;
         }
     }
 }
 
-.cmp-external-footer__copyright {
+.cmp-footer__copyright {
     float: right;
-    margin-top: $space-l;
-
+    margin-top: $space-xxs;
+    margin: $space-xxs $space-s 0 0 ;
     p {
         @include font-small;
         color: $color-font-light;
@@ -82,6 +194,7 @@
     @include mobile {
         float: left;
         margin-top: $space-l;
+        text-align: left;
     }
 }
 
@@ -89,7 +202,7 @@
     position: fixed;
     bottom: $space-m;
     right: $space-m;
-    z-index: 99;
+    z-index: 98;
     height: $button-fixed;
     width: $button-fixed;
     background: $color-white;
@@ -138,4 +251,65 @@
         float: right;
         bottom: $space-m;
     }
+}
+
+.cmp-footer__social-links {
+    display: inline-block;
+    float: right;
+    margin-right: $space-s;
+    @include mobile {
+        float: none;
+        width: 100%;
+        padding-top: $space-s;
+    }
+
+    .social-links-text {
+        color: $color-font-light;
+        text-align: right;
+        padding-bottom: $space-s;
+
+        @include mobile {
+            text-align: left;
+        }
+
+    }
+
+    .inline-svg {
+        display: inline-block;
+    }
+
+    ul {
+        float: right;
+        @include mobile {
+            float: left;
+            padding-inline-start: 0;
+        }
+        li {
+            list-style-type: none;
+            display: inline-block;
+            a {
+                text-decoration: none;
+                padding-left: $space-m;
+                padding-right: 0;
+
+                @include mobile {
+                    padding-right: $space-m;
+                    padding-left: 0;
+                }
+
+                svg {
+                    width: $icon-m;
+                    height: $icon-m;
+                    fill: $color-white;
+                }
+            }
+        }
+    }   
+}
+
+.cmp-footer .cmp-links__external-link--true::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' width='18' height='25' viewBox='0 0 24 24' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-external-link'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E");
+}
+.cmp-footer .cmp-links__external-link--true:hover:after {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='25' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-external-link'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3'/%3E%3C/svg%3E");
 }

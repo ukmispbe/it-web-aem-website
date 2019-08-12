@@ -37,7 +37,6 @@
     .cmp-search-filters__tags {
         @include mobile {
             margin-top: -30px;
-            margin-bottom: $space-l;
         }
 
         @include tablet {
@@ -62,18 +61,17 @@
     }
 }
 .cmp-search__results-item {
-    border-top: 1px solid $color-border-rule;
-    padding-top: $space-m;
+    padding: $space-m;
+    background-color: $color-background-light;
     @include list-item;
 
     &-breadcrumb {
         display: flex;
         @include font-small;
         margin-top: $space-s;
-        padding-bottom: $space-xs;
 
         svg {
-            margin: ($space-xxxs + .2em) $space-xxxs 0 $space-xxxs;
+            margin: ($space-xxxs + 0.2em) $space-xxxs 0 $space-xxxs;
             width: $icon-s;
             height: $icon-s;
 
@@ -136,15 +134,17 @@ div.cmp-search__no-results {
             cursor: pointer;
             @include font-utility;
             margin: 0 $space-xxs 0 0;
-            border: 1px solid $color-border-dark;
+            border: 1px solid $color-border-light;
             float: left;
-            padding-top: $space-xxs;
+            padding-top: ($space-xxs - .1em);
             text-decoration: none;
             text-align: center;
             height: $button-fixed;
             width: $button-fixed;
+
             &:hover {
                 color: $color-link;
+                border: 1px solid $color-border-dark;
             }
         }
         &.disabled {
@@ -158,9 +158,8 @@ div.cmp-search__no-results {
         }
         &.selected {
             a {
-                background: $color-background-dark;
-                color: $color-font-light;
-                border: 1px solid $color-background-dark;
+                border: 2px solid $color-gray-50;
+                font-weight: $font-weight-bold;
             }
             @include mobile {
                 display: inline;
@@ -169,6 +168,7 @@ div.cmp-search__no-results {
         &.next,
         &.previous {
             a {
+                border: none;
                 &:hover {
                     svg .st0 {
                         stroke: $color-link;
@@ -182,8 +182,8 @@ div.cmp-search__no-results {
             svg {
                 width: $icon-m;
                 height: 24px;
-                margin-left: ($space-xxs + .15em);
-                margin-top: ($space-xxxs - .15em);
+                margin-left: ($space-xxs + 0.15em);
+                margin-top: ($space-xxxs - 0.15em);
                 @include mobile {
                     height: 24px;
                 }
@@ -219,12 +219,12 @@ div.cmp-search__no-results {
     background-color: $color-white;
     z-index: 4;
     width: 100%;
-    top: 76px;
+    top: 0;
     left: 0;
     box-shadow: $shadow;
-    border:none;
+    border: none;
     margin: 0;
-    padding: .65em $space-xs $space-xs 1.32em;
+    padding: $space-xs $space-xs $space-xs 1.32em;
     height: 54px;
 }
 
@@ -233,7 +233,7 @@ div.cmp-search__no-results {
         display: none;
         @include font-utility;
         border: 1px solid $color-border-dark;
-        padding: $space-xs ($space-xl - .25em) $space-xs $space-s;
+        padding: $space-xs ($space-xl - 0.25em) $space-xs $space-s;
         margin-bottom: $space-xl;
         position: relative;
         text-decoration: none;
@@ -268,7 +268,6 @@ div.cmp-search__no-results {
             float: right;
         }
         @include mobile {
-            font-size: $font-size-h3;
             svg {
                 margin: 0 2% 0 0;
             }
@@ -367,30 +366,32 @@ div.cmp-search__no-results {
     width: 100%;
     @include mobile {
         display: block;
-        padding-bottom: $space-m;
+        padding: $space-m 0;
+        float: none;
+        width: 100%;
     }
     @include tablet {
         display: block;
         padding-top: $space-s;
-    }
-    @include tablet {
         float: left;
         width: 70%;
     }
-    @include mobile {
-        float: none;
-        width: 100%;
-    }
+}
+
+div.cmp-search__sorted-by {
+    padding: $space-s 0;
 }
 .cmp-search-overlay {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: rgba(255, 255, 255, 0.8);
-    width: 100%;
+    background-color: hsla(0, 0%, 100%, 0.8);
+    width: 200%;
     height: 100%;
-    z-index: 9;
-    padding: 25% 50%;
+    padding: 50% 80%;
+    margin: -30%;
+    z-index: 9999;
+
     > div {
         margin-left: -32px;
     }
@@ -419,10 +420,12 @@ html.showing-spinner {
                 }
             }
         }
-        .btn-show-sort-filter{
+        .btn-show-sort-filter {
             z-index: 4;
         }
-        .cccmp-search__container, .cmp-external-footer, .cmp-back-to-top {
+        .cccmp-search__container,
+        .cmp-footer,
+        .cmp-back-to-top {
             display: none;
         }
     }

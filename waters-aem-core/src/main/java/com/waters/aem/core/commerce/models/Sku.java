@@ -2,8 +2,10 @@ package com.waters.aem.core.commerce.models;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.google.common.base.Objects;
+import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
 import com.waters.aem.core.commerce.services.SkuRepository;
+import org.apache.commons.lang3.EnumUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
@@ -33,7 +35,7 @@ public final class Sku {
     private Resource resource;
 
     @ValueMapValue(name = WatersCommerceConstants.PROPERTY_CODE)
-    private String id;
+    private String code;
 
     @ValueMapValue(name = WatersCommerceConstants.PROPERTY_CATEGORIES)
     private String[] categories;
@@ -53,11 +55,14 @@ public final class Sku {
     @ValueMapValue(name = WatersCommerceConstants.PROPERTY_TERMINATED)
     private Boolean terminated;
 
-    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_COLD_STORAGE)
-    private Boolean coldStorage;
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_SALES_STATUS)
+    private String salesStatus;
 
-    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_HAZARDOUS_HANDLING)
-    private Boolean hazardousHandling;
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_COLD_CHAIN_SHIPPING)
+    private Boolean coldChainShipping;
+
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_HAZARDOUS)
+    private Boolean hazardous;
 
     @ValueMapValue(name = JcrConstants.JCR_LASTMODIFIED)
     private Calendar lastModified;
@@ -70,8 +75,8 @@ public final class Sku {
         return Arrays.asList(categories);
     }
 
-    public String getId() {
-        return id;
+    public String getCode() {
+        return code;
     }
 
     public String getTitle() {
@@ -94,12 +99,16 @@ public final class Sku {
         return terminated;
     }
 
-    public Boolean isColdStorage() {
-        return coldStorage;
+    public SkuSalesStatus getSalesStatus() {
+        return EnumUtils.isValidEnum(SkuSalesStatus.class, salesStatus) ? SkuSalesStatus.valueOf(salesStatus) : null;
     }
 
-    public Boolean isHazardousHandling() {
-        return hazardousHandling;
+    public Boolean isColdChainShipping() {
+        return coldChainShipping;
+    }
+
+    public Boolean isHazardous() {
+        return hazardous;
     }
 
     public Calendar getLastModified() {
@@ -127,21 +136,44 @@ public final class Sku {
     }
 
     public List<Sku> getRelatedSkus() {
-        // TODO do we need to check the 'terminated' property?
         return getResourceModels(WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCES,
-            resource -> !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PROPRIETARY, false),
-            resource -> skuRepository.getRelatedSku(resource));
+                resource -> !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PROPRIETARY, false) &&
+                    !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_TERMINATED, false) &&
+                    resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PRODUCT_REFERENCE_TYPE).equals(SkuReferenceType.OTHERS.toString()),
+                resource -> skuRepository.getRelatedSku(resource));
+    }
+
+    public List<Sku> getReplacementSkus() {
+        return getResourceModels(WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCES,
+                resource -> !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PROPRIETARY, false) &&
+                !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_TERMINATED, false) &&
+                    resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PRODUCT_REFERENCE_TYPE).equals(SkuReferenceType.REPLACEMENT_PART.toString()),
+                resource -> skuRepository.getRelatedSku(resource));
+    }
+
+    public List<Classification> getClassifications() {
+        return getResourceModels(WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATIONS,
+                resource -> true,
+                resource -> resource.adaptTo(Classification.class));
     }
 
     private <T> List<T> getResourceModels(final String resourceName, final Predicate<Resource> resourceFilter,
         final Function<Resource, T> resourceToModelFunction) {
-        return Optional.of(resource.getChild(resourceName))
+        return Optional.ofNullable(resource.getChild(resourceName))
             .map(modelsResource -> StreamSupport.stream(modelsResource.getChildren().spliterator(), false)
                 .filter(resourceFilter)
                 .map(resourceToModelFunction)
                 .filter(java.util.Objects :: nonNull)
                 .collect(Collectors.toList()))
             .orElse(Collections.emptyList());
+    }
+
+    public PageDecorator getSkuPage(PageDecorator currentPage) {
+        return skuRepository.getSkuPage(currentPage, getCode());
+    }
+
+    public PageDecorator getSkuPage(PageDecorator currentPage,String code) {
+        return skuRepository.getSkuPage(currentPage, code);
     }
 
     @Override

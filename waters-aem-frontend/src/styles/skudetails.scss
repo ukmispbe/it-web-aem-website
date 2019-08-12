@@ -1,0 +1,352 @@
+.cmp-sku {
+    &-details,
+    &-list {
+        margin-bottom: $space-l;
+        .cmp-sku-details__code {
+            @include font-h2;
+            margin-bottom: $space-xxs;
+        }
+        &__signin {
+            svg {
+                width: $icon-m;
+                fill: $color-link;
+                float: left;
+                .st0,
+                .st1 {
+                    stroke: $color-link;
+                }
+            }
+        }
+
+        &__heading {
+            img {
+                display: none;
+            }
+        }
+
+        &__ecom {
+            background: $color-background-light;
+            padding: $space-l;
+
+            @include mobile {
+                padding: $space-m;
+            }
+        }
+
+        &__buyinfo {
+            display: flex;
+            flex-flow: row;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        &__priceinfo {
+            padding-right: $space-xs;
+            line-height: 1em;
+        }
+        &__price {
+            @include font-h1;
+            margin-bottom: $space-xxs;
+        }
+
+        &__availability {
+            padding: 0 $space-m 0 $space-s;
+            @include font-h3;
+            margin-top: $space-xxxs;
+            border-left: 1px solid $color-border-light;
+            @include mobile {
+                padding: 0 0 0 $space-xxs;
+            }
+        }
+
+        &__stockdetails {
+            svg {
+                width: ($icon-m - 0.25em);
+                fill: $color-success;
+                margin-left: $space-xxxs;
+                margin-top: ($space-xxxs - 0.1em);
+                float: right;
+                .st0,
+                .st1 {
+                    stroke: $color-success;
+                    stroke-width: 2px;
+                }
+            }
+        }
+
+        &__order {
+            @include font-small;
+            font-weight: $font-weight-light;
+        }
+
+        &__buttons {
+            display: flex;
+            margin-top: $space-xs;
+
+            @include mobile {
+                margin-top: 0;
+                margin-bottom: $space-s;
+                width: 100%;
+            }
+        }
+
+        &__quantity {
+            margin: 0 $space-xxs 0 0;
+            padding: ($space-xxs - 0.2em) $space-xxs $space-xxs $space-xxs;
+            width: 65px;
+            height: 3.1em;
+            float: left;
+            border: 1px solid $color-border-light;
+            background: $color-white;
+            @include font-utility;
+            &:active {
+                border: 2px solid $color-focus;
+            }
+            font-family: $font-stack;
+            font-weight: $font-weight-light;
+            text-align: center;
+
+            &:focus {
+                outline: 2px solid $color-focus;
+            }
+        }
+
+        &__web-quote {
+            @include font-h3;
+        }
+    }
+
+    &-details--sticky {
+        .cmp-sku-details__wrapper {
+            display: flex;
+            align-items: flex-start;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            width: 100%;
+            height: 100px;
+            border-bottom: 1px solid $color-border-light;
+            padding: $space-xs $space-xxl;
+            background-color: $color-white;
+            justify-content: center;
+
+            @include mobile {
+                box-shadow: $shadow;
+                padding: $space-s $space-s 0 $space-s;
+                height: 92px;
+            }
+
+            @include tablet {
+                padding-left: ($space-l + 0.5em);
+                padding-right: ($space-l + 0.5em);
+            }
+        }
+
+        .cmp-sku-details__container {
+            width: 100%;
+            display: flex;
+            max-width: 1305px;
+            align-items: flex-start;
+        }
+
+        .cmp-sku-details__heading {
+            width: 62%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            padding-top: $space-xxxs;
+
+            @include tablet {
+                width: 47%;
+            }
+
+            @include mobile {
+                display: none;
+            }
+
+            img {
+                display: block;
+                width: 92px;
+                height: 63px;
+                border: 1px solid $color-border-light;
+                margin-right: $space-s;
+            }
+
+            .cmp-sku-details__info {
+                width: 80%;
+
+                @include tablet {
+                    width: 60%;
+                }
+
+                h1 {
+                    @include font-h3;
+
+                    margin-block-start: 0;
+                    margin-block-end: 0;
+
+                    width: 100%;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+
+                    // @include tablet {
+                    //     width: 90%;
+                    // }
+                }
+
+                h3 {
+                    @include font-small;
+
+                    margin-block-start: 0;
+                    margin-block-end: 0;
+                }
+            }
+        }
+
+        .cmp-sku-details__ecom {
+            background: none;
+            padding: 0;
+
+            @include mobile {
+                width: 100%;
+            }
+        }
+
+        .cmp-sku-details__priceinfo {
+            background: none;
+            padding-right: $space-s;
+
+            @include tablet-and-under {
+                display: none;
+            }
+
+            span {
+                @include font-body;
+            }
+
+            .cmp-sku-details__price {
+                @include font-h3;
+            }
+        }
+
+        .cmp-sku-details__availability {
+            display: none;
+        }
+
+        .cmp-sku-details__web-quote {
+            display: none;
+        }
+
+        .cmp-sku-details__buttons {
+            @include mobile {
+                width: 100%;
+            }
+        }
+    }
+}
+
+.cmp-sku-details {
+    h3 {
+        @include font-h2;
+        margin-bottom: $space-xxs;
+    }
+
+    &__heading {
+        img {
+            display: none;
+        }
+    }
+    &__ecom {
+        background: $color-background-light;
+        padding: $space-l;
+        @include mobile {
+            padding: $space-m;
+        }
+    }
+    &__web-quote {
+        @include font-h3;
+    }
+}
+
+.cmp-sku-list {
+    h3 {
+        @include font-small;
+    }
+
+    &__checkavailability {
+        svg {
+            width: $icon-m;
+            fill: $color-icon;
+            float: right;
+            &:hover {
+                .st0,
+                .st1 {
+                    stroke: $color-link;
+                }
+            }
+        }
+        &:hover {
+            color: $color-link;
+            svg {
+                .st0,
+                .st1 {
+                    stroke: $color-link;
+                }
+            }
+        }
+    }
+
+    h1 {
+        @include font-h3;
+    }
+
+    &__container {
+        background-color: $color-background-light;
+        padding: $space-m $space-m 0 $space-m;
+        margin-bottom: $space-m;
+        width: 100%;
+        margin-bottom: 2em;
+        clear: both;
+    }
+
+    &__right {
+        @include list-item-thumbnail;
+
+        @include mobile {
+            display: none;
+        }
+    }
+}
+
+// IE 11 CSS hacks
+@media all and (-ms-high-contrast: none) {
+    .cmp-sku-details--sticky {
+        .cmp-sku-details__wrapper {
+            height: 85px;
+        }
+
+        .cmp-sku-details__info {
+            .cmp-sku-details__code {
+                display: inline;
+            }
+        }
+    }
+}
+
+// Edge Css hacks
+@supports (-ms-ime-align: auto) {
+    .cmp-sku-details--sticky {
+        .cmp-sku-details__wrapper {
+            height: 85px;
+        }
+
+        .cmp-sku-details__info {
+            .cmp-sku-details__code {
+                display: inline;
+            }
+        }
+    }
+}

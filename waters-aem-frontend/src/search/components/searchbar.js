@@ -19,7 +19,7 @@ class SearchBar extends Component {
 
         this.searchBarRef = React.createRef();
 
-        this.search = new SearchService({}, '', this.props.baseUrl);
+        this.search = new SearchService(this.props.isocode, this.props.baseUrl);
 
         let searchValue = this.search.getUrlParameter('keyword', window.location.search.substring(1)); 
 

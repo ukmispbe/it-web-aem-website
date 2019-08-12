@@ -24,3 +24,4 @@ public final class DefaultSolrSearchService implements SolrSearchService {
         baseUrl = configuration.baseUrl();
     }
 }
+

@@ -40,7 +40,7 @@
         padding: 5px;
     }
 
-    .cmp-anchor, .cmp-external-header__links, .mopinion-survey-content, .cmp-share, a.cmp-back-to-top, .cmp-external-footer__links, .cmp-external-list__link::after, a.cmp-button, a.cmp-utility-button {
+    .cmp-anchor, .cmp-header__links, .mopinion-survey-content, .cmp-share, a.cmp-back-to-top, .cmp-footer__links, .cmp-external-list__link::after, a.cmp-button, a.cmp-utility-button {
         display: none;
     }
 
@@ -48,16 +48,16 @@
         padding: 0.5em 0 1.5em 0;
     }
 
-    .cmp-external-footer {
+    .cmp-footer {
         background-color: $color-white;
         padding: 1.5em 0 1.5em 0;
     }
 
-    .cmp-external-footer__logo {
+    .cmp-footer__logo {
         display: none;
     }
 
-    .cmp-external-footer__copyright {
+    .cmp-footer__copyright {
         float: right !important;
         margin-top: 0px;
 
@@ -80,7 +80,7 @@
         page-break-inside: avoid;
     }
 
-    .cmp-external-header {
+    .cmp-header {
         border-bottom: none;
         width: 100%;
         &__logo {

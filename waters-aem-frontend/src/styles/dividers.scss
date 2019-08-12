@@ -1,7 +1,7 @@
 // Horizontal Rules
 hr,
 .cmp-horizontal-rule hr {
-    margin: $space-l 0;
+    margin: $space-xl 0;
     background-color: $color-border-light;
     border: none;
     height: 1px;
@@ -22,5 +22,6 @@ hr,
 
     @include mobile {
         width: 100%;
+        margin: 0 0 $space-s 0;
     }
 }

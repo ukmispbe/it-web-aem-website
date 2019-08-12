@@ -16,6 +16,11 @@
     }
 }
 
+@mixin tablet-and-over {
+    @media screen and (min-width: #{$tablet-width + 1px}) {
+        @content;
+    }
+}
 // Lists and Search Results
 
 @mixin list-container {
@@ -38,7 +43,7 @@
     width: 100%;
 
     &-link {
-        font-size: $font-size-h3;
+        @include font-h3;
         display: block;
         margin-bottom: $space-xxs;
     }
@@ -59,8 +64,8 @@
 
     img {
         width: 100%;
-        border: 1px solid $color-border-light;
         margin-bottom: $space-s;
+        background: $color-white;
     }
 
     @include mobile {
