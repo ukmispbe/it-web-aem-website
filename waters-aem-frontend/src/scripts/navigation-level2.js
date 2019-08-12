@@ -19,9 +19,6 @@ const navigationLevel2 = function () {
 
         }
 
-
-        //.is - expanded
-    
         const container = group.querySelector('.cmp-navigation__container')
         container.addEventListener('click', function (event) {
             const mainULNav = event.currentTarget.parentElement.parentElement;
