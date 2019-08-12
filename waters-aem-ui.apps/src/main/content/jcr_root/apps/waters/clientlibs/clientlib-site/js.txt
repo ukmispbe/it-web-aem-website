@@ -9,3 +9,4 @@ js/array.from.js
 js/object-polyfill.js
 js/es6-promise.js
 js/main.js
+js/array.prototype.includes.js
