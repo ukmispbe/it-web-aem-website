@@ -1,12 +1,16 @@
 .navigation {
    position: relative;
    float: none!important;
-   background-color: $color-white;
+   background-color: rgba(255, 255, 255, 1);
    z-index: 998;
    height: 67px;
    width: 105%!important;
    padding: 0 $space-xl;
    margin: 0 ($space-xl * -1)!important;
+}
+
+.navigation:hover {
+   background-color: rgba(255, 255, 255, 1);
 }
 
 nav.cmp-navigation {
@@ -120,7 +124,6 @@ nav.cmp-navigation {
             z-index: 99;
             visibility: hidden;
             opacity: 0;
-            transition: $fade-transition;
             list-style: none;
             padding: $space-l $space-xl  $space-xl $space-xl;
             background-color: $color-white;
@@ -179,7 +182,6 @@ nav.cmp-navigation {
       z-index: 97;
       visibility: hidden;
       opacity: 0;
-      transition: $fade-transition;
       transition-timing-function: linear;
       transition-duration: 0.25s;
       transition-property: visibility, opacity;
