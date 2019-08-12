@@ -163,41 +163,40 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
 
             final DisplayableSku displayableSku = new DisplayableSku(sku, page.getContentResource(), siteContext);
 
-            if (displayableSku.isActive()) {
-                setDocumentStringField(document, "skucode", sku.getCode());
+            setDocumentStringField(document, "skucode", sku.getCode());
 
-                setDocumentStringField(document, "currencycode", siteContext.getCurrencyIsoCode());
+            setDocumentStringField(document, "currencycode", siteContext.getCurrencyIsoCode());
 
-                setDocumentStringField(document, "status", sku.getSalesStatus().toString());
+            setDocumentStringField(document, "status", sku.getSalesStatus().toString());
 
-                final BigDecimal price = displayableSku.getPrice();
+            final BigDecimal price = displayableSku.getPrice();
 
-                if (price != null) {
-                    document.setField("price", price.doubleValue()); // convert BigDecimal to double per Solr schema
+            if (price != null) {
+                document.setField("price", price.doubleValue()); // convert BigDecimal to double per Solr schema
 
-                    document.setField("displayprice", displayableSku.getFormattedPrice());
-                }
-
-                final List<String> categories = sku.getCategories();
-
-                if (!categories.isEmpty()) {
-                    setDocumentStringField(document, SearchUtils.getSolrFacetName("contenttype"), categories.get(0));
-                }
-
-                final Tag shopTag = page.getContentResource().getResourceResolver().adaptTo(TagManager.class).
-                        resolve(WatersConstants.TAG_SHOP);
-
-                if (shopTag != null) {
-                    setDocumentStringField(document, SearchUtils.getSolrFacetName("category"),
-                            shopTag.getTitle(siteContext.getLocale()));
-                }
-
-                addReplacementSku(document, displayableSku);
-
-                addFacets(document, sku);
-
-                addDate(document, page);
+                document.setField("displayprice", displayableSku.getFormattedPrice());
             }
+
+            final List<String> categories = sku.getCategories();
+
+            if (!categories.isEmpty()) {
+                setDocumentStringField(document, SearchUtils.getSolrFacetName("contenttype"), categories.get(0));
+            }
+
+            final Tag shopTag = page.getContentResource().getResourceResolver().adaptTo(TagManager.class).
+                resolve(WatersConstants.TAG_SHOP);
+
+            if (shopTag != null) {
+                setDocumentStringField(document, SearchUtils.getSolrFacetName("category"),
+                    shopTag.getTitle(siteContext.getLocale()));
+            }
+
+            addReplacementSku(document, displayableSku);
+
+            addFacets(document, sku);
+
+            addDate(document, page);
+
         }
     }
 
