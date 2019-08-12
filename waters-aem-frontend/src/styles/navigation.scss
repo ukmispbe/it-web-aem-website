@@ -30,18 +30,21 @@ nav.cmp-navigation {
    overflow: hidden;
    height: inherit;
 
-   &::after {
-       width: 102.5%;
-       height: 67px;
-       content: '';
-       position: absolute;
-       box-shadow: none; 
-       left: -1.25%;
-       top: 0;
-       z-index: 1000;
-       visibility: hidden;
-       background: none;
-       pointer-events: none;
+   @include tablet-and-over {
+      // NOTE: TABLET & ABOVE ONLY TO PREVENT SCROLLING/OVERLFLOW ISSUES
+      &::after {
+         width: 102.5%;
+         height: 67px;
+         content: '';
+         position: absolute;
+         box-shadow: none; 
+         left: -1.25%;
+         top: 0;
+         z-index: 1000;
+         visibility: hidden;
+         background: none;
+         pointer-events: none;
+      }
    }
 
    &.cmp-navigation--shadow::after {
@@ -66,14 +69,19 @@ nav.cmp-navigation {
 
       &.is-expanded > .cmp-navigation__item.is-active > .cmp-navigation__group {
          visibility: visible;
+         display: block;
       }
 
       &.is-expanded > .cmp-navigation__item.is-active{
          display: $level0MobileDisplay;
+         flex-direction: column;
+         height: auto;
 
          & > .cmp-navigation__container {
             padding: $space-m $space-m $space-m $space-xl;
             border-left: 3px solid $color-gray-50;
+            border-bottom: 1px solid $color-border-rule;
+            height: 67px;
 
             & > .arrow.left{
                display: block;
@@ -116,7 +124,6 @@ nav.cmp-navigation {
                margin: 0;
                padding: 0;
                border-top: 0px none transparent;
-               border-bottom: 1px solid $color-border-rule;
             }
 
             svg,
@@ -214,9 +221,6 @@ nav.cmp-navigation {
 
          & > .cmp-navigation__group {
             white-space: initial;
-            position: absolute;
-            top: 67px;
-            left: 0;
             z-index: 99;
             visibility: hidden;
             list-style: none;
@@ -224,7 +228,13 @@ nav.cmp-navigation {
             background-color: $color-white;
             width: 100%;
 
+            @include tablet-and-over {
+               position: absolute;
+               top: 67px;
+               left: 0;
+            }
             @include mobile {
+               display: none;
                padding: $space-l $space-xl  $space-xl $space-xl
             }
 
@@ -284,5 +294,9 @@ nav.cmp-navigation {
    &.overlay-container {
       z-index: 97;
       visibility: hidden;
+
+      @include mobile {
+         display: none;
+      }
    }
 }

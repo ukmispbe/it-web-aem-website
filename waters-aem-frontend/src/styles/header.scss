@@ -236,8 +236,17 @@
         }
     }
 
-    &__navigation{
-        @include mobile {
+    @include mobile {
+
+        html.noscroll &__navigation{
+            height: 100%;
+            height: -moz-available;
+            height: -webkit-fill-available; 
+            height: fill-available;
+            overflow-y: auto;
+        }
+
+        &__navigation{
             transition: $fade-transition;
             opacity: 0;
             display: none;
@@ -245,19 +254,20 @@
             .container{
                 padding: 0;
             }
-        }
-    }
 
-    
-    &__navigation.is-active{
-        @include mobile {
-            opacity: 1;
-            display: block;
+            &.is-active {
+                opacity: 1;
+                display: block;
+            }
         }
     }
 }
 
 @include mobile {
+    html.noscroll,
+    html.noscroll body{
+        overflow: hidden;
+    }
     .cmp-header.is-fixed {
         position: fixed;
         height: 100%;

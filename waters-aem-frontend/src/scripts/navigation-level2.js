@@ -4,6 +4,8 @@ const navigationLevel2 = function () {
     const maxColumnCount = 3;
     const linksPerColumn = 8;
     const level0Groups = document.querySelectorAll('.cmp-navigation > .cmp-navigation__group > .cmp-navigation__item');
+    const expanded = 'is-expanded';
+    const active = 'is-active';
 
     Array.from(level0Groups).forEach(group => {
         const level1Group = group.querySelector('.cmp-navigation__group');
@@ -23,8 +25,7 @@ const navigationLevel2 = function () {
         container.addEventListener('click', function (event) {
             const mainULNav = event.currentTarget.parentElement.parentElement;
             const level0Item = event.currentTarget.parentElement;
-            const expanded = 'is-expanded';
-            const active = 'is-active';
+
             if (screenSizes.isMobile()) {
                 event.preventDefault();
                 if (level0Item.classList.contains(active)) {
@@ -40,6 +41,24 @@ const navigationLevel2 = function () {
             }
         });
     });
+
+    window.addEventListener('resize', function () { 
+        const level0Items = document.querySelectorAll('.cmp-navigation > .cmp-navigation__group > .cmp-navigation__item');
+        const level0Group = level0Groups.parentElement;
+
+        if (!screenSizes.isMobile()) { 
+            Array.from(level0Items).forEach(level0Item => {
+                 if (level0Item.classList.contains(active)) { 
+                    level0Item.classList.remove(active)
+                }
+            })
+
+            if (level0Group.classList.contains(expanded)) { 
+                level0Group.classList.remove(expanded)
+            }
+        }          
+    });
+
 }
 
 

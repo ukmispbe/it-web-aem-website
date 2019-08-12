@@ -91,21 +91,26 @@ function hideMobileNav() {
     domElements.removeClass(headerTB_mobile_btn, 'is-active');
     domElements.removeClass(headerNavigation, 'is-active');
     domElements.removeClass(header, 'is-fixed');
+    domElements.removeClass(document.documentElement, 'noscroll');
 }
 
 function showMobileNav() { 
     domElements.addClass(headerTB_mobile_btn, 'is-active');
     domElements.addClass(headerNavigation, 'is-active');
     domElements.addClass(header, 'is-fixed');
+    domElements.addClass(document.documentElement, 'noscroll');
+    
+
 }
 
 function resize() { 
     if (!screenSizes.isMobile() && domElements.hasClass(headerTB_mobile_btn, 'is-active') ||
         !screenSizes.isMobile() && domElements.hasClass(headerNavigation, 'is-active') ||
-        !screenSizes.isMobile() && domElements.hasClass(header, 'is-active') 
-    ) { 
+        !screenSizes.isMobile() && domElements.hasClass(header, 'is-fixed') ||
+        !screenSizes.isMobile() && domElements.hasClass(document.documentElement, 'noscroll')
+    ) {
         hideMobileNav();
-    }
+    } 
 } 
 
 
