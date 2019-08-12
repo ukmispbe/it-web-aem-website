@@ -27,7 +27,6 @@
 
         .container {
             display: flex;
-            
         }
 
         &__logo {
@@ -62,8 +61,7 @@
         
                     span {
                         float: left;
-                        // display: inline-block;
-        
+                        
                         @include mobile {
                             display: none;
                         }
@@ -120,7 +118,6 @@
                     transition: all 0.25s ease;
                     visibility: hidden;
                     box-shadow: $shadow;
-        
         
                     &__item{
                         margin: 0;
