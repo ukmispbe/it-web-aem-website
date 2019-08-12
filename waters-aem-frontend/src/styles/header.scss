@@ -5,7 +5,7 @@
     position: relative;
     width: 100%;
     height: auto;
-    z-index: 100;
+    z-index: 1999999999;
     margin-bottom: $space-l;
 
     @include mobile {
@@ -29,7 +29,6 @@
 
         .container {
             display: flex;
-            
         }
 
         &__logo {

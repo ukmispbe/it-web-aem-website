@@ -67,39 +67,39 @@ nav.cmp-navigation {
          display: none;
       }
 
-      &.is-expanded > .cmp-navigation__item.is-active > .cmp-navigation__group {
-         visibility: visible;
-         display: block;
-      }
+      @include mobile {
+         &.is-expanded > .cmp-navigation__item.is-active > .cmp-navigation__group {
+            visibility: visible;
+            display: block;
+         }
 
-      &.is-expanded > .cmp-navigation__item.is-active{
-         display: $level0MobileDisplay;
-         flex-direction: column;
-         height: auto;
+         &.is-expanded > .cmp-navigation__item.is-active{
+            display: $level0MobileDisplay;
+            flex-direction: column;
+            height: auto;
 
-         & > .cmp-navigation__container {
-            padding: $space-m $space-m $space-m $space-xl;
-            border-left: 3px solid $color-gray-50;
-            border-bottom: 1px solid $color-border-rule;
-            height: 67px;
+            & > .cmp-navigation__container {
+               padding: $space-m $space-m $space-m $space-xl;
+               border-left: 3px solid $color-gray-50;
+               border-bottom: 1px solid $color-border-rule;
+               height: 67px;
 
-            & > .arrow.left{
-               display: block;
-               position: absolute;
-               left: $space-xs;
-            }
-   
-            & > .arrow.right{
-               display: none;
+               & > .arrow.left{
+                  display: block;
+                  position: absolute;
+                  left: $space-xs;
+               }
+      
+               & > .arrow.right{
+                  display: none;
+               }
             }
          }
+
+         &.is-expanded > .cmp-navigation__item{
+            display: none;
+         }
       }
-
-      &.is-expanded > .cmp-navigation__item{
-         display: none;
-      }
-
-
 
 
       & > .cmp-navigation__item {

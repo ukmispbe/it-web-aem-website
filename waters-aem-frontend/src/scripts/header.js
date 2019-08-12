@@ -99,8 +99,6 @@ function showMobileNav() {
     domElements.addClass(headerNavigation, 'is-active');
     domElements.addClass(header, 'is-fixed');
     domElements.addClass(document.documentElement, 'noscroll');
-    
-
 }
 
 function resize() { 
