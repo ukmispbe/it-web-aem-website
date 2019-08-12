@@ -19,17 +19,27 @@ const navigationLevel2 = function () {
 
         }
 
+
+        //.is - expanded
+    
         const container = group.querySelector('.cmp-navigation__container')
-        container.addEventListener('click', function (event) { 
+        container.addEventListener('click', function (event) {
+            const mainULNav = event.currentTarget.parentElement.parentElement;
             const level0Item = event.currentTarget.parentElement;
+            const expanded = 'is-expanded';
             const active = 'is-active';
             if (screenSizes.isMobile()) {
                 event.preventDefault();
                 if (level0Item.classList.contains(active)) {
                     level0Item.classList.remove(active);
+                    mainULNav.classList.remove(expanded);
                 } else { 
                     level0Item.classList.add(active);
+                    mainULNav.classList.add(expanded);
                 }
+
+                
+
             }
         });
     });
