@@ -91,6 +91,7 @@ nav.cmp-navigation {
             flex-direction: column;
             height: 100vh;
             position: fixed;
+            padding-bottom: 150px;
 
             & > .cmp-navigation__container {
                padding: $space-m $space-m $space-m $space-xl;

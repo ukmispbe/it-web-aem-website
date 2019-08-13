@@ -26,6 +26,12 @@ if (elem) {
             elem.classList.remove('cmp-navigation--shadow');
          }
       });
+
+      const level1Link = e.querySelector('.cmp-navigation__container .cmp-navigation__item-link');
+
+      if (level1Link) {
+         level1Link.addEventListener('click', event => event.preventDefault());
+      }
    });
 
 }
