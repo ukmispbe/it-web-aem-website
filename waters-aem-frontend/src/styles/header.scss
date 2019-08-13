@@ -201,14 +201,14 @@
                         display: none;
                     }
         
-                    @include tablet-and-over{
-                        &:hover{
+                    //@include tablet-and-over{
+                        &.is-active{
                             .top-bar__nav__user__dropdown{
                                 visibility: visible;
                                 opacity: 1;
                             }
                         }
-                    }
+                    //}
         
         
         

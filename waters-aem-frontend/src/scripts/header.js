@@ -3,6 +3,7 @@ import loginStatus from '../scripts/loginStatus';
 import screenSizes from '../scripts/screenSizes';
 
 let header, headerTB_user, headerOverlay, headerTB_user_link, headerTB_user_link_greetingText, headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, headerNavigation;
+let activeDD = false;
 
 const headerInit = function() {
     domReferences();
@@ -28,8 +29,9 @@ function domReferences() {
 
 function addEventListeners() { 
     headerTB_user_link.addEventListener('click', headerTB_user_linkHandler);
-    headerTB_user.addEventListener('mouseover', updateOverlay);
-    headerTB_user.addEventListener('mouseleave', updateOverlay);
+    headerTB_user.addEventListener('click', updateUserDD);
+    headerTB_user.addEventListener('mouseover', updateUserDD);
+    headerTB_user.addEventListener('mouseleave', updateUserDD);
 
     if (headerNavigation_comp) { 
         headerTB_mobile_btn.addEventListener('click', toggleMobileMenu);
@@ -65,17 +67,38 @@ function headerTB_user_linkHandler(e) {
         }
     }
 }
-
-function updateOverlay(e) { 
+    
+function updateUserDD(e) { 
     let loggedIn = loginStatus.state();
     const activeOverlay = 'active';
     
     if (loggedIn) {
-        if (e.type == 'mouseover') {
-            domElements.addClass(headerOverlay, activeOverlay);
-        } else {
-            domElements.removeClass(headerOverlay, activeOverlay);
+        switch (true) { 
+            case e.type == 'mouseover' && !screenSizes.isMobile():
+                    activeDD = true;
+                    toggleDropDown(activeDD);
+                    domElements.addClass(headerOverlay, activeOverlay);
+                break;
+            case e.type == 'click' && screenSizes.isMobile():
+                    e.preventDefault();
+                    activeDD = !activeDD;
+                    toggleDropDown(activeDD);
+                break;
+            case e.type == 'mouseleave' && !screenSizes.isMobile():
+                    activeDD = false;
+                    toggleDropDown(activeDD);
+                    domElements.removeClass(headerOverlay, activeOverlay);
+                break;            
         }
+    }
+}
+
+function toggleDropDown(state) {
+    const activeDDClass = 'is-active';
+    if (state == true) {
+        domElements.addClass(headerTB_user, activeDDClass);
+    } else { 
+        domElements.removeClass(headerTB_user, activeDDClass);
     }
 }
 
