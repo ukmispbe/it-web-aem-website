@@ -10,47 +10,44 @@ class Stock extends React.Component {
     }
 
     render() {
+        console.warn('PROPS ARE ', this.props)
         if (this.props.skuAvailability.availableQuantity > 10) {
             return (
-                <div className="cmp-sku-details__availability" data-instock="instock" data-lowstock="lowstock" data-out-of-stock="out-of-stock">
-                    <div className="cmp-sku-details__stockdetails-container">
-                        <span className="cmp-sku-details__stockdetails">
-                            In stock
-                            <ReactSVG src={this.props.skuConfig.inStockIcon}
-                            className="cmp-sku-details__stockdetails--instock"
-                            />
-                        </span>
+                <span>
+                    <span className="cmp-sku-details__stockdetails">
+                    {this.props.skuConfig.inStockLabel}
+                        <ReactSVG src={this.props.skuConfig.inStockIcon} className="cmp-sku-details__stockdetails--instock"/>
+                    </span>
+                    <div className="cmp-sku-details__order">
+                        {this.props.skuConfig.orderNowLabel}
                     </div>
-                    <div className="cmp-sku-details__order">Order now</div>
-                </div>
+                </span>
             );
-        } else if (this.props.skuAvailability.availableQuantity > 0) {
+        }
+        if (this.props.skuAvailability.availableQuantity > 0) {
             return (
-                <div className="cmp-sku-details__availability" data-instock="instock" data-lowstock="lowstock" data-out-of-stock="out-of-stock">
-                    <div className="cmp-sku-details__stockdetails-container">
-                        <span className="cmp-sku-details__stockdetails">
-                            Only {this.props.skuAvailability.availableQuantity} in stock
-                            <ReactSVG src={this.props.skuConfig.lowStockIcon}
-                            className="cmp-sku-details__stockdetails--outofstock"
-                            />
-                        </span>
+                <span>
+                    <span className="cmp-sku-details__stockdetails">
+                        {this.props.skuConfig.onlyXInStockLabel.replace('{0}', this.props.skuAvailability.availableQuantity)}
+                        <ReactSVG src={this.props.skuConfig.lowStockIcon} className="cmp-sku-details__stockdetails--outofstock"/>
+                    </span>
+                    <div className="cmp-sku-details__order">
+                        {this.props.skuConfig.orderSoonLabel}
                     </div>
-                    <div className="cmp-sku-details__order">Order soon</div>
-                </div>
+                </span>
             );
-        } else {
+        }
+        else {
             return (
-                <div className="cmp-sku-details__availability" data-instock="instock" data-lowstock="lowstock" data-out-of-stock="out-of-stock">
-                    <div className="cmp-sku-details__stockdetails-container">
-                        <span className="cmp-sku-details__stockdetails">
-                            Out of stock
-                            <ReactSVG src={this.props.skuConfig.outOfStockIcon}
-                            className="cmp-sku-details__stockdetails--outofstock"
-                            />
-                        </span>
+                <span>
+                    <span className="cmp-sku-details__stockdetails">
+                        {this.props.skuConfig.outOfStockLabel}
+                        <ReactSVG src={this.props.skuConfig.outOfStockIcon} className="cmp-sku-details__stockdetails--outofstock"/>
+                    </span>
+                    <div className="cmp-sku-details__order">
+                        {this.props.skuConfig.shipsByLabel.replace('{shipByDate}', Utilities.dateFormatter(this.props.skuAvailability.availableDate))}
                     </div>
-                    <div className="cmp-sku-details__order">Ships by {Utilities.dateFormatter(this.props.skuAvailability.availableDate)}</div>
-                </div>
+                </span>
             );
         }
     }

@@ -121,7 +121,7 @@ if (imageGalleryContainers) {
 }
 
 const skuDetailsContainer = document.querySelector(
-    '.cmp-sku-details__stockcontainer'
+    '.cmp-sku-details__ecom'
 );
 
 if (skuDetailsContainer) {

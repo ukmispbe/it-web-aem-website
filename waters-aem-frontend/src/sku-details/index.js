@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from '../modal/index';
 import Stock from './views/stock';
+import Price from './views/price';
 import SkuService from './services';
 
 class SkuDetails extends React.Component {
@@ -94,12 +95,17 @@ class SkuDetails extends React.Component {
 
     render() {
         return (
-            <>
-                <Stock
-                    skuConfig={this.state.skuConfig}
-                    skuNumber={this.state.skuNumber}
-                    skuAvailability={this.state.skuAvailability}
-                />
+            <div className="cmp-sku-details__buyinfo">
+                <div className="cmp-sku-details__priceinfo">
+                    <Price />
+                </div>
+                <div className="cmp-sku-details__availability">
+                    <Stock
+                            skuConfig={this.state.skuConfig}
+                            skuNumber={this.state.skuNumber}
+                            skuAvailability={this.state.skuAvailability}
+                        />
+                </div>
                 <div className="cmp-sku-details__buttons">
                     <form>
                         <input
@@ -122,7 +128,42 @@ class SkuDetails extends React.Component {
                     theme="callToAction"
                     config={this.state.modalConfig}
                 />
-            </>
+            </div>
+
+            // <span className="aem-Grid aem-Grid--phone--12 aem-Grid--tablet--12 aem-Grid--default--12">
+            //     <span className="aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--8 aem-GridColumn--tablet--8 aem-GridColumn--phone--12">
+            //         <Price />
+            //         <Stock
+            //             skuConfig={this.state.skuConfig}
+            //             skuNumber={this.state.skuNumber}
+            //             skuAvailability={this.state.skuAvailability}
+            //         />
+            //     </span>
+            //     <span className="aem-GridColumn--default--none aem-GridColumn aem-GridColumn--default--8 aem-GridColumn--tablet--8 aem-GridColumn--phone--12">
+            //         <div className="cmp-sku-details__buttons">
+            //             <form>
+            //                 <input
+            //                     className="cmp-sku-details__quantity"
+            //                     type="number"
+            //                     placeholder={this.props.config.qtyLabel}
+            //                     max={this.state.skuConfig.maxAmount}
+            //                     min="1"
+            //                     value={this.state.addToCartQty}
+            //                     onChange={this.quantityInput}
+            //                 />
+            //             </form>
+            //             <a className="cmp-button" onClick={() => this.addToCart()}>
+            //                 {this.props.config.addToCartLabel}
+            //             </a>
+            //         </div>
+            //     </span>
+            //     <Modal
+            //         toggleModal={this.toggleModal}
+            //         open={this.state.modalShown}
+            //         theme="callToAction"
+            //         config={this.state.modalConfig}
+            //     />
+            // </span>
         );
     }
 }
