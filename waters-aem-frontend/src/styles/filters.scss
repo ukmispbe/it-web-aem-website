@@ -40,7 +40,7 @@
 
         a.filter-toggle {
             @include font-utility;
-            border-top: 1px solid $color-border-light;
+            border-top: 1px solid $color-border-rule;
             display: block;
             background-color: $color-white;
             padding: $space-xs $space-s $space-xs 0;
@@ -265,16 +265,13 @@
             }
             &:hover {
                 background-color: $color-gray-20;
-                color: $color-white;
-
-                svg {
-                    .st0 {
-                        stroke: $color-white;
-                    }
-                }
             }
             &.cmp-search-filters__tags__clear {
-                background-color: $color-gray-20;
+                color: $color-font-light;
+                background-color: $color-gray-50;
+                .st0 {
+                    stroke: $color-white;
+                }
             }
         }
         @include tablet-and-under {

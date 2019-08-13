@@ -36,7 +36,7 @@ function getAuthoredDataForTagCloud(h, t) {
 }
 
 const searchBarContainer = document.getElementById('js-search-bar');
-const header = document.querySelector('.cmp-external-header');
+const header = document.querySelector('.cmp-header');
 
 if (searchBarContainer && header) {
     const data = getAuthoredDataForSearchBar(searchBarContainer, header);

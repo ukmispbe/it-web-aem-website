@@ -90,17 +90,26 @@
 }
 
 html {
+    @include font-body;
     font-size: 16px;
+
+    &[lang='zh'],
+    &[lang='zh-CN'] {
+        font-family: $zh-font-stack;
+    }
+
+    &[lang='ja-JP'],
+    &[lang='ja'] {
+        font-family: $ja-font-stack;
+    }
 }
 
 body {
-    @include font-body;
     margin: 0 0 0 0;
 
     @include mobile {
         font-size: 1.1em;
     }
-
 }
 
 p {
@@ -148,7 +157,7 @@ ol {
 
 b,
 strong {
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-regular;
 }
 
 .cmp-text {
@@ -170,3 +179,6 @@ blockquote {
     font-style: italic;
 }
 
+.cmp-text--noPadding .cmp-text {
+    padding-bottom: 0;
+}

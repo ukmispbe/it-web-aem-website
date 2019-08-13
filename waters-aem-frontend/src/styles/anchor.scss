@@ -74,6 +74,9 @@
                 padding-left: 0;
                 columns: unset;
                 margin-top: 0;
+                overflow-y: auto;
+                overflow-x: hidden;
+                height: 100%;
 
                 .cmp-anchor__list-item {
                     width: 100%;
