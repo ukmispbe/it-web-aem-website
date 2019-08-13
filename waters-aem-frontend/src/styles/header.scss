@@ -49,6 +49,7 @@
         }
     
         &__nav {
+            display: flex;
             margin-left: auto;
     
             ul {
@@ -56,10 +57,13 @@
                 padding: 0;
                 margin: 0;
                 height: 100%;
+                display: flex;
+                align-self: center;
 
                 li {
                     height: 100%;
                     align-items: center;
+                    align-self: center;
                     vertical-align: top;
                     margin-left: $space-s;
                     margin-bottom: 0;
@@ -127,6 +131,7 @@
                 }
         
                 &__dropdown {
+                    display: block;
                     width: 100%;
                     height: auto;
                     min-width: 135px;
