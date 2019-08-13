@@ -88,3 +88,43 @@
 
     document.dispatchEvent(new CustomEvent('digitalDataReady', {}));
 </script>
+
+<script type="application/json" id="commerce-configs-json">
+    {
+        "locale": "${externalFooter.locale}",
+        "availabilityUrl": "${externalFooter.skuAvailabilityUrl @ context='unsafe'}",
+        "pricingUrl": "${externalFooter.skuCustomerPriceUrl @ context='unsafe'}",
+        "addToCartUrl": "${externalFooter.addToCartUrl @ context='unsafe'}",
+        "countryCode": "${externalFooter.countryCode @ context='scriptString'}",
+        "isoCode": "${externalFooter.isoCode @ context='scriptString'}",
+        "addToCartLabel": "${'ADD TO CART' @ i18n, context='scriptString'}",
+        "qtyLabel": "${'Qty' @ i18n, context='scriptString'}",
+        "skuInfo": {
+            "inStockLabel": "${'In Stock' @ i18n, context='scriptString'}",
+            "outOfStockLabel": "${'Out of Stock' @ i18n, context='scriptString'}",
+            "orderNowLabel": "${'Order Now' @ i18n, context='scriptString'}",
+            "orderSoonLabel": "${'Order Soon' @ i18n, context='scriptString'}",
+            "shipsByLabel": "${'Ships by {0}' @ format=['{shipByDate}'], i18n, context='scriptString'}",
+            "onlyXInStockLabel": "${'Only {0} in stock' @ format=['{quantity}'], i18n, context='scriptString'}",
+            "inStockIcon": "/content/dam/waters/brand-assets/icons/success.svg",
+            "lowStockIcon": "/content/dam/waters/brand-assets/icons/low-stock.svg",
+            "outOfStockIcon": "/content/dam/waters/brand-assets/icons/out-stock.svg",
+            "maxAmount": 999
+        },
+        "modalInfo": {
+            "icon": "/content/dam/waters/brand-assets/icons/checkmark.svg",
+            "closeIcon": "/content/dam/waters/brand-assets/icons/close.svg",
+            "title": "${'Item Added to Cart' @ i18n, context='scriptString'}",
+            "buttons": [
+                {
+                    "text": "${'View Cart' @ i18n, context='scriptString'}",
+                    "action": "${externalFooter.viewCartUrl @ context='unsafe'}"
+                },
+                {
+                    "text": "${'Continue Shopping' @ i18n, context='scriptString'}",
+                    "action": "close"
+                }
+            ]
+        }
+    }
+</script>

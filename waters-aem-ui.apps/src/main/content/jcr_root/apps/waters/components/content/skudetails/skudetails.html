@@ -35,49 +35,6 @@
             </div>
         </div>
     </div>
-    <script type="application/json" id="commerce-configs-json">
-        {
-            "locale": "${skuDetails.locale @ context='unsafe'}",
-            "availabilityUrl": "${skuDetails.skuAvailabilityUrl @ context='unsafe'}",
-            "pricingUrl": "${skuDetails.skuCustomerPriceUrl @ context='unsafe'}",
-            "addToCartUrl": "${skuDetails.addToCartUrl @ context='unsafe'}",
-            "countryCode": "${skuDetails.countryCode @ context='scriptString'}",
-            "isoCode": "${skuDetails.isoCode @ context='scriptString'}",
-            "addToCartLabel": "${'ADD TO CART' @ i18n, context='scriptString'}",
-            "qtyLabel": "${'Qty' @ i18n, context='scriptString'}",
-            "skuInfo": {
-                "inStockLabel": "${'In Stock' @ i18n, context='scriptString'}",
-                "requestQuote": "${'Do you need a web quote?' @ i18n, context='scriptString'}",
-                "listPriceLabel": "${'List Price' @ i18n, context='scriptString'}",
-                "outOfStockLabel": "${'Out of Stock' @ i18n, context='scriptString'}",
-                "orderNowLabel": "${'Order Now' @ i18n, context='scriptString'}",
-                "orderSoonLabel": "${'Order Soon' @ i18n, context='scriptString'}",
-                "shipsByLabel": "${'Ships by {0}' @ format=['{shipByDate}'], i18n, context='scriptString'}",
-                "onlyXInStockLabel": "${'Only {0} in stock' @ format=['{quantity}'], i18n, context='scriptString'}",
-                "inStockIcon": "/content/dam/waters/en/brand-assets/icons/success.svg",
-                "lowStockIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
-                "outOfStockIcon": "/content/dam/waters/en/brand-assets/icons/x.svg",
-                "maxAmount": 999
-            },
-            "modalInfo": {
-                "icon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
-                "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
-                "title": "${'Item Added to Cart' @ i18n, context='scriptString'}",
-                "textHeading": "${sku.code @ context='scriptString'}",
-                "text": "${sku.title @ context='scriptString'}",
-                "buttons": [
-                    {
-                        "text": "${'View Cart' @ i18n, context='scriptString'}",
-                        "action": "${skuDetails.viewCartUrl @ context='unsafe'}"
-                    },
-                    {
-                        "text": "${'Continue Shopping' @ i18n, context='scriptString'}",
-                        "action": "close"
-                    }
-                ]
-            }
-        }
-    </script>
 </div>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"

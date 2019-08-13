@@ -24,12 +24,14 @@ import com.waters.aem.core.components.content.links.BasicLink;
 import com.waters.aem.core.components.content.links.IconOnlyLink;
 import com.waters.aem.core.components.structure.page.analytics.DataLayer;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.waters.aem.core.utils.LinkUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ChildResource;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
@@ -66,6 +68,9 @@ public final class ExternalFooter extends AbstractComponent implements Component
 
     @ChildResource(name = "../")
     private DataLayer dataLayer;
+
+    @OSGiService
+    private WatersCommerceService watersCommerceService;
 
     @DialogField(fieldLabel = "Logo",
         fieldDescription = "Select the logo image to display on footer",
@@ -163,6 +168,44 @@ public final class ExternalFooter extends AbstractComponent implements Component
 
     public String getLanguageLocation() {
         return siteContext.getLanguageLocation();
+    }
+
+    /**
+     * Get isocode to send to be used by front end SKU service.
+     *
+     * @return isocode from page locale
+     */
+    public String getIsoCode() {
+        return siteContext.getLocale().toString();
+    }
+
+    /**
+     * Get country code from page locale to be used by front end SKU service.
+     *
+     * @return country code from page locale
+     */
+    public String getCountryCode() {
+        return siteContext.getLocaleWithCountry().getCountry();
+    }
+
+    public String getSkuAvailabilityUrl() {
+        return watersCommerceService.getSkuAvailabilityUrl();
+    }
+
+    public String getSkuCustomerPriceUrl() {
+        return watersCommerceService.getSkuCustomerPriceUrl();
+    }
+
+    public String getAddToCartUrl() {
+        return watersCommerceService.getAddToCartUrl();
+    }
+
+    public String viewCartUrl() {
+        return watersCommerceService.getViewCartUrl();
+    }
+
+    public String getLocale() {
+        return siteContext.getLocale().toLanguageTag();
     }
 
     @Nonnull
