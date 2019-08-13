@@ -166,11 +166,13 @@ nav.cmp-navigation {
          }
 
          & > .cmp-navigation__container{
-            display: flex;
-            padding: $space-m;
-            flex-grow: 1;
-            border-left: 3px solid transparent;
 
+            @include mobile {
+               display: flex;
+               padding: $space-m;
+               flex-grow: 1;
+               border-left: 3px solid transparent;
+            }
             & > a { 
                align-self: center; 
             }
@@ -193,6 +195,7 @@ nav.cmp-navigation {
 
             }
 
+            
             & .cmp-navigation__item-link {
                @include font-h3;
                color: $color-font-medium;
