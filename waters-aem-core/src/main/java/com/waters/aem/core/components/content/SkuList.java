@@ -61,6 +61,7 @@ public final class SkuList implements ComponentExporter {
     @DialogField(fieldLabel = "Sku Numbers",
         fieldDescription = "List of Skus to display when this component is authored on a non-Sku page.",
         renderReadOnly = false,
+        required = true,
         ranking = 2)
     @MultiField
     @TextField
