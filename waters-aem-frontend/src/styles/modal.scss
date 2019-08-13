@@ -83,14 +83,15 @@
             @include font-h2;
             display: inline-block;
             margin-bottom: 0;
-
             @include mobile {
-                font-size: $font-size-small;
+                @include font-body;
+                @include font-utility;
+                margin-bottom: 0;
             }
         }
 
         @include mobile {
-            top: $space-s;
+            top: $space-xxs;
             width: 115%;
             left: -3px;
             position: absolute;
@@ -110,22 +111,14 @@
         }
 
         .cmp-modal__information-header {
-            font-size: $font-size-small;
+            @include font-body;
             @include font-utility;
-
-            @include mobile {
-                font-size: $font-size-xsmall;
-                color: $color-gray-40;
-            }
+            margin-bottom: $space-xxs;
         }
 
         .cmp-modal__information-text {
             @include font-h3;
             color: $color-black;
-
-            @include mobile {
-                font-size: $font-size-small;
-            }
         }
     }
 
@@ -142,10 +135,6 @@
             color: $color-white;
             float: none;
             margin-bottom: $space-s;
-
-            @include mobile {
-                font-size: $font-size-small;
-            }
         }
 
         .cmp-modal__btn-alt {
@@ -162,10 +151,6 @@
             @include font-body;
             margin-bottom: 0;
             color: $color-link;
-
-            @include mobile {
-                font-size: $font-size-small;
-            }
         }
     }
 }
