@@ -8,7 +8,7 @@
                     data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
             </div>
             <div class="cmp-footer__logo">
-                <a href="${footer.logoLink.href}" target="${footer.newWindow ? '_blank' : ''}">
+                <a href="${footer.logoLink.href}" target="${footer.external ? '_blank' : ''}">
                     <img src="${footer.logoImage.fileReference}" alt="${footer.logoAltText}" />
                 </a>
             </div>
@@ -33,7 +33,7 @@
             <div class="cmp-footer__links">
                 <nav data-sly-test="${footer.footerLinks}">
                     <a data-sly-repeat="${footer.footerLinks}" href="${item.link.href}"
-                       target="${item.newWindow ? '_blank' : ''}">
+                       target="${item.external ? '_blank' : ''}">
                         ${item.text}
                         <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
                              data-sly-call="${patterns.linkIcon @ linkItem=item}" />
