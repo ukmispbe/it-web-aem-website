@@ -44,7 +44,10 @@
                 </nav>
             </div>
             <div class="cmp-footer__selector">
-                <div class="cmp-footer__selector__region">United States</div>
+                <div class="cmp-footer__selector__region">United States
+                        <img class="${externalFooter.svg ? 'inline-svg' : ''}" data-sly-test="${externalFooter.regionIcon}"
+                        src="${externalFooter.regionIcon}" />
+                </div>
                 <div class="cmp-footer__selector__language ${externalFooter.pageLanguageLinks.size == 1 ? 'one-link' : ''}">
                     <a data-sly-repeat.languageLink="${externalFooter.pageLanguageLinks}"
                        href="${languageLink.href}">${languageLink.title}</a>
