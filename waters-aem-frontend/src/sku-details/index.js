@@ -97,7 +97,8 @@ class SkuDetails extends React.Component {
         return (
             <div className="cmp-sku-details__buyinfo">
                 <div className="cmp-sku-details__priceinfo">
-                    <Price />
+                    <Price 
+                        skuConfig={this.state.skuConfig}/>
                 </div>
                 <div className="cmp-sku-details__availability">
                     <Stock

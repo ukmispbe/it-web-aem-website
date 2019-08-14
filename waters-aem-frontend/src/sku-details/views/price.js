@@ -12,18 +12,9 @@ class Price extends React.Component {
     render() {
         return (
             <div className="cmp-sku-details__priceinfo">
-                <span>List Price</span>
-                <div className="cmp-sku-details__price">$665.00</div>
+                <span>{this.props.skuConfig.listPriceLabel}</span>
+                <div className="cmp-sku-details__price">{this.props.skuConfig.formattedPrice}</div>
             </div>
-            // <div className="cmp-sku-details__buyinfo">
-            //     <div className="cmp-sku-details__priceinfo">
-            //         <span>List Price</span>
-            //         <div className="cmp-sku-details__price">
-            //             $665.00
-            //         </div>
-            //     </div>
-            //     <div className="cmp-sku-details__stockcontainer"></div>
-            // </div>
         )
     }
 
