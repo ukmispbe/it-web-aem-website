@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollListener(trackScroll);
 });
 
-goTopBtn.addEventListener('click', () => {
+goTopBtn.addEventListener('click', e => {
+    e.preventDefault();
     scrollToY(0, 1500, 'easeOutSine');
 });
