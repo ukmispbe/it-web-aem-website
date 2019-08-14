@@ -12,7 +12,7 @@ const navigationLevel2 = function () {
         const level1Group = group.querySelector('.cmp-navigation__group');
 
         if (level1Group) {
-            const numberOfLinks = level1Group.children.length; // level1Group.querySelectorAll('.cmp-navigation__item').length;
+            const numberOfLinks = level1Group.children.length;
 
             const columnCount = numberOfLinks === 0 ? 1 : Math.ceil(numberOfLinks / linksPerColumn);
 
