@@ -1,6 +1,6 @@
 <a class="cmp-back-to-top" href="#" title="${'Back To Top' @ i18n}"><img alt="${'Back To Top' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/up.svg" class="inline-svg"></a>
 
-<div data-sly-use.externalFooter="com.waters.aem.core.components.structure.ExternalFooter" class="cmp-footer">
+<div data-sly-use.footer="com.waters.aem.core.components.structure.Footer" class="cmp-footer">
     <div class="container1_wrapper">
         <div class="container1">
             <div class="cmp-footer__linksdiv">
@@ -8,14 +8,14 @@
                     data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
             </div>
             <div class="cmp-footer__logo">
-                <a href="${externalFooter.logoLink.href}" target="${externalFooter.newWindow ? '_blank' : ''}">
-                    <img src="${externalFooter.logoImage.fileReference}" alt="${externalFooter.logoAltText}" />
+                <a href="${footer.logoLink.href}" target="${footer.external ? '_blank' : ''}">
+                    <img src="${footer.logoImage.fileReference}" alt="${footer.logoAltText}" />
                 </a>
             </div>
             <div class="cmp-footer__social-links">
                 <div class="social-links-text">${'Follow our channels' @ i18n}</div>
-                <ul data-sly-test="${externalFooter.socialLinks}">
-                    <li data-sly-repeat="${externalFooter.socialLinks}" class="cmp-footer__social-links__item">
+                <ul data-sly-test="${footer.socialLinks}">
+                    <li data-sly-repeat="${footer.socialLinks}" class="cmp-footer__social-links__item">
                         <a class="cmp-footer-social-links__link" href="${item.link.href}" target="_blank">
                             <img class="${item.svg ? 'inline-svg' : ''}" data-sly-test="${item.linkIcon}"
                                 src="${item.linkIcon}" />
@@ -28,17 +28,17 @@
     <div class="container2_wrapper">
         <div class="container2">
             <div class="cmp-footer__copyright">
-                <p>${externalFooter.copyrightText}</p>
+                <p>${footer.copyrightText}</p>
             </div>
             <div class="cmp-footer__links">
-                <nav data-sly-test="${externalFooter.footerLinks}">
-                    <a data-sly-repeat="${externalFooter.footerLinks}" href="${item.link.href}"
-                       target="${item.newWindow ? '_blank' : ''}">
+                <nav data-sly-test="${footer.footerLinks}">
+                    <a data-sly-repeat="${footer.footerLinks}" href="${item.link.href}"
+                       target="${item.external ? '_blank' : ''}">
                         ${item.text}
                         <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
                              data-sly-call="${patterns.linkIcon @ linkItem=item}" />
                     </a>
-                    <a data-sly-test="${externalFooter.cookiesLink}" href="${externalFooter.cookiesLink.href}"
+                    <a data-sly-test="${footer.cookiesLink}" href="${footer.cookiesLink.href}"
                        target="_blank">${'Cookies' @ i18n}</a>
                     <a class="optanon-toggle-display dl_Anchor" href="#">${'Cookie Preferences' @ i18n}</a>
                 </nav>
@@ -78,7 +78,7 @@
 </div>
 
 <script type="text/javascript" id="datalayer">
-    var parsedData = JSON.parse('${externalFooter.dataLayer @ context="unsafe"}');
+    var parsedData = JSON.parse('${footer.dataLayer @ context="unsafe"}');
 
     if (parsedData.page) {
         parsedData.page.serverName = window.location.hostname;
