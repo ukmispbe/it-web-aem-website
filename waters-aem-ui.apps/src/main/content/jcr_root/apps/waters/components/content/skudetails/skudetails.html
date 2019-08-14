@@ -27,7 +27,7 @@
                         data-lowstock = "lowstock"
                         data-out-of-stock="out-of-stock">
                         <span class="cmp-sku-details__stockdetails">${'In Stock' @ i18n}
-                            <img alt="${'In Stock' @ i18n}" src="/content/dam/waters/brand-assets/icons/success.svg" class="inline-svg">
+                            <img alt="${'In Stock' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/success.svg" class="inline-svg">
                         </span>
                         <div class="cmp-sku-details__order">${'Order now' @ i18n}</div>
                     </div>
@@ -44,10 +44,12 @@
                 </div>
                 <div class="cmp-notification-body">
                     <div class="cmp-notification-description">
-                        ${'This part number you selected is no longer available' @ i18n}
                         <sly data-sly-test="${sku.replacementSkuCode}">
-                            ${', but there is a replacement. Please see the replacement part number.' @ i18n}
+                            ${'The part number you selected is no longer available, but there is a replacement. The replacement part number is ' @ i18n}
                             <a href="${sku.replacementSkuPageHref}">${sku.replacementSkuCode}</a>
+                        </sly>
+                        <sly data-sly-test="${!sku.replacementSkuCode}">
+                            ${'The part number you selected is no longer available.' @ i18n}
                         </sly>
                     </div>
                 </div>

@@ -10,7 +10,6 @@ class Stock extends React.Component {
     }
 
     render() {
-        console.warn('PROPS ARE ', this.props)
         if (this.props.skuAvailability.availableQuantity > 10) {
             return (
                 <span>
