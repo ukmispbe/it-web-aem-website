@@ -13,9 +13,15 @@
     &__overlay.overlay{
         z-index: 999;
         height: 1000%;
+        transition: all 0.25s ease;
+        opacity: 0;
 
         @include mobile {
             display: none !important;
+        }
+
+        &.active {
+            opacity: 1;
         }
     }
 

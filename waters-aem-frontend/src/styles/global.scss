@@ -95,9 +95,11 @@ a {
     position: absolute;
     top: 0;
     left: 0;
-    display: none;
+    display: block;
+    visibility: hidden;
 
     &.active {
+        visibility: visible;
         display: block;
     }
 }
