@@ -253,6 +253,7 @@
     }
 
     @include mobile {
+        margin-top: 0;
         padding-right: 30%;
         overflow-x: hidden;
     }
@@ -284,6 +285,8 @@
         @include mobile {
             width: 100%;
             left: 14%;
+            height: 90%;
+            top: 5%;
         }
     }
 
