@@ -57,6 +57,7 @@
                 width: (($icon-l + $icon-m) / 2);
                 height: (($icon-l + $icon-m) / 2);
                 stroke: $color-icon;
+                z-index: 201;
             }
         }
     }
