@@ -15,9 +15,15 @@
     &__overlay.overlay{
         z-index: 999;
         height: 1000%;
+        transition: all 0.25s ease;
+        opacity: 0;
 
         @include mobile {
             display: none !important;
+        }
+
+        &.active {
+            opacity: 1;
         }
     }
 
@@ -78,8 +84,7 @@
         
                     .cmp-header-links__link > span {
                         float: left;
-                        // display: inline-block;
-        
+                        
                         @include mobile {
                             display: none;
                         }
@@ -136,17 +141,16 @@
                     height: auto;
                     min-width: 135px;
                     position: absolute;
-                    top: 74px;
+                    top: 71px;
                     left: 0px;
                     background-color: $color-white;
                     margin:0 !important;
                     padding-bottom: $space-s !important;
                     border-top: 4px solid $color-gray-50;
                     opacity: 0;
-                    transition: all 0.25s ease;
+                    transition: $fade-transition;
                     visibility: hidden;
                     box-shadow: $shadow;
-        
         
                     &__item{
                         margin: 0;
@@ -177,11 +181,7 @@
                 }
         
                 &.loggedIn{      
-                    .top-bar__nav__user__link{
-        
-                        &:hover{
-                            color: $color-link;
-                        }
+                    .top-bar__nav__user__link {
         
                         svg .st1,
                         svg .st0{
@@ -297,6 +297,3 @@
         }
     }
 }
-
-
-
