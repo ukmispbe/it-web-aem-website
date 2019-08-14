@@ -40,8 +40,6 @@
         &__logo {
             padding: ($space-s + $space-xxxs) 0 $space-s 0;
             
-
-
             img {
                 height: 32px;
                 width: 115px;
@@ -74,9 +72,10 @@
                     margin-left: $space-s;
                     margin-bottom: 0;
         
-                    @include mobile-xs{
+                    @include mobile-xs {
                         margin-left: $space-xxs;
                     }
+
                     &:first-of-type,
                     &:last-of-type {
                         margin-left: 0;
@@ -109,7 +108,7 @@
                             padding-left: 0;
                         }
 
-                        @include mobile-xs{
+                        @include mobile-xs {
                             width: 22px;
                             height: 22px;
                         }
@@ -180,15 +179,15 @@
                     }
                 }
         
-                &.loggedIn{      
+                &.loggedIn {      
+
                     .top-bar__nav__user__link {
-        
                         svg .st1,
                         svg .st0{
                             stroke: $color-teal-30;
                         }  
                     }
-        
+
                     .greeting-text {
                         display: inline-block;
         
