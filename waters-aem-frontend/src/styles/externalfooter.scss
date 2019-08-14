@@ -41,7 +41,7 @@
         text-align: left;
 
         @include mobile {
-            padding: 0 20px;
+            padding: $space-l 20px;
         }
 
         @include tablet {
@@ -117,7 +117,7 @@
         display: inline;
         @include mobile {
             line-height: $line-height-text;
-            padding: $space-xxs 0;
+            padding: $space-s 0 0 0;
             display: block;
             width: 100%;
         }
@@ -125,7 +125,6 @@
             display: inline-block;
         }
         line-height: 2.5em;
-        transition: $hover-transition;
 
         &:hover {
             text-decoration: underline;
@@ -149,22 +148,18 @@
     }
 
     span {
-          color: $color-disabled;
-          padding-right: $space-xxs;
-          font-weight: $font-weight-bold;
-          font-size: 15px;
-          line-height: 22px;
+        @include font-small;
+        color: $color-disabled;
+        padding-right: $space-xxs;
+        font-weight: $font-weight-bold;
 
     }
 
     a {
+        @include font-small;
         margin-right: $space-xxs;
-        font-size: 15px;
-        font-weight: $font-weight-light;
         display: inline;
         color: $color-disabled;
-        line-height: 22px;
-        transition: $hover-transition;
         text-decoration: none solid rgb(156, 167, 176);
 
         &:hover {
@@ -258,12 +253,14 @@
     float: right;
     margin-right: $space-s;
     @include mobile {
+        margin-top: $space-m;
         float: none;
         width: 100%;
         padding-top: $space-s;
     }
 
     .social-links-text {
+        @include font-small;
         color: $color-font-light;
         text-align: right;
         padding-bottom: $space-s;
@@ -293,7 +290,7 @@
                 padding-right: 0;
 
                 @include mobile {
-                    padding-right: $space-m;
+                    padding-right: $space-s;
                     padding-left: 0;
                 }
 
