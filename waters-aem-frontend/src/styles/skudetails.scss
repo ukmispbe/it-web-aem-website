@@ -85,10 +85,25 @@
                 margin-left: $space-xxxs;
                 margin-top: ($space-xxxs);
                 float: right;
-                .st0,
-                .st1 {
-                    stroke: $color-success;
-                    stroke-width: 2px;
+            }
+            &--instock{
+                svg {
+                    fill: $color-success;
+                    .st0,
+                    .st1 {
+                        stroke: $color-success;
+                        stroke-width: 2px;
+                    }
+                }
+            }
+            &--outofstock{
+                svg {
+                    fill: $color-error;
+                    .st0,
+                    .st1 {
+                        stroke: $color-error;
+                        stroke-width: 2px;
+                    }
                 }
             }
         }
