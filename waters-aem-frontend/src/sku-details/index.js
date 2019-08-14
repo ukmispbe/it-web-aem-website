@@ -9,7 +9,6 @@ import SkuService from './services';
 class SkuDetails extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             modalShown: false,
             modalConfig: this.props.config.modalInfo,
@@ -19,6 +18,7 @@ class SkuDetails extends React.Component {
             availabilityAPI: this.props.config.availabilityUrl,
             skuAvailability: {},
             addToCartQty: undefined,
+            defaultPrice: this.props.price
         };
 
         this.request = new SkuService(
@@ -98,7 +98,8 @@ class SkuDetails extends React.Component {
             <div className="cmp-sku-details__buyinfo">
                 <div className="cmp-sku-details__priceinfo">
                     <Price 
-                        skuConfig={this.state.skuConfig}/>
+                        skuConfig={this.state.skuConfig}
+                        price={this.state.defaultPrice}/>
                 </div>
                 <div className="cmp-sku-details__availability">
                     <Stock

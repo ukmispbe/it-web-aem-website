@@ -129,5 +129,5 @@ if (skuDetailsContainer) {
         document.getElementById('commerce-configs-json').innerHTML
     );
 
-    ReactDOM.render(<SkuDetails config={config} />, skuDetailsContainer);
+    ReactDOM.render(<SkuDetails config={config} price={skuDetailsContainer.getAttribute('data-price')}/>, skuDetailsContainer);
 }
