@@ -74,16 +74,24 @@ nav.cmp-navigation {
       }
 
       @include mobile {
+         > .cmp-navigation__item {
+            width: 100%;
+         }
+
          &.is-expanded > .cmp-navigation__item.is-active > .cmp-navigation__group {
             visibility: visible;
             display: block;
+            overflow-x: hidden;
+            overflow-y: auto;
             opacity: 1;
          }
 
          &.is-expanded > .cmp-navigation__item.is-active{
             display: $level0MobileDisplay;
             flex-direction: column;
-            height: auto;
+            height: 100vh;
+            position: fixed;
+            padding-bottom: 150px;
 
             & > .cmp-navigation__container {
                padding: $space-m $space-m $space-m $space-xl;
