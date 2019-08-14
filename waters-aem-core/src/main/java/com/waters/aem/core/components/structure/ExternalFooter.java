@@ -12,10 +12,12 @@ import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.wcm.foundation.Image;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.common.collect.ImmutableList;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
+import com.icfolson.aem.library.core.link.builders.factory.LinkBuilderFactory;
 import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
@@ -163,6 +165,18 @@ public final class ExternalFooter extends AbstractComponent implements Component
 
     public String getLanguageLocation() {
         return siteContext.getLanguageLocation();
+    }
+
+    public List<Link> getPageLanguageLinks() {
+        return new ImmutableList.Builder<Link>().add(
+                LinkBuilderFactory.forPath("/content/waters/us/en").setTitle("English").build(),
+                LinkBuilderFactory.forPath("/content/waters/cn/zh").setTitle("Chinese").build(),
+                LinkBuilderFactory.forPath("/content/waters/jp/ja").setTitle("Japanese").build()
+        ).build();
+    }
+
+    private String getRelativePath(String path) {
+        return path.replaceFirst("/", "");
     }
 
     @Nonnull

@@ -43,6 +43,13 @@
                     <a class="optanon-toggle-display dl_Anchor" href="#">${'Cookie Preferences' @ i18n}</a>
                 </nav>
             </div>
+            <div class="cmp-footer__selector">
+                <div class="cmp-footer__selector__region">United States</div>
+                <div class="cmp-footer__selector__language ${externalFooter.pageLanguageLinks.size == 1 ? 'one-link' : ''}">
+                    <a data-sly-repeat.languageLink="${externalFooter.pageLanguageLinks}"
+                       href="${languageLink.href}">${languageLink.title}</a>
+                </div>
+            </div>
             <div class="cmp-footer__yamcontainer">
                 <div class="cmp-footer__yamlinks">
                     <span>By Product:</span>
