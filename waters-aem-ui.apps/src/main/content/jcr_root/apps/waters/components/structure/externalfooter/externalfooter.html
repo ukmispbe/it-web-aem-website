@@ -30,7 +30,7 @@
             <div class="cmp-footer__copyright">
                 <p>${externalFooter.copyrightText}</p>
             </div>
-            <div class="cmp-footer__selector">
+            <div class="cmp-footer__selector ${externalFooter.pageLanguageLinks.size == 1 ? 'one-link' : ''}">
                 <div class="cmp-footer__selector__region">
                     <span>United States</span>
                     <img class="${externalFooter.svg ? 'inline-svg' : ''}" data-sly-test="${externalFooter.regionIcon}"
