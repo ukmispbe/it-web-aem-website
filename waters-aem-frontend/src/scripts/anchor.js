@@ -1,5 +1,6 @@
 import scrollToY from './scrollTo';
 import screenSizes from './screenSizes';
+import Fader from './fade-x';
 
 var anchorElement = document.querySelector('.cmp-anchor');
 var anchorMenu = document.querySelector('.cmp-anchor__list-heading');
@@ -77,13 +78,11 @@ var anchorSticky = (function() {
             this.getInViewElement();
         },
         setFixed: function() {
-            anchorChange();
             this.element.parentNode.style.height =
                 this.element.clientHeight + 'px';
-            this.element.classList.add(CSS_CLASS_ACTIVE);            
+            this.element.classList.add(CSS_CLASS_ACTIVE);
         },
         setRelative: function() {
-            anchorChange();
             this.element.classList.remove(CSS_CLASS_ACTIVE);
             this.element.parentNode.style.height = 'auto';
         },
@@ -159,29 +158,24 @@ function hideScrollBars(el) {
 }
 
 function anchorChange(el) {
-    clearGradients();
-    var anchorElementId = document.getElementById('cmp-anchor');
-    if (anchorElementId.scrollLeft > 0) {
-        lhsGradientFade[0].style.display = 'block';
-    }
+    const ancFader = Fader('cmp-anchor__list', 0, 75);
 
-    if (
-        Math.ceil(
-            anchorElementId.scrollWidth -
-                anchorElementId.getBoundingClientRect().width
-        ) != Math.ceil(anchorElementId.scrollLeft)
-    ) {
-        rhsGradientFade[0].style.display = 'block';
+    var anchorElementId = document.getElementById('cmp-anchor');
+
+    if (ancFader) {
+        anchorElementId.addEventListener('scroll', ancFader);
     }
 }
 
 function clearGradients() {
-    rhsGradientFade[0].style.display = 'none';
-    lhsGradientFade[0].style.display = 'none';
+    let lhsGradient = document.querySelector('.cmp-anchor__list .fader-container--left');
+    let rhsGradient = document.querySelector('.cmp-anchor__list .fader-container--right');
+
+    lhsGradient.style.display = 'none';
+    rhsGradient.style.display = 'none';
 }
 
 function resizeWindow(el) {
-    anchorChange(el);
     var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
     if (!hasHorizontalScrollbar) {
         clearGradients();
@@ -189,7 +183,6 @@ function resizeWindow(el) {
 }
 
 function scrollWindow(el) {
-    anchorChange(el);
     var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
     if (!hasHorizontalScrollbar) {
         clearGradients();
@@ -197,12 +190,6 @@ function scrollWindow(el) {
 }
 
 var anchorList = document.querySelector('.cmp-anchor__list');
-var rhsGradientFade = document.getElementsByClassName(
-    'cmp-anchor-gradient-right'
-);
-var lhsGradientFade = document.getElementsByClassName(
-    'cmp-anchor-gradient-left'
-);
 
 if (anchorList) {
     const isMobile = screenSizes.isMobile();
@@ -218,6 +205,7 @@ if (anchorList) {
         //  Init Sticky
         if (anchorElement) anchorSticky.init(anchorElement);
         window.addEventListener('scroll', anchorSticky);
+        anchorChange();
 
         if (anchorMenu) {
             anchorMenu.addEventListener('click', () => toggleMobileNav());
@@ -237,8 +225,8 @@ if (anchorList) {
 
         if (isTabletAndUnder && !isMobile) {
             window.addEventListener('load', () => showScrollBars(anchorList));
-        }   
-        
+        }
+
         var mediaQueryListener = window.matchMedia('(max-width: 650px)');
 
         function anchorChangeToMobile() {

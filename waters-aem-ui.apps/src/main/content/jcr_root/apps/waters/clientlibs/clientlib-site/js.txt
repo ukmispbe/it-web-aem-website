@@ -1,6 +1,7 @@
 #base=.
 
 js/modernizr.js
+js/parentNode.prepend.js
 js/childNode.after.js
 js/string.prototype.startsWith.js
 js/array.prototype.filter.js
