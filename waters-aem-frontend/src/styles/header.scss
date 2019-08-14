@@ -1,5 +1,10 @@
 @import "hamburgers";
 
+
+//SVG COLOR LOGGED IN/OUT
+$iconLoggedIn: $color-teal-30;
+$iconLoggedOut: $color-gray-50;
+
 .cmp-header {
     background-color: $color-white;
     position: relative;
@@ -56,7 +61,7 @@
             display: flex;
             margin-left: auto;
     
-            ul {
+            & > ul {
                 list-style: none;
                 padding: 0;
                 margin: 0;
@@ -64,7 +69,7 @@
                 display: flex;
                 align-self: center;
 
-                li {
+                & > li {
                     height: 100%;
                     align-items: center;
                     align-self: center;
@@ -81,25 +86,24 @@
                         margin-left: 0;
                     }
         
-                    .cmp-header-links__link > span {
+                    & > .cmp-header-links__link > span {
                         float: left;
                         
                         @include mobile {
                             display: none;
                         }
                     }
+                    
         
-                    svg,
-                    img.inline-svg {
+                    svg.inline-svg{
                         display: inline-block;
-                        float: left;
                         width: 30px;
                         height: 25px;
-                        padding-left: 0.3em;
+                        padding-left: $space-xxxs;
         
                         .st0,
                         .st1 {
-                            stroke: $color-gray-50;
+                            stroke: $iconLoggedOut;
                         }
         
                         @include mobile {
@@ -113,129 +117,192 @@
                             height: 22px;
                         }
                     }
+
+
                 }
-            }
+
+                .top-bar__nav__user,
+                .top-bar__nav__search,
+                .top-bar__nav__cart {
+                    display: inline-flex;
+                }
     
-            .top-bar__nav__user,
-            .top-bar__nav__search,
-            .top-bar__nav__cart {
-                display: inline-flex;
-            }
-
-            .top-bar__nav__user {
-                position: relative;
-                z-index: 1000;
-        
-                @include mobile {
-                    min-width: 0 !important;
-                }
-        
-                .greeting-text {
-                    display: none;
-                }
-        
-                &__dropdown {
-                    display: block;
-                    width: 100%;
-                    height: auto;
-                    min-width: 135px;
-                    position: absolute;
-                    top: 71px;
-                    left: 0px;
-                    background-color: $color-white;
-                    margin:0 !important;
-                    padding-bottom: $space-s !important;
-                    border-top: 4px solid $color-gray-50;
-                    opacity: 0;
-                    transition: $fade-transition;
-                    visibility: hidden;
-                    box-shadow: $shadow;
-        
-                    &__item{
-                        margin: 0;
-                        width: 100%;
-        
-                        a {
-                            span{
-                                display: block;
-                                float: none;
-                                padding: 14px 10px 2px 23px;
-                            }
-        
-                            @include font-utility;
-                            transition: $hover-transition;
-            
-                            &:hover {
-                                color: $color-link;
-                            }
-            
-                            &:active {
-                                @include font-utility;
-                            }
-                        }
-                        a:hover{
-                            text-decoration: none;
-                        }
+                .top-bar__nav__user {
+                    
+                    @include tablet-and-over {
+                        position: relative;
+                        z-index: 1000;
                     }
-                }
-        
-                &.loggedIn {      
-
-                    .top-bar__nav__user__link {
-                        svg .st1,
-                        svg .st0{
-                            stroke: $color-teal-30;
-                        }  
+    
+                    @include mobile {
+                        min-width: 0 !important;
                     }
-
+            
                     .greeting-text {
-                        display: inline-block;
-        
-                        @include mobile {
-                            display: none
-                        }
-                    }
-            
-                    .sign-in-text {
                         display: none;
                     }
-        
-                    //@include tablet-and-over{
+            
+                    &__dropdown {
+                        display: flex;
+                        flex-direction: column;
+                        list-style: none;
+                        width: 100%;
+                        height: auto;
+                        min-width: 135px;
+                        position: absolute;
+                        top: 71px;
+                        left: 0px;
+                        background-color: $color-white;
+                        margin:0 !important;
+                        padding: 0;
+                        padding-bottom: $space-s !important;
+
+                        opacity: 0;
+                        box-shadow: $shadow;
+                        transition: $fade-transition;
+                        visibility: hidden;
+                        
+                        @include tablet-and-over {
+                            border-top: 4px solid $color-gray-50;
+                        }
+            
+                        &__account-bar{
+                            display: none;
+                            @include mobile{
+                                height: 67px;
+                                padding: 0 $space-s !important;
+                                box-shadow: $shadow;
+                                display: flex;
+                                align-items: center;
+                            }
+
+                            &__user-info{
+                                a:hover{
+                                    color: $color-gray-50; 
+                                }
+                                svg.inline-svg{
+                                    width: 26px;
+                                    height: 26px;
+                                    margin-right: $space-xxxs;
+                                    vertical-align: middle;
+
+                                    & .st0,
+                                    & .st1 {
+                                        stroke: $iconLoggedIn;
+                                    }
+                                }
+                            }
+
+                            &__close-btn{
+                                margin-left: auto;
+
+                                svg.inline-svg{
+                                    width: 32px;
+                                    height: 32px;
+                                    margin-left: $space-xxxs;
+                                    vertical-align: middle;
+
+                                    & .st0,
+                                    & .st1 {
+                                        stroke: $color-gray-50;
+                                    }
+                                }
+                            }
+
+                        }
+
+                        &__item{
+                            margin: 0;
+                            width: 100%;
+            
+                            @include mobile{
+                                padding: 1em 1.25em 0;
+                            }
+
+                            a {
+                                span{
+                                    display: block;
+
+                                    @include tablet-and-over{
+                                        padding: 14px 10px 2px 23px;
+                                    }
+                                }
+            
+                                @include font-utility;
+                                transition: $hover-transition;
+                
+                                &:hover {
+                                    color: $color-link;
+                                }
+                
+                                &:active {
+                                    @include font-utility;
+                                }
+                            }
+                            a:hover{
+                                text-decoration: none;
+                            }
+                        }
+                    }
+            
+                    &.loggedIn {      
+    
+                        .top-bar__nav__user__link {
+                            svg .st1,
+                            svg .st0{
+                                stroke: $iconLoggedIn;
+                            }  
+                        }
+            
+                        @include tablet-and-over {
+                            .greeting-text.desktop {
+                                display: inline-block;
+                            }
+                        }
+    
+                        @include mobile {
+                            .greeting-text.mobile {
+                                display: inline-block;
+                            }
+                        }
+                
+                        .sign-in-text {
+                            display: none;
+                        }
+            
                         &.is-active{
                             .top-bar__nav__user__dropdown{
                                 visibility: visible;
                                 opacity: 1;
                             }
                         }
-                    //}
-        
-        
-        
-                }
-            }
-
-            .top-bar__nav__mobile {
-                display: none;
-
-                &__divider {
-                    border-left: 1px solid $color-border-light;
-                    height: 2em;
-                    margin: 0 $space-s;
-
-                    @include mobile-xs{
-                        margin: 0 $space-xxs;
+    
                     }
                 }
-            }
-
-            .top-bar__nav__mobile.is-used {
-                display: inline-flex;
-
-                @include tablet-and-over {
+    
+                .top-bar__nav__mobile {
                     display: none;
+    
+                    &__divider {
+                        border-left: 1px solid $color-border-light;
+                        height: 2em;
+                        margin: 0 $space-s;
+    
+                        @include mobile-xs{
+                            margin: 0 $space-xxs;
+                        }
+                    }
                 }
-            }
+    
+                .top-bar__nav__mobile.is-used {
+                    display: inline-flex;
+    
+                    @include tablet-and-over {
+                        display: none;
+                    }
+                }
 
+            }
         }
     }
 

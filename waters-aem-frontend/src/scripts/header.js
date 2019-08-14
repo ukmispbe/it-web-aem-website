@@ -2,7 +2,7 @@ import domElements from '../scripts/domElements';
 import loginStatus from '../scripts/loginStatus';
 import screenSizes from '../scripts/screenSizes';
 
-let header, headerTB_user, headerOverlay, headerTB_user_link, headerTB_user_link_greetingText, headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, headerNavigation;
+let header, headerTB_user, headerOverlay, headerTB_user_link, headerTB_user_link_greetingText, headerTB_user_link_greetingText_mobile, headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, headerNavigation;
 let activeDD = false;
 
 const headerInit = function() {
@@ -18,6 +18,7 @@ function domReferences() {
     headerTB_user = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
     headerTB_user_link = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link');
     headerTB_user_link_greetingText = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link .greeting-text');
+    headerTB_user_link_greetingText_mobile = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__dropdown .greeting-text.mobile');
     
     headerTB_mobile = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile');
     headerTB_mobile_btn = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile button');
@@ -46,6 +47,7 @@ function render() {
         let greeting = loginStatus.getGreeting();
         if (greeting) {
             headerTB_user_link_greetingText.innerHTML = greeting;
+            headerTB_user_link_greetingText_mobile.innerHTML = greeting;
         }
     } else {
         domElements.removeClass(headerTB_user, loggedInClass)
