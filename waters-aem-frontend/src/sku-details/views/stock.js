@@ -16,7 +16,9 @@ class Stock extends React.Component {
                     <div className="cmp-sku-details__stockdetails-container">
                         <span className="cmp-sku-details__stockdetails">
                             In stock
-                            <ReactSVG src={this.props.skuConfig.inStockIcon} />
+                            <ReactSVG src={this.props.skuConfig.inStockIcon}
+                            className="cmp-sku-details__stockdetails--instock"
+                            />
                         </span>
                     </div>
                     <div className="cmp-sku-details__order">Order now</div>
@@ -28,7 +30,9 @@ class Stock extends React.Component {
                     <div className="cmp-sku-details__stockdetails-container">
                         <span className="cmp-sku-details__stockdetails">
                             Only {this.props.skuAvailability.availableQuantity} in stock
-                            <ReactSVG src={this.props.skuConfig.lowStockIcon} />
+                            <ReactSVG src={this.props.skuConfig.lowStockIcon}
+                            className="cmp-sku-details__stockdetails--outofstock"
+                            />
                         </span>
                     </div>
                     <div className="cmp-sku-details__order">Order soon</div>
@@ -40,7 +44,9 @@ class Stock extends React.Component {
                     <div className="cmp-sku-details__stockdetails-container">
                         <span className="cmp-sku-details__stockdetails">
                             Out of stock
-                            <ReactSVG src={this.props.skuConfig.outOfStockIcon} />
+                            <ReactSVG src={this.props.skuConfig.outOfStockIcon}
+                            className="cmp-sku-details__stockdetails--outofstock"
+                            />
                         </span>
                     </div>
                     <div className="cmp-sku-details__order">Ships by {Utilities.dateFormatter(this.props.skuAvailability.availableDate)}</div>
