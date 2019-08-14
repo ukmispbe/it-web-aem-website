@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
 import Utilities from '../utils/utils';
-// import PropTypes from 'prop-types';
-// import { Modal } from '../modal/index';
 
 class Price extends React.Component {
     constructor(props) {
