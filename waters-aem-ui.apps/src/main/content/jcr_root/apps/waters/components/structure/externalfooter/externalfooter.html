@@ -30,6 +30,19 @@
             <div class="cmp-footer__copyright">
                 <p>${externalFooter.copyrightText}</p>
             </div>
+            <div class="cmp-footer__selector">
+                <div class="cmp-footer__selector__region">
+                    <span>United States</span>
+                    <img class="${externalFooter.svg ? 'inline-svg' : ''}" data-sly-test="${externalFooter.regionIcon}"
+                    src="${externalFooter.regionIcon}" />
+                </div>
+                <div class="cmp-footer__selector__language ${externalFooter.pageLanguageLinks.size == 1 ? 'one-link' : ''}">
+                    <a href="${externalFooter.pageLanguageLinks[0].href}">${externalFooter.pageLanguageLinks[0].title}</a>
+                    <div class="cmp-footer__selector__language--options" data-sly-list.languageLink="${externalFooter.pageLanguageLinks}">
+                        <a href="${languageLink.href}" data-sly-test="${!languageLinkList.first}">${languageLink.title}</a>
+                    </div>
+                </div>
+            </div>
             <div class="cmp-footer__links">
                 <nav data-sly-test="${externalFooter.footerLinks}">
                     <a data-sly-repeat="${externalFooter.footerLinks}" href="${item.link.href}"
@@ -42,16 +55,6 @@
                        target="_blank">${'Cookies' @ i18n}</a>
                     <a class="optanon-toggle-display dl_Anchor" href="#">${'Cookie Preferences' @ i18n}</a>
                 </nav>
-            </div>
-            <div class="cmp-footer__selector">
-                <div class="cmp-footer__selector__region">United States
-                        <img class="${externalFooter.svg ? 'inline-svg' : ''}" data-sly-test="${externalFooter.regionIcon}"
-                        src="${externalFooter.regionIcon}" />
-                </div>
-                <div class="cmp-footer__selector__language ${externalFooter.pageLanguageLinks.size == 1 ? 'one-link' : ''}">
-                    <a data-sly-repeat.languageLink="${externalFooter.pageLanguageLinks}"
-                       href="${languageLink.href}">${languageLink.title}</a>
-                </div>
             </div>
             <div class="cmp-footer__yamcontainer">
                 <div class="cmp-footer__yamlinks">
