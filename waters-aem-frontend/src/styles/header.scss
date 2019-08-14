@@ -147,7 +147,7 @@
                     padding-bottom: $space-s !important;
                     border-top: 4px solid $color-gray-50;
                     opacity: 0;
-                    transition: $fade-transition;
+                    transition: all 0.2s ease;
                     visibility: hidden;
                     box-shadow: $shadow;
         
