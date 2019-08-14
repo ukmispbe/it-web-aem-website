@@ -2,7 +2,7 @@ import domElements from '../scripts/domElements';
 import loginStatus from '../scripts/loginStatus';
 import screenSizes from '../scripts/screenSizes';
 
-let loginNavItem, headerOverlay, loginList, greetingText;
+let header, headerTB_user, headerOverlay, headerTB_user_link, headerTB_user_link_greetingText, headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, headerNavigation;
 
 const headerInit = function() {
     domReferences();
@@ -10,32 +10,52 @@ const headerInit = function() {
     render();
 }
 
-function domReferences() { 
-    loginNavItem = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
+function domReferences() {
+    header = document.querySelector('header.cmp-header');
     headerOverlay = document.querySelector('.cmp-header__overlay.overlay');
-    loginList = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link');
-    greetingText = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link .greeting-text');    
+
+    headerTB_user = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
+    headerTB_user_link = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link');
+    headerTB_user_link_greetingText = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link .greeting-text');
+    
+    headerTB_mobile = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile');
+    headerTB_mobile_btn = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile button');
+    
+    headerNavigation = document.querySelector('.cmp-header__navigation');  
+    headerNavigation_comp = document.querySelector('.cmp-header__navigation nav.cmp-navigation'); 
+
 }
 
 function addEventListeners() { 
-    loginList.addEventListener('click', loginListHandler);
-    loginNavItem.addEventListener('mouseover', updateOverlay);
-    loginNavItem.addEventListener('mouseleave', updateOverlay);
-}
+    headerTB_user_link.addEventListener('click', headerTB_user_linkHandler);
+    headerTB_user.addEventListener('mouseover', updateOverlay);
+    headerTB_user.addEventListener('mouseleave', updateOverlay);
 
-function render() { 
-    if (loginStatus.state()) {
-        domElements.addClass(loginNavItem, 'loggedIn');
-        let greeting = loginStatus.getGreeting();
-        if (greeting) {
-            greetingText.innerHTML = greeting;
-        }
-    } else {
-        domElements.removeClass(loginNavItem, 'loggedIn')
+    if (headerNavigation_comp) { 
+        headerTB_mobile_btn.addEventListener('click', toggleMobileMenu);
+        window.addEventListener('resize', resize);
     }
 }
 
-function loginListHandler(e) { 
+function render() { 
+    const loggedInClass = 'loggedIn';
+    if (loginStatus.state()) {
+        domElements.addClass(headerTB_user, loggedInClass);
+        let greeting = loginStatus.getGreeting();
+        if (greeting) {
+            headerTB_user_link_greetingText.innerHTML = greeting;
+        }
+    } else {
+        domElements.removeClass(headerTB_user, loggedInClass)
+    }
+
+    const isUsed = 'is-used';
+    if (headerNavigation_comp) { 
+        domElements.addClass(headerTB_mobile, isUsed);
+    }
+}
+
+function headerTB_user_linkHandler(e) { 
     e.preventDefault();
     let loggedIn = loginStatus.state();
 
@@ -48,14 +68,48 @@ function loginListHandler(e) {
 
 function updateOverlay(e) { 
     let loggedIn = loginStatus.state();
+    const activeOverlay = 'active';
     
     if (loggedIn) {
         if (e.type == 'mouseover') {
-            domElements.addClass(headerOverlay, 'active');
+            domElements.addClass(headerOverlay, activeOverlay);
         } else {
-            domElements.removeClass(headerOverlay, 'active');
+            domElements.removeClass(headerOverlay, activeOverlay);
         }
     }
 }
+
+function toggleMobileMenu(e) {
+    if (domElements.hasClass(headerTB_mobile_btn, 'is-active')) {
+        hideMobileNav();
+    } else {
+        showMobileNav();
+    }
+}
+
+function hideMobileNav() { 
+    domElements.removeClass(headerTB_mobile_btn, 'is-active');
+    domElements.removeClass(headerNavigation, 'is-active');
+    domElements.removeClass(header, 'is-fixed');
+    domElements.removeClass(document.documentElement, 'noscroll');
+}
+
+function showMobileNav() { 
+    domElements.addClass(headerTB_mobile_btn, 'is-active');
+    domElements.addClass(headerNavigation, 'is-active');
+    domElements.addClass(header, 'is-fixed');
+    domElements.addClass(document.documentElement, 'noscroll');
+}
+
+function resize() { 
+    if (!screenSizes.isMobile() && domElements.hasClass(headerTB_mobile_btn, 'is-active') ||
+        !screenSizes.isMobile() && domElements.hasClass(headerNavigation, 'is-active') ||
+        !screenSizes.isMobile() && domElements.hasClass(header, 'is-fixed') ||
+        !screenSizes.isMobile() && domElements.hasClass(document.documentElement, 'noscroll')
+    ) {
+        hideMobileNav();
+    } 
+} 
+
 
 window.addEventListener('load', headerInit);
