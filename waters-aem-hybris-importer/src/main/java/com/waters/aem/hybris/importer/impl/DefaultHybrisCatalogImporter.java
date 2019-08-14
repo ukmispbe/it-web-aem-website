@@ -269,8 +269,6 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
             LOG.info("created sku page : {}", skuPage.getPath());
 
-            setPageThumbnail(context.getResourceResolver(), sku, skuPage);
-
             status = HybrisImportStatus.CREATED;
         } else {
             // found existing page in same category
@@ -290,6 +288,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         if (status != null) {
             updateSkuPageProperties(skuPage, sku);
+            setPageThumbnail(context.getResourceResolver(), sku, skuPage);
         }
 
         results.add(HybrisImporterResult.fromSkuPage(skuPage, status));
@@ -458,7 +457,8 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             .collect(Collectors.toSet());
     }
 
-    private void setPageThumbnail(final ResourceResolver resolver, final Sku sku, final Page page) throws PersistenceException {
+    private void setPageThumbnail(final ResourceResolver resourceResolver, final Sku sku, final PageDecorator skuPage)
+        throws PersistenceException {
         final String thumbNailImage = sku.getPrimaryImageThumbnail();
 
         if (StringUtils.isNotEmpty(thumbNailImage)) {
@@ -467,9 +467,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             properties.put(JcrConstants.JCR_PRIMARYTYPE, JcrConstants.NT_UNSTRUCTURED);
             properties.put(DownloadResource.PN_REFERENCE, thumbNailImage);
 
-            resolver.create(page.getContentResource(), WatersConstants.THUMBNAIL_IMAGE, properties);
-
-            resolver.commit();
+            resourceResolver.create(skuPage.getContentResource(), WatersConstants.THUMBNAIL_IMAGE, properties);
         }
     }
 
