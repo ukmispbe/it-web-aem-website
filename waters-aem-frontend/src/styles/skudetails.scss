@@ -241,6 +241,11 @@
             }
         }
 
+        .cmp-sku-details__stockcontainer {   
+            @include mobile {
+                width: 100vw;
+            }
+        }
         .cmp-sku-details__priceinfo {
             background: none;
             padding-right: $space-s;
