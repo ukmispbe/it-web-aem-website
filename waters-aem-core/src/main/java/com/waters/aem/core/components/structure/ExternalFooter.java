@@ -126,13 +126,10 @@ public final class ExternalFooter extends AbstractComponent implements Component
     @InheritInject
     private List<IconOnlyLink> socialLinks;
 
-    @DialogField(fieldLabel = "Region Selector Icon",
-        fieldDescription = "Select or enter the link URL",
-        tab = 2,
-        ranking = 1)
-    @PathField(rootPath = WatersConstants.DAM_ICON_PATH)
-    @Inject
-    private String regionIcon;
+    private String regionIcon = new StringBuilder()
+                                    .append(WatersConstants.DAM_ICON_PATH)
+                                    .append("/globe.svg")
+                                    .toString();
 
     @JsonProperty
     public String getRegionIcon() {
@@ -190,10 +187,6 @@ public final class ExternalFooter extends AbstractComponent implements Component
 
     private String getRelativePath(String path) {
         return path.replaceFirst("/", "");
-    }
-
-    public Boolean isSvg() {
-        return regionIcon != null && regionIcon.endsWith(".svg");
     }
 
     @Nonnull
