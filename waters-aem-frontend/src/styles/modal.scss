@@ -53,9 +53,9 @@
             height: $icon-l;
             float: right;
             @include mobile {
-                top: $space-s;
-                width: (($icon-l + $icon-m) / 2);
-                height: (($icon-l + $icon-m) / 2);
+                top: $space-xs;
+                width: $icon-m;
+                height: $icon-m;
                 stroke: $color-icon;
                 z-index: 201;
             }
@@ -92,7 +92,7 @@
         }
 
         @include mobile {
-            top: $space-xxs;
+            top: $space-xs;
             width: 115%;
             left: -3px;
             position: absolute;
@@ -100,7 +100,7 @@
             -moz-box-shadow: 0px 4px 2px -2px $color-gray-20;
             box-shadow: 0px 4px 2px -2px $color-gray-20;
             padding-bottom: $space-xs;
-            padding-left: $space-xs;
+            padding-left: $space-s;
         }
     }
 
@@ -115,6 +115,7 @@
             @include font-body;
             @include font-utility;
             margin-bottom: $space-xxs;
+            margin-top: -$space-xxs;
         }
 
         .cmp-modal__information-text {
