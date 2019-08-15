@@ -395,6 +395,10 @@
         @include mobile {
             display: none;
         }
+
+        @include tablet {
+            padding-left: $space-xl;
+        }
     }
 
     &__price {
