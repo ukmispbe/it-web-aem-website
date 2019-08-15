@@ -20,8 +20,7 @@ class Stock extends React.Component {
                     </div>
                 </span>
             );
-        }
-        if (this.props.skuAvailability.availableQuantity > 0) {
+        } else if (this.props.skuAvailability.availableQuantity > 0) {
             return (
                 <span>
                     <span className="cmp-sku-details__stockdetails">
@@ -41,9 +40,10 @@ class Stock extends React.Component {
                         {this.props.skuConfig.outOfStockLabel}
                         <ReactSVG src={this.props.skuConfig.outOfStockIcon} className="cmp-sku-details__stockdetails--outofstock"/>
                     </span>
-                    <div className="cmp-sku-details__order">
+                    {this.props.skuAvailability.availableDate &&
+                        <div className="cmp-sku-details__order">
                         {this.props.skuConfig.shipsByLabel.replace('{shipByDate}', Utilities.dateFormatter(this.props.skuAvailability.availableDate))}
-                    </div>
+                    </div>}
                 </span>
             );
         }
