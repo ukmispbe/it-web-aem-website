@@ -54,6 +54,8 @@
         }
 
         &__availability {
+            display: flex;
+            align-items: center;
             padding: 0 $space-m 0 $space-s;
             @include font-h3;
             height: 3em;
@@ -82,6 +84,7 @@
             }
             svg {
                 width: ($icon-m - 0.25em);
+                height: ($icon-m - 0.25em);
                 fill: $color-success;
                 margin-left: $space-xxxs;
                 margin-top: ($space-xxxs);
@@ -112,6 +115,7 @@
         &__order {
             @include font-small;
             font-weight: $font-weight-light;
+            clear:both;
         }
 
         &__buttons {
@@ -359,6 +363,7 @@
             fill: $color-icon;
             float: right;
             width: ($icon-s + 0.1em);
+            height: ($icon-s + 0.1em);
             margin-top: ($space-xxxs - 0.1em);
 
             &:hover {
