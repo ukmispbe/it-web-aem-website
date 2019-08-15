@@ -96,8 +96,8 @@ nav.cmp-navigation {
             & > .cmp-navigation__container {
                padding: $space-m $space-m $space-m $space-xl;
                border-left: 3px solid $color-gray-50;
-               border-bottom: 1px solid $color-border-rule;
                height: 67px;
+               flex-grow: 0;
 
                & > .arrow.left{
                   display: block;
@@ -138,6 +138,7 @@ nav.cmp-navigation {
             }
 
             @include mobile {
+               transition-property: none;
                display: $level0MobileDisplay;
                margin: 0;
                padding: 0;
@@ -190,6 +191,7 @@ nav.cmp-navigation {
                padding: $space-m;
                flex-grow: 1;
                border-left: 3px solid transparent;
+               border-bottom: 1px solid $color-border-rule;
             }
             & > a { 
                align-self: center; 
