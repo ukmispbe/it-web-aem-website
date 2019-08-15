@@ -12,7 +12,7 @@ const navigationLevel2 = function () {
         const level1Group = group.querySelector('.cmp-navigation__group');
 
         if (level1Group) {
-            const numberOfLinks = level1Group.querySelectorAll('.cmp-navigation__item').length;
+            const numberOfLinks = level1Group.children.length;
 
             const columnCount = numberOfLinks === 0 ? 1 : Math.ceil(numberOfLinks / linksPerColumn);
 
@@ -20,25 +20,27 @@ const navigationLevel2 = function () {
 
             level1Group.classList.add(className);
 
-        }
+            const container = group.querySelector('.cmp-navigation__container');
 
-        const container = group.querySelector('.cmp-navigation__container')
-        container.addEventListener('click', function (event) {
-            const mainULNav = event.currentTarget.parentElement.parentElement;
-            const level0Item = event.currentTarget.parentElement;
+            if (numberOfLinks !== 0) {
+                container.addEventListener('click', function (event) {
+                    if (screenSizes.isMobile()) {
+                        event.preventDefault();
 
-            if (screenSizes.isMobile()) {
-                event.preventDefault();
-                if (level0Item.classList.contains(active)) {
-                    level0Item.classList.remove(active);
-                    mainULNav.classList.remove(expanded);
-                } else { 
-                    level0Item.classList.add(active);
-                    mainULNav.classList.add(expanded);
-                }
+                        const mainULNav = event.currentTarget.parentElement.parentElement;
+                        const level0Item = event.currentTarget.parentElement;
 
+                        if (level0Item.classList.contains(active)) {
+                            level0Item.classList.remove(active);
+                            mainULNav.classList.remove(expanded);
+                        } else { 
+                            level0Item.classList.add(active);
+                            mainULNav.classList.add(expanded);
+                        }
+                    }
+                });
             }
-        });
+        }
     });
 
     if (headerNavigation_comp) {

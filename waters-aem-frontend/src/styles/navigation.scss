@@ -215,7 +215,6 @@ nav.cmp-navigation {
 
             
             & .cmp-navigation__item-link {
-               @include font-h3;
                color: $color-font-medium;
                -webkit-transition: none;
                -o-transition: none;
