@@ -5,6 +5,7 @@ const navigationLevel2 = function () {
     const linksPerColumn = 8;
     const headerNavigation_comp = document.querySelector('.cmp-header__navigation nav.cmp-navigation'); 
     const level0Groups = document.querySelectorAll('.cmp-navigation > .cmp-navigation__group > .cmp-navigation__item');
+
     const expanded = 'is-expanded';
     const active = 'is-active';
 
@@ -20,28 +21,31 @@ const navigationLevel2 = function () {
 
             level1Group.classList.add(className);
 
-            const container = group.querySelector('.cmp-navigation__container');
-
-            if (numberOfLinks !== 0) {
-                container.addEventListener('click', function (event) {
-                    if (screenSizes.isMobile()) {
-                        //only prevent default if there is children
-                        event.preventDefault();
-
-                        const mainULNav = event.currentTarget.parentElement.parentElement;
-                        const level0Item = event.currentTarget.parentElement;
-
-                        if (level0Item.classList.contains(active)) {
-                            level0Item.classList.remove(active);
-                            mainULNav.classList.remove(expanded);
-                        } else { 
-                            level0Item.classList.add(active);
-                            mainULNav.classList.add(expanded);
-                        }
-                    }
-                });
-            }
         }
+        
+        const container = group.querySelector('.cmp-navigation__container');
+        container.addEventListener('click', function (event) {
+            if (level1Group && level1Group.children.length !== 0) {
+                if (screenSizes.isMobile()) {
+                    event.preventDefault();
+                    const mainULNav = event.currentTarget.parentElement.parentElement;
+                    const level0Item = event.currentTarget.parentElement;
+
+                    if (level0Item.classList.contains(active)) {
+                        level0Item.classList.remove(active);
+                        mainULNav.classList.remove(expanded);
+                    } else {
+                        level0Item.classList.add(active);
+                        mainULNav.classList.add(expanded);
+                    }
+                }
+            } else { 
+                const linkURL = event.currentTarget.getElementsByTagName("a")[0].href;
+                if (linkURL) { 
+                    window.open (linkURL,'_self',false)
+                }
+            }
+        });        
     });
 
     if (headerNavigation_comp) {
