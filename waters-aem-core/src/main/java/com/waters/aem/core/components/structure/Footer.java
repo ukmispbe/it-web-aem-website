@@ -166,13 +166,8 @@ public final class Footer extends AbstractComponent implements ComponentExporter
         return siteContext.getLanguageLocation();
     }
 
-    public String getCountryUS() {
-        final StringBuilder stringBuilder = new StringBuilder();
-
-        stringBuilder.append(siteContext.getLocaleWithCountry().getCountry());
-        stringBuilder.append(" === ");
-        stringBuilder.append(Locale.US.getCountry());
-        return stringBuilder.toString();
+    public Boolean isCountryUS() {
+        return Locale.US.getCountry().equals(siteContext.getLocaleWithCountry().getCountry());
     }
 
     @Nonnull

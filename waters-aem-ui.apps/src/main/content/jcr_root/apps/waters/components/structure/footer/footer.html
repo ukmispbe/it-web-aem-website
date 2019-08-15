@@ -33,20 +33,20 @@
             <div class="cmp-footer__links">
                 <nav data-sly-test="${footer.footerLinks}">
                     <a data-sly-repeat="${footer.footerLinks}" href="${item.link.href}"
-                       target="${item.external ? '_blank' : ''}">
+                        target="${item.external ? '_blank' : ''}">
                         ${item.text}
                         <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
-                             data-sly-call="${patterns.linkIcon @ linkItem=item}" />
+                            data-sly-call="${patterns.linkIcon @ linkItem=item}" />
                     </a>
                     <a data-sly-test="${footer.cookiesLink}" href="${footer.cookiesLink.href}"
-                       target="_blank">${'Cookies' @ i18n}</a>
+                        target="_blank">${'Cookies' @ i18n}</a>
                     <a class="optanon-toggle-display dl_Anchor" href="#">${'Cookie Preferences' @ i18n}</a>
                 </nav>
             </div>
-            <div class="cmp-footer__yamcontainer">
+            <div class="cmp-footer__yamcontainer" data-sly-test="${footer.countryUS}">
                 <div class="cmp-footer__yamlinks">
                     <span>By Product:</span>
-                    <a href="https://www.waters.com/1/1/index1.html">Title ${footer.countryUS}</a>
+                    <a href="https://www.waters.com/1/1/index1.html">Title</a>
                     <a href="https://www.waters.com/1/1/indexb1.html">Brand</a>
                     <a href="https://www.waters.com/1/1/indexc1.html">Category</a>
                     <a href="https://www.waters.com/1/1/indexd1.html">Popularity</a>
