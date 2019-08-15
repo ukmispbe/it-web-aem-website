@@ -12,8 +12,11 @@ class Stock extends React.Component {
             return (
                 <span>
                     <span className="cmp-sku-details__stockdetails">
-                    {this.props.skuConfig.inStockLabel}
-                        <ReactSVG src={this.props.skuConfig.inStockIcon} className="cmp-sku-details__stockdetails--instock"/>
+                        {this.props.skuConfig.inStockLabel}
+                        <ReactSVG
+                            src={this.props.skuConfig.inStockIcon}
+                            className="cmp-sku-details__stockdetails--instock"
+                        />
                     </span>
                     <div className="cmp-sku-details__order">
                         {this.props.skuConfig.orderNowLabel}
@@ -24,31 +27,45 @@ class Stock extends React.Component {
             return (
                 <span>
                     <span className="cmp-sku-details__stockdetails">
-                        {this.props.skuConfig.onlyXInStockLabel.replace('{0}', this.props.skuAvailability.availableQuantity)}
-                        <ReactSVG src={this.props.skuConfig.lowStockIcon} className="cmp-sku-details__stockdetails--outofstock"/>
+                        {this.props.skuConfig.onlyXInStockLabel.replace(
+                            '{0}',
+                            this.props.skuAvailability.availableQuantity
+                        )}
+                        <ReactSVG
+                            src={this.props.skuConfig.lowStockIcon}
+                            className="cmp-sku-details__stockdetails--outofstock"
+                        />
                     </span>
                     <div className="cmp-sku-details__order">
                         {this.props.skuConfig.orderSoonLabel}
                     </div>
                 </span>
             );
-        }
-        else {
+        } else {
             return (
                 <span>
                     <span className="cmp-sku-details__stockdetails">
                         {this.props.skuConfig.outOfStockLabel}
-                        <ReactSVG src={this.props.skuConfig.outOfStockIcon} className="cmp-sku-details__stockdetails--outofstock"/>
+                        <ReactSVG
+                            src={this.props.skuConfig.outOfStockIcon}
+                            className="cmp-sku-details__stockdetails--outofstock"
+                        />
                     </span>
-                    {this.props.skuAvailability.availableDate &&
+                    {this.props.skuAvailability.availableDate && (
                         <div className="cmp-sku-details__order">
-                        {this.props.skuConfig.shipsByLabel.replace('{shipByDate}', Utilities.dateFormatter(this.props.skuAvailability.availableDate))}
-                    </div>}
+                            {this.props.skuConfig.shipsByLabel.replace(
+                                '{shipByDate}',
+                                Utilities.dateFormatter(
+                                    this.props.skuAvailability.availableDate,
+                                    this.props.locale
+                                )
+                            )}
+                        </div>
+                    )}
                 </span>
             );
         }
     }
-
 }
 
 export default Stock;

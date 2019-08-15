@@ -37,7 +37,7 @@
     </div>
     <script type="application/json" id="commerce-configs-json">
         {
-            "locale": "${skuDetails.locale}",
+            "locale": "${skuDetails.locale @ context='unsafe'}",
             "availabilityUrl": "${skuDetails.skuAvailabilityUrl @ context='unsafe'}",
             "pricingUrl": "${skuDetails.skuCustomerPriceUrl @ context='unsafe'}",
             "addToCartUrl": "${skuDetails.addToCartUrl @ context='unsafe'}",
