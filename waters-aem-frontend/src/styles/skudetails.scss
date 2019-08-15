@@ -146,6 +146,10 @@
             &:focus {
                 outline: 2px solid $color-focus;
             }
+
+            @include mobile {
+                height: 2.9em;
+            }
         }
 
         &__web-quote {
@@ -354,7 +358,7 @@
         svg {
             fill: $color-icon;
             float: right;
-            width: ($icon-m - 0.25em);
+            width: ($icon-s + 0.1em);
             margin-top: ($space-xxxs - 0.1em);
 
             &:hover {
