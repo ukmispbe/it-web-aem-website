@@ -36,6 +36,7 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 @Component(value = "Footer",
     description = "This is the Footer component for Waters site",
@@ -163,6 +164,15 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     public String getLanguageLocation() {
         return siteContext.getLanguageLocation();
+    }
+
+    public String getCountryUS() {
+        final StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(siteContext.getLocaleWithCountry().getCountry());
+        stringBuilder.append(" === ");
+        stringBuilder.append(Locale.US.getCountry());
+        return stringBuilder.toString();
     }
 
     @Nonnull
