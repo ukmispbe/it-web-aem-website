@@ -3,7 +3,6 @@ package com.waters.aem.hybris.importer.impl;
 import com.day.cq.commons.DownloadResource;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.NameConstants;
-import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.WCMException;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableMap;
