@@ -355,7 +355,6 @@
 
     &__language {
         cursor: pointer;
-        display: inline-flex;
         min-height: 38px;
         -webkit-box-align: center;
         align-items: center;
@@ -363,6 +362,11 @@
         padding-right: 0.5em;
         border: 1px solid $color-border-light;
         position: relative;
+        display: inline-table;
+
+        @supports (display: inline-grid) {
+            display: inline-flex;
+        }
 
         @include mobile {
             width: 100%;
@@ -380,10 +384,16 @@
         }
 
         & > a {
+
             &:first-child {
                 white-space: pre-wrap;
                 pointer-events: none;
-                display: inline-block;
+                vertical-align: middle;
+                display: table-cell;
+
+                @supports (display: inline-grid) {
+                    display: inline-block;
+                }
 
                 &:hover {
                     text-decoration: none;
@@ -396,9 +406,13 @@
             width: 1em;
             height: 1em;
             background-repeat: no-repeat;
-            display: inline-block;
             margin-left: 1em;
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3e%3cstyle type='text/css'%3e .st0%7bfill:none;stroke:%23fff;stroke-linecap:round;stroke-linejoin:round;%7d %3c/style%3e%3cpolyline class='st0' points='3.3,7.7 11.9,16.2 20.5,7.7 '/%3e%3c/svg%3e ");
+            display: table-cell;
+
+            @supports (display: inline-grid) {
+                display: inline-block;
+            }
 
             @include mobile {
                 position: absolute;

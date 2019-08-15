@@ -18,7 +18,8 @@ if (regionSelector) {
 
         if (longestAnchor > displayText.length) {
             let diff = longestAnchor - displayText.length;
-            regionSelector.firstElementChild.innerText = displayText + ' '.repeat(diff*5);
+            let spacer = " ";
+            regionSelector.firstElementChild.innerText = displayText + spacer.repeat(diff*5);
         }
     }
 
