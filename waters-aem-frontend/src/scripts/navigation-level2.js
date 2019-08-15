@@ -25,6 +25,7 @@ const navigationLevel2 = function () {
             if (numberOfLinks !== 0) {
                 container.addEventListener('click', function (event) {
                     if (screenSizes.isMobile()) {
+                        //only prevent default if there is children
                         event.preventDefault();
 
                         const mainULNav = event.currentTarget.parentElement.parentElement;
@@ -45,25 +46,33 @@ const navigationLevel2 = function () {
 
     if (headerNavigation_comp) {
         window.addEventListener('resize', function () {
-            const level0Items = document.querySelectorAll('.cmp-navigation > .cmp-navigation__group > .cmp-navigation__item');
-            const level0Group = document.querySelector('.cmp-navigation > .cmp-navigation__group');
-
             if (!screenSizes.isMobile()) {
-                Array.from(level0Items).forEach(level0Item => {
-                    if (level0Item.classList.contains(active)) {
-                        level0Item.classList.remove(active)
-                    }
-                })
-
-                if (level0Group.classList.contains(expanded)) {
-                    level0Group.classList.remove(expanded)
-                }
+                Reset();
             }
         });
     }
 
 }
 
-
-
 window.addEventListener('load', navigationLevel2);
+
+const Reset = () => {
+    return function () {
+        const expanded = 'is-expanded';
+        const active = 'is-active';
+        const level0Items = document.querySelectorAll('.cmp-navigation > .cmp-navigation__group > .cmp-navigation__item');
+        const level0Group = document.querySelector('.cmp-navigation > .cmp-navigation__group');
+
+        Array.from(level0Items).forEach(level0Item => {
+            if (level0Item.classList.contains(active)) {
+                level0Item.classList.remove(active)
+            }
+        })
+
+        if (level0Group.classList.contains(expanded)) {
+            level0Group.classList.remove(expanded)
+        }
+    }
+};
+
+export default Reset;
