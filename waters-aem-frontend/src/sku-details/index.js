@@ -3,12 +3,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from '../modal/index';
 import Stock from './views/stock';
+import Price from './views/price';
 import SkuService from './services';
 
 class SkuDetails extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             modalShown: false,
             modalConfig: this.props.config.modalInfo,
@@ -18,6 +18,7 @@ class SkuDetails extends React.Component {
             availabilityAPI: this.props.config.availabilityUrl,
             skuAvailability: {},
             addToCartQty: undefined,
+            defaultPrice: this.props.price
         };
 
         this.request = new SkuService(
@@ -94,12 +95,19 @@ class SkuDetails extends React.Component {
 
     render() {
         return (
-            <>
-                <Stock
-                    skuConfig={this.state.skuConfig}
-                    skuNumber={this.state.skuNumber}
-                    skuAvailability={this.state.skuAvailability}
-                />
+            <div className="cmp-sku-details__buyinfo">
+                <div className="cmp-sku-details__priceinfo">
+                    <Price 
+                        skuConfig={this.state.skuConfig}
+                        price={this.state.defaultPrice}/>
+                </div>
+                <div className="cmp-sku-details__availability">
+                    <Stock
+                            skuConfig={this.state.skuConfig}
+                            skuNumber={this.state.skuNumber}
+                            skuAvailability={this.state.skuAvailability}
+                        />
+                </div>
                 <div className="cmp-sku-details__buttons">
                     <form>
                         <input
@@ -122,7 +130,7 @@ class SkuDetails extends React.Component {
                     theme="callToAction"
                     config={this.state.modalConfig}
                 />
-            </>
+            </div>
         );
     }
 }
