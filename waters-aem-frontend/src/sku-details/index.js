@@ -18,7 +18,8 @@ class SkuDetails extends React.Component {
             availabilityAPI: this.props.config.availabilityUrl,
             skuAvailability: {},
             addToCartQty: undefined,
-            defaultPrice: this.props.price
+            defaultPrice: this.props.price,
+            locale: this.props.config.locale,
         };
 
         this.request = new SkuService(
@@ -97,16 +98,18 @@ class SkuDetails extends React.Component {
         return (
             <div className="cmp-sku-details__buyinfo">
                 <div className="cmp-sku-details__priceinfo">
-                    <Price 
+                    <Price
                         skuConfig={this.state.skuConfig}
-                        price={this.state.defaultPrice}/>
+                        price={this.state.defaultPrice}
+                    />
                 </div>
                 <div className="cmp-sku-details__availability">
                     <Stock
-                            skuConfig={this.state.skuConfig}
-                            skuNumber={this.state.skuNumber}
-                            skuAvailability={this.state.skuAvailability}
-                        />
+                        skuConfig={this.state.skuConfig}
+                        skuNumber={this.state.skuNumber}
+                        skuAvailability={this.state.skuAvailability}
+                        locale={this.state.locale}
+                    />
                 </div>
                 <div className="cmp-sku-details__buttons">
                     <form>
