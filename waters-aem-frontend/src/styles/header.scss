@@ -9,12 +9,17 @@
     margin-bottom: $space-l;
 
     @include mobile {
-        margin-bottom: $space-m;
+        margin-bottom: 0;
+    }
+
+    &__navigation{
+        box-shadow: $shadow;
     }
 
     &__overlay.overlay{
         z-index: 999;
-        height: 1000%;
+        height: 100vh;
+        position: fixed;
         transition: all 0.25s ease;
         opacity: 0;
 
