@@ -30,16 +30,17 @@
             <div class="cmp-footer__copyright">
                 <p>${externalFooter.copyrightText}</p>
             </div>
-            <div class="cmp-footer__selector ${externalFooter.pageLanguageLinks.size == 1 ? 'one-link' : ''}">
+            <div class="cmp-footer__selector">
                 <div class="cmp-footer__selector__region">
-                    <span>United States</span>
-                    <img class="inline-svg" data-sly-test="${externalFooter.regionIcon}"
-                    src="${externalFooter.regionIcon}" />
+                    <span>${externalFooter.countryName}</span>
+                    <img class="inline-svg" src="/content/dam/waters/en/brand-assets/icons/globe.svg"
+                         alt="${'Country' @ i18n}" />
                 </div>
-                <div class="cmp-footer__selector__language ${externalFooter.pageLanguageLinks.size == 1 ? 'one-link' : ''}">
-                    <a href="${externalFooter.pageLanguageLinks[0].href}">${externalFooter.pageLanguageLinks[0].title}</a>
-                    <div class="cmp-footer__selector__language--options" data-sly-list.languageLink="${externalFooter.pageLanguageLinks}">
-                        <a href="${languageLink.href}" data-sly-test="${!languageLinkList.first}">${languageLink.title}</a>
+                <div class="cmp-footer__selector__language ${!externalFooter.languagePages ? 'one-link' : ''}">
+                    <a href="${externalFooter.homepage.href}">${externalFooter.homepage.title}</a>
+                    <div class="cmp-footer__selector__language--options">
+                        <a data-sly-repeat.languageLink="${externalFooter.languagePages}"
+                           href="${languageLink.languagePage.href}">${languageLink.languageTitle}</a>
                     </div>
                 </div>
             </div>

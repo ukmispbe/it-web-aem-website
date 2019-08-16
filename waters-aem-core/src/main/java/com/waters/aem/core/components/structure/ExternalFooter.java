@@ -9,15 +9,14 @@ import com.citytechinc.cq.component.annotations.widgets.Html5SmartImage;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.day.cq.commons.LanguageUtil;
 import com.day.cq.wcm.foundation.Image;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.google.common.collect.ImmutableList;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
-import com.icfolson.aem.library.core.link.builders.factory.LinkBuilderFactory;
 import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
@@ -36,6 +35,7 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -126,16 +126,6 @@ public final class ExternalFooter extends AbstractComponent implements Component
     @InheritInject
     private List<IconOnlyLink> socialLinks;
 
-    private String regionIcon = new StringBuilder()
-                                    .append(WatersConstants.DAM_ICON_PATH)
-                                    .append("/globe.svg")
-                                    .toString();
-
-    @JsonProperty
-    public String getRegionIcon() {
-        return regionIcon;
-    }
-
     @JsonProperty
     public Image getLogoImage() {
         return logoImage;
@@ -177,16 +167,51 @@ public final class ExternalFooter extends AbstractComponent implements Component
         return siteContext.getLanguageLocation();
     }
 
-    public List<Link> getPageLanguageLinks() {
-        return new ImmutableList.Builder<Link>().add(
-                LinkBuilderFactory.forPath("/content/waters/us/en").setTitle("English").build(),
-                LinkBuilderFactory.forPath("/content/waters/cn/zh").setTitle("Chinese").build(),
-                LinkBuilderFactory.forPath("/content/waters/jp/ja").setTitle("Japanese").build()
-        ).build();
+    public List<LanguageSelectorItem> getLanguagePages() {
+        final List<LanguageSelectorItem> languagePages = new ArrayList<>();
+
+        final String languageRootPath = LanguageUtil.getLanguageRoot(currentPage.getPath());
+
+        if (languageRootPath != null) {
+            final PageDecorator languageRootPage = currentPage.getPageManager().getPage(languageRootPath);
+
+            // get other home pages that are siblings of current language home page
+            final List<PageDecorator> siblingHomepages = languageRootPage.getParent().getChildren(
+                    page -> !languageRootPath.equals(page.getPath()) && WatersConstants.PREDICATE_HOME_PAGE.apply(page));
+
+            // get relative content path from language root path
+            final String contentPath = currentPage.getPath()
+                    .substring(languageRootPath.length())
+                    .replaceFirst("/", "");
+
+            for (PageDecorator languagePage : siblingHomepages) {
+                final PageDecorator childPage = languagePage.getChild(contentPath).orNull();
+
+                if (childPage != null) {
+                    languagePages.add(new LanguageSelectorItem(languagePage.getTitle(), childPage));
+                }
+            }
+        }
+
+        return languagePages;
     }
 
-    private String getRelativePath(String path) {
-        return path.replaceFirst("/", "");
+    public PageDecorator getHomepage() {
+        return currentPage.findAncestor(WatersConstants.PREDICATE_HOME_PAGE).orNull();
+    }
+
+    public String getCountryName() {
+        String countryName = "";
+
+        final String languageRoot = LanguageUtil.getLanguageRoot(currentPage.getPath());
+
+        if (languageRoot != null) {
+            countryName = currentPage.getPageManager().getPage(languageRoot)
+                    .getParent()
+                    .getTitle();
+        }
+
+        return countryName;
     }
 
     @Nonnull
