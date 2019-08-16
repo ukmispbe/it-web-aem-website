@@ -2,18 +2,22 @@
      class="cmp-specification-table"
      data-sly-test.specifications="${specificationsTable.specifications}">
     <div class="cmp-table--divide cmp-table">
-        <table class="cmp-table__table">
-            <tbody>
-            <tr data-sly-repeat.specification="${specifications}">
-                <td>
-                    <p><strong>${specification.title}</strong></p>
-                </td>
-                <td>
-                    <p>${specification.formattedFeatureValues}</p>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <ul data-sly-repeat.specification="${specifications}">
+            <li>
+                <table class="cmp-table__table">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <p><strong>${specification.title}</strong></p>
+                        </td>
+                        <td>
+                            <p>${specification.formattedFeatureValues}</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </li>
+        </ul>
     </div>
 
     <div class="cmp-notification-wrapper" data-sly-test="${specificationsTable.sku.hazardous}">
