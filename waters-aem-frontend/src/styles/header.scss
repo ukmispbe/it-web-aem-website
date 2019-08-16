@@ -198,6 +198,10 @@
                         }
                     }
 
+                    &:hover .top-bar__nav__user__link {
+                        color: $color-gray-50;
+                    }
+
                     .greeting-text {
                         display: inline-block;
 
