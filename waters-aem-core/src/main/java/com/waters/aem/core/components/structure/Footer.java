@@ -166,7 +166,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
         return siteContext.getLanguageLocation();
     }
 
-    public Boolean isCountryUS() {
+    public Boolean isYourAmigoEnabled() {
         return Locale.US.getCountry().equals(siteContext.getLocaleWithCountry().getCountry());
     }
 
