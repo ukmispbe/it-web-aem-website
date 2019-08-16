@@ -96,14 +96,12 @@ nav.cmp-navigation {
             & > .cmp-navigation__container {
                padding: $space-m $space-m $space-m $space-xl;
                border-left: 3px solid $color-gray-50;
-               height: 67px;
                flex-grow: 0;
 
                & > .arrow.left{
                   display: block;
                   position: absolute;
                   left: $space-xs;
-                  top: 18px;
                }
       
                & > .arrow.right{
@@ -143,6 +141,7 @@ nav.cmp-navigation {
                margin: 0;
                padding: 0;
                border-top: 0px none transparent;
+               height: auto;
             }
 
             svg,
@@ -188,8 +187,8 @@ nav.cmp-navigation {
 
             @include mobile {
                display: flex;
-               padding: $space-m;
-               flex-grow: 1;
+               padding: $space-s $space-m;
+               width: 100%;
                border-left: 3px solid transparent;
                border-bottom: 1px solid $color-border-rule;
             }
@@ -230,6 +229,8 @@ nav.cmp-navigation {
                }
    
                @include mobile {
+                  width: 100%;
+                  white-space: pre-wrap;
                   margin: 0;
                }
    
