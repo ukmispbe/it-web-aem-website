@@ -14,21 +14,31 @@ $iconLoggedOut: $color-gray-50;
     margin-bottom: $space-l;
 
     @include mobile {
-        margin-bottom: $space-m;
+        margin-bottom: 0;
+    }
+
+    &__navigation{
+        box-shadow: $shadow;
     }
 
     &__overlay.overlay{
         z-index: 999;
-        height: 1000%;
-        transition: all 0.25s ease;
+        height: 100vh;
+        position: fixed;
+        transition: opacity 0.25s ease;
         opacity: 0;
+        visibility: hidden!important;
 
         @include mobile {
             display: none !important;
         }
 
         &.active {
+            visibility: visible!important;
             opacity: 1;
+            @include tablet {
+                margin: 0;
+            }
         }
     }
 
@@ -44,7 +54,7 @@ $iconLoggedOut: $color-gray-50;
 
         &__logo {
             padding: ($space-s + $space-xxxs) 0 $space-s 0;
-            
+
             img {
                 height: 32px;
                 width: 115px;
@@ -56,12 +66,12 @@ $iconLoggedOut: $color-gray-50;
 
             }
         }
-    
+
         &__nav {
             display: flex;
             margin-left: auto;
-    
-            & > ul {
+
+            ul {
                 list-style: none;
                 padding: 0;
                 margin: 0;
@@ -76,7 +86,7 @@ $iconLoggedOut: $color-gray-50;
                     vertical-align: top;
                     margin-left: $space-s;
                     margin-bottom: 0;
-        
+
                     @include mobile-xs {
                         margin-left: $space-xxs;
                     }
@@ -85,10 +95,10 @@ $iconLoggedOut: $color-gray-50;
                     &:last-of-type {
                         margin-left: 0;
                     }
-        
-                    & > .cmp-header-links__link > span {
+
+                    .cmp-header-links__link > span {
                         float: left;
-                        
+
                         @include mobile {
                             display: none;
                         }
@@ -99,13 +109,13 @@ $iconLoggedOut: $color-gray-50;
                         display: inline-block;
                         width: 30px;
                         height: 25px;
-                        padding-left: $space-xxxs;
-        
+                        padding-left: 0.3em;
+
                         .st0,
                         .st1 {
                             stroke: $iconLoggedOut;
                         }
-        
+
                         @include mobile {
                             width: 26px;
                             height: 26px;
@@ -117,117 +127,63 @@ $iconLoggedOut: $color-gray-50;
                             height: 22px;
                         }
                     }
+                }
+            }
 
+            .top-bar__nav__user,
+            .top-bar__nav__search,
+            .top-bar__nav__cart {
+                display: inline-flex;
+            }
 
+            .top-bar__nav__user {
+                position: relative;
+                z-index: 1000;
+
+                @include mobile {
+                    min-width: 0 !important;
                 }
 
-                .top-bar__nav__user,
-                .top-bar__nav__search,
-                .top-bar__nav__cart {
-                    display: inline-flex;
+                .greeting-text {
+                    display: none;
                 }
-    
-                .top-bar__nav__user {
-                    
-                    @include tablet-and-over {
-                        position: relative;
-                        z-index: 1000;
-                    }
-    
-                    @include mobile {
-                        min-width: 0 !important;
-                    }
-            
-                    .greeting-text {
-                        display: none;
-                    }
-            
-                    &__dropdown {
-                        display: flex;
-                        flex-direction: column;
-                        list-style: none;
+
+                &__dropdown {
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                    min-width: 135px;
+                    position: absolute;
+                    top: 71px;
+                    left: 0px;
+                    background-color: $color-white;
+                    margin:0 !important;
+                    padding-bottom: $space-s !important;
+                    border-top: 4px solid $color-gray-50;
+                    opacity: 0;
+                    transition: all 0.2s ease;
+                    visibility: hidden;
+                    box-shadow: $shadow;
+
+                    &__item{
+                        margin: 0;
                         width: 100%;
-                        height: auto;
-                        min-width: 135px;
-                        position: absolute;
-                        top: 71px;
-                        left: 0px;
-                        background-color: $color-white;
-                        margin:0 !important;
-                        padding: 0;
-                        padding-bottom: $space-s !important;
 
-                        opacity: 0;
-                        box-shadow: $shadow;
-                        transition: $fade-transition;
-                        visibility: hidden;
-                        
-                        @include tablet-and-over {
-                            border-top: 4px solid $color-gray-50;
-                        }
-            
-                        &__account-bar{
-                            display: none;
-                            @include mobile{
-                                height: 67px;
-                                padding: 0 $space-s !important;
-                                box-shadow: $shadow;
-                                display: flex;
-                                align-items: center;
+                        a {
+                            span{
+                                display: block;
+                                float: none;
+                                padding: 14px 10px 2px 23px;
                             }
 
-                            &__user-info{
-                                a:hover{
-                                    color: $color-gray-50; 
-                                }
-                                svg.inline-svg{
-                                    width: 26px;
-                                    height: 26px;
-                                    margin-right: $space-xxxs;
-                                    vertical-align: middle;
+                            @include font-utility;
+                            transition: $hover-transition;
 
-                                    & .st0,
-                                    & .st1 {
-                                        stroke: $iconLoggedIn;
-                                    }
-                                }
+                            &:hover {
+                                color: $color-link;
                             }
 
-                            &__close-btn{
-                                margin-left: auto;
-
-                                svg.inline-svg{
-                                    width: 32px;
-                                    height: 32px;
-                                    margin-left: $space-xxxs;
-                                    vertical-align: middle;
-
-                                    & .st0,
-                                    & .st1 {
-                                        stroke: $color-gray-50;
-                                    }
-                                }
-                            }
-
-                        }
-
-                        &__item{
-                            margin: 0;
-                            width: 100%;
-            
-                            @include mobile{
-                                padding: 1em 1.25em 0;
-                            }
-
-                            a {
-                                span{
-                                    display: block;
-
-                                    @include tablet-and-over{
-                                        padding: 14px 10px 2px 23px;
-                                    }
-                                }
-            
+                            &:active {
                                 @include font-utility;
                                 transition: $hover-transition;
                 
@@ -244,22 +200,24 @@ $iconLoggedOut: $color-gray-50;
                             }
                         }
                     }
-            
-                    &.loggedIn {      
-    
-                        .top-bar__nav__user__link {
-                            svg .st1,
-                            svg .st0{
-                                stroke: $iconLoggedIn;
-                            }  
+                }
+
+                &.loggedIn {
+
+                    .top-bar__nav__user__link {
+                        svg .st1,
+                        svg .st0{
+                            stroke: $color-teal-30;
                         }
-            
-                        @include tablet-and-over {
-                            .greeting-text.desktop {
-                                display: inline-block;
-                            }
-                        }
-    
+                    }
+
+                    &:hover .top-bar__nav__user__link {
+                        color: $color-gray-50;
+                    }
+
+                    .greeting-text {
+                        display: inline-block;
+
                         @include mobile {
                             .greeting-text.mobile {
                                 display: inline-block;
@@ -269,8 +227,14 @@ $iconLoggedOut: $color-gray-50;
                         .sign-in-text {
                             display: none;
                         }
-            
-                        &.is-active{
+                    }
+
+                    .sign-in-text {
+                        display: none;
+                    }
+
+                    @include tablet-and-over{
+                        &:hover{
                             .top-bar__nav__user__dropdown{
                                 visibility: visible;
                                 opacity: 1;
@@ -292,6 +256,9 @@ $iconLoggedOut: $color-gray-50;
                             margin: 0 $space-xxs;
                         }
                     }
+
+
+
                 }
     
                 .top-bar__nav__mobile.is-used {
@@ -311,7 +278,7 @@ $iconLoggedOut: $color-gray-50;
         html.noscroll &__navigation{
             height: 100%;
             height: -moz-available;
-            height: -webkit-fill-available; 
+            height: -webkit-fill-available;
             height: fill-available;
             overflow-y: auto;
         }

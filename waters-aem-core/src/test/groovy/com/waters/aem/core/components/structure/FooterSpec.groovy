@@ -6,14 +6,14 @@ import com.waters.aem.core.components.content.links.IconOnlyLink
 import spock.lang.Unroll
 
 @Unroll
-class ExternalFooterSpec extends WatersSpec {
+class FooterSpec extends WatersSpec {
 
     def setupSpec() {
         pageBuilder.content {
             waters {
                 one {
                     "jcr:content" {
-                        externalfooter(
+                        footer(
                             logoLink: "/content/waters/page1.html",
                             logoAltText: "Alternative text",
                             copyrightText: "Waters 2019",
@@ -42,84 +42,84 @@ class ExternalFooterSpec extends WatersSpec {
 
     def "get logo link"() {
         setup:
-        def externalFooter = requestBuilder.build {
-            path = "/content/waters/one/jcr:content/externalfooter"
-        }.adaptTo(ExternalFooter)
+        def footer = requestBuilder.build {
+            path = "/content/waters/one/jcr:content/footer"
+        }.adaptTo(Footer)
 
         expect:
-        externalFooter.logoLink.href == "/content/waters/page1.html"
+        footer.logoLink.href == "/content/waters/page1.html"
     }
 
     def "get alt text"() {
         setup:
-        def externalFooter = requestBuilder.build {
-            path = "/content/waters/one/jcr:content/externalfooter"
-        }.adaptTo(ExternalFooter)
+        def footer = requestBuilder.build {
+            path = "/content/waters/one/jcr:content/footer"
+        }.adaptTo(Footer)
 
         expect:
-        externalFooter.logoAltText == "Alternative text"
+        footer.logoAltText == "Alternative text"
     }
 
     def "get copyright text"() {
         setup:
-        def externalFooter = requestBuilder.build {
-            path = "/content/waters/one/jcr:content/externalfooter"
-        }.adaptTo(ExternalFooter)
+        def footer = requestBuilder.build {
+            path = "/content/waters/one/jcr:content/footer"
+        }.adaptTo(Footer)
 
         expect:
-        externalFooter.copyrightText == "Waters 2019"
+        footer.copyrightText == "Waters 2019"
     }
 
     def "get cookies link"() {
         setup:
-        def externalFooter = requestBuilder.build {
-            path = "/content/waters/one/jcr:content/externalfooter"
-        }.adaptTo(ExternalFooter)
+        def footer = requestBuilder.build {
+            path = "/content/waters/one/jcr:content/footer"
+        }.adaptTo(Footer)
 
         expect:
-        externalFooter.cookiesLink.href == "https://www.waters.com/134982469"
+        footer.cookiesLink.href == "https://www.waters.com/134982469"
     }
 
     def "get logo image"() {
         setup:
-        def externalFooter = requestBuilder.build {
-            path = "/content/waters/one/jcr:content/externalfooter"
-        }.adaptTo(ExternalFooter)
+        def footer = requestBuilder.build {
+            path = "/content/waters/one/jcr:content/footer"
+        }.adaptTo(Footer)
 
         expect:
-        externalFooter.logoImage.fileReference == "/content/dam/waters/logo.png"
+        footer.logoImage.fileReference == "/content/dam/waters/logo.png"
     }
 
     def "get footer links"() {
         setup:
-        def externalFooter = requestBuilder.build {
-            path = "/content/waters/one/jcr:content/externalfooter"
-        }.adaptTo(ExternalFooter)
+        def footer = requestBuilder.build {
+            path = "/content/waters/one/jcr:content/footer"
+        }.adaptTo(Footer)
 
         expect:
-        externalFooter.footerLinks.size() == 2
+        footer.footerLinks.size() == 2
 
         and:
-        externalFooter.footerLinks.text == ["waters", "ta"]
+        footer.footerLinks.text == ["waters", "ta"]
 
         and:
-        externalFooter.footerLinks.link.href == ["www.waters.com", "www.ta.com"]
+        footer.footerLinks.link.href == ["www.waters.com", "www.ta.com"]
     }
 
     def "get social links"() {
         setup:
-        def externalFooter = requestBuilder.build {
-            path = "/content/waters/one/jcr:content/externalfooter"
-        }.adaptTo(ExternalFooter)
+        def footer = requestBuilder.build {
+            path = "/content/waters/one/jcr:content/footer"
+        }.adaptTo(Footer)
 
         expect:
-        externalFooter.socialLinks.size() == 2
+        footer.socialLinks.size() == 2
 
         and:
-        externalFooter.socialLinks.link.href == ["https://www.facebook.com", "https://twitter.com"]
+        footer.socialLinks.link.href == ["https://www.facebook.com", "https://twitter.com"]
 
         and:
-        externalFooter.socialLinks.linkIcon == ["/content/dam/waters/brand-assets/icons/facebook.svg", "/content/dam/waters/brand-assets/icons/twitter.svg"]
+        footer.socialLinks.linkIcon == ["/content/dam/waters/brand-assets/icons/facebook.svg", "/content/dam/waters/brand-assets/icons/twitter.svg"]
     }
 
 

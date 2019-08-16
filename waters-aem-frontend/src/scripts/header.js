@@ -1,6 +1,7 @@
 import domElements from '../scripts/domElements';
 import loginStatus from '../scripts/loginStatus';
 import screenSizes from '../scripts/screenSizes';
+import navMenu from '../scripts/navigation-level2';
 
 let header, headerTB_user, headerOverlay, headerTB_user_link, headerTB_user_link_greetingText, headerTB_user_link_greetingText_mobile, headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, headerNavigation;
 let activeDD = false;
@@ -117,6 +118,11 @@ function hideMobileNav() {
     domElements.removeClass(headerNavigation, 'is-active');
     domElements.removeClass(header, 'is-fixed');
     domElements.removeClass(document.documentElement, 'noscroll');
+    const navMenuFunc = navMenu();
+
+    if (navMenuFunc) { 
+        navMenuFunc();
+    }
 }
 
 function showMobileNav() { 

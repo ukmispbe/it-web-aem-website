@@ -75,7 +75,7 @@
 
 .cmp-tag-list--label {
     .cmp-tag-list {
-        margin-bottom: $space-s;
+        margin-bottom: 0;
         &__item {
             @include font-small;
             display: inline-block;

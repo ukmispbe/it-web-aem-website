@@ -74,22 +74,30 @@ nav.cmp-navigation {
       }
 
       @include mobile {
+         > .cmp-navigation__item {
+            width: 100%;
+         }
+
          &.is-expanded > .cmp-navigation__item.is-active > .cmp-navigation__group {
             visibility: visible;
             display: block;
+            overflow-x: hidden;
+            overflow-y: auto;
             opacity: 1;
          }
 
          &.is-expanded > .cmp-navigation__item.is-active{
             display: $level0MobileDisplay;
             flex-direction: column;
-            height: auto;
+            height: 100vh;
+            position: fixed;
+            padding-bottom: 150px;
 
             & > .cmp-navigation__container {
                padding: $space-m $space-m $space-m $space-xl;
                border-left: 3px solid $color-gray-50;
-               border-bottom: 1px solid $color-border-rule;
                height: 67px;
+               flex-grow: 0;
 
                & > .arrow.left{
                   display: block;
@@ -130,6 +138,7 @@ nav.cmp-navigation {
             }
 
             @include mobile {
+               transition-property: none;
                display: $level0MobileDisplay;
                margin: 0;
                padding: 0;
@@ -182,6 +191,7 @@ nav.cmp-navigation {
                padding: $space-m;
                flex-grow: 1;
                border-left: 3px solid transparent;
+               border-bottom: 1px solid $color-border-rule;
             }
             & > a { 
                align-self: center; 
@@ -207,7 +217,6 @@ nav.cmp-navigation {
 
             
             & .cmp-navigation__item-link {
-               @include font-h3;
                color: $color-font-medium;
                -webkit-transition: none;
                -o-transition: none;
