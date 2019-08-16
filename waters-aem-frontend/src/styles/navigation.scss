@@ -86,7 +86,7 @@ nav.cmp-navigation {
             opacity: 1;
          }
 
-         &.is-expanded > .cmp-navigation__item.is-active{
+         &.is-expanded > .cmp-navigation__item.is-active {
             display: $level0MobileDisplay;
             flex-direction: column;
             height: 100vh;
@@ -94,8 +94,8 @@ nav.cmp-navigation {
             padding-bottom: 150px;
 
             & > .cmp-navigation__container {
-               padding: $space-m $space-m $space-m $space-xl;
-               border-left: 3px solid $color-gray-50;
+               padding: ($space-m - 0.1em) $space-m $space-m ($space-xl - 0.5em);
+               border-left: 4px solid $color-gray-50;
                flex-grow: 0;
 
                & > .arrow.left{
@@ -189,8 +189,9 @@ nav.cmp-navigation {
                display: flex;
                padding: $space-s $space-m;
                width: 100%;
-               border-left: 3px solid transparent;
+               border-left: 4px solid transparent;
                border-bottom: 1px solid $color-border-rule;
+               height: 67px;
             }
             & > a { 
                align-self: center; 
@@ -262,7 +263,7 @@ nav.cmp-navigation {
             }
             @include mobile {
                display: none;
-               padding: $space-l $space-xl  $space-xl $space-xl
+               padding: $space-s $space-xl $space-xl ($space-xl - 0.5em);
             }
 
             & > .cmp-navigation__item {
