@@ -28,7 +28,7 @@ class Stock extends React.Component {
                 <span>
                     <span className="cmp-sku-details__stockdetails">
                         {this.props.skuConfig.onlyXInStockLabel.replace(
-                            '{0}',
+                            '{quantity}',
                             this.props.skuAvailability.availableQuantity
                         )}
                         <ReactSVG
