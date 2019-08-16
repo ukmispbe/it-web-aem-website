@@ -13,6 +13,7 @@
         padding: $space-xs $space-l $space-xxxs 0;
         text-align: left;
         vertical-align: top;
+        width: 50%;
     }
 
     td p {
@@ -35,6 +36,7 @@
             display: block;
             word-wrap: break-word;
             padding: 0;
+            width: 50%;
         }
         td:first-child {
             padding-top: $space-xs;
@@ -52,6 +54,9 @@
 }
 
 .cmp-table--divide {
+    ul {
+        list-style-type:none;
+    }
         @include tablet-and-over {
             column-count: 2;
             -webkit-column-count: 2;
@@ -64,6 +69,7 @@
             }
 
             td {
+                width: 50%;
                 display: inline-block;
             }
 
