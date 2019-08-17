@@ -96,6 +96,7 @@ nav.cmp-navigation {
             & > .cmp-navigation__container {
                padding: $space-m $space-m $space-m $space-xl;
                border-left: 3px solid $color-gray-50;
+               min-height: 67px;
                flex-grow: 0;
 
                & > .arrow.left{
@@ -142,6 +143,7 @@ nav.cmp-navigation {
                padding: 0;
                border-top: 0px none transparent;
                height: auto;
+               white-space: normal;
             }
 
             svg,
