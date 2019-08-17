@@ -327,7 +327,6 @@ nav.cmp-navigation {
       transition-duration: 0.25s;
       transition-property: visibility, opacity;
       transition-delay: 0.25s, 0s;
-      pointer-events: none;
       
       @include mobile {
          display: none;

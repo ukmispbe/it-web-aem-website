@@ -3,16 +3,14 @@ import screenSizes from '../scripts/screenSizes';
 let elem = document.querySelector('.cmp-navigation');
 
 if (elem) {
-   let overlay = document.createElement('div');
+   const overlay = document.createElement('div');
    overlay.classList.add('cmp-navigation-overlay__container');
    overlay.classList.add('overlay-container');
 
    elem.parentElement.after(overlay);
 
    const closeOverlay = () => {
-      console.log('close overlay');
       if (screenSizes.isTabletAndOver()) {
-         console.log('right size');
          overlay.style.opacity = "0";
          overlay.style.visibility = "hidden";
          overlay.style.transitionDelay = "0s, 0s";
@@ -28,6 +26,20 @@ if (elem) {
          elem.classList.add('cmp-navigation--shadow');
       }
    };
+
+   const handleClickAway = event => {
+      if (!(event && event.target && event.target.classList)) { return; }
+
+      const level1ClickableClassNames = ['cmp-navigation__container', 'cmp-navigation__item-link', 'left', 'inline-svg', 'st0'];
+
+      const matches = level1ClickableClassNames.filter(className => event.target.classList.contains(className));
+
+      if (matches.length === 0) {
+         closeOverlay();
+
+         event.stopPropagation();
+      }
+   }
 
    Array.from(document.querySelector('.navigation .cmp-navigation .cmp-navigation__group').children).forEach(function(e){
       const level2Links = e.querySelector('.cmp-navigation__group');
@@ -45,7 +57,12 @@ if (elem) {
          level1Link.addEventListener('click', event => event.preventDefault());
       }
    });
-  
-   overlay.addEventListener('click', closeOverlay); 
-   document.body.addEventListener('click', event => { console.log('body click overlay', event.target, event.target.current)})
+
+   document.body.addEventListener('click', handleClickAway);
+
+   const header = document.querySelector('.cmp-header');
+
+   if (header) {
+      header.addEventListener('click', handleClickAway);
+   }
 }
