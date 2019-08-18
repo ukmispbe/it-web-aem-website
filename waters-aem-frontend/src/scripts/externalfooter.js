@@ -2,7 +2,7 @@ let regionSelector = document.querySelector('.cmp-footer__selector__language');
 let regionSelectorOptions = document.querySelector('.cmp-footer__selector__language--options');
 
 if (regionSelector) {
-    let children = Array.prototype.slice.call(regionSelectorOptions.childNodes);
+    let children = regionSelectorOptions && Array.prototype.slice.call(regionSelectorOptions.childNodes);
     let displayText = regionSelector.firstElementChild.innerText;
     let longestAnchor = displayText.length;
 

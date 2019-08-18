@@ -3,6 +3,7 @@ package com.waters.aem.core.components.structure
 import com.waters.aem.core.WatersSpec
 import com.waters.aem.core.components.content.links.BasicLink
 import com.waters.aem.core.components.content.links.IconOnlyLink
+import com.waters.aem.core.constants.WatersConstants
 import spock.lang.Unroll
 
 @Unroll
@@ -30,6 +31,42 @@ class FooterSpec extends WatersSpec {
                             socialLinks {
                                 item1(link: "https://www.facebook.com", linkIcon: "/content/dam/waters/brand-assets/icons/facebook.svg")
                                 item2(link: "https://twitter.com", linkIcon: "/content/dam/waters/brand-assets/icons/twitter.svg")
+                            }
+                        }
+                    }
+                }
+
+                us("jcr:title": "United States") {
+                    en("jcr:title": "English", "cq:template": WatersConstants.TEMPLATE_HOME_PAGE) {
+                        "jcr:content" {
+                            footer()
+                        }
+                        "application-notes" {
+                            "jcr:content" {
+                                footer()
+                            }
+                        }
+                    }
+                    es("jcr:title": "Spanish", "cq:template": WatersConstants.TEMPLATE_HOME_PAGE) {
+                        "jcr:content" {
+                            footer()
+                        }
+                        "application-notes" {
+                            "jcr:content" {
+                                footer()
+                            }
+                        }
+                    }
+                }
+
+                cn("jcr:title": "China") {
+                    zh("jcr:title": "Chinese", "cq:template": WatersConstants.TEMPLATE_HOME_PAGE) {
+                        "jcr:content" {
+                            footer()
+                        }
+                        "application-notes" {
+                            "jcr:content" {
+                                footer()
                             }
                         }
                     }
@@ -122,5 +159,43 @@ class FooterSpec extends WatersSpec {
         footer.socialLinks.linkIcon == ["/content/dam/waters/brand-assets/icons/facebook.svg", "/content/dam/waters/brand-assets/icons/twitter.svg"]
     }
 
+    def "language selector has one language"() {
+        setup:
+        def footer = requestBuilder.build {
+            path = "/content/waters/cn/zh/jcr:content/footer"
+        }.adaptTo(Footer)
 
+        expect:
+        footer.languagePages.size() == 1
+    }
+
+    def "language selector has two languages"() {
+        setup:
+        def footer = requestBuilder.build {
+            path = "/content/waters/us/en/jcr:content/footer"
+        }.adaptTo(Footer)
+
+        expect:
+        footer.languagePages.size() == 2
+    }
+
+    def "language selector item matches current page in other language"() {
+        setup:
+        def footer = requestBuilder.build {
+            path = "/content/waters/us/en/application-notes/jcr:content/footer"
+        }.adaptTo(Footer)
+
+        expect:
+        footer.languagePages[1].languagePage.path == "/content/waters/us/es/application-notes"
+    }
+
+    def "get country name"() {
+        setup:
+        def footer = requestBuilder.build {
+            path = "/content/waters/us/en/jcr:content/footer"
+        }.adaptTo(Footer)
+
+        expect:
+        footer.countryName == "United States"
+    }
 }

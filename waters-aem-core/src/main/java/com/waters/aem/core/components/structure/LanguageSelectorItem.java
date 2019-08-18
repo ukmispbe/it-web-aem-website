@@ -1,5 +1,6 @@
 package com.waters.aem.core.components.structure;
 
+import com.day.cq.commons.LanguageUtil;
 import com.icfolson.aem.library.api.page.PageDecorator;
 
 /**
@@ -8,16 +9,21 @@ import com.icfolson.aem.library.api.page.PageDecorator;
  */
 public class LanguageSelectorItem {
 
-    private String languageTitle;
-
     private PageDecorator languagePage;
 
-    public LanguageSelectorItem(final String languageTitle, final PageDecorator languagePage) {
-        this.languageTitle = languageTitle;
+    public LanguageSelectorItem(final PageDecorator languagePage) {
         this.languagePage = languagePage;
     }
 
     public String getLanguageTitle() {
+        String languageTitle = "";
+
+        final String languageRoot = LanguageUtil.getLanguageRoot(languagePage.getPath());
+
+        if (languageRoot != null) {
+            languageTitle = languagePage.getPageManager().getPage(languageRoot).getTitle();
+        }
+
         return languageTitle;
     }
 

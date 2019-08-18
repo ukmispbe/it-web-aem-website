@@ -175,34 +175,16 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     public List<LanguageSelectorItem> getLanguagePages() {
         final List<LanguageSelectorItem> languagePages = new ArrayList<>();
 
-        final String languageRootPath = LanguageUtil.getLanguageRoot(currentPage.getPath());
+        for (PageDecorator languagePage : siteContext.getLanguagePages()) {
+            final PageDecorator languageHomepage =
+                    languagePage.findAncestor(WatersConstants.PREDICATE_HOME_PAGE).orNull();
 
-        if (languageRootPath != null) {
-            final PageDecorator languageRootPage = currentPage.getPageManager().getPage(languageRootPath);
-
-            // get other home pages that are siblings of current language home page
-            final List<PageDecorator> siblingHomepages = languageRootPage.getParent().getChildren(
-                    page -> !languageRootPath.equals(page.getPath()) && WatersConstants.PREDICATE_HOME_PAGE.apply(page));
-
-            // get relative content path from language root path
-            final String contentPath = currentPage.getPath()
-                    .substring(languageRootPath.length())
-                    .replaceFirst("/", "");
-
-            for (PageDecorator languagePage : siblingHomepages) {
-                final PageDecorator childPage = languagePage.getChild(contentPath).orNull();
-
-                if (childPage != null) {
-                    languagePages.add(new LanguageSelectorItem(languagePage.getTitle(), childPage));
-                }
+            if (languageHomepage != null) {
+                languagePages.add(new LanguageSelectorItem(languagePage));
             }
         }
 
         return languagePages;
-    }
-
-    public PageDecorator getHomepage() {
-        return currentPage.findAncestor(WatersConstants.PREDICATE_HOME_PAGE).orNull();
     }
 
     public String getCountryName() {
