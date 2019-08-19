@@ -52,10 +52,18 @@ public final class SkuList implements EmptyComponent, ComponentExporter {
     @Self
     private SiteContext siteContext;
 
+    @DialogField(fieldLabel = "Title",
+        fieldDescription = "Enter the Title",
+        ranking = 1)
+    @TextField
+    @Inject
+    private String title;
+
     @DialogField(fieldLabel = "Sku Numbers",
         fieldDescription = "List of Skus to display when this component is authored on a non-Sku page.",
         renderReadOnly = false,
-        required = true)
+        required = true,
+        ranking = 2)
     @MultiField
     @TextField
     @Inject
@@ -80,6 +88,10 @@ public final class SkuList implements EmptyComponent, ComponentExporter {
                 .map(skuNumber -> skuRepository.getSku(resource.getResourceResolver(), skuNumber))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     @Override

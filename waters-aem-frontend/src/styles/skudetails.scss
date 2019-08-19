@@ -2,6 +2,13 @@
     &-details,
     &-list {
         margin-bottom: $space-l;
+        opacity: 1;
+        transition: opacity 0.2s ease-in;
+
+        .cmp-sku-details__code {
+            @include font-h2;
+            margin-bottom: $space-xxs;
+        }
         &__signin {
             svg {
                 width: $icon-m;
@@ -14,18 +21,18 @@
             }
         }
 
-        &__stockdetails {
-            float: left;
-            &:hover {
-                color: $color-link;
+        &__heading {
+            img {
+                display: none;
             }
-            svg {
-                width: $icon-m;
-                fill: $color-icon;
-                float: right;
-                &:hover {
-                    color: $color-link;
-                }
+        }
+
+        &__ecom {
+            background: $color-background-light;
+            padding: $space-l;
+
+            @include mobile {
+                padding: $space-m;
             }
         }
 
@@ -40,36 +47,67 @@
             padding-right: $space-xs;
             line-height: 1em;
         }
+
         &__price {
             @include font-h1;
             margin-bottom: $space-xxs;
         }
 
-        &__stockdetails {
-            float: left;
-        }
-
         &__availability {
+            display: flex;
+            align-items: center;
             padding: 0 $space-m 0 $space-s;
             @include font-h3;
+            height: 3em;
             margin-top: $space-xxxs;
             border-left: 1px solid $color-border-light;
             @include mobile {
-                padding: 0 0 0 $space-xxs;
+                padding: 0 0 0 $space-xs;
             }
         }
 
+        &__stockcontainer {
+            display: inherit;
+        }
+
+        &__stockdetails-container {
+            display: inline-flex;
+            margin-top: 0.3em;
+            min-width: 350px
+        }
+
         &__stockdetails {
+            float: left;
+
+            div {
+                display: inline;
+            }
             svg {
                 width: ($icon-m - 0.25em);
+                height: ($icon-m - 0.25em);
                 fill: $color-success;
                 margin-left: $space-xxxs;
-                margin-top: ($space-xxxs - 0.1em);
-                float: left;
-                .st0,
-                .st1 {
-                    stroke: $color-success;
-                    stroke-width: 2px;
+                margin-top: ($space-xxxs);
+                float: right;
+            }
+            &--instock{
+                svg {
+                    fill: $color-success;
+                    .st0,
+                    .st1 {
+                        stroke: $color-success;
+                        stroke-width: 2px;
+                    }
+                }
+            }
+            &--outofstock{
+                svg {
+                    fill: $color-error;
+                    .st0,
+                    .st1 {
+                        stroke: $color-error;
+                        stroke-width: 2px;
+                    }
                 }
             }
         }
@@ -77,6 +115,7 @@
         &__order {
             @include font-small;
             font-weight: $font-weight-light;
+            clear:both;
         }
 
         &__buttons {
@@ -85,16 +124,16 @@
 
             @include mobile {
                 margin-top: 0;
-                margin-bottom: $space-m;
+                margin-bottom: $space-s;
                 width: 100%;
             }
         }
 
-        input[type='number'] {
+        &__quantity {
             margin: 0 $space-xxs 0 0;
-            padding: $space-xxs;
+            padding: ($space-xxs - 0.2em) $space-xxs $space-xxs $space-xxs;
             width: 65px;
-            height: 3.15em;
+            height: 3.1em;
             float: left;
             border: 1px solid $color-border-light;
             background: $color-white;
@@ -106,15 +145,16 @@
             font-weight: $font-weight-light;
             text-align: center;
 
+            -moz-appearance: textfield;
+            
             &:focus {
                 outline: 2px solid $color-focus;
             }
+
+            @include mobile {
+                height: 2.9em;
+            }
         }
-        
-        input[type="text"]:focus::-webkit-input-placeholder { color:transparent; }
-        input[type="text"]:focus:-moz-placeholder { color:transparent; } /* FF 4-18 */
-        input[type="text"]:focus::-moz-placeholder { color:transparent; } /* FF 19+ */
-        input[type="text"]:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
 
         &__web-quote {
             @include font-h3;
@@ -122,36 +162,60 @@
     }
 
     &-details--sticky {
+        &--shadow {
+            .cmp-sku-details__wrapper {
+                box-shadow: $shadow;
+            }
+        }
         .cmp-sku-details__wrapper {
             display: flex;
             align-items: flex-start;
             position: fixed;
-            top: 0;
             left: 0;
             z-index: 999;
             width: 100%;
             height: 100px;
-            margin: 0 auto;
-            border-bottom: 1px solid $color-border-light;
+            // border-bottom: 1px solid $color-border-light;
             padding: $space-xs $space-xxl;
             background-color: $color-white;
+            justify-content: center;
+
+            &-noBorder {
+                border-bottom: none;
+            }
 
             @include mobile {
-                padding: $space-xs $space-s;
+                box-shadow: $shadow;
+                padding: $space-s $space-s 0 $space-s;
+                height: 92px;
             }
 
             @include tablet {
-                padding-left: $space-l + 0.5em;
-                padding-right: $space-l + 0.5em;
+                padding-left: ($space-l + 0.5em);
+                padding-right: ($space-l + 0.5em);
             }
         }
 
+        .cmp-sku-details__code {
+            @include font-utility;
+            font-size: $font-size-body;
+            margin-bottom: 0;
+        }
+
+        .cmp-sku-details__container {
+            width: 100%;
+            display: flex;
+            max-width: 1305px;
+            align-items: flex-start;
+        }
+
         .cmp-sku-details__heading {
-            width: 65%;
+            width: 62%;
             position: relative;
             display: flex;
             align-items: center;
             flex-grow: 1;
+            padding-top: $space-xxxs;
 
             @include tablet {
                 width: 47%;
@@ -164,9 +228,9 @@
             img {
                 display: block;
                 width: 92px;
-                height: 63px;
+                height: 61px;
                 border: 1px solid $color-border-light;
-                margin-right: $space-m;
+                margin-right: $space-s;
             }
 
             .cmp-sku-details__info {
@@ -191,13 +255,6 @@
                     //     width: 90%;
                     // }
                 }
-
-                h3 {
-                    @include font-utility;
-
-                    margin-block-start: 0;
-                    margin-block-end: 0;
-                }
             }
         }
 
@@ -210,8 +267,14 @@
             }
         }
 
+        .cmp-sku-details__stockcontainer {   
+            @include mobile {
+                width: 100vw;
+            }
+        }
         .cmp-sku-details__priceinfo {
             background: none;
+            padding-right: $space-s;
 
             @include tablet-and-under {
                 display: none;
@@ -243,7 +306,7 @@
 }
 
 .cmp-sku-details {
-    h3 {
+    &__code {
         @include font-h2;
         margin-bottom: $space-xxs;
     }
@@ -266,23 +329,54 @@
 }
 
 .cmp-sku-list {
-    h3 {
-        @include font-small;
+
+    &__code {
+        @include font-body;
+        @include font-utility;
+        margin-bottom: $space-xxxs;
+    }
+
+    &__availability {
+        @include font-body;
+        @include font-utility;
+        height: 3em;
+        padding-top: ($space-xxs + .1em);
+    }
+
+    &__priceinfo {
+        padding-right: $space-s;
+
+        span {
+            margin-bottom: $space-xxxs;
+            line-height: $line-height-text;
+        }
     }
 
     &__checkavailability {
+        padding-right: $space-xxxs;
+        @include font-body;
+        @include font-utility;
+        padding-top: $space-xxs;
+        cursor: pointer;
+
         svg {
-            width: $icon-m;
             fill: $color-icon;
             float: right;
+            width: ($icon-s + 0.1em);
+            height: ($icon-s + 0.1em);
+            margin-top: ($space-xxxs - 0.1em);
+
             &:hover {
+                transition: $hover-transition;
                 .st0,
                 .st1 {
                     stroke: $color-link;
                 }
             }
         }
+
         &:hover {
+            transition: $hover-transition;
             color: $color-link;
             svg {
                 .st0,
@@ -293,16 +387,16 @@
         }
     }
 
-    h1 {
+    .cmp-sku-details__title {
         @include font-h3;
+        margin-bottom: $space-xs;
     }
 
     &__container {
         background-color: $color-background-light;
         padding: $space-m $space-m 0 $space-m;
-        margin-bottom: $space-m;
         width: 100%;
-        margin-bottom: 2em;
+        margin-bottom: $space-s;
         clear: both;
     }
 
@@ -312,18 +406,22 @@
         @include mobile {
             display: none;
         }
+
+        @include tablet {
+            padding-left: $space-xl;
+        }
+    }
+
+    &__price {
+        @include font-h3;
     }
 }
 
 // IE 11 CSS hacks
 @media all and (-ms-high-contrast: none) {
     .cmp-sku-details--sticky {
-        .cmp-sku-details__wrapper {
-            height: 85px;
-        }
-
         .cmp-sku-details__info {
-            h3 {
+            .cmp-sku-details__code {
                 display: inline;
             }
         }
@@ -333,12 +431,8 @@
 // Edge Css hacks
 @supports (-ms-ime-align: auto) {
     .cmp-sku-details--sticky {
-        .cmp-sku-details__wrapper {
-            height: 85px;
-        }
-
         .cmp-sku-details__info {
-            h3 {
+            .cmp-sku-details__code {
                 display: inline;
             }
         }

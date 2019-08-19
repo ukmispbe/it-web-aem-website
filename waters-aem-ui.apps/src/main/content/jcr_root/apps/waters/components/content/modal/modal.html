@@ -1,0 +1,13 @@
+<div data-sly-use.modal="com.waters.aem.core.components.content.Modal"
+     data-sly-test="${modal.sourceText}"
+     class="cmp-modal">
+    <span class="cmp-modal__source-icon"  data-sly-test="${modal.sourceIcon}">
+        <img src="${modal.sourceIcon}" class="${modal.sourceIconSvg ? 'inline-svg' : ''}">
+    </span>
+    <a class="cmp-modal__source-text">
+        ${modal.sourceText}
+    </a>
+</div>
+
+<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+     data-sly-call="${patterns.placeholder @ show=!modal.sourceText, text=component.title}"/>

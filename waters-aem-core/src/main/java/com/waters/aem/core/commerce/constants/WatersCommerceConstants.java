@@ -82,6 +82,10 @@ public final class WatersCommerceConstants {
 
     public static final String RESOURCE_NAME_CLASSIFICATION = "classification";
 
+    public static final String COLD_CHAIN_SHIPPING_CODE = "coldchainshipping";
+
+    public static final String HAZARDOUS_CODE = "hazardmaterialnumber";
+
     // feature properties
 
     public static final String PROPERTY_FACET = "hybris:facet";

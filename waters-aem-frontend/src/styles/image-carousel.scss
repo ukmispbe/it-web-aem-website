@@ -2,6 +2,10 @@
     position: relative;
     width: 100%;
     text-align: center;
+    
+    @include mobile {
+        margin-bottom: $space-l;
+    }
 }
 
 .image-viewer-container {
@@ -23,7 +27,6 @@
     overflow: hidden;
     background-repeat: no-repeat;
     background-clip: border-box;
-    touch-action: none;
     
     -webkit-transition: background-size 500ms ease-in-out;
     -moz-transition: background-size 500ms ease-in-out;
@@ -38,6 +41,7 @@
 
 .image-viewer-container__image-figure--true {
     background-size: 200%;
+    touch-action: none;
 }
 
 .image-viewer-container__image-display {
@@ -85,8 +89,8 @@
     display: none;
 
     @include tablet-and-under {
-        width: 40px;
-        height: 50px;
+        width: 20px;
+        height: 51px;
         position: absolute;
         z-index: 1;
 
@@ -102,8 +106,8 @@
     display: none;
 
     @include tablet-and-under {
-        width: 40px;
-        height: 50px;
+        width: 20px;
+        height: 51px;
         position: absolute;
         z-index: 1;
         right: 0;
@@ -132,8 +136,12 @@
     align-items: center;
     flex-grow: 0;
     flex-shrink: 0;
-    transition: margin-left 500ms linear;
+    transition: margin-left 250ms linear;
     cursor: pointer;
+
+    @include tablet-and-under {
+        transition: margin-left 125ms linear;
+    }
 
     .image-thumbnails-container__image {
         border: 1px solid $color-border-light;
@@ -164,8 +172,8 @@
 }
 
 .image-thumbnails-container__image {
-    width: 80px;
-    height: 48px;
+    width: 79px;
+    height: 52px;
     background-repeat: no-repeat;
     background-size: cover;
     background-clip: border-box;
@@ -188,9 +196,10 @@
         .st0 {
             stroke: $color-font-dark;
         }
-        @include tablet-and-under {
-            display: none;
-        }
+    }
+
+    @include tablet-and-under {
+        display: none;
     }
 }
 
@@ -259,4 +268,11 @@
     .image-thumbnails-placeholder {
         display: static;
     }
+}
+
+
+// Style System
+
+.image-carousel--hero .image-carousel {
+    margin-top: $space-xl;
 }

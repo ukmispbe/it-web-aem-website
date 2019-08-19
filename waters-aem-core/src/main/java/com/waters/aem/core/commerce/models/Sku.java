@@ -136,17 +136,17 @@ public final class Sku {
     }
 
     public List<Sku> getRelatedSkus() {
-        // TODO do we need to check the 'terminated' property?
         return getResourceModels(WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCES,
-            resource -> !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PROPRIETARY, false) &&
+                resource -> !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PROPRIETARY, false) &&
+                    !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_TERMINATED, false) &&
                     resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PRODUCT_REFERENCE_TYPE).equals(SkuReferenceType.OTHERS.toString()),
-            resource -> skuRepository.getRelatedSku(resource));
+                resource -> skuRepository.getRelatedSku(resource));
     }
 
     public List<Sku> getReplacementSkus() {
-        // TODO do we need to check the 'terminated' property?
         return getResourceModels(WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCES,
                 resource -> !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PROPRIETARY, false) &&
+                !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_TERMINATED, false) &&
                     resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PRODUCT_REFERENCE_TYPE).equals(SkuReferenceType.REPLACEMENT_PART.toString()),
                 resource -> skuRepository.getRelatedSku(resource));
     }
@@ -170,6 +170,10 @@ public final class Sku {
 
     public PageDecorator getSkuPage(PageDecorator currentPage) {
         return skuRepository.getSkuPage(currentPage, getCode());
+    }
+
+    public PageDecorator getSkuPage(PageDecorator currentPage,String code) {
+        return skuRepository.getSkuPage(currentPage, code);
     }
 
     @Override

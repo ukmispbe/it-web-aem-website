@@ -51,6 +51,26 @@ public final class Templates {
     }
 
     /**
+     * Check if the given page is a sku page.
+     *
+     * @param page page
+     * @return true if page is non-null and is a sku template
+     */
+    public static boolean isSkuPage(final PageDecorator page) {
+        return isPage(page, WatersConstants.TEMPLATE_SKU_PAGE);
+    }
+
+    /**
+     * Check if the given content resource is a sku page.
+     *
+     * @param resource page jcr:content resource
+     * @return true if resource is non-null and is a sku template
+     */
+    public static boolean isSkuPage(final Resource resource) {
+        return isPage(resource, WatersConstants.TEMPLATE_SKU_PAGE);
+    }
+
+    /**
      * Check if the given page is a category page.
      *
      * @param page page
@@ -71,23 +91,23 @@ public final class Templates {
     }
 
     /**
-     * Check if the given page is a sku page.
+     * Check if the given page is a home page.
      *
      * @param page page
-     * @return true if page is non-null and is a library template
+     * @return true if page is non-null and is a home page template
      */
-    public static boolean isSkuPage(final PageDecorator page) {
-        return isPage(page, WatersConstants.TEMPLATE_SKU_PAGE);
+    public static boolean isHomePage(final PageDecorator page) {
+        return isPage(page, WatersConstants.TEMPLATE_HOME_PAGE);
     }
 
     /**
-     * Check if the given content resource is a sku page.
+     * Check if the given content resource is a home page.
      *
      * @param resource page jcr:content resource
-     * @return true if resource is non-null and is a sku template
+     * @return true if resource is non-null and is a home page template
      */
-    public static boolean isSkuPage(final Resource resource) {
-        return isPage(resource, WatersConstants.TEMPLATE_SKU_PAGE);
+    public static boolean isHomePage(final Resource resource) {
+        return isPage(resource, WatersConstants.TEMPLATE_HOME_PAGE);
     }
 
     private static boolean isPage(final PageDecorator page, final String template) {

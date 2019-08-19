@@ -116,6 +116,7 @@ class SearchService {
     };
 
     getSuggestedKeywords = async (rows, term) => {
+
         const searchString = `${
             this.path
         }/v1/autocomplete?term=${term}&rows=${rows}&isocode=${
@@ -124,14 +125,14 @@ class SearchService {
 
         const callService = window.fetch(searchString).then(response => {
             if (response.ok) {
-                return response;
+                return response.json();
             } else {
                 this.throwError(response);
-                return response;
+                return response.json();
             }
         });
 
-        const response = await callService.json();
+        const response = await callService;
 
         return response.suggestions;
     };

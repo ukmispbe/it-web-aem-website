@@ -1,9 +1,12 @@
+import './polyfills';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './search/components/searchbar';
 import Search from './search/index';
 import TagCloud from './search/components/tagcloud';
 import ImageCarousel from './image-carousel';
+// import Modal from './modal';
+import SkuDetails from './sku-details';
 
 function getAuthoredDataForSearchBar(c, h) {
     return {
@@ -33,7 +36,7 @@ function getAuthoredDataForTagCloud(h, t) {
 }
 
 const searchBarContainer = document.getElementById('js-search-bar');
-const header = document.querySelector('.cmp-external-header');
+const header = document.querySelector('.cmp-header');
 
 if (searchBarContainer && header) {
     const data = getAuthoredDataForSearchBar(searchBarContainer, header);
@@ -115,4 +118,16 @@ if (imageGalleryContainers) {
             container
         );
     });
+}
+
+const skuDetailsContainer = document.querySelector(
+    '.cmp-sku-details__ecom'
+);
+
+if (skuDetailsContainer) {
+    const config = JSON.parse(
+        document.getElementById('commerce-configs-json').innerHTML
+    );
+
+    ReactDOM.render(<SkuDetails config={config} price={skuDetailsContainer.getAttribute('data-price')}/>, skuDetailsContainer);
 }

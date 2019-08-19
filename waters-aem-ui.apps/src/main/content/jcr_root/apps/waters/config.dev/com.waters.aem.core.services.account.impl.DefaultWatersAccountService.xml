@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          jcr:primaryType="sling:OsgiConfig"
+          signInUrl="https://wwwdt1.waters.com/waters/login.htm?redirectUrl=https://dev-www.waters.com"
+          signOutUrl="https://wwwdt1.waters.com/waters/logOut.htm"
+          myAccountUrl="https://wwwdt1.waters.com/waters/My-Account/nav.htm?cid=2243096"
+          legacySearchUrl="https://wwwdt1.waters.com/waters/keywordSearch.htm"/>
