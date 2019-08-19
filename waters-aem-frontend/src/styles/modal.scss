@@ -65,14 +65,14 @@
     .cmp-modal__title {
         .cmp-modal__title-icon {
             margin-right: $space-s;
-            height: $icon-l;
-            width: $icon-l;
             display: inline-block;
-            @include mobile {
-                height: $icon-m;
-                width: $icon-m;
-            }
             svg {
+                height: $icon-l;
+                width: $icon-l;
+                @include mobile {
+                    height: $icon-m;
+                    width: $icon-m;
+                }
                 vertical-align: bottom;
                 polyline {
                     stroke-width: 2px;
