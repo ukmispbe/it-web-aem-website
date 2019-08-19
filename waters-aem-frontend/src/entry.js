@@ -11,7 +11,7 @@ import './scripts/navigation';
 import './scripts/navigation-level2';
 import './scripts/iframe';
 import './scripts/backtosearch';
-import './scripts/externalfooter';
+import './scripts/footer';
 import './scripts/banner';
 import './scripts/header';
 import './scripts/collapsible';
