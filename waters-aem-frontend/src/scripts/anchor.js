@@ -23,14 +23,11 @@ var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
                 const block = document.getElementById(href);
                 const blockTop = block.offsetTop;
                 let topDistance = blockTop - 16;
-                console.log('has sku on page: ', hasSku.length);
                 if (!anchorSticky.length) {
-                    console.log('hello');
                     topDistance += 70;
                 }
 
                 if (hasSku.length === 0) {
-                    topDistance += 80;
                     if (anchorSticky.length) {
                         topDistance += 20;
                     }
