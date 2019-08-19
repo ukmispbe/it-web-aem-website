@@ -127,6 +127,8 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     @InheritInject
     private List<IconOnlyLink> socialLinks;
 
+    private List<LanguageSelectorItem> languagePages;
+
     @JsonProperty
     public Image getLogoImage() {
         return logoImage;
@@ -173,14 +175,16 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     }
 
     public List<LanguageSelectorItem> getLanguagePages() {
-        final List<LanguageSelectorItem> languagePages = new ArrayList<>();
+        if (languagePages == null) {
+            languagePages = new ArrayList<>();
 
-        for (PageDecorator languagePage : siteContext.getLanguagePages()) {
-            final PageDecorator languageHomepage =
-                    languagePage.findAncestor(WatersConstants.PREDICATE_HOME_PAGE).orNull();
+            for (PageDecorator languagePage : siteContext.getLanguagePages()) {
+                final PageDecorator languageHomepage =
+                        languagePage.findAncestor(WatersConstants.PREDICATE_HOME_PAGE).orNull();
 
-            if (languageHomepage != null) {
-                languagePages.add(new LanguageSelectorItem(languagePage));
+                if (languageHomepage != null) {
+                    languagePages.add(new LanguageSelectorItem(languagePage));
+                }
             }
         }
 
