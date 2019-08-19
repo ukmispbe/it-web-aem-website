@@ -34,6 +34,12 @@ body {
     }
 }
 
+.layoutcontainer--light {
+    background: $color-background-light;
+    padding: $space-m;
+    margin-bottom: $space-l;
+}
+
 .container {
     max-width: 1460px;
     margin: 0 auto;
