@@ -19,11 +19,6 @@ public class LinksImpl implements Links {
     private WebElement component;
 
     @Override
-    public String getTitle() {
-        return component.findElement(By.tagName("h3")).getText();
-    }
-
-    @Override
     public List<LinkItem> getLinkItems() {
         return component.findElements(By.cssSelector(".cmp-links__link"))
         .stream()

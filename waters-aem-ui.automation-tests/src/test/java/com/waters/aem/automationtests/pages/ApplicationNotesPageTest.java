@@ -99,8 +99,6 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
 
         final Links LinksComponent = page.getContent(Links.class, 0);
 
-       // assertThat(LinksComponent.getTitle()).isEqualTo("External List Title Test");
-
         //Link Item 1
         assertThat(LinksComponent.getLinkItems().get(0).getText()).isEqualTo("Waters Site");
         assertThat(LinksComponent.getLinkItems().get(0).getLink()).isEqualTo("https://www.waters.com/waters/home.htm");
