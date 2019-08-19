@@ -328,6 +328,7 @@
     &__region {
         display: inline-flex;
         min-height: 38px;
+        height: 45px;
         -webkit-box-align: center;
         align-items: center;
         padding: 0.3em 1em 0.3em 0em;
@@ -361,10 +362,10 @@
     &__language {
         cursor: pointer;
         min-height: 38px;
+        height: 45px;
         -webkit-box-align: center;
         align-items: center;
         padding: 0 1em;
-        padding-right: 0.5em;
         border: 1px solid $color-border-light;
         display: inline-table;
         position: absolute;
@@ -432,6 +433,7 @@
             position: absolute;
             top: 100%;
             right: -1px;
+            height: 45px;
             min-height: 38px;
             -webkit-box-align: center;
             align-items: center;
