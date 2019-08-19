@@ -1,9 +1,9 @@
-let regionSelector = document.querySelector('.cmp-footer__selector__language');
-let regionSelectorOptions = document.querySelector('.cmp-footer__selector__language--options');
+const regionSelector = document.querySelector('.cmp-footer__selector__language');
+const regionSelectorOptions = document.querySelector('.cmp-footer__selector__language--options');
 
 if (regionSelector) {
-    let children = regionSelectorOptions && Array.prototype.slice.call(regionSelectorOptions.childNodes);
-    let displayText = regionSelector.firstElementChild.innerText;
+    const children = regionSelectorOptions && Array.prototype.slice.call(regionSelectorOptions.childNodes);
+    const displayText = regionSelector.firstElementChild.innerText;
     let longestAnchor = displayText.length;
 
     if (children) {
@@ -17,8 +17,8 @@ if (regionSelector) {
 
 
         if (longestAnchor > displayText.length) {
-            let diff = longestAnchor - displayText.length;
-            let spacer = " ";
+            const diff = longestAnchor - displayText.length;
+            const spacer = " ";
             regionSelector.firstElementChild.innerText = displayText + spacer.repeat(diff*5);
         }
     }
