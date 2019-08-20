@@ -137,7 +137,5 @@ if (header && AccountDropDownContainer) {
         modalInfo: newConfig
     }
 
-    console.log("newConfig:", updatedModel);
-
     ReactDOM.render(<AccountDropDown config={updatedModel} />, AccountDropDownContainer);
 }
