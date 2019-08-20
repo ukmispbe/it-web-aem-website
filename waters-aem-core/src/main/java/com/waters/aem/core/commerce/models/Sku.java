@@ -168,11 +168,17 @@ public final class Sku {
             .orElse(Collections.emptyList());
     }
 
+    /**
+     * Delegates to SkuRepository to get the sku page for the current sku.
+     */
     public PageDecorator getSkuPage(PageDecorator currentPage) {
         return skuRepository.getSkuPage(currentPage, getCode());
     }
 
-    public PageDecorator getSkuPage(PageDecorator currentPage,String code) {
+    /**
+     * Delegates to SkuRepository to get the sku page for any provided sku code.
+     */
+    public PageDecorator getSkuPage(PageDecorator currentPage, String code) {
         return skuRepository.getSkuPage(currentPage, code);
     }
 

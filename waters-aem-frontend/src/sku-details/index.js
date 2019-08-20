@@ -110,6 +110,7 @@ class SkuDetails extends React.Component {
                         skuNumber={this.state.skuNumber}
                         skuAvailability={this.state.skuAvailability}
                         locale={this.state.locale}
+                        skuType="details"
                     />
                 </div>
                 <div className="cmp-sku-details__buttons">
