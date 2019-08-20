@@ -17,7 +17,7 @@ function domReferences() {
     headerOverlay = document.querySelector('.cmp-header__overlay.overlay');
 
     headerTB_user = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
-    headerTB_user_link = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link');
+
     headerTB_user_link_greetingText = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link .greeting-text');
     headerTB_user_link_greetingText_mobile = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__dropdown .greeting-text.mobile');
     
@@ -30,11 +30,6 @@ function domReferences() {
 }
 
 function addEventListeners() { 
-    headerTB_user_link.addEventListener('click', headerTB_user_linkHandler);
-    //headerTB_user.addEventListener('click', updateUserDD);
-    headerTB_user.addEventListener('mouseover', updateUserDD);
-    headerTB_user.addEventListener('mouseleave', updateUserDD);
-
     if (headerNavigation_comp) { 
         headerTB_mobile_btn.addEventListener('click', toggleMobileMenu);
         window.addEventListener('resize', resize);
@@ -59,72 +54,11 @@ function render() {
     }
 }
 
-function headerTB_user_linkHandler(e) { 
-    e.preventDefault();
-    let loggedIn = loginStatus.state();
-
-    if (!loggedIn) {
-        if (e.currentTarget.dataset.loginUrl) {
-            window.open(e.currentTarget.dataset.loginUrl, e.currentTarget.target);
-        }
-    } else { 
-        updateUserDD(e);
-    }
-}
-    
-function updateUserDD(e) { 
-    let loggedIn = loginStatus.state();
-    const activeOverlay = 'active';
-    
-    if (loggedIn) {
-        switch (true) { 
-            case e.type == 'mouseover' && !screenSizes.isMobile():
-                    activeDD = true;
-                    toggleDropDown(activeDD);
-                    domElements.addClass(headerOverlay, activeOverlay);
-                break;
-            case e.type == 'click' && screenSizes.isMobile():
-                    e.preventDefault();
-                    activeDD = !activeDD;
-                    toggleDropDown(activeDD);
-                break;
-            case e.type == 'mouseleave' && !screenSizes.isMobile():
-                    activeDD = false;
-                    toggleDropDown(activeDD);
-                    domElements.removeClass(headerOverlay, activeOverlay);
-                break;            
-        }
-    }
-}
-
-function toggleDropDown(state) {
-    const activeDDClass = 'is-active';
-    if (state == true) {
-        hideMobileNav();
-        domElements.addClass(headerTB_user, activeDDClass);
-    } else { 
-        domElements.removeClass(headerTB_user, activeDDClass);
-    }
-}
-
-function toggleMobileMenu(e) {
+const toggleMobileMenu = function() {
     if (domElements.hasClass(headerTB_mobile_btn, 'is-active')) {
         hideMobileNav();
     } else {
-        toggleDropDown(false);
         showMobileNav();
-    }
-}
-
-function hideMobileNav() { 
-    domElements.removeClass(headerTB_mobile_btn, 'is-active');
-    domElements.removeClass(headerNavigation, 'is-active');
-    domElements.removeClass(header, 'is-fixed');
-    domElements.removeClass(document.documentElement, 'noscroll');
-    const navMenuFunc = navMenu();
-
-    if (navMenuFunc) { 
-        navMenuFunc();
     }
 }
 
@@ -133,6 +67,17 @@ function showMobileNav() {
     domElements.addClass(headerNavigation, 'is-active');
     domElements.addClass(header, 'is-fixed');
     domElements.addClass(document.documentElement, 'noscroll');
+}
+
+function hideMobileNav() { 
+    domElements.removeClass(headerTB_mobile_btn, 'is-active');
+    domElements.removeClass(headerNavigation, 'is-active');
+    domElements.removeClass(header, 'is-fixed');
+    domElements.removeClass(document.documentElement, 'noscroll');
+    const navMenuFunc = navMenu();
+    if (navMenuFunc) { 
+        navMenuFunc();
+    }
 }
 
 function resize() { 
@@ -147,3 +92,5 @@ function resize() {
 
 
 window.addEventListener('load', headerInit);
+
+export default toggleMobileMenu;

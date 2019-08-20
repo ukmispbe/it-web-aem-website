@@ -201,14 +201,11 @@ $iconLoggedOut: $color-gray-50;
                         display: none;
                     }
 
-                    @include tablet-and-over{
-                        &:hover{
-                            .top-bar__nav__user__dropdown{
-                                visibility: visible;
-                                opacity: 1;
-                            }
+                    &.is-active{
+                        .top-bar__nav__user__dropdown{
+                            visibility: visible;
+                            opacity: 1;
                         }
-    
                     }
                 }
     
