@@ -24,7 +24,7 @@ $level0MobileDisplay: flex;
       &:hover {
          box-shadow: none;
       }
-  }
+   }
 }
 
 nav.cmp-navigation {
@@ -86,7 +86,7 @@ nav.cmp-navigation {
             opacity: 1;
          }
 
-         &.is-expanded > .cmp-navigation__item.is-active{
+         &.is-expanded > .cmp-navigation__item.is-active {
             display: $level0MobileDisplay;
             flex-direction: column;
             height: 100vh;
@@ -94,18 +94,17 @@ nav.cmp-navigation {
             padding-bottom: 150px;
 
             & > .cmp-navigation__container {
-               padding: $space-m $space-m $space-m $space-xl;
-               border-left: 3px solid $color-gray-50;
-               border-bottom: 1px solid $color-border-rule;
-               height: 67px;
+               min-height: 67px;
+               padding: ($space-m - 0.1em) $space-m $space-m ($space-xl - 0.5em);
+               border-left: 4px solid $color-gray-50;
+               flex-grow: 0;
 
                & > .arrow.left{
                   display: block;
                   position: absolute;
                   left: $space-xs;
-                  top: 18px;
                }
-      
+
                & > .arrow.right{
                   display: none;
                }
@@ -131,24 +130,26 @@ nav.cmp-navigation {
             display: inline-table;
             border-bottom: 3px solid transparent;
             border-top: 3px solid adjust-color($color-gray-50, $alpha: -1);
-            transition: $hover-transition;
 
             @supports (display: inline-grid) {
                display: inline-grid;
             }
 
             @include mobile {
+               transition-property: none;
                display: $level0MobileDisplay;
                margin: 0;
                padding: 0;
                border-top: 0px none transparent;
+               height: auto;
+               white-space: normal;
             }
 
             svg,
             img.inline-svg {
                width: $icon-m;
                height: $icon-m;
-               
+
                .st0 {
                   stroke: $color-icon;
                }
@@ -163,7 +164,7 @@ nav.cmp-navigation {
                }
             }
 
-            
+
             @include tablet-and-over {
                &::after {
                   content: '';
@@ -175,7 +176,7 @@ nav.cmp-navigation {
                   max-width: 3.3em;
                   display: block;
                   height: 117px;
-   
+
                   @supports (display: inline-grid) {
                      height: 68px;
                   }
@@ -187,12 +188,14 @@ nav.cmp-navigation {
 
             @include mobile {
                display: flex;
-               padding: $space-m;
-               flex-grow: 1;
-               border-left: 3px solid transparent;
+               padding: $space-s $space-m;
+               width: 100%;
+               border-left: 4px solid transparent;
+               border-bottom: 1px solid $color-border-rule;
+               height: auto;
             }
-            & > a { 
-               align-self: center; 
+            & > a {
+               align-self: center;
             }
 
             & > .arrow {
@@ -213,7 +216,7 @@ nav.cmp-navigation {
 
             }
 
-            
+
             & .cmp-navigation__item-link {
                color: $color-font-medium;
                -webkit-transition: none;
@@ -222,20 +225,22 @@ nav.cmp-navigation {
                transition: none;
                vertical-align: middle;
                display: table-cell;
-   
+
                @supports (display: inline-grid) {
                   display: block;
                }
-   
+
                @include mobile {
+                  width: 100%;
+                  white-space: pre-wrap;
                   margin: 0;
                }
-   
+
                &:hover {
                   color: $color-font-dark;
                   text-decoration: none;
                }
-   
+
             }
          }
 
@@ -248,9 +253,6 @@ nav.cmp-navigation {
             padding: $space-l $space-xl  $space-xl $space-xl;
             background-color: $color-white;
             width: 100%;
-            transition-timing-function: linear;
-            transition-duration: 0.25s;
-            transition-property: visibility, opacity;
 
             @include tablet-and-over {
                position: absolute;
@@ -259,7 +261,7 @@ nav.cmp-navigation {
             }
             @include mobile {
                display: none;
-               padding: $space-l $space-xl  $space-xl $space-xl
+               padding: $space-s $space-xl $space-xl ($space-xl - 0.5em);
             }
 
             & > .cmp-navigation__item {
@@ -267,7 +269,7 @@ nav.cmp-navigation {
                padding-bottom: $space-s;
             }
          }
-         
+
          @include tablet-and-over {
             & > .cmp-navigation__group.cmp-navigation__group--col-1 {
                columns: 1;
@@ -292,7 +294,7 @@ nav.cmp-navigation {
             &:hover > .cmp-navigation__group {
                visibility: visible;
                opacity: 1;
-   
+
                & .cmp-navigation__container .cmp-navigation__item-link {
                   -webkit-transition: none;
                   -o-transition: none;
@@ -325,7 +327,7 @@ nav.cmp-navigation {
       transition-property: visibility, opacity;
       transition-delay: 0.25s, 0s;
       pointer-events: none;
-      
+
       @include mobile {
          display: none;
       }

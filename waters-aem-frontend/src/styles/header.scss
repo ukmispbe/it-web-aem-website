@@ -9,21 +9,31 @@
     margin-bottom: $space-l;
 
     @include mobile {
-        margin-bottom: $space-m;
+        margin-bottom: 0;
+    }
+
+    &__navigation{
+        box-shadow: $shadow;
     }
 
     &__overlay.overlay{
         z-index: 999;
-        height: 1000%;
-        transition: all 0.25s ease;
+        height: 100vh;
+        position: fixed;
+        transition: opacity 0.25s ease;
         opacity: 0;
+        visibility: hidden!important;
 
         @include mobile {
             display: none !important;
         }
 
         &.active {
+            visibility: visible!important;
             opacity: 1;
+            @include tablet {
+                margin: 0;
+            }
         }
     }
 
@@ -39,7 +49,7 @@
 
         &__logo {
             padding: ($space-s + $space-xxxs) 0 $space-s 0;
-            
+
             img {
                 height: 32px;
                 width: 115px;
@@ -51,11 +61,11 @@
 
             }
         }
-    
+
         &__nav {
             display: flex;
             margin-left: auto;
-    
+
             ul {
                 list-style: none;
                 padding: 0;
@@ -71,24 +81,24 @@
                     vertical-align: top;
                     margin-left: $space-s;
                     margin-bottom: 0;
-        
+
                     @include mobile-xs {
-                        margin-left: $space-xxs;
+                        margin-left: $space-s;
                     }
 
                     &:first-of-type,
                     &:last-of-type {
                         margin-left: 0;
                     }
-        
+
                     .cmp-header-links__link > span {
                         float: left;
-                        
+
                         @include mobile {
                             display: none;
                         }
                     }
-        
+
                     svg,
                     img.inline-svg {
                         display: inline-block;
@@ -96,12 +106,12 @@
                         width: 30px;
                         height: 25px;
                         padding-left: 0.3em;
-        
+
                         .st0,
                         .st1 {
                             stroke: $color-gray-50;
                         }
-        
+
                         @include mobile {
                             width: 26px;
                             height: 26px;
@@ -109,13 +119,13 @@
                         }
 
                         @include mobile-xs {
-                            width: 22px;
-                            height: 22px;
+                            width: $icon-m;
+                            height: $icon-m;
                         }
                     }
                 }
             }
-    
+
             .top-bar__nav__user,
             .top-bar__nav__search,
             .top-bar__nav__cart {
@@ -125,15 +135,15 @@
             .top-bar__nav__user {
                 position: relative;
                 z-index: 1000;
-        
+
                 @include mobile {
                     min-width: 0 !important;
                 }
-        
+
                 .greeting-text {
                     display: none;
                 }
-        
+
                 &__dropdown {
                     display: block;
                     width: 100%;
@@ -147,28 +157,28 @@
                     padding-bottom: $space-s !important;
                     border-top: 4px solid $color-gray-50;
                     opacity: 0;
-                    transition: $fade-transition;
+                    transition: all 0.2s ease;
                     visibility: hidden;
                     box-shadow: $shadow;
-        
+
                     &__item{
                         margin: 0;
                         width: 100%;
-        
+
                         a {
                             span{
                                 display: block;
                                 float: none;
                                 padding: 14px 10px 2px 23px;
                             }
-        
+
                             @include font-utility;
                             transition: $hover-transition;
-            
+
                             &:hover {
                                 color: $color-link;
                             }
-            
+
                             &:active {
                                 @include font-utility;
                             }
@@ -178,28 +188,32 @@
                         }
                     }
                 }
-        
-                &.loggedIn {      
+
+                &.loggedIn {
 
                     .top-bar__nav__user__link {
                         svg .st1,
                         svg .st0{
                             stroke: $color-teal-30;
-                        }  
+                        }
+                    }
+
+                    &:hover .top-bar__nav__user__link {
+                        color: $color-gray-50;
                     }
 
                     .greeting-text {
                         display: inline-block;
-        
+
                         @include mobile {
                             display: none
                         }
                     }
-            
+
                     .sign-in-text {
                         display: none;
                     }
-        
+
                     @include tablet-and-over{
                         &:hover{
                             .top-bar__nav__user__dropdown{
@@ -208,9 +222,9 @@
                             }
                         }
                     }
-        
-        
-        
+
+
+
                 }
             }
 
@@ -223,7 +237,7 @@
                     margin: 0 $space-s;
 
                     @include mobile-xs{
-                        margin: 0 $space-xxs;
+                        margin: 0 $space-xxs 0 $space-s;
                     }
                 }
             }
@@ -244,7 +258,7 @@
         html.noscroll &__navigation{
             height: 100%;
             height: -moz-available;
-            height: -webkit-fill-available; 
+            height: -webkit-fill-available;
             height: fill-available;
             overflow-y: auto;
         }

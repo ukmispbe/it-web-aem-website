@@ -9,6 +9,7 @@ import com.citytechinc.cq.component.annotations.widgets.Html5SmartImage;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.day.cq.commons.LanguageUtil;
 import com.day.cq.wcm.foundation.Image;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -34,11 +35,13 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
-@Component(value = "External Footer",
-    description = "This is the External Footer component for Waters site",
+@Component(value = "Footer",
+    description = "This is the Footer component for Waters site",
     editConfig = false,
     tabs = {
         @Tab(title = "Properties"),
@@ -49,14 +52,14 @@ import java.util.List;
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE)
 @Model(adaptables = SlingHttpServletRequest.class,
-    adapters = { ExternalFooter.class, ComponentExporter.class },
-    resourceType = ExternalFooter.RESOURCE_TYPE,
+    adapters = { Footer.class, ComponentExporter.class },
+    resourceType = Footer.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public final class ExternalFooter extends AbstractComponent implements ComponentExporter {
+public final class Footer extends AbstractComponent implements ComponentExporter {
 
-    public static final String RESOURCE_TYPE = "waters/components/structure/externalfooter";
+    public static final String RESOURCE_TYPE = "waters/components/structure/footer";
 
     @Self
     private SiteContext siteContext;
@@ -124,6 +127,8 @@ public final class ExternalFooter extends AbstractComponent implements Component
     @InheritInject
     private List<IconOnlyLink> socialLinks;
 
+    private List<LanguageSelectorItem> languagePages;
+
     @JsonProperty
     public Image getLogoImage() {
         return logoImage;
@@ -163,6 +168,41 @@ public final class ExternalFooter extends AbstractComponent implements Component
 
     public String getLanguageLocation() {
         return siteContext.getLanguageLocation();
+    }
+
+    public Boolean isYourAmigoEnabled() {
+        return Locale.US.getCountry().equals(siteContext.getLocaleWithCountry().getCountry());
+    }
+
+    public List<LanguageSelectorItem> getLanguagePages() {
+        if (languagePages == null) {
+            languagePages = new ArrayList<>();
+
+            for (PageDecorator languagePage : siteContext.getLanguagePages()) {
+                final PageDecorator languageHomepage =
+                        languagePage.findAncestor(WatersConstants.PREDICATE_HOME_PAGE).orNull();
+
+                if (languageHomepage != null) {
+                    languagePages.add(new LanguageSelectorItem(languagePage));
+                }
+            }
+        }
+
+        return languagePages;
+    }
+
+    public String getCountryName() {
+        String countryName = "";
+
+        final String languageRoot = LanguageUtil.getLanguageRoot(currentPage.getPath());
+
+        if (languageRoot != null) {
+            countryName = currentPage.getPageManager().getPage(languageRoot)
+                    .getParent()
+                    .getTitle();
+        }
+
+        return countryName;
     }
 
     @Nonnull

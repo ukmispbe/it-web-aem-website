@@ -1,10 +1,10 @@
 <template data-sly-template.itemContent="${@ item='The navigation item'}">
     <div class="cmp-navigation__container">
-        <div data-sly-test="${item.children.size > 0}" class="arrow left">
+        <div data-sly-test="${item.level == 0}" class="arrow left">
             <img alt="${'Left Arrow' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/left.svg" class="inline-svg">
         </div>
         <a href="${item.URL}" title="${item.title}" aria-current="${item.active && 'page'}" class="cmp-navigation__item-link">${item.title}</a>
-        <div data-sly-test="${item.children.size > 0}" class="arrow right">
+        <div data-sly-test="${item.level == 0}" class="arrow right">
             <img alt="${'Right Arrow' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/right.svg" class="inline-svg">
         </div>
     </div>

@@ -238,6 +238,10 @@
 
 .cmp-banner--header .cmp-banner {
     margin-top: -$space-l;
+
+    @include mobile {
+         margin-top: 0;
+    }
 }
 
 .cmp-banner--notHeader .cmp-banner {
@@ -285,8 +289,7 @@
         @include mobile {
             width: 100%;
             left: 14%;
-            height: 90%;
-            top: 5%;
+            height: 100%;
         }
     }
 

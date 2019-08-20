@@ -3,7 +3,7 @@ package com.waters.aem.automationtests.modules;
 import com.google.inject.AbstractModule;
 import com.waters.aem.automationtests.components.Anchor;
 import com.waters.aem.automationtests.components.Button;
-import com.waters.aem.automationtests.components.ExternalFooter;
+import com.waters.aem.automationtests.components.Footer;
 import com.waters.aem.automationtests.components.Header;
 import com.waters.aem.automationtests.components.Image;
 import com.waters.aem.automationtests.components.Links;
@@ -11,7 +11,7 @@ import com.waters.aem.automationtests.components.Text;
 import com.waters.aem.automationtests.components.Title;
 import com.waters.aem.automationtests.components.impl.AnchorImpl;
 import com.waters.aem.automationtests.components.impl.ButtonImpl;
-import com.waters.aem.automationtests.components.impl.ExternalFooterImpl;
+import com.waters.aem.automationtests.components.impl.FooterImpl;
 import com.waters.aem.automationtests.components.impl.HeaderImpl;
 import com.waters.aem.automationtests.components.impl.LinksImpl;
 import com.waters.aem.automationtests.components.impl.ImageImpl;
@@ -30,7 +30,7 @@ public class WatersComponentModule extends AbstractModule {
         bind(Anchor.class).to(AnchorImpl.class);
         bind(Image.class).to(ImageImpl.class);
         bind(Header.class).to(HeaderImpl.class);
-        bind(ExternalFooter.class).to(ExternalFooterImpl.class);
+        bind(Footer.class).to(FooterImpl.class);
         bind(Links.class).to(LinksImpl.class);
         bind(Button.class).to(ButtonImpl.class);
 
