@@ -83,8 +83,8 @@ public final class SkuDetails implements ComponentExporter {
         return siteContext.getLocale().toLanguageTag();
     }
 
-    public String getAnonymousUserConfiguration() {
-        return siteContext.getAnonymousUserConfiguration();
+    public String getCommerceConfig() {
+        return siteContext.getCommerceConfig();
     }
 
     @Nonnull

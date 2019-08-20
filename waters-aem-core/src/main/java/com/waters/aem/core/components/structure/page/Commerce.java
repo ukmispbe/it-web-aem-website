@@ -27,6 +27,12 @@ public class Commerce {
 
     static final String FILE_NAME = "commerce";
 
+    private static final String FULL_ENABLED = "fullEnabled";
+
+    private static final String PARTIAL_ENABLED = "partialEnabled";
+
+    private static final String DISABLED = "disabled";
+
     @DialogField(fieldLabel = "Currency ISO Code",
         fieldDescription = "For countries using a non-standard ISO currency code (ISO-4217) " +
                 "in Waters SAP, provide the non-standard ISO code here.")
@@ -34,19 +40,26 @@ public class Commerce {
     @InheritInject
     private String currencyIsoCode;
 
-    @DialogField(fieldLabel = "Anonymous User Configuration",
-        fieldDescription = "Select the configuration option for anonymous user",
+    @DialogField(fieldLabel = "Commerce Configuration",
+        fieldDescription = "Select the commerce configuration option. ",
         ranking = 2)
     @Selection(
     type = Selection.SELECT,
         options = {
-            @Option(text = "Full Enabled Countries", value = "fullEnabled"),
-            @Option(text = "Partial Enabled Countries", value = "partialEnabled"),
-            @Option(text = "Disabled Countries", value = "disabled")
+            @Option(text = "Full Enabled Countries", value = FULL_ENABLED ),
+            @Option(text = "Partial Enabled Countries", value = PARTIAL_ENABLED),
+            @Option(text = "Disabled Countries", value = DISABLED)
         }
     )
     @Inject
-    @Default(values = "fullEnabled")
-    private String anonymousUserConfiguration;
+    @Default(values = FULL_ENABLED)
+    private String commerceConfig;
 
+    public String getCurrencyIsoCode() {
+        return currencyIsoCode;
+    }
+
+    public String getCommerceConfig() {
+        return commerceConfig;
+    }
 }

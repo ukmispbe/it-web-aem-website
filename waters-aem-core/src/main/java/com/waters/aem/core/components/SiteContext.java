@@ -107,8 +107,8 @@ public final class SiteContext {
         return i18n;
     }
 
-    public String getAnonymousUserConfiguration() {
-        return currentPage.getInherited("anonymousUserConfiguration", "");
+    public String getCommerceConfig() {
+        return currentPage.getInherited("commerceConfig", "");
     }
 
     public String getLanguageLocation() {

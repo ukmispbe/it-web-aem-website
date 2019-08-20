@@ -94,8 +94,8 @@ public final class SkuList implements EmptyComponent, ComponentExporter {
         return title;
     }
 
-    public String getAnonymousUserConfiguration() {
-        return siteContext.getAnonymousUserConfiguration();
+    public String getAnonymousUserCommerceConfig() {
+        return siteContext.getCommerceConfig();
     }
 
     @Override
