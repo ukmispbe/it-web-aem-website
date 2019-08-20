@@ -468,6 +468,10 @@
             padding: 0;
             border: none;
             cursor: text;
+            
+            &:hover > a:first-child {
+               color: $color-white;
+            }
 
             @include mobile {
                 width: auto;
