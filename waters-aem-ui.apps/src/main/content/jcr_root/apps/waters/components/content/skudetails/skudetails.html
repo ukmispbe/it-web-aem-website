@@ -14,20 +14,20 @@
                     <span>${'Sign in to view your price' @ i18n}</span>
                 </a>-->
             </div>
-            <div data-sly-test="${sku.active}">
+            <div data-sly-test.isActive="${sku.active}">
                 <div class="cmp-sku-details__ecom" data-price="${sku.formattedPrice}"></div>
             </div>
-            <div class="cmp-notification-wrapper" data-sly-test="${!sku.active}">
+            <div class="cmp-notification-wrapper" data-sly-test="${!isActive}">
                 <div class="cmp-notification-icon">
                     <img class="inline-svg" src="/content/dam/waters/en/brand-assets/icons/attention.svg"/>
                 </div>
                 <div class="cmp-notification-body">
                     <div class="cmp-notification-description">
-                        <sly data-sly-test="${sku.replacementSkuCode}">
+                        <sly data-sly-test.hasReplacementSkuCode="${sku.replacementSkuCode}">
                             ${'The part number you selected is no longer available, but there is a replacement. The replacement part number is ' @ i18n}
                             <a href="${sku.replacementSkuPageHref}">${sku.replacementSkuCode}</a>
                         </sly>
-                        <sly data-sly-test="${!sku.replacementSkuCode}">
+                        <sly data-sly-test="${!hasReplacementSkuCode}">
                             ${'The part number you selected is no longer available.' @ i18n}
                         </sly>
                     </div>
