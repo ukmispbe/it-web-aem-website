@@ -107,6 +107,14 @@ public final class SiteContext {
         return i18n;
     }
 
+    public Boolean isCommerceDisabled() {
+        return currentPage.getProperties().get("commerceDisabled", true);
+    }
+
+    public Boolean isDistributorDisabled() {
+        return currentPage.getProperties().get("distributorDisabled", true);
+    }
+
     public String getLanguageLocation() {
         final Locale locale = getLocale();
 

@@ -93,6 +93,14 @@ public final class SkuList implements ComponentExporter {
         return title;
     }
 
+    public Boolean isCommerceDisabled() {
+        return siteContext.isCommerceDisabled();
+    }
+
+    public Boolean isDistributorDisabled() {
+        return siteContext.isDistributorDisabled();
+    }
+
     @Nonnull
     @Override
     public String getExportedType() {
