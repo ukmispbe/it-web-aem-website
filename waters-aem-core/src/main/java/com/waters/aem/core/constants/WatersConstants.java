@@ -42,6 +42,9 @@ public final class WatersConstants {
     public static final Predicate<PageDecorator> PREDICATE_SKU_PAGE = page -> TEMPLATE_SKU_PAGE.equals(
         page.getTemplatePath());
 
+    public static final Predicate<PageDecorator> PREDICATE_HOME_PAGE = page -> TEMPLATE_HOME_PAGE.equals(
+            page.getTemplatePath());
+
     public static final String RENDER_CONDITION_APPLICATION_NOTES_TEMPLATE = "waters/components/renderconditions/applicationnotestemplate";
 
     public static final String RENDER_CONDITION_CATALOG_TEMPLATE = "waters/components/renderconditions/catelogtemplate";

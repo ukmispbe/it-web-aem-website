@@ -4,6 +4,7 @@ import com.day.cq.commons.LanguageUtil;
 import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.LanguageManager;
 import com.icfolson.aem.library.api.page.PageDecorator;
+import com.waters.aem.core.constants.WatersConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
@@ -13,7 +14,9 @@ import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Currency;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -128,5 +131,37 @@ public final class SiteContext {
         }
 
         return stringBuilder.toString();
+    }
+
+    public List<PageDecorator> getLanguagePages() {
+        final List<PageDecorator> languagePages = new ArrayList<>();
+
+        final String languageRootPath = LanguageUtil.getLanguageRoot(currentPage.getPath());
+
+        if (languageRootPath != null) {
+            final PageDecorator languageRootPage = currentPage.getPageManager().getPage(languageRootPath);
+
+            languagePages.add(currentPage);
+
+            // get siblings of current language home page
+            final List<PageDecorator> siblingHomepages = languageRootPage.getParent().getChildren(
+                    page -> !languageRootPath.equals(page.getPath()) && WatersConstants.PREDICATE_HOME_PAGE.apply(page));
+
+            // get relative content path from language root path
+            final String contentPath = currentPage.getPath()
+                    .substring(languageRootPath.length())
+                    .replaceFirst("/", "");
+
+            for (PageDecorator languagePage : siblingHomepages) {
+                final PageDecorator childPage = languagePage.getChild(contentPath).orNull();
+
+                if (childPage != null) {
+                    languagePages.add(childPage);
+                }
+            }
+        }
+
+        return languagePages;
+
     }
 }
