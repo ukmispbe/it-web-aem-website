@@ -11,6 +11,6 @@ public interface LinkItem {
 
     boolean hasLinkIcon();
 
-    boolean isNewWindow();
+    boolean isExternal();
 
 }

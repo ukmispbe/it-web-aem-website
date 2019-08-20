@@ -7,7 +7,5 @@ import java.util.List;
 @PageObjectInterface
 public interface Links {
 
-    String getTitle();
-
     List<LinkItem> getLinkItems();
 }

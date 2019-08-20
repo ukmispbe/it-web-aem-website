@@ -11,7 +11,7 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@PageObject(css = ".links")
+@PageObject(css = ".cmp-links")
 public class LinksImpl implements Links {
 
     @Inject
@@ -19,13 +19,8 @@ public class LinksImpl implements Links {
     private WebElement component;
 
     @Override
-    public String getTitle() {
-        return component.findElement(By.tagName("h3")).getText();
-    }
-
-    @Override
     public List<LinkItem> getLinkItems() {
-        return component.findElements(By.cssSelector(".cmp-external-list__link"))
+        return component.findElements(By.cssSelector(".cmp-links__link"))
         .stream()
         .map(link -> new LinkItemImpl(link.getText(), link.getAttribute("href"), !link.getAttribute("target").isEmpty()))
         .collect(Collectors.toList());

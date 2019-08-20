@@ -25,7 +25,7 @@ public class HeaderImpl implements Header {
 
     @Override
     public String getLogoLink() {
-        return component.findElement(By.className("cmp-header-logo__link")).getAttribute("href");
+        return component.findElement(By.className("cmp-header__top-bar__logo__link")).getAttribute("href");
     }
 
     @Override
@@ -34,21 +34,13 @@ public class HeaderImpl implements Header {
     }
 
     @Override
-    public boolean isNewWindow(){
-        return !component.findElement(By.className("cmp-header-logo__link")).getAttribute("target").isEmpty();
+    public boolean isExternal(){
+        return !component.findElement(By.className("cmp-header__top-bar__logo__link")).getAttribute("target").isEmpty();
     }
 
     @Override
     public String getSearchPath() {
         return component.getAttribute("data-search-path");
-    }
-
-    @Override
-    public List<LinkItem> getLinkItems() {
-        return component.findElements(By.cssSelector(".cmp-header-links__link"))
-        .stream()
-        .map(link -> new LinkItemImpl(link.getText(), link.getAttribute("href"), link.findElement(By.tagName("svg")).isDisplayed(), !link.getAttribute("target").isEmpty()))
-        .collect(Collectors.toList());
     }
 
 }
