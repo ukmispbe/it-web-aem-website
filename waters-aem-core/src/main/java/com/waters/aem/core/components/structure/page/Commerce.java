@@ -3,6 +3,7 @@ package com.waters.aem.core.components.structure.page;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
+import com.citytechinc.cq.component.annotations.widgets.CheckBox;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.InheritInject;
@@ -10,6 +11,8 @@ import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
+
+import javax.inject.Inject;
 
 @Component(value = "Commerce",
     tabs = @Tab(
@@ -35,6 +38,30 @@ public class Commerce {
 
     public String getCurrencyIsoCode() {
         return currencyIsoCode;
+    }
+
+    @DialogField(fieldDescription = "Select ",
+        value = "true",
+        ranking = 2)
+    @CheckBox(title = "commerceDisabled",
+        text = "Commerce disabled")
+    @Inject
+    private Boolean commerceDisabled;
+
+    @DialogField(fieldDescription = "Select ",
+        value = "true",
+        ranking = 3)
+    @CheckBox(title = "distributorDisabled",
+        text = "Distributor disabled ")
+    @Inject
+    private Boolean distributorDisabled ;
+
+    public Boolean isCommerceDisabled() {
+        return commerceDisabled;
+    }
+
+    public Boolean isDistributorDisabled() {
+        return distributorDisabled;
     }
 
 }
