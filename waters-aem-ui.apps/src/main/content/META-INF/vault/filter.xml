@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workspaceFilter version="1.0">
     <filter root="/apps/cq"/>
-    <filter root="/apps/waters"/>
+    <filter root="/apps/waters">
+        <exclude pattern="/apps/waters/i18n(/.*)"/>
+    </filter>
     <filter root="/apps/sling"/>
     <filter root="/apps/foundation/components/redirect"/>
     <filter root="/etc/designs/waters"/>
@@ -10,4 +12,4 @@
     <filter root="/etc/waters">
         <exclude pattern="/etc/waters/hybris-importer/jcr:content/(.*)?"/>
     </filter>
-</workspaceFilter>
+</workspaceFilter> 
