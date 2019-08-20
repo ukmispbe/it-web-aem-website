@@ -41,7 +41,7 @@ public class Commerce {
     private String currencyIsoCode;
 
     @DialogField(fieldLabel = "Commerce Configuration",
-        fieldDescription = "Select the commerce configuration option. ",
+        fieldDescription = "Select the commerce configuration option for country.",
         ranking = 2)
     @Selection(
     type = Selection.SELECT,
