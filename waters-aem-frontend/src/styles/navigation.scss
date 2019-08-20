@@ -94,6 +94,7 @@ nav.cmp-navigation {
             padding-bottom: 150px;
 
             & > .cmp-navigation__container {
+               min-height: 67px;
                padding: ($space-m - 0.1em) $space-m $space-m ($space-xl - 0.5em);
                border-left: 4px solid $color-gray-50;
                flex-grow: 0;
@@ -141,6 +142,7 @@ nav.cmp-navigation {
                padding: 0;
                border-top: 0px none transparent;
                height: auto;
+               white-space: normal;
             }
 
             svg,
@@ -190,7 +192,7 @@ nav.cmp-navigation {
                width: 100%;
                border-left: 4px solid transparent;
                border-bottom: 1px solid $color-border-rule;
-               height: 67px;
+               height: auto;
             }
             & > a {
                align-self: center;
