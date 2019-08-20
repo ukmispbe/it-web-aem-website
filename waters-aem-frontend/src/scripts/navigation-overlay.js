@@ -36,8 +36,6 @@ if (elem) {
 
       if (matches.length === 0) {
          closeOverlay();
-
-         event.stopPropagation();
       }
    }
 
