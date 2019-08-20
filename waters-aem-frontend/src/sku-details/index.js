@@ -135,7 +135,7 @@ class SkuDetails extends React.Component {
                     config={this.state.modalConfig}
                 />
             </div>
-            <a href="#">{this.props.config.skuInfo.requestQuote}</a>
+            <a href="#" class="cmp-sku-details__quote">{this.props.config.skuInfo.requestQuote}</a>
             </>
         );
     }
