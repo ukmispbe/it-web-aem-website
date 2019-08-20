@@ -31,7 +31,7 @@ function domReferences() {
 
 function addEventListeners() { 
     headerTB_user_link.addEventListener('click', headerTB_user_linkHandler);
-    headerTB_user.addEventListener('click', updateUserDD);
+    //headerTB_user.addEventListener('click', updateUserDD);
     headerTB_user.addEventListener('mouseover', updateUserDD);
     headerTB_user.addEventListener('mouseleave', updateUserDD);
 
@@ -48,7 +48,6 @@ function render() {
         let greeting = loginStatus.getGreeting();
         if (greeting) {
             headerTB_user_link_greetingText.innerHTML = greeting;
-            headerTB_user_link_greetingText_mobile.innerHTML = greeting;
         }
     } else {
         domElements.removeClass(headerTB_user, loggedInClass)
@@ -64,10 +63,12 @@ function headerTB_user_linkHandler(e) {
     e.preventDefault();
     let loggedIn = loginStatus.state();
 
-    if (!loggedIn) { 
-        if (e.currentTarget.dataset.loginUrl) { 
+    if (!loggedIn) {
+        if (e.currentTarget.dataset.loginUrl) {
             window.open(e.currentTarget.dataset.loginUrl, e.currentTarget.target);
         }
+    } else { 
+        updateUserDD(e);
     }
 }
     
@@ -99,6 +100,7 @@ function updateUserDD(e) {
 function toggleDropDown(state) {
     const activeDDClass = 'is-active';
     if (state == true) {
+        hideMobileNav();
         domElements.addClass(headerTB_user, activeDDClass);
     } else { 
         domElements.removeClass(headerTB_user, activeDDClass);
@@ -109,6 +111,7 @@ function toggleMobileMenu(e) {
     if (domElements.hasClass(headerTB_mobile_btn, 'is-active')) {
         hideMobileNav();
     } else {
+        toggleDropDown(false);
         showMobileNav();
     }
 }
