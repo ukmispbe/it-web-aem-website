@@ -56,6 +56,7 @@ public final class Anchor implements ComponentExporter {
                 .map(componentNode -> modelFactory.getModelFromWrappedRequest(request, componentNode.getResource(),
                     SectionContainer.class))
                 .filter(Objects :: nonNull)
+                .filter(SectionContainer::isDisplaySectionContainer)
                 .map(SectionContainer :: getAnchorLink)
                 .filter(link -> link.getTitle() != null)
                 .collect(Collectors.toList()))
