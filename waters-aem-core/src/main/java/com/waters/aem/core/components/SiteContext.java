@@ -107,12 +107,8 @@ public final class SiteContext {
         return i18n;
     }
 
-    public Boolean isCommerceDisabled() {
-        return currentPage.getProperties().get("commerceDisabled", true);
-    }
-
-    public Boolean isDistributorDisabled() {
-        return currentPage.getProperties().get("distributorDisabled", true);
+    public String getAnonymousUserConfiguration() {
+        return currentPage.getInherited("anonymousUserConfiguration", "");
     }
 
     public String getLanguageLocation() {

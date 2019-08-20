@@ -83,14 +83,10 @@ public final class SkuDetails implements ComponentExporter {
         return siteContext.getLocale().toLanguageTag();
     }
 
-    public Boolean isCommerceDisabled() {
-        return siteContext.isCommerceDisabled();
+    public String getAnonymousUserConfiguration() {
+        return siteContext.getAnonymousUserConfiguration();
     }
 
-    public Boolean isDistributorDisabled() {
-        return siteContext.isDistributorDisabled();
-    }
-    
     @Nonnull
     @Override
     public String getExportedType() {

@@ -2,22 +2,20 @@ package com.waters.aem.core.components.structure.page;
 
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
-import com.citytechinc.cq.component.annotations.Tab;
-import com.citytechinc.cq.component.annotations.widgets.CheckBox;
+import com.citytechinc.cq.component.annotations.Option;
+import com.citytechinc.cq.component.annotations.widgets.Selection;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 
 import javax.inject.Inject;
 
 @Component(value = "Commerce",
-    tabs = @Tab(
-        title = "Commerce",
-        renderConditionResourceType = WatersConstants.RENDER_CONDITION_CATALOG_TEMPLATE),
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE,
     name = WatersConstants.COMPONENT_NAME_PAGE,
@@ -36,32 +34,19 @@ public class Commerce {
     @InheritInject
     private String currencyIsoCode;
 
-    public String getCurrencyIsoCode() {
-        return currencyIsoCode;
-    }
-
-    @DialogField(fieldDescription = "Select ",
-        value = "true",
+    @DialogField(fieldLabel = "Anonymous User Configuration",
+        fieldDescription = "Select the configuration option for anonymous user",
         ranking = 2)
-    @CheckBox(title = "commerceDisabled",
-        text = "Commerce disabled")
+    @Selection(
+    type = Selection.SELECT,
+        options = {
+            @Option(text = "Full Enabled Countries", value = "fullEnabled"),
+            @Option(text = "Partial Enabled Countries", value = "partialEnabled"),
+            @Option(text = "Disabled Countries", value = "disabled")
+        }
+    )
     @Inject
-    private Boolean commerceDisabled;
-
-    @DialogField(fieldDescription = "Select ",
-        value = "true",
-        ranking = 3)
-    @CheckBox(title = "distributorDisabled",
-        text = "Distributor disabled ")
-    @Inject
-    private Boolean distributorDisabled ;
-
-    public Boolean isCommerceDisabled() {
-        return commerceDisabled;
-    }
-
-    public Boolean isDistributorDisabled() {
-        return distributorDisabled;
-    }
+    @Default(values = "fullEnabled")
+    private String anonymousUserConfiguration;
 
 }

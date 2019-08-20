@@ -93,12 +93,8 @@ public final class SkuList implements ComponentExporter {
         return title;
     }
 
-    public Boolean isCommerceDisabled() {
-        return siteContext.isCommerceDisabled();
-    }
-
-    public Boolean isDistributorDisabled() {
-        return siteContext.isDistributorDisabled();
+    public String getAnonymousUserConfiguration() {
+        return siteContext.getAnonymousUserConfiguration();
     }
 
     @Nonnull
