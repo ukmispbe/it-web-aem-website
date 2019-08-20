@@ -155,11 +155,16 @@
                 z-index: 1;
                 position: absolute;
                 top: 13px;
-                right: 10px;
+                right: 14px;
                 width: 25px;
                 height: 25px;
                 .st0 {
                     stroke: $color-icon;
+                }
+
+                @include mobile {
+                    top: 15px;
+                    right: 16px;
                 }
             }
 
