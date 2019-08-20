@@ -5,7 +5,7 @@ import AccountDropDownList from './account-dropdown-list';
 import { Modal } from '../modal/index';
 import LoginStatus from '../scripts/loginStatus';
 import ScreenSizes from '../scripts/screenSizes';
-import Header from '../scripts/header';
+import MobileNav from '../scripts/mobileNav';
 
 
 class AccountDropDown extends React.Component {
@@ -61,7 +61,12 @@ class AccountDropDown extends React.Component {
 
         this.setState({ isShown: newState }, () => {
             if (this.state.isShown) {
-                Header.hideMobileNav();
+
+                const mobileNav = MobileNav();
+                if (mobileNav) { 
+                    mobileNav.hide();
+                }
+
                 accountHeaderUser.classList.add(activeDDClass);
                 if (!this.state.isMobile) {
                     headerOverlay.classList.add(activeOverlay);
