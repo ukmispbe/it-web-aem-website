@@ -185,6 +185,11 @@ nav.cmp-navigation {
          }
 
          & > .cmp-navigation__container{
+            display: table-cell;
+
+            @supports (display: inline-grid) {
+               display: block;
+            }
 
             @include mobile {
                display: flex;
