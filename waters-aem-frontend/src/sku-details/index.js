@@ -96,6 +96,7 @@ class SkuDetails extends React.Component {
 
     render() {
         return (
+        <>
             <div className="cmp-sku-details__buyinfo">
                 <div className="cmp-sku-details__priceinfo">
                     <Price
@@ -134,6 +135,8 @@ class SkuDetails extends React.Component {
                     config={this.state.modalConfig}
                 />
             </div>
+            <a href="#">{this.props.config.skuInfo.requestQuote}</a>
+            </>
         );
     }
 }

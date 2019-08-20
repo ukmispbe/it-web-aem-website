@@ -65,14 +65,14 @@
     .cmp-modal__title {
         .cmp-modal__title-icon {
             margin-right: $space-s;
-            height: $icon-l;
-            width: $icon-l;
             display: inline-block;
-            @include mobile {
-                height: $icon-m;
-                width: $icon-m;
-            }
             svg {
+                height: $icon-l;
+                width: $icon-l;
+                @include mobile {
+                    height: $icon-m;
+                    width: $icon-m;
+                }
                 vertical-align: bottom;
                 polyline {
                     stroke-width: 2px;
@@ -130,11 +130,7 @@
         .cmp-modal__btn-main {
             @include tablet-and-over {
                 width: 100%;
-                padding: $space-s $space-l;
             }
-            cursor: pointer;
-            background-color: $color-blue-50;
-            color: $color-white;
             float: none;
             margin-bottom: $space-s;
         }
@@ -142,9 +138,7 @@
         .cmp-modal__btn-alt {
             @include tablet-and-over {
                 width: 100%;
-                padding: $space-s $space-l;
             }
-
             cursor: pointer;
             text-transform: capitalize;
             background: none;
@@ -153,6 +147,10 @@
             @include font-body;
             margin-bottom: 0;
             color: $color-link;
+            &:hover {
+                color: $color-link-hover;
+                text-decoration: underline;
+            }
         }
     }
 }

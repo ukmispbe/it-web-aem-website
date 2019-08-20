@@ -12,9 +12,6 @@ properties:
       - label: Link Item Path
         type: PATHBROWSER
         value: https://www.waters.com/waters/home.htm
-      - label: Open in New Window
-        type: SWITCH
-        value: true
     - item:
       - label: Link Item Text
         type: TEXTFIELD
@@ -22,6 +19,3 @@ properties:
       - label: Link Item Path
         type: PATHBROWSER
         value: https://www.icf.com/next
-      - label: Open in New Window
-        type: SWITCH
-        value: true
