@@ -390,6 +390,10 @@
     .cmp-sku-details__title {
         @include font-h3;
         margin-bottom: $space-xs;
+        
+        @include tablet {
+            min-height: 100px;
+        }
     }
 
     &__container {
@@ -408,7 +412,13 @@
         }
 
         @include tablet {
-            padding-left: $space-xl;
+            margin-left: $space-xl;
+        }
+
+        img {
+            @include tablet {
+                margin-bottom: 0px;
+            }
         }
     }
 

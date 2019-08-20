@@ -1,0 +1,11 @@
+Properties:
+  - label:
+    type: IMAGE
+    value: waters-logo-black.svg
+  - label: Logo Link
+    type: PATHBROWSER
+    value: https://www.waters.com/waters/home.htm
+  - label: Logo Alt Text
+    type: TEXTFIELD
+    value: Alt Text Test
+
