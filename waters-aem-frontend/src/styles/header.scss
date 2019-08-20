@@ -1,5 +1,10 @@
 @import "hamburgers";
 
+
+//SVG COLOR LOGGED IN/OUT
+$iconLoggedIn: $color-teal-30;
+$iconLoggedOut: $color-gray-50;
+
 .cmp-header {
     background-color: $color-white;
     position: relative;
@@ -50,6 +55,10 @@
         &__logo {
             padding: ($space-s + $space-xxxs) 0 $space-s 0;
 
+            @include mobile {
+                padding: $space-s 0 $space-xs 0;
+            }
+            
             img {
                 height: 32px;
                 width: 115px;
@@ -66,7 +75,7 @@
             display: flex;
             margin-left: auto;
 
-            ul {
+            &__ul {
                 list-style: none;
                 padding: 0;
                 margin: 0;
@@ -74,7 +83,7 @@
                 display: flex;
                 align-self: center;
 
-                li {
+                & > .top-bar__nav__item {
                     height: 100%;
                     align-items: center;
                     align-self: center;
@@ -98,18 +107,17 @@
                             display: none;
                         }
                     }
-
-                    svg,
-                    img.inline-svg {
+                    
+        
+                    svg.inline-svg{
                         display: inline-block;
-                        float: left;
                         width: 30px;
                         height: 25px;
                         padding-left: 0.3em;
 
                         .st0,
                         .st1 {
-                            stroke: $color-gray-50;
+                            stroke: $iconLoggedOut;
                         }
 
                         @include mobile {
@@ -136,7 +144,14 @@
                 position: relative;
                 z-index: 1000;
 
+                header.cmp-header &.is-active{
+                    position: relative;
+                }
+
                 @include mobile {
+                    header.cmp-header &.is-active{
+                        position: static !important;
+                    }
                     min-width: 0 !important;
                 }
 
@@ -145,50 +160,18 @@
                 }
 
                 &__dropdown {
-                    display: block;
-                    width: 100%;
-                    height: auto;
-                    min-width: 135px;
-                    position: absolute;
-                    top: 71px;
-                    left: 0px;
-                    background-color: $color-white;
-                    margin:0 !important;
-                    padding-bottom: $space-s !important;
-                    border-top: 4px solid $color-gray-50;
-                    opacity: 0;
-                    transition: all 0.2s ease;
-                    visibility: hidden;
-                    box-shadow: $shadow;
-
-                    &__item{
-                        margin: 0;
+                    @include tablet-and-over {                
+                        opacity: 0;
+                        transition: all 0.2s ease;
+                        visibility: hidden;
+                        box-shadow: $shadow;
                         width: 100%;
-
-                        a {
-                            span{
-                                display: block;
-                                float: none;
-                                padding: 14px 10px 2px 23px;
-                            }
-
-                            @include font-utility;
-                            transition: $hover-transition;
-
-                            &:hover {
-                                color: $color-link;
-                            }
-
-                            &:active {
-                                @include font-utility;
-                            }
-                        }
-                        a:hover{
-                            text-decoration: none;
-                        }
+                        position: absolute;
+                        top: 71px;
+                        left: 0px;
                     }
                 }
-
+    
                 &.loggedIn {
 
                     .top-bar__nav__user__link {
@@ -206,7 +189,11 @@
                         display: inline-block;
 
                         @include mobile {
-                            display: none
+                            display: none;
+                        }
+                
+                        .sign-in-text {
+                            display: none;
                         }
                     }
 
@@ -214,20 +201,16 @@
                         display: none;
                     }
 
-                    @include tablet-and-over{
-                        &:hover{
-                            .top-bar__nav__user__dropdown{
-                                visibility: visible;
-                                opacity: 1;
-                            }
+                    &.is-active{
+                        .top-bar__nav__user__dropdown{
+                            visibility: visible;
+                            opacity: 1;
                         }
                     }
-
-
-
                 }
+    
             }
-
+ 
             .top-bar__nav__mobile {
                 display: none;
 
