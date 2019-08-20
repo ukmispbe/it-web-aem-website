@@ -2,10 +2,12 @@ package com.waters.aem.core.commerce.models;
 
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.commons.util.PrefixRenditionPicker;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.utils.AssetUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 
 import java.math.BigDecimal;
@@ -31,12 +33,15 @@ public final class DisplayableSku {
         this.siteContext = checkNotNull(siteContext);
     }
 
+    @JsonIgnore
     public Sku getSku() {
         return sku;
     }
 
     public String getSkuPageHref() {
-        return sku.getSkuPage(siteContext.getPage()).getHref();
+        final PageDecorator skuPage = sku.getSkuPage(siteContext.getPage());
+
+        return skuPage != null ? skuPage.getHref() : "";
     }
 
     public String getCode() {
@@ -47,6 +52,7 @@ public final class DisplayableSku {
         return sku.getTitle();
     }
 
+    @JsonIgnore
     public boolean isActive() {
         return sku.getSalesStatus() == SkuSalesStatus.Active && !sku.isTerminated();
     }
@@ -58,6 +64,7 @@ public final class DisplayableSku {
     }
 
     @SuppressWarnings("squid:S2259")
+    @JsonIgnore
     public String getPrimaryImageSrc() {
         return getPrimaryImageAsset() == null ? null : getPrimaryImageAsset().getPath();
     }
@@ -72,6 +79,7 @@ public final class DisplayableSku {
             .getPath();
     }
 
+    @JsonIgnore
     public BigDecimal getPrice() {
         final String country = siteContext.getLocaleWithCountry().getCountry();
         final String currencyIsoCode = siteContext.getCurrencyIsoCode();
@@ -79,6 +87,7 @@ public final class DisplayableSku {
         return sku.getPrice(country, currencyIsoCode);
     }
 
+    @JsonIgnore
     public String getReplacementSkuCode() {
         return sku.getReplacementSkus().stream()
                 .findFirst()
@@ -87,17 +96,25 @@ public final class DisplayableSku {
     }
 
     public String getReplacementSkuPageHref() {
-        final PageDecorator page = sku.getSkuPage(siteContext.getPage(), getReplacementSkuCode());
+        PageDecorator skuPage = null;
 
-        return page != null ? page.getHref() : "";
+        final String replacementSkuCode = getReplacementSkuCode();
+
+        if (StringUtils.isNotEmpty(replacementSkuCode)) {
+            skuPage = sku.getSkuPage(siteContext.getPage(), replacementSkuCode);
+        }
+
+        return skuPage != null ? skuPage.getHref() : "";
     }
 
+    @JsonIgnore
     private Asset getPrimaryImageAsset() {
         final List<Asset> assets = getAssets();
 
         return assets.isEmpty() ? null : assets.get(0);
     }
 
+    @JsonIgnore
     private List<Asset> getAssets() {
 
         final List<SkuImage> skuImages = sku.getImages();

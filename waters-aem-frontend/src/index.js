@@ -7,6 +7,7 @@ import TagCloud from './search/components/tagcloud';
 import ImageCarousel from './image-carousel';
 // import Modal from './modal';
 import SkuDetails from './sku-details';
+import SkuList from './sku-list';
 
 function getAuthoredDataForSearchBar(c, h) {
     return {
@@ -123,11 +124,23 @@ if (imageGalleryContainers) {
 const skuDetailsContainer = document.querySelector(
     '.cmp-sku-details__ecom'
 );
+const skuDetailsConfig = JSON.parse(
+    document.getElementById('commerce-configs-json').innerHTML
+);
 
 if (skuDetailsContainer) {
-    const config = JSON.parse(
-        document.getElementById('commerce-configs-json').innerHTML
+
+
+    ReactDOM.render(<SkuDetails config={skuDetailsConfig} price={skuDetailsContainer.getAttribute('data-price')}/>, skuDetailsContainer);
+}
+
+
+const skuListContainer = document.querySelector('.cmp-sku-list')
+
+if (skuListContainer) {
+    const skuListData = JSON.parse(
+        skuListContainer.dataset.json
     );
 
-    ReactDOM.render(<SkuDetails config={config} price={skuDetailsContainer.getAttribute('data-price')}/>, skuDetailsContainer);
+    ReactDOM.render(<SkuList skuConfig={skuDetailsConfig} data={skuListData} />, skuListContainer);
 }
