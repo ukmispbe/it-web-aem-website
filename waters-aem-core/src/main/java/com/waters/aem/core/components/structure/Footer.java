@@ -9,6 +9,7 @@ import com.citytechinc.cq.component.annotations.widgets.Html5SmartImage;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.day.cq.commons.LanguageUtil;
 import com.day.cq.wcm.foundation.Image;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -34,6 +35,7 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -125,6 +127,8 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     @InheritInject
     private List<IconOnlyLink> socialLinks;
 
+    private List<LanguageSelectorItem> languagePages;
+
     @JsonProperty
     public Image getLogoImage() {
         return logoImage;
@@ -168,6 +172,37 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     public Boolean isYourAmigoEnabled() {
         return Locale.US.getCountry().equals(siteContext.getLocaleWithCountry().getCountry());
+    }
+
+    public List<LanguageSelectorItem> getLanguagePages() {
+        if (languagePages == null) {
+            languagePages = new ArrayList<>();
+
+            for (PageDecorator languagePage : siteContext.getLanguagePages()) {
+                final PageDecorator languageHomepage =
+                        languagePage.findAncestor(WatersConstants.PREDICATE_HOME_PAGE).orNull();
+
+                if (languageHomepage != null) {
+                    languagePages.add(new LanguageSelectorItem(languagePage));
+                }
+            }
+        }
+
+        return languagePages;
+    }
+
+    public String getCountryName() {
+        String countryName = "";
+
+        final String languageRoot = LanguageUtil.getLanguageRoot(currentPage.getPath());
+
+        if (languageRoot != null) {
+            countryName = currentPage.getPageManager().getPage(languageRoot)
+                    .getParent()
+                    .getTitle();
+        }
+
+        return countryName;
     }
 
     @Nonnull

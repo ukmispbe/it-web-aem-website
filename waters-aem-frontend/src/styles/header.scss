@@ -92,7 +92,7 @@ $iconLoggedOut: $color-gray-50;
                     margin-bottom: 0;
 
                     @include mobile-xs {
-                        margin-left: $space-xxs;
+                        margin-left: $space-s;
                     }
 
                     &:first-of-type,
@@ -127,8 +127,8 @@ $iconLoggedOut: $color-gray-50;
                         }
 
                         @include mobile-xs {
-                            width: 22px;
-                            height: 22px;
+                            width: $icon-m;
+                            height: $icon-m;
                         }
                     }
                 }
@@ -220,7 +220,7 @@ $iconLoggedOut: $color-gray-50;
                     margin: 0 $space-s;
 
                     @include mobile-xs{
-                        margin: 0 $space-xxs;
+                        margin: 0 $space-xxs 0 $space-s;
                     }
                 }
             }

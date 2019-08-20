@@ -447,3 +447,11 @@ html.showing-spinner {
         }
     }
 }
+
+@include mobile {
+   #js-search-app { 
+      .overlay {
+         position: fixed;
+      }
+   }
+}
