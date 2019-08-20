@@ -8,7 +8,6 @@ const MobileNav = function () {
     const header = document.querySelector('header.cmp-header');
 
     const showMobileNav = () => { 
-        console.log('in show mobile nav')
         headerTB_mobile_btn.classList.add('is-active');
         headerNavigation.classList.add('is-active');
         header.classList.add('is-fixed');
@@ -16,7 +15,6 @@ const MobileNav = function () {
     }
 
     const hideMobileNav = () => {
-        console.log('in hide mobile nav')
         headerTB_mobile_btn.classList.remove('is-active');
         headerNavigation.classList.remove('is-active');
         header.classList.remove('is-fixed');
@@ -29,7 +27,6 @@ const MobileNav = function () {
     }
 
     const resizeMobileNav = () => { 
-        console.log('in resize mobile nav')
         if (!screenSizes.isMobile() && headerTB_mobile_btn.classList.contains( 'is-active') ||
             !screenSizes.isMobile() && headerNavigation.classList.contains( 'is-active') ||
             !screenSizes.isMobile() && header.classList.contains( 'is-fixed') ||
@@ -40,7 +37,6 @@ const MobileNav = function () {
     } 
 
     const toggleMobileNav = () => { 
-        console.log('in toggle mobile nav')
         if (headerTB_mobile_btn.classList.contains('is-active')) {
             hideMobileNav();
         } else {

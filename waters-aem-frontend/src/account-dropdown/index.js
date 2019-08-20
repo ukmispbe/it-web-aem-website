@@ -22,6 +22,12 @@ class AccountDropDown extends React.Component {
     componentDidMount() {
         const accountHeaderLink = document.querySelector('.top-bar__nav__user .top-bar__nav__user__link.cmp-header-links__link');
         const accountHeaderUser = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
+        const allNavItems = document.querySelectorAll('.top-bar__nav__item:not(.top-bar__nav__user)');
+        const hideOnClick = this.hideOnClick;
+        Array.from(allNavItems).forEach(function (e) { 
+            e.addEventListener('click', hideOnClick);
+        })
+
         accountHeaderUser.addEventListener('mouseover', this.handleOutsideEvent);
         accountHeaderUser.addEventListener('mouseleave', this.handleOutsideEvent);
         accountHeaderLink.addEventListener('click', this.handleOutsideEvent, true);
@@ -31,6 +37,12 @@ class AccountDropDown extends React.Component {
     componentWillUnMount() {
         const accountHeaderLink = document.querySelector('.top-bar__nav__user .top-bar__nav__user__link.cmp-header-links__link');
         const accountHeaderUser = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
+        const allNavItems = document.querySelector('.top-bar__nav__item:not(.top-bar__nav__user)');
+        const hideOnClick = this.hideOnClick;
+        Array.from(allNavItems).forEach(function (e) { 
+            e.removeEventListener('click', hideOnClick);
+        })
+
         accountHeaderUser.removeEventListener('mouseover', this.handleOutsideEvent);
         accountHeaderUser.removeEventListener('mouseleave', this.handleOutsideEvent);
         accountHeaderLink.removeEventListener('click', this.handleOutsideEvent, true);
@@ -39,7 +51,9 @@ class AccountDropDown extends React.Component {
 
     updateViewport = () => { 
         if (!ScreenSizes.isMobile()) { 
-            this.willShow(false);
+            if (this.state.isShown == true) {
+                this.willShow(false);
+            }
         }
 
         this.setState({
@@ -51,6 +65,11 @@ class AccountDropDown extends React.Component {
         this.willShow(!this.state.isShown);
     };
 
+    hideOnClick = (e) => {
+        if (this.state.isShown == true) { 
+            this.willShow(false);
+        }
+    }
 
     willShow = (newState) => {
         const headerOverlay = document.querySelector('.cmp-header__overlay.overlay');
