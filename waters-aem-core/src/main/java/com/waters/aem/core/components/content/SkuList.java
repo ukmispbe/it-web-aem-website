@@ -10,6 +10,7 @@ import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.waters.aem.core.commerce.models.DisplayableSku;
 import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.commerce.services.SkuRepository;
+import com.waters.aem.core.components.EmptyComponent;
 import com.waters.aem.core.components.SiteContext;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
@@ -30,12 +31,12 @@ import java.util.stream.Collectors;
 @Component(value = "SKU List",
     tabs = @Tab(title = "Properties"))
 @Model(adaptables = SlingHttpServletRequest.class,
-    adapters = { SkuList.class, ComponentExporter.class },
+    adapters = { SkuList.class, EmptyComponent.class, ComponentExporter.class },
     resourceType = SkuList.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public final class SkuList implements ComponentExporter {
+public final class SkuList implements EmptyComponent, ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/skulist";
 
@@ -61,6 +62,7 @@ public final class SkuList implements ComponentExporter {
     @DialogField(fieldLabel = "Sku Numbers",
         fieldDescription = "List of Skus to display when this component is authored on a non-Sku page.",
         renderReadOnly = false,
+        required = true,
         ranking = 2)
     @MultiField
     @TextField
@@ -90,6 +92,11 @@ public final class SkuList implements ComponentExporter {
 
     public String getTitle() {
         return title;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return getDisplayableSkus().isEmpty();
     }
 
     @Nonnull

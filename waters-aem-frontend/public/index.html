@@ -33,7 +33,7 @@
         -->
         <div class="container">
             <div class="overlay"></div>
-            <div class="cmp-external-header" data-search-path="/search.html">
+            <div class="cmp-header" data-search-path="/search.html">
                 Header
             </div>
             <div
@@ -41,9 +41,12 @@
                 class="cmp-search-results aem-GridColumn"
                 data-icon-search="search.svg"
                 data-placeholder="Search by keyword"
-                data-icon-clear="close.svg"
-            ></div>
-            <div id="js-search-app" class="" data-locale="en-gb"></div>
+                data-icon-clear="close.svg"></div>
+            <div id="js-search-app" 
+                class="" 
+                data-locale="en-gb"
+                data-isocode="en_US">
+            </div>
         </div>
         <script type="application/json" id="cmp-modal-btn-0001">
             {
@@ -97,34 +100,49 @@
                     <div class="cmp-sku-details__heading"></div>
                     <div class="cmp-sku-details__ecom">
                         <div class="cmp-sku-details__buyinfo">
-                            <div class="cmp-sku-details__priceinfo">
-                                    <span>List Price</span>
-                                    <div class="cmp-sku-details__price">$665.00</div>
-
+                            <!-- <div class="cmp-sku-details__priceinfo">
+                                <span>List Price</span>
+                                <div class="cmp-sku-details__price">
+                                    $665.00
+                                </div>
                             </div>
-                            <div class="cmp-sku-details__stockcontainer"></div>
+                            <div class="cmp-sku-details__stockcontainer"></div> -->
                         </div>
-                        <a class="cmp-sku-details__web-quote" href="#">Do you need a web quote?</a>
+                        <a class="cmp-sku-details__web-quote" href="#"
+                            >Do you need a web quote?</a
+                        >
                     </div>
-
                 </div>
             </div>
         </div>
-        <script type="application/json" id="cmp-sku-details-0001">
+
+        <script type="application/json" id="commerce-configs-json">
             {
+                "locale": "en-US",
+                "availabilityUrl": "https://dev-www.waters.com:8443/api/waters/product/v1/availability/{partnumber}/{countryCode}",
+                "pricingUrl": "https://dev-www.waters.com:8443/api/waters/product/v1/customerprice/{partnumber}/{countryCode}",
+                "cartUrl": "https://www.waters.com/waters/ajax.htm?handler=shoppingHandler&action=processExternalCart",
+                "countryCode": "US",
+                "isoCode": "en-US",
+                "qtyLabel": "Qty",
                 "skuInfo": {
-                    "shipByDate": "July 19, 2020",
-                    "quantity": 20,
-                    "inStockIcon": "in-stock.svg",
+                    "inStockLabel": "In Stock",
+                    "outOfStockLabel": "Out of Stock",
+                    "orderNowLabel": "Order Now",
+                    "orderSoonLabel": "Order Soon",
+                    "shipsByLabel": "Ships By",
+                    "onlyXInStockLabel": "Only {0} in stock",
+                    "inStockIcon": "success.svg",
                     "lowStockIcon": "low-stock.svg",
-                    "outOfStockIcon": "out-stock.svg"
+                    "outOfStockIcon": "out-stock.svg",
+                    "maxAmount": 999
                 },
                 "modalInfo": {
                     "icon": "checkmark.svg",
                     "closeIcon": "close.svg",
                     "title": "Item Added to Cart",
-                    "textHeading": "WAT036980",
-                    "text": "Nova-Pak Silica Cartridge, 60Å, 4 µm, 3.9 mm X 150 mm, 1/pk",
+                    "textHeading": "WAT054575",
+                    "text": "Sep-Pak Alumina N 6 cc Vac Cartridge, 1 g Sorbent per Cartridge, 50-300 µm, 30/pk",
                     "buttons": [
                         {
                             "text": "View Cart",

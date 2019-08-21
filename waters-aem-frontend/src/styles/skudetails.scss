@@ -54,6 +54,8 @@
         }
 
         &__availability {
+            display: flex;
+            align-items: center;
             padding: 0 $space-m 0 $space-s;
             @include font-h3;
             height: 3em;
@@ -71,6 +73,7 @@
         &__stockdetails-container {
             display: inline-flex;
             margin-top: 0.3em;
+            min-width: 350px
         }
 
         &__stockdetails {
@@ -81,14 +84,30 @@
             }
             svg {
                 width: ($icon-m - 0.25em);
+                height: ($icon-m - 0.25em);
                 fill: $color-success;
                 margin-left: $space-xxxs;
                 margin-top: ($space-xxxs);
                 float: right;
-                .st0,
-                .st1 {
-                    stroke: $color-success;
-                    stroke-width: 2px;
+            }
+            &--instock{
+                svg {
+                    fill: $color-success;
+                    .st0,
+                    .st1 {
+                        stroke: $color-success;
+                        stroke-width: 2px;
+                    }
+                }
+            }
+            &--outofstock{
+                svg {
+                    fill: $color-error;
+                    .st0,
+                    .st1 {
+                        stroke: $color-error;
+                        stroke-width: 2px;
+                    }
                 }
             }
         }
@@ -96,6 +115,7 @@
         &__order {
             @include font-small;
             font-weight: $font-weight-light;
+            clear:both;
         }
 
         &__buttons {
@@ -125,8 +145,14 @@
             font-weight: $font-weight-light;
             text-align: center;
 
+            -moz-appearance: textfield;
+            
             &:focus {
                 outline: 2px solid $color-focus;
+            }
+
+            @include mobile {
+                height: 2.9em;
             }
         }
 
@@ -241,6 +267,11 @@
             }
         }
 
+        .cmp-sku-details__stockcontainer {   
+            @include mobile {
+                width: 100vw;
+            }
+        }
         .cmp-sku-details__priceinfo {
             background: none;
             padding-right: $space-s;
@@ -270,6 +301,10 @@
             @include mobile {
                 width: 100%;
             }
+        }
+
+        .cmp-sku-details__quote {
+            display: none;
         }
     }
 }
@@ -331,7 +366,8 @@
         svg {
             fill: $color-icon;
             float: right;
-            width: ($icon-m - 0.25em);
+            width: ($icon-s + 0.1em);
+            height: ($icon-s + 0.1em);
             margin-top: ($space-xxxs - 0.1em);
 
             &:hover {
@@ -358,6 +394,10 @@
     .cmp-sku-details__title {
         @include font-h3;
         margin-bottom: $space-xs;
+        
+        @include tablet {
+            min-height: 100px;
+        }
     }
 
     &__container {
@@ -373,6 +413,16 @@
 
         @include mobile {
             display: none;
+        }
+
+        @include tablet {
+            margin-left: $space-xl;
+        }
+
+        img {
+            @include tablet {
+                margin-bottom: 0px;
+            }
         }
     }
 

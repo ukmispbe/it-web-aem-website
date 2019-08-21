@@ -5,7 +5,7 @@ import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import java.util.List;
 
 @PageObjectInterface
-public interface ExternalHeader {
+public interface Header {
 
     String getLogo();
 
@@ -13,9 +13,8 @@ public interface ExternalHeader {
 
     String getLogoAltText();
 
-    boolean isNewWindow();
+    boolean isExternal();
 
     String getSearchPath();
 
-    List<LinkItem> getLinkItems();
 }

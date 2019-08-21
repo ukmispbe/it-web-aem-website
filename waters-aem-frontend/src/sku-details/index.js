@@ -3,42 +3,130 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from '../modal/index';
 import Stock from './views/stock';
+import Price from './views/price';
+import SkuService from './services';
 
 class SkuDetails extends React.Component {
     constructor(props) {
         super(props);
-        // sku = props.modalInfo.textHeading
         this.state = {
             modalShown: false,
             modalConfig: this.props.config.modalInfo,
             skuConfig: this.props.config.skuInfo,
             skuNumber: this.props.config.modalInfo.textHeading,
-            userCountry: 'US', //TODO: We will want to get this from AEM
-            availabilityAPI: 'https://dev-www.waters.com:8443/api/waters/product/v1/availability/', //TODO: we will want to get this from AEM
-            skuAvailability: {}
+            userCountry: this.props.config.countryCode,
+            availabilityAPI: this.props.config.availabilityUrl,
+            skuAvailability: {},
+            addToCartQty: undefined,
+            defaultPrice: this.props.price,
+            locale: this.props.config.locale,
         };
+
+        this.request = new SkuService(
+            this.state.userCountry,
+            {
+                availability: this.props.config.availabilityUrl,
+                price: this.props.config.pricingUrl,
+            },
+            this.props.config.addToCartUrl,
+            err => console.log(err)
+        );
     }
 
-    componentDidMount(){
-        // Get the availability data
-        fetch(`${this.state.availabilityAPI}${this.state.skuNumber}/${this.state.userCountry}`)
-            .then(response => response.json())
-            .then(data => this.setState({skuAvailability: data}))
-            .catch()
+    componentDidMount() {
+        this.request.getAvailability(this.state.skuNumber).then(response => {
+            this.setState({ skuAvailability: response });
+        });
     }
 
-    toggleModal = () => this.setState({modalShown: !this.state.modalShown});
+    toggleModal = () => {
+        this.setState({ modalShown: !this.state.modalShown }, () => {
+            if (this.state.modalShown) {
+                document.body.classList.add('no-scroll');
+            } else {
+                document.body.classList.remove('no-scroll');
+            }
+        });
+    };
 
+    quantityInput = e => {
+        let value = e.target.value;
+
+        if (value > this.state.skuConfig.maxAmount) {
+            value = this.state.skuConfig.maxAmount;
+        }
+
+        this.setState({
+            addToCartQty: value,
+        });
+    };
+
+    addToCart = () => {
+        if (this.state.addToCartQty > 0) {
+            this.request
+                .addToCart(this.state.skuNumber, this.state.addToCartQty)
+                .then(response => {
+                    this.toggleModal();
+                })
+                .catch(err => {
+                    console.log('SHOULD WE HAVE AN ERROR MODAL?');
+                    this.toggleModal();
+                });
+        } else {
+            this.setState(
+                {
+                    addToCartQty: 1,
+                },
+                () =>
+                    this.request
+                        .addToCart(
+                            this.state.skuNumber,
+                            this.state.addToCartQty
+                        )
+                        .then(response => {
+                            this.toggleModal();
+                        })
+                        .catch(err => {
+                            console.log('SHOULD WE HAVE AN ERROR MODAL?');
+                            this.toggleModal();
+                        })
+            );
+        }
+    };
 
     render() {
         return (
-            <span>
-                <Stock skuConfig={this.state.skuConfig} skuNumber={this.state.skuNumber} skuAvailability={this.state.skuAvailability}></Stock>
+        <>
+            <div className="cmp-sku-details__buyinfo">
+                <div className="cmp-sku-details__priceinfo">
+                    <Price
+                        skuConfig={this.state.skuConfig}
+                        price={this.state.defaultPrice}
+                    />
+                </div>
+                <div className="cmp-sku-details__availability">
+                    <Stock
+                        skuConfig={this.state.skuConfig}
+                        skuNumber={this.state.skuNumber}
+                        skuAvailability={this.state.skuAvailability}
+                        locale={this.state.locale}
+                    />
+                </div>
                 <div className="cmp-sku-details__buttons">
                     <form>
-                        <input className="cmp-sku-details__quantity" type="number" placeholder="Qty" max={this.state.skuConfig.quantity} min="1" />
+                        <input
+                            className="cmp-sku-details__quantity"
+                            type="number"
+                            placeholder={this.props.config.qtyLabel}
+                            max={this.state.skuConfig.maxAmount}
+                            min="1"
+                            value={this.state.addToCartQty}
+                            onChange={this.quantityInput}
+                        />
                     </form>
-                    <a className="cmp-button" onClick={this.toggleModal}>ADD TO CART</a>
+                    <a className="cmp-button" onClick={() => this.addToCart()}>
+                        {this.props.config.addToCartLabel}
+                    </a>
                 </div>
                 <Modal
                     toggleModal={this.toggleModal}
@@ -46,13 +134,15 @@ class SkuDetails extends React.Component {
                     theme="callToAction"
                     config={this.state.modalConfig}
                 />
-            </span>
+            </div>
+            <a href="#" class="cmp-sku-details__quote">{this.props.config.skuInfo.requestQuote}</a>
+            </>
         );
-    };
-};
+    }
+}
 
 SkuDetails.propTypes = {
-    config: PropTypes.object.isRequired
+    config: PropTypes.object.isRequired,
 };
 
 export default SkuDetails;

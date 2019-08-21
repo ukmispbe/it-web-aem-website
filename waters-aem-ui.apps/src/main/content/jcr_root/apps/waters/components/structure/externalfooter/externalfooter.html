@@ -1,4 +1,4 @@
-<a class="cmp-back-to-top" href="#" title="${'Back To Top' @ i18n}"><img alt="${'Back To Top' @ i18n}" src="/content/dam/waters/brand-assets/icons/up.svg" class="inline-svg"></a>
+<a class="cmp-back-to-top" href="#" title="${'Back To Top' @ i18n}"><img alt="${'Back To Top' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/up.svg" class="inline-svg"></a>
 
 <div data-sly-use.externalFooter="com.waters.aem.core.components.structure.ExternalFooter" class="cmp-footer">
     <div class="container1_wrapper">
@@ -33,15 +33,45 @@
             <div class="cmp-footer__links">
                 <nav data-sly-test="${externalFooter.footerLinks}">
                     <a data-sly-repeat="${externalFooter.footerLinks}" href="${item.link.href}"
-                        target="${item.newWindow ? '_blank' : ''}">
+                       target="${item.newWindow ? '_blank' : ''}">
                         ${item.text}
                         <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
-                            data-sly-call="${patterns.linkIcon @ linkItem=item}" />
+                             data-sly-call="${patterns.linkIcon @ linkItem=item}" />
                     </a>
                     <a data-sly-test="${externalFooter.cookiesLink}" href="${externalFooter.cookiesLink.href}"
-                        target="_blank">${'Cookies' @ i18n}</a>
+                       target="_blank">${'Cookies' @ i18n}</a>
                     <a class="optanon-toggle-display dl_Anchor" href="#">${'Cookie Preferences' @ i18n}</a>
                 </nav>
+            </div>
+            <div class="cmp-footer__yamcontainer">
+                <div class="cmp-footer__yamlinks">
+                    <span>By Product:</span>
+                    <a href="https://www.waters.com/1/1/index1.html">Title</a>
+                    <a href="https://www.waters.com/1/1/indexb1.html">Brand</a>
+                    <a href="https://www.waters.com/1/1/indexc1.html">Category</a>
+                    <a href="https://www.waters.com/1/1/indexd1.html">Popularity</a>
+                    <a href="https://www.waters.com/1/1/indexe1.html">Best Sellers</a>
+                    <span>By High-Volume Category:</span>
+                    <a href="https://www.waters.com/1/4/index1.html">Popularity</a>
+                    <a href="https://www.waters.com/1/4/indexb1.html">Our Choices</a>
+                    <a href="https://www.waters.com/1/4/indexc1.html">Category</a>
+                    <a href="https://www.waters.com/1/4/indexd1.html">Title</a>
+                    <a href="https://www.waters.com/1/4/indexe1.html">All-Round Favorites</a>
+                </div>
+                <div class="cmp-footer__yamlinks">
+                    <span>By Top Sellers:</span>
+                    <a href="https://www.waters.com/1/2/index1.html">Popularity</a>
+                    <a href="https://www.waters.com/1/2/indexb1.html">Brand</a>
+                    <a href="https://www.waters.com/1/2/indexc1.html">Price</a>
+                    <a href="https://www.waters.com/1/2/indexd1.html">Best Sellers</a>
+                    <a href="https://www.waters.com/1/2/indexe1.html">Name</a>
+                    <span>By Category:</span>
+                    <a href="https://www.waters.com/1/3/index1.html">Popularity</a>
+                    <a href="https://www.waters.com/1/3/indexb1.html">Our Choices</a>
+                    <a href="https://www.waters.com/1/3/indexc1.html">Recommendations</a>
+                    <a href="https://www.waters.com/1/3/indexd1.html">Title</a>
+                    <a href="https://www.waters.com/1/3/indexe1.html">Category</a>
+                </div>
             </div>
         </div>
     </div>

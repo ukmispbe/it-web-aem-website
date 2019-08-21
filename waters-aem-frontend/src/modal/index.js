@@ -141,12 +141,25 @@ class Modal extends React.Component {
         const state = this.state || {};
         if (state.open && state.theme && state.theme.length && state.config) {
             return (
-                <div className="cmp-modal-box">
+                <div
+                    className="cmp-modal-box"
+                    onClick={e => {
+                        e.stopPropagation();
+                        if (e.target.classList.contains('cmp-modal-box')) {
+                            return this.closeModal();
+                        } else {
+                            return false;
+                        }
+                    }}
+                >
                     <div className="cmp-modal">
                         <div className="cmp-modal__box">
                             {state.config.closeIcon && (
-                                <div className="cmp-modal__close-icon cmp-utility-button">
-                                    <ReactSVG onClick={() => this.closeModal()} src={state.config.closeIcon} />
+                                <div className="cmp-modal__close-icon">
+                                    <ReactSVG
+                                        onClick={() => this.closeModal()}
+                                        src={state.config.closeIcon}
+                                    />
                                 </div>
                             )}
 

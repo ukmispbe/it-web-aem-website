@@ -53,10 +53,11 @@
             height: $icon-l;
             float: right;
             @include mobile {
-                top: $space-s;
-                width: (($icon-l + $icon-m) / 2);
-                height: (($icon-l + $icon-m) / 2);
+                top: $space-xs;
+                width: $icon-m;
+                height: $icon-m;
                 stroke: $color-icon;
+                z-index: 201;
             }
         }
     }
@@ -64,14 +65,14 @@
     .cmp-modal__title {
         .cmp-modal__title-icon {
             margin-right: $space-s;
-            height: $icon-l;
-            width: $icon-l;
             display: inline-block;
-            @include mobile {
-                height: $icon-m;
-                width: $icon-m;
-            }
             svg {
+                height: $icon-l;
+                width: $icon-l;
+                @include mobile {
+                    height: $icon-m;
+                    width: $icon-m;
+                }
                 vertical-align: bottom;
                 polyline {
                     stroke-width: 2px;
@@ -83,14 +84,15 @@
             @include font-h2;
             display: inline-block;
             margin-bottom: 0;
-
             @include mobile {
-                font-size: $font-size-small;
+                @include font-body;
+                @include font-utility;
+                margin-bottom: 0;
             }
         }
 
         @include mobile {
-            top: $space-s;
+            top: $space-xs;
             width: 115%;
             left: -3px;
             position: absolute;
@@ -98,7 +100,7 @@
             -moz-box-shadow: 0px 4px 2px -2px $color-gray-20;
             box-shadow: 0px 4px 2px -2px $color-gray-20;
             padding-bottom: $space-xs;
-            padding-left: $space-xs;
+            padding-left: $space-s;
         }
     }
 
@@ -110,22 +112,15 @@
         }
 
         .cmp-modal__information-header {
-            font-size: $font-size-small;
+            @include font-body;
             @include font-utility;
-
-            @include mobile {
-                font-size: $font-size-xsmall;
-                color: $color-gray-40;
-            }
+            margin-bottom: $space-xxs;
+            margin-top: -$space-xxs;
         }
 
         .cmp-modal__information-text {
             @include font-h3;
             color: $color-black;
-
-            @include mobile {
-                font-size: $font-size-small;
-            }
         }
     }
 
@@ -135,25 +130,15 @@
         .cmp-modal__btn-main {
             @include tablet-and-over {
                 width: 100%;
-                padding: $space-s $space-l;
             }
-            cursor: pointer;
-            background-color: $color-blue-50;
-            color: $color-white;
             float: none;
             margin-bottom: $space-s;
-
-            @include mobile {
-                font-size: $font-size-small;
-            }
         }
 
         .cmp-modal__btn-alt {
             @include tablet-and-over {
                 width: 100%;
-                padding: $space-s $space-l;
             }
-
             cursor: pointer;
             text-transform: capitalize;
             background: none;
@@ -162,9 +147,9 @@
             @include font-body;
             margin-bottom: 0;
             color: $color-link;
-
-            @include mobile {
-                font-size: $font-size-small;
+            &:hover {
+                color: $color-link-hover;
+                text-decoration: underline;
             }
         }
     }

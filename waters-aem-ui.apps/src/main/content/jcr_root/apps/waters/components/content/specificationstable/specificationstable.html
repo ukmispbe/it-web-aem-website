@@ -2,23 +2,27 @@
      class="cmp-specification-table"
      data-sly-test.specifications="${specificationsTable.specifications}">
     <div class="cmp-table--divide cmp-table">
-        <table class="cmp-table__table">
-            <tbody>
-            <tr data-sly-repeat.specification="${specifications}">
-                <td>
-                    <p><strong>${specification.title}</strong></p>
-                </td>
-                <td>
-                    <p>${specification.formattedFeatureValues}</p>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <ul data-sly-repeat.specification="${specifications}">
+            <li>
+                <table class="cmp-table__table">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <p><strong>${specification.title}</strong></p>
+                        </td>
+                        <td>
+                            <p>${specification.formattedFeatureValues}</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </li>
+        </ul>
     </div>
 
     <div class="cmp-notification-wrapper" data-sly-test="${specificationsTable.sku.hazardous}">
         <div class="cmp-notification-icon">
-            <img class="inline-svg"  src="/content/dam/waters/brand-assets/icons/hazardous.svg"/>
+            <img class="inline-svg"  src="/content/dam/waters/en/brand-assets/icons/hazardous.svg"/>
         </div>
         <div class="cmp-notification-body">
             <span class="cmp-notification-title">${'Hazaradous Material' @ i18n}</span>
@@ -28,7 +32,7 @@
 
     <div class="cmp-notification-wrapper" data-sly-test="${specificationsTable.sku.coldChainShipping}">
         <div class="cmp-notification-icon">
-            <img class="inline-svg"  src="/content/dam/waters/brand-assets/icons/coldchain.svg"/>
+            <img class="inline-svg"  src="/content/dam/waters/en/brand-assets/icons/coldchain.svg"/>
         </div>
         <div class="cmp-notification-body">
             <span class="cmp-notification-title">${'Cold Shipping' @ i18n}</span>

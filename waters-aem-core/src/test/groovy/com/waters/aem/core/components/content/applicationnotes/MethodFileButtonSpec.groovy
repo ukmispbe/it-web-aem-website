@@ -11,19 +11,21 @@ class MethodFileButtonSpec extends WatersSpec {
         nodeBuilder.content {
             dam {
                 waters {
-                    "app-notes" {
-                        "2019" {
-                            "123" {
-                                method {
-                                    "method-file.zip"("dam:Asset")
-                                    "method-file.exe"("dam:Asset")
+                    en {
+                        "app-notes" {
+                            "2019" {
+                                "123" {
+                                    method {
+                                        "method-file.zip"("dam:Asset")
+                                        "method-file.exe"("dam:Asset")
+                                    }
                                 }
-                            }
-                            "456" {
-                                method()
-                            }
-                            "789" {
+                                "456" {
+                                    method()
+                                }
+                                "789" {
 
+                                }
                             }
                         }
                     }
@@ -77,7 +79,7 @@ class MethodFileButtonSpec extends WatersSpec {
 
         where:
         resourcePath            | methodFilePath
-        "/content/waters/one"   | "/content/dam/waters/app-notes/2019/123/method/method-file.zip"
+        "/content/waters/one"   | "/content/dam/waters/en/app-notes/2019/123/method/method-file.zip"
         "/content/waters/two"   | null
         "/content/waters/three" | null
         "/content/waters/four"  | null

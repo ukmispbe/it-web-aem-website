@@ -1,4 +1,4 @@
-import './polyfills'
+import './polyfills';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './search/components/searchbar';
@@ -36,7 +36,7 @@ function getAuthoredDataForTagCloud(h, t) {
 }
 
 const searchBarContainer = document.getElementById('js-search-bar');
-const header = document.querySelector('.cmp-external-header');
+const header = document.querySelector('.cmp-header');
 
 if (searchBarContainer && header) {
     const data = getAuthoredDataForSearchBar(searchBarContainer, header);
@@ -120,35 +120,14 @@ if (imageGalleryContainers) {
     });
 }
 
-// const modalContainer = document.querySelector('.cmp-modal-container');
-
-// if (modalContainer) {
-//     window.cmp = {};
-//     ReactDOM.render(<Modal />, modalContainer);
-// }
-
-// const modalOpenButton = document.querySelectorAll('.cmp-modal-btn');
-
-// if (modalOpenButton.length) {
-//     modalOpenButton.forEach(btn => {
-//         const theme = btn.dataset.theme;
-//         const configElement = document.getElementById(btn.dataset.config);
-//         const config = JSON.parse(configElement.innerHTML);
-
-//         btn.addEventListener('click', () => {
-//             window.cmp.modal.showModal(theme, config);
-//         });
-//     });
-// }
-
-const skuDetailsContainer = document.querySelector('.cmp-sku-details__stockcontainer');
-const skuConfig = JSON.parse(
-    document.getElementById('cmp-sku-details-0001').innerHTML
+const skuDetailsContainer = document.querySelector(
+    '.cmp-sku-details__ecom'
 );
 
 if (skuDetailsContainer) {
-    ReactDOM.render(
-        <SkuDetails
-            config={skuConfig}
-        />, skuDetailsContainer);
+    const config = JSON.parse(
+        document.getElementById('commerce-configs-json').innerHTML
+    );
+
+    ReactDOM.render(<SkuDetails config={config} price={skuDetailsContainer.getAttribute('data-price')}/>, skuDetailsContainer);
 }
