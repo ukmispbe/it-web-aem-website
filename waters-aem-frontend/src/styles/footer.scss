@@ -315,6 +315,7 @@
     margin-left: $space-s;
     width: fit-content;
     position: relative;
+    line-height: 28px;
 
     @supports (display: inline-grid) {
         position: static;
@@ -352,9 +353,14 @@
             float: left;
             width: $icon-m;
             height: $icon-m;
+            margin-bottom: 3px;
 
             .st0 {
                 stroke: $color-white;
+            }
+
+            @supports (display: inline-grid) {
+               margin-bottom: 0;
             }
         }
     }
