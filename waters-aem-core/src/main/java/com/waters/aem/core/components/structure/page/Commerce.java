@@ -24,27 +24,28 @@ public class Commerce {
 
     static final String FILE_NAME = "commerce";
 
-    @DialogField(fieldLabel = "Currency ISO Code",
-        fieldDescription = "For countries using a non-standard ISO currency code (ISO-4217) " +
-                "in Waters SAP, provide the non-standard ISO code here.",
-            ranking = 1)
-    @TextField
-    @InheritInject
-    private String currencyIsoCode;
-
     @DialogField(fieldLabel = "Country Commerce Configuration",
-        fieldDescription = "Select the commerce configuration option to apply to this country.",
-        ranking = 2,
-        additionalProperties = @Property(name = "emptyOption", value = "{Boolean}true"))
+            fieldDescription = "Select the commerce configuration option to apply to this country.",
+            ranking = 1,
+            additionalProperties = @Property(name = "emptyOption", value = "{Boolean}true"))
     @Selection(type = Selection.SELECT)
     @InheritInject
     private CountryCommerceConfig countryCommerceConfig;
 
-    public String getCurrencyIsoCode() {
-        return currencyIsoCode;
-    }
+    @DialogField(fieldLabel = "Currency ISO Code",
+        fieldDescription = "For countries using a non-standard ISO currency code (ISO-4217) " +
+                "in Waters SAP, provide the non-standard ISO code here.",
+            ranking = 2)
+    @TextField
+    @InheritInject
+    private String currencyIsoCode;
+
 
     public CountryCommerceConfig getCountryCommerceConfig() {
         return countryCommerceConfig;
+    }
+
+    public String getCurrencyIsoCode() {
+        return currencyIsoCode;
     }
 }
