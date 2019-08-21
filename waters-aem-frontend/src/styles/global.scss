@@ -8,6 +8,11 @@ html {
 
 body {
     overflow-x: hidden;
+
+    &.no-scroll {
+        overflow-y: hidden;
+        height: 95vh;
+    }
 }
 
 .aem-GridColumn {
