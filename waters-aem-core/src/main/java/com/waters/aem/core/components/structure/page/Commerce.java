@@ -30,7 +30,7 @@ public class Commerce {
             additionalProperties = @Property(name = "emptyOption", value = "{Boolean}true"))
     @Selection(type = Selection.SELECT)
     @InheritInject
-    private CountryCommerceConfig countryCommerceConfig;
+    private CountryCommerceConfig countryCommerceConfig = CountryCommerceConfig.FULL_ENABLED;
 
     @DialogField(fieldLabel = "Currency ISO Code",
         fieldDescription = "For countries using a non-standard ISO currency code (ISO-4217) " +
