@@ -66,6 +66,8 @@ public final class WatersConstants {
 
     public static final String THUMBNAIL_IMAGE = "thumbnailImage";
 
+    public static final String OG_IMAGE = "ogImage";
+
     private WatersConstants() {
 
     }
