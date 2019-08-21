@@ -2,7 +2,7 @@
 <workspaceFilter version="1.0">
     <filter root="/apps/cq"/>
     <filter root="/apps/waters">
-        <exclude pattern="/apps/waters/i18n(/.*)"/>
+        <exclude pattern="/apps/waters/i18n(/.*)?"/>
     </filter>
     <filter root="/apps/sling"/>
     <filter root="/apps/foundation/components/redirect"/>
