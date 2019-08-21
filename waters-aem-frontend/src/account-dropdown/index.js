@@ -65,16 +65,16 @@ class AccountDropDown extends React.Component {
         this.willShow(!this.state.isShown);
     };
 
+    // TRIGGER CLOSE OF COMPONENT ON CLICK OF OTHER NAV ITEMS IN TOP BAR
     hideOnClick = (e) => {
         if (this.state.isShown == true) { 
-            this.willShow(false);
+            this.willShow(false, e.currentTarget);
         }
     }
 
-    willShow = (newState) => {
+    willShow = (newState, caller = 'default') => {
         const headerOverlay = document.querySelector('.cmp-header__overlay.overlay');
         const accountHeaderUser = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
-        const header = document.querySelector('header.cmp-header');
 
         const activeDDClass = 'is-active';
         const activeOverlay = 'active';
@@ -91,22 +91,41 @@ class AccountDropDown extends React.Component {
                 if (!this.state.isMobile) {
                     headerOverlay.classList.add(activeOverlay);
                 } else { 
-                    document.body.classList.add('no-scroll');
-                    document.documentElement.classList.add('no-scroll');
-                    header.classList.add('is-fixed');
+                    this.mobileNoScroll(true);
                 }
             } else {
                 accountHeaderUser.classList.remove(activeDDClass);
                 if (!this.state.isMobile) {
                     headerOverlay.classList.remove(activeOverlay);
                 } else { 
-                    document.body.classList.remove('no-scroll');
-                    document.documentElement.classList.remove('no-scroll');
-                    header.classList.remove('is-fixed');
+                    if (caller != 'default') {
+                        if (caller instanceof HTMLElement) { 
+                            if (!caller.classList.contains('top-bar__nav__mobile')) { 
+                                // change scrolling unless needed next (ie hamburger menu)
+                                this.mobileNoScroll(false);
+                            }
+                        }
+                    } else { 
+                        this.mobileNoScroll(false);
+                    }
+
                 }
             }
         });
     };
+
+    mobileNoScroll = toggle => { 
+        const header = document.querySelector('header.cmp-header');
+        if (toggle) {
+            document.body.classList.add('no-scroll');
+            document.documentElement.classList.add('no-scroll');
+            header.classList.add('is-fixed');
+        } else { 
+            document.body.classList.remove('no-scroll');
+            document.documentElement.classList.remove('no-scroll');
+            header.classList.remove('is-fixed');
+        }
+    }
 
     handleOutsideEvent = e => { 
         const domNode = ReactDOM.findDOMNode(this);
