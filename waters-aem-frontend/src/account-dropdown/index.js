@@ -74,6 +74,7 @@ class AccountDropDown extends React.Component {
     willShow = (newState) => {
         const headerOverlay = document.querySelector('.cmp-header__overlay.overlay');
         const accountHeaderUser = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
+        const header = document.querySelector('header.cmp-header');
 
         const activeDDClass = 'is-active';
         const activeOverlay = 'active';
@@ -92,6 +93,7 @@ class AccountDropDown extends React.Component {
                 } else { 
                     document.body.classList.add('no-scroll');
                     document.documentElement.classList.add('no-scroll');
+                    header.classList.add('is-fixed');
                 }
             } else {
                 accountHeaderUser.classList.remove(activeDDClass);
@@ -100,6 +102,7 @@ class AccountDropDown extends React.Component {
                 } else { 
                     document.body.classList.remove('no-scroll');
                     document.documentElement.classList.remove('no-scroll');
+                    header.classList.remove('is-fixed');
                 }
             }
         });
