@@ -3,8 +3,7 @@ import loginStatus from '../scripts/loginStatus';
 import MobileNav from '../scripts/mobileNav';
 
 
-let header, headerTB_user, headerOverlay, headerTB_user_link, headerTB_user_link_greetingText, headerTB_user_link_greetingText_mobile, headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, headerNavigation;
-let activeDD = false;
+let headerTB, headerTB_user, headerTB_user_link_greetingText,  headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, headerNavigation_mainUL;
 
 const headerInit = function() {
     domReferences();
@@ -13,20 +12,14 @@ const headerInit = function() {
 }
 
 function domReferences() {
-    header = document.querySelector('header.cmp-header');
-    headerOverlay = document.querySelector('.cmp-header__overlay.overlay');
-
+    headerTB = document.querySelector('header.cmp-header .cmp-header__top-bar');
     headerTB_user = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
-
     headerTB_user_link_greetingText = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link .greeting-text');
-    headerTB_user_link_greetingText_mobile = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__dropdown .greeting-text.mobile');
-    
     headerTB_mobile = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile');
     headerTB_mobile_btn = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile button');
-    
-    headerNavigation = document.querySelector('.cmp-header__navigation');  
-    headerNavigation_comp = document.querySelector('.cmp-header__navigation nav.cmp-navigation'); 
 
+    headerNavigation_comp = document.querySelector('.cmp-header__navigation nav.cmp-navigation');
+    headerNavigation_mainUL = document.querySelector('.cmp-header__navigation nav.cmp-navigation > ul.cmp-naviation_group');
 }
 
 function addEventListeners() { 
@@ -55,6 +48,11 @@ function render() {
     if (headerNavigation_comp) { 
         domElements.addClass(headerTB_mobile, isUsed);
     }
+
+    if (headerNavigation_mainUL) { 
+        mainUL.style.height = headerTB.offsetHeight + 'px';
+    }    
+    
 }
 
 window.addEventListener('load', headerInit);
