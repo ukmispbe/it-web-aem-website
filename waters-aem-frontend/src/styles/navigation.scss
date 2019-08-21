@@ -186,6 +186,7 @@ nav.cmp-navigation {
 
          & > .cmp-navigation__container{
             display: table-cell;
+            vertical-align: middle;
 
             @supports (display: inline-grid) {
                display: block;
