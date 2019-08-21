@@ -1,4 +1,4 @@
-import screenSizes from '../scripts/screenSizes';
+import ScreenSizes from '../scripts/screenSizes';
 import NavMenu from '../scripts/navigation-level2';
 
 const MobileNav = function () {
@@ -7,7 +7,7 @@ const MobileNav = function () {
     const headerTB = document.querySelector('header.cmp-header .cmp-header__top-bar');
     const headerTB_mobile_btn = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile button');
     const headerNavigation = document.querySelector('.cmp-header__navigation');
-    const headerNavigation_mainUL = document.querySelector('.cmp-header__navigation nav.cmp-navigation > ul.cmp-naviation_group');
+    const headerNavigation_mainUL = document.querySelector('.cmp-header__navigation nav.cmp-navigation').children[0];
 
     const showMobileNav = () => { 
         headerTB_mobile_btn.classList.add('is-active');
@@ -29,16 +29,21 @@ const MobileNav = function () {
     }
 
     const resizeMobileNav = () => { 
-        if (!screenSizes.isMobile() && headerTB_mobile_btn.classList.contains( 'is-active') ||
-            !screenSizes.isMobile() && headerNavigation.classList.contains( 'is-active') ||
-            !screenSizes.isMobile() && header.classList.contains( 'is-fixed') ||
-            !screenSizes.isMobile() && document.documentElement.classList.contains( 'no-scroll')
+        if (!ScreenSizes.isMobile() && headerTB_mobile_btn.classList.contains( 'is-active') ||
+            !ScreenSizes.isMobile() && headerNavigation.classList.contains( 'is-active') ||
+            !ScreenSizes.isMobile() && header.classList.contains( 'is-fixed') ||
+            !ScreenSizes.isMobile() && document.documentElement.classList.contains( 'no-scroll')
         ){
             hideMobileNav();
         } 
 
         if (headerNavigation_mainUL) { 
-            mainUL.style.height = headerTB.offsetHeight + 'px';
+            if (ScreenSizes.isMobile()) {
+                console.log('mainUL resize')
+                headerNavigation_mainUL.style.height = (window.innerHeight - headerTB.offsetHeight) + 'px';
+            } else { 
+                headerNavigation_mainUL.style.height = 'auto';
+            }
         }    
     } 
 

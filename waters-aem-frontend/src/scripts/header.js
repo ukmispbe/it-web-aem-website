@@ -1,6 +1,7 @@
 import domElements from '../scripts/domElements';
 import loginStatus from '../scripts/loginStatus';
 import MobileNav from '../scripts/mobileNav';
+import ScreenSizes from '../scripts/screenSizes';
 
 
 let headerTB, headerTB_user, headerTB_user_link_greetingText,  headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, headerNavigation_mainUL;
@@ -19,7 +20,7 @@ function domReferences() {
     headerTB_mobile_btn = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile button');
 
     headerNavigation_comp = document.querySelector('.cmp-header__navigation nav.cmp-navigation');
-    headerNavigation_mainUL = document.querySelector('.cmp-header__navigation nav.cmp-navigation > ul.cmp-naviation_group');
+    headerNavigation_mainUL = document.querySelector('.cmp-header__navigation nav.cmp-navigation').children[0];
 }
 
 function addEventListeners() { 
@@ -50,7 +51,9 @@ function render() {
     }
 
     if (headerNavigation_mainUL) { 
-        mainUL.style.height = headerTB.offsetHeight + 'px';
+        if (ScreenSizes.isMobile()) { 
+            headerNavigation_mainUL.style.height = (window.innerHeight - headerTB.offsetHeight) + 'px';
+        }
     }    
     
 }
