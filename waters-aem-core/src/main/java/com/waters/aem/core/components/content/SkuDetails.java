@@ -6,6 +6,7 @@ import com.citytechinc.cq.component.annotations.Component;
 import com.waters.aem.core.commerce.models.DisplayableSku;
 import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.components.SiteContext;
+import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
@@ -82,7 +83,11 @@ public final class SkuDetails implements ComponentExporter {
     public String getLocale() {
         return siteContext.getLocale().toLanguageTag();
     }
-    
+
+    public CountryCommerceConfig getCountryCommerceConfig() {
+        return siteContext.getCountryCommerceConfig();
+    }
+
     @Nonnull
     @Override
     public String getExportedType() {
