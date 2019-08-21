@@ -172,7 +172,8 @@
 
     .cmp-modal-box.account-dropdown {
         position: absolute;
-        top: 69px;
+        top: 66px;
+        border-top: 1px solid $color-border-light;
     }
 
     .cmp-modal.account-dropdown {

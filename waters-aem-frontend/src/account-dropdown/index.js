@@ -91,6 +91,7 @@ class AccountDropDown extends React.Component {
                     headerOverlay.classList.add(activeOverlay);
                 } else { 
                     document.body.classList.add('no-scroll');
+                    document.classList.add('no-scroll');
                 }
             } else {
                 accountHeaderUser.classList.remove(activeDDClass);
@@ -98,6 +99,7 @@ class AccountDropDown extends React.Component {
                     headerOverlay.classList.remove(activeOverlay);
                 } else { 
                     document.body.classList.remove('no-scroll');
+                    document.classList.remove('no-scroll');
                 }
             }
         });
