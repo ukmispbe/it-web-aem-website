@@ -315,6 +315,7 @@
     margin-left: $space-s;
     width: fit-content;
     position: relative;
+    margin-bottom: $space-xl;
 
     @supports (display: inline-grid) {
         position: static;
@@ -328,10 +329,10 @@
     &__region {
         display: inline-flex;
         min-height: 38px;
-        height: 45px;
+        height: 51px;
         -webkit-box-align: center;
         align-items: center;
-        padding: 0.3em 1em 0.3em 0em;
+        padding: $space-xxs $space-s $space-xxs 0em;
         border-right: 1px solid $color-border-light;
         margin-right: $space-s;
 
@@ -362,10 +363,10 @@
     &__language {
         cursor: pointer;
         min-height: 38px;
-        height: 45px;
+        height: 51px;
         -webkit-box-align: center;
         align-items: center;
-        padding: 0 1em;
+        padding: 0 $space-s;
         border: 1px solid $color-border-light;
         display: inline-table;
         position: absolute;
@@ -397,7 +398,7 @@
                 pointer-events: none;
                 vertical-align: middle;
                 display: table-cell;
-                padding-right: 1em;
+                padding-right: $space-s;
 
                 @supports (display: inline-grid) {
                     display: inline-block;
@@ -411,8 +412,8 @@
 
         &::after {
             content: '';
-            width: 20px;
-            height: 20px;
+            width: $icon-m;
+            height: $icon-m;
             background-repeat: no-repeat;
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3e%3cstyle type='text/css'%3e .st0%7bfill:none;stroke:%23fff;stroke-linecap:round;stroke-linejoin:round;%7d %3c/style%3e%3cpolyline class='st0' points='3.3,7.7 11.9,16.2 20.5,7.7 '/%3e%3c/svg%3e ");
             display: table-cell;
@@ -442,7 +443,7 @@
 
             & > a {
                 display: flex;
-                padding: 0.5em 0.5em 0.5em 1em;
+                padding: $space-xxs $space-xxs $space-xxs $space-s;
                 color: $color-white;
 
                 &:hover {
