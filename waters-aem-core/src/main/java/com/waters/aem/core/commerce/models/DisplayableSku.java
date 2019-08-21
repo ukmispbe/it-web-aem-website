@@ -59,7 +59,7 @@ public final class DisplayableSku {
 
     @SuppressWarnings("squid:S2259")
     public String getPrimaryImageSrc() {
-        return sku.getPrimaryImageAsset() == null ? null :  sku.getPrimaryImageAsset().getPath();
+        return sku.getPrimaryImageSrc();
     }
 
     public String getPrimaryImageAlt() {

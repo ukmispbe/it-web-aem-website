@@ -178,6 +178,10 @@ public final class Sku {
             .getPath();
     }
 
+    public String getPrimaryImageSrc() {
+        return getPrimaryImageAsset() == null ? null :  getPrimaryImageAsset().getPath();
+    }
+
     public Asset getPrimaryImageAsset() {
         final List<Asset> assets = getAssets();
 
