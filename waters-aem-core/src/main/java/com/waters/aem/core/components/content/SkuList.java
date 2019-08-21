@@ -102,7 +102,6 @@ public final class SkuList implements EmptyComponent, ComponentExporter {
     @Override
     public boolean isEmpty() {
         return getDisplayableSkus().isEmpty();
-
     }
 
     @Nonnull
