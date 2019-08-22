@@ -4,6 +4,8 @@ import SearchBar from './search/components/searchbar';
 import Search from './search/index';
 import TagCloud from './search/components/tagcloud';
 import ImageCarousel from './image-carousel';
+import AccountDropDown from './account-dropdown/index';
+import LoginStatus from "./scripts/loginStatus";
 
 function getAuthoredDataForSearchBar(c, h) {
     return {
@@ -115,4 +117,25 @@ if (imageGalleryContainers) {
             container
         );
     });
+}
+
+
+
+const AccountDropDownContainer = document.querySelector(
+    '.top-bar__nav__user__dropdown'
+);
+
+if (header && AccountDropDownContainer) {
+    const config = JSON.parse(
+        document.getElementById('account-modal-configs-json').innerHTML
+    );
+
+    const newConfig = Object.assign({}, config.modalInfo, {
+        title: LoginStatus.getGreeting()
+    });
+    const updatedModel = {
+        modalInfo: newConfig
+    }
+
+    ReactDOM.render(<AccountDropDown config={updatedModel} />, AccountDropDownContainer);
 }

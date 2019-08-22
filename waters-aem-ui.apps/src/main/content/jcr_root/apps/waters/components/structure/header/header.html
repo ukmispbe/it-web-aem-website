@@ -8,38 +8,54 @@
                 </a>
             </div>
             <nav class="cmp-header__top-bar__nav">
-                <ul>
+                <ul class="cmp-header__top-bar__nav__ul">
                     <li class="top-bar__nav__search top-bar__nav__item">
                         <a class="cmp-header-links__link" href="${header.legacySearchUrl}">
                             <span>${'Search' @ i18n}</span>
                             <img alt="${'Search' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/search.svg" class="inline-svg">
                         </a>
                     </li>
-                    <li class="top-bar__nav__user top-bar__nav__item">
+                    <li class="top-bar__nav__user top-bar__nav__item" data-greeting="${'Hello, ' @ i18n}">
                         <a class="top-bar__nav__user__link cmp-header-links__link" href="javascript:;" target="_self" data-login-url="${header.signInUrl}">
                             <span class="sign-in-text">${'Sign In' @ i18n}</span>
-                            <span class="greeting-text" data-greeting="${'Hello, ' @ i18n}"></span>
+                            <span class="greeting-text desktop"></span>
                             <img alt="${'Sign In' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/user.svg" class="inline-svg">
                         </a>
-
-                        <ul class="top-bar__nav__user__dropdown">
-                            <li class="top-bar__nav__user__dropdown__item">
-                                <a class="cmp-header-links__link" href="${header.myAccountUrl}" target="_self">
-                                    <span>${'My Account' @ i18n}</span>
-                                </a>
-                            </li>
-                            <li class="top-bar__nav__user__dropdown__item">
-                                <a class="cmp-header-links__link" href="${header.signOutUrl}" target="_self">
-                                    <span>${'Sign Out' @ i18n}</span>
-                                </a>
-                            </li>
-                        </ul>
+                        <div class="top-bar__nav__user__dropdown"></div>
+                        <script type="application/json" id="account-modal-configs-json">
+                            {
+                                "modalInfo": {
+                                    "icon": "/content/dam/waters/en/brand-assets/icons/user.svg",
+                                    "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
+                                    "title": "${'Hello, ' @ i18n , context='scriptString' }",
+                                    "list": [
+                                        {
+                                            "text": "${'My Account' @ i18n, context='scriptString'}",
+                                            "url": "${header.myAccountUrl @ context='scriptString'}",
+                                            "target": "_self"
+                                        },
+                                        {
+                                            "text": "${'Sign Out' @ i18n, context='scriptString'}",
+                                            "url": "${header.signOutUrl @ context='scriptString'}"
+                                        }
+                                    ]
+                                }
+                            }
+                        </script>
                     </li>
                     <li class="top-bar__nav__cart top-bar__nav__item">
                         <a class="cmp-header-links__link" href="${header.cartUrl}">
                             <span>${'Cart' @ i18n}</span>
                             <img alt="${'Cart' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/cart.svg" class="inline-svg">
                         </a>
+                    </li>
+                    <li class="top-bar__nav__mobile top-bar__nav__item">
+                        <div class="top-bar__nav__mobile__divider"></div>
+                        <button class="hamburger hamburger--slider" type="button">
+                          <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                          </span>
+                        </button>
                     </li>
                 </ul>
 

@@ -5,7 +5,7 @@ import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import java.util.List;
 
 @PageObjectInterface
-public interface ExternalFooter {
+public interface Footer {
 
     String getLogo();
 

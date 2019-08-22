@@ -10,6 +10,16 @@ body {
     overflow-x: hidden;
 }
 
+html.no-scroll,
+body.no-scroll {
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+}
+
 .aem-GridColumn {
     padding: 0 14px;
 
@@ -32,6 +42,12 @@ body {
     @include tablet {
         margin: 0 0 0 -12px;
     }
+}
+
+.layoutcontainer--light {
+    background: $color-background-light;
+    padding: $space-m;
+    margin-bottom: $space-l;
 }
 
 .container {
@@ -95,9 +111,11 @@ a {
     position: absolute;
     top: 0;
     left: 0;
-    display: none;
+    display: block;
+    visibility: hidden;
 
     &.active {
+        visibility: visible;
         display: block;
     }
 }

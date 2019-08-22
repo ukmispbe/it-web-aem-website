@@ -36,12 +36,12 @@
         max-width: 1480px;
         //position: static;
         margin: -$space-xxs auto 0 auto;
-        padding: $space-xl $space-xxl; 
+        padding: $space-xl $space-xxl;
         display: block;
         text-align: left;
 
         @include mobile {
-            padding: 0 20px;
+            padding: $space-l 20px;
         }
 
         @include tablet {
@@ -57,7 +57,7 @@
     .container2 {
         background-color: $color-background-dark;
         max-width: 1480px;
-        padding: $space-xl $space-xxl; 
+        padding: $space-xl $space-xxl;
         clear: both;
         width: 100%;
         display: block;
@@ -102,14 +102,14 @@
     width: 100%;
     text-align: left;
     display: inline-block;
-    margin-left: $space-s; 
+    margin-left: $space-s;
     @include mobile {
         width: 100%;
         margin-right: 0;
-        margin-left: 0; 
-        column-count:2; 
-        -moz-column-count:2; 
-        -webkit-column-count:2; 
+        margin-left: 0;
+        column-count:2;
+        -moz-column-count:2;
+        -webkit-column-count:2;
     }
 
     a {
@@ -117,7 +117,7 @@
         display: inline;
         @include mobile {
             line-height: $line-height-text;
-            padding: $space-xxs 0;
+            padding: $space-s 0 0 0;
             display: block;
             width: 100%;
         }
@@ -125,7 +125,6 @@
             display: inline-block;
         }
         line-height: 2.5em;
-        transition: $hover-transition;
 
         &:hover {
             text-decoration: underline;
@@ -149,22 +148,18 @@
     }
 
     span {
-          color: $color-disabled;
-          padding-right: $space-xxs;
-          font-weight: $font-weight-bold;
-          font-size: 15px;
-          line-height: 22px;
+        @include font-small;
+        color: $color-disabled;
+        padding-right: $space-xxs;
+        font-weight: $font-weight-bold;
 
     }
 
     a {
+        @include font-small;
         margin-right: $space-xxs;
-        font-size: 15px;
-        font-weight: $font-weight-light;
         display: inline;
         color: $color-disabled;
-        line-height: 22px;
-        transition: $hover-transition;
         text-decoration: none solid rgb(156, 167, 176);
 
         &:hover {
@@ -258,12 +253,14 @@
     float: right;
     margin-right: $space-s;
     @include mobile {
+        margin-top: $space-m;
         float: none;
         width: 100%;
         padding-top: $space-s;
     }
 
     .social-links-text {
+        @include font-small;
         color: $color-font-light;
         text-align: right;
         padding-bottom: $space-s;
@@ -293,7 +290,7 @@
                 padding-right: 0;
 
                 @include mobile {
-                    padding-right: $space-m;
+                    padding-right: $space-s;
                     padding-left: 0;
                 }
 
@@ -304,7 +301,7 @@
                 }
             }
         }
-    }   
+    }
 }
 
 .cmp-footer .cmp-links__external-link--true::after {
@@ -312,4 +309,192 @@
 }
 .cmp-footer .cmp-links__external-link--true:hover:after {
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='25' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-external-link'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3'/%3E%3C/svg%3E");
+}
+
+.cmp-footer__selector {
+    margin-left: $space-s;
+    width: fit-content;
+    position: relative;
+    line-height: 28px;
+    margin-bottom: $space-xl;
+
+    @supports (display: inline-grid) {
+        position: static;
+    }
+
+    @include mobile {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    &__region {
+        display: inline-flex;
+        min-height: 38px;
+        height: 51px;
+        -webkit-box-align: center;
+        align-items: center;
+        padding: $space-xxs $space-s $space-xxs 0em;
+        border-right: 1px solid $color-border-light;
+        margin-right: $space-s;
+
+        @include mobile {
+            border-right: none;
+            margin-bottom: $space-s;
+        }
+
+        span {
+            display: inline-block;
+            float: left;
+            color: $color-white;
+            padding-right: $space-xxs;
+        }
+
+        .inline-svg {
+            display: inline-block;
+            float: left;
+            width: $icon-m;
+            height: $icon-m;
+            margin-bottom: 3px;
+
+            .st0 {
+                stroke: $color-white;
+            }
+
+            @supports (display: inline-grid) {
+               margin-bottom: 0;
+            }
+        }
+    }
+
+    &__language {
+        cursor: pointer;
+        min-height: 38px;
+        height: 51px;
+        -webkit-box-align: center;
+        align-items: center;
+        padding: 0 $space-s;
+        border: 1px solid $color-border-light;
+        display: inline-table;
+        position: absolute;
+
+        @supports (display: inline-grid) {
+            display: inline-flex;
+            position: relative;
+        }
+
+        @include mobile {
+            width: 100%;
+        }
+
+        &:hover {
+            color: $color-gray-20;
+            & > a:first-child {
+                color: $color-gray-20;
+            }
+
+            &::after {
+                background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3e%3cstyle type='text/css'%3e .st0%7bfill:none;stroke:%23e3e6e9;stroke-linecap:round;stroke-linejoin:round;%7d %3c/style%3e%3cpolyline class='st0' points='3.3,7.7 11.9,16.2 20.5,7.7 '/%3e%3c/svg%3e ");
+            }
+        }
+
+        & > a {
+
+            &:first-child {
+                white-space: pre-wrap;
+                pointer-events: none;
+                vertical-align: middle;
+                display: table-cell;
+                padding-right: $space-s;
+
+                @supports (display: inline-grid) {
+                    display: inline-block;
+                }
+
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+
+        &::after {
+            content: '';
+            width: $icon-m;
+            height: $icon-m;
+            background-repeat: no-repeat;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3e%3cstyle type='text/css'%3e .st0%7bfill:none;stroke:%23fff;stroke-linecap:round;stroke-linejoin:round;%7d %3c/style%3e%3cpolyline class='st0' points='3.3,7.7 11.9,16.2 20.5,7.7 '/%3e%3c/svg%3e ");
+            display: table-cell;
+
+            @supports (display: inline-grid) {
+                display: inline-block;
+            }
+
+            @include mobile {
+                position: absolute;
+                right: $space-s;
+            }
+        }
+
+        &--options {
+            display: none;
+            background-color: $color-background-dark;
+            position: absolute;
+            top: 100%;
+            right: -1px;
+            min-height: 38px;
+            -webkit-box-align: center;
+            align-items: center;
+            border: 1px solid #c6cdd2;
+            width: 100%;
+            box-sizing: content-box;
+
+            & > a {
+                display: flex;
+                padding: $space-xxs $space-xxs $space-xxs $space-s;
+                color: $color-white;
+
+                &:hover {
+                    text-decoration: none;
+                    background-color: adjust-color($color: $color-gray-40, $alpha: -0.7);
+                }
+            }
+        }
+
+        &.active {
+            .cmp-footer__selector__language--options {
+                display: block;
+            }
+
+            &.one-link {
+                .cmp-footer__selector__language--options {
+                    display: none;
+                }
+            }
+        }
+
+        &.one-link {
+            padding: 0;
+            border: none;
+            cursor: text;
+            
+            &:hover > a:first-child {
+               color: $color-white;
+            }
+
+            @include mobile {
+                width: auto;
+            }
+
+            &::after {
+                display: none;
+            }
+        }
+    }
+
+    &.one-link {
+        .cmp-footer__selector__region {
+            @include mobile {
+                border-right: 1px solid $color-border-light;
+            }
+        }
+    }
 }
