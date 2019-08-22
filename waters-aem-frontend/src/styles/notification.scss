@@ -99,3 +99,11 @@
         }
     }
 }
+
+.cmp-notification--left {
+    .cmp-notification-wrapper {
+        justify-content: left;
+        background-color: transparent;
+        padding: 0;
+    }
+}

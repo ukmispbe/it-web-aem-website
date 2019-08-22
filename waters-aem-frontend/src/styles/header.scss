@@ -110,11 +110,6 @@
                         height: 25px;
                         padding-left: 0.3em;
 
-                        .st0,
-                        .st1 {
-                            stroke: $color-icon;
-                        }
-
                         @include mobile {
                             width: $icon-m;
                             height: $icon-m;
