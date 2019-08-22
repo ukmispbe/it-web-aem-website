@@ -79,7 +79,7 @@ public final class SkuList implements EmptyComponent, ComponentExporter {
         }
 
         return skus.stream()
-                .map(relatedSku -> new DisplayableSku(relatedSku, resource, siteContext))
+                .map(relatedSku -> new DisplayableSku(relatedSku, siteContext))
                 .collect(Collectors.toList());
     }
 

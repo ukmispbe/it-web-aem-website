@@ -1,18 +1,11 @@
 package com.waters.aem.core.commerce.models;
 
-import com.day.cq.dam.api.Asset;
-import com.day.cq.dam.commons.util.PrefixRenditionPicker;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.SiteContext;
-import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.utils.AssetUtils;
-import org.apache.sling.api.resource.Resource;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -22,12 +15,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public final class DisplayableSku {
 
     private Sku sku;
-    private Resource resource;
     private SiteContext siteContext;
 
-    public DisplayableSku(Sku sku, Resource resource, SiteContext siteContext) {
+    public DisplayableSku(Sku sku, SiteContext siteContext) {
         this.sku = checkNotNull(sku);
-        this.resource = checkNotNull(resource);
         this.siteContext = checkNotNull(siteContext);
     }
 
@@ -55,11 +46,6 @@ public final class DisplayableSku {
         final BigDecimal price = getPrice();
 
         return price == null ? null : NumberFormat.getCurrencyInstance(siteContext.getLocaleWithCountry()).format(price);
-    }
-
-    @SuppressWarnings("squid:S2259")
-    public String getPrimaryImageSrc() {
-        return sku.getPrimaryImageSrc();
     }
 
     public String getPrimaryImageAlt() {
