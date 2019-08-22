@@ -25,12 +25,14 @@ import com.waters.aem.core.components.content.links.BasicLink;
 import com.waters.aem.core.components.content.links.IconOnlyLink;
 import com.waters.aem.core.components.structure.page.analytics.DataLayer;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.services.youramigo.YourAmigoService;
 import com.waters.aem.core.utils.LinkUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ChildResource;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
@@ -63,6 +65,9 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     @Self
     private SiteContext siteContext;
+
+    @OSGiService
+    private YourAmigoService yourAmigoService;
 
     @Inject
     private PageDecorator currentPage;
@@ -171,7 +176,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     }
 
     public Boolean isYourAmigoEnabled() {
-        return Locale.US.getCountry().equals(siteContext.getLocaleWithCountry().getCountry());
+        return Locale.US.getCountry().equals(siteContext.getLocaleWithCountry().getCountry()) && yourAmigoService.isEnabled()   ;
     }
 
     public List<LanguageSelectorItem> getLanguagePages() {
