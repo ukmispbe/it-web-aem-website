@@ -1,10 +1,5 @@
 @import "hamburgers";
 
-
-//SVG COLOR LOGGED IN/OUT
-$iconLoggedIn: $color-teal-30;
-$iconLoggedOut: $color-gray-50;
-
 .cmp-header {
     background-color: $color-white;
     position: relative;
@@ -117,12 +112,12 @@ $iconLoggedOut: $color-gray-50;
 
                         .st0,
                         .st1 {
-                            stroke: $iconLoggedOut;
+                            stroke: $color-icon;
                         }
 
                         @include mobile {
-                            width: 26px;
-                            height: 26px;
+                            width: $icon-m;
+                            height: $icon-m;
                             padding-left: 0;
                         }
 
@@ -238,14 +233,6 @@ $iconLoggedOut: $color-gray-50;
 
     @include mobile {
 
-        html.noscroll &__navigation{
-            height: 100%;
-            height: -moz-available;
-            height: -webkit-fill-available;
-            height: fill-available;
-            overflow-y: auto;
-        }
-
         &__navigation{
             transition: $fade-transition;
             opacity: 0;
@@ -264,10 +251,7 @@ $iconLoggedOut: $color-gray-50;
 }
 
 @include mobile {
-    html.noscroll,
-    html.noscroll body{
-        overflow: hidden;
-    }
+
     .cmp-header.is-fixed {
         position: fixed;
         height: 100%;

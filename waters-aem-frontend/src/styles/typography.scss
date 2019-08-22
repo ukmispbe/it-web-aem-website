@@ -182,3 +182,7 @@ blockquote {
 .cmp-text--noPadding .cmp-text {
     padding-bottom: 0;
 }
+
+.cmp-text--h1 .cmp-text {
+    @include font-h1;
+}
