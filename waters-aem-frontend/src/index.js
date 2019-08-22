@@ -1,3 +1,4 @@
+import './polyfills';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './search/components/searchbar';
@@ -6,6 +7,7 @@ import TagCloud from './search/components/tagcloud';
 import ImageCarousel from './image-carousel';
 import AccountDropDown from './account-dropdown/index';
 import LoginStatus from "./scripts/loginStatus";
+import SkuDetails from './sku-details';
 
 function getAuthoredDataForSearchBar(c, h) {
     return {
@@ -117,6 +119,18 @@ if (imageGalleryContainers) {
             container
         );
     });
+}
+
+const skuDetailsContainer = document.querySelector(
+    '.cmp-sku-details__ecom'
+);
+
+if (skuDetailsContainer) {
+    const config = JSON.parse(
+        document.getElementById('commerce-configs-json').innerHTML
+    );
+
+    ReactDOM.render(<SkuDetails config={config} price={skuDetailsContainer.getAttribute('data-price')}/>, skuDetailsContainer);
 }
 
 

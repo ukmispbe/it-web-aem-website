@@ -29,6 +29,12 @@ public final class Classification {
     @ValueMapValue(name = WatersCommerceConstants.PROPERTY_RANGE)
     private Boolean range;
 
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_FACET)
+    private Boolean facet;
+
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_CODE)
+    private String code;
+
     public String getPath() {
         return resource.getPath();
     }
@@ -41,15 +47,30 @@ public final class Classification {
         return featureValues;
     }
 
-    public String[] getDisplayableFeatureValues() {
-        return unitSymbol == null || range ? getFeatureValues() : Arrays.stream(featureValues)
-                .map(featureValue -> featureValue + " " + unitSymbol)
-                .toArray(String[] :: new);
+    public String getCode() {
+        return code;
     }
 
+    public Boolean isFacet() {
+        return facet;
+    }
+
+    /**
+     * Checks if the feature value is a "range" property and concatenates the values with a hyphen if so.
+     * ex: "1 - 12 pH" where "1" is a feature value and "12" is another feature value.
+     * If not a range and we still have multiple values, concatenate displayed values with a comma.
+     *
+     * @return the formatted feature values displayed on the UI
+     */
     public String getFormattedFeatureValues() {
         return range ? String.join("-", getDisplayableFeatureValues()) + " " + unitSymbol :
                 String.join(", ", getDisplayableFeatureValues());
+    }
+
+    private String[] getDisplayableFeatureValues() {
+        return unitSymbol == null || range ? getFeatureValues() : Arrays.stream(featureValues)
+                .map(featureValue -> featureValue + " " + unitSymbol)
+                .toArray(String[] :: new);
     }
 
     @Override

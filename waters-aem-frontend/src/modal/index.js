@@ -136,7 +136,7 @@ class Modal extends React.Component {
                 return null;
             }
         },
-        list: list => { 
+        list: list => {
             if (list) {
                 const listItems = AccountDropDownList(list);
 
@@ -144,8 +144,8 @@ class Modal extends React.Component {
                     <div className="cmp-modal__information">
                         <ul className="account-dropdown dropdown__list">{listItems}</ul>
                     </div>
-                )
-            } else { 
+                );
+            } else {
                 return null;
             }
         }
@@ -179,9 +179,6 @@ class Modal extends React.Component {
         } 
     };
 
-
-
-
     render() {
         const state = this.state || {};
         if (state.open && state.theme && state.theme.length && state.config) {
@@ -200,7 +197,7 @@ class Modal extends React.Component {
                     <div className={"cmp-modal " + this.state.theme}>
                         <div className="cmp-modal__box ">
                             {state.config.closeIcon && (
-                                <div className="cmp-modal__close-icon cmp-utility-button">
+                                <div className="cmp-modal__close-icon">
                                     <ReactSVG
                                         onClick={() => this.closeModal()}
                                         src={state.config.closeIcon}
@@ -212,9 +209,9 @@ class Modal extends React.Component {
                                 state.config.title,
                                 state.config.icon
                             )}
-                            
+
                             { this.theme(state)}
-                            
+
                         </div>
                     </div>
                 </div>

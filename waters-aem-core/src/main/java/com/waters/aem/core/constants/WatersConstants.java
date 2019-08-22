@@ -53,6 +53,8 @@ public final class WatersConstants {
 
     public static final String TAG_LIBRARY = "waters:category/library";
 
+    public static final String TAG_SHOP = "waters:category/shop";
+
     public static final String PROPERTY_LIBRARY_ASSET_PATH = "libraryAssetPath";
 
     public static final String PROPERTY_REDIRECT_TARGET = "redirectTarget";

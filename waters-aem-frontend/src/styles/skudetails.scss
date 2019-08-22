@@ -2,6 +2,9 @@
     &-details,
     &-list {
         margin-bottom: $space-l;
+        opacity: 1;
+        transition: opacity 0.2s ease-in;
+
         .cmp-sku-details__code {
             @include font-h2;
             margin-bottom: $space-xxs;
@@ -44,32 +47,67 @@
             padding-right: $space-xs;
             line-height: 1em;
         }
+
         &__price {
             @include font-h1;
             margin-bottom: $space-xxs;
         }
 
         &__availability {
+            display: flex;
+            align-items: center;
             padding: 0 $space-m 0 $space-s;
             @include font-h3;
+            height: 3em;
             margin-top: $space-xxxs;
             border-left: 1px solid $color-border-light;
             @include mobile {
-                padding: 0 0 0 $space-xxs;
+                padding: 0 0 0 $space-xs;
             }
         }
 
+        &__stockcontainer {
+            display: inherit;
+        }
+
+        &__stockdetails-container {
+            display: inline-flex;
+            margin-top: 0.3em;
+            min-width: 350px
+        }
+
         &__stockdetails {
+            float: left;
+
+            div {
+                display: inline;
+            }
             svg {
                 width: ($icon-m - 0.25em);
+                height: ($icon-m - 0.25em);
                 fill: $color-success;
                 margin-left: $space-xxxs;
-                margin-top: ($space-xxxs - 0.1em);
+                margin-top: ($space-xxxs);
                 float: right;
-                .st0,
-                .st1 {
-                    stroke: $color-success;
-                    stroke-width: 2px;
+            }
+            &--instock{
+                svg {
+                    fill: $color-success;
+                    .st0,
+                    .st1 {
+                        stroke: $color-success;
+                        stroke-width: 2px;
+                    }
+                }
+            }
+            &--outofstock{
+                svg {
+                    fill: $color-error;
+                    .st0,
+                    .st1 {
+                        stroke: $color-error;
+                        stroke-width: 2px;
+                    }
                 }
             }
         }
@@ -77,6 +115,7 @@
         &__order {
             @include font-small;
             font-weight: $font-weight-light;
+            clear:both;
         }
 
         &__buttons {
@@ -106,8 +145,14 @@
             font-weight: $font-weight-light;
             text-align: center;
 
+            -moz-appearance: textfield;
+            
             &:focus {
                 outline: 2px solid $color-focus;
+            }
+
+            @include mobile {
+                height: 2.9em;
             }
         }
 
@@ -117,19 +162,27 @@
     }
 
     &-details--sticky {
+        &--shadow {
+            .cmp-sku-details__wrapper {
+                box-shadow: $shadow;
+            }
+        }
         .cmp-sku-details__wrapper {
             display: flex;
             align-items: flex-start;
             position: fixed;
-            top: 0;
             left: 0;
             z-index: 999;
             width: 100%;
             height: 100px;
-            border-bottom: 1px solid $color-border-light;
+            // border-bottom: 1px solid $color-border-light;
             padding: $space-xs $space-xxl;
             background-color: $color-white;
             justify-content: center;
+
+            &-noBorder {
+                border-bottom: none;
+            }
 
             @include mobile {
                 box-shadow: $shadow;
@@ -141,6 +194,12 @@
                 padding-left: ($space-l + 0.5em);
                 padding-right: ($space-l + 0.5em);
             }
+        }
+
+        .cmp-sku-details__code {
+            @include font-utility;
+            font-size: $font-size-body;
+            margin-bottom: 0;
         }
 
         .cmp-sku-details__container {
@@ -169,7 +228,7 @@
             img {
                 display: block;
                 width: 92px;
-                height: 63px;
+                height: 61px;
                 border: 1px solid $color-border-light;
                 margin-right: $space-s;
             }
@@ -196,13 +255,6 @@
                     //     width: 90%;
                     // }
                 }
-
-                h3 {
-                    @include font-small;
-
-                    margin-block-start: 0;
-                    margin-block-end: 0;
-                }
             }
         }
 
@@ -215,6 +267,11 @@
             }
         }
 
+        .cmp-sku-details__stockcontainer {   
+            @include mobile {
+                width: 100vw;
+            }
+        }
         .cmp-sku-details__priceinfo {
             background: none;
             padding-right: $space-s;
@@ -245,11 +302,15 @@
                 width: 100%;
             }
         }
+
+        .cmp-sku-details__quote {
+            display: none;
+        }
     }
 }
 
 .cmp-sku-details {
-    h3 {
+    &__code {
         @include font-h2;
         margin-bottom: $space-xxs;
     }
@@ -272,23 +333,54 @@
 }
 
 .cmp-sku-list {
-    h3 {
-        @include font-small;
+
+    &__code {
+        @include font-body;
+        @include font-utility;
+        margin-bottom: $space-xxxs;
+    }
+
+    &__availability {
+        @include font-body;
+        @include font-utility;
+        height: 3em;
+        padding-top: ($space-xxs + .1em);
+    }
+
+    &__priceinfo {
+        padding-right: $space-s;
+
+        span {
+            margin-bottom: $space-xxxs;
+            line-height: $line-height-text;
+        }
     }
 
     &__checkavailability {
+        padding-right: $space-xxxs;
+        @include font-body;
+        @include font-utility;
+        padding-top: $space-xxs;
+        cursor: pointer;
+
         svg {
-            width: $icon-m;
             fill: $color-icon;
             float: right;
+            width: ($icon-s + 0.1em);
+            height: ($icon-s + 0.1em);
+            margin-top: ($space-xxxs - 0.1em);
+
             &:hover {
+                transition: $hover-transition;
                 .st0,
                 .st1 {
                     stroke: $color-link;
                 }
             }
         }
+
         &:hover {
+            transition: $hover-transition;
             color: $color-link;
             svg {
                 .st0,
@@ -299,16 +391,20 @@
         }
     }
 
-    h1 {
+    .cmp-sku-details__title {
         @include font-h3;
+        margin-bottom: $space-xs;
+        
+        @include tablet {
+            min-height: 100px;
+        }
     }
 
     &__container {
         background-color: $color-background-light;
         padding: $space-m $space-m 0 $space-m;
-        margin-bottom: $space-m;
         width: 100%;
-        margin-bottom: 2em;
+        margin-bottom: $space-s;
         clear: both;
     }
 
@@ -318,16 +414,26 @@
         @include mobile {
             display: none;
         }
+
+        @include tablet {
+            margin-left: $space-xl;
+        }
+
+        img {
+            @include tablet {
+                margin-bottom: 0px;
+            }
+        }
+    }
+
+    &__price {
+        @include font-h3;
     }
 }
 
 // IE 11 CSS hacks
 @media all and (-ms-high-contrast: none) {
     .cmp-sku-details--sticky {
-        .cmp-sku-details__wrapper {
-            height: 85px;
-        }
-
         .cmp-sku-details__info {
             .cmp-sku-details__code {
                 display: inline;
@@ -339,10 +445,6 @@
 // Edge Css hacks
 @supports (-ms-ime-align: auto) {
     .cmp-sku-details--sticky {
-        .cmp-sku-details__wrapper {
-            height: 85px;
-        }
-
         .cmp-sku-details__info {
             .cmp-sku-details__code {
                 display: inline;

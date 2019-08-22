@@ -19,7 +19,7 @@ import java.util.List;
 @PageObject
 public class Multifield implements DialogField {
 
-    @FindBy(xpath = "//coral-button-label [text()='Add']")
+    @FindBy(css = "button.coral-Button.coral-Button--secondary:not([title])")
     private WebElement addButton;
 
     @FindBy(css = ".coral-Multifield-item")

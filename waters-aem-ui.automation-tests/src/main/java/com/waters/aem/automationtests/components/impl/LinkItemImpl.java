@@ -8,19 +8,19 @@ public class LinkItemImpl implements LinkItem {
     private String link;
     private String text;
     private boolean linkIcon;
-    private boolean newWindow;
+    private boolean external;
 
-    public LinkItemImpl(String text, String link, boolean linkIcon, boolean newWindow) {
+    public LinkItemImpl(String text, String link, boolean linkIcon, boolean external) {
         this.text = text;
         this.link = link;
         this.linkIcon = linkIcon;
-        this.newWindow = newWindow;
+        this.external = external;
     }
 
-    public LinkItemImpl(String text, String link, boolean newWindow) {
+    public LinkItemImpl(String text, String link, boolean external) {
         this.text = text;
         this.link = link;
-        this.newWindow = newWindow;
+        this.external = external;
     }
 
     @Override
@@ -39,8 +39,8 @@ public class LinkItemImpl implements LinkItem {
     }
 
     @Override
-    public boolean isNewWindow() {
-        return newWindow;
+    public boolean isExternal() {
+        return external;
     }
 
 }
