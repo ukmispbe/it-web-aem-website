@@ -4,6 +4,7 @@
 
 html {
     overflow-x: hidden;
+    margin-bottom: 0;
 }
 
 body {
@@ -134,7 +135,7 @@ a {
         svg {
             height: $icon-m;
             margin-top: ($space-xxxs - .2em);
-            
+
             .st0 {
                 stroke: $color-icon;
             }
