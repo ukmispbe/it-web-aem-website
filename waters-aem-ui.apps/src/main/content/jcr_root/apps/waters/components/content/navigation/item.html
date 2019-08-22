@@ -4,6 +4,6 @@
     <li id="${item.level == 0 ? '{0}-{1}':  '' @ format=['nav', item.name]}"
         class="cmp-navigation__item cmp-navigation__item--level-${item.level}${item.active ? ' cmp-navigation__item--active' : ''}">
         <sly data-sly-call="${itemContentTemplate.itemContent @ item = item}"></sly>
-        <sly data-sly-test="${item.children.size > 0}" data-sly-call="${groupTemplate.group @ items = item.children}"></sly>
+        <sly data-sly-test="${item.children.size > 0}" data-sly-call="${groupTemplate.group @ items = item.children, parent = item}"></sly>
     </li>
 </template>
