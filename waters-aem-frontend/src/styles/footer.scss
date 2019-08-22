@@ -1,5 +1,6 @@
 .cmp-footer {
     padding: $space-xl 0;
+    padding-bottom: 0;
     margin-top: $space-xl;
     overflow: hidden;
     width: 100%;
@@ -475,7 +476,7 @@
             padding: 0;
             border: none;
             cursor: text;
-            
+
             &:hover > a:first-child {
                color: $color-white;
             }
