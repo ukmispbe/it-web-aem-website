@@ -1,6 +1,9 @@
-<template data-sly-template.group="${@ items='The navigation items for the current level'}" data-sly-use.itemTemplate="item.html">
+<template data-sly-template.group="${@ items='The navigation items for the current level',
+    parent='The parent nav item of the passed in child items if applicable'}" data-sly-use.itemTemplate="item.html">
     <ul class="cmp-navigation__group" data-sly-list.item="${items}">
         <sly data-sly-call="${itemTemplate.item @ item=item}"></sly>
     </ul>
-    <div class="cmp-navigation__adobe-target-container" data-sly-test="${items[0].level == 1}"></div>
+    <div data-sly-test="${items[0].level == 1}"
+         id="${parent ? '{0}-{1}' : '' @ format=[parent.name, 'target-container']}"
+         class="cmp-navigation__adobe-target-container"></div>
 </template>
