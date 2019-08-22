@@ -67,12 +67,15 @@ nav.cmp-navigation {
       -ms-overflow-style: none;
       overflow-x: scroll;
       margin-bottom: 0;
+      overflow-y: hidden;
 
       &::-webkit-scrollbar {
          display: none;
       }
 
       @include mobile {
+         overflow-y: scroll;
+
          > .cmp-navigation__item {
             width: 100%;
          }
@@ -121,6 +124,7 @@ nav.cmp-navigation {
          margin-right: $space-xl;
          margin-bottom: 0;
          display: inline-block;
+         overflow: hidden;
 
          &--level-0 {
             height: 67px;
