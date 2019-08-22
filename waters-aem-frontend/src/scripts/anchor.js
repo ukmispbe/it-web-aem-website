@@ -5,6 +5,7 @@ import sticky, { scrollListener } from './stickyService';
 
 var anchorElement = document.querySelector('.cmp-anchor');
 var anchorMenu = document.querySelector('.cmp-anchor__list-heading');
+let ancFader = null;
 
 // Setup click handler for Anchor Links to scroll in view
 var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
@@ -134,21 +135,25 @@ function hideScrollBars(el) {
 }
 
 function anchorChange(el) {
-    const ancFader = Fader('cmp-anchor__list', 0, 75);
+   if (ancFader === null) {
+      ancFader = Fader('cmp-anchor__list', 0, 75);
 
-    var anchorElementId = document.getElementById('cmp-anchor');
+      var anchorElementId = document.getElementById('cmp-anchor');
 
-    if (ancFader) {
-        anchorElementId.addEventListener('scroll', ancFader);
-    }
+      if (ancFader) {
+         anchorElementId.addEventListener('scroll', ancFader);
+      }
+   }
 }
 
 function clearGradients() {
     let lhsGradient = document.querySelector('.cmp-anchor__list .fader-container--left');
     let rhsGradient = document.querySelector('.cmp-anchor__list .fader-container--right');
-
-    lhsGradient.style.display = 'none';
-    rhsGradient.style.display = 'none';
+    
+   if (lhsGradient !== null && rhsGradient !== null) {
+      lhsGradient.style.display = 'none';
+      rhsGradient.style.display = 'none';
+   }
 }
 
 function resizeWindow(el) {
@@ -159,7 +164,7 @@ function resizeWindow(el) {
 }
 
 function scrollWindow(el) {
-    var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
+   var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
     if (!hasHorizontalScrollbar) {
         clearGradients();
     }
@@ -208,7 +213,9 @@ if (anchorList) {
             hideScrollBars(anchorList)
         );
 
-        anchorList.addEventListener('scroll', () => scrollWindow(anchorList));
+        anchorChange(anchorList); 
+
+        window.addEventListener('scroll', () => scrollWindow(anchorList));
         window.addEventListener('load', () => resizeWindow(anchorList));
         window.addEventListener('resize', () => resizeWindow(anchorList));
         var mediaQueryListener = window.matchMedia('(max-width: 650px)');

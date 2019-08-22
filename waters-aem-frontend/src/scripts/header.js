@@ -20,7 +20,10 @@ function domReferences() {
     headerTB_mobile_btn = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile button');
 
     headerNavigation_comp = document.querySelector('.cmp-header__navigation nav.cmp-navigation');
-    headerNavigation_mainUL = document.querySelector('.cmp-header__navigation nav.cmp-navigation').children[0];
+    headerNavigation_mainUL = document.querySelector('.cmp-header__navigation nav.cmp-navigation')
+    if (headerNavigation_mainUL !== null) {
+      headerNavigation_mainUL = headerNavigation_mainUL.children[0];
+    }
 }
 
 function addEventListeners() { 
