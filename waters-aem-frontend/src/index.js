@@ -128,10 +128,12 @@ const skuDetailsConfig = JSON.parse(
     document.getElementById('commerce-configs-json').innerHTML
 );
 
+const skuDetailsListPrice = document.querySelector('.cmp-sku-details__ecom').dataset.price;
+
 if (skuDetailsContainer) {
-
-
-    ReactDOM.render(<SkuDetails config={skuDetailsConfig} price={skuDetailsContainer.getAttribute('data-price')}/>, skuDetailsContainer);
+    console.warn('skuDetailsListPrice',skuDetailsListPrice)
+    const skuNumber = document.querySelector('.cmp-sku-details__code').innerHTML;
+    ReactDOM.render(<SkuDetails config={skuDetailsConfig} price={skuDetailsListPrice} skuNumber={skuNumber}/>, skuDetailsContainer);
 }
 
 
@@ -142,5 +144,5 @@ if (skuListContainer) {
         skuListContainer.dataset.json
     );
 
-    ReactDOM.render(<SkuList skuConfig={skuDetailsConfig} data={skuListData} />, skuListContainer);
+    ReactDOM.render(<SkuList skuConfig={skuDetailsConfig} data={skuListData}/>, skuListContainer);
 }

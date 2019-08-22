@@ -28,6 +28,7 @@ class ListItem extends React.Component {
         this.checkAvailability = this.checkAvailability.bind(this)
     }
     checkAvailability = (skuNumber) => {
+        console.warn('checking sku availability, ', skuNumber)
         this.request.getAvailability(skuNumber).then(response => {
             this.setState({ skuAvailability: response });
         });
@@ -39,35 +40,35 @@ class ListItem extends React.Component {
                 <div className="cmp-sku-list__right">
                     <img src={this.props.relatedSku.primaryImageThumbnail} alt={this.props.relatedSku.primaryImageAlt} />
                 </div>
-                <div className="cmp-sku-list__left">
+                <div className="cmp-sku-details__left">
                     <div className="cmp-sku-list__code">{this.props.relatedSku.code}</div>
                     <a href={this.props.relatedSku.skuPageHref}>
                         <div className="cmp-sku-details__title">{this.props.relatedSku.title}</div>
                     </a>
-                    <div className="cmp-sku-list__buyinfo">
+                    <div className="cmp-sku-details__buyinfo">
                         <div className="cmp-sku-list__priceinfo">
-                        <Price
-                            skuConfig={this.props.skuConfig.skuInfo}
-                            price={this.props.relatedSku.formattedPrice}
-                        />
-                    </div>
-                    <div className="cmp-sku-list__availability" onClick={(e) => this.checkAvailability(this.props.relatedSku.code)}>
-                        {this.state.skuAvailability.productStatus &&
-                        
-                            <Stock
-                                skuConfig={this.props.skuConfig}
-                                skuNumber={this.props.relatedSku.code}
-                                skuAvailability={this.state.skuAvailability}
-                                locale={this.props.skuConfig.locale}
-                                skuType="list" />
-                        }
-                        {!this.state.skuAvailability.productStatus &&
-                            // TODO: add these labels to the skuDetails or footer
-                            <span className="cmp-sku-list__checkavailability">See Availability
-                                <img alt="See Availability" src="/content/dam/waters/brand-assets/icons/refresh.svg" className="inline-svg"/>
-                            </span>
-                        }
-                    </div>
+                            <Price
+                                skuConfig={this.props.skuConfig.skuInfo}
+                                price={this.props.relatedSku.formattedPrice}
+                            />
+                        </div>
+                        <div className="cmp-sku-details__availability" onClick={(e) => this.checkAvailability(this.props.relatedSku.code)}>
+                            {this.state.skuAvailability.productStatus &&
+                            
+                                <Stock
+                                    skuConfig={this.props.skuConfig.skuInfo}
+                                    skuNumber={this.props.relatedSku.code}
+                                    skuAvailability={this.state.skuAvailability}
+                                    locale={this.props.skuConfig.locale}
+                                    skuType="details" />
+                            }
+                            {!this.state.skuAvailability.productStatus &&
+                                // TODO: add these labels to the skuDetails or footer
+                                <span className="cmp-sku-list__checkavailability">See Availability
+                                    <img alt="See Availability" src="/content/dam/waters/brand-assets/icons/refresh.svg" className="inline-svg"/>
+                                </span>
+                            }
+                        </div>
                         {/* //TODO: this will get swapped out for an add-to-cart component that can be shared between sku-list and sku-details */}
                         <div className="cmp-sku-list__buttons">
                             <input className="cmp-sku-list__quantity" type="number" placeholder="Qty" max="999" min="0" value=""/>

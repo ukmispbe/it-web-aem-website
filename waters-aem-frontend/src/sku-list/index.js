@@ -21,7 +21,11 @@ class SkuList extends React.Component {
     render() {
         return (
             <>
-                {this.props.data.map((record, index) => <ListItem relatedSku={record} skuConfig={this.props.skuConfig}/>)}
+                {this.props.data.length > 0 && //only return template if data exists
+                    <>
+                        {this.props.data.map((record, index) => <ListItem relatedSku={record} skuConfig={this.props.skuConfig}/>)}
+                    </>
+                }
             </>
         );
         

@@ -13,7 +13,7 @@ class SkuDetails extends React.Component {
             modalShown: false,
             modalConfig: this.props.config.modalInfo,
             skuConfig: this.props.config.skuInfo,
-            skuNumber: this.props.config.modalInfo.textHeading,
+            skuNumber: this.props.skuNumber,
             userCountry: this.props.config.countryCode,
             availabilityAPI: this.props.config.availabilityUrl,
             skuAvailability: {},

@@ -1,7 +1,7 @@
 <div data-sly-use.skuList="com.waters.aem.core.components.content.SkuList"
      class="cmp-sku-list"
-     data-json='${skuList.displayableSkusAsJson @ context="unsafe"}'>
-    <h3>${skuList.title}</h3>
+     data-json='${skuList.displayableSkusAsJson @ context="unsafe"}'
+     data-componentTitle='${skuList.title @ context="unsafe"}'>
     <!--<a class="cmp-sku-list__signin" href="#">
         <img alt="${'Login' @ i18n}" src="/content/dam/waters/brand-assets/icons/user.svg" class="inline-svg">
         <span>${'Sign in to view your price' @ i18n}</span>
