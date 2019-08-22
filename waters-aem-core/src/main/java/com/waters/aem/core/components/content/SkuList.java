@@ -12,6 +12,7 @@ import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.commerce.services.SkuRepository;
 import com.waters.aem.core.components.EmptyComponent;
 import com.waters.aem.core.components.SiteContext;
+import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -92,6 +93,10 @@ public final class SkuList implements EmptyComponent, ComponentExporter {
 
     public String getTitle() {
         return title;
+    }
+
+    public CountryCommerceConfig getCommerceConfig() {
+        return siteContext.getCountryCommerceConfig();
     }
 
     @Override
