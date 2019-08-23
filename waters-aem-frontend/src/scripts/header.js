@@ -1,8 +1,10 @@
 import domElements from '../scripts/domElements';
 import loginStatus from '../scripts/loginStatus';
-import screenSizes from '../scripts/screenSizes';
+import MobileNav from '../scripts/mobileNav';
+import ScreenSizes from '../scripts/screenSizes';
 
-let loginNavItem, headerOverlay, loginList, greetingText;
+
+let headerTB, headerTB_user, headerTB_user_link_greetingText,  headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, headerNavigation_mainUL;
 
 const headerInit = function() {
     domReferences();
@@ -10,52 +12,50 @@ const headerInit = function() {
     render();
 }
 
-function domReferences() { 
-    loginNavItem = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
-    headerOverlay = document.querySelector('.cmp-header__overlay.overlay');
-    loginList = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link');
-    greetingText = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link .greeting-text');    
+function domReferences() {
+    headerTB = document.querySelector('header.cmp-header .cmp-header__top-bar');
+    headerTB_user = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
+    headerTB_user_link_greetingText = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link .greeting-text');
+    headerTB_mobile = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile');
+    headerTB_mobile_btn = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile button');
+
+    headerNavigation_comp = document.querySelector('.cmp-header__navigation nav.cmp-navigation');
+    headerNavigation_mainUL = document.querySelector('.cmp-header__navigation nav.cmp-navigation').children[0];
 }
 
 function addEventListeners() { 
-    loginList.addEventListener('click', loginListHandler);
-    loginNavItem.addEventListener('mouseover', updateOverlay);
-    loginNavItem.addEventListener('mouseleave', updateOverlay);
+    if (headerNavigation_comp) { 
+        const mobileNav = MobileNav();
+        if (mobileNav) {
+            headerTB_mobile_btn.addEventListener('click', mobileNav.toggle);
+            window.addEventListener('resize', mobileNav.resize);
+        }
+    }
 }
 
 function render() { 
+    const loggedInClass = 'loggedIn';
     if (loginStatus.state()) {
-        domElements.addClass(loginNavItem, 'loggedIn');
+        domElements.addClass(headerTB_user, loggedInClass);
         let greeting = loginStatus.getGreeting();
         if (greeting) {
-            greetingText.innerHTML = greeting;
+            headerTB_user_link_greetingText.innerHTML = greeting;
         }
     } else {
-        domElements.removeClass(loginNavItem, 'loggedIn')
+        domElements.removeClass(headerTB_user, loggedInClass)
     }
-}
 
-function loginListHandler(e) { 
-    e.preventDefault();
-    let loggedIn = loginStatus.state();
+    const isUsed = 'is-used';
+    if (headerNavigation_comp) { 
+        domElements.addClass(headerTB_mobile, isUsed);
+    }
 
-    if (!loggedIn) { 
-        if (e.currentTarget.dataset.loginUrl) { 
-            window.open(e.currentTarget.dataset.loginUrl, e.currentTarget.target);
+    if (headerNavigation_mainUL) { 
+        if (ScreenSizes.isMobile()) { 
+            headerNavigation_mainUL.style.height = (window.innerHeight - headerTB.offsetHeight) + 'px';
         }
-    }
-}
-
-function updateOverlay(e) { 
-    let loggedIn = loginStatus.state();
+    }    
     
-    if (loggedIn) {
-        if (e.type == 'mouseover') {
-            domElements.addClass(headerOverlay, 'active');
-        } else {
-            domElements.removeClass(headerOverlay, 'active');
-        }
-    }
 }
 
 window.addEventListener('load', headerInit);

@@ -75,7 +75,22 @@
 
 .cmp-tag-list--label {
     .cmp-tag-list {
-        margin-bottom: $space-s;
+        margin-bottom: 0;
+        &__item {
+            @include font-small;
+            display: inline-block;
+            padding: ($space-xxxs - .05em) $space-xs ($space-xxxs + .05em) $space-xs;         
+            margin: 0 $space-xxs $space-s 0;
+            background-color: $color-background-dark;
+            color: $color-font-light;
+            border-radius: .25em;
+        }
+    }
+}
+
+.cmp-tag-list--labelFullWidth {
+    .cmp-tag-list {
+        margin-bottom: 0;
         &__item {
             @include font-small;
             display: inline-block;
@@ -84,6 +99,7 @@
             background-color: $color-background-dark;
             color: $color-font-light;
             border-radius: .25em;
+            width: 100%;
         }
     }
 }

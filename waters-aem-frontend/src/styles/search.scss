@@ -382,12 +382,12 @@ div.cmp-search__sorted-by {
     padding: $space-s 0;
 }
 .cmp-search-overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     background-color: hsla(0, 0%, 100%, 0.8);
     width: 200%;
-    height: 100%;
+    height: 130%;
     padding: 50% 80%;
     margin: -30%;
     z-index: 9999;
@@ -446,4 +446,12 @@ html.showing-spinner {
             z-index: -1;
         }
     }
+}
+
+@include mobile {
+   #js-search-app {
+      .overlay {
+         position: fixed;
+      }
+   }
 }
