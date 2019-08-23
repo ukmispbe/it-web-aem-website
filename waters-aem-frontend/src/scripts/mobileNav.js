@@ -7,10 +7,7 @@ const MobileNav = function () {
     const headerTB = document.querySelector('header.cmp-header .cmp-header__top-bar');
     const headerTB_mobile_btn = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile button');
     const headerNavigation = document.querySelector('.cmp-header__navigation');
-    let headerNavigation_mainUL;
-    if (headerNavigation) { 
-        headerNavigation_mainUL = document.querySelector('.cmp-header__navigation nav.cmp-navigation').children[0];
-    }
+    let headerNavigation_mainUL = document.querySelector('.cmp-header__navigation nav.cmp-navigation');
 
     const showMobileNav = () => { 
         headerTB_mobile_btn.classList.add('is-active');
@@ -40,16 +37,15 @@ const MobileNav = function () {
             hideMobileNav();
         } 
 
-        if (headerNavigation) { 
-            if (headerNavigation_mainUL) { 
+        if (headerNavigation_mainUL) { 
+            if (headerNavigation_mainUL.childNodes.length > 0) { 
                 if (ScreenSizes.isMobile()) {
-                    console.log('mainUL resize')
-                    headerNavigation_mainUL.style.height = (window.innerHeight - headerTB.offsetHeight) + 'px';
+                    headerNavigation_mainUL.children[0].style.height = (window.innerHeight - headerTB.offsetHeight) + 'px';
                 } else { 
-                    headerNavigation_mainUL.style.height = 'auto';
+                    headerNavigation_mainUL.children[0].style.height = 'auto';
                 }
-            }   
-        } 
+            }
+        }
     } 
 
     const toggleMobileNav = () => { 
