@@ -29,7 +29,7 @@
     &__item {
         display: inline;
         position: relative;
-        margin-bottom: $space-xxxs;
+        // margin-bottom: $space-xxxs;
         @include mobile {
             padding-left: $space-s;
         }
@@ -73,8 +73,8 @@
     @include mobile {
         vertical-align: top;
         display: inline-block;
+        margin-top: $space-m;
     }
-
 
     &-gradient-right {
         @include mobile {
