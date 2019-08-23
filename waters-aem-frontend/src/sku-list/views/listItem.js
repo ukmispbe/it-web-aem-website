@@ -62,10 +62,14 @@ class ListItem extends React.Component {
                                     skuType="details" />
                             }
                             {!this.state.skuAvailability.productStatus &&
-                                // TODO: add these labels to the skuDetails or footer
-                                <span className="cmp-sku-list__checkavailability">See Availability
-                                    <img alt="See Availability" src="/content/dam/waters/brand-assets/icons/refresh.svg" className="inline-svg"/>
+                                <span className="cmp-sku-list__checkavailability">{this.props.skuConfig.skuInfo.seeAvailabilityLabel}
+                                    <ReactSVG
+                                        alt={this.props.skuConfig.skuInfo.seeAvailabilityLabel}
+                                        src={this.props.skuConfig.skuInfo.refreshIcon}
+                                        className="inline-svg"
+                                    />
                                 </span>
+                                
                             }
                         </div>
                         {/* //TODO: this will get swapped out for an add-to-cart component that can be shared between sku-list and sku-details */}

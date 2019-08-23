@@ -106,15 +106,16 @@
 
 <script type="application/json" id="commerce-configs-json">
     {
-        "locale": "${externalFooter.locale}",
-        "availabilityUrl": "${externalFooter.skuAvailabilityUrl @ context='unsafe'}",
-        "pricingUrl": "${externalFooter.skuCustomerPriceUrl @ context='unsafe'}",
-        "addToCartUrl": "${externalFooter.addToCartUrl @ context='unsafe'}",
-        "countryCode": "${externalFooter.countryCode @ context='scriptString'}",
-        "isoCode": "${externalFooter.isoCode @ context='scriptString'}",
+        "locale": "${footer.locale  @ context='scriptString'}",
+        "availabilityUrl": "${footer.skuAvailabilityUrl @ context='unsafe'}",
+        "pricingUrl": "${footer.skuCustomerPriceUrl @ context='unsafe'}",
+        "addToCartUrl": "${footer.addToCartUrl @ context='unsafe'}",
+        "countryCode": "${footer.countryCode @ context='scriptString'}",
+        "isoCode": "${footer.isoCode @ context='scriptString'}",
         "addToCartLabel": "${'ADD TO CART' @ i18n, context='scriptString'}",
         "qtyLabel": "${'Qty' @ i18n, context='scriptString'}",
         "skuInfo": {
+            "requestQuote": "${'Do you need a web quote?' @ i18n, context='scriptString'}",
             "listPriceLabel": "${'List Price' @ i18n, context='scriptString'}",
             "inStockLabel": "${'In Stock' @ i18n, context='scriptString'}",
             "outOfStockLabel": "${'Out of Stock' @ i18n, context='scriptString'}",

@@ -1,9 +1,5 @@
 // entry point for SKU. Move this up to global entry point if we want babel to polyfill everything we need at build time
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import { Modal } from '../modal/index';
-// import Stock from './views/stock';
-
 import ListItem from './views/listItem'
 
 class SkuList extends React.Component {
