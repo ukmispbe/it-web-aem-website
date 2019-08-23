@@ -125,8 +125,7 @@ nav.cmp-navigation {
          margin-right: $space-xl;
          margin-bottom: 0;
          display: inline-block;
-         overflow-y: hidden;
-         overflow-x: visible;
+         overflow: visible;
 
          &--level-0 {
             height: 67px;
