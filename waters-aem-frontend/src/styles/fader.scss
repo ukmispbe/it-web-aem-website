@@ -1,6 +1,5 @@
 .fader-fade {
     white-space: nowrap;
-    overflow-x: scroll;
 
     & .fader-container {
         height: 90%;
@@ -17,23 +16,31 @@
         &--right {
             right: 3em;
             background: linear-gradient(to right,hsla(0,0%,100%,.2) 0%,hsla(0,0%,100%,.8) 100%);
-        }
-    }
+         }
+      }
 
-    &--left .fader-container {
-        &--left {
-            visibility: visible;
-        }
-    }
+      &--left {
+         overflow-x: scroll;
+         
+         .fader-container {
+            &--left {
+               visibility: visible;
+            }
+         }
+      }
 
-    &--right .fader-container {
-        &--right {
-            visibility: visible;
-        }
-    }
+      &--right {
+         overflow-x: scroll;
+
+         .fader-container {
+            &--right {
+               visibility: visible;
+            }
+         }
+      }
 }
 
-.cmp-anchor--sticky .cmp-anchor__list.fader-fade .fader-container{
+   .cmp-anchor--sticky .cmp-anchor__list.fader-fade .fader-container{
     &--right {
         right: 57.5%;
     }
