@@ -1,8 +1,10 @@
 #base=.
 
 js/modernizr.js
+js/parentNode.prepend.js
 js/childNode.after.js
 js/string.prototype.startsWith.js
+js/string.prototype.repeat.js
 js/array.prototype.filter.js
 js/array.prototype.find.js
 js/array.prototype.findIndex.js

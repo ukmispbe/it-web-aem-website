@@ -1,7 +1,7 @@
 def resourcePathsToRemove = []
 
 getPage("/content/waters").recurse { page ->
-    def footer = page.getContentResource("externalfooter")
+    def footer = page.getContentResource("footer")
 
     if (footer) {
         def footerLinks = footer.getChild("footerLinks")

@@ -45,7 +45,6 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
         assertThat(titleComponent.getType()).isEqualTo("h2");
     }
 
-
     @Test
     public void text() throws ActionException {
         controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container[1]", "Text", 0,
@@ -112,33 +111,33 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
     }
 
     @Test
-    public void externalFooter() throws ActionException {
-        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("External Footer", "External Footer", 0,
+    public void footer() throws ActionException {
+        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("Footer", "Footer", 0,
             new ResourceFileLocation("external-footer.yaml")));
 
-        final ExternalFooter externalFooterComponent = page.getContent(ExternalFooter.class, 0);
+        final Footer footerComponent = page.getContent(Footer.class, 0);
 
         //test Properties Tab
-        assertThat(externalFooterComponent.getLogo().substring(externalFooterComponent.getLogo().lastIndexOf("/") + 1)).isEqualTo("waters-logo-white.svg");
-        assertThat(externalFooterComponent.getLogoLink().substring(externalFooterComponent.getLogoLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
-        assertThat(externalFooterComponent.getLogoAltText()).isEqualTo("Alt Text Test");
-        assertThat(externalFooterComponent.isNewWindow()).isEqualTo(true);
-        assertThat(externalFooterComponent.getCopyrightText()).isEqualTo("© 2019 Waters Corporation. All Rights Reserved.");
+        assertThat(footerComponent.getLogo().substring(footerComponent.getLogo().lastIndexOf("/") + 1)).isEqualTo("waters-logo-white.svg");
+        assertThat(footerComponent.getLogoLink().substring(footerComponent.getLogoLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
+        assertThat(footerComponent.getLogoAltText()).isEqualTo("Alt Text Test");
+        assertThat(footerComponent.isNewWindow()).isEqualTo(true);
+        assertThat(footerComponent.getCopyrightText()).isEqualTo("© 2019 Waters Corporation. All Rights Reserved.");
 
         //Test Footer Links Tab
         //Link Item 1
-        assertThat(externalFooterComponent.getCookiesLink().substring(externalFooterComponent.getCookiesLink()
-            .lastIndexOf("/") + 1)).isEqualTo("search.html");
-        assertThat(externalFooterComponent.getLinkItems().get(0).getText()).isEqualTo("Terms of Use");
-        assertThat(externalFooterComponent.getLinkItems().get(0).getLink().substring(externalFooterComponent.getLinkItems().get(0).getLink()
-            .lastIndexOf("/") + 1)).isEqualTo("search.html");
-        assertThat(externalFooterComponent.getLinkItems().get(0).isExternal()).isEqualTo(true);
+        assertThat(footerComponent.getCookiesLink().substring(footerComponent.getCookiesLink()
+                .lastIndexOf("/") + 1)).isEqualTo("search.html");
+        assertThat(footerComponent.getLinkItems().get(0).getText()).isEqualTo("Terms of Use");
+        assertThat(footerComponent.getLinkItems().get(0).getLink().substring(footerComponent.getLinkItems().get(0).getLink()
+                .lastIndexOf("/") + 1)).isEqualTo("search.html");
+        assertThat(footerComponent.getLinkItems().get(0).isExternal()).isEqualTo(true);
 
         //Link Item 2
-        assertThat(externalFooterComponent.getLinkItems().get(1).getText()).isEqualTo("Privacy");
-        assertThat(externalFooterComponent.getLinkItems().get(1).getLink().substring(externalFooterComponent.getLinkItems()
-            .get(0).getLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
-        assertThat(externalFooterComponent.getLinkItems().get(1).isExternal()).isEqualTo(false);
+        assertThat(footerComponent.getLinkItems().get(1).getText()).isEqualTo("Privacy");
+        assertThat(footerComponent.getLinkItems().get(1).getLink().substring(footerComponent.getLinkItems()
+                .get(0).getLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
+        assertThat(footerComponent.getLinkItems().get(1).isExternal()).isEqualTo(false);
     }
 
     @Override

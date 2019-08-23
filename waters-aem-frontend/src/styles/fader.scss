@@ -1,0 +1,47 @@
+.fader-fade {
+    white-space: nowrap;
+
+    & .fader-container {
+        height: 90%;
+        margin-top: 3px;
+        position: absolute;
+        top: 0;
+        visibility: hidden;
+        pointer-events: none;
+
+        &--left {
+            background: linear-gradient(to left,hsla(0,0%,100%,.2) 0%,hsla(0,0%,100%,.8) 100%);
+        }
+        
+        &--right {
+            right: 3em;
+            background: linear-gradient(to right,hsla(0,0%,100%,.2) 0%,hsla(0,0%,100%,.8) 100%);
+         }
+      }
+
+      &--left {
+         overflow-x: scroll;
+         
+         .fader-container {
+            &--left {
+               visibility: visible;
+            }
+         }
+      }
+
+      &--right {
+         overflow-x: scroll;
+
+         .fader-container {
+            &--right {
+               visibility: visible;
+            }
+         }
+      }
+}
+
+   .cmp-anchor--sticky .cmp-anchor__list.fader-fade .fader-container{
+    &--right {
+        right: 57.5%;
+    }
+}
