@@ -19,6 +19,10 @@
         align-self: flex-start;
         width: 100%;
 
+        @include tablet-and-over {
+            margin: 0;
+        }
+
         &--link {
             display: block;
             @include font-utility;
@@ -48,9 +52,8 @@
             }
 
             @include font-h3;
-            @include mobile {
-                font-size: 1em !important;
-            }
+            
+            font-size: 1em!important;
             font-weight: 300!important;
             margin:0 !important;
 
