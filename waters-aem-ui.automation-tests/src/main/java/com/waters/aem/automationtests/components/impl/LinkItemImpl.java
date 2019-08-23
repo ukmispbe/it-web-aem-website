@@ -10,11 +10,9 @@ public class LinkItemImpl implements LinkItem {
     private boolean linkIcon;
     private boolean external;
 
-    public LinkItemImpl(String text, String link, boolean linkIcon, boolean external) {
-        this.text = text;
+    public LinkItemImpl(String link, boolean linkIcon) {
         this.link = link;
         this.linkIcon = linkIcon;
-        this.external = external;
     }
 
     public LinkItemImpl(String text, String link, boolean external) {
