@@ -68,6 +68,7 @@ nav.cmp-navigation {
       overflow-x: scroll;
       margin-bottom: 0;
       overflow-y: hidden;
+      scrollbar-width: none;
 
       &::-webkit-scrollbar {
          display: none;
