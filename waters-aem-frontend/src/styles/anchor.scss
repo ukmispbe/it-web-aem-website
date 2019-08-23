@@ -6,6 +6,12 @@
     position: relative;
     background-color: $color-white;
     padding: $space-l 0;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar { 
+       display: none;
+    }
 
     svg {
         width: $icon-m;
@@ -65,10 +71,6 @@
             width: 300%;
         }
 
-        .cmp-anchor-gradient-right {
-            right: 54%;
-        }
-
         .cmp-anchor__list {
             @include mobile {
                 padding-left: 0;
@@ -89,7 +91,6 @@
                 position: relative;
                 cursor: pointer;
                 margin-bottom: $space-s;
-                box-shadow: $shadow;
 
                 @include mobile {
                     display: block;

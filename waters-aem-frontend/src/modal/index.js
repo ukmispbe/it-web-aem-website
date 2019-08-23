@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
+import AccountDropDownList from '../account-dropdown/account-dropdown-list';
 
 class Modal extends React.Component {
     constructor(props) {
@@ -135,6 +136,47 @@ class Modal extends React.Component {
                 return null;
             }
         },
+        list: list => {
+            if (list) {
+                const listItems = AccountDropDownList(list);
+
+                return (
+                    <div className="cmp-modal__information">
+                        <ul className="account-dropdown dropdown__list">{listItems}</ul>
+                    </div>
+                );
+            } else {
+                return null;
+            }
+        }
+    };
+
+    theme = state => {
+        if (state.theme == 'account-dropdown') {
+
+            let modalBody = this.shouldRender.list(
+                state.config.list
+            );
+
+            return (
+                <>
+                   {modalBody}
+                </>
+            )
+        } else {           
+            let modalBody = this.shouldRender.body(
+                state.config.text,
+                state.config.textHeading
+            );
+            let buttons = this.shouldRender.buttons(state.config.buttons);
+
+            return (
+                <>
+                    {modalBody} 
+                    {buttons}
+                </>
+            )
+        } 
     };
 
     render() {
@@ -142,7 +184,7 @@ class Modal extends React.Component {
         if (state.open && state.theme && state.theme.length && state.config) {
             return (
                 <div
-                    className="cmp-modal-box"
+                    className={"cmp-modal-box " + this.state.theme}
                     onClick={e => {
                         e.stopPropagation();
                         if (e.target.classList.contains('cmp-modal-box')) {
@@ -152,8 +194,8 @@ class Modal extends React.Component {
                         }
                     }}
                 >
-                    <div className="cmp-modal">
-                        <div className="cmp-modal__box">
+                    <div className={"cmp-modal " + this.state.theme}>
+                        <div className="cmp-modal__box ">
                             {state.config.closeIcon && (
                                 <div className="cmp-modal__close-icon">
                                     <ReactSVG
@@ -168,12 +210,8 @@ class Modal extends React.Component {
                                 state.config.icon
                             )}
 
-                            {this.shouldRender.body(
-                                state.config.text,
-                                state.config.textHeading
-                            )}
+                            { this.theme(state)}
 
-                            {this.shouldRender.buttons(state.config.buttons)}
                         </div>
                     </div>
                 </div>

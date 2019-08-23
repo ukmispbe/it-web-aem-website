@@ -1,10 +1,14 @@
 package com.waters.aem.core.commerce.models;
 
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.dam.api.Asset;
+import com.day.cq.dam.commons.util.PrefixRenditionPicker;
 import com.google.common.base.Objects;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
 import com.waters.aem.core.commerce.services.SkuRepository;
+import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.utils.AssetUtils;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -166,6 +170,28 @@ public final class Sku {
                 .filter(java.util.Objects :: nonNull)
                 .collect(Collectors.toList()))
             .orElse(Collections.emptyList());
+    }
+
+    public String getPrimaryImageThumbnail() {
+        return getPrimaryImageAsset() == null ? null : new PrefixRenditionPicker(WatersConstants.THUMBNAIL_RENDITION_PREFIX, true)
+            .getRendition(getPrimaryImageAsset())
+            .getPath();
+    }
+
+    public String getPrimaryImageSrc() {
+        return getPrimaryImageAsset() == null ? null :  getPrimaryImageAsset().getPath();
+    }
+
+    public Asset getPrimaryImageAsset() {
+        final List<Asset> assets = getAssets();
+
+        return assets.isEmpty() ? null : assets.get(0);
+    }
+
+    private List<Asset> getAssets() {
+        return getImages().stream()
+            .map(skuImage -> AssetUtils.getAsset(resource.getResourceResolver(), skuImage.getPath()))
+            .collect(Collectors.toList());
     }
 
     /**

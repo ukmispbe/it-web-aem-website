@@ -3,7 +3,7 @@ package com.waters.aem.automationtests.components.impl;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
-import com.waters.aem.automationtests.components.ExternalFooter;
+import com.waters.aem.automationtests.components.Footer;
 import com.waters.aem.automationtests.components.LinkItem;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @PageObject(css = ".cmp-external-footer")
-public class ExternalFooterImpl implements ExternalFooter{
+public class FooterImpl implements Footer {
 
     @Inject
     @CurrentScope

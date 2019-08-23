@@ -161,7 +161,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         if (skuOptional.isPresent()) {
             final Sku sku = skuOptional.get();
 
-            final DisplayableSku displayableSku = new DisplayableSku(sku, page.getContentResource(), siteContext);
+            final DisplayableSku displayableSku = new DisplayableSku(sku, siteContext);
 
             setDocumentStringField(document, "skucode", sku.getCode());
 

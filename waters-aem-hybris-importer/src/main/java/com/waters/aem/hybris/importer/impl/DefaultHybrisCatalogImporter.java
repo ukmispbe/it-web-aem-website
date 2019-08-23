@@ -1,5 +1,6 @@
 package com.waters.aem.hybris.importer.impl;
 
+import com.day.cq.commons.DownloadResource;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.WCMException;
@@ -22,6 +23,7 @@ import com.waters.aem.hybris.importer.HybrisCatalogImporter;
 import com.waters.aem.hybris.importer.HybrisCatalogImporterConfiguration;
 import com.waters.aem.hybris.models.Category;
 import com.waters.aem.hybris.result.HybrisImporterResult;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ModifiableValueMap;
 import org.apache.sling.api.resource.PersistenceException;
@@ -244,7 +246,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     }
 
     private List<HybrisImporterResult> importPagesForSku(final CatalogImporterContext context,
-        final PageDecorator categoryPage, final Sku sku) throws WCMException {
+        final PageDecorator categoryPage, final Sku sku) throws WCMException, PersistenceException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         final String skuPageName = new StringBuilder(TextUtils.getValidJcrName(sku.getCode()))
@@ -285,6 +287,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         if (status != null) {
             updateSkuPageProperties(skuPage, sku);
+            setPageThumbnail(context.getResourceResolver(), sku, skuPage);
         }
 
         results.add(HybrisImporterResult.fromSkuPage(skuPage, status));
@@ -432,6 +435,10 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         updatedProperties.put(WatersCommerceConstants.PROPERTY_CODE, sku.getCode());
         updatedProperties.put(NameConstants.PN_SLING_VANITY_PATH , VANITY_PATH_PREFIX + sku.getCode());
 
+        if (sku.getPrimaryImageSrc() != null) {
+            updatedProperties.put(WatersConstants.OG_IMAGE, sku.getPrimaryImageSrc());
+        }
+
         updatePageProperties(page, updatedProperties);
     }
 
@@ -451,6 +458,20 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             .map(page -> page.getProperties().get(WatersCommerceConstants.PROPERTY_CODE, String.class))
             .filter(Objects :: nonNull)
             .collect(Collectors.toSet());
+    }
+
+    private void setPageThumbnail(final ResourceResolver resourceResolver, final Sku sku, final PageDecorator skuPage)
+        throws PersistenceException {
+        final String thumbNailImage = sku.getPrimaryImageThumbnail();
+
+        if (StringUtils.isNotEmpty(thumbNailImage)) {
+            final Map<String, Object> properties = new HashMap<>();
+
+            properties.put(JcrConstants.JCR_PRIMARYTYPE, JcrConstants.NT_UNSTRUCTURED);
+            properties.put(DownloadResource.PN_REFERENCE, thumbNailImage);
+
+            resourceResolver.create(skuPage.getContentResource(), WatersConstants.THUMBNAIL_IMAGE, properties);
+        }
     }
 
     private Map<String, Set<String>> getCategoryIdToProductCodeMap(final ResourceResolver resourceResolver) {
