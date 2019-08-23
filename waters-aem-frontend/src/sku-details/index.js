@@ -5,6 +5,7 @@ import { Modal } from '../modal/index';
 import Stock from './views/stock';
 import Price from './views/price';
 import SkuService from './services';
+import SkuList from '../scripts/skulist';
 
 class SkuDetails extends React.Component {
     constructor(props) {
@@ -31,6 +32,9 @@ class SkuDetails extends React.Component {
             this.props.config.addToCartUrl,
             err => console.log(err)
         );
+
+        this.skuRemoveNegative = this.skuRemoveNegative.bind(this);
+        this.skuQuantityInput = this.skuQuantityInput.bind(this);
     }
 
     componentDidMount() {
@@ -49,13 +53,13 @@ class SkuDetails extends React.Component {
         });
     };
 
-    quantityInput = e => {
+    skuRemoveNegative = e => {
+        SkuList.SkuRemoveNegative(e);
+    };
+
+    skuQuantityInput = e => {
+        SkuList.SkuQuantityInput(e);
         let value = e.target.value;
-
-        if (value > this.state.skuConfig.maxAmount) {
-            value = this.state.skuConfig.maxAmount;
-        }
-
         this.setState({
             addToCartQty: value,
         });
@@ -96,7 +100,7 @@ class SkuDetails extends React.Component {
 
     render() {
         return (
-        <>
+		 <>
             <div className="cmp-sku-details__buyinfo">
                 <div className="cmp-sku-details__priceinfo">
                     <Price
@@ -121,8 +125,9 @@ class SkuDetails extends React.Component {
                             max={this.state.skuConfig.maxAmount}
                             min="1"
                             value={this.state.addToCartQty}
-                            onChange={this.quantityInput}
-                        />
+                            onChange={this.skuQuantityInput}
+                            onKeyPress={this.skuRemoveNegative} 
+                             />
                     </form>
                     <a className="cmp-button" onClick={() => this.addToCart()}>
                         {this.props.config.addToCartLabel}

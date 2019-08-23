@@ -15,6 +15,7 @@ import './scripts/backtosearch';
 import './scripts/banner';
 import './scripts/header';
 import './scripts/collapsible';
+import './scripts/skulist'
 import './index';
 
 var inlineSVG = require('inline-svg');
