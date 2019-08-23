@@ -27,7 +27,15 @@ public final class DisplayableSku {
     }
 
     public String getSkuPageHref() {
-        return sku.getSkuPage(siteContext.getPage()).getHref();
+        String skuPageHref = "";
+
+        final PageDecorator skuPage = sku.getSkuPage(siteContext.getPage());
+
+        if (skuPage != null) {
+            skuPageHref = skuPage.getHref();
+        }
+
+        return skuPageHref;
     }
 
     public String getCode() {
