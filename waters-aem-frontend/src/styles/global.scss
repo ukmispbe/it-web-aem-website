@@ -4,10 +4,12 @@
 
 html {
     overflow-x: hidden;
+    margin-bottom: 0;
 }
 
 body {
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 html.no-scroll,
@@ -133,7 +135,7 @@ a {
 
         svg {
             height: $icon-m;
-            margin-top: ($space-xxxs - 0.2em);
+            margin-top: ($space-xxxs - .2em);
 
             .st0 {
                 stroke: $color-icon;

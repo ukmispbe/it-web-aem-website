@@ -85,6 +85,7 @@
                     vertical-align: top;
                     margin-left: $space-s;
                     margin-bottom: 0;
+                    padding-top: $space-xxxs;
 
                     @include mobile-xs {
                         margin-left: $space-s;
@@ -109,11 +110,6 @@
                         width: 30px;
                         height: 25px;
                         padding-left: 0.3em;
-
-                        .st0,
-                        .st1 {
-                            stroke: $color-icon;
-                        }
 
                         @include mobile {
                             width: $icon-m;
@@ -261,6 +257,11 @@
 .cmp-header-links__link{
     @include font-utility;
     display: inline-block;
+
+    svg .st0,
+    svg .st1 {
+        stroke: $color-gray-50;
+    }
 
     &:hover {
         color: $color-link;

@@ -6,6 +6,12 @@
     position: relative;
     background-color: $color-white;
     padding: $space-l 0;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar { 
+       display: none;
+    }
 
     svg {
         width: $icon-m;

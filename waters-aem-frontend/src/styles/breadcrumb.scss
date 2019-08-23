@@ -73,8 +73,8 @@
     @include mobile {
         vertical-align: top;
         display: inline-block;
+        margin-top: $space-m;
     }
-
 
     &-gradient-right {
         @include mobile {
