@@ -16,6 +16,13 @@ compiler.run((err, stats) => {
     if (err) {
         console.log(err);
     }
+
+    if (stats.compilation.errors && stats.compilation.errors.length) {
+        console.error(stats.compilation.errors);
+        process.exit(1);
+        return;
+    }
+
     console.log('Compiler Finished, moving files to AEM');
     const css = path.resolve(__dirname, '../', 'build', 'main.css');
     const js = path.resolve(__dirname, '../', 'build', 'main.js');
