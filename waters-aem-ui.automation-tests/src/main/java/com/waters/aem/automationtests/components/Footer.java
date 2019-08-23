@@ -13,11 +13,13 @@ public interface Footer {
 
     String getLogoAltText();
 
-    boolean isNewWindow();
+    boolean isExternal();
 
     String getCookiesLink();
 
     String getCopyrightText();
 
-    List<LinkItem> getLinkItems();
+    List<LinkItem> getFooterLinks();
+
+    List<LinkItem> getSocialLinks();
 }
