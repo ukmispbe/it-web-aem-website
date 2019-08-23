@@ -9,12 +9,15 @@ class SkuService {
             price:
                 'https://dev-www.waters.com:8443/api/waters/product/v1/customerprice',
         },
-        addToCart = 'https://www.waters.com/waters/ajax.htm?handler=shoppingHandler&action=processExternalCart',
+        cart = {
+            addToCart: 'https://dev-www.waters.com:8443/api/waters/product/v1/addtocart', //https://dev-www.waters.com:8443/api/waters/product/v1/addtocart/{sku}/{quantity}
+            getCart: ''
+        },
         throwError
     ) {
         this.isocode = isocode;
         this.skuOptions = sku;
-        this.addToCartPath = addToCart;
+        this.addToCartPath = cart.addToCart;
         this.throwError = throwError;
     }
 
@@ -73,7 +76,7 @@ class SkuService {
     }
 
     addToCart(partNo, quantity) {
-        const path = this.addToCartPath;
+        const path = `${this.addToCartPath}/${partNo}/${quantity}`;
         return new Promise((resolve, reject) => {
             window
                 .fetch(path, {
@@ -85,8 +88,9 @@ class SkuService {
                     }),
                 })
                 .then(response => {
+                    // Response does not return data we need to pass back. If response.ok === true or status === 200
                     if (response.ok) {
-                        resolve(response.json());
+                        resolve(true);
                     } else {
                         this.throwError(response);
                         reject(response);

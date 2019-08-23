@@ -5,6 +5,7 @@ import { Modal } from '../modal/index';
 import Stock from './views/stock';
 import Price from './views/price';
 import SkuService from './services';
+import AddToCart from './views/addToCart';
 
 class SkuDetails extends React.Component {
     constructor(props) {
@@ -20,6 +21,11 @@ class SkuDetails extends React.Component {
             addToCartQty: undefined,
             defaultPrice: this.props.price,
             locale: this.props.config.locale,
+            modalInfo: {
+                ...this.props.config.modalInfo, 
+                textHeading: this.props.skuNumber,
+                text: this.props.titleText
+            }
         };
 
         this.request = new SkuService(
@@ -31,11 +37,23 @@ class SkuDetails extends React.Component {
             this.props.config.addToCartUrl,
             err => console.log(err)
         );
+
+        this.toggleParentModal = this.toggleParentModal.bind(this);
     }
 
+    toggleParentModal() {
+        this.toggleModal();
+    }
     componentDidMount() {
         this.request.getAvailability(this.state.skuNumber).then(response => {
-            this.setState({ skuAvailability: response });
+            this.setState({
+                skuAvailability: response,
+                modalInfo: {
+                    ...this.props.config.modalInfo, 
+                    textHeading: this.props.skuNumber,
+                    text: this.props.titleText
+                }
+            });
         });
     }
 
@@ -49,94 +67,40 @@ class SkuDetails extends React.Component {
         });
     };
 
-    quantityInput = e => {
-        let value = e.target.value;
-
-        if (value > this.state.skuConfig.maxAmount) {
-            value = this.state.skuConfig.maxAmount;
-        }
-
-        this.setState({
-            addToCartQty: value,
-        });
-    };
-
-    addToCart = () => {
-        if (this.state.addToCartQty > 0) {
-            this.request
-                .addToCart(this.state.skuNumber, this.state.addToCartQty)
-                .then(response => {
-                    this.toggleModal();
-                })
-                .catch(err => {
-                    console.log('SHOULD WE HAVE AN ERROR MODAL?');
-                    this.toggleModal();
-                });
-        } else {
-            this.setState(
-                {
-                    addToCartQty: 1,
-                },
-                () =>
-                    this.request
-                        .addToCart(
-                            this.state.skuNumber,
-                            this.state.addToCartQty
-                        )
-                        .then(response => {
-                            this.toggleModal();
-                        })
-                        .catch(err => {
-                            console.log('SHOULD WE HAVE AN ERROR MODAL?');
-                            this.toggleModal();
-                        })
-            );
-        }
-    };
-
     render() {
         return (
-        <>
-            <div className="cmp-sku-details__buyinfo">
-                <div className="cmp-sku-details__priceinfo">
-                    <Price
-                        skuConfig={this.state.skuConfig}
-                        price={this.state.defaultPrice}
-                    />
-                </div>
-                <div className="cmp-sku-details__availability">
-                    <Stock
-                        skuConfig={this.state.skuConfig}
-                        skuNumber={this.state.skuNumber}
-                        skuAvailability={this.state.skuAvailability}
-                        locale={this.state.locale}
-                        skuType="details"
-                    />
-                </div>
-                <div className="cmp-sku-details__buttons">
-                    <form>
-                        <input
-                            className="cmp-sku-details__quantity"
-                            type="number"
-                            placeholder={this.props.config.qtyLabel}
-                            max={this.state.skuConfig.maxAmount}
-                            min="1"
-                            value={this.state.addToCartQty}
-                            onChange={this.quantityInput}
+            <>
+                <div className="cmp-sku-details__buyinfo">
+                    <div className="cmp-sku-details__priceinfo">
+                        <Price
+                            skuConfig={this.state.skuConfig}
+                            price={this.state.defaultPrice}
                         />
-                    </form>
-                    <a className="cmp-button" onClick={() => this.addToCart()}>
-                        {this.props.config.addToCartLabel}
-                    </a>
+                    </div>
+                    <div className="cmp-sku-details__availability">
+                        <Stock
+                            skuConfig={this.state.skuConfig}
+                            skuNumber={this.state.skuNumber}
+                            skuAvailability={this.state.skuAvailability}
+                            locale={this.state.locale}
+                            skuType="details"
+                        />
+                    </div>
+                    <div className="cmp-sku-details__buttons">
+                        <AddToCart 
+                            toggleParentModal={this.toggleParentModal}
+                            skuNumber={this.state.skuNumber}
+                            addToCartLabel={this.props.config.addToCartLabel}
+                            maxAmount={this.state.skuAvailability.availableQuantity}></AddToCart>
+                    </div>
+                    <Modal
+                        toggleModal={this.toggleModal}
+                        open={this.state.modalShown}
+                        theme="callToAction"
+                        config={this.state.modalInfo}
+                    />
                 </div>
-                <Modal
-                    toggleModal={this.toggleModal}
-                    open={this.state.modalShown}
-                    theme="callToAction"
-                    config={this.state.modalConfig}
-                />
-            </div>
-            <a href="#" class="cmp-sku-details__quote">{this.props.config.skuInfo.requestQuote}</a>
+                <a href="#" class="cmp-sku-details__quote">{this.props.config.skuInfo.requestQuote}</a> 
             </>
         );
     }
