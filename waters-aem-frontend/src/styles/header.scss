@@ -85,6 +85,7 @@
                     vertical-align: top;
                     margin-left: $space-s;
                     margin-bottom: 0;
+                    padding-top: $space-xxxs;
 
                     @include mobile-xs {
                         margin-left: $space-s;
