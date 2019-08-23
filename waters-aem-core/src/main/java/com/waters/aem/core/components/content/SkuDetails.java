@@ -43,7 +43,7 @@ public final class SkuDetails implements ComponentExporter {
     private WatersCommerceService watersCommerceService;
 
     public DisplayableSku getDisplayableSku() {
-        return sku == null ? null : new DisplayableSku(sku, resource, siteContext);
+        return sku == null ? null : new DisplayableSku(sku, siteContext);
     }
 
     /**

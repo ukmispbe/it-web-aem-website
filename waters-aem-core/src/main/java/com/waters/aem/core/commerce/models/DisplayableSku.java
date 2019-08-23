@@ -1,18 +1,11 @@
 package com.waters.aem.core.commerce.models;
 
-import com.day.cq.dam.api.Asset;
-import com.day.cq.dam.commons.util.PrefixRenditionPicker;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.SiteContext;
-import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.utils.AssetUtils;
-import org.apache.sling.api.resource.Resource;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -22,12 +15,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public final class DisplayableSku {
 
     private Sku sku;
-    private Resource resource;
     private SiteContext siteContext;
 
-    public DisplayableSku(Sku sku, Resource resource, SiteContext siteContext) {
+    public DisplayableSku(Sku sku, SiteContext siteContext) {
         this.sku = checkNotNull(sku);
-        this.resource = checkNotNull(resource);
         this.siteContext = checkNotNull(siteContext);
     }
 
@@ -36,7 +27,15 @@ public final class DisplayableSku {
     }
 
     public String getSkuPageHref() {
-        return sku.getSkuPage(siteContext.getPage()).getHref();
+        String skuPageHref = "";
+
+        final PageDecorator skuPage = sku.getSkuPage(siteContext.getPage());
+
+        if (skuPage != null) {
+            skuPageHref = skuPage.getHref();
+        }
+
+        return skuPageHref;
     }
 
     public String getCode() {
@@ -57,19 +56,12 @@ public final class DisplayableSku {
         return price == null ? null : NumberFormat.getCurrencyInstance(siteContext.getLocaleWithCountry()).format(price);
     }
 
-    @SuppressWarnings("squid:S2259")
-    public String getPrimaryImageSrc() {
-        return getPrimaryImageAsset() == null ? null : getPrimaryImageAsset().getPath();
-    }
-
     public String getPrimaryImageAlt() {
-        return getPrimaryImageAsset() == null ? "" : AssetUtils.getAltText(getPrimaryImageAsset());
+        return sku.getPrimaryImageAsset() == null ? "" : AssetUtils.getAltText(sku.getPrimaryImageAsset());
     }
 
     public String getPrimaryImageThumbnail() {
-        return getPrimaryImageAsset() == null ? null : new PrefixRenditionPicker(WatersConstants.THUMBNAIL_RENDITION_PREFIX, true)
-            .getRendition(getPrimaryImageAsset())
-            .getPath();
+        return sku.getPrimaryImageThumbnail();
     }
 
     public BigDecimal getPrice() {
@@ -90,23 +82,5 @@ public final class DisplayableSku {
         final PageDecorator page = sku.getSkuPage(siteContext.getPage(), getReplacementSkuCode());
 
         return page != null ? page.getHref() : "";
-    }
-
-    private Asset getPrimaryImageAsset() {
-        final List<Asset> assets = getAssets();
-
-        return assets.isEmpty() ? null : assets.get(0);
-    }
-
-    private List<Asset> getAssets() {
-
-        final List<SkuImage> skuImages = sku.getImages();
-
-        final List<Asset> assets = skuImages
-                .stream()
-                .map(skuImage -> AssetUtils.getAsset(resource.getResourceResolver(), skuImage.getPath()))
-                .collect(Collectors.toList());
-
-        return assets.stream().filter(Objects :: nonNull).collect(Collectors.toList());
     }
 }
