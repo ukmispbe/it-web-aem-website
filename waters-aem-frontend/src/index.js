@@ -131,7 +131,6 @@ const skuDetailsConfig = JSON.parse(
 const skuDetailsListPrice = document.querySelector('.cmp-sku-details__ecom').dataset.price;
 
 if (skuDetailsContainer) {
-    console.warn('skuDetailsListPrice',skuDetailsListPrice)
     const skuNumber = document.querySelector('.cmp-sku-details__code').innerHTML;
     ReactDOM.render(<SkuDetails config={skuDetailsConfig} price={skuDetailsListPrice} skuNumber={skuNumber}/>, skuDetailsContainer);
 }

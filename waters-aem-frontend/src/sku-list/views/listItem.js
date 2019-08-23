@@ -28,7 +28,6 @@ class ListItem extends React.Component {
         this.checkAvailability = this.checkAvailability.bind(this)
     }
     checkAvailability = (skuNumber) => {
-        console.warn('checking sku availability, ', skuNumber)
         this.request.getAvailability(skuNumber).then(response => {
             this.setState({ skuAvailability: response });
         });
