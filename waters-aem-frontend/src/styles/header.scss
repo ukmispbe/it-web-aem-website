@@ -257,6 +257,11 @@
     @include font-utility;
     display: inline-block;
 
+    svg .st0,
+    svg .st1 {
+        stroke: $color-gray-50;
+    }
+
     &:hover {
         color: $color-link;
         & svg .st0,
