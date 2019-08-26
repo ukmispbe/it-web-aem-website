@@ -148,6 +148,22 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
         assertThat(footerComponent.getSocialLinks().get(1).getLink()).isEqualTo("https://twitter.com/");
         assertThat(footerComponent.getSocialLinks().get(0).hasLinkIcon()).isEqualTo(true);
     }
+    @Test
+    public void Iframe() throws ActionException {
+        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container[1]", "Iframe", 0, new ResourceFileLocation("iframe.yaml")));
+        final Iframe iframecomponent = page.getContent(Iframe.class, 0);
+        assertThat(iframecomponent.getText()).isEqualTo("https://code.waters.com/confluence/display/BTADP/Deployment+Home+Page+run-book");
+
+    }
+
+    @Test
+    public void modal() throws ActionException {
+
+        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container[1]", "Modal", 0, new ResourceFileLocation("modal.yaml")));
+        final Modal modalComponent = page.getContent(Modal.class, 0);
+        assertThat(modalComponent.getText()).isEqualTo("Source Text");
+        assertThat(modalComponent.getIcon()).isEqualTo("http://localhost:4502/content/dam/waters/en/Photography/people/Logan-Umberger.jpg/_jcr_content/renditions/cq5dam.web.640.640.jpeg");
+    }
 
     @Override
     protected String getPagePath() {
