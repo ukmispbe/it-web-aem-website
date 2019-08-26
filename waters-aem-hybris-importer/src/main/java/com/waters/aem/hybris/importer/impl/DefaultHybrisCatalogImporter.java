@@ -44,16 +44,7 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -287,7 +278,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         if (status != null) {
             updateSkuPageProperties(skuPage, sku);
-//            setPageThumbnail(context.getResourceResolver(), sku, skuPage);
+            createOrUpdateThumbnail(context.getResourceResolver(), sku, skuPage);
         }
 
         results.add(HybrisImporterResult.fromSkuPage(skuPage, status));
@@ -461,17 +452,27 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     }
 
     @SuppressWarnings({ "squid:S2259" })
-    private void setPageThumbnail(final ResourceResolver resourceResolver, final Sku sku, final PageDecorator skuPage)
-        throws PersistenceException {
-        final String thumbNailImage = sku.getPrimaryImageThumbnail();
+    private void createOrUpdateThumbnail(final ResourceResolver resourceResolver, final Sku sku,
+        final PageDecorator skuPage) throws PersistenceException {
+        final String thumbNailImage = sku.getPrimaryImageSrc();
+
+        final Resource contentResource = skuPage.getContentResource();
 
         if (StringUtils.isNotEmpty(thumbNailImage)) {
-            final Map<String, Object> properties = new HashMap<>();
+            Resource thumbnailResource = contentResource.getChild(WatersConstants.THUMBNAIL_IMAGE);
 
-            properties.put(JcrConstants.JCR_PRIMARYTYPE, JcrConstants.NT_UNSTRUCTURED);
-            properties.put(DownloadResource.PN_REFERENCE, thumbNailImage);
+            if (thumbnailResource == null){
+                final Map<String, Object> properties = new HashMap<>();
 
-            resourceResolver.create(skuPage.getContentResource(), WatersConstants.THUMBNAIL_IMAGE, properties);
+                properties.put(JcrConstants.JCR_PRIMARYTYPE, JcrConstants.NT_UNSTRUCTURED);
+                properties.put(DownloadResource.PN_REFERENCE, thumbNailImage);
+
+                resourceResolver.create(contentResource, WatersConstants.THUMBNAIL_IMAGE, properties);
+            } else {
+                final ValueMap properties = thumbnailResource.adaptTo(ModifiableValueMap.class);
+
+                properties.put(DownloadResource.PN_REFERENCE, thumbNailImage);
+            }
         }
     }
 
