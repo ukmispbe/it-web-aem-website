@@ -11,14 +11,14 @@ class Stock extends React.Component {
         if (this.props.skuAvailability.availableQuantity > 10) {
             return (
                 <span>
-                    <span className="cmp-sku-details__stockdetails">
+                    <span className={`cmp-sku-${this.props.skuType}__stockdetails`}>
                         {this.props.skuConfig.inStockLabel}
                         <ReactSVG
                             src={this.props.skuConfig.inStockIcon}
-                            className="cmp-sku-details__stockdetails--instock"
+                            className={`cmp-sku-${this.props.skuType}__stockdetails--instock`}
                         />
                     </span>
-                    <div className="cmp-sku-details__order">
+                    <div className={`cmp-sku-${this.props.skuType}__order`}>
                         {this.props.skuConfig.orderNowLabel}
                     </div>
                 </span>
@@ -26,17 +26,17 @@ class Stock extends React.Component {
         } else if (this.props.skuAvailability.availableQuantity > 0) {
             return (
                 <span>
-                    <span className="cmp-sku-details__stockdetails">
+                    <span className={`cmp-sku-${this.props.skuType}__stockdetails`}>
                         {this.props.skuConfig.onlyXInStockLabel.replace(
                             '{quantity}',
                             this.props.skuAvailability.availableQuantity
                         )}
                         <ReactSVG
                             src={this.props.skuConfig.lowStockIcon}
-                            className="cmp-sku-details__stockdetails--outofstock"
+                            className={`cmp-sku-${this.props.skuType}__stockdetails--outofstock`}
                         />
                     </span>
-                    <div className="cmp-sku-details__order">
+                    <div className={`cmp-sku-${this.props.skuType}__order`}>
                         {this.props.skuConfig.orderSoonLabel}
                     </div>
                 </span>
@@ -44,15 +44,15 @@ class Stock extends React.Component {
         } else {
             return (
                 <span>
-                    <span className="cmp-sku-details__stockdetails">
+                    <span className={`cmp-sku-${this.props.skuType}__stockdetails`}>
                         {this.props.skuConfig.outOfStockLabel}
                         <ReactSVG
                             src={this.props.skuConfig.outOfStockIcon}
-                            className="cmp-sku-details__stockdetails--outofstock"
+                            className={`cmp-sku-${this.props.skuType}__stockdetails--outofstock`}
                         />
                     </span>
                     {this.props.skuAvailability.availableDate && (
-                        <div className="cmp-sku-details__order">
+                        <div className={`cmp-sku-${this.props.skuType}__order`}>
                             {this.props.skuConfig.shipsByLabel.replace(
                                 '{shipByDate}',
                                 Utilities.dateFormatter(

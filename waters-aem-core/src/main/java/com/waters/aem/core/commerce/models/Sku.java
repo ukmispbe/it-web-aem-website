@@ -178,6 +178,7 @@ public final class Sku {
             .getPath();
     }
 
+    @SuppressWarnings({ "squid:S2259" })
     public String getPrimaryImageSrc() {
         return getPrimaryImageAsset() == null ? null :  getPrimaryImageAsset().getPath();
     }
@@ -194,11 +195,17 @@ public final class Sku {
             .collect(Collectors.toList());
     }
 
+    /**
+     * Delegates to SkuRepository to get the sku page for the current sku.
+     */
     public PageDecorator getSkuPage(PageDecorator currentPage) {
         return skuRepository.getSkuPage(currentPage, getCode());
     }
 
-    public PageDecorator getSkuPage(PageDecorator currentPage,String code) {
+    /**
+     * Delegates to SkuRepository to get the sku page for any provided sku code.
+     */
+    public PageDecorator getSkuPage(PageDecorator currentPage, String code) {
         return skuRepository.getSkuPage(currentPage, code);
     }
 

@@ -8,6 +8,7 @@ import ImageCarousel from './image-carousel';
 import AccountDropDown from './account-dropdown/index';
 import LoginStatus from "./scripts/loginStatus";
 import SkuDetails from './sku-details';
+import SkuList from './sku-list';
 
 function getAuthoredDataForSearchBar(c, h) {
     return {
@@ -124,15 +125,27 @@ if (imageGalleryContainers) {
 const skuDetailsContainer = document.querySelector(
     '.cmp-sku-details__ecom'
 );
+const skuDetailsConfig = JSON.parse(
+    document.getElementById('commerce-configs-json').innerHTML
+);
+
+const skuDetailsListPrice = document.querySelector('.cmp-sku-details__ecom').dataset.price;
 
 if (skuDetailsContainer) {
-    const config = JSON.parse(
-        document.getElementById('commerce-configs-json').innerHTML
-    );
-
-    ReactDOM.render(<SkuDetails config={config} price={skuDetailsContainer.getAttribute('data-price')}/>, skuDetailsContainer);
+    const skuNumber = document.querySelector('.cmp-sku-details__code').innerHTML;
+    ReactDOM.render(<SkuDetails config={skuDetailsConfig} price={skuDetailsListPrice} skuNumber={skuNumber}/>, skuDetailsContainer);
 }
 
+
+const skuListContainer = document.querySelector('.cmp-sku-list')
+
+if (skuListContainer) {
+    const skuListData = JSON.parse(
+        skuListContainer.dataset.json
+    );
+
+    ReactDOM.render(<SkuList skuConfig={skuDetailsConfig} data={skuListData}/>, skuListContainer);
+}
 
 
 const AccountDropDownContainer = document.querySelector(

@@ -1,8 +1,10 @@
 package com.waters.aem.core.commerce.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.utils.AssetUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -22,20 +24,15 @@ public final class DisplayableSku {
         this.siteContext = checkNotNull(siteContext);
     }
 
+    @JsonIgnore
     public Sku getSku() {
         return sku;
     }
 
     public String getSkuPageHref() {
-        String skuPageHref = "";
-
         final PageDecorator skuPage = sku.getSkuPage(siteContext.getPage());
 
-        if (skuPage != null) {
-            skuPageHref = skuPage.getHref();
-        }
-
-        return skuPageHref;
+        return skuPage != null ? skuPage.getHref() : "";
     }
 
     public String getCode() {
@@ -46,6 +43,7 @@ public final class DisplayableSku {
         return sku.getTitle();
     }
 
+    @JsonIgnore
     public boolean isActive() {
         return sku.getSalesStatus() == SkuSalesStatus.Active && !sku.isTerminated();
     }
@@ -64,6 +62,7 @@ public final class DisplayableSku {
         return sku.getPrimaryImageThumbnail();
     }
 
+    @JsonIgnore
     public BigDecimal getPrice() {
         final String country = siteContext.getLocaleWithCountry().getCountry();
         final String currencyIsoCode = siteContext.getCurrencyIsoCode();
@@ -71,6 +70,7 @@ public final class DisplayableSku {
         return sku.getPrice(country, currencyIsoCode);
     }
 
+    @JsonIgnore
     public String getReplacementSkuCode() {
         return sku.getReplacementSkus().stream()
                 .findFirst()
@@ -79,8 +79,14 @@ public final class DisplayableSku {
     }
 
     public String getReplacementSkuPageHref() {
-        final PageDecorator page = sku.getSkuPage(siteContext.getPage(), getReplacementSkuCode());
+        PageDecorator skuPage = null;
 
-        return page != null ? page.getHref() : "";
+        final String replacementSkuCode = getReplacementSkuCode();
+
+        if (StringUtils.isNotEmpty(replacementSkuCode)) {
+            skuPage = sku.getSkuPage(siteContext.getPage(), replacementSkuCode);
+        }
+
+        return skuPage != null ? skuPage.getHref() : "";
     }
 }
