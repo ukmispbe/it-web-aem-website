@@ -217,6 +217,10 @@ public final class Meta extends AbstractComponent {
         return MAPPER.writeValueAsString(properties);
     }
 
+    public List<LanguagePageItem> getHrefLangPages() {
+        return siteContext.getHrefLangPages();
+    }
+
     private String getThumbnailImage() {
         return Optional.ofNullable(thumbnail.getThumbnailImageRendition())
             .map(this :: externalize)

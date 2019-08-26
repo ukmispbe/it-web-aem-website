@@ -23,6 +23,7 @@ import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.components.content.links.BasicLink;
 import com.waters.aem.core.components.content.links.IconOnlyLink;
+import com.waters.aem.core.components.structure.page.LanguagePageItem;
 import com.waters.aem.core.components.structure.page.analytics.DataLayer;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.youramigo.YourAmigoService;
@@ -132,7 +133,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     @InheritInject
     private List<IconOnlyLink> socialLinks;
 
-    private List<LanguageSelectorItem> languagePages;
+    private List<LanguagePageItem> languagePages;
 
     @JsonProperty
     public Image getLogoImage() {
@@ -179,16 +180,16 @@ public final class Footer extends AbstractComponent implements ComponentExporter
         return Locale.US.getCountry().equals(siteContext.getLocaleWithCountry().getCountry()) && yourAmigoService.isEnabled()   ;
     }
 
-    public List<LanguageSelectorItem> getLanguagePages() {
+    public List<LanguagePageItem> getLanguagePages() {
         if (languagePages == null) {
             languagePages = new ArrayList<>();
 
-            for (PageDecorator languagePage : siteContext.getLanguagePages()) {
+            for (PageDecorator languagePage : siteContext.getLanguagePages(currentPage)) {
                 final PageDecorator languageHomepage =
                         languagePage.findAncestor(WatersConstants.PREDICATE_HOME_PAGE).orNull();
 
                 if (languageHomepage != null) {
-                    languagePages.add(new LanguageSelectorItem(languagePage));
+                    languagePages.add(new LanguagePageItem(languagePage, siteContext.getLocaleWithCountryForPage(languagePage)));
                 }
             }
         }

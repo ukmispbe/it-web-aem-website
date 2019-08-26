@@ -2,6 +2,7 @@ package com.waters.aem.core.components.structure.page
 
 import com.day.cq.commons.Externalizer
 import com.waters.aem.core.WatersSpec
+import com.waters.aem.core.constants.WatersConstants
 import com.waters.aem.core.mocks.MockExternalizer
 import spock.lang.Unroll
 
@@ -51,6 +52,27 @@ class MetaSpec extends WatersSpec {
                         noFollow: true
                     )
                 }
+                us {
+                    en("cq:template": WatersConstants.TEMPLATE_HOME_PAGE) {
+                        appnotes()
+                        sku()
+                    }
+                    es("cq:template": WatersConstants.TEMPLATE_HOME_PAGE) {
+                        appnotes()
+                        sku()
+                    }
+                    de("cq:template": WatersConstants.TEMPLATE_HOME_PAGE) {
+                        appnotes()
+                        sku()
+                    }
+                }
+                cn {
+                    zh("cq:template": WatersConstants.TEMPLATE_HOME_PAGE) {
+                        appnotes()
+                        search()
+                    }
+                }
+
             }
         }
 
@@ -238,5 +260,27 @@ class MetaSpec extends WatersSpec {
         "/content/waters/two/child" | "http://www.waters.com/content/dam/waters/twitter.png"
         "/content/waters/three"     | "http://www.waters.com/content/dam/waters/logo" +
             ".png/jcr:content/renditions/cq5dam.thumbnail.319.212.png"
+    }
+
+    def "get hreflang tags"() {
+        setup:
+        def meta = getPage(path).contentResource.adaptTo(Meta)
+
+        expect:
+        meta.hrefLangPages.size() == size
+
+        and:
+        meta.hrefLangPages*.locale*.toLanguageTag() == locale
+
+        where:
+        path                              | locale                               | size
+        "/content/waters/us/en/appnotes"  | ["en-US", "es-US", "de-US", "zh-CN"] | 4
+        "/content/waters/us/es/appnotes"  | ["es-US", "en-US", "de-US", "zh-CN"] | 4
+        "/content/waters/us/de/appnotes"  | ["de-US", "en-US", "es-US", "zh-CN"] | 4
+        "/content/waters/cn/zh/appnotes"  | ["zh-CN", "en-US", "es-US", "de-US"] | 4
+        "/content/waters/us/en/sku"       | ["en-US", "es-US", "de-US"]          | 3
+        "/content/waters/us/es/sku"       | ["es-US", "en-US", "de-US"]          | 3
+        "/content/waters/us/de/sku"       | ["de-US", "en-US", "es-US"]          | 3
+        "/content/waters/cn/zh/search"    | ["zh-CN"]                            | 1
     }
 }

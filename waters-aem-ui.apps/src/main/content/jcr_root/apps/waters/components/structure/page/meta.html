@@ -31,6 +31,9 @@
 
     <link rel="canonical" href="${metaPage.canonicalUrl}">
 
+    <link data-sly-repeat.hrefLangUrl="${metaPage.hrefLangPages}" rel="alternate"
+          hreflang="${hrefLangUrl.languagePage.href}" href="${hrefLangUrl.languagePage.href}"/>
+
     <link rel="icon" sizes="192x192" href="/etc.clientlibs/waters/clientlibs/clientlib-resources/resources/icon-192x192.png">
 
     <title>${metaPage.title}</title>

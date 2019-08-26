@@ -2,8 +2,9 @@ package com.waters.aem.core.components;
 
 import com.day.cq.commons.LanguageUtil;
 import com.day.cq.i18n.I18n;
-import com.day.cq.wcm.api.LanguageManager;
 import com.icfolson.aem.library.api.page.PageDecorator;
+import com.icfolson.aem.library.api.page.PageManagerDecorator;
+import com.waters.aem.core.components.structure.page.LanguagePageItem;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -33,9 +34,6 @@ public final class SiteContext {
     @Inject
     private PageDecorator currentPage;
 
-    @OSGiService
-    private LanguageManager languageManager;
-
     private I18n i18n;
 
     public Locale getLocale() {
@@ -56,28 +54,31 @@ public final class SiteContext {
         Locale locale = getLocale();
 
         if (StringUtils.isEmpty(locale.getCountry())) {
-            // start with default country until we can get an absolute country based on content path
-            String country = languageManager.getIsoCountry(locale);
-
-            final String languageRoot = LanguageUtil.getLanguageRoot(currentPage.getPath());
-
-            if (languageRoot != null) {
-                final PageDecorator languagePage = currentPage.getPageManager().getPage(languageRoot);
-
-                if (languagePage != null) {
-                    final PageDecorator countryPage = languagePage.getParent();
-
-                    // check if this is a true country node such as "us" and not a region node such as "north-america"
-                    if (countryPage.getName().length() == 2) {
-                        country = countryPage.getName();
-                    }
-                }
-            }
-
-            locale = new Locale(locale.getLanguage(), country);
+            locale = getLocaleWithCountryForPage(currentPage);
         }
 
         return locale;
+    }
+
+    public Locale getLocaleWithCountryForPage(final PageDecorator page) {
+        String country = "US"; // default country if no other country is found from page path
+
+        final String languageRoot = LanguageUtil.getLanguageRoot(page.getPath());
+
+        if (languageRoot != null) {
+            final PageDecorator languagePage = page.getPageManager().getPage(languageRoot);
+
+            if (languagePage != null) {
+                final PageDecorator countryPage = languagePage.getParent();
+
+                // check if this is a true country node such as "us" and not a region node such as "north-america"
+                if (countryPage.getName().length() == 2) {
+                    country = countryPage.getName();
+                }
+            }
+        }
+
+        return new Locale(page.getLanguage(false).getLanguage(), country);
     }
 
     /**
@@ -133,22 +134,74 @@ public final class SiteContext {
         return stringBuilder.toString();
     }
 
-    public List<PageDecorator> getLanguagePages() {
-        final List<PageDecorator> languagePages = new ArrayList<>();
+    public List<LanguagePageItem> getHrefLangPages() {
+//        1. Get home page
+        final List<LanguagePageItem> hrefLangPages = new ArrayList<>();
 
         final String languageRootPath = LanguageUtil.getLanguageRoot(currentPage.getPath());
 
         if (languageRootPath != null) {
-            final PageDecorator languageRootPage = currentPage.getPageManager().getPage(languageRootPath);
+            final PageManagerDecorator pageManager = currentPage.getPageManager();
 
-            languagePages.add(currentPage);
+            final PageDecorator languageRootPage = pageManager.getPage(languageRootPath);
+
+//           2. Get parent page (region page)
+
+            final PageDecorator currentRegionPage = languageRootPage.getParent();// TODO assert region page
+
+//           3. Get list of region pages (current region page + siblings)
+
+            final List<PageDecorator> regionPages = new ArrayList<>();
+
+            regionPages.add(currentRegionPage);
+
+            // get siblings of current language home page
+            regionPages.addAll(currentRegionPage.getParent().getChildren(page -> !currentRegionPage.getPath().equals(page.getPath())));
+
+            // get relative content path from language root path
+            final String contentPath = currentPage.getPath() //TODO move this to common method
+                    .substring(languageRootPath.length())
+                    .replaceFirst("/", "");
+
+            hrefLangPages.add(new LanguagePageItem(currentPage, getLocaleWithCountryForPage(currentPage)));
+
+//        4. For each region page, get list of child pages (language pages)
+            for (PageDecorator regionPage : regionPages) {
+                final List<PageDecorator> regionLanguagePages = regionPage.getChildren();
+
+                //          4.1. For each language page, find content page and read locale, href
+
+                for (PageDecorator regionLanguagePage : regionLanguagePages) {
+                    final PageDecorator childPage = regionLanguagePage.getChild(contentPath).orNull();
+
+                    if (childPage != null && !childPage.getPath().startsWith(languageRootPath)) {
+                        hrefLangPages.add(new LanguagePageItem(childPage, getLocaleWithCountryForPage(childPage)));
+                    }
+                }
+
+            }
+        }
+
+        return hrefLangPages;
+    }
+
+    public List<PageDecorator> getLanguagePages(final PageDecorator page) {
+        final List<PageDecorator> languagePages = new ArrayList<>();
+
+        final String languageRootPath = LanguageUtil.getLanguageRoot(page.getPath());
+
+        if (languageRootPath != null) {
+            final PageDecorator languageRootPage = page.getPageManager().getPage(languageRootPath);
+
+            languagePages.add(page);
 
             // get siblings of current language home page
             final List<PageDecorator> siblingHomepages = languageRootPage.getParent().getChildren(
-                    page -> !languageRootPath.equals(page.getPath()) && WatersConstants.PREDICATE_HOME_PAGE.apply(page));
+                    languageHomepage -> !languageRootPath.equals(languageHomepage.getPath())
+                            && WatersConstants.PREDICATE_HOME_PAGE.apply(languageHomepage));
 
             // get relative content path from language root path
-            final String contentPath = currentPage.getPath()
+            final String contentPath = page.getPath()
                     .substring(languageRootPath.length())
                     .replaceFirst("/", "");
 
