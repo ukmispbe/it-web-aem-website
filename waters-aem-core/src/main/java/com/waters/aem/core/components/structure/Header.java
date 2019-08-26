@@ -44,8 +44,6 @@ public final class Header extends AbstractComponent implements ComponentExporter
 
     public static final String RESOURCE_TYPE = "waters/components/structure/header";
 
-    private static final String PROPERTY_INCLUDE_H1_TAG = "includeH1Tag";
-
     @OSGiService
     private WatersAccountService watersAccountService;
 
