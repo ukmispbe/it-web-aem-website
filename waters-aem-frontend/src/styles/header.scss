@@ -49,9 +49,14 @@
 
         &__logo {
             padding: ($space-s + $space-xxxs) 0 $space-s 0;
+            font-weight: 300;
+            line-height: 1.6em;
+            margin: 0;
+            font-size: 1em;
 
             @include mobile {
                 padding: $space-s 0 $space-xs 0;
+                font-size: 1.1em;
             }
             
             img {
