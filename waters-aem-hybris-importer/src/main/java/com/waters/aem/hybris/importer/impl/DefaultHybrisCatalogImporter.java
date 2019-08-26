@@ -287,7 +287,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         if (status != null) {
             updateSkuPageProperties(skuPage, sku);
-            setPageThumbnail(context.getResourceResolver(), sku, skuPage);
+//            setPageThumbnail(context.getResourceResolver(), sku, skuPage);
         }
 
         results.add(HybrisImporterResult.fromSkuPage(skuPage, status));
@@ -460,6 +460,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             .collect(Collectors.toSet());
     }
 
+    @SuppressWarnings({ "squid:S2259" })
     private void setPageThumbnail(final ResourceResolver resourceResolver, final Sku sku, final PageDecorator skuPage)
         throws PersistenceException {
         final String thumbNailImage = sku.getPrimaryImageThumbnail();
