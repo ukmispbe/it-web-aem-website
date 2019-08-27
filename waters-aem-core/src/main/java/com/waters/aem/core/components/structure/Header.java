@@ -153,6 +153,6 @@ public final class Header extends AbstractComponent implements ComponentExporter
     }
 
     public Boolean isYourAmigoEnabled() {
-        return Locale.US.getCountry().equals(siteContext.getLocaleWithCountry().getCountry()) && yourAmigoService.isEnabled()   ;
+        return Locale.US.getCountry().equals(siteContext.getLocaleWithCountry().getCountry()) && yourAmigoService.isEnabled();
     }
 }
