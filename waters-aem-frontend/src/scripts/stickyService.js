@@ -201,7 +201,7 @@ class Sticky {
            for (let i = 0; i < this.queue.indexOf(el); i++) {
               let pastEl = this.queue[i];
 
-              if (pastEl && pastEl.stickyWith === el.modifier && this.currentStickyClasses.indexOf(pastEl.modifier) == -1) {
+              if (pastEl && pastEl.sticky && pastEl.stickyWith === el.modifier && this.currentStickyClasses.indexOf(pastEl.modifier) == -1) {
                  pastEl.element.style.opacity = 0;
                  pastEl.element.style.top = '';
                  pastEl.element.parentNode.style.height = '';
