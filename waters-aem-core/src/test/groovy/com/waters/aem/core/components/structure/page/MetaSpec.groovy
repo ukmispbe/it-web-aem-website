@@ -267,10 +267,10 @@ class MetaSpec extends WatersSpec {
         def meta = getPage(path).contentResource.adaptTo(Meta)
 
         expect:
-        meta.hrefLangPages.size() == size
+        meta.hrefLangItems.size() == size
 
         and:
-        meta.hrefLangPages*.locale*.toLanguageTag() == locale
+        meta.hrefLangItems*.languageTag == locale
 
         where:
         path                              | locale                               | size

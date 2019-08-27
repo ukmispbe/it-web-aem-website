@@ -23,11 +23,11 @@ import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.components.content.links.BasicLink;
 import com.waters.aem.core.components.content.links.IconOnlyLink;
-import com.waters.aem.core.components.structure.page.LanguagePageItem;
 import com.waters.aem.core.components.structure.page.analytics.DataLayer;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.youramigo.YourAmigoService;
 import com.waters.aem.core.utils.LinkUtils;
+import com.waters.aem.core.utils.LocaleUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -133,7 +133,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     @InheritInject
     private List<IconOnlyLink> socialLinks;
 
-    private List<LanguagePageItem> languagePages;
+    private List<LanguageSelectorItem> languagePages;
 
     @JsonProperty
     public Image getLogoImage() {
@@ -180,16 +180,16 @@ public final class Footer extends AbstractComponent implements ComponentExporter
         return Locale.US.getCountry().equals(siteContext.getLocaleWithCountry().getCountry()) && yourAmigoService.isEnabled()   ;
     }
 
-    public List<LanguagePageItem> getLanguagePages() {
+    public List<LanguageSelectorItem> getLanguagePages() {
         if (languagePages == null) {
             languagePages = new ArrayList<>();
 
-            for (PageDecorator languagePage : siteContext.getLanguagePages(currentPage)) {
+            for (PageDecorator languagePage : LocaleUtils.getLanguagePages(currentPage)) {
                 final PageDecorator languageHomepage =
                         languagePage.findAncestor(WatersConstants.PREDICATE_HOME_PAGE).orNull();
 
                 if (languageHomepage != null) {
-                    languagePages.add(new LanguagePageItem(languagePage, siteContext.getLocaleWithCountryForPage(languagePage)));
+                    languagePages.add(new LanguageSelectorItem(languagePage));
                 }
             }
         }
