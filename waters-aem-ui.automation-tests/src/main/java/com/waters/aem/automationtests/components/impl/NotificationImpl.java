@@ -3,6 +3,7 @@ package com.waters.aem.automationtests.components.impl;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
+import com.waters.aem.automationtests.components.LinkItem;
 import com.waters.aem.automationtests.components.Notification;
 import com.waters.aem.automationtests.components.NotificationItems;
 import org.openqa.selenium.By;
@@ -35,13 +36,11 @@ public class NotificationImpl implements Notification {
     }
 
     @Override
-    public List<NotificationItems> getNotificationItems(){
-        return component.findElements(By.cssSelector(".cmp-notification-links"))
+    public List<LinkItem> getNotificationItems(){
+        return component.findElements(By.tagName("a"))
                 .stream()
-                .map(notification -> new NotificationItemsImpl(notification.getText(), notification.getAttribute("href"), !notification.getAttribute("target").isEmpty()))
+                .map(link -> new LinkItemImpl(link.getText(), link.getAttribute("href"), !link.getAttribute("target").isEmpty()))
                 .collect(Collectors.toList());
-
-
     }
 
 }

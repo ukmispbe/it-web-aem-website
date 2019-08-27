@@ -14,6 +14,6 @@ public interface Notification {
 
     String getIcon();
 
-    List<NotificationItems> getNotificationItems();
+    List<LinkItem> getNotificationItems();
 
 }

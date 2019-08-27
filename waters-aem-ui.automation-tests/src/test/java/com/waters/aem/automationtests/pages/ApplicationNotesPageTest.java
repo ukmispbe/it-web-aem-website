@@ -152,19 +152,20 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
     @Test
     public void Notification() throws ActionException {
         controller.execute(AemActions.CONFIGURE_COMPONENT,
-                new ConfigureComponentData("container[]", "Notification", 0, new ResourceFileLocation("notification.yaml")));
+                new ConfigureComponentData("container[1]", "Notification", 0, new ResourceFileLocation("notification" +
+                ".yaml")));
 
         final Notification notificationComponent = page.getContent(Notification.class, 0);
-        assertThat(notificationComponent.getDescription()).isEqualTo("Description Test");
+        assertThat(notificationComponent.getDescription()).isEqualTo("Description Test" + " Waters Site | ICF");
         assertThat(notificationComponent.getIcon()).isEqualTo("http://localhost:4502/content/dam/waters/en/Photography/people/Logan-Umberger.jpg/_jcr_content/renditions/cq5dam.web.640.640.jpeg");
         // Link Item 1
         assertThat(notificationComponent.getNotificationItems().get(0).getText()).isEqualTo("Waters Site");
         assertThat(notificationComponent.getNotificationItems().get(0).getLink()).isEqualTo("https://www.waters.com/waters/home.htm");
-        assertThat(notificationComponent.getNotificationItems().get(0).isNewWindow()).isEqualTo(true);
+        assertThat(notificationComponent.getNotificationItems().get(0).isExternal()).isEqualTo(false);
         // Link Item 2
         assertThat(notificationComponent.getNotificationItems().get(1).getText()).isEqualTo("ICF");
         assertThat(notificationComponent.getNotificationItems().get(1).getLink()).isEqualTo("https://www.icf.com/next");
-        assertThat(notificationComponent.getNotificationItems().get(1).isNewWindow()).isEqualTo(true);
+        assertThat(notificationComponent.getNotificationItems().get(1).isExternal()).isEqualTo(true);
     }
 
 
