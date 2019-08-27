@@ -460,27 +460,26 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             .collect(Collectors.toSet());
     }
 
-    @SuppressWarnings({ "squid:S2259" })
     private void createOrUpdateThumbnail(final ResourceResolver resourceResolver, final Sku sku,
         final PageDecorator skuPage) throws PersistenceException {
-        final String thumbNailImage = sku.getPrimaryImageSrc();
+        final String thumbnailImage = sku.getPrimaryImageSrc();
 
         final Resource contentResource = skuPage.getContentResource();
 
-        if (StringUtils.isNotEmpty(thumbNailImage)) {
+        if (StringUtils.isNotEmpty(thumbnailImage)) {
             final Resource thumbnailResource = contentResource.getChild(WatersConstants.THUMBNAIL_IMAGE);
 
             if (thumbnailResource == null){
                 final Map<String, Object> properties = new HashMap<>();
 
                 properties.put(JcrConstants.JCR_PRIMARYTYPE, JcrConstants.NT_UNSTRUCTURED);
-                properties.put(DownloadResource.PN_REFERENCE, thumbNailImage);
+                properties.put(DownloadResource.PN_REFERENCE, thumbnailImage);
 
                 resourceResolver.create(contentResource, WatersConstants.THUMBNAIL_IMAGE, properties);
             } else {
                 final ValueMap properties = thumbnailResource.adaptTo(ModifiableValueMap.class);
 
-                properties.put(DownloadResource.PN_REFERENCE, thumbNailImage);
+                properties.put(DownloadResource.PN_REFERENCE, thumbnailImage);
             }
         }
     }
