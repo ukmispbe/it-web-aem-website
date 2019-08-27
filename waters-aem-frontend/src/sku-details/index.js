@@ -33,8 +33,10 @@ class SkuDetails extends React.Component {
             {
                 availability: this.props.config.availabilityUrl,
                 price: this.props.config.pricingUrl,
+            },{
+                addToCart: this.props.config.addToCartUrl,
+                getCart: ''
             },
-            this.props.config.addToCartUrl,
             err => console.log(err)
         );
 
@@ -88,7 +90,8 @@ class SkuDetails extends React.Component {
                             toggleParentModal={this.toggleModal}
                             skuNumber={this.state.skuNumber}
                             addToCartLabel={this.props.config.addToCartLabel}
-                            maxAmount={this.state.skuAvailability.availableQuantity}></AddToCart>
+                            addToCartUrl={this.props.config.addToCartUrl}
+                        ></AddToCart>
                     </div>
                     <Modal
                         toggleModal={this.toggleModal}

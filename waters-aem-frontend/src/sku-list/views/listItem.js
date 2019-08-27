@@ -23,14 +23,15 @@ class ListItem extends React.Component {
                 text: this.props.relatedSku.title
             }
         };
-
         this.request = new SkuService(
             this.state.userCountry,
             {
                 availability: this.state.availabilityAPI,
                 price: this.state.pricingUrl,
+            },{
+                addToCart: this.props.skuConfig.addToCartUrl,
+                getCart: ''
             },
-            this.state.addToCartUrl,
             err => console.log(err)
         );
 
@@ -99,7 +100,8 @@ class ListItem extends React.Component {
                                 toggleParentModal={this.toggleModal}
                                 skuNumber={this.props.relatedSku.code}
                                 addToCartLabel={this.props.skuConfig.addToCartLabel}
-                                maxAmount={this.state.skuAvailability.availableQuantity}></AddToCart>
+                                addToCartUrl={this.props.skuConfig.addToCartUrl}
+                            ></AddToCart>
                         </div>
                         <Modal
                             toggleModal={this.toggleModal}

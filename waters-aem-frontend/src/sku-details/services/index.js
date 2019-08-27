@@ -2,6 +2,7 @@ import 'whatwg-fetch';
 
 class SkuService {
     constructor(
+        // defaults that we override when constructing new instances of skuservices in the react components
         isocode = 'us',
         sku = {
             availability:
@@ -10,7 +11,7 @@ class SkuService {
                 'https://dev-www.waters.com:8443/api/waters/product/v1/customerprice',
         },
         cart = {
-            addToCart: 'https://dev-www.waters.com:8443/api/waters/product/v1/addtocart', //https://dev-www.waters.com:8443/api/waters/product/v1/addtocart/{sku}/{quantity}
+            addToCart: 'https://dev-www.waters.com:8443/api/waters/product/v1/addtocart/{partnumber}/{quantity}',
             getCart: ''
         },
         throwError
@@ -67,19 +68,18 @@ class SkuService {
         });
     }
 
-    createPriceRequest(partNo) {
-        const url = this.skuOptions.price
+    createCartUrl(partNo, quantity) {
+        const url = this.addToCartPath
             .replace('{partnumber}', partNo)
-            .replace('{countryCode}', this.isocode);
+            .replace('{quantity}', quantity);
 
         return url;
     }
 
     addToCart(partNo, quantity) {
-        const path = `${this.addToCartPath}/${partNo}/${quantity}`;
         return new Promise((resolve, reject) => {
             window
-                .fetch(path, {
+                .fetch(this.createCartUrl(partNo, quantity), {
                     method: 'post',
                     credentials: 'include',
                     body: JSON.stringify({

@@ -10,8 +10,16 @@ class AddToCart extends React.Component {
             skuNumber: this.props.skuNumber,
             addToCartLabel: this.props.addToCartLabel,
             addToCartQty: null,
+            addToCartUrl: this.props.addToCartUrl
         };
-        this.request = new SkuService();
+        this.request = new SkuService(
+            '',
+            {},
+            {
+                addToCart: this.state.addToCartUrl,
+                getCart: ''
+            },
+            err => console.log(err));
 
         this.quantityInput = this.quantityInput.bind(this);
     }
