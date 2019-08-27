@@ -1,0 +1,30 @@
+properties:
+  - label: Title
+    type: TEXTFIELD
+    value: External List Title Test
+  - label: Description
+    type: TEXTFIELD
+    value: Description Test
+  - label: Icon
+    type: PATHBROWSER
+    value: http://localhost:4502/content/dam/waters/en/Photography/people/Logan-Umberger.jpg/_jcr_content/renditions/cq5dam.web.640.640.jpeg
+  - label: Link Items
+    type: MULTIFIELD
+    value:
+      - item:
+          - label: Link Item Text
+            type: TEXTFIELD
+            value: Waters Site
+          - label: Link Item Path
+            type: PATHBROWSER
+            value: https://www.waters.com/waters/home.htm
+          - label: Open in New Window
+
+      - item:
+          - label: Link Item Text
+            type: TEXTFIELD
+            value: ICF
+          - label: Link Item Path
+            type: PATHBROWSER
+            value: https://www.icf.com/next
+          - label: Open in New Window
