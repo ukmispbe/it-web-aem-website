@@ -16,6 +16,7 @@ import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.utils.LocaleUtils;
 import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
@@ -216,6 +217,12 @@ public final class Meta extends AbstractComponent {
         properties.put("url", getCanonicalUrl());
 
         return MAPPER.writeValueAsString(properties);
+    }
+
+    public List<HrefLangItem> getHrefLangItems() {
+        return LocaleUtils.getRegionLanguagePages(currentPage).stream()
+                .map(page -> new HrefLangItem(page, externalize(page.getHref())))
+                .collect(Collectors.toList());
     }
 
     public boolean isHomepage() {
