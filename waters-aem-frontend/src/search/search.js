@@ -784,7 +784,7 @@ class Search extends Component {
                         }
                         text={this.props.searchText}
                     />
-                    <div>Facet Filters Componet Goes Here</div>
+                    
                     {this.getContentMenuOrFilter(filterTags)}
                 </div>
             </div>
