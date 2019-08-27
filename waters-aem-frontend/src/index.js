@@ -133,7 +133,8 @@ const skuDetailsListPrice = document.querySelector('.cmp-sku-details__ecom').dat
 
 if (skuDetailsContainer) {
     const skuNumber = document.querySelector('.cmp-sku-details__code').innerHTML;
-    ReactDOM.render(<SkuDetails config={skuDetailsConfig} price={skuDetailsListPrice} skuNumber={skuNumber}/>, skuDetailsContainer);
+    const skuTitle = document.querySelector('#skuTitle').innerHTML;
+    ReactDOM.render(<SkuDetails config={skuDetailsConfig} price={skuDetailsListPrice} skuNumber={skuNumber} titleText={skuTitle}/>, skuDetailsContainer);
 }
 
 
