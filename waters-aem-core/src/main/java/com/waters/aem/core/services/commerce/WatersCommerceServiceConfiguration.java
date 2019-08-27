@@ -13,7 +13,7 @@ public @interface WatersCommerceServiceConfiguration {
     String skuCustomerPriceUrl() default "https://dev-www.waters.com:8443/api/waters/product/v1/customerprice/{partnumber}/{countryCode}";
 
     @AttributeDefinition(name = "Add to Cart Endpoint", description = "URL for the Add to Cart endpoint")
-    String addToCartUrl() default "https://wwwdt1.waters.com/waters/ajax.htm?handler=shoppingHandler&action=processExternalCart";
+    String addToCartUrl() default "https://dev-www.waters.com:8443/api/waters/product/v1/addtocart/{partnumber}/{quantity}";
 
     @AttributeDefinition(name = "View Cart URL", description = "URL for the View Cart button")
     String viewCartUrl() default "https://wwwdt1.waters.com/waters/shoppingCart.htm";
