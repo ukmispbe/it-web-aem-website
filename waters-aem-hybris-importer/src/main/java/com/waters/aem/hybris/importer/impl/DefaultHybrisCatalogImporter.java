@@ -468,7 +468,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         final Resource contentResource = skuPage.getContentResource();
 
         if (StringUtils.isNotEmpty(thumbNailImage)) {
-            Resource thumbnailResource = contentResource.getChild(WatersConstants.THUMBNAIL_IMAGE);
+            final Resource thumbnailResource = contentResource.getChild(WatersConstants.THUMBNAIL_IMAGE);
 
             if (thumbnailResource == null){
                 final Map<String, Object> properties = new HashMap<>();
