@@ -38,12 +38,9 @@ class SkuDetails extends React.Component {
             err => console.log(err)
         );
 
-        this.toggleParentModal = this.toggleParentModal.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
     }
 
-    toggleParentModal() {
-        this.toggleModal();
-    }
     componentDidMount() {
         this.request.getAvailability(this.state.skuNumber).then(response => {
             this.setState({
@@ -88,7 +85,7 @@ class SkuDetails extends React.Component {
                     </div>
                     <div className="cmp-sku-details__buttons">
                         <AddToCart 
-                            toggleParentModal={this.toggleParentModal}
+                            toggleParentModal={this.toggleModal}
                             skuNumber={this.state.skuNumber}
                             addToCartLabel={this.props.config.addToCartLabel}
                             maxAmount={this.state.skuAvailability.availableQuantity}></AddToCart>
