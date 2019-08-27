@@ -8,6 +8,7 @@ import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.Html5SmartImage;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.citytechinc.cq.component.annotations.widgets.CheckBox;
 import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.core.components.AbstractComponent;
@@ -31,6 +32,7 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
 import java.util.Locale;
+import javax.inject.Inject;
 
 @Component(value = "Header",
     group = ComponentConstants.GROUP_HIDDEN,
@@ -89,6 +91,14 @@ public final class Header extends AbstractComponent implements ComponentExporter
     @LinkInject(inherit = true)
     private Link searchPath;
 
+    @DialogField(fieldDescription = "Include H1 Tag",
+            value = "true",
+            ranking = 5)
+    @CheckBox(title = "includeH1Tag",
+            text = "Include H1 Tag?")
+    @Inject
+    private Boolean includeH1Tag;
+
 
     @Nonnull
     @Override
@@ -111,6 +121,8 @@ public final class Header extends AbstractComponent implements ComponentExporter
     public String getLogoAltText() {
         return logoAltText;
     }
+
+    public Boolean isIncludeH1Tag() { return includeH1Tag; }
 
     public Boolean isExternal() {
         return LinkUtils.isExternal(logoLink);
