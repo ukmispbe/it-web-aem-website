@@ -22,6 +22,8 @@ class SkuService {
         this.throwError = throwError;
     }
 
+
+
     getAvailability(partNo) {
         return new Promise((resolve, reject) => {
             window
@@ -43,6 +45,14 @@ class SkuService {
 
     createAvailabilityRequest(partNo) {
         const url = this.skuOptions.availability
+            .replace('{partnumber}', partNo)
+            .replace('{countryCode}', this.isocode);
+
+        return url;
+    }
+    
+    createPriceRequest(partNo) {
+        const url = this.skuOptions.price
             .replace('{partnumber}', partNo)
             .replace('{countryCode}', this.isocode);
 
