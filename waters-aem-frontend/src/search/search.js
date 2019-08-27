@@ -784,7 +784,7 @@ class Search extends Component {
                         }
                         text={this.props.searchText}
                     />
-
+                    <div>Facet Filters Componet Goes Here</div>
                     {this.getContentMenuOrFilter(filterTags)}
                 </div>
             </div>
@@ -857,7 +857,8 @@ class Search extends Component {
         if (this.state.erroredOut) {
             return <></>;
         } else {
-            return (
+            return <>
+                <div>Category Tabs Component Goes Here</div>
                 <div ref="main">
                     {overlay}
                     {this.renderResultsCount()}
@@ -865,7 +866,7 @@ class Search extends Component {
                     {state.loading ? <Spinner loading={state.loading} /> : null}
                     {this.renderResults(results)}
                 </div>
-            );
+            </>;
         }
     }
 }
