@@ -3,16 +3,25 @@ import ReactSVG from 'react-svg';
 import Stock from '../../sku-details/views/stock';
 import Price from '../../sku-details/views/price';
 import SkuService from '../../sku-details/services';
+import AddToCart from '../../sku-details/views/addToCart';
+import { Modal } from '../../modal/index';
 
 class ListItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            modalShown: false,
+            modalConfig: this.props.skuConfig.modalInfo,
             userCountry: this.props.skuConfig.countryCode,
             availabilityAPI: this.props.skuConfig.availabilityUrl,
             pricingUrl: this.props.skuConfig.pricingUrl,
             addToCartUrl: this.props.skuConfig.addToCartUrl,
-            skuAvailability: {}
+            skuAvailability: {},
+            modalInfo: {
+                ...this.props.skuConfig.modalInfo, 
+                textHeading: this.props.relatedSku.code,
+                text: this.props.relatedSku.title
+            }
         };
 
         this.request = new SkuService(
@@ -26,7 +35,19 @@ class ListItem extends React.Component {
         );
 
         this.checkAvailability = this.checkAvailability.bind(this)
+        this.toggleModal = this.toggleModal.bind(this);
     }
+
+    toggleModal = () => {
+        this.setState({ modalShown: !this.state.modalShown }, () => {
+            if (this.state.modalShown) {
+                document.body.classList.add('no-scroll');
+            } else {
+                document.body.classList.remove('no-scroll');
+            }
+        });
+    };
+
     checkAvailability = (skuNumber) => {
         this.request.getAvailability(skuNumber).then(response => {
             this.setState({ skuAvailability: response });
@@ -74,10 +95,18 @@ class ListItem extends React.Component {
                         </div>
                         {/* //TODO: this will get swapped out for an add-to-cart component that can be shared between sku-list and sku-details */}
                         <div className="cmp-sku-list__buttons">
-                            <input className="cmp-sku-list__quantity" type="number" placeholder="Qty" max="999" min="0" value=""/>
-                            {/* <a className="cmp-button">${'ADD TO CART' @ i18n}</a> */}
-                            <a className="cmp-button">Add To Cart</a>
+                            <AddToCart 
+                                toggleParentModal={this.toggleModal}
+                                skuNumber={this.props.relatedSku.code}
+                                addToCartLabel={this.props.skuConfig.addToCartLabel}
+                                maxAmount={this.state.skuAvailability.availableQuantity}></AddToCart>
                         </div>
+                        <Modal
+                            toggleModal={this.toggleModal}
+                            open={this.state.modalShown}
+                            theme="callToAction"
+                            config={this.state.modalInfo}
+                        />
                     </div>
                 </div>
             </div>
