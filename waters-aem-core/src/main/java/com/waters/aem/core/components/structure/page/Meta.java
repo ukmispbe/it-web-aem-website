@@ -16,6 +16,7 @@ import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -215,6 +216,10 @@ public final class Meta extends AbstractComponent {
         properties.put("url", getCanonicalUrl());
 
         return MAPPER.writeValueAsString(properties);
+    }
+
+    public boolean isHomepage() {
+        return Templates.isHomePage(currentPage);
     }
 
     private String getThumbnailImage() {
