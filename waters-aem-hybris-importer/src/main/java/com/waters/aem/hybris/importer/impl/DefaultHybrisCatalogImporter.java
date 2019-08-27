@@ -287,7 +287,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         if (status != null) {
             updateSkuPageProperties(skuPage, sku);
-//            setPageThumbnail(context.getResourceResolver(), sku, skuPage);
+            createOrUpdateThumbnail(context.getResourceResolver(), sku, skuPage);
         }
 
         results.add(HybrisImporterResult.fromSkuPage(skuPage, status));
@@ -460,18 +460,27 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             .collect(Collectors.toSet());
     }
 
-    @SuppressWarnings({ "squid:S2259" })
-    private void setPageThumbnail(final ResourceResolver resourceResolver, final Sku sku, final PageDecorator skuPage)
-        throws PersistenceException {
-        final String thumbNailImage = sku.getPrimaryImageThumbnail();
+    private void createOrUpdateThumbnail(final ResourceResolver resourceResolver, final Sku sku,
+        final PageDecorator skuPage) throws PersistenceException {
+        final String thumbnailImage = sku.getPrimaryImageSrc();
 
-        if (StringUtils.isNotEmpty(thumbNailImage)) {
-            final Map<String, Object> properties = new HashMap<>();
+        final Resource contentResource = skuPage.getContentResource();
 
-            properties.put(JcrConstants.JCR_PRIMARYTYPE, JcrConstants.NT_UNSTRUCTURED);
-            properties.put(DownloadResource.PN_REFERENCE, thumbNailImage);
+        if (StringUtils.isNotEmpty(thumbnailImage)) {
+            final Resource thumbnailResource = contentResource.getChild(WatersConstants.THUMBNAIL_IMAGE);
 
-            resourceResolver.create(skuPage.getContentResource(), WatersConstants.THUMBNAIL_IMAGE, properties);
+            if (thumbnailResource == null){
+                final Map<String, Object> properties = new HashMap<>();
+
+                properties.put(JcrConstants.JCR_PRIMARYTYPE, JcrConstants.NT_UNSTRUCTURED);
+                properties.put(DownloadResource.PN_REFERENCE, thumbnailImage);
+
+                resourceResolver.create(contentResource, WatersConstants.THUMBNAIL_IMAGE, properties);
+            } else {
+                final ValueMap properties = thumbnailResource.adaptTo(ModifiableValueMap.class);
+
+                properties.put(DownloadResource.PN_REFERENCE, thumbnailImage);
+            }
         }
     }
 
