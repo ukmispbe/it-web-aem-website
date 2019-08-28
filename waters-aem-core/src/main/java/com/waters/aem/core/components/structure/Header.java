@@ -16,18 +16,22 @@ import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
+import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.account.WatersAccountService;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.waters.aem.core.services.launch.AdobeLaunchService;
+import com.waters.aem.core.services.youramigo.YourAmigoService;
 import com.waters.aem.core.utils.LinkUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
+import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
+import java.util.Locale;
 import javax.inject.Inject;
 
 @Component(value = "Header",
@@ -44,6 +48,9 @@ public final class Header extends AbstractComponent implements ComponentExporter
 
     public static final String RESOURCE_TYPE = "waters/components/structure/header";
 
+    @Self
+    private SiteContext siteContext;
+
     @OSGiService
     private WatersAccountService watersAccountService;
 
@@ -52,6 +59,9 @@ public final class Header extends AbstractComponent implements ComponentExporter
 
     @OSGiService
     private AdobeLaunchService adobeLaunchService;
+
+    @OSGiService
+    private YourAmigoService yourAmigoService;
 
     @DialogField(fieldLabel = "Header Logo",
         fieldDescription = "select header logo",
@@ -140,5 +150,9 @@ public final class Header extends AbstractComponent implements ComponentExporter
 
     public String getLaunchScript() {
         return adobeLaunchService.getLaunchScript();
+    }
+
+    public Boolean isYourAmigoEnabled() {
+        return Locale.US.getCountry().equals(siteContext.getLocaleWithCountry().getCountry()) && yourAmigoService.isEnabled();
     }
 }
