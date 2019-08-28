@@ -48,7 +48,7 @@ def createNavComponent(parNode, root) {
         navNode.setProperty('skipNavigationRoot', 'true')
         navNode.setProperty('sling:resourceType', 'waters/components/content/navigation')
         navNode.setProperty('navigationRoot', root)
-        navNode.setProperty('jcr:created',Calendar.getInstance())
+        navNode.setProperty('jcr:created', Calendar.getInstance())
         navNode.setProperty("cq:lastModified", Calendar.getInstance());
 
         def cqResponsiveNode = navNode.addNode('cq:responsive', 'nt:unstructured')
