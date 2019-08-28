@@ -13,22 +13,26 @@ def buildQuery(page, resourceType){
 
 result.nodes.each { node ->
 
-    def path = node.getPath()
-    def root = path.substring(0, StringUtils.ordinalIndexOf(path, '/', 5))
-    def parNode
+    if (node.getDepth() > 6) {
 
-    if(!node.hasNode('par')) {
-        parNode = node.addNode('par', 'nt:unstructured')
+        def path = node.getPath()
+        def root = path.substring(0, StringUtils.ordinalIndexOf(path, '/', 5))
+        def parNode
 
-        parNode.setProperty('sling:resourceType', 'wcm/foundation/components/responsivegrid')
+        if(!node.hasNode('par')) {
+            parNode = node.addNode('par', 'nt:unstructured')
 
-        createNavComponent(parNode, root)
-    } else {
-        parNode = node.getNode('par')
+            parNode.setProperty('sling:resourceType', 'wcm/foundation/components/responsivegrid')
 
-        createNavComponent(parNode, root)
+            createNavComponent(parNode, root)
+        } else {
+            parNode = node.getNode('par')
+
+            createNavComponent(parNode, root)
+        }
+
+        removeLogo(node)
     }
-
     session.save()
 }
 
@@ -51,6 +55,8 @@ def createNavComponent(parNode, root) {
     }
 }
 
-
-
-
+def removeLogo(node) {
+    if(node.hasNode('logo')) {
+        node.getNode('logo').remove()
+    }
+}

@@ -11,18 +11,23 @@ def buildQuery(page, resourceType){
 
 result.nodes.each { node ->
 
-    def parNode
+    if (node.getDepth() > 6) {
 
-    if(!node.hasNode('par')) {
-        parNode = node.addNode('par', 'nt:unstructured')
+        def parNode
 
-        parNode.setProperty('sling:resourceType', 'wcm/foundation/components/responsivegrid')
+        if(!node.hasNode('par')) {
+            parNode = node.addNode('par', 'nt:unstructured')
 
-        addExperienceFragmant(parNode)
-    } else {
-        parNode = node.getNode('par')
+            parNode.setProperty('sling:resourceType', 'wcm/foundation/components/responsivegrid')
 
-        addExperienceFragmant(parNode)
+            addExperienceFragmant(parNode)
+        } else {
+            parNode = node.getNode('par')
+
+            addExperienceFragmant(parNode)
+        }
+
+        removeImageAndLinks(node)
     }
 
     session.save()
@@ -34,6 +39,21 @@ def addExperienceFragmant(parNode) {
 
         xFragNode.setProperty('fragmentPath', '/content/experience-fragments/footer-links/footer-links')
         xFragNode.setProperty('sling:resourceType', 'cq/experience-fragments/editor/components/experiencefragment')
+    }
+}
+
+def removeImageAndLinks(node) {
+
+    if(node.hasNode('footerLinks')) {
+        node.getNode('footerLinks').remove()
+    }
+
+    if(node.hasNode('socialLinks')) {
+        node.getNode('socialLinks').remove()
+    }
+
+    if(node.hasNode('logoImage')) {
+        node.getNode('logoImage').remove()
     }
 }
 
