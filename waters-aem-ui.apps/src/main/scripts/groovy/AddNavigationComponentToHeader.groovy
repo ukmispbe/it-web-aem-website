@@ -41,11 +41,15 @@ def createNavComponent(parNode, root) {
     if (!parNode.hasNode('navigation')) {
         def navNode = parNode.addNode('navigation', 'nt:unstructured')
 
+        println 'Navigation Node was created at ' + navNode.getPath()
+
         navNode.setProperty('collectAllPages', 'false')
         navNode.setProperty('structureDepth', '2')
         navNode.setProperty('skipNavigationRoot', 'true')
         navNode.setProperty('sling:resourceType', 'waters/components/content/navigation')
         navNode.setProperty('navigationRoot', root)
+        navNode.setProperty('jcr:created',Calendar.getInstance())
+        navNode.setProperty("cq:lastModified", Calendar.getInstance());
 
         def cqResponsiveNode = navNode.addNode('cq:responsive', 'nt:unstructured')
 

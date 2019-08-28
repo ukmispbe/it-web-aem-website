@@ -37,8 +37,12 @@ def addExperienceFragmant(parNode) {
     if (!parNode.hasNode('experiencefragment')) {
         def xFragNode = parNode.addNode('experiencefragment', 'nt:unstructured')
 
+        println 'Experience Fragment Node  was created at ' + xFragNode.getPath()
+
         xFragNode.setProperty('fragmentPath', '/content/experience-fragments/footer-links/footer-links')
         xFragNode.setProperty('sling:resourceType', 'cq/experience-fragments/editor/components/experiencefragment')
+        xFragNode.setProperty('jcr:created', Calendar.getInstance())
+        xFragNode.setProperty("cq:lastModified", Calendar.getInstance());
     }
 }
 
