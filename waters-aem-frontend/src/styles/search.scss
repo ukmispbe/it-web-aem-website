@@ -233,8 +233,8 @@ div.cmp-search__no-results {
         display: none;
         @include font-utility;
         border: 1px solid $color-border-dark;
+        margin-bottom: $space-m;
         padding: $space-xs ($space-xl - 0.25em) $space-xs $space-s;
-        margin-bottom: $space-xl;
         position: relative;
         text-decoration: none;
         &:hover {
@@ -286,6 +286,10 @@ div.cmp-search__no-results {
         float: none;
         width: 100%;
     }
+}
+
+.cmp-search-category-dropdown{
+    margin-bottom: ($space-xl + $space-m); 
 }
 
 .cmp-search__resultsCount-container {

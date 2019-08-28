@@ -8,6 +8,7 @@ import ResultsCount from './components/results-count';
 import Results from './components/results';
 import NoResults from './components/no-results';
 import Sort from './components/sort';
+import CategoryDropDown from './components/category-dropdown';
 import Filter from './components/filter';
 import {
     SubFacetTags,
@@ -379,6 +380,10 @@ class Search extends Component {
         }
 
         this.pushToHistory(query, state.selectedFacets);
+    }
+
+    categoryChangeHandler(e) { 
+        console.log('categoryChangeHandler', e);
     }
 
     filterSelectHandler(facet, categoryId, e) {
@@ -787,6 +792,7 @@ class Search extends Component {
                     
                     {this.getContentMenuOrFilter(filterTags)}
                 </div>
+
             </div>
         );
         const locale = this.props.searchLocale;
@@ -803,6 +809,14 @@ class Search extends Component {
                         resetToSavedState={this.resetToSavedState.bind(this)}
                         collapseFilters={this.collapseFilters}
                     />
+
+                    <CategoryDropDown
+                        categoryDownIcon={this.props.searchText.downIcon}
+                        categoryIsSearchable={false}
+                        categoryOnChange={this.categoryChangeHandler.bind(this)}
+                        categoryOptions={[ { name: 'Do not display when count is 0', count: 0 }, { name: 'Library', count: 386 }, { name: 'Products', count: 87 }, { name: 'Support', count: 182 }, { name: 'Shop', count: 1381 }, { name: 'Miscellaneous 1' }, { name: 'Miscellaneous 2' }, { name: 'Miscellaneous 3' }, { name: 'Miscellaneous 4' }, { name: 'Miscellaneous 5' }]}                
+                    />
+                    
                 </div>
 
                 {filterTags}
