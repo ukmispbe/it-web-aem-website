@@ -5,7 +5,7 @@ import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import java.util.List;
 
 @PageObjectInterface
-public interface ExternalFooter {
+public interface Footer {
 
     String getLogo();
 
@@ -13,11 +13,13 @@ public interface ExternalFooter {
 
     String getLogoAltText();
 
-    boolean isNewWindow();
+    boolean isExternal();
 
     String getCookiesLink();
 
     String getCopyrightText();
 
-    List<LinkItem> getLinkItems();
+    List<LinkItem> getFooterLinks();
+
+    List<LinkItem> getSocialLinks();
 }

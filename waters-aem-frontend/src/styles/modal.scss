@@ -154,3 +154,40 @@
         }
     }
 }
+
+/////// ACOUNT DROPDOWN MODAL
+@include mobile {
+
+    .cmp-modal.account-dropdown{
+        .cmp-modal__box {
+            @include mobile {
+                padding: ($space-m - $space-xxxs);
+            }
+        }
+    }
+
+
+    .cmp-modal-box.account-dropdown {
+        position: absolute;
+        top: 66px;
+        border-top: 1px solid $color-border-light;
+    }
+
+    .cmp-modal.account-dropdown {
+        .cmp-modal__title {
+            .cmp-modal__title-icon {
+                margin-right: $space-xxs;
+                height: $icon-m;
+                width: $icon-m;
+
+                svg {
+                    .st0,
+                    .st1 {
+                        stroke: $color-teal-30;
+                    }
+                }
+            }
+        }
+    }
+
+}

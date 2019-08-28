@@ -5,6 +5,7 @@ import { Modal } from '../modal/index';
 import Stock from './views/stock';
 import Price from './views/price';
 import SkuService from './services';
+import AddToCart from './views/addToCart';
 import SkuList from '../scripts/skulist';
 
 class SkuDetails extends React.Component {
@@ -14,13 +15,18 @@ class SkuDetails extends React.Component {
             modalShown: false,
             modalConfig: this.props.config.modalInfo,
             skuConfig: this.props.config.skuInfo,
-            skuNumber: this.props.config.modalInfo.textHeading,
+            skuNumber: this.props.skuNumber,
             userCountry: this.props.config.countryCode,
             availabilityAPI: this.props.config.availabilityUrl,
             skuAvailability: {},
             addToCartQty: undefined,
             defaultPrice: this.props.price,
             locale: this.props.config.locale,
+            modalInfo: {
+                ...this.props.config.modalInfo,
+                textHeading: this.props.skuNumber,
+                text: this.props.titleText
+            }
         };
 
         this.request = new SkuService(
@@ -28,18 +34,28 @@ class SkuDetails extends React.Component {
             {
                 availability: this.props.config.availabilityUrl,
                 price: this.props.config.pricingUrl,
+            },{
+                addToCart: this.props.config.addToCartUrl,
+                getCart: ''
             },
-            this.props.config.addToCartUrl,
             err => console.log(err)
         );
 
+        this.toggleModal = this.toggleModal.bind(this);
         this.skuRemoveNegative = this.skuRemoveNegative.bind(this);
         this.skuQuantityInput = this.skuQuantityInput.bind(this);
     }
 
     componentDidMount() {
         this.request.getAvailability(this.state.skuNumber).then(response => {
-            this.setState({ skuAvailability: response });
+            this.setState({
+                skuAvailability: response,
+                modalInfo: {
+                    ...this.props.config.modalInfo,
+                    textHeading: this.props.skuNumber,
+                    text: this.props.titleText
+                }
+            });
         });
     }
 
@@ -65,82 +81,41 @@ class SkuDetails extends React.Component {
         });
     };
 
-    addToCart = () => {
-        if (this.state.addToCartQty > 0) {
-            this.request
-                .addToCart(this.state.skuNumber, this.state.addToCartQty)
-                .then(response => {
-                    this.toggleModal();
-                })
-                .catch(err => {
-                    console.log('SHOULD WE HAVE AN ERROR MODAL?');
-                    this.toggleModal();
-                });
-        } else {
-            this.setState(
-                {
-                    addToCartQty: 1,
-                },
-                () =>
-                    this.request
-                        .addToCart(
-                            this.state.skuNumber,
-                            this.state.addToCartQty
-                        )
-                        .then(response => {
-                            this.toggleModal();
-                        })
-                        .catch(err => {
-                            console.log('SHOULD WE HAVE AN ERROR MODAL?');
-                            this.toggleModal();
-                        })
-            );
-        }
-    };
-
     render() {
         return (
-		 <>
-            <div className="cmp-sku-details__buyinfo">
-                <div className="cmp-sku-details__priceinfo">
-                    <Price
-                        skuConfig={this.state.skuConfig}
-                        price={this.state.defaultPrice}
+            <>
+                <div className="cmp-sku-details__buyinfo">
+                    <div className="cmp-sku-details__priceinfo">
+                        <Price
+                            skuConfig={this.state.skuConfig}
+                            price={this.state.defaultPrice}
+                        />
+                    </div>
+                    <div className="cmp-sku-details__availability">
+                        <Stock
+                            skuConfig={this.state.skuConfig}
+                            skuNumber={this.state.skuNumber}
+                            skuAvailability={this.state.skuAvailability}
+                            locale={this.state.locale}
+                            skuType="details"
+                        />
+                    </div>
+                    <div className="cmp-sku-details__buttons">
+                        <AddToCart
+                            toggleParentModal={this.toggleModal}
+                            skuNumber={this.state.skuNumber}
+                            addToCartLabel={this.props.config.addToCartLabel}
+                            addToCartUrl={this.props.config.addToCartUrl}
+                        ></AddToCart>
+                    </div>
+                    <Modal
+                        toggleModal={this.toggleModal}
+                        open={this.state.modalShown}
+                        theme="callToAction"
+                        config={this.state.modalInfo}
                     />
                 </div>
-                <div className="cmp-sku-details__availability">
-                    <Stock
-                        skuConfig={this.state.skuConfig}
-                        skuNumber={this.state.skuNumber}
-                        skuAvailability={this.state.skuAvailability}
-                        locale={this.state.locale}
-                    />
-                </div>
-                <div className="cmp-sku-details__buttons">
-                    <form>
-                        <input
-                            className="cmp-sku-details__quantity"
-                            type="number"
-                            placeholder={this.props.config.qtyLabel}
-                            max={this.state.skuConfig.maxAmount}
-                            min="1"
-                            value={this.state.addToCartQty}
-                            onChange={this.skuQuantityInput}
-                            onKeyPress={this.skuRemoveNegative} 
-                             />
-                    </form>
-                    <a className="cmp-button" onClick={() => this.addToCart()}>
-                        {this.props.config.addToCartLabel}
-                    </a>
-                </div>
-                <Modal
-                    toggleModal={this.toggleModal}
-                    open={this.state.modalShown}
-                    theme="callToAction"
-                    config={this.state.modalConfig}
-                />
-            </div>
-            <a href="#" class="cmp-sku-details__quote">{this.props.config.skuInfo.requestQuote}</a>
+                <a href="#" class="cmp-sku-details__quote">{this.props.config.skuInfo.requestQuote}</a>
             </>
         );
     }

@@ -19,7 +19,6 @@ import com.waters.aem.hybris.models.ProductCategory;
 import com.waters.aem.hybris.models.ProductList;
 import com.waters.aem.hybris.models.ProductReference;
 import com.waters.aem.hybris.models.ProductReferenceTarget;
-import com.waters.aem.hybris.models.ProductReferenceType;
 import com.waters.aem.hybris.result.HybrisImporterResult;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.commons.JcrUtils;

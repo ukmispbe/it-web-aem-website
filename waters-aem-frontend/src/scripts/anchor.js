@@ -1,9 +1,11 @@
 import scrollToY from './scrollTo';
 import screenSizes from './screenSizes';
+import Fader from './fade-x';
 import sticky, { scrollListener } from './stickyService';
 
 var anchorElement = document.querySelector('.cmp-anchor');
 var anchorMenu = document.querySelector('.cmp-anchor__list-heading');
+let ancFader = null;
 
 // Setup click handler for Anchor Links to scroll in view
 var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
@@ -133,29 +135,28 @@ function hideScrollBars(el) {
 }
 
 function anchorChange(el) {
-    clearGradients();
-    var anchorElementId = document.getElementById('cmp-anchor');
-    if (anchorElementId.scrollLeft > 0) {
-        lhsGradientFade[0].style.display = 'block';
-    }
+   if (ancFader === null) {
+      ancFader = Fader('cmp-anchor__list', 0, 75);
 
-    if (
-        Math.ceil(
-            anchorElementId.scrollWidth -
-                anchorElementId.getBoundingClientRect().width
-        ) != Math.ceil(anchorElementId.scrollLeft)
-    ) {
-        rhsGradientFade[0].style.display = 'block';
-    }
+      var anchorElementId = document.getElementById('cmp-anchor');
+
+      if (ancFader) {
+         anchorElementId.addEventListener('scroll', ancFader);
+      }
+   }
 }
 
 function clearGradients() {
-    rhsGradientFade[0].style.display = 'none';
-    lhsGradientFade[0].style.display = 'none';
+    let lhsGradient = document.querySelector('.cmp-anchor__list .fader-container--left');
+    let rhsGradient = document.querySelector('.cmp-anchor__list .fader-container--right');
+    
+   if (lhsGradient !== null && rhsGradient !== null) {
+      lhsGradient.style.display = 'none';
+      rhsGradient.style.display = 'none';
+   }
 }
 
 function resizeWindow(el) {
-    anchorChange(el);
     var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
     if (!hasHorizontalScrollbar) {
         clearGradients();
@@ -163,20 +164,13 @@ function resizeWindow(el) {
 }
 
 function scrollWindow(el) {
-    anchorChange(el);
-    var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
+   var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
     if (!hasHorizontalScrollbar) {
         clearGradients();
     }
 }
 
 var anchorList = document.querySelector('.cmp-anchor__list');
-var rhsGradientFade = document.getElementsByClassName(
-    'cmp-anchor-gradient-right'
-);
-var lhsGradientFade = document.getElementsByClassName(
-    'cmp-anchor-gradient-left'
-);
 
 if (anchorList) {
     const isMobile = screenSizes.isMobile();
@@ -219,7 +213,9 @@ if (anchorList) {
             hideScrollBars(anchorList)
         );
 
-        anchorList.addEventListener('scroll', () => scrollWindow(anchorList));
+        anchorChange(anchorList); 
+
+        window.addEventListener('scroll', () => scrollWindow(anchorList));
         window.addEventListener('load', () => resizeWindow(anchorList));
         window.addEventListener('resize', () => resizeWindow(anchorList));
         var mediaQueryListener = window.matchMedia('(max-width: 650px)');

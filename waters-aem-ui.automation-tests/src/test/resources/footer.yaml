@@ -1,0 +1,54 @@
+Properties:
+  - label:
+    type: IMAGE
+    value: waters-logo-white.svg
+  - label: Logo Link
+    type: PATHBROWSER
+    value: /content/waters/language-masters/en/search.html
+  - label: Logo Alt Text
+    type: TEXTFIELD
+    value: Alt Text Test
+  - label: Copyright Text
+    type: TEXTFIELD
+    value: © 2019 Waters Corporation. All Rights Reserved.
+
+Footer Links:
+  - label: Cookies Link
+    type: PATHBROWSER
+    value: /content/waters/language-masters/en/search.html
+  - label: Footer Links
+    type: MULTIFIELD
+    value:
+      - item:
+        - label: Link Item Text
+          type: TEXTFIELD
+          value: Waters
+        - label: Link Item Path
+          type: PATHBROWSER
+          value: https://www.waters.com/waters/home.htm
+      - item:
+        - label: Link Item Text
+          type: TEXTFIELD
+          value: Search
+        - label: Link Item Path
+          type: PATHBROWSER
+          value: /content/waters/language-masters/en/search.html
+
+Share Links:
+  - label: Social Links
+    type: MULTIFIELD
+    value:
+      - item:
+        - label: Link Item Path
+          type: PATHBROWSER
+          value: https://www.facebook.com
+        - label: Link Item Icon
+          type: PATHBROWSER
+          value: /content/dam/waters/en/brand-assets/icons/facebook.svg
+      - item:
+        - label: Link Item Path
+          type: PATHBROWSER
+          value: https://twitter.com
+        - label: Link Item Icon
+          type: PATHBROWSER
+          value: /content/dam/waters/en/brand-assets/icons/twitter.svg

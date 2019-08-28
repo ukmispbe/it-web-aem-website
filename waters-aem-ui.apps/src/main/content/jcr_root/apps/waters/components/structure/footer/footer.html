@@ -1,0 +1,149 @@
+<a class="cmp-back-to-top" href="#" title="${'Back To Top' @ i18n}"><img alt="${'Back To Top' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/up.svg" class="inline-svg"></a>
+
+<div data-sly-use.footer="com.waters.aem.core.components.structure.Footer" class="cmp-footer">
+    <div class="container1_wrapper">
+        <div class="container1">
+            <div class="cmp-footer__linksdiv">
+                <div class="cmp-footer__parsys"
+                    data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+            </div>
+            <div class="cmp-footer__logo">
+                <a href="${footer.logoLink.href}" target="${footer.external ? '_blank' : ''}">
+                    <img src="${footer.logoImage.fileReference}" alt="${footer.logoAltText}" />
+                </a>
+            </div>
+            <div class="cmp-footer__social-links">
+                <div class="social-links-text">${'Follow our channels' @ i18n}</div>
+                <ul data-sly-test="${footer.socialLinks}">
+                    <li data-sly-repeat="${footer.socialLinks}" class="cmp-footer__social-links__item">
+                        <a class="cmp-footer-social-links__link" href="${item.link.href}" target="_blank">
+                            <img class="${item.svg ? 'inline-svg' : ''}" data-sly-test="${item.linkIcon}"
+                                src="${item.linkIcon}" />
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container2_wrapper">
+        <div class="container2">
+            <div class="cmp-footer__copyright">
+                <p>${footer.copyrightText}</p>
+            </div>
+            <div class="cmp-footer__selector ${footer.languagePages.size == 1 ? 'one-link' : ''}">
+                <div class="cmp-footer__selector__region">
+                    <span>${footer.countryName @ i18n}</span>
+                    <img class="inline-svg" src="/content/dam/waters/en/brand-assets/icons/globe.svg"
+                         alt="${'Country' @ i18n}" />
+                </div>
+                <div class="cmp-footer__selector__language ${footer.languagePages.size == 1 ? 'one-link' : ''}">
+                    <a href="${footer.languagePages[0].languagePage.href}">${footer.languagePages[0].languageTitle}</a>
+                    <div class="cmp-footer__selector__language--options"
+                         data-sly-list.languageLink="${footer.languagePages}">
+                        <a data-sly-test="${!languageLinkList.first}"
+                           href="${languageLink.languagePage.href}">${languageLink.languageTitle}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="cmp-footer__links">
+                <nav data-sly-test="${footer.footerLinks}">
+                    <a data-sly-repeat="${footer.footerLinks}" href="${item.link.href}"
+                        target="${item.external ? '_blank' : ''}">
+                        ${item.text}
+                        <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+                            data-sly-call="${patterns.linkIcon @ linkItem=item}" />
+                    </a>
+                    <a data-sly-test="${footer.cookiesLink}" href="${footer.cookiesLink.href}"
+                        target="_blank">${'Cookies' @ i18n}</a>
+                    <a class="optanon-toggle-display dl_Anchor" href="#">${'Cookie Preferences' @ i18n}</a>
+                </nav>
+            </div>
+            <div class="cmp-footer__yamcontainer" data-sly-test="${footer.yourAmigoEnabled}">
+                <div class="cmp-footer__yamlinks">
+                    <span>By Product:</span>
+                    <a href="https://www.waters.com/1/1/index1.html">Title</a>
+                    <a href="https://www.waters.com/1/1/indexb1.html">Brand</a>
+                    <a href="https://www.waters.com/1/1/indexc1.html">Category</a>
+                    <a href="https://www.waters.com/1/1/indexd1.html">Popularity</a>
+                    <a href="https://www.waters.com/1/1/indexe1.html">Best Sellers</a>
+                    <span>By High-Volume Category:</span>
+                    <a href="https://www.waters.com/1/4/index1.html">Popularity</a>
+                    <a href="https://www.waters.com/1/4/indexb1.html">Our Choices</a>
+                    <a href="https://www.waters.com/1/4/indexc1.html">Category</a>
+                    <a href="https://www.waters.com/1/4/indexd1.html">Title</a>
+                    <a href="https://www.waters.com/1/4/indexe1.html">All-Round Favorites</a>
+                </div>
+                <div class="cmp-footer__yamlinks">
+                    <span>By Top Sellers:</span>
+                    <a href="https://www.waters.com/1/2/index1.html">Popularity</a>
+                    <a href="https://www.waters.com/1/2/indexb1.html">Brand</a>
+                    <a href="https://www.waters.com/1/2/indexc1.html">Price</a>
+                    <a href="https://www.waters.com/1/2/indexd1.html">Best Sellers</a>
+                    <a href="https://www.waters.com/1/2/indexe1.html">Name</a>
+                    <span>By Category:</span>
+                    <a href="https://www.waters.com/1/3/index1.html">Popularity</a>
+                    <a href="https://www.waters.com/1/3/indexb1.html">Our Choices</a>
+                    <a href="https://www.waters.com/1/3/indexc1.html">Recommendations</a>
+                    <a href="https://www.waters.com/1/3/indexd1.html">Title</a>
+                    <a href="https://www.waters.com/1/3/indexe1.html">Category</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" id="datalayer">
+    var parsedData = JSON.parse('${footer.dataLayer @ context="unsafe"}');
+
+    if (parsedData.page) {
+        parsedData.page.serverName = window.location.hostname;
+    }
+
+    window.digitalData = parsedData;
+
+    document.dispatchEvent(new CustomEvent('digitalDataReady', {}));
+</script>
+
+<script type="application/json" id="commerce-configs-json">
+    {
+        "locale": "${footer.locale  @ context='scriptString'}",
+        "availabilityUrl": "${footer.skuAvailabilityUrl @ context='unsafe'}",
+        "pricingUrl": "${footer.skuCustomerPriceUrl @ context='unsafe'}",
+        "addToCartUrl": "${footer.addToCartUrl @ context='unsafe'}",
+        "countryCode": "${footer.countryCode @ context='scriptString'}",
+        "isoCode": "${footer.isoCode @ context='scriptString'}",
+        "addToCartLabel": "${'ADD TO CART' @ i18n, context='scriptString'}",
+        "qtyLabel": "${'Qty' @ i18n, context='scriptString'}",
+        "skuInfo": {
+            "requestQuote": "${'Do you need a web quote?' @ i18n, context='scriptString'}",
+            "listPriceLabel": "${'List Price' @ i18n, context='scriptString'}",
+            "inStockLabel": "${'In Stock' @ i18n, context='scriptString'}",
+            "outOfStockLabel": "${'Out of Stock' @ i18n, context='scriptString'}",
+            "orderNowLabel": "${'Order Now' @ i18n, context='scriptString'}",
+            "orderSoonLabel": "${'Order Soon' @ i18n, context='scriptString'}",
+            "seeAvailabilityLabel": "${'See Availability' @ i18n, context='scriptString'}",
+            "shipsByLabel": "${'Ships by {0}' @ format=['{shipByDate}'], i18n, context='scriptString'}",
+            "onlyXInStockLabel": "${'Only {0} in stock' @ format=['{quantity}'], i18n, context='scriptString'}",
+            "inStockIcon": "/content/dam/waters/en/brand-assets/icons/success.svg",
+            "lowStockIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
+            "outOfStockIcon": "/content/dam/waters/en/brand-assets/icons/x.svg",
+            "refreshIcon": "/content/dam/waters/en/brand-assets/icons/refresh.svg",
+            "maxAmount": 999
+        },
+        "modalInfo": {
+            "icon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+            "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
+            "title": "${'Item Added to Cart' @ i18n, context='scriptString'}",
+            "buttons": [
+                {
+                    "text": "${'View Cart' @ i18n, context='scriptString'}",
+                    "action": "${footer.viewCartUrl @ context='unsafe'}"
+                },
+                {
+                    "text": "${'Continue Shopping' @ i18n, context='scriptString'}",
+                    "action": "close"
+                }
+            ]
+        }
+    }
+</script>

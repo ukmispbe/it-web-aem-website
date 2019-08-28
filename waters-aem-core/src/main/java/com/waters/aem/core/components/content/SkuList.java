@@ -7,6 +7,8 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waters.aem.core.commerce.models.DisplayableSku;
 import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.commerce.services.SkuRepository;
@@ -40,6 +42,8 @@ import java.util.stream.Collectors;
 public final class SkuList implements EmptyComponent, ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/skulist";
+
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @Inject
     private Sku sku;
@@ -80,10 +84,14 @@ public final class SkuList implements EmptyComponent, ComponentExporter {
         }
 
         return skus.stream()
-                .map(relatedSku -> new DisplayableSku(relatedSku, resource, siteContext))
+                .map(relatedSku -> new DisplayableSku(relatedSku, siteContext))
                 .collect(Collectors.toList());
     }
 
+    public String getDisplayableSkusAsJson() throws JsonProcessingException {
+        return MAPPER.writeValueAsString(getDisplayableSkus());
+    }
+    
     private List<Sku> buildSkuListFromDialogInput() {
         return Arrays.asList(skuNumbers).stream()
                 .map(skuNumber -> skuRepository.getSku(resource.getResourceResolver(), skuNumber))
