@@ -22,6 +22,7 @@ import BtnApplySortFilter from './components/btn-apply-sort-filter';
 import BtnDoneSortFilter from './components/btn-done-sort-filter';
 import Spinner from './components/spinner';
 import { CategoriesMenu } from './components/categories-menu';
+import CategoryTabs from './components/categories-tabs';
 
 class Search extends Component {
     constructor() {
@@ -872,7 +873,11 @@ class Search extends Component {
             return <></>;
         } else {
             return <>
-                <div>Category Tabs Component Goes Here</div>
+                <CategoryTabs
+                    items={[ { name: 'Do not display when count is 0', count: 10 }, { name: 'Library', count: 386 }, { name: 'Products', count: 87 }, { name: 'Support', count: 182 }, { name: 'Shop', count: 1381 }, { name: 'Miscellaneous 1', count: 100 }, { name: 'Miscellaneous 2', count: 200 }, { name: 'Miscellaneous 3', count: 300 }, { name: 'Miscellaneous 4', count: 400 }, { name: 'Miscellaneous 5', count: 500 }]}
+                    activeIndex={0}
+                    onClick={() => {console.log("TABS CLICKED");}}
+                />
                 <div ref="main">
                     {overlay}
                     {this.renderResultsCount()}
