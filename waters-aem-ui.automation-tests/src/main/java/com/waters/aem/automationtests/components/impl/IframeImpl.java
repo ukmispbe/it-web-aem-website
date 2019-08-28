@@ -16,7 +16,7 @@ public class IframeImpl implements Iframe {
     private WebElement component;
 
     @Override
-    public String getText() {
-        return component.findElement(By.className("cmp-iframe")).getText();
+    public String getSource() {
+        return component.findElement(By.tagName("iframe")).getAttribute("src");
     }
 }

@@ -5,5 +5,5 @@ import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 
 @PageObjectInterface
 public interface Iframe {
-    String getText();
+    String getSource();
 }
