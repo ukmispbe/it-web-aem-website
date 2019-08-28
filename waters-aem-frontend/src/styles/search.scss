@@ -518,10 +518,11 @@ html.showing-spinner {
     }
 }
 
-@include mobile {
+@include tablet-and-under {
    #js-search-app {
       .overlay {
          position: fixed;
+         z-index: 1;
       }
    }
 }
