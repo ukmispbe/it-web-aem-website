@@ -56,15 +56,7 @@ class SkuDetails extends React.Component {
         });
     }
 
-    toggleModal = () => {
-        this.setState({ modalShown: !this.state.modalShown }, () => {
-            if (this.state.modalShown) {
-                document.body.classList.add('no-scroll');
-            } else {
-                document.body.classList.remove('no-scroll');
-            }
-        });
-    };
+    toggleModal = () => this.setState({ modalShown: !this.state.modalShown });
 
     render() {
         return (
