@@ -85,7 +85,7 @@ public final class Header extends AbstractComponent implements ComponentExporter
             value = "true",
             ranking = 5)
     @CheckBox(title = "includeH1Tag",
-            text = "Include H1 Tag?")
+            text = "Include H1 Tag")
     @Inject
     private Boolean includeH1Tag;
 
