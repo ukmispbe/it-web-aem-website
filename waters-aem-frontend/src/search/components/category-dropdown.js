@@ -56,17 +56,20 @@ const customStyles = {
 const DropdownIndicator = props => {
     return (
         <components.DropdownIndicator {...props}>
-            <ReactSVG src={props.theme.dropdownIndicator} />
+            <ReactSVG
+                src={props.theme.dropdownIndicator}
+                className = "dropDownIcon"
+            />
         </components.DropdownIndicator>
     );
 };
 
 // SORT/FILTER AND RECOMBINE OPTIONS for select
 const getOptions = options => {
-    let sortedOptions = options.sort((a, b) => (a.count > b.count) ?
-        -1 : (a.count === b.count) ? (a.name.localeCompare(b.name)) : 1);
-    sortedOptions = sortedOptions.filter(a => a['count'] != undefined && a['count'] > 0)
-    let newList = sortedOptions.map((a, index) => { 
+    // let sortedOptions = options.sort((a, b) => (a.count > b.count) ?
+    //     -1 : (a.count === b.count) ? (a.name.localeCompare(b.name)) : 1);
+    // sortedOptions = sortedOptions.filter(a => a['count'] != undefined && a['count'] > 0)
+    let newList = options.map((a, index) => { 
         return {
             value: index,
             label: a.name
@@ -101,7 +104,7 @@ const CategoryDropdown = props => {
 
     return (
         <>
-            { ScreenSizes.isMobile() ? mobileView() : null }
+            { ScreenSizes.isTabletAndUnder() ? mobileView() : null }
         </>
     );
 };

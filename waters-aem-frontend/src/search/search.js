@@ -387,6 +387,13 @@ class Search extends Component {
         console.log('categoryChangeHandler', e);
     }
 
+    sortCategories() { 
+      let options = [{ name: 'Do not display when count is 0', count: 0 }, { name: 'Library', count: 386 }, { name: 'Products', count: 87 }, { name: 'Support', count: 182 }, { name: 'Shop', count: 1381 }, { name: 'Miscellaneous 1' }, { name: 'Miscellaneous 2' }, { name: 'Miscellaneous 3' }, { name: 'Miscellaneous 4' }, { name: 'Miscellaneous 5' }]
+      let sortedOptions = options.sort((a, b) => (a.count > b.count) ? -1 : (a.count === b.count) ? (a.name.localeCompare(b.name)) : 1);
+        sortedOptions = sortedOptions.filter(a => a['count'] != undefined && a['count'] > 0);
+        return sortedOptions;
+    }
+
     filterSelectHandler(facet, categoryId, e) {
         const isChecked = e.target.checked;
         const newState = Object.assign({}, this.state);
@@ -804,29 +811,29 @@ class Search extends Component {
         const results = (
             <div className="cmp-search__container">
                 <div className="cmp-search__container__header cleafix">
+                    <CategoryDropDown
+                        categoryDownIcon={this.props.searchText.downIcon}
+                        categoryIsSearchable={false}
+                        categoryOnChange={this.categoryChangeHandler.bind(this)}
+                        categoryOptions={this.sortCategories()}                
+                    />
                     <BtnShowSortFilter
                         text={this.props.searchText}
                         setupFilters={this.setupFilters.bind(this)}
                         resetToSavedState={this.resetToSavedState.bind(this)}
                         collapseFilters={this.collapseFilters}
                     />
-
-                    <CategoryDropDown
-                        categoryDownIcon={this.props.searchText.downIcon}
-                        categoryIsSearchable={false}
-                        categoryOnChange={this.categoryChangeHandler.bind(this)}
-                        categoryOptions={[ { name: 'Do not display when count is 0', count: 0 }, { name: 'Library', count: 386 }, { name: 'Products', count: 87 }, { name: 'Support', count: 182 }, { name: 'Shop', count: 1381 }, { name: 'Miscellaneous 1' }, { name: 'Miscellaneous 2' }, { name: 'Miscellaneous 3' }, { name: 'Miscellaneous 4' }, { name: 'Miscellaneous 5' }]}                
-                    />
-                    
                 </div>
 
-                {filterTags}
+                <div className="cmp-search__sorted-container">
+                    <div className="cmp-search__sorted-by">
+                        {this.props.searchText.sortedBy}:{' '}
+                        {this.state.sort === 'most-relevant'
+                            ? this.props.searchText.sortByBestMatch
+                            : this.props.searchText.sortByMostRecent}
+                    </div>
 
-                <div className="cmp-search__sorted-by">
-                    {this.props.searchText.sortedBy}:{' '}
-                    {this.state.sort === 'most-relevant'
-                        ? this.props.searchText.sortByBestMatch
-                        : this.props.searchText.sortByMostRecent}
+                    {filterTags}
                 </div>
 
                 <Results
@@ -874,7 +881,7 @@ class Search extends Component {
         } else {
             return <>
                 <CategoryTabs
-                    items={[ { name: 'Do not display when count is 0', count: 10 }, { name: 'Library', count: 386 }, { name: 'Products', count: 87 }, { name: 'Support', count: 182 }, { name: 'Shop', count: 1381 }, { name: 'Miscellaneous 1', count: 100 }, { name: 'Miscellaneous 2', count: 200 }, { name: 'Miscellaneous 3', count: 300 }, { name: 'Miscellaneous 4', count: 400 }, { name: 'Miscellaneous 5', count: 500 }]}
+                    items={this.sortCategories()}
                     activeIndex={0}
                     onClick={() => {console.log("TABS CLICKED");}}
                 />
