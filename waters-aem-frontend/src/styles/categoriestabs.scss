@@ -1,0 +1,38 @@
+.cmp-search__categories-tabs {
+    height: 45px;
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+
+    &--tab {
+        color: $color-font-medium;
+        padding: 0.5625em $space-s;
+        border: 1px solid $color-border-light;
+        border-left: none;
+        display: inline-block;
+        font-size: $font-size-body;
+
+        &:hover {
+            cursor: pointer;
+            color: $color-link-hover;
+        }
+
+        &.active{
+            color: $color-font-dark;
+            border-bottom: none;
+            border-top: 3px solid $color-border-dark;
+            padding-top: 0.4375em;
+            padding-bottom: 0.625em;
+
+            &:hover {
+                cursor: default;
+                color: $color-font-dark;
+            }
+        }
+    }
+
+    &:first-child {
+        border-left: 1px solid $color-border-light;
+    }
+}
