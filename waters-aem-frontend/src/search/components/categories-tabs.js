@@ -33,8 +33,10 @@ class CategoriesTabs extends Component {
         const tabItems = this.props.items;
         const tabs = this.mapTabs(tabItems);
         return (
-            <div className={"cmp-search__categories-tabs"}>
-                {tabs}
+            <div className={"cmp-search__categories-tabs-container"}>
+                <div className={"cmp-search__categories-tabs"}>
+                    {tabs}
+                </div>
             </div>
         );
     }

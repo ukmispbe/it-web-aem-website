@@ -8,10 +8,10 @@ class CategoryTab extends Component {
 
     render() {
         const isActive = this.props.isActive ? " active" : "";
-        const tabDisplay = this.props.name.concat(" (", this.props.count, ")");
+        const tabCountDisplay = " (".concat(this.props.count, ")");
         return (
             <div className={"cmp-search__categories-tabs--tab".concat(isActive)}>
-                {tabDisplay}
+                <span className={"cmp-search__categories-tabs--tab-name"}>{this.props.name}</span><span className={"cmp-search__categories-tabs--tab-count"}>{tabCountDisplay}</span>
             </div>
         );
     }

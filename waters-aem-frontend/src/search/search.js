@@ -860,7 +860,7 @@ class Search extends Component {
         } else {
             return <>
                 <CategoryTabs
-                    items={[ { name: 'Do not display when count is 0', count: 0 }, { name: 'Library', count: 386 }, { name: 'Products', count: 87 }, { name: 'Support', count: 182 }, { name: 'Shop', count: 1381 }, { name: 'Miscellaneous 1' }, { name: 'Miscellaneous 2' }, { name: 'Miscellaneous 3' }, { name: 'Miscellaneous 4' }, { name: 'Miscellaneous 5' }]}
+                    items={[ { name: 'Do not display when count is 0', count: 10 }, { name: 'Library', count: 386 }, { name: 'Products', count: 87 }, { name: 'Support', count: 182 }, { name: 'Shop', count: 1381 }, { name: 'Miscellaneous 1', count: 100 }, { name: 'Miscellaneous 2', count: 200 }, { name: 'Miscellaneous 3', count: 300 }, { name: 'Miscellaneous 4', count: 400 }, { name: 'Miscellaneous 5', count: 500 }]}
                     activeIndex={0}
                     onClick={() => {console.log("TABS CLICKED");}}
                 />

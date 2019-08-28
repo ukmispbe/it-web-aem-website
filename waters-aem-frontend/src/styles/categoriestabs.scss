@@ -4,14 +4,37 @@
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
+    margin-bottom: -3em;
+    margin-top: 2em;
+
+    &-container {
+        position: relative;
+        width: 100%;
+    }
+
+    & .fader-container {
+        height: 100%;
+        margin-top: 0;
+
+        &--right {
+            right: 0;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 1) 100%);
+        }
+
+        &--left {
+            background: linear-gradient(to left, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 1) 100%);
+        }
+    }
 
     &--tab {
-        color: $color-font-medium;
         padding: 0.5625em $space-s;
         border: 1px solid $color-border-light;
         border-left: none;
         display: inline-block;
         font-size: $font-size-body;
+        color: $color-font-medium;
+        background-color: $color-white;
+        font-weight: $font-weight-light;
 
         &:hover {
             cursor: pointer;
@@ -19,11 +42,15 @@
         }
 
         &.active{
-            color: $color-font-dark;
             border-bottom: none;
-            border-top: 3px solid $color-border-dark;
+            border-top: 3px solid $color-icon;
             padding-top: 0.4375em;
             padding-bottom: 0.625em;
+
+            & .cmp-search__categories-tabs--tab-name {
+                color: $color-font-dark;
+                font-weight: $font-weight-bold;
+            }
 
             &:hover {
                 cursor: default;
@@ -32,7 +59,34 @@
         }
     }
 
-    &:first-child {
+    & > .cmp-search__categories-tabs--tab {
         border-left: 1px solid $color-border-light;
+
+        &::before {
+            content: '';
+            border-bottom: 1px solid #c6cdd2;
+            height: 1px;
+            width: 100%;
+            position: absolute;
+            bottom: 0px;
+            left: 0;
+            z-index: -1;
+        }
+
+        & ~ .cmp-search__categories-tabs--tab {
+            border-left: none;
+
+            &::before {
+                content: none;
+                border-bottom: none;
+                height: 0;
+                width: 0;
+                position: static;
+                bottom: 0;
+                left: 0;
+                z-index: 0;
+            }
+        }
     }
+
 }

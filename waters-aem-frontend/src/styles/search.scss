@@ -293,6 +293,10 @@ div.cmp-search__no-results {
     top: -73px;
     width: 70%;
 
+    @include tablet-and-over {
+        margin-bottom: 8em;
+    }
+
     @include tablet-and-under {
         top: 0;
         width: 100%;
