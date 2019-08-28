@@ -5,10 +5,6 @@
         opacity: 1;
         transition: opacity 0.2s ease-in;
 
-        .cmp-sku-details__code {
-            @include font-h2;
-            margin-bottom: $space-xxs;
-        }
         &__signin {
             svg {
                 width: $icon-m;
@@ -46,11 +42,6 @@
         &__priceinfo {
             padding-right: $space-xs;
             line-height: 1em;
-        }
-
-        &__price {
-            @include font-h1;
-            margin-bottom: $space-xxs;
         }
 
         &__availability {
@@ -146,7 +137,7 @@
             text-align: center;
 
             -moz-appearance: textfield;
-            
+
             &:focus {
                 outline: 2px solid $color-focus;
             }
@@ -267,7 +258,7 @@
             }
         }
 
-        .cmp-sku-details__stockcontainer {   
+        .cmp-sku-details__stockcontainer {
             @include mobile {
                 width: 100vw;
             }
@@ -284,7 +275,7 @@
                 @include font-body;
             }
 
-            .cmp-sku-details__price {
+            .cmp-sku__price {
                 @include font-h3;
             }
         }
@@ -313,6 +304,13 @@
     &__code {
         @include font-h2;
         margin-bottom: $space-xxs;
+    }
+
+    &__priceinfo {
+        .cmp-sku__price {
+            @include font-h1;
+            margin-bottom: $space-xxs;
+        }
     }
 
     &__heading {
@@ -354,6 +352,10 @@
             margin-bottom: $space-xxxs;
             line-height: $line-height-text;
         }
+
+        .cmp-sku__price {
+            @include font-h3;
+         }
     }
 
     &__checkavailability {
@@ -394,7 +396,7 @@
     .cmp-sku-details__title {
         @include font-h3;
         margin-bottom: $space-xs;
-        
+
         @include tablet {
             min-height: 100px;
         }
@@ -424,10 +426,6 @@
                 margin-bottom: 0px;
             }
         }
-    }
-
-    &__price {
-        @include font-h3;
     }
 }
 
