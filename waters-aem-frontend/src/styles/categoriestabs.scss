@@ -1,5 +1,5 @@
 .cmp-search__categories-tabs {
-    height: 45px;
+    height: 65px;
     width: 100%;
     overflow-x: scroll;
     overflow-y: hidden;
@@ -68,7 +68,7 @@
             height: 1px;
             width: 100%;
             position: absolute;
-            bottom: 0px;
+            top: 43px;
             left: 0;
             z-index: -1;
         }
