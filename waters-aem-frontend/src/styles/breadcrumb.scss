@@ -10,6 +10,7 @@
 
 .cmp-breadcrumb {
     display: inline;
+    position: relative;
 
     &__list {
         @include mobile {
@@ -22,8 +23,18 @@
         line-height: 1;
         padding-left: 0;
         list-style: none;
-        position: relative;
+        overflow-y: hidden;
         margin: $space-xxs 0 $space-l 0;
+
+        & .fader-container {
+            z-index: 1;
+
+            &--right {
+                @include mobile {
+                    right: -0.2em!important;
+                }
+            }
+        }
     }
 
     &__item {
@@ -74,6 +85,8 @@
         vertical-align: top;
         display: inline-block;
         margin-top: $space-m;
+        width: 100%;
+        overflow: hidden;
     }
 
     &-gradient-right {
