@@ -6,7 +6,6 @@ import Stock from './views/stock';
 import Price from './views/price';
 import SkuService from './services';
 import AddToCart from './views/addToCart';
-import SkuList from '../scripts/skulist';
 
 class SkuDetails extends React.Component {
     constructor(props) {
@@ -42,8 +41,6 @@ class SkuDetails extends React.Component {
         );
 
         this.toggleModal = this.toggleModal.bind(this);
-        this.skuRemoveNegative = this.skuRemoveNegative.bind(this);
-        this.skuQuantityInput = this.skuQuantityInput.bind(this);
     }
 
     componentDidMount() {
@@ -66,18 +63,6 @@ class SkuDetails extends React.Component {
             } else {
                 document.body.classList.remove('no-scroll');
             }
-        });
-    };
-
-    skuRemoveNegative = e => {
-        SkuList.SkuRemoveNegative(e);
-    };
-
-    skuQuantityInput = e => {
-        SkuList.SkuQuantityInput(e);
-        let value = e.target.value;
-        this.setState({
-            addToCartQty: value,
         });
     };
 

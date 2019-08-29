@@ -27,8 +27,8 @@ function skuRemoveNegative(e) {
 var quantitySkuList = document.getElementsByClassName("cmp-sku-list__quantity");
 if (quantitySkuList) {
     for (var i = 0; i < quantitySkuList.length; i++) {
-        quantitySkuList[i].addEventListener('keyup', () => skuQuantityInput(event));
-        quantitySkuList[i].addEventListener('keypress', () => skuRemoveNegative(event));
+        quantitySkuList[i].addEventListener('keyup', (event) => skuQuantityInput(event));
+        quantitySkuList[i].addEventListener('keypress', (event) => skuRemoveNegative(event));
     }
 }
 
