@@ -46,8 +46,9 @@
         }
 
         &__priceinfo {
-            padding-right: $space-xs;
+            padding-right: $space-s;
             line-height: 1em;
+
         }
 
         &__availability {
@@ -56,7 +57,6 @@
             padding: 0 $space-m 0 $space-s;
             @include font-h3;
             height: 3em;
-            margin-top: $space-xxxs;
             border-left: 1px solid $color-border-light;
             @include mobile {
                 padding: 0 0 0 $space-xs;
@@ -80,8 +80,8 @@
                 display: inline;
             }
             svg {
-                width: ($icon-m - 0.25em);
-                height: ($icon-m - 0.25em);
+                width: ($icon-s + 0.1em);
+                height: ($icon-s + 0.1em);
                 fill: $color-success;
                 margin-left: $space-xxxs;
                 margin-top: ($space-xxxs);
@@ -331,7 +331,7 @@
             padding: $space-m;
         }
     }
-    &__web-quote {
+    &__quote {
         @include font-h3;
     }
 }
