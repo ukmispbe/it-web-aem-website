@@ -22,7 +22,7 @@ class SkuDetails extends React.Component {
             defaultPrice: this.props.price,
             locale: this.props.config.locale,
             modalInfo: {
-                ...this.props.config.modalInfo, 
+                ...this.props.config.modalInfo,
                 textHeading: this.props.skuNumber,
                 text: this.props.titleText
             }
@@ -48,7 +48,7 @@ class SkuDetails extends React.Component {
             this.setState({
                 skuAvailability: response,
                 modalInfo: {
-                    ...this.props.config.modalInfo, 
+                    ...this.props.config.modalInfo,
                     textHeading: this.props.skuNumber,
                     text: this.props.titleText
                 }
@@ -78,7 +78,7 @@ class SkuDetails extends React.Component {
                         />
                     </div>
                     <div className="cmp-sku-details__buttons">
-                        <AddToCart 
+                        <AddToCart
                             toggleParentModal={this.toggleModal}
                             skuNumber={this.state.skuNumber}
                             addToCartLabel={this.props.config.addToCartLabel}
@@ -92,7 +92,7 @@ class SkuDetails extends React.Component {
                         config={this.state.modalInfo}
                     />
                 </div>
-                <a href="#" class="cmp-sku-details__quote">{this.props.config.skuInfo.requestQuote}</a> 
+                <a href="#" class="cmp-sku-details__quote">{this.props.config.skuInfo.requestQuote}</a>
             </>
         );
     }
