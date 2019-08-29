@@ -146,7 +146,7 @@
             text-align: center;
 
             -moz-appearance: textfield;
-            
+
             &:focus {
                 outline: 2px solid $color-focus;
             }
@@ -158,6 +158,28 @@
 
         &__web-quote {
             @include font-h3;
+        }
+
+        &__discontinuedinfo {
+            padding-bottom: 2em;
+            padding-top: 1em;
+            width: 90%;
+            display: flex;
+
+            & div:first-child {
+                display: inline-block;
+                height: $icon-m;
+                width: $icon-m;
+                margin-right: $space-xxs;
+
+                .st0 {
+                    stroke: $color-icon;
+                }
+            }
+
+            .cmp-sku-details__discontinuedtitle {
+                font-weight: $font-weight-bold;
+            }
         }
     }
 
@@ -267,7 +289,7 @@
             }
         }
 
-        .cmp-sku-details__stockcontainer {   
+        .cmp-sku-details__stockcontainer {
             @include mobile {
                 width: 100vw;
             }
@@ -394,7 +416,7 @@
     .cmp-sku-details__title {
         @include font-h3;
         margin-bottom: $space-xs;
-        
+
         @include tablet {
             min-height: 100px;
         }

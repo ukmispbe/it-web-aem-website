@@ -6,6 +6,7 @@ import ReactPaginate from 'react-paginate';
 import ReactSVG from 'react-svg';
 import ResultsCount from './components/results-count';
 import Results from './components/results';
+import SkuList from '../sku-list';
 import NoResults from './components/no-results';
 import Sort from './components/sort';
 import CategoryDropDown from './components/category-dropdown';
@@ -68,6 +69,8 @@ class Search extends Component {
         const contentTypeSelected = contentTypeElement
             ? contentTypeElement
             : {};
+        let skuConfig = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
+        skuConfig.showBreadcrumbs = true;
 
         this.setState({
             loading: true,
@@ -84,10 +87,12 @@ class Search extends Component {
             selectedFacets: this.query.selectedFacets || {},
             unappliedFilters: {},
             isDesktop: false,
+            isSkuList: true,
             initialRender: true,
             performedSearches: 0,
             contentType,
             contentTypeSelected,
+            skuConfig,
             facets: [],
             filterMap: [],
             keyword: this.query.keyword
@@ -383,11 +388,11 @@ class Search extends Component {
         this.pushToHistory(query, state.selectedFacets);
     }
 
-    categoryChangeHandler(e) { 
+    categoryChangeHandler(e) {
         console.log('categoryChangeHandler', e);
     }
 
-    sortCategories() { 
+    sortCategories() {
       let options = [{ name: 'Do not display when count is 0', count: 0 }, { name: 'Library', count: 386 }, { name: 'Products', count: 87 }, { name: 'Support', count: 182 }, { name: 'Shop', count: 1381 }, { name: 'Miscellaneous 1' }, { name: 'Miscellaneous 2' }, { name: 'Miscellaneous 3' }, { name: 'Miscellaneous 4' }, { name: 'Miscellaneous 5' }]
       let sortedOptions = options.sort((a, b) => (a.count > b.count) ? -1 : (a.count === b.count) ? (a.name.localeCompare(b.name)) : 1);
         sortedOptions = sortedOptions.filter(a => a['count'] != undefined && a['count'] > 0);
@@ -750,9 +755,40 @@ class Search extends Component {
             results
         );
 
-    render() {
+    renderSkuOrResults = () => {
+        const locale = this.props.searchLocale;
         const state = this.state;
         const searchParams = this.state.searchParams || {};
+        const nextIcon = this.props.searchText.nextIcon;
+
+        const tmpData = [
+            {"code":"186002326","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP Phosphorylase b Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002326-massprep-phosphorylase-b-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":""},
+            {"code":"186002325","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP Enolase Digestion Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002325-massprep-enolase-digestion-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":"",},
+            {"code":"186002327","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP Bovine Hemoglobin Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002327-massprep-bovine-hemoglobin-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":"","discontinued":true,"replacementSku":"WAT066200"},
+            {"code":"186002328","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP ADH Digestion Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002328-massprep-adh-digestion-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":""},
+            {"code":"186002329","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP BSA Digestion Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002329-massprep-bsa-digestion-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":""},
+            {"code":"186006371","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"Cytochrome C Digestion Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186006371-cytochrome-c-digestion-standard.html","formattedPrice":"£162.00","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":""}
+        ];
+
+        if (state.isSkuList) {
+            return (
+                <SkuList
+                    skuConfig={state.skuConfig}
+                    data={tmpData || []}
+                />
+            );
+        } else {
+            return (
+            <Results
+                results={state.results[searchParams.page] || []}
+                locale={locale}
+                nextIcon={nextIcon}
+            />);
+        }
+    };
+
+    render() {
+        const state = this.state;
         const overlay = <div className="overlay" />;
         const filterTags = this.getFilterTags();
         const sortFilterIsPristine =
@@ -797,7 +833,7 @@ class Search extends Component {
                         }
                         text={this.props.searchText}
                     />
-                    
+
                     {this.getContentMenuOrFilter(filterTags)}
                 </div>
 
@@ -807,7 +843,7 @@ class Search extends Component {
         const previousIcon = (
             <ReactSVG src={this.props.searchText.previousIcon} />
         );
-
+        const renderedResults = this.renderSkuOrResults();
         const results = (
             <div className="cmp-search__container">
                 <div className="cmp-search__container__header cleafix">
@@ -815,7 +851,7 @@ class Search extends Component {
                         categoryDownIcon={this.props.searchText.downIcon}
                         categoryIsSearchable={false}
                         categoryOnChange={this.categoryChangeHandler.bind(this)}
-                        categoryOptions={this.sortCategories()}                
+                        categoryOptions={this.sortCategories()}
                     />
                     <BtnShowSortFilter
                         text={this.props.searchText}
@@ -836,11 +872,7 @@ class Search extends Component {
                     {filterTags}
                 </div>
 
-                <Results
-                    results={state.results[searchParams.page] || []}
-                    locale={locale}
-                    nextIcon={this.props.searchText.nextIcon}
-                />
+                {renderedResults}
 
                 {state.count > this.props.searchDefaults.rows ? (
                     <ReactPaginate

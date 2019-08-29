@@ -80,6 +80,11 @@
                 stroke: $color-icon;
             }
         }
+
+        &.skuitem {
+            padding-bottom: $space-s;
+            margin-top: 0;
+        }
     }
 }
 .cmp-search__results-body {
@@ -324,7 +329,7 @@ div.cmp-search__no-results {
             margin: 0 2% 0 0;
         }
     }
-    
+
 
 }
 
