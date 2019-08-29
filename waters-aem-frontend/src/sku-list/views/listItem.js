@@ -55,6 +55,24 @@ class ListItem extends React.Component {
         });
     };
     
+    renderAvailability(productStatus) {
+        if(productStatus){
+            return <Stock
+                    skuConfig={this.props.skuConfig.skuInfo}
+                    skuNumber={this.props.relatedSku.code}
+                    skuAvailability={this.state.skuAvailability}
+                    locale={this.props.skuConfig.locale}
+                    skuType="details" />
+        }
+        return <span className="cmp-sku-list__checkavailability">
+                    <div>{this.props.skuConfig.skuInfo.seeAvailabilityLabel}</div>
+                    <ReactSVG
+                        src={this.props.skuConfig.skuInfo.refreshIcon}
+                    />
+                </span>
+
+    }
+
     render() {
         return ( 
             <div className="cmp-sku-list__container">
@@ -74,25 +92,8 @@ class ListItem extends React.Component {
                             />
                         </div>
                         <div className="cmp-sku-details__availability" onClick={(e) => this.checkAvailability(this.props.relatedSku.code)}>
-                            {this.state.skuAvailability.productStatus &&
-                            
-                                <Stock
-                                    skuConfig={this.props.skuConfig.skuInfo}
-                                    skuNumber={this.props.relatedSku.code}
-                                    skuAvailability={this.state.skuAvailability}
-                                    locale={this.props.skuConfig.locale}
-                                    skuType="details" />
-                            }
-                            {!this.state.skuAvailability.productStatus &&
-                                <span className="cmp-sku-list__checkavailability">{this.props.skuConfig.skuInfo.seeAvailabilityLabel}
-                                    <ReactSVG
-                                        alt={this.props.skuConfig.skuInfo.seeAvailabilityLabel}
-                                        src={this.props.skuConfig.skuInfo.refreshIcon}
-                                        className="inline-svg"
-                                    />
-                                </span>
-                                
-                            }
+                            {this.renderAvailability(this.state.skuAvailability.productStatus)}
+
                         </div>
                         {/* //TODO: this will get swapped out for an add-to-cart component that can be shared between sku-list and sku-details */}
                         <div className="cmp-sku-list__buttons">
