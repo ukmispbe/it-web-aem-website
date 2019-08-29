@@ -590,7 +590,7 @@ class Search extends Component {
             return (
                 <CategoriesMenu
                     text={this.props.searchText}
-                    categoryKey="contentType"
+                    categoryKey="filterBy"
                     items={this.state.filterMap}
                     click={this.handleContentTypeItemClick.bind(this)}
                     showBothChildrenAndItems={true}
@@ -607,7 +607,7 @@ class Search extends Component {
             return (
                 <CategoriesMenu
                     text={this.props.searchText}
-                    categoryKey="contentType"
+                    categoryKey="filterBy"
                     items={this.state.filterMap}
                     click={this.handleContentTypeItemClick.bind(this)}
                     selectedValue={
