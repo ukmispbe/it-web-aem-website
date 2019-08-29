@@ -7,5 +7,5 @@ import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 public @interface HybrisCatalogImporterConfiguration {
 
     @AttributeDefinition(name = "Catalog Blueprint Root Path")
-    String catalogRootPath() default "/content/waters/language-masters/en/shop/products";
+    String catalogRootPath() default "/content/waters/language-masters/en/shop";
 }
