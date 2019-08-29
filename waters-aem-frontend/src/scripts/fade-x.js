@@ -1,9 +1,9 @@
 import screenSizes from './screenSizes.js';
 
-const Fader = (targetClassName, offsetWidth=0, maxFadeWidth=Number.POSITIVE_INFINITY) => {
+const Fader = (targetClassName, offsetWidth=0, maxFadeWidth=Number.POSITIVE_INFINITY, forceMobile=false) => {
     const targetElement = document.querySelector(`.${targetClassName}`);
 
-    if (!targetElement || screenSizes.isMobile()) { return; }
+    if (!targetElement || (screenSizes.isMobile() && !forceMobile)) { return; }
 
     const fadeOffset = offsetWidth || 0;
     const maxWidth = maxFadeWidth || Number.POSITIVE_INFINITY;

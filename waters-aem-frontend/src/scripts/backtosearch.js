@@ -34,29 +34,12 @@ function hideBreadcrumbShowBackToSearch(link) {
     }
 }
 
-function clearGradients() {
-    rhsGradientFade[0].style.display = 'block';
-    lhsGradientFade[0].style.display = 'block';
-}
-
 var mediaQueryListener = window.matchMedia('(max-width: 650px)');
 
 function changeBreadcrumb(source) {
     var scrollOffset = 40;
     if (source === 'FromScroll') {
         scrollOffset = 10;
-    }
-    if (mediaQueryListener.matches) {
-        clearGradients();
-        var breadcrumbContainer = document.querySelector('.breadcrumb');
-        var breadcrumbElement = document.querySelector('.cmp-breadcrumb');
-        if (breadcrumbContainer.scrollLeft <= 0){
-            lhsGradientFade[0].style.display = 'none';
-        }
-
-        if (breadcrumbElement.clientWidth - breadcrumbContainer.clientWidth == breadcrumbContainer.scrollLeft - (breadcrumbContainer.scrollWidth - breadcrumbElement.scrollWidth)){
-            rhsGradientFade[0].style.display = 'none';
-        }
     }
 }
 

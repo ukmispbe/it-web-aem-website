@@ -13,6 +13,7 @@ import './scripts/iframe';
 import './scripts/backtosearch';
 import './scripts/footer';
 import './scripts/banner';
+import './scripts/breadcrumb';
 import './scripts/header';
 import './scripts/collapsible';
 import './index';
