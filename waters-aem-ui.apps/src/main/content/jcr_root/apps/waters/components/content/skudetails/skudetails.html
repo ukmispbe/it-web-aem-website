@@ -14,7 +14,7 @@
                     <span>${'Sign in to view your price' @ i18n}</span>
                 </a>-->
             </div>
-            <div data-sly-test.isActive="${sku.active}">
+            <div class="cmp-sku-details__ecom-wrapper" data-sly-test.isActive="${sku.active}">
                 <div class="cmp-sku-details__ecom" data-price="${sku.formattedPrice}"></div>
             </div>
             <div class="cmp-notification-wrapper" data-sly-test="${!isActive}">
