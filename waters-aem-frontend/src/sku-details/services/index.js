@@ -2,6 +2,7 @@ import 'whatwg-fetch';
 
 class SkuService {
     constructor(
+        // defaults that we override when constructing new instances of skuservices in the react components
         isocode = 'us',
         sku = {
             availability:
@@ -9,14 +10,19 @@ class SkuService {
             price:
                 'https://dev-www.waters.com:8443/api/waters/product/v1/customerprice',
         },
-        addToCart = 'https://www.waters.com/waters/ajax.htm?handler=shoppingHandler&action=processExternalCart',
+        cart = {
+            addToCart: 'https://dev-www.waters.com:8443/api/waters/product/v1/addtocart/{partnumber}/{quantity}',
+            getCart: ''
+        },
         throwError
     ) {
         this.isocode = isocode;
         this.skuOptions = sku;
-        this.addToCartPath = addToCart;
+        this.addToCartPath = cart.addToCart;
         this.throwError = throwError;
     }
+
+
 
     getAvailability(partNo) {
         return new Promise((resolve, reject) => {
@@ -44,6 +50,14 @@ class SkuService {
 
         return url;
     }
+    
+    createPriceRequest(partNo) {
+        const url = this.skuOptions.price
+            .replace('{partnumber}', partNo)
+            .replace('{countryCode}', this.isocode);
+
+        return url;
+    }
 
     getPrice(partNo) {
         return new Promise((resolve, reject) => {
@@ -64,19 +78,18 @@ class SkuService {
         });
     }
 
-    createPriceRequest(partNo) {
-        const url = this.skuOptions.price
+    createCartUrl(partNo, quantity) {
+        const url = this.addToCartPath
             .replace('{partnumber}', partNo)
-            .replace('{countryCode}', this.isocode);
+            .replace('{quantity}', quantity);
 
         return url;
     }
 
     addToCart(partNo, quantity) {
-        const path = this.addToCartPath;
         return new Promise((resolve, reject) => {
             window
-                .fetch(path, {
+                .fetch(this.createCartUrl(partNo, quantity), {
                     method: 'post',
                     credentials: 'include',
                     body: JSON.stringify({
@@ -85,8 +98,9 @@ class SkuService {
                     }),
                 })
                 .then(response => {
+                    // Response does not return data we need to pass back. If response.ok === true or status === 200
                     if (response.ok) {
-                        resolve(response.json());
+                        resolve(true);
                     } else {
                         this.throwError(response);
                         reject(response);

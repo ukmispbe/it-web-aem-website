@@ -11,7 +11,9 @@ class Price extends React.Component {
         return (
             <div className="cmp-sku-details__priceinfo">
                 <span>{this.props.skuConfig.listPriceLabel}</span>
-                <div className="cmp-sku-details__price">{this.props.price}</div>
+                {this.props.price &&
+                    <div className="cmp-sku-details__price">{this.props.price}</div>
+                }
             </div>
         )
     }

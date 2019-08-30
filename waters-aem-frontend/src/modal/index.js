@@ -5,7 +5,7 @@ import AccountDropDownList from '../account-dropdown/account-dropdown-list';
 class Modal extends React.Component {
     constructor(props) {
         super(props);
-
+        
         if (props.config && props.open && props.theme && props.toggleModal) {
             this.state = {
                 open: props.open,
