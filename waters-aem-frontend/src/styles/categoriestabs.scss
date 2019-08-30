@@ -7,6 +7,30 @@
     margin-bottom: -3em;
     margin-top: 2em;
 
+    &.fader-fade {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        &.fader-fade--right {
+            scrollbar-width: thin;
+            -ms-overflow-style: scrollbar;
+            &::-webkit-scrollbar {
+                display: block;
+            }
+        }
+
+        &.fader-fade--left {
+            scrollbar-width: thin;
+            -ms-overflow-style: scrollbar;
+            &::-webkit-scrollbar {
+                display: block;
+            }
+        }
+    }
+
     &-container {
         position: relative;
         width: 100%;

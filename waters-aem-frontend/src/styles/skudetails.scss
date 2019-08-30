@@ -172,6 +172,10 @@
                 width: $icon-m;
                 margin-right: $space-xxs;
 
+                @include IE11-only {
+                    margin-right: $space-l;
+                }
+
                 .st0 {
                     stroke: $color-icon;
                 }
