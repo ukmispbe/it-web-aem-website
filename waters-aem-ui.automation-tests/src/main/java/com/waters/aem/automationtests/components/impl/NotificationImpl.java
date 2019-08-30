@@ -5,7 +5,6 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 import com.waters.aem.automationtests.components.LinkItem;
 import com.waters.aem.automationtests.components.Notification;
-import com.waters.aem.automationtests.components.NotificationItems;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
