@@ -81,7 +81,7 @@ class SearchService {
             .catch(err => console.log(err));
     };
 
-    contentType = (
+    getContentType = (
         contentTypeKey,
         contentTypeValue,
         {
@@ -89,12 +89,11 @@ class SearchService {
             facets = {},
             page = parameterDefaults.page,
             sort = parameterDefaults.sort,
+            category = parameterDefaults.category
         } = {}
     ) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
-        const searchString = `${
-            this.path
-        }/contenttype_facet$${contentTypeKey}:${contentTypeValue}?${paramString}`;
+        const searchString = `${this.path}/category_facet$${category.toLowerCase()}:${category}&contenttype_facet$${contentTypeKey}:${contentTypeValue}?${paramString}`;
 
         return window.fetch(searchString).then(response => {
             if (response.ok) {
@@ -106,7 +105,7 @@ class SearchService {
         });
     };
 
-    subFacet = (
+    getSubFacet = (
         contentTypeName,
         contentTypeValue,
         {
@@ -114,16 +113,12 @@ class SearchService {
             facets = {},
             page = parameterDefaults.page,
             sort = parameterDefaults.sort,
+            category = parameterDefaults.category
         } = {}
     ) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const facetString = this.getQueryFacetString(facets);
-        const searchString = `${
-            this.path
-        }/contenttype_facet$${contentTypeName.replace(
-            '_facet',
-            ''
-        )}:${contentTypeValue}${facetString}?${paramString}`;
+        const searchString = `${this.path}/category_facet$${category.toLowerCase()}:${category}&contenttype_facet$${contentTypeName.replace('_facet', '')}:${contentTypeValue}${facetString}?${paramString}`;
 
         return window.fetch(searchString).then(response => {
             if (response.ok) {

@@ -129,7 +129,13 @@ const skuDetailsConfig = JSON.parse(
     document.getElementById('commerce-configs-json').innerHTML
 );
 
-const skuDetailsListPrice = document.querySelector('.cmp-sku-details__ecom').dataset.price;
+let skuDetailsListPrice;
+if(document.querySelector('.cmp-sku-details__ecom')){ 
+    // If a product is discontinued, the ecom class never gets added,
+    // but not having a price is a valid option for some products
+    // This check allows us to pass in a price of undefined without breaking the frontend
+    skuDetailsListPrice = document.querySelector('.cmp-sku-details__ecom').dataset.price;
+}
 
 if (skuDetailsContainer) {
     const skuNumber = document.querySelector('.cmp-sku-details__code').innerHTML;

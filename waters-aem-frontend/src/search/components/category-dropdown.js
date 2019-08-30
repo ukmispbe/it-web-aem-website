@@ -64,31 +64,27 @@ const DropdownIndicator = props => {
     );
 };
 
-// SORT/FILTER AND RECOMBINE OPTIONS for select
+
 const getOptions = options => {
-    // let sortedOptions = options.sort((a, b) => (a.count > b.count) ?
-    //     -1 : (a.count === b.count) ? (a.name.localeCompare(b.name)) : 1);
-    // sortedOptions = sortedOptions.filter(a => a['count'] != undefined && a['count'] > 0)
     let newList = options.map((a, index) => { 
         return {
             value: index,
             label: a.name + ' (' + a.count + ')'
         }
     })
+    
     return newList;
 };
-
-
  
 const CategoryDropdown = props => {
+    const options = getOptions(props.categoryOptions);
 
     const mobileView = () => { 
         return (
             <div className="cmp-search-category-dropdown">
                 <Select
-                    defaultValue={getOptions(props.categoryOptions)[0]}
-                    options={getOptions(props.categoryOptions)}
-                    value={props.categoryValue}
+                    options={options}
+                    value={options[props.categoryValue]}
                     onChange={props.categoryOnChange}
                     isSearchable={props.categoryIsSearchable}
                     styles={customStyles}
@@ -100,7 +96,6 @@ const CategoryDropdown = props => {
             </div>
         );
     }
-
 
     return (
         <>

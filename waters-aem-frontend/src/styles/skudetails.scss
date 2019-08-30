@@ -5,10 +5,6 @@
         opacity: 1;
         transition: opacity 0.2s ease-in;
 
-        .cmp-sku-details__code {
-            @include font-h2;
-            margin-bottom: $space-xxs;
-        }
         &__signin {
             svg {
                 width: $icon-m;
@@ -24,6 +20,12 @@
         &__heading {
             img {
                 display: none;
+            }
+        }
+
+        &__ecom-wrapper {
+            @include mobile {
+                width: 100%;
             }
         }
 
@@ -44,13 +46,9 @@
         }
 
         &__priceinfo {
-            padding-right: $space-xs;
+            padding-right: $space-s;
             line-height: 1em;
-        }
 
-        &__price {
-            @include font-h1;
-            margin-bottom: $space-xxs;
         }
 
         &__availability {
@@ -59,7 +57,6 @@
             padding: 0 $space-m 0 $space-s;
             @include font-h3;
             height: 3em;
-            margin-top: $space-xxxs;
             border-left: 1px solid $color-border-light;
             @include mobile {
                 padding: 0 0 0 $space-xs;
@@ -83,8 +80,8 @@
                 display: inline;
             }
             svg {
-                width: ($icon-m - 0.25em);
-                height: ($icon-m - 0.25em);
+                width: ($icon-s + 0.1em);
+                height: ($icon-s + 0.1em);
                 fill: $color-success;
                 margin-left: $space-xxxs;
                 margin-top: ($space-xxxs);
@@ -306,7 +303,7 @@
                 @include font-body;
             }
 
-            .cmp-sku-details__price {
+            .cmp-sku__price {
                 @include font-h3;
             }
         }
@@ -337,6 +334,13 @@
         margin-bottom: $space-xxs;
     }
 
+    &__priceinfo {
+        .cmp-sku__price {
+            @include font-h1;
+            margin-bottom: $space-xxs;
+        }
+    }
+
     &__heading {
         img {
             display: none;
@@ -349,7 +353,7 @@
             padding: $space-m;
         }
     }
-    &__web-quote {
+    &__quote {
         @include font-h3;
     }
 }
@@ -376,6 +380,10 @@
             margin-bottom: $space-xxxs;
             line-height: $line-height-text;
         }
+
+        .cmp-sku__price {
+            @include font-h3;
+         }
     }
 
     &__checkavailability {
@@ -384,6 +392,15 @@
         @include font-utility;
         padding-top: $space-xxs;
         cursor: pointer;
+        display: flex;
+
+        div:first-child {
+            margin-right: 5px;
+        }
+
+        div:nth-child(2) {
+            padding-top: 2px;
+        }
 
         display: flex;
 
@@ -456,10 +473,6 @@
                 margin-bottom: 0px;
             }
         }
-    }
-
-    &__price {
-        @include font-h3;
     }
 }
 

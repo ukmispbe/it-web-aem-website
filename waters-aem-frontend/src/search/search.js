@@ -194,7 +194,7 @@ class Search extends Component {
 
         } else if (this.isCategoryOnlySelected(query.category, query.content_type)) {
             // deselects content type when user clicks the back button on browser
-            this.setState({ contentType: null, contentTypeSelected: {} });
+            this.setState({ category: query.category, contentType: null, contentTypeSelected: {} });
 
             if (!this.props.hasError) {
                 this.search.getResultsByCategory(query).then(res => {
@@ -233,7 +233,7 @@ class Search extends Component {
                 : 'NA';
 
             this.search
-                .contentType(query.content_type, contentTypeValue, query)
+                .getContentType(query.content_type, contentTypeValue, query)
                 .then(res =>
                     this.searchOnSuccess(query, rows, res, false, 'success')
                 );
@@ -251,7 +251,7 @@ class Search extends Component {
                 : 'NA';
 
             this.search
-                .subFacet(contentTypeName, contentTypeValue, query)
+                .getSubFacet(contentTypeName, contentTypeValue, query)
                 .then(res =>
                     this.searchOnSuccess(query, rows, res, false, 'success')
                 )
@@ -271,11 +271,14 @@ class Search extends Component {
     isFacetsSelected = selectedFacets => Object.entries(selectedFacets).length !== 0 ? true : false;
 
     getFilterMap = (authoredCategories, backendCategories) => {
-        return authoredCategories.filter(authoredItem => {
-            return backendCategories.find(
-                backendItem =>
-                    backendItem.value === authoredItem.categoryFacetValue
-            );
+        const matchingCategories = authoredCategories.filter(authoredItem => {
+            return backendCategories.find(backendItem => backendItem.value === authoredItem.categoryFacetValue);
+        });
+
+        return matchingCategories.map(authoredItem => {
+            const backendCategory = backendCategories.find(backendItem => backendItem.value === authoredItem.categoryFacetValue);
+            authoredItem.count = backendCategory.count;
+            return authoredItem;
         });
     };
 
@@ -435,7 +438,7 @@ class Search extends Component {
         this.pushToHistory(query, state.selectedFacets);
     }
 
-    categoryChangeHandler(e) {
+    categoryChangeHandler = (e) => {
         console.log('categoryChangeHandler', e);
     }
 
@@ -631,7 +634,7 @@ class Search extends Component {
     };
 
     getContentMenuOrFilter = filterTags => {
-        if (this.isInitialLoad(this.state.category, this.state.contentType)) {
+        if (this.isCategoryOnlySelected(this.state.category, this.state.contentType)) {
             return (
                 <CategoriesMenu
                     text={this.props.searchText}
@@ -693,8 +696,7 @@ class Search extends Component {
         }
     };
 
-    isContentTypeSelected = () =>
-        Object.entries(this.state.contentTypeSelected).length !== 0;
+    isContentTypeSelected = () => Object.entries(this.state.contentTypeSelected).length !== 0;
 
     isKeywordSelected = () => !this.search.isDefaultKeyword(this.state.keyword);
 
@@ -890,7 +892,7 @@ class Search extends Component {
                     <CategoryDropDown
                         categoryDownIcon={this.props.searchText.downIcon}
                         categoryIsSearchable={false}
-                        categoryOnChange={this.categoryChangeHandler.bind(this)}
+                        categoryOnChange={this.categoryChangeHandler}
                         categoryOptions={this.state.categoryTabs}
                         categoryValue={this.state.activeTabIndex}
                     />

@@ -133,6 +133,24 @@ class ListItem extends React.Component {
 
         return (<></>);
     };
+    
+    renderAvailability(productStatus) {
+        if(productStatus){
+            return <Stock
+                    skuConfig={this.props.skuConfig.skuInfo}
+                    skuNumber={this.props.relatedSku.code}
+                    skuAvailability={this.state.skuAvailability}
+                    locale={this.props.skuConfig.locale}
+                    skuType="details" />
+        }
+        return <span className="cmp-sku-list__checkavailability">
+                    <div>{this.props.skuConfig.skuInfo.seeAvailabilityLabel}</div>
+                    <ReactSVG
+                        src={this.props.skuConfig.skuInfo.refreshIcon}
+                    />
+                </span>
+
+    }
 
     render() {
         const buyInfo = this.renderBuyInfo();
@@ -144,11 +162,39 @@ class ListItem extends React.Component {
                 </div>
                 <div className="cmp-sku-details__left">
                     <div className="cmp-sku-list__code">{this.props.relatedSku.code}</div>
-                    <a href={this.props.relatedSku.skuPageHref}>
+                    <a href={this.props.relatedSku.skuPageHref ? this.props.relatedSku.skuPageHref : null}>
                         <div className="cmp-sku-details__title">{this.props.relatedSku.title}</div>
                     </a>
+
                     {buyInfo}
                     {breadcrumbs}
+                    
+                    <div className="cmp-sku-details__buyinfo">
+                        <div className="cmp-sku-list__priceinfo">
+                            <Price
+                                skuConfig={this.props.skuConfig.skuInfo}
+                                price={this.props.relatedSku.formattedPrice}
+                            />
+                        </div>
+                        <div className="cmp-sku-details__availability" onClick={(e) => this.checkAvailability(this.props.relatedSku.code)}>
+                            {this.renderAvailability(this.state.skuAvailability.productStatus)}
+                        </div>
+                        {/* //TODO: this will get swapped out for an add-to-cart component that can be shared between sku-list and sku-details */}
+                        <div className="cmp-sku-list__buttons">
+                            <AddToCart 
+                                toggleParentModal={this.toggleModal}
+                                skuNumber={this.props.relatedSku.code}
+                                addToCartLabel={this.props.skuConfig.addToCartLabel}
+                                addToCartUrl={this.props.skuConfig.addToCartUrl}
+                            ></AddToCart>
+                        </div>
+                        <Modal
+                            toggleModal={this.toggleModal}
+                            open={this.state.modalShown}
+                            theme="callToAction"
+                            config={this.state.modalInfo}
+                        />
+                    </div>
                 </div>
             </div>
         )
