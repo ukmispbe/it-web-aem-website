@@ -93,7 +93,7 @@ class Search extends Component {
             selectedFacets: this.query.selectedFacets || {},
             unappliedFilters: {},
             isDesktop: false,
-            isSkuList: true,
+            isSkuList: false,
             initialRender: true,
             performedSearches: 0,
             category,
@@ -437,13 +437,6 @@ class Search extends Component {
 
     categoryChangeHandler(e) {
         console.log('categoryChangeHandler', e);
-    }
-
-    sortCategories() {
-    let options = [{ name: 'Do not display when count is 0', count: 0 }, { name: 'Library', count: 386 }, { name: 'Products', count: 87 }, { name: 'Support', count: 182 }, { name: 'Shop', count: 1381 }, { name: 'Miscellaneous 1' }, { name: 'Miscellaneous 2' }, { name: 'Miscellaneous 3' }, { name: 'Miscellaneous 4' }, { name: 'Miscellaneous 5' }]
-    let sortedOptions = options.sort((a, b) => (a.count > b.count) ? -1 : (a.count === b.count) ? (a.name.localeCompare(b.name)) : 1);
-        sortedOptions = sortedOptions.filter(a => a['count'] != undefined && a['count'] > 0);
-        return sortedOptions;
     }
 
     filterSelectHandler(facet, categoryId, e) {
