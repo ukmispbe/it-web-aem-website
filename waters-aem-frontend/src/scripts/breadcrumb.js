@@ -5,9 +5,6 @@ const FadeBreadcrumb = () => {
 
     const bc = document.querySelector('.cmp-breadcrumb__list');
 
-    console.log(bcFader);
-    console.log(bc);
-
     if (bcFader && bc) {
         bc.addEventListener('scroll', bcFader);
     }
