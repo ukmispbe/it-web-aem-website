@@ -10,15 +10,28 @@
     display: flex;
     flex-flow: wrap;
 
-    .bread-crumb {
+    .back-btn {
         display: flex;
         flex-flow: wrap;
+        width: 100%;
+        padding-bottom: $space-s;
+        
+        a {
+            div{
+                display: inline-block;
+            }
+
+            &:hover,
+            &:focus {
+                color: $color-link-hover;
+                text-decoration: none;
+            }
+        }
     }
 
     svg {
         position: relative;
         top: 3px;
-        margin: 0 $space-xxxs;
         width: $icon-s;
         height: $icon-s;
 
@@ -27,11 +40,7 @@
         }
     }
 
-    @include tablet-and-under {
-        h3 {
-            flex-basis: 100%;
-        }
-    }
+
 }
 
 .filter-active {
@@ -44,39 +53,27 @@
 
 .categories-type-menu-container__item {
     display: flex;
-    padding: $space-xs $space-xs $space-xs $space-s;
-    border: 1px solid $color-border-dark;
-    margin-bottom: $space-xxs;
+    margin-bottom: $space-s;
     cursor: pointer;
 
     a {
         @include font-utility;
         line-height: 0;
+        color:$color-link;
     }
 
-    div:first-child {
-        flex-grow: 1;
-    }
-
-    svg {
-        width: $icon-m;
-        height: $icon-m;
-        margin-top: ($space-xxxs - .2em);
-
-        .st0 {
-            stroke: $color-icon;
+    div:nth-child(2) {
+        padding-left: $space-xxxs;
+        a {
+            color: $color-icon;
         }
     }
 
     &:hover,
     &:focus {
         a {
-            color: $color-link;
+            color: $color-link-hover;
             text-decoration: none;
-        }
-
-        & svg .st0 {
-            stroke: $color-link;
         }
     }
 }

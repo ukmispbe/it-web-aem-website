@@ -59,13 +59,19 @@ class Search extends Component {
                     : this.query.sort;
         }
 
+        const category = this.query.category
+            ? this.query.category
+            : null;
+
         const contentType = this.query.content_type
             ? this.query.content_type
             : null;
+
         const contentTypeElement = this.findContentType(
             this.props.filterMap,
             contentType
         );
+
         const contentTypeSelected = contentTypeElement
             ? contentTypeElement
             : {};
@@ -90,6 +96,7 @@ class Search extends Component {
             isSkuList: true,
             initialRender: true,
             performedSearches: 0,
+            category,
             contentType,
             contentTypeSelected,
             skuConfig,
@@ -102,6 +109,8 @@ class Search extends Component {
             spell_related_suggestions: [],
             spell_suggestion: '',
             erroredOut: false,
+            categoryTabs: [],
+            activeTabIndex: -1
         });
 
         const checkWindowWidth = () => {
@@ -115,6 +124,7 @@ class Search extends Component {
         window.addEventListener('resize', checkWindowWidth);
 
         checkWindowWidth();
+
         this.performSearch();
     }
 
@@ -130,7 +140,20 @@ class Search extends Component {
         }
     }
 
-    performSearch(q) {
+    mapCategories = categories => (!categories || !categories.facets || !categories.facets.category_facet)
+            ? []
+            : categories.facets.category_facet.filter(category => category.value !== 0).map(category => { return { name: category.value, count: category.count} });
+
+    findMaxCategory = categories => {
+        if (!categories) { return 0; }
+
+        const counts = categories.map(category => category.count);
+        const maxCount = Math.max(...counts);
+
+        return categories.findIndex(category => category.count === maxCount);
+    }
+
+    async performSearch(q) {
         let query = q
             ? this.search.createQueryObject(q)
             : this.search.createQueryObject(parse(window.location.search));
@@ -146,16 +169,39 @@ class Search extends Component {
 
         this.setState({ searchParams: query, loading: true, results: {} });
 
-        if (this.isInitialLoad(query.content_type)) {
+        const categories = await this.search.getCategories();
+        const categoriesWithData = this.mapCategories(categories);
+
+        this.setState({categoryTabs: categoriesWithData});
+
+        const isInitialLoad = this.isInitialLoad(query.category, query.content_type);
+
+        if (!isInitialLoad) {
+            const categoryIndex = categoriesWithData.findIndex(category => category.name === query.category);
+            this.setState({activeTabIndex: categoryIndex});
+        }
+
+        if (isInitialLoad) {
+            const maxCategory = this.findMaxCategory(categoriesWithData);
+
+            this.setState({activeTabIndex: maxCategory});
+
+            query.category = categoriesWithData[maxCategory].name;
+
+            this.pushToHistory(query, this.state.selectedFacets);
+
+            await this.performSearch(query);
+
+        } else if (this.isCategoryOnlySelected(query.category, query.content_type)) {
             // deselects content type when user clicks the back button on browser
             this.setState({ contentType: null, contentTypeSelected: {} });
 
             if (!this.props.hasError) {
-                this.search.initial(query).then(res => {
+                this.search.getResultsByCategory(query).then(res => {
                     if (res && !this.props.hasError) {
                         this.searchOnSuccess(query, rows, res, true);
                     } else {
-                        this.search.initial().then(results => {
+                        this.search.getResultsByCategory(query).then(results => {
                             if (!results) {
                                 this.setState({
                                     loading: false,
@@ -218,10 +264,11 @@ class Search extends Component {
             element => element.categoryFacetName === `${content_type}_facet`
         );
 
-    isInitialLoad = content_type => (content_type ? false : true);
+    isInitialLoad = (category, content_type) => (category) ? false : true;
 
-    isFacetsSelected = selectedFacets =>
-        Object.entries(selectedFacets).length !== 0 ? true : false;
+    isCategoryOnlySelected = (category, content_type) => (category && !content_type) ? true : false;
+
+    isFacetsSelected = selectedFacets => Object.entries(selectedFacets).length !== 0 ? true : false;
 
     getFilterMap = (authoredCategories, backendCategories) => {
         return authoredCategories.filter(authoredItem => {
@@ -393,8 +440,8 @@ class Search extends Component {
     }
 
     sortCategories() {
-      let options = [{ name: 'Do not display when count is 0', count: 0 }, { name: 'Library', count: 386 }, { name: 'Products', count: 87 }, { name: 'Support', count: 182 }, { name: 'Shop', count: 1381 }, { name: 'Miscellaneous 1' }, { name: 'Miscellaneous 2' }, { name: 'Miscellaneous 3' }, { name: 'Miscellaneous 4' }, { name: 'Miscellaneous 5' }]
-      let sortedOptions = options.sort((a, b) => (a.count > b.count) ? -1 : (a.count === b.count) ? (a.name.localeCompare(b.name)) : 1);
+    let options = [{ name: 'Do not display when count is 0', count: 0 }, { name: 'Library', count: 386 }, { name: 'Products', count: 87 }, { name: 'Support', count: 182 }, { name: 'Shop', count: 1381 }, { name: 'Miscellaneous 1' }, { name: 'Miscellaneous 2' }, { name: 'Miscellaneous 3' }, { name: 'Miscellaneous 4' }, { name: 'Miscellaneous 5' }]
+    let sortedOptions = options.sort((a, b) => (a.count > b.count) ? -1 : (a.count === b.count) ? (a.name.localeCompare(b.name)) : 1);
         sortedOptions = sortedOptions.filter(a => a['count'] != undefined && a['count'] > 0);
         return sortedOptions;
     }
@@ -591,11 +638,11 @@ class Search extends Component {
     };
 
     getContentMenuOrFilter = filterTags => {
-        if (this.isInitialLoad(this.state.contentType)) {
+        if (this.isInitialLoad(this.state.category, this.state.contentType)) {
             return (
                 <CategoriesMenu
                     text={this.props.searchText}
-                    categoryKey="contentType"
+                    categoryKey="filterBy"
                     items={this.state.filterMap}
                     click={this.handleContentTypeItemClick.bind(this)}
                     showBothChildrenAndItems={true}
@@ -612,7 +659,7 @@ class Search extends Component {
             return (
                 <CategoriesMenu
                     text={this.props.searchText}
-                    categoryKey="contentType"
+                    categoryKey="filterBy"
                     items={this.state.filterMap}
                     click={this.handleContentTypeItemClick.bind(this)}
                     selectedValue={
@@ -687,7 +734,7 @@ class Search extends Component {
 
     getSubFacetTags = () => {
         if (
-            this.isInitialLoad(this.state.contentType) ||
+            this.isInitialLoad(this.state.category, this.state.contentType) ||
             !this.isFacetsSelected(this.state.searchParams.facets)
         ) {
             return <></>;
@@ -851,7 +898,8 @@ class Search extends Component {
                         categoryDownIcon={this.props.searchText.downIcon}
                         categoryIsSearchable={false}
                         categoryOnChange={this.categoryChangeHandler.bind(this)}
-                        categoryOptions={this.sortCategories()}
+                        categoryOptions={this.state.categoryTabs}
+                        categoryValue={this.state.activeTabIndex}
                     />
                     <BtnShowSortFilter
                         text={this.props.searchText}
@@ -913,8 +961,8 @@ class Search extends Component {
         } else {
             return <>
                 <CategoryTabs
-                    items={this.sortCategories()}
-                    activeIndex={0}
+                    items={this.state.categoryTabs}
+                    activeIndex={this.state.activeTabIndex}
                     onClick={() => {console.log("TABS CLICKED");}}
                 />
                 <div ref="main">

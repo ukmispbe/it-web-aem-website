@@ -7,9 +7,7 @@ export const CategoriesMenu = (props) => {
     const items = props.items.filter(item => item.categoryFacetName !== 'library_facet');
 
     const getHeading = () => {
-        return (props.selectedValue) 
-            ? <h3 className="bread-crumb"><a href="javascript:void(0)" onClick={props.clear}>{props.text[props.categoryKey]}</a> <ReactSVG src={props.text.nextIcon} /> {props.selectedValue}</h3> 
-            : <h3>{props.text[props.categoryKey]}</h3>
+        return (props.selectedValue) ?  <><div className="back-btn"><a href="javascript:void(0)" onClick={props.clear}><ReactSVG src={props.text.previousIcon} /> {props.text[props.categoryKey]}</a></div><h3>{props.selectedValue}</h3></> : <h3>{props.text[props.categoryKey]}</h3>
     }
 
     const getBody = () => {
@@ -33,9 +31,7 @@ export const CategoriesMenu = (props) => {
         return <div key={item.categoryFacetName} className="categories-type-menu-container__item" onClick={e => props.click(item)}>
                 <div><a href="javascript:void(0)">{item.categoryFacetValue}</a></div>
                 <div>
-                    <a href="javascript:void(0)">
-                        <ReactSVG src={props.text.nextIcon} />
-                    </a>
+                    <a href="javascript:void(0)">(XX)</a>
                 </div>
             </div>});
 
