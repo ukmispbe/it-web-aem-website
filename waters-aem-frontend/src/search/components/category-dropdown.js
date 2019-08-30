@@ -72,7 +72,7 @@ const getOptions = options => {
     let newList = options.map((a, index) => { 
         return {
             value: index,
-            label: a.name
+            label: a.name + ' (' + a.count + ')'
         }
     })
     return newList;
@@ -88,7 +88,7 @@ const CategoryDropdown = props => {
                 <Select
                     defaultValue={getOptions(props.categoryOptions)[0]}
                     options={getOptions(props.categoryOptions)}
-                    //value={0}current selected item
+                    value={props.categoryValue}
                     onChange={props.categoryOnChange}
                     isSearchable={props.categoryIsSearchable}
                     styles={customStyles}
@@ -119,7 +119,8 @@ CategoryDropdown.propTypes = {
     categoryOnChange: PropTypes.func.isRequired,
     categoryIsSearchable: PropTypes.bool,
     categoryPlaceholder: PropTypes.string,
-    categoryDownIcon: PropTypes.string.isRequired
+    categoryDownIcon: PropTypes.string.isRequired,
+    categoryValue: PropTypes.number
 }
 
 
