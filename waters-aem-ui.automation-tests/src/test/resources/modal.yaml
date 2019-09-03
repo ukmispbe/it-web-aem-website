@@ -1,0 +1,8 @@
+properties:
+  - label: Source Text
+    type: TEXTFIELD
+    value: Source Text
+  - label: Source Icon
+    type: PATHBROWSER
+    value: http://localhost:4502/content/dam/waters/en/Photography/people/Logan-Umberger.jpg/_jcr_content/renditions/cq5dam.web.640.640.jpeg
+
