@@ -4,7 +4,7 @@ $level0MobileDisplay: flex;
    position: relative;
    float: none!important;
    background-color: rgba(255, 255, 255, 1);
-   z-index: 998;
+   z-index: $navigation-z-index;
    height: 67px;
    width: 105%!important;
    padding: 0 $space-xl;
@@ -41,7 +41,7 @@ nav.cmp-navigation {
          box-shadow: none;
          left: -1.25%;
          top: 0;
-         z-index: 1000;
+         z-index: $navigation-after-z-index;
          visibility: hidden;
          background: none;
          pointer-events: none;
@@ -129,7 +129,7 @@ nav.cmp-navigation {
 
          &--level-0 {
             height: 67px;
-            z-index: 1001;
+            z-index: $navigation-level-0-z-index;
             align-content: center;
             display: inline-table;
             border-bottom: 3px solid transparent;
@@ -256,7 +256,7 @@ nav.cmp-navigation {
 
          & > .cmp-navigation__group {
             white-space: initial;
-            z-index: 99;
+            z-index: $navigation-group-z-index;
             opacity: 0;
             visibility: hidden;
             list-style: none;
@@ -329,7 +329,7 @@ nav.cmp-navigation {
 
 .cmp-navigation-overlay__container {
    &.overlay-container {
-      z-index: 97;
+      z-index: $navigation-overlay-z-index;
       visibility: hidden;
       opacity: 0;
       transition-timing-function: linear;
