@@ -434,6 +434,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         updatedProperties.put(WatersCommerceConstants.PROPERTY_PRODUCT_RESOURCE_PATH, sku.getPath());
         updatedProperties.put(WatersCommerceConstants.PROPERTY_CODE, sku.getCode());
         updatedProperties.put(NameConstants.PN_SLING_VANITY_PATH , VANITY_PATH_PREFIX + sku.getCode());
+        updatedProperties.put(JcrConstants.JCR_DESCRIPTION, sku.getLongDescription());
 
         if (sku.getPrimaryImageSrc() != null) {
             updatedProperties.put(WatersConstants.OG_IMAGE, sku.getPrimaryImageSrc());
