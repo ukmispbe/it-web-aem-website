@@ -37,9 +37,9 @@ public class NotificationImpl implements Notification {
     @Override
     public List<LinkItem> getNotificationItems(){
         return component.findElements(By.tagName("a"))
-                .stream()
-                .map(link -> new LinkItemImpl(link.getText(), link.getAttribute("href"), !link.getAttribute("target").isEmpty()))
-                .collect(Collectors.toList());
+        .stream()
+        .map(link -> new LinkItemImpl(link.getText(), link.getAttribute("href"), !link.getAttribute("target").isEmpty()))
+        .collect(Collectors.toList());
     }
 
 }
