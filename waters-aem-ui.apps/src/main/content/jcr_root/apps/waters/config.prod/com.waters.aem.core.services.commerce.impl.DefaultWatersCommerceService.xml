@@ -2,6 +2,7 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
           xmlns:jcr="http://www.jcp.org/jcr/1.0"
           jcr:primaryType="sling:OsgiConfig"
-          skuAvailabilityUrl="https://prodservices.waters.com/api/waters/product/v1/availability/{partnumber}/{isocode}"
+          skuAvailabilityUrl="https://prodservices.waters.com/api/waters/product/v1/availability/{partnumber}/{countryCode}"
           skuCustomerPriceUrl="https://prodservices.waters.com/api/waters/product/v1/customerprice"
-          cartUrl="https://www.waters.com/waters/ajax.htm?handler=shoppingHandler&amp;action=processExternalCart"/>
+          addToCartUrl="https://prodservices.waters.com/api/waters/product/v1/addtocart/{partnumber}/{quantity}"
+          viewCartUrl="https://www.waters.com/waters/shoppingCart.htm"/>

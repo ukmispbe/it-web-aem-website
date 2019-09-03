@@ -52,12 +52,14 @@
         position: fixed;
         z-index: 100;
         width: 300%;
-        top: 0px;
-        box-shadow: 0px 1px 5px 0px rgba(79, 91, 100, 0.2);
         margin: 0 -0% 0 -50%;
         padding: 0 162.5% 0 50%;
         white-space: nowrap;
         overflow-x: hidden;
+
+        &--shadow {
+            box-shadow: $shadow;
+        }
 
         @include mobile {
             -webkit-transition: height .5s ease;
@@ -73,15 +75,6 @@
 
         @include tablet {
             width: 300%;
-        }
-
-        &.cmp-anchor--sticky-sku {
-            border-top: 1px solid $color-border-light;
-            top: 99px;
-        }
-
-        .cmp-anchor-gradient-right {
-            right: 54%;
         }
 
         .cmp-anchor__list {

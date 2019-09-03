@@ -59,14 +59,16 @@ public final class SkuInjector implements Injector {
     }
 
     private PageDecorator getCurrentPage(final SlingHttpServletRequest request) {
-        final SlingBindings bindings = (SlingBindings) request.getAttribute(SlingBindings.class.getName());
+        final PageManagerDecorator pageManager = request.getResourceResolver().adaptTo(PageManagerDecorator.class);
 
-        PageDecorator currentPage = null;
+        PageDecorator currentPage = pageManager.getContainingPage(request.getResource());
 
-        if (bindings != null && bindings.containsKey(WCMBindings.CURRENT_PAGE)) {
-            final PageManagerDecorator pageManager = request.getResourceResolver().adaptTo(PageManagerDecorator.class);
+        if (currentPage == null) {
+            final SlingBindings bindings = (SlingBindings) request.getAttribute(SlingBindings.class.getName());
 
-            currentPage = pageManager.getPage((Page) bindings.get(WCMBindings.CURRENT_PAGE));
+            if (bindings != null && bindings.containsKey(WCMBindings.CURRENT_PAGE)) {
+                currentPage = pageManager.getPage((Page) bindings.get(WCMBindings.CURRENT_PAGE));
+            }
         }
 
         return currentPage;

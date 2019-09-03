@@ -64,6 +64,12 @@
             <links
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="waters/components/content/applicationnotes/links"/>
+            <modal
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="waters/components/content/modal"/>
+            <iframe
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="waters/components/content/iframe"/>
         </root>
     </jcr:content>
 </jcr:root>

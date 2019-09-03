@@ -1,11 +1,13 @@
 // main JS and SCSS entry file
 
 import './styles/index.scss';
+import './scripts/stickyService';
 import './scripts/backtotop';
 import './scripts/share';
 import './scripts/anchor';
 import './scripts/sticky-sort-filter';
 import './scripts/sticky-sku-details';
+import './scripts/sticky-sku-scroll';
 import './scripts/navigation-overlay';
 import './scripts/navigation';
 import './scripts/navigation-level2';
@@ -16,6 +18,7 @@ import './scripts/banner';
 import './scripts/breadcrumb';
 import './scripts/header';
 import './scripts/collapsible';
+import './scripts/skulist'
 import './index';
 
 var inlineSVG = require('inline-svg');

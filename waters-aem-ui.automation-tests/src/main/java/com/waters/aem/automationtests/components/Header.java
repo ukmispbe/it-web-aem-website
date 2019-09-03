@@ -13,9 +13,8 @@ public interface Header {
 
     String getLogoAltText();
 
-    boolean isNewWindow();
+    boolean isExternal();
 
     String getSearchPath();
 
-    List<LinkItem> getLinkItems();
 }
