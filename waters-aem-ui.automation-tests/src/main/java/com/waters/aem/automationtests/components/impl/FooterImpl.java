@@ -11,7 +11,7 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@PageObject(css = ".cmp-external-footer")
+@PageObject(css = ".cmp-footer")
 public class FooterImpl implements Footer {
 
     @Inject
@@ -25,7 +25,7 @@ public class FooterImpl implements Footer {
 
     @Override
     public String getLogoLink() {
-        return component.findElement(By.cssSelector("div[class='cmp-external-footer__logo'] > a")).getAttribute("href");
+        return component.findElement(By.cssSelector("div[class='cmp-footer__logo'] > a")).getAttribute("href");
     }
 
     @Override
@@ -34,25 +34,33 @@ public class FooterImpl implements Footer {
     }
 
     @Override
-    public boolean isNewWindow() {
-        return !component.findElement(By.cssSelector("div[class='cmp-external-footer__logo'] > a")).getAttribute("target").isEmpty();
+    public boolean isExternal() {
+        return !component.findElement(By.cssSelector("div[class='cmp-footer__logo'] > a")).getAttribute("target").isEmpty();
     }
 
     @Override
     public String getCookiesLink() {
-        return component.findElement(By.cssSelector(".cmp-external-footer__links")).findElement(By.linkText("Cookies")).getAttribute("href");
+        return component.findElement(By.cssSelector(".cmp-footer__links")).findElement(By.linkText("Cookies")).getAttribute("href");
     }
 
     @Override
     public String getCopyrightText() {
-        return component.findElement(By.className("cmp-external-footer__copyright")).findElement(By.tagName("p")).getText();
+        return component.findElement(By.className("cmp-footer__copyright")).findElement(By.tagName("p")).getText();
     }
 
     @Override
-    public List<LinkItem> getLinkItems() {
-        return component.findElement(By.cssSelector(".cmp-external-footer__links")).findElements(By.tagName("a"))
+    public List<LinkItem> getFooterLinks() {
+        return component.findElement(By.cssSelector(".cmp-footer__links")).findElements(By.tagName("a"))
         .stream()
         .map(link -> new LinkItemImpl(link.getText(), link.getAttribute("href"), !link.getAttribute("target").isEmpty()))
+        .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<LinkItem> getSocialLinks() {
+        return component.findElement(By.cssSelector(".cmp-footer__social-links")).findElements(By.tagName("a"))
+        .stream()
+        .map(link -> new LinkItemImpl(link.getAttribute("href"), link.findElement(By.tagName("svg")).isDisplayed()))
         .collect(Collectors.toList());
     }
 }

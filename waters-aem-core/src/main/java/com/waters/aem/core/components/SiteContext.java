@@ -5,6 +5,8 @@ import com.day.cq.i18n.I18n;
 import com.day.cq.wcm.api.LanguageManager;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.components.structure.page.Commerce;
+import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
@@ -108,6 +110,12 @@ public final class SiteContext {
         }
 
         return i18n;
+    }
+
+    public CountryCommerceConfig getCountryCommerceConfig() {
+        final Commerce commerce = currentPage.getContentResource().adaptTo(Commerce.class);
+
+        return commerce.getCountryCommerceConfig();
     }
 
     public String getLanguageLocation() {
