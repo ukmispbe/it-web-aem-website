@@ -40,7 +40,8 @@
         }
 
         @include tablet {
-            margin-top: -20px;
+            width: 100%;
+            padding: 1em 0;
         }
     }
 }
@@ -78,6 +79,11 @@
             .st0 {
                 stroke: $color-icon;
             }
+        }
+
+        &.skuitem {
+            padding-bottom: $space-s;
+            margin-top: 0;
         }
     }
 }
@@ -233,8 +239,8 @@ div.cmp-search__no-results {
         display: none;
         @include font-utility;
         border: 1px solid $color-border-dark;
-        padding: $space-xs ($space-xl - 0.25em) $space-xs $space-s;
         margin-bottom: $space-xl;
+        padding: $space-xs ($space-xl - 0.25em) $space-xs $space-s;
         position: relative;
         text-decoration: none;
         &:hover {
@@ -266,6 +272,7 @@ div.cmp-search__no-results {
         }
         @include tablet {
             float: right;
+            margin-bottom: 0;
         }
         @include mobile {
             svg {
@@ -278,20 +285,72 @@ div.cmp-search__no-results {
             background-position: 95% 13px;
         }
     }
-    @include tablet {
-        float: right;
-        width: 30%;
-    }
     @include mobile {
         float: none;
         width: 100%;
     }
 }
 
+.cmp-search-category-dropdown{
+    margin-bottom: $space-m;
+
+    text-decoration: none;
+    &:hover {
+        text-decoration: none;
+    }
+
+    transition: none;
+
+    svg {
+        position: absolute;
+        top: 14px;
+        right: 13px;
+        width: $icon-m;
+        height: $icon-m;
+        .st0 {
+            stroke: $color-icon;
+        }
+        @include mobile {
+            top: 15px;
+            right: 12px;
+        }
+    }
+
+    @include tablet {
+        margin-right: $space-xxs;
+
+        .css-1l0huv0-control.cmp-custom-dropdown__control{
+            max-height: 51px;
+        }
+    }
+
+    @include mobile {
+        svg {
+            margin: 0 2% 0 0;
+        }
+    }
+
+
+}
+
+.cmp-search-show-btn,
+.cmp-search-category-dropdown{
+    @include tablet {
+        float: left;
+        width: 165px;
+        margin-bottom: 0;
+        padding-bottom: $space-m;
+    }
+}
+
 .cmp-search__resultsCount-container {
     position: relative;
-    top: -73px;
+    top: -95px;
     width: 70%;
+
+    @include tablet-and-over {
+        margin-bottom: 8em;
+    }
 
     @include tablet-and-under {
         top: 0;
@@ -360,6 +419,19 @@ div.cmp-search__no-results {
     }
 }
 
+.cmp-search__sorted-container{
+    @include mobile {
+        display: flex;
+        flex-wrap: wrap;
+
+        .cmp-search__sorted-by{
+            order: 2;
+        }
+        .cmp-search-filters__tag{
+            order: 1;
+        }
+    }
+}
 .cmp-search__sorted-by {
     display: none;
     float: left;
@@ -373,8 +445,11 @@ div.cmp-search__no-results {
     @include tablet {
         display: block;
         padding-top: $space-s;
-        float: left;
-        width: 70%;
+
+
+        float: right;
+        width: auto;
+
     }
 }
 
@@ -448,10 +523,11 @@ html.showing-spinner {
     }
 }
 
-@include mobile {
+@include tablet-and-under {
    #js-search-app {
       .overlay {
          position: fixed;
+         z-index: 1;
       }
    }
 }
