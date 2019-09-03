@@ -107,3 +107,17 @@
         padding: 0;
     }
 }
+
+.cmp-specification-table {
+    .cmp-notification-wrapper {
+        justify-content: normal;
+        background-color:transparent;
+        padding: initial;
+    }
+}
+
+.cmp-sku-details--sticky {
+    .cmp-notification-wrapper {
+        display: none;
+    }
+}

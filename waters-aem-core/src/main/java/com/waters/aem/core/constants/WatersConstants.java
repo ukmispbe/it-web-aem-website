@@ -53,6 +53,8 @@ public final class WatersConstants {
 
     public static final String TAG_LIBRARY = "waters:category/library";
 
+    public static final String TAG_SHOP = "waters:category/shop";
+
     public static final String PROPERTY_LIBRARY_ASSET_PATH = "libraryAssetPath";
 
     public static final String PROPERTY_REDIRECT_TARGET = "redirectTarget";
@@ -66,6 +68,10 @@ public final class WatersConstants {
     public static final FastDateFormat DATE_FORMAT_ISO_8601 = FastDateFormat.getInstance("yyyy-MM-dd");
 
     public static final String THUMBNAIL_RENDITION_PREFIX = "cq5dam.thumbnail.319";
+
+    public static final String THUMBNAIL_IMAGE = "thumbnailImage";
+
+    public static final String OG_IMAGE = "ogImage";
 
     private WatersConstants() {
 

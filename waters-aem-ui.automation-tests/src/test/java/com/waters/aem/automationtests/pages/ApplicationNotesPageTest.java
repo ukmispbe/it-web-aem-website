@@ -21,34 +21,22 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
 
     @Test
     public void Header() throws ActionException {
-        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("External Header", "External Header", 0,
-        new ResourceFileLocation("external-header.yaml")));
+        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("Header", "Header", 0,
+        new ResourceFileLocation("header.yaml")));
 
         final Header headerComponent = page.getContent(Header.class, 0);
 
         //test Properties Tab
         assertThat(headerComponent.getLogo().substring(headerComponent.getLogo().lastIndexOf("/") + 1)).isEqualTo("waters-logo-black.svg");
-        assertThat(headerComponent.getLogoLink().substring(headerComponent.getLogoLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
+        assertThat(headerComponent.getLogoLink().substring(headerComponent.getLogoLink().lastIndexOf("/") + 1)).isEqualTo("home.htm");
         assertThat(headerComponent.getLogoAltText()).isEqualTo("Alt Text Test");
-        assertThat(headerComponent.isNewWindow()).isEqualTo(true);
+        assertThat(headerComponent.isExternal()).isEqualTo(false);
 
-        //Test Header Links Tab
-        assertThat(headerComponent.getSearchPath().substring(headerComponent.getSearchPath().lastIndexOf("/") + 1)).isEqualTo("search.html");
-        assertThat(headerComponent.getLinkItems().get(0).getText()).isEqualTo("Search Application");
-        assertThat(headerComponent.getLinkItems().get(0).getLink().substring(headerComponent.getLinkItems().get(0).getLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
-        assertThat(headerComponent.getLinkItems().get(0).isNewWindow()).isEqualTo(true);
-        assertThat(headerComponent.getLinkItems().get(0).hasLinkIcon()).isEqualTo(true);
-
-        //Test Region Selector Tab
-        assertThat(headerComponent.getLinkItems().get(1).getText()).isEqualTo("EN/US");
-        assertThat(headerComponent.getLinkItems().get(1).getLink().substring(headerComponent.getLinkItems().get(0).getLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
-        assertThat(headerComponent.getLinkItems().get(1).isNewWindow()).isEqualTo(false);
-        assertThat(headerComponent.getLinkItems().get(1).hasLinkIcon()).isEqualTo(true);
     }
 
     @Test
     public void title() throws ActionException {
-        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container", "Title", 0,
+        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container[1]", "Title", 0,
             new ResourceFileLocation("title.yaml")));
 
         final Title titleComponent = page.getContent(Title.class, 0);
@@ -59,7 +47,7 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
 
     @Test
     public void text() throws ActionException {
-        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container", "Text", 0,
+        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container[1]", "Text", 0,
             new ResourceFileLocation("text.yaml")));
 
         final Text textComponent = page.getContent(Text.class, 0);
@@ -68,9 +56,10 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
         assertThat(textComponent.getText()).isEqualTo("Text Test");
     }
 
+
     @Test
     public void button() throws ActionException {
-        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container", "Button", 0,
+        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container[1]", "Button", 0,
             new ResourceFileLocation("button.yaml")));
 
         final Button buttonComponent = page.getContent(Button.class, 0);
@@ -91,7 +80,7 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
 
     @Test
     public void image() throws ActionException {
-        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container", "Image", 0,
+        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container[1]", "Image", 0,
             new ResourceFileLocation("image.yaml")));
 
         final Image imageComponent = page.getContent(Image.class, 0);
@@ -104,29 +93,27 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
 
     @Test
     public void Links() throws ActionException {
-        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container", "External List", 0,
+        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container[1]", "Links", 0,
         new ResourceFileLocation("links.yaml")));
 
         final Links LinksComponent = page.getContent(Links.class, 0);
 
-        assertThat(LinksComponent.getTitle()).isEqualTo("External List Title Test");
-
         //Link Item 1
         assertThat(LinksComponent.getLinkItems().get(0).getText()).isEqualTo("Waters Site");
         assertThat(LinksComponent.getLinkItems().get(0).getLink()).isEqualTo("https://www.waters.com/waters/home.htm");
-        assertThat(LinksComponent.getLinkItems().get(0).isNewWindow()).isEqualTo(true);
+        assertThat(LinksComponent.getLinkItems().get(0).isExternal()).isEqualTo(false);
 
         //Link Item 2
         assertThat(LinksComponent.getLinkItems().get(1).getText()).isEqualTo("ICF");
         assertThat(LinksComponent.getLinkItems().get(1).getLink()).isEqualTo("https://www.icf.com/next");
-        assertThat(LinksComponent.getLinkItems().get(1).isNewWindow()).isEqualTo(true);
+        assertThat(LinksComponent.getLinkItems().get(1).isExternal()).isEqualTo(true);
 
     }
 
     @Test
     public void footer() throws ActionException {
         controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("Footer", "Footer", 0,
-            new ResourceFileLocation("external-footer.yaml")));
+        new ResourceFileLocation("footer.yaml")));
 
         final Footer footerComponent = page.getContent(Footer.class, 0);
 
@@ -134,20 +121,47 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
         assertThat(footerComponent.getLogo().substring(footerComponent.getLogo().lastIndexOf("/") + 1)).isEqualTo("waters-logo-white.svg");
         assertThat(footerComponent.getLogoLink().substring(footerComponent.getLogoLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
         assertThat(footerComponent.getLogoAltText()).isEqualTo("Alt Text Test");
-        assertThat(footerComponent.isNewWindow()).isEqualTo(true);
+        assertThat(footerComponent.isExternal()).isEqualTo(false);
         assertThat(footerComponent.getCopyrightText()).isEqualTo("© 2019 Waters Corporation. All Rights Reserved.");
 
         //Test Footer Links Tab
         //Link Item 1
-        assertThat(footerComponent.getCookiesLink().substring(footerComponent.getCookiesLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
-        assertThat(footerComponent.getLinkItems().get(0).getText()).isEqualTo("Terms of Use");
-        assertThat(footerComponent.getLinkItems().get(0).getLink().substring(footerComponent.getLinkItems().get(0).getLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
-        assertThat(footerComponent.getLinkItems().get(0).isNewWindow()).isEqualTo(true);
+        assertThat(footerComponent.getCookiesLink().substring(footerComponent.getCookiesLink()
+        .lastIndexOf("/") + 1)).isEqualTo("search.html");
+        assertThat(footerComponent.getFooterLinks().get(0).getText()).isEqualTo("Waters");
+        assertThat(footerComponent.getFooterLinks().get(0).getLink().substring(footerComponent.getFooterLinks().get(0)
+        .getLink().lastIndexOf("/") + 1)).isEqualTo("home.htm");
+        assertThat(footerComponent.getFooterLinks().get(0).isExternal()).isEqualTo(false);
 
         //Link Item 2
-        assertThat(footerComponent.getLinkItems().get(1).getText()).isEqualTo("Privacy");
-        assertThat(footerComponent.getLinkItems().get(1).getLink().substring(footerComponent.getLinkItems().get(0).getLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
-        assertThat(footerComponent.getLinkItems().get(1).isNewWindow()).isEqualTo(false);
+        assertThat(footerComponent.getFooterLinks().get(1).getText()).isEqualTo("Search");
+        assertThat(footerComponent.getFooterLinks().get(1).getLink().substring(footerComponent.getFooterLinks()
+        .get(1).getLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
+        assertThat(footerComponent.getFooterLinks().get(1).isExternal()).isEqualTo(false);
+
+        //Social Links
+        //social link 1
+        assertThat(footerComponent.getSocialLinks().get(0).getLink()).isEqualTo("https://www.facebook.com/");
+        assertThat(footerComponent.getSocialLinks().get(0).hasLinkIcon()).isEqualTo(true);
+
+        //social link 2
+        assertThat(footerComponent.getSocialLinks().get(1).getLink()).isEqualTo("https://twitter.com/");
+        assertThat(footerComponent.getSocialLinks().get(0).hasLinkIcon()).isEqualTo(true);
+    }
+    @Test
+    public void Iframe() throws ActionException {
+        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container[1]", "Iframe", 0, new ResourceFileLocation("iframe.yaml")));
+        final Iframe iframecomponent = page.getContent(Iframe.class, 0);
+        assertThat(iframecomponent.getSource()).isEqualTo("https://code.waters.com/confluence/display/BTADP/Deployment+Home+Page+run-book" + "#view=fitH");
+    }
+
+    @Test
+    public void modal() throws ActionException {
+
+        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container[1]", "Modal", 0, new ResourceFileLocation("modal.yaml")));
+        final Modal modalComponent = page.getContent(Modal.class, 0);
+        assertThat(modalComponent.getText()).isEqualTo("Source Text");
+        assertThat(modalComponent.getIcon()).isEqualTo("http://localhost:4502/content/dam/waters/en/Photography/people/Logan-Umberger.jpg/_jcr_content/renditions/cq5dam.web.640.640.jpeg");
     }
 
     @Override

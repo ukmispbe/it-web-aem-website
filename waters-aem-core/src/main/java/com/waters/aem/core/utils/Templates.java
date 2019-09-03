@@ -51,10 +51,30 @@ public final class Templates {
     }
 
     /**
+     * Check if the given page is a sku page.
+     *
+     * @param page page
+     * @return true if page is non-null and is a sku template
+     */
+    public static boolean isSkuPage(final PageDecorator page) {
+        return isPage(page, WatersConstants.TEMPLATE_SKU_PAGE);
+    }
+
+    /**
+     * Check if the given content resource is a sku page.
+     *
+     * @param resource page jcr:content resource
+     * @return true if resource is non-null and is a sku template
+     */
+    public static boolean isSkuPage(final Resource resource) {
+        return isPage(resource, WatersConstants.TEMPLATE_SKU_PAGE);
+    }
+
+    /**
      * Check if the given page is a category page.
      *
      * @param page page
-     * @return true if page is non-null and is an application notes template
+     * @return true if page is non-null and is a catalog template
      */
     public static boolean isCatalogPage(final PageDecorator page) {
         return isPage(page, WatersConstants.TEMPLATE_CATALOG_PAGE);
@@ -64,7 +84,7 @@ public final class Templates {
      * Check if the given content resource is a category page.
      *
      * @param resource page jcr:content resource
-     * @return true if resource is non-null and is an application notes template
+     * @return true if resource is non-null and is a catalog template
      */
     public static boolean isCatalogPage(final Resource resource) {
         return isPage(resource, WatersConstants.TEMPLATE_CATALOG_PAGE);
