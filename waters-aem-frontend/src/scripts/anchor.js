@@ -178,54 +178,50 @@ if (anchorList) {
         '.cmp-section-container--collapse'
     );
 
-    if (isMobile && sectionContainers.length) {
-        anchorElement.style.display = 'none';
-    } else {
-        if (anchorElement) {
-            setAnchorDestinations();
+    if (anchorElement) {
+        setAnchorDestinations();
 
-            scrollListener(anchorScrollSpy);
-            sticky.add({
-                element: anchorElement,
-                priority: 2,
-                modifier: 'cmp-anchor--sticky',
-                offset: {
-                    position: 'top',
-                    amount: 13,
-                },
-                fillHeight: 52,
-                stickyHeight: 53,
-                stickyWith: document.querySelector('.cmp-sku-details')
-                    ? 'cmp-sku-details--sticky'
-                    : '',
-            });
-        }
-
-        if (anchorMenu) {
-            anchorMenu.addEventListener('click', () => toggleMobileNav());
-        }
-
-        anchorList.addEventListener('mouseover', () =>
-            showScrollBars(anchorList)
-        );
-
-        anchorList.addEventListener('mouseout', () =>
-            hideScrollBars(anchorList)
-        );
-
-        anchorChange(anchorList); 
-
-        window.addEventListener('scroll', () => scrollWindow(anchorList));
-        window.addEventListener('load', () => resizeWindow(anchorList));
-        window.addEventListener('resize', () => resizeWindow(anchorList));
-        var mediaQueryListener = window.matchMedia('(max-width: 650px)');
-
-        function anchorChangeToMobile() {
-            if (isMobile) {
-                clearGradients();
-            }
-        }
-
-        mediaQueryListener.addListener(anchorChangeToMobile);
+        scrollListener(anchorScrollSpy);
+        sticky.add({
+            element: anchorElement,
+            priority: 2,
+            modifier: 'cmp-anchor--sticky',
+            offset: {
+                position: 'top',
+                amount: 13,
+            },
+            fillHeight: 52,
+            stickyHeight: 53,
+            stickyWith: document.querySelector('.cmp-sku-details')
+                ? 'cmp-sku-details--sticky'
+                : '',
+        });
     }
+
+    if (anchorMenu) {
+        anchorMenu.addEventListener('click', () => toggleMobileNav());
+    }
+
+    anchorList.addEventListener('mouseover', () =>
+        showScrollBars(anchorList)
+    );
+
+    anchorList.addEventListener('mouseout', () =>
+        hideScrollBars(anchorList)
+    );
+
+    anchorChange(anchorList); 
+
+    window.addEventListener('scroll', () => scrollWindow(anchorList));
+    window.addEventListener('load', () => resizeWindow(anchorList));
+    window.addEventListener('resize', () => resizeWindow(anchorList));
+    var mediaQueryListener = window.matchMedia('(max-width: 650px)');
+
+    function anchorChangeToMobile() {
+        if (isMobile) {
+            clearGradients();
+        }
+    }
+
+    mediaQueryListener.addListener(anchorChangeToMobile);
 }

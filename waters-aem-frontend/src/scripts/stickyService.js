@@ -155,7 +155,7 @@ class Sticky {
                         q.element.classList.add(q.modifier + '--shadow');
                     }
                 } else if (index === currentSticky.length - 1) {
-                    this.addTopPositioning(q, `${this.sumHeight}px`);
+                    this.addTopPositioning(q, `92px`); // setting to 92px to remove gap between anchor and sku-details sticky. this.sumHeight was defaulting to 100px when sku-details--sticky was present creating a gap
                     q.element.classList.add(q.modifier + '--shadow');
                 } else {
                     this.addTopPositioning(q, `${this.sumHeight}px`);
