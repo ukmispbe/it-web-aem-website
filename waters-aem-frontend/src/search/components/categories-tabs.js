@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import CategoryTab from './category-tab';
 
 class CategoriesTabs extends Component {
@@ -8,11 +7,13 @@ class CategoriesTabs extends Component {
         super(props);
     }
 
-    createTab(tab) {
+    createTab(tab, index) {
         return <CategoryTab
                     name={tab.name}
                     count={tab.count}
                     isActive={tab.isActive}
+                    index={index}
+                    onClick={this.props.onClick}
                 />
     }
 
@@ -26,7 +27,7 @@ class CategoriesTabs extends Component {
             }
         });
 
-        return mappedTabs.map(this.createTab);
+        return mappedTabs.map((tab, index) => this.createTab(tab, index));
     }
 
     render() {

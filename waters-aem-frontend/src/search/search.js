@@ -24,6 +24,7 @@ import BtnDoneSortFilter from './components/btn-done-sort-filter';
 import Spinner from './components/spinner';
 import { CategoriesMenu } from './components/categories-menu';
 import CategoryTabs from './components/categories-tabs';
+import validator from 'validator';
 
 class Search extends Component {
     constructor() {
@@ -153,10 +154,12 @@ class Search extends Component {
         return categories.findIndex(category => category.count === maxCount);
     }
 
+    getQueryObject = (q) => q
+        ? this.search.createQueryObject(q)
+        : this.search.createQueryObject(parse(window.location.search));
+
     async performSearch(q) {
-        let query = q
-            ? this.search.createQueryObject(q)
-            : this.search.createQueryObject(parse(window.location.search));
+        let query = this.getQueryObject(q);
 
         if (!query.sort && this.state) {
             query = Object.assign({}, query, { sort: this.state.sort });
@@ -438,9 +441,7 @@ class Search extends Component {
         this.pushToHistory(query, state.selectedFacets);
     }
 
-    categoryChangeHandler = (e) => {
-        console.log('categoryChangeHandler', e);
-    }
+    categoryChangeHandler = (e) => this.handleCategorySelected(e.value);
 
     filterSelectHandler(facet, categoryId, e) {
         const isChecked = e.target.checked;
@@ -803,20 +804,21 @@ class Search extends Component {
         const searchParams = this.state.searchParams || {};
         const nextIcon = this.props.searchText.nextIcon;
 
-        const tmpData = [
-            {"code":"186002326","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP Phosphorylase b Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002326-massprep-phosphorylase-b-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":""},
-            {"code":"186002325","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP Enolase Digestion Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002325-massprep-enolase-digestion-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":"",},
-            {"code":"186002327","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP Bovine Hemoglobin Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002327-massprep-bovine-hemoglobin-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":"","discontinued":true,"replacementSku":"WAT066200"},
-            {"code":"186002328","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP ADH Digestion Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002328-massprep-adh-digestion-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":""},
-            {"code":"186002329","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP BSA Digestion Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002329-massprep-bsa-digestion-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":""},
-            {"code":"186006371","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"Cytochrome C Digestion Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186006371-cytochrome-c-digestion-standard.html","formattedPrice":"£162.00","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":""}
-        ];
+        // TODO: Remove mock data
+        // const tmpData = [
+        //     {"code":"186002326","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP Phosphorylase b Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002326-massprep-phosphorylase-b-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":""},
+        //     {"code":"186002325","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP Enolase Digestion Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002325-massprep-enolase-digestion-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":"",},
+        //     {"code":"186002327","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP Bovine Hemoglobin Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002327-massprep-bovine-hemoglobin-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":"","discontinued":true,"replacementSku":"WAT066200"},
+        //     {"code":"186002328","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP ADH Digestion Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002328-massprep-adh-digestion-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":""},
+        //     {"code":"186002329","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP BSA Digestion Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002329-massprep-bsa-digestion-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":""},
+        //     {"code":"186006371","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"Cytochrome C Digestion Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186006371-cytochrome-c-digestion-standard.html","formattedPrice":"£162.00","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":""}
+        // ];
 
         if (state.isSkuList) {
             return (
                 <SkuList
                     skuConfig={state.skuConfig}
-                    data={tmpData || []}
+                    data={state.results}
                 />
             );
         } else {
@@ -828,6 +830,22 @@ class Search extends Component {
             />);
         }
     };
+
+    handleCategorySelected = index => {
+        const categoryName = this.state.categoryTabs[index].name;
+        const isSkuList = validator.equals(categoryName, 'Shop');
+
+        // TODO: Uncomment
+        // this.setState({
+        //     activeTabIndex: index,
+        //     isSkuList
+        // }, async () => {
+        //     let query = this.getQueryObject();
+        //     query.category = categoryName;
+        //     this.pushToHistory(query, this.state.selectedFacets);
+        //     await this.performSearch(query);
+        // });
+    }
 
     render() {
         const state = this.state;
@@ -958,7 +976,7 @@ class Search extends Component {
                 <CategoryTabs
                     items={this.state.categoryTabs}
                     activeIndex={this.state.activeTabIndex}
-                    onClick={() => {console.log("TABS CLICKED");}}
+                    onClick={this.handleCategorySelected}
                 />
                 <div ref="main">
                     {overlay}
