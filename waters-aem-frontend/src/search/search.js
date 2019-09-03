@@ -6,8 +6,10 @@ import ReactPaginate from 'react-paginate';
 import ReactSVG from 'react-svg';
 import ResultsCount from './components/results-count';
 import Results from './components/results';
+import SkuList from '../sku-list';
 import NoResults from './components/no-results';
 import Sort from './components/sort';
+import CategoryDropDown from './components/category-dropdown';
 import Filter from './components/filter';
 import {
     SubFacetTags,
@@ -21,6 +23,8 @@ import BtnApplySortFilter from './components/btn-apply-sort-filter';
 import BtnDoneSortFilter from './components/btn-done-sort-filter';
 import Spinner from './components/spinner';
 import { CategoriesMenu } from './components/categories-menu';
+import CategoryTabs from './components/categories-tabs';
+import validator from 'validator';
 
 class Search extends Component {
     constructor() {
@@ -56,16 +60,24 @@ class Search extends Component {
                     : this.query.sort;
         }
 
+        const category = this.query.category
+            ? this.query.category
+            : null;
+
         const contentType = this.query.content_type
             ? this.query.content_type
             : null;
+
         const contentTypeElement = this.findContentType(
             this.props.filterMap,
             contentType
         );
+
         const contentTypeSelected = contentTypeElement
             ? contentTypeElement
             : {};
+        let skuConfig = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
+        skuConfig.showBreadcrumbs = true;
 
         this.setState({
             loading: true,
@@ -82,10 +94,13 @@ class Search extends Component {
             selectedFacets: this.query.selectedFacets || {},
             unappliedFilters: {},
             isDesktop: false,
+            isSkuList: false,
             initialRender: true,
             performedSearches: 0,
+            category,
             contentType,
             contentTypeSelected,
+            skuConfig,
             facets: [],
             filterMap: [],
             keyword: this.query.keyword
@@ -95,6 +110,8 @@ class Search extends Component {
             spell_related_suggestions: [],
             spell_suggestion: '',
             erroredOut: false,
+            categoryTabs: [],
+            activeTabIndex: -1
         });
 
         const checkWindowWidth = () => {
@@ -108,6 +125,7 @@ class Search extends Component {
         window.addEventListener('resize', checkWindowWidth);
 
         checkWindowWidth();
+
         this.performSearch();
     }
 
@@ -123,10 +141,25 @@ class Search extends Component {
         }
     }
 
-    performSearch(q) {
-        let query = q
-            ? this.search.createQueryObject(q)
-            : this.search.createQueryObject(parse(window.location.search));
+    mapCategories = categories => (!categories || !categories.facets || !categories.facets.category_facet)
+            ? []
+            : categories.facets.category_facet.filter(category => category.value !== 0).map(category => { return { name: category.value, count: category.count} });
+
+    findMaxCategory = categories => {
+        if (!categories) { return 0; }
+
+        const counts = categories.map(category => category.count);
+        const maxCount = Math.max(...counts);
+
+        return categories.findIndex(category => category.count === maxCount);
+    }
+
+    getQueryObject = (q) => q
+        ? this.search.createQueryObject(q)
+        : this.search.createQueryObject(parse(window.location.search));
+
+    async performSearch(q) {
+        let query = this.getQueryObject(q);
 
         if (!query.sort && this.state) {
             query = Object.assign({}, query, { sort: this.state.sort });
@@ -139,16 +172,39 @@ class Search extends Component {
 
         this.setState({ searchParams: query, loading: true, results: {} });
 
-        if (this.isInitialLoad(query.content_type)) {
+        const categories = await this.search.getCategories();
+        const categoriesWithData = this.mapCategories(categories);
+
+        this.setState({categoryTabs: categoriesWithData});
+
+        const isInitialLoad = this.isInitialLoad(query.category, query.content_type);
+
+        if (!isInitialLoad) {
+            const categoryIndex = categoriesWithData.findIndex(category => category.name === query.category);
+            this.setState({activeTabIndex: categoryIndex});
+        }
+
+        if (isInitialLoad) {
+            const maxCategory = this.findMaxCategory(categoriesWithData);
+
+            this.setState({activeTabIndex: maxCategory});
+
+            query.category = categoriesWithData[maxCategory].name;
+
+            this.pushToHistory(query, this.state.selectedFacets);
+
+            await this.performSearch(query);
+
+        } else if (this.isCategoryOnlySelected(query.category, query.content_type)) {
             // deselects content type when user clicks the back button on browser
-            this.setState({ contentType: null, contentTypeSelected: {} });
+            this.setState({ category: query.category, contentType: null, contentTypeSelected: {} });
 
             if (!this.props.hasError) {
-                this.search.initial(query).then(res => {
+                this.search.getResultsByCategory(query).then(res => {
                     if (res && !this.props.hasError) {
                         this.searchOnSuccess(query, rows, res, true);
                     } else {
-                        this.search.initial().then(results => {
+                        this.search.getResultsByCategory(query).then(results => {
                             if (!results) {
                                 this.setState({
                                     loading: false,
@@ -180,7 +236,7 @@ class Search extends Component {
                 : 'NA';
 
             this.search
-                .contentType(query.content_type, contentTypeValue, query)
+                .getContentType(query.content_type, contentTypeValue, query)
                 .then(res =>
                     this.searchOnSuccess(query, rows, res, false, 'success')
                 );
@@ -198,7 +254,7 @@ class Search extends Component {
                 : 'NA';
 
             this.search
-                .subFacet(contentTypeName, contentTypeValue, query)
+                .getSubFacet(contentTypeName, contentTypeValue, query)
                 .then(res =>
                     this.searchOnSuccess(query, rows, res, false, 'success')
                 )
@@ -211,17 +267,21 @@ class Search extends Component {
             element => element.categoryFacetName === `${content_type}_facet`
         );
 
-    isInitialLoad = content_type => (content_type ? false : true);
+    isInitialLoad = (category, content_type) => (category) ? false : true;
 
-    isFacetsSelected = selectedFacets =>
-        Object.entries(selectedFacets).length !== 0 ? true : false;
+    isCategoryOnlySelected = (category, content_type) => (category && !content_type) ? true : false;
+
+    isFacetsSelected = selectedFacets => Object.entries(selectedFacets).length !== 0 ? true : false;
 
     getFilterMap = (authoredCategories, backendCategories) => {
-        return authoredCategories.filter(authoredItem => {
-            return backendCategories.find(
-                backendItem =>
-                    backendItem.value === authoredItem.categoryFacetValue
-            );
+        const matchingCategories = authoredCategories.filter(authoredItem => {
+            return backendCategories.find(backendItem => backendItem.value === authoredItem.categoryFacetValue);
+        });
+
+        return matchingCategories.map(authoredItem => {
+            const backendCategory = backendCategories.find(backendItem => backendItem.value === authoredItem.categoryFacetValue);
+            authoredItem.count = backendCategory.count;
+            return authoredItem;
         });
     };
 
@@ -380,6 +440,8 @@ class Search extends Component {
 
         this.pushToHistory(query, state.selectedFacets);
     }
+
+    categoryChangeHandler = (e) => this.handleCategorySelected(e.value);
 
     filterSelectHandler(facet, categoryId, e) {
         const isChecked = e.target.checked;
@@ -573,11 +635,11 @@ class Search extends Component {
     };
 
     getContentMenuOrFilter = filterTags => {
-        if (this.isInitialLoad(this.state.contentType)) {
+        if (this.isCategoryOnlySelected(this.state.category, this.state.contentType)) {
             return (
                 <CategoriesMenu
                     text={this.props.searchText}
-                    categoryKey="contentType"
+                    categoryKey="filterBy"
                     items={this.state.filterMap}
                     click={this.handleContentTypeItemClick.bind(this)}
                     showBothChildrenAndItems={true}
@@ -594,7 +656,7 @@ class Search extends Component {
             return (
                 <CategoriesMenu
                     text={this.props.searchText}
-                    categoryKey="contentType"
+                    categoryKey="filterBy"
                     items={this.state.filterMap}
                     click={this.handleContentTypeItemClick.bind(this)}
                     selectedValue={
@@ -635,8 +697,7 @@ class Search extends Component {
         }
     };
 
-    isContentTypeSelected = () =>
-        Object.entries(this.state.contentTypeSelected).length !== 0;
+    isContentTypeSelected = () => Object.entries(this.state.contentTypeSelected).length !== 0;
 
     isKeywordSelected = () => !this.search.isDefaultKeyword(this.state.keyword);
 
@@ -669,7 +730,7 @@ class Search extends Component {
 
     getSubFacetTags = () => {
         if (
-            this.isInitialLoad(this.state.contentType) ||
+            this.isInitialLoad(this.state.category, this.state.contentType) ||
             !this.isFacetsSelected(this.state.searchParams.facets)
         ) {
             return <></>;
@@ -737,9 +798,57 @@ class Search extends Component {
             results
         );
 
-    render() {
+    renderSkuOrResults = () => {
+        const locale = this.props.searchLocale;
         const state = this.state;
         const searchParams = this.state.searchParams || {};
+        const nextIcon = this.props.searchText.nextIcon;
+
+        // TODO: Remove mock data
+        // const tmpData = [
+        //     {"code":"186002326","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP Phosphorylase b Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002326-massprep-phosphorylase-b-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":""},
+        //     {"code":"186002325","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP Enolase Digestion Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002325-massprep-enolase-digestion-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":"",},
+        //     {"code":"186002327","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP Bovine Hemoglobin Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002327-massprep-bovine-hemoglobin-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":"","discontinued":true,"replacementSku":"WAT066200"},
+        //     {"code":"186002328","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP ADH Digestion Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002328-massprep-adh-digestion-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":""},
+        //     {"code":"186002329","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP BSA Digestion Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002329-massprep-bsa-digestion-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":""},
+        //     {"code":"186006371","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"Cytochrome C Digestion Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186006371-cytochrome-c-digestion-standard.html","formattedPrice":"£162.00","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":""}
+        // ];
+
+        if (state.isSkuList) {
+            return (
+                <SkuList
+                    skuConfig={state.skuConfig}
+                    data={state.results}
+                />
+            );
+        } else {
+            return (
+            <Results
+                results={state.results[searchParams.page] || []}
+                locale={locale}
+                nextIcon={nextIcon}
+            />);
+        }
+    };
+
+    handleCategorySelected = index => {
+        const categoryName = this.state.categoryTabs[index].name;
+        const isSkuList = validator.equals(categoryName, 'Shop');
+
+        // TODO: Uncomment
+        // this.setState({
+        //     activeTabIndex: index,
+        //     isSkuList
+        // }, async () => {
+        //     let query = this.getQueryObject();
+        //     query.category = categoryName;
+        //     this.pushToHistory(query, this.state.selectedFacets);
+        //     await this.performSearch(query);
+        // });
+    }
+
+    render() {
+        const state = this.state;
         const overlay = <div className="overlay" />;
         const filterTags = this.getFilterTags();
         const sortFilterIsPristine =
@@ -787,16 +896,24 @@ class Search extends Component {
 
                     {this.getContentMenuOrFilter(filterTags)}
                 </div>
+
             </div>
         );
         const locale = this.props.searchLocale;
         const previousIcon = (
             <ReactSVG src={this.props.searchText.previousIcon} />
         );
-
+        const renderedResults = this.renderSkuOrResults();
         const results = (
             <div className="cmp-search__container">
                 <div className="cmp-search__container__header cleafix">
+                    <CategoryDropDown
+                        categoryDownIcon={this.props.searchText.downIcon}
+                        categoryIsSearchable={false}
+                        categoryOnChange={this.categoryChangeHandler}
+                        categoryOptions={this.state.categoryTabs}
+                        categoryValue={this.state.activeTabIndex}
+                    />
                     <BtnShowSortFilter
                         text={this.props.searchText}
                         setupFilters={this.setupFilters.bind(this)}
@@ -805,20 +922,18 @@ class Search extends Component {
                     />
                 </div>
 
-                {filterTags}
+                <div className="cmp-search__sorted-container">
+                    <div className="cmp-search__sorted-by">
+                        {this.props.searchText.sortedBy}:{' '}
+                        {this.state.sort === 'most-relevant'
+                            ? this.props.searchText.sortByBestMatch
+                            : this.props.searchText.sortByMostRecent}
+                    </div>
 
-                <div className="cmp-search__sorted-by">
-                    {this.props.searchText.sortedBy}:{' '}
-                    {this.state.sort === 'most-relevant'
-                        ? this.props.searchText.sortByBestMatch
-                        : this.props.searchText.sortByMostRecent}
+                    {filterTags}
                 </div>
 
-                <Results
-                    results={state.results[searchParams.page] || []}
-                    locale={locale}
-                    nextIcon={this.props.searchText.nextIcon}
-                />
+                {renderedResults}
 
                 {state.count > this.props.searchDefaults.rows ? (
                     <ReactPaginate
@@ -857,7 +972,12 @@ class Search extends Component {
         if (this.state.erroredOut) {
             return <></>;
         } else {
-            return (
+            return <>
+                <CategoryTabs
+                    items={this.state.categoryTabs}
+                    activeIndex={this.state.activeTabIndex}
+                    onClick={this.handleCategorySelected}
+                />
                 <div ref="main">
                     {overlay}
                     {this.renderResultsCount()}
@@ -865,7 +985,7 @@ class Search extends Component {
                     {state.loading ? <Spinner loading={state.loading} /> : null}
                     {this.renderResults(results)}
                 </div>
-            );
+            </>;
         }
     }
 }

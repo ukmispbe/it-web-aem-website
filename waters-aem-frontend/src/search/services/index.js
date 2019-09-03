@@ -13,6 +13,7 @@ const parameterDefaults = {
     page: 1,
     rows: 25,
     keyword: '*:*',
+    category: '',
     content_type: '',
     sort: parameterValues.sort.mostRecent,
 };
@@ -38,16 +39,35 @@ class SearchService {
         this.throwError = throwError;
     }
 
-    initial = ({
+    getCategories = (
+        keyword = parameterDefaults.keyword,
+        page = parameterDefaults.page,
+        sort = parameterDefaults.sort
+    ) => {
+        const paramString = this.getQueryParamString({ keyword, page, sort });
+        const searchString = `${this.path}?${paramString}`;
+
+        return window
+            .fetch(searchString)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    this.throwError(response);
+                }
+            })
+            .catch(err => console.log(err));
+    }
+
+    getResultsByCategory = ({
         keyword = parameterDefaults.keyword,
         facets = {},
         page = parameterDefaults.page,
         sort = parameterDefaults.sort,
+        category = parameterDefaults.category
     } = {}) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
-        const searchString = `${
-            this.path
-        }/category_facet$library:Library?${paramString}`;
+        const searchString = `${this.path}/category_facet$${category.toLowerCase()}:${category}?${paramString}`;
 
         return window
             .fetch(searchString)
@@ -61,7 +81,7 @@ class SearchService {
             .catch(err => console.log(err));
     };
 
-    contentType = (
+    getContentType = (
         contentTypeKey,
         contentTypeValue,
         {
@@ -69,12 +89,11 @@ class SearchService {
             facets = {},
             page = parameterDefaults.page,
             sort = parameterDefaults.sort,
+            category = parameterDefaults.category
         } = {}
     ) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
-        const searchString = `${
-            this.path
-        }/contenttype_facet$${contentTypeKey}:${contentTypeValue}?${paramString}`;
+        const searchString = `${this.path}/category_facet$${category.toLowerCase()}:${category}&contenttype_facet$${contentTypeKey}:${contentTypeValue}?${paramString}`;
 
         return window.fetch(searchString).then(response => {
             if (response.ok) {
@@ -86,7 +105,7 @@ class SearchService {
         });
     };
 
-    subFacet = (
+    getSubFacet = (
         contentTypeName,
         contentTypeValue,
         {
@@ -94,16 +113,12 @@ class SearchService {
             facets = {},
             page = parameterDefaults.page,
             sort = parameterDefaults.sort,
+            category = parameterDefaults.category
         } = {}
     ) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const facetString = this.getQueryFacetString(facets);
-        const searchString = `${
-            this.path
-        }/contenttype_facet$${contentTypeName.replace(
-            '_facet',
-            ''
-        )}:${contentTypeValue}${facetString}?${paramString}`;
+        const searchString = `${this.path}/category_facet$${category.toLowerCase()}:${category}&contenttype_facet$${contentTypeName.replace('_facet', '')}:${contentTypeValue}${facetString}?${paramString}`;
 
         return window.fetch(searchString).then(response => {
             if (response.ok) {
@@ -174,6 +189,7 @@ class SearchService {
             keyword = parameterDefaults.keyword,
             page = parameterDefaults.page,
             sort = parameterDefaults.sort,
+            category = parameterDefaults.category,
             content_type = parameterDefaults.content_type,
         } = {},
         facets
@@ -182,8 +198,11 @@ class SearchService {
             keyword,
             page,
             sort,
+            category,
             content_type,
         });
+
+        if (!fullParams.category) delete fullParams.category;
 
         if (!fullParams.content_type) delete fullParams.content_type;
 
@@ -249,6 +268,8 @@ class SearchService {
         obj['page'] = params.page || parameterDefaults.page;
         obj['facets'] = {};
         obj['sort'] = params.sort;
+
+        if (params.category) obj['category'] = params.category;
 
         if (params.content_type) obj['content_type'] = params.content_type;
 

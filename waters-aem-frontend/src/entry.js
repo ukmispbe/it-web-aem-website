@@ -5,6 +5,7 @@ import './scripts/stickyService';
 import './scripts/backtotop';
 import './scripts/share';
 import './scripts/anchor';
+import './scripts/tabs';
 import './scripts/sticky-sort-filter';
 import './scripts/sticky-sku-details';
 import './scripts/sticky-sku-scroll';
@@ -17,6 +18,7 @@ import './scripts/footer';
 import './scripts/banner';
 import './scripts/header';
 import './scripts/collapsible';
+import './scripts/skulist'
 import './index';
 
 var inlineSVG = require('inline-svg');

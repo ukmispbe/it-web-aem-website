@@ -173,8 +173,7 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
     public void Iframe() throws ActionException {
         controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container[1]", "Iframe", 0, new ResourceFileLocation("iframe.yaml")));
         final Iframe iframecomponent = page.getContent(Iframe.class, 0);
-        assertThat(iframecomponent.getText()).isEqualTo("https://code.waters.com/confluence/display/BTADP/Deployment+Home+Page+run-book");
-
+        assertThat(iframecomponent.getSource()).isEqualTo("https://code.waters.com/confluence/display/BTADP/Deployment+Home+Page+run-book" + "#view=fitH");
     }
 
     @Test
