@@ -5,10 +5,10 @@
     position: relative;
     width: 100%;
     height: auto;
-    z-index: 1999999999;
     margin-bottom: $space-l;
 
     @include mobile {
+        z-index: $header-mobile-z-index;
         margin-bottom: 0;
     }
 
@@ -17,7 +17,7 @@
     }
 
     &__overlay.overlay{
-        z-index: 999;
+        z-index: $header-overlay-z-index;
         height: 100vh;
         position: fixed;
         transition: opacity 0.25s ease;
@@ -39,7 +39,7 @@
 
     &__top-bar{
         position: relative;
-        z-index: 1000;
+        z-index: $header-top-bar-z-index;
         background: $color-white;
         border-bottom: 1px solid $color-border-light;
 
@@ -133,7 +133,7 @@
 
             .top-bar__nav__user {
                 position: relative;
-                z-index: 1000;
+                z-index: $header-top-bar-user-z-index;
 
                 header.cmp-header &.is-active{
                     position: relative;
