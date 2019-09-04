@@ -122,7 +122,6 @@ $desktop-width: 1200px;
 $tablet-width: 650px;
 $mobile-width: 414px;
 
-
 // z-index catalog 
 $header-mobile-z-index: 400;
 $header-overlay-z-index: 505;
@@ -137,3 +136,11 @@ $navigation-after-z-index: 405;
 
 $cmp-modal-box-z-index: 499;
 $cmp-modal-box-close-btn-z-index:499;
+
+:export {
+    colorBorderDark : $color-gray-40;
+    colorGray50 : $color-gray-50;
+    colorBackgroundLight : $color-gray-10;
+    colorWhite : $color-white;
+    colorBlue50 : $color-blue-50;
+}
