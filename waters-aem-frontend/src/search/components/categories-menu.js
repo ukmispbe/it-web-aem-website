@@ -7,7 +7,9 @@ export const CategoriesMenu = (props) => {
     const items = props.items; // props.items.filter(item => item.categoryFacetName !== 'library_facet');
 
     const getHeading = () => {
-        return (props.selectedValue) ?  <><div className="back-btn"><a href="javascript:void(0)" onClick={props.clear}><ReactSVG src={props.text.previousIcon} /> {props.text[props.categoryKey]}</a></div><h3>{props.selectedValue}</h3></> : <h3>{props.text[props.categoryKey]}</h3>
+        return (props.selectedValue) 
+            ?  <><div className="back-btn"><a href="javascript:void(0)" onClick={props.clear}><ReactSVG src={props.text.previousIcon} /> {props.text[props.categoryKey]}</a></div><h3>{props.selectedValue}</h3></> 
+            : <h3>{props.text[props.categoryKey]}</h3>
     }
 
     const getBody = () => {
