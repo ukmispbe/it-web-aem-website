@@ -6,6 +6,7 @@ import Stock from './views/stock';
 import Price from './views/price';
 import SkuService from './services';
 import AddToCart from './views/addToCart';
+import FeedbackSurvey from '../scripts/feedbackSurvey';
 
 class SkuDetails extends React.Component {
     constructor(props) {
@@ -56,7 +57,15 @@ class SkuDetails extends React.Component {
         });
     }
 
-    toggleModal = () => this.setState({ modalShown: !this.state.modalShown });
+    toggleModal = () => { 
+        this.setState({ modalShown: !this.state.modalShown }, () => { 
+            if (this.state.modalShown) {
+                FeedbackSurvey.isDisplayed(false);
+            } else { 
+                FeedbackSurvey.isDisplayed(true);
+            }
+        })
+    }
 
     render() {
         return (
