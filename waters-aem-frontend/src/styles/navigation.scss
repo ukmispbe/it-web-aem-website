@@ -4,13 +4,8 @@ $level0MobileDisplay: flex;
    position: relative;
    float: none!important;
    background-color: rgba(255, 255, 255, 1);
-<<<<<<< HEAD
-   z-index: 998;
-   height: 73px;
-=======
    z-index: $navigation-z-index;
-   height: 67px;
->>>>>>> develop
+   height: 73px;
    width: 105%!important;
    padding: 0 $space-xl;
    margin: 0 ($space-xl * -1)!important;
