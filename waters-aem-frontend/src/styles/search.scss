@@ -1,3 +1,14 @@
+.cmp-search-results {
+    margin-left: -14px;
+
+    @include tablet {
+        margin-left: -12px;
+    }
+
+    @include mobile {
+        margin-left: -4px;
+    }
+}
 .cmp-search__container {
     position: relative;
     top: -55px;
