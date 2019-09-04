@@ -6,6 +6,7 @@ import Stock from './views/stock';
 import Price from './views/price';
 import SkuService from './services';
 import AddToCart from './views/addToCart';
+import FeedbackSurvey from '../scripts/feedbackSurvey';
 
 class SkuDetails extends React.Component {
     constructor(props) {
@@ -22,7 +23,7 @@ class SkuDetails extends React.Component {
             defaultPrice: this.props.price,
             locale: this.props.config.locale,
             modalInfo: {
-                ...this.props.config.modalInfo, 
+                ...this.props.config.modalInfo,
                 textHeading: this.props.skuNumber,
                 text: this.props.titleText
             }
@@ -48,7 +49,7 @@ class SkuDetails extends React.Component {
             this.setState({
                 skuAvailability: response,
                 modalInfo: {
-                    ...this.props.config.modalInfo, 
+                    ...this.props.config.modalInfo,
                     textHeading: this.props.skuNumber,
                     text: this.props.titleText
                 }
@@ -56,15 +57,15 @@ class SkuDetails extends React.Component {
         });
     }
 
-    toggleModal = () => {
-        this.setState({ modalShown: !this.state.modalShown }, () => {
+    toggleModal = () => { 
+        this.setState({ modalShown: !this.state.modalShown }, () => { 
             if (this.state.modalShown) {
-                document.body.classList.add('no-scroll');
-            } else {
-                document.body.classList.remove('no-scroll');
+                FeedbackSurvey.isDisplayed(false);
+            } else { 
+                FeedbackSurvey.isDisplayed(true);
             }
-        });
-    };
+        })
+    }
 
     render() {
         return (
@@ -86,7 +87,7 @@ class SkuDetails extends React.Component {
                         />
                     </div>
                     <div className="cmp-sku-details__buttons">
-                        <AddToCart 
+                        <AddToCart
                             toggleParentModal={this.toggleModal}
                             skuNumber={this.state.skuNumber}
                             addToCartLabel={this.props.config.addToCartLabel}
@@ -100,7 +101,7 @@ class SkuDetails extends React.Component {
                         config={this.state.modalInfo}
                     />
                 </div>
-                <a href="#" class="cmp-sku-details__quote">{this.props.config.skuInfo.requestQuote}</a> 
+                <a href="#" class="cmp-sku-details__quote">{this.props.config.skuInfo.requestQuote}</a>
             </>
         );
     }

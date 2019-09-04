@@ -5,7 +5,7 @@ const FadeNav = () => {
 
     const nav = document.querySelector('.cmp-navigation__group');
 
-    if (navFader) {
+    if (navFader && nav) {
         nav.addEventListener('scroll', navFader);
     }
 };

@@ -156,6 +156,21 @@ function clearGradients() {
    }
 }
 
+function clearOpenContainers() {
+    // This closes any open containers as the user transitions to/from mobile/desktop views instead of just leaving them open
+    if(document.getElementsByClassName('cmp-section-container__title open')){
+        let listOfOpenTitleContainers = document.querySelectorAll('.cmp-section-container__title.open');
+        let listOfOpenBodyContainers = document.querySelectorAll('.cmp-section-container__body.open');
+        listOfOpenTitleContainers.forEach((record) => {
+            record.classList.remove('open')
+        })
+
+        listOfOpenBodyContainers.forEach((record) => {
+            record.classList.remove('open')
+        })
+    }
+}
+
 function resizeWindow(el) {
     var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
     if (!hasHorizontalScrollbar) {
@@ -178,54 +193,58 @@ if (anchorList) {
         '.cmp-section-container--collapse'
     );
 
-    if (isMobile && sectionContainers.length) {
-        anchorElement.style.display = 'none';
-    } else {
-        if (anchorElement) {
-            setAnchorDestinations();
+    if (anchorElement) {
+        setAnchorDestinations();
 
-            scrollListener(anchorScrollSpy);
-            sticky.add({
-                element: anchorElement,
-                priority: 2,
-                modifier: 'cmp-anchor--sticky',
-                offset: {
-                    position: 'top',
-                    amount: 13,
-                },
-                fillHeight: 52,
-                stickyHeight: 53,
-                stickyWith: document.querySelector('.cmp-sku-details')
-                    ? 'cmp-sku-details--sticky'
-                    : '',
-            });
-        }
-
-        if (anchorMenu) {
-            anchorMenu.addEventListener('click', () => toggleMobileNav());
-        }
-
-        anchorList.addEventListener('mouseover', () =>
-            showScrollBars(anchorList)
-        );
-
-        anchorList.addEventListener('mouseout', () =>
-            hideScrollBars(anchorList)
-        );
-
-        anchorChange(anchorList); 
-
-        window.addEventListener('scroll', () => scrollWindow(anchorList));
-        window.addEventListener('load', () => resizeWindow(anchorList));
-        window.addEventListener('resize', () => resizeWindow(anchorList));
-        var mediaQueryListener = window.matchMedia('(max-width: 650px)');
-
-        function anchorChangeToMobile() {
-            if (isMobile) {
-                clearGradients();
-            }
-        }
-
-        mediaQueryListener.addListener(anchorChangeToMobile);
+        scrollListener(anchorScrollSpy);
+        sticky.add({
+            element: anchorElement,
+            priority: 2,
+            modifier: 'cmp-anchor--sticky',
+            offset: {
+                position: 'top',
+                amount: 13,
+            },
+            fillHeight: 52,
+            stickyHeight: 53,
+            stickyWith: document.querySelector('.cmp-sku-details')
+                ? 'cmp-sku-details--sticky'
+                : '',
+        });
     }
+
+    if (anchorMenu) {
+        anchorMenu.addEventListener('click', () => toggleMobileNav());
+    }
+
+    anchorList.addEventListener('mouseover', () =>
+        showScrollBars(anchorList)
+    );
+
+    anchorList.addEventListener('mouseout', () =>
+        hideScrollBars(anchorList)
+    );
+
+    anchorChange(anchorList); 
+
+    window.addEventListener('scroll', () => scrollWindow(anchorList));
+    window.addEventListener('load', () => resizeWindow(anchorList));
+    window.addEventListener('resize', () => resizeWindow(anchorList));
+    var mediaQueryListener = window.matchMedia('(max-width: 650px)');
+    var switchToLargerMediaSizeListener = window.matchMedia('(min-width: 651px)'); //listener for if the view transitions larger
+
+    function anchorChangeToMobile() {
+        if (isMobile) {
+            clearGradients();
+        }
+    }
+
+    function anchorChangeToDesktop() {
+        // defaults style to block, in case a user switches from mobile view to desktop view in case the anchor component has display:none
+        document.getElementsByClassName('cmp-anchor')[0].style.display = "block"
+        clearOpenContainers();
+    }
+
+    switchToLargerMediaSizeListener.addListener(anchorChangeToDesktop)
+    mediaQueryListener.addListener(anchorChangeToMobile);
 }

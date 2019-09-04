@@ -198,6 +198,32 @@ class Sticky {
             }, 100);
 
             el.sticky = false;
+           for (let i = 0; i < this.queue.indexOf(el); i++) {
+              let pastEl = this.queue[i];
+
+              if (pastEl && pastEl.sticky && pastEl.stickyWith === el.modifier && this.currentStickyClasses.indexOf(pastEl.modifier) == -1) {
+                 pastEl.element.style.opacity = 0;
+                 pastEl.element.style.top = '';
+                 pastEl.element.parentNode.style.height = '';
+                 pastEl.element.parentNode.classList.remove(
+                     `current-sticky-${pastEl.modifier}`
+                 );
+
+                 if (this.currentStickyClasses.length > 1) {
+                    this.addBottomShadow();
+                 }
+
+                 pastEl.element.classList.remove(pastEl.modifier + '--shadow');
+
+                 pastEl.element.classList.remove(pastEl.modifier);
+
+                 setTimeout(() => {
+                    pastEl.element.style.opacity = 1;
+                 }, 100);
+
+                 pastEl.sticky = false;
+              }
+           }
         } else {
             if (!el.element.classList.contains(el.modifier)) {
                 el.element.classList.remove(el.modifier + '--shadow');

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactSVG from 'react-svg';
 import Utilities from '../utils/utils';
 import SkuService from '../services/index';
+import SkuList from '../../scripts/skulist';
 
 class AddToCart extends React.Component {
     constructor(props) {
@@ -22,6 +23,8 @@ class AddToCart extends React.Component {
             err => console.log(err));
 
         this.quantityInput = this.quantityInput.bind(this);
+        this.skuRemoveNegative = this.skuRemoveNegative.bind(this);
+        this.skuQuantityInput = this.skuQuantityInput.bind(this);
     }
 
     quantityInput = e => {
@@ -61,6 +64,18 @@ class AddToCart extends React.Component {
         }
     };
 
+    skuRemoveNegative = e => {
+        SkuList.SkuRemoveNegative(e);
+    };
+
+    skuQuantityInput = e => {
+        SkuList.SkuQuantityInput(e);
+        let value = e.target.value;
+        this.setState({
+            addToCartQty: value,
+        });
+    };
+
     render() {
         return (
             <>
@@ -69,7 +84,8 @@ class AddToCart extends React.Component {
                         className="cmp-sku-details__quantity"
                         placeholder="Qty"
                         value={this.state.addToCartQty}
-                        onChange={this.quantityInput}
+                        onChange={this.skuQuantityInput}
+                        onKeyPress={this.skuRemoveNegative}
                     />
                 </form>
                 <a className="cmp-button" onClick={() => this.addToCart()}>

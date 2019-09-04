@@ -10,7 +10,7 @@ const SKUDetatilsSticky = () => {
             amount: 60,
         },
         fillHeight: 50,
-        stickyHeight: 100,
+        stickyHeight: 92,  // setting to 92px to remove gap between anchor and sku-details sticky
     });
 };
 

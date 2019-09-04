@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
 import Select, { components } from 'react-select';
+import PropTypes from 'prop-types';
+import ScreenSizes from '../../scripts/screenSizes';
 import variables from '../../../src/styles/variables.scss';
 
 const customStyles = {
@@ -55,35 +57,67 @@ const customStyles = {
 const DropdownIndicator = props => {
     return (
         <components.DropdownIndicator {...props}>
-            <ReactSVG src={props.theme.dropdownIndicator} />
+            <ReactSVG
+                src={props.theme.dropdownIndicator}
+                className = "dropDownIcon"
+            />
         </components.DropdownIndicator>
     );
 };
 
-const Dropdown = props => {
+
+const getOptions = options => {
+    let newList = options.map((a, index) => { 
+        return {
+            value: index,
+            label: a.name + ' (' + a.count + ')'
+        }
+    })
+    
+    return newList;
+};
+ 
+const CategoryDropdown = props => {
+    const options = getOptions(props.categoryOptions);
+
+    const mobileView = () => { 
+        return (
+            <div className="cmp-search-category-dropdown">
+                <Select
+                    options={options}
+                    value={options[props.categoryValue]}
+                    onChange={props.categoryOnChange}
+                    isSearchable={props.categoryIsSearchable}
+                    styles={customStyles}
+                    placeholder={props.categoryPlaceholder}
+                    classNamePrefix={'cmp-custom-dropdown'}
+                    components={{ DropdownIndicator }}
+                    theme={{ dropdownIndicator: props.categoryDownIcon }}
+                />
+            </div>
+        );
+    }
+
     return (
-        <Select
-            defaultValue={props.getOptions(props.text)[1]}
-            options={props.getOptions(props.text)}
-            value={
-                props.sortValue && props.sortValue.value
-                    ? props.sortValue.value
-                    : props.getOptions(props.text)[props.sortValue - 1]
-            }
-            onChange={props.onChange}
-            isSearchable={props.isSearchable}
-            styles={customStyles}
-            placeholder={props.placeholder}
-            classNamePrefix={'cmp-custom-dropdown'}
-            components={{ DropdownIndicator }}
-            theme={{ dropdownIndicator: props.text.downIcon }}
-        />
+        <>
+            { ScreenSizes.isTabletAndUnder() ? mobileView() : null }
+        </>
     );
 };
 
-Dropdown.defaultProps = {
-    isSearchable: false,
-    placeholder: '',
+CategoryDropdown.defaultProps = {
+    categoryIsSearchable: false,
+    categoryPlaceholder: '',
 };
 
-export default Dropdown;
+CategoryDropdown.propTypes = {
+    categoryOptions: PropTypes.array.isRequired,
+    categoryOnChange: PropTypes.func.isRequired,
+    categoryIsSearchable: PropTypes.bool,
+    categoryPlaceholder: PropTypes.string,
+    categoryDownIcon: PropTypes.string.isRequired,
+    categoryValue: PropTypes.number
+}
+
+
+export default CategoryDropdown;
