@@ -56,7 +56,7 @@ public final class LocaleUtils {
 
             regionPages.add(currentRegionPage);
 
-            // get siblings of current language home page
+            // get region siblings of current region
             regionPages.addAll(currentRegionPage.getParent().getChildren(
                     siblingRegionPage -> !currentRegionPage.getPath().equals(siblingRegionPage.getPath())));
 
@@ -68,10 +68,13 @@ public final class LocaleUtils {
                 final List<PageDecorator> languagePages = regionPage.getChildren();
 
                 for (PageDecorator languagePage : languagePages) {
-                    final PageDecorator childPage = languagePage.getChild(relativeContentPath).orNull();
+                    // ensure this is a proper region/language root
+                    if (LanguageUtil.getLanguageRoot(languagePage.getPath()) != null) {
+                        final PageDecorator childPage = languagePage.getChild(relativeContentPath).orNull();
 
-                    if (childPage != null && !childPage.getPath().startsWith(languageRootPath)) {
-                        regionLanguagePages.add(childPage);
+                        if (childPage != null && !childPage.getPath().startsWith(languageRootPath)) {
+                            regionLanguagePages.add(childPage);
+                        }
                     }
                 }
 
