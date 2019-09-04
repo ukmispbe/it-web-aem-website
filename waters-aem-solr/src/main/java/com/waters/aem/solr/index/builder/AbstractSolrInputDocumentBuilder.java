@@ -177,9 +177,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
                 document.setField("displayprice", displayableSku.getFormattedPrice());
             }
 
-            String parentPageTitle = page.getParent().getTitle();
-
-            setDocumentStringField(document, SearchUtils.getSolrFacetName("contenttype"), parentPageTitle);
+            setDocumentStringField(document, SearchUtils.getSolrFacetName("contenttype"), page.getParent().getTitle());
 
             final Tag shopTag = page.getContentResource().getResourceResolver().adaptTo(TagManager.class).
                 resolve(WatersConstants.TAG_SHOP);
