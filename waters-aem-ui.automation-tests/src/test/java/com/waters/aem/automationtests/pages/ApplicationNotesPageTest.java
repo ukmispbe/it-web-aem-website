@@ -22,7 +22,7 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
     @Test
     public void Header() throws ActionException {
         controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("Header", "Header", 0,
-        new ResourceFileLocation("header.yaml")));
+                new ResourceFileLocation("header.yaml")));
 
         final Header headerComponent = page.getContent(Header.class, 0);
 
@@ -37,7 +37,7 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
     @Test
     public void title() throws ActionException {
         controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container[1]", "Title", 0,
-            new ResourceFileLocation("title.yaml")));
+                new ResourceFileLocation("title.yaml")));
 
         final Title titleComponent = page.getContent(Title.class, 0);
 
@@ -48,7 +48,7 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
     @Test
     public void text() throws ActionException {
         controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container[1]", "Text", 0,
-            new ResourceFileLocation("text.yaml")));
+                new ResourceFileLocation("text.yaml")));
 
         final Text textComponent = page.getContent(Text.class, 0);
 
@@ -60,7 +60,7 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
     @Test
     public void button() throws ActionException {
         controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container[1]", "Button", 0,
-            new ResourceFileLocation("button.yaml")));
+                new ResourceFileLocation("button.yaml")));
 
         final Button buttonComponent = page.getContent(Button.class, 0);
 
@@ -81,7 +81,7 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
     @Test
     public void image() throws ActionException {
         controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container[1]", "Image", 0,
-            new ResourceFileLocation("image.yaml")));
+                new ResourceFileLocation("image.yaml")));
 
         final Image imageComponent = page.getContent(Image.class, 0);
 
@@ -94,7 +94,7 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
     @Test
     public void Links() throws ActionException {
         controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container[1]", "Links", 0,
-        new ResourceFileLocation("links.yaml")));
+                new ResourceFileLocation("links.yaml")));
 
         final Links LinksComponent = page.getContent(Links.class, 0);
 
@@ -113,7 +113,7 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
     @Test
     public void footer() throws ActionException {
         controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("Footer", "Footer", 0,
-        new ResourceFileLocation("footer.yaml")));
+                new ResourceFileLocation("footer.yaml")));
 
         final Footer footerComponent = page.getContent(Footer.class, 0);
 
@@ -127,16 +127,16 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
         //Test Footer Links Tab
         //Link Item 1
         assertThat(footerComponent.getCookiesLink().substring(footerComponent.getCookiesLink()
-        .lastIndexOf("/") + 1)).isEqualTo("search.html");
+                .lastIndexOf("/") + 1)).isEqualTo("search.html");
         assertThat(footerComponent.getFooterLinks().get(0).getText()).isEqualTo("Waters");
         assertThat(footerComponent.getFooterLinks().get(0).getLink().substring(footerComponent.getFooterLinks().get(0)
-        .getLink().lastIndexOf("/") + 1)).isEqualTo("home.htm");
+                .getLink().lastIndexOf("/") + 1)).isEqualTo("home.htm");
         assertThat(footerComponent.getFooterLinks().get(0).isExternal()).isEqualTo(false);
 
         //Link Item 2
         assertThat(footerComponent.getFooterLinks().get(1).getText()).isEqualTo("Search");
         assertThat(footerComponent.getFooterLinks().get(1).getLink().substring(footerComponent.getFooterLinks()
-        .get(1).getLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
+                .get(1).getLink().lastIndexOf("/") + 1)).isEqualTo("search.html");
         assertThat(footerComponent.getFooterLinks().get(1).isExternal()).isEqualTo(false);
 
         //Social Links
@@ -148,6 +148,27 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
         assertThat(footerComponent.getSocialLinks().get(1).getLink()).isEqualTo("https://twitter.com/");
         assertThat(footerComponent.getSocialLinks().get(0).hasLinkIcon()).isEqualTo(true);
     }
+
+    @Test
+    public void Notification() throws ActionException {
+        controller.execute(AemActions.CONFIGURE_COMPONENT,
+                new ConfigureComponentData("container[1]", "Notification", 0, new ResourceFileLocation("notification" +
+                ".yaml")));
+
+        final Notification notificationComponent = page.getContent(Notification.class, 0);
+        assertThat(notificationComponent.getDescription()).isEqualTo("Description Test" + " Waters Site | ICF");
+        assertThat(notificationComponent.getIcon()).isEqualTo("http://localhost:4502/content/dam/waters/en/Photography/people/Logan-Umberger.jpg/_jcr_content/renditions/cq5dam.web.640.640.jpeg");
+        // Link Item 1
+        assertThat(notificationComponent.getNotificationItems().get(0).getText()).isEqualTo("Waters Site");
+        assertThat(notificationComponent.getNotificationItems().get(0).getLink()).isEqualTo("https://www.waters.com/waters/home.htm");
+        assertThat(notificationComponent.getNotificationItems().get(0).isExternal()).isEqualTo(false);
+        // Link Item 2
+        assertThat(notificationComponent.getNotificationItems().get(1).getText()).isEqualTo("ICF");
+        assertThat(notificationComponent.getNotificationItems().get(1).getLink()).isEqualTo("https://www.icf.com/next");
+        assertThat(notificationComponent.getNotificationItems().get(1).isExternal()).isEqualTo(true);
+    }
+
+
     @Test
     public void Iframe() throws ActionException {
         controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container[1]", "Iframe", 0, new ResourceFileLocation("iframe.yaml")));
@@ -163,6 +184,7 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
         assertThat(modalComponent.getText()).isEqualTo("Source Text");
         assertThat(modalComponent.getIcon()).isEqualTo("http://localhost:4502/content/dam/waters/en/Photography/people/Logan-Umberger.jpg/_jcr_content/renditions/cq5dam.web.640.640.jpeg");
     }
+
 
     @Override
     protected String getPagePath() {

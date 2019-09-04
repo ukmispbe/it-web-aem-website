@@ -70,6 +70,9 @@
             <iframe
                     jcr:primaryType="nt:unstructured"
                     sling:resourceType="waters/components/content/iframe"/>
+            <notification
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="waters/components/content/notification"/>
         </root>
     </jcr:content>
 </jcr:root>
