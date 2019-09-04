@@ -122,6 +122,20 @@ $desktop-width: 1200px;
 $tablet-width: 650px;
 $mobile-width: 414px;
 
+// z-index catalog 
+$header-mobile-z-index: 400;
+$header-overlay-z-index: 505;
+$header-top-bar-z-index: 505;
+$header-top-bar-user-z-index: 506;
+
+$navigation-z-index: 401;
+$navigation-overlay-z-index: 400;
+$navigation-group-z-index: 402;
+$navigation-level-0-z-index:402;
+$navigation-after-z-index: 405;
+
+$cmp-modal-box-z-index: 499;
+$cmp-modal-box-close-btn-z-index:499;
 
 :export {
     colorBorderDark : $color-gray-40;
