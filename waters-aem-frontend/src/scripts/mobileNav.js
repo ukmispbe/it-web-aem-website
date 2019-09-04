@@ -1,5 +1,6 @@
 import ScreenSizes from '../scripts/screenSizes';
 import NavMenu from '../scripts/navigation-level2';
+import FeedbackSurvey from './feedbackSurvey';
 
 const MobileNav = function () {
 
@@ -14,6 +15,7 @@ const MobileNav = function () {
         headerNavigation.classList.add('is-active');
         header.classList.add('is-fixed');
         document.documentElement.classList.add('no-scroll');
+        FeedbackSurvey.isDisplayed(false);
     }
 
     const hideMobileNav = () => {
@@ -21,6 +23,7 @@ const MobileNav = function () {
         headerNavigation.classList.remove('is-active');
         header.classList.remove('is-fixed');
         document.documentElement.classList.remove('no-scroll');
+        FeedbackSurvey.isDisplayed(true);
 
         const navMenuFunc = NavMenu();
         if (navMenuFunc) { 
