@@ -973,11 +973,11 @@ class Search extends Component {
             return <></>;
         } else {
             return <>
-                <CategoryTabs
+               { state.noResults ? null : <CategoryTabs
                     items={this.state.categoryTabs}
                     activeIndex={this.state.activeTabIndex}
                     onClick={this.handleCategorySelected}
-                />
+                />}
                 <div ref="main">
                     {overlay}
                     {this.renderResultsCount()}
