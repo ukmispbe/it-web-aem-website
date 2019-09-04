@@ -27,13 +27,13 @@ export const CategoriesMenu = (props) => {
 
     const getEitherChildrenOrItems = () => hasChildren ? props.children : getItems();
 
-    const getItems = () => items.map((item, index) => {
+    const getItems = () => Array.isArray(items) ? items.map((item, index) => {
         return <div key={item.categoryFacetName} className="categories-type-menu-container__item" onClick={e => props.click(item)}>
-                <div><a href="javascript:void(0)">{item.categoryFacetValue}</a></div>
+                <div><a href="javascript:void(0)">{item.facetValue}</a></div>
                 <div>
                     <a href="javascript:void(0)">({item.count})</a>
                 </div>
-            </div>});
+            </div>}) : <></>;
 
     return (<>
         <div className="categories-type-menu-container">

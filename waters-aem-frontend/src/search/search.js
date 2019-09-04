@@ -181,13 +181,16 @@ class Search extends Component {
 
         if (!isInitialLoad) {
             const categoryIndex = categoriesWithData.findIndex(category => category.name === query.category);
-            this.setState({activeTabIndex: categoryIndex});
+            const isSkuList = validator.equals(categoriesWithData[categoryIndex].name, 'Shop');
+
+            this.setState({activeTabIndex: categoryIndex, isSkuList});
         }
 
         if (isInitialLoad) {
             const maxCategory = this.findMaxCategory(categoriesWithData);
+            const isSkuList = validator.equals(categoriesWithData[maxCategory].name, 'Shop');
 
-            this.setState({activeTabIndex: maxCategory});
+            this.setState({activeTabIndex: maxCategory, isSkuList});
 
             query.category = categoriesWithData[maxCategory].name;
 
@@ -262,10 +265,7 @@ class Search extends Component {
         }
     }
 
-    findContentType = (items, content_type) =>
-        items.find(
-            element => element.categoryFacetName === `${content_type}_facet`
-        );
+    findContentType = (items, content_type) => items.find(element => element.categoryFacetName === `${content_type}_facet`);
 
     isInitialLoad = (category, content_type) => (category) ? false : true;
 
@@ -273,23 +273,35 @@ class Search extends Component {
 
     isFacetsSelected = selectedFacets => Object.entries(selectedFacets).length !== 0 ? true : false;
 
-    getFilterMap = (authoredCategories, backendCategories) => {
-        const matchingCategories = authoredCategories.filter(authoredItem => {
-            return backendCategories.find(backendItem => backendItem.value === authoredItem.categoryFacetValue);
+    getFilterMap = (authoredTags, backendFacets) => {
+        const category = authoredTags.find(authoredItem => authoredItem.categoryFacetName === `${this.state.category.toLowerCase()}_facet`);
+
+        if (!category) { return; }
+
+        const orderedFacets = category.orderedFacets.filter(facet => backendFacets.find(beFacet => beFacet.value === facet.facetValue));
+
+        const orderedFacetsWithCount = orderedFacets.map(facet => {
+            const authTag = authoredTags.find(authoredItem => facet.facetValue === authoredItem.categoryFacetValue);
+            const beFacet = backendFacets.find(beFacet => beFacet.value === facet.facetValue);
+
+            return {
+                ...facet,
+                orderedFacets: authTag ? authTag.orderedFacets : [],
+                count: beFacet ? beFacet.count : 0
+            }
         });
 
-        return matchingCategories.map(authoredItem => {
-            const backendCategory = backendCategories.find(backendItem => backendItem.value === authoredItem.categoryFacetValue);
-            authoredItem.count = backendCategory.count;
-            return authoredItem;
-        });
+        return {
+            categoryFacetName: category.categoryFacetName,
+            categoryFacetValue: category.categoryFacetValue,
+            orderedFacets: orderedFacetsWithCount
+        }
     };
 
     searchOnSuccess = (query, rows, res, initCategories = false) => {
         const newState = Object.assign({}, this.state);
 
-        newState.filterMap =
-            initCategories && res.num_found !== 0
+        newState.filterMap = res.num_found !== 0
                 ? this.getFilterMap(
                       this.props.filterMap,
                       res.facets[this.parentCategory]
@@ -401,15 +413,9 @@ class Search extends Component {
 
         this.setState(newState);
 
-        const query = {
-            keyword: searchParams.keyword,
-            page: page.selected + 1,
-            sort: searchParams.sort,
-        };
+        let query = this.getQueryObject();
 
-        if (this.state.contentType) {
-            query.content_type = this.state.contentType;
-        }
+        query.page = page.selected + 1;
 
         this.pushToHistory(query, searchParams.facets);
 
@@ -539,7 +545,7 @@ class Search extends Component {
     }
 
     handleContentTypeItemClick = item => {
-        const contentType = item.categoryFacetName.replace('_facet', '');
+        const contentType = item.facetName.replace('_facet', '');
 
         let query = this.search.createQueryObject(
             parse(window.location.search)
@@ -583,9 +589,9 @@ class Search extends Component {
 
             this.setState({
                 searchParams: query,
-                selectedFacets: {},
-                contentType: '',
-                contentTypeSelected: {},
+                contentType: parameterDefaults.content_type,
+                contentTypeSelected: parameterDefaults.contentTypeSelected,
+                selectedFacets: {}
             });
 
             setTimeout(
@@ -640,7 +646,7 @@ class Search extends Component {
                 <CategoriesMenu
                     text={this.props.searchText}
                     categoryKey="filterBy"
-                    items={this.state.filterMap}
+                    items={this.state.filterMap.orderedFacets}
                     click={this.handleContentTypeItemClick.bind(this)}
                     showBothChildrenAndItems={true}
                     filterTags={filterTags}
@@ -657,7 +663,7 @@ class Search extends Component {
                 <CategoriesMenu
                     text={this.props.searchText}
                     categoryKey="filterBy"
-                    items={this.state.filterMap}
+                    items={this.state.filterMap.orderedFacets}
                     click={this.handleContentTypeItemClick.bind(this)}
                     selectedValue={
                         this.state.contentTypeSelected.categoryFacetValue
@@ -668,7 +674,7 @@ class Search extends Component {
                     <Filter
                         facets={this.state.facets}
                         text={this.props.searchText}
-                        filterMap={this.props.filterMap}
+                        filterMap={this.state.filterMap}
                         defaultFacet={this.props.defaultFacet}
                         selectHandler={this.filterSelectHandler.bind(this)}
                         selectedFacets={this.state.selectedFacets}
@@ -804,21 +810,26 @@ class Search extends Component {
         const searchParams = this.state.searchParams || {};
         const nextIcon = this.props.searchText.nextIcon;
 
-        // TODO: Remove mock data
-        // const tmpData = [
-        //     {"code":"186002326","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP Phosphorylase b Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002326-massprep-phosphorylase-b-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":""},
-        //     {"code":"186002325","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP Enolase Digestion Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002325-massprep-enolase-digestion-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":"",},
-        //     {"code":"186002327","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP Bovine Hemoglobin Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002327-massprep-bovine-hemoglobin-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":"","discontinued":true,"replacementSku":"WAT066200"},
-        //     {"code":"186002328","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP ADH Digestion Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002328-massprep-adh-digestion-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":""},
-        //     {"code":"186002329","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"MassPREP BSA Digestion Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186002329-massprep-bsa-digestion-standard.html","formattedPrice":"£57.10","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":""},
-        //     {"code":"186006371","category_facet": "Shop","contenttype_facet":"Chromatography Columns & Media","title":"Cytochrome C Digestion Standard","skuPageHref":"/content/waters/language-masters/en/shop/standards--reagents/186006371-cytochrome-c-digestion-standard.html","formattedPrice":"£162.00","primaryImageAlt":null,"primaryImageThumbnail":"/content/dam/waters/en/Photography/Products/skus/reagents/clear-vial-2mL-black-cap.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png","replacementSkuPageHref":""}
-        // ];
-
         if (state.isSkuList) {
+            const skuData = Array.isArray(state.results[searchParams.page]) ? state.results[searchParams.page].map(item => {
+                    return {
+                        code: item.skucode,
+                        category_facet: item.category_facet,
+                        contenttype_facet: item.contenttype_facet,
+                        skuPageHref: item.url,
+                        formattedPrice: item.displayprice,
+                        primaryImageAlt: item.title,
+                        primaryImageThumbnail: '',
+                        replacementSkuPageHref: '',
+                        discontinued: false,
+                        replacementSku: ''
+                    }
+                }) : [];
+
             return (
                 <SkuList
                     skuConfig={state.skuConfig}
-                    data={state.results}
+                    data={skuData}
                 />
             );
         } else {
@@ -835,16 +846,26 @@ class Search extends Component {
         const categoryName = this.state.categoryTabs[index].name;
         const isSkuList = validator.equals(categoryName, 'Shop');
 
-        // TODO: Uncomment
-        // this.setState({
-        //     activeTabIndex: index,
-        //     isSkuList
-        // }, async () => {
-        //     let query = this.getQueryObject();
-        //     query.category = categoryName;
-        //     this.pushToHistory(query, this.state.selectedFacets);
-        //     await this.performSearch(query);
-        // });
+        let query = this.getQueryObject();
+            
+        query.category = categoryName;
+        query.page = parameterDefaults.page;
+        
+        delete query.content_type;
+        delete query.facets;
+
+        this.setState({
+            activeTabIndex: index,
+            isSkuList,
+            searchParams: query,
+            contentType: parameterDefaults.content_type,
+            contentTypeSelected: parameterDefaults.contentTypeSelected,
+            selectedFacets: {}
+        }, () => {
+            
+
+            this.pushToHistory(query, null);
+        });
     }
 
     render() {

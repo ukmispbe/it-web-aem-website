@@ -16,6 +16,8 @@ const parameterDefaults = {
     category: '',
     content_type: '',
     sort: parameterValues.sort.mostRecent,
+    selectedFacets: {},
+    contentTypeSelected: {}
 };
 
 class SearchService {
@@ -37,6 +39,7 @@ class SearchService {
             multiselect,
         };
         this.throwError = throwError;
+        this.path = "https://test-www.waters.com:8443/api/waters/search"
     }
 
     getCategories = (
