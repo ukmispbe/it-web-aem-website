@@ -177,11 +177,9 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
                 document.setField("displayprice", displayableSku.getFormattedPrice());
             }
 
-            final List<String> categories = sku.getCategories();
+            String parentPageTitle = page.getParent().getTitle();
 
-            if (!categories.isEmpty()) {
-                setDocumentStringField(document, SearchUtils.getSolrFacetName("contenttype"), categories.get(0));
-            }
+            setDocumentStringField(document, SearchUtils.getSolrFacetName("contenttype"), parentPageTitle);
 
             final Tag shopTag = page.getContentResource().getResourceResolver().adaptTo(TagManager.class).
                 resolve(WatersConstants.TAG_SHOP);
