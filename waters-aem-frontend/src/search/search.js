@@ -172,7 +172,7 @@ class Search extends Component {
 
         this.setState({ searchParams: query, loading: true, results: {} });
 
-        const categories = await this.search.getCategories();
+        const categories = await this.search.getCategories({keyword: query.keyword});
         const categoriesWithData = this.mapCategories(categories);
 
         this.setState({categoryTabs: categoriesWithData});

@@ -41,11 +41,11 @@ class SearchService {
         this.throwError = throwError;
     }
 
-    getCategories = (
+    getCategories = ({
         keyword = parameterDefaults.keyword,
         page = parameterDefaults.page,
         sort = parameterDefaults.sort
-    ) => {
+    }) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const searchString = `${this.path}?${paramString}`;
 
