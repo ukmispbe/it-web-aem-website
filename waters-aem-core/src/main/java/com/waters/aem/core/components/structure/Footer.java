@@ -28,6 +28,7 @@ import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.youramigo.YourAmigoService;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.waters.aem.core.utils.LinkUtils;
+import com.waters.aem.core.utils.LocaleUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -187,7 +188,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
         if (languagePages == null) {
             languagePages = new ArrayList<>();
 
-            for (PageDecorator languagePage : siteContext.getLanguagePages()) {
+            for (PageDecorator languagePage : LocaleUtils.getLanguagePages(currentPage)) {
                 final PageDecorator languageHomepage =
                         languagePage.findAncestor(WatersConstants.PREDICATE_HOME_PAGE).orNull();
 
