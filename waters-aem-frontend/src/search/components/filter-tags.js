@@ -74,7 +74,7 @@ const CategoryTags = props => {
     return <a href="javascript:void(0);"
             onClick={props.onRemove}>
             <ReactSVG src={props.text.closeIcon} />
-            <span>{`${props.text[props.categoryKey]}: ${props.selected.categoryFacetValue}`}</span>
+            <span>{`${props.text[props.categoryKey]}: ${props.selected.facetValue}`}</span>
         </a>;
 }
 
