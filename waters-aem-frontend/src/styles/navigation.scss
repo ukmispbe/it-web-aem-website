@@ -68,13 +68,26 @@ nav.cmp-navigation {
 
    & > .cmp-navigation__group {
       padding: 0;
-      -ms-overflow-style: none;
-      overflow-x: scroll;
-      -ms-overflow-x: scroll;
       margin-bottom: 0;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
       overflow-y: hidden;
       -ms-overflow-y: hidden;
-      scrollbar-width: none;
+      
+      &.fader-fade {
+         overflow-x: hidden;
+         -ms-overflow-x: hidden;
+
+         &.fader-fade--right {
+            overflow-x: scroll;
+            -ms-overflow-x: scroll;
+         }
+
+         &.fader-fade--left {
+            overflow-x: scroll;
+            -ms-overflow-x: scroll;
+         }
+      }
 
       &::-webkit-scrollbar {
          display: none;
