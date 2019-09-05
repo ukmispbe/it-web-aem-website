@@ -87,6 +87,11 @@
                     margin-bottom: 0;
                     padding-top: $space-xxxs;
 
+                    
+                    @include mobile {
+                        height: 100%;
+                    }
+
                     @include mobile-xs {
                         margin-left: $space-s;
                     }
