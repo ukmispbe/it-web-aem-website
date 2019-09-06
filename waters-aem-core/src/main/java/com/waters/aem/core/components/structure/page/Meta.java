@@ -21,6 +21,7 @@ import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -40,7 +41,7 @@ import java.util.stream.Collectors;
     editConfig = false,
     fileName = Meta.FILE_NAME,
     touchFileName = Meta.FILE_NAME)
-@Model(adaptables = Resource.class)
+@Model(adaptables = Resource.class,  defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class Meta extends AbstractComponent {
 
     static final String FILE_NAME = "meta";
