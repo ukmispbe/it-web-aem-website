@@ -1,7 +1,6 @@
 let messageObj = {};
 
 function ErrorMessages (errorObj) {
-
     const skuDetailsConfig = JSON.parse(
         document.getElementById('commerce-configs-json').innerHTML
     );
