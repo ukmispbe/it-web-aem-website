@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Epic("Waters Automation Tests")
 @Feature("Application Notes Page")
 public class ApplicationNotesPageTest extends AbstractWatersPageTest {
-/*
+
     @Test
     public void Header() throws ActionException {
         controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("Header", "Header", 0,
@@ -185,11 +185,11 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
         assertThat(modalComponent.getIcon()).isEqualTo("http://localhost:4502/content/dam/waters/en/Photography/people/Logan-Umberger.jpg/_jcr_content/renditions/cq5dam.web.640.640.jpeg");
     }
 
- */
+
     @Test
     public void SectionContainer() throws ActionException {
-        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container[1]", "SectionContainer", 0, new ResourceFileLocation("sectioncontainer.yaml")));
-        final SectionContainer sectioncontainerComponent = page.getContent(SectionContainer.class, 0);
+        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container[1]", "SectionContainer", 4, new ResourceFileLocation("sectioncontainer.yaml")));
+        final SectionContainer sectioncontainerComponent = page.getContent(SectionContainer.class, 1);
         assertThat(sectioncontainerComponent.getTitle()).isEqualTo("section container title");
         assertThat(sectioncontainerComponent.isMobileCollapsed()).isEqualTo(true);
 

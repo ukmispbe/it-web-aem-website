@@ -21,6 +21,6 @@ public class SectionContainerImpl implements SectionContainer {
 
     @Override
     public boolean isMobileCollapsed() {
-        return component.findElement(By.className("cmp-section-container--collapse")).isEnabled();
+        return component.getAttribute("class").contains("cmp-section-container--collapse");
     }
 }
