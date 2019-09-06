@@ -14,10 +14,15 @@ import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.enums.TitleType;
 import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
+import com.waters.aem.core.commerce.models.Classification;
+import com.waters.aem.core.commerce.models.Sku;
+import com.waters.aem.core.commerce.services.SkuRepository;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.inject.Inject;
@@ -56,6 +61,10 @@ public final class Meta extends AbstractComponent {
 
     private static final String DEFAULT_OG_TYPE = "none";
 
+
+    @OSGiService
+    private SkuRepository skuRepository;
+
     @Self
     private Resource resource;
 
@@ -80,6 +89,10 @@ public final class Meta extends AbstractComponent {
 
     public String getDescription() {
         return currentPage.getDescription();
+    }
+
+    private Sku getSku() {
+        return skuRepository.getSku(currentPage);
     }
 
     @DialogField(fieldLabel = "Canonical URL",
@@ -202,6 +215,10 @@ public final class Meta extends AbstractComponent {
     }
 
     public String getSchemaJson() throws JsonProcessingException {
+        return Templates.isSkuPage(currentPage) ? getProductSchemaJson() : getLibrarySchemaJson();
+    }
+
+    public String getLibrarySchemaJson() throws JsonProcessingException {
         final Map<String, Object> properties = new HashMap<>();
 
         properties.put("@context", "http://schema.org");
@@ -215,6 +232,31 @@ public final class Meta extends AbstractComponent {
         properties.put("url", getCanonicalUrl());
 
         return MAPPER.writeValueAsString(properties);
+    }
+
+    public String getProductSchemaJson() throws JsonProcessingException {
+        final Map<String, Object> properties = new HashMap<>();
+
+        properties.put("@context", "https://schema.org/");
+        properties.put("@type", "Product");
+        properties.put("description", getDescription());
+        properties.put("name", getTitle());
+        properties.put("image", getThumbnailImage());
+        properties.put("sku", getSkuCode());
+        properties.put("brand", getBrand());
+
+        return MAPPER.writeValueAsString(properties);
+    }
+
+    private String getSkuCode() {
+        return getSku().getCode();
+    }
+
+    private String getBrand() {
+        Optional <Classification> classificationOptional =  getSku().getClassifications().stream().filter(classification ->
+            classification.getCode().contains("brand")).findFirst();
+
+        return classificationOptional.isPresent() ? classificationOptional.get().getFeatureValues()[0] : "";
     }
 
     private String getThumbnailImage() {
