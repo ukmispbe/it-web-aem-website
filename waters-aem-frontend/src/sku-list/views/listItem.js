@@ -21,7 +21,8 @@ class ListItem extends React.Component {
                 ...this.props.skuConfig.modalInfo, 
                 textHeading: this.props.relatedSku.code,
                 text: this.props.relatedSku.title
-            }
+            },
+            errorObj: {}
         };
         this.request = new SkuService(
             this.state.userCountry,
@@ -32,7 +33,10 @@ class ListItem extends React.Component {
                 addToCart: this.props.skuConfig.addToCartUrl,
                 getCart: ''
             },
-            err => console.log(err)
+            err => {
+                // Add Error Object to State
+                this.setState({ errorObj: err });
+            }
         );
 
         this.checkAvailability = this.checkAvailability.bind(this)
@@ -52,17 +56,22 @@ class ListItem extends React.Component {
     checkAvailability = (skuNumber) => {
         this.request.getAvailability(skuNumber).then(response => {
             this.setState({ skuAvailability: response });
+        })
+        .catch(err => {
+            // Add Error Object to State
+            this.setState({ errorObj: err });
         });
     };
     
     renderAvailability(productStatus) {
-        if(productStatus){
+        if( productStatus || this.state.errorObj.ok === false){
             return <Stock
                     skuConfig={this.props.skuConfig.skuInfo}
                     skuNumber={this.props.relatedSku.code}
                     skuAvailability={this.state.skuAvailability}
                     locale={this.props.skuConfig.locale}
-                    skuType="details" />
+                    skuType="details" 
+                    errorObj={this.state.errorObj}/>
         }
         return <span className="cmp-sku-list__checkavailability">
                     <div>{this.props.skuConfig.skuInfo.seeAvailabilityLabel}</div>

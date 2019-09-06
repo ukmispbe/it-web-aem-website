@@ -25,7 +25,8 @@ class SkuDetails extends React.Component {
                 ...this.props.config.modalInfo,
                 textHeading: this.props.skuNumber,
                 text: this.props.titleText
-            }
+            },
+            errorObj: {}
         };
 
         this.request = new SkuService(
@@ -37,7 +38,11 @@ class SkuDetails extends React.Component {
                 addToCart: this.props.config.addToCartUrl,
                 getCart: ''
             },
-            err => console.log(err)
+            err => {
+                // Add Error Object to State
+                this.setState({ errorObj: err });
+            }
+
         );
 
         this.toggleModal = this.toggleModal.bind(this);
@@ -53,6 +58,9 @@ class SkuDetails extends React.Component {
                     text: this.props.titleText
                 }
             });
+        }).catch(err => {
+            // Add Error Object to State
+            this.setState({ errorObj: err });
         });
     }
 
@@ -75,6 +83,7 @@ class SkuDetails extends React.Component {
                             skuAvailability={this.state.skuAvailability}
                             locale={this.state.locale}
                             skuType="details"
+                            errorObj={this.state.errorObj}
                         />
                     </div>
                     <div className="cmp-sku-details__buttons">
