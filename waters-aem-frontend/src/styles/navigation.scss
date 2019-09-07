@@ -5,10 +5,14 @@ $level0MobileDisplay: flex;
    float: none!important;
    background-color: rgba(255, 255, 255, 1);
    z-index: $navigation-z-index;
-   height: 67px;
+   height: 73px;
    width: 105%!important;
    padding: 0 $space-xl;
    margin: 0 ($space-xl * -1)!important;
+
+   @supports (display: inline-grid) {
+      height: 67px;
+   }
 
    &:hover {
       background-color: rgba(255, 255, 255, 1);
@@ -64,11 +68,26 @@ nav.cmp-navigation {
 
    & > .cmp-navigation__group {
       padding: 0;
-      -ms-overflow-style: none;
-      overflow-x: scroll;
       margin-bottom: 0;
-      overflow-y: hidden;
+      -ms-overflow-style: none;
       scrollbar-width: none;
+      overflow-y: hidden;
+      -ms-overflow-y: hidden;
+      
+      &.fader-fade {
+         overflow-x: hidden;
+         -ms-overflow-x: hidden;
+
+         &.fader-fade--right {
+            overflow-x: scroll;
+            -ms-overflow-x: scroll;
+         }
+
+         &.fader-fade--left {
+            overflow-x: scroll;
+            -ms-overflow-x: scroll;
+         }
+      }
 
       &::-webkit-scrollbar {
          display: none;
