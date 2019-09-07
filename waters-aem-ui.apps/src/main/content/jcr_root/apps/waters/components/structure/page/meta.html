@@ -31,11 +31,52 @@
 
     <link rel="canonical" href="${metaPage.canonicalUrl}">
 
+    <link data-sly-repeat.hrefLang="${metaPage.hrefLangItems}" rel="alternate"
+          hreflang="${hrefLang.languageTag}" href="${hrefLang.href}"/>
+
     <link rel="icon" sizes="192x192" href="/etc.clientlibs/waters/clientlibs/clientlib-resources/resources/icon-192x192.png">
 
     <title>${metaPage.title}</title>
 
-    <script type="application/ld+json">
+    <script data-sly-test.homepage="${metaPage.homepage}" type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "WebSite",
+            "url": "https://www.waters.com/",
+            "name": "${metaPage.title @ context='scriptString'}",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://www.waters.com/waters/keywordSearch.htm?cid=505548&q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        }
+    </script>
+    <script data-sly-test="${homepage}" type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "Organization",
+            "name": "Waters Corporation",
+            "url": "https://www.waters.com/",
+            "sameAs": [
+                "https://www.linkedin.com/company/waters/",
+                "https://www.facebook.com/Waters",
+                "https://www.youtube.com/user/WatersCorporation",
+                "https://twitter.com/WatersCorp",
+                "https://www.youtube.com/channel/UCfUs2fCDhx07fkszsJ0jOcA"
+            ],
+            "description": "${metaPage.description @ context='scriptString'}",
+            "logo": "https://www.waters.com/content/dam/waters/en/brand-assets/logos/waters-logo-black.svg",
+            "telephone": "(508) 478-2000",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "34 Maple St.",
+                "addressLocality": "Milford",
+                "addressRegion": "MA",
+                "postalCode": "01757"
+            }
+        }
+    </script>
+    <script data-sly-test="${!homepage}" type="application/ld+json">
         ${metaPage.schemaJson @ context='unsafe'}
     </script>
 </sly>
