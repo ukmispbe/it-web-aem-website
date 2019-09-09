@@ -933,7 +933,6 @@ class Search extends Component {
         if (state.isSkuList) {
             const skuData = Array.isArray(state.results[searchParams.page])
                 ? state.results[searchParams.page].map(item => {
-                      console.log(item);
                       return {
                           code: item.skucode,
                           category_facet: item.category_facet,
