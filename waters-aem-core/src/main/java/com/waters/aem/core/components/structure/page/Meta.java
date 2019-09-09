@@ -19,6 +19,9 @@ import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.commerce.services.SkuRepository;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
+
+import com.waters.aem.core.utils.LocaleUtils;
+
 import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -254,10 +257,22 @@ public final class Meta extends AbstractComponent {
     }
 
     private String getBrand() {
-        Optional <Classification> classificationOptional =  getSku().getClassifications().stream().filter(classification ->
-            classification.getCode().contains("brand")).findFirst();
+        Optional<Classification> classificationOptional = getSku().getClassifications().stream().filter(
+        classification ->
+        classification.getCode().contains("brand")).findFirst();
 
         return classificationOptional.isPresent() ? classificationOptional.get().getFeatureValues()[0] : "";
+    }
+
+    public List<HrefLangItem> getHrefLangItems() {
+        return LocaleUtils.getRegionLanguagePages(currentPage).stream()
+                .map(page -> new HrefLangItem(page, externalize(page.getHref())))
+                .collect(Collectors.toList());
+    }
+
+    public boolean isHomepage() {
+        return Templates.isHomePage(currentPage);
+
     }
 
     private String getThumbnailImage() {

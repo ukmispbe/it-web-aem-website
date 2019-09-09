@@ -1,12 +1,10 @@
 package com.waters.aem.core.components;
 
-import com.day.cq.commons.LanguageUtil;
 import com.day.cq.i18n.I18n;
-import com.day.cq.wcm.api.LanguageManager;
 import com.icfolson.aem.library.api.page.PageDecorator;
-import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.components.structure.page.Commerce;
 import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
+import com.waters.aem.core.utils.LocaleUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
@@ -16,9 +14,7 @@ import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.Currency;
-import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -34,9 +30,6 @@ public final class SiteContext {
 
     @Inject
     private PageDecorator currentPage;
-
-    @OSGiService
-    private LanguageManager languageManager;
 
     private I18n i18n;
 
@@ -58,25 +51,7 @@ public final class SiteContext {
         Locale locale = getLocale();
 
         if (StringUtils.isEmpty(locale.getCountry())) {
-            // start with default country until we can get an absolute country based on content path
-            String country = languageManager.getIsoCountry(locale);
-
-            final String languageRoot = LanguageUtil.getLanguageRoot(currentPage.getPath());
-
-            if (languageRoot != null) {
-                final PageDecorator languagePage = currentPage.getPageManager().getPage(languageRoot);
-
-                if (languagePage != null) {
-                    final PageDecorator countryPage = languagePage.getParent();
-
-                    // check if this is a true country node such as "us" and not a region node such as "north-america"
-                    if (countryPage.getName().length() == 2) {
-                        country = countryPage.getName();
-                    }
-                }
-            }
-
-            locale = new Locale(locale.getLanguage(), country);
+            locale = LocaleUtils.getLocaleWithCountryForPage(currentPage);
         }
 
         return locale;
@@ -141,35 +116,5 @@ public final class SiteContext {
         return stringBuilder.toString();
     }
 
-    public List<PageDecorator> getLanguagePages() {
-        final List<PageDecorator> languagePages = new ArrayList<>();
 
-        final String languageRootPath = LanguageUtil.getLanguageRoot(currentPage.getPath());
-
-        if (languageRootPath != null) {
-            final PageDecorator languageRootPage = currentPage.getPageManager().getPage(languageRootPath);
-
-            languagePages.add(currentPage);
-
-            // get siblings of current language home page
-            final List<PageDecorator> siblingHomepages = languageRootPage.getParent().getChildren(
-                    page -> !languageRootPath.equals(page.getPath()) && WatersConstants.PREDICATE_HOME_PAGE.apply(page));
-
-            // get relative content path from language root path
-            final String contentPath = currentPage.getPath()
-                    .substring(languageRootPath.length())
-                    .replaceFirst("/", "");
-
-            for (PageDecorator languagePage : siblingHomepages) {
-                final PageDecorator childPage = languagePage.getChild(contentPath).orNull();
-
-                if (childPage != null) {
-                    languagePages.add(childPage);
-                }
-            }
-        }
-
-        return languagePages;
-
-    }
 }

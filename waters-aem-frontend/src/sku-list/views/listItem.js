@@ -169,32 +169,6 @@ class ListItem extends React.Component {
                     {buyInfo}
                     {breadcrumbs}
                     
-                    <div className="cmp-sku-details__buyinfo">
-                        <div className="cmp-sku-list__priceinfo">
-                            <Price
-                                skuConfig={this.props.skuConfig.skuInfo}
-                                price={this.props.relatedSku.formattedPrice}
-                            />
-                        </div>
-                        <div className="cmp-sku-details__availability" onClick={(e) => this.checkAvailability(this.props.relatedSku.code)}>
-                            {this.renderAvailability(this.state.skuAvailability.productStatus)}
-                        </div>
-                        {/* //TODO: this will get swapped out for an add-to-cart component that can be shared between sku-list and sku-details */}
-                        <div className="cmp-sku-list__buttons">
-                            <AddToCart 
-                                toggleParentModal={this.toggleModal}
-                                skuNumber={this.props.relatedSku.code}
-                                addToCartLabel={this.props.skuConfig.addToCartLabel}
-                                addToCartUrl={this.props.skuConfig.addToCartUrl}
-                            ></AddToCart>
-                        </div>
-                        <Modal
-                            toggleModal={this.toggleModal}
-                            open={this.state.modalShown}
-                            theme="callToAction"
-                            config={this.state.modalInfo}
-                        />
-                    </div>
                 </div>
             </div>
         )

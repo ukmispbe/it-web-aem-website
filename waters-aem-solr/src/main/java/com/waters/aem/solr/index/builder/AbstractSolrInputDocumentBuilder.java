@@ -90,7 +90,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         final ResourceResolver resourceResolver = page.getContentResource().getResourceResolver();
 
         // get the locale from the current page
-        final Locale locale = siteContext.getLocale();
+        final Locale locale = siteContext.getLocaleWithCountry();
 
         // add common fields for all page types
         document.setField("id", page.getPath());

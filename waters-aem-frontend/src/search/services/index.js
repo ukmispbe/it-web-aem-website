@@ -16,6 +16,8 @@ const parameterDefaults = {
     category: '',
     content_type: '',
     sort: parameterValues.sort.mostRecent,
+    selectedFacets: {},
+    contentTypeSelected: {}
 };
 
 class SearchService {
@@ -39,11 +41,11 @@ class SearchService {
         this.throwError = throwError;
     }
 
-    getCategories = (
+    getCategories = ({
         keyword = parameterDefaults.keyword,
         page = parameterDefaults.page,
         sort = parameterDefaults.sort
-    ) => {
+    }) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const searchString = `${this.path}?${paramString}`;
 
@@ -67,7 +69,7 @@ class SearchService {
         category = parameterDefaults.category
     } = {}) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
-        const searchString = `${this.path}/category_facet$${category.toLowerCase()}:${category}?${paramString}`;
+        const searchString = `${this.path}/category_facet$${category.toLowerCase()}:${encodeURIComponent(encodeURIComponent(category))}?${paramString}`;
 
         return window
             .fetch(searchString)
@@ -93,7 +95,7 @@ class SearchService {
         } = {}
     ) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
-        const searchString = `${this.path}/category_facet$${category.toLowerCase()}:${category}&contenttype_facet$${contentTypeKey}:${contentTypeValue}?${paramString}`;
+        const searchString = `${this.path}/category_facet$${category.toLowerCase()}:${encodeURIComponent(encodeURIComponent(category))}&contenttype_facet$${contentTypeKey}:${encodeURIComponent(encodeURIComponent(contentTypeValue))}?${paramString}`;
 
         return window.fetch(searchString).then(response => {
             if (response.ok) {
@@ -118,7 +120,7 @@ class SearchService {
     ) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const facetString = this.getQueryFacetString(facets);
-        const searchString = `${this.path}/category_facet$${category.toLowerCase()}:${category}&contenttype_facet$${contentTypeName.replace('_facet', '')}:${contentTypeValue}${facetString}?${paramString}`;
+        const searchString = `${this.path}/category_facet$${category.toLowerCase()}:${encodeURIComponent(encodeURIComponent(category))}&contenttype_facet$${contentTypeName.replace('_facet', '')}:${encodeURIComponent(encodeURIComponent(contentTypeValue))}${facetString}?${paramString}`;
 
         return window.fetch(searchString).then(response => {
             if (response.ok) {
