@@ -48,7 +48,6 @@
         &__priceinfo {
             padding-right: $space-s;
             line-height: 1em;
-
         }
 
         &__availability {
@@ -70,7 +69,7 @@
         &__stockdetails-container {
             display: inline-flex;
             margin-top: 0.3em;
-            min-width: 350px
+            min-width: 350px;
         }
 
         &__stockdetails {
@@ -87,7 +86,7 @@
                 margin-top: ($space-xxxs);
                 float: right;
             }
-            &--instock{
+            &--instock {
                 svg {
                     fill: $color-success;
                     .st0,
@@ -97,7 +96,7 @@
                     }
                 }
             }
-            &--outofstock{
+            &--outofstock {
                 svg {
                     fill: $color-error;
                     .st0,
@@ -112,7 +111,7 @@
         &__order {
             @include font-small;
             font-weight: $font-weight-light;
-            clear:both;
+            clear: both;
         }
 
         &__buttons {
@@ -363,7 +362,6 @@
 }
 
 .cmp-sku-list {
-
     &__code {
         @include font-body;
         @include font-utility;
@@ -374,7 +372,7 @@
         @include font-body;
         @include font-utility;
         height: 3em;
-        padding-top: ($space-xxs + .1em);
+        padding-top: ($space-xxs + 0.1em);
     }
 
     &__priceinfo {
@@ -387,7 +385,7 @@
 
         .cmp-sku__price {
             @include font-h3;
-         }
+        }
     }
 
     &__checkavailability {
@@ -477,6 +475,12 @@
                 margin-bottom: 0px;
             }
         }
+    }
+}
+
+.cmp-search__container {
+    .cmp-sku-details__title {
+        @include font-h3;
     }
 }
 
