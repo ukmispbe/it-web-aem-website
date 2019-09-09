@@ -31,7 +31,7 @@
 
             &--right {
                 @include mobile {
-                    right: -0.2em!important;
+                    right: -0.2em !important;
                 }
             }
         }
@@ -41,8 +41,9 @@
         display: inline;
         position: relative;
         margin-bottom: $space-xxxs;
+
         @include mobile {
-            padding-left: $space-s;
+            padding-right: $space-s;
         }
         span {
             white-space: normal;
@@ -60,7 +61,7 @@
             margin-top: 6px;
             padding: 0 0.25em;
             @include mobile {
-                right: -17px;
+                left: -24px;
                 position: absolute;
                 top: 0;
             }
@@ -68,7 +69,7 @@
 
         &:nth-child(2) {
             padding-left: 0;
-         }
+        }
 
         &:last-of-type {
             &:after {
@@ -92,7 +93,7 @@
 
 .cmp-breadcrumb-search {
     display: inline-block;
-    margin-top: ($space-xxxs + .05em);
+    margin-top: ($space-xxxs + 0.05em);
 
     &--disable {
         display: none;
