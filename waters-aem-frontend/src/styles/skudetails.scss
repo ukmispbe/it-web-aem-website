@@ -1,7 +1,7 @@
 .cmp-sku {
     &-details,
     &-list {
-        margin-bottom: $space-l;
+        margin-bottom: $space-s;
         opacity: 1;
         transition: opacity 0.2s ease-in;
 
@@ -46,7 +46,7 @@
         }
 
         &__priceinfo {
-            padding-right: $space-s;
+            padding-right: $space-xs;
             line-height: 1em;
 
         }
@@ -54,12 +54,15 @@
         &__availability {
             display: flex;
             align-items: center;
-            padding: 0 $space-m 0 $space-s;
-            @include font-h3;
+            padding: 0 $space-s 0 $space-s;
             height: 3em;
             border-left: 1px solid $color-border-light;
+            margin-bottom: $space-s;
+            min-width: 225px;
+
             @include mobile {
                 padding: 0 0 0 $space-xs;
+                min-width: 0px;
             }
         }
 
@@ -74,6 +77,8 @@
         }
 
         &__stockdetails {
+            @include font-h3;
+            margin-bottom: 0;
             float: left;
 
             div {
@@ -120,8 +125,8 @@
             margin-top: $space-xs;
 
             @include mobile {
-                margin-top: 0;
-                margin-bottom: $space-s;
+                margin-top: $space-xxxs;
+                margin-bottom: $space-xxs;
                 width: 100%;
             }
         }
@@ -309,6 +314,7 @@
 
             .cmp-sku__price {
                 @include font-h3;
+                margin-bottom: $space-xs;
             }
         }
 
@@ -378,7 +384,7 @@
     }
 
     &__priceinfo {
-        padding-right: $space-s;
+        padding-right: $space-xs;
 
         span {
             margin-bottom: $space-xxxs;
@@ -391,12 +397,11 @@
     }
 
     &__checkavailability {
-        padding-right: $space-xxxs;
         @include font-body;
         @include font-utility;
-        padding-top: $space-xxs;
         cursor: pointer;
         display: flex;
+        margin-bottom: $space-xxxs;
 
         div:first-child {
             margin-right: 5px;
@@ -422,6 +427,7 @@
             width: ($icon-s + 0.1em);
             height: ($icon-s + 0.1em);
             margin-top: ($space-xxxs - 0.1em);
+            margin-left: $space-xxs;
 
             &:hover {
                 transition: $hover-transition;
