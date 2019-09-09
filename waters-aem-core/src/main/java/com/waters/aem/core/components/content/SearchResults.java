@@ -43,7 +43,7 @@ public final class SearchResults {
      * @return isocode from page locale
      */
     public String getIsocode() {
-        return siteContext.getLocale().toString();
+        return siteContext.getLocaleWithCountry().toString();
     }
 
     /**
