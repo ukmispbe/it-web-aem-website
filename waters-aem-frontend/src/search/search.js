@@ -60,9 +60,7 @@ class Search extends Component {
                     : this.query.sort;
         }
 
-        const category = this.query.category
-            ? this.query.category
-            : null;
+        const category = this.query.category ? this.query.category : null;
 
         const contentType = this.query.content_type
             ? this.query.content_type
@@ -76,7 +74,9 @@ class Search extends Component {
         const contentTypeSelected = contentTypeElement
             ? contentTypeElement
             : {};
-        let skuConfig = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
+        let skuConfig = JSON.parse(
+            document.getElementById('commerce-configs-json').innerHTML
+        );
         skuConfig.showBreadcrumbs = true;
 
         this.setState({
@@ -111,7 +111,7 @@ class Search extends Component {
             spell_suggestion: '',
             erroredOut: false,
             categoryTabs: [],
-            activeTabIndex: -1
+            activeTabIndex: -1,
         });
 
         const checkWindowWidth = () => {
@@ -141,22 +141,30 @@ class Search extends Component {
         }
     }
 
-    mapCategories = categories => (!categories || !categories.facets || !categories.facets.category_facet)
+    mapCategories = categories =>
+        !categories || !categories.facets || !categories.facets.category_facet
             ? []
-            : categories.facets.category_facet.filter(category => category.value !== 0).map(category => { return { name: category.value, count: category.count} });
+            : categories.facets.category_facet
+                  .filter(category => category.value !== 0)
+                  .map(category => {
+                      return { name: category.value, count: category.count };
+                  });
 
     findMaxCategory = categories => {
-        if (!categories) { return 0; }
+        if (!categories) {
+            return 0;
+        }
 
         const counts = categories.map(category => category.count);
         const maxCount = Math.max(...counts);
 
         return categories.findIndex(category => category.count === maxCount);
-    }
+    };
 
-    getQueryObject = (q) => q
-        ? this.search.createQueryObject(q)
-        : this.search.createQueryObject(parse(window.location.search));
+    getQueryObject = q =>
+        q
+            ? this.search.createQueryObject(q)
+            : this.search.createQueryObject(parse(window.location.search));
 
     async performSearch(q) {
         let query = this.getQueryObject(q);
@@ -172,59 +180,79 @@ class Search extends Component {
 
         this.setState({ searchParams: query, loading: true, results: {} });
 
-        const categories = await this.search.getCategories({keyword: query.keyword});
+        const categories = await this.search.getCategories({
+            keyword: query.keyword,
+        });
         const categoriesWithData = this.mapCategories(categories);
 
-        this.setState({categoryTabs: categoriesWithData});
+        this.setState({ categoryTabs: categoriesWithData });
 
-        const isInitialLoad = this.isInitialLoad(query.category, query.content_type);
+        const isInitialLoad = this.isInitialLoad(
+            query.category,
+            query.content_type
+        );
 
         if (!isInitialLoad) {
-            const categoryIndex = categoriesWithData.findIndex(category => category.name === query.category);
-            const isSkuList = validator.equals(categoriesWithData[categoryIndex].name, 'Shop');
+            const categoryIndex = categoriesWithData.findIndex(
+                category => category.name === query.category
+            );
+            const isSkuList = validator.equals(
+                categoriesWithData[categoryIndex].name,
+                'Shop'
+            );
 
-            this.setState({activeTabIndex: categoryIndex, isSkuList});
+            this.setState({ activeTabIndex: categoryIndex, isSkuList });
         }
 
         if (isInitialLoad) {
             const maxCategory = this.findMaxCategory(categoriesWithData);
-            const isSkuList = validator.equals(categoriesWithData[maxCategory].name, 'Shop');
+            const isSkuList = validator.equals(
+                categoriesWithData[maxCategory].name,
+                'Shop'
+            );
 
-            this.setState({activeTabIndex: maxCategory, isSkuList});
+            this.setState({ activeTabIndex: maxCategory, isSkuList });
 
             query.category = categoriesWithData[maxCategory].name;
 
             this.pushToHistory(query, this.state.selectedFacets);
 
             await this.performSearch(query);
-
-        } else if (this.isCategoryOnlySelected(query.category, query.content_type)) {
+        } else if (
+            this.isCategoryOnlySelected(query.category, query.content_type)
+        ) {
             // deselects content type when user clicks the back button on browser
-            this.setState({ category: query.category, contentType: null, contentTypeSelected: {} });
+            this.setState({
+                category: query.category,
+                contentType: null,
+                contentTypeSelected: {},
+            });
 
             if (!this.props.hasError) {
                 this.search.getResultsByCategory(query).then(res => {
                     if (res && !this.props.hasError) {
                         this.searchOnSuccess(query, rows, res, true);
                     } else {
-                        this.search.getResultsByCategory(query).then(results => {
-                            if (!results) {
-                                this.setState({
-                                    loading: false,
-                                    erroredOut: true,
-                                });
-                            } else {
-                                const newQuery = Object.assign({}, query, {
-                                    keyword: '',
-                                });
-                                this.searchOnSuccess(
-                                    newQuery,
-                                    rows,
-                                    results,
-                                    true
-                                );
-                            }
-                        });
+                        this.search
+                            .getResultsByCategory(query)
+                            .then(results => {
+                                if (!results) {
+                                    this.setState({
+                                        loading: false,
+                                        erroredOut: true,
+                                    });
+                                } else {
+                                    const newQuery = Object.assign({}, query, {
+                                        keyword: '',
+                                    });
+                                    this.searchOnSuccess(
+                                        newQuery,
+                                        rows,
+                                        results,
+                                        true
+                                    );
+                                }
+                            });
                     }
                 });
             }
@@ -253,43 +281,62 @@ class Search extends Component {
         }
     }
 
-    findContentType = (items, content_type) => items.find(element => element.categoryFacetName === `${content_type}_facet`);
+    findContentType = (items, content_type) =>
+        items.find(
+            element => element.categoryFacetName === `${content_type}_facet`
+        );
 
-    isInitialLoad = (category, content_type) => (category) ? false : true;
+    isInitialLoad = (category, content_type) => (category ? false : true);
 
-    isCategoryOnlySelected = (category, content_type) => (category && !content_type) ? true : false;
+    isCategoryOnlySelected = (category, content_type) =>
+        category && !content_type ? true : false;
 
-    isFacetsSelected = selectedFacets => Object.entries(selectedFacets).length !== 0 ? true : false;
+    isFacetsSelected = selectedFacets =>
+        Object.entries(selectedFacets).length !== 0 ? true : false;
 
     getFilterMap = (authoredTags, backendFacets) => {
-        const category = authoredTags.find(authoredItem => authoredItem.categoryFacetName === `${this.state.category.toLowerCase()}_facet`);
+        const category = authoredTags.find(
+            authoredItem =>
+                authoredItem.categoryFacetName ===
+                `${this.state.category.toLowerCase()}_facet`
+        );
 
-        if (!category) { return; }
+        if (!category) {
+            return;
+        }
 
-        const orderedFacets = category.orderedFacets.filter(facet => backendFacets.find(beFacet => beFacet.value === facet.facetValue));
+        const orderedFacets = category.orderedFacets.filter(facet =>
+            backendFacets.find(beFacet => beFacet.value === facet.facetValue)
+        );
 
         const orderedFacetsWithCount = orderedFacets.map(facet => {
-            const authTag = authoredTags.find(authoredItem => facet.facetValue === authoredItem.categoryFacetValue);
-            const beFacet = backendFacets.find(beFacet => beFacet.value === facet.facetValue);
+            const authTag = authoredTags.find(
+                authoredItem =>
+                    facet.facetValue === authoredItem.categoryFacetValue
+            );
+            const beFacet = backendFacets.find(
+                beFacet => beFacet.value === facet.facetValue
+            );
 
             return {
                 ...facet,
                 orderedFacets: authTag ? authTag.orderedFacets : [],
-                count: beFacet ? beFacet.count : 0
-            }
+                count: beFacet ? beFacet.count : 0,
+            };
         });
 
         return {
             categoryFacetName: category.categoryFacetName,
             categoryFacetValue: category.categoryFacetValue,
-            orderedFacets: orderedFacetsWithCount
-        }
+            orderedFacets: orderedFacetsWithCount,
+        };
     };
 
     searchOnSuccess = (query, rows, res, initCategories = false) => {
         const newState = Object.assign({}, this.state);
 
-        newState.filterMap = res.num_found !== 0
+        newState.filterMap =
+            res.num_found !== 0
                 ? this.getFilterMap(
                       this.props.filterMap,
                       res.facets[this.parentCategory]
@@ -435,7 +482,7 @@ class Search extends Component {
         this.pushToHistory(query, state.selectedFacets);
     }
 
-    categoryChangeHandler = (e) => this.handleCategorySelected(e.value);
+    categoryChangeHandler = e => this.handleCategorySelected(e.value);
 
     filterSelectHandler(facet, categoryId, e) {
         const isChecked = e.target.checked;
@@ -579,7 +626,7 @@ class Search extends Component {
                 searchParams: query,
                 contentType: parameterDefaults.content_type,
                 contentTypeSelected: parameterDefaults.contentTypeSelected,
-                selectedFacets: {}
+                selectedFacets: {},
             });
 
             setTimeout(
@@ -631,7 +678,10 @@ class Search extends Component {
     getSelectedContentTypeName = () => {
         const query = this.getQueryObject();
 
-        if (!this.state.filterMap || !Array.isArray(this.state.filterMap.orderedFacets)) {
+        if (
+            !this.state.filterMap ||
+            !Array.isArray(this.state.filterMap.orderedFacets)
+        ) {
             const contentTypeElement = this.findContentType(
                 this.props.filterMap,
                 query.content_type
@@ -643,15 +693,20 @@ class Search extends Component {
             return contentTypeName;
         }
 
-        const facet =  this.state.filterMap.orderedFacets.find(item => item.facetName === `${query.content_type}_facet`);
+        const facet = this.state.filterMap.orderedFacets.find(
+            item => item.facetName === `${query.content_type}_facet`
+        );
 
         return facet ? facet.facetName : '';
-    }
+    };
 
     getSelectedContentTypeValue = () => {
         const query = this.getQueryObject();
 
-        if (!this.state.filterMap || !Array.isArray(this.state.filterMap.orderedFacets)) {
+        if (
+            !this.state.filterMap ||
+            !Array.isArray(this.state.filterMap.orderedFacets)
+        ) {
             const contentTypeElement = this.findContentType(
                 this.props.filterMap,
                 query.content_type
@@ -663,13 +718,20 @@ class Search extends Component {
             return contentTypeValue;
         }
 
-        const facet =  this.state.filterMap.orderedFacets.find(item => item.facetName === `${query.content_type}_facet`);
+        const facet = this.state.filterMap.orderedFacets.find(
+            item => item.facetName === `${query.content_type}_facet`
+        );
 
         return facet ? facet.facetValue : '';
-    }
+    };
 
     getContentMenuOrFilter = filterTags => {
-        if (this.isCategoryOnlySelected(this.state.category, this.state.contentType)) {
+        if (
+            this.isCategoryOnlySelected(
+                this.state.category,
+                this.state.contentType
+            )
+        ) {
             return (
                 <CategoriesMenu
                     text={this.props.searchText}
@@ -729,31 +791,41 @@ class Search extends Component {
         }
     };
 
-    isContentTypeSelected = () => Object.entries(this.state.contentTypeSelected).length !== 0;
+    isContentTypeSelected = () =>
+        Object.entries(this.state.contentTypeSelected).length !== 0;
 
     isKeywordSelected = () => !this.search.isDefaultKeyword(this.state.keyword);
 
     getSelectedContentType = () => {
-        if (this.state.contentTypeSelected) { 
-            if (this.state.contentTypeSelected.hasOwnProperty('categoryFacetName')) {
+        if (this.state.contentTypeSelected) {
+            if (
+                this.state.contentTypeSelected.hasOwnProperty(
+                    'categoryFacetName'
+                )
+            ) {
                 return {
                     facetName: this.state.contentTypeSelected.categoryFacetName,
-                    facetValue: this.state.contentTypeSelected.categoryFacetValue
+                    facetValue: this.state.contentTypeSelected
+                        .categoryFacetValue,
                 };
-            } else if (this.state.contentTypeSelected.hasOwnProperty('facetName')) {
+            } else if (
+                this.state.contentTypeSelected.hasOwnProperty('facetName')
+            ) {
                 return this.state.contentTypeSelected;
             }
         }
 
         const query = this.getQueryObject();
 
-        const contentType = this.props.filterMap.find(item => item.categoryFacetName === `${query.content_type}_facet`);
+        const contentType = this.props.filterMap.find(
+            item => item.categoryFacetName === `${query.content_type}_facet`
+        );
 
         return {
             facetName: contentType ? contentType.categoryFacetName : '',
-            facetValue: contentType ? contentType.categoryFacetValue : ''
-        }
-    }
+            facetValue: contentType ? contentType.categoryFacetValue : '',
+        };
+    };
 
     getCategoryTags = () =>
         this.isContentTypeSelected() ? (
@@ -859,34 +931,33 @@ class Search extends Component {
         const nextIcon = this.props.searchText.nextIcon;
 
         if (state.isSkuList) {
-            const skuData = Array.isArray(state.results[searchParams.page]) ? state.results[searchParams.page].map(item => {
-                    return {
-                        code: item.skucode,
-                        category_facet: item.category_facet,
-                        contenttype_facet: item.contenttype_facet,
-                        skuPageHref: item.url,
-                        formattedPrice: item.displayprice,
-                        primaryImageAlt: item.title,
-                        primaryImageThumbnail: '',
-                        replacementSkuPageHref: '',
-                        discontinued: false,
-                        replacementSku: ''
-                    }
-                }) : [];
+            const skuData = Array.isArray(state.results[searchParams.page])
+                ? state.results[searchParams.page].map(item => {
+                      return {
+                          code: item.skucode,
+                          category_facet: item.category_facet,
+                          contenttype_facet: item.contenttype_facet,
+                          skuPageHref: item.url,
+                          formattedPrice: item.displayprice,
+                          primaryImageAlt: item.title,
+                          primaryImageThumbnail: '',
+                          replacementSkuPageHref: '',
+                          discontinued: false,
+                          replacementSku: '',
+                          title: item.title,
+                      };
+                  })
+                : [];
 
-            return (
-                <SkuList
-                    skuConfig={state.skuConfig}
-                    data={skuData}
-                />
-            );
+            return <SkuList skuConfig={state.skuConfig} data={skuData} />;
         } else {
             return (
-            <Results
-                results={state.results[searchParams.page] || []}
-                locale={locale}
-                nextIcon={nextIcon}
-            />);
+                <Results
+                    results={state.results[searchParams.page] || []}
+                    locale={locale}
+                    nextIcon={nextIcon}
+                />
+            );
         }
     };
 
@@ -895,26 +966,27 @@ class Search extends Component {
         const isSkuList = validator.equals(categoryName, 'Shop');
 
         let query = this.getQueryObject();
-            
+
         query.category = categoryName;
         query.page = parameterDefaults.page;
-        
+
         delete query.content_type;
         delete query.facets;
 
-        this.setState({
-            activeTabIndex: index,
-            isSkuList,
-            searchParams: query,
-            contentType: parameterDefaults.content_type,
-            contentTypeSelected: parameterDefaults.contentTypeSelected,
-            selectedFacets: {}
-        }, () => {
-            
-
-            this.pushToHistory(query, null);
-        });
-    }
+        this.setState(
+            {
+                activeTabIndex: index,
+                isSkuList,
+                searchParams: query,
+                contentType: parameterDefaults.content_type,
+                contentTypeSelected: parameterDefaults.contentTypeSelected,
+                selectedFacets: {},
+            },
+            () => {
+                this.pushToHistory(query, null);
+            }
+        );
+    };
 
     render() {
         const state = this.state;
@@ -965,7 +1037,6 @@ class Search extends Component {
 
                     {this.getContentMenuOrFilter(filterTags)}
                 </div>
-
             </div>
         );
         const locale = this.props.searchLocale;
@@ -1041,20 +1112,26 @@ class Search extends Component {
         if (this.state.erroredOut) {
             return <></>;
         } else {
-            return <>
-               { state.noResults ? null : <CategoryTabs
-                    items={this.state.categoryTabs}
-                    activeIndex={this.state.activeTabIndex}
-                    onClick={this.handleCategorySelected}
-                />}
-                <div ref="main">
-                    {overlay}
-                    {this.renderResultsCount()}
-                    {!state.loading && state.noResults ? null : aside}
-                    {state.loading ? <Spinner loading={state.loading} /> : null}
-                    {this.renderResults(results)}
-                </div>
-            </>;
+            return (
+                <>
+                    {state.noResults ? null : (
+                        <CategoryTabs
+                            items={this.state.categoryTabs}
+                            activeIndex={this.state.activeTabIndex}
+                            onClick={this.handleCategorySelected}
+                        />
+                    )}
+                    <div ref="main">
+                        {overlay}
+                        {this.renderResultsCount()}
+                        {!state.loading && state.noResults ? null : aside}
+                        {state.loading ? (
+                            <Spinner loading={state.loading} />
+                        ) : null}
+                        {this.renderResults(results)}
+                    </div>
+                </>
+            );
         }
     }
 }
