@@ -1,9 +1,16 @@
 <template data-sly-template.group="${@ items='The navigation items for the current level',
     parent='The parent nav item of the passed in child items if applicable'}" data-sly-use.itemTemplate="item.html">
-    <ul class="cmp-navigation__group">
+
+    <!--  These are the main groups in the navigation menu and they do not need an Adobe target container -->
+    <ul class="cmp-navigation__group" data-sly-test="${items[0].level == 0}">
         <sly data-sly-repeat.item="${items}" data-sly-call="${itemTemplate.item @ item=item}"></sly>
-        <div data-sly-test="${items[0].level == 1}"
-             id="${parent ? '{0}-{1}' : '' @ format=[parent.name, 'target-container']}"
-             class="cmp-navigation__adobe-target-container"></div>
     </ul>
+
+    <!--  These are the sub groups in the navigation menu and they do need an Adobe target container -->
+    <div class="cmp-navigation__group-wrapper" data-sly-test="${items[0].level == 1}">
+        <ul class="cmp-navigation__group">
+            <sly data-sly-repeat.item="${items}" data-sly-call="${itemTemplate.item @ item=item}"></sly>
+        </ul>
+        <div id="${parent ? '{0}-{1}' : '' @ format=[parent.name, 'target-container']}" class="cmp-navigation__adobe-target-container"></div>
+    </div>
 </template>
