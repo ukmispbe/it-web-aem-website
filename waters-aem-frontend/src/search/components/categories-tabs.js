@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CategoryTab from './category-tab';
+import Fader from '../../scripts/fade-x.js';
 
 class CategoriesTabs extends Component {
     constructor(props) {
@@ -17,6 +18,16 @@ class CategoriesTabs extends Component {
                 />
     }
 
+    FadeTabs() {
+        const tabFader = Fader('cmp-search__categories-tabs', 0, 100);
+
+        const tabs = document.querySelector('.cmp-search__categories-tabs');
+
+        if (tabFader && tabs) {
+            tabs.addEventListener('scroll', tabFader);
+        }
+    }
+
     mapTabs(tabs) {
         let mappedTabs = [];
 
@@ -28,6 +39,10 @@ class CategoriesTabs extends Component {
         });
 
         return mappedTabs.map((tab, index) => this.createTab(tab, index));
+    }
+
+    componentDidMount() {
+         this.FadeTabs();
     }
 
     render() {
