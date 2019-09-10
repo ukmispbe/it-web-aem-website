@@ -7,6 +7,10 @@
     margin-bottom: -3em;
     margin-top: 2em;
 
+    @include mobile {
+       margin-top: 0;
+    }
+
     &.fader-fade {
         scrollbar-width: none;
         -ms-overflow-style: none;
