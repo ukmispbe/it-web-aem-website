@@ -516,14 +516,14 @@
 
    @include tablet-and-under {
       position: relative;
-      padding-top: 2.5em;
+      padding-top: $space-l + 0.5em;
    }
 
    @include mobile {
       position: absolute;
       top: 100%;
       left: 0;
-      padding-top: 4em;
+      padding-top: $space-xxl;
    }
 
    &-sICP {
@@ -551,7 +551,7 @@
       }
 
       @include mobile {
-         padding-top: 2em!important;
+         padding-top: $space-l!important;
       }
 
       img {
