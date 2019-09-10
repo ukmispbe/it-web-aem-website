@@ -940,7 +940,7 @@ class Search extends Component {
                           skuPageHref: item.url,
                           formattedPrice: item.displayprice,
                           primaryImageAlt: item.title,
-                          primaryImageThumbnail: '',
+                          primaryImageThumbnail: item.thumbnail,
                           replacementSkuPageHref: '',
                           discontinued: false,
                           replacementSku: '',
