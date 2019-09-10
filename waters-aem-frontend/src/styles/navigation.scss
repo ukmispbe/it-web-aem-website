@@ -100,7 +100,7 @@ nav.cmp-navigation {
             width: 100%;
          }
 
-         &.is-expanded > .cmp-navigation__item.is-active > .cmp-navigation__group {
+         &.is-expanded > .cmp-navigation__item.is-active .cmp-navigation__group-wrapper {
             visibility: visible;
             display: block;
             overflow-x: hidden;
@@ -182,6 +182,12 @@ nav.cmp-navigation {
             &:hover {
                cursor: pointer;
                border-top: 3px solid  $color-gray-50;
+
+               .cmp-navigation__group-wrapper {
+                  opacity: 1;
+                  visibility: visible;
+               }
+
                @include mobile {
                   border-top: 0px none transparent;
                }
@@ -273,15 +279,15 @@ nav.cmp-navigation {
             }
          }
 
-         & > .cmp-navigation__group {
+         & .cmp-navigation__group-wrapper {
             white-space: initial;
             z-index: $navigation-group-z-index;
             opacity: 0;
             visibility: hidden;
-            list-style: none;
             padding: $space-l $space-xl  $space-xl $space-xl;
             background-color: $color-white;
             width: 100%;
+            display: flex;
 
             @include tablet-and-over {
                position: absolute;
@@ -292,19 +298,54 @@ nav.cmp-navigation {
                display: none;
                padding: $space-s $space-xl $space-xl ($space-xl - 0.5em);
             }
+         }
+
+         & .cmp-navigation__group {
+            width: 75%;
+            list-style: none;
+
+            @include tablet {
+               width: 65%;
+            }
+
+            @include mobile {
+               width: 100%;
+            }
 
             & > .cmp-navigation__item {
                margin-bottom: 0;
                padding-bottom: $space-s;
+               padding-right: $space-l;
+            }
+         }
+
+         & .cmp-navigation__adobe-target-container {
+            width: 25%;
+
+            @include tablet {
+               width: 35%;
+            }
+
+            @include mobile {
+               width: 100%;
+            }
+
+            .notification {
+               padding-left: 0px;
+               padding-right: 0px;
+            }
+
+            .cmp-notification-description {
+               font-weight: $font-weight-light;
             }
          }
 
          @include tablet-and-over {
-            & > .cmp-navigation__group.cmp-navigation__group--col-1 {
+            & .cmp-navigation__group.cmp-navigation__group--col-1 {
                columns: 1;
             }
 
-            & > .cmp-navigation__group.cmp-navigation__group--col-2 {
+            & .cmp-navigation__group.cmp-navigation__group--col-2 {
                columns: 2;
 
                & > .cmp-navigation__item {
@@ -312,7 +353,7 @@ nav.cmp-navigation {
                }
             }
 
-            & > .cmp-navigation__group.cmp-navigation__group--col-3 {
+            & .cmp-navigation__group.cmp-navigation__group--col-3 {
                columns: 3;
 
                & > .cmp-navigation__item {
@@ -320,7 +361,7 @@ nav.cmp-navigation {
                }
             }
 
-            &:hover > .cmp-navigation__group {
+            &:hover .cmp-navigation__group {
                visibility: visible;
                opacity: 1;
 
@@ -333,8 +374,6 @@ nav.cmp-navigation {
             }
 
          }
-
-
       }
    }
 }
