@@ -499,3 +499,18 @@
         }
     }
 }
+
+.cmp-footer__china-legal {
+   &-sICP {
+      position: relative;
+
+      img {
+         position: absolute;
+         top: -15px;
+      }
+
+      span {
+         padding-left: 60px;
+      }
+   }
+}
