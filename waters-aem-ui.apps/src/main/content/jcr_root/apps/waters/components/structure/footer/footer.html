@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="cmp-footer__links">
-                <nav data-sly-test="${footer.footerLinks}">
+                <nav data-sly-test="${footer.footerLinks || footer.showLegalIcon}">
                     <a data-sly-repeat="${footer.footerLinks}" href="${item.link.href}"
                         target="${item.external ? '_blank' : ''}">
                         ${item.text}
@@ -56,6 +56,16 @@
                     <a data-sly-test="${footer.cookiesLink}" href="${footer.cookiesLink.href}"
                         target="_blank">${'Cookies' @ i18n}</a>
                     <a class="optanon-toggle-display dl_Anchor" href="#">${'Cookie Preferences' @ i18n}</a>
+                    <sly data-sly-test="${footer.showLegalIcon}">
+                        <a href="${footer.sICPLegalLink.href}" class="cmp-footer__china-legal-sICP">
+                            <img data-sly-test="${footer.sICPLegalIcon}" src="${footer.sICPLegalIcon}" alt="${'Shanghai ICP Number Legal Icon' @ i18n}" />
+                            <span data-sly-test="${footer.sICPNumber}">沪ICP备${footer.sICPNumber}号-2</span>
+                        </a>
+                        <a href="${footer.bPNSLegalLink.href}" class="cmp-footer__china-legal-bPNS">
+                            <img data-sly-test="${footer.bPNSLegalIcon}" src="${footer.bPNSLegalIcon}" alt="${'Beijing Public Network Security Number Legal Icon' @ i18n}"/>
+                            <span data-sly-test="${footer.bPNSNumber}">京公网安备 ${footer.bPNSNumber}号</span>
+                        </a>
+                    </sly>
                 </nav>
             </div>
             <div class="cmp-footer__yamcontainer" data-sly-test="${footer.yourAmigoEnabled}">
