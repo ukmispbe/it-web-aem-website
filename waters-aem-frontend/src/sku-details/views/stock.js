@@ -12,14 +12,20 @@ class Stock extends React.Component {
         return (
             <span>
                 <span className={`cmp-sku-${this.props.skuType}__stockdetails`}>
-                    {ErrorMessages.ErrorMessages(this.props.errorObj).serviceUnavailable}
+                    {
+                        ErrorMessages.ErrorMessages(this.props.errorObj)
+                            .serviceUnavailable
+                    }
                     <ReactSVG
                         src={this.props.skuConfig.lowStockIcon}
                         className={`cmp-sku-${this.props.skuType}__stockdetails--outofstock`}
                     />
                 </span>
                 <div className={`cmp-sku-${this.props.skuType}__order`}>
-                    {ErrorMessages.ErrorMessages(this.props.errorObj).tryAgainLater}
+                    {
+                        ErrorMessages.ErrorMessages(this.props.errorObj)
+                            .tryAgainLater
+                    }
                 </div>
             </span>
         );
@@ -88,10 +94,13 @@ class Stock extends React.Component {
     }
 
     render() {
-        if (this.props.errorObj.ok === false) {
+        if (
+            this.props &&
+            this.props.errorObj &&
+            this.props.errorObj.ok === false
+        ) {
             return this.renderStockError();
-        }
-        else {
+        } else {
             if (this.props.skuAvailability.availableQuantity > 10) {
                 return this.renderInStock();
             } else if (this.props.skuAvailability.availableQuantity > 0) {
