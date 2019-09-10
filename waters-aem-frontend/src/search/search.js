@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { SearchService, parameterDefaults } from './services/index';
 import { parse, stringify } from 'query-string';
 import { withRouter } from 'react-router-dom';
@@ -452,7 +452,7 @@ class Search extends Component {
 
         query.page = page.selected + 1;
 
-        this.pushToHistory(query, searchParams.facets);
+        this.pushToHistory(query, this.state.selectedFacets);
 
         if (e === 'clicked') {
             window.sessionStorage.setItem(
