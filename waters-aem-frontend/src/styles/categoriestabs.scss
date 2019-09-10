@@ -1,13 +1,14 @@
 .cmp-search__categories-tabs {
     height: 65px;
     width: 100%;
-    overflow-x: scroll;
+    overflow-x: hidden;
     overflow-y: hidden;
     white-space: nowrap;
     margin-bottom: -3em;
     margin-top: 2em;
 
     &.fader-fade {
+        overflow-x: hidden;
         scrollbar-width: none;
         -ms-overflow-style: none;
         &::-webkit-scrollbar {
@@ -15,6 +16,7 @@
         }
 
         &.fader-fade--right {
+            overflow-x: scroll;
             scrollbar-width: thin;
             -ms-overflow-style: scrollbar;
             &::-webkit-scrollbar {
@@ -23,6 +25,7 @@
         }
 
         &.fader-fade--left {
+            overflow-x: scroll;
             scrollbar-width: thin;
             -ms-overflow-style: scrollbar;
             &::-webkit-scrollbar {
