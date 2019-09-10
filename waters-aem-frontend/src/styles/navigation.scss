@@ -338,6 +338,10 @@ nav.cmp-navigation {
             .cmp-notification-description {
                font-weight: $font-weight-light;
             }
+
+            .cmp-links {
+               @include font-body;
+            }
          }
 
          @include tablet-and-over {
