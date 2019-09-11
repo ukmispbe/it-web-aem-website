@@ -115,6 +115,14 @@ const anchorScrollSpy = () => {
     }
 };
 
+function anchorHide() {
+    if (document.getElementsByClassName('cmp-section-container--collapse').length > 0){
+        document.getElementsByClassName('anchor')[0].style.display = 'none'
+    } else {
+        document.getElementsByClassName('anchor')[0].style.display = 'block'
+    }
+}
+
 function toggleMobileNav(forceClose) {
     const heading = document.querySelector('.cmp-anchor--sticky');
     if (!forceClose && heading.classList.contains('closed')) {
@@ -188,10 +196,9 @@ function scrollWindow(el) {
 var anchorList = document.querySelector('.cmp-anchor__list');
 
 if (anchorList) {
-    const isMobile = screenSizes.isMobile();
-    const sectionContainers = document.querySelectorAll(
-        '.cmp-section-container--collapse'
-    );
+    if(screenSizes.isMobile()){
+        anchorHide();
+    }
 
     if (anchorElement) {
         setAnchorDestinations();
@@ -231,20 +238,16 @@ if (anchorList) {
     window.addEventListener('load', () => resizeWindow(anchorList));
     window.addEventListener('resize', () => resizeWindow(anchorList));
     var mediaQueryListener = window.matchMedia('(max-width: 650px)');
-    var switchToLargerMediaSizeListener = window.matchMedia('(min-width: 651px)'); //listener for if the view transitions larger
 
-    function anchorChangeToMobile() {
-        if (isMobile) {
+    function anchorChangeToMobile(e) {
+        if (e.matches) {
+            anchorHide();
             clearGradients();
+        } else {
+            clearOpenContainers();
+            document.getElementsByClassName('anchor')[0].style.display = "block"
         }
     }
 
-    function anchorChangeToDesktop() {
-        // defaults style to block, in case a user switches from mobile view to desktop view in case the anchor component has display:none
-        document.getElementsByClassName('cmp-anchor')[0].style.display = "block"
-        clearOpenContainers();
-    }
-
-    switchToLargerMediaSizeListener.addListener(anchorChangeToDesktop)
     mediaQueryListener.addListener(anchorChangeToMobile);
 }
