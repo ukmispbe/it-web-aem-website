@@ -463,23 +463,16 @@ class Search extends Component {
     }
 
     sortHandler(e) {
-        const sortOption =
-            parseInt(e.value) === 1 ? 'most-relevant' : 'most-recent';
-        const state = this.state;
+        const sortOption = parseInt(e.value) === 1 ? 'most-relevant' : 'most-recent';
 
-        this.setState(Object.assign({}, state, { sort: sortOption }));
+        this.setState(Object.assign({}, this.state, { sort: sortOption }));
 
-        const query = {
-            keyword: state.query,
-            page: 1,
-            sort: sortOption,
-        };
+        let query = this.getQueryObject();
 
-        if (this.state.contentType) {
-            query.content_type = this.state.contentType;
-        }
+        query.page = 1;
+        query.sort = sortOption;
 
-        this.pushToHistory(query, state.selectedFacets);
+        this.pushToHistory(query, this.state.selectedFacets);
     }
 
     categoryChangeHandler = e => this.handleCategorySelected(e.value);
