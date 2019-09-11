@@ -1,0 +1,7 @@
+Properties:
+  - label: Title
+    type: TEXTFIELD
+    value: section container title
+  - label: Collapse on Mobile
+    type: SWITCH
+    value: true
