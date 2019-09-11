@@ -219,10 +219,6 @@ public final class Meta extends AbstractComponent {
     }
 
     public String getSchemaJson() throws JsonProcessingException {
-        return Templates.isSkuPage(currentPage) ? getProductSchemaJson() : getLibrarySchemaJson();
-    }
-
-    public String getLibrarySchemaJson() throws JsonProcessingException {
         final Map<String, Object> properties = new HashMap<>();
 
         properties.put("@context", "http://schema.org");
@@ -272,8 +268,16 @@ public final class Meta extends AbstractComponent {
 
     public boolean isHomepage() {
         return Templates.isHomePage(currentPage);
-
     }
+
+    public boolean isSkuPage() {
+        return Templates.isSkuPage(currentPage);
+    }
+
+    public boolean isLibraryPage() {
+        return Templates.isLibraryPage(currentPage) || Templates.isApplicationNotesPage(currentPage);
+    }
+
 
     private String getThumbnailImage() {
         return Optional.ofNullable(thumbnail.getThumbnailImageRendition())
