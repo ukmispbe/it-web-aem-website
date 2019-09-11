@@ -124,6 +124,7 @@ body.cmp-search-bar__auto-suggest--open {
     .cmp-banner {
         -ms-overflow-y: visible;
         overflow-y: unset;
+        z-index: $cmp-banner-active-overlay-z-index;
     }
 
     .cmp-title {
