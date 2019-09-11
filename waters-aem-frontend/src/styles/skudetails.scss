@@ -357,7 +357,7 @@
     }
     &__ecom {
         background: $color-background-light;
-        padding: $space-l;
+        padding: $space-l $space-l $space-xs;
         @include mobile {
             padding: $space-m;
         }
