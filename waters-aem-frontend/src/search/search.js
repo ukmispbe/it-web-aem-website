@@ -152,7 +152,7 @@ class Search extends Component {
 
     findMaxCategory = categories => {
         if (!categories) {
-            return 0;
+            return -1;
         }
 
         const counts = categories.map(category => category.count);
@@ -206,14 +206,21 @@ class Search extends Component {
 
         if (isInitialLoad) {
             const maxCategory = this.findMaxCategory(categoriesWithData);
+
+            if (maxCategory === -1) {
+                this.setEmptyResults();
+                return;
+            }
+
+            const categoryName = categoriesWithData[maxCategory].name;
             const isSkuList = validator.equals(
-                categoriesWithData[maxCategory].name,
+                categoryName,
                 'Shop'
             );
 
             this.setState({ activeTabIndex: maxCategory, isSkuList });
 
-            query.category = categoriesWithData[maxCategory].name;
+            query.category = categoryName;
 
             this.pushToHistory(query, this.state.selectedFacets);
 
@@ -414,6 +421,10 @@ class Search extends Component {
     };
 
     searchOnError = error => {
+        this.setEmptyResults();
+    };
+
+    setEmptyResults = () => {
         const newState = Object.assign({}, this.state);
 
         newState.loading = false;
@@ -423,7 +434,7 @@ class Search extends Component {
         newState.results = {};
 
         this.setState(Object.assign({}, this.state, newState));
-    };
+    }
 
     pushToHistory(query, facets) {
         this.props.history.push(
