@@ -10,6 +10,7 @@
 
 .cmp-breadcrumb {
     display: inline;
+    position: relative;
 
     &__list {
         @include mobile {
@@ -22,8 +23,18 @@
         line-height: 1;
         padding-left: 0;
         list-style: none;
-        position: relative;
+        overflow-y: hidden;
         margin: $space-xxs 0 $space-l 0;
+
+        & .fader-container {
+            z-index: 1;
+
+            &--right {
+                @include mobile {
+                    right: -0.2em!important;
+                }
+            }
+        }
     }
 
     &__item {
@@ -74,40 +85,9 @@
         vertical-align: top;
         display: inline-block;
         margin-top: $space-m;
+        width: 100%;
+        overflow: hidden;
     }
-
-    &-gradient-right {
-        @include mobile {
-            height: 50px;
-            width: 50px;
-            z-index: 2;
-            position: absolute;
-            top: 0px;
-            right: 0;
-
-            background: -webkit-linear-gradient(right, rgba(255,255,255,0.8) 30%,rgba(255,255,255,0.2) 100%);
-            background:    -moz-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
-            background:     -ms-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
-            background:      -o-linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
-            background:         linear-gradient(right, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.2) 100%);
-        }
-    }
-
-    &-gradient-left {
-        @include mobile {
-             width: 50px;
-             height: 50px;
-             z-index: 1;
-             position: absolute;
-             left: -4px;
-
-            background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
-            background:    -moz-linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
-            background:     -ms-linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
-            background:      -o-linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
-            background:         linear-gradient(left, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0.2) 100%);
-            }
-        }
 }
 
 .cmp-breadcrumb-search {

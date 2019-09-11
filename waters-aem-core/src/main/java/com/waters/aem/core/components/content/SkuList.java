@@ -7,10 +7,14 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waters.aem.core.commerce.models.DisplayableSku;
 import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.commerce.services.SkuRepository;
+import com.waters.aem.core.components.EmptyComponent;
 import com.waters.aem.core.components.SiteContext;
+import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -30,14 +34,16 @@ import java.util.stream.Collectors;
 @Component(value = "SKU List",
     tabs = @Tab(title = "Properties"))
 @Model(adaptables = SlingHttpServletRequest.class,
-    adapters = { SkuList.class, ComponentExporter.class },
+    adapters = { SkuList.class, EmptyComponent.class, ComponentExporter.class },
     resourceType = SkuList.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public final class SkuList implements ComponentExporter {
+public final class SkuList implements EmptyComponent, ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/skulist";
+
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @Inject
     private Sku sku;
@@ -51,10 +57,18 @@ public final class SkuList implements ComponentExporter {
     @Self
     private SiteContext siteContext;
 
+    @DialogField(fieldLabel = "Title",
+        fieldDescription = "Enter the Title",
+        ranking = 1)
+    @TextField
+    @Inject
+    private String title;
+
     @DialogField(fieldLabel = "Sku Numbers",
         fieldDescription = "List of Skus to display when this component is authored on a non-Sku page.",
         renderReadOnly = false,
-        required = true)
+        required = true,
+        ranking = 2)
     @MultiField
     @TextField
     @Inject
@@ -70,15 +84,32 @@ public final class SkuList implements ComponentExporter {
         }
 
         return skus.stream()
-                .map(relatedSku -> new DisplayableSku(relatedSku, resource, siteContext))
+                .map(relatedSku -> new DisplayableSku(relatedSku, siteContext))
                 .collect(Collectors.toList());
     }
 
+    public String getDisplayableSkusAsJson() throws JsonProcessingException {
+        return MAPPER.writeValueAsString(getDisplayableSkus());
+    }
+    
     private List<Sku> buildSkuListFromDialogInput() {
         return Arrays.asList(skuNumbers).stream()
                 .map(skuNumber -> skuRepository.getSku(resource.getResourceResolver(), skuNumber))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public CountryCommerceConfig getCommerceConfig() {
+        return siteContext.getCountryCommerceConfig();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return getDisplayableSkus().isEmpty();
     }
 
     @Nonnull

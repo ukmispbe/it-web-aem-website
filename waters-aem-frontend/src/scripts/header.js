@@ -51,12 +51,12 @@ function render() {
     }
 
     if (headerNavigation_mainUL) { 
-        if (headerNavigation_mainUL.childNodes.length > 0) { 
-            if (ScreenSizes.isMobile()) { 
+        if (headerNavigation_mainUL.childNodes.length > 0) {
+            if (ScreenSizes.isMobile()) {
                 headerNavigation_mainUL.children[0].style.height = (window.innerHeight - headerTB.offsetHeight) + 'px';
             }
         }
-    }  
+    }
     
 }
 

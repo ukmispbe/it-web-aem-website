@@ -1,6 +1,6 @@
 <a class="cmp-back-to-top" href="#" title="${'Back To Top' @ i18n}"><img alt="${'Back To Top' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/up.svg" class="inline-svg"></a>
 
-<div data-sly-use.footer="com.waters.aem.core.components.structure.Footer" class="cmp-footer">
+<div data-sly-use.footer="com.waters.aem.core.components.structure.Footer" id="footer" class="cmp-footer">
     <div class="container1_wrapper">
         <div class="container1">
             <div class="cmp-footer__linksdiv">
@@ -102,4 +102,48 @@
     window.digitalData = parsedData;
 
     document.dispatchEvent(new CustomEvent('digitalDataReady', {}));
+</script>
+
+<script type="application/json" id="commerce-configs-json">
+    {
+        "locale": "${footer.locale  @ context='scriptString'}",
+        "availabilityUrl": "${footer.skuAvailabilityUrl @ context='unsafe'}",
+        "pricingUrl": "${footer.skuCustomerPriceUrl @ context='unsafe'}",
+        "addToCartUrl": "${footer.addToCartUrl @ context='unsafe'}",
+        "countryCode": "${footer.countryCode @ context='scriptString'}",
+        "isoCode": "${footer.isoCode @ context='scriptString'}",
+        "addToCartLabel": "${'ADD TO CART' @ i18n, context='scriptString'}",
+        "qtyLabel": "${'Qty' @ i18n, context='scriptString'}",
+        "skuInfo": {
+            "requestQuote": "${'Do you need a web quote?' @ i18n, context='scriptString'}",
+            "listPriceLabel": "${'List Price' @ i18n, context='scriptString'}",
+            "inStockLabel": "${'In Stock' @ i18n, context='scriptString'}",
+            "outOfStockLabel": "${'Out of Stock' @ i18n, context='scriptString'}",
+            "orderNowLabel": "${'Order Now' @ i18n, context='scriptString'}",
+            "orderSoonLabel": "${'Order Soon' @ i18n, context='scriptString'}",
+            "seeAvailabilityLabel": "${'See Availability' @ i18n, context='scriptString'}",
+            "shipsByLabel": "${'Ships by {0}' @ format=['{shipByDate}'], i18n, context='scriptString'}",
+            "onlyXInStockLabel": "${'Only {0} in stock' @ format=['{quantity}'], i18n, context='scriptString'}",
+            "inStockIcon": "/content/dam/waters/en/brand-assets/icons/success.svg",
+            "lowStockIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
+            "outOfStockIcon": "/content/dam/waters/en/brand-assets/icons/x.svg",
+            "refreshIcon": "/content/dam/waters/en/brand-assets/icons/refresh.svg",
+            "maxAmount": 999
+        },
+        "modalInfo": {
+            "icon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+            "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
+            "title": "${'Item Added to Cart' @ i18n, context='scriptString'}",
+            "buttons": [
+                {
+                    "text": "${'View Cart' @ i18n, context='scriptString'}",
+                    "action": "${footer.viewCartUrl @ context='unsafe'}"
+                },
+                {
+                    "text": "${'Continue Shopping' @ i18n, context='scriptString'}",
+                    "action": "close"
+                }
+            ]
+        }
+    }
 </script>

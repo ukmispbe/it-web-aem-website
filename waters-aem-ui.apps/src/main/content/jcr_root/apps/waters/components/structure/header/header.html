@@ -1,8 +1,8 @@
-<header data-sly-use.header="com.waters.aem.core.components.structure.Header" class="cmp-header" data-search-path="${header.searchPath.href}">
+<header data-sly-use.header="com.waters.aem.core.components.structure.Header" id="header" class="cmp-header" data-search-path="${header.searchPath.href}">
     <div class="cmp-header__overlay overlay"></div>
     <div class="cmp-header__top-bar">
         <div class="container">
-            <div class="cmp-header__top-bar__logo">
+            <div class="cmp-header__top-bar__logo" data-sly-element="${header.includeH1Tag ? 'h1' : 'div'}">
                 <a class="cmp-header__top-bar__logo__link cmp-header-links__link" href="${header.logoLink.href}" target="${header.external ? '_blank' :''}">
                     <img src="${header.logo.fileReference}" alt="${header.logoAltText}"/>
                 </a>
@@ -44,7 +44,7 @@
                         </script>
                     </li>
                     <li class="top-bar__nav__cart top-bar__nav__item">
-                        <a class="cmp-header-links__link" href="${header.cartUrl}">
+                        <a class="cmp-header-links__link" href="${header.viewCartUrl}">
                             <span>${'Cart' @ i18n}</span>
                             <img alt="${'Cart' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/cart.svg" class="inline-svg">
                         </a>

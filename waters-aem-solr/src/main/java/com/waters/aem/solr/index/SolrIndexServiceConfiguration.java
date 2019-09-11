@@ -19,6 +19,7 @@ public @interface SolrIndexServiceConfiguration {
     @AttributeDefinition(name = "Included Templates", description = "List of templates that should be indexed.")
     String[] includedTemplates() default {
         WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE,
-        WatersConstants.TEMPLATE_LIBRARY_PAGE
+        WatersConstants.TEMPLATE_LIBRARY_PAGE,
+        WatersConstants.TEMPLATE_SKU_PAGE
     };
 }

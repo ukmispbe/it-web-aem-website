@@ -6,6 +6,7 @@ import { Modal } from '../modal/index';
 import LoginStatus from '../scripts/loginStatus';
 import ScreenSizes from '../scripts/screenSizes';
 import MobileNav from '../scripts/mobileNav';
+import FeedbackSurvey from '../scripts/feedbackSurvey';
 
 
 class AccountDropDown extends React.Component {
@@ -90,7 +91,8 @@ class AccountDropDown extends React.Component {
                 accountHeaderUser.classList.add(activeDDClass);
                 if (!this.state.isMobile) {
                     headerOverlay.classList.add(activeOverlay);
-                } else { 
+                } else {
+                    FeedbackSurvey.isDisplayed(false);
                     this.mobileNoScroll(true);
                 }
             } else {
@@ -103,10 +105,12 @@ class AccountDropDown extends React.Component {
                             if (!caller.classList.contains('top-bar__nav__mobile')) { 
                                 // change scrolling unless needed next (ie hamburger menu)
                                 this.mobileNoScroll(false);
+                                FeedbackSurvey.isDisplayed(true);
                             }
                         }
                     } else { 
                         this.mobileNoScroll(false);
+                        FeedbackSurvey.isDisplayed(true);
                     }
 
                 }

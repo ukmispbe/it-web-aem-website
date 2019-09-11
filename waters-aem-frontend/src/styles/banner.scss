@@ -1,10 +1,9 @@
 .cmp-banner {
-    margin: -$space-l -30% $space-l;
+    margin: $space-l -30% $space-l;
     padding: 0 30%;
     position: relative;
     overflow-y: hidden;
-    z-index: 0;
-    min-height: 200px;
+    z-index: $cmp-banner-z-index;
 
     .container {
         padding: 0;
@@ -49,16 +48,12 @@
         height: 100%;
     }
 
-    @media (min-width: 1920px) {
-        margin-top: -$space-l;
-    }
-
     @include mobile {
-        margin-top: -$space-l;
+        margin-top: 0;
     }
 
     @include tablet {
-        margin-top: -$space-l;
+        margin-top: 0;
     }
 }
 
@@ -80,7 +75,7 @@
 
     @include mobile {
         margin: 0 0 0 -4px;
-        padding: $space-l 0 0 0;
+        padding: $space-l 0 $space-s 0;
     }
 
     @include tablet {
@@ -243,11 +238,6 @@
          margin-top: 0;
     }
 }
-
-.cmp-banner--notHeader .cmp-banner {
-    margin-top: 0;
-}
-
 .cmp-banner--left .cmp-banner {
     padding-right: 80%;
 
