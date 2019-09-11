@@ -186,6 +186,15 @@ public class ApplicationNotesPageTest extends AbstractWatersPageTest {
     }
 
 
+    @Test
+    public void SectionContainer() throws ActionException {
+        controller.execute(AemActions.CONFIGURE_COMPONENT, new ConfigureComponentData("container[1]", "SectionContainer", 4, new ResourceFileLocation("sectioncontainer.yaml")));
+        final SectionContainer sectioncontainerComponent = page.getContent(SectionContainer.class, 1);
+        assertThat(sectioncontainerComponent.getTitle()).isEqualTo("section container title");
+        assertThat(sectioncontainerComponent.isMobileCollapsed()).isEqualTo(true);
+
+    }
+
     @Override
     protected String getPagePath() {
         return WatersAutomationTestConstants.APPLICATION_NOTES_PAGE_PATH;

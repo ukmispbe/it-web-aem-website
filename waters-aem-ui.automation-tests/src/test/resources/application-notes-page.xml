@@ -73,6 +73,9 @@
             <notification
                     jcr:primaryType="nt:unstructured"
                     sling:resourceType="waters/components/content/notification"/>
+            <sectioncontainer
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="waters/components/content/applicationnotes/sectioncontainer"/>
         </root>
     </jcr:content>
 </jcr:root>

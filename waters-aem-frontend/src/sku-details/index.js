@@ -28,9 +28,9 @@ class SkuDetails extends React.Component {
             modalInfo: {
                 ...this.props.config.modalInfo,
                 textHeading: this.props.skuNumber,
-                text: this.props.titleText
+                text: this.props.titleText,
             },
-            errorObj: {}
+            errorObj: {},
         };
 
         this.request = new SkuService(
@@ -38,45 +38,48 @@ class SkuDetails extends React.Component {
             {
                 availability: this.props.config.availabilityUrl,
                 price: this.props.config.pricingUrl,
-            },{
+            },
+            {
                 addToCart: this.props.config.addToCartUrl,
-                getCart: ''
+                getCart: '',
             },
             err => {
                 // Add Error Object to State
                 this.setState({ errorObj: err });
             }
-
         );
 
         this.toggleModal = this.toggleModal.bind(this);
     }
 
     componentDidMount() {
-        this.request.getAvailability(this.state.skuNumber).then(response => {
-            this.setState({
-                skuAvailability: response,
-                modalInfo: {
-                    ...this.props.config.modalInfo,
-                    textHeading: this.props.skuNumber,
-                    text: this.props.titleText
-                }
+        this.request
+            .getAvailability(this.state.skuNumber)
+            .then(response => {
+                this.setState({
+                    skuAvailability: response,
+                    modalInfo: {
+                        ...this.props.config.modalInfo,
+                        textHeading: this.props.skuNumber,
+                        text: this.props.titleText,
+                    },
+                });
+            })
+            .catch(err => {
+                // Add Error Object to State
+                this.setState({ errorObj: err });
             });
-        }).catch(err => {
-            // Add Error Object to State
-            this.setState({ errorObj: err });
-        });
     }
 
-    toggleModal = () => { 
-        this.setState({ modalShown: !this.state.modalShown }, () => { 
+    toggleModal = () => {
+        this.setState({ modalShown: !this.state.modalShown }, () => {
             if (this.state.modalShown) {
                 FeedbackSurvey.isDisplayed(false);
-            } else { 
+            } else {
                 FeedbackSurvey.isDisplayed(true);
             }
-        })
-    }
+        });
+    };
 
     commerceView = (view) => { 
         if (view == 'DISABLED') {
