@@ -17,7 +17,7 @@ const parameterDefaults = {
     content_type: '',
     sort: parameterValues.sort.mostRecent,
     selectedFacets: {},
-    contentTypeSelected: {}
+    contentTypeSelected: {},
 };
 
 class SearchService {
@@ -44,7 +44,7 @@ class SearchService {
     getCategories = ({
         keyword = parameterDefaults.keyword,
         page = parameterDefaults.page,
-        sort = parameterDefaults.sort
+        sort = parameterDefaults.sort,
     }) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const searchString = `${this.path}?${paramString}`;
@@ -59,17 +59,21 @@ class SearchService {
                 }
             })
             .catch(err => console.log(err));
-    }
+    };
 
     getResultsByCategory = ({
         keyword = parameterDefaults.keyword,
         facets = {},
         page = parameterDefaults.page,
         sort = parameterDefaults.sort,
-        category = parameterDefaults.category
+        category = parameterDefaults.category,
     } = {}) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
-        const searchString = `${this.path}/category_facet$${category.toLowerCase()}:${encodeURIComponent(encodeURIComponent(category))}?${paramString}`;
+        const searchString = `${
+            this.path
+        }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
+            encodeURIComponent(category)
+        )}?${paramString}`;
 
         return window
             .fetch(searchString)
@@ -91,11 +95,17 @@ class SearchService {
             facets = {},
             page = parameterDefaults.page,
             sort = parameterDefaults.sort,
-            category = parameterDefaults.category
+            category = parameterDefaults.category,
         } = {}
     ) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
-        const searchString = `${this.path}/category_facet$${category.toLowerCase()}:${encodeURIComponent(encodeURIComponent(category))}&contenttype_facet$${contentTypeKey}:${encodeURIComponent(encodeURIComponent(contentTypeValue))}?${paramString}`;
+        const searchString = `${
+            this.path
+        }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
+            encodeURIComponent(category)
+        )}&contenttype_facet$${contentTypeKey}:${encodeURIComponent(
+            encodeURIComponent(contentTypeValue)
+        )}?${paramString}`;
 
         return window.fetch(searchString).then(response => {
             if (response.ok) {
@@ -115,12 +125,21 @@ class SearchService {
             facets = {},
             page = parameterDefaults.page,
             sort = parameterDefaults.sort,
-            category = parameterDefaults.category
+            category = parameterDefaults.category,
         } = {}
     ) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const facetString = this.getQueryFacetString(facets);
-        const searchString = `${this.path}/category_facet$${category.toLowerCase()}:${encodeURIComponent(encodeURIComponent(category))}&contenttype_facet$${contentTypeName.replace('_facet', '')}:${encodeURIComponent(encodeURIComponent(contentTypeValue))}${facetString}?${paramString}`;
+        const searchString = `${
+            this.path
+        }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
+            encodeURIComponent(category)
+        )}&contenttype_facet$${contentTypeName.replace(
+            '_facet',
+            ''
+        )}:${encodeURIComponent(
+            encodeURIComponent(contentTypeValue)
+        )}${facetString}?${paramString}`;
 
         return window.fetch(searchString).then(response => {
             if (response.ok) {
@@ -133,12 +152,7 @@ class SearchService {
     };
 
     getSuggestedKeywords = async (rows, term) => {
-
-        const searchString = `${
-            this.path
-        }/v1/autocomplete?term=${term}&rows=${rows}&isocode=${
-            this.options.isocode
-        }`;
+        const searchString = `${this.path}/v1/autocomplete?term=${term}&rows=${rows}&isocode=${this.options.isocode}`;
 
         const callService = window.fetch(searchString).then(response => {
             if (response.ok) {
@@ -251,7 +265,9 @@ class SearchService {
                     if (filter) {
                         facetString = filter
                             ? facetString +
-                              `${f > 0 ? '||' : ''}${encodeURI(filter)}`
+                              `${
+                                  f > 0 ? encodeURIComponent('||') : ''
+                              }${encodeURI(filter)}`
                             : facetString;
                     }
                 }
@@ -327,9 +343,7 @@ class SearchService {
         Object.keys(parameters).length !== 0
             ? Object.keys(parameters).reduce(
                   (accumulator, currentValue) =>
-                      `${accumulator}=${
-                          parameters[accumulator]
-                      }&${currentValue}=${parameters[currentValue]}`
+                      `${accumulator}=${parameters[accumulator]}&${currentValue}=${parameters[currentValue]}`
               )
             : '';
 
