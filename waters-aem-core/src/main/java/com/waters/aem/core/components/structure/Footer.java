@@ -50,7 +50,7 @@ import java.util.Locale;
     tabs = {
         @Tab(title = "Properties"),
         @Tab(title = "Region Selector"),
-        @Tab(title = "Legal Icon"),
+        @Tab(title = "Legal Icons"),
         @Tab(title = "Footer Links"),
         @Tab(title = "Share Links")
     },
@@ -220,22 +220,34 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     }
 
     @JsonProperty
-    public String getSICPNumber() { return sICPNumber; }
+    public String getSICPNumber() { 
+        return sICPNumber;
+    }
 
     @JsonProperty
-    public String getSICPLegalIcon() { return  sICPLegalIcon; }
+    public String getSICPLegalIcon() { 
+        return sICPLegalIcon; 
+    }
 
     @JsonProperty
-    public Link getSICPLegalLink() { return  sICPLegalLink; }
+    public Link getSICPLegalLink() {
+        return sICPLegalLink;
+    }
 
     @JsonProperty
-    public String getBPNSNumber() { return bPNSNumber; }
+    public String getBPNSNumber() { 
+        return bPNSNumber;
+    }
 
     @JsonProperty
-    public String getBPNSLegalIcon() { return  bPNSLegalIcon; }
+    public String getBPNSLegalIcon() {
+        return bPNSLegalIcon; 
+    }
 
     @JsonProperty
-    public Link getBPNSLegalLink() { return bPNSLegalLink; }
+    public Link getBPNSLegalLink() {
+        return bPNSLegalLink; 
+    }
 
     @JsonProperty
     public List<BasicLink> getFooterLinks() {
