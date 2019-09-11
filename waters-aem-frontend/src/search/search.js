@@ -850,7 +850,7 @@ class Search extends Component {
     getSubFacetTags = () => {
         if (
             this.isInitialLoad(this.state.category, this.state.contentType) ||
-            !this.isFacetsSelected(this.state.searchParams.facets)
+            !this.isFacetsSelected(this.state.selectedFacets)
         ) {
             return <></>;
         }
