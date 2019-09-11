@@ -303,6 +303,7 @@ nav.cmp-navigation {
          & .cmp-navigation__group {
             width: 75%;
             list-style: none;
+            padding-left: 0em;
 
             @include tablet {
                width: 65%;
