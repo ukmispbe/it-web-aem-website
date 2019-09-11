@@ -116,6 +116,13 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
         return getInherited("copyrightText", defaultCopyrightText);
     }
+    
+    @DialogField(fieldLabel = "Contact Us",
+        fieldDescription = "Select or enter the Contact URL",
+        ranking = 5)
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject(inherit = true)
+    private Link contactLink;
 
     @DialogField(fieldLabel = "Cookies Link",
         fieldDescription = "Select or enter the link URL",
@@ -155,10 +162,15 @@ public final class Footer extends AbstractComponent implements ComponentExporter
         return logoAltText;
     }
 
+    public Link getContactLink() {
+        return contactLink;
+    }
+
     @JsonProperty
     public Boolean isExternal() {
         return LinkUtils.isExternal(logoLink);
     }
+
     @JsonProperty
     public Link getCookiesLink() {
         return cookiesLink;

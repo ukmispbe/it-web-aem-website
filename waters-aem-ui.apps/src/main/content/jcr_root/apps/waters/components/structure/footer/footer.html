@@ -107,7 +107,14 @@
 <script type="application/json" id="commerce-configs-json">
     {
         "locale": "${footer.locale  @ context='scriptString'}",
-        "commerceConfig": "${footer.commerceConfig  @ context='scriptString'}",
+        "commerceConfig": {
+            "currentState": "${footer.commerceConfig  @ context='scriptString'}",
+            "disabledIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
+            "disabledLabel": "${'Disabled' @ i18n, context='scriptString'}",
+            "disabledText": "${'Online ordering is not available for your region. Please ' @ i18n, context='scriptString'}",
+            "disabledLinkText": "${'contact your sales representative' @ i18n, context='scriptString'}",
+            "disabledHref": "${footer.contactLink.href @ context='unsafe'}"
+        },
         "availabilityUrl": "${footer.skuAvailabilityUrl @ context='unsafe'}",
         "pricingUrl": "${footer.skuCustomerPriceUrl @ context='unsafe'}",
         "addToCartUrl": "${footer.addToCartUrl @ context='unsafe'}",
