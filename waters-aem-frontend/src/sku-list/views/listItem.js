@@ -82,9 +82,7 @@ class ListItem extends React.Component {
             );
         } else {
             if (this.state.commerce == 'DISABLED') {
-                return (
-                    <div className="cmp-sku-details__buyinfo disabled"></div>
-                );
+                return ( null);
             } else { 
                 return (
                     <div className="cmp-sku-details__buyinfo">
@@ -174,8 +172,10 @@ class ListItem extends React.Component {
     render() {
         const buyInfo = this.renderBuyInfo();
         const breadcrumbs = this.renderBreadcrumb();
+        const isDisabled = this.state.commerce == "DISABLED" ? "disabled" : "";
+            
         return (
-            <div className="cmp-sku-list__container">
+            <div className={'cmp-sku-list__container ' + isDisabled}>
                 <div className="cmp-sku-list__right">
                     <img src={this.props.relatedSku.primaryImageThumbnail} alt={this.props.relatedSku.primaryImageAlt} />
                 </div>

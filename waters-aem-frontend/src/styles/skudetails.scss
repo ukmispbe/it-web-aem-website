@@ -31,10 +31,12 @@
 
         &__ecom {
             background: $color-background-light;
-            padding: $space-l;
 
-            @include mobile {
-                padding: $space-m;
+            .cmp-sku-details__buyinfo {
+                padding: $space-l;
+                @include mobile {
+                    padding: $space-m;
+                }
             }
         }
 
@@ -43,24 +45,10 @@
             flex-flow: row;
             align-items: center;
             flex-wrap: wrap;
+        }
 
-            padding: $space-l;
-            @include mobile {
-                padding: $space-m;
-            }
-
-            &.disabled{
-                padding: $space-s;
-                min-height: 80px;
-
-                @include tablet {
-                    min-height: 0px;
-                }
-
-                @include mobile {
-                    min-height: 20px;
-                }
-            }
+        &__buyinfodisabled {
+            padding: $space-s;
         }
 
         &__priceinfo {
@@ -176,8 +164,7 @@
         }
 
         &__discontinuedinfo,
-        &__disabledinfo {
-
+        &__buyinfodisabled {
             display: flex;
 
             & div:first-child {
@@ -204,10 +191,6 @@
             padding-bottom: 2em;
             padding-top: 1em;
             width: 90%;
-        }
-
-        &__disabledinfo{
-            width: 100%;
         }
     }
 
@@ -315,6 +298,13 @@
             @include mobile {
                 width: 100%;
             }
+
+            .cmp-sku-details__buyinfo{
+                padding: 0;
+            }
+            .cmp-sku-details__buyinfodisabled{
+                display: none;
+            }
         }
 
         .cmp-sku-details__stockcontainer {
@@ -380,6 +370,7 @@
     &__ecom {
         background: $color-background-light;
     }
+
     &__quote {
         @include font-h3;
     }
@@ -482,7 +473,20 @@
         width: 100%;
         margin-bottom: $space-s;
         clear: both;
+
+        &.disabled {
+            .cmp-sku-details__left {
+                min-height: 150px;
+
+                @include mobile {
+                    min-height: 0px;
+                    padding-bottom: $space-s;
+                }
+            }
+        }
     }
+
+
 
     &__right {
         @include list-item-thumbnail;

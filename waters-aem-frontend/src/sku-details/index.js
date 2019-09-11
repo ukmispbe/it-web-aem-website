@@ -81,17 +81,16 @@ class SkuDetails extends React.Component {
     commerceView = (view) => { 
         if (view == 'DISABLED') {
             return (
-
-                <div className="cmp-sku-details__disabledinfo">
-                    <ReactSVG
-                        alt={this.props.config.commerceConfig.disabledLabel}
-                        src={this.props.config.commerceConfig.disabledIcon}
-                    />
-                    <span className="cmp-sku-details__disabledmessage">
-                        <span className="cmp-sku-details__disabledtitle">{this.props.config.commerceConfig.disabledText}</span>
-                        <a href={this.props.config.commerceConfig.disabledHref}>{this.props.config.commerceConfig.disabledLinkText}</a>
-                    </span>
-                </div>
+                    <div className="cmp-sku-details__buyinfodisabled">
+                        <ReactSVG
+                            alt={this.props.config.commerceConfig.disabledLabel}
+                            src={this.props.config.commerceConfig.disabledIcon}
+                        />
+                        <span className="cmp-sku-details__disabledmessage">
+                            <span className="cmp-sku-details__disabledtitle">{this.props.config.commerceConfig.disabledText}</span>
+                            <a href={this.props.config.commerceConfig.disabledHref}>{this.props.config.commerceConfig.disabledLinkText}</a>
+                        </span>
+                    </div>
             );
         } else { 
             return (
