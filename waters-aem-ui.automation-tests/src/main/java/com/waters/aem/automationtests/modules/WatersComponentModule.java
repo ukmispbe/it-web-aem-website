@@ -12,6 +12,7 @@ import com.waters.aem.automationtests.components.Title;
 import com.waters.aem.automationtests.components.Modal;
 import com.waters.aem.automationtests.components.Iframe;
 import com.waters.aem.automationtests.components.Notification;
+import com.waters.aem.automationtests.components.SectionContainer;
 import com.waters.aem.automationtests.components.impl.AnchorImpl;
 import com.waters.aem.automationtests.components.impl.ButtonImpl;
 import com.waters.aem.automationtests.components.impl.FooterImpl;
@@ -23,6 +24,7 @@ import com.waters.aem.automationtests.components.impl.TitleImpl;
 import com.waters.aem.automationtests.components.impl.ModalImpl;
 import com.waters.aem.automationtests.components.impl.IframeImpl;
 import com.waters.aem.automationtests.components.impl.NotificationImpl;
+import com.waters.aem.automationtests.components.impl.SectionContainerImpl;
 /**
  * Module for Waters components.
  */
@@ -41,6 +43,7 @@ public class WatersComponentModule extends AbstractModule {
         bind(Modal.class).to(ModalImpl.class);
         bind(Iframe.class).to(IframeImpl.class);
         bind(Notification.class).to(NotificationImpl.class);
+        bind(SectionContainer.class).to(SectionContainerImpl.class);
 
 
 
