@@ -199,6 +199,13 @@
     }
 
     &-details--sticky {
+
+        &[data-commerce='DISABLED'] {
+            @include mobile {
+                visibility: hidden;
+            }
+        }
+
         &--shadow {
             .cmp-sku-details__wrapper {
                 box-shadow: $shadow;
@@ -353,6 +360,8 @@
         }
     }
 }
+
+
 
 .cmp-sku-details {
     &__code {
