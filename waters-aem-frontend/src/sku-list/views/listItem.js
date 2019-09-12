@@ -20,18 +20,19 @@ class ListItem extends React.Component {
             modalInfo: {
                 ...this.props.skuConfig.modalInfo,
                 textHeading: this.props.relatedSku.code,
-                text: this.props.relatedSku.title
+                text: this.props.relatedSku.title,
             },
-            errorObj: {}
+            errorObj: {},
         };
         this.request = new SkuService(
             this.state.userCountry,
             {
                 availability: this.state.availabilityAPI,
                 price: this.state.pricingUrl,
-            },{
+            },
+            {
                 addToCart: this.props.skuConfig.addToCartUrl,
-                getCart: ''
+                getCart: '',
             },
             err => {
                 // Add Error Object to State
@@ -39,7 +40,7 @@ class ListItem extends React.Component {
             }
         );
 
-        this.checkAvailability = this.checkAvailability.bind(this)
+        this.checkAvailability = this.checkAvailability.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
     }
 
@@ -53,14 +54,33 @@ class ListItem extends React.Component {
         });
     };
 
-    checkAvailability = (skuNumber) => {
-        this.request.getAvailability(skuNumber).then(response => {
-            this.setState({ skuAvailability: response });
-        })
-        .catch(err => {
-            // Add Error Object to State
-            this.setState({ errorObj: err });
-        });
+    checkAvailability = skuNumber => {
+        this.request
+            .getAvailability(skuNumber)
+            .then(response => {
+                this.setState({ skuAvailability: response });
+            })
+            .catch(err => {
+                // Add Error Object to State
+                this.setState({ errorObj: err });
+            });
+    };
+
+    setStorageProperties = () => {
+        if (this.props.fromSearch) {
+            const scrolled =
+                (window.pageYOffset || window.document.scrollTop) -
+                (window.document.clientTop || 0);
+
+            window.sessionStorage.setItem(
+                'waters.previousPagePosition',
+                scrolled
+            );
+            window.sessionStorage.setItem(
+                'waters.fromSearchURL',
+                JSON.stringify(window.location.href)
+            );
+        }
     };
 
     renderBuyInfo = () => {
@@ -73,8 +93,20 @@ class ListItem extends React.Component {
                             src={this.props.skuConfig.skuInfo.discontinuedIcon}
                         />
                         <span className="cmp-sku-details__discontinuedmessage">
-                            <span className="cmp-sku-details__discontinuedtitle">Discontinued</span> The part number you selected is no longer available, but there is a replacement. Please see the replacement part number&nbsp;
-                            <a href={this.props.relatedSku.replacementSkuPageHref}>{this.props.relatedSku.replacementSku}</a>
+                            <span className="cmp-sku-details__discontinuedtitle">
+                                Discontinued
+                            </span>{' '}
+                            The part number you selected is no longer available,
+                            but there is a replacement. Please see the
+                            replacement part number&nbsp;
+                            <a
+                                onClick={() => this.setStorageProperties()}
+                                href={
+                                    this.props.relatedSku.replacementSkuPageHref
+                                }
+                            >
+                                {this.props.relatedSku.replacementSku}
+                            </a>
                         </span>
                     </div>
                 </div>
@@ -88,25 +120,38 @@ class ListItem extends React.Component {
                             price={this.props.relatedSku.formattedPrice}
                         />
                     </div>
-                    <div className="cmp-sku-details__availability" onClick={(e) => this.checkAvailability(this.props.relatedSku.code)}>
-                        {this.state.skuAvailability.productStatus &&
-
+                    <div
+                        className="cmp-sku-details__availability"
+                        onClick={e =>
+                            this.checkAvailability(this.props.relatedSku.code)
+                        }
+                    >
+                        {this.state.skuAvailability.productStatus && (
                             <Stock
                                 skuConfig={this.props.skuConfig.skuInfo}
                                 skuNumber={this.props.relatedSku.code}
                                 skuAvailability={this.state.skuAvailability}
                                 locale={this.props.skuConfig.locale}
-                                skuType="details" />
-                        }
-                        {!this.state.skuAvailability.productStatus &&
-                            <span className="cmp-sku-list__checkavailability">{this.props.skuConfig.skuInfo.seeAvailabilityLabel}
+                                skuType="details"
+                            />
+                        )}
+                        {!this.state.skuAvailability.productStatus && (
+                            <span className="cmp-sku-list__checkavailability">
+                                {
+                                    this.props.skuConfig.skuInfo
+                                        .seeAvailabilityLabel
+                                }
                                 <ReactSVG
-                                    alt={this.props.skuConfig.skuInfo.seeAvailabilityLabel}
-                                    src={this.props.skuConfig.skuInfo.refreshIcon}
+                                    alt={
+                                        this.props.skuConfig.skuInfo
+                                            .seeAvailabilityLabel
+                                    }
+                                    src={
+                                        this.props.skuConfig.skuInfo.refreshIcon
+                                    }
                                 />
                             </span>
-
-                        }
+                        )}
                     </div>
                     {/* //TODO: this will get swapped out for an add-to-cart component that can be shared between sku-list and sku-details */}
                     <div className="cmp-sku-list__buttons">
@@ -139,26 +184,28 @@ class ListItem extends React.Component {
             );
         }
 
-        return (<></>);
+        return <></>;
     };
-    
+
     renderAvailability(productStatus) {
-        if( productStatus || this.state.errorObj.ok === false){
-            return <Stock
+        if (productStatus || this.state.errorObj.ok === false) {
+            return (
+                <Stock
                     skuConfig={this.props.skuConfig.skuInfo}
                     skuNumber={this.props.relatedSku.code}
                     skuAvailability={this.state.skuAvailability}
                     locale={this.props.skuConfig.locale}
-                    skuType="details" 
-                    errorObj={this.state.errorObj}/>
+                    skuType="details"
+                    errorObj={this.state.errorObj}
+                />
+            );
         }
-        return <span className="cmp-sku-list__checkavailability">
-                    <div>{this.props.skuConfig.skuInfo.seeAvailabilityLabel}</div>
-                    <ReactSVG
-                        src={this.props.skuConfig.skuInfo.refreshIcon}
-                    />
-                </span>
-
+        return (
+            <span className="cmp-sku-list__checkavailability">
+                <div>{this.props.skuConfig.skuInfo.seeAvailabilityLabel}</div>
+                <ReactSVG src={this.props.skuConfig.skuInfo.refreshIcon} />
+            </span>
+        );
     }
 
     render() {
@@ -167,20 +214,32 @@ class ListItem extends React.Component {
         return (
             <div className="cmp-sku-list__container">
                 <div className="cmp-sku-list__right">
-                    <img src={this.props.relatedSku.primaryImageThumbnail} alt={this.props.relatedSku.primaryImageAlt} />
+                    <img
+                        src={this.props.relatedSku.primaryImageThumbnail}
+                        alt={this.props.relatedSku.primaryImageAlt}
+                    />
                 </div>
                 <div className="cmp-sku-details__left">
-                    <div className="cmp-sku-list__code">{this.props.relatedSku.code}</div>
-                    <a href={this.props.relatedSku.skuPageHref ? this.props.relatedSku.skuPageHref : null}>
-                        <div className="cmp-sku-details__title">{this.props.relatedSku.title}</div>
+                    <div className="cmp-sku-list__code">
+                        {this.props.relatedSku.code}
+                    </div>
+                    <a
+                        href={
+                            this.props.relatedSku.skuPageHref
+                                ? this.props.relatedSku.skuPageHref
+                                : null
+                        }
+                    >
+                        <div className="cmp-sku-details__title">
+                            {this.props.relatedSku.title}
+                        </div>
                     </a>
 
                     {buyInfo}
                     {breadcrumbs}
-                    
                 </div>
             </div>
-        )
+        );
     }
 }
 export default ListItem;

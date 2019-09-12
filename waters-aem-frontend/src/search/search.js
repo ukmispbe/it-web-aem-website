@@ -949,7 +949,13 @@ class Search extends Component {
                   })
                 : [];
 
-            return <SkuList skuConfig={state.skuConfig} data={skuData} />;
+            return (
+                <SkuList
+                    skuConfig={state.skuConfig}
+                    data={skuData}
+                    fromSearch={true}
+                />
+            );
         } else {
             return (
                 <Results
