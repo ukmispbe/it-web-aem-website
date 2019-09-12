@@ -3,7 +3,7 @@
     padding: 0 30%;
     position: relative;
     overflow-y: hidden;
-    z-index: 0;
+    z-index: $cmp-banner-z-index;
 
     .container {
         padding: 0;

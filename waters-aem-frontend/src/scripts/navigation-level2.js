@@ -20,7 +20,6 @@ const navigationLevel2 = function () {
             const className = `cmp-navigation__group--col-${columnCount > maxColumnCount ? maxColumnCount : columnCount}`;
 
             level1Group.classList.add(className);
-
         }
         
         const container = group.querySelector('.cmp-navigation__container');
