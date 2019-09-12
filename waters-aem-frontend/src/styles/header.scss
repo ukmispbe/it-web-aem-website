@@ -84,13 +84,18 @@
                 align-self: center;
 
                 & > .top-bar__nav__item {
-                    height: 100%;
+                    height: 74px;
                     align-items: center;
                     align-self: center;
                     vertical-align: top;
                     margin-left: $space-s;
                     margin-bottom: 0;
                     padding-top: $space-xxxs;
+
+                    
+                    @include mobile {
+                        height: 100%;
+                    }
 
                     @include mobile-xs {
                         margin-left: $space-s;
