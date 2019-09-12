@@ -63,7 +63,7 @@ class ListItem extends React.Component {
             this.setState({ errorObj: err });
         });
     };
-
+            
     renderBuyInfo = () => {
         if (this.props.relatedSku.discontinued) {
             return (
@@ -74,7 +74,7 @@ class ListItem extends React.Component {
                             src={this.props.skuConfig.skuInfo.discontinuedIcon}
                         />
                         <span className="cmp-sku-details__discontinuedmessage">
-                            <span className="cmp-sku-details__discontinuedtitle">Discontinued</span> The part number you selected is no longer available, but there is a replacement. Please see the replacement part number&nbsp;
+                            <span className="cmp-sku-details__discontinuedtitle">{this.props.skuConfig.skuInfo.discontinuedLabel}</span>{this.props.skuConfig.skuInfo.discontinuedMessage}
                             <a href={this.props.relatedSku.replacementSkuPageHref}>{this.props.relatedSku.replacementSku}</a>
                         </span>
                     </div>
