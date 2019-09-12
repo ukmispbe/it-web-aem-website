@@ -1,6 +1,6 @@
 // entry point for SKU. Move this up to global entry point if we want babel to polyfill everything we need at build time
 import React from 'react';
-import ListItem from './views/listItem'
+import ListItem from './views/listItem';
 
 class SkuList extends React.Component {
     constructor(props) {
@@ -9,24 +9,27 @@ class SkuList extends React.Component {
         this.state = {
             skuConfig: this.props.skuConfig,
             skuAvailability: {},
-            addToCartQty: undefined
+            addToCartQty: undefined,
         };
-
     }
 
     render() {
         return (
             <>
-                {this.props.data.length > 0 && //only return template if data exists
+                {this.props.data.length > 0 && ( //only return template if data exists
                     <>
-                        {this.props.data.map((record, index) => <ListItem relatedSku={record} skuConfig={this.props.skuConfig}/>)}
+                        {this.props.data.map((record, index) => (
+                            <ListItem
+                                relatedSku={record}
+                                fromSearch={this.props.fromSearch}
+                                skuConfig={this.props.skuConfig}
+                            />
+                        ))}
                     </>
-                }
+                )}
             </>
         );
-        
     }
 }
-
 
 export default SkuList;
