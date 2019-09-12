@@ -112,7 +112,6 @@ class ListItem extends React.Component {
     
                             }
                         </div>
-                        {/* //TODO: this will get swapped out for an add-to-cart component that can be shared between sku-list and sku-details */}
                         <div className="cmp-sku-list__buttons">
                             <AddToCart
                                 toggleParentModal={this.toggleModal}
