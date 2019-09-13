@@ -230,6 +230,7 @@ class ListItem extends React.Component {
                         {this.props.relatedSku.code}
                     </div>
                     <a
+                        onClick={this.setStorageProperties()}
                         href={
                             this.props.relatedSku.skuPageHref
                                 ? this.props.relatedSku.skuPageHref
