@@ -5,6 +5,7 @@ import Price from '../../sku-details/views/price';
 import SkuService from '../../sku-details/services';
 import AddToCart from '../../sku-details/views/addToCart';
 import { Modal } from '../../modal/index';
+import LoginStatus from '../../scripts/loginStatus';
 
 class ListItem extends React.Component {
     constructor(props) {
@@ -83,7 +84,35 @@ class ListItem extends React.Component {
             );
         }
     };
-            
+      
+    renderAddToCartAndModal = () => { 
+        if ((this.state.commerce == 'PARTIAL_ENABLED' && LoginStatus.state()) ||
+            (this.state.commerce != 'PARTIAL_ENABLED' && this.state.commerce != 'DISABLED')
+        ) {
+            return (
+                <>
+                    <div className="cmp-sku-list__buttons">
+                        <AddToCart
+                            toggleParentModal={this.toggleModal}
+                            skuNumber={this.props.relatedSku.code}
+                            addToCartLabel={this.props.skuConfig.addToCartLabel}
+                            addToCartUrl={this.props.skuConfig.addToCartUrl}
+                        ></AddToCart>
+                    </div>
+                    <Modal
+                        toggleModal={this.toggleModal}
+                        open={this.state.modalShown}
+                        theme="callToAction"
+                        config={this.state.modalInfo}
+                    />
+                </>
+            );
+
+        } else { 
+            return (null)
+        }
+    }
+
     renderBuyInfo = () => {
         if (this.props.relatedSku.discontinued) {
             return (
@@ -155,20 +184,7 @@ class ListItem extends React.Component {
                                 </span>
                             )}
                         </div>
-                        <div className="cmp-sku-list__buttons">
-                            <AddToCart
-                                toggleParentModal={this.toggleModal}
-                                skuNumber={this.props.relatedSku.code}
-                                addToCartLabel={this.props.skuConfig.addToCartLabel}
-                                addToCartUrl={this.props.skuConfig.addToCartUrl}
-                            ></AddToCart>
-                        </div>
-                        <Modal
-                            toggleModal={this.toggleModal}
-                            open={this.state.modalShown}
-                            theme="callToAction"
-                            config={this.state.modalInfo}
-                        />
+                        {this.renderAddToCartAndModal()}
                     </div>
                 );
             }
