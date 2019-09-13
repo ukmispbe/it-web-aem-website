@@ -12,6 +12,7 @@ class ListItem extends React.Component {
         this.state = {
             modalShown: false,
             modalConfig: this.props.skuConfig.modalInfo,
+            commerce: this.props.skuConfig.commerceConfig.currentState,
             userCountry: this.props.skuConfig.countryCode,
             availabilityAPI: this.props.skuConfig.availabilityUrl,
             pricingUrl: this.props.skuConfig.pricingUrl,
@@ -82,7 +83,7 @@ class ListItem extends React.Component {
             );
         }
     };
-
+            
     renderBuyInfo = () => {
         if (this.props.relatedSku.discontinued) {
             return (
@@ -94,11 +95,9 @@ class ListItem extends React.Component {
                         />
                         <span className="cmp-sku-details__discontinuedmessage">
                             <span className="cmp-sku-details__discontinuedtitle">
-                                Discontinued
-                            </span>{' '}
-                            The part number you selected is no longer available,
-                            but there is a replacement. Please see the
-                            replacement part number&nbsp;
+                                {this.props.skuConfig.skuInfo.discontinuedLabel}
+                            </span>
+                            {this.props.skuConfig.skuInfo.discontinuedMessage}
                             <a
                                 onClick={() => this.setStorageProperties()}
                                 href={
@@ -112,66 +111,71 @@ class ListItem extends React.Component {
                 </div>
             );
         } else {
-            return (
-                <div className="cmp-sku-details__buyinfo">
-                    <div className="cmp-sku-list__priceinfo">
-                        <Price
-                            skuConfig={this.props.skuConfig.skuInfo}
-                            price={this.props.relatedSku.formattedPrice}
-                        />
-                    </div>
-                    <div
-                        className="cmp-sku-details__availability"
-                        onClick={e =>
-                            this.checkAvailability(this.props.relatedSku.code)
-                        }
-                    >
-                        {this.state.skuAvailability.productStatus && (
-                            <Stock
+            if (this.state.commerce == 'DISABLED') {
+                return ( null);
+            } else { 
+                return (
+                    <div className="cmp-sku-details__buyinfo">
+                        <div className="cmp-sku-list__priceinfo">
+                            <Price
                                 skuConfig={this.props.skuConfig.skuInfo}
-                                skuNumber={this.props.relatedSku.code}
-                                skuAvailability={this.state.skuAvailability}
-                                locale={this.props.skuConfig.locale}
-                                skuType="details"
+                                price={this.props.relatedSku.formattedPrice}
                             />
-                        )}
-                        {!this.state.skuAvailability.productStatus && (
-                            <span className="cmp-sku-list__checkavailability">
-                                {
-                                    this.props.skuConfig.skuInfo
-                                        .seeAvailabilityLabel
-                                }
-                                <ReactSVG
-                                    alt={
+                        </div>
+                        <div
+                            className="cmp-sku-details__availability"
+                            onClick={e =>
+                                this.checkAvailability(this.props.relatedSku.code)
+                            }
+                        >
+                            {this.state.skuAvailability.productStatus && (
+                                <Stock
+                                    skuConfig={this.props.skuConfig.skuInfo}
+                                    skuNumber={this.props.relatedSku.code}
+                                    skuAvailability={this.state.skuAvailability}
+                                    locale={this.props.skuConfig.locale}
+                                    skuType="details"
+                                />
+                            )}
+                            {!this.state.skuAvailability.productStatus && (
+                                <span className="cmp-sku-list__checkavailability">
+                                    {
                                         this.props.skuConfig.skuInfo
                                             .seeAvailabilityLabel
                                     }
-                                    src={
-                                        this.props.skuConfig.skuInfo.refreshIcon
-                                    }
-                                />
-                            </span>
-                        )}
+                                    <ReactSVG
+                                        alt={
+                                            this.props.skuConfig.skuInfo
+                                                .seeAvailabilityLabel
+                                        }
+                                        src={
+                                            this.props.skuConfig.skuInfo.refreshIcon
+                                        }
+                                    />
+                                </span>
+                            )}
+                        </div>
+                        <div className="cmp-sku-list__buttons">
+                            <AddToCart
+                                toggleParentModal={this.toggleModal}
+                                skuNumber={this.props.relatedSku.code}
+                                addToCartLabel={this.props.skuConfig.addToCartLabel}
+                                addToCartUrl={this.props.skuConfig.addToCartUrl}
+                            ></AddToCart>
+                        </div>
+                        <Modal
+                            toggleModal={this.toggleModal}
+                            open={this.state.modalShown}
+                            theme="callToAction"
+                            config={this.state.modalInfo}
+                        />
                     </div>
-                    {/* //TODO: this will get swapped out for an add-to-cart component that can be shared between sku-list and sku-details */}
-                    <div className="cmp-sku-list__buttons">
-                        <AddToCart
-                            toggleParentModal={this.toggleModal}
-                            skuNumber={this.props.relatedSku.code}
-                            addToCartLabel={this.props.skuConfig.addToCartLabel}
-                            addToCartUrl={this.props.skuConfig.addToCartUrl}
-                        ></AddToCart>
-                    </div>
-                    <Modal
-                        toggleModal={this.toggleModal}
-                        open={this.state.modalShown}
-                        theme="callToAction"
-                        config={this.state.modalInfo}
-                    />
-                </div>
-            );
+                );
+            }
         }
     };
+
+
 
     renderBreadcrumb = () => {
         if (this.props.skuConfig.showBreadcrumbs) {
@@ -211,8 +215,10 @@ class ListItem extends React.Component {
     render() {
         const buyInfo = this.renderBuyInfo();
         const breadcrumbs = this.renderBreadcrumb();
+        const isDisabled = this.state.commerce == "DISABLED" ? "disabled" : "";
+            
         return (
-            <div className="cmp-sku-list__container">
+            <div className={'cmp-sku-list__container ' + isDisabled}>
                 <div className="cmp-sku-list__right">
                     <img
                         src={this.props.relatedSku.primaryImageThumbnail}
