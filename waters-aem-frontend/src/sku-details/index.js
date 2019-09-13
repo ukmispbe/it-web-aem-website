@@ -81,8 +81,38 @@ class SkuDetails extends React.Component {
         });
     };
 
-    commerceView = (view) => { 
-        if (view == 'DISABLED') {
+    renderAddToCartAndModal = () => { 
+        if ((this.state.commerce == 'PARTIAL_ENABLED' && LoginStatus.state()) ||
+            (this.state.commerce != 'PARTIAL_ENABLED' && this.state.commerce != 'DISABLED')
+        ) {
+            return (
+                <>
+                    <div className="cmp-sku-details__buttons">
+                        <AddToCart
+                            toggleParentModal={this.toggleModal}
+                            skuNumber={this.state.skuNumber}
+                            addToCartLabel={this.props.config.addToCartLabel}
+                            addToCartUrl={this.props.config.addToCartUrl}
+                        ></AddToCart>
+                    </div>
+                    <Modal
+                        toggleModal={this.toggleModal}
+                        open={this.state.modalShown}
+                        theme="callToAction"
+                        config={this.state.modalInfo}
+                    />
+                </>
+            );
+
+        } else { 
+            return (null)
+        }
+    }
+
+    commerceView = () => { 
+        const disabled = this.state.commerce == 'DISABLED' ? true : false;
+
+        if (disabled) {
             return (
                     <div className="cmp-sku-details__buyinfodisabled">
                         <ReactSVG
@@ -113,21 +143,8 @@ class SkuDetails extends React.Component {
                                 skuType="details"
                                 errorObj={this.state.errorObj}
                             />
-                        </div>
-                        <div className="cmp-sku-details__buttons">
-                            <AddToCart
-                                toggleParentModal={this.toggleModal}
-                                skuNumber={this.state.skuNumber}
-                                addToCartLabel={this.props.config.addToCartLabel}
-                                addToCartUrl={this.props.config.addToCartUrl}
-                            ></AddToCart>
-                        </div>
-                        <Modal
-                        toggleModal={this.toggleModal}
-                        open={this.state.modalShown}
-                        theme="callToAction"
-                        config={this.state.modalInfo}
-                        />
+                    </div>
+                    {this.renderAddToCartAndModal()}
                 </div>
             );
         }
@@ -136,7 +153,7 @@ class SkuDetails extends React.Component {
     render() {
         return (
             <>
-                {this.commerceView(this.state.commerce)}
+                {this.commerceView()}
             </>
         );
     }
