@@ -498,6 +498,7 @@ html.showing-spinner {
             .btn-show-sort-filter {
                 display: block;
                 @include sticky-show-sort;
+                z-index: $cmp-banner-z-index + 1;
                 .filterIcon {
                     display: none;
                 }
