@@ -9,10 +9,9 @@ class CategoryTab extends Component {
 
     view = () => { 
         const isActive = this.props.isActive ? " active" : "";
-        const tabCountDisplay = " (".concat(this.props.count, ")");
         return (
             <div className={"cmp-search__categories-tabs--tab".concat(isActive)} onClick={e => this.props.onClick(this.props.index)}>
-                <span className={"cmp-search__categories-tabs--tab-name"}>{this.props.name}</span><span className={"cmp-search__categories-tabs--tab-count"}>{tabCountDisplay}</span>
+                <span className={"cmp-search__categories-tabs--tab-name"}>{this.props.name}</span>
             </div>
         );
     }
