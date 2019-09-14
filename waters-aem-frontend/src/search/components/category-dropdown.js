@@ -70,7 +70,7 @@ const getOptions = options => {
     let newList = options.map((a, index) => { 
         return {
             value: index,
-            label: a.name + ' (' + a.count + ')'
+            label: a.name
         }
     })
     
