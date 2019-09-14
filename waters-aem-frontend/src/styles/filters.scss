@@ -484,6 +484,7 @@ $header-height: 74px;
     }
     @include mobile {
         .cmp-search__sort-filter {
+            z-index: $cmp-banner-z-index + 1; 
             height: 100vh;
             padding: 40px 20px 80px 20px;
         }
