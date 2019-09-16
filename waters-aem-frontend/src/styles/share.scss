@@ -1,0 +1,54 @@
+.cmp-share {
+    list-style: none;
+    padding-left: 0;
+    float: right;
+
+    @include tablet {
+        display: none;
+    }
+
+    @include mobile {
+        display: none;
+    }
+}
+
+.cmp-share__item {
+    @include font-small;
+    display: block;
+    float: left;
+    line-height: 1.8em;
+
+    &:first-of-type {
+        margin: $space-xs $space-xxs 0 0;
+        padding-right: $space-s;
+        border-right: 1px solid $color-gray-30;
+    }
+}
+
+.cmp-share__link {
+    display: block;
+    float: left;
+    padding: $space-xs;
+
+    svg {
+        min-width: 24px;
+        min-height: 24px;
+        max-width: 24px;
+        max-height: 24px;
+        width: 24px;
+        height: 24px;
+        fill: $color-gray-30;
+    }
+
+    &.addthis_button_twitter {
+        svg {
+            fill: #4aabe7;
+        }
+    }
+
+    &.addthis_button_linkedin {
+        svg {
+            fill: #3479b1;
+        }
+    }
+}
