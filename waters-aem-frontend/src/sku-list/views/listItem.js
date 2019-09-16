@@ -83,7 +83,7 @@ class ListItem extends React.Component {
             );
         }
     };
-            
+
     renderBuyInfo = () => {
         if (this.props.relatedSku.discontinued) {
             return (
@@ -112,8 +112,8 @@ class ListItem extends React.Component {
             );
         } else {
             if (this.state.commerce == 'DISABLED') {
-                return ( null);
-            } else { 
+                return null;
+            } else {
                 return (
                     <div className="cmp-sku-details__buyinfo">
                         <div className="cmp-sku-list__priceinfo">
@@ -125,7 +125,9 @@ class ListItem extends React.Component {
                         <div
                             className="cmp-sku-details__availability"
                             onClick={e =>
-                                this.checkAvailability(this.props.relatedSku.code)
+                                this.checkAvailability(
+                                    this.props.relatedSku.code
+                                )
                             }
                         >
                             {this.state.skuAvailability.productStatus && (
@@ -149,7 +151,8 @@ class ListItem extends React.Component {
                                                 .seeAvailabilityLabel
                                         }
                                         src={
-                                            this.props.skuConfig.skuInfo.refreshIcon
+                                            this.props.skuConfig.skuInfo
+                                                .refreshIcon
                                         }
                                     />
                                 </span>
@@ -159,7 +162,9 @@ class ListItem extends React.Component {
                             <AddToCart
                                 toggleParentModal={this.toggleModal}
                                 skuNumber={this.props.relatedSku.code}
-                                addToCartLabel={this.props.skuConfig.addToCartLabel}
+                                addToCartLabel={
+                                    this.props.skuConfig.addToCartLabel
+                                }
                                 addToCartUrl={this.props.skuConfig.addToCartUrl}
                             ></AddToCart>
                         </div>
@@ -174,8 +179,6 @@ class ListItem extends React.Component {
             }
         }
     };
-
-
 
     renderBreadcrumb = () => {
         if (this.props.skuConfig.showBreadcrumbs) {
@@ -215,15 +218,17 @@ class ListItem extends React.Component {
     render() {
         const buyInfo = this.renderBuyInfo();
         const breadcrumbs = this.renderBreadcrumb();
-        const isDisabled = this.state.commerce == "DISABLED" ? "disabled" : "";
-            
+        const isDisabled = this.state.commerce == 'DISABLED' ? 'disabled' : '';
+
         return (
             <div className={'cmp-sku-list__container ' + isDisabled}>
                 <div className="cmp-sku-list__right">
-                    <img
-                        src={this.props.relatedSku.primaryImageThumbnail}
-                        alt={this.props.relatedSku.primaryImageAlt}
-                    />
+                    {this.props.relatedSku.primaryImageThumbnail && (
+                        <img
+                            src={this.props.relatedSku.primaryImageThumbnail}
+                            alt={this.props.relatedSku.primaryImageAlt}
+                        />
+                    )}
                 </div>
                 <div className="cmp-sku-details__left">
                     <div className="cmp-sku-list__code">
