@@ -80,11 +80,19 @@ public final class LibraryAsset implements ContentClassification, Asset {
 
     @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
-    private List<Tag> instrumentType = Collections.emptyList();
+    private List<Tag> instrumentTechnique = Collections.emptyList();
 
     @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
-    private List<Tag> technique = Collections.emptyList();
+    private List<Tag> matrix = Collections.emptyList();
+
+    @WatersTagInject
+    @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
+    private List<Tag> compoundAnalyte = Collections.emptyList();
+
+  @WatersTagInject
+  @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
+  private List<Tag> products = Collections.emptyList();
 
     @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
@@ -123,6 +131,11 @@ public final class LibraryAsset implements ContentClassification, Asset {
     }
 
     @Override
+    public List<Tag> getProducts() {
+        return products;
+    }
+
+    @Override
     public List<Tag> getMonthPublished() {
         return monthPublished;
     }
@@ -138,13 +151,19 @@ public final class LibraryAsset implements ContentClassification, Asset {
     }
 
     @Override
-    public List<Tag> getInstrumentType() {
-        return instrumentType;
+    public List<Tag> getInstrumentTechnique() {
+        return instrumentTechnique;
     }
 
     @Override
-    public List<Tag> getTechnique() {
-        return technique;
+    public List<Tag> getCompoundAnalyte() {
+        return compoundAnalyte;
+    }
+
+
+    @Override
+    public List<Tag> getMatrix() {
+        return matrix;
     }
 
     @Override
@@ -169,9 +188,11 @@ public final class LibraryAsset implements ContentClassification, Asset {
             .addAll(market)
             .addAll(yearPublished)
             .addAll(separationMode)
-            .addAll(technique)
-            .addAll(instrumentType)
+            .addAll(compoundAnalyte)
+            .addAll(instrumentTechnique)
             .addAll(event)
+            .addAll(matrix)
+            .addAll(products)
             .build();
     }
 

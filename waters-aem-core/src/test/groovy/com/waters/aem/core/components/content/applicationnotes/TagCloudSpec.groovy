@@ -13,22 +13,22 @@ class TagCloudSpec extends WatersLibrarySpec {
         pageBuilder.content {
             waters {
                 "jcr:content"(
-                    "cq:template": WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE,
-                    contentType: ["/etc/tags/waters/contenttype/applicationnote"],
-                    compoundMatrix: ["/etc/tags/waters/compoundmatrix/first"],
-                    market: ["/etc/tags/waters/market/first", "/etc/tags/waters/market/second"]
+                        "cq:template": WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE,
+                        contentType: ["/etc/tags/waters/contenttype/applicationnote"],
+                        compoundMatrix: ["/etc/tags/waters/matrix/first"],
+                        market: ["/etc/tags/waters/market/first", "/etc/tags/waters/market/second"]
                 ) {
                     tagcloud(
-                        title: "keywords",
-                        tags: ["/etc/tags/waters/compoundmatrix", "/etc/tags/waters/market"]
+                            title: "keywords",
+                            tags: ["/etc/tags/waters/matrix", "/etc/tags/waters/market"]
                     )
                 }
                 library {
                     "jcr:content"(
-                        "cq:template": WatersConstants.TEMPLATE_LIBRARY_PAGE,
-                        (WatersConstants.PROPERTY_LIBRARY_ASSET_PATH): "/content/dam/waters/library/asset.pdf"
+                            "cq:template": WatersConstants.TEMPLATE_LIBRARY_PAGE,
+                            (WatersConstants.PROPERTY_LIBRARY_ASSET_PATH): "/content/dam/waters/library/asset.pdf"
                     ) {
-                        tagcloud(tags: ["/etc/tags/waters/compoundnatrix", "/etc/tags/waters/market"])
+                        tagcloud(tags: ["/etc/tags/waters/matrix", "/etc/tags/waters/market"])
                     }
                 }
             }
@@ -68,19 +68,18 @@ class TagCloudSpec extends WatersLibrarySpec {
         }.adaptTo(TagCloud)
 
         expect:
-        tagCloud.searchFacets.size() == 3
+        tagCloud.searchFacets.size() == 2
 
         and:
-        tagCloud.searchFacets*.name == ["first", "first", "second"]
+        tagCloud.searchFacets*.name == ["first", "second"]
 
         and:
-        tagCloud.searchFacets*.title == ["First Class", "First Market", "Second Market"]
+        tagCloud.searchFacets*.title == ["First Market", "Second Market"]
 
         and:
         tagCloud.searchFacets*.filter == [
-            "compoundmatrix_facet:First Class",
-            "market_facet:First Market",
-            "market_facet:Second Market"
+                "market_facet:First Market",
+                "market_facet:Second Market"
         ]
     }
 }

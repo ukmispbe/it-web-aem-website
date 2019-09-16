@@ -79,35 +79,35 @@ public final class ApplicationNotes implements ContentClassification {
     @WatersTagInject
     private List<Tag> contentType = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Instrument Type", ranking = 6)
+    @DialogField(fieldLabel = "Instrument Technique", ranking = 6)
     @TagInputField
     @WatersTagInject
-    private List<Tag> instrumentType = Collections.emptyList();
+    private List<Tag> instrumentTechnique = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Technique", ranking = 7)
-    @TagInputField
-    @WatersTagInject
-    private List<Tag> technique = Collections.emptyList();
-
-    @DialogField(fieldLabel = "Separation Mode", ranking = 8)
+    @DialogField(fieldLabel = "Separation Mode", ranking = 7)
     @TagInputField
     @WatersTagInject
     private List<Tag> separationMode = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Compound/Matrix", ranking = 9)
+    @DialogField(fieldLabel = "Compound/Analyte", ranking = 8)
     @TagInputField
     @WatersTagInject
-    private List<Tag> compoundMatrix = Collections.emptyList();
+    private List<Tag>  compoundAnalyte = Collections.emptyList();
+
+    @DialogField(fieldLabel = "Matrix", ranking = 9)
+    @TagInputField
+    @WatersTagInject
+    private List<Tag> matrix = Collections.emptyList();
 
     @DialogField(fieldLabel = "Column Type", ranking = 10)
     @TagInputField
     @WatersTagInject
     private List<Tag> columnType = Collections.emptyList();
 
-    @DialogField(fieldLabel = "Software", ranking = 11)
+    @DialogField(fieldLabel = "Products", ranking = 11)
     @TagInputField
     @WatersTagInject
-    private List<Tag> software = Collections.emptyList();
+    private List<Tag> products = Collections.emptyList();
 
     @DialogField(fieldLabel = "Market", ranking = 12)
     @TagInputField
@@ -130,13 +130,13 @@ public final class ApplicationNotes implements ContentClassification {
             .addAll(author)
             .addAll(category)
             .addAll(contentType)
-            .addAll(instrumentType)
-            .addAll(technique)
+            .addAll(instrumentTechnique)
+            .addAll(compoundAnalyte)
             .addAll(separationMode)
             .addAll(columnType)
-            .addAll(software)
+            .addAll(products)
             .addAll(market)
-            .addAll(compoundMatrix)
+            .addAll(matrix)
             .addAll(yearPublished)
             .addAll(affiliations)
             .build();
@@ -157,6 +157,9 @@ public final class ApplicationNotes implements ContentClassification {
         return contentType;
     }
 
+     @Override
+    public List<Tag> getCompoundAnalyte() { return compoundAnalyte; }
+
     @Override
     public List<Tag> getMonthPublished() {
         return monthPublished;
@@ -165,16 +168,6 @@ public final class ApplicationNotes implements ContentClassification {
     @Override
     public List<Tag> getYearPublished() {
         return yearPublished;
-    }
-
-    @Override
-    public List<Tag> getInstrumentType() {
-        return instrumentType;
-    }
-
-    @Override
-    public List<Tag> getTechnique() {
-        return technique;
     }
 
     @Override
@@ -187,6 +180,12 @@ public final class ApplicationNotes implements ContentClassification {
         return market;
     }
 
+    @Override
+    public List<Tag> getInstrumentTechnique() {
+        return instrumentTechnique;
+    }
+
+
     public List<Tag> getAuthor() {
         return author;
     }
@@ -195,12 +194,13 @@ public final class ApplicationNotes implements ContentClassification {
         return columnType;
     }
 
-    public List<Tag> getSoftware() {
-        return software;
+    public List<Tag> getProducts() {
+        return products;
     }
 
-    public List<Tag> getCompoundMatrix() {
-        return compoundMatrix;
+    @Override
+    public List<Tag> getMatrix() {
+        return matrix;
     }
 
     public List<Tag> getAffiliations() {

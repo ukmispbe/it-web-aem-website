@@ -1,8 +1,8 @@
 package com.waters.aem.core.metadata;
 
-import com.day.cq.tagging.Tag;
+        import com.day.cq.tagging.Tag;
 
-import java.util.List;
+        import java.util.List;
 
 /**
  * Page and asset metadata.
@@ -15,13 +15,17 @@ public interface ContentClassification {
 
     List<Tag> getContentType();
 
-    List<Tag> getTechnique();
+    List<Tag> getProducts();
+
+    List<Tag> getMatrix();
 
     List<Tag> getSeparationMode();
 
     List<Tag> getMarket();
 
-    List<Tag> getInstrumentType();
+    List<Tag> getInstrumentTechnique();
+
+    List<Tag> getCompoundAnalyte();
 
     List<Tag> getMonthPublished();
 
