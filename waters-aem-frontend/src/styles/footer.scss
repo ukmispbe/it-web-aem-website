@@ -508,9 +508,6 @@
 }
 
 .cmp-footer__china-legal {
-   position: absolute;
-   right: 0;
-   top: 0;
    font-size: $font-size-small;
    font-weight: $font-weight-light;
 
@@ -533,13 +530,8 @@
          line-height: 1em!important;
       }
 
-      img {
-         position: absolute;
-         bottom: 0;
-      }
-
       span {
-         padding-left: 70px;
+         padding-left: 20px;
       }
    }
 
@@ -554,13 +546,8 @@
          padding-top: $space-l!important;
       }
 
-      img {
-         position: absolute;
-         bottom: 0;
-      }
-
       span {
-         padding-left: 30px;
+         padding-left: 10px;
       }
    }
 }
