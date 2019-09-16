@@ -226,7 +226,10 @@ div.cmp-search__no-results {
             }
         }
         &.break {
-            display: none;
+            a {
+                border: none;
+                color: $color-gray-40;
+            }
         }
     }
 }
