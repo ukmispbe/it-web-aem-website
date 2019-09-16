@@ -20,7 +20,9 @@ class AddToCart extends React.Component {
                 addToCart: this.state.addToCartUrl,
                 getCart: ''
             },
-            err => console.log(err));
+            err => {
+                console.log(err);
+            });
 
         this.quantityInput = this.quantityInput.bind(this);
         this.skuRemoveNegative = this.skuRemoveNegative.bind(this);
@@ -48,8 +50,9 @@ class AddToCart extends React.Component {
             this.props.toggleParentModal(true);
         })
         .catch(err => {
+            this.props.errorObj = err;
             // TODO: Get info for error modal
-            this.props.toggleParentModal(true);
+            this.props.toggleErrorModal(err);
         });
     }
     addToCart = () => {

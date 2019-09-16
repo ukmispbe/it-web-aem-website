@@ -1,16 +1,18 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
 import AccountDropDownList from '../account-dropdown/account-dropdown-list';
+import ErrorMessages from '../scripts/ErrorMessages';
 
 class Modal extends React.Component {
     constructor(props) {
         super(props);
-        
+
         if (props.config && props.open && props.theme && props.toggleModal) {
             this.state = {
                 open: props.open,
                 config: props.config,
                 theme: props.theme,
+                errorObj: this.props.errorObj
             };
         }
     }
@@ -20,6 +22,7 @@ class Modal extends React.Component {
             open: props.open,
             config: props.config,
             theme: props.theme,
+            errorObj: this.props.errorObj
         });
     }
 
@@ -44,18 +47,25 @@ class Modal extends React.Component {
             this.setState({
                 theme: null,
                 config: null,
+                errorObj: null
             });
         } else {
             this.setState({
                 open: false,
                 theme: null,
                 config: null,
+                errorObj: null
             });
         }
     };
 
     shouldRender = {
         title: (title, icon) => {
+
+            if (this.state.errorObj && this.state.errorObj.ok === false) {
+                title = ErrorMessages.ErrorMessages(this.props.errorObj).anErrorHasOccurred;
+                icon = ErrorMessages.ErrorMessages(this.props.errorObj).modalImage;
+            }
             if (title) {
                 return (
                     <div className="cmp-modal__title">
@@ -163,12 +173,24 @@ class Modal extends React.Component {
                    {modalBody}
                 </>
             )
-        } else {           
-            let modalBody = this.shouldRender.body(
-                state.config.text,
-                state.config.textHeading
-            );
-            let buttons = this.shouldRender.buttons(state.config.buttons);
+        } else {     
+            // Use the Error Object to modify the Modal Output
+            let modalBody = null;
+            let buttons = null;
+            if (this.state.errorObj && this.state.errorObj.ok === false) {
+                modalBody = this.shouldRender.body(
+                    ErrorMessages.ErrorMessages(this.props.errorObj).wereSorry,
+                    ""
+                );
+            }
+            else {
+                modalBody = this.shouldRender.body(
+                    state.config.text,
+                    state.config.textHeading
+                );
+                buttons = this.shouldRender.buttons(state.config.buttons);
+            }
+
 
             return (
                 <>

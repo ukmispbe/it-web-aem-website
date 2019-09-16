@@ -12,16 +12,18 @@ function ErrorMessages (errorObj) {
                 tryAgainLater:          skuDetailsConfig.errorInfo.tryAgainLater,
                 img:                    "lowStockIcon",
                 anErrorHasOccurred:     skuDetailsConfig.errorInfo.anErrorHasOccurred,
-                wereSorry:              skuDetailsConfig.errorInfo.wereSorry
+                wereSorry:              skuDetailsConfig.errorInfo.wereSorry,
+                modalImage:             skuDetailsConfig.skuInfo.lowStockIcon
             }
             break;      
         default:  
             messageObj = {
-                serviceUnavailable:   skuDetailsConfig.errorInfo.serviceUnavailable,
-                tryAgainLater:      skuDetailsConfig.errorInfo.tryAgainLater,
-                img:                "outOfStockIcon",
-                anErrorHasOccurred: skuDetailsConfig.errorInfo.anErrorHasOccurred,
-                wereSorry:          skuDetailsConfig.errorInfo.wereSorry
+                serviceUnavailable:     skuDetailsConfig.errorInfo.serviceUnavailable,
+                tryAgainLater:          skuDetailsConfig.errorInfo.tryAgainLater,
+                img:                    "lowStockItem",
+                anErrorHasOccurred:     skuDetailsConfig.errorInfo.anErrorHasOccurred,
+                wereSorry:              skuDetailsConfig.errorInfo.wereSorry,
+                modalImage:             skuDetailsConfig.skuInfo.lowStockIcon
             }
             break;
     }
@@ -31,6 +33,3 @@ function ErrorMessages (errorObj) {
 export default {
     ErrorMessages: ErrorMessages
 }
-    
-	
-	
