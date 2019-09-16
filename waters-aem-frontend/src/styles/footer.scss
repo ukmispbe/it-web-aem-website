@@ -104,6 +104,7 @@
     text-align: left;
     display: inline-block;
     margin-left: $space-s;
+    position: relative;
     @include mobile {
         width: 100%;
         margin-right: 0;
@@ -135,6 +136,12 @@
         &:first-of-type {
             padding-left: 0;
         }
+    }
+
+    &.china-legal {
+       @include mobile {
+         margin-bottom: 150px;
+       }  
     }
 }
 
@@ -498,4 +505,62 @@
             }
         }
     }
+}
+
+.cmp-footer__china-legal {
+   position: absolute;
+   right: 0;
+   top: 0;
+   font-size: $font-size-small;
+   font-weight: $font-weight-light;
+
+   @include tablet-and-under {
+      position: relative;
+      padding-top: $space-l + 0.5em;
+   }
+
+   @include mobile {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      padding-top: $space-xxl;
+   }
+
+   &-sICP {
+      position: relative;
+
+      @include tablet-and-under {
+         line-height: 1em!important;
+      }
+
+      img {
+         position: absolute;
+         bottom: 0;
+      }
+
+      span {
+         padding-left: 70px;
+      }
+   }
+
+   &-bPNS {
+      position: relative;
+
+      @include tablet-and-under {
+         line-height: 1em!important;
+      }
+
+      @include mobile {
+         padding-top: $space-l!important;
+      }
+
+      img {
+         position: absolute;
+         bottom: 0;
+      }
+
+      span {
+         padding-left: 30px;
+      }
+   }
 }
