@@ -510,6 +510,7 @@
 .cmp-footer__china-legal {
    font-size: $font-size-small;
    font-weight: $font-weight-light;
+   margin-top: $space-s;
 
    @include tablet-and-under {
       position: relative;
