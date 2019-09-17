@@ -25,6 +25,10 @@
             &:focus {
                 color: $color-link-hover;
                 text-decoration: none;
+
+                svg .st0 {
+                    stroke: $color-link-hover;
+                }
             }
         }
     }
@@ -36,7 +40,7 @@
         height: $icon-s;
 
         .st0 {
-            stroke: $color-icon;
+            stroke: $color-link;
         }
     }
 
@@ -73,7 +77,7 @@
     &:focus {
         a {
             color: $color-link-hover;
-            text-decoration: none;
+            text-decoration: underline;
         }
     }
 }
