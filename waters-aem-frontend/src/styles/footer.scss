@@ -416,6 +416,7 @@
 
                 @supports (display: inline-grid) {
                     display: inline-block;
+                    white-space: normal;
                 }
 
                 &:hover {
