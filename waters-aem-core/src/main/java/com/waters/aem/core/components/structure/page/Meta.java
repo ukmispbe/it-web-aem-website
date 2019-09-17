@@ -8,6 +8,7 @@ import com.citytechinc.cq.component.annotations.widgets.Selection;
 import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.commons.Externalizer;
+import com.day.cq.commons.LanguageUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.page.PageDecorator;
@@ -57,6 +58,8 @@ public final class Meta extends AbstractComponent {
     private static final String DEFAULT_TWITTER_CARD = "summary_large_image";
 
     private static final String DEFAULT_OG_TYPE = "none";
+
+    private static final String DEFAULT_HREF_LANG_PATH = WatersConstants.ROOT_PATH + "/us/en";
 
     @Self
     private Resource resource;
@@ -227,6 +230,17 @@ public final class Meta extends AbstractComponent {
 
     public boolean isHomepage() {
         return Templates.isHomePage(currentPage);
+    }
+
+    public String getDefaultHreflang() {
+        final String languageRootPath = LanguageUtil.getLanguageRoot(currentPage.getPath());
+
+        final String relativeContentPath = LocaleUtils.getRelativeContentPath(languageRootPath, currentPage.getPath());
+
+        return Optional.ofNullable(
+                currentPage.getPageManager().getPage(DEFAULT_HREF_LANG_PATH + "/" + relativeContentPath))
+                .map(page -> externalize(page.getHref()))
+                .orElse(null);
     }
 
     private String getThumbnailImage() {
