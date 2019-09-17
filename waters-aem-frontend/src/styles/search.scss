@@ -226,7 +226,10 @@ div.cmp-search__no-results {
             }
         }
         &.break {
-            display: none;
+            a {
+                border: none;
+                color: $color-gray-40;
+            }
         }
     }
 }
@@ -498,6 +501,7 @@ html.showing-spinner {
             .btn-show-sort-filter {
                 display: block;
                 @include sticky-show-sort;
+                z-index: ($cmp-banner-z-index + 1)!important;
                 .filterIcon {
                     display: none;
                 }

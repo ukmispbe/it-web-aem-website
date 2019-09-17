@@ -19,12 +19,17 @@
         a {
             div{
                 display: inline-block;
+                float: left;
             }
 
             &:hover,
             &:focus {
                 color: $color-link-hover;
-                text-decoration: none;
+                text-decoration: underline;
+
+                svg .st0 {
+                    stroke: $color-link-hover;
+                }
             }
         }
     }
@@ -36,7 +41,7 @@
         height: $icon-s;
 
         .st0 {
-            stroke: $color-icon;
+            stroke: $color-link;
         }
     }
 
@@ -73,7 +78,11 @@
     &:focus {
         a {
             color: $color-link-hover;
-            text-decoration: none;
+            text-decoration: underline;
+        }
+
+        div:nth-child(2) a {
+           text-decoration: none;
         }
     }
 }
