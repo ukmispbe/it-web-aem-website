@@ -19,12 +19,13 @@
         a {
             div{
                 display: inline-block;
+                float: left;
             }
 
             &:hover,
             &:focus {
                 color: $color-link-hover;
-                text-decoration: none;
+                text-decoration: underline;
 
                 svg .st0 {
                     stroke: $color-link-hover;
@@ -78,6 +79,10 @@
         a {
             color: $color-link-hover;
             text-decoration: underline;
+        }
+
+        div:nth-child(2) a {
+           text-decoration: none;
         }
     }
 }
