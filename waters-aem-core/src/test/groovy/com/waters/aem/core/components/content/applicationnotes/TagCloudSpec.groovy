@@ -19,14 +19,14 @@ class TagCloudSpec extends WatersLibrarySpec {
                         market: ["/etc/tags/waters/market/first", "/etc/tags/waters/market/second"]
                 ) {
                     tagcloud(
-                            title: "keywords",
-                            tags: ["/etc/tags/waters/matrix", "/etc/tags/waters/market"]
+                        title: "keywords",
+                        tags: ["/etc/tags/waters/matrix", "/etc/tags/waters/market"]
                     )
                 }
                 library {
                     "jcr:content"(
-                            "cq:template": WatersConstants.TEMPLATE_LIBRARY_PAGE,
-                            (WatersConstants.PROPERTY_LIBRARY_ASSET_PATH): "/content/dam/waters/library/asset.pdf"
+                        "cq:template": WatersConstants.TEMPLATE_LIBRARY_PAGE,
+                        (WatersConstants.PROPERTY_LIBRARY_ASSET_PATH): "/content/dam/waters/library/asset.pdf"
                     ) {
                         tagcloud(tags: ["/etc/tags/waters/matrix", "/etc/tags/waters/market"])
                     }
@@ -78,8 +78,8 @@ class TagCloudSpec extends WatersLibrarySpec {
 
         and:
         tagCloud.searchFacets*.filter == [
-                "market_facet:First Market",
-                "market_facet:Second Market"
+            "market_facet:First Market",
+            "market_facet:Second Market"
         ]
     }
 }

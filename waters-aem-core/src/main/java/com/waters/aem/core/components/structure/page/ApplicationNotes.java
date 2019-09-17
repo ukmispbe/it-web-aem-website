@@ -157,8 +157,10 @@ public final class ApplicationNotes implements ContentClassification {
         return contentType;
     }
 
-     @Override
-    public List<Tag> getCompoundAnalyte() { return compoundAnalyte; }
+    @Override
+    public List<Tag> getCompoundAnalyte() {
+        return compoundAnalyte;
+    }
 
     @Override
     public List<Tag> getMonthPublished() {

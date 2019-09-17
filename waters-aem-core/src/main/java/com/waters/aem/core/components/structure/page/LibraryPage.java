@@ -44,7 +44,9 @@ public final class LibraryPage implements ContentClassification {
     }
 
     @Override
-    public List<Tag> getProducts() { return libraryAsset.getProducts(); }
+    public List<Tag> getProducts() {
+        return libraryAsset.getProducts();
+    }
 
     @Override
     public List<Tag> getMonthPublished() {

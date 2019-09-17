@@ -90,9 +90,9 @@ public final class LibraryAsset implements ContentClassification, Asset {
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> compoundAnalyte = Collections.emptyList();
 
-  @WatersTagInject
-  @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
-  private List<Tag> products = Collections.emptyList();
+    @WatersTagInject
+    @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
+    private List<Tag> products = Collections.emptyList();
 
     @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
