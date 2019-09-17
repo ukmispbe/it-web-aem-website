@@ -5,9 +5,9 @@
     overflow-y: hidden;
     white-space: nowrap;
     margin-bottom: -4.5em;
-    margin-top: 2em;
+    margin-top: ($space-xxl + 2);
 
-    @include mobile {
+    @include tablet-and-under {
        margin-top: 0;
     }
 
