@@ -3,7 +3,6 @@
 import './styles/index.scss';
 import './scripts/stickyService';
 import './scripts/backtotop';
-import './scripts/share';
 import './scripts/anchor';
 import './scripts/sticky-sort-filter';
 import './scripts/sticky-sku-details';
