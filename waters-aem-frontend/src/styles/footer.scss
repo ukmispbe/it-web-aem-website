@@ -521,7 +521,8 @@
       position: absolute;
       top: 100%;
       left: 0;
-      padding-top: $space-xxl;
+      margin-top: 0;
+      padding-top: $space-l;
    }
 
    &-sICP {
