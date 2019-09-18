@@ -1,5 +1,5 @@
 .categories-type-menu-container {
-    margin-top: $space-xl;
+    margin-top: $space-l;
 
     @include tablet-and-under {
         margin-top: $space-l;
@@ -15,6 +15,7 @@
         flex-flow: wrap;
         width: 100%;
         padding-bottom: $space-s;
+        margin-left: -4px;
         
         a {
             div{
@@ -39,6 +40,7 @@
         top: 3px;
         width: $icon-s;
         height: $icon-s;
+        margin-right: $space-xxxs;
 
         .st0 {
             stroke: $color-link;

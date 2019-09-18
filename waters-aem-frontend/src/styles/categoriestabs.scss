@@ -4,7 +4,7 @@
     overflow-x: hidden;
     overflow-y: hidden;
     white-space: nowrap;
-    margin-bottom: -4.5em;
+    margin-bottom: -3.5em;
     margin-top: ($space-xxl + 2);
 
     @include tablet-and-under {
@@ -58,7 +58,7 @@
     }
 
     &--tab {
-        padding: 0.5625em $space-s;
+        padding: 0.5625em $space-m;
         border: 1px solid $color-border-light;
         border-left: none;
         display: inline-block;

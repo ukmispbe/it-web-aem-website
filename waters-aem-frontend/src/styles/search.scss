@@ -46,10 +46,6 @@
     }
 
     .cmp-search-filters__tags {
-        @include mobile {
-            margin-top: -30px;
-        }
-
         @include tablet {
             width: 100%;
             padding: 1em 0;
@@ -93,8 +89,13 @@
         }
 
         &.skuitem {
-            padding-bottom: $space-s;
-            margin-top: 0;
+            padding-bottom: $space-m;
+            margin-top: -$space-xs;
+
+            @include mobile {
+                margin-top: 0;
+                padding-bottom: $space-s;
+            }
         }
     }
 }
@@ -289,6 +290,7 @@ div.cmp-search__no-results {
             margin-bottom: 0;
         }
         @include mobile {
+            margin-bottom: $space-m;
             svg {
                 margin: 0 2% 0 0;
             }
@@ -306,7 +308,7 @@ div.cmp-search__no-results {
 }
 
 .cmp-search-category-dropdown{
-    margin-bottom: $space-m;
+    margin-bottom: $space-s;
 
     text-decoration: none;
     &:hover {
@@ -355,6 +357,9 @@ div.cmp-search__no-results {
         margin-bottom: 0;
         padding-bottom: $space-m;
     }
+    @include mobile {
+        padding-bottom: 0;
+    }
 }
 
 .cmp-search__resultsCount-container {
@@ -363,7 +368,7 @@ div.cmp-search__no-results {
     width: 70%;
 
     @include tablet-and-over {
-        margin-bottom: 8em;
+        margin-bottom: 6em;
     }
 
     @include tablet-and-under {
