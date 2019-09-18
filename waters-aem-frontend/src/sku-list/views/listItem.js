@@ -45,6 +45,12 @@ class ListItem extends React.Component {
         this.toggleModal = this.toggleModal.bind(this);
     }
 
+    toggleErrorModal = (err) => {
+        // Add Error Object to State
+        this.setState({ errorObj: err });
+        this.setState({ modalShown: !this.state.modalShown })
+    };
+    
     toggleModal = () => {
         this.setState({ modalShown: !this.state.modalShown }, () => {
             if (this.state.modalShown) {
@@ -130,16 +136,21 @@ class ListItem extends React.Component {
                                 )
                             }
                         >
-                            {this.state.skuAvailability.productStatus && (
+                            {(this.state.skuAvailability.productStatus ||
+                            (this.state && this.state.errorObj && this.state.errorObj.ok === false)) 
+                            && (
                                 <Stock
                                     skuConfig={this.props.skuConfig.skuInfo}
                                     skuNumber={this.props.relatedSku.code}
                                     skuAvailability={this.state.skuAvailability}
                                     locale={this.props.skuConfig.locale}
                                     skuType="details"
+                                    errorObj={this.state.errorObj}
                                 />
                             )}
-                            {!this.state.skuAvailability.productStatus && (
+                            {(!this.state.skuAvailability.productStatus && 
+                            !(this.state && this.state.errorObj && this.state.errorObj.ok === false)) 
+                            && (
                                 <span className="cmp-sku-list__checkavailability">
                                     {
                                         this.props.skuConfig.skuInfo
@@ -166,6 +177,7 @@ class ListItem extends React.Component {
                                     this.props.skuConfig.addToCartLabel
                                 }
                                 addToCartUrl={this.props.skuConfig.addToCartUrl}
+                                toggleErrorModal={this.toggleErrorModal}
                             ></AddToCart>
                         </div>
                         <Modal
@@ -173,6 +185,7 @@ class ListItem extends React.Component {
                             open={this.state.modalShown}
                             theme="callToAction"
                             config={this.state.modalInfo}
+                            errorObj={this.state.errorObj}
                         />
                     </div>
                 );

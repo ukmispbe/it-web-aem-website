@@ -81,6 +81,12 @@ class SkuDetails extends React.Component {
         });
     };
 
+    toggleErrorModal = (err) => {
+        // Add Error Object to State
+        this.setState({ errorObj: err });
+        this.setState({ modalShown: !this.state.modalShown })
+    };
+
     commerceView = (view) => { 
         if (view == 'DISABLED') {
             return (
@@ -120,6 +126,7 @@ class SkuDetails extends React.Component {
                                 skuNumber={this.state.skuNumber}
                                 addToCartLabel={this.props.config.addToCartLabel}
                                 addToCartUrl={this.props.config.addToCartUrl}
+                                toggleErrorModal={this.toggleErrorModal}
                             ></AddToCart>
                         </div>
                         <Modal
@@ -127,6 +134,7 @@ class SkuDetails extends React.Component {
                         open={this.state.modalShown}
                         theme="callToAction"
                         config={this.state.modalInfo}
+                        errorObj={this.state.errorObj}
                         />
                 </div>
             );
