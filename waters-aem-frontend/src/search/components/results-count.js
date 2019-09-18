@@ -42,7 +42,7 @@ const ResultsCount = (props) => {
 
     const getRelatedSuggestionLinks = words => words.map(word => getRelatedSuggestionLink(word));
 
-    const getResultsText = () => props.text.resultsText.replace(/[{]startResults[}]/, startResults).replace(/[{]endResults[}]/, endResults).replace(/[{]count[}]/, props.count);
+    const getResultsText = () => props.text.resultsText.replace(/[{]startResults[}]/, startResults.toLocaleString(undefined, {maximumFractionDigits:0})).replace(/[{]endResults[}]/, endResults.toLocaleString(undefined, {maximumFractionDigits:0})).replace(/[{]count[}]/, props.count.toLocaleString(undefined, {maximumFractionDigits:0}));
 
     return <div className="cmp-search__resultsCount-container">
         <h2 className="cmp-search__resultsCount">
