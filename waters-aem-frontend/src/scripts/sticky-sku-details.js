@@ -4,8 +4,11 @@ import ScreenSizes from '../scripts/screenSizes';
 
 const SKUDetatilsSticky = () => {
     const skuDetails = document.querySelector('.cmp-sku-details');
+
     if (skuDetails) { 
-        const commerceState = skuDetails.dataset.commerce;
+        const footer = document.querySelector('#footer');
+        const commerceState = footer.dataset.commerce;
+
         if (commerceState != 'DISABLED') { 
             sticky.add({
                 element: skuDetails,
@@ -16,19 +19,16 @@ const SKUDetatilsSticky = () => {
                     amount: 60,
                 },
                 conditions: (element) => { 
-                    const commerceState = element.dataset.commerce;
+                    const footer = document.querySelector('#footer');
+                    const commerceState = footer.dataset.commerce;
+                    const registeredUserSap = footer.dataset.registeredUserSap;
                     const loggedIn = LoginStatus.state();
-                    const isMobile = ScreenSizes.isMobile();
 
                     if (commerceState == 'PARTIAL_ENABLED') {
-                        if (!loggedIn) {
-                            if (isMobile) {
-                                return false;
-                            } else { 
-                                return true;
-                            }
-                        } else { 
+                        if (loggedIn && registeredUserSap) {
                             return true;
+                        } else { 
+                            return false;
                         }
                     } else { 
                         return true;

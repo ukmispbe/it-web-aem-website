@@ -24,6 +24,7 @@ class SkuDetails extends React.Component {
             addToCartQty: undefined,
             defaultPrice: this.props.price,
             commerce: this.props.config.commerceConfig.currentState,
+            registeredUserSap: this.props.config.commerceConfig.registeredUserSap,
             locale: this.props.config.locale,
             modalInfo: {
                 ...this.props.config.modalInfo,
@@ -81,37 +82,45 @@ class SkuDetails extends React.Component {
         });
     };
 
-    renderAddToCartAndModal = () => { 
-        if ((this.state.commerce == 'PARTIAL_ENABLED' && LoginStatus.state()) ||
-            (this.state.commerce != 'PARTIAL_ENABLED' && this.state.commerce != 'DISABLED')
-        ) {
-            return (
-                <>
-                    <div className="cmp-sku-details__buttons">
-                        <AddToCart
-                            toggleParentModal={this.toggleModal}
-                            skuNumber={this.state.skuNumber}
-                            addToCartLabel={this.props.config.addToCartLabel}
-                            addToCartUrl={this.props.config.addToCartUrl}
-                        ></AddToCart>
-                    </div>
-                    <Modal
-                        toggleModal={this.toggleModal}
-                        open={this.state.modalShown}
-                        theme="callToAction"
-                        config={this.state.modalInfo}
+    renderBuyInfo = () => { 
+        return (
+            <div className="cmp-sku-details__buyinfo">
+                <div className="cmp-sku-details__priceinfo">
+                    <Price
+                        skuConfig={this.state.skuConfig}
+                        price={this.state.defaultPrice}
                     />
-                </>
-            );
-
-        } else { 
-            return (null)
-        }
+                </div>
+                <div className="cmp-sku-details__availability">
+                    <Stock
+                        skuConfig={this.state.skuConfig}
+                        skuNumber={this.state.skuNumber}
+                        skuAvailability={this.state.skuAvailability}
+                        locale={this.state.locale}
+                        skuType="details"
+                        errorObj={this.state.errorObj}
+                    />
+                </div>
+                <div className="cmp-sku-details__buttons">
+                    <AddToCart
+                        toggleParentModal={this.toggleModal}
+                        skuNumber={this.state.skuNumber}
+                        addToCartLabel={this.props.config.addToCartLabel}
+                        addToCartUrl={this.props.config.addToCartUrl}
+                    ></AddToCart>
+                </div>
+                <Modal
+                    toggleModal={this.toggleModal}
+                    open={this.state.modalShown}
+                    theme="callToAction"
+                    config={this.state.modalInfo}
+                />
+            </div>
+        );
     }
 
-    commerceView = () => { 
+    render() {
         const disabled = this.state.commerce == 'DISABLED' ? true : false;
-
         if (disabled) {
             return (
                     <div className="cmp-sku-details__buyinfodisabled">
@@ -126,36 +135,21 @@ class SkuDetails extends React.Component {
                     </div>
             );
         } else { 
-            return (
-                <div className="cmp-sku-details__buyinfo">
-                        <div className="cmp-sku-details__priceinfo">
-                            <Price
-                                skuConfig={this.state.skuConfig}
-                                price={this.state.defaultPrice}
-                            />
-                        </div>
-                        <div className="cmp-sku-details__availability">
-                            <Stock
-                                skuConfig={this.state.skuConfig}
-                                skuNumber={this.state.skuNumber}
-                                skuAvailability={this.state.skuAvailability}
-                                locale={this.state.locale}
-                                skuType="details"
-                                errorObj={this.state.errorObj}
-                            />
-                    </div>
-                    {this.renderAddToCartAndModal()}
-                </div>
-            );
+            
+            //FUTURE STATE -- SAP USER THAT'S LOGGED IN WILL BE SHOWN BUY INFO IN PARTIAL ENABLED REGIONS
+            // RIGHT NOW this.state.stateregisteredUserSAP is always false, comes from footer
+            if ((this.state.commerce == 'PARTIAL_ENABLED' && LoginStatus.state()) && this.state.registeredUserSap ||
+                (this.state.commerce != 'PARTIAL_ENABLED' && this.state.commerce != 'DISABLED')
+            ) {
+                return (
+                    <>
+                        {this.renderBuyInfo()}
+                    </>
+                );
+            } else { 
+                return (null)
+            }
         }
-     }
-
-    render() {
-        return (
-            <>
-                {this.commerceView()}
-            </>
-        );
     }
 }
 

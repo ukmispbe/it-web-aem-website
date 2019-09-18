@@ -270,6 +270,10 @@ public final class Footer extends AbstractComponent implements ComponentExporter
         return siteContext.getCountryCommerceConfig();
     }
 
+    public Boolean isRegisteredUserSap() {
+        return false;
+    }
+
     @Nonnull
     @Override
     public String getExportedType() {
