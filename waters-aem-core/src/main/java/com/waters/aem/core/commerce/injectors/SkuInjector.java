@@ -8,6 +8,7 @@ import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.commerce.services.SkuRepository;
 import com.waters.aem.core.utils.InjectorUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.scripting.SlingBindings;
 import org.apache.sling.models.spi.DisposalCallbackRegistry;
 import org.apache.sling.models.spi.Injector;
@@ -44,15 +45,20 @@ public final class SkuInjector implements Injector {
         Sku sku = null;
 
         if (type == Sku.class) {
+            PageDecorator currentPage;
             final SlingHttpServletRequest request = InjectorUtils.getRequest(adaptable);
 
             if (request != null) {
-                final PageDecorator currentPage = getCurrentPage(request);
+                currentPage = getCurrentPage(request);
+            } else {
+                final Resource resource = InjectorUtils.getResource(adaptable);
 
-                sku = skuRepository.getSku(currentPage);
-
-                LOG.info("current page = {}, injecting SKU = {}", currentPage.getPath(), sku);
+                currentPage = resource != null ? getCurrentPage(resource) : null;
             }
+
+            sku = skuRepository.getSku(currentPage);
+
+            LOG.info("current page = {}, injecting SKU = {}", currentPage.getPath(), sku);
         }
 
         return sku;
@@ -72,5 +78,11 @@ public final class SkuInjector implements Injector {
         }
 
         return currentPage;
+    }
+
+    private PageDecorator getCurrentPage(final Resource resource) {
+        final PageManagerDecorator pageManager = resource.getResourceResolver().adaptTo(PageManagerDecorator.class);
+
+        return pageManager.getContainingPage(resource);
     }
 }
