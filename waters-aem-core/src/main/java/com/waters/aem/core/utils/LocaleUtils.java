@@ -2,6 +2,7 @@ package com.waters.aem.core.utils;
 
 import com.day.cq.commons.LanguageUtil;
 import com.icfolson.aem.library.api.page.PageDecorator;
+import com.waters.aem.core.constants.WatersConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,7 +127,27 @@ public final class LocaleUtils {
         return languagePages;
     }
 
-    private static String getRelativeContentPath(final String languageRootPath, final String contentPath) {
+    /**
+     * Determines if a page exists under the defined path for global region pages.
+     *
+     * @param page the page to test
+     * @return true if the provided page is within the global region page path
+     */
+    public static boolean isGlobalRegionPage(final PageDecorator page) {
+        return page.getPath().startsWith(WatersConstants.ROOT_PATH_GLOBAL_REGIONS);
+    }
+
+    /**
+     * Gets the content path relative to the language root.
+     *
+     * For example, given a page path at /content/waters/us/en/library/app-notes, the language node is
+     * /content/waters/us/en, therefore the returned relative path would be "library/app-notes".
+     *
+     * @param languageRootPath language root path
+     * @param contentPath the absolute content path used to find the relative content path
+     * @return the content path relative to the language root
+     */
+    public static String getRelativeContentPath(final String languageRootPath, final String contentPath) {
         return contentPath.substring(languageRootPath.length()).replaceFirst("/", "");
     }
 
