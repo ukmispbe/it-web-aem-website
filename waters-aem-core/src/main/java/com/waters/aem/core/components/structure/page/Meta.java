@@ -65,9 +65,8 @@ public final class Meta extends AbstractComponent {
 
     private static final String DEFAULT_OG_TYPE = "none";
 
-
-    @OSGiService
-    private SkuRepository skuRepository;
+    @Inject
+    private Sku sku;
 
     @Self
     private Resource resource;
@@ -93,10 +92,6 @@ public final class Meta extends AbstractComponent {
 
     public String getDescription() {
         return currentPage.getDescription();
-    }
-
-    private Sku getSku() {
-        return skuRepository.getSku(currentPage);
     }
 
     @DialogField(fieldLabel = "Canonical URL",
@@ -242,22 +237,22 @@ public final class Meta extends AbstractComponent {
         properties.put("description", getDescription());
         properties.put("name", getTitle());
         properties.put("image", getThumbnailImage());
-        properties.put("sku", getSkuCode());
-        properties.put("brand", getBrand());
+
+        if (sku != null) {
+            properties.put("sku", sku.getCode());
+            properties.put("brand", getBrand());
+        }
 
         return MAPPER.writeValueAsString(properties);
     }
 
-    private String getSkuCode() {
-        return getSku().getCode();
-    }
-
     private String getBrand() {
-        Optional<Classification> classificationOptional = getSku().getClassifications().stream().filter(
-        classification ->
-        classification.getCode().contains("brand")).findFirst();
-
-        return classificationOptional.isPresent() ? classificationOptional.get().getFeatureValues()[0] : "";
+        return sku.getClassifications()
+                .stream()
+                .filter(classification -> classification.getCode().contains("brand"))
+                .findFirst()
+                .map(classification -> classification.getFeatureValues()[0])
+                .orElse("");
     }
 
     public List<HrefLangItem> getHrefLangItems() {
@@ -277,7 +272,6 @@ public final class Meta extends AbstractComponent {
     public boolean isLibraryPage() {
         return Templates.isLibraryPage(currentPage) || Templates.isApplicationNotesPage(currentPage);
     }
-
 
     private String getThumbnailImage() {
         return Optional.ofNullable(thumbnail.getThumbnailImageRendition())
