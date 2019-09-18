@@ -15,6 +15,7 @@
     width: 75%;
     float: left;
     padding-left: 2%;
+    margin-top: 2em;
     &__header {
         width: 60%;
         margin-left: -15%;
@@ -359,20 +360,12 @@ div.cmp-search__no-results {
 
 .cmp-search__resultsCount-container {
     position: relative;
-    top: -95px;
+    left: 27%;
     width: 70%;
 
-    @include tablet-and-over {
-        margin-bottom: 8em;
-    }
-
     @include tablet-and-under {
-        top: 0;
         width: 100%;
-    }
-
-    @include tablet {
-        margin-bottom: $space-xl + 0.5;
+        left: 0;
     }
 
     @include mobile {

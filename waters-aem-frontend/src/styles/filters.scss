@@ -235,7 +235,7 @@
     &__tags {
         display: flex;
         flex-wrap: wrap;
-        margin-top: 2.75em;
+        margin-top: $space-xs;
         margin-bottom: $space-s;
 
         a {
