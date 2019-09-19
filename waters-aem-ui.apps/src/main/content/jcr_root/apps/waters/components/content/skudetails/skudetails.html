@@ -7,10 +7,10 @@
             <div class="cmp-sku-details__heading">
                 <img src="${sku.primaryImageThumbnail}" alt="${sku.primaryImageAlt}">
                 <div class="cmp-sku-details__info">
-                    <div class="cmp-sku-details__code">${sku.code}</div>
-                    <h1 id="skuTitle">${sku.title}</h1>
-                    <h1>${sku.replacementSkuCode}</h1>
-                    <h1>${isActive}</h1>
+                    <h1>
+                        <span class="cmp-sku-details__code">Part Number: ${sku.code}</span><br/>
+                        <span id="skuTitle">${sku.title}</span>
+                    </h1>
                 </div>
                 <!--<a href="#" class="cmp-sku-details__signin">
                     <img alt="${'Login' @ i18n}" src="/content/dam/waters/brand-assets/icons/user.svg" class="inline-svg">

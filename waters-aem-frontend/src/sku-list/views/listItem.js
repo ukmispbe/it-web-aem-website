@@ -237,7 +237,7 @@ class ListItem extends React.Component {
                 </div>
                 <div className="cmp-sku-details__left">
                     <div className="cmp-sku-list__code">
-                        {this.props.relatedSku.code}
+                        {"Part Number: " + this.props.relatedSku.code}
                     </div>
                     <a
                         onClick={() => this.setStorageProperties()}
