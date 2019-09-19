@@ -22,8 +22,6 @@ public final class HybrisImporterConstants {
 
     public static final String IMPORTER_PAGE_PATH = "/etc/waters/hybris-importer";
 
-    public static final String IMAGE_PRIMARY = "PRIMARY";
-
     private HybrisImporterConstants() {
 
     }
