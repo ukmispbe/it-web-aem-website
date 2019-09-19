@@ -153,7 +153,7 @@ div.cmp-search__no-results {
             margin: 0 $space-xxs 0 0;
             border: 1px solid $color-border-light;
             float: left;
-            padding-top: ($space-xxs - .1em);
+            padding-top: ($space-xxs - 0.1em);
             text-decoration: none;
             text-align: center;
             height: $button-fixed;
@@ -305,7 +305,7 @@ div.cmp-search__no-results {
     }
 }
 
-.cmp-search-category-dropdown{
+.cmp-search-category-dropdown {
     margin-bottom: $space-m;
 
     text-decoration: none;
@@ -333,7 +333,7 @@ div.cmp-search__no-results {
     @include tablet {
         margin-right: $space-xxs;
 
-        .css-1l0huv0-control.cmp-custom-dropdown__control{
+        .css-1l0huv0-control.cmp-custom-dropdown__control {
             max-height: 51px;
         }
     }
@@ -343,12 +343,10 @@ div.cmp-search__no-results {
             margin: 0 2% 0 0;
         }
     }
-
-
 }
 
 .cmp-search-show-btn,
-.cmp-search-category-dropdown{
+.cmp-search-category-dropdown {
     @include tablet {
         float: left;
         width: 165px;
@@ -433,15 +431,15 @@ div.cmp-search__no-results {
     }
 }
 
-.cmp-search__sorted-container{
+.cmp-search__sorted-container {
     @include mobile {
         display: flex;
         flex-wrap: wrap;
 
-        .cmp-search__sorted-by{
+        .cmp-search__sorted-by {
             order: 2;
         }
-        .cmp-search-filters__tag{
+        .cmp-search-filters__tag {
             order: 1;
         }
     }
@@ -460,10 +458,8 @@ div.cmp-search__no-results {
         display: block;
         padding-top: $space-s;
 
-
         float: right;
         width: auto;
-
     }
 }
 
@@ -501,7 +497,7 @@ html.showing-spinner {
             .btn-show-sort-filter {
                 display: block;
                 @include sticky-show-sort;
-                z-index: ($cmp-banner-z-index + 1)!important;
+                z-index: ($cmp-banner-z-index + 1) !important;
                 .filterIcon {
                     display: none;
                 }
@@ -539,10 +535,10 @@ html.showing-spinner {
 }
 
 @include tablet-and-under {
-   #js-search-app {
-      .overlay {
-         position: fixed;
-         z-index: 1;
-      }
-   }
+    #js-search-app {
+        .overlay {
+            position: fixed;
+            z-index: 1;
+        }
+    }
 }
