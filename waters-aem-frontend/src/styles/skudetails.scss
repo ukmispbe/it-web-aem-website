@@ -242,7 +242,7 @@
 
         .cmp-sku-details__code {
             @include font-utility;
-            font-size: $font-size-body;
+            font-size: ($font-size-body / 1.1 * 1.2);
             margin-bottom: 0;
         }
 
@@ -366,6 +366,7 @@
 .cmp-sku-details {
     &__code {
         @include font-h2;
+        font-size: ($font-size-h2 / 2.25 * 1.2);
         margin-bottom: $space-xxs;
     }
 
@@ -553,4 +554,9 @@
             }
         }
     }
+}
+
+cmp-sku-details__code {
+    @include font-h2; 
+    margin-bottom: $space-xxs;
 }
