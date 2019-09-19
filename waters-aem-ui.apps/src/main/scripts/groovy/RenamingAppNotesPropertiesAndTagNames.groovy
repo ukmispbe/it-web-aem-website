@@ -40,7 +40,7 @@ def updateProperty(node,propertyName,newProperty) {
     }
     if(valueList.size > 0){
         node.set(newProperty, valueList as String[])
-        println "Setting '$newProperty' on '$node.path' renaming '$propertyName' "
+        println "Setting '$newProperty' on '$node.path' with valueList '$valueList' "
     }
     node.set(propertyName,null);
     session.save()
