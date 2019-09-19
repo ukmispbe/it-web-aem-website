@@ -144,6 +144,7 @@ class ListItem extends React.Component {
                         skuNumber={this.props.relatedSku.code}
                         addToCartLabel={this.props.skuConfig.addToCartLabel}
                         addToCartUrl={this.props.skuConfig.addToCartUrl}
+                        toggleErrorModal={this.toggleErrorModal}
                     ></AddToCart>
                 </div>
                 <Modal
