@@ -9,6 +9,8 @@ import SkuService from './services';
 import AddToCart from './views/addToCart';
 import FeedbackSurvey from '../scripts/feedbackSurvey';
 import LoginStatus from '../scripts/loginStatus';
+import CheckOutStatus from '../scripts/checkOutStatus';
+import SkuMessage from '../sku-shared/views/SkuMessage';
 
 class SkuDetails extends React.Component {
     constructor(props) {
@@ -24,7 +26,6 @@ class SkuDetails extends React.Component {
             addToCartQty: undefined,
             defaultPrice: this.props.price,
             commerce: this.props.config.commerceConfig.currentState,
-            registeredUserSap: this.props.config.commerceConfig.registeredUserSap,
             locale: this.props.config.locale,
             modalInfo: {
                 ...this.props.config.modalInfo,
@@ -126,35 +127,20 @@ class SkuDetails extends React.Component {
         );
     }
 
-    renderDisabledSection = ({ message, link, linkText, label = this.props.config.commerceConfig.disabledLabel, icon = this.props.config.commerceConfig.disabledIcon }) => { 
-        return (
-            <div className="cmp-sku-details__buyinfodisabled">
-                <ReactSVG alt={label} src={icon} />
-                <span className="cmp-sku-details__disabledmessage">
-                    <span className="cmp-sku-details__disabledtitle">{message}</span>
-                    <a href={link}>{linkText}</a>
-                </span>
-            </div>
-        );
-    }
-
     render() {
         const disabled = this.state.commerce == 'DISABLED' ? true : false;
         if (disabled) {
             return (
-                <>
-                    {this.renderDisabledSection({
-                        message: this.props.config.commerceConfig.disabledText,
-                        link: this.props.config.commerceConfig.disabledHref,
-                        linkText: this.props.config.commerceConfig.disabledLinkText
-                    })}
-                </>
+                <SkuMessage 
+                    icon={this.props.config.commerceConfig.disabledIcon}
+                    message={this.props.config.commerceConfig.disabledText}
+                    link={this.props.config.commerceConfig.disabledHref}
+                    linkMessage={this.props.config.commerceConfig.disabledLinkText} 
+                />
             );
         } else { 
             
-            //FUTURE STATE -- SAP USER THAT'S LOGGED IN WILL BE SHOWN BUY INFO IN PARTIAL ENABLED REGIONS
-            // RIGHT NOW this.state.stateregisteredUserSAP is always false, comes from footer
-            if ((this.state.commerce == 'PARTIAL_ENABLED' && LoginStatus.state()) && this.state.registeredUserSap ||
+            if ((this.state.commerce == 'PARTIAL_ENABLED' && LoginStatus.state()) && CheckOutStatus.state() ||
                 (this.state.commerce != 'PARTIAL_ENABLED' && this.state.commerce != 'DISABLED')
             ) {
                 return (
@@ -164,13 +150,12 @@ class SkuDetails extends React.Component {
                 );
             } else { 
                 return (
-                    <>
-                        {this.renderDisabledSection({
-                            message: this.props.config.commerceConfig.partialDisabledText,
-                            link: this.props.config.commerceConfig.partialDisabledHref,
-                            linkText: this.props.config.commerceConfig.partialDisabledLinkText
-                        })}
-                    </>
+                    <SkuMessage 
+                        icon={this.props.config.commerceConfig.disabledIcon}
+                        message={this.props.config.commerceConfig.partialDisabledText}
+                        link={this.props.config.commerceConfig.partialDisabledHref}
+                        linkMessage={this.props.config.commerceConfig.partialDisabledLinkText} 
+                    />
                 )
             }
         }

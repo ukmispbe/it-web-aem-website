@@ -1,6 +1,6 @@
 import sticky from './stickyService';
 import LoginStatus from '../scripts/loginStatus';
-import ScreenSizes from '../scripts/screenSizes';
+import CheckOutStatus from '../scripts/checkOutStatus';
 
 const SKUDetatilsSticky = () => {
     const skuDetails = document.querySelector('.cmp-sku-details');
@@ -21,11 +21,9 @@ const SKUDetatilsSticky = () => {
                 conditions: (element) => { 
                     const footer = document.querySelector('#footer');
                     const commerceState = footer.dataset.commerce;
-                    const registeredUserSap = footer.dataset.registeredUserSap;
-                    const loggedIn = LoginStatus.state();
 
                     if (commerceState == 'PARTIAL_ENABLED') {
-                        if (loggedIn && registeredUserSap) {
+                        if (LoginStatus.state() && CheckOutStatus.state()) {
                             return true;
                         } else { 
                             return false;

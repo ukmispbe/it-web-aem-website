@@ -1,6 +1,6 @@
 <a class="cmp-back-to-top" href="#" title="${'Back To Top' @ i18n}"><img alt="${'Back To Top' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/up.svg" class="inline-svg"></a>
 
-<div data-sly-use.footer="com.waters.aem.core.components.structure.Footer" id="footer" class="cmp-footer" data-commerce="${footer.commerceConfig}" data-registered-user-sap="${footer.registeredUserSap}">
+<div data-sly-use.footer="com.waters.aem.core.components.structure.Footer" id="footer" class="cmp-footer" data-commerce="${footer.commerceConfig}">
     <div class="container1_wrapper">
         <div class="container1">
             <div class="cmp-footer__linksdiv">
@@ -118,7 +118,6 @@
     {
         "locale": "${footer.locale  @ context='scriptString'}",
         "commerceConfig": {
-            "registeredUserSap": ${footer.registeredUserSap @ context='unsafe'},
             "currentState": "${footer.commerceConfig  @ context='scriptString'}",
             "disabledIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
             "disabledLabel": "${'Disabled' @ i18n, context='scriptString'}",

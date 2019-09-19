@@ -6,7 +6,8 @@ import SkuService from '../../sku-details/services';
 import AddToCart from '../../sku-details/views/addToCart';
 import { Modal } from '../../modal/index';
 import LoginStatus from '../../scripts/loginStatus';
-import SkuMessage from '../../sku-shared/views/SkuMessage'
+import SkuMessage from '../../sku-shared/views/SkuMessage';
+import CheckOutStatus from '../../scripts/checkOutStatus';
 
 class ListItem extends React.Component {
     constructor(props) {
@@ -15,7 +16,6 @@ class ListItem extends React.Component {
             modalShown: false,
             modalConfig: this.props.skuConfig.modalInfo,
             commerce: this.props.skuConfig.commerceConfig.currentState,
-            registeredUserSap: this.props.skuConfig.commerceConfig.registeredUserSap,
             userCountry: this.props.skuConfig.countryCode,
             availabilityAPI: this.props.skuConfig.availabilityUrl,
             pricingUrl: this.props.skuConfig.pricingUrl,
@@ -161,9 +161,7 @@ class ListItem extends React.Component {
         if (this.state.commerce == 'DISABLED') {
             return (null);
         } else {
-                //FUTURE STATE -- SAP USER THAT'S LOGGED IN WILL BE SHOWN BUY INFO IN PARTIAL ENABLED REGIONS
-                // RIGHT NOW this.state.stateregisteredUserSAP is always false, comes from footer
-                if ((this.state.commerce == 'PARTIAL_ENABLED' && LoginStatus.state()) && this.state.registeredUserSap ||
+            if ((this.state.commerce == 'PARTIAL_ENABLED' && LoginStatus.state()) && CheckOutStatus.state() ||
                 (this.state.commerce != 'PARTIAL_ENABLED' && this.state.commerce != 'DISABLED')
                 ) {
                     return (
@@ -189,9 +187,9 @@ class ListItem extends React.Component {
             return (
                 <SkuMessage 
                     icon={this.props.skuConfig.skuInfo.lowStockIcon}
-                    replacementSkuCode={this.props.relatedSku.replacementSku} 
                     message={discontinuedMessage}
-                    replacementSkuLink={this.props.relatedSku.replacementSkuPageHref}
+                    link={this.props.relatedSku.replacementSkuPageHref}
+                    linkMessage={this.props.relatedSku.replacementSku} 
                 />
             );
         } else {
@@ -214,9 +212,8 @@ class ListItem extends React.Component {
     };
 
     isDisabled = () => {
-        const loggedIn = LoginStatus.state();
         if (this.state.commerce == 'PARTIAL_ENABLED') {
-            if (loggedIn && this.state.registeredUserSap) {
+            if (LoginStatus.state() && CheckOutStatus.state()) {
                 return false;
             } else {
                 return true;
