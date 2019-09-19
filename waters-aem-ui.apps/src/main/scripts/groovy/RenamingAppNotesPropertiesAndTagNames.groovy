@@ -39,7 +39,6 @@ def updateProperty(node,propertyName,newProperty) {
 
     }
     if(valueList.size > 0){
-        println 'prop' + valueList;
         node.set(newProperty, valueList as String[])
 
     }
