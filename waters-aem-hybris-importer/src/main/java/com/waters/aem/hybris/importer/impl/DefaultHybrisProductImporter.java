@@ -13,6 +13,7 @@ import com.waters.aem.hybris.models.Classification;
 import com.waters.aem.hybris.models.Feature;
 import com.waters.aem.hybris.models.FeatureValue;
 import com.waters.aem.hybris.models.Image;
+import com.waters.aem.hybris.models.ImageType;
 import com.waters.aem.hybris.models.Price;
 import com.waters.aem.hybris.models.Product;
 import com.waters.aem.hybris.models.ProductCategory;
@@ -42,7 +43,6 @@ import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -368,18 +368,22 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
     private void setImages(final Node productNode, final List<Image> images) throws RepositoryException {
         if (!images.isEmpty()) {
+            final ArrayList<Image> sortedImages = new ArrayList<>();
+            final Map<ImageType, List<Image>> groupedImages = images.stream().collect(
+                    Collectors.groupingBy(Image::getImageType));
 
-            if (images.size() > 1) {
-                for (int i = 0; i < images.size(); i++) {
-                    if (images.get(i).getImageType().name().equals(HybrisImporterConstants.IMAGE_PRIMARY) && i != 0) {
-                        Collections.swap(images, 0, i);
-                    }
-                }
+            // sort primary image first
+            if (groupedImages.get(ImageType.PRIMARY) != null) {
+                sortedImages.addAll(groupedImages.get(ImageType.PRIMARY));
+            }
+
+            if (groupedImages.get(ImageType.GALLERY) != null) {
+                sortedImages.addAll(groupedImages.get(ImageType.GALLERY));
             }
 
             final Node imagesNode = JcrUtils.getOrAddNode(productNode, WatersCommerceConstants.RESOURCE_NAME_IMAGES);
 
-            setItemNodes(imagesNode, WatersCommerceConstants.RESOURCE_NAME_IMAGE, images, image -> {
+            setItemNodes(imagesNode, WatersCommerceConstants.RESOURCE_NAME_IMAGE, sortedImages, image -> {
                 final Map<String, Object> properties = new HashMap<>();
 
                 properties.put(WatersCommerceConstants.PROPERTY_URL, image.getUrl());
