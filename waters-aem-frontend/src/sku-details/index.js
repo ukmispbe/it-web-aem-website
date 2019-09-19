@@ -119,20 +119,29 @@ class SkuDetails extends React.Component {
         );
     }
 
+    renderDisabledSection = ({ message, link, linkText, label = this.props.config.commerceConfig.disabledLabel, icon = this.props.config.commerceConfig.disabledIcon }) => { 
+        return (
+            <div className="cmp-sku-details__buyinfodisabled">
+                <ReactSVG alt={label} src={icon} />
+                <span className="cmp-sku-details__disabledmessage">
+                    <span className="cmp-sku-details__disabledtitle">{message}</span>
+                    <a href={link}>{linkText}</a>
+                </span>
+            </div>
+        );
+    }
+
     render() {
         const disabled = this.state.commerce == 'DISABLED' ? true : false;
         if (disabled) {
             return (
-                    <div className="cmp-sku-details__buyinfodisabled">
-                        <ReactSVG
-                            alt={this.props.config.commerceConfig.disabledLabel}
-                            src={this.props.config.commerceConfig.disabledIcon}
-                        />
-                        <span className="cmp-sku-details__disabledmessage">
-                            <span className="cmp-sku-details__disabledtitle">{this.props.config.commerceConfig.disabledText}</span>
-                            <a href={this.props.config.commerceConfig.disabledHref}>{this.props.config.commerceConfig.disabledLinkText}</a>
-                        </span>
-                    </div>
+                <>
+                    {this.renderDisabledSection({
+                        message: this.props.config.commerceConfig.disabledText,
+                        link: this.props.config.commerceConfig.disabledHref,
+                        linkText: this.props.config.commerceConfig.disabledLinkText
+                    })}
+                </>
             );
         } else { 
             
@@ -147,7 +156,15 @@ class SkuDetails extends React.Component {
                     </>
                 );
             } else { 
-                return (null)
+                return (
+                    <>
+                        {this.renderDisabledSection({
+                            message: this.props.config.commerceConfig.partialDisabledText,
+                            link: this.props.config.commerceConfig.partialDisabledHref,
+                            linkText: this.props.config.commerceConfig.partialDisabledLinkText
+                        })}
+                    </>
+                )
             }
         }
     }
