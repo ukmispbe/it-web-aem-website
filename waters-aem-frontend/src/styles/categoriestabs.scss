@@ -4,11 +4,13 @@
     overflow-x: hidden;
     overflow-y: hidden;
     white-space: nowrap;
-    margin-bottom: -4.5em;
-    margin-top: ($space-xxl + 2);
+    margin-bottom: $space-s;
+    margin-top: $space-l;
 
     @include tablet-and-under {
        margin-top: 0;
+       height: 0;
+       margin-bottom: 0;
     }
 
     &.fader-fade {
