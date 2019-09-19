@@ -9,6 +9,7 @@ import AccountDropDown from './account-dropdown/index';
 import LoginStatus from "./scripts/loginStatus";
 import SkuDetails from './sku-details';
 import SkuList from './sku-list';
+import SkuMessage from './sku-shared/views/SkuMessage';
 
 function getAuthoredDataForSearchBar(c, h) {
     return {
@@ -173,3 +174,38 @@ if (header && AccountDropDownContainer) {
 
     ReactDOM.render(<AccountDropDown config={updatedModel} />, AccountDropDownContainer);
 }
+
+
+const skuUnavailableContainer = document.querySelector('.cmp-notification-wrapper');
+
+if(skuUnavailableContainer) {
+    if(skuUnavailableContainer.dataset.replacementcode){
+        let replacementSkuCode, replacementSkuHref, skuMessageText;
+        if(skuUnavailableContainer.dataset.replacementcode){
+            replacementSkuCode = skuUnavailableContainer.dataset.replacementcode;
+        }
+        if(skuUnavailableContainer.dataset.replacementSkuHref){
+            replacementSkuHref = skuUnavailableContainer.dataset.replacementSkuHref;
+        }
+
+        const replacementSkuIcon = skuDetailsConfig.skuInfo.lowStockIcon;
+
+        if(replacementSkuCode && replacementSkuHref){
+            skuMessageText = skuDetailsConfig.skuInfo.discontinuedWithReplacementWithCode;
+        } else {
+            skuMessageText = skuDetailsConfig.skuInfo.discontinuedNoReplacementCode;
+        }
+        
+        const skuDetailsUnavailableBindingContainer = document.querySelector('#cmp-sku-details-replacement')
+        
+        ReactDOM.render(
+            <SkuMessage 
+                icon={replacementSkuIcon} 
+                replacementSkuCode={replacementSkuCode} 
+                message={skuMessageText} 
+                replacementSkuLink={replacementSkuHref}
+            />, 
+            skuDetailsUnavailableBindingContainer
+        );
+    }
+    }

@@ -51,6 +51,7 @@ import java.util.Locale;
     tabs = {
         @Tab(title = "Properties"),
         @Tab(title = "Region Selector"),
+        @Tab(title = "Legal Icons"),
         @Tab(title = "Footer Links"),
         @Tab(title = "Share Links")
     },
@@ -124,23 +125,77 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     @LinkInject(inherit = true)
     private Link contactLink;
 
+    @DialogField(fieldLabel = "Shanghai ICP Number",
+            fieldDescription = "Enter the Shanghai ICP Number",
+            tab = 3,
+            ranking = 1
+    )
+    @TextField
+    @InheritInject
+    private String sICPNumber;
+
+    @DialogField(fieldLabel = "Shanghai ICP Number Legal Icon",
+            fieldDescription = "Select the legal icon to display on footer",
+            tab = 3,
+            ranking = 3
+    )
+    @PathField(rootPath = WatersConstants.DAM_PATH)
+    @Inject
+    private String sICPLegalIcon;
+
+    @DialogField(fieldLabel = "Shanghai ICP Number Legal Link",
+            fieldDescription = "Select or enter the link URL",
+            tab = 3,
+            ranking = 2
+    )
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject(inherit = true)
+    private Link sICPLegalLink;
+
+    @DialogField(fieldLabel = "Beijing Public Network Security Number",
+            fieldDescription = "Enter the Beijing Public Network Security Number",
+            tab = 3,
+            ranking = 4
+    )
+    @TextField
+    @InheritInject
+    private String bPNSNumber;
+
+    @DialogField(fieldLabel = "Beijing Public Network Security Number Legal Icon",
+            fieldDescription = "Select the legal icon to display on footer",
+            tab = 3,
+            ranking = 6
+    )
+    @PathField(rootPath = WatersConstants.DAM_PATH)
+    @Inject
+    private String bPNSLegalIcon;
+
+    @DialogField(fieldLabel = "Beijing Public Network Security Number Legal Link",
+            fieldDescription = "Select or enter the link URL",
+            tab = 3,
+            ranking = 5
+    )
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject(inherit = true)
+    private Link bPNSLegalLink;
+
     @DialogField(fieldLabel = "Cookies Link",
         fieldDescription = "Select or enter the link URL",
-        tab = 3,
+        tab = 4,
         ranking = 1)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
     private Link cookiesLink;
 
     @DialogField(fieldLabel = "Footer Links",
-        tab = 3,
+        tab = 4,
         ranking = 2)
     @MultiField(composite = true)
     @InheritInject
     private List<BasicLink> footerLinks;
 
     @DialogField(fieldLabel = "Social Links",
-        tab = 4)
+        tab = 5)
     @MultiField(composite = true)
     @InheritInject
     private List<IconOnlyLink> socialLinks;
@@ -177,6 +232,36 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     }
 
     @JsonProperty
+    public String getSICPNumber() { 
+        return sICPNumber;
+    }
+
+    @JsonProperty
+    public String getSICPLegalIcon() { 
+        return sICPLegalIcon; 
+    }
+
+    @JsonProperty
+    public Link getSICPLegalLink() {
+        return sICPLegalLink;
+    }
+
+    @JsonProperty
+    public String getBPNSNumber() { 
+        return bPNSNumber;
+    }
+
+    @JsonProperty
+    public String getBPNSLegalIcon() {
+        return bPNSLegalIcon; 
+    }
+
+    @JsonProperty
+    public Link getBPNSLegalLink() {
+        return bPNSLegalLink; 
+    }
+
+    @JsonProperty
     public List<BasicLink> getFooterLinks() {
         return footerLinks;
     }
@@ -195,6 +280,10 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     public Boolean isYourAmigoEnabled() {
         return Locale.US.getCountry().equals(siteContext.getLocaleWithCountry().getCountry()) && yourAmigoService.isEnabled();
+    }
+
+    public Boolean isShowLegalIcon() {
+        return Locale.CHINA.getCountry().equals(siteContext.getLocaleWithCountry().getCountry());
     }
 
     public List<LanguageSelectorItem> getLanguagePages() {

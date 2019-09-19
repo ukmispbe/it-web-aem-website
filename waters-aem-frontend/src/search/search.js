@@ -928,6 +928,12 @@ class Search extends Component {
             results
         );
 
+    returnObsoleteStatus = (status) => {
+        if(status !== 'Active'){
+            // covers DiscontinueNoReplacement, DiscontinueWithReplacement, ObsoleteNoReplacement, and ObsoleteWithReplacement
+            return true;
+        }
+    }
     renderSkuOrResults = () => {
         const locale = this.props.searchLocale;
         const state = this.state;
@@ -937,21 +943,20 @@ class Search extends Component {
         if (state.isSkuList) {
             const skuData = Array.isArray(state.results[searchParams.page])
                 ? state.results[searchParams.page].map(item => {
-                      return {
-                          code: item.skucode,
-                          category_facet: item.category_facet,
-                          contenttype_facet: item.contenttype_facet,
-                          skuPageHref: item.url,
-                          formattedPrice: item.displayprice,
-                          primaryImageAlt: item.title,
-                          primaryImageThumbnail: item.thumbnail,
-                          replacementSkuPageHref: '',
-                          discontinued: false,
-                          replacementSku: '',
-                          title: item.title,
-                      };
-                  })
-                : [];
+                    return {
+                        code: item.skucode,
+                        category_facet: item.category_facet,
+                        contenttype_facet: item.contenttype_facet,
+                        skuPageHref: item.url,
+                        formattedPrice: item.displayprice,
+                        primaryImageAlt: item.title,
+                        primaryImageThumbnail: item.thumbnail,
+                        discontinued: this.returnObsoleteStatus(item.status),
+                        replacementSkuPageHref: this.replacementSkuPageHref,
+                        replacementSku: this.replacementSkuCode,
+                        title: item.title,
+                    };
+                }): [];
 
             return (
                 <SkuList

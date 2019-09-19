@@ -82,6 +82,12 @@ class SkuDetails extends React.Component {
         });
     };
 
+    toggleErrorModal = (err) => {
+        // Add Error Object to State
+        this.setState({ errorObj: err });
+        this.setState({ modalShown: !this.state.modalShown })
+    };
+
     renderBuyInfo = () => { 
         return (
             <div className="cmp-sku-details__buyinfo">
@@ -107,6 +113,7 @@ class SkuDetails extends React.Component {
                         skuNumber={this.state.skuNumber}
                         addToCartLabel={this.props.config.addToCartLabel}
                         addToCartUrl={this.props.config.addToCartUrl}
+                        toggleErrorModal={this.toggleErrorModal}
                     ></AddToCart>
                 </div>
                 <Modal

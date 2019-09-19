@@ -144,7 +144,7 @@ function hideScrollBars(el) {
 
 function anchorChange(el) {
    if (ancFader === null) {
-      ancFader = Fader('cmp-anchor__list', 0, 75);
+      ancFader = Fader('cmp-anchor__list', 0, 75, false, true);
 
       var anchorElementId = document.getElementById('cmp-anchor');
 
@@ -157,7 +157,7 @@ function anchorChange(el) {
 function clearGradients() {
     let lhsGradient = document.querySelector('.cmp-anchor__list .fader-container--left');
     let rhsGradient = document.querySelector('.cmp-anchor__list .fader-container--right');
-    
+
    if (lhsGradient !== null && rhsGradient !== null) {
       lhsGradient.style.display = 'none';
       rhsGradient.style.display = 'none';
@@ -232,7 +232,7 @@ if (anchorList) {
         hideScrollBars(anchorList)
     );
 
-    anchorChange(anchorList); 
+    anchorChange(anchorList);
 
     window.addEventListener('scroll', () => scrollWindow(anchorList));
     window.addEventListener('load', () => resizeWindow(anchorList));
