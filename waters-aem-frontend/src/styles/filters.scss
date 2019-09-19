@@ -248,7 +248,7 @@
             text-decoration: none;
             background-color: $color-gray-10;
             position: relative;
-            border-radius: .25em;
+            border-radius: 0.25em;
 
             @include mobile {
                 padding: ($space-xxs - .2em) $space-s ($space-xxs - .2em) $space-l;
@@ -488,7 +488,7 @@ $header-height: 74px;
     }
     @include mobile {
         .cmp-search__sort-filter {
-            z-index: ($cmp-banner-z-index + 1)!important; 
+            z-index: ($cmp-banner-z-index + 1) !important;
             height: 100vh;
             padding: 20px 20px 80px 20px;
         }
@@ -535,4 +535,3 @@ $header-height: 74px;
 // .sort-filter-container-affix {
 //      position: relative;
 //  }
-
