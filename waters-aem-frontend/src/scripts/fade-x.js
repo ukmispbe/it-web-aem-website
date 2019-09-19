@@ -20,6 +20,10 @@ const Fader = (targetClassName, offsetWidth=0, maxFadeWidth=Number.POSITIVE_INFI
     targetElement.prepend(lDiv);
     targetElement.appendChild(rDiv);
 
+    const wrapper = document.createElement('div');
+    targetElement.parentNode.insertBefore(wrapper, targetElement);
+    wrapper.appendChild(targetElement);
+
     let scrollCheck = function () {
         if (targetElement.scrollLeft > 0) {
             targetElement.classList.add('fader-fade--left');
