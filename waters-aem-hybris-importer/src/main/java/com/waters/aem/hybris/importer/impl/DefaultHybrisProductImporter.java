@@ -42,6 +42,7 @@ import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -367,6 +368,15 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
     private void setImages(final Node productNode, final List<Image> images) throws RepositoryException {
         if (!images.isEmpty()) {
+
+            if (images.size() > 1) {
+                for (int i = 0; i < images.size(); i++) {
+                    if (images.get(i).getImageType().name().equals(HybrisImporterConstants.IMAGE_PRIMARY) && i != 0) {
+                        Collections.swap(images, 0, i);
+                    }
+                }
+            }
+
             final Node imagesNode = JcrUtils.getOrAddNode(productNode, WatersCommerceConstants.RESOURCE_NAME_IMAGES);
 
             setItemNodes(imagesNode, WatersCommerceConstants.RESOURCE_NAME_IMAGE, images, image -> {
