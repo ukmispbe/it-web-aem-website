@@ -50,10 +50,6 @@
             flex-wrap: wrap;
         }
 
-        &__buyinfodisabled {
-            padding: $space-s;
-        }
-
         &__priceinfo {
             padding-right: $space-xs;
             line-height: 1em;
@@ -169,46 +165,10 @@
         &__web-quote {
             @include font-h3;
         }
-
-        &__discontinuedinfo,
-        &__buyinfodisabled {
-            display: flex;
-
-            & div:first-child {
-                display: inline-block;
-                height: $icon-m;
-                width: $icon-m;
-                margin-right: $space-xxs;
-
-                @include IE11-only {
-                    margin-right: $space-l;
-                }
-
-                .st0 {
-                    stroke: $color-icon;
-                }
-            }
-
-            .cmp-sku-details__disabledtitle {
-                font-weight: $font-weight-light;
-            }
-        }
-
-        &__discontinuedinfo {
-            padding-bottom: $space-l;
-            padding-top: $space-s;
-            width: 90%;
-        }
     }
 
     &-details--sticky {
-
-        &[data-commerce='DISABLED'] {
-            @include mobile {
-                visibility: hidden;
-            }
-        }
-
+        
         &--shadow {
             .cmp-sku-details__wrapper {
                 box-shadow: $shadow;
@@ -315,9 +275,6 @@
 
             .cmp-sku-details__buyinfo{
                 padding: 0;
-            }
-            .cmp-sku-details__buyinfodisabled{
-                display: none;
             }
         }
 
