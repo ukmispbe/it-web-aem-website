@@ -8,7 +8,7 @@ import { Modal } from '../../modal/index';
 import LoginStatus from '../../scripts/loginStatus';
 import SkuMessage from '../../sku-shared/views/SkuMessage';
 import CheckOutStatus from '../../scripts/checkOutStatus';
-import Ecommerce from '../../scripts/Ecommerce';
+import Ecommerce from '../../scripts/ecommerce';
 
 class ListItem extends React.Component {
     constructor(props) {
