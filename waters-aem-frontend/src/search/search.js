@@ -112,6 +112,7 @@ class Search extends Component {
             erroredOut: false,
             categoryTabs: [],
             activeTabIndex: -1,
+            tabHistory: {},
         });
 
         const checkWindowWidth = () => {
@@ -977,31 +978,86 @@ class Search extends Component {
     };
 
     handleCategorySelected = index => {
-        const categoryName = this.state.categoryTabs[index].name;
-        const isSkuList = validator.equals(categoryName, 'Shop');
+        if (this.state.activeTabIndex === index) { return; }
 
         let query = this.getQueryObject();
 
-        query.category = categoryName;
-        query.page = parameterDefaults.page;
+        this.createTabHistoryEntryForCurrentTab(query);
 
-        delete query.content_type;
-        delete query.facets;
+        this.setCategorySelected(index, query, this.state.categoryTabs[index].name);
+    };
+
+    setCategorySelected = (index, query, category) => {
+        const tabHistoryEntrySelected = this.getTabHistoryEntry(category);
+
+        query.category = category;
+
+        if (Object.entries(tabHistoryEntrySelected.searchParams).length === 0) {
+            query.page = parameterDefaults.page;
+
+            delete query.content_type;
+            delete query.facets;
+
+            this.setCategorySelectedState(index, 
+                query, 
+                parameterDefaults.content_type, 
+                parameterDefaults.contentTypeSelected, 
+                null);
+        } else {
+            this.setCategorySelectedState(index, 
+                tabHistoryEntrySelected.searchParams, 
+                tabHistoryEntrySelected.contentType, 
+                tabHistoryEntrySelected.contentTypeSelected, 
+                tabHistoryEntrySelected.selectedFacets);
+        }
+    }
+
+    createTabHistoryEntryForCurrentTab = query => {
+        const tabHistoryEntry = this.getTabHistoryEntry(query.categroy);
+        tabHistoryEntry.searchParams = query;
+        tabHistoryEntry.contentType = this.state.contentType;
+        tabHistoryEntry.contentTypeSelected = this.state.contentTypeSelected;
+        tabHistoryEntry.selectedFacets = this.state.selectedFacets;
+
+        this.setTabHistoryEntryState(query.category, tabHistoryEntry);
+    }
+
+    getTabHistoryEntry = category => {
+        if (this.state.tabHistory.hasOwnProperty(`${category}`)) {
+            return this.state.tabHistory[`${category}`];
+        }
+
+        return {
+            searchParams: {},
+            contentType: '',
+            contentTypeSelected: {},
+            selectedFacets: null,
+        }
+    }
+
+    setTabHistoryEntryState = (category, tabHistoryEntry) => {
+        const tabHistory = this.state.tabHistory;
+        tabHistory[`${category}`] = tabHistoryEntry;
+        this.setState({tabHistory});
+    }
+
+    setCategorySelectedState = (activeTabIndex, searchParams, contentType, contentTypeSelected, selectedFacets) => {
+        const isSkuList = validator.equals(searchParams.category, 'Shop');
 
         this.setState(
             {
-                activeTabIndex: index,
+                activeTabIndex,
                 isSkuList,
-                searchParams: query,
-                contentType: parameterDefaults.content_type,
-                contentTypeSelected: parameterDefaults.contentTypeSelected,
-                selectedFacets: {},
+                searchParams,
+                contentType,
+                contentTypeSelected,
+                selectedFacets: selectedFacets ? selectedFacets : {},
             },
             () => {
-                this.pushToHistory(query, null);
+                this.pushToHistory(searchParams, selectedFacets);
             }
         );
-    };
+    }
 
     render() {
         const state = this.state;
