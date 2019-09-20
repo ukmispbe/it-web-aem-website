@@ -11,6 +11,7 @@ import FeedbackSurvey from '../scripts/feedbackSurvey';
 import LoginStatus from '../scripts/loginStatus';
 import CheckOutStatus from '../scripts/checkOutStatus';
 import SkuMessage from '../sku-shared/views/SkuMessage';
+import Ecommerce from '../scripts/ecommerce';
 
 class SkuDetails extends React.Component {
     constructor(props) {
@@ -25,7 +26,6 @@ class SkuDetails extends React.Component {
             skuAvailability: {},
             addToCartQty: undefined,
             defaultPrice: this.props.price,
-            commerce: this.props.config.commerceConfig.currentState,
             locale: this.props.config.locale,
             modalInfo: {
                 ...this.props.config.modalInfo,
@@ -128,8 +128,7 @@ class SkuDetails extends React.Component {
     }
 
     render() {
-        const disabled = this.state.commerce == 'DISABLED' ? true : false;
-        if (disabled) {
+        if (Ecommerce.isDisabledState()) {
             return (
                 <SkuMessage 
                     icon={this.props.config.commerceConfig.disabledIcon}
@@ -140,9 +139,7 @@ class SkuDetails extends React.Component {
             );
         } else { 
             
-            if ((this.state.commerce == 'PARTIAL_ENABLED' && LoginStatus.state()) && CheckOutStatus.state() ||
-                (this.state.commerce != 'PARTIAL_ENABLED' && this.state.commerce != 'DISABLED')
-            ) {
+            if ((Ecommerce.isPartialState() && LoginStatus.state() && CheckOutStatus.state()) || (!Ecommerce.isPartialState() && !Ecommerce.isDisabledState())) {
                 return (
                     <>
                         {this.renderBuyInfo()}

@@ -8,6 +8,7 @@ import { Modal } from '../../modal/index';
 import LoginStatus from '../../scripts/loginStatus';
 import SkuMessage from '../../sku-shared/views/SkuMessage';
 import CheckOutStatus from '../../scripts/checkOutStatus';
+import Ecommerce from '../../scripts/Ecommerce';
 
 class ListItem extends React.Component {
     constructor(props) {
@@ -15,7 +16,6 @@ class ListItem extends React.Component {
         this.state = {
             modalShown: false,
             modalConfig: this.props.skuConfig.modalInfo,
-            commerce: this.props.skuConfig.commerceConfig.currentState,
             userCountry: this.props.skuConfig.countryCode,
             availabilityAPI: this.props.skuConfig.availabilityUrl,
             pricingUrl: this.props.skuConfig.pricingUrl,
@@ -157,12 +157,12 @@ class ListItem extends React.Component {
         );
     }
 
-    renderBuyInfoCommerceView = () => {  
-        if (this.state.commerce == 'DISABLED') {
+    renderBuyInfoCommerceView = () => { 
+        if (Ecommerce.isDisabledState()) {
             return (null);
         } else {
-            if ((this.state.commerce == 'PARTIAL_ENABLED' && LoginStatus.state()) && CheckOutStatus.state() ||
-                (this.state.commerce != 'PARTIAL_ENABLED' && this.state.commerce != 'DISABLED')
+            if ((Ecommerce.isPartialState() && LoginStatus.state()) && CheckOutStatus.state() ||
+                (!Ecommerce.isPartialState() && !Ecommerce.isDisabledState())
                 ) {
                     return (
                         <>
@@ -212,16 +212,11 @@ class ListItem extends React.Component {
     };
 
     isDisabled = () => {
-        if (this.state.commerce == 'PARTIAL_ENABLED') {
-            if (LoginStatus.state() && CheckOutStatus.state()) {
-                return false;
-            } else {
-                return true;
-            }
-        } else if (this.state.commerce == 'DISABLED') {
-            return true;
+        if (Ecommerce.isPartialState()) {
+            let conditions = LoginStatus.state() && CheckOutStatus.state();
+            return !conditions;
         } else { 
-            return false;
+            return Ecommerce.isDisabledState();
         }
     };
 

@@ -1,6 +1,6 @@
 import domElements from '../scripts/domElements';
 
-const checkOutStatusCookie = 'CE_STATUS';
+const checkOutStatusCookie = 'ST_STATUS';
 const checkOutStatus = {
     state: () => {
         let cestatus = false;
