@@ -1,7 +1,7 @@
 import sticky from './stickyService';
 import LoginStatus from '../scripts/loginStatus';
 import CheckOutStatus from '../scripts/checkOutStatus';
-import Ecommerce from '../scripts/Ecommerce';
+import Ecommerce from '../scripts/ecommerce';
 
 const SKUDetatilsSticky = () => {
     const skuDetails = document.querySelector('.cmp-sku-details');
