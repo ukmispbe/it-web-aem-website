@@ -64,7 +64,9 @@ public final class LibraryPage implements ContentClassification {
     }
 
     @Override
-    public List<Tag> getInstrumentTechnique() { return libraryAsset.getInstrumentTechnique(); }
+    public List<Tag> getInstrumentTechnique() {
+        return libraryAsset.getInstrumentTechnique();
+    }
 
     @Override
     public List<Tag> getCompoundAnalyte() {
