@@ -235,22 +235,24 @@
     &__tags {
         display: flex;
         flex-wrap: wrap;
-        margin-top: 2.75em;
+        margin-top: $space-xs;
         margin-bottom: $space-s;
 
         a {
             @include font-small;
             display: block;
             float: left;
-            padding: ($space-xxxs - .05em) $space-xs ($space-xxxs + .05em) $space-l;
+            padding: ($space-xxxs - 0.05em) $space-xs ($space-xxxs + 0.05em)
+                $space-l;
             margin: 0 $space-xxs $space-xs 0;
             text-decoration: none;
             background-color: $color-gray-10;
             position: relative;
-            border-radius: .25em;
+            border-radius: 0.25em;
 
             @include mobile {
-                padding: ($space-xxxs - .15em) $space-s ($space-xxxs + .05em) $space-l;
+                padding: ($space-xxxs - 0.15em) $space-s ($space-xxxs + 0.05em)
+                    $space-l;
             }
 
             svg {
@@ -484,7 +486,7 @@ $header-height: 74px;
     }
     @include mobile {
         .cmp-search__sort-filter {
-            z-index: ($cmp-banner-z-index + 1)!important; 
+            z-index: ($cmp-banner-z-index + 1) !important;
             height: 100vh;
             padding: 40px 20px 80px 20px;
         }
@@ -531,4 +533,3 @@ $header-height: 74px;
 // .sort-filter-container-affix {
 //      position: relative;
 //  }
-

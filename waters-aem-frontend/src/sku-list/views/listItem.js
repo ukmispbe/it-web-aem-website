@@ -5,6 +5,7 @@ import Price from '../../sku-details/views/price';
 import SkuService from '../../sku-details/services';
 import AddToCart from '../../sku-details/views/addToCart';
 import { Modal } from '../../modal/index';
+import SkuMessage from '../../sku-shared/views/SkuMessage'
 
 class ListItem extends React.Component {
     constructor(props) {
@@ -92,29 +93,18 @@ class ListItem extends React.Component {
 
     renderBuyInfo = () => {
         if (this.props.relatedSku.discontinued) {
+            let discontinuedMessage = this.props.skuConfig.skuInfo.discontinuedWithReplacementWithCode;
+            if(!this.props.relatedSku.replacementSku || !this.props.relatedSku.replacementSkuPageHref){
+                discontinuedMessage = this.props.skuConfig.skuInfo.discontinuedNoReplacementCode
+            }
+
             return (
-                <div className="cmp-sku-details__buyinfo">
-                    <div className="cmp-sku-details__discontinuedinfo">
-                        <ReactSVG
-                            alt={this.props.skuConfig.skuInfo.discontinuedLabel}
-                            src={this.props.skuConfig.skuInfo.discontinuedIcon}
-                        />
-                        <span className="cmp-sku-details__discontinuedmessage">
-                            <span className="cmp-sku-details__discontinuedtitle">
-                                {this.props.skuConfig.skuInfo.discontinuedLabel}
-                            </span>
-                            {this.props.skuConfig.skuInfo.discontinuedMessage}
-                            <a
-                                onClick={() => this.setStorageProperties()}
-                                href={
-                                    this.props.relatedSku.replacementSkuPageHref
-                                }
-                            >
-                                {this.props.relatedSku.replacementSku}
-                            </a>
-                        </span>
-                    </div>
-                </div>
+                <SkuMessage 
+                    icon={this.props.skuConfig.skuInfo.lowStockIcon}
+                    replacementSkuCode={this.props.relatedSku.replacementSku} 
+                    message={discontinuedMessage}
+                    replacementSkuLink={this.props.relatedSku.replacementSkuPageHref}
+                />
             );
         } else {
             if (this.state.commerce == 'DISABLED') {
