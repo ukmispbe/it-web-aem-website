@@ -7,7 +7,6 @@ def buildQuery(page, term) {
     def statement = 'select * from nt:base where jcr:path like \''+page.path+'/%\' and sling:resourceType = \'' + term + '\'';
     queryManager.createQuery(statement, 'sql');
 }
-count = 0;
 result.nodes.each { node ->
 
     if(node.hasProperty('instrumentType')){
@@ -45,8 +44,8 @@ def updateProperty(node,propertyName,newProperty) {
     node.set(propertyName,null);
     session.save()
     println 'property removed:' + propertyName
-    count++;
+
 }
 println 'Number Of page Found:' + result.nodes.size();
-println 'Number of Property  Modified:' + count;
+
 
