@@ -182,6 +182,10 @@ public final class Meta extends AbstractComponent {
     public String getTwitterCard() {
         return get("twitterCard", DEFAULT_TWITTER_CARD);
     }
+    
+    public String getSkuCode() {
+        return sku.getCode();
+    }
 
     @DialogField(fieldLabel = "Twitter Image",
         fieldDescription = "Default to page thumbnail image.",

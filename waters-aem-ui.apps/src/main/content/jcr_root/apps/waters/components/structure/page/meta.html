@@ -36,7 +36,12 @@
 
     <link rel="icon" sizes="192x192" href="/etc.clientlibs/waters/clientlibs/clientlib-resources/resources/icon-192x192.png">
 
-    <title>${metaPage.title}</title>
+    <sly data-sly-test.hasSkuCode="${metaPage.skuCode}">
+            <title>${metaPage.title} - ${metaPage.skuCode} : Waters</title>
+    </sly>
+    <sly data-sly-test="${!hasSkuCode}">
+        <title>${metaPage.title} : Waters</title>
+    </sly>
 
     <script data-sly-test.homepage="${metaPage.homepage}" type="application/ld+json">
         {
