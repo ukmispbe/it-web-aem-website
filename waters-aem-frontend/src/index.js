@@ -14,7 +14,8 @@ function getAuthoredDataForSearchBar(c, h) {
     return {
         baseUrl: c.dataset.baseUrl,
         searchPath: h.dataset.searchPath,
-        placeholder: c.dataset.placeholder,
+        placeholderTablet: c.dataset.placeholderTablet,
+        placeholderMobile: c.dataset.placeholderMobile,
         iconSearch: c.dataset.iconSearch,
         iconClear: c.dataset.iconClear,
         isocode: c.dataset.isocode,
@@ -47,7 +48,8 @@ if (searchBarContainer && header) {
             iconSearch={data.iconSearch}
             iconClear={data.iconClear}
             searchPath={data.searchPath}
-            placeholder={data.placeholder}
+            placeholderTablet={data.placeholderTablet}
+            placeholderMobile={data.placeholderMobile}
             baseUrl={data.baseUrl}
             isocode={data.isocode}
         />,
