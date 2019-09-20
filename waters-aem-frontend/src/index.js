@@ -201,9 +201,9 @@ if(skuUnavailableContainer) {
         ReactDOM.render(
             <SkuMessage 
                 icon={replacementSkuIcon} 
-                replacementSkuCode={replacementSkuCode} 
                 message={skuMessageText} 
-                replacementSkuLink={replacementSkuHref}
+                link={replacementSkuHref}
+                linkMessage={replacementSkuCode} 
             />, 
             skuDetailsUnavailableBindingContainer
         );

@@ -1,6 +1,6 @@
 <a class="cmp-back-to-top" href="#" title="${'Back To Top' @ i18n}"><img alt="${'Back To Top' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/up.svg" class="inline-svg"></a>
 
-<div data-sly-use.footer="com.waters.aem.core.components.structure.Footer" id="footer" class="cmp-footer">
+<div data-sly-use.footer="com.waters.aem.core.components.structure.Footer" id="footer" class="cmp-footer" data-ecommerce-state="${footer.commerceConfig}">
     <div class="container1_wrapper">
         <div class="container1">
             <div class="cmp-footer__linksdiv">
@@ -118,12 +118,14 @@
     {
         "locale": "${footer.locale  @ context='scriptString'}",
         "commerceConfig": {
-            "currentState": "${footer.commerceConfig  @ context='scriptString'}",
             "disabledIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
             "disabledLabel": "${'Disabled' @ i18n, context='scriptString'}",
             "disabledText": "${'Online ordering is not available for your region. Please ' @ i18n, context='scriptString'}",
-            "disabledLinkText": "${'contact your sales representative' @ i18n, context='scriptString'}",
-            "disabledHref": "${footer.contactLink.href @ context='unsafe'}"
+            "disabledLinkText": "${'contact your sales representative.' @ i18n, context='scriptString'}",
+            "disabledHref": "${footer.contactLink.href @ context='unsafe'}",
+            "partialDisabledText": "${'Online ordering is not available. Please ' @ i18n, context='scriptString'}",
+            "partialDisabledLinkText": "${'contact your sales representative.' @ i18n, context='scriptString'}",
+            "partialDisabledHref": "${footer.contactLink.href @ context='unsafe'}"
         },
         "availabilityUrl": "${footer.skuAvailabilityUrl @ context='unsafe'}",
         "pricingUrl": "${footer.skuCustomerPriceUrl @ context='unsafe'}",

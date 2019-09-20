@@ -6,7 +6,6 @@ import com.citytechinc.cq.component.annotations.Component;
 import com.waters.aem.core.commerce.models.DisplayableSku;
 import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.components.SiteContext;
-import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -46,9 +45,5 @@ public final class SkuDetails implements ComponentExporter {
     @Override
     public String getExportedType() {
         return RESOURCE_TYPE;
-    }
-
-    public CountryCommerceConfig getCommerceConfig() {
-        return siteContext.getCountryCommerceConfig();
     }
 }

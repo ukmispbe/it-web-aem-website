@@ -16,8 +16,8 @@ class SkuMessage extends React.Component {
                 <div className="cmp-notification-body">
                     <div className="cmp-notification-description">
                             {this.props.message} 
-                            {(this.props.replacementSkuCode && this.props.replacementSkuLink) &&
-                                <a href={this.props.replacementSkuLink}>{this.props.replacementSkuCode}</a>
+                            {(this.props.linkMessage && this.props.link) &&
+                                <a href={this.props.link}>{this.props.linkMessage}</a>
                             }
                     </div>
                 </div>
