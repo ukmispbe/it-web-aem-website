@@ -14,6 +14,7 @@ import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.commerce.services.SkuRepository;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.SiteRepository;
+import com.waters.aem.core.utils.LocaleUtils;
 import com.waters.aem.core.utils.TextUtils;
 import com.waters.aem.hybris.client.HybrisClient;
 import com.waters.aem.hybris.constants.HybrisImporterConstants;
@@ -24,6 +25,7 @@ import com.waters.aem.hybris.importer.HybrisCatalogImporterConfiguration;
 import com.waters.aem.hybris.models.Category;
 import com.waters.aem.hybris.result.HybrisImporterResult;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ModifiableValueMap;
 import org.apache.sling.api.resource.PersistenceException;
@@ -158,7 +160,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     }
 
     private List<HybrisImporterResult> processCategoryPages(final CatalogImporterContext context)
-        throws WCMException, PersistenceException {
+        throws WCMException, PersistenceException, URISyntaxException {
         final List<HybrisImporterResult> results = importPagesForCategory(context);
 
         final Category category = context.getCategory();
@@ -296,7 +298,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     }
 
     private List<HybrisImporterResult> importPagesForCategory(final CatalogImporterContext context)
-        throws WCMException {
+        throws WCMException, URISyntaxException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         final Category category = context.getCategory();
@@ -312,7 +314,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         PageDecorator page = pageManager.getPage(context.getParentPage().getPath() + "/" + name);
 
         if (page == null) {
-            page = pageManager.create(context.getParentPage().getPath(), name, WatersConstants.TEMPLATE_CATEGORY_PAGE,
+            page = pageManager.create(context.getParentPage().getPath(), name, WatersConstants.TEMPLATE_REDIRECT_PAGE,
                 category.getName(), false);
 
             LOG.info("created category page : {}", page.getPath());
@@ -388,7 +390,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     }
 
     private List<HybrisImporterResult> updateCategoryPageLiveCopies(final PageDecorator categoryPage,
-        final Category category) {
+        final Category category) throws URISyntaxException{
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         for (final PageDecorator liveCopyPage : getLiveCopyPages(categoryPage)) {
@@ -416,10 +418,16 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         return results;
     }
 
-    private void updateCategoryPageProperties(final PageDecorator page, final Category category) {
+    private void updateCategoryPageProperties(final PageDecorator page, final Category category)
+    throws URISyntaxException {
         final Map<String, Object> updatedProperties = new HashMap<>();
 
         updatedProperties.put(WatersCommerceConstants.PROPERTY_ID, category.getId());
+
+        // set page redirect properties on category page. to be removed when product pages are imported into AEM.
+        updatedProperties.put(HybrisImporterConstants.PROPERTY_REDIRECT_STATUS, HybrisImporterConstants.REDIRECT_STATUS_VALUE);
+        updatedProperties.put(HybrisImporterConstants.PROPERTY_SLING_REDIRECT, true);
+        updatedProperties.put(HybrisImporterConstants.PROPERTY_REDIRECT_TARGET, buildSearchUri(category.getId(), page));
 
         if (category.getLastModified() != null) {
             updatedProperties.put(WatersCommerceConstants.PROPERTY_LAST_MODIFIED, category.getLastModified());
@@ -427,6 +435,25 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         updatePageProperties(page, updatedProperties);
     }
+
+    private String buildSearchUri(final String categoryId, final PageDecorator page) throws URISyntaxException {
+
+        final String contentType = categoryId.replaceAll("&", "").toLowerCase();
+
+        final String isoCode =  LocaleUtils.getLocaleWithCountryForPage(page).toString();
+
+        return new URIBuilder()
+            .setPath(WatersConstants.SEARCH_PAGE_PATH)
+            .setParameter("category", "Shop")
+            .setParameter("content_type", contentType)
+            .setParameter("isocode", isoCode)
+            .setParameter("multiselect", "true")
+            .setParameter("page", "1")
+            .setParameter("rows", "25")
+            .setParameter("sort", "most-recent")
+            .build().toString();
+    }
+
 
     private void updateSkuPageProperties(final PageDecorator page, final Sku sku) {
         final Map<String, Object> updatedProperties = new HashMap<>();
