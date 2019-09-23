@@ -424,6 +424,8 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         final Map<String, Object> updatedProperties = new HashMap<>();
 
         updatedProperties.put(WatersCommerceConstants.PROPERTY_ID, category.getId());
+
+        // set page redirect properties on category page. to be removed when product pages are imported into AEM.
         updatedProperties.put(HybrisImporterConstants.PROPERTY_REDIRECT_STATUS, HybrisImporterConstants.REDIRECT_STATUS_VALUE);
         updatedProperties.put(HybrisImporterConstants.PROPERTY_SLING_REDIRECT, true);
         updatedProperties.put(HybrisImporterConstants.PROPERTY_REDIRECT_TARGET, buildSearchUri(category.getId(), page));
