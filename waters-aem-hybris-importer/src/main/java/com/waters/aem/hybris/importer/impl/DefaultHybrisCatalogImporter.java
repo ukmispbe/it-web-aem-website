@@ -14,6 +14,7 @@ import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.commerce.services.SkuRepository;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.SiteRepository;
+import com.waters.aem.core.utils.LocaleUtils;
 import com.waters.aem.core.utils.TextUtils;
 import com.waters.aem.hybris.client.HybrisClient;
 import com.waters.aem.hybris.constants.HybrisImporterConstants;
@@ -425,7 +426,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         updatedProperties.put(WatersCommerceConstants.PROPERTY_ID, category.getId());
         updatedProperties.put(HybrisImporterConstants.PROPERTY_REDIRECT_STATUS, HybrisImporterConstants.REDIRECT_STATUS_VALUE);
         updatedProperties.put(HybrisImporterConstants.PROPERTY_SLING_REDIRECT, true);
-        updatedProperties.put(HybrisImporterConstants.PROPERTY_REDIRECT_TARGET, buildSearchUri(category.getId()));
+        updatedProperties.put(HybrisImporterConstants.PROPERTY_REDIRECT_TARGET, buildSearchUri(category.getId(), page));
 
         if (category.getLastModified() != null) {
             updatedProperties.put(WatersCommerceConstants.PROPERTY_LAST_MODIFIED, category.getLastModified());
@@ -434,15 +435,17 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         updatePageProperties(page, updatedProperties);
     }
 
-    private String buildSearchUri(String categoryId) throws URISyntaxException {
+    private String buildSearchUri(final String categoryId, final PageDecorator page) throws URISyntaxException {
 
         final String contentType = categoryId.replaceAll("&", "").toLowerCase();
+
+        final String isoCode =  LocaleUtils.getLocaleWithCountryForPage(page).toString();
 
         return new URIBuilder()
             .setPath(WatersConstants.SEARCH_PAGE_PATH)
             .setParameter("category", "Shop")
             .setParameter("content_type", contentType)
-            .setParameter("isocode", "en_US")
+            .setParameter("isocode", isoCode)
             .setParameter("multiselect", "true")
             .setParameter("page", "1")
             .setParameter("rows", "25")
