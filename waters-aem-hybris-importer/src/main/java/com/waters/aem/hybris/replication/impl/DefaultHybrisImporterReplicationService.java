@@ -7,6 +7,7 @@ import com.day.cq.replication.Replicator;
 import com.google.common.collect.ImmutableMap;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
+import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.hybris.enums.HybrisImportContentType;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
 import com.waters.aem.hybris.exceptions.HybrisImporterException;
@@ -97,13 +98,14 @@ public final class DefaultHybrisImporterReplicationService implements HybrisImpo
             for (final HybrisImporterResult result : resultsForContentType) {
                 final PageDecorator page = pageManager.getPage(result.getPath());
 
-                // activate only if page was previously activated
-                if (isPublished(page)) {
+                // activate only if page is not a language master and was previously activated
+                if (!isLanguageMasterPage(page) && isPublished(page)) {
                     LOG.debug("activating result for previous published page : {}", result);
 
                     replicator.replicate(session, replicationActionType, result.getPath());
                 } else {
-                    LOG.debug("page was not previously activated for result : {}, ignoring", result);
+                    LOG.debug("page was not previously activated for result or is a language master page : {}, " +
+                            "ignoring", result);
                 }
             }
         }
@@ -113,5 +115,9 @@ public final class DefaultHybrisImporterReplicationService implements HybrisImpo
         final ReplicationStatus replicationStatus = page.adaptTo(ReplicationStatus.class);
 
         return replicationStatus != null && replicationStatus.getLastPublished() != null;
+    }
+
+    private boolean isLanguageMasterPage(final PageDecorator page) {
+        return page.getPath().startsWith(WatersConstants.ROOT_PATH_LANGUAGE_MASTERS);
     }
 }
