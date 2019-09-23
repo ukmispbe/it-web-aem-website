@@ -15,21 +15,20 @@ public interface ContentClassification {
 
     List<Tag> getContentType();
 
-    List<Tag> getProducts();
-
-    List<Tag> getMatrix();
-
     List<Tag> getSeparationMode();
+
+    List<Tag> getCompoundAnalyte();
 
     List<Tag> getMarket();
 
     List<Tag> getInstrumentTechnique();
 
-    List<Tag> getCompoundAnalyte();
-
     List<Tag> getMonthPublished();
 
     List<Tag> getYearPublished();
 
+
     List<Tag> getAllTags();
+
+
 }

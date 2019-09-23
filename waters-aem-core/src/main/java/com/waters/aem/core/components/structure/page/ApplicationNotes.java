@@ -26,16 +26,16 @@ import java.util.Date;
 import java.util.List;
 
 @Component(value = "Application Notes",
-    tabs = @Tab(
-        title = "Application Notes",
-        renderConditionResourceType = WatersConstants.RENDER_CONDITION_APPLICATION_NOTES_TEMPLATE
-    ),
-    group = ComponentConstants.GROUP_HIDDEN,
-    path = WatersConstants.COMPONENT_PATH_STRUCTURE,
-    name = WatersConstants.COMPONENT_NAME_PAGE,
-    editConfig = false,
-    fileName = ApplicationNotes.FILE_NAME,
-    touchFileName = ApplicationNotes.FILE_NAME)
+        tabs = @Tab(
+                title = "Application Notes",
+                renderConditionResourceType = WatersConstants.RENDER_CONDITION_APPLICATION_NOTES_TEMPLATE
+        ),
+        group = ComponentConstants.GROUP_HIDDEN,
+        path = WatersConstants.COMPONENT_PATH_STRUCTURE,
+        name = WatersConstants.COMPONENT_NAME_PAGE,
+        editConfig = false,
+        fileName = ApplicationNotes.FILE_NAME,
+        touchFileName = ApplicationNotes.FILE_NAME)
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @SuppressWarnings({ "common-java:DuplicatedBlocks" })
 public final class ApplicationNotes implements ContentClassification {
@@ -127,19 +127,19 @@ public final class ApplicationNotes implements ContentClassification {
     @Override
     public List<Tag> getAllTags() {
         return new ImmutableList.Builder<Tag>()
-            .addAll(author)
-            .addAll(category)
-            .addAll(contentType)
-            .addAll(instrumentTechnique)
-            .addAll(compoundAnalyte)
-            .addAll(separationMode)
-            .addAll(columnType)
-            .addAll(products)
-            .addAll(market)
-            .addAll(matrix)
-            .addAll(yearPublished)
-            .addAll(affiliations)
-            .build();
+                .addAll(author)
+                .addAll(category)
+                .addAll(contentType)
+                .addAll(instrumentTechnique)
+                .addAll(compoundAnalyte)
+                .addAll(separationMode)
+                .addAll(columnType)
+                .addAll(products)
+                .addAll(market)
+                .addAll(matrix)
+                .addAll(yearPublished)
+                .addAll(affiliations)
+                .build();
     }
 
     @Override
@@ -200,7 +200,6 @@ public final class ApplicationNotes implements ContentClassification {
         return products;
     }
 
-    @Override
     public List<Tag> getMatrix() {
         return matrix;
     }
@@ -219,10 +218,10 @@ public final class ApplicationNotes implements ContentClassification {
 
         if (!yearPublished.isEmpty() && literatureCode != null) {
             assetFolderPath = new StringBuilder(WatersConstants.DAM_PATH_APP_NOTES)
-                .append(yearPublished.get(0).getName())
-                .append("/")
-                .append(literatureCode)
-                .toString();
+                    .append(yearPublished.get(0).getName())
+                    .append("/")
+                    .append(literatureCode)
+                    .toString();
         }
 
         return assetFolderPath;
@@ -242,12 +241,12 @@ public final class ApplicationNotes implements ContentClassification {
             final String languageCode = getLanguageCode();
 
             pdfAssetPath = new StringBuilder(assetFolderPath)
-                .append("/")
-                .append(literatureCode)
-                .append("-")
-                .append(languageCode)
-                .append(".pdf")
-                .toString();
+                    .append("/")
+                    .append(literatureCode)
+                    .append("-")
+                    .append(languageCode)
+                    .append(".pdf")
+                    .toString();
         }
 
         return pdfAssetPath;
@@ -266,12 +265,12 @@ public final class ApplicationNotes implements ContentClassification {
         if (StringUtils.isNotEmpty(year) && StringUtils.isNotEmpty(month)) {
             try {
                 final String dateString = new StringBuilder()
-                    .append(year)
-                    .append("-")
-                    .append(month)
-                    .append("-")
-                    .append(DEFAULT_DAY_NUMBER)
-                    .toString();
+                        .append(year)
+                        .append("-")
+                        .append(month)
+                        .append("-")
+                        .append(DEFAULT_DAY_NUMBER)
+                        .toString();
 
                 final Date date = new SimpleDateFormat(FIRST_PUBLISH_DATE_FORMAT).parse(dateString);
 

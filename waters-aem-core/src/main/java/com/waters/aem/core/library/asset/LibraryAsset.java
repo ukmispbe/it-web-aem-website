@@ -47,9 +47,9 @@ public final class LibraryAsset implements ContentClassification, Asset {
     private static final String RELATIVE_PATH_METADATA = "jcr:content/metadata";
 
     private static final Map<String, String> METADATA_PROPERTIES = new ImmutableMap.Builder<String, String>()
-        .put(DamConstants.DC_TITLE, NameConstants.PN_PAGE_TITLE)
-        .put(DamConstants.DC_DESCRIPTION, NameConstants.PN_DESCRIPTION)
-        .build();
+            .put(DamConstants.DC_TITLE, NameConstants.PN_PAGE_TITLE)
+            .put(DamConstants.DC_DESCRIPTION, NameConstants.PN_DESCRIPTION)
+            .build();
 
     @Self
     @Required
@@ -84,19 +84,11 @@ public final class LibraryAsset implements ContentClassification, Asset {
 
     @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
-    private List<Tag> matrix = Collections.emptyList();
+    private List<Tag> separationMode = Collections.emptyList();
 
     @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> compoundAnalyte = Collections.emptyList();
-
-    @WatersTagInject
-    @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
-    private List<Tag> products = Collections.emptyList();
-
-    @WatersTagInject
-    @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
-    private List<Tag> separationMode = Collections.emptyList();
 
     @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
@@ -131,11 +123,6 @@ public final class LibraryAsset implements ContentClassification, Asset {
     }
 
     @Override
-    public List<Tag> getProducts() {
-        return products;
-    }
-
-    @Override
     public List<Tag> getMonthPublished() {
         return monthPublished;
     }
@@ -156,19 +143,13 @@ public final class LibraryAsset implements ContentClassification, Asset {
     }
 
     @Override
-    public List<Tag> getCompoundAnalyte() {
-        return compoundAnalyte;
-    }
-
-
-    @Override
-    public List<Tag> getMatrix() {
-        return matrix;
-    }
-
-    @Override
     public List<Tag> getSeparationMode() {
         return separationMode;
+    }
+
+    @Override
+    public List<Tag> getCompoundAnalyte() {
+        return compoundAnalyte;
     }
 
     public List<Tag> getProduct() {
@@ -182,18 +163,16 @@ public final class LibraryAsset implements ContentClassification, Asset {
     @Override
     public List<Tag> getAllTags() {
         return new ImmutableList.Builder<Tag>()
-            .addAll(category)
-            .addAll(contentType)
-            .addAll(product)
-            .addAll(market)
-            .addAll(yearPublished)
-            .addAll(separationMode)
-            .addAll(compoundAnalyte)
-            .addAll(instrumentTechnique)
-            .addAll(event)
-            .addAll(matrix)
-            .addAll(products)
-            .build();
+                .addAll(category)
+                .addAll(contentType)
+                .addAll(product)
+                .addAll(market)
+                .addAll(yearPublished)
+                .addAll(separationMode)
+                .addAll(compoundAnalyte)
+                .addAll(instrumentTechnique)
+                .addAll(event)
+                .build();
     }
 
     public String getTitle() {
@@ -211,10 +190,10 @@ public final class LibraryAsset implements ContentClassification, Asset {
      */
     public Map<String, Object> getProperties() {
         return metadata.getValueMap()
-            .entrySet()
-            .stream()
-            .filter(entry -> METADATA_PROPERTIES.keySet().contains(entry.getKey()))
-            .collect(Collectors.toMap(entry -> METADATA_PROPERTIES.get(entry.getKey()), Map.Entry :: getValue));
+                .entrySet()
+                .stream()
+                .filter(entry -> METADATA_PROPERTIES.keySet().contains(entry.getKey()))
+                .collect(Collectors.toMap(entry -> METADATA_PROPERTIES.get(entry.getKey()), Map.Entry :: getValue));
     }
 
     /**
@@ -229,11 +208,11 @@ public final class LibraryAsset implements ContentClassification, Asset {
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
-            .add("path", getPath())
-            .add("title", getTitle())
-            .add("category", category.stream().map(Tag :: getTitle).collect(Collectors.toList()))
-            .add("literatureCode", literatureCode)
-            .toString();
+                .add("path", getPath())
+                .add("title", getTitle())
+                .add("category", category.stream().map(Tag :: getTitle).collect(Collectors.toList()))
+                .add("literatureCode", literatureCode)
+                .toString();
     }
 
     // asset delegate methods
