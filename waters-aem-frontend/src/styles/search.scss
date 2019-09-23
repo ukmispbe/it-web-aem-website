@@ -48,10 +48,6 @@
     }
 
     .cmp-search-filters__tags {
-        @include mobile {
-            margin-top: -30px;
-        }
-
         @include tablet {
             width: 100%;
             padding: 1em 0;
@@ -95,8 +91,13 @@
         }
 
         &.skuitem {
-            padding-bottom: $space-s;
-            margin-top: 0;
+            padding-bottom: $space-m;
+            margin-top: -$space-xs;
+
+            @include mobile {
+                margin-top: 0;
+                padding-bottom: $space-s;
+            }
         }
     }
 }
@@ -291,6 +292,7 @@ div.cmp-search__no-results {
             margin-bottom: 0;
         }
         @include mobile {
+            margin-bottom: $space-m;
             svg {
                 margin: 0 2% 0 0;
             }
@@ -308,7 +310,7 @@ div.cmp-search__no-results {
 }
 
 .cmp-search-category-dropdown {
-    margin-bottom: $space-m;
+    margin-bottom: $space-s;
 
     text-decoration: none;
     &:hover {
@@ -335,7 +337,7 @@ div.cmp-search__no-results {
     @include tablet {
         margin-right: $space-xxs;
 
-        .css-1l0huv0-control.cmp-custom-dropdown__control {
+        .css-1l0huv0-control.cmp-custom-dropdown__control{
             max-height: 51px;
         }
     }
@@ -348,12 +350,15 @@ div.cmp-search__no-results {
 }
 
 .cmp-search-show-btn,
-.cmp-search-category-dropdown {
+.cmp-search-category-dropdown{
     @include tablet {
         float: left;
         width: 165px;
         margin-bottom: 0;
         padding-bottom: $space-m;
+    }
+    @include mobile {
+        padding-bottom: 0;
     }
 }
 
@@ -362,9 +367,13 @@ div.cmp-search__no-results {
     left: 27%;
     width: 70%;
 
+    @include tablet-and-over {
+        margin-bottom: 6em;
+    }
+
     @include tablet-and-under {
+        top: 0;
         width: 100%;
-        left: 0;
     }
 
     @include mobile {
@@ -425,12 +434,12 @@ div.cmp-search__no-results {
     }
 }
 
-.cmp-search__sorted-container {
+.cmp-search__sorted-container{
     @include mobile {
         display: flex;
         flex-wrap: wrap;
 
-        .cmp-search__sorted-by {
+        .cmp-search__sorted-by{
             order: 2;
         }
         .cmp-search-filters__tag {
