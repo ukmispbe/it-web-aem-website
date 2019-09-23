@@ -22,6 +22,14 @@ public final class HybrisImporterConstants {
 
     public static final String IMPORTER_PAGE_PATH = "/etc/waters/hybris-importer";
 
+    public static final String PROPERTY_REDIRECT_TARGET = "redirectTarget";
+
+    public static final String PROPERTY_REDIRECT_STATUS = "sling:redirectStatus";
+
+    public static final String PROPERTY_SLING_REDIRECT = "sling:redirect";
+
+    public static int REDIRECT_STATUS_VALUE = 302;
+
     private HybrisImporterConstants() {
 
     }

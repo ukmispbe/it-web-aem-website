@@ -73,6 +73,8 @@ public final class WatersConstants {
 
     public static final String OG_IMAGE = "ogImage";
 
+    public static final String SEARCH_PAGE_PATH = ROOT_PATH_LANGUAGE_MASTERS + "/en/search.html";
+
     private WatersConstants() {
 
     }
