@@ -9,6 +9,8 @@
 
     @include tablet-and-under {
        margin-top: 0;
+       height: 0;
+       margin-bottom: 0;
     }
 
     &.fader-fade {

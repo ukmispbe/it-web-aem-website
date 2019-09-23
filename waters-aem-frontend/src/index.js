@@ -9,12 +9,14 @@ import AccountDropDown from './account-dropdown/index';
 import LoginStatus from "./scripts/loginStatus";
 import SkuDetails from './sku-details';
 import SkuList from './sku-list';
+import SkuMessage from './sku-shared/views/SkuMessage';
 
 function getAuthoredDataForSearchBar(c, h) {
     return {
         baseUrl: c.dataset.baseUrl,
         searchPath: h.dataset.searchPath,
-        placeholder: c.dataset.placeholder,
+        placeholderTablet: c.dataset.placeholderTablet,
+        placeholderMobile: c.dataset.placeholderMobile,
         iconSearch: c.dataset.iconSearch,
         iconClear: c.dataset.iconClear,
         isocode: c.dataset.isocode,
@@ -47,7 +49,8 @@ if (searchBarContainer && header) {
             iconSearch={data.iconSearch}
             iconClear={data.iconClear}
             searchPath={data.searchPath}
-            placeholder={data.placeholder}
+            placeholderTablet={data.placeholderTablet}
+            placeholderMobile={data.placeholderMobile}
             baseUrl={data.baseUrl}
             isocode={data.isocode}
         />,
@@ -173,3 +176,38 @@ if (header && AccountDropDownContainer) {
 
     ReactDOM.render(<AccountDropDown config={updatedModel} />, AccountDropDownContainer);
 }
+
+
+const skuUnavailableContainer = document.querySelector('.cmp-notification-wrapper');
+
+if(skuUnavailableContainer) {
+    if(skuUnavailableContainer.dataset.replacementcode){
+        let replacementSkuCode, replacementSkuHref, skuMessageText;
+        if(skuUnavailableContainer.dataset.replacementcode){
+            replacementSkuCode = skuUnavailableContainer.dataset.replacementcode;
+        }
+        if(skuUnavailableContainer.dataset.replacementSkuHref){
+            replacementSkuHref = skuUnavailableContainer.dataset.replacementSkuHref;
+        }
+
+        const replacementSkuIcon = skuDetailsConfig.skuInfo.lowStockIcon;
+
+        if(replacementSkuCode && replacementSkuHref){
+            skuMessageText = skuDetailsConfig.skuInfo.discontinuedWithReplacementWithCode;
+        } else {
+            skuMessageText = skuDetailsConfig.skuInfo.discontinuedNoReplacementCode;
+        }
+        
+        const skuDetailsUnavailableBindingContainer = document.querySelector('#cmp-sku-details-replacement')
+        
+        ReactDOM.render(
+            <SkuMessage 
+                icon={replacementSkuIcon} 
+                message={skuMessageText} 
+                link={replacementSkuHref}
+                linkMessage={replacementSkuCode} 
+            />, 
+            skuDetailsUnavailableBindingContainer
+        );
+    }
+    }

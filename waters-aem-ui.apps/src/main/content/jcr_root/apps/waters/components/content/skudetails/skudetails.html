@@ -1,13 +1,17 @@
 <div data-sly-use.skuDetails="com.waters.aem.core.components.content.SkuDetails"
      data-sly-test.sku="${skuDetails.displayableSku}"
-     class="cmp-sku-details" data-commerce="${SkuDetails.commerceConfig}" >
+     class="cmp-sku-details"
+     data-commerce="${SkuDetails.commerceConfig}"
+     data-json="${skuDetails}">
     <div class="cmp-sku-details__wrapper">
         <div class="cmp-sku-details__container">
             <div class="cmp-sku-details__heading">
                 <img src="${sku.primaryImageThumbnail}" alt="${sku.primaryImageAlt}">
                 <div class="cmp-sku-details__info">
-                    <div class="cmp-sku-details__code">${sku.code}</div>
-                    <h1 id="skuTitle">${sku.title}</h1>
+                    <h1>
+                        <span class="cmp-sku-details__code">${'SKU:' @ i18n} ${sku.code}</span><br/>
+                        <span id="skuTitle">${sku.title}</span>
+                    </h1>
                 </div>
                 <!--<a href="#" class="cmp-sku-details__signin">
                     <img alt="${'Login' @ i18n}" src="/content/dam/waters/brand-assets/icons/user.svg" class="inline-svg">
@@ -17,21 +21,8 @@
             <div class="cmp-sku-details__ecom-wrapper" data-sly-test.isActive="${sku.active}">
                 <div class="cmp-sku-details__ecom" data-price="${sku.formattedPrice}"></div>
             </div>
-            <div class="cmp-notification-wrapper" data-sly-test="${!isActive}">
-                <div class="cmp-notification-icon">
-                    <img class="inline-svg" src="/content/dam/waters/en/brand-assets/icons/attention.svg"/>
-                </div>
-                <div class="cmp-notification-body">
-                    <div class="cmp-notification-description">
-                        <sly data-sly-test.hasReplacementSkuCode="${sku.replacementSkuCode}">
-                            ${'The part number you selected is no longer available, but there is a replacement. The replacement part number is ' @ i18n}
-                            <a href="${sku.replacementSkuPageHref}">${sku.replacementSkuCode}</a>
-                        </sly>
-                        <sly data-sly-test="${!hasReplacementSkuCode}">
-                            ${'The part number you selected is no longer available.' @ i18n}
-                        </sly>
-                    </div>
-                </div>
+            <div class="cmp-notification-wrapper" data-sly-test="${!isActive}" data-replacementCode="${sku.replacementSkuCode}" data-replacementSkuHref="${sku.replacementSkuPageHref}">
+                <div id="cmp-sku-details-replacement"></div>
             </div>
         </div>
     </div>

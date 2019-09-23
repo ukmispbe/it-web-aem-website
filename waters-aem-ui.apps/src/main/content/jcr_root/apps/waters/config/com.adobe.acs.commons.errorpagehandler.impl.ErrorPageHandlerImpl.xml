@@ -6,6 +6,6 @@
           vanity.dispatch.enabled="{Boolean}true"
           serve-authenticated-from-cache="{Boolean}true"
           ttl="{Long}300"
-          error-page.system-path="/us/en/errors/404"
-          paths="[/us/en/errors:404]"
+          error-page.system-path="/nextgen/us/en/errors/404"
+          paths="[/nextgen/us/en/errors:404]"
           error-page.fallback-name="500"/>
