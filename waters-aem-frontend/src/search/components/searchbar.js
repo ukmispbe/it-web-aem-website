@@ -30,7 +30,7 @@ class SearchBar extends Component {
             value: searchValue ? searchValue : '',
             suggestions: [],
             openOverlay: false,
-            placeholder: this.props.placeholderTablet
+            placeholder: screenSizes.isMobile() ? this.props.placeholderMobile : this.props.placeholderTablet
         };
 
         this.handleSuggestionsFetchRequestedDebounce = debounce(250, this.handleSuggestionsFetchRequested);
