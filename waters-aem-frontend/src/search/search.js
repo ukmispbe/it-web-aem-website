@@ -81,6 +81,7 @@ class Search extends Component {
 
         this.setState({
             loading: true,
+            searchParams: {},
             results: {},
             pagination: {
                 current: this.query.page
@@ -128,6 +129,41 @@ class Search extends Component {
         checkWindowWidth();
 
         this.performSearch();
+    }
+
+    componentDidMount() {
+        this.props.history.listen((location, action) => {
+            if (action === 'POP') {
+                const query = this.getQueryObject(parse(location.search));
+
+                const categoryIndex = this.state.categoryTabs.findIndex(
+                    category => category.name === query.category
+                );
+
+                if (this.state.activeTabIndex !== categoryIndex) {
+                    this.setCategorySelected(categoryIndex, query, query.category);
+                } else {
+                    const isSkuList = validator.equals(
+                        query.category,
+                        'Shop'
+                    );
+
+                    const contentTypeElement = this.findContentType(
+                        this.props.filterMap,
+                        query.content_type
+                    );
+
+                    this.setState({
+                        isSkuList,
+                        category: query.category,
+                        sort: query.sort,
+                        contentType: query.content_type,
+                        contentTypeSelected: Object.assign({}, contentTypeElement),
+                        selectedFacets: Object.entries(query.facets).length === 0 ? {} : Object.assign({}, query.facets),
+                    });
+                }
+            }
+        });
     }
 
     componentWillReceiveProps(props) {
@@ -179,7 +215,7 @@ class Search extends Component {
                 ? this.props.searchDefaults.rows
                 : 25;
 
-        this.setState({ searchParams: query, loading: true, results: {} });
+        this.setState({ searchParams: query, loading: true, results: {}, filterMap: {} });
 
         const categories = await this.search.getCategories({
             keyword: query.keyword,
@@ -197,12 +233,13 @@ class Search extends Component {
             const categoryIndex = categoriesWithData.findIndex(
                 category => category.name === query.category
             );
+            const categoryName = categoriesWithData[categoryIndex].name;
             const isSkuList = validator.equals(
-                categoriesWithData[categoryIndex].name,
+                categoryName,
                 'Shop'
             );
 
-            this.setState({ activeTabIndex: categoryIndex, isSkuList });
+            this.setState({ activeTabIndex: categoryIndex, isSkuList, category: categoryName });
         }
 
         if (isInitialLoad) {
@@ -219,7 +256,7 @@ class Search extends Component {
                 'Shop'
             );
 
-            this.setState({ activeTabIndex: maxCategory, isSkuList });
+            this.setState({ activeTabIndex: maxCategory, isSkuList, category: categoryName });
 
             query.category = categoryName;
 
@@ -345,10 +382,10 @@ class Search extends Component {
 
         newState.filterMap =
             res.num_found !== 0
-                ? this.getFilterMap(
+                ? Object.assign({}, this.getFilterMap(
                       this.props.filterMap,
                       res.facets[this.parentCategory]
-                  )
+                  ))
                 : [];
 
         newState.loading = false;
@@ -990,10 +1027,10 @@ class Search extends Component {
     setCategorySelected = (index, query, category) => {
         const tabHistoryEntrySelected = this.getTabHistoryEntry(category);
 
-        query.category = category;
-
         if (Object.entries(tabHistoryEntrySelected.searchParams).length === 0) {
+            query.category = category;
             query.page = parameterDefaults.page;
+            query.sort = parameterDefaults.sort;
 
             delete query.content_type;
             delete query.facets;
@@ -1013,11 +1050,11 @@ class Search extends Component {
     }
 
     createTabHistoryEntryForCurrentTab = query => {
-        const tabHistoryEntry = this.getTabHistoryEntry(query.categroy);
-        tabHistoryEntry.searchParams = query;
+        const tabHistoryEntry = this.getTabHistoryEntry(query.category);
+        tabHistoryEntry.searchParams = Object.assign({}, query);
         tabHistoryEntry.contentType = this.state.contentType;
-        tabHistoryEntry.contentTypeSelected = this.state.contentTypeSelected;
-        tabHistoryEntry.selectedFacets = this.state.selectedFacets;
+        tabHistoryEntry.contentTypeSelected = Object.assign({}, this.state.contentTypeSelected);
+        tabHistoryEntry.selectedFacets = Object.assign({}, this.state.selectedFacets);
 
         this.setTabHistoryEntryState(query.category, tabHistoryEntry);
     }
@@ -1044,19 +1081,20 @@ class Search extends Component {
     setCategorySelectedState = (activeTabIndex, searchParams, contentType, contentTypeSelected, selectedFacets) => {
         const isSkuList = validator.equals(searchParams.category, 'Shop');
 
-        this.setState(
-            {
+        this.setState({
                 activeTabIndex,
                 isSkuList,
                 searchParams,
+                category: searchParams.category,
+                sort: searchParams.sort,
                 contentType,
                 contentTypeSelected,
                 selectedFacets: selectedFacets ? selectedFacets : {},
-            },
-            () => {
-                this.pushToHistory(searchParams, selectedFacets);
-            }
-        );
+            });
+        
+        setTimeout(() => {
+            this.pushToHistory(searchParams, selectedFacets);
+        }, 0);
     }
 
     render() {
