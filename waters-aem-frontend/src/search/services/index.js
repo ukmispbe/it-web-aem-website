@@ -267,7 +267,7 @@ class SearchService {
                             ? facetString +
                               `${
                                   f > 0 ? encodeURIComponent('||') : ''
-                              }${encodeURI(filter)}`
+                              }${encodeURIComponent(encodeURIComponent(filter))}`
                             : facetString;
                     }
                 }
@@ -300,15 +300,15 @@ class SearchService {
                     if (facet) {
                         const splitName = facet.split(':');
                         if (Array.isArray(obj['facets'][splitName[0]])) {
-                            obj['facets'][splitName[0]].push(splitName[1]);
+                            obj['facets'][splitName[0]].push(decodeURIComponent(splitName[1]));
                         } else {
-                            obj['facets'][splitName[0]] = [splitName[1]];
+                            obj['facets'][splitName[0]] = [decodeURIComponent(splitName[1])];
                         }
                     }
                 }
             } else if (facets) {
                 const splitName = facets.split(':');
-                obj['facets'][splitName[0]] = [splitName[1]];
+                obj['facets'][splitName[0]] = [decodeURIComponent(splitName[1])];
             }
         }
 
