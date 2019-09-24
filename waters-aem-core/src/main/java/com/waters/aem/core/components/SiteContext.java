@@ -41,20 +41,9 @@ public final class SiteContext {
         return currentPage;
     }
 
-    /**
-     * If a country is not already defined in the current page's locale, try to read the country from the content
-     * path and create a locale object from that. otherwise, a configured default country is returned.
-     *
-     * @return a locale with a country
-     */
+
     public Locale getLocaleWithCountry() {
-        Locale locale = getLocale();
-
-        if (StringUtils.isEmpty(locale.getCountry())) {
-            locale = LocaleUtils.getLocaleWithCountryForPage(currentPage);
-        }
-
-        return locale;
+        return LocaleUtils.getLocaleWithCountryForPage(currentPage);
     }
 
     /**
