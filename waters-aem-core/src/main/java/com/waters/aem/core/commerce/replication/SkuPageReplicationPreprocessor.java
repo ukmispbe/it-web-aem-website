@@ -88,7 +88,8 @@ public final class SkuPageReplicationPreprocessor extends AbstractReplicationPre
         if (code != null) {
             final String countryLanguagePath = getCountryLanguagePath(page.getPath());
 
-            properties.put(NameConstants.PN_SLING_VANITY_PATH, "/" + countryLanguagePath + "/sku/" + code);
+            //TODO "/nextgen" is to be removed at a later time when nextgen URLs are retired.
+            properties.put(NameConstants.PN_SLING_VANITY_PATH, "/nextgen/" + countryLanguagePath + "/sku/" + code);
         }
     }
 
