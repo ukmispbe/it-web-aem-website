@@ -7,10 +7,11 @@ process.env.BABEL_ENV = 'production';
 process.env.NODE_ENV = 'production';
 
 const compiler = webpack(
-    Object.assign({}, config, {watch: process.env.WATCH_ALIVE === 'true'})
+    Object.assign({}, config, { watch: process.env.WATCH_ALIVE === 'true' })
 );
 
-const rootPath = 'waters-aem-ui.apps/src/main/content/jcr_root';
+const clientlibPath =
+    'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-site';
 
 compiler.run((err, stats) => {
     if (err) {
@@ -29,13 +30,13 @@ compiler.run((err, stats) => {
     const aemCssPath = path.resolve(
         __dirname,
         '../../',
-        rootPath + '/etc/designs/waters',
+        clientlibPath + '/css',
         'main.css'
     );
     const aemJsPath = path.resolve(
         __dirname,
         '../../',
-        rootPath + '/apps/waters/clientlibs/clientlib-site/js',
+        clientlibPath + '/js',
         'main.js'
     );
 
