@@ -27,13 +27,11 @@ import CategoryTabs from './components/categories-tabs';
 import validator from 'validator';
 
 class Search extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.savedSelectFilterState = null;
         this.parentCategory = 'contenttype_facet';
-    }
 
-    componentWillMount() {
         this.search = new SearchService(
             this.props.isocode,
             this.props.searchServicePath,
@@ -44,6 +42,41 @@ class Search extends Component {
             () => this.props.setErrorBoundaryToTrue()
         );
 
+        this.state = this.initialState();
+    }
+
+    componentDidMount() {
+        this.addHistoryListener();
+        this.addResizeListener();
+        this.performSearch();
+    }
+
+    addHistoryListener = () => {
+        this.props.history.listen((location, action) => {
+            const query = this.getQueryObject(parse(location.search));
+            if (action === 'POP') {
+                this.handleHistoryPop(query);
+            } else if (action === 'PUSH') { 
+                this.handleHistoryPush(query);
+            }
+        });
+    }
+
+    addResizeListener = () => {
+        const checkWindowWidth = () => {
+            const newState = Object.assign({}, this.state);
+            const desktop = window.matchMedia('screen and (min-width: 1200px)');
+            newState.isDesktop = desktop.matches;
+
+            this.setState(newState);
+        };
+
+        window.addEventListener('resize', checkWindowWidth);
+
+        checkWindowWidth();
+    }
+
+    initialState = () => {
         const query = this.search.getParamsFromString();
         this.query = query;
 
@@ -74,12 +107,14 @@ class Search extends Component {
         const contentTypeSelected = contentTypeElement
             ? contentTypeElement
             : {};
+
         let skuConfig = JSON.parse(
             document.getElementById('commerce-configs-json').innerHTML
         );
+
         skuConfig.showBreadcrumbs = true;
 
-        this.setState({
+        return {
             loading: true,
             searchParams: {},
             results: {},
@@ -114,32 +149,7 @@ class Search extends Component {
             categoryTabs: [],
             activeTabIndex: -1,
             tabHistory: {},
-        });
-
-        const checkWindowWidth = () => {
-            const newState = Object.assign({}, this.state);
-            const desktop = window.matchMedia('screen and (min-width: 1200px)');
-            newState.isDesktop = desktop.matches;
-
-            this.setState(newState);
         };
-
-        window.addEventListener('resize', checkWindowWidth);
-
-        checkWindowWidth();
-
-        this.performSearch();
-    }
-
-    componentDidMount() {
-        this.props.history.listen((location, action) => {
-            const query = this.getQueryObject(parse(location.search));
-            if (action === 'POP') {
-                this.handleHistoryPop(query);
-            } else if (action === 'PUSH') { 
-                this.handleHistoryPush(query);
-            }
-        });
     }
 
     handleHistoryPush = query => {
