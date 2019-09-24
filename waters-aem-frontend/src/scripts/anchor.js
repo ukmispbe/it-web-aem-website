@@ -23,19 +23,29 @@ var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
             setTimeout(() => {
                 const href = e.target.getAttribute('href').replace(/#/gi, '');
                 const block = document.getElementById(href);
-                const blockTop = block.offsetTop;
-                let topDistance = blockTop - 16;
-                if (!anchorSticky.length) {
-                    topDistance += 70;
+                const bodyRect = document.body.getBoundingClientRect();
+                const elemRect = block.getBoundingClientRect();
+
+                let offset = elemRect.top - bodyRect.top;
+                let blockPadding = window.getComputedStyle(block, null).getPropertyValue('padding-top');
+
+                if (blockPadding.indexOf('em') !== -1) {
+                    blockPadding = blockPadding.replace('em', '');
+                    blockPadding *= 16;
+                } else {
+                    blockPadding = blockPadding.replace('px', '');
+                    blockPadding *= 1;
                 }
+
+                offset += blockPadding;
 
                 if (hasSku.length === 0) {
                     if (anchorSticky.length) {
-                        topDistance += 20;
+                        offset -= anchorSticky[0].offsetHeight;
                     }
                 }
 
-                scrollToY(topDistance, 1000, 'easeOutSine');
+                scrollToY(offset, 1000, 'easeOutSine');
 
                 anchorLinks.forEach(anchor => {
                     anchor.classList.remove('active');
