@@ -74,6 +74,9 @@
         &:last-of-type {
             &:after {
                 display: none;
+                @include mobile {
+                    display: inline-block;
+                }
             }
         }
     }
