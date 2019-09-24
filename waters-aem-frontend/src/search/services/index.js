@@ -3,6 +3,7 @@ import 'whatwg-fetch';
 const queryString = require('query-string');
 
 const parameterValues = {
+    undefined: 'undefined',
     sort: {
         mostRecent: 'most-recent',
         mostRelevant: 'most-relevant',
@@ -357,4 +358,4 @@ class SearchService {
     isDefaultKeyword = value => value === parameterDefaults.keyword;
 }
 
-export { SearchService, parameterDefaults };
+export { SearchService, parameterValues, parameterDefaults };

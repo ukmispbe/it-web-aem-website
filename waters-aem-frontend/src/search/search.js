@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SearchService, parameterDefaults } from './services/index';
+import { SearchService, parameterValues, parameterDefaults } from './services/index';
 import { parse, stringify } from 'query-string';
 import { withRouter } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
@@ -81,15 +81,15 @@ class Search extends Component {
         this.query = query;
 
         if (
-            (typeof this.query.keyword === 'undefined' ||
-                this.query.keyword === '*:*') &&
-            typeof this.query.sort === 'undefined'
+            (typeof this.query.keyword === parameterValues.undefined ||
+                this.query.keyword === parameterDefaults.keyword) &&
+            typeof this.query.sort === parameterValues.undefined
         ) {
-            this.query.sort = 'most-recent';
+            this.query.sort = parameterValues.sort.mostRecent;
         } else {
             this.query.sort =
-                typeof this.query.sort === 'undefined'
-                    ? 'most-relevant'
+                typeof this.query.sort === parameterValues.undefined
+                    ? parameterValues.sort.mostRelevant
                     : this.query.sort;
         }
 
@@ -125,7 +125,7 @@ class Search extends Component {
             },
             rows: this.props.searchDefaults
                 ? this.props.searchDefaults && this.props.searchDefaults.rows
-                : 25,
+                : parameterDefaults.rows,
             sort: this.query.sort ? this.query.sort : parameterDefaults.sort,
             selectedFacets: this.query.selectedFacets || {},
             unappliedFilters: {},
@@ -162,10 +162,7 @@ class Search extends Component {
             query.content_type
         );
 
-        const isSkuList = validator.equals(
-            query.category,
-            'Shop'
-        );
+        const isSkuList = this.isSkuList(query.category);
 
         this.setState({
             activeTabIndex: categoryIndex,
@@ -180,6 +177,8 @@ class Search extends Component {
         });
     }
 
+    isSkuList = category =>  validator.equals(category, 'Shop');
+
     handleHistoryPop = query => {
         const categoryIndex = this.state.categoryTabs.findIndex(
             category => category.name === query.category
@@ -188,10 +187,7 @@ class Search extends Component {
         if (this.state.activeTabIndex !== categoryIndex) {
             this.setCategorySelected(categoryIndex, query, query.category);
         } else {
-            const isSkuList = validator.equals(
-                query.category,
-                'Shop'
-            );
+            const isSkuList = this.isSkuList(query.category);
 
             const contentTypeElement = this.findContentType(
                 this.props.filterMap,
@@ -267,10 +263,7 @@ class Search extends Component {
                 category => category.name === query.category
             );
             const categoryName = categoriesWithData[categoryIndex].name;
-            const isSkuList = validator.equals(
-                categoryName,
-                'Shop'
-            );
+            const isSkuList = this.isSkuList(categoryName);
 
             this.setState({ activeTabIndex: categoryIndex, isSkuList, category: categoryName });
         }
@@ -284,10 +277,7 @@ class Search extends Component {
             }
 
             const categoryName = categoriesWithData[maxCategory].name;
-            const isSkuList = validator.equals(
-                categoryName,
-                'Shop'
-            );
+            const isSkuList = this.isSkuList(categoryName);
 
             this.setState({ activeTabIndex: maxCategory, isSkuList, category: categoryName });
 
@@ -544,7 +534,7 @@ class Search extends Component {
     }
 
     sortHandler(e) {
-        const sortOption = parseInt(e.value) === 1 ? 'most-relevant' : 'most-recent';
+        const sortOption = parseInt(e.value) === 1 ? parameterValues.sort.mostRelevant : parameterValues.sort.mostRecent;
 
         let query = this.getQueryObject();
 
@@ -584,14 +574,6 @@ class Search extends Component {
         query.facets = {... newState.selectedFacets};
 
         this.pushToHistory(query, query.facets);
-
-        // this.setState({selectedFacets: {...newState.selectedFacets}}, () => {
-        //     const query = this.getQueryObject();
-
-        //     query.page = 1;
-
-        //     this.pushToHistory(query, this.state.selectedFacets);
-        // });
     }
 
     removeTag(tag) {
@@ -614,14 +596,6 @@ class Search extends Component {
         query.facets = {... newState.selectedFacets};
 
         this.pushToHistory(query, query.facets);
-
-        // this.setState({selectedFacets: {...newState.selectedFacets}}, () => {
-        //     const query = this.getQueryObject();
-
-        //     query.page = 1;
-
-        //     this.pushToHistory(query, this.state.selectedFacets);
-        // });
     }
 
     applyFilters() {
@@ -1081,7 +1055,7 @@ class Search extends Component {
     }
 
     setCategorySelectedState = (activeTabIndex, searchParams, contentType, contentTypeSelected, selectedFacets) => {
-        const isSkuList = validator.equals(searchParams.category, 'Shop');
+        const isSkuList = this.isSkuList(searchParams.category);
 
         this.setState({
                 activeTabIndex,
@@ -1136,10 +1110,10 @@ class Search extends Component {
                         sortValue={
                             state.unappliedFilters &&
                             state.unappliedFilters.sort
-                                ? state.unappliedFilters.sort === 'most-recent'
+                                ? state.unappliedFilters.sort === parameterValues.sort.mostRecent
                                     ? 2
                                     : 1
-                                : state.sort === 'most-recent'
+                                : state.sort === parameterValues.sort.mostRecent
                                 ? 2
                                 : 1
                         }
