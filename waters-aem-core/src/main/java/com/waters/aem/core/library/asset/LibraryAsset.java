@@ -80,15 +80,15 @@ public final class LibraryAsset implements ContentClassification, Asset {
 
     @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
-    private List<Tag> instrumentType = Collections.emptyList();
-
-    @WatersTagInject
-    @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
-    private List<Tag> technique = Collections.emptyList();
+    private List<Tag> instrumentTechnique = Collections.emptyList();
 
     @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
     private List<Tag> separationMode = Collections.emptyList();
+
+    @WatersTagInject
+    @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
+    private List<Tag> compoundAnalyte = Collections.emptyList();
 
     @WatersTagInject
     @Via(value = RELATIVE_PATH_METADATA, type = ChildResource.class)
@@ -138,18 +138,18 @@ public final class LibraryAsset implements ContentClassification, Asset {
     }
 
     @Override
-    public List<Tag> getInstrumentType() {
-        return instrumentType;
-    }
-
-    @Override
-    public List<Tag> getTechnique() {
-        return technique;
+    public List<Tag> getInstrumentTechnique() {
+        return instrumentTechnique;
     }
 
     @Override
     public List<Tag> getSeparationMode() {
         return separationMode;
+    }
+
+    @Override
+    public List<Tag> getCompoundAnalyte() {
+        return compoundAnalyte;
     }
 
     public List<Tag> getProduct() {
@@ -169,8 +169,8 @@ public final class LibraryAsset implements ContentClassification, Asset {
             .addAll(market)
             .addAll(yearPublished)
             .addAll(separationMode)
-            .addAll(technique)
-            .addAll(instrumentType)
+            .addAll(compoundAnalyte)
+            .addAll(instrumentTechnique)
             .addAll(event)
             .build();
     }
