@@ -27,8 +27,5 @@ public interface ContentClassification {
 
     List<Tag> getYearPublished();
 
-
     List<Tag> getAllTags();
-
-
 }

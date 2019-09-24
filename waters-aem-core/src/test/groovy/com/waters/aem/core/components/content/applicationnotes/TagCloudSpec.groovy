@@ -13,10 +13,10 @@ class TagCloudSpec extends WatersLibrarySpec {
         pageBuilder.content {
             waters {
                 "jcr:content"(
-                        "cq:template": WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE,
-                        contentType: ["/etc/tags/waters/contenttype/applicationnote"],
-                        compoundMatrix: ["/etc/tags/waters/matrix/first"],
-                        market: ["/etc/tags/waters/market/first", "/etc/tags/waters/market/second"]
+                    "cq:template": WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE,
+                    contentType: ["/etc/tags/waters/contenttype/applicationnote"],
+                    compoundMatrix: ["/etc/tags/waters/matrix/first"],
+                    market: ["/etc/tags/waters/market/first", "/etc/tags/waters/market/second"]
                 ) {
                     tagcloud(
                         title: "keywords",
