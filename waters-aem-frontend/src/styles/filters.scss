@@ -244,7 +244,7 @@
             display: block;
             float: left;
             padding: ($space-xxxs - .05em) $space-xs $space-xxxs $space-l;
-            margin: 0 $space-xxs $space-xs 0;
+            margin: ($space-m + 0.15em) $space-xxs $space-m 0;
             text-decoration: none;
             background-color: $color-gray-10;
             position: relative;
@@ -284,7 +284,7 @@
             }
         }
         @include tablet-and-under {
-            margin-top: 0;
+            margin-top: $space-l;
             margin-bottom: 0;
         }
     }

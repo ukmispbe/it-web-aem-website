@@ -45,6 +45,8 @@
         width: 100%;
         float: none;
         padding-left: 0;
+        top: 0;
+        margin-top: $space-s;
     }
 
     .cmp-search-filters__tags {
@@ -355,7 +357,7 @@ div.cmp-search__no-results {
         float: left;
         width: 165px;
         margin-bottom: 0;
-        padding-bottom: $space-m;
+        padding-bottom: ($space-xl + $space-s);
     }
     @include mobile {
         padding-bottom: 0;
@@ -367,17 +369,16 @@ div.cmp-search__no-results {
     left: 27%;
     width: 70%;
 
-    @include tablet-and-over {
-        margin-bottom: 6em;
-    }
-
     @include tablet-and-under {
-        top: 0;
+        position: absolute;
+        top: $space-xxl;
         width: 100%;
+        left: 0;
     }
 
     @include mobile {
         margin-bottom: $space-xl;
+        top: ($space-xxl * 2 + $space-l);
     }
 }
 
@@ -440,7 +441,9 @@ div.cmp-search__no-results {
         flex-wrap: wrap;
 
         .cmp-search__sorted-by{
-            order: 2;
+            order: 0;
+            padding-bottom: $space-xxl;
+            padding-top: 0;
         }
         .cmp-search-filters__tag {
             order: 1;
