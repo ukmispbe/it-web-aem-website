@@ -43,7 +43,7 @@
         margin-bottom: $space-xxxs;
 
         @include mobile {
-            padding-right: $space-s;
+            padding-right: $space-m;
         }
         span {
             white-space: normal;
@@ -61,8 +61,9 @@
             margin-top: 6px;
             padding: 0 0.25em;
             @include mobile {
-                left: -24px;
+                padding: 0 .5em;
                 position: absolute;
+                right: 0;
                 top: 0;
             }
         }
@@ -74,10 +75,7 @@
         &:last-of-type {
             &:after {
                 display: none;
-                @include mobile {
-                    display: inline-block;
-                }
-            }
+           }
         }
     }
 
