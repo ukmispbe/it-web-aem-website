@@ -953,10 +953,10 @@ class Search extends Component {
         const state = this.state;
         const searchParams = this.state.searchParams || {};
         const nextIcon = this.props.searchText.nextIcon;
-
         if (state.isSkuList) {
             const skuData = Array.isArray(state.results[searchParams.page])
                 ? state.results[searchParams.page].map(item => {
+                    console.warn(item)
                     return {
                         code: item.skucode,
                         category_facet: item.category_facet,
@@ -966,12 +966,11 @@ class Search extends Component {
                         primaryImageAlt: item.title,
                         primaryImageThumbnail: item.thumbnail,
                         discontinued: this.returnObsoleteStatus(item.status),
-                        replacementSkuPageHref: this.replacementSkuPageHref,
-                        replacementSku: this.replacementSkuCode,
+                        replacementskuurl: item.replacementskuurl,
+                        replacementskucode: item.replacementskucode,
                         title: item.title,
                     };
                 }): [];
-
             return (
                 <SkuList
                     skuConfig={state.skuConfig}

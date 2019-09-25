@@ -180,7 +180,7 @@ class ListItem extends React.Component {
 
         if (this.props.relatedSku.discontinued) {
             let discontinuedMessage = this.props.skuConfig.skuInfo.discontinuedWithReplacementWithCode;
-            if(!this.props.relatedSku.replacementSku || !this.props.relatedSku.replacementSkuPageHref){
+            if(!this.props.relatedSku.replacementskucode || !this.props.relatedSku.replacementskuurl){
                 discontinuedMessage = this.props.skuConfig.skuInfo.discontinuedNoReplacementCode
             }
 
@@ -188,8 +188,8 @@ class ListItem extends React.Component {
                 <SkuMessage 
                     icon={this.props.skuConfig.skuInfo.lowStockIcon}
                     message={discontinuedMessage}
-                    link={this.props.relatedSku.replacementSkuPageHref}
-                    linkMessage={this.props.relatedSku.replacementSku} 
+                    link={this.props.relatedSku.replacementskuurl}
+                    linkMessage={this.props.relatedSku.replacementskucode} 
                 />
             );
         } else {
