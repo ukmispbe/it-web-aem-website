@@ -1,4 +1,5 @@
 import scrollToY from './scrollTo';
+import scrollToElement from './scrollToElement';
 import screenSizes from './screenSizes';
 import Fader from './fade-x';
 import sticky, { scrollListener } from './stickyService';
@@ -22,30 +23,13 @@ var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
 
             setTimeout(() => {
                 const href = e.target.getAttribute('href').replace(/#/gi, '');
-                const block = document.getElementById(href);
-                const bodyRect = document.body.getBoundingClientRect();
-                const elemRect = block.getBoundingClientRect();
-
-                let offset = elemRect.top - bodyRect.top;
-                let blockPadding = window.getComputedStyle(block, null).getPropertyValue('padding-top');
-
-                if (blockPadding.indexOf('em') !== -1) {
-                    blockPadding = blockPadding.replace('em', '');
-                    blockPadding *= 16;
-                } else {
-                    blockPadding = blockPadding.replace('px', '');
-                    blockPadding *= 1;
-                }
-
-                offset += blockPadding;
+                let additionalOffset = 0;
 
                 if (hasSku.length === 0) {
-                    if (anchorSticky.length) {
-                        offset -= anchorSticky[0].offsetHeight;
-                    }
+                    additionalOffset += 52;
                 }
 
-                scrollToY(offset, 1000, 'easeOutSine');
+                scrollToElement(href, 1000, 'easeOutSine', true, additionalOffset);
 
                 anchorLinks.forEach(anchor => {
                     anchor.classList.remove('active');
