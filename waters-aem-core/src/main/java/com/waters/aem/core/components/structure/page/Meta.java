@@ -184,7 +184,7 @@ public final class Meta extends AbstractComponent {
     }
     
     public String getSkuCode() {
-        return sku.getCode();
+        return Optional.ofNullable(sku).map(Sku::getCode).orElse(null);
     }
 
     @DialogField(fieldLabel = "Twitter Image",
