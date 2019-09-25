@@ -21,23 +21,23 @@ public final class LocaleUtils {
 
         if (StringUtils.isNotEmpty(locale.getCountry())) {
             return locale;
-        } else {
-            String country = "US"; // default country if no other country is found from page path
-
-            final String languageRoot = LanguageUtil.getLanguageRoot(page.getPath());
-
-            if (languageRoot != null) {
-                final PageDecorator languagePage = page.getPageManager().getPage(languageRoot);
-                final PageDecorator countryPage = languagePage.getParent();
-
-                // check if this is a true country node such as "us" and not a region node such as "north-america"
-                if (countryPage.getName().length() == 2) {
-                    country = countryPage.getName();
-                }
-            }
-
-            return new Locale(locale.getLanguage(), country);
         }
+
+        String country = "US"; // default country if no other country is found from page path
+
+        final String languageRoot = LanguageUtil.getLanguageRoot(page.getPath());
+
+        if (languageRoot != null) {
+            final PageDecorator languagePage = page.getPageManager().getPage(languageRoot);
+            final PageDecorator countryPage = languagePage.getParent();
+
+            // check if this is a true country node such as "us" and not a region node such as "north-america"
+            if (countryPage.getName().length() == 2) {
+                country = countryPage.getName();
+            }
+        }
+
+        return new Locale(locale.getLanguage(), country);
     }
 
     /**
