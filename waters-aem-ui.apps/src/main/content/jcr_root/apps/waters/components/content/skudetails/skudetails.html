@@ -19,7 +19,7 @@
                 </a>-->
             </div>
             <div class="cmp-sku-details__ecom-wrapper" data-sly-test.isActive="${sku.active}">
-                <div class="cmp-sku-details__ecom" data-price="${sku.formattedPrice}"></div>
+                <div class="cmp-sku-details__ecom" data-price="${sku.formattedPrice}" data-sku-code="${sku.code}"></div>
             </div>
             <div class="cmp-notification-wrapper" data-sly-test="${!isActive}" data-replacementCode="${sku.replacementSkuCode}" data-replacementSkuHref="${sku.replacementSkuPageHref}">
                 <div id="cmp-sku-details-replacement"></div>
