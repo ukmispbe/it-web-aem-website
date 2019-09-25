@@ -4,7 +4,9 @@
 
 @media print {
     @page {
+        size: letter portrait;
         margin-top: 20px;
+
         @bottom-left {
             content: element(header);
             border-top: 1px solid #c6cdd2;
@@ -17,6 +19,7 @@
             border-top: 1px solid #c6cdd2;
             @include font-xsmall;
             margin-top: -40px;
+            margin-left: -10px;
         }
     }
 
@@ -40,7 +43,17 @@
         padding: 5px;
     }
 
-    .cmp-anchor, .cmp-header__links, .mopinion-survey-content, .cmp-share, a.cmp-back-to-top, .cmp-footer__links, .cmp-external-list__link::after, a.cmp-button, a.cmp-utility-button {
+    .cmp-anchor, 
+    .cmp-header__links, 
+    .mopinion-survey-content, 
+    .cmp-share, a.cmp-back-to-top, 
+    .cmp-footer__links,  
+    .cmp-footer__selector,
+    .cmp-footer__yamcontainer, 
+    .cmp-external-list__link::after,
+    .cmp-tag-cloud, 
+    a.cmp-button, 
+    a.cmp-utility-button {
         display: none;
     }
 
@@ -49,21 +62,35 @@
     }
 
     .cmp-footer {
-        background-color: $color-white;
+        -webkit-print-color-adjust: exact !important;
+        color-adjust: exact !important;
         padding: 1.5em 0 1.5em 0;
+
+        a {
+            color: $color-link;
+        }
+        .container1_wrapper{
+            display: none;
+        }
+
+        .container2_wrapper {
+            background-color: $color-white; 
+
+            .container2{
+                padding: $space-xl $space-xxs;
+                background-color: $color-white;
+            }
+        }
+
     }
 
-    .cmp-footer__logo {
-        display: none;
-    }
-
-    .cmp-footer__copyright {
-        float: right !important;
-        margin-top: 0px;
-
+    .cmp-footer__copyright{
+        margin: 0px;
+        
         p {
+            color: $color-icon;
             font-size: $font-size-text-pcs;
-            color: $color-gray-50;
+            font-weight: $font-weight-regular;
         }
     }
 
@@ -91,6 +118,10 @@
         }
     }
 
+    .cmp-header__top-bar__nav, .cmp-header__navigation{
+        display: none;
+    }
+
     .cmp-qr-code {
         font-family: "acumin-pro", arial, sans-serif;
         font-size: 0.8em;
@@ -101,7 +132,7 @@
         margin-top: 0;
         padding-top: 0.75em;
         display: unset;
-        float: left !important;
+        float: right !important;
     }
 
     .cmp-qr-code__img {
