@@ -1,4 +1,3 @@
-import scrollToY from './scrollTo';
 import scrollToElement from './scrollToElement';
 import screenSizes from './screenSizes';
 import Fader from './fade-x';
