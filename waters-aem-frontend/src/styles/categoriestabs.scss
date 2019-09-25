@@ -4,8 +4,8 @@
     overflow-x: hidden;
     overflow-y: hidden;
     white-space: nowrap;
-    margin-bottom: -3.5em;
-    margin-top: ($space-xxl + 2);
+    margin-bottom: $space-s;
+    margin-top: $space-l;
 
     @include tablet-and-under {
        margin-top: 0;
@@ -43,6 +43,10 @@
     &-container {
         position: relative;
         width: 100%;
+
+        & > div {
+            position: relative;
+        }
     }
 
     & .fader-container {
