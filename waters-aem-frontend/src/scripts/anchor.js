@@ -1,4 +1,4 @@
-import scrollToY from './scrollTo';
+import scrollToElement from './scrollToElement';
 import screenSizes from './screenSizes';
 import Fader from './fade-x';
 import sticky, { scrollListener } from './stickyService';
@@ -22,20 +22,13 @@ var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
 
             setTimeout(() => {
                 const href = e.target.getAttribute('href').replace(/#/gi, '');
-                const block = document.getElementById(href);
-                const blockTop = block.offsetTop;
-                let topDistance = blockTop - 16;
-                if (!anchorSticky.length) {
-                    topDistance += 70;
-                }
+                let additionalOffset = 0;
 
                 if (hasSku.length === 0) {
-                    if (anchorSticky.length) {
-                        topDistance += 20;
-                    }
+                    additionalOffset += 52;
                 }
 
-                scrollToY(topDistance, 1000, 'easeOutSine');
+                scrollToElement(href, 1000, 'easeOutSine', true, additionalOffset);
 
                 anchorLinks.forEach(anchor => {
                     anchor.classList.remove('active');

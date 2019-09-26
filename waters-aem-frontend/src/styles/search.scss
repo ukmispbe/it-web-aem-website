@@ -1,6 +1,12 @@
 .cmp-search-results {
     margin-left: -14px;
 
+    @include tablet-and-under {
+        & > div {
+            position: relative;
+        }
+    }
+
     @include tablet {
         margin-left: -12px;
     }
@@ -26,6 +32,7 @@
             float: none;
             padding-left: 0;
             margin-left: 0;
+            margin-top: $space-xl;
         }
 
         @include mobile {
@@ -45,12 +52,22 @@
         width: 100%;
         float: none;
         padding-left: 0;
+        top: 0;
+        margin-top: $space-s;
     }
 
     .cmp-search-filters__tags {
         @include tablet {
             width: 100%;
-            padding: 1em 0;
+            padding: 0;
+        }
+
+        @include mobile {
+            margin-top: 0;
+
+            a:first-child {
+                margin-bottom: 0;
+            }
         }
     }
 }
@@ -355,7 +372,7 @@ div.cmp-search__no-results {
         float: left;
         width: 165px;
         margin-bottom: 0;
-        padding-bottom: $space-m;
+        padding-bottom: $space-l;
     }
     @include mobile {
         padding-bottom: 0;
@@ -367,17 +384,16 @@ div.cmp-search__no-results {
     left: 27%;
     width: 70%;
 
-    @include tablet-and-over {
-        margin-bottom: 6em;
-    }
-
     @include tablet-and-under {
+        position: absolute;
         top: 0;
         width: 100%;
+        left: 0;
     }
 
     @include mobile {
         margin-bottom: $space-xl;
+        top: ($space-xxl * 2 + $space-l);
     }
 }
 
@@ -440,7 +456,9 @@ div.cmp-search__no-results {
         flex-wrap: wrap;
 
         .cmp-search__sorted-by{
-            order: 2;
+            order: 0;
+            padding-bottom: $space-xxl;
+            padding-top: 0;
         }
         .cmp-search-filters__tag {
             order: 1;
@@ -541,7 +559,6 @@ html.showing-spinner {
     #js-search-app {
         .overlay {
             position: fixed;
-            z-index: 1;
         }
     }
 }

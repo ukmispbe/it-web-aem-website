@@ -76,20 +76,9 @@ class ListItem extends React.Component {
             });
     };
 
-    setStorageProperties = () => {
-        if (this.props.fromSearch) {
-            const scrolled =
-                (window.pageYOffset || window.document.scrollTop) -
-                (window.document.clientTop || 0);
-
-            window.sessionStorage.setItem(
-                'waters.previousPagePosition',
-                scrolled
-            );
-            window.sessionStorage.setItem(
-                'waters.fromSearchURL',
-                JSON.stringify(window.location.href)
-            );
+    handleItemClick = () => {
+        if (this.props.onItemClick) {
+            this.props.onItemClick();
         }
     };
       
@@ -180,7 +169,7 @@ class ListItem extends React.Component {
 
         if (this.props.relatedSku.discontinued) {
             let discontinuedMessage = this.props.skuConfig.skuInfo.discontinuedWithReplacementWithCode;
-            if(!this.props.relatedSku.replacementSku || !this.props.relatedSku.replacementSkuPageHref){
+            if(!this.props.relatedSku.replacementskucode || !this.props.relatedSku.replacementskuurl){
                 discontinuedMessage = this.props.skuConfig.skuInfo.discontinuedNoReplacementCode
             }
 
@@ -188,8 +177,8 @@ class ListItem extends React.Component {
                 <SkuMessage 
                     icon={this.props.skuConfig.skuInfo.lowStockIcon}
                     message={discontinuedMessage}
-                    link={this.props.relatedSku.replacementSkuPageHref}
-                    linkMessage={this.props.relatedSku.replacementSku} 
+                    link={this.props.relatedSku.replacementskuurl}
+                    linkMessage={this.props.relatedSku.replacementskucode} 
                 />
             );
         } else {
@@ -240,7 +229,7 @@ class ListItem extends React.Component {
                         {this.props.skuConfig.skuInfo.partNumberLabel + " " + this.props.relatedSku.code}
                     </div>
                     <a
-                        onClick={() => this.setStorageProperties()}
+                        onClick={this.handleItemClick}
                         href={
                             this.props.relatedSku.skuPageHref
                                 ? this.props.relatedSku.skuPageHref

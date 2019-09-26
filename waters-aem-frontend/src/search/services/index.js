@@ -1,8 +1,10 @@
 import 'whatwg-fetch';
+import SessionStore from '../../stores/sessionStore';
 
 const queryString = require('query-string');
 
 const parameterValues = {
+    undefined: 'undefined',
     sort: {
         mostRecent: 'most-recent',
         mostRelevant: 'most-relevant',
@@ -39,6 +41,7 @@ class SearchService {
             multiselect,
         };
         this.throwError = throwError;
+        this.sessionStore = new SessionStore();
     }
 
     getCategories = ({
@@ -267,7 +270,7 @@ class SearchService {
                             ? facetString +
                               `${
                                   f > 0 ? encodeURIComponent('||') : ''
-                              }${encodeURI(filter)}`
+                              }${encodeURIComponent(encodeURIComponent(filter))}`
                             : facetString;
                     }
                 }
@@ -300,15 +303,15 @@ class SearchService {
                     if (facet) {
                         const splitName = facet.split(':');
                         if (Array.isArray(obj['facets'][splitName[0]])) {
-                            obj['facets'][splitName[0]].push(splitName[1]);
+                            obj['facets'][splitName[0]].push(decodeURIComponent(splitName[1]));
                         } else {
-                            obj['facets'][splitName[0]] = [splitName[1]];
+                            obj['facets'][splitName[0]] = [decodeURIComponent(splitName[1])];
                         }
                     }
                 }
             } else if (facets) {
                 const splitName = facets.split(':');
-                obj['facets'][splitName[0]] = [splitName[1]];
+                obj['facets'][splitName[0]] = [decodeURIComponent(splitName[1])];
             }
         }
 
@@ -355,6 +358,52 @@ class SearchService {
     };
 
     isDefaultKeyword = value => value === parameterDefaults.keyword;
+
+    setStorageForPagePosition = () => {
+        const scrolled =
+            (window.pageYOffset || window.document.scrollTop) -
+            (window.document.clientTop || 0);
+
+        this.sessionStore.setPreviousPagePosition(scrolled);
+        this.sessionStore.setFromSearchURL(window.location.href);
+    }
+
+    setStorageForTabHistory = tabHistory => {
+        this.sessionStore.setSearchTabHistory(tabHistory);
+    }
+
+    setStorageForPagination = () => {
+        const scrolled =
+            (window.pageYOffset || window.document.scrollTop) -
+            (window.document.clientTop || 0);
+        
+        this.sessionStore.setPreviousPaginationClick(scrolled);
+    }
+
+    getSessionStore = () => {
+        return {
+            previousPagePosition: this.sessionStore.getPreviousPagePosition(),
+            fromSearchURL: this.sessionStore.getFromSearchURL(),
+            searchTabHistory: this.sessionStore.getSearchTabHistory(),
+            previousPaginationClick: this.sessionStore.getPreviousPaginationClick()
+        }
+    }
+
+    clearSessionStore = () => {
+        this.sessionStore.removePreviousPagePosition();
+        this.sessionStore.removeFromSearchURL();
+        this.sessionStore.removeSearchTabHistory();
+        this.sessionStore.removePreviousPaginationClick();
+    }
+
+    scrollToPosition = position => {
+        window.scrollTo(0, position);
+        this.sessionStore.removePreviousPagePosition();
+    }
+
+    scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
 }
 
-export { SearchService, parameterDefaults };
+export { SearchService, parameterValues, parameterDefaults };

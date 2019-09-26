@@ -2,6 +2,7 @@ package com.waters.aem.core.utils;
 
 import com.day.cq.commons.LanguageUtil;
 import com.icfolson.aem.library.api.page.PageDecorator;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,25 +10,34 @@ import java.util.Locale;
 
 public final class LocaleUtils {
 
+    /**
+     * If a country is not already defined in the provided page's locale, try to read the country from the content
+     * path and create a locale object from that. otherwise, a default country is returned.
+     *
+     * @return a locale with a country
+     */
     public static Locale getLocaleWithCountryForPage(final PageDecorator page) {
+        final Locale locale = page.getLanguage();
+
+        if (StringUtils.isNotEmpty(locale.getCountry())) {
+            return locale;
+        }
+
         String country = "US"; // default country if no other country is found from page path
 
         final String languageRoot = LanguageUtil.getLanguageRoot(page.getPath());
 
         if (languageRoot != null) {
             final PageDecorator languagePage = page.getPageManager().getPage(languageRoot);
+            final PageDecorator countryPage = languagePage.getParent();
 
-            if (languagePage != null) {
-                final PageDecorator countryPage = languagePage.getParent();
-
-                // check if this is a true country node such as "us" and not a region node such as "north-america"
-                if (countryPage.getName().length() == 2) {
-                    country = countryPage.getName();
-                }
+            // check if this is a true country node such as "us" and not a region node such as "north-america"
+            if (countryPage.getName().length() == 2) {
+                country = countryPage.getName();
             }
         }
 
-        return new Locale(page.getLanguage(false).getLanguage(), country);
+        return new Locale(locale.getLanguage(), country);
     }
 
     /**

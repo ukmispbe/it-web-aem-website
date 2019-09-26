@@ -30,7 +30,7 @@ class SearchBar extends Component {
             value: searchValue ? searchValue : '',
             suggestions: [],
             openOverlay: false,
-            placeholder: this.props.placeholderTablet
+            placeholder: screenSizes.isMobile() ? this.props.placeholderMobile : this.props.placeholderTablet
         };
 
         this.handleSuggestionsFetchRequestedDebounce = debounce(250, this.handleSuggestionsFetchRequested);
@@ -174,9 +174,8 @@ class SearchBar extends Component {
     handleSuggestionSelected = (event, { suggestionValue}) => {
         this.removeCssOverridesForSearchBar();
         this.setState({value: suggestionValue, suggestions: [], openOverlay: false}, () => {
-            // removing these session variables ensures the page position is set to the top after keyword search
-            window.sessionStorage.removeItem('waters.previousPaginationClick');
-            window.sessionStorage.removeItem('waters.previousPagePosition');
+            // clearing search session variables ensures the page position is set to the top after keyword search
+            this.search.clearSessionStore();
             
             this.removeCssOverridesForSearchBody();
             this.search.setUrlParameter(this.state.value, this.props.searchPath)

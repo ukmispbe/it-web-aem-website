@@ -3,12 +3,8 @@
         display: flex;
         justify-content: center;
         background-color: $color-background-light;
-        padding: $space-s;
+        padding: $space-xxs 0 0 0;
         margin-bottom: $space-l;
-
-        @include mobile {
-            padding: $space-m;
-        }
 
         svg {
             height: $icon-m;
@@ -119,5 +115,11 @@
 .cmp-sku-details--sticky {
     .cmp-notification-wrapper {
         display: none;
+    }
+}
+
+.cmp-sku-list__container  {
+    .cmp-notification-wrapper {
+        padding: $space-xxs 0 0 0;
     }
 }

@@ -1,21 +1,21 @@
-const SEARCH_URL = 'waters.fromSearchURL';
+import SessionStore from '../stores/sessionStore';
+
+const sessionStore = new SessionStore();
 
 function removeFromSession() {
-    window.sessionStorage.removeItem(SEARCH_URL);
+    sessionStore.removeFromSearchURL();
 }
 
 function checkForSessionLink() {
-    const s = window.sessionStorage;
-    const getURL = s.getItem('waters.fromSearchURL');
+    const getURL = sessionStore.getFromSearchURL();
 
-    if (getURL) {
-        window.onbeforeunload = e => {
-            removeFromSession();
-        };
-        return JSON.parse(getURL);
-    } else {
+    if (!getURL || (getURL.constructor === Object && Object.entries(getURL).length === 0)) {
         return false;
     }
+
+    window.onbeforeunload = e => removeFromSession();
+
+    return getURL;
 }
 
 function hideBreadcrumbShowBackToSearch(link) {
@@ -44,8 +44,6 @@ function changeBreadcrumb(source) {
 }
 
 var breadcrumbDiv = document.querySelector('.breadcrumb');
-var rhsGradientFade = document.getElementsByClassName('cmp-breadcrumb-gradient-right');
-var lhsGradientFade = document.getElementsByClassName('cmp-breadcrumb-gradient-left');
 
 if (breadcrumbDiv) {
     mediaQueryListener.addListener(changeBreadcrumb);

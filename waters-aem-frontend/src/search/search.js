@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SearchService, parameterDefaults } from './services/index';
+import { SearchService, parameterValues, parameterDefaults } from './services/index';
 import { parse, stringify } from 'query-string';
 import { withRouter } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
@@ -27,13 +27,11 @@ import CategoryTabs from './components/categories-tabs';
 import validator from 'validator';
 
 class Search extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.savedSelectFilterState = null;
         this.parentCategory = 'contenttype_facet';
-    }
 
-    componentWillMount() {
         this.search = new SearchService(
             this.props.isocode,
             this.props.searchServicePath,
@@ -44,19 +42,58 @@ class Search extends Component {
             () => this.props.setErrorBoundaryToTrue()
         );
 
+        this.state = this.initialState();
+    }
+
+    componentDidMount() {
+        this.addHistoryListener();
+        this.addResizeListener();
+
+        const sessionStore = this.search.getSessionStore();
+        this.setState({tabHistory: sessionStore.searchTabHistory}, () => {
+            this.performSearch();
+        });
+    }
+
+    addHistoryListener = () => {
+        this.props.history.listen((location, action) => {
+            const query = this.getQueryObject(parse(location.search));
+            if (action === 'POP') {
+                this.handleHistoryPop(query);
+            } else if (action === 'PUSH') { 
+                this.handleHistoryPush(query);
+            }
+        });
+    }
+
+    addResizeListener = () => {
+        const checkWindowWidth = () => {
+            const newState = Object.assign({}, this.state);
+            const desktop = window.matchMedia('screen and (min-width: 1200px)');
+            newState.isDesktop = desktop.matches;
+
+            this.setState(newState);
+        };
+
+        window.addEventListener('resize', checkWindowWidth);
+
+        checkWindowWidth();
+    }
+
+    initialState = () => {
         const query = this.search.getParamsFromString();
         this.query = query;
 
         if (
-            (typeof this.query.keyword === 'undefined' ||
-                this.query.keyword === '*:*') &&
-            typeof this.query.sort === 'undefined'
+            (typeof this.query.keyword === parameterValues.undefined ||
+                this.query.keyword === parameterDefaults.keyword) &&
+            typeof this.query.sort === parameterValues.undefined
         ) {
-            this.query.sort = 'most-recent';
+            this.query.sort = parameterValues.sort.mostRecent;
         } else {
             this.query.sort =
-                typeof this.query.sort === 'undefined'
-                    ? 'most-relevant'
+                typeof this.query.sort === parameterValues.undefined
+                    ? parameterValues.sort.mostRelevant
                     : this.query.sort;
         }
 
@@ -74,13 +111,16 @@ class Search extends Component {
         const contentTypeSelected = contentTypeElement
             ? contentTypeElement
             : {};
+
         let skuConfig = JSON.parse(
             document.getElementById('commerce-configs-json').innerHTML
         );
+
         skuConfig.showBreadcrumbs = true;
 
-        this.setState({
+        return {
             loading: true,
+            searchParams: {},
             results: {},
             pagination: {
                 current: this.query.page
@@ -89,7 +129,7 @@ class Search extends Component {
             },
             rows: this.props.searchDefaults
                 ? this.props.searchDefaults && this.props.searchDefaults.rows
-                : 25,
+                : parameterDefaults.rows,
             sort: this.query.sort ? this.query.sort : parameterDefaults.sort,
             selectedFacets: this.query.selectedFacets || {},
             unappliedFilters: {},
@@ -112,32 +152,62 @@ class Search extends Component {
             erroredOut: false,
             categoryTabs: [],
             activeTabIndex: -1,
-        });
-
-        const checkWindowWidth = () => {
-            const newState = Object.assign({}, this.state);
-            const desktop = window.matchMedia('screen and (min-width: 1200px)');
-            newState.isDesktop = desktop.matches;
-
-            this.setState(newState);
+            tabHistory: {},
         };
-
-        window.addEventListener('resize', checkWindowWidth);
-
-        checkWindowWidth();
-
-        this.performSearch();
     }
 
-    componentWillReceiveProps(props) {
-        if (props.hasError) {
-            this.setState({ keyword: parameterDefaults.keyword }, () =>
-                this.performSearch('')
-            );
-        } else if (this.state.initialRender != true) {
-            this.performSearch();
+    handleHistoryPush = query => {
+        const categoryIndex = this.state.categoryTabs.findIndex(
+            category => category.name === query.category
+        );
+
+        const contentTypeElement = this.findContentType(
+            this.props.filterMap,
+            query.content_type
+        );
+
+        const isSkuList = this.isSkuList(query.category);
+
+        this.setState({
+            activeTabIndex: categoryIndex,
+            isSkuList,
+            category: query.category,
+            sort: query.sort,
+            contentType: query.content_type,
+            contentTypeSelected: Object.assign({}, contentTypeElement),
+            selectedFacets: Object.entries(query.facets).length === 0 ? {} : Object.assign({}, query.facets),
+        }, async () => {
+            await this.performSearch(query);
+        });
+    }
+
+    isSkuList = category =>  validator.equals(category, 'Shop');
+
+    handleHistoryPop = query => {
+        const categoryIndex = this.state.categoryTabs.findIndex(
+            category => category.name === query.category
+        );
+
+        if (this.state.activeTabIndex !== categoryIndex) {
+            this.setCategorySelected(categoryIndex, query, query.category);
         } else {
-            this.setState({ initialRender: false });
+            const isSkuList = this.isSkuList(query.category);
+
+            const contentTypeElement = this.findContentType(
+                this.props.filterMap,
+                query.content_type
+            );
+
+            this.setState({
+                isSkuList,
+                category: query.category,
+                sort: query.sort,
+                contentType: query.content_type,
+                contentTypeSelected: Object.assign({}, contentTypeElement),
+                selectedFacets: Object.entries(query.facets).length === 0 ? {} : Object.assign({}, query.facets),
+            }, async () => {
+                await this.performSearch(query);
+            });
         }
     }
 
@@ -167,7 +237,7 @@ class Search extends Component {
             : this.search.createQueryObject(parse(window.location.search));
 
     async performSearch(q) {
-        let query = this.getQueryObject(q);
+        let query = (q && Object.entries(q).length !== 0) ? {...q} : this.getQueryObject();
 
         if (!query.sort && this.state) {
             query = Object.assign({}, query, { sort: this.state.sort });
@@ -178,7 +248,7 @@ class Search extends Component {
                 ? this.props.searchDefaults.rows
                 : 25;
 
-        this.setState({ searchParams: query, loading: true, results: {} });
+        this.setState({ searchParams: query, loading: true, results: {}, filterMap: {} });
 
         const categories = await this.search.getCategories({
             keyword: query.keyword,
@@ -196,12 +266,10 @@ class Search extends Component {
             const categoryIndex = categoriesWithData.findIndex(
                 category => category.name === query.category
             );
-            const isSkuList = validator.equals(
-                categoriesWithData[categoryIndex].name,
-                'Shop'
-            );
+            const categoryName = categoriesWithData[categoryIndex].name;
+            const isSkuList = this.isSkuList(categoryName);
 
-            this.setState({ activeTabIndex: categoryIndex, isSkuList });
+            this.setState({ activeTabIndex: categoryIndex, isSkuList, category: categoryName });
         }
 
         if (isInitialLoad) {
@@ -213,12 +281,9 @@ class Search extends Component {
             }
 
             const categoryName = categoriesWithData[maxCategory].name;
-            const isSkuList = validator.equals(
-                categoryName,
-                'Shop'
-            );
+            const isSkuList = this.isSkuList(categoryName);
 
-            this.setState({ activeTabIndex: maxCategory, isSkuList });
+            this.setState({ activeTabIndex: maxCategory, isSkuList, category: categoryName });
 
             query.category = categoryName;
 
@@ -344,10 +409,10 @@ class Search extends Component {
 
         newState.filterMap =
             res.num_found !== 0
-                ? this.getFilterMap(
+                ? Object.assign({}, this.getFilterMap(
                       this.props.filterMap,
                       res.facets[this.parentCategory]
-                  )
+                  ))
                 : [];
 
         newState.loading = false;
@@ -385,17 +450,14 @@ class Search extends Component {
 
         this.setState(Object.assign({}, this.state, newState));
 
-        const scrollToPosition = window.sessionStorage.getItem(
-            'waters.previousPagePosition'
-        );
+        const sessionStore = this.search.getSessionStore();
 
-        const previousPagePosition = window.sessionStorage.getItem(
-            'waters.previousPaginationClick'
-        );
+        const scrollToPosition = sessionStore.previousPagePosition;
+
+        const previousPagePosition = sessionStore.previousPaginationClick;
 
         if (scrollToPosition) {
-            window.scrollTo(0, scrollToPosition);
-            window.sessionStorage.removeItem('waters.previousPagePosition');
+            this.search.scrollToPosition(scrollToPosition);
         } else if (
             this.props.history &&
             this.props.history.action === 'POP' &&
@@ -405,16 +467,13 @@ class Search extends Component {
             this.props.resetToDefault === false
         ) {
             setTimeout(() => {
-                window.scrollTo(0, previousPagePosition);
-                window.sessionStorage.removeItem(
-                    'waters.previousPaginationClick'
-                );
+                this.search.scrollToPosition(previousPagePosition);
             }, 0);
         } else if (!scrollToPosition && previousPagePosition) {
-            window.scrollTo(0, 0);
+            this.search.scrollToTop();
         } else {
             if (newState.performedSearches > 1) {
-                window.scrollTo(0, 0);
+                this.search.scrollToTop();
             }
         }
         this.props.resetToDefault = false;
@@ -443,8 +502,11 @@ class Search extends Component {
     }
 
     paginationClickHandler(page, e) {
+        if (e === 'clicked') {
+            this.search.setStorageForPagination();
+        };
+
         const state = this.state;
-        const searchParams = this.state.searchParams || {};
 
         const newState = Object.assign({}, this.state, {
             pagination: {
@@ -453,37 +515,24 @@ class Search extends Component {
             },
         });
 
-        const scrolled =
-            (window.pageYOffset || window.document.scrollTop) -
-            (window.document.clientTop || 0);
+        this.setState(newState, () => {
+            let query = this.getQueryObject();
 
-        this.setState(newState);
-
-        let query = this.getQueryObject();
-
-        query.page = page.selected + 1;
-
-        this.pushToHistory(query, this.state.selectedFacets);
-
-        if (e === 'clicked') {
-            window.sessionStorage.setItem(
-                'waters.previousPaginationClick',
-                scrolled
-            );
-        }
+            query.page = page.selected + 1;
+    
+            this.pushToHistory(query, query.facets); 
+        });
     }
 
     sortHandler(e) {
-        const sortOption = parseInt(e.value) === 1 ? 'most-relevant' : 'most-recent';
-
-        this.setState(Object.assign({}, this.state, { sort: sortOption }));
+        const sortOption = parseInt(e.value) === 1 ? parameterValues.sort.mostRelevant : parameterValues.sort.mostRecent;
 
         let query = this.getQueryObject();
 
         query.page = 1;
         query.sort = sortOption;
 
-        this.pushToHistory(query, this.state.selectedFacets);
+        this.pushToHistory(query, query.facets);
     }
 
     categoryChangeHandler = e => this.handleCategorySelected(e.value);
@@ -509,18 +558,13 @@ class Search extends Component {
 
             newState.selectedFacets[`${categoryId}`] = filteredArr;
         }
-        newState.searchParams.page = 1;
 
-        this.setState(newState);
+        const query = this.getQueryObject();
 
-        setTimeout(
-            () =>
-                this.pushToHistory(
-                    this.state.searchParams,
-                    this.state.selectedFacets
-                ),
-            0
-        );
+        query.page = 1;
+        query.facets = {... newState.selectedFacets};
+
+        this.pushToHistory(query, query.facets);
     }
 
     removeTag(tag) {
@@ -536,11 +580,13 @@ class Search extends Component {
         );
 
         newState.selectedFacets[`${tag.categoryId}`] = filteredArr;
-        newState.searchParams.page = 1;
 
-        this.setState(newState);
+        const query = this.getQueryObject();
 
-        this.pushToHistory(this.state.searchParams, this.state.selectedFacets);
+        query.page = 1;
+        query.facets = {... newState.selectedFacets};
+
+        this.pushToHistory(query, query.facets);
     }
 
     applyFilters() {
@@ -548,7 +594,8 @@ class Search extends Component {
         document.body.classList.remove('filter-active');
 
         setTimeout(() => {
-            window.scrollTo(0, 0);
+            //window.scrollTo(0, 0);
+            this.search.scrollToTop();
         }, 1000);
 
         this.clearUnappliedFilters();
@@ -594,21 +641,7 @@ class Search extends Component {
 
         query.page = 1;
 
-        this.setState({
-            searchParams: query,
-            contentType,
-            contentTypeSelected: item,
-            loading: true,
-        });
-
-        setTimeout(
-            () =>
-                this.pushToHistory(
-                    this.state.searchParams,
-                    this.state.selectedFacets
-                ),
-            0
-        );
+        this.pushToHistory(query, query.facets);
     };
 
     handleResetSearchToDefault = () => {
@@ -623,24 +656,11 @@ class Search extends Component {
             // no keyword has been selected so no need to reload page
             // simply clear active filters and update the route
             delete query.content_type;
+            delete query.facets;
 
             query.page = parameterDefaults.page;
 
-            this.setState({
-                searchParams: query,
-                contentType: parameterDefaults.content_type,
-                contentTypeSelected: parameterDefaults.contentTypeSelected,
-                selectedFacets: {},
-            });
-
-            setTimeout(
-                () =>
-                    this.pushToHistory(
-                        this.state.searchParams,
-                        this.state.selectedFacets
-                    ),
-                0
-            );
+            this.pushToHistory(query, query.facets);
         }
     };
 
@@ -655,28 +675,14 @@ class Search extends Component {
         )}`;
     };
 
-    handleRemoveCategory = () => {
-        const parameters = parse(window.location.search);
+    handleRemoveContentType = () => {
+        const query = parse(window.location.search);
 
-        delete parameters.content_type;
+        delete query.content_type;
 
-        parameters.page = parameterDefaults.page;
+        query.page = parameterDefaults.page;
 
-        this.setState({
-            searchParams: parameters,
-            selectedFacets: {},
-            contentType: '',
-            contentTypeSelected: {},
-        });
-
-        setTimeout(
-            () =>
-                this.pushToHistory(
-                    this.state.searchParams,
-                    this.state.selectedFacets
-                ),
-            0
-        );
+        this.pushToHistory(query, query.facets);
     };
 
     getSelectedContentTypeName = () => {
@@ -760,7 +766,7 @@ class Search extends Component {
                     items={this.state.filterMap.orderedFacets}
                     click={this.handleContentTypeItemClick.bind(this)}
                     selectedValue={this.getSelectedContentTypeValue()}
-                    clear={this.handleRemoveCategory.bind(this)}
+                    clear={this.handleRemoveContentType.bind(this)}
                     filterTags={filterTags}
                 >
                     <Filter
@@ -837,7 +843,7 @@ class Search extends Component {
                 categoryKey="contentType"
                 text={this.props.searchText}
                 selected={this.getSelectedContentType()}
-                onRemove={this.handleRemoveCategory}
+                onRemove={this.handleRemoveContentType}
             />
         ) : (
             <></>
@@ -939,10 +945,10 @@ class Search extends Component {
         const state = this.state;
         const searchParams = this.state.searchParams || {};
         const nextIcon = this.props.searchText.nextIcon;
-
         if (state.isSkuList) {
             const skuData = Array.isArray(state.results[searchParams.page])
                 ? state.results[searchParams.page].map(item => {
+                    console.warn(item)
                     return {
                         code: item.skucode,
                         category_facet: item.category_facet,
@@ -952,17 +958,16 @@ class Search extends Component {
                         primaryImageAlt: item.title,
                         primaryImageThumbnail: item.thumbnail,
                         discontinued: this.returnObsoleteStatus(item.status),
-                        replacementSkuPageHref: this.replacementSkuPageHref,
-                        replacementSku: this.replacementSkuCode,
+                        replacementskuurl: item.replacementskuurl,
+                        replacementskucode: item.replacementskucode,
                         title: item.title,
                     };
                 }): [];
-
             return (
                 <SkuList
                     skuConfig={state.skuConfig}
                     data={skuData}
-                    fromSearch={true}
+                    onItemClick={this.handleResultsItemClick}
                 />
             );
         } else {
@@ -971,37 +976,99 @@ class Search extends Component {
                     results={state.results[searchParams.page] || []}
                     locale={locale}
                     nextIcon={nextIcon}
+                    onItemClick={this.handleResultsItemClick}
                 />
             );
         }
     };
 
+    handleResultsItemClick = () => {
+        this.search.setStorageForPagePosition();
+        this.search.setStorageForTabHistory(this.state.tabHistory);
+    }
+
     handleCategorySelected = index => {
-        const categoryName = this.state.categoryTabs[index].name;
-        const isSkuList = validator.equals(categoryName, 'Shop');
+        if (this.state.activeTabIndex === index) { return; }
 
         let query = this.getQueryObject();
 
-        query.category = categoryName;
-        query.page = parameterDefaults.page;
+        this.createTabHistoryEntryForCurrentTab(query);
 
-        delete query.content_type;
-        delete query.facets;
-
-        this.setState(
-            {
-                activeTabIndex: index,
-                isSkuList,
-                searchParams: query,
-                contentType: parameterDefaults.content_type,
-                contentTypeSelected: parameterDefaults.contentTypeSelected,
-                selectedFacets: {},
-            },
-            () => {
-                this.pushToHistory(query, null);
-            }
-        );
+        this.setCategorySelected(index, query, this.state.categoryTabs[index].name);
     };
+
+    setCategorySelected = (index, query, category) => {
+        const tabHistoryEntrySelected = this.getTabHistoryEntry(category);
+
+        if (Object.entries(tabHistoryEntrySelected.searchParams).length === 0) {
+            query.category = category;
+            query.page = parameterDefaults.page;
+            query.sort = parameterDefaults.sort;
+
+            delete query.content_type;
+            delete query.facets;
+
+            this.setCategorySelectedState(index, 
+                query, 
+                parameterDefaults.content_type, 
+                parameterDefaults.contentTypeSelected, 
+                null);
+        } else {
+            this.setCategorySelectedState(index, 
+                tabHistoryEntrySelected.searchParams, 
+                tabHistoryEntrySelected.contentType, 
+                tabHistoryEntrySelected.contentTypeSelected, 
+                tabHistoryEntrySelected.selectedFacets);
+        }
+    }
+
+    createTabHistoryEntryForCurrentTab = query => {
+        const tabHistoryEntry = this.getTabHistoryEntry(query.category);
+        tabHistoryEntry.searchParams = Object.assign({}, query);
+        tabHistoryEntry.contentType = this.state.contentType;
+        tabHistoryEntry.contentTypeSelected = Object.assign({}, this.state.contentTypeSelected);
+        tabHistoryEntry.selectedFacets = Object.assign({}, this.state.selectedFacets);
+
+        this.setTabHistoryEntryState(query.category, tabHistoryEntry);
+    }
+
+    getTabHistoryEntry = category => {
+        if (this.state.tabHistory.hasOwnProperty(`${category}`)) {
+            return this.state.tabHistory[`${category}`];
+        }
+
+        return {
+            searchParams: {},
+            contentType: '',
+            contentTypeSelected: {},
+            selectedFacets: null,
+        }
+    }
+
+    setTabHistoryEntryState = (category, tabHistoryEntry) => {
+        const tabHistory = this.state.tabHistory;
+        tabHistory[`${category}`] = tabHistoryEntry;
+        this.setState({tabHistory});
+    }
+
+    setCategorySelectedState = (activeTabIndex, searchParams, contentType, contentTypeSelected, selectedFacets) => {
+        const isSkuList = this.isSkuList(searchParams.category);
+
+        this.setState({
+                activeTabIndex,
+                isSkuList,
+                searchParams,
+                category: searchParams.category,
+                sort: searchParams.sort,
+                contentType,
+                contentTypeSelected,
+                selectedFacets: selectedFacets ? selectedFacets : {},
+            });
+        
+        setTimeout(() => {
+            this.pushToHistory(searchParams, selectedFacets);
+        }, 0);
+    }
 
     render() {
         const state = this.state;
@@ -1040,10 +1107,10 @@ class Search extends Component {
                         sortValue={
                             state.unappliedFilters &&
                             state.unappliedFilters.sort
-                                ? state.unappliedFilters.sort === 'most-recent'
+                                ? state.unappliedFilters.sort === parameterValues.sort.mostRecent
                                     ? 2
                                     : 1
-                                : state.sort === 'most-recent'
+                                : state.sort === parameterValues.sort.mostRecent
                                 ? 2
                                 : 1
                         }
