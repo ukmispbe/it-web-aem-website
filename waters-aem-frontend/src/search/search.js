@@ -48,7 +48,11 @@ class Search extends Component {
     componentDidMount() {
         this.addHistoryListener();
         this.addResizeListener();
-        this.performSearch();
+
+        const sessionStore = this.search.getSessionStore();
+        this.setState({tabHistory: sessionStore.searchTabHistory}, () => {
+            this.performSearch();
+        });
     }
 
     addHistoryListener = () => {
@@ -446,17 +450,14 @@ class Search extends Component {
 
         this.setState(Object.assign({}, this.state, newState));
 
-        const scrollToPosition = window.sessionStorage.getItem(
-            'waters.previousPagePosition'
-        );
+        const sessionStore = this.search.getSessionStore();
 
-        const previousPagePosition = window.sessionStorage.getItem(
-            'waters.previousPaginationClick'
-        );
+        const scrollToPosition = sessionStore.previousPagePosition;
+
+        const previousPagePosition = sessionStore.previousPaginationClick;
 
         if (scrollToPosition) {
-            window.scrollTo(0, scrollToPosition);
-            window.sessionStorage.removeItem('waters.previousPagePosition');
+            this.search.scrollToPosition(scrollToPosition);
         } else if (
             this.props.history &&
             this.props.history.action === 'POP' &&
@@ -466,16 +467,13 @@ class Search extends Component {
             this.props.resetToDefault === false
         ) {
             setTimeout(() => {
-                window.scrollTo(0, previousPagePosition);
-                window.sessionStorage.removeItem(
-                    'waters.previousPaginationClick'
-                );
+                this.search.scrollToPosition(previousPagePosition);
             }, 0);
         } else if (!scrollToPosition && previousPagePosition) {
-            window.scrollTo(0, 0);
+            this.search.scrollToTop();
         } else {
             if (newState.performedSearches > 1) {
-                window.scrollTo(0, 0);
+                this.search.scrollToTop();
             }
         }
         this.props.resetToDefault = false;
@@ -504,15 +502,8 @@ class Search extends Component {
     }
 
     paginationClickHandler(page, e) {
-        const scrolled =
-            (window.pageYOffset || window.document.scrollTop) -
-            (window.document.clientTop || 0);
-
         if (e === 'clicked') {
-            window.sessionStorage.setItem(
-                'waters.previousPaginationClick',
-                scrolled
-            );
+            this.search.setStorageForPagination();
         };
 
         const state = this.state;
@@ -603,7 +594,8 @@ class Search extends Component {
         document.body.classList.remove('filter-active');
 
         setTimeout(() => {
-            window.scrollTo(0, 0);
+            //window.scrollTo(0, 0);
+            this.search.scrollToTop();
         }, 1000);
 
         this.clearUnappliedFilters();
@@ -953,10 +945,10 @@ class Search extends Component {
         const state = this.state;
         const searchParams = this.state.searchParams || {};
         const nextIcon = this.props.searchText.nextIcon;
-
         if (state.isSkuList) {
             const skuData = Array.isArray(state.results[searchParams.page])
                 ? state.results[searchParams.page].map(item => {
+                    console.warn(item)
                     return {
                         code: item.skucode,
                         category_facet: item.category_facet,
@@ -966,17 +958,16 @@ class Search extends Component {
                         primaryImageAlt: item.title,
                         primaryImageThumbnail: item.thumbnail,
                         discontinued: this.returnObsoleteStatus(item.status),
-                        replacementSkuPageHref: this.replacementSkuPageHref,
-                        replacementSku: this.replacementSkuCode,
+                        replacementskuurl: item.replacementskuurl,
+                        replacementskucode: item.replacementskucode,
                         title: item.title,
                     };
                 }): [];
-
             return (
                 <SkuList
                     skuConfig={state.skuConfig}
                     data={skuData}
-                    fromSearch={true}
+                    onItemClick={this.handleResultsItemClick}
                 />
             );
         } else {
@@ -985,10 +976,16 @@ class Search extends Component {
                     results={state.results[searchParams.page] || []}
                     locale={locale}
                     nextIcon={nextIcon}
+                    onItemClick={this.handleResultsItemClick}
                 />
             );
         }
     };
+
+    handleResultsItemClick = () => {
+        this.search.setStorageForPagePosition();
+        this.search.setStorageForTabHistory(this.state.tabHistory);
+    }
 
     handleCategorySelected = index => {
         if (this.state.activeTabIndex === index) { return; }

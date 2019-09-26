@@ -21,8 +21,8 @@ class SkuList extends React.Component {
                         {this.props.data.map((record, index) => (
                             <ListItem
                                 relatedSku={record}
-                                fromSearch={this.props.fromSearch}
                                 skuConfig={this.props.skuConfig}
+                                onItemClick={this.props.onItemClick}
                             />
                         ))}
                     </>

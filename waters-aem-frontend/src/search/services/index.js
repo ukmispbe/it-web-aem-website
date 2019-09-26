@@ -1,4 +1,5 @@
 import 'whatwg-fetch';
+import SessionStore from '../../stores/sessionStore';
 
 const queryString = require('query-string');
 
@@ -40,6 +41,7 @@ class SearchService {
             multiselect,
         };
         this.throwError = throwError;
+        this.sessionStore = new SessionStore();
     }
 
     getCategories = ({
@@ -356,6 +358,52 @@ class SearchService {
     };
 
     isDefaultKeyword = value => value === parameterDefaults.keyword;
+
+    setStorageForPagePosition = () => {
+        const scrolled =
+            (window.pageYOffset || window.document.scrollTop) -
+            (window.document.clientTop || 0);
+
+        this.sessionStore.setPreviousPagePosition(scrolled);
+        this.sessionStore.setFromSearchURL(window.location.href);
+    }
+
+    setStorageForTabHistory = tabHistory => {
+        this.sessionStore.setSearchTabHistory(tabHistory);
+    }
+
+    setStorageForPagination = () => {
+        const scrolled =
+            (window.pageYOffset || window.document.scrollTop) -
+            (window.document.clientTop || 0);
+        
+        this.sessionStore.setPreviousPaginationClick(scrolled);
+    }
+
+    getSessionStore = () => {
+        return {
+            previousPagePosition: this.sessionStore.getPreviousPagePosition(),
+            fromSearchURL: this.sessionStore.getFromSearchURL(),
+            searchTabHistory: this.sessionStore.getSearchTabHistory(),
+            previousPaginationClick: this.sessionStore.getPreviousPaginationClick()
+        }
+    }
+
+    clearSessionStore = () => {
+        this.sessionStore.removePreviousPagePosition();
+        this.sessionStore.removeFromSearchURL();
+        this.sessionStore.removeSearchTabHistory();
+        this.sessionStore.removePreviousPaginationClick();
+    }
+
+    scrollToPosition = position => {
+        window.scrollTo(0, position);
+        this.sessionStore.removePreviousPagePosition();
+    }
+
+    scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
 }
 
 export { SearchService, parameterValues, parameterDefaults };
