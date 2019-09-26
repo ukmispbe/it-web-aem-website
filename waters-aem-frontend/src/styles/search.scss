@@ -314,7 +314,7 @@ div.cmp-search__no-results {
             margin-bottom: 0;
         }
         @include mobile {
-            margin-bottom: $space-m;
+            margin-bottom: $space-s;
             svg {
                 margin: 0 2% 0 0;
             }
@@ -398,7 +398,7 @@ div.cmp-search__no-results {
 
     @include mobile {
         margin-bottom: $space-xl;
-        top: ($space-xxl * 2 + $space-l);
+        top: ($space-xxl * 2 + $space-m);
     }
 }
 
