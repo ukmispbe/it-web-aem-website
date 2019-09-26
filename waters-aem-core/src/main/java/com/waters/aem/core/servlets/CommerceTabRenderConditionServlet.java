@@ -17,7 +17,7 @@ import javax.annotation.Nonnull;
 import javax.servlet.Servlet;
 
 /**
- * Render condition to evaluate if the current page is an Application Notes template.
+ * Render condition to evaluate if the current page is at the country level.
  */
 @Component(service = Servlet.class)
 @SlingServletResourceTypes(
@@ -42,7 +42,7 @@ public final class CommerceTabRenderConditionServlet extends SlingSafeMethodsSer
             isCountryPage = currentPage.getDepth() == WatersConstants.LEVEL_LANGUAGE_ROOT;
         }
 
-        LOG.debug("current page : {}, is catalog template : {}", path, isCountryPage);
+        LOG.debug("current page : {}, is Country Level : {}", path, isCountryPage);
 
         request.setAttribute(RenderCondition.class.getName(), new SimpleRenderCondition(isCountryPage));
     }
