@@ -49,6 +49,8 @@ public final class WatersConstants {
 
     public static final String RENDER_CONDITION_CATALOG_TEMPLATE = "waters/components/renderconditions/catelogtemplate";
 
+    public static final String RENDER_CONDITION_COMMERCE_TAB = "waters/components/renderconditions/commercetab";
+
     public static final String EXTENSION_PDF = "pdf";
 
     public static final String TAG_LIBRARY = "waters:category/library";
