@@ -61,12 +61,18 @@
         @include tablet {
             width: 100%;
             padding: 0;
-            margin: 0 $space-xxs $space-s 0;
+            a {
+                margin: 0 $space-xxs $space-s 0;
+            }
         }
 
         @include mobile {
-            margin-top: 0;
-            margin: 0 $space-xxs $space-xxs 0;
+            margin-top: $space-l;
+            margin-bottom: $space-s;
+
+            a {
+                margin: 0 $space-xxs $space-xxs 0;
+            }
         }
     }
 }
