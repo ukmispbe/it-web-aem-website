@@ -59,7 +59,7 @@
     .cmp-search-filters__tags {
         @include tablet {
             width: 100%;
-            padding: 1em 0;
+            padding: 0;
         }
 
         @include mobile {
@@ -386,7 +386,7 @@ div.cmp-search__no-results {
 
     @include tablet-and-under {
         position: absolute;
-        top: $space-s;
+        top: 0;
         width: 100%;
         left: 0;
     }
