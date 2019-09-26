@@ -39,7 +39,7 @@ public final class CommerceTabRenderConditionServlet extends SlingSafeMethodsSer
             final PageManagerDecorator pageManager = request.getResourceResolver().adaptTo(PageManagerDecorator.class);
             final PageDecorator currentPage = pageManager.getPage(path);
 
-            isCountryPage = currentPage.getDepth() == 3;
+            isCountryPage = currentPage.getDepth() == WatersConstants.LEVEL_LANGUAGE_ROOT;
         }
 
         LOG.debug("current page : {}, is catalog template : {}", path, isCountryPage);
