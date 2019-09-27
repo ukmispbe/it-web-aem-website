@@ -10,7 +10,7 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import javax.inject.Inject;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public class PageObjectData extends AbstractAnalyticsModel {
+public class PageData extends AbstractAnalyticsModel {
 
     @Self
     SiteContext siteContext;

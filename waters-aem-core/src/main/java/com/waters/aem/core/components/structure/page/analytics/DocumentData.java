@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public class DocumentObjectData extends AbstractAnalyticsModel{
+public class DocumentData extends AbstractAnalyticsModel{
 
     @Inject
     private PageDecorator currentPage;
