@@ -11,10 +11,17 @@
             content: element(header);
             border-top: 1px solid #c6cdd2;
             margin-top: -40px;
-            margin-right: -235px;
+            margin-right: 0px;
         }
 
-       
+        @bottom-right {
+            content: counter(page);
+            @include font-xsmall;
+            margin-top: -40px;
+            margin-left: -100px;
+        }
+
+
     }
 
     .cmp-title__print {
