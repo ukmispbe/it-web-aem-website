@@ -61,6 +61,8 @@
         @include tablet {
             width: 100%;
             padding: 0;
+            margin-bottom: $space-m;
+
             a {
                 margin: 0 $space-xxs $space-s 0;
             }

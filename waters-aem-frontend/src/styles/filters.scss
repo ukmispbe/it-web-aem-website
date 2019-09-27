@@ -236,15 +236,16 @@
         display: flex;
         flex-wrap: wrap;
         margin-top: $space-xs;
-        margin-bottom: $space-s;
+        margin-bottom: $space-l;
 
         a {
             @include font-small;
+            max-height: $space-l;
             line-height: $line-height-text;
             display: block;
             float: left;
             padding: ($space-xxxs - .05em) $space-xs $space-xxxs $space-l;
-            margin: ($space-m + 0.15em) $space-xxs $space-m 0;
+            margin: ($space-m + 0.15em) $space-xxs ($space-s * -1) 0;
             text-decoration: none;
             background-color: $color-gray-10;
             position: relative;
