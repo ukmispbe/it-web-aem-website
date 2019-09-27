@@ -1,15 +1,3 @@
-#base=.
+#base=js
 
-js/modernizr.js
-js/parentNode.prepend.js
-js/childNode.after.js
-js/string.prototype.startsWith.js
-js/string.prototype.repeat.js
-js/array.prototype.filter.js
-js/array.prototype.find.js
-js/array.prototype.findIndex.js
-js/array.from.js
-js/object-polyfill.js
-js/es6-promise.js
-js/main.js
-js/array.prototype.includes.js
+main.js
