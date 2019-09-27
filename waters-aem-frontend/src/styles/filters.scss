@@ -250,8 +250,13 @@
             position: relative;
             border-radius: 0.25em;
 
+            @include tablet {
+                margin: 0 $space-xxs $space-xxs 0;
+            }
+
             @include mobile {
                 padding: ($space-xxs - .2em) $space-s ($space-xxs - .2em) $space-l;
+                margin: 0 $space-xxs $space-xxs 0;
             }
 
             svg {
