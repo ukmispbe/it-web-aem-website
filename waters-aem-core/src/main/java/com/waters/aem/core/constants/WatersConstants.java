@@ -41,6 +41,8 @@ public final class WatersConstants {
 
     public static final String TEMPLATE_SKU_PAGE = "/conf/waters/settings/wcm/templates/sku-page";
 
+    public static final String TEMPLATE_FORM_PAGE = "/conf/waters/settings/wcm/templates/form-page";
+
     public static final Predicate<PageDecorator> PREDICATE_SKU_PAGE = page -> TEMPLATE_SKU_PAGE.equals(
         page.getTemplatePath());
 
