@@ -1,5 +1,7 @@
 package com.waters.aem.core.components.structure.page.analytics;
 
+import com.icfolson.aem.library.api.page.PageDecorator;
+import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.metadata.ContentClassification;
 import org.apache.sling.api.resource.Resource;
@@ -16,23 +18,29 @@ public class PageData extends AbstractAnalyticsModel {
     SiteContext siteContext;
 
     @Inject
+    private PageDecorator currentPage;
+
+    @Inject
+    private Sku sku;
+
+    @Inject
     private ContentClassification contentClassification;
 
     public String getCategory() {
-        return getFirstTagTitle(contentClassification.getCategory());
+        return sku != null ? "sku" : getFirstTagTitle(contentClassification.getCategory());
     }
 
     public String getCountry() {
-        return siteContext.getLocale().getCountry();
+        return siteContext. getLocaleWithCountry().getCountry();
     }
 
     public String getLanguage() {
         return siteContext.getLocale().getLanguage();
     }
 
-
     public String getType() {
-        return getFirstTagTitle(contentClassification.getContentType());
+        return sku != null ? currentPage.getParent().getTitle() :
+            getFirstTagTitle(contentClassification.getContentType());
     }
 
 }
