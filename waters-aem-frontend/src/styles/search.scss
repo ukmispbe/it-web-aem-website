@@ -57,16 +57,21 @@
     }
 
     .cmp-search-filters__tags {
+
         @include tablet {
             width: 100%;
             padding: 0;
+            a {
+                margin: 0 $space-xxs $space-s 0;
+            }
         }
 
         @include mobile {
-            margin-top: 0;
+            margin-top: $space-l;
+            margin-bottom: $space-s;
 
-            a:first-child {
-                margin-bottom: 0;
+            a {
+                margin: 0 $space-xxs $space-xxs 0;
             }
         }
     }
@@ -309,7 +314,7 @@ div.cmp-search__no-results {
             margin-bottom: 0;
         }
         @include mobile {
-            margin-bottom: $space-m;
+            margin-bottom: $space-s;
             svg {
                 margin: 0 2% 0 0;
             }
@@ -372,7 +377,7 @@ div.cmp-search__no-results {
         float: left;
         width: 165px;
         margin-bottom: 0;
-        padding-bottom: $space-l;
+        padding-bottom: $space-xxl;
     }
     @include mobile {
         padding-bottom: 0;
@@ -386,14 +391,14 @@ div.cmp-search__no-results {
 
     @include tablet-and-under {
         position: absolute;
-        top: 0;
+        top: ($space-s + $space-xxs);
         width: 100%;
         left: 0;
     }
 
     @include mobile {
         margin-bottom: $space-xl;
-        top: ($space-xxl * 2 + $space-l);
+        top: ($space-xxl * 2 + $space-m);
     }
 }
 
