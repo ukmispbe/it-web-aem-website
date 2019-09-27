@@ -60,13 +60,14 @@
     }
 
     .layoutcontainer .cmp-section-container__title {
-        padding: 0.5em 0 1.5em 0;
+        padding: $space-xxs 0 $space-m 0;
     }
 
     .cmp-footer {
         -webkit-print-color-adjust: exact !important;
         color-adjust: exact !important;
-        padding: 1.5em 0 1.5em 0;
+        padding: $space-m 0 $space-m 0;
+        margin-top: $space-l;
 
         a {
             color: $color-link;
@@ -79,7 +80,7 @@
             background-color: $color-white; 
 
             .container2{
-                padding: $space-xl $space-xxs;
+                padding: $space-l $space-xxs;
                 background-color: $color-white;
             }
         }
@@ -132,9 +133,9 @@
         color: #4f5b64;
         margin-bottom: 0;
         margin-top: 0;
-        padding-top: 0.75em;
+        padding-top: $space-xs;
         display: unset;
-        float: right !important;
+        float: left !important;
     }
 
     .cmp-qr-code__img {
