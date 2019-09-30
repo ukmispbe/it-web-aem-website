@@ -10,6 +10,7 @@ import LoginStatus from "./scripts/loginStatus";
 import SkuDetails from './sku-details';
 import SkuList from './sku-list';
 import SkuMessage from './sku-shared/views/SkuMessage';
+import Chat from './chat'
 
 function getAuthoredDataForSearchBar(c, h) {
     return {
@@ -211,4 +212,10 @@ if(skuUnavailableContainer) {
             skuDetailsUnavailableBindingContainer
         );
     }
-    }
+}
+
+const chatContainer = document.getElementById('js-chat');
+
+if(chatContainer) {
+    ReactDOM.render(<Chat />, chatContainer);
+}
