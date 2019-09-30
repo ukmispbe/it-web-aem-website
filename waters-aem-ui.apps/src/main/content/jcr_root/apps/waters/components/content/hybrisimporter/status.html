@@ -17,6 +17,11 @@
         <div data-sly-test="${!importerStatus.running && importerStatus.lastImportDate && !importerStatus.success}" class="alert alert-danger" role="alert">
             Last Hybris import failed on <a href="${currentPage.path}.audit.html" target="_blank">${importerStatus.lastImportDate}</a>.
         </div>
+
+        <div data-sly-test="${importerStatus.replicationLimited}" class="alert alert-info" role="alert">
+            Replication limiting is enabled with a result threshold of <b>${importerStatus.replicationThresholdLimit}</b>.
+            An import count exceeding this threshold will need to be manually activated.
+        </div>
     </div>
 
     <div class="col-6">
