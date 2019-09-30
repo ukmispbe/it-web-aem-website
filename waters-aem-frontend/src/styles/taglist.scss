@@ -39,7 +39,7 @@
 .cmp-tag-list--comma-separated-small {
     .cmp-tag-list {
         @include font-small;
-        margin-bottom: $space-l;
+        margin-bottom: $space-s;
         &__item {
             &::after {
                 content: ',';
