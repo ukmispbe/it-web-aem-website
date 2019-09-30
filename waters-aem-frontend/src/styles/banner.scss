@@ -94,7 +94,6 @@
 }
 
 .cmp-banner--light .cmp-banner {
-    margin-bottom: $space-xxl;
     background: $color-background-light;
 }
 
@@ -296,5 +295,13 @@
     a.cmp-button--secondary,
     button.cmp-button--secondary {
         margin-bottom: 0;
+    }
+}
+
+.cmp-banner--search .cmp-banner {
+    margin-bottom: $space-s;
+
+    @include tablet-and-under {
+        margin-bottom: $space-l;
     }
 }

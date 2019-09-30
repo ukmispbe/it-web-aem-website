@@ -155,8 +155,9 @@
 }
 div.cmp-search__no-results {
     padding: $space-xl $space-xl;
+
     @include mobile {
-        padding: $space-l $space-l;
+        padding: $space-l;
     }
 }
 .paginate__container {
@@ -167,7 +168,7 @@ div.cmp-search__no-results {
     padding: $space-xl 0;
     clear: both;
     @include mobile {
-        padding: 0;
+        padding: $space-m;
     }
     li {
         display: inline;
@@ -464,7 +465,7 @@ div.cmp-search__no-results {
 
         .cmp-search__sorted-by{
             order: 0;
-            padding-bottom: $space-xxl;
+            padding-bottom: ($space-xxl + 1em);
             padding-top: 0;
         }
         .cmp-search-filters__tag {
@@ -473,6 +474,7 @@ div.cmp-search__no-results {
     }
 }
 .cmp-search__sorted-by {
+    @include font-small;
     display: none;
     float: left;
     width: 100%;
