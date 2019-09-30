@@ -54,6 +54,8 @@ public final class Meta extends AbstractComponent {
 
     private static final String PROPERTY_CANONICAL_URL = "canonicalUrl";
 
+    private static final String PROPERTY_META_DESCRIPTION = "metaDescription";
+
     private static final String PROPERTY_NO_INDEX = "noIndex";
 
     private static final String PROPERTY_NO_FOLLOW = "noFollow";
@@ -109,8 +111,9 @@ public final class Meta extends AbstractComponent {
             fieldDescription = "Default to inherited description",
             ranking = 2)
     @TextArea
-    @Inject
-    private String metaDescription;
+    public String getMetaDescription() {
+        return get(PROPERTY_META_DESCRIPTION, getDescription());
+    }
 
     @DialogField(fieldLabel = "No Index",
         fieldDescription = "Add NOINDEX metadata tag.",
@@ -201,10 +204,6 @@ public final class Meta extends AbstractComponent {
     @PathField(rootPath = WatersConstants.DAM_PATH)
     public String getTwitterImage() {
         return getExternalizedImage("twitterImage");
-    }
-
-    public String getMetaDescription() {
-        return metaDescription;
     }
 
     public List<String> getRobotsTags() {
