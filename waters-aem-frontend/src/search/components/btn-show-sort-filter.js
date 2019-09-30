@@ -31,6 +31,8 @@ class ShowSortFilter extends Component {
             this.setState({ showSortFilters: true });
             this.props.setupFilters();
 
+            domElements.noScroll(true);
+
             if (screenSizes.isMobile()) {
                 // hide header so the sort filter is fixed at the top of the page
                 header.style.display = 'none';

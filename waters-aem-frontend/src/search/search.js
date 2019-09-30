@@ -25,6 +25,7 @@ import Spinner from './components/spinner';
 import { CategoriesMenu } from './components/categories-menu';
 import CategoryTabs from './components/categories-tabs';
 import validator from 'validator';
+import domElements from '../scripts/domElements';
 
 class Search extends Component {
     constructor(props) {
@@ -592,6 +593,7 @@ class Search extends Component {
     applyFilters() {
         document.body.classList.remove('show-sort-filters');
         document.body.classList.remove('filter-active');
+        domElements.noScroll(false);
 
         setTimeout(() => {
             //window.scrollTo(0, 0);
@@ -618,6 +620,7 @@ class Search extends Component {
         [].forEach.call(fitlers, function(el) {
             el.classList.remove('expanded');
         });
+        domElements.noScroll(false);
     }
 
     setupFilters() {
