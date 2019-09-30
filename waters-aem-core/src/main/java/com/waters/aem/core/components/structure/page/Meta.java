@@ -3,10 +3,7 @@ package com.waters.aem.core.components.structure.page;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Option;
-import com.citytechinc.cq.component.annotations.widgets.PathField;
-import com.citytechinc.cq.component.annotations.widgets.Selection;
-import com.citytechinc.cq.component.annotations.widgets.Switch;
-import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.citytechinc.cq.component.annotations.widgets.*;
 import com.day.cq.commons.Externalizer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -193,6 +190,14 @@ public final class Meta extends AbstractComponent {
     @PathField(rootPath = WatersConstants.DAM_PATH)
     public String getTwitterImage() {
         return getExternalizedImage("twitterImage");
+    }
+
+    @DialogField(fieldLabel = "Description",
+        fieldDescription = "Default to inherited description",
+        ranking = 10)
+    @TextArea
+    public String getMetaDescription() {
+        return getInherited("metaDescription", "");
     }
 
     public List<String> getRobotsTags() {
