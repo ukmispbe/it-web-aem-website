@@ -61,6 +61,8 @@
         @include tablet {
             width: 100%;
             padding: 0;
+            margin-bottom: $space-m;
+
             a {
                 margin: 0 $space-xxs $space-s 0;
             }
@@ -496,7 +498,7 @@ div.cmp-search__sorted-by {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: hsla(0, 0%, 100%, 0.8);
+    background-color: $overlay-dark;
     width: 200%;
     height: 130%;
     padding: 50% 80%;
