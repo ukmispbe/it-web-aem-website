@@ -40,6 +40,14 @@ function getAuthoredDataForTagCloud(h, t) {
     };
 }
 
+function getAuthoredDataForChat(c) {
+    return {
+        chatUrl: c.dataset.chatUrl,
+        chatAvailable: c.dataset.chatAvailable,
+        chatUnavailable: c.dataset.chatUnavailable
+    }
+}
+
 const searchBarContainer = document.getElementById('js-search-bar');
 const header = document.querySelector('.cmp-header');
 
@@ -214,8 +222,16 @@ if(skuUnavailableContainer) {
     }
 }
 
-const chatContainer = document.getElementById('js-chat');
+const chatContainer = document.getElementById('.cmp-chat');
 
 if(chatContainer) {
-    ReactDOM.render(<Chat />, chatContainer);
+    const data = getAuthoredDataForChat(chatContainer);
+    ReactDOM.render(
+        <Chat
+            chatUrl={data.chatUrl}
+            chatAvailable={data.chatAvailable}
+            chatUnavailable={data.chatUnavailable}
+        />,
+        chatContainer
+    );
 }
