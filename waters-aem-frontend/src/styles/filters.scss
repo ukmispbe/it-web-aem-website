@@ -240,6 +240,7 @@
 
         a {
             @include font-small;
+            max-height: $space-l;
             line-height: $line-height-text;
             display: block;
             float: left;
