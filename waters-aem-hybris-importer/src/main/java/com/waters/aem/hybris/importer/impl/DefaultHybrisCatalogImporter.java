@@ -72,8 +72,6 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         .put(HybrisImporterConstants.NAMESPACE_PREFIX_IMPORTER, HybrisImporterConstants.NAMESPACE_URI_IMPORTER)
         .build();
 
-    private static final String VANITY_PATH_PREFIX = "/skudetails/";
-
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
 
@@ -460,7 +458,6 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         updatedProperties.put(WatersCommerceConstants.PROPERTY_PRODUCT_RESOURCE_PATH, sku.getPath());
         updatedProperties.put(WatersCommerceConstants.PROPERTY_CODE, sku.getCode());
-        updatedProperties.put(NameConstants.PN_SLING_VANITY_PATH , VANITY_PATH_PREFIX + sku.getCode());
         updatedProperties.put(JcrConstants.JCR_DESCRIPTION, sku.getLongDescription());
 
         if (sku.getPrimaryImageSrc() != null) {
