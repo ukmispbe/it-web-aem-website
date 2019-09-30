@@ -21,13 +21,13 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Component(value = "Links",
-path = WatersConstants.COMPONENT_PATH_APPLICATION_NOTES)
+    path = WatersConstants.COMPONENT_PATH_APPLICATION_NOTES)
 @Model(adaptables = SlingHttpServletRequest.class,
-adapters = { Links.class, ComponentExporter.class },
-resourceType = Links.RESOURCE_TYPE,
-defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+    adapters = { Links.class, ComponentExporter.class },
+    resourceType = Links.RESOURCE_TYPE,
+    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
-extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+    extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class Links implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/applicationnotes/links";
@@ -36,15 +36,15 @@ public final class Links implements ComponentExporter {
     private Resource resource;
 
     @DialogField(fieldLabel = "Title",
-    fieldDescription = "Enter title for external list",
-    ranking = 1)
+        fieldDescription = "Enter title for external list",
+        ranking = 1)
     @TextField
     @Inject
     private String title;
 
     @DialogField(fieldLabel = "Link Items",
-    fieldDescription = "Enter external article details",
-    ranking = 2)
+        fieldDescription = "Enter external article details",
+        ranking = 2)
     @MultiField(composite = true)
     @Inject
     private List<BasicLink> linkItems;
