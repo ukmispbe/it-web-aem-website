@@ -5,8 +5,8 @@
     <meta name="twitter:title" content="${metaPage.title}">
     <meta name="twitter:description" content="${metaPage.description}">
     <meta name="twitter:url" content="${metaPage.externalizedPageUrl}">
-
-    <meta data-sly-test="${metaPage.metaDescription}" name="description" content="${metaPage.metaDescription}">
+    
+    <meta data-sly-test.description="${metaPage.metaDescription || properties['jcr:description']}" name="description" content="${description}">
 
     <sly data-sly-test="${metaPage.twitterImage}">
         <meta name="twitter:image" content="${metaPage.twitterImage}">
