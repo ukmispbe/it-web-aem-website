@@ -236,7 +236,7 @@
         display: flex;
         flex-wrap: wrap;
         margin-top: $space-xs;
-        margin-bottom: $space-l;
+        margin-bottom: $space-xs;
 
         a {
             @include font-small;
@@ -244,8 +244,8 @@
             line-height: $line-height-text;
             display: block;
             float: left;
-            padding: ($space-xxxs - .05em) $space-xs $space-xxxs $space-l;
-            margin: ($space-m + 0.15em) $space-xxs ($space-s * -1) 0;
+            padding: ($space-xxxs - .05em) $space-xs ($space-xxxs + .05em) $space-l;
+            margin: ($space-m + 0.15em) $space-xxs $space-m 0;
             text-decoration: none;
             background-color: $color-gray-10;
             position: relative;
@@ -256,13 +256,13 @@
             }
 
             @include mobile {
-                padding: ($space-xxs - .2em) $space-s ($space-xxs - .2em) $space-l;
+                padding: ($space-xxs - .2em) $space-s ($space-xxxs + .06em) $space-l;
                 margin: 0 $space-xxs $space-xxs 0;
             }
 
             svg {
                 position: absolute;
-                top: 9px;
+                top: 8px;
                 left: 10px;
                 width: $icon-s;
                 height: $icon-s;
@@ -275,7 +275,7 @@
                     margin: 0;
                 }
                 @include mobile {
-                    top: 7px;
+                    top: 9px;
                 }
             }
             &:hover {
@@ -290,12 +290,12 @@
             }
         }
         @include tablet-and-under {
-            margin-top: $space-l;
+            margin-top: 0;
             margin-bottom: 0;
         }
     }
     &__emptytags {
-        height: 0.5em;
+        height: 2em;
 
         @include tablet-and-under {
             height: 0;
