@@ -112,7 +112,7 @@ public final class Meta extends AbstractComponent {
             ranking = 2)
     @TextArea
     public String getMetaDescription() {
-        return get(PROPERTY_META_DESCRIPTION, getDescription());
+        return get(PROPERTY_META_DESCRIPTION, "");
     }
 
     @DialogField(fieldLabel = "No Index",
