@@ -23,13 +23,12 @@ public class PageObjectData extends AbstractAnalyticsModel {
     }
 
     public String getCountry() {
-        return siteContext.getLocale().getCountry();
+        return siteContext.getLocaleWithCountry().getCountry();
     }
 
     public String getLanguage() {
         return siteContext.getLocale().getLanguage();
     }
-
 
     public String getType() {
         return getFirstTagTitle(contentClassification.getContentType());
