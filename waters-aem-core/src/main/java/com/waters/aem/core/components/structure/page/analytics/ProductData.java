@@ -9,6 +9,7 @@ import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +26,7 @@ public class ProductData {
     private SiteContext siteContext;
 
     public List<Map<String, Object>> getProducts() {
-        final List<Map<String, Object>> productList = Arrays.asList(getProductProperties(sku));
+        final List<Map<String, Object>> productList = new ArrayList<>(Arrays.asList(getProductProperties(sku)));
 
         productList.addAll(sku.getRelatedSkus().stream()
                 .map(this::getProductProperties)
