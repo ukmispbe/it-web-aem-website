@@ -735,7 +735,12 @@ class Search extends Component {
         return facet ? facet.facetValue : '';
     };
 
-    getContentMenuOrFilter = filterTags => {
+    renderContentMenuOrFilter = filterTags => {
+
+        if (!this.showFilteringComponents()) { 
+            return <></> 
+        }
+
         if (
             this.isCategoryOnlySelected(
                 this.state.category,
@@ -784,7 +789,7 @@ class Search extends Component {
     };
 
     getFilterTags = () => {
-        if (this.isKeywordSelected() || this.isContentTypeSelected()) {
+        if (this.showFilteringComponents() && (this.isKeywordSelected() || this.isContentTypeSelected())) {
             return (
                 <div className="cmp-search-filters__tags clearfix">
                     <ClearAllTag
@@ -948,7 +953,6 @@ class Search extends Component {
         if (state.isSkuList) {
             const skuData = Array.isArray(state.results[searchParams.page])
                 ? state.results[searchParams.page].map(item => {
-                    console.warn(item)
                     return {
                         code: item.skucode,
                         category_facet: item.category_facet,
@@ -1070,10 +1074,36 @@ class Search extends Component {
         }, 0);
     }
 
-    render() {
-        const state = this.state;
-        const overlay = <div className="overlay" />;
-        const filterTags = this.getFilterTags();
+    showFilteringComponents = () => !(this.state.noResults || this.state.loading);
+
+    renderSort = () =>
+        this.showFilteringComponents()
+            ? <Sort
+                sortHandler={this.sortHandler.bind(this)}
+                sortValue={
+                    this.state.unappliedFilters &&
+                    this.state.unappliedFilters.sort
+                        ? this.state.unappliedFilters.sort === parameterValues.sort.mostRecent
+                            ? 2
+                            : 1
+                        : this.state.sort === parameterValues.sort.mostRecent
+                        ? 2
+                        : 1
+                }
+                text={this.props.searchText}
+            />
+        : <></>;
+
+    renderCategoryTabs = okToRender => 
+        this.showFilteringComponents()
+        ? <CategoryTabs
+                items={this.state.categoryTabs}
+                activeIndex={this.state.activeTabIndex}
+                onClick={this.handleCategorySelected}
+            />
+        : <></>;
+
+    renderSortFilterButtons = () => {
         const sortFilterIsPristine =
             !this.state.loading &&
             (this.state.contentType ||
@@ -1081,47 +1111,42 @@ class Search extends Component {
                 ? false
                 : true;
 
-        const aside = (
-            <div className="container__left cmp-search__sort-filter">
-                <BtnHideSortFilter
+        return <>
+            <BtnHideSortFilter
                     text={this.props.searchText}
                     resetToSavedState={this.resetToSavedState.bind(this)}
                     collapseFilters={this.collapseFilters}
                 />
 
-                <BtnApplySortFilter
-                    text={this.props.searchText}
-                    applyFilters={this.applyFilters.bind(this)}
-                    isPristine={sortFilterIsPristine}
-                    count={this.state.count}
-                />
+            <BtnApplySortFilter
+                text={this.props.searchText}
+                applyFilters={this.applyFilters.bind(this)}
+                isPristine={sortFilterIsPristine}
+                count={this.state.count}
+            />
 
-                <BtnDoneSortFilter
-                    text={this.props.searchText}
-                    collapseFilters={this.collapseFilters}
-                />
+            <BtnDoneSortFilter
+                text={this.props.searchText}
+                collapseFilters={this.collapseFilters}
+            />
+        </>;
+    }
 
+    render() {
+        const state = this.state;
+        const overlay = <div className="overlay" />;
+        const filterTags = this.getFilterTags();
+
+        const aside = (
+            <div className="container__left cmp-search__sort-filter">
+                {this.renderSortFilterButtons()}
                 <div className="cmp-search__sort-filter__container">
-                    <Sort
-                        sortHandler={this.sortHandler.bind(this)}
-                        sortValue={
-                            state.unappliedFilters &&
-                            state.unappliedFilters.sort
-                                ? state.unappliedFilters.sort === parameterValues.sort.mostRecent
-                                    ? 2
-                                    : 1
-                                : state.sort === parameterValues.sort.mostRecent
-                                ? 2
-                                : 1
-                        }
-                        text={this.props.searchText}
-                    />
-
-                    {this.getContentMenuOrFilter(filterTags)}
+                    {this.renderSort()}
+                    {this.renderContentMenuOrFilter(filterTags)}
                 </div>
             </div>
         );
-        const locale = this.props.searchLocale;
+        
         const previousIcon = (
             <ReactSVG src={this.props.searchText.previousIcon} />
         );
@@ -1157,7 +1182,7 @@ class Search extends Component {
 
                 {renderedResults}
 
-                {state.count > this.props.searchDefaults.rows ? (
+                {!state.loading && state.count > this.props.searchDefaults.rows ? (
                     <ReactPaginate
                         pageCount={state.pagination.amount}
                         forcePage={
@@ -1196,13 +1221,7 @@ class Search extends Component {
         } else {
             return (
                 <>
-                    {state.noResults ? null : (
-                        <CategoryTabs
-                            items={this.state.categoryTabs}
-                            activeIndex={this.state.activeTabIndex}
-                            onClick={this.handleCategorySelected}
-                        />
-                    )}
+                    {this.renderCategoryTabs()}
                     <div ref="main">
                         {overlay}
                         {this.renderResultsCount()}
