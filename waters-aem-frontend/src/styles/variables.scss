@@ -67,9 +67,15 @@ $line-height-text: 1.6em;
 $line-height-heading: 1.4em;
 
 // Font Weight
-$font-weight-light: 300;
-$font-weight-regular: 400;
-$font-weight-bold: 500;
+:root {
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-bold: 500;
+}
+ 
+$font-weight-light: var(--font-weight-light);
+$font-weight-regular: var(--font-weight-regular);
+$font-weight-bold: var(--font-weight-bold);
 
 // Letter Spacing
 $letter-spacing-small: 0.02em;
