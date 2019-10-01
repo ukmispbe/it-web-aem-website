@@ -2,8 +2,9 @@ import screenSizes from './screenSizes';
 
 const androidSuggestionFix = () => {
     const isAndroid = navigator.userAgent.toLowerCase().indexOf("android") > -1;
+    const isSearchPage = document.getElementsByClassName('cmp-search__sort-filter__container').length;
 
-    if (screenSizes.isMobile() && isAndroid && document.getElementsByClassName('cmp-search__sort-filter__container').length) {
+    if (screenSizes.isMobile() && isAndroid && isSearchPage) {
         let windowHeight = document.documentElement.clientHeight;
 
         window.addEventListener('resize', () => {
@@ -33,4 +34,3 @@ const androidSuggestionFix = () => {
 };
 
 document.addEventListener('DOMContentLoaded', androidSuggestionFix);
-
