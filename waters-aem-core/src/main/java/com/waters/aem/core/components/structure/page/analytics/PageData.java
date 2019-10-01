@@ -31,7 +31,7 @@ public class PageData extends AbstractAnalyticsModel {
     }
 
     public String getCountry() {
-        return siteContext. getLocaleWithCountry().getCountry();
+        return siteContext.getLocaleWithCountry().getCountry();
     }
 
     public String getLanguage() {
