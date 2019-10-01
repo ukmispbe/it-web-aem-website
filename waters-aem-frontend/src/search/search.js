@@ -61,7 +61,7 @@ class Search extends Component {
             const query = this.getQueryObject(parse(location.search));
             if (action === 'POP') {
                 this.handleHistoryPop(query);
-            } else if (action === 'PUSH') { 
+            } else if (action === 'PUSH') {
                 this.handleHistoryPush(query);
             }
         });
@@ -520,8 +520,8 @@ class Search extends Component {
             let query = this.getQueryObject();
 
             query.page = page.selected + 1;
-    
-            this.pushToHistory(query, query.facets); 
+
+            this.pushToHistory(query, query.facets);
         });
     }
 
@@ -931,7 +931,7 @@ class Search extends Component {
         !this.state.loading && this.state.noResults ? (
             <NoResults
                 searchText={this.props.searchText}
-                query={this.state.query}
+                query={this.state.keyword}
             />
         ) : (
             results
@@ -1011,16 +1011,16 @@ class Search extends Component {
             delete query.content_type;
             delete query.facets;
 
-            this.setCategorySelectedState(index, 
-                query, 
-                parameterDefaults.content_type, 
-                parameterDefaults.contentTypeSelected, 
+            this.setCategorySelectedState(index,
+                query,
+                parameterDefaults.content_type,
+                parameterDefaults.contentTypeSelected,
                 null);
         } else {
-            this.setCategorySelectedState(index, 
-                tabHistoryEntrySelected.searchParams, 
-                tabHistoryEntrySelected.contentType, 
-                tabHistoryEntrySelected.contentTypeSelected, 
+            this.setCategorySelectedState(index,
+                tabHistoryEntrySelected.searchParams,
+                tabHistoryEntrySelected.contentType,
+                tabHistoryEntrySelected.contentTypeSelected,
                 tabHistoryEntrySelected.selectedFacets);
         }
     }
@@ -1067,7 +1067,7 @@ class Search extends Component {
                 contentTypeSelected,
                 selectedFacets: selectedFacets ? selectedFacets : {},
             });
-        
+
         setTimeout(() => {
             this.pushToHistory(searchParams, selectedFacets);
         }, 0);
