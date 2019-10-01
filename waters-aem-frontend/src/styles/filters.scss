@@ -502,11 +502,6 @@ $header-height: 74px;
         .cmp-search__sort-filter__container {
             height: 105%;
         }
-        &.filter-active {
-            .cmp-search__sort-filter__container {
-                overflow: visible;
-            }
-        }
     }
     @include tablet {
         .cmp-search__sort-filter {
