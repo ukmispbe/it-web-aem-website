@@ -30,7 +30,7 @@ public final class DataLayer {
     @Inject
     private PageDecorator currentPage;
 
-    public Map<String, Object> buildJson() {
+    private Map<String, Object> buildJson() {
         final Map<String, Object> properties = new HashMap<>();
 
         if (Templates.isSkuPage(currentPage)) {
