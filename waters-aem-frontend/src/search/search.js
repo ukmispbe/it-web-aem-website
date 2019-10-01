@@ -908,7 +908,7 @@ class Search extends Component {
             <ResultsCount
                 rows={this.state.rows}
                 count={this.state.count}
-                query={this.state.keyword}
+                query={this.state.query}
                 current={
                     this.state.pagination && this.state.pagination.current
                         ? this.state.pagination.current
