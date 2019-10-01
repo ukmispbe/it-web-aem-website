@@ -251,7 +251,6 @@
     padding: $space-xs 0;
 
     @include mobile {
-        columns: 2;
         margin-top: -$space-s;
         padding: 0 0 $space-xs 0;
         &.cmp-anchor-show {
@@ -273,7 +272,7 @@
             width: 100%;
             float: left;
             padding-right: 0;
-            padding-top: $space-s;
+            padding-top: $space-xs;
         }
     }
 }
