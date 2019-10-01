@@ -337,7 +337,8 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
                     .map(Classification::getFeatures)
                     .flatMap(List::stream)
                     .filter(feature -> !feature.getInternalOnly())
-                    .sorted(Comparator.comparing(Feature::getPosition))
+                    .sorted(Comparator.nullsLast(Comparator.comparing(Feature::getPosition,
+                            Comparator.nullsLast(Comparator.naturalOrder()))))
                     .collect(Collectors.toList());
 
             setItemNodes(classificationsNode, WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATION, flattenedFeatures,
