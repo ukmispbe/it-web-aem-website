@@ -100,6 +100,21 @@
                     "internalOnly": true,
                     "name": "Product Family",
                     "range": false
+                },
+                {
+                    "code": "WatersClassification/1.0/Products.producttype",
+                    "comparable": true,
+                    "facet": false,
+                    "featureValues": [
+                        {
+                            "position": 3,
+                            "value": "Cartridge Columns"
+                        }
+                    ],
+                    "internalOnly": false,
+                    "name": "Product Type",
+                    "position": null,
+                    "range": false
                 }
             ],
             "name": "Products"

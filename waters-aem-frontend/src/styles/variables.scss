@@ -52,7 +52,7 @@ $ja-font-stack: arial, sans-serif, “Yu Gothic”, “Meiryo UI”, “メイ�
     “Hiragino Kaku Gothic Pro”, “Meiryo”;
 
 // Font Size
-$font-size-h1: 2.25em;
+$font-size-h1: 2em;
 $font-size-h2: 1.2em;
 $font-size-h3: 1.1em;
 $font-size-h4: 1em;
@@ -67,15 +67,21 @@ $line-height-text: 1.6em;
 $line-height-heading: 1.4em;
 
 // Font Weight
-$font-weight-light: 300;
-$font-weight-regular: 400;
-$font-weight-bold: 500;
+:root {
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-bold: 500;
+}
+ 
+$font-weight-light: var(--font-weight-light);
+$font-weight-regular: var(--font-weight-regular);
+$font-weight-bold: var(--font-weight-bold);
 
 // Letter Spacing
 $letter-spacing-small: 0.02em;
 
 // Mobile
-$font-size-h1-m: 1.6em;
+$font-size-h1-m: 1.4em;
 $font-size-small-m: 0.85em;
 
 // Print

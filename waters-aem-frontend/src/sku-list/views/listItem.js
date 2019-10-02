@@ -9,6 +9,7 @@ import LoginStatus from '../../scripts/loginStatus';
 import SkuMessage from '../../sku-shared/views/SkuMessage';
 import CheckOutStatus from '../../scripts/checkOutStatus';
 import Ecommerce from '../../scripts/ecommerce';
+import domElements from '../../scripts/domElements';
 
 class ListItem extends React.Component {
     constructor(props) {
@@ -57,9 +58,9 @@ class ListItem extends React.Component {
     toggleModal = () => {
         this.setState({ modalShown: !this.state.modalShown }, () => {
             if (this.state.modalShown) {
-                document.body.classList.add('no-scroll');
+                domElements.noScroll(true);
             } else {
-                document.body.classList.remove('no-scroll');
+                domElements.noScroll(false);
             }
         });
     };

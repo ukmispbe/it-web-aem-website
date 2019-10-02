@@ -25,6 +25,7 @@ import Spinner from './components/spinner';
 import { CategoriesMenu } from './components/categories-menu';
 import CategoryTabs from './components/categories-tabs';
 import validator from 'validator';
+import domElements from '../scripts/domElements';
 
 class Search extends Component {
     constructor(props) {
@@ -60,7 +61,7 @@ class Search extends Component {
             const query = this.getQueryObject(parse(location.search));
             if (action === 'POP') {
                 this.handleHistoryPop(query);
-            } else if (action === 'PUSH') { 
+            } else if (action === 'PUSH') {
                 this.handleHistoryPush(query);
             }
         });
@@ -519,8 +520,8 @@ class Search extends Component {
             let query = this.getQueryObject();
 
             query.page = page.selected + 1;
-    
-            this.pushToHistory(query, query.facets); 
+
+            this.pushToHistory(query, query.facets);
         });
     }
 
@@ -592,6 +593,7 @@ class Search extends Component {
     applyFilters() {
         document.body.classList.remove('show-sort-filters');
         document.body.classList.remove('filter-active');
+        domElements.noScroll(false);
 
         setTimeout(() => {
             //window.scrollTo(0, 0);
@@ -618,6 +620,7 @@ class Search extends Component {
         [].forEach.call(fitlers, function(el) {
             el.classList.remove('expanded');
         });
+        domElements.noScroll(false);
     }
 
     setupFilters() {
@@ -735,7 +738,12 @@ class Search extends Component {
         return facet ? facet.facetValue : '';
     };
 
-    getContentMenuOrFilter = filterTags => {
+    renderContentMenuOrFilter = filterTags => {
+
+        if (!this.showFilteringComponents()) { 
+            return <></> 
+        }
+
         if (
             this.isCategoryOnlySelected(
                 this.state.category,
@@ -784,7 +792,7 @@ class Search extends Component {
     };
 
     getFilterTags = () => {
-        if (this.isKeywordSelected() || this.isContentTypeSelected()) {
+        if (this.showFilteringComponents() && (this.isKeywordSelected() || this.isContentTypeSelected())) {
             return (
                 <div className="cmp-search-filters__tags clearfix">
                     <ClearAllTag
@@ -928,7 +936,7 @@ class Search extends Component {
         !this.state.loading && this.state.noResults ? (
             <NoResults
                 searchText={this.props.searchText}
-                query={this.state.query}
+                query={this.state.keyword}
             />
         ) : (
             results
@@ -948,7 +956,6 @@ class Search extends Component {
         if (state.isSkuList) {
             const skuData = Array.isArray(state.results[searchParams.page])
                 ? state.results[searchParams.page].map(item => {
-                    console.warn(item)
                     return {
                         code: item.skucode,
                         category_facet: item.category_facet,
@@ -1008,16 +1015,16 @@ class Search extends Component {
             delete query.content_type;
             delete query.facets;
 
-            this.setCategorySelectedState(index, 
-                query, 
-                parameterDefaults.content_type, 
-                parameterDefaults.contentTypeSelected, 
+            this.setCategorySelectedState(index,
+                query,
+                parameterDefaults.content_type,
+                parameterDefaults.contentTypeSelected,
                 null);
         } else {
-            this.setCategorySelectedState(index, 
-                tabHistoryEntrySelected.searchParams, 
-                tabHistoryEntrySelected.contentType, 
-                tabHistoryEntrySelected.contentTypeSelected, 
+            this.setCategorySelectedState(index,
+                tabHistoryEntrySelected.searchParams,
+                tabHistoryEntrySelected.contentType,
+                tabHistoryEntrySelected.contentTypeSelected,
                 tabHistoryEntrySelected.selectedFacets);
         }
     }
@@ -1064,16 +1071,42 @@ class Search extends Component {
                 contentTypeSelected,
                 selectedFacets: selectedFacets ? selectedFacets : {},
             });
-        
+
         setTimeout(() => {
             this.pushToHistory(searchParams, selectedFacets);
         }, 0);
     }
 
-    render() {
-        const state = this.state;
-        const overlay = <div className="overlay" />;
-        const filterTags = this.getFilterTags();
+    showFilteringComponents = () => !(this.state.noResults || this.state.loading);
+
+    renderSort = () =>
+        this.showFilteringComponents()
+            ? <Sort
+                sortHandler={this.sortHandler.bind(this)}
+                sortValue={
+                    this.state.unappliedFilters &&
+                    this.state.unappliedFilters.sort
+                        ? this.state.unappliedFilters.sort === parameterValues.sort.mostRecent
+                            ? 2
+                            : 1
+                        : this.state.sort === parameterValues.sort.mostRecent
+                        ? 2
+                        : 1
+                }
+                text={this.props.searchText}
+            />
+        : <></>;
+
+    renderCategoryTabs = okToRender => 
+        this.showFilteringComponents()
+        ? <CategoryTabs
+                items={this.state.categoryTabs}
+                activeIndex={this.state.activeTabIndex}
+                onClick={this.handleCategorySelected}
+            />
+        : <></>;
+
+    renderSortFilterButtons = () => {
         const sortFilterIsPristine =
             !this.state.loading &&
             (this.state.contentType ||
@@ -1081,47 +1114,42 @@ class Search extends Component {
                 ? false
                 : true;
 
-        const aside = (
-            <div className="container__left cmp-search__sort-filter">
-                <BtnHideSortFilter
+        return <>
+            <BtnHideSortFilter
                     text={this.props.searchText}
                     resetToSavedState={this.resetToSavedState.bind(this)}
                     collapseFilters={this.collapseFilters}
                 />
 
-                <BtnApplySortFilter
-                    text={this.props.searchText}
-                    applyFilters={this.applyFilters.bind(this)}
-                    isPristine={sortFilterIsPristine}
-                    count={this.state.count}
-                />
+            <BtnApplySortFilter
+                text={this.props.searchText}
+                applyFilters={this.applyFilters.bind(this)}
+                isPristine={sortFilterIsPristine}
+                count={this.state.count}
+            />
 
-                <BtnDoneSortFilter
-                    text={this.props.searchText}
-                    collapseFilters={this.collapseFilters}
-                />
+            <BtnDoneSortFilter
+                text={this.props.searchText}
+                collapseFilters={this.collapseFilters}
+            />
+        </>;
+    }
 
+    render() {
+        const state = this.state;
+        const overlay = <div className="overlay" />;
+        const filterTags = this.getFilterTags();
+
+        const aside = (
+            <div className="container__left cmp-search__sort-filter">
+                {this.renderSortFilterButtons()}
                 <div className="cmp-search__sort-filter__container">
-                    <Sort
-                        sortHandler={this.sortHandler.bind(this)}
-                        sortValue={
-                            state.unappliedFilters &&
-                            state.unappliedFilters.sort
-                                ? state.unappliedFilters.sort === parameterValues.sort.mostRecent
-                                    ? 2
-                                    : 1
-                                : state.sort === parameterValues.sort.mostRecent
-                                ? 2
-                                : 1
-                        }
-                        text={this.props.searchText}
-                    />
-
-                    {this.getContentMenuOrFilter(filterTags)}
+                    {this.renderSort()}
+                    {this.renderContentMenuOrFilter(filterTags)}
                 </div>
             </div>
         );
-        const locale = this.props.searchLocale;
+        
         const previousIcon = (
             <ReactSVG src={this.props.searchText.previousIcon} />
         );
@@ -1157,7 +1185,7 @@ class Search extends Component {
 
                 {renderedResults}
 
-                {state.count > this.props.searchDefaults.rows ? (
+                {!state.loading && state.count > this.props.searchDefaults.rows ? (
                     <ReactPaginate
                         pageCount={state.pagination.amount}
                         forcePage={
@@ -1196,13 +1224,7 @@ class Search extends Component {
         } else {
             return (
                 <>
-                    {state.noResults ? null : (
-                        <CategoryTabs
-                            items={this.state.categoryTabs}
-                            activeIndex={this.state.activeTabIndex}
-                            onClick={this.handleCategorySelected}
-                        />
-                    )}
+                    {this.renderCategoryTabs()}
                     <div ref="main">
                         {overlay}
                         {this.renderResultsCount()}

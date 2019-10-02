@@ -130,6 +130,25 @@ public final class Templates {
         return isPage(resource, WatersConstants.TEMPLATE_SEARCH_PAGE);
     }
 
+    /** Check if the given page is a shop home page.
+     *
+     * @param page page
+     * @return true if page is non-null and is a shop home page template
+     */
+    public static boolean isShopHomePage(final PageDecorator page) {
+        return isPage(page, WatersConstants.TEMPLATE_SHOP_HOME_PAGE);
+    }
+
+    /**
+     * Check if the given content resource is a shop home page.
+     *
+     * @param resource page jcr:content resource
+     * @return true if resource is non-null and is a shop home page template
+     */
+    public static boolean isShopHomePage(final Resource resource) {
+        return isPage(resource, WatersConstants.TEMPLATE_SHOP_HOME_PAGE);
+    }
+
     private static boolean isPage(final PageDecorator page, final String template) {
         return page != null && isPage(page.getContentResource(), template);
     }
