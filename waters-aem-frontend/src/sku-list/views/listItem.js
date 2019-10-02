@@ -142,6 +142,7 @@ class ListItem extends React.Component {
                     open={this.state.modalShown}
                     theme="callToAction"
                     config={this.state.modalInfo}
+                    partNumberLabel={this.props.skuConfig.skuInfo.partNumberLabel}
                 />
             </div>
         );
