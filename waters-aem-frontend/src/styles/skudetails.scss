@@ -37,8 +37,10 @@
 
             .cmp-sku-details__buyinfo {
                 padding: $space-l $space-l $space-xs $space-l;
+                margin-top: $space-m;
+
                 @include mobile {
-                    padding: $space-m $space-m 0 $space-m;
+                    padding: $space-m $space-m $space-xxs $space-m;
                 }
             }
         }
@@ -128,6 +130,10 @@
             display: flex;
             margin-top: $space-xs;
 
+            @include tablet {
+                margin-top: $space-xxxs;
+            }
+
             @include mobile {
                 margin-top: $space-xxxs;
                 margin-bottom: 0;
@@ -167,8 +173,9 @@
         }
 
         &__info {
-            h1{
+            h1 {
                 font-size: 1em;
+                margin-top: -$space-s;
             }
         }
     }
@@ -279,9 +286,11 @@
                 width: 100%;
             }
 
-            .cmp-sku-details__buyinfo{
+            .cmp-sku-details__buyinfo {
                 padding: 0;
-            }
+                margin-top: 0;
+                }
+            
         }
 
         .cmp-sku-details__stockcontainer {
@@ -318,6 +327,10 @@
         }
 
         .cmp-sku-details__buttons {
+
+            @include tablet {
+                margin-top: $space-xs;
+            }
             @include mobile {
                 width: 100%;
             }
@@ -335,6 +348,7 @@
     &__code {
         @include font-h2;
         margin-bottom: $space-xxs;
+        line-height: 2.5em;
     }
     
     &__info-title {
@@ -347,6 +361,14 @@
         .cmp-sku__price {
             @include font-h1;
             margin-bottom: $space-xxs;
+
+            @include mobile {
+                @include font-h2;
+                line-height: ($line-height-text + .1em);
+                color: $color-font-dark;
+                font-weight: $font-weight-regular;
+                margin-bottom: $space-xxxs;
+            }
         }
     }
 
@@ -451,8 +473,8 @@
         @include font-h3;
         margin-bottom: $space-xxs;
 
-        @include tablet {
-            min-height: 100px;
+        @include tablet-and-under {
+            margin-bottom: $space-s;
         }
     }
 

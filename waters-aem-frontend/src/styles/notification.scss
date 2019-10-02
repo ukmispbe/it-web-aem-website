@@ -61,6 +61,8 @@
 
         @include mobile {
             padding-right:0;
+            text-align: center;
+            margin-bottom: $space-s;
         }
     }
 
@@ -70,6 +72,11 @@
         padding-left: $space-xxs;
         li {
             display: inline;
+        }
+
+        @include mobile {
+            display: block;
+            margin-top: $space-s;
         }
     }
 }
@@ -97,6 +104,12 @@
         .cmp-notification-wrapper {
             transform: scale(1);
         }
+    }
+}
+
+.cmp-notification--highlight {
+    .cmp-notification-wrapper {
+        background-color: $color-teal-10;
     }
 }
 
