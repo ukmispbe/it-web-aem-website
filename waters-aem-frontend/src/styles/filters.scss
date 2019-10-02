@@ -14,6 +14,13 @@
         background-color: transparent;
         outline: none;
         border: 1px solid $color-border-light;
+
+        &:hover {
+            border: 1px solid $color-blue-50;
+        }
+        &:focus {
+            border: 2px solid $color-focus;
+        }
     }
     &__filter {
         div.facet-container {
@@ -296,7 +303,7 @@
         }
     }
     &__emptytags {
-        height: $space-s;
+        height: $space-l;
 
         @include tablet-and-under {
             height: 0;
