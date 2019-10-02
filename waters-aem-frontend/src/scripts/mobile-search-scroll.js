@@ -4,6 +4,10 @@ const androidSuggestionFix = () => {
     const isAndroid = navigator.userAgent.toLowerCase().indexOf("android") > -1;
     const isSearchPage = document.getElementsByClassName('cmp-search__sort-filter__container').length;
 
+    if (!isAndroid && isSearchPage) {
+        document.getElementsByClassName('cmp-search__sort-filter__container')[0].classList.add('no-fix');
+    }
+
     if (screenSizes.isMobile() && isAndroid && isSearchPage) {
         let windowHeight = document.documentElement.clientHeight;
 
