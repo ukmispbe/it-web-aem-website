@@ -34,6 +34,7 @@ public final class CommerceTabRenderConditionServlet extends SlingSafeMethodsSer
         final String path = request.getParameter("item");
 
         boolean isCountryPage = false;
+        boolean isLanguagePage = false;
 
         if (path != null) {
             final PageManagerDecorator pageManager = request.getResourceResolver().adaptTo(PageManagerDecorator.class);
@@ -41,10 +42,17 @@ public final class CommerceTabRenderConditionServlet extends SlingSafeMethodsSer
 
             isCountryPage = currentPage.getAbsoluteParent(WatersConstants.LEVEL_SITE_ROOT).getPath()
                                 .equals(currentPage.getPath());
+
+            final PageDecorator languagePage = currentPage.getAbsoluteParent(WatersConstants.LEVEL_LANGUAGE_ROOT);
+
+            if (languagePage != null) {
+                isLanguagePage = languagePage.getPath().equals(currentPage.getPath());
+            }
         }
 
-        LOG.debug("current page : {}, is country page: {}", path, isCountryPage);
+        LOG.debug("current page : {}, is country page: {}, is language page: {}", path, isCountryPage, isLanguagePage);
 
-        request.setAttribute(RenderCondition.class.getName(), new SimpleRenderCondition(isCountryPage));
+        request.setAttribute(RenderCondition.class.getName(),
+                new SimpleRenderCondition(isCountryPage || isLanguagePage));
     }
 }
