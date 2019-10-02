@@ -36,7 +36,7 @@ public final class DataLayer {
         if (Templates.isSkuPage(currentPage)) {
             properties.put("page", pageData);
             properties.put("products", productData.getProducts());
-        } else if(Templates.isSearchPage(currentPage)){
+        } else if (Templates.isSearchPage(currentPage)) {
             properties.put("page", pageData);
         } else {
             properties.put("document", documentData);

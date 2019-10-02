@@ -124,7 +124,7 @@ public final class Templates {
      * Check if the given content resource is a search page.
      *
      * @param resource page jcr:content resource
-     * @return true if resource is non-null and is a home page template
+     * @return true if resource is non-null and is a search page template
      */
     public static boolean isSearchPage(final Resource resource) {
         return isPage(resource, WatersConstants.TEMPLATE_SEARCH_PAGE);
