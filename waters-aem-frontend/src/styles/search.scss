@@ -69,7 +69,7 @@
         }
 
         @include mobile {
-            margin-top: $space-xl;
+            margin-top: 0;
             margin-bottom: $space-s;
 
             a {
