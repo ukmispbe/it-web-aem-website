@@ -42,7 +42,6 @@ class SearchService {
         };
         this.throwError = throwError;
         this.sessionStore = new SessionStore();
-        this.path = 'https://test-www.waters.com:8443/api/waters/search'
     }
 
     getCategories = ({
