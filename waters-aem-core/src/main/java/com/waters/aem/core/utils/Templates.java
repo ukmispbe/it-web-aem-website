@@ -111,7 +111,7 @@ public final class Templates {
     }
 
     /**
-     * Check if the given page is a home page.
+     * Check if the given page is a search page.
      *
      * @param page page
      * @return true if page is non-null and is a search page template
