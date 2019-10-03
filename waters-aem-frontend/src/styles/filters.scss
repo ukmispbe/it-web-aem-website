@@ -259,6 +259,7 @@
             border-radius: 0.25em;
 
             @include tablet {
+                max-height: fit-content;
                 margin: 0 $space-xxs $space-xxs 0;
             }
 
