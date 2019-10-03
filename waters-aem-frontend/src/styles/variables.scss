@@ -47,9 +47,8 @@ $color-focus: $color-blue-30;
 
 // Font Stack
 $font-stack: 'acumin-pro', arial, sans-serif;
-$zh-font-stack: arial, sans-serif, 'SimSun', '宋体', 'STSong', '华文宋体';
-$ja-font-stack: arial, sans-serif, “Yu Gothic”, “Meiryo UI”, “メイリオ”,
-    “Hiragino Kaku Gothic Pro”, “Meiryo”;
+$zh-font-stack: "SimSun", "宋体", "STSong", "华文宋体", arial, sans-serif;
+$ja-font-stack: “Yu Gothic”, “Meiryo UI”, “メイリオ”, “Hiragino Kaku Gothic Pro”, “Meiryo”, arial, sans-serif;
 
 // Font Size
 $font-size-h1: 2em;
@@ -72,7 +71,7 @@ $line-height-heading: 1.4em;
     --font-weight-regular: 400;
     --font-weight-bold: 500;
 }
- 
+
 $font-weight-light: var(--font-weight-light);
 $font-weight-regular: var(--font-weight-regular);
 $font-weight-bold: var(--font-weight-bold);
@@ -128,7 +127,7 @@ $desktop-width: 1200px;
 $tablet-width: 650px;
 $mobile-width: 414px;
 
-// z-index catalog 
+// z-index catalog
 $header-mobile-z-index: 400;
 $header-overlay-z-index: 505;
 $header-top-bar-z-index: 505;
