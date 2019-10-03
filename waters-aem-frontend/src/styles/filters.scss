@@ -14,6 +14,13 @@
         background-color: transparent;
         outline: none;
         border: 1px solid $color-border-light;
+
+        &:hover {
+            border: 1px solid $color-blue-50;
+        }
+        &:focus {
+            border: 2px solid $color-focus;
+        }
     }
     &__filter {
         div.facet-container {
@@ -252,6 +259,7 @@
             border-radius: 0.25em;
 
             @include tablet {
+                max-height: fit-content;
                 margin: 0 $space-xxs $space-xxs 0;
             }
 
@@ -296,7 +304,7 @@
         }
     }
     &__emptytags {
-        height: $space-s;
+        height: $space-l;
 
         @include tablet-and-under {
             height: 0;
@@ -496,6 +504,7 @@ $header-height: 74px;
     @include mobile {
         .cmp-search__sort-filter {
             z-index: ($cmp-banner-z-index + 1) !important;
+            top: 53px !important;
             height: 100vh;
             padding: 20px 20px 80px 20px;
         }
@@ -504,7 +513,9 @@ $header-height: 74px;
         }
         &.filter-active {
             .cmp-search__sort-filter__container {
-                overflow: visible;
+                &.no-fix {
+                    overflow: visible;
+                }
             }
         }
     }
