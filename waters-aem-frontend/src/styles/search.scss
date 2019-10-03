@@ -464,7 +464,7 @@ div.cmp-search__no-results {
 
         .cmp-search__sorted-by{
             order: 0;
-            padding-bottom: ($space-xxl + 1em);
+            padding-bottom: ($space-xxl + $space-l);
             padding-top: 0;
         }
         .cmp-search-filters__tag {
