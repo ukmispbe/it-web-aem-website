@@ -316,8 +316,8 @@ nav.cmp-navigation {
 
             & > .cmp-navigation__item {
                margin-bottom: 0;
-               padding-bottom: $space-s;
-               padding-right: $space-l;
+               padding-bottom: $space-xs;
+               padding-right: $space-xl;
             }
          }
 
@@ -338,13 +338,13 @@ nav.cmp-navigation {
             }
 
             .cmp-notification-description {
-               @include font-small;
+               font-size: $font-size-small;
                font-weight: $font-weight-light;
                line-height: 1.6em;
             }
 
-            .cmp-notification-description {
-               @include font-small;
+            .cmp-notification-title {
+               font-size: $font-size-small;
                line-height: 1.6em;
             }
 
@@ -354,7 +354,7 @@ nav.cmp-navigation {
             
 
             .cmp-links {
-               @include font-small;
+               font-size: $font-size-small;
                font-weight: $font-weight-light;
                line-height: 1.6em;
             }
@@ -373,6 +373,7 @@ nav.cmp-navigation {
 
             h3 {
                @include font-body;
+               font-weight: $font-weight-regular;
             }
          }
 
