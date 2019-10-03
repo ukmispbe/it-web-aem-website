@@ -144,7 +144,11 @@ if(document.querySelector('.cmp-sku-details__ecom')){
 if (skuDetailsContainer) {
     const skuNumber = skuData.dataset.skuCode;
     const skuTitle = skuData.dataset.skuTitle;
-    ReactDOM.render(<SkuDetails config={skuDetailsConfig} price={skuDetailsListPrice} skuNumber={skuNumber} titleText={skuTitle}/>, skuDetailsContainer);
+    const skuDiscontinued = skuData.dataset.discontinued;
+    const replacementSkuCode = skuData.dataset.replacementSkuCode;
+    const replacementSkuHref = skuData.dataset.replacementSkuHref;
+
+    ReactDOM.render(<SkuDetails config={skuDetailsConfig} price={skuDetailsListPrice} skuNumber={skuNumber} titleText={skuTitle} discontinued={skuDiscontinued} replacementSkuCode={replacementSkuCode} replacementSkuHref={replacementSkuHref}/>, skuDetailsContainer);
 }
 
 

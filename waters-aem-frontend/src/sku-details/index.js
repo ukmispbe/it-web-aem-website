@@ -33,6 +33,7 @@ class SkuDetails extends React.Component {
                 text: this.props.titleText,
             },
             errorObj: {},
+            discontinued: (this.props.discontinued == 'true')
         };
 
         this.request = new SkuService(
@@ -127,7 +128,8 @@ class SkuDetails extends React.Component {
         );
     }
 
-    render() {
+
+    renderActiveSku = () => { 
         if (Ecommerce.isDisabledState()) {
             return (
                 <SkuMessage 
@@ -155,6 +157,26 @@ class SkuDetails extends React.Component {
                     />
                 )
             }
+        }
+    }
+
+    render() {
+        if (this.state.discontinued) {
+            let discontinuedMessage = this.props.config.skuInfo.discontinuedWithReplacementWithCode;
+            if(!this.props.replacementSkuCode || !this.props.replacementSkuHref){
+                discontinuedMessage = this.props.config.skuInfo.discontinuedNoReplacementCode
+            }
+            return (
+                <SkuMessage 
+                    icon={this.props.config.skuInfo.lowStockIcon}
+                    message={discontinuedMessage}
+                    link={this.props.replacementSkuHref}
+                    linkMessage={this.props.replacementSkuCode} 
+                />
+            );
+        } else {
+            const activeSku = this.renderActiveSku();
+            return activeSku;
         }
     }
 }
