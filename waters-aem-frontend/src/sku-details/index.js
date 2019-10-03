@@ -123,6 +123,7 @@ class SkuDetails extends React.Component {
                     open={this.state.modalShown}
                     theme="callToAction"
                     config={this.state.modalInfo}
+                    errorObj={this.state.errorObj}
                     partNumberLabel={this.state.skuConfig.partNumberLabel}
                 />
             </div>

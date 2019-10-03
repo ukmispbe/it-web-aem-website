@@ -100,16 +100,21 @@ class ListItem extends React.Component {
                         )
                     }
                 >
-                    {this.state.skuAvailability.productStatus && (
+                    {(this.state.skuAvailability.productStatus ||
+                    (this.state && this.state.errorObj && this.state.errorObj.ok === false)) 
+                    && (
                         <Stock
                             skuConfig={this.props.skuConfig.skuInfo}
                             skuNumber={this.props.relatedSku.code}
                             skuAvailability={this.state.skuAvailability}
                             locale={this.props.skuConfig.locale}
                             skuType="details"
+                            errorObj={this.state.errorObj}
                         />
                     )}
-                    {!this.state.skuAvailability.productStatus && (
+                    {(!this.state.skuAvailability.productStatus && 
+                    !(this.state && this.state.errorObj && this.state.errorObj.ok === false)) 
+                    && (
                         <span className="cmp-sku-list__checkavailability">
                             {
                                 this.props.skuConfig.skuInfo
@@ -143,6 +148,7 @@ class ListItem extends React.Component {
                     theme="callToAction"
                     config={this.state.modalInfo}
                     partNumberLabel={this.props.skuConfig.skuInfo.partNumberLabel}
+                    errorObj={this.state.errorObj}
                 />
             </div>
         );
