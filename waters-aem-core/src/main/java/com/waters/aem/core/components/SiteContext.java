@@ -57,6 +57,37 @@ public final class SiteContext {
         return currentPage.getInherited("currencyIsoCode", defaultCurrency.getCurrencyCode());
     }
 
+    /**
+     * Returns a Locale object to be used for formatting a currency value. By default the Locale will be taken from the
+     * current content path. However if any language/country overrides are specified in page properties, a new Locale
+     * object will be constructed with those values.
+     *
+     * @return locale object to use for formatting a currency value for display
+     */
+    public Locale getCurrencyLocale() {
+        Locale locale = getLocaleWithCountry();
+
+        final String currencyLanguageCode = currentPage.getInherited("currencyLanguageCode", "");
+        final String currencyCountryCode = currentPage.getInherited("currencyCountryCode", "");
+
+        if (StringUtils.isNotEmpty(currencyLanguageCode) || StringUtils.isNotEmpty(currencyCountryCode)) {
+            String language = locale.getLanguage();
+            String country = locale.getCountry();
+
+            if (StringUtils.isNotEmpty(currencyLanguageCode)) {
+                language = currencyLanguageCode;
+            }
+
+            if (StringUtils.isNotEmpty(currencyCountryCode)) {
+                country = currencyCountryCode.toUpperCase();
+            }
+
+            locale = new Locale(language, country);
+        }
+
+        return locale;
+    }
+
     public String getTranslation(final String key) {
         return getI18n().get(key);
     }

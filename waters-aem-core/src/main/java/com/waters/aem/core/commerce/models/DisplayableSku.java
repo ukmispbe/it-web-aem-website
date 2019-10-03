@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.Locale;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -51,7 +52,7 @@ public final class DisplayableSku {
     public String getFormattedPrice() {
         final BigDecimal price = getPrice();
 
-        return price == null ? null : NumberFormat.getCurrencyInstance(siteContext.getLocaleWithCountry()).format(price);
+        return price == null ? null : NumberFormat.getCurrencyInstance(siteContext.getCurrencyLocale()).format(price);
     }
 
     public String getPrimaryImageAlt() {

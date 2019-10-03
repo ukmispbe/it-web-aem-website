@@ -44,6 +44,21 @@ public class Commerce {
     @InheritInject
     private String currencyIsoCode;
 
+    @DialogField(fieldLabel = "Currency Language Override",
+            fieldDescription = "Two character language code used to format the currency display. Setting this will " +
+                    "override the default.",
+            ranking = 3)
+    @TextField
+    @InheritInject
+    private String currencyLanguageCode;
+
+    @DialogField(fieldLabel = "Currency Country Override",
+            fieldDescription = "Two character country code used to format the currency display. Setting this will " +
+                    "override the default.",
+            ranking = 4)
+    @TextField
+    @InheritInject
+    private String currencyCountryCode;
 
     public CountryCommerceConfig getCountryCommerceConfig() {
         return countryCommerceConfig;
