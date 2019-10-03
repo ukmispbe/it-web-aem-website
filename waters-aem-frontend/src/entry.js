@@ -31,7 +31,8 @@ const japanTheme = {
 const isJapanese = (document.documentElement.lang == "ja");
 
 cssVars({
-    variables: (isJapanese ? japanTheme : {})
+    variables: (isJapanese ? japanTheme : Object.assign({})),
+    include: 'style,link[rel="stylesheet"]:not([href*="//"])'
 });
 
 var inlineSVG = require('inline-svg');

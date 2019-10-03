@@ -34,7 +34,7 @@ function init(options = {}) {
     return setOptions(options);
 }
 
-function up(file, pathOverride, noResolve) {
+function up(file, pathOverride, noResolve, nameChange=null) {
     if (!HOST) {
         setOptions();
     }
@@ -51,6 +51,8 @@ function up(file, pathOverride, noResolve) {
     if (noResolve && pathOverride) {
         const fileName = path.basename(file);
         sendTo = pathOverride + fileName;
+    } else if (pathOverride && nameChange) {
+        sendTo = path.resolve(pathOverride, nameChange);
     } else if (pathOverride) {
         const fileName = path.basename(file);
         sendTo = path.resolve(pathOverride, fileName);
