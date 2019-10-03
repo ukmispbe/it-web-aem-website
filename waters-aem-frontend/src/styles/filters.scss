@@ -511,7 +511,9 @@ $header-height: 74px;
         }
         &.filter-active {
             .cmp-search__sort-filter__container {
-                overflow: visible;
+                &.no-fix {
+                    overflow: visible;
+                }
             }
         }
     }
