@@ -43,8 +43,11 @@ function getAuthoredDataForTagCloud(h, t) {
 function getAuthoredDataForChat(c) {
     return {
         chatUrl: c.dataset.chatUrl,
+        chatIcon: c.dataset.chatIcon,
         chatAvailable: c.dataset.chatAvailable,
-        chatUnavailable: c.dataset.chatUnavailable
+        chatUnavailable: c.dataset.chatUnavailable,
+        chatText: c.dataset.chatText,
+        chatButtonText: c.dataset.chatButtonText
     }
 }
 
@@ -222,15 +225,20 @@ if(skuUnavailableContainer) {
     }
 }
 
-const chatContainer = document.getElementById('.cmp-chat');
+const chatContainer = document.querySelector('.cmp-chat');
 
 if(chatContainer) {
     const data = getAuthoredDataForChat(chatContainer);
     ReactDOM.render(
         <Chat
             chatUrl={data.chatUrl}
+            chatIcon={data.chatIcon}
             chatAvailable={data.chatAvailable}
             chatUnavailable={data.chatUnavailable}
+            chatText={data.chatText}
+            chatButtonText={data.chatButtonText}
+            chatOfflineIcon={skuDetailsConfig.skuInfo.outOfStockIcon}
+            chatOnlineIcon={skuDetailsConfig.skuInfo.inStockIcon}
         />,
         chatContainer
     );

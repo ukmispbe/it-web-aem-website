@@ -1,9 +1,10 @@
 <div data-sly-use.chat="com.waters.aem.core.components.content.Chat" class="cmp-chat"
      data-chat-url="${chat.chatUrl}"
+     data-chat-icon="/content/dam/waters/en/brand-assets/icons/chat.svg"
      data-chat-available="${'Live Chat is available now' @ i18n}"
-     data-chat-unavailable="${'Live Chat is unavailable' @ i18n}">
-    <p>${'Do you need help finding a product or ordering online?' @ i18n}</p>
-    <a class="cmp-button">${'ASK A QUESTION' @ i18n}</a>
+     data-chat-unavailable="${'Live Chat is unavailable' @ i18n}"
+     data-chat-text="${'Do you need help finding a product or ordering online?' @ i18n}"
+     data-chat-button-text="${'ASK A QUESTION' @ i18n}">
 </div>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
