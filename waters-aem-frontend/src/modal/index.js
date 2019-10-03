@@ -81,13 +81,13 @@ class Modal extends React.Component {
                 return null;
             }
         },
-        body: (text, textHeading) => {
+        body: (text, textHeading, partNumberLabel) => {
             if (text || textHeading) {
                 return (
                     <div className="cmp-modal__information">
                         {textHeading && (
                             <div className="cmp-modal__information-header">
-                                {textHeading}
+                                {partNumberLabel}&nbsp;{textHeading}
                             </div>
                         )}
                         {text && (
@@ -186,7 +186,8 @@ class Modal extends React.Component {
             else {
                 modalBody = this.shouldRender.body(
                     state.config.text,
-                    state.config.textHeading
+                    state.config.textHeading,
+                    this.props.partNumberLabel,
                 );
                 buttons = this.shouldRender.buttons(state.config.buttons);
             }
