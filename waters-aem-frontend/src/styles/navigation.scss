@@ -338,11 +338,33 @@ nav.cmp-navigation {
             }
 
             .cmp-notification-description {
+               @include font-small;
                font-weight: $font-weight-light;
+               line-height: 1.6em;
             }
+
+            .cmp-notification-description {
+               @include font-small;
+               line-height: 1.6em;
+            }
+
+            .cmp-notification-wrapper {
+               margin-top: $space-s;
+            }
+            
 
             .cmp-links {
                @include font-small;
+               font-weight: $font-weight-light;
+               line-height: 1.6em;
+            }
+
+            .cmp-links__item {
+               margin-bottom: $space-xxs;
+            }
+
+            .layoutcontainer--light {
+               margin-bottom: $space-s;
             }
 
             div.links {
