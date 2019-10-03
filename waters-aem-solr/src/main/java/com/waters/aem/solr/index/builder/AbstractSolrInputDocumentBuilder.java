@@ -94,7 +94,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
 
         // add common fields for all page types
         document.setField("id", page.getPath());
-        document.setField("url", page.getHref());
+        document.setField("url", page.getHref(true));
         document.setField("title", page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle()));
 
         setDocumentStringField(document, "description", page.getDescription());
