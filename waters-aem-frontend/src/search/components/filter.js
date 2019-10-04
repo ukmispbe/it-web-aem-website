@@ -6,9 +6,8 @@ import PropTypes from 'prop-types';
 class Filter extends Component {
     constructor(props) {
         super(props);
-        const currentIndex = props.facets ? props.facets.activeIndex || -1 : -1;
         this.state = {
-            activeIndex: currentIndex,
+            activeIndex: -1,
             lastIndex: -1,
             facetName: '',
         };
@@ -141,6 +140,7 @@ class Filter extends Component {
                     selectedFacets={props.selectedFacets}
                     minItemSearch={21}
                     minCharSearch={2}
+                    activeCategory={props.facets.activeIndex}
                 />
             );
         }) : [];
