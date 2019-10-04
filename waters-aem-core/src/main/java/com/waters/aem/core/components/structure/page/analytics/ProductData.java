@@ -27,13 +27,15 @@ public class ProductData {
     public List<Map<String, Object>> getProducts() {
         final List<Map<String, Object>> productList = new ArrayList<>();
 
-        // add current sku
-        productList.add(getProductProperties(sku));
+        if (sku != null) {
+            // add current sku
+            productList.add(getProductProperties(sku));
 
-        // add related skus
-        productList.addAll(sku.getRelatedSkus().stream()
-                .map(this::getProductProperties)
-                .collect(Collectors.toList()));
+            // add related skus
+            productList.addAll(sku.getRelatedSkus().stream()
+            .map(this::getProductProperties)
+            .collect(Collectors.toList()));
+        }
 
         return productList;
     }
