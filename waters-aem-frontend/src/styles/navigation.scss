@@ -365,6 +365,10 @@ nav.cmp-navigation {
 
             .layoutcontainer--light {
                margin-bottom: $space-s;
+
+               @include mobile {
+                  margin-top: $space-m;
+               }
             }
 
             div.links {
