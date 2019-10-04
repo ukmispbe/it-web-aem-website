@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 class Filter extends Component {
     constructor(props) {
         super(props);
-        const currentIndex = props.facets ? ("activeIndex" in props.facet ? props.facet.activeIndex : -1) : -1;
+        const currentIndex = props.facets ? ("activeIndex" in props.facets ? props.facets.activeIndex : -1) : -1;
         this.state = {
             activeIndex: currentIndex,
             lastIndex: -1,
