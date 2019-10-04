@@ -6,8 +6,9 @@ import PropTypes from 'prop-types';
 class Filter extends Component {
     constructor(props) {
         super(props);
+        const currentIndex = props.facets ? props.facets.activeIndex || -1 : -1;
         this.state = {
-            activeIndex: -1,
+            activeIndex: currentIndex,
             lastIndex: -1,
             facetName: '',
         };
@@ -101,7 +102,7 @@ class Filter extends Component {
     getMappings = () => {
         const facetName = `${this.props.contentType}_facet`;
 
-        const facet = Array.isArray(this.props.filterMap.orderedFacets) 
+        const facet = Array.isArray(this.props.filterMap.orderedFacets)
             ? this.props.filterMap.orderedFacets.find(item => item.facetName === facetName)
             : null;
 

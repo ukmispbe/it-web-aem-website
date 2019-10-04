@@ -538,7 +538,7 @@ class Search extends Component {
 
     categoryChangeHandler = e => this.handleCategorySelected(e.value);
 
-    filterSelectHandler(facet, categoryId, e) {
+    filterSelectHandler(facet, categoryId, e, activeIndex) {
         const isChecked = e.target.checked;
         const newState = Object.assign({}, this.state);
         if (isChecked) {
@@ -560,6 +560,7 @@ class Search extends Component {
             newState.selectedFacets[`${categoryId}`] = filteredArr;
         }
 
+        newState.facets['activeIndex'] = activeIndex;
         const query = this.getQueryObject();
 
         query.page = 1;
@@ -740,8 +741,8 @@ class Search extends Component {
 
     renderContentMenuOrFilter = filterTags => {
 
-        if (!this.showFilteringComponents()) { 
-            return <></> 
+        if (!this.showFilteringComponents()) {
+            return <></>
         }
 
         if (
@@ -1097,7 +1098,7 @@ class Search extends Component {
             />
         : <></>;
 
-    renderCategoryTabs = okToRender => 
+    renderCategoryTabs = okToRender =>
         this.showFilteringComponents()
         ? <CategoryTabs
                 items={this.state.categoryTabs}
@@ -1149,7 +1150,7 @@ class Search extends Component {
                 </div>
             </div>
         );
-        
+
         const previousIcon = (
             <ReactSVG src={this.props.searchText.previousIcon} />
         );
