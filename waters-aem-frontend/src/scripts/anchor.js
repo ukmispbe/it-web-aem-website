@@ -13,11 +13,9 @@ var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
     try {
         anchor.addEventListener('click', e => {
             e.preventDefault();
-            const anchorSticky = document.getElementsByClassName(
-                'cmp-anchor--sticky'
-            );
+
             const hasSku = document.getElementsByClassName(
-                'cmp-sku-details--sticky'
+                'cmp-sku-details'
             );
 
             setTimeout(() => {
@@ -26,10 +24,12 @@ var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
 
                 if (hasSku.length === 0) {
                     additionalOffset += 52;
+                } else {
+                    additionalOffset += 143;
                 }
 
                 scrollToElement(href, 1000, 'easeOutSine', true, additionalOffset);
-
+                
                 anchorLinks.forEach(anchor => {
                     anchor.classList.remove('active');
                 });
