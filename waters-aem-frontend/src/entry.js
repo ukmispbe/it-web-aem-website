@@ -21,19 +21,19 @@ import './scripts/collapsible';
 import './scripts/skulist';
 import './index';
 
-import cssVars from 'css-vars-ponyfill';
+// import cssVars from 'css-vars-ponyfill';
 
-const japanTheme = {
-    "--font-weight-light": "lighter",
-    "--font-weight-regular": "normal",
-    "--font-weight-bold": "bold"
-};
+// const japanTheme = {
+//     "--font-weight-light": "lighter",
+//     "--font-weight-regular": "normal",
+//     "--font-weight-bold": "bold"
+// };
 
-const isJapanese = (document.documentElement.lang == "ja");
+// const isJapanese = (document.documentElement.lang == "ja");
 
-cssVars({
-    variables: (isJapanese ? japanTheme : {})
-});
+// cssVars({
+//     variables: (isJapanese ? japanTheme : {})
+// });
 
 var inlineSVG = require('inline-svg');
 
