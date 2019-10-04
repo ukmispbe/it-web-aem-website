@@ -159,7 +159,8 @@ class FilterSection extends Component {
                             this.handleSearchChange(
                                 e.target.value,
                                 this.props.minCharSearch,
-                                this.props.facet.facets
+                                this.props.facet.facets,
+                                this.props.selected
                             )
                         }
                         value={this.state.searchValue}
