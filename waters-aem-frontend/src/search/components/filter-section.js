@@ -113,7 +113,8 @@ class FilterSection extends Component {
                             this.props.selectHandler(
                                 item.value,
                                 this.props.facet.name,
-                                e
+                                e,
+                                this.props.selected
                             )
                         }
                         checked={checked}
@@ -159,8 +160,7 @@ class FilterSection extends Component {
                             this.handleSearchChange(
                                 e.target.value,
                                 this.props.minCharSearch,
-                                this.props.facet.facets,
-                                this.props.selected
+                                this.props.facet.facets
                             )
                         }
                         value={this.state.searchValue}
