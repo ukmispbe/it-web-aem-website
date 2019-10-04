@@ -436,10 +436,10 @@ class Search extends Component {
         newState.noResults = !newState.results[query.page].length;
 
         newState.facets = res.facets;
-        if (this.state.activeIndex) {
+        if ("activeIndex" in this.state) {
             newState.facets['activeIndex'] = this.state.activeIndex;
         } else {
-            newState.facets['activeIndex'] = -1;
+            newState.facets['activeIndex'] = "";
         }
 
         newState.spell_check = res.hasOwnProperty('spell_check')
@@ -565,7 +565,7 @@ class Search extends Component {
             newState.selectedFacets[`${categoryId}`] = filteredArr;
         }
 
-        this.state['activeIndex'] = activeIndex;
+        this.state['activeIndex'] = categoryId;
         const query = this.getQueryObject();
 
         query.page = 1;
