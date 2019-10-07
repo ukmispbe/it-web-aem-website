@@ -35,6 +35,7 @@ button.cmp-button {
         width: 100%;
         float: left;
         margin-bottom: $space-s;
+        padding: $space-xs $space-xxs;
     }
 }
 
@@ -183,12 +184,17 @@ button.cmp-button.cmp-button--center {
 }
 
 .cmp-button-container {
+    margin-top: $space-l;
     .cmp-button {
         margin-right: $space-xs;
 
         @include mobile {
             width: 100%;
         }
+    }
+
+    @include mobile {
+        margin-top: 0;
     }
 
     .methodfilebutton,

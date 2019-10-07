@@ -11,12 +11,12 @@ class TagListSpec extends WatersSpec {
         pageBuilder.content {
             waters {
                 "jcr:content"(
-                    compoundMatrix: ["/etc/tags/waters/compoundMatrix/first"],
+                    matrix: ["/etc/tags/waters/matrix/first"],
                     market: ["/etc/tags/waters/market/first", "/etc/tags/waters/market/second"]
                 ) {
                     page(
                         tagListType: TagList.TAGS_FROM_CURRENT_PAGE,
-                        tags: ["/etc/tags/waters/compoundMatrix", "/etc/tags/waters/market"]
+                        tags: ["/etc/tags/waters/matrix", "/etc/tags/waters/market"]
                     )
                     fixed(
                         tagListType: TagList.FIXED_TAGS_LIST,
@@ -29,7 +29,7 @@ class TagListSpec extends WatersSpec {
         nodeBuilder.etc {
             tags("sling:Folder") {
                 waters("cq:Tag") {
-                    compoundMatrix("cq:Tag") {
+                    matrix("cq:Tag") {
                         first("cq:Tag", "jcr:title": "First Class")
                         second("cq:Tag", "jcr:title": "Second Class")
                     }
@@ -59,7 +59,7 @@ class TagListSpec extends WatersSpec {
         tagList.listItems.size() == 3
 
         and:
-        tagList.listItems == ["First Class", "First Market", "Second Market"]
+        tagList.listItems == ["First Class","First Market", "Second Market"]
     }
 
     def "fixed tag list"() {

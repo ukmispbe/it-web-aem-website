@@ -27,6 +27,8 @@ public final class WatersConstants {
 
     public static final String TEMPLATE_HOME_PAGE = "/conf/waters/settings/wcm/templates/home-page";
 
+    public static final String TEMPLATE_SHOP_HOME_PAGE = "/conf/waters/settings/wcm/templates/shop-home-page";
+
     public static final String TEMPLATE_CONTENT_PAGE = "/conf/waters/settings/wcm/templates/content-page";
 
     public static final String TEMPLATE_APPLICATION_NOTES_PAGE = "/conf/waters/settings/wcm/templates/application-notes-page";
@@ -41,6 +43,8 @@ public final class WatersConstants {
 
     public static final String TEMPLATE_SKU_PAGE = "/conf/waters/settings/wcm/templates/sku-page";
 
+    public static final String TEMPLATE_SEARCH_PAGE = "/conf/waters/settings/wcm/templates/search-page";
+
     public static final Predicate<PageDecorator> PREDICATE_SKU_PAGE = page -> TEMPLATE_SKU_PAGE.equals(
         page.getTemplatePath());
 
@@ -49,7 +53,7 @@ public final class WatersConstants {
 
     public static final String RENDER_CONDITION_APPLICATION_NOTES_TEMPLATE = "waters/components/renderconditions/applicationnotestemplate";
 
-    public static final String RENDER_CONDITION_CATALOG_TEMPLATE = "waters/components/renderconditions/catelogtemplate";
+    public static final String RENDER_CONDITION_COMMERCE_TAB = "waters/components/renderconditions/commercetab";
 
     public static final String EXTENSION_PDF = "pdf";
 
@@ -74,6 +78,8 @@ public final class WatersConstants {
     public static final String THUMBNAIL_IMAGE = "thumbnailImage";
 
     public static final String OG_IMAGE = "ogImage";
+
+    public static final String SEARCH_PAGE_PATH = ROOT_PATH_LANGUAGE_MASTERS + "/en/search.html";
 
     private WatersConstants() {
 

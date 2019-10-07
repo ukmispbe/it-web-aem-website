@@ -7,6 +7,7 @@ import LoginStatus from '../scripts/loginStatus';
 import ScreenSizes from '../scripts/screenSizes';
 import MobileNav from '../scripts/mobileNav';
 import FeedbackSurvey from '../scripts/feedbackSurvey';
+import domElements from '../scripts/domElements';
 
 
 class AccountDropDown extends React.Component {
@@ -121,12 +122,10 @@ class AccountDropDown extends React.Component {
     mobileNoScroll = toggle => { 
         const header = document.querySelector('header.cmp-header');
         if (toggle) {
-            document.body.classList.add('no-scroll');
-            document.documentElement.classList.add('no-scroll');
+            domElements.noScroll(true);
             header.classList.add('is-fixed');
         } else { 
-            document.body.classList.remove('no-scroll');
-            document.documentElement.classList.remove('no-scroll');
+            domElements.noScroll(false);
             header.classList.remove('is-fixed');
         }
     }

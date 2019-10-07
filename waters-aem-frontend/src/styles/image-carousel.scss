@@ -4,7 +4,7 @@
     text-align: center;
     
     @include mobile {
-        margin-bottom: $space-l;
+        margin-bottom: $space-s;
     }
 }
 
@@ -275,4 +275,8 @@
 
 .image-carousel--hero .image-carousel {
     margin-top: $space-xl;
+
+    @include mobile {
+        margin: $space-s 0;
+    }
 }

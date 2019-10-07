@@ -7,25 +7,34 @@ import com.day.cq.replication.Replicator;
 import com.google.common.collect.ImmutableMap;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
+import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.hybris.enums.HybrisImportContentType;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
 import com.waters.aem.hybris.exceptions.HybrisImporterException;
+import com.waters.aem.hybris.notification.HybrisImporterNotificationService;
 import com.waters.aem.hybris.replication.HybrisImporterReplicationService;
 import com.waters.aem.hybris.result.HybrisImporterResult;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.Session;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 @Component(service = HybrisImporterReplicationService.class)
+@Designate(ocd = HybrisImporterReplicationConfiguration.class)
 public final class DefaultHybrisImporterReplicationService implements HybrisImporterReplicationService {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultHybrisImporterReplicationService.class);
@@ -43,20 +52,74 @@ public final class DefaultHybrisImporterReplicationService implements HybrisImpo
     @Reference
     private Replicator replicator;
 
+    private volatile List<HybrisImporterNotificationService> notificationServices = new CopyOnWriteArrayList<>();
+
+    private volatile boolean limit;
+
+    private volatile int limitThreshold;
+
     @Override
     public void replicate(final List<HybrisImporterResult> results) {
-        final Map<HybrisImportStatus, List<HybrisImporterResult>> groupedResults = results.stream().collect(
+        // filter out language master pages from replication
+        final List<HybrisImporterResult> filteredResults = results.stream()
+                .filter(result -> !isLanguageMasterPage(result.getPath()))
+                .collect(Collectors.toList());
+
+        final Map<HybrisImportStatus, List<HybrisImporterResult>> groupedResults = filteredResults.stream().collect(
             Collectors.groupingBy(HybrisImporterResult :: getStatus));
 
-        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
-            for (final Map.Entry<HybrisImportStatus, List<HybrisImporterResult>> entry : groupedResults.entrySet()) {
-                replicateResultsForStatus(resourceResolver, entry.getKey(), entry.getValue());
-            }
-        } catch (LoginException | ReplicationException e) {
-            LOG.error("error replicating hybris importer results", e);
+        if (limit && filteredResults.size() > limitThreshold) {
+            // don't automatically activate if threshold limit is reached
+            LOG.debug("hybris item activation limit exceeded with {} items. sending notification",
+                    filteredResults.size());
 
-            throw new HybrisImporterException(e);
+            notificationServices.forEach(service -> service.notifyToReplicate(limitThreshold, filteredResults));
+        } else {
+            try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
+                for (final Map.Entry<HybrisImportStatus, List<HybrisImporterResult>> entry : groupedResults.entrySet()) {
+                    replicateResultsForStatus(resourceResolver, entry.getKey(), entry.getValue());
+                }
+            } catch (LoginException | ReplicationException e) {
+                LOG.error("error replicating hybris importer results", e);
+
+                throw new HybrisImporterException(e);
+            }
         }
+
+    }
+
+    @Override
+    public boolean isLimit() {
+        return limit;
+    }
+
+    @Override
+    public int getLimitThreshold() {
+        return limitThreshold;
+    }
+
+    @Activate
+    protected void activate(final HybrisImporterReplicationConfiguration configuration) {
+        modified(configuration);
+    }
+
+    @Modified
+    protected void modified(final HybrisImporterReplicationConfiguration configuration) {
+        limit = configuration.limit();
+        limitThreshold = configuration.limitThreshold();
+    }
+
+    @Reference(cardinality = ReferenceCardinality.MULTIPLE, policy = ReferencePolicy.DYNAMIC)
+    protected void bindNotificationService(final HybrisImporterNotificationService service) {
+        LOG.debug("adding notification service : {}", service.getClass().getName());
+
+        notificationServices.add(service);
+    }
+
+    protected void unbindNotificationService(final HybrisImporterNotificationService service) {
+        LOG.debug("removing notification service : {}", service.getClass().getName());
+
+        notificationServices.remove(service);
     }
 
     private void replicateResultsForStatus(final ResourceResolver resourceResolver, final HybrisImportStatus status,
@@ -97,13 +160,14 @@ public final class DefaultHybrisImporterReplicationService implements HybrisImpo
             for (final HybrisImporterResult result : resultsForContentType) {
                 final PageDecorator page = pageManager.getPage(result.getPath());
 
-                // activate only if page was previously activated
-                if (isPublished(page)) {
+                // activate only if page is not a language master and was previously activated
+                if (!isLanguageMasterPage(page) && isPublished(page)) {
                     LOG.debug("activating result for previous published page : {}", result);
 
                     replicator.replicate(session, replicationActionType, result.getPath());
                 } else {
-                    LOG.debug("page was not previously activated for result : {}, ignoring", result);
+                    LOG.debug("page was not previously activated for result or is a language master page : {}, " +
+                            "ignoring", result);
                 }
             }
         }
@@ -113,5 +177,13 @@ public final class DefaultHybrisImporterReplicationService implements HybrisImpo
         final ReplicationStatus replicationStatus = page.adaptTo(ReplicationStatus.class);
 
         return replicationStatus != null && replicationStatus.getLastPublished() != null;
+    }
+
+    private boolean isLanguageMasterPage(final PageDecorator page) {
+        return isLanguageMasterPage(page.getPath());
+    }
+
+    private boolean isLanguageMasterPage(final String path) {
+        return path.startsWith(WatersConstants.ROOT_PATH_LANGUAGE_MASTERS);
     }
 }

@@ -24,14 +24,14 @@
         padding-left: 0;
         list-style: none;
         overflow-y: hidden;
-        margin: $space-xxs 0 $space-l 0;
+        margin: $space-xxs 0 ($space-l + .5em) 0;
 
         & .fader-container {
             z-index: 1;
 
             &--right {
                 @include mobile {
-                    right: -0.2em!important;
+                    right: -0.2em !important;
                 }
             }
         }
@@ -41,8 +41,9 @@
         display: inline;
         position: relative;
         margin-bottom: $space-xxxs;
+
         @include mobile {
-            padding-left: $space-s;
+            padding-right: $space-m;
         }
         span {
             white-space: normal;
@@ -60,20 +61,21 @@
             margin-top: 6px;
             padding: 0 0.25em;
             @include mobile {
-                right: -17px;
+                padding: 0 .5em;
                 position: absolute;
+                right: 0;
                 top: 0;
             }
         }
 
         &:nth-child(2) {
             padding-left: 0;
-         }
+        }
 
         &:last-of-type {
             &:after {
                 display: none;
-            }
+           }
         }
     }
 
@@ -92,7 +94,7 @@
 
 .cmp-breadcrumb-search {
     display: inline-block;
-    margin-top: ($space-xxxs + .05em);
+    margin-top: ($space-xxxs + 0.05em);
 
     &--disable {
         display: none;
