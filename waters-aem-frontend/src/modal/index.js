@@ -91,12 +91,13 @@ class Modal extends React.Component {
             return (
                 <MyAccountModalBody list={state.config.list}/>
             )
-        } else {     
+        } else {
 
             if (this.state.errorObj && this.state.errorObj.ok === false) {
                 const newConfig = Object.assign({}, state.config);
                 newConfig.text = ErrorMessages.ErrorMessages(this.props.errorObj).wereSorry;
                 newConfig.textHeading = '';
+                newConfig.buttons = [];
 
                 return (
                     <StandardModalBody config={newConfig} closeModal={this.closeModal} />
@@ -111,7 +112,7 @@ class Modal extends React.Component {
                 )
             }
 
-        } 
+        }
     };
 
     render() {
