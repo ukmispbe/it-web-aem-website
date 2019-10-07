@@ -106,13 +106,12 @@
     display: inline-block;
     margin-left: $space-s;
     position: relative;
+
     @include mobile {
         width: 100%;
         margin-right: 0;
         margin-left: 0;
-        column-count:2;
-        -moz-column-count:2;
-        -webkit-column-count:2;
+        @include font-small;
     }
 
     a {
@@ -334,6 +333,7 @@
     @include mobile {
         margin-left: 0;
         width: 100%;
+        margin-bottom: $space-m;
     }
 
     &__region {
