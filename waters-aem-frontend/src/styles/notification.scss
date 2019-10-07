@@ -141,7 +141,7 @@
         padding: $space-xxs 0 0 0;
 
         @include IE11-only {
-            float: left;
+            justify-content: flex-start;
         }
 
         @include mobile {
