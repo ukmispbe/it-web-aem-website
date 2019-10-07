@@ -59,54 +59,51 @@ const setAnchorDestinations = () => {
         }
     }
 };
-let brokeAt = 0;
 
 const anchorScrollSpy = () => {
-    let multipleInView = [];
-    if (anchorDestinations) {
-        for (let n = 0; n <= anchorDestinations.length; n++) {
-            const id = anchorDestinations[n]
-                ? anchorDestinations[n].id.replace(/#/gi, '')
-                : undefined;
-            const link = anchorDestinations[n]
-                ? anchorDestinations[n].anchor
-                : undefined;
+    if (!anchorElement || !anchorDestinations) { return; }
 
-            if (id && link) {
-                const element = document.getElementById(id);
-                const elementBoundaries = element.getBoundingClientRect();
-                const elementTop = elementBoundaries.top;
-                const elementBottom = elementBoundaries.bottom;
-                const docHeight = document.documentElement.clientHeight;
-                const halfwayUpPage = docHeight / 1.4;
-                const stillOnPage = docHeight / 1.55;
+    const activeClassName = "active";
+    const anchorElementBottom = anchorElement.getBoundingClientRect().bottom;
+    const docHeight = document.documentElement.clientHeight;
+    const halfwayUpPage = docHeight / 1.4;
 
-                if (
-                    (elementTop >= 75 &&
-                        elementTop <= docHeight &&
-                        elementTop <= halfwayUpPage) ||
-                    (elementTop < 150 && elementBottom >= stillOnPage)
-                ) {
-                    link.classList.add('active');
-                    brokeAt = n;
-                    multipleInView.push(n);
-                } else {
-                    link.classList.remove('active');
-                }
+    anchorDestinations.forEach((item, index) => {
+        const id = item.id.replace(/#/gi, '');
+        const link = item.anchor;
+        const elementBoundaries = document.getElementById(id).getBoundingClientRect();
+        const elementTop = elementBoundaries.top;
+        const elementBottom = elementBoundaries.bottom;
+        const isBottomAboveContainer = elementBottom < anchorElementBottom;
+
+        if (index === 0)  {
+            const isAboveHalfway = elementTop <= halfwayUpPage;
+            const isBetweenContainerAndHalfWayMarker = !isBottomAboveContainer && isAboveHalfway;
+
+            if (isBetweenContainerAndHalfWayMarker) {
+                link.classList.add(activeClassName);
+            } else {
+                link.classList.remove(activeClassName);
             }
+        } else {
+            const topOffset = screenSizes.isTablet() ? 328 : 30;
+            const isLast = index === anchorDestinations.length - 1;
+            const top = isLast ? elementTop - topOffset : elementTop;
+            const isActive = !isBottomAboveContainer && top <= anchorElementBottom;
 
-            if (multipleInView.length > 1) {
-                for (let i = 1; i < multipleInView.length; i++) {
-                    const inView = multipleInView[i];
+            if (isActive) {
 
-                    anchorDestinations[inView].anchor.classList.remove(
-                        'active'
-                    );
+                if (isLast) {
+                    anchorDestinations[index - 1].anchor.classList.remove(activeClassName);
                 }
+
+                link.classList.add(activeClassName);
+            } else {
+                link.classList.remove(activeClassName);
             }
         }
-    }
-};
+    });
+}
 
 function anchorHide() {
     if (document.getElementsByClassName('cmp-section-container--collapse').length > 0){
