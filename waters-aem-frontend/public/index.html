@@ -32,7 +32,8 @@
           Add class "active" to show
         -->
         <div class="container">
-            <div class="overlay"></div>
+            <div class="cmp-form--attach" id="js-registration-form"></div>
+            <!-- <div class="overlay"></div>
             <div class="cmp-header" data-search-path="/search.html">
                 Header
             </div>
@@ -42,12 +43,70 @@
                 data-icon-search="search.svg"
                 data-placeholder="Search by keyword"
                 data-icon-clear="close.svg"></div>
-            <div id="js-search-app" 
-                class="" 
+            <div id="js-search-app"
+                class=""
                 data-locale="en-gb"
                 data-isocode="en_US">
-            </div>
+            </div> -->
         </div>
+        <script type="application/json" id="cmp-registration-form">
+            {
+                "submitEndpoint": "http://waters.com",
+                "disclaimer": "By clicking Create My Account button you are agreeing to our <a href=\"#\">Terms and Conditions</a>",
+                "buttonText": "Create My Account",
+                "fields": [
+                    {
+                        "type": "text",
+                        "name": "firstName",
+                        "label": "First Name"
+                    },
+                    {
+                        "type": "text",
+                        "name": "lastName",
+                        "label": "Last Name"
+                    },
+                    {
+                        "type": "text",
+                        "name": "company",
+                        "label": "Company"
+                    },
+                    {
+                        "type": "dropdown",
+                        "name": "country",
+                        "label": "Country",
+                        "options": ["United States", "Japan", "China"]
+                    },
+                    {
+                        "type": "break"
+                    },
+                    {
+                        "type": "email",
+                        "name": "email",
+                        "label": "Email",
+                        "description": "This will be your username"
+                    },
+                    {
+                        "type": "password",
+                        "name": "password",
+                        "label": "Password",
+                        "validation": "standard"
+
+                    },
+                    {
+                        "type": "password",
+                        "name": "passwordConfirm",
+                        "label": "Confirm Password",
+                        "validation": "match"
+                    },
+                    {
+                        "type": "checkbox",
+                        "name": "communications",
+                        "label": "I want to receive communications from Waters."
+
+                    }
+                ]
+            }
+        </script>
         <script type="application/json" id="cmp-modal-btn-0001">
             {
                 "icon": "checkmark.svg",
@@ -94,27 +153,27 @@
                 "buttons": []
             }
         </script>
-        <div class="cmp-sku-details">
+        <!-- <div class="cmp-sku-details">
             <div class="cmp-sku-details__wrapper">
                 <div class="cmp-sku-details__container">
                     <div class="cmp-sku-details__heading"></div>
                     <div class="cmp-sku-details__ecom">
-                        <div class="cmp-sku-details__buyinfo">
-                            <!-- <div class="cmp-sku-details__priceinfo">
+                        <div class="cmp-sku-details__buyinfo"> -->
+        <!-- <div class="cmp-sku-details__priceinfo">
                                 <span>List Price</span>
                                 <div class="cmp-sku-details__price">
                                     $665.00
                                 </div>
                             </div>
                             <div class="cmp-sku-details__stockcontainer"></div> -->
-                        </div>
+        <!-- </div>
                         <a class="cmp-sku-details__web-quote" href="#"
                             >Do you need a web quote?</a
                         >
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <script type="application/json" id="commerce-configs-json">
             {
