@@ -5,7 +5,7 @@ import SearchBar from './search/components/searchbar';
 import Search from './search/index';
 import TagCloud from './search/components/tagcloud';
 import ImageCarousel from './image-carousel';
-import AccountDropDown from './account-dropdown/index';
+import MyAccountDropDown from './my-account-dropdown/index';
 import LoginStatus from "./scripts/loginStatus";
 import SkuDetails from './sku-details';
 import SkuList from './sku-list';
@@ -163,23 +163,17 @@ if (skuListContainer) {
 }
 
 
-const AccountDropDownContainer = document.querySelector(
-    '.top-bar__nav__user__dropdown'
-);
+const MyAccountDropDownContainer = document.querySelector('.top-bar__nav__user__dropdown');
 
-if (header && AccountDropDownContainer) {
-    const config = JSON.parse(
-        document.getElementById('account-modal-configs-json').innerHTML
-    );
-
+if (header && MyAccountDropDownContainer) {
+    const config = JSON.parse(document.getElementById('account-modal-configs-json').innerHTML)
     const newConfig = Object.assign({}, config.modalInfo, {
         title: LoginStatus.getGreeting()
     });
     const updatedModel = {
         modalInfo: newConfig
     }
-
-    ReactDOM.render(<AccountDropDown config={updatedModel} />, AccountDropDownContainer);
+    ReactDOM.render(<MyAccountDropDown config={updatedModel} />, MyAccountDropDownContainer);
 }
 
 
