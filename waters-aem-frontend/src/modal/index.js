@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
 import MyAccountModalBody from '../my-account-dropdown/my-account-modal-body';
+import VideoModalBody from '../video/video-modal-body';
 import StandardModalBody from './standard-modal-body';
 import ErrorMessages from '../scripts/ErrorMessages';
 
@@ -90,6 +91,10 @@ class Modal extends React.Component {
         if (state.theme == 'account-dropdown') {
             return (
                 <MyAccountModalBody list={state.config.list}/>
+            )
+        } else if (state.theme == 'video') { 
+            return (
+                <VideoModalBody config={state.config} closeVideo={this.closeModal} />
             )
         } else {     
 

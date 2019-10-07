@@ -195,3 +195,29 @@
     }
 
 }
+
+.cmp-modal.video{
+    position: absolute;
+    width: 85%;
+    top: ($space-xl * 2);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+
+    .cmp-modal__box {
+        padding: 1px !important;
+
+        .cmp-modal__close-icon svg{
+            top: $space-m;
+        }
+
+        .cmp-modal__title {
+            margin-left: $space-m;
+        }
+    
+        .cmp-modal__close-icon,
+        .cmp-modal__title {
+            margin-bottom: $space-m;
+        }
+    }
+}
