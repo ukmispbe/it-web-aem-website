@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
-import AccountDropDownList from '../account-dropdown/account-dropdown-list';
+import MyAccountModalBody from '../my-account-dropdown/my-account-modal-body';
+import StandardModalBody from './standard-modal-body';
 import ErrorMessages from '../scripts/ErrorMessages';
 
 class Modal extends React.Component {
@@ -15,6 +16,8 @@ class Modal extends React.Component {
                 errorObj: this.props.errorObj
             };
         }
+
+        this.closeModal = this.closeModal.bind(this);
     }
 
     componentWillReceiveProps(props) {
@@ -80,125 +83,34 @@ class Modal extends React.Component {
             } else {
                 return null;
             }
-        },
-        body: (text, textHeading, partNumberLabel) => {
-            if (text || textHeading) {
-                return (
-                    <div className="cmp-modal__information">
-                        {textHeading && (
-                            <div className="cmp-modal__information-header">
-                                {partNumberLabel}&nbsp;{textHeading}
-                            </div>
-                        )}
-                        {text && (
-                            <div className="cmp-modal__information-text">
-                                {text}
-                            </div>
-                        )}
-                    </div>
-                );
-            } else {
-                return null;
-            }
-        },
-        buttons: buttons => {
-            if (buttons.length) {
-                const determineButtonType = btn => {
-                    if (btn.action === 'close') {
-                        return (
-                            <button
-                                onClick={() => this.closeModal()}
-                                className="cmp-button cmp-modal__btn-alt"
-                            >
-                                {btn.text}
-                            </button>
-                        );
-                    } else if (
-                        btn.action.indexOf('://') >= 0 ||
-                        btn.action.indexOf('.com') >= 0
-                    ) {
-                        return (
-                            <a
-                                href={btn.action}
-                                className="cmp-button cmp-modal__btn-main"
-                                target={btn.target || ''}
-                            >
-                                {btn.text}
-                            </a>
-                        );
-                    }
-                };
-                return (
-                    <div className="cmp-modal__btn">
-                        {buttons.map((btn, index) => {
-                            return (
-                                <div
-                                    className="cmp-button--fullWidth"
-                                    key={`modal-btn-${index}`}
-                                >
-                                    {btn.text ? determineButtonType(btn) : null}
-                                </div>
-                            );
-                        })}
-                    </div>
-                );
-            } else {
-                return null;
-            }
-        },
-        list: list => {
-            if (list) {
-                const listItems = AccountDropDownList(list);
-
-                return (
-                    <div className="cmp-modal__information">
-                        <ul className="account-dropdown dropdown__list">{listItems}</ul>
-                    </div>
-                );
-            } else {
-                return null;
-            }
         }
     };
 
     theme = state => {
         if (state.theme == 'account-dropdown') {
-
-            let modalBody = this.shouldRender.list(
-                state.config.list
-            );
-
             return (
-                <>
-                   {modalBody}
-                </>
+                <MyAccountModalBody list={state.config.list}/>
             )
         } else {     
-            // Use the Error Object to modify the Modal Output
-            let modalBody = null;
-            let buttons = null;
+
             if (this.state.errorObj && this.state.errorObj.ok === false) {
-                modalBody = this.shouldRender.body(
-                    ErrorMessages.ErrorMessages(this.props.errorObj).wereSorry,
-                    ""
-                );
+                const newConfig = Object.assign({}, state.config);
+                newConfig.text = ErrorMessages.ErrorMessages(this.props.errorObj).wereSorry;
+                newConfig.textHeading = '';
+
+                return (
+                    <StandardModalBody config={newConfig} closeModal={this.closeModal} />
+                )
             }
             else {
-                modalBody = this.shouldRender.body(
-                    state.config.text,
-                    state.config.textHeading,
-                    this.props.partNumberLabel,
-                );
-                buttons = this.shouldRender.buttons(state.config.buttons);
+                return (
+                    <StandardModalBody config={{
+                        ...state.config,
+                        partNumberLabel: this.props.partNumberLabel
+                    }} closeModal={this.closeModal} />
+                )
             }
 
-
-            return (
-                <>
-                    {modalBody} 
-                    {buttons}
-                </>
-            )
         } 
     };
 
