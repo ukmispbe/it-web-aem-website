@@ -234,7 +234,7 @@
                 @include tablet-and-under {
                     transition: none;
                 }
-                max-height: 200px;
+                max-height: (($space-xxl + $space-xl) * 3);
                 padding: 0;
             }
         }
