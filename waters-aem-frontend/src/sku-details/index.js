@@ -90,7 +90,7 @@ class SkuDetails extends React.Component {
         this.setState({ modalShown: !this.state.modalShown })
     };
 
-    renderBuyInfo = () => { 
+    renderBuyInfo = () => {
         return (
             <div className="cmp-sku-details__buyinfo">
                 <div className="cmp-sku-details__priceinfo">
@@ -116,6 +116,7 @@ class SkuDetails extends React.Component {
                         addToCartLabel={this.props.config.addToCartLabel}
                         addToCartUrl={this.props.config.addToCartUrl}
                         toggleErrorModal={this.toggleErrorModal}
+                        skuConfig={this.state.skuConfig}
                     ></AddToCart>
                 </div>
                 <Modal
@@ -131,31 +132,31 @@ class SkuDetails extends React.Component {
     }
 
 
-    renderActiveSku = () => { 
+    renderActiveSku = () => {
         if (Ecommerce.isDisabledState()) {
             return (
-                <SkuMessage 
+                <SkuMessage
                     icon={this.props.config.commerceConfig.disabledIcon}
                     message={this.props.config.commerceConfig.disabledText}
                     link={this.props.config.commerceConfig.disabledHref}
-                    linkMessage={this.props.config.commerceConfig.disabledLinkText} 
+                    linkMessage={this.props.config.commerceConfig.disabledLinkText}
                 />
             );
-        } else { 
-            
+        } else {
+
             if ((Ecommerce.isPartialState() && LoginStatus.state() && CheckOutStatus.state()) || (!Ecommerce.isPartialState() && !Ecommerce.isDisabledState())) {
                 return (
                     <>
                         {this.renderBuyInfo()}
                     </>
                 );
-            } else { 
+            } else {
                 return (
-                    <SkuMessage 
+                    <SkuMessage
                         icon={this.props.config.commerceConfig.disabledIcon}
                         message={this.props.config.commerceConfig.partialDisabledText}
                         link={this.props.config.commerceConfig.partialDisabledHref}
-                        linkMessage={this.props.config.commerceConfig.partialDisabledLinkText} 
+                        linkMessage={this.props.config.commerceConfig.partialDisabledLinkText}
                     />
                 )
             }
@@ -169,11 +170,11 @@ class SkuDetails extends React.Component {
                 discontinuedMessage = this.props.config.skuInfo.discontinuedNoReplacementCode
             }
             return (
-                <SkuMessage 
+                <SkuMessage
                     icon={this.props.config.skuInfo.lowStockIcon}
                     message={discontinuedMessage}
                     link={this.props.replacementSkuHref}
-                    linkMessage={this.props.replacementSkuCode} 
+                    linkMessage={this.props.replacementSkuCode}
                 />
             );
         } else {

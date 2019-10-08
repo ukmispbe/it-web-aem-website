@@ -11,11 +11,19 @@ class AddToCart extends React.Component {
             skuNumber: this.props.skuNumber,
             addToCartLabel: this.props.addToCartLabel,
             addToCartQty: null,
-            addToCartUrl: this.props.addToCartUrl
+            userCountry: this.props.skuConfig.countryCode,
+            availabilityAPI: this.props.skuConfig.availabilityUrl,
+            addToCartUrl: this.props.addToCartUrl,
+            toggleErrorModal: this.props.toggleErrorModal,
+            toggleParentModal: this.props.toggleParentModal,
+            errorObj: this.props.errorObj
         };
         this.request = new SkuService(
-            '',
-            {},
+            this.state.userCountry,
+            {
+                availability: this.state.availabilityAPI,
+                price: '',
+            },
             {
                 addToCart: this.state.addToCartUrl,
                 getCart: ''
@@ -45,15 +53,22 @@ class AddToCart extends React.Component {
 
     cartAPIRequest() {
         this.request
-        .addToCart(this.state.skuNumber, this.state.addToCartQty)
-        .then(response => {
-            this.props.toggleParentModal(true);
-        })
-        .catch(err => {
-            this.props.errorObj = err;
-            // TODO: Get info for error modal
-            this.props.toggleErrorModal(err);
-        });
+            .getAvailability(this.state.skuNumber)
+            .then(response => {
+                this.request
+                    .addToCart(this.state.skuNumber, this.state.addToCartQty)
+                    .then(response => {
+                        this.state.toggleParentModal(true);
+                    })
+                    .catch(err => {
+                        this.setState({ errorObj: err });
+                        this.state.toggleErrorModal(err);
+                    });
+            })
+            .catch(err => {
+                this.setState({ errorObj: err });
+                this.state.toggleErrorModal(err);
+            });
     }
     addToCart = () => {
         if (this.state.addToCartQty > 0) {
