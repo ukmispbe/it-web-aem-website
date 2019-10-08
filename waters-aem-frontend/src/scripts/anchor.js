@@ -60,47 +60,54 @@ const setAnchorDestinations = () => {
     }
 };
 
+const activeClassName = "active";
+
+const setAnchorState = (index, isActive) => {
+    if (isActive) {
+        anchorDestinations.forEach(item => item.anchor.classList.remove(activeClassName));
+        anchorDestinations[index].anchor.classList.add(activeClassName);
+    } else {
+        anchorDestinations[index].anchor.classList.remove(activeClassName);
+    }
+}
+
+const atBottomOfPage = () => (window.innerHeight + window.pageYOffset) >= document.body.offsetHeight;
+
 const anchorScrollSpy = () => {
     if (!anchorElement || !anchorDestinations) { return; }
-
-    const activeClassName = "active";
+    
     const anchorElementBottom = anchorElement.getBoundingClientRect().bottom;
     const docHeight = document.documentElement.clientHeight;
-    const halfwayUpPage = docHeight / 1.4;
 
     anchorDestinations.forEach((item, index) => {
         const id = item.id.replace(/#/gi, '');
-        const link = item.anchor;
         const elementBoundaries = document.getElementById(id).getBoundingClientRect();
         const elementTop = elementBoundaries.top;
         const elementBottom = elementBoundaries.bottom;
         const isBottomAboveContainer = elementBottom < anchorElementBottom;
 
         if (index === 0)  {
-            const isAboveHalfway = elementTop <= halfwayUpPage;
-            const isBetweenContainerAndHalfWayMarker = !isBottomAboveContainer && isAboveHalfway;
+            const thresholdMarker = docHeight / 1.4;
+            const isAboveThresholdMarker = elementTop <= thresholdMarker;
+            const isBetweenContainerAndThresholdMarker = !isBottomAboveContainer && isAboveThresholdMarker;
 
-            if (isBetweenContainerAndHalfWayMarker) {
-                link.classList.add(activeClassName);
+            setAnchorState(index, isBetweenContainerAndThresholdMarker);
+        } else if (index === anchorDestinations.length - 1) {
+            const thresholdMarker = docHeight * .34;
+            const isAboveThresholdMarker = elementTop <= thresholdMarker;
+            const isBetweenContainerAndThresholdMarker = !isBottomAboveContainer && isAboveThresholdMarker;
+
+            if (atBottomOfPage() && isBetweenContainerAndThresholdMarker) {
+                setAnchorState(index, true);
             } else {
-                link.classList.remove(activeClassName);
+                const isActive = !isBottomAboveContainer && elementTop <= anchorElementBottom;
+
+                setAnchorState(index, isActive);
             }
         } else {
-            const topOffset = screenSizes.isTablet() ? 328 : 30;
-            const isLast = index === anchorDestinations.length - 1;
-            const top = isLast ? elementTop - topOffset : elementTop;
-            const isActive = !isBottomAboveContainer && top <= anchorElementBottom;
+            const isActive = !isBottomAboveContainer && elementTop <= anchorElementBottom;
 
-            if (isActive) {
-
-                if (isLast) {
-                    anchorDestinations[index - 1].anchor.classList.remove(activeClassName);
-                }
-
-                link.classList.add(activeClassName);
-            } else {
-                link.classList.remove(activeClassName);
-            }
+            setAnchorState(index, isActive);
         }
     });
 }

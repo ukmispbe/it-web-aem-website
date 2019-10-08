@@ -1,16 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import AccountDropDownList from './account-dropdown-list';
+import MyAccountDropDownList from './my-account-dropdown-list';
 import { Modal } from '../modal/index';
 import LoginStatus from '../scripts/loginStatus';
 import ScreenSizes from '../scripts/screenSizes';
 import MobileNav from '../scripts/mobileNav';
 import FeedbackSurvey from '../scripts/feedbackSurvey';
-import domElements from '../scripts/domElements';
 
 
-class AccountDropDown extends React.Component {
+class MyAccountDropDown extends React.Component {
     constructor(props) {
         super(props);
         
@@ -122,10 +121,12 @@ class AccountDropDown extends React.Component {
     mobileNoScroll = toggle => { 
         const header = document.querySelector('header.cmp-header');
         if (toggle) {
-            domElements.noScroll(true);
+            document.body.classList.add('no-scroll');
+            document.documentElement.classList.add('no-scroll');
             header.classList.add('is-fixed');
         } else { 
-            domElements.noScroll(false);
+            document.body.classList.remove('no-scroll');
+            document.documentElement.classList.remove('no-scroll');
             header.classList.remove('is-fixed');
         }
     }
@@ -166,10 +167,12 @@ class AccountDropDown extends React.Component {
         if (this.state.modalConfig) {
             const list = this.state.modalConfig.list;
             if (list) {
-                const listItems = AccountDropDownList(list);
-
                 return (
-                    <ul className="account-dropdown dropdown__list">{listItems}</ul>
+                    <ul className="account-dropdown dropdown__list">
+                        <MyAccountDropDownList
+                            listItems={list}
+                        />
+                    </ul>
                 )
             } else {
                 return null;
@@ -186,6 +189,7 @@ class AccountDropDown extends React.Component {
                 open={this.state.isShown}
                 theme="account-dropdown"
                 config={this.state.modalConfig}
+                myAccountClickHandler={this.handleClick}
             />
         );
      }
@@ -201,8 +205,8 @@ class AccountDropDown extends React.Component {
     }
 }
 
-AccountDropDown.propTypes = {
+MyAccountDropDown.propTypes = {
     config: PropTypes.object.isRequired,
 };
 
-export default AccountDropDown;
+export default MyAccountDropDown;
