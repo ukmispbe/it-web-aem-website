@@ -23,10 +23,14 @@ class VideoContainer extends React.Component {
             mobileThumbShown: true
         };
 
+        this.autoPlayVolumeLevel = 0.7;
+        this.brightcovePlayer = null;
+        this.videoRef = React.createRef();
         this.toggleMobileThumb = this.toggleMobileThumb.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
-        this.closeVideo = this.closeVideo.bind(this);
 
+        this.onSuccess = this.onSuccess.bind(this);
+        this.onFailure = this.onFailure.bind(this);
     }
 
     componentDidMount() {
@@ -38,18 +42,18 @@ class VideoContainer extends React.Component {
     }
 
     updateIsMobile = () => {
-        this.setState({
-            isMobile: ScreenSizes.isMobile()
-        }, () => { 
-            if (this.state.isMobile && this.state.modalShown) { 
-                this.toggleModal();
-            }  
-        });
-
-        
+        if (this.state.isMobile != ScreenSizes.isMobile()) { 
+            this.setState({
+                isMobile: ScreenSizes.isMobile()
+            }, () => { 
+                if (this.state.isMobile && this.state.modalShown) { 
+                    this.toggleModal();
+                }  
+            });
+        }
     }
 
-    toggleModal = e => {
+    toggleModal = () => {
         this.setState({ modalShown: !this.state.modalShown }, () => { 
             if (this.state.modalShown) {
                 FeedbackSurvey.isDisplayed(false);
@@ -60,66 +64,75 @@ class VideoContainer extends React.Component {
     }
 
     toggleMobileThumb = e => { 
-        e.preventDefault();
-        this.setState({ mobileThumbShown: !this.state.mobileThumbShown });
+        if (e) { e.preventDefault() }
+
+        this.setState({ mobileThumbShown: !this.state.mobileThumbShown }, () => { 
+            if (!this.state.mobileThumbShown && this.state.isMobile) { 
+                //if mobile & video is starting to playing
+                if (window.cmpVideos) { 
+                    //check for any existing mobile video comp and close them
+                    window.cmpVideos.forEach( videoComponent => {
+                        if (this.videoRef.current != videoComponent.videoRef.current) {
+                            if (typeof videoComponent.closeMobileVideo == 'function') { 
+                                //lets close any open mobile video components
+                                const closeMobileVideo = videoComponent.closeMobileVideo.bind(videoComponent);
+                                closeMobileVideo();
+                            }
+                        }
+                    })
+                }
+            }
+
+        });
     }
 
-    closeVideo = () => { 
+    closeMobileVideo = () => {
         this.setState({ mobileThumbShown: true });
     }
 
-    renderMobile = () => {
-        return (
-            <>
-                {this.state.mobileThumbShown ? (
-                    <VideoThumbnail
-                    totalTime="1:45"
-                    thumbPath={this.props.videoConfig.thumbPath}
-                    thumbAlt={this.state.thumbAlt}
-                    playIcon={this.props.videoConfig.playIcon}
-                    handleClick={this.toggleMobileThumb}
-                    />
-                ) : (
-                    <VideoModalBody config={this.getUpdatedModalInfo()}  closeVideo={this.closeVideo}  />
-                )}
-                {this.renderVideoInfo()}
-            </>
-        )
 
+    onSuccess = (success) => { 
+        const player = this.brightcovePlayer = success.ref;
+
+        if (player) { 
+            //  Wait for loadedmetadata then try to play video
+            player.on("loadedmetadata", this.autoPlay.bind(this));
+            player.on('ended', this.onVideoEnd.bind(this));
+        }
     }
 
-    renderDesktop = () => {
-        return (
-            <>
-                <VideoThumbnail
-                    totalTime="1:45"
-                    thumbPath={this.props.videoConfig.thumbPath}
-                    thumbAlt={this.state.thumbAlt}
-                    playIcon={this.props.videoConfig.playIcon}
-                    handleClick={this.toggleModal}
-                />
-                {this.renderVideoInfo()}
-                <Modal
-                    toggleModal={this.toggleModal}
-                    open={this.state.modalShown}
-                    theme="video"
-                    config={this.getUpdatedModalInfo()}
-                />
-            </>
-        )
+    autoPlay = () => { 
+        // Play video which returns a promise
+        const player = this.brightcovePlayer;
 
+        if (player) { 
+            var promise = player.play();
+    
+            //  Use promise to see if video is playing or not
+            if (promise !== undefined) {
+                promise
+                .then(function () {
+                    // Autoplay started!
+                    // If video playing unmute and set the volume
+                    player.muted(false);
+                    player.volume(this.autoPlayVolumeLevel);
+                })
+                .catch(function (error) {
+                    // Autoplay was prevented.
+                    // If autoplay prevented mute the video, play video and display unmute button
+                    player.muted(true);
+                    player.play();
+                });
+            }
+        }
     }
 
-    renderVideoInfo = () => { 
-        const videoTitle = <h3 className="cmp-video_info_title">{this.state.title}</h3>;
-        const videoDescription = <p className="cmp-video_info_description">{this.state.description}</p>;
+    onVideoEnd = (e) => { 
+        this.state.isMobile ? this.closeMobileVideo().bind(this) : this.toggleModal();
+    }
 
-        return (
-            <div className="cmp-video_info">
-                {this.state.title && videoTitle}
-                {this.state.description && videoDescription}
-            </div>
-        )
+    onFailure = (failure) => { 
+        //console.log("failure:", failure);
     }
 
     getUpdatedModalInfo = () => { 
@@ -135,11 +148,67 @@ class VideoContainer extends React.Component {
         )
     }
 
-    render() {
+    renderVideoInfo = () => { 
+        const videoTitle = <h3 className="cmp-video_info_title">{this.state.title}</h3>;
+        const videoDescription = <p className="cmp-video_info_description">{this.state.description}</p>;
+
+        return (
+            <div className="cmp-video_info">
+                {this.state.title && videoTitle}
+                {this.state.description && videoDescription}
+            </div>
+        )
+    }
+
+    renderMobile = () => {
         return (
             <>
-                {this.state.isMobile ? this.renderMobile() : this.renderDesktop()}
+                {this.state.mobileThumbShown ? (
+                    <VideoThumbnail
+                        totalTime={this.props.videoConfig.length}
+                        thumbPath={this.props.videoConfig.thumbPath}
+                        thumbAlt={this.state.thumbAlt}
+                        playIcon={this.props.videoConfig.playIcon}
+                        handleClick={this.toggleMobileThumb}
+                    />
+                ) : (
+                        <VideoModalBody config={this.getUpdatedModalInfo()} onVideoSuccess={this.onSuccess} onVideoFailure={this.onFailure} closeVideo={this.toggleMobileThumb} />
+                )}
+                {this.renderVideoInfo()}
             </>
+        )
+
+    }
+
+    renderDesktop = () => {
+        return (
+            <>
+                <VideoThumbnail
+                    totalTime={this.props.videoConfig.length}
+                    thumbPath={this.props.videoConfig.thumbPath}
+                    thumbAlt={this.state.thumbAlt}
+                    playIcon={this.props.videoConfig.playIcon}
+                    handleClick={this.toggleModal}
+                />
+                {this.renderVideoInfo()}
+                <Modal
+                    toggleModal={this.toggleModal}
+                    open={this.state.modalShown}
+                    theme="video"
+                    config={this.getUpdatedModalInfo()}
+                    onVideoSuccess={this.onSuccess}
+                    onVideoFailure={this.onFailure} 
+                />
+            </>
+        )
+
+    }
+
+    render() {
+        return (
+            <div className="cmp-video_video-container" ref={this.videoRef}>
+                {this.state.isMobile ? this.renderMobile() : this.renderDesktop()}
+            </div>
         );
     }
 }

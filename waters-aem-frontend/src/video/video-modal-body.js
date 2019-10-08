@@ -9,24 +9,6 @@ class VideoModalBody extends React.Component {
         super(props);
 
     }
-
-    onSuccess = (success) => { 
-        const brightcovePlayer = success.ref;
-
-        if (brightcovePlayer) { 
-            brightcovePlayer.on('ended', this.onVideoEnd.bind(this));
-        }
-    }
-
-    onVideoEnd = (e) => { 
-        if (typeof this.props.closeVideo === 'function') { 
-            this.props.closeVideo();
-        }
-    }
-
-    onFailure = (failure) => { 
-        //console.log("failure:", failure);
-    }
     
     render() {
     
@@ -36,7 +18,7 @@ class VideoModalBody extends React.Component {
 
         const optionsVideoJS = {
             fluid: true,
-            autoplay: 'play',
+            //autoplay: 'play',
             controls: !ScreenSizes.isMobile() ? true : false,
             loop: false
         }
@@ -49,8 +31,8 @@ class VideoModalBody extends React.Component {
                         videoId={this.props.config.brightcoveVideoId}
                         playedId={this.props.config.brightcovePlayerId}
                         accountId={this.props.config.brightcoveAccount}
-                        onFailure={this.onFailure}
-                        onSuccess={this.onSuccess}
+                        onFailure={this.props.onVideoFailure}
+                        onSuccess={this.props.onVideoSuccess}
                         // embedOptions={{unminified:true}}
                         attrs={playerAttrs} />
                 </div>
@@ -62,7 +44,9 @@ class VideoModalBody extends React.Component {
 //on video end closeModal??? on desktop/tablet sizes???
 VideoModalBody.propTypes = {
     config: PropTypes.object.isRequired,
-    closeVideo: PropTypes.func
+    closeVideo: PropTypes.func.isRequired,
+    onVideoSuccess: PropTypes.func.isRequired,
+    onVideoFailure: PropTypes.func.isRequired
 };
 
 export default VideoModalBody;

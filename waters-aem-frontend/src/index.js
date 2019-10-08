@@ -227,8 +227,13 @@ if (videoContainers) {
             const json = JSON.parse(videoConfig.innerHTML);
 
             ReactDOM.render(
-                <Video videoConfig={json.videoConfig}
-                />,
+                <Video videoConfig={json.videoConfig} ref={(ourComponent) => {
+                    if (window.cmpVideos) {
+                        window.cmpVideos.push(ourComponent);
+                    } else { 
+                        window.cmpVideos = [ourComponent];
+                    }
+                }} />,
                 videoContainer
             );
         }

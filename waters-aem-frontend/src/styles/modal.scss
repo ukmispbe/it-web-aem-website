@@ -199,10 +199,12 @@
 .cmp-modal.video{
     position: absolute;
     width: 85%;
-    top: ($space-xl * 2);
+    top: 0;
     left: 0;
     right: 0;
     margin: 0 auto;
+
+    transform: translate(0,12.5%);
 
     .cmp-modal__box {
         padding: 1px !important;
