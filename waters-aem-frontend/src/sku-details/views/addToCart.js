@@ -13,7 +13,10 @@ class AddToCart extends React.Component {
             addToCartQty: null,
             userCountry: this.props.skuConfig.countryCode,
             availabilityAPI: this.props.skuConfig.availabilityUrl,
-            addToCartUrl: this.props.addToCartUrl
+            addToCartUrl: this.props.addToCartUrl,
+            toggleErrorModal: this.props.toggleErrorModal,
+            toggleParentModal: this.props.toggleParentModal,
+            errorObj: this.props.errorObj
         };
         this.request = new SkuService(
             this.state.userCountry,
@@ -55,19 +58,16 @@ class AddToCart extends React.Component {
                 this.request
                     .addToCart(this.state.skuNumber, this.state.addToCartQty)
                     .then(response => {
-                        this.props.toggleParentModal(true);
+                        this.state.toggleParentModal(true);
                     })
                     .catch(err => {
-                        this.props.errorObj = err;
-                        // TODO: Get info for error modal
-                        this.props.toggleErrorModal(err);
+                        this.setState({ errorObj: err });
+                        this.state.toggleErrorModal(err);
                     });
             })
             .catch(err => {
-                // Add Error Object to State
-                this.props.errorObj = err;
-                // TODO: Get info for error modal
-                this.props.toggleErrorModal(err);
+                this.setState({ errorObj: err });
+                this.state.toggleErrorModal(err);
             });
     }
     addToCart = () => {
