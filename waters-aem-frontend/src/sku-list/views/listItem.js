@@ -54,7 +54,7 @@ class ListItem extends React.Component {
         this.setState({ errorObj: err });
         this.setState({ modalShown: !this.state.modalShown })
     };
-    
+
     toggleModal = () => {
         this.setState({ modalShown: !this.state.modalShown }, () => {
             if (this.state.modalShown) {
@@ -82,8 +82,8 @@ class ListItem extends React.Component {
             this.props.onItemClick();
         }
     };
-      
-    renderBuyInfoPartial = () => { 
+
+    renderBuyInfoPartial = () => {
         return (
             <div className="cmp-sku-details__buyinfo">
                 <div className="cmp-sku-list__priceinfo">
@@ -101,7 +101,7 @@ class ListItem extends React.Component {
                     }
                 >
                     {(this.state.skuAvailability.productStatus ||
-                    (this.state && this.state.errorObj && this.state.errorObj.ok === false)) 
+                    (this.state && this.state.errorObj && this.state.errorObj.ok === false))
                     && (
                         <Stock
                             skuConfig={this.props.skuConfig.skuInfo}
@@ -112,8 +112,8 @@ class ListItem extends React.Component {
                             errorObj={this.state.errorObj}
                         />
                     )}
-                    {(!this.state.skuAvailability.productStatus && 
-                    !(this.state && this.state.errorObj && this.state.errorObj.ok === false)) 
+                    {(!this.state.skuAvailability.productStatus &&
+                    !(this.state && this.state.errorObj && this.state.errorObj.ok === false))
                     && (
                         <span className="cmp-sku-list__checkavailability">
                             {
@@ -140,6 +140,7 @@ class ListItem extends React.Component {
                         addToCartLabel={this.props.skuConfig.addToCartLabel}
                         addToCartUrl={this.props.skuConfig.addToCartUrl}
                         toggleErrorModal={this.toggleErrorModal}
+                        skuConfig={this.props.skuConfig}
                     ></AddToCart>
                 </div>
                 <Modal
@@ -154,7 +155,7 @@ class ListItem extends React.Component {
         );
     }
 
-    renderBuyInfoCommerceView = () => { 
+    renderBuyInfoCommerceView = () => {
         if (Ecommerce.isDisabledState()) {
             return (null);
         } else {
@@ -166,9 +167,9 @@ class ListItem extends React.Component {
                             {this.renderBuyInfoPartial()}
                         </>
                     );
-                } else { 
+                } else {
                     return (null);
-                }               
+                }
         }
     }
 
@@ -182,11 +183,11 @@ class ListItem extends React.Component {
             }
 
             return (
-                <SkuMessage 
+                <SkuMessage
                     icon={this.props.skuConfig.skuInfo.lowStockIcon}
                     message={discontinuedMessage}
                     link={this.props.relatedSku.replacementskuurl}
-                    linkMessage={this.props.relatedSku.replacementskucode} 
+                    linkMessage={this.props.relatedSku.replacementskucode}
                 />
             );
         } else {
@@ -212,7 +213,7 @@ class ListItem extends React.Component {
         if (Ecommerce.isPartialState()) {
             let conditions = LoginStatus.state() && CheckOutStatus.state();
             return !conditions;
-        } else { 
+        } else {
             return Ecommerce.isDisabledState();
         }
     };
