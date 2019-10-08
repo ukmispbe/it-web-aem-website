@@ -11,11 +11,12 @@ class AddToCart extends React.Component {
             skuNumber: this.props.skuNumber,
             addToCartLabel: this.props.addToCartLabel,
             addToCartQty: null,
+            userCountry: this.props.skuConfig.countryCode,
             availabilityAPI: this.props.skuConfig.availabilityUrl,
             addToCartUrl: this.props.addToCartUrl
         };
         this.request = new SkuService(
-            '',
+            this.state.userCountry,
             {
                 availability: this.state.availabilityAPI,
                 price: '',
