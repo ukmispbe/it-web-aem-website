@@ -214,6 +214,9 @@
 .image-thumbails-button--disabled,
 .image-thumbails-button--disabled:hover {
     opacity: 0;
+    svg {
+        cursor: default;
+    }
 }
 
 .image-thumbnails-wrapper--no-x-scroll {
