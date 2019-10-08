@@ -3,14 +3,12 @@
     padding-left: 0;
 
     &--split {
-        .cmp-links {
-            @include tablet-and-over {
-                -webkit-column-count: 2;
-                column-gap: $space-xl;
-                column-fill: balance;
-                column-count: 2;
-            }
-        }
+       @include tablet-and-over {
+          -webkit-column-count: 2;
+          column-gap: $space-xl;
+          column-fill: balance;
+          column-count: 2;
+       }
     }
 }
 
