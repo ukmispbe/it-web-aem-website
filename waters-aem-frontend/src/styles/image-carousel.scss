@@ -213,12 +213,7 @@
 
 .image-thumbails-button--disabled,
 .image-thumbails-button--disabled:hover {
-    svg {
-        cursor: default;
-        .st0 {
-            stroke: $color-disabled;
-        }
-    }
+    opacity: 0;
 }
 
 .image-thumbnails-wrapper--no-x-scroll {
