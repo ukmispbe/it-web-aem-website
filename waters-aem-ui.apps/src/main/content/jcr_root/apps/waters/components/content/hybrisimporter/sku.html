@@ -1,0 +1,41 @@
+<h1>Import SKUs by Code</h1>
+
+<div class="row" data-sly-use.importerStatus="com.waters.aem.hybris.components.HybrisImporterStatus">
+    <div class="col-12">
+        <div data-sly-test="${importerStatus.running}" class="alert alert-primary" role="alert">
+            Hybris import running...
+        </div>
+
+        <div data-sly-test="${!importerStatus.running && !importerStatus.lastImportDate}" class="alert alert-info" role="alert">
+            No Hybris imports have been executed.
+        </div>
+
+        <div data-sly-test="${!importerStatus.running && importerStatus.lastImportDate && importerStatus.success}" class="alert alert-success" role="alert">
+            Last Hybris import completed on <a href="${currentPage.path}.audit.html" target="_blank">${importerStatus.lastImportDate}</a>.
+        </div>
+
+        <div data-sly-test="${!importerStatus.running && importerStatus.lastImportDate && !importerStatus.success}" class="alert alert-danger" role="alert">
+            Last Hybris import failed on <a href="${currentPage.path}.audit.html" target="_blank">${importerStatus.lastImportDate}</a>.
+        </div>
+    </div>
+
+    <div class="col-12">
+        <form method="POST" action="/bin/importer/executor">
+            <div>
+                <div>
+                    <div class="alert alert-info" role="alert">
+                        Selectively import SKUs by their code, separated by commas. SKU codes are case-sensitive.
+                    </div>
+                    <textarea rows="10" cols="100" name="productCodes" placeholder="Enter a list of SKU codes such as: WAT023396,186002328,700008842"></textarea>
+                </div>
+                <div>
+                    <label for="replicate">Replicate</label>
+                    <input type="checkbox" name="replicate" id="replicate" value="true" checked/>
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Run Import</button>
+            </div>
+        </form>
+    </div>
+</div>

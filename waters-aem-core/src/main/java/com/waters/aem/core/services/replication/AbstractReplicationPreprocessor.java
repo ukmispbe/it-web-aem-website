@@ -5,7 +5,6 @@ import com.day.cq.replication.ReplicationAction;
 import com.day.cq.replication.ReplicationActionType;
 import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.ReplicationOptions;
-import com.google.common.collect.ImmutableList;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
@@ -21,17 +20,12 @@ public abstract class AbstractReplicationPreprocessor<T> implements Preprocessor
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractReplicationPreprocessor.class);
 
-    private static final List<ReplicationActionType> SUPPORTED_ACTION_TYPES = ImmutableList.of(
-        ReplicationActionType.DEACTIVATE,
-        ReplicationActionType.DELETE
-    );
-
     @Override
     public final void preprocess(final ReplicationAction replicationAction, final ReplicationOptions replicationOptions)
         throws ReplicationException {
         final ReplicationActionType replicationActionType = replicationAction.getType();
 
-        if (isEnabled() && SUPPORTED_ACTION_TYPES.contains(replicationAction.getType())) {
+        if (isEnabled() && getSupportedActionTypes().contains(replicationAction.getType())) {
             try (final ResourceResolver resourceResolver = getResourceResolverFactory().getServiceResourceResolver(
                 null)) {
                 for (final T item : getItems(replicationAction, resourceResolver)) {
@@ -51,6 +45,13 @@ public abstract class AbstractReplicationPreprocessor<T> implements Preprocessor
      * @return true if enabled
      */
     protected abstract boolean isEnabled();
+
+    /**
+     * Get the list of supported replication action types for this processor.
+     *
+     * @return list of supported replication action types
+     */
+    protected abstract List<ReplicationActionType> getSupportedActionTypes();
 
     /**
      * Process the replicated item.

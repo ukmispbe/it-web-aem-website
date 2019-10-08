@@ -21,6 +21,7 @@ import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.SiteContext;
+import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
 import com.waters.aem.core.components.content.links.BasicLink;
 import com.waters.aem.core.components.content.links.IconOnlyLink;
 import com.waters.aem.core.components.structure.page.analytics.DataLayer;
@@ -116,6 +117,13 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
         return getInherited("copyrightText", defaultCopyrightText);
     }
+    
+    @DialogField(fieldLabel = "Contact Us",
+        fieldDescription = "Select or enter the Contact URL",
+        ranking = 5)
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject(inherit = true)
+    private Link contactLink;
 
     @DialogField(fieldLabel = "Shanghai ICP Number",
             fieldDescription = "Enter the Shanghai ICP Number",
@@ -207,6 +215,10 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     @JsonProperty
     public String getLogoAltText() {
         return logoAltText;
+    }
+
+    public Link getContactLink() {
+        return contactLink;
     }
 
     @JsonProperty
@@ -341,6 +353,10 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     public String getLocale() {
         return siteContext.getLocale().toLanguageTag();
+    }
+
+    public CountryCommerceConfig getCommerceConfig() {
+        return siteContext.getCountryCommerceConfig();
     }
 
     @Nonnull

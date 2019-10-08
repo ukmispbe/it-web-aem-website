@@ -3,6 +3,7 @@ package com.waters.aem.core.components.structure.page;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Property;
+import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.Selection;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
@@ -13,6 +14,9 @@ import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 
 @Component(value = "Commerce",
+    tabs = @Tab(
+        title = "Commerce",
+        renderConditionResourceType = WatersConstants.RENDER_CONDITION_COMMERCE_TAB),
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE,
     name = WatersConstants.COMPONENT_NAME_PAGE,
@@ -40,6 +44,21 @@ public class Commerce {
     @InheritInject
     private String currencyIsoCode;
 
+    @DialogField(fieldLabel = "Currency Language Override",
+            fieldDescription = "Two character language code used to format the currency display. Setting this will " +
+                    "override the default.",
+            ranking = 3)
+    @TextField
+    @InheritInject
+    private String currencyLanguageCode;
+
+    @DialogField(fieldLabel = "Currency Country Override",
+            fieldDescription = "Two character country code used to format the currency display. Setting this will " +
+                    "override the default.",
+            ranking = 4)
+    @TextField
+    @InheritInject
+    private String currencyCountryCode;
 
     public CountryCommerceConfig getCountryCommerceConfig() {
         return countryCommerceConfig;

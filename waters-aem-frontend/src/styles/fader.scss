@@ -12,7 +12,7 @@
         &--left {
             background: linear-gradient(to left,hsla(0,0%,100%,.2) 0%,hsla(0,0%,100%,.8) 100%);
         }
-        
+
         &--right {
             right: 3em;
             background: linear-gradient(to right,hsla(0,0%,100%,.2) 0%,hsla(0,0%,100%,.8) 100%);
@@ -21,7 +21,7 @@
 
       &--left {
          overflow-x: scroll;
-         
+
          .fader-container {
             &--left {
                visibility: visible;
@@ -40,8 +40,17 @@
       }
 }
 
-   .cmp-anchor--sticky .cmp-anchor__list.fader-fade .fader-container{
-    &--right {
-        right: 57.5%;
-    }
+.cmp-anchor--sticky {
+
+   & > div {
+      height: ((.75 * 2) + (1.8em));
+      position: relative;
+      max-width: 1285px;
+   }
+
+   & .cmp-anchor__list.fader-fade .fader-container {
+      &--right {
+         right: 0;
+      }
+   }
 }

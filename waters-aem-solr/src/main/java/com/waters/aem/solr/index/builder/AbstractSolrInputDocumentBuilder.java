@@ -94,7 +94,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
 
         // add common fields for all page types
         document.setField("id", page.getPath());
-        document.setField("url", externalizer.externalLink(resourceResolver, Externalizer.PUBLISH, page.getHref()));
+        document.setField("url", page.getHref(true));
         document.setField("title", page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle()));
 
         setDocumentStringField(document, "description", page.getDescription());
@@ -177,11 +177,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
                 document.setField("displayprice", displayableSku.getFormattedPrice());
             }
 
-            final List<String> categories = sku.getCategories();
-
-            if (!categories.isEmpty()) {
-                setDocumentStringField(document, SearchUtils.getSolrFacetName("contenttype"), categories.get(0));
-            }
+            setDocumentStringField(document, SearchUtils.getSolrFacetName("contenttype"), page.getParent().getTitle());
 
             final Tag shopTag = page.getContentResource().getResourceResolver().adaptTo(TagManager.class).
                 resolve(WatersConstants.TAG_SHOP);

@@ -14,6 +14,13 @@
         background-color: transparent;
         outline: none;
         border: 1px solid $color-border-light;
+
+        &:hover {
+            border: 1px solid $color-blue-50;
+        }
+        &:focus {
+            border: 2px solid $color-focus;
+        }
     }
     &__filter {
         div.facet-container {
@@ -227,7 +234,7 @@
                 @include tablet-and-under {
                     transition: none;
                 }
-                max-height: 200px;
+                max-height: (($space-xxl + $space-xl) * 3);
                 padding: 0;
             }
         }
@@ -235,27 +242,36 @@
     &__tags {
         display: flex;
         flex-wrap: wrap;
-        margin-top: 2.75em;
-        margin-bottom: $space-s;
+        margin-top: $space-xs;
+        margin-bottom: $space-l;
 
         a {
             @include font-small;
+            max-height: $space-l;
+            line-height: $line-height-text;
             display: block;
             float: left;
             padding: ($space-xxxs - .05em) $space-xs ($space-xxxs + .05em) $space-l;
-            margin: 0 $space-xxs $space-xs 0;
+            margin: ($space-m + 0.15em) $space-xxs ($space-s * -1) 0;
             text-decoration: none;
             background-color: $color-gray-10;
             position: relative;
-            border-radius: .25em;
+            border-radius: 0.25em;
+
+            @include tablet {
+                max-height: fit-content;
+                margin: 0 $space-xxs $space-xxs 0;
+            }
 
             @include mobile {
-                padding: ($space-xxxs - .15em) $space-s ($space-xxxs + .05em) $space-l;
+                max-height: fit-content;
+                padding: ($space-xxs - .2em) $space-s ($space-xxxs + .06em) $space-l;
+                margin: 0 $space-xxs $space-xxs 0;
             }
 
             svg {
                 position: absolute;
-                top: 9px;
+                top: 8px;
                 left: 10px;
                 width: $icon-s;
                 height: $icon-s;
@@ -264,8 +280,11 @@
                     stroke-width: 2px;
                 }
                 @include tablet-and-under {
-                    top: 10px;
+                    top: 9px;
                     margin: 0;
+                }
+                @include mobile {
+                    top: 9px;
                 }
             }
             &:hover {
@@ -285,7 +304,7 @@
         }
     }
     &__emptytags {
-        height: 0.5em;
+        height: $space-l;
 
         @include tablet-and-under {
             height: 0;
@@ -390,7 +409,6 @@ $header-height: 74px;
 .cmp-search__sort-filter {
     position: relative;
     top: -55px;
-    // height: 100vh;
 
     .cmp-search-filters__tags {
         display: none;
@@ -433,6 +451,7 @@ $header-height: 74px;
         width: 40%;
         height: 100%;
         padding: $header-height 20px 20px 20px;
+        z-index: ($navigation-z-index + 1);
     }
 }
 
@@ -484,16 +503,19 @@ $header-height: 74px;
     }
     @include mobile {
         .cmp-search__sort-filter {
-            z-index: $cmp-banner-z-index + 1;
+            z-index: ($cmp-banner-z-index + 1) !important;
+            top: 53px !important;
             height: 100vh;
-            padding: 40px 20px 80px 20px;
+            padding: 20px 20px 80px 20px;
         }
         .cmp-search__sort-filter__container {
             height: 105%;
         }
         &.filter-active {
             .cmp-search__sort-filter__container {
-                overflow: visible;
+                &.no-fix {
+                    overflow: visible;
+                }
             }
         }
     }
@@ -504,7 +526,8 @@ $header-height: 74px;
         .overlay {
             visibility: visible;
             display: block;
-            margin: -40px;
+            z-index: ($navigation-z-index + 1);
+            position: fixed;
         }
     }
 
@@ -522,13 +545,3 @@ $header-height: 74px;
         }
     }
 }
-
-// .sort-filter-container-sticky {
-//      position: fixed;
-//      top: 78px;
-//  }
-
-// .sort-filter-container-affix {
-//      position: relative;
-//  }
-

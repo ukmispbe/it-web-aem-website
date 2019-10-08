@@ -1,4 +1,4 @@
-import scrollToY from './scrollTo';
+import scrollToElement from './scrollToElement';
 import screenSizes from './screenSizes';
 import Fader from './fade-x';
 import sticky, { scrollListener } from './stickyService';
@@ -13,30 +13,23 @@ var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
     try {
         anchor.addEventListener('click', e => {
             e.preventDefault();
-            const anchorSticky = document.getElementsByClassName(
-                'cmp-anchor--sticky'
-            );
+
             const hasSku = document.getElementsByClassName(
-                'cmp-sku-details--sticky'
+                'cmp-sku-details'
             );
 
             setTimeout(() => {
                 const href = e.target.getAttribute('href').replace(/#/gi, '');
-                const block = document.getElementById(href);
-                const blockTop = block.offsetTop;
-                let topDistance = blockTop - 16;
-                if (!anchorSticky.length) {
-                    topDistance += 70;
-                }
+                let additionalOffset = 0;
 
                 if (hasSku.length === 0) {
-                    if (anchorSticky.length) {
-                        topDistance += 20;
-                    }
+                    additionalOffset += 52;
+                } else {
+                    additionalOffset += 143;
                 }
 
-                scrollToY(topDistance, 1000, 'easeOutSine');
-
+                scrollToElement(href, 1000, 'easeOutSine', true, additionalOffset);
+                
                 anchorLinks.forEach(anchor => {
                     anchor.classList.remove('active');
                 });
@@ -66,54 +59,59 @@ const setAnchorDestinations = () => {
         }
     }
 };
-let brokeAt = 0;
 
 const anchorScrollSpy = () => {
-    let multipleInView = [];
-    if (anchorDestinations) {
-        for (let n = 0; n <= anchorDestinations.length; n++) {
-            const id = anchorDestinations[n]
-                ? anchorDestinations[n].id.replace(/#/gi, '')
-                : undefined;
-            const link = anchorDestinations[n]
-                ? anchorDestinations[n].anchor
-                : undefined;
+    if (!anchorElement || !anchorDestinations) { return; }
 
-            if (id && link) {
-                const element = document.getElementById(id);
-                const elementBoundaries = element.getBoundingClientRect();
-                const elementTop = elementBoundaries.top;
-                const elementBottom = elementBoundaries.bottom;
-                const docHeight = document.documentElement.clientHeight;
-                const halfwayUpPage = docHeight / 1.4;
-                const stillOnPage = docHeight / 1.55;
+    const activeClassName = "active";
+    const anchorElementBottom = anchorElement.getBoundingClientRect().bottom;
+    const docHeight = document.documentElement.clientHeight;
+    const halfwayUpPage = docHeight / 1.4;
 
-                if (
-                    (elementTop >= 75 &&
-                        elementTop <= docHeight &&
-                        elementTop <= halfwayUpPage) ||
-                    (elementTop < 150 && elementBottom >= stillOnPage)
-                ) {
-                    link.classList.add('active');
-                    brokeAt = n;
-                    multipleInView.push(n);
-                } else {
-                    link.classList.remove('active');
-                }
+    anchorDestinations.forEach((item, index) => {
+        const id = item.id.replace(/#/gi, '');
+        const link = item.anchor;
+        const elementBoundaries = document.getElementById(id).getBoundingClientRect();
+        const elementTop = elementBoundaries.top;
+        const elementBottom = elementBoundaries.bottom;
+        const isBottomAboveContainer = elementBottom < anchorElementBottom;
+
+        if (index === 0)  {
+            const isAboveHalfway = elementTop <= halfwayUpPage;
+            const isBetweenContainerAndHalfWayMarker = !isBottomAboveContainer && isAboveHalfway;
+
+            if (isBetweenContainerAndHalfWayMarker) {
+                link.classList.add(activeClassName);
+            } else {
+                link.classList.remove(activeClassName);
             }
+        } else {
+            const topOffset = screenSizes.isTablet() ? 328 : 30;
+            const isLast = index === anchorDestinations.length - 1;
+            const top = isLast ? elementTop - topOffset : elementTop;
+            const isActive = !isBottomAboveContainer && top <= anchorElementBottom;
 
-            if (multipleInView.length > 1) {
-                for (let i = 1; i < multipleInView.length; i++) {
-                    const inView = multipleInView[i];
+            if (isActive) {
 
-                    anchorDestinations[inView].anchor.classList.remove(
-                        'active'
-                    );
+                if (isLast) {
+                    anchorDestinations[index - 1].anchor.classList.remove(activeClassName);
                 }
+
+                link.classList.add(activeClassName);
+            } else {
+                link.classList.remove(activeClassName);
             }
         }
+    });
+}
+
+function anchorHide() {
+    if (document.getElementsByClassName('cmp-section-container--collapse').length > 0){
+        document.getElementsByClassName('anchor')[0].style.display = 'none'
+    } else {
+        document.getElementsByClassName('anchor')[0].style.display = 'block'
     }
-};
+}
 
 function toggleMobileNav(forceClose) {
     const heading = document.querySelector('.cmp-anchor--sticky');
@@ -136,7 +134,7 @@ function hideScrollBars(el) {
 
 function anchorChange(el) {
    if (ancFader === null) {
-      ancFader = Fader('cmp-anchor__list', 0, 75);
+      ancFader = Fader('cmp-anchor__list', 0, 75, false, true);
 
       var anchorElementId = document.getElementById('cmp-anchor');
 
@@ -149,7 +147,7 @@ function anchorChange(el) {
 function clearGradients() {
     let lhsGradient = document.querySelector('.cmp-anchor__list .fader-container--left');
     let rhsGradient = document.querySelector('.cmp-anchor__list .fader-container--right');
-    
+
    if (lhsGradient !== null && rhsGradient !== null) {
       lhsGradient.style.display = 'none';
       rhsGradient.style.display = 'none';
@@ -188,10 +186,9 @@ function scrollWindow(el) {
 var anchorList = document.querySelector('.cmp-anchor__list');
 
 if (anchorList) {
-    const isMobile = screenSizes.isMobile();
-    const sectionContainers = document.querySelectorAll(
-        '.cmp-section-container--collapse'
-    );
+    if(screenSizes.isMobile()){
+        anchorHide();
+    }
 
     if (anchorElement) {
         setAnchorDestinations();
@@ -225,26 +222,22 @@ if (anchorList) {
         hideScrollBars(anchorList)
     );
 
-    anchorChange(anchorList); 
+    anchorChange(anchorList);
 
     window.addEventListener('scroll', () => scrollWindow(anchorList));
     window.addEventListener('load', () => resizeWindow(anchorList));
     window.addEventListener('resize', () => resizeWindow(anchorList));
     var mediaQueryListener = window.matchMedia('(max-width: 650px)');
-    var switchToLargerMediaSizeListener = window.matchMedia('(min-width: 651px)'); //listener for if the view transitions larger
 
-    function anchorChangeToMobile() {
-        if (isMobile) {
+    function anchorChangeToMobile(e) {
+        if (e.matches) {
+            anchorHide();
             clearGradients();
+        } else {
+            clearOpenContainers();
+            document.getElementsByClassName('anchor')[0].style.display = "block"
         }
     }
 
-    function anchorChangeToDesktop() {
-        // defaults style to block, in case a user switches from mobile view to desktop view in case the anchor component has display:none
-        document.getElementsByClassName('cmp-anchor')[0].style.display = "block"
-        clearOpenContainers();
-    }
-
-    switchToLargerMediaSizeListener.addListener(anchorChangeToDesktop)
     mediaQueryListener.addListener(anchorChangeToMobile);
 }

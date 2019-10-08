@@ -8,40 +8,21 @@ class SkuService {
             availability:
                 'https://dev-www.waters.com:8443/api/waters/product/v1/availability/{partnumber}/{isocode}',
             price:
-                'https://dev-www.waters.com:8443/api/waters/product/v1/customerprice',
+                'https://dev-www.waters.com:8443/api/waters/product/v1/customerprice', //This is not hooked up yet and will have path parameters, too
         },
         cart = {
             addToCart: 'https://dev-www.waters.com:8443/api/waters/product/v1/addtocart/{partnumber}/{quantity}',
             getCart: ''
         },
-        throwError
+        throwError //callback 
     ) {
         this.isocode = isocode;
         this.skuOptions = sku;
-        this.addToCartPath = cart.addToCart;
+        this.cartOptions = cart;
         this.throwError = throwError;
     }
 
 
-
-    getAvailability(partNo) {
-        return new Promise((resolve, reject) => {
-            window
-                .fetch(this.createAvailabilityRequest(partNo))
-                .then(response => {
-                    if (response.ok) {
-                        resolve(response.json());
-                    } else {
-                        this.throwError(response);
-                        reject(response);
-                    }
-                })
-                .catch(err => {
-                    this.throwError(err);
-                    reject(err);
-                });
-        });
-    }
 
     createAvailabilityRequest(partNo) {
         const url = this.skuOptions.availability
@@ -59,58 +40,73 @@ class SkuService {
         return url;
     }
 
-    getPrice(partNo) {
-        return new Promise((resolve, reject) => {
-            window
-                .fetch(this.createPriceRequest(partNo))
-                .then(response => {
-                    if (response.ok) {
-                        resolve(response.json());
-                    } else {
-                        this.throwError(response);
-                        reject(response);
-                    }
-                })
-                .catch(err => {
-                    this.throwError(err);
-                    reject(err);
-                });
-        });
-    }
-
     createCartUrl(partNo, quantity) {
-        const url = this.addToCartPath
+        const url = this.cartOptions.addToCart
             .replace('{partnumber}', partNo)
             .replace('{quantity}', quantity);
 
         return url;
     }
 
-    addToCart(partNo, quantity) {
+    checkFetch(response) {
+        if (!response.ok){
+            throw response;
+        }
+        return response;
+    }
+
+    getData(url){
+        // Should be logic for all get requests we have to send
         return new Promise((resolve, reject) => {
             window
-                .fetch(this.createCartUrl(partNo, quantity), {
-                    method: 'post',
-                    credentials: 'include',
-                    body: JSON.stringify({
-                        partNumbers: partNo,
-                        quantity: quantity,
-                    }),
-                })
+                .fetch(url)
+                .then(this.checkFetch)
                 .then(response => {
-                    // Response does not return data we need to pass back. If response.ok === true or status === 200
-                    if (response.ok) {
-                        resolve(true);
-                    } else {
-                        this.throwError(response);
-                        reject(response);
-                    }
+                    resolve(response.json());
                 })
                 .catch(err => {
                     this.throwError(err);
                     reject(err);
                 });
         });
+    }
+
+    postData(url, options){
+        return new Promise((resolve, reject) => {
+            window
+                .fetch(url, {...options})
+                .then(this.checkFetch)
+                .then(response => {
+                    resolve(true);
+                })
+                .catch(err => {
+                    this.throwError(err);
+                    reject(err);
+                });
+        });
+    }
+
+
+    // these functions are used by different views
+    getAvailability(partNo) {
+        return this.getData(this.createAvailabilityRequest(partNo));
+    }
+
+    getPrice(partNo) {
+        return this.getData(this.createPriceRequest(partNo));
+    }
+
+    addToCart(partNo, quantity) {
+        const options = {
+            method: 'post',
+            credentials: 'include',
+            body: JSON.stringify({
+                partNumbers: partNo,
+                quantity: quantity,
+            })
+        }
+
+        return this.postData(this.createCartUrl(partNo, quantity), options);
     }
 }
 

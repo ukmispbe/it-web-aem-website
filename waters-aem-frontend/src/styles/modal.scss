@@ -52,6 +52,10 @@
             width: $icon-l;
             height: $icon-l;
             float: right;
+            .st0,
+            .st1 {
+                stroke: $color-icon;
+            }
             @include mobile {
                 top: $space-xs;
                 width: $icon-m;
@@ -64,7 +68,7 @@
 
     .cmp-modal__title {
         .cmp-modal__title-icon {
-            margin-right: $space-s;
+            margin-right: $space-xxs;
             display: inline-block;
             svg {
                 height: $icon-l;

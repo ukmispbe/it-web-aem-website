@@ -15,13 +15,13 @@ public interface ContentClassification {
 
     List<Tag> getContentType();
 
-    List<Tag> getTechnique();
-
     List<Tag> getSeparationMode();
+
+    List<Tag> getCompoundAnalyte();
 
     List<Tag> getMarket();
 
-    List<Tag> getInstrumentType();
+    List<Tag> getInstrumentTechnique();
 
     List<Tag> getMonthPublished();
 
