@@ -137,7 +137,7 @@ public final class DefaultHybrisClient implements HybrisClient {
         throws IOException, URISyntaxException {
         final URI uri = buildUri(path, queryParams);
 
-        LOG.debug("sending request for URI : {}", uri.toString());
+        LOG.info("sending request for URI : {}", uri.toString());
 
         final HttpUriRequest request = RequestBuilder.get(uri)
             .addHeader(HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType())

@@ -68,6 +68,7 @@ class Sticky {
             if (this.queue && this.queue.length) {
                 this.queue.forEach(q => {
                     const position = q.element.getBoundingClientRect();
+
                     if (
                         this.decideToStick(
                             q.offset,
@@ -76,7 +77,16 @@ class Sticky {
                             q.element.parentNode
                         )
                     ) {
-                        this.stick(q);
+                        const conditionalCheck = q.conditions;
+                        if (typeof conditionalCheck === 'function') {
+                            if (conditionalCheck(q.element)) {
+                                this.stick(q);
+                            } else { 
+                                this.unstick(q);
+                            }
+                        } else { 
+                            this.stick(q);
+                        }
                     } else {
                         this.unstick(q);
                     }

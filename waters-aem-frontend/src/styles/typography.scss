@@ -34,7 +34,7 @@
     font-size: $font-size-h3;
     font-weight: $font-weight-regular;
     line-height: $line-height-text;
-    margin-bottom: $space-s;
+    margin-bottom: $space-xxs;
     margin-top: 0;
 }
 
@@ -87,6 +87,7 @@
     text-align: left;
     margin-right: -0.7em;
     padding-right: 0.7em;
+    white-space: pre-wrap;
 }
 
 html {

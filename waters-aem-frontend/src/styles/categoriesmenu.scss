@@ -1,5 +1,5 @@
 .categories-type-menu-container {
-    margin-top: $space-xl;
+    margin-top: $space-l;
 
     @include tablet-and-under {
         margin-top: $space-l;
@@ -10,28 +10,44 @@
     display: flex;
     flex-flow: wrap;
 
-    .bread-crumb {
+    .back-btn {
         display: flex;
         flex-flow: wrap;
+        width: 100%;
+        padding-bottom: $space-s;
+        margin-left: -4px;
+        
+        a {
+            div{
+                display: inline-block;
+                float: left;
+            }
+
+            &:hover,
+            &:focus {
+                color: $color-link-hover;
+                text-decoration: underline;
+
+                svg .st0 {
+                    stroke: $color-link-hover;
+                }
+            }
+        }
     }
 
     svg {
         position: relative;
         top: 3px;
-        margin: 0 $space-xxxs;
         width: $icon-s;
         height: $icon-s;
+        margin-right: $space-xxxs;
 
         .st0 {
-            stroke: $color-icon;
+            stroke: $color-link;
         }
     }
 
-    @include tablet-and-under {
-        h3 {
-            flex-basis: 100%;
-        }
-    }
+
 }
 
 .filter-active {
@@ -44,39 +60,31 @@
 
 .categories-type-menu-container__item {
     display: flex;
-    padding: $space-xs $space-xs $space-xs $space-s;
-    border: 1px solid $color-border-dark;
-    margin-bottom: $space-xxs;
+    margin-bottom: $space-s;
     cursor: pointer;
 
     a {
         @include font-utility;
         line-height: 0;
+        color:$color-link;
     }
 
-    div:first-child {
-        flex-grow: 1;
-    }
-
-    svg {
-        width: $icon-m;
-        height: $icon-m;
-        margin-top: ($space-xxxs - .2em);
-
-        .st0 {
-            stroke: $color-icon;
+    div:nth-child(2) {
+        padding-left: $space-xxxs;
+        a {
+            color: $color-icon;
         }
     }
 
     &:hover,
     &:focus {
         a {
-            color: $color-link;
-            text-decoration: none;
+            color: $color-link-hover;
+            text-decoration: underline;
         }
 
-        & svg .st0 {
-            stroke: $color-link;
+        div:nth-child(2) a {
+           text-decoration: none;
         }
     }
 }

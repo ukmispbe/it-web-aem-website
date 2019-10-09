@@ -17,15 +17,6 @@ const toggleBody = el => {
             body.classList.add('open');
         }
     }
-
-    if(
-        window.matchMedia('(max-width: 650px)').matches && 
-        (document.getElementsByClassName('cmp-section-container__title open').length != 0) //if there are any open containers while in mobile view, hide the cmp-anchor dropdown
-    ){
-        document.getElementsByClassName('cmp-anchor')[0].style.display = "none"
-    } else {
-        document.getElementsByClassName('cmp-anchor')[0].style.display = "block"
-    }
 };
 
 if (sectionContainers.length > 0) {

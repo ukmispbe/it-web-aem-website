@@ -180,7 +180,9 @@ public final class Sku {
 
     @SuppressWarnings({ "squid:S2259" })
     public String getPrimaryImageSrc() {
-        return getPrimaryImageAsset() == null ? null :  getPrimaryImageAsset().getPath();
+        final Asset primaryImageAsset = getPrimaryImageAsset();
+
+        return primaryImageAsset == null ? null : primaryImageAsset.getPath();
     }
 
     public Asset getPrimaryImageAsset() {
