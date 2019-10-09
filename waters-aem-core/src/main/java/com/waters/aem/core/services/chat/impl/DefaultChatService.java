@@ -13,15 +13,24 @@ public final class DefaultChatService implements ChatService {
 
     private volatile String chatUrl;
 
+    private volatile String chatStatusApi;
+
     @Override
     public String getChatUrl() {
         return chatUrl;
     }
 
+    @Override
+    public String getChatStatusApi() {
+        return chatStatusApi;
+    }
     @Activate
     @Modified
     protected void activate(final ChatServiceConfiguration configuration) {
         chatUrl = configuration.chatUrl();
+        chatStatusApi = configuration.chatStatusApi();
     }
+
+
 }
 

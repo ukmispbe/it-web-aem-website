@@ -31,6 +31,10 @@ public final class Chat implements ComponentExporter {
         return chatService.getChatUrl();
     }
 
+    public String getChatStatusApi() {
+        return chatService.getChatStatusApi();
+    }
+
     @Nonnull
     @Override
     public String getExportedType() {
