@@ -42,12 +42,12 @@ function getAuthoredDataForTagCloud(h, t) {
 
 function getAuthoredDataForChat(c) {
     return {
-        chatUrl: c.dataset.chatUrl,
-        chatIcon: c.dataset.chatIcon,
-        chatAvailable: c.dataset.chatAvailable,
-        chatUnavailable: c.dataset.chatUnavailable,
-        chatText: c.dataset.chatText,
-        chatButtonText: c.dataset.chatButtonText
+        url: c.dataset.chatUrl,
+        icon: c.dataset.chatIcon,
+        availableText: c.dataset.chatAvailableText,
+        unavailableText: c.dataset.chatUnavailableText,
+        text: c.dataset.chatText,
+        buttonText: c.dataset.chatButtonText
     }
 }
 
@@ -231,14 +231,15 @@ if(chatContainer) {
     const data = getAuthoredDataForChat(chatContainer);
     ReactDOM.render(
         <Chat
-            chatUrl={data.chatUrl}
-            chatIcon={data.chatIcon}
-            chatAvailable={data.chatAvailable}
-            chatUnavailable={data.chatUnavailable}
-            chatText={data.chatText}
-            chatButtonText={data.chatButtonText}
-            chatOfflineIcon={skuDetailsConfig.skuInfo.outOfStockIcon}
-            chatOnlineIcon={skuDetailsConfig.skuInfo.inStockIcon}
+            url={data.url}
+            countryCode={skuDetailsConfig.countryCode}
+            icon={data.icon}
+            availableText={data.availableText}
+            unavailableText={data.unavailableText}
+            text={data.text}
+            buttonText={data.buttonText}
+            offlineIcon={skuDetailsConfig.skuInfo.outOfStockIcon}
+            onlineIcon={skuDetailsConfig.skuInfo.inStockIcon}
         />,
         chatContainer
     );

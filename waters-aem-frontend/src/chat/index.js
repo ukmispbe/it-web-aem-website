@@ -1,14 +1,30 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
 import PropTypes from 'prop-types';
+import ChatService from './services';
 
 class Chat extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            isActive: true
+            isActive: false,
         }
+        this.chatStatusApi = 'https://test-www.waters.com:8443/api/waters/v1/chat/enabled/{countryCode}'
+        this.request = new ChatService(this.props.countryCode, this.chatStatusApi);
+    }
+
+    componentDidMount() {
+        this.request
+            .getChatStatus()
+            .then(response => {
+                this.setState({
+                    isActive: response.isChatActive,
+                })
+            })
+            .catch(err => {
+                console.log("Unable to connect to chat api.")
+            })
     }
 
     render() {
@@ -16,29 +32,29 @@ class Chat extends React.Component {
         return (
             <div className="cmp-chat-content">
                 <div className="cmp-chat__icon">
-                    <ReactSVG src={this.props.chatIcon} />
+                    <ReactSVG src={this.props.icon} />
                 </div>
                 <div className="cmp-chat__text">
-                    {this.props.chatText}
+                    {this.props.text}
                 </div>
                 <a
                     className={`cmp-button ${!isActive ? "cmp-button--disabled" : ""}`}
-                    href={isActive ? this.props.chatUrl : "#"}
+                    href={isActive ? this.props.url : "#"}
                     target="_blank"
                     rel="noopener"
                     disabled={!isActive}
                 >
-                    {this.props.chatButtonText}
+                    {this.props.buttonText}
                 </a>
 
                 <div className="cmp-chat__status">
                     <div className={`cmp-chat__status-icon ${isActive ? "online" : "offline"}`}>
                         <ReactSVG
-                            src={isActive ? this.props.chatOnlineIcon : this.props.chatOfflineIcon}
+                            src={isActive ? this.props.onlineIcon : this.props.offlineIcon}
                         />
                       </div>
                     <div className="cmp-chat__status-text">
-                        {isActive ? this.props.chatAvailable : this.props.chatUnavailable}
+                        {isActive ? this.props.availableText : this.props.unavailableText}
                     </div>
                 </div>
             </div>
@@ -47,14 +63,14 @@ class Chat extends React.Component {
 }
 
 Chat.propTypes = {
-    chatUrl: PropTypes.string.isRequired,
-    chatIcon: PropTypes.string.isRequired,
-    chatAvailable: PropTypes.string.isRequired,
-    chatUnavailable: PropTypes.string.isRequired,
-    chatText: PropTypes.string.isRequired,
-    chatButtonText: PropTypes.string.isRequired,
-    chatOfflineIcon: PropTypes.string.isRequired,
-    chatOnlineIcon: PropTypes.string.isRequired
+    url: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired,
+    availableText: PropTypes.string.isRequired,
+    unavailableText: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    buttonText: PropTypes.string.isRequired,
+    offlineIcon: PropTypes.string.isRequired,
+    onlineIcon: PropTypes.string.isRequired
 }
 
 export default Chat;
