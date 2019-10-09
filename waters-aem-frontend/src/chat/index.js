@@ -42,6 +42,8 @@ class Chat extends React.Component {
                     target="_blank"
                     rel="noopener"
                     disabled={!isActive}
+                    role="button"
+                    aria-disabled={!isActive}
                 >
                     {this.props.buttonText}
                 </a>
