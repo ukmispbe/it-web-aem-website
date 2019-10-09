@@ -94,7 +94,6 @@
 }
 
 .cmp-banner--light .cmp-banner {
-    margin-bottom: $space-xxl;
     background: $color-background-light;
 }
 
@@ -161,6 +160,67 @@
     }
 }
 
+.cmp-banner--blue .cmp-banner {
+    background: $color-blue-50;
+    p,
+    a,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ul li,
+    ol li {
+        color: $color-font-light;
+    }
+
+    .cmp-banner__background-overlay {
+        background-color: $color-blue-50;
+        opacity: 0.9;
+    }
+
+    .cmp-button button,
+    .cmp-button a,
+    a.cmp-button,
+    button.cmp-button {
+        background-color: transparent;
+        border: 1px solid $color-white;
+        color: $color-font-light;
+
+        &:hover {
+            color: $color-gray-20;
+            border: 1px solid $color-gray-20;
+            background: none;
+        }
+        &:active {
+            color: $color-font-light;
+            border: 1px solid $color-white;
+            background: none;
+        }
+    }
+
+    .cmp-button--secondary button.cmp-button,
+    .cmp-button--secondary a.cmp-button,
+    a.cmp-button--secondary,
+    button.cmp-button--secondaryn {
+        color: $color-font-light;
+        border: 1px solid $color-white;
+        background: none;
+
+        &:hover {
+            color: $color-gray-20;
+            border: 1px solid $color-gray-20;
+            background: none;
+        }
+        &:active {
+            color: $color-font-light;
+            border: 1px solid $color-white;
+            background: none;
+        }
+    }
+}
+
 .cmp-banner--dark .cmp-banner {
     background: $color-background-dark;
     p,
@@ -178,7 +238,7 @@
 
     .cmp-banner__background-overlay {
         background-color: $color-background-dark;
-        opacity: 0.95;
+        opacity: 0.85;
     }
 
     .cmp-button button,
@@ -267,9 +327,8 @@
     }
 
     .cmp-banner__background-overlay {
-        width: 30%;
+        width: 31%;
         left: auto;
-        opacity: 0.8;
 
         @include tablet {
             width: 50%;
@@ -278,7 +337,7 @@
 
         @include mobile {
             width: 100%;
-            left: 14%;
+            left: 12%;
             height: 100%;
             top: 0;
         }
@@ -296,5 +355,13 @@
     a.cmp-button--secondary,
     button.cmp-button--secondary {
         margin-bottom: 0;
+    }
+}
+
+.cmp-banner--search .cmp-banner {
+    margin-bottom: $space-s;
+
+    @include tablet-and-under {
+        margin-bottom: $space-l;
     }
 }

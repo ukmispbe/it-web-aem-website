@@ -99,26 +99,23 @@ class Filter extends Component {
     }
 
     getMappings = () => {
-        const defaultFacet = this.props.contentType + '_facet';
-        const mapping = [];
+        const facetName = `${this.props.contentType}_facet`;
 
-        for (let i = 0; i < this.props.filterMap.length; i++) {
-            if (this.props.filterMap[i].categoryFacetName === defaultFacet) {
-                const categories = this.props.filterMap[i].orderedFacets;
+        const facet = Array.isArray(this.props.filterMap.orderedFacets)
+            ? this.props.filterMap.orderedFacets.find(item => item.facetName === facetName)
+            : null;
 
-                for (let c = 0; c < categories.length; c++) {
-                    const category = categories[c];
+        if (!facet) { return; }
 
-                    if (this.props.facets[category.facetName]) {
-                        mapping.push({
-                            name: category.facetName,
-                            category: category.facetValue,
-                            facets: this.props.facets[category.facetName],
-                        });
-                    }
-                }
+        const orderedFacets = facet.orderedFacets.filter(item => this.props.facets[item.facetName]);
+
+        const mapping = orderedFacets.map(facet => {
+            return {
+                name: facet.facetName,
+                category: facet.facetValue,
+                facets: this.props.facets[facet.facetName]
             }
-        }
+        });
 
         return mapping;
     };
@@ -129,7 +126,7 @@ class Filter extends Component {
         const props = this.props;
         const mappings = this.getMappings();
 
-        const filters = mappings.map((item, index) => {
+        const filters = Array.isArray(mappings) ? mappings.map((item, index) => {
             return (
                 <FilterSection
                     key={`${item.category}#_${index}`}
@@ -143,9 +140,10 @@ class Filter extends Component {
                     selectedFacets={props.selectedFacets}
                     minItemSearch={21}
                     minCharSearch={2}
+                    activeCategory={props.facets.activeIndex}
                 />
             );
-        });
+        }) : [];
 
         return <ul>{filters}</ul>;
     }
@@ -161,7 +159,7 @@ Filter.propTypes = {
     contentType: PropTypes.string,
     defaultFacet: PropTypes.string,
     facets: PropTypes.any,
-    filterMap: PropTypes.array,
+    filterMap: PropTypes.object,
     selectHandler: PropTypes.func.isRequired,
     selectedFacets: PropTypes.object,
     text: PropTypes.object.isRequired,
@@ -170,7 +168,9 @@ Filter.propTypes = {
 
 Filter.defaultProps = {
     facets: null,
-    filterMap: [],
+    filterMap: {
+        orderedFacets: []
+    },
     showTagsOnly: false
 }
 

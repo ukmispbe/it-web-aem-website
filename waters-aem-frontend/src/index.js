@@ -5,16 +5,18 @@ import SearchBar from './search/components/searchbar';
 import Search from './search/index';
 import TagCloud from './search/components/tagcloud';
 import ImageCarousel from './image-carousel';
-import AccountDropDown from './account-dropdown/index';
+import MyAccountDropDown from './my-account-dropdown/index';
 import LoginStatus from "./scripts/loginStatus";
 import SkuDetails from './sku-details';
 import SkuList from './sku-list';
+import SkuMessage from './sku-shared/views/SkuMessage';
 
 function getAuthoredDataForSearchBar(c, h) {
     return {
         baseUrl: c.dataset.baseUrl,
         searchPath: h.dataset.searchPath,
-        placeholder: c.dataset.placeholder,
+        placeholderTablet: c.dataset.placeholderTablet,
+        placeholderMobile: c.dataset.placeholderMobile,
         iconSearch: c.dataset.iconSearch,
         iconClear: c.dataset.iconClear,
         isocode: c.dataset.isocode,
@@ -47,7 +49,8 @@ if (searchBarContainer && header) {
             iconSearch={data.iconSearch}
             iconClear={data.iconClear}
             searchPath={data.searchPath}
-            placeholder={data.placeholder}
+            placeholderTablet={data.placeholderTablet}
+            placeholderMobile={data.placeholderMobile}
             baseUrl={data.baseUrl}
             isocode={data.isocode}
         />,
@@ -129,18 +132,23 @@ const skuDetailsConfig = JSON.parse(
     document.getElementById('commerce-configs-json').innerHTML
 );
 
-let skuDetailsListPrice;
+let skuData, skuDetailsListPrice;
 if(document.querySelector('.cmp-sku-details__ecom')){ 
     // If a product is discontinued, the ecom class never gets added,
     // but not having a price is a valid option for some products
     // This check allows us to pass in a price of undefined without breaking the frontend
-    skuDetailsListPrice = document.querySelector('.cmp-sku-details__ecom').dataset.price;
+    skuData = document.querySelector('.cmp-sku-details__ecom');
+    skuDetailsListPrice = skuData.dataset.price;
 }
 
 if (skuDetailsContainer) {
-    const skuNumber = document.querySelector('.cmp-sku-details__code').innerHTML;
-    const skuTitle = document.querySelector('#skuTitle').innerHTML;
-    ReactDOM.render(<SkuDetails config={skuDetailsConfig} price={skuDetailsListPrice} skuNumber={skuNumber} titleText={skuTitle}/>, skuDetailsContainer);
+    const skuNumber = skuData.dataset.skuCode;
+    const skuTitle = skuData.dataset.skuTitle;
+    const skuDiscontinued = skuData.dataset.discontinued;
+    const replacementSkuCode = skuData.dataset.replacementSkuCode;
+    const replacementSkuHref = skuData.dataset.replacementSkuHref;
+
+    ReactDOM.render(<SkuDetails config={skuDetailsConfig} price={skuDetailsListPrice} skuNumber={skuNumber} titleText={skuTitle} discontinued={skuDiscontinued} replacementSkuCode={replacementSkuCode} replacementSkuHref={replacementSkuHref}/>, skuDetailsContainer);
 }
 
 
@@ -155,21 +163,50 @@ if (skuListContainer) {
 }
 
 
-const AccountDropDownContainer = document.querySelector(
-    '.top-bar__nav__user__dropdown'
-);
+const MyAccountDropDownContainer = document.querySelector('.top-bar__nav__user__dropdown');
 
-if (header && AccountDropDownContainer) {
-    const config = JSON.parse(
-        document.getElementById('account-modal-configs-json').innerHTML
-    );
-
+if (header && MyAccountDropDownContainer) {
+    const config = JSON.parse(document.getElementById('account-modal-configs-json').innerHTML)
     const newConfig = Object.assign({}, config.modalInfo, {
         title: LoginStatus.getGreeting()
     });
     const updatedModel = {
         modalInfo: newConfig
     }
-
-    ReactDOM.render(<AccountDropDown config={updatedModel} />, AccountDropDownContainer);
+    ReactDOM.render(<MyAccountDropDown config={updatedModel} />, MyAccountDropDownContainer);
 }
+
+
+const skuUnavailableContainer = document.querySelector('.cmp-notification-wrapper');
+
+if(skuUnavailableContainer) {
+    if(skuUnavailableContainer.dataset.replacementcode){
+        let replacementSkuCode, replacementSkuHref, skuMessageText;
+        if(skuUnavailableContainer.dataset.replacementcode){
+            replacementSkuCode = skuUnavailableContainer.dataset.replacementcode;
+        }
+        if(skuUnavailableContainer.dataset.replacementSkuHref){
+            replacementSkuHref = skuUnavailableContainer.dataset.replacementSkuHref;
+        }
+
+        const replacementSkuIcon = skuDetailsConfig.skuInfo.lowStockIcon;
+
+        if(replacementSkuCode && replacementSkuHref){
+            skuMessageText = skuDetailsConfig.skuInfo.discontinuedWithReplacementWithCode;
+        } else {
+            skuMessageText = skuDetailsConfig.skuInfo.discontinuedNoReplacementCode;
+        }
+        
+        const skuDetailsUnavailableBindingContainer = document.querySelector('#cmp-sku-details-replacement')
+        
+        ReactDOM.render(
+            <SkuMessage 
+                icon={replacementSkuIcon} 
+                message={skuMessageText} 
+                link={replacementSkuHref}
+                linkMessage={replacementSkuCode} 
+            />, 
+            skuDetailsUnavailableBindingContainer
+        );
+    }
+    }

@@ -16,12 +16,12 @@ class ApplicationNotesSpec extends WatersSpec {
                         affiliations: ["/etc/tags/waters/abc"],
                         category: ["/etc/tags/waters/abc"],
                         contentType: ["/etc/tags/waters/abc"],
-                        instrumentType: ["/etc/tags/waters/abc"],
-                        technique: ["/etc/tags/waters/abc"],
+                        instrumentTechnique: ["/etc/tags/waters/abc"],
+                        compoundAnalyte: ["/etc/tags/waters/abc"],
                         separationMode: ["/etc/tags/waters/abc"],
-                        compoundMatrix: ["/etc/tags/waters/abc"],
+                        matrix: ["/etc/tags/waters/abc"],
                         columnType: ["/etc/tags/waters/abc"],
-                        software: ["/etc/tags/waters/abc"],
+                        products: ["/etc/tags/waters/abc"],
                         market: ["/etc/tags/waters/abc"],
                         monthPublished: ["/etc/tags/waters/abc"],
                         yearPublished: ["/etc/tags/waters/abc"]
@@ -69,12 +69,12 @@ class ApplicationNotesSpec extends WatersSpec {
         applicationNotes.author*.title == title
         applicationNotes.category*.title == title
         applicationNotes.contentType*.title == title
-        applicationNotes.instrumentType*.title == title
-        applicationNotes.technique*.title == title
+        applicationNotes.instrumentTechnique*.title == title
+        applicationNotes.compoundAnalyte*.title == title
         applicationNotes.separationMode*.title == title
-        applicationNotes.compoundMatrix*.title == title
+        applicationNotes.matrix*.title == title
         applicationNotes.columnType*.title == title
-        applicationNotes.software*.title == title
+        applicationNotes.products*.title == title
         applicationNotes.market*.title == title
         applicationNotes.monthPublished*.title == title
         applicationNotes.yearPublished*.title == title

@@ -170,13 +170,22 @@ class FilterSection extends Component {
         }
     };
 
+    checkIfExpanded = () => {
+        if (this.props.selected === -1) {
+            if (this.props.facet.name === this.props.activeCategory) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     render() {
         const props = this.props;
 
         return (
             <li
                 className={
-                    props.item == props.selected && props.last != props.selected
+                    ((props.item == props.selected && props.last != props.selected) || this.checkIfExpanded())
                         ? 'cmp-search-filters__filter expanded'
                         : 'cmp-search-filters__filter'
                 }
@@ -225,6 +234,7 @@ FilterSection.propTypes = {
     selected: PropTypes.number.isRequired,
     selectedFacets: PropTypes.object,
     text: PropTypes.object.isRequired,
+    activeCategory: PropTypes.string
 };
 
 export default FilterSection;

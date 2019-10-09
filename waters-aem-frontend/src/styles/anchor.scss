@@ -5,7 +5,7 @@
     padding-left: 0;
     position: relative;
     background-color: $color-white;
-    padding: $space-l 0;
+    padding: $space-m 0 $space-m 0;
     -ms-overflow-style: none;
     scrollbar-width: none;
 
@@ -251,7 +251,6 @@
     padding: $space-xs 0;
 
     @include mobile {
-        columns: 2;
         margin-top: -$space-s;
         padding: 0 0 $space-xs 0;
         &.cmp-anchor-show {
@@ -273,7 +272,7 @@
             width: 100%;
             float: left;
             padding-right: 0;
-            padding-top: $space-s;
+            padding-top: $space-xs;
         }
     }
 }

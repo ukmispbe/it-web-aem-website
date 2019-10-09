@@ -2,4 +2,5 @@
 <workspaceFilter version="1.0">
     <filter root="/content/waters"/>
     <filter root="/content/dam/waters"/>
+    <filter root="/etc"/>
 </workspaceFilter>

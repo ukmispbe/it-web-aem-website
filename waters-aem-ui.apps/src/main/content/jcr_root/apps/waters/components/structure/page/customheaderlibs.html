@@ -3,9 +3,8 @@
 <link rel="stylesheet" href="https://use.typekit.net/fko8taa.css">
 
 <sly data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"
-     data-sly-call="${clientlib.css @ categories='waters.site'}"/>
-
-<link rel="stylesheet" href="/etc/designs/waters/main.css" type="text/css">
+     data-sly-call="${clientlib.css @ categories='waters.common'}"/>
+<sly data-sly-call="${clientlib.css @ categories='waters.site'}"/>
 
 <!--/* Load authoring related client libraries */-->
 <sly data-sly-test="${wcmmode.preview || wcmmode.edit}"

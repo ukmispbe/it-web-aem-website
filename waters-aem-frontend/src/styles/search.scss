@@ -1,9 +1,28 @@
+.cmp-search-results {
+    margin-left: -14px;
+
+    @include tablet-and-under {
+        & > div {
+            position: relative;
+        }
+    }
+
+    @include tablet {
+        margin-left: -12px;
+    }
+
+    @include mobile {
+        margin-left: -4px;
+    }
+}
 .cmp-search__container {
     position: relative;
     top: -55px;
     width: 75%;
     float: left;
     padding-left: 2%;
+    margin-top: $space-l;
+
     &__header {
         width: 60%;
         margin-left: -15%;
@@ -13,6 +32,7 @@
             float: none;
             padding-left: 0;
             margin-left: 0;
+            margin-top: $space-xl;
         }
 
         @include mobile {
@@ -32,15 +52,29 @@
         width: 100%;
         float: none;
         padding-left: 0;
+        top: 0;
+        margin-top: $space-s;
     }
 
     .cmp-search-filters__tags {
-        @include mobile {
-            margin-top: -30px;
-        }
 
         @include tablet {
-            margin-top: -20px;
+            width: 100%;
+            padding: 0;
+            margin-bottom: $space-m;
+
+            a {
+                margin: 0 $space-xxs $space-s 0;
+            }
+        }
+
+        @include mobile {
+            margin-top: 0;
+            margin-bottom: $space-s;
+
+            a {
+                margin: 0 $space-xxs $space-xxs 0;
+            }
         }
     }
 }
@@ -79,6 +113,16 @@
                 stroke: $color-icon;
             }
         }
+
+        &.skuitem {
+            padding-bottom: $space-m;
+            margin-top: -$space-xs;
+
+            @include mobile {
+                margin-top: 0;
+                padding-bottom: $space-s;
+            }
+        }
     }
 }
 .cmp-search__results-body {
@@ -111,8 +155,9 @@
 }
 div.cmp-search__no-results {
     padding: $space-xl $space-xl;
+
     @include mobile {
-        padding: $space-l $space-l;
+        padding: $space-l;
     }
 }
 .paginate__container {
@@ -123,7 +168,7 @@ div.cmp-search__no-results {
     padding: $space-xl 0;
     clear: both;
     @include mobile {
-        padding: 0;
+        padding: $space-m;
     }
     li {
         display: inline;
@@ -136,7 +181,7 @@ div.cmp-search__no-results {
             margin: 0 $space-xxs 0 0;
             border: 1px solid $color-border-light;
             float: left;
-            padding-top: ($space-xxs - .1em);
+            padding-top: ($space-xxs - 0.1em);
             text-decoration: none;
             text-align: center;
             height: $button-fixed;
@@ -209,7 +254,10 @@ div.cmp-search__no-results {
             }
         }
         &.break {
-            display: none;
+            a {
+                border: none;
+                color: $color-gray-40;
+            }
         }
     }
 }
@@ -233,8 +281,8 @@ div.cmp-search__no-results {
         display: none;
         @include font-utility;
         border: 1px solid $color-border-dark;
-        padding: $space-xs ($space-xl - 0.25em) $space-xs $space-s;
         margin-bottom: $space-xl;
+        padding: $space-xs ($space-xl - 0.25em) $space-xs $space-s;
         position: relative;
         text-decoration: none;
         &:hover {
@@ -266,8 +314,10 @@ div.cmp-search__no-results {
         }
         @include tablet {
             float: right;
+            margin-bottom: 0;
         }
         @include mobile {
+            margin-bottom: $space-s;
             svg {
                 margin: 0 2% 0 0;
             }
@@ -278,32 +328,80 @@ div.cmp-search__no-results {
             background-position: 95% 13px;
         }
     }
-    @include tablet {
-        float: right;
-        width: 30%;
-    }
     @include mobile {
         float: none;
         width: 100%;
     }
 }
 
-.cmp-search__resultsCount-container {
-    position: relative;
-    top: -73px;
-    width: 70%;
+.cmp-search-category-dropdown {
+    margin-bottom: $space-s;
 
-    @include tablet-and-under {
-        top: 0;
-        width: 100%;
+    text-decoration: none;
+    &:hover {
+        text-decoration: none;
+    }
+
+    transition: none;
+
+    svg {
+        position: absolute;
+        top: 14px;
+        right: 13px;
+        width: $icon-m;
+        height: $icon-m;
+        .st0 {
+            stroke: $color-icon;
+        }
+        @include mobile {
+            top: 15px;
+            right: 12px;
+        }
     }
 
     @include tablet {
-        margin-bottom: $space-xl + 0.5;
+        margin-right: $space-xxs;
+
+        .css-1l0huv0-control.cmp-custom-dropdown__control{
+            max-height: 51px;
+        }
+    }
+
+    @include mobile {
+        svg {
+            margin: 0 2% 0 0;
+        }
+    }
+}
+
+.cmp-search-show-btn,
+.cmp-search-category-dropdown{
+    @include tablet {
+        float: left;
+        width: 165px;
+        margin-bottom: 0;
+        padding-bottom: $space-xxl;
+    }
+    @include mobile {
+        padding-bottom: 0;
+    }
+}
+
+.cmp-search__resultsCount-container {
+    position: relative;
+    left: 27%;
+    width: 70%;
+
+    @include tablet-and-under {
+        position: absolute;
+        top: ($space-s + $space-xxs);
+        width: 100%;
+        left: 0;
     }
 
     @include mobile {
         margin-bottom: $space-xl;
+        top: ($space-xxl * 2 + $space-m);
     }
 }
 
@@ -311,7 +409,6 @@ div.cmp-search__no-results {
     &.noresults {
         width: 70%;
         margin-left: 0;
-        margin-top: -3.5em;
         overflow: visible;
         height: auto;
     }
@@ -360,7 +457,23 @@ div.cmp-search__no-results {
     }
 }
 
+.cmp-search__sorted-container{
+    @include mobile {
+        display: flex;
+        flex-wrap: wrap;
+
+        .cmp-search__sorted-by{
+            order: 0;
+            padding-bottom: ($space-xxl + $space-l);
+            padding-top: 0;
+        }
+        .cmp-search-filters__tag {
+            order: 1;
+        }
+    }
+}
 .cmp-search__sorted-by {
+    @include font-small;
     display: none;
     float: left;
     width: 100%;
@@ -373,8 +486,9 @@ div.cmp-search__no-results {
     @include tablet {
         display: block;
         padding-top: $space-s;
-        float: left;
-        width: 70%;
+
+        float: right;
+        width: auto;
     }
 }
 
@@ -385,7 +499,7 @@ div.cmp-search__sorted-by {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: hsla(0, 0%, 100%, 0.8);
+    background-color: $overlay-dark;
     width: 200%;
     height: 130%;
     padding: 50% 80%;
@@ -412,7 +526,7 @@ html.showing-spinner {
             .btn-show-sort-filter {
                 display: block;
                 @include sticky-show-sort;
-                z-index: $cmp-banner-z-index + 1;
+                z-index: ($cmp-banner-z-index + 1) !important;
                 .filterIcon {
                     display: none;
                 }
@@ -449,10 +563,10 @@ html.showing-spinner {
     }
 }
 
-@include mobile {
-   #js-search-app {
-      .overlay {
-         position: fixed;
-      }
-   }
+@include tablet-and-under {
+    #js-search-app {
+        .overlay {
+            position: fixed;
+        }
+    }
 }

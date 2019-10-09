@@ -6,6 +6,7 @@ import { SearchService } from '../services/index';
 import OverLay from './overlay';
 import PropTypes from 'prop-types';
 import './../../styles/index.scss';
+import screenSizes from "../../scripts/screenSizes";
 
 const cssOverridesForSearchBar = "cmp-search-bar__auto-suggest--open";
 const cssOverridesForSearchBody = "cmp-search-body__auto-suggest--open";
@@ -25,13 +26,25 @@ class SearchBar extends Component {
 
         if (this.search.isDefaultKeyword(searchValue)) searchValue = '';
 
-        this.state = { value: searchValue ? searchValue : '', suggestions: [], openOverlay: false};
+        this.state = {
+            value: searchValue ? searchValue : '',
+            suggestions: [],
+            openOverlay: false,
+            placeholder: screenSizes.isMobile() ? this.props.placeholderMobile : this.props.placeholderTablet
+        };
 
         this.handleSuggestionsFetchRequestedDebounce = debounce(250, this.handleSuggestionsFetchRequested);
+        this.handleWindowResizeDebounce = debounce(150, this.handleViewChange);
     }
 
     componentDidMount = () => {
         this.inputElement = document.querySelectorAll('.cmp-search-bar .react-autosuggest__container .react-autosuggest__input')[0];
+        // this is for desktop
+        window.addEventListener('resize', this.handleWindowResizeDebounce);
+        // this is for iPad orientation
+        window.addEventListener('orientationchange', this.handleViewChange);
+        // this is for mobile devices
+        window.addEventListener('deviceorientation', this.handleViewChange);
     }
 
     render() {
@@ -51,7 +64,7 @@ class SearchBar extends Component {
 
     renderAutoSuggest = () => {
         const inputProps = {
-            placeholder: this.props.placeholder,
+            placeholder: this.state.placeholder,
             value: this.state.value,
             onChange: this.handleSearchValueChange ,
             onKeyPress: this.handleSearchValuePress,
@@ -73,6 +86,15 @@ class SearchBar extends Component {
     renderClearIcon = () => <ReactSVG src={this.props.iconClear} className="cmp-search-bar__icons-clear" onClick={e => this.handleClearIconClick(e)}/>
 
     renderSearchIcon = () => <ReactSVG src={this.props.iconSearch} className="cmp-search-bar__icons-search" onClick={e => this.handleSearchIconClick(e)} />;
+
+    // Update searchbar placeholder message depending on the view and window size
+    handleViewChange = () => {
+        if(screenSizes.isMobile() && this.state.placeholder!==this.props.placeholderMobile) {
+            this.setState({placeholder: this.props.placeholderMobile});
+        } else if(!screenSizes.isMobile() && this.state.placeholder!==this.props.placeholderTablet) {
+            this.setState({placeholder: this.props.placeholderTablet})
+        }
+    }
 
     handleAutosuggestClick = (e) => {
         if(Array.from(e.target.classList).find(element => element === 'react-autosuggest__input--focused')) {
@@ -152,9 +174,8 @@ class SearchBar extends Component {
     handleSuggestionSelected = (event, { suggestionValue}) => {
         this.removeCssOverridesForSearchBar();
         this.setState({value: suggestionValue, suggestions: [], openOverlay: false}, () => {
-            // removing these session variables ensures the page position is set to the top after keyword search
-            window.sessionStorage.removeItem('waters.previousPaginationClick');
-            window.sessionStorage.removeItem('waters.previousPagePosition');
+            // clearing search session variables ensures the page position is set to the top after keyword search
+            this.search.clearSessionStore();
             
             this.removeCssOverridesForSearchBody();
             this.search.setUrlParameter(this.state.value, this.props.searchPath)

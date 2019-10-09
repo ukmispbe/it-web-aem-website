@@ -1,6 +1,6 @@
 import screenSizes from './screenSizes.js';
 
-const Fader = (targetClassName, offsetWidth=0, maxFadeWidth=Number.POSITIVE_INFINITY, forceMobile=false) => {
+const Fader = (targetClassName, offsetWidth=0, maxFadeWidth=Number.POSITIVE_INFINITY, forceMobile=false, wrap=false) => {
     const targetElement = document.querySelector(`.${targetClassName}`);
 
     if (!targetElement || (screenSizes.isMobile() && !forceMobile)) { return; }
@@ -19,6 +19,12 @@ const Fader = (targetClassName, offsetWidth=0, maxFadeWidth=Number.POSITIVE_INFI
 
     targetElement.prepend(lDiv);
     targetElement.appendChild(rDiv);
+
+    if (wrap) {
+        const wrapper = document.createElement('div');
+        targetElement.parentNode.insertBefore(wrapper, targetElement);
+        wrapper.appendChild(targetElement);
+    }
 
     let scrollCheck = function () {
         if (targetElement.scrollLeft > 0) {

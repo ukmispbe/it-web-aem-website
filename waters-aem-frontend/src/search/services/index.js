@@ -1,8 +1,10 @@
 import 'whatwg-fetch';
+import SessionStore from '../../stores/sessionStore';
 
 const queryString = require('query-string');
 
 const parameterValues = {
+    undefined: 'undefined',
     sort: {
         mostRecent: 'most-recent',
         mostRelevant: 'most-relevant',
@@ -13,8 +15,11 @@ const parameterDefaults = {
     page: 1,
     rows: 25,
     keyword: '*:*',
+    category: '',
     content_type: '',
     sort: parameterValues.sort.mostRecent,
+    selectedFacets: {},
+    contentTypeSelected: {},
 };
 
 class SearchService {
@@ -36,18 +41,16 @@ class SearchService {
             multiselect,
         };
         this.throwError = throwError;
+        this.sessionStore = new SessionStore();
     }
 
-    initial = ({
+    getCategories = ({
         keyword = parameterDefaults.keyword,
-        facets = {},
         page = parameterDefaults.page,
         sort = parameterDefaults.sort,
-    } = {}) => {
+    }) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
-        const searchString = `${
-            this.path
-        }/category_facet$library:Library?${paramString}`;
+        const searchString = `${this.path}?${paramString}`;
 
         return window
             .fetch(searchString)
@@ -61,7 +64,33 @@ class SearchService {
             .catch(err => console.log(err));
     };
 
-    contentType = (
+    getResultsByCategory = ({
+        keyword = parameterDefaults.keyword,
+        facets = {},
+        page = parameterDefaults.page,
+        sort = parameterDefaults.sort,
+        category = parameterDefaults.category,
+    } = {}) => {
+        const paramString = this.getQueryParamString({ keyword, page, sort });
+        const searchString = `${
+            this.path
+        }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
+            encodeURIComponent(category)
+        )}?${paramString}`;
+
+        return window
+            .fetch(searchString)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    this.throwError(response);
+                }
+            })
+            .catch(err => console.log(err));
+    };
+
+    getContentType = (
         contentTypeKey,
         contentTypeValue,
         {
@@ -69,12 +98,17 @@ class SearchService {
             facets = {},
             page = parameterDefaults.page,
             sort = parameterDefaults.sort,
+            category = parameterDefaults.category,
         } = {}
     ) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const searchString = `${
             this.path
-        }/contenttype_facet$${contentTypeKey}:${contentTypeValue}?${paramString}`;
+        }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
+            encodeURIComponent(category)
+        )}&contenttype_facet$${contentTypeKey}:${encodeURIComponent(
+            encodeURIComponent(contentTypeValue)
+        )}?${paramString}`;
 
         return window.fetch(searchString).then(response => {
             if (response.ok) {
@@ -86,7 +120,7 @@ class SearchService {
         });
     };
 
-    subFacet = (
+    getSubFacet = (
         contentTypeName,
         contentTypeValue,
         {
@@ -94,16 +128,21 @@ class SearchService {
             facets = {},
             page = parameterDefaults.page,
             sort = parameterDefaults.sort,
+            category = parameterDefaults.category,
         } = {}
     ) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const facetString = this.getQueryFacetString(facets);
         const searchString = `${
             this.path
-        }/contenttype_facet$${contentTypeName.replace(
+        }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
+            encodeURIComponent(category)
+        )}&contenttype_facet$${contentTypeName.replace(
             '_facet',
             ''
-        )}:${contentTypeValue}${facetString}?${paramString}`;
+        )}:${encodeURIComponent(
+            encodeURIComponent(contentTypeValue)
+        )}${facetString}?${paramString}`;
 
         return window.fetch(searchString).then(response => {
             if (response.ok) {
@@ -116,12 +155,7 @@ class SearchService {
     };
 
     getSuggestedKeywords = async (rows, term) => {
-
-        const searchString = `${
-            this.path
-        }/v1/autocomplete?term=${term}&rows=${rows}&isocode=${
-            this.options.isocode
-        }`;
+        const searchString = `${this.path}/v1/autocomplete?term=${term}&rows=${rows}&isocode=${this.options.isocode}`;
 
         const callService = window.fetch(searchString).then(response => {
             if (response.ok) {
@@ -174,6 +208,7 @@ class SearchService {
             keyword = parameterDefaults.keyword,
             page = parameterDefaults.page,
             sort = parameterDefaults.sort,
+            category = parameterDefaults.category,
             content_type = parameterDefaults.content_type,
         } = {},
         facets
@@ -182,8 +217,11 @@ class SearchService {
             keyword,
             page,
             sort,
+            category,
             content_type,
         });
+
+        if (!fullParams.category) delete fullParams.category;
 
         if (!fullParams.content_type) delete fullParams.content_type;
 
@@ -230,7 +268,9 @@ class SearchService {
                     if (filter) {
                         facetString = filter
                             ? facetString +
-                              `${f > 0 ? '||' : ''}${encodeURI(filter)}`
+                              `${
+                                  f > 0 ? encodeURIComponent('||') : ''
+                              }${encodeURIComponent(encodeURIComponent(filter))}`
                             : facetString;
                     }
                 }
@@ -250,6 +290,8 @@ class SearchService {
         obj['facets'] = {};
         obj['sort'] = params.sort;
 
+        if (params.category) obj['category'] = params.category;
+
         if (params.content_type) obj['content_type'] = params.content_type;
 
         if (params.facet) {
@@ -261,15 +303,15 @@ class SearchService {
                     if (facet) {
                         const splitName = facet.split(':');
                         if (Array.isArray(obj['facets'][splitName[0]])) {
-                            obj['facets'][splitName[0]].push(splitName[1]);
+                            obj['facets'][splitName[0]].push(decodeURIComponent(splitName[1]));
                         } else {
-                            obj['facets'][splitName[0]] = [splitName[1]];
+                            obj['facets'][splitName[0]] = [decodeURIComponent(splitName[1])];
                         }
                     }
                 }
             } else if (facets) {
                 const splitName = facets.split(':');
-                obj['facets'][splitName[0]] = [splitName[1]];
+                obj['facets'][splitName[0]] = [decodeURIComponent(splitName[1])];
             }
         }
 
@@ -304,9 +346,7 @@ class SearchService {
         Object.keys(parameters).length !== 0
             ? Object.keys(parameters).reduce(
                   (accumulator, currentValue) =>
-                      `${accumulator}=${
-                          parameters[accumulator]
-                      }&${currentValue}=${parameters[currentValue]}`
+                      `${accumulator}=${parameters[accumulator]}&${currentValue}=${parameters[currentValue]}`
               )
             : '';
 
@@ -318,6 +358,52 @@ class SearchService {
     };
 
     isDefaultKeyword = value => value === parameterDefaults.keyword;
+
+    setStorageForPagePosition = () => {
+        const scrolled =
+            (window.pageYOffset || window.document.scrollTop) -
+            (window.document.clientTop || 0);
+
+        this.sessionStore.setPreviousPagePosition(scrolled);
+        this.sessionStore.setFromSearchURL(window.location.href);
+    }
+
+    setStorageForTabHistory = tabHistory => {
+        this.sessionStore.setSearchTabHistory(tabHistory);
+    }
+
+    setStorageForPagination = () => {
+        const scrolled =
+            (window.pageYOffset || window.document.scrollTop) -
+            (window.document.clientTop || 0);
+        
+        this.sessionStore.setPreviousPaginationClick(scrolled);
+    }
+
+    getSessionStore = () => {
+        return {
+            previousPagePosition: this.sessionStore.getPreviousPagePosition(),
+            fromSearchURL: this.sessionStore.getFromSearchURL(),
+            searchTabHistory: this.sessionStore.getSearchTabHistory(),
+            previousPaginationClick: this.sessionStore.getPreviousPaginationClick()
+        }
+    }
+
+    clearSessionStore = () => {
+        this.sessionStore.removePreviousPagePosition();
+        this.sessionStore.removeFromSearchURL();
+        this.sessionStore.removeSearchTabHistory();
+        this.sessionStore.removePreviousPaginationClick();
+    }
+
+    scrollToPosition = position => {
+        window.scrollTo(0, position);
+        this.sessionStore.removePreviousPagePosition();
+    }
+
+    scrollToTop = () => {
+        window.scrollTo(0, 0);
+    }
 }
 
-export { SearchService, parameterDefaults };
+export { SearchService, parameterValues, parameterDefaults };

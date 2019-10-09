@@ -6,6 +6,8 @@
     <meta name="twitter:description" content="${metaPage.description}">
     <meta name="twitter:url" content="${metaPage.externalizedPageUrl}">
 
+    <meta data-sly-test.description="${metaPage.metaDescription || metaPage.description}" name="description" content="${description}">
+
     <sly data-sly-test="${metaPage.twitterImage}">
         <meta name="twitter:image" content="${metaPage.twitterImage}">
     </sly>
@@ -37,7 +39,7 @@
 
     <link rel="icon" sizes="192x192" href="/etc.clientlibs/waters/clientlibs/clientlib-resources/resources/icon-192x192.png">
 
-    <title>${metaPage.title}</title>
+    <title>${metaPage.title} <sly data-sly-test.hasSkuCode="${metaPage.skuCode}">- ${metaPage.skuCode}   </sly> : Waters</title>
 
     <script data-sly-test.homepage="${metaPage.homepage}" type="application/ld+json">
         {
@@ -77,7 +79,10 @@
             }
         }
     </script>
-    <script data-sly-test="${!homepage}" type="application/ld+json">
+    <script data-sly-test="${metaPage.libraryPage}" type="application/ld+json">
         ${metaPage.schemaJson @ context='unsafe'}
+    </script>
+    <script data-sly-test="${metaPage.skuPage}" type="application/ld+json">
+         ${metaPage.productSchemaJson @ context='unsafe'}
     </script>
 </sly>

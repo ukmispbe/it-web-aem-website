@@ -4,8 +4,10 @@ import com.google.common.collect.Iterables;
 import com.waters.aem.hybris.audit.HybrisImporterAuditRecord;
 import com.waters.aem.hybris.audit.HybrisImporterAuditService;
 import com.waters.aem.hybris.executor.HybrisImporterExecutorService;
+import com.waters.aem.hybris.replication.HybrisImporterReplicationService;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -22,6 +24,9 @@ public final class HybrisImporterStatus {
 
     @Inject
     private HybrisImporterExecutorService executorService;
+
+    @OSGiService
+    private HybrisImporterReplicationService replicationService;
 
     private HybrisImporterAuditRecord lastAuditRecord;
 
@@ -45,5 +50,13 @@ public final class HybrisImporterStatus {
 
     public Boolean isRunning() {
         return executorService.isRunning();
+    }
+
+    public boolean isReplicationLimited() {
+        return replicationService.isLimit();
+    }
+
+    public int getReplicationThresholdLimit() {
+        return replicationService.getLimitThreshold();
     }
 }
