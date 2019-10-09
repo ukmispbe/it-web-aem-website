@@ -10,8 +10,7 @@ class Chat extends React.Component {
         this.state = {
             isActive: false,
         }
-        this.chatStatusApi = 'https://test-www.waters.com:8443/api/waters/v1/chat/enabled/{countryCode}'
-        this.request = new ChatService(this.props.countryCode, this.chatStatusApi);
+        this.request = new ChatService(this.props.countryCode, this.props.statusApi);
     }
 
     componentDidMount() {

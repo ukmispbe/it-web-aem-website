@@ -3,10 +3,10 @@ import 'whatwg-fetch';
 class ChatService {
     constructor(
         countryCode = 'US',
-        chatStatusApi = 'https://test-www.waters.com:8443/api/waters/v1/chat/enabled/{countryCode}'
+        statusApi = 'https://test-www.waters.com:8443/api/waters/v1/chat/enabled/{countryCode}'
     ) {
         this.countryCode = countryCode;
-        this.chatStatusApi = chatStatusApi;
+        this.statusApi = statusApi;
     }
 
     checkFetch(response) {
@@ -17,7 +17,7 @@ class ChatService {
     }
 
     getChatStatus() {
-        const url = this.chatStatusApi.replace('{countryCode}', this.countryCode);
+        const url = this.statusApi.replace('{countryCode}', this.countryCode);
         return this.getData(url);
     }
 

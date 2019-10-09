@@ -43,6 +43,7 @@ function getAuthoredDataForTagCloud(h, t) {
 function getAuthoredDataForChat(c) {
     return {
         url: c.dataset.chatUrl,
+        statusApi: c.dataset.chatStatusApi,
         icon: c.dataset.chatIcon,
         availableText: c.dataset.chatAvailableText,
         unavailableText: c.dataset.chatUnavailableText,
@@ -232,6 +233,7 @@ if(chatContainer) {
     ReactDOM.render(
         <Chat
             url={data.url}
+            statusApi={data.statusApi}
             countryCode={skuDetailsConfig.countryCode}
             icon={data.icon}
             availableText={data.availableText}
