@@ -88,6 +88,6 @@ public final class DisplayableSku {
             skuPage = sku.getSkuPage(siteContext.getPage(), replacementSkuCode);
         }
 
-        return skuPage != null ? skuPage.getHref() : "";
+        return skuPage != null ? skuPage.getHref(true) : "";
     }
 }
