@@ -196,20 +196,43 @@
 
 }
 
+.cmp-modal-box.video {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+
+
 .cmp-modal.video{
     position: absolute;
-    width: 85%;
-    top: 0;
+    max-width: 85%;
+    width: 130vh;
+    height: 100%;
+    top: 0px;
     left: 0;
     right: 0;
-    margin: 0 auto;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    background: none;
 
-    transform: translate(0,12.5%);
+    .cmp-modal__close-icon{
+        margin-bottom: 0;
+    }
 
     .cmp-modal__box {
+
+        width: 100%;
+        margin: auto;
+        background-color: #fff;
+
         padding: 1px !important;
 
-        .cmp-modal__close-icon svg{
+        .cmp-modal__close-icon svg {
+            position: relative;
             top: $space-m;
         }
 
