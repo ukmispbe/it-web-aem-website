@@ -2,10 +2,15 @@ import scrollToElement from './scrollToElement';
 import screenSizes from './screenSizes';
 import Fader from './fade-x';
 import sticky, { scrollListener } from './stickyService';
+import SkuDetails from './sku-details';
 
 var anchorElement = document.querySelector('.cmp-anchor');
 var anchorMenu = document.querySelector('.cmp-anchor__list-heading');
 let ancFader = null;
+
+const skuDetailsExists = SkuDetails.exists();
+const skuDiscontinued = SkuDetails.discontinued();
+const anchorClickOffset = !skuDetailsExists || skuDiscontinued ? 52 : 143;
 
 // Setup click handler for Anchor Links to scroll in view
 var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
@@ -14,21 +19,10 @@ var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
         anchor.addEventListener('click', e => {
             e.preventDefault();
 
-            const hasSku = document.getElementsByClassName(
-                'cmp-sku-details'
-            );
-
             setTimeout(() => {
                 const href = e.target.getAttribute('href').replace(/#/gi, '');
-                let additionalOffset = 0;
 
-                if (hasSku.length === 0) {
-                    additionalOffset += 52;
-                } else {
-                    additionalOffset += 143;
-                }
-
-                scrollToElement(href, 1000, 'easeOutSine', true, additionalOffset);
+                scrollToElement(href, 1000, 'easeOutSine', true, anchorClickOffset);
                 
                 anchorLinks.forEach(anchor => {
                     anchor.classList.remove('active');
@@ -122,10 +116,10 @@ function anchorHide() {
 
 function toggleMobileNav(forceClose) {
     const heading = document.querySelector('.cmp-anchor--sticky');
-    if (!forceClose && heading.classList.contains('closed')) {
+    if (!forceClose && heading && heading.classList.contains('closed')) {
         heading.classList.remove('closed');
         heading.classList.add('open');
-    } else {
+    } else if (heading) {
         heading.classList.add('closed');
         heading.classList.remove('open');
     }
