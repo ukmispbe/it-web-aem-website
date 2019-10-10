@@ -10,7 +10,6 @@ let ancFader = null;
 
 const skuDetailsExists = SkuDetails.exists();
 const skuDiscontinued = SkuDetails.discontinued();
-const anchorClickOffset = !skuDetailsExists || skuDiscontinued ? 52 : 143;
 
 // Setup click handler for Anchor Links to scroll in view
 var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
@@ -21,6 +20,7 @@ var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
 
             setTimeout(() => {
                 const href = e.target.getAttribute('href').replace(/#/gi, '');
+                const anchorClickOffset = !skuDetailsExists || (screenSizes.isMobile() && skuDiscontinued) ? 52 : 143;
 
                 scrollToElement(href, 1000, 'easeOutSine', true, anchorClickOffset);
                 
