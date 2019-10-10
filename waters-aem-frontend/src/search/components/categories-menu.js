@@ -7,8 +7,8 @@ export const CategoriesMenu = (props) => {
     const items = props.items; // props.items.filter(item => item.categoryFacetName !== 'library_facet');
 
     const getHeading = () => {
-        return (props.selectedValue) 
-            ?  <><div className="back-btn"><a href="javascript:void(0)" onClick={props.clear}><ReactSVG src={props.text.previousIcon} /> {props.text[props.categoryKey]}</a></div><h3>{props.selectedValue}</h3></> 
+        return (props.selectedValue)
+            ?  <><div className="back-btn"><a href="javascript:void(0)" onClick={props.clear}><ReactSVG src={props.text.previousIcon} /> {props.text[props.categoryKey]}</a></div><h3>{props.selectedValue}</h3></>
             : <h3>{props.text[props.categoryKey]}</h3>
     }
 
@@ -30,11 +30,9 @@ export const CategoriesMenu = (props) => {
     const getEitherChildrenOrItems = () => hasChildren ? props.children : getItems();
 
     const getItems = () => Array.isArray(items) ? items.map((item, index) => {
+        let dataCount = " (".concat(item.count).concat(")");
         return <div key={item.categoryFacetName} className="categories-type-menu-container__item" onClick={e => props.click(item)}>
-                <div><a href="javascript:void(0)">{item.facetValue}</a></div>
-                <div>
-                    <a href="javascript:void(0)">({item.count})</a>
-                </div>
+                <div><a href="javascript:void(0)" data-count={dataCount}>{item.facetValue}</a></div>
             </div>}) : <></>;
 
     return (<>
