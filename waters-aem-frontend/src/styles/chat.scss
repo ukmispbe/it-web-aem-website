@@ -44,12 +44,16 @@
             width: $icon-s;
         }
 
+        &-text {
+            line-height: $line-height-heading;
+        }
+
         &-icon {
-            line-height: 1.9em;
+            line-height: $line-height-text;
             margin: 0 0.35em 0 0;
 
             @include mobile {
-                line-height: 1.8em
+                line-height: calc(#{$line-height-text} + 0.2em);
             }
 
             &.online {
