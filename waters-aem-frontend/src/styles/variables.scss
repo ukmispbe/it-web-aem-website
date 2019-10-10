@@ -49,7 +49,7 @@ $color-videothumbnail-overlay: #2D3439;
 // Font Stack
 $font-stack: 'acumin-pro', arial, sans-serif;
 $zh-font-stack: "SimSun", "宋体", "STSong", "华文宋体", arial, sans-serif;
-$ja-font-stack: “Yu Gothic”, “Meiryo UI”, “メイリオ”, “Hiragino Kaku Gothic Pro”, “Meiryo”, arial, sans-serif;
+$ja-font-stack: "Meiryo UI", "Hiragino Kaku Gothic Pro", "Meiryo", "Yu Gothic", arial, sans-serif;
 
 // Font Size
 $font-size-h1: 2em;
@@ -67,18 +67,15 @@ $line-height-text: 1.6em;
 $line-height-heading: 1.4em;
 
 // Font Weight
-// :root {
-//     --font-weight-light: 300;
-//     --font-weight-regular: 400;
-//     --font-weight-bold: 500;
-// }
+:root {
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-bold: 500;
+}
 
-// $font-weight-light: var(--font-weight-light);
-// $font-weight-regular: var(--font-weight-regular);
-// $font-weight-bold: var(--font-weight-bold);
-$font-weight-light: 300;
-$font-weight-regular: 400;
-$font-weight-bold: 500;
+$font-weight-light: var(--font-weight-light);
+$font-weight-regular: var(--font-weight-regular);
+$font-weight-bold: var(--font-weight-bold);
 
 // Letter Spacing
 $letter-spacing-small: 0.02em;
