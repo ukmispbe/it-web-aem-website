@@ -1,5 +1,5 @@
 .cmp-list {
-    @include list-container;
+         @include list-container;
  
     &__list {
         @include list-styles;
@@ -17,5 +17,185 @@
         .cmp-list__item-thumbnail {
             @include list-item-thumbnail;
         }
+     }
+}
+
+.cmp-list--tiles {
+
+    &__list {
+        color: $color-font-light;
+    }
+
+    &__item {
+        color: $color-font-light;
+    }
+
+    &--image {
+        .cmp-list__item-body {
+            color: $color-font-light;
+            float:  none;
+            width: 100%;
+            margin-right: 0px;
+        }
+
+        .cmp-list__item-thumbnail {
+            color: $color-font-light;
+        }
+    }
+    .cmp-list--image .cmp-list__item-thumbnail {
+        float: none;
+        width: auto;
+        margin-top: 0px;
+
+        img {
+            margin-bottom: 0px;
+            margin-top: 0px;
+            border: none;          
+        }
+    }
+
+    .cmp-list__list {
+        padding: 0px;
+        list-style-type: none;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .cmp-list__item  {
+        margin-right: $space-s;
+        width: 300px;
+        height: 240px;
+        background-color: $color-white;
+        box-shadow: $shadow;
+        padding: $space-l;
+        //overflow-y: auto;
+        &-link {
+            margin-bottom: $space-m;
+
+            @include tablet-and-under {
+                margin-bottom: 0px;
+            }
+        }
+
+        
+        .cmp-list__item-body {
+            margin-left: auto;
+            margin-right: auto;
+            float:  none;
+            width: 100%;
+            margin-right: 0px;
+        }
+
+        @include tablet-and-under {
+            margin-right: $space-xxs;
+            margin-bottom: $space-xxs;
+            display: block;
+            height: auto;
+            padding: $space-xs;
+
+            .cmp-list__item-body {
+                margin-top: auto;
+                margin-bottom: auto;
+                height: 100%;
+            }
+        }
+    
+        @include mobile {
+            margin-right: 0px;
+            width: 100%;  
+        }
+    
+        @include tablet {
+            width: calc(50% - 10px);         
+        }
+
+        .cmp-list--image {
+            @include tablet-and-under {
+                display: inline-flex;
+            }
+        }
+
+        // IE 11 Fix for Text Width in Tile
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+            .cmp-list__item-title {
+                max-width: 250px;
+            }
+        }	
+        // IE 11 Fix for Text Width in Tile
+        @media screen and (min-width: #{$tablet-width + 1px}) and (max-width: #{$desktop-width}) and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+            .cmp-list__item-title {
+                max-width: calc(50vw - 200px); 
+                align-items: center;
+            }
+        }	
+        // IE 11 Fix for Text Width in Tile
+        @media screen and (max-width: #{$tablet-width}) and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+            .cmp-list__item-title {
+                max-width: calc(100vw - 200px); 
+                align-items: center;
+            }
+        }
+        
+
+        a {
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            font-size: $font-size-h3;
+            line-height: $line-height-heading;
+            color: $color-font-dark;
+            :hover {
+                color: $color-link;
+            }
+
+            img {
+                width: 150px;
+
+                 @include tablet-and-under {
+                    display: inline-flex;
+                    min-width: 108px;
+                    width: 108px;
+                    margin-right: $space-xs;
+                    padding-bottom: 0px;
+                }
+            }
+    
+            @include tablet-and-under {
+                flex-direction: row;
+                align-items: flex-start;
+                margin-top: 0px;
+                text-align: left;
+            }
+    
+            div {
+                @include font-utility;
+                width: 100%;
+                text-align: center;
+                font-size: $font-size-h3;
+                font-weight: $font-weight-light;
+                margin-bottom: 0;
+    
+                @include tablet-and-under {
+                    align-self: center;
+                    text-align: left;
+                    width: auto;
+                }
+            }
+        }
+    
+        a:hover {
+            text-decoration: none;
+            color: $color-link;
+    
+            div {
+                color: inherit;
+            }
+        }
     }
 }
+
+
+
