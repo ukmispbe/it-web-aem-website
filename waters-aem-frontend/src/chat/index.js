@@ -21,9 +21,6 @@ class Chat extends React.Component {
                     isActive: response.isChatActive,
                 })
             })
-            .catch(err => {
-                console.log("Unable to connect to chat api.")
-            })
     }
 
     render() {

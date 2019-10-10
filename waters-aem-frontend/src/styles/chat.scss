@@ -15,6 +15,7 @@
             .st0,
             .st1 {
                 stroke-width: 0.5px;
+                stroke: $color-icon;
             }
         }
     }
@@ -51,10 +52,6 @@
         &-icon {
             line-height: $line-height-text;
             margin: 0 0.35em 0 0;
-
-            @include mobile {
-                line-height: calc(#{$line-height-text} + 0.2em);
-            }
 
             &.online {
                 svg {
