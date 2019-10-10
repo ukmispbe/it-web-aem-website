@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import ReactPlayerLoader from '@brightcove/react-player-loader';
 import ScreenSizes from '../scripts/screenSizes';
 
@@ -16,9 +15,10 @@ class VideoModalBody extends React.Component {
             className: 'waters-brightcove-player'
         }
 
+        //Any video option support by Video-js : https://docs.videojs.com/tutorial-options.html
+        //don't pass in autoplay here rather programmatically call after loadedmetadata event
         const optionsVideoJS = {
             fluid: true,
-            //autoplay: 'play',
             controls: !ScreenSizes.isMobile() ? true : false,
             loop: false
         }
@@ -41,10 +41,8 @@ class VideoModalBody extends React.Component {
     }
 }
 
-//on video end closeModal??? on desktop/tablet sizes???
 VideoModalBody.propTypes = {
     config: PropTypes.object.isRequired,
-    closeVideo: PropTypes.func.isRequired,
     onVideoSuccess: PropTypes.func.isRequired,
     onVideoFailure: PropTypes.func.isRequired
 };

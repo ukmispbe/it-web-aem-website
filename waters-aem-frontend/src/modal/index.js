@@ -94,7 +94,7 @@ class Modal extends React.Component {
             )
         } else if (state.theme == 'video') { 
             return (
-                <VideoModalBody config={state.config} onVideoSuccess={this.props.onVideoSuccess} onVideoFailure={this.props.onVideoFailure} closeVideo={this.closeVideo} closeVideo={this.closeModal} />
+                <VideoModalBody config={state.config} onVideoSuccess={this.props.onVideoSuccess} onVideoFailure={this.props.onVideoFailure} />
             )
         } else {     
 

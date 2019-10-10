@@ -19,14 +19,12 @@ class VideoContainer extends React.Component {
             brightcoveAccount: this.props.videoConfig.brightcoveAccount,
             brightcovePlayerId: this.props.videoConfig.brightcovePlayerId,
             isMobile: ScreenSizes.isMobile(),
-            modalShown: false,
-            mobileThumbShown: true
+            modalShown: false
         };
 
         this.autoPlayVolumeLevel = 0.7;
         this.brightcovePlayer = null;
         this.videoRef = React.createRef();
-        this.toggleMobileThumb = this.toggleMobileThumb.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
 
         this.onSuccess = this.onSuccess.bind(this);
@@ -63,52 +61,48 @@ class VideoContainer extends React.Component {
         })
     }
 
-    toggleMobileThumb = e => { 
-        if (e) { e.preventDefault() }
-
-        this.setState({ mobileThumbShown: !this.state.mobileThumbShown }, () => { 
-            if (!this.state.mobileThumbShown && this.state.isMobile) { 
-                //if mobile & video is starting to playing
-                if (window.cmpVideos) { 
-                    //check for any existing mobile video comp and close them
-                    window.cmpVideos.forEach( videoComponent => {
-                        if (this.videoRef.current != videoComponent.videoRef.current) {
-                            if (typeof videoComponent.closeMobileVideo == 'function') { 
-                                //lets close any open mobile video components
-                                const closeMobileVideo = videoComponent.closeMobileVideo.bind(videoComponent);
-                                closeMobileVideo();
-                            }
-                        }
-                    })
-                }
-            }
-
-        });
-    }
-
-    closeMobileVideo = () => {
-        this.setState({ mobileThumbShown: true });
-    }
-
-
     onSuccess = (success) => { 
         const player = this.brightcovePlayer = success.ref;
 
         if (player) { 
-            //  Wait for loadedmetadata then try to play video
-            player.on("loadedmetadata", this.autoPlay.bind(this));
+
+            if (player.el_) {
+                //on pause show big-play-button
+                player.el_.classList.add('vjs-show-big-play-button-on-pause');
+            }
+            
+            if (!this.state.isMobile) { 
+                player.on("loadedmetadata", this.autoPlay.bind(this));
+            }
+            player.on("play", this.onPlay.bind(this));
+            //player.on("pause", this.onPause.bind(this));
             player.on('ended', this.onVideoEnd.bind(this));
         }
     }
 
+    onPlay = () => { 
+        //on mobile let's check for any existin mobile video and pause them
+        if (this.state.isMobile) {
+            if (window.cmpVideos) {
+                window.cmpVideos.forEach( videoComponent => {
+                    if (this.videoRef.current != videoComponent.videoRef.current) {
+                        if (videoComponent.brightcovePlayer) { 
+                            videoComponent.brightcovePlayer.pause();
+                        }
+                    }
+                })
+            }
+        }
+    }
+
     autoPlay = () => { 
+        // On desktop only :
         // Play video which returns a promise
+        // see if video is playing or not and then try playing muted
         const player = this.brightcovePlayer;
 
         if (player) { 
             var promise = player.play();
-    
-            //  Use promise to see if video is playing or not
             if (promise !== undefined) {
                 promise
                 .then(function () {
@@ -128,11 +122,11 @@ class VideoContainer extends React.Component {
     }
 
     onVideoEnd = (e) => { 
-        this.state.isMobile ? this.closeMobileVideo().bind(this) : this.toggleModal();
+        this.state.isMobile ? null : this.toggleModal();
     }
 
     onFailure = (failure) => { 
-        //console.log("failure:", failure);
+        //on brightcove load failure
     }
 
     getUpdatedModalInfo = () => { 
@@ -164,17 +158,7 @@ class VideoContainer extends React.Component {
     renderMobile = () => {
         return (
             <>
-                {this.state.mobileThumbShown ? (
-                    <VideoThumbnail
-                        totalTime={this.props.videoConfig.length}
-                        thumbPath={this.props.videoConfig.thumbPath}
-                        thumbAlt={this.state.thumbAlt}
-                        playIcon={this.props.videoConfig.playIcon}
-                        handleClick={this.toggleMobileThumb}
-                    />
-                ) : (
-                        <VideoModalBody config={this.getUpdatedModalInfo()} onVideoSuccess={this.onSuccess} onVideoFailure={this.onFailure} closeVideo={this.toggleMobileThumb} />
-                )}
+                <VideoModalBody config={this.getUpdatedModalInfo()} onVideoSuccess={this.onSuccess} onVideoFailure={this.onFailure} />
                 {this.renderVideoInfo()}
             </>
         )

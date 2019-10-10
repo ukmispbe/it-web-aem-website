@@ -98,8 +98,30 @@
         background: $color-black;
     }
 
-    .vjs-dock-shelf,
-    .vjs-dock.text{
-        display: none;
+    .vjs-menu .vjs-contextmenu-ui-menu{
+        display: none !important;
+    }
+    .vjs-has-started.vjs-paused {
+        .vjs-control-bar {
+            transform: translateY(3em) !important;
+        }
+        .vjs-poster {
+            display: inline-block;
+        }
+    } 
+
+    @include mobile {
+
+        .video-js .vjs-dock-text,
+        .video-js .vjs-dock-shelf{
+            display: none;
+        }
+    }
+
+    @include tablet-and-over {
+        .vjs-dock-shelf .vjs-button.vjs-share-control {
+            position: relative;
+            right: 3em;
+        }
     }
 }
