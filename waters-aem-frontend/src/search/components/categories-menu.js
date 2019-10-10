@@ -30,9 +30,8 @@ export const CategoriesMenu = (props) => {
     const getEitherChildrenOrItems = () => hasChildren ? props.children : getItems();
 
     const getItems = () => Array.isArray(items) ? items.map((item, index) => {
-        let dataCount = " (".concat(item.count).concat(")");
         return <div key={item.categoryFacetName} className="categories-type-menu-container__item" onClick={e => props.click(item)}>
-                <div><a href="javascript:void(0)" data-count={dataCount}>{item.facetValue}</a></div>
+                <div><a href="javascript:void(0)" data-count={` (${item.count})`}>{item.facetValue}</a></div>
             </div>}) : <></>;
 
     return (<>
