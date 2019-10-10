@@ -24,13 +24,12 @@ public final class DefaultChatService implements ChatService {
     public String getChatStatusApi() {
         return chatStatusApi;
     }
+
     @Activate
     @Modified
     protected void activate(final ChatServiceConfiguration configuration) {
         chatUrl = configuration.chatUrl();
         chatStatusApi = configuration.chatStatusApi();
     }
-
-
 }
 

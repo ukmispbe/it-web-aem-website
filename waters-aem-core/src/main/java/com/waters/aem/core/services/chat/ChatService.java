@@ -11,6 +11,7 @@ public interface ChatService {
      * @return Live Chat URL
      */
     String getChatUrl();
+
     /**
      * Get the configured Chat Status API.
      *
