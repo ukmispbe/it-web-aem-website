@@ -143,7 +143,8 @@ class VideoContainer extends React.Component {
                 brightcoveVideoId: this.state.brightcoveVideoId,
                 brightcoveAccount: this.state.brightcoveAccount,
                 brightcovePlayerId: this.state.brightcovePlayerId,
-                closeIcon: this.props.videoConfig.closeIcon
+                closeIcon: this.props.videoConfig.closeIcon,
+                screenReader: true
             }
         )
     }

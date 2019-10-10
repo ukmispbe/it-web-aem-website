@@ -196,16 +196,6 @@
 
 }
 
-.cmp-modal-box.video {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    right: 0;
-}
-
-
-
 .cmp-modal.video{
     position: absolute;
     max-width: 85%;
@@ -224,25 +214,30 @@
     }
 
     .cmp-modal__box {
-
         width: 100%;
         margin: auto;
         background-color: #fff;
-
         padding: 1px !important;
 
-        .cmp-modal__close-icon svg {
-            position: relative;
-            top: $space-m;
+        .cmp-modal__title {
+            margin: 0;
         }
 
-        .cmp-modal__title {
-            margin-left: $space-m;
-        }
-    
-        .cmp-modal__close-icon,
-        .cmp-modal__title {
-            margin-bottom: $space-m;
+        .cmp-modal__close-icon {
+            margin: 0;
+            position: absolute;
+            right: 0;
+            width: $space-xl;
+            height: $space-xl;
+            background: $color-white;
+            z-index: 1;
+
+            svg {
+                top: $space-xxs;
+                right: $space-xxs;
+                float: none;
+            }
+
         }
     }
 }

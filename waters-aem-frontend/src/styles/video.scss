@@ -85,7 +85,8 @@
 
 .cmp-video {
 
-    .video-js {
+    .video-js,
+    .video-js.vjs-fluid {
         //onload to avoid blimp and set as fluid
         height: 0;
         width: 100%;
