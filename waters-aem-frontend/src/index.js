@@ -10,6 +10,7 @@ import LoginStatus from "./scripts/loginStatus";
 import SkuDetails from './sku-details';
 import SkuList from './sku-list';
 import SkuMessage from './sku-shared/views/SkuMessage';
+import Chat from './chat'
 
 function getAuthoredDataForSearchBar(c, h) {
     return {
@@ -37,6 +38,18 @@ function getAuthoredDataForTagCloud(h, t) {
         tagTitle: t.dataset.title,
         contentType: t.dataset.contentType,
     };
+}
+
+function getAuthoredDataForChat(c) {
+    return {
+        url: c.dataset.chatUrl,
+        statusApi: c.dataset.chatStatusApi,
+        icon: c.dataset.chatIcon,
+        availableText: c.dataset.chatAvailableText,
+        unavailableText: c.dataset.chatUnavailableText,
+        text: c.dataset.chatText,
+        buttonText: c.dataset.chatButtonText
+    }
 }
 
 const searchBarContainer = document.getElementById('js-search-bar');
@@ -209,4 +222,25 @@ if(skuUnavailableContainer) {
             skuDetailsUnavailableBindingContainer
         );
     }
-    }
+}
+
+const chatContainer = document.querySelector('.cmp-chat');
+
+if(chatContainer) {
+    const data = getAuthoredDataForChat(chatContainer);
+    ReactDOM.render(
+        <Chat
+            url={data.url}
+            statusApi={data.statusApi}
+            countryCode={skuDetailsConfig.countryCode}
+            icon={data.icon}
+            availableText={data.availableText}
+            unavailableText={data.unavailableText}
+            text={data.text}
+            buttonText={data.buttonText}
+            offlineIcon={skuDetailsConfig.skuInfo.outOfStockIcon}
+            onlineIcon={skuDetailsConfig.skuInfo.inStockIcon}
+        />,
+        chatContainer
+    );
+}
