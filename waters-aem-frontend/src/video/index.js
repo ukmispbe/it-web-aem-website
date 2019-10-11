@@ -22,7 +22,6 @@ class VideoContainer extends React.Component {
             modalShown: false
         };
 
-        this.autoPlayVolumeLevel = 0.7;
         this.brightcovePlayer = null;
         this.videoRef = React.createRef();
         this.toggleModal = this.toggleModal.bind(this);
@@ -96,24 +95,14 @@ class VideoContainer extends React.Component {
     }
 
     autoPlay = () => { 
-        // On desktop only :
-        // Play video which returns a promise
-        // see if video is playing or not and then try playing muted
+        // On desktop only : play video which returns a promise
+        // see if video is playing and if not try playing muted
         const player = this.brightcovePlayer;
 
         if (player) { 
             var promise = player.play();
             if (promise !== undefined) {
-                promise
-                .then(function () {
-                    // Autoplay started!
-                    // If video playing unmute and set the volume
-                    player.muted(false);
-                    player.volume(this.autoPlayVolumeLevel);
-                })
-                .catch(function (error) {
-                    // Autoplay was prevented.
-                    // If autoplay prevented mute the video, play video and display unmute button
+                promise.catch(function (error) {
                     player.muted(true);
                     player.play();
                 });

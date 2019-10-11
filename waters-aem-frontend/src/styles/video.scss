@@ -52,6 +52,9 @@
                 .st0 {
                     stroke: $color-white;
                 }
+                div {
+                    height: 100%;
+                }
             }
 
             &_time {
@@ -85,6 +88,10 @@
 
 .cmp-video {
 
+    .cmp-video_modal-body{
+        background: $color-white;
+    }
+    
     .video-js,
     .video-js.vjs-fluid {
         //onload to avoid blimp and set as fluid
@@ -94,14 +101,27 @@
         padding-top: 56.25%;
     }
 
-    .cmp-video_modal-body{
-        background: $color-black;
-    }
-
     .vjs-menu .vjs-contextmenu-ui-menu{
         display: none !important;
     }
+
+    .vjs-text-track-display {
+        transition: opacity 1s;
+    }
+
+    .vjs-has-started.vjs-playing{
+        .vjs-text-track-display {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
     .vjs-has-started.vjs-paused {
+        .vjs-text-track-display {
+            opacity: 0;
+            visibility: hidden;
+        }
+
         .vjs-control-bar {
             transform: translateY(3em) !important;
         }

@@ -215,9 +215,10 @@
 
     .cmp-modal__box {
         width: 100%;
-        margin: auto;
-        background-color: #fff;
         padding: 1px !important;
+        position: relative;
+        align-self: center;
+        background: $color-white;
 
         .cmp-modal__title {
             margin: 0;
@@ -225,16 +226,12 @@
 
         .cmp-modal__close-icon {
             margin: 0;
-            position: absolute;
-            right: 0;
-            width: $space-xl;
-            height: $space-xl;
-            background: $color-white;
-            z-index: 1;
+            height: 2.5em;
+            background-color: $color-white;
 
             svg {
-                top: $space-xxs;
-                right: $space-xxs;
+                top: 0.3em;
+                right: 0.25em;
                 float: none;
             }
 
