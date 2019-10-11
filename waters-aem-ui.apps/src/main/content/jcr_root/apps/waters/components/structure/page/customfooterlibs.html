@@ -6,14 +6,11 @@
 
 
 <!-- Brightcove framework start -->
-<!-- TO DO : GRAB SCRIPT PATH FROM BE WITH account/playerID OR
- use brightcove webpack plugin - https://github.com/brightcove/player-loader-webpack-plugin -->
- <!--<script src="//players.brightcove.net/1786731335/ptF88s0lh8_default/index.min.js"></script>-->
 
 <sly data-sly-use.video="com.waters.aem.core.components.content.Video">
     <script src="//players.brightcove.net/${video.brightcoveAccount}/${video.brightcovePlayerId}_default/index.min.js"></script>
 </sly>
- <!-- <script src="//players.brightcove.net/${baseTemplate.brightcoveAccount}/${baseTemplate.brightcovePlayerId}_default/index.min.js"></script> -->
+
  <!-- Brightcove framework end-->
 
 <!-- launch script end -->
