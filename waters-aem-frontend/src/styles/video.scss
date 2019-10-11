@@ -137,11 +137,4 @@
             display: none;
         }
     }
-
-    @include tablet-and-over {
-        .vjs-dock-shelf .vjs-button.vjs-share-control {
-            position: relative;
-            right: 3em;
-        }
-    }
 }
