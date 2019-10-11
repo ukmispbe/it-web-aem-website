@@ -23,7 +23,7 @@
 .cmp-list--tiles {
 
     &__list {
-        color: $color-font-light;
+        color: $color-font-light;       
     }
 
     &__item {
@@ -72,6 +72,7 @@
         //overflow-y: auto;
         &-link {
             margin-bottom: $space-m;
+            font-weight: $font-weight-light;
 
             @include tablet-and-under {
                 margin-bottom: 0px;
