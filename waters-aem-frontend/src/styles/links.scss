@@ -16,6 +16,7 @@
     display: block;
     float: left;
     width: 100%;
+    break-inside: avoid;
 }
 
 .cmp-links__link {
