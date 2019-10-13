@@ -8,7 +8,7 @@ export const CategoriesMenu = (props) => {
 
     const getHeading = () => {
         return (props.selectedValue) 
-            ?  <><div className="back-btn"><a href="javascript:void(0)" onClick={props.clear}><ReactSVG src={props.text.previousIcon} /> {props.text[props.categoryKey]}</a></div><h3>{props.selectedValue}</h3></> 
+            ?  <div className="heading--with-selected-value"><div className="back-btn"><a href="javascript:void(0)" onClick={props.clear}><ReactSVG src={props.text.previousIcon} /> {props.text[props.categoryKey]}</a></div><h3>{props.selectedValue}</h3></div> 
             : <h3>{props.text[props.categoryKey]}</h3>
     }
 
