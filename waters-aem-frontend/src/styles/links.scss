@@ -9,6 +9,13 @@
           column-fill: balance;
           column-count: 2;
        }
+
+       @include firefox-only {
+           ul {
+               column-gap: $space-xl;
+               column-count: 2;
+           }
+       }
     }
 }
 
@@ -16,6 +23,7 @@
     display: block;
     float: left;
     width: 100%;
+    break-inside: avoid;
 }
 
 .cmp-links__link {
