@@ -6,6 +6,7 @@ import com.citytechinc.cq.component.annotations.Option;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.Selection;
 import com.citytechinc.cq.component.annotations.widgets.Switch;
+import com.citytechinc.cq.component.annotations.widgets.TextArea;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.commons.Externalizer;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -52,6 +53,8 @@ public final class Meta extends AbstractComponent {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     private static final String PROPERTY_CANONICAL_URL = "canonicalUrl";
+
+    private static final String PROPERTY_META_DESCRIPTION = "metaDescription";
 
     private static final String PROPERTY_NO_INDEX = "noIndex";
 
@@ -104,9 +107,17 @@ public final class Meta extends AbstractComponent {
             .or(externalize(currentPage.getHref()));
     }
 
+    @DialogField(fieldLabel = "Description",
+            fieldDescription = "Default to inherited description",
+            ranking = 2)
+    @TextArea
+    public String getMetaDescription() {
+        return get(PROPERTY_META_DESCRIPTION, "");
+    }
+
     @DialogField(fieldLabel = "No Index",
         fieldDescription = "Add NOINDEX metadata tag.",
-        ranking = 2)
+        ranking = 3)
     @Switch(offText = "No", onText = "Yes")
     public Boolean isNoIndex() {
         return get(PROPERTY_NO_INDEX, false);
@@ -114,7 +125,7 @@ public final class Meta extends AbstractComponent {
 
     @DialogField(fieldLabel = "No Follow",
         fieldDescription = "Add NOFOLLOW metadata tag.",
-        ranking = 3)
+        ranking = 4)
     @Switch(offText = "No", onText = "Yes")
     public Boolean isNoFollow() {
         return get(PROPERTY_NO_FOLLOW, false);
@@ -122,7 +133,7 @@ public final class Meta extends AbstractComponent {
 
     @DialogField(fieldLabel = "Open Graph Type",
         fieldDescription = "Select a type to include Open Graph metadata for the page.",
-        ranking = 4)
+        ranking = 5)
     @Selection(
         type = Selection.SELECT,
         options = {
@@ -147,13 +158,13 @@ public final class Meta extends AbstractComponent {
 
     @DialogField(fieldLabel = "Open Graph Image",
         fieldDescription = "Default to page thumbnail image.",
-        ranking = 5)
+        ranking = 6)
     @PathField(rootPath = WatersConstants.DAM_PATH)
     public String getOgImage() {
         return getExternalizedImage("ogImage");
     }
 
-    @DialogField(fieldLabel = "Facebook App ID", ranking = 6)
+    @DialogField(fieldLabel = "Facebook App ID", ranking = 7)
     @TextField
     public String getFacebookAppId() {
         return getInherited("facebookAppId", DEFAULT_FACEBOOK_APP_ID);
@@ -161,7 +172,7 @@ public final class Meta extends AbstractComponent {
 
     @DialogField(fieldLabel = "Twitter Publisher Handle",
         fieldDescription = "Defaults to @WatersCorp.",
-        ranking = 7)
+        ranking = 8)
     @TextField
     public String getTwitterPublisherHandle() {
         return getInherited("twitterPublisherHandle", DEFAULT_TWITTER_PUBLISHER_HANDLE);
@@ -169,7 +180,7 @@ public final class Meta extends AbstractComponent {
 
     @DialogField(fieldLabel = "Twitter Card",
         fieldDescription = "Select the Twitter card type.",
-        ranking = 8)
+        ranking = 9)
     @Selection(
         type = Selection.SELECT,
         options = {
@@ -189,7 +200,7 @@ public final class Meta extends AbstractComponent {
 
     @DialogField(fieldLabel = "Twitter Image",
         fieldDescription = "Default to page thumbnail image.",
-        ranking = 9)
+        ranking = 10)
     @PathField(rootPath = WatersConstants.DAM_PATH)
     public String getTwitterImage() {
         return getExternalizedImage("twitterImage");

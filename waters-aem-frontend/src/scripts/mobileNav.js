@@ -1,6 +1,7 @@
 import ScreenSizes from '../scripts/screenSizes';
 import NavMenu from '../scripts/navigation-level2';
 import FeedbackSurvey from './feedbackSurvey';
+import domElements from './domElements';
 
 const MobileNav = function () {
 
@@ -14,7 +15,7 @@ const MobileNav = function () {
         headerTB_mobile_btn.classList.add('is-active');
         headerNavigation.classList.add('is-active');
         header.classList.add('is-fixed');
-        document.documentElement.classList.add('no-scroll');
+        domElements.noScroll(true);
         FeedbackSurvey.isDisplayed(false);
     }
 
@@ -22,7 +23,7 @@ const MobileNav = function () {
         headerTB_mobile_btn.classList.remove('is-active');
         headerNavigation.classList.remove('is-active');
         header.classList.remove('is-fixed');
-        document.documentElement.classList.remove('no-scroll');
+        domElements.noScroll(false);
         FeedbackSurvey.isDisplayed(true);
 
         const navMenuFunc = NavMenu();

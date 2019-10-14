@@ -101,7 +101,7 @@ class Filter extends Component {
     getMappings = () => {
         const facetName = `${this.props.contentType}_facet`;
 
-        const facet = Array.isArray(this.props.filterMap.orderedFacets) 
+        const facet = Array.isArray(this.props.filterMap.orderedFacets)
             ? this.props.filterMap.orderedFacets.find(item => item.facetName === facetName)
             : null;
 
@@ -140,6 +140,7 @@ class Filter extends Component {
                     selectedFacets={props.selectedFacets}
                     minItemSearch={21}
                     minCharSearch={2}
+                    activeCategory={props.facets.activeIndex}
                 />
             );
         }) : [];

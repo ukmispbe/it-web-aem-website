@@ -11,7 +11,7 @@ const SortFilterSticky = () => {
                 position: 'top',
                 amount: 0,
             },
-            fillHeight: 56,
+            fillHeight: 17.6,
             stickyHeight: 54,
         });
     }

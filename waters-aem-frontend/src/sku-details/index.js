@@ -33,6 +33,7 @@ class SkuDetails extends React.Component {
                 text: this.props.titleText,
             },
             errorObj: {},
+            discontinued: (this.props.discontinued == 'true')
         };
 
         this.request = new SkuService(
@@ -89,7 +90,7 @@ class SkuDetails extends React.Component {
         this.setState({ modalShown: !this.state.modalShown })
     };
 
-    renderBuyInfo = () => { 
+    renderBuyInfo = () => {
         return (
             <div className="cmp-sku-details__buyinfo">
                 <div className="cmp-sku-details__priceinfo">
@@ -122,39 +123,62 @@ class SkuDetails extends React.Component {
                     open={this.state.modalShown}
                     theme="callToAction"
                     config={this.state.modalInfo}
+                    errorObj={this.state.errorObj}
+                    partNumberLabel={this.state.skuConfig.partNumberLabel}
                 />
             </div>
         );
     }
 
-    render() {
+
+    renderActiveSku = () => {
         if (Ecommerce.isDisabledState()) {
             return (
-                <SkuMessage 
+                <SkuMessage
                     icon={this.props.config.commerceConfig.disabledIcon}
                     message={this.props.config.commerceConfig.disabledText}
                     link={this.props.config.commerceConfig.disabledHref}
-                    linkMessage={this.props.config.commerceConfig.disabledLinkText} 
+                    linkMessage={this.props.config.commerceConfig.disabledLinkText}
                 />
             );
-        } else { 
-            
+        } else {
+
             if ((Ecommerce.isPartialState() && LoginStatus.state() && CheckOutStatus.state()) || (!Ecommerce.isPartialState() && !Ecommerce.isDisabledState())) {
                 return (
                     <>
                         {this.renderBuyInfo()}
                     </>
                 );
-            } else { 
+            } else {
                 return (
-                    <SkuMessage 
+                    <SkuMessage
                         icon={this.props.config.commerceConfig.disabledIcon}
                         message={this.props.config.commerceConfig.partialDisabledText}
                         link={this.props.config.commerceConfig.partialDisabledHref}
-                        linkMessage={this.props.config.commerceConfig.partialDisabledLinkText} 
+                        linkMessage={this.props.config.commerceConfig.partialDisabledLinkText}
                     />
                 )
             }
+        }
+    }
+
+    render() {
+        if (this.state.discontinued) {
+            let discontinuedMessage = this.props.config.skuInfo.discontinuedWithReplacementWithCode;
+            if(!this.props.replacementSkuCode || !this.props.replacementSkuHref){
+                discontinuedMessage = this.props.config.skuInfo.discontinuedNoReplacementCode
+            }
+            return (
+                <SkuMessage
+                    icon={this.props.config.skuInfo.lowStockIcon}
+                    message={discontinuedMessage}
+                    link={this.props.replacementSkuHref}
+                    linkMessage={this.props.replacementSkuCode}
+                />
+            );
+        } else {
+            const activeSku = this.renderActiveSku();
+            return activeSku;
         }
     }
 }

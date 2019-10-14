@@ -7,6 +7,7 @@ import './scripts/anchor';
 import './scripts/sticky-sort-filter';
 import './scripts/sticky-sku-details';
 import './scripts/sticky-sku-scroll';
+import './scripts/mobile-search-scroll';
 import './scripts/navigation-overlay';
 import './scripts/navigation';
 import './scripts/navigation-level2';
@@ -17,8 +18,23 @@ import './scripts/banner';
 import './scripts/breadcrumb';
 import './scripts/header';
 import './scripts/collapsible';
-import './scripts/skulist'
+import './scripts/skulist';
 import './index';
+
+import cssVars from 'css-vars-ponyfill';
+
+const japanTheme = {
+    "--font-weight-light": "lighter",
+    "--font-weight-regular": "normal",
+    "--font-weight-bold": "bold"
+};
+
+const isJapanese = (document.documentElement.lang == "ja");
+
+cssVars({
+    variables: (isJapanese ? japanTheme : Object.assign({})),
+    include: 'style,link[rel="stylesheet"]:not([href*="//"])'
+});
 
 var inlineSVG = require('inline-svg');
 

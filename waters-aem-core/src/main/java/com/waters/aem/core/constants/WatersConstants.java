@@ -27,6 +27,8 @@ public final class WatersConstants {
 
     public static final String TEMPLATE_HOME_PAGE = "/conf/waters/settings/wcm/templates/home-page";
 
+    public static final String TEMPLATE_SHOP_HOME_PAGE = "/conf/waters/settings/wcm/templates/shop-home-page";
+
     public static final String TEMPLATE_CONTENT_PAGE = "/conf/waters/settings/wcm/templates/content-page";
 
     public static final String TEMPLATE_APPLICATION_NOTES_PAGE = "/conf/waters/settings/wcm/templates/application-notes-page";
@@ -40,6 +42,8 @@ public final class WatersConstants {
     public static final String TEMPLATE_CATEGORY_PAGE = "/conf/waters/settings/wcm/templates/section-page";
 
     public static final String TEMPLATE_SKU_PAGE = "/conf/waters/settings/wcm/templates/sku-page";
+
+    public static final String TEMPLATE_SEARCH_PAGE = "/conf/waters/settings/wcm/templates/search-page";
 
     public static final Predicate<PageDecorator> PREDICATE_SKU_PAGE = page -> TEMPLATE_SKU_PAGE.equals(
         page.getTemplatePath());

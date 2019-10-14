@@ -13,11 +13,9 @@ var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
     try {
         anchor.addEventListener('click', e => {
             e.preventDefault();
-            const anchorSticky = document.getElementsByClassName(
-                'cmp-anchor--sticky'
-            );
+
             const hasSku = document.getElementsByClassName(
-                'cmp-sku-details--sticky'
+                'cmp-sku-details'
             );
 
             setTimeout(() => {
@@ -26,10 +24,12 @@ var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
 
                 if (hasSku.length === 0) {
                     additionalOffset += 52;
+                } else {
+                    additionalOffset += 143;
                 }
 
                 scrollToElement(href, 1000, 'easeOutSine', true, additionalOffset);
-
+                
                 anchorLinks.forEach(anchor => {
                     anchor.classList.remove('active');
                 });
@@ -59,54 +59,58 @@ const setAnchorDestinations = () => {
         }
     }
 };
-let brokeAt = 0;
+
+const activeClassName = "active";
+
+const setAnchorState = (index, isActive) => {
+    if (isActive) {
+        anchorDestinations.forEach(item => item.anchor.classList.remove(activeClassName));
+        anchorDestinations[index].anchor.classList.add(activeClassName);
+    } else {
+        anchorDestinations[index].anchor.classList.remove(activeClassName);
+    }
+}
+
+const atBottomOfPage = () => (window.innerHeight + window.pageYOffset) >= document.body.offsetHeight;
 
 const anchorScrollSpy = () => {
-    let multipleInView = [];
-    if (anchorDestinations) {
-        for (let n = 0; n <= anchorDestinations.length; n++) {
-            const id = anchorDestinations[n]
-                ? anchorDestinations[n].id.replace(/#/gi, '')
-                : undefined;
-            const link = anchorDestinations[n]
-                ? anchorDestinations[n].anchor
-                : undefined;
+    if (!anchorElement || !anchorDestinations) { return; }
+    
+    const anchorElementBottom = anchorElement.getBoundingClientRect().bottom;
+    const docHeight = document.documentElement.clientHeight;
 
-            if (id && link) {
-                const element = document.getElementById(id);
-                const elementBoundaries = element.getBoundingClientRect();
-                const elementTop = elementBoundaries.top;
-                const elementBottom = elementBoundaries.bottom;
-                const docHeight = document.documentElement.clientHeight;
-                const halfwayUpPage = docHeight / 1.4;
-                const stillOnPage = docHeight / 1.55;
+    anchorDestinations.forEach((item, index) => {
+        const id = item.id.replace(/#/gi, '');
+        const elementBoundaries = document.getElementById(id).getBoundingClientRect();
+        const elementTop = elementBoundaries.top;
+        const elementBottom = elementBoundaries.bottom;
+        const isBottomAboveContainer = elementBottom < anchorElementBottom;
 
-                if (
-                    (elementTop >= 75 &&
-                        elementTop <= docHeight &&
-                        elementTop <= halfwayUpPage) ||
-                    (elementTop < 150 && elementBottom >= stillOnPage)
-                ) {
-                    link.classList.add('active');
-                    brokeAt = n;
-                    multipleInView.push(n);
-                } else {
-                    link.classList.remove('active');
-                }
+        if (index === 0)  {
+            const thresholdMarker = docHeight / 1.4;
+            const isAboveThresholdMarker = elementTop <= thresholdMarker;
+            const isBetweenContainerAndThresholdMarker = !isBottomAboveContainer && isAboveThresholdMarker;
+
+            setAnchorState(index, isBetweenContainerAndThresholdMarker);
+        } else if (index === anchorDestinations.length - 1) {
+            const thresholdMarker = docHeight * .34;
+            const isAboveThresholdMarker = elementTop <= thresholdMarker;
+            const isBetweenContainerAndThresholdMarker = !isBottomAboveContainer && isAboveThresholdMarker;
+
+            if (atBottomOfPage() && isBetweenContainerAndThresholdMarker) {
+                setAnchorState(index, true);
+            } else {
+                const isActive = !isBottomAboveContainer && elementTop <= anchorElementBottom;
+
+                setAnchorState(index, isActive);
             }
+        } else {
+            const isActive = !isBottomAboveContainer && elementTop <= anchorElementBottom;
 
-            if (multipleInView.length > 1) {
-                for (let i = 1; i < multipleInView.length; i++) {
-                    const inView = multipleInView[i];
-
-                    anchorDestinations[inView].anchor.classList.remove(
-                        'active'
-                    );
-                }
-            }
+            setAnchorState(index, isActive);
         }
-    }
-};
+    });
+}
 
 function anchorHide() {
     if (document.getElementsByClassName('cmp-section-container--collapse').length > 0){

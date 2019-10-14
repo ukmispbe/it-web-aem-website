@@ -117,7 +117,7 @@ nav.cmp-navigation {
 
             & > .cmp-navigation__container {
                min-height: 67px;
-               padding: ($space-m - 0.1em) $space-m $space-m ($space-xl - 0.5em);
+               padding: $space-s $space-m $space-s ($space-xl - 0.6em);
                border-left: 4px solid $color-gray-50;
                flex-grow: 0;
 
@@ -172,6 +172,7 @@ nav.cmp-navigation {
             img.inline-svg {
                width: $icon-m;
                height: $icon-m;
+               margin-top: 2px;
 
                .st0 {
                   stroke: $color-icon;
@@ -284,7 +285,7 @@ nav.cmp-navigation {
             z-index: $navigation-group-z-index;
             opacity: 0;
             visibility: hidden;
-            padding: $space-l $space-xl  $space-xl $space-xl;
+            padding: $space-l $space-xl $space-l $space-xl;
             background-color: $color-white;
             width: 100%;
             display: flex;
@@ -315,8 +316,8 @@ nav.cmp-navigation {
 
             & > .cmp-navigation__item {
                margin-bottom: 0;
-               padding-bottom: $space-s;
-               padding-right: $space-l;
+               padding-bottom: $space-xs;
+               padding-right: $space-xl;
             }
          }
 
@@ -337,11 +338,46 @@ nav.cmp-navigation {
             }
 
             .cmp-notification-description {
+               font-size: $font-size-small;
                font-weight: $font-weight-light;
+               line-height: 1.6em;
             }
 
+            .cmp-notification-title {
+               font-size: $font-size-small;
+               line-height: 1.6em;
+            }
+
+            .cmp-notification-wrapper {
+               margin-top: $space-s;
+            }
+            
+
             .cmp-links {
+               font-size: $font-size-small;
+               font-weight: $font-weight-light;
+               line-height: 1.6em;
+            }
+
+            .cmp-links__item {
+               margin-bottom: $space-xxs;
+            }
+
+            .layoutcontainer--light {
+               margin-bottom: $space-s;
+
+               @include mobile {
+                  margin-top: $space-m;
+               }
+            }
+
+            div.links {
+               margin-bottom: 0;
+            }
+
+            h3 {
                @include font-body;
+               font-weight: $font-weight-regular;
             }
          }
 

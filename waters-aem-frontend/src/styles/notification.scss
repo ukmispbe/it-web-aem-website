@@ -1,10 +1,14 @@
 .cmp-notification {
     &-wrapper {
         display: flex;
-        justify-content: left;
+        justify-content: center;
         background-color: $color-background-light;
-        padding: $space-xxs 0 0 0;
+        padding: $space-s;
         margin-bottom: $space-l;
+
+        @include mobile {
+            padding: $space-m;
+        }
 
         svg {
             height: $icon-m;
@@ -57,6 +61,8 @@
 
         @include mobile {
             padding-right:0;
+            text-align: center;
+            margin-bottom: $space-xxs;
         }
     }
 
@@ -66,6 +72,11 @@
         padding-left: $space-xxs;
         li {
             display: inline;
+        }
+
+        @include mobile {
+            display: block;
+            margin-top: $space-s;
         }
     }
 }
@@ -96,6 +107,12 @@
     }
 }
 
+.cmp-notification--highlight {
+    .cmp-notification-wrapper {
+        background-color: $color-teal-10;
+    }
+}
+
 .cmp-notification--left {
     .cmp-notification-wrapper {
         justify-content: left;
@@ -120,6 +137,15 @@
 
 .cmp-sku-list__container  {
     .cmp-notification-wrapper {
+        justify-content: left;
         padding: $space-xxs 0 0 0;
+
+        @include IE11-only {
+            justify-content: flex-start;
+        }
+
+        @include mobile {
+            padding: $space-xxs 0 0 0;
+        }
     }
 }
