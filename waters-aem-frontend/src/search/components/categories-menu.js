@@ -1,54 +1,85 @@
-import React from 'react';
-import ReactSVG from 'react-svg';
-import PropTypes from 'prop-types';
+import React from "react";
+import ReactSVG from "react-svg";
+import PropTypes from "prop-types";
 
-export const CategoriesMenu = (props) => {
-    const hasChildren = (props.children) ? true: false;
+export const CategoriesMenu = props => {
+    const hasChildren = props.children ? true : false;
     const items = props.items; // props.items.filter(item => item.categoryFacetName !== 'library_facet');
 
     const getHeading = () => {
-        return (props.selectedValue) 
-            ?  <div className="heading--with-selected-value"><div className="back-btn"><a href="javascript:void(0)" onClick={props.clear}><ReactSVG src={props.text.previousIcon} /> {props.text[props.categoryKey]}</a></div><h3>{props.selectedValue}</h3></div> 
-            : <h3>{props.text[props.categoryKey]}</h3>
-    }
+        return props.selectedValue ? (
+            <div className="heading--with-selected-value">
+                <div className="back-btn">
+                    <a href="javascript:void(0)" onClick={props.clear}>
+                        <ReactSVG src={props.text.previousIcon} />{" "}
+                        {props.text[props.categoryKey]}
+                    </a>
+                </div>
+                <h3>{props.selectedValue}</h3>
+            </div>
+        ) : (
+            <h3>{props.text[props.categoryKey]}</h3>
+        );
+    };
 
     const getBody = () => {
-        if(props.showBothChildrenAndItems) {
+        if (props.showBothChildrenAndItems) {
             return getBothChildrenAndItems();
         } else {
             return getEitherChildrenOrItems();
         }
-    }
+    };
 
     const getBothChildrenAndItems = () => {
-        return <>
-            {props.children}
-            {getItems()}
-        </>;
-    }
+        return (
+            <>
+                {props.children}
+                {getItems()}
+            </>
+        );
+    };
 
-    const getEitherChildrenOrItems = () => hasChildren ? props.children : getItems();
+    const getEitherChildrenOrItems = () =>
+        hasChildren ? props.children : getItems();
 
-    const getItems = () => Array.isArray(items) ? items.map((item, index) => {
-        return <div key={item.categoryFacetName} className="categories-type-menu-container__item" onClick={e => props.click(item)}>
-                <div><a href="javascript:void(0)">{item.facetValue}</a></div>
-                <div>
-                    <a href="javascript:void(0)">({item.count})</a>
+    const getItems = () =>
+        Array.isArray(items) ? (
+            items.map((item, index) => {
+                return (
+                    <div
+                        key={item.categoryFacetName}
+                        className="categories-type-menu-container__item"
+                        onClick={e => props.click(item)}
+                    >
+                        <div>
+                            <a
+                                href="javascript:void(0)"
+                                data-count={` (${item.count})`}
+                            >
+                                {item.facetValue}
+                            </a>
+                        </div>
+                    </div>
+                );
+            })
+        ) : (
+            <></>
+        );
+
+    return (
+        <>
+            <div className="categories-type-menu-container">
+                <div className="categories-type-menu-container__heading">
+                    {props.filterTags}
+                    {getHeading()}
                 </div>
-            </div>}) : <></>;
-
-    return (<>
-        <div className="categories-type-menu-container">
-            <div className="categories-type-menu-container__heading">
-                {props.filterTags}
-                {getHeading()}
+                <div className="categories-type-menu-container__body">
+                    {getBody()}
+                </div>
             </div>
-            <div className="categories-type-menu-container__body">
-                {getBody()}
-            </div>
-        </div>
-    </>);
-}
+        </>
+    );
+};
 
 CategoriesMenu.propTypes = {
     text: PropTypes.object,
@@ -59,8 +90,8 @@ CategoriesMenu.propTypes = {
     clear: PropTypes.func,
     showBothChildrenAndItems: PropTypes.bool,
     filterTags: PropTypes.object
-}
+};
 
 CategoriesMenu.defaultProps = {
     showBothChildrenAndItems: false
-}
+};

@@ -9,6 +9,13 @@
           column-fill: balance;
           column-count: 2;
        }
+
+       @include firefox-only {
+           ul {
+               column-gap: $space-xl;
+               column-count: 2;
+           }
+       }
     }
 }
 
