@@ -74,7 +74,6 @@ const Dropdown = ({
     dropdownIndicator,
     placeholder
 }) => {
-    console.log(options);
     return <>Dropdown</>;
 
     // return <Select
