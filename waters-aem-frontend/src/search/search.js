@@ -26,6 +26,7 @@ import { CategoriesMenu } from './components/categories-menu';
 import CategoryTabs from './components/categories-tabs';
 import validator from 'validator';
 import domElements from '../scripts/domElements';
+import screenSizes from '../scripts/screenSizes';
 
 class Search extends Component {
     constructor(props) {
@@ -50,14 +51,20 @@ class Search extends Component {
         this.addHistoryListener();
         this.addResizeListener();
 
+        const facetGroupsSelectedOrder = this.parseFacetsFromUrlToArray();
         const sessionStore = this.search.getSessionStore();
-        this.setState({tabHistory: sessionStore.searchTabHistory}, () => {
+        this.setState({tabHistory: sessionStore.searchTabHistory, facetGroupsSelectedOrder}, () => {
             this.performSearch();
         });
     }
 
+    parseFacetsFromUrlToArray = () => this.search.mapFacetGroupsToArray(parse(location.search).facet);
+
     addHistoryListener = () => {
         this.props.history.listen((location, action) => {
+            const facetGroupsSelectedOrder = this.parseFacetsFromUrlToArray();
+            this.setState({facetGroupsSelectedOrder});
+
             const query = this.getQueryObject(parse(location.search));
             if (action === 'POP') {
                 this.handleHistoryPop(query);
@@ -120,6 +127,7 @@ class Search extends Component {
         skuConfig.showBreadcrumbs = true;
 
         return {
+            forceCollapseFilters: true,
             loading: true,
             searchParams: {},
             results: {},
@@ -154,6 +162,8 @@ class Search extends Component {
             categoryTabs: [],
             activeTabIndex: -1,
             tabHistory: {},
+            facetGroupsSelectedOrder: [],
+            collapseAllFilters: false,
         };
     }
 
@@ -205,7 +215,7 @@ class Search extends Component {
                 sort: query.sort,
                 contentType: query.content_type,
                 contentTypeSelected: Object.assign({}, contentTypeElement),
-                selectedFacets: Object.entries(query.facets).length === 0 ? {} : Object.assign({}, query.facets),
+                selectedFacets: Object.entries(query.facets).length === 0 ? {} : Object.assign({}, query.facets)
             }, async () => {
                 await this.performSearch(query);
             });
@@ -454,7 +464,17 @@ class Search extends Component {
             ? res.spell_suggestion
             : '';
 
-        this.setState(Object.assign({}, this.state, newState));
+        this.setState(Object.assign({}, this.state, newState), () => {
+            // collapse all facet groups when flag is true and the device is tablet or mobile
+            if (this.state.forceCollapseFilters) {
+                if (screenSizes.isTabletAndUnder()) {
+                    this.collapseFilters();
+                }
+                
+                // reset flag to false
+                this.setState({forceCollapseFilters: false});
+            }
+        });
 
         const sessionStore = this.search.getSessionStore();
 
@@ -571,7 +591,14 @@ class Search extends Component {
         query.page = 1;
         query.facets = {... newState.selectedFacets};
 
-        this.pushToHistory(query, query.facets);
+        if (screenSizes.isTabletAndUnder() && query.facets[`${categoryId}`].length === 0) {
+            // all sub facets have bee de-selected therefore, force all facet groups to collapse
+            this.setState({forceCollapseFilters: true}, () => {
+                this.pushToHistory(query, query.facets);
+            })
+        } else {
+            this.pushToHistory(query, query.facets);
+        }
     }
 
     removeTag(tag) {
@@ -592,17 +619,18 @@ class Search extends Component {
 
         query.page = 1;
         query.facets = {... newState.selectedFacets};
-
-        this.pushToHistory(query, query.facets);
+        
+        this.setState({forceCollapseFilters: true}, () => {
+            this.pushToHistory(query, query.facets);
+        });
     }
 
     applyFilters() {
-        document.body.classList.remove('show-sort-filters');
-        document.body.classList.remove('filter-active');
+        this.hideSortFiltersModal();
+        this.deactivateFilters();
         domElements.noScroll(false);
 
         setTimeout(() => {
-            //window.scrollTo(0, 0);
             this.search.scrollToTop();
         }, 1000);
 
@@ -616,18 +644,23 @@ class Search extends Component {
     }
 
     resetToSavedState() {
-        var savedState = this.state.savedState;
-        savedState.selectedFacets = JSON.parse(this.savedSelectFilterState);
-        this.setState(Object.assign({}, savedState));
+        this.setState({ forceCollapseFilters: true }, () => {
+            this.pushToHistory(this.state.savedState.searchParams, this.state.savedState.searchParams.facets);
+        });
     }
 
-    collapseFilters() {
-        var fitlers = document.querySelectorAll('.cmp-search-filters__filter');
-        [].forEach.call(fitlers, function(el) {
-            el.classList.remove('expanded');
+    collapseFilters = () => {
+        // setting to true will trigger componentDidUpdate method on the filter component
+        // which will take care of doing the actual collapsing of the facet groups
+        this.setState({ collapseAllFilters: true }, () => {
+            // reset back to false after state has been updated
+            this.setState({ collapseAllFilters: false });
+            setTimeout(this.deactivateFilters, 0);
         });
-        domElements.noScroll(false);
     }
+
+    deactivateFilters = () => document.body.classList.remove('filter-active');
+    hideSortFiltersModal = () => document.body.classList.remove('show-sort-filters');
 
     setupFilters() {
         if (!this.state.isDesktop) {
@@ -649,8 +682,10 @@ class Search extends Component {
         query.content_type = contentType;
 
         query.page = 1;
-
-        this.pushToHistory(query, query.facets);
+        
+        this.setState({forceCollapseFilters: true}, () => {
+            this.pushToHistory(query, query.facets);
+        });
     };
 
     handleResetSearchToDefault = () => {
@@ -769,6 +804,8 @@ class Search extends Component {
                         text={this.props.searchText}
                         selectHandler={this.filterSelectHandler.bind(this)}
                         showTagsOnly={true}
+                        facetGroupsSelectedOrder={this.state.facetGroupsSelectedOrder}
+                        collapseAllFilters={this.state.collapseAllFilters}
                     />
                 </CategoriesMenu>
             );
@@ -784,6 +821,7 @@ class Search extends Component {
                     filterTags={filterTags}
                 >
                     <Filter
+                        ref={this.filterRef}
                         facets={this.state.facets}
                         text={this.props.searchText}
                         filterMap={this.state.filterMap}
@@ -791,6 +829,8 @@ class Search extends Component {
                         selectHandler={this.filterSelectHandler.bind(this)}
                         selectedFacets={this.state.selectedFacets}
                         contentType={this.state.contentType}
+                        facetGroupsSelectedOrder={this.state.facetGroupsSelectedOrder}
+                        collapseAllFilters={this.state.collapseAllFilters}
                     />
                 </CategoriesMenu>
             );
@@ -1076,6 +1116,7 @@ class Search extends Component {
                 contentType,
                 contentTypeSelected,
                 selectedFacets: selectedFacets ? selectedFacets : {},
+                forceCollapseFilters: screenSizes.isTabletAndUnder(),
             });
 
         setTimeout(() => {
@@ -1111,6 +1152,14 @@ class Search extends Component {
                 onClick={this.handleCategorySelected}
             />
         : <></>;
+    
+    handleHideSortFilterClick = () => {
+        this.resetToSavedState();
+        setTimeout(() => {
+            this.deactivateFilters();
+            this.hideSortFiltersModal();
+        }, 0);
+    }
 
     renderSortFilterButtons = () => {
         const sortFilterIsPristine =
@@ -1123,8 +1172,7 @@ class Search extends Component {
         return <>
             <BtnHideSortFilter
                     text={this.props.searchText}
-                    resetToSavedState={this.resetToSavedState.bind(this)}
-                    collapseFilters={this.collapseFilters}
+                    onClick={this.handleHideSortFilterClick}
                 />
 
             <BtnApplySortFilter
