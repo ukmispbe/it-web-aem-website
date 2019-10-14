@@ -53,8 +53,7 @@
                         <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
                             data-sly-call="${patterns.linkIcon @ linkItem=item}" />
                     </a>
-                    <a data-sly-test="${footer.cookiesLink}" href="${footer.cookiesLink.href}"
-                        target="_blank">${'Cookies' @ i18n}</a>
+                    <a data-sly-test="${footer.cookiesLink}" href="${footer.cookiesLink.href}">${'Cookies' @ i18n}</a>
                     <a class="optanon-toggle-display dl_Anchor" href="#">${'Cookie Preferences' @ i18n}</a>
                     <div data-sly-test="${footer.showLegalIcon}" class="cmp-footer__china-legal">
                         <a href="${footer.sICPLegalLink.href}" class="cmp-footer__china-legal-sICP">
