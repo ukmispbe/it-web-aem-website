@@ -4,6 +4,7 @@ import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
+import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.dam.api.Asset;
@@ -23,8 +24,18 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-@Component(value = "Video Component",
-    description = "This is the Video component for Waters site")
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_COPY;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_EDIT;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_MOVE;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH_PAGE;
+
+@Component(value = "Video",
+    description = "This is the Video component for Waters site",
+    listeners = {
+        @Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
+        @Listener(name = EVENT_AFTER_MOVE, value = REFRESH_PAGE),
+        @Listener(name = EVENT_AFTER_COPY, value = REFRESH_PAGE)
+    })
 @Model(adaptables = SlingHttpServletRequest.class,
     adapters = { Video.class, ComponentExporter.class },
     resourceType = Video.RESOURCE_TYPE,
@@ -69,6 +80,7 @@ public class Video implements ComponentExporter{
 
     @DialogField(fieldLabel = "Video Thumbnail",
         fieldDescription = "Enter or select the Brightcove Video thumbnail",
+        required = true,
         ranking = 4)
     @PathField(rootPath = WatersConstants.DAM_PATH)
     @Inject

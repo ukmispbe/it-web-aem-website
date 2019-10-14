@@ -6,16 +6,18 @@ import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 @ObjectClassDefinition(name = "Brightcove Service Configuration")
 public @interface BrightcoveServiceConfiguration {
 
-    @AttributeDefinition(name = "Account Id", description = "Waters Brightcove account Id")
+    @AttributeDefinition(name = "Corporate Account ID", description = "Waters Brightcove Account ID")
     String brightcoveAccount() default "1786731335";
 
-    @AttributeDefinition(name = "Player Id", description = "Waters Brightcove player Id")
+    @AttributeDefinition(name = "Corporate Player ID", description = "Waters Brightcove Player ID")
     String brightcovePlayerId() default "ptF88s0lh8";
 
-    @AttributeDefinition(name = "Account Id", description = "Waters Brightcove account Id")
+    @AttributeDefinition(name = "China Account ID",
+            description = "Waters Brightcove Account ID used for China pages only")
     String chinaBrightcoveAccount() default "3785504764001";
 
-    @AttributeDefinition(name = " China Player Id", description = "Waters China Brightcove player Id")
+    @AttributeDefinition(name = "China Player ID",
+            description = "Waters Brightcove Player ID used for China pages only")
     String chinaBrightcovePlayerId() default "LzZZEI5jZ";
 
 }

@@ -9,7 +9,7 @@ import org.osgi.service.metatype.annotations.Designate;
 
 @Component(service = BrightcoveService.class)
 @Designate(ocd = BrightcoveServiceConfiguration.class)
-public class DefaultBrightcoveService implements BrightcoveService{
+public class DefaultBrightcoveService implements BrightcoveService {
 
     private volatile String brightcoveAccount;
 
