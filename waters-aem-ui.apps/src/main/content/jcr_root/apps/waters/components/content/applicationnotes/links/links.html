@@ -1,15 +1,13 @@
 <sly data-sly-use.links="com.waters.aem.core.components.content.applicationnotes.Links"></sly>
 <h3 data-sly-test="${links.title}">${links.title}</h3>
-<div class="cmp-links ${links.applySplit ? 'cmp-links--split' :''}">
-    <ul data-sly-test="${links.linkItems}"
-        data-sly-list.linkItem="${links.linkItems}"
-        class="cmp-links">
-        <li class="cmp-links__item">
-            <a class="cmp-links__link cmp-links__external-link--${linkItem.external}" href="${linkItem.link.href}" target="${linkItem.external ? '_blank' : ''}">
-                ${linkItem.text}</a>
-        </li>
-    </ul>
-</div>
+<ul data-sly-test="${links.linkItems}"
+    data-sly-list.linkItem="${links.linkItems}"
+    class="cmp-links ${links.applySplit ? 'cmp-links--split' :''}">
+    <li class="cmp-links__item">
+        <a class="cmp-links__link cmp-links__external-link--${linkItem.external}" href="${linkItem.link.href}" target="${linkItem.external ? '_blank' : ''}">
+            ${linkItem.text}</a>
+    </li>
+</ul>
 
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
      data-sly-call="${patterns.placeholder @ show=!links.linkItems, text=component.title}"/>

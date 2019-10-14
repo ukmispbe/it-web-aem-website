@@ -170,26 +170,12 @@ class FilterSection extends Component {
         }
     };
 
-    checkIfExpanded = () => {
-        if (this.props.selected === -1) {
-            if (this.props.facet.name === this.props.activeCategory) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     render() {
         const props = this.props;
+        const className = `cmp-search-filters__filter ${props.isExpanded ? 'expanded' : ''}`
 
         return (
-            <li
-                className={
-                    ((props.item == props.selected && props.last != props.selected) || this.checkIfExpanded())
-                        ? 'cmp-search-filters__filter expanded'
-                        : 'cmp-search-filters__filter'
-                }
-            >
+            <li className={className}>
                 <a
                     href="javascript:void(0);"
                     className="filter-toggle"
@@ -234,7 +220,8 @@ FilterSection.propTypes = {
     selected: PropTypes.number.isRequired,
     selectedFacets: PropTypes.object,
     text: PropTypes.object.isRequired,
-    activeCategory: PropTypes.string
+    activeCategory: PropTypes.string,
+    isExpanded: PropTypes.bool
 };
 
 export default FilterSection;
