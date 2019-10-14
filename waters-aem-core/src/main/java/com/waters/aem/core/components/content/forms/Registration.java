@@ -51,7 +51,7 @@ public class Registration implements ComponentExporter {
         Locale locale = new Locale("", countryCode);
 
         countryMap.put("countryCode", locale.getCountry().toLowerCase());
-        countryMap.put("displayName", locale.getDisplayName());
+        countryMap.put("displayName", locale.getDisplayCountry().replaceAll("'", "\'"));
 
         return countryMap;
     }
