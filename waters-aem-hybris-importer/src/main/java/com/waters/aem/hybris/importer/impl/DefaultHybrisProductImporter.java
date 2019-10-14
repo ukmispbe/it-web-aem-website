@@ -81,10 +81,8 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
             results.addAll(importProductLists(resourceResolver, productsNode, lastImportDate, force));
 
             // set last import date
-            if (!force) {
-                productsResource.adaptTo(ModifiableValueMap.class)
-                    .put(HybrisImporterConstants.PROPERTY_LAST_IMPORT_DATE, currentImportDate);
-            }
+            productsResource.adaptTo(ModifiableValueMap.class)
+                .put(HybrisImporterConstants.PROPERTY_LAST_IMPORT_DATE, currentImportDate);
 
             resourceResolver.commit();
 
