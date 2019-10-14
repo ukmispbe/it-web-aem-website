@@ -417,6 +417,7 @@
 
                 @supports (display: inline-grid) {
                     display: inline-block;
+                    white-space: normal;
                 }
 
                 &:hover {
@@ -449,6 +450,7 @@
             position: absolute;
             top: 100%;
             right: -1px;
+            z-index: 1;
             min-height: 38px;
             -webkit-box-align: center;
             align-items: center;
@@ -509,11 +511,9 @@
 }
 
 .cmp-footer__china-legal {
-   position: absolute;
-   right: 0;
-   top: 0;
    font-size: $font-size-small;
    font-weight: $font-weight-light;
+   margin-top: $space-s;
 
    @include tablet-and-under {
       position: relative;
@@ -524,7 +524,8 @@
       position: absolute;
       top: 100%;
       left: 0;
-      padding-top: $space-xxl;
+      margin-top: 0;
+      padding-top: $space-l;
    }
 
    &-sICP {
@@ -534,13 +535,8 @@
          line-height: 1em!important;
       }
 
-      img {
-         position: absolute;
-         bottom: 0;
-      }
-
       span {
-         padding-left: 70px;
+         padding-left: 20px;
       }
    }
 
@@ -555,13 +551,8 @@
          padding-top: $space-l!important;
       }
 
-      img {
-         position: absolute;
-         bottom: 0;
-      }
-
       span {
-         padding-left: 30px;
+         padding-left: 10px;
       }
    }
 }

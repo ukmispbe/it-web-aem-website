@@ -8,7 +8,6 @@ class DoneSortFilter extends Component {
     }
 
     handleInput(e) {
-        document.body.classList.remove('filter-active');
         this.props.collapseFilters();
     }
 

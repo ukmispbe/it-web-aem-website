@@ -9,25 +9,21 @@ import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.citytechinc.cq.component.annotations.widgets.TextArea;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.commons.Externalizer;
+import com.day.cq.commons.LanguageUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.enums.TitleType;
 import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
-import com.waters.aem.core.commerce.models.Classification;
 import com.waters.aem.core.commerce.models.Sku;
-import com.waters.aem.core.commerce.services.SkuRepository;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
-
 import com.waters.aem.core.utils.LocaleUtils;
-
 import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.inject.Inject;
@@ -67,6 +63,9 @@ public final class Meta extends AbstractComponent {
     private static final String DEFAULT_TWITTER_CARD = "summary_large_image";
 
     private static final String DEFAULT_OG_TYPE = "none";
+
+
+    private static final String DEFAULT_HREF_LANG_PATH = WatersConstants.ROOT_PATH + "/us/en";
 
     @Inject
     private Sku sku;
@@ -278,6 +277,17 @@ public final class Meta extends AbstractComponent {
 
     public boolean isHomepage() {
         return Templates.isHomePage(currentPage);
+    }
+
+    public String getDefaultHreflang() {
+        final String languageRootPath = LanguageUtil.getLanguageRoot(currentPage.getPath());
+
+        final String relativeContentPath = LocaleUtils.getRelativeContentPath(languageRootPath, currentPage.getPath());
+
+        return Optional.ofNullable(
+            currentPage.getPageManager().getPage(DEFAULT_HREF_LANG_PATH + "/" + relativeContentPath))
+            .map(page -> externalize(page.getHref()))
+            .orElse(null);
     }
 
     public boolean isSkuPage() {
