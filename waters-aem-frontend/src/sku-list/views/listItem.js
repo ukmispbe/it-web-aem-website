@@ -27,7 +27,8 @@ class ListItem extends React.Component {
                 textHeading: this.props.relatedSku.code,
                 text: this.props.relatedSku.title,
             },
-            errorObj: {},
+            errorObjCart: {},
+            errorObjAvailability: {},
         };
         this.request = new SkuService(
             this.state.userCountry,
@@ -41,7 +42,10 @@ class ListItem extends React.Component {
             },
             err => {
                 // Add Error Object to State
-                this.setState({ errorObj: err });
+                this.setState({
+                    errorObjCart: err,
+                    errorObjAvailability: err
+                });
             }
         );
 
@@ -51,7 +55,7 @@ class ListItem extends React.Component {
 
     toggleErrorModal = (err) => {
         // Add Error Object to State
-        this.setState({ errorObj: err });
+        this.setState({ errorObjCart: err });
         this.setState({ modalShown: !this.state.modalShown })
     };
 
@@ -73,7 +77,7 @@ class ListItem extends React.Component {
             })
             .catch(err => {
                 // Add Error Object to State
-                this.setState({ errorObj: err });
+                this.setState({ errorObjAvailability: err });
             });
     };
 
@@ -101,7 +105,7 @@ class ListItem extends React.Component {
                     }
                 >
                     {(this.state.skuAvailability.productStatus ||
-                    (this.state && this.state.errorObj && this.state.errorObj.ok === false))
+                    (this.state && this.state.errorObjAvailability && this.state.errorObjAvailability.ok === false))
                     && (
                         <Stock
                             skuConfig={this.props.skuConfig.skuInfo}
@@ -109,11 +113,11 @@ class ListItem extends React.Component {
                             skuAvailability={this.state.skuAvailability}
                             locale={this.props.skuConfig.locale}
                             skuType="details"
-                            errorObj={this.state.errorObj}
+                            errorObj={this.state.errorObjAvailability}
                         />
                     )}
                     {(!this.state.skuAvailability.productStatus &&
-                    !(this.state && this.state.errorObj && this.state.errorObj.ok === false))
+                    !(this.state && this.state.errorObjAvailability && this.state.errorObjAvailability.ok === false))
                     && (
                         <span className="cmp-sku-list__checkavailability">
                             {
@@ -140,7 +144,6 @@ class ListItem extends React.Component {
                         addToCartLabel={this.props.skuConfig.addToCartLabel}
                         addToCartUrl={this.props.skuConfig.addToCartUrl}
                         toggleErrorModal={this.toggleErrorModal}
-                        skuConfig={this.props.skuConfig}
                     ></AddToCart>
                 </div>
                 <Modal
@@ -149,7 +152,7 @@ class ListItem extends React.Component {
                     theme="callToAction"
                     config={this.state.modalInfo}
                     partNumberLabel={this.props.skuConfig.skuInfo.partNumberLabel}
-                    errorObj={this.state.errorObj}
+                    errorObj={this.state.errorObjCart}
                 />
             </div>
         );

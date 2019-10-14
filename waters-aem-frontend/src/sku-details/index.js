@@ -116,7 +116,6 @@ class SkuDetails extends React.Component {
                         addToCartLabel={this.props.config.addToCartLabel}
                         addToCartUrl={this.props.config.addToCartUrl}
                         toggleErrorModal={this.toggleErrorModal}
-                        skuConfig={this.state.skuConfig}
                     ></AddToCart>
                 </div>
                 <Modal

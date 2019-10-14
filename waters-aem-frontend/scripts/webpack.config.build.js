@@ -2,13 +2,43 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
+function recursiveIssuer(m) {
+    if (m.issuer) {
+        return recursiveIssuer(m.issuer);
+    } else if (m.name) {
+        return m.name;
+    } else {
+        return false;
+    }
+}
+
 module.exports = {
-    entry: './src/entry.js',
+    entry: {
+        main: './src/entry.js',
+        print: './src/printEntry.js'
+    },
     output: {
-        filename: 'main.js',
         path: path.resolve(__dirname, '../', 'build')
     },
     optimization: {
+        splitChunks: {
+            cacheGroups: {
+                mainStyles: {
+                    name: 'main',
+                    test: (m, c, entry = 'main') =>
+                    m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
+                    chunks: 'all',
+                    enforce: true,
+                },
+                printStyles: {
+                    name: 'print',
+                    test: (m, c, entry = 'print') =>
+                    m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
+                    chunks: 'all',
+                    enforce: true,
+                },
+            },
+        },
         minimizer: [
             new OptimizeCSSAssetsPlugin({})
         ]
