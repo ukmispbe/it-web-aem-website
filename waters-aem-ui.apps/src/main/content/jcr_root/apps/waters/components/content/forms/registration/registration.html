@@ -1,6 +1,65 @@
-<div data-sly-use.registration="com.waters.aem.core.components.content.forms.Registration"
-     data-json='${registration.countriesJson @ context="unsafe"}'>
+<div data-sly-use.registration="com.waters.aem.core.components.content.forms.Registration">
+    <div class="cmp-form--attach" id="js-registration-form"></div>
+    <script type="application/json" id="cmp-registration-form">
+            {
+                "submitEndpoint": "http://waters.com",
+                "disclaimer": "By clicking Create My Account button you are agreeing to our <a href=\"#\">Terms and Conditions</a>",
+                "buttonText": "${'Create My Account' @ i18n, context='scriptString'}",
+                "fields": [
+                    {
+                        "type": "text",
+                        "name": "firstName",
+                        "label": "${'First Name' @ i18n, context='scriptString'}"
+                    },
+                    {
+                        "type": "text",
+                        "name": "lastName",
+                        "label": "${'Last Name' @ i18n, context='scriptString'}"
+                    },
+                    {
+                        "type": "text",
+                        "name": "company",
+                        "label": "${'Company' @ i18n, context='scriptString'}"
+                    },
+                    {
+                        "type": "dropdown",
+                        "name": "country",
+                        "label": "${'Country' @ i18n, context='scriptString'}",
+                        "placeholder": "${'Select...' @ i18n, context='scriptString'}",
+                        "dropdownIndicator": "./down.svg",
+                        "options": ${registration.countriesJson @ context="unsafe"}
+                    },
+                    {
+                        "type": "break"
+                    },
+                    {
+                        "type": "email",
+                        "name": "email",
+                        "label": "${'Email' @ i18n, context='scriptString'}",
+                        "description": "${'This will be your username' @ i18n, context='scriptString'}"
+                    },
+                    {
+                        "type": "password",
+                        "name": "password",
+                        "label": "${'Password' @ i18n, context='scriptString'}",
+                        "validation": "standard"
 
+                    },
+                    {
+                        "type": "password",
+                        "name": "passwordConfirm",
+                        "label": "${'Confirm Password' @ i18n, context='scriptString'}",
+                        "validation": "match"
+                    },
+                    {
+                        "type": "checkbox",
+                        "name": "communications",
+                        "label": "${'I want to receive communications from Waters.' @ i18n, context='scriptString'}"
+
+                    }
+                ]
+            }
+        </script>
 </div>
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
      data-sly-call="${patterns.placeholder @ show=true, text=component.title}"/>

@@ -1,12 +1,12 @@
-import React from 'react';
-import useForm from 'react-hook-form';
-import Text from './fields/text';
-import Password from './fields/password';
-import Email from './fields/email';
-import Radio from './fields/radio';
-import Checkbox from './fields/checkbox';
-import Dropdown from './fields/dropdown';
-import Hr from './fields/hr';
+import React from "react";
+import useForm from "react-hook-form";
+import Text from "./fields/text";
+import Password from "./fields/password";
+import Email from "./fields/email";
+import Radio from "./fields/radio";
+import Checkbox from "./fields/checkbox";
+import Dropdown from "./fields/dropdown";
+import Hr from "./fields/hr";
 
 const formType = {
     text: Text,
@@ -16,7 +16,7 @@ const formType = {
     checkbox: Checkbox,
     dropdown: Dropdown,
     select: Dropdown,
-    break: Hr,
+    break: Hr
 };
 
 const Form = ({ config, submitFn }) => {
@@ -36,7 +36,10 @@ const Form = ({ config, submitFn }) => {
     };
 
     return (
-        <form className="cmp-form" onSubmit={handleSubmit(submitFn)}>
+        <form
+            className="cmp-form--registration"
+            onSubmit={handleSubmit(submitFn)}
+        >
             {f}
             <div
                 className="cmp-form__disclaimer"
