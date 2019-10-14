@@ -39,23 +39,22 @@ public class Registration implements ComponentExporter {
         final List<Map<String, Object>> countryList = new ArrayList<>();
 
         countryList.addAll(Arrays.asList(Locale.getISOCountries()).stream()
-        .map(this::getCountryMap)
-        .collect(Collectors.toList()));
+            .map(this::getCountryMap)
+            .collect(Collectors.toList()));
 
         return MAPPER.writeValueAsString(countryList);
     }
 
-    public Map<String, Object> getCountryMap(String countryCode) {
+    private Map<String, Object> getCountryMap(String countryCode) {
         final Map<String, Object> countryMap = new HashMap<>();
 
-        Locale locale = new Locale("", countryCode);
+        final Locale locale = new Locale("", countryCode);
 
         countryMap.put("countryCode", locale.getCountry().toLowerCase());
         countryMap.put("displayName", locale.getDisplayCountry().replaceAll("'", "\'"));
 
         return countryMap;
     }
-
 
     @Nonnull
     @Override
