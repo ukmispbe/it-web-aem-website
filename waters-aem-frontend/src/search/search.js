@@ -558,7 +558,9 @@ class Search extends Component {
         query.page = 1;
         query.sort = sortOption;
 
-        this.pushToHistory(query, query.facets);
+        this.setState({forceCollapseFilters: true}, () => {
+            this.pushToHistory(query, query.facets);
+        });
     }
 
     categoryChangeHandler = e => this.handleCategorySelected(e.value);
