@@ -19,6 +19,8 @@ public final class WatersConstants {
 
     public static final String COMPONENT_PATH_APPLICATION_NOTES = "/content/applicationnotes";
 
+    public static final String COMPONENT_PATH_REGISTRATION_FORM = "/content/forms";
+
     public static final String DAM_PATH = "/content/dam/waters";
 
     public static final String DAM_PATH_APP_NOTES = "/content/dam/waters/en/app-notes/";
