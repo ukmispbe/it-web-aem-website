@@ -679,7 +679,7 @@ class Search extends Component {
 
         query.page = 1;
         
-        this.setState({forceCollapseFilters: true}, () => {
+        this.setState({forceCollapseFilters: true, activeFilterIndex: -1}, () => {
             this.pushToHistory(query, query.facets);
         });
     };
