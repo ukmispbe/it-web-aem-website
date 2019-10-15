@@ -31,20 +31,18 @@ const Form = ({ config, submitFn }) => {
         }
     });
 
-    const createMarkupForDisclaimer = () => {
-        return { __html: config.disclaimer };
-    };
-
     return (
         <form
             className="cmp-form--registration"
             onSubmit={handleSubmit(submitFn)}
         >
             {f}
-            <div
-                className="cmp-form__disclaimer"
-                dangerouslySetInnerHTML={createMarkupForDisclaimer()}
-            ></div>
+            <div className="cmp-form__disclaimer">
+                {config.disclaimerText + " "}
+                <a href={config.termsAndConditionsLink}>
+                    {config.termsAndConditionsText}
+                </a>
+            </div>
             <button type="submit" className="cmp-button">
                 {config.buttonText}
             </button>
