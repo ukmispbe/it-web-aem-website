@@ -21,6 +21,8 @@ public class HrefLangItem {
     }
 
     public String getLanguageTag() {
-        return LocaleUtils.getLocaleWithCountryForPage(page).toLanguageTag();
+        return LocaleUtils.isGlobalRegionPage(page) ?
+                page.getLanguage(false).toLanguageTag() :
+                LocaleUtils.getLocaleWithCountryForPage(page).toLanguageTag();
     }
 }

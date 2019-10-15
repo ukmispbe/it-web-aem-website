@@ -30,7 +30,8 @@ class ShowSortFilter extends Component {
             document.body.classList.add(showFilterClass);
             this.setState({ showSortFilters: true });
             this.props.setupFilters();
-
+            this.props.collapseFilters();
+            
             domElements.noScroll(true);
 
             if (screenSizes.isMobile()) {

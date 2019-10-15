@@ -520,6 +520,10 @@ html.showing-spinner {
         #surveyContent {
             display: none;
         }
+
+        .heading--with-selected-value {
+            display: none;
+        }
     }
     @include mobile {
         .cmp-search-show-btn {

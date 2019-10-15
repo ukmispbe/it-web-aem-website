@@ -5,17 +5,18 @@ class HideSortFilter extends Component {
     constructor(props) {
         super(props);
         this.state = { value: '' };
-        this.handleInput = this.handleInput.bind(this);
+        // this.handleInput = this.handleInput.bind(this);
     }
 
-    handleInput(e) {
-        document.body.classList.remove('show-sort-filters');
-        document.body.classList.remove('filter-active');
-        this.setState({ showSortFilters: true });
+    // handleInput(e) {
+    //     document.body.classList.remove('show-sort-filters');
+    //     document.body.classList.remove('filter-active');
+    //     this.setState({ showSortFilters: true });
 
-        this.props.resetToSavedState();
-        this.props.collapseFilters();
-    }
+    //     this.props.resetToSavedState();
+    //     this.props.collapseFilters();
+
+    // }
 
     render() {
         const props = this.props;
@@ -23,7 +24,7 @@ class HideSortFilter extends Component {
             <div className="cmp-search-hide-btn clearfix">
                 <a
                     href="javascript:void(0);"
-                    onClick={this.handleInput}
+                    onClick={props.onClick}
                     className="btn-hide-sort-filter"
                 >
                     <ReactSVG src={props.text.closeIcon} />
