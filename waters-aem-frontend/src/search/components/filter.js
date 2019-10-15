@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FilterSection from './filter-section';
 import validator from 'validator';
 import PropTypes from 'prop-types';
+import { searchMapper } from '../services/index';
 
 class Filter extends Component {
     constructor(props) {
@@ -118,28 +119,7 @@ class Filter extends Component {
         }
     }
 
-    getMappings = () => {
-        const facetName = `${this.props.contentType}_facet`;
-
-        const facet = Array.isArray(this.props.filterMap.orderedFacets)
-            ? this.props.filterMap.orderedFacets.find(item => item.facetName === facetName)
-            : null;
-
-        if (!facet) { return; }
-
-        const orderedFacets = facet.orderedFacets.filter(item => this.props.facets[item.facetName]);
-
-        const mapping = orderedFacets.map(facet => {
-            return {
-                name: facet.facetName,
-                category: facet.facetValue,
-                facets: this.props.facets[facet.facetName],
-                isExpanded: false,
-            }
-        });
-
-        return mapping;
-    };
+    getMappings = () => searchMapper.mapFacetGroups(this.props.contentType, this.props.filterMap, this.props.facets);
 
     getFilters() {
         if(this.props.showTagsOnly) return <></>;
