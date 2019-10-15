@@ -3,8 +3,13 @@ package com.waters.aem.core.components.content.forms;
 import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
+import com.citytechinc.cq.component.annotations.DialogField;
+import com.citytechinc.cq.component.annotations.Listener;
+import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.icfolson.aem.library.api.link.Link;
+import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -20,9 +25,19 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_COPY;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_EDIT;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_MOVE;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH_PAGE;
+
 @Component(value = "Registration Form",
     description = "This is the Registration Form component for Waters site",
-    path = WatersConstants.COMPONENT_PATH_REGISTRATION_FORM)
+    path = WatersConstants.COMPONENT_PATH_REGISTRATION_FORM,
+    listeners = {
+        @Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
+        @Listener(name = EVENT_AFTER_MOVE, value = REFRESH_PAGE),
+        @Listener(name = EVENT_AFTER_COPY, value = REFRESH_PAGE)
+    })
 @Model(adaptables = SlingHttpServletRequest.class,
     adapters = { Registration.class, ComponentExporter.class },
     resourceType = Registration.RESOURCE_TYPE,
@@ -34,6 +49,16 @@ public class Registration implements ComponentExporter {
     public static final String RESOURCE_TYPE = "waters/components/content/forms/registration";
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    @DialogField(fieldLabel = "Terms and Conditions Link",
+        fieldDescription = "Select or enter the link URL")
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject
+    private Link termsAndConditionsLink;
+
+    public Link getTermsAndConditionsLink() {
+        return termsAndConditionsLink;
+    }
 
     public String getCountriesJson() throws JsonProcessingException {
         final List<Map<String, Object>> countryList = new ArrayList<>();
