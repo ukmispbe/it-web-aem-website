@@ -7,7 +7,6 @@ class Filter extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeIndex: -1,
             lastIndex: -1,
             facetName: '',
             isExpanded: false,
@@ -44,37 +43,17 @@ class Filter extends Component {
     }
 
     setState_ActiveFacet = () => {
-        if (this.props.facetGroupsSelectedOrder && this.props.facetGroupsSelectedOrder.length !== 0) {
-            const lastFacetGroupSelectedName = this.props.facetGroupsSelectedOrder[this.props.facetGroupsSelectedOrder.length - 1];
+        const mappings = this.getMappings();
+        const facetGroups = this.mapFacetGroupsState(this.props.activeIndex, mappings);
+        const facetName = 
+            this.props.activeIndex !== -1 
+            ? this.props.facetGroupsSelectedOrder[this.props.activeIndex]
+            : '';
 
-            const mappings = this.getMappings();
-
-            const lastFacetGroupSelectedIndex = mappings.findIndex(element => element.name === lastFacetGroupSelectedName);
-
-            if (lastFacetGroupSelectedIndex !== -1) {
-                const secondToLastFacetGroupsSelectectedName = 
-                    this.props.facetGroupsSelectedOrder.length !== 1 
-                        ? this.props.facetGroupsSelectedOrder[this.props.facetGroupsSelectedOrder.length - 2]
-                        : '';
-                
-                const lastIndexState = 
-                    secondToLastFacetGroupsSelectectedName !== ''
-                    ? mappings.findIndex(element => element.name === secondToLastFacetGroupsSelectectedName)
-                    : lastFacetGroupSelectedIndex;
-                
-                const facetGroups = this.mapFacetGroupsState(lastFacetGroupSelectedIndex, mappings);
-
-                this.setState({ 
-                    activeIndex: lastFacetGroupSelectedIndex, 
-                    facetName: lastFacetGroupSelectedName, 
-                    facetGroups, 
-                    lastIndex: lastIndexState
-                });
-            }
-        } else if (this.state.activeIndex !== -1) {
-            const facetGroups = this.mapFacetGroupsState(this.state.activeIndex, this.getMappings());
-            this.setState({facetGroups});
-        }
+        this.setState({ 
+            facetName,
+            facetGroups
+        });
     }
 
     componentDidMount() {
@@ -86,14 +65,15 @@ class Filter extends Component {
             Check if content type was removed and there is an expanded filter.
             If so, reset state so all filters are collapsed.
         */
-        if(prevProps.contentType && !this.props.contentType && this.state.activeIndex !== -1) {
+        if(prevProps.contentType && !this.props.contentType && this.props.activeIndex !== -1) {
             const classNameFilterActive = 'filter-active';
 
             if(Array.from(document.body.classList).find(item => item === classNameFilterActive)) {
                 document.body.classList.remove(classNameFilterActive);
             }
 
-            this.setState({activeIndex: -1, facetName: "", isExpanded: false, lastIndex: -1});
+            //this.setState({activeIndex: -1, facetName: "", isExpanded: false, lastIndex: -1});
+            this.props.onGroupClick(-1);
             return;
         }
 
@@ -102,7 +82,7 @@ class Filter extends Component {
             If the facet groups have been modified due to other facets being checked off,
             then this will recaludate the active index because it may have changed.
         */
-        if (this.state.activeIndex !== -1) {
+        if (this.props.activeIndex !== -1) {
             const prevFacets = JSON.stringify(prevProps.facets);
             const currFacets = JSON.stringify(this.props.facets);
 
@@ -126,13 +106,15 @@ class Filter extends Component {
         
         if (this.state.facetGroups[index].isExpanded) {
             const facetGroups = this.mapFacetGroupsState(-1, this.getMappings());
-            this.setState({activeIndex: -1, facetGroups, lastIndex: -1});
+            this.setState({facetGroups, lastIndex: -1});
             document.body.classList.remove('filter-active');
+            this.props.onGroupClick(-1);
         } else {
-            const lastIndex = this.state.activeIndex === -1 ? index : this.state.activeIndex;
+            const lastIndex = this.props.activeIndex === -1 ? index : this.props.activeIndex;
             const facetGroups = this.mapFacetGroupsState(index, this.getMappings());
-            this.setState({activeIndex: index, facetGroups, lastIndex});
+            this.setState({facetGroups, lastIndex});
             document.body.classList.add('filter-active');
+            this.props.onGroupClick(index);
         }
     }
 
@@ -170,7 +152,7 @@ class Filter extends Component {
                 <FilterSection
                     key={`${item.category}#_${index}`}
                     last={this.state.lastIndex}
-                    selected={this.state.activeIndex}
+                    selected={this.props.activeIndex}
                     item={index}
                     handleInput={e => this.filterHandler(item.name, index)}
                     text={props.text}
@@ -206,6 +188,7 @@ Filter.propTypes = {
     showTagsOnly: PropTypes.bool,
     facetGroupsSelectedOrder: PropTypes.array,
     collapseAllFilters: PropTypes.bool,
+    onGroupClick: PropTypes.func,
 }
 
 Filter.defaultProps = {
@@ -216,6 +199,7 @@ Filter.defaultProps = {
     showTagsOnly: false,
     facetGroupsSelectedOrder: [],
     collapseAllFilters: false,
+    onGroupClick: () => {}
 }
 
 export default Filter;

@@ -164,6 +164,7 @@ class Search extends Component {
             tabHistory: {},
             facetGroupsSelectedOrder: [],
             collapseAllFilters: false,
+            activeFilterIndex: -1,
         };
     }
 
@@ -593,14 +594,7 @@ class Search extends Component {
         query.page = 1;
         query.facets = {... newState.selectedFacets};
 
-        if (screenSizes.isTabletAndUnder() && query.facets[`${categoryId}`].length === 0) {
-            // all sub facets have bee de-selected therefore, force all facet groups to collapse
-            this.setState({forceCollapseFilters: true}, () => {
-                this.pushToHistory(query, query.facets);
-            })
-        } else {
-            this.pushToHistory(query, query.facets);
-        }
+        this.pushToHistory(query, query.facets);
     }
 
     removeTag(tag) {
@@ -808,6 +802,7 @@ class Search extends Component {
                         showTagsOnly={true}
                         facetGroupsSelectedOrder={this.state.facetGroupsSelectedOrder}
                         collapseAllFilters={this.state.collapseAllFilters}
+                        activeIndex={this.activeFilterIndex}
                     />
                 </CategoriesMenu>
             );
@@ -833,11 +828,17 @@ class Search extends Component {
                         contentType={this.state.contentType}
                         facetGroupsSelectedOrder={this.state.facetGroupsSelectedOrder}
                         collapseAllFilters={this.state.collapseAllFilters}
+                        activeIndex={this.state.activeFilterIndex}
+                        onGroupClick={this.handleFilterGroupClick}
                     />
                 </CategoriesMenu>
             );
         }
     };
+
+    handleFilterGroupClick = (index) => {
+        this.setState({activeFilterIndex: index});
+    }
 
     getFilterTags = () => {
         if (this.showFilteringComponents() && (this.isKeywordSelected() || this.isContentTypeSelected())) {
@@ -1156,8 +1157,15 @@ class Search extends Component {
         : <></>;
     
     handleHideSortFilterClick = () => {
-        this.resetToSavedState();
+        const searchParamsStringify = JSON.stringify(this.state.searchParams);
+        const savedParamsStringify = JSON.stringify(this.state.savedState.searchParams);
+
+        if (searchParamsStringify !== savedParamsStringify) {
+            this.resetToSavedState();
+        }
+
         setTimeout(() => {
+            domElements.noScroll(false);
             this.deactivateFilters();
             this.hideSortFiltersModal();
         }, 0);
@@ -1225,6 +1233,7 @@ class Search extends Component {
                         setupFilters={this.setupFilters.bind(this)}
                         resetToSavedState={this.resetToSavedState.bind(this)}
                         collapseFilters={this.collapseFilters}
+                        onClose={this.handleHideSortFilterClick}
                     />
                 </div>
 
