@@ -12,6 +12,7 @@ import com.day.cq.dam.commons.util.PrefixRenditionPicker;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.brightcove.BrightcoveService;
+import com.waters.aem.core.utils.BrightcoveUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -114,15 +115,11 @@ public class Video implements ComponentExporter{
     }
 
     public String getBrightcoveAccount() {
-        final String countryCode = siteContext.getLocaleWithCountry().getCountry();
-        return countryCode.equalsIgnoreCase("cn") ? brightcoveService.getChinaBrightcoveAccount() :
-            brightcoveService.getBrightcoveAccount();
+        return BrightcoveUtils.getBrightcoveAccount(siteContext, brightcoveService);
     }
 
     public String getBrightcovePlayerId() {
-        final String countryCode = siteContext.getLocaleWithCountry().getCountry();
-        return  countryCode.equalsIgnoreCase("cn") ? brightcoveService.getChinaBrightcovePlayerId() :
-            brightcoveService.getBrightcovePlayerId();
+        return BrightcoveUtils.getBrightcovePlayerId(siteContext, brightcoveService);
     }
 
     public String getThumbnailRendition() {

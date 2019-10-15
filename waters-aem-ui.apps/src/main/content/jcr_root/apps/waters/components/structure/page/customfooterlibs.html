@@ -7,11 +7,12 @@
 
 <!-- Brightcove framework start -->
 
-<sly data-sly-use.video="com.waters.aem.core.components.content.Video">
-    <script src="//players.brightcove.net/${video.brightcoveAccount}/${video.brightcovePlayerId}_default/index.min.js"></script>
+<sly data-sly-use.scriptHelper="com.waters.aem.core.components.structure.page.ScriptHelper"
+     data-sly-test="${scriptHelper.pageHasVideoComponent}">
+    <script src="//players.brightcove.net/${scriptHelper.brightcoveAccount}/${scriptHelper.brightcovePlayerId}_default/index.min.js"></script>
 </sly>
 
- <!-- Brightcove framework end-->
+<!-- Brightcove framework end-->
 
 <!-- launch script end -->
 <script type="text/javascript">_satellite.pageBottom();</Script>
