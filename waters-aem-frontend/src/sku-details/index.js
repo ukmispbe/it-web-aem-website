@@ -1,17 +1,17 @@
 // entry point for SKU. Move this up to global entry point if we want babel to polyfill everything we need at build time
-import React from 'react';
-import ReactSVG from 'react-svg';
-import PropTypes from 'prop-types';
-import { Modal } from '../modal/index';
-import Stock from './views/stock';
-import Price from './views/price';
-import SkuService from './services';
-import AddToCart from './views/addToCart';
-import FeedbackSurvey from '../scripts/feedbackSurvey';
-import LoginStatus from '../scripts/loginStatus';
-import CheckOutStatus from '../scripts/checkOutStatus';
-import SkuMessage from '../sku-shared/views/SkuMessage';
-import Ecommerce from '../scripts/ecommerce';
+import React from "react";
+import ReactSVG from "react-svg";
+import PropTypes from "prop-types";
+import { Modal } from "../modal/index";
+import Stock from "./views/stock";
+import Price from "./views/price";
+import SkuService from "./services";
+import AddToCart from "./views/addToCart";
+import FeedbackSurvey from "../scripts/feedbackSurvey";
+import LoginStatus from "../scripts/loginStatus";
+import CheckOutStatus from "../scripts/checkOutStatus";
+import SkuMessage from "../sku-shared/views/SkuMessage";
+import Ecommerce from "../scripts/ecommerce";
 
 class SkuDetails extends React.Component {
     constructor(props) {
@@ -30,21 +30,21 @@ class SkuDetails extends React.Component {
             modalInfo: {
                 ...this.props.config.modalInfo,
                 textHeading: this.props.skuNumber,
-                text: this.props.titleText,
+                text: this.props.titleText
             },
             errorObj: {},
-            discontinued: (this.props.discontinued == 'true')
+            discontinued: this.props.discontinued == "true"
         };
 
         this.request = new SkuService(
             this.state.userCountry,
             {
                 availability: this.props.config.availabilityUrl,
-                price: this.props.config.pricingUrl,
+                price: this.props.config.pricingUrl
             },
             {
                 addToCart: this.props.config.addToCartUrl,
-                getCart: '',
+                getCart: ""
             },
             err => {
                 // Add Error Object to State
@@ -64,8 +64,8 @@ class SkuDetails extends React.Component {
                     modalInfo: {
                         ...this.props.config.modalInfo,
                         textHeading: this.props.skuNumber,
-                        text: this.props.titleText,
-                    },
+                        text: this.props.titleText
+                    }
                 });
             })
             .catch(err => {
@@ -84,10 +84,10 @@ class SkuDetails extends React.Component {
         });
     };
 
-    toggleErrorModal = (err) => {
+    toggleErrorModal = err => {
         // Add Error Object to State
         this.setState({ errorObj: err });
-        this.setState({ modalShown: !this.state.modalShown })
+        this.setState({ modalShown: !this.state.modalShown });
     };
 
     renderBuyInfo = () => {
@@ -128,8 +128,7 @@ class SkuDetails extends React.Component {
                 />
             </div>
         );
-    }
-
+    };
 
     renderActiveSku = () => {
         if (Ecommerce.isDisabledState()) {
@@ -138,35 +137,49 @@ class SkuDetails extends React.Component {
                     icon={this.props.config.commerceConfig.disabledIcon}
                     message={this.props.config.commerceConfig.disabledText}
                     link={this.props.config.commerceConfig.disabledHref}
-                    linkMessage={this.props.config.commerceConfig.disabledLinkText}
+                    linkMessage={
+                        this.props.config.commerceConfig.disabledLinkText
+                    }
                 />
             );
         } else {
-
-            if ((Ecommerce.isPartialState() && LoginStatus.state() && CheckOutStatus.state()) || (!Ecommerce.isPartialState() && !Ecommerce.isDisabledState())) {
-                return (
-                    <>
-                        {this.renderBuyInfo()}
-                    </>
-                );
+            if (
+                (Ecommerce.isPartialState() &&
+                    LoginStatus.state() &&
+                    CheckOutStatus.state()) ||
+                (!Ecommerce.isPartialState() && !Ecommerce.isDisabledState())
+            ) {
+                return <>{this.renderBuyInfo()}</>;
             } else {
                 return (
                     <SkuMessage
                         icon={this.props.config.commerceConfig.disabledIcon}
-                        message={this.props.config.commerceConfig.partialDisabledText}
-                        link={this.props.config.commerceConfig.partialDisabledHref}
-                        linkMessage={this.props.config.commerceConfig.partialDisabledLinkText}
+                        message={
+                            this.props.config.commerceConfig.partialDisabledText
+                        }
+                        link={
+                            this.props.config.commerceConfig.partialDisabledHref
+                        }
+                        linkMessage={
+                            this.props.config.commerceConfig
+                                .partialDisabledLinkText
+                        }
                     />
-                )
+                );
             }
         }
-    }
+    };
 
     render() {
         if (this.state.discontinued) {
-            let discontinuedMessage = this.props.config.skuInfo.discontinuedWithReplacementWithCode;
-            if(!this.props.replacementSkuCode || !this.props.replacementSkuHref){
-                discontinuedMessage = this.props.config.skuInfo.discontinuedNoReplacementCode
+            let discontinuedMessage = this.props.config.skuInfo
+                .discontinuedWithReplacementWithCode;
+            if (
+                !this.props.replacementSkuCode ||
+                !this.props.replacementSkuHref
+            ) {
+                discontinuedMessage = this.props.config.skuInfo
+                    .discontinuedNoReplacementCode;
             }
             return (
                 <SkuMessage
@@ -184,7 +197,7 @@ class SkuDetails extends React.Component {
 }
 
 SkuDetails.propTypes = {
-    config: PropTypes.object.isRequired,
+    config: PropTypes.object.isRequired
 };
 
 export default SkuDetails;

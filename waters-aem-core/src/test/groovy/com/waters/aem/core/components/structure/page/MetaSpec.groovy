@@ -72,7 +72,12 @@ class MetaSpec extends WatersSpec {
                         search()
                     }
                 }
-
+                xg {
+                    en("cq:template": WatersConstants.TEMPLATE_HOME_PAGE) {
+                        appnotes()
+                        search()
+                    }
+                }
             }
         }
 
@@ -273,14 +278,24 @@ class MetaSpec extends WatersSpec {
         meta.hrefLangItems*.languageTag == locale
 
         where:
-        path                              | locale                               | size
-        "/content/waters/us/en/appnotes"  | ["en-US", "es-US", "de-US", "zh-CN"] | 4
-        "/content/waters/us/es/appnotes"  | ["es-US", "en-US", "de-US", "zh-CN"] | 4
-        "/content/waters/us/de/appnotes"  | ["de-US", "en-US", "es-US", "zh-CN"] | 4
-        "/content/waters/cn/zh/appnotes"  | ["zh-CN", "en-US", "es-US", "de-US"] | 4
-        "/content/waters/us/en/sku"       | ["en-US", "es-US", "de-US"]          | 3
-        "/content/waters/us/es/sku"       | ["es-US", "en-US", "de-US"]          | 3
-        "/content/waters/us/de/sku"       | ["de-US", "en-US", "es-US"]          | 3
-        "/content/waters/cn/zh/search"    | ["zh-CN"]                            | 1
+        path                              | locale                                      | size
+        "/content/waters/us/en/appnotes"  | ["en-US", "es-US", "de-US", "zh-CN", "en"]  | 5
+        "/content/waters/us/es/appnotes"  | ["es-US", "en-US", "de-US", "zh-CN", "en"]  | 5
+        "/content/waters/us/de/appnotes"  | ["de-US", "en-US", "es-US", "zh-CN", "en"]  | 5
+        "/content/waters/cn/zh/appnotes"  | ["zh-CN", "en-US", "es-US", "de-US", "en"]  | 5
+        "/content/waters/us/en/sku"       | ["en-US", "es-US", "de-US"]                 | 3
+        "/content/waters/us/es/sku"       | ["es-US", "en-US", "de-US"]                 | 3
+        "/content/waters/us/de/sku"       | ["de-US", "en-US", "es-US"]                 | 3
+        "/content/waters/cn/zh/search"    | ["zh-CN", "en"]                             | 2
+        "/content/waters/xg/en/search"    | ["en", "zh-CN"]                             | 2
+    }
+
+    def "get default hreflang tag"() {
+        setup:
+        def page = getPage("/content/waters/us/de/sku")
+        def meta = page.contentResource.adaptTo(Meta)
+
+        expect:
+        meta.defaultHreflang == "http://www.waters.com/content/waters/us/en/sku.html"
     }
 }

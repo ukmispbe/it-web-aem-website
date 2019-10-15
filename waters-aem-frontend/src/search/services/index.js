@@ -332,6 +332,22 @@ class SearchService {
         }
     };
 
+    mapFacetGroupsToArray = facetParam => {
+        if (Array.isArray(facetParam)) {
+            const facetArray = facetParam.map(item => {
+                const splitArray = item.split(':');
+                return splitArray.length === 2 ? splitArray[0] : '';
+            });
+
+            return facetArray.filter(item => item !== '');
+        } else if (facetParam) {
+            const splitArray = facetParam.split(':');
+            return splitArray.length === 2 ? [splitArray[0]] : [];
+        }
+
+        return [];
+    }
+
     buildParameters = searchValue => {
         const keyword = searchValue ? searchValue : parameterDefaults.keyword;
         const sort =

@@ -147,6 +147,7 @@
         height: $icon-xl;
         width: $icon-xl;
         svg {
+            max-height: $icon-xl;
             .st0 {
                 stroke: $color-gray-30;
             }
@@ -518,6 +519,10 @@ html.showing-spinner {
 .show-sort-filters {
     @include tablet-and-under {
         #surveyContent {
+            display: none;
+        }
+
+        .heading--with-selected-value {
             display: none;
         }
     }
