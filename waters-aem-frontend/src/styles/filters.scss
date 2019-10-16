@@ -2,11 +2,16 @@
     ul {
         padding: 0;
         margin: 0;
+
+        @include mobile {
+            padding-bottom: 20px;
+        }
     }
     li {
         list-style: none;
         margin-bottom: 0;
     }
+
     input[type='input'] {
         font-family: $font-stack;
         @include font-body;
@@ -491,9 +496,11 @@ $header-height: 74px;
                             max-height: none;
                             @include mobile {
                                 max-height: 49vh;
+                                padding-bottom: 55px;
                             }
                             @include tablet {
                                 max-height: 53vh;
+                                padding-bottom: 60px;
                             }
                         }
                     }

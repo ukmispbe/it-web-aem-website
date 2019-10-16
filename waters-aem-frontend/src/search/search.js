@@ -300,8 +300,6 @@ class Search extends Component {
             query.category = categoryName;
 
             this.pushToHistory(query, this.state.selectedFacets);
-
-            await this.performSearch(query);
         } else if (
             this.isCategoryOnlySelected(query.category, query.content_type)
         ) {
@@ -850,7 +848,7 @@ class Search extends Component {
         }
     };
 
-    handleFilterGroupClick = (index) => {
+    handleFilterGroupClick = (facetName, index) => {
         const activeIndex = index === -1 ? '' : this.state.activeIndex;
         this.setState({activeFilterIndex: index, activeIndex});
     }
