@@ -2,6 +2,7 @@ import React from "react";
 import { functions } from "./patterns";
 
 const Input = ({
+    type,
     name,
     label,
     register,
@@ -59,6 +60,7 @@ const Input = ({
     const displayMsg = () => {
         if (validation) {
             if (fieldErr) {
+                console.log(fieldErr);
                 if (fieldErr.type === "required") {
                     return fieldErr.message || validation.requiredMsg;
                 } else if (
@@ -92,7 +94,7 @@ const Input = ({
         <>
             <label htmlFor={name}>{label}</label>
             <input
-                type="text"
+                type={type}
                 name={name}
                 id={name}
                 ref={register(getRegisterAttributes())}

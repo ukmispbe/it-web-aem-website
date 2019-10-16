@@ -14,6 +14,13 @@ export const functions = {
             return true;
         }
     },
+    noWhitespace: value => {
+        if (value) {
+            return !test(value, /^\s*$/);
+        } else {
+            return true;
+        }
+    },
     password: value => {
         // add password validation logic
         return true;
