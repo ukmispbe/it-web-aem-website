@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SearchService, parameterValues, parameterDefaults } from './services/index';
+import { SearchService, parameterValues, parameterDefaults, searchMapper } from './services/index';
 import { parse, stringify } from 'query-string';
 import { withRouter } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
@@ -449,6 +449,7 @@ class Search extends Component {
         newState.facets = res.facets;
         if ("activeIndex" in this.state) {
             newState.facets['activeIndex'] = this.state.activeIndex;
+            newState.activeFilterIndex = this.getActiveFilterIndex(this.state.contentType, newState.filterMap, newState.facets, this.state.activeIndex);
         } else {
             newState.facets['activeIndex'] = "";
         }
@@ -505,6 +506,19 @@ class Search extends Component {
         }
         this.props.resetToDefault = false;
     };
+
+    getActiveFilterIndex = (contentType, filterMap, facets, facetName) => {
+        const mappings = searchMapper.mapFacetGroups(contentType, filterMap, facets);
+        const activeFilterIndex = (mappings && Array.isArray(mappings))
+            ? mappings.findIndex(item => item.name === facetName) 
+            : this.state.activeFilterIndex;
+
+        if (this.state.activeFilterIndex !== activeFilterIndex) {
+            return activeFilterIndex;
+        }
+
+        return this.state.activeFilterIndex;
+    }
 
     searchOnError = error => {
         this.setEmptyResults();
@@ -837,7 +851,8 @@ class Search extends Component {
     };
 
     handleFilterGroupClick = (index) => {
-        this.setState({activeFilterIndex: index});
+        const activeIndex = index === -1 ? '' : this.state.activeIndex;
+        this.setState({activeFilterIndex: index, activeIndex});
     }
 
     getFilterTags = () => {
