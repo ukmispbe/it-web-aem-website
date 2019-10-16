@@ -4,7 +4,7 @@
     text-align: center;
     
     @include mobile {
-        margin-bottom: $space-l;
+        margin-bottom: $space-s;
     }
 }
 
@@ -213,11 +213,9 @@
 
 .image-thumbails-button--disabled,
 .image-thumbails-button--disabled:hover {
+    opacity: 0;
     svg {
         cursor: default;
-        .st0 {
-            stroke: $color-disabled;
-        }
     }
 }
 
@@ -275,4 +273,8 @@
 
 .image-carousel--hero .image-carousel {
     margin-top: $space-xl;
+
+    @include mobile {
+        margin: $space-s 0;
+    }
 }

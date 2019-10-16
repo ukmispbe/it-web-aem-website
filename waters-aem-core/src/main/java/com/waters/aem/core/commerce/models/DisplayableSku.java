@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.Locale;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -32,7 +33,7 @@ public final class DisplayableSku {
     public String getSkuPageHref() {
         final PageDecorator skuPage = sku.getSkuPage(siteContext.getPage());
 
-        return skuPage != null ? skuPage.getHref() : "";
+        return skuPage != null ? skuPage.getHref(true) : "";
     }
 
     public String getCode() {
@@ -51,7 +52,7 @@ public final class DisplayableSku {
     public String getFormattedPrice() {
         final BigDecimal price = getPrice();
 
-        return price == null ? null : NumberFormat.getCurrencyInstance(siteContext.getLocaleWithCountry()).format(price);
+        return price == null ? null : NumberFormat.getCurrencyInstance(siteContext.getCurrencyLocale()).format(price);
     }
 
     public String getPrimaryImageAlt() {
@@ -87,6 +88,6 @@ public final class DisplayableSku {
             skuPage = sku.getSkuPage(siteContext.getPage(), replacementSkuCode);
         }
 
-        return skuPage != null ? skuPage.getHref() : "";
+        return skuPage != null ? skuPage.getHref(true) : "";
     }
 }

@@ -7,6 +7,8 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Options builder for Hybris import executions.
@@ -17,7 +19,7 @@ public final class HybrisImporterOptions {
 
     private static final String PARAMETER_REPLICATE = "replicate";
 
-    private static final String PARAMETER_PRODUCT_CODE = "productCode";
+    private static final String PARAMETER_PRODUCT_CODE = "productCodes";
 
     /** Default importer options. **/
     public static final HybrisImporterOptions DEFAULT = new HybrisImporterOptions();
@@ -25,8 +27,12 @@ public final class HybrisImporterOptions {
     public static HybrisImporterOptions fromRequest(final SlingHttpServletRequest request) {
         final Boolean force = Boolean.valueOf(request.getParameter(PARAMETER_FORCE));
         final Boolean replicate = Boolean.valueOf(request.getParameter(PARAMETER_REPLICATE));
-        final List<String> productCodes = Arrays.asList(ArrayUtils.nullToEmpty(request
-            .getParameterValues(PARAMETER_PRODUCT_CODE)));
+        final List<String> productCodes = Optional.ofNullable(request.getParameter(PARAMETER_PRODUCT_CODE))
+                .map(codes -> Arrays.stream(ArrayUtils.nullToEmpty(codes.split(",")))
+                                .filter(code -> !code.isEmpty())
+                                .map(String::trim)
+                                .collect(Collectors.toList()))
+                .orElse(Collections.emptyList());
 
         return new HybrisImporterOptions()
             .withProductCodes(productCodes)

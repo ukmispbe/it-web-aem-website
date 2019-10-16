@@ -1,6 +1,7 @@
 <ul
-    class="cmp-share addthis_toolbox hidden"
+    class="cmp-share hidden"
     data-sly-use.share="com.waters.aem.core.components.content.Share"
+    data-sly-test="${isAuthor}"
     data-base-url="${share.baseUrl}"
 >
     <li class="cmp-share__item">${'Share' @ i18n}</li>
@@ -8,7 +9,7 @@
         class="cmp-share__item"
         data-sly-repeat.serviceCode="${share.serviceCodes}"
     >
-        <a class="cmp-share__link addthis_button_${serviceCode}">
+        <a class="cmp-share__link cmp-share_button_${serviceCode}">
             <img
                 src="/content/dam/waters/en/brand-assets/icons/${serviceCode}.svg"
                 class="inline-svg"
@@ -16,7 +17,7 @@
         </a>
     </li>
     <li class="cmp-share__item">
-        <a class="cmp-share__link addthis_button_link">
+        <a class="cmp-share__link cmp-share_button_link">
             <img
                 src="/content/dam/waters/en/brand-assets/icons/link.svg"
                 class="inline-svg"
@@ -24,7 +25,7 @@
         </a>
     </li>
     <li class="cmp-share__item">
-        <a class="cmp-share__link addthis_button_compact">
+        <a class="cmp-share__link cmp-share_button_compact">
             <img
                 src="/content/dam/waters/en/brand-assets/icons/share.svg"
                 class="inline-svg"

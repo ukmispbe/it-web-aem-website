@@ -44,6 +44,15 @@ const domElements = {
         }
         // fallback for non-classlist supported browsers
         el.className = el.className.replace(new RegExp('\\b' + className + '\\b', 'g'), '');
+    },
+    noScroll: state => { 
+        if (state) {
+            document.body.classList.add('no-scroll');
+            document.documentElement.classList.add('no-scroll');
+        } else { 
+            document.body.classList.remove('no-scroll');
+            document.documentElement.classList.remove('no-scroll');
+        }
     }
 }
 

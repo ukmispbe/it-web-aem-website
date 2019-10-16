@@ -72,6 +72,7 @@
         width: 100%;
         margin-bottom: $space-s;
         background: $color-white;
+        border: 1px solid $color-border-light;
     }
 
     @include mobile {
@@ -91,3 +92,20 @@
     }
 }
 
+@mixin non-IE11-browsers {
+    @supports (display: inline-grid) {
+        @content;
+    }
+}
+
+@mixin IE11-only {
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        @content;
+    }
+}
+
+@mixin firefox-only {
+    @-moz-document url-prefix() {
+        @content;
+    }
+}

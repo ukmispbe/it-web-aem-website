@@ -4,6 +4,7 @@ import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.waters.aem.core.utils.Templates;
 import com.waters.aem.solr.client.SolrIndexClient;
+import com.waters.aem.solr.index.SkuSolrIndexContentPredicate;
 import com.waters.aem.solr.index.SolrIndexService;
 import com.waters.aem.solr.index.SolrIndexServiceConfiguration;
 import com.waters.aem.solr.index.builder.ApplicationNotesSolrInputDocumentBuilder;
@@ -100,7 +101,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
 
     @Override
     public boolean isIndexed(final String path, final boolean checkTemplate) {
-        return isIncludedPath(path) && (!checkTemplate || isIncludedTemplate(path));
+        return isIncludedPath(path) && (!checkTemplate || isIncludedTemplate(path)) && isIncludedContent(path);
     }
 
     @Override
@@ -130,6 +131,18 @@ public class DefaultSolrIndexService implements SolrIndexService {
      */
     private boolean isIncludedTemplate(final String path) {
         return applyToPage(path, page -> page != null && includedTemplates.contains(page.getTemplatePath()));
+    }
+
+    private boolean isIncludedContent(final String path) {
+        return applyToPage(path, page -> {
+            boolean includedContent = true;
+
+            if (Templates.isSkuPage(page)) {
+                includedContent = modelFactory.createModel(page, SkuSolrIndexContentPredicate.class).isIndexed(page);
+            }
+
+            return includedContent;
+        });
     }
 
     private SolrInputDocument getSolrInputDocument(final String path) {

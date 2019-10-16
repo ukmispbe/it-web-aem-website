@@ -56,6 +56,16 @@ const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 
+function recursiveIssuer(m) {
+  if (m.issuer) {
+      return recursiveIssuer(m.issuer);
+  } else if (m.name) {
+      return m.name;
+  } else {
+      return false;
+  }
+}
+
 // common function to get style loaders
 const getStyleLoaders = (cssOptions, preProcessor) => {
   const loaders = [
@@ -195,8 +205,24 @@ module.exports = {
     // https://twitter.com/wSokra/status/969633336732905474
     // https://medium.com/webpack/webpack-4-code-splitting-chunk-graph-and-the-splitchunks-optimization-be739a861366
     splitChunks: {
-      chunks: 'all',
-      name: false,
+      cacheGroups: {
+        mainStyles: {
+            name: 'main',
+            test: (m, c, entry = 'main') =>
+            m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
+            chunks: 'all',
+            enforce: true,
+        },
+        printStyles: {
+            name: 'print',
+            test: (m, c, entry = 'print') =>
+            m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
+            chunks: 'all',
+            enforce: true,
+        },
+      },
+      // chunks: 'all',
+      // name: false,
     },
     // Keep the runtime chunk seperated to enable long term caching
     // https://twitter.com/wSokra/status/969679223278505985
@@ -260,7 +286,7 @@ module.exports = {
             options: {
               formatter: require.resolve('react-dev-utils/eslintFormatter'),
               eslintPath: require.resolve('eslint'),
-              
+
             },
             loader: require.resolve('eslint-loader'),
           },
@@ -293,7 +319,7 @@ module.exports = {
               customize: require.resolve(
                 'babel-preset-react-app/webpack-overrides'
               ),
-              
+
               plugins: [
                 [
                   require.resolve('babel-plugin-named-asset-import'),
@@ -331,7 +357,7 @@ module.exports = {
               cacheDirectory: true,
               // Save disk space when time isn't as important
               cacheCompression: true,
-              
+
               // If an error happens in a package, it's possible to be
               // because it was compiled. Thus, we don't want the browser
               // debugger to show the original code. Instead, the code

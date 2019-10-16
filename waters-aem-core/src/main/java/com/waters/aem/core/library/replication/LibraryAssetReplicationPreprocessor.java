@@ -6,6 +6,7 @@ import com.day.cq.replication.ReplicationActionType;
 import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.WCMException;
+import com.google.common.collect.ImmutableList;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.waters.aem.core.constants.WatersConstants;
@@ -49,6 +50,13 @@ public final class LibraryAssetReplicationPreprocessor extends AbstractReplicati
     protected boolean isEnabled() {
         // always enabled
         return true;
+    }
+
+    @Override
+    protected List<ReplicationActionType> getSupportedActionTypes() {
+        return ImmutableList.of(
+                ReplicationActionType.DEACTIVATE,
+                ReplicationActionType.DELETE);
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.day.cq.replication.ReplicationAction;
 import com.day.cq.replication.ReplicationActionType;
 import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
+import com.google.common.collect.ImmutableList;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.waters.aem.core.components.structure.page.ApplicationNotes;
@@ -48,6 +49,13 @@ public final class PdfReplicationPreprocessor extends AbstractReplicationPreproc
     @Override
     protected boolean isEnabled() {
         return pdfGenerator.isEnabled();
+    }
+
+    @Override
+    protected List<ReplicationActionType> getSupportedActionTypes() {
+        return ImmutableList.of(
+                ReplicationActionType.DEACTIVATE,
+                ReplicationActionType.DELETE);
     }
 
     @Override

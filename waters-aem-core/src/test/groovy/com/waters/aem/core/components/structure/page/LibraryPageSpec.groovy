@@ -62,16 +62,13 @@ class LibraryPageSpec extends WatersLibrarySpec {
         libraryPage.event*.tagID == ["waters:event/test"]
 
         and:
-        libraryPage.technique*.tagID == ["waters:technique/test"]
-
-        and:
         libraryPage.monthPublished*.tagID == ["waters:month/june"]
 
         and:
         libraryPage.yearPublished*.tagID == ["waters:year/2019"]
 
         and:
-        libraryPage.allTags.size() == 10
+        libraryPage.allTags.size() == 8
     }
 
     def "library page is null when asset path is null"() {

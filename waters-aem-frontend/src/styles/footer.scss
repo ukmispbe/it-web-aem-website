@@ -6,6 +6,7 @@
     width: 100%;
 
     a {
+        word-break: keep-all;
         color: $color-font-light;
     }
 
@@ -105,13 +106,12 @@
     display: inline-block;
     margin-left: $space-s;
     position: relative;
+
     @include mobile {
         width: 100%;
         margin-right: 0;
         margin-left: 0;
-        column-count:2;
-        -moz-column-count:2;
-        -webkit-column-count:2;
+        @include font-small;
     }
 
     a {
@@ -333,13 +333,13 @@
     @include mobile {
         margin-left: 0;
         width: 100%;
-        clear: both;
+        margin-bottom: $space-m;
     }
 
     &__region {
         display: inline-flex;
-        min-height: 38px;
-        height: 51px;
+        min-height: 30px;
+        height: 30px;
         -webkit-box-align: center;
         align-items: center;
         padding: $space-xxs $space-s $space-xxs 0em;

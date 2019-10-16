@@ -3,23 +3,6 @@
 }
 
 @media print {
-    @page {
-        margin-top: 20px;
-        @bottom-left {
-            content: element(header);
-            border-top: 1px solid #c6cdd2;
-            margin-top: -40px;
-            margin-right: -235px;
-        }
-
-        @bottom-right {
-            content: counter(page);
-            border-top: 1px solid #c6cdd2;
-            @include font-xsmall;
-            margin-top: -40px;
-        }
-    }
-
     .cmp-title__print {
         position: fixed;
         display: block;
@@ -40,30 +23,56 @@
         padding: 5px;
     }
 
-    .cmp-anchor, .cmp-header__links, .mopinion-survey-content, .cmp-share, a.cmp-back-to-top, .cmp-footer__links, .cmp-external-list__link::after, a.cmp-button, a.cmp-utility-button {
+    .cmp-anchor,
+    .cmp-header__links,
+    .mopinion-survey-content,
+    .cmp-share, a.cmp-back-to-top,
+    .cmp-footer__links,
+    .cmp-footer__selector,
+    .cmp-footer__yamcontainer,
+    .cmp-external-list__link::after,
+    nav.cmp-breadcrumb,
+    .cmp-tag-cloud,
+    a.cmp-button,
+    a.cmp-utility-button {
         display: none;
     }
 
     .layoutcontainer .cmp-section-container__title {
-        padding: 0.5em 0 1.5em 0;
+        padding: $space-xxs 0 $space-m 0;
     }
 
     .cmp-footer {
-        background-color: $color-white;
-        padding: 1.5em 0 1.5em 0;
+        -webkit-print-color-adjust: exact !important;
+        color-adjust: exact !important;
+        padding: $space-m 0 $space-m 0;
+        margin-top: $space-l;
+
+        a {
+            color: $color-link;
+        }
+        .container1_wrapper{
+            display: none;
+        }
+
+        .container2_wrapper {
+            background-color: $color-white;
+
+            .container2{
+                padding: $space-l $space-xxs;
+                background-color: $color-white;
+            }
+        }
+
     }
 
-    .cmp-footer__logo {
-        display: none;
-    }
-
-    .cmp-footer__copyright {
-        float: right !important;
-        margin-top: 0px;
+    .cmp-footer__copyright{
+        margin: 0px;
 
         p {
+            color: $color-icon;
             font-size: $font-size-text-pcs;
-            color: $color-gray-50;
+            font-weight: $font-weight-regular;
         }
     }
 
@@ -91,6 +100,10 @@
         }
     }
 
+    .cmp-header__top-bar__nav, .cmp-header__navigation{
+        display: none;
+    }
+
     .cmp-qr-code {
         font-family: "acumin-pro", arial, sans-serif;
         font-size: 0.8em;
@@ -99,7 +112,7 @@
         color: #4f5b64;
         margin-bottom: 0;
         margin-top: 0;
-        padding-top: 0.75em;
+        padding-top: $space-xs;
         display: unset;
         float: left !important;
     }

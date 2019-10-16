@@ -41,20 +41,9 @@ public final class SiteContext {
         return currentPage;
     }
 
-    /**
-     * If a country is not already defined in the current page's locale, try to read the country from the content
-     * path and create a locale object from that. otherwise, a configured default country is returned.
-     *
-     * @return a locale with a country
-     */
+
     public Locale getLocaleWithCountry() {
-        Locale locale = getLocale();
-
-        if (StringUtils.isEmpty(locale.getCountry())) {
-            locale = LocaleUtils.getLocaleWithCountryForPage(currentPage);
-        }
-
-        return locale;
+        return LocaleUtils.getLocaleWithCountryForPage(currentPage);
     }
 
     /**
@@ -66,6 +55,37 @@ public final class SiteContext {
         final Currency defaultCurrency = Currency.getInstance(getLocaleWithCountry());
 
         return currentPage.getInherited("currencyIsoCode", defaultCurrency.getCurrencyCode());
+    }
+
+    /**
+     * Returns a Locale object to be used for formatting a currency value. By default the Locale will be taken from the
+     * current content path. However if any language/country overrides are specified in page properties, a new Locale
+     * object will be constructed with those values.
+     *
+     * @return locale object to use for formatting a currency value for display
+     */
+    public Locale getCurrencyLocale() {
+        Locale locale = getLocaleWithCountry();
+
+        final String currencyLanguageCode = currentPage.getInherited("currencyLanguageCode", "");
+        final String currencyCountryCode = currentPage.getInherited("currencyCountryCode", "");
+
+        if (StringUtils.isNotEmpty(currencyLanguageCode) || StringUtils.isNotEmpty(currencyCountryCode)) {
+            String language = locale.getLanguage();
+            String country = locale.getCountry();
+
+            if (StringUtils.isNotEmpty(currencyLanguageCode)) {
+                language = currencyLanguageCode;
+            }
+
+            if (StringUtils.isNotEmpty(currencyCountryCode)) {
+                country = currencyCountryCode.toUpperCase();
+            }
+
+            locale = new Locale(language, country);
+        }
+
+        return locale;
     }
 
     public String getTranslation(final String key) {

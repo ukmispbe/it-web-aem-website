@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
 import Select, { components } from 'react-select';
+import variables from '../../../src/styles/variables.scss';
 
 const customStyles = {
     indicatorSeparator: () => ({
@@ -8,12 +9,12 @@ const customStyles = {
     }),
     option: (provided, state) => ({
         ...provided,
-        color: '#4f5b64',
-        backgroundColor: state.isSelected ? '#f1f3f4' : '#fff',
+        color: variables.colorGray50,
+        backgroundColor: state.isSelected ? variables.colorBackgroundLight : variables.colorWhite,
         cursor: !state.isSelected ? 'pointer' : 'default',
         '&:hover': {
-            color: !state.isSelected ? '#0077bb' : '#4f5b64',
-            backgroundColor: !state.isSelected ? '#fff' : '#f1f3f4',
+            color: !state.isSelected ? variables.colorBlue50 : variables.colorGray50,
+            backgroundColor: !state.isSelected ? variables.colorWhite : variables.colorBackgroundLight,
         },
         margin: 0,
     }),
@@ -21,15 +22,15 @@ const customStyles = {
         ...provided,
         'border-radius': '0',
         padding: '0.3em 0.5em',
-        color: '#4f5b64',
-        'border-color': state.isFocused ? '#9ca7b0' : '#9ca7b0',
+        color: variables.colorGray50,
+        'border-color': state.isFocused ? variables.colorBorderDark : variables.colorBorderDark,
         outline: 'none',
         cursor: 'pointer',
         'box-shadow': 'none',
         '&:hover': {
             outline: 'none',
-            color: '#0077bb',
-            borderColor: '#9ca7b0',
+            color: variables.colorBlue50,
+            borderColor: variables.colorBorderDark,
         },
     }),
     singleValue: (provided, state) => {

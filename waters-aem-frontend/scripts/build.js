@@ -7,10 +7,14 @@ process.env.BABEL_ENV = 'production';
 process.env.NODE_ENV = 'production';
 
 const compiler = webpack(
-    Object.assign({}, config, {watch: process.env.WATCH_ALIVE === 'true'})
+    Object.assign({}, config, { watch: process.env.WATCH_ALIVE === 'true' })
 );
 
-const rootPath = 'waters-aem-ui.apps/src/main/content/jcr_root';
+const clientlibPath =
+    'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-site';
+
+const clientlibPrintPath =
+    'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-print';
 
 compiler.run((err, stats) => {
     if (err) {
@@ -25,17 +29,31 @@ compiler.run((err, stats) => {
 
     console.log('Compiler Finished, moving files to AEM');
     const css = path.resolve(__dirname, '../', 'build', 'main.css');
+    const printCss = path.resolve(__dirname, '../', 'build', 'print.css');
     const js = path.resolve(__dirname, '../', 'build', 'main.js');
+    const printJs = path.resolve(__dirname, '../', 'build', 'print.js');
     const aemCssPath = path.resolve(
         __dirname,
         '../../',
-        rootPath + '/etc/designs/waters',
+        clientlibPath + '/css',
+        'main.css'
+    );
+    const aemPrintCssPath = path.resolve(
+        __dirname,
+        '../../',
+        clientlibPrintPath + '/css',
         'main.css'
     );
     const aemJsPath = path.resolve(
         __dirname,
         '../../',
-        rootPath + '/apps/waters/clientlibs/clientlib-site/js',
+        clientlibPath + '/js',
+        'main.js'
+    );
+    const aemPrintJsPath = path.resolve(
+        __dirname,
+        '../../',
+        clientlibPrintPath + '/js',
         'main.js'
     );
 
@@ -48,6 +66,15 @@ compiler.run((err, stats) => {
         console.log('CSS Moved to AEM');
     });
 
+    fs.rename(printCss, aemPrintCssPath, err => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        console.log('Print CSS Moved to AEM');
+    });
+
     fs.rename(js, aemJsPath, err => {
         if (err) {
             console.log(err);
@@ -55,5 +82,14 @@ compiler.run((err, stats) => {
         }
 
         console.log('JS Moved to AEM');
+    });
+
+    fs.rename(printJs, aemPrintJsPath, err => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        console.log('Print JS Moved to AEM');
     });
 });

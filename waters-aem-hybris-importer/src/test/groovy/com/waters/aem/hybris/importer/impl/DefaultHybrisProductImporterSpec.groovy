@@ -1,6 +1,9 @@
 package com.waters.aem.hybris.importer.impl
 
+import com.icfolson.aem.library.models.impl.EnumInjector
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants
+import com.waters.aem.core.commerce.models.Sku
+import com.waters.aem.core.commerce.models.SkuImageType
 import com.waters.aem.hybris.AbstractHybrisImporterSpec
 import com.waters.aem.hybris.enums.HybrisImportContentType
 import com.waters.aem.hybris.enums.HybrisImportStatus
@@ -16,6 +19,7 @@ class DefaultHybrisProductImporterSpec extends AbstractHybrisImporterSpec {
 
     def setupSpec() {
         hybrisProductImporter = slingContext.registerInjectActivateService(new DefaultHybrisProductImporter())
+        slingContext.registerInjector(new EnumInjector(), Integer.MIN_VALUE)
     }
 
     def "import products for product codes"() {
@@ -74,5 +78,15 @@ class DefaultHybrisProductImporterSpec extends AbstractHybrisImporterSpec {
         !properties.get(WatersCommerceConstants.PROPERTY_PROPRIETARY, false)
         !properties.get(WatersCommerceConstants.PROPERTY_COLD_CHAIN_SHIPPING, false)
         properties.get(WatersCommerceConstants.PROPERTY_HAZARDOUS, false)
+    }
+
+    def "primary sku image is ordered first"() {
+        setup:
+        hybrisProductImporter.importProducts(["176001744"])
+
+        expect:
+        def sku = getResource("/etc/commerce/products/176/176001744").adaptTo(Sku)
+
+        sku.images[0].imageType == SkuImageType.PRIMARY
     }
 }

@@ -5,6 +5,8 @@ var requireContext = require('require-context');
 function WebpackSlangPlugin(options) {
     this.jsPath = options.jsPath;
     this.cssPath = options.cssPath;
+    this.printJsPath = options.printJsPath;
+    this.printCssPath = options.printCssPath;
     this.additionalFiles = [];
 
     options.additionalHTML.forEach(additionalFiles => {
@@ -38,10 +40,19 @@ WebpackSlangPlugin.prototype.apply = function(compiler) {
         for (const key in stats.compilation.assets) {
             const assetObj = stats.compilation.assets[key];
 
-            Slang.up(
-                assetObj.existsAt,
-                this[key.includes('js') ? 'jsPath' : 'cssPath']
-            );
+            if (key.includes('print')) {
+                Slang.up(
+                    assetObj.existsAt,
+                    this[key.includes('js') ? 'printJsPath' : 'printCssPath'],
+                    null,
+                    key.includes('js') ? 'main.js' : 'main.css'
+                );
+            } else {
+                Slang.up(
+                    assetObj.existsAt,
+                    this[key.includes('js') ? 'jsPath' : 'cssPath']
+                );
+            }
         }
     });
 

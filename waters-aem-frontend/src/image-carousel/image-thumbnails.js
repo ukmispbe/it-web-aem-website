@@ -212,7 +212,7 @@ class ImageThumbnails extends React.Component {
     return (
       <div className={`image-thumbnails-wrapper ${this.getImageThumbnailsWrapperClassName()}`} style={this.getImageThumbnailsWrapperStyle()}>
         <div className={`image-thumbnails-button ${this.getPrevButtonClassName()}`} onClick={e => this.handleSlide(PREV)}>
-            <ReactSVG src="/content/dam/waters/brand-assets/icons/left.svg" />
+            <ReactSVG src="/content/dam/waters/en/brand-assets/icons/left.svg" />
         </div>
         <div
           className="image-thumbnails-container"
@@ -225,7 +225,7 @@ class ImageThumbnails extends React.Component {
           <div ref={this.gradientRightRef} class="image-thumbnails-wrapper__gradient-right"></div>
         </div>
         <div className={`image-thumbnails-button ${this.getNextButtonClassName()}`} onClick={e => this.handleSlide(NEXT)}>
-            <ReactSVG src="/content/dam/waters/brand-assets/icons/right.svg" />
+            <ReactSVG src="/content/dam/waters/en/brand-assets/icons/right.svg" />
         </div>
       </div>
     );

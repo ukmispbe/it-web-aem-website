@@ -2,9 +2,10 @@
 <h3 data-sly-test="${links.title}">${links.title}</h3>
 <ul data-sly-test="${links.linkItems}"
     data-sly-list.linkItem="${links.linkItems}"
-    class="cmp-links">
+    class="cmp-links ${links.applySplit ? 'cmp-links--split' :''}">
     <li class="cmp-links__item">
-        <a class="cmp-links__link cmp-links__external-link--${linkItem.external}" href="${linkItem.link.href}" target="${linkItem.external ? '_blank' : ''}">${linkItem.text}</a>
+        <a class="cmp-links__link cmp-links__external-link--${linkItem.external}" href="${linkItem.link.href}" target="${linkItem.external ? '_blank' : ''}">
+            ${linkItem.text}</a>
     </li>
 </ul>
 

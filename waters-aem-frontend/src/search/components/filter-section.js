@@ -172,15 +172,10 @@ class FilterSection extends Component {
 
     render() {
         const props = this.props;
+        const className = `cmp-search-filters__filter ${props.isExpanded ? 'expanded' : ''}`
 
         return (
-            <li
-                className={
-                    props.item == props.selected && props.last != props.selected
-                        ? 'cmp-search-filters__filter expanded'
-                        : 'cmp-search-filters__filter'
-                }
-            >
+            <li className={className}>
                 <a
                     href="javascript:void(0);"
                     className="filter-toggle"
@@ -225,6 +220,8 @@ FilterSection.propTypes = {
     selected: PropTypes.number.isRequired,
     selectedFacets: PropTypes.object,
     text: PropTypes.object.isRequired,
+    activeCategory: PropTypes.string,
+    isExpanded: PropTypes.bool
 };
 
 export default FilterSection;

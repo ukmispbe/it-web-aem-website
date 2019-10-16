@@ -1,13 +1,15 @@
-import React, { Component, Fragment } from 'react';
-import { SearchService, parameterDefaults } from './services/index';
+import React, { Component } from 'react';
+import { SearchService, parameterValues, parameterDefaults, searchMapper } from './services/index';
 import { parse, stringify } from 'query-string';
 import { withRouter } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import ReactSVG from 'react-svg';
 import ResultsCount from './components/results-count';
 import Results from './components/results';
+import SkuList from '../sku-list';
 import NoResults from './components/no-results';
 import Sort from './components/sort';
+import CategoryDropDown from './components/category-dropdown';
 import Filter from './components/filter';
 import {
     SubFacetTags,
@@ -21,15 +23,17 @@ import BtnApplySortFilter from './components/btn-apply-sort-filter';
 import BtnDoneSortFilter from './components/btn-done-sort-filter';
 import Spinner from './components/spinner';
 import { CategoriesMenu } from './components/categories-menu';
+import CategoryTabs from './components/categories-tabs';
+import validator from 'validator';
+import domElements from '../scripts/domElements';
+import screenSizes from '../scripts/screenSizes';
 
 class Search extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.savedSelectFilterState = null;
         this.parentCategory = 'contenttype_facet';
-    }
 
-    componentWillMount() {
         this.search = new SearchService(
             this.props.isocode,
             this.props.searchServicePath,
@@ -40,63 +44,37 @@ class Search extends Component {
             () => this.props.setErrorBoundaryToTrue()
         );
 
-        const query = this.search.getParamsFromString();
-        this.query = query;
+        this.state = this.initialState();
+    }
 
-        if (
-            (typeof this.query.keyword === 'undefined' ||
-                this.query.keyword === '*:*') &&
-            typeof this.query.sort === 'undefined'
-        ) {
-            this.query.sort = 'most-recent';
-        } else {
-            this.query.sort =
-                typeof this.query.sort === 'undefined'
-                    ? 'most-relevant'
-                    : this.query.sort;
-        }
+    componentDidMount() {
+        this.addHistoryListener();
+        this.addResizeListener();
 
-        const contentType = this.query.content_type
-            ? this.query.content_type
-            : null;
-        const contentTypeElement = this.findContentType(
-            this.props.filterMap,
-            contentType
-        );
-        const contentTypeSelected = contentTypeElement
-            ? contentTypeElement
-            : {};
-
-        this.setState({
-            loading: true,
-            results: {},
-            pagination: {
-                current: this.query.page
-                    ? this.query.page
-                    : parameterDefaults.page,
-            },
-            rows: this.props.searchDefaults
-                ? this.props.searchDefaults && this.props.searchDefaults.rows
-                : 25,
-            sort: this.query.sort ? this.query.sort : parameterDefaults.sort,
-            selectedFacets: this.query.selectedFacets || {},
-            unappliedFilters: {},
-            isDesktop: false,
-            initialRender: true,
-            performedSearches: 0,
-            contentType,
-            contentTypeSelected,
-            facets: [],
-            filterMap: [],
-            keyword: this.query.keyword
-                ? this.query.keyword
-                : parameterDefaults.keyword,
-            spell_check: false,
-            spell_related_suggestions: [],
-            spell_suggestion: '',
-            erroredOut: false,
+        const facetGroupsSelectedOrder = this.parseFacetsFromUrlToArray();
+        const sessionStore = this.search.getSessionStore();
+        this.setState({tabHistory: sessionStore.searchTabHistory, facetGroupsSelectedOrder}, () => {
+            this.performSearch();
         });
+    }
 
+    parseFacetsFromUrlToArray = () => this.search.mapFacetGroupsToArray(parse(location.search).facet);
+
+    addHistoryListener = () => {
+        this.props.history.listen((location, action) => {
+            const facetGroupsSelectedOrder = this.parseFacetsFromUrlToArray();
+            this.setState({facetGroupsSelectedOrder});
+
+            const query = this.getQueryObject(parse(location.search));
+            if (action === 'POP') {
+                this.handleHistoryPop(query);
+            } else if (action === 'PUSH') {
+                this.handleHistoryPush(query);
+            }
+        });
+    }
+
+    addResizeListener = () => {
         const checkWindowWidth = () => {
             const newState = Object.assign({}, this.state);
             const desktop = window.matchMedia('screen and (min-width: 1200px)');
@@ -108,25 +86,170 @@ class Search extends Component {
         window.addEventListener('resize', checkWindowWidth);
 
         checkWindowWidth();
-        this.performSearch();
     }
 
-    componentWillReceiveProps(props) {
-        if (props.hasError) {
-            this.setState({ keyword: parameterDefaults.keyword }, () =>
-                this.performSearch('')
-            );
-        } else if (this.state.initialRender != true) {
-            this.performSearch();
+    initialState = () => {
+        const query = this.search.getParamsFromString();
+        this.query = query;
+
+        if (
+            (typeof this.query.keyword === parameterValues.undefined ||
+                this.query.keyword === parameterDefaults.keyword) &&
+            typeof this.query.sort === parameterValues.undefined
+        ) {
+            this.query.sort = parameterValues.sort.mostRecent;
         } else {
-            this.setState({ initialRender: false });
+            this.query.sort =
+                typeof this.query.sort === parameterValues.undefined
+                    ? parameterValues.sort.mostRelevant
+                    : this.query.sort;
+        }
+
+        const category = this.query.category ? this.query.category : null;
+
+        const contentType = this.query.content_type
+            ? this.query.content_type
+            : null;
+
+        const contentTypeElement = this.findContentType(
+            this.props.filterMap,
+            contentType
+        );
+
+        const contentTypeSelected = contentTypeElement
+            ? contentTypeElement
+            : {};
+
+        let skuConfig = JSON.parse(
+            document.getElementById('commerce-configs-json').innerHTML
+        );
+
+        skuConfig.showBreadcrumbs = true;
+
+        return {
+            forceCollapseFilters: true,
+            loading: true,
+            searchParams: {},
+            results: {},
+            pagination: {
+                current: this.query.page
+                    ? this.query.page
+                    : parameterDefaults.page,
+            },
+            rows: this.props.searchDefaults
+                ? this.props.searchDefaults && this.props.searchDefaults.rows
+                : parameterDefaults.rows,
+            sort: this.query.sort ? this.query.sort : parameterDefaults.sort,
+            selectedFacets: this.query.selectedFacets || {},
+            unappliedFilters: {},
+            isDesktop: false,
+            isSkuList: false,
+            initialRender: true,
+            performedSearches: 0,
+            category,
+            contentType,
+            contentTypeSelected,
+            skuConfig,
+            facets: [],
+            filterMap: [],
+            keyword: this.query.keyword
+                ? this.query.keyword
+                : parameterDefaults.keyword,
+            spell_check: false,
+            spell_related_suggestions: [],
+            spell_suggestion: '',
+            erroredOut: false,
+            categoryTabs: [],
+            activeTabIndex: -1,
+            tabHistory: {},
+            facetGroupsSelectedOrder: [],
+            collapseAllFilters: false,
+            activeFilterIndex: -1,
+        };
+    }
+
+    handleHistoryPush = query => {
+        const categoryIndex = this.state.categoryTabs.findIndex(
+            category => category.name === query.category
+        );
+
+        const contentTypeElement = this.findContentType(
+            this.props.filterMap,
+            query.content_type
+        );
+
+        const isSkuList = this.isSkuList(query.category);
+
+        this.setState({
+            activeTabIndex: categoryIndex,
+            isSkuList,
+            category: query.category,
+            sort: query.sort,
+            contentType: query.content_type,
+            contentTypeSelected: Object.assign({}, contentTypeElement),
+            selectedFacets: Object.entries(query.facets).length === 0 ? {} : Object.assign({}, query.facets),
+        }, async () => {
+            await this.performSearch(query);
+        });
+    }
+
+    isSkuList = category =>  validator.equals(category, 'Shop');
+
+    handleHistoryPop = query => {
+        const categoryIndex = this.state.categoryTabs.findIndex(
+            category => category.name === query.category
+        );
+
+        if (this.state.activeTabIndex !== categoryIndex) {
+            this.setCategorySelected(categoryIndex, query, query.category);
+        } else {
+            const isSkuList = this.isSkuList(query.category);
+
+            const contentTypeElement = this.findContentType(
+                this.props.filterMap,
+                query.content_type
+            );
+
+            this.setState({
+                isSkuList,
+                category: query.category,
+                sort: query.sort,
+                contentType: query.content_type,
+                contentTypeSelected: Object.assign({}, contentTypeElement),
+                selectedFacets: Object.entries(query.facets).length === 0 ? {} : Object.assign({}, query.facets)
+            }, async () => {
+                await this.performSearch(query);
+            });
         }
     }
 
-    performSearch(q) {
-        let query = q
+    mapCategories = categories =>
+        !categories || !categories.facets || !categories.facets.category_facet
+            ? []
+            : categories.facets.category_facet
+                  .filter(category => category.value !== 0)
+                  .map(category => {
+                      return { name: category.value, count: category.count };
+                  });
+
+    findMaxCategory = categories => {
+        if (!categories) {
+            return -1;
+        }
+
+        const counts = categories.map(category => category.count);
+        const maxCount = Math.max(...counts);
+
+        return categories.findIndex(category => category.count === maxCount);
+    };
+
+    getQueryObject = q =>
+        q
             ? this.search.createQueryObject(q)
             : this.search.createQueryObject(parse(window.location.search));
+
+    async performSearch(q) {
+        let query = (q && Object.entries(q).length !== 0) ? {...q} : this.getQueryObject();
 
         if (!query.sort && this.state) {
             query = Object.assign({}, query, { sort: this.state.sort });
@@ -137,68 +260,104 @@ class Search extends Component {
                 ? this.props.searchDefaults.rows
                 : 25;
 
-        this.setState({ searchParams: query, loading: true, results: {} });
+        this.setState({ searchParams: query, loading: true, results: {}, filterMap: {} });
 
-        if (this.isInitialLoad(query.content_type)) {
+        const categories = await this.search.getCategories({
+            keyword: query.keyword,
+        });
+        const categoriesWithData = this.mapCategories(categories);
+
+        this.setState({ categoryTabs: categoriesWithData });
+
+        const isInitialLoad = this.isInitialLoad(
+            query.category,
+            query.content_type
+        );
+
+        if (!isInitialLoad) {
+            const categoryIndex = categoriesWithData.findIndex(
+                category => category.name === query.category
+            );
+            const categoryName = categoriesWithData[categoryIndex].name;
+            const isSkuList = this.isSkuList(categoryName);
+
+            this.setState({ activeTabIndex: categoryIndex, isSkuList, category: categoryName });
+        }
+
+        if (isInitialLoad) {
+            const maxCategory = this.findMaxCategory(categoriesWithData);
+
+            if (maxCategory === -1) {
+                this.setEmptyResults();
+                return;
+            }
+
+            const categoryName = categoriesWithData[maxCategory].name;
+            const isSkuList = this.isSkuList(categoryName);
+
+            this.setState({ activeTabIndex: maxCategory, isSkuList, category: categoryName });
+
+            query.category = categoryName;
+
+            this.pushToHistory(query, this.state.selectedFacets);
+
+            await this.performSearch(query);
+        } else if (
+            this.isCategoryOnlySelected(query.category, query.content_type)
+        ) {
             // deselects content type when user clicks the back button on browser
-            this.setState({ contentType: null, contentTypeSelected: {} });
+            this.setState({
+                category: query.category,
+                contentType: null,
+                contentTypeSelected: {},
+            });
 
             if (!this.props.hasError) {
-                this.search.initial(query).then(res => {
+                this.search.getResultsByCategory(query).then(res => {
                     if (res && !this.props.hasError) {
                         this.searchOnSuccess(query, rows, res, true);
                     } else {
-                        this.search.initial().then(results => {
-                            if (!results) {
-                                this.setState({
-                                    loading: false,
-                                    erroredOut: true,
-                                });
-                            } else {
-                                const newQuery = Object.assign({}, query, {
-                                    keyword: '',
-                                });
-                                this.searchOnSuccess(
-                                    newQuery,
-                                    rows,
-                                    results,
-                                    true
-                                );
-                            }
-                        });
+                        this.search
+                            .getResultsByCategory(query)
+                            .then(results => {
+                                if (!results) {
+                                    this.setState({
+                                        loading: false,
+                                        erroredOut: true,
+                                    });
+                                } else {
+                                    const newQuery = Object.assign({}, query, {
+                                        keyword: '',
+                                    });
+                                    this.searchOnSuccess(
+                                        newQuery,
+                                        rows,
+                                        results,
+                                        true
+                                    );
+                                }
+                            });
                     }
                 });
             }
         } else if (!this.isFacetsSelected(query.facets)) {
             // no sub-facets have been selected, only the content type has been selected
-            const contentTypeElement = this.findContentType(
-                this.props.filterMap,
-                query.content_type
-            );
-            const contentTypeValue = contentTypeElement
-                ? contentTypeElement.categoryFacetValue
-                : 'NA';
+            const contentTypeValue = this.getSelectedContentTypeValue();
 
             this.search
-                .contentType(query.content_type, contentTypeValue, query)
+                .getContentType(query.content_type, contentTypeValue, query)
                 .then(res =>
                     this.searchOnSuccess(query, rows, res, false, 'success')
-                );
+                )
+                .catch(error => this.searchOnError(error));
         } else {
             // sub-facets have been selected
-            const contentTypeElement = this.findContentType(
-                this.props.filterMap,
-                query.content_type
-            );
-            const contentTypeName = contentTypeElement
-                ? contentTypeElement.categoryFacetName
-                : 'NA';
-            const contentTypeValue = contentTypeElement
-                ? contentTypeElement.categoryFacetValue
-                : 'NA';
+            const contentTypeName = this.getSelectedContentTypeName();
+
+            const contentTypeValue = this.getSelectedContentTypeValue();
 
             this.search
-                .subFacet(contentTypeName, contentTypeValue, query)
+                .getSubFacet(contentTypeName, contentTypeValue, query)
                 .then(res =>
                     this.searchOnSuccess(query, rows, res, false, 'success')
                 )
@@ -211,29 +370,61 @@ class Search extends Component {
             element => element.categoryFacetName === `${content_type}_facet`
         );
 
-    isInitialLoad = content_type => (content_type ? false : true);
+    isInitialLoad = (category, content_type) => (category ? false : true);
+
+    isCategoryOnlySelected = (category, content_type) =>
+        category && !content_type ? true : false;
 
     isFacetsSelected = selectedFacets =>
         Object.entries(selectedFacets).length !== 0 ? true : false;
 
-    getFilterMap = (authoredCategories, backendCategories) => {
-        return authoredCategories.filter(authoredItem => {
-            return backendCategories.find(
-                backendItem =>
-                    backendItem.value === authoredItem.categoryFacetValue
+    getFilterMap = (authoredTags, backendFacets) => {
+        const category = authoredTags.find(
+            authoredItem =>
+                authoredItem.categoryFacetName ===
+                `${this.state.category.toLowerCase()}_facet`
+        );
+
+        if (!category) {
+            return;
+        }
+
+        const orderedFacets = category.orderedFacets.filter(facet =>
+            backendFacets.find(beFacet => beFacet.value === facet.facetValue)
+        );
+
+        const orderedFacetsWithCount = orderedFacets.map(facet => {
+            const authTag = authoredTags.find(
+                authoredItem =>
+                    facet.facetValue === authoredItem.categoryFacetValue
             );
+            const beFacet = backendFacets.find(
+                beFacet => beFacet.value === facet.facetValue
+            );
+
+            return {
+                ...facet,
+                orderedFacets: authTag ? authTag.orderedFacets : [],
+                count: beFacet ? beFacet.count : 0,
+            };
         });
+
+        return {
+            categoryFacetName: category.categoryFacetName,
+            categoryFacetValue: category.categoryFacetValue,
+            orderedFacets: orderedFacetsWithCount,
+        };
     };
 
     searchOnSuccess = (query, rows, res, initCategories = false) => {
         const newState = Object.assign({}, this.state);
 
         newState.filterMap =
-            initCategories && res.num_found !== 0
-                ? this.getFilterMap(
+            res.num_found !== 0
+                ? Object.assign({}, this.getFilterMap(
                       this.props.filterMap,
                       res.facets[this.parentCategory]
-                  )
+                  ))
                 : [];
 
         newState.loading = false;
@@ -256,6 +447,12 @@ class Search extends Component {
         newState.noResults = !newState.results[query.page].length;
 
         newState.facets = res.facets;
+        if ("activeIndex" in this.state) {
+            newState.facets['activeIndex'] = this.state.activeIndex;
+            newState.activeFilterIndex = this.getActiveFilterIndex(this.state.contentType, newState.filterMap, newState.facets, this.state.activeIndex);
+        } else {
+            newState.facets['activeIndex'] = "";
+        }
 
         newState.spell_check = res.hasOwnProperty('spell_check')
             ? res.spell_check
@@ -269,19 +466,26 @@ class Search extends Component {
             ? res.spell_suggestion
             : '';
 
-        this.setState(Object.assign({}, this.state, newState));
+        this.setState(Object.assign({}, this.state, newState), () => {
+            // collapse all facet groups when flag is true and the device is tablet or mobile
+            if (this.state.forceCollapseFilters) {
+                if (screenSizes.isTabletAndUnder()) {
+                    this.collapseFilters();
+                }
+                
+                // reset flag to false
+                this.setState({forceCollapseFilters: false});
+            }
+        });
 
-        const scrollToPosition = window.sessionStorage.getItem(
-            'waters.previousPagePosition'
-        );
+        const sessionStore = this.search.getSessionStore();
 
-        const previousPagePosition = window.sessionStorage.getItem(
-            'waters.previousPaginationClick'
-        );
+        const scrollToPosition = sessionStore.previousPagePosition;
+
+        const previousPagePosition = sessionStore.previousPaginationClick;
 
         if (scrollToPosition) {
-            window.scrollTo(0, scrollToPosition);
-            window.sessionStorage.removeItem('waters.previousPagePosition');
+            this.search.scrollToPosition(scrollToPosition);
         } else if (
             this.props.history &&
             this.props.history.action === 'POP' &&
@@ -291,22 +495,36 @@ class Search extends Component {
             this.props.resetToDefault === false
         ) {
             setTimeout(() => {
-                window.scrollTo(0, previousPagePosition);
-                window.sessionStorage.removeItem(
-                    'waters.previousPaginationClick'
-                );
+                this.search.scrollToPosition(previousPagePosition);
             }, 0);
         } else if (!scrollToPosition && previousPagePosition) {
-            window.scrollTo(0, 0);
+            this.search.scrollToTop();
         } else {
             if (newState.performedSearches > 1) {
-                window.scrollTo(0, 0);
+                this.search.scrollToTop();
             }
         }
         this.props.resetToDefault = false;
     };
 
+    getActiveFilterIndex = (contentType, filterMap, facets, facetName) => {
+        const mappings = searchMapper.mapFacetGroups(contentType, filterMap, facets);
+        const activeFilterIndex = (mappings && Array.isArray(mappings))
+            ? mappings.findIndex(item => item.name === facetName) 
+            : this.state.activeFilterIndex;
+
+        if (this.state.activeFilterIndex !== activeFilterIndex) {
+            return activeFilterIndex;
+        }
+
+        return this.state.activeFilterIndex;
+    }
+
     searchOnError = error => {
+        this.setEmptyResults();
+    };
+
+    setEmptyResults = () => {
         const newState = Object.assign({}, this.state);
 
         newState.loading = false;
@@ -316,7 +534,7 @@ class Search extends Component {
         newState.results = {};
 
         this.setState(Object.assign({}, this.state, newState));
-    };
+    }
 
     pushToHistory(query, facets) {
         this.props.history.push(
@@ -325,8 +543,11 @@ class Search extends Component {
     }
 
     paginationClickHandler(page, e) {
+        if (e === 'clicked') {
+            this.search.setStorageForPagination();
+        };
+
         const state = this.state;
-        const searchParams = this.state.searchParams || {};
 
         const newState = Object.assign({}, this.state, {
             pagination: {
@@ -335,53 +556,31 @@ class Search extends Component {
             },
         });
 
-        const scrolled =
-            (window.pageYOffset || window.document.scrollTop) -
-            (window.document.clientTop || 0);
+        this.setState(newState, () => {
+            let query = this.getQueryObject();
 
-        this.setState(newState);
+            query.page = page.selected + 1;
 
-        const query = {
-            keyword: searchParams.keyword,
-            page: page.selected + 1,
-            sort: searchParams.sort,
-        };
-
-        if (this.state.contentType) {
-            query.content_type = this.state.contentType;
-        }
-
-        this.pushToHistory(query, searchParams.facets);
-
-        if (e === 'clicked') {
-            window.sessionStorage.setItem(
-                'waters.previousPaginationClick',
-                scrolled
-            );
-        }
+            this.pushToHistory(query, query.facets);
+        });
     }
 
     sortHandler(e) {
-        const sortOption =
-            parseInt(e.value) === 1 ? 'most-relevant' : 'most-recent';
-        const state = this.state;
+        const sortOption = parseInt(e.value) === 1 ? parameterValues.sort.mostRelevant : parameterValues.sort.mostRecent;
 
-        this.setState(Object.assign({}, state, { sort: sortOption }));
+        let query = this.getQueryObject();
 
-        const query = {
-            keyword: state.query,
-            page: 1,
-            sort: sortOption,
-        };
+        query.page = 1;
+        query.sort = sortOption;
 
-        if (this.state.contentType) {
-            query.content_type = this.state.contentType;
-        }
-
-        this.pushToHistory(query, state.selectedFacets);
+        this.setState({forceCollapseFilters: true}, () => {
+            this.pushToHistory(query, query.facets);
+        });
     }
 
-    filterSelectHandler(facet, categoryId, e) {
+    categoryChangeHandler = e => this.handleCategorySelected(e.value);
+
+    filterSelectHandler(facet, categoryId, e, activeIndex) {
         const isChecked = e.target.checked;
         const newState = Object.assign({}, this.state);
         if (isChecked) {
@@ -402,18 +601,14 @@ class Search extends Component {
 
             newState.selectedFacets[`${categoryId}`] = filteredArr;
         }
-        newState.searchParams.page = 1;
 
-        this.setState(newState);
+        this.state['activeIndex'] = categoryId;
+        const query = this.getQueryObject();
 
-        setTimeout(
-            () =>
-                this.pushToHistory(
-                    this.state.searchParams,
-                    this.state.selectedFacets
-                ),
-            0
-        );
+        query.page = 1;
+        query.facets = {... newState.selectedFacets};
+
+        this.pushToHistory(query, query.facets);
     }
 
     removeTag(tag) {
@@ -429,19 +624,24 @@ class Search extends Component {
         );
 
         newState.selectedFacets[`${tag.categoryId}`] = filteredArr;
-        newState.searchParams.page = 1;
 
-        this.setState(newState);
+        const query = this.getQueryObject();
 
-        this.pushToHistory(this.state.searchParams, this.state.selectedFacets);
+        query.page = 1;
+        query.facets = {... newState.selectedFacets};
+        
+        this.setState({forceCollapseFilters: true}, () => {
+            this.pushToHistory(query, query.facets);
+        });
     }
 
     applyFilters() {
-        document.body.classList.remove('show-sort-filters');
-        document.body.classList.remove('filter-active');
+        this.hideSortFiltersModal();
+        this.deactivateFilters();
+        domElements.noScroll(false);
 
         setTimeout(() => {
-            window.scrollTo(0, 0);
+            this.search.scrollToTop();
         }, 1000);
 
         this.clearUnappliedFilters();
@@ -454,17 +654,23 @@ class Search extends Component {
     }
 
     resetToSavedState() {
-        var savedState = this.state.savedState;
-        savedState.selectedFacets = JSON.parse(this.savedSelectFilterState);
-        this.setState(Object.assign({}, savedState));
-    }
-
-    collapseFilters() {
-        var fitlers = document.querySelectorAll('.cmp-search-filters__filter');
-        [].forEach.call(fitlers, function(el) {
-            el.classList.remove('expanded');
+        this.setState({ forceCollapseFilters: true }, () => {
+            this.pushToHistory(this.state.savedState.searchParams, this.state.savedState.searchParams.facets);
         });
     }
+
+    collapseFilters = () => {
+        // setting to true will trigger componentDidUpdate method on the filter component
+        // which will take care of doing the actual collapsing of the facet groups
+        this.setState({ collapseAllFilters: true }, () => {
+            // reset back to false after state has been updated
+            this.setState({ collapseAllFilters: false });
+            setTimeout(this.deactivateFilters, 0);
+        });
+    }
+
+    deactivateFilters = () => document.body.classList.remove('filter-active');
+    hideSortFiltersModal = () => document.body.classList.remove('show-sort-filters');
 
     setupFilters() {
         if (!this.state.isDesktop) {
@@ -477,7 +683,7 @@ class Search extends Component {
     }
 
     handleContentTypeItemClick = item => {
-        const contentType = item.categoryFacetName.replace('_facet', '');
+        const contentType = item.facetName.replace('_facet', '');
 
         let query = this.search.createQueryObject(
             parse(window.location.search)
@@ -486,22 +692,10 @@ class Search extends Component {
         query.content_type = contentType;
 
         query.page = 1;
-
-        this.setState({
-            searchParams: query,
-            contentType,
-            contentTypeSelected: item,
-            loading: true,
+        
+        this.setState({forceCollapseFilters: true, activeFilterIndex: -1}, () => {
+            this.pushToHistory(query, query.facets);
         });
-
-        setTimeout(
-            () =>
-                this.pushToHistory(
-                    this.state.searchParams,
-                    this.state.selectedFacets
-                ),
-            0
-        );
     };
 
     handleResetSearchToDefault = () => {
@@ -516,24 +710,11 @@ class Search extends Component {
             // no keyword has been selected so no need to reload page
             // simply clear active filters and update the route
             delete query.content_type;
+            delete query.facets;
 
             query.page = parameterDefaults.page;
 
-            this.setState({
-                searchParams: query,
-                selectedFacets: {},
-                contentType: '',
-                contentTypeSelected: {},
-            });
-
-            setTimeout(
-                () =>
-                    this.pushToHistory(
-                        this.state.searchParams,
-                        this.state.selectedFacets
-                    ),
-                0
-            );
+            this.pushToHistory(query, query.facets);
         }
     };
 
@@ -548,37 +729,83 @@ class Search extends Component {
         )}`;
     };
 
-    handleRemoveCategory = () => {
-        const parameters = parse(window.location.search);
+    handleRemoveContentType = () => {
+        const query = parse(window.location.search);
 
-        delete parameters.content_type;
+        delete query.content_type;
 
-        parameters.page = parameterDefaults.page;
+        query.page = parameterDefaults.page;
 
-        this.setState({
-            searchParams: parameters,
-            selectedFacets: {},
-            contentType: '',
-            contentTypeSelected: {},
-        });
-
-        setTimeout(
-            () =>
-                this.pushToHistory(
-                    this.state.searchParams,
-                    this.state.selectedFacets
-                ),
-            0
-        );
+        this.pushToHistory(query, query.facets);
     };
 
-    getContentMenuOrFilter = filterTags => {
-        if (this.isInitialLoad(this.state.contentType)) {
+    getSelectedContentTypeName = () => {
+        const query = this.getQueryObject();
+
+        if (
+            !this.state.filterMap ||
+            !Array.isArray(this.state.filterMap.orderedFacets)
+        ) {
+            const contentTypeElement = this.findContentType(
+                this.props.filterMap,
+                query.content_type
+            );
+            const contentTypeName = contentTypeElement
+                ? contentTypeElement.categoryFacetName
+                : 'NA';
+
+            return contentTypeName;
+        }
+
+        const facet = this.state.filterMap.orderedFacets.find(
+            item => item.facetName === `${query.content_type}_facet`
+        );
+
+        return facet ? facet.facetName : '';
+    };
+
+    getSelectedContentTypeValue = () => {
+        const query = this.getQueryObject();
+
+        if (
+            !this.state.filterMap ||
+            !Array.isArray(this.state.filterMap.orderedFacets)
+        ) {
+            const contentTypeElement = this.findContentType(
+                this.props.filterMap,
+                query.content_type
+            );
+            const contentTypeValue = contentTypeElement
+                ? contentTypeElement.categoryFacetValue
+                : 'NA';
+
+            return contentTypeValue;
+        }
+
+        const facet = this.state.filterMap.orderedFacets.find(
+            item => item.facetName === `${query.content_type}_facet`
+        );
+
+        return facet ? facet.facetValue : '';
+    };
+
+    renderContentMenuOrFilter = filterTags => {
+
+        if (!this.showFilteringComponents()) {
+            return <></>
+        }
+
+        if (
+            this.isCategoryOnlySelected(
+                this.state.category,
+                this.state.contentType
+            )
+        ) {
             return (
                 <CategoriesMenu
                     text={this.props.searchText}
-                    categoryKey="contentType"
-                    items={this.state.filterMap}
+                    categoryKey="filterBy"
+                    items={this.state.filterMap.orderedFacets}
                     click={this.handleContentTypeItemClick.bind(this)}
                     showBothChildrenAndItems={true}
                     filterTags={filterTags}
@@ -587,6 +814,9 @@ class Search extends Component {
                         text={this.props.searchText}
                         selectHandler={this.filterSelectHandler.bind(this)}
                         showTagsOnly={true}
+                        facetGroupsSelectedOrder={this.state.facetGroupsSelectedOrder}
+                        collapseAllFilters={this.state.collapseAllFilters}
+                        activeIndex={this.activeFilterIndex}
                     />
                 </CategoriesMenu>
             );
@@ -594,31 +824,39 @@ class Search extends Component {
             return (
                 <CategoriesMenu
                     text={this.props.searchText}
-                    categoryKey="contentType"
-                    items={this.state.filterMap}
+                    categoryKey="filterBy"
+                    items={this.state.filterMap.orderedFacets}
                     click={this.handleContentTypeItemClick.bind(this)}
-                    selectedValue={
-                        this.state.contentTypeSelected.categoryFacetValue
-                    }
-                    clear={this.handleRemoveCategory.bind(this)}
+                    selectedValue={this.getSelectedContentTypeValue()}
+                    clear={this.handleRemoveContentType.bind(this)}
                     filterTags={filterTags}
                 >
                     <Filter
+                        ref={this.filterRef}
                         facets={this.state.facets}
                         text={this.props.searchText}
-                        filterMap={this.props.filterMap}
+                        filterMap={this.state.filterMap}
                         defaultFacet={this.props.defaultFacet}
                         selectHandler={this.filterSelectHandler.bind(this)}
                         selectedFacets={this.state.selectedFacets}
                         contentType={this.state.contentType}
+                        facetGroupsSelectedOrder={this.state.facetGroupsSelectedOrder}
+                        collapseAllFilters={this.state.collapseAllFilters}
+                        activeIndex={this.state.activeFilterIndex}
+                        onGroupClick={this.handleFilterGroupClick}
                     />
                 </CategoriesMenu>
             );
         }
     };
 
+    handleFilterGroupClick = (index) => {
+        const activeIndex = index === -1 ? '' : this.state.activeIndex;
+        this.setState({activeFilterIndex: index, activeIndex});
+    }
+
     getFilterTags = () => {
-        if (this.isKeywordSelected() || this.isContentTypeSelected()) {
+        if (this.showFilteringComponents() && (this.isKeywordSelected() || this.isContentTypeSelected())) {
             return (
                 <div className="cmp-search-filters__tags clearfix">
                     <ClearAllTag
@@ -640,13 +878,44 @@ class Search extends Component {
 
     isKeywordSelected = () => !this.search.isDefaultKeyword(this.state.keyword);
 
+    getSelectedContentType = () => {
+        if (this.state.contentTypeSelected) {
+            if (
+                this.state.contentTypeSelected.hasOwnProperty(
+                    'categoryFacetName'
+                )
+            ) {
+                return {
+                    facetName: this.state.contentTypeSelected.categoryFacetName,
+                    facetValue: this.state.contentTypeSelected
+                        .categoryFacetValue,
+                };
+            } else if (
+                this.state.contentTypeSelected.hasOwnProperty('facetName')
+            ) {
+                return this.state.contentTypeSelected;
+            }
+        }
+
+        const query = this.getQueryObject();
+
+        const contentType = this.props.filterMap.find(
+            item => item.categoryFacetName === `${query.content_type}_facet`
+        );
+
+        return {
+            facetName: contentType ? contentType.categoryFacetName : '',
+            facetValue: contentType ? contentType.categoryFacetValue : '',
+        };
+    };
+
     getCategoryTags = () =>
         this.isContentTypeSelected() ? (
             <CategoryTags
                 categoryKey="contentType"
                 text={this.props.searchText}
-                selected={this.state.contentTypeSelected}
-                onRemove={this.handleRemoveCategory}
+                selected={this.getSelectedContentType()}
+                onRemove={this.handleRemoveContentType}
             />
         ) : (
             <></>
@@ -669,8 +938,8 @@ class Search extends Component {
 
     getSubFacetTags = () => {
         if (
-            this.isInitialLoad(this.state.contentType) ||
-            !this.isFacetsSelected(this.state.searchParams.facets)
+            this.isInitialLoad(this.state.category, this.state.contentType) ||
+            !this.isFacetsSelected(this.state.selectedFacets)
         ) {
             return <></>;
         }
@@ -731,17 +1000,193 @@ class Search extends Component {
         !this.state.loading && this.state.noResults ? (
             <NoResults
                 searchText={this.props.searchText}
-                query={this.state.query}
+                query={this.state.keyword}
             />
         ) : (
             results
         );
 
-    render() {
+    returnObsoleteStatus = (status) => {
+        if(status !== 'Active'){
+            // covers DiscontinueNoReplacement, DiscontinueWithReplacement, ObsoleteNoReplacement, and ObsoleteWithReplacement
+            return true;
+        }
+    }
+    renderSkuOrResults = () => {
+        const locale = this.props.searchLocale;
         const state = this.state;
         const searchParams = this.state.searchParams || {};
-        const overlay = <div className="overlay" />;
-        const filterTags = this.getFilterTags();
+        const nextIcon = this.props.searchText.nextIcon;
+        if (state.isSkuList) {
+            const skuData = Array.isArray(state.results[searchParams.page])
+                ? state.results[searchParams.page].map(item => {
+                    return {
+                        code: item.skucode,
+                        category_facet: item.category_facet,
+                        contenttype_facet: item.contenttype_facet,
+                        skuPageHref: item.url,
+                        formattedPrice: item.displayprice,
+                        primaryImageAlt: item.title,
+                        primaryImageThumbnail: item.thumbnail,
+                        discontinued: this.returnObsoleteStatus(item.status),
+                        replacementskuurl: item.replacementskuurl,
+                        replacementskucode: item.replacementskucode,
+                        title: item.title,
+                    };
+                }): [];
+            return (
+                <SkuList
+                    skuConfig={state.skuConfig}
+                    data={skuData}
+                    onItemClick={this.handleResultsItemClick}
+                />
+            );
+        } else {
+            return (
+                <Results
+                    results={state.results[searchParams.page] || []}
+                    locale={locale}
+                    nextIcon={nextIcon}
+                    onItemClick={this.handleResultsItemClick}
+                />
+            );
+        }
+    };
+
+    handleResultsItemClick = () => {
+        this.search.setStorageForPagePosition();
+        this.search.setStorageForTabHistory(this.state.tabHistory);
+    }
+
+    handleCategorySelected = index => {
+        if (this.state.activeTabIndex === index) { return; }
+
+        let query = this.getQueryObject();
+
+        this.createTabHistoryEntryForCurrentTab(query);
+
+        this.setCategorySelected(index, query, this.state.categoryTabs[index].name);
+    };
+
+    setCategorySelected = (index, query, category) => {
+        const tabHistoryEntrySelected = this.getTabHistoryEntry(category);
+
+        if (Object.entries(tabHistoryEntrySelected.searchParams).length === 0) {
+            query.category = category;
+            query.page = parameterDefaults.page;
+            query.sort = parameterDefaults.sort;
+
+            delete query.content_type;
+            delete query.facets;
+
+            this.setCategorySelectedState(index,
+                query,
+                parameterDefaults.content_type,
+                parameterDefaults.contentTypeSelected,
+                null);
+        } else {
+            this.setCategorySelectedState(index,
+                tabHistoryEntrySelected.searchParams,
+                tabHistoryEntrySelected.contentType,
+                tabHistoryEntrySelected.contentTypeSelected,
+                tabHistoryEntrySelected.selectedFacets);
+        }
+    }
+
+    createTabHistoryEntryForCurrentTab = query => {
+        const tabHistoryEntry = this.getTabHistoryEntry(query.category);
+        tabHistoryEntry.searchParams = Object.assign({}, query);
+        tabHistoryEntry.contentType = this.state.contentType;
+        tabHistoryEntry.contentTypeSelected = Object.assign({}, this.state.contentTypeSelected);
+        tabHistoryEntry.selectedFacets = Object.assign({}, this.state.selectedFacets);
+
+        this.setTabHistoryEntryState(query.category, tabHistoryEntry);
+    }
+
+    getTabHistoryEntry = category => {
+        if (this.state.tabHistory.hasOwnProperty(`${category}`)) {
+            return this.state.tabHistory[`${category}`];
+        }
+
+        return {
+            searchParams: {},
+            contentType: '',
+            contentTypeSelected: {},
+            selectedFacets: null,
+        }
+    }
+
+    setTabHistoryEntryState = (category, tabHistoryEntry) => {
+        const tabHistory = this.state.tabHistory;
+        tabHistory[`${category}`] = tabHistoryEntry;
+        this.setState({tabHistory});
+    }
+
+    setCategorySelectedState = (activeTabIndex, searchParams, contentType, contentTypeSelected, selectedFacets) => {
+        const isSkuList = this.isSkuList(searchParams.category);
+
+        this.setState({
+                activeTabIndex,
+                isSkuList,
+                searchParams,
+                category: searchParams.category,
+                sort: searchParams.sort,
+                contentType,
+                contentTypeSelected,
+                selectedFacets: selectedFacets ? selectedFacets : {},
+                forceCollapseFilters: screenSizes.isTabletAndUnder(),
+            });
+
+        setTimeout(() => {
+            this.pushToHistory(searchParams, selectedFacets);
+        }, 0);
+    }
+
+    showFilteringComponents = () => !(this.state.noResults || this.state.loading);
+
+    renderSort = () =>
+        this.showFilteringComponents()
+            ? <Sort
+                sortHandler={this.sortHandler.bind(this)}
+                sortValue={
+                    this.state.unappliedFilters &&
+                    this.state.unappliedFilters.sort
+                        ? this.state.unappliedFilters.sort === parameterValues.sort.mostRecent
+                            ? 2
+                            : 1
+                        : this.state.sort === parameterValues.sort.mostRecent
+                        ? 2
+                        : 1
+                }
+                text={this.props.searchText}
+            />
+        : <></>;
+
+    renderCategoryTabs = okToRender =>
+        this.showFilteringComponents()
+        ? <CategoryTabs
+                items={this.state.categoryTabs}
+                activeIndex={this.state.activeTabIndex}
+                onClick={this.handleCategorySelected}
+            />
+        : <></>;
+    
+    handleHideSortFilterClick = () => {
+        const searchParamsStringify = JSON.stringify(this.state.searchParams);
+        const savedParamsStringify = JSON.stringify(this.state.savedState.searchParams);
+
+        if (searchParamsStringify !== savedParamsStringify) {
+            this.resetToSavedState();
+        }
+
+        setTimeout(() => {
+            domElements.noScroll(false);
+            this.deactivateFilters();
+            this.hideSortFiltersModal();
+        }, 0);
+    }
+
+    renderSortFilterButtons = () => {
         const sortFilterIsPristine =
             !this.state.loading &&
             (this.state.contentType ||
@@ -749,78 +1194,78 @@ class Search extends Component {
                 ? false
                 : true;
 
+        return <>
+            <BtnHideSortFilter
+                    text={this.props.searchText}
+                    onClick={this.handleHideSortFilterClick}
+                />
+
+            <BtnApplySortFilter
+                text={this.props.searchText}
+                applyFilters={this.applyFilters.bind(this)}
+                isPristine={sortFilterIsPristine}
+                count={this.state.count}
+            />
+
+            <BtnDoneSortFilter
+                text={this.props.searchText}
+                collapseFilters={this.collapseFilters}
+            />
+        </>;
+    }
+
+    render() {
+        const state = this.state;
+        const overlay = <div className="overlay" />;
+        const filterTags = this.getFilterTags();
+
         const aside = (
             <div className="container__left cmp-search__sort-filter">
-                <BtnHideSortFilter
-                    text={this.props.searchText}
-                    resetToSavedState={this.resetToSavedState.bind(this)}
-                    collapseFilters={this.collapseFilters}
-                />
-
-                <BtnApplySortFilter
-                    text={this.props.searchText}
-                    applyFilters={this.applyFilters.bind(this)}
-                    isPristine={sortFilterIsPristine}
-                    count={this.state.count}
-                />
-
-                <BtnDoneSortFilter
-                    text={this.props.searchText}
-                    collapseFilters={this.collapseFilters}
-                />
-
+                {this.renderSortFilterButtons()}
                 <div className="cmp-search__sort-filter__container">
-                    <Sort
-                        sortHandler={this.sortHandler.bind(this)}
-                        sortValue={
-                            state.unappliedFilters &&
-                            state.unappliedFilters.sort
-                                ? state.unappliedFilters.sort === 'most-recent'
-                                    ? 2
-                                    : 1
-                                : state.sort === 'most-recent'
-                                ? 2
-                                : 1
-                        }
-                        text={this.props.searchText}
-                    />
-
-                    {this.getContentMenuOrFilter(filterTags)}
+                    {this.renderSort()}
+                    {this.renderContentMenuOrFilter(filterTags)}
                 </div>
             </div>
         );
-        const locale = this.props.searchLocale;
+
         const previousIcon = (
             <ReactSVG src={this.props.searchText.previousIcon} />
         );
-
+        const renderedResults = this.renderSkuOrResults();
         const results = (
             <div className="cmp-search__container">
                 <div className="cmp-search__container__header cleafix">
+                    <CategoryDropDown
+                        categoryDownIcon={this.props.searchText.downIcon}
+                        categoryIsSearchable={false}
+                        categoryOnChange={this.categoryChangeHandler}
+                        categoryOptions={this.state.categoryTabs}
+                        categoryValue={this.state.activeTabIndex}
+                    />
                     <BtnShowSortFilter
                         text={this.props.searchText}
                         setupFilters={this.setupFilters.bind(this)}
                         resetToSavedState={this.resetToSavedState.bind(this)}
                         collapseFilters={this.collapseFilters}
+                        onClose={this.handleHideSortFilterClick}
                     />
                 </div>
 
-                {filterTags}
+                <div className="cmp-search__sorted-container">
+                    <div className="cmp-search__sorted-by">
+                        {this.props.searchText.sortedBy}:{' '}
+                        {this.state.sort === 'most-relevant'
+                            ? this.props.searchText.sortByBestMatch
+                            : this.props.searchText.sortByMostRecent}
+                    </div>
 
-                <div className="cmp-search__sorted-by">
-                    {this.props.searchText.sortedBy}:{' '}
-                    {this.state.sort === 'most-relevant'
-                        ? this.props.searchText.sortByBestMatch
-                        : this.props.searchText.sortByMostRecent}
+                    {filterTags}
                 </div>
 
-                <Results
-                    results={state.results[searchParams.page] || []}
-                    locale={locale}
-                    nextIcon={this.props.searchText.nextIcon}
-                />
+                {renderedResults}
 
-                {state.count > this.props.searchDefaults.rows ? (
+                {!state.loading && state.count > this.props.searchDefaults.rows ? (
                     <ReactPaginate
                         pageCount={state.pagination.amount}
                         forcePage={
@@ -829,7 +1274,7 @@ class Search extends Component {
                                 : 0
                         }
                         pageRangeDisplayed={8}
-                        marginPagesDisplayed={0}
+                        marginPagesDisplayed={1}
                         containerClassName="paginate__container"
                         onPageChange={num =>
                             this.paginationClickHandler.bind(
@@ -858,13 +1303,18 @@ class Search extends Component {
             return <></>;
         } else {
             return (
-                <div ref="main">
-                    {overlay}
-                    {this.renderResultsCount()}
-                    {!state.loading && state.noResults ? null : aside}
-                    {state.loading ? <Spinner loading={state.loading} /> : null}
-                    {this.renderResults(results)}
-                </div>
+                <>
+                    {this.renderCategoryTabs()}
+                    <div ref="main">
+                        {overlay}
+                        {this.renderResultsCount()}
+                        {!state.loading && state.noResults ? null : aside}
+                        {state.loading ? (
+                            <Spinner loading={state.loading} />
+                        ) : null}
+                        {this.renderResults(results)}
+                    </div>
+                </>
             );
         }
     }

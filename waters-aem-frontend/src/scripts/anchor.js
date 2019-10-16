@@ -1,11 +1,15 @@
-import scrollToY from './scrollTo';
+import scrollToElement from './scrollToElement';
 import screenSizes from './screenSizes';
 import Fader from './fade-x';
 import sticky, { scrollListener } from './stickyService';
+import SkuDetails from './sku-details';
 
 var anchorElement = document.querySelector('.cmp-anchor');
 var anchorMenu = document.querySelector('.cmp-anchor__list-heading');
 let ancFader = null;
+
+const skuDetailsExists = SkuDetails.exists();
+const skuDiscontinued = SkuDetails.discontinued();
 
 // Setup click handler for Anchor Links to scroll in view
 var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
@@ -13,30 +17,13 @@ var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
     try {
         anchor.addEventListener('click', e => {
             e.preventDefault();
-            const anchorSticky = document.getElementsByClassName(
-                'cmp-anchor--sticky'
-            );
-            const hasSku = document.getElementsByClassName(
-                'cmp-sku-details--sticky'
-            );
 
             setTimeout(() => {
                 const href = e.target.getAttribute('href').replace(/#/gi, '');
-                const block = document.getElementById(href);
-                const blockTop = block.offsetTop;
-                let topDistance = blockTop - 16;
-                if (!anchorSticky.length) {
-                    topDistance += 70;
-                }
+                const anchorClickOffset = !skuDetailsExists || (screenSizes.isMobile() && skuDiscontinued) ? 52 : 143;
 
-                if (hasSku.length === 0) {
-                    if (anchorSticky.length) {
-                        topDistance += 20;
-                    }
-                }
-
-                scrollToY(topDistance, 1000, 'easeOutSine');
-
+                scrollToElement(href, 1000, 'easeOutSine', true, anchorClickOffset);
+                
                 anchorLinks.forEach(anchor => {
                     anchor.classList.remove('active');
                 });
@@ -66,61 +53,73 @@ const setAnchorDestinations = () => {
         }
     }
 };
-let brokeAt = 0;
+
+const activeClassName = "active";
+
+const setAnchorState = (index, isActive) => {
+    if (isActive) {
+        anchorDestinations.forEach(item => item.anchor.classList.remove(activeClassName));
+        anchorDestinations[index].anchor.classList.add(activeClassName);
+    } else {
+        anchorDestinations[index].anchor.classList.remove(activeClassName);
+    }
+}
+
+const atBottomOfPage = () => (window.innerHeight + window.pageYOffset) >= document.body.offsetHeight;
 
 const anchorScrollSpy = () => {
-    let multipleInView = [];
-    if (anchorDestinations) {
-        for (let n = 0; n <= anchorDestinations.length; n++) {
-            const id = anchorDestinations[n]
-                ? anchorDestinations[n].id.replace(/#/gi, '')
-                : undefined;
-            const link = anchorDestinations[n]
-                ? anchorDestinations[n].anchor
-                : undefined;
+    if (!anchorElement || !anchorDestinations) { return; }
+    
+    const anchorElementBottom = anchorElement.getBoundingClientRect().bottom;
+    const docHeight = document.documentElement.clientHeight;
 
-            if (id && link) {
-                const element = document.getElementById(id);
-                const elementBoundaries = element.getBoundingClientRect();
-                const elementTop = elementBoundaries.top;
-                const elementBottom = elementBoundaries.bottom;
-                const docHeight = document.documentElement.clientHeight;
-                const halfwayUpPage = docHeight / 1.4;
-                const stillOnPage = docHeight / 1.55;
+    anchorDestinations.forEach((item, index) => {
+        const id = item.id.replace(/#/gi, '');
+        const elementBoundaries = document.getElementById(id).getBoundingClientRect();
+        const elementTop = elementBoundaries.top;
+        const elementBottom = elementBoundaries.bottom;
+        const isBottomAboveContainer = elementBottom < anchorElementBottom;
 
-                if (
-                    (elementTop >= 75 &&
-                        elementTop <= docHeight &&
-                        elementTop <= halfwayUpPage) ||
-                    (elementTop < 150 && elementBottom >= stillOnPage)
-                ) {
-                    link.classList.add('active');
-                    brokeAt = n;
-                    multipleInView.push(n);
-                } else {
-                    link.classList.remove('active');
-                }
+        if (index === 0)  {
+            const thresholdMarker = docHeight / 1.4;
+            const isAboveThresholdMarker = elementTop <= thresholdMarker;
+            const isBetweenContainerAndThresholdMarker = !isBottomAboveContainer && isAboveThresholdMarker;
+
+            setAnchorState(index, isBetweenContainerAndThresholdMarker);
+        } else if (index === anchorDestinations.length - 1) {
+            const thresholdMarker = docHeight * .34;
+            const isAboveThresholdMarker = elementTop <= thresholdMarker;
+            const isBetweenContainerAndThresholdMarker = !isBottomAboveContainer && isAboveThresholdMarker;
+
+            if (atBottomOfPage() && isBetweenContainerAndThresholdMarker) {
+                setAnchorState(index, true);
+            } else {
+                const isActive = !isBottomAboveContainer && elementTop <= anchorElementBottom;
+
+                setAnchorState(index, isActive);
             }
+        } else {
+            const isActive = !isBottomAboveContainer && elementTop <= anchorElementBottom;
 
-            if (multipleInView.length > 1) {
-                for (let i = 1; i < multipleInView.length; i++) {
-                    const inView = multipleInView[i];
-
-                    anchorDestinations[inView].anchor.classList.remove(
-                        'active'
-                    );
-                }
-            }
+            setAnchorState(index, isActive);
         }
+    });
+}
+
+function anchorHide() {
+    if (document.getElementsByClassName('cmp-section-container--collapse').length > 0){
+        document.getElementsByClassName('anchor')[0].style.display = 'none'
+    } else {
+        document.getElementsByClassName('anchor')[0].style.display = 'block'
     }
-};
+}
 
 function toggleMobileNav(forceClose) {
     const heading = document.querySelector('.cmp-anchor--sticky');
-    if (!forceClose && heading.classList.contains('closed')) {
+    if (!forceClose && heading && heading.classList.contains('closed')) {
         heading.classList.remove('closed');
         heading.classList.add('open');
-    } else {
+    } else if (heading) {
         heading.classList.add('closed');
         heading.classList.remove('open');
     }
@@ -136,7 +135,7 @@ function hideScrollBars(el) {
 
 function anchorChange(el) {
    if (ancFader === null) {
-      ancFader = Fader('cmp-anchor__list', 0, 75);
+      ancFader = Fader('cmp-anchor__list', 0, 75, false, true);
 
       var anchorElementId = document.getElementById('cmp-anchor');
 
@@ -149,7 +148,7 @@ function anchorChange(el) {
 function clearGradients() {
     let lhsGradient = document.querySelector('.cmp-anchor__list .fader-container--left');
     let rhsGradient = document.querySelector('.cmp-anchor__list .fader-container--right');
-    
+
    if (lhsGradient !== null && rhsGradient !== null) {
       lhsGradient.style.display = 'none';
       rhsGradient.style.display = 'none';
@@ -188,10 +187,9 @@ function scrollWindow(el) {
 var anchorList = document.querySelector('.cmp-anchor__list');
 
 if (anchorList) {
-    const isMobile = screenSizes.isMobile();
-    const sectionContainers = document.querySelectorAll(
-        '.cmp-section-container--collapse'
-    );
+    if(screenSizes.isMobile()){
+        anchorHide();
+    }
 
     if (anchorElement) {
         setAnchorDestinations();
@@ -225,26 +223,22 @@ if (anchorList) {
         hideScrollBars(anchorList)
     );
 
-    anchorChange(anchorList); 
+    anchorChange(anchorList);
 
     window.addEventListener('scroll', () => scrollWindow(anchorList));
     window.addEventListener('load', () => resizeWindow(anchorList));
     window.addEventListener('resize', () => resizeWindow(anchorList));
     var mediaQueryListener = window.matchMedia('(max-width: 650px)');
-    var switchToLargerMediaSizeListener = window.matchMedia('(min-width: 651px)'); //listener for if the view transitions larger
 
-    function anchorChangeToMobile() {
-        if (isMobile) {
+    function anchorChangeToMobile(e) {
+        if (e.matches) {
+            anchorHide();
             clearGradients();
+        } else {
+            clearOpenContainers();
+            document.getElementsByClassName('anchor')[0].style.display = "block"
         }
     }
 
-    function anchorChangeToDesktop() {
-        // defaults style to block, in case a user switches from mobile view to desktop view in case the anchor component has display:none
-        document.getElementsByClassName('cmp-anchor')[0].style.display = "block"
-        clearOpenContainers();
-    }
-
-    switchToLargerMediaSizeListener.addListener(anchorChangeToDesktop)
     mediaQueryListener.addListener(anchorChangeToMobile);
 }

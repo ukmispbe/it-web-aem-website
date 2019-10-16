@@ -13,12 +13,14 @@ import com.waters.aem.hybris.models.Classification;
 import com.waters.aem.hybris.models.Feature;
 import com.waters.aem.hybris.models.FeatureValue;
 import com.waters.aem.hybris.models.Image;
+import com.waters.aem.hybris.models.ImageType;
 import com.waters.aem.hybris.models.Price;
 import com.waters.aem.hybris.models.Product;
 import com.waters.aem.hybris.models.ProductCategory;
 import com.waters.aem.hybris.models.ProductList;
 import com.waters.aem.hybris.models.ProductReference;
 import com.waters.aem.hybris.models.ProductReferenceTarget;
+import com.waters.aem.hybris.models.SalesStatus;
 import com.waters.aem.hybris.result.HybrisImporterResult;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.commons.JcrUtils;
@@ -80,10 +82,8 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
             results.addAll(importProductLists(resourceResolver, productsNode, lastImportDate, force));
 
             // set last import date
-            if (!force) {
-                productsResource.adaptTo(ModifiableValueMap.class)
-                    .put(HybrisImporterConstants.PROPERTY_LAST_IMPORT_DATE, currentImportDate);
-            }
+            productsResource.adaptTo(ModifiableValueMap.class)
+                .put(HybrisImporterConstants.PROPERTY_LAST_IMPORT_DATE, currentImportDate);
 
             resourceResolver.commit();
 
@@ -186,7 +186,13 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         final ProductList productList) throws RepositoryException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
-        final List<Product> products = productList.getProducts();
+        // only create product nodes for "Active" skus. ideally this should be filtered in the Hybris API instead.
+        // https://code.waters.com/jira/browse/BTWCT-1855
+        final List<Product> products = productList.getProducts().stream()
+                .filter(product -> product.getSalesStatus() == SalesStatus.Active)
+                .collect(Collectors.toList());
+        LOG.info("{} total skus for page number {}, importing {} active skus for this page",
+                productList.getProducts().size(), productList.getCurrentPage(), products.size());
 
         LOG.info("importing {} products for page number {} of {}", products.size(), productList.getCurrentPage(),
             productList.getTotalPageCount());
@@ -336,7 +342,8 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
                     .map(Classification::getFeatures)
                     .flatMap(List::stream)
                     .filter(feature -> !feature.getInternalOnly())
-                    .sorted(Comparator.comparing(Feature::getPosition))
+                    .sorted(Comparator.nullsLast(Comparator.comparing(Feature::getPosition,
+                            Comparator.nullsLast(Comparator.naturalOrder()))))
                     .collect(Collectors.toList());
 
             setItemNodes(classificationsNode, WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATION, flattenedFeatures,
@@ -367,9 +374,22 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
     private void setImages(final Node productNode, final List<Image> images) throws RepositoryException {
         if (!images.isEmpty()) {
+            final ArrayList<Image> sortedImages = new ArrayList<>();
+            final Map<ImageType, List<Image>> groupedImages = images.stream().collect(
+                    Collectors.groupingBy(Image::getImageType));
+
+            // sort primary image first
+            if (groupedImages.get(ImageType.PRIMARY) != null) {
+                sortedImages.addAll(groupedImages.get(ImageType.PRIMARY));
+            }
+
+            if (groupedImages.get(ImageType.GALLERY) != null) {
+                sortedImages.addAll(groupedImages.get(ImageType.GALLERY));
+            }
+
             final Node imagesNode = JcrUtils.getOrAddNode(productNode, WatersCommerceConstants.RESOURCE_NAME_IMAGES);
 
-            setItemNodes(imagesNode, WatersCommerceConstants.RESOURCE_NAME_IMAGE, images, image -> {
+            setItemNodes(imagesNode, WatersCommerceConstants.RESOURCE_NAME_IMAGE, sortedImages, image -> {
                 final Map<String, Object> properties = new HashMap<>();
 
                 properties.put(WatersCommerceConstants.PROPERTY_URL, image.getUrl());

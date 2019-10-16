@@ -63,15 +63,12 @@ class LibraryAssetSpec extends WatersLibrarySpec {
         libraryAsset.event*.tagID == ["waters:event/test"]
 
         and:
-        libraryAsset.technique*.tagID == ["waters:technique/test"]
-
-        and:
         libraryAsset.monthPublished*.tagID == ["waters:month/june"]
 
         and:
         libraryAsset.yearPublished*.tagID == ["waters:year/2019"]
 
         and:
-        libraryAsset.allTags.size() == 10
+        libraryAsset.allTags.size() == 8
     }
 }

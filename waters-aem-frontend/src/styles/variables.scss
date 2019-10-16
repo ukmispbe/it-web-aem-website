@@ -47,12 +47,11 @@ $color-focus: $color-blue-30;
 
 // Font Stack
 $font-stack: 'acumin-pro', arial, sans-serif;
-$zh-font-stack: arial, sans-serif, 'SimSun', '宋体', 'STSong', '华文宋体';
-$ja-font-stack: arial, sans-serif, “Yu Gothic”, “Meiryo UI”, “メイリオ”,
-    “Hiragino Kaku Gothic Pro”, “Meiryo”;
+$zh-font-stack: "SimSun", "宋体", "STSong", "华文宋体", arial, sans-serif;
+$ja-font-stack: "Meiryo UI", "Hiragino Kaku Gothic Pro", "Meiryo", "Yu Gothic", arial, sans-serif;
 
 // Font Size
-$font-size-h1: 2.25em;
+$font-size-h1: 2em;
 $font-size-h2: 1.2em;
 $font-size-h3: 1.1em;
 $font-size-h4: 1em;
@@ -67,16 +66,22 @@ $line-height-text: 1.6em;
 $line-height-heading: 1.4em;
 
 // Font Weight
-$font-weight-light: 300;
-$font-weight-regular: 400;
-$font-weight-bold: 500;
+:root {
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-bold: 500;
+}
+
+$font-weight-light: var(--font-weight-light);
+$font-weight-regular: var(--font-weight-regular);
+$font-weight-bold: var(--font-weight-bold);
 
 // Letter Spacing
 $letter-spacing-small: 0.02em;
 
 // Mobile
-$font-size-h1-m: 1.6em;
-$font-size-small-m: 0.8em;
+$font-size-h1-m: 1.4em;
+$font-size-small-m: 0.85em;
 
 // Print
 $font-size-h1-pcs: 2em;
@@ -122,8 +127,7 @@ $desktop-width: 1200px;
 $tablet-width: 650px;
 $mobile-width: 414px;
 
-
-// z-index catalog 
+// z-index catalog
 $header-mobile-z-index: 400;
 $header-overlay-z-index: 505;
 $header-top-bar-z-index: 505;
@@ -139,3 +143,11 @@ $navigation-after-z-index: 405;
 
 $cmp-modal-box-z-index: 499;
 $cmp-modal-box-close-btn-z-index:499;
+
+:export {
+    colorBorderDark : $color-gray-40;
+    colorGray50 : $color-gray-50;
+    colorBackgroundLight : $color-gray-10;
+    colorWhite : $color-white;
+    colorBlue50 : $color-blue-50;
+}
