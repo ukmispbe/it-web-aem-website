@@ -10,6 +10,7 @@ import LoginStatus from "./scripts/loginStatus";
 import SkuDetails from './sku-details';
 import SkuList from './sku-list';
 import SkuMessage from './sku-shared/views/SkuMessage';
+import Video from './video/index';
 import Chat from './chat'
 
 function getAuthoredDataForSearchBar(c, h) {
@@ -222,6 +223,34 @@ if(skuUnavailableContainer) {
             skuDetailsUnavailableBindingContainer
         );
     }
+}
+    
+
+const videoContainers = Array.from(
+    document.querySelectorAll('.cmp-video')
+);
+
+if (videoContainers) {
+    videoContainers.forEach(container => {
+
+        const videoContainer = container.querySelector('.video-wrapper');
+        const videoConfig = container.querySelector('.video-configs-json');
+
+        if (videoContainer && videoConfig) { 
+            const json = JSON.parse(videoConfig.innerHTML);
+
+            ReactDOM.render(
+                <Video videoConfig={json.videoConfig} ref={(ourComponent) => {
+                    if (window.cmpVideos) {
+                        window.cmpVideos.push(ourComponent);
+                    } else { 
+                        window.cmpVideos = [ourComponent];
+                    }
+                }} />,
+                videoContainer
+            );
+        }
+    });
 }
 
 const chatContainer = document.querySelector('.cmp-chat');

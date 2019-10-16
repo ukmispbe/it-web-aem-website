@@ -1,0 +1,25 @@
+<div data-sly-use.video="com.waters.aem.core.components.content.Video" class="cmp-video">
+    <div class="video-wrapper">
+
+       
+    </div>
+    <script type="application/json" class="video-configs-json">
+        {
+            "videoConfig": {
+                "title": "${video.title  @ context='scriptString'}",
+                "description": "${video.description  @ context='scriptString'}",
+                "length": "",
+                "thumbPath": "${video.thumbnailRendition  @ context='scriptString'}",
+                "thumbAlt": "${video.thumbnailAltText  @ context='scriptString'}",
+                "playIcon": "/content/dam/waters/en/brand-assets/icons/play.svg",
+                "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
+                "brightcoveVideoId": "${video.videoId  @ context='scriptString'}",
+                "brightcoveAccount": "${video.brightcoveAccount  @ context='scriptString'}",
+                "brightcovePlayerId": "${video.brightcovePlayerId  @ context='scriptString'}"
+            }
+        }
+    </script>
+</div>
+
+<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+     data-sly-call="${patterns.placeholder @ show=!video.videoId, text=component.title}"/>

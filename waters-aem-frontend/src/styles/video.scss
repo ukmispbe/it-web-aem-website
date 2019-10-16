@@ -1,0 +1,83 @@
+.cmp-video {
+    margin-bottom: $space-m;
+
+    .video-wrapper {
+        position: relative;
+    }
+    
+    &_modal-body {
+        position: relative;
+        margin-bottom: $space-m;
+        max-width: 100%;
+    }
+    
+    &_info {
+        &_title {
+            @include font-h3;
+            color: $color-blue-50;
+            margin: 0;
+        }
+        &_description {
+            @include font-h4;
+            margin-top: $space-m;
+            margin-bottom: 0;
+            font-weight:$font-weight-light; 
+        }
+    }
+}
+
+.cmp-video {
+
+    //no blimp before load
+    .video-js,
+    .video-js.vjs-fluid {
+        height: 0;
+        width: 100%;
+        max-width: 100%;
+        padding-top: 56.25%;
+    }
+
+    .vjs-menu .vjs-contextmenu-ui-menu{
+        display: none !important;
+    }
+
+    .vjs-text-track-display {
+        transition: opacity 1s;
+    }
+
+    .vjs-has-started.vjs-playing{
+        .vjs-text-track-display {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    button.vjs-big-play-button:focus {
+        outline: none;
+    }
+
+    .vjs-has-started.vjs-paused {
+        .vjs-text-track-display {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .vjs-control-bar {
+            transform: translateY(3em);
+        }
+        .vjs-poster {
+            display: inline-block;
+        }
+    } 
+
+    .vjs-has-started.vjs-paused.vjs-fullscreen {
+        .vjs-control-bar {
+            transform: translateY(0);
+        }
+    }
+
+    .video-js .vjs-dock-text,
+    .video-js .vjs-dock-shelf{
+        display: none;
+    }
+}
