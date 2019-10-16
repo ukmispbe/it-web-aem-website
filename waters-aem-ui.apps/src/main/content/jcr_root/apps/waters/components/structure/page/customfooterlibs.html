@@ -5,14 +5,14 @@
 <!-- Mopinion end -->
 
 
-<!-- Brightcove framework start -->
 
 <sly data-sly-use.scriptHelper="com.waters.aem.core.components.structure.page.ScriptHelper"
      data-sly-test="${scriptHelper.pageHasVideoComponent}">
+    <!-- Brightcove framework start -->
     <script src="//players.brightcove.net/${scriptHelper.brightcoveAccount}/${scriptHelper.brightcovePlayerId}_default/index.min.js"></script>
+    <!-- Brightcove framework end-->
 </sly>
 
-<!-- Brightcove framework end-->
 
 <!-- launch script end -->
 <script type="text/javascript">_satellite.pageBottom();</Script>
