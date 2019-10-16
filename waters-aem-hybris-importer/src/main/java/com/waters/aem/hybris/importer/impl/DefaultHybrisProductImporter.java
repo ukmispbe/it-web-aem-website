@@ -20,6 +20,7 @@ import com.waters.aem.hybris.models.ProductCategory;
 import com.waters.aem.hybris.models.ProductList;
 import com.waters.aem.hybris.models.ProductReference;
 import com.waters.aem.hybris.models.ProductReferenceTarget;
+import com.waters.aem.hybris.models.SalesStatus;
 import com.waters.aem.hybris.result.HybrisImporterResult;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.commons.JcrUtils;
@@ -81,10 +82,8 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
             results.addAll(importProductLists(resourceResolver, productsNode, lastImportDate, force));
 
             // set last import date
-            if (!force) {
-                productsResource.adaptTo(ModifiableValueMap.class)
-                    .put(HybrisImporterConstants.PROPERTY_LAST_IMPORT_DATE, currentImportDate);
-            }
+            productsResource.adaptTo(ModifiableValueMap.class)
+                .put(HybrisImporterConstants.PROPERTY_LAST_IMPORT_DATE, currentImportDate);
 
             resourceResolver.commit();
 
@@ -187,7 +186,13 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         final ProductList productList) throws RepositoryException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
-        final List<Product> products = productList.getProducts();
+        // only create product nodes for "Active" skus. ideally this should be filtered in the Hybris API instead.
+        // https://code.waters.com/jira/browse/BTWCT-1855
+        final List<Product> products = productList.getProducts().stream()
+                .filter(product -> product.getSalesStatus() == SalesStatus.Active)
+                .collect(Collectors.toList());
+        LOG.info("{} total skus for page number {}, importing {} active skus for this page",
+                productList.getProducts().size(), productList.getCurrentPage(), products.size());
 
         LOG.info("importing {} products for page number {} of {}", products.size(), productList.getCurrentPage(),
             productList.getTotalPageCount());

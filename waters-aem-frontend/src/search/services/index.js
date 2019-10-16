@@ -422,4 +422,29 @@ class SearchService {
     }
 }
 
-export { SearchService, parameterValues, parameterDefaults };
+const searchMapper = {
+    mapFacetGroups: (contentType, filterMap, facets) => {
+        const facetName = `${contentType}_facet`;
+
+        const facet = Array.isArray(filterMap.orderedFacets)
+            ? filterMap.orderedFacets.find(item => item.facetName === facetName)
+            : null;
+
+        if (!facet) { return; }
+
+        const orderedFacets = facet.orderedFacets.filter(item => facets[item.facetName]);
+
+        const mapping = orderedFacets.map(facet => {
+            return {
+                name: facet.facetName,
+                category: facet.facetValue,
+                facets: facets[facet.facetName],
+                isExpanded: false,
+            }
+        });
+
+        return mapping;
+    }
+};
+
+export { SearchService, parameterValues, parameterDefaults, searchMapper };
