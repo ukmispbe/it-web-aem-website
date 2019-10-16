@@ -1,8 +1,6 @@
 <div data-sly-use.skuDetails="com.waters.aem.core.components.content.SkuDetails"
      data-sly-test.sku="${skuDetails.displayableSku}"
-     class="cmp-sku-details"
-     data-commerce="${SkuDetails.commerceConfig}"
-     data-json="${skuDetails}">
+     class="cmp-sku-details">
     <div class="cmp-sku-details__wrapper">
         <div class="cmp-sku-details__container">
             <div class="cmp-sku-details__heading">
@@ -20,7 +18,7 @@
                     data-sku-code="${sku.code}"
                     data-sku-title="${sku.title}" 
                     data-discontinued="${!sku.active ? 'true' : ''}"
-                    data-country-restricted="This product is not available."
+                    data-country-restricted="${'This product is not available.' @ i18n}"
                     data-replacement-sku-code="${sku.replacementSkuCode}"
                     data-replacement-sku-href="${sku.replacementSkuPageHref}">
                 </div>
