@@ -15,6 +15,7 @@ class TagCloudSpec extends WatersLibrarySpec {
                 "jcr:content"(
                     "cq:template": WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE,
                     contentType: ["/etc/tags/waters/contenttype/applicationnote"],
+                    category: ["/etc/tags/waters/category/library"],
                     compoundMatrix: ["/etc/tags/waters/matrix/first"],
                     market: ["/etc/tags/waters/market/first", "/etc/tags/waters/market/second"]
                 ) {
@@ -56,6 +57,19 @@ class TagCloudSpec extends WatersLibrarySpec {
 
         expect:
         tagCloud.contentType == "applicationnote"
+
+        where:
+        resourcePath << ["/content/waters/jcr:content/tagcloud", "/content/waters/library/jcr:content/tagcloud"]
+    }
+
+    def "get category capitalized"() {
+        setup:
+        def tagCloud = requestBuilder.build {
+            path = resourcePath
+        }.adaptTo(TagCloud)
+
+        expect:
+        tagCloud.category == "Library"
 
         where:
         resourcePath << ["/content/waters/jcr:content/tagcloud", "/content/waters/library/jcr:content/tagcloud"]
