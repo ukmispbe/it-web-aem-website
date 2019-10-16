@@ -17,15 +17,14 @@ class ShowSortFilter extends Component {
         const sortFilterModal = domElements.getSortFilterhModal();
 
         if (document.body.classList.contains(showFilterClass)) {
-            document.body.classList.remove(showFilterClass);
-            document.body.classList.remove('filter-active');
             this.setState({ showSortFilters: true });
-
-            this.props.resetToSavedState();
             this.props.collapseFilters();
+            this.props.onClose();
             
             header.style.display = '';
             sortFilterModal.style.top = '';
+
+            domElements.noScroll(false);
         } else {
             document.body.classList.add(showFilterClass);
             this.setState({ showSortFilters: true });
