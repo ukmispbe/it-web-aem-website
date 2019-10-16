@@ -11,10 +11,10 @@ class TagCloud extends Component {
 
     handleRelatedSearch(keyword){
         const filter = keyword.split(':');
-        const filterCategory = filter[0]
+        const filterCategory = filter[0];
         const filterValue = encodeURI(encodeURIComponent(filter[1]));
         this.sessionStore.removePreviousPagePosition();
-        window.location.href = `${this.props.searchPath}?content_type=${this.props.contentType}&facet=${filterCategory}:${filterValue}`;
+        window.location.href = `${this.props.searchPath}?category=${this.props.category}&content_type=${this.props.contentType}&facet=${filterCategory}:${filterValue}`;
     }
 
     render() {
@@ -34,6 +34,7 @@ class TagCloud extends Component {
 }
 
 TagCloud.propTypes = {
+    category: PropTypes.string,
     contentType: PropTypes.string,
     keywords: PropTypes.array,
     searchPath: PropTypes.string,
