@@ -11,21 +11,88 @@
 
         input {
             border: 1px solid $color-gray-30;
+            line-height: $line-height-text;
             width: 100%;
             padding: $space-xs $space-xxs;
         }
 
         &.cmp-form-field--valid {
-            input {
+            input.valid {
                 border: 1px solid $color-gray-30;
                 // add background svg
+
+                & ~ .cmp-form-field--icons .valid-icon {
+                    display: inline-block;
+                    svg {
+                        display: block;
+                    }
+                }
             }
+
         }
 
         &.cmp-form-field--invalid {
-            input {
+            input.error {
                 border: 1px solid $color-error;
                 // add background svg
+
+                & ~ .cmp-form-field--icons .invalid-icon {
+                    display: inline-block;
+                    svg {
+                        display: block;
+                    }
+                }
+            }
+
+        }
+
+        &--input {
+            position: relative;
+        }
+
+        &--icons {
+            position: absolute;
+            top: 1px;
+            right: 1em;
+            height: (($space-xs * 2) + $line-height-text);
+            display: flex;
+            align-items: center;
+
+            & > div {
+                display: none;
+                margin-left: $space-xxs;
+
+                svg {
+                    display: none;
+                    height: $icon-m;
+                    width: $icon-m;
+                }
+
+                &.valid-icon svg .st0 {
+                    stroke: $color-success;
+                    stroke-width: 2px;
+                }
+
+                &.invalid-icon svg .st0 {
+                    stroke: $color-error;
+                    stroke-width: 1px;
+                }
+
+                &.showHide-icon, &.showHideOff-icon {
+                    display: none;
+                    svg {
+                        cursor: pointer;
+                        display: none;
+                    }
+                }
+
+                &.showHide-icon.toggled, &.showHideOff-icon.toggled {
+                    display: inline-block;
+                    svg {
+                        cursor: pointer;
+                        display: block;
+                    }
+                }
             }
         }
     }
