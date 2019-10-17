@@ -8,14 +8,10 @@ import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.dam.api.Asset;
-import com.day.cq.dam.commons.util.PrefixRenditionPicker;
 import com.waters.aem.core.components.SiteContext;
-import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.brightcove.BrightcoveService;
 import com.waters.aem.core.utils.BrightcoveUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
@@ -53,9 +49,6 @@ public class Video implements ComponentExporter{
     @Self
     private SiteContext siteContext;
 
-    @Inject
-    private ResourceResolver resourceResolver;
-
     @DialogField(fieldLabel = "Video Title",
         fieldDescription = "Select the Title for the video",
         required = true,
@@ -79,21 +72,6 @@ public class Video implements ComponentExporter{
     @Inject
     private String videoId;
 
-    @DialogField(fieldLabel = "Video Thumbnail",
-        fieldDescription = "Enter or select the Brightcove Video thumbnail",
-        required = true,
-        ranking = 4)
-    @PathField(rootPath = WatersConstants.DAM_PATH)
-    @Inject
-    private String thumbnail;
-
-    @DialogField(fieldLabel = "Thumbnail Alt text",
-        fieldDescription = "Enter the thumbnail alternate text",
-        ranking = 5)
-    @TextField
-    @Inject
-    private String thumbnailAltText;
-
     public String getTitle() {
         return title;
     }
@@ -106,38 +84,12 @@ public class Video implements ComponentExporter{
         return videoId;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
-    }
-
-    public String getThumbnailAltText() {
-        return thumbnailAltText;
-    }
-
     public String getBrightcoveAccount() {
         return BrightcoveUtils.getBrightcoveAccount(siteContext, brightcoveService);
     }
 
     public String getBrightcovePlayerId() {
         return BrightcoveUtils.getBrightcovePlayerId(siteContext, brightcoveService);
-    }
-
-    public String getThumbnailRendition() {
-        String thumbnailImageRendition = null;
-
-        if (thumbnail != null) {
-            final Resource assetResource = resourceResolver.getResource(thumbnail);
-
-            if (assetResource != null) {
-                final Asset asset = assetResource.adaptTo(Asset.class);
-
-                thumbnailImageRendition = new PrefixRenditionPicker(WatersConstants.THUMBNAIL_RENDITION_PREFIX, true)
-                .getRendition(asset)
-                .getPath();
-            }
-        }
-
-        return thumbnailImageRendition;
     }
 
     @Nonnull
