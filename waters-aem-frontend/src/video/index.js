@@ -10,7 +10,6 @@ class VideoContainer extends React.Component {
         this.state = {
             title: this.props.videoConfig.title,
             description: this.props.videoConfig.description,
-            thumbAlt: this.props.videoConfig.thumbAlt,
             brightcoveVideoId: this.props.videoConfig.brightcoveVideoId,
             brightcoveAccount: this.props.videoConfig.brightcoveAccount,
             brightcovePlayerId: this.props.videoConfig.brightcovePlayerId
