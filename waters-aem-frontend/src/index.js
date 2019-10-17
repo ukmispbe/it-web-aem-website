@@ -159,10 +159,11 @@ if (skuDetailsContainer) {
     const skuNumber = skuData.dataset.skuCode;
     const skuTitle = skuData.dataset.skuTitle;
     const skuDiscontinued = skuData.dataset.discontinued;
+    const skuCountryRestricted = skuData.dataset.countryRestricted;
     const replacementSkuCode = skuData.dataset.replacementSkuCode;
     const replacementSkuHref = skuData.dataset.replacementSkuHref;
 
-    ReactDOM.render(<SkuDetails config={skuDetailsConfig} price={skuDetailsListPrice} skuNumber={skuNumber} titleText={skuTitle} discontinued={skuDiscontinued} replacementSkuCode={replacementSkuCode} replacementSkuHref={replacementSkuHref}/>, skuDetailsContainer);
+    ReactDOM.render(<SkuDetails config={skuDetailsConfig} price={skuDetailsListPrice} countryRestricted={skuCountryRestricted} skuNumber={skuNumber} titleText={skuTitle} discontinued={skuDiscontinued} replacementSkuCode={replacementSkuCode} replacementSkuHref={replacementSkuHref}/>, skuDetailsContainer);
 }
 
 
