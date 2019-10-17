@@ -1,0 +1,32 @@
+.cmp-form {
+    .cmp-form-field {
+        float: left;
+        width: 100%;
+        margin-bottom: $space-s;
+
+        label {
+            display: block;
+            margin-bottom: $space-xxxs;
+        }
+
+        input {
+            border: 1px solid $color-gray-30;
+            width: 100%;
+            padding: $space-xs $space-xxs;
+        }
+
+        &.cmp-form-field--valid {
+            input {
+                border: 1px solid $color-gray-30;
+                // add background svg
+            }
+        }
+
+        &.cmp-form-field--invalid {
+            input {
+                border: 1px solid $color-error;
+                // add background svg
+            }
+        }
+    }
+}

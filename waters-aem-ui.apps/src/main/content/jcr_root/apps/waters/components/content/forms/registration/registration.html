@@ -11,17 +11,35 @@
                     {
                         "type": "text",
                         "name": "firstName",
-                        "label": "${'First Name' @ i18n, context='scriptString'}"
+                        "label": "${'First Name' @ i18n, context='scriptString'}",
+                        "validation": {
+                            "required": true,
+                            "validateFnName": "noWhitespaceOrSpecialChars",
+                            "validationMsg": "${'Please enter a valid first name' @ i18n, context='scriptString'}",
+                            "requiredMsg": "${'Please enter a valid first name' @ i18n, context='scriptString'}"
+                        }
                     },
                     {
                         "type": "text",
                         "name": "lastName",
-                        "label": "${'Last Name' @ i18n, context='scriptString'}"
+                        "label": "${'Last Name' @ i18n, context='scriptString'}",
+                        "validation": {
+                            "required": true,
+                            "validateFnName": "noWhitespaceOrSpecialChars",
+                            "validationMsg": "${'Please enter a valid last name' @ i18n, context='scriptString'}",
+                            "requiredMsg": "${'Please enter a valid last name' @ i18n, context='scriptString'}"
+                        }
                     },
                     {
                         "type": "text",
                         "name": "company",
-                        "label": "${'Company' @ i18n, context='scriptString'}"
+                        "label": "${'Company' @ i18n, context='scriptString'}",
+                        "validation": {
+                            "required": true,
+                            "validateFnName": "noWhitespace",
+                            "validationMsg": "Please enter a valid company' @ i18n, context='scriptString'}",
+                            "requiredMsg": "${'Please enter a valid company' @ i18n, context='scriptString'}"
+                        }
                     },
                     {
                         "type": "dropdown",
@@ -29,7 +47,11 @@
                         "label": "${'Country' @ i18n, context='scriptString'}",
                         "placeholder": "${'Select...' @ i18n, context='scriptString'}",
                         "dropdownIndicator": "./down.svg",
-                        "options": ${registration.countriesJson @ context="unsafe"}
+                        "options": ${registration.countriesJson @ context="unsafe"},
+                        "validation": {
+                            "required": true,
+                            "requiredMsg": "${'Please select a country' @ i18n, context='scriptString'}"
+                        }
                     },
                     {
                         "type": "break"
@@ -38,26 +60,31 @@
                         "type": "email",
                         "name": "email",
                         "label": "${'Email' @ i18n, context='scriptString'}",
-                        "description": "${'This will be your username' @ i18n, context='scriptString'}"
+                        "description": "${'This will be your username' @ i18n, context='scriptString'}",
+                        "validation": {
+                            "required": true,
+                            "requiredMsg": "${'Please enter a valid email address' @ i18n, context='scriptString'}",
+                            "validateFnName": "email",
+                            "validationMsg": "${'Please enter a valid email address' @ i18n, context='scriptString'}"
+                        }
                     },
                     {
                         "type": "password",
                         "name": "password",
                         "label": "${'Password' @ i18n, context='scriptString'}",
-                        "validation": "standard"
-
-                    },
-                    {
-                        "type": "password",
-                        "name": "passwordConfirm",
-                        "label": "${'Confirm Password' @ i18n, context='scriptString'}",
-                        "validation": "match"
+                        "hasMatch": true,
+                        "validation": {
+                            "required": true,
+                            "validateFnName": "password",
+                            "validationMsg": "${'Please provide a valid password' @ i18n, context='scriptString'}",
+                            "requiredMsg": "${'Please provide a valid password' @ i18n, context='scriptString'}",
+                            "nonMatchingMsg": "${'Passwords do not match' @ i18n, context='scriptString'}"
+                        }
                     },
                     {
                         "type": "checkbox",
                         "name": "communications",
                         "label": "${'I want to receive communications from Waters.' @ i18n, context='scriptString'}"
-
                     }
                 ]
             }
