@@ -100,62 +100,100 @@ class SkuDetails extends React.Component {
         )
     }
 
+    renderDiscontinued = () => {
+        let discontinuedMessage = this.props.config.skuInfo
+            .discontinuedWithReplacementWithCode;
+        if (
+            !this.props.replacementSkuCode ||
+            !this.props.replacementSkuHref
+        ) {
+            discontinuedMessage = this.props.config.skuInfo
+                .discontinuedNoReplacementCode;
+        }
+        return (
+            <SkuMessage
+                icon={this.props.config.skuInfo.lowStockIcon}
+                message={discontinuedMessage}
+                link={this.props.replacementSkuHref}
+                linkMessage={this.props.replacementSkuCode}
+            />
+        );
+    }
+
+    renderEcommerceDisabled = () => {
+        return (
+            <SkuMessage
+                icon={this.props.config.commerceConfig.disabledIcon}
+                message={this.props.config.commerceConfig.disabledText}
+                link={this.props.config.commerceConfig.disabledHref}
+                linkMessage={
+                    this.props.config.commerceConfig.disabledLinkText
+                }
+            />
+        );
+    }
+
+    renderEcommercePartialDisabled = () => {
+        return (
+            <SkuMessage
+                icon={this.props.config.commerceConfig.disabledIcon}
+                message={
+                    this.props.config.commerceConfig.partialDisabledText
+                }
+                link={
+                    this.props.config.commerceConfig.partialDisabledHref
+                }
+                linkMessage={
+                    this.props.config.commerceConfig
+                        .partialDisabledLinkText
+                }
+            />
+        );
+    }
+
     renderBuyInfo = () => {
-        if(this.state.defaultPrice){
-            return (
-                <div className="cmp-sku-details__buyinfo">
-                    <div className="cmp-sku-details__priceinfo">
-                        <Price
-                            skuConfig={this.state.skuConfig}
-                            price={this.state.defaultPrice}
-                        />
-                    </div>
-                    <div className="cmp-sku-details__availability">
-                        <Stock
-                            skuConfig={this.state.skuConfig}
-                            skuNumber={this.state.skuNumber}
-                            skuAvailability={this.state.skuAvailability}
-                            locale={this.state.locale}
-                            skuType="details"
-                            errorObj={this.state.errorObj}
-                        />
-                    </div>
-                    <div className="cmp-sku-details__buttons">
-                        <AddToCart
-                            toggleParentModal={this.toggleModal}
-                            skuNumber={this.state.skuNumber}
-                            addToCartLabel={this.props.config.addToCartLabel}
-                            addToCartUrl={this.props.config.addToCartUrl}
-                            toggleErrorModal={this.toggleErrorModal}
-                        ></AddToCart>
-                    </div>
-                    <Modal
-                        toggleModal={this.toggleModal}
-                        open={this.state.modalShown}
-                        theme="callToAction"
-                        config={this.state.modalInfo}
-                        errorObj={this.state.errorObj}
-                        partNumberLabel={this.state.skuConfig.partNumberLabel}
+        return (
+            <div className="cmp-sku-details__buyinfo">
+                <div className="cmp-sku-details__priceinfo">
+                    <Price
+                        skuConfig={this.state.skuConfig}
+                        price={this.state.defaultPrice}
                     />
                 </div>
-            );
-        } else {
-            return <>{this.renderCountryRestricted()}</>;
-        }
+                <div className="cmp-sku-details__availability">
+                    <Stock
+                        skuConfig={this.state.skuConfig}
+                        skuNumber={this.state.skuNumber}
+                        skuAvailability={this.state.skuAvailability}
+                        locale={this.state.locale}
+                        skuType="details"
+                        errorObj={this.state.errorObj}
+                    />
+                </div>
+                <div className="cmp-sku-details__buttons">
+                    <AddToCart
+                        toggleParentModal={this.toggleModal}
+                        skuNumber={this.state.skuNumber}
+                        addToCartLabel={this.props.config.addToCartLabel}
+                        addToCartUrl={this.props.config.addToCartUrl}
+                        toggleErrorModal={this.toggleErrorModal}
+                    ></AddToCart>
+                </div>
+                <Modal
+                    toggleModal={this.toggleModal}
+                    open={this.state.modalShown}
+                    theme="callToAction"
+                    config={this.state.modalInfo}
+                    errorObj={this.state.errorObj}
+                    partNumberLabel={this.state.skuConfig.partNumberLabel}
+                />
+            </div>
+        );
     };
 
     renderActiveSku = () => {
         if (Ecommerce.isDisabledState()) {
-            return (
-                <SkuMessage
-                    icon={this.props.config.commerceConfig.disabledIcon}
-                    message={this.props.config.commerceConfig.disabledText}
-                    link={this.props.config.commerceConfig.disabledHref}
-                    linkMessage={
-                        this.props.config.commerceConfig.disabledLinkText
-                    }
-                />
-            );
+            return this.renderEcommerceDisabled();
         } else {
             if (
                 (Ecommerce.isPartialState() &&
@@ -165,47 +203,18 @@ class SkuDetails extends React.Component {
             ) {
                 return <>{this.renderBuyInfo()}</>;
             } else {
-                return (
-                    <SkuMessage
-                        icon={this.props.config.commerceConfig.disabledIcon}
-                        message={
-                            this.props.config.commerceConfig.partialDisabledText
-                        }
-                        link={
-                            this.props.config.commerceConfig.partialDisabledHref
-                        }
-                        linkMessage={
-                            this.props.config.commerceConfig
-                                .partialDisabledLinkText
-                        }
-                    />
-                );
+                return this.renderEcommercePartialDisabled();
             }
         }
     };
 
     render() {
-        if (this.state.discontinued) {
-            let discontinuedMessage = this.props.config.skuInfo
-                .discontinuedWithReplacementWithCode;
-            if (
-                !this.props.replacementSkuCode ||
-                !this.props.replacementSkuHref
-            ) {
-                discontinuedMessage = this.props.config.skuInfo
-                    .discontinuedNoReplacementCode;
-            }
-            return (
-                <SkuMessage
-                    icon={this.props.config.skuInfo.lowStockIcon}
-                    message={discontinuedMessage}
-                    link={this.props.replacementSkuHref}
-                    linkMessage={this.props.replacementSkuCode}
-                />
-            );
+        if(!this.state.defaultPrice){
+            return this.renderCountryRestricted();
+        } else if (this.state.discontinued) {
+            return this.renderDiscontinued();
         } else {
-            const activeSku = this.renderActiveSku();
-            return activeSku;
+            return this.renderActiveSku();
         }
     }
 }
