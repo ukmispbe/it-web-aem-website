@@ -9,6 +9,7 @@ import FieldValidationDisplay from "./components/field-validation-display";
 
 const formType = {
     text: Input,
+    number: Input,
     password: Input,
     email: Input,
     radio: Radio,
