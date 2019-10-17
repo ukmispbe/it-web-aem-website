@@ -308,6 +308,19 @@ class Sticky {
             wait(sticky.attachToScrollListener(fn));
         }
     }
+
+    findStickyEl(element) { 
+        let stickyService = null;
+        if (this.queue && this.queue.length) {
+            for (let q = 0; q < this.queue.length; q++) {
+                if (this.queue[q].element == element) { 
+                    stickyService = this.queue[q];
+                    break;
+                }
+            }
+        }
+        return stickyService;
+    }
 }
 
 const sticky = new Sticky();
