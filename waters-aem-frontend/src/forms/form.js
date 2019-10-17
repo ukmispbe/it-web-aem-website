@@ -55,6 +55,7 @@ const Form = ({ config, submitFn }) => {
                         icons={config.icons}
                         setError={setError}
                         clearError={clearError}
+                        dirty={formState.touched.indexOf(field.name) > -1}
                     />
                 </FieldValidationDisplay>
             );

@@ -95,5 +95,54 @@
                 }
             }
         }
+
+        &--input-requirements {
+            display: none;
+            position: absolute;
+            top: 100%;
+            background-color: white;
+            z-index: 1;
+            width: 100%;
+            border: 1px solid $color-gray-30;
+            padding: $space-s;
+
+            & > div {
+                display: block;
+                position: relative;
+                & > div {
+                    display: inline-block;
+                    svg {
+                        height: $icon-s;
+                        width: $icon-s;
+                        position: absolute;
+                        top: $space-xxxs;
+                        left: 0;
+
+                        .st0 {
+                            stroke-width: 2px;
+                            stroke: $color-border-light;
+                        }
+
+                    }
+                    &.valid svg .st0 {
+                        stroke: $color-success;
+                    }
+                }
+            }
+
+            .requirements-info {
+                @include font-small;
+                margin-left: $space-m;
+            }
+
+            .requirements-title {
+                display: block;
+                @include font-h4;
+            }
+
+            &.toggled {
+                display: block;
+            }
+        }
     }
 }

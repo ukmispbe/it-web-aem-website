@@ -16,7 +16,8 @@ const Input = ({
     setError,
     clearError,
     validation,
-    matchRef
+    matchRef,
+    dirty
 }) => {
     const setValidation = () => {
         const obj = {};
@@ -74,7 +75,7 @@ const Input = ({
         return obj;
     };
 
-    const displayMsg = (name) => {
+    const displayMsg = () => {
         if (validation) {
             if (fieldErr) {
                 fieldErr.ref.classList.add('error');
@@ -121,6 +122,11 @@ const Input = ({
         }
     };
 
+    const toggleRequirements = (e) => {
+        const requirementsDiv = e.currentTarget.parentNode.querySelector('.cmp-form-field--input-requirements');
+        requirementsDiv.classList.toggle("toggled");
+    }
+
     const renderMatch = () => {
         if (!hasMatch) {
             return (<></>);
@@ -150,6 +156,7 @@ const Input = ({
                     setError={setError}
                     validation={newValidation}
                     matchRef={name}
+                    dirty={false}
                 />
             </>
         );
@@ -186,11 +193,43 @@ const Input = ({
                         name={name}
                         id={name}
                         ref={register(getRegisterAttributes())}
+                        onFocus={toggleRequirements}
+                        onBlur={toggleRequirements}
                     ></input>
                     {renderIcons()}
-                    {displayMsg(name)}
+                    {renderRequirements()}
                 </div>
+                {displayMsg()}
             </>
+        );
+    };
+
+    const renderRequirementFields = (requirements) => {
+        return requirements.map((requirement) => {
+            let isValid = dirty;
+            if (errors[requirement.name]) {
+                isValid = errors[requirement.name].ref.name !== name;
+            }
+            return (
+                <div>
+                    <ReactSVG src={icons.validIcon} className={isValid ? "valid" : ""}/>
+                    <div className="requirements-info">{requirement.msg}</div>
+                </div>
+            );
+        });
+    };
+
+    const renderRequirements = () => {
+        if (validation.validateFnName !== "password" && !validation.requirements) {
+            return (<></>);
+        }
+
+
+        return (
+            <div className="cmp-form-field--input-requirements">
+                <div className="requirements-title">Password must include the following:</div>
+                {renderRequirementFields(validation.requirements)}
+            </div>
         );
     };
 
