@@ -67,10 +67,11 @@ class ListItem extends React.Component {
             if (SkuDetails.exists()) { 
                 if (!this.state.modalShown) { 
                     //Firefox bug -->
-                    //if on a sku page and the modal was just open, make sure to unstick skudetails sticky.
+                    //if on a sku page and the modal was just open, make call to check wether to stick again
+                    //this will unstick the current element if necessary
                     const SKUDetailsSticky = Sticky.findStickyEl(SkuDetails.element);
                     if (SKUDetailsSticky) { 
-                        Sticky.unstick(SKUDetailsSticky)
+                        Sticky.conditionsToStick(SKUDetailsSticky);
                     }                
                 }
             }
