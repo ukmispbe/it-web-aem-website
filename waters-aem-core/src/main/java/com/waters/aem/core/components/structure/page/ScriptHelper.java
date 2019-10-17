@@ -1,6 +1,5 @@
 package com.waters.aem.core.components.structure.page;
 
-import com.adobe.cq.xf.ExperienceFragmentsConstants;
 import com.icfolson.aem.library.api.node.ComponentNode;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.node.predicates.ComponentNodeResourceTypePredicate;
@@ -16,9 +15,10 @@ import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.inject.Inject;
-import java.util.Collections;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.Optional;
+
+import static com.adobe.cq.xf.ExperienceFragmentsConstants.PN_FRAGMENT_PATH;
+import static com.adobe.cq.xf.ExperienceFragmentsConstants.RT_EXPERIENCE_FRAGMENT_COMPONENT;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class ScriptHelper {
@@ -33,7 +33,9 @@ public class ScriptHelper {
     private SiteContext siteContext;
 
     public boolean getPageHasVideoComponent() {
-        return hasVideoComponent(currentPage) || experienceFragmentHasVideoComponent();
+        //check page for a video component and check for any fragment references containing a video component
+        return pageHasComponent(currentPage, Video.RESOURCE_TYPE) || experienceFragmentHasComponent(currentPage,
+                Video.RESOURCE_TYPE);
     }
 
     public String getBrightcoveAccount() {
@@ -44,31 +46,29 @@ public class ScriptHelper {
         return BrightcoveUtils.getBrightcovePlayerId(siteContext, brightcoveService);
     }
 
-    private boolean hasVideoComponent(final PageDecorator pageDecorator) {
-        return !pageDecorator.getComponentNode().transform(contentNode -> contentNode.findDescendants(
-            new ComponentNodeResourceTypePredicate(Video.RESOURCE_TYPE))
-            .stream()
-            .filter(Objects :: nonNull)
-            .collect(Collectors.toList())).or(Collections.emptyList()).isEmpty();
+    private boolean pageHasComponent(final PageDecorator page, final String resourceType) {
+        return page.getComponentNode().transform(contentNode -> !contentNode.findDescendants(
+                new ComponentNodeResourceTypePredicate(resourceType)).isEmpty())
+                .or(false);
     }
 
-    private boolean experienceFragmentHasVideoComponent() {
-        return !currentPage.getComponentNode()
-            .transform(contentNode -> contentNode.findDescendants(
-            new ComponentNodeResourceTypePredicate(ExperienceFragmentsConstants.RT_EXPERIENCE_FRAGMENT_COMPONENT))
-            .stream()
-            .map(ComponentNode::getResource)
-            .filter(this::videoComponentExistsInFragment)
-            .filter(Objects :: nonNull)
-            .collect(Collectors.toList())).or(Collections.emptyList()).isEmpty();
+    private boolean experienceFragmentHasComponent(final PageDecorator page, final String resourceType) {
+        return page.getComponentNode().transform(contentNode -> contentNode.findDescendants(
+                new ComponentNodeResourceTypePredicate(RT_EXPERIENCE_FRAGMENT_COMPONENT))
+                .stream()
+                .map(ComponentNode :: getResource)
+                .anyMatch(resource -> resourceTypeExistsInFragment(resource, resourceType)))
+                .or(false);
     }
 
-    private boolean videoComponentExistsInFragment(Resource resource) {
-        ValueMap map = resource.getValueMap();
+    private boolean resourceTypeExistsInFragment(final Resource fragmentResource, final String resourceType) {
+        final ValueMap map = fragmentResource.getValueMap();
 
-        PageDecorator pageDecorator = resource.getResourceResolver()
-            .getResource(map.get(ExperienceFragmentsConstants.PN_FRAGMENT_PATH, "")).adaptTo(PageDecorator.class);
+        final PageDecorator page = Optional.ofNullable(fragmentResource.getResourceResolver()
+                .getResource(map.get(PN_FRAGMENT_PATH, "")))
+                .map(resource -> resource.adaptTo(PageDecorator.class))
+                .orElse(null);
 
-        return pageDecorator != null && hasVideoComponent(pageDecorator);
+        return page != null && pageHasComponent(page, resourceType);
     }
 }
