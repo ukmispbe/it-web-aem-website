@@ -60,7 +60,6 @@ const Input = ({
     const displayMsg = () => {
         if (validation) {
             if (fieldErr) {
-                console.log(fieldErr);
                 if (fieldErr.type === "required") {
                     return fieldErr.message || validation.requiredMsg;
                 } else if (

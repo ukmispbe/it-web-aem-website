@@ -5,6 +5,7 @@ import Radio from "./fields/radio";
 import Checkbox from "./fields/checkbox";
 import Dropdown from "./fields/dropdown";
 import Hr from "./fields/hr";
+import FieldValidationDisplay from "./components/field-validation-display";
 
 const formType = {
     text: Input,
@@ -31,19 +32,25 @@ const Form = ({ config, submitFn }) => {
 
         if (Component) {
             return (
-                <Component
-                    {...field}
-                    fieldErr={errors[field.name]}
-                    register={register}
+                <FieldValidationDisplay
+                    dirty={formState.touched.indexOf(field.name) > -1}
+                    valid={!errors[field.name]}
                     key={`field-${i}`}
-                />
+                    type={field.type}
+                >
+                    <Component
+                        {...field}
+                        fieldErr={errors[field.name]}
+                        register={register}
+                    />
+                </FieldValidationDisplay>
             );
         }
     });
 
     return (
         <form
-            className="cmp-form--registration"
+            className="cmp-form cmp-form--registration"
             onSubmit={handleSubmit(submitFn)}
         >
             {f}
