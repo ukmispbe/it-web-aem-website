@@ -16,8 +16,8 @@ const Input = ({
     setError,
     clearError,
     validation,
-    matchRef,
-    dirty
+    triggerValidation,
+    matchRef
 }) => {
     const setValidation = () => {
         const obj = {};
@@ -78,7 +78,6 @@ const Input = ({
     const displayMsg = () => {
         if (validation) {
             if (fieldErr) {
-                fieldErr.ref.classList.add('error');
                 if (fieldErr.type === "required") {
                     return fieldErr.message || validation.requiredMsg;
                 } else if (
@@ -123,9 +122,20 @@ const Input = ({
     };
 
     const toggleRequirements = (e) => {
+        if (validation.validateFnName !== "password" && !validation.requirements) {
+            return;
+        }
         const requirementsDiv = e.currentTarget.parentNode.querySelector('.cmp-form-field--input-requirements');
         requirementsDiv.classList.toggle("toggled");
     }
+
+    const updateRequirements = async () => {
+        if (validation.validateFnName !== "password" && !validation.requirements) {
+            return;
+        }
+
+        return await triggerValidation({ name: name });
+    };
 
     const renderMatch = () => {
         if (!hasMatch) {
@@ -155,8 +165,8 @@ const Input = ({
                     errors={errors}
                     setError={setError}
                     validation={newValidation}
+                    triggerValidation={triggerValidation}
                     matchRef={name}
-                    dirty={false}
                 />
             </>
         );
@@ -195,6 +205,7 @@ const Input = ({
                         ref={register(getRegisterAttributes())}
                         onFocus={toggleRequirements}
                         onBlur={toggleRequirements}
+                        onKeyPress={updateRequirements}
                     ></input>
                     {renderIcons()}
                     {renderRequirements()}
@@ -206,8 +217,9 @@ const Input = ({
 
     const renderRequirementFields = (requirements) => {
         return requirements.map((requirement) => {
-            let isValid = dirty;
+            let isValid = true;
             if (errors[requirement.name]) {
+                console.log(errors[requirement.name].ref.name);
                 isValid = errors[requirement.name].ref.name !== name;
             }
             return (

@@ -46,6 +46,14 @@
 
         }
 
+        &.cmp-form-field--invalid, &.cmp-form-field--valid {
+            .cmp-form-field--input-requirements > div > div {
+                &.valid svg .st0 {
+                    stroke: $color-success;
+                }
+            }
+        }
+
         &--input {
             position: relative;
         }
@@ -123,9 +131,6 @@
                             stroke: $color-border-light;
                         }
 
-                    }
-                    &.valid svg .st0 {
-                        stroke: $color-success;
                     }
                 }
             }

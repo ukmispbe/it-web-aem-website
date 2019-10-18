@@ -91,11 +91,6 @@ export const functions = {
 
 
         if (validations >= 3 && value.length >= 8) {
-            clearError("shortPassword");
-            clearError("noLowercase");
-            clearError("noUppercase");
-            clearError("noDigits");
-            clearError("noSpecial");
             ref.classList.remove('error');
             return true;
         } else {

@@ -20,7 +20,7 @@ const formType = {
 };
 
 const Form = ({ config, submitFn }) => {
-    const { register, handleSubmit, errors, formState, setError, clearError } = useForm({
+    const { register, handleSubmit, errors, formState, setError, clearError, triggerValidation } = useForm({
         mode: "onBlur"
     });
 
@@ -55,7 +55,7 @@ const Form = ({ config, submitFn }) => {
                         icons={config.icons}
                         setError={setError}
                         clearError={clearError}
-                        dirty={formState.touched.indexOf(field.name) > -1}
+                        triggerValidation={triggerValidation}
                     />
                 </FieldValidationDisplay>
             );
