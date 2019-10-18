@@ -19,6 +19,8 @@ public final class WatersConstants {
 
     public static final String COMPONENT_PATH_APPLICATION_NOTES = "/content/applicationnotes";
 
+    public static final String COMPONENT_PATH_REGISTRATION_FORM = "/content/forms";
+
     public static final String DAM_PATH = "/content/dam/waters";
 
     public static final String DAM_PATH_APP_NOTES = "/content/dam/waters/en/app-notes/";
@@ -42,6 +44,8 @@ public final class WatersConstants {
     public static final String TEMPLATE_CATEGORY_PAGE = "/conf/waters/settings/wcm/templates/section-page";
 
     public static final String TEMPLATE_SKU_PAGE = "/conf/waters/settings/wcm/templates/sku-page";
+
+    public static final String TEMPLATE_FORM_PAGE = "/conf/waters/settings/wcm/templates/form-page";
 
     public static final String TEMPLATE_SEARCH_PAGE = "/conf/waters/settings/wcm/templates/search-page";
 

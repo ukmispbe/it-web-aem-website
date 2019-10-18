@@ -1,0 +1,94 @@
+<div data-sly-use.registration="com.waters.aem.core.components.content.forms.Registration">
+    <div class="cmp-form--attach" id="js-registration-form"></div>
+    <script type="application/json" id="cmp-registration-form">
+            {
+                "submitEndpoint": "http://waters.com",
+                "disclaimerText": "${'By clicking Create My Account button you are agreeing to our' @ i18n, context='scriptString'}",
+                "termsAndConditionsText": "${'Terms and Conditions' @ i18n, context='scriptString'}",
+                "termsAndConditionsLink": "${registration.termsAndConditionsLink.href @ context='unsafe'}",
+                "buttonText": "${'Create My Account' @ i18n, context='scriptString'}",
+                "fields": [
+                    {
+                        "type": "text",
+                        "name": "firstName",
+                        "label": "${'First Name' @ i18n, context='scriptString'}",
+                        "validation": {
+                            "required": true,
+                            "validateFnName": "noWhitespaceOrSpecialChars",
+                            "validationMsg": "${'Please enter a valid first name' @ i18n, context='scriptString'}",
+                            "requiredMsg": "${'Please enter a valid first name' @ i18n, context='scriptString'}"
+                        }
+                    },
+                    {
+                        "type": "text",
+                        "name": "lastName",
+                        "label": "${'Last Name' @ i18n, context='scriptString'}",
+                        "validation": {
+                            "required": true,
+                            "validateFnName": "noWhitespaceOrSpecialChars",
+                            "validationMsg": "${'Please enter a valid last name' @ i18n, context='scriptString'}",
+                            "requiredMsg": "${'Please enter a valid last name' @ i18n, context='scriptString'}"
+                        }
+                    },
+                    {
+                        "type": "text",
+                        "name": "company",
+                        "label": "${'Company' @ i18n, context='scriptString'}",
+                        "validation": {
+                            "required": true,
+                            "validateFnName": "noWhitespace",
+                            "validationMsg": "Please enter a valid company' @ i18n, context='scriptString'}",
+                            "requiredMsg": "${'Please enter a valid company' @ i18n, context='scriptString'}"
+                        }
+                    },
+                    {
+                        "type": "dropdown",
+                        "name": "country",
+                        "label": "${'Country' @ i18n, context='scriptString'}",
+                        "placeholder": "${'Select...' @ i18n, context='scriptString'}",
+                        "dropdownIndicator": "./down.svg",
+                        "options": ${registration.countriesJson @ context="unsafe"},
+                        "validation": {
+                            "required": true,
+                            "requiredMsg": "${'Please select a country' @ i18n, context='scriptString'}"
+                        }
+                    },
+                    {
+                        "type": "break"
+                    },
+                    {
+                        "type": "email",
+                        "name": "email",
+                        "label": "${'Email' @ i18n, context='scriptString'}",
+                        "description": "${'This will be your username' @ i18n, context='scriptString'}",
+                        "validation": {
+                            "required": true,
+                            "requiredMsg": "${'Please enter a valid email address' @ i18n, context='scriptString'}",
+                            "validateFnName": "email",
+                            "validationMsg": "${'Please enter a valid email address' @ i18n, context='scriptString'}"
+                        }
+                    },
+                    {
+                        "type": "password",
+                        "name": "password",
+                        "label": "${'Password' @ i18n, context='scriptString'}",
+                        "hasMatch": true,
+                        "validation": {
+                            "required": true,
+                            "validateFnName": "password",
+                            "validationMsg": "${'Please provide a valid password' @ i18n, context='scriptString'}",
+                            "requiredMsg": "${'Please provide a valid password' @ i18n, context='scriptString'}",
+                            "nonMatchingMsg": "${'Passwords do not match' @ i18n, context='scriptString'}"
+                        }
+                    },
+                    {
+                        "type": "checkbox",
+                        "name": "communications",
+                        "label": "${'I want to receive communications from Waters.' @ i18n, context='scriptString'}"
+                    }
+                ]
+            }
+        </script>
+</div>
+<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+     data-sly-call="${patterns.placeholder @ show=true, text=component.title}"/>

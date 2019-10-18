@@ -11,6 +11,7 @@ import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.citytechinc.cq.component.annotations.widgets.CheckBox;
 import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.link.Link;
+import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.models.annotations.ImageInject;
@@ -23,6 +24,7 @@ import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.waters.aem.core.services.launch.AdobeLaunchService;
 import com.waters.aem.core.services.youramigo.YourAmigoService;
 import com.waters.aem.core.utils.LinkUtils;
+import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -62,6 +64,9 @@ public final class Header extends AbstractComponent implements ComponentExporter
 
     @OSGiService
     private YourAmigoService yourAmigoService;
+
+    @Inject
+    private PageDecorator currentPage;
 
     @DialogField(fieldLabel = "Header Logo",
         fieldDescription = "select header logo",
@@ -126,6 +131,10 @@ public final class Header extends AbstractComponent implements ComponentExporter
 
     public Boolean isExternal() {
         return LinkUtils.isExternal(logoLink);
+    }
+
+    public Boolean isFormPage() {
+        return Templates.isFormPage(currentPage);
     }
 
     public String getSignInUrl() {

@@ -7,7 +7,7 @@
                     <img src="${header.logo.fileReference}" alt="${header.logoAltText}"/>
                 </a>
             </div>
-            <nav class="cmp-header__top-bar__nav">
+            <nav data-sly-test="${!header.formPage}" class="cmp-header__top-bar__nav">
                 <ul class="cmp-header__top-bar__nav__ul">
                     <li class="top-bar__nav__search top-bar__nav__item">
                         <a class="cmp-header-links__link" href="${header.legacySearchUrl}">
