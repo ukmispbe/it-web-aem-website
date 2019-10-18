@@ -10,6 +10,8 @@ import SkuMessage from '../../sku-shared/views/SkuMessage';
 import CheckOutStatus from '../../scripts/checkOutStatus';
 import Ecommerce from '../../scripts/ecommerce';
 import domElements from '../../scripts/domElements';
+import SkuDetails from '../../scripts/sku-details';
+import Sticky from '../../scripts/stickyService';
 
 class ListItem extends React.Component {
     constructor(props) {
@@ -61,6 +63,19 @@ class ListItem extends React.Component {
 
     toggleModal = () => {
         this.setState({ modalShown: !this.state.modalShown }, () => {
+
+            if (SkuDetails.exists()) { 
+                if (!this.state.modalShown) { 
+                    //Firefox bug -->
+                    //if on a sku page and the modal was just open, make call to check wether to stick again
+                    //this will unstick the current element if necessary
+                    const SKUDetailsSticky = Sticky.findStickyEl(SkuDetails.element);
+                    if (SKUDetailsSticky) { 
+                        Sticky.conditionsToStick(SKUDetailsSticky);
+                    }                
+                }
+            }
+
             if (this.state.modalShown) {
                 domElements.noScroll(true);
             } else {
