@@ -278,7 +278,7 @@ class Search extends Component {
             const categoryIndex = categoriesWithData.findIndex(
                 category => category.name === query.category
             );
-            const categoryName = categoriesWithData[categoryIndex].name;
+            const categoryName = categoryIndex !== -1 ? categoriesWithData[categoryIndex].name : '';
             const isSkuList = this.isSkuList(categoryName);
 
             this.setState({ activeTabIndex: categoryIndex, isSkuList, category: categoryName });
@@ -300,8 +300,6 @@ class Search extends Component {
             query.category = categoryName;
 
             this.pushToHistory(query, this.state.selectedFacets);
-
-            await this.performSearch(query);
         } else if (
             this.isCategoryOnlySelected(query.category, query.content_type)
         ) {
@@ -850,7 +848,7 @@ class Search extends Component {
         }
     };
 
-    handleFilterGroupClick = (index) => {
+    handleFilterGroupClick = (facetName, index) => {
         const activeIndex = index === -1 ? '' : this.state.activeIndex;
         this.setState({activeFilterIndex: index, activeIndex});
     }

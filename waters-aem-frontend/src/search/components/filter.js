@@ -109,13 +109,13 @@ class Filter extends Component {
             const facetGroups = this.mapFacetGroupsState(-1, this.getMappings());
             this.setState({facetGroups, lastIndex: -1});
             document.body.classList.remove('filter-active');
-            this.props.onGroupClick(-1);
+            this.props.onGroupClick(facetName, -1);
         } else {
             const lastIndex = this.props.activeIndex === -1 ? index : this.props.activeIndex;
             const facetGroups = this.mapFacetGroupsState(index, this.getMappings());
             this.setState({facetGroups, lastIndex});
             document.body.classList.add('filter-active');
-            this.props.onGroupClick(index);
+            this.props.onGroupClick(facetName, index);
         }
     }
 

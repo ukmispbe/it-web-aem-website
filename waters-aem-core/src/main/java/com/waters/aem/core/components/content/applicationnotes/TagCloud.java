@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.metadata.ContentClassification;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -25,6 +26,7 @@ import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_COPY;
@@ -89,14 +91,22 @@ public final class TagCloud implements ComponentExporter {
     }
 
     public String getContentType() {
-        final List<Tag> contentTypeTags = Optional.ofNullable(pageMetadata.getContentClassification())
-            .map(ContentClassification :: getContentType)
-            .orElse(Collections.emptyList());
+        return getClassificationValue(ContentClassification :: getContentType);
+    }
 
-        return contentTypeTags.stream()
-            .findFirst()
-            .map(Tag :: getName)
-            .orElse(null);
+    public String getCategory() {
+        return StringUtils.capitalize(getClassificationValue(ContentClassification :: getCategory));
+    }
+
+    private String getClassificationValue(final Function<ContentClassification, List<Tag>> classificationFunction) {
+        final List<Tag> tags = Optional.ofNullable(pageMetadata.getContentClassification())
+                .map(classificationFunction)
+                .orElse(Collections.emptyList());
+
+        return tags.stream()
+                .findFirst()
+                .map(Tag :: getName)
+                .orElse(null);
     }
 
     @JsonIgnore
