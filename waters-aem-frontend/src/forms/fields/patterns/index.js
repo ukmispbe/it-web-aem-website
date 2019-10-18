@@ -4,20 +4,36 @@ const test = (value, regex) => {
 
 export const functions = {
     // named validation functions here
-    noWhitespaceOrSpecialChars: value => {
+    noWhitespaceOrSpecialChars: (value, ref) => {
         if (value.length) {
-            return test(
+            if (test(
                 value,
                 /^.*(?=^[^\\\/~!@#$%^&*_+=:;\]\[\{\}\n\r]+$)(?=^.*[^\s]+).*$/g
-            );
+            )) {
+                ref.classList.remove('error');
+                ref.classList.add('valid');
+                return true;
+            }
+
+            return false;
         } else {
+            ref.classList.remove('error');
+            ref.classList.add('valid');
             return true;
         }
     },
-    noWhitespace: value => {
+    noWhitespace: (value, ref) => {
         if (value) {
-            return !test(value, /^\s*$/);
+            if (!test(value, /^.*\s+.*$/)) {
+                ref.classList.remove('error');
+                ref.classList.add('valid');
+                return true;
+            }
+
+            return false;;
         } else {
+            ref.classList.remove('error');
+            ref.classList.add('valid');
             return true;
         }
     },
@@ -92,6 +108,7 @@ export const functions = {
 
         if (validations >= 3 && value.length >= 8) {
             ref.classList.remove('error');
+            ref.classList.add('valid');
             return true;
         } else {
             errors.forEach(error => {
@@ -100,13 +117,25 @@ export const functions = {
             return false;
         }
     },
-    email: value => {
-        return test(
+    email: (value, ref) => {
+        if (test(
             value,
             /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        );
+        )) {
+            ref.classList.remove('error');
+            ref.classList.add('valid');
+            return true;
+        }
+
+        return false;
     },
-    matching: (value, matchRef) => {
-        return value === matchRef.value;
+    matching: (value, matchRef, ref) => {
+        if (value === matchRef.value) {
+            ref.classList.remove('error');
+            ref.classList.add('valid');
+            return true;
+        }
+
+        return false;
     }
 };

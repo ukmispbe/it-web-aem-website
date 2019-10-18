@@ -16,7 +16,7 @@
             padding: $space-xs $space-xxs;
         }
 
-        &.cmp-form-field--valid {
+        // &.cmp-form-field--valid {
             input.valid {
                 border: 1px solid $color-gray-30;
                 // add background svg
@@ -28,8 +28,8 @@
                     }
                 }
             }
+        // }
 
-        }
 
         &.cmp-form-field--invalid {
             input.error {

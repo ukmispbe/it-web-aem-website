@@ -19,20 +19,24 @@ const Input = ({
     triggerValidation,
     matchRef
 }) => {
+    let classNames = [];
+
     const setValidation = () => {
         const obj = {};
 
         if (validation && validation.validateFnName) {
             if (validation.validateFnName === "matching") {
                 obj.validate = value => {
-                    return functions[validation.validateFnName](value, document.getElementById(matchRef));
+                    return functions[validation.validateFnName](value, document.getElementById(matchRef), document.getElementById(name));
                 };
             } else if (validation.validateFnName === "password") {
                 obj.validate = value => {
                     return functions[validation.validateFnName](value, document.getElementById(name), setError, clearError);
                 };
             } else {
-                obj.validate = functions[validation.validateFnName];
+                obj.validate = value => {
+                    return functions[validation.validateFnName](value, document.getElementById(name));
+                };
             }
         }
 
@@ -78,6 +82,8 @@ const Input = ({
     const displayMsg = () => {
         if (validation) {
             if (fieldErr) {
+                fieldErr.ref.classList.remove("valid");
+                fieldErr.ref.classList.add("error");
                 if (fieldErr.type === "required") {
                     return fieldErr.message || validation.requiredMsg;
                 } else if (
@@ -122,15 +128,16 @@ const Input = ({
     };
 
     const toggleRequirements = (e) => {
-        if (validation.validateFnName !== "password" && !validation.requirements) {
+        if (validation.validateFnName !== "password" || !validation.requirements) {
             return;
         }
         const requirementsDiv = e.currentTarget.parentNode.querySelector('.cmp-form-field--input-requirements');
         requirementsDiv.classList.toggle("toggled");
     }
 
-    const updateRequirements = async () => {
-        if (validation.validateFnName !== "password" && !validation.requirements) {
+    const updateRequirements = async (e) => {
+        console.log(e);
+        if (validation.validateFnName !== "password" || !validation.requirements) {
             return;
         }
 
@@ -146,6 +153,8 @@ const Input = ({
         const confirmName = "confirm".concat(newName);
         const confirmLabel = "Confirm ".concat(newName);
         const newValidation = {
+            "required": true,
+            "requiredMsg": "This field is required",
             'validateFnName': 'matching',
             "validationMsg": validation['nonMatchingMsg']
         };
@@ -199,6 +208,7 @@ const Input = ({
                 <label htmlFor={name}>{label}</label>
                 <div className="cmp-form-field--input">
                     <input
+                        className={classNames.toString().replace(",", " ")}
                         type={type}
                         name={name}
                         id={name}
@@ -216,14 +226,13 @@ const Input = ({
     };
 
     const renderRequirementFields = (requirements) => {
-        return requirements.map((requirement) => {
+        return requirements.map((requirement, i) => {
             let isValid = true;
             if (errors[requirement.name]) {
-                console.log(errors[requirement.name].ref.name);
                 isValid = errors[requirement.name].ref.name !== name;
             }
             return (
-                <div>
+                <div key={`requirements-info-${i}`}>
                     <ReactSVG src={icons.validIcon} className={isValid ? "valid" : ""}/>
                     <div className="requirements-info">{requirement.msg}</div>
                 </div>
@@ -232,7 +241,7 @@ const Input = ({
     };
 
     const renderRequirements = () => {
-        if (validation.validateFnName !== "password" && !validation.requirements) {
+        if (validation.validateFnName !== "password" || !validation.requirements) {
             return (<></>);
         }
 
