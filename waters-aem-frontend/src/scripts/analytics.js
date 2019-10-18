@@ -4,7 +4,7 @@ class Analytics {
             cart: {
                 name: 'cart',
                 event: 'cartAdd',
-                constants: ['main', 'search', 'related']
+                context: ['main', 'search', 'related']
             },
             stock: {
                 name: 'stock',
@@ -18,34 +18,23 @@ class Analytics {
     }
 
     setAnalytics = (name, obj) => { 
-        if (this.analyticTypes[name]) { 
-            this.dispatchEvent(this.analyticTypes[name].event, obj)
-        }
+        const thisAnalyticEvent = this.analyticTypes[name];
+        if (thisAnalyticEvent) { 
+            const newModel = this.buildModel(name, obj);
+            if (newModel) { 
+                this.dispatchEvent(thisAnalyticEvent.event, newModel)
+            }
+        }
     }
  
-    buildAddToCartModel = (model, optionalModelProps = null) => {
-        let addToCartModel = model;
-        if (optionalModelProps) { 
-            addToCartModel = {
-                ...model,
-                ...optionalModelProps
-            }
-        }
-
-        return ({
-            detail: {
-                products: [addToCartModel]
-            }
-        });
-    }
-
-    buildStockModel = (model) => {
-        //name, price, sku, availability
-        console.log('buildStockModel', model)
-        return {
-            detail: {
-                products: [model]
-            }
+    buildModel = (name, model) => {
+        console.log('buildModel name:', name)
+        if (name == "stock" || name == "cart") { 
+            return ({
+                detail: {
+                    products: [model]
+                }
+            })
         }
     }
 
@@ -55,24 +44,8 @@ class Analytics {
     }
 }
 
-
-
-
-    /**
-    * Model options for AddToCart
-    * @typedef {object} Model
-    * @property {string} addContext Context to where AddToCartModel is located on page.
-    * @property {string} name Title or name of the Sku product
-    * @property {string} price Price of the Sku product
-    * @property {string} quantity Quanity used for Sku product
-    * @property {string} sku Sku number of the Sku product
-    */
-    
-    /** @description Builds the Add To Cart Model
-     * @param {Model} Model {addContext: string, name: string, price: string, quantity: string, sku: string}
-     */
-
 const analytics = new Analytics()
     
 export default analytics;
 export const analyticTypes = analytics.analyticTypes;
+export const analyticContextATC = analytics.analyticTypes.cart.context;
