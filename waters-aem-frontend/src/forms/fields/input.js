@@ -136,7 +136,6 @@ const Input = ({
     }
 
     const updateRequirements = async (e) => {
-        console.log(e);
         if (validation.validateFnName !== "password" || !validation.requirements) {
             return;
         }
@@ -215,7 +214,7 @@ const Input = ({
                         ref={register(getRegisterAttributes())}
                         onFocus={toggleRequirements}
                         onBlur={toggleRequirements}
-                        onKeyPress={updateRequirements}
+                        onChange={updateRequirements}
                     ></input>
                     {renderIcons()}
                     {renderRequirements()}
