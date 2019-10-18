@@ -10,6 +10,10 @@
     display: flex;
     flex-flow: wrap;
 
+    .heading--with-selected-value {
+        width: 100%;
+    }
+
     .back-btn {
         display: flex;
         flex-flow: wrap;
