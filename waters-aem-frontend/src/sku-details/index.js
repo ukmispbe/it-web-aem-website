@@ -32,6 +32,12 @@ class SkuDetails extends React.Component {
                 textHeading: this.props.skuNumber,
                 text: this.props.titleText
             },
+            analyticsConfig: {
+                context: 'main',
+                name: this.props.titleText,
+                price: this.props.price,
+                sku: this.props.skuNumber,
+            },
             errorObj: {},
             discontinued: this.props.discontinued == "true"
         };
@@ -65,6 +71,10 @@ class SkuDetails extends React.Component {
                         ...this.props.config.modalInfo,
                         textHeading: this.props.skuNumber,
                         text: this.props.titleText
+                    },
+                    analyticsConfig: {
+                        ...this.state.analyticsConfig,
+                        ...response
                     }
                 });
             })
@@ -116,6 +126,7 @@ class SkuDetails extends React.Component {
                         addToCartLabel={this.props.config.addToCartLabel}
                         addToCartUrl={this.props.config.addToCartUrl}
                         toggleErrorModal={this.toggleErrorModal}
+                        analyticsConfig={this.state.analyticsConfig}
                     ></AddToCart>
                 </div>
                 <Modal

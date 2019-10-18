@@ -3,6 +3,7 @@ import ReactSVG from 'react-svg';
 import Utilities from '../utils/utils';
 import SkuService from '../services/index';
 import SkuList from '../../scripts/skulist';
+import Analytics, {analyticTypes} from '../../scripts/analytics';
 
 class AddToCart extends React.Component {
     constructor(props) {
@@ -51,6 +52,7 @@ class AddToCart extends React.Component {
             .addToCart(this.state.skuNumber, this.state.addToCartQty)
             .then(response => {
                 this.state.toggleParentModal(true);
+                this.addToCartAnalytics();
             })
             .catch(err => {
                 this.setState({ errorObj: err });
@@ -80,6 +82,40 @@ class AddToCart extends React.Component {
             addToCartQty: value,
         });
     };
+
+    addToCartAnalytics = () => { 
+
+        const optionalProps = {};
+        console.log("this.props.analyticsConfig", this.props.analyticsConfig)
+
+        if (this.props.analyticsConfig.hasOwnProperty('availableDate')) {
+            if (this.props.analyticsConfig.availableDate) {
+                optionalProps.stockDate = this.props.analyticsConfig.availableDate;
+            }
+        }   
+        
+        if (this.props.analyticsConfig.hasOwnProperty('availableQuantity')) {
+            if (this.props.analyticsConfig.availableQuantity) {
+                optionalProps.stockQuantity = this.props.analyticsConfig.availableQuantity.toString();
+            }
+        }
+        if (this.props.analyticsConfig.hasOwnProperty('productStatus')) {
+            if (this.props.analyticsConfig.productStatus) {
+                optionalProps.stockMessage = this.props.analyticsConfig.productStatus;
+            }
+        }
+
+        const AddToCartModel = Analytics.buildAddToCartModel({
+            addContext: this.props.analyticsConfig.context,
+            name: this.props.analyticsConfig.name,
+            price: this.props.analyticsConfig.price,
+            quantity: this.state.addToCartQty,
+            sku: this.state.skuNumber
+        }, optionalProps);
+        
+
+        Analytics.setAnalytics(analyticTypes.cart.name, AddToCartModel);
+    }
 
     render() {
         return (
