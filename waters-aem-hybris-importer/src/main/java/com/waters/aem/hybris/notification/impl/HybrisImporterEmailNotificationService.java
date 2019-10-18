@@ -45,6 +45,8 @@ public class HybrisImporterEmailNotificationService implements HybrisImporterNot
 
     private static final String PARAM_HREF = "href";
 
+    private static final String PARAM_ENV = "env";
+
     private static final String PARAM_STACK_TRACE = "stackTrace";
 
     private static final String PARAM_RESULT_COUNT = "count";
@@ -76,6 +78,8 @@ public class HybrisImporterEmailNotificationService implements HybrisImporterNot
                     .addSelector("audit")
                     .build()
                     .getHref()));
+
+            putEnvironmentHost(resourceResolver, params);
 
             for (final HybrisImportStatus status : HybrisImportStatus.values()) {
                 final long count = result.getResults()
@@ -116,8 +120,13 @@ public class HybrisImporterEmailNotificationService implements HybrisImporterNot
     public void notify(final Throwable throwable) {
         final Map<String, String> params = new HashMap<>();
 
-        params.put(EmailServiceConstants.SUBJECT, SUBJECT_IMPORTER_RESULT);
-        params.put(PARAM_STACK_TRACE, ExceptionUtils.getStackTrace(throwable));
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
+            params.put(EmailServiceConstants.SUBJECT, SUBJECT_IMPORTER_RESULT);
+            params.put(PARAM_STACK_TRACE, ExceptionUtils.getStackTrace(throwable));
+            putEnvironmentHost(resourceResolver, params);
+        } catch (LoginException e) {
+            LOG.error("error authenticating resource resolver, email not sent", e);
+        }
 
         sendEmail(TEMPLATE_PATH_FAILURE, params);
     }
@@ -131,6 +140,13 @@ public class HybrisImporterEmailNotificationService implements HybrisImporterNot
         } else {
             LOG.warn("email disabled and/or no recipients configured, notification message not sent");
         }
+    }
+
+    private void putEnvironmentHost(final ResourceResolver resourceResolver, final Map<String, String> params) {
+        params.put(PARAM_ENV, externalizer.externalLink(resourceResolver, Externalizer.AUTHOR,
+                LinkBuilderFactory.forPath("")
+                    .build()
+                    .getHref()));
     }
 
     @Activate
