@@ -139,8 +139,44 @@ const Input = ({
         if (validation.validateFnName !== "password" || !validation.requirements) {
             return;
         }
+        let validations = [{name: name}];
 
-        return await triggerValidation({ name: name });
+        if (hasMatch) {
+            const newName = name.charAt(0).toUpperCase() + name.slice(1);
+            const confirmName = "confirm".concat(newName);
+            validations.push({ name: confirmName });
+        }
+
+        resetRequirements();
+        return await triggerValidation(validations);
+    };
+
+    const resetRequirements = () => {
+        if (validation.validateFnName !== "password" || !validation.requirements) {
+            return;
+        }
+
+        const input = document.getElementById(name);
+        const parent = input.parentNode;
+        const requirementsDiv = parent.querySelector('.cmp-form-field--input-requirements');
+
+        requirementsDiv.querySelectorAll('.valid').forEach((elem) => {
+            if (input.value === "") {
+                elem.classList.remove('valid');
+            }
+        });
+        if (input.value !== "" && requirementsDiv.querySelectorAll('.valid').length === 0) {
+            requirementsDiv.querySelectorAll('.requirements-info-svg').forEach((elem) => {
+                let nonError = true;
+                if (errors[elem.id]) {
+                    nonError = errors[elem.id].ref.name !== name;
+                }
+
+                if (nonError) {
+                    elem.classList.add('valid');
+                }
+            });
+        }
     };
 
     const renderMatch = () => {
@@ -152,8 +188,8 @@ const Input = ({
         const confirmName = "confirm".concat(newName);
         const confirmLabel = "Confirm ".concat(newName);
         const newValidation = {
-            "required": true,
-            "requiredMsg": "This field is required",
+            "required": validation["required"],
+            "requiredMsg": `Please confirm ${name}`,
             'validateFnName': 'matching',
             "validationMsg": validation['nonMatchingMsg']
         };
@@ -226,13 +262,16 @@ const Input = ({
 
     const renderRequirementFields = (requirements) => {
         return requirements.map((requirement, i) => {
+            const input = document.getElementById(name);
             let isValid = true;
             if (errors[requirement.name]) {
                 isValid = errors[requirement.name].ref.name !== name;
+            } else if (input) {
+                isValid = input.value !== "";
             }
             return (
                 <div key={`requirements-info-${i}`}>
-                    <ReactSVG src={icons.validIcon} className={isValid ? "valid" : ""}/>
+                    <ReactSVG id={requirement.name} src={icons.validIcon} className={isValid ? "valid requirements-info-svg" : "requirements-info-svg"}/>
                     <div className="requirements-info">{requirement.msg}</div>
                 </div>
             );
