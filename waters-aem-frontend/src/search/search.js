@@ -278,7 +278,7 @@ class Search extends Component {
             const categoryIndex = categoriesWithData.findIndex(
                 category => category.name === query.category
             );
-            const categoryName = categoriesWithData[categoryIndex].name;
+            const categoryName = categoryIndex !== -1 ? categoriesWithData[categoryIndex].name : '';
             const isSkuList = this.isSkuList(categoryName);
 
             this.setState({ activeTabIndex: categoryIndex, isSkuList, category: categoryName });
