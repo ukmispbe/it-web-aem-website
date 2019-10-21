@@ -286,7 +286,7 @@ const Input = ({
 
         return (
             <div className="cmp-form-field--input-requirements">
-                <div className="requirements-title">Password must include the following:</div>
+                <div className="requirements-title">Your password must include</div>
                 {renderRequirementFields(validation.requirements)}
             </div>
         );
