@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import VideoModalBody from './video-modal-body';
-
+import VideoDescription from './video-description';
 
 class VideoContainer extends React.Component {
     constructor(props) {
@@ -10,9 +10,7 @@ class VideoContainer extends React.Component {
         this.state = {
             title: this.props.videoConfig.title,
             description: this.props.videoConfig.description,
-            brightcoveVideoId: this.props.videoConfig.brightcoveVideoId,
-            brightcoveAccount: this.props.videoConfig.brightcoveAccount,
-            brightcovePlayerId: this.props.videoConfig.brightcovePlayerId
+            useEllipsis: true
         };
 
         this.brightcovePlayer = null;
@@ -60,24 +58,31 @@ class VideoContainer extends React.Component {
     onFailure = (failure) => { 
         //on brightcove load failure
     }
-
+    
     renderVideoInfo = () => { 
-        const videoTitle = <h3 className="cmp-video_info_title">{this.state.title}</h3>;
-        const videoDescription = <p className="cmp-video_info_description">{this.state.description}</p>;
-
         return (
-            <div className="cmp-video_info">
-                {this.state.title && videoTitle}
-                {this.state.description && videoDescription}
-            </div>
+            <>
+                {this.state.title && <h3 className="cmp-video_title">{this.state.title}</h3>}
+                {this.state.description && (
+                        <VideoDescription
+                            text={this.state.description}
+                            useEllipsis={this.state.useEllipsis}
+                        />
+                    )
+                }
+            </>
         )
     }
-
+    
     render() {
 
         return (
             <div className="cmp-video_video-container" ref={this.videoRef}>
-                <VideoModalBody config={this.state} onVideoSuccess={this.onSuccess} onVideoFailure={this.onFailure} />
+                <VideoModalBody
+                    config={this.props.videoConfig}
+                    onVideoSuccess={this.onSuccess}
+                    onVideoFailure={this.onFailure}
+                />
                 {this.renderVideoInfo()}
             </div>
         );
