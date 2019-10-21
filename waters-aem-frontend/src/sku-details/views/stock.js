@@ -96,13 +96,13 @@ class Stock extends React.Component {
     renderContactWaters() {
         return (
             <span>
-                <span className={`cmp-sku-${this.props.skuType}__stockdetails`}>
-                    Contact Waters
-                </span>
-                <div className={`cmp-sku-${this.props.skuType}__order`}>
-                    For Availability
-                </div>
-            </span>
+              <span className={`cmp-sku-${this.props.skuType}__stockdetails`}>
+                 {this.props.skuConfig.contactWatersLabel}
+              </span>
+              <div className={`cmp-sku-${this.props.skuType}__order`}>
+                {this.props.skuConfig.contactWatersInfoLabel}
+              </div>
+           </span>
         );
     }
 
