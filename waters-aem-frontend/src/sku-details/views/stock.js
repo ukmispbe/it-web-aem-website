@@ -93,6 +93,20 @@ class Stock extends React.Component {
         );
     }
 
+    renderContactWaters() {
+        return (
+            <span>
+                <span className={`cmp-sku-${this.props.skuType}__stockdetails`}>
+                    Contact Waters
+                </span>
+                <div className={`cmp-sku-${this.props.skuType}__order`}>
+                    For Availability
+                </div>
+            </span>
+        );
+    }
+
+
     render() {
         if (
             this.props &&
@@ -105,6 +119,10 @@ class Stock extends React.Component {
                 return this.renderInStock();
             } else if (this.props.skuAvailability.availableQuantity > 0) {
                 return this.renderLimitedStock();
+            } else if (this.props.skuAvailability.availableQuantity === 0 && !this.props.skuAvailability.availableDate) {
+                return this.renderContactWaters();
+            } else if (Object.entries(this.props.skuAvailability).length === 0 && this.props.skuAvailability.constructor === Object && this.props.errorObj) {
+                return this.renderStockError();
             } else {
                 return this.renderOutOfStock();
             }
