@@ -121,6 +121,15 @@
     }
 }
 
+.cmp-notification--feature {
+    .cmp-notification-wrapper {
+        justify-content: center;
+        background-color: transparent;
+        border-top: 1px solid $color-border-light;
+        border-bottom: 1px solid $color-border-light;
+    }
+}
+
 .cmp-specification-table {
     .cmp-notification-wrapper {
         justify-content: normal;
