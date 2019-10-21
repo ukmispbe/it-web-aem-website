@@ -4,6 +4,7 @@ import com.day.cq.commons.jcr.JcrConstants;
 import com.google.common.base.Objects;
 import com.google.common.base.Splitter;
 import com.waters.aem.hybris.constants.HybrisImporterConstants;
+import com.waters.aem.hybris.enums.HybrisImportContentType;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
 import com.waters.aem.hybris.result.HybrisImporterResult;
 import org.apache.sling.api.resource.Resource;
@@ -77,6 +78,19 @@ public final class HybrisImporterAuditRecord {
             statusCounts.put(status.name(), results.stream()
                 .filter(result -> result.getStatus().equals(status))
                 .count());
+        }
+
+        return statusCounts;
+    }
+
+    public Map<String, Long> getProductStatusCounts() {
+        final Map<String, Long> statusCounts = new HashMap<>();
+
+        for (final HybrisImportStatus status : HybrisImportStatus.values()) {
+            statusCounts.put(status.name(), results.stream()
+            .filter(result -> result.getContentType().equals(HybrisImportContentType.PRODUCT))
+            .filter(result -> result.getStatus().equals(status))
+            .count());
         }
 
         return statusCounts;
