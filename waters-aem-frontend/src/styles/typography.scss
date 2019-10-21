@@ -187,3 +187,9 @@ blockquote {
 .cmp-text--h1 .cmp-text {
     @include font-h1;
 }
+
+.cmp-title--mobileHeading .cmp-title {
+    @include mobile {
+        margin-top: $space-m;
+    }
+}
