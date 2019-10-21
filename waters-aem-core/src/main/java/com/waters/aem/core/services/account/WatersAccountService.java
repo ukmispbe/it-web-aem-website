@@ -29,4 +29,18 @@ public interface WatersAccountService {
      * @return my account URL
      */
     String getLegacySearchUrl();
+
+    /**
+     * Get the configured registration form URL.
+     *
+     * @return my account URL
+     */
+    String getRegistrationUrl();
+
+    /**
+     * Get the configured email validation URL.
+     *
+     * @return my account URL
+     */
+    String getEmailValidationUrl();
 }
