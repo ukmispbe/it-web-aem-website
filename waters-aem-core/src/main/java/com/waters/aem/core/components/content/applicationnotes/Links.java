@@ -68,7 +68,7 @@ public final class Links implements ComponentExporter {
         ContentPolicy contentPolicy = contentPolicyManager.getPolicy(resource);
         if (contentPolicy != null && linkItems != null) {
             final Long splitPolicy = contentPolicy.getProperties().get("splitAfter", Long.class);
-            return linkItems.size() > splitPolicy;
+            return splitPolicy != null && linkItems.size() > splitPolicy;
         }
         return false;
     }
