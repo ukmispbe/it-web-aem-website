@@ -338,8 +338,8 @@
 
     &__region {
         display: inline-flex;
-        min-height: 30px;
-        height: 30px;
+        min-height: 51px;
+        height: 51px;
         -webkit-box-align: center;
         align-items: center;
         padding: $space-xxs $space-s $space-xxs 0em;
@@ -377,7 +377,7 @@
 
     &__language {
         cursor: pointer;
-        min-height: 38px;
+        min-height: 51px;
         height: 51px;
         -webkit-box-align: center;
         align-items: center;

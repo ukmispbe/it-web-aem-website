@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SearchService, parameterValues, parameterDefaults } from './services/index';
+import { SearchService, parameterValues, parameterDefaults, searchMapper } from './services/index';
 import { parse, stringify } from 'query-string';
 import { withRouter } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
@@ -164,6 +164,7 @@ class Search extends Component {
             tabHistory: {},
             facetGroupsSelectedOrder: [],
             collapseAllFilters: false,
+            activeFilterIndex: -1,
         };
     }
 
@@ -277,7 +278,7 @@ class Search extends Component {
             const categoryIndex = categoriesWithData.findIndex(
                 category => category.name === query.category
             );
-            const categoryName = categoriesWithData[categoryIndex].name;
+            const categoryName = categoryIndex !== -1 ? categoriesWithData[categoryIndex].name : '';
             const isSkuList = this.isSkuList(categoryName);
 
             this.setState({ activeTabIndex: categoryIndex, isSkuList, category: categoryName });
@@ -299,8 +300,6 @@ class Search extends Component {
             query.category = categoryName;
 
             this.pushToHistory(query, this.state.selectedFacets);
-
-            await this.performSearch(query);
         } else if (
             this.isCategoryOnlySelected(query.category, query.content_type)
         ) {
@@ -448,6 +447,7 @@ class Search extends Component {
         newState.facets = res.facets;
         if ("activeIndex" in this.state) {
             newState.facets['activeIndex'] = this.state.activeIndex;
+            newState.activeFilterIndex = this.getActiveFilterIndex(this.state.contentType, newState.filterMap, newState.facets, this.state.activeIndex);
         } else {
             newState.facets['activeIndex'] = "";
         }
@@ -504,6 +504,19 @@ class Search extends Component {
         }
         this.props.resetToDefault = false;
     };
+
+    getActiveFilterIndex = (contentType, filterMap, facets, facetName) => {
+        const mappings = searchMapper.mapFacetGroups(contentType, filterMap, facets);
+        const activeFilterIndex = (mappings && Array.isArray(mappings))
+            ? mappings.findIndex(item => item.name === facetName) 
+            : this.state.activeFilterIndex;
+
+        if (this.state.activeFilterIndex !== activeFilterIndex) {
+            return activeFilterIndex;
+        }
+
+        return this.state.activeFilterIndex;
+    }
 
     searchOnError = error => {
         this.setEmptyResults();
@@ -593,14 +606,7 @@ class Search extends Component {
         query.page = 1;
         query.facets = {... newState.selectedFacets};
 
-        if (screenSizes.isTabletAndUnder() && query.facets[`${categoryId}`].length === 0) {
-            // all sub facets have bee de-selected therefore, force all facet groups to collapse
-            this.setState({forceCollapseFilters: true}, () => {
-                this.pushToHistory(query, query.facets);
-            })
-        } else {
-            this.pushToHistory(query, query.facets);
-        }
+        this.pushToHistory(query, query.facets);
     }
 
     removeTag(tag) {
@@ -685,7 +691,7 @@ class Search extends Component {
 
         query.page = 1;
         
-        this.setState({forceCollapseFilters: true}, () => {
+        this.setState({forceCollapseFilters: true, activeFilterIndex: -1}, () => {
             this.pushToHistory(query, query.facets);
         });
     };
@@ -808,6 +814,7 @@ class Search extends Component {
                         showTagsOnly={true}
                         facetGroupsSelectedOrder={this.state.facetGroupsSelectedOrder}
                         collapseAllFilters={this.state.collapseAllFilters}
+                        activeIndex={this.activeFilterIndex}
                     />
                 </CategoriesMenu>
             );
@@ -833,11 +840,18 @@ class Search extends Component {
                         contentType={this.state.contentType}
                         facetGroupsSelectedOrder={this.state.facetGroupsSelectedOrder}
                         collapseAllFilters={this.state.collapseAllFilters}
+                        activeIndex={this.state.activeFilterIndex}
+                        onGroupClick={this.handleFilterGroupClick}
                     />
                 </CategoriesMenu>
             );
         }
     };
+
+    handleFilterGroupClick = (facetName, index) => {
+        const activeIndex = index === -1 ? '' : this.state.activeIndex;
+        this.setState({activeFilterIndex: index, activeIndex});
+    }
 
     getFilterTags = () => {
         if (this.showFilteringComponents() && (this.isKeywordSelected() || this.isContentTypeSelected())) {
@@ -1156,8 +1170,15 @@ class Search extends Component {
         : <></>;
     
     handleHideSortFilterClick = () => {
-        this.resetToSavedState();
+        const searchParamsStringify = JSON.stringify(this.state.searchParams);
+        const savedParamsStringify = JSON.stringify(this.state.savedState.searchParams);
+
+        if (searchParamsStringify !== savedParamsStringify) {
+            this.resetToSavedState();
+        }
+
         setTimeout(() => {
+            domElements.noScroll(false);
             this.deactivateFilters();
             this.hideSortFiltersModal();
         }, 0);
@@ -1225,6 +1246,7 @@ class Search extends Component {
                         setupFilters={this.setupFilters.bind(this)}
                         resetToSavedState={this.resetToSavedState.bind(this)}
                         collapseFilters={this.collapseFilters}
+                        onClose={this.handleHideSortFilterClick}
                     />
                 </div>
 

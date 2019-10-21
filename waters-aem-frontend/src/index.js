@@ -38,7 +38,8 @@ function getAuthoredDataForTagCloud(h, t) {
     return {
         searchPath: h.dataset.searchPath,
         tagTitle: t.dataset.title,
-        contentType: t.dataset.contentType
+        category: t.dataset.category,
+        contentType: t.dataset.contentType,
     };
 }
 
@@ -112,6 +113,7 @@ if (tagCloudContainers) {
                 tagCloudTitle={data.tagTitle}
                 searchPath={data.searchPath}
                 keywords={json}
+                category={data.category}
                 contentType={data.contentType}
             />,
             tagCloudContainers[i]

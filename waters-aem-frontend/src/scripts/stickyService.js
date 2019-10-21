@@ -67,29 +67,7 @@ class Sticky {
         this.throttle(() => {
             if (this.queue && this.queue.length) {
                 this.queue.forEach(q => {
-                    const position = q.element.getBoundingClientRect();
-
-                    if (
-                        this.decideToStick(
-                            q.offset,
-                            position,
-                            q.boundingClient.height,
-                            q.element.parentNode
-                        )
-                    ) {
-                        const conditionalCheck = q.conditions;
-                        if (typeof conditionalCheck === 'function') {
-                            if (conditionalCheck(q.element)) {
-                                this.stick(q);
-                            } else { 
-                                this.unstick(q);
-                            }
-                        } else { 
-                            this.stick(q);
-                        }
-                    } else {
-                        this.unstick(q);
-                    }
+                    this.conditionsToStick(q);
                 });
             }
 
@@ -99,6 +77,31 @@ class Sticky {
                 });
             }
         });
+    }
+
+    conditionsToStick(q) { 
+        const position = q.element.getBoundingClientRect();
+        if (
+            this.decideToStick(
+                q.offset,
+                position,
+                q.boundingClient.height,
+                q.element.parentNode
+            )
+        ) {
+            const conditionalCheck = q.conditions;
+            if (typeof conditionalCheck === 'function') {
+                if (conditionalCheck(q.element)) {
+                    this.stick(q);
+                } else { 
+                    this.unstick(q);
+                }
+            } else { 
+                this.stick(q);
+            }
+        } else {
+            this.unstick(q);
+        }
     }
 
     stick(el) {
@@ -307,6 +310,19 @@ class Sticky {
         } catch (e) {
             wait(sticky.attachToScrollListener(fn));
         }
+    }
+
+    findStickyEl(element) { 
+        let stickyService = null;
+        if (this.queue && this.queue.length) {
+            for (let q = 0; q < this.queue.length; q++) {
+                if (this.queue[q].element == element) { 
+                    stickyService = this.queue[q];
+                    break;
+                }
+            }
+        }
+        return stickyService;
     }
 }
 
