@@ -53,7 +53,7 @@ class AddToCart extends React.Component {
             .addToCart(this.state.skuNumber, this.state.addToCartQty)
             .then(response => {
                 this.state.toggleParentModal(true);
-                this.addToCartAnalytics();
+                this.addToCartAnalytics(response);
             })
             .catch(err => {
                 this.setState({ errorObj: err });
@@ -84,15 +84,20 @@ class AddToCart extends React.Component {
         });
     };
 
-    addToCartAnalytics = () => { 
+    addToCartAnalytics = (response) => { 
 
         const addToCartModel = {
             addContext: this.props.analyticsConfig.context,
             name: this.props.analyticsConfig.name,
             price: this.props.analyticsConfig.price,
             quantity: this.state.addToCartQty.toString(),
-            sku: this.state.skuNumber
+            sku: this.state.skuNumber,
+            
         };
+
+        if (typeof response == 'boolean') { 
+            addToCartModel.success = response.toString()
+        }
 
         if (this.props.analyticsConfig.hasOwnProperty('availableDate')) {
             if (this.props.analyticsConfig.availableDate) {
