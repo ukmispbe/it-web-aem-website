@@ -12,6 +12,7 @@ import LoginStatus from "../scripts/loginStatus";
 import CheckOutStatus from "../scripts/checkOutStatus";
 import SkuMessage from "../sku-shared/views/SkuMessage";
 import Ecommerce from "../scripts/ecommerce";
+import { mainCartContext } from "../scripts/analytics";
 
 class SkuDetails extends React.Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class SkuDetails extends React.Component {
                 text: this.props.titleText
             },
             analyticsConfig: {
-                context: 'main',
+                context: mainCartContext,
                 name: this.props.titleText,
                 price: this.props.price,
                 sku: this.props.skuNumber,

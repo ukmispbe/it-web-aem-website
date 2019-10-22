@@ -11,7 +11,7 @@ import CheckOutStatus from '../../scripts/checkOutStatus';
 import Ecommerce from '../../scripts/ecommerce';
 import domElements from '../../scripts/domElements';
 import SkuDetails from '../../scripts/sku-details';
-import Analytics, {analyticTypes} from '../../scripts/analytics';
+import Analytics, {analyticTypes, searchCartContext, relatedCartContext} from '../../scripts/analytics';
 
 class ListItem extends React.Component {
     constructor(props) {
@@ -30,7 +30,7 @@ class ListItem extends React.Component {
                 text: this.props.relatedSku.title,
             },
             analyticsConfig: {
-                context: SkuDetails.exists() ? 'related' : 'search',
+                context: SkuDetails.exists() ? relatedCartContext : searchCartContext,
                 name: this.props.relatedSku.title,
                 price: this.props.relatedSku.formattedPrice,
                 sku: this.props.relatedSku.code,

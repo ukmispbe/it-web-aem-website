@@ -33,7 +33,7 @@ class Analytics {
         switch (name) {
             case "stock":
             case "cart":
-                returnModel = this.mapAddToCartModel(model);
+                returnModel = this.mapCartAndStockModel(model);
                 break;
             case "search":
                 returnModel = this.mapSearchModel(model);
@@ -45,7 +45,7 @@ class Analytics {
         return returnModel;
     }
 
-    mapAddToCartModel = model => {
+    mapCartAndStockModel = model => {
         return {
             detail: {
                 products: [model]
@@ -88,4 +88,4 @@ const analytics = new Analytics()
     
 export default analytics;
 export const analyticTypes = analytics.analyticTypes;
-export const analyticContextATC = analytics.analyticTypes.cart.context;
+export const [ mainCartContext, searchCartContext, relatedCartContext ] = analytics.analyticTypes.cart.context;
