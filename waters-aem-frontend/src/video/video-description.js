@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import LinesEllipsis from 'react-lines-ellipsis';
 import responsiveHOC from 'react-lines-ellipsis/lib/responsiveHOC';
-import ScreenSize from '../scripts/screenSizes';
 
 
 const ResponsiveEllipsis = responsiveHOC()(LinesEllipsis)
@@ -10,7 +9,7 @@ const ResponsiveEllipsis = responsiveHOC()(LinesEllipsis)
 class VideoDescription extends React.Component {
     constructor(props) {
         super(props);
-        
+
     }
     
     render() {
@@ -20,7 +19,7 @@ class VideoDescription extends React.Component {
                         style={{ whiteSpace: 'pre-wrap' }}
                         text={this.props.text}
                         maxLine="3"
-                        ellipsis="..."
+                        ellipsis="…"
                         trimRight="true"
                     basedOn="words"
                     />
