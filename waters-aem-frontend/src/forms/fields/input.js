@@ -240,7 +240,12 @@ const Input = ({
     const renderInput = (name, label) => {
         return (
             <>
-                <label htmlFor={name}>{label}</label>
+                <label htmlFor={name}>
+                    {label}{validation.required ? <></> : <span className="cmp-form-field--optional"> (optional)</span>}
+                </label>
+                {description && (
+                    <span className="cmp-form_description">{description}</span>
+                )}
                 <div className="cmp-form-field--input">
                     <input
                         className={classNames.toString().replace(",", " ")}
@@ -251,11 +256,12 @@ const Input = ({
                         onFocus={toggleRequirements}
                         onBlur={toggleRequirements}
                         onChange={updateRequirements}
+                        placeholder=" "
                     ></input>
                     {renderIcons()}
                     {renderRequirements()}
                 </div>
-                {displayMsg()}
+                <span className="cmp-form-field--errorText">{displayMsg()}</span>
             </>
         );
     };
@@ -295,10 +301,6 @@ const Input = ({
     return (
         <>
             {renderInput(name, label)}
-
-            {description && (
-                <span className="cmp-form_description">{description}</span>
-            )}
 
             {renderMatch()}
         </>

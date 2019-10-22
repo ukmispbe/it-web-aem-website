@@ -105,15 +105,15 @@ export const functions = {
             clearError("noSpecial");
         }
 
+        errors.forEach(error => {
+            setError(error.name, error.type, error.msg, error.ref);
+        });
 
         if (validations >= 3 && value.length >= 8) {
             ref.classList.remove('error');
             ref.classList.add('valid');
             return true;
         } else {
-            errors.forEach(error => {
-                setError(error.name, error.type, error.msg, error.ref);
-            });
             return false;
         }
     },

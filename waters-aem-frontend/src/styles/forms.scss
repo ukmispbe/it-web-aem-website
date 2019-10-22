@@ -7,34 +7,45 @@
         label {
             display: block;
             margin-bottom: $space-xxxs;
+            @include font-h4;
+
+            .cmp-form-field--optional {
+                @include font-small;
+            }
+        }
+
+        .cmp-form_description {
+            @include font-small;
         }
 
         input {
-            border: 1px solid $color-gray-30;
+            border: 1px solid $color-border-light;
             line-height: $line-height-text;
             width: 100%;
-            padding: $space-xs $space-xxs;
+            padding: $space-xs;
         }
 
-        // &.cmp-form-field--valid {
-            input.valid {
-                border: 1px solid $color-gray-30;
-                // add background svg
+        input.valid {
+            & ~ .cmp-form-field--icons .valid-icon {
+                display: inline-block;
+                svg {
+                    display: block;
+                }
+            }
 
+            &:placeholder-shown {
                 & ~ .cmp-form-field--icons .valid-icon {
-                    display: inline-block;
+                    display: none;
                     svg {
-                        display: block;
+                        display: none;
                     }
                 }
             }
-        // }
-
+        }
 
         &.cmp-form-field--invalid {
             input.error {
                 border: 1px solid $color-error;
-                // add background svg
 
                 & ~ .cmp-form-field--icons .invalid-icon {
                     display: inline-block;
@@ -44,6 +55,30 @@
                 }
             }
 
+            .cmp-form-field--errorText {
+                @include font-small;
+                color: $color-error;
+            }
+        }
+
+        input {
+            &:hover {
+                border: 1px solid $color-blue-50;
+            }
+
+            &:active {
+                border: 2px solid $color-focus;
+            }
+
+            &:focus {
+                outline: none;
+                border: 2px solid $color-focus;
+            }
+
+            &:disabled {
+                border: 1px solid $color-disabled!important;
+                color: $color-disabled;
+            }
         }
 
         &.cmp-form-field--invalid, &.cmp-form-field--valid {
