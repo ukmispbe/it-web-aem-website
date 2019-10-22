@@ -2,6 +2,7 @@
     position: relative;
     width: 100%;
     text-align: center;
+    margin-bottom: $space-m;
     
     @include mobile {
         margin-bottom: $space-s;
