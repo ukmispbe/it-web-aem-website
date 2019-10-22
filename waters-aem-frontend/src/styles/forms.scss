@@ -184,5 +184,58 @@
                 display: block;
             }
         }
+
+        input[type='checkbox'] {
+                display: none;
+
+            & ~ label {
+                display: inline-block;
+            }
+        }
+        .checkbox {
+            display: inline-block;
+            appearance: none;
+            border: 1px solid $color-gray-40;
+            height: 1em;
+            width: 1em;
+            vertical-align: -2px;
+            margin-right: $space-xxs;
+            transition: none;
+            svg {
+                display: none;
+                width: 0.8em;
+                height: 0.8em;
+                margin-left: 1px;
+                margin-top: 1px;
+                -moz-transform: rotate(-10deg);
+                -o-transform: rotate(-10deg);
+                -webkit-transform: rotate(-10deg);
+                transform: rotate(-10deg);
+                .st0 {
+                    stroke: $color-white;
+                    stroke-width: 4;
+                }
+            }
+            &:hover {
+                border: 1px solid $color-blue-50;
+            }
+            &.checked {
+                border: 1px solid $color-background-dark;
+                background-color: $color-background-dark;
+                svg {
+                    display: block;
+                }
+            }
+
+            &.disabled {
+                border: 1px solid $color-disabled!important;
+                color: $color-disabled!important;
+                cursor: default;
+
+                & ~ label {
+                    color: $color-disabled!important;
+                }
+            }
+        }
     }
 }

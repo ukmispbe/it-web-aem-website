@@ -6,6 +6,7 @@ const Input = ({
     type,
     name,
     label,
+    disabled,
     hasMatch,
     icons,
     register,
@@ -257,6 +258,7 @@ const Input = ({
                         onBlur={toggleRequirements}
                         onChange={updateRequirements}
                         placeholder=" "
+                        disabled={disabled}
                     ></input>
                     {renderIcons()}
                     {renderRequirements()}

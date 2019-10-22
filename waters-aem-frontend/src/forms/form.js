@@ -76,7 +76,7 @@ const Form = ({ config, submitFn }) => {
             </div>
             <button
                 type="submit"
-                className={checkIfDisabled() ? "cmp-button cmp-form--submit cmp-button--disabled" : "cmp-button cmp-form--submit"}
+                className={"cmp-button cmp-form--submit" + (checkIfDisabled() ? " cmp-button--disabled" : "")}
                 disabled={checkIfDisabled()}
             >
                 {config.buttonText}
