@@ -19,7 +19,7 @@ public class DefaultWatersAccountService implements WatersAccountService {
 
     private volatile String legacySearchUrl;
 
-    private volatile String registrationUrl;
+    private volatile String registrationSubmitUrl;
 
     private volatile String emailValidationUrl;
 
@@ -44,8 +44,8 @@ public class DefaultWatersAccountService implements WatersAccountService {
     }
 
     @Override
-    public String getRegistrationUrl() {
-        return registrationUrl;
+    public String getRegistrationSubmitUrl() {
+        return registrationSubmitUrl;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class DefaultWatersAccountService implements WatersAccountService {
         signOutUrl = configuration.signOutUrl();
         myAccountUrl = configuration.myAccountUrl();
         legacySearchUrl = configuration.legacySearchUrl();
-        registrationUrl = configuration.registrationUrl();
+        registrationSubmitUrl = configuration.registrationSubmitUrl();
         emailValidationUrl = configuration.emailValidationUrl();
     }
 }

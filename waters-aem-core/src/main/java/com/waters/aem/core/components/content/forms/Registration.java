@@ -11,10 +11,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.services.account.WatersAccountService;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -50,6 +52,9 @@ public class Registration implements ComponentExporter {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
+    @OSGiService
+    private WatersAccountService accountService;
+
     @DialogField(fieldLabel = "Terms and Conditions Link",
         fieldDescription = "Select or enter the link URL")
     @PathField(rootPath = WatersConstants.ROOT_PATH)
@@ -68,6 +73,14 @@ public class Registration implements ComponentExporter {
             .collect(Collectors.toList()));
 
         return MAPPER.writeValueAsString(countryList);
+    }
+
+    public String getRegistrationSubmitUrl() {
+        return accountService.getRegistrationSubmitUrl();
+    }
+
+    public String getEmailValidationUrl() {
+        return accountService.getEmailValidationUrl();
     }
 
     private Map<String, Object> getCountryMap(String countryCode) {

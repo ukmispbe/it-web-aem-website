@@ -35,7 +35,7 @@ public interface WatersAccountService {
      *
      * @return my account URL
      */
-    String getRegistrationUrl();
+    String getRegistrationSubmitUrl();
 
     /**
      * Get the configured email validation URL.
