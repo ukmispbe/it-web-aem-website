@@ -10,6 +10,8 @@ import SkuMessage from '../../sku-shared/views/SkuMessage';
 import CheckOutStatus from '../../scripts/checkOutStatus';
 import Ecommerce from '../../scripts/ecommerce';
 import domElements from '../../scripts/domElements';
+import SkuDetails from '../../scripts/sku-details';
+import Analytics, {analyticTypes, searchCartContext, relatedCartContext} from '../../scripts/analytics';
 
 class ListItem extends React.Component {
     constructor(props) {
@@ -26,6 +28,12 @@ class ListItem extends React.Component {
                 ...this.props.skuConfig.modalInfo,
                 textHeading: this.props.relatedSku.code,
                 text: this.props.relatedSku.title,
+            },
+            analyticsConfig: {
+                context: SkuDetails.exists() ? relatedCartContext : searchCartContext,
+                name: this.props.relatedSku.title,
+                price: this.props.relatedSku.formattedPrice,
+                sku: this.props.relatedSku.code,
             },
             errorObjCart: {},
             errorObjAvailability: {},
@@ -73,13 +81,44 @@ class ListItem extends React.Component {
         this.request
             .getAvailability(skuNumber)
             .then(response => {
-                this.setState({ skuAvailability: response });
+                this.setState({
+                    skuAvailability: response,
+                    analyticsConfig: {
+                        ...this.state.analyticsConfig,
+                        ...response
+                    }
+                }, () => { 
+                        this.checkAvailabilityAnalytics();
+                });
+
+
             })
             .catch(err => {
                 // Add Error Object to State
                 this.setState({ errorObjAvailability: err });
             });
     };
+
+    checkAvailabilityAnalytics = () => {   
+        const availabilityModel = {
+            name: this.state.analyticsConfig.name,
+            price: this.state.analyticsConfig.price,
+            sku: this.state.analyticsConfig.sku
+        };
+
+        if (this.state.analyticsConfig.hasOwnProperty('availableDate')) {
+            availabilityModel.stockDate = this.state.analyticsConfig.availableDate;
+        }   
+        
+        if (this.state.analyticsConfig.hasOwnProperty('availableQuantity')) {
+            availabilityModel.stockQuantity = this.state.analyticsConfig.availableQuantity.toString();
+        }
+        if (this.state.analyticsConfig.hasOwnProperty('productStatus')) {
+            availabilityModel.stockMessage = this.state.analyticsConfig.productStatus;
+        }
+
+        Analytics.setAnalytics(analyticTypes.stock.name, availabilityModel);
+    }
 
     handleItemClick = () => {
         if (this.props.onItemClick) {
@@ -144,6 +183,7 @@ class ListItem extends React.Component {
                         addToCartLabel={this.props.skuConfig.addToCartLabel}
                         addToCartUrl={this.props.skuConfig.addToCartUrl}
                         toggleErrorModal={this.toggleErrorModal}
+                        analyticsConfig={this.state.analyticsConfig}
                     ></AddToCart>
                 </div>
                 <Modal
