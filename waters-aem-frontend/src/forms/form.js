@@ -37,8 +37,7 @@ const Form = ({ config, submitFn }) => {
                     dirty={formState.touched.indexOf(field.name) > -1}
                     valid={!errors[field.name]}
                     key={`field-${i}`}
-                    type={field.type}
-                >
+                    type={field.type}>
                     <Component
                         {...field}
                         fieldErr={errors[field.name]}
@@ -52,8 +51,7 @@ const Form = ({ config, submitFn }) => {
     return (
         <form
             className="cmp-form cmp-form--registration"
-            onSubmit={handleSubmit(submitFn)}
-        >
+            onSubmit={handleSubmit(submitFn)}>
             {f}
             <div className="cmp-form__disclaimer">
                 {config.disclaimerText + " "}
@@ -64,8 +62,7 @@ const Form = ({ config, submitFn }) => {
             <button
                 type="submit"
                 className="cmp-button"
-                disabled={checkIfDisabled()}
-            >
+                disabled={checkIfDisabled()}>
                 {config.buttonText}
             </button>
         </form>
