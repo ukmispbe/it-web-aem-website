@@ -20,7 +20,7 @@ const formType = {
 };
 
 const Form = ({ config, submitFn }) => {
-    const { register, handleSubmit, errors, formState } = useForm({
+    const { register, handleSubmit, errors, formState, setError, clearError, triggerValidation } = useForm({
         mode: "onBlur"
     });
 
@@ -32,17 +32,30 @@ const Form = ({ config, submitFn }) => {
         const Component = formType[field.type];
 
         if (Component) {
+            let newName = "";
+            let confirmName = "";
+            if (field.name) {
+                newName = field.name.charAt(0).toUpperCase() + field.name.slice(1);
+                confirmName = "confirm".concat(newName);
+            }
             return (
                 <FieldValidationDisplay
                     dirty={formState.touched.indexOf(field.name) > -1}
                     valid={!errors[field.name]}
-                    key={`field-${i}`}
                     type={field.type}
+                    hasMatchValid={field.hasMatch ? !errors[confirmName] : true}
+                    dirtyMatch={formState.touched.indexOf(confirmName) > -1}
+                    key={`field-${i}`}
                 >
                     <Component
                         {...field}
                         fieldErr={errors[field.name]}
+                        errors={errors}
                         register={register}
+                        icons={config.icons}
+                        setError={setError}
+                        clearError={clearError}
+                        triggerValidation={triggerValidation}
                     />
                 </FieldValidationDisplay>
             );

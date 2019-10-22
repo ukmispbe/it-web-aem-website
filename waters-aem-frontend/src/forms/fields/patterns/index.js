@@ -4,31 +4,138 @@ const test = (value, regex) => {
 
 export const functions = {
     // named validation functions here
-    noWhitespaceOrSpecialChars: value => {
+    noWhitespaceOrSpecialChars: (value, ref) => {
         if (value.length) {
-            return test(
+            if (test(
                 value,
                 /^.*(?=^[^\\\/~!@#$%^&*_+=:;\]\[\{\}\n\r]+$)(?=^.*[^\s]+).*$/g
-            );
+            )) {
+                ref.classList.remove('error');
+                ref.classList.add('valid');
+                return true;
+            }
+
+            return false;
         } else {
+            ref.classList.remove('error');
+            ref.classList.add('valid');
             return true;
         }
     },
-    noWhitespace: value => {
+    noWhitespace: (value, ref) => {
         if (value) {
-            return !test(value, /^\s*$/);
+            if (!test(value, /^.*\s+.*$/)) {
+                ref.classList.remove('error');
+                ref.classList.add('valid');
+                return true;
+            }
+
+            return false;;
         } else {
+            ref.classList.remove('error');
+            ref.classList.add('valid');
             return true;
         }
     },
-    password: value => {
-        // add password validation logic
-        return true;
+    password: (value, ref, setError, clearError) => {
+        let validations = 0;
+        let errors = [];
+
+        // Check length (required)
+        if (value.length < 8) {
+            errors.push({
+                name: "shortPassword",
+                type: "invalidLength",
+                msg: "Password",
+                ref: ref
+            });
+        } else {
+            clearError("shortPassword");
+        }
+
+        // Check for lowercase
+        if (!test(value, /^.*[a-z]+.*$/)) {
+            errors.push({
+                name: "noLowercase",
+                type: "missingLowercase",
+                msg: "Password",
+                ref: ref
+            });
+        } else {
+            validations++;
+            clearError("noLowercase");
+        }
+
+        // Check for uppercase
+        if (!test(value, /^.*[A-Z]+.*$/)) {
+            errors.push({
+                name: "noUppercase",
+                type: "missingUppercase",
+                msg: "Password",
+                ref: ref
+            });
+        } else {
+            validations++;
+            clearError("noUppercase");
+        }
+
+        // Check for digit
+        if (!test(value, /^.*[0-9]+.*$/)) {
+            errors.push({
+                name: "noDigits",
+                type: "missingDigits",
+                msg: "Password",
+                ref: ref
+            });
+        } else {
+            validations++;
+            clearError("noDigits");
+        }
+
+        // Check for special character
+        if (!test(value, /^.*\W+.*$/)) {
+            errors.push({
+                name: "noSpecial",
+                type: "missingSpecial",
+                msg: "Password",
+                ref: ref
+            });
+        } else {
+            validations++;
+            clearError("noSpecial");
+        }
+
+
+        if (validations >= 3 && value.length >= 8) {
+            ref.classList.remove('error');
+            ref.classList.add('valid');
+            return true;
+        } else {
+            errors.forEach(error => {
+                setError(error.name, error.type, error.msg, error.ref);
+            });
+            return false;
+        }
     },
-    email: value => {
-        return test(
+    email: (value, ref) => {
+        if (test(
             value,
             /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        );
+        )) {
+            ref.classList.remove('error');
+            ref.classList.add('valid');
+            return true;
+        }
+
+        return false;
+    },
+    matching: (value, matchRef, ref) => {
+        if (value === matchRef.value) {
+            ref.classList.remove('error');
+            ref.classList.add('valid');
+            return true;
+        }
+
+        return false;
     }
 };
