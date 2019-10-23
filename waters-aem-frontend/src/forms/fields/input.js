@@ -34,6 +34,13 @@ const Input = ({
                 obj.validate = value => {
                     return functions[validation.validateFnName](value, document.getElementById(name), setError, clearError);
                 };
+            } else if (validation.validateFnName === "email") {
+                obj.validate = value => {
+                    return (
+                        functions["email"](value, document.getElementById(name), validation.validationMsg, setError, clearError) &&
+                        functions["newEmail"](value, document.getElementById(name), validation.alreadyRegisteredMsg, setError, clearError)
+                    );
+                };
             } else {
                 obj.validate = value => {
                     return functions[validation.validateFnName](value, document.getElementById(name));
@@ -85,6 +92,15 @@ const Input = ({
             if (fieldErr) {
                 fieldErr.ref.classList.remove("valid");
                 fieldErr.ref.classList.add("error");
+                if (validation.validateFnName === "email" && fieldErr.type === "validate") {
+                    if (errors.invalidEmail) {
+                        return errors.invalidEmail.message;
+                    }
+                    if (errors.alreadyRegistered) {
+                        return displaySignInSpan();
+                    }
+                    return null;
+                }
                 if (fieldErr.type === "required") {
                     return fieldErr.message || validation.requiredMsg;
                 } else if (
@@ -179,6 +195,20 @@ const Input = ({
             });
         }
     };
+
+    const displaySignInSpan = () => {
+        if (validation.signInMsg && validation.alreadyRegisteredMsg) {
+            return (
+                <>
+                    {validation.alreadyRegisteredMsg}
+                    <a href={validation.signInURL}>
+                        <ReactSVG src={icons.signInIcon} className="email-signin" />
+                        {validation.signInMsg}
+                    </a>
+                </>
+            );
+        }
+    }
 
     const renderMatch = () => {
         if (!hasMatch) {

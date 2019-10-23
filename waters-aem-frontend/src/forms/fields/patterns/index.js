@@ -1,3 +1,5 @@
+import EmailService from '../../services/EmailService';
+
 const test = (value, regex) => {
     return regex.test(value);
 };
@@ -117,18 +119,53 @@ export const functions = {
             return false;
         }
     },
-    email: (value, ref) => {
+    email: (value, ref, invalidMsg, setError, clearError) => {
         if (test(
             value,
             /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         )) {
-            ref.classList.remove('error');
-            ref.classList.add('valid');
+            clearError("invalidEmail");
+            return true;
+        } else {
+            setError("invalidEmail", "invalidEmail", invalidMsg, ref);
+            return false;
+        }
+    },
+
+    newEmail: (value, ref, invalidMsg, setError, clearError) => {
+        if (test(
+            value,
+            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )) {
+            const myService = new EmailService();
+            const newEmail = myService.checkEmail(value)
+            .then(response => {
+                // Use Response from Service to determine if the Valid Email Address has been registered Previously
+                // Until Service Complete Test for If Registered
+                const testIsRegistered = value === "cole@calamos.com";
+                if (testIsRegistered) {
+                    // Display Sign In span
+                    setError("alreadyRegistered", "alreadyRegistered", invalidMsg, ref);
+                    return false;
+                }
+
+                ref.classList.remove('error');
+                ref.classList.add('valid');
+                clearError("alreadyRegistered");
+                return true;
+            })
+            .catch(err => {
+                setError("alreadyRegistered", "alreadyRegistered", err, ref);
+                return false;
+            });
+
+            return newEmail;
+        } else {
+            clearError("alreadyRegistered");
             return true;
         }
-
-        return false;
     },
+
     matching: (value, matchRef, ref) => {
         if (value === matchRef.value) {
             ref.classList.remove('error');
