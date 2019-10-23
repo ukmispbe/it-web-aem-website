@@ -21,7 +21,7 @@ const Checkbox = ({
         }
     };
 
-    const renderCheckbox = () => {
+    const renderCheckbox = (name, label) => {
         let checked = false;
 
         const checkboxElem = document.getElementById(name);
@@ -29,26 +29,50 @@ const Checkbox = ({
             checked = checkboxElem.checked;
         }
 
+        return (
+            <>
+                <a
+                    href="javascript:void(0)"
+                    className={'checkbox ' + (checked ? 'checked' : '') + (disabled ? ' disabled' : '')}
+                    onClick={checkHandler.bind(this)}
+                >
+                    <ReactSVG src={icons.checkmarkIcon} />
+                </a>
+                <input
+                    type="checkbox"
+                    name={name}
+                    id={name}
+                    ref={register}
+                    checked={checked}
+                    disabled={disabled}
+                    readOnly
+                />
+                <label htmlFor={name} onClick={checkHandlerLabel.bind(this)}>{label}</label>
+            </>
+        );
+    };
+
+    const renderGrouping = () => {
         if (!options) {
+            return renderCheckbox(name, label);
+        } else {
             return (
-                <>
-                    <a
-                        href="javascript:void(0)"
-                        className={'checkbox ' + (checked ? 'checked' : '') + (disabled ? ' disabled' : '')}
-                        onClick={checkHandler.bind(this)}
-                    >
-                        <ReactSVG src={icons.checkmarkIcon} />
-                    </a>
-                    <input type="checkbox" name={name} id={name} ref={register} checked={checked} disabled={disabled}/>
-                    <label htmlFor={name} onClick={checkHandlerLabel.bind(this)}>{label}</label>
-                </>
-            );
+                <div id={name} className="cmp-form-checkbox--grouping">
+                    {options.map((option, i) => {
+                        return (
+                            <div key={`checkbox-${name}-grouping-${i}`} >
+                                {renderCheckbox(option.name, option.label)}
+                            </div>
+                        );
+                    })}
+                </div>
+            )
         }
     };
 
     return (
         <>
-            {renderCheckbox()}
+            {renderGrouping()}
         </>
     );
 };
