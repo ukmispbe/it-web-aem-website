@@ -18,6 +18,21 @@
                 "existingEmailUrl": "https://dev-www.waters.com:8443/api/waters/user/v1/validate/{email}",
                 "fields": [
                     {
+                        "type": "email",
+                        "name": "email",
+                        "label": "${'Email' @ i18n, context='scriptString'}",
+                        "description": "${'This will be your username' @ i18n, context='scriptString'}",
+                        "validation": {
+                            "required": true,
+                            "requiredMsg": "${'Please enter a valid email address' @ i18n, context='scriptString'}",
+                            "validateFnName": "email",
+                            "validationMsg": "${'Please enter a valid email address' @ i18n, context='scriptString'}",
+                            "alreadyRegisteredMsg": "${'That email address already exists.' @ i18n, context='scriptString'}",
+                            "signInMsg": "${'Sign In' @ i18n, context='scriptString'}",
+                            "signInURL": "https://www.waters.com/waters/login.htm"
+                        }
+                    },
+                    {
                         "type": "text",
                         "name": "firstName",
                         "label": "${'First Name' @ i18n, context='scriptString'}",
@@ -60,24 +75,6 @@
                         "validation": {
                             "required": true,
                             "requiredMsg": "${'Please select a country' @ i18n, context='scriptString'}"
-                        }
-                    },
-                    {
-                        "type": "break"
-                    },
-                    {
-                        "type": "email",
-                        "name": "email",
-                        "label": "${'Email' @ i18n, context='scriptString'}",
-                        "description": "${'This will be your username' @ i18n, context='scriptString'}",
-                        "validation": {
-                            "required": true,
-                            "requiredMsg": "${'Please enter a valid email address' @ i18n, context='scriptString'}",
-                            "validateFnName": "email",
-                            "validationMsg": "${'Please enter a valid email address' @ i18n, context='scriptString'}",
-                            "alreadyRegisteredMsg": "${'That email address already exists.' @ i18n, context='scriptString'}",
-                            "signInMsg": "${'Sign In' @ i18n, context='scriptString'}",
-                            "signInURL": "https://www.waters.com/waters/login.htm"
                         }
                     },
                     {

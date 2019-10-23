@@ -334,7 +334,13 @@ const Input = ({
     const renderInput = (name, label) => {
         return (
             <>
-                <label htmlFor={name}>
+                <label
+                    htmlFor={name}
+                    className={
+                        validation.validateFnName === "matching"
+                            ? "cmp-form-field--label-matching"
+                            : ""
+                    }>
                     {label}
                     {validation.required ? (
                         <></>
@@ -346,7 +352,7 @@ const Input = ({
                     )}
                 </label>
                 {description && (
-                    <span className="cmp-form_description">{description}</span>
+                    <div className="cmp-form_description">{description}</div>
                 )}
                 <div className="cmp-form-field--input">
                     <input

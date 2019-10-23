@@ -1,4 +1,13 @@
 .cmp-form {
+    .cmp-form__disclaimer {
+        display: inline-block;
+        width: 75%;
+
+        @include mobile {
+            width: 100%;
+        }
+    }
+
     &--submit {
         &.cmp-button--disabled {
             background-color: #9ca7b0!important;
@@ -10,18 +19,31 @@
         width: 100%;
         margin-bottom: $space-s;
 
+        &.cmp-form-field-dropdown {
+            width: 50%;
+
+            @include mobile {
+                width: 100%;
+            }
+        }
+
         label {
             display: block;
-            margin-bottom: $space-xxxs;
             @include font-h4;
+            margin-bottom: $space-xxxs;
 
             .cmp-form-field--optional {
                 @include font-small;
+            }
+
+            &.cmp-form-field--label-matching {
+                margin-top: $space-s;
             }
         }
 
         .cmp-form_description {
             @include font-small;
+            margin-bottom: $space-xs;
         }
 
         .cmp-form-field--errorText {
@@ -215,6 +237,7 @@
 
             & ~ label {
                 display: inline-block;
+                font-weight: $font-weight-light;
             }
         }
         .checkbox {

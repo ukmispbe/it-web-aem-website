@@ -82,12 +82,6 @@ const Form = ({ config, submitFn }) => {
                 submitFn.bind({ url: config.submitEndpoint })
             )}>
             {f}
-            <div className="cmp-form__disclaimer">
-                {config.disclaimerText + " "}
-                <a href={config.termsAndConditionsLink}>
-                    {config.termsAndConditionsText}
-                </a>
-            </div>
             <button
                 type="submit"
                 className={
@@ -97,6 +91,12 @@ const Form = ({ config, submitFn }) => {
                 disabled={checkIfDisabled()}>
                 {config.buttonText}
             </button>
+            <div className="cmp-form__disclaimer">
+                {config.disclaimerText + " "}
+                <a href={config.termsAndConditionsLink}>
+                    {config.termsAndConditionsText}
+                </a>
+            </div>
         </form>
     );
 };
