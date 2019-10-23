@@ -68,13 +68,20 @@ const DropdownIndicator = props => {
     );
 };
 
-const getOptions = opts => {
-    return opts.map(val => {
-        return {
-            label: val.displayName,
-            value: val.countryCode
-        };
-    });
+const getOptions = (opts, name) => {
+    let opt;
+    switch (name) {
+        case "country":
+            opt = opts.map(val => {
+                return {
+                    label: val.displayName,
+                    value: val.countryCode
+                };
+            });
+            break;
+    }
+
+    return opt;
 };
 
 const Dropdown = ({
@@ -83,27 +90,40 @@ const Dropdown = ({
     name,
     register,
     dropdownIndicator,
-    placeholder
+    placeholder,
+    setValue
 }) => {
-    // return <>Dropdown</>;
-    const { value, setValue } = useState();
-    console.log(getOptions(options));
+    const [selectValue, setSelect] = useState();
+
+    const handleChange = opt => {
+        setSelect(opt);
+        setValue(name, opt.value);
+    };
+
     return (
-        <Select
-            defaultValue={""}
-            options={getOptions(options)}
-            value={value}
-            onChange={x => console.log(x)}
-            isSearchable={true}
-            styles={customStyles}
-            placeholder={placeholder}
-            classNamePrefix={"cmp-custom-dropdown"}
-            components={{ DropdownIndicator }}
-            theme={{ dropdownIndicator }}
-            ref={() =>
-                register({ name }, { validate: value => console.log(value) })
-            }
-        />
+        <>
+            <label htmlFor={name}>{label}</label>
+            <Select
+                id={name}
+                name={name}
+                defaultValue={""}
+                options={getOptions(options, name)}
+                value={selectValue}
+                onChange={handleChange}
+                isSearchable={true}
+                styles={customStyles}
+                placeholder={placeholder}
+                classNamePrefix={"cmp-custom-dropdown"}
+                components={{ DropdownIndicator }}
+                theme={{ dropdownIndicator }}
+                ref={() =>
+                    register(
+                        { name },
+                        { validate: value => console.log(value) }
+                    )
+                }
+            />
+        </>
     );
 };
 

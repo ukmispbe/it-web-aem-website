@@ -20,7 +20,14 @@ const formType = {
 };
 
 const Form = ({ config, submitFn }) => {
-    const { register, handleSubmit, errors, formState } = useForm({
+    const {
+        register,
+        handleSubmit,
+        errors,
+        formState,
+        setValue,
+        getValues
+    } = useForm({
         mode: "onBlur"
     });
 
@@ -42,12 +49,13 @@ const Form = ({ config, submitFn }) => {
                         {...field}
                         fieldErr={errors[field.name]}
                         register={register}
+                        setValue={setValue}
                     />
                 </FieldValidationDisplay>
             );
         }
     });
-
+    console.log(getValues());
     return (
         <form
             className="cmp-form cmp-form--registration"
