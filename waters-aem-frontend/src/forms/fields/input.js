@@ -140,6 +140,12 @@ const Input = ({
                 } else {
                     return fieldErr.message || null;
                 }
+            } else if (validation.validateFnName === "noValidation" && validation.required) {
+                const ref = document.getElementById(name);
+                if (ref) {
+                    ref.classList.remove("error");
+                    ref.classList.add("valid");
+                }
             }
         }
     };
