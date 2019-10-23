@@ -49,6 +49,7 @@ const Form = ({ config, submitFn }) => {
                     field.name.charAt(0).toUpperCase() + field.name.slice(1);
                 confirmName = "confirm".concat(newName);
             }
+
             return (
                 <FieldValidationDisplay
                     dirty={formState.touched.indexOf(field.name) > -1}
@@ -86,9 +87,11 @@ const Form = ({ config, submitFn }) => {
             </div>
             <button
                 type="submit"
-                className={"cmp-button cmp-form--submit" + (checkIfDisabled() ? " cmp-button--disabled" : "")}
-                disabled={checkIfDisabled()}
-            >
+                className={
+                    "cmp-button cmp-form--submit" +
+                    (checkIfDisabled() ? " cmp-button--disabled" : "")
+                }
+                disabled={checkIfDisabled()}>
                 {config.buttonText}
             </button>
         </form>

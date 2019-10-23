@@ -7,6 +7,14 @@
                 "termsAndConditionsText": "${'Terms and Conditions' @ i18n, context='scriptString'}",
                 "termsAndConditionsLink": "${registration.termsAndConditionsLink.href @ context='unsafe'}",
                 "buttonText": "${'Create My Account' @ i18n, context='scriptString'}",
+                "icons": {
+                    "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                    "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                    "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
+                    "eyeIcon": "/content/dam/waters/en/brand-assets/icons/eye.svg",
+                    "eyeOffIcon": "/content/dam/waters/en/brand-assets/icons/eye-off.svg",
+                    "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
+                },
                 "fields": [
                     {
                         "type": "text",
@@ -78,7 +86,14 @@
                             "validateFnName": "password",
                             "validationMsg": "${'Please provide a valid password' @ i18n, context='scriptString'}",
                             "requiredMsg": "${'Please provide a valid password' @ i18n, context='scriptString'}",
-                            "nonMatchingMsg": "${'Passwords do not match' @ i18n, context='scriptString'}"
+                            "nonMatchingMsg": "${'Passwords do not match' @ i18n, context='scriptString'}",
+                            "requirements": [
+                                {"name": "shortPassword", "msg": "${'at least 8 Characters' @ i18n, context='scriptString'}"},
+                                {"name": "noUppercase", "msg": "${'at least 1 uppercase letter' @ i18n, context='scriptString'}"},
+                                {"name": "noLowercase", "msg": "${'at least 1 lowercase letter' @ i18n, context='scriptString'}"},
+                                {"name": "noDigits", "msg": "${'at least 1 digit' @ i18n, context='scriptString'}"},
+                                {"name": "noSpecial", "msg": "${'at least 1 special character (for example, !, $, #, %)' @ i18n, context='scriptString'}"}
+                            ]
                         }
                     },
                     {
