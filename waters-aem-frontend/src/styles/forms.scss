@@ -2,6 +2,10 @@
     .cmp-form__disclaimer {
         display: inline-block;
         width: 75%;
+
+        @include mobile {
+            width: 100%;
+        }
     }
 
     &--submit {
@@ -17,6 +21,10 @@
 
         &.cmp-form-field-dropdown {
             width: 50%;
+
+            @include mobile {
+                width: 100%;
+            }
         }
 
         label {
