@@ -1,4 +1,4 @@
-import EmailService from '../../services/EmailService';
+import EmailService from "../../services/EmailService";
 
 const test = (value, regex) => {
     return regex.test(value);
@@ -6,36 +6,41 @@ const test = (value, regex) => {
 
 export const functions = {
     // named validation functions here
+    noValidation: (value, ref) => {
+        return true;
+    },
     noWhitespaceOrSpecialChars: (value, ref) => {
         if (value.length) {
-            if (test(
-                value,
-                /^.*(?=^[^\\\/~!@#$%^&*_+=:;\]\[\{\}\n\r]+$)(?=^.*[^\s]+).*$/g
-            )) {
-                ref.classList.remove('error');
-                ref.classList.add('valid');
+            if (
+                test(
+                    value,
+                    /^.*(?=^[^\\\/~!@#$%^&*_+=:;\]\[\{\}\n\r]+$)(?=^.*[^\s]+).*$/g
+                )
+            ) {
+                ref.classList.remove("error");
+                ref.classList.add("valid");
                 return true;
             }
 
             return false;
         } else {
-            ref.classList.remove('error');
-            ref.classList.add('valid');
+            ref.classList.remove("error");
+            ref.classList.add("valid");
             return true;
         }
     },
     noWhitespace: (value, ref) => {
         if (value) {
             if (!test(value, /^.*\s+.*$/)) {
-                ref.classList.remove('error');
-                ref.classList.add('valid');
+                ref.classList.remove("error");
+                ref.classList.add("valid");
                 return true;
             }
 
-            return false;;
+            return false;
         } else {
-            ref.classList.remove('error');
-            ref.classList.add('valid');
+            ref.classList.remove("error");
+            ref.classList.add("valid");
             return true;
         }
     },
@@ -112,18 +117,20 @@ export const functions = {
         });
 
         if (validations >= 3 && value.length >= 8) {
-            ref.classList.remove('error');
-            ref.classList.add('valid');
+            ref.classList.remove("error");
+            ref.classList.add("valid");
             return true;
         } else {
             return false;
         }
     },
     email: (value, ref, invalidMsg, setError, clearError) => {
-        if (test(
-            value,
-            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        )) {
+        if (
+            test(
+                value,
+                /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            )
+        ) {
             clearError("invalidEmail");
             return true;
         } else {
@@ -132,32 +139,42 @@ export const functions = {
         }
     },
 
-    newEmail: (value, ref, invalidMsg, setError, clearError) => {
-        if (test(
-            value,
-            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        )) {
-            const myService = new EmailService();
-            const newEmail = myService.checkEmail(value)
-            .then(response => {
-                // Use Response from Service to determine if the Valid Email Address has been registered Previously
-                // Until Service Complete Test for If Registered
-                const testIsRegistered = value === "cole@calamos.com";
-                if (testIsRegistered) {
-                    // Display Sign In span
-                    setError("alreadyRegistered", "alreadyRegistered", invalidMsg, ref);
-                    return false;
-                }
+    newEmail: (value, emailUrl, ref, invalidMsg, setError, clearError) => {
+        if (
+            test(
+                value,
+                /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            )
+        ) {
+            const myService = new EmailService(emailUrl);
+            const newEmail = myService
+                .checkEmail(value)
+                .then(response => {
+                    if (response) {
+                        // Display Sign In span
+                        setError(
+                            "alreadyRegistered",
+                            "alreadyRegistered",
+                            invalidMsg,
+                            ref
+                        );
+                        return false;
+                    }
 
-                ref.classList.remove('error');
-                ref.classList.add('valid');
-                clearError("alreadyRegistered");
-                return true;
-            })
-            .catch(err => {
-                setError("alreadyRegistered", "alreadyRegistered", err, ref);
-                return false;
-            });
+                    ref.classList.remove("error");
+                    ref.classList.add("valid");
+                    clearError("alreadyRegistered");
+                    return true;
+                })
+                .catch(err => {
+                    setError(
+                        "alreadyRegistered",
+                        "alreadyRegistered",
+                        err,
+                        ref
+                    );
+                    return false;
+                });
 
             return newEmail;
         } else {
@@ -168,8 +185,8 @@ export const functions = {
 
     matching: (value, matchRef, ref) => {
         if (value === matchRef.value) {
-            ref.classList.remove('error');
-            ref.classList.add('valid');
+            ref.classList.remove("error");
+            ref.classList.add("valid");
             return true;
         }
 

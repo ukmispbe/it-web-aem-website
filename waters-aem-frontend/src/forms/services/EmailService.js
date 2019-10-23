@@ -1,31 +1,31 @@
-import 'whatwg-fetch';
+import "whatwg-fetch";
 
 class EmailService {
-    constructor() {
-        this.url = "https://test-www.waters.com:8443/api/waters/user/v1/validate/email/{email}";
+    constructor(
+        url = "https://test-www.waters.com:8443/api/waters/user/v1/validate/email/{email}"
+    ) {
+        this.url = url;
     }
 
-    checkEmail (email) {
-
-        //return this.getData(this.createEmailRequest(email));
+    checkEmail(email) {
+        return this.getData(this.createEmailRequest(email));
         // Test to get a valid response
-        return this.getData("https://jsonplaceholder.typicode.com/users");
+        // return this.getData("https://jsonplaceholder.typicode.com/users");
     }
 
     createEmailRequest(email) {
-        const url = this.url
-            .replace('{email}', email);
+        const url = this.url.replace("{email}", email);
         return url;
     }
 
     checkFetch(response) {
-        if (!response.ok){
+        if (!response.ok) {
             throw response;
         }
         return response;
     }
 
-    getData(url){
+    getData(url) {
         // Should be logic for all get requests we have to send
         return new Promise((resolve, reject) => {
             window

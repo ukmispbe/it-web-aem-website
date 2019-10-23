@@ -2,7 +2,7 @@
     <div class="cmp-form--attach" id="js-registration-form"></div>
     <script type="application/json" id="cmp-registration-form">
             {
-                "submitEndpoint": "http://waters.com",
+                "submitEndpoint": "https://dev-www.waters.com:8443/api/waters/user/v1/registration",
                 "disclaimerText": "${'By clicking Create My Account button you are agreeing to our' @ i18n, context='scriptString'}",
                 "termsAndConditionsText": "${'Terms and Conditions' @ i18n, context='scriptString'}",
                 "termsAndConditionsLink": "${registration.termsAndConditionsLink.href @ context='unsafe'}",
@@ -15,6 +15,7 @@
                     "eyeOffIcon": "/content/dam/waters/en/brand-assets/icons/eye-off.svg",
                     "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
                 },
+                "existingEmailUrl": "https://dev-www.waters.com:8443/api/waters/user/v1/validate/{email}",
                 "fields": [
                     {
                         "type": "text",
@@ -43,9 +44,9 @@
                         "name": "company",
                         "label": "${'Company' @ i18n, context='scriptString'}",
                         "validation": {
+                            "validateFnName": "noValidation",
+                            "validationMsg": "${'Please enter a valid company' @ i18n, context='scriptString'}",
                             "required": true,
-                            "validateFnName": "noWhitespace",
-                            "validationMsg": "Please enter a valid company' @ i18n, context='scriptString'}",
                             "requiredMsg": "${'Please enter a valid company' @ i18n, context='scriptString'}"
                         }
                     },
@@ -73,7 +74,10 @@
                             "required": true,
                             "requiredMsg": "${'Please enter a valid email address' @ i18n, context='scriptString'}",
                             "validateFnName": "email",
-                            "validationMsg": "${'Please enter a valid email address' @ i18n, context='scriptString'}"
+                            "validationMsg": "${'Please enter a valid email address' @ i18n, context='scriptString'}",
+                            "alreadyRegisteredMsg": "${'That email address already exists.' @ i18n, context='scriptString'}",
+                            "signInMsg": "${'Sign In' @ i18n, context='scriptString'}",
+                            "signInURL": "https://www.waters.com/waters/login.htm"
                         }
                     },
                     {

@@ -1,5 +1,5 @@
 import React from "react";
-import useForm from "react-hook-form";
+import useForm from "react-hook-form/dist/react-hook-form.ie11";
 import Input from "./fields/input";
 import Radio from "./fields/radio";
 import Checkbox from "./fields/checkbox";
@@ -68,6 +68,7 @@ const Form = ({ config, submitFn }) => {
                         setError={setError}
                         clearError={clearError}
                         triggerValidation={triggerValidation}
+                        emailUrl={config.existingEmailUrl}
                     />
                 </FieldValidationDisplay>
             );
@@ -77,7 +78,9 @@ const Form = ({ config, submitFn }) => {
     return (
         <form
             className="cmp-form cmp-form--registration"
-            onSubmit={handleSubmit(submitFn)}>
+            onSubmit={handleSubmit(
+                submitFn.bind({ url: config.submitEndpoint })
+            )}>
             {f}
             <div className="cmp-form__disclaimer">
                 {config.disclaimerText + " "}
