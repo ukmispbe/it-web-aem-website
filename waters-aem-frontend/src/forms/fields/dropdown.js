@@ -1,5 +1,7 @@
-import React from "react";
-import Select from "react-select";
+import React, { useState } from "react";
+import ReactSVG from "react-svg";
+import Select, { components } from "react-select";
+import variables from "../../../src/styles/variables.scss";
 
 const customStyles = {
     indicatorSeparator: () => ({
@@ -66,32 +68,71 @@ const DropdownIndicator = props => {
     );
 };
 
+const getOptions = (opts, name) => {
+    let opt;
+    switch (name) {
+        case "country":
+            opt = opts.map(val => {
+                return {
+                    label: val.displayName,
+                    value: val.countryCode
+                };
+            });
+            break;
+    }
+
+    return opt;
+};
+
 const Dropdown = ({
     label,
     options,
     name,
     register,
     dropdownIndicator,
-    placeholder
+    placeholder,
+    setValue
 }) => {
-    return <>Dropdown</>;
+    const [selectValue, setSelect] = useState();
 
-    // return <Select
-    //     defaultValue={props.getOptions(props.text)[1]}
-    //     options={props.getOptions(props.text)}
-    //     value={
-    //         props.sortValue && props.sortValue.value
-    //             ? props.sortValue.value
-    //             : props.getOptions(props.text)[props.sortValue - 1]
-    //     }
-    //     onChange={(x) => console.log(x)}
-    //     isSearchable={true}
-    //     styles={customStyles}
-    //     placeholder={placeholder}
-    //     classNamePrefix={'cmp-custom-dropdown'}
-    //     components={{ DropdownIndicator }}
-    //     theme={{ dropdownIndicator: props.text.downIcon }}
-    // />
+    const handleChange = opt => {
+        setSelect(opt);
+        setValue(name, opt.value);
+    };
+
+    return (
+        <>
+            <label htmlFor={name}>{label}</label>
+            <Select
+                id={name}
+                name={name}
+                defaultValue={""}
+                options={getOptions(options, name)}
+                value={selectValue}
+                onChange={handleChange}
+                isSearchable={true}
+                styles={customStyles}
+                placeholder={placeholder}
+                classNamePrefix={"cmp-custom-dropdown"}
+                components={{ DropdownIndicator }}
+                theme={{ dropdownIndicator }}
+                ref={() =>
+                    register(
+                        { name },
+                        {
+                            validate: value => {
+                                if (value) {
+                                    return true;
+                                } else {
+                                    return false;
+                                }
+                            }
+                        }
+                    )
+                }
+            />
+        </>
+    );
 };
 
 export default Dropdown;
