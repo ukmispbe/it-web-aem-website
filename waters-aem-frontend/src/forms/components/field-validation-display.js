@@ -1,14 +1,14 @@
 import React from "react";
 
-const FieldValidationDisplay = ({ dirty, valid, type, children }) => {
-    if (!dirty) {
+const FieldValidationDisplay = ({ dirty, valid, type, hasMatchValid, dirtyMatch, children }) => {
+    if (!dirty && !dirtyMatch) {
         return (
             <div className={`cmp-form-field cmp-form-field-${type}`}>
                 {children}
             </div>
         );
     }
-    if (valid) {
+    if (valid && hasMatchValid) {
         return (
             <div
                 className={`cmp-form-field cmp-form-field-${type} cmp-form-field--valid`}
@@ -16,7 +16,7 @@ const FieldValidationDisplay = ({ dirty, valid, type, children }) => {
                 {children}
             </div>
         );
-    } else if (!valid) {
+    } else if (!valid || !hasMatchValid) {
         return (
             <div
                 className={`cmp-form-field cmp-form-field-${type} cmp-form-field--invalid`}

@@ -56,6 +56,12 @@
                 "termsAndConditionsText": "Terms and Conditions",
                 "termsAndConditionsLink": "http://waters.com",
                 "buttonText": "Create My Account",
+                "icons": {
+                    "validIcon": "./checkmark.svg",
+                    "invalidIcon": "./attention.svg",
+                    "eyeIcon": "./eye.svg",
+                    "eyeOffIcon": "./eye-off.svg"
+                },
                 "fields": [
                     {
                         "type": "text",
@@ -120,14 +126,21 @@
                     {
                         "type": "password",
                         "name": "password",
-                        "label": "Password",
+                        "label": "Create Password",
                         "hasMatch": true,
                         "validation": {
                             "required": true,
                             "validateFnName": "password",
-                            "validationMsg": "Please provide a valid password",
-                            "requiredMsg": "Please provide a valid password",
-                            "nonMatchingMsg": "Passwords do not match"
+                            "validationMsg": "Password does not meet minimum requirements.",
+                            "requiredMsg": "Please enter a valid password",
+                            "nonMatchingMsg": "Passwords do not match",
+                            "requirements": [
+                                {"name": "shortPassword", "msg": "at least 8 Characters"},
+                                {"name": "noUppercase", "msg": "at least 1 uppercase letter"},
+                                {"name": "noLowercase", "msg": "at least 1 lowercase letter"},
+                                {"name": "noDigits", "msg": "at least 1 digit"},
+                                {"name": "noSpecial", "msg": "at least 1 special character (for example, !, $, #, %)"}
+                            ]
                         }
 
                     },
