@@ -24,6 +24,25 @@
             @include font-small;
         }
 
+        .cmp-form-field--errorText {
+            position: relative;
+            a {
+                .email-signin {
+                    display: inline-block;
+                    svg {
+                        height: $icon-s;
+                        width: $icon-s;
+                        margin-left: $space-xxs;
+                        margin-right: $space-xxxs;
+                        margin-bottom: -1px;
+                        .st0 {
+                            stroke: $color-link;
+                        }
+                    }
+                }
+            }
+        }
+
         input {
             border: 1px solid $color-border-light;
             line-height: $line-height-text;
