@@ -79,12 +79,6 @@ const Form = ({ config, submitFn }) => {
             className="cmp-form cmp-form--registration"
             onSubmit={handleSubmit(submitFn)}>
             {f}
-            <div className="cmp-form__disclaimer">
-                {config.disclaimerText + " "}
-                <a href={config.termsAndConditionsLink}>
-                    {config.termsAndConditionsText}
-                </a>
-            </div>
             <button
                 type="submit"
                 className={
@@ -94,6 +88,12 @@ const Form = ({ config, submitFn }) => {
                 disabled={checkIfDisabled()}>
                 {config.buttonText}
             </button>
+            <div className="cmp-form__disclaimer">
+                {config.disclaimerText + " "}
+                <a href={config.termsAndConditionsLink}>
+                    {config.termsAndConditionsText}
+                </a>
+            </div>
         </form>
     );
 };

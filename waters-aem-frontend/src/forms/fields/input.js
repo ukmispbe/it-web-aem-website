@@ -271,11 +271,14 @@ const Input = ({
     const renderInput = (name, label) => {
         return (
             <>
-                <label htmlFor={name}>
+                <label
+                    htmlFor={name}
+                    className={validation.validateFnName === "matching" ? "cmp-form-field--label-matching" : ""}
+                >
                     {label}{validation.required ? <></> : <span className="cmp-form-field--optional"> (optional)</span>}
                 </label>
                 {description && (
-                    <span className="cmp-form_description">{description}</span>
+                    <div className="cmp-form_description">{description}</div>
                 )}
                 <div className="cmp-form-field--input">
                     <input
