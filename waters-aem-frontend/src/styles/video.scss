@@ -54,20 +54,6 @@
         }
     }
 
-    .vjs-poster::after {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: $color-black;
-        opacity: 0.25;
-        transition: $hover-transition;
-    }
-
-    .video-js:hover .vjs-poster::after {
-        opacity: 0.75;
-    }
-
     button.vjs-big-play-button:focus {
         outline: none;
     }
