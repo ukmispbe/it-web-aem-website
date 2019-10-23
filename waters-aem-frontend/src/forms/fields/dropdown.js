@@ -119,7 +119,15 @@ const Dropdown = ({
                 ref={() =>
                     register(
                         { name },
-                        { validate: value => console.log(value) }
+                        {
+                            validate: value => {
+                                if (value) {
+                                    return true;
+                                } else {
+                                    return false;
+                                }
+                            }
+                        }
                     )
                 }
             />
