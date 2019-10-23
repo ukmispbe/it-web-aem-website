@@ -20,7 +20,15 @@ const formType = {
 };
 
 const Form = ({ config, submitFn }) => {
-    const { register, handleSubmit, errors, formState, setError, clearError, triggerValidation } = useForm({
+    const {
+        register,
+        handleSubmit,
+        errors,
+        formState,
+        setError,
+        clearError,
+        triggerValidation
+    } = useForm({
         mode: "onBlur"
     });
 
@@ -35,9 +43,11 @@ const Form = ({ config, submitFn }) => {
             let newName = "";
             let confirmName = "";
             if (field.name) {
-                newName = field.name.charAt(0).toUpperCase() + field.name.slice(1);
+                newName =
+                    field.name.charAt(0).toUpperCase() + field.name.slice(1);
                 confirmName = "confirm".concat(newName);
             }
+
             return (
                 <FieldValidationDisplay
                     dirty={formState.touched.indexOf(field.name) > -1}
@@ -45,8 +55,7 @@ const Form = ({ config, submitFn }) => {
                     type={field.type}
                     hasMatchValid={field.hasMatch ? !errors[confirmName] : true}
                     dirtyMatch={formState.touched.indexOf(confirmName) > -1}
-                    key={`field-${i}`}
-                >
+                    key={`field-${i}`}>
                     <Component
                         {...field}
                         fieldErr={errors[field.name]}
@@ -65,8 +74,7 @@ const Form = ({ config, submitFn }) => {
     return (
         <form
             className="cmp-form cmp-form--registration"
-            onSubmit={handleSubmit(submitFn)}
-        >
+            onSubmit={handleSubmit(submitFn)}>
             {f}
             <div className="cmp-form__disclaimer">
                 {config.disclaimerText + " "}
@@ -76,9 +84,11 @@ const Form = ({ config, submitFn }) => {
             </div>
             <button
                 type="submit"
-                className={"cmp-button cmp-form--submit" + (checkIfDisabled() ? " cmp-button--disabled" : "")}
-                disabled={checkIfDisabled()}
-            >
+                className={
+                    "cmp-button cmp-form--submit" +
+                    (checkIfDisabled() ? " cmp-button--disabled" : "")
+                }
+                disabled={checkIfDisabled()}>
                 {config.buttonText}
             </button>
         </form>
