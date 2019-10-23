@@ -29,7 +29,7 @@ class VideoModalBody extends React.Component {
                     <ReactPlayerLoader
                         options={optionsVideoJS}
                         videoId={this.props.config.brightcoveVideoId}
-                        playedId={this.props.config.brightcovePlayerId}
+                        playerId={this.props.config.brightcovePlayerId}
                         accountId={this.props.config.brightcoveAccount}
                         onFailure={this.props.onVideoFailure}
                         onSuccess={this.props.onVideoSuccess}
