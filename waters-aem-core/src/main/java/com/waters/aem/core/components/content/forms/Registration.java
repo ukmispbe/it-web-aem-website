@@ -19,6 +19,7 @@ import org.apache.sling.models.annotations.Model;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -65,6 +66,7 @@ public class Registration implements ComponentExporter {
 
         countryList.addAll(Arrays.asList(Locale.getISOCountries()).stream()
             .map(this::getCountryMap)
+            .sorted(Comparator.comparing(map -> (String)map.get("displayName")))
             .collect(Collectors.toList()));
 
         return MAPPER.writeValueAsString(countryList);
