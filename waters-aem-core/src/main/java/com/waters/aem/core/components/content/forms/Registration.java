@@ -55,11 +55,23 @@ public class Registration implements ComponentExporter {
     @OSGiService
     private WatersAccountService accountService;
 
+    @DialogField(fieldLabel = "Login Link",
+        fieldDescription = "Select or enter the link URL",
+        ranking = 1)
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject
+    private Link LoginLink;
+
     @DialogField(fieldLabel = "Terms and Conditions Link",
-        fieldDescription = "Select or enter the link URL")
+        fieldDescription = "Select or enter the link URL",
+        ranking = 2)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject
     private Link termsAndConditionsLink;
+
+    public Link getLoginLink() {
+        return LoginLink;
+    }
 
     public Link getTermsAndConditionsLink() {
         return termsAndConditionsLink;
