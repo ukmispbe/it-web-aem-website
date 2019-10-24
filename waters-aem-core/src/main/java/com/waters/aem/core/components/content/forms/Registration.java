@@ -61,7 +61,7 @@ public class Registration implements ComponentExporter {
         ranking = 1)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject
-    private Link LoginLink;
+    private Link loginLink;
 
     @DialogField(fieldLabel = "Terms and Conditions Link",
         fieldDescription = "Select or enter the link URL",
@@ -71,7 +71,7 @@ public class Registration implements ComponentExporter {
     private Link termsAndConditionsLink;
 
     public Link getLoginLink() {
-        return LoginLink;
+        return loginLink;
     }
 
     public Link getTermsAndConditionsLink() {
