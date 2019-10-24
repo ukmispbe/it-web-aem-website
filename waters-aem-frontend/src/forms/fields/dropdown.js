@@ -97,7 +97,7 @@ const Dropdown = ({
 
     const handleChange = opt => {
         setSelect(opt);
-        setValue(name, opt.value);
+        setValue(name, opt.value, true);
     };
 
     return (

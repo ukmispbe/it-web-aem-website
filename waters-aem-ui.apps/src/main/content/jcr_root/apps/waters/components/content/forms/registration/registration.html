@@ -2,12 +2,36 @@
     <div class="cmp-form--attach" id="js-registration-form"></div>
     <script type="application/json" id="cmp-registration-form">
             {
-                "submitEndpoint": "http://waters.com",
+                "submitEndpoint": "${registration.registrationSubmitUrl @ context='unsafe'}",
                 "disclaimerText": "${'By clicking Create My Account button you are agreeing to our' @ i18n, context='scriptString'}",
                 "termsAndConditionsText": "${'Terms and Conditions' @ i18n, context='scriptString'}",
                 "termsAndConditionsLink": "${registration.termsAndConditionsLink.href @ context='unsafe'}",
                 "buttonText": "${'Create My Account' @ i18n, context='scriptString'}",
+                "icons": {
+                    "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                    "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                    "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
+                    "eyeIcon": "/content/dam/waters/en/brand-assets/icons/eye.svg",
+                    "eyeOffIcon": "/content/dam/waters/en/brand-assets/icons/eye-off.svg",
+                    "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
+                },
+                "existingEmailUrl": "${registration.emailValidationUrl @ context='unsafe'}",
                 "fields": [
+                    {
+                        "type": "email",
+                        "name": "email",
+                        "label": "${'Email' @ i18n, context='scriptString'}",
+                        "description": "${'This will be your username' @ i18n, context='scriptString'}",
+                        "validation": {
+                            "required": true,
+                            "requiredMsg": "${'Please enter a valid email address' @ i18n, context='scriptString'}",
+                            "validateFnName": "email",
+                            "validationMsg": "${'Please enter a valid email address' @ i18n, context='scriptString'}",
+                            "alreadyRegisteredMsg": "${'That email address already exists.' @ i18n, context='scriptString'}",
+                            "signInMsg": "${'Sign In' @ i18n, context='scriptString'}",
+                            "signInURL": "${registration.loginLink.href @ context='unsafe'}"
+                        }
+                    },
                     {
                         "type": "text",
                         "name": "firstName",
@@ -35,9 +59,9 @@
                         "name": "company",
                         "label": "${'Company' @ i18n, context='scriptString'}",
                         "validation": {
+                            "validateFnName": "noValidation",
+                            "validationMsg": "${'Please enter a valid company' @ i18n, context='scriptString'}",
                             "required": true,
-                            "validateFnName": "noWhitespace",
-                            "validationMsg": "Please enter a valid company' @ i18n, context='scriptString'}",
                             "requiredMsg": "${'Please enter a valid company' @ i18n, context='scriptString'}"
                         }
                     },
@@ -54,21 +78,6 @@
                         }
                     },
                     {
-                        "type": "break"
-                    },
-                    {
-                        "type": "email",
-                        "name": "email",
-                        "label": "${'Email' @ i18n, context='scriptString'}",
-                        "description": "${'This will be your username' @ i18n, context='scriptString'}",
-                        "validation": {
-                            "required": true,
-                            "requiredMsg": "${'Please enter a valid email address' @ i18n, context='scriptString'}",
-                            "validateFnName": "email",
-                            "validationMsg": "${'Please enter a valid email address' @ i18n, context='scriptString'}"
-                        }
-                    },
-                    {
                         "type": "password",
                         "name": "password",
                         "label": "${'Password' @ i18n, context='scriptString'}",
@@ -78,7 +87,14 @@
                             "validateFnName": "password",
                             "validationMsg": "${'Please provide a valid password' @ i18n, context='scriptString'}",
                             "requiredMsg": "${'Please provide a valid password' @ i18n, context='scriptString'}",
-                            "nonMatchingMsg": "${'Passwords do not match' @ i18n, context='scriptString'}"
+                            "nonMatchingMsg": "${'Passwords do not match' @ i18n, context='scriptString'}",
+                            "requirements": [
+                                {"name": "shortPassword", "msg": "${'at least 8 Characters' @ i18n, context='scriptString'}"},
+                                {"name": "noUppercase", "msg": "${'at least 1 uppercase letter' @ i18n, context='scriptString'}"},
+                                {"name": "noLowercase", "msg": "${'at least 1 lowercase letter' @ i18n, context='scriptString'}"},
+                                {"name": "noDigits", "msg": "${'at least 1 digit' @ i18n, context='scriptString'}"},
+                                {"name": "noSpecial", "msg": "${'at least 1 special character (for example, !, $, #, %)' @ i18n, context='scriptString'}"}
+                            ]
                         }
                     },
                     {

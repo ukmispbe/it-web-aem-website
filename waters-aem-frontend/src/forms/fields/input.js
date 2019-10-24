@@ -6,6 +6,7 @@ const Input = ({
     type,
     name,
     label,
+    disabled,
     hasMatch,
     icons,
     register,
@@ -17,7 +18,8 @@ const Input = ({
     clearError,
     validation,
     triggerValidation,
-    matchRef
+    matchRef,
+    emailUrl
 }) => {
     let classNames = [];
 
@@ -27,15 +29,47 @@ const Input = ({
         if (validation && validation.validateFnName) {
             if (validation.validateFnName === "matching") {
                 obj.validate = value => {
-                    return functions[validation.validateFnName](value, document.getElementById(matchRef), document.getElementById(name));
+                    return functions[validation.validateFnName](
+                        value,
+                        document.getElementById(matchRef),
+                        document.getElementById(name)
+                    );
                 };
             } else if (validation.validateFnName === "password") {
                 obj.validate = value => {
-                    return functions[validation.validateFnName](value, document.getElementById(name), setError, clearError);
+                    return functions[validation.validateFnName](
+                        value,
+                        document.getElementById(name),
+                        setError,
+                        clearError
+                    );
+                };
+            } else if (validation.validateFnName === "email") {
+                obj.validate = value => {
+                    return (
+                        functions["email"](
+                            value,
+                            document.getElementById(name),
+                            validation.validationMsg,
+                            setError,
+                            clearError
+                        ) &&
+                        functions["newEmail"](
+                            value,
+                            emailUrl,
+                            document.getElementById(name),
+                            validation.alreadyRegisteredMsg,
+                            setError,
+                            clearError
+                        )
+                    );
                 };
             } else {
                 obj.validate = value => {
-                    return functions[validation.validateFnName](value, document.getElementById(name));
+                    return functions[validation.validateFnName](
+                        value,
+                        document.getElementById(name)
+                    );
                 };
             }
         }
@@ -84,6 +118,18 @@ const Input = ({
             if (fieldErr) {
                 fieldErr.ref.classList.remove("valid");
                 fieldErr.ref.classList.add("error");
+                if (
+                    validation.validateFnName === "email" &&
+                    fieldErr.type === "validate"
+                ) {
+                    if (errors.invalidEmail) {
+                        return errors.invalidEmail.message;
+                    }
+                    if (errors.alreadyRegistered) {
+                        return displaySignInSpan();
+                    }
+                    return null;
+                }
                 if (fieldErr.type === "required") {
                     return fieldErr.message || validation.requiredMsg;
                 } else if (
@@ -93,6 +139,12 @@ const Input = ({
                     return fieldErr.message || validation.validationMsg;
                 } else {
                     return fieldErr.message || null;
+                }
+            } else if (validation.validateFnName === "noValidation" && validation.required) {
+                const ref = document.getElementById(name);
+                if (ref) {
+                    ref.classList.remove("error");
+                    ref.classList.add("valid");
                 }
             }
         }
@@ -113,33 +165,41 @@ const Input = ({
         return reg;
     };
 
-    const toggleEye = (e) => {
+    const toggleEye = e => {
         const parent = e.currentTarget.parentNode;
-        const onIcon = parent.querySelector('.showHide-icon');
-        const offIcon = parent.querySelector('.showHideOff-icon');
+        const onIcon = parent.querySelector(".showHide-icon");
+        const offIcon = parent.querySelector(".showHideOff-icon");
 
         if (onIcon && offIcon) {
-            onIcon.classList.toggle('toggled');
-            offIcon.classList.toggle('toggled');
+            onIcon.classList.toggle("toggled");
+            offIcon.classList.toggle("toggled");
 
-            type = (onIcon.classList.contains('toggled')) ? "text" : "password";
-            parent.parentNode.querySelector('input').type = type;
+            type = onIcon.classList.contains("toggled") ? "text" : "password";
+            parent.parentNode.querySelector("input").type = type;
         }
     };
 
-    const toggleRequirements = (e) => {
-        if (validation.validateFnName !== "password" || !validation.requirements) {
+    const toggleRequirements = e => {
+        if (
+            validation.validateFnName !== "password" ||
+            !validation.requirements
+        ) {
             return;
         }
-        const requirementsDiv = e.currentTarget.parentNode.querySelector('.cmp-form-field--input-requirements');
+        const requirementsDiv = e.currentTarget.parentNode.querySelector(
+            ".cmp-form-field--input-requirements"
+        );
         requirementsDiv.classList.toggle("toggled");
-    }
+    };
 
-    const updateRequirements = async (e) => {
-        if (validation.validateFnName !== "password" || !validation.requirements) {
+    const updateRequirements = async e => {
+        if (
+            validation.validateFnName !== "password" ||
+            !validation.requirements
+        ) {
             return;
         }
-        let validations = [{name: name}];
+        let validations = [{ name: name }];
 
         if (hasMatch) {
             const newName = name.charAt(0).toUpperCase() + name.slice(1);
@@ -152,46 +212,73 @@ const Input = ({
     };
 
     const resetRequirements = () => {
-        if (validation.validateFnName !== "password" || !validation.requirements) {
+        if (
+            validation.validateFnName !== "password" ||
+            !validation.requirements
+        ) {
             return;
         }
 
         const input = document.getElementById(name);
         const parent = input.parentNode;
-        const requirementsDiv = parent.querySelector('.cmp-form-field--input-requirements');
+        const requirementsDiv = parent.querySelector(
+            ".cmp-form-field--input-requirements"
+        );
 
-        requirementsDiv.querySelectorAll('.valid').forEach((elem) => {
+        requirementsDiv.querySelectorAll(".valid").forEach(elem => {
             if (input.value === "") {
-                elem.classList.remove('valid');
+                elem.classList.remove("valid");
             }
         });
-        if (input.value !== "" && requirementsDiv.querySelectorAll('.valid').length === 0) {
-            requirementsDiv.querySelectorAll('.requirements-info-svg').forEach((elem) => {
-                let nonError = true;
-                if (errors[elem.id]) {
-                    nonError = errors[elem.id].ref.name !== name;
-                }
+        if (
+            input.value !== "" &&
+            requirementsDiv.querySelectorAll(".valid").length === 0
+        ) {
+            requirementsDiv
+                .querySelectorAll(".requirements-info-svg")
+                .forEach(elem => {
+                    let nonError = true;
+                    if (errors[elem.id]) {
+                        nonError = errors[elem.id].ref.name !== name;
+                    }
 
-                if (nonError) {
-                    elem.classList.add('valid');
-                }
-            });
+                    if (nonError) {
+                        elem.classList.add("valid");
+                    }
+                });
+        }
+    };
+
+    const displaySignInSpan = () => {
+        if (validation.signInMsg && validation.alreadyRegisteredMsg) {
+            return (
+                <>
+                    {validation.alreadyRegisteredMsg}
+                    <a href={validation.signInURL}>
+                        <ReactSVG
+                            src={icons.signInIcon}
+                            className="email-signin"
+                        />
+                        {validation.signInMsg}
+                    </a>
+                </>
+            );
         }
     };
 
     const renderMatch = () => {
         if (!hasMatch) {
-            return (<></>);
+            return <></>;
         }
 
         const newName = name.charAt(0).toUpperCase() + name.slice(1);
         const confirmName = "confirm".concat(newName);
         const confirmLabel = "Confirm ".concat(newName);
         const newValidation = {
-            "required": validation["required"],
-            "requiredMsg": `Please confirm ${name}`,
-            'validateFnName': 'matching',
-            "validationMsg": validation['nonMatchingMsg']
+            required: validation["required"],
+            requiredMsg: `Please confirm ${name}`,
+            validateFnName: "matching",
+            validationMsg: validation["nonMatchingMsg"]
         };
 
         return (
@@ -203,7 +290,9 @@ const Input = ({
                     hasMatch={false}
                     icons={icons}
                     register={register}
-                    description={description ? "Match for ".concat(newName) : ""}
+                    description={
+                        description ? "Match for ".concat(newName) : ""
+                    }
                     required={required}
                     fieldErr={errors[confirmName]}
                     errors={errors}
@@ -214,33 +303,63 @@ const Input = ({
                 />
             </>
         );
-    }
+    };
 
     const renderIcons = () => {
         if (!icons) {
-            return (<></>);
+            return <></>;
         }
 
-        const eyeIcons = (
+        const eyeIcons =
             type === "password" ? (
                 <>
-                <ReactSVG src={icons.eyeIcon} className="showHide-icon" onClick={toggleEye} />
-                <ReactSVG src={icons.eyeOffIcon} className="showHideOff-icon toggled" onClick={toggleEye} />
+                    <ReactSVG
+                        src={icons.eyeIcon}
+                        className="showHide-icon"
+                        onClick={toggleEye}
+                    />
+                    <ReactSVG
+                        src={icons.eyeOffIcon}
+                        className="showHideOff-icon toggled"
+                        onClick={toggleEye}
+                    />
                 </>
-            ) : (<></>)
-        );
+            ) : (
+                <></>
+            );
 
-        return (<div className="cmp-form-field--icons">
-            {eyeIcons}
-            <ReactSVG src={icons.validIcon} className="valid-icon" />
-            <ReactSVG src={icons.invalidIcon} className="invalid-icon" />
-        </div>);
+        return (
+            <div className="cmp-form-field--icons">
+                {eyeIcons}
+                <ReactSVG src={icons.validIcon} className="valid-icon" />
+                <ReactSVG src={icons.invalidIcon} className="invalid-icon" />
+            </div>
+        );
     };
 
     const renderInput = (name, label) => {
         return (
             <>
-                <label htmlFor={name}>{label}</label>
+                <label
+                    htmlFor={name}
+                    className={
+                        validation.validateFnName === "matching"
+                            ? "cmp-form-field--label-matching"
+                            : ""
+                    }>
+                    {label}
+                    {validation.required ? (
+                        <></>
+                    ) : (
+                        <span className="cmp-form-field--optional">
+                            {" "}
+                            (optional)
+                        </span>
+                    )}
+                </label>
+                {description && (
+                    <div className="cmp-form_description">{description}</div>
+                )}
                 <div className="cmp-form-field--input">
                     <input
                         className={classNames.toString().replace(",", " ")}
@@ -251,16 +370,19 @@ const Input = ({
                         onFocus={toggleRequirements}
                         onBlur={toggleRequirements}
                         onChange={updateRequirements}
-                    ></input>
+                        placeholder=" "
+                        disabled={disabled}></input>
                     {renderIcons()}
                     {renderRequirements()}
                 </div>
-                {displayMsg()}
+                <span className="cmp-form-field--errorText">
+                    {displayMsg()}
+                </span>
             </>
         );
     };
 
-    const renderRequirementFields = (requirements) => {
+    const renderRequirementFields = requirements => {
         return requirements.map((requirement, i) => {
             const input = document.getElementById(name);
             let isValid = true;
@@ -271,7 +393,15 @@ const Input = ({
             }
             return (
                 <div key={`requirements-info-${i}`}>
-                    <ReactSVG id={requirement.name} src={icons.validIcon} className={isValid ? "valid requirements-info-svg" : "requirements-info-svg"}/>
+                    <ReactSVG
+                        id={requirement.name}
+                        src={icons.validIcon}
+                        className={
+                            isValid
+                                ? "valid requirements-info-svg"
+                                : "requirements-info-svg"
+                        }
+                    />
                     <div className="requirements-info">{requirement.msg}</div>
                 </div>
             );
@@ -279,14 +409,18 @@ const Input = ({
     };
 
     const renderRequirements = () => {
-        if (validation.validateFnName !== "password" || !validation.requirements) {
-            return (<></>);
+        if (
+            validation.validateFnName !== "password" ||
+            !validation.requirements
+        ) {
+            return <></>;
         }
-
 
         return (
             <div className="cmp-form-field--input-requirements">
-                <div className="requirements-title">Your password must include</div>
+                <div className="requirements-title">
+                    Your password must include
+                </div>
                 {renderRequirementFields(validation.requirements)}
             </div>
         );
@@ -295,10 +429,6 @@ const Input = ({
     return (
         <>
             {renderInput(name, label)}
-
-            {description && (
-                <span className="cmp-form_description">{description}</span>
-            )}
 
             {renderMatch()}
         </>

@@ -11,7 +11,7 @@ import SkuDetails from "./sku-details";
 import SkuList from "./sku-list";
 import SkuMessage from "./sku-shared/views/SkuMessage";
 import Form from "./forms/form";
-import { registrationSubmit } from "./forms/submit";
+import { registrationSubmit } from "./forms/services/submit";
 import Chat from "./chat";
 
 function getAuthoredDataForSearchBar(c, h) {
@@ -39,7 +39,7 @@ function getAuthoredDataForTagCloud(h, t) {
         searchPath: h.dataset.searchPath,
         tagTitle: t.dataset.title,
         category: t.dataset.category,
-        contentType: t.dataset.contentType,
+        contentType: t.dataset.contentType
     };
 }
 

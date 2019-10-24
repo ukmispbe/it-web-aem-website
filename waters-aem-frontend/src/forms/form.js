@@ -1,5 +1,5 @@
 import React from "react";
-import useForm from "react-hook-form";
+import useForm from "react-hook-form/dist/react-hook-form.ie11";
 import Input from "./fields/input";
 import Radio from "./fields/radio";
 import Checkbox from "./fields/checkbox";
@@ -49,6 +49,7 @@ const Form = ({ config, submitFn }) => {
                     field.name.charAt(0).toUpperCase() + field.name.slice(1);
                 confirmName = "confirm".concat(newName);
             }
+
             return (
                 <FieldValidationDisplay
                     dirty={formState.touched.indexOf(field.name) > -1}
@@ -67,6 +68,7 @@ const Form = ({ config, submitFn }) => {
                         setError={setError}
                         clearError={clearError}
                         triggerValidation={triggerValidation}
+                        emailUrl={config.existingEmailUrl}
                     />
                 </FieldValidationDisplay>
             );
@@ -76,20 +78,25 @@ const Form = ({ config, submitFn }) => {
     return (
         <form
             className="cmp-form cmp-form--registration"
-            onSubmit={handleSubmit(submitFn)}>
+            onSubmit={handleSubmit(
+                submitFn.bind({ url: config.submitEndpoint })
+            )}>
             {f}
+            <button
+                type="submit"
+                className={
+                    "cmp-button cmp-form--submit" +
+                    (checkIfDisabled() ? " cmp-button--disabled" : "")
+                }
+                disabled={checkIfDisabled()}>
+                {config.buttonText}
+            </button>
             <div className="cmp-form__disclaimer">
                 {config.disclaimerText + " "}
                 <a href={config.termsAndConditionsLink}>
                     {config.termsAndConditionsText}
                 </a>
             </div>
-            <button
-                type="submit"
-                className="cmp-button"
-                disabled={checkIfDisabled()}>
-                {config.buttonText}
-            </button>
         </form>
     );
 };

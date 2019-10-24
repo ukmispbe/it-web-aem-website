@@ -57,10 +57,12 @@
                 "termsAndConditionsLink": "http://waters.com",
                 "buttonText": "Create My Account",
                 "icons": {
+                    "checkmarkIcon": "./checkmark.svg",
                     "validIcon": "./checkmark.svg",
                     "invalidIcon": "./attention.svg",
                     "eyeIcon": "./eye.svg",
-                    "eyeOffIcon": "./eye-off.svg"
+                    "eyeOffIcon": "./eye-off.svg",
+                    "signInIcon": "./user.svg"
                 },
                 "fields": [
                     {
@@ -90,7 +92,7 @@
                         "name": "company",
                         "label": "Company",
                         "validation": {
-                            "required": true,
+                            "required": false,
                             "validateFnName": "noWhitespace",
                             "validationMsg": "Please enter a valid company",
                             "requiredMsg": "Please enter a valid company"
@@ -120,7 +122,10 @@
                             "required": true,
                             "validateFnName": "email",
                             "validationMsg": "Please provide a valid email address",
-                            "requiredMsg": "This field is required"
+                            "requiredMsg": "This field is required",
+                            "alreadyRegisteredMsg": "That email address already exists.",
+                            "signInMsg": "Sign In",
+                            "signInURL": "http://waters.com"
                         }
                     },
                     {
@@ -142,13 +147,11 @@
                                 {"name": "noSpecial", "msg": "at least 1 special character (for example, !, $, #, %)"}
                             ]
                         }
-
                     },
                     {
                         "type": "checkbox",
                         "name": "communications",
                         "label": "I want to receive communications from Waters."
-
                     }
                 ]
             }
