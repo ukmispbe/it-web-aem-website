@@ -5,6 +5,7 @@ import com.adobe.acs.commons.email.EmailServiceConstants;
 import com.day.cq.commons.Externalizer;
 import com.icfolson.aem.library.core.link.builders.factory.LinkBuilderFactory;
 import com.waters.aem.hybris.constants.HybrisImporterConstants;
+import com.waters.aem.hybris.enums.HybrisImportContentType;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
 import com.waters.aem.hybris.notification.HybrisImporterEmailNotificationServiceConfiguration;
 import com.waters.aem.hybris.notification.HybrisImporterNotificationService;
@@ -88,6 +89,17 @@ public class HybrisImporterEmailNotificationService implements HybrisImporterNot
                     .count();
 
                 params.put(status.name().toLowerCase(), String.valueOf(count));
+            }
+
+            // sku counts only
+            for (final HybrisImportStatus status : HybrisImportStatus.values()) {
+                final long count = result.getResults()
+                    .stream()
+                    .filter(importerResult -> importerResult.getContentType() == HybrisImportContentType.PRODUCT)
+                    .filter(importerResult -> importerResult.getStatus().equals(status))
+                    .count();
+
+                params.put("sku" + status.name().toLowerCase(), String.valueOf(count));
             }
 
             sendEmail(TEMPLATE_PATH_SUCCESS, params);

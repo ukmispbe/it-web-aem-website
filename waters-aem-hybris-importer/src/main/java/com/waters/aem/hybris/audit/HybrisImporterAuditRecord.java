@@ -88,9 +88,9 @@ public final class HybrisImporterAuditRecord {
 
         for (final HybrisImportStatus status : HybrisImportStatus.values()) {
             statusCounts.put(status.name(), results.stream()
-            .filter(result -> result.getContentType().equals(HybrisImportContentType.PRODUCT))
-            .filter(result -> result.getStatus().equals(status))
-            .count());
+                .filter(result -> result.getContentType() == HybrisImportContentType.PRODUCT)
+                .filter(result -> result.getStatus().equals(status))
+                .count());
         }
 
         return statusCounts;
