@@ -4,6 +4,7 @@ import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
+import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
@@ -31,8 +32,22 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_COPY;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_DELETE;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_EDIT;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_INSERT;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_MOVE;
+import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH_PAGE;
+
 @Component(value = "SKU List",
-    tabs = @Tab(title = "Properties"))
+    tabs = @Tab(title = "Properties"),
+    listeners = {
+        @Listener(name = EVENT_AFTER_INSERT, value = REFRESH_PAGE),
+        @Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
+        @Listener(name = EVENT_AFTER_MOVE, value = REFRESH_PAGE),
+        @Listener(name = EVENT_AFTER_COPY, value = REFRESH_PAGE),
+        @Listener(name = EVENT_AFTER_DELETE, value = REFRESH_PAGE)
+    })
 @Model(adaptables = SlingHttpServletRequest.class,
     adapters = { SkuList.class, EmptyComponent.class, ComponentExporter.class },
     resourceType = SkuList.RESOURCE_TYPE,
@@ -65,7 +80,9 @@ public final class SkuList implements EmptyComponent, ComponentExporter {
     private String title;
 
     @DialogField(fieldLabel = "Sku Numbers",
-        fieldDescription = "List of Skus to display when this component is authored on a non-Sku page.",
+        fieldDescription = "List of Skus to display when this component is authored on a non-SKU page. Any SKUs not " +
+                "sold in the current country will not be displayed. (Default country is US if no other country is " +
+                "found)",
         renderReadOnly = false,
         required = true,
         ranking = 2)
@@ -80,7 +97,7 @@ public final class SkuList implements EmptyComponent, ComponentExporter {
         if (sku == null) {
             skus = skuNumbers.length > 0 ? buildSkuListFromDialogInput() : Collections.emptyList();
         } else {
-            skus = sku.getRelatedSkus();
+            skus = sku.getRelatedSkus(siteContext);
         }
 
         return skus.stream()
@@ -93,9 +110,12 @@ public final class SkuList implements EmptyComponent, ComponentExporter {
     }
     
     private List<Sku> buildSkuListFromDialogInput() {
+        final String country = siteContext.getLocaleWithCountry().getCountry();
+
         return Arrays.asList(skuNumbers).stream()
                 .map(skuNumber -> skuRepository.getSku(resource.getResourceResolver(), skuNumber))
                 .filter(Objects::nonNull)
+                .filter(sku -> sku.getPrice(country, siteContext.getCurrencyIsoCode()) != null)
                 .collect(Collectors.toList());
     }
 

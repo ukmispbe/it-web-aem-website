@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import SessionStore from '../../stores/sessionStore';
 
 class TagCloud extends Component {
     constructor(props) {
         super(props);
+
+        this.sessionStore = new SessionStore();
     }
 
     handleRelatedSearch(keyword){
         const filter = keyword.split(':');
-        const filterCategory = filter[0]
+        const filterCategory = filter[0];
         const filterValue = encodeURI(encodeURIComponent(filter[1]));
+        this.sessionStore.removePreviousPagePosition();
         window.location.href = `${this.props.searchPath}?category=${this.props.category}&content_type=${this.props.contentType}&facet=${filterCategory}:${filterValue}`;
     }
 
