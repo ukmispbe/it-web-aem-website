@@ -18,9 +18,9 @@ public @interface WatersAccountServiceConfiguration {
     @AttributeDefinition(name = "Legacy Search Url", description = "Url for the legacy search page")
     String legacySearchUrl() default "https://wwwdt1.waters.com/waters/keywordSearch.htm";
 
-    @AttributeDefinition(name = "Registration Url", description = "Url for the registration form")
+    @AttributeDefinition(name = "Registration submit Url", description = "Url for submitting the registration form")
     String registrationSubmitUrl() default "https://test-www.waters.com:8443/api/waters/user/v1/registration";
 
     @AttributeDefinition(name = "Email Validation Url", description = "Url for email validation")
-    String emailValidationUrl() default "https://test-www.waters.com:8443/api/waters/user/v1/validate/email";
+    String emailValidationUrl() default "https://test-www.waters.com:8443/api/waters/user/v1/validate/email/{email}";
 }
