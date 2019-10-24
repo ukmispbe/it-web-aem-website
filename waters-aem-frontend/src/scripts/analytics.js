@@ -69,11 +69,13 @@ class Analytics {
         });
 
         return {
-            search: {
-                category,
-                contentType,
-                facets,
-                totalResults: model.total,
+            detail: {
+                search: {
+                    category,
+                    contentType,
+                    facets,
+                    totalResults: model.total,
+                }
             }
         }
     }
