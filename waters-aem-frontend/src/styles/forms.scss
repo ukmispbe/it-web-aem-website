@@ -1,6 +1,8 @@
 .cmp-form {
     .cmp-form__disclaimer {
-        display: inline-block;
+        @include font-utility;
+        display: block;
+        clear: left;
         width: 75%;
 
         @include mobile {
@@ -10,7 +12,7 @@
 
     &--submit {
         &.cmp-button--disabled {
-            background-color: #9ca7b0!important;
+            background-color: #9ca7b0 !important;
             cursor: default;
         }
     }
@@ -57,7 +59,8 @@
                         margin-left: $space-xxs;
                         margin-right: $space-xxxs;
                         margin-bottom: -1px;
-                        .st0, .st1 {
+                        .st0,
+                        .st1 {
                             stroke: $color-link;
                         }
                     }
@@ -123,12 +126,13 @@
             }
 
             &:disabled {
-                border: 1px solid $color-disabled!important;
+                border: 1px solid $color-disabled !important;
                 color: $color-disabled;
             }
         }
 
-        &.cmp-form-field--invalid, &.cmp-form-field--valid {
+        &.cmp-form-field--invalid,
+        &.cmp-form-field--valid {
             .cmp-form-field--input-requirements > div > div {
                 &.valid svg .st0 {
                     stroke: $color-success;
@@ -168,7 +172,8 @@
                     stroke-width: 1px;
                 }
 
-                &.showHide-icon, &.showHideOff-icon {
+                &.showHide-icon,
+                &.showHideOff-icon {
                     display: none;
                     svg {
                         cursor: pointer;
@@ -176,7 +181,8 @@
                     }
                 }
 
-                &.showHide-icon.toggled, &.showHideOff-icon.toggled {
+                &.showHide-icon.toggled,
+                &.showHideOff-icon.toggled {
                     display: inline-block;
                     svg {
                         cursor: pointer;
@@ -212,7 +218,6 @@
                             stroke-width: 2px;
                             stroke: $color-border-light;
                         }
-
                     }
                 }
             }
@@ -232,8 +237,8 @@
             }
         }
 
-        input[type='checkbox'] {
-                display: none;
+        input[type="checkbox"] {
+            display: none;
 
             & ~ label {
                 display: inline-block;
@@ -276,17 +281,17 @@
             }
 
             &.disabled {
-                border: 1px solid $color-disabled!important;
-                color: $color-disabled!important;
+                border: 1px solid $color-disabled !important;
+                color: $color-disabled !important;
                 cursor: default;
 
                 & ~ label {
-                    color: $color-disabled!important;
+                    color: $color-disabled !important;
                 }
             }
         }
 
-        input[type='radio'] {
+        input[type="radio"] {
             display: none;
 
             & ~ label {
@@ -327,12 +332,12 @@
             }
 
             &.disabled {
-                border: 1px solid $color-disabled!important;
-                color: $color-disabled!important;
+                border: 1px solid $color-disabled !important;
+                color: $color-disabled !important;
                 cursor: default;
 
                 & ~ label {
-                    color: $color-disabled!important;
+                    color: $color-disabled !important;
                 }
             }
         }
