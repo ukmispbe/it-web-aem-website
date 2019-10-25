@@ -8,6 +8,7 @@ const Input = ({
     label,
     disabled,
     hasMatch,
+    matchLabel,
     icons,
     register,
     description,
@@ -273,7 +274,7 @@ const Input = ({
 
         const newName = name.charAt(0).toUpperCase() + name.slice(1);
         const confirmName = "confirm".concat(newName);
-        const confirmLabel = "Confirm ".concat(newName);
+        const confirmLabel = matchLabel;
         const newValidation = {
             required: validation["required"],
             requiredMsg: `Please confirm ${name}`,
