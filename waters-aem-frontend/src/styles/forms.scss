@@ -72,6 +72,34 @@
             padding: $space-xs;
         }
 
+        input[type=password]::-ms-reveal,
+        input[type=password]::-ms-clear
+        {
+            display: none !important;
+        }
+
+        input::-webkit-contacts-auto-fill-button {
+            visibility: hidden;
+            display: none !important;
+            pointer-events: none;
+            position: absolute;
+            right: 0;
+        }
+
+        input::-webkit-caps-lock-indicator {
+            visibility: hidden;
+            display: none !important;
+        }
+
+        input::-webkit-credentials-auto-fill-button {
+            visibility: hidden;
+            display: none !important;
+        }
+
+        input::-webkit-textfield-decoration-container {
+            visibility: hidden;
+        }
+
         input.valid {
             & ~ .cmp-form-field--icons .valid-icon {
                 display: inline-block;
