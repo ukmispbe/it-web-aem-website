@@ -1,6 +1,8 @@
 .cmp-form {
     .cmp-form__disclaimer {
-        display: inline-block;
+        @include font-utility;
+        display: block;
+        clear: left;
         width: 75%;
 
         @include mobile {
@@ -71,6 +73,33 @@
             line-height: $line-height-text;
             width: 100%;
             padding: $space-xs;
+        }
+
+        input[type="password"]::-ms-reveal,
+        input[type="password"]::-ms-clear {
+            display: none !important;
+        }
+
+        input::-webkit-contacts-auto-fill-button {
+            visibility: hidden;
+            display: none !important;
+            pointer-events: none;
+            position: absolute;
+            right: 0;
+        }
+
+        input::-webkit-caps-lock-indicator {
+            visibility: hidden;
+            display: none !important;
+        }
+
+        input::-webkit-credentials-auto-fill-button {
+            visibility: hidden;
+            display: none !important;
+        }
+
+        input::-webkit-textfield-decoration-container {
+            visibility: hidden;
         }
 
         input.valid {
