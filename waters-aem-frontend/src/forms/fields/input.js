@@ -140,7 +140,10 @@ const Input = ({
                 } else {
                     return fieldErr.message || null;
                 }
-            } else if (validation.validateFnName === "noValidation" && validation.required) {
+            } else if (
+                validation.validateFnName === "noValidation" &&
+                validation.required
+            ) {
                 const ref = document.getElementById(name);
                 if (ref) {
                     ref.classList.remove("error");
@@ -224,28 +227,33 @@ const Input = ({
         const requirementsDiv = parent.querySelector(
             ".cmp-form-field--input-requirements"
         );
+        let validElements = requirementsDiv.querySelectorAll(".valid");
+        let validElArray = Array.apply(null, validElements);
 
-        requirementsDiv.querySelectorAll(".valid").forEach(elem => {
+        validElArray.forEach(elem => {
             if (input.value === "") {
                 elem.classList.remove("valid");
             }
         });
+
         if (
             input.value !== "" &&
             requirementsDiv.querySelectorAll(".valid").length === 0
         ) {
-            requirementsDiv
-                .querySelectorAll(".requirements-info-svg")
-                .forEach(elem => {
-                    let nonError = true;
-                    if (errors[elem.id]) {
-                        nonError = errors[elem.id].ref.name !== name;
-                    }
+            let requirementSVGs = requirementsDiv.querySelectorAll(
+                ".requirements-info-svg"
+            );
+            let rrequirementSVGsArray = Array.apply(null, requirementSVGs);
+            rrequirementSVGsArray.forEach(elem => {
+                let nonError = true;
+                if (errors[elem.id]) {
+                    nonError = errors[elem.id].ref.name !== name;
+                }
 
-                    if (nonError) {
-                        elem.classList.add("valid");
-                    }
-                });
+                if (nonError) {
+                    elem.classList.add("valid");
+                }
+            });
         }
     };
 
@@ -386,11 +394,13 @@ const Input = ({
         return requirements.map((requirement, i) => {
             const input = document.getElementById(name);
             let isValid = true;
+
             if (errors[requirement.name]) {
                 isValid = errors[requirement.name].ref.name !== name;
             } else if (input) {
                 isValid = input.value !== "";
             }
+
             return (
                 <div key={`requirements-info-${i}`}>
                     <ReactSVG
