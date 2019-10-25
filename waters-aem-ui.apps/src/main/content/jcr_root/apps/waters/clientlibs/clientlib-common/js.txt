@@ -13,3 +13,4 @@ object-polyfill.js
 es6-promise.js
 main.js
 array.prototype.includes.js
+custom.event.js
