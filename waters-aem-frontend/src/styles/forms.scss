@@ -75,9 +75,8 @@
             padding: $space-xs;
         }
 
-        input[type=password]::-ms-reveal,
-        input[type=password]::-ms-clear
-        {
+        input[type="password"]::-ms-reveal,
+        input[type="password"]::-ms-clear {
             display: none !important;
         }
 
@@ -159,15 +158,6 @@
             }
         }
 
-        &.cmp-form-field--invalid,
-        &.cmp-form-field--valid {
-            .cmp-form-field--input-requirements > div > div {
-                &.valid svg .st0 {
-                    stroke: $color-success;
-                }
-            }
-        }
-
         &--input {
             position: relative;
         }
@@ -245,6 +235,14 @@
                         .st0 {
                             stroke-width: 2px;
                             stroke: $color-border-light;
+                        }
+                    }
+
+                    &.valid {
+                        svg {
+                            .st0 {
+                                stroke: $color-success;
+                            }
                         }
                     }
                 }
