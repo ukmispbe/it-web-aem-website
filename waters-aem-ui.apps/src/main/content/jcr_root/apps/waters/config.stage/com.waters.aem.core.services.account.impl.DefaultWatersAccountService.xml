@@ -5,4 +5,6 @@
           signInUrl="https://wwwsb.waters.com/waters/login.htm?redirectUrl=https://stage-www.waters.com"
           signOutUrl="https://wwwsb.waters.com/waters/logOut.htm"
           myAccountUrl="https://wwwsb.waters.com/waters/My-Account/nav.htm?cid=2243096"
-          legacySearchUrl="https://wwwsb.waters.com/waters/keywordSearch.htm"/>
+          legacySearchUrl="https://wwwsb.waters.com/waters/keywordSearch.htm"
+          registrationSubmitUrl="https://stgservices.waters.com/api/waters/user/v1/registration"
+          emailValidationUrl="https://stgservices.waters.com/api/waters/user/v1/validate/{email}"/>
