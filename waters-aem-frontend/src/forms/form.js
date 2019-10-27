@@ -21,7 +21,7 @@ const formType = {
     captcha: Captcha
 };
 
-const Form = ({ config, submitFn }) => {
+const Form = ({ config, submitFn, isocode }) => {
     const {
         register,
         handleSubmit,
@@ -71,6 +71,7 @@ const Form = ({ config, submitFn }) => {
                         clearError={clearError}
                         triggerValidation={triggerValidation}
                         emailUrl={config.existingEmailUrl}
+                        isocode={isocode}
                     />
                 </FieldValidationDisplay>
             );

@@ -1,7 +1,7 @@
 import React from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 
-const Captcha = ({ siteKey, name, register, setValue }) => {
+const Captcha = ({ siteKey, name, register, setValue, isocode }) => {
     const onChange = value => {
         setValue(name, value, true);
     };
@@ -11,6 +11,7 @@ const Captcha = ({ siteKey, name, register, setValue }) => {
             sitekey={siteKey}
             onChange={onChange}
             ref={register({ name }, { required: true })}
+            hl={isocode}
         />
     );
 };

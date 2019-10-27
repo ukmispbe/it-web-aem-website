@@ -260,7 +260,8 @@ if (registrationFormContainer) {
     );
 
     ReactDOM.render(
-        <Form config={config} submitFn={registrationSubmit} />,
+        // replace isocode with a value supplied by AEM
+        <Form config={config} submitFn={registrationSubmit} isocode="en" />,
         registrationFormContainer
     );
 }
