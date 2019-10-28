@@ -59,7 +59,7 @@
                         "name": "company",
                         "label": "${'Company' @ i18n, context='scriptString'}",
                         "validation": {
-                            "validateFnName": "noValidation",
+                            "validateFnName": "noWhitespaceOnly",
                             "validationMsg": "${'Please enter a valid company' @ i18n, context='scriptString'}",
                             "required": true,
                             "requiredMsg": "${'Please enter a valid company' @ i18n, context='scriptString'}"
@@ -80,8 +80,9 @@
                     {
                         "type": "password",
                         "name": "password",
-                        "label": "${'Password' @ i18n, context='scriptString'}",
+                        "label": "${'Create Password' @ i18n, context='scriptString'}",
                         "hasMatch": true,
+                        "matchLabel": "${'Confirm Password' @ i18n, context='scriptString'}",
                         "validation": {
                             "required": true,
                             "validateFnName": "password",

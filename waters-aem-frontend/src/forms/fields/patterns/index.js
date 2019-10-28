@@ -14,9 +14,24 @@ export const functions = {
             if (
                 test(
                     value,
-                    /^.*(?=^[^\\\/~!@#$%^&*_+=:;\]\[\{\}\n\r]+$)(?=^.*[^\s]+).*$/g
+                    /^.*(?=^[^\\\/~`!@#$%^|&*_+=:;"<>?\(\)\]\[\{\}\n\r]+$)(?=^.*[^\s]+).*$/g
                 )
             ) {
+                ref.classList.remove("error");
+                ref.classList.add("valid");
+                return true;
+            }
+
+            return false;
+        } else {
+            ref.classList.remove("error");
+            ref.classList.add("valid");
+            return true;
+        }
+    },
+    noWhitespaceOnly: (value, ref) => {
+        if (value) {
+            if (test(value, /^.*[^\s]+.*$/)) {
                 ref.classList.remove("error");
                 ref.classList.add("valid");
                 return true;
