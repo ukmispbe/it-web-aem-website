@@ -2,19 +2,17 @@ import "whatwg-fetch";
 
 class EmailService {
     constructor(
-        url = "https://test-www.waters.com:8443/api/waters/user/v1/validate/email/{email}"
+        url = "https://test-www.waters.com:8443/api/waters/user/v1/validate/{email}"
     ) {
         this.url = url;
     }
 
     checkEmail(email) {
         return this.getData(this.createEmailRequest(email));
-        // Test to get a valid response
-        // return this.getData("https://jsonplaceholder.typicode.com/users");
     }
 
     createEmailRequest(email) {
-        const url = this.url.replace("{email}", email);
+        const url = this.url.replace("{email}", encodeURI(email).replace(/#/g, '%23'));
         return url;
     }
 
