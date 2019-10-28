@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReactSVG from "react-svg";
-import Select, { components } from "react-select";
+import Select, { components, createFilter } from "react-select";
 import variables from "../../../src/styles/variables.scss";
 
 const customStyles = {
@@ -99,7 +99,12 @@ const Dropdown = ({
         setSelect(opt);
         setValue(name, opt.value, true);
     };
-
+    const filterConfig = {
+        ignoreCase: true,
+        trim: true,
+        matchFrom: "start"
+    };
+    console.log("hi");
     return (
         <>
             <label htmlFor={name}>{label}</label>
@@ -114,8 +119,10 @@ const Dropdown = ({
                 styles={customStyles}
                 placeholder={placeholder}
                 classNamePrefix={"cmp-custom-dropdown"}
+                defaultMenuIsOpen={true}
                 components={{ DropdownIndicator }}
                 theme={{ dropdownIndicator }}
+                filterOption={createFilter(filterConfig)}
                 ref={() =>
                     register(
                         { name },
