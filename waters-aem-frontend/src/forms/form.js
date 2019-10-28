@@ -52,11 +52,17 @@ const Form = ({ config, submitFn }) => {
 
             return (
                 <FieldValidationDisplay
-                    dirty={formState.touched.indexOf(field.name) > -1}
+                    dirty={
+                        (formState.touched[0] && typeof(formState.touched[0]) === "object" ?
+                            formState.touched[0].has(field.name) : formState.touched.indexOf(field.name) > -1)
+                    }
                     valid={!errors[field.name]}
                     type={field.type}
                     hasMatchValid={field.hasMatch ? !errors[confirmName] : true}
-                    dirtyMatch={formState.touched.indexOf(confirmName) > -1}
+                    dirtyMatch={
+                        (formState.touched[0] && typeof(formState.touched[0]) === "object" ?
+                            formState.touched[0].has(confirmName) : formState.touched.indexOf(confirmName) > -1)
+                    }
                     key={`field-${i}`}>
                     <Component
                         {...field}
