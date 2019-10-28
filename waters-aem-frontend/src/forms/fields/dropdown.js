@@ -104,7 +104,7 @@ const Dropdown = ({
         trim: true,
         matchFrom: "start"
     };
-    console.log("hi");
+
     return (
         <>
             <label htmlFor={name}>{label}</label>
