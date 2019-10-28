@@ -29,6 +29,21 @@ export const functions = {
             return true;
         }
     },
+    noWhitespaceOnly: (value, ref) => {
+        if (value) {
+            if (test(value, /^.*[^\s]+.*$/)) {
+                ref.classList.remove("error");
+                ref.classList.add("valid");
+                return true;
+            }
+
+            return false;
+        } else {
+            ref.classList.remove("error");
+            ref.classList.add("valid");
+            return true;
+        }
+    },
     noWhitespace: (value, ref) => {
         if (value) {
             if (!test(value, /^.*\s+.*$/)) {
