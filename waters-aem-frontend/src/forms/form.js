@@ -6,6 +6,7 @@ import Checkbox from "./fields/checkbox";
 import Dropdown from "./fields/dropdown";
 import Hr from "./fields/hr";
 import FieldValidationDisplay from "./components/field-validation-display";
+import Captcha from "./fields/captcha";
 
 const formType = {
     text: Input,
@@ -16,10 +17,11 @@ const formType = {
     checkbox: Checkbox,
     dropdown: Dropdown,
     select: Dropdown,
-    break: Hr
+    break: Hr,
+    captcha: Captcha
 };
 
-const Form = ({ config, submitFn }) => {
+const Form = ({ config, submitFn, isocode }) => {
     const {
         register,
         handleSubmit,
@@ -75,6 +77,7 @@ const Form = ({ config, submitFn }) => {
                         clearError={clearError}
                         triggerValidation={triggerValidation}
                         emailUrl={config.existingEmailUrl}
+                        isocode={isocode}
                     />
                 </FieldValidationDisplay>
             );

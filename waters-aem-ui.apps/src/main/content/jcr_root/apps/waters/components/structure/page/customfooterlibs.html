@@ -12,7 +12,7 @@
 <sly data-sly-call="${clientlib.js @ categories='waters.site'}"/>
 
 <sly data-sly-use.captcha="com.waters.aem.core.form.captcha.Captcha">
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         var onloadCallback = function () {
             console.log("grecaptcha is ready!");
 
@@ -22,5 +22,5 @@
         };
     </script>
 
-    <script src="${captcha.jsApi @ context='unsafe'}?onload=onloadCallback&render=explicit" async defer></script>
+    <script src="${captcha.jsApi @ context='unsafe'}?onload=onloadCallback&render=explicit" async defer></script> -->
 </sly>
