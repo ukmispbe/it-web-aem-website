@@ -368,4 +368,10 @@
             }
         }
     }
+
+    .cmp-custom-dropdown__option {
+        &--is-focused {
+            color: $color-blue-50;
+        }
+    }
 }
