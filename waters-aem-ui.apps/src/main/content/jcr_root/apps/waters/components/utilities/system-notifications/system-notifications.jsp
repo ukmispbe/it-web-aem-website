@@ -79,8 +79,8 @@
                 <label class="coral-Form-fieldlabel">Title</label>
                 <input type="text"
                        class="coral-Textfield acsCommons-System-Notifications-Page-input--text"
-                       name="./jcr:title"
-                       value="${xss:encodeForHTML(xssAPI, properties["jcr:title"])}"/>
+                       name="./title"
+                       value="${xss:encodeForHTML(xssAPI, properties["title"])}"/>
             </div>
 
             <div class="acsCommons-System-Notifications-Form-row">
@@ -88,7 +88,7 @@
                 <textarea
                         class="coral-Textfield coral-Textfield--multiline acsCommons-System-Notifications-Page-input--textarea"
                         rows="6"
-                        name="./jcr:description">${xss:encodeForHTML(xssAPI, properties["jcr:description"])}</textarea>
+                        name="./message">${xss:encodeForHTML(xssAPI, properties["message"])}</textarea>
             </div>
 
 

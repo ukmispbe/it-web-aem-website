@@ -1,6 +1,5 @@
 package com.waters.aem.core.services.notification;
 
-import com.day.cq.commons.jcr.JcrConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
@@ -12,23 +11,30 @@ import java.util.Calendar;
 public class SystemNotification {
 
     @ValueMapValue
+    private String title;
+
+    @ValueMapValue
+    private String message;
+
+    @ValueMapValue
     private Calendar onTime;
 
     @ValueMapValue
     private Calendar offTime;
 
-    @ValueMapValue(name = JcrConstants.JCR_DESCRIPTION)
-    private String message;
+    public String getTitle() {
+        return title;
+    }
 
     public String getMessage() {
         return message;
     }
 
-    public Calendar getOnTime() {
-        return onTime;
+    public Long getOnTime() {
+        return onTime == null ? null : onTime.getTimeInMillis();
     }
 
-    public Calendar getOffTime() {
-        return offTime;
+    public Long getOffTime() {
+        return offTime == null ? null : offTime.getTimeInMillis();
     }
 }

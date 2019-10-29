@@ -25,7 +25,8 @@ public final class SystemNotificationsServlet extends AbstractJsonResponseServle
     private NotificationService notificationService;
 
     @Override
-    protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(final SlingHttpServletRequest request, final SlingHttpServletResponse response)
+            throws ServletException, IOException {
         final SystemNotification notification = notificationService.getSystemNotification();
 
         writeJsonResponse(response, notification);
