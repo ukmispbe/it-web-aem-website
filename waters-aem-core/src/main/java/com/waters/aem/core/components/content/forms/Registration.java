@@ -6,6 +6,7 @@ import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
+import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.link.Link;
@@ -13,12 +14,14 @@ import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.account.WatersAccountService;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -70,12 +73,24 @@ public class Registration implements ComponentExporter {
     @LinkInject
     private Link termsAndConditionsLink;
 
+    @DialogField(fieldLabel = "Open in New Window",
+        fieldDescription = "Select this option to open 'Terms and Conditions' in new window",
+        ranking = 3)
+    @Switch(offText = "No", onText = "Yes")
+    @Inject
+    @Default(booleanValues = false)
+    private Boolean newWindow;
+
     public Link getLoginLink() {
         return loginLink;
     }
 
     public Link getTermsAndConditionsLink() {
         return termsAndConditionsLink;
+    }
+
+    public Boolean isNewWindow() {
+        return newWindow;
     }
 
     public String getCountriesJson() throws JsonProcessingException {
