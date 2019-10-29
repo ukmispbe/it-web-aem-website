@@ -119,7 +119,6 @@ const Dropdown = ({
                 styles={customStyles}
                 placeholder={placeholder}
                 classNamePrefix={"cmp-custom-dropdown"}
-                defaultMenuIsOpen={true}
                 components={{ DropdownIndicator }}
                 theme={{ dropdownIndicator }}
                 filterOption={createFilter(filterConfig)}
