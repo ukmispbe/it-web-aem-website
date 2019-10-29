@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactSVG from "react-svg";
 
 const Checkbox = ({
@@ -9,45 +9,34 @@ const Checkbox = ({
     register,
     icons
 }) => {
+    const [isChecked, setIsChecked] = useState(false);
+
     const checkHandler = (event) => {
         if (!disabled) {
-            event.currentTarget.nextElementSibling.click();
-        }
-    };
-
-    const checkHandlerLabel = (event) => {
-        if (!disabled) {
-            event.currentTarget.previousElementSibling.click();
+            setIsChecked(!isChecked);
         }
     };
 
     const renderCheckbox = (name, label) => {
-        let checked = false;
-
-        const checkboxElem = document.getElementById(name);
-        if (checkboxElem) {
-            checked = checkboxElem.checked;
-        }
-
         return (
             <>
-                <a
-                    href="javascript:void(0)"
-                    className={'checkbox ' + (checked ? 'checked' : '') + (disabled ? ' disabled' : '')}
-                    onClick={checkHandler.bind(this)}
-                >
-                    <ReactSVG src={icons.checkmarkIcon} />
-                </a>
                 <input
                     type="checkbox"
                     name={name}
                     id={name}
                     ref={register}
-                    checked={checked}
                     disabled={disabled}
+                    checked={isChecked}
                     readOnly
                 />
-                <label htmlFor={name} onClick={checkHandlerLabel.bind(this)}>{label}</label>
+                <a
+                    href="javascript:void(0)"
+                    className={'checkbox ' + (disabled ? ' disabled' : '')}
+                    onClick={checkHandler}
+                >
+                    <ReactSVG src={icons.checkmarkIcon} />
+                </a>
+                <label htmlFor={name} onClick={checkHandler}>{label}</label>
             </>
         );
     };

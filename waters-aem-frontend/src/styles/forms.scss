@@ -75,8 +75,11 @@
             padding: $space-xs;
         }
 
-        input[type="password"]::-ms-reveal,
-        input[type="password"]::-ms-clear {
+        input::-ms-reveal {
+            display: none !important;
+        }
+
+        input::-ms-clear {
             display: none !important;
         }
 
@@ -270,6 +273,14 @@
                 display: inline-block;
                 font-weight: $font-weight-light;
             }
+
+            &:checked ~ .checkbox {
+                border: 1px solid $color-background-dark;
+                background-color: $color-background-dark;
+                svg {
+                    display: block;
+                }
+            }
         }
         .checkbox {
             display: inline-block;
@@ -298,13 +309,7 @@
             &:hover {
                 border: 1px solid $color-blue-50;
             }
-            &.checked {
-                border: 1px solid $color-background-dark;
-                background-color: $color-background-dark;
-                svg {
-                    display: block;
-                }
-            }
+
 
             &.disabled {
                 border: 1px solid $color-disabled !important;
