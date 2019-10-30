@@ -11,9 +11,18 @@
     }
 
     &--submit {
+        font-family: $font-stack;
+        font-weight: var(--font-weight-light);
+        line-height: $line-height-text;
+        letter-spacing: 0.02em;
+        margin-bottom: $space-s;
+        margin-top: 0;
+        font-size: $font-size-body;
+
         @include tablet-and-over{
             width: auto;
         }
+
         &.cmp-button--disabled {
             background-color: #9ca7b0 !important;
             cursor: default;
@@ -78,6 +87,7 @@
             border: 1px solid $color-border-light;
             @include font-body;
             width: 100%;
+            margin-bottom: 0;
             padding: $space-xs;
         }
 
