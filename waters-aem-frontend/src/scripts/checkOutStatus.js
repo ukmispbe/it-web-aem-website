@@ -1,10 +1,9 @@
-import domElements from '../scripts/domElements';
+import cookieStore from '../stores/cookieStore';
 
-const checkOutStatusCookie = 'ST_STATUS';
 const checkOutStatus = {
     state: () => {
         let cestatus = false;
-        const cestatusCookie = domElements.getCookie(checkOutStatusCookie)
+        const cestatusCookie = cookieStore.getCheckOutStatus();
         if (cestatusCookie) { 
             cestatus = cestatusCookie.toUpperCase() == 'Y' ? true : false;
         }

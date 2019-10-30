@@ -1,4 +1,7 @@
 const keys = {
+    loggedInStatus: 'WatersLoginCookie',
+    greeting: 'WatersGreetingCookie',
+    checkOutStatus: 'ST_STATUS',
     locale: 'org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE'
 }
 
@@ -19,7 +22,10 @@ function getCookie(cname) {
 };
 
 const cookieStore = {
-    setLocaleCookie: () => {
+    getLoggedInStatus: () => { getCookie(keys.loggedInStatus) },
+    getGreeting: () => { getCookie(keys.greeting) },
+    getCheckOutStatus: () => { getCookie(keys.checkOutStatus) },
+    setLocale: () => {
         const cookieName = keys.locale;
         const country = window.digitalData.page.country;
         const language = window.digitalData.page.language;

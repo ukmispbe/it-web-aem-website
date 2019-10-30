@@ -9,7 +9,7 @@ let headerTB, headerTB_user, headerTB_user_link_greetingText,  headerTB_mobile, 
 const headerInit = function() {
     domReferences();
     addEventListeners();
-    cookieStore.setLocaleCookie();
+    cookieStore.setLocale();
     render();
 }
 
