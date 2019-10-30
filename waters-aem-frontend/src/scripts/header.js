@@ -2,13 +2,14 @@ import domElements from '../scripts/domElements';
 import loginStatus from '../scripts/loginStatus';
 import MobileNav from '../scripts/mobileNav';
 import ScreenSizes from '../scripts/screenSizes';
-
+import cookieStore from '../stores/cookieStore';
 
 let headerTB, headerTB_user, headerTB_user_link_greetingText,  headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, headerNavigation_mainUL;
 
 const headerInit = function() {
     domReferences();
     addEventListeners();
+    cookieStore.setLocaleCookie();
     render();
 }
 
