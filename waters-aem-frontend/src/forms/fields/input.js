@@ -23,7 +23,7 @@ const Input = ({
     emailUrl
 }) => {
     let classNames = [];
-
+    console.log(validation);
     const setValidation = () => {
         const obj = {};
 
@@ -324,12 +324,12 @@ const Input = ({
                 <>
                     <ReactSVG
                         src={icons.eyeIcon}
-                        className="showHide-icon"
+                        className="showHide-icon toggled"
                         onClick={toggleEye}
                     />
                     <ReactSVG
                         src={icons.eyeOffIcon}
-                        className="showHideOff-icon toggled"
+                        className="showHideOff-icon"
                         onClick={toggleEye}
                     />
                 </>
@@ -430,7 +430,7 @@ const Input = ({
         return (
             <div className="cmp-form-field--input-requirements">
                 <div className="requirements-title">
-                    Your password must include
+                    {validation.requirementsLabel}
                 </div>
                 {renderRequirementFields(validation.requirements)}
             </div>
