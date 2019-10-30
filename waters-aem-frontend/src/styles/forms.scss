@@ -6,14 +6,20 @@
         width: 75%;
 
         @include mobile {
-            width: 100%;
+            width: 100%;          
         }
     }
 
     &--submit {
+        @include tablet-and-over{
+            width: auto;
+        }
         &.cmp-button--disabled {
             background-color: #9ca7b0 !important;
             cursor: default;
+            @include tablet-and-over{
+                width: auto;
+            }
         }
     }
     .cmp-form-field {
