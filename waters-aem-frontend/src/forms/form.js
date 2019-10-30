@@ -102,7 +102,7 @@ const Form = ({ config, submitFn, isocode }) => {
             </button>
             <div className="cmp-form__disclaimer">
                 {config.disclaimerText + " "}
-                <a href={config.termsAndConditionsLink}>
+                <a href={config.termsAndConditionsLink} target={config.termsAndConditionsBlank ? "_blank" : ""} rel="noopener">
                     {config.termsAndConditionsText}
                 </a>
             </div>
