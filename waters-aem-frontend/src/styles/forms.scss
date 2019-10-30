@@ -273,7 +273,7 @@
             display: none;
 
             & ~ label {
-                display: inline-block;
+                display: inline;
                 font-weight: $font-weight-light;
             }
         }
