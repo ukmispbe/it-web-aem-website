@@ -190,10 +190,12 @@ const Input = ({
         ) {
             return;
         }
-        const requirementsDiv = e.currentTarget.parentNode.querySelector(
+        const requirementsDiv = e.currentTarget.parentNode.parentNode.querySelector(
             ".cmp-form-field--input-requirements"
         );
-        requirementsDiv.classList.toggle("toggled");
+        if (requirementsDiv) {
+            requirementsDiv.classList.toggle("toggled");
+        }
     };
 
     const updateRequirements = async e => {
@@ -224,7 +226,7 @@ const Input = ({
         }
 
         const input = document.getElementById(name);
-        const parent = input.parentNode;
+        const parent = input.parentNode.parentNode;
         const requirementsDiv = parent.querySelector(
             ".cmp-form-field--input-requirements"
         );
@@ -382,11 +384,11 @@ const Input = ({
                         placeholder=" "
                         disabled={disabled}></input>
                     {renderIcons()}
-                    {renderRequirements()}
                 </div>
                 <span className="cmp-form-field--errorText">
                     {displayMsg()}
                 </span>
+                {renderRequirements()}
             </>
         );
     };

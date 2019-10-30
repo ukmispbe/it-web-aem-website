@@ -6,7 +6,7 @@
         width: 75%;
 
         @include mobile {
-            width: 100%;          
+            width: 100%;
         }
     }
 
@@ -221,13 +221,12 @@
 
         &--input-requirements {
             display: none;
-            position: absolute;
             top: 100%;
             background-color: white;
             z-index: 1;
             width: 100%;
-            border: 1px solid $color-gray-30;
             padding: $space-s;
+            padding-left: 0;
 
             & > div {
                 display: block;
