@@ -6,7 +6,7 @@
         width: 75%;
 
         @include mobile {
-            width: 100%;          
+            width: 100%;
         }
     }
 
@@ -76,7 +76,7 @@
 
         input {
             border: 1px solid $color-border-light;
-            line-height: $line-height-text;
+            @include font-body;
             width: 100%;
             padding: $space-xs;
         }
