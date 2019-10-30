@@ -55,15 +55,19 @@ const Form = ({ config, submitFn, isocode }) => {
             return (
                 <FieldValidationDisplay
                     dirty={
-                        (formState.touched[0] && typeof(formState.touched[0]) === "object" ?
-                            formState.touched[0].has(field.name) : formState.touched.indexOf(field.name) > -1)
+                        formState.touched[0] &&
+                        typeof formState.touched[0] === "object"
+                            ? formState.touched[0].has(field.name)
+                            : formState.touched.indexOf(field.name) > -1
                     }
                     valid={!errors[field.name]}
                     type={field.type}
                     hasMatchValid={field.hasMatch ? !errors[confirmName] : true}
                     dirtyMatch={
-                        (formState.touched[0] && typeof(formState.touched[0]) === "object" ?
-                            formState.touched[0].has(confirmName) : formState.touched.indexOf(confirmName) > -1)
+                        formState.touched[0] &&
+                        typeof formState.touched[0] === "object"
+                            ? formState.touched[0].has(confirmName)
+                            : formState.touched.indexOf(confirmName) > -1
                     }
                     key={`field-${i}`}>
                     <Component
@@ -94,7 +98,7 @@ const Form = ({ config, submitFn, isocode }) => {
             <button
                 type="submit"
                 className={
-                    "cmp-button cmp-form--submit" +
+                    "cmp-button cmp-button--no-border cmp-form--submit" +
                     (checkIfDisabled() ? " cmp-button--disabled" : "")
                 }
                 disabled={checkIfDisabled()}>
