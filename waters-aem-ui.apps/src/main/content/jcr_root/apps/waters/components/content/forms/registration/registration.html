@@ -21,14 +21,14 @@
                     {
                         "type": "email",
                         "name": "email",
-                        "label": "${'Email' @ i18n, context='scriptString'}",
+                        "label": "${'Email Address' @ i18n, context='scriptString'}",
                         "description": "${'This will be your username' @ i18n, context='scriptString'}",
                         "validation": {
                             "required": true,
                             "requiredMsg": "${'Please enter a valid email address' @ i18n, context='scriptString'}",
                             "validateFnName": "email",
                             "validationMsg": "${'Please enter a valid email address' @ i18n, context='scriptString'}",
-                            "alreadyRegisteredMsg": "${'That email address already exists.' @ i18n, context='scriptString'}",
+                            "alreadyRegisteredMsg": "${'There is an existing account with that email address.' @ i18n, context='scriptString'}",
                             "signInMsg": "${'Sign In' @ i18n, context='scriptString'}",
                             "signInURL": "${registration.loginLink.href @ context='unsafe'}"
                         }
@@ -75,7 +75,7 @@
                         "options": ${registration.countriesJson @ context="unsafe"},
                         "validation": {
                             "required": true,
-                            "requiredMsg": "${'Please select a country' @ i18n, context='scriptString'}"
+                            "requiredMsg": "${'Please select your country' @ i18n, context='scriptString'}"
                         }
                     },
                     {
@@ -87,9 +87,9 @@
                         "validation": {
                             "required": true,
                             "validateFnName": "password",
-                            "validationMsg": "${'Please provide a valid password' @ i18n, context='scriptString'}",
-                            "requiredMsg": "${'Please provide a valid password' @ i18n, context='scriptString'}",
-                            "nonMatchingMsg": "${'Passwords do not match' @ i18n, context='scriptString'}",
+                            "validationMsg": "${'Please provide a valid password.' @ i18n, context='scriptString'}",
+                            "requiredMsg": "${'Please provide a valid password.' @ i18n, context='scriptString'}",
+                            "nonMatchingMsg": "${'Passwords must match. Please try again.' @ i18n, context='scriptString'}",
                             "requirementsLabel": "${'Your password must include' @i18n, context='scriptString'}",
                             "requirements": [
                                 {"name": "shortPassword", "msg": "${'at least 8 characters' @ i18n, context='scriptString'}"},
