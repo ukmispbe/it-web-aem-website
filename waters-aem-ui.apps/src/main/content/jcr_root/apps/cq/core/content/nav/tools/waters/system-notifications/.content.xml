@@ -4,6 +4,6 @@
           jcr:primaryType="nt:unstructured"
           jcr:title="System Notifications"
           jcr:description="Schedule a notification message to display to all users on Waters.com"
-          icon="alert"
+          icon="answer"
           href="/etc/waters/notifications/system-notification.html"
           target="_blank"/>

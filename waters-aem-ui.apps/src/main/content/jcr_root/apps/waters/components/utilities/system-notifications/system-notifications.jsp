@@ -56,10 +56,10 @@
     </nav>
     <div class="acsCommons-System-Notifications-Page-form">
     <div class="js-coral-Wizard-step coral-Wizard-step">
-        <a class="js-coral-Wizard-step-control coral-Button" href="/miscadmin#/etc/acs-commons/notifications" data-action="cancel">Back</a>
+        <a class="js-coral-Wizard-step-control coral-Button" href="/" data-action="cancel">Back</a>
         <button class="fn-acsCommons-Notifications-save js-coral-Wizard-step-control coral-Button" type="button" data-action="next">Save</button>
         
-        <h2 class="coral-Heading coral-Heading--2"><%= xssAPI.encodeForHTML(i18n.get("Waters System Notification")) %></h2>
+        <h2 class="coral-Heading coral-Heading--2" style="margin-top: 50px"><%= xssAPI.encodeForHTML(i18n.get("Waters System Notification")) %></h2>
 
         <section class="coral-Form-fieldset">
 
@@ -77,6 +77,7 @@
                         class="coral-Textfield coral-Textfield--multiline acsCommons-System-Notifications-Page-input--textarea"
                         rows="6"
                         name="./message">${xss:encodeForHTML(xssAPI, properties["message"])}</textarea>
+                <a class="coral-Link" href="/libs/cq/i18n/translator.html?path=/apps/waters/i18n" target="_blank">Manage translations</a>
             </div>
 
 
