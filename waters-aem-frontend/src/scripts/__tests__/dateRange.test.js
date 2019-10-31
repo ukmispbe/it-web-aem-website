@@ -2,50 +2,36 @@ import DateRange from '../dateRange';
 
 console.warn = jest.fn();
 
-const getPastDate = () => {
-    const now = new Date();
-    return new Date(now.getFullYear() - 1, 1, 1);
-}
+// 2019-11-21T10:31:00-06:00
+const onTime = 1574353860000;
 
-const getFutureDate = () => {
-    const now = new Date();
-    return new Date(now.getFullYear() + 1, 1, 1);
-}
+// 2019-11-23T10:31:00-06:00
+const offTime = 1574526660000;
+
+const getPastDate = (now = new Date()) => new Date(now.getFullYear() - 1, 1, 1);
+const getFutureDate = (now = new Date()) => new Date(now.getFullYear() + 1, 1, 1);
+const getBetweenDate = (now = new Date(), offSetDays = 1) => new Date(now.getFullYear(), now.getMonth(), now.getDate() + offSetDays, now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
 
 describe('Feature: DateRange Module', () => {
-    // 2019-11-21T10:31:00-06:00
-    const onTime = 1574353860000;
-
-    // 2019-11-23T10:31:00-06:00
-    const offTime = 1574526660000;
-
     describe('Scenario: Instantiation', () => {
         describe('When start and end dates are not provided', () => {
             it('Then no errors should be thrown', () => {
-                expect(() => {
-                    new DateRange();
-                }).not.toThrow(TypeError);
+                expect(() => new DateRange()).not.toThrow(TypeError);
             });
         });
         describe('When start date is invalid', () => {
             it('Then type error should be thrown', () => {
-                expect(() => {
-                    new DateRange('a');
-                }).toThrow(TypeError);
+                expect(() => new DateRange('a')).toThrow(TypeError);
             });
         });
         describe('When end date is invalid', () => {
             it('Then type error should be thrown', () => {
-                expect(() => {
-                    new DateRange(onTime, 'a');
-                }).toThrow(TypeError);
+                expect(() => new DateRange(onTime, 'a')).toThrow(TypeError);
             });
         });
         describe('When start date is after the end date', () => {
             it('Then type error should be thrown', () => {
-                expect(() => {
-                    new DateRange(offTime, onTime);
-                }).toThrow(RangeError);
+                expect(() => new DateRange(offTime, onTime)).toThrow(RangeError);
             });
         });
     });
@@ -106,20 +92,17 @@ describe('Feature: DateRange Module', () => {
             beforeAll(() => dateRange = new DateRange(onTime, offTime));
 
             it('Then any date before the start is invalid', () => {
-                const now = new Date(onTime);
-                const date = new Date(now.getFullYear() - 1, now.getMonth(), now.getDate(), now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
+                const date = getPastDate(new Date(onTime));
                 const actual = dateRange.isValid(date.getTime());
                 expect(actual).toEqual(false);
             });
             it('And any date after the end is invalid', () => {
-                const now = new Date(offTime);
-                const date = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
+                const date = getFutureDate(new Date(offTime));
                 const actual = dateRange.isValid(date.getTime());
                 expect(actual).toEqual(false);
             });
             it('And any date between the range is valid', () => {
-                const now = new Date(offTime);
-                const date = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1, now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
+                const date = getBetweenDate(new Date(offTime), -1);
                 const actual = dateRange.isValid(date.getTime());
                 expect(actual).toEqual(true);
             });

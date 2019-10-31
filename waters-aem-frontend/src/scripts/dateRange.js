@@ -26,19 +26,16 @@ const DateRange = function(startValue, endValue) {
   validateParameters(startUtc, endUtc);
 
   this.isValid = date => {
-    if (!startUtc && !endUtc) {
-      return true;
-    }
-
-    const comparisonDate = date ? convertToUTC(date) : convertToUTC(new Date());
+    const comparisonDate = date ? convertToUTC(date) : convertToUTC(Date.now());
 
     if (
+      (!startUtc && !endUtc)
+      ||
       (startUtc && !endUtc && comparisonDate >= startUtc)
       ||
       (!startUtc && endUtc && comparisonDate <= endUtc)
       ||
-      (startUtc && endUtc && comparisonDate >= startUtc && comparisonDate <= endUtc)
-    ) {
+      (startUtc && endUtc && comparisonDate >= startUtc && comparisonDate <= endUtc)) {
       return true;
     }
 
