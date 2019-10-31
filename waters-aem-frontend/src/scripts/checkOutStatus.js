@@ -3,7 +3,7 @@ import cookieStore from '../stores/cookieStore';
 const checkOutStatus = {
     state: () => {
         let cestatus = false;
-        const cestatusCookie = cookieStore.getCheckOutStatus();
+        const cestatusCookie = cookieStore.getSoldToStatus();
         if (cestatusCookie) { 
             cestatus = cestatusCookie.toUpperCase() == 'Y' ? true : false;
         }

@@ -1,7 +1,7 @@
 const keys = {
     loggedInStatus: 'WatersLoginCookie',
     greeting: 'WatersGreetingCookie',
-    checkOutStatus: 'ST_STATUS',
+    soldToStatus: 'ST_STATUS',
     locale: 'org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE'
 }
 
@@ -24,7 +24,7 @@ function getCookie(cname) {
 const cookieStore = {
     getLoggedInStatus: () => { getCookie(keys.loggedInStatus) },
     getGreeting: () => { getCookie(keys.greeting) },
-    getCheckOutStatus: () => { getCookie(keys.checkOutStatus) },
+    getSoldToStatus: () => { getCookie(keys.soldToStatus) },
     setLocale: () => {
         const cookieName = keys.locale;
         const country = window.digitalData.page.country;
