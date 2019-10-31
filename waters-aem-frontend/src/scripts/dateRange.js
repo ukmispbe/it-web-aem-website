@@ -1,45 +1,40 @@
 const invalidDateValue = 'Invalid Date';
 
-const validateParameters = (startUtc, endUtc) => {
-  if (startUtc && startUtc == invalidDateValue) {
-    throw new TypeError("Start date/time is invalid");
-  }
-
-  if (endUtc && endUtc == invalidDateValue) {
-    throw new TypeError("End date/time is invalid");
-  }
-
-  if (startUtc && endUtc && startUtc > endUtc) {
-    throw new RangeError('Start date/time cannot come after the end date/time');
-  }
-}
-
-const convertToUTC = value => {
-  const date = new Date(value);
-  return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds());
-}
-
 const DateRange = function(startValue, endValue) {
-  const startUtc = startValue ? convertToUTC(startValue) : null;
-  const endUtc = endValue ? convertToUTC(endValue) : null;
+  const startDate = startValue ? new Date(startValue) : null;
+  const endDate = endValue ? new Date(endValue) : null;
 
-  validateParameters(startUtc, endUtc);
+  validateParameters(startDate, endDate);
 
   this.isValid = date => {
-    const comparisonDate = date ? convertToUTC(date) : convertToUTC(Date.now());
+    const comparisonDate = date ? date : Date.now();
 
     if (
-      (!startUtc && !endUtc)
+      (!startValue && !endValue)
       ||
-      (startUtc && !endUtc && comparisonDate >= startUtc)
+      (startValue && !endValue && comparisonDate >= startValue)
       ||
-      (!startUtc && endUtc && comparisonDate <= endUtc)
+      (!startValue && endValue && comparisonDate <= endValue)
       ||
-      (startUtc && endUtc && comparisonDate >= startUtc && comparisonDate <= endUtc)) {
+      (startValue && endValue && comparisonDate >= startValue && comparisonDate <= endValue)) {
       return true;
     }
 
     return false;
+  }
+
+  function validateParameters(startUtc, endUtc) {
+    if (startUtc && startUtc == invalidDateValue) {
+      throw new TypeError("Start date/time is invalid");
+    }
+  
+    if (endUtc && endUtc == invalidDateValue) {
+      throw new TypeError("End date/time is invalid");
+    }
+  
+    if (startUtc && endUtc && startUtc > endUtc) {
+      throw new RangeError('Start date/time cannot come after the end date/time');
+    }
   }
 };
 

@@ -1,7 +1,7 @@
 const DigitalData = {
     get language() {
       return window.digitalData.page && window.digitalData.page.language
-        ? window.digitalData.language
+        ? window.digitalData.page.language
         : "en";
     },
     get country() {
