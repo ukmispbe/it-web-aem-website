@@ -107,12 +107,6 @@
     }
 }
 
-.cmp-notification--highlight {
-    .cmp-notification-wrapper {
-        background-color: $color-teal-10;
-    }
-}
-
 .cmp-notification--left {
     .cmp-notification-wrapper {
         justify-content: left;
@@ -155,6 +149,32 @@
 
         @include mobile {
             padding: $space-xxs 0 0 0;
+        }
+    }
+}
+
+.cmp-notification--success {
+    .cmp-notification-wrapper {
+        background-color: $color-teal-10;
+        border: 1px solid $color-teal-20;
+
+        svg {
+            .st0 {
+                stroke: $color-success;
+            }
+        }
+    }
+}
+
+.cmp-notification--userError {
+    .cmp-notification-wrapper {
+        background-color: $color-red-10;
+        border: 1px solid $color-red-20;
+
+        svg {
+            .st0 {
+                stroke: $color-error;
+            }
         }
     }
 }
