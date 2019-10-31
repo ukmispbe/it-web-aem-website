@@ -264,7 +264,8 @@
 
             .requirements-title {
                 display: block;
-                @include font-h4;
+                @include font-body;
+                margin-bottom: $space-xxs;
             }
 
             &.toggled {
