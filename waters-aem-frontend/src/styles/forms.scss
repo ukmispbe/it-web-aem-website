@@ -22,7 +22,7 @@
         margin-bottom: $space-s;
 
         &.cmp-form-field-dropdown {
-            width: 50%;
+            width: 65%;
 
             @include mobile {
                 width: 100%;
@@ -374,5 +374,9 @@
         &--is-focused {
             color: $color-blue-50;
         }
+    }
+
+    .cmp-custom-dropdown__input {
+        margin-top: 0;
     }
 }
