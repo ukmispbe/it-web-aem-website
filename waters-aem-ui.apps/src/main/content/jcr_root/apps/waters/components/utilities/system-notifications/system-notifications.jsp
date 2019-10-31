@@ -44,9 +44,6 @@
       data-init="flexwizard">
 
     <input type="hidden" name="_charset_" value="utf-8">
-    <input type="hidden" name="./enabled@TypeHint" value="Boolean" />    
-    <input type="hidden" name="./enabled@DefaultValue" value="false" />
-    <input type="hidden" name="./enabled@UseDefaultWhenMissing" value="true" />
 
     <input type="hidden" name="./onTime@TypeHint" value="Date" />
     <input type="hidden" name="./offTime@TypeHint" value="Date" />
@@ -65,15 +62,6 @@
         <h2 class="coral-Heading coral-Heading--2"><%= xssAPI.encodeForHTML(i18n.get("Waters System Notification")) %></h2>
 
         <section class="coral-Form-fieldset">
-
-            <div class="acsCommons-System-Notifications-Form-row">
-                <label class="coral-Checkbox">
-                    <input class="coral-Checkbox-input" type="checkbox" name="./enabled" value="true" ${properties["enabled"] ? "checked" : ""}/>
-
-                    <span class="coral-Checkbox-checkmark"></span>
-                    <span class="coral-Checkbox-description">Enabled</span>
-                </label>
-            </div>
 
             <div class="acsCommons-System-Notifications-Form-row">
                 <label class="coral-Form-fieldlabel">Title</label>
