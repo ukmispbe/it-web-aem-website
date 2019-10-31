@@ -23,7 +23,7 @@ const Input = ({
     emailUrl
 }) => {
     let classNames = [];
-    console.log(validation);
+
     const setValidation = () => {
         const obj = {};
 
