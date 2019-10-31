@@ -6,7 +6,7 @@ const DigitalData = {
     },
     get country() {
         return window.digitalData.page && window.digitalData.page.country
-        ? window.digitalData.country
+        ? window.digitalData.page.country
         : "XG";
     }
   };
