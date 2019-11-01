@@ -171,9 +171,9 @@ public final class Table implements ComponentExporter {
     public boolean isApplyTableSplit(){
         ContentPolicyManager contentPolicyManager = resource.getResourceResolver().adaptTo(ContentPolicyManager.class);
         ContentPolicy contentPolicy = contentPolicyManager.getPolicy(resource);
-        if (contentPolicy != null) {
+        if (contentPolicy != null && tableRows != null) {
             final Long splitPolicy = contentPolicy.getProperties().get("tableSplit", Long.class);
-            return tableRows.size() > splitPolicy;
+            return splitPolicy != null && tableRows.size() > splitPolicy;
         }
         return false;
     }

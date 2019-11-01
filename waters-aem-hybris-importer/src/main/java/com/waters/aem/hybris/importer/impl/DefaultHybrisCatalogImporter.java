@@ -444,7 +444,6 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             .setPath(WatersConstants.SEARCH_PAGE_PATH)
             .setParameter("category", "Shop")
             .setParameter("content_type", contentType)
-            .setParameter("isocode", isoCode)
             .setParameter("multiselect", "true")
             .setParameter("page", "1")
             .setParameter("rows", "25")
