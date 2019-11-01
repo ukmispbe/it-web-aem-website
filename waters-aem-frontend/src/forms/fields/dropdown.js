@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactSVG from "react-svg";
 import Select, { components, createFilter } from "react-select";
 import variables from "../../../src/styles/variables.scss";
@@ -113,7 +113,7 @@ const Dropdown = ({
     placeholder,
     setValue
 }) => {
-    const [selectValue, setSelect] = useState(getDefault(options, name));
+    const [selectValue, setSelect] = useState();
 
     const handleChange = opt => {
         setSelect(opt);
@@ -124,6 +124,13 @@ const Dropdown = ({
         trim: true,
         matchFrom: "start"
     };
+
+    useEffect(() => { 
+        if (typeof selectValue == 'undefined') { 
+            handleChange(getDefault(options,name))
+        }
+    }, [])
+
 
     return (
         <>
