@@ -26,14 +26,17 @@ const cookieStore = {
     getGreeting: () => { getCookie(keys.greeting) },
     getSoldToStatus: () => { getCookie(keys.soldToStatus) },
     setLocale: () => {
-        const cookieName = keys.locale;
         const country = window.digitalData.page.country;
+        if(country==="XG"){
+            return;
+        }
         const language = window.digitalData.page.language;
         const locale = `${language}_${country}`;
+        const cookieName = keys.locale;
         const existingCookie = getCookie(cookieName);
         if(!existingCookie || existingCookie!==locale) {
             document.cookie = `${cookieName}=${locale}`;
-        };
+        }
     }
 }
 
