@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ReactSVG from "react-svg";
 import Select, { components, createFilter } from "react-select";
 import variables from "../../../src/styles/variables.scss";
+import DigitalData from "../../scripts/DigitalData";
 
 const customStyles = {
     indicatorSeparator: () => ({
@@ -84,6 +85,26 @@ const getOptions = (opts, name) => {
     return opt;
 };
 
+const getDefault = (options, name) => { 
+    let defaultValue;
+    const allOptions = getOptions(options, name);
+
+    switch (true) {
+        case DigitalData.country != 'XG' && name == "country":
+            const activeOption = allOptions.find(function (option) {
+                console.log(option, DigitalData.country)
+                return option.value.toLowerCase() == DigitalData.country.toLowerCase();
+            });
+            defaultValue = activeOption ? activeOption : '';
+            break;
+        default:
+            defaultValue = '';
+
+    }
+
+    return defaultValue;
+}
+
 const Dropdown = ({
     label,
     options,
@@ -93,7 +114,7 @@ const Dropdown = ({
     placeholder,
     setValue
 }) => {
-    const [selectValue, setSelect] = useState();
+    const [selectValue, setSelect] = useState(getDefault(options, name));
 
     const handleChange = opt => {
         setSelect(opt);
