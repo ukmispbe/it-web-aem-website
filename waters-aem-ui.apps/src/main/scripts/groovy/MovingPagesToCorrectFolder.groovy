@@ -2,7 +2,7 @@ import com.day.cq.replication.Replicator;
 import com.day.cq.replication.ReplicationActionType
 import javax.jcr.Session;
 
-def movePath = "/content/waters/us/en/library/application-notes"
+def movePath = "/content/waters/language-masters/en/library/application-notes"
 def replicator = getService(Replicator.class)
 
 getPage("/content/waters/authored-application-notes").recurse { page ->
