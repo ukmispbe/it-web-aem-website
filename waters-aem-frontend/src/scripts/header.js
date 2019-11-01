@@ -2,14 +2,18 @@ import domElements from '../scripts/domElements';
 import loginStatus from '../scripts/loginStatus';
 import MobileNav from '../scripts/mobileNav';
 import ScreenSizes from '../scripts/screenSizes';
+import ServletService from '../element-creators/services/servletService';
+import SystemWideNotification from '../element-creators/systemWideNotification';
+import SessionStore from '../stores/sessionStore';
 
-
+const sessionStore = new SessionStore();
 let headerTB, headerTB_user, headerTB_user_link_greetingText,  headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, headerNavigation_mainUL;
 
 const headerInit = function() {
     domReferences();
     addEventListeners();
     render();
+    renderSystemWideNotification();
 }
 
 function domReferences() {
@@ -57,7 +61,31 @@ function render() {
             }
         }
     }
-    
+}
+
+const handleSystemWideNotificationDismiss = () => {
+    const parent = document.querySelector('.cmp-header');
+    const notification = parent.querySelector('.cmp-notification--sitewide');
+
+    if(parent && notification) {
+        parent.removeChild(notification);
+        sessionStore.setDismissSystemWideNotification();
+    }
+}
+
+const renderSystemWideNotification = async () => {
+    if (sessionStore.getDismissSystemWideNotificatiopn() === 'Y') {
+        // user has dismissed the notification during session so do not add to the DOM
+        return;
+    }
+
+    const component = new SystemWideNotification(ServletService, handleSystemWideNotificationDismiss);
+    const result = await component.create(Date.now());
+
+    if(result.visible) {
+        const parent = document.querySelector('.cmp-header');
+        parent.appendChild(result.element);
+    }
 }
 
 window.addEventListener('load', headerInit);

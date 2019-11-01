@@ -2,6 +2,10 @@ import ServletService from '../services/servletService';
 import SystemWideNotification from '../systemWideNotification';
 
 describe('Feature: SystemWideNotification', () => {
+    beforeAll(() => {
+        window.digitalData = {};
+    });
+
     describe('Scenario: Component Visibility', () => {
         describe('When there is no message', () => {
             it('Then it should not be visible', async () => {
