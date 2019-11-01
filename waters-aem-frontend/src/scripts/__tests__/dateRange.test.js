@@ -17,6 +17,7 @@ describe('Feature: DateRange Module', () => {
         describe('When start and end dates are not provided', () => {
             it('Then no errors should be thrown', () => {
                 expect(() => new DateRange()).not.toThrow(TypeError);
+                expect(() => new DateRange()).not.toThrow(RangeError);
             });
         });
         describe('When start date is invalid', () => {
@@ -30,7 +31,7 @@ describe('Feature: DateRange Module', () => {
             });
         });
         describe('When start date is after the end date', () => {
-            it('Then type error should be thrown', () => {
+            it('Then range error should be thrown', () => {
                 expect(() => new DateRange(offTime, onTime)).toThrow(RangeError);
             });
         });
