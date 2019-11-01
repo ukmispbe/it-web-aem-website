@@ -5,6 +5,7 @@ import ScreenSizes from '../scripts/screenSizes';
 import ServletService from '../element-creators/services/servletService';
 import SystemWideNotification from '../element-creators/systemWideNotification';
 import SessionStore from '../stores/sessionStore';
+import inlineSVG from '../scripts/inlineSVG';
 
 const sessionStore = new SessionStore();
 let headerTB, headerTB_user, headerTB_user_link_greetingText,  headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, headerNavigation_mainUL;
@@ -85,6 +86,7 @@ const renderSystemWideNotification = async () => {
     if(result.visible) {
         const parent = document.querySelector('.cmp-header');
         parent.appendChild(result.element);
+        inlineSVG.init('img.inline-svg', 'svg-inlined');
     }
 }
 

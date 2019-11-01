@@ -52,7 +52,7 @@ describe('Feature: DateRange Module', () => {
                 const actual = dateRange.isValid(Date.now());
                 expect(actual).toEqual(true);
             });
-            it('Then future date is valid', () => {
+            it('And future date is valid', () => {
                 const date = getFutureDate();
                 const actual = dateRange.isValid(date.getTime());
                 expect(actual).toEqual(true);
