@@ -85,18 +85,6 @@ class Analytics {
     dispatchEvent = (eventName, obj) => {
         document.dispatchEvent(new CustomEvent(eventName, obj));
     }
-
-    onSiteLoad = () => { 
-        //atjs.custom events for Target Analytics :: see below URL for more detials
-        //https://docs.adobe.com/content/help/en/target/using/implement-target/client-side/functions-overview/atjs-custom-events.html
-      
-        document.addEventListener('at-content-rendering-succeeded', this.contentRenderingSucceeded);
-    }
-
-    contentRenderingSucceeded = (event) => {
-        //Unique svg class for Target authored images
-        inlineSVG.init('img.inline-svg-target', 'svg-inlined-target');
-    }
 }
 
 

@@ -40,8 +40,6 @@ cssVars({
 
 inlineSVG.init('img.inline-svg', 'svg-inlined');
 
-analytics.onSiteLoad();
-
 function addEllipses() {
     const desc = document.querySelectorAll('.cmp-list__item-description-text');
     let num = 0;
