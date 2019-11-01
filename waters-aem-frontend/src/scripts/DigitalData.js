@@ -1,4 +1,7 @@
 const DigitalData = {
+    get globalExperience() { 
+      return 'XG';
+    },
     get language() {
       return window.digitalData.page && window.digitalData.page.language
         ? window.digitalData.page.language
@@ -7,8 +10,8 @@ const DigitalData = {
     get country() {
         return window.digitalData.page && window.digitalData.page.country
         ? window.digitalData.page.country
-        : "XG";
+        : this.globalExperience;
     }
   };
   
-  export default DigitalData;
+export default DigitalData;

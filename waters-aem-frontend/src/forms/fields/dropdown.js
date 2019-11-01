@@ -90,9 +90,8 @@ const getDefault = (options, name) => {
     const allOptions = getOptions(options, name);
 
     switch (true) {
-        case DigitalData.country != 'XG' && name == "country":
+        case DigitalData.country != DigitalData.globalExperience && name == "country":
             const activeOption = allOptions.find(function (option) {
-                console.log(option, DigitalData.country)
                 return option.value.toLowerCase() == DigitalData.country.toLowerCase();
             });
             defaultValue = activeOption ? activeOption : '';
