@@ -7,6 +7,7 @@ import com.google.common.base.Objects;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
 import com.waters.aem.core.commerce.services.SkuRepository;
+import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.utils.AssetUtils;
 import org.apache.commons.lang3.EnumUtils;
@@ -139,12 +140,19 @@ public final class Sku {
             resource -> resource.adaptTo(SkuImage.class));
     }
 
-    public List<Sku> getRelatedSkus() {
-        return getResourceModels(WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCES,
-                resource -> !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PROPRIETARY, false) &&
-                    !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_TERMINATED, false) &&
-                    resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PRODUCT_REFERENCE_TYPE).equals(SkuReferenceType.OTHERS.toString()),
-                resource -> skuRepository.getRelatedSku(resource));
+    /**
+     * Gets the related skus for the current country, filtering out any skus that do not have a price for the current
+     * country.
+     *
+     * @param siteContext site context containing current country information.
+     * @return filtered related skus
+     */
+    public List<Sku> getRelatedSkus(final SiteContext siteContext) {
+        final String country = siteContext.getLocaleWithCountry().getCountry();
+
+        return getRelatedSkus().stream()
+                .filter(sku -> sku.getPrice(country, siteContext.getCurrencyIsoCode()) != null)
+                .collect(Collectors.toList());
     }
 
     public List<Sku> getReplacementSkus() {
@@ -159,17 +167,6 @@ public final class Sku {
         return getResourceModels(WatersCommerceConstants.RESOURCE_NAME_CLASSIFICATIONS,
                 resource -> true,
                 resource -> resource.adaptTo(Classification.class));
-    }
-
-    private <T> List<T> getResourceModels(final String resourceName, final Predicate<Resource> resourceFilter,
-        final Function<Resource, T> resourceToModelFunction) {
-        return Optional.ofNullable(resource.getChild(resourceName))
-            .map(modelsResource -> StreamSupport.stream(modelsResource.getChildren().spliterator(), false)
-                .filter(resourceFilter)
-                .map(resourceToModelFunction)
-                .filter(java.util.Objects :: nonNull)
-                .collect(Collectors.toList()))
-            .orElse(Collections.emptyList());
     }
 
     public String getPrimaryImageThumbnail() {
@@ -191,12 +188,6 @@ public final class Sku {
         return assets.isEmpty() ? null : assets.get(0);
     }
 
-    private List<Asset> getAssets() {
-        return getImages().stream()
-            .map(skuImage -> AssetUtils.getAsset(resource.getResourceResolver(), skuImage.getPath()))
-            .collect(Collectors.toList());
-    }
-
     /**
      * Delegates to SkuRepository to get the sku page for the current sku.
      */
@@ -209,6 +200,31 @@ public final class Sku {
      */
     public PageDecorator getSkuPage(PageDecorator currentPage, String code) {
         return skuRepository.getSkuPage(currentPage, code);
+    }
+
+    private List<Sku> getRelatedSkus() {
+        return getResourceModels(WatersCommerceConstants.RESOURCE_NAME_PRODUCT_REFERENCES,
+                resource -> !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PROPRIETARY, false) &&
+                        !resource.getValueMap().get(WatersCommerceConstants.PROPERTY_TERMINATED, false) &&
+                        resource.getValueMap().get(WatersCommerceConstants.PROPERTY_PRODUCT_REFERENCE_TYPE).equals(SkuReferenceType.OTHERS.toString()),
+                resource -> skuRepository.getRelatedSku(resource));
+    }
+
+    private <T> List<T> getResourceModels(final String resourceName, final Predicate<Resource> resourceFilter,
+        final Function<Resource, T> resourceToModelFunction) {
+        return Optional.ofNullable(resource.getChild(resourceName))
+            .map(modelsResource -> StreamSupport.stream(modelsResource.getChildren().spliterator(), false)
+                .filter(resourceFilter)
+                .map(resourceToModelFunction)
+                .filter(java.util.Objects :: nonNull)
+                .collect(Collectors.toList()))
+            .orElse(Collections.emptyList());
+    }
+
+    private List<Asset> getAssets() {
+        return getImages().stream()
+            .map(skuImage -> AssetUtils.getAsset(resource.getResourceResolver(), skuImage.getPath()))
+            .collect(Collectors.toList());
     }
 
     @Override

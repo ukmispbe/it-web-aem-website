@@ -10,6 +10,7 @@ import LoginStatus from "./scripts/loginStatus";
 import SkuDetails from './sku-details';
 import SkuList from './sku-list';
 import SkuMessage from './sku-shared/views/SkuMessage';
+import Video from './video/index';
 import Chat from './chat'
 
 function getAuthoredDataForSearchBar(c, h) {
@@ -160,10 +161,11 @@ if (skuDetailsContainer) {
     const skuNumber = skuData.dataset.skuCode;
     const skuTitle = skuData.dataset.skuTitle;
     const skuDiscontinued = skuData.dataset.discontinued;
+    const skuCountryRestricted = skuData.dataset.countryRestricted;
     const replacementSkuCode = skuData.dataset.replacementSkuCode;
     const replacementSkuHref = skuData.dataset.replacementSkuHref;
 
-    ReactDOM.render(<SkuDetails config={skuDetailsConfig} price={skuDetailsListPrice} skuNumber={skuNumber} titleText={skuTitle} discontinued={skuDiscontinued} replacementSkuCode={replacementSkuCode} replacementSkuHref={replacementSkuHref}/>, skuDetailsContainer);
+    ReactDOM.render(<SkuDetails config={skuDetailsConfig} price={skuDetailsListPrice} countryRestricted={skuCountryRestricted} skuNumber={skuNumber} titleText={skuTitle} discontinued={skuDiscontinued} replacementSkuCode={replacementSkuCode} replacementSkuHref={replacementSkuHref}/>, skuDetailsContainer);
 }
 
 
@@ -224,6 +226,34 @@ if(skuUnavailableContainer) {
             skuDetailsUnavailableBindingContainer
         );
     }
+}
+    
+
+const videoContainers = Array.from(
+    document.querySelectorAll('.cmp-video')
+);
+
+if (videoContainers) {
+    videoContainers.forEach(container => {
+
+        const videoContainer = container.querySelector('.video-wrapper');
+        const videoConfig = container.querySelector('.video-configs-json');
+
+        if (videoContainer && videoConfig) { 
+            const json = JSON.parse(videoConfig.innerHTML);
+
+            ReactDOM.render(
+                <Video videoConfig={json.videoConfig} ref={(ourComponent) => {
+                    if (window.cmpVideos) {
+                        window.cmpVideos.push(ourComponent);
+                    } else { 
+                        window.cmpVideos = [ourComponent];
+                    }
+                }} />,
+                videoContainer
+            );
+        }
+    });
 }
 
 const chatContainer = document.querySelector('.cmp-chat');

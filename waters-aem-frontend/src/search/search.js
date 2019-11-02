@@ -27,6 +27,7 @@ import CategoryTabs from './components/categories-tabs';
 import validator from 'validator';
 import domElements from '../scripts/domElements';
 import screenSizes from '../scripts/screenSizes';
+import Analytics, { analyticTypes } from '../scripts/analytics';
 
 class Search extends Component {
     constructor(props) {
@@ -503,7 +504,11 @@ class Search extends Component {
             }
         }
         this.props.resetToDefault = false;
+
+        this.submitAnalytics({ ... this.state.searchParams, total: res.num_found });
     };
+
+    submitAnalytics = data => Analytics.setAnalytics(analyticTypes.search.name, data);
 
     getActiveFilterIndex = (contentType, filterMap, facets, facetName) => {
         const mappings = searchMapper.mapFacetGroups(contentType, filterMap, facets);

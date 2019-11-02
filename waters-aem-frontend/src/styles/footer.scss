@@ -141,7 +141,7 @@
     &.china-legal {
        @include mobile {
          margin-bottom: 150px;
-       }  
+       }
     }
 }
 
@@ -292,6 +292,12 @@
         li {
             list-style-type: none;
             display: inline-block;
+
+            img.inline-svg {
+                width: $icon-m;
+                height: $icon-m;
+            }
+
             a {
                 text-decoration: none;
                 padding-left: $space-m;
