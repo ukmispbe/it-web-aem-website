@@ -22,7 +22,6 @@ import './scripts/skulist';
 import './index';
 
 import cssVars from 'css-vars-ponyfill';
-import analytics from './scripts/analytics';
 import inlineSVG from './scripts/inlineSVG';
 
 const japanTheme = {

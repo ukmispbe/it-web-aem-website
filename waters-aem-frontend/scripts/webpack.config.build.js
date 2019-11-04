@@ -15,7 +15,8 @@ function recursiveIssuer(m) {
 module.exports = {
     entry: {
         main: './src/entry.js',
-        print: './src/printEntry.js'
+        print: './src/printEntry.js',
+        head: './src/headEntry.js'
     },
     output: {
         path: path.resolve(__dirname, '../', 'build')
@@ -37,6 +38,13 @@ module.exports = {
                     chunks: 'all',
                     enforce: true,
                 },
+                headStyles: {
+                    name: 'head',
+                    test: (m, c, entry = 'head') =>
+                    m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
+                    chunks: 'all',
+                    enforce: true,
+                }
             },
         },
         minimizer: [

@@ -85,6 +85,17 @@ class Analytics {
     dispatchEvent = (eventName, obj) => {
         document.dispatchEvent(new CustomEvent(eventName, obj));
     }
+
+    siteLoad = () => {
+        document.addEventListener('at-library-loaded', function(event) { 
+            if (typeof adobe != 'undefined') { 
+                document.addEventListener(adobe.target.event.REQUEST_SUCCEEDED, function (event) {
+                    inlineSVG.init('img.inline-svg-target', 'svg-inlined-target'); 
+                });
+            }
+        });
+    }
+
 }
 
 

@@ -21,6 +21,10 @@
         hasCloudconfigSupport     = page.hasCloudconfigSupport}"/>
     <sly data-sly-test.appResourcesPath=${page.appResourcesPath} data-sly-call="${headResources.favicons @ path = appResourcesPath}"/>
 
+
+    <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html"
+    data-sly-call="${clientlib.js @ categories='waters.head'}"/>
+
     <!--launch script-->
     <script data-sly-test="${header.launchScript}" src="${header.launchScript}"></script>
 
