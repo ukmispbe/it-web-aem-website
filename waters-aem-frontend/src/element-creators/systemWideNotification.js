@@ -34,7 +34,7 @@ const SystemWideNotification = function(service, onDismiss) {
         element.classList.add('cmp-notification-icon');
 
         const icon = document.createElement('img');
-        icon.src = '/content/dam/waters/brand-assets/icons/attention.svg';
+        icon.src = '/content/dam/waters/en/brand-assets/icons/attention.svg';
         icon.classList.add('inline-svg');
 
         element.appendChild(icon);
