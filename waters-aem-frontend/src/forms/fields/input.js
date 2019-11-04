@@ -324,12 +324,12 @@ const Input = ({
                 <>
                     <ReactSVG
                         src={icons.eyeIcon}
-                        className="showHide-icon toggled"
+                        className="showHide-icon"
                         onClick={toggleEye}
                     />
                     <ReactSVG
                         src={icons.eyeOffIcon}
-                        className="showHideOff-icon"
+                        className="showHideOff-icon toggled"
                         onClick={toggleEye}
                     />
                 </>
