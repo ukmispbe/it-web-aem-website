@@ -1,3 +1,5 @@
+import DigitalData from "../scripts/DigitalData";
+
 const keys = {
     loggedInStatus: 'WatersLoginCookie',
     greeting: 'WatersGreetingCookie',
@@ -26,12 +28,10 @@ const cookieStore = {
     getGreeting: () => { getCookie(keys.greeting) },
     getSoldToStatus: () => { getCookie(keys.soldToStatus) },
     setLocale: () => {
-        const country = window.digitalData.page.country;
-        if(country==="XG"){
+        if(DigitalData.country===DigitalData.globalExperience){
             return;
         }
-        const language = window.digitalData.page.language;
-        const locale = `${language}_${country}`;
+        const locale = `${DigitalData.language}_${DigitalData.country}`;
         const cookieName = keys.locale;
         const existingCookie = getCookie(cookieName);
         if(!existingCookie || existingCookie!==locale) {
