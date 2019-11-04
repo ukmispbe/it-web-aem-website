@@ -52,6 +52,30 @@ HybrisImporter.Audit = function () {
                     $('td:eq(1)', row).html(data.success ? 'Yes' : 'No');
                 }
             });
+        },
+        
+        replicate: function () {
+            var auditRecordTable = $('.importer-audit-record');
+            var auditRecordPath = auditRecordTable.data('path');
+            var replicateButton = $('#replicate-button');
+
+            replicateButton.text("Replicating...");
+            replicateButton.attr("disabled", true);
+            var start = Date.now();
+
+            $.ajax({
+                url: '/bin/importer/replicate.json' + auditRecordPath,
+                method: "POST"
+            })
+            .done(function (data) {
+                replicateButton.text("Replication completed in " + (Date.now() - start) + "ms.");
+                replicateButton.removeClass('btn-primary').addClass('btn-success');
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.log("Replication failed", errorThrown);
+                replicateButton.text("Replication failed");
+                replicateButton.removeClass('btn-primary').addClass('btn-danger');
+            })
         }
     };
 }();
