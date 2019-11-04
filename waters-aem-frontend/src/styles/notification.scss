@@ -39,6 +39,8 @@
 
     &--sitewide {
         background-color: $color-blue-10;
+        padding-left: 0px;
+        padding-right: 0px;
     }
 
     &-dismiss {
@@ -170,4 +172,8 @@
             }
         }
     }
+}
+
+.container-sitewide-notification {
+    background-color: $color-blue-10;
 }

@@ -66,7 +66,7 @@ function render() {
 
 const handleSystemWideNotificationDismiss = () => {
     const parent = document.querySelector('.cmp-header');
-    const notification = parent.querySelector('.cmp-notification--sitewide');
+    const notification = parent.querySelector('.container-sitewide-notification');
 
     if(parent && notification) {
         parent.removeChild(notification);

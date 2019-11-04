@@ -15,8 +15,26 @@ const SystemWideNotification = function(service, onDismiss) {
 
         return {
             visible: true,
-            element: createWrapper()
+            element: createFullWidthContainer()
         };
+    }
+
+    function createFullWidthContainer() {
+        const element = document.createElement('div');
+        element.classList.add('container-sitewide-notification');
+
+        element.appendChild(createPageContainer());
+
+        return element;
+    }
+
+    function createPageContainer() {
+        const element = document.createElement('div');
+        element.classList.add('container');
+
+        element.appendChild(createWrapper());
+
+        return element;
     }
 
     function createWrapper() {
