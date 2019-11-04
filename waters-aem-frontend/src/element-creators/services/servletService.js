@@ -1,10 +1,9 @@
-import {digitalDataDefaults} from "../../scripts/DigitalData";
 import DateRange from "../../scripts/dateRange";
 
 const basePath = "/bin/waters/";
 
 const ServletService = {
-  getSystemWideNotification: async function(language = digitalDataDefaults.language) {
+  getSystemWideNotification: async function(language) {
     return this.fetchSystemWideNotification(language)
       .then(data => this.mapSystemWideNotification(data))
       .catch(error => {
