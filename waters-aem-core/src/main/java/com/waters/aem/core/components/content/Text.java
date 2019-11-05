@@ -82,7 +82,7 @@ public final class Text implements com.adobe.cq.wcm.core.components.models.Text,
 
     @Override
     public boolean isRichText() {
-        return delegate.isRichText();
+        return sku != null || delegate.isRichText();
     }
 
     @Override
