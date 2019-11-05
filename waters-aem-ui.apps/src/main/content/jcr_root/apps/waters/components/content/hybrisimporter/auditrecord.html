@@ -19,6 +19,8 @@
                 <li>${importerAudit.auditRecord.productStatusCounts['UPDATED']} products updated</li>
                 <li>${importerAudit.auditRecord.productStatusCounts['DELETED']} products deleted</li>
             </ul>
+
+            <button type="submit" id="replicate-button" class="btn btn-primary" onclick="HybrisImporter.Audit.replicate()">Replicate</button>
         </div>
 
         <table class="table table-striped importer-audit-record" data-path="${importerAudit.auditRecord.path}">

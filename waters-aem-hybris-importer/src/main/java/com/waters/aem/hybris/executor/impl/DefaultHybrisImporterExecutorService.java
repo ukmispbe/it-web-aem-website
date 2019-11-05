@@ -87,7 +87,7 @@ public final class DefaultHybrisImporterExecutorService implements HybrisImporte
             }
 
             if (options.isReplicate()) {
-                replicationService.replicate(results);
+                replicationService.replicate(results, false);
             }
 
             return new HybrisImporterExecutionResult(results, duration);
