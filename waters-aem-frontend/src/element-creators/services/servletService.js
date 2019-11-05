@@ -14,7 +14,7 @@ const ServletService = {
       });
   },
   fetchSystemWideNotification: async function(language) { 
-    return fetch(`${basePath}notifications.${language}.json`).then(response => response.json())
+    return fetch(`${basePath}notifications.${language}.json`).then(response => response.json(), { method: 'GET' })
   },
   mapSystemWideNotification: function(data) {
       return {
