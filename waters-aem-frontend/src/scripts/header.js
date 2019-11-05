@@ -2,17 +2,20 @@ import domElements from '../scripts/domElements';
 import loginStatus from '../scripts/loginStatus';
 import MobileNav from '../scripts/mobileNav';
 import ScreenSizes from '../scripts/screenSizes';
+import cookieStore from '../stores/cookieStore';
 import ServletService from '../element-creators/services/servletService';
 import SystemWideNotification from '../element-creators/systemWideNotification';
 import SessionStore from '../stores/sessionStore';
 import inlineSVG from '../scripts/inlineSVG';
 
 const sessionStore = new SessionStore();
+
 let headerTB, headerTB_user, headerTB_user_link_greetingText,  headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, headerNavigation_mainUL;
 
 const headerInit = function() {
     domReferences();
     addEventListeners();
+    cookieStore.setLocale();
     render();
     renderSystemWideNotification();
 }
