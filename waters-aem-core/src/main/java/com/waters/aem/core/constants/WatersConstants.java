@@ -21,6 +21,8 @@ public final class WatersConstants {
 
     public static final String DAM_PATH = "/content/dam/waters";
 
+    public static final String SYSTEM_NOTIFICATION_PATH = "/etc/waters/notifications/system-notification";
+
     public static final String DAM_PATH_APP_NOTES = "/content/dam/waters/en/app-notes/";
 
     public static final String RESOURCE_TYPE_PAGE = "waters/components/structure/page";
