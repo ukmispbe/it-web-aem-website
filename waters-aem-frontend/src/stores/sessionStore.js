@@ -2,7 +2,8 @@ const keys = {
     previousPagePosition: 'waters.previousPagePosition',
     fromSearchURL: 'waters.fromSearchURL',
     searchTabHistory: 'waters.searchTabHistory',
-    previousPaginationClick: 'waters.previousPaginationClick'
+    previousPaginationClick: 'waters.previousPaginationClick',
+    dismissSystemWideNotification: 'waters.dismissSystemWideNotification'
 }
 
 const getJSONObject = key => {
@@ -23,6 +24,8 @@ const SessionStore = function() {
     this.setPreviousPaginationClick = value => window.sessionStorage.setItem(keys.previousPaginationClick, value);
     this.getPreviousPaginationClick = () => window.sessionStorage.getItem(keys.previousPaginationClick);
     this.removePreviousPaginationClick = () => window.sessionStorage.removeItem(keys.previousPaginationClick);
+    this.setDismissSystemWideNotification = () => window.sessionStorage.setItem(keys.dismissSystemWideNotification, "Y");
+    this.getDismissSystemWideNotificatiopn =() => window.sessionStorage.getItem(keys.dismissSystemWideNotification);
 }
 
 export default SessionStore;

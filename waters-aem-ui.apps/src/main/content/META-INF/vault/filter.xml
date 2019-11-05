@@ -11,5 +11,6 @@
     <filter root="/etc/notification/email/waters"/>
     <filter root="/etc/waters">
         <exclude pattern="/etc/waters/hybris-importer/jcr:content/(.*)?"/>
+        <exclude pattern="/etc/waters/notifications/system-notification(/.*)?"/>
     </filter>
-</workspaceFilter> 
+</workspaceFilter>

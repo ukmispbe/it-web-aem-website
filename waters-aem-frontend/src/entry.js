@@ -22,6 +22,8 @@ import './scripts/skulist';
 import './index';
 
 import cssVars from 'css-vars-ponyfill';
+import analytics from './scripts/analytics';
+import inlineSVG from './scripts/inlineSVG';
 
 const japanTheme = {
     "--font-weight-light": "lighter",
@@ -36,19 +38,7 @@ cssVars({
     include: 'style,link[rel="stylesheet"]:not([href*="//"])'
 });
 
-var inlineSVG = require('inline-svg');
-
-try {
-    inlineSVG.init(
-        {
-            svgSelector: 'img.inline-svg', // the class attached to all images that should be inlined
-            initClass: 'svg-inlined', // class added to <html>
-        },
-        function() {}
-    );
-} catch (e) {
-    // console.log(e);
-}
+inlineSVG.init('img.inline-svg', 'svg-inlined');
 
 function addEllipses() {
     const desc = document.querySelectorAll('.cmp-list__item-description-text');

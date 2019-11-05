@@ -1,3 +1,5 @@
+import inlineSVG from '../scripts/inlineSVG';
+
 class Analytics {
     constructor() {
         this.analyticTypes = {
@@ -19,14 +21,14 @@ class Analytics {
 
     setAnalytics = (name, obj) => { 
         const thisAnalyticEvent = this.analyticTypes[name];
-        if (thisAnalyticEvent) { 
+        if (thisAnalyticEvent) { 
             const newModel = this.buildModel(name, obj);
             if (newModel) { 
-                this.dispatchEvent(thisAnalyticEvent.event, newModel)
+                this.dispatchEvent(thisAnalyticEvent.event, newModel)
             }
-        }
+        }
     }
- 
+ 
     buildModel = (name, model) => {
         let returnModel = null;
 
@@ -81,13 +83,13 @@ class Analytics {
     }
 
     dispatchEvent = (eventName, obj) => {
-        console.log('dispatched', eventName, obj);
         document.dispatchEvent(new CustomEvent(eventName, obj));
     }
 }
+
 
 const analytics = new Analytics()
     
 export default analytics;
 export const analyticTypes = analytics.analyticTypes;
-export const [ mainCartContext, searchCartContext, relatedCartContext ] = analytics.analyticTypes.cart.context;
+export const [mainCartContext, searchCartContext, relatedCartContext] = analytics.analyticTypes.cart.context;
