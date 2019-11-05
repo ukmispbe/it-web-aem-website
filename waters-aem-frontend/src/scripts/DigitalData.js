@@ -1,4 +1,5 @@
 const DigitalData = {
+
   get globalExperience() { 
     return 'XG';
   },
