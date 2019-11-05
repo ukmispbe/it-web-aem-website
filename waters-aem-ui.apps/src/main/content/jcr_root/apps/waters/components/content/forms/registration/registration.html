@@ -6,7 +6,7 @@
                 "disclaimerText": "${'By clicking Create Account button you are agreeing to our' @ i18n, context='scriptString'}",
                 "termsAndConditionsText": "${'Terms and Conditions' @ i18n, context='scriptString'}",
                 "termsAndConditionsLink": "${registration.termsAndConditionsLink.href @ context='unsafe'}",
-                "termsAndConditionsBlank": ${registration.newWindow @ context='unsafe'},
+                "termsAndConditionsBlank": "${registration.newWindow @ context='unsafe'}",
                 "buttonText": "${'Create Account' @ i18n, context='scriptString'}",
                 "icons": {
                     "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
@@ -39,7 +39,7 @@
                         "label": "${'First Name' @ i18n, context='scriptString'}",
                         "validation": {
                             "required": true,
-                            "validateFnName": "noWhitespaceOrSpecialChars",
+                            "validateFnName": "noWhitespaceOnly",
                             "validationMsg": "${'Please enter a valid first name.' @ i18n, context='scriptString'}",
                             "requiredMsg": "${'Please enter a valid first name.' @ i18n, context='scriptString'}"
                         }
@@ -50,7 +50,7 @@
                         "label": "${'Last Name' @ i18n, context='scriptString'}",
                         "validation": {
                             "required": true,
-                            "validateFnName": "noWhitespaceOrSpecialChars",
+                            "validateFnName": "noWhitespaceOnly",
                             "validationMsg": "${'Please enter a valid last name.' @ i18n, context='scriptString'}",
                             "requiredMsg": "${'Please enter a valid last name.' @ i18n, context='scriptString'}"
                         }
@@ -72,7 +72,7 @@
                         "label": "${'Country' @ i18n, context='scriptString'}",
                         "placeholder": "${'Select...' @ i18n, context='scriptString'}",
                         "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
-                        "options": ${registration.countriesJson @ context="unsafe"},
+                        "options": "${registration.countriesJson @ context="unsafe"}",
                         "validation": {
                             "required": true,
                             "requiredMsg": "${'Please select your country.' @ i18n, context='scriptString'}"
