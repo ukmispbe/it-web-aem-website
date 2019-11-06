@@ -281,6 +281,10 @@
             &.toggled {
                 display: block;
             }
+
+            @include tablet-and-under {
+                display: block;
+            }
         }
 
         input[type="checkbox"] {
