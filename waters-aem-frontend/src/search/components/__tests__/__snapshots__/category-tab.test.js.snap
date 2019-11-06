@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: CategoryTab React Component Scenario: Rendering When the screen size is desktop and tab is active Then is should render the component and match snapshot 1`] = `
+<div
+  className="cmp-search__categories-tabs--tab active"
+  onClick={[Function]}
+>
+  <span
+    className="cmp-search__categories-tabs--tab-name"
+  >
+    Tab1
+  </span>
+</div>
+`;
+
+exports[`Feature: CategoryTab React Component Scenario: Rendering When the screen size is desktop and tab is inactive Then is should render the component and match snapshot 1`] = `
+<div
+  className="cmp-search__categories-tabs--tab"
+  onClick={[Function]}
+>
+  <span
+    className="cmp-search__categories-tabs--tab-name"
+  >
+    Tab1
+  </span>
+</div>
+`;
+
+exports[`Feature: CategoryTab React Component Scenario: Rendering When the screen size is tablet or mobile Then it should not render anything and match snapshot 1`] = `null`;
