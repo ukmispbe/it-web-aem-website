@@ -5,8 +5,13 @@
             {
                 "modules": false,
                 "targets": {
-                    "ie": 11,
-                    "browsers": "last 2 versions"
+                    "browsers": [
+                        ">0.2%",
+                        "not dead",
+                        "not ie <= 11",
+                        "not op_mini all",
+                        "since 2010"
+                    ]
                 }
             }
         ],

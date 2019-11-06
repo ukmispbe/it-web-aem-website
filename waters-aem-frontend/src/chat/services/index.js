@@ -24,7 +24,7 @@ class ChatService {
     getData(url){
         return new Promise((resolve, reject) => {
             window
-                .fetch(url, { method: 'GET' })
+                .fetch(url)
                 .then(this.checkFetch)
                 .then(response => {
                     resolve(response.json())
