@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import useForm from "react-hook-form/dist/react-hook-form.ie11";
 import Input from "./fields/input";
 import Radio from "./fields/radio";
@@ -39,6 +39,8 @@ const Form = ({ config, submitFn, isocode }) => {
     const checkIfDisabled = () => {
         return !formState.isValid;
     };
+
+    const [submissionError, setSubmissionError] = useState();
 
     const f = config.fields.map((field, i) => {
         const Component = formType[field.type];
@@ -92,7 +94,10 @@ const Form = ({ config, submitFn, isocode }) => {
         <form
             className="cmp-form cmp-form--registration"
             onSubmit={handleSubmit(
-                submitFn.bind({ url: config.submitEndpoint })
+                submitFn.bind({
+                    url: config.submitEndpoint,
+                    setError: setSubmissionError
+                })
             )}>
             {f}
             <button
@@ -104,9 +109,20 @@ const Form = ({ config, submitFn, isocode }) => {
                 disabled={checkIfDisabled()}>
                 {config.buttonText}
             </button>
+            {submissionError ? (
+                <div className="cmp-form__submission-error">
+                    {submissionError.message}
+                </div>
+            ) : (
+                "hello"
+            )}
+
             <div className="cmp-form__disclaimer">
                 {config.disclaimerText + " "}
-                <a href={config.termsAndConditionsLink} target={config.termsAndConditionsBlank ? "_blank" : ""} rel="noopener">
+                <a
+                    href={config.termsAndConditionsLink}
+                    target={config.termsAndConditionsBlank ? "_blank" : ""}
+                    rel="noopener">
                     {config.termsAndConditionsText}
                 </a>
             </div>

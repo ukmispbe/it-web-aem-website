@@ -165,15 +165,15 @@ export const functions = {
             const newEmail = myService
                 .checkEmail(value)
                 .then(response => {
-                    if (response) {
+                    if (response.isregistereduser) {
                         // Display Sign In span
-                        setError(
-                            "alreadyRegistered",
-                            "alreadyRegistered",
-                            invalidMsg,
-                            ref
-                        );
-                        return false;
+                        // setError(
+                        //     "alreadyRegistered",
+                        //     "alreadyRegistered",
+                        //     invalidMsg,
+                        //     ref
+                        // );
+                        return true;
                     }
 
                     ref.classList.remove("error");
@@ -182,13 +182,13 @@ export const functions = {
                     return true;
                 })
                 .catch(err => {
-                    setError(
-                        "alreadyRegistered",
-                        "alreadyRegistered",
-                        err,
-                        ref
-                    );
-                    return false;
+                    // setError(
+                    //     "alreadyRegistered",
+                    //     "alreadyRegistered",
+                    //     err,
+                    //     ref
+                    // );
+                    return true;
                 });
 
             return newEmail;
