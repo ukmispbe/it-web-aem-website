@@ -31,11 +31,13 @@
         <meta name="robots" content="${metaPage.robotsTags @ join=', '}">
     </sly>
 
-    <link rel="canonical" href="${metaPage.canonicalUrl}">
+    <sly data-sly-test="${!metaPage.noIndex}">
+        <link rel="canonical" href="${metaPage.canonicalUrl}">
 
-    <link data-sly-repeat.hrefLang="${metaPage.hrefLangItems}" rel="alternate" href="${hrefLang.href}"
-          hreflang="${hrefLang.languageTag}" />
-    <link rel="alternate" href="${metaPage.defaultHreflang}" hreflang="x-default" />
+        <link data-sly-repeat.hrefLang="${metaPage.hrefLangItems}" rel="alternate" href="${hrefLang.href}"
+              hreflang="${hrefLang.languageTag}" />
+        <link rel="alternate" href="${metaPage.defaultHreflang}" hreflang="x-default" />
+    </sly>
 
     <link rel="icon" sizes="192x192" href="/etc.clientlibs/waters/clientlibs/clientlib-resources/resources/icon-192x192.png">
 
