@@ -1,4 +1,5 @@
 .cmp-form {
+
     .cmp-form__disclaimer {
         @include font-utility;
         display: block;
@@ -11,9 +12,18 @@
     }
 
     &--submit {
+        font-family: $font-stack;
+        font-weight: var(--font-weight-light);
+        line-height: $line-height-text;
+        letter-spacing: 0.02em;
+        margin-bottom: $space-s;
+        margin-top: 0;
+        font-size: $font-size-body;
+
         @include tablet-and-over{
             width: auto;
         }
+
         &.cmp-button--disabled {
             background-color: #9ca7b0 !important;
             cursor: default;
@@ -25,10 +35,10 @@
     .cmp-form-field {
         float: left;
         width: 100%;
-        margin-bottom: $space-s;
+        margin-bottom: ($space-m - $space-xxxs);
 
         &.cmp-form-field-dropdown {
-            width: 50%;
+            width: 65%;
 
             @include mobile {
                 width: 100%;
@@ -38,14 +48,14 @@
         label {
             display: block;
             @include font-h4;
-            margin-bottom: $space-xxxs;
+            margin-bottom: $space-xxs;
 
             .cmp-form-field--optional {
                 @include font-small;
             }
 
             &.cmp-form-field--label-matching {
-                margin-top: $space-s;
+                margin-top: ($space-m - $space-xxxs);
             }
         }
 
@@ -76,8 +86,9 @@
 
         input {
             border: 1px solid $color-border-light;
-            line-height: $line-height-text;
+            @include font-body;
             width: 100%;
+            margin-bottom: 0;
             padding: $space-xs;
         }
 
@@ -263,7 +274,8 @@
 
             .requirements-title {
                 display: block;
-                @include font-h4;
+                @include font-body;
+                margin-bottom: $space-xxs;
             }
 
             &.toggled {
@@ -383,5 +395,14 @@
         &--is-focused {
             color: $color-blue-50;
         }
+    }
+
+    .cmp-custom-dropdown__input {
+        margin-top: 0;
+    }
+
+    .cmp-form-field-captcha {
+        margin-top: $space-s;
+        margin-bottom: $space-xl;
     }
 }

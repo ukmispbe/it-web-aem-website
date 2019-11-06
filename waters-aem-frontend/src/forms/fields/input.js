@@ -178,7 +178,7 @@ const Input = ({
             onIcon.classList.toggle("toggled");
             offIcon.classList.toggle("toggled");
 
-            type = onIcon.classList.contains("toggled") ? "text" : "password";
+            type = offIcon.classList.contains("toggled") ? "text" : "password";
             parent.parentNode.querySelector("input").type = type;
         }
     };
@@ -326,13 +326,13 @@ const Input = ({
                 <>
                     <ReactSVG
                         src={icons.eyeIcon}
-                        className="showHide-icon"
-                        onClick={toggleEye}
+                        className="showHide-icon toggled"
+                        onMouseDown={toggleEye}
                     />
                     <ReactSVG
                         src={icons.eyeOffIcon}
-                        className="showHideOff-icon toggled"
-                        onClick={toggleEye}
+                        className="showHideOff-icon"
+                        onMouseDown={toggleEye}
                     />
                 </>
             ) : (
@@ -432,7 +432,7 @@ const Input = ({
         return (
             <div className="cmp-form-field--input-requirements">
                 <div className="requirements-title">
-                    Your password must include
+                    {validation.requirementsLabel}
                 </div>
                 {renderRequirementFields(validation.requirements)}
             </div>

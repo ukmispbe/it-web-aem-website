@@ -23,6 +23,11 @@ $color-gray-40: lighten(#4f5b64, 30%);
 $color-gray-50: #4f5b64;
 $color-black: darken(#4f5b64, 15%);
 
+// Error Red
+$color-red-10: desaturate(lighten(#E60F33, 50), 16);
+$color-red-20: lighten(#E60F33, 40);
+$color-red-50: #E60F33;
+
 // Color Use-specific
 $color-font-dark: $color-black;
 $color-font-medium: $color-gray-50;
@@ -40,7 +45,7 @@ $color-background-light: $color-gray-10;
 $color-background-dark: $color-gray-50;
 $color-icon: $color-gray-50;
 $color-success: $color-teal-30;
-$color-error: #e60f33;
+$color-error: $color-red-50;
 $color-focus: $color-blue-30;
 
 //FONTS
