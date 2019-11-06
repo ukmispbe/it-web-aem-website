@@ -7,6 +7,7 @@ import Dropdown from "./fields/dropdown";
 import Hr from "./fields/hr";
 import FieldValidationDisplay from "./components/field-validation-display";
 import Captcha from "./fields/captcha";
+import ErrorBoundary from "../search/ErrorBoundary";
 
 const formType = {
     text: Input,
@@ -21,7 +22,14 @@ const formType = {
     captcha: Captcha
 };
 
-const Form = ({ config, submitFn, isocode }) => {
+const Form = ({
+    config,
+    submitFn,
+    isocode,
+    setErrorBoundaryToTrue,
+    resetErrorBoundaryToFalse,
+    removeNotification
+}) => {
     const {
         register,
         handleSubmit,
@@ -41,6 +49,17 @@ const Form = ({ config, submitFn, isocode }) => {
     };
 
     const [submissionError, setSubmissionError] = useState();
+
+    const submitErrorHandler = res => {
+        if (res) {
+            setSubmissionError(res);
+            setErrorBoundaryToTrue();
+        } else {
+            setSubmissionError(null);
+            resetErrorBoundaryToFalse();
+            removeNotification();
+        }
+    };
 
     const f = config.fields.map((field, i) => {
         const Component = formType[field.type];
@@ -96,7 +115,7 @@ const Form = ({ config, submitFn, isocode }) => {
             onSubmit={handleSubmit(
                 submitFn.bind({
                     url: config.submitEndpoint,
-                    setError: setSubmissionError
+                    setError: submitErrorHandler
                 })
             )}>
             {f}
@@ -130,4 +149,10 @@ const Form = ({ config, submitFn, isocode }) => {
     );
 };
 
-export default Form;
+const ErrorBoundaryForm = props => (
+    <ErrorBoundary>
+        <Form {...props} />
+    </ErrorBoundary>
+);
+
+export default ErrorBoundaryForm;
