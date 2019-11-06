@@ -53,7 +53,7 @@ class SearchService {
         const searchString = `${this.path}?${paramString}`;
 
         return window
-            .fetch(searchString, { method: 'GET' })
+            .fetch(searchString)
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -79,7 +79,7 @@ class SearchService {
         )}?${paramString}`;
 
         return window
-            .fetch(searchString, { method: 'GET' })
+            .fetch(searchString)
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -110,7 +110,7 @@ class SearchService {
             encodeURIComponent(contentTypeValue)
         )}?${paramString}`;
 
-        return window.fetch(searchString, { method: 'GET' }).then(response => {
+        return window.fetch(searchString).then(response => {
             if (response.ok) {
                 return response.json();
             } else {
@@ -144,7 +144,7 @@ class SearchService {
             encodeURIComponent(contentTypeValue)
         )}${facetString}?${paramString}`;
 
-        return window.fetch(searchString, { method: 'GET' }).then(response => {
+        return window.fetch(searchString).then(response => {
             if (response.ok) {
                 return response.json();
             } else {
@@ -157,7 +157,7 @@ class SearchService {
     getSuggestedKeywords = async (rows, term) => {
         const searchString = `${this.path}/v1/autocomplete?term=${term}&rows=${rows}&isocode=${this.options.isocode}`;
 
-        const callService = window.fetch(searchString, { method: 'GET' }).then(response => {
+        const callService = window.fetch(searchString).then(response => {
             if (response.ok) {
                 return response.json();
             } else {
