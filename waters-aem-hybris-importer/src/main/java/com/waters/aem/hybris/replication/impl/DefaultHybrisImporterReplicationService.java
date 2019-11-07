@@ -59,7 +59,7 @@ public final class DefaultHybrisImporterReplicationService implements HybrisImpo
     private volatile int limitThreshold;
 
     @Override
-    public void replicate(final List<HybrisImporterResult> results) {
+    public void replicate(final List<HybrisImporterResult> results, final boolean force) {
         // filter out language master pages from replication
         final List<HybrisImporterResult> filteredResults = results.stream()
                 .filter(result -> !isLanguageMasterPage(result.getPath()))
@@ -68,7 +68,7 @@ public final class DefaultHybrisImporterReplicationService implements HybrisImpo
         final Map<HybrisImportStatus, List<HybrisImporterResult>> groupedResults = filteredResults.stream().collect(
             Collectors.groupingBy(HybrisImporterResult :: getStatus));
 
-        if (limit && filteredResults.size() > limitThreshold) {
+        if (!force && limit && filteredResults.size() > limitThreshold) {
             // don't automatically activate if threshold limit is reached
             LOG.debug("hybris item activation limit exceeded with {} items. sending notification",
                     filteredResults.size());

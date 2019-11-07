@@ -82,6 +82,7 @@
         "workbox-webpack-plugin": "3.6.3"
     },
     "dependencies": {
+        "@brightcove/react-player-loader": "^1.3.0",
         "core-js": "^3.1.4",
         "css-vars-ponyfill": "^2.1.2",
         "hammerjs": "^2.0.8",

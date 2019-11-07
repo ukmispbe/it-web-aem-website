@@ -258,8 +258,8 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
 
         properties.put(WatersCommerceConstants.PROPERTY_CODE, product.getCode());
         properties.put(WatersCommerceConstants.PROPERTY_NAME, product.getName());
-        properties.put(WatersCommerceConstants.PROPERTY_SHORT_DESCRIPTION, product.getDescription());
-        properties.put(WatersCommerceConstants.PROPERTY_LONG_DESCRIPTION, product.getSummary());
+        properties.put(WatersCommerceConstants.PROPERTY_SHORT_DESCRIPTION, product.getSummary());
+        properties.put(WatersCommerceConstants.PROPERTY_LONG_DESCRIPTION, product.getDescription());
         properties.put(WatersCommerceConstants.PROPERTY_SALES_STATUS, product.getSalesStatus().toString());
         properties.put(WatersCommerceConstants.PROPERTY_CATEGORIES, product.getCategories()
             .stream()
@@ -356,8 +356,12 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
                     properties.put(WatersCommerceConstants.PROPERTY_FACET, feature.getFacet());
                     properties.put(WatersCommerceConstants.PROPERTY_UNIT_NAME, feature.getFeatureUnit() == null ? null :
                             feature.getFeatureUnit().getName());
-                    properties.put(WatersCommerceConstants.PROPERTY_UNIT_SYMBOL, feature.getFeatureUnit() == null ? null :
-                            feature.getFeatureUnit().getSymbol());
+                    properties.put(WatersCommerceConstants.PROPERTY_UNIT_SYMBOL, feature.getFeatureValues()
+                            .stream()
+                            .findFirst()
+                            .filter(featureValue -> featureValue.getFeatureUnitValue() != null)
+                            .map(featureValue -> featureValue.getFeatureUnitValue().getValue())
+                            .orElse(null));
                     properties.put(WatersCommerceConstants.PROPERTY_FEATURE_VALUES, feature.getFeatureValues()
                             .stream()
                             .sorted(Comparator.comparing(featureValue -> featureValue.getPosition() == null ? 0 :
