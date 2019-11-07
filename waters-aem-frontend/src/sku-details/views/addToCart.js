@@ -3,6 +3,8 @@ import ReactSVG from 'react-svg';
 import Utilities from '../utils/utils';
 import SkuService from '../services/index';
 import SkuList from '../../scripts/skulist';
+import Analytics, { analyticTypes } from '../../scripts/analytics';
+
 
 class AddToCart extends React.Component {
     constructor(props) {
@@ -51,6 +53,7 @@ class AddToCart extends React.Component {
             .addToCart(this.state.skuNumber, this.state.addToCartQty)
             .then(response => {
                 this.state.toggleParentModal(true);
+                this.addToCartAnalytics(response);
             })
             .catch(err => {
                 this.setState({ errorObj: err });
@@ -80,6 +83,41 @@ class AddToCart extends React.Component {
             addToCartQty: value,
         });
     };
+
+    addToCartAnalytics = (response) => { 
+
+        const addToCartModel = {
+            addContext: this.props.analyticsConfig.context,
+            name: this.props.analyticsConfig.name,
+            price: this.props.analyticsConfig.price,
+            quantity: this.state.addToCartQty.toString(),
+            sku: this.state.skuNumber,
+            
+        };
+
+        if (typeof response == 'boolean') { 
+            addToCartModel.success = response.toString()
+        }
+
+        if (this.props.analyticsConfig.hasOwnProperty('availableDate')) {
+            if (this.props.analyticsConfig.availableDate) {
+                addToCartModel.stockDate = this.props.analyticsConfig.availableDate;
+            }
+        }   
+        
+        if (this.props.analyticsConfig.hasOwnProperty('availableQuantity')) {
+            if (this.props.analyticsConfig.availableQuantity) {
+                addToCartModel.stockQuantity = this.props.analyticsConfig.availableQuantity.toString();
+            }
+        }
+        if (this.props.analyticsConfig.hasOwnProperty('productStatus')) {
+            if (this.props.analyticsConfig.productStatus) {
+                addToCartModel.stockMessage = this.props.analyticsConfig.productStatus;
+            }
+        }
+
+        Analytics.setAnalytics(analyticTypes.cart.name, addToCartModel);
+    }
 
     render() {
         return (
