@@ -54,11 +54,13 @@
         }
     }
 
-    &__feature-wrapper--signin {
-        display: flex;
-        flex-wrap: wrap;
-
+    &--signin {
         .cmp-features__feature {
+            &-optionals {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
             &-title {
                 order: 0;
                 display: block;
@@ -70,32 +72,34 @@
                 display: inline-block;
             }
 
-            &-anchor {
+            &-link {
                 order: 2;
                 display: inline-flex;
+
+                &::before {
+                    display: inline-block;
+                    content: '';
+                    height: (($icon-s + $icon-m) / 2);
+                    width: (($icon-s + $icon-m) / 2);
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-image: url("data:image/svg+xml,%3Csvg version='1.2' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' overflow='visible' preserveAspectRatio='none' viewBox='0 0 26 26' xml:space='preserve' y='0px' x='0px' id='Layer_1_1570645479065' width='16' height='16'%3E%3Cg transform='translate(1, 1)'%3E%3Cstyle type='text/css'%3E .st0_1570645479065%7Bfill:none;stroke:%23000000;stroke-linecap:round;stroke-linejoin:round;%7D .st1_1570645479065%7Bfill:none;stroke:%23000000;stroke-miterlimit:10;%7D%0A%3C/style%3E%3Cpath d='M19.2,20.3v-1.8c0-2-1.5-3.6-3.6-3.6H8.4c-2,0-3.6,1.5-3.6,3.6v1.8' class='st0_1570645479065' style='stroke: rgb(0, 119, 187); stroke-width: 1px;' vector-effect='non-scaling-stroke'/%3E%3Ccircle r='3.6' cy='8.9' cx='12' class='st0_1570645479065' style='stroke: rgb(0, 119, 187); stroke-width: 1px;' vector-effect='non-scaling-stroke'/%3E%3Ccircle r='11' cy='12.1' cx='11.9' class='st1_1570645479065' style='stroke: rgb(0, 119, 187); stroke-width: 1px;' vector-effect='non-scaling-stroke'/%3E%3C/g%3E%3C/svg%3E");
+                    margin-right: $space-xxxs;
+                    position: relative;
+                    top: $space-xxxs;
+
+                    .st0 {
+                        stroke: $color-link;
+                    }
+
+                    .st1 {
+                        stroke: $color-link;
+                    }
+                }
             }
 
             &-icon {
-                order: 1;
-                display: inline-block;
-                height: (($icon-s + $icon-m)/ 2);
-                width: (($icon-s + $icon-m)/ 2);
-                margin: 0 $space-xxxs 0 $space-xxs;
-                position: relative;
-                top: ($space-xxxs - 0.1);
-
-                .st0 {
-                    stroke: $color-link;
-                }
-
-                .st1 {
-                    stroke: $color-link;
-                }
-            }
-
-            &-link {
-                order: 2;
-                display: inline-block;
+                display: none;
             }
         }
 

@@ -2,7 +2,7 @@
      class="cmp-features">
     <ul class="cmp-features__list" data-sly-test="${featuresComponent.features}">
         <li class="cmp-features__feature" data-sly-repeat="${featuresComponent.features}">
-            <div data-sly-test="${!item.signIn}" class="cmp-features__feature-wrapper">
+            <div class="cmp-features__feature-wrapper">
                 <div class="cmp-features__feature-icon-wrapper">
                     <img class="cmp-features__feature-icon ${item.svg ? 'inline-svg' : ''}" data-sly-test="${item.icon}" src="${item.icon}"/>
                 </div>
@@ -13,15 +13,6 @@
                         ${item.linkText}
                     </a>
                 </div>
-            </div>
-
-            <div data-sly-test="${item.signIn}" class="cmp-features__feature-wrapper--signin">
-                <div class="cmp-features__feature-title" data-sly-test="${item.title}">${item.title}</div>
-                <div class="cmp-features__feature-desc" data-sly-test="${item.description}">${item.description}</div>
-                <a class="cmp-features__feature-anchor" href="${item.linkPath.href}" data-sly-test="${item.linkPath}" target="${item.external ? '_blank' : ''}">
-                    <img class="cmp-features__feature-icon ${item.svg ? 'inline-svg' : ''}" data-sly-test="${item.icon}" src="${item.icon}"/>
-                    <div class="cmp-features__feature-link" data-sly-test="${item.linkText}">${item.linkText}</div>
-                </a>
             </div>
         </li>
     </ul>
