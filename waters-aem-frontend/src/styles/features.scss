@@ -1,0 +1,42 @@
+.cmp-features {
+    padding-top: $space-l;
+
+    &__feature {
+        list-style: none;
+        margin-bottom: $space-l;
+
+        &-icon {
+            height: $icon-l;
+            width: $icon-l;
+            color: $color-icon;
+            margin-bottom: $space-xxs;
+        }
+
+        &-title {
+            @include font-h3;
+            margin-bottom: 0;
+        }
+
+        &-desc {
+            @include font-body;
+            margin-bottom: $space-s;
+        }
+
+        &-link {
+            @include font-body;
+            color: $color-link;
+        }
+    }
+
+    &--left {
+        .cmp-features__feature-wrapper {
+            display: grid;
+            grid-template-columns: ($icon-l + $space-xs) 1fr;
+
+            &-icon {
+                margin-left: $space-xs;
+                margin-bottom: 0;
+            }
+        }
+    }
+}
