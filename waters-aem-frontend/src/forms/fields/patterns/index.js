@@ -72,6 +72,7 @@ export const functions = {
                 ref: ref
             });
         } else {
+            validations++;
             clearError("shortPassword");
         }
 
@@ -131,7 +132,7 @@ export const functions = {
             setError(error.name, error.type, error.msg, error.ref);
         });
 
-        if (validations >= 3 && value.length >= 8) {
+        if (validations >= 5 && value.length >= 8) {
             ref.classList.remove("error");
             ref.classList.add("valid");
             return true;
@@ -167,13 +168,13 @@ export const functions = {
                 .then(response => {
                     if (response.isregistereduser) {
                         // Display Sign In span
-                        // setError(
-                        //     "alreadyRegistered",
-                        //     "alreadyRegistered",
-                        //     invalidMsg,
-                        //     ref
-                        // );
-                        return true;
+                        setError(
+                            "alreadyRegistered",
+                            "alreadyRegistered",
+                            invalidMsg,
+                            ref
+                        );
+                        return false;
                     }
 
                     ref.classList.remove("error");
@@ -182,13 +183,13 @@ export const functions = {
                     return true;
                 })
                 .catch(err => {
-                    // setError(
-                    //     "alreadyRegistered",
-                    //     "alreadyRegistered",
-                    //     err,
-                    //     ref
-                    // );
-                    return true;
+                    setError(
+                        "alreadyRegistered",
+                        "alreadyRegistered",
+                        err,
+                        ref
+                    );
+                    return false;
                 });
 
             return newEmail;
