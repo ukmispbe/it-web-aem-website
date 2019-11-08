@@ -23,4 +23,7 @@ public @interface WatersAccountServiceConfiguration {
 
     @AttributeDefinition(name = "Email Validation Url", description = "Url for email validation")
     String emailValidationUrl() default "https://dev-www.waters.com:8443/api/waters/user/v1/validate/{email}";
+
+    @AttributeDefinition(name = "Email Validation Url", description = "Url for email validation")
+    String passwordResetnUrl() default "https://test-www.waters.com:8443/api/waters/user/v1/reset/password";
 }

@@ -23,6 +23,8 @@ public class DefaultWatersAccountService implements WatersAccountService {
 
     private volatile String emailValidationUrl;
 
+    private volatile String passwordResetUrl;
+
     @Override
     public String getSignInUrl() {
         return signInUrl;
@@ -53,6 +55,11 @@ public class DefaultWatersAccountService implements WatersAccountService {
         return emailValidationUrl;
     }
 
+    @Override
+    public String getPasswordResetUrl() {
+        return passwordResetUrl;
+    }
+
     @Activate
     @Modified
     protected void activate(final WatersAccountServiceConfiguration configuration) {
@@ -62,5 +69,6 @@ public class DefaultWatersAccountService implements WatersAccountService {
         legacySearchUrl = configuration.legacySearchUrl();
         registrationSubmitUrl = configuration.registrationSubmitUrl();
         emailValidationUrl = configuration.emailValidationUrl();
+        passwordResetUrl = configuration.passwordResetnUrl();
     }
 }

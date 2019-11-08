@@ -43,4 +43,11 @@ public interface WatersAccountService {
      * @return my account URL
      */
     String getEmailValidationUrl();
+
+    /**
+     * Get the configured password reset URL.
+     *
+     * @return my account URL
+     */
+    String getPasswordResetUrl();
 }

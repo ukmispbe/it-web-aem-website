@@ -38,7 +38,7 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH
 
 @Component(value = "Registration Form",
     description = "This is the Registration Form component for Waters site",
-    path = WatersConstants.COMPONENT_PATH_REGISTRATION_FORM,
+    path = WatersConstants.COMPONENT_PATH_FORMS,
     listeners = {
         @Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
         @Listener(name = EVENT_AFTER_MOVE, value = REFRESH_PAGE),
