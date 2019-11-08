@@ -1,6 +1,10 @@
 .cmp-features {
     padding-top: $space-l;
 
+    &__list {
+        padding-left: 0;
+    }
+
     &__feature {
         list-style: none;
         margin-bottom: $space-l;
@@ -8,8 +12,16 @@
         &-icon {
             height: $icon-l;
             width: $icon-l;
-            color: $color-icon;
             margin-bottom: $space-xxs;
+            color: $color-icon;
+
+            .st0 {
+                stroke: $color-icon;
+            }
+
+            .st1 {
+                stroke: $color-icon;
+            }
         }
 
         &-title {
