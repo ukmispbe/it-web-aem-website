@@ -35,7 +35,7 @@ const cookieStore = {
         const cookieName = keys.locale;
         const existingCookie = getCookie(cookieName);
         if(!existingCookie || existingCookie!==locale) {
-            document.cookie = `${cookieName}=${locale}`;
+            document.cookie = `${cookieName}=${locale}; path=/`;
         }
     }
 }
