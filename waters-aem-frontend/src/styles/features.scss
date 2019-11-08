@@ -55,7 +55,17 @@
     }
 
     &--signin {
+        .cmp-features {
+            padding: 0;
+
+            &__list {
+                margin: 0;
+            }
+        }
+
         .cmp-features__feature {
+            margin: 0;
+
             &-optionals {
                 display: flex;
                 flex-wrap: wrap;
@@ -70,6 +80,7 @@
             &-desc {
                 order: 1;
                 display: inline-block;
+                margin: 0;
             }
 
             &-link {
