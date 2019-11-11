@@ -41,7 +41,8 @@ const Form = ({
         clearError,
         triggerValidation
     } = useForm({
-        mode: "onBlur"
+        mode: "onBlur",
+        reValidateMode: "onBlur"
     });
 
     const checkIfDisabled = () => {
@@ -128,13 +129,6 @@ const Form = ({
                 disabled={checkIfDisabled()}>
                 {config.buttonText}
             </button>
-            {submissionError ? (
-                <div className="cmp-form__submission-error">
-                    {submissionError.message}
-                </div>
-            ) : (
-                "hello"
-            )}
 
             <div className="cmp-form__disclaimer">
                 {config.disclaimerText + " "}
