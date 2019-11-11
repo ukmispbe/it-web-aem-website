@@ -40,19 +40,20 @@ $color-accent: $color-teal-30;
 $color-border-light: $color-gray-30;
 $color-border-dark: $color-gray-40;
 $color-border-rule: $color-gray-20;
-$color-border-accent: $color-teal-30;
+$color-border-accent: $color-teal-20;
 $color-background-light: $color-gray-10;
 $color-background-dark: $color-gray-50;
 $color-icon: $color-gray-50;
 $color-success: $color-teal-30;
 $color-error: $color-red-50;
 $color-focus: $color-blue-30;
+$color-videothumbnail-overlay: #2D3439;
 
 //FONTS
 
 // Font Stack
 $font-stack: 'acumin-pro', arial, sans-serif;
-$zh-font-stack: "SimSun", "宋体", "STSong", "华文宋体", arial, sans-serif;
+$zh-font-stack: arial, "SimSun", "宋体", "STSong", "华文宋体", sans-serif;
 $ja-font-stack: "Meiryo UI", "Hiragino Kaku Gothic Pro", "Meiryo", "Yu Gothic", arial, sans-serif;
 
 // Font Size

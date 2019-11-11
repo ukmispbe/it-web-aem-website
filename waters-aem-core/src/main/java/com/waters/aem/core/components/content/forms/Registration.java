@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.form.captcha.CaptchaService;
 import com.waters.aem.core.services.account.WatersAccountService;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Default;
@@ -58,6 +59,9 @@ public class Registration implements ComponentExporter {
 
     @OSGiService
     private WatersAccountService accountService;
+
+    @OSGiService
+    private CaptchaService captchaService;
 
     @DialogField(fieldLabel = "Login Link",
         fieldDescription = "Select or enter the link URL",
@@ -110,6 +114,10 @@ public class Registration implements ComponentExporter {
 
     public String getEmailValidationUrl() {
         return accountService.getEmailValidationUrl();
+    }
+
+    public String getCaptchaSiteKey() {
+        return captchaService.getSiteKey();
     }
 
     private Map<String, Object> getCountryMap(String countryCode) {

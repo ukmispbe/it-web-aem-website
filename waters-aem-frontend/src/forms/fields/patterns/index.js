@@ -72,6 +72,7 @@ export const functions = {
                 ref: ref
             });
         } else {
+            validations++;
             clearError("shortPassword");
         }
 
@@ -131,7 +132,7 @@ export const functions = {
             setError(error.name, error.type, error.msg, error.ref);
         });
 
-        if (validations >= 3 && value.length >= 8) {
+        if (validations >= 5 && value.length >= 8) {
             ref.classList.remove("error");
             ref.classList.add("valid");
             return true;
@@ -165,7 +166,7 @@ export const functions = {
             const newEmail = myService
                 .checkEmail(value)
                 .then(response => {
-                    if (response) {
+                    if (response.isregistereduser) {
                         // Display Sign In span
                         setError(
                             "alreadyRegistered",
