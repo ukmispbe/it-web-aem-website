@@ -8,5 +8,5 @@ public @interface CaptchaServiceConfiguration {
 
     @AttributeDefinition(name = "Site key", description = "The reCAPTCHA site key configured in the Google admin " +
             "console.")
-    String siteKey() default "6LcKW74UAAAAAAYdx2OsuLc5PWixhH3yca8Wr96X";
+    String siteKey() default "6LcoFcIUAAAAAOCX3YwL8pszgVlPxsVB1ModhxRQ";
 }
