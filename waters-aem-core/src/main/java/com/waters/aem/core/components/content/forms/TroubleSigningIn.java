@@ -13,18 +13,18 @@ import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
 import javax.annotation.Nonnull;
 
-@Component(value = "Sign In Trouble",
+@Component(value = "Trouble Signing In",
     description = "This is the Sign In Trouble component for Waters site",
     path = WatersConstants.COMPONENT_PATH_FORMS)
 @Model(adaptables = SlingHttpServletRequest.class,
-    adapters = { SignInTrouble.class, ComponentExporter.class },
-    resourceType = SignInTrouble.RESOURCE_TYPE,
+    adapters = { TroubleSigningIn.class, ComponentExporter.class },
+    resourceType = TroubleSigningIn.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public class SignInTrouble implements ComponentExporter{
+public class TroubleSigningIn implements ComponentExporter{
 
-    public static final String RESOURCE_TYPE = "waters/components/content/forms/signintrouble";
+    public static final String RESOURCE_TYPE = "waters/components/content/forms/troublesigningin";
 
     @OSGiService
     private WatersAccountService accountService;
