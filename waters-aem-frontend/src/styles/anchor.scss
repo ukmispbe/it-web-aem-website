@@ -322,3 +322,10 @@
         overflow-x: auto;
     }
 }
+
+html.modalOpen .cmp-anchor{
+    @include tablet-and-over {
+        position: relative;
+        z-index: -1;
+    }
+}
