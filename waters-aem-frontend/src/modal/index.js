@@ -77,7 +77,7 @@ class Modal extends React.Component {
                                 <ReactSVG src={icon} />
                             </div>
                         )}
-                        <div className="cmp-modal__title-text">{title}</div>
+                        <div className={`cmp-modal__title-text ${this.state.config.screenReader ? "screen-reader-text" : ""}`}>{title}</div>
                     </div>
                 );
             } else {

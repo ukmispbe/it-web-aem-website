@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import useForm from "react-hook-form/dist/react-hook-form.ie11";
 import Input from "./fields/input";
 import Radio from "./fields/radio";
@@ -7,6 +7,7 @@ import Dropdown from "./fields/dropdown";
 import Hr from "./fields/hr";
 import FieldValidationDisplay from "./components/field-validation-display";
 import Captcha from "./fields/captcha";
+import ErrorBoundary from "../search/ErrorBoundary";
 
 const formType = {
     text: Input,
@@ -21,7 +22,14 @@ const formType = {
     captcha: Captcha
 };
 
-const Form = ({ config, submitFn, isocode }) => {
+const Form = ({
+    config,
+    submitFn,
+    isocode,
+    setErrorBoundaryToTrue,
+    resetErrorBoundaryToFalse,
+    removeNotification
+}) => {
     const {
         register,
         handleSubmit,
@@ -38,6 +46,19 @@ const Form = ({ config, submitFn, isocode }) => {
 
     const checkIfDisabled = () => {
         return !formState.isValid;
+    };
+
+    const [submissionError, setSubmissionError] = useState();
+
+    const submitErrorHandler = res => {
+        if (res) {
+            setSubmissionError(res);
+            setErrorBoundaryToTrue();
+        } else {
+            setSubmissionError(null);
+            resetErrorBoundaryToFalse();
+            removeNotification();
+        }
     };
 
     const f = config.fields.map((field, i) => {
@@ -92,7 +113,10 @@ const Form = ({ config, submitFn, isocode }) => {
         <form
             className="cmp-form cmp-form--registration"
             onSubmit={handleSubmit(
-                submitFn.bind({ url: config.submitEndpoint })
+                submitFn.bind({
+                    url: config.submitEndpoint,
+                    setError: submitErrorHandler
+                })
             )}>
             {f}
             <button
@@ -104,9 +128,20 @@ const Form = ({ config, submitFn, isocode }) => {
                 disabled={checkIfDisabled()}>
                 {config.buttonText}
             </button>
+            {submissionError ? (
+                <div className="cmp-form__submission-error">
+                    {submissionError.message}
+                </div>
+            ) : (
+                "hello"
+            )}
+
             <div className="cmp-form__disclaimer">
                 {config.disclaimerText + " "}
-                <a href={config.termsAndConditionsLink} target={config.termsAndConditionsBlank ? "_blank" : ""} rel="noopener">
+                <a
+                    href={config.termsAndConditionsLink}
+                    target={config.termsAndConditionsBlank ? "_blank" : ""}
+                    rel="noopener">
                     {config.termsAndConditionsText}
                 </a>
             </div>
@@ -114,4 +149,10 @@ const Form = ({ config, submitFn, isocode }) => {
     );
 };
 
-export default Form;
+const ErrorBoundaryForm = props => (
+    <ErrorBoundary>
+        <Form {...props} />
+    </ErrorBoundary>
+);
+
+export default ErrorBoundaryForm;

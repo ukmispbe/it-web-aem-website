@@ -32,9 +32,9 @@ public class ProductData {
             productList.add(getProductProperties(sku));
 
             // add related skus
-            productList.addAll(sku.getRelatedSkus().stream()
-            .map(this::getProductProperties)
-            .collect(Collectors.toList()));
+            productList.addAll(sku.getRelatedSkus(siteContext).stream()
+                .map(this::getProductProperties)
+                .collect(Collectors.toList()));
         }
 
         return productList;

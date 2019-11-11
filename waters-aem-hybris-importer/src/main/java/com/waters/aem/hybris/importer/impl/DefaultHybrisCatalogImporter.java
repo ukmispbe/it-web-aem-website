@@ -332,7 +332,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         }
 
         if (status != null) {
-            updateCategoryPageProperties(page, category);
+            updateCategoryPageProperties(page, category, false);
         }
 
         results.add(HybrisImporterResult.fromCategoryPage(page, status));
@@ -392,7 +392,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         for (final PageDecorator liveCopyPage : getLiveCopyPages(categoryPage)) {
-            updateCategoryPageProperties(liveCopyPage, category);
+            updateCategoryPageProperties(liveCopyPage, category, true);
 
             results.add(HybrisImporterResult.fromCategoryPage(liveCopyPage, HybrisImportStatus.UPDATED));
         }
@@ -416,7 +416,8 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         return results;
     }
 
-    private void updateCategoryPageProperties(final PageDecorator page, final Category category)
+    private void updateCategoryPageProperties(final PageDecorator page, final Category category,
+                                              final boolean isLiveCopy)
     throws URISyntaxException {
         final Map<String, Object> updatedProperties = new HashMap<>();
 
@@ -425,7 +426,11 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         // set page redirect properties on category page. to be removed when product pages are imported into AEM.
         updatedProperties.put(HybrisImporterConstants.PROPERTY_REDIRECT_STATUS, HybrisImporterConstants.REDIRECT_STATUS_VALUE);
         updatedProperties.put(HybrisImporterConstants.PROPERTY_SLING_REDIRECT, true);
-        updatedProperties.put(HybrisImporterConstants.PROPERTY_REDIRECT_TARGET, buildSearchUri(category.getId(), page));
+
+        // properties that should only be set on language master pages
+        if (!isLiveCopy) {
+            updatedProperties.put(HybrisImporterConstants.PROPERTY_REDIRECT_TARGET, buildSearchUri(category.getId(), page));
+        }
 
         if (category.getLastModified() != null) {
             updatedProperties.put(WatersCommerceConstants.PROPERTY_LAST_MODIFIED, category.getLastModified());
@@ -444,7 +449,6 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             .setPath(WatersConstants.SEARCH_PAGE_PATH)
             .setParameter("category", "Shop")
             .setParameter("content_type", contentType)
-            .setParameter("isocode", isoCode)
             .setParameter("multiselect", "true")
             .setParameter("page", "1")
             .setParameter("rows", "25")

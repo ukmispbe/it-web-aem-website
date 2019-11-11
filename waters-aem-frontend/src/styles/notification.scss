@@ -11,6 +11,7 @@
         }
 
         svg {
+            display: inline-block;
             height: $icon-m;
             width: $icon-l;
             padding-right: $space-xxs;
@@ -56,7 +57,7 @@
 
     &-title {
         font-weight: $font-weight-bold;
-        padding-right: $space-xxs;
+        padding-right: $space-xxxs;
         display: inline;
 
         @include mobile {
@@ -77,18 +78,6 @@
         @include mobile {
             display: block;
             margin-top: $space-s;
-        }
-    }
-}
-
-.cmp-notification--error {
-    .cmp-notification-wrapper {
-        transition: transform 200ms ease-in-out;
-
-        svg {
-            .st0 {
-                stroke: $color-error;
-            }
         }
     }
 }
@@ -170,6 +159,43 @@
     .cmp-notification-wrapper {
         background-color: $color-red-10;
         border: 1px solid $color-red-20;
+
+        svg {
+            .st0 {
+                stroke: $color-error;
+            }
+        }
+    }
+}
+
+// Style System
+
+.cmp-notification--sitewide {
+    .cmp-notification-wrapper {
+        background-color: $color-blue-10;
+        margin: 0 -30% 0;
+    }
+}
+
+.cmp-notification--left {
+    .cmp-notification-wrapper {
+        justify-content: left;
+        background-color: transparent;
+        padding: 0;
+    }
+}
+
+.cmp-notification--feature {
+    .cmp-notification-wrapper {
+        background-color: transparent;
+        border-top: 1px solid $color-border-accent;
+        border-bottom: 1px solid $color-border-accent;
+    }
+}
+
+.cmp-notification--error {
+    .cmp-notification-wrapper {
+        transition: transform 200ms ease-in-out;
 
         svg {
             .st0 {
