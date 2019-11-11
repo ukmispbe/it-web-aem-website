@@ -4,6 +4,7 @@ import com.day.cq.commons.jcr.JcrConstants;
 import com.google.common.base.Stopwatch;
 import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
 import com.waters.aem.core.utils.TextUtils;
+import com.waters.aem.hybris.audit.HybrisImporterAuditService;
 import com.waters.aem.hybris.client.HybrisClient;
 import com.waters.aem.hybris.constants.HybrisImporterConstants;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
@@ -63,6 +64,9 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
     @Reference
     private HybrisClient hybrisClient;
 
+    @Reference
+    private HybrisImporterAuditService auditService;
+
     @Override
     public List<HybrisImporterResult> importProducts(final Boolean force) {
         final List<HybrisImporterResult> results = new ArrayList<>();
@@ -84,6 +88,14 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
             // set last import date
             productsResource.adaptTo(ModifiableValueMap.class)
                 .put(HybrisImporterConstants.PROPERTY_LAST_IMPORT_DATE, currentImportDate);
+
+            // set the last requested product delta timestamp for audit purposes
+            if (!force) {
+                auditService.setLastRequestedProductDelta(lastImportDate);
+            } else {
+                // delete last request
+                auditService.setLastRequestedProductDelta(null);
+            }
 
             resourceResolver.commit();
 
