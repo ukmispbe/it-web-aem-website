@@ -1,3 +1,5 @@
+import scrollToY from "./../../scripts/scrollTo";
+
 const postData = async (url, data) => {
     const response = await fetch(url, {
         method: "POST",
@@ -8,12 +10,17 @@ const postData = async (url, data) => {
         body: JSON.stringify(data)
     });
 
-    return await response.text();
+    return await response.json();
 };
 
 export async function registrationSubmit(data) {
     delete data.confirmPassword;
     const result = await postData(this.url, data);
 
-    console.log(result);
+    if (result.status === 200) {
+        console.log("registration complete -> redirect", result.json());
+    } else {
+        this.setError(result);
+        scrollToY(0);
+    }
 }

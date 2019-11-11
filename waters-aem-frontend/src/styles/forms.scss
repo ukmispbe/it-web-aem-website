@@ -1,5 +1,4 @@
 .cmp-form {
-
     .cmp-form__disclaimer {
         @include font-utility;
         display: block;
@@ -20,14 +19,14 @@
         margin-top: 0;
         font-size: $font-size-body;
 
-        @include tablet-and-over{
+        @include tablet-and-over {
             width: auto;
         }
 
         &.cmp-button--disabled {
             background-color: #9ca7b0 !important;
             cursor: default;
-            @include tablet-and-over{
+            @include tablet-and-over {
                 width: auto;
             }
         }
@@ -328,7 +327,6 @@
                 border: 1px solid $color-blue-50;
             }
 
-
             &.disabled {
                 border: 1px solid $color-disabled !important;
                 color: $color-disabled !important;
@@ -405,5 +403,12 @@
     .cmp-form-field-captcha {
         margin-top: $space-s;
         margin-bottom: $space-xl;
+    }
+
+    &__submission-error {
+        float: left;
+        clear: both;
+        margin-bottom: $space-l;
+        color: $color-error;
     }
 }
