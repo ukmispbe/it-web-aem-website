@@ -40,7 +40,7 @@
         }
     }
 
-    &--left {
+    &.cmp-features--left {
         .cmp-features__feature {
             &-wrapper {
                 display: grid;
@@ -54,7 +54,7 @@
         }
     }
 
-    &--signin {
+    &.cmp-features--signin {
         .cmp-features {
             padding: 0;
 
