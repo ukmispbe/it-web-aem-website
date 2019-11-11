@@ -67,7 +67,7 @@ public final class Classification {
                 String.join(", ", getDisplayableFeatureValues());
     }
 
-    private String[] getDisplayableFeatureValues() {
+    public String[] getDisplayableFeatureValues() {
         return unitSymbol == null || range ? getFeatureValues() : Arrays.stream(featureValues)
                 .map(featureValue -> featureValue + " " + unitSymbol)
                 .toArray(String[] :: new);
