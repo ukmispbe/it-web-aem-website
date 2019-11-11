@@ -20,6 +20,8 @@ public final class HybrisImporterConstants {
 
     public static final String PROPERTY_LAST_IMPORT_DATE = "importer:lastImportDate";
 
+    public static final String PROPERTY_LAST_REQUESTED_PRODUCT_DELTA = "importer:lastRequestedProductDelta";
+
     public static final String IMPORTER_PAGE_PATH = "/etc/waters/hybris-importer";
 
     public static final String PROPERTY_REDIRECT_TARGET = "redirectTarget";

@@ -72,9 +72,7 @@ HybrisImporter.Audit = function () {
                 replicateButton.removeClass('btn-primary').addClass('btn-success');
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
-                console.log("Replication failed", errorThrown);
-                replicateButton.text("Replication failed");
-                replicateButton.removeClass('btn-primary').addClass('btn-danger');
+                console.log("Replication servlet error occurred. Results may still be replicating.", errorThrown);
             })
         }
     };
