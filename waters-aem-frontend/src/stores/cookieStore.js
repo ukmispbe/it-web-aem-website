@@ -24,9 +24,9 @@ function getCookie(cname) {
 };
 
 const cookieStore = {
-    getLoggedInStatus: () => { getCookie(keys.loggedInStatus) },
-    getGreeting: () => { getCookie(keys.greeting) },
-    getSoldToStatus: () => { getCookie(keys.soldToStatus) },
+    getLoggedInStatus: () => getCookie(keys.loggedInStatus),
+    getGreeting: () => getCookie(keys.greeting),
+    getSoldToStatus: () => getCookie(keys.soldToStatus),
     setLocale: () => {
         if(DigitalData.country===DigitalData.globalExperience){
             return;

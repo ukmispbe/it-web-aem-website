@@ -15,7 +15,7 @@ let headerTB, headerTB_user, headerTB_user_link_greetingText,  headerTB_mobile, 
 const headerInit = function() {
     domReferences();
     addEventListeners();
-    cookieStore.setLocale();
+    //cookieStore.setLocale();
     render();
     renderSystemWideNotification();
 }
