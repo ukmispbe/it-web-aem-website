@@ -23,20 +23,19 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_A
 import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH_PAGE;
 
 @Component(value = "Features",
-        description = "This is the Features component for Waters site",
-        tabs = @Tab(title = "Properties"),
-        listeners = {
-                @Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
-                @Listener(name = EVENT_AFTER_MOVE, value = REFRESH_PAGE),
-                @Listener(name = EVENT_AFTER_COPY, value = REFRESH_PAGE)
-        })
+    description = "This is the Features component for Waters site",
+    tabs = @Tab(title = "Properties"),
+    listeners = {
+        @Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
+        @Listener(name = EVENT_AFTER_MOVE, value = REFRESH_PAGE),
+        @Listener(name = EVENT_AFTER_COPY, value = REFRESH_PAGE)
+    })
 @Model(adaptables = SlingHttpServletRequest.class,
-        adapters = { Features.class, ComponentExporter.class },
-        resourceType = Features.RESOURCE_TYPE,
-        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+    adapters = { Features.class, ComponentExporter.class },
+    resourceType = Features.RESOURCE_TYPE,
+    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
-        extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-
+    extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public class Features implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/features";
