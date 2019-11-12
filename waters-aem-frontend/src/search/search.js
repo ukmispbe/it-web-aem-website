@@ -224,13 +224,31 @@ class Search extends Component {
         }
     }
 
+    findFacetByName = (filterMap, searchValue) => {
+        if (!filterMap || !Array.isArray(filterMap)) {
+            return "";
+        }
+
+        const facet = filterMap.find(item => item.categoryFacetValue === searchValue);
+
+        if (!facet) {
+            return "";
+        }
+
+        return facet.categoryFacetName.replace('_facet', '');
+    }
+
     mapCategories = categories =>
         !categories || !categories.facets || !categories.facets.category_facet
             ? []
             : categories.facets.category_facet
                   .filter(category => category.value !== 0)
                   .map(category => {
-                      return { name: category.value, count: category.count };
+                      return { 
+                          key: this.findFacetByName(this.props.filterMap, category.value),
+                          name: category.value,
+                          count: category.count 
+                        };
                   });
 
     findMaxCategory = categories => {
@@ -312,12 +330,14 @@ class Search extends Component {
             });
 
             if (!this.props.hasError) {
-                this.search.getResultsByCategory(query).then(res => {
+                const requestData = {...query, categoryKey: this.findFacetByName(this.props.filterMap, query.category)};
+
+                this.search.getResultsByCategory(requestData).then(res => {
                     if (res && !this.props.hasError) {
                         this.searchOnSuccess(query, rows, res, true);
                     } else {
                         this.search
-                            .getResultsByCategory(query)
+                            .getResultsByCategory(requestData)
                             .then(results => {
                                 if (!results) {
                                     this.setState({
@@ -340,23 +360,27 @@ class Search extends Component {
                 });
             }
         } else if (!this.isFacetsSelected(query.facets)) {
+            const requestData = {...query, categoryKey: this.findFacetByName(this.props.filterMap, query.category)};
+
             // no sub-facets have been selected, only the content type has been selected
             const contentTypeValue = this.getSelectedContentTypeValue();
 
             this.search
-                .getContentType(query.content_type, contentTypeValue, query)
+                .getContentType(query.content_type, contentTypeValue, requestData)
                 .then(res =>
                     this.searchOnSuccess(query, rows, res, false, 'success')
                 )
                 .catch(error => this.searchOnError(error));
         } else {
+            const requestData = {...query, categoryKey: this.findFacetByName(this.props.filterMap, query.category)};
+
             // sub-facets have been selected
             const contentTypeName = this.getSelectedContentTypeName();
 
             const contentTypeValue = this.getSelectedContentTypeValue();
 
             this.search
-                .getSubFacet(contentTypeName, contentTypeValue, query)
+                .getSubFacet(contentTypeName, contentTypeValue, requestData)
                 .then(res =>
                     this.searchOnSuccess(query, rows, res, false, 'success')
                 )
