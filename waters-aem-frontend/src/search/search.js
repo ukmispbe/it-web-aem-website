@@ -179,11 +179,8 @@ class Search extends Component {
             query.content_type
         );
 
-        const isSkuList = this.isSkuList(query.category);
-
         this.setState({
             activeTabIndex: categoryIndex,
-            isSkuList,
             category: query.category,
             sort: query.sort,
             contentType: query.content_type,
@@ -194,7 +191,11 @@ class Search extends Component {
         });
     }
 
-    isSkuList = category =>  validator.equals(category, 'Shop');
+    isSkuList = category =>  {
+        const categoryKey = this.findFacetByName(this.props.filterMap, category);
+
+        return validator.equals(categoryKey, 'shop');
+    }
 
     handleHistoryPop = query => {
         const categoryIndex = this.state.categoryTabs.findIndex(
@@ -204,15 +205,12 @@ class Search extends Component {
         if (this.state.activeTabIndex !== categoryIndex) {
             this.setCategorySelected(categoryIndex, query, query.category);
         } else {
-            const isSkuList = this.isSkuList(query.category);
-
             const contentTypeElement = this.findContentType(
                 this.props.filterMap,
                 query.content_type
             );
 
             this.setState({
-                isSkuList,
                 category: query.category,
                 sort: query.sort,
                 contentType: query.content_type,
@@ -298,9 +296,8 @@ class Search extends Component {
                 category => category.name === query.category
             );
             const categoryName = categoryIndex !== -1 ? categoriesWithData[categoryIndex].name : '';
-            const isSkuList = this.isSkuList(categoryName);
 
-            this.setState({ activeTabIndex: categoryIndex, isSkuList, category: categoryName });
+            this.setState({ activeTabIndex: categoryIndex, category: categoryName });
         }
 
         if (isInitialLoad) {
@@ -312,9 +309,8 @@ class Search extends Component {
             }
 
             const categoryName = categoriesWithData[maxCategory].name;
-            const isSkuList = this.isSkuList(categoryName);
 
-            this.setState({ activeTabIndex: maxCategory, isSkuList, category: categoryName });
+            this.setState({ activeTabIndex: maxCategory, category: categoryName });
 
             query.category = categoryName;
 
@@ -488,6 +484,8 @@ class Search extends Component {
         newState.spell_suggestion = res.hasOwnProperty('spell_suggestion')
             ? res.spell_suggestion
             : '';
+
+        newState.isSkuList = this.isSkuList(query.category);
 
         this.setState(Object.assign({}, this.state, newState), () => {
             // collapse all facet groups when flag is true and the device is tablet or mobile
@@ -1150,11 +1148,8 @@ class Search extends Component {
     }
 
     setCategorySelectedState = (activeTabIndex, searchParams, contentType, contentTypeSelected, selectedFacets) => {
-        const isSkuList = this.isSkuList(searchParams.category);
-
         this.setState({
                 activeTabIndex,
-                isSkuList,
                 searchParams,
                 category: searchParams.category,
                 sort: searchParams.sort,
