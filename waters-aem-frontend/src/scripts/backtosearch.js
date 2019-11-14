@@ -4,6 +4,7 @@ const sessionStore = new SessionStore();
 
 function removeFromSession() {
     sessionStore.removeFromSearchURL();
+    sessionStore.setPreviousPagePositionEnabled();
 }
 
 function checkForSessionLink() {
