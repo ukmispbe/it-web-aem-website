@@ -22,8 +22,6 @@ const Input = ({
     matchRef,
     emailUrl
 }) => {
-    let classNames = [];
-
     const setValidation = () => {
         const obj = {};
 
@@ -373,7 +371,6 @@ const Input = ({
                 )}
                 <div className="cmp-form-field--input">
                     <input
-                        className={classNames.toString().replace(",", " ")}
                         type={type}
                         name={name}
                         id={name}
