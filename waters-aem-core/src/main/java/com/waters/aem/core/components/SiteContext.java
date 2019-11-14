@@ -4,6 +4,7 @@ import com.day.cq.i18n.I18n;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.structure.page.Commerce;
 import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
+import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.utils.LocaleUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -52,7 +53,13 @@ public final class SiteContext {
      * @return ISO code that maps to the commerce pricing value
      */
     public String getCurrencyIsoCode() {
-        final Currency defaultCurrency = Currency.getInstance(getLocaleWithCountry());
+        Currency defaultCurrency;
+
+        if (WatersConstants.PREDICATE_GLOBAL_EXP_PAGE.apply(currentPage)) {
+            defaultCurrency = Currency.getInstance("USD"); // default currency instance for global pages.
+        } else {
+            defaultCurrency = Currency.getInstance(getLocaleWithCountry());
+        }
 
         return currentPage.getInherited("currencyIsoCode", defaultCurrency.getCurrencyCode());
     }

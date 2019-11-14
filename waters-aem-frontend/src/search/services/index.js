@@ -70,11 +70,12 @@ class SearchService {
         page = parameterDefaults.page,
         sort = parameterDefaults.sort,
         category = parameterDefaults.category,
+        categoryKey = ''
     } = {}) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const searchString = `${
             this.path
-        }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
+        }/category_facet$${categoryKey.toLowerCase()}:${encodeURIComponent(
             encodeURIComponent(category)
         )}?${paramString}`;
 
@@ -99,12 +100,13 @@ class SearchService {
             page = parameterDefaults.page,
             sort = parameterDefaults.sort,
             category = parameterDefaults.category,
+            categoryKey = ''
         } = {}
     ) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const searchString = `${
             this.path
-        }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
+        }/category_facet$${categoryKey.toLowerCase()}:${encodeURIComponent(
             encodeURIComponent(category)
         )}&contenttype_facet$${contentTypeKey}:${encodeURIComponent(
             encodeURIComponent(contentTypeValue)
@@ -129,13 +131,14 @@ class SearchService {
             page = parameterDefaults.page,
             sort = parameterDefaults.sort,
             category = parameterDefaults.category,
+            categoryKey = ''
         } = {}
     ) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const facetString = this.getQueryFacetString(facets);
         const searchString = `${
             this.path
-        }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
+        }/category_facet$${categoryKey.toLowerCase()}:${encodeURIComponent(
             encodeURIComponent(category)
         )}&contenttype_facet$${contentTypeName.replace(
             '_facet',
