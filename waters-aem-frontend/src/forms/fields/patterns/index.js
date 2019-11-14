@@ -4,6 +4,17 @@ const test = (value, regex) => {
     return regex.test(value);
 };
 
+const isEmpty = (obj) => {
+    return Object.entries(obj).length === 0 && obj.constructor === Object;
+};
+
+const removeErrors = (ref) => {
+    if (ref) {
+        ref.classList.remove("error");
+        ref.classList.add("valid");
+    }
+};
+
 export const functions = {
     // named validation functions here
     noValidation: (value, ref) => {
@@ -17,55 +28,49 @@ export const functions = {
                     /^.*(?=^[^\\\/~`!@#$%^|&*_+=:;"<>?\(\)\]\[\{\}\n\r]+$)(?=^.*[^\s]+).*$/g
                 )
             ) {
-                ref.classList.remove("error");
-                ref.classList.add("valid");
+                removeErrors(ref);
                 return true;
             }
 
             return false;
         } else {
-            ref.classList.remove("error");
-            ref.classList.add("valid");
+            removeErrors(ref);
             return true;
         }
     },
     noWhitespaceOnly: (value, ref) => {
         if (value) {
             if (test(value, /^.*[^\s]+.*$/)) {
-                ref.classList.remove("error");
-                ref.classList.add("valid");
+                removeErrors(ref);
                 return true;
             }
 
             return false;
         } else {
-            ref.classList.remove("error");
-            ref.classList.add("valid");
+            removeErrors(ref);
             return true;
         }
     },
     noWhitespace: (value, ref) => {
         if (value) {
             if (!test(value, /^.*\s+.*$/)) {
-                ref.classList.remove("error");
-                ref.classList.add("valid");
+                removeErrors(ref);
                 return true;
             }
 
             return false;
         } else {
-            ref.classList.remove("error");
-            ref.classList.add("valid");
+            removeErrors(ref);
             return true;
         }
     },
-    password: (value, ref, setError, clearError) => {
+    password: (value, ref, setError, clearError, errors) => {
         let validations = 0;
-        let errors = [];
+        let newErrors = [];
 
         // Check length (required)
         if (value.length < 8) {
-            errors.push({
+            newErrors.push({
                 name: "shortPassword",
                 type: "invalidLength",
                 msg: "Password",
@@ -78,7 +83,7 @@ export const functions = {
 
         // Check for lowercase
         if (!test(value, /^.*[a-z]+.*$/)) {
-            errors.push({
+            newErrors.push({
                 name: "noLowercase",
                 type: "missingLowercase",
                 msg: "Password",
@@ -91,7 +96,7 @@ export const functions = {
 
         // Check for uppercase
         if (!test(value, /^.*[A-Z]+.*$/)) {
-            errors.push({
+            newErrors.push({
                 name: "noUppercase",
                 type: "missingUppercase",
                 msg: "Password",
@@ -104,7 +109,7 @@ export const functions = {
 
         // Check for digit
         if (!test(value, /^.*[0-9]+.*$/)) {
-            errors.push({
+            newErrors.push({
                 name: "noDigits",
                 type: "missingDigits",
                 msg: "Password",
@@ -117,7 +122,7 @@ export const functions = {
 
         // Check for special character
         if (!test(value, /^.*\W+.*$/)) {
-            errors.push({
+            newErrors.push({
                 name: "noSpecial",
                 type: "missingSpecial",
                 msg: "Password",
@@ -128,19 +133,19 @@ export const functions = {
             clearError("noSpecial");
         }
 
-        errors.forEach(error => {
+        newErrors.forEach(error => {
             setError(error.name, error.type, error.msg, error.ref);
+            errors[error.name].ref = isEmpty(errors[error.name].ref) ? error.ref : errors[error.name].ref;
         });
 
         if (validations >= 5 && value.length >= 8) {
-            ref.classList.remove("error");
-            ref.classList.add("valid");
+            removeErrors(ref);
             return true;
         } else {
             return false;
         }
     },
-    email: (value, ref, invalidMsg, setError, clearError) => {
+    email: (value, ref, invalidMsg, setError, clearError, errors) => {
         if (
             test(
                 value,
@@ -151,11 +156,12 @@ export const functions = {
             return true;
         } else {
             setError("invalidEmail", "invalidEmail", invalidMsg, ref);
+            errors["invalidEmail"].ref = isEmpty(errors["invalidEmail"].ref) ? ref : errors["invalidEmail"].ref;
             return false;
         }
     },
 
-    newEmail: (value, emailUrl, ref, invalidMsg, setError, clearError) => {
+    newEmail: (value, emailUrl, ref, invalidMsg, setError, clearError, errors) => {
         if (
             test(
                 value,
@@ -174,11 +180,11 @@ export const functions = {
                             invalidMsg,
                             ref
                         );
+                        errors["alreadyRegistered"].ref = isEmpty(errors["alreadyRegistered"].ref) ? ref : errors["alreadyRegistered"].ref;
                         return false;
                     }
 
-                    ref.classList.remove("error");
-                    ref.classList.add("valid");
+                    removeErrors(ref);
                     clearError("alreadyRegistered");
                     return true;
                 })
@@ -189,6 +195,7 @@ export const functions = {
                         err,
                         ref
                     );
+                    errors["alreadyRegistered"].ref = isEmpty(errors["alreadyRegistered"].ref) ? ref : errors["alreadyRegistered"].ref;
                     return false;
                 });
 
@@ -201,8 +208,7 @@ export const functions = {
 
     matching: (value, matchRef, ref) => {
         if (value === matchRef.value) {
-            ref.classList.remove("error");
-            ref.classList.add("valid");
+            removeErrors(ref);
             return true;
         }
 

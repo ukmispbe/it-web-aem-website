@@ -1,53 +1,75 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import ReactSVG from "react-svg";
 
 const Requirements = ({
     header,
     requirements,
-    parent
+    toggled,
+    input,
+    errors,
+    icon
 }) => {
+    const [validFields, setValidFields] = useState(Array.from({length: requirements.length}, () => false));
 
-    const renderRequirementFields = requirements => {
-        return requirements.map((requirement, i) => {
-            const input = document.getElementById(name);
-            let isValid = true;
+    useEffect(() => {
+        setValidFields(
+            requirements.map(({ name }) => {
+                return !hasError(name) && !emptyInput();
+            })
+        );
+    }, [input]);
 
-            if (errors[requirement.name]) {
-                isValid = errors[requirement.name].ref.name !== name;
-            } else if (input) {
-                isValid = input.value !== "";
-            }
+    const hasError = (name) => {
+        if (errors[name]) {
+            return errors[name].ref.name === "password";
+        }
 
+        return false;
+    };
+
+    const emptyInput = () => {
+        if (!input) return true;
+
+        return input === "" || input === undefined;
+    };
+
+    const renderRequirementFields = () => {
+        return requirements.map(({ name, msg }, key) => {
             return (
-                <div key={`requirements-info-${i}`}>
+                <div key={`requirements-info-${key}`}>
                     <ReactSVG
-                        id={requirement.name}
-                        src={icons.validIcon}
+                        id={name}
+                        src={icon}
                         className={
-                            isValid
+                            validFields[key]
                                 ? "valid requirements-info-svg"
                                 : "requirements-info-svg"
                         }
                     />
-                    <div className="requirements-info">{requirement.msg}</div>
+                    <div className="requirements-info">{msg}</div>
                 </div>
             );
         });
     };
 
     return (
-        <div className="cmp-form-field--input-requirements">
+        <div className={"cmp-form-field--input-requirements" + (toggled ? " toggled" : "")}>
             <div className="requirements-title">
-                {validation.requirementsLabel}
+                {header}
             </div>
-            {renderRequirementFields(validation.requirements)}
+            {renderRequirementFields()}
         </div>
     );
 };
 
 Requirements.propTypes = {
     header: PropTypes.string,
-    requirements: PropTypes.array.isRequired
+    requirements: PropTypes.array.isRequired,
+    toggled: PropTypes.bool.isRequired,
+    input: PropTypes.string.isRequired,
+    errors: PropTypes.object.isRequired,
+    icon: PropTypes.string.isRequired,
 };
 
 export default Requirements;
