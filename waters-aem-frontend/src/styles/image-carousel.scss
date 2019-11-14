@@ -9,6 +9,12 @@
     }
 }
 
+html.modalOpen .image-carousel {
+    @include tablet-and-over {
+        z-index: -1;
+    }
+}
+
 .image-viewer-container {
     width: 100%;
 }

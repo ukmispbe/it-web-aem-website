@@ -2,6 +2,7 @@ package com.waters.aem.core.constants;
 
 import com.google.common.base.Predicate;
 import com.icfolson.aem.library.api.page.PageDecorator;
+import com.waters.aem.core.components.SiteContext;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 @SuppressWarnings("squid:S1195")
@@ -11,7 +12,9 @@ public final class WatersConstants {
 
     public static final String ROOT_PATH_LANGUAGE_MASTERS = ROOT_PATH + "/language-masters";
 
-    public static final String ROOT_PATH_GLOBAL_REGIONS = ROOT_PATH + "/xg";
+    public static final String GLOBAL_REGIONS_NODE = "xg";
+
+    public static final String ROOT_PATH_GLOBAL_REGIONS = ROOT_PATH + "/" + GLOBAL_REGIONS_NODE;
 
     public static final String COMPONENT_NAME_PAGE = "page";
 
@@ -50,6 +53,10 @@ public final class WatersConstants {
 
     public static final Predicate<PageDecorator> PREDICATE_HOME_PAGE = page -> TEMPLATE_HOME_PAGE.equals(
             page.getTemplatePath());
+
+    public static final Predicate<PageDecorator> PREDICATE_GLOBAL_EXP_PAGE =
+            page -> page.getContentResource().adaptTo(SiteContext.class)
+                        .getLocaleWithCountry().getCountry().equalsIgnoreCase(GLOBAL_REGIONS_NODE);
 
     public static final String RENDER_CONDITION_APPLICATION_NOTES_TEMPLATE = "waters/components/renderconditions/applicationnotestemplate";
 
