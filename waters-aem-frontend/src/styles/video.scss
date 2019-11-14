@@ -14,13 +14,10 @@
     &_title {
         @include font-h3;
         color: $color-blue-50;
-        margin: 0;
     }
     &_description {
-        @include font-h4;
-        margin-top: $space-m;
+        @include font-body;
         margin-bottom: 0;
-        font-weight:$font-weight-light; 
 
         @include tablet-and-over {
             min-height: 80px;

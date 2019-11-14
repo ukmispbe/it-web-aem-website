@@ -3,6 +3,7 @@
     @include font-body;
     &__title {
         @include font-h3;
+        margin-bottom: $space-xs;
     }
 
     &__parsys {
@@ -16,9 +17,7 @@
     }
 
     &__link {
-        a {
-            @include font-h3;
-        }
+        @include font-h3;
     }
 
 }
@@ -26,7 +25,6 @@
 .cmp-external-list--horizontal {
 
     .cmp-external-list {
-        @include font-body;
         &__title {
             @include font-h3;
         }
@@ -59,10 +57,15 @@
         }
     
         &__description {
+            @include font-body;
             @include tablet-and-over {
                 display: block;
                 overflow: hidden;
             }
         }
     }
+}
+
+div.cmp-external-list {
+    margin-bottom: $space-l;
 }
