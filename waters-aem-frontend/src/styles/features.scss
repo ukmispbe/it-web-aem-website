@@ -1,5 +1,4 @@
 .cmp-features {
-    padding-top: $space-l;
 
     &__list {
         padding-left: 0;
@@ -17,10 +16,12 @@
 
             .st0 {
                 stroke: $color-icon;
+                stroke-width: .75px;
             }
 
             .st1 {
                 stroke: $color-icon;
+                stroke-width: .75px;
             }
         }
 
@@ -60,7 +61,11 @@
         padding: 0;
 
         &__list {
-            margin: 0;
+            margin: 0 0 $space-xxs 0;
+
+            @include mobile {
+                margin: 0;
+            }
         }
     }
 

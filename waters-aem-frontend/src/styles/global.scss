@@ -49,6 +49,7 @@ body.no-scroll {
 .layoutcontainer--light {
     background: $color-background-light;
     padding: $space-l;
+    margin-bottom: $space-l;
 }
 
 .container {
@@ -163,6 +164,11 @@ a {
 }
 
 input {
+
+    -webkit-appearance: none;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+
     &:focus::-webkit-input-placeholder {
         color: transparent;
     }
