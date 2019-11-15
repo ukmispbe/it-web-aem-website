@@ -28,9 +28,10 @@ class ErrorBoundary extends React.Component {
         );
     }
 
-    setErrorBoundaryToTrue() {
+    setErrorBoundaryToTrue(classname='error') {
+
         const notification = document.querySelector(
-            '.cmp-notification--dynamic.cmp-notification--error'
+            '.cmp-notification--dynamic.cmp-notification--' + classname
         );
 
         notification.classList.add('error');
