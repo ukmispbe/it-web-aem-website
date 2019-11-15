@@ -4,7 +4,6 @@ const sessionStore = new SessionStore();
 
 function removeFromSession() {
     sessionStore.removeFromSearchURL();
-    sessionStore.setPreviousPagePositionEnabled();
 }
 
 function checkForSessionLink() {
@@ -31,6 +30,7 @@ function hideBreadcrumbShowBackToSearch(link) {
 
         action.addEventListener('click', e => {
             removeFromSession();
+            sessionStore.setPreviousPagePositionEnabled();
         });
     }
 }
