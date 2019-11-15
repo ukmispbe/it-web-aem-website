@@ -39,7 +39,7 @@
         <acs.aem.commons.version>3.19.0</acs.aem.commons.version>
         <aem.library.version>12.0.0</aem.library.version>
         <core.components.version>2.3.0</core.components.version>
-        <component.plugin.version>6.4.0</component.plugin.version>
+        <component.plugin.version>6.4.1</component.plugin.version>
         <itext.version>7.1.7-SNAPSHOT</itext.version>
         <itext.html2pdf.version>2.1.4-SNAPSHOT</itext.html2pdf.version>
         <osgi.bundle.status.plugin.version>2.0.2</osgi.bundle.status.plugin.version>
