@@ -1,4 +1,7 @@
 .cmp-form {
+
+    margin-bottom: $space-l;
+
     .cmp-form__disclaimer {
         @include font-utility;
         display: block;
@@ -34,7 +37,7 @@
     .cmp-form-field {
         float: left;
         width: 100%;
-        margin-bottom: ($space-m - $space-xxxs);
+        margin-bottom: $space-s;
 
         &.cmp-form-field-dropdown {
             width: 65%;
@@ -54,7 +57,7 @@
             }
 
             &.cmp-form-field--label-matching {
-                margin-top: ($space-m - $space-xxxs);
+                margin-top: $space-s;
             }
         }
 
@@ -405,7 +408,7 @@
 
     .cmp-form-field-captcha {
         margin-top: $space-s;
-        margin-bottom: $space-xl;
+        margin-bottom: $space-l;
     }
 
     &__submission-error {
