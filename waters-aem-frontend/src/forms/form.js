@@ -49,14 +49,10 @@ const Form = ({
         return !formState.isValid;
     };
 
-    const [submissionError, setSubmissionError] = useState();
-
     const submitErrorHandler = res => {
         if (res) {
-            setSubmissionError(res);
-            setErrorBoundaryToTrue();
+            setErrorBoundaryToTrue( res.status === 802 ? 'captcha' : null );
         } else {
-            setSubmissionError(null);
             resetErrorBoundaryToFalse();
             removeNotification();
         }
