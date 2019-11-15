@@ -60,32 +60,33 @@ export const functions = {
         }
     },
     checkBox: (value, ref, styleRef) => {
+        console.log(value, ref)
         if (value) {
-            ref.classList.remove("valid");
-            ref.classList.add("error");
-            styleRef.classList.remove("valid");
-            styleRef.classList.add("error");
-            return true;
-        } else { 
             ref.classList.remove("error");
             ref.classList.add("valid");
             styleRef.classList.remove("error");
             styleRef.classList.add("valid");
+            return true;
+        } else { 
+            ref.classList.remove("valid");
+            ref.classList.add("error");
+            styleRef.classList.remove("valid");
+            styleRef.classList.add("error");
             return false;
         }
     },
     radio: (value, ref, styleRef) => {
         if (value) {
-            ref.classList.remove("valid");
-            ref.classList.add("error");
-            styleRef.classList.remove("valid");
-            styleRef.classList.add("error");
-            return true;
-        } else { 
             ref.classList.remove("error");
             ref.classList.add("valid");
             styleRef.classList.remove("error");
             styleRef.classList.add("valid");
+            return true;
+        } else { 
+            ref.classList.remove("valid");
+            ref.classList.add("error");
+            styleRef.classList.remove("valid");
+            styleRef.classList.add("error");
             return false;
         }
     },

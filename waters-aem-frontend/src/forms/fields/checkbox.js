@@ -39,6 +39,7 @@ const Checkbox = ({
 
     const checkHandler = (event, thisName) => {
         if (!disabled) {
+            setValue(thisName, !state[thisName].isChecked, state[thisName].required ? true : false);
             setState({
                 ...state,
                 [thisName]: {
@@ -47,9 +48,6 @@ const Checkbox = ({
                 }
             });
         }
-
-        console.log(thisName, state[thisName].isChecked, state[thisName].required ? true : false);
-        setValue(thisName, state[thisName].isChecked, state[thisName].required ? true : false);
     };
 
     const getRegisterAttributes = (thisName) => {
