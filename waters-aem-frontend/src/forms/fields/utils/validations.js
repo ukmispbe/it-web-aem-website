@@ -8,7 +8,7 @@ const setValidation = (validation, ref, errors, matchRef, emailUrl, setError, cl
             obj.validate = value => {
                 return functions[validation.validateFnName](
                     value,
-                    document.getElementById(matchRef),
+                    matchRef.current,
                     ref
                 );
             };

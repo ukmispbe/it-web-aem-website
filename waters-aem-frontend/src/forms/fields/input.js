@@ -124,7 +124,7 @@ const Input = ({
                     setError={setError}
                     validation={newValidation}
                     triggerValidation={triggerValidation}
-                    matchRef={name}
+                    matchRef={inputRef}
                 />
             </>
         );
