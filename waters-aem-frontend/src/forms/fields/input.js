@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 
-import Requirements from './components/requirements';
 import Icons from './components/icons';
+import DisplayMessage from './components/displaymessage';
+import Requirements from './components/requirements';
 
 import { getAttributes } from './utils/validations';
-import { getDisplayMsg } from './utils/messages';
 
 const Input = ({
     type,
@@ -40,7 +40,7 @@ const Input = ({
 
     const updateReq = () => reqRef.current ? reqRef.current.update(inputRef.current.value) : () => false;
 
-    const renderInput = (name, label) => {
+    const renderInput = () => {
         return (
             <>
                 <label
@@ -72,13 +72,18 @@ const Input = ({
                         onFocus={toggleReq}
                         onChange={updateReq}
                         placeholder=" "
-                        disabled={disabled}></input>
+                        disabled={disabled}
+                        className={fieldErr ? "error" : "valid"}
+                    ></input>
                     <Icons icons={icons} type={type} />
                 </div>
 
-                <span className="cmp-form-field--errorText">
-                    {getDisplayMsg(inputRef, validation, fieldErr, errors, icons.signInIcon)}
-                </span>
+                <DisplayMessage
+                    validation={validation}
+                    errors={errors}
+                    fieldErr={fieldErr}
+                    icon={icons.signInIcon}
+                />
 
                 {validation.validateFnName === "password" && validation.requirements &&
                 (<Requirements
@@ -93,7 +98,7 @@ const Input = ({
 
     return (
         <>
-            {renderInput(name, label)}
+            {renderInput()}
 
             {hasMatch &&
             (<Input

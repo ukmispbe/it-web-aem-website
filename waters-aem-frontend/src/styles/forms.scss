@@ -129,7 +129,7 @@
                 }
             }
 
-            &:placeholder-shown {
+            &:placeholder-shown, &:focus {
                 & ~ .cmp-form-field--icons .valid-icon {
                     display: none;
                     svg {
