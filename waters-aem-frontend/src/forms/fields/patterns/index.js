@@ -9,7 +9,6 @@ const isEmpty = (obj) => {
 };
 
 const removeErrors = (ref) => {
-    console.log(ref);
     if (ref) {
         ref.classList.remove("error");
         ref.classList.add("valid");
