@@ -1,9 +1,10 @@
-import React, { useRef, useState, useEffect } from "react";
-import { functions } from "./patterns";
-
+import React, { useRef } from "react";
+import ReactSVG from "react-svg";
 
 import Requirements from './components/requirements';
 import Icons from './components/icons';
+
+import { getAttributes } from './utils/validations';
 
 const Input = ({
     type,
@@ -25,114 +26,14 @@ const Input = ({
     matchRef,
     emailUrl
 }) => {
-    const ref = useRef(null);
-    const [inputNode, setInputNode] = useState(document.getElementById(name));
-    const [reqShown, setReqShown] = useState(false);
-    const [input, setInput] = useState("");
-
-    useEffect(() => {
-        setInputNode(ref.current.querySelector(`#${name}`));
-    });
-
-    const setValidation = () => {
-        const obj = {};
-
-        if (validation && validation.validateFnName) {
-            if (validation.validateFnName === "matching") {
-                obj.validate = value => {
-                    return functions[validation.validateFnName](
-                        value,
-                        document.getElementById(matchRef),
-                        inputNode
-                    );
-                };
-            } else if (validation.validateFnName === "password") {
-                obj.validate = value => {
-                    return functions[validation.validateFnName](
-                        value,
-                        inputNode,
-                        setError,
-                        clearError,
-                        errors
-                    );
-                };
-            } else if (validation.validateFnName === "email") {
-                obj.validate = value => {
-                    return (
-                        functions["email"](
-                            value,
-                            inputNode,
-                            validation.validationMsg,
-                            setError,
-                            clearError,
-                            errors
-                        ) &&
-                        functions["newEmail"](
-                            value,
-                            emailUrl,
-                            inputNode,
-                            validation.alreadyRegisteredMsg,
-                            setError,
-                            clearError,
-                            errors
-                        )
-                    );
-                };
-            } else {
-                obj.validate = value => {
-                    return functions[validation.validateFnName](
-                        value,
-                        inputNode
-                    );
-                };
-            }
-        }
-
-        return obj;
-    };
-
-    const setMinMax = () => {
-        const obj = {};
-
-        if (validation) {
-            if (validation.min) {
-                obj.min = {
-                    value: validation.min.value,
-                    message: validation.min.message
-                };
-            }
-
-            if (validation.max) {
-                obj.max = {
-                    value: validation.max.value,
-                    message: validation.max.message
-                };
-            }
-
-            if (validation.minLength) {
-                obj.minLength = {
-                    value: validation.minLength.value,
-                    message: validation.minLength.message
-                };
-            }
-
-            if (validation.maxLength) {
-                obj.maxLength = {
-                    value: validation.maxLength.value,
-                    message: validation.maxLength.message
-                };
-            }
-        }
-
-        return obj;
-    };
+    const reqRef = useRef(null);
+    const inputRef = useRef(null);
 
     const displayMsg = () => {
         if (validation) {
             if (fieldErr) {
                 fieldErr.ref.classList.remove("valid");
                 fieldErr.ref.classList.add("error");
-                fieldErr.ref.parentNode.parentNode.classList.add("cmp-form-field--invalid");
                 if (
                     validation.validateFnName === "email" &&
                     fieldErr.type === "validate"
@@ -159,27 +60,17 @@ const Input = ({
                 validation.validateFnName === "noValidation" &&
                 validation.required
             ) {
-                if (inputNode) {
-                    inputNode.classList.remove("error");
-                    inputNode.classList.add("valid");
+                if (inputRef.current) {
+                    inputRef.current.classList.remove("error");
+                    inputRef.current.classList.add("valid");
                 }
             }
         }
     };
 
-    const getRegisterAttributes = () => {
-        const reg = {
-            required:
-                validation && validation.required
-                    ? validation.requiredMsg
-                        ? validation.requiredMsg
-                        : "Required"
-                    : false,
-            ...setValidation(),
-            ...setMinMax()
-        };
-
-        return reg;
+    const getRegisterAttributes = (ref) => {
+        inputRef.current = ref;
+        return getAttributes(ref, validation, errors, matchRef, emailUrl, setError, clearError);
     };
 
     const displaySignInSpan = () => {
@@ -199,13 +90,14 @@ const Input = ({
         }
     };
 
+    const getMatchName = () => "confirm".concat(name.charAt(0).toUpperCase() + name.slice(1));
+
     const renderMatch = () => {
         if (!hasMatch) {
             return <></>;
         }
 
-        const newName = name.charAt(0).toUpperCase() + name.slice(1);
-        const confirmName = "confirm".concat(newName);
+        const confirmName = getMatchName();
         const confirmLabel = matchLabel;
         const newValidation = {
             required: validation["required"],
@@ -242,22 +134,9 @@ const Input = ({
         return validation.validateFnName === "password" && validation.requirements;
     }
 
-    const toggleReq = () => {
-        setReqShown(!reqShown);
-    }
+    const toggleReq = () => reqRef.current ? reqRef.current.toggle() : () => false;
 
-    const updateReq = async e => {
-        let validations = [{ name: name }];
-
-        if (hasMatch) {
-            const newName = name.charAt(0).toUpperCase() + name.slice(1);
-            const confirmName = "confirm".concat(newName);
-            validations.push({ name: confirmName });
-        }
-
-        setInput(e.currentTarget.value);
-        return await triggerValidation(validations);
-    }
+    const updateReq = () => reqRef.current ? reqRef.current.update(inputRef.current.value) : () => false;
 
     const renderInput = (name, label) => {
         return (
@@ -282,12 +161,12 @@ const Input = ({
                 {description && (
                     <div className="cmp-form_description">{description}</div>
                 )}
-                <div className="cmp-form-field--input" ref={ref}>
+                <div className="cmp-form-field--input">
                     <input
                         type={type}
                         name={name}
                         id={name}
-                        ref={register(getRegisterAttributes())}
+                        ref={(ref) => register(ref, getRegisterAttributes(ref))}
                         onBlur={toggleReq}
                         onFocus={toggleReq}
                         onChange={updateReq}
@@ -310,10 +189,8 @@ const Input = ({
             <Requirements
                 header={validation.requirementsLabel}
                 requirements={validation.requirements}
-                toggled={reqShown}
-                input={input}
-                errors={errors}
                 icon={icons.checkmarkIcon}
+                ref={reqRef}
             />
         );
     };

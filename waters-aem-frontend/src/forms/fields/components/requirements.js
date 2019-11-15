@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect, useImperativeHandle, forwardRef } from 'react';
 import ReactSVG from "react-svg";
+
+import { functions } from "../patterns/";
 
 const Requirements = ({
     header,
     requirements,
-    toggled,
-    input,
-    errors,
     icon
-}) => {
+}, ref) => {
+    const [toggled, setToggled] = useState(false);
+    const [input, setInput] = useState("");
+    const [errors, setErrors] = useState({});
     const [validFields, setValidFields] = useState(Array.from({length: requirements.length}, () => false));
 
     useEffect(() => {
@@ -20,19 +21,21 @@ const Requirements = ({
         );
     }, [input]);
 
-    const hasError = (name) => {
-        if (errors[name]) {
-            return errors[name].ref.name === "password";
+    useImperativeHandle(ref, () => ({
+        toggle: () => {
+            setToggled(!toggled);
+            return toggled;
+        },
+        update: (newInput) => {
+            setInput(newInput);
+            setErrors(functions.password(newInput, {}, null, null, [], false));
+            return input;
         }
+    }));
 
-        return false;
-    };
+    const hasError = (name) => errors[name];
 
-    const emptyInput = () => {
-        if (!input) return true;
-
-        return input === "" || input === undefined;
-    };
+    const emptyInput = () => input === "" || input === undefined;
 
     const renderRequirementFields = () => {
         return requirements.map(({ name, msg }, key) => {
@@ -63,13 +66,4 @@ const Requirements = ({
     );
 };
 
-Requirements.propTypes = {
-    header: PropTypes.string,
-    requirements: PropTypes.array.isRequired,
-    toggled: PropTypes.bool.isRequired,
-    input: PropTypes.string.isRequired,
-    errors: PropTypes.object.isRequired,
-    icon: PropTypes.string.isRequired,
-};
-
-export default Requirements;
+export default forwardRef(Requirements);

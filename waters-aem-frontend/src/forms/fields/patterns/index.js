@@ -9,6 +9,7 @@ const isEmpty = (obj) => {
 };
 
 const removeErrors = (ref) => {
+    console.log(ref);
     if (ref) {
         ref.classList.remove("error");
         ref.classList.add("valid");
@@ -64,7 +65,7 @@ export const functions = {
             return true;
         }
     },
-    password: (value, ref, setError, clearError, errors) => {
+    password: (value, ref, setError, clearError, errors, throwErrors=true) => {
         let validations = 0;
         let newErrors = [];
 
@@ -78,7 +79,7 @@ export const functions = {
             });
         } else {
             validations++;
-            clearError("shortPassword");
+            if (throwErrors) clearError("shortPassword");
         }
 
         // Check for lowercase
@@ -91,7 +92,7 @@ export const functions = {
             });
         } else {
             validations++;
-            clearError("noLowercase");
+            if (throwErrors) clearError("noLowercase");
         }
 
         // Check for uppercase
@@ -104,7 +105,7 @@ export const functions = {
             });
         } else {
             validations++;
-            clearError("noUppercase");
+            if (throwErrors) clearError("noUppercase");
         }
 
         // Check for digit
@@ -117,7 +118,7 @@ export const functions = {
             });
         } else {
             validations++;
-            clearError("noDigits");
+            if (throwErrors) clearError("noDigits");
         }
 
         // Check for special character
@@ -130,13 +131,17 @@ export const functions = {
             });
         } else {
             validations++;
-            clearError("noSpecial");
+            if (throwErrors) clearError("noSpecial");
         }
 
-        newErrors.forEach(error => {
-            setError(error.name, error.type, error.msg, error.ref);
-            errors[error.name].ref = isEmpty(errors[error.name].ref) ? error.ref : errors[error.name].ref;
-        });
+        if (throwErrors) {
+            newErrors.forEach(error => {
+                setError(error.name, error.type, error.msg, error.ref);
+                errors[error.name].ref = isEmpty(errors[error.name].ref) ? error.ref : errors[error.name].ref;
+            });
+        } else {
+            return newErrors.length ? newErrors.reduce((map, error) => { map[error.name] = true; return map; }, {}) : {};
+        }
 
         if (validations >= 5 && value.length >= 8) {
             removeErrors(ref);
