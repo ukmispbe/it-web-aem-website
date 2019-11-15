@@ -2,11 +2,7 @@
     <div class="cmp-form--attach" id="js-registration-form"></div>
     <script type="application/json" id="cmp-registration-form">
             {
-                "submitEndpoint": "${registration.registrationSubmitUrl @ context='unsafe'}",
-                "disclaimerText": "${'By clicking Create Account button you are agreeing to our' @ i18n, context='text'}",
-                "termsAndConditionsText": "${'Terms and Conditions' @ i18n, context='text'}",
-                "termsAndConditionsLink": "${registration.termsAndConditionsLink.href @ context='unsafe'}",
-                "termsAndConditionsBlank": ${registration.newWindow @ context='unsafe'},
+                "submitEndpoint": "${registration.registrationSubmitUrl @ context='unsafe'}",                
                 "buttonText": "${'Create Account' @ i18n, context='text'}",
                 "icons": {
                     "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
@@ -103,7 +99,46 @@
                     {
                         "type": "checkbox",
                         "name": "communications",
-                        "label": "${'I want to receive communications from Waters.' @ i18n, context='text'}"
+                        "label": "${'I want to receive communications from Waters.' @ i18n, context='text'}",
+                        "config": {
+                            "text": "${'Waters Privacy Notice.' @ i18n, context='text'}",
+                            "link": "http://www.yahoo.com",
+                            "blank": "${registration.newWindow @ context='unsafe'}"
+                        }
+                    },
+                    {
+                        "type": "checkbox",
+                        "name": "privacy",
+                        "options": [
+                            {
+                                "name": "test1",
+                                "label": "test1",
+                                "required": true,
+                                "config": {
+                                    "text": "${'Waters Privacy Notice.' @ i18n, context='text'}",
+                                    "link": "http://www.yahoo.com",
+                                    "blank": "${registration.newWindow @ context='unsafe'}"
+                                }
+                            },
+                            {
+                                "name": "test2",
+                                "label": "test2",
+                                "required": false,
+                                "config": {
+                                    "text": "${'Waters Privacy Notice.' @ i18n, context='text'}",
+                                    "link": "",
+                                    "blank": "${registration.newWindow @ context='unsafe'}"
+                                }
+                            },
+                            {
+                                "name": "test3",
+                                "label": "test3"
+                            }
+                        ],
+                        "validation": {
+                            "required": true,
+                            "validateFnName": "checkBox"
+                        }
                     },
                     {
                         "type": "captcha",

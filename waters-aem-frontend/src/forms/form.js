@@ -129,16 +129,6 @@ const Form = ({
                 disabled={checkIfDisabled()}>
                 {config.buttonText}
             </button>
-
-            <div className="cmp-form__disclaimer">
-                {config.disclaimerText + " "}
-                <a
-                    href={config.termsAndConditionsLink}
-                    target={config.termsAndConditionsBlank ? "_blank" : ""}
-                    rel="noopener">
-                    {config.termsAndConditionsText}
-                </a>
-            </div>
         </form>
     );
 };

@@ -11,9 +11,10 @@ const loginStatus = {
     getGreeting: () => { 
         let greeting = domElements.getCookie(greetingCookie);
         let loggedIn = domElements.getCookie(loggedInCookie) ? true : false;
-        let greetingPreFix = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user').dataset.greeting || '';  
+        let greetingElem = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
             
-        if (greeting && loggedIn) {
+        if (greeting && loggedIn && greetingElem) {
+            let greetingPreFix = greetingElem.dataset.greeting || '';
             greeting = greeting.replace(/["]+/g, '');
             return greetingPreFix + decodeURIComponent(greeting).trim();
         }
