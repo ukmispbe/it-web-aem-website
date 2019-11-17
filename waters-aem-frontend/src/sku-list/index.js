@@ -18,6 +18,11 @@ class SkuList extends React.Component {
             <>
                 {this.props.data.length > 0 && ( //only return template if data exists
                     <>
+                        {this.props.title && (
+                            <div className="cmp-sku-list__title">
+                                {this.props.title}
+                            </div>
+                        )}
                         {this.props.data.map((record, index) => (
                             <ListItem
                                 relatedSku={record}
