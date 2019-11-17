@@ -1,6 +1,10 @@
-import React from "react";
-import { functions } from "./patterns";
-import ReactSVG from "react-svg";
+import React, { useRef } from "react";
+
+import Icons from './components/icons';
+import DisplayMessage from './components/displaymessage';
+import Requirements from './components/requirements';
+
+import { getAttributes } from './utils/validations';
 
 const Input = ({
     type,
@@ -22,333 +26,21 @@ const Input = ({
     matchRef,
     emailUrl
 }) => {
-    let classNames = [];
+    const reqRef = useRef(null);
+    const inputRef = useRef(null);
 
-    const setValidation = () => {
-        const obj = {};
-
-        if (validation && validation.validateFnName) {
-            if (validation.validateFnName === "matching") {
-                obj.validate = value => {
-                    return functions[validation.validateFnName](
-                        value,
-                        document.getElementById(matchRef),
-                        document.getElementById(name)
-                    );
-                };
-            } else if (validation.validateFnName === "password") {
-                obj.validate = value => {
-                    return functions[validation.validateFnName](
-                        value,
-                        document.getElementById(name),
-                        setError,
-                        clearError
-                    );
-                };
-            } else if (validation.validateFnName === "email") {
-                obj.validate = value => {
-                    return (
-                        functions["email"](
-                            value,
-                            document.getElementById(name),
-                            validation.validationMsg,
-                            setError,
-                            clearError
-                        ) &&
-                        functions["newEmail"](
-                            value,
-                            emailUrl,
-                            document.getElementById(name),
-                            validation.alreadyRegisteredMsg,
-                            setError,
-                            clearError
-                        )
-                    );
-                };
-            } else {
-                obj.validate = value => {
-                    return functions[validation.validateFnName](
-                        value,
-                        document.getElementById(name)
-                    );
-                };
-            }
-        }
-
-        return obj;
+    const getRegisterAttributes = (ref) => {
+        inputRef.current = ref;
+        return getAttributes(ref, validation, errors, matchRef, emailUrl, setError, clearError);
     };
 
-    const setMinMax = () => {
-        const obj = {};
+    const getMatchName = () => "confirm".concat(name.charAt(0).toUpperCase() + name.slice(1));
 
-        if (validation) {
-            if (validation.min) {
-                obj.min = {
-                    value: validation.min.value,
-                    message: validation.min.message
-                };
-            }
+    const toggleReq = () => reqRef.current ? reqRef.current.toggle() : () => false;
 
-            if (validation.max) {
-                obj.max = {
-                    value: validation.max.value,
-                    message: validation.max.message
-                };
-            }
+    const updateReq = () => reqRef.current ? reqRef.current.update(inputRef.current.value) : () => false;
 
-            if (validation.minLength) {
-                obj.minLength = {
-                    value: validation.minLength.value,
-                    message: validation.minLength.message
-                };
-            }
-
-            if (validation.maxLength) {
-                obj.maxLength = {
-                    value: validation.maxLength.value,
-                    message: validation.maxLength.message
-                };
-            }
-        }
-
-        return obj;
-    };
-
-    const displayMsg = () => {
-        if (validation) {
-            if (fieldErr) {
-                fieldErr.ref.classList.remove("valid");
-                fieldErr.ref.classList.add("error");
-                if (
-                    validation.validateFnName === "email" &&
-                    fieldErr.type === "validate"
-                ) {
-                    if (errors.invalidEmail) {
-                        return errors.invalidEmail.message;
-                    }
-                    if (errors.alreadyRegistered) {
-                        return displaySignInSpan();
-                    }
-                    return null;
-                }
-                if (fieldErr.type === "required") {
-                    return fieldErr.message || validation.requiredMsg;
-                } else if (
-                    fieldErr.type === "validate" ||
-                    fieldErr.type === "pattern"
-                ) {
-                    return fieldErr.message || validation.validationMsg;
-                } else {
-                    return fieldErr.message || null;
-                }
-            } else if (
-                validation.validateFnName === "noValidation" &&
-                validation.required
-            ) {
-                const ref = document.getElementById(name);
-                if (ref) {
-                    ref.classList.remove("error");
-                    ref.classList.add("valid");
-                }
-            }
-        }
-    };
-
-    const getRegisterAttributes = () => {
-        const reg = {
-            required:
-                validation && validation.required
-                    ? validation.requiredMsg
-                        ? validation.requiredMsg
-                        : "Required"
-                    : false,
-            ...setValidation(),
-            ...setMinMax()
-        };
-
-        return reg;
-    };
-
-    const toggleEye = e => {
-        const parent = e.currentTarget.parentNode;
-        const onIcon = parent.querySelector(".showHide-icon");
-        const offIcon = parent.querySelector(".showHideOff-icon");
-
-        if (onIcon && offIcon) {
-            onIcon.classList.toggle("toggled");
-            offIcon.classList.toggle("toggled");
-
-            type = offIcon.classList.contains("toggled") ? "text" : "password";
-            parent.parentNode.querySelector("input").type = type;
-        }
-    };
-
-    const toggleRequirements = e => {
-        if (
-            validation.validateFnName !== "password" ||
-            !validation.requirements
-        ) {
-            return;
-        }
-        const requirementsDiv = e.currentTarget.parentNode.parentNode.querySelector(
-            ".cmp-form-field--input-requirements"
-        );
-        if (requirementsDiv) {
-            requirementsDiv.classList.toggle("toggled");
-        }
-    };
-
-    const updateRequirements = async e => {
-        if (
-            validation.validateFnName !== "password" ||
-            !validation.requirements
-        ) {
-            return;
-        }
-        let validations = [{ name: name }];
-
-        if (hasMatch) {
-            const newName = name.charAt(0).toUpperCase() + name.slice(1);
-            const confirmName = "confirm".concat(newName);
-            validations.push({ name: confirmName });
-        }
-
-        resetRequirements();
-        return await triggerValidation(validations);
-    };
-
-    const resetRequirements = () => {
-        if (
-            validation.validateFnName !== "password" ||
-            !validation.requirements
-        ) {
-            return;
-        }
-
-        const input = document.getElementById(name);
-        const parent = input.parentNode.parentNode;
-        const requirementsDiv = parent.querySelector(
-            ".cmp-form-field--input-requirements"
-        );
-        let validElements = requirementsDiv.querySelectorAll(".valid");
-        let validElArray = Array.apply(null, validElements);
-
-        validElArray.forEach(elem => {
-            if (input.value === "") {
-                elem.classList.remove("valid");
-            }
-        });
-
-        if (
-            input.value !== "" &&
-            requirementsDiv.querySelectorAll(".valid").length === 0
-        ) {
-            let requirementSVGs = requirementsDiv.querySelectorAll(
-                ".requirements-info-svg"
-            );
-            let rrequirementSVGsArray = Array.apply(null, requirementSVGs);
-            rrequirementSVGsArray.forEach(elem => {
-                let nonError = true;
-                if (errors[elem.id]) {
-                    nonError = errors[elem.id].ref.name !== name;
-                }
-
-                if (nonError) {
-                    elem.classList.add("valid");
-                }
-            });
-        }
-    };
-
-    const displaySignInSpan = () => {
-        if (validation.signInMsg && validation.alreadyRegisteredMsg) {
-            return (
-                <>
-                    {validation.alreadyRegisteredMsg}
-                    <a href={validation.signInURL}>
-                        <ReactSVG
-                            src={icons.signInIcon}
-                            className="email-signin"
-                        />
-                        {validation.signInMsg}
-                    </a>
-                </>
-            );
-        }
-    };
-
-    const renderMatch = () => {
-        if (!hasMatch) {
-            return <></>;
-        }
-
-        const newName = name.charAt(0).toUpperCase() + name.slice(1);
-        const confirmName = "confirm".concat(newName);
-        const confirmLabel = matchLabel;
-        const newValidation = {
-            required: validation["required"],
-            requiredMsg: `Please confirm ${name}`,
-            validateFnName: "matching",
-            validationMsg: validation["nonMatchingMsg"]
-        };
-
-        return (
-            <>
-                <Input
-                    type={type}
-                    name={confirmName}
-                    label={confirmLabel}
-                    hasMatch={false}
-                    icons={icons}
-                    register={register}
-                    description={
-                        description ? "Match for ".concat(newName) : ""
-                    }
-                    required={required}
-                    fieldErr={errors[confirmName]}
-                    errors={errors}
-                    setError={setError}
-                    validation={newValidation}
-                    triggerValidation={triggerValidation}
-                    matchRef={name}
-                />
-            </>
-        );
-    };
-
-    const renderIcons = () => {
-        if (!icons) {
-            return <></>;
-        }
-
-        const eyeIcons =
-            type === "password" ? (
-                <>
-                    <ReactSVG
-                        src={icons.eyeIcon}
-                        className="showHide-icon toggled"
-                        onMouseDown={toggleEye}
-                    />
-                    <ReactSVG
-                        src={icons.eyeOffIcon}
-                        className="showHideOff-icon"
-                        onMouseDown={toggleEye}
-                    />
-                </>
-            ) : (
-                <></>
-            );
-
-        return (
-            <div className="cmp-form-field--icons">
-                {eyeIcons}
-                <ReactSVG src={icons.validIcon} className="valid-icon" />
-                <ReactSVG src={icons.invalidIcon} className="invalid-icon" />
-            </div>
-        );
-    };
-
-    const renderInput = (name, label) => {
+    const renderInput = () => {
         return (
             <>
                 <label
@@ -359,91 +51,77 @@ const Input = ({
                             : ""
                     }>
                     {label}
-                    {validation.required ? (
-                        <></>
-                    ) : (
-                        <span className="cmp-form-field--optional">
-                            {" "}
-                            (optional)
-                        </span>
-                    )}
+                    {!validation.required &&
+                    (<span className="cmp-form-field--optional">
+                        {" "}
+                        (optional)
+                    </span>)}
                 </label>
+
                 {description && (
                     <div className="cmp-form_description">{description}</div>
                 )}
+
                 <div className="cmp-form-field--input">
                     <input
-                        className={classNames.toString().replace(",", " ")}
                         type={type}
                         name={name}
                         id={name}
-                        ref={register(getRegisterAttributes())}
-                        onFocus={toggleRequirements}
-                        onBlur={toggleRequirements}
-                        onChange={updateRequirements}
+                        ref={(ref) => register(ref, getRegisterAttributes(ref))}
+                        onBlur={toggleReq}
+                        onFocus={toggleReq}
+                        onChange={updateReq}
                         placeholder=" "
-                        disabled={disabled}></input>
-                    {renderIcons()}
+                        disabled={disabled}
+                        className={fieldErr ? "error" : "valid"}
+                    ></input>
+                    <Icons icons={icons} type={type} />
                 </div>
-                <span className="cmp-form-field--errorText">
-                    {displayMsg()}
-                </span>
-                {renderRequirements()}
+
+                <DisplayMessage
+                    validation={validation}
+                    errors={errors}
+                    fieldErr={fieldErr}
+                    icon={icons.signInIcon}
+                />
+
+                {validation.validateFnName === "password" && validation.requirements &&
+                (<Requirements
+                    header={validation.requirementsLabel}
+                    requirements={validation.requirements}
+                    icon={icons.checkmarkIcon}
+                    ref={reqRef}
+                />)}
             </>
-        );
-    };
-
-    const renderRequirementFields = requirements => {
-        return requirements.map((requirement, i) => {
-            const input = document.getElementById(name);
-            let isValid = true;
-
-            if (errors[requirement.name]) {
-                isValid = errors[requirement.name].ref.name !== name;
-            } else if (input) {
-                isValid = input.value !== "";
-            }
-
-            return (
-                <div key={`requirements-info-${i}`}>
-                    <ReactSVG
-                        id={requirement.name}
-                        src={icons.validIcon}
-                        className={
-                            isValid
-                                ? "valid requirements-info-svg"
-                                : "requirements-info-svg"
-                        }
-                    />
-                    <div className="requirements-info">{requirement.msg}</div>
-                </div>
-            );
-        });
-    };
-
-    const renderRequirements = () => {
-        if (
-            validation.validateFnName !== "password" ||
-            !validation.requirements
-        ) {
-            return <></>;
-        }
-
-        return (
-            <div className="cmp-form-field--input-requirements">
-                <div className="requirements-title">
-                    {validation.requirementsLabel}
-                </div>
-                {renderRequirementFields(validation.requirements)}
-            </div>
         );
     };
 
     return (
         <>
-            {renderInput(name, label)}
+            {renderInput()}
 
-            {renderMatch()}
+            {hasMatch &&
+            (<Input
+                type={type}
+                name={getMatchName()}
+                label={matchLabel}
+                hasMatch={false}
+                icons={icons}
+                register={register}
+                description={ description ? "Match for ".concat(name) : "" }
+                required={required}
+                fieldErr={errors[getMatchName()]}
+                errors={errors}
+                setError={setError}
+                validation={{
+                    required: validation["required"],
+                    requiredMsg: `Please confirm ${name}`,
+                    validateFnName: "matching",
+                    validationMsg: validation["nonMatchingMsg"]
+                }}
+                triggerValidation={triggerValidation}
+                matchRef={inputRef}
+            />)}
         </>
     );
 };

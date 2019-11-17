@@ -4,6 +4,7 @@ import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.commerce.services.SkuRepository;
 import com.waters.aem.core.components.SiteContext;
+import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.slf4j.Logger;
@@ -31,7 +32,7 @@ public class SkuSolrIndexContentPredicate implements SolrIndexContentPredicate {
 
             final BigDecimal price = sku.getPrice(country, siteContext.getCurrencyIsoCode());
 
-            if (price != null) {
+            if (price != null || indexGlobalExperienceSku(country, sku)) {
                 indexed = true;
             } else {
                 indexed = false;
@@ -41,5 +42,24 @@ public class SkuSolrIndexContentPredicate implements SolrIndexContentPredicate {
         }
 
         return indexed;
+    }
+
+    /**
+     * Checks if the provided country code represents a global experience code ("XG"). Also checks if we have a default
+     * price (US-USD) for the provided sku.
+     *
+     * @param country 2 character country code
+     * @param sku used to lookup a default price
+     * @return true if this sku should be indexed based on the above criteria
+     */
+    private boolean indexGlobalExperienceSku(final String country, final Sku sku) {
+        // check if a US price exists for this global sku page.
+        final BigDecimal defaultPrice = sku.getPrice("US", "USD");
+
+        if (WatersConstants.GLOBAL_REGIONS_NODE.equalsIgnoreCase(country) && defaultPrice == null) {
+            LOG.debug("no default price (US) for XG sku {}", sku.getCode());
+        }
+
+        return defaultPrice != null && WatersConstants.GLOBAL_REGIONS_NODE.equalsIgnoreCase(country);
     }
 }
