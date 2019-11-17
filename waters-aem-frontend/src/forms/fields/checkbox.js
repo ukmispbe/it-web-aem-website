@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import ReactSVG from "react-svg";
 import { functions } from "./patterns";
 
@@ -27,7 +27,7 @@ const Checkbox = ({
                 const thisOption = {
                     [option.name]: {
                         isChecked: false,
-                        required: option.required ? true : false,
+                        required: validation && validation.validateFnName && option.required ? true : false,
                         ...option.config
                     }
                 };
@@ -39,12 +39,13 @@ const Checkbox = ({
 
     const checkHandler = (event, thisName) => {
         if (!disabled) {
-            setValue(thisName, !state[thisName].isChecked, state[thisName].required ? true : false);
+            const thisState = state[thisName];
+            setValue(thisName, !thisState.isChecked, thisState.required);
             setState({
                 ...state,
                 [thisName]: {
-                    ...state[thisName],
-                    isChecked: !state[thisName].isChecked
+                    ...thisState,
+                    isChecked: !thisState.isChecked
                 }
             });
         }
@@ -53,10 +54,9 @@ const Checkbox = ({
     const getRegisterAttributes = (thisName) => {
         const ref = { name: thisName };
         const reg = {
-            required: state[thisName].required ? true : false,
+            required: state[thisName].required,
             ...setValidation(thisName)
         };
-
         return [ref, reg];
     };
 

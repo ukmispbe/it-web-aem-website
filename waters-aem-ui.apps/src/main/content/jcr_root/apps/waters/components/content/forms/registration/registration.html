@@ -99,45 +99,20 @@
                     {
                         "type": "checkbox",
                         "name": "communications",
-                        "label": "${'I want to receive communications from Waters.' @ i18n, context='text'}",
-                        "config": {
-                            "text": "${'Waters Privacy Notice.' @ i18n, context='text'}",
-                            "link": "http://www.yahoo.com",
-                            "blank": "${registration.newWindow @ context='unsafe'}"
-                        }
+                        "label": "${'I want to receive communications from Waters.' @ i18n, context='text'}"
                     },
                     {
                         "type": "checkbox",
-                        "name": "privacy",
-                        "options": [
-                            {
-                                "name": "test1",
-                                "label": "test1",
-                                "required": true,
-                                "config": {
-                                    "text": "${'Waters Privacy Notice.' @ i18n, context='text'}",
-                                    "link": "http://www.yahoo.com",
-                                    "blank": "${registration.newWindow @ context='unsafe'}"
-                                }
-                            },
-                            {
-                                "name": "test2",
-                                "label": "test2",
-                                "required": false,
-                                "config": {
-                                    "text": "${'Waters Privacy Notice.' @ i18n, context='text'}",
-                                    "link": "",
-                                    "blank": "${registration.newWindow @ context='unsafe'}"
-                                }
-                            },
-                            {
-                                "name": "test3",
-                                "label": "test3"
-                            }
-                        ],
+                        "name": "communications",
+                        "label": "${'I agree and consent to the information I have provided on this website to be used and processed by Waters in accordance with the' @ i18n, context='text'}",
+                        "config": {
+                            "text": "${'Waters Privacy Notice.' @ i18n, context='text'}",
+                            "link": "${registration.privacyNoticeLink @ context='unsafe'}",
+                            "blank": "${registration.newWindow @ context='unsafe'}"
+                        },
                         "validation": {
                             "required": true,
-                            "validateFnName": "checkBox"
+                            "validateFnName": "checkBoxOrRadio"
                         }
                     },
                     {

@@ -288,6 +288,9 @@
 
         &-checkbox,
         &-radio {
+            legend {
+                padding: 0 $space-xxs;
+            }
             label .optional{
                 @include font-small;
             }
@@ -357,6 +360,7 @@
 
             & ~ label {
                 display: inline-block;
+                font-weight: $font-weight-light;
             }
 
             &:checked ~ .radio {
