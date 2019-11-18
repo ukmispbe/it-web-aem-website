@@ -176,7 +176,9 @@ if (skuListContainer) {
         skuListContainer.dataset.json
     );
 
-    ReactDOM.render(<SkuList skuConfig={skuDetailsConfig} data={skuListData}/>, skuListContainer);
+    const skuListTitle = skuListContainer.dataset.componenttitle ? skuListContainer.dataset.componenttitle : '';
+    
+    ReactDOM.render(<SkuList skuConfig={skuDetailsConfig} data={skuListData} title={skuListTitle}/>, skuListContainer);
 }
 
 
