@@ -43,6 +43,7 @@ public class Features implements ComponentExporter {
     @DialogField(fieldLabel = "Features List")
     @MultiField(composite = true)
     @Inject
+    @SuppressWarnings("squid:S1700")
     private List<Feature> features;
 
     public List<Feature> getFeatures() {
