@@ -115,7 +115,7 @@ public final class SkuList implements EmptyComponent, ComponentExporter {
         return Arrays.asList(skuNumbers).stream()
                 .map(skuNumber -> skuRepository.getSku(resource.getResourceResolver(), skuNumber))
                 .filter(Objects::nonNull)
-                .filter(sku -> sku.getPrice(country, siteContext.getCurrencyIsoCode()) != null)
+                .filter(authoredSku -> authoredSku.getPrice(country, siteContext.getCurrencyIsoCode()) != null)
                 .collect(Collectors.toList());
     }
 
