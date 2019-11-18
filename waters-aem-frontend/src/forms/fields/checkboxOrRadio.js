@@ -1,15 +1,18 @@
 import React, { useState} from 'react';
+import ReactSVG from "react-svg";
 import { functions } from "./patterns";
 
-const Radio = ({
+const CheckboxOrRadio = ({
     name,
     label,
     options,
     disabled,
     register,
+    icons,
     config,
     validation,
     setValue,
+    type,
     description
 }) => {
     const [state, setState] = useState(() => { 
@@ -17,8 +20,8 @@ const Radio = ({
             return {
                 [name]: {
                     isChecked: false,
-                    required: validation && validation.validateFnName && option.required ? true : false,
-                    description: description,
+                    required: validation && validation.required ? true : false,
+                    description: description ? description : '',
                     ...config
                 }
             };
@@ -27,7 +30,7 @@ const Radio = ({
                 const thisOption = {
                     [option.name]: {
                         isChecked: false,
-                        required: option.required ? true : false,
+                        required: validation && validation.validateFnName && option.required ? true : false,
                         description: option.description ? option.description : '',
                         ...option.config
                     }
@@ -45,7 +48,7 @@ const Radio = ({
             setState({
                 ...state,
                 [thisName]: {
-                    ...state[thisName],
+                    ...thisState,
                     isChecked: !thisState.isChecked
                 }
             });
@@ -58,7 +61,6 @@ const Radio = ({
             required: state[thisName].required,
             ...setValidation(thisName)
         };
-
         return [ref, reg];
     };
 
@@ -100,12 +102,13 @@ const Radio = ({
         return '';
     }
 
-    const renderRadioButton = (thisName, label) => {
+    const renderType = (thisName, label) => {
         const thisState = state[thisName];
+
         return (
             <>
                 <input
-                    type="radio"
+                    type={type}
                     name={thisName}
                     id={thisName}
                     disabled={disabled}
@@ -113,41 +116,45 @@ const Radio = ({
                     readOnly
                 />
                 <a
-                    href="javascript:void(0)"
-                    className={'radio ' + (disabled ? ' disabled' : '')}
-                    onClick={(e) => { 
-                        checkHandler(e, thisName);
-                    }}
-                    id={thisName + '_link'}
-                    ref={register(...getRegisterAttributes(thisName))}
-                >
-                    <div className="selector"></div>
+                        href="javascript:void(0)"
+                        className={`${type} ` + (disabled ? ' disabled' : '')}
+                        onClick={(e) => { 
+                            checkHandler(e, thisName);
+                        }}
+                        id={thisName + '_link'}
+                        ref={register(...getRegisterAttributes(thisName))}
+                    >
+                    {
+                            type == 'checkbox' ? (<ReactSVG src={icons.checkmarkIcon} />) : (<div className="selector"></div>)
+                    }
                 </a>
-                <label htmlFor={thisName} onClick={(e) => {
-                        checkHandler(e, thisName);
-                }}>{renderLabel(thisName, label)}</label>
-                {thisState.description && (
-                    <span class="cmp-form_description">{thisState.description}</span>
-                )}
+                <div className={`cmp-form-field-${type}--wrapper` + (disabled ? ' disabled' : '')}>
+                    <label htmlFor={thisName} onClick={(e) => { 
+                            checkHandler(e, thisName);
+                    }}>{renderLabel(thisName, label)}</label>
+                    {thisState.description && (
+                        <span class="cmp-form_description">{thisState.description}</span>
+                    )}
+                </div>
             </>
         );
     };
 
     const renderGrouping = () => {
         if (!options) {
-            return renderRadioButton(name, label);
+            return renderType(name, label);
         } else {
             return (
-                <fieldset id={name} className="cmp-form-radio--grouping" disabled={disabled}>
-                    {label && <legend>{label}</legend>}
+                <div id={name} className={`cmp-form-field-${type}--grouping`}>
                     {options.map((option, i) => {
+                        console.log(`${type}-${name}-grouping-${i}`);
                         return (
-                            <div key={`radio-${name}-grouping-${i}`} >
-                                {renderRadioButton(option.name, option.label)}
+                            <div className={`cmp-form-field-${type}--grouping-item`} key={`${type}-${name}-grouping-${i}`} >
+                                {renderType(option.name, option.label)}
                             </div>
                         );
                     })}
-                </fieldset>
+                </div>
             )
         }
     };
@@ -159,4 +166,4 @@ const Radio = ({
     );
 };
 
-export default Radio;
+export default CheckboxOrRadio;
