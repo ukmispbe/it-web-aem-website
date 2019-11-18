@@ -55,6 +55,10 @@ public final class Classification {
         return facet;
     }
 
+    public Boolean isMultiValued() {
+        return featureValues.length > 1;
+    }
+
     /**
      * Checks if the feature value is a "range" property and concatenates the values with a hyphen if so.
      * ex: "1 - 12 pH" where "1" is a feature value and "12" is another feature value.
