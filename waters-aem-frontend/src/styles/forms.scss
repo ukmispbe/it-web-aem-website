@@ -191,6 +191,7 @@
             height: (($space-xs * 2) + $line-height-text);
             display: flex;
             align-items: center;
+            pointer-events: none;
 
             & > div {
                 display: none;
@@ -223,6 +224,7 @@
 
                 &.showHide-icon.toggled,
                 &.showHideOff-icon.toggled {
+                    pointer-events: all;
                     display: inline-block;
                     svg {
                         cursor: pointer;
