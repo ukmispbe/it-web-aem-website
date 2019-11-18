@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SearchService, parameterValues, parameterDefaults, searchMapper } from './services/index';
+import { parameterValues, parameterDefaults, searchMapper } from './services/index';
 import { parse, stringify } from 'query-string';
 import { withRouter } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
@@ -35,15 +35,8 @@ class Search extends Component {
         this.savedSelectFilterState = null;
         this.parentCategory = 'contenttype_facet';
 
-        this.search = new SearchService(
-            this.props.isocode,
-            this.props.searchServicePath,
-            parameterDefaults.page,
-            this.props.searchDefaults.rows,
-            parameterDefaults.sort,
-            undefined,
-            () => this.props.setErrorBoundaryToTrue()
-        );
+        this.search = props.search;
+        this.search.throwError = this.props.setErrorBoundaryToTrue;
 
         this.state = this.initialState();
     }
