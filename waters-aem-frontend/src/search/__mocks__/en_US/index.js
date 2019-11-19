@@ -9,7 +9,9 @@ const props = {
     searchText: searchResultsTranslationsJSON,
     filterMap: searchResultsCategoriesJSON,
     setErrorBoundaryToTrue: jest.fn(() => {}),
-    skuConfig: commerceConfigs
+    skuConfig: commerceConfigs,
+    searchDefaults: { rows: 25 },
+    resetToDefault: false
 };
 
 export default props;

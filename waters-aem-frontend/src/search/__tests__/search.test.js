@@ -22,7 +22,7 @@ const buildService = () => {
     );
 }
 
-const buildWrapper = props => {
+const buildShallowWrapper = props => {
     const wrapper = shallow(<Search.WrappedComponent {...props} />);
     return wrapper;
 };
@@ -47,8 +47,10 @@ describe('Feature: Search React Component', () => {
             }
         });
 
+        window.scrollTo = jest.fn();
+
         getCategoriesSpy = jest.spyOn(searchService, 'getCategories').mockImplementation(() => data.categories);
-        getResultsByCategorySpy = jest.spyOn(searchService, 'getResultsByCategory');
+        getResultsByCategorySpy = jest.spyOn(searchService, 'getResultsByCategory').mockImplementation(() => new Promise((resolve, reject) => resolve(data.shop.results)));
         getContentTypeSpy = jest.spyOn(searchService, 'getContentType');
         getSubFacetSpy = jest.spyOn(searchService, 'getSubFacet');
     });
@@ -62,7 +64,7 @@ describe('Feature: Search React Component', () => {
             searchProps.search = searchService;
             searchProps.history = history;
 
-            wrapper = buildWrapper(searchProps);
+            wrapper = buildShallowWrapper(searchProps);
         });
 
         describe('When loading the component for the first time', () => {
@@ -82,7 +84,7 @@ describe('Feature: Search React Component', () => {
                 searchProps.search = searchService;
                 searchProps.history = history;
 
-                wrapper = buildWrapper(searchProps).instance();
+                wrapper = buildShallowWrapper(searchProps).instance();
             });
 
             it('Then find the category with the most results', () => {
@@ -105,7 +107,7 @@ describe('Feature: Search React Component', () => {
                 searchProps.search = searchService;
                 searchProps.history = history;
 
-                wrapper = buildWrapper(searchProps).instance();
+                wrapper = buildShallowWrapper(searchProps).instance();
             });
 
             it('Then find the index of the category', () => {
@@ -128,7 +130,7 @@ describe('Feature: Search React Component', () => {
                 searchProps.search = searchService;
                 searchProps.history = history;
 
-                wrapper = buildWrapper(searchProps).instance();
+                wrapper = buildShallowWrapper(searchProps).instance();
             });
 
             it('Then find the index of the category', () => {
@@ -151,7 +153,7 @@ describe('Feature: Search React Component', () => {
                 searchProps.search = searchService;
                 searchProps.history = history;
 
-                wrapper = buildWrapper(searchProps).instance();
+                wrapper = buildShallowWrapper(searchProps).instance();
             });
 
             it('Then find the index of the category', () => {

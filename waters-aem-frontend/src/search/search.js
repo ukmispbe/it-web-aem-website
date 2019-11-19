@@ -590,7 +590,6 @@ class Search extends Component {
                 this.search.scrollToTop();
             }
         }
-        this.props.resetToDefault = false;
 
         this.submitAnalytics({ ... this.state.searchParams, total: res.num_found });
     };
@@ -789,7 +788,6 @@ class Search extends Component {
     };
 
     handleResetSearchToDefault = () => {
-        this.props.resetToDefault = true;
         let query = this.search.createQueryObject(
             parse(window.location.search)
         );
@@ -1172,7 +1170,7 @@ class Search extends Component {
     }
 
     getTabHistoryEntry = category => {
-        if (this.state.tabHistory.hasOwnProperty(`${category}`)) {
+        if (this.state.tabHistory && this.state.tabHistory.hasOwnProperty(`${category}`)) {
             return this.state.tabHistory[`${category}`];
         }
 
