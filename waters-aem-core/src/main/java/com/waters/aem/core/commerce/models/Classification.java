@@ -35,6 +35,9 @@ public final class Classification {
     @ValueMapValue(name = WatersCommerceConstants.PROPERTY_CODE)
     private String code;
 
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_MULTI_VALUED)
+    private Boolean multiValued;
+
     public String getPath() {
         return resource.getPath();
     }
@@ -56,7 +59,7 @@ public final class Classification {
     }
 
     public Boolean isMultiValued() {
-        return featureValues.length > 1;
+        return multiValued;
     }
 
     /**

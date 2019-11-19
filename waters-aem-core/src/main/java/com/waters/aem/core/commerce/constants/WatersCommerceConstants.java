@@ -100,6 +100,8 @@ public final class WatersCommerceConstants {
 
     public static final String PROPERTY_RANGE = "hybris:range";
 
+    public static final String PROPERTY_MULTI_VALUED = "hybris:multiValued";
+
     // sku page properties
 
     public static final String PROPERTY_PRODUCT_RESOURCE_PATH = "hybris:productResourcePath";
