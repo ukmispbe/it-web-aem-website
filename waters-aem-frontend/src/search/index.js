@@ -1,11 +1,21 @@
 // React Search Application
 import React, { useState } from 'react';
 import Search from './search';
-
+import { SearchService, parameterDefaults } from './services/index';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
 
 const SearchApp = props => {
+    const search = new SearchService(
+        props.isocode,
+        props.searchServicePath,
+        parameterDefaults.page,
+        props.searchDefaults.rows,
+        parameterDefaults.sort,
+        undefined,
+        () => {}
+    );
+    
     return (
         <>
             <Router>
@@ -21,6 +31,7 @@ const SearchApp = props => {
                                 searchLocale={props.searchLocale}
                                 filterMap={props.filterMap}
                                 isocode={props.isocode}
+                                search={search}
                             />
                         </ErrorBoundary>
                     )}
