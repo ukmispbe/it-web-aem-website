@@ -291,13 +291,35 @@
             }
         }
 
-        input[type="checkbox"] {
-            display: none;
+        &-checkbox,
+        &-radio {
 
-            & ~ label {
+            display: flex;
+            label {
                 display: inline;
                 font-weight: $font-weight-light;
             }
+
+            &--grouping-item {
+                display: flex;
+            }
+
+            &--wrapper {
+                &.disabled {
+                    label {
+                        color: $color-disabled !important;
+                    }
+                }
+
+            }
+
+            &.optional{
+                @include font-small;
+            }
+        }
+
+        input[type="checkbox"] {
+            display: none;
 
             &:checked ~ .checkbox {
                 border: 1px solid $color-background-dark;
@@ -313,9 +335,10 @@
             border: 1px solid $color-gray-40;
             height: 1em;
             width: 1em;
-            vertical-align: -2px;
+            margin-top: 0.3em;
             margin-right: $space-xxs;
             transition: none;
+            flex-shrink: 0;
             svg {
                 display: none;
                 width: 0.8em;
@@ -331,6 +354,7 @@
                     stroke-width: 4;
                 }
             }
+
             &:hover {
                 border: 1px solid $color-blue-50;
             }
@@ -339,19 +363,14 @@
                 border: 1px solid $color-disabled !important;
                 color: $color-disabled !important;
                 cursor: default;
-
-                & ~ label {
-                    color: $color-disabled !important;
-                }
+            }
+            &.error {
+                border: 1px solid $color-error;
             }
         }
 
         input[type="radio"] {
             display: none;
-
-            & ~ label {
-                display: inline-block;
-            }
 
             &:checked ~ .radio {
                 border: 1px solid $color-background-dark;
@@ -366,11 +385,12 @@
             border: 1px solid $color-gray-40;
             height: $icon-s;
             width: $icon-s;
-            vertical-align: -2px;
+            margin-top: 0.3em;
             margin-right: $space-xxs;
             transition: none;
             border-radius: 100%;
             position: relative;
+            flex-shrink: 0;
             div.selector {
                 display: none;
                 background-color: $color-gray-50;
@@ -390,10 +410,10 @@
                 border: 1px solid $color-disabled !important;
                 color: $color-disabled !important;
                 cursor: default;
+            }
 
-                & ~ label {
-                    color: $color-disabled !important;
-                }
+            &.error {
+                border: 1px solid $color-error;
             }
         }
     }

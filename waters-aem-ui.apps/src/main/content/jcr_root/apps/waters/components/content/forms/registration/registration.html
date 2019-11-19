@@ -2,11 +2,7 @@
     <div class="cmp-form--attach" id="js-registration-form"></div>
     <script type="application/json" id="cmp-registration-form">
             {
-                "submitEndpoint": "${registration.registrationSubmitUrl @ context='unsafe'}",
-                "disclaimerText": "${'By clicking Create Account button you are agreeing to our' @ i18n, context='text'}",
-                "termsAndConditionsText": "${'Terms and Conditions' @ i18n, context='text'}",
-                "termsAndConditionsLink": "${registration.termsAndConditionsLink.href @ context='unsafe'}",
-                "termsAndConditionsBlank": ${registration.newWindow @ context='unsafe'},
+                "submitEndpoint": "${registration.registrationSubmitUrl @ context='unsafe'}",                
                 "buttonText": "${'Create Account' @ i18n, context='text'}",
                 "icons": {
                     "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
@@ -104,6 +100,20 @@
                         "type": "checkbox",
                         "name": "communications",
                         "label": "${'I want to receive communications from Waters.' @ i18n, context='text'}"
+                    },
+                    {
+                        "type": "checkbox",
+                        "name": "privacy",
+                        "label": "${'I agree and consent to the information I have provided on this website to be used and processed by Waters in accordance with the' @ i18n, context='text'}",
+                        "config": {
+                            "text": "${'Waters Privacy Notice.' @ i18n, context='text'}",
+                            "link": "${registration.privacyNoticeLink @ context='unsafe'}",
+                            "blank": "${registration.newWindow @ context='unsafe'}"
+                        },
+                        "validation": {
+                            "required": true,
+                            "validateFnName": "checkBoxOrRadio"
+                        }
                     },
                     {
                         "type": "captcha",

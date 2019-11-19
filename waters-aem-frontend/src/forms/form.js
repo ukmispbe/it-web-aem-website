@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import useForm from "react-hook-form/dist/react-hook-form.ie11";
 import Input from "./fields/input";
-import Radio from "./fields/radio";
-import Checkbox from "./fields/checkbox";
+import CheckboxOrRadio from "./fields/checkboxOrRadio";
 import Dropdown from "./fields/dropdown";
 import Hr from "./fields/hr";
 import FieldValidationDisplay from "./components/field-validation-display";
@@ -14,8 +13,8 @@ const formType = {
     number: Input,
     password: Input,
     email: Input,
-    radio: Radio,
-    checkbox: Checkbox,
+    radio: CheckboxOrRadio,
+    checkbox: CheckboxOrRadio,
     dropdown: Dropdown,
     select: Dropdown,
     break: Hr,
@@ -129,16 +128,6 @@ const Form = ({
                 disabled={checkIfDisabled()}>
                 {config.buttonText}
             </button>
-
-            <div className="cmp-form__disclaimer">
-                {config.disclaimerText + " "}
-                <a
-                    href={config.termsAndConditionsLink}
-                    target={config.termsAndConditionsBlank ? "_blank" : ""}
-                    rel="noopener">
-                    {config.termsAndConditionsText}
-                </a>
-            </div>
         </form>
     );
 };
