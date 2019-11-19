@@ -3,44 +3,51 @@ import com.icfolson.aem.library.core.node.predicates.ComponentNodeResourceTypePr
 import com.day.cq.commons.LanguageUtil
 import org.apache.sling.api.resource.ModifiableValueMap
 
-def basePath = "/content/waters/xg/es/shop"
+def basePaths = [
+    "/content/waters/pt/pt/shop",
+    "/content/waters/kr/ko/shop",
+    "/content/waters/es/es/shop"
+]
 
-def langRoot = LanguageUtil.getLanguageRoot(basePath)
+basePaths.each { basePath ->
+    def langRoot = LanguageUtil.getLanguageRoot(basePath)
 
-def pageUpdateCount = 0
+    def pageUpdateCount = 0
 
-getPage(basePath).recurse { p ->
+    getPage(basePath).recurse { p ->
 
-    def page = p.adaptTo(PageDecorator)
+        def page = p.adaptTo(PageDecorator)
 
-    def compNodeOptional = page.componentNode
+        def compNodeOptional = page.componentNode
 
-    if (compNodeOptional.isPresent()) {
-        def navComponents = compNodeOptional.get().findDescendants(new ComponentNodeResourceTypePredicate("waters/components/content/navigation"))
+        if (compNodeOptional.isPresent()) {
+            def navComponents = compNodeOptional.get().findDescendants(new ComponentNodeResourceTypePredicate("waters/components/content/navigation"))
 
-        if (navComponents.size() > 0) {
-            def nav = navComponents[0]
+            if (navComponents.size() > 0) {
+                def nav = navComponents[0]
 
-            def navigationRootOptional = nav.get("navigationRoot", String)
+                def navigationRootOptional = nav.get("navigationRoot", String)
 
-            if (navigationRootOptional.isPresent()) {
-                def navigationLangRoot = LanguageUtil.getLanguageRoot(navigationRootOptional.get())
+                if (navigationRootOptional.isPresent()) {
+                    def navigationLangRoot = LanguageUtil.getLanguageRoot(navigationRootOptional.get())
 
-                if (navigationLangRoot != langRoot) {
-                    println "Updating navRoot on $page.path with navRoot $langRoot"
+                    if (navigationLangRoot != langRoot) {
+                        // println "Updating navRoot on $page.path with navRoot $langRoot"
 
-                    pageUpdateCount++
+                        pageUpdateCount++
 
-                    nav.resource.adaptTo(ModifiableValueMap).put("navigationRoot", langRoot)
+                        nav.resource.adaptTo(ModifiableValueMap).put("navigationRoot", langRoot)
+                    }
                 }
-            }
 
-            if (pageUpdateCount > 0 && pageUpdateCount % 100 == 0) {
-                println "Committing JCR changes to Session after 100 changes..."
-                save()
+                if (pageUpdateCount > 0 && pageUpdateCount % 100 == 0) {
+                    // println "Committing JCR changes to Session after 100 changes..."
+                    save()
+                }
             }
         }
     }
-}
 
-save()
+    println "Updated $pageUpdateCount pages for $basePath"
+    save()
+}
