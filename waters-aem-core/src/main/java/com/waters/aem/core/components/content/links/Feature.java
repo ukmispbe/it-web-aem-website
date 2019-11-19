@@ -14,7 +14,7 @@ import org.apache.sling.models.annotations.Model;
 import javax.inject.Inject;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-@SuppressWarnings({ "common-java:DuplicatedBlocks" })
+@SuppressWarnings({"common-java:DuplicatedBlocks"})
 public class Feature {
 
     @DialogField(fieldLabel = "Title",
