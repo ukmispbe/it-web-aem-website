@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useForm from "react-hook-form/dist/react-hook-form.ie11";
 import Input from "./fields/input";
 import Radio from "./fields/radio";
@@ -39,11 +39,47 @@ const Form = ({
         getValues,
         setError,
         clearError,
-        triggerValidation
+        triggerValidation,
+        reset
     } = useForm({
         mode: "onBlur",
         reValidateMode: "onBlur"
     });
+
+    useEffect(() => {
+
+        let defaultValues = {};
+        let savedFormState = sessionStorage.getItem('formState');
+        let savedFormData = sessionStorage.getItem('formData');
+
+        const onbeforeunloadFn = () => {
+            const formValues = {...getValues(),
+                                ['password']: '',
+                                ['confirmPassword']: ''};
+            window.sessionStorage.setItem('formState', JSON.stringify(formState));
+            window.sessionStorage.setItem('formData', JSON.stringify(formValues));
+        }
+
+        if (savedFormState) {
+            savedFormState = JSON.parse(savedFormState);
+            for (const key in savedFormState) {
+                formState[key] = savedFormState[key];
+            }
+        }
+
+        if(savedFormData) {
+            savedFormData = JSON.parse(savedFormData);
+            for (const value of config.fields) {
+                defaultValues[value.name] = savedFormData[value.name];
+            }
+        }
+
+        reset(defaultValues);
+
+        window.addEventListener('beforeunload', onbeforeunloadFn);
+        return () => { window.removeEventListener('beforeunload', onbeforeunloadFn); }
+
+    }, [reset]);
 
     const checkIfDisabled = () => {
         return !formState.isValid;
@@ -98,7 +134,7 @@ const Form = ({
                         setError={setError}
                         clearError={clearError}
                         triggerValidation={triggerValidation}
-                        emailUrl={config.existingEmailUrl}
+                        emailUrl={config.savedEmailUrl}
                         isocode={isocode}
                     />
                 </FieldValidationDisplay>
