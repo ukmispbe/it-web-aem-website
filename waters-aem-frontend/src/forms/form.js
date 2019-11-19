@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import useForm from "react-hook-form/dist/react-hook-form.ie11";
 import Input from "./fields/input";
 import Radio from "./fields/radio";
@@ -134,7 +134,7 @@ const Form = ({
                         setError={setError}
                         clearError={clearError}
                         triggerValidation={triggerValidation}
-                        emailUrl={config.savedEmailUrl}
+                        emailUrl={config.existingEmailUrl}
                         isocode={isocode}
                     />
                 </FieldValidationDisplay>
