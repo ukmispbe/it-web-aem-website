@@ -8,6 +8,8 @@ import { SearchService, parameterDefaults } from '../services/index';
 import Search from '../search';
 import { shallow } from 'enzyme';
 
+const history = createBrowserHistory();
+
 const buildService = () => {
     return new SearchService(
         props.isocode,
@@ -27,7 +29,10 @@ const buildWrapper = props => {
 
 describe('Feature: Search React Component', () => {
     const searchService = buildService();
-    let getCategoriesSpy;
+    let getCategoriesSpy,
+        getResultsByCategorySpy,
+        getContentTypeSpy,
+        getSubFacetSpy;
 
     beforeAll(() => {
         document.getElementById = jest.fn(() => {
@@ -43,18 +48,19 @@ describe('Feature: Search React Component', () => {
         });
 
         getCategoriesSpy = jest.spyOn(searchService, 'getCategories').mockImplementation(() => data.categories);
+        getResultsByCategorySpy = jest.spyOn(searchService, 'getResultsByCategory');
+        getContentTypeSpy = jest.spyOn(searchService, 'getContentType');
+        getSubFacetSpy = jest.spyOn(searchService, 'getSubFacet');
     });
 
     describe('Scenario: Fetching categories from the backend', () => {
         let wrapper;
 
         beforeAll(() => {
-            window.location.search = '';
-
             const searchProps = {...props};
 
             searchProps.search = searchService;
-            searchProps.history = createBrowserHistory();
+            searchProps.history = history;
 
             wrapper = buildWrapper(searchProps);
         });
@@ -62,6 +68,99 @@ describe('Feature: Search React Component', () => {
         describe('When loading the component for the first time', () => {
             it('Then fetch categores only one time', () => {
                 expect(getCategoriesSpy).toHaveBeenCalledTimes(1);
+            });
+        });
+    });
+
+    describe('Scenario: Performing a search when the component loads', () => {
+        describe('When a category is not specified', () => {
+            let wrapper;
+
+            beforeAll(() => {
+                const searchProps = {...props};
+
+                searchProps.search = searchService;
+                searchProps.history = history;
+
+                wrapper = buildWrapper(searchProps).instance();
+            });
+
+            it('Then find the category with the most results', () => {
+                expect(wrapper.state.activeTabIndex).toBeDefined();
+                expect(wrapper.state.activeTabIndex).not.toEqual(-1);
+            });
+
+            it('And execute the search by category', () => {
+                expect(getResultsByCategorySpy).toHaveBeenCalled();
+            });
+        });
+
+        describe('When category only is specified', () => {
+            let wrapper;
+
+            beforeAll(() => {
+                history.push('http://localhost.com?category=Library');
+                const searchProps = {...props};
+
+                searchProps.search = searchService;
+                searchProps.history = history;
+
+                wrapper = buildWrapper(searchProps).instance();
+            });
+
+            it('Then find the index of the category', () => {
+                expect(wrapper.state.activeTabIndex).toBeDefined();
+                expect(wrapper.state.activeTabIndex).not.toEqual(-1);
+            });
+
+            it('And execute the search by category', () => {
+                expect(getResultsByCategorySpy).toHaveBeenCalled();
+            });
+        });
+
+        describe('When content type is specified', () => {
+            let wrapper;
+
+            beforeAll(() => {
+                history.push('http://localhost.com?category=Library&content_type=applicationnote');
+                const searchProps = {...props};
+
+                searchProps.search = searchService;
+                searchProps.history = history;
+
+                wrapper = buildWrapper(searchProps).instance();
+            });
+
+            it('Then find the index of the category', () => {
+                expect(wrapper.state.activeTabIndex).toBeDefined();
+                expect(wrapper.state.activeTabIndex).not.toEqual(-1);
+            });
+
+            it('And execute the search by content type', () => {
+                expect(getContentTypeSpy).toHaveBeenCalled();
+            });
+        });
+
+        describe('When at least one sub facet is specified', () => {
+            let wrapper;
+
+            beforeAll(() => {
+                history.push('http://localhost.com?category=Library&content_type=applicationnote&facet=market_facet:Chemical%2520Analysis');
+                const searchProps = {...props};
+
+                searchProps.search = searchService;
+                searchProps.history = history;
+
+                wrapper = buildWrapper(searchProps).instance();
+            });
+
+            it('Then find the index of the category', () => {
+                expect(wrapper.state.activeTabIndex).toBeDefined();
+                expect(wrapper.state.activeTabIndex).not.toEqual(-1);
+            });
+
+            it('And execute the search by sub facet', () => {
+                expect(getSubFacetSpy).toHaveBeenCalled();
             });
         });
     });
