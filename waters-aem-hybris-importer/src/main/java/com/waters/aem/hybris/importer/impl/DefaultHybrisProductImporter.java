@@ -382,6 +382,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
                             .toArray(String[]::new));
                     properties.put(WatersCommerceConstants.PROPERTY_POSITION, feature.getPosition());
                     properties.put(WatersCommerceConstants.PROPERTY_RANGE, feature.getRange());
+                    properties.put(WatersCommerceConstants.PROPERTY_MULTI_VALUED, feature.getMultiValued());
 
                     return properties;
                 });
