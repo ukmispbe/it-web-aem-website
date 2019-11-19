@@ -306,6 +306,12 @@ class Search extends Component {
         }
     }
 
+    persistTabHistory = query => {
+        const tabHistory = this.createTabHistoryEntryForCurrentTab(query);
+
+        this.search.setStorageForTabHistory(tabHistory);
+    }
+
     executeSearch = (query, rows) => {
         const searchType = this.getSearchType(query);
 
@@ -315,6 +321,8 @@ class Search extends Component {
         }
 
         this.setStateForActiveCategory(query);
+
+        this.persistTabHistory(query);
 
         switch (searchType) {
             case SEARCH_TYPES.CATEGORY_ONLY:
@@ -942,7 +950,7 @@ class Search extends Component {
     isContentTypeSelected = () =>
         Object.entries(this.state.contentTypeSelected).length !== 0;
 
-    isKeywordSelected = () => !this.search.isDefaultKeyword(this.state.keyword);
+    isKeywordSelected = () => this.state.keyword && !this.search.isDefaultKeyword(this.state.keyword);
 
     getSelectedContentType = () => {
         if (this.state.contentTypeSelected) {
@@ -1129,7 +1137,7 @@ class Search extends Component {
 
         let query = this.getQueryObject();
 
-        this.createTabHistoryEntryForCurrentTab(query);
+        this.persistTabHistory(query);
 
         this.setCategorySelected(index, query, this.state.categoryTabs[index].name);
     };
@@ -1166,7 +1174,7 @@ class Search extends Component {
         tabHistoryEntry.contentTypeSelected = Object.assign({}, this.state.contentTypeSelected);
         tabHistoryEntry.selectedFacets = Object.assign({}, this.state.selectedFacets);
 
-        this.setTabHistoryEntryState(query.category, tabHistoryEntry);
+        return this.setTabHistoryEntryState(query.category, tabHistoryEntry);
     }
 
     getTabHistoryEntry = category => {
@@ -1183,15 +1191,18 @@ class Search extends Component {
     }
 
     setTabHistoryEntryState = (category, tabHistoryEntry) => {
-        const tabHistory = this.state.tabHistory;
+        const tabHistory = this.state.tabHistory ? this.state.tabHistory : {};
         tabHistory[`${category}`] = tabHistoryEntry;
         this.setState({tabHistory});
+
+        return tabHistory;
     }
 
     setCategorySelectedState = (activeTabIndex, searchParams, contentType, contentTypeSelected, selectedFacets) => {
         this.setState({
                 activeTabIndex,
                 searchParams,
+                keyword: searchParams.keyword,
                 category: searchParams.category,
                 sort: searchParams.sort,
                 contentType,
