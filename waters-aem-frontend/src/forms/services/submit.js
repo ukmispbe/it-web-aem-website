@@ -15,11 +15,20 @@ const postData = async (url, data) => {
 
 export async function registrationSubmit(data) {
     delete data.confirmPassword;
+
+    const isCaptcha = data.hasOwnProperty('captcha');
+    if(isCaptcha) {
+        this.url = `${this.url}?captcha=${data.captcha}`;
+        delete data.captcha;
+    }
+
     const result = await postData(this.url, data);
 
     if (result.status === 200) {
         console.log("registration complete -> redirect", result.json());
     } else {
+        console.log(result.status);
+        console.log(this.url);
         this.setError(result);
         scrollToY(0);
     }
