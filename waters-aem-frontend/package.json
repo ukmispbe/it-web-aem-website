@@ -5,6 +5,8 @@
   "private": true,
   "scripts": {
     "test": "node scripts/test.js",
+    "test-build": "./node_modules/.bin/jest",
+    "test-coverage": "./node_modules/.bin/jest --coverage",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "prebuild": "rebuild-node-sass",
     "build": "NODE_ENV=production node scripts/build.js",
