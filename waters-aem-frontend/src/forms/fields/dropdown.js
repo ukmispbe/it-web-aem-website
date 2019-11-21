@@ -150,13 +150,7 @@ const Dropdown = ({}) => {
                     register(
                         { name },
                         {
-                            validate: value => {
-                                if (value) {
-                                    return true;
-                                } else {
-                                    return false;
-                                }
-                            }
+                            validate: value => !!value
                         }
                     )
                 }

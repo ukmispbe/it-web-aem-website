@@ -2,29 +2,27 @@ import { functions } from "../patterns";
 
 export const getAttributes = (ref, validation, matchRef, emailUrl, setError, clearError) => {
     const setValidation = () => {
-        const obj = {};
-
         if (validation && validation.validateFnName) {
-            if (validation.validateFnName === "matching") {
-                obj.validate = value => {
-                    return functions[validation.validateFnName](
-                        value,
-                        matchRef.current,
-                        ref
-                    );
-                };
-            } else if (validation.validateFnName === "password") {
-                obj.validate = value => {
-                    return functions[validation.validateFnName](
-                        value,
-                        ref,
-                        setError,
-                        clearError
-                    );
-                };
-            } else if (validation.validateFnName === "email") {
-                obj.validate = value => {
-                    return (
+            switch (validation.validateFnName) {
+                case "matching":
+                    return { validate: value => (
+                        functions[validation.validateFnName](
+                            value,
+                            matchRef.current,
+                            ref
+                        )
+                    )};
+                case "password":
+                    return { validate: value => (
+                        functions[validation.validateFnName](
+                            value,
+                            ref,
+                            setError,
+                            clearError
+                        )
+                    )};
+                case "email":
+                    return { validate: value => (
                         functions["email"](
                             value,
                             ref,
@@ -40,19 +38,26 @@ export const getAttributes = (ref, validation, matchRef, emailUrl, setError, cle
                             setError,
                             clearError
                         )
-                    );
-                };
-            } else {
-                obj.validate = value => {
-                    return functions[validation.validateFnName](
-                        value,
-                        ref
-                    );
-                };
+                    )};
+                case "checkBoxOrRadio":
+                    return { validate: value => (
+                        functions[validation.validateFnName](
+                            value,
+                            ref,
+                            matchRef
+                        )
+                    )};
+                default:
+                    return { validate: value => (
+                        functions[validation.validateFnName](
+                            value,
+                            ref
+                        )
+                    )};
             }
         }
 
-        return obj;
+        return {};
     };
 
     const setMinMax = () => {

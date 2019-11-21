@@ -60,7 +60,7 @@ const Input = ({
                         type={type}
                         name={name}
                         id={name}
-                        ref={(ref) => register(ref, getRegisterAttributes(ref))}
+                        ref={ref => register(ref, getRegisterAttributes(ref))}
                         onBlur={toggleReq}
                         onFocus={toggleReq}
                         onChange={updateReq}

@@ -1,12 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import ReactSVG from "react-svg";
 
 import { useFormApi, useFieldApi } from '../form';
-import { functions } from "./patterns";
+import { getAttributes } from './utils/validations';
 
 const CheckboxOrRadio = ({}) => {
     const { name, label, options, disabled, icons, config, validation, type, description } = useContext(useFieldApi);
-    const { register, setValue } = useContext(useFormApi);
+    const { register, setValue, fieldError } = useContext(useFormApi);
+    const inputRef = useRef(null);
 
     const [state, setState] = useState(() => {
         if (!options) {
@@ -48,35 +49,13 @@ const CheckboxOrRadio = ({}) => {
         }
     };
 
-    const getRegisterAttributes = (thisName) => {
-        const ref = { name: thisName };
-        const reg = {
-            required: state[thisName].required,
-            ...setValidation(thisName)
-        };
-        return [ref, reg];
-    };
-
-    const setValidation = (thisName) => {
-        const obj = {};
-        if (validation && validation.validateFnName && state[thisName].required) {
-            obj.validate = value => {
-                return functions[validation.validateFnName](
-                    value,
-                    document.getElementById(thisName),
-                    document.getElementById(thisName + '_link')
-                );
-            };
-        }
-
-        return obj;
-    };
-
     const renderLabel = (thisName, label) => {
         const newLabel = <>
             {label + " "}
             {renderAddOnLink(thisName)}
-            { !state[thisName].required ? <span className='optional'>(optional)</span> : ''}
+            { !state[thisName].required && (
+                <span className='cmp-form-field--optional'>(optional)</span>
+            )}
         </>
 
         return newLabel;
@@ -106,19 +85,21 @@ const CheckboxOrRadio = ({}) => {
                     id={thisName}
                     disabled={disabled}
                     checked={thisState.isChecked}
+                    ref={inputRef}
+                    className={fieldError(thisName) ? "error" : "valid"}
                     readOnly
                 />
                 <a
-                        href="javascript:void(0)"
-                        className={`${type} ` + (disabled ? ' disabled' : '')}
-                        onClick={(e) => {
-                            checkHandler(e, thisName);
-                        }}
-                        id={thisName + '_link'}
-                        ref={register(...getRegisterAttributes(thisName))}
-                    >
+                    href="javascript:void(0)"
+                    className={`${type} ` + (disabled ? ' disabled' : '') + (fieldError(thisName) ? " error" : " valid")}
+                    onClick={(e) => {
+                        checkHandler(e, thisName);
+                    }}
+                    id={thisName + '_link'}
+                    ref={ref => register({ name: thisName }, getAttributes(inputRef.current, validation, ref))}
+                >
                     {
-                            type == 'checkbox' ? (<ReactSVG src={icons.checkmarkIcon} />) : (<div className="selector"></div>)
+                        type == 'checkbox' ? (<ReactSVG src={icons.checkmarkIcon} />) : (<div className="selector"></div>)
                     }
                 </a>
                 <div className={`cmp-form-field-${type}--wrapper` + (disabled ? ' disabled' : '')}>
@@ -140,7 +121,6 @@ const CheckboxOrRadio = ({}) => {
             return (
                 <div id={name} className={`cmp-form-field-${type}--grouping`}>
                     {options.map((option, i) => {
-                        console.log(`${type}-${name}-grouping-${i}`);
                         return (
                             <div className={`cmp-form-field-${type}--grouping-item`} key={`${type}-${name}-grouping-${i}`} >
                                 {renderType(option.name, option.label)}
