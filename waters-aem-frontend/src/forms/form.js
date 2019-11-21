@@ -24,7 +24,8 @@ const Form = ({
         formState,
         setValue,
         setError,
-        clearError
+        clearError,
+        triggerValidation
     } = useForm({
         mode: "onBlur",
         reValidateMode: "onBlur"
@@ -59,7 +60,8 @@ const Form = ({
         setError: newError,
         clearError,
         register,
-        formState
+        formState,
+        triggerValidation
     }), [errors]);
 
     const submitErrorHandler = res => {

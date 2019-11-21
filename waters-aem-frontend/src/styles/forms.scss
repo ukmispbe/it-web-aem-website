@@ -1,5 +1,4 @@
 .cmp-form {
-
     margin-bottom: $space-l;
 
     .cmp-form__disclaimer {
@@ -157,6 +156,10 @@
             .cmp-form-field--errorText {
                 @include font-small;
                 color: $color-error;
+            }
+
+            .radio.error, .checkbox.error {
+                border: 1px solid $color-error;
             }
         }
 
@@ -364,9 +367,6 @@
                 color: $color-disabled !important;
                 cursor: default;
             }
-            &.error {
-                border: 1px solid $color-error;
-            }
         }
 
         input[type="radio"] {
@@ -410,10 +410,6 @@
                 border: 1px solid $color-disabled !important;
                 color: $color-disabled !important;
                 cursor: default;
-            }
-
-            &.error {
-                border: 1px solid $color-error;
             }
         }
     }

@@ -16,9 +16,7 @@ const removeError = (...refs) => {
 
 export const functions = {
     noValidation: () => true,
-    checkBoxOrRadio: (value, ref, styleRef) => value ? removeError(ref, styleRef) : false,
     matching: (value, matchRef, ref) => (value === matchRef.value) ? removeError(ref) : false,
-
     noWhitespaceOrSpecialChars: (value, ref) => {
         if (value.length) {
             if (
