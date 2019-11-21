@@ -2,67 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import Select, { components, createFilter } from "react-select";
 import ReactSVG from "react-svg";
 
-import variables from "../../../src/styles/variables.scss";
 import DigitalData from "../../scripts/DigitalData";
+import customStyles from "./styles/dropdown.scss";
 
 import { useFormApi, useFieldApi } from '../form';
-
-const customStyles = {
-    indicatorSeparator: () => ({
-        display: "none"
-    }),
-    option: (provided, state) => ({
-        ...provided,
-        color: variables.colorGray50,
-        backgroundColor: state.isSelected
-            ? variables.colorBackgroundLight
-            : variables.colorWhite,
-        cursor: !state.isSelected ? "pointer" : "default",
-        "&:hover": {
-            color: !state.isSelected
-                ? variables.colorBlue50
-                : variables.colorGray50,
-            backgroundColor: !state.isSelected
-                ? variables.colorWhite
-                : variables.colorBackgroundLight
-        },
-        margin: 0
-    }),
-    control: (provided, state) => ({
-        ...provided,
-        "border-radius": "0",
-        padding: "0.3em 0.5em",
-        color: variables.colorGray50,
-        "border-color": state.isFocused
-            ? variables.colorBorderDark
-            : variables.colorBorderDark,
-        outline: "none",
-        cursor: "pointer",
-        "box-shadow": "none",
-        "&:hover": {
-            outline: "none",
-            color: variables.colorBlue50,
-            borderColor: variables.colorBorderDark
-        }
-    }),
-    singleValue: (provided, state) => {
-        return {};
-    },
-    menu: provided => ({
-        ...provided,
-        marginTop: 0,
-        borderRadius: 0,
-        width: "calc(100% - 2px)",
-        marginLeft: "1px",
-        marginBottom: 0,
-        padding: 0
-    }),
-    menuList: provided => ({
-        ...provided,
-        paddingBottom: 0,
-        paddingTop: 0
-    })
-};
 
 const DropdownIndicator = props => {
     return (
@@ -101,7 +44,6 @@ const getDefault = (options, name) => {
             break;
         default:
             defaultValue = '';
-
     }
 
     return defaultValue;
@@ -127,7 +69,6 @@ const Dropdown = ({}) => {
             handleChange(getDefault(options,name))
         }
     }, [])
-
 
     return (
         <>

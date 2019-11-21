@@ -1,21 +1,24 @@
 import EmailService from "../../services/EmailService";
 
-const test = (value, regex) => {
-    return regex.test(value);
-};
+const test = (value, regex) => regex.test(value);
 
-const removeErrors = (ref) => {
-    if (ref) {
-        ref.classList.remove("error");
-        ref.classList.add("valid");
-    }
+const removeError = (...refs) => {
+    refs.forEach(ref => {
+        if (!ref) console.log("NICE");
+        if (ref) {
+            ref.classList.remove("error");
+            ref.classList.add("valid");
+        }
+    });
+
+    return true;
 };
 
 export const functions = {
-    // named validation functions here
-    noValidation: (value, ref) => {
-        return true;
-    },
+    noValidation: () => true,
+    checkBoxOrRadio: (value, ref, styleRef) => value ? removeError(ref, styleRef) : false,
+    matching: (value, matchRef, ref) => (value === matchRef.value) ? removeError(ref) : false,
+
     noWhitespaceOrSpecialChars: (value, ref) => {
         if (value.length) {
             if (
@@ -24,50 +27,35 @@ export const functions = {
                     /^.*(?=^[^\\\/~`!@#$%^|&*_+=:;"<>?\(\)\]\[\{\}\n\r]+$)(?=^.*[^\s]+).*$/g
                 )
             ) {
-                removeErrors(ref);
-                return true;
+                return removeError(ref);
             }
 
             return false;
         } else {
-            removeErrors(ref);
-            return true;
+            return removeError(ref);
         }
     },
     noWhitespaceOnly: (value, ref) => {
         if (value) {
             if (test(value, /^.*[^\s]+.*$/)) {
-                removeErrors(ref);
-                return true;
+                return removeError(ref);
             }
 
             return false;
         } else {
-            removeErrors(ref);
-            return true;
+            return removeError(ref);
         }
     },
     noWhitespace: (value, ref) => {
         if (value) {
             if (!test(value, /^.*\s+.*$/)) {
-                removeErrors(ref);
-                return true;
+                return removeError(ref);
             }
 
             return false;
         } else {
-            removeErrors(ref);
-            return true;
+            return removeError(ref);
         }
-    },
-    checkBoxOrRadio: (value, ref, styleRef) => {
-        if (value) {
-            removeErrors(ref);
-            removeErrors(styleRef);
-            return true;
-        }
-
-        return false;
     },
     password: (value, ref, setError, clearError, throwErrors=true) => {
         let validations = 0;
@@ -147,8 +135,7 @@ export const functions = {
         }
 
         if (validations >= 5 && value.length >= 8) {
-            removeErrors(ref);
-            return true;
+            return removeError(ref);
         } else {
             return false;
         }
@@ -190,9 +177,8 @@ export const functions = {
                         return false;
                     }
 
-                    removeErrors(ref);
                     clearError("alreadyRegistered");
-                    return true;
+                    return removeError(ref);
                 })
                 .catch(err => {
                     setError(
@@ -209,14 +195,5 @@ export const functions = {
             clearError("alreadyRegistered");
             return true;
         }
-    },
-
-    matching: (value, matchRef, ref) => {
-        if (value === matchRef.value) {
-            removeErrors(ref);
-            return true;
-        }
-
-        return false;
     }
 };
