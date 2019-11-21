@@ -3,14 +3,14 @@ const DigitalData = {
       return 'XG';
     },
     get language() {
-      if (!window.DigitalData) return '';
+      if (!window.digitalData) return '';
 
       return window.digitalData.page && window.digitalData.page.language
         ? window.digitalData.page.language
         : "en";
     },
     get country() {
-      if (!window.DigitalData) return '';
+      if (!window.digitalData) return '';
 
         return window.digitalData.page && window.digitalData.page.country
         ? window.digitalData.page.country
