@@ -6,6 +6,8 @@ import { useFieldApi } from '../../form';
 const Icons = ({}) => {
     const { icons, type } = useContext(useFieldApi);
 
+    const getType = (elem) => elem.classList.contains("toggled") ? "text" : type;
+
     const toggleEye = e => {
         const parent = e.currentTarget.parentNode;
         const onIcon = parent.querySelector(".showHide-icon");
@@ -15,8 +17,7 @@ const Icons = ({}) => {
             onIcon.classList.toggle("toggled");
             offIcon.classList.toggle("toggled");
 
-            type = offIcon.classList.contains("toggled") ? "text" : "password";
-            parent.parentNode.querySelector("input").type = type;
+            parent.parentNode.querySelector("input").type = getType(offIcon);
         }
     };
 
