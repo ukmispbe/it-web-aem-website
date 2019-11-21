@@ -53,7 +53,7 @@ const Form = ({
             setErrorBoundaryToTrue(res);
         } else {
             resetErrorBoundaryToFalse();
-            removeNotification();
+            removeNotifications();
         }
     };
 
