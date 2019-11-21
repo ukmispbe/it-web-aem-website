@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import useForm from "react-hook-form/dist/react-hook-form.ie11";
 import Input from "./fields/input";
 import CheckboxOrRadio from "./fields/checkboxOrRadio";
@@ -48,14 +48,10 @@ const Form = ({
         return !formState.isValid;
     };
 
-    const [submissionError, setSubmissionError] = useState();
-
     const submitErrorHandler = res => {
         if (res) {
-            setSubmissionError(res);
-            setErrorBoundaryToTrue();
+            setErrorBoundaryToTrue(res);
         } else {
-            setSubmissionError(null);
             resetErrorBoundaryToFalse();
             removeNotification();
         }

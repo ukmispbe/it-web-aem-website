@@ -193,7 +193,7 @@
     }
 }
 
-.cmp-notification--error {
+.cmp-notification--error, .cmp-notification--captcha {
     .cmp-notification-wrapper {
         transition: transform 200ms ease-in-out;
 
