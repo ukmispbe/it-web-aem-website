@@ -51,7 +51,7 @@ const Form = ({
 
     const submitErrorHandler = res => {
         if (res) {
-            setErrorBoundaryToTrue( res.status === 802 ? 'captcha' : undefined );
+            setErrorBoundaryToTrue(res);
         } else {
             resetErrorBoundaryToFalse();
             removeNotification();
