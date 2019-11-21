@@ -1,25 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo, createContext, useCallback } from "react";
 import useForm from "react-hook-form/dist/react-hook-form.ie11";
-import Input from "./fields/input";
-import CheckboxOrRadio from "./fields/checkboxOrRadio";
-import Dropdown from "./fields/dropdown";
-import Hr from "./fields/hr";
-import FieldValidationDisplay from "./components/field-validation-display";
-import Captcha from "./fields/captcha";
-import ErrorBoundary from "../search/ErrorBoundary";
 
-const formType = {
-    text: Input,
-    number: Input,
-    password: Input,
-    email: Input,
-    radio: CheckboxOrRadio,
-    checkbox: CheckboxOrRadio,
-    dropdown: Dropdown,
-    select: Dropdown,
-    break: Hr,
-    captcha: Captcha
-};
+import ErrorBoundary from "../search/ErrorBoundary";
+import Field from './fields';
+
+const FormApi = createContext(null);
+FormApi.displayName = "FormApi";
+const FieldApi = createContext(null);
+FieldApi.displayName = "FieldApi";
 
 const Form = ({
     config,
@@ -35,10 +23,8 @@ const Form = ({
         errors,
         formState,
         setValue,
-        getValues,
         setError,
-        clearError,
-        triggerValidation
+        clearError
     } = useForm({
         mode: "onBlur",
         reValidateMode: "onBlur"
@@ -47,6 +33,34 @@ const Form = ({
     const checkIfDisabled = () => {
         return !formState.isValid;
     };
+
+    const [errorUpdates, setUpdate] = useState({});
+
+    useEffect(() => {
+        for (let name in errorUpdates) {
+            if (errors[name]) {
+                errors[name].ref = errorUpdates[name];
+            }
+
+            delete errorUpdates[name];
+        }
+    }, [errorUpdates, errors]);
+
+    const fieldError = useCallback((name) => errors[name], [errors]);
+    const newError = useCallback((name, type, msg, ref) => {
+        setError(name, type, msg);
+        setUpdate({...errorUpdates, [name]: ref});
+    }, [errors]);
+
+    const getApi = useMemo(() => ({
+        errors,
+        fieldError,
+        setValue,
+        setError: newError,
+        clearError,
+        register,
+        formState
+    }), [errors]);
 
     const [submissionError, setSubmissionError] = useState();
 
@@ -61,53 +75,11 @@ const Form = ({
         }
     };
 
-    const f = config.fields.map((field, i) => {
-        const Component = formType[field.type];
-
-        if (Component) {
-            let newName = "";
-            let confirmName = "";
-            if (field.name) {
-                newName =
-                    field.name.charAt(0).toUpperCase() + field.name.slice(1);
-                confirmName = "confirm".concat(newName);
-            }
-
-            return (
-                <FieldValidationDisplay
-                    dirty={
-                        formState.touched[0] &&
-                        typeof formState.touched[0] === "object"
-                            ? formState.touched[0].has(field.name)
-                            : formState.touched.indexOf(field.name) > -1
-                    }
-                    valid={!errors[field.name]}
-                    type={field.type}
-                    hasMatchValid={field.hasMatch ? !errors[confirmName] : true}
-                    dirtyMatch={
-                        formState.touched[0] &&
-                        typeof formState.touched[0] === "object"
-                            ? formState.touched[0].has(confirmName)
-                            : formState.touched.indexOf(confirmName) > -1
-                    }
-                    key={`field-${i}`}>
-                    <Component
-                        {...field}
-                        fieldErr={errors[field.name]}
-                        errors={errors}
-                        register={register}
-                        setValue={setValue}
-                        icons={config.icons}
-                        setError={setError}
-                        clearError={clearError}
-                        triggerValidation={triggerValidation}
-                        emailUrl={config.existingEmailUrl}
-                        isocode={isocode}
-                    />
-                </FieldValidationDisplay>
-            );
-        }
-    });
+    const fields = config.fields.map((field, i) => (
+        <FieldApi.Provider value={{ ...config, config: config, ...field, field: field, isocode }} key={`field-${i}`}>
+            <Field />
+        </FieldApi.Provider>
+    ));
 
     return (
         <form
@@ -118,7 +90,9 @@ const Form = ({
                     setError: submitErrorHandler
                 })
             )}>
-            {f}
+            <FormApi.Provider value={getApi}>
+                {fields}
+            </FormApi.Provider>
             <button
                 type="submit"
                 className={
@@ -139,3 +113,6 @@ const ErrorBoundaryForm = props => (
 );
 
 export default ErrorBoundaryForm;
+// Context Variables
+export const useFormApi = FormApi;
+export const useFieldApi = FieldApi;

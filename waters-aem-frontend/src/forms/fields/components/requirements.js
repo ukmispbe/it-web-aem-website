@@ -1,13 +1,14 @@
-import React, { useState, useEffect, useImperativeHandle, forwardRef } from 'react';
+import React, { useState, useEffect, useImperativeHandle, forwardRef, useContext } from 'react';
 import ReactSVG from "react-svg";
 
+import { useFieldApi } from '../../form';
 import { functions } from "../patterns/";
 
 const Requirements = ({
     header,
-    requirements,
-    icon
+    requirements
 }, ref) => {
+    const { icons } = useContext(useFieldApi);
     const [toggled, setToggled] = useState(false);
     const [input, setInput] = useState("");
     const [errors, setErrors] = useState({});
@@ -28,7 +29,7 @@ const Requirements = ({
         },
         update: (newInput) => {
             setInput(newInput);
-            setErrors(functions.password(newInput, {}, null, null, [], false));
+            setErrors(functions.password(newInput, {}, null, null, false));
             return input;
         }
     }));
@@ -43,7 +44,7 @@ const Requirements = ({
                 <div key={`requirements-info-${key}`}>
                     <ReactSVG
                         id={name}
-                        src={icon}
+                        src={icons.checkmarkIcon}
                         className={
                             validFields[key]
                                 ? "valid requirements-info-svg"

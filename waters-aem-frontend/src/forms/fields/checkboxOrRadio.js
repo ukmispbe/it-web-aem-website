@@ -1,21 +1,14 @@
-import React, { useState} from 'react';
+import React, { useState, useContext } from 'react';
 import ReactSVG from "react-svg";
+
+import { useFormApi, useFieldApi } from '../form';
 import { functions } from "./patterns";
 
-const CheckboxOrRadio = ({
-    name,
-    label,
-    options,
-    disabled,
-    register,
-    icons,
-    config,
-    validation,
-    setValue,
-    type,
-    description
-}) => {
-    const [state, setState] = useState(() => { 
+const CheckboxOrRadio = ({}) => {
+    const { name, label, options, disabled, icons, config, validation, type, description } = useContext(useFieldApi);
+    const { register, setValue } = useContext(useFormApi);
+
+    const [state, setState] = useState(() => {
         if (!options) {
             return {
                 [name]: {
@@ -75,7 +68,7 @@ const CheckboxOrRadio = ({
                 );
             };
         }
-            
+
         return obj;
     };
 
@@ -84,14 +77,14 @@ const CheckboxOrRadio = ({
             {label + " "}
             {renderAddOnLink(thisName)}
             { !state[thisName].required ? <span className='optional'>(optional)</span> : ''}
-        </> 
+        </>
 
         return newLabel;
     }
 
-    const renderAddOnLink = (thisName) => { 
+    const renderAddOnLink = (thisName) => {
         const thisState = state[thisName];
-        if (thisState.text && thisState.link && thisState.blank) { 
+        if (thisState.text && thisState.link && thisState.blank) {
             return <a
                 href={thisState.link}
                 target={thisState ? "_blank" : ""}
@@ -118,7 +111,7 @@ const CheckboxOrRadio = ({
                 <a
                         href="javascript:void(0)"
                         className={`${type} ` + (disabled ? ' disabled' : '')}
-                        onClick={(e) => { 
+                        onClick={(e) => {
                             checkHandler(e, thisName);
                         }}
                         id={thisName + '_link'}
@@ -129,7 +122,7 @@ const CheckboxOrRadio = ({
                     }
                 </a>
                 <div className={`cmp-form-field-${type}--wrapper` + (disabled ? ' disabled' : '')}>
-                    <label htmlFor={thisName} onClick={(e) => { 
+                    <label htmlFor={thisName} onClick={(e) => {
                             checkHandler(e, thisName);
                     }}>{renderLabel(thisName, label)}</label>
                     {thisState.description && (

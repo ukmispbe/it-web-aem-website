@@ -4,10 +4,6 @@ const test = (value, regex) => {
     return regex.test(value);
 };
 
-const isEmpty = (obj) => {
-    return Object.entries(obj).length === 0 && obj.constructor === Object;
-};
-
 const removeErrors = (ref) => {
     if (ref) {
         ref.classList.remove("error");
@@ -71,7 +67,7 @@ export const functions = {
             styleRef.classList.remove("error");
             styleRef.classList.add("valid");
             return true;
-        } else { 
+        } else {
             ref.classList.remove("valid");
             ref.classList.add("error");
             styleRef.classList.remove("valid");
@@ -79,7 +75,7 @@ export const functions = {
             return false;
         }
     },
-    password: (value, ref, setError, clearError, errors, throwErrors=true) => {
+    password: (value, ref, setError, clearError, throwErrors=true) => {
         let validations = 0;
         let newErrors = [];
 
@@ -151,7 +147,6 @@ export const functions = {
         if (throwErrors) {
             newErrors.forEach(error => {
                 setError(error.name, error.type, error.msg, error.ref);
-                errors[error.name].ref = isEmpty(errors[error.name].ref) ? error.ref : errors[error.name].ref;
             });
         } else {
             return newErrors.length ? newErrors.reduce((map, error) => { map[error.name] = true; return map; }, {}) : {};
@@ -164,7 +159,7 @@ export const functions = {
             return false;
         }
     },
-    email: (value, ref, invalidMsg, setError, clearError, errors) => {
+    email: (value, ref, invalidMsg, setError, clearError) => {
         if (
             test(
                 value,
@@ -175,12 +170,11 @@ export const functions = {
             return true;
         } else {
             setError("invalidEmail", "invalidEmail", invalidMsg, ref);
-            errors["invalidEmail"].ref = isEmpty(errors["invalidEmail"].ref) ? ref : errors["invalidEmail"].ref;
             return false;
         }
     },
 
-    newEmail: (value, emailUrl, ref, invalidMsg, setError, clearError, errors) => {
+    newEmail: (value, emailUrl, ref, invalidMsg, setError, clearError) => {
         if (
             test(
                 value,
@@ -199,7 +193,6 @@ export const functions = {
                             invalidMsg,
                             ref
                         );
-                        errors["alreadyRegistered"].ref = isEmpty(errors["alreadyRegistered"].ref) ? ref : errors["alreadyRegistered"].ref;
                         return false;
                     }
 
@@ -214,7 +207,6 @@ export const functions = {
                         err,
                         ref
                     );
-                    errors["alreadyRegistered"].ref = isEmpty(errors["alreadyRegistered"].ref) ? ref : errors["alreadyRegistered"].ref;
                     return false;
                 });
 

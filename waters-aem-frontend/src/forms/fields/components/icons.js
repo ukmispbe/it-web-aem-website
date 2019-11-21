@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ReactSVG from "react-svg";
 
-const Icons = ({
-    icons,
-    type
-}) => {
+import { useFieldApi } from '../../form';
+
+const Icons = ({}) => {
+    const { icons, type } = useContext(useFieldApi);
 
     const toggleEye = e => {
         const parent = e.currentTarget.parentNode;

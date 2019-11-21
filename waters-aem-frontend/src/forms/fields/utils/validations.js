@@ -1,99 +1,96 @@
 import { functions } from "../patterns";
 
-const setValidation = (validation, ref, errors, matchRef, emailUrl, setError, clearError) => {
-    const obj = {};
+export const getAttributes = (ref, validation, matchRef, emailUrl, setError, clearError) => {
+    const setValidation = () => {
+        const obj = {};
 
-    if (validation && validation.validateFnName) {
-        if (validation.validateFnName === "matching") {
-            obj.validate = value => {
-                return functions[validation.validateFnName](
-                    value,
-                    matchRef.current,
-                    ref
-                );
-            };
-        } else if (validation.validateFnName === "password") {
-            obj.validate = value => {
-                return functions[validation.validateFnName](
-                    value,
-                    ref,
-                    setError,
-                    clearError,
-                    errors
-                );
-            };
-        } else if (validation.validateFnName === "email") {
-            obj.validate = value => {
-                return (
-                    functions["email"](
+        if (validation && validation.validateFnName) {
+            if (validation.validateFnName === "matching") {
+                obj.validate = value => {
+                    return functions[validation.validateFnName](
+                        value,
+                        matchRef.current,
+                        ref
+                    );
+                };
+            } else if (validation.validateFnName === "password") {
+                obj.validate = value => {
+                    return functions[validation.validateFnName](
                         value,
                         ref,
-                        validation.validationMsg,
                         setError,
-                        clearError,
-                        errors
-                    ) &&
-                    functions["newEmail"](
+                        clearError
+                    );
+                };
+            } else if (validation.validateFnName === "email") {
+                obj.validate = value => {
+                    return (
+                        functions["email"](
+                            value,
+                            ref,
+                            validation.validationMsg,
+                            setError,
+                            clearError
+                        ) &&
+                        functions["newEmail"](
+                            value,
+                            emailUrl,
+                            ref,
+                            validation.alreadyRegisteredMsg,
+                            setError,
+                            clearError
+                        )
+                    );
+                };
+            } else {
+                obj.validate = value => {
+                    return functions[validation.validateFnName](
                         value,
-                        emailUrl,
-                        ref,
-                        validation.alreadyRegisteredMsg,
-                        setError,
-                        clearError,
-                        errors
-                    )
-                );
-            };
-        } else {
-            obj.validate = value => {
-                return functions[validation.validateFnName](
-                    value,
-                    ref
-                );
-            };
-        }
-    }
-
-    return obj;
-};
-
-const setMinMax = (validation) => {
-    const obj = {};
-
-    if (validation) {
-        if (validation.min) {
-            obj.min = {
-                value: validation.min.value,
-                message: validation.min.message
-            };
+                        ref
+                    );
+                };
+            }
         }
 
-        if (validation.max) {
-            obj.max = {
-                value: validation.max.value,
-                message: validation.max.message
-            };
+        return obj;
+    };
+
+    const setMinMax = () => {
+        const obj = {};
+
+        if (validation) {
+            if (validation.min) {
+                obj.min = {
+                    value: validation.min.value,
+                    message: validation.min.message
+                };
+            }
+
+            if (validation.max) {
+                obj.max = {
+                    value: validation.max.value,
+                    message: validation.max.message
+                };
+            }
+
+            if (validation.minLength) {
+                obj.minLength = {
+                    value: validation.minLength.value,
+                    message: validation.minLength.message
+                };
+            }
+
+            if (validation.maxLength) {
+                obj.maxLength = {
+                    value: validation.maxLength.value,
+                    message: validation.maxLength.message
+                };
+            }
         }
 
-        if (validation.minLength) {
-            obj.minLength = {
-                value: validation.minLength.value,
-                message: validation.minLength.message
-            };
-        }
+        return obj;
+    };
 
-        if (validation.maxLength) {
-            obj.maxLength = {
-                value: validation.maxLength.value,
-                message: validation.maxLength.message
-            };
-        }
-    }
-
-    return obj;
-};
-
-export const getAttributes = (ref, validation, errors, matchRef, emailUrl, setError, clearError) => {
     return {
         required:
             validation && validation.required
@@ -101,7 +98,7 @@ export const getAttributes = (ref, validation, errors, matchRef, emailUrl, setEr
                     ? validation.requiredMsg
                     : "Required"
                 : false,
-        ...setValidation(validation, ref, errors, matchRef, emailUrl, setError, clearError),
-        ...setMinMax(validation)
+        ...setValidation(),
+        ...setMinMax()
     };
 };

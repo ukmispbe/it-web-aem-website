@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
-import ReactSVG from "react-svg";
+import React, { useState, useEffect, useContext } from "react";
 import Select, { components, createFilter } from "react-select";
+import ReactSVG from "react-svg";
+
 import variables from "../../../src/styles/variables.scss";
 import DigitalData from "../../scripts/DigitalData";
+
+import { useFormApi, useFieldApi } from '../form';
 
 const customStyles = {
     indicatorSeparator: () => ({
@@ -85,7 +88,7 @@ const getOptions = (opts, name) => {
     return opt;
 };
 
-const getDefault = (options, name) => { 
+const getDefault = (options, name) => {
     let defaultValue;
     const allOptions = getOptions(options, name);
 
@@ -104,15 +107,9 @@ const getDefault = (options, name) => {
     return defaultValue;
 }
 
-const Dropdown = ({
-    label,
-    options,
-    name,
-    register,
-    dropdownIndicator,
-    placeholder,
-    setValue
-}) => {
+const Dropdown = ({}) => {
+    const { name, label, options, dropdownIndicator, placeholder } = useContext(useFieldApi);
+    const { register, setValue } = useContext(useFormApi);
     const [selectValue, setSelect] = useState();
 
     const handleChange = opt => {
@@ -125,8 +122,8 @@ const Dropdown = ({
         matchFrom: "start"
     };
 
-    useEffect(() => { 
-        if (typeof selectValue == 'undefined') { 
+    useEffect(() => {
+        if (typeof selectValue == 'undefined') {
             handleChange(getDefault(options,name))
         }
     }, [])
