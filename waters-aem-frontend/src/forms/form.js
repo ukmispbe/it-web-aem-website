@@ -62,14 +62,10 @@ const Form = ({
         formState
     }), [errors]);
 
-    const [submissionError, setSubmissionError] = useState();
-
     const submitErrorHandler = res => {
         if (res) {
-            setSubmissionError(res);
-            setErrorBoundaryToTrue();
+            setErrorBoundaryToTrue(res);
         } else {
-            setSubmissionError(null);
             resetErrorBoundaryToFalse();
             removeNotification();
         }

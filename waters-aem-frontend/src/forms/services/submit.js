@@ -10,17 +10,24 @@ const postData = async (url, data) => {
         body: JSON.stringify(data)
     });
 
-    return await response.json();
+    return await response;
 };
 
 export async function registrationSubmit(data) {
     delete data.confirmPassword;
-    const result = await postData(this.url, data);
 
-    if (result.status === 200) {
-        console.log("registration complete -> redirect", result.json());
+    const isCaptcha = data.hasOwnProperty('captcha');
+    if(isCaptcha) {
+        this.url = `${this.url}?captcha=${data.captcha}`;
+        delete data.captcha;
+    }
+
+    const response = await postData(this.url, data);
+
+    if (response.status === 200) {
+        console.log("registration complete -> redirect", response.json());
     } else {
-        this.setError(result);
+        this.setError(response);
         scrollToY(0);
     }
 }

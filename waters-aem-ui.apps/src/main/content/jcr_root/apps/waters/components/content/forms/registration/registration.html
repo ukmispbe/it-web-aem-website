@@ -118,7 +118,10 @@
                     {
                         "type": "captcha",
                         "name": "captcha",
-                        "siteKey": "${registration.captchaSiteKey @ context='unsafe'}"
+                        "siteKey": "${registration.captchaSiteKey @ context='unsafe'}",
+                        "validation": {
+                            "required": true
+                        }
                     }
                 ]
             }
