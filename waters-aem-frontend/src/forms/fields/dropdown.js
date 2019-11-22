@@ -4,6 +4,8 @@ import ReactSVG from "react-svg";
 
 import DigitalData from "../../scripts/DigitalData";
 import customStyles from "./styles/dropdown.scss";
+import DisplayMessage from "./components/displaymessage";
+import Icons from './components/icons';
 
 import { useFormApi, useFieldApi } from '../form';
 
@@ -50,9 +52,10 @@ const getDefault = (options, name) => {
 }
 
 const Dropdown = ({}) => {
-    const { name, label, options, dropdownIndicator, placeholder } = useContext(useFieldApi);
+    const { name, label, options, dropdownIndicator, placeholder, validation } = useContext(useFieldApi);
     const { register, setValue } = useContext(useFormApi);
     const [selectValue, setSelect] = useState();
+    const [hasBlurred, setBlurred] = useState(false);
 
     const handleChange = opt => {
         setSelect(opt);
@@ -70,33 +73,40 @@ const Dropdown = ({}) => {
         }
     }, [])
 
+    const handleBlur = () => !hasBlurred ? setBlurred(true) : null;
+
     return (
-        <>
+        <div className={"cmp-form-field-dropdown--wrapper" + (hasBlurred ? " dirty" : "")}>
             <label htmlFor={name}>{label}</label>
-            <Select
-                id={name}
-                name={name}
-                defaultValue={""}
-                options={getOptions(options, name)}
-                value={selectValue}
-                onChange={handleChange}
-                isSearchable={true}
-                styles={customStyles}
-                placeholder={placeholder}
-                classNamePrefix={"cmp-custom-dropdown"}
-                components={{ DropdownIndicator }}
-                theme={{ dropdownIndicator }}
-                filterOption={createFilter(filterConfig)}
-                ref={() =>
-                    register(
-                        { name },
-                        {
-                            validate: value => !!value
-                        }
-                    )
-                }
-            />
-        </>
+            <div className={"cmp-form-field-dropdown--wrapper"}>
+                <Select
+                    id={name}
+                    name={name}
+                    defaultValue={""}
+                    options={getOptions(options, name)}
+                    value={selectValue}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    isSearchable={true}
+                    styles={customStyles}
+                    placeholder={placeholder}
+                    classNamePrefix={"cmp-custom-dropdown"}
+                    components={{ DropdownIndicator }}
+                    theme={{ dropdownIndicator }}
+                    filterOption={createFilter(filterConfig)}
+                    ref={() =>
+                        register(
+                            { name },
+                            {
+                                validate: value => !!value
+                            }
+                        )
+                    }
+                />
+                <Icons />
+            </div>
+            <DisplayMessage name={name} validation={validation} />
+        </div>
     );
 };
 

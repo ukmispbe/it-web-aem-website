@@ -68,7 +68,7 @@ const Input = ({
                         disabled={disabled}
                         className={fieldError(name) ? "error" : "valid"}
                     ></input>
-                    <Icons icons={icons} type={type} />
+                    <Icons />
                 </div>
 
                 <DisplayMessage

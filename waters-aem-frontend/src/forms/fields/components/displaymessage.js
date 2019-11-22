@@ -28,7 +28,7 @@ const DisplayMessage = ({
                         break;
                     }
 
-                    message = (fieldErr.message || validation.validationMsg);
+                    message = (fieldErr.message || validation.validationMsg || validation.requiredMsg);
                     break;
                 default:
                     message = (fieldErr.message)

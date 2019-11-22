@@ -44,6 +44,14 @@
             @include mobile {
                 width: 100%;
             }
+
+            .cmp-form-field-dropdown--wrapper {
+                position: relative;
+
+                .cmp-form-field--errorText {
+                    display: none;
+                }
+            }
         }
 
         label {
@@ -160,6 +168,31 @@
 
             .radio.error, .checkbox.error {
                 border: 1px solid $color-error;
+            }
+
+            .cmp-form-field-dropdown--wrapper.dirty {
+                .cmp-form-field-dropdown--wrapper {
+                    .cmp-custom-dropdown__control {
+                        border: 1px solid $color-error;
+
+                        .cmp-custom-dropdown__indicators {
+                            margin-right: $space-l;
+                        }
+                    }
+
+                    .cmp-form-field--icons {
+                        .invalid-icon {
+                            display: inline-block;
+                            svg {
+                                display: block;
+                            }
+                        }
+                    }
+                }
+
+                .cmp-form-field--errorText {
+                    display: inline;
+                }
             }
         }
 
