@@ -17,18 +17,19 @@ class ErrorBoundary extends React.Component {
         });
     }
 
-    removeNotification() {
+    removeNotifications() {
         this.setState(
             {
                 hasError: false,
                 hasErrored: false,
             },
             () => {
-                const notification = document.querySelector(
-                    '.cmp-notification--dynamic.cmp-notification--error'
+                const notifications = document.querySelectorAll(
+                    '.cmp-notification--dynamic[class*=cmp-notification--]'
                 );
-
-                notification.classList.remove('error');
+                [...notifications].forEach( notification => {
+                    notification.classList.remove('error');
+                });
             }
         );
     }
@@ -61,7 +62,7 @@ class ErrorBoundary extends React.Component {
                     setErrorBoundaryToTrue: this.setErrorBoundaryToTrue.bind(
                         this
                     ),
-                    removeNotification: this.removeNotification.bind(this),
+                    removeNotifications: this.removeNotifications.bind(this),
                 })}
             </>
         );
