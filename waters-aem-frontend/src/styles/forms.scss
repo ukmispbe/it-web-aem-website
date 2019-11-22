@@ -1,5 +1,5 @@
 .cmp-form {
-
+    float: left;
     margin-bottom: $space-l;
 
     .cmp-form__disclaimer {
@@ -132,7 +132,8 @@
                 }
             }
 
-            &:placeholder-shown, &:focus {
+            &:placeholder-shown,
+            &:focus {
                 & ~ .cmp-form-field--icons .valid-icon {
                     display: none;
                     svg {
@@ -293,7 +294,6 @@
 
         &-checkbox,
         &-radio {
-
             display: flex;
             label {
                 display: inline;
@@ -310,10 +310,9 @@
                         color: $color-disabled !important;
                     }
                 }
-
             }
 
-            &.optional{
+            &.optional {
                 @include font-small;
             }
         }
