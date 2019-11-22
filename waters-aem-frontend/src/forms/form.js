@@ -27,7 +27,7 @@ const Form = ({
     isocode,
     setErrorBoundaryToTrue,
     resetErrorBoundaryToFalse,
-    removeNotification
+    removeNotifications
 }) => {
     const {
         register,
