@@ -92,6 +92,11 @@
             order: 2;
             display: inline-flex;
 
+            @include IE11-only {
+                position: relative;
+                top: $space-xxxs;
+            }
+
             &::before {
                 display: inline-block;
                 content: "";
@@ -103,6 +108,12 @@
                 margin-right: $space-xxxs;
                 position: relative;
                 top: $space-xxxs;
+
+                @include IE11-only {
+                    top: 0;
+                    background-position-y: $space-xxxs;
+                    height: $icon-m;
+                }
 
                 .st0 {
                     stroke: $color-link;
