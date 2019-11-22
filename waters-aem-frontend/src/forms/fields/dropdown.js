@@ -56,6 +56,7 @@ const Dropdown = ({}) => {
     const { register, setValue } = useContext(useFormApi);
     const [selectValue, setSelect] = useState();
     const [hasBlurred, setBlurred] = useState(false);
+    const [required] = useState(validation ? validation.required : false);
 
     const handleChange = opt => {
         setSelect(opt);
@@ -98,7 +99,7 @@ const Dropdown = ({}) => {
                         register(
                             { name },
                             {
-                                validate: value => !!value
+                                validate: value => !required || !!value
                             }
                         )
                     }
