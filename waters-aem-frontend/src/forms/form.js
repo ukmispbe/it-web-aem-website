@@ -15,7 +15,7 @@ const Form = ({
     isocode,
     setErrorBoundaryToTrue,
     resetErrorBoundaryToFalse,
-    removeNotification
+    removeNotifications
 }) => {
     const {
         register,
@@ -69,7 +69,7 @@ const Form = ({
             setErrorBoundaryToTrue(res);
         } else {
             resetErrorBoundaryToFalse();
-            removeNotification();
+            removeNotifications();
         }
     };
 
