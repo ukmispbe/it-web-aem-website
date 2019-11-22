@@ -1,12 +1,11 @@
 .cmp-features {
-
     &__list {
         padding-left: 0;
     }
 
     &__feature {
         list-style: none;
-        margin-bottom: $space-l;
+        margin-bottom: $space-s;
 
         &-icon {
             height: $icon-l;
@@ -16,12 +15,12 @@
 
             .st0 {
                 stroke: $color-icon;
-                stroke-width: .75px;
+                stroke-width: 0.75px;
             }
 
             .st1 {
                 stroke: $color-icon;
-                stroke-width: .75px;
+                stroke-width: 0.75px;
             }
         }
 
@@ -95,7 +94,7 @@
 
             &::before {
                 display: inline-block;
-                content: '';
+                content: "";
                 height: (($icon-s + $icon-m) / 2);
                 width: (($icon-s + $icon-m) / 2);
                 background-size: contain;
