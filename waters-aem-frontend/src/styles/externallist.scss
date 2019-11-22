@@ -1,5 +1,4 @@
 .cmp-external-list {
-
     @include font-body;
     &__title {
         @include font-h3;
@@ -7,7 +6,7 @@
     }
 
     &__parsys {
-        .image{
+        .image {
             padding: 0px;
             margin: 0px;
         }
@@ -19,19 +18,17 @@
     &__link {
         @include font-h3;
     }
-
 }
 
 .cmp-external-list--horizontal {
-
     .cmp-external-list {
         &__title {
             @include font-h3;
         }
-    
+
         &__parsys {
             float: left;
-            .image{
+            .image {
                 padding: 0px;
                 margin: 0px;
                 @include tablet-and-over {
@@ -47,15 +44,14 @@
                 }
             }
         }
-    
+
         &__link {
             a {
-                @include font-h3;
                 line-height: 0.7em;
                 vertical-align: top;
             }
         }
-    
+
         &__description {
             @include font-body;
             @include tablet-and-over {
