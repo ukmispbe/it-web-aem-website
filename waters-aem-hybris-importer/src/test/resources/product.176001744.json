@@ -141,12 +141,7 @@
     "name": "PFC Analysis Kit",
     "prices": [
         {
-            "countries": [
-                "NZ",
-                "FJ",
-                "VA",
-                "AS"
-            ],
+            "meta": "Prices should always have a 'countries' array, but can be null if bad data is received from Hybris. This was intentionally removed from this mock price object to test that bad data scenario",
             "currencyIso": "AUD",
             "value": 11093
         },
