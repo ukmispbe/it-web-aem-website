@@ -1,27 +1,34 @@
 import React from "react";
 import useForm from "react-hook-form/dist/react-hook-form.ie11";
 import Input from "./fields/input";
-import Radio from "./fields/radio";
-import Checkbox from "./fields/checkbox";
+import CheckboxOrRadio from "./fields/checkboxOrRadio";
 import Dropdown from "./fields/dropdown";
 import Hr from "./fields/hr";
 import FieldValidationDisplay from "./components/field-validation-display";
 import Captcha from "./fields/captcha";
+import ErrorBoundary from "../search/ErrorBoundary";
 
 const formType = {
     text: Input,
     number: Input,
     password: Input,
     email: Input,
-    radio: Radio,
-    checkbox: Checkbox,
+    radio: CheckboxOrRadio,
+    checkbox: CheckboxOrRadio,
     dropdown: Dropdown,
     select: Dropdown,
     break: Hr,
     captcha: Captcha
 };
 
-const Form = ({ config, submitFn, isocode }) => {
+const Form = ({
+    config,
+    submitFn,
+    isocode,
+    setErrorBoundaryToTrue,
+    resetErrorBoundaryToFalse,
+    removeNotifications
+}) => {
     const {
         register,
         handleSubmit,
@@ -33,11 +40,21 @@ const Form = ({ config, submitFn, isocode }) => {
         clearError,
         triggerValidation
     } = useForm({
-        mode: "onBlur"
+        mode: "onBlur",
+        reValidateMode: "onBlur"
     });
 
     const checkIfDisabled = () => {
         return !formState.isValid;
+    };
+
+    const submitErrorHandler = res => {
+        if (res) {
+            setErrorBoundaryToTrue(res);
+        } else {
+            resetErrorBoundaryToFalse();
+            removeNotifications();
+        }
     };
 
     const f = config.fields.map((field, i) => {
@@ -92,7 +109,10 @@ const Form = ({ config, submitFn, isocode }) => {
         <form
             className="cmp-form cmp-form--registration"
             onSubmit={handleSubmit(
-                submitFn.bind({ url: config.submitEndpoint })
+                submitFn.bind({
+                    url: config.submitEndpoint,
+                    setError: submitErrorHandler
+                })
             )}>
             {f}
             <button
@@ -104,14 +124,14 @@ const Form = ({ config, submitFn, isocode }) => {
                 disabled={checkIfDisabled()}>
                 {config.buttonText}
             </button>
-            <div className="cmp-form__disclaimer">
-                {config.disclaimerText + " "}
-                <a href={config.termsAndConditionsLink} target={config.termsAndConditionsBlank ? "_blank" : ""} rel="noopener">
-                    {config.termsAndConditionsText}
-                </a>
-            </div>
         </form>
     );
 };
 
-export default Form;
+const ErrorBoundaryForm = props => (
+    <ErrorBoundary>
+        <Form {...props} />
+    </ErrorBoundary>
+);
+
+export default ErrorBoundaryForm;

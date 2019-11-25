@@ -27,7 +27,9 @@
 
 --%><%@ page import="org.apache.commons.lang3.ArrayUtils,
                      com.day.cq.wcm.api.WCMMode,
-                     com.day.cq.wcm.foundation.ELEvaluator, com.day.cq.wcm.api.components.IncludeOptions" %><%
+                     com.day.cq.wcm.foundation.ELEvaluator,
+                     com.day.cq.wcm.api.components.IncludeOptions,
+                     com.day.cq.commons.Externalizer" %><%
 %><%@include file="/libs/foundation/global.jsp" %><%
 
 %><cq:include script="init.jsp"/><%
@@ -36,6 +38,7 @@
     String location = properties.get("redirectTarget", "");
     // resolve variables in location
     location = ELEvaluator.evaluate(location, slingRequest, pageContext);
+    Externalizer externalizer = resourceResolver.adaptTo(Externalizer.class);
 
     boolean internalRedirect = properties.get("redirectInternal", false);
 
@@ -64,9 +67,9 @@
                     redirectPath = location;
                 } else if (protocolIndex == -1 && queryIndex > -1) {
                     // if this is an internal path (/content) and contains a query parameter, don't append .html at end
-                    redirectPath = request.getContextPath() + location;
+                    redirectPath = externalizer.externalLink(resourceResolver, Externalizer.PUBLISH, location);
                 } else {
-                    redirectPath = request.getContextPath() + location + ".html";
+                    redirectPath = externalizer.externalLink(resourceResolver, Externalizer.PUBLISH, location + ".html");
                 }
 
                 if (isWCMModeDisabledParameter) {

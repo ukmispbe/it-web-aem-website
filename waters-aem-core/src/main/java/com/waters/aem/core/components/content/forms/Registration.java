@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.form.captcha.CaptchaService;
 import com.waters.aem.core.services.account.WatersAccountService;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Default;
@@ -59,6 +60,9 @@ public class Registration implements ComponentExporter {
     @OSGiService
     private WatersAccountService accountService;
 
+    @OSGiService
+    private CaptchaService captchaService;
+
     @DialogField(fieldLabel = "Login Link",
         fieldDescription = "Select or enter the link URL",
         ranking = 1)
@@ -66,15 +70,15 @@ public class Registration implements ComponentExporter {
     @LinkInject
     private Link loginLink;
 
-    @DialogField(fieldLabel = "Terms and Conditions Link",
+    @DialogField(fieldLabel = "Privacy Notice Link",
         fieldDescription = "Select or enter the link URL",
         ranking = 2)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject
-    private Link termsAndConditionsLink;
+    private Link privacyNoticeLink;
 
     @DialogField(fieldLabel = "Open in New Window",
-        fieldDescription = "Select this option to open 'Terms and Conditions' in new window",
+        fieldDescription = "Select this option to open 'Privacy Notice' in new window",
         ranking = 3)
     @Switch(offText = "No", onText = "Yes")
     @Inject
@@ -85,8 +89,8 @@ public class Registration implements ComponentExporter {
         return loginLink;
     }
 
-    public Link getTermsAndConditionsLink() {
-        return termsAndConditionsLink;
+    public Link getPrivacyNoticeLink() {
+        return privacyNoticeLink;
     }
 
     public Boolean isNewWindow() {
@@ -110,6 +114,10 @@ public class Registration implements ComponentExporter {
 
     public String getEmailValidationUrl() {
         return accountService.getEmailValidationUrl();
+    }
+
+    public String getCaptchaSiteKey() {
+        return captchaService.getSiteKey();
     }
 
     private Map<String, Object> getCountryMap(String countryCode) {

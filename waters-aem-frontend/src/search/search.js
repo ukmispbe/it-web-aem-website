@@ -27,6 +27,7 @@ import CategoryTabs from './components/categories-tabs';
 import validator from 'validator';
 import domElements from '../scripts/domElements';
 import screenSizes from '../scripts/screenSizes';
+import Analytics, { analyticTypes } from '../scripts/analytics';
 
 class Search extends Component {
     constructor(props) {
@@ -178,11 +179,8 @@ class Search extends Component {
             query.content_type
         );
 
-        const isSkuList = this.isSkuList(query.category);
-
         this.setState({
             activeTabIndex: categoryIndex,
-            isSkuList,
             category: query.category,
             sort: query.sort,
             contentType: query.content_type,
@@ -193,7 +191,11 @@ class Search extends Component {
         });
     }
 
-    isSkuList = category =>  validator.equals(category, 'Shop');
+    isSkuList = category =>  {
+        const categoryKey = this.findFacetByName(this.props.filterMap, category);
+
+        return validator.equals(categoryKey, 'shop');
+    }
 
     handleHistoryPop = query => {
         const categoryIndex = this.state.categoryTabs.findIndex(
@@ -203,15 +205,12 @@ class Search extends Component {
         if (this.state.activeTabIndex !== categoryIndex) {
             this.setCategorySelected(categoryIndex, query, query.category);
         } else {
-            const isSkuList = this.isSkuList(query.category);
-
             const contentTypeElement = this.findContentType(
                 this.props.filterMap,
                 query.content_type
             );
 
             this.setState({
-                isSkuList,
                 category: query.category,
                 sort: query.sort,
                 contentType: query.content_type,
@@ -223,13 +222,31 @@ class Search extends Component {
         }
     }
 
+    findFacetByName = (filterMap, searchValue) => {
+        if (!filterMap || !Array.isArray(filterMap)) {
+            return "";
+        }
+
+        const facet = filterMap.find(item => item.categoryFacetValue === searchValue);
+
+        if (!facet) {
+            return "";
+        }
+
+        return facet.categoryFacetName.replace('_facet', '');
+    }
+
     mapCategories = categories =>
         !categories || !categories.facets || !categories.facets.category_facet
             ? []
             : categories.facets.category_facet
                   .filter(category => category.value !== 0)
                   .map(category => {
-                      return { name: category.value, count: category.count };
+                      return { 
+                          key: this.findFacetByName(this.props.filterMap, category.value),
+                          name: category.value,
+                          count: category.count 
+                        };
                   });
 
     findMaxCategory = categories => {
@@ -279,9 +296,8 @@ class Search extends Component {
                 category => category.name === query.category
             );
             const categoryName = categoryIndex !== -1 ? categoriesWithData[categoryIndex].name : '';
-            const isSkuList = this.isSkuList(categoryName);
 
-            this.setState({ activeTabIndex: categoryIndex, isSkuList, category: categoryName });
+            this.setState({ activeTabIndex: categoryIndex, category: categoryName });
         }
 
         if (isInitialLoad) {
@@ -293,9 +309,8 @@ class Search extends Component {
             }
 
             const categoryName = categoriesWithData[maxCategory].name;
-            const isSkuList = this.isSkuList(categoryName);
 
-            this.setState({ activeTabIndex: maxCategory, isSkuList, category: categoryName });
+            this.setState({ activeTabIndex: maxCategory, category: categoryName });
 
             query.category = categoryName;
 
@@ -311,12 +326,14 @@ class Search extends Component {
             });
 
             if (!this.props.hasError) {
-                this.search.getResultsByCategory(query).then(res => {
+                const requestData = {...query, categoryKey: this.findFacetByName(this.props.filterMap, query.category)};
+
+                this.search.getResultsByCategory(requestData).then(res => {
                     if (res && !this.props.hasError) {
                         this.searchOnSuccess(query, rows, res, true);
                     } else {
                         this.search
-                            .getResultsByCategory(query)
+                            .getResultsByCategory(requestData)
                             .then(results => {
                                 if (!results) {
                                     this.setState({
@@ -339,23 +356,27 @@ class Search extends Component {
                 });
             }
         } else if (!this.isFacetsSelected(query.facets)) {
+            const requestData = {...query, categoryKey: this.findFacetByName(this.props.filterMap, query.category)};
+
             // no sub-facets have been selected, only the content type has been selected
             const contentTypeValue = this.getSelectedContentTypeValue();
 
             this.search
-                .getContentType(query.content_type, contentTypeValue, query)
+                .getContentType(query.content_type, contentTypeValue, requestData)
                 .then(res =>
                     this.searchOnSuccess(query, rows, res, false, 'success')
                 )
                 .catch(error => this.searchOnError(error));
         } else {
+            const requestData = {...query, categoryKey: this.findFacetByName(this.props.filterMap, query.category)};
+
             // sub-facets have been selected
             const contentTypeName = this.getSelectedContentTypeName();
 
             const contentTypeValue = this.getSelectedContentTypeValue();
 
             this.search
-                .getSubFacet(contentTypeName, contentTypeValue, query)
+                .getSubFacet(contentTypeName, contentTypeValue, requestData)
                 .then(res =>
                     this.searchOnSuccess(query, rows, res, false, 'success')
                 )
@@ -464,6 +485,8 @@ class Search extends Component {
             ? res.spell_suggestion
             : '';
 
+        newState.isSkuList = this.isSkuList(query.category);
+
         this.setState(Object.assign({}, this.state, newState), () => {
             // collapse all facet groups when flag is true and the device is tablet or mobile
             if (this.state.forceCollapseFilters) {
@@ -503,7 +526,11 @@ class Search extends Component {
             }
         }
         this.props.resetToDefault = false;
+
+        this.submitAnalytics({ ... this.state.searchParams, total: res.num_found });
     };
+
+    submitAnalytics = data => Analytics.setAnalytics(analyticTypes.search.name, data);
 
     getActiveFilterIndex = (contentType, filterMap, facets, facetName) => {
         const mappings = searchMapper.mapFacetGroups(contentType, filterMap, facets);
@@ -1121,11 +1148,8 @@ class Search extends Component {
     }
 
     setCategorySelectedState = (activeTabIndex, searchParams, contentType, contentTypeSelected, selectedFacets) => {
-        const isSkuList = this.isSkuList(searchParams.category);
-
         this.setState({
                 activeTabIndex,
-                isSkuList,
                 searchParams,
                 category: searchParams.category,
                 sort: searchParams.sort,

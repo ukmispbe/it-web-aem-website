@@ -26,7 +26,7 @@ class Modal extends React.Component {
             config: props.config,
             theme: props.theme,
             errorObj: this.props.errorObj
-        });
+        }, this.toggleModalClass);
     }
 
     showModal = (theme, config) => {
@@ -62,6 +62,14 @@ class Modal extends React.Component {
         }
     };
 
+    toggleModalClass = () => { 
+        if (this.state.open) {
+            document.documentElement.classList.add('modalOpen');
+        } else { 
+            document.documentElement.classList.remove('modalOpen');
+        }
+    }
+
     shouldRender = {
         title: (title, icon) => {
 
@@ -77,7 +85,7 @@ class Modal extends React.Component {
                                 <ReactSVG src={icon} />
                             </div>
                         )}
-                        <div className="cmp-modal__title-text">{title}</div>
+                        <div className={`cmp-modal__title-text ${this.state.config.screenReader ? "screen-reader-text" : ""}`}>{title}</div>
                     </div>
                 );
             } else {

@@ -4,23 +4,19 @@
 </script>
 <!-- Mopinion end -->
 
+
+
+<sly data-sly-use.scriptHelper="com.waters.aem.core.components.structure.page.ScriptHelper"
+     data-sly-test="${scriptHelper.pageHasVideoComponent}">
+    <!-- Brightcove framework start -->
+    <script src="//players.brightcove.net/${scriptHelper.brightcoveAccount}/${scriptHelper.brightcovePlayerId}_default/index.min.js"></script>
+    <!-- Brightcove framework end-->
+</sly>
+
+
 <!-- launch script end -->
 <script type="text/javascript">_satellite.pageBottom();</Script>
 
 <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html"
      data-sly-call="${clientlib.js @ categories='waters.common'}"/>
 <sly data-sly-call="${clientlib.js @ categories='waters.site'}"/>
-
-<sly data-sly-use.captcha="com.waters.aem.core.form.captcha.Captcha">
-    <!-- <script type="text/javascript">
-        var onloadCallback = function () {
-            console.log("grecaptcha is ready!");
-
-            grecaptcha.render('captcha-container', {
-               'siteKey' : "${captcha.siteKey @ context='unsafe'}"
-            })
-        };
-    </script>
-
-    <script src="${captcha.jsApi @ context='unsafe'}?onload=onloadCallback&render=explicit" async defer></script> -->
-</sly>

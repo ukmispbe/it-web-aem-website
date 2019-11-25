@@ -12,6 +12,7 @@ import LoginStatus from "../scripts/loginStatus";
 import CheckOutStatus from "../scripts/checkOutStatus";
 import SkuMessage from "../sku-shared/views/SkuMessage";
 import Ecommerce from "../scripts/ecommerce";
+import { mainCartContext } from "../scripts/analytics";
 
 class SkuDetails extends React.Component {
     constructor(props) {
@@ -31,6 +32,12 @@ class SkuDetails extends React.Component {
                 ...this.props.config.modalInfo,
                 textHeading: this.props.skuNumber,
                 text: this.props.titleText
+            },
+            analyticsConfig: {
+                context: mainCartContext,
+                name: this.props.titleText,
+                price: this.props.price,
+                sku: this.props.skuNumber,
             },
             errorObj: {},
             discontinued: this.props.discontinued == "true"
@@ -65,6 +72,10 @@ class SkuDetails extends React.Component {
                         ...this.props.config.modalInfo,
                         textHeading: this.props.skuNumber,
                         text: this.props.titleText
+                    },
+                    analyticsConfig: {
+                        ...this.state.analyticsConfig,
+                        ...response
                     }
                 });
             })
@@ -89,6 +100,67 @@ class SkuDetails extends React.Component {
         this.setState({ errorObj: err });
         this.setState({ modalShown: !this.state.modalShown });
     };
+
+    // If product is not sold in that country
+    renderCountryRestricted = () => {
+        return (
+            <SkuMessage
+                icon={this.state.skuConfig.lowStockIcon}
+                message={this.props.countryRestricted}
+            />
+        )
+    }
+
+    renderDiscontinued = () => {
+        let discontinuedMessage = this.props.config.skuInfo
+            .discontinuedWithReplacementWithCode;
+        if (
+            !this.props.replacementSkuCode ||
+            !this.props.replacementSkuHref
+        ) {
+            discontinuedMessage = this.props.config.skuInfo
+                .discontinuedNoReplacementCode;
+        }
+        return (
+            <SkuMessage
+                icon={this.props.config.skuInfo.lowStockIcon}
+                message={discontinuedMessage}
+                link={this.props.replacementSkuHref}
+                linkMessage={this.props.replacementSkuCode}
+            />
+        );
+    }
+
+    renderEcommerceDisabled = () => {
+        return (
+            <SkuMessage
+                icon={this.props.config.commerceConfig.disabledIcon}
+                message={this.props.config.commerceConfig.disabledText}
+                link={this.props.config.commerceConfig.disabledHref}
+                linkMessage={
+                    this.props.config.commerceConfig.disabledLinkText
+                }
+            />
+        );
+    }
+
+    renderEcommercePartialDisabled = () => {
+        return (
+            <SkuMessage
+                icon={this.props.config.commerceConfig.disabledIcon}
+                message={
+                    this.props.config.commerceConfig.partialDisabledText
+                }
+                link={
+                    this.props.config.commerceConfig.partialDisabledHref
+                }
+                linkMessage={
+                    this.props.config.commerceConfig
+                        .partialDisabledLinkText
+                }
+            />
+        );
+    }
 
     renderBuyInfo = () => {
         return (
@@ -116,6 +188,7 @@ class SkuDetails extends React.Component {
                         addToCartLabel={this.props.config.addToCartLabel}
                         addToCartUrl={this.props.config.addToCartUrl}
                         toggleErrorModal={this.toggleErrorModal}
+                        analyticsConfig={this.state.analyticsConfig}
                     ></AddToCart>
                 </div>
                 <Modal
@@ -132,16 +205,7 @@ class SkuDetails extends React.Component {
 
     renderActiveSku = () => {
         if (Ecommerce.isDisabledState()) {
-            return (
-                <SkuMessage
-                    icon={this.props.config.commerceConfig.disabledIcon}
-                    message={this.props.config.commerceConfig.disabledText}
-                    link={this.props.config.commerceConfig.disabledHref}
-                    linkMessage={
-                        this.props.config.commerceConfig.disabledLinkText
-                    }
-                />
-            );
+            return this.renderEcommerceDisabled();
         } else {
             if (
                 (Ecommerce.isPartialState() &&
@@ -151,47 +215,18 @@ class SkuDetails extends React.Component {
             ) {
                 return <>{this.renderBuyInfo()}</>;
             } else {
-                return (
-                    <SkuMessage
-                        icon={this.props.config.commerceConfig.disabledIcon}
-                        message={
-                            this.props.config.commerceConfig.partialDisabledText
-                        }
-                        link={
-                            this.props.config.commerceConfig.partialDisabledHref
-                        }
-                        linkMessage={
-                            this.props.config.commerceConfig
-                                .partialDisabledLinkText
-                        }
-                    />
-                );
+                return this.renderEcommercePartialDisabled();
             }
         }
     };
 
     render() {
-        if (this.state.discontinued) {
-            let discontinuedMessage = this.props.config.skuInfo
-                .discontinuedWithReplacementWithCode;
-            if (
-                !this.props.replacementSkuCode ||
-                !this.props.replacementSkuHref
-            ) {
-                discontinuedMessage = this.props.config.skuInfo
-                    .discontinuedNoReplacementCode;
-            }
-            return (
-                <SkuMessage
-                    icon={this.props.config.skuInfo.lowStockIcon}
-                    message={discontinuedMessage}
-                    link={this.props.replacementSkuHref}
-                    linkMessage={this.props.replacementSkuCode}
-                />
-            );
+        if(!this.state.defaultPrice){
+            return this.renderCountryRestricted();
+        } else if (this.state.discontinued) {
+            return this.renderDiscontinued();
         } else {
-            const activeSku = this.renderActiveSku();
-            return activeSku;
+            return this.renderActiveSku();
         }
     }
 }

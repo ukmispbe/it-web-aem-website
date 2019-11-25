@@ -1,4 +1,6 @@
 .cmp-form {
+    float: left;
+    margin-bottom: $space-l;
 
     .cmp-form__disclaimer {
         @include font-utility;
@@ -20,14 +22,14 @@
         margin-top: 0;
         font-size: $font-size-body;
 
-        @include tablet-and-over{
+        @include tablet-and-over {
             width: auto;
         }
 
         &.cmp-button--disabled {
             background-color: #9ca7b0 !important;
             cursor: default;
-            @include tablet-and-over{
+            @include tablet-and-over {
                 width: auto;
             }
         }
@@ -35,7 +37,7 @@
     .cmp-form-field {
         float: left;
         width: 100%;
-        margin-bottom: ($space-m - $space-xxxs);
+        margin-bottom: $space-s;
 
         &.cmp-form-field-dropdown {
             width: 65%;
@@ -55,7 +57,7 @@
             }
 
             &.cmp-form-field--label-matching {
-                margin-top: ($space-m - $space-xxxs);
+                margin-top: $space-s;
             }
         }
 
@@ -130,7 +132,8 @@
                 }
             }
 
-            &:placeholder-shown {
+            &:placeholder-shown,
+            &:focus {
                 & ~ .cmp-form-field--icons .valid-icon {
                     display: none;
                     svg {
@@ -189,6 +192,7 @@
             height: (($space-xs * 2) + $line-height-text);
             display: flex;
             align-items: center;
+            pointer-events: none;
 
             & > div {
                 display: none;
@@ -221,6 +225,7 @@
 
                 &.showHide-icon.toggled,
                 &.showHideOff-icon.toggled {
+                    pointer-events: all;
                     display: inline-block;
                     svg {
                         cursor: pointer;
@@ -232,13 +237,12 @@
 
         &--input-requirements {
             display: none;
-            position: absolute;
             top: 100%;
             background-color: white;
             z-index: 1;
             width: 100%;
-            border: 1px solid $color-gray-30;
             padding: $space-s;
+            padding-left: 0;
 
             & > div {
                 display: block;
@@ -282,15 +286,39 @@
             &.toggled {
                 display: block;
             }
+
+            @include tablet-and-under {
+                display: block;
+            }
+        }
+
+        &-checkbox,
+        &-radio {
+            display: flex;
+            label {
+                display: inline;
+                font-weight: $font-weight-light;
+            }
+
+            &--grouping-item {
+                display: flex;
+            }
+
+            &--wrapper {
+                &.disabled {
+                    label {
+                        color: $color-disabled !important;
+                    }
+                }
+            }
+
+            &.optional {
+                @include font-small;
+            }
         }
 
         input[type="checkbox"] {
             display: none;
-
-            & ~ label {
-                display: inline;
-                font-weight: $font-weight-light;
-            }
 
             &:checked ~ .checkbox {
                 border: 1px solid $color-background-dark;
@@ -306,9 +334,10 @@
             border: 1px solid $color-gray-40;
             height: 1em;
             width: 1em;
-            vertical-align: -2px;
+            margin-top: 0.3em;
             margin-right: $space-xxs;
             transition: none;
+            flex-shrink: 0;
             svg {
                 display: none;
                 width: 0.8em;
@@ -324,28 +353,23 @@
                     stroke-width: 4;
                 }
             }
+
             &:hover {
                 border: 1px solid $color-blue-50;
             }
-
 
             &.disabled {
                 border: 1px solid $color-disabled !important;
                 color: $color-disabled !important;
                 cursor: default;
-
-                & ~ label {
-                    color: $color-disabled !important;
-                }
+            }
+            &.error {
+                border: 1px solid $color-error;
             }
         }
 
         input[type="radio"] {
             display: none;
-
-            & ~ label {
-                display: inline-block;
-            }
 
             &:checked ~ .radio {
                 border: 1px solid $color-background-dark;
@@ -360,11 +384,12 @@
             border: 1px solid $color-gray-40;
             height: $icon-s;
             width: $icon-s;
-            vertical-align: -2px;
+            margin-top: 0.3em;
             margin-right: $space-xxs;
             transition: none;
             border-radius: 100%;
             position: relative;
+            flex-shrink: 0;
             div.selector {
                 display: none;
                 background-color: $color-gray-50;
@@ -384,10 +409,10 @@
                 border: 1px solid $color-disabled !important;
                 color: $color-disabled !important;
                 cursor: default;
+            }
 
-                & ~ label {
-                    color: $color-disabled !important;
-                }
+            &.error {
+                border: 1px solid $color-error;
             }
         }
     }
@@ -404,6 +429,13 @@
 
     .cmp-form-field-captcha {
         margin-top: $space-s;
-        margin-bottom: $space-xl;
+        margin-bottom: $space-l;
+    }
+
+    &__submission-error {
+        float: left;
+        clear: both;
+        margin-bottom: $space-l;
+        color: $color-error;
     }
 }

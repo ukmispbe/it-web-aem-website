@@ -1,6 +1,11 @@
 import React from 'react';
 
+const statusCodes = {
+    captcha: 802
+};
+
 class ErrorBoundary extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = { hasError: false, hasErrored: false };
@@ -12,25 +17,29 @@ class ErrorBoundary extends React.Component {
         });
     }
 
-    removeNotification() {
+    removeNotifications() {
         this.setState(
             {
                 hasError: false,
                 hasErrored: false,
             },
             () => {
-                const notification = document.querySelector(
-                    '.cmp-notification--dynamic.cmp-notification--error'
+                const notifications = document.querySelectorAll(
+                    '.cmp-notification--dynamic[class*=cmp-notification--]'
                 );
-
-                notification.classList.remove('error');
+                [...notifications].forEach( notification => {
+                    notification.classList.remove('error');
+                });
             }
         );
     }
 
-    setErrorBoundaryToTrue() {
+    setErrorBoundaryToTrue(response) {
+        // Display captcha server error in a different notification component
+        const classname = (response && response.status === statusCodes.captcha) ? 'captcha' : 'error';
+
         const notification = document.querySelector(
-            '.cmp-notification--dynamic.cmp-notification--error'
+            '.cmp-notification--dynamic.cmp-notification--' + classname
         );
 
         notification.classList.add('error');
@@ -53,7 +62,7 @@ class ErrorBoundary extends React.Component {
                     setErrorBoundaryToTrue: this.setErrorBoundaryToTrue.bind(
                         this
                     ),
-                    removeNotification: this.removeNotification.bind(this),
+                    removeNotifications: this.removeNotifications.bind(this),
                 })}
             </>
         );
