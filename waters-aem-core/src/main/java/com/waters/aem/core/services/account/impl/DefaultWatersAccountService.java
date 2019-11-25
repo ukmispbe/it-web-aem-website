@@ -76,7 +76,7 @@ public class DefaultWatersAccountService implements WatersAccountService {
         legacySearchUrl = configuration.legacySearchUrl();
         registrationSubmitUrl = configuration.registrationSubmitUrl();
         emailValidationUrl = configuration.emailValidationUrl();
-        passwordResetUrl = configuration.passwordResetnUrl();
+        passwordResetUrl = configuration.passwordResetUrl();
         changePasswordUrl = configuration.changePasswordUrl();
     }
 }
