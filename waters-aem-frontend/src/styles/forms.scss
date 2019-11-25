@@ -152,6 +152,24 @@
                     }
                 }
             }
+
+            &::-moz-placeholder {
+                & ~ .cmp-form-field--icons .valid-icon {
+                    display: none;
+                    svg {
+                        display: none;
+                    }
+                }
+            }
+
+            &:-ms-input-placeholder {
+                & ~ .cmp-form-field--icons .valid-icon {
+                    display: none;
+                    svg {
+                        display: none;
+                    }
+                }
+            }
         }
 
         &.cmp-form-field--invalid {
