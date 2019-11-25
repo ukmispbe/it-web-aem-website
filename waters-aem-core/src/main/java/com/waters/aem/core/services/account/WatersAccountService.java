@@ -50,4 +50,11 @@ public interface WatersAccountService {
      * @return my account URL
      */
     String getPasswordResetUrl();
+
+    /**
+     * Get the configured URL for change password.
+     *
+     * @return my account URL
+     */
+    String getChangePasswordUrl();
 }
