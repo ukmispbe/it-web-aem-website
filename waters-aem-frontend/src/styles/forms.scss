@@ -1,5 +1,8 @@
 .cmp-form {
-    float: left;
+    @include non-IE11-browsers {
+        float: left;
+    }
+
     margin-bottom: $space-l;
 
     .cmp-form__disclaimer {
