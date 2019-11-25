@@ -108,14 +108,14 @@
                 width: (($icon-s + $icon-m) / 2);
                 background-size: contain;
                 background-repeat: no-repeat;
-                background-image: url("data:image/svg+xml,%3Csvg version='1.2' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' overflow='visible' preserveAspectRatio='none' viewBox='0 0 26 26' xml:space='preserve' y='0px' x='0px' id='Layer_1_1570645479065' width='16' height='16'%3E%3Cg transform='translate(1, 1)'%3E%3Cstyle type='text/css'%3E .st0_1570645479065%7Bfill:none;stroke: rgb(0, 119, 187);stroke-linecap:round;stroke-linejoin:round;%7D .st1_1570645479065%7Bfill:none;stroke: rgb(0, 119, 187);stroke-miterlimit:10;%7D%0A%3C/style%3E%3Cpath d='M19.2,20.3v-1.8c0-2-1.5-3.6-3.6-3.6H8.4c-2,0-3.6,1.5-3.6,3.6v1.8' class='st0_1570645479065' style='stroke: rgb(0, 119, 187); stroke-width: 1px;' vector-effect='non-scaling-stroke'/%3E%3Ccircle r='3.6' cy='8.9' cx='12' class='st0_1570645479065' style='stroke: rgb(0, 119, 187); stroke-width: 1px;' vector-effect='non-scaling-stroke'/%3E%3Ccircle r='11' cy='12.1' cx='11.9' class='st1_1570645479065' style='stroke: rgb(0, 119, 187); stroke-width: 1px;' vector-effect='non-scaling-stroke'/%3E%3C/g%3E%3C/svg%3E");
+                background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%2307b;stroke-linecap:round;stroke-linejoin:round;%7D .st1%7Bfill:none;stroke:%2307b;stroke-miterlimit:10;%7D%0A%3C/style%3E%3Cg%3E%3Cpath class='st0' d='M18.6,19.6V18c0-1.8-1.4-3.3-3.3-3.3H8.8c-1.8,0-3.3,1.4-3.3,3.3v1.6'/%3E%3Ccircle class='st0' cx='12.1' cy='9.3' r='3.3'/%3E%3Ccircle class='st1' cx='12' cy='12.2' r='10'/%3E%3C/g%3E%3C/svg%3E%0A");
                 margin-right: $space-xxxs;
                 position: relative;
                 top: $space-xxxs;
 
                 @include IE11-only {
                     top: 0;
-                    background-position-y: $space-xxxs;
+                    background-position-y: 0;
                     height: $icon-m;
                 }
 
