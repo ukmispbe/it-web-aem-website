@@ -4,6 +4,7 @@ import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.form.captcha.CaptchaService;
 import com.waters.aem.core.services.account.WatersAccountService;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -29,8 +30,15 @@ public class ForgotPassword implements ComponentExporter {
     @OSGiService
     private WatersAccountService accountService;
 
+    @OSGiService
+    private CaptchaService captchaService;
+
     public String getChangePasswordUrl() {
         return accountService.getChangePasswordUrl();
+    }
+
+    public String getCaptchaSiteKey() {
+        return captchaService.getSiteKey();
     }
 
     @Nonnull
