@@ -3,7 +3,6 @@ package com.waters.aem.hybris.importer.impl;
 import com.day.cq.commons.DownloadResource;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.NameConstants;
-import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.WCMException;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableMap;
@@ -254,15 +253,16 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             .append("-")
             .append(TextUtils.getValidJcrName(sku.getTitle()))
             .toString();
-        final String skuPagePath = categoryPage.getPath() + "/" + skuPageName;
 
         final PageManagerDecorator pageManager = context.getPageManager();
 
-        PageDecorator skuPage = pageManager.getPage(skuPagePath);
-
         HybrisImportStatus status = null;
 
-        if (skuPage == null && getProductCodesForCategory(pageManager.getPage(categoryPage.getPath())).isEmpty()) {
+        final PageDecorator shopPage = pageManager.getPage(WatersConstants.ROOT_PATH_SHOP);
+
+        PageDecorator skuPage = getExistingSkuPage(shopPage, sku.getCode());
+
+        if (skuPage == null) {
             // create new page
             skuPage = pageManager.create(categoryPage.getPath(), skuPageName, WatersConstants.TEMPLATE_SKU_PAGE,
                 sku.getTitle(), false);
@@ -366,37 +366,13 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         return hasUpdatedSkus;
     }
 
-    private Boolean skuPageExists(final PageDecorator rootPage, final String skuCode) {
-
-        boolean pageExists = false;
-
-        for (PageDecorator childPage : rootPage.getChildren(WatersConstants.PREDICATE_SKU_PAGE)) {
-            if (skuPageExistsInCategory(childPage, skuCode)) {
-                pageExists = true;
-            }
-        }
-
-        return pageExists;
-        /*return rootPage.getChildren(WatersConstants.PREDICATE_SKU_PAGE)
+    private PageDecorator getExistingSkuPage(final PageDecorator shopPage, final String skuCode) {
+        return shopPage.getChildren()
             .stream()
+            .flatMap(categoryPage -> categoryPage.getChildren(WatersConstants.PREDICATE_SKU_PAGE).stream())
             .filter(page -> page.getProperties().get(WatersCommerceConstants.PROPERTY_CODE, String.class).equals(skuCode))
-            .findFirst().isPresent();*/
+            .findFirst().orElse(null);
     }
-
-    private Boolean skuPageExistsInCategory(final PageDecorator rootPage, final String skuCode) {
-        return rootPage.getChildren(WatersConstants.PREDICATE_SKU_PAGE)
-            .stream()
-            .filter(page -> page.getProperties().get(WatersCommerceConstants.PROPERTY_CODE, String.class).equals(skuCode))
-            .findFirst().isPresent();
-    }
-
-    private PageDecorator getExistingSkuPage(final PageDecorator rootPage, final String skuCode) {
-        return rootPage.getChildren(WatersConstants.PREDICATE_SKU_PAGE)
-        .stream()
-        .filter(page -> page.getProperties().get(WatersCommerceConstants.PROPERTY_CODE, String.class).equals(skuCode))
-        .findFirst().orElse(null);
-    }
-
 
     private List<PageDecorator> getLiveCopyPages(final PageDecorator page) {
         final List<PageDecorator> languageMasterPages = new ArrayList<>();
@@ -496,6 +472,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         updatedProperties.put(WatersCommerceConstants.PROPERTY_PRODUCT_RESOURCE_PATH, sku.getPath());
         updatedProperties.put(WatersCommerceConstants.PROPERTY_CODE, sku.getCode());
         updatedProperties.put(JcrConstants.JCR_DESCRIPTION, sku.getLongDescription());
+        updatedProperties.put(JcrConstants.JCR_TITLE, sku.getTitle());
 
         if (sku.getPrimaryImageSrc() != null) {
             updatedProperties.put(WatersConstants.OG_IMAGE, sku.getPrimaryImageSrc());

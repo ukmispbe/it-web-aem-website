@@ -12,6 +12,8 @@ public final class WatersConstants {
 
     public static final String ROOT_PATH_LANGUAGE_MASTERS = ROOT_PATH + "/language-masters";
 
+    public static final String ROOT_PATH_SHOP = ROOT_PATH_LANGUAGE_MASTERS + "/shop";
+
     public static final String GLOBAL_REGIONS_NODE = "xg";
 
     public static final String ROOT_PATH_GLOBAL_REGIONS = ROOT_PATH + "/" + GLOBAL_REGIONS_NODE;
