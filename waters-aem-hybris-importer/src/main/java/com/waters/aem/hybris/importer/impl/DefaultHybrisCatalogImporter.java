@@ -262,7 +262,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         HybrisImportStatus status = null;
 
-        if (skuPage == null && !skuPageExists(pageManager.getPage(categoryPage.getPath()), sku.getCode())) {
+        if (skuPage == null && getProductCodesForCategory(pageManager.getPage(categoryPage.getPath())).isEmpty()) {
             // create new page
             skuPage = pageManager.create(categoryPage.getPath(), skuPageName, WatersConstants.TEMPLATE_SKU_PAGE,
                 sku.getTitle(), false);
@@ -366,20 +366,37 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         return hasUpdatedSkus;
     }
 
-    private Boolean skuPageExists(PageDecorator rootPage, String skuCode) {
-        boolean hasCode = false;
+    private Boolean skuPageExists(final PageDecorator rootPage, final String skuCode) {
 
-        while (rootPage.listChildren().hasNext()) {
-            Page child = rootPage.listChildren().next();
+        boolean pageExists = false;
 
-            if(child.getTitle().contains(skuCode)) {
-                hasCode = true;
+        for (PageDecorator childPage : rootPage.getChildren(WatersConstants.PREDICATE_SKU_PAGE)) {
+            if (skuPageExistsInCategory(childPage, skuCode)) {
+                pageExists = true;
             }
-
         }
 
-        return hasCode;
+        return pageExists;
+        /*return rootPage.getChildren(WatersConstants.PREDICATE_SKU_PAGE)
+            .stream()
+            .filter(page -> page.getProperties().get(WatersCommerceConstants.PROPERTY_CODE, String.class).equals(skuCode))
+            .findFirst().isPresent();*/
     }
+
+    private Boolean skuPageExistsInCategory(final PageDecorator rootPage, final String skuCode) {
+        return rootPage.getChildren(WatersConstants.PREDICATE_SKU_PAGE)
+            .stream()
+            .filter(page -> page.getProperties().get(WatersCommerceConstants.PROPERTY_CODE, String.class).equals(skuCode))
+            .findFirst().isPresent();
+    }
+
+    private PageDecorator getExistingSkuPage(final PageDecorator rootPage, final String skuCode) {
+        return rootPage.getChildren(WatersConstants.PREDICATE_SKU_PAGE)
+        .stream()
+        .filter(page -> page.getProperties().get(WatersCommerceConstants.PROPERTY_CODE, String.class).equals(skuCode))
+        .findFirst().orElse(null);
+    }
+
 
     private List<PageDecorator> getLiveCopyPages(final PageDecorator page) {
         final List<PageDecorator> languageMasterPages = new ArrayList<>();
