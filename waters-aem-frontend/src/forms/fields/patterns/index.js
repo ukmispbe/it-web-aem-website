@@ -1,25 +1,21 @@
 import EmailService from "../../services/EmailService";
 
-const test = (value, regex) => {
-    return regex.test(value);
-};
+const test = (value, regex) => regex.test(value);
 
-const isEmpty = (obj) => {
-    return Object.entries(obj).length === 0 && obj.constructor === Object;
-};
+const removeError = (...refs) => {
+    refs.forEach(ref => {
+        if (ref) {
+            ref.classList.remove("error");
+            ref.classList.add("valid");
+        }
+    });
 
-const removeErrors = (ref) => {
-    if (ref) {
-        ref.classList.remove("error");
-        ref.classList.add("valid");
-    }
+    return true;
 };
 
 export const functions = {
-    // named validation functions here
-    noValidation: (value, ref) => {
-        return true;
-    },
+    noValidation: () => true,
+    matching: (value, matchRef, ref) => (value === matchRef.value) ? removeError(ref) : false,
     noWhitespaceOrSpecialChars: (value, ref) => {
         if (value.length) {
             if (
@@ -28,58 +24,37 @@ export const functions = {
                     /^.*(?=^[^\\\/~`!@#$%^|&*_+=:;"<>?\(\)\]\[\{\}\n\r]+$)(?=^.*[^\s]+).*$/g
                 )
             ) {
-                removeErrors(ref);
-                return true;
+                return removeError(ref);
             }
 
             return false;
         } else {
-            removeErrors(ref);
-            return true;
+            return removeError(ref);
         }
     },
     noWhitespaceOnly: (value, ref) => {
         if (value) {
             if (test(value, /^.*[^\s]+.*$/)) {
-                removeErrors(ref);
-                return true;
+                return removeError(ref);
             }
 
             return false;
         } else {
-            removeErrors(ref);
-            return true;
+            return removeError(ref);
         }
     },
     noWhitespace: (value, ref) => {
         if (value) {
             if (!test(value, /^.*\s+.*$/)) {
-                removeErrors(ref);
-                return true;
+                return removeError(ref);
             }
 
             return false;
         } else {
-            removeErrors(ref);
-            return true;
+            return removeError(ref);
         }
     },
-    checkBoxOrRadio: (value, ref, styleRef) => {
-        if (value) {
-            ref.classList.remove("error");
-            ref.classList.add("valid");
-            styleRef.classList.remove("error");
-            styleRef.classList.add("valid");
-            return true;
-        } else { 
-            ref.classList.remove("valid");
-            ref.classList.add("error");
-            styleRef.classList.remove("valid");
-            styleRef.classList.add("error");
-            return false;
-        }
-    },
-    password: (value, ref, setError, clearError, errors, throwErrors=true) => {
+    password: (value, ref, setError, clearError, throwErrors=true) => {
         let validations = 0;
         let newErrors = [];
 
@@ -151,20 +126,18 @@ export const functions = {
         if (throwErrors) {
             newErrors.forEach(error => {
                 setError(error.name, error.type, error.msg, error.ref);
-                errors[error.name].ref = isEmpty(errors[error.name].ref) ? error.ref : errors[error.name].ref;
             });
         } else {
             return newErrors.length ? newErrors.reduce((map, error) => { map[error.name] = true; return map; }, {}) : {};
         }
 
         if (validations >= 5 && value.length >= 8) {
-            removeErrors(ref);
-            return true;
+            return removeError(ref);
         } else {
             return false;
         }
     },
-    email: (value, ref, invalidMsg, setError, clearError, errors) => {
+    email: (value, ref, invalidMsg, setError, clearError) => {
         if (
             test(
                 value,
@@ -175,12 +148,11 @@ export const functions = {
             return true;
         } else {
             setError("invalidEmail", "invalidEmail", invalidMsg, ref);
-            errors["invalidEmail"].ref = isEmpty(errors["invalidEmail"].ref) ? ref : errors["invalidEmail"].ref;
             return false;
         }
     },
 
-    newEmail: (value, emailUrl, ref, invalidMsg, setError, clearError, errors) => {
+    newEmail: (value, emailUrl, ref, invalidMsg, setError, clearError) => {
         if (
             test(
                 value,
@@ -199,13 +171,11 @@ export const functions = {
                             invalidMsg,
                             ref
                         );
-                        errors["alreadyRegistered"].ref = isEmpty(errors["alreadyRegistered"].ref) ? ref : errors["alreadyRegistered"].ref;
                         return false;
                     }
 
-                    removeErrors(ref);
                     clearError("alreadyRegistered");
-                    return true;
+                    return removeError(ref);
                 })
                 .catch(err => {
                     setError(
@@ -214,7 +184,6 @@ export const functions = {
                         err,
                         ref
                     );
-                    errors["alreadyRegistered"].ref = isEmpty(errors["alreadyRegistered"].ref) ? ref : errors["alreadyRegistered"].ref;
                     return false;
                 });
 
@@ -223,14 +192,5 @@ export const functions = {
             clearError("alreadyRegistered");
             return true;
         }
-    },
-
-    matching: (value, matchRef, ref) => {
-        if (value === matchRef.value) {
-            removeErrors(ref);
-            return true;
-        }
-
-        return false;
     }
 };

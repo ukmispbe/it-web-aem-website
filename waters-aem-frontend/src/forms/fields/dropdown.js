@@ -1,65 +1,13 @@
-import React, { useState, useEffect } from "react";
-import ReactSVG from "react-svg";
+import React, { useState, useEffect, useContext } from "react";
 import Select, { components, createFilter } from "react-select";
-import variables from "../../../src/styles/variables.scss";
-import DigitalData from "../../scripts/DigitalData";
+import ReactSVG from "react-svg";
 
-const customStyles = {
-    indicatorSeparator: () => ({
-        display: "none"
-    }),
-    option: (provided, state) => ({
-        ...provided,
-        color: variables.colorGray50,
-        backgroundColor: state.isSelected
-            ? variables.colorBackgroundLight
-            : variables.colorWhite,
-        cursor: !state.isSelected ? "pointer" : "default",
-        "&:hover": {
-            color: !state.isSelected
-                ? variables.colorBlue50
-                : variables.colorGray50,
-            backgroundColor: !state.isSelected
-                ? variables.colorWhite
-                : variables.colorBackgroundLight
-        },
-        margin: 0
-    }),
-    control: (provided, state) => ({
-        ...provided,
-        "border-radius": "0",
-        padding: "0.3em 0.5em",
-        color: variables.colorGray50,
-        "border-color": state.isFocused
-            ? variables.colorBorderDark
-            : variables.colorBorderDark,
-        outline: "none",
-        cursor: "pointer",
-        "box-shadow": "none",
-        "&:hover": {
-            outline: "none",
-            color: variables.colorBlue50,
-            borderColor: variables.colorBorderDark
-        }
-    }),
-    singleValue: (provided, state) => {
-        return {};
-    },
-    menu: provided => ({
-        ...provided,
-        marginTop: 0,
-        borderRadius: 0,
-        width: "calc(100% - 2px)",
-        marginLeft: "1px",
-        marginBottom: 0,
-        padding: 0
-    }),
-    menuList: provided => ({
-        ...provided,
-        paddingBottom: 0,
-        paddingTop: 0
-    })
-};
+import DigitalData from "../../scripts/DigitalData";
+import customStyles from "./styles/dropdown.scss";
+import DisplayMessage from "./components/displaymessage";
+import Icons from './components/icons';
+
+import { useFormApi, useFieldApi } from '../form';
 
 const DropdownIndicator = props => {
     return (
@@ -85,7 +33,7 @@ const getOptions = (opts, name) => {
     return opt;
 };
 
-const getDefault = (options, name) => { 
+const getDefault = (options, name) => {
     let defaultValue;
     const allOptions = getOptions(options, name);
 
@@ -98,22 +46,17 @@ const getDefault = (options, name) => {
             break;
         default:
             defaultValue = '';
-
     }
 
     return defaultValue;
 }
 
-const Dropdown = ({
-    label,
-    options,
-    name,
-    register,
-    dropdownIndicator,
-    placeholder,
-    setValue
-}) => {
+const Dropdown = ({}) => {
+    const { name, label, options, dropdownIndicator, placeholder, validation } = useContext(useFieldApi);
+    const { register, setValue } = useContext(useFormApi);
     const [selectValue, setSelect] = useState();
+    const [hasBlurred, setBlurred] = useState(false);
+    const [required] = useState(validation ? validation.required : false);
 
     const handleChange = opt => {
         setSelect(opt);
@@ -125,47 +68,47 @@ const Dropdown = ({
         matchFrom: "start"
     };
 
-    useEffect(() => { 
-        if (typeof selectValue == 'undefined') { 
+    useEffect(() => {
+        if (typeof selectValue == 'undefined') {
             handleChange(getDefault(options,name))
         }
     }, [])
 
+    const handleBlur = () => !hasBlurred ? setBlurred(true) : null;
 
     return (
-        <>
+        <div className={"cmp-form-field-dropdown--wrapper" + (hasBlurred ? " dirty" : "")}>
             <label htmlFor={name}>{label}</label>
-            <Select
-                id={name}
-                name={name}
-                defaultValue={""}
-                options={getOptions(options, name)}
-                value={selectValue}
-                onChange={handleChange}
-                isSearchable={true}
-                styles={customStyles}
-                placeholder={placeholder}
-                classNamePrefix={"cmp-custom-dropdown"}
-                components={{ DropdownIndicator }}
-                theme={{ dropdownIndicator }}
-                filterOption={createFilter(filterConfig)}
-                ref={() =>
-                    register(
-                        { name },
-                        {
-                            validate: value => {
-                                if (value) {
-                                    return true;
-                                } else {
-                                    return false;
-                                }
+            <div className={"cmp-form-field-dropdown--wrapper"}>
+                <Select
+                    id={name}
+                    name={name}
+                    defaultValue={""}
+                    options={getOptions(options, name)}
+                    value={selectValue}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    isSearchable={true}
+                    styles={customStyles}
+                    placeholder={placeholder}
+                    classNamePrefix={"cmp-custom-dropdown"}
+                    components={{ DropdownIndicator }}
+                    theme={{ dropdownIndicator }}
+                    filterOption={createFilter(filterConfig)}
+                    ref={() =>
+                        register(
+                            { name },
+                            {
+                                validate: value => !required || !!value
                             }
-                        }
-                    )
-                }
-            />
-        </>
+                        )
+                    }
+                />
+                <Icons />
+            </div>
+            <DisplayMessage name={name} validation={validation} />
+        </div>
     );
 };
 
-export default Dropdown;
+export default React.memo(Dropdown);

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ReactSVG from "react-svg";
 
-const Icons = ({
-    icons,
-    type
-}) => {
+import { useFieldApi } from '../../form';
+
+const Icons = ({}) => {
+    const { icons, type } = useContext(useFieldApi);
+
+    const getType = (elem) => elem.classList.contains("toggled") ? "text" : type;
 
     const toggleEye = e => {
         const parent = e.currentTarget.parentNode;
@@ -15,8 +17,7 @@ const Icons = ({
             onIcon.classList.toggle("toggled");
             offIcon.classList.toggle("toggled");
 
-            type = offIcon.classList.contains("toggled") ? "text" : "password";
-            parent.parentNode.querySelector("input").type = type;
+            parent.parentNode.querySelector("input").type = getType(offIcon);
         }
     };
 
@@ -47,4 +48,4 @@ const Icons = ({
     );
 };
 
-export default Icons;
+export default React.memo(Icons);

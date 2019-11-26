@@ -1,5 +1,8 @@
 .cmp-form {
-    float: left;
+    @include non-IE11-browsers {
+        float: left;
+    }
+
     margin-bottom: $space-l;
 
     .cmp-form__disclaimer {
@@ -44,6 +47,14 @@
 
             @include mobile {
                 width: 100%;
+            }
+
+            .cmp-form-field-dropdown--wrapper {
+                position: relative;
+
+                .cmp-form-field--errorText {
+                    display: none;
+                }
             }
         }
 
@@ -141,6 +152,24 @@
                     }
                 }
             }
+
+            &::-moz-placeholder {
+                & ~ .cmp-form-field--icons .valid-icon {
+                    display: none;
+                    svg {
+                        display: none;
+                    }
+                }
+            }
+
+            &:-ms-input-placeholder {
+                & ~ .cmp-form-field--icons .valid-icon {
+                    display: none;
+                    svg {
+                        display: none;
+                    }
+                }
+            }
         }
 
         &.cmp-form-field--invalid {
@@ -158,6 +187,35 @@
             .cmp-form-field--errorText {
                 @include font-small;
                 color: $color-error;
+            }
+
+            .radio.error, .checkbox.error {
+                border: 1px solid $color-error;
+            }
+
+            .cmp-form-field-dropdown--wrapper.dirty {
+                .cmp-form-field-dropdown--wrapper {
+                    .cmp-custom-dropdown__control {
+                        border: 1px solid $color-error;
+
+                        .cmp-custom-dropdown__indicators {
+                            margin-right: $space-l;
+                        }
+                    }
+
+                    .cmp-form-field--icons {
+                        .invalid-icon {
+                            display: inline-block;
+                            svg {
+                                display: block;
+                            }
+                        }
+                    }
+                }
+
+                .cmp-form-field--errorText {
+                    display: inline;
+                }
             }
         }
 
@@ -363,9 +421,6 @@
                 color: $color-disabled !important;
                 cursor: default;
             }
-            &.error {
-                border: 1px solid $color-error;
-            }
         }
 
         input[type="radio"] {
@@ -409,10 +464,6 @@
                 border: 1px solid $color-disabled !important;
                 color: $color-disabled !important;
                 cursor: default;
-            }
-
-            &.error {
-                border: 1px solid $color-error;
             }
         }
     }

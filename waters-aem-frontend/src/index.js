@@ -14,7 +14,12 @@ import SkuMessage from "./sku-shared/views/SkuMessage";
 import Form from "./forms/form";
 import { registrationSubmit } from "./forms/services/submit";
 import Video from './video/index';
-import Chat from './chat'
+import Chat from './chat';
+
+if (process.env.NODE_ENV !== 'production') {
+    const whyDidYouRender = require('@welldone-software/why-did-you-render');
+    whyDidYouRender(React);
+}
 
 function getAuthoredDataForSearchBar(c, h) {
     return {
@@ -253,7 +258,7 @@ if (skuUnavailableContainer) {
         );
     }
 }
-    
+
 
 const videoContainers = Array.from(
     document.querySelectorAll('.cmp-video')
@@ -265,14 +270,14 @@ if (videoContainers) {
         const videoContainer = container.querySelector('.video-wrapper');
         const videoConfig = container.querySelector('.video-configs-json');
 
-        if (videoContainer && videoConfig) { 
+        if (videoContainer && videoConfig) {
             const json = JSON.parse(videoConfig.innerHTML);
 
             ReactDOM.render(
                 <Video videoConfig={json.videoConfig} ref={(ourComponent) => {
                     if (window.cmpVideos) {
                         window.cmpVideos.push(ourComponent);
-                    } else { 
+                    } else {
                         window.cmpVideos = [ourComponent];
                     }
                 }} />,

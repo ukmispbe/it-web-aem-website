@@ -1,59 +1,64 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import ReactSVG from "react-svg";
 
-const DisplayMessage = ({
-    validation,
-    errors,
-    fieldErr,
-    icon
-}) => {
-    const [message, setMessage] = useState("");
-    const [link, setLink] = useState((<></>));
+import { useFieldApi } from '../../form';
+import { useErrorsContext } from '../utils/stateWatcher';
 
-    useEffect(() => {
+const DisplayMessage = ({
+    name,
+    validation
+}) => {
+    const { icons } = useContext(useFieldApi);
+    const errors = useErrorsContext();
+
+    const getInfo = () => {
+        const fieldErr = errors[name];
+        let message = "";
+        let link = (<></>);
+
         if (validation && fieldErr) {
             switch (fieldErr.type) {
                 case ("required"):
-                    setMessage(fieldErr.message || validation.requiredMsg);
+                    message = (fieldErr.message || validation.requiredMsg);
                     break;
                 case ("pattern"):
                 case ("validate"):
                     if (validation.validateFnName === "email") {
-                        if (errors.invalidEmail) setMessage(errors.invalidEmail.message);
-                        if (errors.alreadyRegistered) showSignIn();
+                        if (errors.invalidEmail) message = (errors.invalidEmail.message);
+                        if (errors.alreadyRegistered) return showSignIn();
                         break;
                     }
 
-                    setMessage(fieldErr.message || validation.validationMsg);
+                    message = (fieldErr.message || validation.validationMsg || validation.requiredMsg);
                     break;
                 default:
-                    setMessage(fieldErr.message)
+                    message = (fieldErr.message)
                     break;
             }
-        } else {
-            setMessage("");
         }
-    }, [fieldErr]);
 
-    const showSignIn = () => {
-        setMessage(validation.alreadyRegisteredMsg)
-        setLink((
-            <a href={validation.signInURL}>
-                <ReactSVG
-                    src={icon}
-                    className="email-signin"
-                />
-                {validation.signInMsg}
-            </a>
-        ));
+        return (<>
+            {message}
+            {link}
+        </>);
     };
+
+    const showSignIn = () => (<>
+        {validation.alreadyRegisteredMsg}
+        <a href={validation.signInURL}>
+            <ReactSVG
+                src={icons.signInIcon}
+                className="email-signin"
+            />
+            {validation.signInMsg}
+        </a>
+    </>);
 
     return (
         <span className="cmp-form-field--errorText">
-            {message}
-            {link}
+            {getInfo()}
         </span>
     );
 };
 
-export default DisplayMessage;
+export default React.memo(DisplayMessage);
