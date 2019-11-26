@@ -87,7 +87,6 @@ const CheckboxOrRadio = ({}) => {
                     readOnly
                 />
                 <a
-                    href="javascript:void(0)"
                     className={`${type} ` + (disabled ? ' disabled' : '') + (hasError(thisName) ? " error" : " valid")}
                     onClick={e => checkHandler(e, thisName)}
                     id={thisName + '_link'}
