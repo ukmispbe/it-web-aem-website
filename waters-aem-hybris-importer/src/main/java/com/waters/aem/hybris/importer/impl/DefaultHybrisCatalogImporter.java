@@ -3,6 +3,7 @@ package com.waters.aem.hybris.importer.impl;
 import com.day.cq.commons.DownloadResource;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.NameConstants;
+import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.WCMException;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableMap;
@@ -261,7 +262,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         HybrisImportStatus status = null;
 
-        if (skuPage == null) {
+        if (skuPage == null && !skuPageExists(pageManager.getPage(categoryPage.getPath()), sku.getCode())) {
             // create new page
             skuPage = pageManager.create(categoryPage.getPath(), skuPageName, WatersConstants.TEMPLATE_SKU_PAGE,
                 sku.getTitle(), false);
@@ -363,6 +364,21 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         }
 
         return hasUpdatedSkus;
+    }
+
+    private Boolean skuPageExists(PageDecorator rootPage, String skuCode) {
+        boolean hasCode = false;
+
+        while (rootPage.listChildren().hasNext()) {
+            Page child = rootPage.listChildren().next();
+
+            if(child.getTitle().contains(skuCode)) {
+                hasCode = true;
+            }
+
+        }
+
+        return hasCode;
     }
 
     private List<PageDecorator> getLiveCopyPages(final PageDecorator page) {
