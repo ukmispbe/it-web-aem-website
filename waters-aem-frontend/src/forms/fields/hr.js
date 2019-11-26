@@ -4,4 +4,4 @@ const Hr = ({ addClass }) => {
     return <hr className={addClass} />;
 };
 
-export default Hr;
+export default React.memo(Hr);

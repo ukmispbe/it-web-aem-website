@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 
-const Captcha = ({ siteKey, name, register, setValue, isocode, validation }) => {
+import { useFieldApi, useFormApi } from '../form';
+
+const Captcha = ({}) => {
+    const { siteKey, name, isocode, validation } = useContext(useFieldApi);
+    const { register, setValue } = useContext(useFormApi);
+
     const onChange = value => {
         setValue(name, value, true);
     };
@@ -16,4 +21,4 @@ const Captcha = ({ siteKey, name, register, setValue, isocode, validation }) => 
     );
 };
 
-export default Captcha;
+export default React.memo(Captcha);

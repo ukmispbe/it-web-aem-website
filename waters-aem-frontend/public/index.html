@@ -155,6 +155,20 @@
                         "type": "checkbox",
                         "name": "communications",
                         "label": "I want to receive communications from Waters."
+                    },
+                    {
+                        "type": "checkbox",
+                        "name": "privacy",
+                        "label": "I agree and consent to the information I have provided on this website to be used and processed by Waters in accordance with the",
+                        "config": {
+                            "text": "Waters Privacy Notice.",
+                            "link": "www.waters.com",
+                            "blank": true
+                        },
+                        "validation": {
+                            "required": true,
+                            "validateFnName": "checkBoxOrRadio"
+                        }
                     }
                 ]
             }
