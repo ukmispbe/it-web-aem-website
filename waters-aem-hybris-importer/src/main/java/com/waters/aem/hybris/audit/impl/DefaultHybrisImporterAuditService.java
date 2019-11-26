@@ -9,6 +9,7 @@ import com.waters.aem.hybris.constants.HybrisImporterConstants;
 import com.waters.aem.hybris.result.HybrisImporterExecutionResult;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.sling.api.resource.LoginException;
+import org.apache.sling.api.resource.ModifiableValueMap;
 import org.apache.sling.api.resource.PersistenceException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -23,11 +24,14 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import javax.jcr.Value;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.List;
+
+import static com.waters.aem.hybris.constants.HybrisImporterConstants.PROPERTY_LAST_REQUESTED_PRODUCT_DELTA;
 
 @Component(service = HybrisImporterAuditService.class)
 public final class DefaultHybrisImporterAuditService implements HybrisImporterAuditService {
@@ -119,6 +123,35 @@ public final class DefaultHybrisImporterAuditService implements HybrisImporterAu
         auditRecords.sort(Comparator.comparing(auditRecord -> auditRecord.getDate().getTimeInMillis()));
 
         return auditRecords;
+    }
+
+    @Override
+    public void setLastRequestedProductDelta(final Calendar timestamp) {
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
+            final Resource auditResource = resourceResolver.getResource(PATH_AUDIT);
+
+            if (timestamp == null && auditResource.getValueMap().get(PROPERTY_LAST_REQUESTED_PRODUCT_DELTA,
+                    Calendar.class) != null) {
+                auditResource.adaptTo(Node.class).setProperty(PROPERTY_LAST_REQUESTED_PRODUCT_DELTA, (Value) null);
+            } else {
+                auditResource.adaptTo(ModifiableValueMap.class).put(PROPERTY_LAST_REQUESTED_PRODUCT_DELTA, timestamp);
+            }
+
+            resourceResolver.commit();
+        } catch (LoginException | RepositoryException | PersistenceException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Calendar getLastRequestedProductDelta() {
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
+            return resourceResolver.getResource(PATH_AUDIT)
+                    .getValueMap()
+                    .get(PROPERTY_LAST_REQUESTED_PRODUCT_DELTA, Calendar.class);
+        } catch (LoginException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Activate

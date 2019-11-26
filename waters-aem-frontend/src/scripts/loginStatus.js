@@ -1,16 +1,13 @@
-import domElements from '../scripts/domElements';
-
-const loggedInCookie = 'WatersLoginCookie';
-const greetingCookie = 'WatersGreetingCookie';
+import cookieStore from '../stores/cookieStore';
 
 const loginStatus = {
     
     state: () => {
-        return domElements.getCookie(loggedInCookie) ? true : false;
+        return cookieStore.getLoggedInStatus() ? true : false;
     },
     getGreeting: () => { 
-        let greeting = domElements.getCookie(greetingCookie);
-        let loggedIn = domElements.getCookie(loggedInCookie) ? true : false;
+        let greeting = cookieStore.getGreeting();
+        let loggedIn = cookieStore.getLoggedInStatus() ? true : false;
         let greetingPreFix = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user').dataset.greeting || '';  
             
         if (greeting && loggedIn) {

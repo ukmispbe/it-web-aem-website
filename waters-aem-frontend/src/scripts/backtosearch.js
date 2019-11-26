@@ -30,6 +30,7 @@ function hideBreadcrumbShowBackToSearch(link) {
 
         action.addEventListener('click', e => {
             removeFromSession();
+            sessionStore.setPreviousPagePositionEnabled();
         });
     }
 }
