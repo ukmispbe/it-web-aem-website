@@ -7,4 +7,6 @@
           myAccountUrl="https://wwwsb.waters.com/waters/My-Account/nav.htm?cid=2243096"
           legacySearchUrl="https://wwwsb.waters.com/waters/keywordSearch.htm"
           registrationSubmitUrl="https://stgservices.waters.com/api/waters/user/v1/registration"
-          emailValidationUrl="https://stgservices.waters.com/api/waters/user/v1/validate/{email}"/>
+          emailValidationUrl="https://stgservices.waters.com/api/waters/user/v1/validate/{email}"
+          passwordResetUrl="https://stgservices.waters.com/api/waters/user/v1/reset/password"
+          changePasswordUrl="https://stgservices.waters.com/api/waters/user/v1/change/password"/>
