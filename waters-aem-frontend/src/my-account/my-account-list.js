@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MyAccountDropDownList = props => { 
+const MyAccountList = props => { 
     const list = props.listItems;
     const listItems = Object.keys(list).map(key => {
         let text = list[key].text;
@@ -8,17 +8,22 @@ const MyAccountDropDownList = props => {
         let target = list[key].target || '_self';
         let listItemClass = list[key].class;
         return (
-            <li key={key} className="dropdown__list__item">
-                    <a className={'dropdown__list__item--link ' + listItemClass}
+            <div key={key} className="my-account-dropdown__item">
+                    <a className={'my-account-dropdown__item--link ' + listItemClass}
                         href={url}
                         target={target}>
                     <span>{text}</span>
                 </a>
-            </li>
+            </div>
         )
     })
 
-    return listItems;
+    return (
+        <>
+            {listItems}
+            <hr className="my-account-dropdown__hr" />
+        </>
+    );
 }
 
-export default MyAccountDropDownList;
+export default MyAccountList;

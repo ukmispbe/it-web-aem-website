@@ -147,7 +147,6 @@ const CheckboxOrRadio = ({
             return (
                 <div id={name} className={`cmp-form-field-${type}--grouping`}>
                     {options.map((option, i) => {
-                        console.log(`${type}-${name}-grouping-${i}`);
                         return (
                             <div className={`cmp-form-field-${type}--grouping-item`} key={`${type}-${name}-grouping-${i}`} >
                                 {renderType(option.name, option.label)}

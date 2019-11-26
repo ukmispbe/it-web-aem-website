@@ -15,33 +15,48 @@
                             <img alt="${'Search' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/search.svg" class="inline-svg">
                         </a>
                     </li>
-                    <li class="top-bar__nav__user top-bar__nav__item" data-greeting="${'Hello, ' @ i18n}">
+                    <li class="top-bar__nav__user top-bar__nav__item">
                         <a class="top-bar__nav__user__link cmp-header-links__link" href="javascript:;" target="_self" data-login-url="${header.signInUrl}">
-                            <span class="sign-in-text">${'Sign In' @ i18n}</span>
-                            <span class="greeting-text desktop"></span>
+                            <span class="my-account-headline-text">${'My Account' @ i18n}</span>
                             <img alt="${'Sign In' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/user.svg" class="inline-svg">
                         </a>
                         <div class="top-bar__nav__user__dropdown"></div>
                         <script type="application/json" id="account-modal-configs-json">
                             {
-                                "modalInfo": {
-                                    "icon": "/content/dam/waters/en/brand-assets/icons/user.svg",
-                                    "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
-                                    "title": "${'Hello, ' @ i18n , context='scriptString' }",
-                                    "list": [
-                                        {
-                                            "text": "${'My Account' @ i18n, context='scriptString'}",
-                                            "url": "${header.myAccountUrl @ context='scriptString'}",
-                                            "target": "_self",
-                                            "class": "dropdown__list__item__my-account"
-                                        },
-                                        {
-                                            "text": "${'Sign Out' @ i18n, context='scriptString'}",
-                                            "url": "${header.signOutUrl @ context='scriptString'}",
-                                            "class": "dropdown__list__item__sign-out"
-                                        }
-                                    ]
-                                }
+                                "icon": "/content/dam/waters/en/brand-assets/icons/user.svg",
+                                "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
+                                "title": "${'My Account' @ i18n , context='scriptString' }",
+                                "notRegistered": "${'Not registered yet?' @ i18n , context='scriptString' }",
+                                "signIn": {
+                                    "text": "${'Sign In' @ i18n, context='scriptString'}",
+                                    "url": "http://www.waters.com"
+                                },
+                                "signOut": {
+                                    "text": "${'Sign Out' @ i18n, context='scriptString'}",
+                                    "url": "http://www.waters.com"
+                                },
+                                "switchAccount": {
+                                    "text": "${'Switch Account' @ i18n, context='scriptString'}",
+                                    "url": "http://www.waters.com"
+                                },
+                                "createAccount": {
+                                    "text": "${'CREATE ACCOUNT' @ i18n, context='scriptString'}",
+                                    "url": "http://www.waters.com"
+                                },
+                                "list": [
+                                    {
+                                        "text": "${'My Profile' @ i18n, context='scriptString'}",
+                                        "url": "http://www.waters.com",
+                                        "target": "_self",
+                                        "class": "dropdown__list__item__my-profile"
+                                    },
+                                    {
+                                        "text": "${'My Orders' @ i18n, context='scriptString'}",
+                                        "url": "http://www.waters.com",
+                                        "target": "_self",
+                                        "class": "dropdown__list__item__my-orders"
+                                    }
+                                ]
                             }
                         </script>
                     </li>
