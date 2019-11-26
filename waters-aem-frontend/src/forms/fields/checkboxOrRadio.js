@@ -1,11 +1,13 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import ReactSVG from "react-svg";
 
 import { useFormApi, useFieldApi } from '../form';
+import { useErrorsContext } from './utils/stateWatcher';
 
 const CheckboxOrRadio = ({}) => {
     const { name, label, options, disabled, icons, config, validation, type, description } = useContext(useFieldApi);
-    const { register, setValue, fieldError, triggerValidation } = useContext(useFormApi);
+    const { register, setValue } = useContext(useFormApi);
+    const errors = useErrorsContext();
 
     const [state, setState] = useState(() => {
         if (!options) {
@@ -33,12 +35,6 @@ const CheckboxOrRadio = ({}) => {
         }
     });
 
-    useEffect(() => {
-        for(let option in state) {
-            triggerValidation( { name: option });
-        }
-    }, [state]);
-
     const checkHandler = (event, thisName) => {
         if (!disabled) {
             const thisState = state[thisName];
@@ -52,6 +48,8 @@ const CheckboxOrRadio = ({}) => {
             });
         }
     };
+
+    const hasError = useCallback((name) => !!errors[name], [errors]);
 
     const renderLabel = (thisName, label) => (<>
         {label + " "}
@@ -84,13 +82,13 @@ const CheckboxOrRadio = ({}) => {
                     id={thisName}
                     disabled={disabled}
                     checked={thisState.isChecked}
-                    className={fieldError(thisName) ? "error" : "valid"}
-                    ref={register({ validate: () => thisState.required ? thisState.isChecked : true })}
+                    className={hasError(thisName) ? "error" : "valid"}
+                    ref={register(thisState.required ? { required: true } : {})}
                     readOnly
                 />
                 <a
                     href="javascript:void(0)"
-                    className={`${type} ` + (disabled ? ' disabled' : '') + (fieldError(thisName) ? " error" : " valid")}
+                    className={`${type} ` + (disabled ? ' disabled' : '') + (hasError(thisName) ? " error" : " valid")}
                     onClick={e => checkHandler(e, thisName)}
                     id={thisName + '_link'}
                 >
@@ -125,4 +123,4 @@ const CheckboxOrRadio = ({}) => {
     ));
 };
 
-export default CheckboxOrRadio;
+export default React.memo(CheckboxOrRadio);

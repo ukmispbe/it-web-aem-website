@@ -1,12 +1,15 @@
 import React, { useContext } from "react";
-import { useFieldApi, useFormApi } from '../../form';
+import { useFieldApi } from '../../form';
+import { useErrorsContext, useFormStateContext } from '../utils/stateWatcher';
 
 const FieldValidationDisplay = ({
     name,
     matchName,
     children
 }) => {
-    const { formState, errors } = useContext(useFormApi);
+    const formState = useFormStateContext();
+    const errors = useErrorsContext();
+
     const { options, type } = useContext(useFieldApi);
 
     const isDirty = (name) => formState.touched[0] && (typeof formState.touched[0] === "object" ? formState.touched[0].has(name) : formState.touched.indexOf(name) > -1);
@@ -61,4 +64,4 @@ const FieldValidationDisplay = ({
     }
 };
 
-export default FieldValidationDisplay;
+export default React.memo(FieldValidationDisplay);

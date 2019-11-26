@@ -1,6 +1,7 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef, useContext, useMemo, useCallback } from "react";
 
 import { useFormApi, useFieldApi } from '../form';
+import { useErrorsContext } from './utils/stateWatcher';
 import Icons from './components/icons';
 import DisplayMessage from './components/displaymessage';
 import Requirements from './components/requirements';
@@ -18,9 +19,10 @@ const Input = ({
     const reqRef = useRef(null);
     const inputRef = useRef(null);
 
-    const { type, disabled, icons, matchLabel, emailUrl } = useContext(useFieldApi);
-    const { fieldError, register, setError, clearError } = useContext(useFormApi);
+    const { type, disabled, matchLabel, emailUrl } = useContext(useFieldApi);
+    const { register, setError, clearError } = useContext(useFormApi);
 
+    const errors = useErrorsContext();
 
     const getRegisterAttributes = (ref) => {
         inputRef.current = ref;
@@ -32,6 +34,10 @@ const Input = ({
     const toggleReq = () => reqRef.current ? reqRef.current.toggle() : () => false;
 
     const updateReq = () => reqRef.current ? reqRef.current.update(inputRef.current.value) : () => false;
+
+    const getMatchReq = useMemo(() => ({ required: validation["required"], requiredMsg: `Please confirm ${name}`, validateFnName: "matching", validationMsg: validation["nonMatchingMsg"] }), [name, validation]);
+
+    const hasError = useCallback(() => !!errors[name], [errors]);
 
     const renderInput = () => {
         return (
@@ -66,7 +72,7 @@ const Input = ({
                         onChange={updateReq}
                         placeholder=" "
                         disabled={disabled}
-                        className={fieldError(name) ? "error" : "valid"}
+                        className={hasError ? "error" : "valid"}
                     ></input>
                     <Icons />
                 </div>
@@ -91,21 +97,16 @@ const Input = ({
             {renderInput()}
 
             {hasMatch &&
-            (<Input
+            (useMemo(() => (<Input
                 name={getMatchName()}
                 label={matchLabel}
                 hasMatch={false}
                 description={ description ? "Match for ".concat(name) : "" }
-                validation={{
-                    required: validation["required"],
-                    requiredMsg: `Please confirm ${name}`,
-                    validateFnName: "matching",
-                    validationMsg: validation["nonMatchingMsg"]
-                }}
+                validation={getMatchReq}
                 matchRef={inputRef}
-            />)}
+            />), [matchLabel, description, inputRef]))}
         </>
     );
 };
 
-export default Input;
+export default React.memo(Input);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, createContext, useCallback } from "react";
 import useForm from "react-hook-form/dist/react-hook-form.ie11";
 
+import { ErrorsProvider, FormStateProvider } from "./fields/utils/stateWatcher";
 import ErrorBoundary from "../search/ErrorBoundary";
 import Field from './fields';
 
@@ -45,24 +46,20 @@ const Form = ({
 
             delete errorUpdates[name];
         }
-    }, [errorUpdates, errors]);
+    }, [errorUpdates,errors]);
 
-    const fieldError = useCallback((name) => errors[name], [errors]);
     const newError = useCallback((name, type, msg, ref) => {
         setError(name, type, msg);
         setUpdate({...errorUpdates, [name]: ref});
     }, [errors]);
 
     const getApi = useMemo(() => ({
-        errors,
-        fieldError,
         setValue,
         setError: newError,
         clearError,
         register,
-        formState,
         triggerValidation
-    }), [errors]);
+    }), [register]);
 
     const submitErrorHandler = res => {
         if (res) {
@@ -73,11 +70,21 @@ const Form = ({
         }
     };
 
-    const fields = config.fields.map((field, i) => (
-        <FieldApi.Provider value={{ ...config, config: config, ...field, field: field, isocode }} key={`field-${i}`}>
-            <Field />
-        </FieldApi.Provider>
-    ));
+    const fields = config.fields.map((field, i) => {
+        const getFieldApi = useMemo(() => ({
+            ...config,
+            config,
+            ...field,
+            field,
+            isocode
+        }), [field]);
+
+        return (
+            <FieldApi.Provider value={getFieldApi} key={`field-${i}`}>
+                <Field />
+            </FieldApi.Provider>
+        );
+    });
 
     return (
         <form
@@ -89,7 +96,11 @@ const Form = ({
                 })
             )}>
             <FormApi.Provider value={getApi}>
-                {fields}
+                <FormStateProvider watch={formState}>
+                    <ErrorsProvider watch={errors}>
+                        {fields}
+                    </ErrorsProvider>
+                </FormStateProvider>
             </FormApi.Provider>
             <button
                 type="submit"

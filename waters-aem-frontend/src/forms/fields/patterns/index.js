@@ -4,7 +4,6 @@ const test = (value, regex) => regex.test(value);
 
 const removeError = (...refs) => {
     refs.forEach(ref => {
-        if (!ref) console.log("NICE");
         if (ref) {
             ref.classList.remove("error");
             ref.classList.add("valid");

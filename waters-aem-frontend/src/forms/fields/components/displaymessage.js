@@ -1,17 +1,18 @@
 import React, { useContext } from 'react';
 import ReactSVG from "react-svg";
 
-import { useFormApi, useFieldApi } from '../../form';
+import { useFieldApi } from '../../form';
+import { useErrorsContext } from '../utils/stateWatcher';
 
 const DisplayMessage = ({
     name,
     validation
 }) => {
-    const { fieldError } = useContext(useFormApi);
     const { icons } = useContext(useFieldApi);
+    const errors = useErrorsContext();
 
-    const getInfo = (errors) => {
-        const fieldErr = fieldError(name);
+    const getInfo = () => {
+        const fieldErr = errors[name];
         let message = "";
         let link = (<></>);
 
@@ -55,11 +56,9 @@ const DisplayMessage = ({
 
     return (
         <span className="cmp-form-field--errorText">
-            <useFormApi.Consumer>
-                {({ errors }) => getInfo(errors)}
-            </useFormApi.Consumer>
+            {getInfo()}
         </span>
     );
 };
 
-export default DisplayMessage;
+export default React.memo(DisplayMessage);

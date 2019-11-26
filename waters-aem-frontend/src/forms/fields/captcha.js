@@ -21,4 +21,4 @@ const Captcha = ({}) => {
     );
 };
 
-export default Captcha;
+export default React.memo(Captcha);
