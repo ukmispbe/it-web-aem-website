@@ -1,0 +1,8 @@
+{
+  "Template": {
+    "TemplateName": "OrderConfirmation-en",
+    "SubjectPart": "Order Confirmation for {{contact.firstName}} {{contact.lastName}}",
+    "HtmlPart": "<h1>Order Confirmation</h1> <p>You have purchased the following products:</p> <ul> {{#each products}} <li><a href={{url}}>{{name}}</a></li> {{/each}} </ul> <h3>Shipping Details</h3> <address> {{contact.firstName}} {{contact.lastName}}<br> {{contact.city}}, {{contact.country}} {{contact.postalCode}} </address> ",
+    "TextPart": ""
+  }
+}

@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "f55e9098-2994-4ab9-b72b-098be9905f17",
+		"name": "AWS Lambdas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Send Email - Registration",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"templateName\": \"RegistrationTemplate-en\",\n    \"email\": \"eric.vangeem@icfnext.com\",\n    \"name\": \"Eric Van Geem\",\n    \"accountId\": \"1234567890\"\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://ngj6svlc7a.execute-api.us-east-1.amazonaws.com/Prod/send",
+					"protocol": "https",
+					"host": [
+						"ngj6svlc7a",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"send"
+					]
+				},
+				"description": "Contains template name in params"
+			},
+			"response": []
+		},
+		{
+			"name": "Send Email - Order Confirmation",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d0e8305f-ab88-4c06-9caa-ea07b9ab5778",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"templateName\": \"OrderConfirmation-en\",\n    \"email\": \"eric.vangeem@icfnext.com\",\n    \"contact\": {\n        \"firstName\": \"Eric\",\n        \"lastName\": \"Van Geem\",\n        \"city\": \"Chicago\",\n        \"country\": \"USA\",\n        \"postalCode\": \"60515\"\n\n    },\n    \"products\": [\n        {\n        \t\"name\": \"Beverage Analysis Kit\",\n        \t\"url\": \"https://www.waters.com/nextgen/us/en/shop/application-kits/176002534-beverage-analysis-kit.html\"\t\n        },\n        {\n        \t\"name\": \"Glycoworks RFMS N-Glycan Starter Kit - 8 x 12\",\n        \t\"url\": \"https://www.waters.com/nextgen/us/en/shop/application-kits/176004083-glycoworks-rfms-n-glycan-starter-kit---8-x-12.html\"\t\n        },\n        {\n        \t\"name\": \"Waters Ammonium Formate Solution – Glycan Analysis\",\n        \t\"url\": \"https://www.waters.com/nextgen/us/en/shop/standards--reagents/186007081-waters-ammonium-formate-solution--glycan-analysis.html\"\t\n        }\n    ]\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://ngj6svlc7a.execute-api.us-east-1.amazonaws.com/Prod/send",
+					"protocol": "https",
+					"host": [
+						"ngj6svlc7a",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"send"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create/Update Template - Registration",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"Template\": {\n    \"TemplateName\": \"RegistrationTemplate-en\",\n    \"SubjectPart\": \"Greetings, {{name}}!\",\n    \"HtmlPart\": \"<h2>Hello {{name}}</h2><p>Account ID <b>{{accountId}}</b> was successfully registered with email {{email}}.</p>\"\n  }\n}\n"
+				},
+				"url": {
+					"raw": "https://ngj6svlc7a.execute-api.us-east-1.amazonaws.com/Prod/settemplate",
+					"protocol": "https",
+					"host": [
+						"ngj6svlc7a",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"settemplate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create/Update Template - Order Confirmation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"Template\": {\n    \"TemplateName\": \"OrderConfirmation-en\",\n    \"SubjectPart\": \"Order Confirmation for {{contact.firstName}} {{contact.lastName}}\",\n    \"HtmlPart\": \"<h1>Order Confirmation</h1> <p>You have purchased the following products:</p> <ul> {{#each products}} <li><a href={{url}}>{{name}}</a></li> {{/each}} </ul> <h3>Shipping Details</h3> <address> {{contact.firstName}} {{contact.lastName}}<br> {{contact.city}}, {{contact.country}} {{contact.postalCode}} </address> \",\n    \"TextPart\": \"\"\n  }\n}"
+				},
+				"url": {
+					"raw": "https://ngj6svlc7a.execute-api.us-east-1.amazonaws.com/Prod/settemplate",
+					"protocol": "https",
+					"host": [
+						"ngj6svlc7a",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"settemplate"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,7 @@
+{
+  "Template": {
+    "TemplateName": "RegistrationTemplate-en",
+    "SubjectPart": "Greetings, {{name}}!",
+    "HtmlPart": "<h2>Hello {{name}}</h2><p>Account ID <b>{{accountId}}</b> was successfully registered with email {{email}}. (updated RegistrationTemplate)</p>"
+  }
+}
