@@ -5,8 +5,11 @@ const MyAccountUserDetails = props => {
     return (
         <>
             <div className="my-account-dropdown__user-details">
-                {props.name && (<div className="my-account-dropdown__user-details__name">{props.name}</div>)}
-                {props.location && (<div className="my-account-dropdown__user-details__location">{props.location}</div>)}
+                {props.userName && (<div className="my-account-dropdown__user-details__name">{props.userName}</div>)}
+                {props.accountNumber && props.accountName && (<div className="my-account-dropdown__user-details__account">
+                    <span className="my-account-dropdown__user-details__account__name">{props.accountName}</span>
+                    <span className="my-account-dropdown__user-details__account__number">{props.accountNumber}</span>
+                </div>)}
                 {props.switchAccount.text && props.switchAccount.url && (
                     <a className="my-account-dropdown__user-details__switch-account" href={props.switchAccount.url} >
                         {props.switchAccount.text}

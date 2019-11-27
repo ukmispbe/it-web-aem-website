@@ -9,8 +9,8 @@ import List from './my-account-list';
 const MyAccountDropDown = props => {    
 
     const { createAccount, icon, list, notRegistered, signIn, signOut, switchAccount, loginStatus } = props.config;
-    const { state:loginState, name:userName, location:userLocation } = loginStatus;
-
+    const { state:loginState, userName, accountName, accountNumber } = loginStatus;
+    
     const signInOutLink = () => (<>
         <a className="my-account-dropdown__sign-in-out" href={loginState ? signOut.url : signIn.url}>
             <ReactSVG
@@ -34,9 +34,10 @@ const MyAccountDropDown = props => {
         <div className="my-account-dropdown">
             {loginState &&
                 <UserDetails
-                    name={userName}
+                    userName={userName}
+                    accountName={accountName}
+                    accountNumber={accountNumber}
                     switchAccount={switchAccount}
-                    location={userLocation}
                 />
             }
             {list &&

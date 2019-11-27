@@ -176,8 +176,9 @@ class MyAccount extends React.Component {
         const newConfig = Object.assign({}, this.props.config);
         newConfig.loginStatus = {
             state: LoginStatus.state(),
-            name: LoginStatus.name,
-            location: LoginStatus.location
+            userName: LoginStatus.name,
+            accountName: '',
+            accountNumber: ''
         };
             
         return (
