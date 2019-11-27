@@ -18,6 +18,11 @@
     &__link {
         @include font-h3;
     }
+    margin-bottom: $space-l;
+
+    @include mobile {
+        margin-bottom: $space-m;
+    }
 }
 
 .cmp-external-list--horizontal {
@@ -47,7 +52,6 @@
 
         &__link {
             a {
-                line-height: 0.7em;
                 vertical-align: top;
             }
         }
@@ -59,9 +63,12 @@
                 overflow: hidden;
             }
         }
+
+        margin-bottom: $space-xxl;
+        
+        @include tablet-and-under {
+            margin-bottom: $space-m;
+        }
     }
 }
 
-div.cmp-external-list {
-    margin-bottom: $space-l;
-}
