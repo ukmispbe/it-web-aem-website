@@ -258,9 +258,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         HybrisImportStatus status = null;
 
-        final PageDecorator shopPage = pageManager.getPage(WatersConstants.ROOT_PATH_SHOP);
-
-        PageDecorator skuPage = getExistingSkuPage(shopPage, sku.getCode());
+        PageDecorator skuPage =  skuRepository.getSkuPage(pageManager.getPage(catalogRootPath), sku.getCode());
 
         if (skuPage == null) {
             // create new page
@@ -364,14 +362,6 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         }
 
         return hasUpdatedSkus;
-    }
-
-    private PageDecorator getExistingSkuPage(final PageDecorator shopPage, final String skuCode) {
-        return shopPage.getChildren()
-            .stream()
-            .flatMap(categoryPage -> categoryPage.getChildren(WatersConstants.PREDICATE_SKU_PAGE).stream())
-            .filter(page -> page.getProperties().get(WatersCommerceConstants.PROPERTY_CODE, String.class).equals(skuCode))
-            .findFirst().orElse(null);
     }
 
     private List<PageDecorator> getLiveCopyPages(final PageDecorator page) {
