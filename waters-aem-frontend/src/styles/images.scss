@@ -5,12 +5,15 @@ img {
 .cmp-image {
     max-width: 100%;
     margin: 0 0 $space-s 0;
+     h3 {
+         margin-bottom: $space-xs;
+     }
 }
 
 .cmp-image__title {
     width: 100%;
     display: block;
-    @include font-caption;
+    @include font-caption;  
 }
 
 .cmp-image--border img {

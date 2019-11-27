@@ -4,6 +4,6 @@
           jcr:primaryType="nt:unstructured"
           jcr:title="Hybris Importer"
           jcr:description="Manually import Hybris data and view import audit history."
-          icon="dataRefresh"
+          icon="dataDownload"
           href="/etc/waters/hybris-importer.html"
           target="_blank"/>

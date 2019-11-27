@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SearchService, parameterValues, parameterDefaults, searchMapper } from './services/index';
+import { parameterValues, parameterDefaults, searchMapper } from './services/index';
 import { parse, stringify } from 'query-string';
 import { withRouter } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
@@ -29,21 +29,22 @@ import domElements from '../scripts/domElements';
 import screenSizes from '../scripts/screenSizes';
 import Analytics, { analyticTypes } from '../scripts/analytics';
 
+const SEARCH_TYPES = {
+    INITIAL: 'initial',
+    CATEGORY_ONLY: 'category only',
+    CONTENT_TYPE: 'content type',
+    SUB_FACETS: 'sub facets'
+}
+
+
 class Search extends Component {
     constructor(props) {
         super(props);
         this.savedSelectFilterState = null;
         this.parentCategory = 'contenttype_facet';
 
-        this.search = new SearchService(
-            this.props.isocode,
-            this.props.searchServicePath,
-            parameterDefaults.page,
-            this.props.searchDefaults.rows,
-            parameterDefaults.sort,
-            undefined,
-            () => this.props.setErrorBoundaryToTrue()
-        );
+        this.search = props.search;
+        this.search.throwError = this.props.setErrorBoundaryToTrue;
 
         this.state = this.initialState();
     }
@@ -265,123 +266,195 @@ class Search extends Component {
             ? this.search.createQueryObject(q)
             : this.search.createQueryObject(parse(window.location.search));
 
-    async performSearch(q) {
+    buildSearchParams = q => {
         let query = (q && Object.entries(q).length !== 0) ? {...q} : this.getQueryObject();
 
         if (!query.sort && this.state) {
             query = Object.assign({}, query, { sort: this.state.sort });
         }
 
-        const rows =
-            this.props.searchDefaults && this.props.searchDefaults.rows
-                ? this.props.searchDefaults.rows
-                : 25;
+        return query;
+    }
 
-        this.setState({ searchParams: query, loading: true, results: {}, filterMap: {} });
+    calcRows = () => this.props.searchDefaults && this.props.searchDefaults.rows
+        ? this.props.searchDefaults.rows
+        : parameterDefaults.rows;
 
-        const categories = await this.search.getCategories({
-            keyword: query.keyword,
-        });
-        const categoriesWithData = this.mapCategories(categories);
+    async performSearch(q) {
+        // continue setting up the search
+        const query = this.buildSearchParams(q);
+        const rows = this.calcRows();
 
-        this.setState({ categoryTabs: categoriesWithData });
+        // update the component's state with pre-search values
+        this.setState({ searchParams: query, loading: true, results: {}, filterMap: {}});
 
-        const isInitialLoad = this.isInitialLoad(
-            query.category,
-            query.content_type
-        );
-
-        if (!isInitialLoad) {
-            const categoryIndex = categoriesWithData.findIndex(
-                category => category.name === query.category
-            );
-            const categoryName = categoryIndex !== -1 ? categoriesWithData[categoryIndex].name : '';
-
-            this.setState({ activeTabIndex: categoryIndex, category: categoryName });
-        }
-
-        if (isInitialLoad) {
-            const maxCategory = this.findMaxCategory(categoriesWithData);
-
-            if (maxCategory === -1) {
-                this.setEmptyResults();
-                return;
-            }
-
-            const categoryName = categoriesWithData[maxCategory].name;
-
-            this.setState({ activeTabIndex: maxCategory, category: categoryName });
-
-            query.category = categoryName;
-
-            this.pushToHistory(query, this.state.selectedFacets);
-        } else if (
-            this.isCategoryOnlySelected(query.category, query.content_type)
-        ) {
-            // deselects content type when user clicks the back button on browser
-            this.setState({
-                category: query.category,
-                contentType: null,
-                contentTypeSelected: {},
+        // fetch categories only once on the initial rendering
+        // store category tabs in the component's state
+        if (this.state.initialRender) {
+            const categories = await this.search.getCategories({
+                keyword: query.keyword,
             });
 
-            if (!this.props.hasError) {
-                const requestData = {...query, categoryKey: this.findFacetByName(this.props.filterMap, query.category)};
+            // find the categories that have results
+            const categoriesWithData = this.mapCategories(categories);
 
-                this.search.getResultsByCategory(requestData).then(res => {
-                    if (res && !this.props.hasError) {
-                        this.searchOnSuccess(query, rows, res, true);
-                    } else {
-                        this.search
-                            .getResultsByCategory(requestData)
-                            .then(results => {
-                                if (!results) {
-                                    this.setState({
-                                        loading: false,
-                                        erroredOut: true,
-                                    });
-                                } else {
-                                    const newQuery = Object.assign({}, query, {
-                                        keyword: '',
-                                    });
-                                    this.searchOnSuccess(
-                                        newQuery,
-                                        rows,
-                                        results,
-                                        true
-                                    );
-                                }
-                            });
-                    }
-                });
-            }
-        } else if (!this.isFacetsSelected(query.facets)) {
-            const requestData = {...query, categoryKey: this.findFacetByName(this.props.filterMap, query.category)};
-
-            // no sub-facets have been selected, only the content type has been selected
-            const contentTypeValue = this.getSelectedContentTypeValue();
-
-            this.search
-                .getContentType(query.content_type, contentTypeValue, requestData)
-                .then(res =>
-                    this.searchOnSuccess(query, rows, res, false, 'success')
-                )
-                .catch(error => this.searchOnError(error));
+            // execute the search after the category tabs has been saved in the component's state
+            this.setState({ categoryTabs: categoriesWithData, initialRender: false }, () => this.executeSearch(query, rows));
         } else {
+            // execute the search because the category tabs have already been saved in the component's state
+            this.executeSearch(query, rows);
+        }
+    }
+
+    persistTabHistory = query => {
+        const tabHistory = this.createTabHistoryEntryForCurrentTab(query);
+
+        this.search.setStorageForTabHistory(tabHistory);
+    }
+
+    executeSearch = (query, rows) => {
+        const searchType = this.getSearchType(query);
+
+        if (searchType === SEARCH_TYPES.INITIAL) {
+            this.executeInitialSearch(query);
+            return;
+        }
+
+        this.setStateForActiveCategory(query);
+
+        this.persistTabHistory(query);
+
+        switch (searchType) {
+            case SEARCH_TYPES.CATEGORY_ONLY:
+                this.executeSearchByCategoryOnly(query, rows);
+                break;
+
+            case SEARCH_TYPES.CONTENT_TYPE:
+                this.executeSearchByContentType(query, rows);
+                break;
+
+            case SEARCH_TYPES.SUB_FACETS:
+                this.executeSearchBySubFacets(query, rows);
+                break;
+        }
+    }
+
+    getSearchType = query => {
+        if (!query.category) {
+            return SEARCH_TYPES.INITIAL;
+        }
+
+        if (this.isCategoryOnlySelected(query.category, query.content_type)) {
+            return SEARCH_TYPES.CATEGORY_ONLY;
+        }
+
+        if (query.content_type && !this.isFacetsSelected(query.facets)) {
+            return SEARCH_TYPES.CONTENT_TYPE;
+        }
+
+        if (query.content_type && this.isFacetsSelected(query.facets)) {
+            return SEARCH_TYPES.SUB_FACETS;
+        }
+
+        // return a default value for defensive programming
+        return SEARCH_TYPES.INITIAL;
+    }
+
+    executeInitialSearch = query => {
+        const maxCategory = this.findMaxCategory(this.state.categoryTabs);
+
+        if (maxCategory === -1) {
+            this.setEmptyResults();
+            return;
+        }
+
+        const categoryName = this.state.categoryTabs[maxCategory].name;
+
+        this.setState({ activeTabIndex: maxCategory, category: categoryName });
+
+        query.category = categoryName;
+
+        this.pushToHistory(query, this.state.selectedFacets);
+    }
+
+    setStateForActiveCategory = query => {
+        const categoryIndex = this.state.categoryTabs.findIndex(
+            category => category.name === query.category
+        );
+
+        const categoryName = categoryIndex !== -1 ? this.state.categoryTabs[categoryIndex].name : '';
+
+        this.setState({ activeTabIndex: categoryIndex, category: categoryName });
+    }
+
+    executeSearchByCategoryOnly = (query, rows) => {
+        // deselects content type when user clicks the back button on browser
+        this.setState({
+            category: query.category,
+            contentType: null,
+            contentTypeSelected: {},
+        });
+
+        if (!this.props.hasError) {
             const requestData = {...query, categoryKey: this.findFacetByName(this.props.filterMap, query.category)};
 
-            // sub-facets have been selected
-            const contentTypeName = this.getSelectedContentTypeName();
-
-            const contentTypeValue = this.getSelectedContentTypeValue();
-
-            this.search
-                .getSubFacet(contentTypeName, contentTypeValue, requestData)
-                .then(res =>
-                    this.searchOnSuccess(query, rows, res, false, 'success')
-                )
-                .catch(error => this.searchOnError(error));
+            this.search.getResultsByCategory(requestData).then(res => {
+                if (res && !this.props.hasError) {
+                    this.searchOnSuccess(query, rows, res, true);
+                } else {
+                    this.search
+                        .getResultsByCategory(requestData)
+                        .then(results => {
+                            if (!results) {
+                                this.setState({
+                                    loading: false,
+                                    erroredOut: true,
+                                });
+                            } else {
+                                const newQuery = Object.assign({}, query, {
+                                    keyword: '',
+                                });
+                                this.searchOnSuccess(
+                                    newQuery,
+                                    rows,
+                                    results,
+                                    true
+                                );
+                            }
+                        });
+                }
+            });
         }
+    }
+
+    executeSearchByContentType = (query, rows) => {
+        const requestData = {...query, categoryKey: this.findFacetByName(this.props.filterMap, query.category)};
+
+        // no sub-facets have been selected, only the content type has been selected
+        const contentTypeValue = this.getSelectedContentTypeValue();
+
+        this.search
+            .getContentType(query.content_type, contentTypeValue, requestData)
+            .then(res =>
+                this.searchOnSuccess(query, rows, res, false, 'success')
+            )
+            .catch(error => this.searchOnError(error));
+    }
+
+    executeSearchBySubFacets = (query, rows) => {
+        const requestData = {...query, categoryKey: this.findFacetByName(this.props.filterMap, query.category)};
+
+        // sub-facets have been selected
+        const contentTypeName = this.getSelectedContentTypeName();
+
+        const contentTypeValue = this.getSelectedContentTypeValue();
+
+        this.search
+            .getSubFacet(contentTypeName, contentTypeValue, requestData)
+            .then(res =>
+                this.searchOnSuccess(query, rows, res, false, 'success')
+            )
+            .catch(error => this.searchOnError(error));
     }
 
     findContentType = (items, content_type) =>
@@ -389,7 +462,7 @@ class Search extends Component {
             element => element.categoryFacetName === `${content_type}_facet`
         );
 
-    isInitialLoad = (category, content_type) => (category ? false : true);
+    isInitialSearch = (category) => (category) ? false : true;
 
     isCategoryOnlySelected = (category, content_type) =>
         category && !content_type ? true : false;
@@ -525,7 +598,6 @@ class Search extends Component {
                 this.search.scrollToTop();
             }
         }
-        this.props.resetToDefault = false;
 
         this.submitAnalytics({ ... this.state.searchParams, total: res.num_found });
     };
@@ -724,7 +796,6 @@ class Search extends Component {
     };
 
     handleResetSearchToDefault = () => {
-        this.props.resetToDefault = true;
         let query = this.search.createQueryObject(
             parse(window.location.search)
         );
@@ -767,51 +838,29 @@ class Search extends Component {
     getSelectedContentTypeName = () => {
         const query = this.getQueryObject();
 
-        if (
-            !this.state.filterMap ||
-            !Array.isArray(this.state.filterMap.orderedFacets)
-        ) {
-            const contentTypeElement = this.findContentType(
-                this.props.filterMap,
-                query.content_type
-            );
-            const contentTypeName = contentTypeElement
-                ? contentTypeElement.categoryFacetName
-                : 'NA';
-
-            return contentTypeName;
-        }
-
-        const facet = this.state.filterMap.orderedFacets.find(
-            item => item.facetName === `${query.content_type}_facet`
+        const contentTypeElement = this.findContentType(
+            this.props.filterMap,
+            query.content_type
         );
+        const contentTypeName = contentTypeElement
+            ? contentTypeElement.categoryFacetName
+            : 'NA';
 
-        return facet ? facet.facetName : '';
+        return contentTypeName;
     };
 
     getSelectedContentTypeValue = () => {
         const query = this.getQueryObject();
 
-        if (
-            !this.state.filterMap ||
-            !Array.isArray(this.state.filterMap.orderedFacets)
-        ) {
-            const contentTypeElement = this.findContentType(
-                this.props.filterMap,
-                query.content_type
-            );
-            const contentTypeValue = contentTypeElement
-                ? contentTypeElement.categoryFacetValue
-                : 'NA';
-
-            return contentTypeValue;
-        }
-
-        const facet = this.state.filterMap.orderedFacets.find(
-            item => item.facetName === `${query.content_type}_facet`
+        const contentTypeElement = this.findContentType(
+            this.props.filterMap,
+            query.content_type
         );
+        const contentTypeValue = contentTypeElement
+            ? contentTypeElement.categoryFacetValue
+            : 'NA';
 
-        return facet ? facet.facetValue : '';
+        return contentTypeValue;
     };
 
     renderContentMenuOrFilter = filterTags => {
@@ -901,7 +950,7 @@ class Search extends Component {
     isContentTypeSelected = () =>
         Object.entries(this.state.contentTypeSelected).length !== 0;
 
-    isKeywordSelected = () => !this.search.isDefaultKeyword(this.state.keyword);
+    isKeywordSelected = () => this.state.keyword && !this.search.isDefaultKeyword(this.state.keyword);
 
     getSelectedContentType = () => {
         if (this.state.contentTypeSelected) {
@@ -963,7 +1012,7 @@ class Search extends Component {
 
     getSubFacetTags = () => {
         if (
-            this.isInitialLoad(this.state.category, this.state.contentType) ||
+            this.isInitialSearch(this.state.category) ||
             !this.isFacetsSelected(this.state.selectedFacets)
         ) {
             return <></>;
@@ -1088,7 +1137,7 @@ class Search extends Component {
 
         let query = this.getQueryObject();
 
-        this.createTabHistoryEntryForCurrentTab(query);
+        this.persistTabHistory(query);
 
         this.setCategorySelected(index, query, this.state.categoryTabs[index].name);
     };
@@ -1125,11 +1174,11 @@ class Search extends Component {
         tabHistoryEntry.contentTypeSelected = Object.assign({}, this.state.contentTypeSelected);
         tabHistoryEntry.selectedFacets = Object.assign({}, this.state.selectedFacets);
 
-        this.setTabHistoryEntryState(query.category, tabHistoryEntry);
+        return this.setTabHistoryEntryState(query.category, tabHistoryEntry);
     }
 
     getTabHistoryEntry = category => {
-        if (this.state.tabHistory.hasOwnProperty(`${category}`)) {
+        if (this.state.tabHistory && this.state.tabHistory.hasOwnProperty(`${category}`)) {
             return this.state.tabHistory[`${category}`];
         }
 
@@ -1142,15 +1191,18 @@ class Search extends Component {
     }
 
     setTabHistoryEntryState = (category, tabHistoryEntry) => {
-        const tabHistory = this.state.tabHistory;
+        const tabHistory = this.state.tabHistory ? this.state.tabHistory : {};
         tabHistory[`${category}`] = tabHistoryEntry;
         this.setState({tabHistory});
+
+        return tabHistory;
     }
 
     setCategorySelectedState = (activeTabIndex, searchParams, contentType, contentTypeSelected, selectedFacets) => {
         this.setState({
                 activeTabIndex,
                 searchParams,
+                keyword: searchParams.keyword,
                 category: searchParams.category,
                 sort: searchParams.sort,
                 contentType,

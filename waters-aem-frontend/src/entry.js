@@ -22,7 +22,6 @@ import './scripts/skulist';
 import './index';
 
 import cssVars from 'css-vars-ponyfill';
-import analytics from './scripts/analytics';
 import inlineSVG from './scripts/inlineSVG';
 
 const japanTheme = {
@@ -39,8 +38,6 @@ cssVars({
 });
 
 inlineSVG.init('img.inline-svg', 'svg-inlined');
-
-analytics.onSiteLoad();
 
 function addEllipses() {
     const desc = document.querySelectorAll('.cmp-list__item-description-text');

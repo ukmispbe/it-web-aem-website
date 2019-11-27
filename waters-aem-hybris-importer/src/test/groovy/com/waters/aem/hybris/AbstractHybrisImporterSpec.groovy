@@ -5,6 +5,8 @@ import com.waters.aem.core.commerce.services.SkuRepository
 import com.waters.aem.core.commerce.services.impl.DefaultSkuRepository
 import com.waters.aem.core.services.SiteRepository
 import com.waters.aem.core.services.impl.DefaultSiteRepository
+import com.waters.aem.hybris.audit.HybrisImporterAuditService
+import com.waters.aem.hybris.audit.mock.MockHybrisImporterAuditService
 import com.waters.aem.hybris.client.HybrisClient
 import com.waters.aem.hybris.client.MockHybrisClient
 import com.waters.aem.hybris.importer.HybrisCatalogImporter
@@ -20,6 +22,7 @@ abstract class AbstractHybrisImporterSpec extends AemLibrarySpec {
         slingContext.registerService(HybrisClient, new MockHybrisClient())
         slingContext.registerService(SkuRepository, new DefaultSkuRepository())
         slingContext.registerService(SiteRepository, new DefaultSiteRepository())
+        slingContext.registerService(HybrisImporterAuditService, new MockHybrisImporterAuditService())
 
         hybrisCatalogImporter = slingContext.registerInjectActivateService(new DefaultHybrisCatalogImporter())
     }
