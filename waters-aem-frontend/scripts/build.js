@@ -16,6 +16,9 @@ const clientlibPath =
 const clientlibPrintPath =
     'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-print';
 
+const clientlibHeadPath =
+    'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/clientlibs/clientlib-head';
+
 compiler.run((err, stats) => {
     if (err) {
         console.log(err);
@@ -32,6 +35,7 @@ compiler.run((err, stats) => {
     const printCss = path.resolve(__dirname, '../', 'build', 'print.css');
     const js = path.resolve(__dirname, '../', 'build', 'main.js');
     const printJs = path.resolve(__dirname, '../', 'build', 'print.js');
+    const headJs = path.resolve(__dirname, '../', 'build', 'head.js');
     const aemCssPath = path.resolve(
         __dirname,
         '../../',
@@ -55,6 +59,12 @@ compiler.run((err, stats) => {
         '../../',
         clientlibPrintPath + '/js',
         'main.js'
+    );
+    const aemHeadJsPath = path.resolve(
+        __dirname,
+        '../../',
+        clientlibHeadPath + '/js',
+        'head.js'
     );
 
     fs.rename(css, aemCssPath, err => {
@@ -91,5 +101,14 @@ compiler.run((err, stats) => {
         }
 
         console.log('Print JS Moved to AEM');
+    });
+
+    fs.rename(headJs, aemHeadJsPath, err => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        console.log('Head JS Moved to AEM');
     });
 });

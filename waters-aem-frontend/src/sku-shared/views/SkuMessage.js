@@ -8,7 +8,7 @@ class SkuMessage extends React.Component {
 
     render() {
         return(
-            <div class="cmp-notification-wrapper">
+            <div className="cmp-notification-wrapper">
                 <ReactSVG
                     src={this.props.icon}
                     className={`cmp-notification-icon`}

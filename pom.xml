@@ -357,6 +357,9 @@
                         <failOnMissingEmbed>true</failOnMissingEmbed>
                         <userId>${vault.user}</userId>
                         <password>${vault.password}</password>
+                        <properties>
+                            <acHandling>merge_preserve</acHandling>
+                        </properties>
                     </configuration>
                 </plugin>
                 <plugin>

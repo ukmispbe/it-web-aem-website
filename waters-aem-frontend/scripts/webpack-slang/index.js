@@ -7,6 +7,7 @@ function WebpackSlangPlugin(options) {
     this.cssPath = options.cssPath;
     this.printJsPath = options.printJsPath;
     this.printCssPath = options.printCssPath;
+    this.headJsPath = options.headJsPath;
     this.additionalFiles = [];
 
     options.additionalHTML.forEach(additionalFiles => {
@@ -46,6 +47,13 @@ WebpackSlangPlugin.prototype.apply = function(compiler) {
                     this[key.includes('js') ? 'printJsPath' : 'printCssPath'],
                     null,
                     key.includes('js') ? 'main.js' : 'main.css'
+                );
+            } else if (key.includes('head')) {
+                Slang.up(
+                    assetObj.existsAt,
+                    this['headJsPath'],
+                    null,
+                    'head.js'
                 );
             } else {
                 Slang.up(

@@ -1,5 +1,6 @@
 .cmp-notification {
-    &-wrapper {
+    &-wrapper,
+    &--sitewide {
         display: flex;
         justify-content: center;
         background-color: $color-background-light;
@@ -34,6 +35,17 @@
                 height: $icon-l;
             }
         }
+    }
+
+    &--sitewide {
+        background-color: $color-blue-10;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    &-dismiss {
+        display: inline;
+        padding-left: $space-xxs;
     }
 
     &-separator {
@@ -173,6 +185,8 @@
 .cmp-notification--sitewide {
     .cmp-notification-wrapper {
         background-color: $color-blue-10;
+        border-top: 1px solid $color-blue-20;
+        border-bottom: 1px solid $color-blue-20;
         margin: 0 -30% 0;
     }
 }
@@ -203,4 +217,8 @@
             }
         }
     }
+}
+
+.container-sitewide-notification {
+    background-color: $color-blue-10;
 }
