@@ -221,9 +221,6 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
     }
 
     private void addFacets(final SolrInputDocument document, final ContentClassification contentClassification) {
-        // get the locale from the current page
-        final Locale locale = page.getLanguage(false);
-
         // get all tags and group by their parent tag name, which maps to the facet field name
         final Map<String, List<Tag>> groupedTags = contentClassification.getAllTags()
             .stream()
@@ -235,7 +232,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
             LOG.info("adding facet with field name : {} and {} values", fieldName, entry.getValue().size());
 
             for (final Tag tag : entry.getValue()) {
-                document.addField(fieldName, tag.getTitle(locale));
+                document.addField(fieldName, tag.getTitle());
             }
         }
     }
@@ -245,7 +242,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
 
         for (final Classification classification : classifications) {
             if (classification.isFacet()) {
-                final String title =  classification.getTitle().replaceAll("\\s+","");
+                final String title = classification.getTitle().replaceAll("\\s+","");
                 document.setField(SearchUtils.getSolrFacetName(title), classification.getFormattedFeatureValues());
             }
         }
