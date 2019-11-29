@@ -1,10 +1,40 @@
-<div data-sly-use.signinTrouble="com.waters.aem.core.components.content.forms.TroubleSigningIn">
-    <div class="cmp-form--attach">
-    <script type="application/json" id="cmp-trouble-signing-in-form">
+<div data-sly-use.signinTrouble="com.waters.aem.core.components.content.forms.TroubleSigningIn"
+data-sly-use.registration="com.waters.aem.core.components.content.forms.Registration">
+    <div class="cmp-trouble-signing-in-form" id="cmp-trouble-signing-in-form"></div>
+    <script type="application/json" id="js-trouble-signing-in-form">
         {
-            "passwordResetEndpoint": "${signinTrouble.passwordResetUrl @ context='unsafe'}"
+            "passwordResetEndpoint": "${signinTrouble.passwordResetUrl @ context='unsafe'}",
+            "buttonText": "${'RESET PASSWORD' @ i18n, context='text'}",
+            "icons": {
+                "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
+                "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
+            },
+            "fields": [
+                {
+                    "type": "email",
+                    "name": "email",
+                    "label": "${'Email Address' @ i18n, context='text'}",
+                    "validation": {
+                        "required": true,
+                        "requiredMsg": "${'Please enter a valid email address.' @ i18n, context='text'}",
+                        "validateFnName": "email",
+                        "validationMsg": "${'Please enter a valid email address.' @ i18n, context='text'}"
+                    }
+                },
+                {
+                    "type": "captcha",
+                    "name": "captcha",
+                    "siteKey": "${registration.captchaSiteKey @ context='unsafe'}",
+                    "validation": {
+                        "required": true
+                    }
+                }
+            ]
         }
     </script>
 </div>
 <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
      data-sly-call="${patterns.placeholder @ show=true, text=component.title}"/>
+
