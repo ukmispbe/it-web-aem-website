@@ -149,6 +149,10 @@ public final class Templates {
         return isPage(resource, WatersConstants.TEMPLATE_SHOP_HOME_PAGE);
     }
 
+    public static boolean isEmailTemplate(final PageDecorator page) {
+        return isPage(page, "/apps/waters/templates/emailtemplate");
+    }
+
     private static boolean isPage(final PageDecorator page, final String template) {
         return page != null && isPage(page.getContentResource(), template);
     }
