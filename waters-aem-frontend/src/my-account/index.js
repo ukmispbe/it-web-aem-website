@@ -9,7 +9,7 @@ import FeedbackSurvey from '../scripts/feedbackSurvey';
 
 import domElements from '../scripts/domElements';
 import MyAccountDropDown from './my-account-dropdown';
-import LoginStatus from '../scripts/loginStatus';
+import cookieStore from '../stores/cookieStore';
 
 
 class MyAccount extends React.Component {
@@ -175,8 +175,8 @@ class MyAccount extends React.Component {
 
         const newConfig = Object.assign({}, this.props.config);
         newConfig.loginStatus = {
-            state: LoginStatus.state(),
-            userName: LoginStatus.name,
+            state: cookieStore.getLoggedInStatus(),
+            userName: cookieStore.getGreeting(),
             accountName: '',
             accountNumber: ''
         };
