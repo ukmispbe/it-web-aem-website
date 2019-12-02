@@ -51,14 +51,14 @@ class DefaultHybrisProductImporterSpec extends AbstractHybrisImporterSpec {
         properties.get(WatersCommerceConstants.PROPERTY_CODE, "") == "176001744"
         properties.get(WatersCommerceConstants.PROPERTY_NAME, "") == "PFC Analysis Kit"
         properties.get(WatersCommerceConstants.PROPERTY_SHORT_DESCRIPTION,
-            "") == "Waters ACQUITY UPLC total solution for the analysis of Perfluorinated Compounds (PFCs)."
+                "") == "Waters ACQUITY UPLC total solution for the analysis of Perfluorinated Compounds (PFCs)."
         properties.get(WatersCommerceConstants.PROPERTY_LONG_DESCRIPTION,
-            "") == "Waters ACQUITY UPLC total solution for the analysis of Perfluorinated Compounds (PFCs).  The kit " +
-            "contains ACQUITY BEH C18 column, PFC isolator column, and other PFCs-free components optimized for use " +
-            "with the ACQUITY system.  Sample preparation consumables such as Oasis HLB cartridges, PFC calibration " +
-            "standards, PFC unknown QC standards, and sample vials are also included."
+                "") == "Waters ACQUITY UPLC total solution for the analysis of Perfluorinated Compounds (PFCs).  The kit " +
+                "contains ACQUITY BEH C18 column, PFC isolator column, and other PFCs-free components optimized for use " +
+                "with the ACQUITY system.  Sample preparation consumables such as Oasis HLB cartridges, PFC calibration " +
+                "standards, PFC unknown QC standards, and sample vials are also included."
         properties.get(WatersCommerceConstants.PROPERTY_CATEGORIES,
-            new String[0]) == ["Columns"] as String[]
+                new String[0]) == ["Columns"] as String[]
 
         and:
         !properties.get(WatersCommerceConstants.PROPERTY_TERMINATED, false)

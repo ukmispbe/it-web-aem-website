@@ -20,15 +20,18 @@ public final class CatalogImporterContext {
 
     private final Category category;
 
+    private final Map<String, String> skuCodeToSkuPagePathMap;
+
     CatalogImporterContext(final ResourceResolver resourceResolver,
         final Map<String, Set<String>> categoryIdToProductCodeMap,
         final PageDecorator parentPage,
-        final Category category) {
+        final Category category, final Map<String, String> skuCodeToSkuPagePathMap) {
         this.resourceResolver = resourceResolver;
         this.pageManager = resourceResolver.adaptTo(PageManagerDecorator.class);
         this.categoryIdToProductCodeMap = categoryIdToProductCodeMap;
         this.parentPage = parentPage;
         this.category = category;
+        this.skuCodeToSkuPagePathMap = skuCodeToSkuPagePathMap;
     }
 
     public ResourceResolver getResourceResolver() {
@@ -51,7 +54,12 @@ public final class CatalogImporterContext {
         return categoryIdToProductCodeMap;
     }
 
+    public Map<String, String> getSkuCodeToSkuPagePathMap() {
+        return skuCodeToSkuPagePathMap;
+    }
+
     public CatalogImporterContext withSubcategory(final PageDecorator categoryPage, final Category subcategory) {
-        return new CatalogImporterContext(resourceResolver, categoryIdToProductCodeMap, categoryPage, subcategory);
+        return new CatalogImporterContext(resourceResolver, categoryIdToProductCodeMap, categoryPage, subcategory,
+                skuCodeToSkuPagePathMap);
     }
 }
