@@ -1,49 +1,11 @@
 {
     "categories": [
         {
-            "code": "QualityControlReferenceMaterials",
-            "url": "/waters/catalogs/watersProductCatalog/Online/categories/QualityControlReferenceMaterials"
-        },
-        {
-            "code": "SystemPerformanceStandards",
-            "url": "/waters/catalogs/watersProductCatalog/Online/categories/SystemPerformanceStandards"
+            "code": "StandardsReagents",
+            "url": "/waters/catalogs/watersProductCatalog/Online/categories/StandardsReagents"
         }
     ],
     "classifications": [
-        {
-            "code": "ApplicationKits",
-            "features": [
-                {
-                    "code": "WatersClassification/1.0/ApplicationKits.applicationkitsdetectionmethod",
-                    "comparable": true,
-                    "facet": true,
-                    "featureValues": [
-                        {
-                            "position": 3,
-                            "value": "MS"
-                        },
-                        {
-                            "position": 4,
-                            "value": "MS/MS"
-                        },
-                        {
-                            "position": 6,
-                            "value": "UV"
-                        },
-                        {
-                            "position": 2,
-                            "value": "HRMS"
-                        }
-                    ],
-                    "internalOnly": false,
-                    "name": "Application Kits Detection Method",
-                    "position": 2550,
-                    "publicWebLabel": "Detection Method",
-                    "range": false
-                }
-            ],
-            "name": "Application Kits"
-        },
         {
             "code": "ConsumablesAndSpares",
             "features": [
@@ -133,7 +95,7 @@
                             "value": "Waters"
                         }
                     ],
-                    "internalOnly": false,
+                    "internalOnly": true,
                     "name": "Company",
                     "position": 10,
                     "range": false
@@ -206,6 +168,7 @@
                     ],
                     "internalOnly": true,
                     "name": "Business",
+                    "position": 50,
                     "range": false
                 },
                 {
@@ -214,12 +177,13 @@
                     "facet": false,
                     "featureValues": [
                         {
-                            "position": 7,
+                            "position": 1,
                             "value": "Application Kits"
                         }
                     ],
                     "internalOnly": true,
                     "name": "Product Family",
+                    "position": 60,
                     "range": false
                 }
             ],
@@ -228,348 +192,267 @@
     ],
     "code": "186007362",
     "coldChainShipping": false,
-    "hazardous": true,
     "description": "Quad LCMS QC Reference Material A quality control reference material intended to be used to benchmark and assess the performance of your UPLC system including a single or triple quad mass spectrometer.     Kit contains 1 mL of a 8 component mix including 100ug/mL Acetaminophen, 50ug/mL Sulfaguanidine, 10 ug/mL Sulfadimethoxine, 25 ug/mL Val,-Tyr,-Val, 6 ug/mL Verapamil, 6 ug/mL Terfenadine, 25 ug/mL Leucine Enkephalin, and 18 ug/mL Reserpine in 19/81 Acetonitrile/water 0.008% formic acid.",
+    "hazardous": true,
     "images": [
         {
             "imageType": "PRIMARY",
-            "url": "https://stage-www.waters.com/content/dam/waters/Photography/Products/skus/reagents/amber-ampule-1-2-5mL.png"
+            "url": "https://stage-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/amber-ampule-1-2-5mL.jpg"
         }
     ],
-    "name": "Quad LCMS QCRM",
+    "name": "Quad LCMS QC reference Material",
     "prices": [
         {
             "countries": [
+                "AU",
+                "PG",
                 "NZ",
-                "FJ",
-                "VA",
-                "AS"
+                "FJ"
             ],
             "currencyIso": "AUD",
-            "value": 174
+            "value": 174.0
         },
         {
             "countries": [
-                "ME",
-                "YE",
-                "SV",
-                "SY",
-                "TC",
-                "UZ",
-                "KZ",
-                "PS",
-                "AM",
-                "AJ",
-                "BA",
-                "BS",
-                "BU",
-                "CY",
-                "EG",
-                "GR",
-                "IZ",
-                "KU",
-                "LE",
-                "MK",
-                "MT",
-                "MU",
-                "PK",
-                "BY",
-                "GG",
-                "QA",
-                "RO",
-                "RU",
-                "SA",
-                "RS",
-                "UA",
-                "JO",
-                "AL",
-                "CE",
                 "LY",
-                "AU",
-                "CR",
-                "TU"
+                "LV",
+                "MT",
+                "TR",
+                "AT",
+                "LT",
+                "EE"
             ],
             "currencyIso": "EUR",
-            "value": 100
+            "value": 100.0
         },
         {
             "countries": [
-                "BE",
-                "LU"
+                "LU",
+                "BE"
             ],
             "currencyIso": "EUR",
-            "value": 100
+            "value": 100.0
         },
         {
             "countries": [
                 "BR"
             ],
             "currencyIso": "BRL",
-            "value": 0.01
+            "value": 823.52
         },
         {
             "countries": [
                 "CA"
             ],
             "currencyIso": "CAD",
-            "value": 155
+            "value": 155.0
         },
         {
             "countries": [
                 "CN"
             ],
             "currencyIso": "CNY",
-            "value": 1050
+            "value": 1050.0
         },
         {
             "countries": [
-                "CX",
-                "SK"
+                "CZ"
             ],
             "currencyIso": "CZK",
-            "value": 2550
+            "value": 2550.0
         },
         {
             "countries": [
-                "DA"
+                "DK"
             ],
             "currencyIso": "DKK",
-            "value": 754
+            "value": 754.0
         },
         {
             "countries": [
-                "EI"
+                "IE"
             ],
             "currencyIso": "EUR",
-            "value": 100
+            "value": 100.0
         },
         {
             "countries": [
-                "LV",
-                "EE",
-                "FI",
-                "LN"
+                "FI"
             ],
             "currencyIso": "EUR",
-            "value": 100
+            "value": 100.0
         },
         {
             "countries": [
-                "SG",
+                "PF",
                 "NC",
-                "FP",
-                "AG",
-                "ET",
-                "FR",
-                "GA",
-                "TS",
-                "NI",
+                "FR"
+            ],
+            "currencyIso": "EUR",
+            "value": 100.0
+        },
+        {
+            "countries": [
+                "DE"
+            ],
+            "currencyIso": "EUR",
+            "value": 100.0
+        },
+        {
+            "countries": [
                 "MO",
-                "GH"
-            ],
-            "currencyIso": "EUR",
-            "value": 100
-        },
-        {
-            "countries": [
-                "GE"
-            ],
-            "currencyIso": "EUR",
-            "value": 100
-        },
-        {
-            "countries": [
-                "HK",
-                "MC"
+                "HK"
             ],
             "currencyIso": "HKD",
-            "value": 1030
+            "value": 1030.0
         },
         {
             "countries": [
                 "HU"
             ],
             "currencyIso": "HUF",
-            "value": 30700
+            "value": 30700.0
         },
         {
             "countries": [
-                "BG",
-                "NP",
                 "IN"
             ],
             "currencyIso": "INR",
-            "value": 10692
+            "value": 10800.0
         },
         {
             "countries": [
-                "IS"
+                "IL"
             ],
             "currencyIso": "USD",
-            "value": 120
+            "value": 120.0
         },
         {
             "countries": [
                 "IT"
             ],
             "currencyIso": "EUR",
-            "value": 100
+            "value": 100.0
         },
         {
             "countries": [
                 "JP"
             ],
             "currencyIso": "JPY",
-            "value": 14000
+            "value": 14000.0
         },
         {
             "countries": [
-                "KS"
+                "KR"
             ],
             "currencyIso": "WON",
-            "value": 193200
+            "value": 193200.0
         },
         {
             "countries": [
                 "MX"
             ],
             "currencyIso": "USD",
-            "value": 160
+            "value": 160.0
         },
         {
             "countries": [
                 "MY"
             ],
             "currencyIso": "MYR",
-            "value": 480
+            "value": 480.0
         },
         {
             "countries": [
                 "NL"
             ],
             "currencyIso": "EUR",
-            "value": 100
+            "value": 100.0
         },
         {
             "countries": [
                 "NO"
             ],
             "currencyIso": "NOK",
-            "value": 808
+            "value": 808.0
         },
         {
             "countries": [
                 "PL"
             ],
             "currencyIso": "PLN",
-            "value": 375
+            "value": 375.0
         },
         {
             "countries": [
-                "PO"
+                "PT"
             ],
             "currencyIso": "EUR",
-            "value": 100
+            "value": 100.0
         },
         {
             "countries": [
-                "RQ"
+                "PR"
             ],
             "currencyIso": "USD",
-            "value": 130
+            "value": 130.0
         },
         {
             "countries": [
-                "GQ",
-                "BM",
-                "RP",
-                "ID",
                 "TH",
-                "BX",
-                "SN",
-                "VM",
-                "CB"
+                "PH",
+                "VN",
+                "ID",
+                "BN",
+                "SG",
+                "MM"
             ],
             "currencyIso": "USD",
-            "value": 132
+            "value": 132.0
         },
         {
             "countries": [
                 "ES"
             ],
             "currencyIso": "EUR",
-            "value": 100
+            "value": 100.0
         },
         {
             "countries": [
-                "SW",
-                "IC"
+                "SE",
+                "IS"
             ],
             "currencyIso": "SEK",
-            "value": 909
+            "value": 909.0
         },
         {
             "countries": [
-                "SZ"
+                "CH"
             ],
             "currencyIso": "CHF",
-            "value": 125
+            "value": 125.0
         },
         {
             "countries": [
-                "UK",
                 "JE",
-                "GI"
+                "GB"
             ],
             "currencyIso": "GBP",
             "value": 73.16
         },
         {
             "countries": [
-                "KE",
-                "BC",
-                "CS",
-                "GP",
-                "NT",
-                "PA",
-                "SF",
-                "ZA",
-                "AR",
-                "BF",
-                "BD",
-                "BL",
-                "CO",
-                "EC",
-                "GT",
-                "JM",
-                "NF",
-                "PN",
-                "PE",
-                "ST",
-                "VE",
-                "UY",
-                "HO",
-                "US",
-                "CI",
-                "HA",
-                "VI",
-                "ES",
-                "NU",
-                "TD",
-                "CF",
-                "GJ",
-                "AY",
-                "BH"
+                "US"
             ],
             "currencyIso": "USD",
-            "value": 120
+            "value": 120.0
         },
         {
             "countries": [
                 "TW"
             ],
             "currencyIso": "NTD",
-            "value": 3500
+            "value": 3500.0
         }
     ],
     "proprietary": false,
