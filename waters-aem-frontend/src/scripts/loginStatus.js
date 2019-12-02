@@ -1,12 +1,9 @@
-import domElements from '../scripts/domElements';
-
-const loggedInCookie = 'WatersLoginCookie';
-const greetingCookie = 'WatersGreetingCookie';
+import cookieStore from '../stores/cookieStore';
 
 const loginStatus = {
     
     state: () => {
-        return domElements.getCookie(loggedInCookie) ? true : false;
+        return cookieStore.getLoggedInStatus() ? true : false;
     },
     get name() { 
         let greeting = domElements.getCookie(greetingCookie);

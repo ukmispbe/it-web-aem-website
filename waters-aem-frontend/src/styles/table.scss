@@ -2,8 +2,11 @@
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     margin-bottom: $space-m;
-}
 
+    &__title {
+        margin-bottom: $space-xs;
+    }
+}
 .cmp-table__table {
     width: 100%;
     border-collapse: collapse;

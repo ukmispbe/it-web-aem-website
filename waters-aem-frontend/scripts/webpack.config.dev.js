@@ -15,7 +15,8 @@ function recursiveIssuer(m) {
 module.exports = {
     entry: {
         main: './src/entry.js',
-        print: './src/printEntry.js'
+        print: './src/printEntry.js',
+        head: './src/headEntry.js'
     },
     output: {
         path: path.resolve(__dirname, '../', 'build')
@@ -56,6 +57,7 @@ module.exports = {
             jsPath: '/apps/waters/clientlibs/clientlib-site/js',
             printCssPath: '/apps/waters/clientlibs/clientlib-print/css',
             printJsPath: '/apps/waters/clientlibs/clientlib-print/js',
+            headJsPath: '/apps/waters/clientlibs/clientlib-head/js',
             additionalHTML: [
                 'waters-aem-ui.apps/src/main/content/jcr_root/apps/waters/components',
             ],
@@ -78,6 +80,13 @@ module.exports = {
                     chunks: 'all',
                     enforce: true,
                 },
+                headStyles: {
+                    name: 'head',
+                    test: (m, c, entry = 'print') =>
+                    m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
+                    chunks: 'all',
+                    enforce: true,
+                }
             },
         },
         minimize: false,

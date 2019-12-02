@@ -190,8 +190,10 @@ const skuListContainer = document.querySelector(".cmp-sku-list");
 if (skuListContainer) {
     const skuListData = JSON.parse(skuListContainer.dataset.json);
 
+    const skuListTitle = skuListContainer.dataset.componenttitle ? skuListContainer.dataset.componenttitle : '';
+
     ReactDOM.render(
-        <SkuList skuConfig={skuDetailsConfig} data={skuListData} />,
+        <SkuList skuConfig={skuDetailsConfig} data={skuListData} title={skuListTitle} />,
         skuListContainer
     );
 }

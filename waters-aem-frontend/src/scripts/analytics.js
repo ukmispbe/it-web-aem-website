@@ -86,17 +86,16 @@ class Analytics {
         document.dispatchEvent(new CustomEvent(eventName, obj));
     }
 
-    onSiteLoad = () => { 
-        //atjs.custom events for Target Analytics :: see below URL for more detials
-        //https://docs.adobe.com/content/help/en/target/using/implement-target/client-side/functions-overview/atjs-custom-events.html
-      
-        document.addEventListener('at-content-rendering-succeeded', this.contentRenderingSucceeded);
+    siteLoad = () => {
+        document.addEventListener('at-library-loaded', function(event) { 
+            if (typeof adobe != 'undefined') { 
+                document.addEventListener(adobe.target.event.CONTENT_RENDERING_SUCCEEDED, function (event) {
+                    inlineSVG.init('img.inline-svg', 'svg-inlined'); 
+                });
+            }
+        });
     }
 
-    contentRenderingSucceeded = (event) => {
-        //Unique svg class for Target authored images
-        inlineSVG.init('img.inline-svg-target', 'svg-inlined-target');
-    }
 }
 
 

@@ -478,6 +478,15 @@
         }
     }
 
+    &__title {
+        @include font-h3;
+        margin-bottom: $space-xxs;
+
+        @include tablet-and-under {
+            margin-bottom: $space-s;
+        }
+    }
+
     .cmp-sku-details__title {
         @include font-h3;
         margin-bottom: $space-xxs;

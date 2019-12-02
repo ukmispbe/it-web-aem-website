@@ -15,6 +15,7 @@ class CategoriesTabs extends Component {
                     isActive={tab.isActive}
                     index={index}
                     onClick={this.props.onClick}
+                    key={`CategoryTab-${index}`}
                 />
     }
 
