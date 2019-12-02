@@ -5,8 +5,6 @@
     &-details,
     &-list {
         margin-bottom: $space-s;
-        opacity: 1;
-        transition: opacity 0.2s ease-in;
 
         &__signin {
             svg {
@@ -180,6 +178,16 @@
         }
     }
 
+    &-details {
+        //important bug fix since addToCart modal is within sku-details to prevent flicker
+        opacity:1 !important;
+    }
+
+    &-list {
+        opacity: 1;
+        transition: opacity 0.2s ease-in;
+    }
+
     &-details--sticky {
         
         &--shadow {
@@ -339,6 +347,8 @@
             display: none;
         }
     }
+
+
 }
 
 
@@ -465,6 +475,15 @@
                     stroke: $color-link;
                 }
             }
+        }
+    }
+
+    &__title {
+        @include font-h3;
+        margin-bottom: $space-xxs;
+
+        @include tablet-and-under {
+            margin-bottom: $space-s;
         }
     }
 

@@ -1,5 +1,6 @@
 const keys = {
     previousPagePosition: 'waters.previousPagePosition',
+    previousPagePositionEnabled: 'waters.previousPagePositionEnabled',
     fromSearchURL: 'waters.fromSearchURL',
     searchTabHistory: 'waters.searchTabHistory',
     previousPaginationClick: 'waters.previousPaginationClick',
@@ -15,6 +16,9 @@ const SessionStore = function() {
     this.setPreviousPagePosition = value => window.sessionStorage.setItem(keys.previousPagePosition, value);
     this.getPreviousPagePosition = () => window.sessionStorage.getItem(keys.previousPagePosition);
     this.removePreviousPagePosition = () => window.sessionStorage.removeItem(keys.previousPagePosition);
+    this.setPreviousPagePositionEnabled = () => window.sessionStorage.setItem(keys.previousPagePositionEnabled, 'Y');
+    this.getPreviousPagePositionEnabled = () => window.sessionStorage.getItem(keys.previousPagePositionEnabled);
+    this.removePreviousPagePositionEnabled = () => window.sessionStorage.removeItem(keys.previousPagePositionEnabled);
     this.setFromSearchURL = value => window.sessionStorage.setItem(keys.fromSearchURL, JSON.stringify(value));
     this.getFromSearchURL = () => getJSONObject(keys.fromSearchURL);
     this.removeFromSearchURL = () => window.sessionStorage.removeItem(keys.fromSearchURL);

@@ -6,6 +6,11 @@
     right: 0;
     background-color: rgba($color-black, 0.7);
     z-index: $cmp-modal-box-z-index;
+    display: flex;
+
+    @include mobile {
+        display: block;
+    }
 }
 
 .cmp-modal {
@@ -14,13 +19,14 @@
     height: auto;
     position: relative;
     width: 30%;
-    top: 225px;
-    left: 35%;
+
+    @include tablet-and-over {
+        align-self: center;
+        margin: auto;
+    }
 
     @include tablet {
         width: 70%;
-        top: 20%;
-        left: 15%;
     }
 
     @include mobile {

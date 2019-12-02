@@ -23,6 +23,7 @@ import com.waters.aem.hybris.models.ProductReference;
 import com.waters.aem.hybris.models.ProductReferenceTarget;
 import com.waters.aem.hybris.models.SalesStatus;
 import com.waters.aem.hybris.result.HybrisImporterResult;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.commons.JcrUtils;
 import org.apache.sling.api.resource.LoginException;
@@ -323,22 +324,24 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
             final Node pricesNode = JcrUtils.getOrAddNode(productNode, WatersCommerceConstants.RESOURCE_NAME_PRICES);
 
             for (final Price price : prices) {
-                for (final String country : price.getCountries()) {
-                    final String priceNodeName = price.getCurrencyIso() + "-" + country;
-                    final Node priceNode = JcrUtils.getOrAddNode(pricesNode, priceNodeName);
+                if (ArrayUtils.isNotEmpty(price.getCountries())) {
+                    for (final String country : price.getCountries()) {
+                        final String priceNodeName = price.getCurrencyIso() + "-" + country;
+                        final Node priceNode = JcrUtils.getOrAddNode(pricesNode, priceNodeName);
 
-                    final Map<String, Object> properties = new HashMap<>();
+                        final Map<String, Object> properties = new HashMap<>();
 
-                    properties.put(WatersCommerceConstants.PROPERTY_COUNTRY, country);
-                    properties.put(WatersCommerceConstants.PROPERTY_CURRENCY_ISO, price.getCurrencyIso());
-                    properties.put(WatersCommerceConstants.PROPERTY_FORMATTED_VALUE, price.getFormattedValue());
-                    properties.put(WatersCommerceConstants.PROPERTY_MAX_QUANTITY, price.getMaxQuantity());
-                    properties.put(WatersCommerceConstants.PROPERTY_MIN_QUANTITY, price.getMinQuantity());
-                    properties.put(WatersCommerceConstants.PROPERTY_PRICE_TYPE, price.getPriceType() == null ? null :
-                        price.getPriceType().name());
-                    properties.put(WatersCommerceConstants.PROPERTY_VALUE, price.getValue());
+                        properties.put(WatersCommerceConstants.PROPERTY_COUNTRY, country);
+                        properties.put(WatersCommerceConstants.PROPERTY_CURRENCY_ISO, price.getCurrencyIso());
+                        properties.put(WatersCommerceConstants.PROPERTY_FORMATTED_VALUE, price.getFormattedValue());
+                        properties.put(WatersCommerceConstants.PROPERTY_MAX_QUANTITY, price.getMaxQuantity());
+                        properties.put(WatersCommerceConstants.PROPERTY_MIN_QUANTITY, price.getMinQuantity());
+                        properties.put(WatersCommerceConstants.PROPERTY_PRICE_TYPE, price.getPriceType() == null ? null :
+                                price.getPriceType().name());
+                        properties.put(WatersCommerceConstants.PROPERTY_VALUE, price.getValue());
 
-                    setNodeProperties(priceNode, properties);
+                        setNodeProperties(priceNode, properties);
+                    }
                 }
             }
         }

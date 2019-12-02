@@ -90,7 +90,7 @@ class Analytics {
         document.addEventListener('at-library-loaded', function(event) { 
             if (typeof adobe != 'undefined') { 
                 document.addEventListener(adobe.target.event.CONTENT_RENDERING_SUCCEEDED, function (event) {
-                    inlineSVG.init('img.inline-svg-target', 'svg-inlined-target'); 
+                    inlineSVG.init('img.inline-svg', 'svg-inlined'); 
                 });
             }
         });

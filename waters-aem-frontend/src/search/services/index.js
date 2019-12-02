@@ -70,11 +70,12 @@ class SearchService {
         page = parameterDefaults.page,
         sort = parameterDefaults.sort,
         category = parameterDefaults.category,
+        categoryKey = ''
     } = {}) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const searchString = `${
             this.path
-        }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
+        }/category_facet$${categoryKey.toLowerCase()}:${encodeURIComponent(
             encodeURIComponent(category)
         )}?${paramString}`;
 
@@ -99,12 +100,13 @@ class SearchService {
             page = parameterDefaults.page,
             sort = parameterDefaults.sort,
             category = parameterDefaults.category,
+            categoryKey = ''
         } = {}
     ) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const searchString = `${
             this.path
-        }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
+        }/category_facet$${categoryKey.toLowerCase()}:${encodeURIComponent(
             encodeURIComponent(category)
         )}&contenttype_facet$${contentTypeKey}:${encodeURIComponent(
             encodeURIComponent(contentTypeValue)
@@ -129,13 +131,14 @@ class SearchService {
             page = parameterDefaults.page,
             sort = parameterDefaults.sort,
             category = parameterDefaults.category,
+            categoryKey = ''
         } = {}
     ) => {
         const paramString = this.getQueryParamString({ keyword, page, sort });
         const facetString = this.getQueryFacetString(facets);
         const searchString = `${
             this.path
-        }/category_facet$${category.toLowerCase()}:${encodeURIComponent(
+        }/category_facet$${categoryKey.toLowerCase()}:${encodeURIComponent(
             encodeURIComponent(category)
         )}&contenttype_facet$${contentTypeName.replace(
             '_facet',
@@ -397,8 +400,13 @@ class SearchService {
     }
 
     getSessionStore = () => {
+        const previousPagePosition = 
+            this.sessionStore.getPreviousPagePositionEnabled()
+            ? this.sessionStore.getPreviousPagePosition()
+            : null;
+
         return {
-            previousPagePosition: this.sessionStore.getPreviousPagePosition(),
+            previousPagePosition,
             fromSearchURL: this.sessionStore.getFromSearchURL(),
             searchTabHistory: this.sessionStore.getSearchTabHistory(),
             previousPaginationClick: this.sessionStore.getPreviousPaginationClick()
@@ -407,6 +415,7 @@ class SearchService {
 
     clearSessionStore = () => {
         this.sessionStore.removePreviousPagePosition();
+        this.sessionStore.removePreviousPagePositionEnabled();
         this.sessionStore.removeFromSearchURL();
         this.sessionStore.removeSearchTabHistory();
         this.sessionStore.removePreviousPaginationClick();
@@ -415,10 +424,12 @@ class SearchService {
     scrollToPosition = position => {
         window.scrollTo(0, position);
         this.sessionStore.removePreviousPagePosition();
+        this.sessionStore.removePreviousPagePositionEnabled();
     }
 
     scrollToTop = () => {
         window.scrollTo(0, 0);
+        this.sessionStore.removePreviousPagePositionEnabled();
     }
 }
 
