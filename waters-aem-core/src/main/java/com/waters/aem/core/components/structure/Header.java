@@ -183,12 +183,58 @@ public final class Header extends AbstractComponent implements ComponentExporter
         return logoAltText;
     }
 
-    public Link getsignInLink() {
+    public Link getSignInLink() {
         return signInLink;
     }
 
     public Link getSignOutLink() {
         return signOutLink;
+    }
+
+    public Link getSwitchAccountLink() {
+        return switchAccountLink;
+    }
+
+    public Link getCreateAccountLink() {
+        return createAccountLink;
+    }
+
+    public Link getProfileLink() {
+        return profileLink;
+    }
+
+    public Link getOrdersLink() {
+        return ordersLink;
+    }
+
+    public String getSignInLinkPageTitle() {
+        return !LinkUtils.isExternal(signInLink) ? currentPage.getPageManager().getPage(signInLink.getPath())
+            .getTitle() : "";
+    }
+
+    public String getSignOutLinkPageTitle() {
+        return !LinkUtils.isExternal(signOutLink) ? currentPage.getPageManager().getPage(signOutLink.getPath())
+            .getTitle() : "";
+    }
+
+    public String getSwitchAccountLinkPageTitle() {
+        return !LinkUtils.isExternal(switchAccountLink) ? currentPage.getPageManager().getPage(switchAccountLink.getPath())
+            .getTitle() : "";
+    }
+
+    public String getCreateAccountLinkPageTitle() {
+        return !LinkUtils.isExternal(createAccountLink) ? currentPage.getPageManager().getPage(createAccountLink.getPath())
+            .getTitle() : "";
+    }
+
+    public String getProfileLinkPageTitle() {
+        return !LinkUtils.isExternal(profileLink) ? currentPage.getPageManager().getPage(profileLink.getPath())
+            .getTitle() : "";
+    }
+
+    public String getOrdersLinkPageTitle() {
+        return !LinkUtils.isExternal(ordersLink) ? currentPage.getPageManager().getPage(ordersLink.getPath())
+        .getTitle() : "";
     }
 
     public Boolean isIncludeH1Tag() { return includeH1Tag; }
