@@ -305,6 +305,22 @@ if (registrationFormContainer) {
     );
 }
 
+const troubleSigningInFormContainer = document.getElementById(
+    "cmp-trouble-signing-in-form"
+);
+
+if (troubleSigningInFormContainer) {
+    const config = JSON.parse(
+        document.getElementById("js-trouble-signing-in-form").innerHTML
+    );
+
+    ReactDOM.render(
+        // replace isocode with a value supplied by AEM
+        <Form config={config} submitFn={registrationSubmit} isocode="en" />,
+        troubleSigningInFormContainer
+    );
+}
+
 const chatContainer = document.querySelector(".cmp-chat");
 
 if (chatContainer) {
