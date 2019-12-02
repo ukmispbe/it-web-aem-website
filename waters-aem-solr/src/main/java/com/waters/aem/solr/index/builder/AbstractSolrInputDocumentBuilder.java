@@ -258,17 +258,6 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         }
     }
 
-  /*  private void addFacets(final SolrInputDocument document, final Sku sku) {
-        final List<Classification> classifications = sku.getClassifications();
-
-        for (final Classification classification : classifications) {
-            if (classification.isFacet()) {
-                final String title =  classification.getTitle().replaceAll("\\s+","");
-                document.setField(SearchUtils.getSolrFacetName(title), classification.getDisplayableFeatureValues());
-            }
-        }
-    }
-*/
     private void addDate(final SolrInputDocument document, final ContentClassification contentClassification) {
         if (!contentClassification.getYearPublished().isEmpty()) {
             final Tag yearPublished = contentClassification.getYearPublished().get(0);
