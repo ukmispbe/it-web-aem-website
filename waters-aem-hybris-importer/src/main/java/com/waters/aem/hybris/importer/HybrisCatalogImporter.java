@@ -14,5 +14,5 @@ public interface HybrisCatalogImporter {
      *
      * @return list of importer results
      */
-    List<HybrisImporterResult> importCatalogPages();
+    List<HybrisImporterResult> importCatalogPages(final Boolean generateLiveCopies);
 }

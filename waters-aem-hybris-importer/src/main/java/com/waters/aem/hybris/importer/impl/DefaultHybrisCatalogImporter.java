@@ -4,6 +4,8 @@ import com.day.cq.commons.DownloadResource;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.WCMException;
+import com.day.cq.wcm.msm.api.MSMNameConstants;
+import com.day.cq.wcm.msm.api.RolloutManager;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
@@ -84,10 +86,13 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     @Reference
     private SiteRepository siteRepository;
 
+    //@Reference
+    //private RolloutManager rolloutManager;
+
     private volatile String catalogRootPath;
 
     @Override
-    public List<HybrisImporterResult> importCatalogPages() {
+    public List<HybrisImporterResult> importCatalogPages(final Boolean generateLiveCopies) {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         final Stopwatch stopwatch = Stopwatch.createStarted();
@@ -109,7 +114,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
                 final CatalogImporterContext context = new CatalogImporterContext(resourceResolver,
                     categoryIdToProductCodeMap, catalogRootPage, category);
 
-                results.addAll(processCategoryPages(context));
+                results.addAll(processCategoryPages(context, generateLiveCopies));
             }
 
             resourceResolver.commit();
@@ -157,9 +162,9 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         }
     }
 
-    private List<HybrisImporterResult> processCategoryPages(final CatalogImporterContext context)
-        throws WCMException, PersistenceException, URISyntaxException {
-        final List<HybrisImporterResult> results = importPagesForCategory(context);
+    private List<HybrisImporterResult> processCategoryPages(final CatalogImporterContext context, final Boolean
+        generateLiveCopies) throws WCMException, PersistenceException, URISyntaxException {
+        final List<HybrisImporterResult> results = importPagesForCategory(context, generateLiveCopies);
 
         final Category category = context.getCategory();
 
@@ -170,13 +175,13 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         for (final Category subcategory : category.getSubcategories()) {
             final CatalogImporterContext subcategoryContext = context.withSubcategory(categoryPage, subcategory);
 
-            results.addAll(processCategoryPages(subcategoryContext));
+            results.addAll(processCategoryPages(subcategoryContext, generateLiveCopies));
         }
 
         // only process product pages for leaf categories
         if (category.getSubcategories().isEmpty()) {
             // after processing category page, proceed with the product pages for the current category (if any)
-            results.addAll(processSkuPagesForCategory(context, categoryPage));
+            results.addAll(processSkuPagesForCategory(context, categoryPage, generateLiveCopies));
         }
 
         // commit changes after each category
@@ -189,8 +194,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     }
 
     private List<HybrisImporterResult> processSkuPagesForCategory(final CatalogImporterContext context,
-        final PageDecorator categoryPage)
-        throws WCMException, PersistenceException {
+        final PageDecorator categoryPage, final Boolean generateLiveCopies) throws WCMException, PersistenceException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         final Category category = context.getCategory();
@@ -211,14 +215,14 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
             LOG.info("importing {} skus for category : {}", skus.size(), category.getId());
 
-            results.addAll(importSkuPages(context, categoryPage, skus));
+            results.addAll(importSkuPages(context, categoryPage, skus, generateLiveCopies));
         }
 
         return results;
     }
 
     private List<HybrisImporterResult> importSkuPages(final CatalogImporterContext context,
-        final PageDecorator categoryPage, final List<Sku> skus)
+        final PageDecorator categoryPage, final List<Sku> skus, final Boolean generateLiveCopies)
         throws WCMException, PersistenceException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
@@ -228,7 +232,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         for (final Sku sku : skus) {
             // create/update sku pages for each imported commerce product
-            results.addAll(importPagesForSku(context, categoryPage, sku));
+            results.addAll(importPagesForSku(context, categoryPage, sku, generateLiveCopies));
 
             if (count % 10 == 0) {
                 LOG.debug("committing changes...");
@@ -246,7 +250,8 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     }
 
     private List<HybrisImporterResult> importPagesForSku(final CatalogImporterContext context,
-        final PageDecorator categoryPage, final Sku sku) throws WCMException, PersistenceException {
+        final PageDecorator categoryPage, final Sku sku, final Boolean generateLiveCopies)
+        throws WCMException, PersistenceException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         final String skuPageName = new StringBuilder(TextUtils.getValidJcrName(sku.getCode()))
@@ -288,6 +293,11 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         if (status != null) {
             updateSkuPageProperties(skuPage, sku);
             createOrUpdateThumbnail(context.getResourceResolver(), sku, skuPage);
+
+            // create live copies if boolean
+            if (generateLiveCopies) {
+                generateLiveCopies(skuPage, context.getParentPage(), context);
+            }
         }
 
         results.add(HybrisImporterResult.fromSkuPage(skuPage, status));
@@ -295,8 +305,8 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         return results;
     }
 
-    private List<HybrisImporterResult> importPagesForCategory(final CatalogImporterContext context)
-        throws WCMException, URISyntaxException {
+    private List<HybrisImporterResult> importPagesForCategory(final CatalogImporterContext context, final Boolean
+        generateLiveCopies) throws WCMException, URISyntaxException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         final Category category = context.getCategory();
@@ -333,6 +343,11 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         if (status != null) {
             updateCategoryPageProperties(page, category, false);
+
+            // create live copies if boolean
+            if (generateLiveCopies) {
+                generateLiveCopies(page, context.getParentPage(), context);
+            }
         }
 
         results.add(HybrisImporterResult.fromCategoryPage(page, status));
@@ -414,6 +429,69 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         LOG.info("updated {} live copy pages for sku : {}", results.size(), sku);
 
         return results;
+    }
+
+    private void createOrUpdateSkuPageLiveCopies(final PageDecorator skuPage, final Sku sku,
+        final PageDecorator parentPage, final PageManagerDecorator pageManager) throws WCMException {
+
+        final List<String> targets = new ArrayList<>();
+
+        final String skuPageName = skuPage.getName();
+
+        for (final PageDecorator liveCopyParent : siteRepository.getLiveCopyPages(parentPage)) {
+
+            if (!liveCopyParent.hasChild(skuPageName)) {
+                PageDecorator liveCopyPage = pageManager.create(liveCopyParent.getPath(), skuPageName,
+                WatersConstants.TEMPLATE_REDIRECT_PAGE, skuPage.getTitle(), false);
+
+                final ValueMap properties = liveCopyPage.getContentResource().adaptTo(ModifiableValueMap.class);
+                properties.put(JcrConstants.JCR_MIXINTYPES, MSMNameConstants.NT_LIVE_RELATIONSHIP);
+
+                targets.add(liveCopyPage.getPath());
+
+            } else {
+
+                final String liveCopyPath = liveCopyParent.getPath() + "/" + skuPageName;
+                updateSkuPageProperties(pageManager.getPage(liveCopyPath), sku);
+
+            }
+
+        }
+
+    }
+
+    private void generateLiveCopies(final PageDecorator page, final PageDecorator parentPage,
+        final CatalogImporterContext context) throws WCMException {
+
+        final List<String> targets = new ArrayList<>();
+
+        for (final PageDecorator liveCopyParent : siteRepository.getLiveCopyPages(parentPage)) {
+
+            if (!liveCopyParent.hasChild(page.getName())) {
+                PageDecorator liveCopyPage = context.getPageManager().create(liveCopyParent.getPath(), page.getName(),
+                WatersConstants.TEMPLATE_REDIRECT_PAGE, page.getTitle(), false);
+
+                final ValueMap properties = liveCopyPage.getContentResource().adaptTo(ModifiableValueMap.class);
+                properties.put(JcrConstants.JCR_MIXINTYPES, MSMNameConstants.NT_LIVE_RELATIONSHIP);
+
+                targets.add(liveCopyPage.getPath());
+            }
+
+        }
+        rolloutLiveCopies(page, targets, context);
+    }
+
+    private void rolloutLiveCopies(final PageDecorator page, final List<String> targets, final CatalogImporterContext context)
+        throws WCMException {
+        final RolloutManager.RolloutParams params = new RolloutManager.RolloutParams();
+
+        params.isDeep = false;
+        params.reset = false;
+        params.master = page;
+        params.trigger = RolloutManager.Trigger.ROLLOUT;
+        params.targets = targets.stream().toArray(String[]::new);
+
+        context.getResourceResolver().adaptTo(RolloutManager.class).rollout(params);
     }
 
     private void updateCategoryPageProperties(final PageDecorator page, final Category category,

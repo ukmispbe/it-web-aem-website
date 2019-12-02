@@ -75,7 +75,7 @@ public final class DefaultHybrisImporterExecutorService implements HybrisImporte
 
             // import categories (product pages will be created for each category based on the result of the preceding
             // product import)
-            results.addAll(hybrisCatalogImporter.importCatalogPages());
+            results.addAll(hybrisCatalogImporter.importCatalogPages(options.generateLiveCopies()));
 
             final long duration = stopwatch.elapsed(TimeUnit.SECONDS);
 
