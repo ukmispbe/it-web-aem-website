@@ -104,7 +104,7 @@ public final class EmailTemplateJobConsumer extends AbstractJobConsumer {
     }
 
     private void handlePage(final String path, final ResourceResolver resourceResolver) throws IOException, ServletException {
-        HttpServletRequest request = requestResponseFactory.createRequest("GET", path,
+        HttpServletRequest request = requestResponseFactory.createRequest("GET", path + ".html",
                 new ImmutableMap.Builder<String, Object>()
                         .put("wcmmode", "disabled")
                         .build());
