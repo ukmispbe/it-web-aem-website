@@ -54,7 +54,8 @@ public final class SearchResultsCategory {
         return orderedFacetTags.stream()
             .map(tag -> ImmutableMap.<String, String>builder()
                 .put("facetName", SearchUtils.getSolrFacetName(tag.getName()))
-                .put("facetValue", tag.getTitle(siteContext.getLocale()))
+                .put("facetValue", tag.getTitle())
+                .put("facetTranslation", tag.getTitle(siteContext.getLocale()))
                 .build())
             .collect(Collectors.toList());
     }
