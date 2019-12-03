@@ -134,8 +134,8 @@ public final class Header extends AbstractComponent implements ComponentExporter
     @LinkInject(inherit = true)
     private Link switchAccountLink;
 
-    @DialogField(fieldLabel = "Switch Account Link",
-        fieldDescription = "Select or Enter the Switch Account Link",
+    @DialogField(fieldLabel = "Create Account Link",
+        fieldDescription = "Select or Enter the Create Account Link",
         tab = 2,
         ranking = 4
     )
@@ -207,32 +207,32 @@ public final class Header extends AbstractComponent implements ComponentExporter
         return ordersLink;
     }
 
-    public String getSignInLinkPageTitle() {
+    public String getSignInPageTitle() {
         return !LinkUtils.isExternal(signInLink) ? currentPage.getPageManager().getPage(signInLink.getPath())
             .getTitle() : "";
     }
 
-    public String getSignOutLinkPageTitle() {
+    public String getSignOutPageTitle() {
         return !LinkUtils.isExternal(signOutLink) ? currentPage.getPageManager().getPage(signOutLink.getPath())
-            .getTitle() : "";
+        .getTitle() : "";
     }
 
-    public String getSwitchAccountLinkPageTitle() {
+    public String getSwitchAccountPageTitle() {
         return !LinkUtils.isExternal(switchAccountLink) ? currentPage.getPageManager().getPage(switchAccountLink.getPath())
             .getTitle() : "";
     }
 
-    public String getCreateAccountLinkPageTitle() {
+    public String getCreateAccountPageTitle() {
         return !LinkUtils.isExternal(createAccountLink) ? currentPage.getPageManager().getPage(createAccountLink.getPath())
             .getTitle() : "";
     }
 
-    public String getProfileLinkPageTitle() {
+    public String getProfilePageTitle() {
         return !LinkUtils.isExternal(profileLink) ? currentPage.getPageManager().getPage(profileLink.getPath())
             .getTitle() : "";
     }
 
-    public String getOrdersLinkPageTitle() {
+    public String getOrdersPageTitle() {
         return !LinkUtils.isExternal(ordersLink) ? currentPage.getPageManager().getPage(ordersLink.getPath())
         .getTitle() : "";
     }
