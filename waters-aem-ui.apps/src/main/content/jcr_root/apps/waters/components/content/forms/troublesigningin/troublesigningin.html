@@ -1,9 +1,9 @@
-<div data-sly-use.signinTrouble="com.waters.aem.core.components.content.forms.TroubleSigningIn"
-data-sly-use.registration="com.waters.aem.core.components.content.forms.Registration">
+<div data-sly-use.signinTrouble="com.waters.aem.core.components.content.forms.TroubleSigningIn">
     <div class="cmp-trouble-signing-in-form" id="cmp-trouble-signing-in-form"></div>
     <script type="application/json" id="js-trouble-signing-in-form">
         {
             "passwordResetEndpoint": "${signinTrouble.passwordResetUrl @ context='unsafe'}",
+            "changePasswordEndpoint": "${signinTrouble.changePasswordUrl @ context='unsafe'}",
             "buttonText": "${'RESET PASSWORD' @ i18n, context='text'}",
             "icons": {
                 "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
@@ -26,7 +26,7 @@ data-sly-use.registration="com.waters.aem.core.components.content.forms.Registra
                 {
                     "type": "captcha",
                     "name": "captcha",
-                    "siteKey": "${registration.captchaSiteKey @ context='unsafe'}",
+                    "siteKey": "${signinTrouble.captchaSiteKey @ context='unsafe'}",
                     "validation": {
                         "required": true
                     }
