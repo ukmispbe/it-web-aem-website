@@ -1,5 +1,8 @@
 package com.waters.aem.hybris
 
+import com.day.cq.wcm.api.WCMException
+import com.day.cq.wcm.msm.api.LiveRelationship
+import com.day.cq.wcm.msm.api.RolloutManager
 import com.icfolson.aem.library.core.specs.AemLibrarySpec
 import com.waters.aem.core.commerce.services.SkuRepository
 import com.waters.aem.core.commerce.services.impl.DefaultSkuRepository
@@ -11,7 +14,11 @@ import com.waters.aem.hybris.client.HybrisClient
 import com.waters.aem.hybris.client.MockHybrisClient
 import com.waters.aem.hybris.importer.HybrisCatalogImporter
 import com.waters.aem.hybris.importer.impl.DefaultHybrisCatalogImporter
+import org.apache.sling.api.resource.ResourceResolver
 import spock.lang.Shared
+
+import javax.jcr.Node
+import javax.jcr.RepositoryException
 
 abstract class AbstractHybrisImporterSpec extends AemLibrarySpec {
 
@@ -23,6 +30,62 @@ abstract class AbstractHybrisImporterSpec extends AemLibrarySpec {
         slingContext.registerService(SkuRepository, new DefaultSkuRepository())
         slingContext.registerService(SiteRepository, new DefaultSiteRepository())
         slingContext.registerService(HybrisImporterAuditService, new MockHybrisImporterAuditService())
+        slingContext.registerService(RolloutManager, new RolloutManager() {
+            @Override
+            void rollout(RolloutManager.RolloutParams rolloutParams) throws WCMException {
+
+            }
+
+            @Override
+            void rollout(ResourceResolver resourceResolver, LiveRelationship liveRelationship, boolean b) throws WCMException {
+
+            }
+
+            @Override
+            void rollout(ResourceResolver resourceResolver, LiveRelationship liveRelationship, boolean b, boolean b1) throws WCMException {
+
+            }
+
+            @Override
+            void updateRolloutInfo(Node node, boolean b, boolean b1) throws WCMException {
+
+            }
+
+            @Override
+            boolean isExcludedProperty(String s) {
+                return false
+            }
+
+            @Override
+            boolean isExcludedProperty(boolean b, String s) {
+                return false
+            }
+
+            @Override
+            boolean isExcludedPageProperty(String s) {
+                return false
+            }
+
+            @Override
+            boolean isExcludedParagraphProperty(String s) {
+                return false
+            }
+
+            @Override
+            boolean isExcludedNodeType(String s) {
+                return false
+            }
+
+            @Override
+            boolean isExcludedNode(Node node) throws RepositoryException {
+                return false
+            }
+
+            @Override
+            boolean isReservedProperty(String s) {
+                return false
+            }
+        })
 
         hybrisCatalogImporter = slingContext.registerInjectActivateService(new DefaultHybrisCatalogImporter())
     }

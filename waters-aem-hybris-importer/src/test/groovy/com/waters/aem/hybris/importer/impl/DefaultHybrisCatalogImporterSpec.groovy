@@ -32,4 +32,6 @@ class DefaultHybrisCatalogImporterSpec extends AbstractHybrisImporterSpec {
         and:
         results
     }
+
+
 }

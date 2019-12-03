@@ -35,6 +35,7 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.api.resource.ValueMap;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
@@ -86,8 +87,8 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     @Reference
     private SiteRepository siteRepository;
 
-    //@Reference
-    //private RolloutManager rolloutManager;
+    @Reference
+    private RolloutManager rolloutManager;
 
     private volatile String catalogRootPath;
 
@@ -296,7 +297,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
             // create live copies if boolean
             if (generateLiveCopies) {
-                generateLiveCopies(skuPage, context.getParentPage(), context);
+                generateLiveCopies(skuPage, pageManager.getPage(categoryPage.getPath()), context);
             }
         }
 
@@ -431,44 +432,19 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         return results;
     }
 
-    private void createOrUpdateSkuPageLiveCopies(final PageDecorator skuPage, final Sku sku,
-        final PageDecorator parentPage, final PageManagerDecorator pageManager) throws WCMException {
-
-        final List<String> targets = new ArrayList<>();
-
-        final String skuPageName = skuPage.getName();
-
-        for (final PageDecorator liveCopyParent : siteRepository.getLiveCopyPages(parentPage)) {
-
-            if (!liveCopyParent.hasChild(skuPageName)) {
-                PageDecorator liveCopyPage = pageManager.create(liveCopyParent.getPath(), skuPageName,
-                WatersConstants.TEMPLATE_REDIRECT_PAGE, skuPage.getTitle(), false);
-
-                final ValueMap properties = liveCopyPage.getContentResource().adaptTo(ModifiableValueMap.class);
-                properties.put(JcrConstants.JCR_MIXINTYPES, MSMNameConstants.NT_LIVE_RELATIONSHIP);
-
-                targets.add(liveCopyPage.getPath());
-
-            } else {
-
-                final String liveCopyPath = liveCopyParent.getPath() + "/" + skuPageName;
-                updateSkuPageProperties(pageManager.getPage(liveCopyPath), sku);
-
-            }
-
-        }
-
-    }
-
     private void generateLiveCopies(final PageDecorator page, final PageDecorator parentPage,
         final CatalogImporterContext context) throws WCMException {
 
         final List<String> targets = new ArrayList<>();
 
+        List<PageDecorator> pages = siteRepository.getLiveCopyPages(parentPage);
+
         for (final PageDecorator liveCopyParent : siteRepository.getLiveCopyPages(parentPage)) {
 
-            if (!liveCopyParent.hasChild(page.getName())) {
-                PageDecorator liveCopyPage = context.getPageManager().create(liveCopyParent.getPath(), page.getName(),
+            String pageName = page.getName();
+
+            if (!liveCopyParent.hasChild(pageName)) {
+                PageDecorator liveCopyPage = context.getPageManager().create(liveCopyParent.getPath(), pageName,
                 WatersConstants.TEMPLATE_REDIRECT_PAGE, page.getTitle(), false);
 
                 final ValueMap properties = liveCopyPage.getContentResource().adaptTo(ModifiableValueMap.class);
@@ -478,7 +454,11 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             }
 
         }
-        rolloutLiveCopies(page, targets, context);
+
+        if (!targets.isEmpty()) {
+            rolloutLiveCopies(page, targets, context);
+        }
+
     }
 
     private void rolloutLiveCopies(final PageDecorator page, final List<String> targets, final CatalogImporterContext context)
@@ -491,7 +471,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         params.trigger = RolloutManager.Trigger.ROLLOUT;
         params.targets = targets.stream().toArray(String[]::new);
 
-        context.getResourceResolver().adaptTo(RolloutManager.class).rollout(params);
+        rolloutManager.rollout(params);
     }
 
     private void updateCategoryPageProperties(final PageDecorator page, final Category category,
