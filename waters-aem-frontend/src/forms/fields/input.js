@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useMemo, useCallback } from "react";
+import React, { useRef, useContext, useMemo } from "react";
 
 import { useFormApi, useFieldApi } from '../form';
 import { useErrorsContext } from './utils/stateWatcher';
@@ -37,8 +37,6 @@ const Input = ({
 
     const getMatchReq = useMemo(() => ({ required: validation["required"], requiredMsg: `Please confirm ${name}`, validateFnName: "matching", validationMsg: validation["nonMatchingMsg"] }), [name, validation]);
 
-    const hasError = useCallback(() => !!errors[name], [errors]);
-
     const renderInput = () => {
         return (
             <>
@@ -72,7 +70,7 @@ const Input = ({
                         onChange={updateReq}
                         placeholder=" "
                         disabled={disabled}
-                        className={hasError ? "error" : "valid"}
+                        className={!!errors[name] ? "error" : "valid"}
                     ></input>
                     <Icons />
                 </div>
