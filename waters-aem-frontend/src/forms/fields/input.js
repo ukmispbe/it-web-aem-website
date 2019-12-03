@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useMemo, useCallback } from "react";
+import React, { useRef, useContext, useMemo } from "react";
 
 import { useFormApi, useFieldApi } from '../form';
 import { useErrorsContext } from './utils/stateWatcher';
@@ -35,9 +35,7 @@ const Input = ({
 
     const updateReq = () => reqRef.current ? reqRef.current.update(inputRef.current.value) : () => false;
 
-    const getMatchReq = useMemo(() => ({ required: validation["required"], requiredMsg: `Please confirm ${name}`, validateFnName: "matching", validationMsg: validation["nonMatchingMsg"] }), [name, validation]);
-
-    const hasError = useCallback(() => !!errors[name], [errors]);
+    const getMatchReq = useMemo(() => ({ required: validation["required"], requiredMsg: `Please confirm your ${name}.`, validateFnName: "matching", validationMsg: validation["nonMatchingMsg"] }), [name, validation]);
 
     const renderInput = () => {
         return (
@@ -72,7 +70,7 @@ const Input = ({
                         onChange={updateReq}
                         placeholder=" "
                         disabled={disabled}
-                        className={hasError ? "error" : "valid"}
+                        className={!!errors[name] ? "error" : "valid"}
                     ></input>
                     <Icons />
                 </div>
@@ -101,7 +99,7 @@ const Input = ({
                 name={getMatchName()}
                 label={matchLabel}
                 hasMatch={false}
-                description={ description ? "Match for ".concat(name) : "" }
+                description={description ? "Match for ".concat(name) : ""}
                 validation={getMatchReq}
                 matchRef={inputRef}
             />), [matchLabel, description, inputRef]))}
