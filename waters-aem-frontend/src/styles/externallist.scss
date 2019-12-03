@@ -1,0 +1,74 @@
+.cmp-external-list {
+    @include font-body;
+    &__title {
+        @include font-h3;
+        margin-bottom: $space-xs;
+    }
+
+    &__parsys {
+        .image {
+            padding: 0px;
+            margin: 0px;
+        }
+        img {
+            border: 1px solid $color-border-light;
+        }
+    }
+
+    &__link {
+        @include font-h3;
+    }
+    margin-bottom: $space-l;
+
+    @include mobile {
+        margin-bottom: $space-m;
+    }
+}
+
+.cmp-external-list--horizontal {
+    .cmp-external-list {
+        &__title {
+            @include font-h3;
+        }
+
+        &__parsys {
+            float: left;
+            .image {
+                padding: 0px;
+                margin: 0px;
+                @include tablet-and-over {
+                    width: 192px;
+                    margin-right: $space-s;
+                }
+            }
+            img {
+                border: 1px solid $color-border-light;
+
+                @include tablet-and-over {
+                    width: 192px;
+                }
+            }
+        }
+
+        &__link {
+            a {
+                vertical-align: top;
+            }
+        }
+
+        &__description {
+            @include font-body;
+            @include tablet-and-over {
+                display: block;
+                overflow: hidden;
+            }
+        }
+
+        margin-bottom: $space-xxl;
+        
+        @include tablet-and-under {
+            margin-bottom: $space-m;
+        }
+    }
+}
+

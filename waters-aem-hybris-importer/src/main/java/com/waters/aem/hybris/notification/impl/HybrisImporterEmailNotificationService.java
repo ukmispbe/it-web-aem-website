@@ -4,6 +4,7 @@ import com.adobe.acs.commons.email.EmailService;
 import com.adobe.acs.commons.email.EmailServiceConstants;
 import com.day.cq.commons.Externalizer;
 import com.icfolson.aem.library.core.link.builders.factory.LinkBuilderFactory;
+import com.waters.aem.hybris.audit.HybrisImporterAuditService;
 import com.waters.aem.hybris.constants.HybrisImporterConstants;
 import com.waters.aem.hybris.enums.HybrisImportContentType;
 import com.waters.aem.hybris.enums.HybrisImportStatus;
@@ -23,10 +24,12 @@ import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Component(service = HybrisImporterNotificationService.class)
 @Designate(ocd = HybrisImporterEmailNotificationServiceConfiguration.class)
@@ -54,6 +57,8 @@ public class HybrisImporterEmailNotificationService implements HybrisImporterNot
 
     private static final String PARAM_REPLICATION_THRESHOLD = "threshold";
 
+    private static final String PARAM_REQUESTED_TIMESTAMP = "timestamp";
+
     @Reference
     private EmailService emailService;
 
@@ -62,6 +67,9 @@ public class HybrisImporterEmailNotificationService implements HybrisImporterNot
 
     @Reference
     private Externalizer externalizer;
+
+    @Reference
+    private HybrisImporterAuditService auditService;
 
     private volatile boolean enabled;
 
@@ -102,6 +110,8 @@ public class HybrisImporterEmailNotificationService implements HybrisImporterNot
                 params.put("sku" + status.name().toLowerCase(), String.valueOf(count));
             }
 
+            params.put(PARAM_REQUESTED_TIMESTAMP, getLastRequestedProductDelta());
+
             sendEmail(TEMPLATE_PATH_SUCCESS, params);
         } catch (LoginException e) {
             LOG.error("error authenticating resource resolver, email not sent", e);
@@ -112,7 +122,7 @@ public class HybrisImporterEmailNotificationService implements HybrisImporterNot
     public void notifyToReplicate(final int thresholdLimit, final List<HybrisImporterResult> results) {
         final Map<String, String> params = new HashMap<>();
 
-        try(final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
             params.put(EmailServiceConstants.SUBJECT, SUBJECT_IMPORTER_REPLICATE);
             params.put(PARAM_REPLICATION_THRESHOLD, String.valueOf(thresholdLimit));
             params.put(PARAM_RESULT_COUNT, String.valueOf(results.size()));
@@ -140,6 +150,8 @@ public class HybrisImporterEmailNotificationService implements HybrisImporterNot
             LOG.error("error authenticating resource resolver, email not sent", e);
         }
 
+        params.put(PARAM_REQUESTED_TIMESTAMP, getLastRequestedProductDelta());
+
         sendEmail(TEMPLATE_PATH_FAILURE, params);
     }
 
@@ -152,6 +164,13 @@ public class HybrisImporterEmailNotificationService implements HybrisImporterNot
         } else {
             LOG.warn("email disabled and/or no recipients configured, notification message not sent");
         }
+    }
+
+    private String getLastRequestedProductDelta() {
+        return Optional.ofNullable(auditService.getLastRequestedProductDelta())
+                .map(timestamp -> new SimpleDateFormat(HybrisImporterConstants.DATE_FORMAT_PATTERN)
+                        .format(timestamp.getTime()))
+                .orElse("");
     }
 
     private void putEnvironmentHost(final ResourceResolver resourceResolver, final Map<String, String> params) {

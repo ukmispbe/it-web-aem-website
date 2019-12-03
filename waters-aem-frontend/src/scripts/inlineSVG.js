@@ -2,7 +2,6 @@ import svgInline from 'inline-svg';
 
 const inlineSVG = {
     init: (svgSelector, initClass) => { 
-        console.log('inlineSVG', svgSelector,initClass )
         try {
             svgInline.init(
                 {

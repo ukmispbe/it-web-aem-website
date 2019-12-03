@@ -1,0 +1,180 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: ResultsCount React Component Scenario: Rendering When keyword is not provided Then the snapshot should match 1`] = `
+<div
+  className="cmp-search__resultsCount-container"
+>
+  <h2
+    className="cmp-search__resultsCount"
+  >
+    Showing 1-24 of 24 results 
+  </h2>
+</div>
+`;
+
+exports[`Feature: ResultsCount React Component Scenario: Rendering When keyword is provided with spelling suggestion Then the snapshot should match 1`] = `
+<div
+  className="cmp-search__resultsCount-container"
+>
+  <h2
+    className="cmp-search__resultsCount"
+  >
+    Showing 1-24 of 24 results 
+    <span>
+      for 
+      <span
+        className="text-strike"
+      >
+        milk
+      </span>
+       
+      <strong>
+        <q
+          className="query"
+        >
+          got milk?
+        </q>
+        .
+      </strong>
+    </span>
+  </h2>
+</div>
+`;
+
+exports[`Feature: ResultsCount React Component Scenario: Rendering When keyword is provided without spelling suggestion Then the snapshot should match 1`] = `
+<div
+  className="cmp-search__resultsCount-container"
+>
+  <h2
+    className="cmp-search__resultsCount"
+  >
+    Showing 1-24 of 24 results 
+    <span>
+      for 
+      <strong>
+        <q
+          className="query"
+        >
+          milk
+        </q>
+        .
+      </strong>
+    </span>
+  </h2>
+</div>
+`;
+
+exports[`Feature: ResultsCount React Component Scenario: Rendering When more than one related keyword is provided Then the snapshot should match 1`] = `
+<div
+  className="cmp-search__resultsCount-container"
+>
+  <h2
+    className="cmp-search__resultsCount"
+  >
+    Showing 1-24 of 24 results 
+    <span>
+      for 
+      <span
+        className="text-strike"
+      >
+        milk
+      </span>
+       
+      <strong>
+        <q
+          className="query"
+        >
+          got milk?
+        </q>
+        .
+      </strong>
+    </span>
+  </h2>
+  <div
+    className="cmp-search__related-suggestions"
+  >
+    Related Searches 
+    <a
+      className="item"
+      onClick={[Function]}
+    >
+      ... it does a body good!
+    </a>
+    <span
+      className="vertical-bar"
+    >
+      |
+    </span>
+    <a
+      className="item"
+      onClick={[Function]}
+    >
+      milkyway
+    </a>
+  </div>
+</div>
+`;
+
+exports[`Feature: ResultsCount React Component Scenario: Rendering When one related keyword is provided Then the snapshot should match 1`] = `
+<div
+  className="cmp-search__resultsCount-container"
+>
+  <h2
+    className="cmp-search__resultsCount"
+  >
+    Showing 1-24 of 24 results 
+    <span>
+      for 
+      <span
+        className="text-strike"
+      >
+        milk
+      </span>
+       
+      <strong>
+        <q
+          className="query"
+        >
+          got milk?
+        </q>
+        .
+      </strong>
+    </span>
+  </h2>
+  <div
+    className="cmp-search__related-suggestions"
+  >
+    Related Searches 
+    <a
+      className="item"
+      onClick={[Function]}
+    >
+      ... it does a body good!
+    </a>
+  </div>
+</div>
+`;
+
+exports[`Feature: ResultsCount React Component Scenario: Rendering When the number of results is higher than the allowed page count Then the snapshot should match 1`] = `
+<div
+  className="cmp-search__resultsCount-container"
+>
+  <h2
+    className="cmp-search__resultsCount"
+  >
+    Showing 1-25 of 26 results 
+  </h2>
+</div>
+`;
+
+exports[`Feature: ResultsCount React Component Scenario: Rendering When the number of results is less than the allowed page count Then the snapshot should match 1`] = `
+<div
+  className="cmp-search__resultsCount-container"
+>
+  <h2
+    className="cmp-search__resultsCount"
+  >
+    Showing 1-24 of 24 results 
+  </h2>
+</div>
+`;
