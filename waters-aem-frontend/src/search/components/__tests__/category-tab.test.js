@@ -7,6 +7,7 @@ import CategoryTab from '../category-tab';
 describe('Feature: CategoryTab React Component', () => {
     const props = {
         name: 'Tab1',
+        translation: 'Tab Uno',
         count: 0,
         isActive: false,
         index: 0,
