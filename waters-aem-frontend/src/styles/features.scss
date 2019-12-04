@@ -1,11 +1,13 @@
 .cmp-features {
+    margin-bottom: $space-l;
+
     &__list {
         padding-left: 0;
     }
 
     &__feature {
         list-style: none;
-        margin-bottom: $space-s;
+        margin-bottom: $space-m;
 
         &-icon {
             height: $icon-l;
@@ -68,6 +70,8 @@
 
 .cmp-features--left {
     .cmp-features__feature {
+        margin-bottom: $space-xxs;
+
         &-wrapper {
             display: grid;
             grid-template-columns: ($icon-l + $space-xs) 1fr;
@@ -85,7 +89,9 @@
 }
 
 .cmp-features--signin {
+
     .cmp-features {
+        margin-bottom: $space-s;
         padding: 0;
 
         &__list {
@@ -133,5 +139,8 @@
                 }
             }
         }
+    }
+    .cmp-features__list {
+        margin-bottom: $space-s;
     }
 }
