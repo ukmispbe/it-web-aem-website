@@ -56,7 +56,7 @@ export const CategoriesMenu = props => {
                                 href="javascript:void(0)"
                                 data-count={` (${item.count})`}
                             >
-                                {item.facetValue}
+                                {item.facetTranslation}
                             </a>
                         </div>
                     </div>

@@ -11,7 +11,7 @@ class CategoryTab extends Component {
         const isActive = this.props.isActive ? " active" : "";
         return (
             <div className={"cmp-search__categories-tabs--tab".concat(isActive)} onClick={e => this.props.onClick(this.props.index)}>
-                <span className={"cmp-search__categories-tabs--tab-name"}>{this.props.name}</span>
+                <span className={"cmp-search__categories-tabs--tab-name"}>{this.props.translation}</span>
             </div>
         );
     }
@@ -26,6 +26,7 @@ class CategoryTab extends Component {
 }
 
 CategoryTab.propTypes = {
+    translation: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     count: PropTypes.number.isRequired,
     isActive: PropTypes.bool.isRequired,

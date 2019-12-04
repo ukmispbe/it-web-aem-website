@@ -23,11 +23,13 @@ describe('Feature: CategoriesTabs React Component', () => {
                 props.items = [
                     {
                         name: 'Tab1',
+                        translation: 'Tab Uno',
                         count: 1,
                         isActive: false
                     },
                     {
                         name: 'Tab2',
+                        translation: 'Tab Dos',
                         count: 2,
                         isActive: false
                     }
@@ -44,16 +46,19 @@ describe('Feature: CategoriesTabs React Component', () => {
                 props.items = [
                     {
                         name: 'Tab1',
+                        translation: 'Tab Uno',
                         count: 1,
                         isActive: false
                     },
                     {
                         name: 'Tab2',
+                        translation: 'Tab Dos',
                         count: 2,
                         isActive: false
                     },
                     {
-                        name: 'Tab2',
+                        name: 'Tab3',
+                        translation: 'Tab Tres',
                         count: 0,
                         isActive: false
                     }
