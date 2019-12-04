@@ -988,8 +988,8 @@ class Search extends Component {
             ) {
                 return {
                     facetName: this.state.contentTypeSelected.categoryFacetName,
-                    facetValue: this.state.contentTypeSelected
-                        .categoryFacetValue,
+                    facetValue: this.state.contentTypeSelected.categoryFacetValue,
+                    facetTranslation: this.state.contentTypeSelected.categoryFacetTranslation
                 };
             } else if (
                 this.state.contentTypeSelected.hasOwnProperty('facetName')
@@ -1007,6 +1007,7 @@ class Search extends Component {
         return {
             facetName: contentType ? contentType.categoryFacetName : '',
             facetValue: contentType ? contentType.categoryFacetValue : '',
+            facetTranslation: contentType ? contentType.categoryFacetTranslation : ''
         };
     };
 

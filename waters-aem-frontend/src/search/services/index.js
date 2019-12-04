@@ -446,6 +446,7 @@ const searchMapper = {
             return {
                 name: facet.facetName,
                 category: facet.facetValue,
+                translation: facet.facetTranslation,
                 facets: facets[facet.facetName],
                 isExpanded: false,
             }
