@@ -295,9 +295,9 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             updateSkuPageProperties(skuPage, sku);
             createOrUpdateThumbnail(context.getResourceResolver(), sku, skuPage);
 
-            // create live copies if boolean
+            // create live copies if flag is set
             if (generateLiveCopies) {
-                generateLiveCopies(skuPage, pageManager.getPage(categoryPage.getPath()), context);
+                generateLiveCopies(skuPage, pageManager.getPage(categoryPage.getPath()), pageManager);
             }
         }
 
@@ -345,9 +345,9 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         if (status != null) {
             updateCategoryPageProperties(page, category, false);
 
-            // create live copies if boolean
+            // create live copies if flag is set
             if (generateLiveCopies) {
-                generateLiveCopies(page, context.getParentPage(), context);
+                generateLiveCopies(page, context.getParentPage(), pageManager);
             }
         }
 
@@ -433,18 +433,16 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     }
 
     private void generateLiveCopies(final PageDecorator page, final PageDecorator parentPage,
-        final CatalogImporterContext context) throws WCMException {
+        final PageManagerDecorator pageManager) throws WCMException {
 
         final List<String> targets = new ArrayList<>();
 
-        List<PageDecorator> pages = siteRepository.getLiveCopyPages(parentPage);
-
         for (final PageDecorator liveCopyParent : siteRepository.getLiveCopyPages(parentPage)) {
 
-            String pageName = page.getName();
+            final String pageName = page.getName();
 
             if (!liveCopyParent.hasChild(pageName)) {
-                PageDecorator liveCopyPage = context.getPageManager().create(liveCopyParent.getPath(), pageName,
+                PageDecorator liveCopyPage = pageManager.create(liveCopyParent.getPath(), pageName,
                 WatersConstants.TEMPLATE_REDIRECT_PAGE, page.getTitle(), false);
 
                 final ValueMap properties = liveCopyPage.getContentResource().adaptTo(ModifiableValueMap.class);
@@ -456,12 +454,12 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         }
 
         if (!targets.isEmpty()) {
-            rolloutLiveCopies(page, targets, context);
+            rolloutLiveCopies(page, targets);
         }
 
     }
 
-    private void rolloutLiveCopies(final PageDecorator page, final List<String> targets, final CatalogImporterContext context)
+    private void rolloutLiveCopies(final PageDecorator page, final List<String> targets)
         throws WCMException {
         final RolloutManager.RolloutParams params = new RolloutManager.RolloutParams();
 
