@@ -814,6 +814,7 @@ class Search extends Component {
         );
 
         if (query.keyword && !this.search.isDefaultKeyword(query.keyword)) {
+            this.search.clearSessionStore();
             this.search.setUrlParameter('', window.location.pathname);
         } else {
             // no keyword has been selected so no need to reload page
@@ -828,6 +829,8 @@ class Search extends Component {
     };
 
     handleRemoveKeyword = () => {
+        this.search.clearSessionStore();
+        
         const parameters = parse(window.location.search);
 
         parameters.keyword = parameterDefaults.keyword;
