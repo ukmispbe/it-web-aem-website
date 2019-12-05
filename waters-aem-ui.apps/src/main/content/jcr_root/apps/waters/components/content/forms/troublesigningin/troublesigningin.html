@@ -1,8 +1,13 @@
-<div data-sly-use.signinTrouble="com.waters.aem.core.components.content.forms.TroubleSigningIn">
-    <div class="cmp-trouble-signing-in-form" id="cmp-trouble-signing-in-form"></div>
+<div
+    data-sly-use.signinTrouble="com.waters.aem.core.components.content.forms.TroubleSigningIn"
+>
+    <div
+        class="cmp-trouble-signing-in-form"
+        id="cmp-trouble-signing-in-form"
+    ></div>
     <script type="application/json" id="js-trouble-signing-in-form">
         {
-            "passwordResetEndpoint": "${signinTrouble.passwordResetUrl @ context='unsafe'}",
+            "submitEndpoint": "${signinTrouble.passwordResetUrl @ context='unsafe'}",
             "changePasswordEndpoint": "${signinTrouble.changePasswordUrl @ context='unsafe'}",
             "buttonText": "${'RESET PASSWORD' @ i18n, context='text'}",
             "icons": {
@@ -35,6 +40,7 @@
         }
     </script>
 </div>
-<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
-     data-sly-call="${patterns.placeholder @ show=true, text=component.title}"/>
-
+<sly
+    data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+    data-sly-call="${patterns.placeholder @ show=true, text=component.title}"
+/>

@@ -1,13 +1,14 @@
-import React, { useContext } from  'react';
+import React, { useContext } from 'react';
 
-import FieldValidationDisplay from "./components/field-validation-display";
+import FieldValidationDisplay from './components/field-validation-display';
 import { useFieldApi } from '../form';
 
-import Input from "./input";
-import CheckboxOrRadio from "./checkboxOrRadio";
-import Dropdown from "./dropdown";
-import Hr from "./hr";
-import Captcha from "./captcha";
+import Input from './input';
+import CheckboxOrRadio from './checkboxOrRadio';
+import Dropdown from './dropdown';
+import Hr from './hr';
+import Captcha from './captcha';
+import Body from './body';
 
 const formType = {
     text: Input,
@@ -19,7 +20,8 @@ const formType = {
     dropdown: Dropdown,
     select: Dropdown,
     break: Hr,
-    captcha: Captcha
+    captcha: Captcha,
+    body: Body
 };
 
 const Field = ({}) => {
@@ -27,16 +29,23 @@ const Field = ({}) => {
 
     const Component = formType[type];
 
-    const getMatchName = () => name ? "confirm".concat(name.charAt(0).toUpperCase() + name.slice(1)) : "";
-
-    return (Component && (<>
-        <FieldValidationDisplay
-            name={name}
-            matchName={hasMatch ? getMatchName() : ""}
-        >
-            <Component {...field} />
-        </FieldValidationDisplay>
-    </>));
+    const getMatchName = () =>
+        name
+            ? 'confirm'.concat(name.charAt(0).toUpperCase() + name.slice(1))
+            : '';
+    console.log(field);
+    return (
+        Component && (
+            <>
+                <FieldValidationDisplay
+                    name={name}
+                    matchName={hasMatch ? getMatchName() : ''}
+                >
+                    <Component {...field} />
+                </FieldValidationDisplay>
+            </>
+        )
+    );
 };
 
 export default React.memo(Field);
