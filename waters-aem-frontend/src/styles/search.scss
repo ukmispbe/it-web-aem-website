@@ -388,7 +388,6 @@ div.cmp-search__no-results {
 .cmp-search-category-dropdown{
     @include tablet {
         float: left;
-        width: 165px;
         margin-bottom: 0;
         padding-bottom: $space-xxl;
     }
