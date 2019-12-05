@@ -221,9 +221,35 @@
         </script>
         <script type="application/json" id="cmp-detail-tiles--personal">
             {
+                name: "personalDetails",
                 title: "Personal Details",
                 tiles: [
-                    {}
+                    {
+                        name: "",
+                        title: "",
+                        column1_title: "",
+                        column1_text: "",
+                        column2_title: "",
+                        column2_text: "",
+                        notification: {
+                            title: "",
+                            description: "",
+                            icon: ""
+                        },
+                        form: {
+                            "submitEndpoint": "http://waters.com",
+                            "buttonText": "Create My Account",
+                            "icons": {
+                                "checkmarkIcon": "./checkmark.svg",
+                                "validIcon": "./checkmark.svg",
+                                "invalidIcon": "./attention.svg",
+                                "eyeIcon": "./eye.svg",
+                                "eyeOffIcon": "./eye-off.svg",
+                                "signInIcon": "./user.svg"
+                            },
+                            "fields": []
+                        }
+                    }
                 ],
                 canCreate: false,
                 icons: {
