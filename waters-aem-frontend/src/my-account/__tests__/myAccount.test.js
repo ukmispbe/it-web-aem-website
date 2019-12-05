@@ -160,19 +160,6 @@ describe('Feature: My Account Dropdown Component', () => {
 				expect(wrapper.exists(keys.switchAccount)).toEqual(false);
 			});
 		});
-
-		//covers line 48 of user-details
-		//check if whole snapshot will cover this
-		/* describe('Context: Rendering User Details Snapshot', () => {
-            describe('When the component User Details renders with all props', () => {
-                it('Then the snapshot should match', () => {
-                    //check this snapshot again the other
-                    //not sure why there aren't two snapshots
-                    const json = renderer.create(<UserDetails {...props} />);
-                    expect(json).toMatchSnapshot();
-                });
-            });
-        }); */
 	});
 
 	describe('Scenario: Rendering ItemList', () => {

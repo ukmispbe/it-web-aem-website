@@ -62,19 +62,6 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
       </span>
     </a>
   </div>
-  <div
-    className="my-account-dropdown__item-list"
-  >
-    <a
-      className="my-account-dropdown__item-list--link dropdown__item-list__my-orders2"
-      href="/content/waters/language-masters/en/library.html"
-      target="_self"
-    >
-      <span>
-        My Test Link
-      </span>
-    </a>
-  </div>
   <hr
     className="my-account-dropdown__hr"
   />
@@ -117,19 +104,6 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
     >
       <span>
         My Orders
-      </span>
-    </a>
-  </div>
-  <div
-    className="my-account-dropdown__item-list"
-  >
-    <a
-      className="my-account-dropdown__item-list--link dropdown__item-list__my-orders2"
-      href="/content/waters/language-masters/en/library.html"
-      target="_self"
-    >
-      <span>
-        My Test Link
       </span>
     </a>
   </div>

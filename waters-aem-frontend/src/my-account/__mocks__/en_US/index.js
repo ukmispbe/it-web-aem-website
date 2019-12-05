@@ -34,12 +34,6 @@ const DefaultProps = {
                 url: '/content/waters/language-masters/en/library.html',
                 target: '_self',
                 class: MyOrderClass
-            },
-            {
-                text: 'My Test Link',
-                url: '/content/waters/language-masters/en/library.html',
-                target: '_self',
-                class: 'dropdown__item-list__my-orders2'
             }
         ],
         loginStatus: {
