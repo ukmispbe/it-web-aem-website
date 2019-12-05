@@ -11,7 +11,11 @@ import SkuDetails from './sku-details';
 import SkuList from './sku-list';
 import SkuMessage from './sku-shared/views/SkuMessage';
 import Form from './forms/form';
-import { registrationSubmit } from './forms/services/submit';
+import {
+    registrationSubmit,
+    resetPasswordSubmit,
+    troubleSigningInSubmit
+} from './forms/services/submit';
 import Video from './video/index';
 import Chat from './chat';
 import DigitalData from './scripts/DigitalData';
