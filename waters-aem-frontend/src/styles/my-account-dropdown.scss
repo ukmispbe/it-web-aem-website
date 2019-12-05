@@ -13,7 +13,7 @@
     }
 
     hr {
-        margin: 0 0 $space-m;
+        margin: 0 0 $space-s;
         @include mobile {
             width: 100%;
         }
@@ -46,11 +46,21 @@
         margin: 0;
 
         &--link {
-            display: block;
             @include font-utility;
-            padding: 0 0 $space-s;
+            @include font-h3;
+            font-size: 1em;
+            font-weight: 300;
+            display: block;
+            margin-bottom: 0;
+            padding: 0 0 $space-xs;
+
             @include tablet-and-over {
                 transition: $hover-transition;
+            }
+
+            span {
+                display: block;
+                margin: 0;
             }
 
             &:hover {
@@ -72,17 +82,6 @@
                     @include font-utility;
                 }
             }
-
-            @include font-h3;
-
-            font-size: 1em !important;
-            font-weight: 300 !important;
-            margin: 0 !important;
-
-            span {
-                display: block;
-                margin: 0;
-            }
         }
     }
 
@@ -94,10 +93,10 @@
         .sign-in-out__icon {
             display: inline-block;
             svg {
-                height: $icon-m;
-                width: $icon-m;
+                height: ($icon-m - $space-xxxs);
+                width: ($icon-m - $space-xxxs);
                 margin-right: $space-xxs;
-                margin-bottom: -6px;
+                margin-bottom: -4px;
                 .st0,
                 .st1 {
                     stroke: $color-link;
