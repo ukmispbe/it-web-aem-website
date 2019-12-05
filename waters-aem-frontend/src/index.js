@@ -19,6 +19,7 @@ import {
 } from './forms/services/submit';
 import Video from './video/index';
 import Chat from './chat';
+import DigitalData from './scripts/DigitalData';
 
 if (process.env.NODE_ENV !== 'production') {
     const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -309,7 +310,11 @@ if (registrationFormContainer) {
 
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
-        <Form config={config} submitFn={registrationSubmit} isocode="en" />,
+        <Form
+            config={config}
+            submitFn={registrationSubmit}
+            isocode={DigitalData.language}
+        />,
         registrationFormContainer
     );
 }
@@ -325,7 +330,11 @@ if (troubleSigningInFormContainer) {
 
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
-        <Form config={config} submitFn={troubleSigningInSubmit} isocode="en" />,
+        <Form
+            config={config}
+            submitFn={troubleSigningInSubmit}
+            isocode={DigitalData.language}
+        />,
         troubleSigningInFormContainer
     );
 }
@@ -338,6 +347,8 @@ if (resetPasswordContainer) {
     const config = JSON.parse(
         document.getElementById('cmp-reset-password-form').innerHTML
     );
+
+    console.log(DigitalData.language);
 
     ReactDOM.render(
         <Form config={config} submitFn={resetPasswordSubmit} />,
