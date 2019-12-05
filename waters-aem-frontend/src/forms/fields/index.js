@@ -33,7 +33,7 @@ const Field = ({}) => {
         name
             ? 'confirm'.concat(name.charAt(0).toUpperCase() + name.slice(1))
             : '';
-    console.log(field);
+
     return (
         Component && (
             <>

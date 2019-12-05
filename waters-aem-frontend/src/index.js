@@ -336,7 +336,7 @@ const resetPasswordContainer = document.querySelector(
 
 if (resetPasswordContainer) {
     const config = JSON.parse(
-        document.getElementById('cmp-forgot-password-form').innerHTML
+        document.getElementById('cmp-reset-password-form').innerHTML
     );
 
     ReactDOM.render(

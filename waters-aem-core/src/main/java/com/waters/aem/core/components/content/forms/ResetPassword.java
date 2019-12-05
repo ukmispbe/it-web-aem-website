@@ -14,18 +14,18 @@ import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
 import javax.annotation.Nonnull;
 
-@Component(value = "Forgot Password",
-    description = "This is the Forgot Password component for Waters site",
+@Component(value = "Reset Password",
+    description = "This is the Reset Password component for Waters site",
     path = WatersConstants.COMPONENT_PATH_FORMS)
 @Model(adaptables = SlingHttpServletRequest.class,
-    adapters = { ForgotPassword.class, ComponentExporter.class },
-    resourceType = ForgotPassword.RESOURCE_TYPE,
+    adapters = { ResetPassword.class, ComponentExporter.class },
+    resourceType = ResetPassword.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public class ForgotPassword implements ComponentExporter {
+public class ResetPassword implements ComponentExporter {
 
-    public static final String RESOURCE_TYPE = "waters/components/content/forms/forgotpassword";
+    public static final String RESOURCE_TYPE = "waters/components/content/forms/resetpassword";
 
     @OSGiService
     private WatersAccountService accountService;
