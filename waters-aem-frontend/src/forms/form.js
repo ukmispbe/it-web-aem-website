@@ -126,6 +126,10 @@ const Form = ({
             >
                 {config.buttonText}
             </button>
+            {config.cancelText &&
+            <a className="cmp-button cmp-button--cancel">
+                {config.cancelText}
+            </a>}
         </form>
     );
 };

@@ -1,0 +1,103 @@
+.cmp-detail-tiles {
+    margin-bottom: $space-xl;
+
+    &--add {
+        display: inline-block;
+        cursor: pointer;
+        color: $color-link;
+
+        div {
+            display: inline-block;
+            position: relative;
+            top: 1px;
+
+            svg {
+                circle, line {
+                    stroke: $color-link;
+                }
+            }
+        }
+
+        &:hover {
+            color: $color-link-hover;
+
+            svg {
+                circle, line {
+                    stroke: $color-link-hover!important;
+                }
+            }
+        }
+    }
+
+    &--title {
+        @include font-h2;
+        margin-bottom: $space-xs;
+    }
+
+    &-list {
+        &--tile {
+            display: flex;
+            background-color: $color-background-light;
+            padding: $space-xs;
+            margin-bottom: $space-s;
+            position: relative;
+
+            &-edit {
+                cursor: pointer;
+                position: absolute;
+                top: ($space-xs + $space-xxs);
+                right: $space-s;
+                color: $color-link;
+
+                div {
+                    display: inline-block;
+                    position: relative;
+                    top: 1px;
+
+                    svg {
+                        color: $color-link;
+                        path {
+                            stroke: $color-link;
+                        }
+                    }
+
+                }
+
+                &:hover {
+                    color: $color-link-hover;
+
+                    svg {
+                        color: $color-link-hover;
+
+                        path {
+                            stroke: $color-link-hover!important;
+                        }
+                    }
+                }
+            }
+
+            &-column {
+                display: inline-block;
+                padding: $space-xxs $space-xxl $space-xxs $space-s;
+
+                &--title {
+                    @include font-h4;
+                }
+
+                &--text {
+                    @include font-body;
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+#personal-details-tile {
+    .cmp-detail-tiles-list--tile-column {
+        &--title {
+            @include font-h1;
+            margin-bottom: $space-xxxs;
+        }
+    }
+}

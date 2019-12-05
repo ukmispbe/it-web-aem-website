@@ -14,6 +14,7 @@ import Form from './forms/form';
 import { registrationSubmit } from './forms/services/submit';
 import Video from './video/index';
 import Chat from './chat';
+import DetailTiles from './detail-tiles';
 import DigitalData from './scripts/DigitalData';
 
 if (process.env.NODE_ENV !== 'production') {
@@ -361,5 +362,57 @@ if (chatContainer) {
             onlineIcon={skuDetailsConfig.skuInfo.inStockIcon}
         />,
         chatContainer
+    );
+}
+
+const personalDetailsTile = document.getElementById('personal-details-tile');
+
+if (personalDetailsTile) {
+    const config = JSON.parse(
+        document.getElementById('cmp-detail-tiles--personal').innerHTML
+    );
+
+    ReactDOM.render(
+        <DetailTiles {...config} />,
+        personalDetailsTile
+    );
+}
+
+const shippingDetailsTile = document.getElementById('shipping-details-tile');
+
+if (shippingDetailsTile) {
+    const config = JSON.parse(
+        document.getElementById('cmp-detail-tiles--shipping').innerHTML
+    );
+
+    ReactDOM.render(
+        <DetailTiles {...config} />,
+        shippingDetailsTile
+    );
+}
+
+const billingDetailsTile = document.getElementById('billing-details-tile');
+
+if (billingDetailsTile) {
+    const config = JSON.parse(
+        document.getElementById('cmp-detail-tiles--billing').innerHTML
+    );
+
+    ReactDOM.render(
+        <DetailTiles {...config} />,
+        billingDetailsTile
+    );
+}
+
+const changePasswordDetailsTile = document.getElementById('changePassword-details-tile');
+
+if (changePasswordDetailsTile) {
+    const config = JSON.parse(
+        document.getElementById('cmp-detail-tiles--changePassword').innerHTML
+    );
+
+    ReactDOM.render(
+        <DetailTiles {...config} />,
+        changePasswordDetailsTile
     );
 }
