@@ -93,9 +93,8 @@ public final class DefaultSkuRepository implements SkuRepository {
 
                     skuCodeToPagePathMap.put(code, path);
                 }
-
             } catch (RepositoryException e) {
-                LOG.error("error getting resource for sku page hit, returning null", e);
+                LOG.error("error getting resource for sku page hit, cannot complete populating sku page path map.", e);
             }
         }
 
