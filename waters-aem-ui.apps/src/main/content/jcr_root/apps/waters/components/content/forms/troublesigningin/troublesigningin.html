@@ -9,7 +9,7 @@
         {
             "submitEndpoint": "${signinTrouble.passwordResetUrl @ context='unsafe'}",
             "changePasswordEndpoint": "${signinTrouble.changePasswordUrl @ context='unsafe'}",
-            "buttonText": "${'RESET PASSWORD' @ i18n, context='text'}",
+            "buttonText": "${'RESET PASSWORD' @ i18n, context='unsafe'}",
             "icons": {
                 "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                 "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
@@ -20,12 +20,12 @@
                 {
                     "type": "email",
                     "name": "email",
-                    "label": "${'Email Address' @ i18n, context='text'}",
+                    "label": "${'Email Address' @ i18n, context='unsafe'}",
                     "validation": {
                         "required": true,
-                        "requiredMsg": "${'Please enter a valid email address.' @ i18n, context='text'}",
+                        "requiredMsg": "${'Please enter a valid email address.' @ i18n, context='unsafe'}",
                         "validateFnName": "email",
-                        "validationMsg": "${'Please enter a valid email address.' @ i18n, context='text'}"
+                        "validationMsg": "${'Please enter a valid email address.' @ i18n, context='unsafe'}"
                     }
                 },
                 {
