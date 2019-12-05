@@ -10,10 +10,10 @@ public final class SearchFacet {
 
     private final String filter;
 
-    SearchFacet(final String title, final String name, final String facetName) {
+    SearchFacet(final String title, final String englishTitle, final String name, final String facetName) {
         this.title = title;
         this.name = name;
-        this.filter = facetName + "_facet:" + title; // ex:category_facet:applications
+        this.filter = facetName + "_facet:" + englishTitle; // ex:category_facet:applications
     }
 
     public String getName() {
