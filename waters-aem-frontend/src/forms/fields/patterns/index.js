@@ -153,44 +153,47 @@ export const functions = {
     },
 
     newEmail: (value, emailUrl, ref, invalidMsg, setError, clearError) => {
-        if (
-            test(
-                value,
-                /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            )
-        ) {
-            const myService = new EmailService(emailUrl);
-            const newEmail = myService
-                .checkEmail(value)
-                .then(response => {
-                    if (response.isregistereduser) {
-                        // Display Sign In span
+        // Only Run if invalidMsg is supplied
+        if (invalidMsg) {
+            if (
+                test(
+                    value,
+                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                )
+            ) {
+                const myService = new EmailService(emailUrl);
+                const newEmail = myService
+                    .checkEmail(value)
+                    .then(response => {
+                        if (response.isregistereduser) {
+                            // Display Sign In span
+                            setError(
+                                "alreadyRegistered",
+                                "alreadyRegistered",
+                                invalidMsg,
+                                ref
+                            );
+                            return false;
+                        }
+    
+                        clearError("alreadyRegistered");
+                        return removeError(ref);
+                    })
+                    .catch(err => {
                         setError(
                             "alreadyRegistered",
                             "alreadyRegistered",
-                            invalidMsg,
+                            err,
                             ref
                         );
                         return false;
-                    }
-
-                    clearError("alreadyRegistered");
-                    return removeError(ref);
-                })
-                .catch(err => {
-                    setError(
-                        "alreadyRegistered",
-                        "alreadyRegistered",
-                        err,
-                        ref
-                    );
-                    return false;
-                });
-
-            return newEmail;
-        } else {
-            clearError("alreadyRegistered");
-            return true;
+                    });
+    
+                return newEmail;
+            } else {
+                clearError("alreadyRegistered");
+                return true;
+            }
         }
     }
 };

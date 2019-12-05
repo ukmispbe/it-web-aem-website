@@ -1,19 +1,20 @@
-import "./polyfills";
-import React from "react";
-import ReactDOM from "react-dom";
-import SearchBar from "./search/components/searchbar";
-import Search from "./search/index";
-import TagCloud from "./search/components/tagcloud";
-import ImageCarousel from "./image-carousel";
-import MyAccount from "./my-account/index";
+import './polyfills';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import SearchBar from './search/components/searchbar';
+import Search from './search/index';
+import TagCloud from './search/components/tagcloud';
+import ImageCarousel from './image-carousel';
+import MyAccount from './my-account/index';
 
-import SkuDetails from "./sku-details";
-import SkuList from "./sku-list";
-import SkuMessage from "./sku-shared/views/SkuMessage";
-import Form from "./forms/form";
-import { registrationSubmit } from "./forms/services/submit";
+import SkuDetails from './sku-details';
+import SkuList from './sku-list';
+import SkuMessage from './sku-shared/views/SkuMessage';
+import Form from './forms/form';
+import { registrationSubmit } from './forms/services/submit';
 import Video from './video/index';
 import Chat from './chat';
+import DigitalData from './scripts/DigitalData';
 
 if (process.env.NODE_ENV !== 'production') {
     const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -61,8 +62,8 @@ function getAuthoredDataForChat(c) {
     };
 }
 
-const searchBarContainer = document.getElementById("js-search-bar");
-const header = document.querySelector(".cmp-header");
+const searchBarContainer = document.getElementById('js-search-bar');
+const header = document.querySelector('.cmp-header');
 
 if (searchBarContainer && header) {
     const data = getAuthoredDataForSearchBar(searchBarContainer, header);
@@ -80,15 +81,15 @@ if (searchBarContainer && header) {
     );
 }
 
-const searchAppContainer = document.getElementById("js-search-app");
+const searchAppContainer = document.getElementById('js-search-app');
 
 if (searchAppContainer) {
     const text = JSON.parse(
-        document.getElementById("search-results-translations-json").innerHTML
+        document.getElementById('search-results-translations-json').innerHTML
     );
 
     const filterMap = JSON.parse(
-        document.getElementById("search-results-categories-json").innerHTML
+        document.getElementById('search-results-categories-json').innerHTML
     );
 
     const data = getAuthoredDataForSearchApp(searchAppContainer);
@@ -106,12 +107,12 @@ if (searchAppContainer) {
     );
 }
 
-const tagCloudContainers = document.querySelectorAll(".cmp-tag-cloud");
+const tagCloudContainers = document.querySelectorAll('.cmp-tag-cloud');
 
 if (tagCloudContainers) {
     for (var i = 0; i < tagCloudContainers.length; i++) {
         const json = JSON.parse(
-            tagCloudContainers[i].getAttribute("data-json")
+            tagCloudContainers[i].getAttribute('data-json')
         );
         const data = getAuthoredDataForTagCloud(header, tagCloudContainers[i]);
         ReactDOM.render(
@@ -128,12 +129,12 @@ if (tagCloudContainers) {
 }
 
 const imageGalleryContainers = Array.from(
-    document.querySelectorAll(".cmp-image-gallery")
+    document.querySelectorAll('.cmp-image-gallery')
 );
 
 if (imageGalleryContainers) {
     imageGalleryContainers.forEach(container => {
-        const json = JSON.parse(container.getAttribute("data-json"));
+        const json = JSON.parse(container.getAttribute('data-json'));
 
         ReactDOM.render(
             <ImageCarousel
@@ -148,17 +149,17 @@ if (imageGalleryContainers) {
     });
 }
 
-const skuDetailsContainer = document.querySelector(".cmp-sku-details__ecom");
+const skuDetailsContainer = document.querySelector('.cmp-sku-details__ecom');
 const skuDetailsConfig = JSON.parse(
-    document.getElementById("commerce-configs-json").innerHTML
+    document.getElementById('commerce-configs-json').innerHTML
 );
 
 let skuData, skuDetailsListPrice;
-if (document.querySelector(".cmp-sku-details__ecom")) {
+if (document.querySelector('.cmp-sku-details__ecom')) {
     // If a product is discontinued, the ecom class never gets added,
     // but not having a price is a valid option for some products
     // This check allows us to pass in a price of undefined without breaking the frontend
-    skuData = document.querySelector(".cmp-sku-details__ecom");
+    skuData = document.querySelector('.cmp-sku-details__ecom');
     skuDetailsListPrice = skuData.dataset.price;
 }
 
@@ -185,33 +186,39 @@ if (skuDetailsContainer) {
     );
 }
 
-const skuListContainer = document.querySelector(".cmp-sku-list");
+const skuListContainer = document.querySelector('.cmp-sku-list');
 
 if (skuListContainer) {
     const skuListData = JSON.parse(skuListContainer.dataset.json);
 
-    const skuListTitle = skuListContainer.dataset.componenttitle ? skuListContainer.dataset.componenttitle : '';
+    const skuListTitle = skuListContainer.dataset.componenttitle
+        ? skuListContainer.dataset.componenttitle
+        : '';
 
     ReactDOM.render(
-        <SkuList skuConfig={skuDetailsConfig} data={skuListData} title={skuListTitle} />,
+        <SkuList
+            skuConfig={skuDetailsConfig}
+            data={skuListData}
+            title={skuListTitle}
+        />,
         skuListContainer
     );
 }
 
 const MyAccountDropDownContainer = document.querySelector(
-    ".top-bar__nav__user__dropdown"
+    '.top-bar__nav__user__dropdown'
 );
 
 if (header && MyAccountDropDownContainer) {
     const config = JSON.parse(
-        document.getElementById("account-modal-configs-json").innerHTML
+        document.getElementById('account-modal-configs-json').innerHTML
     );
 
     ReactDOM.render(<MyAccount config={config} />, MyAccountDropDownContainer);
 }
 
 const skuUnavailableContainer = document.querySelector(
-    ".cmp-notification-wrapper"
+    '.cmp-notification-wrapper'
 );
 
 if (skuUnavailableContainer) {
@@ -237,7 +244,7 @@ if (skuUnavailableContainer) {
         }
 
         const skuDetailsUnavailableBindingContainer = document.querySelector(
-            "#cmp-sku-details-replacement"
+            '#cmp-sku-details-replacement'
         );
 
         ReactDOM.render(
@@ -252,14 +259,10 @@ if (skuUnavailableContainer) {
     }
 }
 
-
-const videoContainers = Array.from(
-    document.querySelectorAll('.cmp-video')
-);
+const videoContainers = Array.from(document.querySelectorAll('.cmp-video'));
 
 if (videoContainers) {
     videoContainers.forEach(container => {
-
         const videoContainer = container.querySelector('.video-wrapper');
         const videoConfig = container.querySelector('.video-configs-json');
 
@@ -267,13 +270,16 @@ if (videoContainers) {
             const json = JSON.parse(videoConfig.innerHTML);
 
             ReactDOM.render(
-                <Video videoConfig={json.videoConfig} ref={(ourComponent) => {
-                    if (window.cmpVideos) {
-                        window.cmpVideos.push(ourComponent);
-                    } else {
-                        window.cmpVideos = [ourComponent];
-                    }
-                }} />,
+                <Video
+                    videoConfig={json.videoConfig}
+                    ref={ourComponent => {
+                        if (window.cmpVideos) {
+                            window.cmpVideos.push(ourComponent);
+                        } else {
+                            window.cmpVideos = [ourComponent];
+                        }
+                    }}
+                />,
                 videoContainer
             );
         }
@@ -281,22 +287,63 @@ if (videoContainers) {
 }
 
 const registrationFormContainer = document.getElementById(
-    "js-registration-form"
+    'js-registration-form'
 );
 
 if (registrationFormContainer) {
     const config = JSON.parse(
-        document.getElementById("cmp-registration-form").innerHTML
+        document.getElementById('cmp-registration-form').innerHTML
     );
 
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
-        <Form config={config} submitFn={registrationSubmit} isocode="en" />,
+        <Form
+            config={config}
+            submitFn={registrationSubmit}
+            isocode={DigitalData.language}
+        />,
         registrationFormContainer
     );
 }
 
-const chatContainer = document.querySelector(".cmp-chat");
+const troubleSigningInFormContainer = document.getElementById(
+    'cmp-trouble-signing-in-form'
+);
+
+if (troubleSigningInFormContainer) {
+    const config = JSON.parse(
+        document.getElementById('js-trouble-signing-in-form').innerHTML
+    );
+
+    ReactDOM.render(
+        // replace isocode with a value supplied by AEM
+        <Form
+            config={config}
+            submitFn={troubleSigningInSubmit}
+            isocode={DigitalData.language}
+        />,
+        troubleSigningInFormContainer
+    );
+}
+
+const resetPasswordContainer = document.querySelector(
+    '.cmp-form-reset-password--attach'
+);
+
+if (resetPasswordContainer) {
+    const config = JSON.parse(
+        document.getElementById('cmp-reset-password-form').innerHTML
+    );
+
+    console.log(DigitalData.language);
+
+    ReactDOM.render(
+        <Form config={config} submitFn={resetPasswordSubmit} />,
+        resetPasswordContainer
+    );
+}
+
+const chatContainer = document.querySelector('.cmp-chat');
 
 if (chatContainer) {
     const data = getAuthoredDataForChat(chatContainer);

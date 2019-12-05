@@ -8,5 +8,5 @@
           legacySearchUrl="https://wwwdt1.waters.com/waters/keywordSearch.htm"
           registrationSubmitUrl="https://test-www.waters.com:8443/api/waters/user/v1/registration"
           emailValidationUrl="https://test-www.waters.com:8443/api/waters/user/v1/validate/{email}"
-          passwordResetUrl="https://test-www.waters.com:8443/api/waters/user/v1/reset/password"
-          changePasswordUrl="https://test-www.waters.com:8443/api/waters/user/v1/change/password"/>
+          pwResetUrl="https://test-www.waters.com:8443/api/waters/user/v1/reset/password?email={email}"
+          changePwUrl="https://test-www.waters.com:8443/api/waters/user/v1/change/password"/>
