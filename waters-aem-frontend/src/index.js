@@ -7,7 +7,6 @@ import TagCloud from './search/components/tagcloud';
 import ImageCarousel from './image-carousel';
 import MyAccountDropDown from './my-account-dropdown/index';
 import LoginStatus from './scripts/loginStatus';
-
 import SkuDetails from './sku-details';
 import SkuList from './sku-list';
 import SkuMessage from './sku-shared/views/SkuMessage';
