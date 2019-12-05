@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
+import { myAccountModalTheme } from '../my-account/index';
 import MyAccountModalBody from '../my-account/my-account-modal';
 import StandardModalBody from './standard-modal-body';
 import ErrorMessages from '../scripts/ErrorMessages';
@@ -95,7 +96,7 @@ class Modal extends React.Component {
     };
 
     theme = state => {
-        if (state.theme == 'my-account-dropdown') {
+        if (state.theme == myAccountModalTheme) {
             return (
                 <MyAccountModalBody config={state.config}/>
             )

@@ -11,7 +11,7 @@ import domElements from '../scripts/domElements';
 import MyAccountDropDown from './my-account-dropdown';
 import cookieStore from '../stores/cookieStore';
 
-
+const myAccountModalTheme = 'my-account-dropdown';
 class MyAccount extends React.Component {
     constructor(props) {
         super(props);
@@ -187,7 +187,7 @@ class MyAccount extends React.Component {
                     <Modal
                         toggleModal={this.toggleModal}
                         open={this.state.isShown}
-                        theme="my-account-dropdown"
+                        theme={myAccountModalTheme}
                         config={newConfig}
                         myAccountClickHandler={this.handleClick}
                     />
@@ -204,3 +204,4 @@ MyAccount.propTypes = {
 };
 
 export default MyAccount;
+export { myAccountModalTheme };
