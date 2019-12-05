@@ -12,13 +12,13 @@
                     <li class="top-bar__nav__search top-bar__nav__item">
                         <a class="cmp-header-links__link" href="${header.legacySearchUrl}">
                             <span>${'Search' @ i18n}</span>
-                            <img alt="${'Search' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/search.svg" class="inline-svg">
+                            <img alt="${'Search' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/search.svg" class="inline-svg"/>
                         </a>
                     </li>
                     <li class="top-bar__nav__user top-bar__nav__item">
                         <a class="top-bar__nav__user__link cmp-header-links__link" href="javascript:;" target="_self" data-login-url="${header.signInUrl}">
                             <span class="my-account-headline-text">${'My Account' @ i18n}</span>
-                            <img alt="${'Sign In' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/user.svg" class="inline-svg">
+                            <img alt="${'Sign In' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/user.svg" class="inline-svg"/>
                         </a>
                         <div class="top-bar__nav__user__dropdown"></div>
                         <script type="application/json" id="account-modal-configs-json">
@@ -29,38 +29,32 @@
                                 "notRegistered": "${'Not registered yet?' @ i18n , context='scriptString' }",
                                 "signIn": {
                                     "text": "${'Sign In' @ i18n, context='scriptString'}",
-                                    "pageTitle": "${header.signInPageTitle @ i18n, context='scriptString'}",
                                     "url": "${header.signInLink.href @ context='unsafe'}"
                                 },
                                 "signOut": {
                                     "text": "${'Sign Out' @ i18n, context='scriptString'}",
-                                    "pageTitle": "${header.signOutPageTitle @ i18n, context='scriptString'}",
                                     "url": "${header.signOutLink.href @ context='unsafe'}"
                                 },
                                 "switchAccount": {
                                     "text": "${'Switch Account' @ i18n, context='scriptString'}",
-                                    "pageTitle": "${header.switchAccountPageTitle @ i18n, context='scriptString'}",
                                     "url": "${header.switchAccountLink.href @ context='unsafe'}"
                                 },
                                 "createAccount": {
                                     "text": "${'CREATE ACCOUNT' @ i18n, context='scriptString'}",
-                                    "pageTitle": "${header.createAccountPageTitle @ i18n, context='scriptString'}",
                                     "url": "${header.createAccountLink.href @ context='unsafe'}"
                                 },
-                                "list": [
+                                "itemList": [
                                     {
-                                        "text": "${'My Profile' @ i18n, context='scriptString'}",
-                                        "pageTitle": "${header.profilePageTitle @ i18n, context='scriptString'}",
+                                        "text": "${header.profilePageTitle @ context='unsafe'}",
                                         "url": "${header.profileLink.href @ context='unsafe'}",
                                         "target": "_self",
-                                        "class": "dropdown__list__item__my-profile"
+                                        "class": "dropdown__item-list__my-profile"
                                     },
                                     {
-                                        "text": "${'My Orders' @ i18n, context='scriptString'}",
-                                        "pageTitle": "${header.ordersPageTitle @ i18n, context='scriptString'}",
+                                        "text": "${header.ordersPageTitle @ i18n, context='scriptString'}",
                                         "url": "${header.ordersLink.href @ context='unsafe'}",
                                         "target": "_self",
-                                        "class": "dropdown__list__item__my-orders"
+                                        "class": "dropdown__item-list__my-orders"
                                     }
                                 ]
                             }
@@ -69,19 +63,18 @@
                     <li class="top-bar__nav__cart top-bar__nav__item">
                         <a class="cmp-header-links__link" href="${header.viewCartUrl}">
                             <span>${'Cart' @ i18n}</span>
-                            <img alt="${'Cart' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/cart.svg" class="inline-svg">
+                            <img alt="${'Cart' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/cart.svg" class="inline-svg"/>
                         </a>
                     </li>
                     <li class="top-bar__nav__mobile top-bar__nav__item">
                         <div class="top-bar__nav__mobile__divider"></div>
                         <button class="hamburger hamburger--slider" type="button">
-                          <span class="hamburger-box">
-                            <span class="hamburger-inner"></span>
-                          </span>
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
                         </button>
                     </li>
                 </ul>
-
             </nav>
         </div>
     </div>

@@ -1,13 +1,14 @@
 import React from 'react';
 import MyAccountDropDown from './my-account-dropdown';
 
-const MyAccountModalBody = props => {              
+const ModalClass = 'cmp-modal__information';
+const MyAccountModalBody = props => {
     return (
-        <div className="cmp-modal__information">
+        <div className={ModalClass}>
             <MyAccountDropDown config={props.config} />
         </div>
     );
-    
-}
+};
 
 export default MyAccountModalBody;
+export { ModalClass };

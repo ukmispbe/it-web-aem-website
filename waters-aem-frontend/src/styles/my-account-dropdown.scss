@@ -20,7 +20,6 @@
     }
 
     &__user-details {
-
         &__name {
             @include font-h3;
             font-weight: $font-weight-bold;
@@ -36,12 +35,12 @@
             color: $color-link;
         }
 
-        &__switch-account:hover{
+        &__switch-account:hover {
             color: $color-link-hover;
         }
     }
 
-    &__item {
+    &__item-list {
         align-self: flex-start;
         width: 100%;
         margin: 0;
@@ -75,18 +74,16 @@
             }
 
             @include font-h3;
-            
-            font-size: 1em!important;
-            font-weight: 300!important;
-            margin:0 !important;
+
+            font-size: 1em !important;
+            font-weight: 300 !important;
+            margin: 0 !important;
 
             span {
                 display: block;
                 margin: 0;
             }
         }
-
-        
     }
 
     &__sign-in-out {
@@ -107,7 +104,6 @@
                 }
             }
         }
-        
     }
 
     &__sign-in-out:hover {
@@ -119,17 +115,16 @@
                 }
             }
         }
-
     }
 
-   &__create-account {
+    &__create-account {
         margin-top: $space-l;
 
-        a.cmp-button{
+        a.cmp-button {
             display: block;
             float: none;
-            margin-bottom:0;
-            margin-top:$space-xs;
+            margin-bottom: 0;
+            margin-top: $space-xs;
         }
-   }
+    }
 }

@@ -1,20 +1,56 @@
 import React from 'react';
 
-const MyAccountUserDetails = props => {    
+const renderUserName = props => {
+    return (
+        <>
+            {props.userName && (
+                <div className="my-account-dropdown__user-details__name">
+                    {props.userName}
+                </div>
+            )}
+        </>
+    );
+};
 
+const renderAccountDetails = props => {
+    return (
+        <>
+            {props.accountNumber && props.accountName && (
+                <div className="my-account-dropdown__user-details__account">
+                    <span className="my-account-dropdown__user-details__account__name">
+                        {props.accountName}
+                    </span>
+                    <span className="my-account-dropdown__user-details__account__number">
+                        {props.accountNumber}
+                    </span>
+                </div>
+            )}
+        </>
+    );
+};
+
+const renderSwitchAccountLink = props => {
+    return (
+        <>
+            {props.switchAccount.text && props.switchAccount.url && (
+                <a
+                    className="my-account-dropdown__user-details__switch-account"
+                    href={props.switchAccount.url}
+                >
+                    {props.switchAccount.text}
+                </a>
+            )}
+        </>
+    );
+};
+
+const MyAccountUserDetails = props => {
     return (
         <>
             <div className="my-account-dropdown__user-details">
-                {props.userName && (<div className="my-account-dropdown__user-details__name">{props.userName}</div>)}
-                {props.accountNumber && props.accountName && (<div className="my-account-dropdown__user-details__account">
-                    <span className="my-account-dropdown__user-details__account__name">{props.accountName}</span>
-                    <span className="my-account-dropdown__user-details__account__number">{props.accountNumber}</span>
-                </div>)}
-                {props.switchAccount.text && props.switchAccount.url && (
-                    <a className="my-account-dropdown__user-details__switch-account" href={props.switchAccount.url} >
-                        {props.switchAccount.text}
-                    </a>
-                )}
+                {renderUserName(props)}
+                {renderAccountDetails(props)}
+                {renderSwitchAccountLink(props)}
             </div>
             <hr className="my-account-dropdown__hr" />
         </>
@@ -22,3 +58,8 @@ const MyAccountUserDetails = props => {
 };
 
 export default MyAccountUserDetails;
+export const funcs = {
+    renderUserName,
+    renderAccountDetails,
+    renderSwitchAccountLink
+};
