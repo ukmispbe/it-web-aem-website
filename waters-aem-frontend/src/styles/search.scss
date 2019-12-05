@@ -541,6 +541,7 @@ html.showing-spinner {
                 display: block;
                 @include sticky-show-sort;
                 z-index: ($cmp-banner-z-index + 1) !important;
+                opacity: 1!important;
                 .filterIcon {
                     display: none;
                 }
