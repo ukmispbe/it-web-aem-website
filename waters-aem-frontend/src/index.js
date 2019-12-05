@@ -340,7 +340,7 @@ if (resetPasswordContainer) {
     );
 
     ReactDOM.render(
-        <Form config={config} submitFn={resetPasswordSubmit} isocode="en" />,
+        <Form config={config} submitFn={resetPasswordSubmit} />,
         resetPasswordContainer
     );
 }
