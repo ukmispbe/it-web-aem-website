@@ -103,11 +103,13 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             final Map<String, Set<String>> categoryIdToProductCodeMap = getCategoryIdToProductCodeMap(
                 resourceResolver);
 
+            final Map<String, String> skuCodeToPagePathMap = skuRepository.getSkuCodeToPagePathMap(catalogRootPage);
+
             final Category rootCategory = hybrisClient.getRootCategory();
 
             for (final Category category : rootCategory.getSubcategories()) {
                 final CatalogImporterContext context = new CatalogImporterContext(resourceResolver,
-                    categoryIdToProductCodeMap, catalogRootPage, category);
+                    categoryIdToProductCodeMap, catalogRootPage, category, skuCodeToPagePathMap);
 
                 results.addAll(processCategoryPages(context));
             }
@@ -257,9 +259,18 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         final PageManagerDecorator pageManager = context.getPageManager();
 
+        HybrisImportStatus status = null;
+
         PageDecorator skuPage = pageManager.getPage(skuPagePath);
 
-        HybrisImportStatus status = null;
+        if (skuPage == null) {
+            // check if a page already exists for this sku code, despite a difference in sku title
+            final String skuMappedPath = context.getSkuCodeToSkuPagePathMap().get(sku.getCode());
+
+            if (skuMappedPath != null) {
+                skuPage = pageManager.getPage(context.getSkuCodeToSkuPagePathMap().get(sku.getCode()));
+            }
+        }
 
         if (skuPage == null) {
             // create new page
@@ -463,6 +474,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         updatedProperties.put(WatersCommerceConstants.PROPERTY_PRODUCT_RESOURCE_PATH, sku.getPath());
         updatedProperties.put(WatersCommerceConstants.PROPERTY_CODE, sku.getCode());
         updatedProperties.put(JcrConstants.JCR_DESCRIPTION, sku.getLongDescription());
+        updatedProperties.put(JcrConstants.JCR_TITLE, sku.getTitle());
 
         if (sku.getPrimaryImageSrc() != null) {
             updatedProperties.put(WatersConstants.OG_IMAGE, sku.getPrimaryImageSrc());
