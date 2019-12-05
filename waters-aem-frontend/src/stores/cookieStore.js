@@ -25,7 +25,13 @@ function getCookie(cname) {
 
 const cookieStore = {
     getLoggedInStatus: () => getCookie(keys.loggedInStatus),
-    getGreeting: () => getCookie(keys.greeting),
+    getGreeting: () => { 
+        let greeting = getCookie(keys.greeting);
+        if (greeting) {
+            greeting = greeting.replace(/["]+/g, '');
+            return decodeURIComponent(greeting).trim();
+        }
+    },
     getSoldToStatus: () => getCookie(keys.soldToStatus),
     setLocale: () => {
         if(DigitalData.country===DigitalData.globalExperience){

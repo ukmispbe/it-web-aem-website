@@ -39,7 +39,10 @@ import javax.inject.Inject;
 @Component(value = "Header",
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE,
-    tabs = @Tab(title = "Properties"))
+    tabs = {
+        @Tab(title = "Properties"),
+        @Tab(title = "My Account")
+    })
 @Model(adaptables = SlingHttpServletRequest.class,
     adapters = { Header.class, ComponentExporter.class },
     resourceType = Header.RESOURCE_TYPE,
@@ -104,6 +107,59 @@ public final class Header extends AbstractComponent implements ComponentExporter
     @Inject
     private Boolean includeH1Tag;
 
+    @DialogField(fieldLabel = "Sign In Link",
+        fieldDescription = "Select or Enter the Sign In Link",
+        tab = 2,
+        ranking = 1
+    )
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject(inherit = true)
+    private Link signInLink;
+
+    @DialogField(fieldLabel = "Sign Out Link",
+        fieldDescription = "Select or Enter the Sign Out Link",
+        tab = 2,
+        ranking = 2
+    )
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject(inherit = true)
+    private Link signOutLink;
+
+    @DialogField(fieldLabel = "Switch Account Link",
+        fieldDescription = "Select or Enter the Switch Account Link",
+        tab = 2,
+        ranking = 3
+    )
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject(inherit = true)
+    private Link switchAccountLink;
+
+    @DialogField(fieldLabel = "Create Account Link",
+        fieldDescription = "Select or Enter the Create Account Link",
+        tab = 2,
+        ranking = 4
+    )
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject(inherit = true)
+    private Link createAccountLink;
+
+    @DialogField(fieldLabel = "Profile Link",
+        fieldDescription = "Select or Enter the Profile Link",
+        tab = 2,
+        ranking = 5
+    )
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject(inherit = true)
+    private Link profileLink;
+
+    @DialogField(fieldLabel = "Orders Link",
+        fieldDescription = "Select or Enter the Orders Link",
+        tab = 2,
+        ranking = 6
+    )
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject(inherit = true)
+    private Link ordersLink;
 
     @Nonnull
     @Override
@@ -125,6 +181,60 @@ public final class Header extends AbstractComponent implements ComponentExporter
 
     public String getLogoAltText() {
         return logoAltText;
+    }
+
+    public Link getSignInLink() {
+        return signInLink;
+    }
+
+    public Link getSignOutLink() {
+        return signOutLink;
+    }
+
+    public Link getSwitchAccountLink() {
+        return switchAccountLink;
+    }
+
+    public Link getCreateAccountLink() {
+        return createAccountLink;
+    }
+
+    public Link getProfileLink() {
+        return profileLink;
+    }
+
+    public Link getOrdersLink() {
+        return ordersLink;
+    }
+
+    public String getSignInPageTitle() {
+        return !LinkUtils.isExternal(signInLink) ? currentPage.getPageManager().getPage(signInLink.getPath())
+            .getTitle() : "";
+    }
+
+    public String getSignOutPageTitle() {
+        return !LinkUtils.isExternal(signOutLink) ? currentPage.getPageManager().getPage(signOutLink.getPath())
+        .getTitle() : "";
+    }
+
+    public String getSwitchAccountPageTitle() {
+        return !LinkUtils.isExternal(switchAccountLink) ? currentPage.getPageManager().getPage(switchAccountLink.getPath())
+            .getTitle() : "";
+    }
+
+    public String getCreateAccountPageTitle() {
+        return !LinkUtils.isExternal(createAccountLink) ? currentPage.getPageManager().getPage(createAccountLink.getPath())
+            .getTitle() : "";
+    }
+
+    public String getProfilePageTitle() {
+        return !LinkUtils.isExternal(profileLink) ? currentPage.getPageManager().getPage(profileLink.getPath())
+            .getTitle() : "";
+    }
+
+    public String getOrdersPageTitle() {
+        return !LinkUtils.isExternal(ordersLink) ? currentPage.getPageManager().getPage(ordersLink.getPath())
+        .getTitle() : "";
     }
 
     public Boolean isIncludeH1Tag() { return includeH1Tag; }

@@ -156,23 +156,30 @@
                     min-width: 0 !important;
                 }
 
-                .greeting-text {
-                    display: none;
-                }
-
                 &__dropdown {
+                    
                     @include tablet-and-over {                
                         opacity: 0;
                         transition: all 0.2s ease;
                         visibility: hidden;
                         box-shadow: $shadow;
-                        width: 100%;
                         position: absolute;
                         top: 71px;
-                        left: 0px;
+                        right: 0px;
+                        border-top: 4px solid $color-gray-50;
+                        display: flex;
+                        justify-content: flex-end;
                     }
                 }
     
+
+                &.is-active{
+                    .top-bar__nav__user__dropdown{
+                        visibility: visible;
+                        opacity: 1;
+                    }
+                }
+                
                 &.loggedIn {
 
                     .top-bar__nav__user__link {
@@ -186,28 +193,7 @@
                         color: $color-gray-50;
                     }
 
-                    .greeting-text {
-                        display: inline-block;
 
-                        @include mobile {
-                            display: none;
-                        }
-                
-                        .sign-in-text {
-                            display: none;
-                        }
-                    }
-
-                    .sign-in-text {
-                        display: none;
-                    }
-
-                    &.is-active{
-                        .top-bar__nav__user__dropdown{
-                            visibility: visible;
-                            opacity: 1;
-                        }
-                    }
                 }
     
             }

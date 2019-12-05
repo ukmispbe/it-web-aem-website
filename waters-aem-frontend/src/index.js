@@ -5,8 +5,7 @@ import SearchBar from "./search/components/searchbar";
 import Search from "./search/index";
 import TagCloud from "./search/components/tagcloud";
 import ImageCarousel from "./image-carousel";
-import MyAccountDropDown from "./my-account-dropdown/index";
-import LoginStatus from "./scripts/loginStatus";
+import MyAccount from "./my-account/index";
 
 import SkuDetails from "./sku-details";
 import SkuList from "./sku-list";
@@ -207,16 +206,8 @@ if (header && MyAccountDropDownContainer) {
     const config = JSON.parse(
         document.getElementById("account-modal-configs-json").innerHTML
     );
-    const newConfig = Object.assign({}, config.modalInfo, {
-        title: LoginStatus.getGreeting()
-    });
-    const updatedModel = {
-        modalInfo: newConfig
-    };
-    ReactDOM.render(
-        <MyAccountDropDown config={updatedModel} />,
-        MyAccountDropDownContainer
-    );
+
+    ReactDOM.render(<MyAccount config={config} />, MyAccountDropDownContainer);
 }
 
 const skuUnavailableContainer = document.querySelector(
