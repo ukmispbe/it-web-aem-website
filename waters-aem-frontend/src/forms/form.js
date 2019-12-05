@@ -19,6 +19,7 @@ FieldApi.displayName = 'FieldApi';
 const Form = ({
     config,
     submitFn,
+    cancelFn,
     isocode,
     setErrorBoundaryToTrue,
     resetErrorBoundaryToFalse,
@@ -126,8 +127,8 @@ const Form = ({
             >
                 {config.buttonText}
             </button>
-            {config.cancelText &&
-            <a className="cmp-button cmp-button--cancel">
+            {config.cancelText && !!cancelFn &&
+            <a className="cmp-button cmp-button--cancel" onClick={cancelFn}>
                 {config.cancelText}
             </a>}
         </form>

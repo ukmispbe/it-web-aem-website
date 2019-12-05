@@ -120,6 +120,23 @@ button.cmp-button--secondary--disabled {
     border: 1px solid $color-disabled;
 }
 
+.cmp-button--cancel button.cmp-button,
+.cmp-button--cancel a.cmp-button,
+a.cmp-button--cancel,
+button.cmp-button--cancel {
+    background-color: transparent;
+    text-transform: capitalize;
+    color: $color-link;
+    padding: 0;
+    margin: $space-xs $space-l;
+    margin-bottom: ($space-xs + $space-l);
+
+    &:hover {
+        background-color: transparent;
+        color: $color-link-hover;
+    }
+}
+
 @media (max-width: 768px) {
     div.cmp-button,
     div.cmp-button--disabled,
