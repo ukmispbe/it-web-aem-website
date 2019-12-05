@@ -1,11 +1,12 @@
-import scrollToY from "./../../scripts/scrollTo";
+import scrollToY from './../../scripts/scrollTo';
+import { parse } from 'query-string';
 
 const postData = async (url, data) => {
     const response = await fetch(url, {
-        method: "POST",
-        credentials: "include",
+        method: 'POST',
+        credentials: 'include',
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
     });
@@ -17,7 +18,7 @@ export async function registrationSubmit(data) {
     delete data.confirmPassword;
 
     const isCaptcha = data.hasOwnProperty('captcha');
-    if(isCaptcha) {
+    if (isCaptcha) {
         this.url = `${this.url}?captcha=${data.captcha}`;
         delete data.captcha;
     }
@@ -28,7 +29,61 @@ export async function registrationSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-        console.log("registration complete -> redirect", response.json());
+        console.log('registration complete -> redirect', response.json());
+    } else {
+        this.setError(response);
+        scrollToY(0);
+    }
+}
+
+export async function troubleSigningInSubmit(data) {
+    console.log(data);
+    const isCaptcha = data.hasOwnProperty('captcha');
+
+    if (isCaptcha) {
+        this.url = `${this.url}&captcha=${data.captcha}`;
+        delete data.captcha;
+    }
+
+    this.url = this.url.replace('{email}', data.email);
+    const response = await postData(this.url, data);
+
+    // remove all previous server error notifications
+    this.setError();
+
+    if (response.status === 200) {
+        console.log(
+            'trouble signing in complete -> redirect',
+            await response.json()
+        );
+    } else {
+        this.setError(response);
+        scrollToY(0);
+    }
+}
+
+export async function resetPasswordSubmit(data) {
+    const queryString = parse(window.location.search);
+    const resetToken = queryString.token;
+    const email = queryString.email;
+    const newPassword = data.password;
+
+    const body = {
+        email,
+        resetToken,
+        newPassword
+    };
+
+    const response = await postData(this.url, body);
+
+    // remove all previous server error notifications
+    this.setError();
+
+    if (response.status === 200) {
+        console.log(
+            'password reset completed -> redirect',
+            await response.json()
+        );
     } else {
         this.setError(response);
         scrollToY(0);

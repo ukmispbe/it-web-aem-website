@@ -189,7 +189,8 @@
                 color: $color-error;
             }
 
-            .radio.error, .checkbox.error {
+            .radio.error,
+            .checkbox.error {
                 border: 1px solid $color-error;
             }
 
@@ -375,7 +376,7 @@
             }
         }
 
-        input[type="checkbox"] {
+        input[type='checkbox'] {
             display: none;
 
             &:checked ~ .checkbox {
@@ -423,7 +424,7 @@
             }
         }
 
-        input[type="radio"] {
+        input[type='radio'] {
             display: none;
 
             &:checked ~ .radio {
@@ -488,5 +489,16 @@
         clear: both;
         margin-bottom: $space-l;
         color: $color-error;
+    }
+
+    .cmp-form__additionalText {
+        font-weight: $font-weight-bold;
+        margin-left: $space-xxxs;
+    }
+}
+
+.cmp-trouble-signing-in-form {
+    .cmp-form {
+        margin-bottom: 0px;
     }
 }

@@ -1,0 +1,134 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account Dropdown with all props When logged in Then the snapshot should match 1`] = `
+<div
+  className="my-account-dropdown"
+>
+  <div
+    className="my-account-dropdown__user-details"
+  >
+    <div
+      className="my-account-dropdown__user-details__name"
+    >
+      Susan Corman
+    </div>
+    <div
+      className="my-account-dropdown__user-details__account"
+    >
+      <span
+        className="my-account-dropdown__user-details__account__name"
+      >
+        Pfizer Randolf,
+      </span>
+      <span
+        className="my-account-dropdown__user-details__account__number"
+      >
+        NJ 28264019282
+      </span>
+    </div>
+    <a
+      className="my-account-dropdown__user-details__switch-account"
+      href="/content/waters/language-masters/en/switch.html"
+    >
+      Switch Account
+    </a>
+  </div>
+  <hr
+    className="my-account-dropdown__hr"
+  />
+  <div
+    className="my-account-dropdown__item-list"
+  >
+    <a
+      className="my-account-dropdown__item-list--link dropdown__item-list__my-profile"
+      href="/content/waters/language-masters/en/search.html"
+      target="_self"
+    >
+      <span>
+        My Profile
+      </span>
+    </a>
+  </div>
+  <div
+    className="my-account-dropdown__item-list"
+  >
+    <a
+      className="my-account-dropdown__item-list--link dropdown__item-list__my-orders"
+      href="/content/waters/language-masters/en/library.html"
+      target="_self"
+    >
+      <span>
+        My Orders
+      </span>
+    </a>
+  </div>
+  <hr
+    className="my-account-dropdown__hr"
+  />
+  <a
+    className="my-account-dropdown__sign-in-out"
+    href="/content/waters/language-masters/en/signout.html"
+  >
+    <div
+      className="sign-in-out__icon"
+    />
+    Sign Out
+  </a>
+</div>
+`;
+
+exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account Dropdown with all props When logged out Then the snapshot should match 1`] = `
+<div
+  className="my-account-dropdown"
+>
+  <div
+    className="my-account-dropdown__item-list"
+  >
+    <a
+      className="my-account-dropdown__item-list--link dropdown__item-list__my-profile"
+      href="/content/waters/language-masters/en/search.html"
+      target="_self"
+    >
+      <span>
+        My Profile
+      </span>
+    </a>
+  </div>
+  <div
+    className="my-account-dropdown__item-list"
+  >
+    <a
+      className="my-account-dropdown__item-list--link dropdown__item-list__my-orders"
+      href="/content/waters/language-masters/en/library.html"
+      target="_self"
+    >
+      <span>
+        My Orders
+      </span>
+    </a>
+  </div>
+  <hr
+    className="my-account-dropdown__hr"
+  />
+  <a
+    className="my-account-dropdown__sign-in-out"
+    href="/content/waters/language-masters/en/signIn.html"
+  >
+    <div
+      className="sign-in-out__icon"
+    />
+    Sign In
+  </a>
+  <div
+    className="my-account-dropdown__create-account"
+  >
+    Not registered yet?
+    <a
+      class="cmp-button"
+      href="/content/waters/language-masters/en/test.html"
+    >
+      CREATE ACCOUNT
+    </a>
+  </div>
+</div>
+`;

@@ -168,7 +168,7 @@
 /////// MY-ACCOUNT DROPDOWN MODAL
 @include mobile {
 
-    .cmp-modal.account-dropdown{
+    .cmp-modal.my-account-dropdown{
         .cmp-modal__box {
             @include mobile {
                 padding: ($space-m - $space-xxxs);
@@ -177,15 +177,17 @@
     }
 
 
-    .cmp-modal-box.account-dropdown {
+    .cmp-modal-box.my-account-dropdown {
         position: absolute;
         top: 66px;
         border-top: 1px solid $color-border-light;
     }
 
-    .cmp-modal.account-dropdown {
+    .cmp-modal.my-account-dropdown {
         .cmp-modal__title {
+            left: 0;
             .cmp-modal__title-icon {
+                display: none;
                 margin-right: $space-xxs;
                 height: $icon-m;
                 width: $icon-m;
