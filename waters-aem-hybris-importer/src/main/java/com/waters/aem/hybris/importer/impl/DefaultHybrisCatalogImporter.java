@@ -48,7 +48,16 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -405,7 +414,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     }
 
     private List<HybrisImporterResult> updateCategoryPageLiveCopies(final PageDecorator categoryPage,
-        final Category category) throws URISyntaxException{
+        final Category category) throws URISyntaxException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         for (final PageDecorator liveCopyPage : getLiveCopyPages(categoryPage)) {
@@ -473,9 +482,8 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         rolloutManager.rollout(params);
     }
 
-    private void updateCategoryPageProperties(final PageDecorator page, final Category category,
-                                              final boolean isLiveCopy)
-    throws URISyntaxException {
+    private void updateCategoryPageProperties(final PageDecorator page, final Category category, final boolean isLiveCopy)
+        throws URISyntaxException {
         final Map<String, Object> updatedProperties = new HashMap<>();
 
         updatedProperties.put(WatersCommerceConstants.PROPERTY_ID, category.getId());
