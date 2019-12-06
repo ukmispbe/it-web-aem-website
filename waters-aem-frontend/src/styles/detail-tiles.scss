@@ -90,6 +90,10 @@
                 }
             }
 
+            &-notification-wrapper {
+                display: block;
+            }
+
             &-notification {
                 display: inline-block;
                 margin: $space-xxs $space-s;
@@ -129,6 +133,22 @@
 
         &--form {
             display: block;
+
+            &-message {
+                margin: $space-l 0;
+            }
+
+            .cmp-form {
+                float: none;
+
+                .cmp-form-field {
+                    float: none;
+                }
+
+                .cmp-button {
+                    float: none;
+                }
+            }
 
             &.hidden {
                 display: none;

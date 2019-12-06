@@ -7,6 +7,7 @@ const Tile = ({
     name,
     columns,
     notification,
+    formMessage,
     form,
     icon
 }) => {
@@ -31,10 +32,12 @@ const Tile = ({
 
     const renderNotification = () => {
         return (
-            <div className="cmp-detail-tiles-list--tile-notification">
-                <ReactSVG src={notification.icon} className="cmp-detail-tiles-list--tile-notification--icon" />
-                <div className="cmp-detail-tiles-list--tile-notification--title">{notification.title}</div>
-                <div className="cmp-detail-tiles-list--tile-notification--description">{notification.description}</div>
+            <div className="cmp-detail-tiles-list--tile-notification-wrapper">
+                <div className="cmp-detail-tiles-list--tile-notification">
+                    <ReactSVG src={notification.icon} className="cmp-detail-tiles-list--tile-notification--icon" />
+                    <div className="cmp-detail-tiles-list--tile-notification--title">{notification.title}</div>
+                    <div className="cmp-detail-tiles-list--tile-notification--description">{notification.description}</div>
+                </div>
             </div>
         );
     };
@@ -52,6 +55,11 @@ const Tile = ({
             </div>
             {form &&
             <div className={"cmp-detail-tiles-list--form" + (formShown ? "" : " hidden")}>
+                {formMessage &&
+                <div className="cmp-detail-tiles-list--form-message">
+                    {formMessage.text}
+                    <a href={formMessage.linkURL} >{formMessage.linkText}</a>
+                </div>}
                 <Form
                     config={form}
                     submitFn={handleToggle}
