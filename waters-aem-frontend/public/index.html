@@ -235,82 +235,65 @@
         <script type="application/json" id="cmp-detail-tiles--personal">
             {
                 "name": "personalDetails",
+                "type": "personal",
                 "title": "Personal Details",
-                "tiles": [
-                    {
-                        "name": "personalDetailsTile",
-                        "columns": [
-                            {
-                                "title": "Susan Corman",
-                                "text": ["Waters Corporation"]
-                            },
-                            {
-                                "text": ["susan_corman@waters.com", "508-482-3762", "United States"]
-                            }
-                        ],
-                        "formMessage": {
-                            "text": "Your email is your username and cannot be changed. If you need to change your country, please ",
-                            "linkText": "Contact Waters.",
-                            "linkURL": "www.waters.com"
-                        },
-                        "form": {
-                            "submitEndpoint": "http://waters.com",
-                            "buttonText": "Save Changes",
-                            "cancelText": "Cancel",
-                            "icons": {
-                                "validIcon": "./checkmark.svg",
-                                "invalidIcon": "./attention.svg"
-                            },
-                            "fields": [
-                                {
-                                    "type": "text",
-                                    "name": "firstName",
-                                    "label": "First Name",
-                                    "validation": {
-                                        "required": true,
-                                        "validateFnName": "noWhitespaceOrSpecialChars",
-                                        "validationMsg": "Please enter a valid first name",
-                                        "requiredMsg": "Please enter a first name"
-                                    }
-                                },
-                                {
-                                    "type": "text",
-                                    "name": "lastName",
-                                    "label": "Last Name",
-                                    "validation": {
-                                        "required": true,
-                                        "validateFnName": "noWhitespaceOrSpecialChars",
-                                        "validationMsg": "Please enter a valid last name",
-                                        "requiredMsg": "Please enter a last name"
-                                    }
-                                },
-                                {
-                                    "type": "text",
-                                    "name": "company",
-                                    "label": "Company",
-                                    "validation": {
-                                        "required": false,
-                                        "validateFnName": "noWhitespaceOnly",
-                                        "validationMsg": "Please enter a valid company",
-                                        "requiredMsg": "Please enter a company"
-                                    }
-                                },
-                                {
-                                    "type": "text",
-                                    "name": "phone",
-                                    "label": "Phone Number",
-                                    "validation": {
-                                        "required": false,
-                                        "validateFnName": "noWhitespaceOnly",
-                                        "validationMsg": "Please enter a valid phone number",
-                                        "requiredMsg": "Please enter a phone number"
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                ],
+                "fetchEndPoint": "http://waters.com",
                 "canCreate": false,
+                "form": {
+                    "submitEndpoint": "http://waters.com",
+                    "buttonText": "Save Changes",
+                    "cancelText": "Cancel",
+                    "icons": {
+                        "validIcon": "./checkmark.svg",
+                        "invalidIcon": "./attention.svg"
+                    },
+                    "fields": [
+                        {
+                            "type": "text",
+                            "name": "firstName",
+                            "label": "First Name",
+                            "validation": {
+                                "required": true,
+                                "validateFnName": "noWhitespaceOrSpecialChars",
+                                "validationMsg": "Please enter a valid first name",
+                                "requiredMsg": "Please enter a first name"
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "lastName",
+                            "label": "Last Name",
+                            "validation": {
+                                "required": true,
+                                "validateFnName": "noWhitespaceOrSpecialChars",
+                                "validationMsg": "Please enter a valid last name",
+                                "requiredMsg": "Please enter a last name"
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "company",
+                            "label": "Company",
+                            "validation": {
+                                "required": false,
+                                "validateFnName": "noWhitespaceOnly",
+                                "validationMsg": "Please enter a valid company",
+                                "requiredMsg": "Please enter a company"
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "name": "phone",
+                            "label": "Phone Number",
+                            "validation": {
+                                "required": false,
+                                "validateFnName": "noWhitespaceOnly",
+                                "validationMsg": "Please enter a valid phone number",
+                                "requiredMsg": "Please enter a phone number"
+                            }
+                        }
+                    ]
+                },
                 "icons": {
                     "edit": "./edit-2.svg"
                 }
@@ -319,195 +302,91 @@
         <script type="application/json" id="cmp-detail-tiles--shipping">
             {
                 "name": "shippingAddresses",
+                "type": "shipping",
                 "title": "Shipping Addresses",
-                "tiles": [
-                    {
-                        "name": "address1",
-                        "columns": [
-                            {
-                                "title": "Preferred Address",
-                                "text": ["Waters Corporation", "34 Maple Street, Milford, MA 01757", "United States"]
-                            }
-                        ],
-                        "formMessage": {
-                            "text": "It may take up to 24 hours to verify a new or change of address. Orders may be delayed."
-                        },
-                        "form": {
-                            "submitEndpoint": "http://waters.com",
-                            "buttonText": "Save Changes",
-                            "cancelText": "Cancel",
-                            "icons": {
-                                "validIcon": "./checkmark.svg",
-                                "invalidIcon": "./attention.svg"
-                            },
-                            "fields": [
-                                    {
-                                        "type": "text",
-                                        "name": "company",
-                                        "label": "Company",
-                                        "validation": {
-                                            "required": false,
-                                            "validateFnName": "noWhitespaceOnly",
-                                            "validationMsg": "Please enter a valid company",
-                                            "requiredMsg": "Please enter a company"
-                                        }
-                                    },
-                                    {
-                                        "type": "text",
-                                        "name": "address",
-                                        "label": "Address",
-                                        "validation": {
-                                            "required": false,
-                                            "validateFnName": "noWhitespaceOnly",
-                                            "validationMsg": "Please enter a valid address",
-                                            "requiredMsg": "Please enter a address"
-                                        }
-                                    },
-                                    {
-                                        "type": "text",
-                                        "name": "city",
-                                        "label": "City",
-                                        "validation": {
-                                            "required": false,
-                                            "validateFnName": "noWhitespaceOnly",
-                                            "validationMsg": "Please enter a valid city",
-                                            "requiredMsg": "Please enter a city"
-                                        }
-                                    },
-                                    {
-                                        "type": "dropdown",
-                                        "name": "state",
-                                        "label": "State/Province/Region",
-                                        "placeholder": "Select...",
-                                        "dropdownIndicator": "./down.svg",
-                                        "validation": {
-                                            "required": true,
-                                            "requiredMsg": "Please select your state/province/region"
-                                        },
-                                        "options": [{"countryCode":"il","displayName":"Illinois"},{"countryCode":"in","displayName":"Indiana"},{"countryCode":"wi","displayName":"Wisconsin"},{"countryCode":"fl","displayName":"Florida"},{"countryCode":"co","displayName":"Colorado"}]
-                                    },
-                                    {
-                                        "type": "text",
-                                        "name": "zipcode",
-                                        "label": "Zip/Postal Code",
-                                        "validation": {
-                                            "required": false,
-                                            "validateFnName": "noWhitespaceOnly",
-                                            "validationMsg": "Please enter a valid zip/postal code",
-                                            "requiredMsg": "Please enter a zip/postal code"
-                                        }
-                                    },
-                                    {
-                                        "type": "dropdown",
-                                        "name": "country",
-                                        "label": "Country",
-                                        "placeholder": "Select...",
-                                        "dropdownIndicator": "./down.svg",
-                                        "validation": {
-                                            "required": true,
-                                            "requiredMsg": "Please select your country"
-                                        },
-                                        "options": [{"countryCode":"ad","displayName":"Andorra"},{"countryCode":"gb","displayName":"United Kingdom"},{"countryCode":"gd","displayName":"Grenada"},{"countryCode":"to","displayName":"Tonga"},{"countryCode":"tr","displayName":"Turkey"},{"countryCode":"tt","displayName":"Trinidad and Tobago"},{"countryCode":"us","displayName":"United States"},{"countryCode":"vi","displayName":"U.S. Virgin Islands"}]
-                                    }
-                            ]
-                        }
+                "fetchEndPoint": "waters.com",
+                "formMessage": {
+                    "text": "It may take up to 24 hours to verify a new or change of address. Orders may be delayed."
+                },
+                "form": {
+                    "submitEndpoint": "http://waters.com",
+                    "buttonText": "Save Changes",
+                    "cancelText": "Cancel",
+                    "icons": {
+                        "validIcon": "./checkmark.svg",
+                        "invalidIcon": "./attention.svg"
                     },
-                    {
-                        "name": "address2",
-                        "columns": [
+                    "fields": [
                             {
-                                "text": ["Waters Corporation", "34 Maple Street, Milford, MA 01757", "United States"]
-                            }
-                        ],
-                        "notification": {
-                            "title": "Address Verification Pending",
-                            "description": "Orders may be delayed.",
-                            "icon": "./refresh.svg"
-                        },
-                        "formMessage": {
-                            "text": "It may take up to 24 hours to verify a new or change of address. Orders may be delayed."
-                        },
-                        "form": {
-                            "submitEndpoint": "http://waters.com",
-                            "buttonText": "Save Changes",
-                            "cancelText": "Cancel",
-                            "icons": {
-                                "validIcon": "./checkmark.svg",
-                                "invalidIcon": "./attention.svg"
+                                "type": "text",
+                                "name": "company",
+                                "label": "Company",
+                                "validation": {
+                                    "required": false,
+                                    "validateFnName": "noWhitespaceOnly",
+                                    "validationMsg": "Please enter a valid company",
+                                    "requiredMsg": "Please enter a company"
+                                }
                             },
-                            "fields": [
-                                    {
-                                        "type": "text",
-                                        "name": "company",
-                                        "label": "Company",
-                                        "validation": {
-                                            "required": false,
-                                            "validateFnName": "noWhitespaceOnly",
-                                            "validationMsg": "Please enter a valid company",
-                                            "requiredMsg": "Please enter a company"
-                                        }
-                                    },
-                                    {
-                                        "type": "text",
-                                        "name": "address",
-                                        "label": "Address",
-                                        "validation": {
-                                            "required": false,
-                                            "validateFnName": "noWhitespaceOnly",
-                                            "validationMsg": "Please enter a valid address",
-                                            "requiredMsg": "Please enter a address"
-                                        }
-                                    },
-                                    {
-                                        "type": "text",
-                                        "name": "city",
-                                        "label": "City",
-                                        "validation": {
-                                            "required": false,
-                                            "validateFnName": "noWhitespaceOnly",
-                                            "validationMsg": "Please enter a valid city",
-                                            "requiredMsg": "Please enter a city"
-                                        }
-                                    },
-                                    {
-                                        "type": "dropdown",
-                                        "name": "state",
-                                        "label": "State/Province/Region",
-                                        "placeholder": "Select...",
-                                        "dropdownIndicator": "./down.svg",
-                                        "validation": {
-                                            "required": true,
-                                            "requiredMsg": "Please select your state/province/region"
-                                        },
-                                        "options": [{"countryCode":"il","displayName":"Illinois"},{"countryCode":"in","displayName":"Indiana"},{"countryCode":"wi","displayName":"Wisconsin"},{"countryCode":"fl","displayName":"Florida"},{"countryCode":"co","displayName":"Colorado"}]
-                                    },
-                                    {
-                                        "type": "text",
-                                        "name": "zipcode",
-                                        "label": "Zip/Postal Code",
-                                        "validation": {
-                                            "required": false,
-                                            "validateFnName": "noWhitespaceOnly",
-                                            "validationMsg": "Please enter a valid zip/postal code",
-                                            "requiredMsg": "Please enter a zip/postal code"
-                                        }
-                                    },
-                                    {
-                                        "type": "dropdown",
-                                        "name": "country",
-                                        "label": "Country",
-                                        "placeholder": "Select...",
-                                        "dropdownIndicator": "./down.svg",
-                                        "validation": {
-                                            "required": true,
-                                            "requiredMsg": "Please select your country"
-                                        },
-                                        "options": [{"countryCode":"ad","displayName":"Andorra"},{"countryCode":"gb","displayName":"United Kingdom"},{"countryCode":"gd","displayName":"Grenada"},{"countryCode":"to","displayName":"Tonga"},{"countryCode":"tr","displayName":"Turkey"},{"countryCode":"tt","displayName":"Trinidad and Tobago"},{"countryCode":"us","displayName":"United States"},{"countryCode":"vi","displayName":"U.S. Virgin Islands"}]
-                                    }
-                            ]
-                        }
-                    }
-                ],
+                            {
+                                "type": "text",
+                                "name": "address",
+                                "label": "Address",
+                                "validation": {
+                                    "required": false,
+                                    "validateFnName": "noWhitespaceOnly",
+                                    "validationMsg": "Please enter a valid address",
+                                    "requiredMsg": "Please enter a address"
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "city",
+                                "label": "City",
+                                "validation": {
+                                    "required": false,
+                                    "validateFnName": "noWhitespaceOnly",
+                                    "validationMsg": "Please enter a valid city",
+                                    "requiredMsg": "Please enter a city"
+                                }
+                            },
+                            {
+                                "type": "dropdown",
+                                "name": "state",
+                                "label": "State/Province/Region",
+                                "placeholder": "Select...",
+                                "dropdownIndicator": "./down.svg",
+                                "validation": {
+                                    "required": true,
+                                    "requiredMsg": "Please select your state/province/region"
+                                },
+                                "options": [{"countryCode":"il","displayName":"Illinois"},{"countryCode":"in","displayName":"Indiana"},{"countryCode":"wi","displayName":"Wisconsin"},{"countryCode":"fl","displayName":"Florida"},{"countryCode":"co","displayName":"Colorado"}]
+                            },
+                            {
+                                "type": "text",
+                                "name": "zipcode",
+                                "label": "Zip/Postal Code",
+                                "validation": {
+                                    "required": false,
+                                    "validateFnName": "noWhitespaceOnly",
+                                    "validationMsg": "Please enter a valid zip/postal code",
+                                    "requiredMsg": "Please enter a zip/postal code"
+                                }
+                            },
+                            {
+                                "type": "dropdown",
+                                "name": "country",
+                                "label": "Country",
+                                "placeholder": "Select...",
+                                "dropdownIndicator": "./down.svg",
+                                "validation": {
+                                    "required": true,
+                                    "requiredMsg": "Please select your country"
+                                },
+                                "options": [{"countryCode":"ad","displayName":"Andorra"},{"countryCode":"gb","displayName":"United Kingdom"},{"countryCode":"gd","displayName":"Grenada"},{"countryCode":"to","displayName":"Tonga"},{"countryCode":"tr","displayName":"Turkey"},{"countryCode":"tt","displayName":"Trinidad and Tobago"},{"countryCode":"us","displayName":"United States"},{"countryCode":"vi","displayName":"U.S. Virgin Islands"}]
+                            }
+                    ]
+                },
                 "canCreate": true,
                 "addTitle": "Add New Shipping Address",
                 "icons": {
@@ -519,195 +398,91 @@
         <script type="application/json" id="cmp-detail-tiles--billing">
             {
                 "name": "billingAddresses",
+                "type": "billing",
                 "title": "Billing Addresses",
-                "tiles": [
-                    {
-                        "name": "billAddress1",
-                        "columns": [
-                            {
-                                "title": "Preferred Address",
-                                "text": ["Waters Corporation", "34 Maple Street, Milford, MA 01757", "United States"]
-                            }
-                        ],
-                        "formMessage": {
-                            "text": "It may take up to 24 hours to verify a new or change of address. Orders may be delayed."
-                        },
-                        "form": {
-                            "submitEndpoint": "http://waters.com",
-                            "buttonText": "Save Changes",
-                            "cancelText": "Cancel",
-                            "icons": {
-                                "validIcon": "./checkmark.svg",
-                                "invalidIcon": "./attention.svg"
-                            },
-                            "fields": [
-                                    {
-                                        "type": "text",
-                                        "name": "company",
-                                        "label": "Company",
-                                        "validation": {
-                                            "required": false,
-                                            "validateFnName": "noWhitespaceOnly",
-                                            "validationMsg": "Please enter a valid company",
-                                            "requiredMsg": "Please enter a company"
-                                        }
-                                    },
-                                    {
-                                        "type": "text",
-                                        "name": "address",
-                                        "label": "Address",
-                                        "validation": {
-                                            "required": false,
-                                            "validateFnName": "noWhitespaceOnly",
-                                            "validationMsg": "Please enter a valid address",
-                                            "requiredMsg": "Please enter a address"
-                                        }
-                                    },
-                                    {
-                                        "type": "text",
-                                        "name": "city",
-                                        "label": "City",
-                                        "validation": {
-                                            "required": false,
-                                            "validateFnName": "noWhitespaceOnly",
-                                            "validationMsg": "Please enter a valid city",
-                                            "requiredMsg": "Please enter a city"
-                                        }
-                                    },
-                                    {
-                                        "type": "dropdown",
-                                        "name": "state",
-                                        "label": "State/Province/Region",
-                                        "placeholder": "Select...",
-                                        "dropdownIndicator": "./down.svg",
-                                        "validation": {
-                                            "required": true,
-                                            "requiredMsg": "Please select your state/province/region"
-                                        },
-                                        "options": [{"countryCode":"il","displayName":"Illinois"},{"countryCode":"in","displayName":"Indiana"},{"countryCode":"wi","displayName":"Wisconsin"},{"countryCode":"fl","displayName":"Florida"},{"countryCode":"co","displayName":"Colorado"}]
-                                    },
-                                    {
-                                        "type": "text",
-                                        "name": "zipcode",
-                                        "label": "Zip/Postal Code",
-                                        "validation": {
-                                            "required": false,
-                                            "validateFnName": "noWhitespaceOnly",
-                                            "validationMsg": "Please enter a valid zip/postal code",
-                                            "requiredMsg": "Please enter a zip/postal code"
-                                        }
-                                    },
-                                    {
-                                        "type": "dropdown",
-                                        "name": "country",
-                                        "label": "Country",
-                                        "placeholder": "Select...",
-                                        "dropdownIndicator": "./down.svg",
-                                        "validation": {
-                                            "required": true,
-                                            "requiredMsg": "Please select your country"
-                                        },
-                                        "options": [{"countryCode":"ad","displayName":"Andorra"},{"countryCode":"gb","displayName":"United Kingdom"},{"countryCode":"gd","displayName":"Grenada"},{"countryCode":"to","displayName":"Tonga"},{"countryCode":"tr","displayName":"Turkey"},{"countryCode":"tt","displayName":"Trinidad and Tobago"},{"countryCode":"us","displayName":"United States"},{"countryCode":"vi","displayName":"U.S. Virgin Islands"}]
-                                    }
-                            ]
-                        }
+                "fetchEndPoint": "waters.com",
+                "formMessage": {
+                    "text": "It may take up to 24 hours to verify a new or change of address. Orders may be delayed."
+                },
+                "form": {
+                    "submitEndpoint": "http://waters.com",
+                    "buttonText": "Save Changes",
+                    "cancelText": "Cancel",
+                    "icons": {
+                        "validIcon": "./checkmark.svg",
+                        "invalidIcon": "./attention.svg"
                     },
-                    {
-                        "name": "billAddress2",
-                        "columns": [
+                    "fields": [
                             {
-                                "text": ["Waters Corporation", "34 Maple Street, Milford, MA 01757", "United States"]
-                            }
-                        ],
-                        "notification": {
-                            "title": "Address Verification Pending",
-                            "description": "Orders may be delayed.",
-                            "icon": "./refresh.svg"
-                        },
-                        "formMessage": {
-                            "text": "It may take up to 24 hours to verify a new or change of address. Orders may be delayed."
-                        },
-                        "form": {
-                            "submitEndpoint": "http://waters.com",
-                            "buttonText": "Save Changes",
-                            "cancelText": "Cancel",
-                            "icons": {
-                                "validIcon": "./checkmark.svg",
-                                "invalidIcon": "./attention.svg"
+                                "type": "text",
+                                "name": "company",
+                                "label": "Company",
+                                "validation": {
+                                    "required": false,
+                                    "validateFnName": "noWhitespaceOnly",
+                                    "validationMsg": "Please enter a valid company",
+                                    "requiredMsg": "Please enter a company"
+                                }
                             },
-                            "fields": [
-                                    {
-                                        "type": "text",
-                                        "name": "company",
-                                        "label": "Company",
-                                        "validation": {
-                                            "required": false,
-                                            "validateFnName": "noWhitespaceOnly",
-                                            "validationMsg": "Please enter a valid company",
-                                            "requiredMsg": "Please enter a company"
-                                        }
-                                    },
-                                    {
-                                        "type": "text",
-                                        "name": "address",
-                                        "label": "Address",
-                                        "validation": {
-                                            "required": false,
-                                            "validateFnName": "noWhitespaceOnly",
-                                            "validationMsg": "Please enter a valid address",
-                                            "requiredMsg": "Please enter a address"
-                                        }
-                                    },
-                                    {
-                                        "type": "text",
-                                        "name": "city",
-                                        "label": "City",
-                                        "validation": {
-                                            "required": false,
-                                            "validateFnName": "noWhitespaceOnly",
-                                            "validationMsg": "Please enter a valid city",
-                                            "requiredMsg": "Please enter a city"
-                                        }
-                                    },
-                                    {
-                                        "type": "dropdown",
-                                        "name": "state",
-                                        "label": "State/Province/Region",
-                                        "placeholder": "Select...",
-                                        "dropdownIndicator": "./down.svg",
-                                        "validation": {
-                                            "required": true,
-                                            "requiredMsg": "Please select your state/province/region"
-                                        },
-                                        "options": [{"countryCode":"il","displayName":"Illinois"},{"countryCode":"in","displayName":"Indiana"},{"countryCode":"wi","displayName":"Wisconsin"},{"countryCode":"fl","displayName":"Florida"},{"countryCode":"co","displayName":"Colorado"}]
-                                    },
-                                    {
-                                        "type": "text",
-                                        "name": "zipcode",
-                                        "label": "Zip/Postal Code",
-                                        "validation": {
-                                            "required": false,
-                                            "validateFnName": "noWhitespaceOnly",
-                                            "validationMsg": "Please enter a valid zip/postal code",
-                                            "requiredMsg": "Please enter a zip/postal code"
-                                        }
-                                    },
-                                    {
-                                        "type": "dropdown",
-                                        "name": "country",
-                                        "label": "Country",
-                                        "placeholder": "Select...",
-                                        "dropdownIndicator": "./down.svg",
-                                        "validation": {
-                                            "required": true,
-                                            "requiredMsg": "Please select your country"
-                                        },
-                                        "options": [{"countryCode":"ad","displayName":"Andorra"},{"countryCode":"gb","displayName":"United Kingdom"},{"countryCode":"gd","displayName":"Grenada"},{"countryCode":"to","displayName":"Tonga"},{"countryCode":"tr","displayName":"Turkey"},{"countryCode":"tt","displayName":"Trinidad and Tobago"},{"countryCode":"us","displayName":"United States"},{"countryCode":"vi","displayName":"U.S. Virgin Islands"}]
-                                    }
-                            ]
-                        }
-                    }
-                ],
+                            {
+                                "type": "text",
+                                "name": "address",
+                                "label": "Address",
+                                "validation": {
+                                    "required": false,
+                                    "validateFnName": "noWhitespaceOnly",
+                                    "validationMsg": "Please enter a valid address",
+                                    "requiredMsg": "Please enter a address"
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "name": "city",
+                                "label": "City",
+                                "validation": {
+                                    "required": false,
+                                    "validateFnName": "noWhitespaceOnly",
+                                    "validationMsg": "Please enter a valid city",
+                                    "requiredMsg": "Please enter a city"
+                                }
+                            },
+                            {
+                                "type": "dropdown",
+                                "name": "state",
+                                "label": "State/Province/Region",
+                                "placeholder": "Select...",
+                                "dropdownIndicator": "./down.svg",
+                                "validation": {
+                                    "required": true,
+                                    "requiredMsg": "Please select your state/province/region"
+                                },
+                                "options": [{"countryCode":"il","displayName":"Illinois"},{"countryCode":"in","displayName":"Indiana"},{"countryCode":"wi","displayName":"Wisconsin"},{"countryCode":"fl","displayName":"Florida"},{"countryCode":"co","displayName":"Colorado"}]
+                            },
+                            {
+                                "type": "text",
+                                "name": "zipcode",
+                                "label": "Zip/Postal Code",
+                                "validation": {
+                                    "required": false,
+                                    "validateFnName": "noWhitespaceOnly",
+                                    "validationMsg": "Please enter a valid zip/postal code",
+                                    "requiredMsg": "Please enter a zip/postal code"
+                                }
+                            },
+                            {
+                                "type": "dropdown",
+                                "name": "country",
+                                "label": "Country",
+                                "placeholder": "Select...",
+                                "dropdownIndicator": "./down.svg",
+                                "validation": {
+                                    "required": true,
+                                    "requiredMsg": "Please select your country"
+                                },
+                                "options": [{"countryCode":"ad","displayName":"Andorra"},{"countryCode":"gb","displayName":"United Kingdom"},{"countryCode":"gd","displayName":"Grenada"},{"countryCode":"to","displayName":"Tonga"},{"countryCode":"tr","displayName":"Turkey"},{"countryCode":"tt","displayName":"Trinidad and Tobago"},{"countryCode":"us","displayName":"United States"},{"countryCode":"vi","displayName":"U.S. Virgin Islands"}]
+                            }
+                    ]
+                },
                 "canCreate": true,
                 "addTitle": "Add New Shipping Address",
                 "icons": {
@@ -719,63 +494,55 @@
         <script type="application/json" id="cmp-detail-tiles--changePassword">
             {
                 "name": "changePassword",
+                "type": "password",
                 "title": "Change Password",
-                "tiles": [
-                    {
-                        "name": "changePasswordTile",
-                        "columns": [
-                            {
-                                "title": "•••••••••••••••••••"
+                "fetchEndPoint": "waters.com",
+                "form": {
+                    "submitEndpoint": "http://waters.com",
+                    "buttonText": "Change Password",
+                    "cancelText": "Cancel",
+                    "icons": {
+                        "checkmarkIcon": "./checkmark.svg",
+                        "validIcon": "./checkmark.svg",
+                        "invalidIcon": "./attention.svg",
+                        "eyeIcon": "./eye.svg",
+                        "eyeOffIcon": "./eye-off.svg",
+                        "signInIcon": "./user.svg"
+                    },
+                    "fields": [
+                        {
+                            "type": "password",
+                            "name": "currentPassword",
+                            "label": "Enter Current Password",
+                            "validation": {
+                                "required": true,
+                                "requiredMsg": "Please enter your current password."
                             }
-                        ],
-                        "form": {
-                            "submitEndpoint": "http://waters.com",
-                            "buttonText": "Change Password",
-                            "cancelText": "Cancel",
-                            "icons": {
-                                "checkmarkIcon": "./checkmark.svg",
-                                "validIcon": "./checkmark.svg",
-                                "invalidIcon": "./attention.svg",
-                                "eyeIcon": "./eye.svg",
-                                "eyeOffIcon": "./eye-off.svg",
-                                "signInIcon": "./user.svg"
-                            },
-                            "fields": [
-                                {
-                                    "type": "password",
-                                    "name": "currentPassword",
-                                    "label": "Enter Current Password",
-                                    "validation": {
-                                        "required": true,
-                                        "requiredMsg": "Please enter your current password."
-                                    }
-                                },
-                                {
-                                    "type": "password",
-                                    "name": "newPassword",
-                                    "label": "Create New Password",
-                                    "hasMatch": true,
-                                    "matchLabel": "Confirm New Password",
-                                    "validation": {
-                                        "required": true,
-                                        "validateFnName": "password",
-                                        "validationMsg": "Please enter a valid password.",
-                                        "requiredMsg": "Please enter a password.",
-                                        "nonMatchingMsg": "Passwords must match. Please try again.",
-                                        "requirementsLabel": "Your password must include",
-                                        "requirements": [
-                                            {"name": "shortPassword", "msg": "at least 8 Characters"},
-                                            {"name": "noUppercase", "msg": "at least 1 uppercase letter"},
-                                            {"name": "noLowercase", "msg": "at least 1 lowercase letter"},
-                                            {"name": "noDigits", "msg": "at least 1 digit"},
-                                            {"name": "noSpecial", "msg": "at least 1 special character (for example, !, $, #, %)"}
-                                        ]
-                                    }
-                                }
-                            ]
+                        },
+                        {
+                            "type": "password",
+                            "name": "newPassword",
+                            "label": "Create New Password",
+                            "hasMatch": true,
+                            "matchLabel": "Confirm New Password",
+                            "validation": {
+                                "required": true,
+                                "validateFnName": "password",
+                                "validationMsg": "Please enter a valid password.",
+                                "requiredMsg": "Please enter a password.",
+                                "nonMatchingMsg": "Passwords must match. Please try again.",
+                                "requirementsLabel": "Your password must include",
+                                "requirements": [
+                                    {"name": "shortPassword", "msg": "at least 8 Characters"},
+                                    {"name": "noUppercase", "msg": "at least 1 uppercase letter"},
+                                    {"name": "noLowercase", "msg": "at least 1 lowercase letter"},
+                                    {"name": "noDigits", "msg": "at least 1 digit"},
+                                    {"name": "noSpecial", "msg": "at least 1 special character (for example, !, $, #, %)"}
+                                ]
+                            }
                         }
-                    }
-                ],
+                    ]
+                },
                 "canCreate": false,
                 "icons": {
                     "edit": "./edit-2.svg"
