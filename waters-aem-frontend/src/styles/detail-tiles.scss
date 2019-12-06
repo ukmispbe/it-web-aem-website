@@ -36,7 +36,7 @@
 
     &-list {
         &--tile {
-            display: flex;
+            display: block;
             background-color: $color-background-light;
             padding: $space-xs;
             margin-bottom: $space-s;
@@ -46,7 +46,7 @@
                 cursor: pointer;
                 position: absolute;
                 top: ($space-xs + $space-xxs);
-                right: $space-s;
+                right: ($space-s + $space-xs);
                 color: $color-link;
 
                 div {
@@ -89,6 +89,50 @@
                     margin-bottom: 0;
                 }
             }
+
+            &-notification {
+                display: inline-block;
+                margin: $space-xxs $space-s;
+                background: $color-red-10;
+                border: 1px solid $color-red-20;
+                padding: $space-xxs;
+                padding-top: $space-xxxs;
+
+                &--icon {
+                    display: inline-block;
+                    margin-right: $space-xxs;
+
+                    div {
+                        display: inline-block;
+
+                        svg {
+                            position: relative;
+                            top: $space-xxxs;
+                        }
+                    }
+                }
+
+                &--title {
+                    display: inline-block;
+                    margin-right: $space-xxs;
+                }
+
+                &--description {
+                    display: inline-block;
+                }
+            }
+
+            &.form-shown {
+                display: none;
+            }
+        }
+
+        &--form {
+            display: block;
+
+            &.hidden {
+                display: none;
+            }
         }
     }
 }
@@ -98,6 +142,15 @@
         &--title {
             @include font-h1;
             margin-bottom: $space-xxxs;
+        }
+    }
+}
+
+#changePassword-details-tile {
+    .cmp-detail-tiles-list--tile-column {
+        &--title {
+            @include font-h2;
+            margin-bottom: 0;
         }
     }
 }

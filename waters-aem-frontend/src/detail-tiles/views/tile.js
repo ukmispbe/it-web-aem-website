@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactSVG from 'react-svg';
+
+import Form from '../../forms/form';
 
 const Tile = ({
     name,
@@ -8,6 +10,10 @@ const Tile = ({
     form,
     icon
 }) => {
+    const [formShown, setFormShown] = useState(false);
+
+    const handleToggle = () => setFormShown(!formShown);
+
     const renderColumns = () => {
         return (
             columns.map(({title, text}, key) => {
@@ -23,13 +29,36 @@ const Tile = ({
         );
     };
 
-    return (
-        <div className="cmp-detail-tiles-list--tile" id={name}>
-            <div className="cmp-detail-tiles-list--tile-edit">
-                <ReactSVG src={icon}/> Edit
+    const renderNotification = () => {
+        return (
+            <div className="cmp-detail-tiles-list--tile-notification">
+                <ReactSVG src={notification.icon} className="cmp-detail-tiles-list--tile-notification--icon" />
+                <div className="cmp-detail-tiles-list--tile-notification--title">{notification.title}</div>
+                <div className="cmp-detail-tiles-list--tile-notification--description">{notification.description}</div>
             </div>
-            {renderColumns()}
-        </div>
+        );
+    };
+
+    return (
+        <>
+            <div className={"cmp-detail-tiles-list--tile" + (formShown ? " form-shown" : "")} id={name}>
+                <div className="cmp-detail-tiles-list--tile-edit" onClick={handleToggle}>
+                    <ReactSVG src={icon}/> Edit
+                </div>
+
+                {renderColumns()}
+                {notification && renderNotification()}
+
+            </div>
+            {form &&
+            <div className={"cmp-detail-tiles-list--form" + (formShown ? "" : " hidden")}>
+                <Form
+                    config={form}
+                    submitFn={handleToggle}
+                    cancelFn={handleToggle}
+                />
+            </div>}
+        </>
     );
 };
 
