@@ -19,6 +19,7 @@ const SubFacetTags = props => {
                     mapping.push({
                         name: category.facetName,
                         category: category.facetValue,
+                        translation: category.facetTranslation,
                         facets: facets[category.facetName],
                     });
                 }
@@ -49,7 +50,7 @@ const SubFacetTags = props => {
                               >
                                   <ReactSVG src={props.text.closeIcon} />
                                   <span>
-                                      {cat.category}: {selected}
+                                      {cat.translation}: {selected}
                                   </span>
                               </a>
                           );
@@ -74,7 +75,7 @@ const CategoryTags = props => {
     return <a href="javascript:void(0);"
             onClick={props.onRemove}>
             <ReactSVG src={props.text.closeIcon} />
-            <span>{`${props.text[props.categoryKey]}: ${props.selected.facetValue}`}</span>
+            <span>{`${props.text[props.categoryKey]}: ${props.selected.facetTranslation}`}</span>
         </a>;
 }
 

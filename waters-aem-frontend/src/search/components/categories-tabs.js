@@ -10,6 +10,7 @@ class CategoriesTabs extends Component {
 
     createTab(tab, index) {
         return <CategoryTab
+                    translation={tab.translation}
                     name={tab.name}
                     count={tab.count}
                     isActive={tab.isActive}

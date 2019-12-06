@@ -24,7 +24,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.day.cq.search.eval.TypePredicateEvaluator.TYPE;
 
@@ -67,6 +69,36 @@ public final class DefaultSkuRepository implements SkuRepository {
     @Override
     public PageDecorator getSkuPage(final PageDecorator currentPage, final Sku sku) {
         return findSkuPage(currentPage, sku.getCode());
+    }
+
+    @Override
+    public Map<String, String> getSkuCodeToPagePathMap(final PageDecorator currentPage) {
+        final Map<String, String> skuCodeToPagePathMap = new HashMap<>();
+
+        final PredicateGroup skuPagePredicate = buildSkuCodeToPagePathPredicate(currentPage);
+
+        final ResourceResolver resourceResolver = currentPage.getContentResource().getResourceResolver();
+        final Query query = queryBuilder.createQuery(skuPagePredicate, resourceResolver.adaptTo(Session.class));
+
+        query.setHitsPerPage(0);
+
+        final List<Hit> hits = query.getResult().getHits();
+
+        if (!hits.isEmpty()) {
+            try {
+                for (final Hit hit : hits) {
+                    String code = hit.getResource().getChild(JcrConstants.JCR_CONTENT).getValueMap()
+                        .get(WatersCommerceConstants.PROPERTY_CODE, String.class);
+                    String path = hit.getPath();
+
+                    skuCodeToPagePathMap.put(code, path);
+                }
+            } catch (RepositoryException e) {
+                LOG.error("error getting resource for sku page hit, cannot complete populating sku page path map.", e);
+            }
+        }
+
+        return skuCodeToPagePathMap;
     }
 
     private Sku getSkuForProductResourcePath(final ResourceResolver resourceResolver,
@@ -122,6 +154,22 @@ public final class DefaultSkuRepository implements SkuRepository {
             .set(JcrPropertyPredicateEvaluator.PROPERTY,
                 JcrConstants.JCR_CONTENT + "/" + WatersCommerceConstants.PROPERTY_CODE)
             .set(JcrPropertyPredicateEvaluator.VALUE, productCode));
+
+        return predicateGroup;
+    }
+
+    private PredicateGroup buildSkuCodeToPagePathPredicate(final PageDecorator currentPage) {
+        final PredicateGroup predicateGroup = new PredicateGroup();
+
+        final String rootPath = currentPage.getAbsoluteParent(WatersConstants.LEVEL_LANGUAGE_ROOT).getPath();
+
+        predicateGroup.add(new Predicate(TYPE).set(TYPE, NameConstants.NT_PAGE));
+        predicateGroup.add(new Predicate(PathPredicateEvaluator.PATH)
+            .set(PathPredicateEvaluator.PATH, rootPath));
+        predicateGroup.add(new Predicate(JcrPropertyPredicateEvaluator.PROPERTY)
+            .set(JcrPropertyPredicateEvaluator.PROPERTY,
+                JcrConstants.JCR_CONTENT + "/" + NameConstants.NN_TEMPLATE)
+            .set(JcrPropertyPredicateEvaluator.VALUE, WatersConstants.TEMPLATE_SKU_PAGE));
 
         return predicateGroup;
     }

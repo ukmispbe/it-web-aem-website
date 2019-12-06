@@ -1,81 +1,57 @@
 {
     "type": "categoryHierarchyWsDTO",
     "id": "Web",
-    "lastModified": "2019-04-09T16:43:41+0000",
+    "lastModified": "2019-09-29T05:01:28+0000",
     "name": "Web root category",
     "url": "/waters/catalogs/watersProductCatalog/Online/categories/Web",
     "subcategories": [
         {
             "id": "Columns",
-            "lastModified": "2019-02-17T05:00:16+0000",
+            "lastModified": "2019-11-01T21:34:34+0000",
             "name": "Columns",
-            "url": "/waters/catalogs/watersProductCatalog/Online/categories/Columns",
-            "subcategories": [
-                {
-                    "id": "NovaPakColumns",
-                    "lastModified": "2018-07-18T20:29:24+0000",
-                    "name": "Nova-Pak Columns",
-                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/NovaPakColumns"
-                },
-                {
-                    "id": "ResolveColumns",
-                    "lastModified": "2018-07-18T20:29:23+0000",
-                    "name": "Resolve Columns",
-                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/ResolveColumns"
-                },
-                {
-                    "id": "SunFireColumns",
-                    "lastModified": "2018-07-18T20:29:29+0000",
-                    "name": "SunFire Columns",
-                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/SunFireColumns"
-                },
-                {
-                    "id": "Bioseparations",
-                    "lastModified": "2019-02-17T05:00:13+0000",
-                    "name": "Bioseparations",
-                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/Bioseparations",
-                    "subcategories": [
-                        {
-                            "id": "BioResolvecolumns",
-                            "lastModified": "2018-07-18T19:50:56+0000",
-                            "name": "BioResolve columns",
-                            "url": "/waters/catalogs/watersProductCatalog/Online/categories/BioResolvecolumns"
-                        },
-                        {
-                            "id": "AccellPlusIonExchangePackings",
-                            "lastModified": "2018-07-18T20:29:28+0000",
-                            "name": "AccellPlus Ion Exchange Packings",
-                            "url": "/waters/catalogs/watersProductCatalog/Online/categories/AccellPlusIonExchangePackings"
-                        }
-                    ]
-                }
-            ]
+            "url": "/waters/catalogs/watersProductCatalog/Online/categories/Columns"
         },
         {
-            "id": "AnalyticalStandardsReagents",
-            "lastModified": "2019-03-03T05:00:09+0000",
-            "name": "Analytical Standards & Reagents",
-            "url": "/waters/catalogs/watersProductCatalog/Online/categories/AnalyticalStandardsReagents",
-            "subcategories": [
-                {
-                    "id": "GPCAPCGFCStandards",
-                    "lastModified": "2019-03-31T05:00:08+0000",
-                    "name": "GPC APC & GFC Standards",
-                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/GPCAPCGFCStandards"
-                },
-                {
-                    "id": "FoodandBeverageStandards",
-                    "lastModified": "2018-07-18T20:29:37+0000",
-                    "name": "Food and Beverage Standards",
-                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/FoodandBeverageStandards"
-                },
-                {
-                    "id": "EnvironmentalStandards",
-                    "lastModified": "2018-07-18T20:29:46+0000",
-                    "name": "Environmental Standards",
-                    "url": "/waters/catalogs/watersProductCatalog/Online/categories/EnvironmentalStandards"
-                }
-            ]
+            "id": "SamplePreparation&Filtration",
+            "lastModified": "2019-11-08T21:09:11+0000",
+            "name": "Sample Preparation & Filtration",
+            "url": "/waters/catalogs/watersProductCatalog/Online/categories/SamplePreparation%26Filtration"
+        },
+        {
+            "id": "VialsContainers&CollectionPlates",
+            "lastModified": "2019-11-07T14:06:44+0000",
+            "name": "Vials, Containers, & Collection Plates",
+            "url": "/waters/catalogs/watersProductCatalog/Online/categories/VialsContainers%26CollectionPlates"
+        },
+        {
+            "id": "StandardsReagents",
+            "lastModified": "2019-11-08T21:14:46+0000",
+            "name": "Standards & Reagents",
+            "url": "/waters/catalogs/watersProductCatalog/Online/categories/StandardsReagents"
+        },
+        {
+            "id": "Education",
+            "lastModified": "2019-08-25T05:00:38+0000",
+            "name": "Education",
+            "url": "/waters/catalogs/watersProductCatalog/Online/categories/Education"
+        },
+        {
+            "id": "Software",
+            "lastModified": "2019-08-25T05:00:37+0000",
+            "name": "Software",
+            "url": "/waters/catalogs/watersProductCatalog/Online/categories/Software"
+        },
+        {
+            "id": "ApplicationKits",
+            "lastModified": "2019-11-08T21:14:46+0000",
+            "name": "Application Kits",
+            "url": "/waters/catalogs/watersProductCatalog/Online/categories/ApplicationKits"
+        },
+        {
+            "id": "ServiceParts&Kits",
+            "lastModified": "2019-10-18T16:24:31+0000",
+            "name": "Service Parts & Kits",
+            "url": "/waters/catalogs/watersProductCatalog/Online/categories/ServiceParts%26Kits"
         }
     ]
 }

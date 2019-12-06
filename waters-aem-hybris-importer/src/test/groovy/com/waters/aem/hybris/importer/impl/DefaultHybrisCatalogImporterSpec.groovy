@@ -27,7 +27,7 @@ class DefaultHybrisCatalogImporterSpec extends AbstractHybrisImporterSpec {
         def results = hybrisCatalogImporter.importCatalogPages(false)
 
         expect:
-        results.size() == 11
+        results.size() == 8
 
         and:
         results
