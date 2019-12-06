@@ -114,7 +114,7 @@ def deletePages(paths) {
         def page = getPage(path)
         if (page) {
             deletedAuthorPages.add(page.path)
-            pageManager.delete(page, false, false)
+            getNode(page.path).remove()
         }
     }
 
