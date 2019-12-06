@@ -72,7 +72,7 @@ public final class DefaultSkuRepository implements SkuRepository {
     }
 
     @Override
-    public Map<String, String> getSkuCodeToPagePathMap(final PageDecorator currentPage) {
+    public Map<String, String> getSkuCodeToPagePathMap(final PageDecorator currentPage) throws RepositoryException {
         final Map<String, String> skuCodeToPagePathMap = new HashMap<>();
 
         final PredicateGroup skuPagePredicate = buildSkuCodeToPagePathPredicate(currentPage);
@@ -85,16 +85,12 @@ public final class DefaultSkuRepository implements SkuRepository {
         final List<Hit> hits = query.getResult().getHits();
 
         if (!hits.isEmpty()) {
-            try {
-                for (final Hit hit : hits) {
-                    String code = hit.getResource().getChild(JcrConstants.JCR_CONTENT).getValueMap()
-                        .get(WatersCommerceConstants.PROPERTY_CODE, String.class);
-                    String path = hit.getPath();
+            for (final Hit hit : hits) {
+                String code = hit.getResource().getChild(JcrConstants.JCR_CONTENT).getValueMap()
+                    .get(WatersCommerceConstants.PROPERTY_CODE, String.class);
+                String path = hit.getPath();
 
-                    skuCodeToPagePathMap.put(code, path);
-                }
-            } catch (RepositoryException e) {
-                LOG.error("error getting resource for sku page hit, cannot complete populating sku page path map.", e);
+                skuCodeToPagePathMap.put(code, path);
             }
         }
 
