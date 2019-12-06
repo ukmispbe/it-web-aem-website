@@ -138,6 +138,20 @@
                     display: inline-block;
                 }
             }
+
+            &:hover {
+                .cmp-features__feature-link--sign-in .cmp-features__feature-icon {
+                    color: $color-link-hover;
+
+                    .st0 {
+                        stroke: $color-link-hover;
+                    }
+
+                    .st1 {
+                        stroke: $color-link-hover;
+                    }
+                }
+            }
         }
     }
     .cmp-features__list {
