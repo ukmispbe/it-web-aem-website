@@ -92,8 +92,10 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
     private volatile String catalogRootPath;
 
+    private volatile boolean generateLiveCopies;
+
     @Override
-    public List<HybrisImporterResult> importCatalogPages(final Boolean generateLiveCopies) {
+    public List<HybrisImporterResult> importCatalogPages() {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         final Stopwatch stopwatch = Stopwatch.createStarted();
@@ -117,7 +119,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
                 final CatalogImporterContext context = new CatalogImporterContext(resourceResolver,
                     categoryIdToProductCodeMap, catalogRootPage, category, skuCodeToPagePathMap);
 
-                results.addAll(processCategoryPages(context, generateLiveCopies));
+                results.addAll(processCategoryPages(context));
             }
 
             resourceResolver.commit();
@@ -142,6 +144,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     @Modified
     protected void modified(final HybrisCatalogImporterConfiguration configuration) {
         catalogRootPath = configuration.catalogRootPath();
+        generateLiveCopies = configuration.generateLiveCopies();
     }
 
     private void checkImporterNamespace() throws RepositoryException, LoginException {
@@ -165,9 +168,9 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         }
     }
 
-    private List<HybrisImporterResult> processCategoryPages(final CatalogImporterContext context, final Boolean
-        generateLiveCopies) throws WCMException, PersistenceException, URISyntaxException {
-        final List<HybrisImporterResult> results = importPagesForCategory(context, generateLiveCopies);
+    private List<HybrisImporterResult> processCategoryPages(final CatalogImporterContext context)
+        throws WCMException, PersistenceException, URISyntaxException {
+        final List<HybrisImporterResult> results = importPagesForCategory(context);
 
         final Category category = context.getCategory();
 
@@ -178,13 +181,13 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         for (final Category subcategory : category.getSubcategories()) {
             final CatalogImporterContext subcategoryContext = context.withSubcategory(categoryPage, subcategory);
 
-            results.addAll(processCategoryPages(subcategoryContext, generateLiveCopies));
+            results.addAll(processCategoryPages(subcategoryContext));
         }
 
         // only process product pages for leaf categories
         if (category.getSubcategories().isEmpty()) {
             // after processing category page, proceed with the product pages for the current category (if any)
-            results.addAll(processSkuPagesForCategory(context, categoryPage, generateLiveCopies));
+            results.addAll(processSkuPagesForCategory(context, categoryPage));
         }
 
         // commit changes after each category
@@ -197,7 +200,8 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     }
 
     private List<HybrisImporterResult> processSkuPagesForCategory(final CatalogImporterContext context,
-        final PageDecorator categoryPage, final Boolean generateLiveCopies) throws WCMException, PersistenceException {
+        final PageDecorator categoryPage)
+        throws WCMException, PersistenceException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         final Category category = context.getCategory();
@@ -218,14 +222,14 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
             LOG.info("importing {} skus for category : {}", skus.size(), category.getId());
 
-            results.addAll(importSkuPages(context, categoryPage, skus, generateLiveCopies));
+            results.addAll(importSkuPages(context, categoryPage, skus));
         }
 
         return results;
     }
 
     private List<HybrisImporterResult> importSkuPages(final CatalogImporterContext context,
-        final PageDecorator categoryPage, final List<Sku> skus, final Boolean generateLiveCopies)
+        final PageDecorator categoryPage, final List<Sku> skus)
         throws WCMException, PersistenceException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
@@ -235,7 +239,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         for (final Sku sku : skus) {
             // create/update sku pages for each imported commerce product
-            results.addAll(importPagesForSku(context, categoryPage, sku, generateLiveCopies));
+            results.addAll(importPagesForSku(context, categoryPage, sku));
 
             if (count % 10 == 0) {
                 LOG.debug("committing changes...");
@@ -253,8 +257,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     }
 
     private List<HybrisImporterResult> importPagesForSku(final CatalogImporterContext context,
-        final PageDecorator categoryPage, final Sku sku, final Boolean generateLiveCopies)
-        throws WCMException, PersistenceException {
+        final PageDecorator categoryPage, final Sku sku) throws WCMException, PersistenceException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         final String skuPageName = new StringBuilder(TextUtils.getValidJcrName(sku.getCode()))
@@ -317,8 +320,8 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         return results;
     }
 
-    private List<HybrisImporterResult> importPagesForCategory(final CatalogImporterContext context, final Boolean
-        generateLiveCopies) throws WCMException, URISyntaxException {
+    private List<HybrisImporterResult> importPagesForCategory(final CatalogImporterContext context)
+        throws WCMException, URISyntaxException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         final Category category = context.getCategory();
