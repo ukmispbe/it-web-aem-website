@@ -116,7 +116,7 @@ const DetailTiles = ({
     });
 
     const generateTiles = () => {
-        const defaultTile = { "form": form, "formMessage": formMessage, "icon": icons.edit };
+        const defaultTile = { "form": form, "formMessage": formMessage, "icon": icons.edit, "defaultValues": fetchData };
         switch (type) {
             case "personal":
                 setTiles([...tiles, {
@@ -136,7 +136,8 @@ const DetailTiles = ({
                         "name": address.id,
                         "columns": [
                             newColumn("", address.company, getFullAddress(address), address.country)
-                        ]
+                        ],
+                        "defaultValues": address
                     }))
                 ]);
                 break

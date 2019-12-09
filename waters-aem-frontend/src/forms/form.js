@@ -24,7 +24,7 @@ const Form = ({
     setErrorBoundaryToTrue,
     resetErrorBoundaryToFalse,
     removeNotifications,
-    prefill
+    defaultValues
 }) => {
     const {
         register,
@@ -37,7 +37,8 @@ const Form = ({
         triggerValidation
     } = useForm({
         mode: 'onBlur',
-        reValidateMode: 'onBlur'
+        reValidateMode: 'onBlur',
+        defaultValues
     });
 
     const checkIfDisabled = () => {
@@ -45,16 +46,6 @@ const Form = ({
     };
 
     const [errorUpdates, setUpdate] = useState({});
-
-    useEffect(() => {
-        const unsubscribe = () => {
-            prefill.forEach(field => {
-
-            });
-        };
-
-        return unsubscribe;
-    }, []);
 
     useEffect(() => {
         for (let name in errorUpdates) {

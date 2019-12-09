@@ -9,7 +9,8 @@ const Tile = ({
     notification,
     formMessage,
     form,
-    icon
+    icon,
+    defaultValues
 }) => {
     const [formShown, setFormShown] = useState(false);
 
@@ -64,6 +65,7 @@ const Tile = ({
                     config={form}
                     submitFn={handleToggle}
                     cancelFn={handleToggle}
+                    defaultValues={defaultValues}
                 />
             </div>}
         </>
