@@ -9,6 +9,6 @@ public @interface HybrisCatalogImporterConfiguration {
     @AttributeDefinition(name = "Catalog Blueprint Root Path")
     String catalogRootPath() default "/content/waters/language-masters/en/shop";
 
-    @AttributeDefinition(name = "Generate Live Copies", description = "Set to True, to generate and rollout live copies")
+    @AttributeDefinition(name = "Generate Live Copies", description = "Set to true to generate and rollout live copies")
     boolean generateLiveCopies() default false;
 }
