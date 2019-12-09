@@ -17,6 +17,7 @@ import com.waters.aem.core.commerce.services.SkuRepository;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.SiteRepository;
 import com.waters.aem.core.utils.LocaleUtils;
+import com.waters.aem.core.utils.Templates;
 import com.waters.aem.core.utils.TextUtils;
 import com.waters.aem.hybris.client.HybrisClient;
 import com.waters.aem.hybris.constants.HybrisImporterConstants;
@@ -307,7 +308,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
             // create live copies if flag is set
             if (generateLiveCopies) {
-                generateLiveCopies(skuPage, pageManager.getPage(categoryPage.getPath()), pageManager);
+                results.addAll(generateLiveCopies(skuPage, pageManager.getPage(categoryPage.getPath()), pageManager));
             }
         }
 
@@ -357,7 +358,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
             // create live copies if flag is set
             if (generateLiveCopies) {
-                generateLiveCopies(page, context.getParentPage(), pageManager);
+                results.addAll(generateLiveCopies(page, context.getParentPage(), pageManager));
             }
         }
 
@@ -442,8 +443,12 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         return results;
     }
 
-    private void generateLiveCopies(final PageDecorator page, final PageDecorator parentPage,
+    private List<HybrisImporterResult> generateLiveCopies(final PageDecorator page, final PageDecorator parentPage,
         final PageManagerDecorator pageManager) throws WCMException {
+        final List<HybrisImporterResult> results = new ArrayList<>();
+
+        final String template = Templates.isSkuPage(page) ? WatersConstants.TEMPLATE_SKU_PAGE :
+            WatersConstants.TEMPLATE_REDIRECT_PAGE;
 
         final List<String> targets = new ArrayList<>();
 
@@ -453,10 +458,16 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
             if (!liveCopyParent.hasChild(pageName)) {
                 PageDecorator liveCopyPage = pageManager.create(liveCopyParent.getPath(), pageName,
-                WatersConstants.TEMPLATE_REDIRECT_PAGE, page.getTitle(), false);
+                    template, page.getTitle(), false);
 
                 final ValueMap properties = liveCopyPage.getContentResource().adaptTo(ModifiableValueMap.class);
                 properties.put(JcrConstants.JCR_MIXINTYPES, MSMNameConstants.NT_LIVE_RELATIONSHIP);
+
+                if (Templates.isSkuPage(liveCopyPage)) {
+                    results.add(HybrisImporterResult.fromSkuPage(liveCopyPage, HybrisImportStatus.CREATED));
+                } else {
+                    results.add(HybrisImporterResult.fromCategoryPage(liveCopyPage, HybrisImportStatus.CREATED));
+                }
 
                 targets.add(liveCopyPage.getPath());
             }
@@ -466,7 +477,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         if (!targets.isEmpty()) {
             rolloutLiveCopies(page, targets);
         }
-
+        return results;
     }
 
     private void rolloutLiveCopies(final PageDecorator page, final List<String> targets)
