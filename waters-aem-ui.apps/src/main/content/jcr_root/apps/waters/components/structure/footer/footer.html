@@ -1,6 +1,7 @@
 <a class="cmp-back-to-top" href="#" title="${'Back To Top' @ i18n}"><img alt="${'Back To Top' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/up.svg" class="inline-svg"></a>
 
 <div data-sly-use.footer="com.waters.aem.core.components.structure.Footer" id="footer" class="cmp-footer" data-ecommerce-state="${footer.commerceConfig}">
+    <sly data-sly-test.isChinaPage="${footer.chinaPage}"/>
     <div class="container1_wrapper">
         <div class="container1">
             <div class="cmp-footer__linksdiv">
@@ -19,6 +20,13 @@
                         <a class="cmp-footer-social-links__link" href="${item.link.href}" target="_blank">
                             <img class="${item.svg ? 'inline-svg' : ''}" data-sly-test="${item.linkIcon}"
                                 src="${item.linkIcon}" />
+                        </a>
+                    </li>
+                    <li data-sly-test="${isChinaPage && footer.weChatIcon}"
+                        class="cmp-footer__social-links__item cmp-footer__social-links__item--wechat"
+                        data-wechat-qr-src="${footer.weChatQrCodeImage.fileReference}">
+                        <a class="cmp-footer-social-links__link" href="#" target="_blank">
+                            <img class="inline-svg" src="${footer.weChatIcon}" />
                         </a>
                     </li>
                 </ul>
@@ -45,8 +53,8 @@
                     </div>
                 </div>
             </div>
-            <div class="cmp-footer__links ${footer.showLegalIcon ? 'china-legal' : ''}">
-                <nav data-sly-test="${footer.footerLinks || footer.showLegalIcon}">
+            <div class="cmp-footer__links ${isChinaPage ? 'china-legal' : ''}">
+                <nav data-sly-test="${footer.footerLinks || isChinaPage}">
                     <a data-sly-repeat="${footer.footerLinks}" href="${item.link.href}"
                         target="${item.external ? '_blank' : ''}">
                         ${item.text}
@@ -55,7 +63,7 @@
                     </a>
                     <a data-sly-test="${footer.cookiesLink}" href="${footer.cookiesLink.href}">${'Cookies' @ i18n}</a>
                     <a class="optanon-toggle-display dl_Anchor" href="#">${'Cookie Preferences' @ i18n}</a>
-                    <div data-sly-test="${footer.showLegalIcon}" class="cmp-footer__china-legal">
+                    <div data-sly-test="${isChinaPage}" class="cmp-footer__china-legal">
                         <a href="${footer.sICPLegalLink.href}" class="cmp-footer__china-legal-sICP">
                             <img data-sly-test="${footer.sICPLegalIcon}" src="${footer.sICPLegalIcon}" alt="${'Shanghai ICP Number Legal Icon' @ i18n}" />
                             <span data-sly-test="${footer.sICPNumber}">沪ICP备${footer.sICPNumber}号-2</span>
