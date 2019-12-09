@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
+import PropTypes from "prop-types";
 
 class SkuMessage extends React.Component {
     constructor(props) {
@@ -25,5 +26,12 @@ class SkuMessage extends React.Component {
         )
     }
 }
+
+SkuMessage.propTypes = {
+    icon: PropTypes.string,
+    message: PropTypes.string,
+    link: PropTypes.string,
+    linkMessage: PropTypes.string
+};
 
 export default SkuMessage;

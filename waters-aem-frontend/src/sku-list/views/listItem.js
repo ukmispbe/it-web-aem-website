@@ -6,7 +6,7 @@ import SkuService from '../../sku-details/services';
 import AddToCart from '../../sku-details/views/addToCart';
 import { Modal } from '../../modal/index';
 import LoginStatus from '../../scripts/loginStatus';
-import SkuMessage from '../../sku-shared/views/SkuMessage';
+import SkuMessage from '../../sku-message';
 import CheckOutStatus from '../../scripts/checkOutStatus';
 import Ecommerce from '../../scripts/ecommerce';
 import domElements from '../../scripts/domElements';
