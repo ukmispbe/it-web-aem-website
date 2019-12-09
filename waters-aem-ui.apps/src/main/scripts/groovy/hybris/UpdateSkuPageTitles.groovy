@@ -61,7 +61,15 @@ def basePaths = [
 //        "/content/waters/xg/es/shop",
 //        "/content/waters/pt/pt/shop",
 //        "/content/waters/br/pt/shop",
-].each { basePath ->
+]
+
+basePaths.each { basePath ->
+    if (getPage(basePath) == null) {
+        throw new IllegalStateException("No /shop node for $basePath")
+    }
+}
+
+basePaths.each { basePath ->
     getPage(basePath).recurse { p ->
         def page = p.adaptTo(PageDecorator)
 
