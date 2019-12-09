@@ -284,6 +284,7 @@ div.cmp-search__no-results {
     margin: 0;
     padding: $space-xs $space-xs $space-xs 1.32em;
     height: 54px;
+    opacity: 1!important;
 }
 
 .cmp-search-show-btn {
@@ -541,7 +542,6 @@ html.showing-spinner {
                 display: block;
                 @include sticky-show-sort;
                 z-index: ($cmp-banner-z-index + 1) !important;
-                opacity: 1!important;
                 .filterIcon {
                     display: none;
                 }
