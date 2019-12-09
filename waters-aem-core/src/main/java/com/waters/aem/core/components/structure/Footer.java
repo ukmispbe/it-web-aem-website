@@ -21,12 +21,11 @@ import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.SiteContext;
-import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
 import com.waters.aem.core.components.content.links.BasicLink;
 import com.waters.aem.core.components.content.links.IconOnlyLink;
+import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
 import com.waters.aem.core.components.structure.page.analytics.DataLayer;
 import com.waters.aem.core.constants.WatersConstants;
-import com.waters.aem.core.services.youramigo.YourAmigoService;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.waters.aem.core.utils.LinkUtils;
 import com.waters.aem.core.utils.LocaleUtils;
@@ -69,9 +68,6 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     @Self
     private SiteContext siteContext;
-
-    @OSGiService
-    private YourAmigoService yourAmigoService;
 
     @Inject
     private PageDecorator currentPage;
@@ -276,10 +272,6 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     public String getLanguageLocation() {
         return siteContext.getLanguageLocation();
-    }
-
-    public Boolean isYourAmigoEnabled() {
-        return Locale.US.getCountry().equals(siteContext.getLocaleWithCountry().getCountry()) && yourAmigoService.isEnabled();
     }
 
     public Boolean isShowLegalIcon() {
