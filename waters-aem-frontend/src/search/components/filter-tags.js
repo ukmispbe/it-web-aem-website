@@ -131,6 +131,11 @@ ClearAllTag.proptTypes = {
     onRemove: PropTypes.func.isRequired
 }
 
+ClearAllTag.defaultProps = {
+    text: {},
+    onRemove: () => {}
+}
+
 KeywordTag.propTypes = {
     keyword: PropTypes.string,
     text: PropTypes.object.isRequired,
