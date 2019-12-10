@@ -22,7 +22,7 @@ const customStyles = {
     }),
     control: (provided, state) => ({
         ...provided,
-        'border-radius': variables.colorBlue50,
+        'border-radius': variables.borderRadius,
         padding: '0.3em 0.5em',
         color: variables.colorGray50,
         'border-color': state.isFocused ? variables.colorBorderDark : variables.colorBorderDark,
