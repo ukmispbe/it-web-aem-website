@@ -104,11 +104,23 @@ SubFacetTags.propTypes = {
     text: PropTypes.object.isRequired,
 }
 
+SubFacetTags.defaultProps = {
+    filterMap: [],
+    defaultFacet: '',
+    removeTag: () => {},
+    selectedFacets: {},
+    text: {},
+}
+
 CategoryTags.proptTypes = {
     categoryKey: PropTypes.string,
     selected: PropTypes.object.isRequired,
     text: PropTypes.object.isRequired,
     onRemove: PropTypes.func.isRequired
+}
+
+CategoryTags.defaultProps = {
+    selected: {}
 }
 
 ClearAllTag.proptTypes = {
@@ -120,10 +132,6 @@ KeywordTag.propTypes = {
     keyword: PropTypes.string,
     text: PropTypes.object.isRequired,
     onRemove: PropTypes.func.isRequired
-}
-
-CategoryTags.defaultProps = {
-    selected: {}
 }
 
 export { SubFacetTags, CategoryTags, ClearAllTag, KeywordTag }

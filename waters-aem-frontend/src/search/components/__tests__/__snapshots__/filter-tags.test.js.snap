@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: Filter Tags Scenario: Sub facet tags When multiple facets are selected Then it should match snapshot 1`] = `
+Array [
+  <a
+    href="javascript:void(0);"
+    onClick={[Function]}
+  >
+    <div />
+    <span>
+      Column Type
+      : 
+      HPLC
+    </span>
+  </a>,
+  <a
+    href="javascript:void(0);"
+    onClick={[Function]}
+  >
+    <div />
+    <span>
+      Column Type
+      : 
+      Preparative HPLC
+    </span>
+  </a>,
+  <a
+    href="javascript:void(0);"
+    onClick={[Function]}
+  >
+    <div />
+    <span>
+      Market
+      : 
+      Chemical Analysis
+    </span>
+  </a>,
+  <a
+    href="javascript:void(0);"
+    onClick={[Function]}
+  >
+    <div />
+    <span>
+      Market
+      : 
+      Pharmaceutical
+    </span>
+  </a>,
+]
+`;
+
+exports[`Feature: Filter Tags Scenario: Sub facet tags When no facets are selected Then it should match snapshot 1`] = `null`;
+
+exports[`Feature: Filter Tags Scenario: Sub facet tags When one facet is selected Then it should match snapshot 1`] = `
+<a
+  href="javascript:void(0);"
+  onClick={[Function]}
+>
+  <div />
+  <span>
+    Column Type
+    : 
+    HPLC
+  </span>
+</a>
+`;
