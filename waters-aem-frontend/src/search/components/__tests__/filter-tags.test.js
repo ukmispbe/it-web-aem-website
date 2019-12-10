@@ -2,12 +2,58 @@ import React from "react";
 import props, { facets } from '../../__mocks__/en_US/';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
-import { SubFacetTags } from '../filter-tags';
+import { ContentTypeTag, SubFacetTags } from '../filter-tags';
 
 describe("Feature: Filter Tags", () => {
     describe("Scenario: Clear all tag", () => {});
 
-    describe("Scenario: Content type tag", () => {});
+    describe("Scenario: Content type tag", () => {
+        const mockProps = {
+            text: props.searchText,
+            selected: {},
+            onRemove: jest.fn()
+        };
+
+        const mockPropsWithSelected = {
+            text: props.searchText,
+            selected: {
+                facetName: "applicationnote_facet",
+                facetTranslation: "Application Note",
+                facetValue: "Application Note"
+            },
+            onRemove: jest.fn()
+        };
+
+        describe('When content type is not selected', () => {
+            it('Then is should match spanshot', () => {
+                const json = renderer.create(<ContentTypeTag {...mockProps} />);
+
+                expect(json).toMatchSnapshot();
+            });
+        });
+
+        describe('When content type is selected', () => {
+            it('Then it should match snapshot', () => {
+                const json = renderer.create(<ContentTypeTag {...mockPropsWithSelected} />);
+
+                expect(json).toMatchSnapshot();
+            });
+        });
+
+        describe('When content type is removed', () => {
+            it('Then it should call the remove handler property', () => {
+                const spy = spyOn(mockPropsWithSelected, 'onRemove');
+                const wrapper = shallow(<ContentTypeTag {...mockPropsWithSelected} />);
+                const tag = wrapper.find('a');
+
+                tag.simulate('click');
+
+                expect(spy).toHaveBeenCalled();
+
+                spy.mockRestore();
+            });
+        });
+    });
 
     describe("Scenario: Sub facet tags", () => {
         const mockProps = {

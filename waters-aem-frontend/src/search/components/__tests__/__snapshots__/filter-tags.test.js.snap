@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Feature: Filter Tags Scenario: Content type tag When content type is not selected Then is should match spanshot 1`] = `null`;
+
+exports[`Feature: Filter Tags Scenario: Content type tag When content type is selected Then it should match snapshot 1`] = `
+<a
+  href="javascript:void(0);"
+  onClick={[MockFunction]}
+>
+  <div />
+  <span>
+    Content Type: Application Note
+  </span>
+</a>
+`;
+
 exports[`Feature: Filter Tags Scenario: Sub facet tags When multiple facets are selected Then it should match snapshot 1`] = `
 Array [
   <a

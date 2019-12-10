@@ -67,7 +67,7 @@ const SubFacetTags = props => {
         </>;
 };
 
-const CategoryTags = props => {
+const ContentTypeTag = props => {
     const showTags = Object.entries(props.selected).length !== 0 ? true : false;
 
     if (!showTags) return <></>;
@@ -75,7 +75,7 @@ const CategoryTags = props => {
     return <a href="javascript:void(0);"
             onClick={props.onRemove}>
             <ReactSVG src={props.text.closeIcon} />
-            <span>{`${props.text[props.categoryKey]}: ${props.selected.facetTranslation}`}</span>
+            <span>{`${props.text['contentType']}: ${props.selected.facetTranslation}`}</span>
         </a>;
 }
 
@@ -112,15 +112,18 @@ SubFacetTags.defaultProps = {
     text: {},
 }
 
-CategoryTags.proptTypes = {
+ContentTypeTag.proptTypes = {
     categoryKey: PropTypes.string,
     selected: PropTypes.object.isRequired,
     text: PropTypes.object.isRequired,
     onRemove: PropTypes.func.isRequired
 }
 
-CategoryTags.defaultProps = {
-    selected: {}
+ContentTypeTag.defaultProps = {
+    categoryKey: '',
+    selected: {},
+    text: {},
+    onRemove: () => {}
 }
 
 ClearAllTag.proptTypes = {
@@ -134,4 +137,4 @@ KeywordTag.propTypes = {
     onRemove: PropTypes.func.isRequired
 }
 
-export { SubFacetTags, CategoryTags, ClearAllTag, KeywordTag }
+export { SubFacetTags, ContentTypeTag, ClearAllTag, KeywordTag }
