@@ -24,7 +24,7 @@ const MyAccountDropDown = props => {
 
     const signInOutLink = () => (
         <>
-            {signOut.url && signOut.text && (
+            {signOut.url && signOut.text && signIn.url && signIn.text && (
                 <>
                     <a
                         className="my-account-dropdown__sign-in-out"

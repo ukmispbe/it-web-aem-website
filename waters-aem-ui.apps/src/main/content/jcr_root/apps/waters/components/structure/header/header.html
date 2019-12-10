@@ -16,9 +16,9 @@
                         </a>
                     </li>
                     <li class="top-bar__nav__user top-bar__nav__item">
-                        <a class="top-bar__nav__user__link cmp-header-links__link" href="javascript:;" target="_self" data-login-url="${header.signInUrl}">
+                        <a class="top-bar__nav__user__link cmp-header-links__link" href="javascript:;" target="_self">
                             <span class="my-account-headline-text">${'My Account' @ i18n}</span>
-                            <img alt="${'Sign In' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/user.svg" class="inline-svg"/>
+                            <img alt="${'My Account' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/user.svg" class="inline-svg"/>
                         </a>
                         <div class="top-bar__nav__user__dropdown"></div>
                         <script type="application/json" id="account-modal-configs-json">
@@ -27,6 +27,11 @@
                                 "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
                                 "title": "${'My Account' @ i18n , context='scriptString' }",
                                 "notRegistered": "${'Not registered yet?' @ i18n , context='scriptString' }",
+                                "myAccount": {
+                                    "text": "${'My Account' @ i18n, context='scriptString'}",
+                                    "url": "${header.myAccountLink.href @ context='unsafe'}",
+                                    "target": "_self"
+                                },
                                 "signIn": {
                                     "text": "${'Sign In' @ i18n, context='scriptString'}",
                                     "url": "${header.signInLink.href @ context='unsafe'}"
@@ -45,13 +50,13 @@
                                 },
                                 "itemList": [
                                     {
-                                        "text": "${header.profilePageTitle @ context='unsafe'}",
+                                        "text": "${'Profile' @ i18n, context='scriptString'}",
                                         "url": "${header.profileLink.href @ context='unsafe'}",
                                         "target": "_self",
                                         "class": "dropdown__item-list__my-profile"
                                     },
                                     {
-                                        "text": "${header.ordersPageTitle @ i18n, context='scriptString'}",
+                                        "text": "${'Order History' @ i18n, context='scriptString'}",
                                         "url": "${header.ordersLink.href @ context='unsafe'}",
                                         "target": "_self",
                                         "class": "dropdown__item-list__my-orders"

@@ -102,10 +102,20 @@ public final class Header extends AbstractComponent implements ComponentExporter
     @Inject
     private Boolean includeH1Tag;
 
+
+    @DialogField(fieldLabel = "My Account Link",
+        fieldDescription = "Select or Enter the My Account Link",
+        tab = 2,
+        ranking = 2
+    )
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject(inherit = true)
+    private Link myAccountLink;
+
     @DialogField(fieldLabel = "Sign In Link",
         fieldDescription = "Select or Enter the Sign In Link",
         tab = 2,
-        ranking = 1
+        ranking = 2
     )
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
@@ -114,7 +124,7 @@ public final class Header extends AbstractComponent implements ComponentExporter
     @DialogField(fieldLabel = "Sign Out Link",
         fieldDescription = "Select or Enter the Sign Out Link",
         tab = 2,
-        ranking = 2
+        ranking = 3
     )
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
@@ -123,7 +133,7 @@ public final class Header extends AbstractComponent implements ComponentExporter
     @DialogField(fieldLabel = "Switch Account Link",
         fieldDescription = "Select or Enter the Switch Account Link",
         tab = 2,
-        ranking = 3
+        ranking = 4
     )
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
@@ -132,7 +142,7 @@ public final class Header extends AbstractComponent implements ComponentExporter
     @DialogField(fieldLabel = "Create Account Link",
         fieldDescription = "Select or Enter the Create Account Link",
         tab = 2,
-        ranking = 4
+        ranking = 5
     )
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
@@ -141,7 +151,7 @@ public final class Header extends AbstractComponent implements ComponentExporter
     @DialogField(fieldLabel = "Profile Link",
         fieldDescription = "Select or Enter the Profile Link",
         tab = 2,
-        ranking = 5
+        ranking = 6
     )
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
@@ -150,7 +160,7 @@ public final class Header extends AbstractComponent implements ComponentExporter
     @DialogField(fieldLabel = "Orders Link",
         fieldDescription = "Select or Enter the Orders Link",
         tab = 2,
-        ranking = 6
+        ranking = 7
     )
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
@@ -178,6 +188,10 @@ public final class Header extends AbstractComponent implements ComponentExporter
         return logoAltText;
     }
 
+    public Link getMyAccountLink() {
+        return myAccountLink;
+    }
+
     public Link getSignInLink() {
         return signInLink;
     }
@@ -200,6 +214,11 @@ public final class Header extends AbstractComponent implements ComponentExporter
 
     public Link getOrdersLink() {
         return ordersLink;
+    }
+
+    public String getMyAccountTitle() {
+        return !LinkUtils.isExternal(myAccountLink) ? currentPage.getPageManager().getPage(myAccountLink.getPath())
+            .getTitle() : "";
     }
 
     public String getSignInPageTitle() {

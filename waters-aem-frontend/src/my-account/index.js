@@ -22,14 +22,21 @@ class MyAccount extends React.Component {
             isMobile: ScreenSizes.isMobile()
         };
 
-        this.accountHeaderLink = null;
         this.accountHeaderUser = null;
         this.allNavItems = null;
         this.header = null;
+
+        this.newConfig = Object.assign({}, this.props.config, {
+            loginStatus: {
+                state: loginStatus.state(),
+                userName: cookieStore.getGreeting(),
+                accountName: '',
+                accountNumber: ''
+            }
+        });
     }
 
     componentDidMount() {
-        this.accountHeaderLink = document.querySelector('.top-bar__nav__user .top-bar__nav__user__link.cmp-header-links__link');
         this.accountHeaderUser = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
         this.allNavItems = document.querySelectorAll('.top-bar__nav__item:not(.top-bar__nav__user)');
         this.header = document.querySelector('header.cmp-header');
@@ -44,10 +51,7 @@ class MyAccount extends React.Component {
         if (this.accountHeaderUser) { 
             this.accountHeaderUser.addEventListener('mouseover', this.handleOutsideEvent);
             this.accountHeaderUser.addEventListener('mouseleave', this.handleOutsideEvent);
-        }
-
-        if (this.accountHeaderLink) { 
-            this.accountHeaderLink.addEventListener('click', this.handleOutsideEvent, true);
+            this.accountHeaderUser.addEventListener('click', this.handleOutsideEvent);
         }
 
         window.addEventListener('resize', this.updateViewport, true);
@@ -64,10 +68,7 @@ class MyAccount extends React.Component {
         if (this.accountHeaderUser) { 
             this.accountHeaderUser.removeEventListener('mouseover', this.handleOutsideEvent);
             this.accountHeaderUser.removeEventListener('mouseleave', this.handleOutsideEvent);
-        }
-
-        if (this.accountHeaderLink) { 
-            this.accountHeaderLink.removeEventListener('click', this.handleOutsideEvent, true);
+            this.accountHeaderUser.removeEventListener('click', this.handleOutsideEvent);
         }
 
         window.removeEventListener('resize', this.updateViewport, true);
@@ -129,7 +130,6 @@ class MyAccount extends React.Component {
                         if (caller instanceof HTMLElement) { 
                             if (!caller.classList.contains('top-bar__nav__mobile')) { 
                                 // change scrolling unless needed next (ie hamburger menu)
-                                //this.mobileNoScroll(false);
                                 domElements.noScroll(false);
                                 if (this.header) { 
                                     header.classList.remove('is-fixed');
@@ -137,8 +137,7 @@ class MyAccount extends React.Component {
                                 FeedbackSurvey.isDisplayed(true);
                             }
                         }
-                    } else { 
-                        //this.mobileNoScroll(false);
+                    } else {
                         domElements.noScroll(false);
                         if (this.header) { 
                             header.classList.remove('is-fixed');
@@ -165,6 +164,12 @@ class MyAccount extends React.Component {
                         e.preventDefault();
                         this.toggleModal();
                     break;
+                case e.type == 'click' && !this.state.isMobile:
+                        e.preventDefault();
+                        if (this.props.config.myAccount.url && this.props.config.myAccount.target) { 
+                            window.open(this.props.config.myAccount.url, this.props.config.myAccount.target);
+                        }
+                    break;
                 case e.type == 'mouseleave' && !this.state.isMobile:
                         this.willShow(false);
                     break;            
@@ -174,14 +179,6 @@ class MyAccount extends React.Component {
 
     render() {
 
-        const newConfig = Object.assign({}, this.props.config);
-        newConfig.loginStatus = {
-            state: loginStatus.state(),
-            userName: cookieStore.getGreeting(),
-            accountName: '',
-            accountNumber: ''
-        };
-            
         return (
             <>
                 {this.state.isMobile ? (
@@ -189,11 +186,11 @@ class MyAccount extends React.Component {
                         toggleModal={this.toggleModal}
                         open={this.state.isShown}
                         theme={myAccountModalTheme}
-                        config={newConfig}
+                        config={this.newConfig}
                         myAccountClickHandler={this.handleClick}
                     />
                 ) : (
-                    <MyAccountDropDown config={newConfig} />
+                    <MyAccountDropDown config={this.newConfig} />
                 )}
             </>
         )
