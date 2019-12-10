@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import ReactSelect, { components, createFilter } from "react-select";
 import ReactSVG from "react-svg";
 
@@ -15,7 +15,8 @@ const DropdownIndicator = props => {
 
 const Select = (props) => {
     const { name, options, dropdownIndicator, placeholder } = useContext(useFieldApi);
-    const { triggerValidation } = useContext(useFormApi);
+    const { triggerValidation, setValue, getValue } = useContext(useFormApi);
+    const [selectedValue, setSelectedValue] = useState(getValue(name).toLowerCase());
 
     const setupOptions = (label, value) => ({ label: label, value: value });
 
@@ -23,11 +24,16 @@ const Select = (props) => {
         switch (name) {
             case "country":
                 return options.map(val => setupOptions(val.displayName, val.countryCode));
-            case "region":
-                return options.map(val => setupOptions(val.displayName, val.regionCode));
+            case "state":
+                return options.map(val => setupOptions(val.displayName, val.stateCode));
             default:
                 return options.map(val => setupOptions(val.label, val.value));
         }
+    };
+
+    const handleChange = option => {
+        setSelectedValue(option.value);
+        setValue(name, option.value, true);
     };
 
     return (
@@ -42,6 +48,8 @@ const Select = (props) => {
             theme={{ dropdownIndicator }}
             filterOption={createFilter({ ignoreCase: true, trim: true, matchFrom: "start"})}
             onBlur={() => triggerValidation({ name: name })}
+            onChange={handleChange}
+            value={getOptions().filter(o => o.value === selectedValue)}
         />
     );
 };

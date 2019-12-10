@@ -18,10 +18,8 @@ const Dropdown = ({}) => {
                 <RHFInput
                     name={name}
                     as={<Select />}
-                    mode="onChange"
                     rules={validation}
                     register={register}
-                    setValue={setValue}
                 />
                 <Icons />
             </div>

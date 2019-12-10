@@ -8,6 +8,7 @@ import React, {
 import useForm from 'react-hook-form/dist/react-hook-form.ie11';
 
 import { ErrorsProvider, FormStateProvider } from './fields/utils/stateWatcher';
+import { getDefault } from './fields/utils/getDigitalData';
 import ErrorBoundary from '../search/ErrorBoundary';
 import Field from './fields';
 
@@ -34,11 +35,15 @@ const Form = ({
         setValue,
         setError,
         clearError,
-        triggerValidation
+        triggerValidation,
+        getValues
     } = useForm({
         mode: 'onBlur',
         reValidateMode: 'onBlur',
-        defaultValues
+        defaultValues: {
+            "country": getDefault(),
+            ...defaultValues
+        }
     });
 
     const checkIfDisabled = () => {
@@ -65,13 +70,17 @@ const Form = ({
         [errors]
     );
 
+    const getValue = (name) => getValues()[name];
+
     const getApi = useMemo(
         () => ({
             setValue,
             setError: newError,
             clearError,
             register,
-            triggerValidation
+            triggerValidation,
+            getValues,
+            getValue
         }),
         [register]
     );

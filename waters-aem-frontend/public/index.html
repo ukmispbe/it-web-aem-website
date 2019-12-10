@@ -33,14 +33,14 @@
         -->
         <div class="container">
             <!-- Detail Tiles -->
-            <!-- <div class="cmp-detail-tile--attach" id="personal-details-tile"></div>
+            <div class="cmp-detail-tile--attach" id="personal-details-tile"></div>
             <div class="cmp-detail-tile--attach" id="shipping-details-tile"></div>
             <div class="cmp-detail-tile--attach" id="billing-details-tile"></div>
-            <div class="cmp-detail-tile--attach" id="changePassword-details-tile"></div> -->
+            <div class="cmp-detail-tile--attach" id="changePassword-details-tile"></div>
             <!-- END: Detail Tiles -->
 
             <!-- Registration Form -->
-            <div class="cmp-form--attach" id="js-registration-form"></div>
+            <!-- <div class="cmp-form--attach" id="js-registration-form"></div> -->
             <!-- END: Registration Form -->
 
             <!-- Search -->
@@ -322,7 +322,7 @@
                                 "name": "company",
                                 "label": "Company",
                                 "validation": {
-                                    "required": false,
+                                    "required": true,
                                     "validateFnName": "noWhitespaceOnly",
                                     "validationMsg": "Please enter a valid company",
                                     "requiredMsg": "Please enter a company"
@@ -333,7 +333,7 @@
                                 "name": "street",
                                 "label": "Address",
                                 "validation": {
-                                    "required": false,
+                                    "required": true,
                                     "validateFnName": "noWhitespaceOnly",
                                     "validationMsg": "Please enter a valid address",
                                     "requiredMsg": "Please enter a address"
@@ -360,7 +360,7 @@
                                     "required": true,
                                     "requiredMsg": "Please select your state/province/region"
                                 },
-                                "options": [{"countryCode":"il","displayName":"Illinois"},{"countryCode":"in","displayName":"Indiana"},{"countryCode":"wi","displayName":"Wisconsin"},{"countryCode":"fl","displayName":"Florida"},{"countryCode":"co","displayName":"Colorado"}]
+                                "options": [{"stateCode":"il","displayName":"Illinois"},{"stateCode":"in","displayName":"Indiana"},{"stateCode":"wi","displayName":"Wisconsin"},{"stateCode":"fl","displayName":"Florida"},{"stateCode":"co","displayName":"Colorado"},{"stateCode":"ma","displayName":"Massachusetts"}]
                             },
                             {
                                 "type": "text",
@@ -456,7 +456,7 @@
                                     "required": true,
                                     "requiredMsg": "Please select your state/province/region"
                                 },
-                                "options": [{"countryCode":"il","displayName":"Illinois"},{"countryCode":"in","displayName":"Indiana"},{"countryCode":"wi","displayName":"Wisconsin"},{"countryCode":"fl","displayName":"Florida"},{"countryCode":"co","displayName":"Colorado"}]
+                                "options": [{"stateCode":"il","displayName":"Illinois"},{"stateCode":"in","displayName":"Indiana"},{"stateCode":"wi","displayName":"Wisconsin"},{"stateCode":"fl","displayName":"Florida"},{"stateCode":"co","displayName":"Colorado"},{"stateCode":"ma","displayName":"Massachusetts"}]
                             },
                             {
                                 "type": "text",
@@ -496,7 +496,6 @@
                 "name": "changePassword",
                 "type": "password",
                 "title": "Change Password",
-                "fetchEndPoint": "waters.com",
                 "form": {
                     "submitEndpoint": "http://waters.com",
                     "buttonText": "Change Password",
