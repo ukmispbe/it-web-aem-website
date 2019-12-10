@@ -137,4 +137,10 @@ KeywordTag.propTypes = {
     onRemove: PropTypes.func.isRequired
 }
 
+KeywordTag.defaultProps = {
+    keyword: '',
+    text: {},
+    onRemove: () => {}
+};
+
 export { SubFacetTags, ContentTypeTag, ClearAllTag, KeywordTag }

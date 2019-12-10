@@ -2,10 +2,40 @@ import React from "react";
 import props, { facets } from '../../__mocks__/en_US/';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
-import { ContentTypeTag, SubFacetTags } from '../filter-tags';
+import { KeywordTag, ContentTypeTag, SubFacetTags } from '../filter-tags';
 
 describe("Feature: Filter Tags", () => {
     describe("Scenario: Clear all tag", () => {});
+
+    describe("Scenario: Keyword tag", () => {
+        const mockProps = {
+            keyword: 'milk',
+            onRemove: jest.fn(),
+            text: props.searchText
+        };
+
+        describe('When keyword is specified', () => {
+            it('Then it should match snapshot', () => {
+                const json = renderer.create(<KeywordTag {...mockProps} />);
+
+                expect(json).toMatchSnapshot();
+            });
+        });
+
+        describe('When keyword is removed', () => {
+            it('Then is should call the remove handler property', () => {
+                const spy = spyOn(mockProps, 'onRemove');
+                const wrapper = shallow(<KeywordTag {...mockProps} />);
+                const tag = wrapper.find('a');
+
+                tag.simulate('click');
+
+                expect(spy).toHaveBeenCalled();
+
+                spy.mockRestore();
+            });
+        });
+    });
 
     describe("Scenario: Content type tag", () => {
         const mockProps = {
