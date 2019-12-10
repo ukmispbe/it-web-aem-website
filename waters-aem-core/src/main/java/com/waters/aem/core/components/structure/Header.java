@@ -106,7 +106,7 @@ public final class Header extends AbstractComponent implements ComponentExporter
     @DialogField(fieldLabel = "My Account Link",
         fieldDescription = "Select or Enter the My Account Link",
         tab = 2,
-        ranking = 2
+        ranking = 1
     )
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
