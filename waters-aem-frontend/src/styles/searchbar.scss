@@ -61,6 +61,9 @@
         border: 1px solid $color-border-light;
         background: $color-white;
         padding: $space-s $space-xl $space-s $space-s;
+        -webkit-appearance: none;
+        -webkit-border-radius: $border-radius;
+        border-radius: $border-radius;
 
         &:focus {
             outline: 2px solid $color-focus;
