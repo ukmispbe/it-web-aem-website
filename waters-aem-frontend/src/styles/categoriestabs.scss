@@ -4,8 +4,8 @@
     overflow-x: hidden;
     overflow-y: hidden;
     white-space: nowrap;
-    margin-bottom: $space-s;
-    margin-top: $space-l;
+    margin-bottom: $space-xl;
+    margin-top: $space-s;
 
     @include tablet-and-under {
        margin-top: 0;
@@ -68,6 +68,7 @@
         color: $color-font-medium;
         background-color: $color-white;
         font-weight: $font-weight-light;
+        border-radius: $border-radius $border-radius 0 0;
 
         &:hover {
             cursor: pointer;
