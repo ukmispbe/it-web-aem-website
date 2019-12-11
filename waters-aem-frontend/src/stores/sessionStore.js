@@ -4,7 +4,9 @@ const keys = {
     fromSearchURL: 'waters.fromSearchURL',
     searchTabHistory: 'waters.searchTabHistory',
     previousPaginationClick: 'waters.previousPaginationClick',
-    dismissSystemWideNotification: 'waters.dismissSystemWideNotification'
+    dismissSystemWideNotification: 'waters.dismissSystemWideNotification',
+    userDetails: 'waters.userDetails',
+    userToken: 'waters.userToken'
 }
 
 const getJSONObject = key => {
@@ -12,7 +14,11 @@ const getJSONObject = key => {
     return value ? JSON.parse(value) : {};
 }
 
-const SessionStore = function() {
+const SessionStore = function () {
+    this.setUserToken = value => window.sessionStorage.setItem(keys.userToken, value);
+    this.getUserToken = () => window.sessionStorage.getItem(keys.userToken);
+    this.setUserDetails = value => window.sessionStorage.setItem(keys.userDetails, JSON.stringify(value));
+    this.getUserDetails = () => getJSONObject(keys.userDetails);
     this.setPreviousPagePosition = value => window.sessionStorage.setItem(keys.previousPagePosition, value);
     this.getPreviousPagePosition = () => window.sessionStorage.getItem(keys.previousPagePosition);
     this.removePreviousPagePosition = () => window.sessionStorage.removeItem(keys.previousPagePosition);

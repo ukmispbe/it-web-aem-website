@@ -37,7 +37,6 @@ export async function registrationSubmit(data) {
 }
 
 export async function troubleSigningInSubmit(data) {
-    console.log(data);
     const isCaptcha = data.hasOwnProperty('captcha');
 
     if (isCaptcha) {
@@ -52,10 +51,9 @@ export async function troubleSigningInSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-        console.log(
-            'trouble signing in complete -> redirect',
-            await response.json()
-        );
+        if (this.redirect) {
+            window.location.href = this.redirect;
+        }
     } else {
         this.setError(response);
         scrollToY(0);
@@ -80,10 +78,9 @@ export async function resetPasswordSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-        console.log(
-            'password reset completed -> redirect',
-            await response.json()
-        );
+        if (this.redirect) {
+            window.location.href = this.redirect;
+        }
     } else {
         this.setError(response);
         scrollToY(0);

@@ -3,6 +3,10 @@ package com.waters.aem.core.components.content.forms;
 import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
+import com.citytechinc.cq.component.annotations.DialogField;
+import com.citytechinc.cq.component.annotations.widgets.PathField;
+import com.icfolson.aem.library.api.link.Link;
+import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.form.captcha.CaptchaService;
 import com.waters.aem.core.services.account.WatersAccountService;
@@ -32,6 +36,17 @@ public class TroubleSigningIn implements ComponentExporter {
 
     @OSGiService
     private CaptchaService captchaService;
+
+    @DialogField(fieldLabel = "Redirect Page URL",
+        fieldDescription = "Select or enter the redirect URL",
+        ranking = 1)
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject
+    private Link redirectLink;
+
+    public Link getRedirectLink() {
+        return redirectLink;
+    }
 
     public String getPasswordResetUrl() {
         return accountService.getPasswordResetUrl();

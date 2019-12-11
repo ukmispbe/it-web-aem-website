@@ -4,6 +4,7 @@
         display: flex;
         justify-content: center;
         background-color: $color-background-light;
+        border-radius: $border-radius;
         padding: $space-s;
         margin-bottom: $space-l;
 
@@ -112,6 +113,7 @@
     .cmp-notification-wrapper {
         justify-content: left;
         background-color: transparent;
+        border: none;
         padding: 0;
     }
 }
@@ -210,6 +212,8 @@
 .cmp-notification--error, .cmp-notification--captcha {
     .cmp-notification-wrapper {
         transition: transform 200ms ease-in-out;
+        background-color: $color-red-10;
+        border: 1px solid $color-red-20;
 
         svg {
             .st0 {

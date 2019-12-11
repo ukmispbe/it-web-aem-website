@@ -2,7 +2,6 @@ import domElements from '../scripts/domElements';
 import loginStatus from '../scripts/loginStatus';
 import MobileNav from '../scripts/mobileNav';
 import ScreenSizes from '../scripts/screenSizes';
-import cookieStore from '../stores/cookieStore';
 import ServletService from '../element-creators/services/servletService';
 import SystemWideNotification from '../element-creators/systemWideNotification';
 import SessionStore from '../stores/sessionStore';
@@ -15,7 +14,6 @@ let headerTB, headerTB_user,  headerTB_mobile, headerTB_mobile_btn, headerNaviga
 const headerInit = function() {
     domReferences();
     addEventListeners();
-    //cookieStore.setLocale();
     render();
     renderSystemWideNotification();
 }

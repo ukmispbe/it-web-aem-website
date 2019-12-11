@@ -5,7 +5,7 @@ import SearchBar from './search/components/searchbar';
 import Search from './search/index';
 import TagCloud from './search/components/tagcloud';
 import ImageCarousel from './image-carousel';
-import MyAccount from './my-account/index';
+import MyAccountDropDown from './my-account-dropdown/index';
 
 import SkuDetails from './sku-details';
 import SkuList from './sku-list';
@@ -219,7 +219,7 @@ if (header && MyAccountDropDownContainer) {
         document.getElementById('account-modal-configs-json').innerHTML
     );
 
-    ReactDOM.render(<MyAccount config={config} />, MyAccountDropDownContainer);
+    ReactDOM.render(<MyAccountDropDown config={config} />, MyAccountDropDownContainer);
 }
 
 const skuUnavailableContainer = document.querySelector(

@@ -146,6 +146,9 @@
             height: 3.1em;
             float: left;
             border: 1px solid $color-border-light;
+            -webkit-appearance: none;
+            -webkit-border-radius: $border-radius;
+            border-radius: $border-radius;
             background: $color-white;
             @include font-utility;
             &:active {
