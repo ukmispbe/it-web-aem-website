@@ -117,7 +117,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             resourceResolver.commit();
 
             LOG.info("imported {} catalog pages in {}ms", results.size(), stopwatch.elapsed(TimeUnit.MILLISECONDS));
-        } catch (LoginException | IOException | WCMException | URISyntaxException e) {
+        } catch (LoginException | IOException | WCMException | URISyntaxException | RepositoryException e) {
             LOG.error("error importing hybris catalog pages", e);
 
             throw new HybrisImporterException(e);

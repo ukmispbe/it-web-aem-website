@@ -1,6 +1,7 @@
 import searchResultsTranslationsJSON from './search-results-translations-json';
 import searchResultsCategoriesJSON from './search-results-categories-json';
 import commerceConfigs from './commerce-configs-json';
+import facets from './facets';
 
 const props = {
     searchServicePath: 'https://dev-www.waters.com:8443/api/waters/search',
@@ -15,3 +16,4 @@ const props = {
 };
 
 export default props;
+export { facets };
