@@ -26,7 +26,7 @@ const SubFacetTags = props => {
             }
         }
     }
-    const tags = props.selectedFacets
+    const tags = props.selectedFacets && Object.keys(props.selectedFacets).length !== 0
         ? Object.keys(props.selectedFacets).map((facet, index) => {
               const f = props.selectedFacets[facet];
               const category = [];
