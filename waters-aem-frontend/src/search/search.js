@@ -13,7 +13,7 @@ import CategoryDropDown from './components/category-dropdown';
 import Filter from './components/filter';
 import {
     SubFacetTags,
-    CategoryTags,
+    ContentTypeTag,
     ClearAllTag,
     KeywordTag,
 } from './components/filter-tags';
@@ -968,7 +968,7 @@ class Search extends Component {
                         onRemove={this.handleResetSearchToDefault}
                     />
                     {this.getKeywordTag()}
-                    {this.getCategoryTags()}
+                    {this.getContentTypeTag()}
                     {this.getSubFacetTags()}
                 </div>
             );
@@ -1014,10 +1014,9 @@ class Search extends Component {
         };
     };
 
-    getCategoryTags = () =>
+    getContentTypeTag = () =>
         this.isContentTypeSelected() ? (
-            <CategoryTags
-                categoryKey="contentType"
+            <ContentTypeTag
                 text={this.props.searchText}
                 selected={this.getSelectedContentType()}
                 onRemove={this.handleRemoveContentType}
