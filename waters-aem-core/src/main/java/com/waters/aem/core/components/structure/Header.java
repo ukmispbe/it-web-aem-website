@@ -216,41 +216,6 @@ public final class Header extends AbstractComponent implements ComponentExporter
         return ordersLink;
     }
 
-    public String getMyAccountTitle() {
-        return !LinkUtils.isExternal(myAccountLink) ? currentPage.getPageManager().getPage(myAccountLink.getPath())
-            .getTitle() : "";
-    }
-
-    public String getSignInPageTitle() {
-        return !LinkUtils.isExternal(signInLink) ? currentPage.getPageManager().getPage(signInLink.getPath())
-            .getTitle() : "";
-    }
-
-    public String getSignOutPageTitle() {
-        return !LinkUtils.isExternal(signOutLink) ? currentPage.getPageManager().getPage(signOutLink.getPath())
-        .getTitle() : "";
-    }
-
-    public String getSwitchAccountPageTitle() {
-        return !LinkUtils.isExternal(switchAccountLink) ? currentPage.getPageManager().getPage(switchAccountLink.getPath())
-            .getTitle() : "";
-    }
-
-    public String getCreateAccountPageTitle() {
-        return !LinkUtils.isExternal(createAccountLink) ? currentPage.getPageManager().getPage(createAccountLink.getPath())
-            .getTitle() : "";
-    }
-
-    public String getProfilePageTitle() {
-        return !LinkUtils.isExternal(profileLink) ? currentPage.getPageManager().getPage(profileLink.getPath())
-            .getTitle() : "";
-    }
-
-    public String getOrdersPageTitle() {
-        return !LinkUtils.isExternal(ordersLink) ? currentPage.getPageManager().getPage(ordersLink.getPath())
-        .getTitle() : "";
-    }
-
     public Boolean isIncludeH1Tag() { return includeH1Tag; }
 
     public Boolean isExternal() {
