@@ -458,11 +458,11 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         final String template = Templates.isSkuPage(page) ? WatersConstants.TEMPLATE_SKU_PAGE :
             WatersConstants.TEMPLATE_REDIRECT_PAGE;
 
-        final List<String> targets = new ArrayList<>();
+        final ResourceResolver resourceResolver = context.getResourceResolver();
 
-        final LiveRelationshipManager liveRelationshipManager = context.getResourceResolver().adaptTo(LiveRelationshipManager.class);
+        final LiveRelationshipManager liveRelationshipManager = resourceResolver.adaptTo(LiveRelationshipManager.class);
 
-        final RolloutConfigManager configManager = context.getResourceResolver().adaptTo(RolloutConfigManager.class);
+        final RolloutConfigManager configManager = resourceResolver.adaptTo(RolloutConfigManager.class);
 
         final RolloutConfig config = configManager.getRolloutConfig(WatersConstants.DEFAULT_ROLLOUT_CONFIG_PATH);
 
@@ -485,27 +485,12 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
                 final LiveRelationship relation = liveRelationshipManager.establishRelationship(page, liveCopyPage,
                     false, false, config);
-                targets.add(relation.getTargetPath());
+
+                rolloutManager.rollout(resourceResolver, relation, false);
+
             }
-
-        }
-
-        if (!targets.isEmpty()) {
-            rolloutLiveCopies(page, targets);
         }
         return results;
-    }
-
-    private void rolloutLiveCopies(final PageDecorator page, final List<String> targets)
-        throws WCMException {
-        final RolloutManager.RolloutParams params = new RolloutManager.RolloutParams();
-
-        params.isDeep = false;
-        params.master = page;
-        params.trigger = RolloutManager.Trigger.ROLLOUT;
-        params.targets = targets.stream().toArray(String[]::new);
-
-        rolloutManager.rollout(params);
     }
 
     private void updateCategoryPageProperties(final PageDecorator page, final Category category, final boolean isLiveCopy)
