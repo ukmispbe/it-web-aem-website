@@ -100,20 +100,32 @@ describe('Feature: My Account Dropdown Component', () => {
         });
         
 		describe('When there is not an Account Name ', () => {
-			it('Then neither the Account Name or Number should render', () => {
+			it('Then only the Account Name should render', () => {
 				const wrapper = buildShallowWrapper(
 					UserDetailFuncs.renderAccountDetails,
 					buildNewProps(props, { accountName: '' })
 				);
-				expect(wrapper.exists(keys.account)).toEqual(false);
+				expect(wrapper.exists(keys.accountName)).toEqual(false);
+				expect(wrapper.exists(keys.accountNumber)).toEqual(true);
 			});
         });
         
 		describe('When there is not an Account Number ', () => {
-			it('Then neither the Account Name or Number should render', () => {
+			it('Then only the Account Number should render', () => {
 				const wrapper = buildShallowWrapper(
 					UserDetailFuncs.renderAccountDetails,
 					buildNewProps(props, { accountNumber: '' })
+				);
+				expect(wrapper.exists(keys.accountName)).toEqual(true);
+				expect(wrapper.exists(keys.accountNumber)).toEqual(false);
+			});
+		});
+
+		describe('When there is not an Account Number or Account Name ', () => {
+			it('Then neither should render', () => {
+				const wrapper = buildShallowWrapper(
+					UserDetailFuncs.renderAccountDetails,
+					buildNewProps(props, { accountName: '', accountNumber: '' })
 				);
 				expect(wrapper.exists(keys.account)).toEqual(false);
 			});

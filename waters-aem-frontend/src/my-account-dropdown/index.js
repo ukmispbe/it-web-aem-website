@@ -181,6 +181,16 @@ class MyAccountDropDown extends React.Component {
         }
     }
 
+    findPriorityAccount = (soldToAccounts) => {
+        return soldToAccounts.sort((a, b) => {
+            if(a.defaultFlag === b.defaultFlag) {
+                return a.soldTo.localeCompare(b.soldTo);
+            } else {
+                return b.defaultFlag - a.defaultFlag;
+            }
+        });     
+    }
+
     retrieveUserDetails = () => { 
         /*
             START TEMPORARY CODE --
@@ -200,10 +210,17 @@ class MyAccountDropDown extends React.Component {
                     if (response.firstName && response.lastName) { 
                         userName = response.firstName + ' ' + response.lastName;
                     }
+
+                    let accountNumber;
+                    if (Array.isArray(response.soldToAccounts)) { 
+                        const priorityAccount = this.findPriorityAccount(response.soldToAccounts)[0];
+                        accountNumber = priorityAccount.soldTo;
+                    }
+
                     this.newConfig.userDetails = {
                         userName: userName,
                         accountName: '',
-                        accountNumber: ''
+                        accountNumber: accountNumber
                     }
 
                 })
