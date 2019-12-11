@@ -1,11 +1,11 @@
 import React from 'react';
-import MyAccountDropDown from './my-account-dropdown';
+import MyAccountContainer from './my-account-container';
 
 const ModalClass = 'cmp-modal__information';
 const MyAccountModalBody = props => {
     return (
         <div className={ModalClass}>
-            <MyAccountDropDown config={props.config} />
+            <MyAccountContainer config={props.config} />
         </div>
     );
 };

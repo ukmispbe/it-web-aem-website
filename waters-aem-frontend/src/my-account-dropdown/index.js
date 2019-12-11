@@ -8,12 +8,14 @@ import MobileNav from '../scripts/mobileNav';
 import FeedbackSurvey from '../scripts/feedbackSurvey';
 
 import domElements from '../scripts/domElements';
-import MyAccountDropDown from './my-account-dropdown';
-import cookieStore from '../stores/cookieStore';
+import MyAccountContainer from './my-account-container';
+import SessionStore from '../stores/sessionStore';
 import loginStatus from '../scripts/loginStatus';
 
+import UserDetails from '../my-account/services/UserDetails';
+
 const myAccountModalTheme = 'my-account-dropdown';
-class MyAccount extends React.Component {
+class MyAccountDropDown extends React.Component {
     constructor(props) {
         super(props);
         
@@ -27,13 +29,15 @@ class MyAccount extends React.Component {
         this.header = null;
 
         this.newConfig = Object.assign({}, this.props.config, {
-            loginStatus: {
-                state: loginStatus.state(),
-                userName: cookieStore.getGreeting(),
+            loginState: loginStatus.state(),
+            userDetails : {
+                userName: '',
                 accountName: '',
                 accountNumber: ''
             }
         });
+
+        this.retrieveUserDetails();
     }
 
     componentDidMount() {
@@ -177,6 +181,37 @@ class MyAccount extends React.Component {
         }
     }
 
+    retrieveUserDetails = () => { 
+        /*
+            START TEMPORARY CODE --
+
+            Please use this code below until sign-in complete and user token is stored in session storage 
+            & User Details service is updated to use that token
+        */
+            const sessionStore = new SessionStore();
+            sessionStore.setUserToken('wendy_batista@waters.com')
+        //END TEMPORARY CODE
+
+
+        const userDetails = new UserDetails();
+            userDetails
+                .then((response) => { 
+                    let userName;
+                    if (response.firstName && response.lastName) { 
+                        userName = response.firstName + ' ' + response.lastName;
+                    }
+                    this.newConfig.userDetails = {
+                        userName: userName,
+                        accountName: '',
+                        accountNumber: ''
+                    }
+
+                })
+                .catch(err => {
+                    //console.log(err.message)
+                });
+    }
+
     render() {
 
         return (
@@ -190,16 +225,16 @@ class MyAccount extends React.Component {
                         myAccountClickHandler={this.handleClick}
                     />
                 ) : (
-                    <MyAccountDropDown config={this.newConfig} />
+                    <MyAccountContainer config={this.newConfig} />
                 )}
             </>
         )
     }
 }
 
-MyAccount.propTypes = {
+MyAccountDropDown.propTypes = {
     config: PropTypes.object.isRequired,
 };
 
-export default MyAccount;
+export default MyAccountDropDown;
 export { myAccountModalTheme };
