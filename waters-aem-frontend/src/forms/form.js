@@ -107,7 +107,8 @@ const Form = ({
             onSubmit={handleSubmit(
                 submitFn.bind({
                     url: config.submitEndpoint,
-                    setError: submitErrorHandler
+                    setError: submitErrorHandler,
+                    redirect: config.redirectUrl
                 })
             )}
         >
