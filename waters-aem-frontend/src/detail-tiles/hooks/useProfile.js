@@ -11,6 +11,7 @@ const tmpData = {
     "phone": "5084782000",
     "phoneExt": null,
     "localeCountry": "US",
+    "country": "US",
     "localeLanguage": "eng",
     "credentialsUpdated": "N",
     "userAddress": [
@@ -64,7 +65,7 @@ const tmpData = {
             "zip": "01757",
             "countryCode": null,
             "country": "US",
-            "addressType": "MailingAddress"
+            "addressType": "ShippingAddress"
         }
     ]
 };

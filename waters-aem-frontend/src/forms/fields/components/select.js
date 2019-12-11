@@ -14,9 +14,9 @@ const DropdownIndicator = props => {
 };
 
 const Select = (props) => {
-    const { name, options, dropdownIndicator, placeholder } = useContext(useFieldApi);
+    const { name, options, dropdownIndicator, placeholder, disabled } = useContext(useFieldApi);
     const { triggerValidation, setValue, getValue } = useContext(useFormApi);
-    const [selectedValue, setSelectedValue] = useState(getValue(name).toLowerCase());
+    const [selectedValue, setSelectedValue] = useState(getValue(name) ? getValue(name).toLowerCase() : "");
 
     const setupOptions = (label, value) => ({ label: label, value: value });
 
@@ -40,6 +40,7 @@ const Select = (props) => {
         <ReactSelect
             {...props}
             options={getOptions()}
+            isDisabled={disabled}
             isSearchable={true}
             styles={customStyles}
             placeholder={placeholder}

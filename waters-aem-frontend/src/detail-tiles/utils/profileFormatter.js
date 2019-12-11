@@ -13,6 +13,5 @@ export const getAddressesByType = (addresses, type) => {
         addressType = "MailingAddress";
     }
 
-
     return addresses ? addresses.filter(address => address.addressType === addressType) : [];
 };

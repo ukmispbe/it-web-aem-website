@@ -13,7 +13,8 @@
                 "cancelText": "${'Cancel' @ i18n, context='text'}",
                 "icons": {
                     "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
-                    "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg"
+                    "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
+                    "lockIcon": "/content/dam/waters/en/brand-assets/icons/lock.svg"
                 },
                 "fields": [
                     {
@@ -50,6 +51,16 @@
                         }
                     },
                     {
+                        "type": "email",
+                        "name": "email",
+                        "disabled": true,
+                        "label": "${'Email Address' @ i18n, context='text'}",
+                        "validation": {
+                            "required": true,
+                            "requiredMsg": "${'Please enter a valid email address.' @ i18n, context='text'}"
+                        }
+                    },
+                    {
                         "type": "text",
                         "name": "phone",
                         "label": "${'Phone Number' @ i18n, context='text'}",
@@ -58,6 +69,18 @@
                             "validationMsg": "${'Please enter a valid phone number.' @ i18n, context='text'}",
                             "required": true,
                             "requiredMsg": "${'Please enter a phone number.' @ i18n, context='text'}"
+                        }
+                    },
+                    {
+                        "type": "dropdown",
+                        "name": "country",
+                        "label": "${'Country' @ i18n, context='text'}",
+                        "placeholder": "${'Select...' @ i18n, context='text'}",
+                        "options": ${personal.countriesJson @ context="unsafe"},
+                        "disabled": true,
+                        "validation": {
+                            "required": true,
+                            "requiredMsg": "${'Please select your country.' @ i18n, context='text'}"
                         }
                     }
                 ]

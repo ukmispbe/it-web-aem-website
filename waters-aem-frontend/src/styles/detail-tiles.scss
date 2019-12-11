@@ -117,6 +117,7 @@
                 }
 
                 &--title {
+                    @include font-h4;
                     display: inline-block;
                     margin-right: $space-xxs;
                 }
@@ -128,6 +129,18 @@
 
             &.form-shown {
                 display: none;
+            }
+
+            &.no-address {
+                padding: $space-xl 0;
+                text-align: center;
+                border: 1px dashed $color-border-light;
+                background-color: transparent;
+                @include font-body;
+
+                .cmp-detail-tiles-list--tile-noAddress--title {
+                    padding-bottom: $space-s;
+                }
             }
         }
 

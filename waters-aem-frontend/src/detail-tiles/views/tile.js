@@ -10,7 +10,8 @@ const Tile = ({
     formMessage,
     form,
     icon,
-    defaultValues
+    defaultValues,
+    isNoAddress=false
 }) => {
     const [formShown, setFormShown] = useState(false);
 
@@ -43,16 +44,33 @@ const Tile = ({
         );
     };
 
+    const renderTile = () => {
+        return (<>
+            <div className="cmp-detail-tiles-list--tile-edit" onClick={handleToggle}>
+                <ReactSVG src={icon}/> Edit
+            </div>
+
+            {renderColumns()}
+            {notification && renderNotification()}
+        </>);
+    };
+
+    const renderBlank = () => {
+        let blank = columns[0];
+        return (<>
+            <div className="cmp-detail-tiles-list--tile-noAddress">
+                <div className="cmp-detail-tiles-list--tile-noAddress--title">
+                    {blank.title}
+                </div>
+                <div className="cmp-detail-tiles--add"><ReactSVG src={blank.addIcon} /> {blank.addTitle}</div>
+            </div>
+        </>);
+    };
+
     return (
         <>
-            <div className={"cmp-detail-tiles-list--tile" + (formShown ? " form-shown" : "")} id={name}>
-                <div className="cmp-detail-tiles-list--tile-edit" onClick={handleToggle}>
-                    <ReactSVG src={icon}/> Edit
-                </div>
-
-                {renderColumns()}
-                {notification && renderNotification()}
-
+            <div className={"cmp-detail-tiles-list--tile" + (formShown ? " form-shown" : "") + (isNoAddress ? " no-address" : "")} id={name}>
+                {isNoAddress ? renderBlank() : renderTile()}
             </div>
             {form &&
             <div className={"cmp-detail-tiles-list--form" + (formShown ? "" : " hidden")}>

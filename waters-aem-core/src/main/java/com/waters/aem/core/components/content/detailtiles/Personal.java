@@ -4,6 +4,7 @@ import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.Listener;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.account.WatersAccountService;
@@ -14,6 +15,15 @@ import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
 import javax.annotation.Nonnull;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_COPY;
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_EDIT;
@@ -49,6 +59,28 @@ public class Personal implements ComponentExporter {
 
     public String getMyAccountUpdateUrl() {
         return accountService.getMyAccountUrl();
+    }
+
+    public String getCountriesJson() throws JsonProcessingException {
+        final List<Map<String, Object>> countryList = new ArrayList<>();
+
+        countryList.addAll(Arrays.asList(Locale.getISOCountries()).stream()
+                .map(this::getCountryMap)
+                .sorted(Comparator.comparing(map -> (String)map.get("displayName")))
+                .collect(Collectors.toList()));
+
+        return MAPPER.writeValueAsString(countryList);
+    }
+
+    private Map<String, Object> getCountryMap(String countryCode) {
+        final Map<String, Object> countryMap = new HashMap<>();
+
+        final Locale locale = new Locale("", countryCode);
+
+        countryMap.put("countryCode", locale.getCountry().toLowerCase());
+        countryMap.put("displayName", locale.getDisplayCountry().replaceAll("'", "\'"));
+
+        return countryMap;
     }
 
     @Nonnull

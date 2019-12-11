@@ -4,7 +4,7 @@ import ReactSVG from "react-svg";
 import { useFieldApi } from '../../form';
 
 const Icons = ({}) => {
-    const { icons, type } = useContext(useFieldApi);
+    const { icons, type, disabled } = useContext(useFieldApi);
 
     const getType = (elem) => elem.classList.contains("toggled") ? "text" : type;
 
@@ -42,8 +42,9 @@ const Icons = ({}) => {
     return (
         <div className="cmp-form-field--icons">
             {eyeIcons}
-            <ReactSVG src={icons.validIcon} className="valid-icon" />
-            <ReactSVG src={icons.invalidIcon} className="invalid-icon" />
+            {!disabled && <ReactSVG src={icons.validIcon} className="valid-icon" />}
+            {!disabled && <ReactSVG src={icons.invalidIcon} className="invalid-icon" />}
+            {disabled && <ReactSVG src={icons.lockIcon} className="lock-icon" />}
         </div>
     );
 };

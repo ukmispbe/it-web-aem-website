@@ -22,7 +22,7 @@ export default (data, type) => {
                     newColumn(getFullName(data), "Waters Corporation"),
                     newColumn("", data.email, getPhoneFormat(data.phone), data.localeCountry)
                 ],
-                "defaultValues": {"firstName": data.firstName, "lastName": data.lastName}
+                "defaultValues": data
             }];
 
         case "shipping":
