@@ -47,8 +47,8 @@ public class Password implements ComponentExporter {
         return accountService.getMyAccountUrl();
     }
 
-    public String getMyAccountUpdateUrl() {
-        return accountService.getMyAccountUrl();
+    public String getChangePasswordUrl() {
+        return accountService.getChangePasswordUrl();
     }
 
     @Nonnull
