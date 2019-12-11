@@ -90,6 +90,8 @@ public final class WatersConstants {
 
     public static final String SEARCH_PAGE_PATH = ROOT_PATH_LANGUAGE_MASTERS + "/en/search.html";
 
+    public static final String DEFAULT_ROLLOUT_CONFIG_PATH = "/etc/msm/rolloutconfigs/default";
+
     private WatersConstants() {
 
     }

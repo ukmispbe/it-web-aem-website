@@ -4,7 +4,11 @@ import com.day.cq.commons.DownloadResource;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.WCMException;
+import com.day.cq.wcm.msm.api.LiveRelationship;
+import com.day.cq.wcm.msm.api.LiveRelationshipManager;
 import com.day.cq.wcm.msm.api.MSMNameConstants;
+import com.day.cq.wcm.msm.api.RolloutConfig;
+import com.day.cq.wcm.msm.api.RolloutConfigManager;
 import com.day.cq.wcm.msm.api.RolloutManager;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableMap;
@@ -311,7 +315,8 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
             // create live copies if flag is set
             if (generateLiveCopies) {
-                results.addAll(generateLiveCopies(skuPage, pageManager.getPage(categoryPage.getPath()), pageManager));
+                results.addAll(generateLiveCopies(skuPage, pageManager.getPage(categoryPage.getPath()), pageManager,
+                    context));
             }
         }
 
@@ -361,7 +366,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
             // create live copies if flag is set
             if (generateLiveCopies) {
-                results.addAll(generateLiveCopies(page, context.getParentPage(), pageManager));
+                results.addAll(generateLiveCopies(page, context.getParentPage(), pageManager, context));
             }
         }
 
@@ -447,13 +452,19 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     }
 
     private List<HybrisImporterResult> generateLiveCopies(final PageDecorator page, final PageDecorator parentPage,
-        final PageManagerDecorator pageManager) throws WCMException {
+        final PageManagerDecorator pageManager, final CatalogImporterContext context) throws WCMException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         final String template = Templates.isSkuPage(page) ? WatersConstants.TEMPLATE_SKU_PAGE :
             WatersConstants.TEMPLATE_REDIRECT_PAGE;
 
         final List<String> targets = new ArrayList<>();
+
+        final LiveRelationshipManager liveRelationshipManager = context.getResourceResolver().adaptTo(LiveRelationshipManager.class);
+
+        final RolloutConfigManager configManager = context.getResourceResolver().adaptTo(RolloutConfigManager.class);
+
+        final RolloutConfig config = configManager.getRolloutConfig(WatersConstants.DEFAULT_ROLLOUT_CONFIG_PATH);
 
         for (final PageDecorator liveCopyParent : siteRepository.getLiveCopyPages(parentPage)) {
 
@@ -472,7 +483,9 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
                     results.add(HybrisImporterResult.fromCategoryPage(liveCopyPage, HybrisImportStatus.CREATED));
                 }
 
-                targets.add(liveCopyPage.getPath());
+                final LiveRelationship relation = liveRelationshipManager.establishRelationship(page, liveCopyPage,
+                    false, false, config);
+                targets.add(relation.getTargetPath());
             }
 
         }
@@ -488,7 +501,6 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         final RolloutManager.RolloutParams params = new RolloutManager.RolloutParams();
 
         params.isDeep = false;
-        params.reset = false;
         params.master = page;
         params.trigger = RolloutManager.Trigger.ROLLOUT;
         params.targets = targets.stream().toArray(String[]::new);
