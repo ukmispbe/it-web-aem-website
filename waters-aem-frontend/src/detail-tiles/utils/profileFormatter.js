@@ -8,9 +8,9 @@ export const getAddressesByType = (addresses, type) => {
     let addressType = "TBD";
 
     if (type === "shipping") {
-        addressType = "ShippingAddress";
+        addressType = "shippingAddress";
     } else if (type === "billing") {
-        addressType = "MailingAddress";
+        addressType = "billingAddress";
     }
 
     return addresses ? addresses.filter(address => address.addressType === addressType) : [];

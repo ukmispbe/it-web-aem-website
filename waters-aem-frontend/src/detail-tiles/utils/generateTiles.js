@@ -13,9 +13,9 @@ const newNotification = (title, description, icon) => ({
 
 export default (data, type) => {
     if(!data) return [];
-
     switch (type) {
         case "personal":
+            data.country = data.localeCountry;
             return [{
                 "name": "personalDetailsTile",
                 "columns": [
@@ -28,13 +28,16 @@ export default (data, type) => {
         case "shipping":
         case "billing":
             return [
-                ...getAddressesByType(data.userAddress, type).map(address => ({
-                    "name": address.id,
-                    "columns": [
-                        newColumn("", address.company, getFullAddress(address), address.country)
-                    ],
-                    "defaultValues": address
-                }))
+                ...getAddressesByType(data.userAddress, type).map(address => {
+                    address.country = address.countryCode;
+                    return {
+                        "name": address.id,
+                        "columns": [
+                            newColumn("", address.company, getFullAddress(address), address.country)
+                        ],
+                        "defaultValues": address
+                    };
+                })
             ];
 
         case "password":
