@@ -38,12 +38,8 @@ export default (data, type) => {
             ];
 
         case "password":
-            return [{
-                "name": "changePasswordTile",
-                "columns": [
-                    newColumn("•••••••••••••••••••")
-                ]
-            }];
+            // Paul: EDIT HERE FOR CHANGE PASSWORD
+            return [];
 
         default:
             return [];

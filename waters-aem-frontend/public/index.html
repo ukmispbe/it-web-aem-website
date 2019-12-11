@@ -36,7 +36,6 @@
             <div class="cmp-detail-tile--attach" id="personal-details-tile"></div>
             <div class="cmp-detail-tile--attach" id="shipping-details-tile"></div>
             <div class="cmp-detail-tile--attach" id="billing-details-tile"></div>
-            <div class="cmp-detail-tile--attach" id="changePassword-details-tile"></div>
             <!-- END: Detail Tiles -->
 
             <!-- Registration Form -->
@@ -488,63 +487,6 @@
                 "icons": {
                     "edit": "./edit-2.svg",
                     "add": "./add.svg"
-                }
-            }
-        </script>
-        <script type="application/json" id="cmp-detail-tiles--changePassword">
-            {
-                "name": "changePassword",
-                "type": "password",
-                "title": "Change Password",
-                "form": {
-                    "submitEndpoint": "http://waters.com",
-                    "buttonText": "Change Password",
-                    "cancelText": "Cancel",
-                    "icons": {
-                        "checkmarkIcon": "./checkmark.svg",
-                        "validIcon": "./checkmark.svg",
-                        "invalidIcon": "./attention.svg",
-                        "eyeIcon": "./eye.svg",
-                        "eyeOffIcon": "./eye-off.svg",
-                        "signInIcon": "./user.svg"
-                    },
-                    "fields": [
-                        {
-                            "type": "password",
-                            "name": "currentPassword",
-                            "label": "Enter Current Password",
-                            "validation": {
-                                "required": true,
-                                "requiredMsg": "Please enter your current password."
-                            }
-                        },
-                        {
-                            "type": "password",
-                            "name": "newPassword",
-                            "label": "Create New Password",
-                            "hasMatch": true,
-                            "matchLabel": "Confirm New Password",
-                            "validation": {
-                                "required": true,
-                                "validateFnName": "password",
-                                "validationMsg": "Please enter a valid password.",
-                                "requiredMsg": "Please enter a password.",
-                                "nonMatchingMsg": "Passwords must match. Please try again.",
-                                "requirementsLabel": "Your password must include",
-                                "requirements": [
-                                    {"name": "shortPassword", "msg": "at least 8 Characters"},
-                                    {"name": "noUppercase", "msg": "at least 1 uppercase letter"},
-                                    {"name": "noLowercase", "msg": "at least 1 lowercase letter"},
-                                    {"name": "noDigits", "msg": "at least 1 digit"},
-                                    {"name": "noSpecial", "msg": "at least 1 special character (for example, !, $, #, %)"}
-                                ]
-                            }
-                        }
-                    ]
-                },
-                "canCreate": false,
-                "icons": {
-                    "edit": "./edit-2.svg"
                 }
             }
         </script>
