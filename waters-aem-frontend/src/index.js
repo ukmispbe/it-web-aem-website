@@ -15,6 +15,7 @@ import Form from "./forms/form";
 import { registrationSubmit } from "./forms/services/submit";
 import Video from './video/index';
 import Chat from './chat';
+import WeChat from './wechat';
 
 if (process.env.NODE_ENV !== 'production') {
     const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -324,4 +325,15 @@ if (chatContainer) {
         />,
         chatContainer
     );
+}
+
+const wechatLink = document.querySelector('.cmp-footer__social-links__item--wechat');
+
+if (wechatLink) {
+    const pageContainer = document.querySelector('body.page');
+    const data = wechatLink.dataset.wechatQrSrc;
+    ReactDOM.render(
+        <WeChat config={data} />,
+        pageContainer
+    )
 }

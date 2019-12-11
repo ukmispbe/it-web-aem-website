@@ -99,6 +99,10 @@ class Modal extends React.Component {
             return (
                 <MyAccountModalBody list={state.config.list}/>
             )
+        } else if (state.theme == 'wechat') {
+            return (
+                <WeChatModalBody />
+            )
         } else {
 
             if (this.state.errorObj && this.state.errorObj.ok === false) {
