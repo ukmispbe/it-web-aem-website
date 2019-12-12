@@ -16,7 +16,7 @@ const DetailTiles = ({
     form,
     icons
 }) => {
-    const { tiles } = useProfile(fetchEndPoint, type);
+    const { tiles } = useProfile(fetchEndPoint, type, icons.refresh);
 
     const renderTiles = () => {
         if (!tiles.length) {

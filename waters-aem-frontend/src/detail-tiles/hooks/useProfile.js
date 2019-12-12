@@ -4,7 +4,7 @@ import generateTiles from '../utils/generateTiles';
 import UserDetails from '../../my-account/services/UserDetails';
 import SessionStore from '../../stores/sessionStore';
 
-export default (fetchEndPoint, type) => {
+export default (fetchEndPoint, type, icon) => {
     const [data, setData] = useState();
     const [tiles, setTiles] = useState([]);
 
@@ -25,11 +25,9 @@ export default (fetchEndPoint, type) => {
                 const userDetails = new UserDetails();
                 userDetails
                 .then((response) => {
-                    console.log(response);
                     setData(response);
                 })
                 .catch(err => {
-                    console.log(err);
                     console.log(err.message);
                 });
             };
@@ -42,7 +40,7 @@ export default (fetchEndPoint, type) => {
 
     useEffect(() => {
         setTiles(
-            generateTiles(data, type)
+            generateTiles(data, type, icon)
         );
     }, [data]);
 

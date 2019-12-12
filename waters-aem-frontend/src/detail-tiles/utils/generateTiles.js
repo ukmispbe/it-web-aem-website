@@ -1,4 +1,10 @@
-import { getAddressesByType, getFullAddress, getFullName, getPhoneFormat } from './profileFormatter';
+import {
+    getAddressesByType,
+    getFullAddress,
+    getFullName,
+    getPhoneFormat,
+    getCountryName
+} from './profileFormatter';
 
 const newColumn = (title, ...text) => ({
     "title": title,
@@ -11,16 +17,18 @@ const newNotification = (title, description, icon) => ({
     "icon": icon
 });
 
-export default (data, type) => {
+export default (data, type, icon) => {
     if(!data) return [];
+
     switch (type) {
         case "personal":
             data.country = data.localeCountry;
+
             return [{
                 "name": "personalDetailsTile",
                 "columns": [
-                    newColumn(getFullName(data), "Waters Corporation"),
-                    newColumn("", data.email, getPhoneFormat(data.phone), data.localeCountry)
+                    newColumn(getFullName(data), data.company || "No Company Found"),
+                    newColumn("", data.email, getPhoneFormat(data.phone), getCountryName(data.country))
                 ],
                 "defaultValues": data
             }];
@@ -33,7 +41,7 @@ export default (data, type) => {
                     return {
                         "name": address.id,
                         "columns": [
-                            newColumn("", address.company, getFullAddress(address), address.country)
+                            newColumn("", address.company, getFullAddress(address), getCountryName(address.country))
                         ],
                         "defaultValues": address
                     };
