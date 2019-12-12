@@ -1,14 +1,6 @@
 import "whatwg-fetch";
 import SessionStore from "../../stores/sessionStore";
 
-const statusCodes = {
-    success: 200,
-    badRequest400: 400,
-    internalServerError500: 500,
-    userDetailsNotRetrieved804: 804,
-    noUserToken: 'No User Token'
-}
-
 const getData = async (url) => {
     const response = await fetch(url, {
         method: 'GET',
@@ -36,7 +28,7 @@ const UserDetails = async (
         const replacedURL = url.replace("{email}", encodeURI(data).replace(/#/g, '%23'));
         const response = await getData(replacedURL);
 
-        if (response.status === statusCodes.success) {
+        if (response.status === 200) {
             const responseJSON = await response.json();
             sessionStore.setUserDetails(responseJSON)
             return responseJSON;
@@ -49,4 +41,3 @@ const UserDetails = async (
 }
 
 export default UserDetails;
-export { statusCodes };
