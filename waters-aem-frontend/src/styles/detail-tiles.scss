@@ -95,24 +95,25 @@
             }
 
             &-notification {
-                display: inline-block;
-                margin: $space-xxs $space-s;
+                display: inline-flex;
+                margin: $space-xxs $space-xxl $space-xxs $space-s;
                 background: $color-red-10;
                 border: 1px solid $color-red-20;
                 padding: $space-xxs;
-                padding-top: $space-xxxs;
                 border-radius: 4px;
 
                 &--icon {
                     display: inline-block;
                     margin-right: $space-xxs;
+                    height: $icon-m;
+                    width: $icon-m;
 
                     div {
                         display: inline-block;
+                        height: $icon-m;
+                        width: $icon-m;
 
                         svg {
-                            position: relative;
-                            top: ($space-xxxs + 0.05);
                             height: $icon-m;
                             width: $icon-m;
 
