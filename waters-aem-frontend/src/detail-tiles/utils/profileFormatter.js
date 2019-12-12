@@ -1,11 +1,15 @@
 import { getCountry } from 'country-state-picker';
 
-export const capitalize = (str) => (str.split(' ').map(word => {
-    return word[0].toUpperCase() + word.slice(1, word.length);
-})).join(' ');
+export const capitalize = (str) => {
+    if (!str || str.trim() === "") return "";
+
+    return ((str.split(' ').map(word => {
+        return word[0].toUpperCase() + word.slice(1, word.length);
+    })).join(' '));
+};
 
 export const getCountryName = (countryCode) => {
-    if (!countryCode) return "";
+    if (!countryCode || countryCode.trim() === "") return "";
 
     const country = getCountry(countryCode).name;
 
@@ -25,7 +29,7 @@ export const getFullName = (data) => {
 };
 
 export const getFullAddress = (address) => {
-    if (!address) return "";
+    if (!address || (Object.entries(address).length === 0 && address.constructor === Object)) return "";
 
     const street = address.street ? address.street.trim() + ", " : "";
     const city = address.city ? address.city.trim() + ", " : "";
@@ -36,14 +40,14 @@ export const getFullAddress = (address) => {
 };
 
 export const getPhoneFormat = (phone) => {
-    if (!phone) return "";
+    if (!phone || phone.trim("") === "") return "";
     let tmpPhone = phone.slice(0, phone.length).trim();
     let formattedPhone = "";
 
     while(tmpPhone.length) {
         if (tmpPhone.length > 4) {
             formattedPhone += (tmpPhone.slice(0,3) + "-");
-            tmpPhone = tmpPhone(3, tmpPhone.length);
+            tmpPhone = tmpPhone.slice(3, tmpPhone.length);
         } else {
             formattedPhone += (tmpPhone.slice(0, tmpPhone.length));
             tmpPhone = "";
@@ -62,5 +66,5 @@ export const getAddressesByType = (addresses, type) => {
         addressType = "billingAddress";
     }
 
-    return addresses ? addresses.filter(address => address.addressType === addressType) : [];
+    return addresses.length ? addresses.filter(address => address.addressType === addressType) : [];
 };
