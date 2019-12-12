@@ -1,5 +1,9 @@
 import { getCountry } from 'country-state-picker';
 
+export const capitalize = (str) => (str.split(' ').map(word => {
+    return word[0].toUpperCase() + word.slice(1, word.length);
+})).join(' ');
+
 export const getCountryName = (countryCode) => {
     if (!countryCode) return "";
 
@@ -17,7 +21,7 @@ export const getFullName = (data) => {
     const firstName = data.firstName ? data.firstName.trim() : "";
     const lastName = data.lastName ? data.lastName.trim() : "";
 
-    return (firstName + " " + lastName).trim();
+    return capitalize((firstName + " " + lastName).trim());
 };
 
 export const getFullAddress = (address) => {
@@ -28,7 +32,7 @@ export const getFullAddress = (address) => {
     const region = address.stateRegion ? address.stateRegion.trim() + " " : "";
     const zip = address.zip ? address.zip.trim() : "";
 
-    return (street + city + region + zip).trim();
+    return capitalize((street + city + region + zip).trim());
 };
 
 export const getPhoneFormat = (phone) => {

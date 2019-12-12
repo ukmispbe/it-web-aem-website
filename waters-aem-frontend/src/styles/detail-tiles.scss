@@ -2,16 +2,27 @@
     margin-bottom: $space-xl;
 
     &--add {
-        display: inline-block;
+        display: inline-flex;
         cursor: pointer;
-        color: $color-link;
 
-        div {
+        &-title {
+            @include font-body;
             display: inline-block;
-            position: relative;
-            top: 1px;
+            color: $color-link;
+        }
+
+        &-icon {
+            display: inline-block;
+            height: $icon-s;
+            width: $icon-s;
+            margin-right: $space-xxs;
 
             svg {
+                position: relative;
+                top: 2px;
+                height: $icon-s;
+                width: $icon-s;
+
                 circle, line {
                     stroke: $color-link;
                 }
@@ -19,11 +30,17 @@
         }
 
         &:hover {
-            color: $color-link-hover;
+            .cmp-detail-tiles--add {
+                &-title {
+                    color: $color-link-hover;
+                }
 
-            svg {
-                circle, line {
-                    stroke: $color-link-hover!important;
+                &-icon {
+                    svg {
+                        circle, line {
+                            stroke: $color-link-hover!important;
+                        }
+                    }
                 }
             }
         }
@@ -38,39 +55,61 @@
         &--tile {
             display: block;
             background-color: $color-background-light;
-            padding: $space-xs;
+            padding: $space-m;
             margin-bottom: $space-s;
             position: relative;
 
             &-edit {
+                display: inline-flex;
                 cursor: pointer;
                 position: absolute;
-                top: ($space-xs + $space-xxs);
-                right: ($space-s + $space-xs);
-                color: $color-link;
+                top: $space-m;
+                right: $space-m;
 
-                div {
-                    display: inline-block;
-                    position: relative;
-                    top: 1px;
-
-                    svg {
-                        color: $color-link;
-                        path {
-                            stroke: $color-link;
-                        }
-                    }
-
+                &--title {
+                    @include font-body;
+                    color: $color-link;
                 }
 
+                &--icon {
+                    height: $icon-s;
+                    width: $icon-s;
+                    margin-right: $space-xxxs;
+
+                    div {
+                        height: $icon-s;
+                        width: $icon-s;
+                        display: inline-block;
+                        position: relative;
+                        top: 1px;
+
+                        svg {
+                            height: $icon-s;
+                            width: $icon-s;
+                            color: $color-link;
+
+                            path {
+                                stroke: $color-link;
+                            }
+                        }
+                    }
+                }
+
+
                 &:hover {
-                    color: $color-link-hover;
+                    .cmp-detail-tiles-list--tile-edit {
+                        &--title {
+                            color: $color-link-hover;
+                        }
 
-                    svg {
-                        color: $color-link-hover;
+                        &--icon {
+                            svg {
+                                color: $color-link-hover;
 
-                        path {
-                            stroke: $color-link-hover!important;
+                                path {
+                                    stroke: $color-link-hover!important;
+                                }
+                            }
                         }
                     }
                 }
@@ -78,7 +117,8 @@
 
             &-column {
                 display: inline-block;
-                padding: $space-xxs $space-xxl $space-xxs $space-s;
+                margin-right: $space-xxl;
+                margin-bottom: $space-s;
 
                 &--title {
                     @include font-h4;
@@ -96,7 +136,6 @@
 
             &-notification {
                 display: inline-flex;
-                margin: $space-xxs $space-xxl $space-xxs $space-s;
                 background: $color-red-10;
                 border: 1px solid $color-red-20;
                 padding: $space-xxs;

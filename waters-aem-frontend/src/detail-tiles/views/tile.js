@@ -47,7 +47,8 @@ const Tile = ({
     const renderTile = () => {
         return (<>
             <div className="cmp-detail-tiles-list--tile-edit" onClick={handleToggle}>
-                <ReactSVG src={icon}/> Edit
+                <ReactSVG src={icon} className="cmp-detail-tiles-list--tile-edit--icon"/>
+                <div className="cmp-detail-tiles-list--tile-edit--title">Edit</div>
             </div>
 
             {renderColumns()}
@@ -62,7 +63,10 @@ const Tile = ({
                 <div className="cmp-detail-tiles-list--tile-noAddress--title">
                     {blank.title}
                 </div>
-                <div className="cmp-detail-tiles--add"><ReactSVG src={blank.addIcon} /> {blank.addTitle}</div>
+                <div className="cmp-detail-tiles--add">
+                    <ReactSVG src={blank.addIcon} className="cmp-detail-tiles--add-icon"/>
+                    <div className="cmp-detail-tiles--add-title">{blank.addTitle}</div>
+                </div>
             </div>
         </>);
     };

@@ -41,12 +41,12 @@ export default (data, type, icon) => {
                     let tile = {
                         "name": address.id,
                         "columns": [
-                            newColumn(address.preferred ? "Preferred Address" : "", address.company, getFullAddress(address), getCountryName(address.country))
+                            newColumn(address.preferred || true ? "Preferred Address" : "", address.company, getFullAddress(address), getCountryName(address.country))
                         ],
                         "defaultValues": address
                     };
 
-                    if (address.pending) {
+                    if (address.pending || true) {
                         tile.notification = newNotification("Address Verification Pending", "Orders may be delayed", icon);
                     }
 

@@ -32,7 +32,8 @@ export default (fetchEndPoint, type, icon) => {
                 });
             };
 
-            fetchData();
+            if (!!fetchEndPoint) fetchData();
+            else setData({});
         };
 
         return unsubscribe();

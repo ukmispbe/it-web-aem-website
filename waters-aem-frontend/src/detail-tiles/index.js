@@ -55,7 +55,10 @@ const DetailTiles = ({
                 {renderTiles()}
             </div>
             {canCreate && !!tiles.length &&
-            <div className="cmp-detail-tiles--add"><ReactSVG src={icons.add} /> {addTitle}</div>}
+            (<div className="cmp-detail-tiles--add">
+                <ReactSVG src={icons.add} className="cmp-detail-tiles--add-icon"/>
+                <div className="cmp-detail-tiles--add-title">{addTitle}</div>
+            </div>)}
         </div>
     );
 };
