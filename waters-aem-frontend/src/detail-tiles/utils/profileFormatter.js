@@ -1,13 +1,39 @@
 import { getCountry } from 'country-state-picker';
 
-export const getCountryName = (countryCode) => (countryCode ? getCountry(countryCode).name : "");
+export const getCountryName = (countryCode) => {
+    if (!countryCode) return "";
 
-export const getFullName = (data) => (data.firstName + " " + data.lastName);
+    const country = getCountry(countryCode).name;
 
-export const getFullAddress = (address) => address ? (address.street + ", " + address.city + ", " + address.stateRegion + " " + address.zip) : "";
+    switch (country) {
+        case "United States of America":
+            return "United States";
+        default:
+            return country;
+    }
+};
+
+export const getFullName = (data) => {
+    const firstName = data.firstName ? data.firstName.trim() : "";
+    const lastName = data.lastName ? data.lastName.trim() : "";
+
+    return (firstName + " " + lastName).trim();
+};
+
+export const getFullAddress = (address) => {
+    if (!address) return "";
+
+    const street = address.street ? address.street.trim() + ", " : "";
+    const city = address.city ? address.city.trim() + ", " : "";
+    const region = address.stateRegion ? address.stateRegion.trim() + " " : "";
+    const zip = address.zip ? address.zip.trim() : "";
+
+    return (street + city + region + zip).trim();
+};
 
 export const getPhoneFormat = (phone) => {
-    let tmpPhone = phone.slice(0, phone.length);
+    if (!phone) return "";
+    let tmpPhone = phone.slice(0, phone.length).trim();
     let formattedPhone = "";
 
     while(tmpPhone.length) {
