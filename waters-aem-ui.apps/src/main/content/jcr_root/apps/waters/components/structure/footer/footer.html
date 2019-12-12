@@ -44,13 +44,6 @@
                            href="${languageLink.page.href}">${languageLink.languageTitle}</a>
                     </div>
                 </div>
-                <div class="cmp-footer__selector__language">
-                    <a href="${footer.countryPages[0].page.href}">${footer.countryPages[0].title}</a>
-                    <div class="cmp-footer__selector__language--options"
-                         data-sly-list.countryPage="${footer.countryPages}">
-                        <a href="${countryPage.homepageLink.href}">${countryPage.title}</a>
-                    </div>
-                </div>
             </div>
             <div class="cmp-footer__links ${footer.showLegalIcon ? 'china-legal' : ''}">
                 <nav data-sly-test="${footer.footerLinks || footer.showLegalIcon}">
@@ -130,6 +123,9 @@
         "changeCountryNoteText": "${'Note' @ i18n, context='unsafe'}",
         "changeCountryButton": "${'Change Country' @ i18n, context='unsafe'}"
     }
+</script>
+<script type="application/json" id="country-list-json">
+    ${footer.countryPagesJson @ context='unsafe'}
 </script>
 <script type="application/json" id="commerce-configs-json">
     {
