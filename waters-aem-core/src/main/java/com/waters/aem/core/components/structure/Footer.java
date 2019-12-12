@@ -21,6 +21,7 @@ import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.SiteContext;
+import com.waters.aem.core.components.content.CountryList;
 import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
 import com.waters.aem.core.components.content.links.BasicLink;
 import com.waters.aem.core.components.content.links.IconOnlyLink;
@@ -44,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Component(value = "Footer",
     description = "This is the Footer component for Waters site",
@@ -67,20 +69,23 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     public static final String RESOURCE_TYPE = "waters/components/structure/footer";
 
-    @Self
-    private SiteContext siteContext;
+    @Inject
+    private PageDecorator currentPage;
 
     @OSGiService
     private YourAmigoService yourAmigoService;
 
-    @Inject
-    private PageDecorator currentPage;
+    @OSGiService
+    private WatersCommerceService watersCommerceService;
+
+    @Self
+    private SiteContext siteContext;
+
+    @Self
+    private CountryList countryList;
 
     @ChildResource(name = "../")
     private DataLayer dataLayer;
-
-    @OSGiService
-    private WatersCommerceService watersCommerceService;
 
     @DialogField(fieldLabel = "Logo",
         fieldDescription = "Select the logo image to display on footer",
@@ -200,7 +205,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     @InheritInject
     private List<IconOnlyLink> socialLinks;
 
-    private List<LanguageSelectorItem> languagePages;
+    private List<CountryLanguageSelectorItem> languagePages;
 
     @JsonProperty
     public Image getLogoImage() {
@@ -286,7 +291,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
         return Locale.CHINA.getCountry().equals(siteContext.getLocaleWithCountry().getCountry());
     }
 
-    public List<LanguageSelectorItem> getLanguagePages() {
+    public List<CountryLanguageSelectorItem> getLanguagePages() {
         if (languagePages == null) {
             languagePages = new ArrayList<>();
 
@@ -295,12 +300,18 @@ public final class Footer extends AbstractComponent implements ComponentExporter
                         languagePage.findAncestor(WatersConstants.PREDICATE_HOME_PAGE).orNull();
 
                 if (languageHomepage != null) {
-                    languagePages.add(new LanguageSelectorItem(languagePage));
+                    languagePages.add(new CountryLanguageSelectorItem(languagePage));
                 }
             }
         }
 
         return languagePages;
+    }
+
+    public List<CountryLanguageSelectorItem> getCountryPages() {
+        return countryList.getCountryRootPages().stream()
+                .map(CountryLanguageSelectorItem::new)
+                .collect(Collectors.toList());
     }
 
     public String getCountryName() {
