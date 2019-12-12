@@ -1,4 +1,8 @@
-const SessionStore = function() {
+const SessionStore = function () {
+    this.setUserToken = jest.fn(() => {});
+    this.getUserToken = jest.fn(() => {});
+    this.setUserDetails = jest.fn(() => {});
+    this.getUserDetails = jest.fn(() => {});
     this.setPreviousPagePosition = jest.fn(() => {});
     this.getPreviousPagePosition = jest.fn(() => {});
     this.removePreviousPagePosition = jest.fn(() => {});
