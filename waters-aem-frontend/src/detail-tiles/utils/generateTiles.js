@@ -38,13 +38,19 @@ export default (data, type, icon) => {
             return [
                 ...getAddressesByType(data.userAddress, type).map(address => {
                     address.country = address.countryCode;
-                    return {
+                    let tile = {
                         "name": address.id,
                         "columns": [
                             newColumn("", address.company, getFullAddress(address), getCountryName(address.country))
                         ],
                         "defaultValues": address
                     };
+
+                    if (true) {
+                        tile.notification = newNotification("Address Verification Pending", "Orders may be delayed", icon);
+                    }
+
+                    return tile;
                 })
             ];
 
