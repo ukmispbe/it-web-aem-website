@@ -1,28 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import ScreenSizes from '../../scripts/screenSizes';
 
-class CategoryTab extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    view = () => { 
-        const isActive = this.props.isActive ? " active" : "";
+const CategoryTab = (props) => {
+    const view = () => { 
+        const isActive = props.isActive ? " active" : "";
         return (
-            <div className={"cmp-search__categories-tabs--tab".concat(isActive)} onClick={e => this.props.onClick(this.props.index)}>
-                <span className={"cmp-search__categories-tabs--tab-name"}>{this.props.translation}</span>
+            <div className={"cmp-search__categories-tabs--tab".concat(isActive)} onClick={e => props.onClick(props.index)}>
+                <span className={"cmp-search__categories-tabs--tab-name"}>{props.translation}</span>
             </div>
         );
     }
 
-    render() {
-        return (
-            <>
-                {!ScreenSizes.isTabletAndUnder() ? this.view() : null}
-            </>
-        );
-    }
+    return (
+        <>
+            {!ScreenSizes.isTabletAndUnder() ? view() : null}
+        </>
+    );
 }
 
 CategoryTab.propTypes = {
@@ -32,6 +26,15 @@ CategoryTab.propTypes = {
     isActive: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired
+};
+
+CategoryTab.defaultProps = {
+    translation: '',
+    name: '',
+    count: 0,
+    isActive: false,
+    onClick: () => {},
+    index: -1
 };
 
 export default CategoryTab;
