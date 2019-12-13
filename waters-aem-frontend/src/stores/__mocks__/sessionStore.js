@@ -1,3 +1,14 @@
+const keys = {
+    previousPagePosition: 'waters.previousPagePosition',
+    previousPagePositionEnabled: 'waters.previousPagePositionEnabled',
+    fromSearchURL: 'waters.fromSearchURL',
+    searchTabHistory: 'waters.searchTabHistory',
+    previousPaginationClick: 'waters.previousPaginationClick',
+    dismissSystemWideNotification: 'waters.dismissSystemWideNotification',
+    userDetails: 'waters.userDetails',
+    userToken: 'waters.userToken'
+}
+
 const SessionStore = function () {
     this.setUserToken = jest.fn(() => {});
     this.getUserToken = jest.fn(() => {});
@@ -23,3 +34,4 @@ const SessionStore = function () {
 }
 
 export default SessionStore;
+export { keys };

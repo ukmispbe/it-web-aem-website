@@ -10,30 +10,31 @@ const getData = async (url) => {
         }
     });
 
-    return await response;
+    return response;
 };
 
-const UserDetails = async (
-    url = "https://test-www.waters.com:8443/api/waters/user/v1/details?email={email}"
-) => {
-    const sessionStore = new SessionStore();
-    const userData = sessionStore.getUserDetails();
+const replaceParameter = (url, data, string = "{email}") => url.replace(string, encodeURI(data).replace(/#/g, '%23'));
 
-    if (Object.entries(userData).length !== 0 && userData.constructor === Object) {  
+const UserDetails = async (
+    url = "https://test-www.waters.com:8443/api/waters/user/v1/details?email={email}",
+    sessionStore = new SessionStore()
+) => {
+    const userData = sessionStore.getUserDetails();
+    if (userData && Object.entries(userData).length !== 0 && userData.constructor === Object) {  
         return userData;
-    }
+    } 
 
     const data = sessionStore.getUserToken();
     if (data) {
-        const replacedURL = url.replace("{email}", encodeURI(data).replace(/#/g, '%23'));
+        const replacedURL = replaceParameter(url, data);
         const response = await getData(replacedURL);
+        const responseJSON = await response.json();
 
         if (response.status === 200) {
-            const responseJSON = await response.json();
             sessionStore.setUserDetails(responseJSON)
             return responseJSON;
         }
-
+    
         throw new Error(response.status);
     } 
 
@@ -41,3 +42,4 @@ const UserDetails = async (
 }
 
 export default UserDetails;
+export { getData, replaceParameter };

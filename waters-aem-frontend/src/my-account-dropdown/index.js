@@ -192,18 +192,19 @@ class MyAccountDropDown extends React.Component {
     }
 
     retrieveUserDetails = () => { 
-        /*
-            START TEMPORARY CODE --
+        if (this.props.config.userDetailsUrl && this.props.config.testUserToken) { 
 
-            Please use this code below until sign-in complete and user token is stored in session storage 
-            & User Details service is updated to use that token
-        */
             const sessionStore = new SessionStore();
-            sessionStore.setUserToken('wendy_batista@waters.com')
-        //END TEMPORARY CODE
+            /*
+                START TEMPORARY CODE --
+    
+                Please use this code below until sign-in complete and user token is stored in session storage 
+                & User Details service is updated to use that token
+            */
+                sessionStore.setUserToken(this.props.config.testUserToken)   
+            //END TEMPORARY CODE
 
-
-        const userDetails = new UserDetails();
+            const userDetails = new UserDetails(this.props.config.userDetailsUrl);
             userDetails
                 .then((response) => { 
                     let userName;
@@ -211,22 +212,17 @@ class MyAccountDropDown extends React.Component {
                         userName = response.firstName + ' ' + response.lastName;
                     }
 
-                    let accountNumber;
-                    if (Array.isArray(response.soldToAccounts)) { 
-                        const priorityAccount = this.findPriorityAccount(response.soldToAccounts)[0];
-                        accountNumber = priorityAccount.soldTo;
-                    }
-
                     this.newConfig.userDetails = {
                         userName: userName,
                         accountName: '',
-                        accountNumber: accountNumber
+                        accountNumber: ''
                     }
 
                 })
                 .catch(err => {
                     //console.log(err.message)
                 });
+        }
     }
 
     render() {
