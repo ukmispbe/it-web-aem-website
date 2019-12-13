@@ -348,6 +348,19 @@ if (resetPasswordContainer) {
     );
 }
 
+const changePasswordContainer = document.getElementById("changePassword-details-tile");
+
+if (changePasswordContainer) {
+    const config = JSON.parse(
+        document.getElementById("cmp-detail-tiles--changePassword").innerHTML
+    );
+
+    ReactDOM.render(
+        <DetailTiles {...config} />,
+        changePasswordContainer
+    );
+}
+
 const chatContainer = document.querySelector('.cmp-chat');
 
 if (chatContainer) {

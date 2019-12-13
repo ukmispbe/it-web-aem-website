@@ -37,9 +37,15 @@ export default (data, type) => {
                 }))
             ];
 
-        case "password":
-            // Paul: EDIT HERE FOR CHANGE PASSWORD
-            return [];
+            case "password":
+                // Paul: EDIT HERE FOR CHANGE PASSWORD
+                return [{
+                    "name": "",
+                    "columns": [
+                        newColumn("", "................")
+                        ],
+                    "defaultValues": ""
+                }];
 
         default:
             return [];

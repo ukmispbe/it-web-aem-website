@@ -89,3 +89,20 @@ export async function resetPasswordSubmit(data) {
         scrollToY(0);
     }
 }
+
+export async function changePasswordSubmit(data) {
+    delete data.confirmNewPassword;
+    data.email='testPB@waters.com';
+
+    const response = await postData(this.url, data);
+
+    // remove all previous server error notifications
+    this.setError();
+
+    if (response.status === 200) {
+        console.log("change password complete -> redirect", response.json());
+    } else {
+        this.setError(response);
+        scrollToY(0);
+    }
+}
