@@ -330,10 +330,12 @@ if (chatContainer) {
 const wechatLink = document.querySelector('.cmp-footer__social-links__item--wechat');
 
 if (wechatLink) {
-    const pageContainer = document.querySelector('body.page');
-    const data = wechatLink.dataset.wechatQrSrc;
+    const qrCodeImg = wechatLink.dataset.wechatQrSrc;
+    const title = wechatLink.dataset.wechatTitle;
+    const desc = wechatLink.dataset.wechatDesc;
+
     ReactDOM.render(
-        <WeChat config={data} />,
-        pageContainer
+        <WeChat qrCodeImg={qrCodeImg} title={title} desc={desc} />,
+        wechatLink
     )
 }

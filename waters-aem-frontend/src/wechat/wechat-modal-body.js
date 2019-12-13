@@ -2,20 +2,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class WeChatModalBody extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
     }
 
     render() {
-        return () {
+        const { text, qrCodeImg, title } = this.props.config;
+        return (
             <div className="cmp-modal__information">
+                <div className="cmp-modal__information-image">
+                    <img
+                        src={qrCodeImg}
+                        alt="WeChat QR code"
+                    />
+                </div>
+                <div className="cmp-modal__information-text">
+                    {text}
+                </div>
             </div>
-        }
+        )
     }
 }
 
 WeChatModalBody.propTypes = {
-    imgSrc: PropTypes.string.isRequired;
+    config: PropTypes.object.isRequired
 }
 
 export default WeChatModalBody;
