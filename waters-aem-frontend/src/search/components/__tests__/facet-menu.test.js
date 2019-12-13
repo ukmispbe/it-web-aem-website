@@ -14,7 +14,7 @@ describe('Feature: FacetMenu Component', () => {
 
     describe('Scenario: Rendering', () => {
         describe('When content type has been specified', () => {
-            it('Then it should martch snapshot', () => {
+            it('Then it should match snapshot', () => {
                 const json = renderer.create(<FacetMenu {...props} />);
 
                 expect(json).toMatchSnapshot();
