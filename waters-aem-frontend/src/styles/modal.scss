@@ -132,6 +132,10 @@
             @include font-h3;
             color: $color-black;
         }
+
+        .cmp-modal__information-image {
+            margin-bottom: $space-l;
+        }
     }
 
     .cmp-modal__btn {
@@ -162,6 +166,18 @@
                 text-decoration: underline;
             }
         }
+    }
+
+    &.wechat{
+         text-align: center;
+
+         .cmp-modal__title-text {
+            @include font-h3;
+         }
+
+         .cmp-modal__information-text {
+            @include font-body;
+         }
     }
 }
 
@@ -199,5 +215,4 @@
             }
         }
     }
-
 }
