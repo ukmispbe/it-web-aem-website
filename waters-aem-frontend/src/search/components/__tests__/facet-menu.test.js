@@ -13,7 +13,7 @@ describe('Feature: FacetMenu Component', () => {
     };
 
     describe('Scenario: Rendering', () => {
-        describe('When content type has been selected specified', () => {
+        describe('When content type has been specified', () => {
             it('Then it should martch snapshot', () => {
                 const json = renderer.create(<FacetMenu {...props} />);
 
@@ -23,7 +23,7 @@ describe('Feature: FacetMenu Component', () => {
     });
 
     describe('Scenario: User Interaction', () => {
-        describe('When the heading the clicked', () => {
+        describe('When the heading is clicked', () => {
             it('Then it should call the clear handler property', () => {
                 const spyOnClear = spyOn(props, 'onClear');
                 const wrapper = shallow(<FacetMenu {...props} />);

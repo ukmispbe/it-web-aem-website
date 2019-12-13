@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Feature: FacetMenu Component Scenario: Rendering When content type has been selected specified Then it should martch snapshot 1`] = `
+exports[`Feature: FacetMenu Component Scenario: Rendering When content type has been specified Then it should martch snapshot 1`] = `
 <div
   className="facet-menu-container"
 >
