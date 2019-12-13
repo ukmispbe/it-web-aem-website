@@ -328,14 +328,9 @@ if (chatContainer) {
 }
 
 const wechatLink = document.querySelector('.cmp-footer__social-links__item--wechat');
+const wechatContainer = document.querySelector('.cmp-wechat-container');
 
 if (wechatLink) {
-    const qrCodeImg = wechatLink.dataset.wechatQrSrc;
-    const title = wechatLink.dataset.wechatTitle;
-    const desc = wechatLink.dataset.wechatDesc;
-
-    ReactDOM.render(
-        <WeChat qrCodeImg={qrCodeImg} title={title} desc={desc} />,
-        wechatLink
-    )
+    const config = JSON.parse(document.getElementById("wechat-json").innerHTML);
+    ReactDOM.render(<WeChat config={config} />, wechatContainer);
 }
