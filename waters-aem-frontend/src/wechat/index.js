@@ -17,6 +17,27 @@ class WeChat extends React.Component {
         }
     }
 
+    componentDidMount() {
+        const wechatSelector = document.querySelector('.cmp-footer__social-links__item--wechat');
+
+        if (wechatSelector && wechatSelector.firstElementChild.tagName === "A") {
+            wechatSelector.firstElementChild.addEventListener('click', this.showModal);
+        }
+    }
+
+    componentWillUnMount() {
+        const wechatSelector = document.querySelector('.cmp-footer__social-links__item--wechat');
+
+        if (wechatSelector && wechatSelector.firstElementChild.tagName === "A") {
+            wechatSelector.firstElementChild.removeEventListener('click', this.showModal);
+        }
+    }
+
+    showModal = (e) => {
+        e.preventDefault();
+        this.toggleModal();
+    }
+
     toggleModal = () => {
         this.setState({isModalShown: !this.state.isModalShown})
     };
