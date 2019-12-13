@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: FacetMenu Component Scenario: Rendering When content type has been selected specified Then it should martch snapshot 1`] = `
+<div
+  className="facet-menu-container"
+>
+  <div
+    className="facet-menu-container__heading"
+  >
+    <div
+      className="heading--with-selected-value"
+    >
+      <div
+        className="back-btn"
+      >
+        <a
+          href="javascript:void(0)"
+          onClick={[MockFunction]}
+        >
+          <div />
+           
+          Filter By
+        </a>
+      </div>
+      <h3>
+        Application Note
+      </h3>
+    </div>
+  </div>
+  <div
+    className="facet-menu-container__body"
+  />
+</div>
+`;

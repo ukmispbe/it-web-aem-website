@@ -5,7 +5,7 @@ import ContentTypeMenu from '../content-type-menu';
 
 describe('Feature: ContentTypeMenu Component', () => {
     const props = {
-        heading: '',
+        heading: 'Filter By',
         items: [],
         onClick: jest.fn()
     };

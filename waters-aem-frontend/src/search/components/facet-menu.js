@@ -28,7 +28,7 @@ FacetMenu.propTypes = {
     heading: PropTypes.string.isRequired,
     selectedValue: PropTypes.string.isRequired,
     previousIcon: PropTypes.string.isRequired,
-    filterTags: PropTypes.arrayOf(PropTypes.object).isRequired,
+    filterTags: PropTypes.object.isRequired,
     onClear: PropTypes.func.isRequired
 };
 
@@ -36,7 +36,7 @@ FacetMenu.defaultProps = {
     heading: '',
     selectedValue: '',
     previousIcon: '',
-    filterTags: [],
+    filterTags: <></>,
     onClear: () => {}
 };
 

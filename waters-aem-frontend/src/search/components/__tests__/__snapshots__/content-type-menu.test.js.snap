@@ -7,7 +7,7 @@ exports[`Feature: ContentTypeMenu Component Scenario: Rendering When content typ
   <div
     className="content-type-menu-container__heading"
   >
-    
+    Filter By
   </div>
   <div
     className="content-type-menu-container__body"
@@ -36,7 +36,7 @@ exports[`Feature: ContentTypeMenu Component Scenario: Rendering When no content 
   <div
     className="content-type-menu-container__heading"
   >
-    
+    Filter By
   </div>
   <div
     className="content-type-menu-container__body"

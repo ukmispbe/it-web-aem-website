@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const ContentTypeMenu = props => {
     const Items = 
-        () =>
+        () =>   
             props.items.map(item => {
                     return (
                         <div key={item.facetName} 
