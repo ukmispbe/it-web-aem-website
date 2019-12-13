@@ -6,12 +6,12 @@ const ContentTypeMenu = props => {
         () =>
             props.items.map(item => {
                     return (
-                        <div key={item.categoryFacetName} 
-                            className="categories-type-menu-container__item"
+                        <div key={item.facetName} 
+                            className="content-type-menu-container__item"
                             onClick={() => props.onClick(item)}>
                             
                             <div>
-                                <a href="javascript:void(0)"
+                                <a href="javascript:{0}"
                                     data-count={` (${item.count})`}>
                                     {item.facetTranslation}
                                 </a>
@@ -24,7 +24,7 @@ const ContentTypeMenu = props => {
         <div className="content-type-menu-container">
             <div className="content-type-menu-container__heading">{props.heading}</div>
             <div className="content-type-menu-container__body">
-                <Items />
+                {Items()}
             </div>
         </div>
     ); 

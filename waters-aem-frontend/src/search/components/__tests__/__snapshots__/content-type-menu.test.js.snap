@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: ContentTypeMenu Component Scenario: Rendering When content types are specified Then it should match snapshot 1`] = `
+<div
+  className="content-type-menu-container"
+>
+  <div
+    className="content-type-menu-container__heading"
+  >
+    
+  </div>
+  <div
+    className="content-type-menu-container__body"
+  >
+    <div
+      className="content-type-menu-container__item"
+      onClick={[Function]}
+    >
+      <div>
+        <a
+          data-count=" (5)"
+          href="javascript:{0}"
+        >
+          Application Note
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Feature: ContentTypeMenu Component Scenario: Rendering When no content types are specified Then it should match snapshot 1`] = `
+<div
+  className="content-type-menu-container"
+>
+  <div
+    className="content-type-menu-container__heading"
+  >
+    
+  </div>
+  <div
+    className="content-type-menu-container__body"
+  />
+</div>
+`;
