@@ -11,11 +11,14 @@ const Tile = ({
     form,
     icon,
     defaultValues,
+    submitFn,
     isNoAddress=false
 }) => {
     const [formShown, setFormShown] = useState(false);
 
     const handleToggle = () => setFormShown(!formShown);
+
+    console.log('In Tile ', submitFn);
 
     const renderColumns = () => {
         return (
