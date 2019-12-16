@@ -1,11 +1,9 @@
 package com.waters.aem.core.components.content.detailtiles;
 
 import com.adobe.cq.export.json.ComponentExporter;
-import com.adobe.cq.export.json.ExporterConstants;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waters.aem.core.services.account.WatersAccountService;
-import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
 import javax.annotation.Nonnull;
@@ -18,8 +16,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
-    extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public abstract class AbstractDetailTiles implements ComponentExporter {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
