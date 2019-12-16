@@ -181,25 +181,37 @@ class MyAccountDropDown extends React.Component {
         }
     }
 
+    findPriorityAccount = (soldToAccounts) => {
+        return soldToAccounts.sort((a, b) => {
+            if(a.defaultFlag === b.defaultFlag) {
+                return a.soldTo.localeCompare(b.soldTo);
+            } else {
+                return b.defaultFlag - a.defaultFlag;
+            }
+        });     
+    }
+
     retrieveUserDetails = () => { 
-        /*
-            START TEMPORARY CODE --
+        if (this.props.config.userDetailsUrl && this.props.config.testUserToken) { 
 
-            Please use this code below until sign-in complete and user token is stored in session storage 
-            & User Details service is updated to use that token
-        */
             const sessionStore = new SessionStore();
-            sessionStore.setUserToken('wendy_batista@waters.com')
-        //END TEMPORARY CODE
+            /*
+                START TEMPORARY CODE --
+    
+                Please use this code below until sign-in complete and user token is stored in session storage 
+                & User Details service is updated to use that token
+            */
+                sessionStore.setUserToken(this.props.config.testUserToken)   
+            //END TEMPORARY CODE
 
-
-        const userDetails = new UserDetails();
+            const userDetails = new UserDetails(this.props.config.userDetailsUrl);
             userDetails
                 .then((response) => { 
                     let userName;
                     if (response.firstName && response.lastName) { 
                         userName = response.firstName + ' ' + response.lastName;
                     }
+
                     this.newConfig.userDetails = {
                         userName: userName,
                         accountName: '',
@@ -210,6 +222,7 @@ class MyAccountDropDown extends React.Component {
                 .catch(err => {
                     //console.log(err.message)
                 });
+        }
     }
 
     render() {

@@ -39,3 +39,4 @@ const SessionStore = function () {
 }
 
 export default SessionStore;
+export { keys };

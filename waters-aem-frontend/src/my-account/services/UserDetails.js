@@ -1,14 +1,6 @@
 import "whatwg-fetch";
 import SessionStore from "../../stores/sessionStore";
 
-const statusCodes = {
-    success: 200,
-    badRequest400: 400,
-    internalServerError500: 500,
-    userDetailsNotRetrieved804: 804,
-    noUserToken: 'No User Token'
-}
-
 const getData = async (url) => {
     const response = await fetch(url, {
         method: 'GET',
@@ -18,30 +10,31 @@ const getData = async (url) => {
         }
     });
 
-    return await response;
+    return response;
 };
 
-const UserDetails = async (
-    url = "https://test-www.waters.com:8443/api/waters/user/v1/details?email={email}"
-) => {
-    const sessionStore = new SessionStore();
-    const userData = sessionStore.getUserDetails();
+const replaceParameter = (url, data, string = "{email}") => url.replace(string, encodeURI(data).replace(/#/g, '%23'));
 
-    if (Object.entries(userData).length !== 0 && userData.constructor === Object) {  
+const UserDetails = async (
+    url = "https://test-www.waters.com:8443/api/waters/user/v1/details?email={email}",
+    sessionStore = new SessionStore()
+) => {
+    const userData = sessionStore.getUserDetails();
+    if (userData && Object.entries(userData).length !== 0 && userData.constructor === Object) {  
         return userData;
-    }
+    } 
 
     const data = sessionStore.getUserToken();
     if (data) {
-        const replacedURL = url.replace("{email}", encodeURI(data).replace(/#/g, '%23'));
+        const replacedURL = replaceParameter(url, data);
         const response = await getData(replacedURL);
+        const responseJSON = await response.json();
 
-        if (response.status === statusCodes.success) {
-            const responseJSON = await response.json();
+        if (response.status === 200) {
             sessionStore.setUserDetails(responseJSON)
             return responseJSON;
         }
-
+    
         throw new Error(response.status);
     } 
 
@@ -49,4 +42,4 @@ const UserDetails = async (
 }
 
 export default UserDetails;
-export { statusCodes };
+export { getData, replaceParameter };
