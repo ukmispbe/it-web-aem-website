@@ -12,7 +12,8 @@ class WeChat extends React.Component {
                  "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
                  "title": props.config.title,
                  "qrCodeImg": props.config.qrCodeImg,
-                 "text": props.config.desc
+                 "text": props.config.desc,
+                 "alt": props.config.alt
             }
         }
     }
