@@ -4,13 +4,13 @@
         {
             "name": "personalDetails",
             "type": "personal",
-            "title": "${'Personal Details' @ i18n, context='text'}",
+            "title": "${'Personal Details' @ i18n, context='unsafe'}",
             "fetchEndPoint": "${personal.myAccountUrl @ context='unsafe'}",
             "canCreate": false,
             "form": {
                 "submitEndpoint": "${personal.myAccountUpdateUrl @ context='unsafe'}",
-                "buttonText": "${'Save Changes' @ i18n, context='text'}",
-                "cancelText": "${'Cancel' @ i18n, context='text'}",
+                "buttonText": "${'Save Changes' @ i18n, context='unsafe'}",
+                "cancelText": "${'Cancel' @ i18n, context='unsafe'}",
                 "icons": {
                     "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                     "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
@@ -20,67 +20,67 @@
                     {
                         "type": "text",
                         "name": "firstName",
-                        "label": "${'First Name' @ i18n, context='text'}",
+                        "label": "${'First Name' @ i18n, context='unsafe'}",
                         "validation": {
                             "required": true,
                             "validateFnName": "noWhitespaceOnly",
-                            "validationMsg": "${'Please enter a valid first name.' @ i18n, context='text'}",
-                            "requiredMsg": "${'Please enter a first name.' @ i18n, context='text'}"
+                            "validationMsg": "${'Please enter a valid first name.' @ i18n, context='unsafe'}",
+                            "requiredMsg": "${'Please enter a first name.' @ i18n, context='unsafe'}"
                         }
                     },
                     {
                         "type": "text",
                         "name": "lastName",
-                        "label": "${'Last Name' @ i18n, context='text'}",
+                        "label": "${'Last Name' @ i18n, context='unsafe'}",
                         "validation": {
                             "required": true,
                             "validateFnName": "noWhitespaceOnly",
-                            "validationMsg": "${'Please enter a valid last name.' @ i18n, context='text'}",
-                            "requiredMsg": "${'Please enter a last name.' @ i18n, context='text'}"
+                            "validationMsg": "${'Please enter a valid last name.' @ i18n, context='unsafe'}",
+                            "requiredMsg": "${'Please enter a last name.' @ i18n, context='unsafe'}"
                         }
                     },
                     {
                         "type": "text",
                         "name": "company",
-                        "label": "${'Company' @ i18n, context='text'}",
+                        "label": "${'Company' @ i18n, context='unsafe'}",
                         "validation": {
                             "validateFnName": "noWhitespaceOnly",
-                            "validationMsg": "${'Please enter a valid company name.' @ i18n, context='text'}",
+                            "validationMsg": "${'Please enter a valid company name.' @ i18n, context='unsafe'}",
                             "required": true,
-                            "requiredMsg": "${'Please enter a company name.' @ i18n, context='text'}"
+                            "requiredMsg": "${'Please enter a company name.' @ i18n, context='unsafe'}"
                         }
                     },
                     {
                         "type": "email",
                         "name": "email",
                         "disabled": true,
-                        "label": "${'Email Address' @ i18n, context='text'}",
+                        "label": "${'Email Address' @ i18n, context='unsafe'}",
                         "validation": {
                             "required": true,
-                            "requiredMsg": "${'Please enter a valid email address.' @ i18n, context='text'}"
+                            "requiredMsg": "${'Please enter a valid email address.' @ i18n, context='unsafe'}"
                         }
                     },
                     {
                         "type": "text",
                         "name": "phone",
-                        "label": "${'Phone Number' @ i18n, context='text'}",
+                        "label": "${'Phone Number' @ i18n, context='unsafe'}",
                         "validation": {
                             "validateFnName": "noWhitespaceOnly",
-                            "validationMsg": "${'Please enter a valid phone number.' @ i18n, context='text'}",
+                            "validationMsg": "${'Please enter a valid phone number.' @ i18n, context='unsafe'}",
                             "required": true,
-                            "requiredMsg": "${'Please enter a phone number.' @ i18n, context='text'}"
+                            "requiredMsg": "${'Please enter a phone number.' @ i18n, context='unsafe'}"
                         }
                     },
                     {
                         "type": "dropdown",
                         "name": "country",
-                        "label": "${'Country' @ i18n, context='text'}",
-                        "placeholder": "${'Select...' @ i18n, context='text'}",
+                        "label": "${'Country' @ i18n, context='unsafe'}",
+                        "placeholder": "${'Select...' @ i18n, context='unsafe'}",
                         "options": ${personal.countriesJson @ context="unsafe"},
                         "disabled": true,
                         "validation": {
                             "required": true,
-                            "requiredMsg": "${'Please select your country.' @ i18n, context='text'}"
+                            "requiredMsg": "${'Please select your country.' @ i18n, context='unsafe'}"
                         }
                     }
                 ]

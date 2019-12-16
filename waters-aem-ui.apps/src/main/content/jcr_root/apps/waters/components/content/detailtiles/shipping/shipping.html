@@ -4,16 +4,16 @@
         {
             "name": "shippingAddresses",
             "type": "shipping",
-            "title": "${'Shipping Addresses' @ i18n, context='text'}",
+            "title": "${'Shipping Addresses' @ i18n, context='unsafe'}",
             "fetchEndPoint": "${shipping.myAccountUrl @ context='unsafe'}",
-            "noAddressMessage": "${'For a faster checkout experience, add your shipping address now.' @ i18n, context='text'}",
+            "noAddressMessage": "${'For a faster checkout experience, add your shipping address now.' @ i18n, context='unsafe'}",
             "formMessage": {
-                "text": "${'It may take up to 24 hours to verify a new or change of address. Orders may be delayed.' @ i18n, context='text'}"
+                "text": "${'It may take up to 24 hours to verify a new or change of address. Orders may be delayed.' @ i18n, context='unsafe'}"
             },
             "form": {
                 "submitEndpoint": "${shipping.myAccountUpdateUrl @ context='unsafe'}",
-                "buttonText": "${'Save Changes' @ i18n, context='text'}",
-                "cancelText": "${'Cancel' @ i18n, context='text'}",
+                "buttonText": "${'Save Changes' @ i18n, context='unsafe'}",
+                "cancelText": "${'Cancel' @ i18n, context='unsafe'}",
                 "icons": {
                     "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                     "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg"
@@ -22,75 +22,75 @@
                     {
                         "type": "text",
                         "name": "company",
-                        "label": "${'Company' @ i18n, context='text'}",
+                        "label": "${'Company' @ i18n, context='unsafe'}",
                         "validation": {
                             "validateFnName": "noWhitespaceOnly",
-                            "validationMsg": "${'Please enter a valid company name.' @ i18n, context='text'}",
+                            "validationMsg": "${'Please enter a valid company name.' @ i18n, context='unsafe'}",
                             "required": true,
-                            "requiredMsg": "${'Please enter a company name.' @ i18n, context='text'}"
+                            "requiredMsg": "${'Please enter a company name.' @ i18n, context='unsafe'}"
                         }
                     },
                     {
                         "type": "text",
                         "name": "street",
-                        "label": "${'Address' @ i18n, context='text'}",
+                        "label": "${'Address' @ i18n, context='unsafe'}",
                         "validation": {
                             "validateFnName": "noWhitespaceOnly",
-                            "validationMsg": "${'Please enter a valid address.' @ i18n, context='text'}",
+                            "validationMsg": "${'Please enter a valid address.' @ i18n, context='unsafe'}",
                             "required": true,
-                            "requiredMsg": "${'Please enter an address.' @ i18n, context='text'}"
+                            "requiredMsg": "${'Please enter an address.' @ i18n, context='unsafe'}"
                         }
                     },
                     {
                         "type": "text",
                         "name": "city",
-                        "label": "${'City' @ i18n, context='text'}",
+                        "label": "${'City' @ i18n, context='unsafe'}",
                         "validation": {
                             "validateFnName": "noWhitespaceOnly",
-                            "validationMsg": "${'Please enter a valid city.' @ i18n, context='text'}",
+                            "validationMsg": "${'Please enter a valid city.' @ i18n, context='unsafe'}",
                             "required": true,
-                            "requiredMsg": "${'Please enter a city.' @ i18n, context='text'}"
+                            "requiredMsg": "${'Please enter a city.' @ i18n, context='unsafe'}"
                         }
                     },
                     {
                         "type": "dropdown",
                         "name": "state",
-                        "label": "${'State/Province/Region' @ i18n, context='text'}",
-                        "placeholder": "${'Select...' @ i18n, context='text'}",
+                        "label": "${'State/Province/Region' @ i18n, context='unsafe'}",
+                        "placeholder": "${'Select...' @ i18n, context='unsafe'}",
                         "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
                         "options": ${shipping.countriesJson @ context="unsafe"},
                         "validation": {
                             "required": true,
-                            "requiredMsg": "${'Please select your region.' @ i18n, context='text'}"
+                            "requiredMsg": "${'Please select your region.' @ i18n, context='unsafe'}"
                         }
                     },
                     {
                         "type": "text",
                         "name": "zip",
-                        "label": "${'Zip/Postal Code' @ i18n, context='text'}",
+                        "label": "${'Zip/Postal Code' @ i18n, context='unsafe'}",
                         "validation": {
                             "validateFnName": "noWhitespaceOnly",
-                            "validationMsg": "${'Please enter a valid postal code.' @ i18n, context='text'}",
+                            "validationMsg": "${'Please enter a valid postal code.' @ i18n, context='unsafe'}",
                             "required": true,
-                            "requiredMsg": "${'Please enter a postal code.' @ i18n, context='text'}"
+                            "requiredMsg": "${'Please enter a postal code.' @ i18n, context='unsafe'}"
                         }
                     },
                     {
                         "type": "dropdown",
                         "name": "country",
-                        "label": "${'Country' @ i18n, context='text'}",
-                        "placeholder": "${'Select...' @ i18n, context='text'}",
+                        "label": "${'Country' @ i18n, context='unsafe'}",
+                        "placeholder": "${'Select...' @ i18n, context='unsafe'}",
                         "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
                         "options": ${shipping.countriesJson @ context="unsafe"},
                         "validation": {
                             "required": true,
-                            "requiredMsg": "${'Please select your country.' @ i18n, context='text'}"
+                            "requiredMsg": "${'Please select your country.' @ i18n, context='unsafe'}"
                         }
                     }
                 ]
             },
             "canCreate": true,
-            "addTitle": "${'Add New Shipping Address' @ i18n, context='text'}",
+            "addTitle": "${'Add New Shipping Address' @ i18n, context='unsafe'}",
             "icons": {
                 "edit": "/content/dam/waters/en/brand-assets/icons/edit-2.svg",
                 "add": "/content/dam/waters/en/brand-assets/icons/add.svg",
