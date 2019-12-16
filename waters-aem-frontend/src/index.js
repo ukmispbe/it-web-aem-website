@@ -371,8 +371,9 @@ if (chatContainer) {
 
 const wechatLink = document.querySelector('.cmp-footer__social-links__item--wechat');
 const wechatContainer = document.querySelector('.cmp-wechat-container');
+const wechatJSON = document.getElementById("wechat-json");
 
-if (wechatLink) {
-    const config = JSON.parse(document.getElementById("wechat-json").innerHTML);
+if ( wechatLink && wechatContainer && wechatJSON ) {
+    const config = JSON.parse(wechatJSON.innerHTML);
     ReactDOM.render(<WeChat config={config} />, wechatContainer);
 }

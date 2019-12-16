@@ -78,7 +78,7 @@
     </div>
     <div data-sly-test="${isChinaPage && footer.weChatIcon}" class="cmp-wechat">
         <div class="cmp-wechat-container"></div>
-        <script type="application/json" id="wechat-json">
+        <script data-sly-test="${isChinaPage && footer.weChatIcon}" type="application/json" id="wechat-json">
             {
                 "title": "${'关注我们 – 沃特世中国' @ i18n, context='unsafe'}",
                 "qrCodeImg": "${footer.weChatQrCodeImage.fileReference @ context='unsafe'}",
