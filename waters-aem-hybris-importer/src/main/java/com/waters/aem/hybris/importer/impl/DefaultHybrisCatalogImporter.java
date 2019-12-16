@@ -468,14 +468,18 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         for (final PageDecorator liveCopyParent : siteRepository.getLiveCopyPages(parentPage)) {
 
+            LOG.info("checking for existing live copy page under parent page path: {}", liveCopyParent.getPath());
+
             final String pageName = page.getName();
 
             if (!liveCopyParent.hasChild(pageName)) {
                 PageDecorator liveCopyPage = pageManager.create(liveCopyParent.getPath(), pageName,
                     template, page.getTitle(), false);
 
+                LOG.info("created live copy page: {} under {}", pageName, liveCopyParent.getPath());
+
                 final ValueMap properties = liveCopyPage.getContentResource().adaptTo(ModifiableValueMap.class);
-                properties.put(JcrConstants.JCR_MIXINTYPES, MSMNameConstants.NT_LIVE_RELATIONSHIP);
+                    properties.put(JcrConstants.JCR_MIXINTYPES, MSMNameConstants.NT_LIVE_RELATIONSHIP);
 
                 if (Templates.isSkuPage(liveCopyPage)) {
                     results.add(HybrisImporterResult.fromSkuPage(liveCopyPage, HybrisImportStatus.CREATED));
@@ -488,6 +492,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
                 rolloutManager.rollout(resourceResolver, relation, false);
 
+                LOG.info("rolled out live copy page: {}", liveCopyPage.getPath());
             }
         }
         return results;
