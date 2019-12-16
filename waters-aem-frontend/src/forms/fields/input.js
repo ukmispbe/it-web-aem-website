@@ -70,7 +70,7 @@ const Input = ({
                         onChange={updateReq}
                         placeholder=" "
                         disabled={disabled}
-                        className={!!errors[name] ? "error" : "valid"}
+                        className={!!errors[name] ? "error" : (!!inputRef.current ? (!!inputRef.current.value ? "valid" : "") : "")}
                     ></input>
                     <Icons />
                 </div>
