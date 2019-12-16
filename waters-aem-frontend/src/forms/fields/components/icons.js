@@ -1,28 +1,30 @@
 import React, { useContext } from 'react';
-import ReactSVG from "react-svg";
+import ReactSVG from 'react-svg';
 
 import { useFieldApi } from '../../form';
 
 const Icons = ({}) => {
     const { icons, type } = useContext(useFieldApi);
 
-    const getType = (elem) => elem.classList.contains("toggled") ? "text" : type;
+    const getType = elem =>
+        elem.classList.contains('toggled') ? 'text' : type;
 
     const toggleEye = e => {
+        e.preventDefault();
         const parent = e.currentTarget.parentNode;
-        const onIcon = parent.querySelector(".showHide-icon");
-        const offIcon = parent.querySelector(".showHideOff-icon");
+        const onIcon = parent.querySelector('.showHide-icon');
+        const offIcon = parent.querySelector('.showHideOff-icon');
 
         if (onIcon && offIcon) {
-            onIcon.classList.toggle("toggled");
-            offIcon.classList.toggle("toggled");
+            onIcon.classList.toggle('toggled');
+            offIcon.classList.toggle('toggled');
 
-            parent.parentNode.querySelector("input").type = getType(offIcon);
+            parent.parentNode.querySelector('input').type = getType(offIcon);
         }
     };
 
     const eyeIcons =
-        type === "password" ? (
+        type === 'password' ? (
             <>
                 <ReactSVG
                     src={icons.eyeIcon}
