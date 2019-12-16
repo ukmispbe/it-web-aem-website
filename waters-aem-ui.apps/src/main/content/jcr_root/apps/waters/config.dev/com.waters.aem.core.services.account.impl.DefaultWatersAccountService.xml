@@ -9,4 +9,5 @@
           registrationSubmitUrl="https://dev-www.waters.com:8443/api/waters/user/v1/registration"
           emailValidationUrl="https://dev-www.waters.com:8443/api/waters/user/v1/validate/{email}"
           pwResetUrl="https://dev-www.waters.com:8443/api/waters/user/v1/reset/password?email={email}"
-          changePwUrl="https://dev-www.waters.com:8443/api/waters/user/v1/change/password"/>
+          changePwUrl="https://dev-www.waters.com:8443/api/waters/user/v1/change/password"
+          userDetailsUrl="https://dev-www.waters.com:8443/api/waters/user/v1/details?email={email}"/>

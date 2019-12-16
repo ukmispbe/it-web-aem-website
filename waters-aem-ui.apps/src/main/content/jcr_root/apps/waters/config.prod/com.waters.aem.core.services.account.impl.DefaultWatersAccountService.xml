@@ -9,4 +9,5 @@
           registrationSubmitUrl="https://prodservices.waters.com/api/waters/user/v1/registration"
           emailValidationUrl="https://prodservices.waters.com/api/waters/user/v1/validate/{email}"
           pwResetUrl="https://prodservices.waters.com/api/waters/user/v1/reset/password?email={email}"
-          changePwUrl="https://prodservices.waters.com/api/waters/user/v1/change/password"/>
+          changePwUrl="https://prodservices.waters.com/api/waters/user/v1/change/password"
+          userDetailsUrl="https://prodservices.waters.com/api/waters/user/v1/details?email={email}"/>

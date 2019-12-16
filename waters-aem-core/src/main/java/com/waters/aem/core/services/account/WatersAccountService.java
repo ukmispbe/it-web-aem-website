@@ -57,4 +57,11 @@ public interface WatersAccountService {
      * @return my account URL
      */
     String getChangePasswordUrl();
+
+    /**
+     * Get the configured URL for the User Details API.
+     *
+     * @return User Details API URL
+     */
+    String getUserDetailsUrl();
 }
