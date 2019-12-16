@@ -231,6 +231,7 @@
 
 #changePassword-details-tile {
     .cmp-detail-tiles-list--tile-column {
+        margin-bottom: 0;
         &--title {
             @include font-h2;
             margin-bottom: 0;

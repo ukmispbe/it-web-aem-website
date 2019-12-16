@@ -184,7 +184,7 @@ describe('Scenario Generating Tile With Proper Information', () => {
             "name": "",
             "columns": [
                 {
-                    "title": "................",
+                    "title": "•••••••••••••••••••",
                     "text": [""]
                 }
             ],
@@ -214,9 +214,9 @@ describe('Scenario Generating Tile With Improper Information', () => {
         });
     });
 
-    describe('When Data is empty', () => {
+    describe('When Data is null', () => {
         it('Then is should return an empty array', () => {
-            const tiles = generateTiles({}, "invalid", defaultData.icon);
+            const tiles = generateTiles(null, "invalid", defaultData.icon);
 
             expect(tiles).toHaveLength(0);
         });

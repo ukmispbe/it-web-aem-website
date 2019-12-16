@@ -18,7 +18,7 @@ const newNotification = (title, description, icon) => ({
 });
 
 export default (data, type, icon) => {
-    if(Object.entries(data).length === 0 && data.constructor === Object) return [];
+    if (!data) return [];
 
     switch (type) {
         case "personal":
@@ -58,7 +58,7 @@ export default (data, type, icon) => {
             return [{
                 "name": "",
                 "columns": [
-                    newColumn("................", "")
+                    newColumn("•••••••••••••••••••", "")
                     ],
                 "defaultValues": ""
             }];
