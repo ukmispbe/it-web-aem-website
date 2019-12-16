@@ -101,7 +101,7 @@ class Modal extends React.Component {
             return (
                 <MyAccountModalBody config={state.config}/>
             )
-        } else if (state.theme == 'wechat') {
+        } else if (state.theme === 'wechat') {
             return (
                 <WeChatModalBody config={this.state.config} closeModal={this.closeModal} />
             )
