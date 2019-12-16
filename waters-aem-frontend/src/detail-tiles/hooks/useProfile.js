@@ -22,7 +22,7 @@ export default (fetchEndPoint, type, icon) => {
                 //END TEMPORARY CODE
 
 
-                const userDetails = new UserDetails();
+                const userDetails = new UserDetails(fetchEndPoint);
                 userDetails
                 .then((response) => {
                     setData(response);

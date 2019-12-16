@@ -44,7 +44,7 @@ public class Password implements ComponentExporter {
     private WatersAccountService accountService;
 
     public String getMyAccountUrl() {
-        return accountService.getMyAccountUrl();
+        return accountService.getUserDetailsUrl();
     }
 
     public String getChangePasswordUrl() {

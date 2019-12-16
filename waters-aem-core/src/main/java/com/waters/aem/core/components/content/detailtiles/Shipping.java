@@ -54,11 +54,11 @@ public class Shipping implements ComponentExporter {
     private WatersAccountService accountService;
 
     public String getMyAccountUrl() {
-        return accountService.getMyAccountUrl();
+        return accountService.getUserDetailsUrl();
     }
 
     public String getMyAccountUpdateUrl() {
-        return accountService.getMyAccountUrl();
+        return accountService.getUserDetailsUrl();
     }
 
     public String getCountriesJson() throws JsonProcessingException {
