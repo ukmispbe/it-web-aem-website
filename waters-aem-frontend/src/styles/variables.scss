@@ -120,6 +120,9 @@ $space-l: 2em;
 $space-xl: 3em;
 $space-xxl: 5em;
 
+// Border Radius
+$border-radius: .25em;
+
 // Size
 $button-fixed: 2.75em;
 
@@ -158,4 +161,5 @@ $cmp-modal-box-close-btn-z-index:499;
     colorBackgroundLight : $color-gray-10;
     colorWhite : $color-white;
     colorBlue50 : $color-blue-50;
+    borderRadius: $border-radius;
 }

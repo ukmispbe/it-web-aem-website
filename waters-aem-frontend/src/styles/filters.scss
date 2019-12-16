@@ -19,6 +19,7 @@
         background-color: transparent;
         outline: none;
         border: 1px solid $color-border-light;
+        border-radius: $border-radius;
 
         &:hover {
             border: 1px solid $color-blue-50;
@@ -248,11 +249,10 @@
         display: flex;
         flex-wrap: wrap;
         margin-top: $space-xs;
-        margin-bottom: $space-l;
+        margin-bottom: $space-xl;
 
         a {
             @include font-small;
-            max-height: $space-l;
             line-height: $line-height-text;
             display: block;
             float: left;
@@ -261,7 +261,7 @@
             text-decoration: none;
             background-color: $color-gray-10;
             position: relative;
-            border-radius: 0.25em;
+            border-radius: $border-radius;
 
             @include tablet {
                 max-height: fit-content;
@@ -309,7 +309,7 @@
         }
     }
     &__emptytags {
-        height: $space-l;
+        height: $space-xl;
 
         @include tablet-and-under {
             height: 0;

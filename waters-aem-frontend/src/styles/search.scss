@@ -116,7 +116,7 @@
 
         &.skuitem {
             padding-bottom: $space-m;
-            margin-top: -$space-xs;
+            margin-top: 0;
 
             @include mobile {
                 margin-top: 0;
@@ -181,8 +181,9 @@ div.cmp-search__no-results {
             @include font-utility;
             margin: 0 $space-xxs 0 0;
             border: 1px solid $color-border-light;
+            border-radius: $border-radius;
             float: left;
-            padding-top: ($space-xxs - 0.1em);
+            padding-top: $space-xxs;
             text-decoration: none;
             text-align: center;
             height: $button-fixed;
@@ -190,7 +191,7 @@ div.cmp-search__no-results {
 
             &:hover {
                 color: $color-link;
-                border: 1px solid $color-border-dark;
+                border: 1px solid $color-link;
             }
         }
         &.disabled {
@@ -205,6 +206,7 @@ div.cmp-search__no-results {
         &.selected {
             a {
                 border: 2px solid $color-gray-50;
+                padding-top: ($space-xxs - .1em);
                 font-weight: $font-weight-bold;
                 cursor: default;
 
@@ -284,6 +286,7 @@ div.cmp-search__no-results {
     margin: 0;
     padding: $space-xs $space-xs $space-xs 1.32em;
     height: 54px;
+    opacity: 1!important;
 }
 
 .cmp-search-show-btn {
@@ -291,12 +294,20 @@ div.cmp-search__no-results {
         display: none;
         @include font-utility;
         border: 1px solid $color-border-dark;
+        border-radius: $border-radius;
         margin-bottom: $space-xl;
-        padding: $space-xs ($space-xl - 0.25em) $space-xs $space-s;
+        padding: $space-xs ($space-xl - 0.25em) ($space-xs + .05em) $space-s;
         position: relative;
         text-decoration: none;
         &:hover {
+            color: $color-link;
             text-decoration: none;
+            border: 1px solid $color-link;
+            svg {
+                .st0 {
+                    stroke: $color-link;
+                }
+            }
         }
         transition: none;
         .closeIcon {
@@ -416,6 +427,8 @@ div.cmp-search__no-results {
 }
 
 .cmp-search__resultsCount {
+    margin-bottom: 0;
+
     &.noresults {
         width: 70%;
         margin-left: 0;

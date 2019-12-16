@@ -1,14 +1,20 @@
-import React, { useState, useEffect, useMemo, createContext, useCallback } from "react";
-import useForm from "react-hook-form/dist/react-hook-form.ie11";
+import React, {
+    useState,
+    useEffect,
+    useMemo,
+    createContext,
+    useCallback
+} from 'react';
+import useForm from 'react-hook-form/dist/react-hook-form.ie11';
 
-import { ErrorsProvider, FormStateProvider } from "./fields/utils/stateWatcher";
-import ErrorBoundary from "../search/ErrorBoundary";
+import { ErrorsProvider, FormStateProvider } from './fields/utils/stateWatcher';
+import ErrorBoundary from '../search/ErrorBoundary';
 import Field from './fields';
 
 const FormApi = createContext(null);
-FormApi.displayName = "FormApi";
+FormApi.displayName = 'FormApi';
 const FieldApi = createContext(null);
-FieldApi.displayName = "FieldApi";
+FieldApi.displayName = 'FieldApi';
 
 const Form = ({
     config,
@@ -28,8 +34,8 @@ const Form = ({
         clearError,
         triggerValidation
     } = useForm({
-        mode: "onBlur",
-        reValidateMode: "onBlur"
+        mode: 'onBlur',
+        reValidateMode: 'onBlur'
     });
 
     const checkIfDisabled = () => {
@@ -46,20 +52,26 @@ const Form = ({
 
             delete errorUpdates[name];
         }
-    }, [errorUpdates,errors]);
+    }, [errorUpdates, errors]);
 
-    const newError = useCallback((name, type, msg, ref) => {
-        setError(name, type, msg);
-        setUpdate({...errorUpdates, [name]: ref});
-    }, [errors]);
+    const newError = useCallback(
+        (name, type, msg, ref) => {
+            setError(name, type, msg);
+            setUpdate({ ...errorUpdates, [name]: ref });
+        },
+        [errors]
+    );
 
-    const getApi = useMemo(() => ({
-        setValue,
-        setError: newError,
-        clearError,
-        register,
-        triggerValidation
-    }), [register]);
+    const getApi = useMemo(
+        () => ({
+            setValue,
+            setError: newError,
+            clearError,
+            register,
+            triggerValidation
+        }),
+        [register]
+    );
 
     const submitErrorHandler = res => {
         if (res) {
@@ -71,13 +83,16 @@ const Form = ({
     };
 
     const fields = config.fields.map((field, i) => {
-        const getFieldApi = useMemo(() => ({
-            ...config,
-            config,
-            ...field,
-            field,
-            isocode
-        }), [field]);
+        const getFieldApi = useMemo(
+            () => ({
+                ...config,
+                config,
+                ...field,
+                field,
+                isocode
+            }),
+            [field]
+        );
 
         return (
             <FieldApi.Provider value={getFieldApi} key={`field-${i}`}>
@@ -92,23 +107,24 @@ const Form = ({
             onSubmit={handleSubmit(
                 submitFn.bind({
                     url: config.submitEndpoint,
-                    setError: submitErrorHandler
+                    setError: submitErrorHandler,
+                    redirect: config.redirectUrl
                 })
-            )}>
+            )}
+        >
             <FormApi.Provider value={getApi}>
                 <FormStateProvider watch={formState}>
-                    <ErrorsProvider watch={errors}>
-                        {fields}
-                    </ErrorsProvider>
+                    <ErrorsProvider watch={errors}>{fields}</ErrorsProvider>
                 </FormStateProvider>
             </FormApi.Provider>
             <button
                 type="submit"
                 className={
-                    "cmp-button cmp-button--no-border cmp-form--submit" +
-                    (checkIfDisabled() ? " cmp-button--disabled" : "")
+                    'cmp-button cmp-button--no-border cmp-form--submit' +
+                    (checkIfDisabled() ? ' cmp-button--disabled' : '')
                 }
-                disabled={checkIfDisabled()}>
+                disabled={checkIfDisabled()}
+            >
                 {config.buttonText}
             </button>
         </form>
