@@ -22,7 +22,8 @@ import BtnHideSortFilter from './components/btn-hide-sort-filter';
 import BtnApplySortFilter from './components/btn-apply-sort-filter';
 import BtnDoneSortFilter from './components/btn-done-sort-filter';
 import Spinner from './components/spinner';
-import { CategoriesMenu } from './components/categories-menu';
+import ContentTypeMenu from './components/content-type-menu';
+import FacetMenu from './components/facet-menu';
 import CategoryTabs from './components/categories-tabs';
 import validator from 'validator';
 import domElements from '../scripts/domElements';
@@ -899,42 +900,17 @@ class Search extends Component {
             return <></>
         }
 
-        if (
-            this.isCategoryOnlySelected(
-                this.state.category,
-                this.state.contentType
-            )
-        ) {
-            return (
-                <CategoriesMenu
-                    text={this.props.searchText}
-                    categoryKey="filterBy"
-                    items={this.state.filterMap.orderedFacets}
-                    click={this.handleContentTypeItemClick.bind(this)}
-                    showBothChildrenAndItems={true}
-                    filterTags={filterTags}
-                >
-                    <Filter
-                        text={this.props.searchText}
-                        selectHandler={this.filterSelectHandler.bind(this)}
-                        showTagsOnly={true}
-                        facetGroupsSelectedOrder={this.state.facetGroupsSelectedOrder}
-                        collapseAllFilters={this.state.collapseAllFilters}
-                        activeIndex={this.activeFilterIndex}
-                    />
-                </CategoriesMenu>
-            );
-        } else {
-            return (
-                <CategoriesMenu
-                    text={this.props.searchText}
-                    categoryKey="filterBy"
-                    items={this.state.filterMap.orderedFacets}
-                    click={this.handleContentTypeItemClick.bind(this)}
+        return this.isCategoryOnlySelected(this.state.category, this.state.contentType)
+            ? <ContentTypeMenu
+                heading={this.props.searchText.filterBy}
+                items={this.state.filterMap.orderedFacets}
+                onClick={this.handleContentTypeItemClick} />
+            : <FacetMenu
+                    heading={this.props.searchText.filterBy}
                     selectedValue={this.getSelectedContentTypeTranslation()}
-                    clear={this.handleRemoveContentType.bind(this)}
+                    previousIcon={this.props.searchText.previousIcon}
                     filterTags={filterTags}
-                >
+                    onClear={this.handleRemoveContentType}>
                     <Filter
                         ref={this.filterRef}
                         facets={this.state.facets}
@@ -949,9 +925,7 @@ class Search extends Component {
                         activeIndex={this.state.activeFilterIndex}
                         onGroupClick={this.handleFilterGroupClick}
                     />
-                </CategoriesMenu>
-            );
-        }
+                </FacetMenu>
     };
 
     handleFilterGroupClick = (facetName, index) => {
