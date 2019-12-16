@@ -180,7 +180,17 @@ describe('Scenario Generating Tile With Proper Information', () => {
 
     // Password Tile
     describe('When Type is Password', () => {
-        const expectedTiles = [];
+        const expectedTiles = [{
+            "name": "",
+            "columns": [
+                {
+                    "title": "................",
+                    "text": [""]
+                }
+            ],
+            "defaultValues": ""
+        }];
+
         it('Then is should return change password tile', () => {
             const tiles = generateTiles(defaultData, "password", defaultData.icon);
 
