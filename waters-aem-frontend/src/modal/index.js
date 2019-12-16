@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
-import { myAccountModalTheme } from '../my-account/index';
-import MyAccountModalBody from '../my-account/my-account-modal';
+import { myAccountModalTheme } from '../my-account-dropdown/index';
+import MyAccountModalBody from '../my-account-dropdown/my-account-modal';
 import StandardModalBody from './standard-modal-body';
 import ErrorMessages from '../scripts/ErrorMessages';
 

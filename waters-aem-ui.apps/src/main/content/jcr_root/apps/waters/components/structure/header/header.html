@@ -23,6 +23,8 @@
                         <div class="top-bar__nav__user__dropdown"></div>
                         <script type="application/json" id="account-modal-configs-json">
                             {
+                                "userDetailsUrl": "${header.userDetailsUrl @ context='unsafe'}",
+                                "testUserToken": "wendy_batista@waters.com",
                                 "icon": "/content/dam/waters/en/brand-assets/icons/user.svg",
                                 "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
                                 "title": "${'My Account' @ i18n , context='unsafe' }",

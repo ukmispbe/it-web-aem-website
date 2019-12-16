@@ -3,7 +3,7 @@ import CheckOutStatus from '../scripts/checkOutStatus';
 import Ecommerce from '../scripts/ecommerce';
 
 const MyOrderClass = 'dropdown__item-list__my-orders';
-const ItemList = props => {
+const MyAccountItemList = props => {
     const list = props.itemList;
     const shouldRender = listItemClass => {
         if (
@@ -49,5 +49,5 @@ const ItemList = props => {
     );
 };
 
-export default ItemList;
+export default MyAccountItemList;
 export { MyOrderClass };

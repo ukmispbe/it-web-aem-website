@@ -6,10 +6,10 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
-import UserDetails, { funcs as UserDetailFuncs} from '../my-account-user-details';
+import { funcs as UserDetailFuncs} from '../my-account-user-details';
 import ItemList, { MyOrderClass } from '../my-account-item-list';
 import MyAccountModalBody, { ModalClass } from '../my-account-modal';
-import MyAccountDropDown from '../my-account-dropdown';
+import MyAccountContainer from '../my-account-container';
 
 //Mocked Props
 import DefaultProps from '../__mocks__/en_US/index';
@@ -58,9 +58,9 @@ const buildNewProps = (orginalProps, newProps) =>
 describe('Feature: My Account Dropdown Component', () => {
 	describe('Scenario: Rendering User Details', () => {
 		const props = {
-			userName: DefaultProps.config.loginStatus.userName,
-			accountName: DefaultProps.config.loginStatus.accountName,
-			accountNumber: DefaultProps.config.loginStatus.accountNumber,
+			userName: DefaultProps.config.userDetails.userName,
+			accountName: DefaultProps.config.userDetails.accountName,
+			accountNumber: DefaultProps.config.userDetails.accountNumber,
 			switchAccount: DefaultProps.config.switchAccount,
 		};
 
@@ -100,20 +100,32 @@ describe('Feature: My Account Dropdown Component', () => {
         });
         
 		describe('When there is not an Account Name ', () => {
-			it('Then neither the Account Name or Number should render', () => {
+			it('Then only the Account Name should render', () => {
 				const wrapper = buildShallowWrapper(
 					UserDetailFuncs.renderAccountDetails,
 					buildNewProps(props, { accountName: '' })
 				);
-				expect(wrapper.exists(keys.account)).toEqual(false);
+				expect(wrapper.exists(keys.accountName)).toEqual(false);
+				expect(wrapper.exists(keys.accountNumber)).toEqual(true);
 			});
         });
         
 		describe('When there is not an Account Number ', () => {
-			it('Then neither the Account Name or Number should render', () => {
+			it('Then only the Account Number should render', () => {
 				const wrapper = buildShallowWrapper(
 					UserDetailFuncs.renderAccountDetails,
 					buildNewProps(props, { accountNumber: '' })
+				);
+				expect(wrapper.exists(keys.accountName)).toEqual(true);
+				expect(wrapper.exists(keys.accountNumber)).toEqual(false);
+			});
+		});
+
+		describe('When there is not an Account Number or Account Name ', () => {
+			it('Then neither should render', () => {
+				const wrapper = buildShallowWrapper(
+					UserDetailFuncs.renderAccountDetails,
+					buildNewProps(props, { accountName: '', accountNumber: '' })
 				);
 				expect(wrapper.exists(keys.account)).toEqual(false);
 			});
@@ -229,12 +241,9 @@ describe('Feature: My Account Dropdown Component', () => {
 		describe('When logged in', () => {
 			it('Then the snapshot should match', () => {
 				const props = buildNewProps(DefaultProps.config, {
-					loginStatus: {
-						...DefaultProps.config.loginStatus,
-						state: true,
-					},
+					loginState: true,
 				});
-				const json = renderer.create(<MyAccountDropDown config={props} />);
+				const json = renderer.create(<MyAccountContainer config={props} />);
 				expect(json).toMatchSnapshot();
 			});
 		});
@@ -242,12 +251,9 @@ describe('Feature: My Account Dropdown Component', () => {
 		describe('When logged out', () => {
 			it('Then the snapshot should match', () => {
 				const props = buildNewProps(DefaultProps.config, {
-					loginStatus: {
-						...DefaultProps.config.loginStatus,
-						state: false,
-					},
+					loginState: false,
 				});
-				const json = renderer.create(<MyAccountDropDown config={props} />);
+				const json = renderer.create(<MyAccountContainer config={props} />);
 				expect(json).toMatchSnapshot();
 			});
 		});

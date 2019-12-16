@@ -1,4 +1,19 @@
-const SessionStore = function() {
+const keys = {
+    previousPagePosition: 'waters.previousPagePosition',
+    previousPagePositionEnabled: 'waters.previousPagePositionEnabled',
+    fromSearchURL: 'waters.fromSearchURL',
+    searchTabHistory: 'waters.searchTabHistory',
+    previousPaginationClick: 'waters.previousPaginationClick',
+    dismissSystemWideNotification: 'waters.dismissSystemWideNotification',
+    userDetails: 'waters.userDetails',
+    userToken: 'waters.userToken'
+}
+
+const SessionStore = function () {
+    this.setUserToken = jest.fn(() => {});
+    this.getUserToken = jest.fn(() => {});
+    this.setUserDetails = jest.fn(() => {});
+    this.getUserDetails = jest.fn(() => {});
     this.setPreviousPagePosition = jest.fn(() => {});
     this.getPreviousPagePosition = jest.fn(() => {});
     this.removePreviousPagePosition = jest.fn(() => {});
@@ -19,3 +34,4 @@ const SessionStore = function() {
 }
 
 export default SessionStore;
+export { keys };
