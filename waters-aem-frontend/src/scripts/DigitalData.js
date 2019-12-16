@@ -15,7 +15,10 @@ const DigitalData = {
         return window.digitalData.page && window.digitalData.page.country
         ? window.digitalData.page.country
         : this.globalExperience;
+    },
+    get default() {
+      return (this.country !== this.globalExperience ? this.country.toLowerCase() : "");
     }
-  };
+};
 
 export default DigitalData;

@@ -8,7 +8,7 @@ import React, {
 import useForm from 'react-hook-form/dist/react-hook-form.ie11';
 
 import { ErrorsProvider, FormStateProvider } from './fields/utils/stateWatcher';
-import { getDefault } from './fields/utils/getDigitalData';
+import DigitalData from '../scripts/DigitalData';
 import ErrorBoundary from '../search/ErrorBoundary';
 import Field from './fields';
 
@@ -41,7 +41,7 @@ const Form = ({
         mode: 'onBlur',
         reValidateMode: 'onBlur',
         defaultValues: {
-            "country": getDefault(),
+            "country": DigitalData.default,
             ...defaultValues
         }
     });
