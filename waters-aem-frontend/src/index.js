@@ -12,6 +12,10 @@ import SkuList from './sku-list';
 import SkuMessage from './sku-shared/views/SkuMessage';
 import Video from './video/index';
 import Chat from './chat'
+import CountrySelector from './country-selector';
+
+const globalTranslationsScript = document.getElementById('global-translations-json');
+const globalTranslations = globalTranslationsScript ? JSON.parse(globalTranslationsScript.innerHTML) : {};
 
 function getAuthoredDataForSearchBar(c, h) {
     return {
@@ -277,4 +281,13 @@ if(chatContainer) {
         />,
         chatContainer
     );
+}
+
+const countryModalRoot = document.getElementById('country-selector-root');
+
+if (countryModalRoot) {
+    const scriptElement = document.getElementById('country-list-json');
+    const countries = scriptElement ? JSON.parse(scriptElement.innerHTML) : [];
+
+    ReactDOM.render(<CountrySelector countries={countries} translations={globalTranslations} />, countryModalRoot);
 }
