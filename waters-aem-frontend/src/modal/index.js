@@ -3,6 +3,7 @@ import ReactSVG from 'react-svg';
 import { myAccountModalTheme } from '../my-account-dropdown/index';
 import MyAccountModalBody from '../my-account-dropdown/my-account-modal';
 import StandardModalBody from './standard-modal-body';
+import WeChatModalBody from '../wechat/wechat-modal-body';
 import ErrorMessages from '../scripts/ErrorMessages';
 
 class Modal extends React.Component {
@@ -99,6 +100,10 @@ class Modal extends React.Component {
         if (state.theme == myAccountModalTheme) {
             return (
                 <MyAccountModalBody config={state.config}/>
+            )
+        } else if (state.theme === 'wechat') {
+            return (
+                <WeChatModalBody config={this.state.config} closeModal={this.closeModal} />
             )
         } else {
 
