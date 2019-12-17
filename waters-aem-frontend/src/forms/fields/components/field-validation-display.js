@@ -37,6 +37,7 @@ const FieldValidationDisplay = ({
     );
 
     const renderDisplay = (name) => {
+        if (type === "dropdown" && !isValid(name)) return "invalid";
         if (!isDirty(name) && !isDirtyMatch(matchName)) return "clean";
         if (isValid(name) && isValidMatch(matchName)) return "valid";
         if (!isValid(name) || !isValidMatch(matchName)) return "invalid";

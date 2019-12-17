@@ -42,6 +42,16 @@
         width: 100%;
         margin-bottom: $space-s;
 
+        .cmp-form-field--icons {
+            .lock-icon {
+                display: inline-block;
+
+                svg {
+                    display: block;
+                }
+            }
+        }
+
         &.cmp-form-field-dropdown {
             width: 65%;
 
@@ -54,6 +64,17 @@
 
                 .cmp-form-field--errorText {
                     display: none;
+                }
+            }
+
+            .cmp-custom-dropdown--is-disabled {
+                .cmp-custom-dropdown__control--is-disabled {
+                    background-color: $color-white;
+                    color: $color-disabled;
+                }
+
+                .cmp-custom-dropdown__input {
+                    display: none!important;
                 }
             }
         }
@@ -194,22 +215,20 @@
                 border: 1px solid $color-error;
             }
 
-            .cmp-form-field-dropdown--wrapper.dirty {
-                .cmp-form-field-dropdown--wrapper {
-                    .cmp-custom-dropdown__control {
-                        border: 1px solid $color-error;
+            .cmp-form-field-dropdown--wrapper {
+                .cmp-custom-dropdown__control {
+                    border: 1px solid $color-error;
 
-                        .cmp-custom-dropdown__indicators {
-                            margin-right: $space-l;
-                        }
+                    .cmp-custom-dropdown__indicators {
+                        margin-right: $space-l;
                     }
+                }
 
-                    .cmp-form-field--icons {
-                        .invalid-icon {
-                            display: inline-block;
-                            svg {
-                                display: block;
-                            }
+                .cmp-form-field--icons {
+                    .invalid-icon {
+                        display: inline-block;
+                        svg {
+                            display: block;
                         }
                     }
                 }

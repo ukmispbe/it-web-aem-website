@@ -20,7 +20,7 @@ const Input = ({
     const inputRef = useRef(null);
 
     const { type, disabled, matchLabel, emailUrl } = useContext(useFieldApi);
-    const { register, setError, clearError } = useContext(useFormApi);
+    const { register, setError, clearError, formName } = useContext(useFormApi);
 
     const errors = useErrorsContext();
 
@@ -63,7 +63,6 @@ const Input = ({
                     <input
                         type={type}
                         name={name}
-                        id={name}
                         ref={ref => register(ref, getRegisterAttributes(ref))}
                         onBlur={toggleReq}
                         onFocus={toggleReq}

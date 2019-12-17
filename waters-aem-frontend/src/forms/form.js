@@ -8,6 +8,7 @@ import React, {
 import useForm from 'react-hook-form/dist/react-hook-form.ie11';
 
 import { ErrorsProvider, FormStateProvider } from './fields/utils/stateWatcher';
+import DigitalData from '../scripts/DigitalData';
 import ErrorBoundary from '../search/ErrorBoundary';
 import Field from './fields';
 
@@ -19,10 +20,12 @@ FieldApi.displayName = 'FieldApi';
 const Form = ({
     config,
     submitFn,
+    cancelFn,
     isocode,
     setErrorBoundaryToTrue,
     resetErrorBoundaryToFalse,
-    removeNotifications
+    removeNotifications,
+    defaultValues
 }) => {
     const {
         register,
@@ -32,10 +35,15 @@ const Form = ({
         setValue,
         setError,
         clearError,
-        triggerValidation
+        triggerValidation,
+        getValues
     } = useForm({
         mode: 'onBlur',
-        reValidateMode: 'onBlur'
+        reValidateMode: 'onBlur',
+        defaultValues: {
+            "country": DigitalData.default,
+            ...defaultValues
+        }
     });
 
     const checkIfDisabled = () => {
@@ -62,13 +70,17 @@ const Form = ({
         [errors]
     );
 
+    const getValue = (name) => getValues()[name];
+
     const getApi = useMemo(
         () => ({
             setValue,
             setError: newError,
             clearError,
             register,
-            triggerValidation
+            triggerValidation,
+            getValues,
+            getValue
         }),
         [register]
     );
@@ -127,6 +139,10 @@ const Form = ({
             >
                 {config.buttonText}
             </button>
+            {config.cancelText && !!cancelFn &&
+            <a className="cmp-button cmp-button--cancel" onClick={cancelFn}>
+                {config.cancelText}
+            </a>}
         </form>
     );
 };
