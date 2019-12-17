@@ -1,5 +1,3 @@
-import { getCountry } from 'country-state-picker';
-
 export const capitalize = (str) => {
     if (!str || str.trim() === "") return "";
 
@@ -11,11 +9,12 @@ export const capitalize = (str) => {
 export const getCountryName = (countryCode) => {
     if (!countryCode || countryCode.trim() === "") return "";
 
-    const country = getCountry(countryCode).name;
-
-    switch (country) {
-        case "United States of America":
+    // This will be removed later when country is passed back along with locale
+    switch (countryCode.trim().toLowerCase()) {
+        case "us":
             return "United States";
+        case "in":
+            return "India";
         default:
             return country;
     }
