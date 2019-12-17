@@ -19,6 +19,7 @@ import {
 import Video from './video/index';
 import Chat from './chat';
 import DigitalData from './scripts/DigitalData';
+import WeChat from './wechat';
 
 if (process.env.NODE_ENV !== 'production') {
     const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -366,4 +367,13 @@ if (chatContainer) {
         />,
         chatContainer
     );
+}
+
+const wechatLink = document.querySelector('.cmp-footer__social-links__item--wechat');
+const wechatContainer = document.querySelector('.cmp-wechat-container');
+const wechatJSON = document.getElementById("wechat-json");
+
+if ( wechatLink && wechatContainer && wechatJSON ) {
+    const config = JSON.parse(wechatJSON.innerHTML);
+    ReactDOM.render(<WeChat config={config} />, wechatContainer);
 }
