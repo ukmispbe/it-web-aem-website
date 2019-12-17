@@ -433,6 +433,7 @@ if (changePasswordDetailsTile) {
         <DetailTiles {...config} />,
         changePasswordDetailsTile
     );
+}
 
 const wechatLink = document.querySelector('.cmp-footer__social-links__item--wechat');
 const wechatContainer = document.querySelector('.cmp-wechat-container');
