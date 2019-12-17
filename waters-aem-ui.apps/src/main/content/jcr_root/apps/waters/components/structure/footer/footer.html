@@ -101,6 +101,9 @@
     </div>
 </div>
 
+<div id="country-selector-root"></div>
+<div id="modal-root"></div>
+
 <script type="text/javascript" id="datalayer">
     var parsedData = JSON.parse('${footer.dataLayer @ context="unsafe"}');
 
@@ -125,7 +128,7 @@
     }
 </script>
 <script type="application/json" id="country-list-json">
-    ${footer.countryPagesJson @ context='unsafe'}
+    [{"href":"/content/waters/us/en.html","title":"United States"},{"href":"/content/waters/jp/ja.html","title":"Japan"},{"href":"/content/waters/cn/zh.html","title":"China"}]
 </script>
 <script type="application/json" id="commerce-configs-json">
     {
