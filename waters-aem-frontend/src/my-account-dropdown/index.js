@@ -9,6 +9,7 @@ import FeedbackSurvey from '../scripts/feedbackSurvey';
 
 import domElements from '../scripts/domElements';
 import MyAccountContainer from './my-account-container';
+import cookieStore from '../stores/cookieStore';
 import SessionStore from '../stores/sessionStore';
 import loginStatus from '../scripts/loginStatus';
 
@@ -31,13 +32,14 @@ class MyAccountDropDown extends React.Component {
         this.newConfig = Object.assign({}, this.props.config, {
             loginState: loginStatus.state(),
             userDetails : {
-                userName: '',
+                userName: cookieStore.getGreeting(),
                 accountName: '',
                 accountNumber: ''
             }
         });
 
-        this.retrieveUserDetails();
+        // Commenting this out for now until User Details API is fixed (currently responding with 401)
+        // this.retrieveUserDetails();
     }
 
     componentDidMount() {

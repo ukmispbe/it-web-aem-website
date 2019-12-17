@@ -2,6 +2,7 @@ import DigitalData from "../scripts/DigitalData";
 
 const keys = {
     loggedInStatus: 'WatersLoginCookie',
+    greeting: 'WatersGreetingCookie',
     soldToStatus: 'ST_STATUS',
     locale: 'org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE'
 }
@@ -24,6 +25,13 @@ function getCookie(cname) {
 
 const cookieStore = {
     getLoggedInStatus: () => getCookie(keys.loggedInStatus),
+    getGreeting: () => {
+        let greeting = getCookie(keys.greeting);
+        if (greeting) {
+            greeting = greeting.replace(/["]+/g, '');
+            return decodeURIComponent(greeting).trim();
+        }
+    },
     getSoldToStatus: () => getCookie(keys.soldToStatus),
     setLocale: () => {
         if(DigitalData.country===DigitalData.globalExperience){
