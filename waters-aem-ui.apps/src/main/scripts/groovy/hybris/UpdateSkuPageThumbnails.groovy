@@ -2,6 +2,7 @@ import com.icfolson.aem.library.api.page.PageDecorator
 import com.waters.aem.core.commerce.services.SkuRepository
 import com.waters.aem.core.utils.Templates
 import org.apache.sling.api.resource.ModifiableValueMap
+import com.waters.aem.core.constants.WatersConstants
 
 def dryRun = true
 
@@ -89,14 +90,22 @@ def createOrUpdateThumbnail(page, primaryImage, contentResource) {
         if (!fileRef || fileRef != primaryImage) {
 
             println "Missing or incorrect file reference - updating thumbnail for page: $page.path"
-            thumbResource.adaptTo(ModifiableValueMap).put("fileReference", primaryImage)
+            def props = thumbResource.adaptTo(ModifiableValueMap)
+            props.put("fileReference", primaryImage)
 
+            if (page.getAbsoluteParent(WatersConstants.LEVEL_SITE_ROOT).getName() != "language-masters") {
+                props.put("jcr:mixinTypes", "cq:LiveRelationship")
+            }
         }
     } else {
 
         println "Creating missing thumbnail for page: $page.path"
-        contentResource.adaptTo(Node).addNode("thumbnailImage", "nt:unstructured").setProperty("fileReference", primaryImage)
+        def thumbnailNode = contentResource.adaptTo(Node).addNode("thumbnailImage", "nt:unstructured")
+        thumbnailNode.setProperty("fileReference", primaryImage)
 
+        if (page.getAbsoluteParent(WatersConstants.LEVEL_SITE_ROOT).getName() != "language-masters") {
+            thumbnailNode.setProperty("jcr:mixinTypes", "cq:LiveRelationship")
+        }
     }
 }
 
