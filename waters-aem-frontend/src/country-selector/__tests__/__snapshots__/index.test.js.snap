@@ -55,12 +55,12 @@ exports[`Feature: CountrySelection Component Scenario: Rendering When countries 
   <div
     className="cmp-country-selector__button"
   >
-    <button
+    <a
       className="cmp-button"
       onClick={[Function]}
     >
       Change Country
-    </button>
+    </a>
   </div>
   <div
     className="cmp-country-selector__cancel"
