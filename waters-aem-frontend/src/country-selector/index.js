@@ -41,7 +41,7 @@ const CountrySelection = props => {
                 </div>
             </div>
             <div className="cmp-country-selector__button">
-                <button className="cmp-button" onClick={handleButtonClick}>{props.translations.changeCountryButton}</button>
+                <a className="cmp-button" onClick={handleButtonClick}>{props.translations.changeCountryButton}</a>
             </div>
             <div className="cmp-country-selector__cancel">
                 <a onClick={props.onClose}>{props.translations.cancelButton}</a>
