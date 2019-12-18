@@ -16,7 +16,7 @@ const CountrySelection = props => {
 
     const handleButtonClick = () => window.location.href = selectedValue;
 
-    const Items = () => props.countries.map(country => country.href === selectedValue ? <option selected key={country.href} value={country.href}>{country.title}</option> : <option key={country.href} value={country.href}>{country.title}</option>);
+    const Items = () => props.countries.map(country => <option key={country.href} value={country.href}>{country.title}</option>);
 
     return (
         <div className="cmp-country-selector">
@@ -30,7 +30,7 @@ const CountrySelection = props => {
                 {props.translations.changeCountryText}
             </div>
             <div className="cmp-country-selector__dropdown">
-                <select className="select-css" onChange={handleChange}>
+                <select className="select-css" value={selectedValue} onChange={handleChange}>
                     <Items />
                 </select>
             </div>
@@ -51,7 +51,7 @@ const CountrySelection = props => {
 }
 
  const CountrySelector = props => {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(props.initialState);
 
     const handleOpen = () => setOpen(true);
 
@@ -59,7 +59,7 @@ const CountrySelection = props => {
 
     React.useEffect(() => {
         const regionSelectorElements = Array.from(document.getElementsByClassName('cmp-footer__selector__region'));
-
+        
         regionSelectorElements.forEach(element => {
             element.addEventListener('click', handleOpen);
         });
@@ -85,12 +85,15 @@ const CountrySelection = props => {
 
  CountrySelector.propTypes = {
      countries: PropTypes.arrayOf(PropTypes.object).isRequired,
-     translations: PropTypes.object.isRequired
+     translations: PropTypes.object.isRequired,
+     initialState: PropTypes.bool
  }
 
  CountrySelector.defaultProps = {
     countries: [],
-    translations: {}
+    translations: {},
+    initialState: false
  }
 
  export default CountrySelector;
+ export { CountrySelection }
