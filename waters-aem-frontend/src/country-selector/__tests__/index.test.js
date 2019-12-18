@@ -23,6 +23,7 @@ describe('Feature: CountrySelector Component', () => {
     let spyOnUseEffect;
 
     beforeAll(() => {
+        window.open = jest.fn();
         spyOnUseEffect = jest.spyOn(React, 'useEffect').mockImplementation(f => f());
     });
 

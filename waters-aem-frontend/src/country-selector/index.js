@@ -10,11 +10,11 @@ const CountrySelection = props => {
         setSelectedValue(props.countries[0].href);
     }, []);
 
-    const handleChange = e => {
+    const handleDropdownChange = e => {
         setSelectedValue(e.target.value);
     }
 
-    const handleButtonClick = () => window.location.href = selectedValue;
+    const handleButtonClick = () => props.onChange(selectedValue);
 
     const Items = () => props.countries.map(country => <option key={country.href} value={country.href}>{country.title}</option>);
 
@@ -30,7 +30,7 @@ const CountrySelection = props => {
                 {props.translations.changeCountryText}
             </div>
             <div className="cmp-country-selector__dropdown">
-                <select className="select-css" value={selectedValue} onChange={handleChange}>
+                <select className="select-css" value={selectedValue} onChange={handleDropdownChange}>
                     <Items />
                 </select>
             </div>
@@ -73,7 +73,7 @@ const CountrySelection = props => {
 
     const handleCountrySelectionChange = item => {
         handleClose();
-        window.location.href = item.href;
+        window.open(`${window.location.origin}${item}`, "_blank");
     }
 
     return (
