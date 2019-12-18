@@ -1,5 +1,6 @@
 export const deepErrorsCompare = (obj, otherObj) => {
     if (typeof(obj) !== "object" || typeof(otherObj) !== "object") return false;
+    if (obj.constructor !== Object || otherObj.constructor !== Object) return false;
 
     if (Object.keys(obj).length !== Object.keys(otherObj).length) return false;
 

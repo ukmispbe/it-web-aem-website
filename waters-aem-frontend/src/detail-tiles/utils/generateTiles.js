@@ -60,7 +60,7 @@ export default (data, type, icon) => {
                 "columns": [
                     newColumn("•••••••••••••••••••", "")
                     ],
-                "defaultValues": ""
+                "defaultValues": {}
             }];
 
         default:

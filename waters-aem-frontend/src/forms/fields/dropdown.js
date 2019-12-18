@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { RHFInput } from 'react-hook-form-input';
 
 import Select from './components/select';
 import DisplayMessage from "./components/displaymessage";
@@ -9,17 +8,15 @@ import { useFormApi, useFieldApi } from '../form';
 
 const Dropdown = ({}) => {
     const { name, label, validation } = useContext(useFieldApi);
-    const { register, setValue } = useContext(useFormApi);
+    const { register } = useContext(useFormApi);
 
     return (
         <div className="cmp-form-field-dropdown--wrapper">
             <label htmlFor={name}>{label}</label>
             <div className={"cmp-form-field-dropdown--wrapper"}>
-                <RHFInput
+                <Select
                     name={name}
-                    as={<Select />}
-                    rules={validation}
-                    register={register}
+                    ref={register({name: name}, validation)}
                 />
                 <Icons />
             </div>
