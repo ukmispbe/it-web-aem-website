@@ -11,7 +11,7 @@ const ModalPortal = props => {
         modalElement.appendChild(el);
 
         return () => {
-        modalElement.removeChild(el);
+            modalElement.removeChild(el);
         };
     }, []);
 
@@ -42,10 +42,12 @@ const Modal = props => {
 };
 
 Modal.propTypes = {
+    isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired
 }
 
 Modal.defaultProps = {
+    isOpen: false,
     onClose: () => {}
 }
   
