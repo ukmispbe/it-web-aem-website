@@ -171,12 +171,35 @@
     &.wechat{
          text-align: center;
 
+         .cmp-modal__title {
+            @include mobile {
+                text-align: left;
+                padding-left: $space-m;
+            }
+         }
+
          .cmp-modal__title-text {
-            @include font-h3;
+            margin-top: 0.75em;
+            @include mobile {
+                margin-top: 0;
+            }
+         }
+
+         .cmp-modal__information {
+            @include mobile {
+                margin-top: 5em;
+            }
          }
 
          .cmp-modal__information-text {
             @include font-body;
+         }
+
+         .cmp-modal__information-image img{
+            height: 204px;
+            width: 204px;
+            max-height: 204px;
+            max-width: 204px;
          }
     }
 }
