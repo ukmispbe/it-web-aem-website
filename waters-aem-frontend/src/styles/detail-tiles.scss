@@ -23,7 +23,8 @@
                 height: $icon-s;
                 width: $icon-s;
 
-                circle, line {
+                circle,
+                line {
                     stroke: $color-link;
                 }
             }
@@ -37,8 +38,9 @@
 
                 &-icon {
                     svg {
-                        circle, line {
-                            stroke: $color-link-hover!important;
+                        circle,
+                        line {
+                            stroke: $color-link-hover !important;
                         }
                     }
                 }
@@ -48,7 +50,7 @@
 
     &--title {
         @include font-h2;
-        margin-bottom: $space-xs;
+        margin-bottom: $space-s;
     }
 
     &-list {
@@ -95,7 +97,6 @@
                     }
                 }
 
-
                 &:hover {
                     .cmp-detail-tiles-list--tile-edit {
                         &--title {
@@ -107,7 +108,7 @@
                                 color: $color-link-hover;
 
                                 path {
-                                    stroke: $color-link-hover!important;
+                                    stroke: $color-link-hover !important;
                                 }
                             }
                         }
@@ -206,6 +207,7 @@
 
                 .cmp-form-field {
                     float: none;
+                    margin-bottom: $space-l;
                 }
 
                 .cmp-button {

@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useMemo } from "react";
+import React, { useRef, useContext, useMemo } from 'react';
 
 import { useFormApi, useFieldApi } from '../form';
 import { useErrorsContext } from './utils/stateWatcher';
@@ -14,7 +14,7 @@ const Input = ({
     description,
     validation,
     hasMatch,
-    matchRef,
+    matchRef
 }) => {
     const reqRef = useRef(null);
     const inputRef = useRef(null);
@@ -24,18 +24,38 @@ const Input = ({
 
     const errors = useErrorsContext();
 
-    const getRegisterAttributes = (ref) => {
+    const getRegisterAttributes = ref => {
         inputRef.current = ref;
-        return getAttributes(ref, validation, matchRef, emailUrl, setError, clearError);
+        return getAttributes(
+            ref,
+            validation,
+            matchRef,
+            emailUrl,
+            setError,
+            clearError
+        );
     };
 
-    const getMatchName = () => "confirm".concat(name.charAt(0).toUpperCase() + name.slice(1));
+    const getMatchName = () =>
+        'confirm'.concat(name.charAt(0).toUpperCase() + name.slice(1));
 
-    const toggleReq = () => reqRef.current ? reqRef.current.toggle() : () => false;
+    const toggleReq = () =>
+        reqRef.current ? reqRef.current.toggle() : () => false;
 
-    const updateReq = () => reqRef.current ? reqRef.current.update(inputRef.current.value) : () => false;
+    const updateReq = () =>
+        reqRef.current
+            ? reqRef.current.update(inputRef.current.value)
+            : () => false;
 
-    const getMatchReq = useMemo(() => ({ required: validation["required"], requiredMsg: `Please confirm your ${name}.`, validateFnName: "matching", validationMsg: validation["nonMatchingMsg"] }), [name, validation]);
+    const getMatchReq = useMemo(
+        () => ({
+            required: validation['required'],
+            requiredMsg: validation.requiredMatchMsg,
+            validateFnName: 'matching',
+            validationMsg: validation['nonMatchingMsg']
+        }),
+        [name, validation]
+    );
 
     const renderInput = () => {
         return (
@@ -43,16 +63,18 @@ const Input = ({
                 <label
                     htmlFor={name}
                     className={
-                        validation.validateFnName === "matching"
-                            ? "cmp-form-field--label-matching"
-                            : ""
-                    }>
+                        validation.validateFnName === 'matching'
+                            ? 'cmp-form-field--label-matching'
+                            : ''
+                    }
+                >
                     {label}
-                    {!validation.required &&
-                    (<span className="cmp-form-field--optional">
-                        {" "}
-                        (optional)
-                    </span>)}
+                    {!validation.required && (
+                        <span className="cmp-form-field--optional">
+                            {' '}
+                            (optional)
+                        </span>
+                    )}
                 </label>
 
                 {description && (
@@ -69,22 +91,29 @@ const Input = ({
                         onChange={updateReq}
                         placeholder=" "
                         disabled={disabled}
-                        className={!!errors[name] ? "error" : (!!inputRef.current ? (!!inputRef.current.value ? "valid" : "") : "")}
+                        className={
+                            !!errors[name]
+                                ? 'error'
+                                : !!inputRef.current
+                                ? !!inputRef.current.value
+                                    ? 'valid'
+                                    : ''
+                                : ''
+                        }
                     ></input>
                     <Icons />
                 </div>
 
-                <DisplayMessage
-                    name={name}
-                    validation={validation}
-                />
+                <DisplayMessage name={name} validation={validation} />
 
-                {validation.validateFnName === "password" && validation.requirements &&
-                (<Requirements
-                    header={validation.requirementsLabel}
-                    requirements={validation.requirements}
-                    ref={reqRef}
-                />)}
+                {validation.validateFnName === 'password' &&
+                    validation.requirements && (
+                        <Requirements
+                            header={validation.requirementsLabel}
+                            requirements={validation.requirements}
+                            ref={reqRef}
+                        />
+                    )}
             </>
         );
     };
@@ -94,14 +123,21 @@ const Input = ({
             {renderInput()}
 
             {hasMatch &&
-            (useMemo(() => (<Input
-                name={getMatchName()}
-                label={matchLabel}
-                hasMatch={false}
-                description={description ? "Match for ".concat(name) : ""}
-                validation={getMatchReq}
-                matchRef={inputRef}
-            />), [matchLabel, description, inputRef]))}
+                useMemo(
+                    () => (
+                        <Input
+                            name={getMatchName()}
+                            label={matchLabel}
+                            hasMatch={false}
+                            description={
+                                description ? 'Match for '.concat(name) : ''
+                            }
+                            validation={getMatchReq}
+                            matchRef={inputRef}
+                        />
+                    ),
+                    [matchLabel, description, inputRef]
+                )}
         </>
     );
 };
