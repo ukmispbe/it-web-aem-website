@@ -11,7 +11,8 @@ const Tile = ({
     form,
     icon,
     defaultValues,
-    isNoAddress = false
+    isNoAddress = false,
+    editText
 }) => {
     const [formShown, setFormShown] = useState(false);
 
@@ -73,7 +74,7 @@ const Tile = ({
                         className="cmp-detail-tiles-list--tile-edit--icon"
                     />
                     <div className="cmp-detail-tiles-list--tile-edit--title">
-                        Edit
+                        {editText}
                     </div>
                 </div>
 

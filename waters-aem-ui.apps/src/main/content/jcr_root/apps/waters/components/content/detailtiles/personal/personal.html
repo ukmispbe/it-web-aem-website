@@ -1,4 +1,6 @@
-<div data-sly-use.personal="com.waters.aem.core.components.content.detailtiles.Personal">
+<div
+    data-sly-use.personal="com.waters.aem.core.components.content.detailtiles.Personal"
+>
     <div class="cmp-detail-tile--attach" id="personal-details-tile"></div>
     <script type="application/json" id="cmp-detail-tiles--personal">
         {
@@ -7,6 +9,7 @@
             "title": "${'Personal Details' @ i18n, context='unsafe'}",
             "fetchEndPoint": "${personal.myAccountUrl @ context='unsafe'}",
             "canCreate": false,
+            "editText": "${'Edit' @i18n, context='unsafe'}",
             "form": {
                 "submitEndpoint": "${personal.myAccountUpdateUrl @ context='unsafe'}",
                 "buttonText": "${'Save Changes' @ i18n, context='unsafe'}",
@@ -91,5 +94,7 @@
         }
     </script>
 </div>
-<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
-     data-sly-call="${patterns.placeholder @ show=true, text=component.title}"/>
+<sly
+    data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+    data-sly-call="${patterns.placeholder @ show=true, text=component.title}"
+/>

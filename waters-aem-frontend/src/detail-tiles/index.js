@@ -17,7 +17,8 @@ const DetailTiles = ({
     formMessage,
     form,
     icons,
-    submitFn
+    submitFn,
+    editText
 }) => {
     const { tiles } = useProfile(fetchEndPoint, type, icons.refresh);
 
@@ -40,6 +41,7 @@ const DetailTiles = ({
                         form={form}
                         icon={icons.edit}
                         isNoAddress={true}
+                        editText={editText}
                     />
                 </ErrorBoundary>
             );
@@ -53,6 +55,7 @@ const DetailTiles = ({
                     formMessage={formMessage}
                     form={form}
                     icon={icons.edit}
+                    editText={editText}
                 />
             </ErrorBoundary>
         ));
