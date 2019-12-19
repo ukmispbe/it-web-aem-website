@@ -38,7 +38,7 @@ public class Password extends AbstractDetailTiles {
     @OSGiService
     private WatersAccountService accountService;
 
-    public String getChangePasswordUrl() {
+    public String getUpdatePasswordUrl() {
         return accountService.getUpdatePasswordUrl();
     }
 

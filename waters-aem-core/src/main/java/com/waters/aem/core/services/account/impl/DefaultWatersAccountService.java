@@ -93,6 +93,6 @@ public class DefaultWatersAccountService implements WatersAccountService {
         passwordResetUrl = configuration.pwResetUrl();
         changePasswordUrl = configuration.changePwUrl();
         userDetailsUrl = configuration.userDetailsUrl();
-        updatePasswordUrl = configuration.updatePasswordUrl();
+        updatePasswordUrl = configuration.updatePwUrl();
     }
 }
