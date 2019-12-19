@@ -27,7 +27,7 @@ export default (data, type, icon) => {
             return [{
                 "name": "personalDetailsTile",
                 "columns": [
-                    newColumn(getFullName(data), data.company || "No Company Found"),
+                    newColumn(getFullName(data), data.company),
                     newColumn("", data.email, getPhoneFormat(data.phone), getCountryName(data.country))
                 ],
                 "defaultValues": data

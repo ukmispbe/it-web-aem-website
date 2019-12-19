@@ -64,21 +64,6 @@ describe('Scenario Generating Tile With Proper Information', () => {
                 expect(tile).toMatchObject(expectedTiles[idx]);
             });
         });
-
-        it('Then it should still render when no company is null as well', () => {
-            const noCompData = { ...defaultData, "company": null };
-            expectedTiles[0].columns[0].text = ["No Company Found"];
-            expectedTiles[0].defaultValues = mockDefaultData(noCompData, "personal");
-
-            const tiles = generateTiles(noCompData, "personal", defaultData.icon);
-
-            expect(tiles).toHaveLength(expectedTiles.length);
-            expect(tiles[0].columns).toHaveLength(expectedTiles[0].columns.length);
-
-            tiles.forEach((tile, idx) => {
-                expect(tile).toMatchObject(expectedTiles[idx]);
-            });
-        });
     });
 
     // Shipping Tile
