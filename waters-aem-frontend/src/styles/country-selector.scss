@@ -9,8 +9,8 @@
     @include mobile {
         position: fixed;
         top: 15px;
-        padding-left: $space-xs;
-        padding-right: $space-xs;
+        padding-left: $space-s;
+        padding-right: $space-s;
     }
 
     &__title {
@@ -111,7 +111,7 @@
         > div:first-child {
             padding-right: $space-xs;
         }
-
+        
         svg {
             width: $icon-l;
             height: $icon-l;
@@ -128,6 +128,12 @@
 
         @include tablet {
             width: 75%;
+        }
+    }
+
+    &__note-text {
+        > span:first-child {
+            font-weight: $font-weight-bold;
         }
     }
 
