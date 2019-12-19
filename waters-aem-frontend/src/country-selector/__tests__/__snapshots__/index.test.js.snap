@@ -46,8 +46,13 @@ exports[`Feature: CountrySelection Component Scenario: Rendering When countries 
     className="cmp-country-selector__note"
   >
     <div />
-    <div>
-      Note'
+    <div
+      className="cmp-country-selector__note-text"
+    >
+      <span>
+        Note'
+        :
+      </span>
        
       Your new country website will open in a new browser tab.
     </div>
