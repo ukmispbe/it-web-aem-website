@@ -1,131 +1,136 @@
-<div data-sly-use.registration="com.waters.aem.core.components.content.forms.Registration">
+<div
+    data-sly-use.registration="com.waters.aem.core.components.content.forms.Registration"
+>
     <div class="cmp-form--attach" id="js-registration-form"></div>
     <script type="application/json" id="cmp-registration-form">
-            {
-                "submitEndpoint": "${registration.registrationSubmitUrl @ context='unsafe'}",
-                "buttonText": "${'Create Account' @ i18n, context='text'}",
-                "icons": {
-                    "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
-                    "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
-                    "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
-                    "eyeIcon": "/content/dam/waters/en/brand-assets/icons/eye.svg",
-                    "eyeOffIcon": "/content/dam/waters/en/brand-assets/icons/eye-off.svg",
-                    "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
-                },
-                "existingEmailUrl": "${registration.emailValidationUrl @ context='unsafe'}",
-                "fields": [
-                    {
-                        "type": "email",
-                        "name": "email",
-                        "label": "${'Email Address' @ i18n, context='text'}",
-                        "description": "${'This will be your username.' @ i18n, context='text'}",
-                        "validation": {
-                            "required": true,
-                            "requiredMsg": "${'Please enter a valid email address.' @ i18n, context='text'}",
-                            "validateFnName": "email",
-                            "validationMsg": "${'Please enter a valid email address.' @ i18n, context='text'}",
-                            "alreadyRegisteredMsg": "${'There is an existing account with that email address.' @ i18n, context='text'}",
-                            "signInMsg": "${'Sign In' @ i18n, context='text'}",
-                            "signInURL": "${registration.loginLink.href @ context='unsafe'}"
-                        }
-                    },
-                    {
-                        "type": "text",
-                        "name": "firstName",
-                        "label": "${'First Name' @ i18n, context='text'}",
-                        "validation": {
-                            "required": true,
-                            "validateFnName": "noWhitespaceOnly",
-                            "validationMsg": "${'Please enter a valid first name.' @ i18n, context='text'}",
-                            "requiredMsg": "${'Please enter a first name.' @ i18n, context='text'}"
-                        }
-                    },
-                    {
-                        "type": "text",
-                        "name": "lastName",
-                        "label": "${'Last Name' @ i18n, context='text'}",
-                        "validation": {
-                            "required": true,
-                            "validateFnName": "noWhitespaceOnly",
-                            "validationMsg": "${'Please enter a valid last name.' @ i18n, context='text'}",
-                            "requiredMsg": "${'Please enter a last name.' @ i18n, context='text'}"
-                        }
-                    },
-                    {
-                        "type": "text",
-                        "name": "company",
-                        "label": "${'Company' @ i18n, context='text'}",
-                        "validation": {
-                            "validateFnName": "noWhitespaceOnly",
-                            "validationMsg": "${'Please enter a valid company name.' @ i18n, context='text'}",
-                            "required": true,
-                            "requiredMsg": "${'Please enter a company name.' @ i18n, context='text'}"
-                        }
-                    },
-                    {
-                        "type": "dropdown",
-                        "name": "country",
-                        "label": "${'Country' @ i18n, context='text'}",
-                        "placeholder": "${'Select...' @ i18n, context='text'}",
-                        "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
-                        "options": ${registration.countriesJson @ context="unsafe"},
-                        "validation": {
-                            "required": true,
-                            "requiredMsg": "${'Please select your country.' @ i18n, context='text'}"
-                        }
-                    },
-                    {
-                        "type": "password",
-                        "name": "password",
-                        "label": "${'Create Password' @ i18n, context='text'}",
-                        "hasMatch": true,
-                        "matchLabel": "${'Confirm Password' @ i18n, context='text'}",
-                        "validation": {
-                            "required": true,
-                            "validateFnName": "password",
-                            "validationMsg": "${'Please enter a valid password.' @ i18n, context='text'}",
-                            "requiredMsg": "${'Please enter a password.' @ i18n, context='text'}",
-                            "nonMatchingMsg": "${'Passwords must match. Please try again.' @ i18n, context='text'}",
-                            "requirementsLabel": "${'Your password must include' @i18n, context='text'}",
-                            "requirements": [
-                                {"name": "shortPassword", "msg": "${'at least 8 characters' @ i18n, context='text'}"},
-                                {"name": "noUppercase", "msg": "${'at least 1 uppercase letter' @ i18n, context='text'}"},
-                                {"name": "noLowercase", "msg": "${'at least 1 lowercase letter' @ i18n, context='text'}"},
-                                {"name": "noDigits", "msg": "${'at least 1 number' @ i18n, context='text'}"},
-                                {"name": "noSpecial", "msg": "${'at least 1 symbol (for example, !, $, #, %)' @ i18n, context='text'}"}
-                            ]
-                        }
-                    },
-                    {
-                        "type": "checkbox",
-                        "name": "communications",
-                        "label": "${'I want to receive communications from Waters.' @ i18n, context='text'}"
-                    },
-                    {
-                        "type": "checkbox",
-                        "name": "privacy",
-                        "label": "${'I agree and consent to the information I have provided on this website to be used and processed by Waters in accordance with the' @ i18n, context='text'}",
-                        "config": {
-                            "text": "${'Waters Privacy Notice.' @ i18n, context='text'}",
-                            "link": "${registration.privacyNoticeLink.href @ context='unsafe'}",
-                            "blank": "${registration.newWindow @ context='unsafe'}"
-                        },
-                        "validation": {
-                            "required": true,
-                            "validateFnName": "checkBoxOrRadio"
-                        }
-                    },
-                    {
-                        "type": "captcha",
-                        "name": "captcha",
-                        "siteKey": "${registration.captchaSiteKey @ context='unsafe'}",
-                        "validation": {
-                            "required": true
-                        }
+        {
+            "submitEndpoint": "${registration.registrationSubmitUrl @ context='unsafe'}",
+            "buttonText": "${'Create Account' @ i18n, context='text'}",
+            "icons": {
+                "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
+                "eyeIcon": "/content/dam/waters/en/brand-assets/icons/eye.svg",
+                "eyeOffIcon": "/content/dam/waters/en/brand-assets/icons/eye-off.svg",
+                "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
+            },
+            "existingEmailUrl": "${registration.emailValidationUrl @ context='unsafe'}",
+            "fields": [
+                {
+                    "type": "email",
+                    "name": "email",
+                    "label": "${'Email Address' @ i18n, context='text'}",
+                    "description": "${'This will be your username.' @ i18n, context='text'}",
+                    "validation": {
+                        "required": true,
+                        "requiredMsg": "${'Please enter a valid email address.' @ i18n, context='text'}",
+                        "validateFnName": "email",
+                        "validationMsg": "${'Please enter a valid email address.' @ i18n, context='text'}",
+                        "alreadyRegisteredMsg": "${'There is an existing account with that email address.' @ i18n, context='text'}",
+                        "signInMsg": "${'Sign In' @ i18n, context='text'}",
+                        "signInURL": "${registration.loginLink.href @ context='unsafe'}"
                     }
-                ]
-            }
-        </script>
+                },
+                {
+                    "type": "text",
+                    "name": "firstName",
+                    "label": "${'First Name' @ i18n, context='text'}",
+                    "validation": {
+                        "required": true,
+                        "validateFnName": "noWhitespaceOnly",
+                        "validationMsg": "${'Please enter a valid first name.' @ i18n, context='text'}",
+                        "requiredMsg": "${'Please enter a first name.' @ i18n, context='text'}"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "lastName",
+                    "label": "${'Last Name' @ i18n, context='text'}",
+                    "validation": {
+                        "required": true,
+                        "validateFnName": "noWhitespaceOnly",
+                        "validationMsg": "${'Please enter a valid last name.' @ i18n, context='text'}",
+                        "requiredMsg": "${'Please enter a last name.' @ i18n, context='text'}"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "company",
+                    "label": "${'Company' @ i18n, context='text'}",
+                    "validation": {
+                        "validateFnName": "noWhitespaceOnly",
+                        "validationMsg": "${'Please enter a valid company name.' @ i18n, context='text'}",
+                        "required": true,
+                        "requiredMsg": "${'Please enter a company name.' @ i18n, context='text'}"
+                    }
+                },
+                {
+                    "type": "dropdown",
+                    "name": "country",
+                    "label": "${'Country' @ i18n, context='text'}",
+                    "placeholder": "${'Select...' @ i18n, context='text'}",
+                    "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
+                    "options": ${registration.countriesJson @ context="unsafe"},
+                    "validation": {
+                        "required": true,
+                        "requiredMsg": "${'Please select your country.' @ i18n, context='text'}"
+                    }
+                },
+                {
+                    "type": "password",
+                    "name": "password",
+                    "label": "${'Create Password' @ i18n, context='text'}",
+                    "hasMatch": true,
+                    "matchLabel": "${'Confirm Password' @ i18n, context='text'}",
+                    "validation": {
+                        "required": true,
+                        "validateFnName": "password",
+                        "validationMsg": "${'Please enter a valid password.' @ i18n, context='text'}",
+                        "requiredMsg": "${'Please enter a password.' @ i18n, context='text'}",
+                        "nonMatchingMsg": "${'Passwords must match. Please try again.' @ i18n, context='text'}",
+                        "requiredMatchMsg": "${'Please confirm your password.' @ i18n, context='unsafe'}",
+                        "requirementsLabel": "${'Your password must include' @i18n, context='text'}",
+                        "requirements": [
+                            {"name": "shortPassword", "msg": "${'at least 8 characters' @ i18n, context='text'}"},
+                            {"name": "noUppercase", "msg": "${'at least 1 uppercase letter' @ i18n, context='text'}"},
+                            {"name": "noLowercase", "msg": "${'at least 1 lowercase letter' @ i18n, context='text'}"},
+                            {"name": "noDigits", "msg": "${'at least 1 number' @ i18n, context='text'}"},
+                            {"name": "noSpecial", "msg": "${'at least 1 symbol (for example, !, $, #, %)' @ i18n, context='text'}"}
+                        ]
+                    }
+                },
+                {
+                    "type": "checkbox",
+                    "name": "communications",
+                    "label": "${'I want to receive communications from Waters.' @ i18n, context='text'}"
+                },
+                {
+                    "type": "checkbox",
+                    "name": "privacy",
+                    "label": "${'I agree and consent to the information I have provided on this website to be used and processed by Waters in accordance with the' @ i18n, context='text'}",
+                    "config": {
+                        "text": "${'Waters Privacy Notice.' @ i18n, context='text'}",
+                        "link": "${registration.privacyNoticeLink.href @ context='unsafe'}",
+                        "blank": "${registration.newWindow @ context='unsafe'}"
+                    },
+                    "validation": {
+                        "required": true,
+                        "validateFnName": "checkBoxOrRadio"
+                    }
+                },
+                {
+                    "type": "captcha",
+                    "name": "captcha",
+                    "siteKey": "${registration.captchaSiteKey @ context='unsafe'}",
+                    "validation": {
+                        "required": true
+                    }
+                }
+            ]
+        }
+    </script>
 </div>
-<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
-     data-sly-call="${patterns.placeholder @ show=true, text=component.title}"/>
+<sly
+    data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+    data-sly-call="${patterns.placeholder @ show=true, text=component.title}"
+/>
