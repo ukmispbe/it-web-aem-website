@@ -39,7 +39,7 @@ public class Password extends AbstractDetailTiles {
     private WatersAccountService accountService;
 
     public String getChangePasswordUrl() {
-        return accountService.getChangePasswordUrl();
+        return accountService.getUpdatePasswordUrl();
     }
 
     public String getExportedType() {
