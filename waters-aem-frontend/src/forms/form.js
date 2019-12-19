@@ -26,7 +26,7 @@ const Form = ({
     resetErrorBoundaryToFalse,
     removeNotifications,
     defaultValues,
-    toggle
+    callback
 }) => {
     const {
         register,
@@ -122,7 +122,7 @@ const Form = ({
                     url: config.submitEndpoint,
                     setError: submitErrorHandler,
                     redirect: config.redirectUrl,
-                    toggle: toggle
+                    callback: callback
                 })
             )}
         >

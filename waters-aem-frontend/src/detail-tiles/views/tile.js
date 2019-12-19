@@ -11,11 +11,7 @@ const Tile = ({
     form,
     icon,
     defaultValues,
-    isNoAddress = false,
-    submitFn,
-    setErrorBoundaryToTrue,
-    resetErrorBoundaryToFalse,
-    removeNotifications
+    isNoAddress = false
 }) => {
     const [formShown, setFormShown] = useState(false);
 
