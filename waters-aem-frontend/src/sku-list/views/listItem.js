@@ -279,14 +279,14 @@ class ListItem extends React.Component {
         const buyInfo = this.renderBuyInfo();
         const breadcrumbs = this.renderBreadcrumb();
         const disabledClass = this.isDisabled() ? 'disabled' : '';
-
+        const imageAltLabel = this.props.relatedSku.primaryImageAlt ? this.props.relatedSku.primaryImageAlt : this.props.relatedSku.title;
         return (
             <div className={'cmp-sku-list__container ' + disabledClass}>
                 <div className="cmp-sku-list__right">
                     {this.props.relatedSku.primaryImageThumbnail && (
                         <img
                             src={this.props.relatedSku.primaryImageThumbnail}
-                            alt={this.props.relatedSku.primaryImageAlt}
+                            alt={imageAltLabel}
                         />
                     )}
                 </div>
