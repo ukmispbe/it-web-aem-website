@@ -36,8 +36,8 @@ const CountrySelection = props => {
             </div>
             <div className="cmp-country-selector__note">
                 <ReactSVG src="/content/dam/waters/brand-assets/icons/externallink.svg" />
-                <div>
-                    {props.translations.changeCountryNoteText}&nbsp;{props.translations.changeCountryNewTabText}
+                <div className="cmp-country-selector__note-text">
+                    <span>{props.translations.changeCountryNoteText}:</span>&nbsp;{props.translations.changeCountryNewTabText}
                 </div>
             </div>
             <div className="cmp-country-selector__button">
