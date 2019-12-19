@@ -385,9 +385,27 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     }
 
     private List<CountryLanguageSelectorItem> getCountryPages() {
-        return countryList.getCountryRootPages().stream()
-                .map(CountryLanguageSelectorItem::new)
-                .collect(Collectors.toList());
+        final String currentLanguageRoot = LanguageUtil.getLanguageRoot(currentPage.getPath());
+
+        final List<CountryLanguageSelectorItem> countryPages = new ArrayList<>();
+
+        final List<PageDecorator> countryRootPages = countryList.getCountryRootPages();
+
+        if (currentLanguageRoot != null) {
+            // add current country to beginning of list
+            countryPages.addAll(countryRootPages.stream()
+                    .filter(page -> currentLanguageRoot.startsWith(page.getPath()))
+                    .map(CountryLanguageSelectorItem::new)
+                    .collect(Collectors.toList()));
+
+            // add remaining countries to list
+            countryPages.addAll(countryRootPages.stream()
+                    .filter(page -> !currentLanguageRoot.startsWith(page.getPath())) // exclude current page from list
+                    .map(CountryLanguageSelectorItem::new)
+                    .collect(Collectors.toList()));
+        }
+
+        return countryPages;
     }
 
     @Nonnull
