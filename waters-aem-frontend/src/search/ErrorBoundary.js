@@ -5,7 +5,6 @@ const statusCodes = {
 };
 
 class ErrorBoundary extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = { hasError: false, hasErrored: false };
@@ -13,7 +12,7 @@ class ErrorBoundary extends React.Component {
 
     resetErrorBoundaryToFalse() {
         this.setState({
-            hasError: false,
+            hasError: false
         });
     }
 
@@ -21,14 +20,16 @@ class ErrorBoundary extends React.Component {
         this.setState(
             {
                 hasError: false,
-                hasErrored: false,
+                hasErrored: false
             },
             () => {
                 const notifications = document.querySelectorAll(
                     '.cmp-notification--dynamic[class*=cmp-notification--]'
                 );
-                [...notifications].forEach( notification => {
-                    notification.classList.remove('error');
+                [...notifications].forEach(notification => {
+                    if (notification) {
+                        notification.classList.remove('error');
+                    }
                 });
             }
         );
@@ -36,17 +37,22 @@ class ErrorBoundary extends React.Component {
 
     setErrorBoundaryToTrue(response) {
         // Display captcha server error in a different notification component
-        const classname = (response && response.status === statusCodes.captcha) ? 'captcha' : 'error';
+        const classname =
+            response && response.status === statusCodes.captcha
+                ? 'captcha'
+                : 'error';
 
         const notification = document.querySelector(
             '.cmp-notification--dynamic.cmp-notification--' + classname
         );
 
-        notification.classList.add('error');
+        if (notification) {
+            notification.classList.add('error');
+        }
 
         this.setState({
             hasError: true,
-            hasErrored: true,
+            hasErrored: true
         });
     }
 
@@ -62,7 +68,7 @@ class ErrorBoundary extends React.Component {
                     setErrorBoundaryToTrue: this.setErrorBoundaryToTrue.bind(
                         this
                     ),
-                    removeNotifications: this.removeNotifications.bind(this),
+                    removeNotifications: this.removeNotifications.bind(this)
                 })}
             </>
         );
