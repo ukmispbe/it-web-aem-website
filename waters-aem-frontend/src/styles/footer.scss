@@ -406,7 +406,7 @@
         border: 1px solid $color-border-light;
         display: inline-table;
         position: absolute;
-
+        
         @supports (display: inline-grid) {
             display: inline-flex;
             position: relative;
@@ -414,6 +414,7 @@
 
         @include mobile {
             width: 100%;
+            margin-right: $space-xxs;
         }
 
         &:hover {
