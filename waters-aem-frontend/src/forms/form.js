@@ -25,7 +25,8 @@ const Form = ({
     setErrorBoundaryToTrue,
     resetErrorBoundaryToFalse,
     removeNotifications,
-    defaultValues
+    defaultValues,
+    toggle
 }) => {
     const {
         register,
@@ -41,7 +42,7 @@ const Form = ({
         mode: 'onBlur',
         reValidateMode: 'onBlur',
         defaultValues: {
-            "country": DigitalData.default,
+            country: DigitalData.default,
             ...defaultValues
         }
     });
@@ -70,7 +71,7 @@ const Form = ({
         [errors]
     );
 
-    const getValue = (name) => getValues()[name];
+    const getValue = name => getValues()[name];
 
     const getApi = useMemo(
         () => ({
@@ -120,7 +121,8 @@ const Form = ({
                 submitFn.bind({
                     url: config.submitEndpoint,
                     setError: submitErrorHandler,
-                    redirect: config.redirectUrl
+                    redirect: config.redirectUrl,
+                    toggle: toggle
                 })
             )}
         >
@@ -139,10 +141,11 @@ const Form = ({
             >
                 {config.buttonText}
             </button>
-            {config.cancelText && !!cancelFn &&
-            <a className="cmp-button cmp-button--cancel" onClick={cancelFn}>
-                {config.cancelText}
-            </a>}
+            {config.cancelText && !!cancelFn && (
+                <a className="cmp-button cmp-button--cancel" onClick={cancelFn}>
+                    {config.cancelText}
+                </a>
+            )}
         </form>
     );
 };
