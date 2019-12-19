@@ -337,6 +337,8 @@
     }
 
     @include mobile {
+        display: flex;
+        flex-direction: column;
         margin-left: 0;
         width: 100%;
         margin-bottom: $space-m;
@@ -351,16 +353,28 @@
         align-items: center;
         padding: $space-xxs $space-s $space-xxs $space-s;
         border: 1px solid $color-border-light;
-        margin-right: $space-s;
+        margin-right: $space-xxs;
+
+        &:hover {
+            color: $color-gray-20;
+            & > span:first-child {
+                color: $color-gray-20;
+            }
+
+            .inline-svg {    
+                .st0 {
+                    stroke: $color-gray-20;
+                }
+            }
+        }
 
         @include mobile {
-            border-right: none;
             margin-bottom: $space-s;
         }
 
         span {
             display: inline-block;
-            float: left;
+            flex-grow: 1;
             color: $color-white;
             padding-right: $space-xxs;
         }
