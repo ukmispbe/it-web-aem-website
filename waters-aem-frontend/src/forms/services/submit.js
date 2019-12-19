@@ -100,10 +100,10 @@ export async function changePasswordSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-        console.log('update password complete -> redirect', response.json());
+        console.log('update password complete -> redirect');
 
         if (this.callback && typeof this.callback === 'function') {
-            this.callback(response.json());
+            this.callback(await response.json());
         }
     } else {
         this.setError(response);
