@@ -343,13 +343,14 @@
     }
 
     &__region {
+        cursor: pointer;
         display: inline-flex;
         min-height: 51px;
         height: 51px;
         -webkit-box-align: center;
         align-items: center;
-        padding: $space-xxs $space-s $space-xxs 0em;
-        border-right: 1px solid $color-border-light;
+        padding: $space-xxs $space-s $space-xxs $space-s;
+        border: 1px solid $color-border-light;
         margin-right: $space-s;
 
         @include mobile {

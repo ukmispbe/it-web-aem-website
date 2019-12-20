@@ -35,6 +35,9 @@ public final class Classification {
     @ValueMapValue(name = WatersCommerceConstants.PROPERTY_CODE)
     private String code;
 
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_MULTI_VALUED)
+    private Boolean multiValued;
+
     public String getPath() {
         return resource.getPath();
     }
@@ -55,6 +58,10 @@ public final class Classification {
         return facet;
     }
 
+    public Boolean isMultiValued() {
+        return multiValued;
+    }
+
     /**
      * Checks if the feature value is a "range" property and concatenates the values with a hyphen if so.
      * ex: "1 - 12 pH" where "1" is a feature value and "12" is another feature value.
@@ -67,7 +74,7 @@ public final class Classification {
                 String.join(", ", getDisplayableFeatureValues());
     }
 
-    private String[] getDisplayableFeatureValues() {
+    public String[] getDisplayableFeatureValues() {
         return unitSymbol == null || range ? getFeatureValues() : Arrays.stream(featureValues)
                 .map(featureValue -> featureValue + " " + unitSymbol)
                 .toArray(String[] :: new);

@@ -32,7 +32,7 @@ public class SkuSolrIndexContentPredicate implements SolrIndexContentPredicate {
 
             final BigDecimal price = sku.getPrice(country, siteContext.getCurrencyIsoCode());
 
-            if (price != null || indexGlobalExperienceSku(country, sku)) {
+            if (price != null || indexGlobalExperienceSku(page, sku)) {
                 indexed = true;
             } else {
                 indexed = false;
@@ -45,21 +45,21 @@ public class SkuSolrIndexContentPredicate implements SolrIndexContentPredicate {
     }
 
     /**
-     * Checks if the provided country code represents a global experience code ("XG"). Also checks if we have a default
+     * Checks if the provided page represents a global experience page ("XG"). Also checks if we have a default
      * price (US-USD) for the provided sku.
      *
-     * @param country 2 character country code
+     * @param page page to determine if this is a global experience sku
      * @param sku used to lookup a default price
      * @return true if this sku should be indexed based on the above criteria
      */
-    private boolean indexGlobalExperienceSku(final String country, final Sku sku) {
+    private boolean indexGlobalExperienceSku(final PageDecorator page, final Sku sku) {
         // check if a US price exists for this global sku page.
         final BigDecimal defaultPrice = sku.getPrice("US", "USD");
 
-        if (WatersConstants.GLOBAL_REGIONS_NODE.equalsIgnoreCase(country) && defaultPrice == null) {
+        if (WatersConstants.PREDICATE_GLOBAL_EXP_PAGE.apply(page) && defaultPrice == null) {
             LOG.debug("no default price (US) for XG sku {}", sku.getCode());
         }
 
-        return defaultPrice != null && WatersConstants.GLOBAL_REGIONS_NODE.equalsIgnoreCase(country);
+        return defaultPrice != null && WatersConstants.PREDICATE_GLOBAL_EXP_PAGE.apply(page);
     }
 }

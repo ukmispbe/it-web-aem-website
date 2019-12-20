@@ -13,7 +13,7 @@ import CategoryDropDown from './components/category-dropdown';
 import Filter from './components/filter';
 import {
     SubFacetTags,
-    CategoryTags,
+    ContentTypeTag,
     ClearAllTag,
     KeywordTag,
 } from './components/filter-tags';
@@ -22,7 +22,8 @@ import BtnHideSortFilter from './components/btn-hide-sort-filter';
 import BtnApplySortFilter from './components/btn-apply-sort-filter';
 import BtnDoneSortFilter from './components/btn-done-sort-filter';
 import Spinner from './components/spinner';
-import { CategoriesMenu } from './components/categories-menu';
+import ContentTypeMenu from './components/content-type-menu';
+import FacetMenu from './components/facet-menu';
 import CategoryTabs from './components/categories-tabs';
 import validator from 'validator';
 import domElements from '../scripts/domElements';
@@ -193,7 +194,7 @@ class Search extends Component {
     }
 
     isSkuList = category =>  {
-        const categoryKey = this.findFacetByName(this.props.filterMap, category);
+        const categoryKey = this.findFacetNameProperty(this.props.filterMap, category);
 
         return validator.equals(categoryKey, 'shop');
     }
@@ -223,7 +224,7 @@ class Search extends Component {
         }
     }
 
-    findFacetByName = (filterMap, searchValue) => {
+    findFacetNameProperty = (filterMap, searchValue) => {
         if (!filterMap || !Array.isArray(filterMap)) {
             return "";
         }
@@ -237,6 +238,28 @@ class Search extends Component {
         return facet.categoryFacetName.replace('_facet', '');
     }
 
+    findFacetTranslationProperty = (filterMap, searchValue) => {
+        if (!filterMap || !Array.isArray(filterMap)) {
+            return "";
+        }
+
+        const facet = filterMap.find(item => item.categoryFacetValue === searchValue);
+
+        if (!facet) {
+            return "";
+        }
+
+        return facet.categoryFacetTranslation;
+    }
+
+    findFacet = (filterMap, searchValue) => { 
+        if (!filterMap || !Array.isArray(filterMap)) {
+            return "";
+        }
+
+        return filterMap.find(item => item.categoryFacetValue === searchValue);
+    }
+
     mapCategories = categories =>
         !categories || !categories.facets || !categories.facets.category_facet
             ? []
@@ -244,7 +267,7 @@ class Search extends Component {
                   .filter(category => category.value !== 0)
                   .map(category => {
                       return { 
-                          key: this.findFacetByName(this.props.filterMap, category.value),
+                          translation: this.findFacetTranslationProperty(this.props.filterMap, category.value),
                           name: category.value,
                           count: category.count 
                         };
@@ -396,14 +419,12 @@ class Search extends Component {
         });
 
         if (!this.props.hasError) {
-            const requestData = {...query, categoryKey: this.findFacetByName(this.props.filterMap, query.category)};
-
-            this.search.getResultsByCategory(requestData).then(res => {
+            this.search.getResultsByCategory(query).then(res => {
                 if (res && !this.props.hasError) {
                     this.searchOnSuccess(query, rows, res, true);
                 } else {
                     this.search
-                        .getResultsByCategory(requestData)
+                        .getResultsByCategory(query)
                         .then(results => {
                             if (!results) {
                                 this.setState({
@@ -428,13 +449,11 @@ class Search extends Component {
     }
 
     executeSearchByContentType = (query, rows) => {
-        const requestData = {...query, categoryKey: this.findFacetByName(this.props.filterMap, query.category)};
-
         // no sub-facets have been selected, only the content type has been selected
         const contentTypeValue = this.getSelectedContentTypeValue();
 
         this.search
-            .getContentType(query.content_type, contentTypeValue, requestData)
+            .getContentType(query.content_type, contentTypeValue, query)
             .then(res =>
                 this.searchOnSuccess(query, rows, res, false, 'success')
             )
@@ -442,15 +461,13 @@ class Search extends Component {
     }
 
     executeSearchBySubFacets = (query, rows) => {
-        const requestData = {...query, categoryKey: this.findFacetByName(this.props.filterMap, query.category)};
-
         // sub-facets have been selected
         const contentTypeName = this.getSelectedContentTypeName();
 
         const contentTypeValue = this.getSelectedContentTypeValue();
 
         this.search
-            .getSubFacet(contentTypeName, contentTypeValue, requestData)
+            .getSubFacet(contentTypeName, contentTypeValue, query)
             .then(res =>
                 this.searchOnSuccess(query, rows, res, false, 'success')
             )
@@ -471,11 +488,8 @@ class Search extends Component {
         Object.entries(selectedFacets).length !== 0 ? true : false;
 
     getFilterMap = (authoredTags, backendFacets) => {
-        const category = authoredTags.find(
-            authoredItem =>
-                authoredItem.categoryFacetName ===
-                `${this.state.category.toLowerCase()}_facet`
-        );
+        const categoryFacetName = `${this.state.category.toLowerCase()}_facet`;
+        const category = authoredTags.find(authoredItem => authoredItem.categoryFacetName === categoryFacetName);
 
         if (!category) {
             return;
@@ -801,6 +815,7 @@ class Search extends Component {
         );
 
         if (query.keyword && !this.search.isDefaultKeyword(query.keyword)) {
+            this.search.clearSessionStore();
             this.search.setUrlParameter('', window.location.pathname);
         } else {
             // no keyword has been selected so no need to reload page
@@ -815,6 +830,8 @@ class Search extends Component {
     };
 
     handleRemoveKeyword = () => {
+        this.search.clearSessionStore();
+        
         const parameters = parse(window.location.search);
 
         parameters.keyword = parameterDefaults.keyword;
@@ -863,48 +880,37 @@ class Search extends Component {
         return contentTypeValue;
     };
 
+    getSelectedContentTypeTranslation = () => {
+        const query = this.getQueryObject();
+
+        const contentTypeElement = this.findContentType(
+            this.props.filterMap,
+            query.content_type
+        );
+        const categoryFacetTranslation = contentTypeElement
+            ? contentTypeElement.categoryFacetTranslation
+            : 'NA';
+
+        return categoryFacetTranslation;
+    };
+
     renderContentMenuOrFilter = filterTags => {
 
         if (!this.showFilteringComponents()) {
             return <></>
         }
 
-        if (
-            this.isCategoryOnlySelected(
-                this.state.category,
-                this.state.contentType
-            )
-        ) {
-            return (
-                <CategoriesMenu
-                    text={this.props.searchText}
-                    categoryKey="filterBy"
-                    items={this.state.filterMap.orderedFacets}
-                    click={this.handleContentTypeItemClick.bind(this)}
-                    showBothChildrenAndItems={true}
+        return this.isCategoryOnlySelected(this.state.category, this.state.contentType)
+            ? <ContentTypeMenu
+                heading={this.props.searchText.filterBy}
+                items={this.state.filterMap.orderedFacets}
+                onClick={this.handleContentTypeItemClick} />
+            : <FacetMenu
+                    heading={this.props.searchText.filterBy}
+                    selectedValue={this.getSelectedContentTypeTranslation()}
+                    previousIcon={this.props.searchText.previousIcon}
                     filterTags={filterTags}
-                >
-                    <Filter
-                        text={this.props.searchText}
-                        selectHandler={this.filterSelectHandler.bind(this)}
-                        showTagsOnly={true}
-                        facetGroupsSelectedOrder={this.state.facetGroupsSelectedOrder}
-                        collapseAllFilters={this.state.collapseAllFilters}
-                        activeIndex={this.activeFilterIndex}
-                    />
-                </CategoriesMenu>
-            );
-        } else {
-            return (
-                <CategoriesMenu
-                    text={this.props.searchText}
-                    categoryKey="filterBy"
-                    items={this.state.filterMap.orderedFacets}
-                    click={this.handleContentTypeItemClick.bind(this)}
-                    selectedValue={this.getSelectedContentTypeValue()}
-                    clear={this.handleRemoveContentType.bind(this)}
-                    filterTags={filterTags}
-                >
+                    onClear={this.handleRemoveContentType}>
                     <Filter
                         ref={this.filterRef}
                         facets={this.state.facets}
@@ -919,9 +925,7 @@ class Search extends Component {
                         activeIndex={this.state.activeFilterIndex}
                         onGroupClick={this.handleFilterGroupClick}
                     />
-                </CategoriesMenu>
-            );
-        }
+                </FacetMenu>
     };
 
     handleFilterGroupClick = (facetName, index) => {
@@ -938,7 +942,7 @@ class Search extends Component {
                         onRemove={this.handleResetSearchToDefault}
                     />
                     {this.getKeywordTag()}
-                    {this.getCategoryTags()}
+                    {this.getContentTypeTag()}
                     {this.getSubFacetTags()}
                 </div>
             );
@@ -961,8 +965,8 @@ class Search extends Component {
             ) {
                 return {
                     facetName: this.state.contentTypeSelected.categoryFacetName,
-                    facetValue: this.state.contentTypeSelected
-                        .categoryFacetValue,
+                    facetValue: this.state.contentTypeSelected.categoryFacetValue,
+                    facetTranslation: this.state.contentTypeSelected.categoryFacetTranslation
                 };
             } else if (
                 this.state.contentTypeSelected.hasOwnProperty('facetName')
@@ -980,13 +984,13 @@ class Search extends Component {
         return {
             facetName: contentType ? contentType.categoryFacetName : '',
             facetValue: contentType ? contentType.categoryFacetValue : '',
+            facetTranslation: contentType ? contentType.categoryFacetTranslation : ''
         };
     };
 
-    getCategoryTags = () =>
+    getContentTypeTag = () =>
         this.isContentTypeSelected() ? (
-            <CategoryTags
-                categoryKey="contentType"
+            <ContentTypeTag
                 text={this.props.searchText}
                 selected={this.getSelectedContentType()}
                 onRemove={this.handleRemoveContentType}

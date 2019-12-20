@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import ScreenSizes from '../../scripts/screenSizes';
 import variables from '../../../src/styles/variables.scss';
 
+/* istanbul ignore next */
 const customStyles = {
     indicatorSeparator: () => ({
         display: 'none',
@@ -67,10 +68,10 @@ const DropdownIndicator = props => {
 
 
 const getOptions = options => {
-    let newList = options.map((a, index) => { 
+    let newList = options.filter(item => item.count !== 0).map((a, index) => { 
         return {
             value: index,
-            label: a.name
+            label: a.translation
         }
     })
     
@@ -105,11 +106,6 @@ const CategoryDropdown = props => {
     );
 };
 
-CategoryDropdown.defaultProps = {
-    categoryIsSearchable: false,
-    categoryPlaceholder: '',
-};
-
 CategoryDropdown.propTypes = {
     categoryOptions: PropTypes.array.isRequired,
     categoryOnChange: PropTypes.func.isRequired,
@@ -119,5 +115,13 @@ CategoryDropdown.propTypes = {
     categoryValue: PropTypes.number
 }
 
+CategoryDropdown.defaultProps = {
+    categoryOptions: [],
+    categoryOnChange: () => {},
+    categoryIsSearchable: false,
+    categoryPlaceholder: '',
+    categoryDownIcon: '',
+    categoryValue: 0
+};
 
 export default CategoryDropdown;

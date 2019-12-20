@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: CountrySelection Component Scenario: Rendering When countries are specified Then it should match snapshot 1`] = `
+<div
+  className="cmp-country-selector"
+>
+  <div
+    className="cmp-country-selector__title"
+  >
+    <div />
+    <div>
+      Select your Preferred Country
+    </div>
+  </div>
+  <div
+    className="cmp-country-selector__text"
+  >
+    Changing the country you shop from may affect factors including account pricing, shipping options and product availability.
+  </div>
+  <div
+    className="cmp-country-selector__dropdown"
+  >
+    <select
+      className="select-css"
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        value="/content/waters/us/en.html"
+      >
+        United States
+      </option>
+      <option
+        value="/content/waters/jp/ja.html"
+      >
+        Japan
+      </option>
+      <option
+        value="/content/waters/cn/zh.html"
+      >
+        China
+      </option>
+    </select>
+  </div>
+  <div
+    className="cmp-country-selector__note"
+  >
+    <div />
+    <div>
+      Note'
+       
+      Your new country website will open in a new browser tab.
+    </div>
+  </div>
+  <div
+    className="cmp-country-selector__button"
+  >
+    <a
+      className="cmp-button"
+      onClick={[Function]}
+    >
+      Change Country
+    </a>
+  </div>
+  <div
+    className="cmp-country-selector__cancel"
+  >
+    <a
+      onClick={[MockFunction]}
+    >
+      Cancel
+    </a>
+  </div>
+</div>
+`;

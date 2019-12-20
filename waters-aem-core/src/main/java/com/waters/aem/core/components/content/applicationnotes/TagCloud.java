@@ -78,8 +78,8 @@ public final class TagCloud implements ComponentExporter {
         if (searchFacets == null) {
             searchFacets = pageMetadata.getSearchTags()
                 .stream()
-                .map(tag -> new SearchFacet(tag.getTitle(siteContext.getLocale()), tag.getName(),
-                    tag.getParent().getName()))
+                .map(tag -> new SearchFacet(tag.getTitle(siteContext.getLocale()), tag.getTitle(),
+                        tag.getName(), tag.getParent().getName()))
                 .collect(Collectors.toList());
         }
 
