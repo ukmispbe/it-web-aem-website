@@ -1,5 +1,7 @@
 import React from 'react';
-import { Modal } from '../modal/index';
+import PropTypes from 'prop-types';
+import Modal, { Header, keys } from '../utils/modal';
+import WeChatModalBody from '../wechat/wechat-modal-body';
 
 class WeChat extends React.Component {
 
@@ -7,17 +9,10 @@ class WeChat extends React.Component {
         super(props);
 
         this.state = {
-            isModalShown: false,
-            config: {
-                 "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
-                 "title": props.config.title,
-                 "qrCodeImg": props.config.qrCodeImg,
-                 "text": props.config.desc,
-                 "alt": props.config.alt
-            }
+            isModalShown: false
         }
     }
-
+    
     componentDidMount() {
         const wechatSelector = document.querySelector('.cmp-footer__social-links__item--wechat');
 
@@ -43,16 +38,19 @@ class WeChat extends React.Component {
         this.setState({isModalShown: !this.state.isModalShown})
     };
 
+
     render() {
         return (
-            <Modal
-                open={this.state.isModalShown}
-                config={this.state.config}
-                theme='wechat'
-                toggleModal={this.toggleModal}
-             />
+            <Modal isOpen={this.state.isModalShown}>
+                <Header onClose={this.toggleModal} title={this.props.config.title} className={keys.HeaderTitleCenteredOnDesktop} />
+                <WeChatModalBody config={this.props.config} />
+            </Modal>
         )
     }
 }
 
+WeChat.propTypes = {
+    config: PropTypes.object.isRequired
+}
+  
 export default WeChat;

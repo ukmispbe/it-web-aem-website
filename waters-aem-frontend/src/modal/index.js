@@ -1,9 +1,6 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
-import { myAccountModalTheme } from '../my-account-dropdown/index';
-import MyAccountModalBody from '../my-account-dropdown/my-account-modal';
 import StandardModalBody from './standard-modal-body';
-import WeChatModalBody from '../wechat/wechat-modal-body';
 import ErrorMessages from '../scripts/ErrorMessages';
 
 class Modal extends React.Component {
@@ -97,16 +94,6 @@ class Modal extends React.Component {
     };
 
     theme = state => {
-        if (state.theme == myAccountModalTheme) {
-            return (
-                <MyAccountModalBody config={state.config}/>
-            )
-        } else if (state.theme === 'wechat') {
-            return (
-                <WeChatModalBody config={this.state.config} closeModal={this.closeModal} />
-            )
-        } else {
-
             if (this.state.errorObj && this.state.errorObj.ok === false) {
                 const newConfig = Object.assign({}, state.config);
                 newConfig.text = ErrorMessages.ErrorMessages(this.props.errorObj).wereSorry;
@@ -125,8 +112,6 @@ class Modal extends React.Component {
                     }} closeModal={this.closeModal} />
                 )
             }
-
-        }
     };
 
     render() {

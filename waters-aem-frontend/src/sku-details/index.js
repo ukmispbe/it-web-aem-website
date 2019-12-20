@@ -86,13 +86,7 @@ class SkuDetails extends React.Component {
     }
 
     toggleModal = () => {
-        this.setState({ modalShown: !this.state.modalShown }, () => {
-            if (this.state.modalShown) {
-                FeedbackSurvey.isDisplayed(false);
-            } else {
-                FeedbackSurvey.isDisplayed(true);
-            }
-        });
+        this.setState({ modalShown: !this.state.modalShown });
     };
 
     toggleErrorModal = err => {
