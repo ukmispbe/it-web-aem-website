@@ -521,3 +521,17 @@
         margin-bottom: 0px;
     }
 }
+
+.password, 
+.personal,
+.billing,
+.shipping {
+    .cmp-form-field {          
+        @include tablet-and-over {
+            width: 62.5%;
+            @include tablet {
+                width: 50%;
+            }
+        }         
+    }
+}
