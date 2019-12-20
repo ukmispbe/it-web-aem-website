@@ -111,10 +111,10 @@
         > div:first-child {
             padding-right: $space-xs;
         }
-        
+
         svg {
-            width: $icon-l;
-            height: $icon-l;
+            width: $icon-m;
+            height: $icon-m;
 
             @include mobile {
                 width: $icon-m;

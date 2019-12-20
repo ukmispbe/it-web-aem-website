@@ -21,7 +21,7 @@ const CountrySelection = props => {
     return (
         <div className="cmp-country-selector">
             <div className="cmp-country-selector__title">
-                <ReactSVG src="/content/dam/waters/brand-assets/icons/globe.svg" />
+                <ReactSVG src="/content/dam/waters/en/brand-assets/icons/globe.svg" />
                 <div>
                     {props.translations.preferredCountryHeading}
                 </div>
@@ -35,7 +35,7 @@ const CountrySelection = props => {
                 </select>
             </div>
             <div className="cmp-country-selector__note">
-                <ReactSVG src="/content/dam/waters/brand-assets/icons/externallink.svg" />
+                <ReactSVG src="/content/dam/waters/en/brand-assets/icons/externallink.svg" />
                 <div className="cmp-country-selector__note-text">
                     <span>{props.translations.changeCountryNoteText}:</span>&nbsp;{props.translations.changeCountryNewTabText}
                 </div>
