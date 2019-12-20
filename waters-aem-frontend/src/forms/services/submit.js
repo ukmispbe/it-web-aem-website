@@ -86,7 +86,7 @@ export async function resetPasswordSubmit(data) {
         scrollToY(0);
     }
 }
-
+ 
 export async function changePasswordSubmit(data) {
     delete data.confirmNewPassword;
 
