@@ -207,7 +207,12 @@
 
                 .cmp-form-field {
                     float: none;
-                    margin-bottom: $space-l;
+                    @include tablet-and-over {
+                        width: 62.5%;
+                        @include tablet {
+                            width: 50%;
+                        }
+                    }
                 }
 
                 .cmp-button {
