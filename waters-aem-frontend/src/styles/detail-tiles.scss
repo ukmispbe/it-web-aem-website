@@ -207,9 +207,6 @@
 
                 @include tablet-and-over {
                     width: 62.5%;
-                    @include tablet {
-                        width: 50%;
-                    }
                 }
 
                 .cmp-form-field {
