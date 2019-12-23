@@ -1,6 +1,7 @@
 package com.waters.aem.core.components.content.links;
 
 import com.citytechinc.cq.component.annotations.DialogField;
+import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.icfolson.aem.library.api.link.Link;
@@ -12,6 +13,7 @@ import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 
 import javax.inject.Inject;
+import java.util.List;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @SuppressWarnings({"common-java:DuplicatedBlocks"})
@@ -39,19 +41,11 @@ public class Feature {
     @Inject
     private String icon;
 
-    @DialogField(fieldLabel = "Link Text",
-            fieldDescription = "Enter the text for the link",
+    @DialogField(fieldLabel = "Links",
             ranking = 4)
-    @TextField
+    @MultiField(composite = true)
     @Inject
-    private String linkText;
-
-    @DialogField(fieldLabel = "Link Path",
-            fieldDescription = "Select or enter the link URL",
-            ranking = 5)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
-    @LinkInject
-    private Link linkPath;
+    private List<BasicLink> links;
 
     public String getTitle() {
         return title;
@@ -65,16 +59,8 @@ public class Feature {
         return icon;
     }
 
-    public String getLinkText() {
-        return linkText;
-    }
-
-    public Link getLinkPath() {
-        return linkPath;
-    }
-
-    public Boolean isExternal() {
-        return LinkUtils.isExternal(linkPath);
+    public List<BasicLink> getLinks() {
+        return links;
     }
 
     public Boolean isSvg() {
