@@ -1,7 +1,10 @@
 import React from 'react';
+import ReactSVG from 'react-svg';
 import PropTypes from 'prop-types';
 import Modal, { Header, keys } from '../utils/modal';
 import WeChatModalBody from '../wechat/wechat-modal-body';
+
+const weChatLinkClass = 'cmp-footer-social-links__link';
 
 class WeChat extends React.Component {
 
@@ -11,24 +14,10 @@ class WeChat extends React.Component {
         this.state = {
             isModalShown: false
         }
+
+        this.showModal = this.showModal.bind(this);
     }
     
-    componentDidMount() {
-        const wechatSelector = document.querySelector('.cmp-footer__social-links__item--wechat');
-
-        if (wechatSelector && wechatSelector.firstElementChild.tagName === "A") {
-            wechatSelector.firstElementChild.addEventListener('click', this.showModal);
-        }
-    }
-
-    componentWillUnMount() {
-        const wechatSelector = document.querySelector('.cmp-footer__social-links__item--wechat');
-
-        if (wechatSelector && wechatSelector.firstElementChild.tagName === "A") {
-            wechatSelector.firstElementChild.removeEventListener('click', this.showModal);
-        }
-    }
-
     showModal = (e) => {
         e.preventDefault();
         this.toggleModal();
@@ -41,10 +30,15 @@ class WeChat extends React.Component {
 
     render() {
         return (
-            <Modal isOpen={this.state.isModalShown}>
-                <Header onClose={this.toggleModal} title={this.props.config.title} className={keys.HeaderTitleCenteredOnDesktop} />
-                <WeChatModalBody config={this.props.config} />
-            </Modal>
+            <>
+                <a className={weChatLinkClass} href="#" target="_blank" onClick={this.showModal}>
+                    <ReactSVG src={this.props.config.chatIcon} />
+                </a>
+                <Modal isOpen={this.state.isModalShown}>
+                    <Header onClose={this.toggleModal} title={this.props.config.title} className={keys.HeaderTitleCenteredOnDesktop} />
+                    <WeChatModalBody config={this.props.config} />
+                </Modal>
+            </>
         )
     }
 }
@@ -54,3 +48,4 @@ WeChat.propTypes = {
 }
   
 export default WeChat;
+export { weChatLinkClass };

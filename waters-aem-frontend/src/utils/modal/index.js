@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect} from "react";
 import PropTypes from 'prop-types';
-import ReactDOM from "react-dom";
 import ReactSVG from 'react-svg';
+import ModalPortal from './modal-portal';
 import FeedbackSurvey from '../../scripts/feedbackSurvey';
 import domElements from '../../scripts/domElements';
 
@@ -10,21 +10,6 @@ const keys = {
     HeaderTitleCenteredOnDesktop: 'header-with-title-centered-tablet-and-over',
     HeaderWithTitle: 'header-with-title'
 }
-
-const ModalPortal = props => {
-    const modalElement = document.getElementById("modal-root");
-    const el = document.createElement("div");
-
-    React.useEffect(() => {
-        modalElement.appendChild(el);
-
-        return () => {
-        modalElement.removeChild(el);
-        };
-    }, []);
-
-    return ReactDOM.createPortal(props.children, el);
-};
 
 const onClose = ()=> { 
     FeedbackSurvey.isDisplayed(true);
@@ -81,7 +66,7 @@ const Header = props => {
     }
 
     return (
-        <div className={`cmp-modal__header ${props.title ? keys.HeaderWithTitle : ""} ${props.className}` }>
+        <div className={`cmp-modal__header ${props.title ? keys.HeaderWithTitle : ''} ${props.className ? props.className : ''}` }>
             <Title/>
             <div className="cmp-modal__close-icon">
                 <ReactSVG
