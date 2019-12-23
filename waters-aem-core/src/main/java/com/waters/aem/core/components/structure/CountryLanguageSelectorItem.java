@@ -1,11 +1,12 @@
 package com.waters.aem.core.components.structure;
 
 import com.day.cq.commons.LanguageUtil;
-import com.icfolson.aem.library.api.Linkable;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.enums.TitleType;
 import com.waters.aem.core.constants.WatersConstants;
+
+import java.util.Optional;
 
 /**
  * A wrapper class to represent any page of a particular country or language, where properties concerning the country
@@ -15,9 +16,15 @@ import com.waters.aem.core.constants.WatersConstants;
 public class CountryLanguageSelectorItem {
 
     private PageDecorator page;
+    private String title;
 
     public CountryLanguageSelectorItem(final PageDecorator page) {
         this.page = page;
+    }
+
+    public CountryLanguageSelectorItem(final PageDecorator page, final String title) {
+        this.page = page;
+        this.title = title;
     }
 
     public Link getHomepageLink() {
@@ -25,7 +32,7 @@ public class CountryLanguageSelectorItem {
                 .stream()
                 .filter(WatersConstants.PREDICATE_HOME_PAGE::apply)
                 .findFirst()
-                .map(Linkable::getLink)
+                .map(page -> page.getLink(true))
                 .orElse(null);
     }
 
@@ -47,7 +54,8 @@ public class CountryLanguageSelectorItem {
     }
 
     public String getTitle() {
-        return page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle());
+        return Optional.ofNullable(title)
+                .orElse(page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle()));
     }
 
     public PageDecorator getPage() {

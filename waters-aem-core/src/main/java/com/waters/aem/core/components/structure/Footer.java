@@ -44,6 +44,7 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -392,20 +393,42 @@ public final class Footer extends AbstractComponent implements ComponentExporter
         final List<PageDecorator> countryRootPages = countryList.getCountryRootPages();
 
         if (currentLanguageRoot != null) {
-            // add current country to beginning of list
-            countryPages.addAll(countryRootPages.stream()
-                    .filter(page -> currentLanguageRoot.startsWith(page.getPath()))
-                    .map(CountryLanguageSelectorItem::new)
-                    .collect(Collectors.toList()));
-
-            // add remaining countries to list
+            // add all countries to list, excluding current
             countryPages.addAll(countryRootPages.stream()
                     .filter(page -> !currentLanguageRoot.startsWith(page.getPath())) // exclude current page from list
                     .map(CountryLanguageSelectorItem::new)
+                    .sorted(Comparator.comparing(CountryLanguageSelectorItem::getTitle))
                     .collect(Collectors.toList()));
+
+            final PageDecorator globalExperiencePage = currentPage.getPageManager()
+                    .getPage(WatersConstants.ROOT_PATH_GLOBAL_EXPERIENCE);
+
+            // if current page is not global experience, add current country to start of list
+            if (!WatersConstants.PREDICATE_GLOBAL_EXP_PAGE.apply(currentPage)) {
+                countryRootPages.stream()
+                        .filter(page -> currentLanguageRoot.startsWith(page.getPath()))
+                        .findFirst()
+                        .map(CountryLanguageSelectorItem::new)
+                        .ifPresent(item -> countryPages.add(0, item));
+
+                // add global experience to end of list
+                if (globalExperiencePage != null) {
+                    countryPages.add(getGlobalExperienceSelectorItem());
+                }
+            } else {
+                // add global experience to start of list
+                if (globalExperiencePage != null) {
+                    countryPages.add(0, getGlobalExperienceSelectorItem());
+                }
+            }
         }
 
         return countryPages;
+    }
+
+    private CountryLanguageSelectorItem getGlobalExperienceSelectorItem() {
+        return new CountryLanguageSelectorItem(
+                currentPage.getPageManager().getPage(WatersConstants.ROOT_PATH_GLOBAL_EXPERIENCE), "Other");
     }
 
     @Nonnull
