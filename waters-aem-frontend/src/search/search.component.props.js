@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     text: PropTypes.object.isRequired,
+    filterMap: PropTypes.array.isRequired,
+    category: PropTypes.text,
     categoryProps: PropTypes.shape({
         categories: PropTypes.arrayOf(PropTypes.object).isRequired,
         activeIndex: PropTypes.number.isRequired
@@ -75,10 +77,28 @@ const propTypes = {
         onFilterSelect: PropTypes.func.isRequired,
         onGroupClick: PropTypes.func.isRequired
     }).isRequired,
+    filterTagsProps: PropTypes.shape({
+        keyword: PropTypes.text,
+        spell_suggestion: PropTypes.text,
+        contentTypeSelected: PropTypes.object.isRequired,
+        selectedFacets: PropTypes.object.isRequired,
+        facets: PropTypes.object.isRequired,
+        filterMap: PropTypes.array.isRequired,
+        defaultFacet: PropTypes.text,
+        contentType: PropTypes.text
+    }).isRequired,
+    filterTagsEvents: PropTypes.shape({
+        onClearAll: PropTypes.func.isRequired,
+        onKeywordRemove: PropTypes.func.isRequired,
+        onContentTypeRemove: PropTypes.func.isRequired,
+        onSubFacetRemove: PropTypes.func.isRequired
+    }).isRequired
 };
 
 const defaultProps = {
     text: {},
+    filterMap: {},
+    category: '',
     categoryProps: {
         categories: [],
         activeIndex: -1
@@ -151,6 +171,22 @@ const defaultProps = {
     subFacetFiltersEvents: {
         onFilterSelect: () => {},
         onGroupClick: () => {}
+    },
+    filterTagsProps: {
+        keyword: '',
+        spell_suggestion: '',
+        contentTypeSelected: {},
+        selectedFacets: {},
+        facets: {},
+        filterMap: [],
+        defaultFacet: '',
+        contentType: ''
+    },
+    filterTagsEvents: {
+        onClearAll: () => {},
+        onKeywordRemove: () => {},
+        onContentTypeRemove: () => {},
+        onSubFacetRemove: () => {}
     }
 };
 

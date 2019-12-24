@@ -1,4 +1,5 @@
 import React from 'react';
+import { parameterDefaults } from './services/index';
 import ContentTypeMenu from './components/content-type-menu';
 import FacetMenu from './components/facet-menu';
 import Filter from './components/filter';
@@ -8,14 +9,69 @@ import BtnApplySortFilter from './components/btn-apply-sort-filter';
 import BtnDoneSortFilter from './components/btn-done-sort-filter';
 import Sort from './components/sort';
 import BtnShowSortFilter from './components/btn-show-sort-filter';
+import {
+    SubFacetTags,
+    ContentTypeTag,
+    ClearAllTag,
+    KeywordTag,
+} from './components/filter-tags';
+
+const FilterTagList = ({
+    text,
+    filterMap,
+    filterTagsProps,
+    filterTagsEvents
+}) => {
+    const isKeywordSpecified = filterTagsProps.keyword && filterTagsProps.keyword !== parameterDefaults.keyword;
+    const isContentTypeSelected = Object.entries(filterTagsProps.contentTypeSelected).length !== 0 && filterTagsProps.contentTypeSelected.facetTranslation
+
+    if (!isKeywordSpecified && !isContentTypeSelected) {
+        return <div className="cmp-search-filters__emptytags" />;
+    }
+
+    const keyWordTag = isKeywordSpecified 
+        ? <KeywordTag
+                keyword={filterTagsProps.spell_suggestion ? filterTagsProps.spell_suggestion : filterTagsProps.keyword}
+                text={text}
+                onRemove={filterTagsEvents.onKeywordRemove} /> 
+        : <></>;
+
+    const contentTypeTag = isContentTypeSelected
+        ? <ContentTypeTag
+                text={text}
+                selected={filterTagsProps.contentTypeSelected}
+                onRemove={filterTagsEvents.onContentTypeRemove} />
+        : <></>;
+
+    const subFacetTags = Object.entries(filterTagsProps.selectedFacets).length !== 0 
+        ? <SubFacetTags
+                text={text}
+                selectedFacets={filterTagsProps.selectedFacets}
+                facets={filterTagsProps.facets}
+                removeTag={filterTagsEvents.onSubFacetRemove}
+                filterMap={filterMap}
+                defaultFacet={filterTagsProps.contentType}  />
+        : <></>;
+
+    return (
+        <div className="cmp-search-filters__tags clearfix">
+            <ClearAllTag
+                text={text}
+                onRemove={filterTagsEvents.onClearAll} />
+            {keyWordTag}
+            {contentTypeTag}
+            {subFacetTags}
+        </div>
+    );
+}
 
 const Aside = props => {
     const SortFilterButtons = () => {
         return (
             <>
                 <BtnHideSortFilter
-                        text={props.text}
-                        onClick={props.onHideSortFilterClick} />
+                    text={props.text}
+                    onClick={props.onHideSortFilterClick} />
 
                 <BtnApplySortFilter
                     text={props.text}
@@ -46,6 +102,7 @@ const Aside = props => {
 
 const Menu = ({
     text,
+    filterMap,
     menuProps, 
     contentTypeMenuProps, 
     contentTypeMenuEvents, 
@@ -53,7 +110,8 @@ const Menu = ({
     facetMenuEvents,
     subFacetFiltersProps,
     subFacetFiltersEvents,
-    filterTags
+    filterTagsProps,
+    filterTagsEvents
 }) => {
     if (menuProps.showContentTypeMenu) {
         return (
@@ -63,6 +121,13 @@ const Menu = ({
                 onClick={contentTypeMenuEvents.onContentTypeItemClick} />
         );
     }
+
+    const filterTags = FilterTagList({
+        text,
+        filterMap,
+        filterTagsProps,
+        filterTagsEvents
+    });
 
     if (menuProps.showFacetMenu) {
         return (
@@ -93,12 +158,14 @@ const Menu = ({
 
 const ResultsBody = ({
     text, 
+    filterMap,
     categoryProps, 
     categoryEvents,
     showSortFilterProps,
     showSortFilterEvents,
     asideProps,
-    filterTags
+    filterTagsProps,
+    filterTagsEvents
 }) => {
     return (
         <div className="cmp-search__container">
@@ -124,7 +191,12 @@ const ResultsBody = ({
                         ? text.sortByBestMatch 
                         : text.sortByMostRecent}
                 </div>
-                {filterTags}
+                
+                <FilterTagList 
+                    text={text}
+                    filterMap={filterMap}
+                    filterTagsProps={filterTagsProps}
+                    filterTagsEvents={filterTagsEvents} />
             </div>
 
             Results
@@ -132,4 +204,4 @@ const ResultsBody = ({
     );
 }
 
-export { Aside, Menu, ResultsBody }
+export { FilterTagList, Aside, Menu, ResultsBody }

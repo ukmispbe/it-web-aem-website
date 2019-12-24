@@ -725,7 +725,7 @@ class Search extends Component {
         this.pushToHistory(query, query.facets);
     }
 
-    removeTag(tag) {
+    removeTag = (tag) => {
         const newState = Object.assign({}, this.state);
         const filteredArr = newState.selectedFacets[`${tag.categoryId}`].filter(
             (f, index) => {
@@ -1308,6 +1308,8 @@ class Search extends Component {
 
         return <SearchComponent
                     text={this.props.searchText}
+                    filterMap={this.props.filterMap}
+                    category={this.state.category}
                     categoryProps={{
                         categories: this.state.categoryTabs,
                         activeIndex: this.state.activeTabIndex
@@ -1380,6 +1382,20 @@ class Search extends Component {
                     subFacetFiltersEvents={{
                         onFilterSelect: this.filterSelectHandler,
                         onGroupClick: this.handleFilterGroupClick
+                    }}
+                    filterTagsProps={{
+                        keyword: this.state.keyword,
+                        spell_suggestion: this.state.spell_suggestion,
+                        contentTypeSelected: this.getSelectedContentType(),
+                        selectedFacets: this.state.unappliedFilters && this.state.unappliedFilters.selectedFacets ? this.state.unappliedFilters.selectedFacets : this.state.selectedFacets,
+                        facets: this.state.facets,
+                        contentType: this.state.contentType
+                    }}
+                    filterTagsEvents={{
+                        onClearAll: this.handleResetSearchToDefault,
+                        onKeywordRemove: this.handleRemoveKeyword,
+                        onContentTypeRemove: this.handleRemoveContentType,
+                        onSubFacetRemove: this.removeTag
                     }} />;
     }
 

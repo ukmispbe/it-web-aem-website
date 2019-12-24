@@ -8,7 +8,7 @@ const SearchComponent = props => {
     return (
         <>
             <CategoryTabs
-               items={props.categoryProps.categories}
+                items={props.categoryProps.categories}
                 activeIndex={props.categoryProps.activeIndex}
                 onClick={props.categoryEvents.onCategoryTabClick} />
 
@@ -30,6 +30,7 @@ const SearchComponent = props => {
 
                     <Menu 
                         text={props.text}
+                        filterMap={props.filterMap}
                         menuProps={props.menuProps}
                         contentTypeMenuProps={props.contentTypeMenuProps}
                         contentTypeMenuEvents={props.contentTypeMenuEvents}
@@ -37,18 +38,21 @@ const SearchComponent = props => {
                         facetMenuEvents={props.facetMenuEvents}
                         subFacetFiltersProps={props.subFacetFiltersProps}
                         subFacetFiltersEvents={props.subFacetFiltersEvents}
-                        filterTags={props.filterTags} />
+                        filterTagsProps={props.filterTagsProps}
+                        filterTagsEvents={props.filterTagsEvents} />
 
                 </Aside>
 
                 <ResultsBody
                     text={props.text}
+                    filterMap={props.filterMap}
                     categoryProps={props.categoryProps}
                     categoryEvents={props.categoryEvents}
                     showSortFilterProps={props.showSortFilterProps}
                     showSortFilterEvents={props.showSortFilterEvents}
                     asideProps={props.asideProps}
-                    filterTags={props.filterTags} />
+                    filterTagsProps={props.filterTagsProps}
+                    filterTagsEvents={props.filterTagsEvents} />
             </div>
         </>
     );
