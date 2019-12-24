@@ -21,7 +21,6 @@ import BtnShowSortFilter from './components/btn-show-sort-filter';
 import BtnHideSortFilter from './components/btn-hide-sort-filter';
 import BtnApplySortFilter from './components/btn-apply-sort-filter';
 import BtnDoneSortFilter from './components/btn-done-sort-filter';
-import Spinner from './components/spinner';
 import ContentTypeMenu from './components/content-type-menu';
 import FacetMenu from './components/facet-menu';
 import CategoryTabs from './components/categories-tabs';
@@ -29,6 +28,9 @@ import validator from 'validator';
 import domElements from '../scripts/domElements';
 import screenSizes from '../scripts/screenSizes';
 import Analytics, { analyticTypes } from '../scripts/analytics';
+
+import Loading from './components/loading';
+import SearchComponent from './search.component';
 
 const SEARCH_TYPES = {
     INITIAL: 'initial',
@@ -168,6 +170,7 @@ class Search extends Component {
             facetGroupsSelectedOrder: [],
             collapseAllFilters: false,
             activeFilterIndex: -1,
+            count: 0
         };
     }
 
@@ -676,7 +679,7 @@ class Search extends Component {
         });
     }
 
-    sortHandler(e) {
+    sortHandler = (e) => {
         const sortOption = parseInt(e.value) === 1 ? parameterValues.sort.mostRelevant : parameterValues.sort.mostRecent;
 
         let query = this.getQueryObject();
@@ -691,7 +694,7 @@ class Search extends Component {
 
     categoryChangeHandler = e => this.handleCategorySelected(e.value);
 
-    filterSelectHandler(facet, categoryId, e, activeIndex) {
+    filterSelectHandler = (facet, categoryId, e, activeIndex) => {
         const isChecked = e.target.checked;
         const newState = Object.assign({}, this.state);
         if (isChecked) {
@@ -746,7 +749,7 @@ class Search extends Component {
         });
     }
 
-    applyFilters() {
+    applyFilters = () => {
         this.hideSortFiltersModal();
         this.deactivateFilters();
         domElements.noScroll(false);
@@ -764,7 +767,7 @@ class Search extends Component {
         });
     }
 
-    resetToSavedState() {
+    resetToSavedState = () => {
         this.setState({ forceCollapseFilters: true }, () => {
             this.pushToHistory(this.state.savedState.searchParams, this.state.savedState.searchParams.facets);
         });
@@ -783,7 +786,7 @@ class Search extends Component {
     deactivateFilters = () => document.body.classList.remove('filter-active');
     hideSortFiltersModal = () => document.body.classList.remove('show-sort-filters');
 
-    setupFilters() {
+    setupFilters = () => {
         if (!this.state.isDesktop) {
             const state = Object.assign({}, this.state);
             this.savedSelectFilterState = JSON.stringify(state.selectedFacets);
@@ -1293,6 +1296,94 @@ class Search extends Component {
     }
 
     render() {
+        if (this.state.loading) {
+            return <Loading visible={true} />
+        };
+
+        if (this.state.noResults) {
+            return <NoResults
+                        searchText={this.props.searchText}
+                        query={this.state.keyword} />;
+        }
+
+        return <SearchComponent
+                    text={this.props.searchText}
+                    categoryProps={{
+                        categories: this.state.categoryTabs,
+                        activeIndex: this.state.activeTabIndex
+                    }}
+                    categoryEvents={{
+                        onCategoryTabClick: this.handleCategorySelected,
+                        onCategoryDropdownChange: this.categoryChangeHandler
+                    }}
+                    showSortFilterProps={{
+                        collapseFilters: this.collapseFilters
+                    }}
+                    showSortFilterEvents={{
+                        onSetupFilters: this.setupFilters,
+                        onResetToSavedState: this.resetToSavedState,
+                        onClose: this.handleHideSortFilterClick
+                    }}
+                    resultsProps={{
+                        rows: this.state.rows,
+                        count: this.state.count,
+                        query: this.state.query,
+                        current: this.state.pagination && this.state.pagination.current ? this.state.pagination.current : 1,
+                        noQuery: this.state.noQuery,
+                        spell_check: this.state.spell_check,
+                        spell_related_suggestions: this.state.spell_related_suggestions,
+                        spell_suggestion: this.state.spell_suggestion,
+                    }}
+                    resultsEvents={{
+                        onRelatedSuggestionClick: this.handleRelatedSuggestionClick
+                    }}
+                    asideProps={{
+                        sortFilterIsPristine: (this.state.contentType || this.state.keyword !== parameterDefaults.keyword) ? false : true,
+                        count: this.state.count,
+                        sortByText: this.state.sort,
+                        sortByValue: this.state.unappliedFilters && this.state.unappliedFilters.sort ? this.state.unappliedFilters.sort === parameterValues.sort.mostRecent ? 2 : 1 : this.state.sort === parameterValues.sort.mostRecent ? 2 : 1
+                    }}
+                    asideEvents={{
+                        onHideSortFilterClick: this.handleHideSortFilterClick,
+                        onApplySortFilter: this.applyFilters,
+                        onCollapseFilters: this.collapseFilters,
+                        onSort: this.sortHandler
+                    }}
+                    menuProps={{
+                        showContentTypeMenu: this.isCategoryOnlySelected(this.state.category, this.state.contentType),
+                        showFacetMenu: !this.isCategoryOnlySelected(this.state.category, this.state.contentType),
+                        heading: this.props.searchText.filterBy
+                    }}
+                    contentTypeMenuProps={{
+                        items: this.state.filterMap.orderedFacets
+                    }}
+                    contentTypeMenuEvents={{
+                        onContentTypeItemClick: this.handleContentTypeItemClick
+                    }}
+                    facetMenuProps={{
+                        selectedValue: this.getSelectedContentTypeTranslation(),
+                        previousIcon: this.props.searchText.previousIcon
+                    }}
+                    facetMenuEvents={{
+                        onContentTypeRemoval: this.handleRemoveContentType
+                    }}
+                    subFacetFiltersProps={{
+                        items: this.state.facets,
+                        filterMap: this.state.filterMap,
+                        defaultFacet: this.props.defaultFacet,
+                        selectedFacets: this.state.selectedFacets,
+                        contentType: this.state.contentType,
+                        facetGroupsSelectedOrder: this.state.facetGroupsSelectedOrder,
+                        collapseAllFilters: this.state.collapseAllFilters,
+                        activeIndex: this.state.activeFilterIndex
+                    }}
+                    subFacetFiltersEvents={{
+                        onFilterSelect: this.filterSelectHandler,
+                        onGroupClick: this.handleFilterGroupClick
+                    }} />;
+    }
+
+    render_v1() {
         const state = this.state;
         const overlay = <div className="overlay" />;
         const filterTags = this.getFilterTags();
