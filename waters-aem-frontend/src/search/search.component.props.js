@@ -5,7 +5,7 @@ const propTypes = {
     filterMap: PropTypes.array.isRequired,
     skuConfig: PropTypes.object.isRequired,
     searchParams: PropTypes.object.isRequired,
-    category: PropTypes.text,
+    category: PropTypes.any,
     categoryProps: PropTypes.shape({
         categories: PropTypes.arrayOf(PropTypes.object).isRequired,
         activeIndex: PropTypes.number.isRequired
@@ -15,7 +15,7 @@ const propTypes = {
         onCategoryDropdownChange: PropTypes.func.isRequired,
     }).isRequired,
     showSortFilterProps: PropTypes.shape({
-        collapseFilters: PropTypes.bool.isRequired
+        collapseFilters: PropTypes.func.isRequired
     }).isRequired,
     showSortFilterEvents: PropTypes.shape({
         onSetupFilters: PropTypes.func.isRequired,
@@ -48,7 +48,7 @@ const propTypes = {
         spell_check: PropTypes.bool.isRequired,
         spell_related_suggestions: PropTypes.array.isRequired,
         spell_suggestion: PropTypes.text,
-        items: PropTypes.array.isRequired,
+        items: PropTypes.array | PropTypes.object,
         isSkuList: PropTypes.bool.isRequired,
         pagination: PropTypes.object.isRequired
     }).isRequired,
@@ -64,14 +64,14 @@ const propTypes = {
         onContentTypeItemClick: PropTypes.func.isRequired
     }).isRequired,
     facetMenuProps: PropTypes.shape({
-        selectedValue: PropTypes.object.isRequired,
+        selectedValue: PropTypes.text,
         previousIcon: PropTypes.string
     }).isRequired,
     facetMenuEvents: PropTypes.shape({
         onContentTypeRemoval: PropTypes.func.isRequired,
     }).isRequired,
     subFacetFiltersProps: PropTypes.shape({
-        items: PropTypes.array.isRequired,
+        items: PropTypes.array | PropTypes.object,
         filterMap: PropTypes.object.isRequired,
         defaultFacet: PropTypes.text,
         selectedFacets: PropTypes.object.isRequired,
@@ -90,7 +90,6 @@ const propTypes = {
         contentTypeSelected: PropTypes.object.isRequired,
         selectedFacets: PropTypes.object.isRequired,
         facets: PropTypes.object.isRequired,
-        filterMap: PropTypes.array.isRequired,
         defaultFacet: PropTypes.text,
         contentType: PropTypes.text
     }).isRequired,
@@ -117,7 +116,7 @@ const defaultProps = {
         onCategoryDropdownChange: () => {},
     },
     showSortFilterProps: {
-        collapseFilters: false
+        collapseFilters: () => {}
     },
     showSortFilterEvents: {
         onSetupFilters: () => {},
@@ -166,7 +165,7 @@ const defaultProps = {
         onContentTypeItemClick: () => {}
     },
     facetMenuProps: {
-        selectedValue: {},
+        selectedValue: '',
         previousIcon: ''
     },
     facetMenuEvents: {
@@ -192,7 +191,6 @@ const defaultProps = {
         contentTypeSelected: {},
         selectedFacets: {},
         facets: {},
-        filterMap: [],
         defaultFacet: '',
         contentType: ''
     },
