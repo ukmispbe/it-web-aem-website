@@ -44,7 +44,7 @@ const propTypes = {
         count: PropTypes.number.isRequired,
         query: PropTypes.text,
         current: PropTypes.number.isRequired,
-        noQuery: PropTypes.bool.isRequired,
+        noQuery: PropTypes.bool,
         spell_check: PropTypes.bool.isRequired,
         spell_related_suggestions: PropTypes.array.isRequired,
         spell_suggestion: PropTypes.text,
@@ -72,7 +72,7 @@ const propTypes = {
     }).isRequired,
     subFacetFiltersProps: PropTypes.shape({
         items: PropTypes.array | PropTypes.object,
-        filterMap: PropTypes.object.isRequired,
+        filterMap: PropTypes.array.isRequired | PropTypes.object,
         defaultFacet: PropTypes.text,
         selectedFacets: PropTypes.object.isRequired,
         contentType: PropTypes.text,
@@ -89,7 +89,7 @@ const propTypes = {
         spell_suggestion: PropTypes.text,
         contentTypeSelected: PropTypes.object.isRequired,
         selectedFacets: PropTypes.object.isRequired,
-        facets: PropTypes.object.isRequired,
+        facets: PropTypes.object.isRequired | PropTypes.array,
         defaultFacet: PropTypes.text,
         contentType: PropTypes.text
     }).isRequired,

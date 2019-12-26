@@ -1096,7 +1096,7 @@ class SearchContainer extends Component {
 
     contentTypeMenuProps = () => {
         return {
-            items: this.state.filterMap.orderedFacets
+            items: this.state.filterMap && this.state.filterMap.orderedFacets ? this.state.filterMap.orderedFacets : []
         };
     }
 
@@ -1160,7 +1160,7 @@ class SearchContainer extends Component {
     }
 
     render() {
-        if (this.state.loading) {
+        if (this.state.loading && !screenSizes.isTabletAndUnder()) {
             return <Loading visible={true} />
         };
 
