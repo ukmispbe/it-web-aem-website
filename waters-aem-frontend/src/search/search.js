@@ -1309,6 +1309,8 @@ class Search extends Component {
         return <SearchComponent
                     text={this.props.searchText}
                     filterMap={this.props.filterMap}
+                    skuConfig={this.state.skuConfig}
+                    searchParams={this.state.searchParams}
                     category={this.state.category}
                     categoryProps={{
                         categories: this.state.categoryTabs,
@@ -1335,9 +1337,14 @@ class Search extends Component {
                         spell_check: this.state.spell_check,
                         spell_related_suggestions: this.state.spell_related_suggestions,
                         spell_suggestion: this.state.spell_suggestion,
+                        isSkuList: this.state.isSkuList,
+                        items: this.state.results,
+                        pagination: this.state.pagination
                     }}
                     resultsEvents={{
-                        onRelatedSuggestionClick: this.handleRelatedSuggestionClick
+                        onRelatedSuggestionClick: this.handleRelatedSuggestionClick,
+                        onResultsItemClick: this.handleResultsItemClick,
+                        onPageChange: this.paginationClickHandler
                     }}
                     asideProps={{
                         sortFilterIsPristine: (this.state.contentType || this.state.keyword !== parameterDefaults.keyword) ? false : true,

@@ -15,6 +15,8 @@ import {
     ClearAllTag,
     KeywordTag,
 } from './components/filter-tags';
+import SkuList from '../sku-list';
+import Results from './components/results';
 
 const FilterTagList = ({
     text,
@@ -156,16 +158,77 @@ const Menu = ({
     }
 }
 
+const SkuResults = ({
+    items,
+    skuConfig,
+    onItemClick
+}) => {
+    const skuData = Array.isArray(items)
+        ? items.map(item => {
+            return {
+                code: item.skucode,
+                category_facet: item.category_facet,
+                contenttype_facet: item.contenttype_facet,
+                skuPageHref: item.url,
+                formattedPrice: item.displayprice,
+                primaryImageAlt: item.title,
+                primaryImageThumbnail: item.thumbnail,
+                discontinued: item.status !== 'Active', // covers DiscontinueNoReplacement, DiscontinueWithReplacement, ObsoleteNoReplacement, and ObsoleteWithReplacement
+                replacementskuurl: item.replacementskuurl,
+                replacementskucode: item.replacementskucode,
+                title: item.title,
+            };
+        }): [];
+
+    return (
+        <SkuList
+            skuConfig={skuConfig}
+            data={skuData}
+            onItemClick={onItemClick} />
+    );
+}
+
+const ResultsContent = ({
+    text, 
+    filterMap,
+    skuConfig,
+    searchParams,
+    resultsProps,
+    resultsEvents
+}) => {
+    const items = resultsProps.items[searchParams.page];
+
+    if (resultsProps.isSkuList) {
+        return (
+            <SkuResults
+                items={items}
+                skuConfig={skuConfig}
+                onItemClick={resultsEvents.onResultsItemClick} />
+        );
+    }
+
+    return (
+        <Results
+            results={items}
+            nextIcon={text.nextIcon}
+            onItemClick={resultsEvents.onResultsItemClick} />
+    );
+}
+
 const ResultsBody = ({
     text, 
     filterMap,
+    skuConfig,
+    searchParams,
     categoryProps, 
     categoryEvents,
     showSortFilterProps,
     showSortFilterEvents,
     asideProps,
     filterTagsProps,
-    filterTagsEvents
+    filterTagsEvents,
+    resultsProps,
+    resultsEvents
 }) => {
     return (
         <div className="cmp-search__container">
@@ -191,7 +254,7 @@ const ResultsBody = ({
                         ? text.sortByBestMatch 
                         : text.sortByMostRecent}
                 </div>
-                
+
                 <FilterTagList 
                     text={text}
                     filterMap={filterMap}
@@ -199,7 +262,13 @@ const ResultsBody = ({
                     filterTagsEvents={filterTagsEvents} />
             </div>
 
-            Results
+            <ResultsContent
+                text={text}
+                filterMap={filterMap}
+                skuConfig={skuConfig}
+                searchParams={searchParams}
+                resultsProps={resultsProps}
+                resultsEvents={resultsEvents} />
         </div>
     );
 }

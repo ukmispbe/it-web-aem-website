@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 const propTypes = {
     text: PropTypes.object.isRequired,
     filterMap: PropTypes.array.isRequired,
+    skuConfig: PropTypes.object.isRequired,
+    searchParams: PropTypes.object.isRequired,
     category: PropTypes.text,
     categoryProps: PropTypes.shape({
         categories: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -45,10 +47,15 @@ const propTypes = {
         noQuery: PropTypes.bool.isRequired,
         spell_check: PropTypes.bool.isRequired,
         spell_related_suggestions: PropTypes.array.isRequired,
-        spell_suggestion: PropTypes.text
+        spell_suggestion: PropTypes.text,
+        items: PropTypes.array.isRequired,
+        isSkuList: PropTypes.bool.isRequired,
+        pagination: PropTypes.object.isRequired
     }).isRequired,
     resultsEvents: PropTypes.shape({
-        onRelatedSuggestionClick: PropTypes.func.isRequired
+        onRelatedSuggestionClick: PropTypes.func.isRequired,
+        onResultsItemClick: PropTypes.func.isRequired,
+        onPageChange: PropTypes.func.isRequired
     }).isRequired,
     contentTypeMenuProps: PropTypes.shape({
         items: PropTypes.array.isRequired
@@ -98,6 +105,8 @@ const propTypes = {
 const defaultProps = {
     text: {},
     filterMap: {},
+    skuConfig: {},
+    searchParams: {},
     category: '',
     categoryProps: {
         categories: [],
@@ -140,10 +149,15 @@ const defaultProps = {
         noQuery: false,
         spell_check: false,
         spell_related_suggestions: [],
-        spell_suggestion: ''
+        spell_suggestion: '',
+        items: [],
+        isSkuList: false,
+        pagination: {}
     },
     resultsEvents: {
-        onRelatedSuggestionClick: () => {}
+        onRelatedSuggestionClick: () => {},
+        onResultsItemClick: () => {},
+        onPageChange: () => {}
     },
     contentTypeMenuProps: {
         items: []

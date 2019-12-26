@@ -46,13 +46,17 @@ const SearchComponent = props => {
                 <ResultsBody
                     text={props.text}
                     filterMap={props.filterMap}
+                    skuConfig={props.skuConfig}
+                    searchParams={props.searchParams}
                     categoryProps={props.categoryProps}
                     categoryEvents={props.categoryEvents}
                     showSortFilterProps={props.showSortFilterProps}
                     showSortFilterEvents={props.showSortFilterEvents}
                     asideProps={props.asideProps}
                     filterTagsProps={props.filterTagsProps}
-                    filterTagsEvents={props.filterTagsEvents} />
+                    filterTagsEvents={props.filterTagsEvents}
+                    resultsProps={props.resultsProps}
+                    resultsEvents={props.resultsEvents} />
             </div>
         </>
     );
