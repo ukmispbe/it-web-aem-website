@@ -58,7 +58,7 @@ describe('Feature: SkuMessage React Component', () => {
             beforeEach(() => {
                 props = {
                     icon: "",
-                    link: null,
+                    link: "",
                     linkMessage: null,
                     message: ""
                 };
@@ -72,7 +72,7 @@ describe('Feature: SkuMessage React Component', () => {
 
             it('Then it should not render the A tag (link & linkMessage)', () => {
                 const aTag = wrapper.find('a');
-                expect(aTag).toBe(props.link);
+                expect(aTag).toEqual({});
             });
 
             it('Then it should not populate the notification description text', () => {
