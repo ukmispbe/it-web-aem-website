@@ -16,7 +16,7 @@ class SkuMessage extends React.Component {
                 />
                 <div className="cmp-notification-body">
                     <div className="cmp-notification-description">
-                            {this.props.message} 
+                            {this.props.message}
                             {(this.props.linkMessage && this.props.link) &&
                                 <a href={this.props.link}>{this.props.linkMessage}</a>
                             }
@@ -29,9 +29,9 @@ class SkuMessage extends React.Component {
 
 SkuMessage.propTypes = {
     icon: PropTypes.string,
-    message: PropTypes.string,
     link: PropTypes.string,
-    linkMessage: PropTypes.string
+    linkMessage: PropTypes.string,
+    message: PropTypes.string.isRequired
 };
 
 export default SkuMessage;

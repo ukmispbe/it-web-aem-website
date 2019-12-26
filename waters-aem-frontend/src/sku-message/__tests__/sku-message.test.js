@@ -4,36 +4,80 @@ import SkuMessage from "../index";
 import renderer from "react-test-renderer";
 
 describe('Feature: SkuMessage React Component', () => {
-    const props = {
-        icon: "icon",
-        message: "message",
-        link: "link",
-        linkMessage: "linkmessage"
-    };
+    let props ={}, wrapper='';
+    beforeEach(() => {
+        props = {
+            icon: "icon",
+            link: "link",
+            linkMessage: "linkmessage",
+            message: "message"
+        };
+        wrapper = shallow(<SkuMessage {...props} />);
+    });
 
     describe('Scenario: Rendering', () => {
         describe('When the component renders with props', () => {
             it('Then the snapshot should match', () => {
                 const json = renderer.create(<SkuMessage {...props} />);
-
                 expect(json).toMatchSnapshot();
             });
         });
 
-        describe('When there are categories and all have search results', () => {
-            it('Then it should render all category tabs', () => {
-                const wrapper = shallow(<SkuMessage {...props} />);
-                const URL = wrapper.find('href');
-                expect(URL.text()).toEqual(props.link);
+        describe('When all of the props are provided', () => {
+            beforeEach(() => {
+                props = {
+                    icon: "icon",
+                    link: "link",
+                    linkMessage: "linkmessage",
+                    message: "message"
+                };
+                wrapper = shallow(<SkuMessage {...props} />);
+            });
+            it('Then it should populate the icon', () => {
+                const svgSrc = wrapper.find('ReactSVG').prop("src");
+                expect(svgSrc).toEqual(props.icon);
+            });
+
+            it('Then it should populate the href with the link', () => {
+                const href = wrapper.find('a').prop("href");
+                expect(href).toEqual(props.link);
+            });
+
+            it('Then it should populate the A tag text with the linkMessage text', () => {
+                const aTag = wrapper.find('a');
+                expect(aTag.text()).toEqual(props.linkMessage);
+            });
+
+            it('Then it should populate the notification description with the message text', () => {
+                const descDiv = wrapper.find('div.cmp-notification-description');
+                expect(descDiv.text()).toContain(props.message);
             });
         });
 
-        describe('When there are categories and not all have search results', () => {
-            it('Then it should render only category tabs that have results', () => {
-                props.icon = "";
-                const wrapper = shallow(<SkuMessage {...props} />);
-                const URL = wrapper.find('icon');
-                expect(URL.text()).toEqual(props.link);
+        describe('When none of the props are provided', () => {
+            beforeEach(() => {
+                props = {
+                    icon: "",
+                    link: null,
+                    linkMessage: null,
+                    message: ""
+                };
+                wrapper = shallow(<SkuMessage {...props} />);
+                wrapper.debug();
+            });
+            it('Then it should not populate the icon', () => {
+                const svgSrc = wrapper.find('ReactSVG').prop("src");
+                expect(svgSrc).toEqual(props.icon);
+            });
+
+            it('Then it should not render the A tag (link & linkMessage)', () => {
+                const aTag = wrapper.find('a');
+                expect(aTag).toBe(props.link);
+            });
+
+            it('Then it should not populate the notification description text', () => {
+                const descDiv = wrapper.find('div.cmp-notification-description');
+                expect(descDiv.text()).toBe(props.message);
             });
         });
     });
