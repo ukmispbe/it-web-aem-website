@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactPaginate from 'react-paginate';
+import ReactSVG from 'react-svg';
 import { parameterDefaults } from './services/index';
 import ContentTypeMenu from './components/content-type-menu';
 import FacetMenu from './components/facet-menu';
@@ -215,6 +217,32 @@ const ResultsContent = ({
     );
 }
 
+const Pagination = ({
+    resultsProps,
+    resultsEvents,
+    nextIcon,
+    previousIcon
+}) => {
+    if (resultsProps.count <= parameterDefaults.rows) {
+        return <></>
+    }
+
+    return (
+        <ReactPaginate
+            pageCount={resultsProps.pagination.amount}
+            forcePage={resultsProps.pagination.current ? resultsProps.pagination.current - 1 : 0}
+            pageRangeDisplayed={8}
+            marginPagesDisplayed={1}
+            containerClassName="paginate__container"
+            onPageChange={num => resultsEvents.onPageChange(num, 'clicked' )}
+            breakLabel={'…'}
+            previousLabel={<ReactSVG src={previousIcon} />}
+            nextLabel={<ReactSVG src={nextIcon} />}
+            initialPage={resultsProps.pagination.current ? resultsProps.pagination.current - 1 : 0}
+            disableInitialCallback={true} />
+    );
+};
+
 const ResultsBody = ({
     text, 
     filterMap,
@@ -269,6 +297,12 @@ const ResultsBody = ({
                 searchParams={searchParams}
                 resultsProps={resultsProps}
                 resultsEvents={resultsEvents} />
+
+            <Pagination
+                resultsProps={resultsProps}
+                resultsEvents={resultsEvents}
+                nextIcon={text.nextIcon}
+                previousIcon={text.previousIcon} />
         </div>
     );
 }

@@ -656,7 +656,7 @@ class Search extends Component {
         );
     }
 
-    paginationClickHandler(page, e) {
+    paginationClickHandler = (page, e) => {
         if (e === 'clicked') {
             this.search.setStorageForPagination();
         };
