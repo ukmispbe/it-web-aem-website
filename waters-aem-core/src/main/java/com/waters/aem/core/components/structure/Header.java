@@ -246,6 +246,10 @@ public final class Header extends AbstractComponent implements ComponentExporter
         return watersAccountService.getUserDetailsUrl();
     }
 
+    public String getSoldToDetailsUrl() {
+        return watersAccountService.getSoldToDetailsUrl();
+    }
+
     public String getViewCartUrl() {
         return watersCommerceService.getViewCartUrl();
     }

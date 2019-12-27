@@ -1,13 +1,13 @@
 jest.mock('../../stores/sessionStore');
 
-import UserDetails, { replaceParameter } from '../services/UserDetails';
+import SoldToDetails, { replaceParameter, sortPriority } from '../services/SoldToDetails';
 import SessionStore, { keys as StoreKeys }from '../../stores/sessionStore';
-import { userTokenStr, userDetailsJSON, userDetailsURL } from '../__mocks__/en_US/mock-services-json';
+import { userTokenStr, soldToDetailsJSON, soldToDetailsURL, soldToDetailsSortedJSON } from '../__mocks__/en_US/mock-services-json';
 
 const test = (value, regex) => regex.test(value);
 const emailValidationRegEx = /(\?email=)(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-describe('Feature: User Details Service Call', () => {
+describe('Feature: Sold To Details Service Call', () => {
         const mockResponse = (url, statusText, responseOptions) => {
             let status;
             let response;
@@ -28,20 +28,20 @@ describe('Feature: User Details Service Call', () => {
             });
         };
 
-        describe(`When "${StoreKeys.userDetails}" session storage contains data`, () => {
-            it(`Then "UserDetails()" should return the user details object from session storage`, async () => { 
+        describe(`When "${StoreKeys.soldToDetails}" session storage contains data`, () => {
+            it(`Then "SoldToDetails()" should return the Sold To array from session storage`, async () => { 
                 const sessionStore = new SessionStore();
 
-                sessionStore.getUserDetails = jest.fn(() => {
-                    return userDetailsJSON;
+                sessionStore.getSoldToDetails = jest.fn(() => {
+                    return soldToDetailsSortedJSON;
                 });
 
-                const response = await UserDetails('', sessionStore);
-                expect(JSON.stringify(response)).toEqual(JSON.stringify(userDetailsJSON));
+                const response = await SoldToDetails('', sessionStore);
+                expect(JSON.stringify(response)).toEqual(JSON.stringify(soldToDetailsSortedJSON));
             });
         });
 
-        describe(`Given "${StoreKeys.userDetails}" session storage is empty`, () => {
+        describe(`Given "${StoreKeys.soldToDetails}" session storage is empty`, () => {
 
             describe(`When "${StoreKeys.userToken}" contains a valid email (ie "${userTokenStr}")`, () => {
 
@@ -55,24 +55,24 @@ describe('Feature: User Details Service Call', () => {
                                 url,
                                 null,
                                 {
-                                    pass: [200, JSON.stringify(userDetailsJSON)],
+                                    pass: [200, JSON.stringify(soldToDetailsJSON)],
                                     fail: [500, JSON.stringify({})]
                                 }
                             )
                         )
                     );
-                    requestUrl = replaceParameter(userDetailsURL, userTokenStr)
+                    requestUrl = replaceParameter(soldToDetailsURL, userTokenStr)
                     sessionStore = new SessionStore();
 
                     let currentUserToken = userTokenStr;
-                    let currentUserDetails = JSON.stringify({});
+                    let currentSoldToDetails = JSON.stringify({});
 
-                    sessionStore.setUserDetails = jest.fn((value) => {
-                        currentUserDetails = JSON.stringify(value);
+                    sessionStore.setSoldToDetails = jest.fn((value) => {
+                        currentSoldToDetails = JSON.stringify(value);
                     });
 
-                    sessionStore.getUserDetails = jest.fn(() => {
-                        return  currentUserDetails ? JSON.parse(currentUserDetails) : {}
+                    sessionStore.getSoldToDetails = jest.fn(() => {
+                        return  currentSoldToDetails ? JSON.parse(currentSoldToDetails) : {}
                     });
 
                     sessionStore.getUserToken = jest.fn(() => {
@@ -80,14 +80,20 @@ describe('Feature: User Details Service Call', () => {
                     });
                 });
 
-                it(`Then "UserDetails()" should return an object with user details`, async () => { 
-                    const response = await UserDetails(requestUrl, sessionStore);
-                    expect(response).toEqual(userDetailsJSON);
+                it(`Then "SoldToDetails()" should return an array with sold to details`, async () => { 
+                    const response = await SoldToDetails(requestUrl, sessionStore);
+                    expect(response).toEqual(soldToDetailsSortedJSON);
                 });
 
-                it(`Then "UserDetails()" should assign the returned user details to "${StoreKeys.userDetails}" in session storage`, async () => { 
-                    const response = await UserDetails(requestUrl, sessionStore);
-                    expect(sessionStore.getUserDetails()).toEqual(userDetailsJSON);
+                it(`Then "SoldToDetails()" should assign the returned user details to "${StoreKeys.soldToDetails}" in session storage`, async () => { 
+                    const response = await SoldToDetails(requestUrl, sessionStore);
+                    expect(sessionStore.getSoldToDetails()).toEqual(soldToDetailsSortedJSON);
+                });
+
+                it(`Then "SoldToDetails()" should return a sorted response array by priority`, async () => { 
+                    const response = await SoldToDetails(requestUrl, sessionStore);
+                    expect(response).toEqual(soldToDetailsSortedJSON);
+                    expect(sortPriority(soldToDetailsJSON)).toEqual(soldToDetailsSortedJSON);
                 });
             });
 
@@ -104,25 +110,25 @@ describe('Feature: User Details Service Call', () => {
                                 url,
                                 null,
                                 {
-                                    pass: [200, JSON.stringify(userDetailsJSON)],
+                                    pass: [200, JSON.stringify(soldToDetailsJSON)],
                                     fail: [500, JSON.stringify({})]
                                 }
                             )
                         )
                     );
                     
-                    requestUrl = replaceParameter(userDetailsURL, badEmail)
+                    requestUrl = replaceParameter(soldToDetailsURL, badEmail)
                     sessionStore = new SessionStore();
 
                     let currentUserToken = userTokenStr;
-                    let currentUserDetails = JSON.stringify({});
+                    let currentSoldToDetails = JSON.stringify({});
 
-                    sessionStore.setUserDetails = jest.fn((value) => {
-                        currentUserDetails = JSON.stringify(value);
+                    sessionStore.setSoldToDetails = jest.fn((value) => {
+                        currentSoldToDetails = JSON.stringify(value);
                     });
 
-                    sessionStore.getUserDetails = jest.fn(() => {
-                        return  currentUserDetails ? JSON.parse(currentUserDetails) : {}
+                    sessionStore.getSoldToDetails = jest.fn(() => {
+                        return  currentSoldToDetails ? JSON.parse(currentSoldToDetails) : {}
                     });
 
                     sessionStore.getUserToken = jest.fn(() => {
@@ -131,8 +137,8 @@ describe('Feature: User Details Service Call', () => {
                     
                 });
 
-                it(`Then "UserDetails()" should throw an error with the response status`, async () => { 
-                    const response = new UserDetails(requestUrl, sessionStore)
+                it(`Then "SoldToDetails()" should throw an error with the response status`, async () => { 
+                    const response = new SoldToDetails(requestUrl, sessionStore)
                     response.catch(err => {
                         expect(err.message).toEqual("500")
                     });
@@ -152,25 +158,25 @@ describe('Feature: User Details Service Call', () => {
                                 url,
                                 null,
                                 {
-                                    pass: [200, JSON.stringify(userDetailsJSON)],
+                                    pass: [200, JSON.stringify(soldToDetailsJSON)],
                                     fail: [500, JSON.stringify({})]
                                 }
                             )
                         )
                     );
                     
-                    requestUrl = replaceParameter(userDetailsURL, userTokenStr)
+                    requestUrl = replaceParameter(soldToDetailsURL, userTokenStr)
                     sessionStore = new SessionStore();
 
                     let currentUserToken = '';
-                    let currentUserDetails = JSON.stringify({});
+                    let currentSoldToDetails = JSON.stringify({});
 
-                    sessionStore.setUserDetails = jest.fn((value) => {
-                        currentUserDetails = JSON.stringify(value);
+                    sessionStore.setSoldToDetails = jest.fn((value) => {
+                        currentSoldToDetails = JSON.stringify(value);
                     });
 
-                    sessionStore.getUserDetails = jest.fn(() => {
-                        return  currentUserDetails ? JSON.parse(currentUserDetails) : {}
+                    sessionStore.getSoldToDetails = jest.fn(() => {
+                        return  currentSoldToDetails ? JSON.parse(currentSoldToDetails) : {}
                     });
 
                     sessionStore.getUserToken = jest.fn(() => {
@@ -179,8 +185,8 @@ describe('Feature: User Details Service Call', () => {
                     
                 });
 
-                it(`Then "UserDetails()" should throw an error "No User Token"`, async () => { 
-                    const response = new UserDetails(requestUrl, sessionStore)
+                it(`Then "SoldToDetails()" should throw an error "No User Token"`, async () => { 
+                    const response = new SoldToDetails(requestUrl, sessionStore)
                     response.catch(err => {
                         expect(err.message).toEqual('No User Token')
                     });
@@ -189,11 +195,6 @@ describe('Feature: User Details Service Call', () => {
 
             });
 
-
-
         });
 
-
-
-   // });
 });

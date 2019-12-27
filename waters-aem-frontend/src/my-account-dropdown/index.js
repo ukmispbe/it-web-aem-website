@@ -9,11 +9,11 @@ import FeedbackSurvey from '../scripts/feedbackSurvey';
 
 import domElements from '../scripts/domElements';
 import MyAccountContainer from './my-account-container';
-import cookieStore from '../stores/cookieStore';
 import SessionStore from '../stores/sessionStore';
 import loginStatus from '../scripts/loginStatus';
 
 import UserDetails from '../my-account/services/UserDetails';
+import SoldToDetails from '../my-account/services/SoldToDetails';
 
 const myAccountModalTheme = 'my-account-dropdown';
 class MyAccountDropDown extends React.Component {
@@ -32,14 +32,13 @@ class MyAccountDropDown extends React.Component {
         this.newConfig = Object.assign({}, this.props.config, {
             loginState: loginStatus.state(),
             userDetails : {
-                userName: cookieStore.getGreeting(),
+                userName: '',
                 accountName: '',
                 accountNumber: ''
             }
         });
 
-        // Commenting this out for now until User Details API is fixed (currently responding with 401)
-        // this.retrieveUserDetails();
+        this.retrieveUserDetails();
     }
 
     componentDidMount() {
@@ -183,18 +182,8 @@ class MyAccountDropDown extends React.Component {
         }
     }
 
-    findPriorityAccount = (soldToAccounts) => {
-        return soldToAccounts.sort((a, b) => {
-            if(a.defaultFlag === b.defaultFlag) {
-                return a.soldTo.localeCompare(b.soldTo);
-            } else {
-                return b.defaultFlag - a.defaultFlag;
-            }
-        });     
-    }
-
     retrieveUserDetails = () => { 
-        if (this.props.config.userDetailsUrl && this.props.config.testUserToken) { 
+        if (this.props.config.testUserToken) { 
 
             const sessionStore = new SessionStore();
             /*
@@ -206,24 +195,34 @@ class MyAccountDropDown extends React.Component {
                 sessionStore.setUserToken(this.props.config.testUserToken)   
             //END TEMPORARY CODE
 
-            const userDetails = new UserDetails(this.props.config.userDetailsUrl);
-            userDetails
-                .then((response) => { 
-                    let userName;
-                    if (response.firstName && response.lastName) { 
-                        userName = response.firstName + ' ' + response.lastName;
-                    }
 
-                    this.newConfig.userDetails = {
-                        userName: userName,
-                        accountName: '',
-                        accountNumber: ''
-                    }
+            if (this.props.config.soldToDetailsUrl) {
+                console.log('grab sold to details')
+                const SoldToDetails = new SoldToDetails(this.props.config.soldToDetailsUrl)
+                SoldToDetails
+                    .then((response) => {
+                        const priorityAccount = response[0]
 
-                })
-                .catch(err => {
-                    //console.log(err.message)
-                });
+                        if (priorityAccount.company) {
+                            this.newConfig.userDetails.accountName = priorityAccount.company + ' ';
+                        }
+
+                        if (priorityAccount.soldTo) {
+                            this.newConfig.userDetails.accountNumber = priorityAccount.soldTo;
+                        }
+                    })
+            }
+            
+            if (this.props.config.userDetailsUrl) { 
+                console.log('grab user details')
+                const userDetails = new UserDetails(this.props.config.userDetailsUrl);
+                userDetails
+                    .then((response) => { 
+                        if (response.firstName && response.lastName) { 
+                            this.newConfig.userDetails.userName = response.firstName + ' ' + response.lastName;;
+                        }
+                    })
+            }
         }
     }
 
