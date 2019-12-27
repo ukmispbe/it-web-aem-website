@@ -22,6 +22,7 @@ import Chat from './chat';
 import DetailTiles from './detail-tiles';
 import DigitalData from './scripts/DigitalData';
 import WeChat from './wechat';
+import MyAccount from './my-account';
 
 if (process.env.NODE_ENV !== 'production') {
     const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -437,4 +438,16 @@ const wechatJSON = document.getElementById('wechat-json');
 if (wechatLink && wechatContainer && wechatJSON) {
     const config = JSON.parse(wechatJSON.innerHTML);
     ReactDOM.render(<WeChat config={config} />, wechatContainer);
+}
+
+const myAccountPage = document.getElementById(
+    'my-account'
+);
+
+if (myAccountPage) {
+    const config = JSON.parse(
+        document.getElementById('cmp-my-account').innerHTML
+    );
+
+    ReactDOM.render(<MyAccount {...config} />, myAccountPage);
 }

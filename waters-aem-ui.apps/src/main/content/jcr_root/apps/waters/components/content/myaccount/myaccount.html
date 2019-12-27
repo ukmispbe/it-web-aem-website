@@ -1,0 +1,61 @@
+<div
+        data-sly-use.myaccount="com.waters.aem.core.components.content.MyAccount"
+>
+    <div class="cmp-my-account--attach" id="my-account"></div>
+    <script type="application/json" id="cmp-my-account">
+        {
+            "tiles": [
+                {
+                    "title": "${'Account' @ i18n, context='unsafe'}",
+                    "icon": "/content/dam/waters/en/brand-assets/icons/user.svg",
+                    "links": [
+                        {
+                            "text": "${'Profile' @ i18n, context='unsafe'}",
+                            "url": "${myaccount.profileLink.href @ context='unsafe'}"
+                        },
+                        {
+                            "text": "${'Password' @ i18n, context='unsafe'}",
+                            "url": "${myaccount.passwordLink.href @ context='unsafe'}"
+                        }
+                    ]
+                },
+                {
+                    "title": "${'Orders' @ i18n, context='unsafe'}",
+                    "icon": "/content/dam/waters/en/brand-assets/icons/package.svg",
+                    "links": [
+                        {
+                            "text": "${'Order History' @ i18n, context='unsafe'}",
+                            "url": "${myaccount.orderHistoryLink.href @ context='unsafe'}"
+                        }
+                    ]
+                },
+                {
+                    "title": "${'Additional Resources' @ i18n, context='unsafe'}",
+                    "icon": "/content/dam/waters/en/brand-assets/icons/link.svg",
+                    "links": [
+                        {
+                            "text": "${'Request Technical Support' @ i18n, context='unsafe'}",
+                            "url": "${myaccount.techSupportLink.href @ context='unsafe'}"
+                        },
+                        {
+                            "text": "${'Waters Knowledgebase' @ i18n, context='unsafe'}",
+                            "url": "${myaccount.knowledgebaseLink.href @ context='unsafe'}"
+                        },
+                        {
+                            "text": "${'Training Courses' @ i18n, context='unsafe'}",
+                            "url": "${myaccount.trainingLink.href @ context='unsafe'}"
+                        },
+                        {
+                            "text": "${'Contact Waters' @ i18n, context='unsafe'}",
+                            "url": "${myaccount.contactLink.href @ context='unsafe'}"
+                        }
+                    ]
+                }
+            ]
+        }
+    </script>
+</div>
+<sly
+        data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+        data-sly-call="${patterns.placeholder @ show=true, text=component.title}"
+/>

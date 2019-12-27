@@ -32,6 +32,10 @@
           Add class "active" to show
         -->
         <div class="container">
+            <!-- My Account  -->
+            <div class="cmp-my-account--attach" id="my-account"></div>
+            <!-- END: My Account  -->
+
             <!-- Detail Tiles -->
             <!-- <div class="cmp-detail-tile--attach" id="personal-details-tile"></div>
             <div class="cmp-detail-tile--attach" id="shipping-details-tile"></div>
@@ -39,7 +43,7 @@
             <!-- END: Detail Tiles -->
 
             <!-- Registration Form -->
-            <div class="cmp-form--attach" id="js-registration-form"></div>
+            <!-- <div class="cmp-form--attach" id="js-registration-form"></div> -->
             <!-- END: Registration Form -->
 
             <!-- Search -->
@@ -513,6 +517,58 @@
                     "edit": "./edit-2.svg",
                     "add": "./add.svg"
                 }
+            }
+        </script>
+        <script type="application/json" id="cmp-my-account">
+            {
+                "tiles": [
+                    {
+                        "title": "Account",
+                        "icon": "./user.svg",
+                        "links": [
+                            {
+                                "text": "Profile",
+                                "url": "www.waters.com/profile"
+                            },
+                            {
+                                "text": "Password",
+                                "url": "www.waters.com/changepassword"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Orders",
+                        "icon": "./package.svg",
+                        "links": [
+                            {
+                                "text": "Order History",
+                                "url": "www.waters.com/orders/history"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Additional Resources",
+                        "icon": "./link.svg",
+                        "links": [
+                            {
+                                "text": "Request Technical Support",
+                                "url": "www.waters.com/techsupport"
+                            },
+                            {
+                                "text": "Waters Knowledgebase",
+                                "url": "www.waters.com/knowledgebase"
+                            },
+                            {
+                                "text": "Training Courses",
+                                "url": "www.waters.com/training"
+                            },
+                            {
+                                "text": "Contact Waters",
+                                "url": "www.waters.com/contact"
+                            }
+                        ]
+                    }
+                ]
             }
         </script>
         <!-- <div class="cmp-sku-details">
