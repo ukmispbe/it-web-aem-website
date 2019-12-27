@@ -72,3 +72,15 @@ div.links {
 div.links--noPadding {
     margin-bottom: 0;
 }
+
+.cmp-links--back {
+    .cmp-links {
+        &__link {
+            display: inline-flex;
+
+            &-icon-wrapper {
+                display: inline-block;
+            }
+        }
+    }
+}

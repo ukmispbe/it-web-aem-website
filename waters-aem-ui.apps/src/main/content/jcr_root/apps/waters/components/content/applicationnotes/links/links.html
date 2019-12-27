@@ -5,7 +5,11 @@
     class="cmp-links ${links.applySplit ? 'cmp-links--split' :''}">
     <li class="cmp-links__item">
         <a class="cmp-links__link cmp-links__external-link--${linkItem.external}" href="${linkItem.link.href}" target="${linkItem.external ? '_blank' : ''}">
-            ${linkItem.text}</a>
+            <div class="cmp-links__link-icon-wrapper" data-sly-test="${item.icon}">
+                <img class="cmp-links__link-icon" ${item.svg ? 'inline-svg' : ''}" src="${item.icon}"/>
+            </div>
+            ${linkItem.text}
+        </a>
     </li>
 </ul>
 
