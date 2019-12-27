@@ -20,8 +20,8 @@ const buildShallowWrapper = (Component, props, mockValues = undefined) => {
 	return wrapper;
 };
 
-describe('Feature: Link Tile Component', () => {
-    describe('Scenario: Rendering Link Tile', () => {
+describe('Feature: My Account Component', () => {
+    describe('Scenario: Rendering My Account', () => {
         describe('When all props are present', () => {
             let wrapper;
             let myAccount, myAccountTiles;
@@ -45,6 +45,15 @@ describe('Feature: Link Tile Component', () => {
 
                 let tilesWrapper = myAccountTiles.first();
                 expect(tilesWrapper.children().length).toEqual(DefaultProps.tiles.length);
+            });
+        });
+    });
+
+    describe('Scenario Render My Account and check snapshots', () => {
+        describe('When all props are present', () => {
+            it('Then the snapshot should match', () => {
+                const json = renderer.create(<MyAccount {...DefaultProps} />);
+				expect(json).toMatchSnapshot();
             });
         });
     });

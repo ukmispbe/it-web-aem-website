@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: My Account Component Scenario Render My Account and check snapshots When all props are present Then the snapshot should match 1`] = `
+<div
+  className="cmp-my-account"
+>
+  <div
+    className="cmp-my-account-tiles"
+  >
+    <div
+      className="cmp-linktile"
+    >
+      <div
+        className="cmp-linktile-column"
+      >
+        <div
+          className="cmp-linktile--icon"
+        />
+      </div>
+      <div
+        className="cmp-linktile-column"
+      >
+        <div
+          className="cmp-linktile--title"
+        >
+          Account
+        </div>
+        <div
+          className="cmp-linktile--links"
+        >
+          <a
+            className="cmp-linktile--link"
+            href="www.waters.com/profile"
+          >
+            Profile
+          </a>
+        </div>
+        <div
+          className="cmp-linktile--links"
+        >
+          <a
+            className="cmp-linktile--link"
+            href="www.waters.com/changepassword"
+          >
+            Password
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      className="cmp-linktile"
+    >
+      <div
+        className="cmp-linktile-column"
+      >
+        <div
+          className="cmp-linktile--icon"
+        />
+      </div>
+      <div
+        className="cmp-linktile-column"
+      >
+        <div
+          className="cmp-linktile--title"
+        >
+          Orders
+        </div>
+        <div
+          className="cmp-linktile--links"
+        >
+          <a
+            className="cmp-linktile--link"
+            href="www.waters.com/orders/history"
+          >
+            Order History
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      className="cmp-linktile"
+    >
+      <div
+        className="cmp-linktile-column"
+      >
+        <div
+          className="cmp-linktile--icon"
+        />
+      </div>
+      <div
+        className="cmp-linktile-column"
+      >
+        <div
+          className="cmp-linktile--title"
+        >
+          Additional Resources
+        </div>
+        <div
+          className="cmp-linktile--links"
+        >
+          <a
+            className="cmp-linktile--link"
+            href="www.waters.com/techsupport"
+          >
+            Request Technical Support
+          </a>
+        </div>
+        <div
+          className="cmp-linktile--links"
+        >
+          <a
+            className="cmp-linktile--link"
+            href="www.waters.com/knowledgebase"
+          >
+            Waters Knowledgebase
+          </a>
+        </div>
+        <div
+          className="cmp-linktile--links"
+        >
+          <a
+            className="cmp-linktile--link"
+            href="www.waters.com/training"
+          >
+            Training Courses
+          </a>
+        </div>
+        <div
+          className="cmp-linktile--links"
+        >
+          <a
+            className="cmp-linktile--link"
+            href="www.waters.com/contact"
+          >
+            Contact Waters
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
