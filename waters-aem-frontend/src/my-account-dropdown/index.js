@@ -183,8 +183,6 @@ class MyAccountDropDown extends React.Component {
     }
 
     retrieveUserDetails = () => { 
-        if (this.props.config.testUserToken) { 
-
             const sessionStore = new SessionStore();
             /*
                 START TEMPORARY CODE --
@@ -192,14 +190,12 @@ class MyAccountDropDown extends React.Component {
                 Please use this code below until sign-in complete and user token is stored in session storage 
                 & User Details service is updated to use that token
             */
-                sessionStore.setUserToken(this.props.config.testUserToken)   
+                sessionStore.setUserToken('wendy_batista@waters.com')   
             //END TEMPORARY CODE
 
-
             if (this.props.config.soldToDetailsUrl) {
-                console.log('grab sold to details')
-                const SoldToDetails = new SoldToDetails(this.props.config.soldToDetailsUrl)
-                SoldToDetails
+                const soldToDetails = new SoldToDetails(this.props.config.soldToDetailsUrl)
+                soldToDetails
                     .then((response) => {
                         const priorityAccount = response[0]
 
@@ -210,20 +206,23 @@ class MyAccountDropDown extends React.Component {
                         if (priorityAccount.soldTo) {
                             this.newConfig.userDetails.accountNumber = priorityAccount.soldTo;
                         }
-                    })
+                    }).catch(err => {
+                        console.log(err.message)
+                    });
+    
             }
             
             if (this.props.config.userDetailsUrl) { 
-                console.log('grab user details')
                 const userDetails = new UserDetails(this.props.config.userDetailsUrl);
                 userDetails
                     .then((response) => { 
                         if (response.firstName && response.lastName) { 
                             this.newConfig.userDetails.userName = response.firstName + ' ' + response.lastName;;
                         }
-                    })
+                    }).catch(err => {
+                        console.log(err.message)
+                    });
             }
-        }
     }
 
     render() {
