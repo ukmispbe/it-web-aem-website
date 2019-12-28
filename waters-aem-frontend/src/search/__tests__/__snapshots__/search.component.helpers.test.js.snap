@@ -1,5 +1,204 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Feature: Aside Component Scenario: Rendering When children are provided Then it should match snapshot 1`] = `
+<div
+  className="container__left cmp-search__sort-filter"
+>
+  <div
+    className="cmp-search-hide-btn clearfix"
+  >
+    <a
+      className="btn-hide-sort-filter"
+      href="javascript:void(0);"
+      onClick={[MockFunction]}
+    >
+      <div />
+      Sort and Filter
+    </a>
+  </div>
+  <div
+    className="cmp-search-apply-btn"
+  >
+    <a
+      className="btn-apply-sort-filter"
+      href="javascript:void(0);"
+      onClick={[Function]}
+    >
+      Show 0 Results
+    </a>
+  </div>
+  <div
+    className="cmp-search-done-btn"
+  >
+    <a
+      className="btn-done-sort-filter"
+      href="javascript:void(0);"
+      onClick={[Function]}
+    >
+      Done
+    </a>
+  </div>
+  <div
+    className="cmp-search__sort-filter__container"
+  >
+    <div
+      className="cmp-search-sortby"
+    >
+      <h3>
+        Sort By
+      </h3>
+      <div
+        className="css-1pcexqc-container"
+        onKeyDown={[Function]}
+      >
+        <div
+          className="css-1xe0he8-control cmp-custom-dropdown__control"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+        >
+          <div
+            className="css-1hwfws3 cmp-custom-dropdown__value-container cmp-custom-dropdown__value-container--has-value"
+          >
+            <div
+              className="css-0 cmp-custom-dropdown__single-value"
+            >
+              Best Match
+            </div>
+            <input
+              className="css-gj7qu5-dummyInput"
+              disabled={false}
+              id="react-select-3-input"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              readOnly={true}
+              tabIndex="0"
+              value=""
+            />
+          </div>
+          <div
+            className="css-1wy0on6 cmp-custom-dropdown__indicators"
+          >
+            <span
+              className="css-1hyfx7x cmp-custom-dropdown__indicator-separator"
+            />
+            <div
+              aria-hidden="true"
+              className="css-16pqwjk-indicatorContainer cmp-custom-dropdown__indicator cmp-custom-dropdown__dropdown-indicator"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+            >
+              <div />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="child"
+    />
+  </div>
+</div>
+`;
+
+exports[`Feature: Aside Component Scenario: Rendering When no children are provided Then it should match snapshot 1`] = `
+<div
+  className="container__left cmp-search__sort-filter"
+>
+  <div
+    className="cmp-search-hide-btn clearfix"
+  >
+    <a
+      className="btn-hide-sort-filter"
+      href="javascript:void(0);"
+      onClick={[MockFunction]}
+    >
+      <div />
+      Sort and Filter
+    </a>
+  </div>
+  <div
+    className="cmp-search-apply-btn"
+  >
+    <a
+      className="btn-apply-sort-filter"
+      href="javascript:void(0);"
+      onClick={[Function]}
+    >
+      Show 0 Results
+    </a>
+  </div>
+  <div
+    className="cmp-search-done-btn"
+  >
+    <a
+      className="btn-done-sort-filter"
+      href="javascript:void(0);"
+      onClick={[Function]}
+    >
+      Done
+    </a>
+  </div>
+  <div
+    className="cmp-search__sort-filter__container"
+  >
+    <div
+      className="cmp-search-sortby"
+    >
+      <h3>
+        Sort By
+      </h3>
+      <div
+        className="css-1pcexqc-container"
+        onKeyDown={[Function]}
+      >
+        <div
+          className="css-1xe0he8-control cmp-custom-dropdown__control"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+        >
+          <div
+            className="css-1hwfws3 cmp-custom-dropdown__value-container cmp-custom-dropdown__value-container--has-value"
+          >
+            <div
+              className="css-0 cmp-custom-dropdown__single-value"
+            >
+              Best Match
+            </div>
+            <input
+              className="css-gj7qu5-dummyInput"
+              disabled={false}
+              id="react-select-2-input"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              readOnly={true}
+              tabIndex="0"
+              value=""
+            />
+          </div>
+          <div
+            className="css-1wy0on6 cmp-custom-dropdown__indicators"
+          >
+            <span
+              className="css-1hyfx7x cmp-custom-dropdown__indicator-separator"
+            />
+            <div
+              aria-hidden="true"
+              className="css-16pqwjk-indicatorContainer cmp-custom-dropdown__indicator cmp-custom-dropdown__dropdown-indicator"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+            >
+              <div />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Feature: FilterTagList Component Scenario: Rendering When content type filter is specified Then is should match snapshot 1`] = `
 <div
   className="cmp-search-filters__tags clearfix"
@@ -52,6 +251,32 @@ exports[`Feature: FilterTagList Component Scenario: Rendering When keyword filte
 </div>
 `;
 
+exports[`Feature: FilterTagList Component Scenario: Rendering When keyword spelling suggestion is specified Then it should match spapshot 1`] = `
+<div
+  className="cmp-search-filters__tags clearfix"
+>
+  <a
+    className="cmp-search-filters__tags__clear"
+    href="javascript:void(0);"
+    onClick={[Function]}
+  >
+    <div />
+    <span>
+      Clear All
+    </span>
+  </a>
+  <a
+    href="javascript:void(0);"
+    onClick={[Function]}
+  >
+    <div />
+    <span>
+      Keyword: HPLC
+    </span>
+  </a>
+</div>
+`;
+
 exports[`Feature: FilterTagList Component Scenario: Rendering When no filters are specified Then it should match snapshot 1`] = `
 <div
   className="cmp-search-filters__emptytags"
@@ -81,5 +306,63 @@ exports[`Feature: FilterTagList Component Scenario: Rendering When sub facet fil
       Content Type: Application Note
     </span>
   </a>
+</div>
+`;
+
+exports[`Feature: Menu Component Scenario: Rendering When showing facet menu Then it should match snapshot 1`] = `
+<div
+  className="facet-menu-container"
+>
+  <div
+    className="facet-menu-container__heading"
+  >
+    <div
+      className="cmp-search-filters__emptytags"
+    />
+    <div
+      className="heading--with-selected-value"
+    >
+      <div
+        className="back-btn"
+      >
+        <a
+          href="javascript:void(0)"
+          onClick={[MockFunction]}
+        >
+          <div />
+           
+          filter By
+        </a>
+      </div>
+      <h3>
+        
+      </h3>
+    </div>
+  </div>
+  <div
+    className="facet-menu-container__body"
+  >
+    <div
+      className="cmp-search-filters"
+      id="js-search-filters"
+    >
+      <ul />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Feature: Menu Component Scenario: Rendering When showing the content type menu Then it should match snapshot 1`] = `
+<div
+  className="content-type-menu-container"
+>
+  <div
+    className="content-type-menu-container__heading"
+  >
+    filter By
+  </div>
+  <div
+    className="content-type-menu-container__body"
+  />
 </div>
 `;

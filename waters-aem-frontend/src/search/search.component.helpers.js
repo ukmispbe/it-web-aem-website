@@ -19,49 +19,49 @@ import {
 } from './components/filter-tags';
 import SkuList from '../sku-list';
 import Results from './components/results';
+import { propTypes, defaultProps } from './search.component.props';
+import PropTypes from 'prop-types';
+import props from './__mocks__/en_US';
 
-const FilterTagList = ({
-    text,
-    filterMap,
-    filterTagsProps,
-    filterTagsEvents
-}) => {
-    const isKeywordSpecified = filterTagsProps.keyword && filterTagsProps.keyword !== parameterDefaults.keyword;
-    const isContentTypeSelected = Object.entries(filterTagsProps.contentTypeSelected).length !== 0 && filterTagsProps.contentTypeSelected.facetTranslation
+const FilterTagList = props => {
+    const isKeywordSpecified = props.filterTagsProps.keyword && props.filterTagsProps.keyword !== parameterDefaults.keyword;
+    const isContentTypeSelected = Object.entries(props.filterTagsProps.contentTypeSelected).length !== 0 && props.filterTagsProps.contentTypeSelected.facetTranslation
 
     if (!isKeywordSpecified && !isContentTypeSelected) {
         return <div className="cmp-search-filters__emptytags" />;
     }
 
+    const keyword = props.filterTagsProps.spell_suggestion ? props.filterTagsProps.spell_suggestion : props.filterTagsProps.keyword;
+
     const keyWordTag = isKeywordSpecified 
         ? <KeywordTag
-                keyword={filterTagsProps.spell_suggestion ? filterTagsProps.spell_suggestion : filterTagsProps.keyword}
-                text={text}
-                onRemove={filterTagsEvents.onKeywordRemove} /> 
+                keyword={keyword}
+                text={props.text}
+                onRemove={props.filterTagsEvents.onKeywordRemove} /> 
         : <></>;
 
     const contentTypeTag = isContentTypeSelected
         ? <ContentTypeTag
-                text={text}
-                selected={filterTagsProps.contentTypeSelected}
-                onRemove={filterTagsEvents.onContentTypeRemove} />
+                text={props.text}
+                selected={props.filterTagsProps.contentTypeSelected}
+                onRemove={props.filterTagsEvents.onContentTypeRemove} />
         : <></>;
 
-    const subFacetTags = Object.entries(filterTagsProps.selectedFacets).length !== 0 
+    const subFacetTags = Object.entries(props.filterTagsProps.selectedFacets).length !== 0 
         ? <SubFacetTags
-                text={text}
-                selectedFacets={filterTagsProps.selectedFacets}
-                facets={filterTagsProps.facets}
-                removeTag={filterTagsEvents.onSubFacetRemove}
-                filterMap={filterMap}
-                defaultFacet={filterTagsProps.contentType}  />
+                text={props.text}
+                selectedFacets={props.filterTagsProps.selectedFacets}
+                facets={props.filterTagsProps.facets}
+                removeTag={props.filterTagsEvents.onSubFacetRemove}
+                filterMap={props.filterMap}
+                defaultFacet={props.filterTagsProps.contentType}  />
         : <></>;
 
     return (
         <div className="cmp-search-filters__tags clearfix">
             <ClearAllTag
-                text={text}
-                onRemove={filterTagsEvents.onClearAll} />
+                text={props.text}
+                onRemove={props.filterTagsEvents.onClearAll} />
             {keyWordTag}
             {contentTypeTag}
             {subFacetTags}
@@ -69,34 +69,40 @@ const FilterTagList = ({
     );
 }
 
+FilterTagList.propTypes = {
+    text: propTypes.text,
+    filterMap: propTypes.filterMap,
+    filterTagsProps: propTypes.filterTagsProps,
+    filterTagsEvents: propTypes.filterTagsEvents
+}
+
+FilterTagList.defaultProps = {
+    text: defaultProps.text,
+    filterMap: defaultProps.filterMap,
+    filterTagsProps: defaultProps.filterTagsProps,
+    filterTagsEvents: defaultProps.filterTagsEvents
+}
+
 const Aside = props => {
-    const SortFilterButtons = () => {
-        return (
-            <>
-                <BtnHideSortFilter
-                    text={props.text}
-                    onClick={props.onHideSortFilterClick} />
-
-                <BtnApplySortFilter
-                    text={props.text}
-                    applyFilters={props.onApplySortFilter}
-                    isPristine={props.sortFilterIsPristine}
-                    count={props.count} />
-
-                <BtnDoneSortFilter
-                    text={props.text}
-                    collapseFilters={props.onCollapseFilters} />
-            </>
-        );
-    };
-
     return (
         <div className="container__left cmp-search__sort-filter">
-            <SortFilterButtons />
+            <BtnHideSortFilter
+                text={props.text}
+                onClick={props.asideEvents.onHideSortFilterClick} />
+
+            <BtnApplySortFilter
+                text={props.text}
+                applyFilters={props.asideEvents.onApplySortFilter}
+                isPristine={props.asideProps.sortFilterIsPristine}
+                count={props.asideProps.count} />
+
+            <BtnDoneSortFilter
+                text={props.text}
+                collapseFilters={props.asideEvents.onCollapseFilters} />
             <div className="cmp-search__sort-filter__container">
                 <Sort
-                    sortValue={props.sortValue}
-                    sortHandler={props.onSort}
+                    sortValue={props.asideProps.sortValue}
+                    sortHandler={props.asideEvents.onSort}
                     text={props.text} />
                 {props.children}
             </div>
@@ -104,62 +110,92 @@ const Aside = props => {
     );
 }
 
-const Menu = ({
-    text,
-    filterMap,
-    menuProps, 
-    contentTypeMenuProps, 
-    contentTypeMenuEvents, 
-    facetMenuProps, 
-    facetMenuEvents,
-    subFacetFiltersProps,
-    subFacetFiltersEvents,
-    filterTagsProps,
-    filterTagsEvents
-}) => {
-    if (menuProps.showContentTypeMenu) {
+Aside.propTypes = {
+    text: propTypes.text,
+    asideProps: propTypes.asideProps,
+    asideEvents: propTypes.asideEvents
+}
+
+Aside.defaultProps = {
+    text: defaultProps.text,
+    asideProps: defaultProps.asideProps,
+    asideEvents: defaultProps.asideEvents
+}
+
+
+const Menu = props => {
+    if (props.menuProps.showContentTypeMenu) {
         return (
             <ContentTypeMenu
-                heading={menuProps.heading}
-                items={contentTypeMenuProps.items}
-                onClick={contentTypeMenuEvents.onContentTypeItemClick} />
+                heading={props.menuProps.heading}
+                items={props.contentTypeMenuProps.items}
+                onClick={props.contentTypeMenuEvents.onContentTypeItemClick} />
         );
     }
 
     const filterTags = FilterTagList({
-        text,
-        filterMap,
-        filterTagsProps,
-        filterTagsEvents
+        text: props.text,
+        filterMap: props.filterMap,
+        filterTagsProps: props.filterTagsProps,
+        filterTagsEvents: props.filterTagsEvents
     });
 
-    if (menuProps.showFacetMenu) {
+    if (props.menuProps.showFacetMenu) {
         return (
             <FacetMenu
-                heading={menuProps.heading}
-                selectedValue={facetMenuProps.selectedValue}
-                previousIcon={facetMenuProps.previousIcon}
+                heading={props.menuProps.heading}
+                selectedValue={props.facetMenuProps.selectedValue}
+                previousIcon={props.facetMenuProps.previousIcon}
                 filterTags={filterTags}
-                onClear={facetMenuEvents.onContentTypeRemoval}>
+                onClear={props.facetMenuEvents.onContentTypeRemoval}>
                     
                 <Filter
-                    facets={subFacetFiltersProps.items}
-                    text={text}
-                    filterMap={subFacetFiltersProps.filterMap}
-                    defaultFacet={subFacetFiltersProps.defaultFacet}
-                    selectHandler={subFacetFiltersEvents.onFilterSelect}
-                    selectedFacets={subFacetFiltersProps.selectedFacets}
-                    contentType={subFacetFiltersProps.contentType}
-                    facetGroupsSelectedOrder={subFacetFiltersProps.facetGroupsSelectedOrder}
-                    collapseAllFilters={subFacetFiltersProps.collapseAllFilters}
-                    activeIndex={subFacetFiltersProps.activeIndex}
-                    onGroupClick={subFacetFiltersEvents.onGroupClick} />
+                    facets={props.subFacetFiltersProps.items}
+                    text={props.text}
+                    filterMap={props.subFacetFiltersProps.filterMap}
+                    defaultFacet={props.subFacetFiltersProps.defaultFacet}
+                    selectHandler={props.subFacetFiltersEvents.onFilterSelect}
+                    selectedFacets={props.subFacetFiltersProps.selectedFacets}
+                    contentType={props.subFacetFiltersProps.contentType}
+                    facetGroupsSelectedOrder={props.subFacetFiltersProps.facetGroupsSelectedOrder}
+                    collapseAllFilters={props.subFacetFiltersProps.collapseAllFilters}
+                    activeIndex={props.subFacetFiltersProps.activeIndex}
+                    onGroupClick={props.subFacetFiltersEvents.onGroupClick} />
 
             </FacetMenu>
         );
     }
 }
 
+Menu.propTypes = {
+    text: propTypes.text,
+    filterMap: propTypes.filterMap,
+    menuProps: propTypes.menuProps, 
+    contentTypeMenuProps: propTypes.contentTypeMenuProps,
+    contentTypeMenuEvents: propTypes.contentTypeMenuEvents, 
+    facetMenuProps: propTypes.facetMenuProps,
+    facetMenuEvents: propTypes.facetMenuEvents,
+    subFacetFiltersProps: propTypes.subFacetFiltersProps,
+    subFacetFiltersEvents: propTypes.subFacetFiltersEvents,
+    filterTagsProps: propTypes.filterTagsProps,
+    filterTagsEvents: propTypes.filterTagsEvents
+}
+
+Menu.defaultProps = {
+    text: defaultProps.text,
+    filterMap: defaultProps.filterMap,
+    menuProps: defaultProps.menuProps, 
+    contentTypeMenuProps: defaultProps.contentTypeMenuProps,
+    contentTypeMenuEvents: defaultProps.contentTypeMenuEvents, 
+    facetMenuProps: defaultProps.facetMenuProps,
+    facetMenuEvents: defaultProps.facetMenuEvents,
+    subFacetFiltersProps: defaultProps.subFacetFiltersProps,
+    subFacetFiltersEvents: defaultProps.subFacetFiltersEvents,
+    filterTagsProps: defaultProps.filterTagsProps,
+    filterTagsEvents: defaultProps.filterTagsEvents
+}
+
+/*
 const SkuResults = ({
     items,
     skuConfig,
@@ -306,5 +342,7 @@ const ResultsBody = ({
         </div>
     );
 }
+*/
 
-export { FilterTagList, Aside, Menu, ResultsBody }
+//export { FilterTagList, Aside, Menu, ResultsBody }
+export { FilterTagList, Aside, Menu }

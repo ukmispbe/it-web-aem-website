@@ -3,7 +3,213 @@ import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 import props from '../__mocks__/en_US/';
 import { defaultProps } from '../search.component.props';
-import { FilterTagList } from '../search.component.helpers';
+import { FilterTagList, Aside, Menu } from '../search.component.helpers';
+import { parameterDefaults } from '../services'
+
+describe("Feature: Menu Component", () => {
+    const propsMock = {
+        text: props.searchText,
+        filterMap: props.filterMap,
+        menuProps: defaultProps.menuProps, 
+        contentTypeMenuProps: defaultProps.contentTypeMenuProps,
+        contentTypeMenuEvents: {
+            onContentTypeItemClick: jest.fn()
+        },
+        facetMenuProps: defaultProps.facetMenuProps,
+        facetMenuEvents: {
+            onContentTypeRemoval: jest.fn()
+        },
+        subFacetFiltersProps: defaultProps.subFacetFiltersProps,
+        subFacetFiltersEvents: {
+            onFilterSelect: jest.fn(),
+            onGroupClick: jest.fn()
+        },
+        filterTagsProps: defaultProps.filterTagsProps,
+        filterTagsEvents: {
+            onClearAll: jest.fn(),
+            onKeywordRemove: jest.fn(),
+            onContentTypeRemove: jest.fn(),
+            onSubFacetRemove: jest.fn()
+        }
+    };
+
+    const propsMockContentTypeMenu = {
+        ... propsMock,
+        menuProps: {
+            showContentTypeMenu: true,
+            showFacetMenu: false,
+            heading: 'filter By'
+        }
+    };
+
+    const propsMockFacetMenu = {
+        ... propsMock,
+        menuProps: {
+            showContentTypeMenu: false,
+            showFacetMenu: true,
+            heading: 'filter By'
+        }
+    };
+
+    describe("Scenario: Rendering", () => {
+        describe("When showing the content type menu", () => {
+            it("Then it should match snapshot", () => {
+                const json = renderer.create(<Menu {...propsMockContentTypeMenu} />);
+
+                expect(json).toMatchSnapshot();
+            });
+
+            it("And it should contain the content type menu", () => {
+                const wrapper = shallow(<Menu {...propsMockContentTypeMenu} />);
+                const menu = wrapper.find("ContentTypeMenu");
+
+                expect(menu.exists()).toEqual(true);
+            });
+        });
+
+        describe("When showing facet menu", () => {
+            it("Then it should match snapshot", () => {
+                const json = renderer.create(<Menu {...propsMockFacetMenu} />);
+
+                expect(json).toMatchSnapshot();
+            });
+
+            it("And it should contain the facet menu", () => {
+                const wrapper = shallow(<Menu {...propsMockFacetMenu} />);
+                const menu = wrapper.find("FacetMenu");
+                const filter = menu.find("Filter");
+
+                expect(menu.exists()).toEqual(true);
+                expect(filter.exists()).toEqual(true);
+            });
+        });
+    });
+
+    describe("Scenario: User Interaction", () => {
+        describe("When content type is clicked", () => {
+            it("Then it should call the content type click handler property", () => {
+                const wrapper = shallow(<Menu {...propsMockContentTypeMenu} />);
+                const menu = wrapper.find("ContentTypeMenu");
+
+                menu.simulate("click");
+
+                expect(propsMockContentTypeMenu.contentTypeMenuEvents.onContentTypeItemClick).toHaveBeenCalled();
+            });
+        });
+
+        describe("When facet menu is cleared", () => {
+            it("Then it should call the clear handler property", () => {
+                const wrapper = shallow(<Menu {...propsMockFacetMenu} />);
+                const menu = wrapper.find("FacetMenu");
+
+                menu.simulate("clear");
+
+                expect(propsMockFacetMenu.facetMenuEvents.onContentTypeRemoval).toHaveBeenCalled();
+            });
+        });
+
+        describe("When facet group is clicked", () => {
+            it("Then it should call the group click handler property", () => {
+                const wrapper = shallow(<Menu {...propsMockFacetMenu} />);
+                const filter = wrapper.find("Filter");
+
+                filter.simulate("groupClick");
+
+                expect(propsMockFacetMenu.subFacetFiltersEvents.onGroupClick).toHaveBeenCalled();
+            });
+        });
+
+        describe("When sub facet is selected", () => {
+            it("Then it should call the select facet handler property", () => {
+                const wrapper = shallow(<Menu {...propsMockFacetMenu} />);
+                const filter = wrapper.find("Filter");
+
+                filter.props().selectHandler();
+                
+                expect(propsMockFacetMenu.subFacetFiltersEvents.onFilterSelect).toHaveBeenCalled();
+            });
+        });
+    });
+});
+
+describe("Feature: Aside Component", () => {
+    const propsMocked = {
+        text: {...props.searchText},
+        asideProps: defaultProps.asideProps,
+        asideEvents: {
+            onHideSortFilterClick: jest.fn(),
+            onApplySortFilter: jest.fn(),
+            onCollapseFilters: jest.fn(),
+            onSort: jest.fn()
+        }
+    };
+
+    describe("Scenario: Rendering", () => {
+        describe("When no children are provided", () => {
+            it("Then it should match snapshot", () => {
+                const json = renderer.create(<Aside {...propsMocked} />);
+
+                expect(json).toMatchSnapshot();
+            });
+        });
+
+        describe("When children are provided", () => {
+            it("Then it should match snapshot", () => {
+                const json = renderer.create(<Aside {...propsMocked}><div className="child"></div></Aside>);
+
+                expect(json).toMatchSnapshot();
+            });
+        });
+    });
+
+    describe("Scenario: User Interaction", () => {
+        let wrapper;
+
+        beforeAll(() => {
+            wrapper = shallow(<Aside {...propsMocked} />);
+        });
+
+        describe("When hide button is clicked", () => {
+            it("Then it should call the hide handler property", () => {
+                const button = wrapper.find("HideSortFilter");
+
+                button.simulate("click");
+
+                expect(propsMocked.asideEvents.onHideSortFilterClick).toHaveBeenCalled();
+            });
+        });
+
+        describe("When apply button is clicked", () => {
+            it("Then it should call the apply handler property", () => {
+                const button = wrapper.find("ApplySortFilter");
+
+                button.props().applyFilters();
+
+                expect(propsMocked.asideEvents.onApplySortFilter).toHaveBeenCalled();
+            });
+        });
+
+        describe("When done button is clicked", () => {
+            it("Then it should call the collapse filters handler property", () => {
+                const button = wrapper.find("DoneSortFilter");
+
+                button.props().collapseFilters();
+
+                expect(propsMocked.asideEvents.onCollapseFilters).toHaveBeenCalled();
+            });
+        });
+
+        describe("When sort is changed", () => {
+            it("Then it should call the sort handler property", () => {
+                const sort = wrapper.find("Sort");
+
+                sort.props().sortHandler();
+
+                expect(propsMocked.asideEvents.onSort).toHaveBeenCalled();
+            });
+        });
+    });
+});
 
 describe('Feature: FilterTagList Component', () => {
     const propsWithNoFilters = {
@@ -18,6 +224,18 @@ describe('Feature: FilterTagList Component', () => {
         filterMap: { ... props.filterMap },
         filterTagsProps: {
             keyword: "hplc",
+            contentTypeSelected: {},
+            selectedFacets: {}
+        },
+        filterTagsEvents: { ... defaultProps.filterTagsEvents }
+    };
+
+    const propsWithKeywordSpellingSuggestion = {
+        text: { ... props.searchText },
+        filterMap: { ... props.filterMap },
+        filterTagsProps: {
+            keyword: "hp1c",
+            spell_suggestion: "HPLC",
             contentTypeSelected: {},
             selectedFacets: {}
         },
@@ -126,6 +344,32 @@ describe('Feature: FilterTagList Component', () => {
 
             it('Then it should match spapshot', () => {
                 const json = renderer.create(<FilterTagList {...propsWithKeyword} />);
+
+                expect(json).toMatchSnapshot();
+            });
+
+            it('And it should contain a keyword tag', () => {
+                const tag = wrapper.find('KeywordTag');
+
+                expect(tag.exists()).toEqual(true);
+            });
+
+            it('And it should contain a clear all tag', () => {
+                const tag = wrapper.find('ClearAllTag');
+
+                expect(tag.exists()).toEqual(true);
+            });
+        });
+
+        describe('When keyword spelling suggestion is specified', () => {
+            let wrapper;
+
+            beforeAll(() => {
+                wrapper = shallow(<FilterTagList {...propsWithKeywordSpellingSuggestion} />);
+            });
+
+            it('Then it should match spapshot', () => {
+                const json = renderer.create(<FilterTagList {...propsWithKeywordSpellingSuggestion} />);
 
                 expect(json).toMatchSnapshot();
             });

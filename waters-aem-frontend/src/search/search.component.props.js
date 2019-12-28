@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     text: PropTypes.object.isRequired,
-    filterMap: PropTypes.array.isRequired,
+    filterMap: PropTypes.any.isRequired,
     skuConfig: PropTypes.object.isRequired,
     searchParams: PropTypes.object.isRequired,
     category: PropTypes.any,
@@ -23,16 +23,15 @@ const propTypes = {
         onClose: PropTypes.func.isRequired
     }).isRequired,
     asideProps: PropTypes.shape({
-        sortFilterIsPristine: PropTypes.bool.isRequired,
-        count: PropTypes.number.isRequired,
-        sortByText: PropTypes.text,
-        sortByValue: PropTypes.number.isRequired
+        sortFilterIsPristine: PropTypes.bool,
+        count: PropTypes.number,
+        sortValue: PropTypes.number
     }).isRequired,
     asideEvents: PropTypes.shape({
-        onHideSortFilterClick: PropTypes.func.isRequired,
-        onApplySortFilter: PropTypes.func.isRequired,
-        onCollapseFilters: PropTypes.func.isRequired,
-        onSort: PropTypes.func.isRequired
+        onHideSortFilterClick: PropTypes.func,
+        onApplySortFilter: PropTypes.func,
+        onCollapseFilters: PropTypes.func,
+        onSort: PropTypes.func
     }).isRequired,
     menuProps: PropTypes.shape({
         showContentTypeMenu: PropTypes.bool.isRequired,
@@ -124,10 +123,9 @@ const defaultProps = {
         onClose: () => {}
     },
     asideProps: {
-        sortFilterIsPristine: true,
+        sortFilterIsPristine: false,
         count: 0,
-        sortByText: '',
-        sortByValue: 1,
+        sortValue: 1,
     },
     asideEvents: {
         onHideSortFilterClick: () => {},
