@@ -3,8 +3,66 @@ import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 import props from '../__mocks__/en_US/';
 import { defaultProps } from '../search.component.props';
-import { FilterTagList, Aside, Menu } from '../search.component.helpers';
-import { parameterDefaults } from '../services'
+import { FilterTagList, Aside, Menu, SkuResults } from '../search.component.helpers';
+import data from '../services/__mocks__/data'
+
+describe("Feature: SkuResults Component", () => {
+    const propsMockNullItems = {
+        items: {},
+        skuConfig: props.skuConfig,
+        onItemClick: jest.fn()
+    }
+
+    const propsMockNoItems = {
+        items: [],
+        skuConfig: props.skuConfig,
+        onItemClick: jest.fn()
+    }
+
+    const propsMockWithItems = {
+        ...propsMockNoItems,
+        items: data.shop.results.documents
+    }
+
+    describe("Scenario: Rendering", () => {
+        describe("When the results is not an array", () => {
+            it("Then it should match snapshot", () => {
+                const json = renderer.create(<SkuResults {...propsMockNullItems} />);
+
+                expect(json).toMatchSnapshot();
+            });
+        });
+
+        describe("When there are no resuilts", () => {
+            it("Then it should match snapshot", () => {
+                const json = renderer.create(<SkuResults {...propsMockNoItems} />);
+
+                expect(json).toMatchSnapshot();
+            });
+        });
+
+        describe("Where there are results", () => {
+            it("Then it should match snapshot", () => {
+                const json = renderer.create(<SkuResults {...propsMockWithItems} />);
+
+                expect(json).toMatchSnapshot();
+            });
+        });
+    });
+
+    describe("Scenario: User Interaction", () => {
+        describe("When item is clicked", () => {
+            it("Then it should call the click handler property", () => {
+                const wrapper = shallow(<SkuResults {...propsMockWithItems} />);
+                const results = wrapper.find("SkuList");
+
+                results.simulate("itemClick");
+
+                expect(propsMockWithItems.onItemClick).toHaveBeenCalled();
+            });
+        });
+    });
+});
 
 describe("Feature: Menu Component", () => {
     const propsMock = {

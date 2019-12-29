@@ -195,7 +195,7 @@ Menu.defaultProps = {
     filterTagsEvents: defaultProps.filterTagsEvents
 }
 
-/*
+
 const SkuResults = ({
     items,
     skuConfig,
@@ -226,6 +226,19 @@ const SkuResults = ({
     );
 }
 
+SkuResults.propTypes = {
+    skuConfig: propTypes.skuConfig,
+    items: PropTypes.any,
+    onItemClick: PropTypes.func.isRequired
+};
+
+SkuResults.defaultProps = {
+    skuConfig: defaultProps.skuConfig,
+    items: [],
+    onItemClick: () => {}
+};
+
+/*
 const ResultsContent = ({
     text, 
     filterMap,
@@ -345,4 +358,4 @@ const ResultsBody = ({
 */
 
 //export { FilterTagList, Aside, Menu, ResultsBody }
-export { FilterTagList, Aside, Menu }
+export { FilterTagList, Aside, Menu, SkuResults }
