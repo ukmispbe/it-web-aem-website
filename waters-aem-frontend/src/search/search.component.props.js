@@ -36,17 +36,17 @@ const propTypes = {
     menuProps: PropTypes.shape({
         showContentTypeMenu: PropTypes.bool.isRequired,
         showFacetMenu: PropTypes.bool.isRequired,
-        heading: PropTypes.text
+        heading: PropTypes.string
     }).isRequired,
     resultsProps: PropTypes.shape({
         rows: PropTypes.number.isRequired,
         count: PropTypes.number.isRequired,
-        query: PropTypes.text,
+        query: PropTypes.string,
         current: PropTypes.number.isRequired,
         noQuery: PropTypes.bool,
         spell_check: PropTypes.bool.isRequired,
         spell_related_suggestions: PropTypes.array.isRequired,
-        spell_suggestion: PropTypes.text,
+        spell_suggestion: PropTypes.string,
         items: PropTypes.any,
         isSkuList: PropTypes.bool.isRequired,
         pagination: PropTypes.object.isRequired
@@ -63,7 +63,7 @@ const propTypes = {
         onContentTypeItemClick: PropTypes.func.isRequired
     }).isRequired,
     facetMenuProps: PropTypes.shape({
-        selectedValue: PropTypes.text,
+        selectedValue: PropTypes.string,
         previousIcon: PropTypes.string
     }).isRequired,
     facetMenuEvents: PropTypes.shape({
@@ -72,9 +72,9 @@ const propTypes = {
     subFacetFiltersProps: PropTypes.shape({
         items: PropTypes.array | PropTypes.object,
         filterMap: PropTypes.array.isRequired | PropTypes.object,
-        defaultFacet: PropTypes.text,
+        defaultFacet: PropTypes.string,
         selectedFacets: PropTypes.object.isRequired,
-        contentType: PropTypes.text,
+        contentType: PropTypes.string,
         facetGroupsSelectedOrder: PropTypes.array.isRequired,
         collapseAllFilters: PropTypes.bool.isRequired,
         activeIndex: PropTypes.number.isRequired
@@ -84,13 +84,13 @@ const propTypes = {
         onGroupClick: PropTypes.func.isRequired
     }).isRequired,
     filterTagsProps: PropTypes.shape({
-        keyword: PropTypes.text,
-        spell_suggestion: PropTypes.text,
+        keyword: PropTypes.string,
+        spell_suggestion: PropTypes.string,
         contentTypeSelected: PropTypes.object.isRequired,
         selectedFacets: PropTypes.object.isRequired,
         facets: PropTypes.object.isRequired | PropTypes.array,
-        defaultFacet: PropTypes.text,
-        contentType: PropTypes.text
+        defaultFacet: PropTypes.string,
+        contentType: PropTypes.string
     }).isRequired,
     filterTagsEvents: PropTypes.shape({
         onClearAll: PropTypes.func.isRequired,

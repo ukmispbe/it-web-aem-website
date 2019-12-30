@@ -22,45 +22,50 @@ import Results from './components/results';
 import { propTypes, defaultProps } from './search.component.props';
 import PropTypes from 'prop-types';
 
-const FilterTagList = props => {
-    const isKeywordSpecified = props.filterTagsProps.keyword && props.filterTagsProps.keyword !== parameterDefaults.keyword;
-    const isContentTypeSelected = Object.entries(props.filterTagsProps.contentTypeSelected).length !== 0 && props.filterTagsProps.contentTypeSelected.facetTranslation
+const FilterTagList = ({
+    text,
+    filterMap,
+    filterTagsProps,
+    filterTagsEvents
+}) => {
+    const isKeywordSpecified = filterTagsProps.keyword && filterTagsProps.keyword !== parameterDefaults.keyword;
+    const isContentTypeSelected = Object.entries(filterTagsProps.contentTypeSelected).length !== 0 && filterTagsProps.contentTypeSelected.facetTranslation
 
     if (!isKeywordSpecified && !isContentTypeSelected) {
         return <div className="cmp-search-filters__emptytags" />;
     }
 
-    const keyword = props.filterTagsProps.spell_suggestion ? props.filterTagsProps.spell_suggestion : props.filterTagsProps.keyword;
+    const keyword = filterTagsProps.spell_suggestion ? filterTagsProps.spell_suggestion : filterTagsProps.keyword;
 
     const keyWordTag = isKeywordSpecified 
         ? <KeywordTag
                 keyword={keyword}
-                text={props.text}
-                onRemove={props.filterTagsEvents.onKeywordRemove} /> 
+                text={text}
+                onRemove={filterTagsEvents.onKeywordRemove} /> 
         : <></>;
 
     const contentTypeTag = isContentTypeSelected
         ? <ContentTypeTag
-                text={props.text}
-                selected={props.filterTagsProps.contentTypeSelected}
-                onRemove={props.filterTagsEvents.onContentTypeRemove} />
+                text={text}
+                selected={filterTagsProps.contentTypeSelected}
+                onRemove={filterTagsEvents.onContentTypeRemove} />
         : <></>;
 
-    const subFacetTags = Object.entries(props.filterTagsProps.selectedFacets).length !== 0 
+    const subFacetTags = Object.entries(filterTagsProps.selectedFacets).length !== 0 
         ? <SubFacetTags
-                text={props.text}
-                selectedFacets={props.filterTagsProps.selectedFacets}
-                facets={props.filterTagsProps.facets}
-                removeTag={props.filterTagsEvents.onSubFacetRemove}
-                filterMap={props.filterMap}
-                defaultFacet={props.filterTagsProps.contentType}  />
+                text={text}
+                selectedFacets={filterTagsProps.selectedFacets}
+                facets={filterTagsProps.facets}
+                removeTag={filterTagsEvents.onSubFacetRemove}
+                filterMap={filterMap}
+                defaultFacet={filterTagsProps.contentType}  />
         : <></>;
 
     return (
         <div className="cmp-search-filters__tags clearfix">
             <ClearAllTag
-                text={props.text}
-                onRemove={props.filterTagsEvents.onClearAll} />
+                text={text}
+                onRemove={filterTagsEvents.onClearAll} />
             {keyWordTag}
             {contentTypeTag}
             {subFacetTags}
@@ -82,28 +87,34 @@ FilterTagList.defaultProps = {
     filterTagsEvents: defaultProps.filterTagsEvents
 }
 
-const Aside = props => {
+
+const Aside = ({
+    text,
+    asideProps,
+    asideEvents,
+    children
+}) => {
     return (
         <div className="container__left cmp-search__sort-filter">
             <BtnHideSortFilter
-                text={props.text}
-                onClick={props.asideEvents.onHideSortFilterClick} />
+                text={text}
+                onClick={asideEvents.onHideSortFilterClick} />
 
             <BtnApplySortFilter
-                text={props.text}
-                applyFilters={props.asideEvents.onApplySortFilter}
-                isPristine={props.asideProps.sortFilterIsPristine}
-                count={props.asideProps.count} />
+                text={text}
+                applyFilters={asideEvents.onApplySortFilter}
+                isPristine={asideProps.sortFilterIsPristine}
+                count={asideProps.count} />
 
             <BtnDoneSortFilter
-                text={props.text}
-                collapseFilters={props.asideEvents.onCollapseFilters} />
+                text={text}
+                collapseFilters={asideEvents.onCollapseFilters} />
             <div className="cmp-search__sort-filter__container">
                 <Sort
-                    sortValue={props.asideProps.sortValue}
-                    sortHandler={props.asideEvents.onSort}
-                    text={props.text} />
-                {props.children}
+                    sortValue={asideProps.sortValue}
+                    sortHandler={asideEvents.onSort}
+                    text={text} />
+                {children}
             </div>
         </div>
     );
@@ -122,44 +133,56 @@ Aside.defaultProps = {
 }
 
 
-const Menu = props => {
-    if (props.menuProps.showContentTypeMenu) {
+const Menu = ({
+    text,
+    filterMap,
+    menuProps,
+    contentTypeMenuProps,
+    contentTypeMenuEvents,
+    facetMenuProps,
+    facetMenuEvents,
+    subFacetFiltersProps,
+    subFacetFiltersEvents,
+    filterTagsProps,
+    filterTagsEvents
+}) => {
+    if (menuProps.showContentTypeMenu) {
         return (
             <ContentTypeMenu
-                heading={props.menuProps.heading}
-                items={props.contentTypeMenuProps.items}
-                onClick={props.contentTypeMenuEvents.onContentTypeItemClick} />
+                heading={menuProps.heading}
+                items={contentTypeMenuProps.items}
+                onClick={contentTypeMenuEvents.onContentTypeItemClick} />
         );
     }
 
     const filterTags = FilterTagList({
-        text: props.text,
-        filterMap: props.filterMap,
-        filterTagsProps: props.filterTagsProps,
-        filterTagsEvents: props.filterTagsEvents
+        text,
+        filterMap,
+        filterTagsProps,
+        filterTagsEvents
     });
 
-    if (props.menuProps.showFacetMenu) {
+    if (menuProps.showFacetMenu) {
         return (
             <FacetMenu
-                heading={props.menuProps.heading}
-                selectedValue={props.facetMenuProps.selectedValue}
-                previousIcon={props.facetMenuProps.previousIcon}
+                heading={menuProps.heading}
+                selectedValue={facetMenuProps.selectedValue}
+                previousIcon={facetMenuProps.previousIcon}
                 filterTags={filterTags}
-                onClear={props.facetMenuEvents.onContentTypeRemoval}>
+                onClear={facetMenuEvents.onContentTypeRemoval}>
                     
                 <Filter
-                    facets={props.subFacetFiltersProps.items}
-                    text={props.text}
-                    filterMap={props.subFacetFiltersProps.filterMap}
-                    defaultFacet={props.subFacetFiltersProps.defaultFacet}
-                    selectHandler={props.subFacetFiltersEvents.onFilterSelect}
-                    selectedFacets={props.subFacetFiltersProps.selectedFacets}
-                    contentType={props.subFacetFiltersProps.contentType}
-                    facetGroupsSelectedOrder={props.subFacetFiltersProps.facetGroupsSelectedOrder}
-                    collapseAllFilters={props.subFacetFiltersProps.collapseAllFilters}
-                    activeIndex={props.subFacetFiltersProps.activeIndex}
-                    onGroupClick={props.subFacetFiltersEvents.onGroupClick} />
+                    facets={subFacetFiltersProps.items}
+                    text={text}
+                    filterMap={subFacetFiltersProps.filterMap}
+                    defaultFacet={subFacetFiltersProps.defaultFacet}
+                    selectHandler={subFacetFiltersEvents.onFilterSelect}
+                    selectedFacets={subFacetFiltersProps.selectedFacets}
+                    contentType={subFacetFiltersProps.contentType}
+                    facetGroupsSelectedOrder={subFacetFiltersProps.facetGroupsSelectedOrder}
+                    collapseAllFilters={subFacetFiltersProps.collapseAllFilters}
+                    activeIndex={subFacetFiltersProps.activeIndex}
+                    onGroupClick={subFacetFiltersEvents.onGroupClick} />
 
             </FacetMenu>
         );
