@@ -71,15 +71,15 @@ class ListItem extends React.Component {
     toggleModal = () => {
         this.setState({ modalShown: !this.state.modalShown }, () => {
 
-            if (SkuDetails.exists()) { 
-                if (!this.state.modalShown) { 
+            if (SkuDetails.exists()) {
+                if (!this.state.modalShown) {
                     //Firefox bug -->
-                    //if on a sku page and the modal was just open, make call to check wether to stick again
+                    //if on a sku page and the modal was just open, make call to check whether to stick again
                     //this will unstick the current element if necessary
                     const SKUDetailsSticky = Sticky.findStickyEl(SkuDetails.element);
-                    if (SKUDetailsSticky) { 
+                    if (SKUDetailsSticky) {
                         Sticky.conditionsToStick(SKUDetailsSticky);
-                    }                
+                    }
                 }
             }
 
@@ -101,7 +101,7 @@ class ListItem extends React.Component {
                         ...this.state.analyticsConfig,
                         ...response
                     }
-                }, () => { 
+                }, () => {
                         this.checkAvailabilityAnalytics();
                 });
 
@@ -113,7 +113,7 @@ class ListItem extends React.Component {
             });
     };
 
-    checkAvailabilityAnalytics = () => {   
+    checkAvailabilityAnalytics = () => {
         const availabilityModel = {
             name: this.state.analyticsConfig.name,
             price: this.state.analyticsConfig.price,
@@ -122,8 +122,8 @@ class ListItem extends React.Component {
 
         if (this.state.analyticsConfig.hasOwnProperty('availableDate')) {
             availabilityModel.stockDate = this.state.analyticsConfig.availableDate;
-        }   
-        
+        }
+
         if (this.state.analyticsConfig.hasOwnProperty('availableQuantity')) {
             availabilityModel.stockQuantity = this.state.analyticsConfig.availableQuantity.toString();
         }
@@ -245,6 +245,7 @@ class ListItem extends React.Component {
                     message={discontinuedMessage}
                     link={this.props.relatedSku.replacementskuurl}
                     linkMessage={this.props.relatedSku.replacementskucode}
+                    distMessage={this.props.skuConfig.skuInfo.distributorMessage}
                 />
             );
         } else {
