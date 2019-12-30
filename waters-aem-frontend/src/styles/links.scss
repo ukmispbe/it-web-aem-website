@@ -32,6 +32,31 @@
     padding-right: 27px;
     margin-bottom: 0;
     position: relative;
+
+    &-icon-wrapper--back {
+        display: none;
+
+        .cmp-links__link-icon {
+            display: none;
+            position: relative;
+            top: 0.15em;
+            margin-bottom: 0;
+            margin-right: $space-xxxs;
+            height: (($icon-s + $icon-m) / 2);
+            width: (($icon-s + $icon-m) / 2);
+            color: $color-link;
+
+            .st0 {
+                stroke: $color-link;
+                stroke-width: 1px;
+            }
+
+            .st1 {
+                stroke: $color-link;
+                stroke-width: 1px;
+            }
+        }
+    }
 }
 
 .cmp-links__external-link--true::after {
@@ -71,4 +96,48 @@ div.links {
 
 div.links--noPadding {
     margin-bottom: 0;
+}
+
+.cmp-links--back {
+    margin-bottom: $space-s;
+    padding: 0;
+
+    .cmp-links {
+        margin: 0 0 $space-xxs 0;
+
+        @include mobile {
+            margin: 0;
+        }
+    }
+
+    .cmp-links {
+        margin: 0;
+
+        &__link {
+            order: 2;
+            display: inline-flex;
+
+            &-icon-wrapper--back {
+                display: inline-block;
+
+                .cmp-links__link-icon {
+                    display: inline-block;
+                }
+            }
+
+            &:hover {
+                .cmp-links__link-icon-wrapper--back .cmp-links__link-icon {
+                    color: $color-link-hover;
+
+                    .st0 {
+                        stroke: $color-link-hover;
+                    }
+
+                    .st1 {
+                        stroke: $color-link-hover;
+                    }
+                }
+            }
+        }
+    }
 }
