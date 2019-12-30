@@ -21,7 +21,6 @@ import SkuList from '../sku-list';
 import Results from './components/results';
 import { propTypes, defaultProps } from './search.component.props';
 import PropTypes from 'prop-types';
-import props from './__mocks__/en_US';
 
 const FilterTagList = props => {
     const isKeywordSpecified = props.filterTagsProps.keyword && props.filterTagsProps.keyword !== parameterDefaults.keyword;
@@ -281,7 +280,7 @@ ResultsContent.defaultProps = {
     resultsEvents: defaultProps.resultsEvents
 }
 
-/*
+
 const Pagination = ({
     resultsProps,
     resultsEvents,
@@ -307,6 +306,21 @@ const Pagination = ({
             disableInitialCallback={true} />
     );
 };
+
+Pagination.propTypes = {
+    resultsProps: propTypes.resultsProps,
+    resultsEvents: propTypes.resultsEvents,
+    nextIcon: PropTypes.string,
+    previousIcon: PropTypes.string
+};
+
+Pagination.defaultProps = {
+    resultsProps: defaultProps.resultsProps,
+    resultsEvents: defaultProps.resultsEvents,
+    nextIcon: "",
+    previousIcon: ""
+};
+
 
 const ResultsBody = ({
     text, 
@@ -371,7 +385,38 @@ const ResultsBody = ({
         </div>
     );
 }
-*/
 
-//export { FilterTagList, Aside, Menu, ResultsBody }
-export { FilterTagList, Aside, Menu, SkuResults, ResultsContent }
+ResultsBody.propTypes = {
+    text: propTypes.text, 
+    filterMap: propTypes.filterMap,
+    skuConfig: propTypes.skuConfig,
+    searchParams: propTypes.searchParams,
+    categoryProps: propTypes.categoryProps, 
+    categoryEvents: propTypes.categoryEvents,
+    showSortFilterProps: propTypes.showSortFilterProps,
+    showSortFilterEvents: propTypes.showSortFilterEvents,
+    asideProps: propTypes.asideProps,
+    filterTagsProps: propTypes.filterTagsProps,
+    filterTagsEvents: propTypes.filterTagsEvents,
+    resultsProps: propTypes.resultsProps,
+    resultsEvents: propTypes.resultsEvents
+}
+
+ResultsBody.defaultProps = {
+    text: defaultProps.text, 
+    filterMap: defaultProps.filterMap,
+    skuConfig: defaultProps.skuConfig,
+    searchParams: defaultProps.searchParams,
+    categoryProps: defaultProps.categoryProps, 
+    categoryEvents: defaultProps.categoryEvents,
+    showSortFilterProps: defaultProps.showSortFilterProps,
+    showSortFilterEvents: defaultProps.showSortFilterEvents,
+    asideProps: defaultProps.asideProps,
+    filterTagsProps: defaultProps.filterTagsProps,
+    filterTagsEvents: defaultProps.filterTagsEvents,
+    resultsProps: defaultProps.resultsProps,
+    resultsEvents: defaultProps.resultsEvents
+}
+
+
+export { FilterTagList, Aside, Menu, SkuResults, ResultsContent, Pagination, ResultsBody }

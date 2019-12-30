@@ -367,6 +367,106 @@ exports[`Feature: Menu Component Scenario: Rendering When showing the content ty
 </div>
 `;
 
+exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by best match Then it should match snapshot 1`] = `
+<div
+  className="cmp-search__container"
+>
+  <div
+    className="cmp-search__container__header cleafix"
+  >
+    <div
+      className="cmp-search-show-btn"
+    >
+      <a
+        className="btn-show-sort-filter"
+        href="javascript:void(0);"
+        onClick={[Function]}
+      >
+        <div
+          className="filterIcon"
+        />
+        <div
+          className="closeIcon"
+        />
+        Sort and Filter
+      </a>
+    </div>
+  </div>
+  <div
+    className="cmp-search__sorted-container"
+  >
+    <div
+      className="cmp-search__sorted-by"
+    >
+      Sorted by
+      :
+       
+      Best Match
+    </div>
+    <div
+      className="cmp-search-filters__emptytags"
+    />
+  </div>
+  <div
+    className="cmp-search__results-container"
+  >
+    <ul
+      className="cmp-search__results"
+    />
+  </div>
+</div>
+`;
+
+exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by most recent Then it should match snapshot 1`] = `
+<div
+  className="cmp-search__container"
+>
+  <div
+    className="cmp-search__container__header cleafix"
+  >
+    <div
+      className="cmp-search-show-btn"
+    >
+      <a
+        className="btn-show-sort-filter"
+        href="javascript:void(0);"
+        onClick={[Function]}
+      >
+        <div
+          className="filterIcon"
+        />
+        <div
+          className="closeIcon"
+        />
+        Sort and Filter
+      </a>
+    </div>
+  </div>
+  <div
+    className="cmp-search__sorted-container"
+  >
+    <div
+      className="cmp-search__sorted-by"
+    >
+      Sorted by
+      :
+       
+      Most Recent
+    </div>
+    <div
+      className="cmp-search-filters__emptytags"
+    />
+  </div>
+  <div
+    className="cmp-search__results-container"
+  >
+    <ul
+      className="cmp-search__results"
+    />
+  </div>
+</div>
+`;
+
 exports[`Feature: ResutsContent Component Scenario: Rendering When displaying the shop results Then it should match snapshot 1`] = `
 Array [
   <div

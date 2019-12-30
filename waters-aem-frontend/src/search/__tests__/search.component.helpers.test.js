@@ -3,14 +3,188 @@ import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 import props from '../__mocks__/en_US/';
 import { defaultProps } from '../search.component.props';
-import { FilterTagList, Aside, Menu, SkuResults, ResultsContent } from '../search.component.helpers';
-import data from '../services/__mocks__/data'
+import { FilterTagList, Aside, Menu, SkuResults, ResultsContent, Pagination, ResultsBody } from '../search.component.helpers';
+import data from '../services/__mocks__/data';
+import { parameterDefaults } from '../services/index';
 
-describe("Feature: ResutsContent Component", () => {
+describe("Feature: ResultsBody Component", () => {
     beforeAll(() => {
-        Node.removeChild = jest.fn();
+        window.matchMedia = jest.fn(() => {
+            return {
+                match: true
+            }
+        });
     });
 
+    afterAll(() => {
+        jest.mockRestoreAll();
+    });
+
+    const propsMock = {
+        text: props.searchText, 
+        filterMap: props.filterMap,
+        skuConfig: props.skuConfig,
+        searchParams: defaultProps.searchParams,
+        categoryProps: defaultProps.categoryProps, 
+        categoryEvents: {
+            onCategoryTabClick: jest.fn(),
+            onCategoryDropdownChange: jest.fn(),
+        },
+        showSortFilterProps: defaultProps.showSortFilterProps,
+        showSortFilterEvents: {
+            onSetupFilters: jest.fn(),
+            onResetToSavedState: jest.fn(),
+            onClose: jest.fn()
+        },
+        filterTagsProps: defaultProps.filterTagsProps,
+        filterTagsEvents: {
+            onClearAll: jest.fn(),
+            onKeywordRemove: jest.fn(),
+            onContentTypeRemove: jest.fn(),
+            onSubFacetRemove: jest.fn()
+        },
+        resultsProps: defaultProps.resultsProps,
+        resultsEvents: {
+            onRelatedSuggestionClick: jest.fn(),
+            onResultsItemClick: jest.fn(),
+            onPageChange: jest.fn()
+        }
+    }
+
+    const propsMockSortByBestMatch = {
+        ...propsMock,
+        asideProps: {
+            ...defaultProps.asideProps,
+            sortByText: "most-relevant"
+        }
+    };
+
+    const propsMockSortByMostRecent = {
+        ...propsMock,
+        asideProps: {
+            ...defaultProps.asideProps,
+            sortByText: "most-recent"
+        }
+    };
+
+    describe("Scenario: Rendering", () => {
+        describe("When sorting by best match", () => {
+            it("Then it should match snapshot", () => {
+                const json = renderer.create(<ResultsBody {...propsMockSortByBestMatch} />);
+
+                expect(json).toMatchSnapshot();
+            })
+        });
+
+        describe("When sorting by most recent", () => {
+            it("Then it should match snapshot", () => {
+                const json = renderer.create(<ResultsBody {...propsMockSortByMostRecent} />);
+
+                expect(json).toMatchSnapshot();
+            });
+        });
+    });
+
+    describe("Scenario: User Interaction", () => {
+
+    });
+});
+
+
+describe("Feature: Pagination Component", () => {
+    const propsMockNoPagination = {
+        nextIcon: props.searchText.nextIcon,
+        previousIcon: props.searchText.previousIcon,
+        resultsProps: {
+            ...defaultProps.resultsProps,
+            count: parameterDefaults.rows - 1
+        },
+        resultsEvents: {
+            onRelatedSuggestionClick: jest.fn(),
+            onResultsItemClick: jest.fn(),
+            onPageChange: jest.fn()
+        }
+    }
+
+    const propsMockPagination = {
+        nextIcon: props.searchText.nextIcon,
+        previousIcon: props.searchText.previousIcon,
+        resultsProps: {
+            ...defaultProps.resultsProps,
+            count: parameterDefaults.rows + 1,
+            pagination: {
+                current: 1
+            }
+        },
+        resultsEvents: {
+            onRelatedSuggestionClick: jest.fn(),
+            onResultsItemClick: jest.fn(),
+            onPageChange: jest.fn()
+        }
+    }
+
+    const propsMockPaginationWithoutCurrentPage = {
+        nextIcon: props.searchText.nextIcon,
+        previousIcon: props.searchText.previousIcon,
+        resultsProps: {
+            ...defaultProps.resultsProps,
+            count: parameterDefaults.rows + 1,
+            pagination: {
+                current: null
+            }
+        },
+        resultsEvents: {
+            onRelatedSuggestionClick: jest.fn(),
+            onResultsItemClick: jest.fn(),
+            onPageChange: jest.fn()
+        }
+    }
+
+    describe("Scenario: Rendering", () => {
+        describe("When the number of results is less than the number of items per page", () => {
+            it("Then it should not contain pagination", () => {
+                const wrapper = shallow(<Pagination {...propsMockNoPagination} />);
+                const paginate = wrapper.find("PaginationBoxView");
+
+                expect(paginate.exists()).toEqual(false);
+            });
+        });
+
+        describe("When the number of results is more than the number of items per page", () => {
+            it("Then it should contain pagination", () => {
+                const wrapper = shallow(<Pagination {...propsMockPagination} />);
+                const paginate = wrapper.find("PaginationBoxView");
+
+                expect(paginate.exists()).toEqual(true);
+            });
+        });
+
+        describe("When the current page is not specified", () => {
+            it("Then it should force the page to zero", () => {
+                const wrapper = shallow(<Pagination {...propsMockPaginationWithoutCurrentPage} />);
+                const paginate = wrapper.find("PaginationBoxView");
+
+                expect(paginate.props().forcePage).toEqual(0);
+                expect(paginate.props().initialPage).toEqual(0);
+            });
+        });
+    });
+
+    describe("Scenario: User Interaction", () => {
+        describe("When changing page", () => {
+            it("Then it should call the page change handler property", () => {
+                const wrapper = shallow(<Pagination {...propsMockPagination} />);
+                const paginate = wrapper.find("PaginationBoxView");
+
+                paginate.simulate("pageChange");
+
+                expect(propsMockPagination.resultsEvents.onPageChange).toHaveBeenCalled();
+            });
+        });
+    });
+});
+
+describe("Feature: ResutsContent Component", () => {
     afterAll(() => {
         jest.mockRestoreAll();
     });

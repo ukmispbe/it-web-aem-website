@@ -9,7 +9,7 @@ const props = {
     isocode: 'en_US',
     searchText: searchResultsTranslationsJSON,
     filterMap: searchResultsCategoriesJSON,
-    setErrorBoundaryToTrue: jest.fn(() => {}),
+    setErrorBoundaryToTrue: () => {},
     skuConfig: commerceConfigs,
     searchDefaults: { rows: 25 },
     resetToDefault: false
