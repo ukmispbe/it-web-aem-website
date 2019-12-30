@@ -225,8 +225,8 @@ class MyAccountDropDown extends React.Component {
         return (
             <>
                 {this.state.isMobile ? (
-                    <Modal isOpen={this.state.isShown} className={keys.ModalWithSiteNavOnMobile}>
-                        <Header title={this.newConfig.title} onClose={this.toggleModal} />
+                    <Modal isOpen={this.state.isShown} className={keys.ModalWithSiteNavOnMobile} onClose={this.toggleModal}>
+                        <Header title={this.newConfig.title} />
                         <MyAccountContainer config={this.newConfig} />
                     </Modal>
                 ) : (

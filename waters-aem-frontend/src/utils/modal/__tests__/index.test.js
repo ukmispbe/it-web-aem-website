@@ -40,8 +40,8 @@ describe('Feature: Modal Component', () => {
                 })
                     
                 const component = renderer.create(
-                    <Modal isOpen={true}>
-                        <Header onClose={toggleModal} />
+                    <Modal isOpen={true} onClose={toggleModal}>
+                        <Header />
                     </Modal>
                 );
 
@@ -91,35 +91,5 @@ describe('Feature: Modal Component', () => {
                 expect(component).toMatchSnapshot();
             });
         });
-
-
-        // const props = {
-        //     icon: '/content/dam/waters/en/brand-assets/icons/close.svg',
-        //     title: 'TEST TITLE',
-        //     onClose: jest.fn(() => {})
-        // }
-
-        // describe('When the modal is passed a className prop', () => {
-        //     it('Then the snapshot should match', () => {
-
-        //         const testClass = 'cmp-test-class';
-        //         const component = shallow(<Modal isOpen={true} className={testClass} />);
-        //         const element = component.find(`.${testClass}`);
-
-        //         expect(element.length).toEqual(1);
-        //     });
-        // });
-
-
-
-        //icon: PropTypes.string,
-        //title: PropTypes.string,
-            
-        //rendered with className on Modal
-        //props.className
-
-
-        
-
     });
 });

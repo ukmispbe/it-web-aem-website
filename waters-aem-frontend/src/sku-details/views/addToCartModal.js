@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import ErrorMessages from '../../scripts/ErrorMessages';
+import { useModalApi } from '../../utils/modal'
 
 const keys = {
     AddToCartPrefix: 'cmp-atc-modal',
@@ -17,7 +18,8 @@ const keys = {
 const AddToCartModalBody = props => {
     
     const errorObjCart = props.errorObjCart;
-    const [state, setState] = useState({ ...props.config })
+    const [state] = useState({ ...props.config })
+    const { onClose } = useContext(useModalApi);
 
     const {
         text,
@@ -58,11 +60,11 @@ const AddToCartModalBody = props => {
 
     const buttonType = btn => {
         if (btn.action === 'close') {
-            if (!props.onClose) return <></>;
+            if (!onClose) return <></>;
 
             return (
                 <button
-                    onClick={() => props.onClose()}
+                    onClick={() => onClose()}
                     className={keys.AltButton}
                 >
                     {btn.text}
@@ -101,12 +103,6 @@ const AddToCartModalBody = props => {
                 })}
             </div>
         );
-    }
-
-
-    if (errorObjCart && errorObjCart.ok === false) { 
-        //text: ErrorMessages.ErrorMessages(errorObjCart).wereSorry,
-
     }
 
     const Error = () => { 

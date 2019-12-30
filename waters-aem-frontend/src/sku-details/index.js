@@ -189,17 +189,15 @@ class SkuDetails extends React.Component {
                         analyticsConfig={this.state.analyticsConfig}
                     ></AddToCart>
                 </div>
-                <Modal isOpen={this.state.modalShown}>
+                <Modal isOpen={this.state.modalShown} onClose={this.toggleModal}>
                         <Header
                             title={this.state.modalConfig.title}
-                            onClose={this.toggleModal}
                             icon={this.state.modalConfig.icon}
                             className={keys.HeaderWithAddedMarginTop}
                         />
                         <AddToCartBody
                             config={this.state.modalConfig}
                             errorObjCart={this.state.errorObjCart}
-                            onClose={this.toggleModal}
                         ></AddToCartBody>
                 </Modal>
             </div>
