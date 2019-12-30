@@ -238,10 +238,9 @@ SkuResults.defaultProps = {
     onItemClick: () => {}
 };
 
-/*
+
 const ResultsContent = ({
     text, 
-    filterMap,
     skuConfig,
     searchParams,
     resultsProps,
@@ -266,6 +265,23 @@ const ResultsContent = ({
     );
 }
 
+ResultsContent.propTypes = {
+    text: propTypes.text,
+    skuConfig: propTypes.skuConfig,
+    searchParams: propTypes.searchParams,
+    resultsProps: propTypes.resultsProps,
+    resultsEvents: propTypes.resultsEvents
+}
+
+ResultsContent.defaultProps = {
+    text: defaultProps.text,
+    skuConfig: defaultProps.skuConfig,
+    searchParams: defaultProps.searchParams,
+    resultsProps: defaultProps.resultsProps,
+    resultsEvents: defaultProps.resultsEvents
+}
+
+/*
 const Pagination = ({
     resultsProps,
     resultsEvents,
@@ -358,4 +374,4 @@ const ResultsBody = ({
 */
 
 //export { FilterTagList, Aside, Menu, ResultsBody }
-export { FilterTagList, Aside, Menu, SkuResults }
+export { FilterTagList, Aside, Menu, SkuResults, ResultsContent }

@@ -3,8 +3,93 @@ import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 import props from '../__mocks__/en_US/';
 import { defaultProps } from '../search.component.props';
-import { FilterTagList, Aside, Menu, SkuResults } from '../search.component.helpers';
+import { FilterTagList, Aside, Menu, SkuResults, ResultsContent } from '../search.component.helpers';
 import data from '../services/__mocks__/data'
+
+describe("Feature: ResutsContent Component", () => {
+    beforeAll(() => {
+        Node.removeChild = jest.fn();
+    });
+
+    afterAll(() => {
+        jest.mockRestoreAll();
+    });
+
+    const propsMockLibraryResults = {
+        text: props.searchText,
+        skuConfig: props.skuConfig,
+        searchParams: {
+            ...defaultProps.searchParams,
+            page: 1
+        },
+        resultsProps: {
+            ...defaultProps.resultsProps,
+            isSkuList: false,
+            items: {
+                "1": data.library.results.documents
+            }
+        },
+        resultsEvents: {
+            onRelatedSuggestionClick: jest.fn(),
+            onResultsItemClick: jest.fn(),
+            onPageChange: jest.fn()
+        }
+    };
+
+    const propsMockSkuResults = {
+        ...propsMockLibraryResults,
+        resultsProps: {
+            ...defaultProps.resultsProps,
+            isSkuList: true,
+            items: {
+                "1": data.shop.results.documents
+            }
+        }
+    };
+
+    describe("Scenario: Rendering", () => {
+        describe("When displaying the shop results", () => {
+            it("Then it should match snapshot", () => {
+                const json = renderer.create(<ResultsContent {...propsMockSkuResults} />);
+                
+                expect(json).toMatchSnapshot();
+            });
+        });
+
+        describe("When displaying the library results", () => {
+            it("Then it should display the Results component", () => {
+                const wrapper = shallow(<ResultsContent {...propsMockLibraryResults} />);
+                const result = wrapper.find("Results");
+
+                expect(result.exists()).toEqual(true);
+            });
+        });
+    });
+
+    describe("Scenario: User Interaction", () => {
+        describe("When sku item is clicked", () => {
+            it("Then it should call the item click handler property", () => {
+                const wrapper = shallow(<ResultsContent {...propsMockSkuResults} />);
+                const result = wrapper.find("SkuResults");
+
+                result.simulate("itemClick");
+
+                expect(propsMockSkuResults.resultsEvents.onResultsItemClick).toHaveBeenCalled();
+            });
+        });
+
+        describe("When library item is clicked", () => {
+            it("Then it should call the item click handler property", () => {
+                const wrapper = shallow(<ResultsContent {...propsMockLibraryResults} />);
+                const result = wrapper.find("Results");
+
+                result.simulate("itemClick");
+
+                expect(propsMockLibraryResults.resultsEvents.onResultsItemClick).toHaveBeenCalled();
+            });
+        });
+    });
+});
 
 describe("Feature: SkuResults Component", () => {
     const propsMockNullItems = {

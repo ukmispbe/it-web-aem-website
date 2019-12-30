@@ -47,7 +47,7 @@ const propTypes = {
         spell_check: PropTypes.bool.isRequired,
         spell_related_suggestions: PropTypes.array.isRequired,
         spell_suggestion: PropTypes.text,
-        items: PropTypes.array,
+        items: PropTypes.any,
         isSkuList: PropTypes.bool.isRequired,
         pagination: PropTypes.object.isRequired
     }).isRequired,
