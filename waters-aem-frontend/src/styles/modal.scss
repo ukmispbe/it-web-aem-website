@@ -131,7 +131,7 @@
         }
 
 
-        &.header-with-title-centered-tablet-and-over {
+        &.header-with-title-centered {
             .cmp-modal__title {
                 @include tablet-and-over {
                     margin-left: auto;
@@ -139,9 +139,15 @@
 
             }
         }
+
+        &.header-with-added-margin-top {
+            @include tablet-and-over {
+                margin-top: 1em;
+            }
+        }
     }
 
-    & div:nth-child(2) {
+    & > div:not(:nth-child(1)) {
         @include mobile {
             padding: 0 $space-s;
         }

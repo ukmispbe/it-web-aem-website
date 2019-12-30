@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 import ReactSVG from 'react-svg';
 import ModalPortal from './modal-portal';
@@ -7,8 +7,9 @@ import domElements from '../../scripts/domElements';
 
 const keys = {
     ModalWithSiteNavOnMobile: 'cmp-modal-box__site-nav-on-mobile',
-    HeaderTitleCenteredOnDesktop: 'header-with-title-centered-tablet-and-over',
-    HeaderWithTitle: 'header-with-title'
+    HeaderTitleCentered: 'header-with-title-centered',
+    HeaderWithTitle: 'header-with-title',
+    HeaderWithAddedMarginTop: 'header-with-added-margin-top'
 }
 
 const onClose = ()=> { 

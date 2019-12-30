@@ -35,7 +35,7 @@ class WeChat extends React.Component {
                     <ReactSVG src={this.props.config.chatIcon} />
                 </a>
                 <Modal isOpen={this.state.isModalShown}>
-                    <Header onClose={this.toggleModal} title={this.props.config.title} className={keys.HeaderTitleCenteredOnDesktop} />
+                    <Header onClose={this.toggleModal} title={this.props.config.title} className={keys.HeaderTitleCentered} />
                     <WeChatModalBody config={this.props.config} />
                 </Modal>
             </>

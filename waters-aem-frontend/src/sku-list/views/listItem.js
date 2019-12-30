@@ -4,32 +4,34 @@ import Stock from '../../sku-details/views/stock';
 import Price from '../../sku-details/views/price';
 import SkuService from '../../sku-details/services';
 import AddToCart from '../../sku-details/views/addToCart';
-import { Modal } from '../../modal/index';
+import AddToCartBody from '../../sku-details/views/addToCartModal';
+import Modal, { Header, keys } from '../../utils/modal';
 import LoginStatus from '../../scripts/loginStatus';
 import SkuMessage from '../../sku-shared/views/SkuMessage';
 import CheckOutStatus from '../../scripts/checkOutStatus';
 import Ecommerce from '../../scripts/ecommerce';
-import domElements from '../../scripts/domElements';
 import SkuDetails from '../../scripts/sku-details';
 import Sticky from '../../scripts/stickyService';
-import Analytics, {analyticTypes, searchCartContext, relatedCartContext} from '../../scripts/analytics';
+import Analytics, { analyticTypes, searchCartContext, relatedCartContext } from '../../scripts/analytics';
+
+
 
 class ListItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             modalShown: false,
-            modalConfig: this.props.skuConfig.modalInfo,
+            modalConfig: {
+                ...this.props.skuConfig.modalInfo,
+                textHeading: this.props.relatedSku.code,
+                text: this.props.relatedSku.title,
+                partNumberLabel: this.props.skuConfig.skuInfo.partNumberLabel
+            },
             userCountry: this.props.skuConfig.countryCode,
             availabilityAPI: this.props.skuConfig.availabilityUrl,
             pricingUrl: this.props.skuConfig.pricingUrl,
             addToCartUrl: this.props.skuConfig.addToCartUrl,
             skuAvailability: {},
-            modalInfo: {
-                ...this.props.skuConfig.modalInfo,
-                textHeading: this.props.relatedSku.code,
-                text: this.props.relatedSku.title,
-            },
             analyticsConfig: {
                 context: SkuDetails.exists() ? relatedCartContext : searchCartContext,
                 name: this.props.relatedSku.title,
@@ -81,12 +83,6 @@ class ListItem extends React.Component {
                         Sticky.conditionsToStick(SKUDetailsSticky);
                     }                
                 }
-            }
-
-            if (this.state.modalShown) {
-                domElements.noScroll(true);
-            } else {
-                domElements.noScroll(false);
             }
         });
     };
@@ -190,7 +186,7 @@ class ListItem extends React.Component {
                         </span>
                     )}
                 </div>
-                <div className="cmp-sku-list__buttons">
+                <div className="cmp-sku-list__buttons">   
                     <AddToCart
                         toggleParentModal={this.toggleModal}
                         skuNumber={this.props.relatedSku.code}
@@ -198,16 +194,21 @@ class ListItem extends React.Component {
                         addToCartUrl={this.props.skuConfig.addToCartUrl}
                         toggleErrorModal={this.toggleErrorModal}
                         analyticsConfig={this.state.analyticsConfig}
-                    ></AddToCart>
+                    />
+                    <Modal isOpen={this.state.modalShown}>
+                        <Header
+                            title={this.state.modalConfig.title}
+                            onClose={this.toggleModal}
+                            icon={this.state.modalConfig.icon}
+                            className={keys.HeaderWithAddedMarginTop}
+                        />
+                        <AddToCartBody
+                            config={this.state.modalConfig}
+                            errorObjCart={this.state.errorObjCart}
+                            onClose={this.toggleModal}
+                        ></AddToCartBody>
+                    </Modal>
                 </div>
-                <Modal
-                    toggleModal={this.toggleModal}
-                    open={this.state.modalShown}
-                    theme="callToAction"
-                    config={this.state.modalInfo}
-                    partNumberLabel={this.props.skuConfig.skuInfo.partNumberLabel}
-                    errorObj={this.state.errorObjCart}
-                />
             </div>
         );
     }

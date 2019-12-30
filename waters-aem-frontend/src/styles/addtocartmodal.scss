@@ -1,0 +1,61 @@
+.cmp-atc-modal {
+    &__information {
+        margin-top: $space-l;
+
+        @include mobile {
+            margin-top: $space-xs;
+        }
+
+        &-header {
+            @include font-body;
+            @include font-utility;
+            margin-bottom: $space-xxs;
+            margin-top: -$space-xxs;
+        }
+
+        &-text {
+            @include font-h3;
+            color: $color-black;
+        }
+
+        &-text.error{
+            @include font-body;
+        }
+    }
+}
+
+.cmp-atc-modal {
+    &__btn {
+        margin-top: $space-m;
+
+        .cmp-atc-modal__btn-main {
+            @include tablet-and-over {
+                width: 100%;
+            }
+            float: none;
+            outline: none;
+            margin-bottom: $space-s;
+            border-radius: 0;
+        }
+
+        .cmp-atc-modal__btn-alt {
+            @include tablet-and-over {
+                width: 100%;
+            }
+            cursor: pointer;
+            text-transform: capitalize;
+            background: none;
+            outline: none;
+            border: none;
+            float: none;
+            @include font-body;
+            margin-bottom: 0;
+            color: $color-link;
+            &:hover {
+                color: $color-link-hover;
+                text-decoration: underline;
+                background: none;
+            }
+        }
+    }
+}
