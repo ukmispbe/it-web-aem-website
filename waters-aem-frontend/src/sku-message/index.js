@@ -34,6 +34,7 @@ SkuMessage.propTypes = {
     icon: PropTypes.string,
     link: PropTypes.string,
     linkMessage: PropTypes.string,
+    distMessage: PropTypes.string,
     message: PropTypes.string.isRequired
 };
 
