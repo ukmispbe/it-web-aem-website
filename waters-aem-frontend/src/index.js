@@ -22,7 +22,7 @@ import Chat from './chat';
 import DetailTiles from './detail-tiles';
 import DigitalData from './scripts/DigitalData';
 import WeChat from './wechat';
-import MyAccount from './my-account';
+import MyAccountRouter from './my-account';
 
 if (process.env.NODE_ENV !== 'production') {
     const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -449,5 +449,5 @@ if (myAccountPage) {
         document.getElementById('cmp-my-account').innerHTML
     );
 
-    ReactDOM.render(<MyAccount {...config} />, myAccountPage);
+    ReactDOM.render(<MyAccountRouter {...config} />, myAccountPage);
 }

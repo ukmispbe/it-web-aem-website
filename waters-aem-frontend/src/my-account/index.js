@@ -1,15 +1,22 @@
 import React from 'react';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 
-import LinkTile from '../link-tile';
+import MyAccount from "./myaccount";
+import MyProfile from '../my-profile';
 
-const MyAccount = ({ tiles }) => {
+const MyAccountRouter = (props) => {
     return (
-        <div className="cmp-my-account">
-            <div className="cmp-my-account-tiles">
-                {tiles.map((tile, key) => (<LinkTile {...tile} key={key} />))}
-            </div>
-        </div>
+        <HashRouter hashType={"noslash"}>
+            <Switch>
+                <Route exact path="/">
+                    <MyAccount {...props} />
+                </Route>
+                <Route exact path="/profile" >
+                    <MyProfile configs={props.myProfile} />
+                </Route>
+            </Switch>
+        </HashRouter>
     )
 };
 
-export default MyAccount;
+export default MyAccountRouter;
