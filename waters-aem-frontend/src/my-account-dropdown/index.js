@@ -37,8 +37,6 @@ class MyAccountDropDown extends React.Component {
                 accountNumber: ''
             }
         });
-
-        this.retrieveUserDetails();
     }
 
     componentDidMount() {
@@ -60,6 +58,10 @@ class MyAccountDropDown extends React.Component {
         }
 
         window.addEventListener('resize', this.updateViewport, true);
+
+        if (loginStatus.state()) { 
+            this.retrieveUserDetails();
+        }
     }
 
     componentWillUnMount() {
