@@ -167,7 +167,7 @@
                         top: 71px;
                         right: 0px;
                         border-top: 4px solid $color-gray-50;
-                        display: flex;
+                        display: none;
                         justify-content: flex-end;
                     }
                 }
@@ -177,6 +177,7 @@
                     .top-bar__nav__user__dropdown{
                         visibility: visible;
                         opacity: 1;
+                        display: flex;
                     }
                 }
                 
