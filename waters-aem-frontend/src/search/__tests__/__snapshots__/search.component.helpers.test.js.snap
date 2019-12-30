@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: FilterTagList Component Scenario: Rendering When content type filter is specified Then is should match snapshot 1`] = `
+<div
+  className="cmp-search-filters__tags clearfix"
+>
+  <a
+    className="cmp-search-filters__tags__clear"
+    href="javascript:void(0);"
+    onClick={[Function]}
+  >
+    <div />
+    <span>
+      Clear All
+    </span>
+  </a>
+  <a
+    href="javascript:void(0);"
+    onClick={[Function]}
+  >
+    <div />
+    <span>
+      Content Type: Application Note
+    </span>
+  </a>
+</div>
+`;
+
+exports[`Feature: FilterTagList Component Scenario: Rendering When keyword filter is specified Then it should match spapshot 1`] = `
+<div
+  className="cmp-search-filters__tags clearfix"
+>
+  <a
+    className="cmp-search-filters__tags__clear"
+    href="javascript:void(0);"
+    onClick={[Function]}
+  >
+    <div />
+    <span>
+      Clear All
+    </span>
+  </a>
+  <a
+    href="javascript:void(0);"
+    onClick={[Function]}
+  >
+    <div />
+    <span>
+      Keyword: hplc
+    </span>
+  </a>
+</div>
+`;
+
+exports[`Feature: FilterTagList Component Scenario: Rendering When no filters are specified Then it should match snapshot 1`] = `
+<div
+  className="cmp-search-filters__emptytags"
+/>
+`;
+
+exports[`Feature: FilterTagList Component Scenario: Rendering When sub facet filters are specified Then it should match snapshot 1`] = `
+<div
+  className="cmp-search-filters__tags clearfix"
+>
+  <a
+    className="cmp-search-filters__tags__clear"
+    href="javascript:void(0);"
+    onClick={[Function]}
+  >
+    <div />
+    <span>
+      Clear All
+    </span>
+  </a>
+  <a
+    href="javascript:void(0);"
+    onClick={[Function]}
+  >
+    <div />
+    <span>
+      Content Type: Application Note
+    </span>
+  </a>
+</div>
+`;

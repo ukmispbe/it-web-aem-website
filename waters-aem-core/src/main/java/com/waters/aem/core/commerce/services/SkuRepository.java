@@ -5,6 +5,7 @@ import com.waters.aem.core.commerce.models.Sku;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 
+import javax.jcr.RepositoryException;
 import java.util.Map;
 
 /**
@@ -62,6 +63,7 @@ public interface SkuRepository {
      *
      * @param currentPage current page, which will be used in building the query predicate
      * @return Map of sku codes to sku page paths
+     * @throws RepositoryException thrown if there is an error reading the repository
      */
-    Map<String, String> getSkuCodeToPagePathMap(PageDecorator currentPage);
+    Map<String, String> getSkuCodeToPagePathMap(PageDecorator currentPage) throws RepositoryException;
 }

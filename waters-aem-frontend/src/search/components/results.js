@@ -53,9 +53,9 @@ const Result = ({ result, locale, nextIcon, onItemClick }) => {
 };
 
 const Results = ({ results, locale, nextIcon, onItemClick }) => {
-    const mappedResults = results.map((result, i) => {
-        return <Result result={result} locale={locale} nextIcon={nextIcon} key={i} onItemClick={onItemClick} />;
-    });
+    const mappedResults = Array.isArray(results) 
+        ? results.map((result, i) => <Result result={result} locale={locale} nextIcon={nextIcon} key={i} onItemClick={onItemClick} />) 
+        : []
 
     return (
         <div className="cmp-search__results-container">

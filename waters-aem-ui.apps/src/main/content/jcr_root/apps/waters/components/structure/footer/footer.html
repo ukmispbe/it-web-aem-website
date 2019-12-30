@@ -37,11 +37,11 @@
                          alt="${'Country' @ i18n}" />
                 </div>
                 <div class="cmp-footer__selector__language ${footer.languagePages.size == 1 ? 'one-link' : ''}">
-                    <a href="${footer.languagePages[0].languagePage.href}">${footer.languagePages[0].languageTitle}</a>
+                    <a href="${footer.languagePages[0].page.href}">${footer.languagePages[0].languageTitle}</a>
                     <div class="cmp-footer__selector__language--options"
                          data-sly-list.languageLink="${footer.languagePages}">
                         <a data-sly-test="${!languageLinkList.first}"
-                           href="${languageLink.languagePage.href}">${languageLink.languageTitle}</a>
+                           href="${languageLink.page.href}">${languageLink.languageTitle}</a>
                     </div>
                 </div>
             </div>
@@ -101,6 +101,9 @@
     </div>
 </div>
 
+<div id="country-selector-root"></div>
+<div id="modal-root"></div>
+
 <script type="text/javascript" id="datalayer">
     var parsedData = JSON.parse('${footer.dataLayer @ context="unsafe"}');
 
@@ -115,8 +118,17 @@
 
 <script type="application/json" id="global-translations-json">
     {
-        "dismissButton": "${'Dismiss' @ i18n, context='text'}"
+        "dismissButton": "${'Dismiss' @ i18n, context='unsafe'}",
+        "cancelButton": "${'Cancel' @ i18n, context='unsafe'}",
+        "preferredCountryHeading": "${'Select your Preferred Country' @ i18n, context='unsafe'}",
+        "changeCountryText": "${'Changing the country you shop from may affect factors including account pricing, shipping options and product availability.' @ i18n, context='unsafe'}",
+        "changeCountryNewTabText": "${'Your new country website will open in a new browser tab.' @ i18n, context='unsafe'}",
+        "changeCountryNoteText": "${'Note' @ i18n, context='unsafe'}",
+        "changeCountryButton": "${'Change Country' @ i18n, context='unsafe'}"
     }
+</script>
+<script type="application/json" id="country-list-json">
+    ${footer.countryPagesJson @ context='unsafe'}
 </script>
 <script type="application/json" id="commerce-configs-json">
     {
@@ -151,6 +163,7 @@
             "discontinuedLabel": "${'Discontinued' @ i18n, context='text'}",
             "discontinuedNoReplacementCode": "${'The part number you selected is no longer available.' @ i18n, context='text'}",
             "discontinuedWithReplacementWithCode": "${'The part number you selected is no longer available, but there is a replacement. The replacement part number is ' @ i18n, context='text'}",
+            "distributorMessage": "${'If you have a Distributor Account, please sign-in.' @ i18n, context='text'}",
             "partNumberLabel": "${'SKU:' @ i18n, context='text'}",
             "contactWatersLabel": "${'Contact Waters' @ i18n, context='text'}",
             "contactWatersInfoLabel": "${'For Availability' @ i18n, context='text'}",
@@ -160,7 +173,7 @@
             "refreshIcon": "/content/dam/waters/en/brand-assets/icons/refresh.svg",
             "discontinuedIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
             "nextIcon": "/content/dam/waters/en/brand-assets/icons/right.svg",
-            "maxAmount": 999           
+            "maxAmount": 999
         },
         "modalInfo": {
             "icon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",

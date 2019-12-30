@@ -186,7 +186,7 @@ class FooterSpec extends WatersSpec {
         }.adaptTo(Footer)
 
         expect:
-        footer.languagePages[1].languagePage.path == "/content/waters/us/es/application-notes"
+        footer.languagePages[1].page.path == "/content/waters/us/es/application-notes"
     }
 
     def "get country name"() {

@@ -1,5 +1,6 @@
 import com.day.cq.replication.ReplicationActionType
 import com.day.cq.replication.Replicator
+import com.day.cq.replication.ReplicationOptions
 import com.icfolson.aem.library.api.page.PageDecorator
 import com.waters.aem.core.commerce.services.SkuRepository
 import com.waters.aem.core.utils.Templates
@@ -60,7 +61,15 @@ def basePaths = [
 //        "/content/waters/xg/es/shop",
 //        "/content/waters/pt/pt/shop",
 //        "/content/waters/br/pt/shop",
-].each { basePath ->
+]
+
+basePaths.each { basePath ->
+    if (getPage(basePath) == null) {
+        throw new IllegalStateException("No /shop node for $basePath")
+    }
+}
+
+basePaths.each { basePath ->
     getPage(basePath).recurse { p ->
         def page = p.adaptTo(PageDecorator)
 
@@ -68,7 +77,7 @@ def basePaths = [
             def sku = skuRepo.getSku(page)
 
             if (page.title != sku.title) {
-                println "Title mismatch for page $page.path. Page title: $page.title >>> Sku title: $sku.title"
+                println "Title mismatch for page $page.path" //Page title: $page.title >>> Sku title: $sku.title"
 
                 // update page title
                 page.contentResource.adaptTo(ModifiableValueMap).put("jcr:title", sku.title)
@@ -80,26 +89,22 @@ def basePaths = [
                     pathsToActivate.add(page.path)
                 }
             }
-
-            if (updatedSkuPages > 0 && updatedSkuPages % 200 == 0) {
-                // println "Committing JCR changes to Session after 200 changes..."
-                if (!dryRun) {
-                    save()
-                }
-            }
         }
     }
 
 }
+
+println "Total sku pages updated: $updatedSkuPages"
 
 if (!dryRun) {
     save()
 
     println "Replicating $pathsToActivate.size paths"
 
-    pathsToActivate.each { path ->
-        repl.replicate(session, ReplicationActionType.ACTIVATE, path)
+    def opt = new ReplicationOptions()
+    opt.setSuppressVersions(true)
+
+    if (pathsToActivate.size() > 0) {
+        repl.replicate(session, ReplicationActionType.ACTIVATE, pathsToActivate as String[], opt)
     }
 }
-
-println "Total sku pages updated: $updatedSkuPages"

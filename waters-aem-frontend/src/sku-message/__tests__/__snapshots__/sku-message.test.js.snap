@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: SkuMessage React Component Scenario: Rendering When the component renders with props Then the snapshot should match 1`] = `
+<div
+  className="cmp-notification-wrapper"
+>
+  <div
+    className="cmp-notification-icon"
+  />
+  <div
+    className="cmp-notification-body"
+  >
+    <div
+      className="cmp-notification-description"
+    >
+      message
+      <a
+        href="link"
+      >
+        linkmessage
+      </a>
+    </div>
+    <div
+      className="cmp-notification-distributor"
+    />
+  </div>
+</div>
+`;
