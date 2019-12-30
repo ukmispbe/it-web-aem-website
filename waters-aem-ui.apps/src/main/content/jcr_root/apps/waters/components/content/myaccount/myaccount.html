@@ -11,11 +11,11 @@
                     "links": [
                         {
                             "text": "${'Profile' @ i18n, context='unsafe'}",
-                            "url": "${myaccount.profileLink.href @ context='unsafe'}"
+                            "url": "${'#profile' @ context='unsafe'}"
                         },
                         {
                             "text": "${'Password' @ i18n, context='unsafe'}",
-                            "url": "${myaccount.passwordLink.href @ context='unsafe'}"
+                            "url": "${'#password' @ context='unsafe'}"
                         }
                     ]
                 },
@@ -25,31 +25,14 @@
                     "links": [
                         {
                             "text": "${'Order History' @ i18n, context='unsafe'}",
-                            "url": "${myaccount.orderHistoryLink.href @ context='unsafe'}"
+                            "url": "${'#orderhistory' @ context='unsafe'}"
                         }
                     ]
                 },
                 {
                     "title": "${'Additional Resources' @ i18n, context='unsafe'}",
                     "icon": "/content/dam/waters/en/brand-assets/icons/link.svg",
-                    "links": [
-                        {
-                            "text": "${'Request Technical Support' @ i18n, context='unsafe'}",
-                            "url": "${myaccount.techSupportLink.href @ context='unsafe'}"
-                        },
-                        {
-                            "text": "${'Waters Knowledgebase' @ i18n, context='unsafe'}",
-                            "url": "${myaccount.knowledgebaseLink.href @ context='unsafe'}"
-                        },
-                        {
-                            "text": "${'Training Courses' @ i18n, context='unsafe'}",
-                            "url": "${myaccount.trainingLink.href @ context='unsafe'}"
-                        },
-                        {
-                            "text": "${'Contact Waters' @ i18n, context='unsafe'}",
-                            "url": "${myaccount.contactLink.href @ context='unsafe'}"
-                        }
-                    ]
+                    "links": ${myaccount.additionalResources @ context="unsafe"}
                 }
             ]
         }

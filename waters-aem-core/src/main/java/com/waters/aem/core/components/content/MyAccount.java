@@ -5,16 +5,23 @@ import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Listener;
-import com.citytechinc.cq.component.annotations.widgets.PathField;
-import com.icfolson.aem.library.api.link.Link;
-import com.icfolson.aem.library.models.annotations.LinkInject;
-import com.waters.aem.core.constants.WatersConstants;
+import com.citytechinc.cq.component.annotations.widgets.MultiField;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.waters.aem.core.components.content.links.BasicLink;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_COPY;
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_EDIT;
@@ -38,88 +45,35 @@ public class MyAccount implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/myaccount";
 
-    @DialogField(fieldLabel = "Profile Path",
-            fieldDescription = "Enter or Select Profile Path",
-            required = true,
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    @DialogField(fieldLabel = "Additional Resources",
             ranking = 1)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
-    @LinkInject
-    private Link profileLink;
+    @MultiField(composite = true)
+    @Inject
+    private List<BasicLink> links;
 
-    @DialogField(fieldLabel = "Password Path",
-            fieldDescription = "Enter or Select Password Path",
-            required = true,
-            ranking = 2)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
-    @LinkInject
-    private Link passwordLink;
-
-    @DialogField(fieldLabel = "Order History Path",
-            fieldDescription = "Enter or Select Order History Path",
-            required = true,
-            ranking = 3)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
-    @LinkInject
-    private Link orderHistoryLink;
-
-    @DialogField(fieldLabel = "Technical Support Path",
-            fieldDescription = "Enter or Select Technical Support Path",
-            required = true,
-            ranking = 4)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
-    @LinkInject
-    private Link techSupportLink;
-
-    @DialogField(fieldLabel = "Knowledgebase Path",
-            fieldDescription = "Enter or Select Waters Knowledgebase Path",
-            required = true,
-            ranking = 5)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
-    @LinkInject
-    private Link knowledgebaseLink;
-
-    @DialogField(fieldLabel = "Training Courses Path",
-            fieldDescription = "Enter or Select Training Courses Path",
-            required = true,
-            ranking = 6)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
-    @LinkInject
-    private Link trainingLink;
-
-    @DialogField(fieldLabel = "Contact Path",
-            fieldDescription = "Enter or Select Contact Path",
-            required = true,
-            ranking = 7)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
-    @LinkInject
-    private Link contactLink;
-
-    public Link getProfileLink() {
-        return profileLink;
+    public List<BasicLink> getLinks() {
+        return links;
     }
 
-    public Link getPasswordLink() {
-        return passwordLink;
+    public String getAdditionalResources() throws JsonProcessingException {
+        final List<Map<String, Object>> additionalResources = new ArrayList<>();
+
+        additionalResources.addAll(links.stream()
+            .map(this::getLinkMap)
+            .collect(Collectors.toList()));
+
+        return MAPPER.writeValueAsString(additionalResources);
     }
 
-    public Link getOrderHistoryLink() {
-        return orderHistoryLink;
-    }
+    private Map<String, Object> getLinkMap(BasicLink link) {
+        final Map<String, Object> linkMap = new HashMap<>();
 
-    public Link getTechSupportLink() {
-        return techSupportLink;
-    }
+        linkMap.put("text", link.getText());
+        linkMap.put("url", link.getLink().getHref());
 
-    public Link getKnowledgebaseLink() {
-        return knowledgebaseLink;
-    }
-
-    public Link getTrainingLink() {
-        return trainingLink;
-    }
-
-    public Link getContactLink() {
-        return contactLink;
+        return linkMap;
     }
 
     @Nonnull
