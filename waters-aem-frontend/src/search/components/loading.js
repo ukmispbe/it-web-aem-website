@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Spinner from './spinner';
 
-const Loading = visible => {
+const Loading = ({visible}) => {
     if (!visible) {
         return <></>;
     }
