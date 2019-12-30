@@ -46,12 +46,7 @@
             width: (($icon-s + $icon-m) / 2);
             color: $color-link;
 
-            .st0 {
-                stroke: $color-link;
-                stroke-width: 1px;
-            }
-
-            .st1 {
+            .st0, .st1 {
                 stroke: $color-link;
                 stroke-width: 1px;
             }
@@ -129,11 +124,7 @@ div.links--noPadding {
                 .cmp-links__link-icon-wrapper--back .cmp-links__link-icon {
                     color: $color-link-hover;
 
-                    .st0 {
-                        stroke: $color-link-hover;
-                    }
-
-                    .st1 {
+                    .st0, .st1 {
                         stroke: $color-link-hover;
                     }
                 }
