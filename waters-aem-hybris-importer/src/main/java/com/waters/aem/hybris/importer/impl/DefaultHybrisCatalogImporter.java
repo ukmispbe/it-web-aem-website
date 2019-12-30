@@ -6,7 +6,6 @@ import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.WCMException;
 import com.day.cq.wcm.msm.api.LiveRelationship;
 import com.day.cq.wcm.msm.api.LiveRelationshipManager;
-import com.day.cq.wcm.msm.api.MSMNameConstants;
 import com.day.cq.wcm.msm.api.RolloutConfig;
 import com.day.cq.wcm.msm.api.RolloutConfigManager;
 import com.day.cq.wcm.msm.api.RolloutManager;
@@ -315,8 +314,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
             // create live copies if flag is set
             if (generateLiveCopies) {
-                results.addAll(generateLiveCopies(skuPage, pageManager.getPage(categoryPage.getPath()), pageManager,
-                    context));
+                results.addAll(importLiveCopyPages(skuPage, pageManager.getPage(categoryPage.getPath()), false));
             }
         }
 
@@ -342,7 +340,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         PageDecorator page = pageManager.getPage(context.getParentPage().getPath() + "/" + name);
 
         if (page == null) {
-            page = pageManager.create(context.getParentPage().getPath(), name, WatersConstants.TEMPLATE_REDIRECT_PAGE,
+            page = pageManager.create(context.getParentPage().getPath(), name, WatersConstants.TEMPLATE_CATEGORY_PAGE,
                 category.getName(), false);
 
             LOG.info("created category page : {}", page.getPath());
@@ -366,7 +364,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
             // create live copies if flag is set
             if (generateLiveCopies) {
-                results.addAll(generateLiveCopies(page, context.getParentPage(), pageManager, context));
+                results.addAll(importLiveCopyPages(page, context.getParentPage(), true));
             }
         }
 
@@ -451,35 +449,25 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         return results;
     }
 
-    private List<HybrisImporterResult> generateLiveCopies(final PageDecorator page, final PageDecorator parentPage,
-        final PageManagerDecorator pageManager, final CatalogImporterContext context) throws WCMException {
+    private List<HybrisImporterResult> importLiveCopyPages(final PageDecorator page, final PageDecorator parentPage,
+                                                           final boolean autoSave) throws WCMException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
-        final String template = Templates.isSkuPage(page) ? WatersConstants.TEMPLATE_SKU_PAGE :
-            WatersConstants.TEMPLATE_REDIRECT_PAGE;
-
-        final ResourceResolver resourceResolver = context.getResourceResolver();
-
-        final LiveRelationshipManager liveRelationshipManager = resourceResolver.adaptTo(LiveRelationshipManager.class);
-
-        final RolloutConfigManager configManager = resourceResolver.adaptTo(RolloutConfigManager.class);
-
-        final RolloutConfig config = configManager.getRolloutConfig(WatersConstants.DEFAULT_ROLLOUT_CONFIG_PATH);
+        final ResourceResolver resourceResolver = page.getContentResource().getResourceResolver();
 
         for (final PageDecorator liveCopyParent : siteRepository.getLiveCopyPages(parentPage)) {
+            final String pageName = page.getName();
 
             LOG.debug("checking for existing live copy page under parent page path: {}", liveCopyParent.getPath());
 
-            final String pageName = page.getName();
-
             if (!liveCopyParent.hasChild(pageName)) {
-                PageDecorator liveCopyPage = pageManager.create(liveCopyParent.getPath(), pageName,
+                final String template = Templates.isSkuPage(page) ? WatersConstants.TEMPLATE_SKU_PAGE :
+                        WatersConstants.TEMPLATE_CATEGORY_PAGE;
+
+                final PageDecorator liveCopyPage = page.getPageManager().create(liveCopyParent.getPath(), pageName,
                     template, page.getTitle(), false);
 
-                LOG.debug("created live copy page: {} under {}", pageName, liveCopyParent.getPath());
-
-                final ValueMap properties = liveCopyPage.getContentResource().adaptTo(ModifiableValueMap.class);
-                    properties.put(JcrConstants.JCR_MIXINTYPES, MSMNameConstants.NT_LIVE_RELATIONSHIP);
+                LOG.debug("created live copy page: {}", liveCopyPage.getPath());
 
                 if (Templates.isSkuPage(liveCopyPage)) {
                     results.add(HybrisImporterResult.fromSkuPage(liveCopyPage, HybrisImportStatus.CREATED));
@@ -487,14 +475,18 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
                     results.add(HybrisImporterResult.fromCategoryPage(liveCopyPage, HybrisImportStatus.CREATED));
                 }
 
-                final LiveRelationship relation = liveRelationshipManager.establishRelationship(page, liveCopyPage,
-                    false, false, config);
+                final RolloutConfig config = resourceResolver.adaptTo(RolloutConfigManager.class)
+                        .getRolloutConfig(WatersConstants.DEFAULT_ROLLOUT_CONFIG_PATH);
 
-                rolloutManager.rollout(resourceResolver, relation, false);
+                final LiveRelationship relation = resourceResolver.adaptTo(LiveRelationshipManager.class)
+                        .establishRelationship(page, liveCopyPage, false, false, config);
+
+                rolloutManager.rollout(resourceResolver, relation, false, autoSave);
 
                 LOG.debug("rolled out live copy page: {}", liveCopyPage.getPath());
             }
         }
+
         return results;
     }
 
