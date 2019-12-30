@@ -1,0 +1,411 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: Search Component Scenario: Rendering When searching by Category only Then it should math snapshot 1`] = `
+Array [
+  <div
+    className="cmp-search__categories-tabs-container"
+  >
+    <div
+      className="cmp-search__categories-tabs"
+    />
+  </div>,
+  <div>
+    <div
+      className="overlay"
+    />
+    <div
+      className="cmp-search__resultsCount-container"
+    >
+      <h2
+        className="cmp-search__resultsCount"
+      >
+        Showing 1-0 of 0 results 
+        <span>
+          for 
+          <strong>
+            <q
+              className="query"
+            >
+              
+            </q>
+            .
+          </strong>
+        </span>
+      </h2>
+    </div>
+    <div
+      className="container__left cmp-search__sort-filter"
+    >
+      <div
+        className="cmp-search-hide-btn clearfix"
+      >
+        <a
+          className="btn-hide-sort-filter"
+          href="javascript:void(0);"
+          onClick={[Function]}
+        >
+          <div />
+          Sort and Filter
+        </a>
+      </div>
+      <div
+        className="cmp-search-apply-btn"
+      >
+        <a
+          className="btn-apply-sort-filter"
+          href="javascript:void(0);"
+          onClick={[Function]}
+        >
+          Show 0 Results
+        </a>
+      </div>
+      <div
+        className="cmp-search-done-btn"
+      >
+        <a
+          className="btn-done-sort-filter"
+          href="javascript:void(0);"
+          onClick={[Function]}
+        >
+          Done
+        </a>
+      </div>
+      <div
+        className="cmp-search__sort-filter__container"
+      >
+        <div
+          className="cmp-search-sortby"
+        >
+          <h3>
+            Sort By
+          </h3>
+          <div
+            className="css-1pcexqc-container"
+            onKeyDown={[Function]}
+          >
+            <div
+              className="css-1xe0he8-control cmp-custom-dropdown__control"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+            >
+              <div
+                className="css-1hwfws3 cmp-custom-dropdown__value-container cmp-custom-dropdown__value-container--has-value"
+              >
+                <div
+                  className="css-0 cmp-custom-dropdown__single-value"
+                >
+                  Best Match
+                </div>
+                <input
+                  className="css-gj7qu5-dummyInput"
+                  disabled={false}
+                  id="react-select-2-input"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  readOnly={true}
+                  tabIndex="0"
+                  value=""
+                />
+              </div>
+              <div
+                className="css-1wy0on6 cmp-custom-dropdown__indicators"
+              >
+                <span
+                  className="css-1hyfx7x cmp-custom-dropdown__indicator-separator"
+                />
+                <div
+                  aria-hidden="true"
+                  className="css-16pqwjk-indicatorContainer cmp-custom-dropdown__indicator cmp-custom-dropdown__dropdown-indicator"
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                >
+                  <div />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="content-type-menu-container"
+        >
+          <div
+            className="content-type-menu-container__heading"
+          >
+            filter By
+          </div>
+          <div
+            className="content-type-menu-container__body"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="cmp-search__container"
+    >
+      <div
+        className="cmp-search__container__header cleafix"
+      >
+        <div
+          className="cmp-search-show-btn"
+        >
+          <a
+            className="btn-show-sort-filter"
+            href="javascript:void(0);"
+            onClick={[Function]}
+          >
+            <div
+              className="filterIcon"
+            />
+            <div
+              className="closeIcon"
+            />
+            Sort and Filter
+          </a>
+        </div>
+      </div>
+      <div
+        className="cmp-search__sorted-container"
+      >
+        <div
+          className="cmp-search__sorted-by"
+        >
+          Sorted by
+          :
+           
+          Most Recent
+        </div>
+        <div
+          className="cmp-search-filters__emptytags"
+        />
+      </div>
+      <div
+        className="cmp-search__results-container"
+      >
+        <ul
+          className="cmp-search__results"
+        />
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Feature: Search Component Scenario: Rendering When searching by Content Type Then it should math snapshot 1`] = `
+Array [
+  <div
+    className="cmp-search__categories-tabs-container"
+  >
+    <div
+      className="cmp-search__categories-tabs"
+    />
+  </div>,
+  <div>
+    <div
+      className="overlay"
+    />
+    <div
+      className="cmp-search__resultsCount-container"
+    >
+      <h2
+        className="cmp-search__resultsCount"
+      >
+        Showing 1-0 of 0 results 
+        <span>
+          for 
+          <strong>
+            <q
+              className="query"
+            >
+              
+            </q>
+            .
+          </strong>
+        </span>
+      </h2>
+    </div>
+    <div
+      className="container__left cmp-search__sort-filter"
+    >
+      <div
+        className="cmp-search-hide-btn clearfix"
+      >
+        <a
+          className="btn-hide-sort-filter"
+          href="javascript:void(0);"
+          onClick={[Function]}
+        >
+          <div />
+          Sort and Filter
+        </a>
+      </div>
+      <div
+        className="cmp-search-apply-btn"
+      >
+        <a
+          className="btn-apply-sort-filter"
+          href="javascript:void(0);"
+          onClick={[Function]}
+        >
+          Show 0 Results
+        </a>
+      </div>
+      <div
+        className="cmp-search-done-btn"
+      >
+        <a
+          className="btn-done-sort-filter"
+          href="javascript:void(0);"
+          onClick={[Function]}
+        >
+          Done
+        </a>
+      </div>
+      <div
+        className="cmp-search__sort-filter__container"
+      >
+        <div
+          className="cmp-search-sortby"
+        >
+          <h3>
+            Sort By
+          </h3>
+          <div
+            className="css-1pcexqc-container"
+            onKeyDown={[Function]}
+          >
+            <div
+              className="css-1xe0he8-control cmp-custom-dropdown__control"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+            >
+              <div
+                className="css-1hwfws3 cmp-custom-dropdown__value-container cmp-custom-dropdown__value-container--has-value"
+              >
+                <div
+                  className="css-0 cmp-custom-dropdown__single-value"
+                >
+                  Best Match
+                </div>
+                <input
+                  className="css-gj7qu5-dummyInput"
+                  disabled={false}
+                  id="react-select-3-input"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  readOnly={true}
+                  tabIndex="0"
+                  value=""
+                />
+              </div>
+              <div
+                className="css-1wy0on6 cmp-custom-dropdown__indicators"
+              >
+                <span
+                  className="css-1hyfx7x cmp-custom-dropdown__indicator-separator"
+                />
+                <div
+                  aria-hidden="true"
+                  className="css-16pqwjk-indicatorContainer cmp-custom-dropdown__indicator cmp-custom-dropdown__dropdown-indicator"
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                >
+                  <div />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="facet-menu-container"
+        >
+          <div
+            className="facet-menu-container__heading"
+          >
+            <div
+              className="cmp-search-filters__emptytags"
+            />
+            <div
+              className="heading--with-selected-value"
+            >
+              <div
+                className="back-btn"
+              >
+                <a
+                  href="javascript:void(0)"
+                  onClick={[MockFunction]}
+                >
+                  <div />
+                   
+                  filter By
+                </a>
+              </div>
+              <h3>
+                
+              </h3>
+            </div>
+          </div>
+          <div
+            className="facet-menu-container__body"
+          >
+            <div
+              className="cmp-search-filters"
+              id="js-search-filters"
+            >
+              <ul />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="cmp-search__container"
+    >
+      <div
+        className="cmp-search__container__header cleafix"
+      >
+        <div
+          className="cmp-search-show-btn"
+        >
+          <a
+            className="btn-show-sort-filter"
+            href="javascript:void(0);"
+            onClick={[Function]}
+          >
+            <div
+              className="filterIcon"
+            />
+            <div
+              className="closeIcon"
+            />
+            Sort and Filter
+          </a>
+        </div>
+      </div>
+      <div
+        className="cmp-search__sorted-container"
+      >
+        <div
+          className="cmp-search__sorted-by"
+        >
+          Sorted by
+          :
+           
+          Most Recent
+        </div>
+        <div
+          className="cmp-search-filters__emptytags"
+        />
+      </div>
+      <div
+        className="cmp-search__results-container"
+      >
+        <ul
+          className="cmp-search__results"
+        />
+      </div>
+    </div>
+  </div>,
+]
+`;
