@@ -123,45 +123,5 @@ describe("Feature: Search Component", () => {
                 expect(propsMock.resultsEvents.onRelatedSuggestionClick).toHaveBeenCalled();
             });
         });
-
-        xdescribe("When the hide sort filter button is clicked", () => {
-            it("Then it should call the hide sort filter handler property", () => {
-                const aside = wrapper.find("Aside");
-
-                aside.simulate("hideSortFilterClick");
-
-                expect(propsMock.asideEvents.onHideSortFilterClick).toHaveBeenCalled();
-            });
-        });
-
-        xdescribe("When apply sort filter is clicked", () => {
-            it("Then it should call the apply sort filter handler property", () => {
-                const aside = wrapper.find("Aside");
-
-                aside.simulate("applySortFilter");
-
-                expect(propsMock.asideEvents.onApplySortFilter).toHaveBeenCalled();
-            });
-        });
-
-        xdescribe("When the collapse filter is clicked", () => {
-            it("Then it should call the collapse filter handler property", () => {
-                const aside = wrapper.find("Aside");
-
-                aside.simulate("collapseFilters");
-
-                expect(propsMock.asideEvents.onCollapseFilters).toHaveBeenCalled();
-            });
-        });
-
-        xdescribe("When sorty is changed", () => {
-            it("Then it should call the sort handler property", () => {
-                const aside = wrapper.find("Aside");
-
-                aside.simulate("sort");
-
-                expect(propsMock.asideEvents.onSort).toHaveBeenCalled();
-            });
-        });
     });
 });
