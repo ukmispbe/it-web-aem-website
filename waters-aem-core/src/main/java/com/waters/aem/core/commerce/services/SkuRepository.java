@@ -5,6 +5,9 @@ import com.waters.aem.core.commerce.models.Sku;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 
+import javax.jcr.RepositoryException;
+import java.util.Map;
+
 /**
  * Repository for Sku models.
  */
@@ -54,4 +57,13 @@ public interface SkuRepository {
      * @return Sku page or null if not found
      */
     PageDecorator getSkuPage(PageDecorator currentPage, Sku sku);
+
+    /**
+     * Get a map of sku codes to page paths for all sku pages created under language masters.
+     *
+     * @param currentPage current page, which will be used in building the query predicate
+     * @return Map of sku codes to sku page paths
+     * @throws RepositoryException thrown if there is an error reading the repository
+     */
+    Map<String, String> getSkuCodeToPagePathMap(PageDecorator currentPage) throws RepositoryException;
 }
