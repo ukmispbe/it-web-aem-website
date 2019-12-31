@@ -9,10 +9,12 @@ import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waters.aem.core.components.content.links.BasicLink;
+import com.waters.aem.core.services.account.WatersAccountService;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -45,6 +47,9 @@ public class MyAccount implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/myaccount";
 
+    @OSGiService
+    private WatersAccountService accountService;
+
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @DialogField(fieldLabel = "Additional Resources",
@@ -67,13 +72,25 @@ public class MyAccount implements ComponentExporter {
         return MAPPER.writeValueAsString(additionalResources);
     }
 
-    private Map<String, Object> getLinkMap(BasicLink link) {
+    private Map<String, Object> getLinkMap(final BasicLink link) {
         final Map<String, Object> linkMap = new HashMap<>();
 
         linkMap.put("text", link.getText());
         linkMap.put("url", link.getLink().getHref());
 
         return linkMap;
+    }
+
+    public String getMyAccountUrl() {
+        return accountService.getUserDetailsUrl();
+    }
+
+    public String getMyAccountUpdateUrl() {
+        return accountService.getUserDetailsUrl();
+    }
+
+    public String getUpdatePasswordUrl() {
+        return accountService.getUpdatePasswordUrl();
     }
 
     @Nonnull

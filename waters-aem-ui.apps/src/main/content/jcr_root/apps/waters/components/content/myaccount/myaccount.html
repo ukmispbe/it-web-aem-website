@@ -15,7 +15,7 @@
                         },
                         {
                             "text": "${'Password' @ i18n, context='unsafe'}",
-                            "url": "${'#password' @ context='unsafe'}"
+                            "url": "${'#changepassword' @ context='unsafe'}"
                         }
                     ]
                 },
@@ -34,7 +34,301 @@
                     "icon": "/content/dam/waters/en/brand-assets/icons/link.svg",
                     "links": ${myaccount.additionalResources @ context="unsafe"}
                 }
-            ]
+            ],
+            "myProfile": {
+                "fetchEndPoint": "${myaccount.myAccountUrl @ context='unsafe'}",
+                "submitEndpoint": "${myaccount.myAccountUpdateUrl @ context='unsafe'}",
+                "personalConfigId": "cmp-detail-tiles--personal",
+                "addressConfig": {
+                    "abstractConfig": "cmp-detail-tiles--address",
+                    "configs": [
+                        "cmp-detail-tiles--shipping",
+                        "cmp-detail-tiles--billing"
+                    ]
+                }
+                },
+                "changePassword": {
+                    "config": "cmp-detail-tiles--changePassword"
+                }
+        }
+    </script>
+
+    <script type="application/json" id="cmp-detail-tiles--personal">
+        {
+            "name": "personal-details-tile",
+            "type": "personal",
+            "title": "${'Personal Details' @ i18n, context='unsafe'}",
+            "canCreate": false,
+            "editText": "${'Edit' @i18n, context='unsafe'}",
+            "form": {
+                "buttonText": "${'Save Changes' @ i18n, context='unsafe'}",
+                "cancelText": "${'Cancel' @ i18n, context='unsafe'}",
+                "icons": {
+                    "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                    "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
+                    "lockIcon": "/content/dam/waters/en/brand-assets/icons/lock.svg"
+                },
+                "fields": [
+                    {
+                        "type": "text",
+                        "name": "firstName",
+                        "label": "${'First Name' @ i18n, context='unsafe'}",
+                        "validation": {
+                            "required": true,
+                            "validateFnName": "noWhitespaceOnly",
+                            "validationMsg": "${'Please enter a valid first name.' @ i18n, context='unsafe'}",
+                            "requiredMsg": "${'Please enter a first name.' @ i18n, context='unsafe'}"
+                        }
+                    },
+                    {
+                        "type": "text",
+                        "name": "lastName",
+                        "label": "${'Last Name' @ i18n, context='unsafe'}",
+                        "validation": {
+                            "required": true,
+                            "validateFnName": "noWhitespaceOnly",
+                            "validationMsg": "${'Please enter a valid last name.' @ i18n, context='unsafe'}",
+                            "requiredMsg": "${'Please enter a last name.' @ i18n, context='unsafe'}"
+                        }
+                    },
+                    {
+                        "type": "text",
+                        "name": "company",
+                        "label": "${'Company' @ i18n, context='unsafe'}",
+                        "validation": {
+                            "validateFnName": "noWhitespaceOnly",
+                            "validationMsg": "${'Please enter a valid company name.' @ i18n, context='unsafe'}",
+                            "required": true,
+                            "requiredMsg": "${'Please enter a company name.' @ i18n, context='unsafe'}"
+                        }
+                    },
+                    {
+                        "type": "email",
+                        "name": "email",
+                        "disabled": true,
+                        "label": "${'Email Address' @ i18n, context='unsafe'}",
+                        "validation": {
+                            "required": true,
+                            "requiredMsg": "${'Please enter a valid email address.' @ i18n, context='unsafe'}"
+                        }
+                    },
+                    {
+                        "type": "text",
+                        "name": "phone",
+                        "label": "${'Phone Number' @ i18n, context='unsafe'}",
+                        "validation": {
+                            "validateFnName": "noWhitespaceOnly",
+                            "validationMsg": "${'Please enter a valid phone number.' @ i18n, context='unsafe'}",
+                            "required": true,
+                            "requiredMsg": "${'Please enter a phone number.' @ i18n, context='unsafe'}"
+                        }
+                    },
+                    {
+                        "type": "dropdown",
+                        "name": "country",
+                        "label": "${'Country' @ i18n, context='unsafe'}",
+                        "placeholder": "${'Select...' @ i18n, context='unsafe'}",
+                        "options": [],
+                        "disabled": true,
+                        "validation": {
+                            "required": true,
+                            "requiredMsg": "${'Please select your country.' @ i18n, context='unsafe'}"
+                        }
+                    }
+                ]
+            },
+            "icons": {
+                "edit": "/content/dam/waters/en/brand-assets/icons/edit.svg"
+            }
+        }
+    </script>
+
+    <script type="application/json" id="cmp-detail-tiles--billing">
+        {
+            "name": "billingAddresses-details-tile",
+            "type": "billing",
+            "title": "${'Billing Addresses' @ i18n, context='unsafe'}",
+            "noAddressMessage": "${'For a faster checkout experience, add your billing address now.' @ i18n, context='unsafe'}",
+            "addTitle": "${'Add New Billing Address' @ i18n, context='unsafe'}"
+        }
+    </script>
+
+    <script type="application/json" id="cmp-detail-tiles--shipping">
+        {
+            "name": "shippingAddresses-details-tile",
+            "type": "shipping",
+            "title": "${'Shipping Addresses' @ i18n, context='unsafe'}",
+            "noAddressMessage": "${'For a faster checkout experience, add your shipping address now.' @ i18n, context='unsafe'}",
+            "addTitle": "${'Add New Shipping Address' @ i18n, context='unsafe'}"
+        }
+    </script>
+
+    <script type="application/json" id="cmp-detail-tiles--address">
+        {
+            "formMessage": {
+                "text": "${'It may take up to 24 hours to verify a new or change of address. Orders may be delayed.' @ i18n, context='unsafe'}"
+            },
+            "editText": "${'Edit' @i18n, context='unsafe'}",
+            "form": {
+                "buttonText": "${'Save Changes' @ i18n, context='unsafe'}",
+                "cancelText": "${'Cancel' @ i18n, context='unsafe'}",
+                "icons": {
+                    "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                    "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg"
+                },
+                "fields": [
+                    {
+                        "type": "text",
+                        "name": "company",
+                        "label": "${'Company' @ i18n, context='unsafe'}",
+                        "validation": {
+                            "validateFnName": "noWhitespaceOnly",
+                            "validationMsg": "${'Please enter a valid company name.' @ i18n, context='unsafe'}",
+                            "required": true,
+                            "requiredMsg": "${'Please enter a company name.' @ i18n, context='unsafe'}"
+                        }
+                    },
+                    {
+                        "type": "text",
+                        "name": "street",
+                        "label": "${'Address' @ i18n, context='unsafe'}",
+                        "validation": {
+                            "validateFnName": "noWhitespaceOnly",
+                            "validationMsg": "${'Please enter a valid address.' @ i18n, context='unsafe'}",
+                            "required": true,
+                            "requiredMsg": "${'Please enter an address.' @ i18n, context='unsafe'}"
+                        }
+                    },
+                    {
+                        "type": "text",
+                        "name": "city",
+                        "label": "${'City' @ i18n, context='unsafe'}",
+                        "validation": {
+                            "validateFnName": "noWhitespaceOnly",
+                            "validationMsg": "${'Please enter a valid city.' @ i18n, context='unsafe'}",
+                            "required": true,
+                            "requiredMsg": "${'Please enter a city.' @ i18n, context='unsafe'}"
+                        }
+                    },
+                    {
+                        "type": "dropdown",
+                        "name": "state",
+                        "label": "${'State/Province/Region' @ i18n, context='unsafe'}",
+                        "placeholder": "${'Select...' @ i18n, context='unsafe'}",
+                        "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
+                        "options": [],
+                        "validation": {
+                            "required": true,
+                            "requiredMsg": "${'Please select your region.' @ i18n, context='unsafe'}"
+                        }
+                    },
+                    {
+                        "type": "text",
+                        "name": "zip",
+                        "label": "${'Zip/Postal Code' @ i18n, context='unsafe'}",
+                        "validation": {
+                            "validateFnName": "noWhitespaceOnly",
+                            "validationMsg": "${'Please enter a valid postal code.' @ i18n, context='unsafe'}",
+                            "required": true,
+                            "requiredMsg": "${'Please enter a postal code.' @ i18n, context='unsafe'}"
+                        }
+                    },
+                    {
+                        "type": "dropdown",
+                        "name": "country",
+                        "label": "${'Country' @ i18n, context='unsafe'}",
+                        "placeholder": "${'Select...' @ i18n, context='unsafe'}",
+                        "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
+                        "options": [],
+                        "validation": {
+                            "required": true,
+                            "requiredMsg": "${'Please select your country.' @ i18n, context='unsafe'}"
+                        }
+                    }
+                ]
+            },
+            "canCreate": true,
+            "icons": {
+                "edit": "/content/dam/waters/en/brand-assets/icons/edit.svg",
+                "add": "/content/dam/waters/en/brand-assets/icons/add.svg",
+                "refresh": "/content/dam/waters/en/brand-assets/icons/refresh.svg"
+            }
+        }
+    </script>
+
+    <script type="application/json" id="cmp-detail-tiles--changePassword">
+        {
+            "name": "changePassword-details-tile",
+            "type": "password",
+            "title": "${'Change Password' @ i18n, context='unsafe'}",
+            "editText": "${'Edit' @i18n, context='unsafe'}",
+            "canCreate": false,
+            "form": {
+                "submitEndpoint": "${myaccount.updatePasswordUrl @ context='unsafe'}",
+                "buttonText": "${'Change Password' @ i18n, context='unsafe'}",
+                "cancelText": "${'Cancel' @ i18n, context='unsafe'}",
+                "icons": {
+                    "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                    "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                    "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
+                    "eyeIcon": "/content/dam/waters/en/brand-assets/icons/eye.svg",
+                    "eyeOffIcon": "/content/dam/waters/en/brand-assets/icons/eye-off.svg",
+                    "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
+                },
+                "fields": [
+                    {
+                        "type": "password",
+                        "name": "currentPassword",
+                        "label": "${'Enter Current Password' @ i18n, context='unsafe'}",
+                        "hasMatch": false,
+                        "validation": {
+                            "required": true,
+                            "requiredMsg": "${'Please enter current password.' @ i18n, context='unsafe'}"
+                        }
+                    },
+                    {
+                        "type": "password",
+                        "name": "newPassword",
+                        "label": "${'Create New Password' @ i18n, context='unsafe'}",
+                        "hasMatch": true,
+                        "matchLabel": "${'Confirm New Password' @ i18n, context='unsafe'}",
+                        "validation": {
+                            "required": true,
+                            "validateFnName": "password",
+                            "validationMsg": "${'Please enter a valid password.' @ i18n, context='unsafe'}",
+                            "requiredMsg": "${'Please enter a password.' @ i18n, context='unsafe'}",
+                            "requiredMatchMsg": "${'Please confirm your password.' @ i18n, context='unsafe'}",
+                            "nonMatchingMsg": "${'Passwords must match. Please try again.' @ i18n, context='unsafe'}",
+                            "requirementsLabel": "${'Your password must include' @i18n, context='unsafe'}",
+                            "requirements": [
+                                {
+                                    "name": "shortPassword",
+                                    "msg": "${'at least 8 characters' @ i18n, context='unsafe'}"
+                                },
+                                {
+                                    "name": "noUppercase",
+                                    "msg": "${'at least 1 uppercase letter' @ i18n, context='unsafe'}"
+                                },
+                                {
+                                    "name": "noLowercase",
+                                    "msg": "${'at least 1 lowercase letter' @ i18n, context='unsafe'}"
+                                },
+                                {
+                                    "name": "noDigits",
+                                    "msg": "${'at least 1 number' @ i18n, context='unsafe'}"
+                                },
+                                {
+                                    "name": "noSpecial",
+                                    "msg": "${'at least 1 symbol (for example, !, $, #, %)' @ i18n, context='unsafe'}"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "icons": {
+                "edit": "/content/dam/waters/en/brand-assets/icons/edit.svg"
+            }
         }
     </script>
 </div>

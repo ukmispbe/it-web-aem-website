@@ -3,6 +3,7 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 
 import MyAccount from "./myaccount";
 import MyProfile from '../my-profile';
+import ChangePassword from "../change-password";
 
 const MyAccountRouter = (props) => {
     return (
@@ -13,6 +14,9 @@ const MyAccountRouter = (props) => {
                 </Route>
                 <Route exact path="/profile" >
                     <MyProfile configs={props.myProfile} />
+                </Route>
+                <Route exact path="/changepassword" >
+                    <ChangePassword configId={props.changePassword.config} />
                 </Route>
             </Switch>
         </HashRouter>
