@@ -290,7 +290,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
                 status = HybrisImportStatus.UPDATED;
 
                 // updated sku page, also update all language/live copies of the current page
-                results.addAll(updateSkuPageLiveCopies(skuPage, sku));
+                results.addAll(updateSkuPageLiveCopies(skuPage, sku, context.getResourceResolver()));
             }
 
             LOG.debug("found existing sku page : {}, status : {}", skuPage.getPath(), status);
@@ -413,11 +413,13 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         return results;
     }
 
-    private List<HybrisImporterResult> updateSkuPageLiveCopies(final PageDecorator skuPage, final Sku sku) {
+    private List<HybrisImporterResult> updateSkuPageLiveCopies(final PageDecorator skuPage, final Sku sku,
+        final ResourceResolver resourceResolver) throws PersistenceException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         for (final PageDecorator liveCopyPage : getLiveCopyPages(skuPage)) {
             updateSkuPageProperties(liveCopyPage, sku);
+            createOrUpdateThumbnail(resourceResolver, sku, liveCopyPage);
 
             results.add(HybrisImporterResult.fromSkuPage(liveCopyPage, HybrisImportStatus.UPDATED));
         }
