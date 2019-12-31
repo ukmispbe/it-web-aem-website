@@ -86,7 +86,52 @@ describe("Feature: ResultsBody Component", () => {
     });
 
     describe("Scenario: User Interaction", () => {
+        let wrapper;
 
+        beforeAll(() => {
+            wrapper = shallow(<ResultsBody {...propsMockSortByBestMatch} />);
+        });
+
+        describe("When category dropdown value is changed", () => {
+
+            it("Then is should call the change handler property", () => {
+                const dropdown = wrapper.find("CategoryDropdown");
+
+                dropdown.props().categoryOnChange();
+
+                expect(propsMockSortByBestMatch.categoryEvents.onCategoryDropdownChange).toHaveBeenCalled();
+            });
+        });
+
+        describe("When show sort filter is clicked", () => {
+            it("Then it should call the setup filters handler property", () => {
+                const button = wrapper.find("ShowSortFilter");
+
+                button.props().setupFilters();
+                
+                expect(propsMockSortByBestMatch.showSortFilterEvents.onSetupFilters).toHaveBeenCalled();
+            });
+        });
+
+        describe("When canceling show sort filter modal", () => {
+            it("Then it should call the reset save state handler property", () => {
+                const button = wrapper.find("ShowSortFilter");
+
+                button.props().resetToSavedState();
+
+                expect(propsMockSortByBestMatch.showSortFilterEvents.onResetToSavedState).toHaveBeenCalled();
+            });
+        });
+
+        describe("When sort filter modal is closed", () => {
+            it("Then it should call the close handler property", () => {
+                const button = wrapper.find("ShowSortFilter");
+
+                button.simulate("close");
+
+                expect(propsMockSortByBestMatch.showSortFilterEvents.onClose).toHaveBeenCalled();
+            });
+        });
     });
 });
 
@@ -184,7 +229,7 @@ describe("Feature: Pagination Component", () => {
     });
 });
 
-describe("Feature: ResutsContent Component", () => {
+describe("Feature: ResultsContent Component", () => {
     afterAll(() => {
         jest.mockRestoreAll();
     });

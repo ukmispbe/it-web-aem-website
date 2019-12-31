@@ -467,7 +467,7 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by most
 </div>
 `;
 
-exports[`Feature: ResutsContent Component Scenario: Rendering When displaying the shop results Then it should match snapshot 1`] = `
+exports[`Feature: ResultsContent Component Scenario: Rendering When displaying the shop results Then it should match snapshot 1`] = `
 Array [
   <div
     className="cmp-sku-list__container "
