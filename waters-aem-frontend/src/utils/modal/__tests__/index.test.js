@@ -65,13 +65,20 @@ describe('Feature: Modal Component', () => {
             it('Then the snapshot should match', () => {
            
                 const props = {
-                    title: 'TEST TITLE',
-                    onClose: jest.fn(() => {})
+                    title: 'TEST TITLE'
                 }
 
+                let isOpen = true;
+                const toggleModal = jest.fn(() => {
+                    isOpen = !isOpen;
+                })
+                    
                 const component = renderer.create(
-                    <Header {...props} />
+                    <Modal isOpen={true} onClose={toggleModal}>
+                        <Header {...props} />
+                    </Modal>
                 );
+
                 expect(component).toMatchSnapshot();
             });
         });
@@ -81,13 +88,20 @@ describe('Feature: Modal Component', () => {
            
                 const props = {
                     icon: '/content/dam/waters/en/brand-assets/icons/close.svg',
-                    title: 'TEST TITLE',
-                    onClose: jest.fn(() => {})
+                    title: 'TEST TITLE'
                 }
 
+                let isOpen = true;
+                const toggleModal = jest.fn(() => {
+                    isOpen = !isOpen;
+                })
+                    
                 const component = renderer.create(
-                    <Header {...props} />
+                    <Modal isOpen={true} onClose={toggleModal}>
+                        <Header {...props} />
+                    </Modal>
                 );
+                
                 expect(component).toMatchSnapshot();
             });
         });

@@ -12,12 +12,13 @@ Array [
   </a>,
   <div
     className="cmp-modal-box "
+    onClick={[Function]}
   >
     <div
       className="cmp-modal"
     >
       <div
-        className="cmp-modal__header header-with-title header-with-title-centered-tablet-and-over"
+        className="cmp-modal__header header-with-title header-with-title-centered"
       >
         <div
           className="cmp-modal__title"
