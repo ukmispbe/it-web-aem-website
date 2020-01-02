@@ -2,12 +2,17 @@ package com.waters.aem.core.commerce.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.icfolson.aem.library.api.page.PageDecorator;
+import com.waters.aem.core.commerce.constants.WatersCommerceConstants;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.utils.AssetUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -61,6 +66,25 @@ public final class DisplayableSku {
 
     public String getPrimaryImageThumbnail() {
         return sku.getPrimaryImageThumbnail();
+    }
+
+    @JsonIgnore
+    public String getLongDescription() {
+        return sku.getLongDescription();
+    }
+
+    @JsonIgnore
+    public List<Classification> getSpecifications() {
+        return sku == null ?  Collections.emptyList() : sku.getClassifications()
+            .stream()
+            .filter(classification -> !classification.getCode().contains(WatersCommerceConstants.COLD_CHAIN_SHIPPING_CODE) &&
+            !classification.getCode().contains(WatersCommerceConstants.HAZARDOUS_CODE))
+            .collect(Collectors.toList());
+    }
+
+    @JsonIgnore
+    public List<String> getCategories() {
+        return sku.getCategories();
     }
 
     @JsonIgnore

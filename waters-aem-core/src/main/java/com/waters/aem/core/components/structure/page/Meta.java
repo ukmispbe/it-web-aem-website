@@ -41,7 +41,7 @@ import java.util.stream.Collectors;
     editConfig = false,
     fileName = Meta.FILE_NAME,
     touchFileName = Meta.FILE_NAME)
-@Model(adaptables = Resource.class,  defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class Meta extends AbstractComponent {
 
     static final String FILE_NAME = "meta";
@@ -65,7 +65,6 @@ public final class Meta extends AbstractComponent {
     private static final String DEFAULT_TWITTER_CARD = "summary_large_image";
 
     private static final String DEFAULT_OG_TYPE = "none";
-
 
     private static final String DEFAULT_HREF_LANG_PATH = WatersConstants.ROOT_PATH + "/us/en";
 
