@@ -39,10 +39,9 @@
         .cmp-links__link-icon {
             display: none;
             position: relative;
-            top: 0.15em;
+            top: $space-xxxs;
             margin-bottom: 0;
             margin-right: $space-xxxs;
-            margin-top: 0.15em;
             height: (($icon-s + $icon-m) / 2);
             width: (($icon-s + $icon-m) / 2);
             color: $color-link;
