@@ -89,11 +89,11 @@
                 display: inline;
             }
             svg {
-                width: ($icon-s + 0.1em);
-                height: ($icon-s + 0.1em);
+                width: ($icon-m - .15em);
+                height: ($icon-m - .15em);
                 fill: $color-success;
                 margin-left: $space-xxxs;
-                margin-top: ($space-xxxs);
+                margin-top: ($space-xxxs - .05em);
                 float: right;
             }
             &--instock {
@@ -102,7 +102,7 @@
                     .st0,
                     .st1 {
                         stroke: $color-success;
-                        stroke-width: 2px;
+                        stroke-width: 1.25px;
                     }
                 }
             }
@@ -112,7 +112,7 @@
                     .st0,
                     .st1 {
                         stroke: $color-error;
-                        stroke-width: 2px;
+                        stroke-width: 1.25px;
                     }
                 }
             }
@@ -127,6 +127,10 @@
         &__buttons {
             display: flex;
             margin-top: $space-xs;
+
+            .cmp-button {
+                margin-bottom: $space-s;
+            }
 
             @include tablet {
                 margin-top: $space-xxxs;
@@ -453,12 +457,15 @@
         }
 
         svg {
-            fill: $color-icon;
             float: right;
-            width: ($icon-s + 0.1em);
-            height: ($icon-s + 0.1em);
-            margin-top: ($space-xxxs - 0.1em);
+            width: $icon-m;
+            height: $icon-m;
+            margin-top: ($space-xxxs - 0.2em);
             margin-left: $space-xxxs;
+            .st0,
+            .st1 {
+                stroke: $color-icon;
+            }
 
             &:hover {
                 transition: $hover-transition;
