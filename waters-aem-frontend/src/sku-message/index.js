@@ -21,9 +21,6 @@ class SkuMessage extends React.Component {
                                 <a href={this.props.link}>{this.props.linkMessage}</a>
                             }
                     </div>
-                    <div className="cmp-notification-distributor">
-                        {this.props.distMessage}
-                    </div>
                 </div>
             </div>
         )
@@ -34,7 +31,6 @@ SkuMessage.propTypes = {
     icon: PropTypes.string,
     link: PropTypes.string,
     linkMessage: PropTypes.string,
-    distMessage: PropTypes.string,
     message: PropTypes.string.isRequired
 };
 

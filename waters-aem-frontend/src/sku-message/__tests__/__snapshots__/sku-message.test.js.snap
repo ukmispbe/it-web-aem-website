@@ -20,9 +20,6 @@ exports[`Feature: SkuMessage React Component Scenario: Rendering When the compon
         linkmessage
       </a>
     </div>
-    <div
-      className="cmp-notification-distributor"
-    />
   </div>
 </div>
 `;

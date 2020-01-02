@@ -29,8 +29,7 @@ describe('Feature: SkuMessage React Component', () => {
                     icon: "icon",
                     link: "link",
                     linkMessage: "linkmessage",
-                    message: "message",
-                    distMessage: "Distmessage"
+                    message: "message"
                 };
                 wrapper = shallow(<SkuMessage {...props} />);
             });
@@ -53,11 +52,6 @@ describe('Feature: SkuMessage React Component', () => {
                 const descDiv = wrapper.find('div.cmp-notification-description');
                 expect(descDiv.text()).toContain(props.message);
             });
-
-            it('Then it should populate the notification distributor description with the message text', () => {
-                const descDiv = wrapper.find('div.cmp-notification-distributor');
-                expect(descDiv.text()).toContain(props.distMessage);
-            });
         });
 
         describe('When none of the props are provided', () => {
@@ -66,8 +60,7 @@ describe('Feature: SkuMessage React Component', () => {
                     icon: "",
                     link: "",
                     linkMessage: null,
-                    message: "",
-                    distMessage: ""
+                    message: ""
                 };
                 wrapper = shallow(<SkuMessage {...props} />);
                 wrapper.debug();
@@ -85,11 +78,6 @@ describe('Feature: SkuMessage React Component', () => {
             it('Then it should not populate the notification description text', () => {
                 const descDiv = wrapper.find('div.cmp-notification-description');
                 expect(descDiv.text()).toBe(props.message);
-            });
-
-            it('Then it should not populate the notification description text', () => {
-                const descDiv = wrapper.find('div.cmp-notification-distributor');
-                expect(descDiv.text()).toBe(props.distMessage);
             });
         });
     });

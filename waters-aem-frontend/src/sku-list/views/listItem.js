@@ -245,7 +245,6 @@ class ListItem extends React.Component {
                     message={discontinuedMessage}
                     link={this.props.relatedSku.replacementskuurl}
                     linkMessage={this.props.relatedSku.replacementskucode}
-                    distMessage={this.props.skuConfig.skuInfo.distributorMessage}
                 />
             );
         } else {
