@@ -7,7 +7,7 @@ const ChangePassword = ({ configId }) => {
 
     useEffect(() => {
         setConfig(JSON.parse(document.getElementById(configId).innerHTML));
-    });
+    }, []);
 
     return (
         <>
