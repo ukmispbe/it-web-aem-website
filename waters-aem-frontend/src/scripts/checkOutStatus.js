@@ -22,8 +22,8 @@ const checkOutStatus = {
     },
     get details() {
         const sessionStore = new SessionStore();
-        const cestatusSession = sessionStore.getSoldToDetails();
-        return cestatusSession;
+        const soldToDetails = sessionStore.getSoldToDetails();
+        return soldToDetails;
     }
 }
 
