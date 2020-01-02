@@ -13,6 +13,7 @@ import com.day.cq.commons.LanguageUtil;
 import com.day.cq.wcm.foundation.Image;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.components.AbstractComponent;
@@ -21,6 +22,7 @@ import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.SiteContext;
+import com.waters.aem.core.components.content.CountryList;
 import com.waters.aem.core.components.content.links.BasicLink;
 import com.waters.aem.core.components.content.links.IconOnlyLink;
 import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
@@ -41,8 +43,12 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component(value = "Footer",
     description = "This is the Footer component for Waters site",
@@ -66,17 +72,22 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     public static final String RESOURCE_TYPE = "waters/components/structure/footer";
 
+    @Inject
+    private PageDecorator currentPage;
+
+    @OSGiService
+    private WatersCommerceService watersCommerceService;
+
     @Self
     private SiteContext siteContext;
 
-    @Inject
-    private PageDecorator currentPage;
+    @Self
+    private CountryList countryList;
 
     @ChildResource(name = "../")
     private DataLayer dataLayer;
 
-    @OSGiService
-    private WatersCommerceService watersCommerceService;
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @DialogField(fieldLabel = "Logo",
         fieldDescription = "Select the logo image to display on footer",
@@ -212,8 +223,8 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     @Html5SmartImage(tab = false, allowUpload = false, height = 150)
     @ImageInject(inherit = true)
     private Image weChatQrCodeImage;
-
-    private List<LanguageSelectorItem> languagePages;
+ 
+    private List<CountryLanguageSelectorItem> languagePages;
 
     @JsonProperty
     public Image getLogoImage() {
@@ -303,7 +314,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
         return Locale.CHINA.getCountry().equals(siteContext.getLocaleWithCountry().getCountry());
     }
 
-    public List<LanguageSelectorItem> getLanguagePages() {
+    public List<CountryLanguageSelectorItem> getLanguagePages() {
         if (languagePages == null) {
             languagePages = new ArrayList<>();
 
@@ -312,12 +323,27 @@ public final class Footer extends AbstractComponent implements ComponentExporter
                         languagePage.findAncestor(WatersConstants.PREDICATE_HOME_PAGE).orNull();
 
                 if (languageHomepage != null) {
-                    languagePages.add(new LanguageSelectorItem(languagePage));
+                    languagePages.add(new CountryLanguageSelectorItem(languagePage));
                 }
             }
         }
 
         return languagePages;
+    }
+
+    public String getCountryPagesJson() throws JsonProcessingException {
+        final List<Map<String, String>> countries = new ArrayList<>();
+
+        for (final CountryLanguageSelectorItem item : getCountryPages()) {
+            final Map<String, String> country = new HashMap<>();
+
+            country.put("title", siteContext.getTranslation(item.getTitle()));
+            country.put("href", item.getHomepageLink().getHref());
+
+            countries.add(country);
+        }
+
+        return MAPPER.writeValueAsString(countries);
     }
 
     public String getCountryName() {
@@ -374,6 +400,52 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     public CountryCommerceConfig getCommerceConfig() {
         return siteContext.getCountryCommerceConfig();
+    }
+
+    private List<CountryLanguageSelectorItem> getCountryPages() {
+        final String currentLanguageRoot = LanguageUtil.getLanguageRoot(currentPage.getPath());
+
+        final List<CountryLanguageSelectorItem> countryPages = new ArrayList<>();
+
+        final List<PageDecorator> countryRootPages = countryList.getCountryRootPages();
+
+        if (currentLanguageRoot != null) {
+            // add all countries to list, excluding current
+            countryPages.addAll(countryRootPages.stream()
+                    .filter(page -> !currentLanguageRoot.startsWith(page.getPath())) // exclude current page from list
+                    .map(CountryLanguageSelectorItem::new)
+                    .sorted(Comparator.comparing(CountryLanguageSelectorItem::getTitle))
+                    .collect(Collectors.toList()));
+
+            final PageDecorator globalExperiencePage = currentPage.getPageManager()
+                    .getPage(WatersConstants.ROOT_PATH_GLOBAL_EXPERIENCE);
+
+            // if current page is not global experience, add current country to start of list
+            if (!WatersConstants.PREDICATE_GLOBAL_EXP_PAGE.apply(currentPage)) {
+                countryRootPages.stream()
+                        .filter(page -> currentLanguageRoot.startsWith(page.getPath()))
+                        .findFirst()
+                        .map(CountryLanguageSelectorItem::new)
+                        .ifPresent(item -> countryPages.add(0, item));
+
+                // add global experience to end of list
+                if (globalExperiencePage != null) {
+                    countryPages.add(getGlobalExperienceSelectorItem());
+                }
+            } else {
+                // add global experience to start of list
+                if (globalExperiencePage != null) {
+                    countryPages.add(0, getGlobalExperienceSelectorItem());
+                }
+            }
+        }
+
+        return countryPages;
+    }
+
+    private CountryLanguageSelectorItem getGlobalExperienceSelectorItem() {
+        return new CountryLanguageSelectorItem(
+                currentPage.getPageManager().getPage(WatersConstants.ROOT_PATH_GLOBAL_EXPERIENCE), "Other");
     }
 
     @Nonnull

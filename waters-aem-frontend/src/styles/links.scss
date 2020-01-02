@@ -39,7 +39,7 @@
         .cmp-links__link-icon {
             display: none;
             position: relative;
-            top: 0.15em;
+            top: $space-xxxs;
             margin-bottom: 0;
             margin-right: $space-xxxs;
             height: (($icon-s + $icon-m) / 2);
@@ -94,8 +94,6 @@ div.links--noPadding {
 }
 
 .cmp-links--back {
-    margin-bottom: $space-s;
-    padding: 0;
 
     .cmp-links {
         margin: 0 0 $space-xxs 0;
