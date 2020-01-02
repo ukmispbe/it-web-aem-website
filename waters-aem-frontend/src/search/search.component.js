@@ -21,12 +21,8 @@ const SearchComponent = props => {
                 <Aside 
                     sortFilterIsPristine={props.asideProps.sortFilterIsPristine}
                     text={props.text}
-                    count={props.asideProps.count}
-                    sortValue={props.asideProps.sortByValue}
-                    onHideSortFilterClick={props.asideEvents.onHideSortFilterClick}
-                    onApplySortFilter={props.asideEvents.onApplySortFilter}
-                    onCollapseFilters={props.asideEvents.onCollapseFilters}
-                    onSort={props.asideEvents.onSort}>
+                    asideProps={props.asideProps}
+                    asideEvents={props.asideEvents}>
 
                     <Menu 
                         text={props.text}

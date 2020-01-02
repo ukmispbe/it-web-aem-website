@@ -20,7 +20,7 @@ class Modal extends React.Component {
         this.closeModal = this.closeModal.bind(this);
     }
 
-    componentWillReceiveProps(props) {
+    UNSAFE_componentWillReceiveProps(props) {
         this.setState({
             open: props.open,
             config: props.config,

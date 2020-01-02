@@ -1,5 +1,204 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Feature: Aside Component Scenario: Rendering When children are provided Then it should match snapshot 1`] = `
+<div
+  className="container__left cmp-search__sort-filter"
+>
+  <div
+    className="cmp-search-hide-btn clearfix"
+  >
+    <a
+      className="btn-hide-sort-filter"
+      href="javascript:void(0);"
+      onClick={[MockFunction]}
+    >
+      <div />
+      Sort and Filter
+    </a>
+  </div>
+  <div
+    className="cmp-search-apply-btn"
+  >
+    <a
+      className="btn-apply-sort-filter"
+      href="javascript:void(0);"
+      onClick={[Function]}
+    >
+      Show 0 Results
+    </a>
+  </div>
+  <div
+    className="cmp-search-done-btn"
+  >
+    <a
+      className="btn-done-sort-filter"
+      href="javascript:void(0);"
+      onClick={[Function]}
+    >
+      Done
+    </a>
+  </div>
+  <div
+    className="cmp-search__sort-filter__container"
+  >
+    <div
+      className="cmp-search-sortby"
+    >
+      <h3>
+        Sort By
+      </h3>
+      <div
+        className="css-1pcexqc-container"
+        onKeyDown={[Function]}
+      >
+        <div
+          className="css-1xe0he8-control cmp-custom-dropdown__control"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+        >
+          <div
+            className="css-1hwfws3 cmp-custom-dropdown__value-container cmp-custom-dropdown__value-container--has-value"
+          >
+            <div
+              className="css-0 cmp-custom-dropdown__single-value"
+            >
+              Best Match
+            </div>
+            <input
+              className="css-gj7qu5-dummyInput"
+              disabled={false}
+              id="react-select-3-input"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              readOnly={true}
+              tabIndex="0"
+              value=""
+            />
+          </div>
+          <div
+            className="css-1wy0on6 cmp-custom-dropdown__indicators"
+          >
+            <span
+              className="css-1hyfx7x cmp-custom-dropdown__indicator-separator"
+            />
+            <div
+              aria-hidden="true"
+              className="css-16pqwjk-indicatorContainer cmp-custom-dropdown__indicator cmp-custom-dropdown__dropdown-indicator"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+            >
+              <div />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="child"
+    />
+  </div>
+</div>
+`;
+
+exports[`Feature: Aside Component Scenario: Rendering When no children are provided Then it should match snapshot 1`] = `
+<div
+  className="container__left cmp-search__sort-filter"
+>
+  <div
+    className="cmp-search-hide-btn clearfix"
+  >
+    <a
+      className="btn-hide-sort-filter"
+      href="javascript:void(0);"
+      onClick={[MockFunction]}
+    >
+      <div />
+      Sort and Filter
+    </a>
+  </div>
+  <div
+    className="cmp-search-apply-btn"
+  >
+    <a
+      className="btn-apply-sort-filter"
+      href="javascript:void(0);"
+      onClick={[Function]}
+    >
+      Show 0 Results
+    </a>
+  </div>
+  <div
+    className="cmp-search-done-btn"
+  >
+    <a
+      className="btn-done-sort-filter"
+      href="javascript:void(0);"
+      onClick={[Function]}
+    >
+      Done
+    </a>
+  </div>
+  <div
+    className="cmp-search__sort-filter__container"
+  >
+    <div
+      className="cmp-search-sortby"
+    >
+      <h3>
+        Sort By
+      </h3>
+      <div
+        className="css-1pcexqc-container"
+        onKeyDown={[Function]}
+      >
+        <div
+          className="css-1xe0he8-control cmp-custom-dropdown__control"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+        >
+          <div
+            className="css-1hwfws3 cmp-custom-dropdown__value-container cmp-custom-dropdown__value-container--has-value"
+          >
+            <div
+              className="css-0 cmp-custom-dropdown__single-value"
+            >
+              Best Match
+            </div>
+            <input
+              className="css-gj7qu5-dummyInput"
+              disabled={false}
+              id="react-select-2-input"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              readOnly={true}
+              tabIndex="0"
+              value=""
+            />
+          </div>
+          <div
+            className="css-1wy0on6 cmp-custom-dropdown__indicators"
+          >
+            <span
+              className="css-1hyfx7x cmp-custom-dropdown__indicator-separator"
+            />
+            <div
+              aria-hidden="true"
+              className="css-16pqwjk-indicatorContainer cmp-custom-dropdown__indicator cmp-custom-dropdown__dropdown-indicator"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+            >
+              <div />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Feature: FilterTagList Component Scenario: Rendering When content type filter is specified Then is should match snapshot 1`] = `
 <div
   className="cmp-search-filters__tags clearfix"
@@ -52,6 +251,32 @@ exports[`Feature: FilterTagList Component Scenario: Rendering When keyword filte
 </div>
 `;
 
+exports[`Feature: FilterTagList Component Scenario: Rendering When keyword spelling suggestion is specified Then it should match spapshot 1`] = `
+<div
+  className="cmp-search-filters__tags clearfix"
+>
+  <a
+    className="cmp-search-filters__tags__clear"
+    href="javascript:void(0);"
+    onClick={[Function]}
+  >
+    <div />
+    <span>
+      Clear All
+    </span>
+  </a>
+  <a
+    href="javascript:void(0);"
+    onClick={[Function]}
+  >
+    <div />
+    <span>
+      Keyword: HPLC
+    </span>
+  </a>
+</div>
+`;
+
 exports[`Feature: FilterTagList Component Scenario: Rendering When no filters are specified Then it should match snapshot 1`] = `
 <div
   className="cmp-search-filters__emptytags"
@@ -82,4 +307,2388 @@ exports[`Feature: FilterTagList Component Scenario: Rendering When sub facet fil
     </span>
   </a>
 </div>
+`;
+
+exports[`Feature: Menu Component Scenario: Rendering When showing facet menu Then it should match snapshot 1`] = `
+<div
+  className="facet-menu-container"
+>
+  <div
+    className="facet-menu-container__heading"
+  >
+    <div
+      className="cmp-search-filters__emptytags"
+    />
+    <div
+      className="heading--with-selected-value"
+    >
+      <div
+        className="back-btn"
+      >
+        <a
+          href="javascript:void(0)"
+          onClick={[MockFunction]}
+        >
+          <div />
+           
+          filter By
+        </a>
+      </div>
+      <h3>
+        
+      </h3>
+    </div>
+  </div>
+  <div
+    className="facet-menu-container__body"
+  >
+    <div
+      className="cmp-search-filters"
+      id="js-search-filters"
+    >
+      <ul />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Feature: Menu Component Scenario: Rendering When showing the content type menu Then it should match snapshot 1`] = `
+<div
+  className="content-type-menu-container"
+>
+  <div
+    className="content-type-menu-container__heading"
+  >
+    filter By
+  </div>
+  <div
+    className="content-type-menu-container__body"
+  />
+</div>
+`;
+
+exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by best match Then it should match snapshot 1`] = `
+<div
+  className="cmp-search__container"
+>
+  <div
+    className="cmp-search__container__header cleafix"
+  >
+    <div
+      className="cmp-search-show-btn"
+    >
+      <a
+        className="btn-show-sort-filter"
+        href="javascript:void(0);"
+        onClick={[Function]}
+      >
+        <div
+          className="filterIcon"
+        />
+        <div
+          className="closeIcon"
+        />
+        Sort and Filter
+      </a>
+    </div>
+  </div>
+  <div
+    className="cmp-search__sorted-container"
+  >
+    <div
+      className="cmp-search__sorted-by"
+    >
+      Sorted by
+      :
+       
+      Best Match
+    </div>
+    <div
+      className="cmp-search-filters__emptytags"
+    />
+  </div>
+  <div
+    className="cmp-search__results-container"
+  >
+    <ul
+      className="cmp-search__results"
+    />
+  </div>
+</div>
+`;
+
+exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by most recent Then it should match snapshot 1`] = `
+<div
+  className="cmp-search__container"
+>
+  <div
+    className="cmp-search__container__header cleafix"
+  >
+    <div
+      className="cmp-search-show-btn"
+    >
+      <a
+        className="btn-show-sort-filter"
+        href="javascript:void(0);"
+        onClick={[Function]}
+      >
+        <div
+          className="filterIcon"
+        />
+        <div
+          className="closeIcon"
+        />
+        Sort and Filter
+      </a>
+    </div>
+  </div>
+  <div
+    className="cmp-search__sorted-container"
+  >
+    <div
+      className="cmp-search__sorted-by"
+    >
+      Sorted by
+      :
+       
+      Most Recent
+    </div>
+    <div
+      className="cmp-search-filters__emptytags"
+    />
+  </div>
+  <div
+    className="cmp-search__results-container"
+  >
+    <ul
+      className="cmp-search__results"
+    />
+  </div>
+</div>
+`;
+
+exports[`Feature: ResultsContent Component Scenario: Rendering When displaying the shop results Then it should match snapshot 1`] = `
+Array [
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="Comprehensive Guide to HILIC: Hydrophilic Interaction Chromatography"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-hydrophilic-interaction-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715002531
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/715002531-comprehensive-guide-to-hilic-hydrophilic-interaction-chromatogra.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          Comprehensive Guide to HILIC: Hydrophilic Interaction Chromatography
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $25.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="AccQ-Tag Method Manual"
+        src="https://test-www.waters.com/content/dam/waters/en/brand-assets/thumbnails/product-thumbnail.png/_jcr_content/renditions/original"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: WAT052874
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/wat052874-accq-tag-method-manual.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          AccQ-Tag Method Manual
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $144.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="The Mass Spectrometry Primer"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-mass-spectrometry.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715001940
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/715001940-the-mass-spectrometry-primer.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          The Mass Spectrometry Primer
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $53.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="Beginners Guide to UPLC: Ultra-Performance Liquid Chromatography"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-ultra-performance-liquid-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715002099
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/715002099-beginners-guide-to-uplc-ultra-performance-liquid-chromatography.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          Beginners Guide to UPLC: Ultra-Performance Liquid Chromatography
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $25.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="Beginners Guide to Liquid Chromatography"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-liquid-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715001531
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/715001531-beginners-guide-to-liquid-chromatography.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          Beginners Guide to Liquid Chromatography
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $25.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="The Beginner's Guide to Size-Exclusion Chromatography"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-size-exclusion-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715004398
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/715004398-the-beginners-guide-to-size-exclusion-chromatography.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          The Beginner's Guide to Size-Exclusion Chromatography
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $25.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="Beginner's Guide to SPE: Solid-Phase Extraction"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-solid-phase-extraction.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715003405
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/715003405-beginners-guide-to-spe-solid-phase-extraction.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          Beginner's Guide to SPE: Solid-Phase Extraction
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $105.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="Practical Approaches to Peptide Isolation"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-peptide-isolation.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715005429
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/715005429-practical-approaches-to-peptide-isolation.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          Practical Approaches to Peptide Isolation
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $26.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="Beginner's Guide to Preparative SFC"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-preparative-sfc.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715005427
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/715005427-beginners-guide-to-preparative-sfc.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          Beginner's Guide to Preparative SFC
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $26.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="Beginner's Guide to Preparative Liquid Chromatography"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-preparative-liquid-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715005428
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/715005428-beginners-guide-to-preparative-liquid-chromatography.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          Beginner's Guide to Preparative Liquid Chromatography
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $26.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="HPLC COL THEORY TECH/PRACTICE  BOOK"
+        src="https://test-www.waters.com/content/dam/waters/en/brand-assets/thumbnails/product-thumbnail.png/_jcr_content/renditions/original"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: WAT038216
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/wat038216-hplc-col-theory-tech-practice--book.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          HPLC COL THEORY TECH/PRACTICE  BOOK
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $158.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="Beginner's Guide to Convergence Chromatography"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-convergence-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715004472
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/715004472-beginners-guide-to-convergence-chromatography.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          Beginner's Guide to Convergence Chromatography
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $25.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="NuGenesis LMS SampleShare Named User License  Subscription (1 YR)- 1 Named User License"
+        src="https://test-www.waters.com/content/dam/waters/en/brand-assets/thumbnails/product-thumbnail.png/_jcr_content/renditions/original"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 667005060
+      </div>
+      <a
+        href="/nextgen/us/en/shop/software/667005060-nugenesis-lms-sampleshare-named-user-license--subscription-1-yr-.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          NuGenesis LMS SampleShare Named User License  Subscription (1 YR)- 1 Named User License
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $290.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="Beginner's Guide to SPE: Solid-Phase Extraction"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-solid-phase-extraction.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715003405
+      </div>
+      <a
+        href="/nextgen/test_cntry/english/shop/education/715003405.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          Beginner's Guide to SPE: Solid-Phase Extraction
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $105.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Feature: SkuResults Component Scenario: Rendering When the results is not an array Then it should match snapshot 1`] = `null`;
+
+exports[`Feature: SkuResults Component Scenario: Rendering When there are no resuilts Then it should match snapshot 1`] = `null`;
+
+exports[`Feature: SkuResults Component Scenario: Rendering Where there are results Then it should match snapshot 1`] = `
+Array [
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="Comprehensive Guide to HILIC: Hydrophilic Interaction Chromatography"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-hydrophilic-interaction-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715002531
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/715002531-comprehensive-guide-to-hilic-hydrophilic-interaction-chromatogra.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          Comprehensive Guide to HILIC: Hydrophilic Interaction Chromatography
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $25.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="AccQ-Tag Method Manual"
+        src="https://test-www.waters.com/content/dam/waters/en/brand-assets/thumbnails/product-thumbnail.png/_jcr_content/renditions/original"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: WAT052874
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/wat052874-accq-tag-method-manual.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          AccQ-Tag Method Manual
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $144.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="The Mass Spectrometry Primer"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-mass-spectrometry.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715001940
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/715001940-the-mass-spectrometry-primer.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          The Mass Spectrometry Primer
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $53.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="Beginners Guide to UPLC: Ultra-Performance Liquid Chromatography"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-ultra-performance-liquid-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715002099
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/715002099-beginners-guide-to-uplc-ultra-performance-liquid-chromatography.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          Beginners Guide to UPLC: Ultra-Performance Liquid Chromatography
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $25.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="Beginners Guide to Liquid Chromatography"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-liquid-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715001531
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/715001531-beginners-guide-to-liquid-chromatography.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          Beginners Guide to Liquid Chromatography
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $25.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="The Beginner's Guide to Size-Exclusion Chromatography"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-size-exclusion-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715004398
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/715004398-the-beginners-guide-to-size-exclusion-chromatography.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          The Beginner's Guide to Size-Exclusion Chromatography
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $25.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="Beginner's Guide to SPE: Solid-Phase Extraction"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-solid-phase-extraction.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715003405
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/715003405-beginners-guide-to-spe-solid-phase-extraction.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          Beginner's Guide to SPE: Solid-Phase Extraction
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $105.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="Practical Approaches to Peptide Isolation"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-peptide-isolation.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715005429
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/715005429-practical-approaches-to-peptide-isolation.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          Practical Approaches to Peptide Isolation
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $26.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="Beginner's Guide to Preparative SFC"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-preparative-sfc.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715005427
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/715005427-beginners-guide-to-preparative-sfc.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          Beginner's Guide to Preparative SFC
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $26.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="Beginner's Guide to Preparative Liquid Chromatography"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-preparative-liquid-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715005428
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/715005428-beginners-guide-to-preparative-liquid-chromatography.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          Beginner's Guide to Preparative Liquid Chromatography
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $26.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="HPLC COL THEORY TECH/PRACTICE  BOOK"
+        src="https://test-www.waters.com/content/dam/waters/en/brand-assets/thumbnails/product-thumbnail.png/_jcr_content/renditions/original"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: WAT038216
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/wat038216-hplc-col-theory-tech-practice--book.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          HPLC COL THEORY TECH/PRACTICE  BOOK
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $158.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="Beginner's Guide to Convergence Chromatography"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-convergence-chromatography.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715004472
+      </div>
+      <a
+        href="/nextgen/us/en/shop/education/715004472-beginners-guide-to-convergence-chromatography.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          Beginner's Guide to Convergence Chromatography
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $25.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="NuGenesis LMS SampleShare Named User License  Subscription (1 YR)- 1 Named User License"
+        src="https://test-www.waters.com/content/dam/waters/en/brand-assets/thumbnails/product-thumbnail.png/_jcr_content/renditions/original"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 667005060
+      </div>
+      <a
+        href="/nextgen/us/en/shop/software/667005060-nugenesis-lms-sampleshare-named-user-license--subscription-1-yr-.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          NuGenesis LMS SampleShare Named User License  Subscription (1 YR)- 1 Named User License
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $290.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-sku-list__container "
+  >
+    <div
+      className="cmp-sku-list__right"
+    >
+      <img
+        alt="Beginner's Guide to SPE: Solid-Phase Extraction"
+        src="https://test-www.waters.com/content/dam/waters/en/Photography/Products/skus/reagents/primer-solid-phase-extraction.jpg/_jcr_content/renditions/cq5dam.thumbnail.319.319.png"
+      />
+    </div>
+    <div
+      className="cmp-sku-details__left"
+    >
+      <div
+        className="cmp-sku-list__code"
+      >
+        SKU: 715003405
+      </div>
+      <a
+        href="/nextgen/test_cntry/english/shop/education/715003405.html"
+        onClick={[Function]}
+      >
+        <div
+          className="cmp-sku-details__title"
+        >
+          Beginner's Guide to SPE: Solid-Phase Extraction
+        </div>
+      </a>
+      <div
+        className="cmp-sku-details__buyinfo"
+      >
+        <div
+          className="cmp-sku-list__priceinfo"
+        >
+          <span>
+            List Price
+          </span>
+          <div
+            className="cmp-sku__price"
+          >
+            $105.00
+          </div>
+        </div>
+        <div
+          className="cmp-sku-details__availability"
+          onClick={[Function]}
+        >
+          <span
+            className="cmp-sku-list__checkavailability"
+          >
+            See Availability
+            <div
+              alt="See Availability"
+            />
+          </span>
+        </div>
+        <div
+          className="cmp-sku-list__buttons"
+        >
+          <form>
+            <input
+              className="cmp-sku-details__quantity"
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Qty"
+              value={null}
+            />
+          </form>
+          <a
+            className="cmp-button"
+            onClick={[Function]}
+          >
+            ADD TO CART
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
 `;

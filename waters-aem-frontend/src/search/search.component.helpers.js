@@ -19,6 +19,8 @@ import {
 } from './components/filter-tags';
 import SkuList from '../sku-list';
 import Results from './components/results';
+import { propTypes, defaultProps } from './search.component.props';
+import PropTypes from 'prop-types';
 
 const FilterTagList = ({
     text,
@@ -33,9 +35,11 @@ const FilterTagList = ({
         return <div className="cmp-search-filters__emptytags" />;
     }
 
+    const keyword = filterTagsProps.spell_suggestion ? filterTagsProps.spell_suggestion : filterTagsProps.keyword;
+
     const keyWordTag = isKeywordSpecified 
         ? <KeywordTag
-                keyword={filterTagsProps.spell_suggestion ? filterTagsProps.spell_suggestion : filterTagsProps.keyword}
+                keyword={keyword}
                 text={text}
                 onRemove={filterTagsEvents.onKeywordRemove} /> 
         : <></>;
@@ -69,48 +73,73 @@ const FilterTagList = ({
     );
 }
 
-const Aside = props => {
-    const SortFilterButtons = () => {
-        return (
-            <>
-                <BtnHideSortFilter
-                    text={props.text}
-                    onClick={props.onHideSortFilterClick} />
+FilterTagList.propTypes = {
+    text: propTypes.text,
+    filterMap: propTypes.filterMap,
+    filterTagsProps: propTypes.filterTagsProps,
+    filterTagsEvents: propTypes.filterTagsEvents
+}
 
-                <BtnApplySortFilter
-                    text={props.text}
-                    applyFilters={props.onApplySortFilter}
-                    isPristine={props.sortFilterIsPristine}
-                    count={props.count} />
+FilterTagList.defaultProps = {
+    text: defaultProps.text,
+    filterMap: defaultProps.filterMap,
+    filterTagsProps: defaultProps.filterTagsProps,
+    filterTagsEvents: defaultProps.filterTagsEvents
+}
 
-                <BtnDoneSortFilter
-                    text={props.text}
-                    collapseFilters={props.onCollapseFilters} />
-            </>
-        );
-    };
 
+const Aside = ({
+    text,
+    asideProps,
+    asideEvents,
+    children
+}) => {
     return (
         <div className="container__left cmp-search__sort-filter">
-            <SortFilterButtons />
+            <BtnHideSortFilter
+                text={text}
+                onClick={asideEvents.onHideSortFilterClick} />
+
+            <BtnApplySortFilter
+                text={text}
+                applyFilters={asideEvents.onApplySortFilter}
+                isPristine={asideProps.sortFilterIsPristine}
+                count={asideProps.count} />
+
+            <BtnDoneSortFilter
+                text={text}
+                collapseFilters={asideEvents.onCollapseFilters} />
             <div className="cmp-search__sort-filter__container">
                 <Sort
-                    sortValue={props.sortValue}
-                    sortHandler={props.onSort}
-                    text={props.text} />
-                {props.children}
+                    sortValue={asideProps.sortValue}
+                    sortHandler={asideEvents.onSort}
+                    text={text} />
+                {children}
             </div>
         </div>
     );
 }
 
+Aside.propTypes = {
+    text: propTypes.text,
+    asideProps: propTypes.asideProps,
+    asideEvents: propTypes.asideEvents
+}
+
+Aside.defaultProps = {
+    text: defaultProps.text,
+    asideProps: defaultProps.asideProps,
+    asideEvents: defaultProps.asideEvents
+}
+
+
 const Menu = ({
     text,
     filterMap,
-    menuProps, 
-    contentTypeMenuProps, 
-    contentTypeMenuEvents, 
-    facetMenuProps, 
+    menuProps,
+    contentTypeMenuProps,
+    contentTypeMenuEvents,
+    facetMenuProps,
     facetMenuEvents,
     subFacetFiltersProps,
     subFacetFiltersEvents,
@@ -160,6 +189,35 @@ const Menu = ({
     }
 }
 
+Menu.propTypes = {
+    text: propTypes.text,
+    filterMap: propTypes.filterMap,
+    menuProps: propTypes.menuProps, 
+    contentTypeMenuProps: propTypes.contentTypeMenuProps,
+    contentTypeMenuEvents: propTypes.contentTypeMenuEvents, 
+    facetMenuProps: propTypes.facetMenuProps,
+    facetMenuEvents: propTypes.facetMenuEvents,
+    subFacetFiltersProps: propTypes.subFacetFiltersProps,
+    subFacetFiltersEvents: propTypes.subFacetFiltersEvents,
+    filterTagsProps: propTypes.filterTagsProps,
+    filterTagsEvents: propTypes.filterTagsEvents
+}
+
+Menu.defaultProps = {
+    text: defaultProps.text,
+    filterMap: defaultProps.filterMap,
+    menuProps: defaultProps.menuProps, 
+    contentTypeMenuProps: defaultProps.contentTypeMenuProps,
+    contentTypeMenuEvents: defaultProps.contentTypeMenuEvents, 
+    facetMenuProps: defaultProps.facetMenuProps,
+    facetMenuEvents: defaultProps.facetMenuEvents,
+    subFacetFiltersProps: defaultProps.subFacetFiltersProps,
+    subFacetFiltersEvents: defaultProps.subFacetFiltersEvents,
+    filterTagsProps: defaultProps.filterTagsProps,
+    filterTagsEvents: defaultProps.filterTagsEvents
+}
+
+
 const SkuResults = ({
     items,
     skuConfig,
@@ -190,9 +248,21 @@ const SkuResults = ({
     );
 }
 
+SkuResults.propTypes = {
+    skuConfig: propTypes.skuConfig,
+    items: PropTypes.any,
+    onItemClick: PropTypes.func.isRequired
+};
+
+SkuResults.defaultProps = {
+    skuConfig: defaultProps.skuConfig,
+    items: [],
+    onItemClick: () => {}
+};
+
+
 const ResultsContent = ({
     text, 
-    filterMap,
     skuConfig,
     searchParams,
     resultsProps,
@@ -216,6 +286,23 @@ const ResultsContent = ({
             onItemClick={resultsEvents.onResultsItemClick} />
     );
 }
+
+ResultsContent.propTypes = {
+    text: propTypes.text,
+    skuConfig: propTypes.skuConfig,
+    searchParams: propTypes.searchParams,
+    resultsProps: propTypes.resultsProps,
+    resultsEvents: propTypes.resultsEvents
+}
+
+ResultsContent.defaultProps = {
+    text: defaultProps.text,
+    skuConfig: defaultProps.skuConfig,
+    searchParams: defaultProps.searchParams,
+    resultsProps: defaultProps.resultsProps,
+    resultsEvents: defaultProps.resultsEvents
+}
+
 
 const Pagination = ({
     resultsProps,
@@ -242,6 +329,21 @@ const Pagination = ({
             disableInitialCallback={true} />
     );
 };
+
+Pagination.propTypes = {
+    resultsProps: propTypes.resultsProps,
+    resultsEvents: propTypes.resultsEvents,
+    nextIcon: PropTypes.string,
+    previousIcon: PropTypes.string
+};
+
+Pagination.defaultProps = {
+    resultsProps: defaultProps.resultsProps,
+    resultsEvents: defaultProps.resultsEvents,
+    nextIcon: "",
+    previousIcon: ""
+};
+
 
 const ResultsBody = ({
     text, 
@@ -307,4 +409,37 @@ const ResultsBody = ({
     );
 }
 
-export { FilterTagList, Aside, Menu, ResultsBody }
+ResultsBody.propTypes = {
+    text: propTypes.text, 
+    filterMap: propTypes.filterMap,
+    skuConfig: propTypes.skuConfig,
+    searchParams: propTypes.searchParams,
+    categoryProps: propTypes.categoryProps, 
+    categoryEvents: propTypes.categoryEvents,
+    showSortFilterProps: propTypes.showSortFilterProps,
+    showSortFilterEvents: propTypes.showSortFilterEvents,
+    asideProps: propTypes.asideProps,
+    filterTagsProps: propTypes.filterTagsProps,
+    filterTagsEvents: propTypes.filterTagsEvents,
+    resultsProps: propTypes.resultsProps,
+    resultsEvents: propTypes.resultsEvents
+}
+
+ResultsBody.defaultProps = {
+    text: defaultProps.text, 
+    filterMap: defaultProps.filterMap,
+    skuConfig: defaultProps.skuConfig,
+    searchParams: defaultProps.searchParams,
+    categoryProps: defaultProps.categoryProps, 
+    categoryEvents: defaultProps.categoryEvents,
+    showSortFilterProps: defaultProps.showSortFilterProps,
+    showSortFilterEvents: defaultProps.showSortFilterEvents,
+    asideProps: defaultProps.asideProps,
+    filterTagsProps: defaultProps.filterTagsProps,
+    filterTagsEvents: defaultProps.filterTagsEvents,
+    resultsProps: defaultProps.resultsProps,
+    resultsEvents: defaultProps.resultsEvents
+}
+
+
+export { FilterTagList, Aside, Menu, SkuResults, ResultsContent, Pagination, ResultsBody }
