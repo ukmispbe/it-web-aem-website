@@ -136,6 +136,10 @@ button.cmp-button--cancel {
         background-color: transparent;
         color: $color-link-hover;
     }
+
+    @include mobile {
+        margin: 0.75em 0 2.75em;
+    }
 }
 
 @media (max-width: 768px) {

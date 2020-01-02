@@ -10,4 +10,5 @@
           emailValidationUrl="https://test-www.waters.com:8443/api/waters/user/v1/validate/{email}"
           pwResetUrl="https://test-www.waters.com:8443/api/waters/user/v1/reset/password?email={email}"
           changePwUrl="https://test-www.waters.com:8443/api/waters/user/v1/change/password"
-          userDetailsUrl="https://test-www.waters.com:8443/api/waters/user/v1/details?email={email}"/>
+          userDetailsUrl="https://test-www.waters.com:8443/api/waters/user/v1/details?email={email}"
+          soldToDetailsUrl="https://test-www.waters.com:8443/api/waters/user/v1/retrievesoldto?email={email}"/>

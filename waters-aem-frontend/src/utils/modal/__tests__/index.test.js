@@ -1,7 +1,7 @@
 jest.mock('../modal-portal');
 
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 
 import Modal, { Header } from '../index';
@@ -12,8 +12,14 @@ describe('Feature: Modal Component', () => {
 
         describe('When the modal is rendered in a closed state', () => {
             it('Then the snapshot should match', () => {
+
+                let isOpen = false;
+                const toggleModal = jest.fn(() => {
+                    isOpen = !isOpen;
+                })
+
                 const component = renderer.create(
-                    <Modal isOpen={false} />
+                    <Modal isOpen={isOpen} onClose={toggleModal} />
                 );
 
                 expect(component).toMatchSnapshot();
@@ -23,8 +29,13 @@ describe('Feature: Modal Component', () => {
         describe('When the modal is rendered in an open state', () => {
             it('Then the snapshot should match', () => {
 
+                let isOpen = true;
+                const toggleModal = jest.fn(() => {
+                    isOpen = !isOpen;
+                })
+
                 const component = renderer.create(
-                    <Modal isOpen={true} />
+                    <Modal isOpen={isOpen} onClose={toggleModal}/>
                 );
 
                 expect(component).toMatchSnapshot();
@@ -40,7 +51,7 @@ describe('Feature: Modal Component', () => {
                 })
                     
                 const component = renderer.create(
-                    <Modal isOpen={true} onClose={toggleModal}>
+                    <Modal isOpen={isOpen} onClose={toggleModal}>
                         <Header />
                     </Modal>
                 );
@@ -74,7 +85,7 @@ describe('Feature: Modal Component', () => {
                 })
                     
                 const component = renderer.create(
-                    <Modal isOpen={true} onClose={toggleModal}>
+                    <Modal isOpen={isOpen} onClose={toggleModal}>
                         <Header {...props} />
                     </Modal>
                 );
@@ -97,7 +108,7 @@ describe('Feature: Modal Component', () => {
                 })
                     
                 const component = renderer.create(
-                    <Modal isOpen={true} onClose={toggleModal}>
+                    <Modal isOpen={isOpen} onClose={toggleModal}>
                         <Header {...props} />
                     </Modal>
                 );
@@ -105,5 +116,50 @@ describe('Feature: Modal Component', () => {
                 expect(component).toMatchSnapshot();
             });
         });
+    });
+
+    describe('Scenario: User Interaction', () => {
+        describe('When the overlay is clicked on tablet & above', () => {
+            it('Then it should call the close handler property', () => {
+                let isOpen = true;
+                const toggleModal = jest.fn(() => {
+                    isOpen = !isOpen;
+                })
+
+                const component = mount(<Modal isOpen={isOpen} onClose={toggleModal} />);
+
+                const overlay = component.find('.cmp-modal-box');
+                overlay.simulate('click');
+
+                expect(toggleModal).toHaveBeenCalled();
+            });
+        });
+
+        describe('When the close button is clicked', () => {
+            it('Then it should call the close handler property', () => {
+
+                const props = {
+                    icon: '/content/dam/waters/en/brand-assets/icons/close.svg',
+                    title: 'TEST TITLE'
+                }
+
+                let isOpen = true;
+                const toggleModal = jest.fn(() => {
+                    isOpen = !isOpen;
+                })
+
+                const component = mount(
+                    <Modal isOpen={isOpen} onClose={toggleModal}>
+                        <Header {...props} />
+                    </Modal>
+                );
+
+                const icon = component.find('.cmp-modal__close-icon ReactSVG');
+                icon.simulate('click');
+
+                expect(toggleModal).toHaveBeenCalled();
+            });
+        });
+
     });
 });

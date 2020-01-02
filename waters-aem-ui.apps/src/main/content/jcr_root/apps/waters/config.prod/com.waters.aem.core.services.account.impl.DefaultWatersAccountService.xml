@@ -10,4 +10,5 @@
           emailValidationUrl="https://prodservices.waters.com/api/waters/user/v1/validate/{email}"
           pwResetUrl="https://prodservices.waters.com/api/waters/user/v1/reset/password?email={email}"
           changePwUrl="https://prodservices.waters.com/api/waters/user/v1/change/password"
-          userDetailsUrl="https://prodservices.waters.com/api/waters/user/v1/details?email={email}"/>
+          userDetailsUrl="https://prodservices.waters.com/api/waters/user/v1/details?email={email}"
+          soldToDetailsUrl="https://prodservices.waters.com/api/waters/user/v1/retrievesoldto?email={email}"/>

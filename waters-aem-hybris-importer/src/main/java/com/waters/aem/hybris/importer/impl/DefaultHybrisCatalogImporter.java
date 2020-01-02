@@ -103,11 +103,13 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             final Map<String, Set<String>> categoryIdToProductCodeMap = getCategoryIdToProductCodeMap(
                 resourceResolver);
 
+            final Map<String, String> skuCodeToPagePathMap = skuRepository.getSkuCodeToPagePathMap(catalogRootPage);
+
             final Category rootCategory = hybrisClient.getRootCategory();
 
             for (final Category category : rootCategory.getSubcategories()) {
                 final CatalogImporterContext context = new CatalogImporterContext(resourceResolver,
-                    categoryIdToProductCodeMap, catalogRootPage, category);
+                    categoryIdToProductCodeMap, catalogRootPage, category, skuCodeToPagePathMap);
 
                 results.addAll(processCategoryPages(context));
             }
@@ -115,7 +117,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
             resourceResolver.commit();
 
             LOG.info("imported {} catalog pages in {}ms", results.size(), stopwatch.elapsed(TimeUnit.MILLISECONDS));
-        } catch (LoginException | IOException | WCMException | URISyntaxException e) {
+        } catch (LoginException | IOException | WCMException | URISyntaxException | RepositoryException e) {
             LOG.error("error importing hybris catalog pages", e);
 
             throw new HybrisImporterException(e);
@@ -257,9 +259,18 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         final PageManagerDecorator pageManager = context.getPageManager();
 
+        HybrisImportStatus status = null;
+
         PageDecorator skuPage = pageManager.getPage(skuPagePath);
 
-        HybrisImportStatus status = null;
+        if (skuPage == null) {
+            // check if a page already exists for this sku code, despite a difference in sku title
+            final String skuMappedPath = context.getSkuCodeToSkuPagePathMap().get(sku.getCode());
+
+            if (skuMappedPath != null) {
+                skuPage = pageManager.getPage(context.getSkuCodeToSkuPagePathMap().get(sku.getCode()));
+            }
+        }
 
         if (skuPage == null) {
             // create new page
@@ -279,7 +290,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
                 status = HybrisImportStatus.UPDATED;
 
                 // updated sku page, also update all language/live copies of the current page
-                results.addAll(updateSkuPageLiveCopies(skuPage, sku));
+                results.addAll(updateSkuPageLiveCopies(skuPage, sku, context.getResourceResolver()));
             }
 
             LOG.debug("found existing sku page : {}, status : {}", skuPage.getPath(), status);
@@ -402,11 +413,13 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         return results;
     }
 
-    private List<HybrisImporterResult> updateSkuPageLiveCopies(final PageDecorator skuPage, final Sku sku) {
+    private List<HybrisImporterResult> updateSkuPageLiveCopies(final PageDecorator skuPage, final Sku sku,
+        final ResourceResolver resourceResolver) throws PersistenceException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         for (final PageDecorator liveCopyPage : getLiveCopyPages(skuPage)) {
             updateSkuPageProperties(liveCopyPage, sku);
+            createOrUpdateThumbnail(resourceResolver, sku, liveCopyPage);
 
             results.add(HybrisImporterResult.fromSkuPage(liveCopyPage, HybrisImportStatus.UPDATED));
         }
@@ -463,6 +476,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         updatedProperties.put(WatersCommerceConstants.PROPERTY_PRODUCT_RESOURCE_PATH, sku.getPath());
         updatedProperties.put(WatersCommerceConstants.PROPERTY_CODE, sku.getCode());
         updatedProperties.put(JcrConstants.JCR_DESCRIPTION, sku.getLongDescription());
+        updatedProperties.put(JcrConstants.JCR_TITLE, sku.getTitle());
 
         if (sku.getPrimaryImageSrc() != null) {
             updatedProperties.put(WatersConstants.OG_IMAGE, sku.getPrimaryImageSrc());

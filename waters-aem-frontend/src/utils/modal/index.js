@@ -58,7 +58,6 @@ const Modal = props => {
     );
 };
 
-
 Modal.propTypes = {
     onClose: PropTypes.func.isRequired,
     closeIcon: PropTypes.string
@@ -67,7 +66,6 @@ Modal.propTypes = {
 Modal.defaultProps = {
     onClose: () => { }
 }
-
 
 const Header = props => {
     const { onClose, closeIcon } = useContext(ModalApi);
@@ -108,7 +106,8 @@ const Header = props => {
 
 Header.propTypes = {
     icon: PropTypes.string,
-    title: PropTypes.string
+    title: PropTypes.string,
+    className: PropTypes.string
 }
 
 export default Modal;

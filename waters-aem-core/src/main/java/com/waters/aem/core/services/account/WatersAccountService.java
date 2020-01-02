@@ -64,4 +64,18 @@ public interface WatersAccountService {
      * @return User Details API URL
      */
     String getUserDetailsUrl();
+
+    /**
+     * Get the configured URL for the Sold To Details API.
+     *
+     * @return Sold To Details API URL
+     */
+    String getSoldToDetailsUrl();
+
+    /**
+     * Get the configured URL for update password API.
+     *
+     * @return User update password API URL
+     */
+    String getUpdatePasswordUrl();
 }

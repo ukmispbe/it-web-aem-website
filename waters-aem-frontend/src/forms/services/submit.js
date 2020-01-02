@@ -89,7 +89,10 @@ export async function resetPasswordSubmit(data) {
 
 export async function changePasswordSubmit(data) {
     delete data.confirmNewPassword;
-    data.email='testPB@waters.com';
+
+    const queryString = parse(window.location.search);
+    const email = queryString.email;
+    data.email = email;
 
     const response = await postData(this.url, data);
 
@@ -97,7 +100,11 @@ export async function changePasswordSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-        console.log("change password complete -> redirect", response.json());
+        console.log('update password complete -> redirect');
+
+        if (this.callback && typeof this.callback === 'function') {
+            this.callback(await response.json());
+        }
     } else {
         this.setError(response);
         scrollToY(0);

@@ -6,8 +6,10 @@ const keys = {
     previousPaginationClick: 'waters.previousPaginationClick',
     dismissSystemWideNotification: 'waters.dismissSystemWideNotification',
     userDetails: 'waters.userDetails',
-    userToken: 'waters.userToken'
+    userToken: 'waters.userToken',
+    soldToDetails: 'waters.soldToDetails',
 }
+
 
 const getJSONObject = key => {
     const value = window.sessionStorage.getItem(key);
@@ -15,6 +17,8 @@ const getJSONObject = key => {
 }
 
 const SessionStore = function () {
+    this.setSoldToDetails = value => window.sessionStorage.setItem(keys.soldToDetails, JSON.stringify(value)),
+    this.getSoldToDetails = () => getJSONObject(keys.soldToDetails),
     this.setUserToken = value => window.sessionStorage.setItem(keys.userToken, value);
     this.getUserToken = () => window.sessionStorage.getItem(keys.userToken);
     this.setUserDetails = value => window.sessionStorage.setItem(keys.userDetails, JSON.stringify(value));

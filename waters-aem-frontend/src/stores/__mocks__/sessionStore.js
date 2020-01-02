@@ -6,10 +6,13 @@ const keys = {
     previousPaginationClick: 'waters.previousPaginationClick',
     dismissSystemWideNotification: 'waters.dismissSystemWideNotification',
     userDetails: 'waters.userDetails',
-    userToken: 'waters.userToken'
+    userToken: 'waters.userToken',
+    soldToDetails: 'waters.soldToDetails'
 }
 
 const SessionStore = function () {
+    this.setSoldToDetails = jest.fn(() => {});
+    this.getSoldToDetails = jest.fn(() => {});
     this.setUserToken = jest.fn(() => {});
     this.getUserToken = jest.fn(() => {});
     this.setUserDetails = jest.fn(() => {});

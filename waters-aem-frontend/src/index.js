@@ -14,18 +14,23 @@ import Form from './forms/form';
 import {
     registrationSubmit,
     resetPasswordSubmit,
-    troubleSigningInSubmit
+    troubleSigningInSubmit,
+    changePasswordSubmit
 } from './forms/services/submit';
 import Video from './video/index';
 import Chat from './chat';
 import DetailTiles from './detail-tiles';
 import DigitalData from './scripts/DigitalData';
 import WeChat from './wechat';
+import CountrySelector from './country-selector';
 
 if (process.env.NODE_ENV !== 'production') {
     const whyDidYouRender = require('@welldone-software/why-did-you-render');
     whyDidYouRender(React);
 }
+
+const globalTranslationsScript = document.getElementById('global-translations-json');
+const globalTranslations = globalTranslationsScript ? JSON.parse(globalTranslationsScript.innerHTML) : {};
 
 function getAuthoredDataForSearchBar(c, h) {
     return {
@@ -220,7 +225,10 @@ if (header && MyAccountDropDownContainer) {
         document.getElementById('account-modal-configs-json').innerHTML
     );
 
-    ReactDOM.render(<MyAccountDropDown config={config} />, MyAccountDropDownContainer);
+    ReactDOM.render(
+        <MyAccountDropDown config={config} />,
+        MyAccountDropDownContainer
+    );
 }
 
 const skuUnavailableContainer = document.querySelector(
@@ -341,25 +349,22 @@ if (resetPasswordContainer) {
         document.getElementById('cmp-reset-password-form').innerHTML
     );
 
-    console.log(DigitalData.language);
-
     ReactDOM.render(
         <Form config={config} submitFn={resetPasswordSubmit} />,
         resetPasswordContainer
     );
 }
 
-const changePasswordContainer = document.getElementById("changePassword-details-tile");
+const changePasswordContainer = document.getElementById(
+    'changePassword-details-tile'
+);
 
 if (changePasswordContainer) {
     const config = JSON.parse(
-        document.getElementById("cmp-detail-tiles--changePassword").innerHTML
+        document.getElementById('cmp-detail-tiles--changePassword').innerHTML
     );
 
-    ReactDOM.render(
-        <DetailTiles {...config} />,
-        changePasswordContainer
-    );
+    ReactDOM.render(<DetailTiles {...config} />, changePasswordContainer);
 }
 
 const chatContainer = document.querySelector('.cmp-chat');
@@ -390,10 +395,7 @@ if (personalDetailsTile) {
         document.getElementById('cmp-detail-tiles--personal').innerHTML
     );
 
-    ReactDOM.render(
-        <DetailTiles {...config} />,
-        personalDetailsTile
-    );
+    ReactDOM.render(<DetailTiles {...config} />, personalDetailsTile);
 }
 
 const shippingDetailsTile = document.getElementById('shipping-details-tile');
@@ -403,10 +405,7 @@ if (shippingDetailsTile) {
         document.getElementById('cmp-detail-tiles--shipping').innerHTML
     );
 
-    ReactDOM.render(
-        <DetailTiles {...config} />,
-        shippingDetailsTile
-    );
+    ReactDOM.render(<DetailTiles {...config} />, shippingDetailsTile);
 }
 
 const billingDetailsTile = document.getElementById('billing-details-tile');
@@ -416,30 +415,37 @@ if (billingDetailsTile) {
         document.getElementById('cmp-detail-tiles--billing').innerHTML
     );
 
-    ReactDOM.render(
-        <DetailTiles {...config} />,
-        billingDetailsTile
-    );
+    ReactDOM.render(<DetailTiles {...config} />, billingDetailsTile);
 }
 
-const changePasswordDetailsTile = document.getElementById('changePassword-details-tile');
+const changePasswordDetailsTile = document.getElementById(
+    'changePassword-details-tile'
+);
 
 if (changePasswordDetailsTile) {
     const config = JSON.parse(
         document.getElementById('cmp-detail-tiles--changePassword').innerHTML
     );
 
-    ReactDOM.render(
-        <DetailTiles {...config} />,
-        changePasswordDetailsTile
-    );
+    config.submitFn = changePasswordSubmit;
+
+    ReactDOM.render(<DetailTiles {...config} />, changePasswordDetailsTile);
 }
 
 const wechat = document.querySelector('.cmp-wechat');
 const wechatContainer = document.querySelector('.cmp-wechat-container');
-const wechatJSON = document.getElementById("wechat-json");
+const wechatJSON = document.getElementById('wechat-json');
 
 if (wechat && wechatContainer && wechatJSON) {
     const config = JSON.parse(wechatJSON.innerHTML);
     ReactDOM.render(<WeChat config={config} />, wechatContainer);
+}
+
+const countryModalRoot = document.getElementById('country-selector-root');
+
+if (countryModalRoot) {
+    const scriptElement = document.getElementById('country-list-json');
+    const countries = scriptElement ? JSON.parse(scriptElement.innerHTML) : [];
+
+    ReactDOM.render(<CountrySelector countries={countries} translations={globalTranslations} />, countryModalRoot);
 }

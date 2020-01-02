@@ -10,4 +10,5 @@
           emailValidationUrl="https://stgservices.waters.com/api/waters/user/v1/validate/{email}"
           pwResetUrl="https://stgservices.waters.com/api/waters/user/v1/reset/password?email={email}"
           changePwUrl="https://stgservices.waters.com/api/waters/user/v1/change/password"
-          userDetailsUrl="https://stgservices.waters.com/api/waters/user/v1/details?email={email}"/>
+          userDetailsUrl="https://stgservices.waters.com/api/waters/user/v1/details?email={email}"
+          soldToDetailsUrl="https://stgservices.waters.com/api/waters/user/v1/retrievesoldto?email={email}"/>
