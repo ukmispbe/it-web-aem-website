@@ -20,12 +20,6 @@ const CountrySelection = props => {
 
     return (
         <div className="cmp-country-selector">
-            {/* <div className="cmp-country-selector__title">
-                <ReactSVG src="/content/dam/waters/en/brand-assets/icons/globe.svg" />
-                <div>
-                    {props.translations.preferredCountryHeading}
-                </div>
-            </div> */}
             <div className="cmp-country-selector__text">
                 {props.translations.changeCountryText}
             </div>
