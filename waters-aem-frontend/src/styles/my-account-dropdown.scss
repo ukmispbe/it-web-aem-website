@@ -13,7 +13,7 @@
     }
 
     hr {
-        margin: 0 0 $space-s;
+        margin: 0 0 $space-xs;
         @include mobile {
             width: 100%;
         }
@@ -22,8 +22,6 @@
     &__user-details {
         &__name {
             @include font-h3;
-            font-weight: $font-weight-bold;
-            margin-bottom: $space-xs;
         }
         &__account {
             @include font-small;
