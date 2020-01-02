@@ -7,6 +7,7 @@ export default {
     option: (provided, state) => ({
         ...provided,
         color: variables.colorGray50,
+        padding: '0.75em 1em',
         backgroundColor: state.isSelected
             ? variables.colorBackgroundLight
             : variables.colorWhite,
