@@ -24,4 +24,6 @@ class Feature {
     String publicWebLabel
 
     Boolean range
+
+    Boolean multiValued
 }
