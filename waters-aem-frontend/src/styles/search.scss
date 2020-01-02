@@ -193,6 +193,11 @@ div.cmp-search__no-results {
                 color: $color-link;
                 border: 1px solid $color-link;
             }
+
+            &:active {
+                color: $color-font-medium;
+                border: 1px solid $color-border-dark;
+            }
         }
         &.disabled {
             a {
@@ -554,6 +559,7 @@ html.showing-spinner {
                 display: block;
                 @include sticky-show-sort;
                 z-index: ($cmp-banner-z-index + 1) !important;
+                border-radius: 0;
                 .filterIcon {
                     display: none;
                 }
