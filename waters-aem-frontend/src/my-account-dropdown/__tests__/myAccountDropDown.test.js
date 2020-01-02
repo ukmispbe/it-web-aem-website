@@ -86,92 +86,130 @@ describe('Feature: My Account Dropdown Component', () => {
 			});
 		});
 
-		describe('When there is an Account Name & Number', () => {
-			it('Then both should render', () => {
-				const wrapper = buildShallowWrapper(
-					UserDetailFuncs.renderAccountDetails,
-					props
-				);
-				const AccountName = wrapper.find(keys.accountName);
-				const AccountNumber = wrapper.find(keys.accountNumber);
-				expect(AccountName.text()).toEqual(props.accountName);
-				expect(AccountNumber.text()).toEqual(props.accountNumber);
+		describe('Given that there is a valid SoldToAccount Account from SAP', () => {
+
+			describe('When there is an Account Name & Number', () => {
+				it('Then both should render', () => {
+					const wrapper = buildShallowWrapper(
+						UserDetailFuncs.renderAccountDetails,
+						props,
+						[false, false, true]
+					);
+					const AccountName = wrapper.find(keys.accountName);
+					const AccountNumber = wrapper.find(keys.accountNumber);
+					expect(AccountName.text()).toEqual(props.accountName);
+					expect(AccountNumber.text()).toEqual(props.accountNumber);
+				});
 			});
-        });
-        
-		describe('When there is not an Account Name ', () => {
-			it('Then only the Account Name should render', () => {
-				const wrapper = buildShallowWrapper(
-					UserDetailFuncs.renderAccountDetails,
-					buildNewProps(props, { accountName: '' })
-				);
-				expect(wrapper.exists(keys.accountName)).toEqual(false);
-				expect(wrapper.exists(keys.accountNumber)).toEqual(true);
+			
+			describe('When there is not an Account Name ', () => {
+				it('Then only the Account Name should render', () => {
+					const wrapper = buildShallowWrapper(
+						UserDetailFuncs.renderAccountDetails,
+						buildNewProps(props, { accountName: '' },
+						[false, false, true])
+					);
+					expect(wrapper.exists(keys.accountName)).toEqual(false);
+					expect(wrapper.exists(keys.accountNumber)).toEqual(true);
+				});
 			});
-        });
-        
-		describe('When there is not an Account Number ', () => {
-			it('Then only the Account Number should render', () => {
-				const wrapper = buildShallowWrapper(
-					UserDetailFuncs.renderAccountDetails,
-					buildNewProps(props, { accountNumber: '' })
-				);
-				expect(wrapper.exists(keys.accountName)).toEqual(true);
-				expect(wrapper.exists(keys.accountNumber)).toEqual(false);
+			
+			describe('When there is not an Account Number ', () => {
+				it('Then only the Account Number should render', () => {
+					const wrapper = buildShallowWrapper(
+						UserDetailFuncs.renderAccountDetails,
+						buildNewProps(props, { accountNumber: '' },
+						[false, false, true])
+					);
+					expect(wrapper.exists(keys.accountName)).toEqual(true);
+					expect(wrapper.exists(keys.accountNumber)).toEqual(false);
+				});
 			});
+
+			describe('When there is not an Account Number or Account Name ', () => {
+				it('Then neither should render', () => {
+					const wrapper = buildShallowWrapper(
+						UserDetailFuncs.renderAccountDetails,
+						buildNewProps(props, { accountName: '', accountNumber: '' },
+						[false, false, true])
+					);
+					expect(wrapper.exists(keys.account)).toEqual(false);
+				});
+			});
+			
+			describe('When there is an authored Switch Account URL & text', () => {
+				it('Then the link should render', () => {
+					const wrapper = buildShallowWrapper(
+						UserDetailFuncs.renderSwitchAccountLink,
+						props,
+						[false, false, true]
+					);
+					const SwitchAccount = wrapper.find(keys.switchAccount);
+					expect(SwitchAccount.text()).toEqual(props.switchAccount.text);
+					expect(SwitchAccount.prop('href')).toEqual(props.switchAccount.url);
+				});
+			});
+
+			describe('When there is no authored Switch Account URL ', () => {
+				it('Then the link should not render', () => {
+					const wrapper = buildShallowWrapper(
+						UserDetailFuncs.renderSwitchAccountLink,
+						buildNewProps(props, {
+							switchAccount: {
+								text: 'Switch Account',
+								url: '',
+							},
+						}),
+						[false, false, true]
+					);
+					expect(wrapper.exists(keys.switchAccount)).toEqual(false);
+				});
+			});
+			
+			describe('When there is no authored Switch Account text ', () => {
+				it('Then the link should not render', () => {
+					const wrapper = buildShallowWrapper(
+						UserDetailFuncs.renderSwitchAccountLink,
+						buildNewProps(props, {
+							switchAccount: {
+								text: '',
+								url: 'http://www.waters.com',
+							},
+						}),
+						[false, false, true]
+					);
+					expect(wrapper.exists(keys.switchAccount)).toEqual(false);
+				});
+			});
+			
 		});
 
-		describe('When there is not an Account Number or Account Name ', () => {
-			it('Then neither should render', () => {
-				const wrapper = buildShallowWrapper(
-					UserDetailFuncs.renderAccountDetails,
-					buildNewProps(props, { accountName: '', accountNumber: '' })
-				);
-				expect(wrapper.exists(keys.account)).toEqual(false);
+		describe('Given that there is not a valid SoldToAccount Account from SAP', () => {
+			describe('When there is not an Account Number or Account Name ', () => {
+				it('Then neither should render', () => {
+					const wrapper = buildShallowWrapper(
+						UserDetailFuncs.renderAccountDetails,
+						props
+						[false, false, false]
+					);
+					expect(wrapper.exists(keys.account)).toEqual(false);
+				});
 			});
-		});
+			
+			describe('When there is an authored Switch Account URL & text', () => {
+				it('Then the link should not render', () => {
+					const wrapper = buildShallowWrapper(
+						UserDetailFuncs.renderSwitchAccountLink,
+						props,
+						[false, false, false]
+					);
+					expect(wrapper.exists(keys.switchAccount)).toEqual(false);
+				});
+			});
 		
-		describe('When there is an authored Switch Account URL & text', () => {
-			it('Then the link should render', () => {
-				const wrapper = buildShallowWrapper(
-					UserDetailFuncs.renderSwitchAccountLink,
-					props
-				);
-				const SwitchAccount = wrapper.find(keys.switchAccount);
-				expect(SwitchAccount.text()).toEqual(props.switchAccount.text);
-				expect(SwitchAccount.prop('href')).toEqual(props.switchAccount.url);
-			});
-		});
 
-		describe('When there is no authored Switch Account URL ', () => {
-			it('Then the link should not render', () => {
-				const wrapper = buildShallowWrapper(
-					UserDetailFuncs.renderSwitchAccountLink,
-					buildNewProps(props, {
-						switchAccount: {
-							text: 'Switch Account',
-							url: '',
-						},
-					})
-				);
-				expect(wrapper.exists(keys.switchAccount)).toEqual(false);
-			});
-        });
-        
-		describe('When there is no authored Switch Account text ', () => {
-			it('Then the link should not render', () => {
-				const wrapper = buildShallowWrapper(
-					UserDetailFuncs.renderSwitchAccountLink,
-					buildNewProps(props, {
-						switchAccount: {
-							text: '',
-							url: 'http://www.waters.com',
-						},
-					})
-				);
-				expect(wrapper.exists(keys.switchAccount)).toEqual(false);
-			});
 		});
+	
 	});
 
 	describe('Scenario: Rendering ItemList', () => {

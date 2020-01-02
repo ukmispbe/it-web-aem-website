@@ -1,4 +1,5 @@
 import React from 'react';
+import CheckOutStatus from '../scripts/checkOutStatus';
 
 const renderUserName = props => {
     return (
@@ -34,6 +35,8 @@ const renderAccountDetails = props => {
 };
 
 const renderSwitchAccountLink = props => {
+    if (CheckOutStatus.length < 2) return <></>
+    
     return (
         <>
             {props.switchAccount.text && props.switchAccount.url && (

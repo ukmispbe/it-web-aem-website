@@ -2,7 +2,7 @@ jest.mock('../../stores/sessionStore');
 
 import SoldToDetails, { replaceParameter, sortPriority } from '../services/SoldToDetails';
 import SessionStore, { keys as StoreKeys }from '../../stores/sessionStore';
-import { userTokenStr, soldToDetailsJSON, soldToDetailsURL, soldToDetailsSortedJSON } from '../__mocks__/en_US/mock-services-json';
+import { userTokenStr, soldToDetailsJSON, soldToDetailsURL, soldToDetailsSortedJSON, userTokenStrInvalidSoldTo, soldToDetailsInvalidSoldToJSON } from '../__mocks__/en_US/mock-services-json';
 
 const test = (value, regex) => regex.test(value);
 const emailValidationRegEx = /(\?email=)(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -43,7 +43,7 @@ describe('Feature: Sold To Details Service Call', () => {
 
         describe(`Given "${StoreKeys.soldToDetails}" session storage is empty`, () => {
 
-            describe(`When "${StoreKeys.userToken}" contains a valid email (ie "${userTokenStr}")`, () => {
+            describe(`When "${StoreKeys.userToken}" contains a valid email with an associated SoldTo/SAP Account(s) (ie "${userTokenStr}")`, () => {
 
                 let requestUrl;
                 let sessionStore;
@@ -72,7 +72,7 @@ describe('Feature: Sold To Details Service Call', () => {
                     });
 
                     sessionStore.getSoldToDetails = jest.fn(() => {
-                        return  currentSoldToDetails ? JSON.parse(currentSoldToDetails) : {}
+                        return currentSoldToDetails ? JSON.parse(currentSoldToDetails) : null;
                     });
 
                     sessionStore.getUserToken = jest.fn(() => {
@@ -94,6 +94,50 @@ describe('Feature: Sold To Details Service Call', () => {
                     const response = await SoldToDetails(requestUrl, sessionStore);
                     expect(response).toEqual(soldToDetailsSortedJSON);
                     expect(sortPriority(soldToDetailsJSON)).toEqual(soldToDetailsSortedJSON);
+                });
+            });
+
+            describe(`When "${StoreKeys.userToken}" contains a valid account email but not a valid associated SoldTo/SAP Account (ie "${userTokenStr}")`, () => {
+
+                let requestUrl;
+                let sessionStore;
+
+                beforeAll(() => {
+                    window.fetch = jest.fn().mockImplementation((url) =>
+                        Promise.resolve(
+                            mockResponse(
+                                url,
+                                null,
+                                {
+                                    pass: [200, JSON.stringify(soldToDetailsInvalidSoldToJSON)],
+                                    fail: [500, JSON.stringify({})]
+                                }
+                            )
+                        )
+                    );
+                    requestUrl = replaceParameter(soldToDetailsURL, userTokenStrInvalidSoldTo)
+                    console.log(requestUrl)
+                    sessionStore = new SessionStore();
+
+                    let currentUserToken = userTokenStrInvalidSoldTo;
+                    let currentSoldToDetails = JSON.stringify({});
+
+                    sessionStore.setSoldToDetails = jest.fn((value) => {
+                        currentSoldToDetails = JSON.stringify(value);
+                    });
+
+                    sessionStore.getSoldToDetails = jest.fn(() => {
+                        return  currentSoldToDetails ? JSON.parse(currentSoldToDetails) : null;
+                    });
+
+                    sessionStore.getUserToken = jest.fn(() => {
+                        return currentUserToken;
+                    });
+                });
+
+                it(`Then "SoldToDetails()" should return an empty array`, async () => { 
+                    const response = await SoldToDetails(requestUrl, sessionStore);
+                    expect(response).toEqual(soldToDetailsInvalidSoldToJSON);
                 });
             });
 
@@ -128,7 +172,7 @@ describe('Feature: Sold To Details Service Call', () => {
                     });
 
                     sessionStore.getSoldToDetails = jest.fn(() => {
-                        return  currentSoldToDetails ? JSON.parse(currentSoldToDetails) : {}
+                        return currentSoldToDetails ? JSON.parse(currentSoldToDetails) : null;
                     });
 
                     sessionStore.getUserToken = jest.fn(() => {
@@ -176,7 +220,7 @@ describe('Feature: Sold To Details Service Call', () => {
                     });
 
                     sessionStore.getSoldToDetails = jest.fn(() => {
-                        return  currentSoldToDetails ? JSON.parse(currentSoldToDetails) : {}
+                        return currentSoldToDetails ? JSON.parse(currentSoldToDetails) : null;
                     });
 
                     sessionStore.getUserToken = jest.fn(() => {
@@ -193,6 +237,52 @@ describe('Feature: Sold To Details Service Call', () => {
                     
                 });
 
+            });
+
+
+            describe(`When the SoldTo Endpoint doesn't return an array`, () => {
+
+                let requestUrl;
+                let sessionStore;
+
+                beforeAll(() => {
+                    window.fetch = jest.fn().mockImplementation((url) =>
+                        Promise.resolve(
+                            mockResponse(
+                                url,
+                                null,
+                                {
+                                    pass: [200, JSON.stringify({})],
+                                    fail: [500, JSON.stringify({})]
+                                }
+                            )
+                        )
+                    );
+                    requestUrl = replaceParameter(soldToDetailsURL, userTokenStrInvalidSoldTo)
+                    sessionStore = new SessionStore();
+
+                    let currentUserToken = userTokenStrInvalidSoldTo;
+                    let currentSoldToDetails = JSON.stringify({});
+
+                    sessionStore.setSoldToDetails = jest.fn((value) => {
+                        currentSoldToDetails = JSON.stringify(value);
+                    });
+
+                    sessionStore.getSoldToDetails = jest.fn(() => {
+                        return  currentSoldToDetails ? JSON.parse(currentSoldToDetails) : null;
+                    });
+
+                    sessionStore.getUserToken = jest.fn(() => {
+                        return currentUserToken;
+                    });
+                });
+
+                it(`Then "SoldToDetails()" should throw an error`, async () => { 
+                    const response = new SoldToDetails(requestUrl, sessionStore);
+                    response.catch(err => {
+                        expect(err.message).toEqual('Response was not an array')
+                    });
+                });
             });
 
         });

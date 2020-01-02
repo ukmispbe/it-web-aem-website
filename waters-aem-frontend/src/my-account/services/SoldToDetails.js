@@ -20,7 +20,7 @@ const SoldToDetails = async (
     sessionStore = new SessionStore()
 ) => {
     const soldToData = sessionStore.getSoldToDetails();
-    if (soldToData && Array.isArray(soldToData)) {  
+    if (soldToData && Array.isArray(soldToData)) { 
         return soldToData;
     } 
 
@@ -31,6 +31,8 @@ const SoldToDetails = async (
         const responseJSON = await response.json();
 
         if (response.status === 200) {
+            if (!Array.isArray(responseJSON)) throw new Error('Response was not an array');
+    
             const sortedResponse = sortPriority(responseJSON);
             sessionStore.setSoldToDetails(sortedResponse)
             return sortedResponse;
@@ -43,6 +45,8 @@ const SoldToDetails = async (
 }
 
 const sortPriority = (soldToAccountsArray) => {
+    if (!soldToAccountsArray.length) return soldToAccountsArray;
+
     return [...soldToAccountsArray.sort((a, b) => {
         if(a.default_soldTo === b.default_soldTo) {
             return a.soldTo.localeCompare(b.soldTo);
