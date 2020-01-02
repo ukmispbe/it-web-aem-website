@@ -29,8 +29,7 @@ describe('Feature: SkuMessage React Component', () => {
                     icon: "icon",
                     link: "link",
                     linkMessage: "linkmessage",
-                    message: "message",
-                    distMessage: "Distmessage"
+                    message: "message"
                 };
                 wrapper = shallow(<SkuMessage {...props} />);
             });
@@ -66,8 +65,7 @@ describe('Feature: SkuMessage React Component', () => {
                     icon: "",
                     link: "",
                     linkMessage: null,
-                    message: "",
-                    distMessage: ""
+                    message: ""
                 };
                 wrapper = shallow(<SkuMessage {...props} />);
                 wrapper.debug();

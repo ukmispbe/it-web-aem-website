@@ -158,7 +158,6 @@ class SkuDetails extends React.Component {
                     this.props.config.commerceConfig
                         .partialDisabledLinkText
                 }
-                distMessage={this.state.skuConfig.distributorMessage}
             />
         );
     }
