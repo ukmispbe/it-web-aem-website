@@ -10,6 +10,16 @@ const keys = {
     soldToDetails: 'waters.soldToDetails'
 }
 
+const getJSONObject = key => {
+    const value = window.sessionStorage.getItem(key);
+    return value ? JSON.parse(value) : {};
+}
+
+const getJSONArray = key => {
+    const value = window.sessionStorage.getItem(key);
+    return value ? JSON.parse(value) : null;
+}
+
 const SessionStore = function () {
     this.setSoldToDetails = jest.fn(() => {});
     this.getSoldToDetails = jest.fn(() => {});
