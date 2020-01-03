@@ -354,6 +354,8 @@
         padding: $space-xxs $space-s $space-xxs $space-s;
         border: 1px solid $color-border-light;
         margin-right: $space-xxs;
+        border-radius: $border-radius;
+
 
         &:hover {
             color: $color-gray-20;
@@ -362,7 +364,7 @@
             }
 
             .inline-svg {    
-                .st0 {
+                line, polyline {
                     stroke: $color-gray-20;
                 }
             }
@@ -382,12 +384,13 @@
         .inline-svg {
             display: inline-block;
             float: left;
-            width: $icon-m;
-            height: $icon-m;
+            width: $icon-m / 2;
+            height: $icon-m / 2;
             margin-bottom: 3px;
 
-            .st0 {
+            line, polyline {
                 stroke: $color-white;
+                stroke-width: 1px;
             }
 
             @supports (display: inline-grid) {
@@ -406,6 +409,7 @@
         border: 1px solid $color-border-light;
         display: inline-table;
         position: absolute;
+        border-radius: $border-radius;
         
         @supports (display: inline-grid) {
             display: inline-flex;
