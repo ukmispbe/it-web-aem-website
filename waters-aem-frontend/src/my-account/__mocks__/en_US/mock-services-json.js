@@ -1,6 +1,7 @@
 const userDetailsURL = "https://test-www.waters.com:8443/api/waters/user/v1/details?email={email}"
 const soldToDetailsURL = "https://test-www.waters.com:8443/api/waters/user/v1/retrievesoldto?email={email}"
 const userTokenStr = 'wendy_batista@waters.com';
+const userTokenStrInvalidSoldTo = 'tyler.tessmann@icfnext.com';
 const userDetailsJSON = {
     "firstName": "Wendy",
     "lastName": "Batista",
@@ -327,6 +328,6 @@ const soldToDetailsJSON = [
     ]
   }
 ];
-
+const soldToDetailsInvalidSoldToJSON = []
   
-export { userTokenStr, userDetailsJSON, userDetailsURL, soldToDetailsURL, soldToDetailsJSON, soldToDetailsSortedJSON};
+export { userTokenStr, userDetailsJSON, userDetailsURL, soldToDetailsURL, soldToDetailsJSON, soldToDetailsSortedJSON, userTokenStrInvalidSoldTo, soldToDetailsInvalidSoldToJSON};
