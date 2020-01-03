@@ -110,3 +110,15 @@ export async function changePasswordSubmit(data) {
         scrollToY(0);
     }
 }
+
+export async function signInSubmit(data) {
+    //delete data.confirmPassword;
+    const response = await postData(this.url, data);
+
+    if (response.status === 200) {
+        console.log("signIn complete -> redirect", response.json());
+    } else {
+        this.setError(response);
+        scrollToY(0);
+    }
+}

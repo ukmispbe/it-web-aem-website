@@ -1,9 +1,55 @@
 <div data-sly-use.signIn="com.waters.aem.core.components.content.forms.SignIn">
-    <div class="cmp-form--attach" id=""></div>
+    <div class="cmp-form--attach" id="js-signin-form"></div>
     <script type="application/json" id="cmp-signin-form">
         {
-            "signinEndpoint": "${signIn.signInEndpoint @ context='unsafe'}"
-            "siteKey": "${signIn.captchaSiteKey @ context='unsafe'}"
+            "signinEndpoint": "${signIn.signInEndpoint @ context='unsafe'}",
+            "siteKey": "${signIn.captchaSiteKey @ context='unsafe'}",
+            "formName": "signin",
+            "buttonText": "${'SIGN IN' @ i18n, context='text'}",
+            "icons": {
+                "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
+                "eyeIcon": "/content/dam/waters/en/brand-assets/icons/eye.svg",
+                "eyeOffIcon": "/content/dam/waters/en/brand-assets/icons/eye-off.svg",
+                "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
+            },
+            "fields": [
+                {
+                    "type": "email",
+                    "name": "email",
+                    "label": "${'Email Address' @ i18n, context='text'}",
+                    "validation": {
+                        "required": true,
+                        "validateFnName": "email",
+                        "requiredMsg": "${'Please enter a valid email address.' @ i18n, context='text'}",
+                        "validationMsg": "${'Please enter a valid email address.' @ i18n, context='text'}"
+                    }
+                },
+                {
+                    "type": "password",
+                    "name": "password",
+                    "label": "${'Password' @ i18n, context='text'}",
+                    "validation": {
+                        "required": true,
+                        "validateFnName": "noValidation",
+                        "requiredMsg": ""
+                    }
+                },
+                {
+                    "type": "link",
+                    "name": "forgotPassword",
+                    "text": "${'Having trouble signing in?' @ i18n, context='text'}",
+                    "link": "${signin.forgotPasswordLink.href @ context='unsafe'}",
+                    "blank": "${signin.forgotPasswordNewWindow @ context='unsafe'}"
+                },
+                {
+                    "type": "checkbox",
+                    "name": "keepSignedIn",
+                    "label": "${'Keep me signed in' @ i18n, context='text'}",
+                    "checked": "true"
+                }
+            ]
         }
     </script>
 </div>
