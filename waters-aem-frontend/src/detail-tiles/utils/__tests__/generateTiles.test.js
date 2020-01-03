@@ -173,7 +173,7 @@ describe('Scenario Generating Tile With Proper Information', () => {
                     "text": [""]
                 }
             ],
-            "defaultValues": ""
+            "defaultValues": {}
         }];
 
         it('Then is should return change password tile', () => {

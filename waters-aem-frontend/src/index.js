@@ -22,6 +22,7 @@ import Chat from './chat';
 import DetailTiles from './detail-tiles';
 import DigitalData from './scripts/DigitalData';
 import WeChat from './wechat';
+import MyAccountRouter from './my-account';
 import CountrySelector from './country-selector';
 
 if (process.env.NODE_ENV !== 'production') {
@@ -442,6 +443,19 @@ if (wechatLink && wechatContainer && wechatJSON) {
     const config = JSON.parse(wechatJSON.innerHTML);
     ReactDOM.render(<WeChat config={config} />, wechatContainer);
 }
+
+const myAccountPage = document.getElementById(
+    'my-account'
+);
+
+if (myAccountPage) {
+    const config = JSON.parse(
+        document.getElementById('cmp-my-account').innerHTML
+    );
+
+    ReactDOM.render(<MyAccountRouter {...config} />, myAccountPage);
+}
+
 const countryModalRoot = document.getElementById('country-selector-root');
 
 if (countryModalRoot) {
