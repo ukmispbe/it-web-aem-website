@@ -78,4 +78,11 @@ public interface WatersAccountService {
      * @return User update password API URL
      */
     String getUpdatePasswordUrl();
+
+    /**
+     * Get the configured endpoint for sign in API.
+     *
+     * @return User sign in API URL
+     */
+    String getSignInEndpoint();
 }

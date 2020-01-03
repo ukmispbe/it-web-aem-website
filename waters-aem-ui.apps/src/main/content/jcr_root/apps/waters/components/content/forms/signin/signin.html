@@ -1,0 +1,12 @@
+<div data-sly-use.signIn="com.waters.aem.core.components.content.forms.SignIn">
+    <div class="cmp-form--attach" id=""></div>
+    <script type="application/json" id="cmp-signin-form">
+        {
+            "signinEndpoint": "${signIn.signInEndpoint @ context='unsafe'}"
+            "siteKey": "${signIn.captchaSiteKey @ context='unsafe'}"
+        }
+    </script>
+</div>
+<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+     data-sly-call="${patterns.placeholder @ show=true, text=component.title}"/>
+
