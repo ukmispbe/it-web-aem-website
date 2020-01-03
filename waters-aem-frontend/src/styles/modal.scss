@@ -43,6 +43,15 @@
         }
     }
 
+    .cmp-modal__header {
+        padding-bottom: $space-xs;
+
+        @include mobile {
+            height: $space-xl;
+            box-shadow: 0 1px 5px 0 rgba(79,91,100,.2);
+        }
+    }
+
     .cmp-modal__close-icon {
         border: none;
         padding: 0;

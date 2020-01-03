@@ -9,11 +9,11 @@ import FeedbackSurvey from '../scripts/feedbackSurvey';
 
 import domElements from '../scripts/domElements';
 import MyAccountContainer from './my-account-container';
-import cookieStore from '../stores/cookieStore';
 import SessionStore from '../stores/sessionStore';
 import loginStatus from '../scripts/loginStatus';
 
 import UserDetails from '../my-account/services/UserDetails';
+import SoldToDetails from '../my-account/services/SoldToDetails';
 
 const myAccountModalTheme = 'my-account-dropdown';
 class MyAccountDropDown extends React.Component {
@@ -32,14 +32,11 @@ class MyAccountDropDown extends React.Component {
         this.newConfig = Object.assign({}, this.props.config, {
             loginState: loginStatus.state(),
             userDetails : {
-                userName: cookieStore.getGreeting(),
+                userName: '',
                 accountName: '',
                 accountNumber: ''
             }
         });
-
-        // Commenting this out for now until User Details API is fixed (currently responding with 401)
-        // this.retrieveUserDetails();
     }
 
     componentDidMount() {
@@ -61,6 +58,10 @@ class MyAccountDropDown extends React.Component {
         }
 
         window.addEventListener('resize', this.updateViewport, true);
+
+        if (loginStatus.state()) { 
+            this.retrieveUserDetails();
+        }
     }
 
     componentWillUnMount() {
@@ -183,19 +184,7 @@ class MyAccountDropDown extends React.Component {
         }
     }
 
-    findPriorityAccount = (soldToAccounts) => {
-        return soldToAccounts.sort((a, b) => {
-            if(a.defaultFlag === b.defaultFlag) {
-                return a.soldTo.localeCompare(b.soldTo);
-            } else {
-                return b.defaultFlag - a.defaultFlag;
-            }
-        });     
-    }
-
     retrieveUserDetails = () => { 
-        if (this.props.config.userDetailsUrl && this.props.config.testUserToken) { 
-
             const sessionStore = new SessionStore();
             /*
                 START TEMPORARY CODE --
@@ -203,28 +192,39 @@ class MyAccountDropDown extends React.Component {
                 Please use this code below until sign-in complete and user token is stored in session storage 
                 & User Details service is updated to use that token
             */
-                sessionStore.setUserToken(this.props.config.testUserToken)   
+                sessionStore.setUserToken('wendy_batista@waters.com')   
             //END TEMPORARY CODE
 
-            const userDetails = new UserDetails(this.props.config.userDetailsUrl);
-            userDetails
-                .then((response) => { 
-                    let userName;
-                    if (response.firstName && response.lastName) { 
-                        userName = response.firstName + ' ' + response.lastName;
-                    }
+            if (this.props.config.soldToDetailsUrl) {
+                const soldToDetails = new SoldToDetails(this.props.config.soldToDetailsUrl)
+                soldToDetails
+                    .then((response) => {
+                        const priorityAccount = response[0]
 
-                    this.newConfig.userDetails = {
-                        userName: userName,
-                        accountName: '',
-                        accountNumber: ''
-                    }
+                        if (priorityAccount.company) {
+                            this.newConfig.userDetails.accountName = priorityAccount.company + ' ';
+                        }
 
-                })
-                .catch(err => {
-                    //console.log(err.message)
-                });
-        }
+                        if (priorityAccount.soldTo) {
+                            this.newConfig.userDetails.accountNumber = priorityAccount.soldTo;
+                        }
+                    }).catch(err => {
+                        console.log(err.message)
+                    });
+    
+            }
+            
+            if (this.props.config.userDetailsUrl) { 
+                const userDetails = new UserDetails(this.props.config.userDetailsUrl);
+                userDetails
+                    .then((response) => { 
+                        if (response.firstName && response.lastName) { 
+                            this.newConfig.userDetails.userName = response.firstName + ' ' + response.lastName;;
+                        }
+                    }).catch(err => {
+                        console.log(err.message)
+                    });
+            }
     }
 
     render() {

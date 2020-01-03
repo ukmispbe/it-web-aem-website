@@ -29,6 +29,8 @@ public class DefaultWatersAccountService implements WatersAccountService {
 
     private volatile String userDetailsUrl;
 
+    private volatile String soldToDetailsUrl;
+
     private volatile String updatePasswordUrl;
 
     @Override
@@ -77,6 +79,11 @@ public class DefaultWatersAccountService implements WatersAccountService {
     }
 
     @Override
+    public String getSoldToDetailsUrl() {
+        return soldToDetailsUrl;
+    }
+
+    @Override
     public String getUpdatePasswordUrl() {
         return updatePasswordUrl;
     }
@@ -93,6 +100,7 @@ public class DefaultWatersAccountService implements WatersAccountService {
         passwordResetUrl = configuration.pwResetUrl();
         changePasswordUrl = configuration.changePwUrl();
         userDetailsUrl = configuration.userDetailsUrl();
+        soldToDetailsUrl = configuration.soldToDetailsUrl();
         updatePasswordUrl = configuration.updatePwUrl();
     }
 }

@@ -23,11 +23,15 @@ import DetailTiles from './detail-tiles';
 import DigitalData from './scripts/DigitalData';
 import WeChat from './wechat';
 import MyAccountRouter from './my-account';
+import CountrySelector from './country-selector';
 
 if (process.env.NODE_ENV !== 'production') {
     const whyDidYouRender = require('@welldone-software/why-did-you-render');
     whyDidYouRender(React);
 }
+
+const globalTranslationsScript = document.getElementById('global-translations-json');
+const globalTranslations = globalTranslationsScript ? JSON.parse(globalTranslationsScript.innerHTML) : {};
 
 function getAuthoredDataForSearchBar(c, h) {
     return {
@@ -450,4 +454,13 @@ if (myAccountPage) {
     );
 
     ReactDOM.render(<MyAccountRouter {...config} />, myAccountPage);
+}
+
+const countryModalRoot = document.getElementById('country-selector-root');
+
+if (countryModalRoot) {
+    const scriptElement = document.getElementById('country-list-json');
+    const countries = scriptElement ? JSON.parse(scriptElement.innerHTML) : [];
+
+    ReactDOM.render(<CountrySelector countries={countries} translations={globalTranslations} />, countryModalRoot);
 }
