@@ -95,6 +95,8 @@
 .cmp-breadcrumb-search {
     display: inline-block;
     margin-top: ($space-xxxs + 0.05em);
+    margin-right: 13px;
+    border-right: 1px solid $color-border-light;
 
     &--disable {
         display: none;
@@ -108,14 +110,11 @@
 .cmp-breadcrumb-search a.cmp-breadcrumb-search__link {
     background-color: $color-white;
     color: $color-link;
-    padding-right: $space-xs;
     float: unset;
+    padding-right: 13px;
+
     svg {
         margin-top: -3px;
-    }
-    span {
-        border-right: 1px solid $color-border-light;
-        padding-right: $space-xs;
     }
 
     &:hover {
