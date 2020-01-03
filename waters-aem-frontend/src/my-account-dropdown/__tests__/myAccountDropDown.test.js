@@ -8,7 +8,6 @@ import { shallow } from 'enzyme';
 
 import { funcs as UserDetailFuncs} from '../my-account-user-details';
 import ItemList, { MyOrderClass } from '../my-account-item-list';
-import MyAccountModalBody, { ModalClass } from '../my-account-modal';
 import MyAccountContainer from '../my-account-container';
 
 //Mocked Props
@@ -26,8 +25,7 @@ const keys = {
 	switchAccount: '.my-account-dropdown__user-details__switch-account',
 	itemList: '.my-account-dropdown__item-list',
 	itemListLink: '.my-account-dropdown__item-list--link',
-	myOrderLink: '.' + MyOrderClass,
-	myAccountModal: '.' + ModalClass,
+	myOrderLink: '.' + MyOrderClass
 };
 
 const buildShallowWrapper = (Component, props, mockValues = undefined) => {
@@ -262,15 +260,6 @@ describe('Feature: My Account Dropdown Component', () => {
 					const wrapper = buildShallowWrapper(ItemList, props, [false,false,true]);
 					expect(wrapper.exists(keys.myOrderLink)).toEqual(true);
 				});
-			});
-		});
-	});
-
-	describe('Scenario: Rendering Modal Body', () => {
-		describe('When the Modal Body renders', () => {
-			it(`then it should have a wrapper class of '${keys.myAccountModal}'`, () => {
-				const wrapper = buildShallowWrapper(MyAccountModalBody,DefaultProps.config);
-				expect(wrapper.exists(keys.myAccountModal)).toEqual(true);
 			});
 		});
 	});

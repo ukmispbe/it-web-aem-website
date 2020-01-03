@@ -1,0 +1,39 @@
+
+.cmp-wechat-container {
+    a.cmp-footer-social-links__link {
+        display: block;
+    }
+}
+
+.cmp-wechat-modal {
+
+    text-align: center;
+
+    @include tablet-and-over {
+        margin-top: $space-m;
+    }
+
+
+    @include mobile {
+       margin-top: 5em;
+    }
+
+    &__title {
+        @include font-body;
+    }
+
+    &__text {
+        @include font-body;
+    }
+
+    &__image {
+        margin-bottom: $space-m;
+
+        img {
+            height: 204px;
+            width: 204px;
+            max-height: 204px;
+            max-width: 204px;
+        }
+    }
+}

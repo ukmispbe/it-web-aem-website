@@ -433,13 +433,11 @@ if (changePasswordDetailsTile) {
     ReactDOM.render(<DetailTiles {...config} />, changePasswordDetailsTile);
 }
 
-const wechatLink = document.querySelector(
-    '.cmp-footer__social-links__item--wechat'
-);
+const wechat = document.querySelector('.cmp-wechat');
 const wechatContainer = document.querySelector('.cmp-wechat-container');
 const wechatJSON = document.getElementById('wechat-json');
 
-if (wechatLink && wechatContainer && wechatJSON) {
+if (wechat && wechatContainer && wechatJSON) {
     const config = JSON.parse(wechatJSON.innerHTML);
     ReactDOM.render(<WeChat config={config} />, wechatContainer);
 }

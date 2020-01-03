@@ -1,54 +1,114 @@
-import React from "react";
+import React, { createContext, useContext, useMemo } from "react";
 import PropTypes from 'prop-types';
-import ReactDOM from "react-dom";
 import ReactSVG from 'react-svg';
+import ModalPortal from './modal-portal';
+import FeedbackSurvey from '../../scripts/feedbackSurvey';
+import domElements from '../../scripts/domElements';
 
-const ModalPortal = props => {
-    const modalElement = document.getElementById("modal-root");
-    const el = document.createElement("div");
+const keys = {
+    ModalWithSiteNavOnMobile: 'cmp-modal-box__site-nav-on-mobile',
+    HeaderTitleCentered: 'header-with-title-centered',
+    HeaderWithTitle: 'header-with-title',
+    HeaderWithAddedMarginTop: 'header-with-added-margin-top'
+}
 
-    React.useEffect(() => {
-        modalElement.appendChild(el);
+const ModalApi = createContext();
+ModalApi.displayName = 'ModalApi';
 
-        return () => {
-            modalElement.removeChild(el);
-        };
-    }, []);
-
-    return ReactDOM.createPortal(props.children, el);
-};
-  
 const Modal = props => {
+    const getApi = useMemo(() => ({
+        onClose: props.onClose,
+        closeIcon : props.closeIcon || "/content/dam/waters/en/brand-assets/icons/close.svg"
+    }), []);
+    
+    const overlayClickToClose = e => {
+        e.stopPropagation();
+        if (e.target.classList.contains('cmp-modal-box')) {
+            return props.onClose();
+        } 
+    }
+
+    const onClose = () => { 
+        FeedbackSurvey.isDisplayed(true);
+        domElements.noScroll(false);
+    }
+    
+    const onOpen = () => { 
+        FeedbackSurvey.isDisplayed(false);
+        domElements.noScroll(true);
+    }
+    
     if (!props.isOpen) {
+        onClose();
         return <></>;
     }
 
+    onOpen();
+
     return (
         <ModalPortal>
-            <div className="cmp-modal-box">
-                <div className="cmp-modal">
-                    <div className="cmp-modal__box cmp-modal__header">
-                        <div className="cmp-modal__close-icon">
-                            <ReactSVG
-                                onClick={props.onClose}
-                                src="/content/dam/waters/en/brand-assets/icons/close.svg"/>
-                        </div>
+            <ModalApi.Provider value={getApi}>
+                <div className={`cmp-modal-box ${props.className ? props.className : ""}`} onClick={overlayClickToClose}>
+                    <div className="cmp-modal">
+                        {props.children}
                     </div>
-                    {props.children}
                 </div>
-            </div>
+            </ModalApi.Provider>
         </ModalPortal>
     );
 };
 
 Modal.propTypes = {
-    isOpen: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired
-}
-
-Modal.defaultProps = {
-    isOpen: false,
-    onClose: () => {}
+    onClose: PropTypes.func.isRequired,
+    isOpen: PropTypes.bool.isRequired
 }
   
+Modal.defaultProps = {
+    onClose: () => { }
+}
+
+const Header = props => {
+    const { onClose, closeIcon } = useContext(ModalApi);
+
+    const Icon = () => { 
+        if (!props.icon) return <></>;
+
+        return (
+            <div className="cmp-modal__title-icon">
+                <ReactSVG src={props.icon} />
+            </div>
+        )
+    }
+
+    const Title = () => { 
+        if (!props.title) return <></>;
+
+        return (
+            <div className="cmp-modal__title">
+                <Icon/>
+                <div className="cmp-modal__title-text">{props.title}</div>
+            </div>
+            
+        )
+    }
+
+    return (
+        <div className={`cmp-modal__header ${props.title ? keys.HeaderWithTitle : ''} ${props.className ? props.className : ''}` }>
+            <Title />
+            <div className="cmp-modal__close-icon">
+                <ReactSVG
+                    onClick={onClose}
+                    src={closeIcon} />
+            </div>
+        </div>
+    );
+};
+
+Header.propTypes = {
+    icon: PropTypes.string,
+    title: PropTypes.string,
+    className: PropTypes.string
+}
+
 export default Modal;
+export { Header, keys, ModalApi as useModalApi }

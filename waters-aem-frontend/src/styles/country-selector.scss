@@ -1,70 +1,16 @@
 .cmp-country-selector {
-    padding-left: 3em;
-    padding-right: 3em;
-    padding-bottom: 2em;
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    @include mobile {
-        position: fixed;
-        top: 15px;
-        padding-left: $space-s;
-        padding-right: $space-s;
-    }
-
-    &__title {
-        width: 100%;
-        display: flex;
-        margin-bottom: 0;
-        padding-top: 0;
-
-        > div:first-child {
-            padding-right: $space-xs;
-        }
-
-        @include font-h2;
-
-        @include mobile {
-            @include font-body;
-            @include font-utility;
-        }
-
-        svg {
-            width: $icon-l;
-            height: $icon-l;
-
-            @include mobile {
-                width: $icon-m;
-                height: $icon-m;
-            }
-
-            .st0 {
-                stroke: $color-icon;
-            }
-        }
-
-        @include tablet {
-            width: 75%;
-        }
-    }
-
     &__text {
         width: 100%;
         padding-top: 0;
-
-        @include tablet {
-            width: 75%;
-        }
     }
 
     &__dropdown {
         width: 100%;
         padding-top: $space-m;
-
-        @include tablet {
-            width: 75%;
-        }
 
         .select-css {
             display: block;
@@ -125,10 +71,6 @@
                 stroke: $color-icon;
             }
         }
-
-        @include tablet {
-            width: 75%;
-        }
     }
 
     &__note-text {
@@ -144,16 +86,30 @@
         a {
             width: 100%;
         }
-
-        @include tablet {
-            width: 75%;
-        }
     }
 
     &__cancel {
         padding-top: 0;
         a {
             cursor: pointer;
+        }
+    }
+}
+
+.cmp-country-selector-modal {
+    .cmp-modal {
+        @include tablet-and-over {
+            width: 475px;
+        }
+    }
+
+    .cmp-modal > div{
+        margin: $space-s auto 0;
+    }
+
+    @include mobile {
+        .cmp-modal > div:first-child{
+            margin-top: 0;
         }
     }
 }

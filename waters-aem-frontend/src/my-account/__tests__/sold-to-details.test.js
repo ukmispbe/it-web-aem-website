@@ -116,7 +116,6 @@ describe('Feature: Sold To Details Service Call', () => {
                         )
                     );
                     requestUrl = replaceParameter(soldToDetailsURL, userTokenStrInvalidSoldTo)
-                    console.log(requestUrl)
                     sessionStore = new SessionStore();
 
                     let currentUserToken = userTokenStrInvalidSoldTo;
