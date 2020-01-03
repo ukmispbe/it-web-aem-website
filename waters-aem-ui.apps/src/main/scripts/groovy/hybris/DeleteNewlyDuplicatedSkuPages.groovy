@@ -1,11 +1,11 @@
-import com.waters.aem.core.commerce.services.SkuRepository
 import com.icfolson.aem.library.api.page.PageDecorator
+import com.waters.aem.core.commerce.services.SkuRepository
 import com.waters.aem.core.utils.Templates
-import com.day.cq.replication.Replicator
-import com.day.cq.replication.ReplicationActionType
 
 // base path to operate on sku pages
-def basePath = "/content/waters/be/en/shop"
+def basePath = "/content/waters/language-masters/en/shop"
+
+def dryRun = true
 
 def pagesToDelete = []
 
@@ -13,12 +13,17 @@ def skuPagesPerSkuCode = findSkuPagesPerSku(basePath, pagesToDelete)
 
 pagesToDelete.addAll(getDuplicateSkuPagesPerSkuCode(skuPagesPerSkuCode))
 
-println "\nPages to delete ($pagesToDelete.size): "
-pagesToDelete.each { println it }
-println ""
+if (dryRun) {
+    println "\nPages to delete ($pagesToDelete.size): "
+    pagesToDelete.each { println it }
+    println ""
+}
 
-// this replicates on paths to delete
-replicatePaths(pagesToDelete)
+
+// this deletes the newly duplicated pages
+if (!dryRun) {
+    deletePages(pagesToDelete)
+}
 
 /**
  * This method creates a map of AEM page paths per sku code
@@ -89,7 +94,8 @@ def getDuplicateSkuPagesPerSkuCode(skuPagesPerSkuCode) {
             getPage(it).contentResource.valueMap.get("jcr:created", Calendar)
         }
 
-        pagesToDelete.addAll(pagePaths[0..pagePaths.size - 2])
+        // adds newly duplicated SKU pages to deletion list
+        pagesToDelete.addAll(pagePaths[1..pagePaths.size - 1])
     }
 
     return pagesToDelete
@@ -101,22 +107,14 @@ def getDuplicateSkuPagesPerSkuCode(skuPagesPerSkuCode) {
  *
  * @param paths - paths to replicate (delete)
  */
-def replicatePaths(paths) {
+def deletePages(paths) {
     def deletedAuthorPages = []
-    def repl = getService(Replicator)
-    // def replType = ReplicationActionType.ACTIVATE
-    def replType = ReplicationActionType.DELETE
 
     paths.each { path ->
-        println "Replication action $replType for path $path"
-        repl.replicate(session, replType, path)
-
-        if (replType == ReplicationActionType.DELETE) {
-            def page = getPage(path)
-            if (page) {
-                deletedAuthorPages.add(page.path)
-                getNode(page.path).remove()
-            }
+        def page = getPage(path)
+        if (page) {
+            deletedAuthorPages.add(page.path)
+            getNode(page.path).remove()
         }
     }
 

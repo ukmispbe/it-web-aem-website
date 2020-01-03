@@ -1,0 +1,40 @@
+.content-type-menu-container {
+    margin-top: $space-l;
+
+    @include tablet-and-under {
+        margin-top: $space-l;
+    }
+}
+
+.content-type-menu-container__heading {
+    display: flex;
+    flex-flow: wrap;
+}
+
+.content-type-menu-container__item {
+    display: flex;
+    margin-bottom: $space-s;
+    cursor: pointer;
+
+    a {
+        @include font-utility;
+        line-height: 0;
+        color:$color-link;
+
+        &::after {
+            content: attr(data-count);
+            display: inline-block;
+            text-decoration: none;
+            color: $color-icon;
+            white-space: pre;
+        }
+    }
+
+    &:hover,
+    &:focus {
+        a {
+            color: $color-link-hover;
+            text-decoration: underline;
+        }
+    }
+}

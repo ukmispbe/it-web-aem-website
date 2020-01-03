@@ -19,13 +19,14 @@ const SubFacetTags = props => {
                     mapping.push({
                         name: category.facetName,
                         category: category.facetValue,
+                        translation: category.facetTranslation,
                         facets: facets[category.facetName],
                     });
                 }
             }
         }
     }
-    const tags = props.selectedFacets
+    const tags = props.selectedFacets && Object.keys(props.selectedFacets).length !== 0
         ? Object.keys(props.selectedFacets).map((facet, index) => {
               const f = props.selectedFacets[facet];
               const category = [];
@@ -49,7 +50,7 @@ const SubFacetTags = props => {
                               >
                                   <ReactSVG src={props.text.closeIcon} />
                                   <span>
-                                      {cat.category}: {selected}
+                                      {cat.translation}: {selected}
                                   </span>
                               </a>
                           );
@@ -66,7 +67,7 @@ const SubFacetTags = props => {
         </>;
 };
 
-const CategoryTags = props => {
+const ContentTypeTag = props => {
     const showTags = Object.entries(props.selected).length !== 0 ? true : false;
 
     if (!showTags) return <></>;
@@ -74,7 +75,7 @@ const CategoryTags = props => {
     return <a href="javascript:void(0);"
             onClick={props.onRemove}>
             <ReactSVG src={props.text.closeIcon} />
-            <span>{`${props.text[props.categoryKey]}: ${props.selected.facetValue}`}</span>
+            <span>{`${props.text['contentType']}: ${props.selected.facetTranslation}`}</span>
         </a>;
 }
 
@@ -103,16 +104,36 @@ SubFacetTags.propTypes = {
     text: PropTypes.object.isRequired,
 }
 
-CategoryTags.proptTypes = {
+SubFacetTags.defaultProps = {
+    filterMap: [],
+    defaultFacet: '',
+    removeTag: () => {},
+    selectedFacets: {},
+    text: {},
+}
+
+ContentTypeTag.proptTypes = {
     categoryKey: PropTypes.string,
     selected: PropTypes.object.isRequired,
     text: PropTypes.object.isRequired,
     onRemove: PropTypes.func.isRequired
 }
 
+ContentTypeTag.defaultProps = {
+    categoryKey: '',
+    selected: {},
+    text: {},
+    onRemove: () => {}
+}
+
 ClearAllTag.proptTypes = {
     text: PropTypes.object.isRequired,
     onRemove: PropTypes.func.isRequired
+}
+
+ClearAllTag.defaultProps = {
+    text: {},
+    onRemove: () => {}
 }
 
 KeywordTag.propTypes = {
@@ -121,8 +142,10 @@ KeywordTag.propTypes = {
     onRemove: PropTypes.func.isRequired
 }
 
-CategoryTags.defaultProps = {
-    selected: {}
-}
+KeywordTag.defaultProps = {
+    keyword: '',
+    text: {},
+    onRemove: () => {}
+};
 
-export { SubFacetTags, CategoryTags, ClearAllTag, KeywordTag }
+export { SubFacetTags, ContentTypeTag, ClearAllTag, KeywordTag }

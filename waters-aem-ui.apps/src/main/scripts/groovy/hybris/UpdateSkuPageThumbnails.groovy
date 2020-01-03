@@ -1,17 +1,12 @@
-import com.day.cq.replication.ReplicationActionType
-import com.day.cq.replication.Replicator
-import com.day.cq.replication.ReplicationOptions
 import com.icfolson.aem.library.api.page.PageDecorator
 import com.waters.aem.core.commerce.services.SkuRepository
 import com.waters.aem.core.utils.Templates
 import org.apache.sling.api.resource.ModifiableValueMap
+import com.waters.aem.core.constants.WatersConstants
 
 def dryRun = true
 
 def skuRepo = getService(SkuRepository)
-def repl = getService(Replicator)
-def updatedSkuPages = 0
-def pathsToActivate = []
 
 def basePaths = [
         "/content/waters/language-masters/en/shop",
@@ -76,35 +71,44 @@ basePaths.each { basePath ->
         if (Templates.isSkuPage(page)) {
             def sku = skuRepo.getSku(page)
 
-            if (page.title != sku.title) {
-                println "Title mismatch for page $page.path" //Page title: $page.title >>> Sku title: $sku.title"
+            def contentResource = page.getContentResource()
 
-                // update page title
-                page.contentResource.adaptTo(ModifiableValueMap).put("jcr:title", sku.title)
-
-                updatedSkuPages++
-
-                // add to list of pages to replicate. ignores language masters
-                if (!page.path.startsWith("/content/waters/language-masters")) {
-                    pathsToActivate.add(page.path)
-                }
+            if (sku && sku.getPrimaryImageSrc() && contentResource) {
+                createOrUpdateThumbnail(page, sku.getPrimaryImageSrc(), contentResource)
             }
+
         }
     }
 
 }
 
-println "Total sku pages updated: $updatedSkuPages"
+def createOrUpdateThumbnail(page, primaryImage, contentResource) {
+    def thumbResource = contentResource.getChild("thumbnailImage")
+
+    if (thumbResource) {
+        def fileRef = thumbResource.valueMap.get("fileReference", "")
+        if (!fileRef || fileRef != primaryImage) {
+
+            println "Missing or incorrect file reference - updating thumbnail for page: $page.path"
+            def props = thumbResource.adaptTo(ModifiableValueMap)
+            props.put("fileReference", primaryImage)
+
+            if (page.getAbsoluteParent(WatersConstants.LEVEL_SITE_ROOT).getName() != "language-masters") {
+                props.put("jcr:mixinTypes", "cq:LiveRelationship")
+            }
+        }
+    } else {
+
+        println "Creating missing thumbnail for page: $page.path"
+        def thumbnailNode = contentResource.adaptTo(Node).addNode("thumbnailImage", "nt:unstructured")
+        thumbnailNode.setProperty("fileReference", primaryImage)
+
+        if (page.getAbsoluteParent(WatersConstants.LEVEL_SITE_ROOT).getName() != "language-masters") {
+            thumbnailNode.setProperty("jcr:mixinTypes", "cq:LiveRelationship")
+        }
+    }
+}
 
 if (!dryRun) {
     save()
-
-    println "Replicating $pathsToActivate.size paths"
-
-    def opt = new ReplicationOptions()
-    opt.setSuppressVersions(true)
-
-    if (pathsToActivate.size() > 0) {
-        repl.replicate(session, ReplicationActionType.ACTIVATE, pathsToActivate as String[], opt)
-    }
 }

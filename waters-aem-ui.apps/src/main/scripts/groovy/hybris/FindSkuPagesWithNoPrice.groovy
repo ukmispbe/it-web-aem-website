@@ -1,20 +1,12 @@
-import com.day.cq.replication.ReplicationActionType
-import com.day.cq.replication.Replicator
-import com.day.cq.replication.ReplicationOptions
 import com.icfolson.aem.library.api.page.PageDecorator
 import com.waters.aem.core.commerce.services.SkuRepository
+import com.waters.aem.core.components.SiteContext
 import com.waters.aem.core.utils.Templates
-import org.apache.sling.api.resource.ModifiableValueMap
-
-def dryRun = true
 
 def skuRepo = getService(SkuRepository)
-def repl = getService(Replicator)
-def updatedSkuPages = 0
-def pathsToActivate = []
 
 def basePaths = [
-        "/content/waters/language-masters/en/shop",
+        "/content/waters/us/en/shop",
 //        "/content/waters/ee/en/shop",
 //        "/content/waters/pr/en/shop",
 //        "/content/waters/fi/en/shop",
@@ -32,7 +24,6 @@ def basePaths = [
 //        "/content/waters/lt/en/shop",
 //        "/content/waters/ph/en/shop",
 //        "/content/waters/sg/en/shop",
-//        "/content/waters/us/en/shop",
 //        "/content/waters/id/en/shop",
 //        "/content/waters/hk/en/shop",
 //        "/content/waters/lv/en/shop",
@@ -61,50 +52,28 @@ def basePaths = [
 //        "/content/waters/xg/es/shop",
 //        "/content/waters/pt/pt/shop",
 //        "/content/waters/br/pt/shop",
-]
+].each { basePath ->
 
-basePaths.each { basePath ->
-    if (getPage(basePath) == null) {
-        throw new IllegalStateException("No /shop node for $basePath")
-    }
-}
+    def skusWithNoPrice = []
 
-basePaths.each { basePath ->
     getPage(basePath).recurse { p ->
         def page = p.adaptTo(PageDecorator)
 
         if (Templates.isSkuPage(page)) {
             def sku = skuRepo.getSku(page)
+            def siteContext = page.contentResource.adaptTo(SiteContext)
+            def country = siteContext.localeWithCountry.country
 
-            if (page.title != sku.title) {
-                println "Title mismatch for page $page.path" //Page title: $page.title >>> Sku title: $sku.title"
+            def price = sku.getPrice(country, siteContext.currencyIsoCode)
 
-                // update page title
-                page.contentResource.adaptTo(ModifiableValueMap).put("jcr:title", sku.title)
-
-                updatedSkuPages++
-
-                // add to list of pages to replicate. ignores language masters
-                if (!page.path.startsWith("/content/waters/language-masters")) {
-                    pathsToActivate.add(page.path)
-                }
+            if (price == null) {
+                skusWithNoPrice.add(sku.code)
             }
         }
     }
 
-}
+    println "($skusWithNoPrice.size) Skus with no price under $basePath"
+    skusWithNoPrice.each { println it }
+    println ""
 
-println "Total sku pages updated: $updatedSkuPages"
-
-if (!dryRun) {
-    save()
-
-    println "Replicating $pathsToActivate.size paths"
-
-    def opt = new ReplicationOptions()
-    opt.setSuppressVersions(true)
-
-    if (pathsToActivate.size() > 0) {
-        repl.replicate(session, ReplicationActionType.ACTIVATE, pathsToActivate as String[], opt)
-    }
 }

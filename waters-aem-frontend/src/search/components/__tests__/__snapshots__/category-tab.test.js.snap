@@ -8,7 +8,7 @@ exports[`Feature: CategoryTab React Component Scenario: Rendering When the scree
   <span
     className="cmp-search__categories-tabs--tab-name"
   >
-    Tab1
+    Tab Uno
   </span>
 </div>
 `;
@@ -21,7 +21,7 @@ exports[`Feature: CategoryTab React Component Scenario: Rendering When the scree
   <span
     className="cmp-search__categories-tabs--tab-name"
   >
-    Tab1
+    Tab Uno
   </span>
 </div>
 `;
