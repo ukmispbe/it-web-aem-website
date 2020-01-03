@@ -60,7 +60,7 @@ const Modal = props => {
 
 Modal.propTypes = {
     onClose: PropTypes.func.isRequired,
-    closeIcon: PropTypes.string
+    isOpen: PropTypes.bool.isRequired
 }
   
 Modal.defaultProps = {
