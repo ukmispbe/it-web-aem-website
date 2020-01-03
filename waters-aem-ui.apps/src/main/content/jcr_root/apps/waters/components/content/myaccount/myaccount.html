@@ -38,22 +38,22 @@
             "myProfile": {
                 "fetchEndPoint": "${myaccount.myAccountUrl @ context='unsafe'}",
                 "submitEndpoint": "${myaccount.myAccountUpdateUrl @ context='unsafe'}",
-                "personalConfigId": "cmp-detail-tiles--personal",
+                "personalConfigId": "json-config--cmp-detail-tiles--personal",
                 "addressConfig": {
-                    "abstractConfig": "cmp-detail-tiles--address",
+                    "abstractConfig": "json-config--cmp-detail-tiles--address",
                     "configs": [
-                        "cmp-detail-tiles--shipping",
-                        "cmp-detail-tiles--billing"
+                        "json-config--cmp-detail-tiles--shipping",
+                        "json-config--cmp-detail-tiles--billing"
                     ]
                 }
                 },
                 "changePassword": {
-                    "config": "cmp-detail-tiles--changePassword"
+                    "config": "json-config--cmp-detail-tiles--changePassword"
                 }
         }
     </script>
 
-    <script type="application/json" id="cmp-detail-tiles--personal">
+    <script type="application/json" id="json-config--cmp-detail-tiles--personal">
         {
             "name": "personal-details-tile",
             "type": "personal",
@@ -143,7 +143,7 @@
         }
     </script>
 
-    <script type="application/json" id="cmp-detail-tiles--billing">
+    <script type="application/json" id="json-config--cmp-detail-tiles--billing">
         {
             "name": "billingAddresses-details-tile",
             "type": "billing",
@@ -153,7 +153,7 @@
         }
     </script>
 
-    <script type="application/json" id="cmp-detail-tiles--shipping">
+    <script type="application/json" id="json-config--cmp-detail-tiles--shipping">
         {
             "name": "shippingAddresses-details-tile",
             "type": "shipping",
@@ -163,7 +163,7 @@
         }
     </script>
 
-    <script type="application/json" id="cmp-detail-tiles--address">
+    <script type="application/json" id="json-config--cmp-detail-tiles--address">
         {
             "formMessage": {
                 "text": "${'It may take up to 24 hours to verify a new or change of address. Orders may be delayed.' @ i18n, context='unsafe'}"
@@ -256,7 +256,7 @@
         }
     </script>
 
-    <script type="application/json" id="cmp-detail-tiles--changePassword">
+    <script type="application/json" id="json-config--cmp-detail-tiles--changePassword">
         {
             "name": "changePassword-details-tile",
             "type": "password",
