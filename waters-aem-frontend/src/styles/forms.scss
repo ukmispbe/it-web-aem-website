@@ -1,4 +1,12 @@
 .cmp-form {
+
+    .cmp-form-header {
+        color: red;
+        a {
+            color: blue;
+            text-decoration: none;
+        }
+    }
     @include non-IE11-browsers {
         float: left;
     }

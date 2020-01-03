@@ -11,6 +11,12 @@
             "canCreate": false,
             "editText": "${'Edit' @i18n, context='unsafe'}",
             "form": {
+                "formHeader":  {
+                    "name": "personal",
+                    "headerText": "${'Your email is your username and cannot be changed. If you need to change your country, please' @i18n, context='unsafe'}",
+                    "headerLinkText": "${'Contact Waters' @i18n, context='unsafe'}",
+                    "headerLinkURL": "https://www.waters.com/waters/localeRedirect.htm?type=contact_us"
+                },
                 "submitEndpoint": "${personal.myAccountUpdateUrl @ context='unsafe'}",
                 "buttonText": "${'Save Changes' @ i18n, context='unsafe'}",
                 "cancelText": "${'Cancel' @ i18n, context='unsafe'}",
@@ -68,9 +74,7 @@
                         "name": "phone",
                         "label": "${'Phone Number' @ i18n, context='unsafe'}",
                         "validation": {
-                            "validateFnName": "noWhitespaceOnly",
-                            "validationMsg": "${'Please enter a valid phone number.' @ i18n, context='unsafe'}",
-                            "required": true,
+                           "required": false,
                             "requiredMsg": "${'Please enter a phone number.' @ i18n, context='unsafe'}"
                         }
                     },
