@@ -189,7 +189,7 @@ class SkuDetails extends React.Component {
                         analyticsConfig={this.state.analyticsConfig}
                     ></AddToCart>
                 </div>
-                <Modal isOpen={this.state.modalShown} onClose={this.toggleModal}>
+                <Modal isOpen={this.state.modalShown} onClose={this.toggleModal} className='cmp-add-to-cart-modal'>
                         <Header
                             title={this.state.modalConfig.title}
                             icon={this.state.modalConfig.icon}

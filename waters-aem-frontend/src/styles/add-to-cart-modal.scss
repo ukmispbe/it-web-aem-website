@@ -59,3 +59,16 @@
         }
     }
 }
+
+.cmp-modal-box.cmp-add-to-cart-modal{
+    .cmp-modal__title {
+        .cmp-modal__title-icon {
+            svg {
+                polyline.st0 {
+                    stroke-width: 2px;
+                    stroke: $color-accent;
+                }
+            }
+        }
+    }
+}

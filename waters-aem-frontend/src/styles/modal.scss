@@ -64,18 +64,25 @@
             .cmp-modal__title-icon {
                 margin-right: $space-xxs;
                 display: inline-block;
+
                 svg {
                     height: $icon-l;
                     width: $icon-l;
+                    position: relative;
+                    top: 3px;
                     @include mobile {
                         height: $icon-m;
                         width: $icon-m;
+                        top: 2px;
                     }
+
                     vertical-align: bottom;
-                    polyline {
-                        stroke-width: 2px;
-                        stroke: $color-accent;
+                    
+                    .st0, .st1, polyline {
+                        //this is the default modal icon color
+                        stroke: $color-icon;
                     }
+
                 }
             }
             .cmp-modal__title-text {

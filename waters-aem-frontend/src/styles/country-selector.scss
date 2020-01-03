@@ -3,10 +3,6 @@
     flex-direction: column;
     align-items: center;
 
-    @include tablet {
-        width: 75%;
-    }
-
     &__text {
         width: 100%;
         padding-top: 0;
@@ -103,16 +99,12 @@
 .cmp-country-selector-modal {
     .cmp-modal {
         @include tablet-and-over {
-            min-width: 475px;
+            width: 475px;
         }
     }
 
     .cmp-modal > div{
         margin: $space-s auto 0;
-
-        @include tablet {
-            width: 75%;
-        }
     }
 
     @include mobile {
