@@ -97,6 +97,7 @@
     margin-top: ($space-xxxs + 0.05em);
     margin-right: 13px;
     border-right: 1px solid $color-border-light;
+    padding-right: 13px;
 
     &--disable {
         display: none;
@@ -111,7 +112,7 @@
     background-color: $color-white;
     color: $color-link;
     float: unset;
-    padding-right: 13px;
+    padding-right: 0px;
 
     svg {
         margin-top: -3px;
