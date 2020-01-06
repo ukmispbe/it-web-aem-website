@@ -56,7 +56,7 @@ public class MyAccount implements ComponentExporter {
             ranking = 1)
     @MultiField(composite = true)
     @Inject
-    private List<BasicLink> links;
+    private List<BasicLink> links = new ArrayList<>();
 
     public List<BasicLink> getLinks() {
         return links;
