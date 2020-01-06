@@ -1,14 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+import { useFieldApi } from '../form';
 
-const Link = ({
-    type,
-    name,
-    text,
-    link,
-    blank,
-    addClass
-}) => {
+const Link = ({}) => {
+
+    const { type, name, text, link, blank, addClass } = useContext(useFieldApi);
+
     return (
         <>
             {

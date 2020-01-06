@@ -9,6 +9,7 @@ import Dropdown from './dropdown';
 import Hr from './hr';
 import Captcha from './captcha';
 import Body from './body';
+import Link from './link';
 
 const formType = {
     text: Input,
@@ -21,7 +22,8 @@ const formType = {
     select: Dropdown,
     break: Hr,
     captcha: Captcha,
-    body: Body
+    body: Body,
+    link: Link
 };
 
 const Field = ({}) => {
