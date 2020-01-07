@@ -7,16 +7,16 @@ class WeChatModalBody extends React.Component {
     }
 
     render() {
-        const { text, qrCodeImg, title, alt } = this.props.config;
+        const { text, qrCodeImg, alt } = this.props.config;
         return (
-            <div className="cmp-modal__information">
-                <div className="cmp-modal__information-image">
+            <div className="cmp-wechat-modal">
+                <div className="cmp-wechat-modal__image">
                     <img
                         src={ qrCodeImg }
                         alt={ alt }
                     />
                 </div>
-                <div className="cmp-modal__information-text">
+                <div className="cmp-wechat-modal__text">
                     { text }
                 </div>
             </div>

@@ -1,17 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-
-import { Modal } from '../modal/index';
+import Modal, { Header, keys } from '../utils/modal';
 import ScreenSizes from '../scripts/screenSizes';
 import MobileNav from '../scripts/mobileNav';
-import FeedbackSurvey from '../scripts/feedbackSurvey';
-
 import domElements from '../scripts/domElements';
 import MyAccountContainer from './my-account-container';
 import SessionStore from '../stores/sessionStore';
 import loginStatus from '../scripts/loginStatus';
-
 import UserDetails from '../my-account/services/UserDetails';
 import SoldToDetails from '../my-account/services/SoldToDetails';
 
@@ -122,7 +118,6 @@ class MyAccountDropDown extends React.Component {
                 if (!this.state.isMobile) {
                     headerOverlay.classList.add(activeOverlay);
                 } else {
-                    FeedbackSurvey.isDisplayed(false);
                     domElements.noScroll(true);
                     if (this.header) { 
                         header.classList.add('is-fixed');
@@ -141,7 +136,6 @@ class MyAccountDropDown extends React.Component {
                                 if (this.header) { 
                                     header.classList.remove('is-fixed');
                                 }
-                                FeedbackSurvey.isDisplayed(true);
                             }
                         }
                     } else {
@@ -149,7 +143,6 @@ class MyAccountDropDown extends React.Component {
                         if (this.header) { 
                             header.classList.remove('is-fixed');
                         }
-                        FeedbackSurvey.isDisplayed(true);
                     }
 
                 }
@@ -236,13 +229,10 @@ class MyAccountDropDown extends React.Component {
         return (
             <>
                 {this.state.isMobile ? (
-                    <Modal
-                        toggleModal={this.toggleModal}
-                        open={this.state.isShown}
-                        theme={myAccountModalTheme}
-                        config={this.newConfig}
-                        myAccountClickHandler={this.handleClick}
-                    />
+                    <Modal isOpen={this.state.isShown} className={keys.ModalWithSiteNavOnMobile} onClose={this.toggleModal}>
+                        <Header title={this.newConfig.title} />
+                        <MyAccountContainer config={this.newConfig} />
+                    </Modal>
                 ) : (
                     <MyAccountContainer config={this.newConfig} />
                 )}

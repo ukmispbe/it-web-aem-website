@@ -1,5 +1,10 @@
 import React from 'react';
-import { Modal } from '../modal/index';
+import ReactSVG from 'react-svg';
+import PropTypes from 'prop-types';
+import Modal, { Header, keys } from '../utils/modal';
+import WeChatModalBody from '../wechat/wechat-modal-body';
+
+const weChatLinkClass = 'cmp-footer-social-links__link';
 
 class WeChat extends React.Component {
 
@@ -7,33 +12,12 @@ class WeChat extends React.Component {
         super(props);
 
         this.state = {
-            isModalShown: false,
-            config: {
-                 "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
-                 "title": props.config.title,
-                 "qrCodeImg": props.config.qrCodeImg,
-                 "text": props.config.desc,
-                 "alt": props.config.alt
-            }
+            isModalShown: false
         }
+
+        this.showModal = this.showModal.bind(this);
     }
-
-    componentDidMount() {
-        const wechatSelector = document.querySelector('.cmp-footer__social-links__item--wechat');
-
-        if (wechatSelector && wechatSelector.firstElementChild.tagName === "A") {
-            wechatSelector.firstElementChild.addEventListener('click', this.showModal);
-        }
-    }
-
-    componentWillUnMount() {
-        const wechatSelector = document.querySelector('.cmp-footer__social-links__item--wechat');
-
-        if (wechatSelector && wechatSelector.firstElementChild.tagName === "A") {
-            wechatSelector.firstElementChild.removeEventListener('click', this.showModal);
-        }
-    }
-
+    
     showModal = (e) => {
         e.preventDefault();
         this.toggleModal();
@@ -43,16 +27,25 @@ class WeChat extends React.Component {
         this.setState({isModalShown: !this.state.isModalShown})
     };
 
+
     render() {
         return (
-            <Modal
-                open={this.state.isModalShown}
-                config={this.state.config}
-                theme='wechat'
-                toggleModal={this.toggleModal}
-             />
+            <>
+                <a className={weChatLinkClass} href="#" target="_blank" onClick={this.showModal}>
+                    <ReactSVG src={this.props.config.chatIcon} />
+                </a>
+                <Modal isOpen={this.state.isModalShown} onClose={this.toggleModal}>
+                    <Header title={this.props.config.title} className={keys.HeaderTitleCentered} />
+                    <WeChatModalBody config={this.props.config} />
+                </Modal>
+            </>
         )
     }
 }
 
+WeChat.propTypes = {
+    config: PropTypes.object.isRequired
+}
+  
 export default WeChat;
+export { weChatLinkClass };
