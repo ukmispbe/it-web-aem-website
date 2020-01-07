@@ -112,8 +112,11 @@ export async function changePasswordSubmit(data) {
 }
 
 export async function signInSubmit(data) {
-    //delete data.confirmPassword;
+
     const response = await postData(this.url, data);
+
+    // remove all previous server error notifications
+    this.setError();
 
     if (response.status === 200) {
         console.log("signIn complete -> redirect", response.json());
