@@ -5,7 +5,7 @@
             "signinEndpoint": "${signIn.signInEndpoint @ context='unsafe'}",
             "siteKey": "${signIn.captchaSiteKey @ context='unsafe'}",
             "formName": "signin",
-            "buttonText": "${'SIGN IN' @ i18n, context='text'}",
+            "buttonText": "${'SIGN IN' @ i18n, context='unsafe'}",
             "icons": {
                 "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                 "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
@@ -18,12 +18,12 @@
                 {
                     "type": "email",
                     "name": "email",
-                    "label": "${'Email Address' @ i18n, context='text'}",
+                    "label": "${'Email Address' @ i18n, context='unsafe'}",
                     "validation": {
                         "required": true,
                         "validateFnName": "email",
-                        "requiredMsg": "${'Please enter a valid email address.' @ i18n, context='text'}",
-                        "validationMsg": "${'Please enter a valid email address.' @ i18n, context='text'}"
+                        "requiredMsg": "${'Please enter a valid email address.' @ i18n, context='unsafe'}",
+                        "validationMsg": "${'Please enter a valid email address.' @ i18n, context='unsafe'}"
                     }
                 },
                 {
@@ -39,14 +39,13 @@
                 {
                     "type": "link",
                     "name": "forgotPassword",
-                    "text": "${'Having trouble signing in?' @ i18n, context='text'}",
-                    "link": "${signin.forgotPasswordLink.href @ context='unsafe'}",
-                    "blank": "${signin.forgotPasswordNewWindow @ context='unsafe'}"
+                    "text": "${'Having trouble signing in?' @ i18n, context='unsafe'}",
+                    "link": "${signin.forgotPasswordLink.href @ context='unsafe'}"
                 },
                 {
                     "type": "checkbox",
                     "name": "keepSignedIn",
-                    "label": "${'Keep me signed in' @ i18n, context='text'}",
+                    "label": "${'Keep me signed in' @ i18n, context='unsafe'}",
                     "checked": "true"
                 }
             ]
