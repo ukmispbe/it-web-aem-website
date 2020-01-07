@@ -192,7 +192,7 @@ class MyAccountDropDown extends React.Component {
                 Please use this code below until sign-in complete and user token is stored in session storage 
                 & User Details service is updated to use that token
             */
-                sessionStore.setUserToken('wendy_batista@waters.com')   
+                sessionStore.setUserToken('pbtest7@waters.com')   
             //END TEMPORARY CODE
 
             if (this.props.config.soldToDetailsUrl) {

@@ -110,3 +110,19 @@ export async function changePasswordSubmit(data) {
         scrollToY(0);
     }
 }
+
+export async function personalSubmit(data) {
+
+    console.log('personalSubmit', data);
+    // const response = await postData(this.url, data);
+
+    // // remove all previous server error notifications
+    // this.setError();
+
+    // if (response.status === 200) {
+    //     console.log('registration complete -> redirect', response.json());
+    // } else {
+    //     this.setError(response);
+    //     scrollToY(0);
+    // }
+}

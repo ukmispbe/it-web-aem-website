@@ -15,7 +15,8 @@ import {
     registrationSubmit,
     resetPasswordSubmit,
     troubleSigningInSubmit,
-    changePasswordSubmit
+    changePasswordSubmit,
+    personalSubmit
 } from './forms/services/submit';
 import Video from './video/index';
 import Chat from './chat';
@@ -395,7 +396,7 @@ if (personalDetailsTile) {
         document.getElementById('cmp-detail-tiles--personal').innerHTML
     );
 
-    ReactDOM.render(<DetailTiles {...config} />, personalDetailsTile);
+    ReactDOM.render(<DetailTiles {...config} submitFn={personalSubmit}/>, personalDetailsTile);
 }
 
 const shippingDetailsTile = document.getElementById('shipping-details-tile');

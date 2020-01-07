@@ -112,7 +112,6 @@ const Form = ({
                 </FieldApi.Provider>
         );
     });
-    const formHeader = config.formHeader;
     return (
         <form
             className="cmp-form cmp-form--registration"
@@ -125,7 +124,6 @@ const Form = ({
                 })
             )}
         >
-            <span className="cmp-form-header">{formHeader.headerText}<a href={formHeader.headerLinkURL}>{formHeader.headerLinkText}</a></span>
             <FormApi.Provider value={getApi}>
                 <FormStateProvider watch={formState}>
                     <ErrorsProvider watch={errors}>{fields}</ErrorsProvider>

@@ -10,13 +10,12 @@
             "fetchEndPoint": "${personal.myAccountUrl @ context='unsafe'}",
             "canCreate": false,
             "editText": "${'Edit' @i18n, context='unsafe'}",
+            "formMessage":  {
+                "text": "${'Your email is your username and cannot be changed. If you need to change your country, please ' @i18n, context='unsafe'}",
+                "linkText": "${'Contact Waters' @i18n, context='unsafe'}",
+                "linkURL": "https://www.waters.com/waters/localeRedirect.htm?type=contact_us"
+            },
             "form": {
-                "formHeader":  {
-                    "name": "personal",
-                    "headerText": "${'Your email is your username and cannot be changed. If you need to change your country, please' @i18n, context='unsafe'}",
-                    "headerLinkText": "${'Contact Waters' @i18n, context='unsafe'}",
-                    "headerLinkURL": "https://www.waters.com/waters/localeRedirect.htm?type=contact_us"
-                },
                 "submitEndpoint": "${personal.myAccountUpdateUrl @ context='unsafe'}",
                 "buttonText": "${'Save Changes' @ i18n, context='unsafe'}",
                 "cancelText": "${'Cancel' @ i18n, context='unsafe'}",
@@ -89,6 +88,11 @@
                             "required": true,
                             "requiredMsg": "${'Please select your country.' @ i18n, context='unsafe'}"
                         }
+                    },
+                    {
+                        "type": "checkbox",
+                        "name": "communications",
+                        "label": "${'I want to receive communications from Waters.' @ i18n, context='text'}"
                     }
                 ]
             },

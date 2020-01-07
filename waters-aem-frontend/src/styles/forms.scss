@@ -1,9 +1,9 @@
 .cmp-form {
 
     .cmp-form-header {
-        color: red;
+        @include font-body;
         a {
-            color: blue;
+            @include font-h4;
             text-decoration: none;
         }
     }
