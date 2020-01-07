@@ -320,10 +320,14 @@ public final class Footer extends AbstractComponent implements ComponentExporter
         for (final CountryLanguageSelectorItem item : getCountryPages()) {
             final Map<String, String> country = new HashMap<>();
 
-            country.put("title", siteContext.getTranslation(item.getTitle()));
-            country.put("href", item.getHomepageLink().getHref());
+            final Link homepageLink = item.getHomepageLink();
 
-            countries.add(country);
+            if (homepageLink != null) {
+                country.put("title", siteContext.getTranslation(item.getTitle()));
+                country.put("href", homepageLink.getHref());
+
+                countries.add(country);
+            }
         }
 
         return MAPPER.writeValueAsString(countries);
