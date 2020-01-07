@@ -9,7 +9,7 @@ const Link = ({}) => {
     return (
         <>
             {
-                text && link && blank &&(
+                text && link && (
                     <div className={`cmp-form-field-${type}--${name} ` + (addClass ? addClass : '')}>
                         <a
                             href={link}
