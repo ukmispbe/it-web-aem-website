@@ -8,6 +8,9 @@ import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.icfolson.aem.library.api.page.PageDecorator;
+import com.icfolson.aem.library.api.page.PageManagerDecorator;
+import com.icfolson.aem.library.core.link.builders.factory.LinkBuilderFactory;
 import com.waters.aem.core.components.content.links.BasicLink;
 import com.waters.aem.core.services.account.WatersAccountService;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -50,6 +53,9 @@ public class MyAccount implements ComponentExporter {
     @OSGiService
     private WatersAccountService accountService;
 
+    @Inject
+    private PageManagerDecorator pageManager;
+
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @DialogField(fieldLabel = "Additional Resources",
@@ -75,8 +81,11 @@ public class MyAccount implements ComponentExporter {
     private Map<String, Object> getLinkMap(final BasicLink link) {
         final Map<String, Object> linkMap = new HashMap<>();
 
+        final PageDecorator page = pageManager.getPage(link.getLink().getPath());
+
         linkMap.put("text", link.getText());
-        linkMap.put("url", link.getLink().getHref());
+        linkMap.put("url", page != null ?
+                LinkBuilderFactory.forPage(page, true).build().getHref() : link.getLink().getHref());
 
         return linkMap;
     }
