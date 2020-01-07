@@ -1,0 +1,523 @@
+.cmp-form {
+    @include non-IE11-browsers {
+        float: left;
+    }
+
+    margin-bottom: $space-l;
+
+    .cmp-form__disclaimer {
+        @include font-utility;
+        display: block;
+        clear: left;
+        width: 75%;
+
+        @include mobile {
+            width: 100%;
+        }
+    }
+
+    &--submit {
+        font-family: $font-stack;
+        font-weight: var(--font-weight-light);
+        line-height: $line-height-text;
+        letter-spacing: 0.02em;
+        margin-bottom: $space-s;
+        margin-top: 0;
+        font-size: $font-size-body;
+
+        @include tablet-and-over {
+            width: auto;
+        }
+
+        &.cmp-button--disabled {
+            background-color: #9ca7b0 !important;
+            cursor: default;
+            @include tablet-and-over {
+                width: auto;
+            }
+        }
+    }
+    .cmp-form-field {
+        float: left;
+        width: 100%;
+        margin-bottom: $space-s;
+
+        .cmp-form-field--icons {
+            .lock-icon {
+                display: inline-block;
+
+                svg {
+                    display: block;
+                }
+            }
+        }
+
+        &.cmp-form-field-dropdown {
+            width: 65%;
+
+            @include mobile {
+                width: 100%;
+            }
+
+            .cmp-form-field-dropdown--wrapper {
+                position: relative;
+
+                .cmp-form-field--errorText {
+                    display: none;
+                }
+            }
+
+            .cmp-custom-dropdown--is-disabled {
+                .cmp-custom-dropdown__control--is-disabled {
+                    background-color: $color-white;
+                    color: $color-disabled;
+                }
+
+                .cmp-custom-dropdown__input {
+                    display: none!important;
+                }
+            }
+        }
+
+        label {
+            display: block;
+            @include font-h4;
+            margin-bottom: $space-xxs;
+
+            .cmp-form-field--optional {
+                @include font-small;
+            }
+
+            &.cmp-form-field--label-matching {
+                margin-top: $space-s;
+            }
+        }
+
+        .cmp-form_description {
+            @include font-small;
+            margin-bottom: $space-xs;
+        }
+
+        .cmp-form-field--errorText {
+            position: relative;
+            a {
+                .email-signin {
+                    display: inline-block;
+                    svg {
+                        height: $icon-s;
+                        width: $icon-s;
+                        margin-left: $space-xxs;
+                        margin-right: $space-xxxs;
+                        margin-bottom: -1px;
+                        .st0,
+                        .st1 {
+                            stroke: $color-link;
+                        }
+                    }
+                }
+            }
+        }
+
+        input {
+            border: 1px solid $color-border-light;
+            @include font-body;
+            width: 100%;
+            margin-bottom: 0;
+            padding: $space-xs;
+        }
+
+        input::-ms-reveal {
+            display: none !important;
+        }
+
+        input::-ms-clear {
+            display: none !important;
+        }
+
+        input::-webkit-contacts-auto-fill-button {
+            visibility: hidden;
+            display: none !important;
+            pointer-events: none;
+            position: absolute;
+            right: 0;
+        }
+
+        input::-webkit-caps-lock-indicator {
+            visibility: hidden;
+            display: none !important;
+        }
+
+        input::-webkit-credentials-auto-fill-button {
+            visibility: hidden;
+            display: none !important;
+        }
+
+        input::-webkit-textfield-decoration-container {
+            visibility: hidden;
+        }
+
+        input.valid {
+            & ~ .cmp-form-field--icons .valid-icon {
+                display: inline-block;
+                svg {
+                    display: block;
+                }
+            }
+
+            &:placeholder-shown,
+            &:focus {
+                & ~ .cmp-form-field--icons .valid-icon {
+                    display: none;
+                    svg {
+                        display: none;
+                    }
+                }
+            }
+
+            &::-moz-placeholder {
+                & ~ .cmp-form-field--icons .valid-icon {
+                    display: none;
+                    svg {
+                        display: none;
+                    }
+                }
+            }
+
+            &:-ms-input-placeholder {
+                & ~ .cmp-form-field--icons .valid-icon {
+                    display: none;
+                    svg {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        &.cmp-form-field--invalid {
+            input.error {
+                border: 1px solid $color-error;
+
+                & ~ .cmp-form-field--icons .invalid-icon {
+                    display: inline-block;
+                    svg {
+                        display: block;
+                    }
+                }
+            }
+
+            .cmp-form-field--errorText {
+                @include font-small;
+                color: $color-error;
+            }
+
+            .radio.error,
+            .checkbox.error {
+                border: 1px solid $color-error;
+            }
+
+            .cmp-form-field-dropdown--wrapper {
+                .cmp-custom-dropdown__control {
+                    border: 1px solid $color-error;
+
+                    .cmp-custom-dropdown__indicators {
+                        margin-right: $space-l;
+                    }
+                }
+
+                .cmp-form-field--icons {
+                    .invalid-icon {
+                        display: inline-block;
+                        svg {
+                            display: block;
+                        }
+                    }
+                }
+
+                .cmp-form-field--errorText {
+                    display: inline;
+                }
+            }
+        }
+
+        input {
+            &:hover {
+                border: 1px solid $color-blue-50;
+            }
+
+            &:active {
+                border: 2px solid $color-focus;
+            }
+
+            &:focus {
+                outline: none;
+                border: 2px solid $color-focus;
+            }
+
+            &:disabled {
+                border: 1px solid $color-disabled !important;
+                color: $color-disabled;
+            }
+        }
+
+        &--input {
+            position: relative;
+        }
+
+        &--icons {
+            position: absolute;
+            top: 1px;
+            right: 1em;
+            height: (($space-xs * 2) + $line-height-text);
+            display: flex;
+            align-items: center;
+            pointer-events: none;
+
+            & > div {
+                display: none;
+                margin-left: $space-xxs;
+
+                svg {
+                    display: none;
+                    height: $icon-m;
+                    width: $icon-m;
+                }
+
+                &.valid-icon svg .st0 {
+                    stroke: $color-success;
+                    stroke-width: 2px;
+                }
+
+                &.invalid-icon svg .st0 {
+                    stroke: $color-error;
+                    stroke-width: 1px;
+                }
+
+                &.showHide-icon,
+                &.showHideOff-icon {
+                    display: none;
+                    svg {
+                        cursor: pointer;
+                        display: none;
+                    }
+                }
+
+                &.showHide-icon.toggled,
+                &.showHideOff-icon.toggled {
+                    pointer-events: all;
+                    display: inline-block;
+                    svg {
+                        cursor: pointer;
+                        display: block;
+                    }
+                }
+            }
+        }
+
+        &--input-requirements {
+            display: none;
+            top: 100%;
+            background-color: white;
+            z-index: 1;
+            width: 100%;
+            padding: $space-s;
+            padding-left: 0;
+
+            & > div {
+                display: block;
+                position: relative;
+                & > div {
+                    display: inline-block;
+                    svg {
+                        height: $icon-s;
+                        width: $icon-s;
+                        position: absolute;
+                        top: $space-xxxs;
+                        left: 0;
+
+                        .st0 {
+                            stroke-width: 2px;
+                            stroke: $color-border-light;
+                        }
+                    }
+
+                    &.valid {
+                        svg {
+                            .st0 {
+                                stroke: $color-success;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .requirements-info {
+                @include font-small;
+                margin-left: $space-m;
+            }
+
+            .requirements-title {
+                display: block;
+                @include font-body;
+                margin-bottom: $space-xxs;
+            }
+
+            &.toggled {
+                display: block;
+            }
+
+            @include tablet-and-under {
+                display: block;
+            }
+        }
+
+        &-checkbox,
+        &-radio {
+            display: flex;
+            label {
+                display: inline;
+                font-weight: $font-weight-light;
+            }
+
+            &--grouping-item {
+                display: flex;
+            }
+
+            &--wrapper {
+                &.disabled {
+                    label {
+                        color: $color-disabled !important;
+                    }
+                }
+            }
+
+            &.optional {
+                @include font-small;
+            }
+        }
+
+        input[type='checkbox'] {
+            display: none;
+
+            &:checked ~ .checkbox {
+                border: 1px solid $color-background-dark;
+                background-color: $color-background-dark;
+                svg {
+                    display: block;
+                }
+            }
+        }
+        .checkbox {
+            display: inline-block;
+            appearance: none;
+            border: 1px solid $color-gray-40;
+            height: 1em;
+            width: 1em;
+            margin-top: 0.3em;
+            margin-right: $space-xxs;
+            transition: none;
+            flex-shrink: 0;
+            svg {
+                display: none;
+                width: 0.8em;
+                height: 0.8em;
+                margin-left: 1px;
+                margin-top: 1px;
+                -moz-transform: rotate(-10deg);
+                -o-transform: rotate(-10deg);
+                -webkit-transform: rotate(-10deg);
+                transform: rotate(-10deg);
+                .st0 {
+                    stroke: $color-white;
+                    stroke-width: 4;
+                }
+            }
+
+            &:hover {
+                border: 1px solid $color-blue-50;
+            }
+
+            &.disabled {
+                border: 1px solid $color-disabled !important;
+                color: $color-disabled !important;
+                cursor: default;
+            }
+        }
+
+        input[type='radio'] {
+            display: none;
+
+            &:checked ~ .radio {
+                border: 1px solid $color-background-dark;
+                div.selector {
+                    display: block;
+                }
+            }
+        }
+        .radio {
+            display: inline-block;
+            appearance: none;
+            border: 1px solid $color-gray-40;
+            height: $icon-s;
+            width: $icon-s;
+            margin-top: 0.3em;
+            margin-right: $space-xxs;
+            transition: none;
+            border-radius: 100%;
+            position: relative;
+            flex-shrink: 0;
+            div.selector {
+                display: none;
+                background-color: $color-gray-50;
+                border-radius: 100%;
+                width: $icon-xs;
+                height: $icon-xs;
+                margin: $space-xxxs;
+                position: absolute;
+                top: -1px;
+                left: -1px;
+            }
+            &:hover {
+                border: 1px solid $color-blue-50;
+            }
+
+            &.disabled {
+                border: 1px solid $color-disabled !important;
+                color: $color-disabled !important;
+                cursor: default;
+            }
+        }
+    }
+
+    .cmp-custom-dropdown__option {
+        &--is-focused {
+            color: $color-blue-50;
+        }
+    }
+
+    .cmp-custom-dropdown__input {
+        margin-top: 0;
+    }
+
+    .cmp-form-field-captcha {
+        margin-top: $space-s;
+        margin-bottom: $space-l;
+    }
+
+    &__submission-error {
+        float: left;
+        clear: both;
+        margin-bottom: $space-l;
+        color: $color-error;
+    }
+
+    .cmp-form__additionalText {
+        font-weight: $font-weight-bold;
+        margin-left: $space-xxxs;
+    }
+}
+
+.cmp-trouble-signing-in-form {
+    .cmp-form {
+        margin-bottom: 0px;
+    }
+}

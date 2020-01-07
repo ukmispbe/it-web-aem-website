@@ -12,6 +12,7 @@ button.cmp-button {
     display: inline-block;
     text-align: center;
     float: left;
+    border-radius: $border-radius;
     cursor: pointer;
 
     &:hover {
@@ -118,6 +119,27 @@ a.cmp-button--secondary--disabled,
 button.cmp-button--secondary--disabled {
     color: $color-disabled;
     border: 1px solid $color-disabled;
+}
+
+.cmp-button--cancel button.cmp-button,
+.cmp-button--cancel a.cmp-button,
+a.cmp-button--cancel,
+button.cmp-button--cancel {
+    background-color: transparent;
+    text-transform: capitalize;
+    color: $color-link;
+    padding: 0;
+    margin: $space-xs $space-l;
+    margin-bottom: ($space-xs + $space-l);
+
+    &:hover {
+        background-color: transparent;
+        color: $color-link-hover;
+    }
+
+    @include mobile {
+        margin: 0.75em 0 2.75em;
+    }
 }
 
 @media (max-width: 768px) {

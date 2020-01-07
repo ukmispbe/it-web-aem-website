@@ -9,7 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 
-
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**

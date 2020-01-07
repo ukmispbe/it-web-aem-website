@@ -42,8 +42,8 @@
         width: 100%;
 
         svg {
-            height: $icon-s;
-            width: $icon-s;
+            height: $icon-m;
+            width: $icon-m;
         }
 
         &-text {
@@ -52,7 +52,7 @@
 
         &-icon {
             line-height: $line-height-text;
-            margin: 0 0.35em 0 0;
+            margin: 0 ($space-xxxs + .05em) 0 0;
 
             &.online {
                 svg {
@@ -61,7 +61,7 @@
                     .st0,
                     .st1 {
                         stroke: $color-success;
-                        stroke-width: 2px;
+                        stroke-width: 1.25px;
                     }
                 }
             }
@@ -71,7 +71,7 @@
                     .st0,
                     .st1 {
                         stroke: $color-error;
-                        stroke-width: 2px;
+                        stroke-width: 1.25px;
                     }
                 }
             }

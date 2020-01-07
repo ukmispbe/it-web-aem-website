@@ -29,7 +29,6 @@ import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
 import com.waters.aem.core.components.structure.page.analytics.DataLayer;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
-import com.waters.aem.core.services.youramigo.YourAmigoService;
 import com.waters.aem.core.utils.LinkUtils;
 import com.waters.aem.core.utils.LocaleUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -56,10 +55,10 @@ import java.util.stream.Collectors;
     editConfig = false,
     tabs = {
         @Tab(title = "Properties"),
-        @Tab(title = "Region Selector"),
         @Tab(title = "Legal Icons"),
         @Tab(title = "Footer Links"),
-        @Tab(title = "Share Links")
+        @Tab(title = "Share Links"),
+        @Tab(title = "WeChat (China)")
     },
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE)
@@ -75,9 +74,6 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     @Inject
     private PageDecorator currentPage;
-
-    @OSGiService
-    private YourAmigoService yourAmigoService;
 
     @OSGiService
     private WatersCommerceService watersCommerceService;
@@ -138,7 +134,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     @DialogField(fieldLabel = "Shanghai ICP Number",
             fieldDescription = "Enter the Shanghai ICP Number",
-            tab = 3,
+            tab = 2,
             ranking = 1
     )
     @TextField
@@ -147,7 +143,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     @DialogField(fieldLabel = "Shanghai ICP Number Legal Icon",
             fieldDescription = "Select the legal icon to display on footer",
-            tab = 3,
+            tab = 2,
             ranking = 3
     )
     @PathField(rootPath = WatersConstants.DAM_PATH)
@@ -156,7 +152,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     @DialogField(fieldLabel = "Shanghai ICP Number Legal Link",
             fieldDescription = "Select or enter the link URL",
-            tab = 3,
+            tab = 2,
             ranking = 2
     )
     @PathField(rootPath = WatersConstants.ROOT_PATH)
@@ -165,7 +161,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     @DialogField(fieldLabel = "Beijing Public Network Security Number",
             fieldDescription = "Enter the Beijing Public Network Security Number",
-            tab = 3,
+            tab = 2,
             ranking = 4
     )
     @TextField
@@ -174,7 +170,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     @DialogField(fieldLabel = "Beijing Public Network Security Number Legal Icon",
             fieldDescription = "Select the legal icon to display on footer",
-            tab = 3,
+            tab = 2,
             ranking = 6
     )
     @PathField(rootPath = WatersConstants.DAM_PATH)
@@ -183,7 +179,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     @DialogField(fieldLabel = "Beijing Public Network Security Number Legal Link",
             fieldDescription = "Select or enter the link URL",
-            tab = 3,
+            tab = 2,
             ranking = 5
     )
     @PathField(rootPath = WatersConstants.ROOT_PATH)
@@ -192,25 +188,42 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     @DialogField(fieldLabel = "Cookies Link",
         fieldDescription = "Select or enter the link URL",
-        tab = 4,
+        tab = 3,
         ranking = 1)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
     private Link cookiesLink;
 
     @DialogField(fieldLabel = "Footer Links",
-        tab = 4,
+        tab = 3,
         ranking = 2)
     @MultiField(composite = true)
     @InheritInject
     private List<BasicLink> footerLinks;
 
     @DialogField(fieldLabel = "Social Links",
-        tab = 5)
+        tab = 4,
+        ranking = 2)
     @MultiField(composite = true)
     @InheritInject
     private List<IconOnlyLink> socialLinks;
 
+    @DialogField(fieldLabel = "WeChat Icon",
+            fieldDescription = "Select the WeChat icon to display on footer (China only)",
+            tab = 5,
+            ranking = 1)
+    @PathField(rootPath = WatersConstants.DAM_PATH)
+    @InheritInject
+    private String weChatIcon;
+
+    @DialogField(fieldLabel = "WeChat QR Code Image",
+            fieldDescription = "Select the WeChat QR Code to display in the WeChat modal",
+            tab = 5,
+            ranking = 2)
+    @Html5SmartImage(tab = false, allowUpload = false, height = 150)
+    @ImageInject(inherit = true)
+    private Image weChatQrCodeImage;
+ 
     private List<CountryLanguageSelectorItem> languagePages;
 
     @JsonProperty
@@ -281,6 +294,14 @@ public final class Footer extends AbstractComponent implements ComponentExporter
         return socialLinks;
     }
 
+    public String getWeChatIcon() {
+        return weChatIcon;
+    }
+
+    public Image getWeChatQrCodeImage() {
+        return weChatQrCodeImage;
+    }
+
     public String getDataLayer() throws JsonProcessingException {
         return dataLayer.getJsonData();
     }
@@ -289,11 +310,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
         return siteContext.getLanguageLocation();
     }
 
-    public Boolean isYourAmigoEnabled() {
-        return Locale.US.getCountry().equals(siteContext.getLocaleWithCountry().getCountry()) && yourAmigoService.isEnabled();
-    }
-
-    public Boolean isShowLegalIcon() {
+    public Boolean isChinaPage() {
         return Locale.CHINA.getCountry().equals(siteContext.getLocaleWithCountry().getCountry());
     }
 

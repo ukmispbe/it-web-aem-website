@@ -1,0 +1,127 @@
+.my-account-dropdown {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    background-color: $color-white;
+
+    @include tablet-and-over {
+        // min-width: 211px;
+        padding: $space-s;
+        box-shadow: $shadow;
+        flex-shrink: 0;
+    }
+
+    hr {
+        margin: 0 0 $space-xs;
+        @include mobile {
+            width: 100%;
+        }
+    }
+
+    &__user-details {
+        &__name {
+            @include font-h3;
+        }
+        &__account {
+            @include font-small;
+            margin-bottom: $space-s;
+        }
+        &__switch-account {
+            display: inline-block;
+            @include font-body;
+            color: $color-link;
+        }
+
+        &__switch-account:hover {
+            color: $color-link-hover;
+        }
+    }
+
+    &__item-list {
+        align-self: flex-start;
+        width: 100%;
+        margin: 0;
+
+        &--link {
+            @include font-utility;
+            @include font-h3;
+            font-size: 1em;
+            font-weight: 300;
+            display: block;
+            margin-bottom: 0;
+            padding: 0 0 $space-xs;
+
+            @include tablet-and-over {
+                transition: $hover-transition;
+            }
+
+            span {
+                display: block;
+                margin: 0;
+            }
+
+            &:hover {
+                @include tablet-and-over {
+                    color: $color-link;
+                }
+                text-decoration: none;
+            }
+
+            &:active {
+                @include font-utility;
+                transition: $hover-transition;
+
+                &:hover {
+                    color: $color-link;
+                }
+
+                &:active {
+                    @include font-utility;
+                }
+            }
+        }
+    }
+
+    &__sign-in-out {
+        @include font-body;
+        margin: 0;
+        color: $color-link;
+
+        .sign-in-out__icon {
+            display: inline-block;
+            svg {
+                height: ($icon-m - $space-xxxs);
+                width: ($icon-m - $space-xxxs);
+                margin-right: $space-xxs;
+                margin-bottom: -4px;
+                .st0,
+                .st1 {
+                    stroke: $color-link;
+                }
+            }
+        }
+    }
+
+    &__sign-in-out:hover {
+        .sign-in-out__icon {
+            svg {
+                .st0,
+                .st1 {
+                    stroke: $color-link-hover;
+                }
+            }
+        }
+    }
+
+    &__create-account {
+        margin-top: $space-l;
+
+        a.cmp-button {
+            display: block;
+            float: none;
+            margin-bottom: 0;
+            margin-top: $space-xs;
+        }
+    }
+}

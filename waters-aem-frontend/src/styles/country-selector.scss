@@ -1,11 +1,8 @@
 .cmp-country-selector {
-    padding-left: 3em;
-    padding-right: 3em;
-    padding-bottom: 2em;
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    
     @include mobile {
         position: fixed;
         top: 13px;
@@ -53,19 +50,11 @@
     &__text {
         width: 100%;
         padding-top: 0;
-
-        @include tablet {
-            width: 75%;
-        }
     }
 
     &__dropdown {
         width: 100%;
         padding-top: $space-m;
-
-        @include tablet {
-            width: 75%;
-        }
 
         .select-css {
             display: block;
@@ -126,10 +115,6 @@
                 stroke: $color-icon;
             }
         }
-
-        @include tablet {
-            width: 75%;
-        }
     }
 
     &__note-text {
@@ -145,16 +130,30 @@
         a {
             width: 100%;
         }
-
-        @include tablet {
-            width: 75%;
-        }
     }
 
     &__cancel {
         padding-top: 0;
         a {
             cursor: pointer;
+        }
+    }
+}
+
+.cmp-country-selector-modal {
+    .cmp-modal {
+        @include tablet-and-over {
+            width: 475px;
+        }
+    }
+
+    .cmp-modal > div{
+        margin: $space-s auto 0;
+    }
+
+    @include mobile {
+        .cmp-modal > div:first-child{
+            margin-top: 0;
         }
     }
 }

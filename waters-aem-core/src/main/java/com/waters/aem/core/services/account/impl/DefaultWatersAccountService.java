@@ -19,6 +19,20 @@ public class DefaultWatersAccountService implements WatersAccountService {
 
     private volatile String legacySearchUrl;
 
+    private volatile String registrationSubmitUrl;
+
+    private volatile String emailValidationUrl;
+
+    private volatile String passwordResetUrl;
+
+    private volatile String changePasswordUrl;
+
+    private volatile String userDetailsUrl;
+
+    private volatile String soldToDetailsUrl;
+
+    private volatile String updatePasswordUrl;
+
     @Override
     public String getSignInUrl() {
         return signInUrl;
@@ -39,6 +53,41 @@ public class DefaultWatersAccountService implements WatersAccountService {
         return legacySearchUrl;
     }
 
+    @Override
+    public String getRegistrationSubmitUrl() {
+        return registrationSubmitUrl;
+    }
+
+    @Override
+    public String getEmailValidationUrl() {
+        return emailValidationUrl;
+    }
+
+    @Override
+    public String getPasswordResetUrl() {
+        return passwordResetUrl;
+    }
+
+    @Override
+    public String getChangePasswordUrl() {
+        return changePasswordUrl;
+    }
+
+    @Override
+    public String getUserDetailsUrl() {
+        return userDetailsUrl;
+    }
+
+    @Override
+    public String getSoldToDetailsUrl() {
+        return soldToDetailsUrl;
+    }
+
+    @Override
+    public String getUpdatePasswordUrl() {
+        return updatePasswordUrl;
+    }
+
     @Activate
     @Modified
     protected void activate(final WatersAccountServiceConfiguration configuration) {
@@ -46,5 +95,12 @@ public class DefaultWatersAccountService implements WatersAccountService {
         signOutUrl = configuration.signOutUrl();
         myAccountUrl = configuration.myAccountUrl();
         legacySearchUrl = configuration.legacySearchUrl();
+        registrationSubmitUrl = configuration.registrationSubmitUrl();
+        emailValidationUrl = configuration.emailValidationUrl();
+        passwordResetUrl = configuration.pwResetUrl();
+        changePasswordUrl = configuration.changePwUrl();
+        userDetailsUrl = configuration.userDetailsUrl();
+        soldToDetailsUrl = configuration.soldToDetailsUrl();
+        updatePasswordUrl = configuration.updatePwUrl();
     }
 }

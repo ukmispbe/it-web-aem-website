@@ -69,6 +69,7 @@
         background-color: $color-white;
         box-shadow: $shadow;
         padding: $space-l;
+        border-radius: $border-radius;
         //overflow-y: auto;
         &-link {
             margin-bottom: $space-m;
@@ -77,6 +78,10 @@
             @include tablet-and-under {
                 margin-bottom: 0px;
             }
+        }
+
+        &-title {
+            color: $color-font-medium;
         }
 
         

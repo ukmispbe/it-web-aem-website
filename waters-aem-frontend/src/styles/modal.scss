@@ -10,6 +10,12 @@
 
     @include mobile {
         display: block;
+
+        &.cmp-modal-box__site-nav-on-mobile {
+            position: absolute;
+            top: 66px;
+            border-top: 1px solid $color-border-light;
+        }
     }
 }
 
@@ -21,6 +27,7 @@
     width: 30%;
 
     @include tablet-and-over {
+        padding: 1.5em 3em;
         align-self: center;
         margin: auto;
     }
@@ -36,177 +43,119 @@
         left: 0;
     }
 
-    .cmp-modal__box {
-        padding: $space-m $space-xl;
-        @include mobile {
-            padding: $space-s;
-        }
-    }
-
     .cmp-modal__header {
-        padding-bottom: $space-xs;
+        display: flex;
+        flex-wrap: wrap;
 
         @include mobile {
-            height: $space-xl;
-            box-shadow: 0 1px 5px 0 rgba(79,91,100,.2);
-        }
-    }
+            padding: 1em 0;
 
-    .cmp-modal__close-icon {
-        border: none;
-        padding: 0;
-        margin-bottom: $space-s;
-        @include mobile {
-            display: contents;
-        }
-        svg {
-            cursor: pointer;
-            position: absolute;
-            top: $space-s;
-            right: $space-s;
-            width: $icon-l;
-            height: $icon-l;
-            float: right;
-            .st0,
-            .st1 {
-                stroke: $color-icon;
-            }
-            @include mobile {
-                top: $space-xs;
-                width: $icon-m;
-                height: $icon-m;
-                stroke: $color-icon;
-                z-index: $cmp-modal-box-close-btn-z-index;
-            }
-        }
-    }
-
-    .cmp-modal__title {
-        .cmp-modal__title-icon {
-            margin-right: $space-xxs;
-            display: inline-block;
-            svg {
-                height: $icon-l;
-                width: $icon-l;
-                @include mobile {
-                    height: $icon-m;
-                    width: $icon-m;
-                }
-                vertical-align: bottom;
-                polyline {
-                    stroke-width: 2px;
-                    stroke: $color-accent;
-                }
-            }
-        }
-        .cmp-modal__title-text {
-            @include font-h2;
-            display: inline-block;
-            margin-bottom: 0;
-            @include mobile {
-                @include font-body;
-                @include font-utility;
-                margin-bottom: 0;
-            }
-        }
-
-        @include mobile {
-            top: $space-xs;
-            width: 115%;
-            left: -3px;
-            position: absolute;
-            -webkit-box-shadow: 0px 4px 2px -2px $color-gray-20;
-            -moz-box-shadow: 0px 4px 2px -2px $color-gray-20;
-            box-shadow: 0px 4px 2px -2px $color-gray-20;
-            padding-bottom: $space-xs;
-            padding-left: $space-s;
-        }
-    }
-
-    .cmp-modal__information {
-        margin-top: $space-l;
-
-        @include mobile {
-            margin-top: $space-xl + 1;
-        }
-
-        .cmp-modal__information-header {
-            @include font-body;
-            @include font-utility;
-            margin-bottom: $space-xxs;
-            margin-top: -$space-xxs;
-        }
-
-        .cmp-modal__information-text {
-            @include font-h3;
-            color: $color-black;
-        }
-    }
-
-    .cmp-modal__btn {
-        margin-top: $space-m;
-
-        .cmp-modal__btn-main {
-            @include tablet-and-over {
+            &.header-with-title:after{
+                box-shadow: 0 4px 2px -2px #e3e6e9;
+                content: '';
                 width: 100%;
-            }
-            float: none;
-            margin-bottom: $space-s;
-        }
-
-        .cmp-modal__btn-alt {
-            @include tablet-and-over {
-                width: 100%;
-            }
-            cursor: pointer;
-            text-transform: capitalize;
-            background: none;
-            border: none;
-            float: none;
-            @include font-body;
-            margin-bottom: 0;
-            color: $color-link;
-            &:hover {
-                color: $color-link-hover;
-                text-decoration: underline;
+                height: 9px;
+                margin-top: -9px;
+                padding-bottom: calc(1em - 9px);
             }
         }
-    }
-}
 
-/////// MY-ACCOUNT DROPDOWN MODAL
-@include mobile {
-
-    .cmp-modal.account-dropdown{
-        .cmp-modal__box {
-            @include mobile {
-                padding: ($space-m - $space-xxxs);
-            }
-        }
-    }
-
-
-    .cmp-modal-box.account-dropdown {
-        position: absolute;
-        top: 66px;
-        border-top: 1px solid $color-border-light;
-    }
-
-    .cmp-modal.account-dropdown {
         .cmp-modal__title {
             .cmp-modal__title-icon {
                 margin-right: $space-xxs;
-                height: $icon-m;
-                width: $icon-m;
+                display: inline-block;
 
                 svg {
-                    .st0,
-                    .st1 {
-                        stroke: $color-teal-30;
+                    height: $icon-l;
+                    width: $icon-l;
+                    position: relative;
+                    top: 3px;
+                    @include mobile {
+                        height: $icon-m;
+                        width: $icon-m;
+                        top: 2px;
                     }
+
+                    vertical-align: bottom;
+                    
+                    .st0, .st1, polyline {
+                        //this is the default modal icon color
+                        stroke: $color-icon;
+                    }
+
                 }
+            }
+            .cmp-modal__title-text {
+                @include font-h2;
+                display: inline-block;
+                margin-bottom: 0;
+                @include mobile {
+                    @include font-body;
+                    @include font-utility;
+                    margin-bottom: 0;
+                }
+            }
+    
+            @include mobile {
+                padding-left: 1em;
+                flex-grow: 1;
+            }
+        }
+        
+        .cmp-modal__close-icon {
+            border: none;
+            padding: 0;
+            margin-bottom: $space-s;
+            margin-left: auto;
+            @include mobile {
+                padding-right: 1em;
+                margin-bottom: 0;
+            }
+            svg {
+                cursor: pointer;
+                width: $icon-l;
+                height: $icon-l;
+                
+                .st0,
+                .st1 {
+                    stroke: $color-icon;
+                }
+                
+                @include tablet-and-over {
+                    position: absolute;
+                    top: $space-s;
+                    right: $space-s;
+                    float: right;
+                }
+
+                @include mobile {
+                    width: $icon-m;
+                    height: $icon-m;
+                    stroke: $color-icon;
+                }
+            }
+        }
+
+
+        &.header-with-title-centered {
+            .cmp-modal__title {
+                @include tablet-and-over {
+                    margin-left: auto;
+                }
+
+            }
+        }
+
+        &.header-with-added-margin-top {
+            @include tablet-and-over {
+                margin-top: 1em;
             }
         }
     }
 
+    & > div:not(:nth-child(1)) {
+        @include mobile {
+            padding: 0 $space-s;
+        }
+    }
 }

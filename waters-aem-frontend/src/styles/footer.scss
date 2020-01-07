@@ -213,6 +213,7 @@
     display: block;
     opacity: 0;
     border: 1px solid $color-border-light;
+    border-radius: $border-radius;
     padding: ($space-xxs + .05em);
     box-shadow: $shadow;
     transition: $fade-transition;
@@ -227,8 +228,7 @@
     }
 
     &:hover {
-        border: 1px solid $color-border-dark;
-
+        border: 1px solid $color-link;
         svg {
             .st0 {
                 stroke: $color-link;

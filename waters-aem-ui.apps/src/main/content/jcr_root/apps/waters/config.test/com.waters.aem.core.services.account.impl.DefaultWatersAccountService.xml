@@ -5,4 +5,10 @@
           signInUrl="https://wwwdt1.waters.com/waters/login.htm?redirectUrl=https://test-www.waters.com"
           signOutUrl="https://wwwdt1.waters.com/waters/logOut.htm"
           myAccountUrl="https://wwwdt1.waters.com/waters/My-Account/nav.htm?cid=2243096"
-          legacySearchUrl="https://wwwdt1.waters.com/waters/keywordSearch.htm"/>
+          legacySearchUrl="https://wwwdt1.waters.com/waters/keywordSearch.htm"
+          registrationSubmitUrl="https://test-www.waters.com:8443/api/waters/user/v1/registration"
+          emailValidationUrl="https://test-www.waters.com:8443/api/waters/user/v1/validate/{email}"
+          pwResetUrl="https://test-www.waters.com:8443/api/waters/user/v1/reset/password?email={email}"
+          changePwUrl="https://test-www.waters.com:8443/api/waters/user/v1/change/password"
+          userDetailsUrl="https://test-www.waters.com:8443/api/waters/user/v1/details?email={email}"
+          soldToDetailsUrl="https://test-www.waters.com:8443/api/waters/user/v1/retrievesoldto?email={email}"/>

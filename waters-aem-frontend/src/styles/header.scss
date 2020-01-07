@@ -156,29 +156,38 @@
                     min-width: 0 !important;
                 }
 
-                .greeting-text {
-                    display: none;
-                }
-
                 &__dropdown {
+                    
                     @include tablet-and-over {                
                         opacity: 0;
                         transition: all 0.2s ease;
                         visibility: hidden;
                         box-shadow: $shadow;
-                        width: 100%;
                         position: absolute;
                         top: 71px;
-                        left: 0px;
+                        right: 0px;
+                        border-top: 4px solid $color-gray-50;
+                        display: none;
+                        justify-content: flex-end;
                     }
                 }
     
+
+                &.is-active{
+                    .top-bar__nav__user__dropdown{
+                        visibility: visible;
+                        opacity: 1;
+                        display: flex;
+                    }
+                }
+                
                 &.loggedIn {
 
                     .top-bar__nav__user__link {
                         svg .st1,
                         svg .st0{
                             stroke: $color-teal-30;
+                            stroke-width: 0.75px;
                         }
                     }
 
@@ -186,28 +195,7 @@
                         color: $color-gray-50;
                     }
 
-                    .greeting-text {
-                        display: inline-block;
 
-                        @include mobile {
-                            display: none;
-                        }
-                
-                        .sign-in-text {
-                            display: none;
-                        }
-                    }
-
-                    .sign-in-text {
-                        display: none;
-                    }
-
-                    &.is-active{
-                        .top-bar__nav__user__dropdown{
-                            visibility: visible;
-                            opacity: 1;
-                        }
-                    }
                 }
     
             }

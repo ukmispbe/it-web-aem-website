@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Modal from '../utils/modal'
+import Modal, { Header, keys } from '../utils/modal'
 import ReactSVG from 'react-svg';
 
 const CountrySelection = props => {
@@ -20,12 +20,6 @@ const CountrySelection = props => {
 
     return (
         <div className="cmp-country-selector">
-            <div className="cmp-country-selector__title">
-                <ReactSVG src="/content/dam/waters/en/brand-assets/icons/globe.svg" />
-                <div>
-                    {props.translations.preferredCountryHeading}
-                </div>
-            </div>
             <div className="cmp-country-selector__text">
                 {props.translations.changeCountryText}
             </div>
@@ -77,7 +71,11 @@ const CountrySelection = props => {
     }
 
     return (
-        <Modal isOpen={open} onClose={handleClose}>
+        <Modal isOpen={open} onClose={handleClose} className='cmp-country-selector-modal'>
+            <Header
+                title={props.translations.preferredCountryHeading}
+                icon='/content/dam/waters/en/brand-assets/icons/globe.svg'
+            />
             <CountrySelection {...props} onChange={handleCountrySelectionChange} onClose={handleClose} />
         </Modal>
     );
