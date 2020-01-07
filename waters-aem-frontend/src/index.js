@@ -458,7 +458,9 @@ const countryModalRoot = document.getElementById('country-selector-root');
 
 if (countryModalRoot) {
     const scriptElement = document.getElementById('country-list-json');
-    const countries = scriptElement ? JSON.parse(scriptElement.innerHTML) : [];
+    const countries = scriptElement && scriptElement.innerHTML.trim() ? JSON.parse(scriptElement.innerHTML) : [];
 
-    ReactDOM.render(<CountrySelector countries={countries} translations={globalTranslations} />, countryModalRoot);
+    if (Array.isArray(countries) && countries.length !== 0) {
+        ReactDOM.render(<CountrySelector countries={countries} translations={globalTranslations} />, countryModalRoot);
+    }
 }
