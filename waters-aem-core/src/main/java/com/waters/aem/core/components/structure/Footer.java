@@ -324,7 +324,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
             if (homepageLink != null) {
                 country.put("title", siteContext.getTranslation(item.getTitle()));
-                country.put("href", item.getHomepageLink().getHref());
+                country.put("href", homepageLink.getHref());
 
                 countries.add(country);
             }
