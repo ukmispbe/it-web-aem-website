@@ -10,5 +10,6 @@ export const keys = {
     currentPassword: ['password','Input','input'],
     newPassword:    ['password','Input','input'],
     country:    ['dropdown', 'Dropdown', 'Memo(Select)'],
-    captcha:    ['captcha', 'Captcha','captcha']
+    captcha:    ['captcha', 'Captcha','captcha'],
+    phone:  ['text','Input','input']
 };

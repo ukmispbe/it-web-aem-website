@@ -2,8 +2,9 @@ import { passwordTests } from './passwordTests';
 import { keys} from './keys';
 import { dropDownTests } from './dropDownTests';
 import { act } from "react-dom/test-utils";
+import { validIconsTest } from '../__utils__/validIconsTest';
 
-export const inputTests = (inputs, inputType, checkDescription) => {
+export const inputTests = (inputs, inputType, checkDescription, isReadOnly) => {
 
     describe(`Scenario ${inputType} Input Rendering`, () => {
 
@@ -43,12 +44,36 @@ export const inputTests = (inputs, inputType, checkDescription) => {
             });
         }
         
-        let iconHolder, validIcon, invalidIcon;
         let isCurrentPassword = false;
         let isNewPassword = false;
         switch (inputType) {
             case "country": 
-                dropDownTests(memoInput);
+                dropDownTests(memoInput, isReadOnly);
+                const iconHolderX = memoInput.find('Memo(Icons)');
+                validIconsTest(memoInput, 1, isReadOnly);
+                // if (!isReadOnly) {
+                //     let iconHolder = memoInput.find('Memo(Icons)');
+                //     const validIcon = iconHolder.find('ReactSVG[className="valid-icon"]');
+                //     it('Should render the valid icon', () => {                 
+                //         expect(validIcon.length).toBe(1);
+                //     });
+            
+                //     const invalidIcon = iconHolder.find('ReactSVG[className="invalid-icon"]');
+                //     it('Should render the invalid icon', () => {                 
+                //         expect(invalidIcon.length).toBe(1);
+                //     });
+                // }
+                // else {
+                //     let iconHolder = memoInput.find('Memo(Icons)');
+                //     const lockIcon = iconHolder.find('ReactSVG[className="lock-icon"]');
+                //     console.log(iconHolder.debug());
+                //     it('Should render the lock icon', () => {                 
+                //         expect(lockIcon.length).toBe(1);
+                //     });                   
+                // }
+            break;
+            case "email": 
+                validIconsTest(memoInput, 1, isReadOnly);
             break;
             case "password": 
                 passwordTests(memoInput, isCurrentPassword, isNewPassword);
@@ -62,20 +87,7 @@ export const inputTests = (inputs, inputType, checkDescription) => {
                 passwordTests(memoInput, isCurrentPassword, isNewPassword);
             break;
             default:
-                const iconHolder = memoInput.find('Memo(Icons)');
-                it('Should render the Icon field', () => {                 
-                    expect(iconHolder.length).toBe(1);
-                });
-        
-                const validIcon = iconHolder.find('ReactSVG[className="valid-icon"]');
-                it('Should render the valid icon', () => {                 
-                    expect(validIcon.length).toBe(1);
-                });
-        
-                const invalidIcon = iconHolder.find('ReactSVG[className="invalid-icon"]');
-                it('Should render the invalid icon', () => {                 
-                    expect(invalidIcon.length).toBe(1);
-                });
+                validIconsTest(memoInput, 1, isReadOnly);
         }
 
         const displayMessage = memoInput.find(`Memo(DisplayMessage)[name="${inputType}"]`);

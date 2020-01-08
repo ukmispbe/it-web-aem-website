@@ -32,7 +32,8 @@ describe('Feature Registration [Form]', () => {
         inputTests(inputs, "firstName");
         inputTests(inputs, "lastName");
         inputTests(inputs, "company");
-        inputTests(inputs, "country");
+        const isReadOnly = false;
+        inputTests(inputs, "country", false , isReadOnly);
         inputTests(inputs, "password");
         checkboxTests(inputs, "communications");
         checkboxTests(inputs, "privacy");

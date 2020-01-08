@@ -1,25 +1,19 @@
+import { validIconsTest } from '../__utils__/validIconsTest';
 export const passwordTests = (input, isCurrentPassword, isNewPassword) => {
 
     let numberOfIcons = 2;
     if (isCurrentPassword) {
         numberOfIcons = 1;
     }
-    
+
     const iconHolders = input.find('Memo(Icons)');
     it('Should render the Icon fields', () => {
         expect(iconHolders.length).toBe(numberOfIcons);
     });
 
-    const validIcons = iconHolders.find('ReactSVG[className="valid-icon"]');
-    it('Should render the valid icons', () => {
-        expect(validIcons.length).toBe(numberOfIcons);
-    });
-
-    const invalidIcons = iconHolders.find('ReactSVG[className="invalid-icon"]');
-    it('Should render the invalid icons', () => {
-        expect(invalidIcons.length).toBe(numberOfIcons);
-    });
-
+    const isReadOnly = false;
+    validIconsTest(iconHolders, numberOfIcons, isReadOnly);
+    
     const showHideOffIcons = iconHolders.find('ReactSVG[className="showHideOff-icon"]');
     it('Should render the showHideOff icons', () => {
         expect(showHideOffIcons.length).toBe(numberOfIcons);
@@ -29,6 +23,7 @@ export const passwordTests = (input, isCurrentPassword, isNewPassword) => {
     it('Should render the showHide icons', () => {
         expect(showHideIcons.length).toBe(numberOfIcons);
     });
+    
     if (!isCurrentPassword) {
         describe('Password Requirements', () => {
 

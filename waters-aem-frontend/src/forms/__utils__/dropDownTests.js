@@ -1,6 +1,6 @@
 import { keys, keys2 } from './keys';
 
-export const dropDownTests = (input) => {
+export const dropDownTests = (input, isReadOnly) => {
 
     const stateManager = input.find('StateManager');
     it('Should render the State Manager field', () => {
@@ -62,9 +62,10 @@ export const dropDownTests = (input) => {
         expect(dropDownIndicator.length).toBe(1);
     });
 
-    const hiddenInputField = stateManager.find('input[type="hidden"]');
-    it('Should render the hiddenInputField field', () => {
-        expect(hiddenInputField.length).toBe(1);
-    });
-  
+    if (!isReadOnly) {
+        const hiddenInputField = stateManager.find('input[type="hidden"]');
+        it('Should render the hiddenInputField field', () => {
+            expect(hiddenInputField.length).toBe(1);
+        });
+    }
 }

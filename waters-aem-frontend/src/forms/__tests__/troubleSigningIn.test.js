@@ -27,7 +27,8 @@ describe('Feature Trouble Signing In [Form]', () => {
         });
         
         const checkDescription = false;
-        inputTests(inputs, "email", checkDescription);
+        const isReadOnly = false;
+        inputTests(inputs, "email", checkDescription, isReadOnly);
         captchaTests(inputs, "captcha");
 
         afterEach(() => {
