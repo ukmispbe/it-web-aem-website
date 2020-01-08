@@ -120,6 +120,8 @@ export async function signInSubmit(data) {
 
     if (response.status === 200) {
         console.log("signIn complete -> redirect", response.json());
+        const redirect = window.sessionStorage.getItem('signInRedirect');
+        window.location.replace(redirect ? redirect : 'https://www.waters.com');
     } else {
         this.setError(response);
         scrollToY(0);
