@@ -78,4 +78,11 @@ public interface WatersAccountService {
      * @return User update password API URL
      */
     String getUpdatePasswordUrl();
+
+    /**
+     * Get the configured URL for update profile API.
+     *
+     * @return User update profile API URL
+     */
+    String getUpdateProfileUrl();
 }
