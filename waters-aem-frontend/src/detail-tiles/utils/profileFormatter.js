@@ -16,7 +16,8 @@ export const getCountryName = (countryCode) => {
         case "in":
             return "India";
         default:
-            return country;
+            // PB Changed to String because the variable country not defined. It errors otherwise (GB or empty)
+            return "United Kingdom";
     }
 };
 

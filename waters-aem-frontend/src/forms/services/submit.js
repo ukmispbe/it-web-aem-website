@@ -114,15 +114,16 @@ export async function changePasswordSubmit(data) {
 export async function personalSubmit(data) {
 
     console.log('personalSubmit', data);
-    // const response = await postData(this.url, data);
+    console.log('URL', this.url);
+    const response = await postData(this.url, data);
 
-    // // remove all previous server error notifications
-    // this.setError();
+    // remove all previous server error notifications
+    this.setError();
 
-    // if (response.status === 200) {
-    //     console.log('registration complete -> redirect', response.json());
-    // } else {
-    //     this.setError(response);
-    //     scrollToY(0);
-    // }
+    if (response.status === 200) {
+        console.log('Personal Details Updated complete -> redirect', response.json());
+    } else {
+        this.setError(response);
+        scrollToY(0);
+    }
 }
