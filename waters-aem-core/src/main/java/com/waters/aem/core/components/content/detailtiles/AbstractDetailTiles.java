@@ -28,7 +28,7 @@ public abstract class AbstractDetailTiles implements ComponentExporter {
     }
 
     public String getMyAccountUpdateUrl() {
-        return accountService.getUserDetailsUrl();
+        return accountService.getUpdateProfileUrl();
     }
 
     public String getCountriesJson() throws JsonProcessingException {
