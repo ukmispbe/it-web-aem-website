@@ -396,6 +396,33 @@
                margin-bottom: 0;
             }
         }
+
+        &.one-country {
+            cursor: text;
+            border: 0px;
+            padding-left: 0px;
+
+            .inline-svg {
+                display: none;
+            }
+
+            &:hover {
+                color: $color-white;
+                & > span:first-child {
+                    color: $color-white;
+                }
+    
+                .inline-svg {    
+                    line, polyline {
+                        stroke: $color-white;
+                    }
+                }
+            }
+
+            @include mobile {
+                border-right: 0px !important;
+            }
+        }
     }
 
     &__language {

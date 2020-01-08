@@ -1,9 +1,18 @@
-const regionSelector = document.querySelector('.cmp-footer__selector__language');
-const regionSelectorOptions = document.querySelector('.cmp-footer__selector__language--options');
+const scriptElement = document.getElementById('country-list-json');
+const countries = scriptElement && scriptElement.innerHTML.trim() ? JSON.parse(scriptElement.innerHTML) : [];
 
-if (regionSelector) {
-    const children = regionSelectorOptions && Array.prototype.slice.call(regionSelectorOptions.childNodes);
-    const displayText = regionSelector.firstElementChild.innerText;
+if (Array.isArray(countries) && countries.length === 0) {
+    const regionSelector = document.querySelector('.cmp-footer__selector__region');
+
+    regionSelector.classList.add('one-country');
+}
+
+const languageSelector = document.querySelector('.cmp-footer__selector__language');
+const languageSelectorOptions = document.querySelector('.cmp-footer__selector__language--options');
+
+if (languageSelector) {
+    const children = languageSelectorOptions && Array.prototype.slice.call(languageSelectorOptions.childNodes);
+    const displayText = languageSelector.firstElementChild.innerText;
     let longestAnchor = displayText.length;
 
     if (children) {
@@ -19,16 +28,16 @@ if (regionSelector) {
         if (longestAnchor > displayText.length) {
             const diff = longestAnchor - displayText.length;
             const spacer = " ";
-            regionSelector.firstElementChild.innerText = displayText + spacer.repeat(diff*5);
+            languageSelector.firstElementChild.innerText = displayText + spacer.repeat(diff*5);
         }
     }
 
-    if (!regionSelector.classList.contains('one-link')) {
-        regionSelector.addEventListener('click', () => {
-            if (regionSelector.classList.contains('active')) {
-                regionSelector.classList.remove('active');
+    if (!languageSelector.classList.contains('one-link')) {
+        languageSelector.addEventListener('click', () => {
+            if (languageSelector.classList.contains('active')) {
+                languageSelector.classList.remove('active');
             } else {
-                regionSelector.classList.add('active');
+                languageSelector.classList.add('active');
             }
         });
 
@@ -36,14 +45,14 @@ if (regionSelector) {
             let targetElement = evt.target; // clicked element
 
             do {
-                if (targetElement == regionSelector) {
+                if (targetElement == languageSelector) {
                     return;
                 }
 
                 targetElement = targetElement.parentNode;
             } while (targetElement);
 
-            regionSelector.classList.remove('active');
+            languageSelector.classList.remove('active');
         });
     }
 }
