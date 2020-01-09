@@ -6,6 +6,7 @@ import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.icfolson.aem.library.api.link.Link;
+import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.constants.WatersConstants;
@@ -41,6 +42,9 @@ public class SignIn implements ComponentExporter {
     @Inject
     private PageManagerDecorator pageManager;
 
+    @Inject
+    private PageDecorator currentPage;
+
     @DialogField(fieldLabel = "Forgot Password Link (Trouble Signing In?)",
             fieldDescription = "Select or enter the link URL",
             ranking = 1)
@@ -50,6 +54,10 @@ public class SignIn implements ComponentExporter {
 
     public Link getForgotPasswordLink() {
         return LinkUtils.getMappedLink(pageManager, forgotPasswordLink);
+    }
+
+    public Link getHomepageLink() {
+        return LinkUtils.getHomepageLink(currentPage);
     }
 
     public static final String RESOURCE_TYPE = "waters/components/content/forms/signin";
