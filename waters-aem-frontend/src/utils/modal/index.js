@@ -20,6 +20,21 @@ const Modal = props => {
         onClose: props.onClose,
         closeIcon : props.closeIcon || "/content/dam/waters/en/brand-assets/icons/close.svg"
     }), []);
+
+    const handleModalKeyDown = event => {
+        event.stopPropagation();
+        event.preventDefault();
+        
+        const keyCode = event.keyCode || event.which || event.key;
+        const escapeEntered = keyCode === 27;
+        const isModalOpen = document.querySelector(".cmp-modal-box");
+
+        if (isModalOpen && escapeEntered) {
+            // the event listener is no longer needed since the modal will close
+            document.removeEventListener("keydown", handleModalKeyDown);
+            props.onClose();
+        }
+    }
     
     const overlayClickToClose = e => {
         e.stopPropagation();
@@ -34,6 +49,10 @@ const Modal = props => {
     }
     
     const onOpen = () => { 
+        // binding the event when the modal is open will prevent
+        // other closed modals on the page (if any happen to exist)
+        // from binding the same event, which will make them refire the event
+        document.addEventListener("keydown", handleModalKeyDown);
         FeedbackSurvey.isDisplayed(false);
         domElements.noScroll(true);
     }
