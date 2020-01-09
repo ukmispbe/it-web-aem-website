@@ -51,8 +51,6 @@ const config =
 
 const submitFn = jest.fn();
 const isocode = 'en_us';
-// Silence console.error warnings for now
-console.error = jest.fn();
 
 describe('Feature: Sign In Form', () => {
     describe('Scenario: Rendering', () => {
@@ -62,48 +60,46 @@ describe('Feature: Sign In Form', () => {
                 await act(async () => {
                     wrapper = mount(<Form config={config} submitFn={submitFn} isocode={isocode} />);
                 });
-                wrapper.setProps();
 
                 const label = wrapper.find('label[htmlFor="email"]');
                 expect(label.exists()).toEqual(true);
 
                 const input = wrapper.find('input[name="email"]');
                 expect(input.exists()).toEqual(true);
+                wrapper.unmount();
             })
             it('Then it should render a password field', async ()=>{
                 let wrapper;
                 await act(async () => {
                     wrapper = mount(<Form config={config} submitFn={submitFn} isocode={isocode} />);
                 });
-                wrapper.setProps();
 
                 const label = wrapper.find('label[htmlFor="password"]');
                 expect(label.exists()).toEqual(true);
 
                 const input = wrapper.find('input[name="password"]');
                 expect(input.exists()).toEqual(true);
+                wrapper.unmount();
             })
             it('Then it should render a link', async ()=>{
                 let wrapper;
                 await act(async () => {
                     wrapper = mount(<Form config={config} submitFn={submitFn} isocode={isocode} />);
                 });
-                wrapper.setProps();
 
                 const link = wrapper.find('div.cmp-form-field-link--forgotPassword').find('a');
                 expect(link.exists()).toEqual(true);
-                expect(link.text()).toEqual('Having trouble signing in?');
+                wrapper.unmount();
             })
             it('Then it should render a submit button', async ()=>{
                 let wrapper;
                 await act(async () => {
                     wrapper = mount(<Form config={config} submitFn={submitFn} isocode={isocode} />);
                 });
-                wrapper.setProps();
 
                 const button = wrapper.find('button');
                 expect(button.exists()).toEqual(true);
-                expect(button.text()).toEqual('SIGN IN');
+                wrapper.unmount();
             })
         })
     })
