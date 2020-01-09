@@ -232,6 +232,12 @@
             margin-bottom: $space-xxxs;
         }
     }
+    .cmp-detail-tiles--title {
+        @include font-h2;
+    }
+    .cmp-detail-tiles-list--form-message {
+        @include font-body;
+    }
 }
 
 #changePassword-details-tile {

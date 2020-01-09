@@ -89,6 +89,7 @@ const Input = ({
                         onBlur={toggleReq}
                         onFocus={toggleReq}
                         onChange={updateReq}
+                        maxLength={validation.maxLength}
                         placeholder=" "
                         disabled={disabled}
                         className={

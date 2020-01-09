@@ -18,7 +18,7 @@ export default (fetchEndPoint, type, icon) => {
                     & User Details service is updated to use that token
                 */
                 const sessionStore = new SessionStore();
-                sessionStore.setUserToken('paul_beard@waters.com');
+                sessionStore.setUserToken('pbtest25@waters.com');
                 //END TEMPORARY CODE
 
 
