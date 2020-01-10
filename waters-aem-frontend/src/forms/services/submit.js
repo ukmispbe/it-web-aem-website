@@ -120,7 +120,7 @@ export async function signInSubmit(data) {
 
     if (response.status === 200) {
         const signInRedirect = window.sessionStorage.getItem('signInRedirect');
-        if (this.redirect) {
+        if (signInRedirect || this.redirect) {
             window.location.replace(signInRedirect ? signInRedirect : this.redirect);
         }
     } else {
