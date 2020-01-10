@@ -1,10 +1,11 @@
 .cmp-my-account {
-    width: 100%;
+    width: 200%;
     background: $color-background-light;
-    padding: $space-l;
+    padding: $space-l 50%;
+    margin-left: -50%;
 
     @include mobile {
-        padding: $space-s;
+        padding: $space-s 50%;
     }
 
     &-tiles {
@@ -19,9 +20,8 @@
         }
 
         & > .cmp-linktile {
-
             @include tablet-and-under {
-                width: 48%;
+                width: calc(50% - 0.75em);
             }
 
             @include mobile {
@@ -48,6 +48,10 @@
                     margin: 0;
                     margin-top: $space-s;
                 }
+            }
+
+            .cmp-linktile--title {
+                font-weight: $font-weight-light;
             }
         }
     }
