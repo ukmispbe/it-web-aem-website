@@ -8,7 +8,6 @@ import { shallow } from 'enzyme';
 
 import { funcs as UserDetailFuncs} from '../my-account-user-details';
 import ItemList, { MyOrderClass } from '../my-account-item-list';
-import MyAccountModalBody, { ModalClass } from '../my-account-modal';
 import MyAccountContainer from '../my-account-container';
 
 //Mocked Props
@@ -26,8 +25,7 @@ const keys = {
 	switchAccount: '.my-account-dropdown__user-details__switch-account',
 	itemList: '.my-account-dropdown__item-list',
 	itemListLink: '.my-account-dropdown__item-list--link',
-	myOrderLink: '.' + MyOrderClass,
-	myAccountModal: '.' + ModalClass,
+	myOrderLink: '.' + MyOrderClass
 };
 
 const buildShallowWrapper = (Component, props, mockValues = undefined) => {
@@ -86,65 +84,85 @@ describe('Feature: My Account Dropdown Component', () => {
 			});
 		});
 
-		describe('When there is an Account Name & Number', () => {
-			it('Then both should render', () => {
-				const wrapper = buildShallowWrapper(
-					UserDetailFuncs.renderAccountDetails,
-					props
-				);
-				const AccountName = wrapper.find(keys.accountName);
-				const AccountNumber = wrapper.find(keys.accountNumber);
-				expect(AccountName.text()).toEqual(props.accountName);
-				expect(AccountNumber.text()).toEqual(props.accountNumber);
+		describe('Given that there is at least one valid SoldToAccount Account from SAP', () => {
+
+			describe('When there is an Account Name & Number', () => {
+				it('Then both should render', () => {
+					const spy = jest.spyOn(CheckOutStatus, 'length', 'get').mockReturnValue(1);
+					const wrapper = buildShallowWrapper(
+						UserDetailFuncs.renderAccountDetails,
+						props
+					);
+					const AccountName = wrapper.find(keys.accountName);
+					const AccountNumber = wrapper.find(keys.accountNumber);
+					expect(AccountName.text()).toEqual(props.accountName);
+					expect(AccountNumber.text()).toEqual(props.accountNumber);
+					spy.mockClear();
+				});
 			});
-        });
-        
-		describe('When there is not an Account Name ', () => {
-			it('Then only the Account Name should render', () => {
-				const wrapper = buildShallowWrapper(
-					UserDetailFuncs.renderAccountDetails,
-					buildNewProps(props, { accountName: '' })
-				);
-				expect(wrapper.exists(keys.accountName)).toEqual(false);
-				expect(wrapper.exists(keys.accountNumber)).toEqual(true);
+			
+			describe('When there is not an Account Name ', () => {
+				it('Then only the Account Name should render', () => {
+					const spy = jest.spyOn(CheckOutStatus, 'length', 'get').mockReturnValue(1);
+					const wrapper = buildShallowWrapper(
+						UserDetailFuncs.renderAccountDetails,
+						buildNewProps(props, { accountName: '' })
+						);
+					expect(wrapper.exists(keys.accountName)).toEqual(false);
+					expect(wrapper.exists(keys.accountNumber)).toEqual(true);
+					spy.mockClear();
+				});
 			});
-        });
-        
-		describe('When there is not an Account Number ', () => {
-			it('Then only the Account Number should render', () => {
-				const wrapper = buildShallowWrapper(
-					UserDetailFuncs.renderAccountDetails,
-					buildNewProps(props, { accountNumber: '' })
-				);
-				expect(wrapper.exists(keys.accountName)).toEqual(true);
-				expect(wrapper.exists(keys.accountNumber)).toEqual(false);
-			});
+			
+			describe('When there is not an Account Number ', () => {
+				it('Then only the Account Number should render', () => {
+					const spy = jest.spyOn(CheckOutStatus, 'length', 'get').mockReturnValue(2);
+					const wrapper = buildShallowWrapper(
+						UserDetailFuncs.renderAccountDetails,
+						buildNewProps(props, { accountNumber: '' })
+					);
+					expect(wrapper.exists(keys.accountName)).toEqual(true);
+					expect(wrapper.exists(keys.accountNumber)).toEqual(false);
+					spy.mockClear();
+				});
+			});			
 		});
 
-		describe('When there is not an Account Number or Account Name ', () => {
-			it('Then neither should render', () => {
-				const wrapper = buildShallowWrapper(
-					UserDetailFuncs.renderAccountDetails,
-					buildNewProps(props, { accountName: '', accountNumber: '' })
-				);
-				expect(wrapper.exists(keys.account)).toEqual(false);
-			});
-		});
 		
-		describe('When there is an authored Switch Account URL & text', () => {
-			it('Then the link should render', () => {
-				const wrapper = buildShallowWrapper(
-					UserDetailFuncs.renderSwitchAccountLink,
-					props
-				);
-				const SwitchAccount = wrapper.find(keys.switchAccount);
-				expect(SwitchAccount.text()).toEqual(props.switchAccount.text);
-				expect(SwitchAccount.prop('href')).toEqual(props.switchAccount.url);
+		describe('Given that there is more than one SoldToAccount Account from SAP', () => {
+			describe('When there is an authored Switch Account URL & text', () => {
+				it('Then the link should render', () => {
+					const spy = jest.spyOn(CheckOutStatus, 'length', 'get').mockReturnValue(2);
+					const wrapper = buildShallowWrapper(
+						UserDetailFuncs.renderSwitchAccountLink,
+						props
+					);
+					const SwitchAccount = wrapper.find(keys.switchAccount);
+					expect(SwitchAccount.text()).toEqual(props.switchAccount.text);
+					expect(SwitchAccount.prop('href')).toEqual(props.switchAccount.url);
+					spy.mockClear()
+				});
 			});
 		});
 
+		describe('Given that there is one or less SoldToAccount Account from SAP', () => {
+			describe('When there is an authored Switch Account URL & text', () => {
+				it('Then the link should not render', () => {
+					const spy = jest.spyOn(CheckOutStatus, 'length', 'get').mockReturnValue(1);
+					const wrapper = buildShallowWrapper(
+						UserDetailFuncs.renderSwitchAccountLink,
+						props
+					);
+					expect(wrapper.exists(keys.switchAccount)).toEqual(false);
+					spy.mockClear()
+				});
+			});
+		});
+
+		
 		describe('When there is no authored Switch Account URL ', () => {
 			it('Then the link should not render', () => {
+				const spy = jest.spyOn(CheckOutStatus, 'length', 'get').mockReturnValue(3);
 				const wrapper = buildShallowWrapper(
 					UserDetailFuncs.renderSwitchAccountLink,
 					buildNewProps(props, {
@@ -155,11 +173,13 @@ describe('Feature: My Account Dropdown Component', () => {
 					})
 				);
 				expect(wrapper.exists(keys.switchAccount)).toEqual(false);
+				spy.mockClear()
 			});
-        });
-        
+		});
+		
 		describe('When there is no authored Switch Account text ', () => {
 			it('Then the link should not render', () => {
+				const spy = jest.spyOn(CheckOutStatus, 'length', 'get').mockReturnValue(4);
 				const wrapper = buildShallowWrapper(
 					UserDetailFuncs.renderSwitchAccountLink,
 					buildNewProps(props, {
@@ -170,8 +190,24 @@ describe('Feature: My Account Dropdown Component', () => {
 					})
 				);
 				expect(wrapper.exists(keys.switchAccount)).toEqual(false);
+				spy.mockClear()
 			});
 		});
+
+		describe('Given that there is not one valid SoldToAccount Account from SAP', () => {
+			describe('When there there thus is not an Account Number or Account Name', () => {
+				it('Then neither should render', () => {
+					const spy = jest.spyOn(CheckOutStatus, 'length', 'get').mockReturnValue(0);
+					const wrapper = buildShallowWrapper(
+						UserDetailFuncs.renderAccountDetails,
+						buildNewProps(props, { accountName: '', accountNumber: '' })
+					);
+					expect(wrapper.exists(keys.account)).toEqual(false);
+					spy.mockClear()
+				});
+			});
+		});
+	
 	});
 
 	describe('Scenario: Rendering ItemList', () => {
@@ -228,23 +264,40 @@ describe('Feature: My Account Dropdown Component', () => {
 		});
 	});
 
-	describe('Scenario: Rendering Modal Body', () => {
-		describe('When the Modal Body renders', () => {
-			it(`then it should have a wrapper class of '${keys.myAccountModal}'`, () => {
-				const wrapper = buildShallowWrapper(MyAccountModalBody,DefaultProps.config);
-				expect(wrapper.exists(keys.myAccountModal)).toEqual(true);
-			});
-		});
-	});
-
 	describe('Scenario: Rendering My Account Dropdown with all props', () => {
-		describe('When logged in', () => {
+		describe('When logged in & more than one SoldTo account', () => {
 			it('Then the snapshot should match', () => {
+				const spy = jest.spyOn(CheckOutStatus, 'length', 'get').mockReturnValue(2);
 				const props = buildNewProps(DefaultProps.config, {
 					loginState: true,
 				});
 				const json = renderer.create(<MyAccountContainer config={props} />);
 				expect(json).toMatchSnapshot();
+				spy.mockClear()
+			});
+		});
+
+		describe('When logged in & only one SoldTo account', () => {
+			it('Then the snapshot should match', () => {
+				const spy = jest.spyOn(CheckOutStatus, 'length', 'get').mockReturnValue(1);
+				const props = buildNewProps(DefaultProps.config, {
+					loginState: true,
+				});
+				const json = renderer.create(<MyAccountContainer config={props} />);
+				expect(json).toMatchSnapshot();
+				spy.mockClear()
+			});
+		});
+
+		describe('When logged in & no SoldTo account', () => {
+			it('Then the snapshot should match', () => {
+				const spy = jest.spyOn(CheckOutStatus, 'length', 'get').mockReturnValue(0);
+				const props = buildNewProps(DefaultProps.config, {
+					loginState: true,
+				});
+				const json = renderer.create(<MyAccountContainer config={props} />);
+				expect(json).toMatchSnapshot();
+				spy.mockClear()
 			});
 		});
 

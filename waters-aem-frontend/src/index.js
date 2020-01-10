@@ -23,6 +23,7 @@ import Chat from './chat';
 import DetailTiles from './detail-tiles';
 import DigitalData from './scripts/DigitalData';
 import WeChat from './wechat';
+import MyAccountRouter from './my-account';
 import CountrySelector from './country-selector';
 
 if (process.env.NODE_ENV !== 'production') {
@@ -433,21 +434,34 @@ if (changePasswordDetailsTile) {
     ReactDOM.render(<DetailTiles {...config} />, changePasswordDetailsTile);
 }
 
-const wechatLink = document.querySelector(
-    '.cmp-footer__social-links__item--wechat'
-);
+const wechat = document.querySelector('.cmp-wechat');
 const wechatContainer = document.querySelector('.cmp-wechat-container');
 const wechatJSON = document.getElementById('wechat-json');
 
-if (wechatLink && wechatContainer && wechatJSON) {
+if (wechat && wechatContainer && wechatJSON) {
     const config = JSON.parse(wechatJSON.innerHTML);
     ReactDOM.render(<WeChat config={config} />, wechatContainer);
 }
+
+const myAccountPage = document.getElementById(
+    'my-account'
+);
+
+if (myAccountPage) {
+    const config = JSON.parse(
+        document.getElementById('cmp-my-account').innerHTML
+    );
+
+    ReactDOM.render(<MyAccountRouter {...config} />, myAccountPage);
+}
+
 const countryModalRoot = document.getElementById('country-selector-root');
 
 if (countryModalRoot) {
     const scriptElement = document.getElementById('country-list-json');
-    const countries = scriptElement ? JSON.parse(scriptElement.innerHTML) : [];
+    const countries = scriptElement && scriptElement.innerHTML.trim() ? JSON.parse(scriptElement.innerHTML) : [];
 
-    ReactDOM.render(<CountrySelector countries={countries} translations={globalTranslations} />, countryModalRoot);
+    if (Array.isArray(countries) && countries.length !== 0) {
+        ReactDOM.render(<CountrySelector countries={countries} translations={globalTranslations} />, countryModalRoot);
+    }
 }

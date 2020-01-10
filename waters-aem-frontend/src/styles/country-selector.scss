@@ -1,14 +1,11 @@
 .cmp-country-selector {
-    padding-left: 3em;
-    padding-right: 3em;
-    padding-bottom: 2em;
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    
     @include mobile {
         position: fixed;
-        top: 15px;
+        top: 13px;
         padding-left: $space-s;
         padding-right: $space-s;
     }
@@ -20,7 +17,8 @@
         padding-top: 0;
 
         > div:first-child {
-            padding-right: $space-xs;
+            padding-right: $space-xxs;
+            margin-top: ($space-xxxs - .1em);
         }
 
         @include font-h2;
@@ -31,8 +29,8 @@
         }
 
         svg {
-            width: $icon-l;
-            height: $icon-l;
+            width: $icon-m;
+            height: $icon-m;
 
             @include mobile {
                 width: $icon-m;
@@ -52,19 +50,11 @@
     &__text {
         width: 100%;
         padding-top: 0;
-
-        @include tablet {
-            width: 75%;
-        }
     }
 
     &__dropdown {
         width: 100%;
         padding-top: $space-m;
-
-        @include tablet {
-            width: 75%;
-        }
 
         .select-css {
             display: block;
@@ -109,7 +99,7 @@
         padding-top: $space-m;
 
         > div:first-child {
-            padding-right: $space-xs;
+            padding-right: $space-xxs;
         }
 
         svg {
@@ -125,10 +115,6 @@
                 stroke: $color-icon;
             }
         }
-
-        @include tablet {
-            width: 75%;
-        }
     }
 
     &__note-text {
@@ -139,14 +125,10 @@
 
     &__button {
         width: 100%;
-        padding-top: $space-xl;
+        padding-top: $space-l;
 
         a {
             width: 100%;
-        }
-
-        @include tablet {
-            width: 75%;
         }
     }
 
@@ -154,6 +136,24 @@
         padding-top: 0;
         a {
             cursor: pointer;
+        }
+    }
+}
+
+.cmp-country-selector-modal {
+    .cmp-modal {
+        @include tablet-and-over {
+            width: 475px;
+        }
+    }
+
+    .cmp-modal > div{
+        margin: $space-s auto 0;
+    }
+
+    @include mobile {
+        .cmp-modal > div:first-child{
+            margin-top: 0;
         }
     }
 }

@@ -4,6 +4,10 @@ import ReactSVG from 'react-svg';
 import MyAccountUserDetails from './my-account-user-details';
 import MyAccountItemList from './my-account-item-list';
 
+const keys = {
+    MyAccountContainer : 'my-account-dropdown'
+}
+
 const MyAccountContainer = props => {
     const {
         createAccount,
@@ -53,7 +57,7 @@ const MyAccountContainer = props => {
     );
 
     return (
-        <div className="my-account-dropdown">
+        <div className={keys.MyAccountContainer}>
             {loginState && (
                 <MyAccountUserDetails
                     userName={userName}
@@ -70,3 +74,4 @@ const MyAccountContainer = props => {
 };
 
 export default MyAccountContainer;
+export { keys };

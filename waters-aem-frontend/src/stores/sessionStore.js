@@ -16,9 +16,14 @@ const getJSONObject = key => {
     return value ? JSON.parse(value) : {};
 }
 
+const getJSONArray = key => {
+    const value = window.sessionStorage.getItem(key);
+    return value ? JSON.parse(value) : null;
+}
+
 const SessionStore = function () {
-    this.setSoldToDetails = value => window.sessionStorage.setItem(keys.soldToDetails, JSON.stringify(value)),
-    this.getSoldToDetails = () => getJSONObject(keys.soldToDetails),
+    this.setSoldToDetails = value => window.sessionStorage.setItem(keys.soldToDetails, JSON.stringify(value));
+    this.getSoldToDetails = () => getJSONArray(keys.soldToDetails);
     this.setUserToken = value => window.sessionStorage.setItem(keys.userToken, value);
     this.getUserToken = () => window.sessionStorage.getItem(keys.userToken);
     this.setUserDetails = value => window.sessionStorage.setItem(keys.userDetails, JSON.stringify(value));

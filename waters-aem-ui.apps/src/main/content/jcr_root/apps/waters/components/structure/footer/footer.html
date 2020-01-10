@@ -23,10 +23,18 @@
                         </a>
                     </li>
                     <li data-sly-test="${isChinaPage && footer.weChatIcon}"
-                        class="cmp-footer__social-links__item cmp-footer__social-links__item--wechat">
-                        <a class="cmp-footer-social-links__link" href="#" target="_blank">
-                            <img class="inline-svg" src="${footer.weChatIcon}" />
-                        </a>
+                        class="cmp-footer__social-links__item cmp-footer__social-links__item--wechat cmp-wechat">
+                            <div class="cmp-wechat-container"></div>
+                            <script type="application/json" id="wechat-json">
+                                {
+                                    "chatIcon": "${footer.weChatIcon @ context='unsafe'}",
+                                    "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
+                                    "title": "${'关注我们 – 沃特世中国' @ i18n, context='unsafe'}",
+                                    "qrCodeImg": "${footer.weChatQrCodeImage.fileReference @ context='unsafe'}",
+                                    "text": "${'关注沃特世中国官方微信公众号，了解沃特世中国最新动态，获取最新资讯' @ i18n, context='unsafe'}",
+                                    "alt": "${'WeChat QR code' @ i18n, context='unsafe'}"
+                                }
+                            </script>
                     </li>
                 </ul>
             </div>
@@ -40,7 +48,7 @@
             <div class="cmp-footer__selector ${footer.languagePages.size == 1 ? 'one-link' : ''}">
                 <div class="cmp-footer__selector__region">
                     <span>${footer.countryName @ i18n}</span>
-                    <img class="inline-svg" src="/content/dam/waters/en/brand-assets/icons/globe.svg"
+                    <img class="inline-svg" src="/content/dam/waters/en/brand-assets/icons/modal.svg"
                          alt="${'Country' @ i18n}" />
                 </div>
                 <div class="cmp-footer__selector__language ${footer.languagePages.size == 1 ? 'one-link' : ''}">
@@ -75,17 +83,6 @@
                 </nav>
             </div>
         </div>
-    </div>
-    <div data-sly-test="${isChinaPage && footer.weChatIcon}" class="cmp-wechat">
-        <div class="cmp-wechat-container"></div>
-        <script data-sly-test="${isChinaPage && footer.weChatIcon}" type="application/json" id="wechat-json">
-            {
-                "title": "${'关注我们 – 沃特世中国' @ i18n, context='unsafe'}",
-                "qrCodeImg": "${footer.weChatQrCodeImage.fileReference @ context='unsafe'}",
-                "desc": "${'关注沃特世中国官方微信公众号，了解沃特世中国最新动态，获取最新资讯' @ i18n, context='unsafe'}",
-                "alt": "${'WeChat QR code' @ i18n, context='unsafe'}"
-            }
-        </script>
     </div>
 </div>
 

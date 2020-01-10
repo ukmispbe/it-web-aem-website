@@ -32,6 +32,10 @@
           Add class "active" to show
         -->
         <div class="container">
+            <!-- My Account  -->
+            <div class="cmp-my-account--attach" id="my-account"></div>
+            <!-- END: My Account  -->
+
             <!-- Detail Tiles -->
             <!-- <div class="cmp-detail-tile--attach" id="personal-details-tile"></div>
             <div class="cmp-detail-tile--attach" id="shipping-details-tile"></div>
@@ -39,7 +43,7 @@
             <!-- END: Detail Tiles -->
 
             <!-- Registration Form -->
-            <div class="cmp-form--attach" id="js-registration-form"></div>
+            <!-- <div class="cmp-form--attach" id="js-registration-form"></div> -->
             <!-- END: Registration Form -->
 
             <!-- Search -->
@@ -231,287 +235,349 @@
                 "buttons": []
             }
         </script>
-        <script type="application/json" id="cmp-detail-tiles--personal">
-            {
-                "name": "personalDetails",
-                "type": "personal",
-                "title": "Personal Details",
-                "fetchEndPoint": "http://waters.com",
-                "canCreate": false,
-                "form": {
-                    "submitEndpoint": "http://waters.com",
-                    "buttonText": "Save Changes",
-                    "cancelText": "Cancel",
-                    "icons": {
-                        "validIcon": "./checkmark.svg",
-                        "invalidIcon": "./attention.svg",
-                        "lockIcon": "./lock.svg"
-                    },
-                    "fields": [
-                        {
-                            "type": "text",
-                            "name": "firstName",
-                            "label": "First Name",
-                            "validation": {
-                                "required": true,
-                                "validateFnName": "noWhitespaceOrSpecialChars",
-                                "validationMsg": "Please enter a valid first name.",
-                                "requiredMsg": "Please enter a first name."
-                            }
-                        },
-                        {
-                            "type": "text",
-                            "name": "lastName",
-                            "label": "Last Name",
-                            "validation": {
-                                "required": true,
-                                "validateFnName": "noWhitespaceOrSpecialChars",
-                                "validationMsg": "Please enter a valid last name.",
-                                "requiredMsg": "Please enter a last name."
-                            }
-                        },
-                        {
-                            "type": "text",
-                            "name": "company",
-                            "label": "Company",
-                            "validation": {
-                                "required": false,
-                                "validateFnName": "noWhitespaceOnly",
-                                "validationMsg": "Please enter a valid company.",
-                                "requiredMsg": "Please enter a company."
-                            }
-                        },
-                        {
-                            "type": "email",
-                            "name": "email",
-                            "label": "Email",
-                            "disabled": true,
-                            "validation": {
-                                "required": true,
-                                "requiredMsg": "Please enter a valid email address."
-                            }
-                        },
-                        {
-                            "type": "text",
-                            "name": "phone",
-                            "label": "Phone Number",
-                            "validation": {
-                                "required": false,
-                                "validateFnName": "noWhitespaceOnly",
-                                "validationMsg": "Please enter a valid phone number.",
-                                "requiredMsg": "Please enter a phone number."
-                            }
-                        },
-                        {
-                            "type": "dropdown",
-                            "name": "country",
-                            "label": "Country",
-                            "disabled": true,
-                            "placeholder": "Select...",
-                            "validation": {
-                                "required": true,
-                                "requiredMsg": "Please select your country."
-                            },
-                            "options": [{"countryCode":"ad","displayName":"Andorra"},{"countryCode":"gb","displayName":"United Kingdom"},{"countryCode":"gd","displayName":"Grenada"},{"countryCode":"to","displayName":"Tonga"},{"countryCode":"tr","displayName":"Turkey"},{"countryCode":"tt","displayName":"Trinidad and Tobago"},{"countryCode":"us","displayName":"United States"},{"countryCode":"vi","displayName":"U.S. Virgin Islands"}]
+
+    <script type="application/json" id="cmp-detail-tiles--personal">
+        {
+            "name": "personal-details-tile",
+            "type": "personal",
+            "title": "Personal Details",
+            "canCreate": false,
+            "editText": "Edit",
+            "form": {
+                "buttonText": "Save Changes",
+                "cancelText": "Cancel",
+                "icons": {
+                    "validIcon": "./checkmark.svg",
+                    "invalidIcon": "./attention.svg",
+                    "lockIcon": "./lock.svg"
+                },
+                "fields": [
+                    {
+                        "type": "text",
+                        "name": "firstName",
+                        "label": "First Name",
+                        "validation": {
+                            "required": true,
+                            "validateFnName": "noWhitespaceOnly",
+                            "validationMsg": "Please enter a valid first name.",
+                            "requiredMsg": "Please enter a first name."
                         }
-                    ]
-                },
-                "icons": {
-                    "edit": "./edit-2.svg"
-                }
-            }
-        </script>
-        <script type="application/json" id="cmp-detail-tiles--shipping">
-            {
-                "name": "shippingAddresses",
-                "type": "shipping",
-                "title": "Shipping Addresses",
-                "fetchEndPoint": "waters.com",
-                "noAddressMessage": "For a faster checkout experience, add your shipping address now.",
-                "formMessage": {
-                    "text": "It may take up to 24 hours to verify a new or change of address. Orders may be delayed."
-                },
-                "form": {
-                    "submitEndpoint": "http://waters.com",
-                    "buttonText": "Save Changes",
-                    "cancelText": "Cancel",
-                    "icons": {
-                        "validIcon": "./checkmark.svg",
-                        "invalidIcon": "./attention.svg"
                     },
-                    "fields": [
-                            {
-                                "type": "text",
-                                "name": "company",
-                                "label": "Company",
-                                "validation": {
-                                    "required": true,
-                                    "validateFnName": "noWhitespaceOnly",
-                                    "validationMsg": "Please enter a valid company.",
-                                    "requiredMsg": "Please enter a company."
-                                }
-                            },
-                            {
-                                "type": "text",
-                                "name": "street",
-                                "label": "Address",
-                                "validation": {
-                                    "required": true,
-                                    "validateFnName": "noWhitespaceOnly",
-                                    "validationMsg": "Please enter a valid address.",
-                                    "requiredMsg": "Please enter a address."
-                                }
-                            },
-                            {
-                                "type": "text",
-                                "name": "city",
-                                "label": "City",
-                                "validation": {
-                                    "required": false,
-                                    "validateFnName": "noWhitespaceOnly",
-                                    "validationMsg": "Please enter a valid city.",
-                                    "requiredMsg": "Please enter a city."
-                                }
-                            },
-                            {
-                                "type": "dropdown",
-                                "name": "state",
-                                "label": "State/Province/Region",
-                                "placeholder": "Select...",
-                                "dropdownIndicator": "./down.svg",
-                                "validation": {
-                                    "required": true,
-                                    "requiredMsg": "Please select your state/province/region."
-                                },
-                                "options": [{"stateCode":"il","displayName":"Illinois"},{"stateCode":"in","displayName":"Indiana"},{"stateCode":"wi","displayName":"Wisconsin"},{"stateCode":"fl","displayName":"Florida"},{"stateCode":"co","displayName":"Colorado"},{"stateCode":"ma","displayName":"Massachusetts"}]
-                            },
-                            {
-                                "type": "text",
-                                "name": "zip",
-                                "label": "Zip/Postal Code",
-                                "validation": {
-                                    "required": false,
-                                    "validateFnName": "noWhitespaceOnly",
-                                    "validationMsg": "Please enter a valid zip/postal code.",
-                                    "requiredMsg": "Please enter a zip/postal code."
-                                }
-                            },
-                            {
-                                "type": "dropdown",
-                                "name": "country",
-                                "label": "Country",
-                                "placeholder": "Select...",
-                                "dropdownIndicator": "./down.svg",
-                                "validation": {
-                                    "required": true,
-                                    "requiredMsg": "Please select your country."
-                                },
-                                "options": [{"countryCode":"ad","displayName":"Andorra"},{"countryCode":"gb","displayName":"United Kingdom"},{"countryCode":"gd","displayName":"Grenada"},{"countryCode":"to","displayName":"Tonga"},{"countryCode":"tr","displayName":"Turkey"},{"countryCode":"tt","displayName":"Trinidad and Tobago"},{"countryCode":"us","displayName":"United States"},{"countryCode":"vi","displayName":"U.S. Virgin Islands"}]
-                            }
-                    ]
-                },
-                "canCreate": true,
-                "addTitle": "Add New Shipping Address",
-                "icons": {
-                    "edit": "./edit-2.svg",
-                    "add": "./add.svg"
-                }
-            }
-        </script>
-        <script type="application/json" id="cmp-detail-tiles--billing">
-            {
-                "name": "billingAddresses",
-                "type": "billing",
-                "title": "Billing Addresses",
-                "fetchEndPoint": "waters.com",
-                "noAddressMessage": "For a faster checkout experience, add your billing address now.",
-                "formMessage": {
-                    "text": "It may take up to 24 hours to verify a new or change of address. Orders may be delayed."
-                },
-                "form": {
-                    "submitEndpoint": "http://waters.com",
-                    "buttonText": "Save Changes",
-                    "cancelText": "Cancel",
-                    "icons": {
-                        "validIcon": "./checkmark.svg",
-                        "invalidIcon": "./attention.svg"
+                    {
+                        "type": "text",
+                        "name": "lastName",
+                        "label": "Last Name",
+                        "validation": {
+                            "required": true,
+                            "validateFnName": "noWhitespaceOnly",
+                            "validationMsg": "Please enter a valid last name.",
+                            "requiredMsg": "Please enter a last name."
+                        }
                     },
-                    "fields": [
-                            {
-                                "type": "text",
-                                "name": "company",
-                                "label": "Company",
-                                "validation": {
-                                    "required": false,
-                                    "validateFnName": "noWhitespaceOnly",
-                                    "validationMsg": "Please enter a valid company.",
-                                    "requiredMsg": "Please enter a company."
-                                }
-                            },
-                            {
-                                "type": "text",
-                                "name": "street",
-                                "label": "Address",
-                                "validation": {
-                                    "required": false,
-                                    "validateFnName": "noWhitespaceOnly",
-                                    "validationMsg": "Please enter a valid address.",
-                                    "requiredMsg": "Please enter a address."
-                                }
-                            },
-                            {
-                                "type": "text",
-                                "name": "city",
-                                "label": "City",
-                                "validation": {
-                                    "required": false,
-                                    "validateFnName": "noWhitespaceOnly",
-                                    "validationMsg": "Please enter a valid city.",
-                                    "requiredMsg": "Please enter a city."
-                                }
-                            },
-                            {
-                                "type": "dropdown",
-                                "name": "state",
-                                "label": "State/Province/Region",
-                                "placeholder": "Select...",
-                                "dropdownIndicator": "./down.svg",
-                                "validation": {
-                                    "required": true,
-                                    "requiredMsg": "Please select your state/province/region."
-                                },
-                                "options": [{"stateCode":"il","displayName":"Illinois"},{"stateCode":"in","displayName":"Indiana"},{"stateCode":"wi","displayName":"Wisconsin"},{"stateCode":"fl","displayName":"Florida"},{"stateCode":"co","displayName":"Colorado"},{"stateCode":"ma","displayName":"Massachusetts"}]
-                            },
-                            {
-                                "type": "text",
-                                "name": "zip",
-                                "label": "Zip/Postal Code",
-                                "validation": {
-                                    "required": false,
-                                    "validateFnName": "noWhitespaceOnly",
-                                    "validationMsg": "Please enter a valid zip/postal code.",
-                                    "requiredMsg": "Please enter a zip/postal code."
-                                }
-                            },
-                            {
-                                "type": "dropdown",
-                                "name": "country",
-                                "label": "Country",
-                                "placeholder": "Select...",
-                                "dropdownIndicator": "./down.svg",
-                                "validation": {
-                                    "required": true,
-                                    "requiredMsg": "Please select your country."
-                                },
-                                "options": [{"countryCode":"ad","displayName":"Andorra"},{"countryCode":"gb","displayName":"United Kingdom"},{"countryCode":"gd","displayName":"Grenada"},{"countryCode":"to","displayName":"Tonga"},{"countryCode":"tr","displayName":"Turkey"},{"countryCode":"tt","displayName":"Trinidad and Tobago"},{"countryCode":"us","displayName":"United States"},{"countryCode":"vi","displayName":"U.S. Virgin Islands"}]
-                            }
-                    ]
-                },
-                "canCreate": true,
-                "addTitle": "Add New Shipping Address",
+                    {
+                        "type": "text",
+                        "name": "company",
+                        "label": "Company",
+                        "validation": {
+                            "validateFnName": "noWhitespaceOnly",
+                            "validationMsg": "Please enter a valid company name.",
+                            "required": true,
+                            "requiredMsg": "Please enter a company name."
+                        }
+                    },
+                    {
+                        "type": "email",
+                        "name": "email",
+                        "disabled": true,
+                        "label": "Email Address",
+                        "validation": {
+                            "required": true,
+                            "requiredMsg": "Please enter a valid email address."
+                        }
+                    },
+                    {
+                        "type": "text",
+                        "name": "phone",
+                        "label": "Phone Number",
+                        "validation": {
+                            "validateFnName": "noWhitespaceOnly",
+                            "validationMsg": "Please enter a valid phone number.",
+                            "required": true,
+                            "requiredMsg": "Please enter a phone number."
+                        }
+                    },
+                    {
+                        "type": "dropdown",
+                        "name": "country",
+                        "label": "Country",
+                        "placeholder": "Select...",
+                        "options": [],
+                        "disabled": true,
+                        "validation": {
+                            "required": true,
+                            "requiredMsg": "Please select your country."
+                        }
+                    }
+                ]
+            },
+            "icons": {
+                "edit": "./edit.svg"
+            }
+        }
+    </script>
+
+    <script type="application/json" id="cmp-detail-tiles--billing">
+        {
+            "name": "billingAddresses",
+            "type": "billing",
+            "title": "Billing Addresses",
+            "noAddressMessage": "For a faster checkout experience, add your billing address now.",
+            "addTitle": "Add New Billing Address"
+        }
+    </script>
+
+    <script type="application/json" id="cmp-detail-tiles--shipping">
+        {
+            "name": "shippingAddresses",
+            "type": "shipping",
+            "title": "Shipping Addresses",
+            "noAddressMessage": "For a faster checkout experience, add your shipping address now.",
+            "addTitle": "Add New Shipping Address"
+        }
+    </script>
+
+    <script type="application/json" id="cmp-detail-tiles--address">
+        {
+            "formMessage": {
+                "text": "It may take up to 24 hours to verify a new or change of address. Orders may be delayed."
+            },
+            "editText": "Edit",
+            "form": {
+                "buttonText": "Save Changes",
+                "cancelText": "Cancel",
                 "icons": {
-                    "edit": "./edit-2.svg",
-                    "add": "./add.svg"
+                    "validIcon": "./checkmark.svg",
+                    "invalidIcon": "./attention.svg"
+                },
+                "fields": [
+                    {
+                        "type": "text",
+                        "name": "company",
+                        "label": "Company",
+                        "validation": {
+                            "validateFnName": "noWhitespaceOnly",
+                            "validationMsg": "Please enter a valid company name.",
+                            "required": true,
+                            "requiredMsg": "Please enter a company name."
+                        }
+                    },
+                    {
+                        "type": "text",
+                        "name": "street",
+                        "label": "Address",
+                        "validation": {
+                            "validateFnName": "noWhitespaceOnly",
+                            "validationMsg": "Please enter a valid address.",
+                            "required": true,
+                            "requiredMsg": "Please enter an address."
+                        }
+                    },
+                    {
+                        "type": "text",
+                        "name": "city",
+                        "label": "City",
+                        "validation": {
+                            "validateFnName": "noWhitespaceOnly",
+                            "validationMsg": "Please enter a valid city.",
+                            "required": true,
+                            "requiredMsg": "Please enter a city."
+                        }
+                    },
+                    {
+                        "type": "dropdown",
+                        "name": "state",
+                        "label": "State/Province/Region",
+                        "placeholder": "Select...",
+                        "dropdownIndicator": "./down.svg",
+                        "options": [],
+                        "validation": {
+                            "required": true,
+                            "requiredMsg": "Please select your region."
+                        }
+                    },
+                    {
+                        "type": "text",
+                        "name": "zip",
+                        "label": "Zip/Postal Code",
+                        "validation": {
+                            "validateFnName": "noWhitespaceOnly",
+                            "validationMsg": "Please enter a valid postal code.",
+                            "required": true,
+                            "requiredMsg": "Please enter a postal code."
+                        }
+                    },
+                    {
+                        "type": "dropdown",
+                        "name": "country",
+                        "label": "Country",
+                        "placeholder": "Select...",
+                        "dropdownIndicator": "./down.svg",
+                        "options": [],
+                        "validation": {
+                            "required": true,
+                            "requiredMsg": "Please select your country."
+                        }
+                    }
+                ]
+            },
+            "canCreate": true,
+            "icons": {
+                "edit": "./edit.svg",
+                "add": "./add.svg",
+                "refresh": "./refresh.svg"
+            }
+        }
+    </script>
+
+    <script type="application/json" id="cmp-detail-tiles--changePassword">
+        {
+            "name": "changePassword-details-tile",
+            "type": "password",
+            "title": "Change Password",
+            "editText": "Edit",
+            "canCreate": false,
+            "form": {
+                "submitEndpoint": "waters.com",
+                "buttonText": "Change Password",
+                "cancelText": "Cancel",
+                "icons": {
+                    "checkmarkIcon": "./checkmark.svg",
+                    "validIcon": "./checkmark.svg",
+                    "invalidIcon": "./attention.svg",
+                    "eyeIcon": "./eye.svg",
+                    "eyeOffIcon": "./eye-off.svg",
+                    "signInIcon": "./user.svg"
+                },
+                "fields": [
+                    {
+                        "type": "password",
+                        "name": "currentPassword",
+                        "label": "Enter Current Password",
+                        "hasMatch": false,
+                        "validation": {
+                            "required": true,
+                            "requiredMsg": "Please enter current password."
+                        }
+                    },
+                    {
+                        "type": "password",
+                        "name": "newPassword",
+                        "label": "Create New Password",
+                        "hasMatch": true,
+                        "matchLabel": "Confirm New Password",
+                        "validation": {
+                            "required": true,
+                            "validateFnName": "password",
+                            "validationMsg": "Please enter a valid password.",
+                            "requiredMsg": "Please enter a password.",
+                            "requiredMatchMsg": "Please confirm your password.",
+                            "nonMatchingMsg": "Passwords must match. Please try again.",
+                            "requirementsLabel": "Your password must include",
+                            "requirements": [
+                                {
+                                    "name": "shortPassword",
+                                    "msg": "at least 8 characters"
+                                },
+                                {
+                                    "name": "noUppercase",
+                                    "msg": "at least 1 uppercase letter"
+                                },
+                                {
+                                    "name": "noLowercase",
+                                    "msg": "at least 1 lowercase letter"
+                                },
+                                {
+                                    "name": "noDigits",
+                                    "msg": "at least 1 number"
+                                },
+                                {
+                                    "name": "noSpecial",
+                                    "msg": "at least 1 symbol (for example, !, $, #, %)"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "icons": {
+                "edit": "./edit.svg"
+            }
+        }
+    </script>
+        <script type="application/json" id="cmp-my-account">
+            {
+                "tiles": [
+                    {
+                        "title": "Account",
+                        "icon": "./user.svg",
+                        "links": [
+                            {
+                                "text": "Profile",
+                                "url": "#profile"
+                            },
+                            {
+                                "text": "Password",
+                                "url": "#changepassword"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Orders",
+                        "icon": "./package.svg",
+                        "links": [
+                            {
+                                "text": "Order History",
+                                "url": "#orderhistory"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Additional Resources",
+                        "icon": "./link.svg",
+                        "links": [
+                            {
+                                "text": "Request Technical Support",
+                                "url": "www.waters.com/techsupport"
+                            },
+                            {
+                                "text": "Waters Knowledgebase",
+                                "url": "www.waters.com/knowledgebase"
+                            },
+                            {
+                                "text": "Training Courses",
+                                "url": "www.waters.com/training"
+                            },
+                            {
+                                "text": "Contact Waters",
+                                "url": "www.waters.com/contact"
+                            }
+                        ]
+                    }
+                ],
+                "myProfile": {
+                    "fetchEndPoint": "https://test-www.waters.com:8443/api/waters/user/v1/details?email={email}",
+                    "submitEndpoint": "waters.com",
+                    "personalConfigId": "cmp-detail-tiles--personal",
+                    "addressConfig": {
+                        "abstractConfig": "cmp-detail-tiles--address",
+                        "configs": [
+                            "cmp-detail-tiles--shipping",
+                            "cmp-detail-tiles--billing"
+                        ]
+                    }
+                },
+                "changePassword": {
+                    "config": "cmp-detail-tiles--changePassword"
                 }
             }
         </script>
