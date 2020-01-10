@@ -135,6 +135,90 @@ describe('Feature: Modal Component', () => {
             });
         });
 
+        describe('When the escape key is entered', () => {
+            it('Then it should call the close handler property', () => {
+                document.body.innerHTML = "<div class='cmp-modal-box' />";
+
+                let isOpen = true;
+                const toggleModal = jest.fn(() => {
+                    isOpen = !isOpen;
+                })
+
+                mount(<Modal isOpen={isOpen} onClose={toggleModal} />);
+
+                var evt = document.createEvent("HTMLEvents");
+                evt.initEvent("keydown", false, true);
+                evt.keyCode = 27;
+                
+                document.dispatchEvent(evt);
+
+                expect(toggleModal).toHaveBeenCalled();
+            });
+        });
+
+        describe('When a key is entered and it is not the escape key', () => {
+            it('Then it should not call the close handler property', () => {
+                document.body.innerHTML = "<div class='cmp-modal-box' />";
+
+                let isOpen = true;
+                const toggleModal = jest.fn(() => {
+                    isOpen = !isOpen;
+                })
+
+                mount(<Modal isOpen={isOpen} onClose={toggleModal} />);
+
+                var evt = document.createEvent("HTMLEvents");
+                evt.initEvent("keydown", false, true);
+                evt.keyCode = 8;
+                
+                document.dispatchEvent(evt);
+
+                expect(toggleModal).not.toHaveBeenCalled();
+            });
+        });
+
+        describe('When the escape key is entered in IE', () => {
+            it('Then it should call the close handler property', () => {
+                document.body.innerHTML = "<div class='cmp-modal-box' />";
+
+                let isOpen = true;
+                const toggleModal = jest.fn(() => {
+                    isOpen = !isOpen;
+                })
+
+                mount(<Modal isOpen={isOpen} onClose={toggleModal} />);
+
+                var evt = document.createEvent("HTMLEvents");
+                evt.initEvent("keydown", false, true);
+                evt.which = 27;
+                
+                document.dispatchEvent(evt);
+
+                expect(toggleModal).toHaveBeenCalled();
+            });
+        });
+
+        describe('When the escape key is entered onKeyUp', () => {
+            it('Then it should call the close handler property', () => {
+                document.body.innerHTML = "<div class='cmp-modal-box' />";
+
+                let isOpen = true;
+                const toggleModal = jest.fn(() => {
+                    isOpen = !isOpen;
+                })
+
+                mount(<Modal isOpen={isOpen} onClose={toggleModal} />);
+
+                var evt = document.createEvent("HTMLEvents");
+                evt.initEvent("keydown", false, true);
+                evt.key = 27;
+                
+                document.dispatchEvent(evt);
+
+                expect(toggleModal).toHaveBeenCalled();
+            });
+        });
+
         describe('When the close button is clicked', () => {
             it('Then it should call the close handler property', () => {
 
