@@ -22,8 +22,6 @@ export default (data, type, icon) => {
 
     switch (type) {
         case "personal":
-            // PB Temporary Change Use the first userAddress to determine country code
-            // data.country = data.localeCountry;
             data.country = data.userAddress[0].countryCode;
 
             return [{
