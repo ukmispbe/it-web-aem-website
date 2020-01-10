@@ -55,6 +55,10 @@ const isocode = 'en_us';
 describe('Feature: Sign In Form', () => {
     describe('Scenario: Rendering', () => {
         describe('When initial render', ()=>{
+            it('Then the snapshot should match', () => {
+                const json = renderer.create(<Form config={config} submitFn={submitFn} isocode={isocode} />);
+                expect(json).toMatchSnapshot();
+            });
             it('Then it should render an email address field', async ()=>{
                 let wrapper;
                 await act(async () => {
