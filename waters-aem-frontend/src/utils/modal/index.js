@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo } from "react";
+import React, { createContext, useContext, useMemo, useRef } from "react";
 import PropTypes from 'prop-types';
 import ReactSVG from 'react-svg';
 import ModalPortal from './modal-portal';
@@ -16,6 +16,8 @@ const ModalApi = createContext();
 ModalApi.displayName = 'ModalApi';
 
 const Modal = props => {
+    const mainRef = useRef();
+
     const getApi = useMemo(() => ({
         onClose: props.onClose,
         closeIcon : props.closeIcon || "/content/dam/waters/en/brand-assets/icons/close.svg"
@@ -29,10 +31,8 @@ const Modal = props => {
         const escapeEntered = keyCode === 27;
         const isModalOpen = document.querySelector(".cmp-modal-box");
 
-        if (isModalOpen && escapeEntered) {
-            // the event listener is no longer needed since the modal will close
-            document.removeEventListener("keydown", handleModalKeyDown);
-            props.onClose();
+        if (isModalOpen && escapeEntered && mainRef.current) {
+            mainRef.current.click()
         }
     }
     
@@ -67,7 +67,7 @@ const Modal = props => {
     return (
         <ModalPortal>
             <ModalApi.Provider value={getApi}>
-                <div className={`cmp-modal-box ${props.className ? props.className : ""}`} onClick={overlayClickToClose}>
+                <div ref={mainRef} className={`cmp-modal-box ${props.className ? props.className : ""}`} onClick={overlayClickToClose}>
                     <div className="cmp-modal">
                         {props.children}
                     </div>
