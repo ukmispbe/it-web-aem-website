@@ -2,7 +2,7 @@ jest.mock("../stickyService");
 
 import SkuDetails from '../sku-details';
 import stickyService from '../stickyService';
-import SkuDetatilsSticky from '../sticky-sku-details';
+import SkuDetailsSticky from '../sticky-sku-details';
 
 describe("Feature: SkuDetailsSticky Module", () => {
     describe("Scenario: Adding sku details to the queue", () => {
@@ -10,7 +10,7 @@ describe("Feature: SkuDetailsSticky Module", () => {
             it("Then is should not add to the queue", () => {
                 SkuDetails.okToConfigureSticky = jest.fn(() => false);
 
-                SkuDetatilsSticky();
+                SkuDetailsSticky();
 
                 expect(stickyService.add).not.toHaveBeenCalled();
             });
@@ -20,7 +20,7 @@ describe("Feature: SkuDetailsSticky Module", () => {
             it("Then is should add to the queue", () => {
                 SkuDetails.okToConfigureSticky = jest.fn(() => true);
 
-                SkuDetatilsSticky();
+                SkuDetailsSticky();
 
                 expect(stickyService.add).toHaveBeenCalled();
             });
