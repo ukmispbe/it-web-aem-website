@@ -169,12 +169,7 @@ public class CategoryListing implements ComponentExporter {
             .getHref();
     }
 
-    public String getPageOneHref() {
-        return LinkBuilderFactory.forPath(currentPage.getPath())
-            .setExtension("html")
-            .build()
-            .getHref();
-    }
+
 
     //Category List
     public List<Link> getCategoryLinks() {
@@ -220,6 +215,13 @@ public class CategoryListing implements ComponentExporter {
         } else {
             return 0;
         }
+    }
+
+    private String getPageOneHref() {
+        return LinkBuilderFactory.forPath(currentPage.getPath())
+        .setExtension("html")
+        .build()
+        .getHref();
     }
 
     @Nonnull
