@@ -1,0 +1,73 @@
+<div data-sly-use.categoryListing="com.waters.aem.core.components.content.CategoryListing">
+
+    <div data-sly-repeat.sku="${categoryListing.displayableSkuSubList}">
+
+        <img src="${sku.primaryImageThumbnail}" alt="${sku.primaryImageAlt}" height="100" width="100">
+
+        <div class="cmp-sku-list__code">SKU: ${sku.code}</div>
+
+        <div class="cmp-sku-details__title">
+            <a href="${sku.skuPageHref}">${sku.title}</a></div>
+
+        <div class="cmp-sku-details__buyinfo">
+            <div class="cmp-sku-list__priceinfo">
+                <span>List Price</span>
+                <div class="cmp-sku__price">${sku.formattedPrice}</div>
+            </div>
+        </div>
+
+        <div class="cmp-search__results-item-breadcrumb skuitem">Category: ${sku.categories}</div>
+
+        <div>${sku.longDescription}</div>
+        <div>
+            <div><strong>Part Number: ${sku.code}</strong></div>
+        </div>
+
+        <div class="cmp-table--divide cmp-table" style="border: 5px solid #C5E182; width: 100%;">
+            <ul data-sly-repeat.specification="${sku.specifications}">
+                <li>
+                    <table class="cmp-table__table">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <p><strong>${specification.title}</strong></p>
+                            </td>
+                            <td>
+                                <p>${specification.formattedFeatureValues}</p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div>
+        <ul class="paginate__container">
+            <li class="previous" data-sly-test="${categoryListing.hasPreviousPage}">
+                <a href="${categoryListing.previousPageHref}">Prev</a></li>
+
+            <sly data-sly-list="${categoryListing.pageList}">
+                <li class="${categoryListing.currentPageNumber == itemList.count ? 'selected' : ''}">
+                    <a href="${categoryListing.currentPagePath}.${item}.html?page=${item}"
+                       role="button" tabindex="0">${item}</a></li>
+            </sly>
+
+            <li class="next" data-sly-test="${categoryListing.hasNextPage}">
+                <a href="${categoryListing.nextPageHref}">Next</a></li>
+        </ul>
+    </div>
+
+    <div class="cmp-section-container__wrapper">
+        <h2 class="cmp-section-container__title">Related Categories</h2>
+
+        <div class="cmp-section-container__body" data-sly-repeat.category="${categoryListing.categoryLinks}">
+            <a href="${category.href}">${category.title}</a>
+        </div>
+    </div>
+
+</div>
+    <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+         data-sly-call="${patterns.placeholder @ show=!categoryListing.displayableSkuSubList, text=component.title}"/>

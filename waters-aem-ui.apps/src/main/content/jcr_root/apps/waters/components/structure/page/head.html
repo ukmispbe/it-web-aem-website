@@ -1,11 +1,19 @@
 <template data-sly-template.head="${ @ page }"
           data-sly-use.headlibRenderer="headlibs.html"
           data-sly-use.headResources="head.resources.html"
+          data-sly-use.meta="meta.html"
           data-sly-use.header="com.waters.aem.core.components.structure.Header">
 
     <meta charset="UTF-8">
 
-    <sly data-sly-include="meta.html"/>
+    <sly data-sly-test.categoryListing="${header.categoryListing}">
+        <link rel="canonical" href="${categoryListing.currentPageHref}">
+        <link rel="next" href="${categoryListing.nextPageHref}" data-sly-unwrap="${!categoryListing.hasNextPage}">
+        <link rel="prev" href="${categoryListing.previousPageHref}" data-sly-unwrap="${!categoryListing.hasPreviousPage}">
+    </sly>
+
+    <sly data-sly-test="${!categoryListing}" data-sly-call="${meta.meta @ renderCanonical=true}"/>
+    <sly data-sly-test="${categoryListing}" data-sly-call="${meta.meta @ renderCanonical=false}"/>
 
     <meta data-sly-test.keywords="${page.keywords}" name="keywords" content="${keywords}"/>
     <meta data-sly-test.templateName="${page.templateName}" name="template" content="${templateName}"/>

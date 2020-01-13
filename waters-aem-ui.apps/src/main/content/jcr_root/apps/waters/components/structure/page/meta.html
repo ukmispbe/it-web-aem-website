@@ -1,4 +1,5 @@
-<sly data-sly-use.metaPage="com.waters.aem.core.components.structure.page.Meta">
+<template data-sly-template.meta="${ @ renderCanonical }"
+          data-sly-use.metaPage="com.waters.aem.core.components.structure.page.Meta">
     <meta name="twitter:card" content="${metaPage.twitterCard}">
     <meta name="twitter:site" content="${metaPage.twitterPublisherHandle}">
     <meta name="twitter:creator" content="${metaPage.twitterPublisherHandle}">
@@ -31,7 +32,7 @@
         <meta name="robots" content="${metaPage.robotsTags @ join=', '}">
     </sly>
 
-    <sly data-sly-test="${!metaPage.noIndex}">
+    <sly data-sly-test="${!metaPage.noIndex && renderCanonical}">
         <link rel="canonical" href="${metaPage.canonicalUrl}">
 
         <link data-sly-repeat.hrefLang="${metaPage.hrefLangItems}" rel="alternate" href="${hrefLang.href}"
@@ -88,4 +89,4 @@
     <script data-sly-test="${metaPage.skuPage}" type="application/ld+json">
          ${metaPage.productSchemaJson @ context='unsafe'}
     </script>
-</sly>
+</template>
