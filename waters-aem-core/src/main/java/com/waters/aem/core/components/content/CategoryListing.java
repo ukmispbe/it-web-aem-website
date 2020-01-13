@@ -143,14 +143,16 @@ public class CategoryListing implements ComponentExporter {
     }
 
     public String getCurrentPageHref() {
-        return LinkBuilderFactory.forPath(currentPage.getPath())
+        return getCurrentPageNumber() == 1 ? getPageOneHref() : LinkBuilderFactory.forPath(currentPage.getPath())
+            .addSelector(String.valueOf(getPageParamOrDefault()))
             .setExtension("html")
+            .addParameter(PARAMETER_PAGE, String.valueOf(getPageParamOrDefault()))
             .build()
             .getHref();
     }
 
     public String getNextPageHref() {
-        return LinkBuilderFactory.forPath(currentPage.getPath())
+        return  LinkBuilderFactory.forPath(currentPage.getPath())
             .addSelector(String.valueOf(getPageParamOrDefault() + 1))
             .setExtension("html")
             .addParameter(PARAMETER_PAGE, String.valueOf(getPageParamOrDefault() + 1))
@@ -159,10 +161,17 @@ public class CategoryListing implements ComponentExporter {
     }
 
     public String getPreviousPageHref() {
-        return getPageParamOrDefault() == 2 ? getCurrentPageHref() : LinkBuilderFactory.forPath(currentPage.getPath())
+        return getCurrentPageNumber() == 2 ? getPageOneHref() : LinkBuilderFactory.forPath(currentPage.getPath())
             .addSelector(String.valueOf(getPageParamOrDefault() - 1))
             .setExtension("html")
             .addParameter(PARAMETER_PAGE, String.valueOf(getPageParamOrDefault() - 1))
+            .build()
+            .getHref();
+    }
+
+    public String getPageOneHref() {
+        return LinkBuilderFactory.forPath(currentPage.getPath())
+            .setExtension("html")
             .build()
             .getHref();
     }
