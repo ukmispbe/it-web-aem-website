@@ -169,8 +169,6 @@ public class CategoryListing implements ComponentExporter {
             .getHref();
     }
 
-
-
     //Category List
     public List<Link> getCategoryLinks() {
         return Arrays.stream(categoryPaths)
