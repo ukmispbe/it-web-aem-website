@@ -144,9 +144,7 @@ public class CategoryListing implements ComponentExporter {
 
     public String getCurrentPageHref() {
         return LinkBuilderFactory.forPath(currentPage.getPath())
-            .addSelector(String.valueOf(getPageParamOrDefault()))
             .setExtension("html")
-            .addParameter(PARAMETER_PAGE, String.valueOf(getPageParamOrDefault()))
             .build()
             .getHref();
     }
@@ -161,7 +159,7 @@ public class CategoryListing implements ComponentExporter {
     }
 
     public String getPreviousPageHref() {
-        return LinkBuilderFactory.forPath(currentPage.getPath())
+        return getPageParamOrDefault() == 2 ? getCurrentPageHref() : LinkBuilderFactory.forPath(currentPage.getPath())
             .addSelector(String.valueOf(getPageParamOrDefault() - 1))
             .setExtension("html")
             .addParameter(PARAMETER_PAGE, String.valueOf(getPageParamOrDefault() - 1))
