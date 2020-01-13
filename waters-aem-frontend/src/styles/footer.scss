@@ -1,7 +1,6 @@
 .cmp-footer {
-    padding: $space-xl 0;
-    padding-bottom: 0;
-    margin-top: $space-xl;
+    padding: 0;	
+    margin-top: 0;
     overflow: hidden;
     width: 100%;
 
@@ -34,20 +33,19 @@
 
     .container1 {
         background-color: $color-background-dark;
-        opacity: 0.9;
         max-width: 1480px;
         //position: static;
         margin: -$space-xxs auto 0 auto;
-        padding: $space-xl $space-xxl;
+        padding: $space-xl $space-xxl $space-m $space-xxl;
         display: block;
         text-align: left;
 
         @include mobile {
-            padding: $space-l 20px;
+            padding: $space-l 20px 0 20px;
         }
 
         @include tablet {
-            padding: $space-l;
+            padding: $space-xl $space-l $space-l $space-l;
         }
 
     }
@@ -59,7 +57,7 @@
     .container2 {
         background-color: $color-background-dark;
         max-width: 1480px;
-        padding: $space-xl $space-xxl;
+        padding: $space-m $space-xxl;
         clear: both;
         width: 100%;
         display: block;
@@ -101,6 +99,7 @@
 }
 
 .cmp-footer__links {
+    @include font-small;
     width: 100%;
     text-align: left;
     display: inline-block;
@@ -115,6 +114,7 @@
     }
 
     a {
+        color: $color-gray-30;
         margin-right: $space-l;
         display: inline;
         @include mobile {
@@ -130,7 +130,6 @@
 
         &:hover {
             text-decoration: underline;
-            color: $color-font-light;
         }
 
         &:first-of-type {
@@ -182,21 +181,20 @@
 }
 
 .cmp-footer__copyright {
-    float: right;
-    margin-top: $space-xxs;
-    margin: $space-xxs $space-s 0 0 ;
+    float: left;	
+    margin: 0 $space-s;
     p {
         @include font-small;
-        color: $color-font-light;
+        color: $color-gray-30;
     }
 
     @include tablet {
-        margin-top: $space-l;
+        margin-top: 0;
     }
 
     @include mobile {
         float: left;
-        margin-top: $space-l;
+        margin: $space-l 0 $space-m 0;
         text-align: left;
     }
 }
@@ -264,7 +262,7 @@
         margin-top: $space-m;
         float: none;
         width: 100%;
-        padding-top: $space-s;
+        padding-top: 0;
     }
 
     .social-links-text {
@@ -318,11 +316,11 @@
     }
 }
 
-.cmp-footer .cmp-links__external-link--true::after {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' width='18' height='25' viewBox='0 0 24 24' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-external-link'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E");
-}
-.cmp-footer .cmp-links__external-link--true:hover:after {
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='25' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-external-link'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3'/%3E%3C/svg%3E");
+.cmp-footer .cmp-links__external-link--true::after {	
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' width='16' height='16' viewBox='0 0 24 24' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-external-link'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E");	
+}	
+.cmp-footer .cmp-links__external-link--true:hover:after {	
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-external-link'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3'/%3E%3C/svg%3E");	
 }
 
 .cmp-footer__selector {
@@ -330,7 +328,7 @@
     width: fit-content;
     position: relative;
     line-height: 28px;
-    margin-bottom: $space-xl;
+    margin-bottom: $space-m;
 
     @supports (display: inline-grid) {
         position: static;
