@@ -1,7 +1,7 @@
 import sticky from './stickyService';
 import SkuDetails from './sku-details';
 
-const SkuDetatilsSticky = () => {
+const SkuDetailsSticky = () => {
     if (SkuDetails.okToConfigureSticky()) {
         sticky.add({
             element: SkuDetails.element(),
@@ -27,6 +27,6 @@ const SkuDetatilsSticky = () => {
     } 
 };
 
-document.addEventListener('DOMContentLoaded', SkuDetatilsSticky);
+document.addEventListener('DOMContentLoaded', SkuDetailsSticky);
 
-export default SkuDetatilsSticky;
+export default SkuDetailsSticky;
