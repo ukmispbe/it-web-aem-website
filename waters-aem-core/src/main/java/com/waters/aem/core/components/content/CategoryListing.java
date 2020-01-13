@@ -152,7 +152,7 @@ public class CategoryListing implements ComponentExporter {
     }
 
     public String getNextPageHref() {
-        return  LinkBuilderFactory.forPath(currentPage.getPath())
+        return LinkBuilderFactory.forPath(currentPage.getPath())
             .addSelector(String.valueOf(getPageParamOrDefault() + 1))
             .setExtension("html")
             .addParameter(PARAMETER_PAGE, String.valueOf(getPageParamOrDefault() + 1))
