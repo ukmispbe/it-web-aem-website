@@ -27,6 +27,12 @@ const MyAccountContainer = props => {
         accountNumber
     } = userDetails;
 
+    const onSignIn = (e) => {
+        e.preventDefault();
+        window.sessionStorage.setItem('signInRedirect', window.location.href);
+        window.location.href = signIn.url;
+    }
+
     const signInOutLink = () => (
         <>
             {signOut.url && signIn.url && (
@@ -34,6 +40,7 @@ const MyAccountContainer = props => {
                     <a
                         className="my-account-dropdown__sign-in-out"
                         href={loginState ? signOut.url : signIn.url}
+                        {...(!loginState && { onClick: (e)=>onSignIn(e), rel: 'nofollow' })}
                     >
                         <ReactSVG src={icon} className="sign-in-out__icon" />
                         {loginState ? signOut.text : signIn.text}
