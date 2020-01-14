@@ -13,6 +13,7 @@ import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.icfolson.aem.library.core.link.builders.factory.LinkBuilderFactory;
 import com.waters.aem.core.components.content.links.BasicLink;
 import com.waters.aem.core.services.account.WatersAccountService;
+import com.waters.aem.core.utils.MyAccountUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -21,7 +22,6 @@ import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -76,6 +76,10 @@ public class MyAccount implements ComponentExporter {
             .collect(Collectors.toList()));
 
         return MAPPER.writeValueAsString(additionalResources);
+    }
+
+    public String getCountriesJson() throws JsonProcessingException {
+        return MyAccountUtils.getCountriesJson();
     }
 
     private Map<String, Object> getLinkMap(final BasicLink link) {

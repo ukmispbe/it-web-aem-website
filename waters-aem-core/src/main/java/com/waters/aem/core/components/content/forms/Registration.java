@@ -8,12 +8,12 @@ import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.form.captcha.CaptchaService;
 import com.waters.aem.core.services.account.WatersAccountService;
+import com.waters.aem.core.utils.MyAccountUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -23,14 +23,6 @@ import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_COPY;
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_EDIT;
@@ -54,8 +46,6 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH
 public class Registration implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/forms/registration";
-
-    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @OSGiService
     private WatersAccountService accountService;
@@ -98,14 +88,7 @@ public class Registration implements ComponentExporter {
     }
 
     public String getCountriesJson() throws JsonProcessingException {
-        final List<Map<String, Object>> countryList = new ArrayList<>();
-
-        countryList.addAll(Arrays.asList(Locale.getISOCountries()).stream()
-            .map(this::getCountryMap)
-            .sorted(Comparator.comparing(map -> (String)map.get("displayName")))
-            .collect(Collectors.toList()));
-
-        return MAPPER.writeValueAsString(countryList);
+        return MyAccountUtils.getCountriesJson();
     }
 
     public String getRegistrationSubmitUrl() {
@@ -118,17 +101,6 @@ public class Registration implements ComponentExporter {
 
     public String getCaptchaSiteKey() {
         return captchaService.getSiteKey();
-    }
-
-    private Map<String, Object> getCountryMap(String countryCode) {
-        final Map<String, Object> countryMap = new HashMap<>();
-
-        final Locale locale = new Locale("", countryCode);
-
-        countryMap.put("countryCode", locale.getCountry().toLowerCase());
-        countryMap.put("displayName", locale.getDisplayCountry().replaceAll("'", "\'"));
-
-        return countryMap;
     }
 
     @Nonnull
