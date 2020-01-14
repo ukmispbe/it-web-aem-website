@@ -91,7 +91,7 @@ public class MyAccount implements ComponentExporter {
         return linkMap;
     }
 
-    public String getMyAccountUrl() {
+    public String getUserDetailsUrl() {
         return accountService.getUserDetailsUrl();
     }
 
