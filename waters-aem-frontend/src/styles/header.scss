@@ -84,6 +84,7 @@
                 align-self: center;
 
                 & > .top-bar__nav__item {
+                    height: 66px;
                     align-items: center;
                     align-self: center;
                     vertical-align: top;
@@ -167,7 +168,7 @@
                         visibility: hidden;
                         box-shadow: $shadow;
                         position: absolute;
-                        top: 47px;
+                        top: 63px;
                         right: 0px;
                         border-top: 4px solid $color-gray-50;
                         display: none;
