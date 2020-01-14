@@ -119,6 +119,8 @@ export async function signInSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
+        // Temporary cookie
+        document.cookie = "WatersLoginCookie=1";
         const signInRedirect = window.sessionStorage.getItem('signInRedirect');
         if (signInRedirect || this.redirect) {
             window.location.replace(signInRedirect ? signInRedirect : this.redirect);
