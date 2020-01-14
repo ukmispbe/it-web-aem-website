@@ -51,7 +51,9 @@
 
             <sly data-sly-list="${categoryListing.pageList}">
                 <li class="${categoryListing.currentPageNumber == itemList.count ? 'selected' : ''}">
-                    <a href="${categoryListing.currentPagePath}.${item}.html?page=${item}"
+                    <a data-sly-test.first="${itemList.first}" href="${categoryListing.currentPagePath}.html"
+                       role="button" tabindex="0">${item}</a>
+                    <a data-sly-test="${!first}" href="${categoryListing.currentPagePath}.${item}.html?page=${item}"
                        role="button" tabindex="0">${item}</a></li>
             </sly>
 
