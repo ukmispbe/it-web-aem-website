@@ -390,15 +390,15 @@ if (chatContainer) {
     );
 }
 
-const personalDetailsTile = document.getElementById('personal-details-tile');
+// const personalDetailsTile = document.getElementById('personal-details-tile');
 
-if (personalDetailsTile) {
-    const config = JSON.parse(
-        document.getElementById('cmp-detail-tiles--personal').innerHTML
-    );
+// if (personalDetailsTile) {
+//     const config = JSON.parse(
+//         document.getElementById('cmp-detail-tiles--personal').innerHTML
+//     );
 
-    ReactDOM.render(<DetailTiles {...config} submitFn={personalSubmit}/>, personalDetailsTile);
-}
+//     ReactDOM.render(<DetailTiles {...config} submitFn={personalSubmit}/>, personalDetailsTile);
+// }
 
 const shippingDetailsTile = document.getElementById('shipping-details-tile');
 
@@ -420,19 +420,19 @@ if (billingDetailsTile) {
     ReactDOM.render(<DetailTiles {...config} />, billingDetailsTile);
 }
 
-const changePasswordDetailsTile = document.getElementById(
-    'changePassword-details-tile'
-);
+// const changePasswordDetailsTile = document.getElementById(
+//     'changePassword-details-tile'
+// );
 
-if (changePasswordDetailsTile) {
-    const config = JSON.parse(
-        document.getElementById('cmp-detail-tiles--changePassword').innerHTML
-    );
+// if (changePasswordDetailsTile) {
+//     const config = JSON.parse(
+//         document.getElementById('cmp-detail-tiles--changePassword').innerHTML
+//     );
 
-    config.submitFn = changePasswordSubmit;
+//     config.submitFn = changePasswordSubmit;
 
-    ReactDOM.render(<DetailTiles {...config} />, changePasswordDetailsTile);
-}
+//     ReactDOM.render(<DetailTiles {...config} />, changePasswordDetailsTile);
+// }
 
 const wechat = document.querySelector('.cmp-wechat');
 const wechatContainer = document.querySelector('.cmp-wechat-container');

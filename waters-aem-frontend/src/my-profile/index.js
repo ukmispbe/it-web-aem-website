@@ -26,7 +26,7 @@ const MyProfile = ({ configs }) => {
         configs.addressConfig.configs.map(id =>
             detailTiles.push(setupConfig(id, abstractAddress))
         );
-
+        
         return detailTiles.map((config, key) => (<DetailTiles {...config} key={key} />));
     };
 
