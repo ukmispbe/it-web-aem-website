@@ -13,7 +13,7 @@
 
         &.cmp-modal-box__site-nav-on-mobile {
             position: absolute;
-            top: 66px;
+            top: 61px;
             border-top: 1px solid $color-border-light;
         }
     }
@@ -48,7 +48,7 @@
         flex-wrap: wrap;
 
         @include mobile {
-            padding: 1em 0;
+            padding: $space-xs 0;
 
             &.header-with-title:after{
                 box-shadow: 0 4px 2px -2px #e3e6e9;

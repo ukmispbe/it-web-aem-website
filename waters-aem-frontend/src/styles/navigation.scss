@@ -11,7 +11,7 @@ $level0MobileDisplay: flex;
    margin: 0 ($space-xl * -1)!important;
 
    @supports (display: inline-grid) {
-      height: 67px;
+      height: 52px;
    }
 
    &:hover {
@@ -39,7 +39,7 @@ nav.cmp-navigation {
       // NOTE: TABLET & ABOVE ONLY TO PREVENT SCROLLING/OVERLFLOW ISSUES
       &::after {
          width: 102.5%;
-         height: 67px;
+         height: 52px;
          content: '';
          position: absolute;
          box-shadow: none;
@@ -116,8 +116,8 @@ nav.cmp-navigation {
             padding-bottom: 150px;
 
             & > .cmp-navigation__container {
-               min-height: 67px;
-               padding: $space-s $space-m $space-s ($space-xl - 0.6em);
+               min-height: 52px;
+               padding: $space-s $space-m $space-s ($space-xl - 0.7em);
                border-left: 4px solid $color-gray-50;
                flex-grow: 0;
 
@@ -140,14 +140,14 @@ nav.cmp-navigation {
 
 
       & > .cmp-navigation__item {
-         @include font-h3;
+         @include font-h4; 
          margin-right: $space-xl;
          margin-bottom: 0;
          display: inline-block;
          overflow: visible;
 
          &--level-0 {
-            height: 67px;
+            height: 52px;
             z-index: $navigation-level-0-z-index;
             align-content: center;
             display: inline-table;
@@ -254,7 +254,9 @@ nav.cmp-navigation {
 
 
             & .cmp-navigation__item-link {
-               color: $color-font-medium;
+               @include font-h3;
+               color: $color-font-dark;
+               margin-bottom: 0;
                -webkit-transition: none;
                -o-transition: none;
                -moz-transition: none;
@@ -292,7 +294,7 @@ nav.cmp-navigation {
 
             @include tablet-and-over {
                position: absolute;
-               top: 67px;
+               top: 52px;
                left: 0;
             }
             @include mobile {
@@ -337,27 +339,11 @@ nav.cmp-navigation {
                padding-right: 0px;
             }
 
-            .cmp-notification-description {
-               font-size: $font-size-small;
-               font-weight: $font-weight-light;
-               line-height: 1.6em;
-            }
-
-            .cmp-notification-title {
-               font-size: $font-size-small;
-               line-height: 1.6em;
-            }
 
             .cmp-notification-wrapper {
                margin-top: $space-s;
             }
             
-
-            .cmp-links {
-               font-size: $font-size-small;
-               font-weight: $font-weight-light;
-               line-height: 1.6em;
-            }
 
             .cmp-links__item {
                margin-bottom: $space-xxs;
@@ -373,11 +359,6 @@ nav.cmp-navigation {
 
             div.links {
                margin-bottom: 0;
-            }
-
-            h3 {
-               @include font-body;
-               font-weight: $font-weight-regular;
             }
          }
 
@@ -424,6 +405,7 @@ nav.cmp-navigation {
    -o-transition: none;
    -moz-transition: none;
    transition: none;
+   font-weight: $font-weight-regular;
 }
 
 .cmp-navigation-overlay__container {

@@ -48,11 +48,13 @@
 
 @mixin font-utility {
     color: $color-font-medium;
+    font-weight: $font-weight-light;
 }
 
 @mixin font-small {
     font-size: $font-size-small;
     color: $color-font-medium;
+    font-weight: $font-weight-light;
 
     @include mobile {
         font-size: $font-size-small-m;
