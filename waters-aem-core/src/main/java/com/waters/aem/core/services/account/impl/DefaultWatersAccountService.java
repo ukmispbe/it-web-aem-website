@@ -11,8 +11,6 @@ import org.osgi.service.metatype.annotations.Designate;
 @Designate(ocd = WatersAccountServiceConfiguration.class)
 public class DefaultWatersAccountService implements WatersAccountService {
 
-    private volatile String signInUrl;
-
     private volatile String signOutUrl;
 
     private volatile String myAccountUrl;
@@ -34,11 +32,6 @@ public class DefaultWatersAccountService implements WatersAccountService {
     private volatile String updatePasswordUrl;
 
     private volatile String signInEndpoint;
-
-    @Override
-    public String getSignInUrl() {
-        return signInUrl;
-    }
 
     @Override
     public String getSignOutUrl() {
@@ -98,7 +91,6 @@ public class DefaultWatersAccountService implements WatersAccountService {
     @Activate
     @Modified
     protected void activate(final WatersAccountServiceConfiguration configuration) {
-        signInUrl = configuration.signInUrl();
         signOutUrl = configuration.signOutUrl();
         myAccountUrl = configuration.myAccountUrl();
         legacySearchUrl = configuration.legacySearchUrl();

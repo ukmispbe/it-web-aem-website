@@ -6,9 +6,6 @@ import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 @ObjectClassDefinition(name = "Waters Account Service Configuration")
 public @interface WatersAccountServiceConfiguration {
 
-    @AttributeDefinition(name = "Sign In Url", description = "Url for user login")
-    String signInUrl() default "https://wwwdt1.waters.com/waters/login.htm";
-
     @AttributeDefinition(name = "Sign Out Url", description = "Url for user log out")
     String signOutUrl() default "https://wwwdt1.waters.com/waters/logout.htm";
 
@@ -25,16 +22,16 @@ public @interface WatersAccountServiceConfiguration {
     String emailValidationUrl() default "https://dev-www.waters.com:8443/api/waters/user/v1/validate/{email}";
 
     @AttributeDefinition(name = "Reset Password API Url", description = "Url for reset password")
-    String pwResetUrl() default "https://dev-www.waters.com:8443/api/waters/user/v1/reset/password?email={email}";
+    String pwResetUrl() default "https://dev-www.waters.com:8443/api/waters/user/v1/reset/password";
 
     @AttributeDefinition(name = "Change Password API Url", description = "Url for change password")
     String changePwUrl() default "https://dev-www.waters.com:8443/api/waters/user/v1/change/password";
 
     @AttributeDefinition(name = "User Details API Url", description = "Url for User Details API")
-    String userDetailsUrl() default "https://test-www.waters.com:8443/api/waters/user/v1/details?email={email}";
+    String userDetailsUrl() default "https://test-www.waters.com:8443/api/waters/user/v1/details";
 
     @AttributeDefinition(name = "Sold To Details API Url", description = "Url for Sold To Details API")
-    String soldToDetailsUrl() default "https://test-www.waters.com:8443/api/waters/user/v1/retrievesoldto?email={email}";
+    String soldToDetailsUrl() default "https://test-www.waters.com:8443/api/waters/user/v1/retrievesoldto";
 
     @AttributeDefinition(name = "Update Password API Url", description = "Url for update password API")
     String updatePwUrl() default "https://test-www.waters.com:8443/api/waters/user/v1/update/password";
