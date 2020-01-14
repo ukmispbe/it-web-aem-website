@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the snapshot should match 1`] = `
+<form
+  className="cmp-form cmp-form--registration"
+  onSubmit={[Function]}
+>
+  <div
+    className="cmp-form-field cmp-form-field-email"
+  >
+    <label
+      className=""
+      htmlFor="email"
+    >
+      Email Address
+    </label>
+    <div
+      className="cmp-form-field--input"
+    >
+      <input
+        className=""
+        name="email"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder=" "
+        type="email"
+      />
+      <div
+        className="cmp-form-field--icons"
+      >
+        <div
+          className="valid-icon"
+        />
+        <div
+          className="invalid-icon"
+        />
+      </div>
+    </div>
+    <span
+      className="cmp-form-field--errorText"
+    >
+      
+    </span>
+  </div>
+  <div
+    className="cmp-form-field cmp-form-field-password"
+  >
+    <label
+      className=""
+      htmlFor="password"
+    >
+      Password
+    </label>
+    <div
+      className="cmp-form-field--input"
+    >
+      <input
+        className=""
+        name="password"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder=" "
+        type="password"
+      />
+      <div
+        className="cmp-form-field--icons"
+      >
+        <div
+          className="showHide-icon toggled"
+          onMouseDown={[Function]}
+        />
+        <div
+          className="showHideOff-icon"
+          onMouseDown={[Function]}
+        />
+        <div
+          className="valid-icon"
+        />
+        <div
+          className="invalid-icon"
+        />
+      </div>
+    </div>
+    <span
+      className="cmp-form-field--errorText"
+    >
+      
+    </span>
+  </div>
+  <div
+    className="cmp-form-field cmp-form-field-link"
+  >
+    <div
+      className="cmp-form-field-link--forgotPassword "
+    >
+      <a
+        href="/nextgen/be.html"
+        rel="noopener"
+        target=""
+      >
+        Having trouble signing in?
+      </a>
+    </div>
+  </div>
+  <button
+    className="cmp-button cmp-button--no-border cmp-form--submit"
+    disabled={false}
+    type="submit"
+  >
+    SIGN IN
+  </button>
+</form>
+`;

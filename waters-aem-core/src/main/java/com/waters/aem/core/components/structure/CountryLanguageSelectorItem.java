@@ -5,6 +5,7 @@ import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.enums.TitleType;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.utils.LinkUtils;
 
 import java.util.Optional;
 
@@ -28,12 +29,7 @@ public class CountryLanguageSelectorItem {
     }
 
     public Link getHomepageLink() {
-        return page.getAbsoluteParent(WatersConstants.LEVEL_SITE_ROOT).getChildren()
-                .stream()
-                .filter(WatersConstants.PREDICATE_HOME_PAGE::apply)
-                .findFirst()
-                .map(page -> page.getLink(true))
-                .orElse(null);
+        return LinkUtils.getHomepageLink(page);
     }
 
     /**

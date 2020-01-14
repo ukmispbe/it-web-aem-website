@@ -41,4 +41,7 @@ public @interface WatersAccountServiceConfiguration {
 
     @AttributeDefinition(name = "Update Profile API Url", description = "Url for update profile API")
     String updateProfileUrl() default "https://test-www.waters.com:8443/api/waters/user/v1/update/profile";
+
+    @AttributeDefinition(name = "Sign In  Endpoint", description = "The Endpoint for the Sign In API")
+    String signInEndpoint() default "https://test-www.waters.com:8443/api/waters/user/v1/login";
 }

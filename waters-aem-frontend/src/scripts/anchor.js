@@ -4,40 +4,40 @@ import Fader from './fade-x';
 import sticky, { scrollListener } from './stickyService';
 import SkuDetails from './sku-details';
 
-var anchorElement = document.querySelector('.cmp-anchor');
-var anchorMenu = document.querySelector('.cmp-anchor__list-heading');
+const anchorElement = document.querySelector('.cmp-anchor');
+const anchorMenu = document.querySelector('.cmp-anchor__list-heading');
 let ancFader = null;
 
-const skuDetailsExists = SkuDetails.exists();
-const skuDiscontinued = SkuDetails.discontinued();
-
 // Setup click handler for Anchor Links to scroll in view
-var anchorLinks = document.querySelectorAll('.cmp-anchor__link');
-[].forEach.call(anchorLinks, anchor => {
-    try {
+const anchorLinks = document.querySelectorAll('.cmp-anchor__link') ? Array.from(document.querySelectorAll('.cmp-anchor__link')) : [];
+
+const bindClickEvents = () => {
+    const anchorStickyHeaderOffset = 53;
+    const skuDetailsStickyHeaderOffset = 145;
+
+    anchorLinks.forEach(anchor => {
         anchor.addEventListener('click', e => {
             e.preventDefault();
 
-            setTimeout(() => {
-                const href = e.target.getAttribute('href').replace(/#/gi, '');
-                const anchorClickOffset = !skuDetailsExists || (screenSizes.isMobile() && skuDiscontinued) ? 52 : 143;
+            const href = e.target.getAttribute('href').replace(/#/gi, '');
 
-                scrollToElement(href, 1000, 'easeOutSine', true, anchorClickOffset);
-                
-                anchorLinks.forEach(anchor => {
-                    anchor.classList.remove('active');
-                });
+            const additionalScrollOffset = SkuDetails.stickyExists() ? skuDetailsStickyHeaderOffset : anchorStickyHeaderOffset;
 
-                anchor.classList.add('active');
-                if (screenSizes.isMobile()) {
-                    toggleMobileNav(true);
-                }
-            }, 0);
+            scrollToElement(href, 1000, 'easeOutSine', true, additionalScrollOffset);
+            
+            anchorLinks.forEach(anchor => anchor.classList.remove('active'));
+
+            anchor.classList.add('active');
+
+            if (screenSizes.isMobile()) {
+                toggleMobileNav(true);
+            }
         });
-    } catch (e) {
-        // ignore
-    }
-});
+    });
+}
+
+window.addEventListener('load', bindClickEvents);
+
 let anchorDestinations = [];
 
 const setAnchorDestinations = () => {
@@ -184,7 +184,7 @@ function scrollWindow(el) {
     }
 }
 
-var anchorList = document.querySelector('.cmp-anchor__list');
+const anchorList = document.querySelector('.cmp-anchor__list');
 
 if (anchorList) {
     if(screenSizes.isMobile()){
@@ -228,7 +228,7 @@ if (anchorList) {
     window.addEventListener('scroll', () => scrollWindow(anchorList));
     window.addEventListener('load', () => resizeWindow(anchorList));
     window.addEventListener('resize', () => resizeWindow(anchorList));
-    var mediaQueryListener = window.matchMedia('(max-width: 650px)');
+    const mediaQueryListener = window.matchMedia('(max-width: 650px)');
 
     function anchorChangeToMobile(e) {
         if (e.matches) {

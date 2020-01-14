@@ -16,7 +16,9 @@ import {
     resetPasswordSubmit,
     troubleSigningInSubmit,
     changePasswordSubmit,
-    personalSubmit
+    personalSubmit,
+    signInSubmit
+
 } from './forms/services/submit';
 import Video from './video/index';
 import Chat from './chat';
@@ -465,3 +467,16 @@ if (countryModalRoot) {
         ReactDOM.render(<CountrySelector countries={countries} translations={globalTranslations} />, countryModalRoot);
     }
 }
+
+const signInFormContainer = document.getElementById("js-signin-form");
+
+if (signInFormContainer) {
+    const config = JSON.parse(document.getElementById("cmp-signin-form").innerHTML);
+
+    ReactDOM.render(
+        // replace isocode with a value supplied by AEM
+        <Form config={config} submitFn={signInSubmit} isocode={DigitalData.language} />,
+        signInFormContainer
+    );
+}
+

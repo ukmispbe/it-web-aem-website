@@ -111,6 +111,7 @@ export async function changePasswordSubmit(data) {
     }
 }
 
+
 export async function personalSubmit(data) {
 
     console.log('personalSubmit', data);
@@ -127,3 +128,26 @@ export async function personalSubmit(data) {
         scrollToY(0);
     }
 }
+
+export async function signInSubmit(data) {
+
+    const response = await postData(this.url, data);
+
+    // remove all previous server error notifications
+    this.setError();
+
+    if (response.status === 200) {
+        // Temporary cookie
+        document.cookie = "WatersLoginCookie=1";
+        const signInRedirect = window.sessionStorage.getItem('signInRedirect');
+        if (signInRedirect || this.redirect) {
+            window.location.replace(signInRedirect ? signInRedirect : this.redirect);
+        }
+    } else {
+        this.setError(response);
+        scrollToY(0);
+    }
+}
+
+
+
