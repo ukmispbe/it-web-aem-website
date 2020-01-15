@@ -1,6 +1,4 @@
-<div
-        data-sly-use.myaccount="com.waters.aem.core.components.content.MyAccount"
->
+<div data-sly-use.myaccount="com.waters.aem.core.components.content.MyAccount">
     <div class="cmp-my-account--attach" id="my-account"></div>
     <script type="application/json" id="cmp-my-account">
         {
@@ -53,7 +51,10 @@
         }
     </script>
 
-    <script type="application/json" id="json-config--cmp-detail-tiles--personal">
+    <script
+        type="application/json"
+        id="json-config--cmp-detail-tiles--personal"
+    >
         {
             "name": "personal-details-tile",
             "type": "personal",
@@ -147,17 +148,20 @@
         {
             "name": "billingAddresses-details-tile",
             "type": "billing",
-            "title": "${'Billing Addresses' @ i18n, context='unsafe'}",
+            "title": "${'Billing Address' @ i18n, context='unsafe'}",
             "noAddressMessage": "${'For a faster checkout experience, add your billing address now.' @ i18n, context='unsafe'}",
             "addTitle": "${'Add New Billing Address' @ i18n, context='unsafe'}"
         }
     </script>
 
-    <script type="application/json" id="json-config--cmp-detail-tiles--shipping">
+    <script
+        type="application/json"
+        id="json-config--cmp-detail-tiles--shipping"
+    >
         {
             "name": "shippingAddresses-details-tile",
             "type": "shipping",
-            "title": "${'Shipping Addresses' @ i18n, context='unsafe'}",
+            "title": "${'Shipping Address' @ i18n, context='unsafe'}",
             "noAddressMessage": "${'For a faster checkout experience, add your shipping address now.' @ i18n, context='unsafe'}",
             "addTitle": "${'Add New Shipping Address' @ i18n, context='unsafe'}"
         }
@@ -256,7 +260,10 @@
         }
     </script>
 
-    <script type="application/json" id="json-config--cmp-detail-tiles--changePassword">
+    <script
+        type="application/json"
+        id="json-config--cmp-detail-tiles--changePassword"
+    >
         {
             "name": "changePassword-details-tile",
             "type": "password",
@@ -333,6 +340,6 @@
     </script>
 </div>
 <sly
-        data-sly-use.patterns="/apps/waters/components/content/patterns.html"
-        data-sly-call="${patterns.placeholder @ show=true, text=component.title}"
+    data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+    data-sly-call="${patterns.placeholder @ show=true, text=component.title}"
 />
