@@ -1,0 +1,31 @@
+{
+  "serverUsername" : "<username>",
+  "serverPassword" : "<password>",
+  "serverHost" : "dev-author.waters.com",
+  "serverPort" : "4502",
+  "batchSize" : 150,
+  "deltaContent" : true,
+  "pathConfigurations" :  [
+    {
+      "path" : "/content/waters/someContent",
+      "batchSize" : 50
+    },
+    {
+      "path" : "/content/waters/someContent",
+      "batchSize" : 200,
+      "excludePaths" :
+      [
+        "someOtherContent/someExcludeContent"
+      ]
+    },
+    {
+      "path" : "/content/dam/waters/someDamContent",
+      "excludePaths":
+      [
+        "someContent/someExcludeContent",
+        "someContent/someOtherExcludeContent"
+      ],
+      "deltaContent" : false
+    }
+  ]
+}
