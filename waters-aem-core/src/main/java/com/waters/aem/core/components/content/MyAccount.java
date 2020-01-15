@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.waters.aem.core.components.content.links.BasicLink;
 import com.waters.aem.core.services.account.WatersAccountService;
+import com.waters.aem.core.utils.MyAccountUtils;
 import com.waters.aem.core.utils.LinkUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -76,6 +77,10 @@ public class MyAccount implements ComponentExporter {
         return MAPPER.writeValueAsString(additionalResources);
     }
 
+    public String getCountriesJson() throws JsonProcessingException {
+        return MyAccountUtils.getCountriesJson();
+    }
+
     private Map<String, Object> getLinkMap(final BasicLink link) {
         final Map<String, Object> linkMap = new HashMap<>();
 
@@ -86,12 +91,12 @@ public class MyAccount implements ComponentExporter {
         return linkMap;
     }
 
-    public String getMyAccountUrl() {
+    public String getUserDetailsUrl() {
         return accountService.getUserDetailsUrl();
     }
 
     public String getMyAccountUpdateUrl() {
-        return accountService.getUserDetailsUrl();
+        return accountService.getUpdateProfileUrl();
     }
 
     public String getUpdatePasswordUrl() {

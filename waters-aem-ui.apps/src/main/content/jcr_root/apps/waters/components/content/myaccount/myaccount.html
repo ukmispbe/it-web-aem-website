@@ -34,7 +34,7 @@
                 }
             ],
             "myProfile": {
-                "fetchEndPoint": "${myaccount.myAccountUrl @ context='unsafe'}",
+                "fetchEndPoint": "${myaccount.userDetailsUrl @ context='unsafe'}",
                 "submitEndpoint": "${myaccount.myAccountUpdateUrl @ context='unsafe'}",
                 "personalConfigId": "json-config--cmp-detail-tiles--personal",
                 "addressConfig": {
@@ -56,12 +56,19 @@
         id="json-config--cmp-detail-tiles--personal"
     >
         {
-            "name": "personal-details-tile",
+            "name": "personalDetails",
             "type": "personal",
             "title": "${'Personal Details' @ i18n, context='unsafe'}",
+            "fetchEndPoint": "${myaccount.userDetailsUrl @ context='unsafe'}",
             "canCreate": false,
-            "editText": "${'Edit' @i18n, context='unsafe'}",
+            "editText": "${'Edit' @ i18n, context='unsafe'}",
+            "formMessage":  {
+                "text": "${'Your email is your username and cannot be changed. If you need to change your country, please ' @ i18n, context='unsafe'}",
+                "linkText": "${'Contact Waters' @i18n, context='unsafe'}",
+                "linkURL": "https://www.waters.com/waters/localeRedirect.htm?type=contact_us"
+            },
             "form": {
+                "submitEndpoint": "${myaccount.myAccountUpdateUrl @ context='unsafe'}",
                 "buttonText": "${'Save Changes' @ i18n, context='unsafe'}",
                 "cancelText": "${'Cancel' @ i18n, context='unsafe'}",
                 "icons": {
@@ -76,6 +83,10 @@
                         "label": "${'First Name' @ i18n, context='unsafe'}",
                         "validation": {
                             "required": true,
+                            "maxLength": {
+                                "value": 40,
+                                "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                            },
                             "validateFnName": "noWhitespaceOnly",
                             "validationMsg": "${'Please enter a valid first name.' @ i18n, context='unsafe'}",
                             "requiredMsg": "${'Please enter a first name.' @ i18n, context='unsafe'}"
@@ -87,6 +98,10 @@
                         "label": "${'Last Name' @ i18n, context='unsafe'}",
                         "validation": {
                             "required": true,
+                            "maxLength": {
+                                "value": 40,
+                                "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                            },
                             "validateFnName": "noWhitespaceOnly",
                             "validationMsg": "${'Please enter a valid last name.' @ i18n, context='unsafe'}",
                             "requiredMsg": "${'Please enter a last name.' @ i18n, context='unsafe'}"
@@ -98,6 +113,10 @@
                         "label": "${'Company' @ i18n, context='unsafe'}",
                         "validation": {
                             "validateFnName": "noWhitespaceOnly",
+                            "maxLength": {
+                                "value": 40,
+                                "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                            },
                             "validationMsg": "${'Please enter a valid company name.' @ i18n, context='unsafe'}",
                             "required": true,
                             "requiredMsg": "${'Please enter a company name.' @ i18n, context='unsafe'}"
@@ -118,9 +137,7 @@
                         "name": "phone",
                         "label": "${'Phone Number' @ i18n, context='unsafe'}",
                         "validation": {
-                            "validateFnName": "noWhitespaceOnly",
-                            "validationMsg": "${'Please enter a valid phone number.' @ i18n, context='unsafe'}",
-                            "required": true,
+                            "required": false,
                             "requiredMsg": "${'Please enter a phone number.' @ i18n, context='unsafe'}"
                         }
                     },
@@ -129,12 +146,17 @@
                         "name": "country",
                         "label": "${'Country' @ i18n, context='unsafe'}",
                         "placeholder": "${'Select...' @ i18n, context='unsafe'}",
-                        "options": [],
+                        "options": ${myaccount.countriesJson @ context='unsafe'},
                         "disabled": true,
-                        "validation": {
-                            "required": true,
-                            "requiredMsg": "${'Please select your country.' @ i18n, context='unsafe'}"
-                        }
+                    "validation": {
+                        "required": true,
+                        "requiredMsg": "${'Please select your country.' @ i18n, context='unsafe'}"
+                    }
+                    },
+                    {
+                        "type": "checkbox",
+                        "name": "communications",
+                        "label": "${'I want to receive communications from Waters.' @ i18n, context='text'}"
                     }
                 ]
             },

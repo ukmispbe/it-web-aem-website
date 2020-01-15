@@ -5,6 +5,7 @@ import ErrorBoundary from './../search/ErrorBoundary';
 
 import useProfile from './hooks/useProfile';
 import Tile from './views/tile';
+import { personalSubmit, changePasswordSubmit } from '../forms/services/submit';
 
 const DetailTiles = ({
     name,
@@ -23,8 +24,24 @@ const DetailTiles = ({
     const { tiles } = useProfile(fetchEndPoint, type, icons.refresh);
 
     const renderTiles = () => {
-        form.submitFn = submitFn || function() {};
+        switch (type) {
+            case "personal":
+                submitFn = personalSubmit;
+                break;
+            case "password":
+                submitFn = changePasswordSubmit;
+                break;
+            case "shipping":
+                // Assign shipping submit function when done
+                break;
+            case "billing":
+                // Assign billing submit function when done
+                break;
+            default:
+        }
 
+        form.submitFn = submitFn || function() {};
+        
         if (!tiles.length) {
             return (
                 <ErrorBoundary>

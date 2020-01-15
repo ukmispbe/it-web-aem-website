@@ -106,14 +106,12 @@ const Form = ({
             }),
             [field]
         );
-
         return (
-            <FieldApi.Provider value={getFieldApi} key={`field-${i}`}>
-                <Field />
-            </FieldApi.Provider>
+                <FieldApi.Provider value={getFieldApi} key={`field-${i}`}>
+                    <Field />
+                </FieldApi.Provider>
         );
     });
-
     return (
         <form
             className="cmp-form cmp-form--registration"

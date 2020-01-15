@@ -52,7 +52,8 @@ const Input = ({
             required: validation['required'],
             requiredMsg: validation.requiredMatchMsg,
             validateFnName: 'matching',
-            validationMsg: validation['nonMatchingMsg']
+            validationMsg: validation['nonMatchingMsg'],
+            maxLength: validation.maxLength
         }),
         [name, validation]
     );

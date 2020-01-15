@@ -6,18 +6,18 @@ export const capitalize = (str) => {
     })).join(' '));
 };
 
-export const getCountryName = (countryCode) => {
+export const getCountryName = (countryCode, config) => {
     if (!countryCode || countryCode.trim() === "") return "";
+        const fields = config.form.fields;
+        const countryField = fields.filter(field => {
+            return field.name === "country";
+        });
 
-    // This will be removed later when country is passed back along with locale
-    switch (countryCode.trim().toLowerCase()) {
-        case "us":
-            return "United States";
-        case "in":
-            return "India";
-        default:
-            return country;
-    }
+        const countryName = countryField[0].options.filter(option => {
+            return option.countryCode.toLowerCase() === countryCode.toLowerCase();
+        });
+        return countryName[0].displayName;
+
 };
 
 export const getFullName = (data) => {

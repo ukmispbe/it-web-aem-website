@@ -15,8 +15,8 @@ import {
     registrationSubmit,
     resetPasswordSubmit,
     troubleSigningInSubmit,
-    changePasswordSubmit,
     signInSubmit
+
 } from './forms/services/submit';
 import Video from './video/index';
 import Chat from './chat';
@@ -390,16 +390,6 @@ if (chatContainer) {
     );
 }
 
-const personalDetailsTile = document.getElementById('personal-details-tile');
-
-if (personalDetailsTile) {
-    const config = JSON.parse(
-        document.getElementById('cmp-detail-tiles--personal').innerHTML
-    );
-
-    ReactDOM.render(<DetailTiles {...config} />, personalDetailsTile);
-}
-
 const shippingDetailsTile = document.getElementById('shipping-details-tile');
 
 if (shippingDetailsTile) {
@@ -418,20 +408,6 @@ if (billingDetailsTile) {
     );
 
     ReactDOM.render(<DetailTiles {...config} />, billingDetailsTile);
-}
-
-const changePasswordDetailsTile = document.getElementById(
-    'changePassword-details-tile'
-);
-
-if (changePasswordDetailsTile) {
-    const config = JSON.parse(
-        document.getElementById('cmp-detail-tiles--changePassword').innerHTML
-    );
-
-    config.submitFn = changePasswordSubmit;
-
-    ReactDOM.render(<DetailTiles {...config} />, changePasswordDetailsTile);
 }
 
 const wechat = document.querySelector('.cmp-wechat');
