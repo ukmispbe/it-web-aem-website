@@ -22,7 +22,11 @@ export default (data, type, icon) => {
 
     switch (type) {
         case "personal":
-            data.country = data.userAddress[0].countryCode;
+            let mailingAddress = data.userAddress.filter(function(i) {
+                return i.addressType === "mailingAddress";
+            })[0];
+
+            data.country = mailingAddress ? mailingAddress.countryCode : "";
 
             return [{
                 "name": "personalDetailsTile",
