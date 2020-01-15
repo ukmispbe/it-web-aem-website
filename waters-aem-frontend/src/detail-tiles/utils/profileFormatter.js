@@ -19,7 +19,7 @@ export const getCountryName = (countryCode) => {
         });
 
         const countryName = countryField[0].options.filter(option => {
-            return option.countryCode.toLowerCase() === countryCode;
+            return option.countryCode.toLowerCase() === countryCode.toLowerCase();
         });
         return countryName[0].displayName;
 
