@@ -9,16 +9,20 @@ export const capitalize = (str) => {
 export const getCountryName = (countryCode) => {
     if (!countryCode || countryCode.trim() === "") return "";
 
-    // This will be removed later when country is passed back along with locale
-    switch (countryCode.trim().toLowerCase()) {
-        case "us":
-            return "United States";
-        case "in":
-            return "India";
-        default:
-            // PB Changed to String because the variable country not defined. It errors otherwise (GB or empty)
-            return "United Kingdom";
-    }
+        const config = JSON.parse(
+            document.getElementById('json-config--cmp-detail-tiles--personal').innerHTML
+        );
+
+        const fields = config.form.fields;
+        const countryField = fields.filter(field => {
+            return field.name === "country";
+        });
+
+        const countryName = countryField[0].options.filter(option => {
+            return option.countryCode.toLowerCase() === countryCode;
+        });
+        return countryName[0].displayName;
+
 };
 
 export const getFullName = (data) => {

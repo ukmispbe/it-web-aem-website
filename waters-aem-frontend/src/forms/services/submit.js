@@ -29,7 +29,7 @@ export async function registrationSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-        console.log('registration complete -> redirect', response.json());
+        console.log('registration complete  This needs finishing off later', response.json());
     } else {
         this.setError(response);
         scrollToY(0);
@@ -100,7 +100,7 @@ export async function changePasswordSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-        console.log('update password complete -> redirect');
+        console.log('update password complete.  This needs finishing off later');
 
         if (this.callback && typeof this.callback === 'function') {
             this.callback(await response.json());
@@ -114,15 +114,13 @@ export async function changePasswordSubmit(data) {
 
 export async function personalSubmit(data) {
 
-    console.log('personalSubmit', data);
-    console.log('URL', this.url);
     const response = await postData(this.url, data);
 
     // remove all previous server error notifications
     this.setError();
 
     if (response.status === 200) {
-        console.log('Personal Details Updated complete -> redirect', response.json());
+        console.log('Personal Details Updated complete . This needs finishing off later', response.json());
     } else {
         this.setError(response);
         scrollToY(0);

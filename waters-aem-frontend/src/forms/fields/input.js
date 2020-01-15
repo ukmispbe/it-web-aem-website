@@ -52,7 +52,8 @@ const Input = ({
             required: validation['required'],
             requiredMsg: validation.requiredMatchMsg,
             validateFnName: 'matching',
-            validationMsg: validation['nonMatchingMsg']
+            validationMsg: validation['nonMatchingMsg'],
+            maxLength: validation.maxLength
         }),
         [name, validation]
     );
@@ -89,7 +90,6 @@ const Input = ({
                         onBlur={toggleReq}
                         onFocus={toggleReq}
                         onChange={updateReq}
-                        maxLength={validation.maxLength}
                         placeholder=" "
                         disabled={disabled}
                         className={

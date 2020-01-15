@@ -82,7 +82,10 @@
                         "label": "${'First Name' @ i18n, context='unsafe'}",
                         "validation": {
                             "required": true,
-                            "maxLength": 40,
+                            "maxLength": {
+                                "value": 40,
+                                "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                            },
                             "validateFnName": "noWhitespaceOnly",
                             "validationMsg": "${'Please enter a valid first name.' @ i18n, context='unsafe'}",
                             "requiredMsg": "${'Please enter a first name.' @ i18n, context='unsafe'}"
@@ -94,7 +97,10 @@
                         "label": "${'Last Name' @ i18n, context='unsafe'}",
                         "validation": {
                             "required": true,
-                            "maxLength": 40,
+                            "maxLength": {
+                                "value": 40,
+                                "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                            },
                             "validateFnName": "noWhitespaceOnly",
                             "validationMsg": "${'Please enter a valid last name.' @ i18n, context='unsafe'}",
                             "requiredMsg": "${'Please enter a last name.' @ i18n, context='unsafe'}"
@@ -106,7 +112,10 @@
                         "label": "${'Company' @ i18n, context='unsafe'}",
                         "validation": {
                             "validateFnName": "noWhitespaceOnly",
-                            "maxLength": 40,
+                            "maxLength": {
+                                "value": 40,
+                                "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                            },
                             "validationMsg": "${'Please enter a valid company name.' @ i18n, context='unsafe'}",
                             "required": true,
                             "requiredMsg": "${'Please enter a company name.' @ i18n, context='unsafe'}"
