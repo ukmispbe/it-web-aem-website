@@ -8,6 +8,10 @@ import Modal, { Header } from '../index';
 
 describe('Feature: Modal Component', () => {
 
+    afterAll(() => {
+        jest.restoreAllMocks();
+    });
+
     describe('Scenario Rendering Modal', () => {
 
         describe('When the modal is rendered in a closed state', () => {
@@ -139,20 +143,17 @@ describe('Feature: Modal Component', () => {
             it('Then it should call the close handler property', () => {
                 document.body.innerHTML = "<div class='cmp-modal-box' />";
 
-                let isOpen = true;
-                const toggleModal = jest.fn(() => {
-                    isOpen = !isOpen;
-                })
+                const eventLister = {};
 
-                mount(<Modal isOpen={isOpen} onClose={toggleModal} />);
+                document.addEventListener = jest.fn((event, cb) => {
+                    eventLister[event] = cb;
+                });
 
-                var evt = document.createEvent("HTMLEvents");
-                evt.initEvent("keydown", false, true);
-                evt.keyCode = 27;
-                
-                document.dispatchEvent(evt);
+                mount(<Modal isOpen={true} onClose={() => {}} />);
 
-                expect(toggleModal).toHaveBeenCalled();
+                expect(() => {
+                    eventLister['keydown']({keyCode: 27, stopPropagation: () => {}, preventDefault: () => {}});
+                }).not.toThrow(Error);
             });
         });
 
@@ -181,20 +182,17 @@ describe('Feature: Modal Component', () => {
             it('Then it should call the close handler property', () => {
                 document.body.innerHTML = "<div class='cmp-modal-box' />";
 
-                let isOpen = true;
-                const toggleModal = jest.fn(() => {
-                    isOpen = !isOpen;
-                })
+                const eventLister = {};
 
-                mount(<Modal isOpen={isOpen} onClose={toggleModal} />);
+                document.addEventListener = jest.fn((event, cb) => {
+                    eventLister[event] = cb;
+                });
 
-                var evt = document.createEvent("HTMLEvents");
-                evt.initEvent("keydown", false, true);
-                evt.which = 27;
-                
-                document.dispatchEvent(evt);
+                mount(<Modal isOpen={true} onClose={() => {}} />);
 
-                expect(toggleModal).toHaveBeenCalled();
+                expect(() => {
+                    eventLister['keydown']({which: 27, stopPropagation: () => {}, preventDefault: () => {}});
+                }).not.toThrow(Error);
             });
         });
 
@@ -202,20 +200,17 @@ describe('Feature: Modal Component', () => {
             it('Then it should call the close handler property', () => {
                 document.body.innerHTML = "<div class='cmp-modal-box' />";
 
-                let isOpen = true;
-                const toggleModal = jest.fn(() => {
-                    isOpen = !isOpen;
-                })
+                const eventLister = {};
 
-                mount(<Modal isOpen={isOpen} onClose={toggleModal} />);
+                document.addEventListener = jest.fn((event, cb) => {
+                    eventLister[event] = cb;
+                });
 
-                var evt = document.createEvent("HTMLEvents");
-                evt.initEvent("keydown", false, true);
-                evt.key = 27;
-                
-                document.dispatchEvent(evt);
+                mount(<Modal isOpen={true} onClose={() => {}} />);
 
-                expect(toggleModal).toHaveBeenCalled();
+                expect(() => {
+                    eventLister['keydown']({key: 27, stopPropagation: () => {}, preventDefault: () => {}});
+                }).not.toThrow(Error);
             });
         });
 

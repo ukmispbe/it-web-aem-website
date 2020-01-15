@@ -32,7 +32,7 @@ const Modal = props => {
         const isModalOpen = document.querySelector(".cmp-modal-box");
 
         if (isModalOpen && escapeEntered && mainRef.current) {
-            mainRef.current.click()
+            mainRef.current.click();
         }
     }
     
