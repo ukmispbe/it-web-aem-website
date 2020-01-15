@@ -17,6 +17,9 @@ const newNotification = (title, description, icon) => ({
     "icon": icon
 });
 
+const config = JSON.parse(
+    document.getElementById('json-config--cmp-detail-tiles--personal').innerHTML
+);
 export default (data, type, icon) => {
     if (!data) return [];
 
@@ -27,12 +30,11 @@ export default (data, type, icon) => {
             })[0];
 
             data.country = mailingAddress ? mailingAddress.countryCode : "";
-
             return [{
                 "name": "personalDetailsTile",
                 "columns": [
                     newColumn(getFullName(data), data.company),
-                    newColumn("", data.email, getPhoneFormat(data.phone), getCountryName(data.country))
+                    newColumn("", data.email, getPhoneFormat(data.phone), getCountryName(data.country, config))
                 ],
                 "defaultValues": data
             }];
@@ -45,7 +47,7 @@ export default (data, type, icon) => {
                     let tile = {
                         "name": address.id,
                         "columns": [
-                            newColumn(address.preferred ? "Preferred Address" : "", address.company, getFullAddress(address), getCountryName(address.country))
+                            newColumn(address.preferred ? "Preferred Address" : "", address.company, getFullAddress(address), getCountryName(address.country, config))
                         ],
                         "defaultValues": address
                     };

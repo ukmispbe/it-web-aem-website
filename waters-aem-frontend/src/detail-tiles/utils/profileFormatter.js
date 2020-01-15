@@ -6,13 +6,8 @@ export const capitalize = (str) => {
     })).join(' '));
 };
 
-export const getCountryName = (countryCode) => {
+export const getCountryName = (countryCode, config) => {
     if (!countryCode || countryCode.trim() === "") return "";
-
-        const config = JSON.parse(
-            document.getElementById('json-config--cmp-detail-tiles--personal').innerHTML
-        );
-
         const fields = config.form.fields;
         const countryField = fields.filter(field => {
             return field.name === "country";
