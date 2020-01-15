@@ -136,7 +136,7 @@ export async function signInSubmit(data) {
 
     if (response.status === 200) {
         // Temporary cookie
-        document.cookie = "WatersLoginCookie=1";
+        document.cookie = "WatersLoginCookie=1; path=/; domain=.waters.com";
         const signInRedirect = window.sessionStorage.getItem('signInRedirect');
         if (signInRedirect || this.redirect) {
             window.location.replace(signInRedirect ? signInRedirect : this.redirect);
@@ -146,6 +146,3 @@ export async function signInSubmit(data) {
         scrollToY(0);
     }
 }
-
-
-

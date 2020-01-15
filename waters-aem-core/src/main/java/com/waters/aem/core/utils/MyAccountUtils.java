@@ -12,7 +12,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-
 public class MyAccountUtils {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -20,15 +19,15 @@ public class MyAccountUtils {
     public static String getCountriesJson() throws JsonProcessingException {
         final List<Map<String, Object>> countryList = new ArrayList<>();
 
-        countryList.addAll(Arrays.asList(Locale.getISOCountries()).stream()
-        .map(MyAccountUtils::getCountryMap)
-        .sorted(Comparator.comparing(map -> (String)map.get("displayName")))
-        .collect(Collectors.toList()));
+        countryList.addAll(Arrays.stream(Locale.getISOCountries())
+            .map(MyAccountUtils :: getCountryMap)
+            .sorted(Comparator.comparing(map -> (String) map.get("displayName")))
+            .collect(Collectors.toList()));
 
         return MAPPER.writeValueAsString(countryList);
     }
 
-    private static Map<String, Object> getCountryMap(String countryCode) {
+    private static Map<String, Object> getCountryMap(final String countryCode) {
         final Map<String, Object> countryMap = new HashMap<>();
 
         final Locale locale = new Locale("", countryCode);

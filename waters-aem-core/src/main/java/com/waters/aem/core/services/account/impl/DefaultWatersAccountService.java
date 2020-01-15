@@ -37,7 +37,6 @@ public class DefaultWatersAccountService implements WatersAccountService {
 
     private volatile String signInEndpoint;
 
-
     @Override
     public String getSignInUrl() {
         return signInUrl;
@@ -101,7 +100,6 @@ public class DefaultWatersAccountService implements WatersAccountService {
     @Override
     public String getSignInEndpoint(){
         return signInEndpoint;
-
     }
 
     @Activate
