@@ -1,4 +1,5 @@
 // main JS and SCSS entry file
+require('es6-symbol/implement');
 
 import './styles/index.scss';
 import './scripts/stickyService';
@@ -25,15 +26,15 @@ import cssVars from 'css-vars-ponyfill';
 import inlineSVG from './scripts/inlineSVG';
 
 const japanTheme = {
-    "--font-weight-light": "lighter",
-    "--font-weight-regular": "normal",
-    "--font-weight-bold": "bold"
+    '--font-weight-light': 'lighter',
+    '--font-weight-regular': 'normal',
+    '--font-weight-bold': 'bold'
 };
 
-const isJapanese = (document.documentElement.lang == "ja");
+const isJapanese = document.documentElement.lang == 'ja';
 
 cssVars({
-    variables: (isJapanese ? japanTheme : Object.assign({})),
+    variables: isJapanese ? japanTheme : Object.assign({}),
     include: 'style,link[rel="stylesheet"]:not([href*="//"])'
 });
 
