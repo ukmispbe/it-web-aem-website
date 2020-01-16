@@ -3,7 +3,6 @@
     <script type="application/json" id="cmp-signin-form">
         {
             "submitEndpoint": "${signIn.signInEndpoint @ context='unsafe'}",
-            "siteKey": "${signIn.captchaSiteKey @ context='unsafe'}",
             "redirectUrl": "${signIn.homepageLink.href @ context='unsafe'}",
             "formName": "signin",
             "buttonText": "${'SIGN IN' @ i18n, context='unsafe'}",
@@ -42,6 +41,15 @@
                     "name": "forgotPassword",
                     "text": "${'Having trouble signing in?' @ i18n, context='unsafe'}",
                     "link": "${signin.forgotPasswordLink.href @ context='unsafe'}"
+                },
+                {
+                    "type": "captcha",
+                    "name": "captcha",
+                    "hidden": true,
+                    "siteKey": "${signIn.captchaSiteKey @ context='unsafe'}",
+                    "validation": {
+                        "required": true
+                    }
                 }
             ]
         }

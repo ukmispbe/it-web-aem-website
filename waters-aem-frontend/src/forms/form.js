@@ -52,6 +52,24 @@ const Form = ({
     };
 
     const [errorUpdates, setUpdate] = useState({});
+    const [failedAttempts, setFailedAttempts] = useState(1);
+
+    const updateFailedAttempts = () => {
+        setFailedAttempts((failedAttempts) => failedAttempts + 1);
+        if(failedAttempts===3) {
+            activateCaptcha();
+        }
+    }
+
+    const activateCaptcha = () => {
+        fields = config.fields.map((field)=>{
+            if(field.type==='captcha') {
+                field.hidden = false;
+            }
+            return field;
+        });
+        config.fields = [...fields];
+    }
 
     useEffect(() => {
         for (let name in errorUpdates) {
@@ -95,7 +113,7 @@ const Form = ({
         }
     };
 
-    const fields = config.fields.map((field, i) => {
+    let fields = config.fields.map((field, i) => {
         const getFieldApi = useMemo(
             () => ({
                 ...config,
@@ -106,6 +124,8 @@ const Form = ({
             }),
             [field]
         );
+
+        console.log(getFieldApi);
 
         return (
             <FieldApi.Provider value={getFieldApi} key={`field-${i}`}>
@@ -122,7 +142,8 @@ const Form = ({
                     url: config.submitEndpoint,
                     setError: submitErrorHandler,
                     redirect: config.redirectUrl,
-                    callback: callback
+                    callback: callback,
+                    updateFailedAttempts: updateFailedAttempts
                 })
             )}
         >

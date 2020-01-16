@@ -37,7 +37,7 @@ const Field = ({}) => {
             : '';
 
     return (
-        Component && (
+        Component && !field.hidden && (
             <>
                 <FieldValidationDisplay
                     name={name}
