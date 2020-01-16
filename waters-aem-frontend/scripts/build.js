@@ -39,7 +39,7 @@ compiler.run((err, stats) => {
     const aemCssPath = path.resolve(
         __dirname,
         '../../',
-        clientlibPath + '/css',
+        clientlibPath,
         'main.css'
     );
     const aemPrintCssPath = path.resolve(
@@ -51,7 +51,7 @@ compiler.run((err, stats) => {
     const aemJsPath = path.resolve(
         __dirname,
         '../../',
-        clientlibPath + '/js',
+        clientlibPath,
         'main.js'
     );
     const aemPrintJsPath = path.resolve(

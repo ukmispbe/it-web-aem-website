@@ -50,6 +50,10 @@
     &__text {
         width: 100%;
         padding-top: 0;
+
+        @include mobile {
+            margin-top: 55px;
+        }
     }
 
     &__dropdown {

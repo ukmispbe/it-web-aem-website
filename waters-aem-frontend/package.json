@@ -24,6 +24,7 @@
     "@emotion/styled-base": "0.10.6",
     "@storybook/html": "^4.1.18",
     "@svgr/webpack": "^4.3.3",
+    "aemsync": "^4.0.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^9.0.0",
     "babel-jest": "^24.9.0",
