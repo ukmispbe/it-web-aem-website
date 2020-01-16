@@ -7,25 +7,56 @@
   "deltaContent" : true,
   "pathConfigurations" :  [
     {
-      "path" : "/content/waters/someContent",
-      "batchSize" : 50
-    },
-    {
-      "path" : "/content/waters/someContent",
-      "batchSize" : 200,
+      "path" : "/content/waters/language-masters/en",
+      "batchSize" : 150,
       "excludePaths" :
       [
-        "someOtherContent/someExcludeContent"
+        "shop/columns--bulk-media",
+        "shop/sample-preparation--filtration",
+        "shop/vials-containers--collection-plates",
+        "shop/standards--reagents",
+        "shop/application-kits",
+        "shop/service-parts--kits"
       ]
     },
     {
-      "path" : "/content/dam/waters/someDamContent",
-      "excludePaths":
+      "path" : "/content/waters/us/en",
+      "batchSize" : 150,
+      "excludePaths" :
       [
-        "someContent/someExcludeContent",
-        "someContent/someOtherExcludeContent"
-      ],
+        "shop/columns--bulk-media",
+        "shop/sample-preparation--filtration",
+        "shop/vials-containers--collection-plates",
+        "shop/standards--reagents",
+        "shop/application-kits",
+        "shop/service-parts--kits"
+      ]
+    },
+    {
+      "path" : "/content/waters/jp/ja",
+      "batchSize" : 150,
+      "excludePaths" :
+      [
+        "shop/columns--bulk-media",
+        "shop/sample-preparation--filtration",
+        "shop/vials-containers--collection-plates",
+        "shop/standards--reagents",
+        "shop/application-kits",
+        "shop/service-parts--kits"
+      ]
+    },
+    {
+      "path" : "/etc/tags/waters",
+      "batchSize" : 150,
       "deltaContent" : false
+    },
+    {
+      "path" : "/conf/waters/settings/wcm",
+      "batchSize" : 150
+    },
+    {
+      "path" : "/content/dam/waters/en/brand-assets/icons",
+      "batchSize" : 150
     }
   ]
 }
