@@ -1,7 +1,7 @@
 import SessionStore from '../stores/sessionStore';
 
 const checkOutStatus = {
-    state: () => {
+    state: function() {
         let cestatus = false;
         const soldToDetails = this.details;
 
