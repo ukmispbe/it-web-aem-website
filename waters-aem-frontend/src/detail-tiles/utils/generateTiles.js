@@ -17,9 +17,10 @@ const newNotification = (title, description, icon) => ({
     "icon": icon
 });
 
-const config = JSON.parse(
+const config = document.getElementById('json-config--cmp-detail-tiles--personal') ? JSON.parse(
     document.getElementById('json-config--cmp-detail-tiles--personal').innerHTML
-);
+) : "";
+
 export default (data, type, icon) => {
     if (!data) return [];
 
