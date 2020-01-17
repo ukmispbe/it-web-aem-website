@@ -56,6 +56,9 @@
 
                 svg {
                     display: block;
+                    .st0 {
+                        stroke: $color-disabled;
+                    }
                 }
             }
         }
@@ -262,8 +265,9 @@
             }
 
             &:disabled {
-                border: 1px solid $color-disabled !important;
+                border: 1px solid  $color-border-light !important;
                 color: $color-disabled;
+                background-color: $color-white;
             }
         }
 
@@ -504,6 +508,10 @@
 
     .cmp-custom-dropdown__input {
         margin-top: 0;
+    }
+    
+    .cmp-custom-dropdown__control--is-disabled {
+        border-color:  $color-border-light;
     }
 
     .cmp-form-field-captcha {
