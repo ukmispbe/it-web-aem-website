@@ -337,29 +337,45 @@
     }
 
     @include mobile {
+        display: flex;
+        flex-direction: column;
         margin-left: 0;
         width: 100%;
         margin-bottom: $space-m;
     }
 
     &__region {
+        cursor: pointer;
         display: inline-flex;
         min-height: 51px;
         height: 51px;
         -webkit-box-align: center;
         align-items: center;
-        padding: $space-xxs $space-s $space-xxs 0em;
-        border-right: 1px solid $color-border-light;
-        margin-right: $space-s;
+        padding: $space-xxs $space-s $space-xxs $space-s;
+        border: 1px solid $color-border-light;
+        margin-right: $space-xxs;
+        border-radius: $border-radius;
+
+        &:hover {
+            color: $color-gray-20;
+            & > span:first-child {
+                color: $color-gray-20;
+            }
+
+            .inline-svg {    
+                line, polyline {
+                    stroke: $color-gray-20;
+                }
+            }
+        }
 
         @include mobile {
-            border-right: none;
             margin-bottom: $space-s;
         }
 
         span {
             display: inline-block;
-            float: left;
+            flex-grow: 1;
             color: $color-white;
             padding-right: $space-xxs;
         }
@@ -367,16 +383,44 @@
         .inline-svg {
             display: inline-block;
             float: left;
-            width: $icon-m;
-            height: $icon-m;
+            width: $icon-m / 2;
+            height: $icon-m / 2;
             margin-bottom: 3px;
 
-            .st0 {
+            line, polyline {
                 stroke: $color-white;
+                stroke-width: 1px;
             }
 
             @supports (display: inline-grid) {
                margin-bottom: 0;
+            }
+        }
+
+        &.one-country {
+            cursor: text;
+            border: 0px;
+            padding-left: 0px;
+
+            .inline-svg {
+                display: none;
+            }
+
+            &:hover {
+                color: $color-white;
+                & > span:first-child {
+                    color: $color-white;
+                }
+    
+                .inline-svg {    
+                    line, polyline {
+                        stroke: $color-white;
+                    }
+                }
+            }
+
+            @include mobile {
+                border-right: 0px !important;
             }
         }
     }
@@ -391,14 +435,15 @@
         border: 1px solid $color-border-light;
         display: inline-table;
         position: absolute;
-
+        border-radius: $border-radius;
+        
         @supports (display: inline-grid) {
             display: inline-flex;
             position: relative;
         }
 
         @include mobile {
-            width: 100%;
+            margin-right: $space-xxs;
         }
 
         &:hover {
