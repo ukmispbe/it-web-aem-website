@@ -56,7 +56,7 @@
         id="json-config--cmp-detail-tiles--personal"
     >
         {
-            "name": "personal-details-tile",
+            "name": "personalDetails",
             "type": "personal",
             "title": "${'Personal Details' @ i18n, context='unsafe'}",
             "fetchEndPoint": "${myaccount.userDetailsUrl @ context='unsafe'}",
@@ -72,6 +72,7 @@
                 "buttonText": "${'Save Changes' @ i18n, context='unsafe'}",
                 "cancelText": "${'Cancel' @ i18n, context='unsafe'}",
                 "icons": {
+                    "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                     "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                     "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
                     "lockIcon": "/content/dam/waters/en/brand-assets/icons/lock.svg"
@@ -117,9 +118,9 @@
                                 "value": 40,
                                 "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
                             },
-                            "validationMsg": "${'Please enter a valid company.' @ i18n, context='unsafe'}",
+                            "validationMsg": "${'Please enter a valid company name.' @ i18n, context='unsafe'}",
                             "required": true,
-                            "requiredMsg": "${'Please enter a company.' @ i18n, context='unsafe'}"
+                            "requiredMsg": "${'Please enter a company name.' @ i18n, context='unsafe'}"
                         }
                     },
                     {
@@ -165,7 +166,7 @@
             }
         }
     </script>
-
+    
     <script type="application/json" id="json-config--cmp-detail-tiles--billing">
         {
             "name": "billingAddresses-details-tile",
