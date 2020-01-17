@@ -9,9 +9,9 @@
     "test-coverage": "./node_modules/.bin/jest --coverage",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "prebuild": "rebuild-node-sass",
-    "build": "cross-env NODE_ENV=production node scripts/build.js",
+    "build": "NODE_ENV=production node scripts/build.js",
     "dev-server": "node scripts/start.js",
-    "watch": "cross-env NODE_ENV=production npx webpack-cli --config scripts/webpack.config.dev.js -w"
+    "watch": "NODE_ENV=production npx webpack-cli --config scripts/webpack.config.dev.js -w"
   },
   "author": "",
   "license": "UNLICENSED",
