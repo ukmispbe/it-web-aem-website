@@ -43,8 +43,13 @@ const Form = ({
         reValidateMode: 'onBlur',
         defaultValues: {
             country: DigitalData.default,
-            ...defaultValues
-        }
+            ...defaultValues,
+            communications: defaultValues
+              ? defaultValues.communications === 'true'
+                  ? true
+                  : false
+              : false
+          }
     });
 
     const checkIfDisabled = () => {

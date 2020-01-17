@@ -1,5 +1,6 @@
 import scrollToY from './../../scripts/scrollTo';
 import { parse } from 'query-string';
+import SessionStore from '../../stores/sessionStore';
 
 const postData = async (url, data) => {
     const response = await fetch(url, {
@@ -120,6 +121,9 @@ export async function personalSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
+        const submitResponse = response.json();
+        const store = new SessionStore();
+        store.setUserDetails(submitResponse);
         console.log('Personal Details Updated complete . This needs finishing off later', response.json());
     } else {
         this.setError(response);

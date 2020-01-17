@@ -24,18 +24,22 @@ const config = document.getElementById('json-config--cmp-detail-tiles--personal'
 export default (data, type, icon) => {
     if (!data) return [];
 
-    switch (type) {
+    switch (type) {  
         case "personal":
             let mailingAddress = data.userAddress.filter(function(i) {
                 return i.addressType === "mailingAddress";
             })[0];
+
+            let communicationsString = "I do not want to receive communications from Waters";
+            if (data.communications === "true")
+                communicationsString = "I want to receive communications from Waters";
 
             data.country = mailingAddress ? mailingAddress.countryCode : "";
             return [{
                 "name": "personalDetailsTile",
                 "columns": [
                     newColumn(getFullName(data), data.company),
-                    newColumn("", data.email, getPhoneFormat(data.phone), getCountryName(data.country, config))
+                    newColumn("", data.email, getPhoneFormat(data.phone), getCountryName(data.country, config), communicationsString)
                 ],
                 "defaultValues": data
             }];
