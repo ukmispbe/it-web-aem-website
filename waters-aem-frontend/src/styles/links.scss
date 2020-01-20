@@ -61,7 +61,7 @@
     height: 15px;
     background-repeat: no-repeat;
     display: inline-block;
-    margin-left: $space-xxxs;
+    margin-left: ($space-xxxs - .1em);
     transition: $hover-transition;
 }
 
@@ -72,7 +72,7 @@
     height: 15px;
     background-repeat: no-repeat;
     display: inline-block;
-    margin-left: $space-xxxs;
+    margin-left: ($space-xxxs - .1em);
 }
 
 
@@ -94,7 +94,6 @@ div.links--small {
 
     .cmp-links {
         @include font-small;
-        font-weight: $font-weight-regular;
     }
 
     h3 {
