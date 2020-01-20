@@ -11,7 +11,7 @@ $level0MobileDisplay: flex;
    margin: 0 ($space-xl * -1)!important;
 
    @supports (display: inline-grid) {
-      height: 52px;
+      height: 56px;
    }
 
    &:hover {
@@ -39,7 +39,7 @@ nav.cmp-navigation {
       // NOTE: TABLET & ABOVE ONLY TO PREVENT SCROLLING/OVERLFLOW ISSUES
       &::after {
          width: 102.5%;
-         height: 52px;
+         height: 56px;
          content: '';
          position: absolute;
          box-shadow: none;
@@ -116,7 +116,7 @@ nav.cmp-navigation {
             padding-bottom: 150px;
 
             & > .cmp-navigation__container {
-               min-height: 52px;
+               min-height: 56px;
                padding: $space-s $space-m $space-s ($space-xl - 0.7em);
                border-left: 4px solid $color-gray-50;
                flex-grow: 0;
@@ -147,7 +147,7 @@ nav.cmp-navigation {
          overflow: visible;
 
          &--level-0 {
-            height: 52px;
+            height: 56px;
             z-index: $navigation-level-0-z-index;
             align-content: center;
             display: inline-table;
@@ -294,7 +294,7 @@ nav.cmp-navigation {
 
             @include tablet-and-over {
                position: absolute;
-               top: 52px;
+               top: 56px;
                left: 0;
             }
             @include mobile {
@@ -392,6 +392,7 @@ nav.cmp-navigation {
                   -o-transition: none;
                   -moz-transition: none;
                   transition: none;
+                  @include font-h3;
                }
             }
 
@@ -405,7 +406,7 @@ nav.cmp-navigation {
    -o-transition: none;
    -moz-transition: none;
    transition: none;
-   font-weight: $font-weight-regular;
+   font-weight: $font-weight-light;
 }
 
 .cmp-navigation-overlay__container {

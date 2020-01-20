@@ -182,7 +182,7 @@
 
 .cmp-footer__copyright {
     float: left;	
-    margin: 0 $space-s;
+    margin: 0 $space-m;
     p {
         @include font-small;
         color: $color-gray-30;
@@ -532,7 +532,7 @@
         }
 
         &.one-link {
-            padding: 0;
+            padding: 0 0 0 $space-xs;
             border: none;
             cursor: text;
 
@@ -542,6 +542,7 @@
 
             @include mobile {
                 width: auto;
+                padding: 0;
             }
 
             &::after {

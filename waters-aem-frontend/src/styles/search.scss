@@ -166,7 +166,7 @@ div.cmp-search__no-results {
     align-items: center;
     justify-content: center;
     margin: 0;
-    padding: $space-xl 0;
+    padding: $space-m 0 $space-s 0;
     clear: both;
     @include mobile {
         padding: $space-m;
@@ -437,6 +437,7 @@ div.cmp-search__no-results {
     &.noresults {
         width: 70%;
         margin-left: 0;
+        margin-bottom: $space-s;
         overflow: visible;
         height: auto;
     }

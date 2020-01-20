@@ -30,7 +30,7 @@
         line-height: $line-height-text;
         letter-spacing: 0.02em;
         margin-bottom: $space-s;
-        margin-top: 0;
+        margin-top: $space-s;
         font-size: $font-size-body;
 
         @include tablet-and-over {
@@ -516,7 +516,7 @@
 
     .cmp-form-field-captcha {
         margin-top: $space-s;
-        margin-bottom: $space-l;
+        margin-bottom: $space-s;
     }
 
     &__submission-error {
