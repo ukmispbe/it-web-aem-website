@@ -54,14 +54,14 @@ const Form = ({
     const [errorUpdates, setUpdate] = useState({});
 
     const updateFailedAttempts = () => {
-        if(formState.submitCount===2 && config.formName==="signin") {
-            activateCaptcha();
+        if(formState.submitCount===2) {
+            activateField('captcha');
         }
     }
 
-    const activateCaptcha = () => {
+    const activateField = (inputName) => {
         const fields = config.fields.map((field)=>{
-            if(field.type==='captcha') {
+            if(field.type===inputName) {
                 field.active = true;
             }
             return field;
