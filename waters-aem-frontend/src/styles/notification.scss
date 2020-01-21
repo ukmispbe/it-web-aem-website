@@ -209,7 +209,7 @@
     }
 }
 
-.cmp-notification--error, .cmp-notification--captcha {
+div[class*="cmp-notification--error"], div[class~="cmp-notification--error"]{
     .cmp-notification-wrapper {
         transition: transform 200ms ease-in-out;
         background-color: $color-red-10;
