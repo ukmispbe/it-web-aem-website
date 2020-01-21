@@ -54,7 +54,7 @@ const Form = ({
     const [errorUpdates, setUpdate] = useState({});
 
     const updateFailedAttempts = () => {
-        if(formState.submitCount===2) {
+        if(formState.submitCount===2 && config.formName==="signin") {
             activateCaptcha();
         }
     }
@@ -62,7 +62,7 @@ const Form = ({
     const activateCaptcha = () => {
         const fields = config.fields.map((field)=>{
             if(field.type==='captcha') {
-                field.hidden = false;
+                field.active = true;
             }
             return field;
         });
@@ -120,7 +120,7 @@ const Form = ({
                 field,
                 isocode
             }),
-            [field, field.hidden]
+            [field, field.active]
         );
 
         return (
