@@ -17,6 +17,7 @@ const Tile = ({
     const [formShown, setFormShown] = useState(false);
 
     const handleToggle = () => {
+        console.log('COLUMNS:', columns);
         setFormShown(!formShown);
     };
 

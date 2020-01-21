@@ -30,7 +30,10 @@ export async function registrationSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-        console.log('registration complete  This needs finishing off later', response.json());
+        console.log(
+            'registration complete  This needs finishing off later',
+            response.json()
+        );
     } else {
         this.setError(response);
         scrollToY(0);
@@ -101,7 +104,9 @@ export async function changePasswordSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-        console.log('update password complete.  This needs finishing off later');
+        console.log(
+            'update password complete.  This needs finishing off later'
+        );
 
         if (this.callback && typeof this.callback === 'function') {
             this.callback(await response.json());
@@ -112,9 +117,7 @@ export async function changePasswordSubmit(data) {
     }
 }
 
-
 export async function personalSubmit(data) {
-
     const response = await postData(this.url, data);
 
     // remove all previous server error notifications
@@ -124,7 +127,11 @@ export async function personalSubmit(data) {
         const submitResponse = response.json();
         const store = new SessionStore();
         store.setUserDetails(submitResponse);
-        console.log('Personal Details Updated complete . This needs finishing off later', response.json());
+        console.log(
+            'Personal Details Updated complete . This needs finishing off later',
+            response.json()
+        );
+        this.callback();
     } else {
         this.setError(response);
         scrollToY(0);
@@ -132,7 +139,6 @@ export async function personalSubmit(data) {
 }
 
 export async function signInSubmit(data) {
-
     const response = await postData(this.url, data);
 
     // remove all previous server error notifications
@@ -140,10 +146,12 @@ export async function signInSubmit(data) {
 
     if (response.status === 200) {
         // Temporary cookie
-        document.cookie = "WatersLoginCookie=1; path=/; domain=.waters.com";
+        document.cookie = 'WatersLoginCookie=1; path=/; domain=.waters.com';
         const signInRedirect = window.sessionStorage.getItem('signInRedirect');
         if (signInRedirect || this.redirect) {
-            window.location.replace(signInRedirect ? signInRedirect : this.redirect);
+            window.location.replace(
+                signInRedirect ? signInRedirect : this.redirect
+            );
         }
     } else {
         this.setError(response);
