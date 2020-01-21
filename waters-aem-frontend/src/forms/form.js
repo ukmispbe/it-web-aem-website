@@ -113,7 +113,7 @@ const Form = ({
         }
     };
 
-    let fields = config.fields.map((field, i) => {
+    const fields = config.fields.map((field, i) => {
         const getFieldApi = useMemo(
             () => ({
                 ...config,
