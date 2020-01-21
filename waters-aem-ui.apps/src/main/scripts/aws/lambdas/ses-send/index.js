@@ -4,17 +4,13 @@ const AWS = require('aws-sdk'),
     FROM_EMAIL = process.env.FROM_EMAIL;
 
 exports.handler = (event) => {
-    if (event.httpMethod === 'OPTIONS') {
-        return Promise.resolve(processResponse(true));
-    }
-
     if (!event.body) {
-        return Promise.resolve(processResponse(true, 'Please specify email parameters: email, name, and accountId ', 400));
+        return Promise.resolve(processResponse('Please specify email parameter', 400));
     }
     const emailData = JSON.parse(event.body);
 
     if (!emailData.email) {
-        return Promise.resolve(processResponse(true, 'Please specify email parameter', 400));
+        return Promise.resolve(processResponse('Please specify email parameter', 400));
     }
 
     const destination = {
@@ -25,26 +21,49 @@ exports.handler = (event) => {
         destination.CcAddresses = emailData.ccEmails;
     }
 
-    const templateData = {
-        name: emailData.name,
-        email: emailData.email,
-        accountId: emailData.accountId
-    };
-
-    console.log('Email template data', JSON.stringify(templateData));
+    console.log('Email template data', JSON.stringify(emailData));
 
     const templatedEmailParams = {
         Destination: destination,
         Template: emailData.templateName,
         Source: FROM_EMAIL,
-        TemplateData: JSON.stringify(templateData)
+        TemplateData: JSON.stringify(emailData),
     };
 
+    // check if template exists before trying to send an email with it.
+    return SES.getTemplate({ TemplateName: templatedEmailParams.Template }).promise()
+        .then(() => sendTemplatedEmail(templatedEmailParams))
+        .catch(err  => {
+            if (err.code === 'TemplateDoesNotExist') {
+                let englishTemplateName = getEnglishTemplateName(templatedEmailParams.Template);
+
+                console.warn('Template name ' + templatedEmailParams.Template
+                    + ' does not exist. Attempting to use ' + englishTemplateName);
+
+                templatedEmailParams.Template = englishTemplateName;
+
+                return sendTemplatedEmail(templatedEmailParams);
+            } else {
+                console.error(err, err.stack);
+                const errorResponse = err.message;
+                return processResponse(errorResponse, 500);
+            }
+        });
+};
+
+function sendTemplatedEmail(templatedEmailParams) {
     return SES.sendTemplatedEmail(templatedEmailParams).promise()
-        .then(() => (processResponse(true)))
+        .then(() => (processResponse()))
         .catch(err => {
             console.error(err, err.stack);
             const errorResponse = err.message;
-            return processResponse(true, errorResponse, 500);
+            return processResponse(errorResponse, 500);
         });
-};
+}
+
+function getEnglishTemplateName(localizedTemplateName) {
+    // get just the template name without the language code. e.g, "MyTemplate-ja" becomes "MyTemplate"
+    let templateName = localizedTemplateName.substring(0, localizedTemplateName.lastIndexOf('-'));
+
+    return templateName + "-en";
+}
