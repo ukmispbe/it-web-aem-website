@@ -52,17 +52,15 @@ const Form = ({
     };
 
     const [errorUpdates, setUpdate] = useState({});
-    const [failedAttempts, setFailedAttempts] = useState(1);
 
     const updateFailedAttempts = () => {
-        setFailedAttempts((failedAttempts) => failedAttempts + 1);
-        if(failedAttempts===3) {
+        if(formState.submitCount===2) {
             activateCaptcha();
         }
     }
 
     const activateCaptcha = () => {
-        fields = config.fields.map((field)=>{
+        const fields = config.fields.map((field)=>{
             if(field.type==='captcha') {
                 field.hidden = false;
             }
@@ -122,10 +120,8 @@ const Form = ({
                 field,
                 isocode
             }),
-            [field]
+            [field, field.hidden]
         );
-
-        console.log(getFieldApi);
 
         return (
             <FieldApi.Provider value={getFieldApi} key={`field-${i}`}>
