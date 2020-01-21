@@ -132,7 +132,7 @@ export async function signInSubmit(data) {
             window.location.replace(signInRedirect ? signInRedirect : this.redirect);
         }
     } else {
-        this.updateFailedAttempts();
+        this.updateFailedAttempts('signin');
         this.setError(response);
         scrollToY(0);
     }
