@@ -52,10 +52,12 @@ const Form = ({
     };
 
     const [errorUpdates, setUpdate] = useState({});
+    const [failedAttempts, setFailedAttempts] = useState(1);
 
     const updateFailedAttempts = (formName) => {
         if(formName==='signin'){
-            if(formState.submitCount===2) {
+            setFailedAttempts((failedAttempts) => failedAttempts + 1);
+            if(failedAttempts===3) {
                 activateField('captcha');
             }
         }
