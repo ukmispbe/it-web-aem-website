@@ -113,6 +113,13 @@ export async function changePasswordSubmit(data) {
 
 export async function signInSubmit(data) {
 
+    console.log(data);
+    const isCaptcha = data.hasOwnProperty('captcha');
+    if (isCaptcha) {
+        this.url = `${this.url}?captcha=${data.captcha}`;
+        delete data.captcha;
+    }
+
     const response = await postData(this.url, data);
 
     // remove all previous server error notifications
