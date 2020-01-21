@@ -58,7 +58,7 @@ public final class AkamaiPurgeReplicationEventHandler extends AbstractReplicatio
 
     @Override
     protected void handleActivate(final String path) {
-        addJob(AkamaiPurgeJobConsumer.JOB_TOPIC_INVALIDATE, path);
+        addJob(AkamaiPurgeJobConsumer.JOB_TOPIC_DELETE, path);
     }
 
     @Override

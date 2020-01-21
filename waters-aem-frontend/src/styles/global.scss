@@ -48,7 +48,8 @@ body.no-scroll {
 
 .layoutcontainer--light {
     background: $color-background-light;
-    padding: $space-m;
+    padding: $space-l;
+    margin-bottom: $space-l;
 }
 
 .container {
@@ -163,6 +164,11 @@ a {
 }
 
 input {
+
+    -webkit-appearance: none;
+    -webkit-border-radius: $border-radius;
+    border-radius: $border-radius;
+
     &:focus::-webkit-input-placeholder {
         color: transparent;
     }
@@ -215,3 +221,4 @@ input[type='number']::-webkit-outer-spin-button {
     width: auto;
     z-index: 100000;
   }
+  

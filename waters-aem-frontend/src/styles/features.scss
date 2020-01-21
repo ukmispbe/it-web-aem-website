@@ -1,0 +1,211 @@
+.cmp-features {
+    margin-bottom: $space-l;
+
+    &__list {
+        padding-left: 0;
+    }
+
+    &__feature {
+        list-style: none;
+        margin-bottom: $space-m;
+
+        &-icon {
+            height: $icon-l;
+            width: $icon-l;
+            margin-bottom: $space-xxs;
+            color: $color-icon;
+
+            .st0 {
+                stroke: $color-icon;
+                stroke-width: 0.75px;
+            }
+
+            .st1 {
+                stroke: $color-icon;
+                stroke-width: 0.75px;
+            }
+        }
+
+        &-title {
+            @include font-h3;
+            margin-bottom: 0;
+        }
+
+        &-desc {
+            @include font-body;
+            margin-bottom: $space-s;
+        }
+
+        &-link {
+            @include font-body;
+            color: $color-link;
+
+            &--sign-in {
+                display: none;
+
+                .cmp-features__feature-icon {
+                    display: none;
+                    position: relative;
+                    top: 0.15em;
+                    margin-bottom: 0;
+                    margin-right: $space-xxxs;
+                    height: (($icon-s + $icon-m) / 2);
+                    width: (($icon-s + $icon-m) / 2);
+                    color: $color-link;
+
+                    .st0 {
+                        stroke: $color-link;
+                        stroke-width: 1px;
+                    }
+
+                    .st1 {
+                        stroke: $color-link;
+                        stroke-width: 1px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.cmp-features--left {
+    .cmp-features__feature {
+        margin-bottom: $space-xxs;
+
+        &-wrapper {
+            display: grid;
+            grid-template-columns: ($icon-l + $space-xs) 1fr;
+
+            @include IE11-only {
+                display: block;
+            }
+        }
+
+        &-icon {
+            margin-right: $space-xs;
+            margin-bottom: 0;
+        }
+    }
+}
+
+.cmp-features--tile {
+    box-shadow: $shadow;
+    padding: $space-l;
+    min-height: 240px;
+
+    .cmp-features {
+        margin-bottom: 0;
+
+        &__list {
+            margin-bottom: 0;
+        }
+    }
+
+    .cmp-features__feature {
+        margin-bottom: 0;
+
+        &-wrapper {
+            display: grid;
+            grid-template-columns: ($icon-l + $space-xs) 1fr;
+
+            @include IE11-only {
+                display: block;
+            }
+        }
+
+        &-title {
+            @include font-h3;
+            color: $color-font-medium;
+            margin-bottom: $space-s;
+        }
+
+        &-link {
+            @include font-body;
+            color: $color-link;
+            display: block;
+            margin-bottom: $space-xs;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        &-icon {
+            margin-right: $space-s;
+            margin-bottom: 0;
+        }
+    }
+
+}
+
+.cmp-features--signin {
+
+    .cmp-features {
+        margin-bottom: $space-s;
+        padding: 0;
+
+        &__list {
+            margin: 0 0 $space-xxs 0;
+
+            @include mobile {
+                margin: 0;
+            }
+        }
+    }
+
+    .cmp-features__feature {
+        margin: 0;
+
+        &-optionals {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        &-title {
+            order: 0;
+            display: block;
+            flex-basis: 100%;
+        }
+
+        &-desc {
+            order: 1;
+            display: inline-block;
+            margin: 0;
+        }
+
+        &-icon {
+            display: none;
+        }
+
+        &-link {
+            order: 2;
+            display: inline-flex;
+            margin-left: $space-xxxs;
+
+            &--sign-in {
+                display: inline-block;
+
+                .cmp-features__feature-icon {
+                    display: inline-block;
+                }
+            }
+
+            &:hover {
+                .cmp-features__feature-link--sign-in .cmp-features__feature-icon {
+                    color: $color-link-hover;
+
+                    .st0 {
+                        stroke: $color-link-hover;
+                    }
+
+                    .st1 {
+                        stroke: $color-link-hover;
+                    }
+                }
+            }
+        }
+    }
+    .cmp-features__list {
+        margin-bottom: $space-s;
+    }
+}

@@ -1,0 +1,251 @@
+.cmp-detail-tiles {
+    margin-bottom: $space-xl;
+
+    &--add {
+        display: inline-flex;
+        cursor: pointer;
+
+        &-title {
+            @include font-body;
+            display: inline-block;
+            color: $color-link;
+        }
+
+        &-icon {
+            display: inline-block;
+            height: $icon-s;
+            width: $icon-s;
+            margin-right: $space-xxs;
+
+            svg {
+                position: relative;
+                top: 2px;
+                height: $icon-s;
+                width: $icon-s;
+
+                circle,
+                line {
+                    stroke: $color-link;
+                }
+            }
+        }
+
+        &:hover {
+            .cmp-detail-tiles--add {
+                &-title {
+                    color: $color-link-hover;
+                }
+
+                &-icon {
+                    svg {
+                        circle,
+                        line {
+                            stroke: $color-link-hover !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &--title {
+        @include font-h2;
+        margin-bottom: $space-s;
+    }
+
+    &-list {
+        &--tile {
+            display: block;
+            background-color: $color-background-light;
+            padding: $space-m;
+            margin-bottom: $space-s;
+            position: relative;
+
+            &-edit {
+                display: inline-flex;
+                cursor: pointer;
+                position: absolute;
+                top: $space-m;
+                right: $space-m;
+
+                &--title {
+                    @include font-body;
+                    color: $color-link;
+                }
+
+                &--icon {
+                    height: $icon-s;
+                    width: $icon-s;
+                    margin-right: $space-xxxs;
+
+                    div {
+                        height: $icon-s;
+                        width: $icon-s;
+                        display: inline-block;
+                        position: relative;
+                        top: 1px;
+
+                        svg {
+                            height: $icon-s;
+                            width: $icon-s;
+                            color: $color-link;
+
+                            path {
+                                stroke: $color-link;
+                            }
+                        }
+                    }
+                }
+
+                &:hover {
+                    .cmp-detail-tiles-list--tile-edit {
+                        &--title {
+                            color: $color-link-hover;
+                        }
+
+                        &--icon {
+                            svg {
+                                color: $color-link-hover;
+
+                                path {
+                                    stroke: $color-link-hover !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            &-column {
+                display: inline-block;
+                margin-right: $space-xxl;
+                margin-bottom: $space-s;
+
+                &--title {
+                    @include font-h4;
+                }
+
+                &--text {
+                    @include font-body;
+                    margin-bottom: 0;
+                }
+            }
+
+            &-notification-wrapper {
+                display: block;
+            }
+
+            &-notification {
+                display: inline-flex;
+                background: $color-red-10;
+                border: 1px solid $color-red-20;
+                padding: $space-xxs;
+                border-radius: 4px;
+
+                &--icon {
+                    display: inline-block;
+                    margin-right: $space-xxs;
+                    height: $icon-m;
+                    width: $icon-m;
+
+                    div {
+                        display: inline-block;
+                        height: $icon-m;
+                        width: $icon-m;
+
+                        svg {
+                            height: $icon-m;
+                            width: $icon-m;
+
+                            .st0 {
+                                stroke: $color-error;
+                            }
+                        }
+                    }
+                }
+
+                &--title {
+                    @include font-small;
+                    font-weight: $font-weight-regular;
+                    display: inline-block;
+                    margin-right: $space-xxs;
+                }
+
+                &--description {
+                    @include font-small;
+                    font-weight: $font-weight-light;
+                    display: inline-block;
+                }
+            }
+
+            &.form-shown {
+                display: none;
+            }
+
+            &.no-address {
+                padding: $space-xl 0;
+                text-align: center;
+                border: 1px dashed $color-border-light;
+                background-color: transparent;
+                @include font-body;
+
+                .cmp-detail-tiles-list--tile-noAddress--title {
+                    padding-bottom: $space-s;
+                }
+            }
+        }
+
+        &--form {
+            display: block;
+
+            &-message {
+                margin: $space-l 0;
+            }
+
+            .cmp-form {
+                float: none;
+
+                @include tablet-and-over {
+                    width: 62.5%;
+                }
+
+                .cmp-form-field {
+                    float: none;
+                }
+
+                .cmp-button {
+                    float: none;
+                }
+            }
+
+            &.hidden {
+                display: none;
+            }
+        }
+    }
+}
+
+#personal-details-tile {
+    .cmp-detail-tiles-list--tile-column {
+        &--title {
+            @include font-h1;
+            margin-bottom: $space-xxxs;
+        }
+    }
+    .cmp-detail-tiles--title {
+        @include font-h2;
+    }
+    .cmp-detail-tiles-list--form-message {
+        @include font-body;
+    }
+}
+
+#changePassword-details-tile {
+    .cmp-detail-tiles-list--tile-column {
+        margin-bottom: 0;
+        &--title {
+            @include font-h2;
+            margin-bottom: 0;
+        }
+    }
+}

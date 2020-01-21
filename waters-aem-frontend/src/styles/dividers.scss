@@ -14,7 +14,7 @@ hr,
 
 // Accent Rules
 .cmp-accent-rule hr {
-    margin: 0 0 $space-l 0;
+    margin: 0 0 $space-m 0;
     width: 100%;
     background-color: $color-accent;
     height: 4px;
@@ -25,3 +25,49 @@ hr,
         margin: 0 0 $space-s 0;
     }
 }
+
+// Spacers
+.cmp-spacer--xxs hr {
+    margin: 0;
+    background-color: transparent;
+    height: $space-xxs;
+    border: none;
+    }
+.cmp-spacer--xs hr {
+    margin: 0;
+    background-color: transparent;
+    height: $space-xs;
+    border: none;
+    }
+.cmp-spacer--s hr {
+    margin: 0;
+    background-color: transparent;
+    height: $space-s;
+    border: none;
+    }
+
+.cmp-spacer--m hr {
+    margin: 0;
+    background-color: transparent;
+    height: $space-m;
+    border: none;
+    }
+
+.cmp-spacer--l hr {
+    margin: 0;
+    background-color: transparent;
+    height: $space-l;
+    border: none;
+    }
+.cmp-spacer--xl hr {
+    margin: 0;
+    background-color: transparent;
+    height: $space-xl;
+    border: none;
+    }
+.cmp-spacer--xxl hr {
+    margin: 0;
+    background-color: transparent;
+    height: $space-xxl;
+    border: none;
+    }

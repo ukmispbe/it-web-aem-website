@@ -2,12 +2,12 @@
 import React from "react";
 import ReactSVG from "react-svg";
 import PropTypes from "prop-types";
-import { Modal } from "../modal/index";
 import Stock from "./views/stock";
 import Price from "./views/price";
 import SkuService from "./services";
 import AddToCart from "./views/addToCart";
-import FeedbackSurvey from "../scripts/feedbackSurvey";
+import AddToCartBody from '../sku-details/views/addToCartModal';
+import Modal, { Header, keys } from '../utils/modal';
 import LoginStatus from "../scripts/loginStatus";
 import CheckOutStatus from "../scripts/checkOutStatus";
 import SkuMessage from "../sku-shared/views/SkuMessage";
@@ -19,7 +19,12 @@ class SkuDetails extends React.Component {
         super(props);
         this.state = {
             modalShown: false,
-            modalConfig: this.props.config.modalInfo,
+            modalConfig: {
+                ...this.props.config.modalInfo,
+                textHeading: this.props.skuNumber,
+                text: this.props.titleText,
+                partNumberLabel: this.props.config.skuInfo.partNumberLabel
+            },
             skuConfig: this.props.config.skuInfo,
             skuNumber: this.props.skuNumber,
             userCountry: this.props.config.countryCode,
@@ -28,18 +33,14 @@ class SkuDetails extends React.Component {
             addToCartQty: undefined,
             defaultPrice: this.props.price,
             locale: this.props.config.locale,
-            modalInfo: {
-                ...this.props.config.modalInfo,
-                textHeading: this.props.skuNumber,
-                text: this.props.titleText
-            },
             analyticsConfig: {
                 context: mainCartContext,
                 name: this.props.titleText,
                 price: this.props.price,
                 sku: this.props.skuNumber,
             },
-            errorObj: {},
+            errorObjCart: {},
+            errorObjAvailability: {},
             discontinued: this.props.discontinued == "true"
         };
 
@@ -55,7 +56,10 @@ class SkuDetails extends React.Component {
             },
             err => {
                 // Add Error Object to State
-                this.setState({ errorObj: err });
+                this.setState({
+                    errorObjCart: err,
+                    errorObjAvailability: err
+                });
             }
         );
 
@@ -81,24 +85,18 @@ class SkuDetails extends React.Component {
             })
             .catch(err => {
                 // Add Error Object to State
-                this.setState({ errorObj: err });
+                this.setState({ errorObjAvailability: err });
             });
     }
 
     toggleModal = () => {
-        this.setState({ modalShown: !this.state.modalShown }, () => {
-            if (this.state.modalShown) {
-                FeedbackSurvey.isDisplayed(false);
-            } else {
-                FeedbackSurvey.isDisplayed(true);
-            }
-        });
+        this.setState({ modalShown: !this.state.modalShown });
     };
 
     toggleErrorModal = err => {
         // Add Error Object to State
-        this.setState({ errorObj: err });
-        this.setState({ modalShown: !this.state.modalShown });
+        this.setState({ errorObjCart: err });
+        this.setState({ modalShown: !this.state.modalShown })
     };
 
     // If product is not sold in that country
@@ -178,7 +176,7 @@ class SkuDetails extends React.Component {
                         skuAvailability={this.state.skuAvailability}
                         locale={this.state.locale}
                         skuType="details"
-                        errorObj={this.state.errorObj}
+                        errorObj={this.state.errorObjAvailability}
                     />
                 </div>
                 <div className="cmp-sku-details__buttons">
@@ -191,14 +189,17 @@ class SkuDetails extends React.Component {
                         analyticsConfig={this.state.analyticsConfig}
                     ></AddToCart>
                 </div>
-                <Modal
-                    toggleModal={this.toggleModal}
-                    open={this.state.modalShown}
-                    theme="callToAction"
-                    config={this.state.modalInfo}
-                    errorObj={this.state.errorObj}
-                    partNumberLabel={this.state.skuConfig.partNumberLabel}
-                />
+                <Modal isOpen={this.state.modalShown} onClose={this.toggleModal} className='cmp-add-to-cart-modal'>
+                        <Header
+                            title={this.state.modalConfig.title}
+                            icon={this.state.modalConfig.icon}
+                            className={keys.HeaderWithAddedMarginTop}
+                        />
+                        <AddToCartBody
+                            config={this.state.modalConfig}
+                            errorObjCart={this.state.errorObjCart}
+                        ></AddToCartBody>
+                </Modal>
             </div>
         );
     };

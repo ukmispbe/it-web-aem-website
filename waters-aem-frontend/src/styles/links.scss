@@ -32,39 +32,119 @@
     padding-right: 27px;
     margin-bottom: 0;
     position: relative;
+
+    &-icon-wrapper--back {
+        display: none;
+
+        .cmp-links__link-icon {
+            display: none;
+            position: relative;
+            top: $space-xxxs;
+            margin-bottom: 0;
+            margin-right: $space-xxxs;
+            height: (($icon-s + $icon-m) / 2);
+            width: (($icon-s + $icon-m) / 2);
+            color: $color-link;
+
+            .st0, .st1 {
+                stroke: $color-link;
+                stroke-width: 1px;
+            }
+        }
+    }
 }
 
 .cmp-links__external-link--true::after {
     content: '';
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' width='18' height='25' viewBox='0 0 24 24' stroke='%230077bb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-external-link'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' width='16' height='16' viewBox='0 0 24 24' stroke='%230077bb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-external-link'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E");
     width: 24px;
-    height: 20px;
+    height: 15px;
     background-repeat: no-repeat;
     display: inline-block;
-    margin-left: 0.3em;
+    margin-left: ($space-xxxs - .1em);
     transition: $hover-transition;
 }
 
 .cmp-links__external-link--true:hover::after {
     content: '';
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='25' viewBox='0 0 24 24' fill='none' stroke='%23005788' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-external-link'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23005788' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-external-link'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E");
     width: 24px;
-    height: 20px;
+    height: 15px;
     background-repeat: no-repeat;
     display: inline-block;
-    margin-left: 0.3em;
+    margin-left: ($space-xxxs - .1em);
 }
 
 
 
 div.links {
     margin-bottom: $space-s;
+
+    h3 {
+        margin-bottom: $space-s;
+    }
 }
 
 .cmp-links--h3 .cmp-links {
     @include font-h3;
 }
 
+
+div.links--small {
+
+    .cmp-links {
+        @include font-small;
+    }
+
+    h3 {
+       @include font-h4;
+    }
+
+    ul li {
+        margin-bottom: $space-xxs;
+    }
+}
+
+
 div.links--noPadding {
     margin-bottom: 0;
 }
+
+.cmp-links--back {
+
+    .cmp-links {
+        margin: 0 0 $space-xxs 0;
+
+        @include mobile {
+            margin: 0;
+        }
+    }
+
+    .cmp-links {
+        margin: 0;
+
+        &__link {
+            order: 2;
+            display: inline-flex;
+
+            &-icon-wrapper--back {
+                display: inline-block;
+
+                .cmp-links__link-icon {
+                    display: inline-block;
+                }
+            }
+
+            &:hover {
+                .cmp-links__link-icon-wrapper--back .cmp-links__link-icon {
+                    color: $color-link-hover;
+
+                    .st0, .st1 {
+                        stroke: $color-link-hover;
+                    }
+                }
+            }
+        }
+    }
+}
+

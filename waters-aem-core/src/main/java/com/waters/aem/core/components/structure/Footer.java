@@ -13,6 +13,7 @@ import com.day.cq.commons.LanguageUtil;
 import com.day.cq.wcm.foundation.Image;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.components.AbstractComponent;
@@ -21,12 +22,12 @@ import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.SiteContext;
-import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
+import com.waters.aem.core.components.content.CountryList;
 import com.waters.aem.core.components.content.links.BasicLink;
 import com.waters.aem.core.components.content.links.IconOnlyLink;
+import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
 import com.waters.aem.core.components.structure.page.analytics.DataLayer;
 import com.waters.aem.core.constants.WatersConstants;
-import com.waters.aem.core.services.youramigo.YourAmigoService;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.waters.aem.core.utils.LinkUtils;
 import com.waters.aem.core.utils.LocaleUtils;
@@ -42,18 +43,22 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component(value = "Footer",
     description = "This is the Footer component for Waters site",
     editConfig = false,
     tabs = {
         @Tab(title = "Properties"),
-        @Tab(title = "Region Selector"),
         @Tab(title = "Legal Icons"),
         @Tab(title = "Footer Links"),
-        @Tab(title = "Share Links")
+        @Tab(title = "Share Links"),
+        @Tab(title = "WeChat (China)")
     },
     group = ComponentConstants.GROUP_HIDDEN,
     path = WatersConstants.COMPONENT_PATH_STRUCTURE)
@@ -67,20 +72,22 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     public static final String RESOURCE_TYPE = "waters/components/structure/footer";
 
+    @Inject
+    private PageDecorator currentPage;
+
+    @OSGiService
+    private WatersCommerceService watersCommerceService;
+
     @Self
     private SiteContext siteContext;
 
-    @OSGiService
-    private YourAmigoService yourAmigoService;
-
-    @Inject
-    private PageDecorator currentPage;
+    @Self
+    private CountryList countryList;
 
     @ChildResource(name = "../")
     private DataLayer dataLayer;
 
-    @OSGiService
-    private WatersCommerceService watersCommerceService;
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @DialogField(fieldLabel = "Logo",
         fieldDescription = "Select the logo image to display on footer",
@@ -127,7 +134,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     @DialogField(fieldLabel = "Shanghai ICP Number",
             fieldDescription = "Enter the Shanghai ICP Number",
-            tab = 3,
+            tab = 2,
             ranking = 1
     )
     @TextField
@@ -136,7 +143,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     @DialogField(fieldLabel = "Shanghai ICP Number Legal Icon",
             fieldDescription = "Select the legal icon to display on footer",
-            tab = 3,
+            tab = 2,
             ranking = 3
     )
     @PathField(rootPath = WatersConstants.DAM_PATH)
@@ -145,7 +152,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     @DialogField(fieldLabel = "Shanghai ICP Number Legal Link",
             fieldDescription = "Select or enter the link URL",
-            tab = 3,
+            tab = 2,
             ranking = 2
     )
     @PathField(rootPath = WatersConstants.ROOT_PATH)
@@ -154,7 +161,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     @DialogField(fieldLabel = "Beijing Public Network Security Number",
             fieldDescription = "Enter the Beijing Public Network Security Number",
-            tab = 3,
+            tab = 2,
             ranking = 4
     )
     @TextField
@@ -163,7 +170,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     @DialogField(fieldLabel = "Beijing Public Network Security Number Legal Icon",
             fieldDescription = "Select the legal icon to display on footer",
-            tab = 3,
+            tab = 2,
             ranking = 6
     )
     @PathField(rootPath = WatersConstants.DAM_PATH)
@@ -172,7 +179,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     @DialogField(fieldLabel = "Beijing Public Network Security Number Legal Link",
             fieldDescription = "Select or enter the link URL",
-            tab = 3,
+            tab = 2,
             ranking = 5
     )
     @PathField(rootPath = WatersConstants.ROOT_PATH)
@@ -181,26 +188,43 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     @DialogField(fieldLabel = "Cookies Link",
         fieldDescription = "Select or enter the link URL",
-        tab = 4,
+        tab = 3,
         ranking = 1)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
     private Link cookiesLink;
 
     @DialogField(fieldLabel = "Footer Links",
-        tab = 4,
+        tab = 3,
         ranking = 2)
     @MultiField(composite = true)
     @InheritInject
     private List<BasicLink> footerLinks;
 
     @DialogField(fieldLabel = "Social Links",
-        tab = 5)
+        tab = 4,
+        ranking = 2)
     @MultiField(composite = true)
     @InheritInject
     private List<IconOnlyLink> socialLinks;
 
-    private List<LanguageSelectorItem> languagePages;
+    @DialogField(fieldLabel = "WeChat Icon",
+            fieldDescription = "Select the WeChat icon to display on footer (China only)",
+            tab = 5,
+            ranking = 1)
+    @PathField(rootPath = WatersConstants.DAM_PATH)
+    @InheritInject
+    private String weChatIcon;
+
+    @DialogField(fieldLabel = "WeChat QR Code Image",
+            fieldDescription = "Select the WeChat QR Code to display in the WeChat modal",
+            tab = 5,
+            ranking = 2)
+    @Html5SmartImage(tab = false, allowUpload = false, height = 150)
+    @ImageInject(inherit = true)
+    private Image weChatQrCodeImage;
+ 
+    private List<CountryLanguageSelectorItem> languagePages;
 
     @JsonProperty
     public Image getLogoImage() {
@@ -270,6 +294,14 @@ public final class Footer extends AbstractComponent implements ComponentExporter
         return socialLinks;
     }
 
+    public String getWeChatIcon() {
+        return weChatIcon;
+    }
+
+    public Image getWeChatQrCodeImage() {
+        return weChatQrCodeImage;
+    }
+
     public String getDataLayer() throws JsonProcessingException {
         return dataLayer.getJsonData();
     }
@@ -278,15 +310,11 @@ public final class Footer extends AbstractComponent implements ComponentExporter
         return siteContext.getLanguageLocation();
     }
 
-    public Boolean isYourAmigoEnabled() {
-        return Locale.US.getCountry().equals(siteContext.getLocaleWithCountry().getCountry()) && yourAmigoService.isEnabled();
-    }
-
-    public Boolean isShowLegalIcon() {
+    public Boolean isChinaPage() {
         return Locale.CHINA.getCountry().equals(siteContext.getLocaleWithCountry().getCountry());
     }
 
-    public List<LanguageSelectorItem> getLanguagePages() {
+    public List<CountryLanguageSelectorItem> getLanguagePages() {
         if (languagePages == null) {
             languagePages = new ArrayList<>();
 
@@ -295,12 +323,31 @@ public final class Footer extends AbstractComponent implements ComponentExporter
                         languagePage.findAncestor(WatersConstants.PREDICATE_HOME_PAGE).orNull();
 
                 if (languageHomepage != null) {
-                    languagePages.add(new LanguageSelectorItem(languagePage));
+                    languagePages.add(new CountryLanguageSelectorItem(languagePage));
                 }
             }
         }
 
         return languagePages;
+    }
+
+    public String getCountryPagesJson() throws JsonProcessingException {
+        final List<Map<String, String>> countries = new ArrayList<>();
+
+        for (final CountryLanguageSelectorItem item : getCountryPages()) {
+            final Map<String, String> country = new HashMap<>();
+
+            final Link homepageLink = item.getHomepageLink();
+
+            if (homepageLink != null) {
+                country.put("title", siteContext.getTranslation(item.getTitle()));
+                country.put("href", homepageLink.getHref());
+
+                countries.add(country);
+            }
+        }
+
+        return MAPPER.writeValueAsString(countries);
     }
 
     public String getCountryName() {
@@ -357,6 +404,52 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     public CountryCommerceConfig getCommerceConfig() {
         return siteContext.getCountryCommerceConfig();
+    }
+
+    private List<CountryLanguageSelectorItem> getCountryPages() {
+        final String currentLanguageRoot = LanguageUtil.getLanguageRoot(currentPage.getPath());
+
+        final List<CountryLanguageSelectorItem> countryPages = new ArrayList<>();
+
+        final List<PageDecorator> countryRootPages = countryList.getCountryRootPages();
+
+        if (currentLanguageRoot != null) {
+            // add all countries to list, excluding current
+            countryPages.addAll(countryRootPages.stream()
+                    .filter(page -> !currentLanguageRoot.startsWith(page.getPath())) // exclude current page from list
+                    .map(CountryLanguageSelectorItem::new)
+                    .sorted(Comparator.comparing(CountryLanguageSelectorItem::getTitle))
+                    .collect(Collectors.toList()));
+
+            final PageDecorator globalExperiencePage = currentPage.getPageManager()
+                    .getPage(WatersConstants.ROOT_PATH_GLOBAL_EXPERIENCE);
+
+            // if current page is not global experience, add current country to start of list
+            if (!WatersConstants.PREDICATE_GLOBAL_EXP_PAGE.apply(currentPage)) {
+                countryRootPages.stream()
+                        .filter(page -> currentLanguageRoot.startsWith(page.getPath()))
+                        .findFirst()
+                        .map(CountryLanguageSelectorItem::new)
+                        .ifPresent(item -> countryPages.add(0, item));
+
+                // add global experience to end of list
+                if (globalExperiencePage != null) {
+                    countryPages.add(getGlobalExperienceSelectorItem());
+                }
+            } else {
+                // add global experience to start of list
+                if (globalExperiencePage != null) {
+                    countryPages.add(0, getGlobalExperienceSelectorItem());
+                }
+            }
+        }
+
+        return countryPages;
+    }
+
+    private CountryLanguageSelectorItem getGlobalExperienceSelectorItem() {
+        return new CountryLanguageSelectorItem(
+                currentPage.getPageManager().getPage(WatersConstants.ROOT_PATH_GLOBAL_EXPERIENCE), "Other");
     }
 
     @Nonnull

@@ -5,4 +5,12 @@
           signInUrl="https://www.waters.com/waters/login.htm?redirectUrl=https://www.waters.com"
           signOutUrl="https://www.waters.com/waters/logOut.htm"
           myAccountUrl="https://www.waters.com/waters/My-Account/nav.htm?cid=2243096"
-          legacySearchUrl="https://www.waters.com/waters/keywordSearch.htm"/>
+          legacySearchUrl="https://www.waters.com/waters/keywordSearch.htm"
+          registrationSubmitUrl="https://prodservices.waters.com/api/waters/user/v1/registration"
+          emailValidationUrl="https://prodservices.waters.com/api/waters/user/v1/validate/{email}"
+          pwResetUrl="https://prodservices.waters.com/api/waters/user/v1/reset/password?email={email}"
+          changePwUrl="https://prodservices.waters.com/api/waters/user/v1/change/password"
+          userDetailsUrl="https://prodservices.waters.com/api/waters/user/v1/details?email={email}"
+          soldToDetailsUrl="https://prodservices.waters.com/api/waters/user/v1/retrievesoldto?email={email}"
+          updatePwUrl="https://prodservices.waters.com/api/waters/user/v1/update/password"
+          signInEndpoint="https://prodservices.waters.com/api/waters/user/v1/login"/>

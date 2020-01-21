@@ -2,7 +2,6 @@ import domElements from '../scripts/domElements';
 import loginStatus from '../scripts/loginStatus';
 import MobileNav from '../scripts/mobileNav';
 import ScreenSizes from '../scripts/screenSizes';
-import cookieStore from '../stores/cookieStore';
 import ServletService from '../element-creators/services/servletService';
 import SystemWideNotification from '../element-creators/systemWideNotification';
 import SessionStore from '../stores/sessionStore';
@@ -10,12 +9,11 @@ import inlineSVG from '../scripts/inlineSVG';
 
 const sessionStore = new SessionStore();
 
-let headerTB, headerTB_user, headerTB_user_link_greetingText,  headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, headerNavigation_mainUL;
+let headerTB, headerTB_user,  headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, headerNavigation_mainUL;
 
 const headerInit = function() {
     domReferences();
     addEventListeners();
-    //cookieStore.setLocale();
     render();
     renderSystemWideNotification();
 }
@@ -23,7 +21,6 @@ const headerInit = function() {
 function domReferences() {
     headerTB = document.querySelector('header.cmp-header .cmp-header__top-bar');
     headerTB_user = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
-    headerTB_user_link_greetingText = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user__link .greeting-text');
     headerTB_mobile = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile');
     headerTB_mobile_btn = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__mobile button');
 
@@ -45,10 +42,6 @@ function render() {
     const loggedInClass = 'loggedIn';
     if (loginStatus.state()) {
         domElements.addClass(headerTB_user, loggedInClass);
-        let greeting = loginStatus.getGreeting();
-        if (greeting) {
-            headerTB_user_link_greetingText.innerHTML = greeting;
-        }
     } else {
         domElements.removeClass(headerTB_user, loggedInClass)
     }

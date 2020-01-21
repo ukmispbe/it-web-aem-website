@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+@SuppressWarnings("squid:S3776")
 public final class LocaleUtils {
 
     /**
@@ -144,7 +145,7 @@ public final class LocaleUtils {
      * @return true if the provided page is within the global region page path
      */
     public static boolean isGlobalRegionPage(final PageDecorator page) {
-        return page.getPath().startsWith(WatersConstants.ROOT_PATH_GLOBAL_REGIONS);
+        return page.getPath().startsWith(WatersConstants.ROOT_PATH_GLOBAL_EXPERIENCE);
     }
 
     /**

@@ -12,6 +12,7 @@ const customStyles = {
     option: (provided, state) => ({
         ...provided,
         color: variables.colorGray50,
+        padding: '0.75em 1em',
         backgroundColor: state.isSelected ? variables.colorBackgroundLight : variables.colorWhite,
         cursor: !state.isSelected ? 'pointer' : 'default',
         '&:hover': {
@@ -22,7 +23,7 @@ const customStyles = {
     }),
     control: (provided, state) => ({
         ...provided,
-        'border-radius': '0',
+        'border-radius': variables.borderRadius,
         padding: '0.3em 0.5em',
         color: variables.colorGray50,
         'border-color': state.isFocused ? variables.colorBorderDark : variables.colorBorderDark,
@@ -32,7 +33,7 @@ const customStyles = {
         '&:hover': {
             outline: 'none',
             color: variables.colorBlue50,
-            borderColor: variables.colorBorderDark,
+            borderColor: variables.colorBlue50,
         },
     }),
     singleValue: (provided, state) => {

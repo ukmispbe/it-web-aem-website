@@ -17,7 +17,7 @@
     padding: ($space-xxxs - .05em) $space-xs ($space-xxxs + .05em) $space-xs;
     margin: 0 $space-xxs $space-xs 0;
     background-color: $color-blue-10;
-    border-radius: .25em;
+    border-radius: $border-radius;
     a {
         text-decoration: none;
         color: $color-link-hover;

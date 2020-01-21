@@ -4,6 +4,7 @@
         display: flex;
         justify-content: center;
         background-color: $color-background-light;
+        border-radius: $border-radius;
         padding: $space-s;
         margin-bottom: $space-l;
 
@@ -82,7 +83,7 @@
     &-links {
         display: inline;
         list-style-type: none;
-        padding-left: $space-xxs;
+        padding-left: $space-xxxs;
         li {
             display: inline;
         }
@@ -105,6 +106,24 @@
         .cmp-notification-wrapper {
             transform: scale(1);
         }
+    }
+}
+
+.cmp-notification--left {
+    .cmp-notification-wrapper {
+        justify-content: left;
+        background-color: transparent;
+        border: none;
+        padding: 0;
+    }
+}
+
+.cmp-notification--feature {
+    .cmp-notification-wrapper {
+        justify-content: center;
+        background-color: transparent;
+        border-top: 1px solid $color-teal-20;
+        border-bottom: 1px solid $color-teal-20;
     }
 }
 
@@ -137,6 +156,32 @@
     }
 }
 
+.cmp-notification--success {
+    .cmp-notification-wrapper {
+        background-color: $color-teal-10;
+        border: 1px solid $color-teal-20;
+
+        svg {
+            .st0 {
+                stroke: $color-success;
+            }
+        }
+    }
+}
+
+.cmp-notification--userError {
+    .cmp-notification-wrapper {
+        background-color: $color-red-10;
+        border: 1px solid $color-red-20;
+
+        svg {
+            .st0 {
+                stroke: $color-error;
+            }
+        }
+    }
+}
+
 // Style System
 
 .cmp-notification--sitewide {
@@ -164,9 +209,11 @@
     }
 }
 
-.cmp-notification--error {
+.cmp-notification--error, .cmp-notification--captcha {
     .cmp-notification-wrapper {
         transition: transform 200ms ease-in-out;
+        background-color: $color-red-10;
+        border: 1px solid $color-red-20;
 
         svg {
             .st0 {

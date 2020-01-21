@@ -1,0 +1,25 @@
+<div data-sly-use.featuresComponent="com.waters.aem.core.components.content.Features"
+     class="cmp-features">
+    <ul class="cmp-features__list" data-sly-test="${featuresComponent.features}">
+        <li class="cmp-features__feature" data-sly-repeat="${featuresComponent.features}">
+            <div class="cmp-features__feature-wrapper">
+                <div class="cmp-features__feature-icon-wrapper">
+                    <img class="cmp-features__feature-icon ${item.svg ? 'inline-svg' : ''}" data-sly-test="${item.icon}" src="${item.icon}"/>
+                </div>
+                <div class="cmp-features__feature-optionals">
+                    <div class="cmp-features__feature-title" data-sly-test="${item.title}">${item.title}</div>
+                    <div class="cmp-features__feature-desc" data-sly-test="${item.description}">${item.description}</div>
+                    <a class="cmp-features__feature-link" data-sly-repeat.link="${item.links}" href="${link.link.href}" target="${link.external ? '_blank' : ''}">
+                        <div class="cmp-features__feature-link--sign-in" data-sly-test="${item.icon}">
+                            <img class="cmp-features__feature-icon ${item.svg ? 'inline-svg' : ''}" src="${item.icon}"/>
+                        </div>
+                        ${link.text}
+                    </a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+     data-sly-call="${patterns.placeholder @ show=!featuresComponent.features, text=component.title}"/>

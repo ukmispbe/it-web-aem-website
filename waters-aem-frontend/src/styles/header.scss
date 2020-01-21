@@ -48,14 +48,14 @@
         }
 
         &__logo {
-            padding: ($space-s + $space-xxxs) 0 $space-s 0;
+            padding: $space-s 0 $space-xs 0;
             font-weight: 300;
             line-height: 1.6em;
             margin: 0;
             font-size: 1em;
 
             @include mobile {
-                padding: $space-s 0 $space-xs 0;
+                padding: $space-xs 0 $space-xxs 0;
                 font-size: 1.1em;
             }
             
@@ -84,7 +84,7 @@
                 align-self: center;
 
                 & > .top-bar__nav__item {
-                    height: 74px;
+                    height: 66px;
                     align-items: center;
                     align-self: center;
                     vertical-align: top;
@@ -95,6 +95,7 @@
                     
                     @include mobile {
                         height: 100%;
+                        padding-top: 0;
                     }
 
                     @include mobile-xs {
@@ -139,6 +140,9 @@
             .top-bar__nav__search,
             .top-bar__nav__cart {
                 display: inline-flex;
+                @include mobile {
+                    padding-top: $space-xxxs;
+                }
             }
 
             .top-bar__nav__user {
@@ -156,29 +160,38 @@
                     min-width: 0 !important;
                 }
 
-                .greeting-text {
-                    display: none;
-                }
-
                 &__dropdown {
+                    
                     @include tablet-and-over {                
                         opacity: 0;
                         transition: all 0.2s ease;
                         visibility: hidden;
                         box-shadow: $shadow;
-                        width: 100%;
                         position: absolute;
-                        top: 71px;
-                        left: 0px;
+                        top: 63px;
+                        right: 0px;
+                        border-top: 4px solid $color-gray-50;
+                        display: none;
+                        justify-content: flex-end;
                     }
                 }
     
+
+                &.is-active{
+                    .top-bar__nav__user__dropdown{
+                        visibility: visible;
+                        opacity: 1;
+                        display: flex;
+                    }
+                }
+                
                 &.loggedIn {
 
                     .top-bar__nav__user__link {
                         svg .st1,
                         svg .st0{
                             stroke: $color-teal-30;
+                            stroke-width: 0.75px;
                         }
                     }
 
@@ -186,28 +199,7 @@
                         color: $color-gray-50;
                     }
 
-                    .greeting-text {
-                        display: inline-block;
 
-                        @include mobile {
-                            display: none;
-                        }
-                
-                        .sign-in-text {
-                            display: none;
-                        }
-                    }
-
-                    .sign-in-text {
-                        display: none;
-                    }
-
-                    &.is-active{
-                        .top-bar__nav__user__dropdown{
-                            visibility: visible;
-                            opacity: 1;
-                        }
-                    }
                 }
     
             }

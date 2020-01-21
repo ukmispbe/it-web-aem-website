@@ -252,6 +252,7 @@
                             <username>${aem.username.author}</username>
                             <password>${aem.password.author}</password>
                             <retryDelay>10000</retryDelay>
+                            <retryLimit>10</retryLimit>
                         </configuration>
                     </execution>
                 </executions>

@@ -4,6 +4,7 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.icfolson.aem.library.api.link.Link;
+import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.utils.LinkUtils;
@@ -18,6 +19,9 @@ public class BasicLink {
 
     @Inject
     private String text;
+
+    @Inject
+    private PageDecorator currentPage;
 
     @DialogField(fieldLabel = "Link Item Text",
         fieldDescription = "Enter Link Item Text",
@@ -38,6 +42,10 @@ public class BasicLink {
 
     public Link getLink() {
         return link;
+    }
+
+    public Boolean isActive() {
+        return currentPage.getPath().equals(link.getPath());
     }
 
     public Boolean isExternal() {

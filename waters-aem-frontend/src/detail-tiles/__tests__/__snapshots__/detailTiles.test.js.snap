@@ -1,0 +1,532 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: Detail Tiles Component Scenario Render Tile and check snapshots When notification is not present Then the snapshot should match 1`] = `
+Array [
+  <div
+    className="cmp-detail-tiles-list--tile no-address"
+    id="tileDetailsTile"
+  >
+    <div
+      className="cmp-detail-tiles-list--tile-noAddress"
+    >
+      <div
+        className="cmp-detail-tiles-list--tile-noAddress--title"
+      >
+        There are no tiles, add one now.
+      </div>
+      <div
+        className="cmp-detail-tiles--add"
+      >
+        <div
+          className="cmp-detail-tiles--add-icon"
+        />
+        <div
+          className="cmp-detail-tiles--add-title"
+        >
+          Add New Detail Tile
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-detail-tiles-list--form hidden"
+  >
+    <div
+      className="cmp-detail-tiles-list--form-message"
+    >
+      This is the form message
+      <a />
+    </div>
+    <form
+      className="cmp-form cmp-form--registration"
+      onSubmit={[Function]}
+    >
+      <div
+        className="cmp-form-field cmp-form-field-text"
+      >
+        <label
+          className=""
+          htmlFor="field1"
+        >
+          Field One (Required)
+        </label>
+        <div
+          className="cmp-form-field--input"
+        >
+          <input
+            className=""
+            name="field1"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=" "
+            type="text"
+          />
+          <div
+            className="cmp-form-field--icons"
+          >
+            <div
+              className="valid-icon"
+            />
+            <div
+              className="invalid-icon"
+            />
+          </div>
+        </div>
+        <span
+          className="cmp-form-field--errorText"
+        >
+          
+        </span>
+      </div>
+      <div
+        className="cmp-form-field cmp-form-field-text"
+      >
+        <label
+          className=""
+          htmlFor="field2"
+        >
+          Field Two (Optional)
+          <span
+            className="cmp-form-field--optional"
+          >
+             
+            (optional)
+          </span>
+        </label>
+        <div
+          className="cmp-form-field--input"
+        >
+          <input
+            className=""
+            name="field2"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=" "
+            type="text"
+          />
+          <div
+            className="cmp-form-field--icons"
+          >
+            <div
+              className="valid-icon"
+            />
+            <div
+              className="invalid-icon"
+            />
+          </div>
+        </div>
+        <span
+          className="cmp-form-field--errorText"
+        >
+          
+        </span>
+      </div>
+      <div
+        className="cmp-form-field cmp-form-field-text"
+      >
+        <label
+          className=""
+          htmlFor="field3"
+        >
+          Field Three (Disabled)
+        </label>
+        <div
+          className="cmp-form-field--input"
+        >
+          <input
+            className=""
+            disabled={true}
+            name="field3"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=" "
+            type="text"
+          />
+          <div
+            className="cmp-form-field--icons"
+          >
+            <div
+              className="lock-icon"
+            />
+          </div>
+        </div>
+        <span
+          className="cmp-form-field--errorText"
+        >
+          
+        </span>
+      </div>
+      <button
+        className="cmp-button cmp-button--no-border cmp-form--submit cmp-button--disabled"
+        disabled={true}
+        type="submit"
+      >
+        Save Changes
+      </button>
+      <a
+        className="cmp-button cmp-button--cancel"
+        onClick={[Function]}
+      >
+        Cancel
+      </a>
+    </form>
+  </div>,
+]
+`;
+
+exports[`Feature: Detail Tiles Component Scenario Render Tile and check snapshots When notification is present Then the snapshot should match 1`] = `
+Array [
+  <div
+    className="cmp-detail-tiles-list--tile no-address"
+    id="tileDetailsTile"
+  >
+    <div
+      className="cmp-detail-tiles-list--tile-noAddress"
+    >
+      <div
+        className="cmp-detail-tiles-list--tile-noAddress--title"
+      >
+        There are no tiles, add one now.
+      </div>
+      <div
+        className="cmp-detail-tiles--add"
+      >
+        <div
+          className="cmp-detail-tiles--add-icon"
+        />
+        <div
+          className="cmp-detail-tiles--add-title"
+        >
+          Add New Detail Tile
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-detail-tiles-list--form hidden"
+  >
+    <div
+      className="cmp-detail-tiles-list--form-message"
+    >
+      This is the form message
+      <a />
+    </div>
+    <form
+      className="cmp-form cmp-form--registration"
+      onSubmit={[Function]}
+    >
+      <div
+        className="cmp-form-field cmp-form-field-text"
+      >
+        <label
+          className=""
+          htmlFor="field1"
+        >
+          Field One (Required)
+        </label>
+        <div
+          className="cmp-form-field--input"
+        >
+          <input
+            className=""
+            name="field1"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=" "
+            type="text"
+          />
+          <div
+            className="cmp-form-field--icons"
+          >
+            <div
+              className="valid-icon"
+            />
+            <div
+              className="invalid-icon"
+            />
+          </div>
+        </div>
+        <span
+          className="cmp-form-field--errorText"
+        >
+          
+        </span>
+      </div>
+      <div
+        className="cmp-form-field cmp-form-field-text"
+      >
+        <label
+          className=""
+          htmlFor="field2"
+        >
+          Field Two (Optional)
+          <span
+            className="cmp-form-field--optional"
+          >
+             
+            (optional)
+          </span>
+        </label>
+        <div
+          className="cmp-form-field--input"
+        >
+          <input
+            className=""
+            name="field2"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=" "
+            type="text"
+          />
+          <div
+            className="cmp-form-field--icons"
+          >
+            <div
+              className="valid-icon"
+            />
+            <div
+              className="invalid-icon"
+            />
+          </div>
+        </div>
+        <span
+          className="cmp-form-field--errorText"
+        >
+          
+        </span>
+      </div>
+      <div
+        className="cmp-form-field cmp-form-field-text"
+      >
+        <label
+          className=""
+          htmlFor="field3"
+        >
+          Field Three (Disabled)
+        </label>
+        <div
+          className="cmp-form-field--input"
+        >
+          <input
+            className=""
+            disabled={true}
+            name="field3"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=" "
+            type="text"
+          />
+          <div
+            className="cmp-form-field--icons"
+          >
+            <div
+              className="lock-icon"
+            />
+          </div>
+        </div>
+        <span
+          className="cmp-form-field--errorText"
+        >
+          
+        </span>
+      </div>
+      <button
+        className="cmp-button cmp-button--no-border cmp-form--submit cmp-button--disabled"
+        disabled={true}
+        type="submit"
+      >
+        Save Changes
+      </button>
+      <a
+        className="cmp-button cmp-button--cancel"
+        onClick={[Function]}
+      >
+        Cancel
+      </a>
+    </form>
+  </div>,
+]
+`;
+
+exports[`Feature: Detail Tiles Component Scenario Render Tile and check snapshots When tile is blank Then the snapshot should match 1`] = `
+Array [
+  <div
+    className="cmp-detail-tiles-list--tile no-address"
+    id="tileDetailsTile"
+  >
+    <div
+      className="cmp-detail-tiles-list--tile-noAddress"
+    >
+      <div
+        className="cmp-detail-tiles-list--tile-noAddress--title"
+      >
+        There are no tiles, add one now.
+      </div>
+      <div
+        className="cmp-detail-tiles--add"
+      >
+        <div
+          className="cmp-detail-tiles--add-icon"
+        />
+        <div
+          className="cmp-detail-tiles--add-title"
+        >
+          Add New Detail Tile
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="cmp-detail-tiles-list--form hidden"
+  >
+    <div
+      className="cmp-detail-tiles-list--form-message"
+    >
+      This is the form message
+      <a />
+    </div>
+    <form
+      className="cmp-form cmp-form--registration"
+      onSubmit={[Function]}
+    >
+      <div
+        className="cmp-form-field cmp-form-field-text"
+      >
+        <label
+          className=""
+          htmlFor="field1"
+        >
+          Field One (Required)
+        </label>
+        <div
+          className="cmp-form-field--input"
+        >
+          <input
+            className=""
+            name="field1"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=" "
+            type="text"
+          />
+          <div
+            className="cmp-form-field--icons"
+          >
+            <div
+              className="valid-icon"
+            />
+            <div
+              className="invalid-icon"
+            />
+          </div>
+        </div>
+        <span
+          className="cmp-form-field--errorText"
+        >
+          
+        </span>
+      </div>
+      <div
+        className="cmp-form-field cmp-form-field-text"
+      >
+        <label
+          className=""
+          htmlFor="field2"
+        >
+          Field Two (Optional)
+          <span
+            className="cmp-form-field--optional"
+          >
+             
+            (optional)
+          </span>
+        </label>
+        <div
+          className="cmp-form-field--input"
+        >
+          <input
+            className=""
+            name="field2"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=" "
+            type="text"
+          />
+          <div
+            className="cmp-form-field--icons"
+          >
+            <div
+              className="valid-icon"
+            />
+            <div
+              className="invalid-icon"
+            />
+          </div>
+        </div>
+        <span
+          className="cmp-form-field--errorText"
+        >
+          
+        </span>
+      </div>
+      <div
+        className="cmp-form-field cmp-form-field-text"
+      >
+        <label
+          className=""
+          htmlFor="field3"
+        >
+          Field Three (Disabled)
+        </label>
+        <div
+          className="cmp-form-field--input"
+        >
+          <input
+            className=""
+            disabled={true}
+            name="field3"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder=" "
+            type="text"
+          />
+          <div
+            className="cmp-form-field--icons"
+          >
+            <div
+              className="lock-icon"
+            />
+          </div>
+        </div>
+        <span
+          className="cmp-form-field--errorText"
+        >
+          
+        </span>
+      </div>
+      <button
+        className="cmp-button cmp-button--no-border cmp-form--submit cmp-button--disabled"
+        disabled={true}
+        type="submit"
+      >
+        Save Changes
+      </button>
+      <a
+        className="cmp-button cmp-button--cancel"
+        onClick={[Function]}
+      >
+        Cancel
+      </a>
+    </form>
+  </div>,
+]
+`;
