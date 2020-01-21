@@ -31,6 +31,15 @@ public interface SkuRepository {
     Sku getSku(ResourceResolver resourceResolver, String productCode);
 
     /**
+     * Get the Sku corresponding to the given GTIN code.
+     *
+     * @param resourceResolver resource resolver for current request
+     * @param gtin gtin code
+     * @return Sku or null if not found
+     */
+    Sku getSkuForGtin(ResourceResolver resourceResolver, String gtin);
+
+    /**
      * Get a related Sku for the given product reference resource.
      *
      * @param productReferenceResource product reference resource

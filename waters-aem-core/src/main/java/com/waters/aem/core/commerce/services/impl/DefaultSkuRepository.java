@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -51,6 +52,33 @@ public final class DefaultSkuRepository implements SkuRepository {
         final String productResourcePath = getProductResourcePath(productCode);
 
         return getSkuForProductResourcePath(resourceResolver, productResourcePath);
+    }
+
+    @Override
+    public Sku getSkuForGtin(ResourceResolver resourceResolver, String gtin) {
+        final Resource productsResource = resourceResolver.getResource(WatersCommerceConstants.PATH_COMMERCE_PRODUCTS);
+
+        int count = 0;
+
+        for (final Iterator<Resource> it = productsResource.listChildren(); it.hasNext();) {
+            final Resource folder = it.next();
+
+            for (final Iterator<Resource> iter = folder.listChildren(); iter.hasNext();) {
+                final Resource skuResource = iter.next();
+
+                count++;
+
+                if (gtin.equalsIgnoreCase((String) skuResource.getValueMap().get("hybris:gtin"))) {
+                    LOG.debug("traversed over {} nodes", count);
+
+                    return skuResource.adaptTo(Sku.class);
+                }
+            }
+        }
+
+        LOG.warn("no product found for gtin {}. traversed over {} nodes", gtin, count);
+
+        return null;
     }
 
     @Override
