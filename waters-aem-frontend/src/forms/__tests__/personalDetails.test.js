@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import Form from '../form';
 
-import { personalConfig } from '../__mocks__/index';
+import { personalConfig } from '../__mocks__/en_US/mockData';
 import { checkRenderInput, 
         checkRenderCheckbox, 
         checkRenderDropdown, 

@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import Form from '../form';
 
-import { changePasswordConfig } from '../__mocks__/index';
+import { changePasswordConfig } from '../__mocks__/en_US/mockData';
 import { checkRenderInput,
         checkRenderPassword, 
         checkRenderPasswordRequirements,

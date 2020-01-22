@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import Form from '../form';
-import { signInConfig } from '../__mocks__/index.js';
+import { signInConfig } from '../__mocks__/en_US/mockData';
 
 import { checkRenderInput, 
     checkRenderPassword, 
