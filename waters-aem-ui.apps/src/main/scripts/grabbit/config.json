@@ -1,6 +1,6 @@
 {
-  "serverUsername" : "<username>",
-  "serverPassword" : "<password>",
+  "serverUsername" : "grabbit-user",
+  "serverPassword" : "Grabbit2020!",
   "serverHost" : "dev-author.waters.com",
   "serverPort" : "4502",
   "batchSize" : 150,
@@ -11,7 +11,7 @@
       "batchSize" : 150,
       "excludePaths" :
       [
-        "shop/columns--bulk-media",
+        "shop/columns",
         "shop/sample-preparation--filtration",
         "shop/vials-containers--collection-plates",
         "shop/standards--reagents",
@@ -24,7 +24,7 @@
       "batchSize" : 150,
       "excludePaths" :
       [
-        "shop/columns--bulk-media",
+        "shop/columns",
         "shop/sample-preparation--filtration",
         "shop/vials-containers--collection-plates",
         "shop/standards--reagents",
@@ -37,7 +37,7 @@
       "batchSize" : 150,
       "excludePaths" :
       [
-        "shop/columns--bulk-media",
+        "shop/columns",
         "shop/sample-preparation--filtration",
         "shop/vials-containers--collection-plates",
         "shop/standards--reagents",
