@@ -53,11 +53,11 @@ const Form = ({
 
     const [errorUpdates, setUpdate] = useState({});
     const [failedAttempts, setFailedAttempts] = useState(1);
+    const captchaFailedAttempts = config.fields.filter(field=>field.type==='captcha')[0].failedAttempts;
 
     const updateFailedAttempts = (formName) => {
         if(formName==='signin'){
             setFailedAttempts((failedAttempts) => failedAttempts + 1);
-            const captchaFailedAttempts = config.fields.filter(field=>field.type==='captcha')[0].failedAttempts;
             if(captchaFailedAttempts && failedAttempts===captchaFailedAttempts) {
                 activateField('captcha');
             }
