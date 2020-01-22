@@ -1,110 +1,84 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import Form from '../form';
+import { signInConfig } from '../__mocks__/index.js';
 
-const config =
-    {
-        "submitEndpoint": "https://test-www.waters.com:8443/api/waters/user/v1/login",
-        "siteKey": "6Ld5WMIUAAAAACZQvEc7I75aEg5AC8YUUO0W7zRG",
-        "formName": "signin",
-        "buttonText": "SIGN IN",
-        "icons": {
-            "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
-            "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
-            "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
-            "eyeIcon": "/content/dam/waters/en/brand-assets/icons/eye.svg",
-            "eyeOffIcon": "/content/dam/waters/en/brand-assets/icons/eye-off.svg",
-            "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
-        },
-        "fields": [
-            {
-                "type": "email",
-                "name": "email",
-                "label": "Email Address",
-                "validation": {
-                    "required": true,
-                    "validateFnName": "email",
-                    "requiredMsg": "Please enter a valid email address.",
-                    "validationMsg": "Please enter a valid email address."
-                }
-            },
-            {
-                "type": "password",
-                "name": "password",
-                "label": "Password",
-                "validation": {
-                    "required": true,
-                    "validateFnName": "noValidation",
-                    "requiredMsg": ""
-                }
-            },
-            {
-                "type": "link",
-                "name": "forgotPassword",
-                "text": "Having trouble signing in?",
-                "link": "/nextgen/be.html"
-            }
-        ]
-    };
+import { checkRenderInput, 
+    checkRenderPassword, 
+    checkRenderSubmitButton,
+    checkEventsInput, 
+    checkEventsCheckbox } from '../__utils__/utils';
 
-const submitFn = jest.fn();
+const mockSubmitFn = jest.fn();
 const isocode = 'en_us';
+let wrapper;
+
+beforeEach(async () => {
+    await act(async () => {
+        wrapper = mount(<Form config={signInConfig} submitFn={mockSubmitFn} isocode={isocode} />);
+    })
+});
+
+afterEach(() => {
+    wrapper.unmount();
+    jest.clearAllMocks();
+});
 
 describe('Feature: Sign In Form', () => {
     describe('Scenario: Rendering', () => {
         describe('When initial render', ()=>{
+
             it('Then the snapshot should match', () => {
-                const json = renderer.create(<Form config={config} submitFn={submitFn} isocode={isocode} />);
+                const json = renderer.create(<Form config={signInConfig} submitFn={mockSubmitFn} isocode={isocode} />);
                 expect(json).toMatchSnapshot();
             });
-            it('Then it should render an email address field', async ()=>{
-                let wrapper;
-                await act(async () => {
-                    wrapper = mount(<Form config={config} submitFn={submitFn} isocode={isocode} />);
-                });
 
-                const label = wrapper.find('label[htmlFor="email"]');
-                expect(label.exists()).toEqual(true);
+            it('Then it should render an email field', async () => {
+                checkRenderInput(wrapper, "email");
+            });
 
-                const input = wrapper.find('input[name="email"]');
-                expect(input.exists()).toEqual(true);
-                wrapper.unmount();
-            })
-            it('Then it should render a password field', async ()=>{
-                let wrapper;
-                await act(async () => {
-                    wrapper = mount(<Form config={config} submitFn={submitFn} isocode={isocode} />);
-                });
+            let isValidation = false;
+            it('Then it should render a password field', async () => {
+                checkRenderPassword(wrapper, "password", isValidation);
+            });
 
-                const label = wrapper.find('label[htmlFor="password"]');
-                expect(label.exists()).toEqual(true);
-
-                const input = wrapper.find('input[name="password"]');
-                expect(input.exists()).toEqual(true);
-                wrapper.unmount();
-            })
             it('Then it should render a link', async ()=>{
-                let wrapper;
-                await act(async () => {
-                    wrapper = mount(<Form config={config} submitFn={submitFn} isocode={isocode} />);
-                });
-
                 const link = wrapper.find('div.cmp-form-field-link--forgotPassword').find('a');
                 expect(link.exists()).toEqual(true);
-                wrapper.unmount();
-            })
-            it('Then it should render a submit button', async ()=>{
-                let wrapper;
-                await act(async () => {
-                    wrapper = mount(<Form config={config} submitFn={submitFn} isocode={isocode} />);
-                });
+            });
 
+            let isDisabled = true;
+            it('Then it should render a disabled submit button', async () => {
+                checkRenderSubmitButton(wrapper, "SIGN IN", isDisabled);
+            });
+        });
+
+        describe('Checking Events', () => {
+
+            it('Then it should check events on email field', async () => {
+                checkEventsInput(wrapper, "email");
+            });
+            
+            it('Then it should check events on password field', async () => {
+                checkEventsInput(wrapper, "password");
+            });
+            
+            it('Then it should check events on submit button', async () => {
                 const button = wrapper.find('button');
-                expect(button.exists()).toEqual(true);
-                wrapper.unmount();
-            })
-        })
-    })
-})
+                button.props().onClick = mockSubmitFn;               
+                button.props().onClick();
+                expect(mockSubmitFn).toHaveBeenCalledTimes(1);
+            });
+
+            it('Then it should check events on form', async () => {
+                const form = wrapper.find('form');
+                form.props().onSubmit = mockSubmitFn;               
+                form.props().onSubmit();
+                expect(mockSubmitFn).toHaveBeenCalledTimes(1);
+            });
+
+        });
+    });
+});
