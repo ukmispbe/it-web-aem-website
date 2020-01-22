@@ -52,6 +52,27 @@ const Form = ({
     };
 
     const [errorUpdates, setUpdate] = useState({});
+    const [failedAttempts, setFailedAttempts] = useState(1);
+    const captchaFailedAttempts = config.fields.filter(field=>field.type==='captcha')[0].failedAttempts;
+
+    const updateFailedAttempts = (formName) => {
+        if(formName==='signin'){
+            setFailedAttempts((failedAttempts) => failedAttempts + 1);
+            if(captchaFailedAttempts && failedAttempts===captchaFailedAttempts) {
+                activateField('captcha');
+            }
+        }
+    }
+
+    const activateField = (inputName) => {
+        const fields = config.fields.map((field)=>{
+            if(field.type===inputName) {
+                field.active = true;
+            }
+            return field;
+        });
+        config.fields = [...fields];
+    }
 
     useEffect(() => {
         for (let name in errorUpdates) {
@@ -104,7 +125,7 @@ const Form = ({
                 field,
                 isocode
             }),
-            [field]
+            [field, field.active]
         );
         return (
                 <FieldApi.Provider value={getFieldApi} key={`field-${i}`}>
@@ -120,7 +141,8 @@ const Form = ({
                     url: config.submitEndpoint,
                     setError: submitErrorHandler,
                     redirect: config.redirectUrl,
-                    callback: callback
+                    callback: callback,
+                    updateFailedAttempts: updateFailedAttempts
                 })
             )}
         >
