@@ -6,7 +6,7 @@ import { shallow, mount } from "enzyme";
 import Fader from "../../../scripts/fade-x.js";
 import Tabs from "../";
 
-describe("Feature: Tab", () => {
+describe("Feature: Tabs Component", () => {
     const propsWithOutItems = {
         items: [],
         activeIndex: -1,
@@ -39,14 +39,16 @@ describe("Feature: Tab", () => {
         describe("When no tabs are provided", () => {
             it("Then it should match snapshot", () => {
                 const json = renderer.create(<Tabs {...propsWithOutItems} />);
-                // TODO
+                
+                expect(json).toMatchSnapshot();
             });
         });
 
         describe("When tabs are provided", () => {
             it("Then it should match snapshot", () => {
                 const json = renderer.create(<Tabs {...propsWithItems} />);
-                // TODO
+                
+                expect(json).toMatchSnapshot();
             });
         });
     });
