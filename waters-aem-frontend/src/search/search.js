@@ -23,7 +23,7 @@ import BtnApplySortFilter from './components/btn-apply-sort-filter';
 import BtnDoneSortFilter from './components/btn-done-sort-filter';
 import Spinner from './components/spinner';
 import { CategoriesMenu } from './components/categories-menu';
-import CategoryTabs from './components/categories-tabs';
+import Tabs from "../navigation/tabs";
 import validator from 'validator';
 import domElements from '../scripts/domElements';
 import screenSizes from '../scripts/screenSizes';
@@ -1241,10 +1241,11 @@ class Search extends Component {
 
     renderCategoryTabs = okToRender =>
         this.showFilteringComponents()
-        ? <CategoryTabs
+        ? <Tabs className="cmp-search__categories-tabs"
                 items={this.state.categoryTabs}
                 activeIndex={this.state.activeTabIndex}
                 onClick={this.handleCategorySelected}
+                enableFading={true}
             />
         : <></>;
     
