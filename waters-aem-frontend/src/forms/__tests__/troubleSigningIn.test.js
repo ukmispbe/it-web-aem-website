@@ -3,20 +3,23 @@ import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import Form from '../form';
-import { signInConfig } from '../__mocks__/index.js';
 
+import { registrationConfig } from '../__mocks__/index';
 import { checkRenderInput, 
-    checkRenderPassword, 
-    checkRenderSubmitButton,
-    checkEventsInput } from '../__utils__/utils';
+        checkRenderReCAPTCHA,
+        checkRenderSubmitButton,
+        checkEventsReCAPTCHA,
+        checkEventsInput } from '../__utils__/utils';
 
 const mockSubmitFn = jest.fn();
 const isocode = 'en_us';
+const sitekey = "6Ld5WMIUAAAAACZQvEc7I75aEg5AC8YUUO0W7zRG";
+
 let wrapper;
 
 beforeEach(async () => {
     await act(async () => {
-        wrapper = mount(<Form config={signInConfig} submitFn={mockSubmitFn} isocode={isocode} />);
+        wrapper = mount(<Form config={registrationConfig} submitFn={mockSubmitFn} isocode={isocode} />);
     })
 });
 
@@ -25,12 +28,14 @@ afterEach(() => {
     jest.clearAllMocks();
 });
 
-describe('Feature: Sign In Form', () => {
+describe('Feature:Trouble Signing In Form', () => {
     describe('Scenario: Rendering', () => {
-        describe('When initial render', ()=>{
-
-            it('Then the snapshot should match', () => {
-                const json = renderer.create(<Form config={signInConfig} submitFn={mockSubmitFn} isocode={isocode} />);
+        describe('When initial render', () => {
+            it('Then the snapshot should match', async () => {
+                let json
+                await renderer.act(async () => {
+                    json = renderer.create(<Form config={registrationConfig} submitFn={mockSubmitFn} isocode={isocode} />);
+                });
                 expect(json).toMatchSnapshot();
             });
 
@@ -38,30 +43,29 @@ describe('Feature: Sign In Form', () => {
                 checkRenderInput(wrapper, "email");
             });
 
-            let isValidation = false;
-            it('Then it should render a password field', async () => {
-                checkRenderPassword(wrapper, "password", isValidation);
+            it('Then it should render a reCaptcha field', async () => {
+                checkRenderReCAPTCHA(wrapper, sitekey);
             });
 
-            it('Then it should render a link', async ()=>{
-                const link = wrapper.find('div.cmp-form-field-link--forgotPassword').find('a');
-                expect(link.exists()).toEqual(true);
-            });
-
-            let isDisabled = true;
+            const isDisabledButton = true;
             it('Then it should render a disabled submit button', async () => {
-                checkRenderSubmitButton(wrapper, "SIGN IN", isDisabled);
+                checkRenderSubmitButton(wrapper, "Create Account", isDisabledButton);
             });
+
+            it('Then it should render a form', async () => {
+                const form = wrapper.find('form');
+                expect(form.exists()).toEqual(true);
+            });
+
         });
 
         describe('Checking Events', () => {
-
             it('Then it should check events on email field', async () => {
                 checkEventsInput(wrapper, "email");
             });
-            
-            it('Then it should check events on password field', async () => {
-                checkEventsInput(wrapper, "password");
+
+            it('Then it should check events on ReCAPTCHA field', async () => {
+                checkEventsReCAPTCHA(wrapper);
             });
             
             it('Then it should check events on submit button', async () => {
