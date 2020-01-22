@@ -1,13 +1,13 @@
 import React from 'react';
 import { propTypes, defaultProps } from './search.component.props';
 import { Aside, Menu, ResultsBody } from './search.component.helpers';
-import CategoryTabs from './components/categories-tabs';
+import Tabs from '../navigation/tabs';
 import ResultsCount from './components/results-count';
 
 const SearchComponent = props => {
     return (
         <>
-            <CategoryTabs
+            <Tabs className="cmp-search__categories-tabs"
                 items={props.categoryProps.categories}
                 activeIndex={props.categoryProps.activeIndex}
                 onClick={props.categoryEvents.onCategoryTabClick} />

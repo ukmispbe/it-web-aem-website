@@ -1,3 +1,1 @@
-const Fader = jest.fn(() => { return () => {} });
-
-export default Fader;
+export default jest.fn();
