@@ -363,3 +363,50 @@ export const signInConfig =
         }
     ]
 };
+
+
+export const resetPasswordConfig = {
+    submitEndpoint: "${resetPassword.changePasswordUrl @ context='unsafe'}",
+    buttonText: "Reset Password",
+    redirectUrl: "${resetPassword.redirectLink.href @ context='unsafe'}",
+    icons: {
+        checkmarkIcon: "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+        validIcon: "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+        invalidIcon: "/content/dam/waters/en/brand-assets/icons/attention.svg",
+        eyeIcon: "/content/dam/waters/en/brand-assets/icons/eye.svg",
+        eyeOffIcon: "/content/dam/waters/en/brand-assets/icons/eye-off.svg",
+        signInIcon: "/content/dam/waters/en/brand-assets/icons/user.svg"
+    },
+    fields: [
+        {
+            type: "body",
+            name: "details",
+            text: "You are resetting the password for the account associated with the email address",
+            additionalText: {
+                query: "email"
+            }
+        },
+        {
+            type: "password",
+            name: "password",
+            label: "Create Password",
+            hasMatch: true,
+            matchLabel: "Confirm Password",
+            validation: {
+                required: true,
+                validateFnName: "password",
+                validationMsg: "Please enter a valid password.",
+                requiredMsg: "Please enter a password.",
+                nonMatchingMsg: "Passwords must match. Please try again.",
+                requirementsLabel: "Your password must include",
+                requirements: [
+                    {name: "shortPassword", msg: "at least 8 characters"},
+                    {name: "noUppercase", msg: "at least 1 uppercase letter"},
+                    {name: "noLowercase", msg: "at least 1 lowercase letter"},
+                    {name: "noDigits", msg: "at least 1 number"},
+                    {name: "noSpecial", msg: "at least 1 symbol (for example, !, $, #, %)"}
+                ]
+            }
+        }
+    ]
+};
