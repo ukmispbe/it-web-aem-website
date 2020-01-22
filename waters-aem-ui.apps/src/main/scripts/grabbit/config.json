@@ -55,7 +55,7 @@
       "batchSize" : 150
     },
     {
-      "path" : "/content/dam/waters/en/brand-assets/icons",
+      "path" : "/content/dam/waters/en/brand-assets",
       "batchSize" : 150
     }
   ]
