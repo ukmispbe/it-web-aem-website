@@ -49,8 +49,6 @@ class Search extends Component {
         this.state = this.initialState();
     }
 
-
-
     componentDidMount() {
         this.addHistoryListener();
         this.addResizeListener();
