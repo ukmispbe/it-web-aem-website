@@ -22,8 +22,8 @@ import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-@Component(value = "Reset Password",
-    description = "This is the Reset Password component for Waters site",
+@Component(value = "Reset/Update Password",
+    description = "This is the Reset/Update Password component for Waters site.",
     path = WatersConstants.COMPONENT_PATH_FORMS)
 @Model(adaptables = SlingHttpServletRequest.class,
     adapters = { ResetPassword.class, ComponentExporter.class },
@@ -63,7 +63,7 @@ public class ResetPassword implements ComponentExporter {
         }
     )
     @Inject
-    @Default(values =  RESET_OPTION)
+    @Default(values = RESET_OPTION)
     private String formType;
 
     public Link getRedirectLink() {
