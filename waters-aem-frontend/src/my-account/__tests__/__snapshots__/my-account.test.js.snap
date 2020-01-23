@@ -1,139 +1,167 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Feature: My Account Component Scenario Render My Account and check snapshots When all props are present Then the snapshot should match 1`] = `
+exports[`Feature: My Account Component Scenario: Rendering When all props are present Then the snapshot should match 1`] = `
 <div
-  className="cmp-my-account"
+  className="cmp-my-account-wrapper"
 >
   <div
-    className="cmp-my-account-tiles"
+    class="cmp-title"
+  >
+    <h1
+      class="cmp-title__text"
+    >
+      My Account
+    </h1>
+    <div
+      class="cmp-title__print"
+    >
+      My Account
+    </div>
+    <div
+      className="cmp-accent-rule"
+    >
+      <hr />
+    </div>
+  </div>
+  <div
+    className="cmp-my-account__body"
+  >
+    Find all the resources and tools you need to manage your Waters account online.
+  </div>
+  <div
+    className="cmp-my-account__tiles"
   >
     <div
-      className="cmp-linktile"
+      className="tile"
     >
       <div
-        className="cmp-linktile-column"
+        className="cmp-linktile"
       >
         <div
-          className="cmp-linktile--icon"
-        />
+          className="cmp-linktile-column"
+        >
+          <div
+            className="cmp-linktile--icon"
+          />
+        </div>
+        <div
+          className="cmp-linktile-column"
+        >
+          <div
+            className="cmp-linktile--title"
+          >
+            Account Information
+          </div>
+          <div
+            className="cmp-linktile--links"
+          >
+            <a
+              className="cmp-linktile--link"
+              href="#profile"
+            >
+              Profile
+            </a>
+          </div>
+          <div
+            className="cmp-linktile--links"
+          >
+            <a
+              className="cmp-linktile--link"
+              href="#changepassword"
+            >
+              Password
+            </a>
+          </div>
+        </div>
       </div>
       <div
-        className="cmp-linktile-column"
+        className="cmp-linktile"
       >
         <div
-          className="cmp-linktile--title"
+          className="cmp-linktile-column"
         >
-          Account
+          <div
+            className="cmp-linktile--icon"
+          />
         </div>
         <div
-          className="cmp-linktile--links"
+          className="cmp-linktile-column"
         >
-          <a
-            className="cmp-linktile--link"
-            href="www.waters.com/profile"
+          <div
+            className="cmp-linktile--title"
           >
-            Profile
-          </a>
-        </div>
-        <div
-          className="cmp-linktile--links"
-        >
-          <a
-            className="cmp-linktile--link"
-            href="www.waters.com/changepassword"
+            Orders
+          </div>
+          <div
+            className="cmp-linktile--links"
           >
-            Password
-          </a>
+            <a
+              className="cmp-linktile--link"
+              href="#orderhistory"
+            >
+              Order History
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-    <div
-      className="cmp-linktile"
-    >
       <div
-        className="cmp-linktile-column"
+        className="cmp-linktile"
       >
         <div
-          className="cmp-linktile--icon"
-        />
-      </div>
-      <div
-        className="cmp-linktile-column"
-      >
-        <div
-          className="cmp-linktile--title"
+          className="cmp-linktile-column"
         >
-          Orders
+          <div
+            className="cmp-linktile--icon"
+          />
         </div>
         <div
-          className="cmp-linktile--links"
+          className="cmp-linktile-column"
         >
-          <a
-            className="cmp-linktile--link"
-            href="www.waters.com/orders/history"
+          <div
+            className="cmp-linktile--title"
           >
-            Order History
-          </a>
-        </div>
-      </div>
-    </div>
-    <div
-      className="cmp-linktile"
-    >
-      <div
-        className="cmp-linktile-column"
-      >
-        <div
-          className="cmp-linktile--icon"
-        />
-      </div>
-      <div
-        className="cmp-linktile-column"
-      >
-        <div
-          className="cmp-linktile--title"
-        >
-          Additional Resources
-        </div>
-        <div
-          className="cmp-linktile--links"
-        >
-          <a
-            className="cmp-linktile--link"
-            href="www.waters.com/techsupport"
+            Additional Links
+          </div>
+          <div
+            className="cmp-linktile--links"
           >
-            Request Technical Support
-          </a>
-        </div>
-        <div
-          className="cmp-linktile--links"
-        >
-          <a
-            className="cmp-linktile--link"
-            href="www.waters.com/knowledgebase"
+            <a
+              className="cmp-linktile--link"
+              href="https://www.waters.com/waters/nav.htm?cid=10006027"
+            >
+              Request Technical Support
+            </a>
+          </div>
+          <div
+            className="cmp-linktile--links"
           >
-            Waters Knowledgebase
-          </a>
-        </div>
-        <div
-          className="cmp-linktile--links"
-        >
-          <a
-            className="cmp-linktile--link"
-            href="www.waters.com/training"
+            <a
+              className="cmp-linktile--link"
+              href="https://www.waters.com/waters/nav.htm?cid=134614448"
+            >
+              Waters Knowledgebase
+            </a>
+          </div>
+          <div
+            className="cmp-linktile--links"
           >
-            Training Courses
-          </a>
-        </div>
-        <div
-          className="cmp-linktile--links"
-        >
-          <a
-            className="cmp-linktile--link"
-            href="www.waters.com/contact"
+            <a
+              className="cmp-linktile--link"
+              href="https://www.waters.com/waters/nav.htm?cid=513247"
+            >
+              Training Courses
+            </a>
+          </div>
+          <div
+            className="cmp-linktile--links"
           >
-            Contact Waters
-          </a>
+            <a
+              className="cmp-linktile--link"
+              href="https://www.waters.com/waters/localeRedirect.htm?type=contact_us"
+            >
+              Contact Waters
+            </a>
+          </div>
         </div>
       </div>
     </div>

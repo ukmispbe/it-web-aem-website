@@ -1,0 +1,438 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: Aside Component for my account Scenario: Rendering When no link is active Then it should match snapshot 1`] = `
+<div
+  className="cmp-my-account__aside-wrapper"
+>
+  <div
+    class="cmp-title"
+  >
+    <h1
+      class="cmp-title__text"
+    >
+      
+    </h1>
+    <div
+      class="cmp-title__print"
+    >
+      
+    </div>
+    <div
+      className="cmp-accent-rule"
+    >
+      <hr />
+    </div>
+  </div>
+  <div
+    className="cmp-my-account__aside-links"
+  >
+    <div
+      className="tile"
+    >
+      <div
+        className="tile__title"
+      >
+        Account Information
+      </div>
+      <div
+        className="tile__links"
+      >
+        <a
+          href="#/profile"
+          onClick={[Function]}
+        >
+          Profile
+        </a>
+        <a
+          href="#/changepassword"
+          onClick={[Function]}
+        >
+          Password
+        </a>
+      </div>
+    </div>
+    <div
+      className="tile"
+    >
+      <div
+        className="tile__title"
+      >
+        Orders
+      </div>
+      <div
+        className="tile__links"
+      >
+        <a
+          href="#/orderhistory"
+          onClick={[Function]}
+        >
+          Order History
+        </a>
+      </div>
+    </div>
+    <div
+      className="tile"
+    >
+      <div
+        className="tile__title"
+      >
+        Additional Links
+      </div>
+      <div
+        className="tile__links"
+      >
+        <a
+          href="https://www.waters.com/waters/nav.htm?cid=10006027"
+        >
+          Request Technical Support
+        </a>
+        <a
+          href="https://www.waters.com/waters/nav.htm?cid=134614448"
+        >
+          Waters Knowledgebase
+        </a>
+        <a
+          href="https://www.waters.com/waters/nav.htm?cid=513247"
+        >
+          Training Courses
+        </a>
+        <a
+          href="https://www.waters.com/waters/localeRedirect.htm?type=contact_us"
+        >
+          Contact Waters
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    className="cmp-my-account__aside-content"
+  />
+</div>
+`;
+
+exports[`Feature: Aside Component for my account Scenario: Rendering When orders link is active Then it should match snapshot 1`] = `
+<div
+  className="cmp-my-account__aside-wrapper"
+>
+  <div
+    class="cmp-title"
+  >
+    <h1
+      class="cmp-title__text"
+    >
+      Order History
+    </h1>
+    <div
+      class="cmp-title__print"
+    >
+      Order History
+    </div>
+    <div
+      className="cmp-accent-rule"
+    >
+      <hr />
+    </div>
+  </div>
+  <div
+    className="cmp-my-account__aside-links"
+  >
+    <div
+      className="tile"
+    >
+      <div
+        className="tile__title"
+      >
+        Account Information
+      </div>
+      <div
+        className="tile__links"
+      >
+        <a
+          href="#/profile"
+          onClick={[Function]}
+        >
+          Profile
+        </a>
+        <a
+          href="#/changepassword"
+          onClick={[Function]}
+        >
+          Password
+        </a>
+      </div>
+    </div>
+    <div
+      className="tile"
+    >
+      <div
+        className="tile__title"
+      >
+        Orders
+      </div>
+      <div
+        className="tile__links"
+      >
+        <span
+          className="link--active"
+        >
+          Order History
+        </span>
+      </div>
+    </div>
+    <div
+      className="tile"
+    >
+      <div
+        className="tile__title"
+      >
+        Additional Links
+      </div>
+      <div
+        className="tile__links"
+      >
+        <a
+          href="https://www.waters.com/waters/nav.htm?cid=10006027"
+        >
+          Request Technical Support
+        </a>
+        <a
+          href="https://www.waters.com/waters/nav.htm?cid=134614448"
+        >
+          Waters Knowledgebase
+        </a>
+        <a
+          href="https://www.waters.com/waters/nav.htm?cid=513247"
+        >
+          Training Courses
+        </a>
+        <a
+          href="https://www.waters.com/waters/localeRedirect.htm?type=contact_us"
+        >
+          Contact Waters
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    className="cmp-my-account__aside-content"
+  />
+</div>
+`;
+
+exports[`Feature: Aside Component for my account Scenario: Rendering When password link is active Then it should match snapshot 1`] = `
+<div
+  className="cmp-my-account__aside-wrapper"
+>
+  <div
+    class="cmp-title"
+  >
+    <h1
+      class="cmp-title__text"
+    >
+      Password
+    </h1>
+    <div
+      class="cmp-title__print"
+    >
+      Password
+    </div>
+    <div
+      className="cmp-accent-rule"
+    >
+      <hr />
+    </div>
+  </div>
+  <div
+    className="cmp-my-account__aside-links"
+  >
+    <div
+      className="tile"
+    >
+      <div
+        className="tile__title"
+      >
+        Account Information
+      </div>
+      <div
+        className="tile__links"
+      >
+        <a
+          href="#/profile"
+          onClick={[Function]}
+        >
+          Profile
+        </a>
+        <span
+          className="link--active"
+        >
+          Password
+        </span>
+      </div>
+    </div>
+    <div
+      className="tile"
+    >
+      <div
+        className="tile__title"
+      >
+        Orders
+      </div>
+      <div
+        className="tile__links"
+      >
+        <a
+          href="#/orderhistory"
+          onClick={[Function]}
+        >
+          Order History
+        </a>
+      </div>
+    </div>
+    <div
+      className="tile"
+    >
+      <div
+        className="tile__title"
+      >
+        Additional Links
+      </div>
+      <div
+        className="tile__links"
+      >
+        <a
+          href="https://www.waters.com/waters/nav.htm?cid=10006027"
+        >
+          Request Technical Support
+        </a>
+        <a
+          href="https://www.waters.com/waters/nav.htm?cid=134614448"
+        >
+          Waters Knowledgebase
+        </a>
+        <a
+          href="https://www.waters.com/waters/nav.htm?cid=513247"
+        >
+          Training Courses
+        </a>
+        <a
+          href="https://www.waters.com/waters/localeRedirect.htm?type=contact_us"
+        >
+          Contact Waters
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    className="cmp-my-account__aside-content"
+  />
+</div>
+`;
+
+exports[`Feature: Aside Component for my account Scenario: Rendering When profile link is active Then it should match snapshot 1`] = `
+<div
+  className="cmp-my-account__aside-wrapper"
+>
+  <div
+    class="cmp-title"
+  >
+    <h1
+      class="cmp-title__text"
+    >
+      Profile
+    </h1>
+    <div
+      class="cmp-title__print"
+    >
+      Profile
+    </div>
+    <div
+      className="cmp-accent-rule"
+    >
+      <hr />
+    </div>
+  </div>
+  <div
+    className="cmp-my-account__aside-links"
+  >
+    <div
+      className="tile"
+    >
+      <div
+        className="tile__title"
+      >
+        Account Information
+      </div>
+      <div
+        className="tile__links"
+      >
+        <span
+          className="link--active"
+        >
+          Profile
+        </span>
+        <a
+          href="#/changepassword"
+          onClick={[Function]}
+        >
+          Password
+        </a>
+      </div>
+    </div>
+    <div
+      className="tile"
+    >
+      <div
+        className="tile__title"
+      >
+        Orders
+      </div>
+      <div
+        className="tile__links"
+      >
+        <a
+          href="#/orderhistory"
+          onClick={[Function]}
+        >
+          Order History
+        </a>
+      </div>
+    </div>
+    <div
+      className="tile"
+    >
+      <div
+        className="tile__title"
+      >
+        Additional Links
+      </div>
+      <div
+        className="tile__links"
+      >
+        <a
+          href="https://www.waters.com/waters/nav.htm?cid=10006027"
+        >
+          Request Technical Support
+        </a>
+        <a
+          href="https://www.waters.com/waters/nav.htm?cid=134614448"
+        >
+          Waters Knowledgebase
+        </a>
+        <a
+          href="https://www.waters.com/waters/nav.htm?cid=513247"
+        >
+          Training Courses
+        </a>
+        <a
+          href="https://www.waters.com/waters/localeRedirect.htm?type=contact_us"
+        >
+          Contact Waters
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    className="cmp-my-account__aside-content"
+  />
+</div>
+`;

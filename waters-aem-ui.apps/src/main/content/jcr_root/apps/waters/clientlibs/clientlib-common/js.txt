@@ -4,6 +4,7 @@ modernizr.js
 parentNode.prepend.js
 childNode.after.js
 string.prototype.startsWith.js
+string.prototype.endsWidth.js
 string.prototype.repeat.js
 array.prototype.filter.js
 array.prototype.find.js

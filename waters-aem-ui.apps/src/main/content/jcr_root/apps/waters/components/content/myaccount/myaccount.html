@@ -2,9 +2,11 @@
     <div class="cmp-my-account--attach" id="my-account"></div>
     <script type="application/json" id="cmp-my-account">
         {
+            "title": "${'My Account' @ i18n, context='unsafe'}",
+            "body": "${myaccount.bodyText @ context="unsafe"}",
             "tiles": [
                 {
-                    "title": "${'Account' @ i18n, context='unsafe'}",
+                    "title": "${'Account Information' @ i18n, context='unsafe'}",
                     "icon": "/content/dam/waters/en/brand-assets/icons/user.svg",
                     "links": [
                         {
@@ -28,7 +30,7 @@
                     ]
                 },
                 {
-                    "title": "${'Additional Resources' @ i18n, context='unsafe'}",
+                    "title": "${'Additional Links' @ i18n, context='unsafe'}",
                     "icon": "/content/dam/waters/en/brand-assets/icons/link.svg",
                     "links": ${myaccount.additionalResources @ context="unsafe"}
                 }
