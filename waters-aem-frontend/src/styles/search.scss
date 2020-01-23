@@ -289,8 +289,8 @@ div.cmp-search__no-results {
     box-shadow: $shadow;
     border: none;
     margin: 0;
-    padding: $space-xs $space-xs $space-xs 1.32em;
-    height: 54px;
+    padding: ($space-xs - .05em) $space-xs $space-xs 1.32em;
+    height: 47px !important;
     opacity: 1!important;
 }
 
@@ -331,7 +331,7 @@ div.cmp-search__no-results {
                 stroke: $color-icon;
             }
             @include mobile {
-                top: 15px;
+                top: 12px;
                 right: 12px;
             }
         }
@@ -493,7 +493,7 @@ div.cmp-search__no-results {
 
         .cmp-search__sorted-by{
             order: 0;
-            padding-bottom: ($space-xxl + $space-l);
+            padding-bottom: $space-xxl;
             padding-top: 0;
         }
         .cmp-search-filters__tag {

@@ -114,8 +114,7 @@
         }
 
         &-title {
-            @include font-h3;
-            color: $color-font-medium;
+            @include font-utility-large;
             margin-bottom: $space-s;
         }
 
@@ -141,7 +140,7 @@
 .cmp-features--signin {
 
     .cmp-features {
-        margin-bottom: $space-s;
+        margin-bottom: $space-m;
         padding: 0;
 
         &__list {
