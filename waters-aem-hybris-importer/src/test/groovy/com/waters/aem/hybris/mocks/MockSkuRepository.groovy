@@ -35,6 +35,11 @@ class MockSkuRepository implements SkuRepository {
     }
 
     @Override
+    public Sku getSkuForGtin(ResourceResolver resourceResolver, String gtin) {
+
+    }
+
+    @Override
     Map<String, String> getSkuCodeToPagePathMap(PageDecorator currentPage) {
         return new HashMap<String, String>()
     }

@@ -64,14 +64,14 @@ public final class DefaultSkuRepository implements SkuRepository {
             final Resource folder = it.next();
 
             for (final Iterator<Resource> iter = folder.listChildren(); iter.hasNext();) {
-                final Resource skuResource = iter.next();
+                final Sku sku = iter.next().adaptTo(Sku.class);
 
                 count++;
 
-                if (gtin.equalsIgnoreCase((String) skuResource.getValueMap().get("hybris:gtin"))) {
+                if (gtin.equalsIgnoreCase(sku.getGtin())) {
                     LOG.debug("traversed over {} nodes", count);
 
-                    return skuResource.adaptTo(Sku.class);
+                    return sku;
                 }
             }
         }

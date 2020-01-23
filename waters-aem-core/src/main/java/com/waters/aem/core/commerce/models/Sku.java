@@ -72,6 +72,9 @@ public final class Sku {
     @ValueMapValue(name = JcrConstants.JCR_LASTMODIFIED)
     private Calendar lastModified;
 
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_GTIN)
+    private String gtin;
+
     public String getPath() {
         return resource.getPath();
     }
@@ -118,6 +121,10 @@ public final class Sku {
 
     public Calendar getLastModified() {
         return lastModified;
+    }
+
+    public String getGtin() {
+        return gtin;
     }
 
     public BigDecimal getPrice(final String country, final String currencyIso) {

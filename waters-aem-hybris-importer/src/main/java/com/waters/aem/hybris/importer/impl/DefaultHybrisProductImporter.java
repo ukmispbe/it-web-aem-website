@@ -282,6 +282,7 @@ public final class DefaultHybrisProductImporter implements HybrisProductImporter
         properties.put(WatersCommerceConstants.PROPERTY_PROPRIETARY, product.getProprietary());
         properties.put(WatersCommerceConstants.PROPERTY_COLD_CHAIN_SHIPPING, product.getColdChainShipping());
         properties.put(WatersCommerceConstants.PROPERTY_HAZARDOUS, product.getHazardous());
+        properties.put(WatersCommerceConstants.PROPERTY_GTIN, product.getGtin());
 
         setNodeProperties(productNode, properties);
 
