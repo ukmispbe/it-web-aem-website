@@ -45,7 +45,7 @@ class Search extends Component {
 
         this.search = props.search;
         this.search.throwError = this.props.setErrorBoundaryToTrue;
-
+        this.buildHref = href => `${window.location.href}/page/${href}`
         this.state = this.initialState();
     }
 
@@ -1372,6 +1372,7 @@ class Search extends Component {
                                 : 0
                         }
                         disableInitialCallback={true}
+                        hrefBuilder={this.buildHref}
                     />
                 ) : null}
             </div>
