@@ -1,5 +1,6 @@
 package com.waters.aem.hybris
 
+import com.day.cq.wcm.msm.api.RolloutManager
 import com.icfolson.aem.library.core.specs.AemLibrarySpec
 import com.icfolson.aem.library.models.impl.EnumInjector
 import com.waters.aem.core.commerce.services.SkuRepository
@@ -13,6 +14,7 @@ import com.waters.aem.hybris.importer.HybrisCatalogImporter
 import com.waters.aem.hybris.importer.HybrisProductImporter
 import com.waters.aem.hybris.importer.impl.DefaultHybrisCatalogImporter
 import com.waters.aem.hybris.importer.impl.DefaultHybrisProductImporter
+import com.waters.aem.hybris.mocks.MockRolloutManager
 import com.waters.aem.hybris.mocks.MockSkuRepository
 import spock.lang.Shared
 
@@ -29,6 +31,7 @@ abstract class AbstractHybrisImporterSpec extends AemLibrarySpec {
         slingContext.registerService(SkuRepository, new MockSkuRepository())
         slingContext.registerService(SiteRepository, new DefaultSiteRepository())
         slingContext.registerService(HybrisImporterAuditService, new MockHybrisImporterAuditService())
+        slingContext.registerService(RolloutManager, new MockRolloutManager())
 
         slingContext.registerInjector(new EnumInjector(), Integer.MIN_VALUE)
 
