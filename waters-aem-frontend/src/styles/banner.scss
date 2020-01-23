@@ -293,6 +293,7 @@
 
 .cmp-banner--header .cmp-banner {
     margin-top: -$space-l;
+    z-index: -2;
 
     @include mobile {
          margin-top: 0;
