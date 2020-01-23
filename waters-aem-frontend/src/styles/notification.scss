@@ -66,10 +66,11 @@
     &-description {
         display: inline;
         text-align: center;
+        @include font-body;
     }
 
     &-title {
-        font-weight: $font-weight-bold;
+        font-weight: $font-weight-regular;
         padding-right: $space-xxxs;
         display: inline;
 
@@ -98,13 +99,14 @@
 .cmp-notification--dynamic {
     height: 0;
     .cmp-notification-wrapper {
-        transform: scale(0);
+        opacity: 0;
     }
 
     &.error {
         height: auto;
         .cmp-notification-wrapper {
-            transform: scale(1);
+            transition: $fade-transition;
+            opacity: 1;
         }
     }
 }
