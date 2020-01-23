@@ -39,6 +39,10 @@ public class ResetPassword implements ComponentExporter {
 
     protected static final String UPDATE_OPTION = "update";
 
+    protected static final String RESET_BUTTON_TEXT = "Reset Password";
+
+    protected static final String UPDATE_BUTTON_TEXT = "Update Password";
+
     @OSGiService
     private WatersAccountService accountService;
 
@@ -58,8 +62,8 @@ public class ResetPassword implements ComponentExporter {
     @Selection(
     type = Selection.SELECT,
     options = {
-            @Option(text = "Reset Password", value = RESET_OPTION),
-            @Option(text = "Update Password", value = UPDATE_OPTION)
+            @Option(text = RESET_BUTTON_TEXT, value = RESET_OPTION),
+            @Option(text = UPDATE_BUTTON_TEXT, value = UPDATE_OPTION)
         }
     )
     @Inject
@@ -76,6 +80,10 @@ public class ResetPassword implements ComponentExporter {
 
     public String getSubmitEndpoint() {
         return formType.equals(RESET_OPTION) ? accountService.getChangePasswordUrl() : accountService.getUpdatePasswordUrl();
+    }
+
+    public String getButtonText() {
+        return formType.equals(RESET_OPTION) ? RESET_BUTTON_TEXT : UPDATE_BUTTON_TEXT;
     }
 
     public String getCaptchaSiteKey() {
