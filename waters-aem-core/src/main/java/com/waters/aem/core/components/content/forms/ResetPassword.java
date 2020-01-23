@@ -78,14 +78,6 @@ public class ResetPassword implements ComponentExporter {
         return formType.equals(RESET_OPTION) ? accountService.getChangePasswordUrl() : accountService.getUpdatePasswordUrl();
     }
 
-    public String getChangePasswordUrl() {
-        return accountService.getChangePasswordUrl();
-    }
-
-    public String getUpdatePasswordUrl() {
-        return accountService.getUpdatePasswordUrl();
-    }
-
     public String getCaptchaSiteKey() {
         return captchaService.getSiteKey();
     }
