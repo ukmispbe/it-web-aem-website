@@ -47,13 +47,24 @@ const Form = ({
         }
     });
 
+    // PB Change the text if Update
+    if (config.formType === "update") {
+        config.fields[0].text = "In order to provide additional account security our password requirements have changed. Please create a new password for the account associated with the email address ";
+    }
+    console.log("config top level", config);
+
     const checkIfDisabled = () => {
         return !formState.isValid;
     };
 
     const [errorUpdates, setUpdate] = useState({});
     const [failedAttempts, setFailedAttempts] = useState(1);
-    const captchaFailedAttempts = config.fields.filter(field=>field.type==='captcha')[0].failedAttempts;
+
+    // PB When there's no Captcha on a form this is throwing an error - Added a check
+    let captchaFailedAttempts = 0;
+    if (config.fields.filter(field=>field.type==='captcha').length !== 0) {
+            captchaFailedAttempts = config.fields.filter(field=>field.type==='captcha')[0].failedAttempts;
+    }   
 
     const updateFailedAttempts = (formName) => {
         if(formName==='signin'){

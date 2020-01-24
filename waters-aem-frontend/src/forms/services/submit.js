@@ -66,25 +66,38 @@ export async function resetPasswordSubmit(data) {
     const email = queryString.email;
     const newPassword = data.password;
 
-    const body = {
+    let body = {
         email,
         resetToken,
         newPassword
     };
 
-    const response = await postData(this.url, body);
+    // Remove resetToken if undefined
+    if (typeof resetToken === "undefined") {
+        body = {
+            email,
+            newPassword
+        };
+      }
 
-    // remove all previous server error notifications
-    this.setError();
+    console.log("body to be submitted", body);
+    console.log("URL ", this.url);
+    console.log("redirect URL ", this.redirect);
+    
+    // const response = await postData(this.url, body);
 
-    if (response.status === 200) {
-        if (this.redirect) {
-            window.location.href = this.redirect;
-        }
-    } else {
-        this.setError(response);
-        scrollToY(0);
-    }
+    // // remove all previous server error notifications
+    // this.setError();
+
+    // if (response.status === 200) {
+
+    //     // if (this.redirect) {
+    //     //     window.location.href = this.redirect;
+    //     // }
+    // } else {
+    //     this.setError(response);
+    //     scrollToY(0);
+    // }
 }
 
 export async function changePasswordSubmit(data) {
