@@ -93,7 +93,7 @@
         label {
             display: block;
             @include font-h4;
-            margin-bottom: $space-xxs;
+            margin-bottom: $space-xxxs;
 
             .cmp-form-field--optional {
                 @include font-small;
@@ -106,7 +106,7 @@
 
         .cmp-form_description {
             @include font-small;
-            margin-bottom: $space-xs;
+            margin-bottom: $space-xxs;
         }
 
         .cmp-form-field--errorText {

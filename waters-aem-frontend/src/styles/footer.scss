@@ -182,7 +182,7 @@
 
 .cmp-footer__copyright {
     float: left;	
-    margin: 0 $space-m;
+    margin: 0 0 $space-s $space-s;
     p {
         @include font-small;
         color: $color-gray-30;

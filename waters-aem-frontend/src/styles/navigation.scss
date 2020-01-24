@@ -147,7 +147,7 @@ nav.cmp-navigation {
          overflow: visible;
 
          &--level-0 {
-            height: 56px;
+            height: 53px;
             z-index: $navigation-level-0-z-index;
             align-content: center;
             display: inline-table;
@@ -254,8 +254,7 @@ nav.cmp-navigation {
 
 
             & .cmp-navigation__item-link {
-               @include font-h3;
-               color: $color-font-dark;
+               @include font-utility-large;
                margin-bottom: 0;
                -webkit-transition: none;
                -o-transition: none;
@@ -274,8 +273,7 @@ nav.cmp-navigation {
                   margin: 0;
                }
 
-               &:hover {
-                  color: $color-font-dark;
+               &:hover {              
                   text-decoration: none;
                }
 
