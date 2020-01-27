@@ -52,8 +52,20 @@ public class SignIn implements ComponentExporter {
     @LinkInject
     private Link forgotPasswordLink;
 
+    @DialogField(fieldLabel = "Force Password Update Link",
+            fieldDescription = "The page that users are redirected to if they must update their password before " +
+                    "continuing with the sign in process.",
+            ranking = 2)
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject
+    private Link forcePasswordUpdateLink;
+
     public Link getForgotPasswordLink() {
         return LinkUtils.getMappedLink(pageManager, forgotPasswordLink);
+    }
+
+    public Link getForcePasswordUpdateLink() {
+        return LinkUtils.getMappedLink(pageManager, forcePasswordUpdateLink);
     }
 
     public Link getHomepageLink() {
