@@ -7,14 +7,18 @@ import com.icfolson.aem.library.core.servlets.AbstractJsonResponseServlet;
 import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.commerce.services.SkuRepository;
 import com.waters.aem.core.services.SiteRepository;
-import com.waters.aem.core.services.qrcode.QrCodeService;
 import org.apache.commons.lang3.LocaleUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.servlets.annotations.SlingServletPaths;
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.metatype.annotations.AttributeDefinition;
+import org.osgi.service.metatype.annotations.Designate;
+import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,18 +30,22 @@ import java.util.concurrent.TimeUnit;
 
 @Component(service = Servlet.class)
 @SlingServletPaths("/bin/waters/qrcode")
+@Designate(ocd = ProductQrCodeServlet.QrCodeServiceConfig.class)
 public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProductQrCodeServlet.class);
+
+    private volatile String defaultLanguageRootPath;
+
+    private volatile String globalExperienceRootPath;
+
+    private volatile String shopAllProductsRelativePath;
 
     @Reference
     private SkuRepository skuRepository;
 
     @Reference
     private SiteRepository siteRepository;
-
-    @Reference
-    private QrCodeService qrCodeService;
 
     @Override
     protected void doGet(final SlingHttpServletRequest request, final SlingHttpServletResponse response)
@@ -66,7 +74,7 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
                 sendDefaultRedirect(response, pageManager, languageRootPath);
             }
         } else {
-            sendDefaultRedirect(response, pageManager, qrCodeService.getDefaultLanguageRootPath());
+            sendDefaultRedirect(response, pageManager, defaultLanguageRootPath);
         }
     }
 
@@ -81,7 +89,7 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
         final String languageRootPath;
 
         if(countryRoot == null) {
-            languageRootPath = qrCodeService.getGlobalExperienceRootPath();
+            languageRootPath = globalExperienceRootPath;
         } else {
             languageRootPath = languageRoot != null ? languageRoot.getPath() : countryRoot.getChildren().get(0).getPath();
         }
@@ -91,6 +99,30 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
 
     private void sendDefaultRedirect(final SlingHttpServletResponse response, final PageManagerDecorator pageManager,
         final String languageRootPath) throws IOException {
-        response.sendRedirect(pageManager.getPage(languageRootPath + qrCodeService.getRedirectPageRelativePath()).getHref());
+        response.sendRedirect(pageManager.getPage(languageRootPath + shopAllProductsRelativePath).getHref());
+    }
+
+    @ObjectClassDefinition(name = "Waters QR Code Service Configuration")
+    public @interface QrCodeServiceConfig {
+
+        @AttributeDefinition(name = "Default Language Root Path", description = "Sets the language path for the default " +
+        "redirect if no sku page is found.")
+        String defaultLanguageRootPath() default "/content/waters/us/en";
+
+        @AttributeDefinition(name = "Global Experience Root Path", description = "The path for the global experience root" +
+        ". This path is used if there is no existing country node")
+        String globalExperienceRootPath() default "/content/waters/xg/en";
+
+        @AttributeDefinition(name = "Default Redirect Page", description = "Sets the relative page path to redirect to in" +
+        " the event that the sku page was not found.")
+        String redirectPageRelativePath() default "/shop/shop-all-products";
+    }
+
+    @Activate
+    @Modified
+    protected void activate(final QrCodeServiceConfig configuration) {
+        defaultLanguageRootPath = configuration.defaultLanguageRootPath();
+        globalExperienceRootPath = configuration.globalExperienceRootPath();
+        shopAllProductsRelativePath = configuration.redirectPageRelativePath();
     }
 }
