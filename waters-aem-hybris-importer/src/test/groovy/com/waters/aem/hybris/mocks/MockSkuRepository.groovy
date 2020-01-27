@@ -35,7 +35,7 @@ class MockSkuRepository implements SkuRepository {
     }
 
     @Override
-    public Sku getSkuForGtin(ResourceResolver resourceResolver, String gtin) {
+    Sku getSkuForGtin(ResourceResolver resourceResolver, String gtin) {
 
     }
 
