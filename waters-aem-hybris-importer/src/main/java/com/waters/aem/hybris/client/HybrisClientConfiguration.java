@@ -7,7 +7,7 @@ import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 public @interface HybrisClientConfiguration {
 
     @AttributeDefinition(name = "Hostname")
-    String hostname() default "backoffice-hybrisdev.waters.com";
+    String hostname() default "api.cfu2u-waterscor1-d1-public.model-t.cc.commerce.ondemand.com";
 
     @AttributeDefinition(name = "Catalog ID")
     String catalogId() default "watersProductCatalog";

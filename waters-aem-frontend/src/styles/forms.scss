@@ -30,7 +30,7 @@
         line-height: $line-height-text;
         letter-spacing: 0.02em;
         margin-bottom: $space-s;
-        margin-top: 0;
+        margin-top: $space-s;
         font-size: $font-size-body;
 
         @include tablet-and-over {
@@ -56,6 +56,9 @@
 
                 svg {
                     display: block;
+                    .st0 {
+                        stroke: $color-disabled;
+                    }
                 }
             }
         }
@@ -90,7 +93,7 @@
         label {
             display: block;
             @include font-h4;
-            margin-bottom: $space-xxs;
+            margin-bottom: $space-xxxs;
 
             .cmp-form-field--optional {
                 @include font-small;
@@ -103,7 +106,7 @@
 
         .cmp-form_description {
             @include font-small;
-            margin-bottom: $space-xs;
+            margin-bottom: $space-xxs;
         }
 
         .cmp-form-field--errorText {
@@ -262,8 +265,9 @@
             }
 
             &:disabled {
-                border: 1px solid $color-disabled !important;
+                border: 1px solid  $color-border-light !important;
                 color: $color-disabled;
+                background-color: $color-white;
             }
         }
 
@@ -505,10 +509,14 @@
     .cmp-custom-dropdown__input {
         margin-top: 0;
     }
+    
+    .cmp-custom-dropdown__control--is-disabled {
+        border-color:  $color-border-light;
+    }
 
     .cmp-form-field-captcha {
         margin-top: $space-s;
-        margin-bottom: $space-l;
+        margin-bottom: $space-s;
     }
 
     &__submission-error {

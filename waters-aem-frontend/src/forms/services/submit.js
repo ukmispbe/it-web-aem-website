@@ -139,6 +139,12 @@ export async function personalSubmit(data) {
 }
 
 export async function signInSubmit(data) {
+    const isCaptcha = data.hasOwnProperty('captcha');
+    if (isCaptcha) {
+        this.url = `${this.url}?captcha=${data.captcha}`;
+        delete data.captcha;
+    }
+
     const response = await postData(this.url, data);
 
     // remove all previous server error notifications
@@ -154,6 +160,7 @@ export async function signInSubmit(data) {
             );
         }
     } else {
+        this.updateFailedAttempts('signin');
         this.setError(response);
         scrollToY(0);
     }

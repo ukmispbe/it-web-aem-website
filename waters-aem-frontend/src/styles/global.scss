@@ -86,7 +86,6 @@ body.no-scroll {
 
 a {
     color: $color-link;
-    font-weight: $font-weight-regular;
     transition: $hover-transition;
     text-decoration: none;
 
@@ -136,7 +135,6 @@ a {
 
         svg {
             height: $icon-m;
-            margin-top: ($space-xxxs - .2em);
 
             .st0 {
                 stroke: $color-icon;

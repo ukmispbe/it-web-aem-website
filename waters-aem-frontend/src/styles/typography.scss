@@ -46,19 +46,18 @@
     margin-top: 0;
 }
 
+@mixin font-utility-large {
+    color: $color-font-medium;
+    font-size: $font-size-h3;
+}
+
 @mixin font-utility {
     color: $color-font-medium;
-    font-weight: $font-weight-light;
 }
 
 @mixin font-small {
     font-size: $font-size-small;
     color: $color-font-medium;
-    font-weight: $font-weight-light;
-
-    @include mobile {
-        font-size: $font-size-small-m;
-    }
 }
 
 @mixin font-xsmall {
@@ -109,10 +108,6 @@ html {
 
 body {
     margin: 0 0 0 0;
-
-    @include mobile {
-        font-size: 1.1em;
-    }
 }
 
 p {
