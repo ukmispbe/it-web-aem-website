@@ -1,5 +1,6 @@
 package com.waters.aem.core.servlets;
 
+import com.day.cq.wcm.api.Page;
 import com.google.common.base.Stopwatch;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
@@ -30,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 
 @Component(service = Servlet.class)
 @SlingServletPaths("/bin/waters/qrcode")
-@Designate(ocd = ProductQrCodeServlet.QrCodeServiceConfig.class)
+@Designate(ocd = ProductQrCodeServlet.Config.class)
 public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProductQrCodeServlet.class);
@@ -40,6 +41,12 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
     private volatile String globalExperienceRootPath;
 
     private volatile String shopAllProductsRelativePath;
+
+    private static final String PARAMETER_GTIN = "gtin";
+
+    private static final String PARAMETER_LOCALE = "locale";
+
+    private static final String DEFAULT_LOCALE = "en_US";
 
     @Reference
     private SkuRepository skuRepository;
@@ -52,8 +59,8 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
             throws IOException {
         final PageManagerDecorator pageManager = request.getResourceResolver().adaptTo(PageManagerDecorator.class);
 
-        final String gtin = Optional.ofNullable(request.getParameter("gtin")).orElse("");
-        final String locale = Optional.ofNullable(request.getParameter("locale")).orElse("");
+        final String gtin = Optional.ofNullable(request.getParameter(PARAMETER_GTIN)).orElse("");
+        final String locale = Optional.ofNullable(request.getParameter(PARAMETER_LOCALE)).orElse(DEFAULT_LOCALE);
 
         final ResourceResolver resourceResolver = request.getResourceResolver();
 
@@ -69,7 +76,7 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
             final PageDecorator skuPage = skuRepository.getSkuPage(pageManager.getPage(languageRootPath), sku);
 
             if (skuPage != null) {
-                response.sendRedirect(skuPage.getHref());
+                response.sendRedirect(skuPage.getHref(true));
             } else {
                 sendDefaultRedirect(response, pageManager, languageRootPath);
             }
@@ -78,51 +85,68 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
         }
     }
 
-    private String getRootLanguagePath(final ResourceResolver resourceResolver, final String locale) {
-        final Locale locleObj = LocaleUtils.toLocale(locale);
+    private String getRootLanguagePath(final ResourceResolver resourceResolver, final String localeStr) {
+        final Locale locale = LocaleUtils.toLocale(localeStr);
 
-        final PageDecorator countryRoot =  siteRepository.getCountryRootPage(resourceResolver, locleObj.getCountry());
+        final PageDecorator countryRoot = siteRepository.getCountryRootPage(resourceResolver, locale.getCountry(),
+                true);
 
-        final PageDecorator languageRoot =  siteRepository.getLanguageRootPage(resourceResolver, locleObj.getCountry(),
-            locleObj.getLanguage());
+        final PageDecorator languageRoot = siteRepository.getLanguageRootPage(resourceResolver, locale.getCountry(),
+            locale.getLanguage(), true);
 
         final String languageRootPath;
 
         if(countryRoot == null) {
             languageRootPath = globalExperienceRootPath;
         } else {
-            languageRootPath = languageRoot != null ? languageRoot.getPath() : countryRoot.getChildren().get(0).getPath();
+            languageRootPath = languageRoot != null ? languageRoot.getPath() :
+                    countryRoot.getChildren()
+                        .stream()
+                        .findFirst()
+                        .map(Page :: getPath)
+                        .orElse(defaultLanguageRootPath);
         }
-        LOG.debug("returning the Language root path: {} for locale param {}", languageRootPath, locale);
+
+        LOG.debug("returning the language root path: {} for locale param {}", languageRootPath, localeStr);
+
         return languageRootPath;
     }
 
     private void sendDefaultRedirect(final SlingHttpServletResponse response, final PageManagerDecorator pageManager,
         final String languageRootPath) throws IOException {
-        response.sendRedirect(pageManager.getPage(languageRootPath + shopAllProductsRelativePath).getHref());
-    }
+        final PageDecorator shopAllProductsPage = pageManager.getPage(languageRootPath + shopAllProductsRelativePath);
 
-    @ObjectClassDefinition(name = "Waters QR Code Service Configuration")
-    public @interface QrCodeServiceConfig {
+        if (shopAllProductsPage != null) {
+            response.sendRedirect(shopAllProductsPage.getHref(true));
+        } else {
+            LOG.warn("missing configured default redirect page at {}, redirecting to site root.",
+                    languageRootPath + shopAllProductsRelativePath);
 
-        @AttributeDefinition(name = "Default Language Root Path", description = "Sets the language path for the default " +
-        "redirect if no sku page is found.")
-        String defaultLanguageRootPath() default "/content/waters/us/en";
-
-        @AttributeDefinition(name = "Global Experience Root Path", description = "The path for the global experience root" +
-        ". This path is used if there is no existing country node")
-        String globalExperienceRootPath() default "/content/waters/xg/en";
-
-        @AttributeDefinition(name = "Default Redirect Page", description = "Sets the relative page path to redirect to in" +
-        " the event that the sku page was not found.")
-        String redirectPageRelativePath() default "/shop/shop-all-products";
+            response.sendRedirect("/");
+        }
     }
 
     @Activate
     @Modified
-    protected void activate(final QrCodeServiceConfig configuration) {
+    protected void activate(final Config configuration) {
         defaultLanguageRootPath = configuration.defaultLanguageRootPath();
         globalExperienceRootPath = configuration.globalExperienceRootPath();
         shopAllProductsRelativePath = configuration.redirectPageRelativePath();
+    }
+
+    @ObjectClassDefinition(name = "Waters QR Code Service Configuration")
+    public @interface Config {
+
+        @AttributeDefinition(name = "Default Language Root Path", description = "Sets the language path for the default " +
+                "redirect if no sku page is found.")
+        String defaultLanguageRootPath() default "/content/waters/us/en";
+
+        @AttributeDefinition(name = "Global Experience Root Path", description = "The path for the global experience root" +
+                ". This path is used if there is no existing country node")
+        String globalExperienceRootPath() default "/content/waters/xg/en";
+
+        @AttributeDefinition(name = "Default Redirect Page", description = "Sets the relative page path to redirect to in" +
+                " the event that the sku page was not found.")
+        String redirectPageRelativePath() default "/shop/shop-all-products";
     }
 }
