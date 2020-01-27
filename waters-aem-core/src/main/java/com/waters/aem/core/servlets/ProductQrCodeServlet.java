@@ -7,6 +7,7 @@ import com.icfolson.aem.library.core.servlets.AbstractJsonResponseServlet;
 import com.waters.aem.core.commerce.models.Sku;
 import com.waters.aem.core.commerce.services.SkuRepository;
 import com.waters.aem.core.services.SiteRepository;
+import com.waters.aem.core.services.qrcode.QrCodeService;
 import org.apache.commons.lang3.LocaleUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
@@ -29,17 +30,14 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProductQrCodeServlet.class);
 
-    private static final String DEFAULT_LANGUAGE_ROOT_PATH = "/content/waters/us/en";
-
-    private static final String GLOBAL_EXP_ROOT_PATH = "/content/waters/xg/en";
-
-    private static final String SHOP_ALL_PRODUCTS_REL_PATH = "/shop/shop-all-products";
-
     @Reference
     private SkuRepository skuRepository;
 
     @Reference
     private SiteRepository siteRepository;
+
+    @Reference
+    private QrCodeService qrCodeService;
 
     @Override
     protected void doGet(final SlingHttpServletRequest request, final SlingHttpServletResponse response)
@@ -68,7 +66,7 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
                 sendDefaultRedirect(response, pageManager, languageRootPath);
             }
         } else {
-            sendDefaultRedirect(response, pageManager, DEFAULT_LANGUAGE_ROOT_PATH);
+            sendDefaultRedirect(response, pageManager, qrCodeService.getDefaultLanguageRootPath());
         }
     }
 
@@ -83,7 +81,7 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
         final String languageRootPath;
 
         if(countryRoot == null) {
-            languageRootPath = GLOBAL_EXP_ROOT_PATH;
+            languageRootPath = qrCodeService.getGlobalExperienceRootPath();
         } else {
             languageRootPath = languageRoot != null ? languageRoot.getPath() : countryRoot.getChildren().get(0).getPath();
         }
@@ -93,6 +91,6 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
 
     private void sendDefaultRedirect(final SlingHttpServletResponse response, final PageManagerDecorator pageManager,
         final String languageRootPath) throws IOException {
-        response.sendRedirect(pageManager.getPage(languageRootPath + SHOP_ALL_PRODUCTS_REL_PATH).getHref());
+        response.sendRedirect(pageManager.getPage(languageRootPath + qrCodeService.getRedirectPageRelativePath()).getHref());
     }
 }
