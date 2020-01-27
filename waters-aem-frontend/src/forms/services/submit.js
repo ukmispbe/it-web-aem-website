@@ -147,7 +147,7 @@ export async function signInSubmit(data) {
     }
 
     const response = await postData(this.url, data);
-
+    const responseBody = await response.json();
     // remove all previous server error notifications
     this.setError();
 
@@ -160,7 +160,7 @@ export async function signInSubmit(data) {
         }
     } else {
         this.updateFailedAttempts('signin');
-        this.setError(response);
+        this.setError(responseBody);
         scrollToY(0);
     }
 }
