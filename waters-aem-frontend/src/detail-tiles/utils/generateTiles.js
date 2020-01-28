@@ -6,11 +6,6 @@ import {
     getCountryName
 } from './profileFormatter';
 
-const newColumn = (title, ...text) => ({
-    title: title,
-    text: text
-});
-
 const newNotification = (title, description, icon) => ({
     title: title,
     description: description,
@@ -28,7 +23,7 @@ const config = document.getElementById(
 
 export default (data, type, icon) => {
     if (!data) return [];
-    console.log('GENERATE TILES:', data, config);
+
     switch (type) {
         case 'personal':
             let mailingAddress = data.userAddress.filter(function(i) {
@@ -44,14 +39,39 @@ export default (data, type, icon) => {
                 {
                     name: 'personalDetailsTile',
                     columns: [
-                        newColumn(getFullName(data), data.company),
-                        newColumn(
-                            '',
-                            data.email,
-                            getPhoneFormat(data.phone),
-                            getCountryName(data.country, config),
-                            communicationsString
-                        )
+                        {
+                            title: getFullName(data),
+                            rows: [
+                                {
+                                    text: data.company,
+                                    class: 'company'
+                                }
+                            ]
+                        },
+                        {
+                            title: undefined,
+                            rows: [
+                                {
+                                    text: data.email,
+                                    class: 'email'
+                                },
+                                {
+                                    text: getPhoneFormat(data.phone),
+                                    class: 'phone'
+                                },
+                                {
+                                    text: getCountryName(data.country, config),
+                                    class: 'country'
+                                },
+                                {
+                                    text: communicationsString,
+                                    class: 'communications',
+                                    state: {
+                                        visible: data.communications
+                                    }
+                                }
+                            ]
+                        }
                     ],
                     defaultValues: data
                 }
@@ -65,12 +85,28 @@ export default (data, type, icon) => {
                     let tile = {
                         name: address.id,
                         columns: [
-                            newColumn(
-                                address.preferred ? 'Preferred Address' : '',
-                                address.company,
-                                getFullAddress(address),
-                                getCountryName(address.country, config)
-                            )
+                            {
+                                title: address.preferred
+                                    ? 'Preferred Address'
+                                    : '',
+                                rows: [
+                                    {
+                                        text: address.company,
+                                        class: 'company'
+                                    },
+                                    {
+                                        text: getFullAddress(address),
+                                        class: 'address'
+                                    },
+                                    {
+                                        text: getCountryName(
+                                            address.country,
+                                            config
+                                        ),
+                                        class: 'country'
+                                    }
+                                ]
+                            }
                         ],
                         defaultValues: address
                     };
@@ -91,7 +127,17 @@ export default (data, type, icon) => {
             return [
                 {
                     name: '',
-                    columns: [newColumn('•••••••••••••••••••', '')],
+                    columns: [
+                        {
+                            title: '•••••••••••••••••••',
+                            rows: [
+                                {
+                                    text: '',
+                                    class: 'blank'
+                                }
+                            ]
+                        }
+                    ],
                     defaultValues: {}
                 }
             ];

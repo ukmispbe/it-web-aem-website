@@ -124,13 +124,11 @@ export async function personalSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-        const submitResponse = response.json();
+        const submitResponse = await response.json();
         const store = new SessionStore();
         store.setUserDetails(submitResponse);
-        console.log(
-            'Personal Details Updated complete . This needs finishing off later',
-            response.json()
-        );
+        this.setProfileData(submitResponse);
+
         this.callback();
     } else {
         this.setError(response);

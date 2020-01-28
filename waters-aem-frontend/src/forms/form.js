@@ -26,8 +26,17 @@ const Form = ({
     resetErrorBoundaryToFalse,
     removeNotifications,
     defaultValues,
-    callback
+    callback,
+    setProfileData
 }) => {
+    if (defaultValues) {
+        defaultValues.communications =
+            defaultValues.communications === 'true' ||
+            defaultValues.communications === true
+                ? true
+                : false;
+    }
+
     const {
         register,
         handleSubmit,
@@ -43,13 +52,8 @@ const Form = ({
         reValidateMode: 'onBlur',
         defaultValues: {
             country: DigitalData.default,
-            ...defaultValues,
-            communications: defaultValues
-              ? defaultValues.communications === 'true'
-                  ? true
-                  : false
-              : false
-          }
+            ...defaultValues
+        }
     });
 
     const checkIfDisabled = () => {
@@ -58,27 +62,35 @@ const Form = ({
 
     const [errorUpdates, setUpdate] = useState({});
     const [failedAttempts, setFailedAttempts] = useState(1);
-    const captchaField = config.fields.filter(field=>field.type==='captcha')[0];
-    const captchaFailedAttempts = captchaField && captchaField.failedAttempts ? captchaField.failedAttempts : 0;
+    const captchaField = config.fields.filter(
+        field => field.type === 'captcha'
+    )[0];
+    const captchaFailedAttempts =
+        captchaField && captchaField.failedAttempts
+            ? captchaField.failedAttempts
+            : 0;
 
-    const updateFailedAttempts = (formName) => {
-        if(formName==='signin'){
-            setFailedAttempts((failedAttempts) => failedAttempts + 1);
-            if(captchaFailedAttempts && failedAttempts===captchaFailedAttempts) {
+    const updateFailedAttempts = formName => {
+        if (formName === 'signin') {
+            setFailedAttempts(failedAttempts => failedAttempts + 1);
+            if (
+                captchaFailedAttempts &&
+                failedAttempts === captchaFailedAttempts
+            ) {
                 activateField('captcha');
             }
         }
-    }
+    };
 
-    const activateField = (inputName) => {
-        const fields = config.fields.map((field)=>{
-            if(field.type===inputName) {
+    const activateField = inputName => {
+        const fields = config.fields.map(field => {
+            if (field.type === inputName) {
                 field.active = true;
             }
             return field;
         });
         config.fields = [...fields];
-    }
+    };
 
     useEffect(() => {
         for (let name in errorUpdates) {
@@ -129,14 +141,17 @@ const Form = ({
                 config,
                 ...field,
                 field,
-                isocode
+                isocode,
+                initialState: defaultValues
+                    ? defaultValues[field.name]
+                    : undefined
             }),
             [field, field.active]
         );
         return (
-                <FieldApi.Provider value={getFieldApi} key={`field-${i}`}>
-                    <Field />
-                </FieldApi.Provider>
+            <FieldApi.Provider value={getFieldApi} key={`field-${i}`}>
+                <Field />
+            </FieldApi.Provider>
         );
     });
     return (
@@ -148,7 +163,8 @@ const Form = ({
                     setError: submitErrorHandler,
                     redirect: config.redirectUrl,
                     callback: callback,
-                    updateFailedAttempts: updateFailedAttempts
+                    updateFailedAttempts: updateFailedAttempts,
+                    setProfileData: setProfileData
                 })
             )}
         >
