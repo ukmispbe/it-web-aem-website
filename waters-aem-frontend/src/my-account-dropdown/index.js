@@ -186,7 +186,7 @@ class MyAccountDropDown extends React.Component {
                 & UserDetails / SoldToDetails endpoint is updated to use that token.
                 Please update/clear the UserToken after signout/signin, along with waters.userDetails & waters.soldToDetails in session storage 
             */
-                sessionStore.setUserToken('pbtest1@waters.com');
+                sessionStore.setUserToken('testus@waters.com');
                 //sessionStore.setUserToken('tyler.tessmann@icfnext.com');
             //END TEMPORARY CODE
 

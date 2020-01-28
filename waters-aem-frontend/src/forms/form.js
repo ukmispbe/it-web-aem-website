@@ -47,12 +47,6 @@ const Form = ({
         }
     });
 
-    // PB Change the text if Update
-    if (config.formType === "update") {
-        config.fields[0].text = "In order to provide additional account security our password requirements have changed. Please create a new password for the account associated with the email address ";
-    }
-    console.log("config top level", config);
-
     const checkIfDisabled = () => {
         return !formState.isValid;
     };
@@ -138,12 +132,14 @@ const Form = ({
             }),
             [field, field.active]
         );
+
         return (
                 <FieldApi.Provider value={getFieldApi} key={`field-${i}`}>
                     <Field />
                 </FieldApi.Provider>
         );
     });
+
     return (
         <form
             className="cmp-form cmp-form--registration"
@@ -152,6 +148,7 @@ const Form = ({
                     url: config.submitEndpoint,
                     setError: submitErrorHandler,
                     redirect: config.redirectUrl,
+                    passwordUpdateUrl: config.passwordUpdateUrl,
                     callback: callback,
                     updateFailedAttempts: updateFailedAttempts
                 })
