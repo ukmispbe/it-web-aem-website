@@ -44,11 +44,11 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
 
             final String destinationLanguage = LanguageUtil.getLanguageRoot(target.getPath());
 
-            final String destinationLanguageCode = destinationLanguage.substring(destinationLanguage.lastIndexOf("/"));
+            final String destinationLanguageCode = destinationLanguage.substring(destinationLanguage.lastIndexOf('/'));
 
             final String sourceLanguageRoot = LanguageUtil.getLanguageRoot(source.getPath());
 
-            final String sourceLanguageCode = sourceLanguageRoot.substring(sourceLanguageRoot.lastIndexOf("/"));
+            final String sourceLanguageCode = sourceLanguageRoot.substring(sourceLanguageRoot.lastIndexOf('/'));
 
             if (shouldAdjustLanguage(sourceLanguageCode, destinationLanguageCode)) {
                 try {
@@ -110,7 +110,7 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
 
     private String getPropertyLanguageCode(final String value) {
         final String lang = LanguageUtil.getLanguageRoot(value);
-        return lang.substring(lang.lastIndexOf("/"));
+        return lang.substring(lang.lastIndexOf('/'));
     }
 
     private boolean isPossiblePath(final String value) {
