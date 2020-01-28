@@ -10,7 +10,7 @@
         jcr:lastModified="{Date}2019-12-27T13:09:45.126-06:00"
         jcr:lastModifiedBy="admin"
         jcr:primaryType="nt:unstructured"
-        jcr:title="Waters Language path Rollout Config"
+        jcr:title="Waters Language Rollout Config"
         sling:resourceType="wcm/msm/components/rolloutconfig">
         <contentUpdate jcr:primaryType="cq:LiveSyncAction"/>
         <contentCopy jcr:primaryType="cq:LiveSyncAction"/>
