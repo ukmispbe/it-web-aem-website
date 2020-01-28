@@ -1,11 +1,10 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import { createBrowserHistory } from 'history';
-import { HashRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import Aside from "../aside";
 import props from "../__mocks__/en_US/my-account-json";
-
-const history = createBrowserHistory();
+import routes from "../routes";
+import Ecommerce from "../../scripts/ecommerce";
 
 describe("Feature: Aside Component for my account", () => {
     beforeAll(() => {
@@ -19,14 +18,7 @@ describe("Feature: Aside Component for my account", () => {
     describe("Scenario: Rendering", () => {
         describe("When no link is active", () => {
             it("Then it should match snapshot", () => {
-                history.push("http://localhost.com/my-account.html");
-
-                const mockProps = {
-                    ...props,
-                    history
-                };
-
-                const json = renderer.create(<HashRouter><Aside {...mockProps} /></HashRouter>);
+                const json = renderer.create(<MemoryRouter><Aside {...props} /></MemoryRouter>);
 
                 expect(json).toMatchSnapshot();
             });
@@ -34,14 +26,7 @@ describe("Feature: Aside Component for my account", () => {
 
         describe("When profile link is active", () => {
             it("Then it should match snapshot", () => {
-                history.push("http://localhost.com/my-account.html#profile");
-
-                const mockProps = {
-                    ...props,
-                    history
-                };
-
-                const json = renderer.create(<HashRouter><Aside {...mockProps} /></HashRouter>);
+                const json = renderer.create(<MemoryRouter initialEntries={[routes.profile]}><Aside {...props} /></MemoryRouter>);
 
                 expect(json).toMatchSnapshot();
             });
@@ -49,29 +34,17 @@ describe("Feature: Aside Component for my account", () => {
 
         describe("When password link is active", () => {
             it("Then it should match snapshot", () => {
-                history.push("http://localhost.com/my-account.html#changepassword");
-
-                const mockProps = {
-                    ...props,
-                    history
-                };
-
-                const json = renderer.create(<HashRouter><Aside {...mockProps} /></HashRouter>);
+                const json = renderer.create(<MemoryRouter initialEntries={[routes.changePassword]}><Aside {...props} /></MemoryRouter>);
 
                 expect(json).toMatchSnapshot();
             });
         });
 
-        describe("When orders link is active", () => {
+        describe("When ecommerce is disabled", () => {
             it("Then it should match snapshot", () => {
-                history.push("http://localhost.com/my-account.html#orderhistory");
+                Ecommerce.isDisabledState = jest.fn(() => true);
 
-                const mockProps = {
-                    ...props,
-                    history
-                };
-
-                const json = renderer.create(<HashRouter><Aside {...mockProps} /></HashRouter>);
+                const json = renderer.create(<MemoryRouter initialEntries={[routes.profile]}><Aside {...props} /></MemoryRouter>);
 
                 expect(json).toMatchSnapshot();
             });

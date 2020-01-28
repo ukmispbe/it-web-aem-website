@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Feature: Aside Component for my account Scenario: Rendering When no link is active Then it should match snapshot 1`] = `
+exports[`Feature: Aside Component for my account Scenario: Rendering When ecommerce is disabled Then it should match snapshot 1`] = `
 <div
   className="cmp-my-account__aside-wrapper"
 >
   <div
-    class="cmp-title"
+    className="cmp-title"
   >
     <h1
-      class="cmp-title__text"
+      className="cmp-title__text"
     >
-      
+      Profile
     </h1>
     <div
-      class="cmp-title__print"
+      className="cmp-title__print"
     >
-      
+      Profile
     </div>
     <div
       className="cmp-accent-rule"
@@ -37,36 +37,16 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When no lin
       <div
         className="tile__links"
       >
-        <a
-          href="#/profile"
-          onClick={[Function]}
+        <span
+          className="link--active"
         >
           Profile
-        </a>
+        </span>
         <a
-          href="#/changepassword"
+          href="/changepassword"
           onClick={[Function]}
         >
           Password
-        </a>
-      </div>
-    </div>
-    <div
-      className="tile"
-    >
-      <div
-        className="tile__title"
-      >
-        Orders
-      </div>
-      <div
-        className="tile__links"
-      >
-        <a
-          href="#/orderhistory"
-          onClick={[Function]}
-        >
-          Order History
         </a>
       </div>
     </div>
@@ -110,22 +90,22 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When no lin
 </div>
 `;
 
-exports[`Feature: Aside Component for my account Scenario: Rendering When orders link is active Then it should match snapshot 1`] = `
+exports[`Feature: Aside Component for my account Scenario: Rendering When no link is active Then it should match snapshot 1`] = `
 <div
   className="cmp-my-account__aside-wrapper"
 >
   <div
-    class="cmp-title"
+    className="cmp-title"
   >
     <h1
-      class="cmp-title__text"
+      className="cmp-title__text"
     >
-      Order History
+      
     </h1>
     <div
-      class="cmp-title__print"
+      className="cmp-title__print"
     >
-      Order History
+      
     </div>
     <div
       className="cmp-accent-rule"
@@ -148,13 +128,13 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When orders
         className="tile__links"
       >
         <a
-          href="#/profile"
+          href="/profile"
           onClick={[Function]}
         >
           Profile
         </a>
         <a
-          href="#/changepassword"
+          href="/changepassword"
           onClick={[Function]}
         >
           Password
@@ -172,11 +152,12 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When orders
       <div
         className="tile__links"
       >
-        <span
-          className="link--active"
+        <a
+          href="/orderhistory"
+          onClick={[Function]}
         >
           Order History
-        </span>
+        </a>
       </div>
     </div>
     <div
@@ -224,15 +205,15 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When passwo
   className="cmp-my-account__aside-wrapper"
 >
   <div
-    class="cmp-title"
+    className="cmp-title"
   >
     <h1
-      class="cmp-title__text"
+      className="cmp-title__text"
     >
       Password
     </h1>
     <div
-      class="cmp-title__print"
+      className="cmp-title__print"
     >
       Password
     </div>
@@ -257,7 +238,7 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When passwo
         className="tile__links"
       >
         <a
-          href="#/profile"
+          href="/profile"
           onClick={[Function]}
         >
           Profile
@@ -281,7 +262,7 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When passwo
         className="tile__links"
       >
         <a
-          href="#/orderhistory"
+          href="/orderhistory"
           onClick={[Function]}
         >
           Order History
@@ -333,15 +314,15 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When profil
   className="cmp-my-account__aside-wrapper"
 >
   <div
-    class="cmp-title"
+    className="cmp-title"
   >
     <h1
-      class="cmp-title__text"
+      className="cmp-title__text"
     >
       Profile
     </h1>
     <div
-      class="cmp-title__print"
+      className="cmp-title__print"
     >
       Profile
     </div>
@@ -371,7 +352,7 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When profil
           Profile
         </span>
         <a
-          href="#/changepassword"
+          href="/changepassword"
           onClick={[Function]}
         >
           Password
@@ -390,7 +371,7 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When profil
         className="tile__links"
       >
         <a
-          href="#/orderhistory"
+          href="/orderhistory"
           onClick={[Function]}
         >
           Order History

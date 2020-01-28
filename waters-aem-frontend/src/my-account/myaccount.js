@@ -1,6 +1,15 @@
 import React from 'react';
 import Title from "../typography/title";
 import LinkTile from '../link-tile';
+import Ecommerce from "../scripts/ecommerce";
+
+const Tile = ({tile}) => {
+    if (tile.requiresEcommerce === "true" && Ecommerce.isDisabledState()) {
+        return <></>;
+    }
+
+    return  <LinkTile {...tile} />
+}
 
 const MyAccount = ({ title, body, tiles }) => {
     return (
@@ -13,7 +22,7 @@ const MyAccount = ({ title, body, tiles }) => {
 
             <div className="cmp-my-account__tiles">
                 <div className="tile">
-                    {tiles.map((tile, key) => (<LinkTile {...tile} key={key} />))}
+                    {tiles.map((tile, key) => <Tile tile={tile} key={key} />)}
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import Title from "../typography/title";
+import Ecommerce from "../scripts/ecommerce";
 
 const Aside = props => {
     return (
@@ -19,6 +20,11 @@ const Aside = props => {
 }
 
 const Tile = ({tile, pathname}) => {
+
+    if (tile.requiresEcommerce === "true" && Ecommerce.isDisabledState()) {
+        return <></>;
+    }
+
     return (
         <div className="tile">
             <div className="tile__title">{tile.title}</div>

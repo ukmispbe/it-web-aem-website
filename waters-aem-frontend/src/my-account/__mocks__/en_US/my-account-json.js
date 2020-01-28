@@ -5,6 +5,7 @@ export default {
         {
           "title": "Account Information",
           "icon": "/content/dam/waters/en/brand-assets/icons/user.svg",
+          "requiresEcommerce": "false",
           "links": [
             {
               "text": "Profile",
@@ -19,6 +20,7 @@ export default {
         {
           "title": "Orders",
           "icon": "/content/dam/waters/en/brand-assets/icons/package.svg",
+          "requiresEcommerce": "true",
           "links": [
             {
               "text": "Order History",
@@ -29,6 +31,7 @@ export default {
         {
           "title": "Additional Links",
           "icon": "/content/dam/waters/en/brand-assets/icons/link.svg",
+          "requiresEcommerce": "false",
           "links": [
             {
               "text": "Request Technical Support",
