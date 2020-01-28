@@ -23,6 +23,7 @@ import javax.jcr.Value;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("all")
 public class AdjustPathReferencesLiveAction implements LiveAction {
 
     private static final Logger LOG = LoggerFactory.getLogger(AdjustPathReferencesLiveAction.class);
