@@ -12,7 +12,8 @@ const Tile = ({
     icon,
     defaultValues,
     isNoAddress = false,
-    editText
+    editText,
+    setProfileData
 }) => {
     const [formShown, setFormShown] = useState(false);
 
@@ -21,7 +22,7 @@ const Tile = ({
     };
 
     const renderColumns = () => {
-        return columns.map(({ title, text }, key) => {
+        return columns.map(({ title, rows }, key) => {
             return (
                 <div className="cmp-detail-tiles-list--tile-column" key={key}>
                     {title && (
@@ -29,15 +30,24 @@ const Tile = ({
                             {title}
                         </div>
                     )}
-                    {text &&
-                        text.map((row, idx) => (
-                            <div
-                                className="cmp-detail-tiles-list--tile-column--text"
-                                key={idx}
-                            >
-                                {row}
-                            </div>
-                        ))}
+                    {rows &&
+                        rows.map((row, idx) => {
+                            if (
+                                (row.state && row.state.visible === 'false') ||
+                                (row.state && row.state.visible === false)
+                            ) {
+                                return null;
+                            }
+
+                            return (
+                                <div
+                                    className={`${row.class} cmp-detail-tiles-list--tile-column--text`}
+                                    key={idx}
+                                >
+                                    {row.text}
+                                </div>
+                            );
+                        })}
                 </div>
             );
         });
@@ -139,6 +149,7 @@ const Tile = ({
                         callback={handleToggle}
                         cancelFn={handleToggle}
                         defaultValues={defaultValues}
+                        setProfileData={setProfileData}
                     />
                 </div>
             )}
