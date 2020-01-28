@@ -6,7 +6,7 @@
     z-index: 0;
 
     @include mobile {
-        margin-bottom: 0;
+        margin-bottom: $space-s;
     }
 
     .react-autosuggest__suggestions-container {
