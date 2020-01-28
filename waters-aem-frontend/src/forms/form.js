@@ -53,12 +53,8 @@ const Form = ({
 
     const [errorUpdates, setUpdate] = useState({});
     const [failedAttempts, setFailedAttempts] = useState(1);
-
-    // PB When there's no Captcha on a form this is throwing an error - Added a check
-    let captchaFailedAttempts = 0;
-    if (config.fields.filter(field=>field.type==='captcha').length !== 0) {
-            captchaFailedAttempts = config.fields.filter(field=>field.type==='captcha')[0].failedAttempts;
-    }   
+    const captchaField = config.fields.filter(field=>field.type==='captcha')[0];
+    const captchaFailedAttempts = captchaField && captchaField.failedAttempts ? captchaField.failedAttempts : 0;
 
     const updateFailedAttempts = (formName) => {
         if(formName==='signin'){
@@ -132,14 +128,12 @@ const Form = ({
             }),
             [field, field.active]
         );
-
         return (
                 <FieldApi.Provider value={getFieldApi} key={`field-${i}`}>
                     <Field />
                 </FieldApi.Provider>
         );
     });
-
     return (
         <form
             className="cmp-form cmp-form--registration"

@@ -9,11 +9,11 @@
         position: relative;
         margin-bottom: $space-m;
         max-width: 100%;
+        border: 1px solid $color-border-light;
     }
     
     &_title {
         @include font-h3;
-        color: $color-blue-50;
     }
     &_description {
         @include font-body;

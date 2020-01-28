@@ -23,6 +23,7 @@ function getCookie(cname) {
 
 const cookieStore = {
     getLoggedInStatus: () => getCookie(keys.loggedInStatus),
+    getLocale: () => getCookie(keys.locale),
     setLocale: () => {
         if(DigitalData.country===DigitalData.globalExperience){
             return;

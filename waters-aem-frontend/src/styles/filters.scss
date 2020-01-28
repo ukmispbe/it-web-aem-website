@@ -176,7 +176,7 @@
                 }
 
                 @include mobile {
-                    top: 15px;
+                    top: 12px;
                     right: 16px;
                 }
             }
@@ -249,7 +249,7 @@
         display: flex;
         flex-wrap: wrap;
         margin-top: $space-xs;
-        margin-bottom: $space-xl;
+        margin-bottom: $space-l;
 
         a {
             @include font-small;
@@ -330,6 +330,7 @@
         display: block;
         text-transform: uppercase;
         text-decoration: none;
+        border-radius: $border-radius;
     }
 
     @include tablet-and-under {
@@ -340,15 +341,17 @@
 .cmp-search-done-btn {
     display: none;
     a {
-        background: $color-blue-10;
+        background: none;
         text-align: center;
         padding: $space-xs $space-l;
         margin-bottom: $space-m;
-        color: $color-blue-70;
+        color: $color-blue-50;
         width: 100%;
         display: block;
         text-transform: uppercase;
         text-decoration: none;
+        border: 1px solid $color-blue-50;
+        border-radius: $border-radius;
     }
 }
 
@@ -417,7 +420,7 @@ $header-height: 74px;
 
     .cmp-search-filters__tags {
         display: none;
-        margin-bottom: $space-m;
+        margin-bottom: $space-xxs;
     }
 
     @include tablet-and-under {
@@ -511,7 +514,7 @@ $header-height: 74px;
     @include mobile {
         .cmp-search__sort-filter {
             z-index: ($cmp-banner-z-index + 1) !important;
-            top: 53px !important;
+            top: 47px !important;
             height: 100vh;
             padding: 20px 20px 80px 20px;
         }
