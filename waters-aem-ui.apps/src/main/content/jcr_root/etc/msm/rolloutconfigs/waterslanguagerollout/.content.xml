@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:defaultView="html"
+        cq:lastModified="{Date}2019-12-27T13:09:45.130-06:00"
+        cq:lastModifiedBy="admin"
+        cq:template="/libs/wcm/msm/templates/rolloutconfig"
+        cq:trigger="rollout"
+        jcr:lastModified="{Date}2019-12-27T13:09:45.126-06:00"
+        jcr:lastModifiedBy="admin"
+        jcr:primaryType="nt:unstructured"
+        jcr:title="Waters Language path Rollout Config"
+        sling:resourceType="wcm/msm/components/rolloutconfig">
+        <contentUpdate jcr:primaryType="cq:LiveSyncAction"/>
+        <contentCopy jcr:primaryType="cq:LiveSyncAction"/>
+        <contentDelete jcr:primaryType="cq:LiveSyncAction"/>
+        <referencesUpdate jcr:primaryType="cq:LiveSyncAction"/>
+        <productUpdate jcr:primaryType="cq:LiveSyncAction"/>
+        <orderChildren jcr:primaryType="cq:LiveSyncAction"/>
+        <personalizationContentRollout jcr:primaryType="cq:LiveSyncAction"/>
+        <adjustPathReferences jcr:primaryType="cq:LiveSyncAction"/>
+    </jcr:content>
+</jcr:root>

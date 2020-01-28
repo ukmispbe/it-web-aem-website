@@ -9,6 +9,7 @@
     <filter root="/etc/designs/waters"/>
     <filter root="/etc/map.publish"/>
     <filter root="/etc/notification/email/waters"/>
+    <filter root="/etc/msm/rolloutconfigs/waterslanguagerollout"/>
     <filter root="/etc/waters">
         <exclude pattern="/etc/waters/hybris-importer/jcr:content/(.*)?"/>
         <exclude pattern="/etc/waters/notifications/system-notification(/.*)?"/>
