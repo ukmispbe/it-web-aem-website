@@ -1,6 +1,8 @@
 import scrollToY from './../../scripts/scrollTo';
 import { parse } from 'query-string';
 import SessionStore from '../../stores/sessionStore';
+import DigitalData from '../../scripts/DigitalData';
+import cookieStore from '../../stores/cookieStore';
 
 const postData = async (url, data) => {
     const response = await fetch(url, {
@@ -23,6 +25,18 @@ export async function registrationSubmit(data) {
         this.url = `${this.url}?captcha=${data.captcha}`;
         delete data.captcha;
     }
+
+    const localeLanguage = DigitalData.language;
+    const localeCountry = DigitalData.country;
+    if (
+        (!localeLanguage && !localeCountry) ||
+        DigitalData.country === DigitalData.globalExperience
+    ) {
+        localeLanguage = 'en';
+        localeCountry = 'US';
+    }
+    data.localeCountry = localeCountry;
+    data.localeLanguage = localeLanguage;
 
     const response = await postData(this.url, data);
 
@@ -144,7 +158,7 @@ export async function signInSubmit(data) {
     }
 
     const response = await postData(this.url, data);
-
+    const responseBody = await response.json();
     // remove all previous server error notifications
     this.setError();
 
@@ -159,7 +173,7 @@ export async function signInSubmit(data) {
         }
     } else {
         this.updateFailedAttempts('signin');
-        this.setError(response);
+        this.setError(responseBody);
         scrollToY(0);
     }
 }
