@@ -61,32 +61,9 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
 
                         if(prop.getType() == PropertyType.STRING) {
                             if (prop.isMultiple()) {
-                                final  List<String> adjustedValues = new ArrayList<>();
-
-                                for (final Value value : prop.getValues()) {
-                                    final String valueString = value.getString();
-
-                                    if (isPossiblePath(valueString)) {
-                                        final String languageCode = getPropertyLanguageCode(valueString);
-
-                                        if (shouldAdjustLanguage(languageCode, destinationLanguageCode)) {
-                                            adjustedValues.add(valueString.replace(languageCode, destinationLanguageCode));
-                                        } else {
-                                            adjustedValues.add(valueString);
-                                        }
-                                    }
-                                }
-                                prop.setValue(adjustedValues.toArray(new String[0]));
+                                adjustMultiValuedProperties(prop, destinationLanguageCode);
                             } else {
-                                final String value = prop.getString();
-
-                                if (isPossiblePath(value)) {
-                                    final String languageCode = getPropertyLanguageCode(value);
-
-                                    if (shouldAdjustLanguage(languageCode, destinationLanguageCode)) {
-                                        prop.setValue(value.replace(languageCode, destinationLanguageCode));
-                                    }
-                                }
+                                adjustSingleValueProperty(prop, destinationLanguageCode);
                             }
                         }
                     }
@@ -116,6 +93,39 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
 
     private boolean isPossiblePath(final String value) {
         return value.startsWith(WatersConstants.ROOT_PATH);
+    }
+
+    private void adjustMultiValuedProperties(final Property prop, final String destinationLanguageCode)
+    throws RepositoryException {
+        final  List<String> adjustedValues = new ArrayList<>();
+
+        for (final Value value : prop.getValues()) {
+            final String valueString = value.getString();
+
+            if (isPossiblePath(valueString)) {
+                final String languageCode = getPropertyLanguageCode(valueString);
+
+                if (shouldAdjustLanguage(languageCode, destinationLanguageCode)) {
+                    adjustedValues.add(valueString.replace(languageCode, destinationLanguageCode));
+                } else {
+                    adjustedValues.add(valueString);
+                }
+            }
+        }
+        prop.setValue(adjustedValues.toArray(new String[0]));
+    }
+
+    private void adjustSingleValueProperty(final Property prop, final String destinationLanguageCode)
+    throws RepositoryException {
+        final String value = prop.getString();
+
+        if (isPossiblePath(value)) {
+            final String languageCode = getPropertyLanguageCode(value);
+
+            if (shouldAdjustLanguage(languageCode, destinationLanguageCode)) {
+                prop.setValue(value.replace(languageCode, destinationLanguageCode));
+            }
+        }
     }
 
     // deprecated methods
