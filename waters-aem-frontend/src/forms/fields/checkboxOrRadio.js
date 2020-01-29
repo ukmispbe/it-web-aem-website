@@ -1,11 +1,22 @@
 import React, { useState, useContext, useCallback } from 'react';
-import ReactSVG from "react-svg";
+import ReactSVG from 'react-svg';
 
 import { useFormApi, useFieldApi } from '../form';
 import { useErrorsContext } from './utils/stateWatcher';
 
 const CheckboxOrRadio = ({}) => {
-    const { name, label, options, disabled, icons, config, validation, type, description } = useContext(useFieldApi);
+    const {
+        name,
+        label,
+        options,
+        disabled,
+        icons,
+        config,
+        validation,
+        type,
+        description,
+        initialState
+    } = useContext(useFieldApi);
     const { register, setValue } = useContext(useFormApi);
     const errors = useErrorsContext();
 
@@ -13,7 +24,7 @@ const CheckboxOrRadio = ({}) => {
         if (!options) {
             return {
                 [name]: {
-                    isChecked: false,
+                    isChecked: initialState,
                     required: validation && validation.required ? true : false,
                     description: description ? description : '',
                     ...config
@@ -24,13 +35,20 @@ const CheckboxOrRadio = ({}) => {
                 const thisOption = {
                     [option.name]: {
                         isChecked: false,
-                        required: validation && validation.validateFnName && option.required ? true : false,
-                        description: option.description ? option.description : '',
+                        required:
+                            validation &&
+                            validation.validateFnName &&
+                            option.required
+                                ? true
+                                : false,
+                        description: option.description
+                            ? option.description
+                            : '',
                         ...option.config
                     }
                 };
                 return thisOption;
-            })
+            });
             return Object.assign({}, ...defaultOptions);
         }
     });
@@ -49,26 +67,33 @@ const CheckboxOrRadio = ({}) => {
         }
     };
 
-    const hasError = useCallback((name) => !!errors[name], [errors]);
+    const hasError = useCallback(name => !!errors[name], [errors]);
 
-    const renderLabel = (thisName, label) => (<>
-        {label + " "}
-        {renderAddOnLink(thisName)}
-        { !state[thisName].required && (
-            <span className='cmp-form-field--optional'>(optional)</span>
-        )}
-    </>);
+    const renderLabel = (thisName, label) => (
+        <>
+            {label + ' '}
+            {renderAddOnLink(thisName)}
+            {!state[thisName].required && (
+                <span className="cmp-form-field--optional">(optional)</span>
+            )}
+        </>
+    );
 
-    const renderAddOnLink = (thisName) => {
+    const renderAddOnLink = thisName => {
         const thisState = state[thisName];
-        return (thisState.text && thisState.link && thisState.blank && (
-            <a
-                href={thisState.link}
-                target={thisState ? "_blank" : ""}
-                rel="noopener">
-                {thisState.text}
-            </a >
-        ));
+        return (
+            thisState.text &&
+            thisState.link &&
+            thisState.blank && (
+                <a
+                    href={thisState.link}
+                    target={thisState ? '_blank' : ''}
+                    rel="noopener"
+                >
+                    {thisState.text}
+                </a>
+            )
+        );
     };
 
     const renderType = (thisName, label) => {
@@ -82,44 +107,63 @@ const CheckboxOrRadio = ({}) => {
                     id={thisName}
                     disabled={disabled}
                     checked={thisState.isChecked}
-                    className={hasError(thisName) ? "error" : "valid"}
+                    className={hasError(thisName) ? 'error' : 'valid'}
                     ref={register(thisState.required ? { required: true } : {})}
                     readOnly
                 />
                 <a
-                    className={`${type} ` + (disabled ? ' disabled' : '') + (hasError(thisName) ? " error" : " valid")}
+                    className={
+                        `${type} ` +
+                        (disabled ? ' disabled' : '') +
+                        (hasError(thisName) ? ' error' : ' valid')
+                    }
                     onClick={e => checkHandler(e, thisName)}
                     id={thisName + '_link'}
                 >
-                    {
-                        type == 'checkbox' ? (<ReactSVG src={icons.checkmarkIcon} />) : (<div className="selector"></div>)
-                    }
+                    {type == 'checkbox' ? (
+                        <ReactSVG src={icons.checkmarkIcon} />
+                    ) : (
+                        <div className="selector"></div>
+                    )}
                 </a>
-                <div className={`cmp-form-field-${type}--wrapper` + (disabled ? ' disabled' : '')}>
-                    <label htmlFor={thisName} onClick={e => checkHandler(e, thisName)}>
+                <div
+                    className={
+                        `cmp-form-field-${type}--wrapper` +
+                        (disabled ? ' disabled' : '')
+                    }
+                >
+                    <label
+                        htmlFor={thisName}
+                        onClick={e => checkHandler(e, thisName)}
+                    >
                         {renderLabel(thisName, label)}
                     </label>
                     {thisState.description && (
-                        <span class="cmp-form_description">{thisState.description}</span>
+                        <span class="cmp-form_description">
+                            {thisState.description}
+                        </span>
                     )}
                 </div>
             </>
         );
     };
 
-    return (!options ? (
+    return !options ? (
         renderType(name, label)
     ) : (
         <div id={name} className={`cmp-form-field-${type}--grouping`}>
             {options.map((option, i) => {
                 return (
-                    <div className={`cmp-form-field-${type}--grouping-item`} key={`${type}-${name}-grouping-${i}`} >
+                    <div
+                        className={`cmp-form-field-${type}--grouping-item`}
+                        key={`${type}-${name}-grouping-${i}`}
+                    >
                         {renderType(option.name, option.label)}
                     </div>
                 );
             })}
         </div>
-    ));
+    );
 };
 
 export default React.memo(CheckboxOrRadio);

@@ -21,15 +21,14 @@ export default (fetchEndPoint, type, icon) => {
                 sessionStore.setUserToken('testus@waters.com');
                 //END TEMPORARY CODE
 
-
                 const userDetails = new UserDetails(fetchEndPoint);
                 userDetails
-                .then((response) => {
-                    setData(response);
-                })
-                .catch(err => {
-                    console.log(err.message);
-                });
+                    .then(response => {
+                        setData(response);
+                    })
+                    .catch(err => {
+                        console.log(err.message);
+                    });
             };
 
             if (!!fetchEndPoint) fetchData();
@@ -40,10 +39,8 @@ export default (fetchEndPoint, type, icon) => {
     }, []);
 
     useEffect(() => {
-        setTiles(
-            generateTiles(data, type, icon)
-        );
+        setTiles(generateTiles(data, type, icon));
     }, [data]);
 
-    return { data, tiles };
+    return { data, tiles, setData };
 };

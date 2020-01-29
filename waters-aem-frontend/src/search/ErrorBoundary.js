@@ -33,8 +33,9 @@ class ErrorBoundary extends React.Component {
 
     setErrorBoundaryToTrue(response) {
 
+        const status = response.hasOwnProperty('code') ? response.code : "";
         const notification = document.querySelector(
-            '.cmp-notification--dynamic.cmp-notification--error' + response.status
+            '.cmp-notification--dynamic.cmp-notification--error' + status
         );
 
         if (notification) {

@@ -1,5 +1,6 @@
 import scrollToY from './../../scripts/scrollTo';
 import { parse } from 'query-string';
+import SessionStore from '../../stores/sessionStore';
 import DigitalData from '../../scripts/DigitalData';
 import cookieStore from '../../stores/cookieStore';
 
@@ -27,7 +28,10 @@ export async function registrationSubmit(data) {
 
     const localeLanguage = DigitalData.language;
     const localeCountry = DigitalData.country;
-    if((!localeLanguage && !localeCountry) || DigitalData.country===DigitalData.globalExperience){
+    if (
+        (!localeLanguage && !localeCountry) ||
+        DigitalData.country === DigitalData.globalExperience
+    ) {
         localeLanguage = 'en';
         localeCountry = 'US';
     }
@@ -40,7 +44,10 @@ export async function registrationSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-        // registration complete  This needs finishing off later
+        console.log(
+            'registration complete  This needs finishing off later',
+            response.json()
+        );
     } else {
         this.setError(response);
         scrollToY(0);
@@ -127,7 +134,9 @@ export async function changePasswordSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-       // update password complete. This needs finishing off later.
+        console.log(
+            'update password complete.  This needs finishing off later'
+        );
 
         if (this.callback && typeof this.callback === 'function') {
             this.callback(await response.json());
@@ -138,16 +147,19 @@ export async function changePasswordSubmit(data) {
     }
 }
 
-
 export async function personalSubmit(data) {
-
     const response = await postData(this.url, data);
 
     // remove all previous server error notifications
     this.setError();
 
     if (response.status === 200) {
-        //'Personal Details Updated complete . This needs finishing off later'
+        const submitResponse = await response.json();
+        const store = new SessionStore();
+        store.setUserDetails(submitResponse);
+        this.setProfileData(submitResponse);
+
+        this.callback();
     } else {
         this.setError(response);
         scrollToY(0);
@@ -155,7 +167,6 @@ export async function personalSubmit(data) {
 }
 
 export async function signInSubmit(data) {
-
     const isCaptcha = data.hasOwnProperty('captcha');
     if (isCaptcha) {
         this.url = `${this.url}?captcha=${data.captcha}`;
@@ -163,7 +174,7 @@ export async function signInSubmit(data) {
     }
 
     const response = await postData(this.url, data);
-
+    const responseBody = await response.json();
     // remove all previous server error notifications
     this.setError();
 
@@ -174,16 +185,18 @@ export async function signInSubmit(data) {
         if(data.migrated !== "Y") {
             window.location.replace(this.passwordUpdateUrl + `?email=${data.email}`);
         }
-       
+
         // Temporary cookie
-        document.cookie = "WatersLoginCookie=1; path=/; domain=.waters.com";
+        document.cookie = 'WatersLoginCookie=1; path=/; domain=.waters.com';
         const signInRedirect = window.sessionStorage.getItem('signInRedirect');
         if (signInRedirect || this.redirect) {
-            window.location.replace(signInRedirect ? signInRedirect : this.redirect);
+            window.location.replace(
+                signInRedirect ? signInRedirect : this.redirect
+            );
         }
     } else {
         this.updateFailedAttempts('signin');
-        this.setError(response);
+        this.setError(responseBody);
         scrollToY(0);
     }
 }

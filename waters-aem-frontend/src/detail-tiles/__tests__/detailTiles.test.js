@@ -11,9 +11,9 @@ import Tile from '../views/tile';
 import DefaultProps from '../__mocks__/en_US/index';
 
 const keys = {
-	tilesTitle: '.cmp-detail-tiles--title',
-	addTile: '.cmp-detail-tiles--add',
-	emptyTileListTile: '.cmp-detail-tiles-list--tile.no-address',
+    tilesTitle: '.cmp-detail-tiles--title',
+    addTile: '.cmp-detail-tiles--add',
+    emptyTileListTile: '.cmp-detail-tiles-list--tile.no-address',
     nonEmptyTileListTile: '.cmp-detail-tiles-list--tile',
     nonEmptyTileListTileID: `#${DefaultProps.tileName}`,
     tileColumn: '.cmp-detail-tiles-list--tile-column',
@@ -34,23 +34,20 @@ const keys = {
 
 const buildShallowWrapper = (Component, props, mockValues = undefined) => {
     if (Array.isArray(mockValues)) {
-		setMockValues(mockValues);
-	}
-	const wrapper = shallow(<Component {...props} />);
-	return wrapper;
+        setMockValues(mockValues);
+    }
+    const wrapper = shallow(<Component {...props} />);
+    return wrapper;
 };
 
 describe('Feature: Detail Tiles Component', () => {
     describe('Scenario: Rendering Tile List', () => {
         describe('When title is present', () => {
             it('Then it should render title for list', () => {
-                const wrapper = buildShallowWrapper(
-                    DetailTile,
-                    DefaultProps
-                );
+                const wrapper = buildShallowWrapper(DetailTile, DefaultProps);
 
-				const titleDiv = wrapper.find(keys.tilesTitle).first();
-				expect(titleDiv.text()).toEqual(DefaultProps.title);
+                const titleDiv = wrapper.find(keys.tilesTitle).first();
+                expect(titleDiv.text()).toEqual(DefaultProps.title);
             });
         });
         // Add Tile
@@ -69,10 +66,7 @@ describe('Feature: Detail Tiles Component', () => {
         };
 
         beforeAll(() => {
-            wrapper = buildShallowWrapper(
-                Tile,
-                props
-            );
+            wrapper = buildShallowWrapper(Tile, props);
         });
 
         describe('When name is present', () => {
@@ -89,25 +83,27 @@ describe('Feature: Detail Tiles Component', () => {
                 expect(wrapper.exists(keys.tileColumn)).toEqual(true);
             });
 
-            it('Then is should display title provided', () => {
+            it('Then it should display title provided', () => {
                 const title = wrapper.find(keys.tileColumnTitle).first();
                 expect(title.text()).toEqual(props.columns[0].title);
             });
 
-            it('Then is should display text provided', () => {
+            it('Then it should display text provided', () => {
                 const text = wrapper.find(keys.tileColumnText).first();
-                expect(text.text()).toEqual(props.columns[0].text[0]);
+                expect(text.text()).toEqual(props.columns[0].rows[0].text);
             });
 
-            it('Then is should display # of columns (based upon columns length)', () => {
+            it('Then it should display # of columns (based upon columns length)', () => {
                 const columns = wrapper.find(keys.tileColumn);
                 expect(columns).toHaveLength(props.columns.length);
             });
 
-            it('Then is should display # of rows of text (based upon text array length)', () => {
+            it('Then it should display # of rows of text (based upon text array length)', () => {
                 const columns = wrapper.find(keys.tileColumn);
                 columns.forEach((column, idx) => {
-                    expect(column.find(keys.tileColumnText)).toHaveLength(props.columns[idx].text.length);
+                    const rows = column.find(keys.tileColumnText);
+                    const rowLength = rows.length;
+                    expect(props.columns[idx].rows).toHaveLength(rowLength);
                 });
             });
 
@@ -116,7 +112,7 @@ describe('Feature: Detail Tiles Component', () => {
                 columns.forEach((column, idx) => {
                     let title = column.find(keys.tileColumnTitle).first();
 
-                    if (props.columns[idx].title !== "") {
+                    if (props.columns[idx].title !== '') {
                         expect(title.text()).toEqual(props.columns[idx].title);
                     }
                 });
@@ -125,10 +121,12 @@ describe('Feature: Detail Tiles Component', () => {
             it('Then it should display all proper text per column', () => {
                 const columns = wrapper.find(keys.tileColumn);
                 columns.forEach((column, idx) => {
-                    let texts = column.find(keys.tileColumnText);
+                    let rows = column.find(keys.tileColumnText);
 
-                    texts.forEach((text, jdx) => {
-                        expect(text.text()).toEqual(props.columns[idx].text[jdx]);
+                    rows.forEach((row, jdx) => {
+                        expect(row.text()).toEqual(
+                            props.columns[idx].rows[jdx].text
+                        );
                     });
                 });
             });
@@ -158,10 +156,7 @@ describe('Feature: Detail Tiles Component', () => {
         };
 
         beforeAll(() => {
-            wrapper = buildShallowWrapper(
-                Tile,
-                props
-            );
+            wrapper = buildShallowWrapper(Tile, props);
         });
 
         describe('When isNoAddress is set to true', () => {
@@ -175,7 +170,9 @@ describe('Feature: Detail Tiles Component', () => {
                 const blankTile = wrapper.find(keys.emptyTileListTile).first();
                 const title = blankTile.find(keys.emptyTileListTileTitle);
                 expect(title).toHaveLength(1);
-                expect(title.first().text()).toEqual(DefaultProps.noAddressMessage);
+                expect(title.first().text()).toEqual(
+                    DefaultProps.noAddressMessage
+                );
             });
 
             it('Then it should display add tile', () => {
@@ -186,7 +183,9 @@ describe('Feature: Detail Tiles Component', () => {
 
             it('Then it should display add tile', () => {
                 const blankTile = wrapper.find(keys.emptyTileListTile).first();
-                const addTile = blankTile.find(keys.emptyTileListTileAdd).first();
+                const addTile = blankTile
+                    .find(keys.emptyTileListTileAdd)
+                    .first();
                 const title = addTile.find(keys.emptyTileListTileAddTitle);
                 expect(title).toHaveLength(1);
                 expect(title.first().text()).toEqual(DefaultProps.addTitle);
@@ -207,10 +206,7 @@ describe('Feature: Detail Tiles Component', () => {
         };
 
         beforeAll(() => {
-            wrapper = buildShallowWrapper(
-                Tile,
-                props
-            );
+            wrapper = buildShallowWrapper(Tile, props);
         });
 
         describe('When notification is provided', () => {
@@ -229,7 +225,9 @@ describe('Feature: Detail Tiles Component', () => {
                 const notification = wrapper.find(keys.notification);
                 const desc = notification.find(keys.notificationDesc);
                 expect(desc).toHaveLength(1);
-                expect(desc.first().text()).toEqual(props.notification.description);
+                expect(desc.first().text()).toEqual(
+                    props.notification.description
+                );
             });
         });
     });
@@ -242,14 +240,11 @@ describe('Feature: Detail Tiles Component', () => {
             defaultValues: DefaultProps.defaultValues,
             form: DefaultProps.form,
             formMessage: DefaultProps.formMessage,
-            icon: DefaultProps.icons.edit,
+            icon: DefaultProps.icons.edit
         };
 
         beforeAll(() => {
-            wrapper = buildShallowWrapper(
-                Tile,
-                props
-            );
+            wrapper = buildShallowWrapper(Tile, props);
         });
 
         describe('When form is provided', () => {
@@ -286,7 +281,7 @@ describe('Feature: Detail Tiles Component', () => {
         describe('When notification is not present', () => {
             it('Then the snapshot should match', () => {
                 const json = renderer.create(<Tile {...props} />);
-				expect(json).toMatchSnapshot();
+                expect(json).toMatchSnapshot();
             });
         });
 

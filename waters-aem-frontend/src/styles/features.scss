@@ -115,6 +115,7 @@
 
         &-title {
             @include font-utility-large;
+            font-weight: $font-weight-light;
             margin-bottom: $space-s;
         }
 
