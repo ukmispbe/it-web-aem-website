@@ -127,7 +127,7 @@ export async function changePasswordSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-       // update password complete.  This needs finishing off later.
+       // update password complete. This needs finishing off later.
 
         if (this.callback && typeof this.callback === 'function') {
             this.callback(await response.json());
