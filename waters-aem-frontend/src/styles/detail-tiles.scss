@@ -17,9 +17,10 @@
             display: inline-block;
             height: $icon-s;
             width: $icon-s;
-            margin-right: $space-xxs;
+            margin-right: $space-xxxs;
 
             svg {
+                stroke-width: 1.5px;
                 position: relative;
                 top: 2px;
                 height: $icon-s;
@@ -36,6 +37,7 @@
             .cmp-detail-tiles--add {
                 &-title {
                     color: $color-link-hover;
+                    text-decoration: underline;
                 }
 
                 &-icon {
@@ -52,7 +54,7 @@
 
     &--title {
         @include font-h2;
-        margin-bottom: $space-s;
+        margin-bottom: $space-xs;
     }
 
     &-list {
@@ -94,6 +96,7 @@
                         top: 1px;
 
                         svg {
+                            stroke-width: 1.5px;
                             height: $icon-s;
                             width: $icon-s;
                             color: $color-link;
@@ -109,6 +112,7 @@
                     .cmp-detail-tiles-list--tile-edit {
                         &--title {
                             color: $color-link-hover;
+                            text-decoration: underline;
                         }
 
                         &--icon {
@@ -201,14 +205,18 @@
             }
 
             &.no-address {
-                padding: $space-xl 0;
+                padding: ($space-l + $space-xxs) $space-l $space-m $space-l;
                 text-align: center;
-                border: 1px dashed $color-border-light;
+                border: $border-dotted;
                 background-color: transparent;
                 @include font-body;
 
                 .cmp-detail-tiles-list--tile-noAddress--title {
-                    padding-bottom: $space-s;
+                    padding-bottom: $space-xs;
+
+                    @include mobile {
+                        padding-bottom: $space-s;
+                    }
                 }
             }
         }
@@ -274,9 +282,11 @@
     }
     .cmp-detail-tiles--title {
         @include font-h2;
+        margin-bottom: $space-s;
     }
     .cmp-detail-tiles-list--form-message {
         @include font-body;
+        margin-bottom: $space-m;
     }
 }
 
