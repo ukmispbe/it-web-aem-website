@@ -67,7 +67,7 @@ export default (data, type, icon) => {
                                     text: communicationsString,
                                     class: 'communications',
                                     state: {
-                                        visible: data.communications
+                                        communications: data.communications
                                     }
                                 }
                             ]
