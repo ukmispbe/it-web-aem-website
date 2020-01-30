@@ -1,5 +1,6 @@
 import scrollToY from './../../scripts/scrollTo';
 import { parse } from 'query-string';
+import SessionStore from '../../stores/sessionStore';
 import DigitalData from '../../scripts/DigitalData';
 import cookieStore from '../../stores/cookieStore';
 
@@ -27,7 +28,10 @@ export async function registrationSubmit(data) {
 
     const localeLanguage = DigitalData.language;
     const localeCountry = DigitalData.country;
-    if((!localeLanguage && !localeCountry) || DigitalData.country===DigitalData.globalExperience){
+    if (
+        (!localeLanguage && !localeCountry) ||
+        DigitalData.country === DigitalData.globalExperience
+    ) {
         localeLanguage = 'en';
         localeCountry = 'US';
     }
@@ -103,11 +107,9 @@ export async function resetPasswordSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-
         if (this.redirect) {
             window.location.replace(this.redirect);
         }
-
     } else {
         this.setError(response);
         scrollToY(0);
@@ -147,7 +149,12 @@ export async function personalSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-        //'Personal Details Updated complete . This needs finishing off later'
+        const submitResponse = await response.json();
+        const store = new SessionStore();
+        store.setUserDetails(submitResponse);
+        this.setProfileData(submitResponse);
+
+        this.callback();
     } else {
         this.setError(response);
         scrollToY(0);
@@ -163,27 +170,27 @@ export async function signInSubmit(data) {
     }
 
     const response = await postData(this.url, data);
-
+    const responseBody = await response.json();
     // remove all previous server error notifications
     this.setError();
 
     if (response.status === 200) {
 
-        let data = await response.json();
-
-        if(data.migrated !== "Y") {
-            window.location.replace(this.passwordUpdateUrl + `?email=${data.email}`);
+        if(responseBody.migrated !== "Y") {
+            window.location.replace(this.passwordUpdateUrl + `?email=${responseBody.email}`);
         }
-       
+
         // Temporary cookie
-        document.cookie = "WatersLoginCookie=1; path=/; domain=.waters.com";
+        document.cookie = 'WatersLoginCookie=1; path=/; domain=.waters.com';
         const signInRedirect = window.sessionStorage.getItem('signInRedirect');
         if (signInRedirect || this.redirect) {
-            window.location.replace(signInRedirect ? signInRedirect : this.redirect);
+            window.location.replace(
+                signInRedirect ? signInRedirect : this.redirect
+            );
         }
     } else {
         this.updateFailedAttempts('signin');
-        this.setError(response);
+        this.setError(responseBody);
         scrollToY(0);
     }
 }

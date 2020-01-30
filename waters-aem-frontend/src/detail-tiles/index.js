@@ -21,27 +21,27 @@ const DetailTiles = ({
     submitFn,
     editText
 }) => {
-    const { tiles } = useProfile(fetchEndPoint, type, icons.refresh);
+    const { tiles, setData } = useProfile(fetchEndPoint, type, icons.refresh);
 
     const renderTiles = () => {
         switch (type) {
-            case "personal":
+            case 'personal':
                 submitFn = personalSubmit;
                 break;
-            case "password":
+            case 'password':
                 submitFn = changePasswordSubmit;
                 break;
-            case "shipping":
+            case 'shipping':
                 // Assign shipping submit function when done
                 break;
-            case "billing":
+            case 'billing':
                 // Assign billing submit function when done
                 break;
             default:
         }
 
         form.submitFn = submitFn || function() {};
-        
+
         if (!tiles.length) {
             return (
                 <ErrorBoundary>
@@ -73,6 +73,7 @@ const DetailTiles = ({
                     form={form}
                     icon={icons.edit}
                     editText={editText}
+                    setProfileData={setData}
                 />
             </ErrorBoundary>
         ));
