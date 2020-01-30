@@ -1,0 +1,15 @@
+package com.waters.aem.core.email.client;
+
+import org.osgi.service.metatype.annotations.AttributeDefinition;
+import org.osgi.service.metatype.annotations.ObjectClassDefinition;
+
+@ObjectClassDefinition(name = "Waters AWS Email Template Client Configuration")
+public @interface EmailTemplateClientConfiguration {
+
+    @AttributeDefinition(name = "Hostname")
+    String hostname() default "n4ediyos4j.execute-api.us-east-1.amazonaws.com";
+
+    @AttributeDefinition(name = "Set Template API path")
+    String setTemplateEndpoint() default "/Prod/settemplate";
+
+}
