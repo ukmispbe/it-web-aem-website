@@ -84,11 +84,25 @@ export async function resetPasswordSubmit(data) {
     const email = queryString.email;
     const newPassword = data.password;
 
-    const body = {
+    let updateMode = "reset";
+
+    if (typeof resetToken === "undefined") {
+        updateMode = "update";
+    }
+
+    let body = {
         email,
         resetToken,
         newPassword
     };
+
+    // Remove resetToken if undefined
+    if (updateMode === "update") {
+        body = {
+            email,
+            newPassword
+        };
+    }
 
     const response = await postData(this.url, body);
 
@@ -96,9 +110,11 @@ export async function resetPasswordSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
+
         if (this.redirect) {
-            window.location.href = this.redirect;
+            window.location.replace(this.redirect);
         }
+
     } else {
         this.setError(response);
         scrollToY(0);
@@ -163,6 +179,13 @@ export async function signInSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
+
+        let data = await response.json();
+
+        if(data.migrated !== "Y") {
+            window.location.replace(this.passwordUpdateUrl + `?email=${data.email}`);
+        }
+
         // Temporary cookie
         document.cookie = 'WatersLoginCookie=1; path=/; domain=.waters.com';
         const signInRedirect = window.sessionStorage.getItem('signInRedirect');

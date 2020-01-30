@@ -162,6 +162,7 @@ const Form = ({
                     url: config.submitEndpoint,
                     setError: submitErrorHandler,
                     redirect: config.redirectUrl,
+                    passwordUpdateUrl: config.passwordUpdateUrl,
                     callback: callback,
                     updateFailedAttempts: updateFailedAttempts,
                     setProfileData: setProfileData
