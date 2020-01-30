@@ -20,7 +20,7 @@ const MyAccountRouter = (props) => {
                     <ChangePassword configId={props.changePassword.config} />
                 </Route>
                 <Route exact path="/orderhistory" >
-                    <OrderHistory configs={props.OrderHistory} />
+                    <OrderHistory configs={props.orderHistory} />
                 </Route>
             </Switch>
         </HashRouter>

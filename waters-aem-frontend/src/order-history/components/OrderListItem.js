@@ -7,19 +7,6 @@ import LoginStatus from '../../scripts/loginStatus';
 class OrderListItem extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            invoiceStatus: this.props.orderItem.invoiceStatus,
-            orderNumber: this.props.orderItem.orderNumber,
-            purchaseOrderNumber: this.props.orderItem.purchaseOrderNumber,
-            date: this.props.orderItem.date,
-            itemsSubTotal: this.props.orderItem.itemsSubTotal,
-            taxAmount: this.props.orderItem.taxAmount,
-            shippingAmount: this.props.orderItem.shippingAmount,
-            currencyCode: this.props.orderItem.currencyCode,
-            orderTotal: this.props.orderItem.orderTotal,
-            deliveryStatus: this.props.orderItem.deliveryStatus,
-            errorObj: {},
-        };
         this.request = new OrderHistoryService(
             this.state.orderHistory,
             {
@@ -43,15 +30,6 @@ class OrderListItem extends React.Component {
             this.props.onItemClick();
         }
     };
-    setDate = () => {
-        if (this.this.state.date) {
-            (this.this.state.date);
-        }
-
-    }
-
-
-
 
 // Order Number: 48863058261
 // December 8, 2019
@@ -73,92 +51,48 @@ class OrderListItem extends React.Component {
 //     delivaryStatus: "Open"
 // }
 
-    renderBuyInfoPartial = () => {
+    renderOrderItemPartial = () => {
         return (
-            <div className="cmp-sku-details__buyinfo">
-               
-            </div>
+            <div className="cmp-sku-details__buyinfo"> {
+                this.props.invoiceStatus + "<br/>" +
+                this.props.orderNumber + "<br/>" +
+                this.props.purchaseOrderNumber + "<br/>" +
+                this.props.date + "<br/>" +
+                this.props.itemsSubTotal + "<br/>" +
+                this.props.taxAmount + "<br/>" +
+                this.props.shippingAmount + "<br/>" +
+                this.props.currencyCode + "<br/>" +
+                this.props.orderTotal + "<br/>" +
+                this.props.deliveryStatus
+            } </div>
         );
     };
 
-    renderBuyInfoCommerceView = () => {
-        if (Ecommerce.isDisabledState()) {
-            return (null);
-        } else {
-            if ((Ecommerce.isPartialState() && LoginStatus.state()) && CheckOutStatus.state() ||
-                (!Ecommerce.isPartialState() && !Ecommerce.isDisabledState())
-                ) {
-                    return (
-                        <>
-                            {this.renderBuyInfoPartial()}
-                        </>
-                    );
-                } else {
-                    return (null);
-                }
-        }
-    };
-
-    renderBreadcrumb = () => {
-        if (this.props.skuConfig.showBreadcrumbs) {
-            return (
-                <div className="cmp-search__results-item-breadcrumb skuitem">
-                    <div>{this.props.relatedSku.category_facet}</div>
-                    <ReactSVG src={this.props.skuConfig.skuInfo.nextIcon} />
-                    <div>{this.props.relatedSku.contenttype_facet}</div>
-                </div>
-            );
-        }
-
-        return <></>;
-    };
-
-    isDisabled = () => {
-        if (Ecommerce.isPartialState()) {
-            let conditions = LoginStatus.state() && CheckOutStatus.state();
-            return !conditions;
-        } else {
-            return Ecommerce.isDisabledState();
-        }
-    };
-
     render() {
-        const buyInfo = this.renderBuyInfo();
-        const breadcrumbs = this.renderBreadcrumb();
+        const OrderItem = this.renderOrderItemPartial();
         const disabledClass = this.isDisabled() ? 'disabled' : '';
 
         return (
             <div className={'cmp-sku-list__container ' + disabledClass}>
                 <div className="cmp-sku-list__right">
-                    {this.props.relatedSku.primaryImageThumbnail && (
-                        <img
-                            src={this.props.relatedSku.primaryImageThumbnail}
-                            alt={this.props.relatedSku.primaryImageAlt}
-                        />
-                    )}
                 </div>
                 <div className="cmp-sku-details__left">
                     <div className="cmp-sku-list__code">
-                        {this.props.skuConfig.skuInfo.partNumberLabel + " " + this.props.relatedSku.code}
+                        {this.props.date}
                     </div>
-                    <a
-                        onClick={this.handleItemClick}
-                        href={
-                            this.props.relatedSku.skuPageHref
-                                ? this.props.relatedSku.skuPageHref
-                                : null
-                        }
-                    >
                         <div className="cmp-sku-details__title">
-                            {this.props.relatedSku.title}
+                            {this.props.orderNumber}
                         </div>
-                    </a>
-
-                    {buyInfo}
-                    {breadcrumbs}
+                    {OrderItem}
                 </div>
             </div>
         );
     }
 }
+
+
+OrderListItem.propTypes = {
+    data: PropTypes.array.isRequired
+};
+
 export default OrderListItem;

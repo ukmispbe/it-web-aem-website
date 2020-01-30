@@ -3,24 +3,22 @@ import 'whatwg-fetch';
 class OrderHistoryService {
     constructor(
         orderHistory = {
-            orderList: 'http://test-www.waters.com:8443/api/waters/user/v1/order/list?fromDate={fromDate}&toDate={toDate}&countryCode={countryCode}&email={email}',
+            orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email={email}&ponumber=TEST&fromDate={fromDate}&toDate={toDate}'
         },
         throwError //callback 
     ) {
-        this.isocode = isocode;
         this.orderHistoryOptions = orderHistory;
         this.throwError = throwError;
     }
-    createOrderListRequest(fromDate, toDate, email) {
+    createOrderListRequest(fromDate='1573689600000', toDate='1574035200000', email='wendy_batista@waters.com') {
         const url = this.orderHistoryOptions.orderList
             .replace('{fromDate}', Date(fromDate))
             .replace('{toDate}', Date(toDate))
             .replace('{email}', email)
-            .replace('{countryCode}', this.isocode);
 
         return url;
     }
-
+    
     checkFetch(response) {
         if (!response.ok){
             throw response;
