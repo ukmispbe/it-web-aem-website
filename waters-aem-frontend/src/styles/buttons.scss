@@ -135,6 +135,7 @@ button.cmp-button--cancel {
     &:hover {
         background-color: transparent;
         color: $color-link-hover;
+        text-decoration: underline;
     }
 
     @include mobile {
