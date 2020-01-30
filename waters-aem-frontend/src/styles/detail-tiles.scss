@@ -273,6 +273,10 @@
 
         @include mobile {
             width: 100%;
+
+            &.column-0 {
+                width: 100%;
+            }
         }
 
         &--title {
