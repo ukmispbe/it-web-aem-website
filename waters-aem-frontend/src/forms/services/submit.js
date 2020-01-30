@@ -44,10 +44,7 @@ export async function registrationSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-        console.log(
-            'registration complete  This needs finishing off later',
-            response.json()
-        );
+        // registration complete  This needs finishing off later
     } else {
         this.setError(response);
         scrollToY(0);
@@ -110,11 +107,9 @@ export async function resetPasswordSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-
         if (this.redirect) {
             window.location.replace(this.redirect);
         }
-
     } else {
         this.setError(response);
         scrollToY(0);
@@ -134,9 +129,7 @@ export async function changePasswordSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-        console.log(
-            'update password complete.  This needs finishing off later'
-        );
+       // update password complete. This needs finishing off later.
 
         if (this.callback && typeof this.callback === 'function') {
             this.callback(await response.json());
@@ -147,7 +140,9 @@ export async function changePasswordSubmit(data) {
     }
 }
 
+
 export async function personalSubmit(data) {
+
     const response = await postData(this.url, data);
 
     // remove all previous server error notifications
@@ -167,6 +162,7 @@ export async function personalSubmit(data) {
 }
 
 export async function signInSubmit(data) {
+
     const isCaptcha = data.hasOwnProperty('captcha');
     if (isCaptcha) {
         this.url = `${this.url}?captcha=${data.captcha}`;
@@ -180,10 +176,8 @@ export async function signInSubmit(data) {
 
     if (response.status === 200) {
 
-        let data = await response.json();
-
-        if(data.migrated !== "Y") {
-            window.location.replace(this.passwordUpdateUrl + `?email=${data.email}`);
+        if(responseBody.migrated !== "Y") {
+            window.location.replace(this.passwordUpdateUrl + `?email=${responseBody.email}`);
         }
 
         // Temporary cookie
