@@ -1,10 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import Form from '../form';
 
-import { personalConfig } from '../__mocks__/index';
+import { personalConfig } from '../__mocks__/en_US/mockData';
 import { checkRenderInput, 
         checkRenderCheckbox, 
         checkRenderDropdown, 
@@ -57,8 +57,9 @@ describe('Feature: Personal Details Form', () => {
                 checkRenderInput(wrapper, "phone");
             });
 
+            let isDisabled  = true;
             it('Then it should render a country field', async () => {
-                checkRenderDropdown(wrapper, "country");
+                checkRenderDropdown(wrapper, "country", isDisabled);
             });
             
             it('Then it should render a receive communications field', async () => {

@@ -12,7 +12,8 @@ const Tile = ({
     icon,
     defaultValues,
     isNoAddress = false,
-    editText
+    editText,
+    setProfileData
 }) => {
     const [formShown, setFormShown] = useState(false);
 
@@ -21,23 +22,28 @@ const Tile = ({
     };
 
     const renderColumns = () => {
-        return columns.map(({ title, text }, key) => {
+        return columns.map(({ title, rows }, key) => {
             return (
-                <div className="cmp-detail-tiles-list--tile-column" key={key}>
+                <div
+                    className={`cmp-detail-tiles-list--tile-column column-${key}`}
+                    key={key}
+                >
                     {title && (
                         <div className="cmp-detail-tiles-list--tile-column--title">
                             {title}
                         </div>
                     )}
-                    {text &&
-                        text.map((row, idx) => (
-                            <div
-                                className="cmp-detail-tiles-list--tile-column--text"
-                                key={idx}
-                            >
-                                {row}
-                            </div>
-                        ))}
+                    {rows &&
+                        rows.map((row, idx) => {
+                            return (
+                                <div
+                                    className={`${row.class} cmp-detail-tiles-list--tile-column--text`}
+                                    key={idx}
+                                >
+                                    {row.text}
+                                </div>
+                            );
+                        })}
                 </div>
             );
         });
@@ -139,6 +145,7 @@ const Tile = ({
                         callback={handleToggle}
                         cancelFn={handleToggle}
                         defaultValues={defaultValues}
+                        setProfileData={setProfileData}
                     />
                 </div>
             )}

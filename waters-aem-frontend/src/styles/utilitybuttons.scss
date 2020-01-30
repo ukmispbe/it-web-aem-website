@@ -50,6 +50,7 @@
     }
 
     @include mobile {
+        padding: ($space-xs + .1em) $space-s $space-xs $space-s;
         width: 100%;
         float: left;
         margin: 0 0 $space-s 0;

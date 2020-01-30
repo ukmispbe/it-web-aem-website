@@ -1,5 +1,4 @@
 .cmp-form {
-
     .cmp-form-header {
         @include font-body;
         a {
@@ -85,7 +84,7 @@
                 }
 
                 .cmp-custom-dropdown__input {
-                    display: none!important;
+                    display: none !important;
                 }
             }
         }
@@ -93,10 +92,11 @@
         label {
             display: block;
             @include font-h4;
-            margin-bottom: $space-xxs;
+            margin-bottom: $space-xxxs;
 
             .cmp-form-field--optional {
                 @include font-small;
+                font-weight: $font-weight-light;
             }
 
             &.cmp-form-field--label-matching {
@@ -106,7 +106,7 @@
 
         .cmp-form_description {
             @include font-small;
-            margin-bottom: $space-xs;
+            margin-bottom: $space-xxs;
         }
 
         .cmp-form-field--errorText {
@@ -207,6 +207,7 @@
         &.cmp-form-field--invalid {
             input.error {
                 border: 1px solid $color-error;
+                margin-bottom: ($space-xxxs - 0.1em);
 
                 & ~ .cmp-form-field--icons .invalid-icon {
                     display: inline-block;
@@ -265,7 +266,7 @@
             }
 
             &:disabled {
-                border: 1px solid  $color-border-light !important;
+                border: 1px solid $color-border-light !important;
                 color: $color-disabled;
                 background-color: $color-white;
             }
@@ -509,9 +510,9 @@
     .cmp-custom-dropdown__input {
         margin-top: 0;
     }
-    
+
     .cmp-custom-dropdown__control--is-disabled {
-        border-color:  $color-border-light;
+        border-color: $color-border-light;
     }
 
     .cmp-form-field-captcha {

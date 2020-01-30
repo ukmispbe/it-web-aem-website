@@ -1,9 +1,5 @@
 import React from 'react';
 
-const statusCodes = {
-    captcha: 802
-};
-
 class ErrorBoundary extends React.Component {
     constructor(props) {
         super(props);
@@ -36,14 +32,10 @@ class ErrorBoundary extends React.Component {
     }
 
     setErrorBoundaryToTrue(response) {
-        // Display captcha server error in a different notification component
-        const classname =
-            response && response.status === statusCodes.captcha
-                ? 'captcha'
-                : 'error';
 
+        const status = response.hasOwnProperty('code') ? response.code : "";
         const notification = document.querySelector(
-            '.cmp-notification--dynamic.cmp-notification--' + classname
+            '.cmp-notification--dynamic.cmp-notification--error' + status
         );
 
         if (notification) {

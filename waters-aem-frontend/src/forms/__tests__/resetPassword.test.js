@@ -3,20 +3,21 @@ import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import Form from '../form';
-import { signInConfig } from '../__mocks__/en_US/mockData';
 
-import { checkRenderInput, 
-    checkRenderPassword, 
-    checkRenderSubmitButton,
-    checkEventsInput } from '../__utils__/utils';
+import { resetPasswordConfig } from '../__mocks__/en_US/mockData';
+import { checkRenderPassword, 
+        checkRenderPasswordRequirements,
+        checkRenderSubmitButton,
+        checkEventsInput } from '../__utils__/utils';
 
 const mockSubmitFn = jest.fn();
 const isocode = 'en_us';
+
 let wrapper;
 
 beforeEach(async () => {
     await act(async () => {
-        wrapper = mount(<Form config={signInConfig} submitFn={mockSubmitFn} isocode={isocode} />);
+        wrapper = mount(<Form config={resetPasswordConfig} submitFn={mockSubmitFn} isocode={isocode} />);
     })
 });
 
@@ -25,17 +26,15 @@ afterEach(() => {
     jest.clearAllMocks();
 });
 
-describe('Feature: Sign In Form', () => {
+describe('Feature: Reset Password Form', () => {
     describe('Scenario: Rendering', () => {
-        describe('When initial render', ()=>{
-
-            it('Then the snapshot should match', () => {
-                const json = renderer.create(<Form config={signInConfig} submitFn={mockSubmitFn} isocode={isocode} />);
+        describe('When initial render', () => {
+            it('Then the snapshot should match', async () => {
+                let json
+                await renderer.act(async () => {
+                    json = renderer.create(<Form config={resetPasswordConfig} submitFn={mockSubmitFn} isocode={isocode} />);
+                });
                 expect(json).toMatchSnapshot();
-            });
-
-            it('Then it should render an email field', async () => {
-                checkRenderInput(wrapper, "email");
             });
 
             let isValidation = false;
@@ -43,25 +42,35 @@ describe('Feature: Sign In Form', () => {
                 checkRenderPassword(wrapper, "password", isValidation);
             });
 
-            it('Then it should render a link', async ()=>{
-                const link = wrapper.find('div.cmp-form-field-link--forgotPassword').find('a');
-                expect(link.exists()).toEqual(true);
+            it('Then it should render a password validation div', async () => {
+                checkRenderPasswordRequirements(wrapper);
             });
 
-            let isDisabled = true;
-            it('Then it should render a disabled submit button', async () => {
-                checkRenderSubmitButton(wrapper, "SIGN IN", isDisabled);
+            isValidation = true;
+            it('Then it should render a password confirmation field', async () => {
+                checkRenderPassword(wrapper, "confirmPassword", isValidation);
             });
+
+            const isDisabledButton = true;
+            it('Then it should render a disabled submit button', async () => {
+                checkRenderSubmitButton(wrapper, "Reset Password", isDisabledButton);
+            });
+
+            it('Then it should render a form', async () => {
+                const form = wrapper.find('form');
+                expect(form.exists()).toEqual(true);
+            });
+
         });
 
         describe('Checking Events', () => {
-
-            it('Then it should check events on email field', async () => {
-                checkEventsInput(wrapper, "email");
-            });
             
             it('Then it should check events on password field', async () => {
                 checkEventsInput(wrapper, "password");
+            });
+
+            it('Then it should check events on confirm password field', async () => {
+                checkEventsInput(wrapper, "confirmPassword");
             });
             
             it('Then it should check events on submit button', async () => {

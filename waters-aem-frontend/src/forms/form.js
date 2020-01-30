@@ -26,8 +26,17 @@ const Form = ({
     resetErrorBoundaryToFalse,
     removeNotifications,
     defaultValues,
-    callback
+    callback,
+    setProfileData
 }) => {
+    if (defaultValues) {
+        defaultValues.communications =
+            defaultValues.communications === 'true' ||
+            defaultValues.communications === true
+                ? true
+                : false;
+    }
+
     const {
         register,
         handleSubmit,
@@ -37,7 +46,8 @@ const Form = ({
         setError,
         clearError,
         triggerValidation,
-        getValues
+        getValues,
+        reset
     } = useForm({
         mode: 'onBlur',
         reValidateMode: 'onBlur',
@@ -51,7 +61,50 @@ const Form = ({
         return !formState.isValid;
     };
 
+    const cancelHandler = clear => {
+        if (defaultValues) {
+            reset({
+                country: DigitalData.default,
+                ...defaultValues
+            });
+        } else {
+            reset({});
+        }
+
+        cancelFn();
+    };
+
     const [errorUpdates, setUpdate] = useState({});
+    const [failedAttempts, setFailedAttempts] = useState(1);
+    const captchaField = config.fields.filter(
+        field => field.type === 'captcha'
+    )[0];
+    const captchaFailedAttempts =
+        captchaField && captchaField.failedAttempts
+            ? captchaField.failedAttempts
+            : 0;
+
+    const updateFailedAttempts = formName => {
+        if (formName === 'signin') {
+            setFailedAttempts(failedAttempts => failedAttempts + 1);
+            if (
+                captchaFailedAttempts &&
+                failedAttempts === captchaFailedAttempts
+            ) {
+                activateField('captcha');
+            }
+        }
+    };
+
+    const activateField = inputName => {
+        const fields = config.fields.map(field => {
+            if (field.type === inputName) {
+                field.active = true;
+            }
+            return field;
+        });
+        config.fields = [...fields];
+    };
 
     useEffect(() => {
         for (let name in errorUpdates) {
@@ -102,14 +155,17 @@ const Form = ({
                 config,
                 ...field,
                 field,
-                isocode
+                isocode,
+                initialState: defaultValues
+                    ? defaultValues[field.name]
+                    : undefined
             }),
-            [field]
+            [field, field.active]
         );
         return (
-                <FieldApi.Provider value={getFieldApi} key={`field-${i}`}>
-                    <Field />
-                </FieldApi.Provider>
+            <FieldApi.Provider value={getFieldApi} key={`field-${i}`}>
+                <Field />
+            </FieldApi.Provider>
         );
     });
     return (
@@ -120,7 +176,10 @@ const Form = ({
                     url: config.submitEndpoint,
                     setError: submitErrorHandler,
                     redirect: config.redirectUrl,
-                    callback: callback
+                    passwordUpdateUrl: config.passwordUpdateUrl,
+                    callback: callback,
+                    updateFailedAttempts: updateFailedAttempts,
+                    setProfileData: setProfileData
                 })
             )}
         >
@@ -139,8 +198,11 @@ const Form = ({
             >
                 {config.buttonText}
             </button>
-            {config.cancelText && !!cancelFn && (
-                <a className="cmp-button cmp-button--cancel" onClick={cancelFn}>
+            {config.cancelText && !!cancelHandler && (
+                <a
+                    className="cmp-button cmp-button--cancel"
+                    onClick={cancelHandler}
+                >
                     {config.cancelText}
                 </a>
             )}

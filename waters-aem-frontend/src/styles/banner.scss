@@ -1,5 +1,5 @@
 .cmp-banner {
-    margin: $space-l -30% $space-l;
+    margin: $space-l -30% $space-xl;
     padding: 0 30%;
     position: relative;
     overflow-y: hidden;
@@ -359,9 +359,21 @@
 }
 
 .cmp-banner--search .cmp-banner {
-    margin-bottom: $space-s;
+    margin-bottom: $space-l;
 
     @include tablet-and-under {
         margin-bottom: $space-l;
+    }
+}
+
+.cmp-banner--largePadding .cmp-banner {
+    .cmp-banner__parsys {
+        padding: ($space-xxl - $space-s) 0 $space-xl 0;
+    }
+}
+
+.cmp-banner--smallPadding .cmp-banner {
+    .cmp-banner__parsys {
+        padding: $space-l 0 $space-xxxs 0;
     }
 }

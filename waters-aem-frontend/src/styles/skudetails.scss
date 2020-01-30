@@ -554,7 +554,7 @@
 .cmp-search__container {
     .cmp-sku-details__title {
         @include font-h3;
-        margin-bottom: $space-xxs;
+        margin-bottom: $space-xs;
         width: 70%;
         @include tablet-and-under {
             width: 60%;

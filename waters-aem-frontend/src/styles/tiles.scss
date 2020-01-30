@@ -69,11 +69,9 @@
         }
 
         div {
-            @include font-utility;
+            @include font-utility-large;
             width: 100%;
             text-align: center;
-            font-size: $font-size-h3;
-            font-weight: $font-weight-light;
             margin-bottom: 0;
 
             @include tablet-and-under {

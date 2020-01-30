@@ -66,7 +66,7 @@
             -o-transition: height ease .5s;
             -moz-transition: height ease .5s;
             transition: height .5s ease;
-            height: 52px;
+            height:47px;
             width: 100%;
             padding: 0 20px;
             margin: 0;
@@ -112,7 +112,7 @@
                     float: right;
                     right: 15%;
                     position: absolute;
-                    top: 0.7em;
+                    top: $space-xs;
                     padding-right: $space-xs;
                 }
             }
@@ -120,7 +120,7 @@
 
         @include mobile {
             transition: height ease 0.5s;
-            height: 52px;
+            height: 47px;
             &.open {
                 height: 100vh;
                 .cmp-anchor__list-heading--closed {
@@ -131,13 +131,13 @@
                 .cmp-anchor__list-heading--open {
                     opacity: 1;
                     box-shadow: $shadow;
-                    height: 50px;
+                    height: 47px;
                     width: 100%;
                     position: fixed;
                     left: 0;
                     top: 0;
                     padding: 0 20px;
-                    padding-top: .6em;
+                    padding-top: ($space-xs - .1em);
 
                     .cmp-icon {
                         position: static;
@@ -147,7 +147,7 @@
             }
 
             &.closed {
-                height: 52px;
+                height: 47px;
                 .cmp-anchor__list-heading--closed {
                     opacity: 1;
                 }
