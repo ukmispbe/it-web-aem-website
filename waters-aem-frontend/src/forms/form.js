@@ -46,7 +46,8 @@ const Form = ({
         setError,
         clearError,
         triggerValidation,
-        getValues
+        getValues,
+        reset
     } = useForm({
         mode: 'onBlur',
         reValidateMode: 'onBlur',
@@ -58,6 +59,19 @@ const Form = ({
 
     const checkIfDisabled = () => {
         return !formState.isValid;
+    };
+
+    const cancelHandler = clear => {
+        if (defaultValues) {
+            reset({
+                country: DigitalData.default,
+                ...defaultValues
+            });
+        } else {
+            reset({});
+        }
+
+        cancelFn();
     };
 
     const [errorUpdates, setUpdate] = useState({});
@@ -183,8 +197,11 @@ const Form = ({
             >
                 {config.buttonText}
             </button>
-            {config.cancelText && !!cancelFn && (
-                <a className="cmp-button cmp-button--cancel" onClick={cancelFn}>
+            {config.cancelText && !!cancelHandler && (
+                <a
+                    className="cmp-button cmp-button--cancel"
+                    onClick={cancelHandler}
+                >
                     {config.cancelText}
                 </a>
             )}

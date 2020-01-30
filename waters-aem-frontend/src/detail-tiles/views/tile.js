@@ -24,7 +24,10 @@ const Tile = ({
     const renderColumns = () => {
         return columns.map(({ title, rows }, key) => {
             return (
-                <div className="cmp-detail-tiles-list--tile-column" key={key}>
+                <div
+                    className={`cmp-detail-tiles-list--tile-column column-${key}`}
+                    key={key}
+                >
                     {title && (
                         <div className="cmp-detail-tiles-list--tile-column--title">
                             {title}
@@ -32,13 +35,6 @@ const Tile = ({
                     )}
                     {rows &&
                         rows.map((row, idx) => {
-                            if (
-                                (row.state && row.state.visible === 'false') ||
-                                (row.state && row.state.visible === false)
-                            ) {
-                                return null;
-                            }
-
                             return (
                                 <div
                                     className={`${row.class} cmp-detail-tiles-list--tile-column--text`}
