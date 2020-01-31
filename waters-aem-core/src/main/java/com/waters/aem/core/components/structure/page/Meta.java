@@ -257,7 +257,7 @@ public final class Meta extends AbstractComponent {
 
         properties.put("@context", "https://schema.org/");
         properties.put("@type", "Product");
-        properties.put("url", externalize(currentPage.getHref()));
+        properties.put("url", externalize(currentPage.getHref(true)));
         properties.put("description", getDescription());
         properties.put("name", getTitle());
         properties.put("image", getThumbnailImage());
