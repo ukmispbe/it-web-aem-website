@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import OrderListItem from './components/OrderListItem';
+import OrderHistoryService from './orderHistory.services';
 
 class OrderHistory extends Component {
     constructor(props) {
         super(props);
-
+        this.state = {
+            orderHistoryList: "",
+            errorObjHistory: {},
+        }
         this.orderMock = [
             {
                 invoiceStatus: "Open",
@@ -203,21 +207,66 @@ class OrderHistory extends Component {
     
     }
 
+    componentDidMount() {
+        OrderHistoryService.getOrderList(this.state.fromDate, this.state.toDate, this.state.email)
+            .then(response => {
+                this.setState({
+                    orderHistoryList: response
+                });
+            })
+            .catch(err => {
+                // Add Error Object to State
+                this.setState({ errorObjHistory: err });
+            });
+    }
     render() {
         return (
             <>
-                {this.orderMock.length > 0 && ( //only return template if data exists
+                {this.state.orderHistoryList.length > 0 && ( //only return template if data exists
                     <>
                         {this.props.title && (
                             <div className="cmp-sku-list__title">
                                 {this.props.title}
                             </div>
                         )}
-                        {this.orderMock.map((item, index) => (
+                        {this.state.orderHistoryList.map((item, index) => (
                             <OrderListItem
                                 data={item}
                             />
-                        ))}
+                        ))
+                        
+                        (
+                        // <ReactPaginate
+                        //     pageCount={state.pagination.amount}
+                        //     forcePage={
+                        //         state.pagination.current
+                        //             ? state.pagination.current - 1
+                        //             : 0
+                        //     }
+                        //     pageRangeDisplayed={8}
+                        //     marginPagesDisplayed={1}
+                        //     containerClassName="paginate__container"
+                        //     onPageChange={num =>
+                        //         this.paginationClickHandler.bind(
+                        //             this,
+                        //             num,
+                        //             'clicked'
+                        //         )()
+                        //     }
+                        //     breakLabel={'…'}
+                        //     previousLabel={previousIcon}
+                        //     nextLabel={
+                        //         <ReactSVG src={this.props.searchText.nextIcon} />
+                        //     }
+                        //     initialPage={
+                        //         state.pagination.current
+                        //             ? state.pagination.current - 1
+                        //             : 0
+                        //     }
+                        //     disableInitialCallback={true}
+                        //     hrefBuilder={this.buildHref}
+                        // />
+                        )}
                     </>
                 )}
             </>

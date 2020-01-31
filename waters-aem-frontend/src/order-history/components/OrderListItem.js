@@ -1,28 +1,18 @@
-import React from 'react';
-import ReactSVG from 'react-svg';
+import React, { Component } from 'react';
 import OrderHistoryService from '../orderHistory.services';
 import dateFormatter from '../../utils/date-formatter'
-import LoginStatus from '../../scripts/loginStatus';
 
-class OrderListItem extends React.Component {
+class OrderListItem extends Component {
     constructor(props) {
         super(props);
-        this.request = new OrderHistoryService(
-            this.state.orderHistory,
-            {
-                fromDate: this.state.fromDate,
-                toDate: this.state.toDate,
-                email: this.state.email,
-            },
-            err => {
-                // Add Error Object to State
-                this.setState({
-                    errorObj: err,
-                });
-            }
-        );
 
-        this.checkAvailability = this.checkAvailability.bind(this);
+        this.state = {
+            fromDate: "2019-12-20",
+            toDate: "2020-1-30",
+            email: 'wendy_batista@waters.com'
+
+            //fromDate='1573689600000', toDate='1574035200000', email='wendy_batista@waters.com'
+        };
     }
 
     handleItemClick = () => {
@@ -54,34 +44,37 @@ class OrderListItem extends React.Component {
     renderOrderItemPartial = () => {
         return (
             <div className="cmp-sku-details__buyinfo"> {
-                this.props.invoiceStatus + "<br/>" +
-                this.props.orderNumber + "<br/>" +
-                this.props.purchaseOrderNumber + "<br/>" +
-                this.props.date + "<br/>" +
-                this.props.itemsSubTotal + "<br/>" +
-                this.props.taxAmount + "<br/>" +
-                this.props.shippingAmount + "<br/>" +
-                this.props.currencyCode + "<br/>" +
-                this.props.orderTotal + "<br/>" +
-                this.props.deliveryStatus
+                this.props.data.invoiceStatus + "\n" +
+                this.props.data.orderNumber + "\n" +
+                this.props.data.purchaseOrderNumber + "\n" +
+                this.props.data.date + "\n" +
+                this.props.data.itemsSubTotal + "\n" +
+                this.props.data.taxAmount + "\n" +
+                this.props.data.shippingAmount + "\n" +
+                this.props.data.currencyCode + "\n" +
+                this.props.data.orderTotal + "\n" +
+                this.props.data.deliveryStatus
             } </div>
         );
     };
 
     render() {
         const OrderItem = this.renderOrderItemPartial();
-        const disabledClass = this.isDisabled() ? 'disabled' : '';
+        const disabledClass = this.state.email ? 'disabled' : '';
 
         return (
             <div className={'cmp-sku-list__container ' + disabledClass}>
                 <div className="cmp-sku-list__right">
+                    {this.props.data.deliveryStatus}<br/>
                 </div>
                 <div className="cmp-sku-details__left">
                     <div className="cmp-sku-list__code">
-                        {this.props.date}
+                        {this.props.data.date}
                     </div>
                         <div className="cmp-sku-details__title">
-                            {this.props.orderNumber}
+                            {this.props.data.orderNumber}<br/>
+                            {this.props.data.date}<br/>
+                            {this.props.data.orderTotal}
                         </div>
                     {OrderItem}
                 </div>
