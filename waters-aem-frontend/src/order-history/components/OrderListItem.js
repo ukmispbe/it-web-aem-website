@@ -69,14 +69,13 @@ class OrderListItem extends Component {
                 </div>
                 <div className="cmp-sku-details__left">
                     <div className="cmp-sku-list__code">
-                        {this.props.data.date}
+                        {this.props.data.orderNumber}
                     </div>
                         <div className="cmp-sku-details__title">
-                            {this.props.data.orderNumber}<br/>
                             {this.props.data.date}<br/>
                             {this.props.data.orderTotal}
                         </div>
-                    {OrderItem}
+                    {/* {OrderItem} */}
                 </div>
             </div>
         );

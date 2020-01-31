@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import OrderListItem from './components/OrderListItem';
-import OrderHistoryService from './orderHistory.services';
+import OrderHistoryService from'./orderHistory.services';
+import ReactPaginate from 'react-paginate';
+import ReactSVG from 'react-svg';
 
 class OrderHistory extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            pagination: 1,
+            nextIcon: "/content/dam/waters/en/brand-assets/icons/left.svg",
+            previousIcon: "/content/dam/waters/en/brand-assets/icons/right.svg",
             orderHistoryList: "",
             errorObjHistory: {},
+            fromDate: "2019-12-20",
+            toDate: "2020-1-30",
+            email: 'wendy_batista@waters.com' 
         }
         this.orderMock = [
             {
@@ -204,69 +212,91 @@ class OrderHistory extends Component {
             delivaryStatus: "Open"
             }
             ];
-    
     }
 
     componentDidMount() {
-        OrderHistoryService.getOrderList(this.state.fromDate, this.state.toDate, this.state.email)
-            .then(response => {
-                this.setState({
-                    orderHistoryList: response
-                });
-            })
-            .catch(err => {
-                // Add Error Object to State
-                this.setState({ errorObjHistory: err });
-            });
+        const OrderHistoryServiceObj = new OrderHistoryService();
+        OrderHistoryServiceObj.getOrderList(this.state.fromDate, this.state.toDate, this.state.email).then(result => {
+            this.setState({ 
+                orderHistoryList: result
+            }); 
+        }) || null;
     }
+
+    paginationClickHandler(page, e) {
+        if (e === 'clicked') {
+            this.search.setStorageForPagination();
+        };
+
+        const state = this.state;
+
+        const newState = Object.assign({}, this.state, {
+            pagination: {
+                amount: state.pagination.amount,
+                current: page.selected + 1,
+            },
+        });
+
+        this.setState(newState, () => {
+            let query = this.getQueryObject();
+
+            query.page = page.selected + 1;
+
+            this.pushToHistory(query, query.facets);
+        });
+    }
+
+
     render() {
+        const previousIcon = (
+            <ReactSVG src={this.state.previousIcon} />
+        );
         return (
             <>
                 {this.state.orderHistoryList.length > 0 && ( //only return template if data exists
                     <>
-                        {this.props.title && (
+                        {this.props.configs.title && (
                             <div className="cmp-sku-list__title">
-                                {this.props.title}
+                                {this.props.configs.title}
                             </div>
                         )}
                         {this.state.orderHistoryList.map((item, index) => (
+                            
                             <OrderListItem
                                 data={item}
                             />
-                        ))
+                        ))}
                         
-                        (
-                        // <ReactPaginate
-                        //     pageCount={state.pagination.amount}
-                        //     forcePage={
-                        //         state.pagination.current
-                        //             ? state.pagination.current - 1
-                        //             : 0
-                        //     }
-                        //     pageRangeDisplayed={8}
-                        //     marginPagesDisplayed={1}
-                        //     containerClassName="paginate__container"
-                        //     onPageChange={num =>
-                        //         this.paginationClickHandler.bind(
-                        //             this,
-                        //             num,
-                        //             'clicked'
-                        //         )()
-                        //     }
-                        //     breakLabel={'…'}
-                        //     previousLabel={previousIcon}
-                        //     nextLabel={
-                        //         <ReactSVG src={this.props.searchText.nextIcon} />
-                        //     }
-                        //     initialPage={
-                        //         state.pagination.current
-                        //             ? state.pagination.current - 1
-                        //             : 0
-                        //     }
-                        //     disableInitialCallback={true}
-                        //     hrefBuilder={this.buildHref}
-                        // />
-                        )}
+                        <ReactPaginate
+                            pageCount={this.state.pagination.amount}
+                            forcePage={
+                                this.state.pagination.current
+                                    ? this.state.pagination.current - 1
+                                    : 0
+                            }
+                            pageRangeDisplayed={8}
+                            marginPagesDisplayed={1}
+                            containerClassName="paginate__container"
+                            onPageChange={num =>
+                                this.paginationClickHandler.bind(
+                                    this,
+                                    num,
+                                    'clicked'
+                                )()
+                            }
+                            breakLabel={'…'}
+                            previousLabel={previousIcon}
+                            nextLabel={
+                                <ReactSVG src={this.props.nextIcon} />
+                            }
+                            initialPage={
+                                this.state.pagination.current
+                                    ? this.state.pagination.current - 1
+                                    : 0
+                            }
+                            disableInitialCallback={true}
+                            hrefBuilder={this.buildHref}
+                        />
                     </>
                 )}
             </>

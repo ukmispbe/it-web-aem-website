@@ -11,16 +11,16 @@ class OrderHistoryService {
         this.orderHistoryOptions = orderHistory;
         this.throwError = throwError;
     }
+    
     createOrderListRequest(fromDate, toDate, email) {
         const url = this.orderHistoryOptions.orderList
-            .replace('{fromDate}', Date(fromDate))
-            .replace('{toDate}', Date(toDate))
+            .replace('{fromDate}', fromDate)
+            .replace('{toDate}', toDate)
             .replace('{email}', email)
 
         return url;
-    }
+    } 
 
-    
     checkFetch(response) {
         if (!response.ok){
             throw response;
