@@ -190,3 +190,11 @@ blockquote {
         margin-top: $space-m;
     }
 }
+
+.cmp-title > .cmp-accent-rule {
+    width: 5em;
+}
+
+.cmp-my-account__aside-wrapper > .cmp-title > .cmp-accent-rule {
+    width: 21.333333%;
+}
