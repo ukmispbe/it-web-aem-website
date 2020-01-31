@@ -91,10 +91,12 @@ public final class DefaultSiteRepository implements SiteRepository {
     }
 
     @Override
-    public PageDecorator getCountryRootPage(final ResourceResolver resourceResolver, final String countryCode) {
+    public PageDecorator getCountryRootPage(final ResourceResolver resourceResolver, final String countryCode,
+                                            final boolean matchNodeName) {
         return getCountryRootPages(resourceResolver)
             .stream()
             .filter(page -> countryCode.equalsIgnoreCase(page.getLanguage(false).getCountry()))
+            .filter(page -> !matchNodeName || countryCode.equalsIgnoreCase(page.getName()))
             .findFirst()
             .orElse(null);
     }
@@ -113,11 +115,11 @@ public final class DefaultSiteRepository implements SiteRepository {
 
     @Override
     public PageDecorator getLanguageRootPage(final ResourceResolver resourceResolver, final String countryCode,
-        final String languageCode) {
+        final String languageCode, final boolean matchNodeName) {
         @SuppressWarnings({ "squid:S1854", "squid:S1481" })
         final LiveRelationshipManager liveRelationshipManager = resourceResolver.adaptTo(LiveRelationshipManager.class);
 
-        final PageDecorator countryRootPage = getCountryRootPage(resourceResolver, countryCode);
+        final PageDecorator countryRootPage = getCountryRootPage(resourceResolver, countryCode, matchNodeName);
 
         final Predicate<PageDecorator> predicate = Predicates.and(
             languageRootPage -> isLiveCopy(languageRootPage, liveRelationshipManager),

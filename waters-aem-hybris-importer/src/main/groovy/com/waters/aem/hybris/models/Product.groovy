@@ -23,6 +23,8 @@ class Product {
 
     Boolean terminated
 
+    String gtin
+
     List<ProductCategory> categories = []
 
     List<Price> prices = []
