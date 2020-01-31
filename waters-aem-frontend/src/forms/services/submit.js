@@ -178,6 +178,7 @@ export async function signInSubmit(data) {
 
         if(responseBody.migrated !== "Y") {
             window.location.replace(this.passwordUpdateUrl + `?email=${responseBody.email}`);
+            return;
         }
 
         // Temporary cookie
