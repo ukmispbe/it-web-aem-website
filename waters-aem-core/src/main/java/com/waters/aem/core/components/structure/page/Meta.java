@@ -257,6 +257,7 @@ public final class Meta extends AbstractComponent {
 
         properties.put("@context", "https://schema.org/");
         properties.put("@type", "Product");
+        properties.put("url", externalize(currentPage.getHref()));
         properties.put("description", getDescription());
         properties.put("name", getTitle());
         properties.put("image", getThumbnailImage());
@@ -265,6 +266,17 @@ public final class Meta extends AbstractComponent {
             properties.put("sku", sku.getCode());
             properties.put("brand", getBrand());
         }
+
+        final Map<String, Object> authorProperties = new HashMap<>();
+        authorProperties.put("@type", "Person");
+        authorProperties.put("name", "");
+
+        final Map<String, Object> reviewProperties = new HashMap<>();
+        reviewProperties.put("@type", "review");
+        reviewProperties.put("reviewBody", "");
+        reviewProperties.put("author", authorProperties);
+
+        properties.put("review", reviewProperties);
 
         return MAPPER.writeValueAsString(properties);
     }
