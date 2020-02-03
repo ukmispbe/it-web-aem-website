@@ -19,7 +19,7 @@ import java.util.Map;
 @Component(service = Servlet.class)
 @SlingServletPaths("/bin/waters/notifications")
 public final class SystemNotificationsServlet extends AbstractJsonResponseServlet {
-
+    @SuppressWarnings("squid:S1068")
     private static final Logger LOG = LoggerFactory.getLogger(SystemNotificationsServlet.class);
 
     @Reference

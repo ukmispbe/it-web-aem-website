@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:rep="internal"
+    jcr:lastModified="{Date}2020-01-16T09:00:05.120-06:00"
+    jcr:mixinTypes="[rep:AccessControllable]"
+    jcr:primaryType="sling:OrderedFolder"
+    jcr:title="Rollout Configurations">
+    <launch/>
+    <pushonmodifyshallow/>
+    <rep:policy/>
+    <dps-publications/>
+    <catalogpagecontent/>
+    <catalogrollouthooks/>
+    <default/>
+    <pushonmodify/>
+    <activate/>
+    <deactivate/>
+    <catalog/>
+    <skucustomrollout/>
+    <pushoncreation/>
+    <waterslanguagerollout/>
+</jcr:root>
