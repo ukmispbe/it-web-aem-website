@@ -5,7 +5,7 @@
     <script type="application/json" id="cmp-registration-form">
 		{
             "submitEndpoint": "${registration.registrationSubmitUrl @ context='unsafe'}",
-            "buttonText": "${'Change Account' @ i18n, context='text'}",
+            "buttonText": "${'Continue' @ i18n, context='text'}",
             "icons": {
                 "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                 "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
@@ -15,14 +15,19 @@
                 "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
             },
             "existingEmailUrl": "${registration.emailValidationUrl @ context='unsafe'}",
-            "fields": [ 
+            "fields": [
+                {
+                    "type": "body",
+                    "name": "details",
+                    "text": "${'Please choose which account you would like use while you browse and shop. Product pricing and other content may vary depending on which account you choose. ' @ i18n, context='unsafe'}"
+                }, 
                 {
                     "type": "radio",
                     "name": "accountNumber",
                     "options": [
-                        { "name": "account-1234", "label": "Account 1234", "description": "Account 1234"},
-                        { "name": "account-1235", "label": "Account 1235", "description": "Account 1234"},
-                        { "name": "account-1236", "label": "Account 1236", "description": "Account 1234"}
+                        { "name": "account-1234", "label": "Waters 1234", "accountStreet": "1 Rocky Road", "accountCity": "Milford", "accountZip": "02345"},
+                        { "name": "account-1235", "label": "Waters 1235", "accountStreet": "2 Minden Street", "accountCity": "New York", "accountZip": "56543"},
+                        { "name": "account-1236", "label": "Waters 1236", "accountStreet": "4 Liverpool Street", "accountCity": "Manchester", "accountZip": "M6 7YH"}
                     ],
                     "validation": {
                         "required": true,
