@@ -6,15 +6,6 @@
     <filter root="/content/waters" mode="merge"/>
     <filter root="/etc/waters/notifications/system-notification" mode="merge"/>
 
-    <!-- AC policies to block anonymous read access to published email templates -->
-    <filter root="/content/dam/waters/en/emails/rep:policy"/>
-    <filter root="/content/dam/waters/es/emails/rep:policy"/>
-    <filter root="/content/dam/waters/de/emails/rep:policy"/>
-    <filter root="/content/dam/waters/fr/emails/rep:policy"/>
-    <filter root="/content/dam/waters/it/emails/rep:policy"/>
-    <filter root="/content/dam/waters/ja/emails/rep:policy"/>
-    <filter root="/content/dam/waters/ko/emails/rep:policy"/>
-    <filter root="/content/dam/waters/zh/emails/rep:policy"/>
-    <filter root="/content/dam/waters/pt_br/emails/rep:policy"/>
-    <filter root="/content/dam/waters/zh_tw/emails/rep:policy"/>
+    <!-- AC policy to block anonymous read access to published email templates -->
+    <filter root="/content/dam/waters/emails/rep:policy"/>
 </workspaceFilter>
