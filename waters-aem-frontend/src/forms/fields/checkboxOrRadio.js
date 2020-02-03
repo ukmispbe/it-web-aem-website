@@ -53,9 +53,24 @@ const CheckboxOrRadio = ({}) => {
         }
     });
 
-    const checkHandler = (event, thisName) => {
+    const checkHandler = (event, thisName,) => {
         if (!disabled) {
             const thisState = state[thisName];
+
+            if (options && type ==="radio") {
+                for (var key of Object.keys(state)) {
+                    if (key === thisName) {
+                        state[key].isChecked = true;
+                    }
+                    else {
+                        state[key].isChecked = false;
+                    }
+                    setValue(key, state[key].isChecked, state[key].required);               
+                }
+                setState({...state});
+                return;
+            }
+
             setValue(thisName, !thisState.isChecked, thisState.required);
             setState({
                 ...state,
@@ -107,6 +122,7 @@ const CheckboxOrRadio = ({}) => {
                     id={thisName}
                     disabled={disabled}
                     checked={thisState.isChecked}
+                    onClick={e => checkHandler(e, thisName)}
                     className={hasError(thisName) ? 'error' : 'valid'}
                     ref={register(thisState.required ? { required: true } : {})}
                     readOnly
