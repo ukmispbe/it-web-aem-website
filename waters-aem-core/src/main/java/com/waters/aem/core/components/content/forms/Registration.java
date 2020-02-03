@@ -68,7 +68,8 @@ public class Registration implements ComponentExporter {
     private Link privacyNoticeLink;
 
     @DialogField(fieldLabel = "Redirect Link",
-        fieldDescription = "Select or enter the redirect link URL. User will be redirected after successful submission",
+        fieldDescription = "Select or enter the redirect link URL. The destination page the user will be redirected " +
+        "to after successful submission",
         ranking = 3)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject
