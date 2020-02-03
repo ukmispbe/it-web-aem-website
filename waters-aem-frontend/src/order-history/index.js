@@ -17,6 +17,7 @@ class OrderHistory extends Component {
             fromDate: "2019-12-20",
             toDate: "2020-1-30",
             email: 'wendy_batista@waters.com' 
+
         }
         this.orderMock = [
             {
@@ -222,6 +223,7 @@ class OrderHistory extends Component {
             }); 
         }) || null;
     }
+
 
     paginationClickHandler(page, e) {
         if (e === 'clicked') {
