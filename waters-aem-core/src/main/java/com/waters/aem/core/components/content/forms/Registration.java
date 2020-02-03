@@ -55,6 +55,7 @@ public class Registration implements ComponentExporter {
 
     @DialogField(fieldLabel = "Login Link",
         fieldDescription = "Select or enter the link URL",
+        required  = true,
         ranking = 1)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject
@@ -62,6 +63,7 @@ public class Registration implements ComponentExporter {
 
     @DialogField(fieldLabel = "Privacy Notice Link",
         fieldDescription = "Select or enter the link URL",
+        required  = true,
         ranking = 2)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject
@@ -70,6 +72,7 @@ public class Registration implements ComponentExporter {
     @DialogField(fieldLabel = "Redirect Link",
         fieldDescription = "Select or enter the redirect link URL. The destination page the user will be redirected " +
         "to after successful submission",
+        required  = true,
         ranking = 3)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject
