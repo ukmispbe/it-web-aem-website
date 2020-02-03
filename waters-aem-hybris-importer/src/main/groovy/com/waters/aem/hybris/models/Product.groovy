@@ -23,7 +23,7 @@ class Product {
 
     Boolean terminated
 
-    String gtin
+    String ean
 
     List<ProductCategory> categories = []
 
