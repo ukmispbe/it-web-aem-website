@@ -46,7 +46,7 @@ public final class EmailTemplateJobConsumer extends AbstractJobConsumer {
 
     public static final String DEFAULT_EMAIL_SUBJECT = "<No subject>";
 
-    public static final String DAM_PATH_EMAIL_REGEX = WatersConstants.DAM_PATH + "/(.+)/emails.*";
+    public static final String DAM_PATH_EMAIL_REGEX = WatersConstants.EMAILS_DAM_PATH + "/(.+)/.*";
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -59,9 +59,7 @@ public final class EmailTemplateJobConsumer extends AbstractJobConsumer {
         LOG.info("processing email template job for path : {}", path);
 
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
-            if (path.startsWith(WatersConstants.DAM_PATH)) {
-                handleAsset(path, resourceResolver);
-            }
+            handleAsset(path, resourceResolver);
         } catch (LoginException | IOException | URISyntaxException e) {
             LOG.error("error uploading email template to email service : " + path, e);
 
@@ -83,33 +81,29 @@ public final class EmailTemplateJobConsumer extends AbstractJobConsumer {
                 .orElse(StringUtils.substringBeforeLast(asset.getName(), "."))
                 .concat("-" + language);
 
+        final String subject = asset.adaptTo(Resource.class).getValueMap()
+                .get(CONTENT_PATH_EMAIL_SUBJECT, DEFAULT_EMAIL_SUBJECT);
+
+        final String emailHtml = inputStreamToString(asset.getRendition(DamConstants.ORIGINAL_FILE).getStream());
+
         LOG.info("uploading template to email service. template name = {}, language = {}", templateName, language);
 
-        setTemplate(templateName, asset);
+        emailTemplateClient.setTemplate(SESEmailTemplate.forHtmlPart(templateName, subject, emailHtml));
     }
 
     private String getLanguage(final String path) {
         String language = "";
 
         // Create a Pattern object
-        Pattern pattern = Pattern.compile(DAM_PATH_EMAIL_REGEX);
+        final Pattern pattern = Pattern.compile(DAM_PATH_EMAIL_REGEX);
 
-        Matcher matcher = pattern.matcher(path);
+        final Matcher matcher = pattern.matcher(path);
 
         if (matcher.find()) {
             language = matcher.group(1);
         }
 
         return language;
-    }
-
-    private void setTemplate(final String templateName, final Asset asset) throws IOException, URISyntaxException {
-        final String subject = asset.adaptTo(Resource.class).getValueMap()
-                .get(CONTENT_PATH_EMAIL_SUBJECT, DEFAULT_EMAIL_SUBJECT);
-
-        final String emailHtml = inputStreamToString(asset.getRendition(DamConstants.ORIGINAL_FILE).getStream());
-
-        emailTemplateClient.setTemplate(SESEmailTemplate.forHtmlPart(templateName, subject, emailHtml));
     }
 
     private String inputStreamToString(final InputStream inputStream) throws IOException {
