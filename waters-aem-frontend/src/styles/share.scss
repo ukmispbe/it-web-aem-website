@@ -21,7 +21,7 @@
     &:first-of-type {
         margin: $space-xs $space-xxs 0 0;
         padding-right: $space-s;
-        border-right: 1px solid $color-gray-30;
+        border-right: $border-medium;
     }
 }
 

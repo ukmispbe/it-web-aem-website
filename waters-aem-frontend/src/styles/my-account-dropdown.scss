@@ -4,6 +4,7 @@
     list-style: none;
     padding: 0;
     background-color: $color-white;
+    margin-top: 1px;
 
     @include tablet-and-over {
         // min-width: 211px;

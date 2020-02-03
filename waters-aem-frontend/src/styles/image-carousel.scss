@@ -20,7 +20,7 @@ html.modalOpen .image-carousel {
 }
 
 .image-viewer-container__image-figure {
-    border: 1px solid $color-border-light;
+    border: $border-medium;
     line-height: 0;
     margin: 0;
     margin-block-start: 0;
@@ -151,13 +151,13 @@ html.modalOpen .image-carousel {
     }
 
     .image-thumbnails-container__image {
-        border: 1px solid $color-border-light;
+        border: $border-medium;
     }
 }
 
 .image-thumbnails-container__item:hover {
     .image-thumbnails-container__image {
-        border: 1px solid $color-border-dark;
+        border: $border-dark;
         transition: border 500ms linear;
     }
 }
@@ -173,7 +173,7 @@ html.modalOpen .image-carousel {
 .image-thumbnails-container__item--selected,
 .image-thumbnails-container__item--selected:hover {
     .image-thumbnails-container__image {
-        border: 2px solid $color-gray-50;
+        border: $border-selected;
         transition: none;
     }
 }

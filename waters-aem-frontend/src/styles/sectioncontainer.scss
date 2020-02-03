@@ -25,7 +25,7 @@
     .cmp-section-container__title {
         padding: $space-s 0;
         margin: 0em 14px;
-        border-top: 1px solid $color-border-light;
+        border-top: $border-medium;
 
         @include mobile {
             padding: $space-s 0;
@@ -119,7 +119,7 @@
 
             .cmp-section-container__title {
                 @include mobile {
-                    border-top: 1px solid $color-white;
+                    border-top: $border-light;
                 }
             }
         }
