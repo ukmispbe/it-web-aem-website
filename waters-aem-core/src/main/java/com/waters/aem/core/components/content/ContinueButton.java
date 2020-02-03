@@ -18,7 +18,8 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 @Component(value = "Continue Button",
-    description = "This is the Continue Button component for Waters site")
+    description = "This is the Continue Button component for Waters site. This button is used to redirect to the " +
+    "users last known page or homepage")
 @Model(adaptables = SlingHttpServletRequest.class,
     adapters = { ContinueButton.class, ComponentExporter.class },
     resourceType = ContinueButton.RESOURCE_TYPE,
