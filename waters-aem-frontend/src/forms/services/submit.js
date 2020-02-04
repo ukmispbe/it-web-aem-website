@@ -18,41 +18,40 @@ const postData = async (url, data) => {
 };
 
 export async function registrationSubmit(data) {
-    console.log("Registration Submit ", data)
-    // delete data.confirmPassword;
+    delete data.confirmPassword;
 
-    // const isCaptcha = data.hasOwnProperty('captcha');
-    // if (isCaptcha) {
-    //     this.url = `${this.url}?captcha=${data.captcha}`;
-    //     delete data.captcha;
-    // }
+    const isCaptcha = data.hasOwnProperty('captcha');
+    if (isCaptcha) {
+        this.url = `${this.url}?captcha=${data.captcha}`;
+        delete data.captcha;
+    }
 
-    // const localeLanguage = DigitalData.language;
-    // const localeCountry = DigitalData.country;
-    // if (
-    //     (!localeLanguage && !localeCountry) ||
-    //     DigitalData.country === DigitalData.globalExperience
-    // ) {
-    //     localeLanguage = 'en';
-    //     localeCountry = 'US';
-    // }
-    // data.localeCountry = localeCountry;
-    // data.localeLanguage = localeLanguage;
+    const localeLanguage = DigitalData.language;
+    const localeCountry = DigitalData.country;
+    if (
+        (!localeLanguage && !localeCountry) ||
+        DigitalData.country === DigitalData.globalExperience
+    ) {
+        localeLanguage = 'en';
+        localeCountry = 'US';
+    }
+    data.localeCountry = localeCountry;
+    data.localeLanguage = localeLanguage;
 
-    // const response = await postData(this.url, data);
+    const response = await postData(this.url, data);
 
-    // // remove all previous server error notifications
-    // this.setError();
+    // remove all previous server error notifications
+    this.setError();
 
-    // if (response.status === 200) {
-    //     console.log(
-    //         'registration complete  This needs finishing off later',
-    //         response.json()
-    //     );
-    // } else {
-    //     this.setError(response);
-    //     scrollToY(0);
-    // }
+    if (response.status === 200) {
+        console.log(
+            'registration complete  This needs finishing off later',
+            response.json()
+        );
+    } else {
+        this.setError(response);
+        scrollToY(0);
+    }
 }
 
 export async function troubleSigningInSubmit(data) {
