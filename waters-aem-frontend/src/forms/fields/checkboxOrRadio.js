@@ -53,24 +53,9 @@ const CheckboxOrRadio = ({}) => {
         }
     });
 
-    const checkHandler = (event, thisName,) => {
+    const checkHandler = (event, thisName) => {
         if (!disabled) {
             const thisState = state[thisName];
-
-            if (options && type ==="radio") {
-                for (let key of Object.keys(state)) {
-                    if (key === thisName) {
-                        state[key].isChecked = true;
-                    }
-                    else {
-                        state[key].isChecked = false;
-                    }
-                    setValue(key, state[key].isChecked, state[key].required);               
-                }
-                setState({...state});
-                return;
-            }
-
             setValue(thisName, !thisState.isChecked, thisState.required);
             setState({
                 ...state,
@@ -88,7 +73,7 @@ const CheckboxOrRadio = ({}) => {
         <>
             {label + ' '}
             {renderAddOnLink(thisName)}
-            {!state[thisName].required && type !== 'radio' && (
+            {!state[thisName].required && (
                 <span className="cmp-form-field--optional">(optional)</span>
             )}
         </>
@@ -122,7 +107,6 @@ const CheckboxOrRadio = ({}) => {
                     id={thisName}
                     disabled={disabled}
                     checked={thisState.isChecked}
-                    onClick={e => checkHandler(e, thisName)}
                     className={hasError(thisName) ? 'error' : 'valid'}
                     ref={register(thisState.required ? { required: true } : {})}
                     readOnly
@@ -164,24 +148,18 @@ const CheckboxOrRadio = ({}) => {
         );
     };
 
-    console.log("options", options, name);
-
     return !options ? (
         renderType(name, label)
     ) : (
         <div id={name} className={`cmp-form-field-${type}--grouping`}>
             {options.map((option, i) => {
                 return (
-                    <>
-                    <div style={{paddingTop: "10px"}} 
+                    <div
                         className={`cmp-form-field-${type}--grouping-item`}
                         key={`${type}-${name}-grouping-${i}`}
                     >
-                        {renderType(option.name, option.label)}                                 
+                        {renderType(option.name, option.label)}
                     </div>
-                    <div style={{paddingLeft: "24px", lineHeight: "16px"}}>{option.accountStreet}</div>
-                    <div style={{paddingLeft: "24px"}}>{option.accountCity + ", " + option.accountZip}</div>
-                    </>
                 );
             })}
         </div>
