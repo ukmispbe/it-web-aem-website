@@ -43,7 +43,7 @@
         position: relative;
         z-index: $header-top-bar-z-index;
         background: $color-white;
-        border-bottom: 1px solid $color-border-light;
+        border-bottom: $border-medium;
 
         .container {
             display: flex;
@@ -172,7 +172,7 @@
                         position: absolute;
                         top: 63px;
                         right: 0px;
-                        border-top: 4px solid $color-gray-50;
+                        border-top: $border-selected;
                         display: none;
                         justify-content: flex-end;
                     }
@@ -210,7 +210,7 @@
                 display: none;
 
                 &__divider {
-                    border-left: 1px solid $color-border-light;
+                    border-left: $border-medium;
                     height: 2em;
                     margin: 0 $space-s;
 

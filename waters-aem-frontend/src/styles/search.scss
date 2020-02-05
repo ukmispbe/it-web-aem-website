@@ -139,7 +139,7 @@
     @include list-item-thumbnail;
 }
 .cmp-search__no-results {
-    border: 1px solid $color-gray-30;
+    border: $border-medium;
     text-align: center;
     padding: $space-xl 0 $space-xl;
     .icon {
@@ -180,7 +180,7 @@ div.cmp-search__no-results {
             cursor: pointer;
             @include font-utility;
             margin: 0 $space-xxs 0 0;
-            border: 1px solid $color-border-light;
+            border: $border-medium;
             border-radius: $border-radius;
             float: left;
             padding-top: $space-xxs;
@@ -191,17 +191,17 @@ div.cmp-search__no-results {
 
             &:hover {
                 color: $color-link;
-                border: 1px solid $color-link;
+                border: $border-link;
             }
 
             &:active {
                 color: $color-font-medium;
-                border: 1px solid $color-border-dark;
+                border: $border-dark;
             }
         }
         &.disabled {
             a {
-                border-color: $color-border-light;
+                border-color: $color-border-medium;
                 color: $color-disabled;
                 &:hover {
                     color: $color-disabled;
@@ -210,7 +210,7 @@ div.cmp-search__no-results {
         }
         &.selected {
             a {
-                border: 2px solid $color-gray-50;
+                border: $border-selected;
                 padding-top: ($space-xxs - .1em);
                 font-weight: $font-weight-bold;
                 cursor: default;
@@ -298,7 +298,7 @@ div.cmp-search__no-results {
     .btn-show-sort-filter {
         display: none;
         @include font-utility;
-        border: 1px solid $color-border-dark;
+        border: $border-dark;
         border-radius: $border-radius;
         margin-bottom: $space-xl;
         padding: $space-xs ($space-xl - 0.25em) ($space-xs + .05em) $space-s;
@@ -307,7 +307,7 @@ div.cmp-search__no-results {
         &:hover {
             color: $color-link;
             text-decoration: none;
-            border: 1px solid $color-link;
+            border: $border-link;
             svg {
                 .st0 {
                     stroke: $color-link;
@@ -477,7 +477,7 @@ div.cmp-search__no-results {
     }
 
     .vertical-bar {
-        color: $color-border-light;
+        color: $color-border-medium;
     }
 
     @include tablet-and-under {

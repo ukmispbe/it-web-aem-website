@@ -11,7 +11,7 @@
             margin: 0px;
         }
         img {
-            border: 1px solid $color-border-light;
+            border: $border-medium;
         }
     }
 
@@ -42,7 +42,7 @@
                 }
             }
             img {
-                border: 1px solid $color-border-light;
+                border: $border-medium;
 
                 @include tablet-and-over {
                     width: 192px;
