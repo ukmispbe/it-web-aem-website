@@ -196,5 +196,8 @@ blockquote {
 }
 
 .cmp-my-account__aside-wrapper > .cmp-title > .cmp-accent-rule {
-    width: 21.333333%;
+    width: 5em;
+    @include mobile {
+        width: 4em; 
+    } 
 }
