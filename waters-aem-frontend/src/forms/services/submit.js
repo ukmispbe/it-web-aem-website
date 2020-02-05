@@ -43,14 +43,16 @@ export async function registrationSubmit(data) {
     const response = await postData(this.url, data);
     const responseBody = await response.json();
 
+    const store = new SessionStore();
+    store.setUserDetails(responseBody);
+    this.setProfileData(responseBody);
+
     // remove all previous server error notifications
     this.setError();
     
     if (response.status === 200) {
-        // registration complete Redirect & pass email, first & last names 
-        const params = `?email=${data.email}&firstName=${data.firstName}&lastName=${data.lastName}`;
         if (this.redirect) {
-            window.location.replace(this.redirect + params);
+            window.location.replace(this.redirect);
         }
     } else {
         this.setError(responseBody);
