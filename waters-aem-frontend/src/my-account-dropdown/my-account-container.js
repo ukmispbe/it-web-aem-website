@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
-import { signOut } from './services';
-
+import { signOutRequest } from './services';
 import MyAccountUserDetails from './my-account-user-details';
 import MyAccountItemList from './my-account-item-list';
 
@@ -37,9 +36,8 @@ const MyAccountContainer = props => {
 
     const onSignOut = (e) => {
         e.preventDefault();
-        console.log("Sign out");
-        signOut();
-        //window.location.href = homepageLink;
+        signOutRequest(signOut.signOutEndpoint);
+        window.location.href = homepageLink;
     }
 
     const signInOutLink = () => (
