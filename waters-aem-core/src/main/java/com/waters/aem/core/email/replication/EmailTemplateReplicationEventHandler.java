@@ -1,9 +1,12 @@
 package com.waters.aem.core.email.replication;
 
+import com.day.cq.dam.api.Asset;
 import com.day.cq.replication.ReplicationActionType;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.email.job.EmailTemplateJobConsumer;
 import com.waters.aem.core.services.replication.AbstractReplicationEventHandler;
+import org.apache.sling.api.resource.LoginException;
+import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.event.jobs.JobManager;
 import org.apache.sling.event.jobs.NotificationConstants;
@@ -59,6 +62,16 @@ public final class EmailTemplateReplicationEventHandler extends AbstractReplicat
     }
 
     private boolean isEmailTemplateAsset(final String path) {
-        return path.matches(WatersConstants.DAM_PATH + "/.+/emails.*");
+        boolean emailTemplateAsset = false;
+
+        if (path.startsWith(WatersConstants.EMAILS_DAM_PATH)) {
+            try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(null)) {
+                emailTemplateAsset = resourceResolver.getResource(path).adaptTo(Asset.class) != null;
+            } catch (LoginException e) {
+                LOG.error("error authenticating resource resolver", e);
+            }
+        }
+
+        return emailTemplateAsset;
     }
 }
