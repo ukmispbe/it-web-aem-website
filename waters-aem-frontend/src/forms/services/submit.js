@@ -43,10 +43,6 @@ export async function registrationSubmit(data) {
     const response = await postData(this.url, data);
     const responseBody = await response.json();
 
-    const store = new SessionStore();
-    store.setUserDetails(responseBody);
-    this.setProfileData(responseBody);
-
     // remove all previous server error notifications
     this.setError();
     
