@@ -1,27 +1,67 @@
-<header data-sly-use.header="com.waters.aem.core.components.structure.Header" id="header" class="cmp-header" data-search-path="${header.searchPath.href}">
+<header
+    data-sly-use.header="com.waters.aem.core.components.structure.Header"
+    id="header"
+    class="cmp-header"
+    data-search-path="${header.searchPath.href}"
+    data-signin-url="${header.signInLink.href}"
+    data-register-url="${header.createAccountLink.href}"
+>
     <div class="cmp-header__overlay overlay"></div>
     <div class="cmp-header__top-bar">
         <div class="container">
-            <div class="cmp-header__top-bar__logo" data-sly-element="${header.includeH1Tag ? 'h1' : 'div'}">
-                <a class="cmp-header__top-bar__logo__link cmp-header-links__link" href="${header.logoLink.href}" target="${header.external ? '_blank' :''}">
-                    <img src="${header.logo.fileReference}" alt="${header.logoAltText}"/>
+            <div
+                class="cmp-header__top-bar__logo"
+                data-sly-element="${header.includeH1Tag ? 'h1' : 'div'}"
+            >
+                <a
+                    class="cmp-header__top-bar__logo__link cmp-header-links__link"
+                    href="${header.logoLink.href}"
+                    target="${header.external ? '_blank' :''}"
+                >
+                    <img
+                        src="${header.logo.fileReference}"
+                        alt="${header.logoAltText}"
+                    />
                 </a>
             </div>
-            <nav data-sly-test="${!header.formPage}" class="cmp-header__top-bar__nav">
+            <nav
+                data-sly-test="${!header.formPage}"
+                class="cmp-header__top-bar__nav"
+            >
                 <ul class="cmp-header__top-bar__nav__ul">
                     <li class="top-bar__nav__search top-bar__nav__item">
-                        <a class="cmp-header-links__link" href="${header.legacySearchUrl}">
+                        <a
+                            class="cmp-header-links__link"
+                            href="${header.legacySearchUrl}"
+                        >
                             <span>${'Search' @ i18n}</span>
-                            <img alt="${'Search' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/search.svg" class="inline-svg"/>
+                            <img
+                                alt="${'Search' @ i18n}"
+                                src="/content/dam/waters/en/brand-assets/icons/search.svg"
+                                class="inline-svg"
+                            />
                         </a>
                     </li>
                     <li class="top-bar__nav__user top-bar__nav__item">
-                        <a class="top-bar__nav__user__link cmp-header-links__link" href="javascript:;" target="_self">
-                            <span class="my-account-headline-text">${'My Account' @ i18n}</span>
-                            <img alt="${'My Account' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/user.svg" class="inline-svg"/>
+                        <a
+                            class="top-bar__nav__user__link cmp-header-links__link"
+                            href="javascript:;"
+                            target="_self"
+                        >
+                            <span class="my-account-headline-text"
+                                >${'My Account' @ i18n}</span
+                            >
+                            <img
+                                alt="${'My Account' @ i18n}"
+                                src="/content/dam/waters/en/brand-assets/icons/user.svg"
+                                class="inline-svg"
+                            />
                         </a>
                         <div class="top-bar__nav__user__dropdown"></div>
-                        <script type="application/json" id="account-modal-configs-json">
+                        <script
+                            type="application/json"
+                            id="account-modal-configs-json"
+                        >
                             {
                                 "userDetailsUrl": "${header.userDetailsUrl @ context='unsafe'}",
                                 "soldToDetailsUrl": "${header.soldToDetailsUrl @ context='unsafe'}",
@@ -36,7 +76,8 @@
                                 },
                                 "signIn": {
                                     "text": "${'Sign In' @ i18n, context='unsafe'}",
-                                    "url": "${header.signInLink.href @ context='unsafe'}"
+                                    "url": "${header.signInLink.href @ context='unsafe'}",
+                                    "class": "cmp-sign-in-link"
                                 },
                                 "signOut": {
                                     "text": "${'Sign Out' @ i18n, context='unsafe'}",
@@ -68,14 +109,24 @@
                         </script>
                     </li>
                     <li class="top-bar__nav__cart top-bar__nav__item">
-                        <a class="cmp-header-links__link" href="${header.viewCartUrl}">
+                        <a
+                            class="cmp-header-links__link"
+                            href="${header.viewCartUrl}"
+                        >
                             <span>${'Cart' @ i18n}</span>
-                            <img alt="${'Cart' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/cart.svg" class="inline-svg"/>
+                            <img
+                                alt="${'Cart' @ i18n}"
+                                src="/content/dam/waters/en/brand-assets/icons/cart.svg"
+                                class="inline-svg"
+                            />
                         </a>
                     </li>
                     <li class="top-bar__nav__mobile top-bar__nav__item">
                         <div class="top-bar__nav__mobile__divider"></div>
-                        <button class="hamburger hamburger--slider" type="button">
+                        <button
+                            class="hamburger hamburger--slider"
+                            type="button"
+                        >
                             <span class="hamburger-box">
                                 <span class="hamburger-inner"></span>
                             </span>
@@ -86,6 +137,9 @@
         </div>
     </div>
     <div class="cmp-header__navigation">
-        <div class="container" data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+        <div
+            class="container"
+            data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"
+        ></div>
     </div>
 </header>

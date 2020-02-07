@@ -8,6 +8,7 @@ const keys = {
     userDetails: 'waters.userDetails',
     userToken: 'waters.userToken',
     soldToDetails: 'waters.soldToDetails',
+    continue: 'waters.continue'
 }
 
 
@@ -45,6 +46,9 @@ const SessionStore = function () {
     this.removePreviousPaginationClick = () => window.sessionStorage.removeItem(keys.previousPaginationClick);
     this.setDismissSystemWideNotification = () => window.sessionStorage.setItem(keys.dismissSystemWideNotification, "Y");
     this.getDismissSystemWideNotificatiopn =() => window.sessionStorage.getItem(keys.dismissSystemWideNotification);
+    this.setContinueLink = value => window.sessionStorage.setItem(keys.continue, value)
+    this.getContinueLink = () => window.sessionStorage.getItem(keys.continue);
+    this.removeContinueLink = () => window.sessionStorage.removeItem(keys.continue);
 }
 
 export default SessionStore;
