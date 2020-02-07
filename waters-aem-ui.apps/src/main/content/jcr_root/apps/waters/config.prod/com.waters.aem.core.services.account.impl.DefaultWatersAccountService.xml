@@ -12,4 +12,5 @@
           userDetailsUrl="https://prodservices.waters.com/api/waters/user/v1/details"
           soldToDetailsUrl="https://prodservices.waters.com/api/waters/user/v1/retrievesoldto"
           updatePwUrl="https://prodservices.waters.com/api/waters/user/v1/update/password"
-          signInEndpoint="https://prodservices.waters.com/api/waters/user/v1/login"/>
+          signInEndpoint="https://prodservices.waters.com/api/waters/user/v1/login"
+          signOutEndpoint="https://prodservices.waters.com/api/waters/user/v1/logout"/>

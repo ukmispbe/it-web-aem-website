@@ -73,7 +73,7 @@
     font-style: italic;
     margin-top: $space-m;
     padding-top: $space-xs;
-    border-top: 1px solid $color-border-light;
+    border-top: $border-medium;
 }
 
 @mixin multiLineEllipsis(
@@ -166,7 +166,7 @@ blockquote {
     @include font-h2;
     font-style: italic;
     padding-left: $space-s;
-    border-left: 2px solid $color-border-accent;
+    border-left: $border-accent;
     margin: $space-s 0 $space-l 0;
 }
 
@@ -196,5 +196,8 @@ blockquote {
 }
 
 .cmp-my-account__aside-wrapper > .cmp-title > .cmp-accent-rule {
-    width: 21.333333%;
+    width: 5em;
+    @include mobile {
+        width: 4em; 
+    } 
 }

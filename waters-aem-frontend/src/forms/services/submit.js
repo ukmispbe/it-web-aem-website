@@ -26,8 +26,8 @@ export async function registrationSubmit(data) {
         delete data.captcha;
     }
 
-    const localeLanguage = DigitalData.language;
-    const localeCountry = DigitalData.country;
+    let localeLanguage = DigitalData.language;
+    let localeCountry = DigitalData.country;
     if (
         (!localeLanguage && !localeCountry) ||
         DigitalData.country === DigitalData.globalExperience
@@ -35,18 +35,23 @@ export async function registrationSubmit(data) {
         localeLanguage = 'en';
         localeCountry = 'US';
     }
+
+    data.country = data.country.toUpperCase();
     data.localeCountry = localeCountry;
     data.localeLanguage = localeLanguage;
 
     const response = await postData(this.url, data);
+    const responseBody = await response.json();
 
     // remove all previous server error notifications
     this.setError();
-
+    
     if (response.status === 200) {
-        // registration complete  This needs finishing off later
+        if (this.redirect) {
+            window.location.replace(this.redirect);
+        }
     } else {
-        this.setError(response);
+        this.setError(responseBody);
         scrollToY(0);
     }
 }

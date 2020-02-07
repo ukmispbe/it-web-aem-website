@@ -12,4 +12,6 @@
           updatePwUrl="https://stgservices.waters.com/api/waters/user/v1/update/password"
           userDetailsUrl="https://stgservices.waters.com/api/waters/user/v1/details"
           soldToDetailsUrl="https://stgservices.waters.com/api/waters/user/v1/retrievesoldto"
-          signInEndpoint="https://stgservices.waters.com/api/waters/user/v1/login"/>
+          signInEndpoint="https://stgservices.waters.com/api/waters/user/v1/login"
+          signOutEndpoint="https://stgservices.waters.com/api/waters/user/v1/logout" />
+
