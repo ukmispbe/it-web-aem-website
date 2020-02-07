@@ -92,4 +92,11 @@ public interface WatersAccountService {
      * @return User sign in API URL
      */
     String getSignInEndpoint();
+
+    /**
+     * Get the configured endpoint for sign out API.
+     *
+     * @return User sign out API URL
+     */
+    String getSignOutEndpoint();
 }

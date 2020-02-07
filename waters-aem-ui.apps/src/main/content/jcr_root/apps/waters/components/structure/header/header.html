@@ -2,6 +2,8 @@
     data-sly-use.header="com.waters.aem.core.components.structure.Header"
     id="header"
     class="cmp-header"
+    data-homepage-url="${header.homepageLink.href}"
+    data-signout-endpoint="${header.signOutEndpoint}"
     data-search-path="${header.searchPath.href}"
     data-signin-url="${header.signInLink.href}"
     data-register-url="${header.createAccountLink.href}"
@@ -65,6 +67,7 @@
                             {
                                 "userDetailsUrl": "${header.userDetailsUrl @ context='unsafe'}",
                                 "soldToDetailsUrl": "${header.soldToDetailsUrl @ context='unsafe'}",
+                                "homepageLink": "${signIn.homepageLink.href @ context='unsafe'}",
                                 "icon": "/content/dam/waters/en/brand-assets/icons/user.svg",
                                 "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
                                 "title": "${'My Account' @ i18n , context='unsafe' }",
@@ -81,7 +84,8 @@
                                 },
                                 "signOut": {
                                     "text": "${'Sign Out' @ i18n, context='unsafe'}",
-                                    "url": "${header.signOutLink.href @ context='unsafe'}"
+                                    "url": "${header.signOutLink.href @ context='unsafe'}",
+                                    "signOutEndpoint": "${header.signOutEndpoint.href @ context='unsafe'}"
                                 },
                                 "switchAccount": {
                                     "text": "${'Switch Account' @ i18n, context='unsafe'}",

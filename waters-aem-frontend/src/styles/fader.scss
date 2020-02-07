@@ -10,47 +10,53 @@
         pointer-events: none;
 
         &--left {
-            background: linear-gradient(to left,hsla(0,0%,100%,.2) 0%,hsla(0,0%,100%,.8) 100%);
+            background: linear-gradient(
+                to left,
+                hsla(0, 0%, 100%, 0.2) 0%,
+                hsla(0, 0%, 100%, 0.8) 100%
+            );
         }
 
         &--right {
             right: 3em;
-            background: linear-gradient(to right,hsla(0,0%,100%,.2) 0%,hsla(0,0%,100%,.8) 100%);
-         }
-      }
+            background: linear-gradient(
+                to right,
+                hsla(0, 0%, 100%, 0.2) 0%,
+                hsla(0, 0%, 100%, 0.8) 100%
+            );
+        }
+    }
 
-      &--left {
-         overflow-x: scroll;
+    &--left {
+        overflow-x: scroll;
 
-         .fader-container {
+        .fader-container {
             &--left {
-               visibility: visible;
+                visibility: visible;
             }
-         }
-      }
+        }
+    }
 
-      &--right {
-         overflow-x: scroll;
+    &--right {
+        overflow-x: scroll;
 
-         .fader-container {
+        .fader-container {
             &--right {
-               visibility: visible;
+                visibility: visible;
             }
-         }
-      }
+        }
+    }
 }
 
 .cmp-anchor--sticky {
+    & > div {
+        position: relative;
+        max-width: 1285px;
+    }
 
-   & > div {
-      height: ((.75 * 2) + (1.8em));
-      position: relative;
-      max-width: 1285px;
-   }
-
-   & .cmp-anchor__list.fader-fade .fader-container {
-      &--right {
-         right: 0;
-      }
-   }
+    & .cmp-anchor__list.fader-fade .fader-container {
+        &--right {
+            right: 0;
+        }
+    }
 }

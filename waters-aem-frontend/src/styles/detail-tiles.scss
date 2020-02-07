@@ -1,5 +1,7 @@
 .cmp-detail-tiles {
     margin-bottom: $space-xl;
+    float: left;
+    width: 100%;
 
     &--add {
         display: inline-flex;
@@ -15,9 +17,10 @@
             display: inline-block;
             height: $icon-s;
             width: $icon-s;
-            margin-right: $space-xxs;
+            margin-right: $space-xxxs;
 
             svg {
+                stroke-width: 1.5px;
                 position: relative;
                 top: 2px;
                 height: $icon-s;
@@ -34,6 +37,7 @@
             .cmp-detail-tiles--add {
                 &-title {
                     color: $color-link-hover;
+                    text-decoration: underline;
                 }
 
                 &-icon {
@@ -50,7 +54,7 @@
 
     &--title {
         @include font-h2;
-        margin-bottom: $space-s;
+        margin-bottom: $space-xs;
     }
 
     &-list {
@@ -60,6 +64,8 @@
             padding: $space-m;
             margin-bottom: $space-s;
             position: relative;
+            float: left;
+            width: 100%;
 
             &-edit {
                 display: inline-flex;
@@ -67,6 +73,10 @@
                 position: absolute;
                 top: $space-m;
                 right: $space-m;
+
+                @include mobile {
+                    top: $space-xxs;
+                }
 
                 &--title {
                     @include font-body;
@@ -86,6 +96,7 @@
                         top: 1px;
 
                         svg {
+                            stroke-width: 1.5px;
                             height: $icon-s;
                             width: $icon-s;
                             color: $color-link;
@@ -101,6 +112,7 @@
                     .cmp-detail-tiles-list--tile-edit {
                         &--title {
                             color: $color-link-hover;
+                            text-decoration: underline;
                         }
 
                         &--icon {
@@ -118,8 +130,13 @@
 
             &-column {
                 display: inline-block;
-                margin-right: $space-xxl;
+                padding-right: $space-xxl;
                 margin-bottom: $space-s;
+
+                @include mobile {
+                    padding-right: 0;
+                    width: 100%;
+                }
 
                 &--title {
                     @include font-h4;
@@ -131,6 +148,7 @@
 
                     &.communications {
                         margin-top: $space-xs;
+                        @include font-small;
                     }
                 }
             }
@@ -187,14 +205,18 @@
             }
 
             &.no-address {
-                padding: $space-xl 0;
+                padding: ($space-l + $space-xxs) $space-l $space-m $space-l;
                 text-align: center;
-                border: 1px dashed $color-border-light;
+                border: $border-dotted;
                 background-color: transparent;
                 @include font-body;
 
                 .cmp-detail-tiles-list--tile-noAddress--title {
-                    padding-bottom: $space-s;
+                    padding-bottom: $space-xs;
+
+                    @include mobile {
+                        padding-bottom: $space-s;
+                    }
                 }
             }
         }
@@ -231,6 +253,32 @@
 
 #personal-details-tile {
     .cmp-detail-tiles-list--tile-column {
+        width: 60%;
+        display: block;
+        float: left;
+
+        &.column-0 {
+            width: 40%;
+            display: block;
+            float: left;
+        }
+
+        @include tablet {
+            width: 50%;
+
+            &.column-0 {
+                width: 50%;
+            }
+        }
+
+        @include mobile {
+            width: 100%;
+
+            &.column-0 {
+                width: 100%;
+            }
+        }
+
         &--title {
             @include font-h1;
             margin-bottom: $space-xxxs;
@@ -238,9 +286,11 @@
     }
     .cmp-detail-tiles--title {
         @include font-h2;
+        margin-bottom: $space-s;
     }
     .cmp-detail-tiles-list--form-message {
         @include font-body;
+        margin-bottom: $space-m;
     }
 }
 

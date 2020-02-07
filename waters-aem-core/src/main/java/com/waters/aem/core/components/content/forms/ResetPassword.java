@@ -43,6 +43,11 @@ public class ResetPassword implements ComponentExporter {
 
     protected static final String UPDATE_BUTTON_TEXT = "Update Password";
 
+    protected static final String RESET_TEXT = "You are resetting the password for the account associated with the email address";
+
+    protected static final String UPDATE_TEXT = "In order to provide additional account security our password requirements have changed." +
+        " Please create a new password for the account associated with the email address";
+
     @OSGiService
     private WatersAccountService accountService;
 
@@ -76,6 +81,10 @@ public class ResetPassword implements ComponentExporter {
 
     public String getFormType() {
         return formType;
+    }
+
+    public String getFormText() {
+        return formType.equals(RESET_OPTION) ? RESET_TEXT : UPDATE_TEXT;
     }
 
     public String getSubmitEndpoint() {

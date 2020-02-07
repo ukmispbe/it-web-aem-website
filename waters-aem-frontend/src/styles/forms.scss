@@ -1,5 +1,4 @@
 .cmp-form {
-
     .cmp-form-header {
         @include font-body;
         a {
@@ -85,7 +84,7 @@
                 }
 
                 .cmp-custom-dropdown__input {
-                    display: none!important;
+                    display: none !important;
                 }
             }
         }
@@ -97,6 +96,7 @@
 
             .cmp-form-field--optional {
                 @include font-small;
+                font-weight: $font-weight-light;
             }
 
             &.cmp-form-field--label-matching {
@@ -130,7 +130,7 @@
         }
 
         input {
-            border: 1px solid $color-border-light;
+            border: $border-medium;
             @include font-body;
             width: 100%;
             margin-bottom: 0;
@@ -206,8 +206,8 @@
 
         &.cmp-form-field--invalid {
             input.error {
-                border: 1px solid $color-error;
-                margin-bottom: ($space-xxxs - .1em);
+                border: $border-error;
+                margin-bottom: ($space-xxxs - 0.1em);
 
                 & ~ .cmp-form-field--icons .invalid-icon {
                     display: inline-block;
@@ -224,12 +224,12 @@
 
             .radio.error,
             .checkbox.error {
-                border: 1px solid $color-error;
+                border: $border-error;
             }
 
             .cmp-form-field-dropdown--wrapper {
                 .cmp-custom-dropdown__control {
-                    border: 1px solid $color-error;
+                    border: $border-error;
 
                     .cmp-custom-dropdown__indicators {
                         margin-right: $space-l;
@@ -253,20 +253,20 @@
 
         input {
             &:hover {
-                border: 1px solid $color-blue-50;
+                border: $border-link;
             }
 
             &:active {
-                border: 2px solid $color-focus;
+                border: $border-focus;
             }
 
             &:focus {
                 outline: none;
-                border: 2px solid $color-focus;
+                border: $border-focus;
             }
 
             &:disabled {
-                border: 1px solid  $color-border-light !important;
+                border: $border-medium !important;
                 color: $color-disabled;
                 background-color: $color-white;
             }
@@ -349,7 +349,7 @@
 
                         .st0 {
                             stroke-width: 2px;
-                            stroke: $color-border-light;
+                            stroke: $color-border-medium;
                         }
                     }
 
@@ -422,7 +422,7 @@
         .checkbox {
             display: inline-block;
             appearance: none;
-            border: 1px solid $color-gray-40;
+            border: $border-dark;
             height: 1em;
             width: 1em;
             margin-top: 0.3em;
@@ -446,11 +446,11 @@
             }
 
             &:hover {
-                border: 1px solid $color-blue-50;
+                border: $border-link;
             }
 
             &.disabled {
-                border: 1px solid $color-disabled !important;
+                border: $border-disabled !important;
                 color: $color-disabled !important;
                 cursor: default;
             }
@@ -469,7 +469,7 @@
         .radio {
             display: inline-block;
             appearance: none;
-            border: 1px solid $color-gray-40;
+            border: $border-dark;
             height: $icon-s;
             width: $icon-s;
             margin-top: 0.3em;
@@ -490,11 +490,11 @@
                 left: -1px;
             }
             &:hover {
-                border: 1px solid $color-blue-50;
+                border: $border-link;
             }
 
             &.disabled {
-                border: 1px solid $color-disabled !important;
+                border: $border-disabled !important;
                 color: $color-disabled !important;
                 cursor: default;
             }
@@ -510,9 +510,9 @@
     .cmp-custom-dropdown__input {
         margin-top: 0;
     }
-    
+
     .cmp-custom-dropdown__control--is-disabled {
-        border-color:  $color-border-light;
+        border-color: $color-border-medium;
     }
 
     .cmp-form-field-captcha {
