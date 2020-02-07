@@ -1,0 +1,9 @@
+<div data-sly-use.chooseAccount="com.waters.aem.core.components.content.ChooseAccount">
+    <script type="application/json" id="cmp-choose-account">
+        {
+           "submitEndpoint": "${chooseAccount.chooseAccountEndpoint @ context='unsafe'}",
+            "optionsEndpoint": "${chooseAccount.soldToEndpoint @ context='unsafe'}",
+            "redirectUrl": "${chooseAccount.redirectLink.href @ context='unsafe'}"
+        }
+    </script>
+</div>
