@@ -1,7 +1,7 @@
+import com.day.cq.replication.ReplicationActionType
+import com.day.cq.replication.Replicator
 import com.icfolson.aem.library.api.page.PageDecorator
 import com.waters.aem.core.utils.Templates
-
-import javax.jcr.Node
 
 def dryRun = true
 
@@ -67,20 +67,6 @@ def basePaths = [
 
                 if (productResource == null) {
                     pagesWithNoProduct.add(page.path)
-
-                    if (!dryRun) {
-                        def resource = getResource(page.path)
-                        if (resource) {
-                            resource.adaptTo(Node).remove()
-                        }
-                    }
-
-                    if (pagesWithNoProduct.size > 0 && pagesWithNoProduct.size % 100 == 0) {
-                        if (!dryRun) {
-                            println "Committing JCR changes to Session after 100 changes..."
-                            save()
-                        }
-                    }
                 }
             }
         }
@@ -91,6 +77,31 @@ def basePaths = [
     println ""
 
     if (!dryRun) {
-        save()
+        replicatePaths(pagesWithNoProduct)
     }
+}
+
+def replicatePaths(paths) {
+    def deletedAuthorPages = []
+    def repl = getService(Replicator)
+    def replType = ReplicationActionType.DELETE
+
+    paths.each { path ->
+        println "Replication action $replType for path $path"
+        repl.replicate(session, replType, path)
+
+        if (replType == ReplicationActionType.DELETE) {
+            def page = getPage(path)
+            if (page) {
+                deletedAuthorPages.add(page.path)
+                getNode(page.path).remove()
+            }
+        }
+    }
+
+    save()
+
+    println "\nDeleted pages on author ($deletedAuthorPages.size): "
+    deletedAuthorPages.each { println it }
+    println ""
 }
