@@ -1,8 +1,5 @@
 const useFetch = (url, config) => {
-    // const [response, setResponse] = useState(null);
-    // const [error, setError] = useState(null);
-    
-    
+  let radioField = {};
       const fetchData = async () => {
         try {
             const res = await fetch(url, {
@@ -13,8 +10,6 @@ const useFetch = (url, config) => {
                 }
             });
           const json = await res.json();
-          console.log(json);
-          console.log(json.response);
           
           const tempArray = json.map((item) => {
               let tempOption = {};
@@ -25,12 +20,14 @@ const useFetch = (url, config) => {
               tempOption.accountZip = item.partnerAddress[0].postalCd;
               return tempOption;
           });
-  
-          const radioField = config.fields.filter(
+
+          radioField = config.fields.filter(
               field => field.type === 'radio'
           )[0];
+          
           radioField.options = tempArray;
-        console.log("confg", config);
+          console.log("config", config);
+          console.log("radioField", radioField);
 
           //setResponse(json);
         } catch (error) {
@@ -38,6 +35,6 @@ const useFetch = (url, config) => {
         }
       };
       fetchData();
-    return  {config};
+    return radioField;
   };
   export default useFetch;

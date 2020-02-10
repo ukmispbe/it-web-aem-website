@@ -62,17 +62,16 @@ const Form = ({
     useEffect(() => {
         const res = useFetch(config.optionsEndpoint, config);
         
+        console.log("initial res", res);
         if (!res.response) {
-          console.log("LOading");
+            console.log("!res.response");
         }
         else {
-            console.log("resres", res);
+            console.log("YES res.response", res);
         }
     }, []);
 
     console.log("test")
-
-
 
     const checkIfDisabled = () => {
         return !formState.isValid;
