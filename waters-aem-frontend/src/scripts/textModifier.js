@@ -1,7 +1,9 @@
 import SessionStore, { keys } from './../stores/sessionStore';
 const session = new SessionStore();
 
-const userDetails = session.getUserDetails();
+import getUserDetails from './../my-account/services/UserDetailsLazy';
+const detailsUrl = document.getElementById('header').dataset.userDetailsUrl;
+const userDetails = getUserDetails(detailsUrl, session);
 
 const objMapping = {
     user: keys.userDetails,
