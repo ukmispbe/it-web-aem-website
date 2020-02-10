@@ -32,3 +32,5 @@ async function textModifier() {
         }
     }
 }
+
+textModifier();
