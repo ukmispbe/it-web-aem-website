@@ -200,3 +200,32 @@ export async function signInSubmit(data) {
         scrollToY(0);
     }
 }
+
+export async function chooseAccountSubmit(data) {
+    // Determine the selercted Account
+    let selectedAccount = "";
+    for (let key of Object.keys(data)) {
+        if (data[key] === "on") {
+            selectedAccount = key;
+        }
+    }
+
+    // Save selectedAccount to store
+    console.log('selectedAccount', selectedAccount);
+
+    const response = await postData(this.url + selectedAccount, "");
+    const responseBody = await response.json();
+    console.log('responseBody', responseBody);
+     // remove all previous server error notifications
+    this.setError();
+
+    // if (response.status === 200) {
+    //     if (this.redirect) {
+    //         window.location.replace(this.redirect);
+    //     }
+    // } else {
+    //     this.setError(responseBody);
+    //     scrollToY(0);
+    // }   
+
+}

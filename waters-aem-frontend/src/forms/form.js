@@ -11,6 +11,8 @@ import { ErrorsProvider, FormStateProvider } from './fields/utils/stateWatcher';
 import DigitalData from '../scripts/DigitalData';
 import ErrorBoundary from '../search/ErrorBoundary';
 import Field from './fields';
+import { retrieveData } from '../forms/services/retrieve';
+import useFetch from './hooks/useFetch';
 
 const FormApi = createContext(null);
 FormApi.displayName = 'FormApi';
@@ -56,6 +58,21 @@ const Form = ({
             ...defaultValues
         }
     });
+
+    useEffect(() => {
+        const res = useFetch(config.optionsEndpoint, config);
+        
+        if (!res.response) {
+          console.log("LOading");
+        }
+        else {
+            console.log("resres", res);
+        }
+    }, []);
+
+    console.log("test")
+
+
 
     const checkIfDisabled = () => {
         return !formState.isValid;
@@ -160,7 +177,7 @@ const Form = ({
                     ? defaultValues[field.name]
                     : undefined
             }),
-            [field, field.active]
+            [field, field.active,]
         );
         return (
             <FieldApi.Provider value={getFieldApi} key={`field-${i}`}>
