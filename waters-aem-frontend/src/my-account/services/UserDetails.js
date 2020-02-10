@@ -15,16 +15,14 @@ const getData = async (url) => {
 const UserDetails = async (
     url = "https://test-www.waters.com:8443/api/waters/user/v1/details"
 ) => {
-    const response = await getData(url);
-
-    if (response.status === 200) {
-        return await response.json();
-    }
-
-    return {
-        failed: true,
-        httpStatusCode: response.status
-    }
+    return getData(url).then(response => {
+        return response.json();
+    }).catch(error => {
+        return {
+            failed: true,
+            error: error
+        }
+    });
 }
 
 export default UserDetails;
