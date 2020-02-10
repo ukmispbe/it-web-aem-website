@@ -1,6 +1,10 @@
 import com.icfolson.aem.library.api.page.PageDecorator
 import com.waters.aem.core.utils.Templates
 
+import javax.jcr.Node
+
+def dryRun = true
+
 def basePaths = [
         "/content/waters/us/en/shop",
 //        "/content/waters/ee/en/shop",
@@ -63,6 +67,20 @@ def basePaths = [
 
                 if (productResource == null) {
                     pagesWithNoProduct.add(page.path)
+
+                    if (!dryRun) {
+                        def resource = getResource(page.path)
+                        if (resource) {
+                            resource.adaptTo(Node).remove()
+                        }
+                    }
+
+                    if (pagesWithNoProduct.size > 0 && pagesWithNoProduct.size % 100 == 0) {
+                        if (!dryRun) {
+                            println "Committing JCR changes to Session after 100 changes..."
+                            save()
+                        }
+                    }
                 }
             }
         }
@@ -72,4 +90,7 @@ def basePaths = [
     pagesWithNoProduct.each { println it }
     println ""
 
+    if (!dryRun) {
+        save()
+    }
 }
