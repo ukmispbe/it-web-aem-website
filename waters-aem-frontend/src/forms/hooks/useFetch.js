@@ -1,5 +1,6 @@
 const useFetch = (url, config) => {
   let radioField = {};
+  console.log("radioField", radioField);
       const fetchData = async () => {
         try {
             const res = await fetch(url, {
@@ -10,6 +11,7 @@ const useFetch = (url, config) => {
                 }
             });
           const json = await res.json();
+          console.log("json", json);
           
           const tempArray = json.map((item) => {
               let tempOption = {};
@@ -24,7 +26,7 @@ const useFetch = (url, config) => {
           radioField = config.fields.filter(
               field => field.type === 'radio'
           )[0];
-          
+
           radioField.options = tempArray;
           console.log("config", config);
           console.log("radioField", radioField);
