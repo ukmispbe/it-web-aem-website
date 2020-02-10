@@ -35,6 +35,15 @@ if (process.env.NODE_ENV !== 'production') {
 const globalTranslationsScript = document.getElementById('global-translations-json');
 const globalTranslations = globalTranslationsScript ? JSON.parse(globalTranslationsScript.innerHTML) : {};
 
+const headerRef = document.getElementById("header");
+const headerData = headerRef 
+    ? {
+        userDetailsUrl: headerRef.dataset.userDetailsUrl
+    } 
+    : {
+        userDetailsUrl: ""
+    };
+
 function getAuthoredDataForSearchBar(c, h) {
     return {
         baseUrl: c.dataset.baseUrl,
@@ -317,6 +326,7 @@ if (registrationFormContainer) {
         <Form
             config={config}
             submitFn={registrationSubmit}
+            callback={headerData.userDetailsUrl}
             isocode={DigitalData.language}
         />,
         registrationFormContainer
@@ -470,7 +480,7 @@ if (signInFormContainer) {
 
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
-        <Form config={config} submitFn={signInSubmit} isocode={DigitalData.language} />,
+        <Form config={config} submitFn={signInSubmit} isocode={DigitalData.language} callback={headerData.userDetailsUrl} />,
         signInFormContainer
     );
 }

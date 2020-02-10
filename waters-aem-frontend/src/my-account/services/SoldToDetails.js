@@ -1,5 +1,5 @@
 import "whatwg-fetch";
-import SessionStore from "../../stores/sessionStore";
+import loginStatus from "../../scripts/loginStatus";
 
 const getData = async (url) => {
     const response = await fetch(url, {
@@ -13,35 +13,23 @@ const getData = async (url) => {
     return response;
 };
 
-const replaceParameter = (url, data, string = "{email}") => url.replace(string, encodeURI(data).replace(/#/g, '%23'));
-
 const SoldToDetails = async (
-    url = "https://test-www.waters.com:8443/api/waters/user/v1/retrievesoldto?email={email}",
-    sessionStore = new SessionStore()
+    url = "https://test-www.waters.com:8443/api/waters/user/v1/retrievesoldto"
 ) => {
-    const soldToData = sessionStore.getSoldToDetails();
-    if (soldToData && Array.isArray(soldToData)) { 
-        return soldToData;
-    } 
+    const response = await getData(url);
 
-    const data = sessionStore.getUserToken();
-    if (data) {
-        const replacedURL = replaceParameter(url, data);
-        const response = await getData(replacedURL);
-        const responseJSON = await response.json();
+    if (response.status === 200) {
+        const json = await response.json();
 
-        if (response.status === 200) {
-            if (!Array.isArray(responseJSON)) throw new Error('Response was not an array');
-    
-            const sortedResponse = sortPriority(responseJSON);
-            sessionStore.setSoldToDetails(sortedResponse)
-            return sortedResponse;
-        }
-    
-        throw new Error(response.status);
-    } 
+        const returnArray = Array.isArray(json) ? json : [];
 
-    throw new Error('No User Token');
+        return sortPriority(returnArray);
+    }
+
+    return {
+        failed: true,
+        httpStatusCode: response.status
+    }
 }
 
 const sortPriority = (soldToAccountsArray) => {
@@ -58,4 +46,3 @@ const sortPriority = (soldToAccountsArray) => {
 
 
 export default SoldToDetails;
-export { getData, replaceParameter, sortPriority };

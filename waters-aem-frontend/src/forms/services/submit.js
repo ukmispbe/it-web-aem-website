@@ -2,7 +2,7 @@ import scrollToY from './../../scripts/scrollTo';
 import { parse } from 'query-string';
 import SessionStore from '../../stores/sessionStore';
 import DigitalData from '../../scripts/DigitalData';
-import cookieStore from '../../stores/cookieStore';
+import UserDetails from '../../my-account/services/UserDetails';
 
 const postData = async (url, data) => {
     const response = await fetch(url, {
@@ -47,6 +47,15 @@ export async function registrationSubmit(data) {
     this.setError();
     
     if (response.status === 200) {
+        if (this.callback) {
+            const userDetails = await UserDetails(this.callback);
+
+            if (!userDetails.failed) {
+                const store = new SessionStore();
+                store.setUserDetails(userDetails);
+            }
+        }
+
         if (this.redirect) {
             window.location.replace(this.redirect);
         }
@@ -167,7 +176,6 @@ export async function personalSubmit(data) {
 }
 
 export async function signInSubmit(data) {
-
     const isCaptcha = data.hasOwnProperty('captcha');
     if (isCaptcha) {
         this.url = `${this.url}?captcha=${data.captcha}`;
@@ -181,13 +189,20 @@ export async function signInSubmit(data) {
 
     if (response.status === 200) {
 
-        if(responseBody.migrated !== "Y") {
-            window.location.replace(this.passwordUpdateUrl + `?email=${responseBody.email}`);
+        if(responseBody.login !== "success") {
+            window.location.replace(this.passwordUpdateUrl + `?email=${data.email}`);
             return;
         }
 
-        // Temporary cookie
-        document.cookie = 'WatersLoginCookie=1; path=/; domain=.waters.com';
+        if (this.callback) {
+            const userDetails = await UserDetails(this.callback);
+
+            if (!userDetails.failed) {
+                const store = new SessionStore();
+                store.setUserDetails(userDetails);
+            }
+        }
+        
         const signInRedirect = window.sessionStorage.getItem('signInRedirect');
         if (signInRedirect || this.redirect) {
             window.location.replace(

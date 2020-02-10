@@ -6,7 +6,6 @@ const keys = {
     previousPaginationClick: 'waters.previousPaginationClick',
     dismissSystemWideNotification: 'waters.dismissSystemWideNotification',
     userDetails: 'waters.userDetails',
-    userToken: 'waters.userToken',
     soldToDetails: 'waters.soldToDetails',
 }
 
@@ -24,8 +23,6 @@ const getJSONArray = key => {
 const SessionStore = function () {
     this.setSoldToDetails = value => window.sessionStorage.setItem(keys.soldToDetails, JSON.stringify(value));
     this.getSoldToDetails = () => getJSONArray(keys.soldToDetails);
-    this.setUserToken = value => window.sessionStorage.setItem(keys.userToken, value);
-    this.getUserToken = () => window.sessionStorage.getItem(keys.userToken);
     this.setUserDetails = value => window.sessionStorage.setItem(keys.userDetails, JSON.stringify(value));
     this.getUserDetails = () => getJSONObject(keys.userDetails);
     this.removeUserDetails = () => window.sessionStorage.removeItem(keys.userDetails);
