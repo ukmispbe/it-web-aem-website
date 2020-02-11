@@ -1,6 +1,3 @@
-// main JS and SCSS entry file
-require('es6-symbol/implement');
-
 import './styles/index.scss';
 import './scripts/stickyService';
 import './scripts/backtotop';
