@@ -9,10 +9,6 @@ if (continueBtns.length && continuePage) {
         btn.href = continuePage;
     });
 
-    // for (const btn of continueBtns) {
-    //     btn.href = continuePage;
-    // }
-
     session.removeContinueLink();
 }
 
@@ -30,12 +26,4 @@ if (continueBtns.length && continuePage) {
             });
         }
     });
-
-    // for (const link of allLinks) {
-    //     if (link.href === signin || link.href === register) {
-    //         link.addEventListener('click', e => {
-    //             session.setContinueLink(window.location.href);
-    //         });
-    //     }
-    // }
 })();

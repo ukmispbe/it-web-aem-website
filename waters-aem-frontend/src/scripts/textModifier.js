@@ -30,19 +30,6 @@ async function textModifier() {
                 el.innerHTML = el.innerHTML.replace(match, replacement);
             });
         });
-
-        // for (const el of textReplaceElements) {
-        //     const matches = el.innerHTML.match(/{{(.*?)}}/gi);
-
-        //     for (const match of matches) {
-        //         const splitMatch = match.split('.');
-        //         const key = splitMatch[0].replace('{{', '');
-        //         const field = splitMatch[1].replace('}}', '');
-        //         const replacement = replaceObj[objMapping[key]][field];
-
-        //         el.innerHTML = el.innerHTML.replace(match, replacement);
-        //     }
-        // }
     }
 }
 
