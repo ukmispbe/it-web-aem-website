@@ -118,7 +118,7 @@ nav.cmp-navigation {
             & > .cmp-navigation__container {
                min-height: 56px;
                padding: $space-s $space-m $space-s ($space-xl - 0.7em);
-               border-left: 4px solid $color-gray-50;
+               border-left: $border-selected;
                flex-grow: 0;
 
                & > .arrow.left{
@@ -182,7 +182,7 @@ nav.cmp-navigation {
 
             &:hover {
                cursor: pointer;
-               border-top: 3px solid  $color-gray-50;
+               border-top: $border-selected;
 
                .cmp-navigation__group-wrapper {
                   opacity: 1;
@@ -227,7 +227,7 @@ nav.cmp-navigation {
                padding: $space-s $space-m;
                width: 100%;
                border-left: 4px solid transparent;
-               border-bottom: 1px solid $color-border-rule;
+               border-bottom: $border-rule;
                height: auto;
             }
             & > a {

@@ -1,7 +1,7 @@
 import DigitalData from "../scripts/DigitalData";
 
 const keys = {
-    loggedInStatus: 'WatersLoginCookie',
+    loggedInStatus: 'WatersGreetingCookie',
     locale: 'org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE'
 }
 

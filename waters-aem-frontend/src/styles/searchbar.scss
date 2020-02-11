@@ -13,7 +13,7 @@
         position: absolute;
         width: 100%;
         padding: $space-s;
-        border: $color-border-light;
+        border: $color-border-medium;
         background-color: inherit;
         top: $space-xl + 1;
 
@@ -58,7 +58,7 @@
         @include font-h3;
         float: left;
         width: 100%;
-        border: 1px solid $color-border-light;
+        border: $border-medium;
         background: $color-white;
         padding: $space-s $space-xl $space-s $space-s;
         -webkit-appearance: none;

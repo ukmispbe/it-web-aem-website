@@ -2,7 +2,7 @@ import scrollToY from './../../scripts/scrollTo';
 import { parse } from 'query-string';
 import SessionStore from '../../stores/sessionStore';
 import DigitalData from '../../scripts/DigitalData';
-import cookieStore from '../../stores/cookieStore';
+import UserDetails from '../../my-account/services/UserDetails';
 
 const postData = async (url, data) => {
     const response = await fetch(url, {
@@ -26,8 +26,8 @@ export async function registrationSubmit(data) {
         delete data.captcha;
     }
 
-    const localeLanguage = DigitalData.language;
-    const localeCountry = DigitalData.country;
+    let localeLanguage = DigitalData.language;
+    let localeCountry = DigitalData.country;
     if (
         (!localeLanguage && !localeCountry) ||
         DigitalData.country === DigitalData.globalExperience
@@ -35,21 +35,32 @@ export async function registrationSubmit(data) {
         localeLanguage = 'en';
         localeCountry = 'US';
     }
+
+    data.country = data.country.toUpperCase();
     data.localeCountry = localeCountry;
     data.localeLanguage = localeLanguage;
 
     const response = await postData(this.url, data);
+    const responseBody = await response.json();
 
     // remove all previous server error notifications
     this.setError();
-
+    
     if (response.status === 200) {
-        console.log(
-            'registration complete  This needs finishing off later',
-            response.json()
-        );
+        if (this.callback) {
+            const userDetails = await UserDetails(this.callback);
+
+            if (!userDetails.failed) {
+                const store = new SessionStore();
+                store.setUserDetails(userDetails);
+            }
+        }
+
+        if (this.redirect) {
+            window.location.replace(this.redirect);
+        }
     } else {
-        this.setError(response);
+        this.setError(responseBody);
         scrollToY(0);
     }
 }
@@ -110,11 +121,9 @@ export async function resetPasswordSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-
         if (this.redirect) {
             window.location.replace(this.redirect);
         }
-
     } else {
         this.setError(response);
         scrollToY(0);
@@ -134,9 +143,7 @@ export async function changePasswordSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-        console.log(
-            'update password complete.  This needs finishing off later'
-        );
+       // update password complete. This needs finishing off later.
 
         if (this.callback && typeof this.callback === 'function') {
             this.callback(await response.json());
@@ -147,7 +154,9 @@ export async function changePasswordSubmit(data) {
     }
 }
 
+
 export async function personalSubmit(data) {
+
     const response = await postData(this.url, data);
 
     // remove all previous server error notifications
@@ -180,14 +189,20 @@ export async function signInSubmit(data) {
 
     if (response.status === 200) {
 
-        let data = await response.json();
-
-        if(data.migrated !== "Y") {
+        if(responseBody.login !== "success") {
             window.location.replace(this.passwordUpdateUrl + `?email=${data.email}`);
+            return;
         }
 
-        // Temporary cookie
-        document.cookie = 'WatersLoginCookie=1; path=/; domain=.waters.com';
+        if (this.callback) {
+            const userDetails = await UserDetails(this.callback);
+
+            if (!userDetails.failed) {
+                const store = new SessionStore();
+                store.setUserDetails(userDetails);
+            }
+        }
+        
         const signInRedirect = window.sessionStorage.getItem('signInRedirect');
         if (signInRedirect || this.redirect) {
             window.location.replace(

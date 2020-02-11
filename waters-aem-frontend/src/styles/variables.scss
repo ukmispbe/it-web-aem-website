@@ -37,10 +37,10 @@ $color-link-hover: $color-blue-70;
 $color-link-visited: $color-blue-70;
 $color-disabled: $color-gray-40;
 $color-accent: $color-teal-30;
-$color-border-light: $color-gray-30;
+$color-border-medium: $color-gray-30;
 $color-border-dark: $color-gray-40;
 $color-border-rule: $color-gray-20;
-$color-border-accent: $color-teal-20;
+$color-border-accent: $color-teal-30;
 $color-background-light: $color-gray-10;
 $color-background-dark: $color-gray-50;
 $color-icon: $color-gray-50;
@@ -163,3 +163,16 @@ $border-radius: 4px;
     colorBlue50 : $color-blue-50;
     borderRadius: $border-radius;
 }
+
+// Borders
+$border-dotted: 4px dotted $color-gray-20;
+$border-light: 1px solid $color-white;
+$border-medium: 1px solid $color-border-medium;
+$border-dark: 1px solid $color-border-dark;
+$border-accent: 2px solid $color-border-accent;
+$border-rule: 1px solid $color-border-rule;
+$border-selected: 3px solid $color-gray-50;
+$border-focus: 2px solid $color-focus;
+$border-link: 1px solid $color-link;
+$border-error: 1px solid $color-error;
+$border-disabled: 1px solid $color-disabled;

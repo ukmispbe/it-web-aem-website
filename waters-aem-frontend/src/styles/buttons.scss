@@ -118,7 +118,7 @@ button.cmp-button--secondary {
 a.cmp-button--secondary--disabled,
 button.cmp-button--secondary--disabled {
     color: $color-disabled;
-    border: 1px solid $color-disabled;
+    border: $border-disabled;
 }
 
 .cmp-button--cancel button.cmp-button,
@@ -135,6 +135,7 @@ button.cmp-button--cancel {
     &:hover {
         background-color: transparent;
         color: $color-link-hover;
+        text-decoration: underline;
     }
 
     @include mobile {

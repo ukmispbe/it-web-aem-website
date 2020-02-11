@@ -6,10 +6,9 @@ import ScreenSizes from '../scripts/screenSizes';
 import MobileNav from '../scripts/mobileNav';
 import domElements from '../scripts/domElements';
 import MyAccountContainer from './my-account-container';
-import SessionStore from '../stores/sessionStore';
 import loginStatus from '../scripts/loginStatus';
-import UserDetails from '../my-account/services/UserDetails';
-import SoldToDetails from '../my-account/services/SoldToDetails';
+import UserDetailsLazy from '../my-account/services/UserDetailsLazy';
+import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
 
 const myAccountModalTheme = 'my-account-dropdown';
 class MyAccountDropDown extends React.Component {
@@ -177,51 +176,26 @@ class MyAccountDropDown extends React.Component {
         }
     }
 
-    retrieveUserDetails = () => { 
-            const sessionStore = new SessionStore();
-            /*
-                START TEMPORARY CODE --
-    
-                Please use this code below until sign-in complete and user token is stored in session storage 
-                & UserDetails / SoldToDetails endpoint is updated to use that token.
-                Please update/clear the UserToken after signout/signin, along with waters.userDetails & waters.soldToDetails in session storage 
-            */
-                sessionStore.setUserToken('testus@waters.com');
-                //sessionStore.setUserToken('tyler.tessmann@icfnext.com');
-            //END TEMPORARY CODE
+    retrieveUserDetails = async () => {
+        const soldToDetails = await SoldToDetailsLazy(this.props.config.soldToDetailsUrl);
 
-            if (this.props.config.soldToDetailsUrl) {
-                const soldToDetails = new SoldToDetails(this.props.config.soldToDetailsUrl)
-                soldToDetails
-                    .then((response) => {
-                        if (response.length) { 
-                            const priorityAccount = response[0];
-    
-                            if (priorityAccount.company) {
-                                this.newConfig.userDetails.accountName = priorityAccount.company + ' ';
-                            }
-    
-                            if (priorityAccount.soldTo) {
-                                this.newConfig.userDetails.accountNumber = priorityAccount.soldTo;
-                            }
-                        }
-                    }).catch(err => {
-                        console.log(err.message)
-                    });
-    
+        if (soldToDetails.length !== 0) {
+            const priorityAccount = soldToDetails[0];
+
+            if (priorityAccount.company) {
+                this.newConfig.userDetails.accountName = priorityAccount.company + ' ';
             }
-            
-            if (this.props.config.userDetailsUrl) { 
-                const userDetails = new UserDetails(this.props.config.userDetailsUrl);
-                userDetails
-                    .then((response) => { 
-                        if (response.firstName && response.lastName) { 
-                            this.newConfig.userDetails.userName = response.firstName + ' ' + response.lastName;;
-                        }
-                    }).catch(err => {
-                        console.log(err.message)
-                    });
+
+            if (priorityAccount.soldTo) {
+                this.newConfig.userDetails.accountNumber = priorityAccount.soldTo;
             }
+        }
+
+        const userDetails = await UserDetailsLazy(this.props.config.userDetailsUrl);
+
+        if (userDetails.firstName && userDetails.lastName) { 
+            this.newConfig.userDetails.userName = userDetails.firstName + ' ' + userDetails.lastName;
+        }
     }
 
     render() {

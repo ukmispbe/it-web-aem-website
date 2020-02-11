@@ -124,7 +124,7 @@
     a.cmp-button,
     button.cmp-button {
         background-color: transparent;
-        border: 1px solid $color-white;
+        border: $border-light;
         color: $color-font-light;
 
         &:hover {
@@ -134,7 +134,7 @@
         }
         &:active {
             color: $color-font-light;
-            border: 1px solid $color-white;
+            border: $border-light;
             background: none;
         }
     }
@@ -144,7 +144,7 @@
     a.cmp-button--secondary,
     button.cmp-button--secondaryn {
         color: $color-font-light;
-        border: 1px solid $color-white;
+        border: $border-light;
         background: none;
 
         &:hover {
@@ -154,7 +154,7 @@
         }
         &:active {
             color: $color-font-light;
-            border: 1px solid $color-white;
+            border: $border-light;
             background: none;
         }
     }
@@ -185,7 +185,7 @@
     a.cmp-button,
     button.cmp-button {
         background-color: transparent;
-        border: 1px solid $color-white;
+        border: $border-light;
         color: $color-font-light;
 
         &:hover {
@@ -195,7 +195,7 @@
         }
         &:active {
             color: $color-font-light;
-            border: 1px solid $color-white;
+            border: $border-light;
             background: none;
         }
     }
@@ -205,7 +205,7 @@
     a.cmp-button--secondary,
     button.cmp-button--secondaryn {
         color: $color-font-light;
-        border: 1px solid $color-white;
+        border: $border-light;
         background: none;
 
         &:hover {
@@ -215,7 +215,7 @@
         }
         &:active {
             color: $color-font-light;
-            border: 1px solid $color-white;
+            border: $border-light;
             background: none;
         }
     }
@@ -246,7 +246,7 @@
     a.cmp-button,
     button.cmp-button {
         background-color: transparent;
-        border: 1px solid $color-white;
+        border: $border-light;
         color: $color-font-light;
 
         &:hover {
@@ -256,7 +256,7 @@
         }
         &:active {
             color: $color-font-light;
-            border: 1px solid $color-white;
+            border: $border-light;
             background: none;
         }
     }
@@ -266,7 +266,7 @@
     a.cmp-button--secondary,
     button.cmp-button--secondary {
         color: $color-font-light;
-        border: 1px solid $color-white;
+        border: $border-light;
         background: none;
 
         &:hover {
@@ -276,7 +276,7 @@
         }
         &:active {
             color: $color-font-light;
-            border: 1px solid $color-white;
+            border: $border-light;
             background: none;
         }
     }
@@ -355,14 +355,6 @@
     a.cmp-button--secondary,
     button.cmp-button--secondary {
         margin-bottom: 0;
-    }
-}
-
-.cmp-banner--search .cmp-banner {
-    margin-bottom: $space-l;
-
-    @include tablet-and-under {
-        margin-bottom: $space-l;
     }
 }
 

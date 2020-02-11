@@ -71,7 +71,7 @@
             max-width: 100%; 
             box-sizing: border-box;
             margin: 0;
-            border: 1px solid $color-gray-30;
+            border: $border-medium;
             -moz-appearance: none;
             -webkit-appearance: none;
             appearance: none;
@@ -85,10 +85,10 @@
             display: none;
         }
         .select-css:hover {
-            border-color: $color-gray-30;
+            border-color: $color-border-medium;
         }
         .select-css:focus {
-            border-color: $color-gray-30;
+            border-color: $color-border-medium;
             color: #222; 
             outline: none;
         }

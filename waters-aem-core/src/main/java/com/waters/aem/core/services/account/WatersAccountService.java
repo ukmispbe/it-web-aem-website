@@ -3,13 +3,6 @@ package com.waters.aem.core.services.account;
 public interface WatersAccountService {
 
     /**
-     * Get the configured loginURL.
-     *
-     * @return login URL
-     */
-    String getSignInUrl();
-
-    /**
      * Get the configured log out URL.
      *
      * @return log out URL
@@ -92,4 +85,11 @@ public interface WatersAccountService {
      * @return User sign in API URL
      */
     String getSignInEndpoint();
+
+    /**
+     * Get the configured endpoint for sign out API.
+     *
+     * @return User sign out API URL
+     */
+    String getSignOutEndpoint();
 }
