@@ -59,17 +59,81 @@ const Form = ({
         }
     });
 
-    useEffect(() => {
-        const res = useFetch(config.optionsEndpoint, config);
+    // async function fetchData() {
+    //     const res = await fetch(config.optionsEndpoint);
+    //     res
+    //       .json()
+    //       .then(res => setPlanets(res))
+    //       .catch(err => setErrors(err));
+    //   }
+    
+    //   useEffect(() => {
+    //     fetchData();
+    //   });
+
+    // useEffect(() => {
+    //     const res = useFetch(config.optionsEndpoint, config);
         
-        console.log("initial res", res);
-        if (!res.response) {
-            console.log("!res.response");
-        }
-        else {
-            console.log("YES res.response", res);
-        }
-    }, []);
+    //     console.log("initial res", res);
+    //     if (!res.response) {
+    //         console.log("!res.response");
+    //     }
+    //     else {
+    //         console.log("YES res.response", res);
+    //     }
+    // }, []);
+
+    // config.fields[1].options = [
+    //     { "name": "144936", "label": "AstraZeneca Pharmaceuticals LP", "accountStreet": "50 Otis St", "accountCity": "Westborough", "accountZip": "01581-3323"},
+    //     { "name": "146929", "label": "The Clorox Company", "accountStreet": "7200 Johnson Dr", "accountCity": "Pleasanton", "accountZip": "94588-8005"},
+    //     { "name": "226719", "label": "The University of Texas", "accountStreet": "PO Box301401", "accountCity": "Houston", "accountZip": "77230-1401"},
+    //     { "name": "254134", "label": "University at Buffalo", "accountStreet": "Hochstetter Hall", "accountCity": "Buffalo", "accountZip": "14260"}
+    // ];
+
+    // useEffect(() => {
+    //     // if (config.getRadioOptions === true) {
+    //     //     const responseData =  retrieveData(config.optionsEndpoint);
+    //     //     if (responseData) {
+    //     //         const newOptions = buildOptions(responseData);
+    //     //         console.log(newOptions);
+    //     //     }
+    //     //  }
+
+    //     const res = useFetch(config.optionsEndpoint, config);
+        
+    //     console.log("initial res", res);
+    //     if (!res.response) {
+    //         console.log("!res.response");
+    //     }
+    //     else {
+    //         console.log("YES res.response", res);
+    //     }
+    //     console.log("here", res);
+    // }, []);
+
+
+ 
+    // async function buildOptions(responseData) {
+    //     const optionData = await responseData;
+    //     console.log('buildOptions', optionData);
+
+    //     const tempArray = optionData.map((item) => {
+    //         let tempOption = {};
+    //         tempOption.name = item.soldTo;
+    //         tempOption.label = item.company;
+    //         tempOption.accountStreet = item.partnerAddress[0].street;
+    //         tempOption.accountCity = item.partnerAddress[0].city;
+    //         tempOption.accountZip = item.partnerAddress[0].postalCd;
+    //         return tempOption;
+    //     });
+          
+    //     const radioField = config.fields.filter(
+    //         field => field.type === 'radio'
+    //     )[0];
+    //     radioField.options = tempArray;
+    //     console.log("config", config);
+    // }
+
 
     console.log("test")
 
@@ -123,6 +187,16 @@ const Form = ({
     };
 
     useEffect(() => {
+        const res = useFetch(config.optionsEndpoint, config);
+        
+        console.log("initial res", res);
+        if (!res.response) {
+            console.log("!res.response");
+        }
+        else {
+            console.log("YES res.response", res);
+        }
+        
         for (let name in errorUpdates) {
             if (errors[name]) {
                 errors[name].ref = errorUpdates[name];
