@@ -211,6 +211,61 @@ class OrderHistory extends Component {
             results
         );
 
+    timePeriodHandler(e) {
+        const selectedTimeframe = e.value;
+        let now, timeFilter = "";
+        const currentDate = new Date();
+
+         // &fromDate=1573689600000&toDate=1574035200000
+        switch (selectedTimeframe) {
+            case 1:
+                now = new Date();
+                let thirtyDaysAgo = new Date(now.setDate(now.getDate() - 30));
+                timeFilter=`&fromDate=${thirtyDaysAgo.getTime()}&toDate=${currentDate.getTime()}`;
+                this.setState({
+                    fromDate: thirtyDaysAgo.getTime(),
+                    toDate: currentDate.getTime()
+                });
+                
+                break;              
+            case 2:
+                now = new Date();
+                let sixMonthsAgo = new Date(now.setMonth(now.getMonth() - 6));
+                timeFilter=`&fromDate=${sixMonthsAgo.getTime()}&toDate=${currentDate.getTime()}`;
+                this.setState({
+                    fromDate: sixMonthsAgo.getTime(),
+                    toDate: currentDate.getTime()
+                });
+                break;              
+            case 3:
+                now = new Date();
+                let twelveMonthsAgo = new Date(now.setMonth(now.getMonth() - 12));
+                timeFilter=`&fromDate=${twelveMonthsAgo.getTime()}&toDate=${currentDate.getTime()}`;
+                this.setState({
+                    fromDate: twelveMonthsAgo.getTime(),
+                    toDate: currentDate.getTime()
+                });
+                break; 
+            case 4:
+                this.setState({
+                    fromDate: "0000000000000",
+                    toDate: "9999999999999"
+                });
+                break; 
+            default:
+        }
+        // const sortOption = parseInt(e.value) === 1 ? parameterValues.sort.mostRelevant : parameterValues.sort.mostRecent;
+
+        // let query = this.getQueryObject();
+
+        // query.page = 1;
+        // query.sort = sortOption;
+
+        // this.setState({forceCollapseFilters: true}, () => {
+        //     this.pushToHistory(query, query.facets);
+        // });
+    }
+
     paginationClickHandler(page, e) {
         if (e === 'clicked') {
             this.search.setStorageForPagination();
@@ -288,6 +343,7 @@ class OrderHistory extends Component {
                             onClick={this.handleCategorySelected}
                             enableFading={true}
                         />
+                        <TimePeriod timePeriodHandler={this.timePeriodHandler.bind(this)} timePeriod={this.props.configs.timeperiod} />
                         {this.state.orderHistoryList.map((item, index) => (
                             
                             <OrderListItem

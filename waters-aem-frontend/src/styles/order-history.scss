@@ -7,22 +7,25 @@
         }
 
         &__container {
-            
-
-            .cmp-sku-list__right {
-
+            background-color: $color-background-light;
+            padding: $space-m $space-m 0 $space-m;
+            width: 100%;
+            margin-bottom: $space-xxs;
+            clear: both;
+    
+            @include mobile {
+                padding-bottom: $space-xxs;
             }
-
-            .cmp-sku-details__left {
-                .cmp-sku-list__code {
-                    @include font-h3;
-                    color: #07b;
-                    margin-bottom: $space-s;
+    
+            &.disabled {
+                .cmp-sku-details__left {
+                    min-height: 150px;
+    
+                    @include mobile {
+                        min-height: 0px;
+                        padding-bottom: $space-s;
+                    }
                 }
-                .cmp-sku-details__title {
-
-                }
-
             }
         }
 

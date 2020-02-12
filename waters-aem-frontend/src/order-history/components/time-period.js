@@ -5,25 +5,33 @@ const getOptions = text => {
     return [
         {
             value: 1,
-            label: text.sortByBestMatch,
+            label: text.last30days,
         },
         {
             value: 2,
-            label: text.sortByMostRecent,
+            label: text.last6months,
         },
+        {
+            value: 3,
+            label: text.last12months,
+        },        
+        {
+            value: 4,
+            label: text.showall,
+        }
     ];
 };
 
 const TimePeriod = props => {
     return (
         <div className="cmp-search-sortby">
-            <h3>{props.text.sortByHeading}</h3>
+
             <Dropdown
                 getOptions={getOptions}
-                sortValue={props.sortValue}
-                onChange={e => props.sortHandler(e)}
+                // sortValue={1}
+                onChange={e => props.timePeriodHandler(e)}
                 isSearchable={false}
-                text={props.text}
+                text={props.timePeriod}
             />
         </div>
     );
