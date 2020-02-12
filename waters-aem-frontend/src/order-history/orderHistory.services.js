@@ -14,7 +14,7 @@ class OrderHistoryService {
             
             //orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com&ponumber=TEST&fromDate=1573689600000&toDate=1574035200000',
             //orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email={email}&fromDate={fromDate}&toDate={toDate}&country={countryCode}&ordernumber={orderNumber}',
-            orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email={email}&fromDate={fromDate}&toDate={toDate}&country={countryCode}&ponumber={ponumber}',
+            orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email={email}&{fromdate}&{todate}',
             //orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email={email}&fromDate={fromDate}&toDate={toDate}&country={countryCode}',
             orderDetails: ''
         },
@@ -27,10 +27,9 @@ class OrderHistoryService {
     createOrderListRequest(email, fromDate, toDate, countryCode, ponumber) {
         let url = this.orderHistoryOptions.orderList
             .replace('{email}', email)
-            .replace('{fromDate}', fromDate)
-            .replace('{toDate}', toDate)
-            .replace('{countryCode}', countryCode)
-            .replace('{ponumber}', ponumber)
+            .replace('{fromdate}', jQuery.param({"fromdate":"20190212"}))
+            .replace('{todate}', jQuery.param({"todate":"20200212"}))
+            //.replace('{ponumber}', ponumber)
             //.replace('{orderNumber}', orderNumber)
             // .concat('&ordernumber=', orderNumber)
 

@@ -348,6 +348,7 @@ class OrderHistory extends Component {
                             
                             <OrderListItem
                                 data={item}
+                                config={this.props.configs}
                             />
                         ))}
                         {this.renderPagination()}

@@ -60,11 +60,12 @@ class OrderListItem extends Component {
                 </div>
                 <div className="cmp-order-details__left">
                     <div className="cmp-order-list__code">
-                        {this.props.data.orderNumber}
+                    {this.props.config.orderNumberText} {this.props.data.orderNumber}
                     </div>
                         <div className="cmp-order-details__title">
                             {this.props.data.date}<br/>
-                            {this.props.data.orderTotal}
+                            {this.props.data.orderTotal}<br/>
+                            <a href="#">{this.props.config.viewShipments}</a>
                         </div>
                     {/* {OrderItem} */}
                 </div>
@@ -76,6 +77,7 @@ class OrderListItem extends Component {
 
 OrderListItem.propTypes = {
     data: PropTypes.array.isRequired
+    // config: PropTypes.object.isRequired
 };
 
 export default OrderListItem;
