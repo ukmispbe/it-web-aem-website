@@ -55,10 +55,21 @@
             },
             "orderHistory": {
                 "title": "${'Orders' @ i18n, context='unsafe'}",
+                "resultsText": "${'Showing {0}-{1} of {2} orders' @ format=['{startResults}', '{endResults}', '{count}'], i18n, context='unsafe'}",
                 "noOrdersFoundTitle": "${'Sorry, no orders found.' @ i18n, context='unsafe'}",
                 "noOrdersFoundText": "${'Check back after you shop for order information and shipment tracking.' @ i18n, context='unsafe'}",
                 "shopAllTitle": "${'Shop All Products' @ context='unsafe'}",
-                "shopAllHref": "${myaccount.shopAllProductsHref @ context='unsafe'}"
+                "shopAllHref": "${myaccount.shopAllProductsHref @ context='unsafe'}",
+                "tabs": [
+                    {"name": "${'All Orders' @ i18n, context='unsafe'}"},
+                    {"name": "${'Open Orders' @ i18n, context='unsafe'}"}
+                ],
+                "timeperiod": {
+                    {"last30days": "${'Last 30 Days' @ i18n, context='unsafe'}"},
+                    {"last6months": "${'Last 6 Months' @ i18n, context='unsafe'}"},
+                    {"last12months": "${'Last 12 Months' @ i18n, context='unsafe'}"},
+                    {"showall": "${'Show All' @ i18n, context='unsafe'}"}
+                }
             }
         }
     </script>

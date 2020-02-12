@@ -3,7 +3,19 @@ import 'whatwg-fetch';
 class OrderHistoryService {
     constructor(
         orderHistory = {
-            orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email={email}&ponumber=TEST&fromDate={fromDate}&toDate={toDate}',
+            // works orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com&ponumber=TEST&fromDate=1573689600000&toDate=1574035200000',
+            // works orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com&country=US&ordernumber=15739756&fromDate=1573689600000&toDate=1574035200000',
+            // doesn't work orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com&fromDate=1573689600000&toDate=1574035200000',
+            // doesn't work orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?fromDate=1573689600000&toDate=1574035200000',
+            // doesn't work orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com&country=US&fromDate=1573689600000&toDate=1574035200000',
+            // doesn't work orderList: orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?country=US&fromDate=1573689600000&toDate=1574035200000',
+            
+
+            
+            //orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com&ponumber=TEST&fromDate=1573689600000&toDate=1574035200000',
+            //orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email={email}&fromDate={fromDate}&toDate={toDate}&country={countryCode}&ordernumber={orderNumber}',
+            orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email={email}&fromDate={fromDate}&toDate={toDate}&country={countryCode}&ponumber={ponumber}',
+            //orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email={email}&fromDate={fromDate}&toDate={toDate}&country={countryCode}',
             orderDetails: ''
         },
         throwError //callback 
@@ -12,11 +24,17 @@ class OrderHistoryService {
         this.throwError = throwError;
     }
     
-    createOrderListRequest(fromDate, toDate, email) {
-        const url = this.orderHistoryOptions.orderList
+    createOrderListRequest(email, fromDate, toDate, countryCode, ponumber) {
+        let url = this.orderHistoryOptions.orderList
+            .replace('{email}', email)
             .replace('{fromDate}', fromDate)
             .replace('{toDate}', toDate)
-            .replace('{email}', email)
+            .replace('{countryCode}', countryCode)
+            .replace('{ponumber}', ponumber)
+            //.replace('{orderNumber}', orderNumber)
+            // .concat('&ordernumber=', orderNumber)
+
+             // orderNumber !==undefined ? url.concat('&ordernumber=', orderNumber) : ''
 
         return url;
     } 
@@ -32,7 +50,13 @@ class OrderHistoryService {
         // Should be logic for all get requests we have to send
         return new Promise((resolve, reject) => {
             window
-                .fetch(url)
+                .fetch(url, {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
                 .then(this.checkFetch)
                 .then(response => {
                     resolve(response.json());
@@ -60,8 +84,8 @@ class OrderHistoryService {
     }
 
     
-    getOrderList(fromDate, toDate, email) {
-        return this.getData(this.createOrderListRequest(fromDate, toDate, email));
+    getOrderList(email, fromDate, toDate, countryCode, poNumber) {
+        return this.getData(this.createOrderListRequest(email, fromDate, toDate, countryCode, poNumber));
     }
 }
 

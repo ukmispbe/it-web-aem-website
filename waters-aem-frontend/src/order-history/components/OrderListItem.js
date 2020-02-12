@@ -1,18 +1,9 @@
 import React, { Component } from 'react';
-import OrderHistoryService from '../orderHistory.services';
 import dateFormatter from '../../utils/date-formatter'
 
 class OrderListItem extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            fromDate: "2019-12-20",
-            toDate: "2020-1-30",
-            email: 'wendy_batista@waters.com'
-
-            //fromDate='1573689600000', toDate='1574035200000', email='wendy_batista@waters.com'
-        };
     }
 
     handleItemClick = () => {
@@ -29,16 +20,16 @@ class OrderListItem extends Component {
 // Partially Shipped
 
 // {
-//     invoiceStatus: "Open",
-//     orderNumber: "15739728",
-//     purchaseOrderNumber: "TEST",
-//     date: "2020-01-27",
-//     itemsSubTotal: null,
-//     taxAmount: null,
-//     shippingAmount: null,
-//     currencyCode: "USD",
-//     orderTotal: "$286.22",
-//     delivaryStatus: "Open"
+//     "invoiceStatus": "Open",
+//     "orderNumber": "15739617",
+//     "purchaseOrderNumber": "TEST",
+//     "date": "2020-01-09",
+//     "itemsSubTotal": null,
+//     "taxAmount": null,
+//     "shippingAmount": null,
+//     "currencyCode": "USD",
+//     "orderTotal": "$17.00",
+//     "deliveryStatus": "Open"
 // }
 
     renderOrderItemPartial = () => {
@@ -60,7 +51,7 @@ class OrderListItem extends Component {
 
     render() {
         const OrderItem = this.renderOrderItemPartial();
-        const disabledClass = this.state.email ? 'disabled' : '';
+        const disabledClass = this.props.data.email ? 'disabled' : '';
 
         return (
             <div className={'cmp-sku-list__container ' + disabledClass}>

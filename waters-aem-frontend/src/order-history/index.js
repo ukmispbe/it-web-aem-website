@@ -1,229 +1,215 @@
 import React, { Component } from 'react';
-import PropTypes from "prop-types";
-import OrderListItem from './components/OrderListItem';
-import OrderHistoryService from'./orderHistory.services';
 import ReactPaginate from 'react-paginate';
 import ReactSVG from 'react-svg';
-
+import PropTypes from "prop-types";
+import OrderHistoryService from'./orderHistory.services';
+import OrderListItem from './components/OrderListItem';
+import OrderCount from './components/order-count';
+import TimePeriod from './components/time-period';
+import Tabs from "../navigation/tabs";
 class OrderHistory extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pagination: 1,
-            nextIcon: "/content/dam/waters/en/brand-assets/icons/left.svg",
-            previousIcon: "/content/dam/waters/en/brand-assets/icons/right.svg",
+            paginationDefaults: {
+                page: 1,
+                pagination: 1
+            },
             orderHistoryList: "",
             errorObjHistory: {},
-            fromDate: "2019-12-20",
-            toDate: "2020-1-30",
-            email: 'wendy_batista@waters.com' 
+            // fromDate: "2019-12-20",
+            // toDate: "2020-1-30",
+            email: "wendy_batista@waters.com",
+            fromDate: "1573689600000",
+            toDate: "1574035200000",
+            countryCode: "US",
+            orderNumber: "15739756",
+            poNumber: "TEST"
 
         }
-        this.orderMock = [
+        this.orderMock =    [
             {
-                invoiceStatus: "Open",
-                orderNumber: "15739756",
-                purchaseOrderNumber: "TEST",
-                date: "2020-01-30",
-                itemsSubTotal: null,
-                taxAmount: null,
-                shippingAmount: null,
-                currencyCode: "USD",
-                orderTotal: "$2443.91",
-                delivaryStatus: "Open"
+                "invoiceStatus": "Open",
+                "orderNumber": "15739617",
+                "purchaseOrderNumber": "TEST",
+                "date": "2020-01-09",
+                "itemsSubTotal": null,
+                "taxAmount": null,
+                "shippingAmount": null,
+                "currencyCode": "USD",
+                "orderTotal": "$17.00",
+                "deliveryStatus": "Open"
             },
             {
-            invoiceStatus: "Open",
-            orderNumber: "15739754",
-            purchaseOrderNumber: "TEST",
-            date: "2020-01-29",
-            itemsSubTotal: null,
-            taxAmount: null,
-            shippingAmount: null,
-            currencyCode: "USD",
-            orderTotal: "$792.53",
-            delivaryStatus: "Open"
+                "invoiceStatus": "Open",
+                "orderNumber": "15739520",
+                "purchaseOrderNumber": "TEST",
+                "date": "2019-12-11",
+                "itemsSubTotal": null,
+                "taxAmount": null,
+                "shippingAmount": null,
+                "currencyCode": "USD",
+                "orderTotal": "$16.89",
+                "deliveryStatus": "Open"
             },
             {
-            invoiceStatus: "Open",
-            orderNumber: "15739748",
-            purchaseOrderNumber: "TEST",
-            date: "2020-01-29",
-            itemsSubTotal: null,
-            taxAmount: null,
-            shippingAmount: null,
-            currencyCode: "USD",
-            orderTotal: "$2443.91",
-            delivaryStatus: "Open"
+                "invoiceStatus": "Open",
+                "orderNumber": "15739506",
+                "purchaseOrderNumber": "TEST",
+                "date": "2019-12-09",
+                "itemsSubTotal": null,
+                "taxAmount": null,
+                "shippingAmount": null,
+                "currencyCode": "USD",
+                "orderTotal": "$805.16",
+                "deliveryStatus": "Open"
             },
             {
-            invoiceStatus: "Open",
-            orderNumber: "15739728",
-            purchaseOrderNumber: "TEST",
-            date: "2020-01-27",
-            itemsSubTotal: null,
-            taxAmount: null,
-            shippingAmount: null,
-            currencyCode: "USD",
-            orderTotal: "$286.22",
-            delivaryStatus: "Open"
+                "invoiceStatus": "Open",
+                "orderNumber": "15739390",
+                "purchaseOrderNumber": "TEST",
+                "date": "2019-11-18",
+                "itemsSubTotal": null,
+                "taxAmount": null,
+                "shippingAmount": null,
+                "currencyCode": "USD",
+                "orderTotal": "$116.89",
+                "deliveryStatus": "Open"
             },
             {
-            invoiceStatus: "Open",
-            orderNumber: "15739719",
-            purchaseOrderNumber: "TEST",
-            date: "2020-01-24",
-            itemsSubTotal: null,
-            taxAmount: null,
-            shippingAmount: null,
-            currencyCode: "USD",
-            orderTotal: "$865.25",
-            delivaryStatus: "Open"
+                "invoiceStatus": "Open",
+                "orderNumber": "15739367",
+                "purchaseOrderNumber": "TEST",
+                "date": "2019-11-14",
+                "itemsSubTotal": null,
+                "taxAmount": null,
+                "shippingAmount": null,
+                "currencyCode": "USD",
+                "orderTotal": "$5545.52",
+                "deliveryStatus": "Open"
             },
             {
-            invoiceStatus: "Open",
-            orderNumber: "15739617",
-            purchaseOrderNumber: "TEST",
-            date: "2020-01-09",
-            itemsSubTotal: null,
-            taxAmount: null,
-            shippingAmount: null,
-            currencyCode: "USD",
-            orderTotal: "$17.00",
-            delivaryStatus: "Open"
+                "invoiceStatus": "Open",
+                "orderNumber": "15739366",
+                "purchaseOrderNumber": "TEST",
+                "date": "2019-11-14",
+                "itemsSubTotal": null,
+                "taxAmount": null,
+                "shippingAmount": null,
+                "currencyCode": "USD",
+                "orderTotal": "$5545.52",
+                "deliveryStatus": "Open"
             },
             {
-            invoiceStatus: "Open",
-            orderNumber: "15739520",
-            purchaseOrderNumber: "TEST",
-            date: "2019-12-11",
-            itemsSubTotal: null,
-            taxAmount: null,
-            shippingAmount: null,
-            currencyCode: "USD",
-            orderTotal: "$16.89",
-            delivaryStatus: "Open"
+                "invoiceStatus": "Open",
+                "orderNumber": "15739364",
+                "purchaseOrderNumber": "TEST",
+                "date": "2019-11-14",
+                "itemsSubTotal": null,
+                "taxAmount": null,
+                "shippingAmount": null,
+                "currencyCode": "USD",
+                "orderTotal": "$5545.52",
+                "deliveryStatus": "Open"
             },
             {
-            invoiceStatus: "Open",
-            orderNumber: "15739506",
-            purchaseOrderNumber: "TEST",
-            date: "2019-12-09",
-            itemsSubTotal: null,
-            taxAmount: null,
-            shippingAmount: null,
-            currencyCode: "USD",
-            orderTotal: "$805.16",
-            delivaryStatus: "Open"
+                "invoiceStatus": "Open",
+                "orderNumber": "15739363",
+                "purchaseOrderNumber": "TEST",
+                "date": "2019-11-14",
+                "itemsSubTotal": null,
+                "taxAmount": null,
+                "shippingAmount": null,
+                "currencyCode": "USD",
+                "orderTotal": "$5545.52",
+                "deliveryStatus": "Open"
             },
             {
-            invoiceStatus: "Open",
-            orderNumber: "15739390",
-            purchaseOrderNumber: "TEST",
-            date: "2019-11-18",
-            itemsSubTotal: null,
-            taxAmount: null,
-            shippingAmount: null,
-            currencyCode: "USD",
-            orderTotal: "$116.89",
-            delivaryStatus: "Open"
+                "invoiceStatus": "Open",
+                "orderNumber": "15739362",
+                "purchaseOrderNumber": "TEST",
+                "date": "2019-11-14",
+                "itemsSubTotal": null,
+                "taxAmount": null,
+                "shippingAmount": null,
+                "currencyCode": "USD",
+                "orderTotal": "$5545.52",
+                "deliveryStatus": "Open"
             },
             {
-            invoiceStatus: "Open",
-            orderNumber: "15739367",
-            purchaseOrderNumber: "TEST",
-            date: "2019-11-14",
-            itemsSubTotal: null,
-            taxAmount: null,
-            shippingAmount: null,
-            currencyCode: "USD",
-            orderTotal: "$5545.52",
-            delivaryStatus: "Open"
+                "invoiceStatus": "Open",
+                "orderNumber": "15739129",
+                "purchaseOrderNumber": "TEST",
+                "date": "2019-10-27",
+                "itemsSubTotal": null,
+                "taxAmount": null,
+                "shippingAmount": null,
+                "currencyCode": "USD",
+                "orderTotal": "$5349.08",
+                "deliveryStatus": "Open"
             },
             {
-            invoiceStatus: "Open",
-            orderNumber: "15739366",
-            purchaseOrderNumber: "TEST",
-            date: "2019-11-14",
-            itemsSubTotal: null,
-            taxAmount: null,
-            shippingAmount: null,
-            currencyCode: "USD",
-            orderTotal: "$5545.52",
-            delivaryStatus: "Open"
-            },
-            {
-            invoiceStatus: "Open",
-            orderNumber: "15739364",
-            purchaseOrderNumber: "TEST",
-            date: "2019-11-14",
-            itemsSubTotal: null,
-            taxAmount: null,
-            shippingAmount: null,
-            currencyCode: "USD",
-            orderTotal: "$5545.52",
-            delivaryStatus: "Open"
-            },
-            {
-            invoiceStatus: "Open",
-            orderNumber: "15739363",
-            purchaseOrderNumber: "TEST",
-            date: "2019-11-14",
-            itemsSubTotal: null,
-            taxAmount: null,
-            shippingAmount: null,
-            currencyCode: "USD",
-            orderTotal: "$5545.52",
-            delivaryStatus: "Open"
-            },
-            {
-            invoiceStatus: "Open",
-            orderNumber: "15739362",
-            purchaseOrderNumber: "TEST",
-            date: "2019-11-14",
-            itemsSubTotal: null,
-            taxAmount: null,
-            shippingAmount: null,
-            currencyCode: "USD",
-            orderTotal: "$5545.52",
-            delivaryStatus: "Open"
-            },
-            {
-            invoiceStatus: "Open",
-            orderNumber: "15739129",
-            purchaseOrderNumber: "TEST",
-            date: "2019-10-27",
-            itemsSubTotal: null,
-            taxAmount: null,
-            shippingAmount: null,
-            currencyCode: "USD",
-            orderTotal: "$5349.08",
-            delivaryStatus: "Open"
-            },
-            {
-            invoiceStatus: "Open",
-            orderNumber: "15739128",
-            purchaseOrderNumber: "TEST",
-            date: "2019-10-27",
-            itemsSubTotal: null,
-            taxAmount: null,
-            shippingAmount: null,
-            currencyCode: "USD",
-            orderTotal: "$24.49",
-            delivaryStatus: "Open"
+                "invoiceStatus": "Open",
+                "orderNumber": "15739128",
+                "purchaseOrderNumber": "TEST",
+                "date": "2019-10-27",
+                "itemsSubTotal": null,
+                "taxAmount": null,
+                "shippingAmount": null,
+                "currencyCode": "USD",
+                "orderTotal": "$24.49",
+                "deliveryStatus": "Open"
             }
-            ];
+        ];
+
+        this.paginationDefaults = {
+            rows: 25,
+            nextIcon: "/content/dam/waters/en/brand-assets/icons/right.svg",
+            previousIcon: "/content/dam/waters/en/brand-assets/icons/left.svg",
+            pageRangeDisplayed: 8,
+            marginPagesDisplayed: 1
+        }
     }
 
     componentDidMount() {
         const OrderHistoryServiceObj = new OrderHistoryService();
-        OrderHistoryServiceObj.getOrderList(this.state.fromDate, this.state.toDate, this.state.email).then(result => {
+        OrderHistoryServiceObj.getOrderList(this.state.email, this.state.fromDate, this.state.toDate, this.state.countryCode, this.state.poNumber).then(result => {
             this.setState({ 
-                orderHistoryList: result
+                orderHistoryList: result,
+                pagination: {
+                    amount: Math.ceil(result.length / this.paginationDefaults.rows)
+                }
             }); 
         }) || null;
     }
+    
+    renderOrderCount = () => {
+        if (this.state.noResults || this.state.loading) return <></>;
 
+        return (
+            <OrderCount
+                rows={this.state.rows}
+                count={this.state.count}
+                current={
+                    this.state.pagination && this.state.pagination.current
+                        ? this.state.pagination.current
+                        : 1
+                }
+            />
+        );
+    };
+
+    renderResults = results =>
+        !this.state.loading && this.state.noResults ? (
+            <>
+            <div className="cmp-search__no-results">
+                <h2>{this.props.configs.noOrdersFoundTitle}</h2>
+                <p>{this.props.configs.noOrdersFoundText}<a href={this.props.configs.shopAllHref}>{this.props.configs.shopAllTitle}</a></p>
+            </div>
+        </>
+        ) : (
+            results
+        );
 
     paginationClickHandler(page, e) {
         if (e === 'clicked') {
@@ -236,23 +222,56 @@ class OrderHistory extends Component {
             pagination: {
                 amount: state.pagination.amount,
                 current: page.selected + 1,
-            },
-        });
-
-        this.setState(newState, () => {
-            let query = this.getQueryObject();
-
-            query.page = page.selected + 1;
-
-            this.pushToHistory(query, query.facets);
+            }
         });
     }
 
+    renderPagination() {
+        const previousIcon = (
+            <ReactSVG src={this.paginationDefaults.previousIcon} />
+        );
+        const nextIcon = (
+            <ReactSVG src={this.paginationDefaults.nextIcon} />
+        );
+
+        if (this.state.orderHistoryList.length > this.paginationDefaults.rows) {
+            return (
+                <ReactPaginate
+                    pageCount={this.state.pagination.amount}
+                    forcePage={
+                        this.state.pagination.current
+                            ? this.state.pagination.current - 1
+                            : 0
+                    }
+                    pageRangeDisplayed={this.paginationDefaults.pageRangeDisplayed}
+                    marginPagesDisplayed={this.paginationDefaults.marginPagesDisplayed}
+                    containerClassName="paginate__container"
+                    onPageChange={num =>
+                        this.paginationClickHandler.bind(
+                            this,
+                            num,
+                            'clicked'
+                        )()
+                    }
+                    breakLabel={'…'}
+                    previousLabel={previousIcon}
+                    nextLabel={nextIcon}
+                    initialPage={
+                        this.state.pagination.current
+                            ? this.state.pagination.current - 1
+                            : 0
+                    }
+                    disableInitialCallback={true}
+                    hrefBuilder={this.buildHref}
+                />
+            )
+        } else {
+            return <></>;
+        }
+    }
 
     render() {
-        const previousIcon = (
-            <ReactSVG src={this.state.previousIcon} />
-        );
+
         return (
             <>
                 {this.state.orderHistoryList.length > 0 && ( //only return template if data exists
@@ -262,43 +281,20 @@ class OrderHistory extends Component {
                                 {this.props.configs.title}
                             </div>
                         )}
+                        
+                        <Tabs className="cmp-search__categories-tabs"
+                            items={this.props.configs.tabs}
+                            activeIndex={0}
+                            onClick={this.handleCategorySelected}
+                            enableFading={true}
+                        />
                         {this.state.orderHistoryList.map((item, index) => (
                             
                             <OrderListItem
                                 data={item}
                             />
                         ))}
-                        
-                        <ReactPaginate
-                            pageCount={this.state.pagination.amount}
-                            forcePage={
-                                this.state.pagination.current
-                                    ? this.state.pagination.current - 1
-                                    : 0
-                            }
-                            pageRangeDisplayed={8}
-                            marginPagesDisplayed={1}
-                            containerClassName="paginate__container"
-                            onPageChange={num =>
-                                this.paginationClickHandler.bind(
-                                    this,
-                                    num,
-                                    'clicked'
-                                )()
-                            }
-                            breakLabel={'…'}
-                            previousLabel={previousIcon}
-                            nextLabel={
-                                <ReactSVG src={this.props.nextIcon} />
-                            }
-                            initialPage={
-                                this.state.pagination.current
-                                    ? this.state.pagination.current - 1
-                                    : 0
-                            }
-                            disableInitialCallback={true}
-                            hrefBuilder={this.buildHref}
-                        />
+                        {this.renderPagination()}
                     </>
                 )}
             </>
