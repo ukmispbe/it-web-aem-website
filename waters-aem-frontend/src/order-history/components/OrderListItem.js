@@ -49,21 +49,42 @@ class OrderListItem extends Component {
         );
     };
 
+    formatDate = (inputString) => {
+        const newDate = new Date(inputString);
+        // Need to consider Translation
+        const monthNames = [
+            "January", "February", "March",
+            "April", "May", "June", "July",
+            "August", "September", "October",
+            "November", "December"
+          ];               
+        var monthIndex = newDate.getMonth();
+        return monthNames[monthIndex] + ' ' + newDate.getDate()  + ', ' + newDate.getFullYear();
+    }   
+        
     render() {
+
         const OrderItem = this.renderOrderItemPartial();
         const disabledClass = this.props.data.email ? 'disabled' : '';
 
         return (
             <div className={'cmp-order-list__container ' + disabledClass}>
                 <div className="cmp-order-list__right">
-                    {this.props.data.deliveryStatus}<br/>
+                    <div className="cmp-order-list__del-status">
+                        {this.props.data.deliveryStatus}
+                    </div>
+                    <div className="cmp-order-list__view-shipments">
+                        <a href={this.props.viewShipmentsURL}>{this.props.viewShipmentsText}</a>
+                    </div>               
                 </div>
                 <div className="cmp-order-details__left">
                     <div className="cmp-order-list__code">
-                        {this.props.data.orderNumber}
+                        {this.props.orderText + " " + this.props.data.orderNumber}
                     </div>
-                        <div className="cmp-order-details__title">
-                            {this.props.data.date}<br/>
+                        <div className="cmp-order-list__date">
+                            {this.formatDate(this.props.data.date)}
+                        </div>
+                        <div className="cmp-order-list__total">
                             {this.props.data.orderTotal}
                         </div>
                     {/* {OrderItem} */}
