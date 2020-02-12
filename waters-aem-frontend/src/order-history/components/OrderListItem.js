@@ -30,44 +30,57 @@ class OrderListItem extends Component {
 //     "currencyCode": "USD",
 //     "orderTotal": "$17.00",
 //     "deliveryStatus": "Open"
+
+// this.props.data.invoiceStatus + "\n" +
+// this.props.data.orderNumber + "\n" +
+// this.props.data.purchaseOrderNumber + "\n" +
+// this.props.data.date + "\n" +
+// this.props.data.itemsSubTotal + "\n" +
+// this.props.data.taxAmount + "\n" +
+// this.props.data.shippingAmount + "\n" +
+// this.props.data.currencyCode + "\n" +
+// this.props.data.orderTotal + "\n" +
+// this.props.data.deliveryStatus
 // }
 
-    renderOrderItemPartial = () => {
-        return (
-            <div className="cmp-order-details__buyinfo"> {
-                this.props.data.invoiceStatus + "\n" +
-                this.props.data.orderNumber + "\n" +
-                this.props.data.purchaseOrderNumber + "\n" +
-                this.props.data.date + "\n" +
-                this.props.data.itemsSubTotal + "\n" +
-                this.props.data.taxAmount + "\n" +
-                this.props.data.shippingAmount + "\n" +
-                this.props.data.currencyCode + "\n" +
-                this.props.data.orderTotal + "\n" +
-                this.props.data.deliveryStatus
-            } </div>
-        );
-    };
-
+    formatDate = (inputString) => {
+        const newDate = new Date(inputString);
+        // Need to consider Translation
+        const monthNames = [
+            "January", "February", "March",
+            "April", "May", "June", "July",
+            "August", "September", "October",
+            "November", "December"
+        ];               
+        var monthIndex = newDate.getMonth();
+        return monthNames[monthIndex] + ' ' + newDate.getDate()  + ', ' + newDate.getFullYear();
+    }   
+        
     render() {
+
         const OrderItem = this.renderOrderItemPartial();
         const disabledClass = this.props.data.email ? 'disabled' : '';
 
         return (
             <div className={'cmp-order-list__container ' + disabledClass}>
                 <div className="cmp-order-list__right">
-                    {this.props.data.deliveryStatus}<br/>
+                    <div className="cmp-order-list__del-status">
+                        {this.props.data.deliveryStatus}
+                    </div>
+                    <div className="cmp-order-list__view-shipments">
+                        <a href={this.props.viewShipmentsURL}>{this.props.viewShipmentsText}</a>
+                    </div>               
                 </div>
                 <div className="cmp-order-details__left">
                     <div className="cmp-order-list__code">
-                    {this.props.config.orderNumberText} {this.props.data.orderNumber}
+                        {this.props.orderText + " " + this.props.data.orderNumber}
                     </div>
-                        <div className="cmp-order-details__title">
-                            {this.props.data.date}<br/>
-                            {this.props.data.orderTotal}<br/>
-                            <a href="#">{this.props.config.viewShipments}</a>
+                        <div className="cmp-order-list__date">
+                            {this.formatDate(this.props.data.date)}
                         </div>
-                    {/* {OrderItem} */}
+                        <div className="cmp-order-list__total">
+                            {this.props.data.orderTotal}
+                        </div>
                 </div>
             </div>
         );

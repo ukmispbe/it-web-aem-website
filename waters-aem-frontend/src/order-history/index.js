@@ -326,7 +326,7 @@ class OrderHistory extends Component {
     }
 
     render() {
-
+        console.log(this.props.configs);
         return (
             <>
                 {this.state.orderHistoryList.length > 0 && ( //only return template if data exists
@@ -348,7 +348,10 @@ class OrderHistory extends Component {
                             
                             <OrderListItem
                                 data={item}
-                                config={this.props.configs}
+                                orderText={this.props.configs.orderText}
+                                viewShipmentsText={this.props.configs.viewShipmentsText}
+                                viewShipmentsURL={this.props.configs.viewShipmentsURL}
+                                //config={this.props.configs}
                             />
                         ))}
                         {this.renderPagination()}
