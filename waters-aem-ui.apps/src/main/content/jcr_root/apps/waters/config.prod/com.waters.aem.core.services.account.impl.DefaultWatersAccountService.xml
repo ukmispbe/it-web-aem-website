@@ -7,7 +7,7 @@
           legacySearchUrl="https://www.waters.com/waters/keywordSearch.htm"
           registrationSubmitUrl="https://prodservices.waters.com/api/waters/user/v1/registration"
           emailValidationUrl="https://prodservices.waters.com/api/waters/user/v1/validate/{email}"
-          pwResetUrl="https://prodservices.waters.com/api/waters/user/v1/reset/password"
+          pwResetUrl="https://prodservices.waters.com/api/waters/user/v1/reset/password?email={email}"
           changePwUrl="https://prodservices.waters.com/api/waters/user/v1/change/password"
           userDetailsUrl="https://prodservices.waters.com/api/waters/user/v1/details"
           soldToDetailsUrl="https://prodservices.waters.com/api/waters/user/v1/retrievesoldto"
