@@ -34,7 +34,7 @@ class OrderListItem extends Component {
 
     renderOrderItemPartial = () => {
         return (
-            <div className="cmp-sku-details__buyinfo"> {
+            <div className="cmp-order-details__buyinfo"> {
                 this.props.data.invoiceStatus + "\n" +
                 this.props.data.orderNumber + "\n" +
                 this.props.data.purchaseOrderNumber + "\n" +
@@ -54,15 +54,15 @@ class OrderListItem extends Component {
         const disabledClass = this.props.data.email ? 'disabled' : '';
 
         return (
-            <div className={'cmp-sku-list__container ' + disabledClass}>
-                <div className="cmp-sku-list__right">
+            <div className={'cmp-order-list__container ' + disabledClass}>
+                <div className="cmp-order-list__right">
                     {this.props.data.deliveryStatus}<br/>
                 </div>
-                <div className="cmp-sku-details__left">
-                    <div className="cmp-sku-list__code">
+                <div className="cmp-order-details__left">
+                    <div className="cmp-order-list__code">
                         {this.props.data.orderNumber}
                     </div>
-                        <div className="cmp-sku-details__title">
+                        <div className="cmp-order-details__title">
                             {this.props.data.date}<br/>
                             {this.props.data.orderTotal}
                         </div>

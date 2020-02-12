@@ -332,7 +332,7 @@ class OrderHistory extends Component {
                 {this.state.orderHistoryList.length > 0 && ( //only return template if data exists
                     <>
                         {this.props.configs.title && (
-                            <div className="cmp-sku-list__title">
+                            <div className="cmp-order-list__title">
                                 {this.props.configs.title}
                             </div>
                         )}
