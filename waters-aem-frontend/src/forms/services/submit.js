@@ -188,18 +188,17 @@ export async function signInSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-
-        if(responseBody.login !== "success") {
-            window.location.replace(this.passwordUpdateUrl + `?email=${data.email}`);
-            return;
-        }
-
         if (this.callback) {
             const userDetails = await UserDetails(this.callback);
 
             if (!userDetails.failed) {
                 const store = new SessionStore();
                 store.setUserDetails(userDetails);
+            }
+            
+            if(userDetails.migrated !== "Y") {
+                window.location.replace(this.passwordUpdateUrl + `?email=${data.email}`);
+                return;
             }
         }
         
