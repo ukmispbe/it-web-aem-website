@@ -1,6 +1,5 @@
 import 'whatwg-fetch';
 import SessionStore from '../../stores/sessionStore';
-import cookieStore from '../../stores/cookieStore';
 
 const getData = async (url) => {
     const response = await fetch(url, {
@@ -19,8 +18,5 @@ export async function signOutRequest(url, homepageLink) {
 
     const response = await getData(url);
 
-    if (!response.status == 200) {
-        cookieStore.setLogoutStatus();
-    }
     window.location.href = homepageLink;
 }
