@@ -32,10 +32,17 @@ exports.handler = (event) => {
         TemplateData: JSON.stringify(emailData),
     };
 
-    // check if template exists before trying to send an email with it.
-    return SES.getTemplate({ TemplateName: templatedEmailParams.Template }).promise()
-        .then(() => sendTemplatedEmail(templatedEmailParams))
-        .catch(err  => {
+    return trySendTemplatedEmail(templatedEmailParams);
+};
+
+/**
+ * Tries to send the email with provided template name and other parameters. If the specified template does not exist,
+ * try to send again using the "en" language variant of the provided template name.
+ */
+function trySendTemplatedEmail(templatedEmailParams) {
+    return SES.sendTemplatedEmail(templatedEmailParams).promise()
+        .then(() => (processResponse()))
+        .catch(err => {
             if (err.code === 'TemplateDoesNotExist') {
                 let englishTemplateName = getEnglishTemplateName(templatedEmailParams.Template);
 
@@ -51,8 +58,11 @@ exports.handler = (event) => {
                 return processResponse(errorResponse, 500);
             }
         });
-};
+}
 
+/**
+ * Send the email with provided template name and other parameters.
+ */
 function sendTemplatedEmail(templatedEmailParams) {
     return SES.sendTemplatedEmail(templatedEmailParams).promise()
         .then(() => (processResponse()))
@@ -63,6 +73,10 @@ function sendTemplatedEmail(templatedEmailParams) {
         });
 }
 
+/**
+ * Given a template name suffixed with a language code, e.g. "MyTemplate-ja" for Japanese, return the same template name
+ * but with the "en" language code used as the suffix, e.g. "MyTemplate-en"
+ */
 function getEnglishTemplateName(localizedTemplateName) {
     // get just the template name without the language code. e.g, "MyTemplate-ja" becomes "MyTemplate"
     let templateName = localizedTemplateName.substring(0, localizedTemplateName.lastIndexOf('-'));
