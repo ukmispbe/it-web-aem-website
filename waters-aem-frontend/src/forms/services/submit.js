@@ -53,6 +53,7 @@ export async function registrationSubmit(data) {
             if (!userDetails.failed) {
                 const store = new SessionStore();
                 store.setUserDetails(userDetails);
+                store.removeSoldToDetails();
             }
         }
 
@@ -181,9 +182,10 @@ export async function signInSubmit(data) {
         this.url = `${this.url}?captcha=${data.captcha}`;
         delete data.captcha;
     }
-
+    
     const response = await postData(this.url, data);
     const responseBody = await response.json();
+
     // remove all previous server error notifications
     this.setError();
 
@@ -194,6 +196,7 @@ export async function signInSubmit(data) {
             if (!userDetails.failed) {
                 const store = new SessionStore();
                 store.setUserDetails(userDetails);
+                store.removeSoldToDetails();
             }
             
             if(userDetails.migrated !== "Y") {
