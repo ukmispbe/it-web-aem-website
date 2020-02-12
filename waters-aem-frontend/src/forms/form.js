@@ -186,16 +186,32 @@ const Form = ({
         config.fields = [...fields];
     };
 
+    const [newOptions, setNewOptions ] = useState([]);
+
     useEffect(() => {
-        const res = useFetch(config.optionsEndpoint, config);
+        console.log("useEffect Start");
+        console.log("useEffect config", config.fields[1].options.length);
+
+        config.fields[1].options = [
+            { "name": "144936", "label": "AstraZeneca Pharmaceuticals LP", "accountStreet": "50 Otis St", "accountCity": "Westborough", "accountZip": "01581-3323"},
+            { "name": "146929", "label": "The Clorox Company", "accountStreet": "7200 Johnson Dr", "accountCity": "Pleasanton", "accountZip": "94588-8005"},
+            { "name": "226719", "label": "The University of Texas", "accountStreet": "PO Box301401", "accountCity": "Houston", "accountZip": "77230-1401"},
+            { "name": "254134", "label": "University at Buffalo", "accountStreet": "Hochstetter Hall", "accountCity": "Buffalo", "accountZip": "14260"}
+        ];
+        setNewOptions(config.fields[1].options);
+
+        // const res = useFetch(config.optionsEndpoint, config);
         
-        console.log("initial res", res);
-        if (!res.response) {
-            console.log("!res.response");
-        }
-        else {
-            console.log("YES res.response", res);
-        }
+        // console.log("initial res", res);
+        // if (!res.response) {
+        //     console.log("!res.response");
+        // }
+        // else {
+        //     console.log("YES res.response", res);
+        // }
+        // console.log("End of useFetch", res);
+
+
         
         for (let name in errorUpdates) {
             if (errors[name]) {
