@@ -1,7 +1,8 @@
 const AWS = require('aws-sdk'),
     SES = new AWS.SES(),
     processResponse = require('./process-response.js'),
-    FROM_EMAIL = process.env.FROM_EMAIL;
+    FROM_EMAIL = process.env.FROM_EMAIL,
+    RENDER_FAILURE_CONFIGSET = process.env.RENDER_FAILURE_CONFIGSET || "";
 
 exports.handler = (event) => {
     if (!event.body) {
@@ -27,6 +28,7 @@ exports.handler = (event) => {
         Destination: destination,
         Template: emailData.templateName,
         Source: FROM_EMAIL,
+        ConfigurationSetName: RENDER_FAILURE_CONFIGSET,
         TemplateData: JSON.stringify(emailData),
     };
 
