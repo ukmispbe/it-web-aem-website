@@ -61,10 +61,32 @@
                 }              
             }
         }  
-        
-
-    }
+        &__title {
+            @include font-h3;
+            margin-bottom: $space-xxs;
     
+            @include tablet-and-under {
+                margin-bottom: $space-s;
+            }
+        }
+    
+        &__no-results {
+            border: $border-dotted;
+            text-align: center;
+            padding: $space-xl 0 $space-xl;
+            .icon {
+                margin: 0 auto $space-s auto;
+                height: $icon-xl;
+                width: $icon-xl;
+                svg {
+                    max-height: $icon-xl; 
+                    .st0 {
+                        stroke: $color-gray-30;
+                    }
+                }
+            }
+        }        
+    }
 }
 
 
