@@ -80,7 +80,7 @@ const MyAccountContainer = props => {
                     switchAccount={switchAccount}
                 />
             )}
-            {loginState && itemList && <MyAccountItemList itemList={itemList} />}
+            {itemList && <MyAccountItemList itemList={itemList} />}
             {signInOutLink()}
             {!loginState && createAccountButton()}
         </div>
