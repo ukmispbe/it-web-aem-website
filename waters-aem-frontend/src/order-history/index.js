@@ -311,14 +311,18 @@ class OrderHistory extends Component {
                             onClick={this.handleCategorySelected}
                             enableFading={true}
                         />
-                        
-                        {this.renderOrderCountHeader()}
-                        <TimePeriod timePeriodHandler={this.timePeriodHandler.bind(this)} timePeriod={this.props.configs.timeperiod} />
+
+                        <div className="cmp-order-list__header">
+                            <TimePeriod timePeriodHandler={this.timePeriodHandler.bind(this)} timePeriod={this.props.configs.timeperiod} />
+                            {this.renderOrderCountHeader()}
+                        </div>
+
                         {this.state.orderList.map((item, index) => (
                             
                             <OrderListItem
                                 data={item}
                                 orderText={this.props.configs.orderText}
+                                itemsText={this.props.configs.itemsText}
                                 shipment={this.props.configs.shipment}
                                 icons={this.props.configs.icons}
                             />

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
+import ReactSVG from 'react-svg';
 class DeliveryStatus extends Component {
     constructor(props) {
         super(props);
@@ -8,6 +8,7 @@ class DeliveryStatus extends Component {
         this.state = {
             deliveryStatus: "",
             icon: "",
+            iconClassName: "",
             showShipmentsLink: false
         }
     }
@@ -17,18 +18,23 @@ class DeliveryStatus extends Component {
     configureStatusContent = (status) => {
         let deliveryStatus = "";
         let icon = "";
+        let iconClassName = "cmp-order-list-delivery__icon";
         let showShipmentsLink = false;
         switch(status) {
             case "Open":
                 deliveryStatus = this.props.labels.openLabel;
-                //this.icon = 
+                icon = this.props.icons.openIcon;
             break;
             case "Partial":
                 deliveryStatus = this.props.labels.partialLabel;
-                showShipmentsLink = true;
+                //showShipmentsLink = true; PB Commented Out 
+                icon = this.props.icons.partialIcon;
             break;
             case "Complete":
                 deliveryStatus = this.props.labels.completeLabel;
+                //showShipmentsLink = true;  PB Commented Out 
+                icon = this.props.icons.completeIcon;
+                iconClassName = "cmp-order-list-delivery__icon__complete";
             break;
             default:
                 deliveryStatus = this.props.labels.openLabel;
@@ -37,6 +43,7 @@ class DeliveryStatus extends Component {
         this.setState({ 
             deliveryStatus: deliveryStatus,
             icon: icon,
+            iconClassName: iconClassName,
             showShipmentsLink: showShipmentsLink
         }); 
     }
@@ -47,8 +54,13 @@ class DeliveryStatus extends Component {
     render() {
         return (
             <>
-                <div className="cmp-order-list__del-status">
-                    {this.state.deliveryStatus}
+                <div className="cmp-order-list__del-status">          
+                    <div className={this.state.iconClassName}>
+                        <ReactSVG src={this.state.icon} />
+                    </div>
+                    <div className="cmp-order-list-delivery__text">
+                        {this.state.deliveryStatus}
+                    </div>
                 </div>
                 {this.state.showShipmentsLink && (
                     <div className="cmp-order-list__view-shipments">
