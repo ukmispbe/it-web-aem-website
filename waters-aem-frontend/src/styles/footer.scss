@@ -199,7 +199,8 @@
     }
 }
 
-.cmp-back-to-top {
+.cmp-back-to-top,
+.cmp-back-to-top--relative {
     position: fixed;
     bottom: $space-m;
     right: $space-m;
@@ -246,11 +247,16 @@
     &.cmp-back-to-top-show {
         opacity: 1;
     }
+}
 
-    &.cmp-back-to-top-affix {
-        position: relative;
-        float: right;
-        bottom: $space-m;
+.cmp-back-to-top--relative {
+    transition: initial;
+    position: relative;
+    float: right;
+    bottom: $space-m;
+
+    &.cmp-back-to-top-show {
+        opacity: 1;
     }
 }
 
