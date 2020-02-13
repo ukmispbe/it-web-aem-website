@@ -24,13 +24,14 @@ const getOptions = text => {
 
 const TimePeriod = props => {
     return (
-        <div className="cmp-search-sortby">
+        <div className="cmp-order-list-timeperiod">
             <Dropdown
                 getOptions={getOptions}
                 // sortValue={1}
                 onChange={e => props.timePeriodHandler(e)}
                 isSearchable={false}
                 text={props.timePeriod}
+                defaultValue = {1}
             />
         </div>
     );

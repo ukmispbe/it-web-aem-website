@@ -15,16 +15,50 @@
             width: 100%;
         }
         .cmp-order-list__resultsCount {
+            margin-bottom: 0;
             padding-bottom: $space-xs;
         }
     }
-
-    .cmp-search-sortby {
-        width: 200px;
+    .cmp-order-list__dropdowns {
         float: right;
-        margin-bottom: $space-xxs;
+        width: 50%;
+        text-align: right;
+
+        @include tablet {
+            width: calc(82vw - 300px);
+        }
         @include mobile {
             width: 100%;
+        }
+
+        .cmp-order-list-timeperiod {
+            float: right;
+            width: 200px;
+            margin-bottom: $space-xxs;
+
+            @include tablet-and-under {
+                float: none;
+                display: inline-block;
+                margin-bottom: $space-xxs;
+                margin-left: $space-xxs;
+            }
+            @include mobile {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+        .cmp-order-list-orderfilters {
+            display: none;
+
+            @include tablet-and-under {
+                display: inline-block;
+                width: 200px;
+                margin-top: $space-xxs;
+                margin-bottom: $space-xxs;
+            }
+            @include mobile {
+                width: 100%;
+            }
         }
     }
     
@@ -36,7 +70,7 @@
             width: 100%;
             margin-bottom: $space-xxs;
             clear: both;
-            min-height: 150px;
+            min-height: 130px;
     
             @include mobile {
                 min-height: 0px;
@@ -47,18 +81,19 @@
                 display: inline-block;
                 width: 50%;
 
+                @include mobile {
+                    width: 100%;
+                    margin-left: 0;
+                }
+
                 .cmp-order-list__code {
                     @include font-h3; 
                     color: $color-link;
-                    margin-bottom: $space-xxs;
+                    margin-bottom: 0;
                 }
                 .cmp-order-list__date {
                     @include font-small; 
                     color: $color-gray-50;
-                }
-                @include mobile {
-                    width: 100%;
-                    margin-left: 0px;
                 }
             }
 
@@ -78,6 +113,8 @@
 
                     .cmp-order-list-delivery__icon {
                         display: inline-block;  
+                        line-height: $icon-m; 
+
                         svg {
                             height: $icon-m;
                             width: $icon-m;
@@ -92,6 +129,8 @@
 
                     .cmp-order-list-delivery__icon__complete {
                         display: inline-block;  
+                        line-height: $icon-m; 
+                        
                         svg {
                             height: $icon-m;
                             width: $icon-m;
@@ -106,6 +145,8 @@
 
                     .cmp-order-list-delivery__text {
                         display: inline-block; 
+                        vertical-align: top;
+                        line-height: $icon-m; 
                     }
                 }
                 .cmp-order-list__view-shipments {
@@ -144,6 +185,8 @@
                 @include font-h1; 
                 width: 50%;
                 padding-bottom: $space-xxs;
+                margin-bottom: 0;
+                
                 @include mobile {
                     width: 100%;
                 }

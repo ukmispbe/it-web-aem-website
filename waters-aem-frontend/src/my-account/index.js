@@ -25,7 +25,9 @@ const MyAccountRouter = (props) => {
                     </Aside>
                 </Route>
                 <Route exact path="/orderhistory" >
-                    <OrderHistory configs={props.orderHistory} />
+                    <Aside tiles={props.tiles}>
+                        <OrderHistory configs={props.orderHistory} />
+                    </Aside>
                 </Route>
             </Switch>
         </HashRouter>

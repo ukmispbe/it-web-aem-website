@@ -64,7 +64,7 @@ const DropdownIndicator = props => {
 const Dropdown = props => {
     return (
         <Select
-            defaultValue={props.getOptions(props.text)[1]}
+            defaultValue={props.getOptions(props.text)[props.defaultValue - 1]}
             options={props.getOptions(props.text)}
             value={
                 props.sortValue && props.sortValue.value

@@ -6,6 +6,7 @@ import OrderHistoryService from'./orderHistory.services';
 import OrderListItem from './components/order-list-item';
 import OrderCount from './components/order-count';
 import TimePeriod from './components/time-period';
+import OrderFilterDropdown from './components/order-filter-dropdown';
 import Tabs from "../navigation/tabs";
 import Spinner from "../utils/spinner";
 
@@ -71,7 +72,7 @@ class OrderHistory extends Component {
     componentDidMount() {
         const OrderHistoryServiceObj = new OrderHistoryService();
         OrderHistoryServiceObj.getOrderList(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber).then(result => {
-            if(result > 0){
+            if(result.length > 0){
                 this.setState({ 
                     orderList: result,
                     pageCount: Math.ceil(result.length / this.paginationDefaults.visibleRows),
@@ -234,11 +235,18 @@ class OrderHistory extends Component {
                             onClick={this.handleCategorySelected}
                             enableFading={true}
                         />
-                        <TimePeriod timePeriodHandler={this.handleCategorySelected} timePeriod={this.props.configs.tabs} />
-                            
 
                         <div className="cmp-order-list__header">
-                            <TimePeriod timePeriodHandler={this.timePeriodHandler.bind(this)} timePeriod={this.props.configs.timeperiod} />
+                            <div className="cmp-order-list__dropdowns">
+                                <OrderFilterDropdown
+                                    onChange={this.handleCategorySelected} 
+                                    orderFilters={this.props.configs.orderfilters}
+                                />
+                                <TimePeriod 
+                                    onChange={this.timePeriodHandler.bind(this)} 
+                                    timePeriod={this.props.configs.timeperiod}
+                                />
+                            </div>
                             {this.renderOrderCountHeader()}
                         </div>
 
@@ -258,7 +266,7 @@ class OrderHistory extends Component {
                 {!this.state.loading && this.state.noResults && (
                     <>
                         <Tabs className="cmp-search__categories-tabs"
-                            items={this.props.configs.tabs[0]}
+                            items={this.props.configs.tabs}
                             activeIndex={0}
                             enableFading={true}
                         />
