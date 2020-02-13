@@ -7,6 +7,13 @@ import OrderListItem from './components/order-list-item';
 import OrderCount from './components/order-count';
 import TimePeriod from './components/time-period';
 import Tabs from "../navigation/tabs";
+
+//To-Dos
+//toggle rendered items with page changes from pagination
+//finish styling for desktop, mobile, tablet; icons in delivery status
+//api tweaks; dropdown connections
+//open orders tab filtering based on "deliveryStatus": "Open"
+//test no results rendering; loading state; service error rendering
 class OrderHistory extends Component {
     constructor(props) {
         super(props);
@@ -22,7 +29,6 @@ class OrderHistory extends Component {
             poNumber: "TEST"
         }
 
-        //Complete = Shipped, Partial = Partially Shipped, and Open = In Progress 
         this.orderMock =    [
             {
                 "invoiceStatus": "Open",
@@ -298,12 +304,7 @@ class OrderHistory extends Component {
         return (
             <>
                 {this.state.listCount > 0 && ( //only return template if data exists
-                    <>
-                        {this.props.configs.title && (
-                            <div className="cmp-order-list__title">
-                                {this.props.configs.title}
-                            </div>
-                        )}
+                    <>                        
                         <Tabs className="cmp-search__categories-tabs"
                             items={this.props.configs.tabs}
                             activeIndex={0}
@@ -319,6 +320,7 @@ class OrderHistory extends Component {
                                 data={item}
                                 orderText={this.props.configs.orderText}
                                 shipment={this.props.configs.shipment}
+                                icons={this.props.configs.icons}
                             />
                         ))}
                         {this.renderPagination()}

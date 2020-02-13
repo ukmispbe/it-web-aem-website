@@ -4,37 +4,53 @@ import PropTypes from 'prop-types';
 class DeliveryStatus extends Component {
     constructor(props) {
         super(props);
-        this.showShipmentsLink = false;
-    }
 
-    configureStatusLabel = (status) => {
-        switch(status) {
-            case "Open":
-                this.deliveryStatus = this.props.labels.openLabel;
-            break;
-            case "Partial":
-                this.deliveryStatus = this.props.labels.partialLabel;
-                this.showShipmentsLink = true;
-            break;
-            case "Complete":
-                this.deliveryStatus = this.props.labels.completeLabel;
-            break;
-            default:
-              // code block
+        this.state = {
+            deliveryStatus: "",
+            icon: "",
+            showShipmentsLink: false
         }
     }
+
+    
+    //Complete = Shipped, Partial = Partially Shipped, and Open = In Progress 
+    configureStatusContent = (status) => {
+        let deliveryStatus = "";
+        let icon = "";
+        let showShipmentsLink = false;
+        switch(status) {
+            case "Open":
+                deliveryStatus = this.props.labels.openLabel;
+                //this.icon = 
+            break;
+            case "Partial":
+                deliveryStatus = this.props.labels.partialLabel;
+                showShipmentsLink = true;
+            break;
+            case "Complete":
+                deliveryStatus = this.props.labels.completeLabel;
+            break;
+            default:
+                deliveryStatus = this.props.labels.openLabel;
+        }
+
+        this.setState({ 
+            deliveryStatus: deliveryStatus,
+            icon: icon,
+            showShipmentsLink: showShipmentsLink
+        }); 
+    }
     componentDidMount() {
-        this.configureStatusLabel(this.props.status);
-        console.log("this.deliveryStatus", this.deliveryStatus);
+        this.configureStatusContent(this.props.status);
     }
 
     render() {
         return (
             <>
                 <div className="cmp-order-list__del-status">
-                    {this.deliveryStatus}
+                    {this.state.deliveryStatus}
                 </div>
-                {this.showShipmentsLink && (
+                {this.state.showShipmentsLink && (
                     <div className="cmp-order-list__view-shipments">
                         <a href={this.props.labels.viewShipmentsURL}>{this.props.labels.viewShipmentsText}</a>
                     </div>
@@ -47,7 +63,8 @@ class DeliveryStatus extends Component {
 
 DeliveryStatus.propTypes = {
     status: PropTypes.string.isRequired,
-    labels: PropTypes.array.isRequired
+    labels: PropTypes.object.isRequired,
+    icons: PropTypes.object.isRequired
 };
 
 export default DeliveryStatus;
