@@ -3,6 +3,7 @@ import 'whatwg-fetch';
 class OrderHistoryService {
     constructor(
         orderHistory = {
+            orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email={email}&ponumber={ponumber}',
             // works orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com&ponumber=TEST&fromDate=1573689600000&toDate=1574035200000',
             // works orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com&country=US&ordernumber=15739756&fromDate=1573689600000&toDate=1574035200000',
             // doesn't work orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com&fromDate=1573689600000&toDate=1574035200000',
@@ -14,7 +15,7 @@ class OrderHistoryService {
             
             //orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com&ponumber=TEST&fromDate=1573689600000&toDate=1574035200000',
             //orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email={email}&fromDate={fromDate}&toDate={toDate}&country={countryCode}&ordernumber={orderNumber}',
-            orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email={email}&{fromdate}&{todate}',
+            //orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email={email}&fromdate={fromDate}&todate={toDate}&ponumber={ponumber}',
             //orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email={email}&fromDate={fromDate}&toDate={toDate}&country={countryCode}',
             orderDetails: ''
         },
@@ -24,11 +25,12 @@ class OrderHistoryService {
         this.throwError = throwError;
     }
     
-    createOrderListRequest(email, fromDate, toDate, countryCode, ponumber) {
+    createOrderListRequest(email, fromDate, toDate, ponumber) {
         let url = this.orderHistoryOptions.orderList
             .replace('{email}', email)
-            .replace('{fromdate}', jQuery.param({"fromdate":"20190212"}))
-            .replace('{todate}', jQuery.param({"todate":"20200212"}))
+            .replace('{fromDate}', fromDate)
+            .replace('{toDate}', toDate)
+            .replace('{ponumber}', "TEST")
             //.replace('{ponumber}', ponumber)
             //.replace('{orderNumber}', orderNumber)
             // .concat('&ordernumber=', orderNumber)
@@ -83,8 +85,8 @@ class OrderHistoryService {
     }
 
     
-    getOrderList(email, fromDate, toDate, countryCode, poNumber) {
-        return this.getData(this.createOrderListRequest(email, fromDate, toDate, countryCode, poNumber));
+    getOrderList(email, fromDate, toDate, poNumber) {
+        return this.getData(this.createOrderListRequest(email, fromDate, toDate, poNumber));
     }
 }
 
