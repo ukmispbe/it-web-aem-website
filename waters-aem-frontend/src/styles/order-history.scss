@@ -3,7 +3,7 @@
         margin-bottom: 0px;
 
     }
-    
+
     .cmp-search__resultsCount-container {
         position: inherit;
         width: 300px;
@@ -11,10 +11,10 @@
         left: 0px;
         margin-bottom: $space-xxs;
         padding-top: $space-m;
- 
+
         @include mobile {
             width: 100%;
-        } 
+        }
         .cmp-search__resultsCount {
             padding-bottom: $space-xs;
         }
@@ -26,7 +26,7 @@
         margin-bottom: $space-xxs;
         @include mobile {
             width: 100%;
-        }    
+        }
     }
     
     .cmp-order-list {
@@ -59,8 +59,8 @@
                 margin-left: $space-m;
                 .cmp-order-list__del-status {
                     @include font-h3; 
-                    margin-bottom: $space-xxs; 
-                    display: flex; 
+                    margin-bottom: $space-xxs;
+                    display: flex;
 
                     .cmp-order-list-delivery__icon {
                         svg {
@@ -88,7 +88,6 @@
                         margin-right: $space-xxs;
                     }
                 }
-
                 .cmp-order-list__view-shipments {
                     @include font-h3; 
                     color: $color-link;
@@ -129,7 +128,7 @@
                     }
                 }
                 .cmp-order-list__line-item-count {
-                    @include font-small; 
+                    @include font-small;
                     color: $color-gray-50;
                     width: 50%;
                     display: none;
@@ -137,17 +136,42 @@
                     @include mobile {
                         display: block;
                         width: 100%;
-                    }  
-                }                  
+                    }
+                }
                 .cmp-order-list__total {
                     @include font-h1; 
                     width: 50%;
                     padding-bottom: $space-xxs;
                     @include mobile {
                         width: 100%;
-                    } 
-                }              
+                    }
+                }
             //}
         }  
-    }   
+        &__title {
+            @include font-h3;
+            margin-bottom: $space-xxs;
+
+            @include tablet-and-under {
+                margin-bottom: $space-s;
+            }
+        }
+
+        &__no-results {
+            border: $border-dotted;
+            text-align: center;
+            padding: $space-xl 0 $space-xl;
+            .icon {
+                margin: 0 auto $space-s auto;
+                height: $icon-xl;
+                width: $icon-xl;
+                svg {
+                    max-height: $icon-xl;
+                    .st0 {
+                        stroke: $color-gray-30;
+                    }
+                }
+            }
+        }
+    }
 }

@@ -7,6 +7,7 @@ import OrderListItem from './components/order-list-item';
 import OrderCount from './components/order-count';
 import TimePeriod from './components/time-period';
 import Tabs from "../navigation/tabs";
+import Spinner from "../utils/spinner";
 
 //To-Dos
 //toggle rendered items with page changes from pagination
@@ -26,7 +27,9 @@ class OrderHistory extends Component {
             fromDate: "1573689600000",
             toDate: "1574035200000",
             orderNumber: "15739756",
-            poNumber: "TEST"
+            poNumber: "TEST",
+            loading: true,
+            noResults: false
         }
 
         this.orderMock =    [
@@ -166,7 +169,7 @@ class OrderHistory extends Component {
         ];
 
         this.paginationDefaults = {
-            visibleRows: 4,
+            visibleRows: 25,
             nextIcon: "/content/dam/waters/en/brand-assets/icons/right.svg",
             previousIcon: "/content/dam/waters/en/brand-assets/icons/left.svg",
             pageRangeDisplayed: 8,
@@ -177,15 +180,27 @@ class OrderHistory extends Component {
     componentDidMount() {
         const OrderHistoryServiceObj = new OrderHistoryService();
         OrderHistoryServiceObj.getOrderList(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber).then(result => {
-            this.setState({ 
-                orderList: result,
-                pageCount: Math.ceil(result.length / this.paginationDefaults.visibleRows),
-                listCount: result.length,
-                currentPage: 1
-            }); 
+            if(result.length > 0){
+                this.setState({ 
+                    orderList: result,
+                    pageCount: Math.ceil(result.length / this.paginationDefaults.visibleRows),
+                    listCount: result.length,
+                    currentPage: 1,
+                    loading: false
+                });
+            } else {
+                this.setState({ 
+                    orderList: null,
+                    pageCount: 0,
+                    listCount: 0,
+                    currentPage: 1,
+                    noResults: true,
+                    loading: false
+                }); 
+            } 
         }) || null;
     }
-    
+
     renderOrderCountHeader = () => {
         return (
             <OrderCount
@@ -199,10 +214,15 @@ class OrderHistory extends Component {
 
     renderNoResults = () => {
         return (
-            <div className="cmp-search__no-results">
-                <h2>{this.props.configs.noOrdersFoundTitle}</h2>
-                <p>{this.props.configs.noOrdersFoundText}<a href={this.props.configs.shopAllHref}>{this.props.configs.shopAllTitle}</a></p>
-            </div>
+            <>
+                <div className="cmp-order-list__title">
+                    {this.props.configs.noOrdersFoundTitle}
+                </div>
+                <div className="cmp-order-list__no-results">
+                    <p>{this.props.configs.noOrdersFoundText}</p>
+                    <p><a href={this.props.configs.shopAllHref}>{this.props.configs.shopAllTitle}</a></p>
+                </div>
+            </>
         );
     }
 
@@ -302,8 +322,9 @@ class OrderHistory extends Component {
 
     render() {
         return (
-            <>
-                {this.state.listCount > 0 && ( //only return template if data exists
+            <>  
+                {this.state.loading ? ( <Spinner loading={this.state.loading} /> ) : null}
+                {!this.state.loading && this.state.listCount > 0 && ( //only return template if data exists
                     <>                        
                         <Tabs className="cmp-search__categories-tabs"
                             items={this.props.configs.tabs}
