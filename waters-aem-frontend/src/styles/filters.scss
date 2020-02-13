@@ -18,14 +18,14 @@
         padding: $space-xs $space-s;
         background-color: transparent;
         outline: none;
-        border: 1px solid $color-border-light;
+        border: $border-medium;
         border-radius: $border-radius;
 
         &:hover {
-            border: 1px solid $color-blue-50;
+            border: $border-link;
         }
         &:focus {
-            border: 2px solid $color-focus;
+            border: $border-focus;
         }
     }
     &__filter {
@@ -53,7 +53,7 @@
 
         a.filter-toggle {
             @include font-utility;
-            border-top: 1px solid $color-border-rule;
+            border-top: $border-rule;
             display: block;
             background-color: $color-white;
             padding: $space-xs $space-s $space-xs 0;
@@ -101,7 +101,7 @@
 
         &:last-child {
             h3 {
-                border-bottom: 1px solid $color-gray-40;
+                border-bottom: $border-dark;
                 height: calc(2.75em + 2px);
             }
         }
@@ -115,7 +115,7 @@
             .checkbox {
                 display: inline-block;
                 appearance: none;
-                border: 1px solid $color-gray-40;
+                border: $border-dark;
                 height: 1em;
                 width: 1em;
                 vertical-align: -2px;
@@ -137,7 +137,7 @@
                     }
                 }
                 &:hover {
-                    border: 1px solid $color-blue-50;
+                    border: $border-link;
                 }
                 &.checked {
                     border: 1px solid $color-background-dark;
@@ -350,7 +350,7 @@
         display: block;
         text-transform: uppercase;
         text-decoration: none;
-        border: 1px solid $color-blue-50;
+        border: $border-link;
         border-radius: $border-radius;
     }
 }

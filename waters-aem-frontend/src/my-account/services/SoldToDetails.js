@@ -1,5 +1,4 @@
 import "whatwg-fetch";
-import SessionStore from "../../stores/sessionStore";
 
 const getData = async (url) => {
     const response = await fetch(url, {
@@ -13,35 +12,21 @@ const getData = async (url) => {
     return response;
 };
 
-const replaceParameter = (url, data, string = "{email}") => url.replace(string, encodeURI(data).replace(/#/g, '%23'));
-
 const SoldToDetails = async (
-    url = "https://test-www.waters.com:8443/api/waters/user/v1/retrievesoldto?email={email}",
-    sessionStore = new SessionStore()
+    url = "https://test-www.waters.com:8443/api/waters/user/v1/retrievesoldto"
 ) => {
-    const soldToData = sessionStore.getSoldToDetails();
-    if (soldToData && Array.isArray(soldToData)) { 
-        return soldToData;
-    } 
+    return getData(url).then(async (response) => {
+        const json = await response.json();
 
-    const data = sessionStore.getUserToken();
-    if (data) {
-        const replacedURL = replaceParameter(url, data);
-        const response = await getData(replacedURL);
-        const responseJSON = await response.json();
+        const returnArray = Array.isArray(json) ? json : [];
 
-        if (response.status === 200) {
-            if (!Array.isArray(responseJSON)) throw new Error('Response was not an array');
-    
-            const sortedResponse = sortPriority(responseJSON);
-            sessionStore.setSoldToDetails(sortedResponse)
-            return sortedResponse;
+        return sortPriority(returnArray);
+    }).catch(error => {
+        return {
+            failed: true,
+            error: error
         }
-    
-        throw new Error(response.status);
-    } 
-
-    throw new Error('No User Token');
+    });
 }
 
 const sortPriority = (soldToAccountsArray) => {
@@ -58,4 +43,3 @@ const sortPriority = (soldToAccountsArray) => {
 
 
 export default SoldToDetails;
-export { getData, replaceParameter, sortPriority };

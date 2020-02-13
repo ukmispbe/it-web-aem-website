@@ -253,4 +253,12 @@ public final class Header extends AbstractComponent implements ComponentExporter
     public String getLaunchScript() {
         return adobeLaunchService.getLaunchScript();
     }
-}
+
+    public Link getHomepageLink() {
+        return LinkUtils.getHomepageLink(currentPage);
+    }
+
+    public String getSignOutEndpoint() {
+        return watersAccountService.getSignOutEndpoint();
+    }
+ }

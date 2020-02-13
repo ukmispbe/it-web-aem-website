@@ -2,7 +2,7 @@ import scrollToY from './../../scripts/scrollTo';
 import { parse } from 'query-string';
 import SessionStore from '../../stores/sessionStore';
 import DigitalData from '../../scripts/DigitalData';
-import cookieStore from '../../stores/cookieStore';
+import UserDetails from '../../my-account/services/UserDetails';
 
 const postData = async (url, data) => {
     const response = await fetch(url, {
@@ -26,8 +26,8 @@ export async function registrationSubmit(data) {
         delete data.captcha;
     }
 
-    const localeLanguage = DigitalData.language;
-    const localeCountry = DigitalData.country;
+    let localeLanguage = DigitalData.language;
+    let localeCountry = DigitalData.country;
     if (
         (!localeLanguage && !localeCountry) ||
         DigitalData.country === DigitalData.globalExperience
@@ -35,18 +35,33 @@ export async function registrationSubmit(data) {
         localeLanguage = 'en';
         localeCountry = 'US';
     }
+
+    data.country = data.country.toUpperCase();
     data.localeCountry = localeCountry;
     data.localeLanguage = localeLanguage;
 
     const response = await postData(this.url, data);
+    const responseBody = await response.json();
 
     // remove all previous server error notifications
     this.setError();
-
+    
     if (response.status === 200) {
-        // registration complete  This needs finishing off later
+        if (this.callback) {
+            const userDetails = await UserDetails(this.callback);
+
+            if (!userDetails.failed) {
+                const store = new SessionStore();
+                store.setUserDetails(userDetails);
+                store.removeSoldToDetails();
+            }
+        }
+
+        if (this.redirect) {
+            window.location.replace(this.redirect);
+        }
     } else {
-        this.setError(response);
+        this.setError(responseBody);
         scrollToY(0);
     }
 }
@@ -162,26 +177,34 @@ export async function personalSubmit(data) {
 }
 
 export async function signInSubmit(data) {
-
     const isCaptcha = data.hasOwnProperty('captcha');
     if (isCaptcha) {
         this.url = `${this.url}?captcha=${data.captcha}`;
         delete data.captcha;
     }
-
+    
     const response = await postData(this.url, data);
     const responseBody = await response.json();
+
     // remove all previous server error notifications
     this.setError();
 
     if (response.status === 200) {
+        if (this.callback) {
+            const userDetails = await UserDetails(this.callback);
 
-        if(responseBody.migrated !== "Y") {
-            window.location.replace(this.passwordUpdateUrl + `?email=${responseBody.email}`);
+            if (!userDetails.failed) {
+                const store = new SessionStore();
+                store.setUserDetails(userDetails);
+                store.removeSoldToDetails();
+            }
+            
+            if(userDetails.migrated !== "Y") {
+                window.location.replace(this.passwordUpdateUrl + `?email=${data.email}`);
+                return;
+            }
         }
-
-        // Temporary cookie
-        document.cookie = 'WatersLoginCookie=1; path=/; domain=.waters.com';
+        
         const signInRedirect = window.sessionStorage.getItem('signInRedirect');
         if (signInRedirect || this.redirect) {
             window.location.replace(

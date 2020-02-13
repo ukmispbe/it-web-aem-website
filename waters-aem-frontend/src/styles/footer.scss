@@ -12,7 +12,7 @@
     .cmp-button {
         background-color: $color-background-dark;
         display: inline-block;
-        border: 1px solid $color-white;
+        border: $border-light;
         color: $color-font-light;
         width: 100%;
         &:hover {
@@ -199,7 +199,8 @@
     }
 }
 
-.cmp-back-to-top {
+.cmp-back-to-top,
+.cmp-back-to-top--relative {
     position: fixed;
     bottom: $space-m;
     right: $space-m;
@@ -210,7 +211,7 @@
     cursor: pointer;
     display: block;
     opacity: 0;
-    border: 1px solid $color-border-light;
+    border: $border-medium;
     border-radius: $border-radius;
     padding: ($space-xxs + .05em);
     box-shadow: $shadow;
@@ -226,7 +227,7 @@
     }
 
     &:hover {
-        border: 1px solid $color-link;
+        border: $border-link;
         svg {
             .st0 {
                 stroke: $color-link;
@@ -235,7 +236,7 @@
     }
 
     &:active {
-        border: 1px solid $color-border-light;
+        border: $border-medium;
         svg {
             .st0 {
                 stroke: $color-icon;
@@ -246,11 +247,16 @@
     &.cmp-back-to-top-show {
         opacity: 1;
     }
+}
 
-    &.cmp-back-to-top-affix {
-        position: relative;
-        float: right;
-        bottom: $space-m;
+.cmp-back-to-top--relative {
+    transition: initial;
+    position: relative;
+    float: right;
+    bottom: $space-m;
+
+    &.cmp-back-to-top-show {
+        opacity: 1;
     }
 }
 
@@ -350,7 +356,7 @@
         -webkit-box-align: center;
         align-items: center;
         padding: $space-xxs $space-s $space-xxs $space-s;
-        border: 1px solid $color-border-light;
+        border: $border-medium;
         margin-right: $space-xxs;
         border-radius: $border-radius;
 
@@ -430,7 +436,7 @@
         -webkit-box-align: center;
         align-items: center;
         padding: 0 $space-s;
-        border: 1px solid $color-border-light;
+        border: $border-medium;
         display: inline-table;
         position: absolute;
         border-radius: $border-radius;
@@ -503,7 +509,7 @@
             min-height: 38px;
             -webkit-box-align: center;
             align-items: center;
-            border: 1px solid #c6cdd2;
+            border: $border-medium;
             width: 100%;
             box-sizing: content-box;
 
@@ -554,7 +560,7 @@
     &.one-link {
         .cmp-footer__selector__region {
             @include mobile {
-                border-right: 1px solid $color-border-light;
+                border-right: $border-medium;
             }
         }
     }

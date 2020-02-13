@@ -1,6 +1,3 @@
-// main JS and SCSS entry file
-require('es6-symbol/implement');
-
 import './styles/index.scss';
 import './scripts/stickyService';
 import './scripts/backtotop';
@@ -20,6 +17,8 @@ import './scripts/breadcrumb';
 import './scripts/header';
 import './scripts/collapsible';
 import './scripts/skulist';
+import './scripts/continueButton';
+import './scripts/textModifier';
 import './index';
 
 import cssVars from 'css-vars-ponyfill';

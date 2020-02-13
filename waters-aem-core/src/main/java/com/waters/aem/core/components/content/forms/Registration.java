@@ -55,6 +55,7 @@ public class Registration implements ComponentExporter {
 
     @DialogField(fieldLabel = "Login Link",
         fieldDescription = "Select or enter the link URL",
+        required  = true,
         ranking = 1)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject
@@ -62,14 +63,24 @@ public class Registration implements ComponentExporter {
 
     @DialogField(fieldLabel = "Privacy Notice Link",
         fieldDescription = "Select or enter the link URL",
+        required  = true,
         ranking = 2)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject
     private Link privacyNoticeLink;
 
+    @DialogField(fieldLabel = "Redirect Link",
+        fieldDescription = "Select or enter the redirect link URL. The destination page the user will be redirected " +
+        "to after successful submission",
+        required  = true,
+        ranking = 3)
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject
+    private Link redirectLink;
+
     @DialogField(fieldLabel = "Open in New Window",
         fieldDescription = "Select this option to open 'Privacy Notice' in new window",
-        ranking = 3)
+        ranking = 4)
     @Switch(offText = "No", onText = "Yes")
     @Inject
     @Default(booleanValues = false)
@@ -81,6 +92,10 @@ public class Registration implements ComponentExporter {
 
     public Link getPrivacyNoticeLink() {
         return privacyNoticeLink;
+    }
+
+    public Link getRedirectLink() {
+        return redirectLink;
     }
 
     public Boolean isNewWindow() {

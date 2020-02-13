@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
-
+import { signOutRequest } from './services';
 import MyAccountUserDetails from './my-account-user-details';
 import MyAccountItemList from './my-account-item-list';
 
@@ -18,7 +18,8 @@ const MyAccountContainer = props => {
         signOut,
         switchAccount,
         loginState,
-        userDetails
+        userDetails,
+        homepageLink
     } = props.config;
 
     const {
@@ -33,6 +34,11 @@ const MyAccountContainer = props => {
         window.location.href = signIn.url;
     }
 
+    const onSignOut = (e) => {
+        e.preventDefault();
+        signOutRequest(signOut.signOutEndpoint, homepageLink);
+    }
+
     const signInOutLink = () => (
         <>
             {signOut.url && signIn.url && (
@@ -41,6 +47,7 @@ const MyAccountContainer = props => {
                         className="my-account-dropdown__sign-in-out"
                         href={loginState ? signOut.url : signIn.url}
                         {...(!loginState && { onClick: (e)=>onSignIn(e), rel: 'nofollow' })}
+                        {...(loginState && { onClick: (e)=>onSignOut(e) })}
                     >
                         <ReactSVG src={icon} className="sign-in-out__icon" />
                         {loginState ? signOut.text : signIn.text}

@@ -6,10 +6,10 @@ import ScreenSizes from '../scripts/screenSizes';
 import MobileNav from '../scripts/mobileNav';
 import domElements from '../scripts/domElements';
 import MyAccountContainer from './my-account-container';
-import SessionStore from '../stores/sessionStore';
 import loginStatus from '../scripts/loginStatus';
-import UserDetails from '../my-account/services/UserDetails';
-import SoldToDetails from '../my-account/services/SoldToDetails';
+import UserDetailsLazy from '../my-account/services/UserDetailsLazy';
+import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
+import SessionStore from '../stores/sessionStore';
 
 const myAccountModalTheme = 'my-account-dropdown';
 class MyAccountDropDown extends React.Component {
@@ -18,21 +18,21 @@ class MyAccountDropDown extends React.Component {
         
         this.state = {
             isShown: false,
-            isMobile: ScreenSizes.isMobile()
+            isMobile: ScreenSizes.isMobile(),
+            config: {
+                ... this.props.config, 
+                loginState: loginStatus.state(),
+                userDetails: {
+                    userName: '',
+                    accountName: '',
+                    accountNumber: ''
+                }
+            }
         };
 
         this.accountHeaderUser = null;
         this.allNavItems = null;
         this.header = null;
-
-        this.newConfig = Object.assign({}, this.props.config, {
-            loginState: loginStatus.state(),
-            userDetails: {
-                userName: '',
-                accountName: '',
-                accountNumber: ''
-            }
-        });
     }
 
     componentDidMount() {
@@ -177,64 +177,64 @@ class MyAccountDropDown extends React.Component {
         }
     }
 
-    retrieveUserDetails = () => { 
-            const sessionStore = new SessionStore();
-            /*
-                START TEMPORARY CODE --
-    
-                Please use this code below until sign-in complete and user token is stored in session storage 
-                & UserDetails / SoldToDetails endpoint is updated to use that token.
-                Please update/clear the UserToken after signout/signin, along with waters.userDetails & waters.soldToDetails in session storage 
-            */
-                sessionStore.setUserToken('testus@waters.com');
-                //sessionStore.setUserToken('tyler.tessmann@icfnext.com');
-            //END TEMPORARY CODE
+    retrieveUserDetails = async () => {
+        const userDetails = await UserDetailsLazy(this.props.config.userDetailsUrl);
+        const soldToDetails = await SoldToDetailsLazy(this.props.config.soldToDetailsUrl);
 
-            if (this.props.config.soldToDetailsUrl) {
-                const soldToDetails = new SoldToDetails(this.props.config.soldToDetailsUrl)
-                soldToDetails
-                    .then((response) => {
-                        if (response.length) { 
-                            const priorityAccount = response[0];
-    
-                            if (priorityAccount.company) {
-                                this.newConfig.userDetails.accountName = priorityAccount.company + ' ';
-                            }
-    
-                            if (priorityAccount.soldTo) {
-                                this.newConfig.userDetails.accountNumber = priorityAccount.soldTo;
-                            }
-                        }
-                    }).catch(err => {
-                        console.log(err.message)
-                    });
-    
+        const userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
+        const priorityAccount = soldToDetails.length !== 0 ? soldToDetails[0] : {};
+        const accountName = priorityAccount.company ? `${priorityAccount.company} ` : '';
+        const accountNumber = priorityAccount.soldTo ? priorityAccount.soldTo : '';
+
+        this.setState({
+            ... this.state,
+            config: {
+                ... this.props.config,
+                loginState: loginStatus.state(),
+                userDetails: {
+                    userName,
+                    accountName,
+                    accountNumber
+                }
             }
-            
-            if (this.props.config.userDetailsUrl) { 
-                const userDetails = new UserDetails(this.props.config.userDetailsUrl);
-                userDetails
-                    .then((response) => { 
-                        if (response.firstName && response.lastName) { 
-                            this.newConfig.userDetails.userName = response.firstName + ' ' + response.lastName;;
-                        }
-                    }).catch(err => {
-                        console.log(err.message)
-                    });
+        });
+    }
+
+    getConfig = () => {
+        if (this.state.config.userDetails.userName || !loginStatus.state()) {
+            return this.state.config;
+        }
+
+        const store = new SessionStore();
+        const userDetails = store.getUserDetails();
+        const soldToDetails = store.getSoldToDetails();
+
+        const userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
+        const priorityAccount = soldToDetails && soldToDetails.length !== 0 ? soldToDetails[0] : {};
+        const accountName = priorityAccount.company ? `${priorityAccount.company} ` : '';
+        const accountNumber = priorityAccount.soldTo ? priorityAccount.soldTo : '';
+
+        return {
+            ... this.props.config, 
+            loginState: loginStatus.state(),
+            userDetails: {
+                userName,
+                accountName,
+                accountNumber
             }
+        }
     }
 
     render() {
-
         return (
             <>
                 {this.state.isMobile ? (
                     <Modal isOpen={this.state.isShown} className={keys.ModalWithSiteNavOnMobile} onClose={this.toggleModal}>
-                        <Header title={this.newConfig.title} />
-                        <MyAccountContainer config={this.newConfig} />
+                        <Header title={this.state.config.title} />
+                        <MyAccountContainer config={this.getConfig()} />
                     </Modal>
                 ) : (
-                    <MyAccountContainer config={this.newConfig} />
+                    <MyAccountContainer config={this.getConfig()} />
                 )}
             </>
         )

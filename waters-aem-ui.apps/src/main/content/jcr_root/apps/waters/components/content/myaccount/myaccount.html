@@ -2,10 +2,13 @@
     <div class="cmp-my-account--attach" id="my-account"></div>
     <script type="application/json" id="cmp-my-account">
         {
+            "title": "${'My Account' @ i18n, context='unsafe'}",
+            "body": "${myaccount.bodyText @ context="unsafe"}",
             "tiles": [
                 {
-                    "title": "${'Account' @ i18n, context='unsafe'}",
+                    "title": "${'Account Information' @ i18n, context='unsafe'}",
                     "icon": "/content/dam/waters/en/brand-assets/icons/user.svg",
+                    "requiresEcommerce": "false",
                     "links": [
                         {
                             "text": "${'Profile' @ i18n, context='unsafe'}",
@@ -20,6 +23,7 @@
                 {
                     "title": "${'Orders' @ i18n, context='unsafe'}",
                     "icon": "/content/dam/waters/en/brand-assets/icons/package.svg",
+                    "requiresEcommerce": "true",
                     "links": [
                         {
                             "text": "${'Order History' @ i18n, context='unsafe'}",
@@ -28,8 +32,9 @@
                     ]
                 },
                 {
-                    "title": "${'Additional Resources' @ i18n, context='unsafe'}",
+                    "title": "${'Additional Links' @ i18n, context='unsafe'}",
                     "icon": "/content/dam/waters/en/brand-assets/icons/link.svg",
+                    "requiresEcommerce": "false",
                     "links": ${myaccount.additionalResources @ context="unsafe"}
                 }
             ],

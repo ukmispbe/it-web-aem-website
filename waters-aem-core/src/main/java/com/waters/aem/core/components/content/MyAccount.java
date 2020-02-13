@@ -6,6 +6,7 @@ import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
+import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
@@ -57,14 +58,25 @@ public class MyAccount implements ComponentExporter {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    @DialogField(fieldLabel = "Additional Resources",
+    @DialogField(fieldLabel = "My Account Body Text",
+            fieldDescription = "The body text to display below the My Account title on the My Account Home page",
             ranking = 1)
+    @TextField
+    @Inject
+    private String bodyText;
+
+    @DialogField(fieldLabel = "Additional Resources",
+            ranking = 2)
     @MultiField(composite = true)
     @Inject
     private List<BasicLink> links = new ArrayList<>();
 
     public List<BasicLink> getLinks() {
         return links;
+    }
+
+    public String getBodyText() {
+        return bodyText;
     }
 
     public String getAdditionalResources() throws JsonProcessingException {
