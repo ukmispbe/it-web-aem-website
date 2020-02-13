@@ -36,10 +36,6 @@ class DeliveryStatus extends Component {
                 icon = this.props.icons.completeIcon;
                 iconClassName = "cmp-order-list-delivery__icon__complete";
             break;
-            case "Cancel":
-                deliveryStatus = this.props.labels.cancelLabel;
-                icon = this.props.icons.cancelIcon;
-            break;
             default:
                 deliveryStatus = this.props.labels.openLabel;
         }

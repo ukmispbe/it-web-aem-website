@@ -32,7 +32,7 @@ class OrderHistory extends Component {
             noResults: false
         }
 
-        this.orderMock =    [
+        this.orderMock = [
             {
                 "invoiceStatus": "Open",
                 "orderNumber": "15739617",
@@ -234,6 +234,8 @@ class OrderHistory extends Component {
                             onClick={this.handleCategorySelected}
                             enableFading={true}
                         />
+                        <TimePeriod timePeriodHandler={this.handleCategorySelected} timePeriod={this.props.configs.tabs} />
+                            
 
                         <div className="cmp-order-list__header">
                             <TimePeriod timePeriodHandler={this.timePeriodHandler.bind(this)} timePeriod={this.props.configs.timeperiod} />
