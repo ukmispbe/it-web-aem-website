@@ -29,10 +29,8 @@ export default (data, type, icon) => {
             let mailingAddress = data.userAddress.filter(function(i) {
                 return i.addressType === 'mailingAddress';
             })[0];
-
-            let communicationsString = config.tileMessages.noCommunication;
-            if (data.communications === 'true')
-                communicationsString = config.tileMessages.yesCommunication;
+            
+            const communicationsString = data.communications ? config.tileMessages.yesCommunication : config.tileMessages.noCommunication;
 
             data.country = mailingAddress ? mailingAddress.countryCode : '';
             return [

@@ -1,9 +1,22 @@
 import 'whatwg-fetch';
 import SessionStore from '../../stores/sessionStore';
 
-export async function signOutRequest(url) {
+const getData = async (url) => {
+    const response = await fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    return response;
+};
+
+export async function signOutRequest(url, homepageLink) {
     const sessionStore = new SessionStore();
     sessionStore.removeUserDetails();
 
-    const response = await fetch(url);
+    const response = await getData(url);
+
+    window.location.href = homepageLink;
 }
