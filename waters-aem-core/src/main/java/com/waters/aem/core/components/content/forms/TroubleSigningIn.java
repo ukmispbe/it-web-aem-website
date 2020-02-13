@@ -6,10 +6,12 @@ import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.icfolson.aem.library.api.link.Link;
+import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.form.captcha.CaptchaService;
 import com.waters.aem.core.services.account.WatersAccountService;
+import com.waters.aem.core.utils.LinkUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -17,6 +19,7 @@ import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 
 @Component(value = "Trouble Signing In",
     description = "This is the Sign In Trouble component for Waters site",
@@ -37,6 +40,9 @@ public class TroubleSigningIn implements ComponentExporter {
     @OSGiService
     private CaptchaService captchaService;
 
+    @Inject
+    private PageManagerDecorator pageManager;
+
     @DialogField(fieldLabel = "Redirect Page URL",
         fieldDescription = "Select or enter the redirect URL",
         ranking = 1)
@@ -45,7 +51,7 @@ public class TroubleSigningIn implements ComponentExporter {
     private Link redirectLink;
 
     public Link getRedirectLink() {
-        return redirectLink;
+        return LinkUtils.getMappedLink(pageManager, redirectLink);
     }
 
     public String getPasswordResetUrl() {

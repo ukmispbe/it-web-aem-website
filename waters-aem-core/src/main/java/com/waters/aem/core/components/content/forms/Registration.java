@@ -9,10 +9,12 @@ import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.icfolson.aem.library.api.link.Link;
+import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.form.captcha.CaptchaService;
 import com.waters.aem.core.services.account.WatersAccountService;
+import com.waters.aem.core.utils.LinkUtils;
 import com.waters.aem.core.utils.MyAccountUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Default;
@@ -53,6 +55,9 @@ public class Registration implements ComponentExporter {
     @OSGiService
     private CaptchaService captchaService;
 
+    @Inject
+    private PageManagerDecorator pageManager;
+
     @DialogField(fieldLabel = "Login Link",
         fieldDescription = "Select or enter the link URL",
         required  = true,
@@ -91,11 +96,11 @@ public class Registration implements ComponentExporter {
     }
 
     public Link getPrivacyNoticeLink() {
-        return privacyNoticeLink;
+        return LinkUtils.getMappedLink(pageManager, privacyNoticeLink);
     }
 
     public Link getRedirectLink() {
-        return redirectLink;
+        return LinkUtils.getMappedLink(pageManager, redirectLink);
     }
 
     public Boolean isNewWindow() {
