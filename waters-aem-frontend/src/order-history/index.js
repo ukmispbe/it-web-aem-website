@@ -56,120 +56,11 @@ class OrderHistory extends Component {
                 "currencyCode": "USD",
                 "orderTotal": "$16.89",
                 "deliveryStatus": "Open"
-
-            },
-            {
-                "invoiceStatus": "Open",
-                "orderNumber": "15739506",
-                "purchaseOrderNumber": "TEST",
-                "date": "2019-12-09",
-                "itemsSubTotal": null,
-                "taxAmount": null,
-                "shippingAmount": null,
-                "currencyCode": "USD",
-                "orderTotal": "$805.16",
-                "deliveryStatus": "Open"
-            },
-            {
-                "invoiceStatus": "Open",
-                "orderNumber": "15739390",
-                "purchaseOrderNumber": "TEST",
-                "date": "2019-11-18",
-                "itemsSubTotal": null,
-                "taxAmount": null,
-                "shippingAmount": null,
-                "currencyCode": "USD",
-                "orderTotal": "$116.89",
-                "deliveryStatus": "Open"
-            },
-            {
-                "invoiceStatus": "Open",
-                "orderNumber": "15739367",
-                "purchaseOrderNumber": "TEST",
-                "date": "2019-11-14",
-                "itemsSubTotal": null,
-                "taxAmount": null,
-                "shippingAmount": null,
-                "currencyCode": "USD",
-                "orderTotal": "$5545.52",
-                "deliveryStatus": "Open"
-            },
-            {
-                "invoiceStatus": "Open",
-                "orderNumber": "15739366",
-                "purchaseOrderNumber": "TEST",
-                "date": "2019-11-14",
-                "itemsSubTotal": null,
-                "taxAmount": null,
-                "shippingAmount": null,
-                "currencyCode": "USD",
-                "orderTotal": "$5545.52",
-                "deliveryStatus": "Open"
-            },
-            {
-                "invoiceStatus": "Open",
-                "orderNumber": "15739364",
-                "purchaseOrderNumber": "TEST",
-                "date": "2019-11-14",
-                "itemsSubTotal": null,
-                "taxAmount": null,
-                "shippingAmount": null,
-                "currencyCode": "USD",
-                "orderTotal": "$5545.52",
-                "deliveryStatus": "Open"
-            },
-            {
-                "invoiceStatus": "Open",
-                "orderNumber": "15739363",
-                "purchaseOrderNumber": "TEST",
-                "date": "2019-11-14",
-                "itemsSubTotal": null,
-                "taxAmount": null,
-                "shippingAmount": null,
-                "currencyCode": "USD",
-                "orderTotal": "$5545.52",
-                "deliveryStatus": "Open"
-            },
-            {
-                "invoiceStatus": "Open",
-                "orderNumber": "15739362",
-                "purchaseOrderNumber": "TEST",
-                "date": "2019-11-14",
-                "itemsSubTotal": null,
-                "taxAmount": null,
-                "shippingAmount": null,
-                "currencyCode": "USD",
-                "orderTotal": "$5545.52",
-                "deliveryStatus": "Open"
-            },
-            {
-                "invoiceStatus": "Open",
-                "orderNumber": "15739129",
-                "purchaseOrderNumber": "TEST",
-                "date": "2019-10-27",
-                "itemsSubTotal": null,
-                "taxAmount": null,
-                "shippingAmount": null,
-                "currencyCode": "USD",
-                "orderTotal": "$5349.08",
-                "deliveryStatus": "Open"
-            },
-            {
-                "invoiceStatus": "Open",
-                "orderNumber": "15739128",
-                "purchaseOrderNumber": "TEST",
-                "date": "2019-10-27",
-                "itemsSubTotal": null,
-                "taxAmount": null,
-                "shippingAmount": null,
-                "currencyCode": "USD",
-                "orderTotal": "$24.49",
-                "deliveryStatus": "Open"
             }
         ];
 
         this.paginationDefaults = {
-            visibleRows: 25,
+            visibleRows: 10,
             nextIcon: "/content/dam/waters/en/brand-assets/icons/right.svg",
             previousIcon: "/content/dam/waters/en/brand-assets/icons/left.svg",
             pageRangeDisplayed: 8,
@@ -180,7 +71,7 @@ class OrderHistory extends Component {
     componentDidMount() {
         const OrderHistoryServiceObj = new OrderHistoryService();
         OrderHistoryServiceObj.getOrderList(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber).then(result => {
-            if(result.length > 0){
+            if(result > 0){
                 this.setState({ 
                     orderList: result,
                     pageCount: Math.ceil(result.length / this.paginationDefaults.visibleRows),
@@ -211,6 +102,16 @@ class OrderHistory extends Component {
             />
         );
     };
+    renderPaginatedResults = () => {
+        const rows = this.paginationDefaults.visibleRows;
+        const count = this.state.listCount;
+        const current = this.state.currentPage;
+        const endResults = count > current * rows ? current * rows : count;
+        const startResults = current * rows - rows;
+        let itemsToRender = this.state.orderList.slice(startResults, endResults +1);
+        return itemsToRender;
+    }
+
 
     renderNoResults = () => {
         return (
@@ -288,6 +189,7 @@ class OrderHistory extends Component {
         this.setState({ 
             currentPage: page.selected + 1
         }); 
+        window.scroll(0,0);
     }
 
     renderPagination() {
@@ -338,8 +240,7 @@ class OrderHistory extends Component {
                             {this.renderOrderCountHeader()}
                         </div>
 
-                        {this.state.orderList.map((item, index) => (
-                            
+                        {this.renderPaginatedResults().map((item, index) => (               
                             <OrderListItem
                                 data={item}
                                 orderText={this.props.configs.orderText}
@@ -354,6 +255,11 @@ class OrderHistory extends Component {
 
                 {!this.state.loading && this.state.noResults && (
                     <>
+                        <Tabs className="cmp-search__categories-tabs"
+                            items={this.props.configs.tabs[0]}
+                            activeIndex={0}
+                            enableFading={true}
+                        />
                         {this.renderNoResults()}
                     </>
                 )}

@@ -25,7 +25,6 @@ const getOptions = text => {
 const TimePeriod = props => {
     return (
         <div className="cmp-search-sortby">
-
             <Dropdown
                 getOptions={getOptions}
                 // sortValue={1}

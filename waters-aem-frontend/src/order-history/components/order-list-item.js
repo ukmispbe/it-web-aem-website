@@ -8,58 +8,25 @@ class OrderListItem extends Component {
         super(props);
     }
 
-// Order Number: 48863058261
-// December 8, 2019
-// $3,514.87
-
-// View Shipments
-// Partially Shipped
-
-// {
-//     "invoiceStatus": "Open",
-//     "orderNumber": "15739617",
-//     "purchaseOrderNumber": "TEST",
-//     "date": "2020-01-09",
-//     "itemsSubTotal": null,
-//     "taxAmount": null,
-//     "shippingAmount": null,
-//     "currencyCode": "USD",
-//     "orderTotal": "$17.00",
-//     "deliveryStatus": "Open"
-
-// this.props.data.invoiceStatus + "\n" +
-// this.props.data.orderNumber + "\n" +
-// this.props.data.purchaseOrderNumber + "\n" +
-// this.props.data.date + "\n" +
-// this.props.data.itemsSubTotal + "\n" +
-// this.props.data.taxAmount + "\n" +
-// this.props.data.shippingAmount + "\n" +
-// this.props.data.currencyCode + "\n" +
-// this.props.data.orderTotal + "\n" +
-// this.props.data.deliveryStatus
-// }
-        
     render() {
         return (
             <div className={'cmp-order-list__container'}>
-                <div className="cmp-order-list__code">
-                    {this.props.orderText + " " + this.props.data.orderNumber}
+                <div className="cmp-order-list__left">
+                    <div className="cmp-order-list__code">
+                        {this.props.orderText + " " + this.props.data.orderNumber}
+                    </div>
+                    <div className="cmp-order-list__date">
+                        {DateFormatter.dateFormatter(this.props.data.date)}
+                    </div>
                 </div>
-                <div className="cmp-order-list__date">
-                    {DateFormatter.dateFormatter(this.props.data.date)}
-                </div>
-                <hr className="cmp-order-list_hr"/>
                 <div className="cmp-order-list__right">
+                    <hr className="cmp-order-list_hr"/>
                     <DeliveryStatus
                         status={this.props.data.deliveryStatus}
                         labels={this.props.shipment}
                         icons={this.props.icons}
                     />            
                 </div>
-                {/* PB Commented Out
-                <div className="cmp-order-list__line-item-count">
-                    {this.props.data.lineItems.length + this.props.itemsText}
-                </div> */}
                 <div className="cmp-order-list__total">
                     {CurrencyFormatter.currencyFormatter(this.props.data.orderTotal, this.props.data.currencyCode)}
                 </div>

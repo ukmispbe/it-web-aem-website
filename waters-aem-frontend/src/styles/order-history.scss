@@ -1,10 +1,9 @@
 #my-account {
     .cmp-tabs {
         margin-bottom: 0px;
-
     }
 
-    .cmp-search__resultsCount-container {
+    .cmp-order-list__resultsCount-container {
         position: inherit;
         width: 300px;
         float: left;
@@ -15,7 +14,7 @@
         @include mobile {
             width: 100%;
         }
-        .cmp-search__resultsCount {
+        .cmp-order-list__resultsCount {
             padding-bottom: $space-xs;
         }
     }
@@ -37,32 +36,48 @@
             width: 100%;
             margin-bottom: $space-xxs;
             clear: both;
+            min-height: 150px;
     
             @include mobile {
+                min-height: 0px;
                 padding-bottom: $space-xxs;
             }
-    
-            &.disabled {
-                .cmp-order-details__left {
-                    min-height: 150px;
-    
-                    @include mobile {
-                        min-height: 0px;
-                        padding-bottom: $space-s;
-                    }
+
+            .cmp-order-list__left {
+                display: inline-block;
+                width: 50%;
+
+                .cmp-order-list__code {
+                    @include font-h3; 
+                    color: $color-link;
+                    margin-bottom: $space-xxs;
+                }
+                .cmp-order-list__date {
+                    @include font-small; 
+                    color: $color-gray-50;
+                }
+                @include mobile {
+                    width: 100%;
+                    margin-left: 0px;
                 }
             }
 
             .cmp-order-list__right {
-                float: right;
-                width: 12em;
-                margin-left: $space-m;
+                display: inline-block;  
+                vertical-align:top;
+                width: 45%;
+                margin-left: 5%;
                 .cmp-order-list__del-status {
-                    @include font-h3; 
+                    @include font-h3;   
+                    text-align: right;
                     margin-bottom: $space-xxs;
-                    display: flex;
+
+                    @include mobile {  
+                        text-align: left;
+                    } 
 
                     .cmp-order-list-delivery__icon {
+                        display: inline-block;  
                         svg {
                             height: $icon-m;
                             width: $icon-m;
@@ -76,6 +91,7 @@
                     }
 
                     .cmp-order-list-delivery__icon__complete {
+                        display: inline-block;  
                         svg {
                             height: $icon-m;
                             width: $icon-m;
@@ -87,6 +103,10 @@
                         }
                         margin-right: $space-xxs;
                     }
+
+                    .cmp-order-list-delivery__text {
+                        display: inline-block; 
+                    }
                 }
                 .cmp-order-list__view-shipments {
                     @include font-h3; 
@@ -97,7 +117,7 @@
                 @include mobile {
                     float: left;
                     width: 100%;
-                    margin-left: 0px;
+                    margin-left: 0;
                 }
             }
 
@@ -109,44 +129,25 @@
                     margin: $space-xs  0;
                 }
             }
-            //.cmp-order-details__left{
-                .cmp-order-list__code {
-                    @include font-h3; 
-                    color: $color-link;
-                    width: 50%;
-                    margin-bottom: $space-xxs;
-                    @include mobile {
-                        width: 100%;
-                    }
-                }
-                .cmp-order-list__date {
-                    @include font-small; 
-                    width: 50%;
-                    color: $color-gray-50;
-                    @include mobile {
-                        width: 100%;
-                    }
-                }
-                .cmp-order-list__line-item-count {
-                    @include font-small;
-                    color: $color-gray-50;
-                    width: 50%;
-                    display: none;
+            .cmp-order-list__line-item-count {
+                @include font-small;
+                color: $color-gray-50;
+                width: 50%;
+                display: none;
 
-                    @include mobile {
-                        display: block;
-                        width: 100%;
-                    }
+                @include mobile {
+                    display: block;
+                    width: 100%;
                 }
-                .cmp-order-list__total {
-                    @include font-h1; 
-                    width: 50%;
-                    padding-bottom: $space-xxs;
-                    @include mobile {
-                        width: 100%;
-                    }
+            }
+            .cmp-order-list__total {
+                @include font-h1; 
+                width: 50%;
+                padding-bottom: $space-xxs;
+                @include mobile {
+                    width: 100%;
                 }
-            //}
+            }
         }  
         &__title {
             @include font-h3;
@@ -174,4 +175,122 @@
             }
         }
     }
+    
+    .paginate__container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: $space-m 0 $space-s 0;
+        clear: both;
+        @include mobile {
+            padding: $space-m;
+        }
+        li {
+            display: inline;
+            @include mobile {
+                display: none;
+            }
+            a {
+                cursor: pointer;
+                @include font-utility;
+                margin: 0 $space-xxs 0 0;
+                border: $border-medium;
+                border-radius: $border-radius;
+                float: left;
+                padding-top: $space-xxs;
+                text-decoration: none;
+                text-align: center;
+                height: $button-fixed;
+                width: $button-fixed;
+
+                &:hover {
+                    color: $color-link;
+                    border: $border-link;
+                }
+
+                &:active {
+                    color: $color-font-medium;
+                    border: $border-dark;
+                }
+            }
+            &.disabled {
+                a {
+                    border-color: $color-border-medium;
+                    color: $color-disabled;
+                    &:hover {
+                        color: $color-disabled;
+                    }
+                }
+            }
+            &.selected {
+                a {
+                    border: $border-selected;
+                    padding-top: ($space-xxs - .1em);
+                    font-weight: $font-weight-bold;
+                    cursor: default;
+
+                    &:hover {
+                        @include font-utility;
+                    }
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+                @include mobile {
+                    display: inline;
+                }
+            }
+            &.next,
+            &.previous {
+                a {
+                    border: none;
+                    &:hover {
+                        svg .st0 {
+                            stroke: $color-link;
+                        }
+                    }
+                }
+                > a > div {
+                    height: 24px;
+                    width: 15px;
+                }
+                svg {
+                    width: $icon-m;
+                    height: 24px;
+                    margin-left: ($space-xxs + 0.15em);
+                    margin-top: ($space-xxxs - 0.15em);
+                    @include mobile {
+                        height: 24px;
+                    }
+                    .st0 {
+                        stroke: $color-font-dark;
+                    }
+                }
+                @include mobile {
+                    display: inline;
+                }
+                &.disabled {
+                    a {
+                        cursor: default;
+                        svg .st0 {
+                            stroke: $color-disabled;
+                        }
+                        &:hover {
+                            svg .st0 {
+                                stroke: $color-disabled;
+                            }
+                        }
+                    }
+                }
+            }
+            &.break {
+                a {
+                    border: none;
+                    color: $color-gray-40;
+                }
+            }
+        }
+    } 
 }
