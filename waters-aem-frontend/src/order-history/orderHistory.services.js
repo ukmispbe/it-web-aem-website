@@ -4,7 +4,7 @@ class OrderHistoryService {
     constructor(
         orderHistory = {
             orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email={email}&ponumber={poNumber}',
-            ordeListPost: 'https://test-www.waters.com:8443/api/waters/order/v1/list',
+            ordeListPost: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com',
             // works orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com&ponumber=TEST&fromDate=1573689600000&toDate=1574035200000',
             // works orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com&country=US&ordernumber=15739756&fromDate=1573689600000&toDate=1574035200000',
             // doesn't work orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com&fromDate=1573689600000&toDate=1574035200000',
@@ -66,7 +66,14 @@ class OrderHistoryService {
     postData(url, options){
         return new Promise((resolve, reject) => {
             window
-                .fetch(url, {...options})
+                .fetch(url, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(options)
+                })
                 .then(this.checkFetch)
                 .then(response => {
                     resolve(true);
@@ -77,6 +84,19 @@ class OrderHistoryService {
                 });
         });
     }
+
+    // async postData(url, options) {
+    //     const response = await fetch(url, {
+    //         method: 'POST',
+    //         credentials: 'include',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(options)
+    //     });
+    
+    //     return await response;
+    // };
 
     getOrderListPost(email, fromDate, toDate, poNumber) {
         // {
@@ -92,9 +112,10 @@ class OrderHistoryService {
         options.fromDate = fromDate;
         options.toDate = toDate;
         options.maxRecs = "";
+
         console.log(options);
 
-        return this.postData(this.createOrderListRequest(url, options));
+        return this.postData(this.orderHistoryOptions.ordeListPost, options);
     }
 
     getOrderList(email, fromDate, toDate, poNumber) {

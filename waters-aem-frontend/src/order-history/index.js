@@ -25,8 +25,8 @@ class OrderHistory extends Component {
             // fromDate: "2019-12-20",
             // toDate: "2020-1-30",
             email: "wendy_batista@waters.com",
-            fromDate: "2018-03-29T13:34:00.000",
-            toDate: "2020-01-29T13:34:00.000",
+            fromDate: "2018-03-29T13:34:00.000Z",
+            toDate: "2020-01-29T13:34:00.000Z",
             orderNumber: "15739756",
             poNumber: "TEST",
             loading: true,
@@ -71,28 +71,31 @@ class OrderHistory extends Component {
     }
 
     componentDidMount() {
-        const OrderHistoryServiceObj = new OrderHistoryService();
-        //OrderHistoryServiceObj.getOrderListPost(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber).then(result => {
-        OrderHistoryServiceObj.getOrderList(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber).then(result => {
-            if(result.length > 0){
-                this.setState({ 
-                    orderList: result,
-                    pageCount: Math.ceil(result.length / this.paginationDefaults.visibleRows),
-                    listCount: result.length,
-                    currentPage: 1,
-                    loading: false
-                });
-            } else {
-                this.setState({ 
-                    orderList: null,
-                    pageCount: 0,
-                    listCount: 0,
-                    currentPage: 1,
-                    noResults: true,
-                    loading: false
-                }); 
-            } 
-        }) || null;
+
+        this.retrieveData(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber);
+
+        // const OrderHistoryServiceObj = new OrderHistoryService();
+        // //OrderHistoryServiceObj.getOrderListPost(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber).then(result => {
+        // OrderHistoryServiceObj.getOrderList(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber).then(result => {
+        //     if(result.length > 0){
+        //         this.setState({ 
+        //             orderList: result,
+        //             pageCount: Math.ceil(result.length / this.paginationDefaults.visibleRows),
+        //             listCount: result.length,
+        //             currentPage: 1,
+        //             loading: false
+        //         });
+        //     } else {
+        //         this.setState({ 
+        //             orderList: null,
+        //             pageCount: 0,
+        //             listCount: 0,
+        //             currentPage: 1,
+        //             noResults: true,
+        //             loading: false
+        //         }); 
+        //     } 
+        // }) || null;
     }
 
     renderOrderCountHeader = () => {
@@ -141,7 +144,7 @@ class OrderHistory extends Component {
         this.setState({
             filterCriteria: filterCriteria
         });
-        this.retriveData();
+        this.retrieveData(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber);
     }
 
     timePeriodHandler(e) {
@@ -179,17 +182,39 @@ class OrderHistory extends Component {
 
             case 4:
                 this.setState({
-                    fromDate: "2999-12-31T23:59:59.999Z",
-                    toDate: "1900-01-01T00:00:00.000Z",
+                    toDate: "2999-12-31T23:59:59.999Z",
+                    fromDate: "1900-01-01T00:00:00.000Z",
                 });
                 break;
             default:
         }
-        this.retriveData();
+        this.retrieveData(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber);
     }
 
-    retriveData = () => {
-        console.log ("retriveData ", this.state);
+    retrieveData = (email, fromDate, toDate, poNumber) => {
+        console.log("toDate", toDate);
+        const OrderHistoryServiceObj = new OrderHistoryService();
+        OrderHistoryServiceObj.getOrderListPost(email, fromDate, toDate, poNumber).then(result => {
+        //OrderHistoryServiceObj.getOrderList(email, fromDate, toDate, poNumber).then(result => {
+            if(result.length > 0){
+                this.setState({ 
+                    orderList: result,
+                    pageCount: Math.ceil(result.length / this.paginationDefaults.visibleRows),
+                    listCount: result.length,
+                    currentPage: 1,
+                    loading: false
+                });
+            } else {
+                this.setState({ 
+                    orderList: null,
+                    pageCount: 0,
+                    listCount: 0,
+                    currentPage: 1,
+                    noResults: true,
+                    loading: false
+                }); 
+            } 
+        }) || null;
     }
 
     paginationClickHandler = (page) => {

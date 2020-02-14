@@ -5,7 +5,7 @@
 
     .cmp-order-list__resultsCount-container {
         position: inherit;
-        width: 300px;
+        width: 270px;
         float: left;
         left: 0px;
         margin-bottom: $space-xxs;
@@ -25,7 +25,7 @@
         text-align: right;
 
         @include tablet {
-            width: calc(82vw - 300px);
+            width: calc(87vw - 270px);
         }
         @include mobile {
             width: 100%;
@@ -33,7 +33,7 @@
 
         .cmp-order-list-timeperiod {
             float: right;
-            width: 200px;
+            width: 190px;
             margin-bottom: $space-xxs;
 
             @include tablet-and-under {
@@ -52,7 +52,7 @@
 
             @include tablet-and-under {
                 display: inline-block;
-                width: 200px;
+                width: 190px;
                 margin-top: $space-xxs;
                 margin-bottom: $space-xxs;
             }
