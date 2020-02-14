@@ -143,7 +143,16 @@ class OrderHistory extends Component {
         this.setState({
             filterCriteria: filterCriteria
         }, () => {
+
             this.retrieveData(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber);
+            
+            //Filter 
+            this.setState({
+                results: filterCrresultsiteria
+            }, () => {
+                
+                //this.retrieveData(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber);
+            }); 
         }); 
     }
 
