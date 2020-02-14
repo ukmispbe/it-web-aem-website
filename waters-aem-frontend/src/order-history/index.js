@@ -25,8 +25,8 @@ class OrderHistory extends Component {
             // fromDate: "2019-12-20",
             // toDate: "2020-1-30",
             email: "wendy_batista@waters.com",
-            fromDate: "2019-12-20T10:44:50.109Z",
-            toDate: "2020-1-30T10:44:50.109Z",
+            fromDate: "2018-03-29T13:34:00.000",
+            toDate: "2020-01-29T13:34:00.000",
             orderNumber: "15739756",
             poNumber: "TEST",
             loading: true,
@@ -136,7 +136,7 @@ class OrderHistory extends Component {
         let filterCriteria = "All";
         (e.value || e.value === 0) ? tabId = e.value : tabId = e;
         console.log("tabId ", tabId);
-        
+
         if (tabId === 0) filterCriteria = "Open";
         this.setState({
             filterCriteria: filterCriteria
@@ -145,7 +145,6 @@ class OrderHistory extends Component {
     }
 
     timePeriodHandler(e) {
-        console.log("timePeriodHandler");
         const selectedTimeframe = e.value;
         let now;
         const currentDate = new Date();
@@ -246,11 +245,11 @@ class OrderHistory extends Component {
                         <div className="cmp-order-list__header">
                             <div className="cmp-order-list__dropdowns">
                                 <OrderFilterDropdown
-                                    onChange={e => this.handleCategorySelected(e)} 
+                                    onChange={e => this.handleCategorySelected(e)}
                                     orderFilters={this.props.configs.orderfilters}
                                 />
                                 <TimePeriod 
-                                    onChange={e => this.timePeriodHandler(e)} 
+                                    onChange={e => this.timePeriodHandler(e)}
                                     timePeriod={this.props.configs.timeperiod}
                                 />
                             </div>
