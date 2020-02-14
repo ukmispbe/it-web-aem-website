@@ -1,5 +1,6 @@
 /**
  * For a list of SKU codes, print all live copy SKU pages and the associated price displayed on that page.
+ * Also prints a list of any SKU codes not found under /etc/commerce/products
  */
 
 import com.day.cq.search.eval.JcrPropertyPredicateEvaluator
@@ -18,31 +19,43 @@ def siteRepo = getService(SiteRepository)
 def skuRepo = getService(SkuRepository)
 
 def skuList = [
-    "WAT022032"
+    "WAT022032",
+    "WAT000000"
 ]
+
+def missingSkus = []
 
 skuList.each { skuCode ->
 
-    def languageMasterPagePaths = queryLanguageMasterSkuPagesForCode(skuCode)
+    if (skuRepo.getSku(resourceResolver, skuCode) == null) {
+        missingSkus.add(skuCode)
+    } else {
+        def languageMasterPagePaths = queryLanguageMasterSkuPagesForCode(skuCode)
 
-    languageMasterPagePaths.each { languageMasterPagePath ->
-        // add all live copy paths
-        def liveCopyPaths = getLiveCopyPaths(siteRepo, languageMasterPagePath)
+        languageMasterPagePaths.each { languageMasterPagePath ->
+            // add all live copy paths
+            def liveCopyPaths = getLiveCopyPaths(siteRepo, languageMasterPagePath)
 
-        liveCopyPaths.each {
-            def page = getPage(it).adaptTo(PageDecorator)
+            liveCopyPaths.each {
+                def page = getPage(it).adaptTo(PageDecorator)
 
-            def sku = skuRepo.getSku(page)
-            def siteContext = page.contentResource.adaptTo(SiteContext)
-            def country = siteContext.localeWithCountry.country
+                def sku = skuRepo.getSku(page)
+                def siteContext = page.contentResource.adaptTo(SiteContext)
+                def country = siteContext.localeWithCountry.country
 
-            def price = sku.getPrice(country, siteContext.currencyIsoCode)
+                def price = sku.getPrice(country, siteContext.currencyIsoCode)
 
-            println "$page.path $price"
+                println "$page.path $price"
+            }
         }
-    }
 
-    println ""
+        println ""
+    }
+}
+
+println "$missingSkus.size SKUs missing"
+missingSkus.each {
+    println it
 }
 
 def getLiveCopyPaths(siteRepo, path) {
