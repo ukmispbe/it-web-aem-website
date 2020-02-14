@@ -191,30 +191,29 @@ class OrderHistory extends Component {
         this.retrieveData(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber);
     }
 
-    retrieveData = (email, fromDate, toDate, poNumber) => {
+    retrieveData = async (email, fromDate, toDate, poNumber) => {
         console.log("toDate", toDate);
         const OrderHistoryServiceObj = new OrderHistoryService();
-        OrderHistoryServiceObj.getOrderListPost(email, fromDate, toDate, poNumber).then(result => {
-        //OrderHistoryServiceObj.getOrderList(email, fromDate, toDate, poNumber).then(result => {
-            if(result.length > 0){
-                this.setState({ 
-                    orderList: result,
-                    pageCount: Math.ceil(result.length / this.paginationDefaults.visibleRows),
-                    listCount: result.length,
-                    currentPage: 1,
-                    loading: false
-                });
-            } else {
-                this.setState({ 
-                    orderList: null,
-                    pageCount: 0,
-                    listCount: 0,
-                    currentPage: 1,
-                    noResults: true,
-                    loading: false
-                }); 
-            } 
-        }) || null;
+        const orders = await OrderHistoryServiceObj.getOrderListPost(email, fromDate, toDate, poNumber);
+
+        if(orders.length > 0){
+            this.setState({ 
+                orderList: orders,
+                pageCount: Math.ceil(orders.length / this.paginationDefaults.visibleRows),
+                listCount: orders.length,
+                currentPage: 1,
+                loading: false
+            });
+        } else {
+            this.setState({ 
+                orderList: null,
+                pageCount: 0,
+                listCount: 0,
+                currentPage: 1,
+                noResults: true,
+                loading: false
+            }); 
+        } 
     }
 
     paginationClickHandler = (page) => {
