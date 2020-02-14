@@ -4,20 +4,7 @@ class OrderHistoryService {
     constructor(
         orderHistory = {
             orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email={email}&ponumber={poNumber}',
-            ordeListPost: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com',
-            // works orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com&ponumber=TEST&fromDate=1573689600000&toDate=1574035200000',
-            // works orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com&country=US&ordernumber=15739756&fromDate=1573689600000&toDate=1574035200000',
-            // doesn't work orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com&fromDate=1573689600000&toDate=1574035200000',
-            // doesn't work orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?fromDate=1573689600000&toDate=1574035200000',
-            // doesn't work orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com&country=US&fromDate=1573689600000&toDate=1574035200000',
-            // doesn't work orderList: orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?country=US&fromDate=1573689600000&toDate=1574035200000',
-
-
-
-            //orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com&ponumber=TEST&fromDate=1573689600000&toDate=1574035200000',
-            //orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email={email}&fromDate={fromDate}&toDate={toDate}&country={countryCode}&ordernumber={orderNumber}',
-            //orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email={email}&fromdate={fromDate}&todate={toDate}&ponumber={ponumber}',
-            //orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email={email}&fromDate={fromDate}&toDate={toDate}&country={countryCode}',
+            orderListPost: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com',
             orderDetails: ''
         },
         throwError //callback 
@@ -115,7 +102,7 @@ class OrderHistoryService {
 
         console.log(options);
 
-        return this.postData(this.orderHistoryOptions.ordeListPost, options);
+        return this.postData(this.orderHistoryOptions.orderListPost, options);
     }
 
     getOrderList(email, fromDate, toDate, poNumber) {
