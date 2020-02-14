@@ -138,13 +138,13 @@ class OrderHistory extends Component {
         let tabId;
         let filterCriteria = "All";
         (e.value || e.value === 0) ? tabId = e.value : tabId = e;
-        console.log("tabId ", tabId);
 
         if (tabId === 0) filterCriteria = "Open";
         this.setState({
             filterCriteria: filterCriteria
-        });
-        this.retrieveData(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber);
+        }, () => {
+            this.retrieveData(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber);
+        }); 
     }
 
     timePeriodHandler(e) {
@@ -159,6 +159,8 @@ class OrderHistory extends Component {
                 this.setState({
                     fromDate: thirtyDaysAgo.toISOString(),
                     toDate: currentDate.toISOString()
+                },() => {
+                    this.retrieveData(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber);
                 });
                 break;
 
@@ -168,6 +170,8 @@ class OrderHistory extends Component {
                 this.setState({
                     fromDate: sixMonthsAgo.toISOString(),
                     toDate: currentDate.toISOString()
+                },() => {
+                    this.retrieveData(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber);
                 });
                 break;
 
@@ -177,6 +181,8 @@ class OrderHistory extends Component {
                 this.setState({
                     fromDate: twelveMonthsAgo.toISOString(),
                     toDate: currentDate.toISOString()
+                },() => {
+                    this.retrieveData(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber);
                 });
                 break;
 
@@ -184,15 +190,16 @@ class OrderHistory extends Component {
                 this.setState({
                     toDate: "2999-12-31T23:59:59.999Z",
                     fromDate: "1900-01-01T00:00:00.000Z",
+                },() => {
+                    this.retrieveData(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber);
                 });
                 break;
             default:
         }
-        this.retrieveData(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber);
+        
     }
 
     retrieveData = async (email, fromDate, toDate, poNumber) => {
-        console.log("toDate", toDate);
         const OrderHistoryServiceObj = new OrderHistoryService();
         const orders = await OrderHistoryServiceObj.getOrderListPost(email, fromDate, toDate, poNumber);
 
