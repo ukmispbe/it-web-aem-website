@@ -4,6 +4,7 @@ class OrderHistoryService {
     constructor(
         orderHistory = {
             orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email={email}&ponumber={ponumber}',
+            ordeListPost: 'https://test-www.waters.com:8443/api/waters/order/v1/list',
             // works orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com&ponumber=TEST&fromDate=1573689600000&toDate=1574035200000',
             // works orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com&country=US&ordernumber=15739756&fromDate=1573689600000&toDate=1574035200000',
             // doesn't work orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com&fromDate=1573689600000&toDate=1574035200000',
@@ -26,6 +27,7 @@ class OrderHistoryService {
     }
     
     createOrderListRequest(email, fromDate, toDate, ponumber) {
+        console.log("createOrderListRequest")
         let url = this.orderHistoryOptions.orderList
             .replace('{email}', email)
             .replace('{fromDate}', fromDate)
@@ -84,8 +86,34 @@ class OrderHistoryService {
         });
     }
 
-    
+    getOrderListPost(email, fromDate, toDate, poNumber) {
+        // {
+        //     "orderNumber": "",
+        //     "purchaseOrderNumber": "TEST",
+        //     "fromDate": "2018-03-29T13:34:00.000",
+        //     "toDate": "2018-03-29T13:34:00.000",
+        //     "maxRecs": ""
+        // }
+        let options = {};
+        options.orderNumber = "";
+        options.purchaseOrderNumber = poNumber;
+        options.fromDate = fromDate;
+        options.toDate = toDate;
+        options.maxRecs = "";
+        console.log(options);
+
+        return this.postData(this.createOrderListRequest(url, options));
+    }
+
     getOrderList(email, fromDate, toDate, poNumber) {
+        let options = {};
+        options.orderNumber = "";
+        options.purchaseOrderNumber = poNumber;
+        options.fromDate = fromDate;
+        options.toDate = toDate;
+        options.maxRecs = "";
+        console.log("options", options);
+
         return this.getData(this.createOrderListRequest(email, fromDate, toDate, poNumber));
     }
 }

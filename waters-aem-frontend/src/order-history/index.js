@@ -25,12 +25,13 @@ class OrderHistory extends Component {
             // fromDate: "2019-12-20",
             // toDate: "2020-1-30",
             email: "wendy_batista@waters.com",
-            fromDate: "1573689600000",
-            toDate: "1574035200000",
+            fromDate: "2019-12-20T10:44:50.109Z",
+            toDate: "2020-1-30T10:44:50.109Z",
             orderNumber: "15739756",
             poNumber: "TEST",
             loading: true,
-            noResults: false
+            noResults: false,
+            filterCriteria: "All"
         }
 
         this.orderMock = [
@@ -71,6 +72,7 @@ class OrderHistory extends Component {
 
     componentDidMount() {
         const OrderHistoryServiceObj = new OrderHistoryService();
+        //OrderHistoryServiceObj.getOrderListPost(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber).then(result => {
         OrderHistoryServiceObj.getOrderList(this.state.email, this.state.fromDate, this.state.toDate, this.state.poNumber).then(result => {
             if(result.length > 0){
                 this.setState({ 
@@ -128,62 +130,67 @@ class OrderHistory extends Component {
         );
     }
 
+    handleCategorySelected(e) {
+        // 0 = Open Orders, 1 = All Orders
+        let tabId;
+        let filterCriteria = "All";
+        (e.value || e.value === 0) ? tabId = e.value : tabId = e;
+        console.log("tabId ", tabId);
+        
+        if (tabId === 0) filterCriteria = "Open";
+        this.setState({
+            filterCriteria: filterCriteria
+        });
+        this.retriveData();
+    }
+
     timePeriodHandler(e) {
+        console.log("timePeriodHandler");
         const selectedTimeframe = e.value;
-        let now, timeFilter = "";
+        let now;
         const currentDate = new Date();
 
-         // &fromDate=1573689600000&toDate=1574035200000
         switch (selectedTimeframe) {
             case 1:
                 now = new Date();
                 let thirtyDaysAgo = new Date(now.setDate(now.getDate() - 30));
-                timeFilter=`&fromDate=${thirtyDaysAgo.getTime()}&toDate=${currentDate.getTime()}`;
                 this.setState({
-                    fromDate: thirtyDaysAgo.getTime(),
-                    toDate: currentDate.getTime()
+                    fromDate: thirtyDaysAgo.toISOString(),
+                    toDate: currentDate.toISOString()
                 });
                 break;
 
             case 2:
                 now = new Date();
                 let sixMonthsAgo = new Date(now.setMonth(now.getMonth() - 6));
-                timeFilter=`&fromDate=${sixMonthsAgo.getTime()}&toDate=${currentDate.getTime()}`;
                 this.setState({
-                    fromDate: sixMonthsAgo.getTime(),
-                    toDate: currentDate.getTime()
+                    fromDate: sixMonthsAgo.toISOString(),
+                    toDate: currentDate.toISOString()
                 });
                 break;
 
             case 3:
                 now = new Date();
                 let twelveMonthsAgo = new Date(now.setMonth(now.getMonth() - 12));
-                timeFilter=`&fromDate=${twelveMonthsAgo.getTime()}&toDate=${currentDate.getTime()}`;
                 this.setState({
-                    fromDate: twelveMonthsAgo.getTime(),
-                    toDate: currentDate.getTime()
+                    fromDate: twelveMonthsAgo.toISOString(),
+                    toDate: currentDate.toISOString()
                 });
                 break;
 
             case 4:
                 this.setState({
-                    fromDate: "0000000000000",
-                    toDate: "9999999999999"
+                    fromDate: "2999-12-31T23:59:59.999Z",
+                    toDate: "1900-01-01T00:00:00.000Z",
                 });
                 break;
-
             default:
         }
-        // const sortOption = parseInt(e.value) === 1 ? parameterValues.sort.mostRelevant : parameterValues.sort.mostRecent;
+        this.retriveData();
+    }
 
-        // let query = this.getQueryObject();
-
-        // query.page = 1;
-        // query.sort = sortOption;
-
-        // this.setState({forceCollapseFilters: true}, () => {
-        //     this.pushToHistory(query, query.facets);
-        // });
+    retriveData = () => {
+        console.log ("retriveData ", this.state);
     }
 
     paginationClickHandler = (page) => {
@@ -232,18 +239,18 @@ class OrderHistory extends Component {
                         <Tabs className="cmp-search__categories-tabs"
                             items={this.props.configs.tabs}
                             activeIndex={0}
-                            onClick={this.handleCategorySelected}
+                            onClick={e => this.handleCategorySelected(e)}
                             enableFading={true}
                         />
 
                         <div className="cmp-order-list__header">
                             <div className="cmp-order-list__dropdowns">
                                 <OrderFilterDropdown
-                                    onChange={this.handleCategorySelected} 
+                                    onChange={e => this.handleCategorySelected(e)} 
                                     orderFilters={this.props.configs.orderfilters}
                                 />
                                 <TimePeriod 
-                                    onChange={this.timePeriodHandler.bind(this)} 
+                                    onChange={e => this.timePeriodHandler(e)} 
                                     timePeriod={this.props.configs.timeperiod}
                                 />
                             </div>

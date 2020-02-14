@@ -28,7 +28,7 @@ const TimePeriod = props => {
             <Dropdown
                 getOptions={getOptions}
                 // sortValue={1}
-                onChange={e => props.timePeriodHandler(e)}
+                onChange={e => props.onChange(e)}
                 isSearchable={false}
                 text={props.timePeriod}
                 defaultValue = {1}

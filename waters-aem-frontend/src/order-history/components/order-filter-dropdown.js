@@ -4,12 +4,12 @@ import Dropdown from '../../utils/dropdown'
 const getOptions = text => {
     return [
         {
-            value: 1,
-            label: text.openOrders,
+            value: 0,
+            label: text.allOrders,
         },
         {
-            value: 2,
-            label: text.allOrders,
+            value: 1,
+            label: text.openOrders,
         }
     ];
 };
@@ -19,10 +19,10 @@ const OrderFilterDropdown = props => {
         <div className="cmp-order-list-orderfilters">
             <Dropdown
                 getOptions={getOptions}
-                onChange={e => props.handleCategorySelected(e)}
+                onChange={e => props.onChange(e)}
                 isSearchable={false}
                 text={props.orderFilters}
-                defaultValue = {2}
+                defaultValue = {1}
             />
         </div>
     );
