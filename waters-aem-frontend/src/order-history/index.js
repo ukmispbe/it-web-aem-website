@@ -96,9 +96,9 @@ class OrderHistory extends Component {
                 break;
 
             case 4:
-                let hundredYearsAgo = new Date(now.setYear(now.getFullYear() - 100));
+                let showAllTimeframe = new Date(now.setMonth(now.getMonth() - 15));
                 this.setState({
-                    fromDate: hundredYearsAgo.toISOString(),
+                    fromDate: showAllTimeframe.toISOString(),
                     toDate: currentDate.toISOString(),
                     activeTimePeriod: selectedTimeframe
                 },() => {
