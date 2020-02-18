@@ -358,7 +358,7 @@ const chooseAccountFormContainer = document.getElementById(
 );
 
 if (chooseAccountFormContainer) {
-    const config = JSON.parse(
+    let config = JSON.parse(
         document.getElementById('js-choose-account-form').innerHTML
     );
 

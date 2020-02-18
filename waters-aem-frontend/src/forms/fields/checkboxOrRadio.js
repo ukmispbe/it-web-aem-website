@@ -5,7 +5,7 @@ import { useFormApi, useFieldApi } from '../form';
 import { useErrorsContext } from './utils/stateWatcher';
 
 const CheckboxOrRadio = ({}) => {
-    const {
+    let {
         name,
         label,
         options,
@@ -22,7 +22,13 @@ const CheckboxOrRadio = ({}) => {
     // console.log('name,label,options,disabled,icons,config,validation,type,description,initialState',
     //         name,label,options,disabled,icons,config,validation,type,description,initialState);
     // console.log('register, setValue', register, setValue);
-    console.log('config', config);
+    // console.log('config', config);
+
+    // options = config.fields[1].options;
+    // console.log("CheckboxOrRadio")
+    // if (config.fields[1].options) {
+    //     console.log("config.fields[1].options.length", config.fields[1].options.length)      
+    // }
 
     const errors = useErrorsContext();
 
@@ -58,6 +64,8 @@ const CheckboxOrRadio = ({}) => {
             return Object.assign({}, ...defaultOptions);
         }
     });
+
+    console.log("state", state);
 
     const checkHandler = (event, thisName) => {
         if (!disabled) {
