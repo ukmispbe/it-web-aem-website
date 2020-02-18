@@ -83,12 +83,12 @@ const Form = ({
     //     }
     // }, []);
 
-    // config.fields[1].options = [
-    //     { "name": "144936", "label": "AstraZeneca Pharmaceuticals LP", "accountStreet": "50 Otis St", "accountCity": "Westborough", "accountZip": "01581-3323"},
-    //     { "name": "146929", "label": "The Clorox Company", "accountStreet": "7200 Johnson Dr", "accountCity": "Pleasanton", "accountZip": "94588-8005"},
-    //     { "name": "226719", "label": "The University of Texas", "accountStreet": "PO Box301401", "accountCity": "Houston", "accountZip": "77230-1401"},
-    //     { "name": "254134", "label": "University at Buffalo", "accountStreet": "Hochstetter Hall", "accountCity": "Buffalo", "accountZip": "14260"}
-    // ];
+    config.fields[1].options = [
+        { "name": "144936", "label": "AstraZeneca Pharmaceuticals LP", "accountStreet": "50 Otis St", "accountCity": "Westborough", "accountZip": "01581-3323"},
+        { "name": "146929", "label": "The Clorox Company", "accountStreet": "7200 Johnson Dr", "accountCity": "Pleasanton", "accountZip": "94588-8005"},
+        { "name": "226719", "label": "The University of Texas", "accountStreet": "PO Box301401", "accountCity": "Houston", "accountZip": "77230-1401"},
+        { "name": "254134", "label": "University at Buffalo", "accountStreet": "Hochstetter Hall", "accountCity": "Buffalo", "accountZip": "14260"}
+    ];
 
     // useEffect(() => {
     //     // if (config.getRadioOptions === true) {
@@ -189,8 +189,7 @@ const Form = ({
     const [newConfig, setNewConfig ] = useState();
     // const [flag, setFlag ] = useState(false);
     useEffect(() => {
-        // console.log("useEffect Start");
-        // console.log("useEffect config", config);
+        console.log("useEffect Start");
 
         // const getDetails = async () => {
         //     const resp =  await retrieveData(config.optionsEndpoint);
@@ -205,54 +204,15 @@ const Form = ({
         //         tempOption.accountZip = item.partnerAddress[0].postalCd;
         //         return tempOption;
         //     });
-
-    
+  
         //     config.options = tempArray;
         //     config.fields[1].options = tempArray;
         //     console.log("config", config);
-
-
-
+        //     setNewConfig(config);
+        
         // }
 
-
         // getDetails();
-
-        // const fetchData = async () => {
-        //     try {
-        //         const res = await fetch(config.optionsEndpoint, {
-        //             method: 'GET',
-        //             credentials: 'include',
-        //             headers: {
-        //                 'Content-Type': 'application/json'
-        //             }
-        //         });
-        //       const json = await res.json();
-        //       console.log("json", json);
-              
-        //       const tempArray = json.map((item) => {
-        //           let tempOption = {};
-        //           tempOption.name = item.soldTo;
-        //           tempOption.label = item.company;
-        //           tempOption.accountStreet = item.partnerAddress[0].street;
-        //           tempOption.accountCity = item.partnerAddress[0].city;
-        //           tempOption.accountZip = item.partnerAddress[0].postalCd;
-        //           return tempOption;
-        //       });
-
-    
-        //       config.options = tempArray;
-        //       config.fields[1].options = tempArray;
-        //       console.log("config", config);
-    
-        //       //setResponse(json);
-        //     } catch (error) {
-        //       //setError(error);
-        //     }
-        //   };
-        // fetchData();
-
-
 
         // let origConfig;
         // if (!flag) {
@@ -262,12 +222,12 @@ const Form = ({
         //     config = origConfig;
         // }
         // if (config) {
-            config.fields[1].options = [
-                { "name": "144936", "label": "AstraZeneca Pharmaceuticals LP", "accountStreet": "50 Otis St", "accountCity": "Westborough", "accountZip": "01581-3323"},
-                { "name": "146929", "label": "The Clorox Company", "accountStreet": "7200 Johnson Dr", "accountCity": "Pleasanton", "accountZip": "94588-8005"},
-                { "name": "226719", "label": "The University of Texas", "accountStreet": "PO Box301401", "accountCity": "Houston", "accountZip": "77230-1401"},
-                { "name": "254134", "label": "University at Buffalo", "accountStreet": "Hochstetter Hall", "accountCity": "Buffalo", "accountZip": "14260"}
-            ];
+            // config.fields[1].options = [
+            //     { "name": "144936", "label": "AstraZeneca Pharmaceuticals LP", "accountStreet": "50 Otis St", "accountCity": "Westborough", "accountZip": "01581-3323"},
+            //     { "name": "146929", "label": "The Clorox Company", "accountStreet": "7200 Johnson Dr", "accountCity": "Pleasanton", "accountZip": "94588-8005"},
+            //     { "name": "226719", "label": "The University of Texas", "accountStreet": "PO Box301401", "accountCity": "Houston", "accountZip": "77230-1401"},
+            //     { "name": "254134", "label": "University at Buffalo", "accountStreet": "Hochstetter Hall", "accountCity": "Buffalo", "accountZip": "14260"}
+            // ];
         //     config.options = [
         //         { "name": "144936", "label": "AstraZeneca Pharmaceuticals LP", "accountStreet": "50 Otis St", "accountCity": "Westborough", "accountZip": "01581-3323"},
         //         { "name": "146929", "label": "The Clorox Company", "accountStreet": "7200 Johnson Dr", "accountCity": "Pleasanton", "accountZip": "94588-8005"},
@@ -290,7 +250,6 @@ const Form = ({
         // }
         // console.log("End of useFetch", res);
 
-        setNewConfig(() => {return config;});
         
         for (let name in errorUpdates) {
             if (errors[name]) {
