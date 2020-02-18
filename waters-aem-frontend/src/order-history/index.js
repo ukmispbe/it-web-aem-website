@@ -110,34 +110,53 @@ class OrderHistory extends Component {
         
     }
 
+    setNoResultsState = () => {
+        this.setState({ 
+            orderList: null,
+            pageCount: 0,
+            listCount: 0,
+            currentPage: 1,
+            noResults: true,
+            loading: false
+        }); 
+    }
+
+    setResultsState = (filteredOrders) => {
+        this.setState({ 
+            orderList: filteredOrders,
+            pageCount: Math.ceil(filteredOrders.length / this.paginationDefaults.visibleRows),
+            listCount: filteredOrders.length,
+            currentPage: 1,
+            noResults: false,
+            loading: false
+        });
+    }
+
+    filterOrderStatus = (orders, activeTabFilter) => {
+        let filteredOrders = orders;
+        if (activeTabFilter !== "All" && activeTabFilter !== undefined &&
+            (activeTabFilter === "Open" || activeTabFilter === "Partial")){
+            filteredOrders = orders.filter(function(i) {
+                return i.deliveryStatus === activeTabFilter;
+            })
+            if (filteredOrders.length > 0){
+                this.setResultsState(filteredOrders)
+            } else {
+                this.setNoResultsState()
+            }
+        } else {
+            this.setResultsState(filteredOrders)
+        }
+    }
+
     retrieveData = async (fromDate, toDate,  poNumber, orderNumber, activeTabFilter) => {
         const OrderHistoryServiceObj = new OrderHistoryService();
         const orders = await OrderHistoryServiceObj.getOrderListPost(fromDate, toDate, poNumber, orderNumber);
 
         if(orders.length > 0){
-            let filteredOrders = orders;
-            if (activeTabFilter !== "All" && activeTabFilter !== undefined &&
-                (activeTabFilter === "Open" || activeTabFilter === "Partial")){
-                filteredOrders = orders.filter(function(i) {
-                    return i.deliveryStatus === activeTabFilter;
-                })
-            }
-            this.setState({ 
-                orderList: filteredOrders,
-                pageCount: Math.ceil(filteredOrders.length / this.paginationDefaults.visibleRows),
-                listCount: filteredOrders.length,
-                currentPage: 1,
-                loading: false
-            });
+            this.filterOrderStatus(orders, activeTabFilter)
         } else {
-            this.setState({ 
-                orderList: null,
-                pageCount: 0,
-                listCount: 0,
-                currentPage: 1,
-                noResults: true,
-                loading: false
-            }); 
+            this.setNoResultsState()
         } 
     }
 
