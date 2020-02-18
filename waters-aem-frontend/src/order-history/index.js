@@ -4,8 +4,8 @@ import ReactSVG from 'react-svg';
 import PropTypes from "prop-types";
 import OrderHistoryService from'./orderHistory.services';
 import OrderListItem from './components/order-list-item';
-import OrderCount from './components/order-count';
-import TimePeriod from './components/time-period';
+import OrderCountHeader from './components/order-count-header';
+import TimePeriodDropdown from './components/time-period-dropdown';
 import OrderFilterDropdown from './components/order-filter-dropdown';
 import Tabs from "../navigation/tabs";
 import Spinner from "../utils/spinner";
@@ -177,7 +177,7 @@ class OrderHistory extends Component {
                     onChange={e => this.handleCategorySelected(e)}
                     orderFilters={this.props.configs.orderfilters}
                 />
-                <TimePeriod 
+                <TimePeriodDropdown 
                     onChange={e => this.timePeriodHandler(e)}
                     timePeriod={this.props.configs.timeperiod}
                 />
@@ -188,7 +188,7 @@ class OrderHistory extends Component {
     
     renderOrderCountHeader = () => {
         return (
-            <OrderCount
+            <OrderCountHeader
                 rows={this.paginationDefaults.visibleRows}
                 count={this.state.listCount}
                 current={this.state.currentPage}

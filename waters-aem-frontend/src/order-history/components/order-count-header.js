@@ -1,6 +1,6 @@
 import React from 'react';
 
-const OrderCount = (props) => {
+const OrderCountHeader = (props) => {
     let getResultsText = "";
     if(props.count > 0){
         const endResults = props.count > props.current * props.rows ? props.current * props.rows : props.count;
@@ -18,4 +18,4 @@ const OrderCount = (props) => {
     </div>
 };
 
-export default OrderCount;
+export default OrderCountHeader;
