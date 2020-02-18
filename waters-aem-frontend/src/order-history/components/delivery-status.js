@@ -8,8 +8,7 @@ class DeliveryStatus extends Component {
         this.state = {
             deliveryStatus: "",
             icon: "",
-            iconClassName: "",
-            showShipmentsLink: false
+            iconClassName: ""
         }
     }
 

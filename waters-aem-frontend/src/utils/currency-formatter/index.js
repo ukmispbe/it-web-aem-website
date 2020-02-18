@@ -1,4 +1,4 @@
-function currencyFormatter(amount, inputcurrency = 'USD', userLocale = 'en-US') {
+function currencyFormatter(amount, userLocale = 'en-US', inputcurrency = 'USD') {
     if (amount) {
         let formatter = new Intl.NumberFormat(userLocale, {
             style: 'currency',

@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import DeliveryStatus from './delivery-status'
 import DateFormatter from '../../utils/date-formatter'
 import CurrencyFormatter from '../../utils/currency-formatter'
+import GetLocale from '../../utils/get-locale'
 
 class OrderListItem extends Component {
     constructor(props) {
         super(props);
+        this.userLocale = GetLocale.getLocale()
     }
-
+    
     render() {
         return (
             <div className={'cmp-order-list__container'}>
@@ -16,7 +18,7 @@ class OrderListItem extends Component {
                         {this.props.orderText + " " + this.props.data.orderNumber}
                     </div>
                     <div className="cmp-order-list__date">
-                        {DateFormatter.dateFormatter(this.props.data.date)}
+                        {DateFormatter.dateFormatter(this.props.data.date, this.userLocale)}
                     </div>
                 </div>
                 <div className="cmp-order-list__right">
@@ -28,7 +30,7 @@ class OrderListItem extends Component {
                     />            
                 </div>
                 <div className="cmp-order-list__total">
-                    {CurrencyFormatter.currencyFormatter(this.props.data.orderTotal, this.props.data.currencyCode)}
+                    {CurrencyFormatter.currencyFormatter(this.props.data.orderTotal, this.userLocale, this.props.data.currencyCode)}
                 </div>
             </div>
         );
