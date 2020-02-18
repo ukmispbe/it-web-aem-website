@@ -27,7 +27,6 @@ const TimePeriod = props => {
         <div className="cmp-order-list-timeperiod">
             <Dropdown
                 getOptions={getOptions}
-                // sortValue={1}
                 onChange={e => props.onChange(e)}
                 isSearchable={false}
                 text={props.timePeriod}

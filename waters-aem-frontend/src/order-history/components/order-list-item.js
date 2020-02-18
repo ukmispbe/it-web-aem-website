@@ -35,7 +35,6 @@ class OrderListItem extends Component {
     }
 }
 
-
 OrderListItem.propTypes = {
     data: PropTypes.array.isRequired,
     orderText: PropTypes.string.isRequired,

@@ -3,8 +3,7 @@ import 'whatwg-fetch';
 class OrderHistoryService {
     constructor(
         orderHistory = {
-            orderList: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email={email}&ponumber={poNumber}',
-            orderListPost: 'https://test-www.waters.com:8443/api/waters/order/v1/list?email=wendy_batista@waters.com',
+            orderListPost: 'https://test-www.waters.com:8443/api/waters/order/v1/list',
             orderDetails: ''
         },
         throwError //callback 
@@ -12,14 +11,6 @@ class OrderHistoryService {
         this.orderHistoryOptions = orderHistory;
         this.throwError = throwError;
     }
-    
-    createOrderListRequest(email, fromDate, toDate, poNumber) {
-        let url = this.orderHistoryOptions.orderList
-            .replace('{email}', email)
-            .replace('{poNumber}', poNumber)
-
-        return url;
-    } 
 
     checkFetch(response) {
         if (!response.ok){
@@ -44,15 +35,13 @@ class OrderHistoryService {
         });
     };
 
-    getOrderListPost(email, fromDate, toDate, poNumber) {
+    getOrderListPost(fromDate, toDate, poNumber, orderNumber) {
         let options = {};
-        options.orderNumber = "";
+        options.orderNumber = orderNumber;
         options.purchaseOrderNumber = poNumber;
         options.fromDate = fromDate;
         options.toDate = toDate;
         options.maxRecs = "";
-
-        console.log(options);
 
         return this.postData(this.orderHistoryOptions.orderListPost, options);
     }

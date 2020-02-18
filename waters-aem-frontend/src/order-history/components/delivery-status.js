@@ -19,7 +19,6 @@ class DeliveryStatus extends Component {
         let deliveryStatus = "";
         let icon = "";
         let iconClassName = "cmp-order-list-delivery__icon";
-        let showShipmentsLink = false;
         switch(status) {
             case "Open":
                 deliveryStatus = this.props.labels.openLabel;
@@ -27,12 +26,10 @@ class DeliveryStatus extends Component {
             break;
             case "Partial":
                 deliveryStatus = this.props.labels.partialLabel;
-                //showShipmentsLink = true; PB Commented Out 
                 icon = this.props.icons.partialIcon;
             break;
             case "Complete":
                 deliveryStatus = this.props.labels.completeLabel;
-                //showShipmentsLink = true;  PB Commented Out 
                 icon = this.props.icons.completeIcon;
                 iconClassName = "cmp-order-list-delivery__icon__complete";
             break;
@@ -43,8 +40,7 @@ class DeliveryStatus extends Component {
         this.setState({ 
             deliveryStatus: deliveryStatus,
             icon: icon,
-            iconClassName: iconClassName,
-            showShipmentsLink: showShipmentsLink
+            iconClassName: iconClassName
         }); 
     }
     componentDidMount() {
@@ -62,11 +58,6 @@ class DeliveryStatus extends Component {
                         {this.state.deliveryStatus}
                     </div>
                 </div>
-                {this.state.showShipmentsLink && (
-                    <div className="cmp-order-list__view-shipments">
-                        <a href={this.props.labels.viewShipmentsURL}>{this.props.labels.viewShipmentsText}</a>
-                    </div>
-                )}
             </>
         );
     }
