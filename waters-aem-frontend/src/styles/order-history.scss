@@ -192,14 +192,6 @@
                 }
             }
         }  
-        &__no-results-title {
-            @include font-h3;
-            margin-bottom: $space-xxs;
-
-            @include tablet-and-under {
-                margin-bottom: $space-s;
-            }
-        }
 
         &__no-results {
             border: $border-dotted;

@@ -192,7 +192,8 @@ class OrderHistory extends Component {
                 rows={this.paginationDefaults.visibleRows}
                 count={this.state.listCount}
                 current={this.state.currentPage}
-                text={this.props.configs.resultsText}
+                resultsText={this.props.configs.resultsText}
+                noResultsText={this.props.configs.noOrdersFoundTitle}
             />
         );
     }
@@ -244,16 +245,6 @@ class OrderHistory extends Component {
         }
     }
 
-    renderNoResultsHeader = () => {
-        return (
-            <>
-                <div className="cmp-order-list__no-results-title">
-                    {this.props.configs.noOrdersFoundTitle}
-                </div>
-            </>
-        );
-    }
-
     renderNoResults = () => {
         return (
             <>
@@ -274,8 +265,7 @@ class OrderHistory extends Component {
                     {this.renderTabs()}
                         <div className="cmp-order-list__header clearfix">
                             {this.renderDropDowns()}
-                            {this.state.noResults && this.renderNoResultsHeader()}
-                            {this.state.listCount > 0 && this.renderOrderCountHeader()}
+                            {this.renderOrderCountHeader()}
                         </div>
 
                         {this.state.noResults && this.renderNoResults()}

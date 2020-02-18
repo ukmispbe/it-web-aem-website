@@ -24,7 +24,7 @@ const MyAccountRouter = (props) => {
                         <ChangePassword configId={props.changePassword.config} />
                     </Aside>
                 </Route>
-                <Route exact path="/orderhistory" >
+                <Route exact path={routes.orderHistory} >
                     <Aside tiles={props.tiles}>
                         <OrderHistory configs={props.orderHistory} />
                     </Aside>
