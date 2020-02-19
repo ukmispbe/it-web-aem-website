@@ -132,29 +132,25 @@ class OrderHistory extends Component {
         });
     }
 
-    filterOrderStatus = (orders, activeTabFilter) => {
-        let filteredOrders = orders;
-        if (activeTabFilter !== "All" && activeTabFilter !== undefined &&
-            (activeTabFilter === "Open" || activeTabFilter === "Partial")){
-            filteredOrders = orders.filter(function(i) {
-                return i.deliveryStatus === activeTabFilter;
-            })
-            if (filteredOrders.length > 0){
-                this.setResultsState(filteredOrders)
-            } else {
-                this.setNoResultsState()
-            }
-        } else {
-            this.setResultsState(filteredOrders)
-        }
-    }
-
     retrieveData = async (fromDate, toDate,  poNumber, orderNumber, activeTabFilter) => {
         const OrderHistoryServiceObj = new OrderHistoryService();
         const orders = await OrderHistoryServiceObj.getOrderListPost(fromDate, toDate, poNumber, orderNumber);
 
         if(orders.length > 0){
-            this.filterOrderStatus(orders, activeTabFilter)
+            let filteredOrders = orders;
+            if (activeTabFilter !== "All" && activeTabFilter !== undefined &&
+                (activeTabFilter === "Open" || activeTabFilter === "Partial")){
+                filteredOrders = orders.filter(function(i) {
+                    return i.deliveryStatus === activeTabFilter;
+                })
+                if (filteredOrders.length > 0){
+                    this.setResultsState(filteredOrders)
+                } else {
+                    this.setNoResultsState()
+                }
+            } else {
+                this.setResultsState(filteredOrders)
+            }
         } else {
             this.setNoResultsState()
         } 
