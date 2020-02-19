@@ -22,7 +22,7 @@ class ErrorBoundary extends React.Component {
                 const notifications = document.querySelectorAll(
                     '.cmp-notification--dynamic[class*=cmp-notification--]'
                 );
-                [...notifications].forEach(notification => {
+                Array.from(notifications).forEach(notification => {
                     if (notification) {
                         notification.classList.remove('error');
                     }

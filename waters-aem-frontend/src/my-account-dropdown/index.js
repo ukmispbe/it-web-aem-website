@@ -9,6 +9,7 @@ import MyAccountContainer from './my-account-container';
 import loginStatus from '../scripts/loginStatus';
 import UserDetailsLazy from '../my-account/services/UserDetailsLazy';
 import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
+import SessionStore from '../stores/sessionStore';
 
 const myAccountModalTheme = 'my-account-dropdown';
 class MyAccountDropDown extends React.Component {
@@ -17,21 +18,21 @@ class MyAccountDropDown extends React.Component {
         
         this.state = {
             isShown: false,
-            isMobile: ScreenSizes.isMobile()
+            isMobile: ScreenSizes.isMobile(),
+            config: {
+                ... this.props.config, 
+                loginState: loginStatus.state(),
+                userDetails: {
+                    userName: '',
+                    accountName: '',
+                    accountNumber: ''
+                }
+            }
         };
 
         this.accountHeaderUser = null;
         this.allNavItems = null;
         this.header = null;
-
-        this.newConfig = Object.assign({}, this.props.config, {
-            loginState: loginStatus.state(),
-            userDetails: {
-                userName: '',
-                accountName: '',
-                accountNumber: ''
-            }
-        });
     }
 
     componentDidMount() {
@@ -177,38 +178,63 @@ class MyAccountDropDown extends React.Component {
     }
 
     retrieveUserDetails = async () => {
+        const userDetails = await UserDetailsLazy(this.props.config.userDetailsUrl);
         const soldToDetails = await SoldToDetailsLazy(this.props.config.soldToDetailsUrl);
 
-        if (soldToDetails.length !== 0) {
-            const priorityAccount = soldToDetails[0];
+        const userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
+        const priorityAccount = soldToDetails.length !== 0 ? soldToDetails[0] : {};
+        const accountName = priorityAccount.company ? `${priorityAccount.company} ` : '';
+        const accountNumber = priorityAccount.soldTo ? priorityAccount.soldTo : '';
 
-            if (priorityAccount.company) {
-                this.newConfig.userDetails.accountName = priorityAccount.company + ' ';
+        this.setState({
+            ... this.state,
+            config: {
+                ... this.props.config,
+                loginState: loginStatus.state(),
+                userDetails: {
+                    userName,
+                    accountName,
+                    accountNumber
+                }
             }
+        });
+    }
 
-            if (priorityAccount.soldTo) {
-                this.newConfig.userDetails.accountNumber = priorityAccount.soldTo;
-            }
+    getConfig = () => {
+        if (this.state.config.userDetails.userName || !loginStatus.state()) {
+            return this.state.config;
         }
 
-        const userDetails = await UserDetailsLazy(this.props.config.userDetailsUrl);
+        const store = new SessionStore();
+        const userDetails = store.getUserDetails();
+        const soldToDetails = store.getSoldToDetails();
 
-        if (userDetails.firstName && userDetails.lastName) { 
-            this.newConfig.userDetails.userName = userDetails.firstName + ' ' + userDetails.lastName;
+        const userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
+        const priorityAccount = soldToDetails && soldToDetails.length !== 0 ? soldToDetails[0] : {};
+        const accountName = priorityAccount.company ? `${priorityAccount.company} ` : '';
+        const accountNumber = priorityAccount.soldTo ? priorityAccount.soldTo : '';
+
+        return {
+            ... this.props.config, 
+            loginState: loginStatus.state(),
+            userDetails: {
+                userName,
+                accountName,
+                accountNumber
+            }
         }
     }
 
     render() {
-
         return (
             <>
                 {this.state.isMobile ? (
                     <Modal isOpen={this.state.isShown} className={keys.ModalWithSiteNavOnMobile} onClose={this.toggleModal}>
-                        <Header title={this.newConfig.title} />
-                        <MyAccountContainer config={this.newConfig} />
+                        <Header title={this.state.config.title} />
+                        <MyAccountContainer config={this.getConfig()} />
                     </Modal>
                 ) : (
-                    <MyAccountContainer config={this.newConfig} />
+                    <MyAccountContainer config={this.getConfig()} />
                 )}
             </>
         )

@@ -6,8 +6,10 @@ export default (fetchEndPoint, type, icon) => {
     const [data, setData] = useState();
     const [tiles, setTiles] = useState([]);
 
-    useEffect(async () => {
-        setData(await UserDetailsLazy(fetchEndPoint));
+    useEffect(() => {
+        UserDetailsLazy(fetchEndPoint).then(response => {
+            setData(response);
+        });
     }, []);
 
     useEffect(() => {

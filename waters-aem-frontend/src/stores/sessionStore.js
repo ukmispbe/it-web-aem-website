@@ -7,6 +7,7 @@ const keys = {
     dismissSystemWideNotification: 'waters.dismissSystemWideNotification',
     userDetails: 'waters.userDetails',
     soldToDetails: 'waters.soldToDetails',
+    continue: 'waters.continue'
 }
 
 
@@ -23,6 +24,7 @@ const getJSONArray = key => {
 const SessionStore = function () {
     this.setSoldToDetails = value => window.sessionStorage.setItem(keys.soldToDetails, JSON.stringify(value));
     this.getSoldToDetails = () => getJSONArray(keys.soldToDetails);
+    this.removeSoldToDetails = () => window.sessionStorage.removeItem(keys.soldToDetails);
     this.setUserDetails = value => window.sessionStorage.setItem(keys.userDetails, JSON.stringify(value));
     this.getUserDetails = () => getJSONObject(keys.userDetails);
     this.removeUserDetails = () => window.sessionStorage.removeItem(keys.userDetails);
@@ -43,6 +45,9 @@ const SessionStore = function () {
     this.removePreviousPaginationClick = () => window.sessionStorage.removeItem(keys.previousPaginationClick);
     this.setDismissSystemWideNotification = () => window.sessionStorage.setItem(keys.dismissSystemWideNotification, "Y");
     this.getDismissSystemWideNotificatiopn =() => window.sessionStorage.getItem(keys.dismissSystemWideNotification);
+    this.setContinueLink = value => window.sessionStorage.setItem(keys.continue, value)
+    this.getContinueLink = () => window.sessionStorage.getItem(keys.continue);
+    this.removeContinueLink = () => window.sessionStorage.removeItem(keys.continue);
 }
 
 export default SessionStore;

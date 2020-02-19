@@ -24,9 +24,6 @@ const Modal = props => {
     }), []);
 
     const handleModalKeyDown = event => {
-        event.stopPropagation();
-        event.preventDefault();
-        
         const keyCode = event.keyCode || event.which || event.key;
         const escapeEntered = keyCode === 27;
         const isModalOpen = document.querySelector(".cmp-modal-box");
