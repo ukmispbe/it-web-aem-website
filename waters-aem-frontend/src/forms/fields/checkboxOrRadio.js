@@ -4,7 +4,7 @@ import ReactSVG from 'react-svg';
 import { useFormApi, useFieldApi } from '../form';
 import { useErrorsContext } from './utils/stateWatcher';
 
-const CheckboxOrRadio = ({}) => {
+const CheckboxOrRadio = ({ }) => {
     let {
         name,
         label,
@@ -17,18 +17,8 @@ const CheckboxOrRadio = ({}) => {
         description,
         initialState
     } = useContext(useFieldApi);
-    const { register, setValue } = useContext(useFormApi);
-    
-    // console.log('name,label,options,disabled,icons,config,validation,type,description,initialState',
-    //         name,label,options,disabled,icons,config,validation,type,description,initialState);
-    // console.log('register, setValue', register, setValue);
-    // console.log('config', config);
 
-    // options = config.fields[1].options;
-    // console.log("CheckboxOrRadio")
-    // if (config.fields[1].options) {
-    //     console.log("config.fields[1].options.length", config.fields[1].options.length)      
-    // }
+    const { register, setValue } = useContext(useFormApi);
 
     const errors = useErrorsContext();
 
@@ -49,8 +39,8 @@ const CheckboxOrRadio = ({}) => {
                         isChecked: false,
                         required:
                             validation &&
-                            validation.validateFnName &&
-                            option.required
+                                validation.validateFnName &&
+                                option.required
                                 ? true
                                 : false,
                         description: option.description
@@ -65,13 +55,11 @@ const CheckboxOrRadio = ({}) => {
         }
     });
 
-    console.log("state", state);
-
     const checkHandler = (event, thisName) => {
         if (!disabled) {
             const thisState = state[thisName];
 
-            if (options && type ==="radio") {
+            if (config.getRadioOptions && options) {
                 for (let key of Object.keys(state)) {
                     if (key === thisName) {
                         state[key].isChecked = true;
@@ -79,9 +67,9 @@ const CheckboxOrRadio = ({}) => {
                     else {
                         state[key].isChecked = false;
                     }
-                    setValue(key, state[key].isChecked, state[key].required);               
+                    setValue(key, state[key].isChecked, state[key].required);
                 }
-                setState({...state});
+                setState({ ...state });
                 return;
             }
 
@@ -152,8 +140,8 @@ const CheckboxOrRadio = ({}) => {
                     {type == 'checkbox' ? (
                         <ReactSVG src={icons.checkmarkIcon} />
                     ) : (
-                        <div className="selector"></div>
-                    )}
+                            <div className="selector"></div>
+                        )}
                 </a>
                 <div
                     className={
@@ -176,27 +164,33 @@ const CheckboxOrRadio = ({}) => {
             </>
         );
     };
-
-    return !options ? (
-        renderType(name, label)
-    ) : (
-        <div id={name} className={`cmp-form-field-${type}--grouping`}>
-            {options.map((option, i) => {
-                return (
-                    <>
-                    <div style={{paddingTop: "10px"}} 
-                        className={`cmp-form-field-${type}--grouping-item`}
-                        key={`${type}-${name}-grouping-${i}`}
-                    >
-                        {renderType(option.name, option.label)}                                 
-                    </div>
-                    {option.accountStreet && <div style={{paddingLeft: "24px", lineHeight: "16px"}}>{option.accountStreet}</div>}
-                    {option.accountCity && <div style={{paddingLeft: "24px"}}>{option.accountCity + ", " + option.accountZip}</div>}
-                    </>
-                );
-            })}
-        </div>
-    );
+    try {
+        return !options ? (
+            renderType(name, label)
+        ) : (
+                <div id={name} className={`cmp-form-field-${type}--grouping`}>
+                    {options.map((option, i) => {
+                        return (
+                            <>
+                                <div style={{ paddingTop: "10px" }}
+                                    className={`cmp-form-field-${type}--grouping-item`}
+                                    key={`${type}-${name}-grouping-${i}`}
+                                >
+                                    {renderType(option.name, option.label)}
+                                </div>
+                                {option.accountStreet && 
+                                    <div className={`cmp-form-field-${type}--address1`}>{option.accountStreet}</div>}
+                                {option.accountCity && 
+                                    <div className={`cmp-form-field-${type}--address2`}>{option.accountCity + ", " + option.accountZip}</div>}
+                            </>
+                        );
+                    })}
+                </div>
+            );    
+    } catch (error) {
+        console.log("error ", error);
+    }
+ 
 };
 
 export default React.memo(CheckboxOrRadio);
