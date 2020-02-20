@@ -110,10 +110,11 @@ const Form = ({
     const [newConfig, setNewConfig] = useState();
 
     useEffect(() => {
+        if (!config.getRadioOptions) { 
+            return;
+        }
 
-        const getDynamicRadioOptions = async () => {
-            const resp = await retrieveData(config.optionsEndpoint);
-
+        retrieveData(config.optionsEndpoint).then(resp => {
             const tempArray = resp.map((item) => {
                 let tempOption = {};
                 tempOption.name = item.soldTo;
@@ -128,14 +129,10 @@ const Form = ({
             config.fields[1].options = tempArray;
             // PB Setting newConfig to triiger a reload
             setNewConfig(config);
+        });
+    }, []);
 
-        }
-
-        if (config.getRadioOptions) {
-            getDynamicRadioOptions();
-        }
-
-
+    useEffect(() => {
         for (let name in errorUpdates) {
             if (errors[name]) {
                 errors[name].ref = errorUpdates[name];
@@ -143,7 +140,7 @@ const Form = ({
 
             delete errorUpdates[name];
         }
-    }, [errorUpdates, errors, config]);
+    }, [errorUpdates, errors]);
 
     const newError = useCallback(
         (name, type, msg, ref) => {
