@@ -37,12 +37,14 @@ $color-link-hover: $color-blue-70;
 $color-link-visited: $color-blue-70;
 $color-disabled: $color-gray-40;
 $color-accent: $color-teal-30;
+$color-border-light: $color-gray-20;
 $color-border-medium: $color-gray-30;
 $color-border-dark: $color-gray-40;
-$color-border-rule: $color-gray-20;
 $color-border-accent: $color-teal-30;
 $color-background-light: $color-gray-10;
 $color-background-dark: $color-gray-50;
+$color-background-accent-primary: $color-blue-50;
+$color-background-accent-secondary: $color-teal-50;
 $color-icon: $color-gray-50;
 $color-success: $color-teal-30;
 $color-error: $color-red-50;
@@ -165,14 +167,22 @@ $border-radius: 4px;
 }
 
 // Borders
-$border-dotted: 4px dotted $color-gray-20;
-$border-light: 1px solid $color-white;
+$border-white: 1px solid $color-white;
+$border-empty: 4px solid $color-gray-10;
+$border-divider-small: 1px solid $color-border-medium;
+$border-divider-large: 4px solid $color-border-light;
 $border-medium: 1px solid $color-border-medium;
 $border-dark: 1px solid $color-border-dark;
 $border-accent: 2px solid $color-border-accent;
-$border-rule: 1px solid $color-border-rule;
+$border-rule: 1px solid $color-border-light;
 $border-selected: 3px solid $color-gray-50;
 $border-focus: 2px solid $color-focus;
 $border-link: 1px solid $color-link;
+$border-link-hover: 1px solid $color-link-hover;
 $border-error: 1px solid $color-error;
 $border-disabled: 1px solid $color-disabled;
+
+// Images
+$thumbnail-s: 75px;
+$thumbnail-m: 150px;
+$thumbnail-l: 192px;

@@ -412,7 +412,7 @@
             display: none;
 
             &:checked ~ .checkbox {
-                border: 1px solid $color-background-dark;
+                border: $border-dark;
                 background-color: $color-background-dark;
                 svg {
                     display: block;

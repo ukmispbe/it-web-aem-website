@@ -53,7 +53,7 @@
 
         a.filter-toggle {
             @include font-utility;
-            border-top: $border-rule;
+            border-top: $border-medium;
             display: block;
             background-color: $color-white;
             padding: $space-xs $space-s $space-xs 0;
@@ -140,7 +140,7 @@
                     border: $border-link;
                 }
                 &.checked {
-                    border: 1px solid $color-background-dark;
+                    border: $border-dark;
                     background-color: $color-background-dark;
                     svg {
                         display: block;
@@ -256,10 +256,10 @@
             line-height: $line-height-text;
             display: block;
             float: left;
-            padding: ($space-xxxs - .05em) $space-xs ($space-xxxs + .05em) $space-l;
+            padding: $space-xxxs $space-xs ($space-xxxs + .05em) ($space-l - $space-xxxs);
             margin: ($space-m + 0.15em) $space-xxs ($space-s * -1) 0;
             text-decoration: none;
-            background-color: $color-gray-10;
+            background-color: $color-gray-20;
             position: relative;
             border-radius: $border-radius;
 
@@ -269,15 +269,15 @@
             }
 
             @include mobile {
+                padding: ($space-xxxs + .05em) $space-xs ($space-xxxs + .1em) ($space-l - $space-xxxs);
                 max-height: fit-content;
-                padding: ($space-xxs - .2em) $space-s ($space-xxxs + .06em) $space-l;
                 margin: 0 $space-xxs $space-xxs 0;
             }
 
             svg {
                 position: absolute;
-                top: 8px;
-                left: 10px;
+                top: 9px;
+                left: 8px;
                 width: $icon-s;
                 height: $icon-s;
                 .st0 {
@@ -291,9 +291,6 @@
                 @include mobile {
                     top: 9px;
                 }
-            }
-            &:hover {
-                background-color: $color-gray-20;
             }
             &.cmp-search-filters__tags__clear {
                 color: $color-font-light;

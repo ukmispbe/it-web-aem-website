@@ -207,7 +207,7 @@
             &.no-address {
                 padding: ($space-l + $space-xxs) $space-l $space-m $space-l;
                 text-align: center;
-                border: $border-dotted;
+                border: $border-empty;
                 background-color: transparent;
                 @include font-body;
 
