@@ -33,7 +33,7 @@ const Form = ({
     if (defaultValues) {
         defaultValues.communications =
             defaultValues.communications === 'true' ||
-                defaultValues.communications === true
+            defaultValues.communications === true
                 ? true
                 : false;
     }
@@ -108,7 +108,7 @@ const Form = ({
     };
 
     const [newConfig, setNewConfig] = useState();
-    // const [flag, setFlag ] = useState(false);
+
     useEffect(() => {
 
         const getDynamicRadioOptions = async () => {
