@@ -227,22 +227,17 @@ export async function chooseAccountSubmit(data) {
         }
     }
 
-    // Save selectedAccount to store
-    console.log('selectedAccount', selectedAccount);
-
-    const response = await postData(this.url + selectedAccount, "");
+    const response = await postData(this.url + "/" + selectedAccount, "");
     const responseBody = await response.json();
-    console.log('responseBody', responseBody);
      // remove all previous server error notifications
     this.setError();
 
-    // if (response.status === 200) {
-    //     if (this.redirect) {
-    //         window.location.replace(this.redirect);
-    //     }
-    // } else {
-    //     this.setError(responseBody);
-    //     scrollToY(0);
-    // }   
-
+    if (response.status === 200) {
+        if (this.redirect) {
+            window.location.replace(this.redirect);
+        }
+    } else {
+        this.setError(responseBody);
+        scrollToY(0);
+    }   
 }

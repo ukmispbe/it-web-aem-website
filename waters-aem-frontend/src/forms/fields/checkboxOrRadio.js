@@ -70,6 +70,7 @@ const CheckboxOrRadio = ({ }) => {
                     setValue(key, state[key].isChecked, state[key].required);
                 }
                 setState({ ...state });
+                document.getElementsByClassName("cmp-button")[0].classList.remove("cmp-button--disabled");
                 return;
             }
 
