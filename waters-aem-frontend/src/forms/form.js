@@ -11,6 +11,7 @@ import { ErrorsProvider, FormStateProvider } from './fields/utils/stateWatcher';
 import DigitalData from '../scripts/DigitalData';
 import ErrorBoundary from '../search/ErrorBoundary';
 import Field from './fields';
+import { retrieveData } from '../forms/services/retrieve';
 
 const FormApi = createContext(null);
 FormApi.displayName = 'FormApi';
@@ -106,6 +107,31 @@ const Form = ({
         config.fields = [...fields];
     };
 
+    const [newConfig, setNewConfig] = useState();
+
+    useEffect(() => {
+        if (!config.getRadioOptions) { 
+            return;
+        }
+
+        retrieveData(config.optionsEndpoint).then(resp => {
+            const tempArray = resp.map((item) => {
+                let tempOption = {};
+                tempOption.name = item.soldTo;
+                tempOption.label = item.company;
+                tempOption.accountStreet = item.partnerAddress[0].street;
+                tempOption.accountCity = item.partnerAddress[0].city;
+                tempOption.accountZip = item.partnerAddress[0].postalCd;
+                return tempOption;
+            });
+
+            config.options = tempArray;
+            config.fields[1].options = tempArray;
+            // PB Setting newConfig to triiger a reload
+            setNewConfig(config);
+        });
+    }, []);
+
     useEffect(() => {
         for (let name in errorUpdates) {
             if (errors[name]) {
@@ -160,54 +186,62 @@ const Form = ({
                     ? defaultValues[field.name]
                     : undefined
             }),
-            [field, field.active]
+            [field, field.active, newConfig]
         );
+
         return (
             <FieldApi.Provider value={getFieldApi} key={`field-${i}`}>
                 <Field />
             </FieldApi.Provider>
         );
     });
-    return (
-        <form
-            className="cmp-form cmp-form--registration"
-            onSubmit={handleSubmit(
-                submitFn.bind({
-                    url: config.submitEndpoint,
-                    setError: submitErrorHandler,
-                    redirect: config.redirectUrl,
-                    passwordUpdateUrl: config.passwordUpdateUrl,
-                    callback: callback,
-                    updateFailedAttempts: updateFailedAttempts,
-                    setProfileData: setProfileData
-                })
-            )}
-        >
-            <FormApi.Provider value={getApi}>
-                <FormStateProvider watch={formState}>
-                    <ErrorsProvider watch={errors}>{fields}</ErrorsProvider>
-                </FormStateProvider>
-            </FormApi.Provider>
-            <button
-                type="submit"
-                className={
-                    'cmp-button cmp-button--no-border cmp-form--submit' +
-                    (checkIfDisabled() ? ' cmp-button--disabled' : '')
-                }
-                disabled={checkIfDisabled()}
+
+    if (config.getRadioOptions && !config.options) {
+        return null;
+    }
+    else {
+        return (
+            <form
+                className="cmp-form cmp-form--registration"
+                onSubmit={handleSubmit(
+                    submitFn.bind({
+                        url: config.submitEndpoint,
+                        setError: submitErrorHandler,
+                        redirect: config.redirectUrl,
+                        passwordUpdateUrl: config.passwordUpdateUrl,
+                        callback: callback,
+                        updateFailedAttempts: updateFailedAttempts,
+                        setProfileData: setProfileData
+                    })
+                )}
             >
-                {config.buttonText}
-            </button>
-            {config.cancelText && !!cancelHandler && (
-                <a
-                    className="cmp-button cmp-button--cancel"
-                    onClick={cancelHandler}
+                <FormApi.Provider value={getApi}>
+                    <FormStateProvider watch={formState}>
+                        <ErrorsProvider watch={errors}>{fields}</ErrorsProvider>
+                    </FormStateProvider>
+                </FormApi.Provider>
+                <button
+                    type="submit"
+                    className={
+                        'cmp-button cmp-button--no-border cmp-form--submit' +
+                        (checkIfDisabled() ? ' cmp-button--disabled' : '')
+                    }
+                    disabled={checkIfDisabled()}
                 >
-                    {config.cancelText}
-                </a>
-            )}
-        </form>
-    );
+                    {config.buttonText}
+                </button>
+                {config.cancelText && !!cancelHandler && (
+                    <a
+                        className="cmp-button cmp-button--cancel"
+                        onClick={cancelHandler}
+                    >
+                        {config.cancelText}
+                    </a>
+                )}
+            </form>
+        );
+    }
+
 };
 
 const ErrorBoundaryForm = props => (

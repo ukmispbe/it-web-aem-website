@@ -395,6 +395,16 @@
                 display: flex;
             }
 
+            &--address1 {
+                display: flex;
+                padding-left: 24px;
+            }
+
+            &--address2 {
+                display: flex;
+                padding-left: 24px;
+            }
+
             &--wrapper {
                 &.disabled {
                     label {

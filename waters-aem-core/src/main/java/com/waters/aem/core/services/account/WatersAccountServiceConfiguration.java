@@ -44,4 +44,7 @@ public @interface WatersAccountServiceConfiguration {
 
     @AttributeDefinition(name = "Sign Out  Endpoint", description = "The Endpoint for the Sign Out API")
     String signOutEndpoint() default "https://test-www.waters.com:8443/api/waters/user/v1/logout";
+
+    @AttributeDefinition(name = "Choose Account Endpoint", description = "The Endpoint for the Choose Account API")
+    String chooseAccountEndpoint() default "https://test-www.waters.com:8443/api/waters/user/v1/switchaccount";
 }

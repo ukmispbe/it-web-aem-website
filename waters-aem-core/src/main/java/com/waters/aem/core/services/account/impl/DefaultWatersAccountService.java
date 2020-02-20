@@ -37,6 +37,10 @@ public class DefaultWatersAccountService implements WatersAccountService {
 
     private volatile String signOutEndpoint;
 
+    private volatile String changeAccountEndpoint;
+
+    private volatile String soldToEndpoint;
+
     @Override
     public String getSignOutUrl() {
         return signOutUrl;
@@ -102,6 +106,11 @@ public class DefaultWatersAccountService implements WatersAccountService {
         return signOutEndpoint;
     }
 
+    @Override
+    public String getChooseAccountEndpoint() {
+        return changeAccountEndpoint;
+    }
+
     @Activate
     @Modified
     protected void activate(final WatersAccountServiceConfiguration configuration) {
@@ -118,5 +127,6 @@ public class DefaultWatersAccountService implements WatersAccountService {
         updateProfileUrl = configuration.updateProfileUrl();
         signInEndpoint = configuration.signInEndpoint();
         signOutEndpoint = configuration.signOutEndpoint();
+        changeAccountEndpoint = configuration.chooseAccountEndpoint();
     }
 }
