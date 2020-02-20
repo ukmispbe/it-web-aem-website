@@ -178,7 +178,7 @@ const Form = ({
     };
 
     const fields = config.fields.map((field, i) => {
-        let getFieldApi = useMemo(
+        const getFieldApi = useMemo(
             () => ({
                 ...config,
                 config,
