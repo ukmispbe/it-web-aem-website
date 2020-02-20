@@ -4,13 +4,10 @@
         display: flex;
         justify-content: center;
         background-color: $color-background-light;
+        border: $border-light;
         border-radius: $border-radius;
         padding: $space-s;
         margin-bottom: $space-l;
-
-        @include mobile {
-            padding: $space-m;
-        }
 
         svg {
             display: inline-block;
@@ -20,20 +17,6 @@
             margin-top: 0.1em;
             .st0 {
                 stroke: $color-icon;
-            }
-
-            @include mobile {
-                margin-bottom: $space-xxs;
-                padding-right: 0;
-            }
-        }
-
-        @include mobile {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            svg {
-                height: $icon-l;
             }
         }
     }
@@ -55,14 +38,6 @@
         padding-left: $space-xxxs;
     }
 
-    &-body {
-        @include mobile {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-    }
-
     &-description {
         display: inline;
         text-align: center;
@@ -73,12 +48,6 @@
         font-weight: $font-weight-regular;
         padding-right: $space-xxxs;
         display: inline;
-
-        @include mobile {
-            padding-right:0;
-            text-align: center;
-            margin-bottom: $space-xxs;
-        }
     }
 
     &-links {
@@ -87,11 +56,6 @@
         padding-left: $space-xxxs;
         li {
             display: inline;
-        }
-
-        @include mobile {
-            display: block;
-            margin-top: $space-s;
         }
     }
 }
@@ -208,6 +172,22 @@
         background-color: transparent;
         border-top: 1px solid $color-border-accent;
         border-bottom: 1px solid $color-border-accent;
+    }
+}
+
+.cmp-notification--inline {
+    .cmp-notification-wrapper {
+        padding: ($space-xxs - .1em) $space-xxs $space-xxs $space-xxs;
+        justify-content: left;
+        @include mobile {
+            padding: $space-xs;
+        }
+    }
+    .cmp-notification-description {
+        @include font-small;
+    }
+    .cmp-notification-title {
+        @include font-small;
     }
 }
 
