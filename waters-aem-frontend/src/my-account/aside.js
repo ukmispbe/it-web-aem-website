@@ -29,7 +29,16 @@ const Tile = ({tile, pathname}) => {
         <div className="tile">
             <div className="tile__title">{tile.title}</div>
             <div className="tile__links">
-                {tile.links.map(link => linkIsActive(pathname, link.url) ? <ActiveLink key={link.text} text={link.text} /> : <HyperLink key={link.text} link={link} />)}
+                {tile.links.map(link => {
+                        if( !link.isHidden ) {
+                            if(linkIsActive(pathname, link.url)) {
+                                    return <ActiveLink key={link.text} text={link.text} />
+                            } else {
+                                return <HyperLink key={link.text} link={link} />
+                            }
+                        }
+                    }
+                )}
             </div>
         </div>
     );

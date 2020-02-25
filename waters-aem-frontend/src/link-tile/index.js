@@ -16,7 +16,9 @@ const LinkTile = ({
             <div className="cmp-linktile--title">{title}</div>
             {links.map((link, key) => (
                 <div key={key} className="cmp-linktile--links">
-                    <Link {...link} />
+                    {!link.isHidden &&
+                        <Link {...link} />
+                    }
                 </div>
             ))}
         </div>
