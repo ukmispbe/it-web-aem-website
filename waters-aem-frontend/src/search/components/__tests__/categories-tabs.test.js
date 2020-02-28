@@ -1,3 +1,5 @@
+jest.mock('../../../scripts/fade-x');
+
 import React from 'react';
 import { shallow } from 'enzyme';
 import CategoriesTabs from '../categories-tabs';
@@ -23,11 +25,13 @@ describe('Feature: CategoriesTabs React Component', () => {
                 props.items = [
                     {
                         name: 'Tab1',
+                        translation: 'Tab Uno',
                         count: 1,
                         isActive: false
                     },
                     {
                         name: 'Tab2',
+                        translation: 'Tab Dos',
                         count: 2,
                         isActive: false
                     }
@@ -44,16 +48,19 @@ describe('Feature: CategoriesTabs React Component', () => {
                 props.items = [
                     {
                         name: 'Tab1',
+                        translation: 'Tab Uno',
                         count: 1,
                         isActive: false
                     },
                     {
                         name: 'Tab2',
+                        translation: 'Tab Dos',
                         count: 2,
                         isActive: false
                     },
                     {
-                        name: 'Tab2',
+                        name: 'Tab3',
+                        translation: 'Tab Tres',
                         count: 0,
                         isActive: false
                     }
@@ -65,5 +72,47 @@ describe('Feature: CategoriesTabs React Component', () => {
                 expect(tabs.length).toEqual(expected);
             });
         });
+    });
+
+    describe('Scenario: Fading Tabs', () => {
+        describe('When tabs are rendered', () => {
+            it('Then it should add an event listener for scrolling tabs horizontal', () => {
+                const current = {
+                    addEventListener: jest.fn()
+                };
+
+                const spyOnEventListener = spyOn(current, 'addEventListener');
+
+                React.useRef = jest.fn(() => {
+                    return {
+                        current
+                    };
+                });
+
+                const spyOnUserEffect = jest.spyOn(React, 'useEffect').mockImplementation(f => f());
+
+                shallow(<CategoriesTabs {...props} />);
+
+                expect(spyOnEventListener).toHaveBeenCalled();
+
+                spyOnUserEffect.mockRestore();
+            });
+        }); 
+
+        describe('When tabs are not rendered', () => {
+            it('Then it should still render an empty list', () => {
+                React.useRef = jest.fn(() => {
+                    return null;
+                });
+                
+                const spyOnUserEffect = jest.spyOn(React, 'useEffect').mockImplementation(f => f());
+                const mockProps = {...props, items: []};
+                const wrapper = shallow(<CategoriesTabs {...mockProps} />);
+                
+                expect(wrapper.exists()).toEqual(true);
+
+                spyOnUserEffect.mockRestore();
+            });
+        }); 
     });
 });

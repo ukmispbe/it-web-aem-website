@@ -1,0 +1,53 @@
+.facet-menu-container {
+    margin-top: $space-l;
+
+    @include tablet-and-under {
+        margin-top: $space-l;
+    }
+}
+
+.facet-menu-container__heading {
+    display: flex;
+    flex-flow: wrap;
+
+    .heading--with-selected-value {
+        width: 100%;
+    }
+
+    .back-btn {
+        display: flex;
+        flex-flow: wrap;
+        width: 100%;
+        padding-bottom: $space-s;
+        margin-left: -4px;
+
+        a {
+            div{
+                display: inline-block;
+                float: left;
+            }
+
+            &:hover,
+            &:focus {
+                color: $color-link-hover;
+                text-decoration: underline;
+
+                svg .st0 {
+                    stroke: $color-link-hover;
+                }
+            }
+        }
+    }
+
+    svg {
+        position: relative;
+        top: 3px;
+        width: $icon-s;
+        height: $icon-s;
+        margin-right: $space-xxxs;
+
+        .st0 {
+            stroke: $color-link;
+        }
+    }
+}

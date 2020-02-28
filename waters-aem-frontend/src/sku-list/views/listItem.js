@@ -6,7 +6,7 @@ import SkuService from '../../sku-details/services';
 import AddToCart from '../../sku-details/views/addToCart';
 import { Modal } from '../../modal/index';
 import LoginStatus from '../../scripts/loginStatus';
-import SkuMessage from '../../sku-shared/views/SkuMessage';
+import SkuMessage from '../../sku-message';
 import CheckOutStatus from '../../scripts/checkOutStatus';
 import Ecommerce from '../../scripts/ecommerce';
 import domElements from '../../scripts/domElements';
@@ -71,15 +71,15 @@ class ListItem extends React.Component {
     toggleModal = () => {
         this.setState({ modalShown: !this.state.modalShown }, () => {
 
-            if (SkuDetails.exists()) { 
-                if (!this.state.modalShown) { 
+            if (SkuDetails.exists()) {
+                if (!this.state.modalShown) {
                     //Firefox bug -->
-                    //if on a sku page and the modal was just open, make call to check wether to stick again
+                    //if on a sku page and the modal was just open, make call to check whether to stick again
                     //this will unstick the current element if necessary
                     const SKUDetailsSticky = Sticky.findStickyEl(SkuDetails.element);
-                    if (SKUDetailsSticky) { 
+                    if (SKUDetailsSticky) {
                         Sticky.conditionsToStick(SKUDetailsSticky);
-                    }                
+                    }
                 }
             }
 
@@ -101,7 +101,7 @@ class ListItem extends React.Component {
                         ...this.state.analyticsConfig,
                         ...response
                     }
-                }, () => { 
+                }, () => {
                         this.checkAvailabilityAnalytics();
                 });
 
@@ -113,7 +113,7 @@ class ListItem extends React.Component {
             });
     };
 
-    checkAvailabilityAnalytics = () => {   
+    checkAvailabilityAnalytics = () => {
         const availabilityModel = {
             name: this.state.analyticsConfig.name,
             price: this.state.analyticsConfig.price,
@@ -122,8 +122,8 @@ class ListItem extends React.Component {
 
         if (this.state.analyticsConfig.hasOwnProperty('availableDate')) {
             availabilityModel.stockDate = this.state.analyticsConfig.availableDate;
-        }   
-        
+        }
+
         if (this.state.analyticsConfig.hasOwnProperty('availableQuantity')) {
             availabilityModel.stockQuantity = this.state.analyticsConfig.availableQuantity.toString();
         }
@@ -279,14 +279,14 @@ class ListItem extends React.Component {
         const buyInfo = this.renderBuyInfo();
         const breadcrumbs = this.renderBreadcrumb();
         const disabledClass = this.isDisabled() ? 'disabled' : '';
-
+        const imageAltLabel = this.props.relatedSku.primaryImageAlt ? this.props.relatedSku.primaryImageAlt : this.props.relatedSku.title;
         return (
             <div className={'cmp-sku-list__container ' + disabledClass}>
                 <div className="cmp-sku-list__right">
                     {this.props.relatedSku.primaryImageThumbnail && (
                         <img
                             src={this.props.relatedSku.primaryImageThumbnail}
-                            alt={this.props.relatedSku.primaryImageAlt}
+                            alt={imageAltLabel}
                         />
                     )}
                 </div>

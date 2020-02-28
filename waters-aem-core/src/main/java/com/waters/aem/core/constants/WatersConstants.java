@@ -41,7 +41,7 @@ public final class WatersConstants {
 
     public static final String TEMPLATE_CATALOG_PAGE = "/conf/waters/settings/wcm/templates/catalog-page";
 
-    public static final String TEMPLATE_CATEGORY_PAGE = "/conf/waters/settings/wcm/templates/section-page";
+    public static final String TEMPLATE_CATEGORY_PAGE = TEMPLATE_REDIRECT_PAGE;
 
     public static final String TEMPLATE_SKU_PAGE = "/conf/waters/settings/wcm/templates/sku-page";
 
@@ -85,6 +85,8 @@ public final class WatersConstants {
     public static final String OG_IMAGE = "ogImage";
 
     public static final String SEARCH_PAGE_PATH = ROOT_PATH_LANGUAGE_MASTERS + "/en/search.html";
+
+    public static final String DEFAULT_ROLLOUT_CONFIG_PATH = "/etc/msm/rolloutconfigs/default";
 
     private WatersConstants() {
 

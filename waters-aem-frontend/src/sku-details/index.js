@@ -10,7 +10,7 @@ import AddToCart from "./views/addToCart";
 import FeedbackSurvey from "../scripts/feedbackSurvey";
 import LoginStatus from "../scripts/loginStatus";
 import CheckOutStatus from "../scripts/checkOutStatus";
-import SkuMessage from "../sku-shared/views/SkuMessage";
+import SkuMessage from "../sku-message";
 import Ecommerce from "../scripts/ecommerce";
 import { mainCartContext } from "../scripts/analytics";
 

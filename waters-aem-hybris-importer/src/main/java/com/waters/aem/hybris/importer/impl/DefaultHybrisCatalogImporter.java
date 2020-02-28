@@ -4,6 +4,11 @@ import com.day.cq.commons.DownloadResource;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.WCMException;
+import com.day.cq.wcm.msm.api.LiveRelationship;
+import com.day.cq.wcm.msm.api.LiveRelationshipManager;
+import com.day.cq.wcm.msm.api.RolloutConfig;
+import com.day.cq.wcm.msm.api.RolloutConfigManager;
+import com.day.cq.wcm.msm.api.RolloutManager;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
@@ -15,6 +20,7 @@ import com.waters.aem.core.commerce.services.SkuRepository;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.SiteRepository;
 import com.waters.aem.core.utils.LocaleUtils;
+import com.waters.aem.core.utils.Templates;
 import com.waters.aem.core.utils.TextUtils;
 import com.waters.aem.hybris.client.HybrisClient;
 import com.waters.aem.hybris.constants.HybrisImporterConstants;
@@ -84,7 +90,12 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     @Reference
     private SiteRepository siteRepository;
 
+    @Reference
+    private RolloutManager rolloutManager;
+
     private volatile String catalogRootPath;
+
+    private volatile boolean generateLiveCopies;
 
     @Override
     public List<HybrisImporterResult> importCatalogPages() {
@@ -136,6 +147,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     @Modified
     protected void modified(final HybrisCatalogImporterConfiguration configuration) {
         catalogRootPath = configuration.catalogRootPath();
+        generateLiveCopies = configuration.generateLiveCopies();
     }
 
     private void checkImporterNamespace() throws RepositoryException, LoginException {
@@ -299,6 +311,11 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         if (status != null) {
             updateSkuPageProperties(skuPage, sku);
             createOrUpdateThumbnail(context.getResourceResolver(), sku, skuPage);
+
+            // create live copies if flag is set
+            if (generateLiveCopies) {
+                results.addAll(importLiveCopyPages(skuPage, pageManager.getPage(categoryPage.getPath()), false));
+            }
         }
 
         results.add(HybrisImporterResult.fromSkuPage(skuPage, status));
@@ -323,7 +340,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         PageDecorator page = pageManager.getPage(context.getParentPage().getPath() + "/" + name);
 
         if (page == null) {
-            page = pageManager.create(context.getParentPage().getPath(), name, WatersConstants.TEMPLATE_REDIRECT_PAGE,
+            page = pageManager.create(context.getParentPage().getPath(), name, WatersConstants.TEMPLATE_CATEGORY_PAGE,
                 category.getName(), false);
 
             LOG.info("created category page : {}", page.getPath());
@@ -344,6 +361,11 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
 
         if (status != null) {
             updateCategoryPageProperties(page, category, false);
+
+            // create live copies if flag is set
+            if (generateLiveCopies) {
+                results.addAll(importLiveCopyPages(page, context.getParentPage(), true));
+            }
         }
 
         results.add(HybrisImporterResult.fromCategoryPage(page, status));
@@ -399,7 +421,7 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
     }
 
     private List<HybrisImporterResult> updateCategoryPageLiveCopies(final PageDecorator categoryPage,
-        final Category category) throws URISyntaxException{
+        final Category category) throws URISyntaxException {
         final List<HybrisImporterResult> results = new ArrayList<>();
 
         for (final PageDecorator liveCopyPage : getLiveCopyPages(categoryPage)) {
@@ -429,9 +451,49 @@ public final class DefaultHybrisCatalogImporter implements HybrisCatalogImporter
         return results;
     }
 
-    private void updateCategoryPageProperties(final PageDecorator page, final Category category,
-                                              final boolean isLiveCopy)
-    throws URISyntaxException {
+    private List<HybrisImporterResult> importLiveCopyPages(final PageDecorator page, final PageDecorator parentPage,
+                                                           final boolean autoSave) throws WCMException {
+        final List<HybrisImporterResult> results = new ArrayList<>();
+
+        final ResourceResolver resourceResolver = page.getContentResource().getResourceResolver();
+
+        for (final PageDecorator liveCopyParent : siteRepository.getLiveCopyPages(parentPage)) {
+            final String pageName = page.getName();
+
+            LOG.debug("checking for existing live copy page under parent page path: {}", liveCopyParent.getPath());
+
+            if (!liveCopyParent.hasChild(pageName)) {
+                final String template = Templates.isSkuPage(page) ? WatersConstants.TEMPLATE_SKU_PAGE :
+                        WatersConstants.TEMPLATE_CATEGORY_PAGE;
+
+                final PageDecorator liveCopyPage = page.getPageManager().create(liveCopyParent.getPath(), pageName,
+                    template, page.getTitle(), false);
+
+                LOG.debug("created live copy page: {}", liveCopyPage.getPath());
+
+                if (Templates.isSkuPage(liveCopyPage)) {
+                    results.add(HybrisImporterResult.fromSkuPage(liveCopyPage, HybrisImportStatus.CREATED));
+                } else {
+                    results.add(HybrisImporterResult.fromCategoryPage(liveCopyPage, HybrisImportStatus.CREATED));
+                }
+
+                final RolloutConfig config = resourceResolver.adaptTo(RolloutConfigManager.class)
+                        .getRolloutConfig(WatersConstants.DEFAULT_ROLLOUT_CONFIG_PATH);
+
+                final LiveRelationship relation = resourceResolver.adaptTo(LiveRelationshipManager.class)
+                        .establishRelationship(page, liveCopyPage, false, false, config);
+
+                rolloutManager.rollout(resourceResolver, relation, false, autoSave);
+
+                LOG.debug("rolled out live copy page: {}", liveCopyPage.getPath());
+            }
+        }
+
+        return results;
+    }
+
+    private void updateCategoryPageProperties(final PageDecorator page, final Category category, final boolean isLiveCopy)
+        throws URISyntaxException {
         final Map<String, Object> updatedProperties = new HashMap<>();
 
         updatedProperties.put(WatersCommerceConstants.PROPERTY_ID, category.getId());

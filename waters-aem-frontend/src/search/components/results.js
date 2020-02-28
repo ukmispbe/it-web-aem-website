@@ -2,10 +2,6 @@ import React from 'react';
 import ReactSVG from 'react-svg';
 import LinesEllipsis from 'react-lines-ellipsis';
 
-// const monthNameFormatter = (date, locale = 'en-us') => {
-//     return date.toLocaleString(locale, { month: 'long' });
-// };
-
 const Result = ({ result, locale, nextIcon, onItemClick }) => {
     const thumbnail = (
         <div className="cmp-search__results-thumbnail">
@@ -53,9 +49,10 @@ const Result = ({ result, locale, nextIcon, onItemClick }) => {
 };
 
 const Results = ({ results, locale, nextIcon, onItemClick }) => {
-    const mappedResults = results.map((result, i) => {
-        return <Result result={result} locale={locale} nextIcon={nextIcon} key={i} onItemClick={onItemClick} />;
-    });
+    const mappedResults = Array.isArray(results) 
+        ? results.map((result, i) => <Result result={result} locale={locale} nextIcon={nextIcon} key={i} onItemClick={onItemClick} />) 
+        : []
+    
 
     return (
         <div className="cmp-search__results-container">
