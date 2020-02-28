@@ -56,10 +56,18 @@ const OrderDetails = ( props ) => {
                 </div>
                 <div className="cmp-order-details__order-summary">
                     <h4>Order Summary</h4>
-                    <div className="cmp-order-details__order-subtotal">Subtotal: {CurrencyFormatter.currencyFormatter(orderDetails.itemsSubTotal, userLocale, orderDetails.currencyCode)}</div>
-                    <div className="cmp-order-details__order-shipping">Shipping: {CurrencyFormatter.currencyFormatter(orderDetails.shippingAmount, userLocale, orderDetails.currencyCode)}</div>
-                    <div className="cmp-order-details__order-tax">Tax: {CurrencyFormatter.currencyFormatter(orderDetails.taxAmount, userLocale, orderDetails.currencyCode)}</div>
-                    <div className="cmp-order-details__order-total">Order Total: {CurrencyFormatter.currencyFormatter(orderDetails.orderTotal, userLocale, orderDetails.currencyCode)}</div>
+                    <div className="cmp-order-details__order-subtotal">
+                        Subtotal: {CurrencyFormatter.currencyFormatter(orderDetails.itemsSubTotal, userLocale, orderDetails.currencyCode)}
+                    </div>
+                    <div className="cmp-order-details__order-shipping">
+                        Shipping: {CurrencyFormatter.currencyFormatter(orderDetails.shippingAmount, userLocale, orderDetails.currencyCode)}
+                    </div>
+                    <div className="cmp-order-details__order-tax">
+                        Tax: {CurrencyFormatter.currencyFormatter(orderDetails.taxAmount, userLocale, orderDetails.currencyCode)}
+                    </div>
+                    <div className="cmp-order-details__order-total">
+                        Order Total: {CurrencyFormatter.currencyFormatter(orderDetails.orderTotal, userLocale, orderDetails.currencyCode)}
+                    </div>
                 </div>
 
                 <div className="cmp-order-details__order-list"></div>
