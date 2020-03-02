@@ -17,13 +17,17 @@ const OrderDetails = ( props ) => {
     const userLocale = GetLocale.getLocale();
     const url = props.config.fetchEndPoint;
     const [ orderDetails, setOrderDetails ] = useState({});
-    const [ error, setError ] = useState({});
+    const [ error, setError ] = useState(false);
+    const [ loading, setLoading ] = useState(false);
 
     useEffect(() => {
         getOrderDetails(url, id)
             .then((data) => {
                 console.log(data);
                 setOrderDetails(data);
+            })
+            .catch(error => {
+                setError(true);
             });
     }, []);
 
@@ -75,9 +79,18 @@ const OrderDetails = ( props ) => {
         )
     }
 
+    const renderErrorNotification = () => {
+        return (
+            <>
+                "Error"
+            </>
+        )
+    }
+
     return (
         <>
-            {renderOrderDetails()}
+            {error && renderErrorNotification()}
+            {!error && !loading && renderOrderDetails()}
         </>
     )
 }
