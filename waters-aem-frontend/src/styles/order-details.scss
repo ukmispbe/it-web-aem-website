@@ -6,6 +6,11 @@
             display: flex;
             flex-wrap: wrap;
 
+            @include mobile {
+                flex-direction: column;
+                flex-wrap: nowrap;
+            }
+
             h2 {
                 order: 0;
                 flex-grow: 2;
@@ -19,6 +24,10 @@
             flex-grow: 1;
             width: 50%;
             margin-bottom: $space-s;
+
+            @include mobile {
+                width: 100%;
+            }
 
             .cmp-order-details__order-number {
                 @include font-h3;
@@ -44,6 +53,10 @@
             flex-grow: 1;
             width: 40%;
             justify-content: space-between;
+
+            @include mobile {
+                width: 100%;
+            }
 
             h4 {
                 background-color: $color-background-dark;
