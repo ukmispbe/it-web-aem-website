@@ -74,8 +74,20 @@ const OrderDetails = ( props ) => {
                     </div>
                 </div>
 
-                <div className="cmp-order-details__order-list"></div>
+                {renderOrderShipmentList()}
             </div>
+        )
+    }
+
+    const renderOrderShipmentList = () => {
+        return (
+            <>
+                <div className="cmp-order-details__order-shipment-list">
+                    -------------------
+                    TO DO: Order Shipment List
+                    -------------------
+                </div>
+            </>
         )
     }
 
