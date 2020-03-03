@@ -23,6 +23,8 @@ class Product {
 
     Boolean terminated
 
+    String ean
+
     List<ProductCategory> categories = []
 
     List<Price> prices = []

@@ -38,18 +38,24 @@ public final class SearchResultsCategory {
     private List<Tag> orderedFacetTags = Collections.emptyList();
 
     public String getCategoryFacetValue() {
-        return categoryTag == null ? null : categoryTag.getTitle(siteContext.getLocale());
+        // always english
+        return categoryTag == null ? null : categoryTag.getTitle();
     }
 
     public String getCategoryFacetName() {
         return categoryTag == null ? null : SearchUtils.getSolrFacetName(categoryTag.getName());
     }
 
+    public String getCategoryFacetTranslation() {
+        return categoryTag == null ? null : categoryTag.getTitle(siteContext.getLocale());
+    }
+
     public List<Map<String, String>> getOrderedFacets() {
         return orderedFacetTags.stream()
             .map(tag -> ImmutableMap.<String, String>builder()
                 .put("facetName", SearchUtils.getSolrFacetName(tag.getName()))
-                .put("facetValue", tag.getTitle(siteContext.getLocale()))
+                .put("facetValue", tag.getTitle())
+                .put("facetTranslation", tag.getTitle(siteContext.getLocale()))
                 .build())
             .collect(Collectors.toList());
     }

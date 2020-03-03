@@ -5,7 +5,7 @@ import { createBrowserHistory } from 'history';
 import props from '../__mocks__/en_US/index';
 import data from '../services/__mocks__/data';
 import { SearchService, parameterDefaults } from '../services/index';
-import Search from '../search';
+import SearchContainer from '../search.container';
 import { shallow } from 'enzyme';
 
 const history = createBrowserHistory();
@@ -23,7 +23,7 @@ const buildService = () => {
 }
 
 const buildShallowWrapper = props => {
-    const wrapper = shallow(<Search.WrappedComponent {...props} />);
+    const wrapper = shallow(<SearchContainer.WrappedComponent {...props} />);
     return wrapper;
 };
 
