@@ -15,8 +15,12 @@
   ~ from Adobe Systems Incorporated.
   */-->
 
-<sly data-sly-use.web="/libs/granite/sightly/templates/clientlib.html"
-     data-sly-call="${ web.css @ categories='cq.experience-fragments.web'}"/>
+<sly data-sly-use.web="/libs/granite/sightly/templates/clientlib.html"/>
 
-<sly data-sly-test="${wcmmode.edit}" data-sly-call="${ web.css @ categories='waters.common'}"/>
-<sly data-sly-test="${wcmmode.edit}" data-sly-call="${ web.css @ categories='waters.site'}"/>
+<link rel="stylesheet" href="https://use.typekit.net/fko8taa.css">
+
+<sly data-sly-call="${ web.all @ categories='waters.common'}"/>
+
+<!--/* Only including CSS here for now as currently we don't need all of the site's JS loaded into the XF editor */-->
+<sly data-sly-call="${ web.css @ categories='waters.site'}"/>
+

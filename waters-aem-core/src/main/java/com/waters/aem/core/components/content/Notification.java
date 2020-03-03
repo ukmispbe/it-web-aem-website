@@ -39,6 +39,7 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+@SuppressWarnings({ "common-java:DuplicatedBlocks" })
 public class Notification implements  ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/notification";

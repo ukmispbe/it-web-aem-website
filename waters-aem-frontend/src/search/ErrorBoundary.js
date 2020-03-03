@@ -8,36 +8,43 @@ class ErrorBoundary extends React.Component {
 
     resetErrorBoundaryToFalse() {
         this.setState({
-            hasError: false,
+            hasError: false
         });
     }
 
-    removeNotification() {
+    removeNotifications() {
         this.setState(
             {
                 hasError: false,
-                hasErrored: false,
+                hasErrored: false
             },
             () => {
-                const notification = document.querySelector(
-                    '.cmp-notification--dynamic.cmp-notification--error'
+                const notifications = document.querySelectorAll(
+                    '.cmp-notification--dynamic[class*=cmp-notification--]'
                 );
-
-                notification.classList.remove('error');
+                Array.from(notifications).forEach(notification => {
+                    if (notification) {
+                        notification.classList.remove('error');
+                    }
+                });
             }
         );
     }
 
-    setErrorBoundaryToTrue() {
+    setErrorBoundaryToTrue(response) {
+
+        const status = response.hasOwnProperty('code') ? response.code : "";
         const notification = document.querySelector(
-            '.cmp-notification--dynamic.cmp-notification--error'
+            '.cmp-notification--dynamic.cmp-notification--error' + status
         );
 
-        notification.classList.add('error');
+        if (notification) {
+            notification.classList.add('error');
+        }
 
         this.setState({
             hasError: true,
-            hasErrored: true,
+            hasErrored: true
         });
     }
 
@@ -53,7 +60,7 @@ class ErrorBoundary extends React.Component {
                     setErrorBoundaryToTrue: this.setErrorBoundaryToTrue.bind(
                         this
                     ),
-                    removeNotification: this.removeNotification.bind(this),
+                    removeNotifications: this.removeNotifications.bind(this)
                 })}
             </>
         );

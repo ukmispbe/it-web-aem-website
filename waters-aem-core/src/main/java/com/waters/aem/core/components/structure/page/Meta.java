@@ -292,6 +292,7 @@ public final class Meta extends AbstractComponent {
 
     public List<HrefLangItem> getHrefLangItems() {
         return LocaleUtils.getRegionLanguagePages(currentPage).stream()
+                .filter(page -> !page.getPath().startsWith(WatersConstants.ROOT_PATH_LANGUAGE_MASTERS))
                 .map(page -> new HrefLangItem(page, externalize(page.getHref())))
                 .collect(Collectors.toList());
     }

@@ -11,18 +11,31 @@ import org.osgi.service.metatype.annotations.Designate;
 @Designate(ocd = WatersAccountServiceConfiguration.class)
 public class DefaultWatersAccountService implements WatersAccountService {
 
-    private volatile String signInUrl;
-
     private volatile String signOutUrl;
 
     private volatile String myAccountUrl;
 
     private volatile String legacySearchUrl;
 
-    @Override
-    public String getSignInUrl() {
-        return signInUrl;
-    }
+    private volatile String registrationSubmitUrl;
+
+    private volatile String emailValidationUrl;
+
+    private volatile String passwordResetUrl;
+
+    private volatile String changePasswordUrl;
+
+    private volatile String userDetailsUrl;
+
+    private volatile String soldToDetailsUrl;
+
+    private volatile String updatePasswordUrl;
+
+    private volatile String updateProfileUrl;
+
+    private volatile String signInEndpoint;
+
+    private volatile String signOutEndpoint;
 
     @Override
     public String getSignOutUrl() {
@@ -39,12 +52,71 @@ public class DefaultWatersAccountService implements WatersAccountService {
         return legacySearchUrl;
     }
 
+    @Override
+    public String getRegistrationSubmitUrl() {
+        return registrationSubmitUrl;
+    }
+
+    @Override
+    public String getEmailValidationUrl() {
+        return emailValidationUrl;
+    }
+
+    @Override
+    public String getPasswordResetUrl() {
+        return passwordResetUrl;
+    }
+
+    @Override
+    public String getChangePasswordUrl() {
+        return changePasswordUrl;
+    }
+
+    @Override
+    public String getUserDetailsUrl() {
+        return userDetailsUrl;
+    }
+
+    @Override
+    public String getSoldToDetailsUrl() {
+        return soldToDetailsUrl;
+    }
+
+    @Override
+    public String getUpdatePasswordUrl() {
+        return updatePasswordUrl;
+    }
+
+    @Override
+    public String getUpdateProfileUrl() {
+        return updateProfileUrl;
+    }
+
+    @Override
+    public String getSignInEndpoint(){
+        return signInEndpoint;
+    }
+
+    @Override
+    public String getSignOutEndpoint() {
+        return signOutEndpoint;
+    }
+
     @Activate
     @Modified
     protected void activate(final WatersAccountServiceConfiguration configuration) {
-        signInUrl = configuration.signInUrl();
         signOutUrl = configuration.signOutUrl();
         myAccountUrl = configuration.myAccountUrl();
         legacySearchUrl = configuration.legacySearchUrl();
+        registrationSubmitUrl = configuration.registrationSubmitUrl();
+        emailValidationUrl = configuration.emailValidationUrl();
+        passwordResetUrl = configuration.pwResetUrl();
+        changePasswordUrl = configuration.changePwUrl();
+        userDetailsUrl = configuration.userDetailsUrl();
+        soldToDetailsUrl = configuration.soldToDetailsUrl();
+        updatePasswordUrl = configuration.updatePwUrl();
+        updateProfileUrl = configuration.updateProfileUrl();
+        signInEndpoint = configuration.signInEndpoint();
+        signOutEndpoint = configuration.signOutEndpoint();
     }
 }

@@ -26,7 +26,7 @@ class SearchContainer extends Component {
 
         this.search = props.search;
         this.search.throwError = this.props.setErrorBoundaryToTrue;
-
+        this.buildHref = href => `${window.location.href}/page/${href}`
         this.state = this.initialState();
     }
 
@@ -239,10 +239,10 @@ class SearchContainer extends Component {
             : categories.facets.category_facet
                   .filter(category => category.value !== 0)
                   .map(category => {
-                      return { 
+                      return {
                           translation: this.findFacetTranslationProperty(this.props.filterMap, category.value),
                           name: category.value,
-                          count: category.count 
+                          count: category.count
                         };
                   });
 
@@ -551,7 +551,7 @@ class SearchContainer extends Component {
                 if (screenSizes.isTabletAndUnder()) {
                     this.collapseFilters();
                 }
-                
+
                 // reset flag to false
                 this.setState({forceCollapseFilters: false});
             }
@@ -592,7 +592,7 @@ class SearchContainer extends Component {
     getActiveFilterIndex = (contentType, filterMap, facets, facetName) => {
         const mappings = searchMapper.mapFacetGroups(contentType, filterMap, facets);
         const activeFilterIndex = (mappings && Array.isArray(mappings))
-            ? mappings.findIndex(item => item.name === facetName) 
+            ? mappings.findIndex(item => item.name === facetName)
             : this.state.activeFilterIndex;
 
         if (this.state.activeFilterIndex !== activeFilterIndex) {
@@ -711,7 +711,7 @@ class SearchContainer extends Component {
 
         query.page = 1;
         query.facets = {... newState.selectedFacets};
-        
+
         this.setState({forceCollapseFilters: true}, () => {
             this.pushToHistory(query, query.facets);
         });
@@ -774,7 +774,7 @@ class SearchContainer extends Component {
         query.content_type = contentType;
 
         query.page = 1;
-        
+
         this.setState({forceCollapseFilters: true, activeFilterIndex: -1}, () => {
             this.pushToHistory(query, query.facets);
         });
@@ -802,7 +802,7 @@ class SearchContainer extends Component {
 
     handleRemoveKeyword = () => {
         this.search.clearSessionStore();
-        
+
         const parameters = parse(window.location.search);
 
         parameters.keyword = parameterDefaults.keyword;
@@ -1000,7 +1000,7 @@ class SearchContainer extends Component {
             this.pushToHistory(searchParams, selectedFacets);
         }, 0);
     }
-    
+
     handleHideSortFilterClick = () => {
         const searchParamsStringify = JSON.stringify(this.state.searchParams);
         const savedParamsStringify = JSON.stringify(this.state.savedState.searchParams);

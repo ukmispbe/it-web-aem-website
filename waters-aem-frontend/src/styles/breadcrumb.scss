@@ -24,7 +24,7 @@
         padding-left: 0;
         list-style: none;
         overflow-y: hidden;
-        margin: $space-xxs 0 ($space-l + .5em) 0;
+        margin: 0 0 ($space-l + .5em) 0;
 
         & .fader-container {
             z-index: 1;
@@ -96,7 +96,7 @@
     display: inline-block;
     margin-top: ($space-xxxs + 0.05em);
     margin-right: 13px;
-    border-right: 1px solid $color-border-light;
+    border-right: 1px solid $color-border-medium;
     padding-right: 13px;
 
     &--disable {
@@ -116,6 +116,11 @@
 
     svg {
         margin-top: -3px;
+    }
+
+    span {
+        border-right: $border-medium;
+        padding-right: $space-xs;
     }
 
     &:hover {

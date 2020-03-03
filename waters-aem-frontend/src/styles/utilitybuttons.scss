@@ -2,7 +2,8 @@
     @include font-utility;
     padding: $space-xs $space-s;
     background-color: $color-white;
-    border: 1px solid $color-border-dark;
+    border: $border-dark;
+    border-radius: $border-radius;
     transition: $hover-transition;
     text-decoration: none;
     margin-bottom: $space-l;
@@ -27,7 +28,7 @@
 
     &:hover {
         color: $color-link;
-        border: 1px solid $color-blue-50;
+        border: $border-link;
         text-decoration: none;
 
         svg {
@@ -38,7 +39,7 @@
     }
 
     &:disabled {
-        border: 1px solid $color-disabled;
+        border: $border-disabled;
         color: $color-disabled;
 
         svg {
@@ -49,6 +50,7 @@
     }
 
     @include mobile {
+        padding: ($space-xs + .1em) $space-s $space-xs $space-s;
         width: 100%;
         float: left;
         margin: 0 0 $space-s 0;

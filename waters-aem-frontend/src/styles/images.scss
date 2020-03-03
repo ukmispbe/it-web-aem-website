@@ -17,7 +17,7 @@ img {
 }
 
 .cmp-image--border img {
-    border: 1px solid $color-border-light;
+    border: 1px $border-medium;
 }
 
 div.image {
@@ -57,8 +57,8 @@ a.cmp-utility-button {
         display: none;
     }
     > svg {
-        min-height: 50px;
-        padding-bottom: $space-m;
+        min-height: 44px;
+        padding-bottom: ($space-m - .25em);
 
         &.inline-svg {
             display: inline-block;

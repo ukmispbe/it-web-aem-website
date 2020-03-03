@@ -4,15 +4,30 @@ const keys = {
     fromSearchURL: 'waters.fromSearchURL',
     searchTabHistory: 'waters.searchTabHistory',
     previousPaginationClick: 'waters.previousPaginationClick',
-    dismissSystemWideNotification: 'waters.dismissSystemWideNotification'
+    dismissSystemWideNotification: 'waters.dismissSystemWideNotification',
+    userDetails: 'waters.userDetails',
+    soldToDetails: 'waters.soldToDetails',
+    continue: 'waters.continue'
 }
+
 
 const getJSONObject = key => {
     const value = window.sessionStorage.getItem(key);
     return value ? JSON.parse(value) : {};
 }
 
-const SessionStore = function() {
+const getJSONArray = key => {
+    const value = window.sessionStorage.getItem(key);
+    return value ? JSON.parse(value) : null;
+}
+
+const SessionStore = function () {
+    this.setSoldToDetails = value => window.sessionStorage.setItem(keys.soldToDetails, JSON.stringify(value));
+    this.getSoldToDetails = () => getJSONArray(keys.soldToDetails);
+    this.removeSoldToDetails = () => window.sessionStorage.removeItem(keys.soldToDetails);
+    this.setUserDetails = value => window.sessionStorage.setItem(keys.userDetails, JSON.stringify(value));
+    this.getUserDetails = () => getJSONObject(keys.userDetails);
+    this.removeUserDetails = () => window.sessionStorage.removeItem(keys.userDetails);
     this.setPreviousPagePosition = value => window.sessionStorage.setItem(keys.previousPagePosition, value);
     this.getPreviousPagePosition = () => window.sessionStorage.getItem(keys.previousPagePosition);
     this.removePreviousPagePosition = () => window.sessionStorage.removeItem(keys.previousPagePosition);
@@ -30,6 +45,10 @@ const SessionStore = function() {
     this.removePreviousPaginationClick = () => window.sessionStorage.removeItem(keys.previousPaginationClick);
     this.setDismissSystemWideNotification = () => window.sessionStorage.setItem(keys.dismissSystemWideNotification, "Y");
     this.getDismissSystemWideNotificatiopn =() => window.sessionStorage.getItem(keys.dismissSystemWideNotification);
+    this.setContinueLink = value => window.sessionStorage.setItem(keys.continue, value)
+    this.getContinueLink = () => window.sessionStorage.getItem(keys.continue);
+    this.removeContinueLink = () => window.sessionStorage.removeItem(keys.continue);
 }
 
 export default SessionStore;
+export { keys };

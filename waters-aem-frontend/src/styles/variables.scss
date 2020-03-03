@@ -23,6 +23,11 @@ $color-gray-40: lighten(#4f5b64, 30%);
 $color-gray-50: #4f5b64;
 $color-black: darken(#4f5b64, 15%);
 
+// Error Red
+$color-red-10: desaturate(lighten(#E60F33, 50), 16);
+$color-red-20: lighten(#E60F33, 40);
+$color-red-50: #E60F33;
+
 // Color Use-specific
 $color-font-dark: $color-black;
 $color-font-medium: $color-gray-50;
@@ -32,15 +37,15 @@ $color-link-hover: $color-blue-70;
 $color-link-visited: $color-blue-70;
 $color-disabled: $color-gray-40;
 $color-accent: $color-teal-30;
-$color-border-light: $color-gray-30;
+$color-border-medium: $color-gray-30;
 $color-border-dark: $color-gray-40;
 $color-border-rule: $color-gray-20;
-$color-border-accent: $color-teal-20;
+$color-border-accent: $color-teal-30;
 $color-background-light: $color-gray-10;
 $color-background-dark: $color-gray-50;
 $color-icon: $color-gray-50;
 $color-success: $color-teal-30;
-$color-error: #e60f33;
+$color-error: $color-red-50;
 $color-focus: $color-blue-30;
 $color-videothumbnail-overlay: #2D3439;
 
@@ -81,8 +86,7 @@ $font-weight-bold: var(--font-weight-bold);
 $letter-spacing-small: 0.02em;
 
 // Mobile
-$font-size-h1-m: 1.4em;
-$font-size-small-m: 0.85em;
+$font-size-h1-m: 1.6em;
 
 // Print
 $font-size-h1-pcs: 2em;
@@ -115,6 +119,9 @@ $space-l: 2em;
 $space-xl: 3em;
 $space-xxl: 5em;
 
+// Border Radius
+$border-radius: .25em;
+
 // Size
 $button-fixed: 2.75em;
 
@@ -145,9 +152,8 @@ $navigation-after-z-index: 405;
 
 $sku-details-sticky-index: 498;
 $cmp-modal-box-z-index: 499;
-$cmp-modal-box-close-btn-z-index:499;
 
-$border-radius: 5px;
+$border-radius: 4px;
 
 :export {
     colorBorderDark : $color-gray-40;
@@ -155,4 +161,18 @@ $border-radius: 5px;
     colorBackgroundLight : $color-gray-10;
     colorWhite : $color-white;
     colorBlue50 : $color-blue-50;
+    borderRadius: $border-radius;
 }
+
+// Borders
+$border-dotted: 4px dotted $color-gray-20;
+$border-light: 1px solid $color-white;
+$border-medium: 1px solid $color-border-medium;
+$border-dark: 1px solid $color-border-dark;
+$border-accent: 2px solid $color-border-accent;
+$border-rule: 1px solid $color-border-rule;
+$border-selected: 3px solid $color-gray-50;
+$border-focus: 2px solid $color-focus;
+$border-link: 1px solid $color-link;
+$border-error: 1px solid $color-error;
+$border-disabled: 1px solid $color-disabled;

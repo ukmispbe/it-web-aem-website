@@ -12,6 +12,9 @@
 
     .heading--with-selected-value {
         width: 100%;
+        h3 {
+            margin-bottom: $space-s;
+        }
     }
 
     .back-btn {

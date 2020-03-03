@@ -994,9 +994,53 @@
                 <tab4
                     granite:rel="aem-assets-metadata-form-tab"
                     jcr:primaryType="nt:unstructured"
-                    jcr:title="IPTC"
+                    jcr:title="Email"
                     sling:resourceType="granite/ui/components/coral/foundation/container"
                     listOrder="3">
+                    <granite:data
+                        jcr:primaryType="nt:unstructured"
+                        tabid="47bf800e-fcd9-4e16-a40d-0ccf22f5b8aa"/>
+                    <items jcr:primaryType="nt:unstructured">
+                        <col1
+                            granite:rel="aem-assets-metadata-form-column"
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/container"
+                            listOrder="0">
+                            <items jcr:primaryType="nt:unstructured">
+                                <_x0031_574955942710
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="dam/gui/components/admin/schemafield"
+                                    data-title="An email subject that may contain handlebar placeholders."
+                                    emptyText="Greetings, {{name}}"
+                                    fieldLabel="Subject"
+                                    name="./jcr:content/emailSubject"
+                                    resourceType="granite/ui/components/coral/foundation/form/textfield">
+                                    <granite:data
+                                        jcr:primaryType="nt:unstructured"
+                                        metaType="text"
+                                        requiredCascading="default"
+                                        visibilityCascading="default"/>
+                                </_x0031_574955942710>
+                            </items>
+                        </col1>
+                        <col2
+                            granite:rel="aem-assets-metadata-form-column"
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/container"
+                            listOrder="1"/>
+                        <col3
+                            granite:rel="aem-assets-metadata-form-column"
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/container"
+                            listOrder="2"/>
+                    </items>
+                </tab4>
+                <tab5
+                    granite:rel="aem-assets-metadata-form-tab"
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="IPTC"
+                    sling:resourceType="granite/ui/components/coral/foundation/container"
+                    listOrder="4">
                     <granite:data jcr:primaryType="nt:unstructured"/>
                     <items jcr:primaryType="nt:unstructured">
                         <col1
@@ -1461,13 +1505,13 @@
                             </items>
                         </col3>
                     </items>
-                </tab4>
-                <tab5
+                </tab5>
+                <tab6
                     granite:rel="aem-assets-metadata-form-tab"
                     jcr:primaryType="nt:unstructured"
                     jcr:title="IPTC Extension"
                     sling:resourceType="granite/ui/components/coral/foundation/container"
-                    listOrder="4">
+                    listOrder="5">
                     <granite:data jcr:primaryType="nt:unstructured"/>
                     <items jcr:primaryType="nt:unstructured">
                         <col1
@@ -1695,7 +1739,7 @@
                             </items>
                         </col3>
                     </items>
-                </tab5>
+                </tab6>
             </items>
         </tabs>
     </items>

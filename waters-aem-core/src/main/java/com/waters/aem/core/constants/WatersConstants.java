@@ -19,7 +19,11 @@ public final class WatersConstants {
 
     public static final String COMPONENT_PATH_APPLICATION_NOTES = "/content/applicationnotes";
 
+    public static final String COMPONENT_PATH_FORMS = "/content/forms";
+
     public static final String DAM_PATH = "/content/dam/waters";
+
+    public static final String EMAILS_DAM_PATH = DAM_PATH + "/emails";
 
     public static final String SYSTEM_NOTIFICATION_PATH = "/etc/waters/notifications/system-notification";
 
@@ -44,6 +48,8 @@ public final class WatersConstants {
     public static final String TEMPLATE_CATEGORY_PAGE = TEMPLATE_REDIRECT_PAGE;
 
     public static final String TEMPLATE_SKU_PAGE = "/conf/waters/settings/wcm/templates/sku-page";
+
+    public static final String TEMPLATE_FORM_PAGE = "/conf/waters/settings/wcm/templates/form-page";
 
     public static final String TEMPLATE_SEARCH_PAGE = "/conf/waters/settings/wcm/templates/search-page";
 

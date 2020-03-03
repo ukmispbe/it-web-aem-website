@@ -111,7 +111,26 @@ public final class Templates {
     }
 
     /**
-     * Check if the given page is a search page.
+     * Check if the given page is a form page.
+     *
+     * @param page page
+     * @return true if page is non-null and is a form template
+     */
+    public static boolean isFormPage(final PageDecorator page) {
+        return isPage(page, WatersConstants.TEMPLATE_FORM_PAGE);
+    }
+
+    /**
+     * Check if the given content resource is a form page.
+     *
+     * @param resource page jcr:content resource
+     * @return true if resource is non-null and is a form template
+     */
+    public static boolean isFormPage(final Resource resource) {
+        return isPage(resource, WatersConstants.TEMPLATE_FORM_PAGE);
+    }
+
+     /** Check if the given page is a search page.
      *
      * @param page page
      * @return true if page is non-null and is a search page template

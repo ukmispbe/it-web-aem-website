@@ -1,0 +1,65 @@
+.cmp-linktile {
+    box-shadow: $shadow;
+    padding: $space-l;
+    min-height: 250px;
+    display: inline-flex;
+    width: 100%;
+    background-color: $color-white;
+
+    @include tablet {
+        padding: $space-m;
+    }
+
+    @include mobile {
+        min-height: fit-content;
+        padding: $space-s;
+        padding-bottom: $space-m;
+    }
+
+    &--title {
+        @include font-h3;
+        color: $color-font-medium;
+        margin-bottom: $space-s;
+    }
+
+    &--link {
+        @include font-body;
+        color: $color-link;
+        display: block;
+        margin: 0;
+    }
+
+    &--links {
+        @include font-body;
+        margin-bottom: $space-xs;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &--icon {
+        height: $icon-l;
+        width: $icon-l;
+        color: $color-icon;
+        margin-right: $space-s;
+        margin-bottom: 0;
+
+        svg {
+            height: $icon-l;
+            width: $icon-l;
+            color: $color-icon;
+
+            .st0 {
+                stroke: $color-icon;
+                stroke-width: 0.75px;
+            }
+
+            .st1 {
+                stroke: $color-icon;
+                stroke-width: 0.75px;
+            }
+        }
+
+    }
+}

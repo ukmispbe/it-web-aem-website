@@ -1,5 +1,5 @@
 .cmp-banner {
-    margin: $space-l -30% $space-l;
+    margin: $space-l -30% $space-xl;
     padding: 0 30%;
     position: relative;
     overflow-y: hidden;
@@ -124,7 +124,7 @@
     a.cmp-button,
     button.cmp-button {
         background-color: transparent;
-        border: 1px solid $color-white;
+        border: $border-light;
         color: $color-font-light;
 
         &:hover {
@@ -134,7 +134,7 @@
         }
         &:active {
             color: $color-font-light;
-            border: 1px solid $color-white;
+            border: $border-light;
             background: none;
         }
     }
@@ -144,7 +144,7 @@
     a.cmp-button--secondary,
     button.cmp-button--secondaryn {
         color: $color-font-light;
-        border: 1px solid $color-white;
+        border: $border-light;
         background: none;
 
         &:hover {
@@ -154,7 +154,7 @@
         }
         &:active {
             color: $color-font-light;
-            border: 1px solid $color-white;
+            border: $border-light;
             background: none;
         }
     }
@@ -185,7 +185,7 @@
     a.cmp-button,
     button.cmp-button {
         background-color: transparent;
-        border: 1px solid $color-white;
+        border: $border-light;
         color: $color-font-light;
 
         &:hover {
@@ -195,7 +195,7 @@
         }
         &:active {
             color: $color-font-light;
-            border: 1px solid $color-white;
+            border: $border-light;
             background: none;
         }
     }
@@ -205,7 +205,7 @@
     a.cmp-button--secondary,
     button.cmp-button--secondaryn {
         color: $color-font-light;
-        border: 1px solid $color-white;
+        border: $border-light;
         background: none;
 
         &:hover {
@@ -215,7 +215,7 @@
         }
         &:active {
             color: $color-font-light;
-            border: 1px solid $color-white;
+            border: $border-light;
             background: none;
         }
     }
@@ -246,7 +246,7 @@
     a.cmp-button,
     button.cmp-button {
         background-color: transparent;
-        border: 1px solid $color-white;
+        border: $border-light;
         color: $color-font-light;
 
         &:hover {
@@ -256,7 +256,7 @@
         }
         &:active {
             color: $color-font-light;
-            border: 1px solid $color-white;
+            border: $border-light;
             background: none;
         }
     }
@@ -266,7 +266,7 @@
     a.cmp-button--secondary,
     button.cmp-button--secondary {
         color: $color-font-light;
-        border: 1px solid $color-white;
+        border: $border-light;
         background: none;
 
         &:hover {
@@ -276,7 +276,7 @@
         }
         &:active {
             color: $color-font-light;
-            border: 1px solid $color-white;
+            border: $border-light;
             background: none;
         }
     }
@@ -358,10 +358,14 @@
     }
 }
 
-.cmp-banner--search .cmp-banner {
-    margin-bottom: $space-s;
+.cmp-banner--largePadding .cmp-banner {
+    .cmp-banner__parsys {
+        padding: ($space-xxl - $space-s) 0 $space-xl 0;
+    }
+}
 
-    @include tablet-and-under {
-        margin-bottom: $space-l;
+.cmp-banner--smallPadding .cmp-banner {
+    .cmp-banner__parsys {
+        padding: $space-l 0 $space-xxxs 0;
     }
 }
