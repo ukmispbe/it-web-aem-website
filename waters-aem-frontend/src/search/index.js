@@ -1,6 +1,5 @@
-// React Search Application
-import React, { useState } from 'react';
-import Search from './search';
+import React from 'react';
+import SearchContainer from './search.container';
 import { SearchService, parameterDefaults } from './services/index';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
@@ -23,7 +22,7 @@ const SearchApp = props => {
                     path=""
                     render={() => (
                         <ErrorBoundary>
-                            <Search
+                            <SearchContainer
                                 defaultFacet={props.defaultFacet}
                                 searchDefaults={props.searchDefaults}
                                 searchServicePath={props.searchServicePath}

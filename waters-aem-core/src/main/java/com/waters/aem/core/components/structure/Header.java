@@ -14,10 +14,12 @@ import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
+import com.icfolson.aem.library.core.node.predicates.ComponentNodeResourceTypePredicate;
 import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.SiteContext;
+import com.waters.aem.core.components.content.CategoryListing;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.account.WatersAccountService;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
@@ -30,9 +32,12 @@ import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.apache.sling.models.factory.ModelFactory;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
+import java.util.Collections;
+import java.util.Locale;
 
 @Component(value = "Header",
     group = ComponentConstants.GROUP_HIDDEN,
@@ -54,6 +59,15 @@ public final class Header extends AbstractComponent implements ComponentExporter
     @Self
     private SiteContext siteContext;
 
+    @Self
+    private SlingHttpServletRequest request;
+
+    @Inject
+    private PageDecorator currentPage;
+
+    @OSGiService
+    private ModelFactory modelFactory;
+
     @OSGiService
     private WatersAccountService watersAccountService;
 
@@ -62,9 +76,6 @@ public final class Header extends AbstractComponent implements ComponentExporter
 
     @OSGiService
     private AdobeLaunchService adobeLaunchService;
-
-    @Inject
-    private PageDecorator currentPage;
 
     @DialogField(fieldLabel = "Header Logo",
         fieldDescription = "select header logo",
@@ -261,4 +272,21 @@ public final class Header extends AbstractComponent implements ComponentExporter
     public String getSignOutEndpoint() {
         return watersAccountService.getSignOutEndpoint();
     }
- }
+
+    /**
+     * Finds the first category listing component on this page.
+     *
+     * @return the category listing component or null if not present
+     */
+    public CategoryListing getCategoryListing() {
+        return currentPage.getComponentNode()
+                .transform(contentNode -> contentNode.findDescendants(
+                        new ComponentNodeResourceTypePredicate(CategoryListing.RESOURCE_TYPE)))
+                .or(Collections.emptyList())
+                .stream()
+                .findFirst()
+                .map(componentNode -> modelFactory.getModelFromWrappedRequest(request,
+                        componentNode.getResource(), CategoryListing.class))
+                .orElse(null);
+    }
+}

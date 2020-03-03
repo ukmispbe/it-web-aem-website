@@ -2,6 +2,7 @@ package com.waters.aem.hybris.replication.impl;
 
 import com.day.cq.replication.ReplicationActionType;
 import com.day.cq.replication.ReplicationException;
+import com.day.cq.replication.ReplicationOptions;
 import com.day.cq.replication.ReplicationStatus;
 import com.day.cq.replication.Replicator;
 import com.google.common.collect.ImmutableMap;
@@ -164,7 +165,11 @@ public final class DefaultHybrisImporterReplicationService implements HybrisImpo
                 if (!isLanguageMasterPage(page) && isPublished(page)) {
                     LOG.debug("activating result for previous published page : {}", result);
 
-                    replicator.replicate(session, replicationActionType, result.getPath());
+                    // don't create page versions for generated SKU pages
+                    final ReplicationOptions replicationOptions = new ReplicationOptions();
+                    replicationOptions.setSuppressVersions(true);
+
+                    replicator.replicate(session, replicationActionType, result.getPath(), replicationOptions);
                 } else {
                     LOG.debug("page was not previously activated for result or is a language master page : {}, " +
                             "ignoring", result);
