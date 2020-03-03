@@ -4,6 +4,7 @@
     <div class="cmp-form--attach" id="js-registration-form"></div>
     <script type="application/json" id="cmp-registration-form">
         {
+            "formName": "registration",
             "submitEndpoint": "${registration.registrationSubmitUrl @ context='unsafe'}",
             "buttonText": "${'Create Account' @ i18n, context='text'}",
             "redirectUrl": "${registration.redirectLink.href @ context='unsafe'}",
