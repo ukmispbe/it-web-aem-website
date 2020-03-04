@@ -152,7 +152,7 @@ export const functions = {
         }
     },
 
-    newEmail: (value, emailUrl, ref, invalidMsg, setError, clearError) => {
+    newEmail: (value, emailValidationEndpoint, ref, invalidMsg, setError, clearError) => {
         // Only Run if invalidMsg is supplied
         if (invalidMsg) {
             if (
@@ -161,7 +161,7 @@ export const functions = {
                     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                 )
             ) {
-                const myService = new EmailService(emailUrl);
+                const myService = new EmailService(emailValidationEndpoint);
                 const newEmail = myService
                     .checkEmail(value)
                     .then(response => {

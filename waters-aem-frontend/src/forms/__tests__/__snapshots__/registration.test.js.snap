@@ -448,7 +448,6 @@ exports[`Feature: Registration Form Scenario: Rendering When initial render Then
     className="cmp-form-field cmp-form-field-checkbox"
   >
     <input
-      checked={false}
       className="valid"
       id="communications"
       name="communications"
@@ -483,7 +482,6 @@ exports[`Feature: Registration Form Scenario: Rendering When initial render Then
     className="cmp-form-field cmp-form-field-checkbox"
   >
     <input
-      checked={false}
       className="valid"
       id="privacy"
       name="privacy"

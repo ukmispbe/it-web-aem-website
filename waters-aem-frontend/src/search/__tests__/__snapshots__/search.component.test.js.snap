@@ -3,10 +3,10 @@
 exports[`Feature: Search Component Scenario: Rendering When searching by Category only Then it should math snapshot 1`] = `
 Array [
   <div
-    className="cmp-search__categories-tabs-container"
+    className="cmp-tabs-wrapper"
   >
     <div
-      className="cmp-search__categories-tabs"
+      className="cmp-tabs cmp-search__categories-tabs"
     />
   </div>,
   <div>
@@ -84,7 +84,7 @@ Array [
             onKeyDown={[Function]}
           >
             <div
-              className="css-1xe0he8-control cmp-custom-dropdown__control"
+              className="css-xov0tq-control cmp-custom-dropdown__control"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
@@ -194,10 +194,10 @@ Array [
 exports[`Feature: Search Component Scenario: Rendering When searching by Content Type Then it should math snapshot 1`] = `
 Array [
   <div
-    className="cmp-search__categories-tabs-container"
+    className="cmp-tabs-wrapper"
   >
     <div
-      className="cmp-search__categories-tabs"
+      className="cmp-tabs cmp-search__categories-tabs"
     />
   </div>,
   <div>
@@ -275,7 +275,7 @@ Array [
             onKeyDown={[Function]}
           >
             <div
-              className="css-1xe0he8-control cmp-custom-dropdown__control"
+              className="css-xov0tq-control cmp-custom-dropdown__control"
               onMouseDown={[Function]}
               onTouchEnd={[Function]}
             >
