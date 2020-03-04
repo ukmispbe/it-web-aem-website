@@ -160,8 +160,8 @@ Array [
         </span>
       </div>
       <button
-        className="cmp-button cmp-button--no-border cmp-form--submit cmp-button--disabled"
-        disabled={true}
+        className="cmp-button cmp-button--no-border cmp-form--submit"
+        disabled={false}
         type="submit"
       >
         Save Changes
@@ -337,8 +337,8 @@ Array [
         </span>
       </div>
       <button
-        className="cmp-button cmp-button--no-border cmp-form--submit cmp-button--disabled"
-        disabled={true}
+        className="cmp-button cmp-button--no-border cmp-form--submit"
+        disabled={false}
         type="submit"
       >
         Save Changes
@@ -514,8 +514,8 @@ Array [
         </span>
       </div>
       <button
-        className="cmp-button cmp-button--no-border cmp-form--submit cmp-button--disabled"
-        disabled={true}
+        className="cmp-button cmp-button--no-border cmp-form--submit"
+        disabled={false}
         type="submit"
       >
         Save Changes
