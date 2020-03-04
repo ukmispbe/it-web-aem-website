@@ -31,7 +31,7 @@ export const registrationConfig = {
             name: "email",
             label: "Email Address",
             description: "This will be your username.",
-            existingEmailEndpoint: "https://test-www.waters.com:8443/api/waters/user/v1/validate/{email}",
+            emailValidationEndpoint: "https://test-www.waters.com:8443/api/waters/user/v1/validate/{email}",
             validation: {
                 required: true,
                 requiredMsg: "Please enter a valid email address.",
