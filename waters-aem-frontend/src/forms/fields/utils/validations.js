@@ -1,6 +1,6 @@
 import { functions } from "../patterns";
 
-export const getAttributes = (ref, validation, matchRef, emailUrl, setError, clearError) => {
+export const getAttributes = (ref, validation, matchRef, existingEmailEndpoint, setError, clearError) => {
     const setValidation = () => {
         if (validation && validation.validateFnName) {
             switch (validation.validateFnName) {
@@ -32,7 +32,7 @@ export const getAttributes = (ref, validation, matchRef, emailUrl, setError, cle
                         ) &&
                         functions["newEmail"](
                             value,
-                            emailUrl,
+                            existingEmailEndpoint,
                             ref,
                             validation.alreadyRegisteredMsg,
                             setError,

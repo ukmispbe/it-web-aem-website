@@ -19,7 +19,7 @@ const Input = ({
     const reqRef = useRef(null);
     const inputRef = useRef(null);
 
-    const { type, disabled, matchLabel, emailUrl } = useContext(useFieldApi);
+    const { type, disabled, matchLabel, existingEmailEndpoint } = useContext(useFieldApi);
     const { register, setError, clearError, formName } = useContext(useFormApi);
 
     const errors = useErrorsContext();
@@ -30,7 +30,7 @@ const Input = ({
             ref,
             validation,
             matchRef,
-            emailUrl,
+            existingEmailEndpoint,
             setError,
             clearError
         );
@@ -59,6 +59,7 @@ const Input = ({
     );
 
     const renderInput = () => {
+
         return (
             <>
                 <label
