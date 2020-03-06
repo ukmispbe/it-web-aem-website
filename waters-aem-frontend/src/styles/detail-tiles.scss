@@ -131,7 +131,7 @@
             &-column {
                 display: inline-block;
                 padding-right: $space-xxl;
-                margin-bottom: $space-s;
+                margin-bottom: 0;
 
                 @include mobile {
                     padding-right: 0;
