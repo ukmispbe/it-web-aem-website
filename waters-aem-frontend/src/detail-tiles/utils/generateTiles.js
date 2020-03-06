@@ -54,7 +54,7 @@ export default (data, type, icon) => {
                                     class: 'email'
                                 },
                                 {
-                                    text: getPhoneFormat(data.phone),
+                                    text: data.phone,
                                     class: 'phone'
                                 },
                                 {
