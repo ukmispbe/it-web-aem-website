@@ -58,7 +58,13 @@ const Form = ({
     });
 
     const checkIfDisabled = () => {
-        return !formState.isValid;
+        const required = config.fields
+            .filter(field => 'validation' in field)
+            .filter((field) => (field.validation.required === true && ('active' in field ? field.active === true : true)));
+        const values = Object.values(getValues());
+        const notEmpty = values.filter(field => field!=="");
+        console.log(notEmpty);
+        return (notEmpty.length!==required.length || Object.keys(errors).length>0);
     };
 
     const cancelHandler = clear => {
@@ -114,6 +120,7 @@ const Form = ({
 
             delete errorUpdates[name];
         }
+        console.log(errors)
     }, [errorUpdates, errors]);
 
     const newError = useCallback(
