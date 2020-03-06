@@ -2,7 +2,6 @@ import {
     getAddressesByType,
     getFullAddress,
     getFullName,
-    getPhoneFormat,
     getCountryName
 } from './profileFormatter';
 
@@ -16,9 +15,9 @@ const config = document.getElementById(
     'json-config--cmp-detail-tiles--personal'
 )
     ? JSON.parse(
-          document.getElementById('json-config--cmp-detail-tiles--personal')
-              .innerHTML
-      )
+        document.getElementById('json-config--cmp-detail-tiles--personal')
+            .innerHTML
+    )
     : '';
 
 export default (data, type, icon) => {
@@ -54,7 +53,7 @@ export default (data, type, icon) => {
                                     class: 'email'
                                 },
                                 {
-                                    text: getPhoneFormat(data.phone),
+                                    text: data.phone,
                                     class: 'phone'
                                 },
                                 {
