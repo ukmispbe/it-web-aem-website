@@ -14,5 +14,5 @@
           soldToDetailsUrl="https://stgservices.waters.com/api/waters/user/v1/retrievesoldto"
           signInEndpoint="https://stgservices.waters.com/api/waters/user/v1/login"
           signOutEndpoint="https://stgservices.waters.com/api/waters/user/v1/logout"
-          updateProfileUrl="https://prodservices.waters.com/api/waters/user/v1/update/profile"/>
+          updateProfileUrl="https://stgservices.waters.com/api/waters/user/v1/update/profile"/>
 
