@@ -4,7 +4,7 @@ import DateFormatter from '../utils/date-formatter'
 import CurrencyFormatter from '../utils/currency-formatter'
 import GetLocale from "../utils/get-locale";
 
-const OrderDetails = ( props ) => {
+const OrderDetails = (props) => {
 
     const getUrlParameter = (name) => {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -16,9 +16,9 @@ const OrderDetails = ( props ) => {
     const id = getUrlParameter("id");
     const userLocale = GetLocale.getLocale();
     const url = props.config.fetchEndPoint;
-    const [ orderDetails, setOrderDetails ] = useState({});
-    const [ error, setError ] = useState(false);
-    const [ loading, setLoading ] = useState(false);
+    const [orderDetails, setOrderDetails] = useState({});
+    const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         getOrderDetails(url, id)
@@ -32,6 +32,7 @@ const OrderDetails = ( props ) => {
     }, []);
 
     const renderOrderDetails = () => {
+        console.log("orderDetails ", orderDetails);
         return (
             <div className="cmp-order-details__container">
                 <h2 className="cmp-order-details__title">
@@ -61,16 +62,20 @@ const OrderDetails = ( props ) => {
                 <div className="cmp-order-details__order-summary">
                     <h4>Order Summary</h4>
                     <div className="cmp-order-details__order-subtotal">
-                        Subtotal: {CurrencyFormatter.currencyFormatter(orderDetails.itemsSubTotal, userLocale, orderDetails.currencyCode)}
+                        <div className="cmp-order-details__order-subtotal_left">Subtotal:({orderDetails.lineItems && orderDetails.lineItems.length}) items</div>
+                        <div className="cmp-order-details__order-subtotal_right">{CurrencyFormatter.currencyFormatter(orderDetails.itemsSubTotal, userLocale, orderDetails.currencyCode)}</div>
                     </div>
                     <div className="cmp-order-details__order-shipping">
-                        Shipping: {CurrencyFormatter.currencyFormatter(orderDetails.shippingAmount, userLocale, orderDetails.currencyCode)}
+                        <div className="cmp-order-details__order-shipping_left">Shipping:</div>
+                        <div className="cmp-order-details__order-shipping_right">{CurrencyFormatter.currencyFormatter(orderDetails.shippingAmount, userLocale, orderDetails.currencyCode)}</div>
                     </div>
                     <div className="cmp-order-details__order-tax">
-                        Tax: {CurrencyFormatter.currencyFormatter(orderDetails.taxAmount, userLocale, orderDetails.currencyCode)}
+                        <div className="cmp-order-details__order-tax_left">Tax:</div>
+                        <div className="cmp-order-details__order-tax_right">{CurrencyFormatter.currencyFormatter(orderDetails.taxAmount, userLocale, orderDetails.currencyCode)}</div>
                     </div>
                     <div className="cmp-order-details__order-total">
-                        Order Total: {CurrencyFormatter.currencyFormatter(orderDetails.orderTotal, userLocale, orderDetails.currencyCode)}
+                        <div className="cmp-order-details__order-total_left">Order Total:</div>
+                        <div className="cmp-order-details__order-total_right">{CurrencyFormatter.currencyFormatter(orderDetails.orderTotal, userLocale, orderDetails.currencyCode)}</div>
                     </div>
                 </div>
 

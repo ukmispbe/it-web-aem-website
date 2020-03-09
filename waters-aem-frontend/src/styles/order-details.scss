@@ -66,6 +66,35 @@
                 margin-bottom: $space-s;
                 border-radius: $border-radius;
             }
+            
+            .cmp-order-details__order-subtotal {
+                &_left {
+                    float: left;
+                }
+                &_right {
+                    float: right;
+                }
+            }
+            .cmp-order-details__order-shipping, 
+            .cmp-order-details__order-tax {
+                &_left {
+                    float: left;
+                    clear: both;
+                }
+                &_right {
+                    float: right;
+                }
+            }
+            .cmp-order-details__order-total {
+                &_left {
+                    float: left;
+                    clear: both;
+                }
+                &_right {
+                    float: right;
+                }
+            }
+
         }
 
         &__order-shipment-list {
