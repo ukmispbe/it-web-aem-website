@@ -11,6 +11,7 @@ import { ErrorsProvider, FormStateProvider } from './fields/utils/stateWatcher';
 import DigitalData from '../scripts/DigitalData';
 import ErrorBoundary from '../search/ErrorBoundary';
 import Field from './fields';
+import Analytics, { analyticTypes } from "../scripts/analytics";
 
 const FormApi = createContext(null);
 FormApi.displayName = 'FormApi';
@@ -106,6 +107,10 @@ const Form = ({
         config.fields = [...fields];
     };
 
+    useEffect( () => {
+        setFormAnalytics('load');
+    }, []);
+
     useEffect(() => {
         for (let name in errorUpdates) {
             if (errors[name]) {
@@ -123,6 +128,15 @@ const Form = ({
         },
         [errors]
     );
+
+    const setFormAnalytics = (event, detail={}) => {
+        const model = {
+            detail,
+            formName: config.formName,
+            event
+        };
+        Analytics.setAnalytics(analyticTypes['form'].name, model);
+    }
 
     const getValue = name => getValues()[name];
 
@@ -179,7 +193,8 @@ const Form = ({
                     passwordUpdateUrl: config.passwordUpdateUrl,
                     callback: callback,
                     updateFailedAttempts: updateFailedAttempts,
-                    setProfileData: setProfileData
+                    setProfileData: setProfileData,
+                    setFormAnalytics: setFormAnalytics
                 })
             )}
         >
