@@ -15,6 +15,7 @@
                 order: 0;
                 flex-grow: 2;
                 width: 100%;
+                margin-bottom: $space-s;
             }
 
         }
@@ -23,7 +24,6 @@
             order: 1;
             flex-grow: 1;
             width: 50%;
-            margin-bottom: $space-s;
 
             @include mobile {
                 width: 100%;
@@ -41,34 +41,37 @@
 
             h4 {
                 @include font-h4;
+                margin-bottom: $space-xxxs;
             }
             .text {
                 @include font-body;
             }
 
             .cmp-order-details {
-                &__ship-bill-container {
+                &__address-container {
                     display: flex;
-                    @include font-body;   
+                    margin-top: $space-l;
+
                     .cmp-order-details {
                         &__ship-to {
                             flex: 1;
+                            @include font-body;
                         }
                         &__bill-to {
                             flex: 1;
+                            @include font-body;
                         }
                     }
                 }
 
-                &__payment-shipment-container {
+                &__payment-container {
                     display: flex;
-                    @include font-body;   
+                    margin-top: $space-m;
+
                     .cmp-order-details {
                         &__payment-method {
                             flex: 1;
-                        }
-                        &__shipment-method {
-                            flex: 1;
+                            @include font-body;
                         }
                     }
                 }
@@ -81,7 +84,7 @@
         &__order-summary {
             order: 1;
             flex-grow: 1;
-            width: 40%;
+            min-width: 25%;
             justify-content: space-between;
 
             @include mobile {
@@ -119,6 +122,9 @@
             }
 
             .cmp-order-details__order-total {
+                &_left {
+                    @include font-body;
+                }
                 &_right h1 {
                     @include font-h1;
                 }

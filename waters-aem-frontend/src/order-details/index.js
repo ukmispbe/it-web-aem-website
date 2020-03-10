@@ -33,7 +33,6 @@ const OrderDetails = (props) => {
 
     const renderAddress = (addressType) => {
 
-
         if (orderDetails.account){
 
             let account = orderDetails.account.filter(item => item.partnerType === addressType )[0];
@@ -63,23 +62,19 @@ const OrderDetails = (props) => {
                     <div className="cmp-order-details__order-date">
                         {DateFormatter.dateFormatter(orderDetails.date, userLocale)}
                     </div>
-                    <div className="cmp-order-details__ship-bill-container">
+                    <div className="cmp-order-details__address-container">
                         <div className="cmp-order-details__ship-to">
                             <h4>{props.config.shipTo}</h4>
                             {renderAddress("shipping")}
                         </div>
                         <div className="cmp-order-details__bill-to">
-                            <h4>{props.config.shipTo}</h4>
+                            <h4>{props.config.billTo}</h4>
                             {renderAddress("billing")}
                         </div>
                     </div>
-                    <div className="cmp-order-details__payment-shipment-container">
+                    <div className="cmp-order-details__payment-container">
                         <div className="cmp-order-details__payment-method">
                             <h4>{props.config.paymentMethod}</h4>
-                            <div className="text">{orderDetails.purchaseOrderNumber}</div>
-                        </div>
-                        <div className="cmp-order-details__shipment-method">
-                            <h4>{props.config.shipmentMethod}</h4>
                             <div className="text">{orderDetails.purchaseOrderNumber}</div>
                         </div>
                     </div>
