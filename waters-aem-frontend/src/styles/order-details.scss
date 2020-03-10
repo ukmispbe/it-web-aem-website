@@ -46,7 +46,37 @@
                 @include font-body;
             }
 
+            .cmp-order-details {
+                &__ship-bill-container {
+                    display: flex;
+                    @include font-body;   
+                    .cmp-order-details {
+                        &__ship-to {
+                            flex: 1;
+                        }
+                        &__bill-to {
+                            flex: 1;
+                        }
+                    }
+                }
+
+                &__payment-shipment-container {
+                    display: flex;
+                    @include font-body;   
+                    .cmp-order-details {
+                        &__payment-method {
+                            flex: 1;
+                        }
+                        &__shipment-method {
+                            flex: 1;
+                        }
+                    }
+                }
+            }
+
         }
+
+
 
         &__order-summary {
             order: 1;
@@ -66,32 +96,31 @@
                 margin-bottom: $space-s;
                 border-radius: $border-radius;
             }
-            
-            .cmp-order-details__order-subtotal {
-                &_left {
-                    float: left;
-                }
-                &_right {
-                    float: right;
-                }
-            }
+      
+            .cmp-order-details__order-subtotal,
             .cmp-order-details__order-shipping, 
-            .cmp-order-details__order-tax {
+            .cmp-order-details__order-tax,
+            .cmp-order-details__order-total {
+                display: flex;
+                @include font-body;
                 &_left {
-                    float: left;
-                    clear: both;
+                    flex: 2;
                 }
                 &_right {
-                    float: right;
+                    flex: 1;
+                    text-align: right;
                 }
             }
+
+            .cmp-order-details__order-tax {
+                border-bottom: 1px solid $color-border-light;
+                padding-bottom: $space-s;
+                margin-bottom: $space-s;
+            }
+
             .cmp-order-details__order-total {
-                &_left {
-                    float: left;
-                    clear: both;
-                }
-                &_right {
-                    float: right;
+                &_right h1 {
+                    @include font-h1;
                 }
             }
 

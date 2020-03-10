@@ -31,51 +31,76 @@ const OrderDetails = (props) => {
             });
     }, []);
 
+    const renderAddress = (addressType) => {
+
+
+        if (orderDetails.account){
+
+            let account = orderDetails.account.filter(item => item.partnerType === addressType )[0];
+            console.log("account ", account);
+            console.log("orderDetails ", orderDetails);
+            return (
+                        <>
+                            <div className="cmp-order-details-address1">{account.partnerName}</div>
+                            <div className="cmp-order-details-address2">{account.street}</div>
+                            <div className="cmp-order-details-address3">{account.city + ", " + account.postalCd}</div> 
+                        </>
+                    );
+        }
+        return null;
+    }
+
     const renderOrderDetails = () => {
-        console.log("orderDetails ", orderDetails);
         return (
             <div className="cmp-order-details__container">
                 <h2 className="cmp-order-details__title">
-                    Order Details
+                {props.config.orderDetails}
                 </h2>
                 <div className="cmp-order-details__order-info">
-
                     <h3 className="cmp-order-details__order-number">
-                        Order Number: {orderDetails.orderNumber}
+                        {props.config.orderNumber + ": " + orderDetails.orderNumber}
                     </h3>
                     <div className="cmp-order-details__order-date">
                         {DateFormatter.dateFormatter(orderDetails.date, userLocale)}
                     </div>
-                    <div className="cmp-order-details__ship-to">
-                        <h4>Ship to:</h4>
-                        <div className="text"></div>
+                    <div className="cmp-order-details__ship-bill-container">
+                        <div className="cmp-order-details__ship-to">
+                            <h4>{props.config.shipTo}</h4>
+                            {renderAddress("shipping")}
+                        </div>
+                        <div className="cmp-order-details__bill-to">
+                            <h4>{props.config.shipTo}</h4>
+                            {renderAddress("billing")}
+                        </div>
                     </div>
-                    <div className="cmp-order-details__bill-to">
-                        <h4>Bill to:</h4>
-                        <div className="text"></div>
-                    </div>
-                    <div className="cmp-order-details__payment-method">
-                        <h4>Payment method</h4>
-                        <div className="text">{orderDetails.purchaseOrderNumber}</div>
+                    <div className="cmp-order-details__payment-shipment-container">
+                        <div className="cmp-order-details__payment-method">
+                            <h4>{props.config.paymentMethod}</h4>
+                            <div className="text">{orderDetails.purchaseOrderNumber}</div>
+                        </div>
+                        <div className="cmp-order-details__shipment-method">
+                            <h4>{props.config.shipmentMethod}</h4>
+                            <div className="text">{orderDetails.purchaseOrderNumber}</div>
+                        </div>
                     </div>
                 </div>
                 <div className="cmp-order-details__order-summary">
-                    <h4>Order Summary</h4>
+                    <h4>{props.config.orderSummary}</h4>
                     <div className="cmp-order-details__order-subtotal">
-                        <div className="cmp-order-details__order-subtotal_left">Subtotal:({orderDetails.lineItems && orderDetails.lineItems.length}) items</div>
+                        <div className="cmp-order-details__order-subtotal_left">{props.config.subTotal} ({orderDetails.lineItems && orderDetails.lineItems.length} {props.config.items})</div>
                         <div className="cmp-order-details__order-subtotal_right">{CurrencyFormatter.currencyFormatter(orderDetails.itemsSubTotal, userLocale, orderDetails.currencyCode)}</div>
                     </div>
                     <div className="cmp-order-details__order-shipping">
-                        <div className="cmp-order-details__order-shipping_left">Shipping:</div>
+                        <div className="cmp-order-details__order-shipping_left">{props.config.shipping}</div>
                         <div className="cmp-order-details__order-shipping_right">{CurrencyFormatter.currencyFormatter(orderDetails.shippingAmount, userLocale, orderDetails.currencyCode)}</div>
                     </div>
                     <div className="cmp-order-details__order-tax">
-                        <div className="cmp-order-details__order-tax_left">Tax:</div>
+                        <div className="cmp-order-details__order-tax_left">{props.config.tax}</div>
                         <div className="cmp-order-details__order-tax_right">{CurrencyFormatter.currencyFormatter(orderDetails.taxAmount, userLocale, orderDetails.currencyCode)}</div>
                     </div>
                     <div className="cmp-order-details__order-total">
-                        <div className="cmp-order-details__order-total_left">Order Total:</div>
-                        <div className="cmp-order-details__order-total_right">{CurrencyFormatter.currencyFormatter(orderDetails.orderTotal, userLocale, orderDetails.currencyCode)}</div>
+                        <div className="cmp-order-details__order-total_left">{props.config.orderTotal}</div>
+                        <div className="cmp-order-details__order-total_right"><h1>{CurrencyFormatter.currencyFormatter(orderDetails.orderTotal, userLocale, orderDetails.currencyCode)}</h1></div>
                     </div>
                 </div>
 
