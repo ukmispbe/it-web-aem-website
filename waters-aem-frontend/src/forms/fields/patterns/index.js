@@ -54,6 +54,17 @@ export const functions = {
             return removeError(ref);
         }
     },
+    blankOrNumbersOnly: (value, ref) => {
+        if (value) {
+            if (test(value, /(^[0-9]+$|^$)/)) {
+                return removeError(ref);
+            }
+
+            return false;
+        } else {
+            return removeError(ref);
+        }
+    },
     password: (value, ref, setError, clearError, throwErrors=true) => {
         let validations = 0;
         let newErrors = [];
