@@ -15,13 +15,13 @@
                 "eyeOffIcon": "/content/dam/waters/en/brand-assets/icons/eye-off.svg",
                 "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
             },
-            "existingEmailUrl": "${registration.emailValidationUrl @ context='unsafe'}",
             "fields": [
                 {
                     "type": "email",
                     "name": "email",
                     "label": "${'Email Address' @ i18n, context='text'}",
                     "description": "${'This will be your username.' @ i18n, context='text'}",
+                    "emailValidationEndpoint": "${registration.emailValidationUrl @ context='unsafe'}",
                     "validation": {
                         "required": true,
                         "requiredMsg": "${'Please enter a valid email address.' @ i18n, context='text'}",

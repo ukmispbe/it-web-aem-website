@@ -309,6 +309,9 @@
                 &.showHideOff-icon {
                     display: none;
                     svg {
+                        .st0 {
+                            stroke: $color-icon;
+                        }
                         cursor: pointer;
                         display: none;
                     }
@@ -319,6 +322,9 @@
                     pointer-events: all;
                     display: inline-block;
                     svg {
+                        .st0 {
+                            stroke: $color-icon;
+                        }
                         cursor: pointer;
                         display: block;
                     }

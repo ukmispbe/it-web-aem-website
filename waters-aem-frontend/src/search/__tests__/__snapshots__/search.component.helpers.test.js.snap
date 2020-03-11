@@ -52,7 +52,7 @@ exports[`Feature: Aside Component Scenario: Rendering When children are provided
         onKeyDown={[Function]}
       >
         <div
-          className="css-1xe0he8-control cmp-custom-dropdown__control"
+          className="css-xov0tq-control cmp-custom-dropdown__control"
           onMouseDown={[Function]}
           onTouchEnd={[Function]}
         >
@@ -153,7 +153,7 @@ exports[`Feature: Aside Component Scenario: Rendering When no children are provi
         onKeyDown={[Function]}
       >
         <div
-          className="css-1xe0he8-control cmp-custom-dropdown__control"
+          className="css-xov0tq-control cmp-custom-dropdown__control"
           onMouseDown={[Function]}
           onTouchEnd={[Function]}
         >

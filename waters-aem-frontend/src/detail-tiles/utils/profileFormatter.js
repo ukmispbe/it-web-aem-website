@@ -44,24 +44,6 @@ export const getFullAddress = address => {
     return capitalize((street + city + region + zip).trim());
 };
 
-export const getPhoneFormat = phone => {
-    if (!phone || phone.trim('') === '') return '';
-    let tmpPhone = phone.slice(0, phone.length).trim();
-    let formattedPhone = '';
-
-    while (tmpPhone.length) {
-        if (tmpPhone.length > 4) {
-            formattedPhone += tmpPhone.slice(0, 3) + '-';
-            tmpPhone = tmpPhone.slice(3, tmpPhone.length);
-        } else {
-            formattedPhone += tmpPhone.slice(0, tmpPhone.length);
-            tmpPhone = '';
-        }
-    }
-
-    return formattedPhone;
-};
-
 export const getAddressesByType = (addresses, type) => {
     let addressType = 'TBD';
 
