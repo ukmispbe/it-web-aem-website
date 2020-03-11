@@ -101,6 +101,21 @@ class MyAccountDropDown extends React.Component {
     }
 
     willShow = (newState, caller = 'default') => {
+        
+        // Check if Personal Details have been updated
+        const store = new SessionStore();
+        const hasBeenUpdated = store.getPersonalDetailsUpdated() === 'Y' ? true : false;
+        if (hasBeenUpdated) {
+            const savedUserDetails = store.getUserDetails();
+            const updatedUserName = savedUserDetails.firstName && savedUserDetails.lastName ? `${savedUserDetails.firstName} ${savedUserDetails.lastName}` : '';
+            let currentState = this.state;
+            currentState.config.userDetails.userName = updatedUserName;
+            this.setState({
+                ... currentState
+            }); 
+            store.removePersonalDetailsUpdated();
+        }
+
         const headerOverlay = document.querySelector('.cmp-header__overlay.overlay');
 
         const activeDDClass = 'is-active';
