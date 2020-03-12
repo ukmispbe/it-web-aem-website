@@ -59,7 +59,15 @@ const Form = ({
     });
 
     const checkIfDisabled = () => {
-        return !formState.isValid;
+        const requiredFields = config.fields
+            .filter(field => ('validation' in field && field.validation.required === true && ('active' in field ? field.active === true : true)));
+        const values = getValues();
+        const emptyRequiredFields = requiredFields
+            .filter(field => {
+            return values[field.name] === "" || values[field.name] === false || values[field.name] === null || values[field.name] === undefined
+            });
+        const isConfirmPasswordFieldEmpty = 'confirmPassword' in values ? values['confirmPassword'] === "" : false;
+        return (emptyRequiredFields.length !== 0 || isConfirmPasswordFieldEmpty || Object.keys(errors).length>0);
     };
 
     const cancelHandler = clear => {

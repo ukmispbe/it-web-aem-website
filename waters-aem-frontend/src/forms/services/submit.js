@@ -154,7 +154,11 @@ export async function changePasswordSubmit(data) {
 
     if (response.status === 200) {
         this.setFormAnalytics('submit');
-       // update password complete. This needs finishing off later.
+
+        // clear Password Text Boxes
+        document.getElementsByName("currentPassword")[0].value = "";
+        document.getElementsByName("newPassword")[0].value = "";
+        document.getElementsByName("confirmNewPassword")[0].value = "";
 
         if (this.callback && typeof this.callback === 'function') {
             this.callback(await response.json());

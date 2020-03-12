@@ -68,6 +68,7 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
   <a
     className="my-account-dropdown__sign-in-out"
     href="/content/waters/language-masters/en/signout.html"
+    onClick={[Function]}
   >
     <div
       className="sign-in-out__icon"
@@ -125,6 +126,7 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
   <a
     className="my-account-dropdown__sign-in-out"
     href="/content/waters/language-masters/en/signout.html"
+    onClick={[Function]}
   >
     <div
       className="sign-in-out__icon"
@@ -196,6 +198,7 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
   <a
     className="my-account-dropdown__sign-in-out"
     href="/content/waters/language-masters/en/signout.html"
+    onClick={[Function]}
   >
     <div
       className="sign-in-out__icon"
@@ -241,6 +244,8 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
   <a
     className="my-account-dropdown__sign-in-out"
     href="/content/waters/language-masters/en/signIn.html"
+    onClick={[Function]}
+    rel="nofollow"
   >
     <div
       className="sign-in-out__icon"
