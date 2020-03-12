@@ -13,14 +13,18 @@ const getData = async (url) => {
 };
 
 const SoldToDetails = async (
-    url = "https://test-www.waters.com:8443/api/waters/user/v1/retrievesoldto"
+    url = "https://test-www.waters.com:8443/api/waters/user/v1/retrievesoldto",
+    defaultSoldTo = false
 ) => {
     return getData(url).then(async (response) => {
         const json = await response.json();
 
         const returnArray = Array.isArray(json) ? json : [];
-
-        return sortPriority(returnArray);
+        if (defaultSoldTo) {
+            return getDefaultSoldTo(returnArray);
+        } else {
+            return sortPriority(returnArray);
+        }
     }).catch(error => {
         return {
             failed: true,
@@ -44,10 +48,10 @@ const sortPriority = (soldToAccountsArray) => {
 
 const getDefaultSoldTo = (soldToAccounts) => {
     if (!soldToAccounts.length) return soldToAccounts;
-    
+
     for (let i = 0; i < soldToAccounts.length; i++) {
         if(soldToAccounts[i].default_soldTo === 1) {
-            returnsoldToAccounts[i];
+            return soldToAccounts[i];
         } 
     }
 }
