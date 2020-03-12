@@ -7,6 +7,7 @@
     ></div>
     <script type="application/json" id="js-trouble-signing-in-form">
         {
+            "formName": "troublesigningin",
             "submitEndpoint": "${signinTrouble.passwordResetUrl @ context='unsafe'}",
             "changePasswordEndpoint": "${signinTrouble.changePasswordUrl @ context='unsafe'}",
             "buttonText": "${'RESET PASSWORD' @ i18n, context='unsafe'}",
