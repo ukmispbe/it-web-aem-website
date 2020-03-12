@@ -113,6 +113,13 @@ public final class Header extends AbstractComponent implements ComponentExporter
     @Inject
     private Boolean includeH1Tag;
 
+    @DialogField(fieldDescription = "Hide Header Icons",
+            value = "true",
+            ranking = 6)
+    @CheckBox(title = "hideIcons",
+            text = "Hide Header Icons")
+    @Inject
+    private Boolean hideIcons;
 
     @DialogField(fieldLabel = "My Account Link",
         fieldDescription = "Select or Enter the My Account Link",
@@ -226,6 +233,8 @@ public final class Header extends AbstractComponent implements ComponentExporter
     public Link getOrdersLink() {
         return ordersLink;
     }
+
+    public Boolean isHideIcons() { return hideIcons; }
 
     public Boolean isIncludeH1Tag() { return includeH1Tag; }
 
