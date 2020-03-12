@@ -242,10 +242,6 @@ public final class Header extends AbstractComponent implements ComponentExporter
         return LinkUtils.isExternal(logoLink);
     }
 
-    public Boolean isFormPage() {
-        return Templates.isFormPage(currentPage);
-    }
-
     public String getSignOutUrl() {
         return watersAccountService.getSignOutUrl();
     }
