@@ -22,7 +22,7 @@
     .cmp-order-list__dropdowns {
         float: right;
         width: 50%;
-        text-align: right;
+        text-align: left;
 
         @include tablet {
             width: calc(87vw - 270px);
