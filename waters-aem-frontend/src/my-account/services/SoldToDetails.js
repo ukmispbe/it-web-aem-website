@@ -14,13 +14,13 @@ const getData = async (url) => {
 
 const SoldToDetails = async (
     url = "https://test-www.waters.com:8443/api/waters/user/v1/retrievesoldto",
-    defaultSoldTo = false
+    useDefaultSoldTo = false
 ) => {
     return getData(url).then(async (response) => {
         const json = await response.json();
 
         const returnArray = Array.isArray(json) ? json : [];
-        if (defaultSoldTo) {
+        if (useDefaultSoldTo) {
             return getDefaultSoldTo(returnArray);
         } else {
             return sortPriority(returnArray);
