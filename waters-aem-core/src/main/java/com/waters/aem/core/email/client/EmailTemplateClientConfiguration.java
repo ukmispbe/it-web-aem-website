@@ -7,9 +7,9 @@ import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 public @interface EmailTemplateClientConfiguration {
 
     @AttributeDefinition(name = "Hostname")
-    String hostname() default "n4ediyos4j.execute-api.us-east-1.amazonaws.com";
+    String hostname() default "6g7waw75u9.execute-api.us-east-1.amazonaws.com";
 
     @AttributeDefinition(name = "Set Template API path")
-    String setTemplateEndpoint() default "/Prod/settemplate";
+    String setTemplateEndpoint() default "/sandbox/settemplate";
 
 }
