@@ -181,8 +181,9 @@
                         "name": "phone",
                         "label": "${'Phone Number' @ i18n, context='unsafe'}",
                         "validation": {
+                            "validateFnName": "blankOrNumbersOnly",
                             "required": false,
-                            "requiredMsg": "${'Please enter a phone number.' @ i18n, context='unsafe'}"
+                            "requiredMsg": "${'Please enter a phone number (Numbers Only).' @ i18n, context='unsafe'}"
                         }
                     },
                     {

@@ -25,13 +25,13 @@ export const registrationConfig = {
         eyeOffIcon: "/content/dam/waters/en/brand-assets/icons/eye-off.svg",
         signInIcon: "/content/dam/waters/en/brand-assets/icons/user.svg"
     },
-    existingEmailUrl: "https://test-www.waters.com:8443/api/waters/user/v1/validate/{email}",
     fields: [
         {
             type: "email",
             name: "email",
             label: "Email Address",
             description: "This will be your username.",
+            emailValidationEndpoint: "https://test-www.waters.com:8443/api/waters/user/v1/validate/{email}",
             validation: {
                 required: true,
                 requiredMsg: "Please enter a valid email address.",

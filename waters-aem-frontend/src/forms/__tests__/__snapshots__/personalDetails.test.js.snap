@@ -324,7 +324,6 @@ exports[`Feature: Personal Details Form Scenario: Rendering When initial render 
     className="cmp-form-field cmp-form-field-checkbox"
   >
     <input
-      checked={false}
       className="valid"
       id="communications"
       name="communications"
@@ -357,5 +356,11 @@ exports[`Feature: Personal Details Form Scenario: Rendering When initial render 
   >
     Save Changes
   </button>
+  <a
+    className="cmp-button cmp-button--cancel"
+    onClick={[Function]}
+  >
+    Cancel
+  </a>
 </form>
 `;
