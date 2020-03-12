@@ -59,6 +59,7 @@ const DetailTiles = ({
                         icon={icons.edit}
                         isNoAddress={true}
                         editText={editText}
+                        canCreate={canCreate}
                     />
                 </ErrorBoundary>
             );
@@ -73,6 +74,7 @@ const DetailTiles = ({
                     form={form}
                     icon={icons.edit}
                     editText={editText}
+                    canCreate={canCreate}
                     setProfileData={setData}
                 />
             </ErrorBoundary>

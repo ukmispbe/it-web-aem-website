@@ -13,6 +13,7 @@ const Tile = ({
     defaultValues,
     isNoAddress = false,
     editText,
+    canCreate = true,
     setProfileData
 }) => {
     const [formShown, setFormShown] = useState(false);
@@ -71,19 +72,20 @@ const Tile = ({
     const renderTile = () => {
         return (
             <>
-                <div
-                    className="cmp-detail-tiles-list--tile-edit"
-                    onClick={handleToggle}
-                >
-                    <ReactSVG
-                        src={icon}
-                        className="cmp-detail-tiles-list--tile-edit--icon"
-                    />
-                    <div className="cmp-detail-tiles-list--tile-edit--title">
-                        {editText}
+                {canCreate && 
+                    <div
+                        className="cmp-detail-tiles-list--tile-edit"
+                        onClick={handleToggle}
+                    >
+                        <ReactSVG
+                            src={icon}
+                            className="cmp-detail-tiles-list--tile-edit--icon"
+                        />
+                        <div className="cmp-detail-tiles-list--tile-edit--title">
+                            {editText}
+                        </div>
                     </div>
-                </div>
-
+                }
                 {renderColumns()}
                 {notification && renderNotification()}
             </>
@@ -99,10 +101,11 @@ const Tile = ({
                         {blank.title}
                     </div>
                     <div className="cmp-detail-tiles--add">
-                        <ReactSVG
-                            src={blank.addIcon}
-                            className="cmp-detail-tiles--add-icon"
-                        />
+                        {canCreate && <ReactSVG
+                                src={blank.addIcon}
+                                className="cmp-detail-tiles--add-icon"
+                            />
+                        }
                         <div className="cmp-detail-tiles--add-title">
                             {blank.addTitle}
                         </div>
