@@ -180,6 +180,7 @@ export async function personalSubmit(data) {
         const submitResponse = await response.json();
         const store = new SessionStore();
         store.setUserDetails(submitResponse);
+        store.setPersonalDetailsUpdated();
         this.setProfileData(submitResponse);
 
         this.callback();
