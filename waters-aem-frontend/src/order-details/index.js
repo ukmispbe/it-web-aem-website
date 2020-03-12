@@ -3,6 +3,7 @@ import { getOrderDetails } from './orderDetails.services';
 import DateFormatter from '../utils/date-formatter'
 import CurrencyFormatter from '../utils/currency-formatter'
 import GetLocale from "../utils/get-locale";
+import Spinner from "../utils/spinner";
 
 const OrderDetails = (props) => {
 
@@ -13,17 +14,20 @@ const OrderDetails = (props) => {
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     };
 
-    const id = getUrlParameter("id");
+    const orderId = getUrlParameter("id");
     const userLocale = GetLocale.getLocale();
     const url = props.config.fetchEndPoint;
+    //const [orderId, setOrderId] = useState(null);
     const [orderDetails, setOrderDetails] = useState({});
     const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        getOrderDetails(url, id)
+        //setOrderId(getUrlParameter("id"));
+        getOrderDetails(url, orderId)
             .then((data) => {
                 console.log(data);
+                setIsLoading(false);
                 setOrderDetails(data);
             })
             .catch(error => {
@@ -126,8 +130,9 @@ const OrderDetails = (props) => {
 
     return (
         <>
-            {error && renderErrorNotification()}
-            {!error && !loading && renderOrderDetails()}
+            {isLoading && (<Spinner loading={isLoading} />)}
+            {!isLoading && error && renderErrorNotification()}
+            {!error && !isLoading && renderOrderDetails()}
         </>
     )
 }
