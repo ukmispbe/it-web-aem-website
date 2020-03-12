@@ -39,7 +39,8 @@
                 }
             ],
             "myProfile": {
-                "fetchEndPoint": "${myaccount.soldToDetailsUrl @ context='unsafe'}",
+                "fetchDetailsEndPoint": "${myaccount.userDetailsUrl @ context='unsafe'}",
+                "fetchSoldToEndPoint": "${myaccount.soldToDetailsUrl @ context='unsafe'}",
                 "submitEndpoint": "${myaccount.myAccountUpdateUrl @ context='unsafe'}",
                 "personalConfigId": "json-config--cmp-detail-tiles--personal",
                 "addressConfig": {
