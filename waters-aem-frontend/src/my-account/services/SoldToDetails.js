@@ -42,4 +42,14 @@ const sortPriority = (soldToAccountsArray) => {
 }
 
 
+const getDefaultSoldTo = (soldToAccounts) => {
+    if (!soldToAccounts.length) return soldToAccounts;
+    
+    for (let i = 0; i < soldToAccounts.length; i++) {
+        if(soldToAccounts[i].default_soldTo === 1) {
+            returnsoldToAccounts[i];
+        } 
+    }
+}
+
 export default SoldToDetails;
