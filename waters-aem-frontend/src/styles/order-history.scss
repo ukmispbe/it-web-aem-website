@@ -86,10 +86,17 @@
                     margin-left: 0;
                 }
 
-                .cmp-order-list__code {
-                    @include font-h3; 
-                    color: $color-link;
-                    margin-bottom: 0;
+                .cmp-order-list__order-number { 
+                    a {
+                        @include font-h3; 
+                        color: $color-link;
+                        margin-bottom: 0;
+                        text-decoration: none;
+                    }
+                    a:hover {
+                        text-decoration: underline;
+                        color: $color-link-hover;
+                    }
                 }
                 .cmp-order-list__date {
                     @include font-small; 

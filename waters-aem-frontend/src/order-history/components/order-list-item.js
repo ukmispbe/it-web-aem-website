@@ -14,8 +14,8 @@ class OrderListItem extends Component {
         return (
             <div className={'cmp-order-list__container'}>
                 <div className="cmp-order-list__left">
-                    <div className="cmp-order-list__code">
-                        {this.props.orderText + " " + this.props.data.orderNumber}
+                    <div className="cmp-order-list__order-number">
+                        <a href={'#orderdetails?id=' + this.props.data.orderNumber}>{this.props.orderText + " " + this.props.data.orderNumber}</a>
                     </div>
                     <div className="cmp-order-list__date">
                         {DateFormatter.dateFormatter(this.props.data.date, this.userLocale)}
