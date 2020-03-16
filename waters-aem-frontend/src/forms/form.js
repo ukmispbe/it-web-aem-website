@@ -138,12 +138,14 @@ const Form = ({
     );
 
     const setFormAnalytics = (event, detail={}) => {
-        const model = {
-            detail,
-            formName: config.formName,
-            event
-        };
-        Analytics.setAnalytics(analyticTypes['form'].name, model);
+        if(config.formName){
+            const model = {
+                detail,
+                formName: config.formName,
+                event
+            };
+            Analytics.setAnalytics(analyticTypes['form'].name, model);
+        }
     }
 
     const getValue = name => getValues()[name];
