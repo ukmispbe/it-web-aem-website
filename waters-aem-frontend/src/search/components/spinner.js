@@ -21,7 +21,7 @@ class LoadingSpinner extends Component {
                 <ClipLoader
                     sizeUnit={'px'}
                     size={64}
-                    color={'#9CA7B0'}
+                    color={'#ffffff'}
                     loading={this.props.loading}
                 />
             </div>
