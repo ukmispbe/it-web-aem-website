@@ -212,25 +212,25 @@
 
 .cmp-banner--smallHeight .cmp-banner {
     .cmp-banner__parsys {
-        height: 12em;
+        min-height: 12em;
     }
 }
 
 .cmp-banner--mediumHeight .cmp-banner {
     .cmp-banner__parsys {
-        height: 16em;
+        min-height: 16em;
     }
 }
 
 .cmp-banner--largeHeight .cmp-banner {
     .cmp-banner__parsys {
-        height: 20em;
+        min-height: 20em;
     }
 }
 
 .cmp-banner--xlargeHeight .cmp-banner {
     .cmp-banner__parsys {
-        height: 24em;
+        min-height: 24em;
     }
 }
 
