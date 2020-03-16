@@ -65,8 +65,9 @@
             "name": "personal-details-tile",
             "type": "personal",
             "title": "${'Personal Details' @ i18n, context='unsafe'}",
-            "fetchEndPoint": "${myaccount.userDetailsUrl @ context='unsafe'}",
-            "canCreate": false,
+            "userDetailsUrl": "${myaccount.userDetailsUrl @ context='unsafe'}",
+            "soldToDetailsUrl": "${myaccount.soldToDetailsUrl @ context='unsafe'}",
+            "canCreate": true,
             "editText": "${'Edit' @ i18n, context='unsafe'}",
             "formMessage":  {
                 "text": "${'Your email is your username and cannot be changed. If you need to change your country, please ' @ i18n, context='unsafe'}",

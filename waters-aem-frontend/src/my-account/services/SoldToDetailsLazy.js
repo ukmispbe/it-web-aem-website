@@ -7,17 +7,15 @@ export default async (soldToDetailsUrl, useDefaultSoldTo = false, sessionStore =
         return [];
     }
 
-    const soldToDetails = sessionStore.getSoldToDetails();
+    // const soldToDetails = sessionStore.getSoldToDetails();
 
-    if (soldToDetails && !useDefaultSoldTo) {
-        return soldToDetails;
-    }
-    if (soldToDetails && useDefaultSoldTo) {
-        return SoldToDetails.getDefaultSoldTo(soldToDetails);
-    }
-
+    // if (soldToDetails) {
+    //     return soldToDetails;
+    // }
+console.log("soldToDetailsUrl", soldToDetailsUrl, "useDefaultSoldTo", useDefaultSoldTo);
     const response = await service(soldToDetailsUrl, useDefaultSoldTo);
 
+    console.log("Response: soldToDetails", response);
     if (!response.failed) {
         sessionStore.setSoldToDetails(response);
 

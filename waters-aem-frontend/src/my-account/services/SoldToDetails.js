@@ -16,6 +16,8 @@ const SoldToDetails = async (
     url = "https://test-www.waters.com:8443/api/waters/user/v1/retrievesoldto",
     useDefaultSoldTo = false
 ) => {
+    console.log("url", url, "useDefaultSoldTo", useDefaultSoldTo);
+
     return getData(url).then(async (response) => {
         const json = await response.json();
 
@@ -49,11 +51,11 @@ const sortPriority = (soldToAccountsArray) => {
 const getDefaultSoldTo = (soldToAccounts) => {
     if (!soldToAccounts.length) return soldToAccounts;
 
-    for (let i = 0; i < soldToAccounts.length; i++) {
-        if(soldToAccounts[i].default_soldTo === 1) {
-            return soldToAccounts[i];
-        } 
-    }
+    let defaultSoldTo = soldToAccounts.filter(function(i) {
+        return i.default_soldTo === 1;
+    })[0];
+
+    return [defaultSoldTo];
 }
 
 export default SoldToDetails;

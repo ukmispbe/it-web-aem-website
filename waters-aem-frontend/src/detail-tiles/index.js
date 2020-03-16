@@ -11,9 +11,11 @@ const DetailTiles = ({
     name,
     type,
     title,
-    fetchEndPoint,
+    userDetailsUrl, 
+    soldToDetailsUrl,
     canCreate,
     addTitle,
+    addAddressMessage,
     noAddressMessage,
     formMessage,
     form,
@@ -21,7 +23,7 @@ const DetailTiles = ({
     submitFn,
     editText
 }) => {
-    const { tiles, setData } = useProfile(fetchEndPoint, type, icons.refresh);
+    const { tiles, setData } = useProfile(userDetailsUrl, soldToDetailsUrl, type, icons.refresh);
 
     const renderTiles = () => {
         switch (type) {
