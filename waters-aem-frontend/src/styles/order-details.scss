@@ -53,13 +53,10 @@
                     margin-top: $space-l;
 
                     .cmp-order-details {
-                        &__ship-to {
+                        &__ship-to, &__bill-to {
                             flex: 1;
                             @include font-body;
-                        }
-                        &__bill-to {
-                            flex: 1;
-                            @include font-body;
+                            margin-right: $space-m;
                         }
                     }
                 }
