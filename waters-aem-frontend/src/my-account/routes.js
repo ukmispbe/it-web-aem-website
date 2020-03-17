@@ -1,6 +1,7 @@
 export default {
     myAccount: {
         path: "/",
+        label: "My Account"
     },
     profile: {
         path: "/profile",
