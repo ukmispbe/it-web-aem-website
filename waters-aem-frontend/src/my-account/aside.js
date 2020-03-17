@@ -1,26 +1,13 @@
 import React, { useEffect } from "react";
-import ReactDOM from 'react-dom';
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import Title from "../typography/title";
 import Ecommerce from "../scripts/ecommerce";
 import routes from "./routes";
-import Breadcrumb from './components/breadcrumb';
+import Breadcrumb from "./components/breadcrumb";
 
 const Aside = props => {
-
-    useEffect(() => {
-        renderActiveBreadcrumbs();
-    }, []);
-
-    const renderActiveBreadcrumbs = () => {
-        console.log(props.match.path);
-        const accountBreadcrumb = document.querySelector('.cmp-breadcrumb__item.cmp-breadcrumb__item--active');
-        //accountBreadcrumb.classList.remove('cmp-breadcrumb__item--active');
-        //accountBreadcrumb.innerHTML = '';
-        ReactDOM.render(<Breadcrumb element={accountBreadcrumb.children[0]}/>, document.querySelector('.cmp-breadcrumb__item.cmp-breadcrumb__item--active'));
-    }
 
     return (
         <div className="cmp-my-account__aside-wrapper">
@@ -31,6 +18,7 @@ const Aside = props => {
             <div className="cmp-my-account__aside-content">
                 {props.children}
             </div>
+            <Breadcrumb pathname={props.location.pathname} />
         </div>
     );
 }
@@ -76,15 +64,6 @@ Aside.propTypes = {
 
 Aside.defaultProps = {
     tiles: []
-}
-
-class Popup extends React.Component {
-  render() {
-    return ReactDOM.createPortal(
-      this.props.children,
-      document.querySelector("#link-render-div")
-    );
-  }
 }
 
 export default withRouter(Aside);

@@ -4,22 +4,22 @@ export default {
     },
     profile: {
         path: "/profile",
-        link: "Profile",
-        breadcrumbs: ['/']
+        label: "Profile",
+        parentTrail: ['/']
     },
     changePassword: {
         path: "/changepassword",
         label: "Change password",
-        breadcrumbs: ['/']
+        parentTrail: ['/']
     },
     orderHistory: {
         path: "/orderhistory",
         label: "Order History",
-        breadcrumbs: ['/']
+        parentTrail: ['/']
     },
     orderDetails: {
         path: "/orderdetails",
         label: "Order Details",
-        breadcrumbs: ['/', '/orderhistory']
+        parentTrail: ['/', '/orderhistory']
     }
 };
