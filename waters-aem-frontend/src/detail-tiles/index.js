@@ -67,6 +67,29 @@ const DetailTiles = ({
             );
         }
 
+        if (!canCreate && !tiles.length) {
+            return (
+                <ErrorBoundary>
+                    <Tile
+                        name={'emptyAddressTile'}
+                        columns={[
+                            {
+                                title: noAddressMessage,
+                                addTitle: addTitle,
+                                addIcon: icons.add
+                            }
+                        ]}
+                        formMessage={formMessage}
+                        form={form}
+                        icon={icons.edit}
+                        isNoAddress={true}
+                        editText={editText}
+                        canCreate={canCreate}
+                    />
+                </ErrorBoundary>
+            );
+        }
+
         return tiles.map((tile, key) => (
             <ErrorBoundary>
                 <Tile

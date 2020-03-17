@@ -29,6 +29,25 @@ export const getFullName = data => {
     return (firstName + ' ' + lastName).trim();
 };
 
+
+
+export const getFullCompanyAddress = address => {
+    if (
+        !address ||
+        (Object.entries(address).length === 0 && address.constructor === Object)
+    )
+        return '';
+
+    const addr1 = address.addr1 ? address.addr1.trim() + ', ' : '';
+    const addr2 = address.addr2 ? address.addr2.trim() + ', ' : '';
+    const addr3 = address.addr3 ? address.addr3.trim() + ', ' : '';
+    const addr4 = address.addr4 ? address.addr4.trim() : '';
+
+    return capitalize((addr1 + addr2 + addr3 + addr4).trim());
+};
+
+
+
 export const getFullAddress = address => {
     if (
         !address ||
@@ -45,15 +64,25 @@ export const getFullAddress = address => {
 };
 
 export const getAddressesByType = (addresses, type) => {
-    let addressType = 'TBD';
+    // let addressType = 'TBD';
 
-    if (type === 'shipping') {
-        addressType = 'shippingAddress';
-    } else if (type === 'billing') {
-        addressType = 'billingAddress';
-    }
+    // if (type === 'shipping') {
+    //     addressType = 'shippingAddress';
+    // } else if (type === 'billing') {
+    //     addressType = 'billingAddress';
+    // }
 
     return addresses.length
-        ? addresses.filter(address => address.addressType === addressType)
+        ? addresses.filter(address => address.addressType === type)
         : [];
 };
+
+export const getDefaultSoldTo = (soldToAccounts) => {
+    if (!soldToAccounts.length) return soldToAccounts;
+
+    let defaultSoldTo = soldToAccounts.filter(function(i) {
+        return i.defaultFlag === 1;
+    })[0];
+
+    return [defaultSoldTo];
+}

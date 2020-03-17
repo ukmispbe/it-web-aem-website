@@ -1,8 +1,10 @@
 import {
     getAddressesByType,
     getFullAddress,
+    getFullCompanyAddress,
     getFullName,
-    getCountryName
+    getCountryName,
+    getDefaultSoldTo
 } from './profileFormatter';
 
 const newNotification = (title, description, icon) => ({
@@ -23,6 +25,7 @@ const config = document.getElementById(
 export default (data, type, icon) => {
     if (!data) return [];
 
+    console.log("data 1 -  ", data);
     switch (type) {
         case 'personal':
             let mailingAddress = data.userAddress.filter(function(i) {
@@ -76,9 +79,12 @@ export default (data, type, icon) => {
 
         case 'shipping':
         case 'billing':
+            let defaultSoldTo = getDefaultSoldTo(data.soldToAccounts)[0];
+            console.log("addresses", defaultSoldTo.addresses);
             return [
-                ...getAddressesByType(data.userAddress, type).map(address => {
-                    address.country = address.countryCode;
+                ...getAddressesByType(defaultSoldTo.addresses, type).map(address => {
+                    //address.country = address.countryCode;
+                    console.log("address map", address);
                     let tile = {
                         name: address.id,
                         columns: [
@@ -88,7 +94,7 @@ export default (data, type, icon) => {
                                     : '',
                                 rows: [
                                     {
-                                        text: address.company,
+                                        text: getFullCompanyAddress(address),
                                         class: 'company'
                                     },
                                     {

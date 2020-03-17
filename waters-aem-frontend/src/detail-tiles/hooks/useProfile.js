@@ -6,56 +6,36 @@ import SoldToDetailsLazy from '../../my-account/services/SoldToDetailsLazy';
 export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
     const [data, setData] = useState();
     const [tiles, setTiles] = useState([]);
-    const useDefaultSoldTo = true;
 
+    const matchAddresses = (userDetailsAPIDetails, soldToAPIDetails) => {
+        userDetailsAPIDetails.soldToAccounts.forEach(account => {
+            for (let i = 0; i < soldToAPIDetails.length; i++) {
+                if(account.soldTo === soldToAPIDetails[i].soldTo) {
+                    account.company = soldToAPIDetails[i].company;
+                    account.addresses = soldToAPIDetails[i].partnerAddress;
+                } 
+            }
+        });
+        
+        return userDetailsAPIDetails;
+    }
     function getData() {
-        let firstAPICall = UserDetailsLazy(userDetailsUrl).then(response => {return response});
-        let secondAPICall = SoldToDetailsLazy(soldToDetailsUrl, useDefaultSoldTo).then(response => {return response});
+        let userDetailsAPICall = UserDetailsLazy(userDetailsUrl).then(response => {return response});
+        let soldToAPICall = SoldToDetailsLazy(soldToDetailsUrl).then(response => {return response});
 
-        Promise.all([firstAPICall, secondAPICall])
-        // .then(values => Promise.all(values.map(value => value.json())))
+        Promise.all([userDetailsAPICall, soldToAPICall])
         .then(finalVals => {
-            let firstAPIResp = finalVals[0];
-            let secondAPIResp = finalVals[1];
-            console.log("Response: UserDetailsLazy", firstAPIResp, "SoldToDetailsLazy", secondAPIResp);
+            let userDetailsAPIResp = finalVals[0];
+            let soldToAPIResp = finalVals[1];
+            let mergeAPIs = matchAddresses(userDetailsAPIResp, soldToAPIResp);
+
+            setData(mergeAPIs);
         });
     }
 
 
     useEffect(() => {
         getData();
-        // UserDetailsLazy(fetchDetailsEndPoint).then(response => {
-        //     setData(response);
-        // });
-
-        // SoldToDetailsLazy(fetchSoldToEndPoint, useDefaultSoldTo).then(response => {
-        //     setData(response);
-        // });
-
-        // switch (type) {
-        //     case 'personal':
-        //         UserDetailsLazy(fetchDetailsEndPoint).then(response => {
-        //             setData(response);
-        //         });
-        //         break;
-        //     case 'password':
-        //         UserDetailsLazy(fetchDetailsEndPoint).then(response => {
-        //             setData(response);
-        //         });
-        //         break;
-        //     case 'shipping':
-        //         SoldToDetailsLazy(fetchSoldToEndPoint, useDefaultSoldTo).then(response => {
-        //             setData(response);
-        //         });
-        //         break;
-        //     case 'billing':
-        //         SoldToDetailsLazy(fetchSoldToEndPoint, useDefaultSoldTo).then(response => {
-        //             setData(response);
-        //         });
-        //         break;
-        //     default:
-        // }
-
     }, []);
 
     useEffect(() => {
