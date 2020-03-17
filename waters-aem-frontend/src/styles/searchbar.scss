@@ -54,7 +54,7 @@
     }
 
     .react-autosuggest__input {
-        font-family: $font-stack;
+        font-family: inherit;
         @include font-h3;
         float: left;
         width: 100%;
