@@ -77,12 +77,12 @@ describe('Scenario getCountryName Function', () => {
 describe('Scenario getFullName Function', () => {
     describe('When Provided With First and Last Name', () => {
         const data = {
-            firstName: "john",
-            lastName: "doe"
+            firstName: "John",
+            lastName: "Doe"
         };
         const expectedName = "John Doe";
 
-        it("Then it should return both names capitalized", () => {
+        it("Then it should return both names as entered", () => {
             const fullName = profileFormatter.getFullName(data);
             expect(fullName).toMatch(expectedName);
         });
@@ -94,7 +94,7 @@ describe('Scenario getFullName Function', () => {
         };
         const expectedName = "John";
 
-        it("Then it should return only first name capitalized", () => {
+        it("Then it should return only first name as entered", () => {
             const fullName = profileFormatter.getFullName(data);
             expect(fullName).toMatch(expectedName);
         });
@@ -106,7 +106,7 @@ describe('Scenario getFullName Function', () => {
         };
         const expectedName = "Doe";
 
-        it("Then it should return only last name capitalized", () => {
+        it("Then it should return only last name as entered", () => {
             const fullName = profileFormatter.getFullName(data);
             expect(fullName).toMatch(expectedName);
         });

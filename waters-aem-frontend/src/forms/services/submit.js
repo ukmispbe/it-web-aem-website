@@ -3,6 +3,7 @@ import { parse } from 'query-string';
 import SessionStore from '../../stores/sessionStore';
 import DigitalData from '../../scripts/DigitalData';
 import UserDetails from '../../my-account/services/UserDetails';
+import { signInRedirect } from '../../utils/redirectFunctions';
 
 const postData = async (url, data) => {
     const response = await fetch(url, {
@@ -56,11 +57,13 @@ export async function registrationSubmit(data) {
                 store.removeSoldToDetails();
             }
         }
+        this.setFormAnalytics('submit');
 
         if (this.redirect) {
             window.location.replace(this.redirect);
         }
     } else {
+        this.setFormAnalytics('error', responseBody);
         this.setError(responseBody);
         scrollToY(0);
     }
@@ -76,15 +79,18 @@ export async function troubleSigningInSubmit(data) {
 
     this.url = this.url.replace('{email}', data.email);
     const response = await postData(this.url, data);
+    const responseBody = await response.json();
 
     // remove all previous server error notifications
     this.setError();
 
     if (response.status === 200) {
+        this.setFormAnalytics('submit');
         if (this.redirect) {
             window.location.href = this.redirect;
         }
     } else {
+        this.setFormAnalytics('error', responseBody);
         this.setError(response);
         scrollToY(0);
     }
@@ -117,15 +123,20 @@ export async function resetPasswordSubmit(data) {
     }
 
     const response = await postData(this.url, body);
+    const responseBody = await response.json();
 
     // remove all previous server error notifications
     this.setError();
 
     if (response.status === 200) {
+        this.setFormAnalytics('submit');
         if (this.redirect) {
             window.location.replace(this.redirect);
         }
+    } else if (response.status === 401) {
+        signInRedirect();
     } else {
+        this.setFormAnalytics('error', responseBody);
         this.setError(response);
         scrollToY(0);
     }
@@ -139,12 +150,14 @@ export async function changePasswordSubmit(data) {
     data.email = email;
 
     const response = await postData(this.url, data);
+    const responseBody = await response.json();
 
     // remove all previous server error notifications
     this.setError();
 
     if (response.status === 200) {
-        // clear Password Text Boxes
+        this.setFormAnalytics('submit');
+
         document.getElementsByName("currentPassword")[0].value = "";
         document.getElementsByName("newPassword")[0].value = "";
         document.getElementsByName("confirmNewPassword")[0].value = "";
@@ -153,6 +166,7 @@ export async function changePasswordSubmit(data) {
             this.callback(await response.json());
         }
     } else {
+        this.setFormAnalytics('error', responseBody);
         this.setError(response);
         scrollToY(0);
     }
@@ -170,9 +184,12 @@ export async function personalSubmit(data) {
         const submitResponse = await response.json();
         const store = new SessionStore();
         store.setUserDetails(submitResponse);
+        store.setPersonalDetailsUpdated();
         this.setProfileData(submitResponse);
 
         this.callback();
+    } else if (response.status === 401) {
+        signInRedirect();
     } else {
         this.setError(response);
         scrollToY(0);
@@ -207,7 +224,9 @@ export async function signInSubmit(data) {
                 return;
             }
         }
-        
+
+        this.setFormAnalytics('submit');
+
         const signInRedirect = window.sessionStorage.getItem('signInRedirect');
         if (signInRedirect || this.redirect) {
             window.location.replace(
@@ -215,8 +234,37 @@ export async function signInSubmit(data) {
             );
         }
     } else {
+        this.setFormAnalytics('error', responseBody);
         this.updateFailedAttempts('signin');
         this.setError(responseBody);
         scrollToY(0);
     }
+}
+
+export async function chooseAccountSubmit(data) {
+    // Determine the selercted Account
+    let selectedAccount = "";
+    for (let key of Object.keys(data)) {
+        if (data[key] === "on") {
+            selectedAccount = key;
+        }
+    }
+
+    const response = await postData(this.url + "/" + selectedAccount, "");
+    const responseBody = await response.json();
+     // remove all previous server error notifications
+    this.setError();
+
+    if (response.status === 200) {
+        this.setFormAnalytics('submit');
+        if (this.redirect) {
+            window.location.replace(this.redirect);
+        }
+    } else if (response.status === 401) {
+        signInRedirect();
+    } else {
+        this.setFormAnalytics('error', responseBody);
+        this.setError(responseBody);
+        scrollToY(0);
+    }   
 }

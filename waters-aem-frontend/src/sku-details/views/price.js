@@ -1,6 +1,4 @@
 import React from 'react';
-import ReactSVG from 'react-svg';
-import Utilities from '../utils/utils';
 
 class Price extends React.Component {
     constructor(props) {

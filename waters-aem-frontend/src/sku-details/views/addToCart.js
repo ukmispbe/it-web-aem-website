@@ -1,6 +1,4 @@
 import React from 'react';
-import ReactSVG from 'react-svg';
-import Utilities from '../utils/utils';
 import SkuService from '../services/index';
 import SkuList from '../../scripts/skulist';
 import Analytics, { analyticTypes } from '../../scripts/analytics';
