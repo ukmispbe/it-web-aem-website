@@ -12,13 +12,6 @@ const Breadcrumb = ({pathname}) => {
         updateCurrentBreadcrumb();
     }, []);
 
-    useEffect(() => {
-        const path = Object.values(routes).filter(route=>route.path===pathname)[0];
-        if(path){
-            setActivePath(path);
-        }
-    }, [pathname]);
-
     const updateCurrentBreadcrumb = () => {
         const activeBreadcrumb = document.querySelector('.cmp-breadcrumb__item.cmp-breadcrumb__item--active');
         if(activeBreadcrumb && activeBreadcrumb.children[0].textContent === 'My Account') {
@@ -38,27 +31,10 @@ const Breadcrumb = ({pathname}) => {
         )
     }
 
-    const renderActiveLink = () => {
-        return (
-            <li className="cmp-breadcrumb__item cmp-breadcrumb__item--active" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                <span itemprop="name">{activePath.label}</span>
-            </li>
-        )
-    }
-
-    const renderParentLinks = () => {
+    const renderBreadcrumb = () => {
         const path = Object.values(routes).filter(route=>route.path===pathname)[0];
         const parentLinks = path.parentTrail.map(renderLink);
         return parentLinks;
-    }
-
-    const renderBreadcrumb = () => {
-        return (
-            <>
-                {renderParentLinks()}
-                {renderActiveLink()}
-            </>
-            )
     }
 
     if(breadcrumbList) {
