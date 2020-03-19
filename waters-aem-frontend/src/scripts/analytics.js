@@ -92,6 +92,18 @@ class Analytics {
                     error: {
                         event: 'changePasswordFormError'
                     }
+                },
+                personaldetails: {
+                    name: 'personalDetailsForm',
+                    load: {
+                        event: 'personalDetailsFormLoad'
+                    },
+                    submit: {
+                        event: 'personalDetailsFormSubmit'
+                    },
+                    error: {
+                        event: 'personalDetailsFormError'
+                    }
                 }
             }
         }
@@ -185,6 +197,7 @@ class Analytics {
 
     dispatchEvent = (eventName, obj) => {
         document.dispatchEvent(new CustomEvent(eventName, obj));
+        console.log("eventName:"+eventName, " : "+JSON.stringify(obj))
     }
 
     siteLoad = () => {
