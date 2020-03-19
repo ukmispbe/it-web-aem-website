@@ -1,3 +1,4 @@
+import React from 'react';
 import generateTiles from '../generateTiles';
 import defaultData from '../__mocks__/en_US/index';
 
