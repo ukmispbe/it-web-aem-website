@@ -17,9 +17,8 @@ const MyAccount = ({ title, body, tiles }) => {
     useEffect(() => {
         if (!loginStatus.state()) {
             const isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
-            console.log("isInEditMode", isInEditMode)
             if (!isInEditMode) {
-                //signInRedirect();
+                signInRedirect();
             }
         }
 

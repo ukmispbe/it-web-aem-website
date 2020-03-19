@@ -10,7 +10,10 @@ export default (fetchEndPoint, type, icon) => {
 
     useEffect(() => {
         if (!loginStatus.state()) {
-            signInRedirect();
+            const isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
+            if (!isInEditMode) {
+                signInRedirect();
+            }
         }
         UserDetailsLazy(fetchEndPoint).then(response => {
             setData(response);
