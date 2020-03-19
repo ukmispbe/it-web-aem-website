@@ -17,7 +17,7 @@ const Aside = props => {
             <div className="cmp-my-account__aside-content">
                 {props.children}
             </div>
-            <Breadcrumb pathname={props.location.pathname} />
+            <Breadcrumb path={props.location.pathname} config={props.breadcrumbs} />
         </div>
     );
 }
