@@ -6,8 +6,7 @@ import ScreenSizes from '../../scripts/screenSizes';
 
 const Breadcrumb = (props) => {
 
-//    const breadcrumbList = document.querySelector('.cmp-breadcrumb__list');
-    const breadcrumbList = document.querySelectorAll('.cmp-breadcrumb__list')[1];
+    const breadcrumbList = document.querySelector('.cmp-breadcrumb__list');
     const [isMobile, setIsMobile] = useState(ScreenSizes.isMobile());
     const currentPath = Object.values(routes).filter(route=>route.path===props.path)[0];
 
