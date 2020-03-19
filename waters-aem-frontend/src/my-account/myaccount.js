@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Title from "../typography/title";
 import LinkTile from '../link-tile';
 import Ecommerce from "../scripts/ecommerce";
+import loginStatus from "../scripts/loginStatus";
+import { signInRedirect } from '../utils/redirectFunctions';
 
 const Tile = ({tile}) => {
     if (tile.requiresEcommerce === "true" && Ecommerce.isDisabledState()) {
@@ -12,6 +14,17 @@ const Tile = ({tile}) => {
 }
 
 const MyAccount = ({ title, body, tiles }) => {
+    useEffect(() => {
+        if (!loginStatus.state()) {
+            const isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
+            console.log("isInEditMode", isInEditMode)
+            if (!isInEditMode) {
+                //signInRedirect();
+            }
+        }
+
+    }, []);
+
     return (
         <div className="cmp-my-account-wrapper">
             <Title text={title} />
