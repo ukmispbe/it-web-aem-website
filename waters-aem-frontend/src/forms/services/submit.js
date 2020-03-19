@@ -220,14 +220,12 @@ export async function signInSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
+        if(responseBody.migrated === "N") {
+            window.location.replace(this.passwordUpdateUrl + `?email=${data.email}`);
+            return;
+        }
         if (this.callback) {
             const userDetails = await UserDetails(this.callback);
-            // Check if Migrated before adding userDetails to Session State
-            if(userDetails.migrated !== "Y") {
-                window.location.replace(this.passwordUpdateUrl + `?email=${data.email}`);
-                return;
-            }
-
             if (!userDetails.failed) {
                 const store = new SessionStore();
                 store.setUserDetails(userDetails);
