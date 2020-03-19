@@ -1,4 +1,3 @@
-import React from 'react';
 import * as profileFormatter from '../profileFormatter';
 
 describe('Scenario Capitalize Function', () => {
