@@ -9,12 +9,12 @@ export default (fetchEndPoint, type, icon) => {
     const [tiles, setTiles] = useState([]);
 
     useEffect(() => {
-        if (!loginStatus.state()) {
-            const isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
-            if (!isInEditMode) {
-                signInRedirect();
-            }
-        }
+        // if (!loginStatus.state()) {
+        //     const isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
+        //     if (!isInEditMode) {
+        //         signInRedirect();
+        //     }
+        // }
         UserDetailsLazy(fetchEndPoint).then(response => {
             setData(response);
         });
