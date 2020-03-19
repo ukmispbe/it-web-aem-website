@@ -33,7 +33,8 @@ export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
             let mergeAPIs = matchAddresses(userDetailsAPIResp, soldToAPIResp);
 
             setData(mergeAPIs);
-
+        });
+    }
 
 
     useEffect(() => {
