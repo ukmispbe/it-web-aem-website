@@ -197,7 +197,6 @@ class Analytics {
 
     dispatchEvent = (eventName, obj) => {
         document.dispatchEvent(new CustomEvent(eventName, obj));
-        console.log("eventName:"+eventName, " : "+JSON.stringify(obj))
     }
 
     siteLoad = () => {
