@@ -314,8 +314,8 @@ const Pagination = ({
         return <></>
     }
 
-    this.buildHref = href => `${window.location.href}/page/${href}`
-
+    let buildHref = href => `${window.location.href}/page/${href}`
+    
     return (
         <ReactPaginate
             pageCount={resultsProps.pagination.amount}
@@ -325,7 +325,7 @@ const Pagination = ({
             containerClassName="paginate__container"
             onPageChange={num => resultsEvents.onPageChange(num, 'clicked' )}
             breakLabel={'…'}
-            hrefBuilder={this.buildHref}
+            hrefBuilder={buildHref}
             previousLabel={<ReactSVG src={previousIcon} />}
             nextLabel={<ReactSVG src={nextIcon} />}
             initialPage={resultsProps.pagination.current ? resultsProps.pagination.current - 1 : 0}
