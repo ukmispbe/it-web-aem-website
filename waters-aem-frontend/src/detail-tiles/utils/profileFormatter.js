@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const capitalize = str => {
     if (!str || str.trim() === '') return '';
 
@@ -29,8 +31,6 @@ export const getFullName = data => {
     return (firstName + ' ' + lastName).trim();
 };
 
-
-
 export const getFullCompanyAddress = address => {
     if (
         !address ||
@@ -38,40 +38,23 @@ export const getFullCompanyAddress = address => {
     )
         return '';
 
-    const addr1 = address.addr1 ? address.addr1.trim() + ', ' : '';
-    const addr2 = address.addr2 ? address.addr2.trim() + ', ' : '';
-    const addr3 = address.addr3 ? address.addr3.trim() + ', ' : '';
-    const addr4 = address.addr4 ? address.addr4.trim() : '';
+    let addressArray = []; 
+    const city = address.city ? capitalize(address.city).trim() + ', ' : '';
+    const region = address.regio ? capitalize(address.regio).trim() + ' ' : '';
+    const postalCd = address.postalCd ? capitalize(address.postalCd).trim() : '';
 
-    return capitalize((addr1 + addr2 + addr3 + addr4).trim());
-};
+    address.addr1 ? addressArray.push(capitalize(address.addr1).trim()) : null;
+    address.addr2 ? addressArray.push(capitalize(address.addr2).trim()) : null;
+    address.addr3 ? addressArray.push(capitalize(address.addr3).trim()) : null;
+    address.addr4 ? addressArray.push(capitalize(address.addr4).trim()) : null;
+    address.street ? addressArray.push(capitalize(address.street).trim()) : null;
 
+    addressArray.push((city + region + postalCd).trim());
 
-
-export const getFullAddress = address => {
-    if (
-        !address ||
-        (Object.entries(address).length === 0 && address.constructor === Object)
-    )
-        return '';
-
-    const street = address.street ? address.street.trim() + ', ' : '';
-    const city = address.city ? address.city.trim() + ', ' : '';
-    const region = address.stateRegion ? address.stateRegion.trim() + ' ' : '';
-    const zip = address.zip ? address.zip.trim() : '';
-
-    return capitalize((street + city + region + zip).trim());
+    return addressArray;
 };
 
 export const getAddressesByType = (addresses, type) => {
-    // let addressType = 'TBD';
-
-    // if (type === 'shipping') {
-    //     addressType = 'shippingAddress';
-    // } else if (type === 'billing') {
-    //     addressType = 'billingAddress';
-    // }
-
     return addresses.length
         ? addresses.filter(address => address.addressType === type)
         : [];

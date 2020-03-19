@@ -100,16 +100,16 @@ const Tile = ({
                     <div className="cmp-detail-tiles-list--tile-noAddress--title">
                         {blank.title}
                     </div>
-                    <div className="cmp-detail-tiles--add">
-                        {canCreate && <ReactSVG
+                    {canCreate && <div className="cmp-detail-tiles--add">
+                        <ReactSVG
                                 src={blank.addIcon}
                                 className="cmp-detail-tiles--add-icon"
                             />
-                        }
                         <div className="cmp-detail-tiles--add-title">
                             {blank.addTitle}
                         </div>
                     </div>
+                    }
                 </div>
             </>
         );

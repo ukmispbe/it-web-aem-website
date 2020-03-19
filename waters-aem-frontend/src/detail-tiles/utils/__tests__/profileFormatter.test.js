@@ -1,3 +1,4 @@
+import React from 'react';
 import * as profileFormatter from '../profileFormatter';
 
 describe('Scenario Capitalize Function', () => {
@@ -123,20 +124,35 @@ describe('Scenario getFullName Function', () => {
     });
 });
 
-describe('Scenario getFullAddress Function', () => {
+describe('Scenario getFullCompanyAddress Function', () => {
     let address = {
-        street: "123 main st ",
-        city: "cityville",
-        stateRegion: " Region ",
-        zip: "12345"
+        "addr1": "Neta Scientific Inc",
+        "addr2": "Hainesport Industrial Park",
+        "addr3": "Accounts Payable",
+        "addr4": "",
+        "street": "4206 Sylon Blvd",
+        "city": "Hainesport",
+        "regio": "NJ",
+        "postalCd": "08036-3736",
+        "country": "US",
+        "addressType": "billing",
+        "communications": false
     };
 
+    
+
     describe('When Address is Complete', () => {
-        const expectedAddress = "123 Main St, Cityville, Region 12345";
+        const expectedAddress = [
+            "Neta Scientific Inc",
+            "Hainesport Industrial Park",
+            "Accounts Payable", 
+            "4206 Sylon Blvd",
+            "Hainesport, NJ 08036-3736"
+        ];
 
         it('Then it should return the address properly formatted', () => {
-            const newAddress = profileFormatter.getFullAddress(address);
-            expect(newAddress).toMatch(expectedAddress);
+            const newAddress = profileFormatter.getFullCompanyAddress(address);
+            expect(newAddress).toStrictEqual(expectedAddress);
         });
     });
 
@@ -147,44 +163,72 @@ describe('Scenario getFullAddress Function', () => {
             // No City
             tmpAddress = {...address};
             delete tmpAddress.city;
-            expectedAddress = "123 Main St, Region 12345";
-            newAddress = profileFormatter.getFullAddress(tmpAddress);
-            expect(newAddress).toMatch(expectedAddress);
+            expectedAddress = [
+                "Neta Scientific Inc",
+                "Hainesport Industrial Park",
+                "Accounts Payable", 
+                "4206 Sylon Blvd",
+                "NJ 08036-3736"
+            ];
+            newAddress = profileFormatter.getFullCompanyAddress(tmpAddress);
+            expect(newAddress).toStrictEqual(expectedAddress);
 
             // No State
             tmpAddress = {...address};
-            delete tmpAddress.stateRegion;
-            expectedAddress = "123 Main St, Cityville, 12345";
-            newAddress = profileFormatter.getFullAddress(tmpAddress);
-            expect(newAddress).toMatch(expectedAddress);
+            delete tmpAddress.regio;
+            expectedAddress = [
+                "Neta Scientific Inc",
+                "Hainesport Industrial Park",
+                "Accounts Payable", 
+                "4206 Sylon Blvd",
+                "Hainesport, 08036-3736"
+            ];
+            newAddress = profileFormatter.getFullCompanyAddress(tmpAddress);
+            expect(newAddress).toStrictEqual(expectedAddress);
 
             // No Street
             tmpAddress = {...address};
             delete tmpAddress.street;
-            expectedAddress = "Cityville, Region 12345";
-            newAddress = profileFormatter.getFullAddress(tmpAddress);
-            expect(newAddress).toMatch(expectedAddress);
+            expectedAddress = [
+                "Neta Scientific Inc",
+                "Hainesport Industrial Park",
+                "Accounts Payable", 
+                "Hainesport, NJ 08036-3736"
+            ];
+            newAddress = profileFormatter.getFullCompanyAddress(tmpAddress);
+            expect(newAddress).toStrictEqual(expectedAddress);
 
             // No Zip
             tmpAddress = {...address};
-            delete tmpAddress.zip;
-            expectedAddress = "123 Main St, Cityville, Region";
-            newAddress = profileFormatter.getFullAddress(tmpAddress);
-            expect(newAddress).toMatch(expectedAddress);
+            delete tmpAddress.postalCd;
+            expectedAddress = [
+                "Neta Scientific Inc",
+                "Hainesport Industrial Park",
+                "Accounts Payable", 
+                "4206 Sylon Blvd",
+                "Hainesport, NJ"
+            ];
+            newAddress = profileFormatter.getFullCompanyAddress(tmpAddress);
+            expect(newAddress).toStrictEqual(expectedAddress);
 
             // No Zip & Street
             tmpAddress = {...address};
-            delete tmpAddress.zip;
+            delete tmpAddress.postalCd;
             delete tmpAddress.street;
-            expectedAddress = "Cityville, Region";
-            newAddress = profileFormatter.getFullAddress(tmpAddress);
-            expect(newAddress).toMatch(expectedAddress);
+            expectedAddress = [
+                "Neta Scientific Inc",
+                "Hainesport Industrial Park",
+                "Accounts Payable", 
+                "Hainesport, NJ"
+            ];
+            newAddress = profileFormatter.getFullCompanyAddress(tmpAddress);
+            expect(newAddress).toStrictEqual(expectedAddress);
         });
     });
 
     describe("When Provided With No Address", () => {
         it('Then it should return an empty string', () => {
-            const newAddress = profileFormatter.getFullAddress({});
+            const newAddress = profileFormatter.getFullCompanyAddress({});
             expect(newAddress).toMatch("");
         });
     });
@@ -194,50 +238,50 @@ describe('Scenario getAddressesByType Function', () => {
     const addresses = [
         {
             id: 0,
-            addressType: "shippingAddress"
+            addressType: "shipping"
         },
         {
             id: 1,
-            addressType: "shippingAddress"
+            addressType: "shipping"
         },
         {
             id: 5,
-            addressType: "billingAddress"
+            addressType: "billing"
         },
         {
             id: 2,
-            addressType: "shippingAddress"
+            addressType: "shipping"
         },
         {
             id: 3,
-            addressType: "billingAddress"
+            addressType: "billing"
         },
         {
             id: 4,
-            addressType: "mailingAddress"
+            addressType: "mailing"
         },
     ];
 
     describe('When Given Type Shipping', () => {
-        it('Then it should only return addresses with type shippingAddress', () => {
+        it('Then it should only return addresses with type shipping', () => {
             const newAddresses = profileFormatter.getAddressesByType(addresses, "shipping");
 
             expect(newAddresses).toHaveLength(3);
 
             newAddresses.forEach(address => {
-                expect(address.addressType).toMatch("shippingAddress");
+                expect(address.addressType).toMatch("shipping");
             });
         });
     });
 
     describe('When Given Type Billing', () => {
-        it('Then it should only return addresses with type billingAddress', () => {
+        it('Then it should only return addresses with type billing', () => {
             const newAddresses = profileFormatter.getAddressesByType(addresses, "billing");
 
             expect(newAddresses).toHaveLength(2);
 
             newAddresses.forEach(address => {
-                expect(address.addressType).toMatch("billingAddress");
+                expect(address.addressType).toMatch("billing");
             });
         });
     });

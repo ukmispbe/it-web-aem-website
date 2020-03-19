@@ -1,6 +1,5 @@
 import {
     getAddressesByType,
-    getFullAddress,
     getFullCompanyAddress,
     getFullName,
     getCountryName,
@@ -12,6 +11,11 @@ const newNotification = (title, description, icon) => ({
     description: description,
     icon: icon
 });
+
+const buildAddress = address => {
+    let addressArray = getFullCompanyAddress(address);
+    return addressArray.map((x, i) => <div key={i + 1}>{x}</div>);
+}
 
 const config = document.getElementById(
     'json-config--cmp-detail-tiles--personal'
@@ -25,7 +29,6 @@ const config = document.getElementById(
 export default (data, type, icon) => {
     if (!data) return [];
 
-    console.log("data 1 -  ", data);
     switch (type) {
         case 'personal':
             let mailingAddress = data.userAddress.filter(function(i) {
@@ -80,13 +83,10 @@ export default (data, type, icon) => {
         case 'shipping':
         case 'billing':
             let defaultSoldTo = getDefaultSoldTo(data.soldToAccounts)[0];
-            console.log("addresses", defaultSoldTo.addresses);
             return [
                 ...getAddressesByType(defaultSoldTo.addresses, type).map(address => {
-                    //address.country = address.countryCode;
-                    console.log("address map", address);
                     let tile = {
-                        name: address.id,
+                        name: type,
                         columns: [
                             {
                                 title: address.preferred
@@ -94,11 +94,7 @@ export default (data, type, icon) => {
                                     : '',
                                 rows: [
                                     {
-                                        text: getFullCompanyAddress(address),
-                                        class: 'company'
-                                    },
-                                    {
-                                        text: getFullAddress(address),
+                                        text: buildAddress(address),
                                         class: 'address'
                                     },
                                     {
