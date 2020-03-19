@@ -21,7 +21,6 @@ const MyAccount = ({ title, body, tiles }) => {
                 signInRedirect();
             }
         }
-
     }, []);
 
     return (
