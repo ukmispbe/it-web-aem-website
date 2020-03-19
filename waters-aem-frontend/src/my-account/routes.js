@@ -1,26 +1,26 @@
 export default {
     myAccount: {
+        name: "myAccount",
         path: "/",
-        label: "My Account"
     },
     profile: {
+        name: "profile",
         path: "/profile",
-        label: "Profile",
         parentTrail: ['/']
     },
     changePassword: {
+        name: "changePassword",
         path: "/changepassword",
-        label: "Change password",
         parentTrail: ['/']
     },
     orderHistory: {
+        name: "orderHistory",
         path: "/orderhistory",
-        label: "Order History",
-        parentTrail: ['/']
+        parentTrail: ['/'],
     },
     orderDetails: {
+        name: "orderDetails",
         path: "/orderdetails",
-        label: "Order Details",
         parentTrail: ['/', '/orderhistory']
     }
 };
