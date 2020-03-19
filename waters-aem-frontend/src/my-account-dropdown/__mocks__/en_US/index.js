@@ -19,7 +19,7 @@ const DefaultProps = {
             url: '/content/waters/language-masters/en/switch.html'
         },
         createAccount: {
-            text: 'CREATE ACCOUNT',
+            text: 'Create Account',
             url: '/content/waters/language-masters/en/test.html'
         },
         itemList: [
