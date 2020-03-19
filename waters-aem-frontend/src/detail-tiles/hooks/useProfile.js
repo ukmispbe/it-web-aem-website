@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import generateTiles from '../utils/generateTiles';
 import UserDetailsLazy from '../../my-account/services/UserDetailsLazy';
 import SoldToDetailsLazy from '../../my-account/services/SoldToDetailsLazy';
+import loginStatus from "../../scripts/loginStatus";
+import { signInRedirect } from '../../utils/redirectFunctions';
 
 export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
     const [data, setData] = useState();
@@ -19,6 +21,7 @@ export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
         
         return userDetailsAPIDetails;
     }
+    
     function getData() {
         let userDetailsAPICall = UserDetailsLazy(userDetailsUrl).then(response => {return response});
         let soldToAPICall = SoldToDetailsLazy(soldToDetailsUrl).then(response => {return response});
@@ -30,11 +33,16 @@ export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
             let mergeAPIs = matchAddresses(userDetailsAPIResp, soldToAPIResp);
 
             setData(mergeAPIs);
-        });
-    }
+
 
 
     useEffect(() => {
+        if (!loginStatus.state()) {
+            const isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
+            if (!isInEditMode) {
+                signInRedirect();
+            }
+        }
         getData();
     }, []);
 

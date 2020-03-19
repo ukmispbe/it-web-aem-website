@@ -92,6 +92,18 @@ class Analytics {
                     error: {
                         event: 'changePasswordFormError'
                     }
+                },
+                personaldetails: {
+                    name: 'personalDetailsForm',
+                    load: {
+                        event: 'personalDetailsFormLoad'
+                    },
+                    submit: {
+                        event: 'personalDetailsFormSubmit'
+                    },
+                    error: {
+                        event: 'personalDetailsFormError'
+                    }
                 }
             }
         }

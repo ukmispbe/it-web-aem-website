@@ -15,6 +15,7 @@
         border: $border-light;
         color: $color-font-light;
         width: 100%;
+        text-transform: uppercase;
         &:hover {
             background-color: $color-background-dark;
             border: 1px solid $color-gray-20;
