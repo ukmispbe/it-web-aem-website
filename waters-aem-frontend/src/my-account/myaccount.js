@@ -14,14 +14,14 @@ const Tile = ({tile}) => {
 }
 
 const MyAccount = ({ title, body, tiles }) => {
-    useEffect(() => {
-        if (!loginStatus.state()) {
-            const isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
-            if (!isInEditMode) {
-                signInRedirect();
-            }
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (!loginStatus.state()) {
+    //         const isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
+    //         if (!isInEditMode) {
+    //             signInRedirect();
+    //         }
+    //     }
+    // }, []);
 
     return (
         <div className="cmp-my-account-wrapper">

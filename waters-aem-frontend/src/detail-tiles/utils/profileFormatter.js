@@ -67,3 +67,14 @@ export const getDefaultSoldTo = (soldToAccounts) => {
 
     return [defaultSoldTo];
 }
+
+export const getDefaultSoldToAddresses = (defaultSoldTo) => {
+    if (!defaultSoldTo.length) {
+        return [];  
+    } else {
+        return [defaultSoldTo.addresses];
+    }
+
+
+}
+

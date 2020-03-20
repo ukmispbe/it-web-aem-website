@@ -83,9 +83,9 @@ export default (data, type, icon) => {
 
         case 'shipping':
         case 'billing':
-            let defaultSoldTo = getDefaultSoldTo(data.soldToAccounts)[0];
+            let defaultSoldToAddresses = getDefaultSoldToAddresses(data.soldToAccounts);
             return [
-                ...getAddressesByType(defaultSoldTo.addresses, type).map(address => {
+                ...getAddressesByType(defaultSoldToAddresses, type).map(address => {
                     let tile = {
                         name: type,
                         columns: [
