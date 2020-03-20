@@ -4,7 +4,7 @@ import {
     getFullCompanyAddress,
     getFullName,
     getCountryName,
-    getDefaultSoldTo
+    getDefaultSoldToAddresses
 } from './profileFormatter';
 
 const newNotification = (title, description, icon) => ({

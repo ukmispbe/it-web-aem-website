@@ -59,22 +59,28 @@ export const getAddressesByType = (addresses, type) => {
 };
 
 export const getDefaultSoldTo = (soldToAccounts) => {
-    if (!soldToAccounts.length) return soldToAccounts;
-
-    let defaultSoldTo = soldToAccounts.filter(function(i) {
-        return i.defaultFlag === 1;
-    })[0];
-
-    return [defaultSoldTo];
+    if (soldToAccounts === null || soldToAccounts === undefined || !soldToAccounts.length) {
+        return [];
+    } else {
+        let defaultSoldTo = soldToAccounts.filter(function(i) {
+            return i.defaultFlag === 1;
+        })[0];
+    
+        return defaultSoldTo;
+    }
 }
 
-export const getDefaultSoldToAddresses = (defaultSoldTo) => {
-    if (!defaultSoldTo.length) {
+export const getDefaultSoldToAddresses = (soldToAccounts) => {
+
+    if (Array.isArray(soldToAccounts) && !soldToAccounts.length){
         return [];  
     } else {
-        return [defaultSoldTo.addresses];
+        let defaultSoldTo = getDefaultSoldTo(soldToAccounts);
+        
+        if (defaultSoldTo.addresses === null || defaultSoldTo.addresses === undefined || !defaultSoldTo.addresses.length) {
+            return [];  
+        } else {
+            return defaultSoldTo.addresses;
+        }
     }
-
-
 }
-
