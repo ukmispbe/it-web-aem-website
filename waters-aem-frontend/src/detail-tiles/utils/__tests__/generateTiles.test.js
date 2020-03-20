@@ -1,7 +1,6 @@
 import React from 'react';
 import generateTiles from '../generateTiles';
-import defaultData from '../__mocks__/en_US/defaultData';
-import {DefaultProps as config} from '../../__mocks__/en_US/index'
+import defaultData from '../__mocks__/en_US/index';
 
 const mockDefaultData = (data, type) => {
     if (type === "personal") {
