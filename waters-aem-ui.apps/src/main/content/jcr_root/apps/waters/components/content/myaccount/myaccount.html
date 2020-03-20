@@ -38,6 +38,28 @@
                     "links": ${myaccount.additionalResources @ context="unsafe"}
                 }
             ],
+            "breadcrumbs": {
+                "routes": {
+                    "myAccount": {
+                        "title": "${'My Account' @ i18n, context='unsafe'}",
+                        "backLinkTitle": "${'Back to My Account' @ i18n, context='unsafe'}"
+                    },
+                    "profile": {
+                        "title": "${'Profile' @ i18n, context='unsafe'}"
+                    },
+                    "changePassword": {
+                        "title": "${'Change Password' @ i18n, context='unsafe'}"
+                    },
+                    "orderHistory": {
+                        "title": "${'Order History' @ i18n, context='unsafe'}",
+                        "backLinkTitle": "${'Back to Order History' @ i18n, context='unsafe'}"
+                    },
+                    "orderDetails": {
+                        "title": "${'Order Details' @ i18n, context='unsafe'}"
+                    }
+                },
+                "backIcon": "/content/dam/waters/en/brand-assets/icons/left.svg"
+            },
             "myProfile": {
                 "fetchEndPoint": "${myaccount.userDetailsUrl @ context='unsafe'}",
                 "submitEndpoint": "${myaccount.myAccountUpdateUrl @ context='unsafe'}",

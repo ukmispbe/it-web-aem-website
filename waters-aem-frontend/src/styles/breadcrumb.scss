@@ -123,3 +123,42 @@
         background-color: $color-white;
     }
 }
+
+.cmp-breadcrumb-back {
+    display: inline-block;
+    margin-top: ($space-xxxs + 0.05em);
+    margin-right: 13px;
+    padding-right: 13px;
+
+    @include mobile {
+        margin-bottom: 0;
+    }
+
+    a.cmp-breadcrumb-back__link {
+        background-color: $color-white;
+        color: $color-link;
+        float: unset;
+        padding-right: 0px;
+
+        svg {
+            margin-top: -3px;
+        }
+
+        span {
+            padding-right: $space-xs;
+        }
+
+        &:hover {
+            color: $color-link-hover;
+            background-color: $color-white;
+        }
+    }
+}
+
+.cmp-breadcrumb-my-account {
+    .cmp-breadcrumb__item {
+        @include mobile {
+            display: none;
+        }
+    }
+}
