@@ -7,29 +7,23 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
-import com.citytechinc.cq.component.annotations.widgets.PathField;
-import com.citytechinc.cq.component.annotations.widgets.TextField;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
-import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.content.links.BasicLink;
 import com.waters.aem.core.components.content.links.JsonFields;
-import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.account.WatersAccountService;
-import com.waters.aem.core.utils.LinkUtils;
-import com.waters.aem.core.utils.MyAccountUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.ModifiableValueMap;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 
 import javax.annotation.Nonnull;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static com.icfolson.aem.library.core.constants.ComponentConstants.*;
 
@@ -44,9 +38,9 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.*;
                 @Tab(title = "Labels"),
                 @Tab(title = "Configs")
         }
-        )
+)
 @Model(adaptables = SlingHttpServletRequest.class,
-        adapters = { Cart.class, ComponentExporter.class },
+        adapters = {Cart.class, ComponentExporter.class},
         resourceType = Cart.RESOURCE_TYPE,
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
@@ -55,11 +49,14 @@ public class Cart implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/cart";
 
-    @OSGiService
-    private WatersAccountService accountService;
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
+    public static final String PROPERTY_LABELS_JSON = "cart-labels";
+
+    public static final String PROPERTY_CONFIGS_JSON = "cart-configs";
+    
     @Inject
-    private PageManagerDecorator pageManager;
+    private Resource resource;
 
     @DialogField(fieldLabel = "Labels",
             ranking = 1)
@@ -71,31 +68,42 @@ public class Cart implements ComponentExporter {
         return labels;
     }
 
-    @DialogField(fieldLabel = "Endpoints",
+    @DialogField(fieldLabel = "Configs",
             tab = 2,
             ranking = 1)
     @MultiField(composite = true)
     @Inject
-    private List<BasicLink> endpoints = new ArrayList<>();
+    private List<BasicLink> configs = new ArrayList<>();
 
-    public List<BasicLink> getLinks() {
-        return endpoints;
+    public List<BasicLink> getConfigs() {
+        return configs;
     }
 
-    public String getCountriesJson() throws JsonProcessingException {
-        return MyAccountUtils.getCountriesJson();
-    }
 
-    public String getUserDetailsUrl() {
-        return accountService.getUserDetailsUrl();
-    }
-
-    public String getMyAccountUpdateUrl() {
-        return accountService.getUpdateProfileUrl();
-    }
-
-    public String getUpdatePasswordUrl() {
-        return accountService.getUpdatePasswordUrl();
+    @PostConstruct
+    protected void updateNode() {
+        if (resource.isResourceType(Cart.RESOURCE_TYPE)) {
+            try {
+                ModifiableValueMap modifiableValueMap = resource.adaptTo(ModifiableValueMap.class);
+                Iterator<JsonFields> labelsItr = getLabels().iterator();
+                Iterator<BasicLink> configsItr = getConfigs().iterator();
+                Map jsonMap = new HashMap();
+                while (labelsItr.hasNext()) {
+                    JsonFields jsonFields = labelsItr.next();
+                    jsonMap.put(jsonFields.getLabel(), jsonFields.getLabelText());
+                }
+                modifiableValueMap.put(PROPERTY_LABELS_JSON, jsonMap.size() > 0 ? MAPPER.writeValueAsString(jsonMap) : "");
+                jsonMap.clear();
+                while (configsItr.hasNext()) {
+                    BasicLink basicLink = configsItr.next();
+                    jsonMap.put(basicLink.getText(), basicLink.getLink().getPath());
+                }
+                modifiableValueMap.put(PROPERTY_CONFIGS_JSON, jsonMap.size() > 0 ? MAPPER.writeValueAsString(jsonMap) : "");
+                resource.getResourceResolver().commit();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Nonnull
