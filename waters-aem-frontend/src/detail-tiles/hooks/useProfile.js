@@ -33,13 +33,9 @@ export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
             setData(mergeAPIs);
         });
     }
-
-
+    
     useEffect(() => {
         getData();
-    }, []);
-
-    useEffect(() => {
         setTiles(generateTiles(data, type, icon));
     }, [data]);
 
