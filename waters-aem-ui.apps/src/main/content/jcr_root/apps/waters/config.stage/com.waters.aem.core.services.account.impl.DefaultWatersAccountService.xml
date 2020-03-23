@@ -15,5 +15,5 @@
           signInEndpoint="https://stgservices.waters.com/api/waters/user/v1/login"
           signOutEndpoint="https://stgservices.waters.com/api/waters/user/v1/logout"
           updateProfileUrl="https://stgservices.waters.com/api/waters/user/v1/update/profile"
-          changeLegacyPwUrl="https://stgservices.waters.com/api/waters/user/v1/change/legacypassword"/>
+          changeLegacyPwUrl="https://stgservices.waters.com/api/waters/user/v1/force/legacy/password"/>
 
