@@ -14,4 +14,5 @@
           soldToDetailsUrl="https://test-www.waters.com:8443/api/waters/user/v1/retrievesoldto"
           signInEndpoint="https://test-www.waters.com:8443/api/waters/user/v1/login"
           signOutEndpoint="https://test-www.waters.com:8443/api/waters/user/v1/logout"
-          updateProfileUrl="https://test-www.waters.com:8443/api/waters/user/v1/update/profile"/>
+          updateProfileUrl="https://test-www.waters.com:8443/api/waters/user/v1/update/profile"
+          changeLegacyPwUrl="https://test-www.waters.com:8443/api/waters/user/v1/change/legacypassword"/>
