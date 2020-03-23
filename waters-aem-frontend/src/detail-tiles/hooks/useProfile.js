@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import generateTiles from '../utils/generateTiles';
 import UserDetailsLazy from '../../my-account/services/UserDetailsLazy';
 import SoldToDetailsLazy from '../../my-account/services/SoldToDetailsLazy';
+import loginStatus from '../../scripts/loginStatus';
+import { signInRedirect } from '../../utils/redirectFunctions';
 
 export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
     const [data, setData] = useState();
