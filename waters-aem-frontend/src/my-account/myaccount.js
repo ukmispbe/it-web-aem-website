@@ -24,7 +24,6 @@ const MyAccount = ({ title, body, tiles }) => {
         }
     }, []);
 
-
     return (
         <div className="cmp-my-account-wrapper">
             <Title text={title} />
