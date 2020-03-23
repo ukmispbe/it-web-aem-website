@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import ReactDOM from 'react-dom';
+import ReactSVG from 'react-svg';
 import routes from "../routes";
 import ScreenSizes from '../../scripts/screenSizes';
 
@@ -11,10 +12,13 @@ const Breadcrumb = (props) => {
     const currentPath = Object.values(routes).filter(route=>route.path===props.path)[0];
 
     useEffect(() => {
+        const breadcrumb = document.querySelector('.cmp-breadcrumb-my-account');
+        breadcrumb && breadcrumb.classList.add('show');
         const handleResize = () => setIsMobile(ScreenSizes.isMobile());
         window.addEventListener('resize', handleResize);
         return () => {
             window.removeEventListener('resize', handleResize);
+            breadcrumb.classList.remove('show');
         };
     }, []);
 
@@ -28,7 +32,7 @@ const Breadcrumb = (props) => {
                 <Link class="cmp-breadcrumb-back__link cmp-button--secondary cmp-button--no-border cmp-button--with-icon"
                         to={parentRoutePath}
                         title={parentConfig.title}>
-                    <img alt={parentConfig.backLinkTitle} class="inline-svg"  src={props.config.backIcon}/>
+                    <ReactSVG src={props.config.backIcon}/>
                     <span>{parentConfig.backLinkTitle}</span>
                 </Link>
             </li>
@@ -54,14 +58,10 @@ const Breadcrumb = (props) => {
         return parentLinks;
     }
 
-    if(breadcrumbList) {
-        return ReactDOM.createPortal(
-            isMobile ? renderBackToLink() : renderBreadcrumb(),
-            breadcrumbList
-        )
-    } else {
-        return;
-    }
+    return ReactDOM.createPortal(
+        isMobile ? renderBackToLink() : renderBreadcrumb(),
+        breadcrumbList
+    )
 }
 
 export default Breadcrumb;

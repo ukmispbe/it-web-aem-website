@@ -8,6 +8,8 @@ import Breadcrumb from "./components/breadcrumb";
 
 const Aside = props => {
 
+    const breadcrumbList = document.querySelector('.cmp-breadcrumb__list');
+
     return (
         <div className="cmp-my-account__aside-wrapper">
             <Title text={getTitle(props.tiles, props.location.pathname)} />
@@ -17,7 +19,7 @@ const Aside = props => {
             <div className="cmp-my-account__aside-content">
                 {props.children}
             </div>
-            <Breadcrumb path={props.location.pathname} config={props.breadcrumbs} />
+            {breadcrumbList && (<Breadcrumb path={props.location.pathname} config={props.breadcrumbs} />)}
         </div>
     );
 }
