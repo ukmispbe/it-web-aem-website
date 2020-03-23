@@ -3,11 +3,12 @@ import React, { useState } from "react";
 import DetailTiles from "../detail-tiles";
 
 const MyProfile = ({ configs }) => {
-    const [fetchEndPoint, setFetchEndPoint] = useState(configs.fetchEndPoint);
+    const [fetchUserDetailsUrl, setFetchUserDetailsUrl] = useState(configs.userDetailsUrl);
+    const [fetchSoldToDetailsUrl, setFetchSoldToDetailsUrl] = useState(configs.soldToDetailsUrl);
     const [submitEndpoint, setSubmitEndpoint] = useState(configs.submitEndpoint);
 
     const setupConfig = (configId, abstractConfig={}) => {
-        let config = {...abstractConfig, fetchEndPoint, submitEndpoint};
+        let config = {...abstractConfig, fetchUserDetailsUrl, fetchSoldToDetailsUrl, submitEndpoint};
         config = {
             ...config,
             ...JSON.parse(document.getElementById(configId).innerHTML)

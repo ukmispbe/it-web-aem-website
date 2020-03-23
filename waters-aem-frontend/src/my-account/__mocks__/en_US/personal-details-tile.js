@@ -2,7 +2,8 @@ export default {
     "name": "personal-details-tile",
     "type": "personal",
     "title": "Personal Details",
-    "fetchEndPoint": "https://test-www.waters.com:8443/api/waters/user/v1/details?email={email}",
+    "userDetailsUrl": "https://test-www.waters.com:8443/api/waters/user/v1/details",
+    "soldToDetailsUrl": "https://test-www.waters.com:8443/api/waters/user/v1/retrievesoldto",
     "canCreate": false,
     "editText": "Edit",
     "formMessage": {

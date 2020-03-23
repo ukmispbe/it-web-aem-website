@@ -11,9 +11,11 @@ const DetailTiles = ({
     name,
     type,
     title,
-    fetchEndPoint,
+    userDetailsUrl, 
+    soldToDetailsUrl,
     canCreate,
     addTitle,
+    addAddressMessage,
     noAddressMessage,
     formMessage,
     form,
@@ -21,7 +23,7 @@ const DetailTiles = ({
     submitFn,
     editText
 }) => {
-    const { tiles, setData } = useProfile(fetchEndPoint, type, icons.refresh);
+    const { tiles, setData } = useProfile(userDetailsUrl, soldToDetailsUrl, type, icons.refresh);
 
     const renderTiles = () => {
         switch (type) {
@@ -59,6 +61,30 @@ const DetailTiles = ({
                         icon={icons.edit}
                         isNoAddress={true}
                         editText={editText}
+                        canCreate={canCreate}
+                    />
+                </ErrorBoundary>
+            );
+        }
+
+        if (!canCreate && !tiles.length) {
+            return (
+                <ErrorBoundary>
+                    <Tile
+                        name={'emptyAddressTile'}
+                        columns={[
+                            {
+                                title: noAddressMessage,
+                                addTitle: addTitle,
+                                addIcon: icons.add
+                            }
+                        ]}
+                        formMessage={formMessage}
+                        form={form}
+                        icon={icons.edit}
+                        isNoAddress={true}
+                        editText={editText}
+                        canCreate={canCreate}
                     />
                 </ErrorBoundary>
             );
@@ -73,6 +99,7 @@ const DetailTiles = ({
                     form={form}
                     icon={icons.edit}
                     editText={editText}
+                    canCreate={canCreate}
                     setProfileData={setData}
                 />
             </ErrorBoundary>
