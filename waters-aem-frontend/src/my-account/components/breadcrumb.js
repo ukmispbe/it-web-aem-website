@@ -58,14 +58,10 @@ const Breadcrumb = (props) => {
         return parentLinks;
     }
 
-    if(breadcrumbList) {
-        return ReactDOM.createPortal(
-            isMobile ? renderBackToLink() : renderBreadcrumb(),
-            breadcrumbList
-        )
-    } else {
-        return;
-    }
+    return ReactDOM.createPortal(
+        isMobile ? renderBackToLink() : renderBreadcrumb(),
+        breadcrumbList
+    )
 }
 
 export default Breadcrumb;
