@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import ReactDOM from 'react-dom';
+import ReactSVG from 'react-svg';
 import routes from "../routes";
 import ScreenSizes from '../../scripts/screenSizes';
 
@@ -28,7 +29,7 @@ const Breadcrumb = (props) => {
                 <Link class="cmp-breadcrumb-back__link cmp-button--secondary cmp-button--no-border cmp-button--with-icon"
                         to={parentRoutePath}
                         title={parentConfig.title}>
-                    <img alt={parentConfig.backLinkTitle} class="inline-svg"  src={props.config.backIcon}/>
+                    <ReactSVG src={props.config.backIcon}/>
                     <span>{parentConfig.backLinkTitle}</span>
                 </Link>
             </li>
