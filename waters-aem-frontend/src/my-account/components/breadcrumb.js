@@ -12,10 +12,13 @@ const Breadcrumb = (props) => {
     const currentPath = Object.values(routes).filter(route=>route.path===props.path)[0];
 
     useEffect(() => {
+        const breadcrumb = document.querySelector('.cmp-breadcrumb-my-account');
+        breadcrumb && breadcrumb.classList.add('show');
         const handleResize = () => setIsMobile(ScreenSizes.isMobile());
         window.addEventListener('resize', handleResize);
         return () => {
             window.removeEventListener('resize', handleResize);
+            breadcrumb.classList.remove('show');
         };
     }, []);
 

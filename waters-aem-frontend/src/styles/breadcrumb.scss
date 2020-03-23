@@ -156,9 +156,18 @@
 }
 
 .cmp-breadcrumb-my-account {
+
+    height: 0;
+    opacity: 0;
+
     .cmp-breadcrumb__item {
         @include mobile {
             display: none;
         }
     }
+    &.show {
+        height: auto;
+        opacity: 1;
+    }
+
 }
