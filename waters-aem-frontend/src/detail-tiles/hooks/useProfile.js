@@ -43,7 +43,13 @@ export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
                 notLoggedInRedirect();
             }
         }
+    }, []);
+
+    useEffect(() => {
         getData();
+    }, []);
+
+    useEffect(() => {
         setTiles(generateTiles(data, type, icon));
     }, [data]);
 
