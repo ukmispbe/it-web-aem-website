@@ -88,7 +88,7 @@ public class ResetPassword implements ComponentExporter {
     }
 
     public String getSubmitEndpoint() {
-        return formType.equals(RESET_OPTION) ? accountService.getChangePasswordUrl() : accountService.getUpdatePasswordUrl();
+        return formType.equals(RESET_OPTION) ? accountService.getChangePasswordUrl() : accountService.getChangeLegacyPasswordUrl();
     }
 
     public String getButtonText() {

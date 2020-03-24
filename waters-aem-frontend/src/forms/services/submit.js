@@ -130,6 +130,16 @@ export async function resetPasswordSubmit(data) {
 
     if (response.status === 200) {
         this.setFormAnalytics('submit');
+        // Use Call back to added userDetails to Session State
+        if (this.callback) {
+            const userDetails = await UserDetails(this.callback);
+
+            if (!userDetails.failed) {
+                const store = new SessionStore();
+                store.setUserDetails(userDetails);
+                store.removeSoldToDetails();
+            }
+        } 
         if (this.redirect) {
             window.location.replace(this.redirect);
         }
@@ -210,18 +220,16 @@ export async function signInSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
+        if(responseBody.migrated === "N") {
+            window.location.replace(this.passwordUpdateUrl + `?email=${data.email}`);
+            return;
+        }
         if (this.callback) {
             const userDetails = await UserDetails(this.callback);
-
             if (!userDetails.failed) {
                 const store = new SessionStore();
                 store.setUserDetails(userDetails);
                 store.removeSoldToDetails();
-            }
-            
-            if(userDetails.migrated !== "Y") {
-                window.location.replace(this.passwordUpdateUrl + `?email=${data.email}`);
-                return;
             }
         }
 
