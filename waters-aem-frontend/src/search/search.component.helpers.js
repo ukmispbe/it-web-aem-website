@@ -111,7 +111,7 @@ const Aside = ({
                 collapseFilters={asideEvents.onCollapseFilters} />
             <div className="cmp-search__sort-filter__container">
                 <Sort
-                    sortValue={asideProps.sortValue}
+                    sortValue={asideProps.sortByValue}
                     sortHandler={asideEvents.onSort}
                     text={text} />
                 {children}
