@@ -15,6 +15,7 @@ const getData = async (url) => {
 export async function signOutRequest(url, homepageLink) {
     const sessionStore = new SessionStore();
     sessionStore.removeUserDetails();
+    sessionStore.removeSoldToDetails();
 
     const response = await getData(url);
 

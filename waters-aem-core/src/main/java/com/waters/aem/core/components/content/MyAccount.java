@@ -107,6 +107,10 @@ public class MyAccount implements ComponentExporter {
         return accountService.getUserDetailsUrl();
     }
 
+    public String getSoldToDetailsUrl() {
+        return accountService.getSoldToDetailsUrl();
+    }
+
     public String getMyAccountUpdateUrl() {
         return accountService.getUpdateProfileUrl();
     }

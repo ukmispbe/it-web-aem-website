@@ -2,6 +2,7 @@
     data-sly-use.header="com.waters.aem.core.components.structure.Header"
     id="header"
     class="cmp-header"
+    data-is-edit-mode="${isEditMode}"
     data-homepage-url="${header.homepageLink.href}"
     data-signout-endpoint="${header.signOutEndpoint}"
     data-search-path="${header.searchPath.href}"
@@ -93,7 +94,7 @@
                                     "url": "${header.switchAccountLink.href @ context='unsafe'}"
                                 },
                                 "createAccount": {
-                                    "text": "${'CREATE ACCOUNT' @ i18n, context='unsafe'}",
+                                    "text": "${'Create Account' @ i18n, context='unsafe'}",
                                     "url": "${header.createAccountLink.href @ context='unsafe'}"
                                 },
                                 "itemList": [

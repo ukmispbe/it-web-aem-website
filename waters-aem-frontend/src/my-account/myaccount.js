@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Title from "../typography/title";
 import LinkTile from '../link-tile';
 import Ecommerce from "../scripts/ecommerce";

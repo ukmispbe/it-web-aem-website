@@ -173,7 +173,7 @@ export async function changePasswordSubmit(data) {
         document.getElementsByName("confirmNewPassword")[0].value = "";
 
         if (this.callback && typeof this.callback === 'function') {
-            this.callback(await response.json());
+            this.callback(await responseBody);
         }
     } else {
         this.setFormAnalytics('error', responseBody);
