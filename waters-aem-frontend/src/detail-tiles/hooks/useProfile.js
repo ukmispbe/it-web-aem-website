@@ -3,7 +3,7 @@ import generateTiles from '../utils/generateTiles';
 import UserDetailsLazy from '../../my-account/services/UserDetailsLazy';
 import SoldToDetailsLazy from '../../my-account/services/SoldToDetailsLazy';
 import loginStatus from '../../scripts/loginStatus';
-import { signInRedirect } from '../../utils/redirectFunctions';
+import { notLoggedInRedirect } from '../../utils/redirectFunctions';
 
 export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
     const [data, setData] = useState();
@@ -40,7 +40,7 @@ export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
         if (!loginStatus.state()) {
             const isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
             if (!isInEditMode) {
-                signInRedirect();
+                notLoggedInRedirect();
             }
         }
         getData();
