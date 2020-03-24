@@ -3,7 +3,7 @@ import Title from "../typography/title";
 import LinkTile from '../link-tile';
 import Ecommerce from "../scripts/ecommerce";
 import loginStatus from "../scripts/loginStatus";
-import { signInRedirect } from '../utils/redirectFunctions';
+import { notLoggedInRedirect } from '../utils/redirectFunctions';
 
 const Tile = ({tile}) => {
     if (tile.requiresEcommerce === "true" && Ecommerce.isDisabledState()) {
@@ -19,7 +19,7 @@ const MyAccount = ({ title, body, tiles }) => {
         if (!loginStatus.state()) {
             const isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
             if (!isInEditMode) {
-                signInRedirect();
+                notLoggedInRedirect();
             }
         }
     }, []);
