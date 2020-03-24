@@ -73,9 +73,6 @@ const CheckboxOrRadio = ({}) => {
         <>
             {label + ' '}
             {renderAddOnLink(thisName)}
-            {!state[thisName].required && (
-                <span className="cmp-form-field--optional">(optional)</span>
-            )}
         </>
     );
 
