@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import generateTiles from '../utils/generateTiles';
 import UserDetailsLazy from '../../my-account/services/UserDetailsLazy';
 import SoldToDetailsLazy from '../../my-account/services/SoldToDetailsLazy';
+import loginStatus from '../../scripts/loginStatus';
+import { notLoggedInRedirect } from '../../utils/redirectFunctions';
 
 export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
     const [data, setData] = useState();
@@ -33,9 +35,21 @@ export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
             setData(mergeAPIs);
         });
     }
-    
+
+    useEffect(() => {
+        if (!loginStatus.state()) {
+            const isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
+            if (!isInEditMode) {
+                notLoggedInRedirect();
+            }
+        }
+    }, []);
+
     useEffect(() => {
         getData();
+    }, []);
+
+    useEffect(() => {
         setTiles(generateTiles(data, type, icon));
     }, [data]);
 
