@@ -53,6 +53,8 @@ public class WatersContentService extends SlingAllMethodsServlet {
             String pagePath = request.getParameter("path");
             final String responseLevel = request.getParameter("page");
             if (!StringUtils.isBlank(pagePath) && (pagePath.startsWith("/content") || pagePath.startsWith("/nextgen"))) {
+                if(pagePath.startsWith("/nextgen"))
+                    pagePath = pagePath.replace("/nextgen", "/content/waters");
                 if (pagePath.endsWith(".html"))
                     pagePath = pagePath.replace(".html", "");
                 if (settingsService.getRunModes().contains(Externalizer.PUBLISH)) {
@@ -75,7 +77,6 @@ public class WatersContentService extends SlingAllMethodsServlet {
         String pagePublishCaaSUrl = "", caasResult = "", navResult = "";
         try {
             final ResourceResolver resourceResolver = request.getResourceResolver();
-            if (path.startsWith("/nextgen")) path.replace("/nextgen", "/content/waters");
             if (null != resourceResolver.getResource(path)) {
                 pagePublishCaaSUrl = externalizer.publishLink(resourceResolver, path.concat(".caas.infinity.json")).replace("/nextgen", "/content/waters");
                 caasResult = HttpCall(pagePublishCaaSUrl);
