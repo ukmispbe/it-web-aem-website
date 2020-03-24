@@ -15,4 +15,4 @@
           signInEndpoint="https://prodservices.waters.com/api/waters/user/v1/login"
           signOutEndpoint="https://prodservices.waters.com/api/waters/user/v1/logout"
           updateProfileUrl="https://prodservices.waters.com/api/waters/user/v1/update/profile"
-          changeLegacyPwUrl="https://prodservices.waters.com/api/waters/user/v1/change/legacypassword"/>
+          changeLegacyPwUrl="https://prodservices.waters.com/api/waters/user/v1/force/legacy/password"/>
