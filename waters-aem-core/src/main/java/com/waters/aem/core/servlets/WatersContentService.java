@@ -50,13 +50,15 @@ public class WatersContentService extends SlingAllMethodsServlet {
         try {
             LOG.info("New Content Service request");
             response.setContentType("application/json; charset=UTF-8");
-            String pagePath = request.getParameter("path");
-            final String responseLevel = request.getParameter("page");
-            if (!StringUtils.isBlank(pagePath) && (pagePath.startsWith(WatersConstants.ROOT_PATH) || pagePath.startsWith(WatersConstants.CUSTOM_ROOT_PATH))) {
-                if (pagePath.startsWith(WatersConstants.CUSTOM_ROOT_PATH))
+            String pagePath = request.getParameter("pathPath");
+            final String responseLevel = request.getParameter("depth");
+            if (StringUtils.isNotBlank(pagePath) && (pagePath.startsWith(WatersConstants.ROOT_PATH) || pagePath.startsWith(WatersConstants.CUSTOM_ROOT_PATH))) {
+                if (pagePath.startsWith(WatersConstants.CUSTOM_ROOT_PATH)) {
                     pagePath = pagePath.replace(WatersConstants.CUSTOM_ROOT_PATH, WatersConstants.ROOT_PATH);
-                if (pagePath.endsWith(".html"))
+                }
+                if (pagePath.endsWith(".html")) {
                     pagePath = pagePath.replace(".html", "");
+                }
                 if (settingsService.getRunModes().contains(Externalizer.PUBLISH)) {
                     response.getWriter().write(getJSON(pagePath, responseLevel, request));
                 } else {
@@ -80,9 +82,10 @@ public class WatersContentService extends SlingAllMethodsServlet {
         try {
             final ResourceResolver resourceResolver = request.getResourceResolver();
             if (null != resourceResolver.getResource(path)) {
+                //TODO:USE CompletableFuture API instead of sequence
                 pagePublishCaaSUrl = externalizer.publishLink(resourceResolver, path.concat(".caas.infinity.json")).replace(WatersConstants.CUSTOM_ROOT_PATH, WatersConstants.ROOT_PATH);
                 caasResult = httpCall(pagePublishCaaSUrl);
-                if (!StringUtils.isBlank(responseLevel) && responseLevel.equals("full")) {
+                if (StringUtils.isNoneBlank(responseLevel) && responseLevel.equalsIgnoreCase("full")) {
                     final Resource resource = resourceResolver.getResource(path + "/jcr:content/header/par/navigation");
                     if (null != resource) {
                         navResult = httpCall(pagePublishCaaSUrl.replace(".caas.infinity.json", "/_jcr_content/header/par/navigation.model.json"));
