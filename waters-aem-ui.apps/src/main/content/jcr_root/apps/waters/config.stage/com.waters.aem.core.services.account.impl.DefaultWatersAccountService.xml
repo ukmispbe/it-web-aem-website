@@ -15,6 +15,5 @@
           signInEndpoint="https://stgservices.waters.com/api/waters/user/v1/login"
           signOutEndpoint="https://stgservices.waters.com/api/waters/user/v1/logout"
           updateProfileUrl="https://stgservices.waters.com/api/waters/user/v1/update/profile"
-          changeLegacyPwUrl="https://stgservices.waters.com/api/waters/user/v1/force/legacy/password"
           legacyOrderHistoryUrl="https://legacy-stage.waters.com/waters/Order-History/nav.htm?cid=2243118"/>
 

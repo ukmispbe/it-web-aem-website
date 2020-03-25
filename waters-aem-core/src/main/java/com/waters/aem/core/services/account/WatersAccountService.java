@@ -73,13 +73,6 @@ public interface WatersAccountService {
     String getUpdatePasswordUrl();
 
     /**
-     * Get the configured URL for update legacy password API.
-     *
-     * @return User update legacy password API URL
-     */
-    String getChangeLegacyPasswordUrl();
-
-    /**
      * Get the configured URL for update profile API.
      *
      * @return User update profile API URL
