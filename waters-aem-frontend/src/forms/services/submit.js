@@ -214,7 +214,7 @@ export async function signInSubmit(data) {
     if (response.status === 200) {
         if(responseBody.migrated === "N") {
             const store = new SessionStore();
-            store.setLegacyToken(responseBody.restToken);
+            store.setLegacyToken(responseBody.resetToken);
             window.location.replace(this.passwordUpdateUrl);
             return;
         }
