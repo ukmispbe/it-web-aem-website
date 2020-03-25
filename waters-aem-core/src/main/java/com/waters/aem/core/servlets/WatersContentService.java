@@ -50,7 +50,7 @@ public class WatersContentService extends SlingAllMethodsServlet {
         try {
             LOG.info("New Content Service request");
             response.setContentType("application/json; charset=UTF-8");
-            String pagePath = request.getParameter("pathPath");
+            String pagePath = request.getParameter("pagePath");
             final String responseLevel = request.getParameter("depth");
             if (StringUtils.isNotBlank(pagePath) && (pagePath.startsWith(WatersConstants.ROOT_PATH) || pagePath.startsWith(WatersConstants.CUSTOM_ROOT_PATH))) {
                 if (pagePath.startsWith(WatersConstants.CUSTOM_ROOT_PATH)) {
