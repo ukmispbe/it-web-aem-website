@@ -13,6 +13,7 @@ import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.Resource;
@@ -120,12 +121,7 @@ public class WatersContentService extends SlingAllMethodsServlet {
             if (statusLine.getStatusCode() != HttpURLConnection.HTTP_OK) {
                 throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
             }
-            BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
-            String out;
-            while ((out = br.readLine()) != null) {
-                res = res.concat(out);
-            }
-            br.close();
+            res = EntityUtils.toString(response.getEntity(), "UTF-8");
         } catch (Exception e) {
             LOG.info("Exception occured: {}", e.getMessage());
             LOG.debug("Exception occured: {}", e);
