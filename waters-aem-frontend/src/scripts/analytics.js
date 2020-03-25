@@ -112,6 +112,9 @@ class Analytics {
     setAnalytics = (name, model) => {
         let thisAnalyticEvent = null;
         if(name==='form') {
+            if(model.formName === 'resetpassword' && model.formType && model.formType === 'update') {
+                model.formName = 'updatepassword';
+            }
             thisAnalyticEvent = this.analyticTypes[name][model.formName][model.event];
         } else {
             thisAnalyticEvent = this.analyticTypes[name];
