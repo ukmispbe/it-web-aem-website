@@ -26,8 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.Servlet;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.util.concurrent.TimeUnit;
 
@@ -41,10 +39,10 @@ public class WatersContentService extends SlingAllMethodsServlet {
     private static final Logger LOG = LoggerFactory.getLogger(WatersContentService.class);
 
     @Reference
-    private transient Externalizer externalizer;
+    private Externalizer externalizer;
 
     @Reference
-    private transient SlingSettingsService settingsService;
+    private SlingSettingsService settingsService;
 
     @Override
     public void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) {
@@ -61,7 +59,7 @@ public class WatersContentService extends SlingAllMethodsServlet {
                     pagePath = pagePath.replace(".html", "");
                 }
                 if (settingsService.getRunModes().contains(Externalizer.PUBLISH)) {
-                    response.getWriter().write(getJSON(pagePath, responseLevel, request));
+                    response.getWriter().write(buildJsonForPage(pagePath, responseLevel, request));
                 } else {
                     response.getWriter().write("Content Service is supposed to be executed on Publish instance only");
                 }
@@ -75,25 +73,25 @@ public class WatersContentService extends SlingAllMethodsServlet {
 
     }
 
-    private final String getJSON(final String path, final String responseLevel, final SlingHttpServletRequest request) {
+    private final String buildJsonForPage(final String path, final String responseLevel, final SlingHttpServletRequest request) {
         final Stopwatch stopwatch = Stopwatch.createStarted();
         String pagePublishCaaSUrl = "";
-        String caasResult = "";
-        String navResult = "";
+        String pageJsonResponse = "";
+        String navigationCompJsonResponse = "";
         try {
             final ResourceResolver resourceResolver = request.getResourceResolver();
             if (null != resourceResolver.getResource(path)) {
                 //TODO:USE CompletableFuture API instead of sequence
                 pagePublishCaaSUrl = externalizer.publishLink(resourceResolver, path.concat(".caas.infinity.json")).replace(WatersConstants.CUSTOM_ROOT_PATH, WatersConstants.ROOT_PATH);
-                caasResult = httpCall(pagePublishCaaSUrl);
+                pageJsonResponse = getHttpResponseAsStringForURI(pagePublishCaaSUrl);
                 if (StringUtils.isNoneBlank(responseLevel) && responseLevel.equalsIgnoreCase("full")) {
                     final Resource resource = resourceResolver.getResource(path + "/jcr:content/header/par/navigation");
                     if (null != resource) {
-                        navResult = httpCall(pagePublishCaaSUrl.replace(".caas.infinity.json", "/_jcr_content/header/par/navigation.model.json"));
-                        LOG.debug("JSON Content- {\"Page Content\": {} ,\"Navigation Content\": {} }", caasResult, navResult);
+                        navigationCompJsonResponse = getHttpResponseAsStringForURI(pagePublishCaaSUrl.replace(".caas.infinity.json", "/_jcr_content/header/par/navigation.model.json"));
+                        LOG.debug("JSON Content- {\"Page Content\": {} ,\"Navigation Content\": {} }", pageJsonResponse, navigationCompJsonResponse);
                         LOG.info("JSON returned with full page content for: {}", path);
                         LOG.info("JSON fetched from AEM in {} ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
-                        return "{\"Page Content\":" + caasResult + ",\"Navigation Content\":" + navResult + "}";
+                        return "{\"Page Content\":" + pageJsonResponse + ",\"Navigation Content\":" + navigationCompJsonResponse + "}";
                     }
                 }
             } else {
@@ -105,11 +103,11 @@ public class WatersContentService extends SlingAllMethodsServlet {
         }
         LOG.info("JSON returned for: {}", path);
         LOG.info("JSON fetched from AEM in {} ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
-        return "{\"Page Content\":" + caasResult + "}";
+        return "{\"Page Content\":" + pageJsonResponse + "}";
     }
 
-    private final String httpCall(final String URI) {
-        String res = "";
+    private final String getHttpResponseAsStringForURI(final String URI) {
+        String responseEntity = "";
         LOG.debug("Making HTTP call to get the JSON for URI: {}", URI);
         final HttpUriRequest request = RequestBuilder.get(URI)
                 .addHeader(HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType())
@@ -121,13 +119,13 @@ public class WatersContentService extends SlingAllMethodsServlet {
             if (statusLine.getStatusCode() != HttpURLConnection.HTTP_OK) {
                 throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
             }
-            res = EntityUtils.toString(response.getEntity(), "UTF-8");
+            responseEntity = EntityUtils.toString(response.getEntity(), "UTF-8");
         } catch (Exception e) {
             LOG.info("Exception occured: {}", e.getMessage());
             LOG.debug("Exception occured: {}", e);
         }
         LOG.debug("Http call successful for uri: {} ", URI);
-        return res;
+        return responseEntity;
     }
 
 }
