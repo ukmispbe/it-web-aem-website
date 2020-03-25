@@ -101,7 +101,11 @@ export async function resetPasswordSubmit(data) {
     const store = new SessionStore();
     const resetToken = store.getLegacyToken();
     store.removeLegacyToken();
-    
+    if (typeof resetToken === "undefined") {
+        const queryString = parse(window.location.search);
+        resetToken = queryString.token;
+    }
+
     const newPassword = data.password;
 
     let body = {
