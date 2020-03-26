@@ -12,4 +12,6 @@ public @interface EmailTemplateClientConfiguration {
     @AttributeDefinition(name = "Set Template API path")
     String setTemplateEndpoint() default "/sandbox/settemplate";
 
+    @AttributeDefinition(name = "Set API key")
+    String setApiKey() default "W064sbiQAF3RRkCex9lOt231pmc6w3PGSl3A7pde";
 }

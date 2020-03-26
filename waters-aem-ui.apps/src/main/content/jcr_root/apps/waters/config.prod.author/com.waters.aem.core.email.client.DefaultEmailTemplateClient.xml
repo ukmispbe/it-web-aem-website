@@ -4,4 +4,5 @@
           jcr:primaryType="sling:OsgiConfig"
           hostname="yowx22oy95.execute-api.us-east-1.amazonaws.com"
           setTemplateEndpoint ="/prod/settemplate"
+          setApiKey = "pwpOqJ75iHpE8eiIqDCr58GlbdkgzjJ6HanrLkC5"
 />
