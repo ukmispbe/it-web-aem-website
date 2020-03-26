@@ -28,6 +28,9 @@ export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
 
         Promise.all([userDetailsAPICall, soldToAPICall])
         .then(finalVals => {
+            if (finalVals[0].phone) {
+                finalVals[0].phone = finalVals[0].phone.replace(/\D/g,'');
+            }
             let userDetailsAPIResp = finalVals[0];
             let soldToAPIResp = finalVals[1];
             let mergeAPIs = matchAddresses(userDetailsAPIResp, soldToAPIResp);
