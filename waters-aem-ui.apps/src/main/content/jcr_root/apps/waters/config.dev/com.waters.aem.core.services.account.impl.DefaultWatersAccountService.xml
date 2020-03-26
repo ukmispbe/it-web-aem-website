@@ -15,5 +15,4 @@
           signInEndpoint="https://test-www.waters.com:8443/api/waters/user/v1/login"
           signOutEndpoint="https://test-www.waters.com:8443/api/waters/user/v1/logout"
           updateProfileUrl="https://test-www.waters.com:8443/api/waters/user/v1/update/profile"
-          changeLegacyPwUrl="https://test-www.waters.com:8443/api/waters/user/v1/force/legacy/password"
           legacyOrderHistoryUrl="https://wwwdt1.waters.com/waters/Order-History/nav.htm?cid=2243118"/>

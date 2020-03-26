@@ -97,34 +97,24 @@ export async function troubleSigningInSubmit(data) {
 }
 
 export async function resetPasswordSubmit(data) {
-    const queryString = parse(window.location.search);
-    const resetToken = queryString.token;
-    const email = queryString.email;
-    const newPassword = data.password;
 
-    let updateMode = "reset";
-
-    if (typeof resetToken === "undefined") {
-        updateMode = "update";
+    const store = new SessionStore();
+    let resetToken = store.getLegacyToken();
+    store.removeLegacyToken();
+    if (resetToken === null) {
+        const queryString = parse(window.location.search);
+        resetToken = queryString.token;
     }
 
+    const newPassword = data.password;
+
     let body = {
-        email,
         resetToken,
         newPassword
     };
 
-    // Remove resetToken if undefined
-    if (updateMode === "update") {
-        body = {
-            email,
-            newPassword
-        };
-    }
-
     const response = await postData(this.url, body);
     const responseBody = await response.json();
-
     // remove all previous server error notifications
     this.setError();
 
@@ -175,6 +165,8 @@ export async function changePasswordSubmit(data) {
         if (this.callback && typeof this.callback === 'function') {
             this.callback(await responseBody);
         }
+    } else if (response.status === 401) {
+        signInRedirect();
     } else {
         this.setFormAnalytics('error', responseBody);
         this.setError(response);
@@ -221,7 +213,9 @@ export async function signInSubmit(data) {
 
     if (response.status === 200) {
         if(responseBody.migrated === "N") {
-            window.location.replace(this.passwordUpdateUrl + `?email=${data.email}`);
+            const store = new SessionStore();
+            store.setLegacyToken(responseBody.resetToken);
+            window.location.replace(this.passwordUpdateUrl);
             return;
         }
         if (this.callback) {

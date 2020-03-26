@@ -92,11 +92,6 @@ public class DefaultWatersAccountService implements WatersAccountService {
     }
 
     @Override
-    public String getChangeLegacyPasswordUrl() {
-        return changeLegacyPasswordUrl;
-    }
-
-    @Override
     public String getUpdateProfileUrl() {
         return updateProfileUrl;
     }
@@ -129,7 +124,6 @@ public class DefaultWatersAccountService implements WatersAccountService {
         userDetailsUrl = configuration.userDetailsUrl();
         soldToDetailsUrl = configuration.soldToDetailsUrl();
         updatePasswordUrl = configuration.updatePwUrl();
-        changeLegacyPasswordUrl = configuration.changeLegacyPwUrl();
         updateProfileUrl = configuration.updateProfileUrl();
         signInEndpoint = configuration.signInEndpoint();
         signOutEndpoint = configuration.signOutEndpoint();
