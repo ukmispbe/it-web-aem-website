@@ -36,9 +36,6 @@ public @interface WatersAccountServiceConfiguration {
     @AttributeDefinition(name = "Update Password API Url", description = "Url for update password API")
     String updatePwUrl() default "https://test-www.waters.com:8443/api/waters/user/v1/update/password";
 
-    @AttributeDefinition(name = "Update Legacy Password API Url", description = "Url for update legacy password API")
-    String changeLegacyPwUrl() default "https://test-www.waters.com:8443/api/waters/user/v1/force/legacy/password";
-
     @AttributeDefinition(name = "Update Profile API Url", description = "Url for update profile API")
     String updateProfileUrl() default "https://test-www.waters.com:8443/api/waters/user/v1/update/profile";
 
@@ -47,4 +44,7 @@ public @interface WatersAccountServiceConfiguration {
 
     @AttributeDefinition(name = "Sign Out  Endpoint", description = "The Endpoint for the Sign Out API")
     String signOutEndpoint() default "https://test-www.waters.com:8443/api/waters/user/v1/logout";
+
+    @AttributeDefinition(name = "Legacy Order History Url", description = "Url for Legacy order history page")
+    String legacyOrderHistoryUrl() default "https://wwwdt1.waters.com/waters/Order-History/nav.htm?cid=2243118";
 }

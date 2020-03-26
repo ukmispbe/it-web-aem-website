@@ -8,7 +8,8 @@ const keys = {
     userDetails: 'waters.userDetails',
     soldToDetails: 'waters.soldToDetails',
     continue: 'waters.continue',
-    personalDetailsUpdated: 'waters.personalDetailsUpdated'
+    personalDetailsUpdated: 'waters.personalDetailsUpdated',
+    legacyToken: 'waters.legacyToken'
 }
 
 
@@ -52,6 +53,9 @@ const SessionStore = function () {
     this.setPersonalDetailsUpdated = () => window.sessionStorage.setItem(keys.personalDetailsUpdated, 'Y');
     this.getPersonalDetailsUpdated = () => window.sessionStorage.getItem(keys.personalDetailsUpdated);
     this.removePersonalDetailsUpdated = () => window.sessionStorage.removeItem(keys.personalDetailsUpdated);
+    this.setLegacyToken = value => window.sessionStorage.setItem(keys.legacyToken, value)
+    this.getLegacyToken = () => window.sessionStorage.getItem(keys.legacyToken);
+    this.removeLegacyToken = () => window.sessionStorage.removeItem(keys.legacyToken);
 }
 
 export default SessionStore;

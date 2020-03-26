@@ -73,13 +73,6 @@ public interface WatersAccountService {
     String getUpdatePasswordUrl();
 
     /**
-     * Get the configured URL for update legacy password API.
-     *
-     * @return User update legacy password API URL
-     */
-    String getChangeLegacyPasswordUrl();
-
-    /**
      * Get the configured URL for update profile API.
      *
      * @return User update profile API URL
@@ -99,4 +92,12 @@ public interface WatersAccountService {
      * @return User sign out API URL
      */
     String getSignOutEndpoint();
+
+    /**
+     * Get the configured for legacy order history page.
+     *
+     * @return User sign out API URL
+     */
+    //TODO : Delete for Release: Myaccount-6.2.0
+    String getLegacyOrderHistoryUrl();
 }
