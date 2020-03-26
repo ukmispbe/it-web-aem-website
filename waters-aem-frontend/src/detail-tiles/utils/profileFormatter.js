@@ -12,6 +12,7 @@ export const capitalize = str => {
 export const getCountryName = (countryCode, config) => {
     if (!countryCode || countryCode.trim() === '') return '';
     const fields = config.form.fields;
+    
     const countryField = fields.filter(field => {
         return field.name === 'country';
     });
@@ -19,7 +20,12 @@ export const getCountryName = (countryCode, config) => {
     const countryName = countryField[0].options.filter(option => {
         return option.countryCode.toLowerCase() === countryCode.toLowerCase();
     });
-    return countryName[0].displayName;
+
+    if (countryName.length > 0){
+        return countryName[0].displayName;
+    } else {
+        return countryCode;
+    }
 };
 
 export const getFullName = data => {
