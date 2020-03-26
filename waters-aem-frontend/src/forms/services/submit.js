@@ -99,9 +99,9 @@ export async function troubleSigningInSubmit(data) {
 export async function resetPasswordSubmit(data) {
 
     const store = new SessionStore();
-    const resetToken = store.getLegacyToken();
+    let resetToken = store.getLegacyToken();
     store.removeLegacyToken();
-    if (typeof resetToken === "undefined") {
+    if (resetToken === null) {
         const queryString = parse(window.location.search);
         resetToken = queryString.token;
     }
