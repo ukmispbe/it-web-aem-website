@@ -142,6 +142,7 @@ const Form = ({
             const model = {
                 detail,
                 formName: config.formName,
+                formType: config.formType ? config.formType : undefined,
                 event
             };
             Analytics.setAnalytics(analyticTypes['form'].name, model);
