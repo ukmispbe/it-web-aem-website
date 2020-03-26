@@ -110,7 +110,7 @@ const DetailTiles = ({
         <div className="cmp-detail-tiles" id={name}>
             <div className="cmp-detail-tiles--title">{title}</div>
             <div className="cmp-detail-tiles-list">{renderTiles()}</div>
-            {canCreate && !!tiles.length && (
+            {canCreate && !!tiles.length && type !=="personal" && (
                 <div className="cmp-detail-tiles--add">
                     <ReactSVG
                         src={icons.add}
