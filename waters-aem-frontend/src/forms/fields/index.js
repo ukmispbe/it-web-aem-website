@@ -10,6 +10,7 @@ import Hr from './hr';
 import Captcha from './captcha';
 import Body from './body';
 import Link from './link';
+import Text from './text';
 
 const formType = {
     text: Input,
@@ -23,7 +24,8 @@ const formType = {
     break: Hr,
     captcha: Captcha,
     body: Body,
-    link: Link
+    link: Link,
+    text: Text
 };
 
 const Field = ({}) => {
