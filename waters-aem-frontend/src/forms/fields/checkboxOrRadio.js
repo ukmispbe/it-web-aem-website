@@ -15,7 +15,8 @@ const CheckboxOrRadio = ({}) => {
         validation,
         type,
         description,
-        initialState
+        initialState,
+        optionalLabel
     } = useContext(useFieldApi);
     const { register, setValue } = useContext(useFormApi);
     const errors = useErrorsContext();
@@ -73,8 +74,8 @@ const CheckboxOrRadio = ({}) => {
         <>
             {label + ' '}
             {renderAddOnLink(thisName)}
-            {!state[thisName].required && (
-                <span className="cmp-form-field--optional">(optional)</span>
+            {!state[thisName].required && optionalLabel && (
+                <span className="cmp-form-field--optional">{optionalLabel}</span>
             )}
         </>
     );

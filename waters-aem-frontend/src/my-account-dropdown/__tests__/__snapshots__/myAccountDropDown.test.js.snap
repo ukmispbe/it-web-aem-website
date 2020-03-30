@@ -260,7 +260,7 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
       class="cmp-button"
       href="/content/waters/language-masters/en/test.html"
     >
-      CREATE ACCOUNT
+      Create Account
     </a>
   </div>
 </div>

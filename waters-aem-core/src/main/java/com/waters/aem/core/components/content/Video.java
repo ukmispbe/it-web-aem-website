@@ -49,7 +49,6 @@ public class Video implements ComponentExporter{
 
     @DialogField(fieldLabel = "Video Title",
         fieldDescription = "Select the Title for the video",
-        required = true,
         ranking = 1)
     @TextField
     @Inject

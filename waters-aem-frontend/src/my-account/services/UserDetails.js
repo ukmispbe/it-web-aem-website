@@ -1,4 +1,5 @@
 import "whatwg-fetch";
+import { signInRedirect } from '../../utils/redirectFunctions';
 
 const getData = async (url) => {
     const response = await fetch(url, {
@@ -8,7 +9,10 @@ const getData = async (url) => {
             'Content-Type': 'application/json'
         }
     });
-
+    if (response.status === 401) {
+        signInRedirect();
+        return;
+    }
     return response;
 };
 

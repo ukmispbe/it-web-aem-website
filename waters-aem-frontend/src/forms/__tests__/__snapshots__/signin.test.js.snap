@@ -105,8 +105,8 @@ exports[`Feature: Sign In Form Scenario: Rendering When initial render Then the 
     </div>
   </div>
   <button
-    className="cmp-button cmp-button--no-border cmp-form--submit"
-    disabled={false}
+    className="cmp-button cmp-button--no-border cmp-form--submit cmp-button--disabled"
+    disabled={true}
     type="submit"
   >
     SIGN IN

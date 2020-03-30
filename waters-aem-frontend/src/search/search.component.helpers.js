@@ -111,7 +111,7 @@ const Aside = ({
                 collapseFilters={asideEvents.onCollapseFilters} />
             <div className="cmp-search__sort-filter__container">
                 <Sort
-                    sortValue={asideProps.sortValue}
+                    sortValue={asideProps.sortByValue}
                     sortHandler={asideEvents.onSort}
                     text={text} />
                 {children}
@@ -314,6 +314,8 @@ const Pagination = ({
         return <></>
     }
 
+    let buildHref = href => `${window.location.href}/page/${href}`
+    
     return (
         <ReactPaginate
             pageCount={resultsProps.pagination.amount}
@@ -323,6 +325,7 @@ const Pagination = ({
             containerClassName="paginate__container"
             onPageChange={num => resultsEvents.onPageChange(num, 'clicked' )}
             breakLabel={'…'}
+            hrefBuilder={buildHref}
             previousLabel={<ReactSVG src={previousIcon} />}
             nextLabel={<ReactSVG src={nextIcon} />}
             initialPage={resultsProps.pagination.current ? resultsProps.pagination.current - 1 : 0}
