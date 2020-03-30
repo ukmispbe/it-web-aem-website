@@ -48,10 +48,10 @@ public class WatersContentService extends SlingAllMethodsServlet {
     private static final Logger LOG = LoggerFactory.getLogger(WatersContentService.class);
 
     @Reference
-    private transient Externalizer externalizer;
+    private Externalizer externalizer;
 
     @Reference
-    private transient SlingSettingsService settingsService;
+    private SlingSettingsService settingsService;
 
     @Override
     public void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) {
