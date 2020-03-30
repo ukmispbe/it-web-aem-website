@@ -19,8 +19,8 @@ const SoldToDetails = async (
         const json = await response.json();
 
         const returnArray = Array.isArray(json) ? json : [];
-
         return sortPriority(returnArray);
+        
     }).catch(error => {
         return {
             failed: true,
@@ -40,6 +40,5 @@ const sortPriority = (soldToAccountsArray) => {
         }   
     })]   
 }
-
 
 export default SoldToDetails;

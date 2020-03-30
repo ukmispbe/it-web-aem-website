@@ -107,12 +107,21 @@ public class MyAccount implements ComponentExporter {
         return accountService.getUserDetailsUrl();
     }
 
+    public String getSoldToDetailsUrl() {
+        return accountService.getSoldToDetailsUrl();
+    }
+
     public String getMyAccountUpdateUrl() {
         return accountService.getUpdateProfileUrl();
     }
 
     public String getUpdatePasswordUrl() {
         return accountService.getUpdatePasswordUrl();
+    }
+
+    //TODO : Delete for Release: Myaccount-6.2.0
+    public String getLegacyOrderHistoryUrl() {
+        return accountService.getLegacyOrderHistoryUrl();
     }
 
     @Nonnull

@@ -4,8 +4,12 @@ import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import Title from "../typography/title";
 import Ecommerce from "../scripts/ecommerce";
+import Breadcrumb from "./components/breadcrumb";
 
 const Aside = props => {
+
+    const breadcrumbList = document.querySelector('.cmp-breadcrumb__list');
+
     return (
         <div className="cmp-my-account__aside-wrapper">
             <Title text={getTitle(props.tiles, props.location.pathname)} />
@@ -15,6 +19,7 @@ const Aside = props => {
             <div className="cmp-my-account__aside-content">
                 {props.children}
             </div>
+            {breadcrumbList && (<Breadcrumb path={props.location.pathname} config={props.breadcrumbs} />)}
         </div>
     );
 }
@@ -63,3 +68,4 @@ Aside.defaultProps = {
 }
 
 export default withRouter(Aside);
+

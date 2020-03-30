@@ -29,6 +29,7 @@
     a.cmp-button {
         float: none;
         margin: 0 0 $space-xxxs 0;
+        text-transform: uppercase;
         &--disabled {
             cursor: not-allowed;
             pointer-events: none;

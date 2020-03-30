@@ -7,7 +7,9 @@ const keys = {
     dismissSystemWideNotification: 'waters.dismissSystemWideNotification',
     userDetails: 'waters.userDetails',
     soldToDetails: 'waters.soldToDetails',
-    continue: 'waters.continue'
+    continue: 'waters.continue',
+    personalDetailsUpdated: 'waters.personalDetailsUpdated',
+    legacyToken: 'waters.legacyToken'
 }
 
 
@@ -48,6 +50,12 @@ const SessionStore = function () {
     this.setContinueLink = value => window.sessionStorage.setItem(keys.continue, value)
     this.getContinueLink = () => window.sessionStorage.getItem(keys.continue);
     this.removeContinueLink = () => window.sessionStorage.removeItem(keys.continue);
+    this.setPersonalDetailsUpdated = () => window.sessionStorage.setItem(keys.personalDetailsUpdated, 'Y');
+    this.getPersonalDetailsUpdated = () => window.sessionStorage.getItem(keys.personalDetailsUpdated);
+    this.removePersonalDetailsUpdated = () => window.sessionStorage.removeItem(keys.personalDetailsUpdated);
+    this.setLegacyToken = value => window.sessionStorage.setItem(keys.legacyToken, value)
+    this.getLegacyToken = () => window.sessionStorage.getItem(keys.legacyToken);
+    this.removeLegacyToken = () => window.sessionStorage.removeItem(keys.legacyToken);
 }
 
 export default SessionStore;
