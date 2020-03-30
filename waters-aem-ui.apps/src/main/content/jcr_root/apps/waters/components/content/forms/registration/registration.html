@@ -106,18 +106,30 @@
                     "label": "${'I want to receive communications from Waters.' @ i18n, context='text'}"
                 },
                 {
-                    "type": "checkbox",
+                    "type": "linkText",
                     "name": "privacy",
-                    "label": "${'I agree and consent to the information I have provided on this website to be used and processed by Waters in accordance with the' @ i18n, context='text'}",
-                    "config": {
-                        "text": "${'Waters Privacy Notice.' @ i18n, context='text'}",
-                        "link": "${registration.privacyNoticeLink.href @ context='unsafe'}",
-                        "blank": "${registration.newWindow @ context='unsafe'}"
-                    },
-                    "validation": {
-                        "required": true,
-                        "validateFnName": "checkBoxOrRadio"
-                    }
+                    "config": [
+                        {
+                            "type": "text",
+                            "text": "${'I agree and consent to the information I have provided on this website to be used and processed by Waters in accordance with the' @ i18n, context='text'}"
+                        },
+                        {
+                            "type": "link",
+                            "label": "${'Terms of Use' @ i18n, context='text'}",
+                            "url": "${registration.termsOfUseLink.href @ context='unsafe'}",
+                            "blank": "${registration.newWindow @ context='unsafe'}"
+                        },
+                        {
+                            "type": "text",
+                            "text": "${'and understand that the information you have provided on this website will be used and processed by Waters in accordance with the' @ i18n, context='text'}"
+                        },
+                        {
+                            "type": "link",
+                            "label": "${'Waters Privacy Notice.' @ i18n, context='text'}",
+                            "url": "${registration.privacyNoticeLink.href @ context='unsafe'}",
+                            "blank": "${registration.newWindow @ context='unsafe'}"
+                        }
+                    ]
                 },
                 {
                     "type": "captcha",
