@@ -70,10 +70,13 @@ public class WatersContentService extends SlingAllMethodsServlet {
                 if (settingsService.getRunModes().contains(Externalizer.PUBLISH)) {
                     response.getWriter().write(buildJsonForPage(pagePath, responseLevel, request));
                 } else {
-                    response.getWriter().write("Content Service is supposed to be executed on Publish instance only");
+                    response.getWriter().write("{\"Error\":\"Content Service is supposed to be executed on Publish instance only\"}");
                 }
             } else {
-                response.getWriter().write("Add correct parameters: \n pagePath = Page path which exists on AEM \n depth = Response level \"full\" to get Navigation content along with page content");
+                response.getWriter().write("{\n" +
+                        "\"Error\": \"Add correct parameters as mentioned below\",\n" +
+                        "\"pagePath\": \"Page path exists on AEM\",\n" +
+                        "\"depth\": \"Response level 'full' to get Navigation content as well\"}");
             }
         } catch (Exception e) {
             LOG.error("Exception Occurred: {}", e.getMessage());
@@ -90,7 +93,7 @@ public class WatersContentService extends SlingAllMethodsServlet {
             final ResourceResolver resourceResolver = request.getResourceResolver();
             if (null != resourceResolver.getResource(path)) {
                 //TODO:USE CompletableFuture API instead of sequence
-                pagePublishCaaSUrl = externalizer.publishLink(resourceResolver, path.concat(".caas.infinity.json")).replace(WatersConstants.CUSTOM_ROOT_PATH, WatersConstants.ROOT_PATH);
+                pagePublishCaaSUrl = externalizer.publishLink(resourceResolver, path.concat("/jcr:content.caas.infinity.json")).replace(WatersConstants.CUSTOM_ROOT_PATH, WatersConstants.ROOT_PATH);
                 pageJsonResponse = getHttpResponseAsStringForURI(pagePublishCaaSUrl);
                 if (StringUtils.isBlank(pageJsonResponse)) {
                     pageJsonResponse = "\"\"";
@@ -98,7 +101,7 @@ public class WatersContentService extends SlingAllMethodsServlet {
                 if (StringUtils.isNotBlank(responseLevel) && responseLevel.equalsIgnoreCase("full")) {
                     final Resource resource = resourceResolver.getResource(path + "/jcr:content/header/par/navigation");
                     if (null != resource) {
-                        navigationCompJsonResponse = getHttpResponseAsStringForURI(pagePublishCaaSUrl.replace(".caas.infinity.json", "/_jcr_content/header/par/navigation.model.json"));
+                        navigationCompJsonResponse = getHttpResponseAsStringForURI(pagePublishCaaSUrl.replace("/_jcr_content.caas.infinity.json", "/_jcr_content/header/par/navigation.model.json"));
                         LOG.debug("JSON Content- {\"Page Content\": {} ,\"Navigation Content\": {} }", pageJsonResponse, navigationCompJsonResponse);
                         LOG.info("JSON returned with full page content for: {}", path);
                         LOG.info("JSON fetched from AEM in {} ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
@@ -111,7 +114,7 @@ public class WatersContentService extends SlingAllMethodsServlet {
                     }
                 }
             } else {
-                return "Path doesn't exist in AEM repo";
+                return "{\"Error\":\"Path doesn't exist in AEM repo\"}";
             }
         } catch (Exception e) {
             LOG.error("Exception occurred: {}", e.getMessage());
