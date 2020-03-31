@@ -539,6 +539,11 @@
         margin-bottom: $space-s;
     }
 
+    .cmp-form-field-text--privacy {
+        margin-top: $space-s;
+        @include font-small;
+    }
+
     &__submission-error {
         float: left;
         clear: both;
