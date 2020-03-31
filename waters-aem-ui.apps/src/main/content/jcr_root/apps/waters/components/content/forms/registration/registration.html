@@ -106,6 +106,14 @@
                     "label": "${'I want to receive communications from Waters.' @ i18n, context='text'}"
                 },
                 {
+                    "type": "captcha",
+                    "name": "captcha",
+                    "siteKey": "${registration.captchaSiteKey @ context='unsafe'}",
+                    "validation": {
+                        "required": true
+                    }
+                },
+                {
                     "type": "text",
                     "name": "privacy",
                     "config": [
@@ -130,14 +138,6 @@
                             "blank": "${registration.newWindow @ context='unsafe'}"
                         }
                     ]
-                },
-                {
-                    "type": "captcha",
-                    "name": "captcha",
-                    "siteKey": "${registration.captchaSiteKey @ context='unsafe'}",
-                    "validation": {
-                        "required": true
-                    }
                 }
             ]
         }
