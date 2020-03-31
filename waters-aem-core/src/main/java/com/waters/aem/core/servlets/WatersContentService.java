@@ -132,15 +132,14 @@ public class WatersContentService extends SlingAllMethodsServlet {
                 .addHeader(HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType())
                 .addHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType())
                 .build();
-        SSLContextBuilder builder = new SSLContextBuilder();
-        builder.loadTrustMaterial(new TrustSelfSignedStrategy() {
+        final SSLContextBuilder builder = new SSLContextBuilder().loadTrustMaterial(new TrustSelfSignedStrategy() {
             public boolean isTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
                 return true;
             }
         });
         @SuppressWarnings("deprecation")
-        HostnameVerifier hostnameVerifier = SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER;
-        SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(builder.build(), hostnameVerifier);
+        final HostnameVerifier hostnameVerifier = SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER;
+        final SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(builder.build(), hostnameVerifier);
         try (CloseableHttpClient httpClient = HttpClients.custom().setSSLSocketFactory(sslsf).build()) {
             CloseableHttpResponse response = httpClient.execute(request);
             final StatusLine statusLine = response.getStatusLine();
@@ -153,7 +152,7 @@ public class WatersContentService extends SlingAllMethodsServlet {
             LOG.info("Exception occured: {}", e.getMessage());
             LOG.debug("Exception occured: {}", e);
         }
-        LOG.info("HTTP call successful for uri: {} ", URI);
+        LOG.info("HTTP/HTTPS call successful for URI: {} ", URI);
         return responseEntity;
     }
 
