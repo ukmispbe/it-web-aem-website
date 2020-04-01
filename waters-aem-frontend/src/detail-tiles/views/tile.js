@@ -13,12 +13,30 @@ const Tile = ({
     defaultValues,
     isNoAddress = false,
     editText,
+    canCreate = true,
     setProfileData
 }) => {
     const [formShown, setFormShown] = useState(false);
 
     const handleToggle = () => {
         setFormShown(!formShown);
+    };
+
+    const renderEdit = () => {
+        return (
+            <div
+                className="cmp-detail-tiles-list--tile-edit"
+                onClick={handleToggle}
+            >
+                <ReactSVG
+                    src={icon}
+                    className="cmp-detail-tiles-list--tile-edit--icon"
+                />
+                <div className="cmp-detail-tiles-list--tile-edit--title">
+                    {editText}
+                </div>
+            </div>
+        );
     };
 
     const renderColumns = () => {
@@ -71,19 +89,7 @@ const Tile = ({
     const renderTile = () => {
         return (
             <>
-                <div
-                    className="cmp-detail-tiles-list--tile-edit"
-                    onClick={handleToggle}
-                >
-                    <ReactSVG
-                        src={icon}
-                        className="cmp-detail-tiles-list--tile-edit--icon"
-                    />
-                    <div className="cmp-detail-tiles-list--tile-edit--title">
-                        {editText}
-                    </div>
-                </div>
-
+                {canCreate && renderEdit()}
                 {renderColumns()}
                 {notification && renderNotification()}
             </>
@@ -98,15 +104,17 @@ const Tile = ({
                     <div className="cmp-detail-tiles-list--tile-noAddress--title">
                         {blank.title}
                     </div>
-                    <div className="cmp-detail-tiles--add">
-                        <ReactSVG
-                            src={blank.addIcon}
-                            className="cmp-detail-tiles--add-icon"
-                        />
-                        <div className="cmp-detail-tiles--add-title">
-                            {blank.addTitle}
+                    {canCreate && (
+                        <div className="cmp-detail-tiles--add">
+                            <ReactSVG
+                                    src={blank.addIcon}
+                                    className="cmp-detail-tiles--add-icon"
+                                />
+                            <div className="cmp-detail-tiles--add-title">
+                                {blank.addTitle}
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </>
         );

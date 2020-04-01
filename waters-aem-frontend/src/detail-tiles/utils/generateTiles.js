@@ -1,8 +1,10 @@
+import React from 'react';
 import {
     getAddressesByType,
-    getFullAddress,
+    getFullCompanyAddress,
     getFullName,
-    getCountryName
+    getCountryName,
+    getDefaultSoldToAddresses
 } from './profileFormatter';
 
 const newNotification = (title, description, icon) => ({
@@ -10,6 +12,11 @@ const newNotification = (title, description, icon) => ({
     description: description,
     icon: icon
 });
+
+const buildAddress = address => {
+    let addressArray = getFullCompanyAddress(address);
+    return addressArray.map((x, i) => <div key={i + 1}>{x}</div>);
+}
 
 const config = document.getElementById(
     'json-config--cmp-detail-tiles--personal'
@@ -76,11 +83,11 @@ export default (data, type, icon) => {
 
         case 'shipping':
         case 'billing':
+            let defaultSoldToAddresses = getDefaultSoldToAddresses(data.soldToAccounts);
             return [
-                ...getAddressesByType(data.userAddress, type).map(address => {
-                    address.country = address.countryCode;
+                ...getAddressesByType(defaultSoldToAddresses, type).map(address => {
                     let tile = {
-                        name: address.id,
+                        name: type,
                         columns: [
                             {
                                 title: address.preferred
@@ -88,11 +95,7 @@ export default (data, type, icon) => {
                                     : '',
                                 rows: [
                                     {
-                                        text: address.company,
-                                        class: 'company'
-                                    },
-                                    {
-                                        text: getFullAddress(address),
+                                        text: buildAddress(address),
                                         class: 'address'
                                     },
                                     {

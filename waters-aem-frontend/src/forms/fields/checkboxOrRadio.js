@@ -4,8 +4,8 @@ import ReactSVG from 'react-svg';
 import { useFormApi, useFieldApi } from '../form';
 import { useErrorsContext } from './utils/stateWatcher';
 
-const CheckboxOrRadio = ({ }) => {
-    let {
+const CheckboxOrRadio = ({}) => {
+    const {
         name,
         label,
         options,
@@ -15,7 +15,8 @@ const CheckboxOrRadio = ({ }) => {
         validation,
         type,
         description,
-        initialState
+        initialState,
+        optionalLabel
     } = useContext(useFieldApi);
 
     const { register, setValue } = useContext(useFormApi);
@@ -39,8 +40,8 @@ const CheckboxOrRadio = ({ }) => {
                         isChecked: false,
                         required:
                             validation &&
-                                validation.validateFnName &&
-                                option.required
+                            validation.validateFnName &&
+                            option.required
                                 ? true
                                 : false,
                         description: option.description
@@ -91,8 +92,8 @@ const CheckboxOrRadio = ({ }) => {
         <>
             {label + ' '}
             {renderAddOnLink(thisName)}
-            {!state[thisName].required && type !== 'radio' && (
-                <span className="cmp-form-field--optional">(optional)</span>
+            {!state[thisName].required && type !== 'radio' && optionalLabel && (
+                <span className="cmp-form-field--optional">{optionalLabel}</span>
             )}
         </>
     );
@@ -141,8 +142,8 @@ const CheckboxOrRadio = ({ }) => {
                     {type == 'checkbox' ? (
                         <ReactSVG src={icons.checkmarkIcon} />
                     ) : (
-                            <div className="selector"></div>
-                        )}
+                        <div className="selector"></div>
+                    )}
                 </a>
                 <div
                     className={
@@ -179,19 +180,19 @@ const CheckboxOrRadio = ({ }) => {
                                 >
                                     {renderType(option.name, option.label)}
                                 </div>
-                                {option.accountStreet && 
+                                {option.accountStreet &&
                                     <div className={`cmp-form-field-${type}--address1`}>{option.accountStreet}</div>}
-                                {option.accountCity && 
+                                {option.accountCity &&
                                     <div className={`cmp-form-field-${type}--address2`}>{option.accountCity + ", " + option.accountZip}</div>}
                             </>
                         );
                     })}
                 </div>
-            );    
+            );
     } catch (error) {
         console.log("error ", error);
     }
- 
+
 };
 
 export default React.memo(CheckboxOrRadio);

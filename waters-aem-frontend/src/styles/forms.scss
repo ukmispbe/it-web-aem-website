@@ -310,11 +310,15 @@
 
                 &.showHide-icon,
                 &.showHideOff-icon {
+                    height: 46px;
+                    padding-top: 1px;
                     display: none;
                     svg {
                         .st0 {
                             stroke: $color-icon;
                         }
+                        height: 46px;
+                        width: 48px;
                         cursor: pointer;
                         display: none;
                     }
@@ -328,6 +332,8 @@
                         .st0 {
                             stroke: $color-icon;
                         }
+                        height: 46px;
+                        width: 48px;
                         cursor: pointer;
                         display: block;
                     }

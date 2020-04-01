@@ -383,7 +383,7 @@ if (resetPasswordContainer) {
     );
 
     ReactDOM.render(
-        <Form config={config} submitFn={resetPasswordSubmit} />,
+        <Form config={config} submitFn={resetPasswordSubmit} callback={headerData.userDetailsUrl} />,
         resetPasswordContainer
     );
 }

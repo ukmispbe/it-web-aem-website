@@ -1,3 +1,5 @@
+import { signInRedirect } from '../../utils/redirectFunctions';
+
 const getData = async (url) => {
     const response = await fetch(url, {
         method: 'GET',
@@ -16,10 +18,10 @@ export async function retrieveData(url) {
     const responseBody = await response.json();
 
     if (response.status === 200) {
-        //console.log("responseBody", responseBody)
         return responseBody;
-    } else {
-        //console.log("Error responseBody", responseBody)
+    } else if (response.status === 401) {
+        signInRedirect();
+    }  else {
         return null;
-    }  
+    }
 }
