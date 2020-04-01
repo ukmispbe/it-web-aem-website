@@ -118,6 +118,13 @@ public final class Header extends AbstractComponent implements ComponentExporter
     @Inject
     private Boolean includeH1Tag;
 
+    @DialogField(fieldDescription = "Hide Header Icons",
+            value = "true",
+            ranking = 6)
+    @CheckBox(title = "hideIcons",
+            text = "Hide Header Icons")
+    @Inject
+    private Boolean hideIcons;
 
     @DialogField(fieldLabel = "My Account Link",
         fieldDescription = "Select or Enter the My Account Link",
@@ -232,14 +239,12 @@ public final class Header extends AbstractComponent implements ComponentExporter
         return LinkUtils.getMappedLink(pageManager, ordersLink);
     }
 
+    public Boolean isHideIcons() { return hideIcons; }
+
     public Boolean isIncludeH1Tag() { return includeH1Tag; }
 
     public Boolean isExternal() {
         return LinkUtils.isExternal(logoLink);
-    }
-
-    public Boolean isFormPage() {
-        return Templates.isFormPage(currentPage);
     }
 
     public String getSignOutUrl() {

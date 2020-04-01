@@ -31,6 +31,8 @@ public class DefaultWatersAccountService implements WatersAccountService {
 
     private volatile String updatePasswordUrl;
 
+    private volatile String changeLegacyPasswordUrl;
+
     private volatile String updateProfileUrl;
 
     private volatile String signInEndpoint;
@@ -40,6 +42,8 @@ public class DefaultWatersAccountService implements WatersAccountService {
     private volatile String changeAccountEndpoint;
 
     private volatile String soldToEndpoint;
+
+    private volatile String legacyOrderHistoryUrl;
 
     @Override
     public String getSignOutUrl() {
@@ -111,6 +115,11 @@ public class DefaultWatersAccountService implements WatersAccountService {
         return changeAccountEndpoint;
     }
 
+    @Override
+    public String getLegacyOrderHistoryUrl() {
+        return legacyOrderHistoryUrl;
+    }
+
     @Activate
     @Modified
     protected void activate(final WatersAccountServiceConfiguration configuration) {
@@ -128,5 +137,6 @@ public class DefaultWatersAccountService implements WatersAccountService {
         signInEndpoint = configuration.signInEndpoint();
         signOutEndpoint = configuration.signOutEndpoint();
         changeAccountEndpoint = configuration.chooseAccountEndpoint();
+        legacyOrderHistoryUrl = configuration.legacyOrderHistoryUrl();
     }
 }
