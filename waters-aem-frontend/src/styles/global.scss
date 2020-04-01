@@ -32,7 +32,22 @@ body.no-scroll {
     @include tablet {
         padding: 0 12px;
     }
+
+    .fader-container {
+        &.fader-container {
+
+            &--right {
+                right: 0;
+                background: linear-gradient(
+                    to right,
+                    hsla(0, 0%, 100%, 0.2) 0%,
+                    hsla(0, 0%, 100%, 0.8) 100%
+                );
+            }
+        }
 }
+}
+
 
 .layoutcontainer > div {
     margin: 0 0 0 -14px;

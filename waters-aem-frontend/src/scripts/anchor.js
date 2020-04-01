@@ -155,6 +155,16 @@ function clearGradients() {
    }
 }
 
+function applyGradients() {
+    let lhsGradient = document.querySelector('.cmp-anchor__list .fader-container--left');
+    let rhsGradient = document.querySelector('.cmp-anchor__list .fader-container--right');
+
+   if (lhsGradient !== null && rhsGradient !== null) {
+      lhsGradient.style.display = 'block';
+      rhsGradient.style.display = 'block';
+   }
+}
+
 function clearOpenContainers() {
     // This closes any open containers as the user transitions to/from mobile/desktop views instead of just leaving them open
     if(document.getElementsByClassName('cmp-section-container__title open')){
@@ -174,6 +184,9 @@ function resizeWindow(el) {
     var hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
     if (!hasHorizontalScrollbar) {
         clearGradients();
+    }
+    else {
+        applyGradients();
     }
 }
 
