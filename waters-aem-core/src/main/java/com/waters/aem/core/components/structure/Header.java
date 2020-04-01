@@ -26,7 +26,6 @@ import com.waters.aem.core.services.account.WatersAccountService;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.waters.aem.core.services.launch.AdobeLaunchService;
 import com.waters.aem.core.utils.LinkUtils;
-import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -38,7 +37,6 @@ import org.apache.sling.models.factory.ModelFactory;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.util.Collections;
-import java.util.Locale;
 
 @Component(value = "Header",
     group = ComponentConstants.GROUP_HIDDEN,

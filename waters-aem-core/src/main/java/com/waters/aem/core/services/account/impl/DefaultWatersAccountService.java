@@ -31,8 +31,6 @@ public class DefaultWatersAccountService implements WatersAccountService {
 
     private volatile String updatePasswordUrl;
 
-    private volatile String changeLegacyPasswordUrl;
-
     private volatile String updateProfileUrl;
 
     private volatile String signInEndpoint;
@@ -40,8 +38,6 @@ public class DefaultWatersAccountService implements WatersAccountService {
     private volatile String signOutEndpoint;
 
     private volatile String changeAccountEndpoint;
-
-    private volatile String soldToEndpoint;
 
     private volatile String legacyOrderHistoryUrl;
 
