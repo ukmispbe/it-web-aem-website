@@ -16,6 +16,10 @@ const DigitalData = {
         ? window.digitalData.page.country
         : this.globalExperience;
     },
+    get page() {
+        if (!window.digitalData) return '';
+        return window.digitalData.page;
+    },
     get default() {
       return (this.country !== this.globalExperience ? this.country.toLowerCase() : "");
     }

@@ -47,4 +47,7 @@ public @interface WatersAccountServiceConfiguration {
 
     @AttributeDefinition(name = "Choose Account Endpoint", description = "The Endpoint for the Choose Account API")
     String chooseAccountEndpoint() default "https://test-www.waters.com:8443/api/waters/user/v1/switchaccount";
+
+    @AttributeDefinition(name = "Legacy Order History Url", description = "Url for Legacy order history page")
+    String legacyOrderHistoryUrl() default "https://wwwdt1.waters.com/waters/Order-History/nav.htm?cid=2243118";
 }

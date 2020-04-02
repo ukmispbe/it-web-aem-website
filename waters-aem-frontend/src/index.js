@@ -9,7 +9,7 @@ import MyAccountDropDown from './my-account-dropdown/index';
 
 import SkuDetails from './sku-details';
 import SkuList from './sku-list';
-import SkuMessage from './sku-shared/views/SkuMessage';
+import SkuMessage from './sku-message';
 import Form from './forms/form';
 import {
     registrationSubmit,
@@ -383,7 +383,7 @@ if (resetPasswordContainer) {
     );
 
     ReactDOM.render(
-        <Form config={config} submitFn={resetPasswordSubmit} />,
+        <Form config={config} submitFn={resetPasswordSubmit} callback={headerData.userDetailsUrl} />,
         resetPasswordContainer
     );
 }

@@ -8,13 +8,13 @@
 
     @include tablet-and-over {
         // min-width: 211px;
-        padding: ($space-s + .25em) $space-s;
+        padding: ($space-m - $space-xxxs) $space-m $space-m $space-m;
         box-shadow: $shadow;
         flex-shrink: 0;
     }
 
     hr {
-        margin: 0 0 $space-xs;
+        margin: $space-xs 0 $space-s;
         @include mobile {
             width: 100%;
         }
@@ -32,6 +32,7 @@
         &__switch-account {
             display: inline-block;
             @include font-body;
+            margin-bottom: $space-xxs;
             color: $color-link;
         }
 
@@ -52,7 +53,7 @@
             font-weight: 300;
             display: block;
             margin-bottom: 0;
-            padding: 0 0 $space-xs;
+            padding: 0 0 $space-xxs;
 
             @include tablet-and-over {
                 transition: $hover-transition;

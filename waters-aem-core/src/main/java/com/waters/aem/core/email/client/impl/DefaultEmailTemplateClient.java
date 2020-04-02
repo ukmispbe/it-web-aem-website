@@ -44,6 +44,8 @@ public class DefaultEmailTemplateClient implements EmailTemplateClient {
 
     private volatile String setTemplateEndpoint;
 
+    private volatile String apiKey;
+
     @Override
     public void setTemplate(final SESEmailTemplate template) throws URISyntaxException, IOException {
         final URI uri = buildUri(setTemplateEndpoint, Collections.emptyMap());
@@ -54,6 +56,7 @@ public class DefaultEmailTemplateClient implements EmailTemplateClient {
         final HttpUriRequest request = RequestBuilder.post(uri)
                 .addHeader(HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType())
                 .addHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType())
+                .addHeader("X-Api-Key",apiKey)
                 .setEntity(new StringEntity(MAPPER.writeValueAsString(template.toMap())))
                 .build();
 
@@ -89,6 +92,7 @@ public class DefaultEmailTemplateClient implements EmailTemplateClient {
     protected void modified(final EmailTemplateClientConfiguration configuration) {
         hostname = configuration.hostname();
         setTemplateEndpoint = configuration.setTemplateEndpoint();
+        apiKey =  configuration.setApiKey();
     }
 
     @Deactivate

@@ -1,5 +1,5 @@
 .cmp-detail-tiles {
-    margin-bottom: $space-xl;
+    margin-bottom: $space-s;
     float: left;
     width: 100%;
 
@@ -71,11 +71,11 @@
                 display: inline-flex;
                 cursor: pointer;
                 position: absolute;
-                top: $space-m;
+                top: $space-s;
                 right: $space-m;
 
                 @include mobile {
-                    top: $space-xxs;
+                    top: $space-s;
                 }
 
                 &--title {
@@ -131,7 +131,7 @@
             &-column {
                 display: inline-block;
                 padding-right: $space-xxl;
-                margin-bottom: $space-s;
+                margin-bottom: 0;
 
                 @include mobile {
                     padding-right: 0;
@@ -286,7 +286,7 @@
     }
     .cmp-detail-tiles--title {
         @include font-h2;
-        margin-bottom: $space-s;
+        margin-bottom: $space-xs;
     }
     .cmp-detail-tiles-list--form-message {
         @include font-body;

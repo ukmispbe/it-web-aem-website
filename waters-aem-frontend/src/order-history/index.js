@@ -200,7 +200,7 @@ class OrderHistory extends Component {
         const current = this.state.currentPage;
         const endResults = count > current * rows ? current * rows : count;
         const startResults = current * rows - rows;
-        let itemsToRender = this.state.orderList.slice(startResults, endResults +1);
+        let itemsToRender = this.state.orderList.slice(startResults, endResults);
         return itemsToRender;
     }
 

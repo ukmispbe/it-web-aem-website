@@ -12,6 +12,7 @@ export const capitalize = str => {
 export const getCountryName = (countryCode, config) => {
     if (!countryCode || countryCode.trim() === '') return '';
     const fields = config.form.fields;
+    
     const countryField = fields.filter(field => {
         return field.name === 'country';
     });
@@ -19,7 +20,12 @@ export const getCountryName = (countryCode, config) => {
     const countryName = countryField[0].options.filter(option => {
         return option.countryCode.toLowerCase() === countryCode.toLowerCase();
     });
-    return countryName[0].displayName;
+
+    if (countryName.length > 0){
+        return countryName[0].displayName;
+    } else {
+        return countryCode;
+    }
 };
 
 export const getFullName = data => {
@@ -29,49 +35,58 @@ export const getFullName = data => {
     return (firstName + ' ' + lastName).trim();
 };
 
-export const getFullAddress = address => {
+export const getFullCompanyAddress = address => {
     if (
         !address ||
         (Object.entries(address).length === 0 && address.constructor === Object)
     )
         return '';
 
-    const street = address.street ? address.street.trim() + ', ' : '';
-    const city = address.city ? address.city.trim() + ', ' : '';
-    const region = address.stateRegion ? address.stateRegion.trim() + ' ' : '';
-    const zip = address.zip ? address.zip.trim() : '';
+    let addressArray = []; 
+    const city = address.city ? capitalize(address.city).trim() + ', ' : '';
+    const region = address.regio ? capitalize(address.regio).trim() + ' ' : '';
+    const postalCd = address.postalCd ? capitalize(address.postalCd).trim() : '';
 
-    return capitalize((street + city + region + zip).trim());
-};
+    address.addr1 ? addressArray.push(capitalize(address.addr1).trim()) : null;
+    address.addr2 ? addressArray.push(capitalize(address.addr2).trim()) : null;
+    address.addr3 ? addressArray.push(capitalize(address.addr3).trim()) : null;
+    address.addr4 ? addressArray.push(capitalize(address.addr4).trim()) : null;
+    address.street ? addressArray.push(capitalize(address.street).trim()) : null;
 
-export const getPhoneFormat = phone => {
-    if (!phone || phone.trim('') === '') return '';
-    let tmpPhone = phone.slice(0, phone.length).trim();
-    let formattedPhone = '';
+    addressArray.push((city + region + postalCd).trim());
 
-    while (tmpPhone.length) {
-        if (tmpPhone.length > 4) {
-            formattedPhone += tmpPhone.slice(0, 3) + '-';
-            tmpPhone = tmpPhone.slice(3, tmpPhone.length);
-        } else {
-            formattedPhone += tmpPhone.slice(0, tmpPhone.length);
-            tmpPhone = '';
-        }
-    }
-
-    return formattedPhone;
+    return addressArray;
 };
 
 export const getAddressesByType = (addresses, type) => {
-    let addressType = 'TBD';
-
-    if (type === 'shipping') {
-        addressType = 'shippingAddress';
-    } else if (type === 'billing') {
-        addressType = 'billingAddress';
-    }
-
     return addresses.length
-        ? addresses.filter(address => address.addressType === addressType)
+        ? addresses.filter(address => address.addressType === type)
         : [];
 };
+
+export const getDefaultSoldTo = (soldToAccounts) => {
+    if (soldToAccounts === null || soldToAccounts === undefined || !soldToAccounts.length) {
+        return [];
+    } else {
+        let defaultSoldTo = soldToAccounts.filter(function(i) {
+            return i.defaultFlag === 1;
+        })[0];
+    
+        return defaultSoldTo;
+    }
+}
+
+export const getDefaultSoldToAddresses = (soldToAccounts) => {
+
+    if (Array.isArray(soldToAccounts) && !soldToAccounts.length){
+        return [];  
+    } else {
+        let defaultSoldTo = getDefaultSoldTo(soldToAccounts);
+        
+        if (defaultSoldTo.addresses === null || defaultSoldTo.addresses === undefined || !defaultSoldTo.addresses.length) {
+            return [];  
+        } else {
+            return defaultSoldTo.addresses;
+        }
+    }
+}

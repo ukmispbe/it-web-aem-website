@@ -194,7 +194,7 @@ class FilterSection extends Component {
                         src={props.text.nextIcon}
                         className="mobileIcon"
                     />
-                    {props.facet.category}
+                    {props.facet.translation}
                 </a>
 
                 <div className="facet-container">

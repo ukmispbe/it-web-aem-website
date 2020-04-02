@@ -54,16 +54,20 @@
     }
 
     .react-autosuggest__input {
-        font-family: $font-stack;
+        font-family: inherit;
         @include font-h3;
         float: left;
         width: 100%;
         border: $border-medium;
         background: $color-white;
-        padding: $space-s $space-xl $space-s $space-s;
+        padding: $space-s ($space-xxl + $space-l) $space-s $space-s;
         -webkit-appearance: none;
         -webkit-border-radius: $border-radius;
         border-radius: $border-radius;
+
+        @include mobile {
+            padding: $space-s ($space-xxl + $space-l) $space-s $space-s;
+        }
 
         &:focus {
             outline: 2px solid $color-focus;

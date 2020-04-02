@@ -15,25 +15,28 @@ import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
+import com.icfolson.aem.library.core.node.predicates.ComponentNodeResourceTypePredicate;
 import com.icfolson.aem.library.models.annotations.ImageInject;
 import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.SiteContext;
+import com.waters.aem.core.components.content.CategoryListing;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.account.WatersAccountService;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.waters.aem.core.services.launch.AdobeLaunchService;
 import com.waters.aem.core.utils.LinkUtils;
-import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.apache.sling.models.factory.ModelFactory;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
+import java.util.Collections;
 
 @Component(value = "Header",
     group = ComponentConstants.GROUP_HIDDEN,
@@ -55,6 +58,15 @@ public final class Header extends AbstractComponent implements ComponentExporter
     @Self
     private SiteContext siteContext;
 
+    @Self
+    private SlingHttpServletRequest request;
+
+    @Inject
+    private PageDecorator currentPage;
+
+    @OSGiService
+    private ModelFactory modelFactory;
+
     @OSGiService
     private WatersAccountService watersAccountService;
 
@@ -66,9 +78,7 @@ public final class Header extends AbstractComponent implements ComponentExporter
 
     @Inject
     private PageManagerDecorator pageManager;
-
-    @Inject
-    private PageDecorator currentPage;
+    
 
     @DialogField(fieldLabel = "Header Logo",
         fieldDescription = "select header logo",
@@ -106,6 +116,13 @@ public final class Header extends AbstractComponent implements ComponentExporter
     @Inject
     private Boolean includeH1Tag;
 
+    @DialogField(fieldDescription = "Hide Header Icons",
+            value = "true",
+            ranking = 6)
+    @CheckBox(title = "hideIcons",
+            text = "Hide Header Icons")
+    @Inject
+    private Boolean hideIcons;
 
     @DialogField(fieldLabel = "My Account Link",
         fieldDescription = "Select or Enter the My Account Link",
@@ -220,14 +237,12 @@ public final class Header extends AbstractComponent implements ComponentExporter
         return LinkUtils.getMappedLink(pageManager, ordersLink);
     }
 
+    public Boolean isHideIcons() { return hideIcons; }
+
     public Boolean isIncludeH1Tag() { return includeH1Tag; }
 
     public Boolean isExternal() {
         return LinkUtils.isExternal(logoLink);
-    }
-
-    public Boolean isFormPage() {
-        return Templates.isFormPage(currentPage);
     }
 
     public String getSignOutUrl() {
@@ -265,4 +280,21 @@ public final class Header extends AbstractComponent implements ComponentExporter
     public String getSignOutEndpoint() {
         return watersAccountService.getSignOutEndpoint();
     }
- }
+
+    /**
+     * Finds the first category listing component on this page.
+     *
+     * @return the category listing component or null if not present
+     */
+    public CategoryListing getCategoryListing() {
+        return currentPage.getComponentNode()
+                .transform(contentNode -> contentNode.findDescendants(
+                        new ComponentNodeResourceTypePredicate(CategoryListing.RESOURCE_TYPE)))
+                .or(Collections.emptyList())
+                .stream()
+                .findFirst()
+                .map(componentNode -> modelFactory.getModelFromWrappedRequest(request,
+                        componentNode.getResource(), CategoryListing.class))
+                .orElse(null);
+    }
+}

@@ -12,6 +12,7 @@ import DigitalData from '../scripts/DigitalData';
 import ErrorBoundary from '../search/ErrorBoundary';
 import Field from './fields';
 import { retrieveData } from '../forms/services/retrieve';
+import Analytics, { analyticTypes } from "../scripts/analytics";
 
 const FormApi = createContext(null);
 FormApi.displayName = 'FormApi';
@@ -59,7 +60,15 @@ const Form = ({
     });
 
     const checkIfDisabled = () => {
-        return !formState.isValid;
+        const requiredFields = config.fields
+            .filter(field => ('validation' in field && field.validation.required === true && ('active' in field ? field.active === true : true)));
+        const values = getValues();
+        const emptyRequiredFields = requiredFields
+            .filter(field => {
+            return values[field.name] === "" || values[field.name] === false || values[field.name] === null || values[field.name] === undefined
+            });
+        const isConfirmPasswordFieldEmpty = 'confirmPassword' in values ? values['confirmPassword'] === "" : false;
+        return (emptyRequiredFields.length !== 0 || isConfirmPasswordFieldEmpty || Object.keys(errors).length>0);
     };
 
     const cancelHandler = clear => {
@@ -107,10 +116,14 @@ const Form = ({
         config.fields = [...fields];
     };
 
+    useEffect( () => {
+        setFormAnalytics('load');
+    }, []);
+
     const [newConfig, setNewConfig] = useState();
 
     useEffect(() => {
-        if (!config.getRadioOptions) { 
+        if (!config.getRadioOptions) {
             return;
         }
 
@@ -149,6 +162,18 @@ const Form = ({
         },
         [errors]
     );
+
+    const setFormAnalytics = (event, detail={}) => {
+        if(config.formName){
+            const model = {
+                detail,
+                formName: config.formName,
+                formType: config.formType ? config.formType : undefined,
+                event
+            };
+            Analytics.setAnalytics(analyticTypes['form'].name, model);
+        }
+    }
 
     const getValue = name => getValues()[name];
 
@@ -211,7 +236,9 @@ const Form = ({
                         passwordUpdateUrl: config.passwordUpdateUrl,
                         callback: callback,
                         updateFailedAttempts: updateFailedAttempts,
-                        setProfileData: setProfileData
+                        setProfileData: setProfileData,
+                        setFormAnalytics: setFormAnalytics
+
                     })
                 )}
             >

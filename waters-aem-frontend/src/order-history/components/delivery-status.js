@@ -35,15 +35,20 @@ class DeliveryStatus extends Component {
             default:
                 deliveryStatus = this.props.labels.openLabel;
         }
-
-        this.setState({ 
+        this.setState({
             deliveryStatus: deliveryStatus,
             icon: icon,
             iconClassName: iconClassName
-        }); 
+        });
     }
     componentDidMount() {
         this.configureStatusContent(this.props.status);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.status !== this.props.status) {
+            this.configureStatusContent(this.props.status);
+        }
     }
 
     render() {

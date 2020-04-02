@@ -13,8 +13,10 @@
     }
 
     input[type='input'] {
-        font-family: $font-stack;
-        @include font-body;
+        font-family: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+        letter-spacing: inherit;
         padding: $space-xs $space-s;
         background-color: transparent;
         outline: none;

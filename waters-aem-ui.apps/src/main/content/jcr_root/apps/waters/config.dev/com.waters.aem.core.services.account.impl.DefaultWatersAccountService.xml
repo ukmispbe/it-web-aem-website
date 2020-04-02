@@ -13,4 +13,6 @@
           userDetailsUrl="https://test-www.waters.com:8443/api/waters/user/v1/details"
           soldToDetailsUrl="https://test-www.waters.com:8443/api/waters/user/v1/retrievesoldto"
           signInEndpoint="https://test-www.waters.com:8443/api/waters/user/v1/login"
-          signOutEndpoint="https://test-www.waters.com:8443/api/waters/user/v1/logout"/>
+          signOutEndpoint="https://test-www.waters.com:8443/api/waters/user/v1/logout"
+          updateProfileUrl="https://test-www.waters.com:8443/api/waters/user/v1/update/profile"
+          legacyOrderHistoryUrl="https://wwwdt1.waters.com/waters/Order-History/nav.htm?cid=2243118"/>

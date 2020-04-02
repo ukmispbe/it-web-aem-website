@@ -24,10 +24,10 @@
     }
 
     &--submit {
-        font-family: $font-stack;
-        font-weight: var(--font-weight-light);
-        line-height: $line-height-text;
-        letter-spacing: 0.02em;
+        font-family: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+        letter-spacing: inherit;
         margin-bottom: $space-s;
         margin-top: $space-s;
         font-size: $font-size-body;
@@ -131,7 +131,10 @@
 
         input {
             border: $border-medium;
-            @include font-body;
+            font-family: inherit;
+            font-weight: inherit;
+            letter-spacing: inherit;
+            line-height: inherit;
             width: 100%;
             margin-bottom: 0;
             padding: $space-xs;
@@ -307,8 +310,15 @@
 
                 &.showHide-icon,
                 &.showHideOff-icon {
+                    height: 46px;
+                    padding-top: 1px;
                     display: none;
                     svg {
+                        .st0 {
+                            stroke: $color-icon;
+                        }
+                        height: 46px;
+                        width: 48px;
                         cursor: pointer;
                         display: none;
                     }
@@ -319,6 +329,11 @@
                     pointer-events: all;
                     display: inline-block;
                     svg {
+                        .st0 {
+                            stroke: $color-icon;
+                        }
+                        height: 46px;
+                        width: 48px;
                         cursor: pointer;
                         display: block;
                     }
