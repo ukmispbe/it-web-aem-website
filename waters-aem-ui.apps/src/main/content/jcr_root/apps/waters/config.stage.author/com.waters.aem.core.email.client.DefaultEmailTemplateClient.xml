@@ -2,6 +2,7 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
           xmlns:jcr="http://www.jcp.org/jcr/1.0"
           jcr:primaryType="sling:OsgiConfig"
-          hostname="yowx22oy95.execute-api.us-east-1.amazonaws.com"
-          setTemplateEndpoint ="/prod/settemplate"
+          hostname="ycguhvg1a6.execute-api.us-east-1.amazonaws.com"
+          setTemplateEndpoint ="/stage/settemplate"
+          setApiKey = "NQjik62ewh468gcdWdAUb7auCwvGZkVs8sHsd7vP"
 />

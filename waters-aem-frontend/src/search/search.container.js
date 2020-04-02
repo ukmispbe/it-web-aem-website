@@ -26,7 +26,6 @@ class SearchContainer extends Component {
 
         this.search = props.search;
         this.search.throwError = this.props.setErrorBoundaryToTrue;
-        this.buildHref = href => `${window.location.href}/page/${href}`
         this.state = this.initialState();
     }
 

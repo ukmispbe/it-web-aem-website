@@ -53,7 +53,8 @@ export default {
         }
       ],
       "myProfile": {
-        "fetchEndPoint": "https://test-www.waters.com:8443/api/waters/user/v1/details?email={email}",
+        "userDetailsUrl": "https://test-www.waters.com:8443/api/waters/user/v1/details",
+        "soldToDetailsUrl": "https://test-www.waters.com:8443/api/waters/user/v1/retrievesoldto",
         "submitEndpoint": "https://test-www.waters.com:8443/api/waters/user/v1/update/profile",
         "personalConfigId": "json-config--cmp-detail-tiles--personal",
         "addressConfig": {

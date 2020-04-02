@@ -26,7 +26,6 @@ import com.waters.aem.core.services.account.WatersAccountService;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.waters.aem.core.services.launch.AdobeLaunchService;
 import com.waters.aem.core.utils.LinkUtils;
-import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -38,7 +37,6 @@ import org.apache.sling.models.factory.ModelFactory;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.util.Collections;
-import java.util.Locale;
 
 @Component(value = "Header",
     group = ComponentConstants.GROUP_HIDDEN,
@@ -118,6 +116,13 @@ public final class Header extends AbstractComponent implements ComponentExporter
     @Inject
     private Boolean includeH1Tag;
 
+    @DialogField(fieldDescription = "Hide Header Icons",
+            value = "true",
+            ranking = 6)
+    @CheckBox(title = "hideIcons",
+            text = "Hide Header Icons")
+    @Inject
+    private Boolean hideIcons;
 
     @DialogField(fieldLabel = "My Account Link",
         fieldDescription = "Select or Enter the My Account Link",
@@ -232,14 +237,12 @@ public final class Header extends AbstractComponent implements ComponentExporter
         return LinkUtils.getMappedLink(pageManager, ordersLink);
     }
 
+    public Boolean isHideIcons() { return hideIcons; }
+
     public Boolean isIncludeH1Tag() { return includeH1Tag; }
 
     public Boolean isExternal() {
         return LinkUtils.isExternal(logoLink);
-    }
-
-    public Boolean isFormPage() {
-        return Templates.isFormPage(currentPage);
     }
 
     public String getSignOutUrl() {

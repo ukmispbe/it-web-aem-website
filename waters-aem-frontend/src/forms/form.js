@@ -12,6 +12,7 @@ import DigitalData from '../scripts/DigitalData';
 import ErrorBoundary from '../search/ErrorBoundary';
 import Field from './fields';
 import { retrieveData } from '../forms/services/retrieve';
+import Analytics, { analyticTypes } from "../scripts/analytics";
 
 const FormApi = createContext(null);
 FormApi.displayName = 'FormApi';
@@ -85,6 +86,9 @@ const Form = ({
 
     const [errorUpdates, setUpdate] = useState({});
     const [failedAttempts, setFailedAttempts] = useState(1);
+    const [countrySaved, setCountrySaved] = useState();
+    const regionalConfig = config.regionalConfig;
+
     const captchaField = config.fields.filter(
         field => field.type === 'captcha'
     )[0];
@@ -107,7 +111,7 @@ const Form = ({
 
     const activateField = inputName => {
         const fields = config.fields.map(field => {
-            if (field.type === inputName) {
+            if (field.type === inputName || field.name === inputName) {
                 field.active = true;
             }
             return field;
@@ -115,10 +119,50 @@ const Form = ({
         config.fields = [...fields];
     };
 
+    const deactivateField = inputName => {
+         const fields = config.fields.map(field => {
+            if (field.name === inputName) {
+                field.active = false;
+            }
+            return field;
+        });
+        config.fields = [...fields];
+    };
+    
+    const getCountryCodefromURL = () => {
+        const urlString = document.URL;
+        const stringPos = urlString.search(`/${isocode}/`)
+        const countryCode = urlString.substr((stringPos - 2), 2);
+        return countryCode.toLowerCase();
+    }
+
+    useEffect( () => {
+        setFormAnalytics('load');
+    }, []);
+
+    useEffect( () => {
+        // Configure Registration Form on "Loading"
+        if (config.formName === "registration") {
+            const countryRegion = getCountryCodefromURL();
+            // Get Regional config 
+            const countryOptionsConfig = regionalConfig;           
+            // Hide all country configurable fields
+            const allCountryOptions = countryOptionsConfig.filter(p => p.country === "all")
+            if (allCountryOptions.length === 1){
+                allCountryOptions[0].fields.map(fieldName => deactivateField(fieldName));
+            }          
+            // Display Specific fields for the current country
+            const selectedCountryOptions = countryOptionsConfig.filter(p => p.country === countryRegion)
+            if (selectedCountryOptions.length === 1){
+                selectedCountryOptions[0].fields.map(fieldName => activateField(fieldName));
+            }
+        }
+    }, []);
+
     const [newConfig, setNewConfig] = useState();
 
     useEffect(() => {
-        if (!config.getRadioOptions) { 
+        if (!config.getRadioOptions) {
             return;
         }
 
@@ -158,6 +202,18 @@ const Form = ({
         [errors]
     );
 
+    const setFormAnalytics = (event, detail={}) => {
+        if(config.formName){
+            const model = {
+                detail,
+                formName: config.formName,
+                formType: config.formType ? config.formType : undefined,
+                event
+            };
+            Analytics.setAnalytics(analyticTypes['form'].name, model);
+        }
+    }
+
     const getValue = name => getValues()[name];
 
     const getApi = useMemo(
@@ -168,7 +224,11 @@ const Form = ({
             register,
             triggerValidation,
             getValues,
-            getValue
+            getValue,
+            activateField,
+            deactivateField,
+            setCountrySaved,
+            regionalConfig
         }),
         [register]
     );
@@ -219,7 +279,9 @@ const Form = ({
                         passwordUpdateUrl: config.passwordUpdateUrl,
                         callback: callback,
                         updateFailedAttempts: updateFailedAttempts,
-                        setProfileData: setProfileData
+                        setProfileData: setProfileData,
+                        setFormAnalytics: setFormAnalytics
+
                     })
                 )}
             >

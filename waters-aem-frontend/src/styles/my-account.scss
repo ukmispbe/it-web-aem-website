@@ -1,4 +1,13 @@
 .cmp-my-account {
+
+    &-wrapper {
+        .cmp-title {
+            @include mobile {
+                margin-top: $space-xs;
+            }
+        }
+    }
+
     &__body {
         margin-bottom: $space-l + 0.5em;
     }
