@@ -178,22 +178,26 @@ export async function changePasswordSubmit(data) {
 export async function personalSubmit(data) {
 
     const response = await postData(this.url, data);
-
+    const responseBody = await response.json();
     // remove all previous server error notifications
     this.setError();
 
     if (response.status === 200) {
-        const submitResponse = await response.json();
         const store = new SessionStore();
-        store.setUserDetails(submitResponse);
+        store.setUserDetails(responseBody);
         store.setPersonalDetailsUpdated();
-        this.setProfileData(submitResponse);
+        this.setProfileData(responseBody);
+        const model = {
+            "communications":data.communications 
+        }
+        this.setFormAnalytics('submit', model);
 
         this.callback();
     } else if (response.status === 401) {
         signInRedirect();
     } else {
         this.setError(response);
+        this.setFormAnalytics('error', responseBody);
         scrollToY(0);
     }
 }
