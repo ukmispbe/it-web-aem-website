@@ -1,0 +1,139 @@
+#my-account {
+    .cmp-order-details {
+
+        &__container {
+            display: flex;
+            flex-wrap: wrap;
+
+            @include mobile {
+                flex-direction: column;
+                flex-wrap: nowrap;
+            }
+
+            h2 {
+                order: 0;
+                flex-grow: 2;
+                width: 100%;
+                margin-bottom: $space-s;
+            }
+        }
+
+        &__order-info {
+            order: 1;
+            flex-grow: 1;
+            width: 50%;
+
+            @include mobile {
+                width: 100%;
+            }
+
+            .cmp-order-details__order-number {
+                @include font-h3;
+                width: 100%;
+            }
+
+            .cmp-order-details__order-date {
+                @include font-utility;
+                width: 100%;
+            }
+
+            h4 {
+                @include font-h4;
+                margin-bottom: $space-xxxs;
+            }
+            .text {
+                @include font-body;
+            }
+
+            .cmp-order-details {
+                &__address-container {
+                    display: flex;
+                    margin-top: $space-l;
+
+                    .cmp-order-details {
+                        &__ship-to {
+                            flex: 1;
+                            @include font-body;
+                        }
+                        &__bill-to {
+                            flex: 1;
+                            @include font-body;
+                        }
+                    }
+                }
+
+                &__payment-container {
+                    display: flex;
+                    margin-top: $space-m;
+
+                    .cmp-order-details {
+                        &__payment-method {
+                            flex: 1;
+                            @include font-body;
+                        }
+                    }
+                }
+            }
+
+        }
+
+
+
+        &__order-summary {
+            order: 1;
+            flex-grow: 1;
+            min-width: 25%;
+            justify-content: space-between;
+
+            @include mobile {
+                width: 100%;
+            }
+
+            h4 {
+                background-color: $color-background-dark;
+                padding: $space-xxs;
+                @include font-h4;
+                color: $color-font-light;
+                margin-bottom: $space-s;
+                border-radius: $border-radius;
+            }
+
+            .cmp-order-details__order-subtotal,
+            .cmp-order-details__order-shipping, 
+            .cmp-order-details__order-tax,
+            .cmp-order-details__order-total {
+                display: flex;
+                @include font-body;
+                &_left {
+                    flex: 2;
+                }
+                &_right {
+                    flex: 1;
+                    text-align: right;
+                }
+            }
+
+            .cmp-order-details__order-tax {
+                border-bottom: 1px solid $color-border-light;
+                padding-bottom: $space-s;
+                margin-bottom: $space-s;
+            }
+
+            .cmp-order-details__order-total {
+                &_left {
+                    @include font-body;
+                }
+                &_right h1 {
+                    @include font-h1;
+                }
+            }
+
+        }
+
+        &__order-shipment-list {
+            order: 2;
+            width: 100%;
+        }
+
+    }
+}

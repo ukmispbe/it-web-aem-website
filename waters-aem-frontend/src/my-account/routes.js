@@ -23,4 +23,4 @@ export default {
         path: "/orderdetails",
         parentTrail: ['/', '/orderhistory']
     }
-};
+}

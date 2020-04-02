@@ -6,6 +6,7 @@ import MyAccount from "./myaccount";
 import MyProfile from '../my-profile';
 import ChangePassword from "../change-password";
 import OrderHistory from "../order-history";
+import OrderDetails from "../order-details";
 
 const MyAccountRouter = (props) => {
     return (
@@ -27,6 +28,11 @@ const MyAccountRouter = (props) => {
                 <Route exact path={routes.orderHistory} >
                     <Aside tiles={props.tiles}>
                         <OrderHistory configs={props.orderHistory} />
+                    </Aside>
+                </Route>
+                <Route exact path={routes.orderDetails}>
+                    <Aside tiles={props.tiles}>
+                        <OrderDetails config={props.orderDetails} />
                     </Aside>
                 </Route>
             </Switch>
