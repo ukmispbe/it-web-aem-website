@@ -139,11 +139,6 @@ public class MyAccount implements ComponentExporter {
         return accountService.getUpdatePasswordUrl();
     }
 
-    //TODO : Delete for Release: Myaccount-6.2.0
-    public String getLegacyOrderHistoryUrl() {
-        return accountService.getLegacyOrderHistoryUrl();
-    }
-
     @Nonnull
     @Override
     public String getExportedType() {
