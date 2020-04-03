@@ -14,5 +14,4 @@
           updatePwUrl="https://prodservices.waters.com/api/waters/user/v1/update/password"
           signInEndpoint="https://prodservices.waters.com/api/waters/user/v1/login"
           signOutEndpoint="https://prodservices.waters.com/api/waters/user/v1/logout"
-          updateProfileUrl="https://prodservices.waters.com/api/waters/user/v1/update/profile"
-          legacyOrderHistoryUrl="https://www.waters.com/waters/Order-History/nav.htm?cid=2243118"/>
+          updateProfileUrl="https://prodservices.waters.com/api/waters/user/v1/update/profile"/>
