@@ -36,7 +36,7 @@ const MyAccountContainer = props => {
 
     const onSignOut = (e) => {
         e.preventDefault();
-        signOutRequest(signOut.signOutEndpoint, homepageLink);
+        signOutRequest(signOut.signOutEndpoint,signOut.url, homepageLink);
     }
 
     const signInOutLink = () => (
