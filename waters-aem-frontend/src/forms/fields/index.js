@@ -10,7 +10,7 @@ import Hr from './hr';
 import Captcha from './captcha';
 import Body from './body';
 import Link from './link';
-import Text from './text';
+import TextWithLinks from './textWithLinks';
 
 const formType = {
     text: Input,
@@ -25,7 +25,7 @@ const formType = {
     captcha: Captcha,
     body: Body,
     link: Link,
-    text: Text
+    textwithlinks: TextWithLinks
 };
 
 const Field = ({}) => {

@@ -1,11 +1,9 @@
 import React, { useContext } from "react";
 import { useFieldApi } from '../form';
 
-const Text = ({}) => {
+const TextWithLinks = ({}) => {
 
     const { type, name, config, addClass } = useContext(useFieldApi);
-
-    console.log(config);
 
     const renderLink = ({ label, url, blank }) => {
         return (
@@ -41,4 +39,4 @@ const Text = ({}) => {
     );
 };
 
-export default Text;
+export default TextWithLinks;
