@@ -268,9 +268,9 @@ class SearchService {
                     if (filter) {
                         facetString = filter
                             ? facetString +
-                              `${
-                                  f > 0 ? encodeURIComponent('||') : ''
-                              }${encodeURIComponent(encodeURIComponent(filter))}`
+                            `${
+                                f > 0 ? encodeURIComponent('||') : ''
+                            }${encodeURIComponent(encodeURIComponent(filter))}`
                             : facetString;
                     }
                 }
@@ -361,9 +361,9 @@ class SearchService {
     stringifyParameters = parameters =>
         Object.keys(parameters).length !== 0
             ? Object.keys(parameters).reduce(
-                  (accumulator, currentValue) =>
-                      `${accumulator}=${parameters[accumulator]}&${currentValue}=${parameters[currentValue]}`
-              )
+                (accumulator, currentValue) =>
+                    `${accumulator}=${parameters[accumulator]}&${currentValue}=${parameters[currentValue]}`
+            )
             : '';
 
     setUrlParameter = (searchTerm, searchPath) => {

@@ -16,7 +16,7 @@ const OrderDetails = (props) => {
 
     const orderId = getUrlParameter("id");
     const userLocale = GetLocale.getLocale();
-    const url = props.config.fetchEndPoint;
+    const detailsUrl = props.config.fetchDetailsEndPoint;
     //const [orderId, setOrderId] = useState(null);
     const [orderDetails, setOrderDetails] = useState({});
     const [error, setError] = useState(false);
@@ -24,7 +24,7 @@ const OrderDetails = (props) => {
 
     useEffect(() => {
         //setOrderId(getUrlParameter("id"));
-        getOrderDetails(url, orderId)
+        getOrderDetails(detailsUrl, orderId)
             .then((data) => {
                 console.log(data);
                 setIsLoading(false);
@@ -36,9 +36,7 @@ const OrderDetails = (props) => {
     }, []);
 
     const renderAddress = (addressType) => {
-
         if (orderDetails.account){
-
             let account = orderDetails.account.filter(item => item.partnerType === addressType )[0];
             console.log("account ", account);
             console.log("orderDetails ", orderDetails);
@@ -102,8 +100,6 @@ const OrderDetails = (props) => {
                         <div className="cmp-order-details__order-total_right"><h1>{CurrencyFormatter.currencyFormatter(orderDetails.orderTotal, userLocale, orderDetails.currencyCode)}</h1></div>
                     </div>
                 </div>
-
-                {renderOrderShipmentList()}
             </div>
         )
     }
@@ -133,6 +129,7 @@ const OrderDetails = (props) => {
             {isLoading && (<Spinner loading={isLoading} />)}
             {!isLoading && error && renderErrorNotification()}
             {!error && !isLoading && renderOrderDetails()}
+            {!error && !isLoading && renderOrderShipmentList()}
         </>
     )
 }
