@@ -86,6 +86,9 @@ const Form = ({
 
     const [errorUpdates, setUpdate] = useState({});
     const [failedAttempts, setFailedAttempts] = useState(1);
+    const [countrySaved, setCountrySaved] = useState();
+    const regionalConfig = config.regionalConfig;
+
     const captchaField = config.fields.filter(
         field => field.type === 'captcha'
     )[0];
@@ -108,7 +111,7 @@ const Form = ({
 
     const activateField = inputName => {
         const fields = config.fields.map(field => {
-            if (field.type === inputName) {
+            if (field.type === inputName || field.name === inputName) {
                 field.active = true;
             }
             return field;
@@ -116,8 +119,44 @@ const Form = ({
         config.fields = [...fields];
     };
 
+    const deactivateField = inputName => {
+         const fields = config.fields.map(field => {
+            if (field.name === inputName) {
+                field.active = false;
+            }
+            return field;
+        });
+        config.fields = [...fields];
+    };
+    
+    const getCountryCodefromURL = () => {
+        const urlString = document.URL;
+        const stringPos = urlString.search(`/${isocode}/`)
+        const countryCode = urlString.substr((stringPos - 2), 2);
+        return countryCode.toLowerCase();
+    }
+
     useEffect( () => {
         setFormAnalytics('load');
+    }, []);
+
+    useEffect( () => {
+        // Configure Registration Form on "Loading"
+        if (config.formName === "registration") {
+            const countryRegion = getCountryCodefromURL();
+            // Get Regional config 
+            const countryOptionsConfig = regionalConfig;           
+            // Hide all country configurable fields
+            const allCountryOptions = countryOptionsConfig.filter(p => p.country === "all")
+            if (allCountryOptions.length === 1){
+                allCountryOptions[0].fields.map(fieldName => deactivateField(fieldName));
+            }          
+            // Display Specific fields for the current country
+            const selectedCountryOptions = countryOptionsConfig.filter(p => p.country === countryRegion)
+            if (selectedCountryOptions.length === 1){
+                selectedCountryOptions[0].fields.map(fieldName => activateField(fieldName));
+            }
+        }
     }, []);
 
     const [newConfig, setNewConfig] = useState();
@@ -185,7 +224,11 @@ const Form = ({
             register,
             triggerValidation,
             getValues,
-            getValue
+            getValue,
+            activateField,
+            deactivateField,
+            setCountrySaved,
+            regionalConfig
         }),
         [register]
     );
