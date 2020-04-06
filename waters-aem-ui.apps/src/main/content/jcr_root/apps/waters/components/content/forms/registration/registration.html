@@ -34,6 +34,24 @@
                     }
                 },
                 {
+                    "type": "dropdown",
+                    "name": "salutation",
+                    "label": "${'Salutation' @ i18n, context='text'}",
+                    "placeholder": "${'Select...' @ i18n, context='text'}",
+                    "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
+                    "options": [
+                        {"salutationCode":"dr","displayName": "${'Dr.' @ i18n, context='text'}"},
+                        {"salutationCode":"mr","displayName": "${'Mr.' @ i18n, context='text'}"},
+                        {"salutationCode":"mrs","displayName": "${'Mrs.' @ i18n, context='text'}"},
+                        {"salutationCode":"ms","displayName": "${'Ms.' @ i18n, context='text'}"}
+                    ],
+                    "active": false,
+                    "validation": {
+                        "required": true,
+                        "requiredMsg": "${'Please select your salutation.' @ i18n, context='text'}"
+                    }
+                },
+                {
                     "type": "text",
                     "name": "firstName",
                     "label": "${'First Name' @ i18n, context='text'}",
@@ -63,6 +81,18 @@
                         "requiredMsg": "${'Please enter a last name.' @ i18n, context='unsafe'}"
                     }
                 },
+                {
+                    "type": "text",
+                    "name": "pronName",
+                    "label": "${'Pronunciation (Name)' @ i18n, context='text'}",
+                    "active": false,
+                    "validation": {
+                        "required": true,
+                        "validateFnName": "noWhitespaceOnly",
+                        "validationMsg": "${'Please enter a pronunciation (name).' @ i18n, context='unsafe'}",
+                        "requiredMsg": "${'Please enter a pronunciation (name).' @ i18n, context='unsafe'}"
+                    }
+                },                
                 {
                     "type": "text",
                     "name": "company",
@@ -134,12 +164,58 @@
                     }
                 },
                 {
+                    "type": "checkbox",
+                    "name": "eCommerceAgreement",
+                    "label": "${'I confirm to open a China eShop account and agree to the terms and conditions. (We will contact you soon)' @ i18n, context='unsafe'}",
+                    "active": false,
+                    "validation": {
+                        "required": true,
+                        "validateFnName": "checkBoxOrRadio"
+                    }
+                },
+                {
                     "type": "captcha",
                     "name": "captcha",
                     "siteKey": "${registration.captchaSiteKey @ context='unsafe'}",
                     "validation": {
                         "required": true
                     }
+                }
+            ],
+            "regionalConfig": [
+            {
+                "country":"all",
+                "fields":[
+                        "salutation",
+                        "pronName",
+                        "eCommerceAgreement"
+                    ]
+                },
+                {
+                "country":"jp",
+                "fields":[
+                        "salutation",
+                        "pronName"
+                    ]
+                },
+                {
+                "country":"tw",
+                "fields":[
+                        "salutation"
+                    ]
+                },
+                {
+                "country":"kr",
+                    "fields":[
+                        "salutation"
+                    ]
+                },
+                {
+                "country":"cn",
+                    "fields":[
+                        "salutation",
+                        "eCommerceAgreement"
+                    ]
                 }
             ]
         }
