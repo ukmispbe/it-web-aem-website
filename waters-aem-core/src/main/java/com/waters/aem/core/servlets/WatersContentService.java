@@ -25,6 +25,9 @@ import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletPaths;
 import org.apache.sling.settings.SlingSettingsService;
 import org.osgi.service.component.annotations.*;
+import org.osgi.service.metatype.annotations.AttributeDefinition;
+import org.osgi.service.metatype.annotations.Designate;
+import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +39,7 @@ import java.net.HttpURLConnection;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -43,6 +47,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Component(service = Servlet.class)
 @SlingServletPaths("/bin/waters/content")
+@Designate(ocd = WatersContentService.Config.class)
 public class WatersContentService extends SlingAllMethodsServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(WatersContentService.class);
@@ -53,15 +58,21 @@ public class WatersContentService extends SlingAllMethodsServlet {
     @Reference
     private SlingSettingsService settingsService;
 
+    private volatile String[] origins;
+
     @Override
     public void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) {
         try {
             LOG.info("New Content Service request");
             response.setContentType("application/json; charset=UTF-8");
-            response.setHeader("Access-Control-Allow-Origin","http://localhost:3000");
-            response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
-            response.setHeader("Access-Control-Allow-Headers", "X-Auth-Token, Content-Type, Authorization, x-dtpc, x-dtreferer");
-            response.setHeader("Access-Control-Allow-Credentials", "true");
+            String origin = request.getHeader("origin");
+            if (StringUtils.isNotBlank(origin) && Arrays.asList(origins).contains(origin.trim())) {
+                response.setHeader("Access-Control-Allow-Origin", origin);
+                response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
+                response.setHeader("Access-Control-Allow-Headers", "X-Auth-Token, Content-Type, Authorization, x-dtpc, x-dtreferer");
+                response.setHeader("Access-Control-Allow-Credentials", "true");
+            }
+
             String pagePath = request.getParameter("pagePath");
             final String responseLevel = request.getParameter("depth");
             if (StringUtils.isNotBlank(pagePath) && (pagePath.startsWith(WatersConstants.ROOT_PATH) || pagePath.startsWith(WatersConstants.CUSTOM_ROOT_PATH))) {
@@ -80,7 +91,7 @@ public class WatersContentService extends SlingAllMethodsServlet {
                 response.getWriter().write("{\n" +
                         "\"Error\": \"Add correct parameters as mentioned below\",\n" +
                         "\"pagePath\": \"Page path exists on AEM\",\n" +
-                        "\"depth\": \"Response level 'full' to get Navigation content as well\"}");
+                        "\"depth\": \"Response level 'full' to get Navigation content as well \"}");
             }
         } catch (Exception e) {
             LOG.error("Exception Occurred: {}", e.getMessage());
@@ -141,8 +152,7 @@ public class WatersContentService extends SlingAllMethodsServlet {
                 return true;
             }
         });
-        @SuppressWarnings("deprecation")
-        final HostnameVerifier hostnameVerifier = SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER;
+        @SuppressWarnings("deprecation") final HostnameVerifier hostnameVerifier = SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER;
         final SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(builder.build(), hostnameVerifier);
         try (CloseableHttpClient httpClient = HttpClients.custom().setSSLSocketFactory(sslsf).build()) {
             CloseableHttpResponse response = httpClient.execute(request);
@@ -160,4 +170,15 @@ public class WatersContentService extends SlingAllMethodsServlet {
         return responseEntity;
     }
 
+    @Activate
+    @Modified
+    protected void activate(final WatersContentService.Config configuration) {
+        origins = configuration.getOrigins();
+    }
+
+    @ObjectClassDefinition(name = "Waters Content Service Configuration")
+    public @interface Config {
+        @AttributeDefinition(name = "Allowed Origins", description = "Set the allowed origins e.g. https://www.hostname.com ")
+        String[] getOrigins() default "http://localhost:3000";
+    }
 }
