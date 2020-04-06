@@ -112,7 +112,8 @@ export const registrationConfig = {
         {
             type: "checkbox",
             name: "communications",
-            label: "I agree to receive marketing, product, training, support, and related communications via mail, email, or other electronic means."
+            label: "I agree to receive marketing, product, training, support, and related communications via mail, email, or other electronic means.",
+            optionalLabel: "(optional)"
         },
         {
             type: "captcha",

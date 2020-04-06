@@ -469,6 +469,11 @@ exports[`Feature: Registration Form Scenario: Rendering When initial render Then
         onClick={[Function]}
       >
         I agree to receive marketing, product, training, support, and related communications via mail, email, or other electronic means. 
+        <span
+          className="cmp-form-field--optional"
+        >
+          (optional)
+        </span>
       </label>
       
     </div>
