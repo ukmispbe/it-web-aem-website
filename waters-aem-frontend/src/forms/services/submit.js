@@ -175,6 +175,7 @@ export async function changePasswordSubmit(data) {
 }
 
 
+
 export async function personalSubmit(data) {
 
     const response = await postData(this.url, data);
@@ -196,6 +197,20 @@ export async function personalSubmit(data) {
         this.setError(response);
         scrollToY(0);
     }
+}
+
+const checkRedirectToChooseAccount = (soldToAccounts) => {
+    if (soldToAccounts === null || soldToAccounts === undefined || !soldToAccounts.length || soldToAccounts.length === 1 ) {
+        return false;
+    }
+    let defaultSoldTos = soldToAccounts.filter(function(i) {
+        return i.defaultFlag === 1;
+    });
+
+    if (defaultSoldTos.length > 1) {
+        return true;
+    }
+    return false;
 }
 
 export async function signInSubmit(data) {
@@ -223,7 +238,24 @@ export async function signInSubmit(data) {
             if (!userDetails.failed) {
                 const store = new SessionStore();
                 store.setUserDetails(userDetails);
+                
+                const soldToAccounts = userDetails.soldToAccounts;
+                
+                // Temporary Code to ensure the user has to Choose Account
+                soldToAccounts[0].defaultFlag = 1;
+                console.log(soldToAccounts);
+                // Temporary Code to ensure the user has to Choose Account
+
+                const needToChooseAccount = checkRedirectToChooseAccount(soldToAccounts);
+                if(needToChooseAccount) {
+                    // Choose Account URL
+                    window.location.replace(this.switchAccountUrl);
+                    return;
+                }
+
                 store.removeSoldToDetails();
+
+                // Check 
             }
         }
 

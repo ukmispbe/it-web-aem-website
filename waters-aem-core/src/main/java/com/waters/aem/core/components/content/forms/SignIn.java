@@ -60,6 +60,14 @@ public class SignIn implements ComponentExporter {
     @LinkInject
     private Link forcePasswordUpdateLink;
 
+    @DialogField(fieldLabel = "Change Account Link",
+    fieldDescription = "The page that users are redirected to if they must change their account before " +
+            "continuing with the sign in process.",
+    ranking = 3)
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject
+    private Link switchAccountLink;
+
     public Link getForgotPasswordLink() {
         return LinkUtils.getMappedLink(pageManager, forgotPasswordLink);
     }
@@ -76,6 +84,10 @@ public class SignIn implements ComponentExporter {
 
     public String getSignInEndpoint() {
         return accountService.getSignInEndpoint();
+    }
+
+    public Link getSwitchAccountLink() {
+        return LinkUtils.getMappedLink(pageManager, switchAccountLink);
     }
 
     public String getCaptchaSiteKey() {
