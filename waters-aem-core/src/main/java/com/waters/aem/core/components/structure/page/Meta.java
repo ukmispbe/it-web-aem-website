@@ -41,7 +41,7 @@ import java.util.stream.Collectors;
     editConfig = false,
     fileName = Meta.FILE_NAME,
     touchFileName = Meta.FILE_NAME)
-@Model(adaptables = Resource.class,  defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public final class Meta extends AbstractComponent {
 
     static final String FILE_NAME = "meta";
@@ -65,7 +65,6 @@ public final class Meta extends AbstractComponent {
     private static final String DEFAULT_TWITTER_CARD = "summary_large_image";
 
     private static final String DEFAULT_OG_TYPE = "none";
-
 
     private static final String DEFAULT_HREF_LANG_PATH = WatersConstants.ROOT_PATH + "/us/en";
 
@@ -258,6 +257,7 @@ public final class Meta extends AbstractComponent {
 
         properties.put("@context", "https://schema.org/");
         properties.put("@type", "Product");
+        properties.put("url", externalize(currentPage.getHref(true)));
         properties.put("description", getDescription());
         properties.put("name", getTitle());
         properties.put("image", getThumbnailImage());
@@ -266,6 +266,17 @@ public final class Meta extends AbstractComponent {
             properties.put("sku", sku.getCode());
             properties.put("brand", getBrand());
         }
+
+        final Map<String, Object> authorProperties = new HashMap<>();
+        authorProperties.put("@type", "Person");
+        authorProperties.put("name", "");
+
+        final Map<String, Object> reviewProperties = new HashMap<>();
+        reviewProperties.put("@type", "review");
+        reviewProperties.put("reviewBody", "");
+        reviewProperties.put("author", authorProperties);
+
+        properties.put("review", reviewProperties);
 
         return MAPPER.writeValueAsString(properties);
     }
@@ -281,6 +292,7 @@ public final class Meta extends AbstractComponent {
 
     public List<HrefLangItem> getHrefLangItems() {
         return LocaleUtils.getRegionLanguagePages(currentPage).stream()
+                .filter(page -> !page.getPath().startsWith(WatersConstants.ROOT_PATH_LANGUAGE_MASTERS))
                 .map(page -> new HrefLangItem(page, externalize(page.getHref())))
                 .collect(Collectors.toList());
     }

@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: Tabs Component Scenario: Rendering Tabs When no tabs are provided Then it should match snapshot 1`] = `
+<div
+  className="cmp-tabs-wrapper"
+>
+  <div
+    className="cmp-tabs "
+  />
+</div>
+`;
+
+exports[`Feature: Tabs Component Scenario: Rendering Tabs When tabs are provided Then it should match snapshot 1`] = `
+<div
+  className="cmp-tabs-wrapper"
+>
+  <div
+    className="cmp-tabs "
+  >
+    <div
+      className="cmp-tabs__tab active"
+      onClick={[Function]}
+    >
+      <span
+        className="cmp-tabs__tab-label"
+      >
+        Tab One
+      </span>
+    </div>
+    <div
+      className="cmp-tabs__tab"
+      onClick={[Function]}
+    >
+      <span
+        className="cmp-tabs__tab-label"
+      >
+        Tab Two
+      </span>
+    </div>
+  </div>
+</div>
+`;

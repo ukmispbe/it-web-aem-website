@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: Modal Component Scenario Rendering Header Sub-Component When rendering the Header with a title & Icon Then the snapshot should match 1`] = `
+<div
+  className="cmp-modal-box "
+  onClick={[Function]}
+>
+  <div
+    className="cmp-modal"
+  >
+    <div
+      className="cmp-modal__header header-with-title "
+    >
+      <div
+        className="cmp-modal__title"
+      >
+        <div
+          className="cmp-modal__title-icon"
+        >
+          <div />
+        </div>
+        <div
+          className="cmp-modal__title-text"
+        >
+          TEST TITLE
+        </div>
+      </div>
+      <div
+        className="cmp-modal__close-icon"
+      >
+        <div
+          onClick={[MockFunction]}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Feature: Modal Component Scenario Rendering Header Sub-Component When rendering the Header with a title Then the snapshot should match 1`] = `
+<div
+  className="cmp-modal-box "
+  onClick={[Function]}
+>
+  <div
+    className="cmp-modal"
+  >
+    <div
+      className="cmp-modal__header header-with-title "
+    >
+      <div
+        className="cmp-modal__title"
+      >
+        <div
+          className="cmp-modal__title-text"
+        >
+          TEST TITLE
+        </div>
+      </div>
+      <div
+        className="cmp-modal__close-icon"
+      >
+        <div
+          onClick={[MockFunction]}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Feature: Modal Component Scenario Rendering Modal When the modal is rendered in a closed state Then the snapshot should match 1`] = `null`;
+
+exports[`Feature: Modal Component Scenario Rendering Modal When the modal is rendered in an open state Then the snapshot should match 1`] = `
+<div
+  className="cmp-modal-box "
+  onClick={[Function]}
+>
+  <div
+    className="cmp-modal"
+  />
+</div>
+`;
+
+exports[`Feature: Modal Component Scenario Rendering Modal When the modal is rendered w/child components & open state Then the snapshot should match 1`] = `
+<div
+  className="cmp-modal-box "
+  onClick={[Function]}
+>
+  <div
+    className="cmp-modal"
+  >
+    <div
+      className="cmp-modal__header  "
+    >
+      <div
+        className="cmp-modal__close-icon"
+      >
+        <div
+          onClick={[MockFunction]}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

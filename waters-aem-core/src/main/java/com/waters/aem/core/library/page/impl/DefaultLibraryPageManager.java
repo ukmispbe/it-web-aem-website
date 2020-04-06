@@ -215,7 +215,7 @@ public final class DefaultLibraryPageManager implements LibraryPageManager {
             .getPath() + "/search";
 
         final String searchHref = LinkBuilderFactory.forPath(searchPagePath)
-            .addParameter("facet", "category_facet:library") // TODO verify facet parameter value
+            .addParameter("facet", "category_facet:library")
             .build()
             .getHref();
 

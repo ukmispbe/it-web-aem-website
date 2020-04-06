@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: We Chat Component Scenario Rendering We Chat in visible state When rendering We Chat with the modal closed Then the snapshot should match 1`] = `
+Array [
+  <a
+    className="cmp-footer-social-links__link"
+    href="#"
+    onClick={[Function]}
+    target="_blank"
+  >
+    <div />
+  </a>,
+  <div
+    className="cmp-modal-box "
+    onClick={[Function]}
+  >
+    <div
+      className="cmp-modal"
+    >
+      <div
+        className="cmp-modal__header header-with-title header-with-title-centered"
+      >
+        <div
+          className="cmp-modal__title"
+        >
+          <div
+            className="cmp-modal__title-text"
+          >
+            关注我们 – 沃特世中国
+          </div>
+        </div>
+        <div
+          className="cmp-modal__close-icon"
+        >
+          <div
+            onClick={[Function]}
+          />
+        </div>
+      </div>
+      <div
+        className="cmp-wechat-modal"
+      >
+        <div
+          className="cmp-wechat-modal__image"
+        >
+          <img
+            alt="WeChat QR code"
+            src="/content/dam/waters/zh/brand/product/wechat/WeChat.jpg"
+          />
+        </div>
+        <div
+          className="cmp-wechat-modal__text"
+        >
+          关注沃特世中国官方微信公众号，了解沃特世中国最新动态，获取最新资讯
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Feature: We Chat Component Scenario Rendering We Chat in visible state When rendering We Chat with the modal open Then the snapshot should match 1`] = `
+<a
+  className="cmp-footer-social-links__link"
+  href="#"
+  onClick={[Function]}
+  target="_blank"
+>
+  <div />
+</a>
+`;

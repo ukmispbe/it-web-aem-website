@@ -39,9 +39,11 @@ public interface SiteRepository {
      *
      * @param resourceResolver resource resolver
      * @param countryCode ISO country code (e.g. "us")
+     * @param matchNodeName if true, compare the country code (e.g. "us") with the country node name (e.g.
+     *                      /content/waters/*us*) as opposed to only matching the page locale's country code.
      * @return country root page or null if it does not exist
      */
-    PageDecorator getCountryRootPage(ResourceResolver resourceResolver, String countryCode);
+    PageDecorator getCountryRootPage(ResourceResolver resourceResolver, String countryCode, boolean matchNodeName);
 
     /**
      * Get all language root pages (e.g. /content/waters/us/en).
@@ -57,7 +59,10 @@ public interface SiteRepository {
      * @param resourceResolver resource resolver
      * @param countryCode ISO country code (e.g. "us")
      * @param languageCode ISO language code (e.g. "en")
+     * @param matchNodeName if true, compare the country code (e.g. "us") with the country node name (e.g.
+     *                      /content/waters/*us*) as opposed to only matching the page locale's country code.
      * @return language root page or null if it does not exist
      */
-    PageDecorator getLanguageRootPage(ResourceResolver resourceResolver, String countryCode, String languageCode);
+    PageDecorator getLanguageRootPage(ResourceResolver resourceResolver, String countryCode, String languageCode,
+                                      boolean matchNodeName);
 }

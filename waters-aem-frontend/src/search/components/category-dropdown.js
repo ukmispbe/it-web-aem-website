@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import ScreenSizes from '../../scripts/screenSizes';
 import variables from '../../../src/styles/variables.scss';
 
+/* istanbul ignore next */
 const customStyles = {
     indicatorSeparator: () => ({
         display: 'none',
@@ -12,6 +13,7 @@ const customStyles = {
     option: (provided, state) => ({
         ...provided,
         color: variables.colorGray50,
+        padding: '0.75em 1em',
         backgroundColor: state.isSelected ? variables.colorBackgroundLight : variables.colorWhite,
         cursor: !state.isSelected ? 'pointer' : 'default',
         '&:hover': {
@@ -22,7 +24,7 @@ const customStyles = {
     }),
     control: (provided, state) => ({
         ...provided,
-        'border-radius': '0',
+        'border-radius': variables.borderRadius,
         padding: '0.3em 0.5em',
         color: variables.colorGray50,
         'border-color': state.isFocused ? variables.colorBorderDark : variables.colorBorderDark,
@@ -32,7 +34,7 @@ const customStyles = {
         '&:hover': {
             outline: 'none',
             color: variables.colorBlue50,
-            borderColor: variables.colorBorderDark,
+            borderColor: variables.colorBlue50,
         },
     }),
     singleValue: (provided, state) => {
@@ -67,10 +69,10 @@ const DropdownIndicator = props => {
 
 
 const getOptions = options => {
-    let newList = options.map((a, index) => { 
+    let newList = options.filter(item => item.count !== 0).map((a, index) => { 
         return {
             value: index,
-            label: a.name
+            label: a.translation
         }
     })
     
@@ -105,11 +107,6 @@ const CategoryDropdown = props => {
     );
 };
 
-CategoryDropdown.defaultProps = {
-    categoryIsSearchable: false,
-    categoryPlaceholder: '',
-};
-
 CategoryDropdown.propTypes = {
     categoryOptions: PropTypes.array.isRequired,
     categoryOnChange: PropTypes.func.isRequired,
@@ -119,5 +116,13 @@ CategoryDropdown.propTypes = {
     categoryValue: PropTypes.number
 }
 
+CategoryDropdown.defaultProps = {
+    categoryOptions: [],
+    categoryOnChange: () => {},
+    categoryIsSearchable: false,
+    categoryPlaceholder: '',
+    categoryDownIcon: '',
+    categoryValue: 0
+};
 
 export default CategoryDropdown;

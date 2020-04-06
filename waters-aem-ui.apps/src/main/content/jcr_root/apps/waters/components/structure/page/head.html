@@ -1,11 +1,19 @@
 <template data-sly-template.head="${ @ page }"
           data-sly-use.headlibRenderer="headlibs.html"
           data-sly-use.headResources="head.resources.html"
+          data-sly-use.meta="meta.html"
           data-sly-use.header="com.waters.aem.core.components.structure.Header">
 
     <meta charset="UTF-8">
 
-    <sly data-sly-include="meta.html"/>
+    <sly data-sly-test.categoryListing="${header.categoryListing}">
+        <link rel="canonical" href="${categoryListing.currentPageHref}">
+        <link rel="next" href="${categoryListing.nextPageHref}" data-sly-unwrap="${!categoryListing.hasNextPage}">
+        <link rel="prev" href="${categoryListing.previousPageHref}" data-sly-unwrap="${!categoryListing.hasPreviousPage}">
+    </sly>
+
+    <sly data-sly-test="${!categoryListing}" data-sly-call="${meta.meta @ renderCanonical=true}"/>
+    <sly data-sly-test="${categoryListing}" data-sly-call="${meta.meta @ renderCanonical=false}"/>
 
     <meta data-sly-test.keywords="${page.keywords}" name="keywords" content="${keywords}"/>
     <meta data-sly-test.templateName="${page.templateName}" name="template" content="${templateName}"/>
@@ -24,21 +32,4 @@
     <!--launch script-->
     <script data-sly-test="${header.launchScript}" src="${header.launchScript}"></script>
 
-    <!-- Start YourAmigo Web Analytics -->
-    <script data-sly-test="${header.isYourAmigoEnabled}" type="text/javascript">
-    //<![CDATA[
-        var yawa_baseUrl = "http://analytics.youramigo.com/yawa";
-        var yawa_baseSecUrl = "https://support.youramigo.com/yawa";
-        var yawa_cmds = yawa_cmds || [];
-        (function() {
-            var _yawa = document.createElement("script"); 
-            _yawa.type ="text/javascript";_yawa.async = true;
-            yawa_baseUrl = ("https:" == document.location.protocol ?yawa_baseSecUrl : yawa_baseUrl );
-            _yawa.src = yawa_baseUrl + "/78252727/yawa.min.js";
-            var _yawa_s = document.getElementsByTagName("script")[0];
-            _yawa_s.parentNode.insertBefore(_yawa, _yawa_s);
-        }());
-    //]]>
-    </script>
-    <!-- End YourAmigo Web Analytics Code -->
 </template>

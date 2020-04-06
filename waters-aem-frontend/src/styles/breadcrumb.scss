@@ -24,7 +24,7 @@
         padding-left: 0;
         list-style: none;
         overflow-y: hidden;
-        margin: $space-xxs 0 ($space-l + .5em) 0;
+        margin: 0 0 ($space-l + .5em) 0;
 
         & .fader-container {
             z-index: 1;
@@ -95,6 +95,9 @@
 .cmp-breadcrumb-search {
     display: inline-block;
     margin-top: ($space-xxxs + 0.05em);
+    margin-right: 13px;
+    border-right: 1px solid $color-border-medium;
+    padding-right: 13px;
 
     &--disable {
         display: none;
@@ -108,18 +111,65 @@
 .cmp-breadcrumb-search a.cmp-breadcrumb-search__link {
     background-color: $color-white;
     color: $color-link;
-    padding-right: $space-xs;
     float: unset;
+    padding-right: 0px;
+
     svg {
         margin-top: -3px;
-    }
-    span {
-        border-right: 1px solid $color-border-light;
-        padding-right: $space-xs;
     }
 
     &:hover {
         color: $color-link-hover;
         background-color: $color-white;
     }
+}
+
+.cmp-breadcrumb-back {
+    display: inline-block;
+    margin-top: ($space-xxxs + 0.05em);
+    margin-right: 13px;
+    padding-right: 13px;
+
+    @include mobile {
+        margin-bottom: 0;
+    }
+
+    a.cmp-breadcrumb-back__link {
+        background-color: $color-white;
+        color: $color-link;
+        float: unset;
+        padding-right: 0px;
+
+        svg {
+            width: $icon-s;
+            margin-right: $space-xxxs;
+            margin-top: -3px;
+        }
+
+        span {
+            padding-right: $space-xs;
+        }
+
+        &:hover {
+            color: $color-link-hover;
+            background-color: $color-white;
+        }
+    }
+}
+
+.cmp-breadcrumb-my-account {
+
+    height: 0;
+    opacity: 0;
+
+    .cmp-breadcrumb__item {
+        @include mobile {
+            display: none;
+        }
+    }
+    &.show {
+        height: auto;
+        opacity: 1;
+    }
+
 }

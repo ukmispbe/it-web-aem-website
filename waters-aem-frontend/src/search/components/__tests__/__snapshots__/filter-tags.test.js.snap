@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: Filter Tags Scenario: Clear all tag When rendered Then it should match snapshot 1`] = `
+<a
+  className="cmp-search-filters__tags__clear"
+  href="javascript:void(0);"
+  onClick={[MockFunction]}
+>
+  <div />
+  <span>
+    Clear All
+  </span>
+</a>
+`;
+
+exports[`Feature: Filter Tags Scenario: Content type tag When content type is not selected Then is should match spanshot 1`] = `null`;
+
+exports[`Feature: Filter Tags Scenario: Content type tag When content type is selected Then it should match snapshot 1`] = `
+<a
+  href="javascript:void(0);"
+  onClick={[MockFunction]}
+>
+  <div />
+  <span>
+    Content Type: Application Note
+  </span>
+</a>
+`;
+
+exports[`Feature: Filter Tags Scenario: Keyword tag When keyword is specified Then it should match snapshot 1`] = `
+<a
+  href="javascript:void(0);"
+  onClick={[MockFunction]}
+>
+  <div />
+  <span>
+    Keyword: milk
+  </span>
+</a>
+`;
+
+exports[`Feature: Filter Tags Scenario: Sub facet tags When multiple facets are selected Then it should match snapshot 1`] = `
+Array [
+  <a
+    href="javascript:void(0);"
+    onClick={[Function]}
+  >
+    <div />
+    <span>
+      Column Type
+      : 
+      HPLC
+    </span>
+  </a>,
+  <a
+    href="javascript:void(0);"
+    onClick={[Function]}
+  >
+    <div />
+    <span>
+      Column Type
+      : 
+      Preparative HPLC
+    </span>
+  </a>,
+  <a
+    href="javascript:void(0);"
+    onClick={[Function]}
+  >
+    <div />
+    <span>
+      Market
+      : 
+      Chemical Analysis
+    </span>
+  </a>,
+  <a
+    href="javascript:void(0);"
+    onClick={[Function]}
+  >
+    <div />
+    <span>
+      Market
+      : 
+      Pharmaceutical
+    </span>
+  </a>,
+]
+`;
+
+exports[`Feature: Filter Tags Scenario: Sub facet tags When no facets are selected Then it should match snapshot 1`] = `null`;
+
+exports[`Feature: Filter Tags Scenario: Sub facet tags When one facet is selected Then it should match snapshot 1`] = `
+<a
+  href="javascript:void(0);"
+  onClick={[Function]}
+>
+  <div />
+  <span>
+    Column Type
+    : 
+    HPLC
+  </span>
+</a>
+`;

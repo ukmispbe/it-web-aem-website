@@ -18,13 +18,14 @@
         padding: $space-xs $space-s;
         background-color: transparent;
         outline: none;
-        border: 1px solid $color-border-light;
+        border: $border-medium;
+        border-radius: $border-radius;
 
         &:hover {
-            border: 1px solid $color-blue-50;
+            border: $border-link;
         }
         &:focus {
-            border: 2px solid $color-focus;
+            border: $border-focus;
         }
     }
     &__filter {
@@ -52,7 +53,7 @@
 
         a.filter-toggle {
             @include font-utility;
-            border-top: 1px solid $color-border-rule;
+            border-top: $border-rule;
             display: block;
             background-color: $color-white;
             padding: $space-xs $space-s $space-xs 0;
@@ -100,7 +101,7 @@
 
         &:last-child {
             h3 {
-                border-bottom: 1px solid $color-gray-40;
+                border-bottom: $border-dark;
                 height: calc(2.75em + 2px);
             }
         }
@@ -114,7 +115,7 @@
             .checkbox {
                 display: inline-block;
                 appearance: none;
-                border: 1px solid $color-gray-40;
+                border: $border-dark;
                 height: 1em;
                 width: 1em;
                 vertical-align: -2px;
@@ -136,7 +137,7 @@
                     }
                 }
                 &:hover {
-                    border: 1px solid $color-blue-50;
+                    border: $border-link;
                 }
                 &.checked {
                     border: 1px solid $color-background-dark;
@@ -175,7 +176,7 @@
                 }
 
                 @include mobile {
-                    top: 15px;
+                    top: 12px;
                     right: 16px;
                 }
             }
@@ -252,7 +253,6 @@
 
         a {
             @include font-small;
-            max-height: $space-l;
             line-height: $line-height-text;
             display: block;
             float: left;
@@ -261,7 +261,7 @@
             text-decoration: none;
             background-color: $color-gray-10;
             position: relative;
-            border-radius: 0.25em;
+            border-radius: $border-radius;
 
             @include tablet {
                 max-height: fit-content;
@@ -309,7 +309,7 @@
         }
     }
     &__emptytags {
-        height: $space-l;
+        height: $space-xl;
 
         @include tablet-and-under {
             height: 0;
@@ -330,6 +330,7 @@
         display: block;
         text-transform: uppercase;
         text-decoration: none;
+        border-radius: $border-radius;
     }
 
     @include tablet-and-under {
@@ -340,15 +341,17 @@
 .cmp-search-done-btn {
     display: none;
     a {
-        background: $color-blue-10;
+        background: none;
         text-align: center;
         padding: $space-xs $space-l;
         margin-bottom: $space-m;
-        color: $color-blue-70;
+        color: $color-blue-50;
         width: 100%;
         display: block;
         text-transform: uppercase;
         text-decoration: none;
+        border: $border-link;
+        border-radius: $border-radius;
     }
 }
 
@@ -417,7 +420,7 @@ $header-height: 74px;
 
     .cmp-search-filters__tags {
         display: none;
-        margin-bottom: $space-m;
+        margin-bottom: $space-xxs;
     }
 
     @include tablet-and-under {
@@ -511,7 +514,7 @@ $header-height: 74px;
     @include mobile {
         .cmp-search__sort-filter {
             z-index: ($cmp-banner-z-index + 1) !important;
-            top: 53px !important;
+            top: 47px !important;
             height: 100vh;
             padding: 20px 20px 80px 20px;
         }

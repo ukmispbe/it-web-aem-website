@@ -1,52 +1,79 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import MyAccountDropDownList from './my-account-dropdown-list';
-import { Modal } from '../modal/index';
-import LoginStatus from '../scripts/loginStatus';
+import Modal, { Header, keys } from '../utils/modal';
 import ScreenSizes from '../scripts/screenSizes';
 import MobileNav from '../scripts/mobileNav';
-import FeedbackSurvey from '../scripts/feedbackSurvey';
+import domElements from '../scripts/domElements';
+import MyAccountContainer from './my-account-container';
+import loginStatus from '../scripts/loginStatus';
+import UserDetailsLazy from '../my-account/services/UserDetailsLazy';
+import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
+import SessionStore from '../stores/sessionStore';
 
-
+const myAccountModalTheme = 'my-account-dropdown';
 class MyAccountDropDown extends React.Component {
     constructor(props) {
         super(props);
         
         this.state = {
             isShown: false,
-            modalConfig: this.props.config.modalInfo,
-            isMobile: ScreenSizes.isMobile()
+            isMobile: ScreenSizes.isMobile(),
+            config: {
+                ... this.props.config, 
+                loginState: loginStatus.state(),
+                userDetails: {
+                    userName: '',
+                    accountName: '',
+                    accountNumber: ''
+                }
+            }
         };
+
+        this.accountHeaderUser = null;
+        this.allNavItems = null;
+        this.header = null;
     }
 
     componentDidMount() {
-        const accountHeaderLink = document.querySelector('.top-bar__nav__user .top-bar__nav__user__link.cmp-header-links__link');
-        const accountHeaderUser = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
-        const allNavItems = document.querySelectorAll('.top-bar__nav__item:not(.top-bar__nav__user)');
+        this.accountHeaderUser = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
+        this.allNavItems = document.querySelectorAll('.top-bar__nav__item:not(.top-bar__nav__user)');
+        this.header = document.querySelector('header.cmp-header');
         const hideOnClick = this.hideOnClick;
-        Array.from(allNavItems).forEach(function (e) { 
-            e.addEventListener('click', hideOnClick);
-        })
 
-        accountHeaderUser.addEventListener('mouseover', this.handleOutsideEvent);
-        accountHeaderUser.addEventListener('mouseleave', this.handleOutsideEvent);
-        accountHeaderLink.addEventListener('click', this.handleOutsideEvent, true);
+        if (this.allNavItems) { 
+            Array.from(this.allNavItems).forEach(function (e) { 
+                e.addEventListener('click', hideOnClick);
+            })
+        }
+
+        if (this.accountHeaderUser) { 
+            this.accountHeaderUser.addEventListener('mouseover', this.handleOutsideEvent);
+            this.accountHeaderUser.addEventListener('mouseleave', this.handleOutsideEvent);
+            this.accountHeaderUser.addEventListener('click', this.handleOutsideEvent);
+        }
+
         window.addEventListener('resize', this.updateViewport, true);
+
+        if (loginStatus.state()) { 
+            this.retrieveUserDetails();
+        }
     }
 
     componentWillUnMount() {
-        const accountHeaderLink = document.querySelector('.top-bar__nav__user .top-bar__nav__user__link.cmp-header-links__link');
-        const accountHeaderUser = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
-        const allNavItems = document.querySelector('.top-bar__nav__item:not(.top-bar__nav__user)');
         const hideOnClick = this.hideOnClick;
-        Array.from(allNavItems).forEach(function (e) { 
-            e.removeEventListener('click', hideOnClick);
-        })
+        if (this.allNavItems) { 
+            Array.from(this.allNavItems).forEach(function (e) { 
+                e.removeEventListener('click', hideOnClick);
+            })
+        }
 
-        accountHeaderUser.removeEventListener('mouseover', this.handleOutsideEvent);
-        accountHeaderUser.removeEventListener('mouseleave', this.handleOutsideEvent);
-        accountHeaderLink.removeEventListener('click', this.handleOutsideEvent, true);
+        if (this.accountHeaderUser) { 
+            this.accountHeaderUser.removeEventListener('mouseover', this.handleOutsideEvent);
+            this.accountHeaderUser.removeEventListener('mouseleave', this.handleOutsideEvent);
+            this.accountHeaderUser.removeEventListener('click', this.handleOutsideEvent);
+        }
+
         window.removeEventListener('resize', this.updateViewport, true);
     }
 
@@ -74,8 +101,22 @@ class MyAccountDropDown extends React.Component {
     }
 
     willShow = (newState, caller = 'default') => {
+        
+        // Check if Personal Details have been updated
+        const store = new SessionStore();
+        const hasBeenUpdated = store.getPersonalDetailsUpdated() === 'Y' ? true : false;
+        if (hasBeenUpdated) {
+            const savedUserDetails = store.getUserDetails();
+            const updatedUserName = savedUserDetails.firstName && savedUserDetails.lastName ? `${savedUserDetails.firstName} ${savedUserDetails.lastName}` : '';
+            let currentState = this.state;
+            currentState.config.userDetails.userName = updatedUserName;
+            this.setState({
+                ... currentState
+            }); 
+            store.removePersonalDetailsUpdated();
+        }
+
         const headerOverlay = document.querySelector('.cmp-header__overlay.overlay');
-        const accountHeaderUser = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
 
         const activeDDClass = 'is-active';
         const activeOverlay = 'active';
@@ -88,15 +129,17 @@ class MyAccountDropDown extends React.Component {
                     mobileNav.hide();
                 }
 
-                accountHeaderUser.classList.add(activeDDClass);
+                this.accountHeaderUser.classList.add(activeDDClass);
                 if (!this.state.isMobile) {
                     headerOverlay.classList.add(activeOverlay);
                 } else {
-                    FeedbackSurvey.isDisplayed(false);
-                    this.mobileNoScroll(true);
+                    domElements.noScroll(true);
+                    if (this.header) { 
+                        header.classList.add('is-fixed');
+                    }
                 }
             } else {
-                accountHeaderUser.classList.remove(activeDDClass);
+                this.accountHeaderUser.classList.remove(activeDDClass);
                 if (!this.state.isMobile) {
                     headerOverlay.classList.remove(activeOverlay);
                 } else { 
@@ -104,13 +147,17 @@ class MyAccountDropDown extends React.Component {
                         if (caller instanceof HTMLElement) { 
                             if (!caller.classList.contains('top-bar__nav__mobile')) { 
                                 // change scrolling unless needed next (ie hamburger menu)
-                                this.mobileNoScroll(false);
-                                FeedbackSurvey.isDisplayed(true);
+                                domElements.noScroll(false);
+                                if (this.header) { 
+                                    header.classList.remove('is-fixed');
+                                }
                             }
                         }
-                    } else { 
-                        this.mobileNoScroll(false);
-                        FeedbackSurvey.isDisplayed(true);
+                    } else {
+                        domElements.noScroll(false);
+                        if (this.header) { 
+                            header.classList.remove('is-fixed');
+                        }
                     }
 
                 }
@@ -118,88 +165,92 @@ class MyAccountDropDown extends React.Component {
         });
     };
 
-    mobileNoScroll = toggle => { 
-        const header = document.querySelector('header.cmp-header');
-        if (toggle) {
-            document.body.classList.add('no-scroll');
-            document.documentElement.classList.add('no-scroll');
-            header.classList.add('is-fixed');
-        } else { 
-            document.body.classList.remove('no-scroll');
-            document.documentElement.classList.remove('no-scroll');
-            header.classList.remove('is-fixed');
-        }
-    }
-
     handleOutsideEvent = e => { 
         const domNode = ReactDOM.findDOMNode(this);
 
         if (!domNode || !domNode.contains(e.target)) {
 
             e.preventDefault();
-            let loggedIn = LoginStatus.state();
-
-            if (loggedIn) {
-                switch (true) { 
-                    case e.type == 'mouseover' && !this.state.isMobile:
-                            this.willShow(true);
-                        break;
-                    case e.type == 'click' && this.state.isMobile:
-                            e.preventDefault();
-                            this.toggleModal();
-                        break;
-                    case e.type == 'mouseleave' && !this.state.isMobile:
-                            this.willShow(false);
-                        break;            
-                }
-            } else { 
-                if (e.type == 'click') { 
-                    //click out when not logged in
-                    if (e.currentTarget.dataset.loginUrl) {
-                        window.open(e.currentTarget.dataset.loginUrl, e.currentTarget.target);
-                    }
-                }
+            switch (true) { 
+                case e.type == 'mouseover' && !this.state.isMobile:
+                        this.willShow(true);
+                    break;
+                case e.type == 'click' && this.state.isMobile:
+                        e.preventDefault();
+                        this.toggleModal();
+                    break;
+                case e.type == 'click' && !this.state.isMobile:
+                        e.preventDefault();
+                        if (this.props.config.myAccount.url && this.props.config.myAccount.target) { 
+                            window.open(this.props.config.myAccount.url, this.props.config.myAccount.target);
+                        }
+                    break;
+                case e.type == 'mouseleave' && !this.state.isMobile:
+                        this.willShow(false);
+                    break;            
             }
         }
     }
-    
-    desktopView = () => { 
-        if (this.state.modalConfig) {
-            const list = this.state.modalConfig.list;
-            if (list) {
-                return (
-                    <ul className="account-dropdown dropdown__list">
-                        <MyAccountDropDownList
-                            listItems={list}
-                        />
-                    </ul>
-                )
-            } else {
-                return null;
+
+    retrieveUserDetails = async () => {
+        const userDetails = await UserDetailsLazy(this.props.config.userDetailsUrl);
+        const soldToDetails = await SoldToDetailsLazy(this.props.config.soldToDetailsUrl);
+
+        const userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
+        const priorityAccount = soldToDetails.length !== 0 ? soldToDetails[0] : {};
+        const accountName = priorityAccount.company ? `${priorityAccount.company} ` : '';
+        const accountNumber = priorityAccount.soldTo ? priorityAccount.soldTo : '';
+
+        this.setState({
+            ... this.state,
+            config: {
+                ... this.props.config,
+                loginState: loginStatus.state(),
+                userDetails: {
+                    userName,
+                    accountName,
+                    accountNumber
+                }
             }
-        } else { 
-            return null;
+        });
+    }
+
+    getConfig = () => {
+        if (this.state.config.userDetails.userName || !loginStatus.state()) {
+            return this.state.config;
+        }
+
+        const store = new SessionStore();
+        const userDetails = store.getUserDetails();
+        const soldToDetails = store.getSoldToDetails();
+
+        const userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
+        const priorityAccount = soldToDetails && soldToDetails.length !== 0 ? soldToDetails[0] : {};
+        const accountName = priorityAccount.company ? `${priorityAccount.company} ` : '';
+        const accountNumber = priorityAccount.soldTo ? priorityAccount.soldTo : '';
+
+        return {
+            ... this.props.config, 
+            loginState: loginStatus.state(),
+            userDetails: {
+                userName,
+                accountName,
+                accountNumber
+            }
         }
     }
-    
-    mobileView = () => { 
-        return (
-            <Modal
-                toggleModal={this.toggleModal}
-                open={this.state.isShown}
-                theme="account-dropdown"
-                config={this.state.modalConfig}
-                myAccountClickHandler={this.handleClick}
-            />
-        );
-     }
-
-                
 
     render() {
-
-        return (<>
-                {this.state.isMobile ? this.mobileView() : this.desktopView()}
+        return (
+            <>
+                {this.state.isMobile ? (
+                    <Modal isOpen={this.state.isShown} className={keys.ModalWithSiteNavOnMobile} onClose={this.toggleModal}>
+                        <Header title={this.state.config.title} />
+                        <MyAccountContainer config={this.getConfig()} />
+                    </Modal>
+                ) : (
+                    <MyAccountContainer config={this.getConfig()} />
+                )}
             </>
         )
     }
@@ -210,3 +261,4 @@ MyAccountDropDown.propTypes = {
 };
 
 export default MyAccountDropDown;
+export { myAccountModalTheme };

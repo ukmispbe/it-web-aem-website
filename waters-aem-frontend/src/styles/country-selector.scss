@@ -1,11 +1,8 @@
 .cmp-country-selector {
-    padding-left: 3em;
-    padding-right: 3em;
-    padding-bottom: 2em;
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    
     @include mobile {
         position: fixed;
         top: 13px;
@@ -54,18 +51,14 @@
         width: 100%;
         padding-top: 0;
 
-        @include tablet {
-            width: 75%;
+        @include mobile {
+            margin-top: 55px;
         }
     }
 
     &__dropdown {
         width: 100%;
         padding-top: $space-m;
-
-        @include tablet {
-            width: 75%;
-        }
 
         .select-css {
             display: block;
@@ -78,7 +71,7 @@
             max-width: 100%; 
             box-sizing: border-box;
             margin: 0;
-            border: 1px solid $color-gray-30;
+            border: $border-medium;
             -moz-appearance: none;
             -webkit-appearance: none;
             appearance: none;
@@ -92,10 +85,10 @@
             display: none;
         }
         .select-css:hover {
-            border-color: $color-gray-30;
+            border-color: $color-border-medium;
         }
         .select-css:focus {
-            border-color: $color-gray-30;
+            border-color: $color-border-medium;
             color: #222; 
             outline: none;
         }
@@ -126,10 +119,6 @@
                 stroke: $color-icon;
             }
         }
-
-        @include tablet {
-            width: 75%;
-        }
     }
 
     &__note-text {
@@ -145,16 +134,30 @@
         a {
             width: 100%;
         }
-
-        @include tablet {
-            width: 75%;
-        }
     }
 
     &__cancel {
         padding-top: 0;
         a {
             cursor: pointer;
+        }
+    }
+}
+
+.cmp-country-selector-modal {
+    .cmp-modal {
+        @include tablet-and-over {
+            width: 475px;
+        }
+    }
+
+    .cmp-modal > div{
+        margin: $space-s auto 0;
+    }
+
+    @include mobile {
+        .cmp-modal > div:first-child{
+            margin-top: 0;
         }
     }
 }

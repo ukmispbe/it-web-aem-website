@@ -13,7 +13,7 @@
     font-size: $font-size-h1;
     line-height: $line-height-heading;
     font-weight: $font-weight-light;
-    margin-bottom: $space-s;
+    margin-bottom: $space-xs;
     margin-top: 0;
 
     @include mobile {
@@ -46,6 +46,11 @@
     margin-top: 0;
 }
 
+@mixin font-utility-large {
+    color: $color-font-medium;
+    font-size: $font-size-h3;
+}
+
 @mixin font-utility {
     color: $color-font-medium;
 }
@@ -53,10 +58,6 @@
 @mixin font-small {
     font-size: $font-size-small;
     color: $color-font-medium;
-
-    @include mobile {
-        font-size: $font-size-small-m;
-    }
 }
 
 @mixin font-xsmall {
@@ -72,7 +73,7 @@
     font-style: italic;
     margin-top: $space-m;
     padding-top: $space-xs;
-    border-top: 1px solid $color-border-light;
+    border-top: $border-medium;
 }
 
 @mixin multiLineEllipsis(
@@ -107,10 +108,6 @@ html {
 
 body {
     margin: 0 0 0 0;
-
-    @include mobile {
-        font-size: 1.1em;
-    }
 }
 
 p {
@@ -162,14 +159,14 @@ strong {
 }
 
 .cmp-text {
-    padding-bottom: $space-m;
+    padding-bottom: $space-xxs;
 }
 
 blockquote {
     @include font-h2;
     font-style: italic;
     padding-left: $space-s;
-    border-left: 2px solid $color-border-accent;
+    border-left: $border-accent;
     margin: $space-s 0 $space-l 0;
 }
 
@@ -192,4 +189,15 @@ blockquote {
     @include mobile {
         margin-top: $space-m;
     }
+}
+
+.cmp-title > .cmp-accent-rule {
+    width: 5em;
+}
+
+.cmp-my-account__aside-wrapper > .cmp-title > .cmp-accent-rule {
+    width: 5em;
+    @include mobile {
+        width: 4em; 
+    } 
 }

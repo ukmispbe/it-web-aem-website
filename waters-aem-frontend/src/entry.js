@@ -1,5 +1,3 @@
-// main JS and SCSS entry file
-
 import './styles/index.scss';
 import './scripts/stickyService';
 import './scripts/backtotop';
@@ -19,21 +17,23 @@ import './scripts/breadcrumb';
 import './scripts/header';
 import './scripts/collapsible';
 import './scripts/skulist';
+import './scripts/continueButton';
+import './scripts/textModifier';
 import './index';
 
 import cssVars from 'css-vars-ponyfill';
 import inlineSVG from './scripts/inlineSVG';
 
 const japanTheme = {
-    "--font-weight-light": "lighter",
-    "--font-weight-regular": "normal",
-    "--font-weight-bold": "bold"
+    '--font-weight-light': 'lighter',
+    '--font-weight-regular': 'normal',
+    '--font-weight-bold': 'bold'
 };
 
-const isJapanese = (document.documentElement.lang == "ja");
+const isJapanese = document.documentElement.lang == 'ja';
 
 cssVars({
-    variables: (isJapanese ? japanTheme : Object.assign({})),
+    variables: isJapanese ? japanTheme : Object.assign({}),
     include: 'style,link[rel="stylesheet"]:not([href*="//"])'
 });
 
