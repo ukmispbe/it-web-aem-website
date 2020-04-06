@@ -1,5 +1,5 @@
 // head JS entry file
 
-import Analytics from './scripts/analytics';
+import Analytics from './analytics';
 
 Analytics.siteLoad();
