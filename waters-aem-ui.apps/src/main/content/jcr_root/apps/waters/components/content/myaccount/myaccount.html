@@ -117,7 +117,8 @@
                 }         
             },
             "orderDetails": {
-                "fetchEndPoint":  "${'https://test-www.waters.com:8443/api/waters/order/v1/details/' @ context='unsafe'}",
+                "fetchDetailsEndPoint": "${'https://test-www.waters.com:8443/api/waters/order/v1/details/' @ context='unsafe'}",
+                "fetchItemsEndPoint": "${'https://test-www.waters.com:8443/api/waters/order/v1/details/' @ context='unsafe'}",
                 "orderHistory": "${'Order History' @ i18n, context='unsafe'}",
                 "orderDetails": "${'Order Details' @ i18n, context='unsafe'}",
                 "orderNumber": "${'Order Number' @ i18n, context='unsafe'}",
@@ -130,7 +131,17 @@
                 "items": "${'items' @ i18n, context='unsafe'}",
                 "shipping": "${'Shipping' @ i18n, context='unsafe'}",
                 "tax": "${'Tax' @ i18n, context='unsafe'}",
-                "orderTotal": "${'Order Total' @ i18n, context='unsafe'}"
+                "orderTotal": "${'Order Total' @ i18n, context='unsafe'}",
+                "paymentType": [
+                    "purchaseOrder": {
+                        "label": "${'PO' @ i18n, context='unsafe'}",
+                        "icon": "/content/dam/waters/en/brand-assets/icons/document.svg"
+                    },
+                    "creditCard": {
+                        "label": "${'Credit Card' @ i18n, context='unsafe'}",
+                        "icon": "/content/dam/waters/en/brand-assets/icons/document.svg"
+                    }
+                ]
             }
         }
     </script>
