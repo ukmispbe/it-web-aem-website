@@ -101,6 +101,8 @@ public class WatersContentService extends SlingAllMethodsServlet {
 
     private final String buildJsonForPage(final String path, final String responseLevel, final SlingHttpServletRequest request) {
         final Stopwatch stopwatch = Stopwatch.createStarted();
+        final String pageContentJsonConstant = "{\"Page Content\":";
+        final String navigationContentJsonConstant = ",\"Navigation Content\":";
         String pagePublishCaaSUrl = "";
         String pageJsonResponse = "";
         String navigationCompJsonResponse = "";
@@ -121,10 +123,10 @@ public class WatersContentService extends SlingAllMethodsServlet {
                         LOG.info("JSON returned with full page content for: {}", path);
                         LOG.info("JSON fetched from AEM in {} ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
                         if (StringUtils.isNotBlank(navigationCompJsonResponse)) {
-                            return "{\"Page Content\":" + pageJsonResponse + ",\"Navigation Content\":" + navigationCompJsonResponse + "}";
+                            return pageContentJsonConstant + pageJsonResponse + navigationContentJsonConstant + navigationCompJsonResponse + "}";
                         } else {
                             LOG.info("Navigation node exist but it doesn't return any content through model.json call");
-                            return "{\"Page Content\":" + pageJsonResponse + ",\"Navigation Content\":" + "\"\"" + "}";
+                            return pageContentJsonConstant + pageJsonResponse + navigationContentJsonConstant + "\"\"" + "}";
                         }
                     }
                 }
@@ -137,7 +139,7 @@ public class WatersContentService extends SlingAllMethodsServlet {
         }
         LOG.info("JSON returned for: {}", path);
         LOG.info("JSON fetched from AEM in {} ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
-        return "{\"Page Content\":" + pageJsonResponse + "}";
+        return pageContentJsonConstant + pageJsonResponse + "}";
     }
 
     private final String getHttpResponseAsStringForURI(final String URI) throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
