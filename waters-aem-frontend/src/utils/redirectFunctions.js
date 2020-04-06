@@ -1,7 +1,7 @@
 export const signInRedirect = () => {
     // Only redirect to sign in page if url contains "nextgen"
     const headerDiv = document.getElementById("header");
-    const signInUrl = headerDiv.getAttribute("data-signin-url");;
+    const signInUrl = headerDiv.getAttribute("data-signin-url");
     // Only redirect to sign in page if url contains "nextgen"
     if (signInUrl.includes("nextgen")){
         window.location.replace(signInUrl); 

@@ -57,6 +57,14 @@ public class ChooseAccount implements ComponentExporter{
         return redirectLink;
     }
 
+    @DialogField(fieldLabel = "Change Account Link",
+    fieldDescription = "The page that users are redirected to if they must change their account before " +
+            "continuing with the sign in process.",
+    ranking = 2)
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject
+    private Link switchAccountLink;
+
     public String getChooseAccountEndpoint() {
         return watersAccountService.getChooseAccountEndpoint();
     }

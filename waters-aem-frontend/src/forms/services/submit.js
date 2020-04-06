@@ -123,11 +123,27 @@ export async function resetPasswordSubmit(data) {
         // Use Call back to added userDetails to Session State
         if (this.callback) {
             const userDetails = await UserDetails(this.callback);
-
             if (!userDetails.failed) {
                 const store = new SessionStore();
                 store.setUserDetails(userDetails);
+                
+                const soldToAccounts = userDetails.soldToAccounts;
+                
+                // Temporary Code to ensure the user has to Choose Account
+                soldToAccounts[0].defaultFlag = 1;
+                console.log(soldToAccounts);
+                // Temporary Code to ensure the user has to Choose Account
+
+                const needToChooseAccount = checkRedirectToChooseAccount(soldToAccounts);
+                if(needToChooseAccount) {
+                    // Choose Account URL
+                    window.location.replace(this.switchAccountUrl);
+                    return;
+                }
+
                 store.removeSoldToDetails();
+
+                // Check 
             }
         }
         if (this.redirect) {

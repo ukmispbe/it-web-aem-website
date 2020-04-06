@@ -72,6 +72,7 @@ const CheckboxOrRadio = ({}) => {
                 }
                 setState({ ...state });
                 document.getElementsByClassName("cmp-button")[0].classList.remove("cmp-button--disabled");
+                document.getElementsByClassName("cmp-button")[0].disabled = false;
                 return;
             }
 
