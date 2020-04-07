@@ -310,8 +310,11 @@ export async function chooseAccountSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-        if (this.redirect) {
-            window.location.replace(this.redirect);
+        const signInRedirect = window.sessionStorage.getItem('signInRedirect');
+        if (signInRedirect || this.redirect) {
+            window.location.replace(
+                signInRedirect ? signInRedirect : this.redirect
+            );
         }
     } else if (response.status === 401) {
         signInRedirect();
