@@ -5,7 +5,7 @@ import SoldToDetails from "../services/SoldToDetails";
 export default async (soldToDetailsUrl, sessionStore = new SessionStore(), service = SoldToDetails) => {
     const currentPage = window.location.href;
 
-    if (!loginStatus.state() || currentPage.includes('sign-in') || currentPage.includes('create-account') || currentPage.includes('trouble-signing-in') || currentPage.includes('update-password') || currentPage.includes('reset-password')) {
+    if (!loginStatus.state() || currentPage.indexOf('sign-in') !== -1 || currentPage.indexOf('create-account') !== -1 || currentPage.indexOf('trouble-signing-in') !== -1 || currentPage.indexOf('update-password') !== -1 || currentPage.indexOf('reset-password') !== -1) {
         return [];
     }
 
