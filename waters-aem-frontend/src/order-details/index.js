@@ -4,6 +4,7 @@ import DateFormatter from '../utils/date-formatter'
 import CurrencyFormatter from '../utils/currency-formatter'
 import GetLocale from "../utils/get-locale";
 import Spinner from "../utils/spinner";
+import ReactSVG from 'react-svg';
 
 const OrderDetails = (props) => {
 
@@ -77,7 +78,18 @@ const OrderDetails = (props) => {
                     <div className="cmp-order-details__payment-container">
                         <div className="cmp-order-details__payment-method">
                             <h4>{props.config.paymentMethod}</h4>
-                            <div className="text">{orderDetails.purchaseOrderNumber}</div>
+                            {!orderDetails.purchaseOrderNumber && (
+                                <>
+                                <ReactSVG src={props.config.paymentType.purchaseOrder.icon}/>
+                                <div className="text">PO: {orderDetails.purchaseOrderNumber}</div>
+                                </>
+                            )}
+                            {orderDetails.purchaseOrderNumber && (
+                                <>
+                                <ReactSVG src={props.config.paymentType.creditCard.icon}/>
+                                <div className="text">Credit Card</div>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>

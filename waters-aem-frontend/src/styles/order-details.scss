@@ -65,8 +65,20 @@
 
                     .cmp-order-details {
                         &__payment-method {
+                            display: flex;
                             flex: 1;
+                            flex-wrap: wrap;
                             @include font-body;
+
+                            h4 {
+                                width: 100%;
+                            }
+
+                            svg {
+                                width: $icon-s;
+                                margin-right: $space-xxs;
+                                margin-top: $space-xxxs;
+                            }
                         }
                     }
                 }
