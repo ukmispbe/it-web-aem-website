@@ -248,13 +248,13 @@ describe('Feature: Detail Tiles Component', () => {
         });
 
         describe('When form is provided', () => {
-            it('Then it should render on the page', () => {
-                expect(wrapper.find(keys.form)).toHaveLength(1);
+            it('Then it should not render on the page by default', () => {
+                expect(wrapper.find(keys.form)).toHaveLength(0);
             });
 
             it('Then it should be hidden by default', () => {
                 expect(wrapper.find(keys.formShown)).toHaveLength(0);
-                expect(wrapper.find(keys.formHidden)).toHaveLength(1);
+                expect(wrapper.find(keys.formHidden)).toHaveLength(0);
             });
 
             it('Then it should become visible when user clicks edit', () => {
@@ -263,6 +263,10 @@ describe('Feature: Detail Tiles Component', () => {
 
                 expect(wrapper.exists(keys.formShown)).toEqual(true);
                 expect(wrapper.exists(keys.formHidden)).toEqual(false);
+            });
+
+            it('Then it should render on the page after edit click', () => {
+                expect(wrapper.find(keys.form)).toHaveLength(1);
             });
         });
     });
