@@ -74,18 +74,26 @@ public class Registration implements ComponentExporter {
     @LinkInject
     private Link privacyNoticeLink;
 
+    @DialogField(fieldLabel = "Terms of Use Link",
+        fieldDescription = "Select or enter the link URL for Terms of Use",
+        required  = true,
+        ranking = 3)
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject
+    private Link termsOfUseLink;
+
     @DialogField(fieldLabel = "Redirect Link",
         fieldDescription = "Select or enter the redirect link URL. The destination page the user will be redirected " +
         "to after successful submission",
         required  = true,
-        ranking = 3)
+        ranking = 4)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject
     private Link redirectLink;
 
     @DialogField(fieldLabel = "Open in New Window",
         fieldDescription = "Select this option to open 'Privacy Notice' in new window",
-        ranking = 4)
+        ranking = 5)
     @Switch(offText = "No", onText = "Yes")
     @Inject
     @Default(booleanValues = false)
@@ -101,6 +109,10 @@ public class Registration implements ComponentExporter {
 
     public Link getRedirectLink() {
         return LinkUtils.getMappedLink(pageManager, redirectLink);
+    }
+
+    public Link getTermsOfUseLink() {
+        return termsOfUseLink;
     }
 
     public Boolean isNewWindow() {
