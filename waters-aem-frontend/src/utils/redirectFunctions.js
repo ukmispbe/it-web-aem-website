@@ -8,6 +8,13 @@ export const signInRedirect = () => {
     }
 }
 
+export const getNamedHeaderLink = (dataId) => {
+    // Only redirect to sign in page if url contains "nextgen"
+    const headerDiv = document.getElementById("header");
+    const headerLink = headerDiv.getAttribute(dataId);
+    return headerLink;
+}
+
 export const notLoggedInRedirect = () => {
     const headerDiv = document.getElementById("header");
     const signInUrl = headerDiv.getAttribute("data-signin-url");

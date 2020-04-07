@@ -4,6 +4,7 @@ import SessionStore from '../../stores/sessionStore';
 import DigitalData from '../../scripts/DigitalData';
 import UserDetails from '../../my-account/services/UserDetails';
 import { signInRedirect } from '../../utils/redirectFunctions';
+import { getNamedHeaderLink } from '../../utils/redirectFunctions';
 
 const postData = async (url, data) => {
     const response = await fetch(url, {
@@ -126,24 +127,21 @@ export async function resetPasswordSubmit(data) {
             if (!userDetails.failed) {
                 const store = new SessionStore();
                 store.setUserDetails(userDetails);
-                
-                const soldToAccounts = userDetails.soldToAccounts;
-                
+                           
                 // Temporary Code to ensure the user has to Choose Account
+                const soldToAccounts = userDetails.soldToAccounts;
                 soldToAccounts[0].defaultFlag = 1;
                 console.log(soldToAccounts);
                 // Temporary Code to ensure the user has to Choose Account
 
-                const needToChooseAccount = checkRedirectToChooseAccount(soldToAccounts);
+                const needToChooseAccount = checkRedirectToChooseAccount(userDetails.soldToAccounts);
                 if(needToChooseAccount) {
                     // Choose Account URL
-                    window.location.replace(this.switchAccountUrl);
-                    return;
+                    const switchAccountUrl = getNamedHeaderLink("data-switch-account-url");
+                    window.location.replace(switchAccountUrl);
                 }
 
                 store.removeSoldToDetails();
-
-                // Check 
             }
         }
         if (this.redirect) {
@@ -258,19 +256,18 @@ export async function signInSubmit(data) {
             if (!userDetails.failed) {
                 const store = new SessionStore();
                 store.setUserDetails(userDetails);
-                
-                const soldToAccounts = userDetails.soldToAccounts;
-                
+                                
                 // Temporary Code to ensure the user has to Choose Account
+                const soldToAccounts = userDetails.soldToAccounts;
                 soldToAccounts[0].defaultFlag = 1;
                 console.log(soldToAccounts);
                 // Temporary Code to ensure the user has to Choose Account
 
-                const needToChooseAccount = checkRedirectToChooseAccount(soldToAccounts);
+                const needToChooseAccount = checkRedirectToChooseAccount(userDetails.soldToAccounts);
                 if(needToChooseAccount) {
                     // Choose Account URL
-                    window.location.replace(this.switchAccountUrl);
-                    return;
+                    const switchAccountUrl = getNamedHeaderLink("data-switch-account-url");
+                    window.location.replace(switchAccountUrl);
                 }
 
                 store.removeSoldToDetails();
@@ -310,6 +307,12 @@ export async function chooseAccountSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
+        // If accessed from My Account then Return to My Account
+        const queryString = location.search;
+        if(queryString === "?fromProfile=true") {
+            window.location.replace(window.sessionStorage.getItem('document.referrer'));
+        }
+
         const signInRedirect = window.sessionStorage.getItem('signInRedirect');
         if (signInRedirect || this.redirect) {
             window.location.replace(

@@ -80,15 +80,6 @@ public class ResetPassword implements ComponentExporter {
     @Default(values = RESET_OPTION)
     private String formType;
 
-    
-    @DialogField(fieldLabel = "Change Account Link",
-    fieldDescription = "The page that users are redirected to if they must change their account before " +
-            "continuing with the sign in process.",
-    ranking = 3)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
-    @LinkInject
-    private Link switchAccountLink;
-
     public Link getRedirectLink() {
         return LinkUtils.getMappedLink(pageManager, redirectLink);
     }
@@ -111,10 +102,6 @@ public class ResetPassword implements ComponentExporter {
 
     public String getCaptchaSiteKey() {
         return captchaService.getSiteKey();
-    }
-
-    public Link getSwitchAccountLink() {
-        return LinkUtils.getMappedLink(pageManager, switchAccountLink);
     }
 
     @Nonnull
