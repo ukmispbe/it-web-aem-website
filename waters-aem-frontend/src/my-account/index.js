@@ -31,7 +31,7 @@ const MyAccountRouter = (props) => {
                     </Aside>
                 </Route>
                 <Route exact path={routes.orderDetails.path}>
-                    <Aside tiles={props.tiles}  breadcrumbs={props.breadcrumbs}>
+                    <Aside tiles={props.tiles} breadcrumbs={props.breadcrumbs}>
                         <OrderDetails config={props.orderDetails} />
                     </Aside>
                 </Route>
