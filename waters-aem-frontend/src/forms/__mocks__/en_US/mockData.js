@@ -112,21 +112,8 @@ export const registrationConfig = {
         {
             type: "checkbox",
             name: "communications",
-            label: "I want to receive communications from Waters."
-        },
-        {
-            type: "checkbox",
-            name: "privacy",
-            label: "I agree and consent to the information I have provided on this website to be used and processed by Waters in accordance with the",
-            config: {
-                text: "Waters Privacy Notice.",
-                link: "",
-                blank: "false"
-            },
-            validation: {
-                required: true,
-                validateFnName: "checkBoxOrRadio"
-            }
+            label: "I agree to receive marketing, product, training, support, and related communications via mail, email, or other electronic means.",
+            optionalLabel: "(optional)"
         },
         {
             type: "captcha",
@@ -135,7 +122,33 @@ export const registrationConfig = {
             validation: {
                 required: true
             }
-        }
+        },
+        {
+            type: "textwithlinks",
+            name: "privacy",
+            config: [
+                {
+                    type: "text",
+                    text: "By clicking the CREATE ACCOUNT button, you are agreeing to our"
+                },
+                {
+                    type: "link",
+                    label: "Terms of Use",
+                    url: "",
+                    blank: true
+                },
+                {
+                    type: "text",
+                    text: "and understand that the information you have provided on this website will be used and processed by Waters in accordance with the"
+                },
+                {
+                    type: "link",
+                    label: "Waters Privacy Notice.",
+                    url: "",
+                    blank: true
+                }
+            ]
+        },
     ]
 }
 
