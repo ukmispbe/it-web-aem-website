@@ -3,7 +3,10 @@ import SessionStore from "../../stores/sessionStore";
 import UserDetails from "../services/UserDetails";
 
 export default async (userDetailsUrl, sessionStore = new SessionStore(), service = UserDetails) => {
-    if (!loginStatus.state()) {
+
+    const currentPage = window.location.href;
+
+    if (!loginStatus.state() || currentPage.includes('sign-in') || currentPage.includes('create-account') || currentPage.includes('trouble-signing-in') || currentPage.includes('update-password')  || currentPage.includes('reset-password')) {
         return {};
     }
 
