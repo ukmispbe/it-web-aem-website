@@ -78,13 +78,13 @@ const OrderDetails = (props) => {
                     <div className="cmp-order-details__payment-container">
                         <div className="cmp-order-details__payment-method">
                             <h4>{props.config.paymentMethod}</h4>
-                            {!orderDetails.purchaseOrderNumber && (
+                            {orderDetails.purchaseOrderNumber && (
                                 <>
                                 <ReactSVG src={props.config.paymentType.purchaseOrder.icon}/>
                                 <div className="text">PO: {orderDetails.purchaseOrderNumber}</div>
                                 </>
                             )}
-                            {orderDetails.purchaseOrderNumber && (
+                            {!orderDetails.purchaseOrderNumber && (
                                 <>
                                 <ReactSVG src={props.config.paymentType.creditCard.icon}/>
                                 <div className="text">Credit Card</div>

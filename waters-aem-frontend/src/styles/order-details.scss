@@ -77,7 +77,7 @@
                             svg {
                                 width: $icon-s;
                                 margin-right: $space-xxs;
-                                margin-top: $space-xxxs;
+                                margin-top: 0.4em;
                             }
                         }
                     }
@@ -85,8 +85,6 @@
             }
 
         }
-
-
 
         &__order-summary {
             order: 1;
