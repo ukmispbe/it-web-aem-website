@@ -280,8 +280,7 @@ const Form = ({
                         callback: callback,
                         updateFailedAttempts: updateFailedAttempts,
                         setProfileData: setProfileData,
-                        setFormAnalytics: setFormAnalytics,
-                        switchAccountUrl: config.switchAccountUrl
+                        setFormAnalytics: setFormAnalytics
                     })
                 )}
             >

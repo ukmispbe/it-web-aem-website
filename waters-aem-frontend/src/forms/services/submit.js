@@ -4,7 +4,7 @@ import SessionStore from '../../stores/sessionStore';
 import DigitalData from '../../scripts/DigitalData';
 import UserDetails from '../../my-account/services/UserDetails';
 import { signInRedirect } from '../../utils/redirectFunctions';
-import { getNamedHeaderLink } from '../../utils/redirectFunctions';
+import { getNamedHeaderLink, checkIfSameOrigin } from '../../utils/redirectFunctions';
 
 const postData = async (url, data) => {
     const response = await fetch(url, {
@@ -130,15 +130,17 @@ export async function resetPasswordSubmit(data) {
                            
                 // Temporary Code to ensure the user has to Choose Account
                 const soldToAccounts = userDetails.soldToAccounts;
-                soldToAccounts[0].defaultFlag = 1;
-                console.log(soldToAccounts);
+                if(soldToAccounts.length !== 0) {
+                    soldToAccounts[0].defaultFlag = 1;
+                    console.log(soldToAccounts);
+                }
                 // Temporary Code to ensure the user has to Choose Account
-
                 const needToChooseAccount = checkRedirectToChooseAccount(userDetails.soldToAccounts);
                 if(needToChooseAccount) {
                     // Choose Account URL
                     const switchAccountUrl = getNamedHeaderLink("data-switch-account-url");
                     window.location.replace(switchAccountUrl);
+                    return;
                 }
 
                 store.removeSoldToDetails();
@@ -146,6 +148,7 @@ export async function resetPasswordSubmit(data) {
         }
         if (this.redirect) {
             window.location.replace(this.redirect);
+            return;
         }
     } else if (response.status === 401) {
         signInRedirect();
@@ -245,29 +248,35 @@ export async function signInSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
+        this.setFormAnalytics('submit');
+
         if(responseBody.migrated === "N") {
             const store = new SessionStore();
             store.setLegacyToken(responseBody.resetToken);
             window.location.replace(this.passwordUpdateUrl);
             return;
         }
+
         if (this.callback) {
             const userDetails = await UserDetails(this.callback);
             if (!userDetails.failed) {
                 const store = new SessionStore();
                 store.setUserDetails(userDetails);
                                 
-                // Temporary Code to ensure the user has to Choose Account
-                const soldToAccounts = userDetails.soldToAccounts;
-                soldToAccounts[0].defaultFlag = 1;
-                console.log(soldToAccounts);
-                // Temporary Code to ensure the user has to Choose Account
+                // // Temporary Code to ensure the user has to Choose Account
+                // const soldToAccounts = userDetails.soldToAccounts;
+                // if(soldToAccounts.length !== 0) {
+                //     soldToAccounts[0].defaultFlag = 1;
+                //     console.log(soldToAccounts);
+                // }
+                // // Temporary Code to ensure the user has to Choose Account
 
                 const needToChooseAccount = checkRedirectToChooseAccount(userDetails.soldToAccounts);
                 if(needToChooseAccount) {
                     // Choose Account URL
                     const switchAccountUrl = getNamedHeaderLink("data-switch-account-url");
                     window.location.replace(switchAccountUrl);
+                    return;
                 }
 
                 store.removeSoldToDetails();
@@ -276,13 +285,12 @@ export async function signInSubmit(data) {
             }
         }
 
-        this.setFormAnalytics('submit');
-
         const signInRedirect = window.sessionStorage.getItem('signInRedirect');
         if (signInRedirect || this.redirect) {
             window.location.replace(
                 signInRedirect ? signInRedirect : this.redirect
             );
+            return;
         }
     } else {
         this.setFormAnalytics('error', responseBody);
@@ -310,15 +318,27 @@ export async function chooseAccountSubmit(data) {
         // If accessed from My Account then Return to My Account
         const queryString = location.search;
         if(queryString === "?fromProfile=true") {
-            window.location.replace(window.sessionStorage.getItem('document.referrer'));
+            window.location.replace(document.referrer);
+            return;
         }
 
         const signInRedirect = window.sessionStorage.getItem('signInRedirect');
-        if (signInRedirect || this.redirect) {
-            window.location.replace(
-                signInRedirect ? signInRedirect : this.redirect
-            );
+        if (signInRedirect) {
+            window.location.replace(signInRedirect.replace(/"/g, ""));
+            return;
         }
+
+        const isSameOrigin = checkIfSameOrigin(document.referrer);
+        if (isSameOrigin) {
+            window.location.replace(document.referrer);
+            return;
+        }
+
+        if (this.redirect) {
+            window.location.replace(this.redirect);
+            return;
+        }
+
     } else if (response.status === 401) {
         signInRedirect();
     } else {

@@ -9,10 +9,18 @@ export const signInRedirect = () => {
 }
 
 export const getNamedHeaderLink = (dataId) => {
-    // Only redirect to sign in page if url contains "nextgen"
     const headerDiv = document.getElementById("header");
     const headerLink = headerDiv.getAttribute(dataId);
     return headerLink;
+}
+
+export const checkIfSameOrigin = (urlToCheck) => {
+    var host = window.location.host;
+    var sameOrigin = urlToCheck.indexOf(host);
+    if ( sameOrigin >= 0 ) {
+        return true;
+    }
+    return false;
 }
 
 export const notLoggedInRedirect = () => {
