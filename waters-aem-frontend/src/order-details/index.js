@@ -136,6 +136,17 @@ const OrderDetails = (props) => {
         )
     }
 
+    const renderNoResults = () => {
+        return (
+            <>
+                <div className="cmp-order-list__no-results">
+                    <p>{this.props.configs.noOrderFoundText}</p>
+                    <p><a href={this.props.configs.shopAllHref}>{this.props.configs.shopAllTitle}</a></p>
+                </div>
+            </>
+        );
+    }
+
     return (
         <>
             {isLoading && (<Spinner loading={isLoading} />)}
