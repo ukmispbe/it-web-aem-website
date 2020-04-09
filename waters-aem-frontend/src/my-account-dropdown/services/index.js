@@ -20,7 +20,7 @@ export async function signOutRequest(url, signOutUrl, homepageLink) {
     const response = await getData(url);
     //TODO: Remove after MyAccount-R-6.1.0 release
 
-    if(!signOutUrl.includes('/nextgen')) {
+    if(signOutUrl.indexOf('/nextgen') === -1) {
         homepageLink = signOutUrl;
     }
     window.location.href = homepageLink;
