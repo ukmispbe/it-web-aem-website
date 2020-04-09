@@ -309,6 +309,19 @@ export async function chooseAccountSubmit(data) {
         }
     }
 
+    // Clear all Default Sold to's in userDetails and soldToDetails
+    // set the correct default sold to in userDetails and soldToDetails
+    // Save the changes back to Session Storage
+    // set this.setPersonalDetailsUpdated() to "Y" so that the details are read from Session Storage 
+    // when the my-account menu is opened. May need to do the same for SoldTo updates??
+
+    const store = new SessionStore();
+    const userDetails = store.getUserDetails();
+    console.log("signInSubmit.js, userDetails ", userDetails);
+    
+    const soldToDetails = store.getSoldToDetails();
+    console.log("signInSubmit.js, soldToDetails ", soldToDetails);
+
     const response = await postData(this.url + "/" + selectedAccount, "");
     const responseBody = await response.json();
      // remove all previous server error notifications
