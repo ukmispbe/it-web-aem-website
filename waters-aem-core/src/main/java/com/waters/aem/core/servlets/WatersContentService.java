@@ -112,21 +112,15 @@ public class WatersContentService extends SlingAllMethodsServlet {
                 //TODO:USE CompletableFuture API instead of sequence
                 pagePublishCaaSUrl = externalizer.publishLink(resourceResolver, path.concat("/jcr:content.caas.infinity.json")).replace(WatersConstants.CUSTOM_ROOT_PATH, WatersConstants.ROOT_PATH);
                 pageJsonResponse = getHttpResponseAsStringForURI(pagePublishCaaSUrl);
-                if (StringUtils.isBlank(pageJsonResponse)) {
-                    pageJsonResponse = "\"\"";
-                }
                 if (StringUtils.isNotBlank(responseLevel) && responseLevel.equalsIgnoreCase("full")) {
                     final Resource resource = resourceResolver.getResource(path + "/jcr:content/header/par/navigation");
                     if (null != resource) {
                         navigationCompJsonResponse = getHttpResponseAsStringForURI(pagePublishCaaSUrl.replace("/_jcr_content.caas.infinity.json", "/_jcr_content/header/par/navigation.model.json"));
                         LOG.debug("JSON Content- {\"Page Content\": {} ,\"Navigation Content\": {} }", pageJsonResponse, navigationCompJsonResponse);
-                        LOG.info("JSON returned with full page content for: {}", path);
-                        LOG.info("JSON fetched from AEM in {} ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
                         if (StringUtils.isNotBlank(navigationCompJsonResponse)) {
+                            LOG.info("JSON returned with full page content for: {}", path);
+                            LOG.info("JSON fetched from AEM in {} ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
                             return pageContentJsonConstant + pageJsonResponse + navigationContentJsonConstant + navigationCompJsonResponse + "}";
-                        } else {
-                            LOG.info("Navigation node exist but it doesn't return any content through model.json call");
-                            return pageContentJsonConstant + pageJsonResponse + navigationContentJsonConstant + "\"\"" + "}";
                         }
                     }
                 }
@@ -167,6 +161,9 @@ public class WatersContentService extends SlingAllMethodsServlet {
         } catch (Exception e) {
             LOG.info("Exception occured: {}", e.getMessage());
             LOG.debug("Exception occured: {}", e);
+        }
+        if(StringUtils.isBlank(responseEntity)){
+            responseEntity = "\"\"";
         }
         LOG.info("HTTP/HTTPS call successful for URI: {} ", URI);
         return responseEntity;
