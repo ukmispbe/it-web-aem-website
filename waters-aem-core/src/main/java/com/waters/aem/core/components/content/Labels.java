@@ -52,9 +52,9 @@ public class Labels implements ComponentExporter {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    public static final String PROPERTY_LABELS_JSON = "labels-json";
+    public static final String PROPERTY_LABELS_JSON = "labelsJson";
 
-    public static final String PROPERTY_CONFIGS_JSON = "configs-json";
+    public static final String PROPERTY_CONFIGS_JSON = "configsJson";
     
     @Inject
     private Resource resource;
@@ -63,10 +63,10 @@ public class Labels implements ComponentExporter {
             ranking = 1)
     @MultiField(composite = true)
     @Inject
-    private List<JsonFields> labelsList = new ArrayList<>();
+    private List<JsonFields> labelList = new ArrayList<>();
 
-    public List<JsonFields> getLabels() {
-        return labelsList;
+    public List<JsonFields> getLabelList() {
+        return labelList;
     }
 
     @DialogField(fieldLabel = "Configs",
@@ -74,10 +74,10 @@ public class Labels implements ComponentExporter {
             ranking = 1)
     @MultiField(composite = true)
     @Inject
-    private List<BasicLink> configs = new ArrayList<>();
+    private List<BasicLink> configList = new ArrayList<>();
 
-    public List<BasicLink> getConfigs() {
-        return configs;
+    public List<BasicLink> getConfigList() {
+        return configList;
     }
 
 
@@ -86,8 +86,8 @@ public class Labels implements ComponentExporter {
         if (resource.isResourceType(Labels.RESOURCE_TYPE)) {
             try {
                 ModifiableValueMap modifiableValueMap = resource.adaptTo(ModifiableValueMap.class);
-                Iterator<JsonFields> labelsItr = getLabels().iterator();
-                Iterator<BasicLink> configsItr = getConfigs().iterator();
+                Iterator<JsonFields> labelsItr = getLabelList().iterator();
+                Iterator<BasicLink> configsItr = getConfigList().iterator();
                 Map jsonMap = new HashMap();
                 while (labelsItr.hasNext()) {
                     JsonFields jsonFields = labelsItr.next();
