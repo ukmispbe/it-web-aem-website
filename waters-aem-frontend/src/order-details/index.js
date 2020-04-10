@@ -146,7 +146,7 @@ const OrderDetails = (props) => {
     const renderOrderNotFoundError = () => {
         return (
             <>
-                <div className="cmp-order-list__no-results">
+                <div className="cmp-order-details__no-results">
                     <p>{props.config.orderNotFoundErrorTitle}</p>
                 </div>
             </>

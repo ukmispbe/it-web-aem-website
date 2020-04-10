@@ -18,6 +18,11 @@
             }
         }
 
+        &__no-results {
+            @include font-h2;
+            padding: $space-xl 0 $space-xl;
+        }
+
         &__order-info {
             order: 1;
             flex-grow: 1;
