@@ -19,19 +19,23 @@ const OrderDetails = (props) => {
     const orderId = getUrlParameter("id");
     const userLocale = GetLocale.getLocale();
     const detailsUrl = props.config.fetchDetailsEndPoint;
-    //const [orderId, setOrderId] = useState(null);
     const [orderDetails, setOrderDetails] = useState({});
     const [errorServiceError, setServiceError] = useState(false);
     const [errorOrderNotFound, setOrderNotFoundError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        //setOrderId(getUrlParameter("id"));
         getOrderDetails(detailsUrl, orderId, setError)
             .then((data) => {
-                console.log(data);
-                setIsLoading(false);
-                setOrderDetails(data);
+                if(data.account.length) {
+                    setOrderNotFoundError(false);
+                    setServiceError(false);
+                    setIsLoading(false);
+                    setOrderDetails(data);
+                } else {
+                    setIsLoading(false);
+                    setOrderNotFoundError(true);
+                }
             })
     }, []);
 
@@ -43,8 +47,6 @@ const OrderDetails = (props) => {
     const renderAddress = (addressType) => {
         if (orderDetails.account){
             let account = orderDetails.account.filter(item => item.partnerType === addressType )[0];
-            console.log("account ", account);
-            console.log("orderDetails ", orderDetails);
             return (
                         <>
                             <div className="cmp-order-details-address1">{account.partnerName}</div>
