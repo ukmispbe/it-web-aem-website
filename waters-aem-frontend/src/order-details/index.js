@@ -5,6 +5,7 @@ import CurrencyFormatter from '../utils/currency-formatter'
 import GetLocale from "../utils/get-locale";
 import Spinner from "../utils/spinner";
 import ReactSVG from 'react-svg';
+import ErrorNotification from '../utils/error-notification';
 
 const OrderDetails = (props) => {
 
@@ -133,9 +134,12 @@ const OrderDetails = (props) => {
 
     const renderServiceErrorNotification = () => {
         return (
-            <>
-                <p>{props.config.serviceErrorNotificationTitle} {props.config.serviceErrorNotificationText}</p>
-            </>
+            <ErrorNotification
+                type="service"
+                title={props.config.serviceErrorNotificationTitle}
+                text={props.config.serviceErrorNotificationText}
+                icon={props.config.serviceErrorNotificationIcon}
+            />
         )
     }
 
