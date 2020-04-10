@@ -138,10 +138,9 @@ class OrderHistory extends Component {
 
         if(orders.length > 0){
             let filteredOrders = orders;
-            if (activeTabFilter !== "All" && activeTabFilter !== undefined &&
-                (activeTabFilter === "Open" || activeTabFilter === "Partial")){
+            if (activeTabFilter !== undefined && activeTabFilter !== "All" && activeTabFilter === "Open"){
                 filteredOrders = orders.filter(function(i) {
-                    return i.deliveryStatus === activeTabFilter;
+                    return i.deliveryStatus === "Open" || i.deliveryStatus === "Partial";
                 })
                 if (filteredOrders.length > 0){
                     this.setResultsState(filteredOrders)

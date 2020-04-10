@@ -12,12 +12,16 @@ const getData = async (url) => {
     return response;
 };
 
-export async function signOutRequest(url, homepageLink) {
+export async function signOutRequest(url, signOutUrl, homepageLink) {
     const sessionStore = new SessionStore();
     sessionStore.removeUserDetails();
     sessionStore.removeSoldToDetails();
 
     const response = await getData(url);
+    //TODO: Remove after MyAccount-R-6.1.0 release
 
+    if(signOutUrl.indexOf('/nextgen') === -1) {
+        homepageLink = signOutUrl;
+    }
     window.location.href = homepageLink;
 }
