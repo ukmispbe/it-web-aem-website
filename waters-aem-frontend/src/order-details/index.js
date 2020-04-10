@@ -20,21 +20,23 @@ const OrderDetails = (props) => {
     const detailsUrl = props.config.fetchDetailsEndPoint;
     //const [orderId, setOrderId] = useState(null);
     const [orderDetails, setOrderDetails] = useState({});
-    const [error, setError] = useState(false);
+    const [errorServiceError, setServiceError] = useState(false);
+    const [errorOrderNotFound, setOrderNotFoundError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         //setOrderId(getUrlParameter("id"));
-        getOrderDetails(detailsUrl, orderId)
+        getOrderDetails(detailsUrl, orderId, setError)
             .then((data) => {
                 console.log(data);
                 setIsLoading(false);
                 setOrderDetails(data);
             })
-            .catch(error => {
-                setError(true);
-            });
     }, []);
+
+    const setError = (statusCode) => {
+        setServiceError(true);
+    }
 
     const renderAddress = (addressType) => {
         if (orderDetails.account){
@@ -128,20 +130,19 @@ const OrderDetails = (props) => {
         )
     }
 
-    const renderErrorNotification = () => {
+    const renderServiceErrorNotification = () => {
         return (
             <>
-                "Error"
+                <p>{props.config.serviceErrorNotificationTitle} {props.config.serviceErrorNotificationText}</p>
             </>
         )
     }
 
-    const renderNoResults = () => {
+    const renderOrderNotFoundError = () => {
         return (
             <>
                 <div className="cmp-order-list__no-results">
-                    <p>{this.props.configs.noOrderFoundText}</p>
-                    <p><a href={this.props.configs.shopAllHref}>{this.props.configs.shopAllTitle}</a></p>
+                    <p>{props.config.OrderNotFoundText}</p>
                 </div>
             </>
         );
@@ -150,9 +151,10 @@ const OrderDetails = (props) => {
     return (
         <>
             {isLoading && (<Spinner loading={isLoading} />)}
-            {!isLoading && error && renderErrorNotification()}
-            {!error && !isLoading && renderOrderDetails()}
-            {!error && !isLoading && renderOrderShipmentList()}
+            {!isLoading && errorServiceError && renderServiceErrorNotification()}
+            {!isLoading && errorOrderNotFound && renderOrderNotFoundError()}
+            {!errorOrderNotFound && !errorServiceError && !isLoading && renderOrderDetails()}
+            {!errorOrderNotFound && !errorServiceError && !isLoading && renderOrderShipmentList()}
         </>
     )
 }

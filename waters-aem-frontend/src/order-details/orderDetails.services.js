@@ -11,12 +11,17 @@ const getData = async (url) => {
     return await response;
 }
 
-export const getOrderDetails = (endpoint, id) => {
+export const getOrderDetails = (endpoint, id, setError) => {
     const url = endpoint+id;
     return getData(url)
-        .then((res) => res.json())
+        .then((response) => {
+            if(response.status === 200) {
+                return response.json();
+            } else {
+                setError(response.status);
+            }
+        })
 }
-
 
 export const getShipmentItems = (endpoint, id) => {
     const url = endpoint+id;
