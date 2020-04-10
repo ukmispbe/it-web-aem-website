@@ -35,7 +35,8 @@ const OrderDetails = (props) => {
     }, []);
 
     const setError = (statusCode) => {
-        setServiceError(true);
+        (statusCode === 703) && setServiceError(true);
+        (statusCode === 701) && setOrderNotFoundError(true);
     }
 
     const renderAddress = (addressType) => {
@@ -142,7 +143,7 @@ const OrderDetails = (props) => {
         return (
             <>
                 <div className="cmp-order-list__no-results">
-                    <p>{props.config.OrderNotFoundText}</p>
+                    <p>{props.config.orderNotFoundErrorTitle}</p>
                 </div>
             </>
         );
