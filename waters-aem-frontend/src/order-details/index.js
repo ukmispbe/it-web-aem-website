@@ -40,7 +40,7 @@ const OrderDetails = (props) => {
     }, []);
 
     const setError = (statusCode) => {
-        (statusCode === 703 || statusCode === 400 || statusCode === 500 ) && setServiceError(true);
+        (statusCode === 703 || statusCode === 400 || statusCode === 500) && setServiceError(true);
         (statusCode === 704) && setOrderNotFoundError(true);
     }
 
