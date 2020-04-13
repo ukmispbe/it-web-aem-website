@@ -126,9 +126,6 @@ const OrderDetails = (props) => {
         return (
             <>
                 <div className="cmp-order-details__order-shipment-list">
-                    -------------------
-                    TO DO: Order Shipment List
-                    -------------------
                 </div>
             </>
         )
