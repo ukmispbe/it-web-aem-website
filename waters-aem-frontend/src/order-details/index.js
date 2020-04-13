@@ -41,7 +41,7 @@ const OrderDetails = (props) => {
 
     const setError = (statusCode) => {
         (statusCode === 703) && setServiceError(true);
-        (statusCode === 701) && setOrderNotFoundError(true);
+        (statusCode === 704) && setOrderNotFoundError(true);
     }
 
     const renderAddress = (addressType) => {
