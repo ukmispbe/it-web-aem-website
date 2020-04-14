@@ -128,13 +128,14 @@ export async function resetPasswordSubmit(data) {
                 const store = new SessionStore();
                 store.setUserDetails(userDetails);
                            
-                // Temporary Code to ensure the user has to Choose Account
-                const soldToAccounts = userDetails.soldToAccounts;
-                if(soldToAccounts.length !== 0) {
-                    soldToAccounts[0].defaultFlag = 1;
-                    console.log(soldToAccounts);
-                }
-                // Temporary Code to ensure the user has to Choose Account
+                // // Temporary Code to ensure the user has to Choose Account
+                // const soldToAccounts = userDetails.soldToAccounts;
+                // if(soldToAccounts.length !== 0) {
+                //     soldToAccounts[0].defaultFlag = 1;
+                //     console.log(soldToAccounts);
+                // }
+                // // Temporary Code to ensure the user has to Choose Account
+
                 const needToChooseAccount = checkRedirectToChooseAccount(userDetails.soldToAccounts);
                 if(needToChooseAccount) {
                     // Choose Account URL
@@ -300,6 +301,36 @@ export async function signInSubmit(data) {
     }
 }
 
+const setNewSoldTo = (newSoldto) => {
+    const store = new SessionStore();
+    const soldToDetails = store.getSoldToDetails();
+    const user = store.getUserDetails();
+
+    const updatedSoldToDetails = soldToDetails.map(soldTo => {
+        if (soldTo.soldTo === newSoldto) {
+            soldTo.default_soldTo = 1;
+        }
+        else {
+            soldTo.default_soldTo = 0;
+        }         
+        return soldTo;
+    });
+    store.setSoldToDetails(updatedSoldToDetails);
+
+    const updatedUserDetailsSoldTos = user.soldToAccounts.map(soldTo => {
+        if (soldTo.soldTo === newSoldto) {
+            soldTo.defaultFlag = 1;
+        }
+        else {
+            soldTo.defaultFlag = 0;
+        }         
+        return soldTo;
+    });
+    user.soldToAccounts = updatedUserDetailsSoldTos;
+    store.setUserDetails(user);
+    store.setPersonalDetailsUpdated();
+}
+
 export async function chooseAccountSubmit(data) {
     // Determine the selercted Account
     let selectedAccount = "";
@@ -309,18 +340,7 @@ export async function chooseAccountSubmit(data) {
         }
     }
 
-    // Clear all Default Sold to's in userDetails and soldToDetails
-    // set the correct default sold to in userDetails and soldToDetails
-    // Save the changes back to Session Storage
-    // set this.setPersonalDetailsUpdated() to "Y" so that the details are read from Session Storage 
-    // when the my-account menu is opened. May need to do the same for SoldTo updates??
-
-    const store = new SessionStore();
-    const userDetails = store.getUserDetails();
-    console.log("signInSubmit.js, userDetails ", userDetails);
-    
-    const soldToDetails = store.getSoldToDetails();
-    console.log("signInSubmit.js, soldToDetails ", soldToDetails);
+    setNewSoldTo(selectedAccount);
 
     const response = await postData(this.url + "/" + selectedAccount, "");
     const responseBody = await response.json();

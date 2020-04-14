@@ -107,9 +107,23 @@ class MyAccountDropDown extends React.Component {
         const hasBeenUpdated = store.getPersonalDetailsUpdated() === 'Y' ? true : false;
         if (hasBeenUpdated) {
             const savedUserDetails = store.getUserDetails();
+            const savedSoldToDetails = store.getSoldToDetails();
+            let updatedAccount;
+    
+            savedSoldToDetails.map((soldTo) => {
+                if(soldTo.default_soldTo === 1) {
+                    updatedAccount = soldTo;
+                }
+            });
+        
             const updatedUserName = savedUserDetails.firstName && savedUserDetails.lastName ? `${savedUserDetails.firstName} ${savedUserDetails.lastName}` : '';
+            const updatedAccountName = updatedAccount.company ? updatedAccount.company : "";
+            const updatedAccountNumber = updatedAccount.soldTo ? updatedAccount.soldTo : "";
             let currentState = this.state;
             currentState.config.userDetails.userName = updatedUserName;
+            currentState.config.userDetails.accountName = updatedAccountName;
+            currentState.config.userDetails.accountNumber = updatedAccountNumber;
+            
             this.setState({
                 ... currentState
             }); 
@@ -197,7 +211,14 @@ class MyAccountDropDown extends React.Component {
         const soldToDetails = await SoldToDetailsLazy(this.props.config.soldToDetailsUrl);
 
         const userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
-        const priorityAccount = soldToDetails.length !== 0 ? soldToDetails[0] : {};
+        // Fix to correct first soldTo being selected. It should be the default_soldTo === 1 selected
+        let priorityAccount;
+        soldToDetails.map((soldTo) => {
+            if(soldTo.default_soldTo === 1) {
+                priorityAccount = soldTo;
+            }
+        });
+
         const accountName = priorityAccount.company ? `${priorityAccount.company} ` : '';
         const accountNumber = priorityAccount.soldTo ? priorityAccount.soldTo : '';
 
