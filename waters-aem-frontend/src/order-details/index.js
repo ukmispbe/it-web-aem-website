@@ -5,9 +5,9 @@ import CurrencyFormatter from '../utils/currency-formatter'
 import GetLocale from "../utils/get-locale";
 import Spinner from "../utils/spinner";
 import ReactSVG from 'react-svg';
-import ErrorNotification from '../utils/error-notification';
+import ErrorBoundary from '../search/ErrorBoundary';
 
-const OrderDetails = (props) => {
+const OrderDetails = ({setErrorBoundaryToTrue, ...props}) => {
 
     const getUrlParameter = (name) => {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -40,7 +40,7 @@ const OrderDetails = (props) => {
     }, []);
 
     const setError = (statusCode) => {
-        (statusCode === 703 || statusCode === 400 || statusCode === 500) && setServiceError(true);
+        (statusCode === 703 || statusCode === 400 || statusCode === 500) && setErrorBoundaryToTrue({code: statusCode});
         (statusCode === 704) && setOrderNotFoundError(true);
     }
 
@@ -163,4 +163,10 @@ const OrderDetails = (props) => {
     )
 }
 
-export default OrderDetails;
+const ErrorBoundaryOrderDetails = props => (
+    <ErrorBoundary>
+        <OrderDetails {...props} />
+    </ErrorBoundary>
+)
+
+export default ErrorBoundaryOrderDetails;
