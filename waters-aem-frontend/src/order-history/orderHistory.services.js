@@ -1,4 +1,5 @@
 import 'whatwg-fetch';
+import { signInRedirect } from '../utils/redirectFunctions';
 
 class OrderHistoryService {
     constructor(
@@ -28,7 +29,14 @@ class OrderHistoryService {
             },
             body: JSON.stringify(options)
         })
-        .then(response => response.json())
+        .then(response => {
+            console.log("response", response);
+            if (response.status === 200) {
+                response.json();
+            } else if (response.status === 401) {
+                signInRedirect();
+            }
+        })
         .catch(error => {
             this.throwError(error);
             reject(error);
