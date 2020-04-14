@@ -4,8 +4,6 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
-import com.icfolson.aem.library.api.link.Link;
-import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.utils.LinkUtils;
 import org.apache.sling.api.resource.Resource;
