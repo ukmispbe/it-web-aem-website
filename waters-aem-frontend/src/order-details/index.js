@@ -7,7 +7,7 @@ import Spinner from "../utils/spinner";
 import ReactSVG from 'react-svg';
 import ErrorBoundary from '../search/ErrorBoundary';
 
-const OrderDetails = ({setErrorBoundaryToTrue, ...props}) => {
+const OrderDetails = ({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) => {
 
     const getUrlParameter = (name) => {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -37,6 +37,10 @@ const OrderDetails = ({setErrorBoundaryToTrue, ...props}) => {
                     setOrderNotFoundError(true);
                 }
             })
+        return () => {
+            resetErrorBoundaryToFalse();
+            removeNotifications();
+        }
     }, []);
 
     const setError = (statusCode) => {
