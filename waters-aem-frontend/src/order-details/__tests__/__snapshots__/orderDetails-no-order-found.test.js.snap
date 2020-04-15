@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feature: Order Details Component Scenario: Rendering When no order is found Then it should match snapshot 1`] = `
+<div
+  className="cmp-search-overlay"
+>
+  <div
+    className="css-iin9c2-style-Loader"
+  />
+</div>
+`;
