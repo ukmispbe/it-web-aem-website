@@ -292,11 +292,13 @@
 
 #changePassword-details-tile {
     .cmp-detail-tiles-list--tile-column {
-        width: calc(100vw - 40em);
         margin-bottom: 0;
         &--title {
             @include font-h2;
             margin-bottom: 0;
         }
+    }
+    .cmp-detail-tiles-list {
+        width: calc(100vw - 37em);
     }
 }
