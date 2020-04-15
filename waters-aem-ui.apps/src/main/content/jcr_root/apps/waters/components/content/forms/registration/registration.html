@@ -36,18 +36,20 @@
                 {
                     "type": "dropdown",
                     "name": "salutation",
-                    "label": "${'Salutation' @ i18n, context='text'}",
+                    "label": "${'Salutation (optional)' @ i18n, context='text'}",
                     "placeholder": "${'Select...' @ i18n, context='text'}",
                     "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
                     "options": [
                         {"salutationCode":"dr","displayName": "${'Dr.' @ i18n, context='text'}"},
                         {"salutationCode":"mr","displayName": "${'Mr.' @ i18n, context='text'}"},
                         {"salutationCode":"mrs","displayName": "${'Mrs.' @ i18n, context='text'}"},
-                        {"salutationCode":"ms","displayName": "${'Ms.' @ i18n, context='text'}"}
+                        {"salutationCode":"ms","displayName": "${'Ms.' @ i18n, context='text'}"},
+                        {"salutationCode":"prof","displayName": "${'Prof.' @ i18n, context='text'}"},
+                        {"salutationCode":"other","displayName": "${'Other' @ i18n, context='text'}"}
                     ],
                     "active": false,
                     "validation": {
-                        "required": true,
+                        "required": false,
                         "requiredMsg": "${'Please select your salutation.' @ i18n, context='text'}"
                     }
                 },
@@ -206,19 +208,12 @@
                 {
                 "country":"jp",
                 "fields":[
-                        "salutation",
                         "pronName"
                     ]
                 },
                 {
                 "country":"tw",
                 "fields":[
-                        "salutation"
-                    ]
-                },
-                {
-                "country":"kr",
-                    "fields":[
                         "salutation"
                     ]
                 },

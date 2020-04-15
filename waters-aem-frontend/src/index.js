@@ -321,6 +321,22 @@ if (registrationFormContainer) {
         document.getElementById('cmp-registration-form').innerHTML
     );
 
+    const swapFirstAndLastNames = () => {
+        const indexofFirstName = config.fields.map(e => e.name).indexOf('firstName');
+        const indexofLastName = config.fields.map(e => e.name).indexOf('lastName');
+        if (indexofFirstName !== -1 && indexofLastName!== -1) {
+            const temp = config.fields[indexofFirstName];
+            config.fields[indexofFirstName] = config.fields[indexofLastName];
+            config.fields[indexofLastName] = temp;
+        }
+    }
+
+    if (config.formName === "registration" && digitalData.page.country.toUpperCase() ==="JP") {
+        swapFirstAndLastNames();
+    }
+
+
+
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
         <Form
