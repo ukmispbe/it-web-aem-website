@@ -66,13 +66,15 @@ public class WatersContentService extends SlingAllMethodsServlet {
             LOG.info("New Content Service request");
             response.setContentType("application/json; charset=UTF-8");
             String origin = request.getHeader("origin");
+            LOG.debug("Request origin {}", origin);
+            LOG.debug("Configured origins {}", Arrays.toString(origins));
             if (StringUtils.isNotBlank(origin) && Arrays.asList(origins).contains(origin.trim())) {
                 response.setHeader("Access-Control-Allow-Origin", origin);
                 response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
                 response.setHeader("Access-Control-Allow-Headers", "X-Auth-Token, Content-Type, Authorization, x-dtpc, x-dtreferer");
                 response.setHeader("Access-Control-Allow-Credentials", "true");
+                LOG.debug("CORS headers added in response for origin {}", origin);
             }
-
             String pagePath = request.getParameter("pagePath");
             final String responseLevel = request.getParameter("depth");
             if (StringUtils.isNotBlank(pagePath) && (pagePath.startsWith(WatersConstants.ROOT_PATH) || pagePath.startsWith(WatersConstants.CUSTOM_ROOT_PATH))) {
