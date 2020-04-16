@@ -93,6 +93,8 @@ const Input = ({
                         onChange={updateReq}
                         placeholder=" "
                         disabled={disabled}
+                        ariaLabel={name}
+                        ariaRequired={validation.required}
                         className={
                             !!errors[name]
                                 ? 'error'

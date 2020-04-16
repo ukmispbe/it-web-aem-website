@@ -120,7 +120,7 @@ const Form = ({
     };
 
     const deactivateField = inputName => {
-         const fields = config.fields.map(field => {
+        const fields = config.fields.map(field => {
             if (field.name === inputName) {
                 field.active = false;
             }
