@@ -169,9 +169,9 @@ const Form = ({
 
         retrieveData(config.optionsEndpoint).then(resp => {
             
-            // // Only put this logic in for formName ==="chooseAccount"
-            // const store = new SessionStore();
-            // store.setSoldToDetails(resp);
+            // Only put this logic in for formName ==="chooseAccount"
+            const store = new SessionStore();
+            store.setSoldToDetails(resp);
 
             const tempArray = resp.map((item) => {
                 let tempOption = {};

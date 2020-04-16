@@ -350,7 +350,7 @@ export async function chooseAccountSubmit(data) {
     if (response.status === 200) {
         // If accessed from My Account then Return to My Account
         const queryString = location.search;
-        if(queryString === "?fromProfile=true") {
+        if(queryString === "?fromMenu=true") {
             window.location.replace(document.referrer);
             return;
         }

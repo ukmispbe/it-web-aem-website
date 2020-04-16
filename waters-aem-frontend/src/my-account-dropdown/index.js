@@ -213,15 +213,19 @@ class MyAccountDropDown extends React.Component {
         const userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
         // Fix to correct first soldTo being selected. It should be the default_soldTo === 1 selected
         let priorityAccount;
+        let accountName = "";
+        let accountNumber = "";
         soldToDetails.map((soldTo) => {
             if(soldTo.default_soldTo === 1) {
                 priorityAccount = soldTo;
             }
         });
 
-        const accountName = priorityAccount.company ? `${priorityAccount.company} ` : '';
-        const accountNumber = priorityAccount.soldTo ? priorityAccount.soldTo : '';
-
+        if (priorityAccount){
+            accountName = priorityAccount.company ? `${priorityAccount.company} ` : '';
+            accountNumber = priorityAccount.soldTo ? priorityAccount.soldTo : '';
+        }
+        
         this.setState({
             ... this.state,
             config: {
