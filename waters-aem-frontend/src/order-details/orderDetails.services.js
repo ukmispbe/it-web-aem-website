@@ -11,16 +11,17 @@ const getData = async (url) => {
     return await response;
 }
 
-export const getOrderDetails = (endpoint, id, setError) => {
+export const getOrderDetails = async (endpoint, id, setError) => {
     const url = endpoint+id;
-    return getData(url)
-        .then((response) => {
-            if(response.status === 200) {
-                return response.json();
-            } else {
-                setError(response.status);
-            }
-        })
+
+    const response = await getData(url);
+    const responseBody = await response.json();
+
+    if(response.status === 200) {
+        return responseBody;
+    } else {
+        setError({status: response.status, code: responseBody.code});
+    }
 }
 
 export const getShipmentItems = (endpoint, id) => {
