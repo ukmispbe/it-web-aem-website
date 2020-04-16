@@ -10,7 +10,7 @@ import ErrorBoundary from '../search/ErrorBoundary';
 class OrderDetails extends Component {
 
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
-        super(props);
+        super({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props});
 
         this.state = {
             orderId: this.getUrlParameter("id"),

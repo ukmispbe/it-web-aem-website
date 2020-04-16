@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
@@ -15,6 +15,12 @@ describe('Feature: Order Details Component', () => {
         delete window.location;
         window.location = new URL('https://www.waters.com/my-account.html#orderdetails?id=15740002');
         window.scrollTo = jest.fn();
+
+        jest.mock('react', () => ({
+          ...jest.requireActual('react'),
+          useEffect: (f) => f(),
+        }));
+
     });
 
     afterAll(() => {
