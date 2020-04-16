@@ -31,15 +31,21 @@ import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.waters.aem.core.utils.LinkUtils;
 import com.waters.aem.core.utils.LocaleUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.ModifiableValueMap;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ChildResource;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -72,6 +78,11 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     public static final String RESOURCE_TYPE = "waters/components/structure/footer";
 
+    private static final Logger LOG = LoggerFactory.getLogger(Footer.class);
+
+    @Inject
+    private Resource resource;
+
     @Inject
     private PageDecorator currentPage;
 
@@ -88,6 +99,8 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     private DataLayer dataLayer;
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    public static final String PROPERTY_COUNTRY_LIST_JSON = "countryListJson";
 
     @DialogField(fieldLabel = "Logo",
         fieldDescription = "Select the logo image to display on footer",
@@ -226,6 +239,19 @@ public final class Footer extends AbstractComponent implements ComponentExporter
  
     private List<CountryLanguageSelectorItem> languagePages;
 
+    @PostConstruct
+    void init(){
+            try {
+                String countryPagesJson =  getCountryPagesJson();
+                if(StringUtils.isNotBlank(countryPagesJson)){
+                    ModifiableValueMap modifiableValueMap = resource.adaptTo(ModifiableValueMap.class);
+                    modifiableValueMap.put(PROPERTY_COUNTRY_LIST_JSON, countryPagesJson);
+                    resource.getResourceResolver().commit();
+                }
+            } catch (Exception e) {
+                LOG.error("Exception occurred while working on Country list JSON property: {}",e);
+            }
+        }
     @JsonProperty
     public Image getLogoImage() {
         return logoImage;
