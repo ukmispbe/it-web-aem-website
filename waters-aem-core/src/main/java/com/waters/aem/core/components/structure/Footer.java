@@ -57,23 +57,23 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component(value = "Footer",
-    description = "This is the Footer component for Waters site",
-    editConfig = false,
-    tabs = {
-        @Tab(title = "Properties"),
-        @Tab(title = "Legal Icons"),
-        @Tab(title = "Footer Links"),
-        @Tab(title = "Share Links"),
-        @Tab(title = "WeChat (China)")
-    },
-    group = ComponentConstants.GROUP_HIDDEN,
-    path = WatersConstants.COMPONENT_PATH_STRUCTURE)
+        description = "This is the Footer component for Waters site",
+        editConfig = false,
+        tabs = {
+                @Tab(title = "Properties"),
+                @Tab(title = "Legal Icons"),
+                @Tab(title = "Footer Links"),
+                @Tab(title = "Share Links"),
+                @Tab(title = "WeChat (China)")
+        },
+        group = ComponentConstants.GROUP_HIDDEN,
+        path = WatersConstants.COMPONENT_PATH_STRUCTURE)
 @Model(adaptables = SlingHttpServletRequest.class,
-    adapters = { Footer.class, ComponentExporter.class },
-    resourceType = Footer.RESOURCE_TYPE,
-    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+        adapters = {Footer.class, ComponentExporter.class},
+        resourceType = Footer.RESOURCE_TYPE,
+        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
-    extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+        extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class Footer extends AbstractComponent implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/structure/footer";
@@ -103,44 +103,44 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     public static final String PROPERTY_COUNTRY_LIST_JSON = "countryListJson";
 
     @DialogField(fieldLabel = "Logo",
-        fieldDescription = "Select the logo image to display on footer",
-        ranking = 1)
+            fieldDescription = "Select the logo image to display on footer",
+            ranking = 1)
     @Html5SmartImage(tab = false, allowUpload = false, height = 150)
     @ImageInject(inherit = true)
     private Image logoImage;
 
     @DialogField(fieldLabel = "Logo Link",
-        fieldDescription = "Select or enter the link URL",
-        ranking = 2)
+            fieldDescription = "Select or enter the link URL",
+            ranking = 2)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
     private Link logoLink;
 
     @DialogField(fieldLabel = "Logo Alt Text",
-        fieldDescription = "Enter the ALT text for the logo image",
-        ranking = 3)
+            fieldDescription = "Enter the ALT text for the logo image",
+            ranking = 3)
     @TextField
     @InheritInject
     private String logoAltText;
 
     @DialogField(fieldLabel = "Copyright Text",
-        fieldDescription = "Enter the copyright text",
-        ranking = 4)
+            fieldDescription = "Enter the copyright text",
+            ranking = 4)
     @TextField
     @JsonProperty
     public String getCopyrightText() {
         final String defaultCopyrightText = new StringBuilder()
-            .append("© ")
-            .append(Calendar.getInstance().get(Calendar.YEAR))
-            .append(" Waters Corporation. All Rights Reserved.")
-            .toString();
+                .append("© ")
+                .append(Calendar.getInstance().get(Calendar.YEAR))
+                .append(" Waters Corporation. All Rights Reserved.")
+                .toString();
 
         return getInherited("copyrightText", defaultCopyrightText);
     }
-    
+
     @DialogField(fieldLabel = "Contact Us",
-        fieldDescription = "Select or enter the Contact URL",
-        ranking = 5)
+            fieldDescription = "Select or enter the Contact URL",
+            ranking = 5)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
     private Link contactLink;
@@ -200,23 +200,23 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     private Link bPNSLegalLink;
 
     @DialogField(fieldLabel = "Cookies Link",
-        fieldDescription = "Select or enter the link URL",
-        tab = 3,
-        ranking = 1)
+            fieldDescription = "Select or enter the link URL",
+            tab = 3,
+            ranking = 1)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
     private Link cookiesLink;
 
     @DialogField(fieldLabel = "Footer Links",
-        tab = 3,
-        ranking = 2)
+            tab = 3,
+            ranking = 2)
     @MultiField(composite = true)
     @InheritInject
     private List<BasicLink> footerLinks;
 
     @DialogField(fieldLabel = "Social Links",
-        tab = 4,
-        ranking = 2)
+            tab = 4,
+            ranking = 2)
     @MultiField(composite = true)
     @InheritInject
     private List<IconOnlyLink> socialLinks;
@@ -236,22 +236,23 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     @Html5SmartImage(tab = false, allowUpload = false, height = 150)
     @ImageInject(inherit = true)
     private Image weChatQrCodeImage;
- 
+
     private List<CountryLanguageSelectorItem> languagePages;
 
     @PostConstruct
-    void init(){
-            try {
-                String countryPagesJson =  getCountryPagesJson();
-                if(StringUtils.isNotBlank(countryPagesJson)){
-                    ModifiableValueMap modifiableValueMap = resource.adaptTo(ModifiableValueMap.class);
-                    modifiableValueMap.put(PROPERTY_COUNTRY_LIST_JSON, countryPagesJson);
-                    resource.getResourceResolver().commit();
-                }
-            } catch (Exception e) {
-                LOG.error("Exception occurred while working on Country list JSON property: {}",e);
+    void init() {
+        try {
+            String countryPagesJson = getCountryPagesJson();
+            if (StringUtils.isNotBlank(countryPagesJson)) {
+                ModifiableValueMap modifiableValueMap = resource.adaptTo(ModifiableValueMap.class);
+                modifiableValueMap.put(PROPERTY_COUNTRY_LIST_JSON, countryPagesJson);
+                resource.getResourceResolver().commit();
             }
+        } catch (Exception e) {
+            LOG.error("Exception occurred while working on Country list JSON property: {}", e);
         }
+    }
+
     @JsonProperty
     public Image getLogoImage() {
         return logoImage;
@@ -282,13 +283,13 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     }
 
     @JsonProperty
-    public String getSICPNumber() { 
+    public String getSICPNumber() {
         return sICPNumber;
     }
 
     @JsonProperty
-    public String getSICPLegalIcon() { 
-        return sICPLegalIcon; 
+    public String getSICPLegalIcon() {
+        return sICPLegalIcon;
     }
 
     @JsonProperty
@@ -297,18 +298,18 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     }
 
     @JsonProperty
-    public String getBPNSNumber() { 
+    public String getBPNSNumber() {
         return bPNSNumber;
     }
 
     @JsonProperty
     public String getBPNSLegalIcon() {
-        return bPNSLegalIcon; 
+        return bPNSLegalIcon;
     }
 
     @JsonProperty
     public Link getBPNSLegalLink() {
-        return bPNSLegalLink; 
+        return bPNSLegalLink;
     }
 
     @JsonProperty
