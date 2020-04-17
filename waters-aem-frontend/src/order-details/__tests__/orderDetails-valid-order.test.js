@@ -29,7 +29,7 @@ describe('Feature: Order Details Component', () => {
     });
 
     afterEach(() => {
-        //wrapper.unmount();
+        wrapper.unmount();
         jest.clearAllMocks();
     });
 
@@ -38,50 +38,24 @@ describe('Feature: Order Details Component', () => {
         describe("When component is mounted", () => {
 
             it("It should get order id from url", async () => {
-//                await act(async () => {
-//                    wrapper = shallow(<OrderDetails {...props} />);
-//                })
-//                wrapper.update();
                 expect(window.location.hash).toEqual("#orderdetails?id=15740002");
-//                expect(wrapper.state('orderId')).to.equal(15740002);
             });
 
-            it('should fetch data from server when server returns a successful response', done => { // 1
+            it('should fetch data from server and set orderDetails state', done => { // 1
 
-//                const mockSuccessResponse = {
-//                    status: 200,
-//                    json: async () => orderDetailsJSON
-//                };
-//                const mockJsonPromise = Promise.resolve(mockSuccessResponse); // 2
-//                const mockFetchPromise = Promise.resolve({ // 3
-//                  json: () => orderDetailsJSON,
-//                });
-//
-//                jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise); // 4
-
-//                expect(global.fetch).toHaveBeenCalledTimes(1);
-                //expect(global.fetch).toHaveBeenCalledWith(props.config.fetchDetailsEndPoint);
                 const spyDidMount = jest.spyOn(OrderDetails.prototype,"componentDidMount");
                 const spyGetOrderDetails = jest.spyOn(getOrderDetails, 'getOrderDetails').mockImplementation(() => {
-                   return Promise.resolve({
-                     status: 200,
-                     json: () => {
-                     return Promise.resolve({...orderDetailsJSON});
-                    }
-                  });
+                   return Promise.resolve(orderDetailsJSON);
                 });
                 const didMount = wrapper.instance().componentDidMount();
-                // expecting componentDidMount have been called
                 expect(spyDidMount).toHaveBeenCalled();
+
                 didMount.then(() => {
-                   // updating the wrapper
                    wrapper.update();
                    expect(spyGetOrderDetails).toHaveBeenCalled();
                    expect(wrapper.state('orderId')).toBe('15740002');
-                   console.log(wrapper.instance());
+                   expect(wrapper.state('orderDetails')).toBe(orderDetailsJSON);
 
-//                   expect(wrapper.find("p.user").text()).toContain("manas");
-//                   expect(wrapper.find("spans.loading").length).toBe(0);
                    spyDidMount.mockRestore();
                    fetch.mockClear();
                    done();

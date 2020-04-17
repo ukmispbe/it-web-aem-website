@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Feature: Order Details Component Scenario: Rendering When no order is found Then it should match snapshot 1`] = `
+exports[`Feature: Order Details Component Scenario: Rendering When component is mounted Then the snapshot should match 1`] = `
 <div
-  className="cmp-search-overlay"
+  className="cmp-order-details__no-results"
 >
-  <div
-    className="css-iin9c2-style-Loader"
-  />
+  <p>
+    Sorry, order not found.
+  </p>
 </div>
 `;

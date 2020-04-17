@@ -1,54 +1,75 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import renderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
+import { act } from "react-dom/test-utils";
 
-import OrderDetails from '../index';
+import { OrderDetails } from '../index';
 import ErrorBoundary from '../../search';
-import { getOrderDetails } from '../orderDetails.services';
+import * as getOrderDetails from '../orderDetails.services';
 import props from '../__mocks__/en_US/index';
 import { orderDetailsJSON } from '../__mocks__/en_US/services-json.test';
 import Spinner from "../../utils/spinner";
 
 describe('Feature: Order Details Component', () => {
 
-    beforeAll(() => {
+    let wrapper;
+
+    beforeAll(async () => {
         delete window.location;
-        window.location = new URL('https://www.waters.com/my-account.html#orderdetails?id=15740002');
+        window.location = new URL('https://www.waters.com/nextgen/us/en/account/my-account.html#orderdetails?id=15740002');
         window.scrollTo = jest.fn();
-
-        jest.mock('react', () => ({
-          ...jest.requireActual('react'),
-          useEffect: (f) => f(),
-        }));
-
+        global.fetch = jest.fn();
     });
 
-    afterAll(() => {
-        jest.mockRestoreAll();
+    beforeEach(() => {
+        const setErrorBoundaryToTrue = jest.fn();
+        const resetErrorBoundaryToFalse = jest.fn();
+        const removeNotifications = jest.fn();
+        wrapper = shallow(<OrderDetails {...props} setErrorBoundaryToTrue={setErrorBoundaryToTrue} resetErrorBoundaryToFalse={resetErrorBoundaryToFalse} removeNotifications={removeNotifications} />, { disableLifecycleMethods: true });
+    });
+
+    afterEach(() => {
+        wrapper.unmount();
+        jest.clearAllMocks();
     });
 
     describe('Scenario: Rendering', () => {
-        const wrapper = shallow(<OrderDetails {...props} />);
 
         describe("When component is mounted", () => {
 
-            it("It should get order id from url", () => {
+            it("It should get order id from url", async () => {
                 expect(window.location.hash).toEqual("#orderdetails?id=15740002");
             });
-        })
 
-        describe("When no order is found", () => {
-            window.fetch = jest.fn(() => {
-                return {
-                    status: 704,
-                    json: async () => {}
-                }
+            it('should fetch data from server', done => { // 1
+
+                const spyDidMount = jest.spyOn(OrderDetails.prototype,"componentDidMount");
+                const spyGetOrderDetails = jest.spyOn(getOrderDetails, 'getOrderDetails').mockImplementation(() => {
+                   return Promise.resolve(null);
+                });
+                const didMount = wrapper.instance().componentDidMount();
+                expect(spyDidMount).toHaveBeenCalled();
+
+                didMount.then(() => {
+                   wrapper.update();
+                   expect(spyGetOrderDetails).toHaveBeenCalled();
+                   expect(wrapper.state('orderId')).toBe('15740002');
+
+                   spyDidMount.mockRestore();
+                   fetch.mockClear();
+                   done();
+                });
             });
 
-            it("Then it should match snapshot", () => {
-                const json = renderer.create(<OrderDetails {...props} />);
+            it('Then the snapshot should match', async () => {
+                let json;
+                await renderer.act(async () => {
+                    json = renderer.create(<OrderDetails {...props} />);
+                });
                 expect(json).toMatchSnapshot();
             });
+
         })
+
     })
 })

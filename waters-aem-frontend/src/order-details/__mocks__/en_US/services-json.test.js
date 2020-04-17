@@ -72,4 +72,4 @@ const orderDetailsJSON = {
   ]
 };
 
-export default orderDetailsJSON;
+export { orderDetailsJSON };
