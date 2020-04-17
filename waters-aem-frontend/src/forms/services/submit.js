@@ -4,7 +4,7 @@ import SessionStore from '../../stores/sessionStore';
 import DigitalData from '../../scripts/DigitalData';
 import UserDetails from '../../my-account/services/UserDetails';
 import { signInRedirect } from '../../utils/redirectFunctions';
-import { getNamedHeaderLink, checkIfSameOrigin } from '../../utils/redirectFunctions';
+import { getNamedHeaderLink } from '../../utils/redirectFunctions';
 
 const postData = async (url, data) => {
     const response = await fetch(url, {
@@ -348,29 +348,24 @@ export async function chooseAccountSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-        // If accessed from My Account then Return to My Account
+        // If accessed from My Account Drop Down - Return to same page
         const queryString = location.search;
         if(queryString === "?fromMenu=true") {
             window.location.replace(document.referrer);
             return;
         }
 
+        // If User had previously been directed to Sign in - Return to Original page
         const signInRedirect = window.sessionStorage.getItem('signInRedirect');
         if (signInRedirect) {
             window.location.replace(signInRedirect.replace(/"/g, ""));
             return;
         }
 
-        const isSameOrigin = checkIfSameOrigin(document.referrer);
-        if (isSameOrigin) {
-            window.location.replace(document.referrer);
-            return;
-        }
-
-        if (this.redirect) {
-            window.location.replace(this.redirect);
-            return;
-        }
+        // If user has accessed directly from Sign in Page - Return to Home page
+        const homePageUrl = getNamedHeaderLink("data-homepage-url");
+        window.location.replace(homePageUrl);
+        return;
 
     } else if (response.status === 401) {
         signInRedirect();
