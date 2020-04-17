@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { getOrderDetails } from './orderDetails.services';
+//import { getOrderDetails } from './orderDetails.services';
+import OrderDetailsService from './orderDetails.services';
 import DateFormatter from '../utils/date-formatter'
 import CurrencyFormatter from '../utils/currency-formatter'
 import GetLocale from "../utils/get-locale";
@@ -8,7 +9,6 @@ import ReactSVG from 'react-svg';
 import ErrorBoundary from '../search/ErrorBoundary';
 
 class OrderDetails extends Component {
-
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
         super({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props});
 
@@ -39,23 +39,45 @@ class OrderDetails extends Component {
         }
     }
 
+    retrieveData = async (detailsUrl, orderId) => {
+        const OrderDetailsServiceObj = new OrderDetailsService();
+        const orderDetails = await OrderDetailsServiceObj.getOrderDetails(detailsUrl, orderId, this.setError);
+        if(orderDetails && orderDetails.account.length) {
+            this.setState({
+                isLoading: false,
+                orderDetails: orderDetails
+            });
+        } else {
+            this.setState({
+                errorOrderNotFound: true,
+                isLoading: false
+            });
+        }
+    }
+
     componentDidMount() {
         const { detailsUrl, orderId } = this.state;
-        getOrderDetails(detailsUrl, orderId, this.setError)
-            .then((data) => {
-                if(data && data.account.length) {
-                    this.setState({
-                        isLoading: false,
-                        orderDetails: data
-                    });
-                } else {
-                    this.setState({
-                        errorOrderNotFound: true,
-                        isLoading: false
-                    });
-                }
-            })
+        this.retrieveData(detailsUrl, orderId);
     }
+
+
+    // componentDidMount() {
+    //     const { detailsUrl, orderId } = this.state;
+    //     getOrderDetails(detailsUrl, orderId, this.setError)
+    //         .then((data) => {
+    //             if(data && data.account.length) {
+    //                 this.setState({
+    //                     isLoading: false,
+    //                     orderDetails: data
+    //                 });
+    //             } else {
+    //                 this.setState({
+    //                     errorOrderNotFound: true,
+    //                     isLoading: false
+    //                 });
+    //             }
+    //         })
+    // }
 
     componentWillUnmount() {
         this.props.resetErrorBoundaryToFalse();

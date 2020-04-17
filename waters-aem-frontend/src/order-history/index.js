@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import ReactPaginate from 'react-paginate';
 import ReactSVG from 'react-svg';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import OrderHistoryService from'./orderHistory.services';
 import OrderListItem from './components/order-list-item';
 import OrderCountHeader from './components/order-count-header';
 import TimePeriodDropdown from './components/time-period-dropdown';
 import OrderFilterDropdown from './components/order-filter-dropdown';
-import Tabs from "../navigation/tabs";
-import Spinner from "../utils/spinner";
+import Tabs from '../navigation/tabs';
+import Spinner from '../utils/spinner';
 
 class OrderHistory extends Component {
     constructor(props) {

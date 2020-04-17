@@ -12,11 +12,11 @@ import Spinner from "../../utils/spinner";
 
 describe('Feature: Order Details Component', () => {
 
-    let wrapper;
+    let wrapper, getFetchSpy, mockJSONPromise;
 
     beforeEach(async () => {
         delete window.location;
-        window.location = new URL('https://www.waters.com/my-account.html#orderdetails?id=15740002');
+        window.location = new URL('https://www.waters.com/nextgen/us/en/account/my-account.html#orderdetails?id=15740002');
         window.scrollTo = jest.fn();
 
         const mockSuccessResponse = {
@@ -25,11 +25,20 @@ describe('Feature: Order Details Component', () => {
         };
         const mockJsonPromise = Promise.resolve(mockSuccessResponse); // 2
         const mockFetchPromise = Promise.resolve({ // 3
-          json: () => orderDetailsJSON,
+            json: () => orderDetailsJSON,
         });
 
-        jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise); // 4
+        //jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise); // 4
+    });
 
+    
+    beforeAll(() => {
+        mockJSONPromise = Promise.resolve({ // 5
+            json: () => orderDetailsJSON,
+        });
+        getFetchSpy = jest.spyOn(global, 'fetch').mockImplementation(() => mockJSONPromise); // 6
+        
+        //getOrderDetails.mockImplementation(() => ({ maps: "test" }));
     });
 
     afterEach(() => {
@@ -57,12 +66,28 @@ describe('Feature: Order Details Component', () => {
                 expect(wrapper.state('orderId')).to.equal(15740002);
             });
 
-            it('should fetch data from server when server returns a successful response', () => { // 1
-
-                expect(global.fetch).toHaveBeenCalledTimes(1);
-                //expect(global.fetch).toHaveBeenCalledWith(props.config.fetchDetailsEndPoint);
-
+            describe("When status is 200", () => {
+                it("Then it should return user details", async () => {
+                    window.fetch = jest.fn(() => {
+                        return {
+                            status: 200,
+                            json: async () => orderDetailsJSON
+                        }
+                    });
+        
+                    const result = await getOrderDetails;
+                    console.log("result", result);
+                    console.log("orderDetailsJSON", orderDetailsJSON);
+                    expect(result).toEqual(orderDetailsJSON);
+                })
             });
+
+            // it('should fetch data from server when server returns a successful response', () => { // 1
+
+            //     expect(getFetchSpy).toHaveBeenCalledTimes(1);
+            //     //expect(global.fetch).toHaveBeenCalledWith(props.config.fetchDetailsEndPoint);
+
+            // });
 
             it('Then the snapshot should match', async () => {
                 let json;
@@ -71,7 +96,6 @@ describe('Feature: Order Details Component', () => {
                 });
                 expect(json).toMatchSnapshot();
             });
-
         })
 
     })

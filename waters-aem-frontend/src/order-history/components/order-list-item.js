@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import DeliveryStatus from './delivery-status'
 import DateFormatter from '../../utils/date-formatter'
 import CurrencyFormatter from '../../utils/currency-formatter'

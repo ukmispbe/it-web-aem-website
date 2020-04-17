@@ -468,7 +468,7 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
         htmlFor="communications"
         onClick={[Function]}
       >
-        I want to receive communications from Waters. 
+        I agree to receive marketing, product, training, support, and related communications via mail, email, or other electronic means. 
         <span
           className="cmp-form-field--optional"
         >
@@ -479,39 +479,41 @@ exports[`Feature:Trouble Signing In Form Scenario: Rendering When initial render
     </div>
   </div>
   <div
-    className="cmp-form-field cmp-form-field-checkbox"
-  >
-    <input
-      className="valid"
-      id="privacy"
-      name="privacy"
-      readOnly={true}
-      type="checkbox"
-    />
-    <a
-      className="checkbox  valid"
-      id="privacy_link"
-      onClick={[Function]}
-    >
-      <div />
-    </a>
-    <div
-      className="cmp-form-field-checkbox--wrapper"
-    >
-      <label
-        htmlFor="privacy"
-        onClick={[Function]}
-      >
-        I agree and consent to the information I have provided on this website to be used and processed by Waters in accordance with the 
-        
-      </label>
-      
-    </div>
-  </div>
-  <div
     className="cmp-form-field cmp-form-field-captcha"
   >
     <div />
+  </div>
+  <div
+    className="cmp-form-field cmp-form-field-textwithlinks"
+  >
+    <div
+      className="cmp-form-field-textwithlinks--privacy "
+    >
+       
+      By clicking the CREATE ACCOUNT button, you are agreeing to our
+       
+       
+      <a
+        href=""
+        rel="noopener"
+        target="_blank"
+      >
+        Terms of Use
+      </a>
+       
+       
+      and understand that the information you have provided on this website will be used and processed by Waters in accordance with the
+       
+       
+      <a
+        href=""
+        rel="noopener"
+        target="_blank"
+      >
+        Waters Privacy Notice.
+      </a>
+       
+    </div>
   </div>
   <button
     className="cmp-button cmp-button--no-border cmp-form--submit cmp-button--disabled"
