@@ -124,6 +124,7 @@ const CheckboxOrRadio = ({}) => {
                     type={type}
                     name={thisName}
                     id={thisName}
+                    aria-labelledby={thisName}
                     disabled={disabled}
                     checked={thisState.isChecked}
                     className={hasError(thisName) ? 'error' : 'valid'}
