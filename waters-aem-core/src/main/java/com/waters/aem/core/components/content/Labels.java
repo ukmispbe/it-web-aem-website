@@ -91,7 +91,7 @@ public class Labels implements ComponentExporter {
                 Map jsonMap = new HashMap();
                 while (labelsItr.hasNext()) {
                     JsonFields jsonFields = labelsItr.next();
-                    jsonMap.put(jsonFields.getLabel(), jsonFields.getLabelText());
+                    jsonMap.put(jsonFields.getLabelKey(), jsonFields.getLabelValue());
                 }
                 modifiableValueMap.put(PROPERTY_LABELS_JSON, jsonMap.size() > 0 ? MAPPER.writeValueAsString(jsonMap) : "");
                 jsonMap.clear();

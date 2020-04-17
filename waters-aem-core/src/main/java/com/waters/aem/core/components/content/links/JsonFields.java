@@ -13,10 +13,10 @@ import javax.inject.Inject;
 public class JsonFields {
 
     @Inject
-    private String label;
+    private String labelKey;
 
     @Inject
-    private String labelText;
+    private String labelValue;
 
     @Inject
     private PageDecorator currentPage;
@@ -26,8 +26,8 @@ public class JsonFields {
             required = true,
             ranking = 1)
     @TextField
-    public String getLabel() {
-        return label;
+    public String getLabelKey() {
+        return labelKey;
     }
 
     @DialogField(fieldLabel = "Label Text",
@@ -35,5 +35,5 @@ public class JsonFields {
             required = true,
             ranking = 2)
     @TextField
-    public String getLabelText() { return labelText; }
+    public String getLabelValue() { return labelValue; }
 }

@@ -13,8 +13,8 @@ class LabelsSpec extends WatersSpec {
                     "jcr:content" {
                         labels() {
                             labelList {
-                                item1(label: "addToCart", labelText: "Add to Cart")
-                                item2(label: "orderHistory", labelText: "Order History")
+                                item1(labelKey: "addToCart", labelValue: "Add to Cart")
+                                item2(labelKey: "orderHistory", labelValue: "Order History")
                             }
                             configList {
                                 item1(link: "/content/waters/us/en/account/addToCart", text: "addToCartLink")
@@ -40,10 +40,10 @@ class LabelsSpec extends WatersSpec {
         labelsSpec.labelList.size() == 2
 
         and:
-        labelsSpec.labelList.label == ["addToCart", "orderHistory"]
+        labelsSpec.labelList.labelKey == ["addToCart", "orderHistory"]
 
         and:
-        labelsSpec.labelList.labelText == ["Add to Cart", "Order History"]
+        labelsSpec.labelList.labelValue == ["Add to Cart", "Order History"]
     }
 
     def "get configs"() {
