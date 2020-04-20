@@ -1,14 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { shallow, mount } from 'enzyme';
-import { act } from "react-dom/test-utils";
+import { shallow } from 'enzyme';
 
 import { OrderDetails } from '../index';
-import ErrorBoundary from '../../search';
 import * as getOrderDetails from '../orderDetails.services';
 import props from '../__mocks__/en_US/index';
 import { orderDetailsJSON } from '../__mocks__/en_US/services-json.test';
-import Spinner from "../../utils/spinner";
 
 describe('Feature: Order Details Component', () => {
 
@@ -45,20 +42,20 @@ describe('Feature: Order Details Component', () => {
 
                 const spyDidMount = jest.spyOn(OrderDetails.prototype,"componentDidMount");
                 const spyGetOrderDetails = jest.spyOn(getOrderDetails, 'getOrderDetails').mockImplementation(() => {
-                   return Promise.resolve(orderDetailsJSON);
+                    return Promise.resolve(orderDetailsJSON);
                 });
                 const didMount = wrapper.instance().componentDidMount();
                 expect(spyDidMount).toHaveBeenCalled();
 
                 didMount.then(() => {
-                   wrapper.update();
-                   expect(spyGetOrderDetails).toHaveBeenCalled();
-                   expect(wrapper.state('orderId')).toBe('15740002');
-                   expect(wrapper.state('orderDetails')).toBe(orderDetailsJSON);
+                    wrapper.update();
+                    expect(spyGetOrderDetails).toHaveBeenCalled();
+                    expect(wrapper.state('orderId')).toBe('15740002');
+                    expect(wrapper.state('orderDetails')).toBe(orderDetailsJSON);
 
-                   spyDidMount.mockRestore();
-                   fetch.mockClear();
-                   done();
+                    spyDidMount.mockRestore();
+                    fetch.mockClear();
+                    done();
                 });
             });
 
