@@ -15,7 +15,8 @@ import {
     registrationSubmit,
     resetPasswordSubmit,
     troubleSigningInSubmit,
-    signInSubmit
+    signInSubmit,
+    chooseAccountSubmit
 
 } from './forms/services/submit';
 import Video from './video/index';
@@ -349,6 +350,26 @@ if (troubleSigningInFormContainer) {
             isocode={DigitalData.language}
         />,
         troubleSigningInFormContainer
+    );
+}
+
+const chooseAccountFormContainer = document.getElementById(
+    'cmp-choose-account-form'
+);
+
+if (chooseAccountFormContainer) {
+    let config = JSON.parse(
+        document.getElementById('js-choose-account-form').innerHTML
+    );
+
+    ReactDOM.render(
+        // replace isocode with a value supplied by AEM
+        <Form
+            config={config}
+            submitFn={chooseAccountSubmit}
+            isocode={DigitalData.language}
+        />,
+        chooseAccountFormContainer
     );
 }
 

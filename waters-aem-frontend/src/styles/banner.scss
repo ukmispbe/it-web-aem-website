@@ -101,185 +101,25 @@
 
 .cmp-banner--accent .cmp-banner {
     background: $color-teal-50;
-    p,
-    a,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    ul li,
-    ol li {
-        color: $color-font-light;
-    }
 
     .cmp-banner__background-overlay {
         background-color: $color-teal-50;
-        opacity: 0.9;
-    }
-
-    .cmp-button button,
-    .cmp-button a,
-    a.cmp-button,
-    button.cmp-button {
-        background-color: transparent;
-        border: $border-light;
-        color: $color-font-light;
-        text-transform: uppercase;
-
-        &:hover {
-            color: $color-gray-20;
-            border: 1px solid $color-gray-20;
-            background: none;
-        }
-        &:active {
-            color: $color-font-light;
-            border: $border-light;
-            background: none;
-        }
-    }
-
-    .cmp-button--secondary button.cmp-button,
-    .cmp-button--secondary a.cmp-button,
-    a.cmp-button--secondary,
-    button.cmp-button--secondaryn {
-        color: $color-font-light;
-        border: $border-light;
-        background: none;
-
-        &:hover {
-            color: $color-gray-20;
-            border: 1px solid $color-gray-20;
-            background: none;
-        }
-        &:active {
-            color: $color-font-light;
-            border: $border-light;
-            background: none;
-        }
     }
 }
 
 .cmp-banner--blue .cmp-banner {
     background: $color-blue-50;
-    p,
-    a,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    ul li,
-    ol li {
-        color: $color-font-light;
-    }
 
     .cmp-banner__background-overlay {
         background-color: $color-blue-50;
-        opacity: 0.9;
-    }
-
-    .cmp-button button,
-    .cmp-button a,
-    a.cmp-button,
-    button.cmp-button {
-        background-color: transparent;
-        border: $border-light;
-        color: $color-font-light;
-
-        &:hover {
-            color: $color-gray-20;
-            border: 1px solid $color-gray-20;
-            background: none;
-        }
-        &:active {
-            color: $color-font-light;
-            border: $border-light;
-            background: none;
-        }
-    }
-
-    .cmp-button--secondary button.cmp-button,
-    .cmp-button--secondary a.cmp-button,
-    a.cmp-button--secondary,
-    button.cmp-button--secondaryn {
-        color: $color-font-light;
-        border: $border-light;
-        background: none;
-
-        &:hover {
-            color: $color-gray-20;
-            border: 1px solid $color-gray-20;
-            background: none;
-        }
-        &:active {
-            color: $color-font-light;
-            border: $border-light;
-            background: none;
-        }
     }
 }
 
 .cmp-banner--dark .cmp-banner {
     background: $color-background-dark;
-    p,
-    a,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    ul li,
-    ol li {
-        color: $color-font-light;
-    }
 
     .cmp-banner__background-overlay {
         background-color: $color-background-dark;
-        opacity: 0.85;
-    }
-
-    .cmp-button button,
-    .cmp-button a,
-    a.cmp-button,
-    button.cmp-button {
-        background-color: transparent;
-        border: $border-light;
-        color: $color-font-light;
-
-        &:hover {
-            color: $color-gray-20;
-            border: 1px solid $color-gray-20;
-            background: none;
-        }
-        &:active {
-            color: $color-font-light;
-            border: $border-light;
-            background: none;
-        }
-    }
-
-    .cmp-button--secondary button.cmp-button,
-    .cmp-button--secondary a.cmp-button,
-    a.cmp-button--secondary,
-    button.cmp-button--secondary {
-        color: $color-font-light;
-        border: $border-light;
-        background: none;
-
-        &:hover {
-            color: $color-gray-20;
-            border: 1px solid $color-gray-20;
-            background: none;
-        }
-        &:active {
-            color: $color-font-light;
-            border: $border-light;
-            background: none;
-        }
     }
 }
 
@@ -288,7 +128,6 @@
 
     .cmp-banner__background-overlay {
         background-color: $color-background-light;
-        opacity: 0.95;
     }
 }
 
@@ -368,5 +207,114 @@
 .cmp-banner--smallPadding .cmp-banner {
     .cmp-banner__parsys {
         padding: $space-l 0 $space-xxxs 0;
+    }
+}
+
+.cmp-banner--smallHeight .cmp-banner {
+    .cmp-banner__parsys {
+        min-height: 12em;
+    }
+}
+
+.cmp-banner--mediumHeight .cmp-banner {
+    .cmp-banner__parsys {
+        min-height: 16em;
+    }
+}
+
+.cmp-banner--largeHeight .cmp-banner {
+    .cmp-banner__parsys {
+        min-height: 20em;
+    }
+}
+
+.cmp-banner--xlargeHeight .cmp-banner {
+    .cmp-banner__parsys {
+        min-height: 24em;
+    }
+}
+
+.cmp-banner--0 .cmp-banner {
+    .cmp-banner__background-overlay {
+       opacity: .0;
+   }
+}
+
+.cmp-banner--30 .cmp-banner {
+     .cmp-banner__background-overlay {
+        opacity: .3;
+    }
+}
+
+.cmp-banner--50 .cmp-banner {
+    .cmp-banner__background-overlay {
+        opacity: .5;
+    }
+}
+
+.cmp-banner--70 .cmp-banner {
+    .cmp-banner__background-overlay {
+        opacity: .7;
+    }
+}
+
+.cmp-banner--90 .cmp-banner {
+    .cmp-banner__background-overlay {
+        opacity: .9;
+    }
+}
+
+.cmp-banner--reverse .cmp-banner {
+    .cmp-button button,
+    .cmp-button a,
+    a.cmp-button,
+    button.cmp-button {
+        background-color: transparent;
+        border: $border-white;
+        color: $color-font-light;
+
+        &:hover {
+            color: $color-gray-20;
+            border: 1px solid $color-gray-20;
+            background: none;
+        }
+        &:active {
+            color: $color-font-light;
+            border: $border-white;
+            background: none;
+        }
+    }
+
+    .cmp-button--secondary button.cmp-button,
+    .cmp-button--secondary a.cmp-button,
+    a.cmp-button--secondary,
+    button.cmp-button--secondaryn {
+        color: $color-font-light;
+        border: $border-white;
+        background: none;
+
+        &:hover {
+            color: $color-gray-20;
+            border: 1px solid $color-gray-20;
+            background: none;
+        }
+        &:active {
+            color: $color-font-light;
+            border: $border-white;
+            background: none;
+        }
+    }
+
+    p,
+    a,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ul li,
+    ol li {
+        color: $color-font-light;
     }
 }

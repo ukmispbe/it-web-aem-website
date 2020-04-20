@@ -27,7 +27,7 @@
                     "links": [
                         {
                             "text": "${'Order History' @ i18n, context='unsafe'}",
-                            "url": "${myaccount.legacyOrderHistoryUrl @ context='unsafe'}"
+                            "url": "${'#orderhistory' @ context='unsafe'}"
                         }
                     ]
                 },
@@ -53,9 +53,6 @@
                     "orderHistory": {
                         "title": "${'Order History' @ i18n, context='unsafe'}",
                         "backLinkTitle": "${'Back to Order History' @ i18n, context='unsafe'}"
-                    },
-                    "orderDetails": {
-                        "title": "${'Order Details' @ i18n, context='unsafe'}"
                     }
                 },
                 "backIcon": "/content/dam/waters/en/brand-assets/icons/left.svg"
@@ -72,10 +69,48 @@
                         "json-config--cmp-detail-tiles--billing"
                     ]
                 }
+            },
+            "changePassword": {
+                "config": "json-config--cmp-detail-tiles--changePassword"
+            },
+            "orderHistory": {
+                "title": "${'Order History' @ i18n, context='unsafe'}",
+                "resultsText": "${'Showing {0}-{1} of {2} Orders' @ format=['{startResults}', '{endResults}', '{count}'], i18n, context='unsafe'}",
+                "noOrdersFoundTitle": "${'Sorry, no orders found.' @ i18n, context='unsafe'}",
+                "noOrdersFoundText": "${'Check back after you shop on Waters.com for order information and shipment tracking.' @ i18n, context='unsafe'}",
+                "shopAllTitle": "${'Shop All Products' @ context='unsafe'}",
+                "shopAllHref": "${myaccount.shopAllProductsHref @ context='unsafe'}",
+                "orderText": "${'Order Number: ' @ context='unsafe'}",
+                "itemsText": "${' Items' @ context='unsafe'}",
+                "shipment": {
+                    "viewShipmentsText": "${'View Shipments' @ context='unsafe'}",
+                    "viewShipmentsURL": "${'#' @ context='unsafe'}",
+                    "openLabel": "${'In Progress' @ i18n, context='unsafe'}",
+                    "partialLabel": "${'Partially Shipped' @ i18n, context='unsafe'}",
+                    "completeLabel": "${'Shipped' @ i18n, context='unsafe'}"
                 },
-                "changePassword": {
-                    "config": "json-config--cmp-detail-tiles--changePassword"
-                }
+                "icons": {
+                    "openIcon": "/content/dam/waters/en/brand-assets/icons/refresh.svg",
+                    "partialIcon": "/content/dam/waters/en/brand-assets/icons/success.svg",
+                    "completeIcon": "/content/dam/waters/en/brand-assets/icons/success.svg"
+                },
+                "tabs": [
+                    {"name": "${'All Orders' @ i18n, context='unsafe'}"},
+                    {"name": "${'Open Orders' @ i18n, context='unsafe'}"}
+                ],
+                "orderfilters": {
+                    "allOrders": "${'All Orders' @ i18n, context='unsafe'}",
+                    "openOrders": "${'Open Orders' @ i18n, context='unsafe'}",
+                    "downIcon": "/content/dam/waters/en/brand-assets/icons/down.svg"   
+                } ,
+                "timeperiod": {
+                    "last30days": "${'Last 30 Days' @ i18n, context='unsafe'}",
+                    "last6months": "${'Last 6 Months' @ i18n, context='unsafe'}",
+                    "last12months": "${'Last 12 Months' @ i18n, context='unsafe'}",
+                    "showall": "${'Show All' @ i18n, context='unsafe'}",
+                    "downIcon": "/content/dam/waters/en/brand-assets/icons/down.svg"   
+                }         
+            }
         }
     </script>
 

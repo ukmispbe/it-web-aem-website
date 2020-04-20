@@ -94,10 +94,9 @@ public interface WatersAccountService {
     String getSignOutEndpoint();
 
     /**
-     * Get the configured for legacy order history page.
+     * Get the configured endpoint for Change account API.
      *
-     * @return User sign out API URL
+     * @return switch account API URL
      */
-    //TODO : Delete for Release: Myaccount-6.2.0
-    String getLegacyOrderHistoryUrl();
+    String getChooseAccountEndpoint();
 }

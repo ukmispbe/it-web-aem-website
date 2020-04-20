@@ -1,5 +1,5 @@
 <div
-    data-sly-use.registration="com.waters.aem.core.components.content.forms.Registration"
+        data-sly-use.registration="com.waters.aem.core.components.content.forms.Registration"
 >
     <div class="cmp-form--attach" id="js-registration-form"></div>
     <script type="application/json" id="cmp-registration-form">
@@ -34,6 +34,24 @@
                     }
                 },
                 {
+                    "type": "dropdown",
+                    "name": "salutation",
+                    "label": "${'Salutation' @ i18n, context='text'}",
+                    "placeholder": "${'Select...' @ i18n, context='text'}",
+                    "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
+                    "options": [
+                        {"salutationCode":"dr","displayName": "${'Dr.' @ i18n, context='text'}"},
+                        {"salutationCode":"mr","displayName": "${'Mr.' @ i18n, context='text'}"},
+                        {"salutationCode":"mrs","displayName": "${'Mrs.' @ i18n, context='text'}"},
+                        {"salutationCode":"ms","displayName": "${'Ms.' @ i18n, context='text'}"}
+                    ],
+                    "active": false,
+                    "validation": {
+                        "required": true,
+                        "requiredMsg": "${'Please select your salutation.' @ i18n, context='text'}"
+                    }
+                },
+                {
                     "type": "text",
                     "name": "firstName",
                     "label": "${'First Name' @ i18n, context='text'}",
@@ -63,6 +81,18 @@
                         "requiredMsg": "${'Please enter a last name.' @ i18n, context='unsafe'}"
                     }
                 },
+                {
+                    "type": "text",
+                    "name": "pronName",
+                    "label": "${'Pronunciation (Name)' @ i18n, context='text'}",
+                    "active": false,
+                    "validation": {
+                        "required": true,
+                        "validateFnName": "noWhitespaceOnly",
+                        "validationMsg": "${'Please enter a pronunciation (name).' @ i18n, context='unsafe'}",
+                        "requiredMsg": "${'Please enter a pronunciation (name).' @ i18n, context='unsafe'}"
+                    }
+                },                
                 {
                     "type": "text",
                     "name": "company",
@@ -116,18 +146,14 @@
                 {
                     "type": "checkbox",
                     "name": "communications",
-                    "label": "${'I want to receive communications from Waters.' @ i18n, context='text'}",
+                    "label": "${'I agree to receive marketing, product, training, support, and related communications via mail, email, or other electronic means.' @ i18n, context='text'}",
                     "optionalLabel": "${'(optional)' @ i18n, context='text'}"
                 },
                 {
                     "type": "checkbox",
-                    "name": "privacy",
-                    "label": "${'I agree and consent to the information I have provided on this website to be used and processed by Waters in accordance with the' @ i18n, context='text'}",
-                    "config": {
-                        "text": "${'Waters Privacy Notice.' @ i18n, context='text'}",
-                        "link": "${registration.privacyNoticeLink.href @ context='unsafe'}",
-                        "blank": "${registration.newWindow @ context='unsafe'}"
-                    },
+                    "name": "eCommerceAgreement",
+                    "label": "${'I confirm to open a China eShop account and agree to the terms and conditions. (We will contact you soon)' @ i18n, context='unsafe'}",
+                    "active": false,
                     "validation": {
                         "required": true,
                         "validateFnName": "checkBoxOrRadio"
@@ -140,12 +166,74 @@
                     "validation": {
                         "required": true
                     }
+                },
+                {
+                    "type": "textwithlinks",
+                    "name": "privacy",
+                    "config": [
+                        {
+                            "type": "text",
+                            "text": "${'By clicking the CREATE ACCOUNT button, you are agreeing to our' @ i18n, context='text'}"
+                        },
+                        {
+                            "type": "link",
+                            "label": "${'Terms of Use' @ i18n, context='text'}",
+                            "url": "${registration.termsOfUseLink.href @ context='unsafe'}",
+                            "blank": "${registration.newWindow @ context='unsafe'}"
+                        },
+                        {
+                            "type": "text",
+                            "text": "${'and understand that the information you have provided on this website will be used and processed by Waters in accordance with the' @ i18n, context='text'}"
+                        },
+                        {
+                            "type": "link",
+                            "label": "${'Waters Privacy Notice.' @ i18n, context='text'}",
+                            "url": "${registration.privacyNoticeLink.href @ context='unsafe'}",
+                            "blank": "${registration.newWindow @ context='unsafe'}"
+                        }
+                    ]
+                }
+            ],
+            "regionalConfig": [
+            {
+                "country":"all",
+                "fields":[
+                        "salutation",
+                        "pronName",
+                        "eCommerceAgreement"
+                    ]
+                },
+                {
+                "country":"jp",
+                "fields":[
+                        "salutation",
+                        "pronName"
+                    ]
+                },
+                {
+                "country":"tw",
+                "fields":[
+                        "salutation"
+                    ]
+                },
+                {
+                "country":"kr",
+                    "fields":[
+                        "salutation"
+                    ]
+                },
+                {
+                "country":"cn",
+                    "fields":[
+                        "salutation",
+                        "eCommerceAgreement"
+                    ]
                 }
             ]
         }
     </script>
 </div>
 <sly
-    data-sly-use.patterns="/apps/waters/components/content/patterns.html"
-    data-sly-call="${patterns.placeholder @ show=true, text=component.title}"
+        data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+        data-sly-call="${patterns.placeholder @ show=true, text=component.title}"
 />

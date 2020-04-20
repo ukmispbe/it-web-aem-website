@@ -8,10 +8,12 @@ import com.citytechinc.cq.component.annotations.Option;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.Selection;
 import com.icfolson.aem.library.api.link.Link;
+import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.form.captcha.CaptchaService;
 import com.waters.aem.core.services.account.WatersAccountService;
+import com.waters.aem.core.utils.LinkUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -54,6 +56,9 @@ public class ResetPassword implements ComponentExporter {
     @OSGiService
     private CaptchaService captchaService;
 
+    @Inject
+    private PageManagerDecorator pageManager;
+
     @DialogField(fieldLabel = "Redirect Page URL",
         fieldDescription = "Select or enter the redirect URL",
         ranking = 1)
@@ -76,7 +81,7 @@ public class ResetPassword implements ComponentExporter {
     private String formType;
 
     public Link getRedirectLink() {
-        return redirectLink;
+        return LinkUtils.getMappedLink(pageManager, redirectLink);
     }
 
     public String getFormType() {

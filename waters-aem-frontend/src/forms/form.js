@@ -11,6 +11,7 @@ import { ErrorsProvider, FormStateProvider } from './fields/utils/stateWatcher';
 import DigitalData from '../scripts/DigitalData';
 import ErrorBoundary from '../search/ErrorBoundary';
 import Field from './fields';
+import { retrieveData } from '../forms/services/retrieve';
 import Analytics, { analyticTypes } from "../scripts/analytics";
 
 const FormApi = createContext(null);
@@ -85,6 +86,9 @@ const Form = ({
 
     const [errorUpdates, setUpdate] = useState({});
     const [failedAttempts, setFailedAttempts] = useState(1);
+    const [countrySaved, setCountrySaved] = useState();
+    const regionalConfig = config.regionalConfig;
+
     const captchaField = config.fields.filter(
         field => field.type === 'captcha'
     )[0];
@@ -107,7 +111,7 @@ const Form = ({
 
     const activateField = inputName => {
         const fields = config.fields.map(field => {
-            if (field.type === inputName) {
+            if (field.type === inputName || field.name === inputName) {
                 field.active = true;
             }
             return field;
@@ -115,8 +119,69 @@ const Form = ({
         config.fields = [...fields];
     };
 
+    const deactivateField = inputName => {
+        const fields = config.fields.map(field => {
+            if (field.name === inputName) {
+                field.active = false;
+            }
+            return field;
+        });
+        config.fields = [...fields];
+    };
+    
+    const getCountryCodefromURL = () => {
+        const urlString = document.URL;
+        const stringPos = urlString.search(`/${isocode}/`)
+        const countryCode = urlString.substr((stringPos - 2), 2);
+        return countryCode.toLowerCase();
+    }
+
     useEffect( () => {
         setFormAnalytics('load');
+    }, []);
+
+    useEffect( () => {
+        // Configure Registration Form on "Loading"
+        if (config.formName === "registration") {
+            const countryRegion = getCountryCodefromURL();
+            // Get Regional config 
+            const countryOptionsConfig = regionalConfig;           
+            // Hide all country configurable fields
+            const allCountryOptions = countryOptionsConfig.filter(p => p.country === "all")
+            if (allCountryOptions.length === 1){
+                allCountryOptions[0].fields.map(fieldName => deactivateField(fieldName));
+            }          
+            // Display Specific fields for the current country
+            const selectedCountryOptions = countryOptionsConfig.filter(p => p.country === countryRegion)
+            if (selectedCountryOptions.length === 1){
+                selectedCountryOptions[0].fields.map(fieldName => activateField(fieldName));
+            }
+        }
+    }, []);
+
+    const [newConfig, setNewConfig] = useState();
+
+    useEffect(() => {
+        if (!config.getRadioOptions) {
+            return;
+        }
+
+        retrieveData(config.optionsEndpoint).then(resp => {
+            const tempArray = resp.map((item) => {
+                let tempOption = {};
+                tempOption.name = item.soldTo;
+                tempOption.label = item.company;
+                tempOption.accountStreet = item.partnerAddress[0].street;
+                tempOption.accountCity = item.partnerAddress[0].city;
+                tempOption.accountZip = item.partnerAddress[0].postalCd;
+                return tempOption;
+            });
+
+            config.options = tempArray;
+            config.fields[1].options = tempArray;
+            // PB Setting newConfig to triiger a reload
+            setNewConfig(config);
+        });
     }, []);
 
     useEffect(() => {
@@ -159,7 +224,11 @@ const Form = ({
             register,
             triggerValidation,
             getValues,
-            getValue
+            getValue,
+            activateField,
+            deactivateField,
+            setCountrySaved,
+            regionalConfig
         }),
         [register]
     );
@@ -185,55 +254,64 @@ const Form = ({
                     ? defaultValues[field.name]
                     : undefined
             }),
-            [field, field.active]
+            [field, field.active, newConfig]
         );
+
         return (
             <FieldApi.Provider value={getFieldApi} key={`field-${i}`}>
                 <Field />
             </FieldApi.Provider>
         );
     });
-    return (
-        <form
-            className="cmp-form cmp-form--registration"
-            onSubmit={handleSubmit(
-                submitFn.bind({
-                    url: config.submitEndpoint,
-                    setError: submitErrorHandler,
-                    redirect: config.redirectUrl,
-                    passwordUpdateUrl: config.passwordUpdateUrl,
-                    callback: callback,
-                    updateFailedAttempts: updateFailedAttempts,
-                    setProfileData: setProfileData,
-                    setFormAnalytics: setFormAnalytics
-                })
-            )}
-        >
-            <FormApi.Provider value={getApi}>
-                <FormStateProvider watch={formState}>
-                    <ErrorsProvider watch={errors}>{fields}</ErrorsProvider>
-                </FormStateProvider>
-            </FormApi.Provider>
-            <button
-                type="submit"
-                className={
-                    'cmp-button cmp-button--no-border cmp-form--submit' +
-                    (checkIfDisabled() ? ' cmp-button--disabled' : '')
-                }
-                disabled={checkIfDisabled()}
+
+    if (config.getRadioOptions && !config.options) {
+        return null;
+    }
+    else {
+        return (
+            <form
+                className="cmp-form cmp-form--registration"
+                onSubmit={handleSubmit(
+                    submitFn.bind({
+                        url: config.submitEndpoint,
+                        setError: submitErrorHandler,
+                        redirect: config.redirectUrl,
+                        passwordUpdateUrl: config.passwordUpdateUrl,
+                        callback: callback,
+                        updateFailedAttempts: updateFailedAttempts,
+                        setProfileData: setProfileData,
+                        setFormAnalytics: setFormAnalytics
+
+                    })
+                )}
             >
-                {config.buttonText}
-            </button>
-            {config.cancelText && !!cancelHandler && (
-                <a
-                    className="cmp-button cmp-button--cancel"
-                    onClick={cancelHandler}
+                <FormApi.Provider value={getApi}>
+                    <FormStateProvider watch={formState}>
+                        <ErrorsProvider watch={errors}>{fields}</ErrorsProvider>
+                    </FormStateProvider>
+                </FormApi.Provider>
+                <button
+                    type="submit"
+                    className={
+                        'cmp-button cmp-button--no-border cmp-form--submit' +
+                        (checkIfDisabled() ? ' cmp-button--disabled' : '')
+                    }
+                    disabled={checkIfDisabled()}
                 >
-                    {config.cancelText}
-                </a>
-            )}
-        </form>
-    );
+                    {config.buttonText}
+                </button>
+                {config.cancelText && !!cancelHandler && (
+                    <a
+                        className="cmp-button cmp-button--cancel"
+                        onClick={cancelHandler}
+                    >
+                        {config.cancelText}
+                    </a>
+                )}
+            </form>
+        );
+    }
+
 };
 
 const ErrorBoundaryForm = props => (

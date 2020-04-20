@@ -158,8 +158,8 @@
             &:active {
                 border: 2px solid $color-focus;
             }
-            font-family: $font-stack;
-            font-weight: $font-weight-light;
+            font-family: inherit;
+            font-weight: inherit;
             text-align: center;
 
             -moz-appearance: textfield;

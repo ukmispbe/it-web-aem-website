@@ -4,7 +4,6 @@ import com.day.cq.commons.LanguageUtil;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.enums.TitleType;
-import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.utils.LinkUtils;
 
 import java.util.Optional;

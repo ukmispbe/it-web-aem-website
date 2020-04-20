@@ -9,10 +9,12 @@ import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.icfolson.aem.library.api.link.Link;
+import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.form.captcha.CaptchaService;
 import com.waters.aem.core.services.account.WatersAccountService;
+import com.waters.aem.core.utils.LinkUtils;
 import com.waters.aem.core.utils.MyAccountUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Default;
@@ -53,6 +55,9 @@ public class Registration implements ComponentExporter {
     @OSGiService
     private CaptchaService captchaService;
 
+    @Inject
+    private PageManagerDecorator pageManager;
+
     @DialogField(fieldLabel = "Login Link",
         fieldDescription = "Select or enter the link URL",
         required  = true,
@@ -69,18 +74,26 @@ public class Registration implements ComponentExporter {
     @LinkInject
     private Link privacyNoticeLink;
 
+    @DialogField(fieldLabel = "Terms of Use Link",
+        fieldDescription = "Select or enter the link URL for Terms of Use",
+        required  = true,
+        ranking = 3)
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject
+    private Link termsOfUseLink;
+
     @DialogField(fieldLabel = "Redirect Link",
         fieldDescription = "Select or enter the redirect link URL. The destination page the user will be redirected " +
         "to after successful submission",
         required  = true,
-        ranking = 3)
+        ranking = 4)
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject
     private Link redirectLink;
 
     @DialogField(fieldLabel = "Open in New Window",
         fieldDescription = "Select this option to open 'Privacy Notice' in new window",
-        ranking = 4)
+        ranking = 5)
     @Switch(offText = "No", onText = "Yes")
     @Inject
     @Default(booleanValues = false)
@@ -91,11 +104,15 @@ public class Registration implements ComponentExporter {
     }
 
     public Link getPrivacyNoticeLink() {
-        return privacyNoticeLink;
+        return LinkUtils.getMappedLink(pageManager, privacyNoticeLink);
     }
 
     public Link getRedirectLink() {
-        return redirectLink;
+        return LinkUtils.getMappedLink(pageManager, redirectLink);
+    }
+
+    public Link getTermsOfUseLink() {
+        return termsOfUseLink;
     }
 
     public Boolean isNewWindow() {

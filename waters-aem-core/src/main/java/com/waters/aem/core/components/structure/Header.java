@@ -12,6 +12,7 @@ import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageDecorator;
+import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.core.node.predicates.ComponentNodeResourceTypePredicate;
@@ -25,7 +26,6 @@ import com.waters.aem.core.services.account.WatersAccountService;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.waters.aem.core.services.launch.AdobeLaunchService;
 import com.waters.aem.core.utils.LinkUtils;
-import com.waters.aem.core.utils.Templates;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -37,7 +37,6 @@ import org.apache.sling.models.factory.ModelFactory;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import java.util.Collections;
-import java.util.Locale;
 
 @Component(value = "Header",
     group = ComponentConstants.GROUP_HIDDEN,
@@ -76,6 +75,10 @@ public final class Header extends AbstractComponent implements ComponentExporter
 
     @OSGiService
     private AdobeLaunchService adobeLaunchService;
+
+    @Inject
+    private PageManagerDecorator pageManager;
+    
 
     @DialogField(fieldLabel = "Header Logo",
         fieldDescription = "select header logo",
@@ -207,31 +210,31 @@ public final class Header extends AbstractComponent implements ComponentExporter
     }
 
     public Link getMyAccountLink() {
-        return myAccountLink;
+        return LinkUtils.getMappedLink(pageManager, myAccountLink);
     }
 
     public Link getSignInLink() {
-        return signInLink;
+        return LinkUtils.getMappedLink(pageManager, signInLink);
     }
 
     public Link getSignOutLink() {
-        return signOutLink;
+        return LinkUtils.getMappedLink(pageManager, signOutLink);
     }
 
     public Link getSwitchAccountLink() {
-        return switchAccountLink;
+        return LinkUtils.getMappedLink(pageManager, switchAccountLink);
     }
 
     public Link getCreateAccountLink() {
-        return createAccountLink;
+        return LinkUtils.getMappedLink(pageManager, createAccountLink);
     }
 
     public Link getProfileLink() {
-        return profileLink;
+        return LinkUtils.getMappedLink(pageManager, profileLink);
     }
 
     public Link getOrdersLink() {
-        return ordersLink;
+        return LinkUtils.getMappedLink(pageManager, ordersLink);
     }
 
     public Boolean isHideIcons() { return hideIcons; }

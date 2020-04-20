@@ -46,7 +46,7 @@ export async function registrationSubmit(data) {
 
     // remove all previous server error notifications
     this.setError();
-    
+
     if (response.status === 200) {
         if (this.callback) {
             const userDetails = await UserDetails(this.callback);
@@ -129,7 +129,7 @@ export async function resetPasswordSubmit(data) {
                 store.setUserDetails(userDetails);
                 store.removeSoldToDetails();
             }
-        } 
+        }
         if (this.redirect) {
             window.location.replace(this.redirect);
         }
@@ -178,22 +178,26 @@ export async function changePasswordSubmit(data) {
 export async function personalSubmit(data) {
 
     const response = await postData(this.url, data);
-
+    const responseBody = await response.json();
     // remove all previous server error notifications
     this.setError();
 
     if (response.status === 200) {
-        const submitResponse = await response.json();
         const store = new SessionStore();
-        store.setUserDetails(submitResponse);
+        store.setUserDetails(responseBody);
         store.setPersonalDetailsUpdated();
-        this.setProfileData(submitResponse);
+        this.setProfileData(responseBody);
+        const model = {
+            "communications":data.communications 
+        }
+        this.setFormAnalytics('submit', model);
 
         this.callback();
     } else if (response.status === 401) {
         signInRedirect();
     } else {
         this.setError(response);
+        this.setFormAnalytics('error', responseBody);
         scrollToY(0);
     }
 }
@@ -204,7 +208,7 @@ export async function signInSubmit(data) {
         this.url = `${this.url}?captcha=${data.captcha}`;
         delete data.captcha;
     }
-    
+
     const response = await postData(this.url, data);
     const responseBody = await response.json();
 
@@ -258,15 +262,13 @@ export async function chooseAccountSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
-        this.setFormAnalytics('submit');
         if (this.redirect) {
             window.location.replace(this.redirect);
         }
     } else if (response.status === 401) {
         signInRedirect();
     } else {
-        this.setFormAnalytics('error', responseBody);
         this.setError(responseBody);
         scrollToY(0);
-    }   
+    }
 }

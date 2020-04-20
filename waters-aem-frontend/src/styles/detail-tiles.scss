@@ -243,10 +243,6 @@
                     float: none;
                 }
             }
-
-            &.hidden {
-                display: none;
-            }
         }
     }
 }
@@ -301,5 +297,8 @@
             @include font-h2;
             margin-bottom: 0;
         }
+    }
+    .cmp-detail-tiles-list {
+        width: calc(100vw - 37em);
     }
 }

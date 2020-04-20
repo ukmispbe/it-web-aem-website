@@ -59,7 +59,6 @@ const Input = ({
     );
 
     const renderInput = () => {
-
         return (
             <>
                 <label
@@ -93,6 +92,8 @@ const Input = ({
                         onChange={updateReq}
                         placeholder=" "
                         disabled={disabled}
+                        aria-labelledby={name}
+                        aria-required={validation.required}
                         className={
                             !!errors[name]
                                 ? 'error'

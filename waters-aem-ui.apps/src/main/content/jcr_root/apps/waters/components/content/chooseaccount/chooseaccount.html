@@ -1,0 +1,28 @@
+<div data-sly-use.chooseAccount="com.waters.aem.core.components.content.ChooseAccount">
+    <div class="cmp-form--attach" id="cmp-choose-account-form"></div>
+    <script type="application/json" id="js-choose-account-form">
+        {
+           "submitEndpoint": "${chooseAccount.chooseAccountEndpoint @ context='unsafe'}",
+            "optionsEndpoint": "${chooseAccount.soldToEndpoint @ context='unsafe'}",
+            "redirectUrl": "${chooseAccount.redirectLink.href @ context='unsafe'}",
+            "buttonText": "${'Continue' @ i18n, context='text'}",
+            "getRadioOptions": true,
+            "fields": [ 
+                {
+                    "type": "body",
+                    "name": "details",
+                    "text": "${'Please choose which account you would like use while you browse and shop. Product pricing and other content may vary depending on which account you choose. ' @ i18n, context='unsafe'}"
+                }, 
+                {
+                    "type": "radio",
+                    "name": "accountNumber",
+                    "validation": {
+                        "required": true,
+                        "validateFnName": "checkBoxOrRadio",
+                        "validationMsg": "Select an Account"
+                    }
+                }
+            ]
+        } 
+    </script>
+</div>

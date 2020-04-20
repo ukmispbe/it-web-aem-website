@@ -57,17 +57,16 @@ a.cmp-button--secondary,
 button.cmp-button--secondary {
     padding: $space-xs $space-l;
     margin-bottom: $space-l;
-    color: $color-blue-70;
+    color: $color-link;
     text-transform: uppercase;
-    background-color: $color-blue-10;
+    background-color: transparent;
+    border: $border-link;
     transition: $hover-transition;
 
     &:hover {
-        background: $color-blue-20;
-    }
-
-    &:active {
-        background: $color-blue-20;
+        background: $color-link-hover;
+        border: 1px solid $color-link-hover;
+        color: $color-font-light;
     }
 
     @include mobile {
