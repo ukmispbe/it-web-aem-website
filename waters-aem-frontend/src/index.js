@@ -331,7 +331,7 @@ if (registrationFormContainer) {
         }
     }
 
-    if (config.formName === "registration" && digitalData.page.country.toUpperCase() ==="JP") {
+    if (config.formName === "registration" && digitalData.page.country.toLowerCase() ==="jp") {
         swapFirstAndLastNames();
     }
 
