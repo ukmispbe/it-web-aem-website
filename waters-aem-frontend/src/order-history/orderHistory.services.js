@@ -33,9 +33,7 @@ class OrderHistoryService {
                 return response.json();
             } else if (response.status === 401) {
                 signInRedirect();
-            }  else {
-                return [];
-            }
+            } 
         })
         .catch(error => {
             this.throwError(error);
