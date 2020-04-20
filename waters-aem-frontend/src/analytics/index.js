@@ -2,111 +2,11 @@ import inlineSVG from '../scripts/inlineSVG';
 import DigitalData from '../scripts/DigitalData';
 import SessionStore from '../stores/sessionStore';
 import cookieStore from '../stores/cookieStore';
+import eventTypes from './eventTypes';
 
 class Analytics {
     constructor() {
-        this.analyticTypes = {
-            cart: {
-                name: 'cart',
-                event: 'cartAdd',
-                context: ['main', 'search', 'related']
-            },
-            stock: {
-                name: 'stock',
-                event: 'checkAvailability'
-            },
-            search: {
-                name: 'search',
-                event: 'search'
-            },
-            form: {
-                name: 'form',
-                registration: {
-                    name: 'registrationForm',
-                    load: {
-                        event: 'registrationFormLoad'
-                    },
-                    submit: {
-                        event: 'registrationFormSubmit'
-                    },
-                    error: {
-                        event: 'registrationFormError'
-                    }
-                },
-                signin: {
-                    name: 'signInForm',
-                    load: {
-                        event: 'signInFormLoad'
-                    },
-                    submit: {
-                        event: 'signInFormSubmit'
-                    },
-                    error: {
-                        event: 'signInFormError'
-                    }
-                },
-                troublesigningin: {
-                    name: 'troubleSignInForm',
-                    load: {
-                        event: 'troubleSignInFormLoad'
-                    },
-                    submit: {
-                        event: 'troubleSignInFormSubmit'
-                    },
-                    error: {
-                        event: 'troubleSignInFormError'
-                    }
-                },
-                resetpassword: {
-                    name: 'resetPasswordForm',
-                    load: {
-                        event: 'resetPasswordFormLoad'
-                    },
-                    submit: {
-                        event: 'resetPasswordFormSubmit'
-                    },
-                    error: {
-                        event: 'resetPasswordFormError'
-                    }
-                },
-                updatepassword: {
-                    name: 'updatePasswordForm',
-                    load: {
-                        event: 'legacyPasswordFormLoad'
-                    },
-                    submit: {
-                        event: 'legacyPasswordFormSubmit'
-                    },
-                    error: {
-                        event: 'legacyPasswordFormError'
-                    }
-                },
-                changepassword: {
-                    name: 'changePasswordForm',
-                    load: {
-                        event: 'changePasswordFormLoad'
-                    },
-                    submit: {
-                        event: 'changePasswordFormSubmit'
-                    },
-                    error: {
-                        event: 'changePasswordFormError'
-                    }
-                },
-                personaldetails: {
-                    name: 'personalDetailsForm',
-                    load: {
-                        event: 'personalDetailsFormLoad'
-                    },
-                    submit: {
-                        event: 'personalDetailsFormSubmit'
-                    },
-                    error: {
-                        event: 'personalDetailsFormError'
-                    }
-                }
-            }
-        }
+        this.analyticTypes = eventTypes;
     }
 
     setAnalytics = (name, model) => {
@@ -199,6 +99,8 @@ class Analytics {
     }
 
     dispatchEvent = (eventName, obj) => {
+        console.log(obj);
+        alert(eventName);
         document.dispatchEvent(new CustomEvent(eventName, obj));
     }
 

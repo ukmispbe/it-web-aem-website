@@ -1,4 +1,4 @@
-export const analyticTypes = {
+export const eventTypes = {
     cart: {
         name: 'cart',
         event: 'cartAdd',
