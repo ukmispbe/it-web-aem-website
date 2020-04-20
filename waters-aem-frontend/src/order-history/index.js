@@ -136,7 +136,7 @@ class OrderHistory extends Component {
         const OrderHistoryServiceObj = new OrderHistoryService();
         const orders = await OrderHistoryServiceObj.getOrderListPost(fromDate, toDate, poNumber, orderNumber);
 
-        if(orders.length > 0){
+        if(orders && orders.length > 0){
             let filteredOrders = orders;
             if (activeTabFilter !== undefined && activeTabFilter !== "All" && activeTabFilter === "Open"){
                 filteredOrders = orders.filter(function(i) {
