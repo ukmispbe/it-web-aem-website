@@ -25,9 +25,6 @@ import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletPaths;
 import org.apache.sling.settings.SlingSettingsService;
 import org.osgi.service.component.annotations.*;
-import org.osgi.service.metatype.annotations.AttributeDefinition;
-import org.osgi.service.metatype.annotations.Designate;
-import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +36,6 @@ import java.net.HttpURLConnection;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -47,7 +43,6 @@ import java.util.concurrent.TimeUnit;
  */
 @Component(service = Servlet.class)
 @SlingServletPaths("/bin/waters/content")
-@Designate(ocd = WatersContentService.Config.class)
 public class WatersContentService extends SlingAllMethodsServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(WatersContentService.class);
@@ -58,23 +53,11 @@ public class WatersContentService extends SlingAllMethodsServlet {
     @Reference
     private SlingSettingsService settingsService;
 
-    private volatile String[] origins;
-
     @Override
     public void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) {
         try {
             LOG.info("New Content Service request");
             response.setContentType("application/json; charset=UTF-8");
-            String origin = request.getHeader("origin");
-            LOG.debug("Request origin {}", origin);
-            LOG.debug("Configured origins {}", Arrays.toString(origins));
-            if (StringUtils.isNotBlank(origin) && Arrays.asList(origins).contains(origin.trim())) {
-                response.setHeader("Access-Control-Allow-Origin", origin);
-                response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
-                response.setHeader("Access-Control-Allow-Headers", "X-Auth-Token, Content-Type, Authorization, x-dtpc, x-dtreferer");
-                response.setHeader("Access-Control-Allow-Credentials", "true");
-                LOG.debug("CORS headers added in response for origin {}", origin);
-            }
             String pagePath = request.getParameter("pagePath");
             final String responseLevel = request.getParameter("depth");
             if (StringUtils.isNotBlank(pagePath) && (pagePath.startsWith(WatersConstants.ROOT_PATH) || pagePath.startsWith(WatersConstants.CUSTOM_ROOT_PATH))) {
@@ -164,22 +147,11 @@ public class WatersContentService extends SlingAllMethodsServlet {
             LOG.info("Exception occured: {}", e.getMessage());
             LOG.debug("Exception occured: {}", e);
         }
-        if(StringUtils.isBlank(responseEntity)){
+        if (StringUtils.isBlank(responseEntity)) {
             responseEntity = "\"\"";
         }
         LOG.info("HTTP/HTTPS call successful for URI: {} ", URI);
         return responseEntity;
     }
 
-    @Activate
-    @Modified
-    protected void activate(final WatersContentService.Config configuration) {
-        origins = configuration.getOrigins();
-    }
-
-    @ObjectClassDefinition(name = "Waters Content Service Configuration")
-    public @interface Config {
-        @AttributeDefinition(name = "Allowed Origins", description = "Set the allowed origins e.g. https://www.hostname.com ")
-        String[] getOrigins() default "http://localhost:3000";
-    }
 }
