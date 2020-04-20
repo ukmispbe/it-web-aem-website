@@ -115,10 +115,12 @@ class Analytics {
             if(model.formName === 'resetpassword' && model.formType && model.formType === 'update') {
                 model.formName = 'updatepassword';
             }
-            thisAnalyticEvent = this.analyticTypes[name][model.formName][model.event];
+            if(model.formName !== 'chooseAccount') {
+                thisAnalyticEvent = this.analyticTypes[name][model.formName][model.event];
+            }
         } else {
             thisAnalyticEvent = this.analyticTypes[name];
-        };
+        }
         if (thisAnalyticEvent) {
             const newModel = this.buildModel(name, model);
             if (newModel) {

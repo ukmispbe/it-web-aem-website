@@ -127,14 +127,6 @@ export async function resetPasswordSubmit(data) {
             if (!userDetails.failed) {
                 const store = new SessionStore();
                 store.setUserDetails(userDetails);
-                           
-                // // Temporary Code to ensure the user has to Choose Account
-                // const soldToAccounts = userDetails.soldToAccounts;
-                // if(soldToAccounts.length !== 0) {
-                //     soldToAccounts[0].defaultFlag = 1;
-                //     console.log(soldToAccounts);
-                // }
-                // // Temporary Code to ensure the user has to Choose Account
 
                 const needToChooseAccount = checkRedirectToChooseAccount(userDetails.soldToAccounts);
                 if(needToChooseAccount) {
@@ -191,8 +183,6 @@ export async function changePasswordSubmit(data) {
         scrollToY(0);
     }
 }
-
-
 
 export async function personalSubmit(data) {
 
@@ -263,14 +253,6 @@ export async function signInSubmit(data) {
             if (!userDetails.failed) {
                 const store = new SessionStore();
                 store.setUserDetails(userDetails);
-                                
-                // // Temporary Code to ensure the user has to Choose Account
-                // const soldToAccounts = userDetails.soldToAccounts;
-                // if(soldToAccounts.length !== 0) {
-                //     soldToAccounts[0].defaultFlag = 1;
-                //     console.log(soldToAccounts);
-                // }
-                // // Temporary Code to ensure the user has to Choose Account
 
                 const needToChooseAccount = checkRedirectToChooseAccount(userDetails.soldToAccounts);
                 if(needToChooseAccount) {
@@ -282,7 +264,6 @@ export async function signInSubmit(data) {
 
                 store.removeSoldToDetails();
 
-                // Check 
             }
         }
 
