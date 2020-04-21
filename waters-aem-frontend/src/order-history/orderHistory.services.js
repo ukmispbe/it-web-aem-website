@@ -29,12 +29,11 @@ class OrderHistoryService {
             body: JSON.stringify(options)
         })
         .then(response => {
-            console.log("response", response);
             if (response.status === 200) {
-                response.json();
+                return response.json();
             } else if (response.status === 401) {
                 signInRedirect();
-            }
+            } 
         })
         .catch(error => {
             this.throwError(error);
