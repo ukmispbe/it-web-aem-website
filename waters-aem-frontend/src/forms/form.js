@@ -12,7 +12,7 @@ import DigitalData from '../scripts/DigitalData';
 import ErrorBoundary from '../search/ErrorBoundary';
 import Field from './fields';
 import { retrieveData } from '../forms/services/retrieve';
-import Analytics, { analyticTypes } from "../scripts/analytics";
+import Analytics, { analyticTypes } from "../analytics";
 import SessionStore from '../stores/sessionStore';
 
 const FormApi = createContext(null);
