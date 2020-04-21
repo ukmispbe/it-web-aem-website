@@ -9,18 +9,20 @@ class Analytics {
         this.analyticTypes = eventTypes;
     }
 
-    setAnalytics = (name, model) => {
+    setAnalytics = (eventType, model) => {
         let thisAnalyticEvent = null;
-        if(name==='form') {
+        if(eventType==='form') {
             if(model.formName === 'resetpassword' && model.formType && model.formType === 'update') {
                 model.formName = 'updatepassword';
             }
-            thisAnalyticEvent = this.analyticTypes[name][model.formName][model.event];
+            if(model.formName !== 'chooseAccount') {
+                thisAnalyticEvent = this.analyticTypes[eventType][model.formName][model.event];
+            }
         } else {
-            thisAnalyticEvent = this.analyticTypes[name];
+            thisAnalyticEvent = this.analyticTypes[eventType];
         };
         if (thisAnalyticEvent) {
-            const newModel = this.buildModel(name, model);
+            const newModel = this.buildModel(eventType, model);
             if (newModel) {
                 this.dispatchEvent(thisAnalyticEvent.event, newModel)
             }
@@ -54,9 +56,9 @@ class Analytics {
         const userDetails = store.getUserDetails();
 
         model.page = DigitalData.page ? DigitalData.page : {};
-        model.userLoggedIn = cookieStore.getLoggedInStatus() ? "yes" : "no";
+        model.detail.userLoggedIn = cookieStore.getLoggedInStatus() ? "yes" : "no";
         if(userDetails){
-            model.userID = userDetails.userId;
+            model.detail.userID = userDetails.userId;
         }
         model.event = this.analyticTypes['form'][model.formName][model.event]['event'];
         model.formName = this.analyticTypes['form'][model.formName]['name'];

@@ -1,4 +1,4 @@
-export const eventTypes = {
+const eventTypes = {
     cart: {
         name: 'cart',
         event: 'cartAdd',
@@ -100,3 +100,5 @@ export const eventTypes = {
         }
     }
 }
+
+export default eventTypes;
