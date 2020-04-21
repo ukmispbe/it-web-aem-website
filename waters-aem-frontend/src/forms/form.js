@@ -129,13 +129,6 @@ const Form = ({
         });
         config.fields = [...fields];
     };
-    
-    const getCountryCodefromURL = () => {
-        const urlString = document.URL;
-        const stringPos = urlString.search(`/${isocode}/`)
-        const countryCode = urlString.substr((stringPos - 2), 2);
-        return countryCode.toLowerCase();
-    }
 
     useEffect( () => {
         setFormAnalytics('load');
@@ -144,7 +137,7 @@ const Form = ({
     useEffect( () => {
         // Configure Registration Form on "Loading"
         if (config.formName === "registration") {
-            const countryRegion = getCountryCodefromURL();
+            const countryRegion = digitalData.page.country.toLowerCase();
             // Get Regional config 
             const countryOptionsConfig = regionalConfig;           
             // Hide all country configurable fields
