@@ -44,7 +44,7 @@ const renderSwitchAccountLink = props => {
             {props.switchAccount.text && props.switchAccount.url && (
                 <a
                     className="my-account-dropdown__user-details__switch-account"
-                    href={props.switchAccount.url}
+                    href={props.switchAccount.url + "?fromMenu=true"}
                 >
                     {props.switchAccount.text}
                 </a>
