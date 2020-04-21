@@ -101,8 +101,6 @@ class Analytics {
     }
 
     dispatchEvent = (eventName, obj) => {
-        console.log(obj);
-        alert(eventName);
         document.dispatchEvent(new CustomEvent(eventName, obj));
     }
 
@@ -118,8 +116,7 @@ class Analytics {
 
 }
 
-
-const analytics = new Analytics()
+const analytics = new Analytics();
     
 export default analytics;
 export const analyticTypes = analytics.analyticTypes;
