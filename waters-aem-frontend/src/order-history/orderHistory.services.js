@@ -4,8 +4,7 @@ import { signInRedirect } from '../utils/redirectFunctions';
 class OrderHistoryService {
     constructor(
         orderHistory = {
-            orderListPost: 'https://test-www.waters.com:8443/api/waters/order/v1/list',
-            orderDetails: ''
+            orderListPost: 'https://test-www.waters.com:8443/api/waters/order/v1/list'
         },
         throwError //callback 
     ) {
