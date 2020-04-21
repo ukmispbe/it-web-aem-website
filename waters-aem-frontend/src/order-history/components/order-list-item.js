@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import DeliveryStatus from './delivery-status'
 import DateFormatter from '../../utils/date-formatter'
 import CurrencyFormatter from '../../utils/currency-formatter'
@@ -9,7 +10,6 @@ class OrderListItem extends Component {
         super(props);
         this.userLocale = GetLocale.getLocale()
     }
-    
     render() {
         return (
             <div className={'cmp-order-list__container'}>

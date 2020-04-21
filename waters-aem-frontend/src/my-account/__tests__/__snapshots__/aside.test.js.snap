@@ -10,12 +10,12 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When ecomme
     <h1
       className="cmp-title__text"
     >
-      Profile
+      
     </h1>
     <div
       className="cmp-title__print"
     >
-      Profile
+      
     </div>
     <div
       className="cmp-accent-rule"
@@ -37,11 +37,12 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When ecomme
       <div
         className="tile__links"
       >
-        <span
-          className="link--active"
+        <a
+          href="/profile"
+          onClick={[Function]}
         >
           Profile
-        </span>
+        </a>
         <a
           href="/changepassword"
           onClick={[Function]}
@@ -210,12 +211,12 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When passwo
     <h1
       className="cmp-title__text"
     >
-      Password
+      
     </h1>
     <div
       className="cmp-title__print"
     >
-      Password
+      
     </div>
     <div
       className="cmp-accent-rule"
@@ -243,11 +244,12 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When passwo
         >
           Profile
         </a>
-        <span
-          className="link--active"
+        <a
+          href="/changepassword"
+          onClick={[Function]}
         >
           Password
-        </span>
+        </a>
       </div>
     </div>
     <div
@@ -319,12 +321,12 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When profil
     <h1
       className="cmp-title__text"
     >
-      Profile
+      
     </h1>
     <div
       className="cmp-title__print"
     >
-      Profile
+      
     </div>
     <div
       className="cmp-accent-rule"
@@ -346,11 +348,12 @@ exports[`Feature: Aside Component for my account Scenario: Rendering When profil
       <div
         className="tile__links"
       >
-        <span
-          className="link--active"
+        <a
+          href="/profile"
+          onClick={[Function]}
         >
           Profile
-        </span>
+        </a>
         <a
           href="/changepassword"
           onClick={[Function]}

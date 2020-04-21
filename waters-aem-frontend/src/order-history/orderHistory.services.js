@@ -1,10 +1,10 @@
 import 'whatwg-fetch';
+import { signInRedirect } from '../utils/redirectFunctions';
 
 class OrderHistoryService {
     constructor(
         orderHistory = {
-            orderListPost: 'https://test-www.waters.com:8443/api/waters/order/v1/list',
-            orderDetails: ''
+            orderListPost: 'https://test-www.waters.com:8443/api/waters/order/v1/list'
         },
         throwError //callback 
     ) {
@@ -28,7 +28,13 @@ class OrderHistoryService {
             },
             body: JSON.stringify(options)
         })
-        .then(response => response.json())
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            } else if (response.status === 401) {
+                signInRedirect();
+            } 
+        })
         .catch(error => {
             this.throwError(error);
             reject(error);

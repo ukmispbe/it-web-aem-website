@@ -12,7 +12,8 @@ import DigitalData from '../scripts/DigitalData';
 import ErrorBoundary from '../search/ErrorBoundary';
 import Field from './fields';
 import { retrieveData } from '../forms/services/retrieve';
-import Analytics, { analyticTypes } from "../analytics";
+import Analytics, { analyticTypes } from "../scripts/analytics";
+import SessionStore from '../stores/sessionStore';
 
 const FormApi = createContext(null);
 FormApi.displayName = 'FormApi';
@@ -120,7 +121,7 @@ const Form = ({
     };
 
     const deactivateField = inputName => {
-         const fields = config.fields.map(field => {
+        const fields = config.fields.map(field => {
             if (field.name === inputName) {
                 field.active = false;
             }
@@ -167,6 +168,13 @@ const Form = ({
         }
 
         retrieveData(config.optionsEndpoint).then(resp => {
+            
+            // Only put this logic in for formName ==="chooseAccount"
+            if (config.formName ==="chooseAccount"){
+                const store = new SessionStore();
+                store.setSoldToDetails(resp);               
+            }
+
             const tempArray = resp.map((item) => {
                 let tempOption = {};
                 tempOption.name = item.soldTo;
@@ -281,7 +289,6 @@ const Form = ({
                         updateFailedAttempts: updateFailedAttempts,
                         setProfileData: setProfileData,
                         setFormAnalytics: setFormAnalytics
-
                     })
                 )}
             >

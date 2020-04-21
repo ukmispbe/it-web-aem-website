@@ -94,7 +94,7 @@ Array [
                 <div
                   className="css-0 cmp-custom-dropdown__single-value"
                 >
-                  Best Match
+                  Most Recent
                 </div>
                 <input
                   className="css-gj7qu5-dummyInput"
@@ -285,7 +285,7 @@ Array [
                 <div
                   className="css-0 cmp-custom-dropdown__single-value"
                 >
-                  Best Match
+                  Most Recent
                 </div>
                 <input
                   className="css-gj7qu5-dummyInput"

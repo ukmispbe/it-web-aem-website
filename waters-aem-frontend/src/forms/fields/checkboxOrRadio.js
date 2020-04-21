@@ -71,7 +71,12 @@ const CheckboxOrRadio = ({}) => {
                     setValue(key, state[key].isChecked, state[key].required);
                 }
                 setState({ ...state });
-                document.getElementsByClassName("cmp-button")[0].classList.remove("cmp-button--disabled");
+                // Non Mobile has Link Wrapper
+                const submitControlArrayLength = document.getElementsByClassName("cmp-button").length;
+                if(submitControlArrayLength > 0) {
+                    document.getElementsByClassName("cmp-button")[submitControlArrayLength - 1].classList.remove("cmp-button--disabled");
+                    document.getElementsByClassName("cmp-button")[submitControlArrayLength - 1].disabled = false;
+                }
                 return;
             }
 
@@ -124,6 +129,7 @@ const CheckboxOrRadio = ({}) => {
                     type={type}
                     name={thisName}
                     id={thisName}
+                    aria-labelledby={thisName}
                     disabled={disabled}
                     checked={thisState.isChecked}
                     className={hasError(thisName) ? 'error' : 'valid'}

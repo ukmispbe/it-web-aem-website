@@ -62,7 +62,7 @@ exports[`Feature: Aside Component Scenario: Rendering When children are provided
             <div
               className="css-0 cmp-custom-dropdown__single-value"
             >
-              Best Match
+              Most Recent
             </div>
             <input
               className="css-gj7qu5-dummyInput"
@@ -163,7 +163,7 @@ exports[`Feature: Aside Component Scenario: Rendering When no children are provi
             <div
               className="css-0 cmp-custom-dropdown__single-value"
             >
-              Best Match
+              Most Recent
             </div>
             <input
               className="css-gj7qu5-dummyInput"
