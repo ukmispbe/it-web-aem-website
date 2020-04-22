@@ -3,6 +3,7 @@ import ReactSVG from 'react-svg';
 import { signOutRequest } from './services';
 import MyAccountUserDetails from './my-account-user-details';
 import MyAccountItemList from './my-account-item-list';
+import Analytics, { analyticTypes } from "../analytics";
 
 const keys = {
     MyAccountContainer : 'my-account-dropdown'
@@ -69,6 +70,17 @@ const MyAccountContainer = props => {
             )}
         </>
     );
+
+    const setAnalytics = (event, detail={}) => {
+        const model = {
+            url: 'url',
+            linkName: 'linkName',
+            menuLocation: 'Account Dropdown',
+            event
+        };
+
+        Analytics.setAnalytics(analyticTypes['myaccount'].name, model);
+    }
 
     return (
         <div className={keys.MyAccountContainer}>

@@ -98,6 +98,10 @@ const eventTypes = {
                 event: 'personalDetailsFormError'
             }
         }
+    },
+    myaccount: {
+        name: 'myaccount',
+        event: 'click'
     }
 }
 
