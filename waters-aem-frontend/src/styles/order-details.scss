@@ -66,7 +66,7 @@
 
                 &__payment-container {
                     display: flex;
-                    margin-top: $space-m;
+                    margin-top: $space-s;
 
                     .cmp-order-details {
                         &__payment-method {
@@ -103,10 +103,10 @@
 
             h4 {
                 background-color: $color-background-dark;
-                padding: $space-xxs;
+                padding: ($space-xxxs - .1em) $space-xxs ($space-xxxs + .1em) ($space-xxs + .1em);
                 @include font-h4;
                 color: $color-font-light;
-                margin-bottom: $space-s;
+                margin-bottom: $space-xs;
                 border-radius: $border-radius;
             }
 
@@ -125,8 +125,12 @@
                 }
             }
 
+            .cmp-order-details__order-subtotal {
+                margin-bottom: $space-xxs;
+            }
+
             .cmp-order-details__order-tax {
-                border-bottom: 1px solid $color-border-light;
+                border-bottom: $border-divider-large;
                 padding-bottom: $space-s;
                 margin-bottom: $space-s;
             }
@@ -134,6 +138,10 @@
             .cmp-order-details__order-total {
                 &_left {
                     @include font-body;
+                    padding-top: $space-xxs;
+                    @include mobile {
+                        padding-top: $space-xxxs;
+                    }
                 }
                 &_right h1 {
                     @include font-h1;
