@@ -115,7 +115,10 @@
             .cmp-order-details__order-tax,
             .cmp-order-details__order-total {
                 display: flex;
+
                 @include font-body;
+                margin-bottom: $space-xxs;
+
                 &_left {
                     flex: 2;
                 }
@@ -125,14 +128,10 @@
                 }
             }
 
-            .cmp-order-details__order-subtotal {
-                margin-bottom: $space-xxs;
-            }
-
             .cmp-order-details__order-tax {
                 border-bottom: $border-divider-large;
-                padding-bottom: $space-s;
-                margin-bottom: $space-s;
+                padding-bottom: $space-xs;
+                margin-bottom: $space-xxxs;
             }
 
             .cmp-order-details__order-total {
