@@ -79,6 +79,7 @@
                 "config": "json-config--cmp-detail-tiles--changePassword"
             },
             "orderHistory": {
+                "fetchEndPoint": "${myaccount.orderListUrl @ context='unsafe'}",
                 "title": "${'Order History' @ i18n, context='unsafe'}",
                 "resultsText": "${'Showing {0}-{1} of {2} Orders' @ format=['{startResults}', '{endResults}', '{count}'], i18n, context='unsafe'}",
                 "noOrdersFoundTitle": "${'Sorry, no orders found.' @ i18n, context='unsafe'}",
@@ -117,6 +118,8 @@
                 }         
             },
             "orderDetails": {
+                "fetchDetailsEndPoint": "${myaccount.orderDetailsUrl @ context='unsafe'}",
+                "fetchItemsEndPoint": "${myaccount.searchUrl @ context='unsafe'}",
                 "orderHistory": "${'Order History' @ i18n, context='unsafe'}",
                 "orderDetails": "${'Order Details' @ i18n, context='unsafe'}",
                 "orderNotFoundErrorTitle": "${'Sorry, order not found.' @ i18n, context='unsafe'}",

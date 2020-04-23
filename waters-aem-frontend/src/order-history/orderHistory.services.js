@@ -3,13 +3,9 @@ import { signInRedirect } from '../utils/redirectFunctions';
 
 class OrderHistoryService {
     constructor(
-        orderHistory = {
-            orderListPost: 'https://test-www.waters.com:8443/api/waters/order/v1/list'
-        },
-        throwError //callback 
+        url = "https://test-www.waters.com:8443/api/waters/order/v1/list"
     ) {
-        this.orderHistoryOptions = orderHistory;
-        this.throwError = throwError;
+        this.url = url;
     }
 
     checkFetch(response) {
@@ -41,7 +37,7 @@ class OrderHistoryService {
         });
     };
 
-    getOrderListPost(fromDate, toDate, poNumber, orderNumber) {
+    getOrderListPost(url, fromDate, toDate, poNumber, orderNumber) {
         let options = {};
         options.orderNumber = orderNumber;
         options.purchaseOrderNumber = poNumber;
@@ -49,7 +45,7 @@ class OrderHistoryService {
         options.toDate = toDate;
         options.maxRecs = "";
 
-        return this.postData(this.orderHistoryOptions.orderListPost, options);
+        return this.postData(url, options);
     }
 }
 
