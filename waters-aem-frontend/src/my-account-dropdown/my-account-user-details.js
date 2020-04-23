@@ -46,7 +46,7 @@ const renderSwitchAccountLink = props => {
                 <a
                     className="my-account-dropdown__user-details__switch-account"
                     href={props.switchAccount.url + "?fromMenu=true"}
-                    onClick={()=>setClickAnalytics('linkClick', props.switchAccount.linkName)}
+                    onClick={()=>setClickAnalytics('Account Dropdown', props.switchAccount.linkName, props.switchAccount.url)}
                 >
                     {props.switchAccount.text}
                 </a>

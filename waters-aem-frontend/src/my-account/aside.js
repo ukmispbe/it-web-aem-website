@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 import Title from "../typography/title";
 import Ecommerce from "../scripts/ecommerce";
 import Breadcrumb from "./components/breadcrumb";
-import Analytics, { analyticTypes, setClickAnalytics } from "../analytics";
+import { setClickAnalytics } from "../analytics";
 
 const Aside = props => {
 
@@ -62,8 +62,8 @@ const linkIsActive = (pathname, url) => pathname.substring(1, pathname.length) =
 const ActiveLink = ({text}) => <span className="link--active">{text}</span>;
 
 const HyperLink = ({link}) => link.url.startsWith("#") ?
-                <Link to={`/${link.url.substring(1, link.url.length)}`} onClick={()=>setClickAnalytics("Side Navigation", link.linkName)}>{link.text}</Link> :
-                <a href={link.url}  onClick={()=>setClickAnalytics("Side Navigation", link.linkName)}>{link.text}</a>
+                <Link to={`/${link.url.substring(1, link.url.length)}`} onClick={()=>setClickAnalytics("Side Navigation", link.linkName ? link.linkName : link.text, link.url)}>{link.text}</Link> :
+                <a href={link.url}  onClick={()=>setClickAnalytics("Side Navigation", link.linkName ? link.linkName : link.text, link.url)}>{link.text}</a>
 
 Aside.propTypes = {
     tiles: PropTypes.arrayOf(PropTypes.shape({

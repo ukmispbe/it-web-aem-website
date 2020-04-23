@@ -9,19 +9,6 @@ class Analytics {
         this.analyticTypes = eventTypes;
     }
 
-    setClickAnalytics = (event, linkName) => {
-         const model = {
-             detail: {
-                 url: window.location.href,
-                 menuLocation: 'Account Home',
-                 linkName
-             },
-             event
-         };
-
-         this.setAnalytics(this.analyticTypes['myaccount'].name, model);
-    }
-
     setAnalytics = (eventType, model) => {
         let thisAnalyticEvent = null;
         if(eventType==='form') {
@@ -42,6 +29,17 @@ class Analytics {
         }
     }
  
+    setClickAnalytics = (menuLocation, linkName, href) => {
+         const model = {
+             detail: {
+                 url: href,
+                 menuLocation,
+                 linkName
+             }
+         };
+         this.setAnalytics(this.analyticTypes['linkClick'].name, model);
+    }
+
     buildModel = (name, model) => {
         let returnModel = null;
 
@@ -121,8 +119,6 @@ class Analytics {
     }
 
     dispatchEvent = (eventName, obj) => {
-        console.log(obj);
-        alert(eventName);
         document.dispatchEvent(new CustomEvent(eventName, obj));
     }
 

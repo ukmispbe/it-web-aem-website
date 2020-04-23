@@ -11,7 +11,7 @@ const Link = ({
             (<a
                 className="cmp-linktile--link"
                 href={url}
-                onClick={()=>setClickAnalytics("Account Home", linkName)}
+                onClick={()=>setClickAnalytics("Account Home", linkName ? linkName : text, url)}
              >
                 {text}
             </a>)

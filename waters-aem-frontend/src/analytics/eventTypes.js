@@ -99,8 +99,8 @@ const eventTypes = {
             }
         }
     },
-    myaccount: {
-        name: 'myaccount',
+    linkClick: {
+        name: 'linkClick',
         event: 'linkClick'
     }
 }

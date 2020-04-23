@@ -21,7 +21,7 @@ const MyAccountItemList = props => {
 
     const listItems = Object.keys(list).map(key => {
         let text = list[key].text;
-        let linkName = list[key].linkName;
+        let linkName = list[key].linkName ? list[key].linkName : list[key].text;
         let url = list[key].url;
         let target = list[key].target || '_self';
         let listItemClass = list[key].class;
@@ -35,7 +35,7 @@ const MyAccountItemList = props => {
                         }
                         href={url}
                         target={target}
-                        onClick={()=> setClickAnalytics('linkClick', linkName)}
+                        onClick={()=> setClickAnalytics('Account Dropdown', linkName, url)}
                     >
                         <span>{text}</span>
                     </a>
