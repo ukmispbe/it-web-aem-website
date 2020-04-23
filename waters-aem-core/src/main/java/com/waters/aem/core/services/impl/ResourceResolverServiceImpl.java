@@ -14,8 +14,7 @@ public final class ResourceResolverServiceImpl implements ResourceResolverServic
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
-
-    //TODO: Use this resource resolver in whole project
+    
     @Override
     public ResourceResolver getResourceResolver(final String subserviceName) throws LoginException {
         return resourceResolverFactory.getServiceResourceResolver(Collections.singletonMap(
