@@ -60,6 +60,10 @@
                             flex: 1;
                             @include font-body;
                             margin-right: $space-m;
+
+                                .postalcode {
+                                    white-space: nowrap;
+                                }
                         }
                     }
                 }
@@ -81,6 +85,7 @@
 
                             svg {
                                 width: $icon-s;
+                                height: $icon-s;
                                 margin-right: $space-xxs;
                                 margin-top: 0.4em;
                             }
