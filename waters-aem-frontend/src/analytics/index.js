@@ -9,6 +9,19 @@ class Analytics {
         this.analyticTypes = eventTypes;
     }
 
+    setClickAnalytics = (event, linkName) => {
+         const model = {
+             detail: {
+                 url: window.location.href,
+                 menuLocation: 'Account Home',
+                 linkName
+             },
+             event
+         };
+
+         this.setAnalytics(this.analyticTypes['myaccount'].name, model);
+    }
+
     setAnalytics = (eventType, model) => {
         let thisAnalyticEvent = null;
         if(eventType==='form') {
@@ -44,13 +57,14 @@ class Analytics {
                 returnModel = this.mapFormModel(model);
                 break;
             default:
+                returnModel = this.getUserData(model);
                 break;
         }
 
         return returnModel;
     }
 
-    mapFormModel = model => {
+    getUserData = model => {
         const userLoggedIn = cookieStore.getLoggedInStatus();
         const store = new SessionStore();
         const userDetails = store.getUserDetails();
@@ -60,6 +74,12 @@ class Analytics {
         if(userDetails){
             model.detail.userID = userDetails.userId;
         }
+
+        return model;
+    }
+
+    mapFormModel = model => {
+        model = this.getUserData(model);
         model.event = this.analyticTypes['form'][model.formName][model.event]['event'];
         model.formName = this.analyticTypes['form'][model.formName]['name'];
         return model;
@@ -101,6 +121,8 @@ class Analytics {
     }
 
     dispatchEvent = (eventName, obj) => {
+        console.log(obj);
+        alert(eventName);
         document.dispatchEvent(new CustomEvent(eventName, obj));
     }
 
@@ -120,4 +142,5 @@ const analytics = new Analytics();
     
 export default analytics;
 export const analyticTypes = analytics.analyticTypes;
+export const setClickAnalytics = analytics.setClickAnalytics;
 export const [mainCartContext, searchCartContext, relatedCartContext] = analytics.analyticTypes.cart.context;

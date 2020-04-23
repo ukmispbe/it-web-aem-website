@@ -101,7 +101,7 @@ const eventTypes = {
     },
     myaccount: {
         name: 'myaccount',
-        event: 'click'
+        event: 'linkClick'
     }
 }
 

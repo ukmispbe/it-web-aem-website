@@ -3,7 +3,7 @@ import ReactSVG from 'react-svg';
 import { signOutRequest } from './services';
 import MyAccountUserDetails from './my-account-user-details';
 import MyAccountItemList from './my-account-item-list';
-import Analytics, { analyticTypes } from "../analytics";
+import Analytics, { analyticTypes, setClickAnalytics } from "../analytics";
 
 const keys = {
     MyAccountContainer : 'my-account-dropdown'
@@ -32,11 +32,13 @@ const MyAccountContainer = props => {
     const onSignIn = (e) => {
         e.preventDefault();
         window.sessionStorage.setItem('signInRedirect', window.location.href);
+        setClickAnalytics('linkClick', signIn.linkName);
         window.location.href = signIn.url;
     }
 
     const onSignOut = (e) => {
         e.preventDefault();
+        setClickAnalytics('linkClick', signOut.linkName);
         signOutRequest(signOut.signOutEndpoint,signOut.url, homepageLink);
     }
 
@@ -63,24 +65,17 @@ const MyAccountContainer = props => {
             {notRegistered && createAccount.url && createAccount.text && (
                 <div className="my-account-dropdown__create-account">
                     {notRegistered}
-                    <a class="cmp-button" href={createAccount.url}>
+                    <a
+                        class="cmp-button"
+                        href={createAccount.url}
+                        onClick={(e)=>setClickAnalytics('linkClick', createAccount.linkName)}
+                    >
                         {createAccount.text}
                     </a>
                 </div>
             )}
         </>
     );
-
-    const setAnalytics = (event, detail={}) => {
-        const model = {
-            url: 'url',
-            linkName: 'linkName',
-            menuLocation: 'Account Dropdown',
-            event
-        };
-
-        Analytics.setAnalytics(analyticTypes['myaccount'].name, model);
-    }
 
     return (
         <div className={keys.MyAccountContainer}>
