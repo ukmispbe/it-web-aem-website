@@ -14,10 +14,10 @@ public final class ResourceResolverServiceImpl implements ResourceResolverServic
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
-    
+
     @Override
-    public ResourceResolver getResourceResolver(final String subserviceName) throws LoginException {
+    public ResourceResolver getResourceResolver(final String subServiceName) throws LoginException {
         return resourceResolverFactory.getServiceResourceResolver(Collections.singletonMap(
-                ResourceResolverFactory.SUBSERVICE, subserviceName));
+                ResourceResolverFactory.SUBSERVICE, subServiceName));
     }
 }
