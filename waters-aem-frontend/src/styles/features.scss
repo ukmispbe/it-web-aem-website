@@ -28,7 +28,7 @@
 
         &-title {
             @include font-h3;
-            margin-bottom: 0;
+            margin-bottom: $space-xxs; 
         }
 
         &-desc {
@@ -39,6 +39,8 @@
         &-link {
             @include font-body;
             color: $color-link;
+            margin-bottom: $space-xxs;
+            display: block;
 
             &--sign-in {
                 display: none;
@@ -89,12 +91,12 @@
 }
 
 .cmp-features--tile {
-    box-shadow: $shadow;
-    padding: $space-l;
-    min-height: 240px;
 
     .cmp-features {
         margin-bottom: 0;
+        box-shadow: $shadow;
+        padding: $space-l;
+        min-height: 240px;
 
         &__list {
             margin-bottom: 0;
@@ -114,16 +116,14 @@
         }
 
         &-title {
-            @include font-utility-large;
-            font-weight: $font-weight-light;
-            margin-bottom: $space-s;
+            margin-bottom: $space-xxs;
         }
 
         &-link {
             @include font-body;
             color: $color-link;
             display: block;
-            margin-bottom: $space-xs;
+            margin-bottom: $space-xxs;
 
             &:last-child {
                 margin-bottom: 0;

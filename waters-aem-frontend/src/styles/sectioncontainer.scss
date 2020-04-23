@@ -16,24 +16,24 @@
                 padding: 0;
 
                 .cmp-section-container__title {
-                    padding: $space-s 0;
+                    padding: $space-xs 0;
                 }
             }
         }
     }
 
     .cmp-section-container__title {
-        padding: $space-s 0;
+        padding: $space-xs 0;
         margin: 0em 14px;
-        border-top: $border-medium;
+        border-top: $border-divider-large;
 
         @include mobile {
-            padding: $space-s 0;
+            padding: $space-xs 0;
             margin: 0 2px;
         }
 
         @include tablet {
-            padding: $space-s 0;
+            padding: $space-xs 0;
             margin: 0 12px;
         }
     }
@@ -47,7 +47,7 @@
             .cmp-section-container__title {
                 position: relative;
                 cursor: pointer;
-                padding: 0.9em 0 1em;
+                padding: $space-xs 0 $space-xs;
 
                 &::after {
                     position: absolute;
@@ -57,7 +57,7 @@
                     content: '';
                     background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%234f5b64;stroke-linecap:round;stroke-linejoin:round;%7D%0A%3C/style%3E%3Cline class='st0' x1='12' y1='5' x2='12' y2='19'/%3E%3Cline class='st0' x1='5' y1='12' x2='19' y2='12'/%3E%3C/svg%3E%0A");
                     right: 0;
-                    top: 1em;
+                    top: $space-xs;
                     transition: background-image 0.3s ease;
                 }
 
@@ -85,6 +85,7 @@
     }
 
     .cmp-section-container–-light {
+        margin-bottom: $space-s;
         .cmp-section-container__wrapper {
             margin: 0 -30% 0;
             padding: 2em 30%;
@@ -93,7 +94,7 @@
             z-index: 0;
 
             @include mobile {
-                padding: 0 30%;
+                padding: $space-s 30%;
             }
         }
 
