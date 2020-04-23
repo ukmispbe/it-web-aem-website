@@ -38,7 +38,8 @@ class OrderHistory extends Component {
     }
 
     componentDidMount() {
-        this.retrieveData(this.state.fromDate, this.state.toDate, this.state.poNumber, this.state.orderNumber, this.state.activeTabFilter);
+        const {fromDate, toDate, poNumber, orderNumber, activeTabFilter} = this.state 
+        this.retrieveData(fromDate, toDate, poNumber, orderNumber, activeTabFilter);
     }
 
     handleCategorySelected(e) {
@@ -52,7 +53,8 @@ class OrderHistory extends Component {
             activeTabFilter: activeTabFilter,
             activeIndex: tabId
         }, () => {
-            this.retrieveData(this.state.fromDate, this.state.toDate, this.state.poNumber, this.state.orderNumber, this.state.activeTabFilter);
+            const {fromDate, toDate, poNumber, orderNumber, activeTabFilter} = this.state 
+            this.retrieveData(fromDate, toDate, poNumber, orderNumber, activeTabFilter);
         }); 
     }
 
@@ -69,7 +71,8 @@ class OrderHistory extends Component {
                     toDate: currentDate.toISOString(),
                     activeTimePeriod: selectedTimeframe
                 },() => {
-                    this.retrieveData(this.state.fromDate, this.state.toDate, this.state.poNumber, this.state.orderNumber, this.state.activeTabFilter);
+                    const {fromDate, toDate, poNumber, orderNumber, activeTabFilter} = this.state 
+                    this.retrieveData(fromDate, toDate, poNumber, orderNumber, activeTabFilter);
                 });
                 break;
 
@@ -80,7 +83,8 @@ class OrderHistory extends Component {
                     toDate: currentDate.toISOString(),
                     activeTimePeriod: selectedTimeframe
                 },() => {
-                    this.retrieveData(this.state.fromDate, this.state.toDate, this.state.poNumber, this.state.orderNumber, this.state.activeTabFilter);
+                    const {fromDate, toDate, poNumber, orderNumber, activeTabFilter} = this.state 
+                    this.retrieveData(fromDate, toDate, poNumber, orderNumber, activeTabFilter);
                 });
                 break;
 
@@ -91,7 +95,8 @@ class OrderHistory extends Component {
                     toDate: currentDate.toISOString(),
                     activeTimePeriod: selectedTimeframe
                 },() => {
-                    this.retrieveData(this.state.fromDate, this.state.toDate, this.state.poNumber, this.state.orderNumber, this.state.activeTabFilter);
+                    const {fromDate, toDate, poNumber, orderNumber, activeTabFilter} = this.state 
+                    this.retrieveData(fromDate, toDate, poNumber, orderNumber, activeTabFilter);
                 });
                 break;
 
@@ -102,7 +107,8 @@ class OrderHistory extends Component {
                     toDate: currentDate.toISOString(),
                     activeTimePeriod: selectedTimeframe
                 },() => {
-                    this.retrieveData(this.state.fromDate, this.state.toDate, this.state.poNumber, this.state.orderNumber, this.state.activeTabFilter);
+                    const {fromDate, toDate, poNumber, orderNumber, activeTabFilter} = this.state 
+                    this.retrieveData(fromDate, toDate, poNumber, orderNumber, activeTabFilter);
                 });
                 break;
             default:
@@ -132,9 +138,10 @@ class OrderHistory extends Component {
         });
     }
 
-    retrieveData = async (fromDate, toDate,  poNumber, orderNumber, activeTabFilter) => {
+    retrieveData = async (fromDate, toDate, poNumber, orderNumber, activeTabFilter) => {
         const OrderHistoryServiceObj = new OrderHistoryService();
-        const orders = await OrderHistoryServiceObj.getOrderListPost(fromDate, toDate, poNumber, orderNumber);
+        const fetchEndPoint = this.props.configs.fetchEndPoint;
+        const orders = await OrderHistoryServiceObj.getOrderListPost(fetchEndPoint, fromDate, toDate, poNumber, orderNumber);
 
         if(orders && orders.length > 0){
             let filteredOrders = orders;

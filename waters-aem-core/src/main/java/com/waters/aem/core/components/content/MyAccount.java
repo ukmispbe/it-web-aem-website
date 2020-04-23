@@ -139,6 +139,18 @@ public class MyAccount implements ComponentExporter {
         return accountService.getUpdatePasswordUrl();
     }
 
+    public String getOrderDetailsUrl() {
+        return accountService.getOrderDetailsUrl();
+    }
+
+    public String getSearchUrl() {
+        return accountService.getSearchUrl();
+    }
+
+    public String getOrderListUrl() {
+        return accountService.getOrderListUrl();
+    }
+
     @Nonnull
     @Override
     public String getExportedType() {
