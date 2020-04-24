@@ -51,9 +51,6 @@ public @interface WatersAccountServiceConfiguration {
     @AttributeDefinition(name = "Order Details API Url", description = "Url for Order Details API")
     String orderDetailsUrl() default "https://test-www.waters.com:8443/api/waters/order/v1/details";
 
-    @AttributeDefinition(name = "Search API Url", description = "Url for Search API")
-    String searchUrl() default "https://test-www.waters.com:8443/api/waters/search";
-
     @AttributeDefinition(name = "Order List API Url", description = "Url for Order List API")
     String orderListUrl() default "https://test-www.waters.com:8443/api/waters/order/v1/list";
 }
