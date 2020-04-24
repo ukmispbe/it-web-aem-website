@@ -70,7 +70,7 @@
 }
 
 .cmp-banner__parsys {
-    padding: $space-xl 0 $space-m 0;
+    padding: $space-xl 0 $space-xl 0;
     margin: 0 -14px;
 
     @include mobile {
@@ -182,20 +182,6 @@
             top: 0;
         }
     }
-
-    .cmp-button button,
-    .cmp-button a,
-    a.cmp-button,
-    button.cmp-button {
-        margin-bottom: 0;
-    }
-
-    .cmp-button--secondary button.cmp-button,
-    .cmp-button--secondary a.cmp-button,
-    a.cmp-button--secondary,
-    button.cmp-button--secondary {
-        margin-bottom: 0;
-    }
 }
 
 .cmp-banner--position0 .cmp-banner {
@@ -266,13 +252,13 @@
 
 .cmp-banner--largePadding .cmp-banner {
     .cmp-banner__parsys {
-        padding: ($space-xxl - $space-s) 0 $space-xl 0;
+        padding: $space-xxl 0;
     }
 }
 
 .cmp-banner--smallPadding .cmp-banner {
     .cmp-banner__parsys {
-        padding: $space-l 0 $space-xxxs 0;
+        padding: $space-l 0;
     }
 }
 
@@ -327,60 +313,5 @@
 .cmp-banner--90 .cmp-banner {
     .cmp-banner__background-overlay {
         opacity: .9;
-    }
-}
-
-.cmp-banner--reverse .cmp-banner {
-    .cmp-button button,
-    .cmp-button a,
-    a.cmp-button,
-    button.cmp-button {
-        background-color: transparent;
-        border: $border-white;
-        color: $color-font-light;
-
-        &:hover {
-            color: $color-gray-20;
-            border: 1px solid $color-gray-20;
-            background: none;
-        }
-        &:active {
-            color: $color-font-light;
-            border: $border-white;
-            background: none;
-        }
-    }
-
-    .cmp-button--secondary button.cmp-button,
-    .cmp-button--secondary a.cmp-button,
-    a.cmp-button--secondary,
-    button.cmp-button--secondaryn {
-        color: $color-font-light;
-        border: $border-white;
-        background: none;
-
-        &:hover {
-            color: $color-gray-20;
-            border: 1px solid $color-gray-20;
-            background: none;
-        }
-        &:active {
-            color: $color-font-light;
-            border: $border-white;
-            background: none;
-        }
-    }
-
-    p,
-    a,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    ul li,
-    ol li {
-        color: $color-font-light;
     }
 }

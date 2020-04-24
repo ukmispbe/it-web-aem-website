@@ -205,6 +205,27 @@ button.cmp-button.cmp-button--center {
     }
 }
 
+.cmp-button--reverse button.cmp-button,
+.cmp-button--reverse a.cmp-button,
+a.cmp-button.cmp-button--reverse,
+button.cmp-button.cmp-button--reverse {
+    background-color: transparent;
+    border: $border-white;
+    color: $color-font-light;
+    &:hover {
+        background-color: $color-white;
+        border: 1px solid $color-white;
+        color: $color-font-medium;
+    }
+}
+
+.cmp-button--noPadding button.cmp-button,
+.cmp-button--noPadding a.cmp-button,
+a.cmp-button.cmp-button--noPadding,
+button.cmp-button.cmp-button--noPadding {
+   margin-bottom: 0;
+}
+
 .cmp-button-container {
     margin-top: $space-l;
     .cmp-button {

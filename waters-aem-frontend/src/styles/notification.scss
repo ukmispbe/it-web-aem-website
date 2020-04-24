@@ -192,7 +192,17 @@
         @include mobile {
             padding: $space-xs;
         }
+
+        svg {
+            height: ($icon-m - .25em);
+            padding-right: $space-xxxs;
+            margin-top: 0.1em;
+            padding-top: $space-xxxs;
+        }
     }
+
+   
+
     .cmp-notification-description {
         @include font-small;
     }
