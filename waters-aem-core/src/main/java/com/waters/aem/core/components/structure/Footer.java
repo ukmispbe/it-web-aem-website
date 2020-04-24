@@ -28,6 +28,7 @@ import com.waters.aem.core.components.content.links.IconOnlyLink;
 import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
 import com.waters.aem.core.components.structure.page.analytics.DataLayer;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.services.ResourceResolverService;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.waters.aem.core.utils.LinkUtils;
 import com.waters.aem.core.utils.LocaleUtils;
@@ -35,6 +36,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.ModifiableValueMap;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
@@ -47,13 +49,8 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.Nonnull;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
+
 import java.util.stream.Collectors;
 
 @Component(value = "Footer",
@@ -81,6 +78,9 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     private static final Logger LOG = LoggerFactory.getLogger(Footer.class);
 
     @Inject
+    private ResourceResolverService resourceResolverService;
+
+    @Inject
     private Resource resource;
 
     @Inject
@@ -101,6 +101,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     public static final String PROPERTY_COUNTRY_LIST_JSON = "countryListJson";
+    public static final String PROPERTY_LANGUAGE_LIST_JSON = "languageListJson";
 
     @DialogField(fieldLabel = "Logo",
             fieldDescription = "Select the logo image to display on footer",
@@ -243,11 +244,21 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     void init() {
         try {
             String countryPagesJson = getCountryPagesJson();
-            if (StringUtils.isNotBlank(countryPagesJson)) {
-                ModifiableValueMap modifiableValueMap = resource.adaptTo(ModifiableValueMap.class);
-                modifiableValueMap.put(PROPERTY_COUNTRY_LIST_JSON, countryPagesJson);
-                resource.getResourceResolver().commit();
+            ResourceResolver resourceResolver = resourceResolverService.getResourceResolver("watersService");
+            Resource footerResource = resourceResolver.getResource(resource.getPath());
+            ModifiableValueMap modifiableValueMap = footerResource.adaptTo(ModifiableValueMap.class);
+            modifiableValueMap.put(PROPERTY_COUNTRY_LIST_JSON, StringUtils.isNotBlank(countryPagesJson) ? countryPagesJson : "");
+            List<CountryLanguageSelectorItem> languagePageList = getLanguagePages();
+            if (!languagePageList.isEmpty()) {
+                Map jsonMap = new HashMap();
+                Iterator<CountryLanguageSelectorItem> languageSelectorItemIterator = languagePageList.iterator();
+                while (languageSelectorItemIterator.hasNext()) {
+                    CountryLanguageSelectorItem countryLanguageSelectorItem = languageSelectorItemIterator.next();
+                    jsonMap.put(countryLanguageSelectorItem.getLanguageTitle(),countryLanguageSelectorItem.getPage().getHref());
+                }
+                modifiableValueMap.put(PROPERTY_LANGUAGE_LIST_JSON, jsonMap.size() > 0 ? MAPPER.writeValueAsString(jsonMap) : "");
             }
+            resourceResolver.commit();
         } catch (Exception e) {
             LOG.error("Exception occurred while working on Country list JSON property: {}", e);
         }
