@@ -1,6 +1,7 @@
 import React from 'react';
 import CheckOutStatus from '../scripts/checkOutStatus';
 import Ecommerce from '../scripts/ecommerce';
+import { setClickAnalytics } from "../analytics";
 
 const MyOrderClass = 'dropdown__item-list__my-orders';
 const MyAccountItemList = props => {
@@ -20,6 +21,7 @@ const MyAccountItemList = props => {
 
     const listItems = Object.keys(list).map(key => {
         let text = list[key].text;
+        let linkName = list[key].linkName ? list[key].linkName : list[key].text;
         let url = list[key].url;
         let target = list[key].target || '_self';
         let listItemClass = list[key].class;
@@ -33,6 +35,7 @@ const MyAccountItemList = props => {
                         }
                         href={url}
                         target={target}
+                        onClick={()=> setClickAnalytics('Account Dropdown', linkName, url)}
                     >
                         <span>{text}</span>
                     </a>

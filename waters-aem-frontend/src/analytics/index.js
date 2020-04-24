@@ -29,6 +29,17 @@ class Analytics {
         }
     }
  
+    setClickAnalytics = (menuLocation, linkName, href) => {
+         const model = {
+             detail: {
+                 url: href,
+                 menuLocation,
+                 linkName
+             }
+         };
+         this.setAnalytics(this.analyticTypes['linkClick'].name, model);
+    }
+
     buildModel = (name, model) => {
         let returnModel = null;
 
@@ -44,13 +55,14 @@ class Analytics {
                 returnModel = this.mapFormModel(model);
                 break;
             default:
+                returnModel = this.getUserData(model);
                 break;
         }
 
         return returnModel;
     }
 
-    mapFormModel = model => {
+    getUserData = model => {
         const userLoggedIn = cookieStore.getLoggedInStatus();
         const store = new SessionStore();
         const userDetails = store.getUserDetails();
@@ -60,6 +72,12 @@ class Analytics {
         if(userDetails){
             model.detail.userID = userDetails.userId;
         }
+
+        return model;
+    }
+
+    mapFormModel = model => {
+        model = this.getUserData(model);
         model.event = this.analyticTypes['form'][model.formName][model.event]['event'];
         model.formName = this.analyticTypes['form'][model.formName]['name'];
         return model;
@@ -120,4 +138,5 @@ const analytics = new Analytics();
     
 export default analytics;
 export const analyticTypes = analytics.analyticTypes;
+export const setClickAnalytics = analytics.setClickAnalytics;
 export const [mainCartContext, searchCartContext, relatedCartContext] = analytics.analyticTypes.cart.context;
