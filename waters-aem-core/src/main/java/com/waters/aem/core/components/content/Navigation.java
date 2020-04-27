@@ -23,6 +23,8 @@ import java.util.List;
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+
+@SuppressWarnings({"squid:S2176"})
 public class Navigation implements com.adobe.cq.wcm.core.components.models.Navigation {
 
     static final String RESOURCE_SUPER_TYPE = "core/wcm/components/navigation/v1/navigation";
