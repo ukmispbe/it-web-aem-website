@@ -70,7 +70,7 @@ class OrderDetails extends Component {
                         <>
                             <div className="cmp-order-details-address1">{account.partnerName}</div>
                             <div className="cmp-order-details-address2">{account.street}</div>
-                            <div className="cmp-order-details-address3">{account.city + ", " + account.postalCd}</div>
+                            <div className="cmp-order-details-address3">{account.city + ", " + account.region} <span className="postalcode">{account.postalCd}</span></div>
                         </>
                     );
         }

@@ -1,5 +1,6 @@
 import React from 'react';
 import CheckOutStatus from '../scripts/checkOutStatus';
+import { setClickAnalytics } from "../analytics";
 
 const renderUserName = props => {
     return (
@@ -45,6 +46,7 @@ const renderSwitchAccountLink = props => {
                 <a
                     className="my-account-dropdown__user-details__switch-account"
                     href={props.switchAccount.url + "?fromMenu=true"}
+                    onClick={()=>setClickAnalytics('Account Dropdown', props.switchAccount.linkName, props.switchAccount.url)}
                 >
                     {props.switchAccount.text}
                 </a>
