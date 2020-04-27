@@ -22,6 +22,8 @@ import javax.inject.Inject;
     resourceType = Image.RESOURCE_TYPE,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+
+@SuppressWarnings({"squid:S2176"})
 public final class Image implements com.adobe.cq.wcm.core.components.models.Image {
 
     static final String RESOURCE_SUPER_TYPE = "core/wcm/components/image/v2/image";

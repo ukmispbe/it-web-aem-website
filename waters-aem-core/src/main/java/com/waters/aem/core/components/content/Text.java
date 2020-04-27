@@ -32,6 +32,7 @@ import javax.inject.Inject;
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+@SuppressWarnings({"squid:S2176"})
 public final class Text implements com.adobe.cq.wcm.core.components.models.Text, EmptyComponent {
 
     static final String RESOURCE_SUPER_TYPE = "core/wcm/components/text/v2/text";
