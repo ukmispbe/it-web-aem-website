@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.icfolson.aem.library.models.annotations.LinkInject;
-import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.components.content.links.BasicLink;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.account.WatersAccountService;
@@ -25,7 +24,6 @@ import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
-import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
