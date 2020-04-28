@@ -103,6 +103,10 @@ const eventTypes = {
         name: 'linkClick',
         event: 'linkClick'
     },
+    selectDropDown: {
+        name: 'selectDropDown',
+        event: 'selectDropDown'
+    },
     orderHistory: {
         name: 'orderHistory',
         load: {

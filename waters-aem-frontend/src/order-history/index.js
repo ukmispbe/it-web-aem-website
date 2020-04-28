@@ -9,7 +9,7 @@ import TimePeriodDropdown from './components/time-period-dropdown';
 import OrderFilterDropdown from './components/order-filter-dropdown';
 import Tabs from '../navigation/tabs';
 import Spinner from '../utils/spinner';
-import Analytics, { analyticTypes } from '../analytics';
+import Analytics, { analyticTypes, setClickAnalytics, setSelectDropdownAnalytics } from '../analytics';
 
 class OrderHistory extends Component {
     constructor(props) {
@@ -45,7 +45,6 @@ class OrderHistory extends Component {
     }
 
     setAnalytics = (event, detail={}) => {
-        console.log('test');
         const model = {
             detail,
             event
@@ -59,7 +58,12 @@ class OrderHistory extends Component {
         let activeTabFilter = "All";
         (e.value || e.value === 0) ? tabId = e.value : tabId = e;
 
-        if (tabId === 1) activeTabFilter = "Open";
+        if (tabId === 1) {
+            activeTabFilter = "Open";
+            setClickAnalytics('Order History', 'Order History Open Orders', '#');
+        } else {
+            setClickAnalytics('Order History', 'Order History All Orders', '#');
+        }
         this.setState({
             activeTabFilter: activeTabFilter,
             activeIndex: tabId
@@ -76,6 +80,7 @@ class OrderHistory extends Component {
 
         switch (selectedTimeframe) {
             case 1:
+                setSelectDropdownAnalytics('Order Period Selected', 'Order History Last 30 Days');
                 let thirtyDaysAgo = new Date(now.setDate(now.getDate() - 30));
                 this.setState({
                     fromDate: thirtyDaysAgo.toISOString(),
@@ -88,6 +93,7 @@ class OrderHistory extends Component {
                 break;
 
             case 2:
+                setSelectDropdownAnalytics('Order Period Selected', 'Order History Last 6 Months');
                 let sixMonthsAgo = new Date(now.setMonth(now.getMonth() - 6));
                 this.setState({
                     fromDate: sixMonthsAgo.toISOString(),
@@ -100,6 +106,7 @@ class OrderHistory extends Component {
                 break;
 
             case 3:
+                setSelectDropdownAnalytics('Order Period Selected', 'Order History Last 12 Months');
                 let twelveMonthsAgo = new Date(now.setMonth(now.getMonth() - 12));
                 this.setState({
                     fromDate: twelveMonthsAgo.toISOString(),
@@ -112,6 +119,7 @@ class OrderHistory extends Component {
                 break;
 
             case 4:
+                setSelectDropdownAnalytics('Order Period Selected', 'Order History Show All');
                 let showAllTimeframe = new Date(now.setMonth(now.getMonth() - 15));
                 this.setState({
                     fromDate: showAllTimeframe.toISOString(),
