@@ -132,8 +132,9 @@ class Analytics {
     }
 
     dispatchEvent = (eventName, obj) => {
-        console.log(obj);
-        alert(eventName);
+    // Uncomment next two lines to test analytics
+//        console.log(obj);
+//        alert(eventName);
         document.dispatchEvent(new CustomEvent(eventName, obj));
     }
 

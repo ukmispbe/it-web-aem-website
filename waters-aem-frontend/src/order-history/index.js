@@ -26,7 +26,9 @@ class OrderHistory extends Component {
             activeTimePeriod: 1,
             errorObjHistory: {},
             loading: true,
-            noResults: false
+            noResults: false,
+            error: false,
+            initialPageLoad: true
         }
 
         this.paginationDefaults = {
@@ -41,7 +43,6 @@ class OrderHistory extends Component {
     componentDidMount() {
         const {fromDate, toDate, poNumber, orderNumber, activeTabFilter} = this.state;
         this.retrieveData(fromDate, toDate, poNumber, orderNumber, activeTabFilter);
-        this.setAnalytics('load');
     }
 
     setAnalytics = (event, detail={}) => {
@@ -50,6 +51,11 @@ class OrderHistory extends Component {
             event
         };
         Analytics.setAnalytics(analyticTypes['orderHistory'].name, model);
+    }
+
+    setError = (error) => {
+        this.setAnalytics('error', {error});
+        this.setState({error: true})
     }
 
     handleCategorySelected(e) {
@@ -160,7 +166,7 @@ class OrderHistory extends Component {
     retrieveData = async (fromDate, toDate, poNumber, orderNumber, activeTabFilter) => {
         const OrderHistoryServiceObj = new OrderHistoryService();
         const fetchEndPoint = this.props.configs.fetchEndPoint;
-        const orders = await OrderHistoryServiceObj.getOrderListPost(fetchEndPoint, fromDate, toDate, poNumber, orderNumber);
+        const orders = await OrderHistoryServiceObj.getOrderListPost(fetchEndPoint, fromDate, toDate, poNumber, orderNumber, this.setError);
 
         if(orders && orders.length > 0){
             let filteredOrders = orders;
@@ -178,7 +184,10 @@ class OrderHistory extends Component {
             }
         } else {
             this.setNoResultsState()
-        } 
+        }
+
+        !this.state.error && this.state.initialPageLoad && this.setAnalytics('load');
+        this.setState({initialPageLoad: false});
     }
 
     renderTabs = () => {
