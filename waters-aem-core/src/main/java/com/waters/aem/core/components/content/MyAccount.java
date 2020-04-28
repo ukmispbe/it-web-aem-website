@@ -16,6 +16,7 @@ import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.content.links.BasicLink;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.account.WatersAccountService;
+import com.waters.aem.core.services.solr.SolrSearchService;
 import com.waters.aem.core.utils.MyAccountUtils;
 import com.waters.aem.core.utils.LinkUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -57,6 +58,9 @@ public class MyAccount implements ComponentExporter {
 
     @OSGiService
     private WatersAccountService accountService;
+
+    @OSGiService
+    private SolrSearchService searchService;
 
     @Inject
     private PageManagerDecorator pageManager;
@@ -143,12 +147,12 @@ public class MyAccount implements ComponentExporter {
         return accountService.getOrderDetailsUrl();
     }
 
-    public String getSearchUrl() {
-        return accountService.getSearchUrl();
-    }
-
     public String getOrderListUrl() {
         return accountService.getOrderListUrl();
+    }
+
+    public String getSearchUrl() {
+        return searchService.getBaseUrl();
     }
 
     @Nonnull

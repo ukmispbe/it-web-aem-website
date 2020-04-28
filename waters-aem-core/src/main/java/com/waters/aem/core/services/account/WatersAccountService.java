@@ -108,13 +108,6 @@ public interface WatersAccountService {
     String getOrderDetailsUrl();
 
     /**
-     * Get the configured endpoint for searchUrl API.
-     *
-     * @return search API URL
-     */
-    String getSearchUrl();
-
-    /**
      * Get the configured endpoint for orderListUrl API.
      *
      * @return orderList API URL
