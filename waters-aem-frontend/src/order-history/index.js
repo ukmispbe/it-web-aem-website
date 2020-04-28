@@ -9,6 +9,7 @@ import TimePeriodDropdown from './components/time-period-dropdown';
 import OrderFilterDropdown from './components/order-filter-dropdown';
 import Tabs from '../navigation/tabs';
 import Spinner from '../utils/spinner';
+import Analytics, { analyticTypes } from '../analytics';
 
 class OrderHistory extends Component {
     constructor(props) {
@@ -38,8 +39,18 @@ class OrderHistory extends Component {
     }
 
     componentDidMount() {
-        const {fromDate, toDate, poNumber, orderNumber, activeTabFilter} = this.state 
+        const {fromDate, toDate, poNumber, orderNumber, activeTabFilter} = this.state;
         this.retrieveData(fromDate, toDate, poNumber, orderNumber, activeTabFilter);
+        this.setAnalytics('load');
+    }
+
+    setAnalytics = (event, detail={}) => {
+        console.log('test');
+        const model = {
+            detail,
+            event
+        };
+        Analytics.setAnalytics(analyticTypes['orderHistory'].name, model);
     }
 
     handleCategorySelected(e) {

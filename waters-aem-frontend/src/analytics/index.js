@@ -11,13 +11,15 @@ class Analytics {
 
     setAnalytics = (eventType, model) => {
         let thisAnalyticEvent = null;
-        if(eventType==='form') {
+        if(eventType === 'form') {
             if(model.formName === 'resetpassword' && model.formType && model.formType === 'update') {
                 model.formName = 'updatepassword';
             }
             if(model.formName !== 'chooseAccount') {
                 thisAnalyticEvent = this.analyticTypes[eventType][model.formName][model.event];
             }
+        } else if (eventType === 'orderHistory') {
+            thisAnalyticEvent = this.analyticTypes[eventType][model.event];
         } else {
             thisAnalyticEvent = this.analyticTypes[eventType];
         };
@@ -119,6 +121,8 @@ class Analytics {
     }
 
     dispatchEvent = (eventName, obj) => {
+        alert(eventName);
+        console.log(obj);
         document.dispatchEvent(new CustomEvent(eventName, obj));
     }
 
