@@ -90,53 +90,43 @@
     }
 }
 
-.cmp-features--tile {
+.cmp-features--noPadding .cmp-features {
+    margin-bottom: 0;
+}
 
-    .cmp-features {
-        margin-bottom: 0;
-        box-shadow: $shadow;
-        padding: $space-l;
-        min-height: 240px;
+.cmp-features--reverse .cmp-features {
+    &__feature {
 
-        &__list {
-            margin-bottom: 0;
-        }
-    }
+        &-icon {
+            color: $color-white;
 
-    .cmp-features__feature {
-        margin-bottom: 0;
+            .st0 {
+                stroke: $color-white;
+            }
 
-        &-wrapper {
-            display: grid;
-            grid-template-columns: ($icon-l + $space-xs) 1fr;
-
-            @include IE11-only {
-                display: block;
+            .st1 {
+                stroke: $color-white;
             }
         }
 
         &-title {
-            margin-bottom: $space-xxs;
+            color: $color-white;
+        }
+
+        &-desc {
+            color: $color-white;
         }
 
         &-link {
-            @include font-body;
-            color: $color-link;
-            display: block;
-            margin-bottom: $space-xxs;
+            color: $color-gray-20;
 
-            &:last-child {
-                margin-bottom: 0;
+            &:hover {
+                color: $color-font-light;
             }
-        }
-
-        &-icon {
-            margin-right: $space-s;
-            margin-bottom: 0;
+            }
         }
     }
 
-}
 
 .cmp-features--signin {
 
