@@ -47,9 +47,6 @@ public class Commerce {
     @Inject
     private ResourceResolverService resourceResolverService;
 
-    @Inject
-    private PageDecorator currentPage;
-
     @DialogField(fieldLabel = "Country Commerce Configuration",
             fieldDescription = "Select the commerce configuration option to apply to this country.",
             ranking = 1,
