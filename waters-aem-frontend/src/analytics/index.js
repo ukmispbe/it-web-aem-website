@@ -11,13 +11,15 @@ class Analytics {
 
     setAnalytics = (eventType, model) => {
         let thisAnalyticEvent = null;
-        if(eventType==='form') {
+        if(eventType === 'form') {
             if(model.formName === 'resetpassword' && model.formType && model.formType === 'update') {
                 model.formName = 'updatepassword';
             }
             if(model.formName !== 'chooseAccount') {
                 thisAnalyticEvent = this.analyticTypes[eventType][model.formName][model.event];
             }
+        } else if (eventType === 'orderHistory') {
+            thisAnalyticEvent = this.analyticTypes[eventType][model.event];
         } else {
             thisAnalyticEvent = this.analyticTypes[eventType];
         };
@@ -34,10 +36,21 @@ class Analytics {
              detail: {
                  url: href,
                  menuLocation,
-                 linkName
+                 key: 'LinkName',
+                 value: linkName
              }
          };
          this.setAnalytics(this.analyticTypes['linkClick'].name, model);
+    }
+
+    setSelectDropdownAnalytics = (key, value) => {
+         const model = {
+             detail: {
+                 key,
+                 value
+             }
+         };
+         this.setAnalytics(this.analyticTypes['selectDropDown'].name, model);
     }
 
     buildModel = (name, model) => {
@@ -119,6 +132,9 @@ class Analytics {
     }
 
     dispatchEvent = (eventName, obj) => {
+    // Uncomment next two lines to test analytics
+//        console.log(obj);
+//        alert(eventName);
         document.dispatchEvent(new CustomEvent(eventName, obj));
     }
 
@@ -139,4 +155,5 @@ const analytics = new Analytics();
 export default analytics;
 export const analyticTypes = analytics.analyticTypes;
 export const setClickAnalytics = analytics.setClickAnalytics;
+export const setSelectDropdownAnalytics = analytics.setSelectDropdownAnalytics;
 export const [mainCartContext, searchCartContext, relatedCartContext] = analytics.analyticTypes.cart.context;

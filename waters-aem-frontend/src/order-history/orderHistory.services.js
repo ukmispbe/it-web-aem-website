@@ -15,7 +15,7 @@ class OrderHistoryService {
         return response;
     }
 
-    postData(url, options) {
+    postData(url, options, setError) {
         return fetch(url, {
             method: 'POST',
             credentials: 'include',
@@ -28,16 +28,18 @@ class OrderHistoryService {
             if (response.status === 200) {
                 return response.json();
             } else if (response.status === 401) {
+                setError(response.status);
                 signInRedirect();
-            } 
+            }
         })
         .catch(error => {
+            setError(error);
             this.throwError(error);
             reject(error);
         });
     };
 
-    getOrderListPost(url, fromDate, toDate, poNumber, orderNumber) {
+    getOrderListPost(url, fromDate, toDate, poNumber, orderNumber, setError) {
         let options = {};
         options.orderNumber = orderNumber;
         options.purchaseOrderNumber = poNumber;
@@ -45,7 +47,7 @@ class OrderHistoryService {
         options.toDate = toDate;
         options.maxRecs = "";
 
-        return this.postData(url, options);
+        return this.postData(url, options, setError);
     }
 }
 

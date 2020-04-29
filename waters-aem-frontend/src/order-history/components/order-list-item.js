@@ -4,6 +4,7 @@ import DeliveryStatus from './delivery-status'
 import DateFormatter from '../../utils/date-formatter'
 import CurrencyFormatter from '../../utils/currency-formatter'
 import GetLocale from '../../utils/get-locale'
+import { setClickAnalytics } from '../../analytics';
 
 class OrderListItem extends Component {
     constructor(props) {
@@ -15,7 +16,12 @@ class OrderListItem extends Component {
             <div className={'cmp-order-list__container'}>
                 <div className="cmp-order-list__left">
                     <div className="cmp-order-list__order-number">
-                        <a href={'#orderdetails?id=' + this.props.data.orderNumber}>{this.props.orderText + " " + this.props.data.orderNumber}</a>
+                        <a
+                            href={'#orderdetails?id=' + this.props.data.orderNumber}
+                            onClick={() => setClickAnalytics("Order History", "Order Details", '#orderdetails?id=' + this.props.data.orderNumber)}
+                        >
+                            {this.props.orderText + " " + this.props.data.orderNumber}
+                        </a>
                     </div>
                     <div className="cmp-order-list__date">
                         {DateFormatter.dateFormatter(this.props.data.date, this.userLocale)}
