@@ -250,7 +250,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
             modifiableValueMap.put(PROPERTY_COUNTRY_LIST_JSON, StringUtils.isNotBlank(countryPagesJson) ? countryPagesJson : "");
             List<CountryLanguageSelectorItem> languagePageList = getLanguagePages();
             if (!languagePageList.isEmpty()) {
-                Map jsonMap = new HashMap();
+                Map jsonMap = new LinkedHashMap();
                 Iterator<CountryLanguageSelectorItem> languageSelectorItemIterator = languagePageList.iterator();
                 while (languageSelectorItemIterator.hasNext()) {
                     CountryLanguageSelectorItem countryLanguageSelectorItem = languageSelectorItemIterator.next();
