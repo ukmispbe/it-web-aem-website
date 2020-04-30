@@ -210,31 +210,31 @@ public final class Header extends AbstractComponent implements ComponentExporter
     }
 
     public Link getMyAccountLink() {
-        return LinkUtils.getExternalizedLink(pageManager,myAccountLink);
+        return LinkUtils.getExternalizedLink(pageManager, myAccountLink);
     }
 
     public Link getSignInLink() {
-        return LinkUtils.getExternalizedLink(pageManager,signInLink);
+        return LinkUtils.getExternalizedLink(pageManager, signInLink);
     }
 
     public Link getSignOutLink() {
-        return LinkUtils.getExternalizedLink(pageManager,signOutLink);
+        return LinkUtils.getExternalizedLink(pageManager, signOutLink);
     }
 
     public Link getSwitchAccountLink() {
-        return LinkUtils.getExternalizedLink(pageManager,switchAccountLink);
+        return LinkUtils.getExternalizedLink(pageManager, switchAccountLink);
     }
 
     public Link getCreateAccountLink() {
-        return LinkUtils.getExternalizedLink(pageManager,createAccountLink);
+        return LinkUtils.getExternalizedLink(pageManager, createAccountLink);
     }
 
     public Link getProfileLink() {
-        return LinkUtils.getExternalizedLink(pageManager,profileLink);
+        return LinkUtils.getExternalizedLink(pageManager, profileLink);
     }
 
     public Link getOrdersLink() {
-        return LinkUtils.getExternalizedLink(pageManager,ordersLink);
+        return LinkUtils.getExternalizedLink(pageManager, ordersLink);
     }
 
     public Boolean isHideIcons() { return hideIcons; }
