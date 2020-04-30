@@ -254,7 +254,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
                 Iterator<CountryLanguageSelectorItem> languageSelectorItemIterator = languagePageList.iterator();
                 while (languageSelectorItemIterator.hasNext()) {
                     CountryLanguageSelectorItem countryLanguageSelectorItem = languageSelectorItemIterator.next();
-                    jsonMap.put(countryLanguageSelectorItem.getLanguageTitle(),countryLanguageSelectorItem.getPage().getHref());
+                    jsonMap.put(countryLanguageSelectorItem.getLanguageTitle(), countryLanguageSelectorItem.getPage().getHref());
                 }
                 modifiableValueMap.put(PROPERTY_LANGUAGE_LIST_JSON, jsonMap.size() > 0 ? MAPPER.writeValueAsString(jsonMap) : "");
             }
@@ -429,8 +429,10 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     }
 
     public String getAddToCartUrl() {
-        return watersCommerceService.getAddToCartUrl();
+        return siteContext.getAddToCartURL();
     }
+
+    public boolean getCommerceApiMigrated() { return siteContext.isCommerceApiMigrated(); }
 
     public String viewCartUrl() {
         return watersCommerceService.getViewCartUrl();
