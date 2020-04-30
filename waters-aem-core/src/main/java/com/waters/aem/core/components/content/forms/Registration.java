@@ -108,8 +108,8 @@ public class Registration implements ComponentExporter {
     }
 
     public Link getRedirectLink() {
-        return LinkUtils.getMappedLink(pageManager, redirectLink);
-    }
+        return LinkUtils.getExternalizedLink(pageManager,redirectLink);
+}
 
     public Link getTermsOfUseLink() {
         return termsOfUseLink;

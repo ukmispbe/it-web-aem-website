@@ -81,7 +81,7 @@ public class ResetPassword implements ComponentExporter {
     private String formType;
 
     public Link getRedirectLink() {
-        return LinkUtils.getMappedLink(pageManager, redirectLink);
+        return LinkUtils.getExternalizedLink(pageManager,redirectLink);
     }
 
     public String getFormType() {
