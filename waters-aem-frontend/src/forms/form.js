@@ -14,6 +14,9 @@ import Field from './fields';
 import { retrieveData } from '../forms/services/retrieve';
 import Analytics, { analyticTypes } from "../analytics";
 import SessionStore from '../stores/sessionStore';
+import loginStatus from '../scripts/loginStatus';
+import { notLoggedInRedirect, homePageRedirect } from '../utils/redirectFunctions';
+import Spinner from "../utils/spinner";
 
 const FormApi = createContext(null);
 FormApi.displayName = 'FormApi';
@@ -60,7 +63,7 @@ const Form = ({
         }
     });
 
-    const checkIfDisabled = () => {
+        const checkIfDisabled = () => {
         const requiredFields = config.fields
             .filter(field => ('validation' in field && field.validation.required === true && ('active' in field ? field.active === true : true)));
         const values = getValues();
@@ -89,7 +92,8 @@ const Form = ({
     const [failedAttempts, setFailedAttempts] = useState(1);
     const [countrySaved, setCountrySaved] = useState();
     const regionalConfig = config.regionalConfig;
-
+    const [displayForm, setDisplayForm] = useState(false);
+    const [isInEditMode, setIsInEditMode ] = useState(document.getElementById("header").hasAttribute("data-is-edit-mode"));
     const captchaField = config.fields.filter(
         field => field.type === 'captcha'
     )[0];
@@ -130,6 +134,27 @@ const Form = ({
         config.fields = [...fields];
     };
 
+    // Hook to check the users's Authentication Status and redirect if needed
+    useEffect(() => {
+        if (!isInEditMode) {
+            const needsToBeSignedIn = config.needsToBeSignedIn;
+            if (needsToBeSignedIn) {
+                if (!loginStatus.state()) {
+                    notLoggedInRedirect();
+                    return null;
+                }
+            }
+            const needsToBeSignedOut = config.needsToBeSignedOut;
+            if (needsToBeSignedOut) {
+                if (loginStatus.state()) {
+                    homePageRedirect();
+                    return null;
+                }
+            }
+            setDisplayForm(true);
+        }
+    }, []);
+
     useEffect( () => {
         setFormAnalytics('load');
     }, []);
@@ -160,6 +185,12 @@ const Form = ({
             return;
         }
 
+        // Don't retrieve data in Edit Mode
+        const isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
+        if (isInEditMode) {
+            return;
+        }
+
         retrieveData(config.optionsEndpoint).then(resp => {
             
             // Only put this logic in for formName ==="chooseAccount"
@@ -180,6 +211,7 @@ const Form = ({
 
             config.options = tempArray;
             config.fields[1].options = tempArray;
+            setDisplayForm(true);   
             // PB Setting newConfig to triiger a reload
             setNewConfig(config);
         });
@@ -265,11 +297,10 @@ const Form = ({
         );
     });
 
-    if (config.getRadioOptions && !config.options) {
-        return null;
-    }
-    else {
+    // if (displayForm || isInEditMode) {
         return (
+            <>
+            {!isInEditMode &&  !displayForm && (<Spinner loading={!displayForm} />)}
             <form
                 className="cmp-form cmp-form--registration"
                 onSubmit={handleSubmit(
@@ -309,9 +340,12 @@ const Form = ({
                     </a>
                 )}
             </form>
+            </>
         );
-    }
-
+    // }
+    // else {
+    //     return (<Spinner loading={!displayForm} />);
+    // }
 };
 
 const ErrorBoundaryForm = props => (

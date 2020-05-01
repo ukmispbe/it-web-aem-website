@@ -6,6 +6,8 @@ import GetLocale from "../utils/get-locale";
 import Spinner from "../utils/spinner";
 import ReactSVG from 'react-svg';
 import ErrorBoundary from '../search/ErrorBoundary';
+import loginStatus from '../scripts/loginStatus';
+import { notLoggedInRedirect } from '../utils/redirectFunctions';
 
 class OrderDetails extends Component {
 
@@ -40,6 +42,15 @@ class OrderDetails extends Component {
     }
 
     async componentDidMount() {
+        // Redirect if not logged in
+        const isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
+        if (!isInEditMode) {
+                if (!loginStatus.state()) {
+                    notLoggedInRedirect();
+                    return null;
+                }
+        }
+
         const { detailsUrl, orderId } = this.state;
         getOrderDetails(detailsUrl, orderId, this.setError)
             .then((data) => {
