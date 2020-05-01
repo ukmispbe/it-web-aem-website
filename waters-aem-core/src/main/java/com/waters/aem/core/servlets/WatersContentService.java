@@ -25,6 +25,9 @@ import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletPaths;
 import org.apache.sling.settings.SlingSettingsService;
 import org.osgi.service.component.annotations.*;
+import org.osgi.service.metatype.annotations.AttributeDefinition;
+import org.osgi.service.metatype.annotations.Designate;
+import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,15 +46,15 @@ import java.util.concurrent.TimeUnit;
  */
 @Component(service = Servlet.class)
 @SlingServletPaths("/bin/waters/content")
+@Designate(ocd = WatersContentService.Config.class)
 public class WatersContentService extends SlingAllMethodsServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(WatersContentService.class);
 
     @Reference
-    private Externalizer externalizer;
-
-    @Reference
     private SlingSettingsService settingsService;
+
+    private volatile String hostName;
 
     @Override
     public void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) {
@@ -60,27 +63,25 @@ public class WatersContentService extends SlingAllMethodsServlet {
             response.setContentType("application/json; charset=UTF-8");
             String pagePath = request.getParameter("pagePath");
             final String responseLevel = request.getParameter("depth");
-            if (StringUtils.isNotBlank(pagePath) && (pagePath.startsWith(WatersConstants.ROOT_PATH) || pagePath.startsWith(WatersConstants.CUSTOM_ROOT_PATH))) {
-                if (pagePath.startsWith(WatersConstants.CUSTOM_ROOT_PATH)) {
-                    pagePath = pagePath.replace(WatersConstants.CUSTOM_ROOT_PATH, WatersConstants.ROOT_PATH);
-                }
-                if (pagePath.endsWith(".html")) {
-                    pagePath = pagePath.replace(".html", "");
-                }
-                if (settingsService.getRunModes().contains(Externalizer.PUBLISH)) {
-                    response.getWriter().write(buildJsonForPage(pagePath, responseLevel, request));
+            if (settingsService.getRunModes().contains(Externalizer.PUBLISH)) {
+                if (StringUtils.isNotBlank(hostName)) {
+                    if (StringUtils.isNotBlank(pagePath) && (pagePath.startsWith(WatersConstants.ROOT_PATH) || pagePath.startsWith(WatersConstants.CUSTOM_ROOT_PATH))) {
+                        String processedPath = getProcessedPath(pagePath);
+                        response.getWriter().write(buildJsonForPage(processedPath, responseLevel, request));
+                    } else {
+                        response.getWriter().write("{\n" +
+                                "\"Error\": \"Add correct parameters as mentioned below\",\n" +
+                                "\"pagePath\": \"Page path exists on AEM\",\n" +
+                                "\"depth\": \"Response level 'full' to get Navigation content as well \"}");
+                    }
                 } else {
-                    response.getWriter().write("{\"Error\":\"Content Service is supposed to be executed on Publish instance only\"}");
+                    response.getWriter().write("{\"Error\":\"Please add host name in Waters Content Service Configuration\"}");
                 }
             } else {
-                response.getWriter().write("{\n" +
-                        "\"Error\": \"Add correct parameters as mentioned below\",\n" +
-                        "\"pagePath\": \"Page path exists on AEM\",\n" +
-                        "\"depth\": \"Response level 'full' to get Navigation content as well \"}");
+                response.getWriter().write("{\"Error\":\"Content Service is supposed to be executed on Publish instance only\"}");
             }
         } catch (Exception e) {
-            LOG.error("Exception Occurred: {}", e.getMessage());
-            LOG.debug("Exception Occurred: {}", e);
+            LOG.error("Exception Occurred: {}", e);
         }
     }
 
@@ -95,12 +96,12 @@ public class WatersContentService extends SlingAllMethodsServlet {
             final ResourceResolver resourceResolver = request.getResourceResolver();
             if (null != resourceResolver.getResource(path)) {
                 //TODO:USE CompletableFuture API instead of sequence
-                pagePublishCaaSUrl = externalizer.publishLink(resourceResolver, path.concat("/jcr:content.caas.infinity.json")).replace(WatersConstants.CUSTOM_ROOT_PATH, WatersConstants.ROOT_PATH);
+                pagePublishCaaSUrl = hostName.concat(path.concat("/jcr:content.caas.infinity.json")).replace(WatersConstants.CUSTOM_ROOT_PATH, WatersConstants.ROOT_PATH);
                 pageJsonResponse = getHttpResponseAsStringForURI(pagePublishCaaSUrl);
                 if (StringUtils.isNotBlank(responseLevel) && responseLevel.equalsIgnoreCase("full")) {
                     final Resource resource = resourceResolver.getResource(path + "/jcr:content/header/par/navigation");
                     if (null != resource) {
-                        navigationCompJsonResponse = getHttpResponseAsStringForURI(pagePublishCaaSUrl.replace("/_jcr_content.caas.infinity.json", "/_jcr_content/header/par/navigation.model.json"));
+                        navigationCompJsonResponse = getHttpResponseAsStringForURI(pagePublishCaaSUrl.replace("/jcr:content.caas.infinity.json", "/jcr:content/header/par/navigation.model.json"));
                         LOG.debug("JSON Content- {\"Page Content\": {} ,\"Navigation Content\": {} }", pageJsonResponse, navigationCompJsonResponse);
                         if (StringUtils.isNotBlank(navigationCompJsonResponse)) {
                             LOG.info("JSON returned with full page content for: {}", path);
@@ -113,8 +114,7 @@ public class WatersContentService extends SlingAllMethodsServlet {
                 return "{\"Error\":\"Path doesn't exist in AEM repo\"}";
             }
         } catch (Exception e) {
-            LOG.error("Exception occurred: {}", e.getMessage());
-            LOG.debug("Exception occurred: {}", e);
+            LOG.error("Exception occurred in buildJsonForPage() method of WatersContentService class: ", e);
         }
         LOG.info("JSON returned for: {}", path);
         LOG.info("JSON fetched from AEM in {} ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
@@ -144,14 +144,35 @@ public class WatersContentService extends SlingAllMethodsServlet {
             responseEntity = EntityUtils.toString(response.getEntity(), "UTF-8");
             LOG.debug("HTTP response for URI {} is: {}", URI, responseEntity);
         } catch (Exception e) {
-            LOG.info("Exception occured: {}", e.getMessage());
-            LOG.debug("Exception occured: {}", e);
+            LOG.error("Exception occured in getHttpResponseAsStringForURI() method in WatersContentService class: ", e);
         }
         if (StringUtils.isBlank(responseEntity)) {
             responseEntity = "\"\"";
         }
         LOG.info("HTTP/HTTPS call successful for URI: {} ", URI);
         return responseEntity;
+    }
+
+    private String getProcessedPath(String pagePath) {
+        if (pagePath.startsWith(WatersConstants.CUSTOM_ROOT_PATH)) {
+            pagePath = pagePath.replace(WatersConstants.CUSTOM_ROOT_PATH, WatersConstants.ROOT_PATH);
+        }
+        if (pagePath.endsWith(".html")) {
+            pagePath = pagePath.replace(".html", "");
+        }
+        return pagePath;
+    }
+
+    @Activate
+    @Modified
+    protected void activate(final WatersContentService.Config configuration) {
+        hostName = configuration.getHostName();
+    }
+
+    @ObjectClassDefinition(name = "Waters Content Service Configuration")
+    public @interface Config {
+        @AttributeDefinition(name = "Host Name", description = "Set the publish host name e.g. http://www.hostname.com ")
+        String getHostName();
     }
 
 }
