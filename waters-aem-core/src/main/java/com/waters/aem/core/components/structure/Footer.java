@@ -102,6 +102,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
     public static final String PROPERTY_COUNTRY_LIST_JSON = "countryListJson";
     public static final String PROPERTY_LANGUAGE_LIST_JSON = "languageListJson";
+    public static final String PROPERTY_COUNTRY_NAME = "countryName";
 
     @DialogField(fieldLabel = "Logo",
             fieldDescription = "Select the logo image to display on footer",
@@ -247,6 +248,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
             ResourceResolver resourceResolver = resourceResolverService.getResourceResolver("watersService");
             Resource footerResource = resourceResolver.getResource(resource.getPath());
             ModifiableValueMap modifiableValueMap = footerResource.adaptTo(ModifiableValueMap.class);
+            modifiableValueMap.put(PROPERTY_COUNTRY_NAME, getCountryName());
             modifiableValueMap.put(PROPERTY_COUNTRY_LIST_JSON, StringUtils.isNotBlank(countryPagesJson) ? countryPagesJson : "");
             List<CountryLanguageSelectorItem> languagePageList = getLanguagePages();
             if (!languagePageList.isEmpty()) {
@@ -260,7 +262,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
             }
             resourceResolver.commit();
         } catch (Exception e) {
-            LOG.error("Exception occurred while working on Country list JSON property: {}", e);
+            LOG.error("Exception occurred while setting custom jcr properties: {}", e);
         }
     }
 
