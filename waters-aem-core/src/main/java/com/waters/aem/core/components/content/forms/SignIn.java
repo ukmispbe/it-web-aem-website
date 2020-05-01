@@ -60,11 +60,11 @@ public class SignIn implements ComponentExporter {
     private Link forcePasswordUpdateLink;
 
     public Link getForgotPasswordLink() {
-        return LinkUtils.getMappedLink(pageManager, forgotPasswordLink);
+        return LinkUtils.getExternalizedLink(pageManager, forgotPasswordLink);
     }
 
     public Link getForcePasswordUpdateLink() {
-        return LinkUtils.getMappedLink(pageManager, forcePasswordUpdateLink);
+        return LinkUtils.getExternalizedLink(pageManager, forcePasswordUpdateLink);
     }
 
     public Link getHomepageLink() {
