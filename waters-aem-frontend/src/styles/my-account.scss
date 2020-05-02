@@ -65,7 +65,8 @@
                 }
     
                 .cmp-linktile--title {
-                    font-weight: $font-weight-light;
+                    @include font-h3;
+                    margin-bottom: $space-xxs;
                 }
             }
         }

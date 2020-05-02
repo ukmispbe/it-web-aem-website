@@ -27,6 +27,12 @@ public final class LinkUtils {
                 .orElse(link);
     }
 
+    public static Link getExternalizedLink(final PageManagerDecorator pageManager, final Link link) {
+        return Optional.ofNullable(pageManager.getPage(link.getPath()))
+               .map(page -> page.getLink(true))
+               .orElse(link);
+    }
+
     public static Link getHomepageLink(final PageDecorator page) {
         return page.getAbsoluteParent(WatersConstants.LEVEL_SITE_ROOT).getChildren()
                 .stream()

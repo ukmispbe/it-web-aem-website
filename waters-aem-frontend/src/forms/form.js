@@ -12,7 +12,8 @@ import DigitalData from '../scripts/DigitalData';
 import ErrorBoundary from '../search/ErrorBoundary';
 import Field from './fields';
 import { retrieveData } from '../forms/services/retrieve';
-import Analytics, { analyticTypes } from "../scripts/analytics";
+import Analytics, { analyticTypes } from "../analytics";
+import SessionStore from '../stores/sessionStore';
 
 const FormApi = createContext(null);
 FormApi.displayName = 'FormApi';
@@ -128,13 +129,6 @@ const Form = ({
         });
         config.fields = [...fields];
     };
-    
-    const getCountryCodefromURL = () => {
-        const urlString = document.URL;
-        const stringPos = urlString.search(`/${isocode}/`)
-        const countryCode = urlString.substr((stringPos - 2), 2);
-        return countryCode.toLowerCase();
-    }
 
     useEffect( () => {
         setFormAnalytics('load');
@@ -143,7 +137,7 @@ const Form = ({
     useEffect( () => {
         // Configure Registration Form on "Loading"
         if (config.formName === "registration") {
-            const countryRegion = getCountryCodefromURL();
+            const countryRegion = digitalData.page.country.toLowerCase();
             // Get Regional config 
             const countryOptionsConfig = regionalConfig;           
             // Hide all country configurable fields
@@ -167,6 +161,13 @@ const Form = ({
         }
 
         retrieveData(config.optionsEndpoint).then(resp => {
+            
+            // Only put this logic in for formName ==="chooseAccount"
+            if (config.formName ==="chooseAccount"){
+                const store = new SessionStore();
+                store.setSoldToDetails(resp);               
+            }
+
             const tempArray = resp.map((item) => {
                 let tempOption = {};
                 tempOption.name = item.soldTo;
@@ -281,7 +282,6 @@ const Form = ({
                         updateFailedAttempts: updateFailedAttempts,
                         setProfileData: setProfileData,
                         setFormAnalytics: setFormAnalytics
-
                     })
                 )}
             >

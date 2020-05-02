@@ -51,7 +51,7 @@ public class TroubleSigningIn implements ComponentExporter {
     private Link redirectLink;
 
     public Link getRedirectLink() {
-        return LinkUtils.getMappedLink(pageManager, redirectLink);
+        return LinkUtils.getExternalizedLink(pageManager, redirectLink);
     }
 
     public String getPasswordResetUrl() {

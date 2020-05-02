@@ -70,7 +70,7 @@
 }
 @mixin font-caption {
     font-style: italic;
-    margin-top: $space-m;
+    margin-top: $space-xs;
     padding-top: $space-xs;
     border-top: $border-medium;
 }
@@ -176,6 +176,36 @@ blockquote {
 .cmp-text--finePrint .cmp-text {
     @include font-small;
     font-style: italic;
+}
+
+.cmp-text--reverse .cmp-text {
+    p,
+    a,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ul li,
+    ol li {
+        color: $color-font-light;
+    }
+}
+
+.cmp-title--reverse .cmp-title {
+    p,
+    a,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ul li,
+    ol li {
+        color: $color-font-light;
+    }
 }
 
 .cmp-text--noPadding .cmp-text {

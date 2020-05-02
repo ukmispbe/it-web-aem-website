@@ -27,6 +27,16 @@
         padding-right: 0px;
     }
 
+    &--my-account {
+        @include mobile {
+            margin-top: $space-l;
+
+            .cmp-notification-wrapper {
+                margin-bottom: 0;
+            }
+        }
+    }
+
     &-dismiss {
         display: inline;
         padding-left: $space-xxs;
@@ -182,7 +192,17 @@
         @include mobile {
             padding: $space-xs;
         }
+
+        svg {
+            height: ($icon-m - .25em);
+            padding-right: $space-xxxs;
+            margin-top: 0.1em;
+            padding-top: $space-xxxs;
+        }
     }
+
+   
+
     .cmp-notification-description {
         @include font-small;
     }
@@ -207,4 +227,40 @@ div[class*="cmp-notification--error"], div[class~="cmp-notification--error"]{
 
 .container-sitewide-notification {
     background-color: $color-blue-10;
+}
+
+.cmp-notification--dark {
+    .cmp-notification-wrapper {
+        background-color: $color-background-dark;
+        border: none;
+        color: $color-font-light;
+
+        svg {
+            .st0 {
+                stroke: $color-white;
+            }
+        }
+    }
+
+    .cmp-notification-separator {
+        color: $color-gray-30;
+    }
+
+    .cmp-notification-description {
+        color: $color-font-light;
+    }
+
+    .cmp-notification-title {
+        color: $color-font-light;
+    }
+
+    .cmp-notification-links {
+        a {
+            color: $color-gray-20;
+
+            &:hover {
+                color: $color-white;
+            }
+        }
+    }
 }
