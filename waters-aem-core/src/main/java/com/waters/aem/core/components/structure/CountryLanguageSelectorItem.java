@@ -32,6 +32,16 @@ public class CountryLanguageSelectorItem {
         return LinkUtils.getHomepageLink(page);
     }
 
+    public  String getCountryLanguageCode(final PageDecorator page) {
+        return LocaleUtils.isGlobalRegionPage(page) ? "" :
+                 LocaleUtils.getLocaleWithCountryForPage(page).toString();
+    }
+
+    public String getLanguageHrefIsocode() {
+        return LocaleUtils.isGlobalRegionPage(page) ? page.getHref() :
+                page.getHref()+"?locale="+LocaleUtils.getLocaleWithCountryForPage(page).toString();
+    }
+
     /**
      * For any page, returns the language as a string by examining the root language path of the page.
      *
