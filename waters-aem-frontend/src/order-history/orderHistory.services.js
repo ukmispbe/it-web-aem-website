@@ -3,14 +3,9 @@ import { signInRedirect } from '../utils/redirectFunctions';
 
 class OrderHistoryService {
     constructor(
-        orderHistory = {
-            orderListPost: 'https://test-www.waters.com:8443/api/waters/order/v1/list',
-            orderDetails: ''
-        },
-        throwError //callback 
+        url = "https://test-www.waters.com:8443/api/waters/order/v1/list"
     ) {
-        this.orderHistoryOptions = orderHistory;
-        this.throwError = throwError;
+        this.url = url;
     }
 
     checkFetch(response) {
@@ -20,7 +15,7 @@ class OrderHistoryService {
         return response;
     }
 
-    postData(url, options) {
+    postData(url, options, setError) {
         return fetch(url, {
             method: 'POST',
             credentials: 'include',
@@ -30,20 +25,21 @@ class OrderHistoryService {
             body: JSON.stringify(options)
         })
         .then(response => {
-            console.log("response", response);
             if (response.status === 200) {
-                response.json();
+                return response.json();
             } else if (response.status === 401) {
+                setError(response.status);
                 signInRedirect();
             }
         })
         .catch(error => {
+            setError(error);
             this.throwError(error);
             reject(error);
         });
     };
 
-    getOrderListPost(fromDate, toDate, poNumber, orderNumber) {
+    getOrderListPost(url, fromDate, toDate, poNumber, orderNumber, setError) {
         let options = {};
         options.orderNumber = orderNumber;
         options.purchaseOrderNumber = poNumber;
@@ -51,7 +47,7 @@ class OrderHistoryService {
         options.toDate = toDate;
         options.maxRecs = "";
 
-        return this.postData(this.orderHistoryOptions.orderListPost, options);
+        return this.postData(url, options, setError);
     }
 }
 

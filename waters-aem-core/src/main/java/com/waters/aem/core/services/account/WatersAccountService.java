@@ -99,4 +99,18 @@ public interface WatersAccountService {
      * @return switch account API URL
      */
     String getChooseAccountEndpoint();
+
+    /**
+     * Get the configured endpoint for orderDetailsUrl API.
+     *
+     * @return Details API URL
+     */
+    String getOrderDetailsUrl();
+
+    /**
+     * Get the configured endpoint for orderListUrl API.
+     *
+     * @return orderList API URL
+     */
+    String getOrderListUrl();
 }

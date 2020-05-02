@@ -6,7 +6,7 @@ import NoResults from './components/no-results';
 import validator from 'validator';
 import domElements from '../scripts/domElements';
 import screenSizes from '../scripts/screenSizes';
-import Analytics, { analyticTypes } from '../scripts/analytics';
+import Analytics, { analyticTypes } from '../analytics';
 import Loading from './components/loading';
 import SearchComponent from './search.component';
 

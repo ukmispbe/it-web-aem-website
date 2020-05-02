@@ -63,6 +63,7 @@ const Input = ({
             <>
                 <label
                     htmlFor={name}
+                    id={name}
                     className={
                         validation.validateFnName === 'matching'
                             ? 'cmp-form-field--label-matching'

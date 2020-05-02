@@ -1,12 +1,12 @@
 .cmp-search-bar {
     width: 100%;
     float: left;
-    margin-bottom: $space-m;
+    margin-bottom: $space-xxs;
     position: relative;
     z-index: 0;
 
     @include mobile {
-        margin-bottom: $space-s;
+        margin-bottom: 0;
     }
 
     .react-autosuggest__suggestions-container {

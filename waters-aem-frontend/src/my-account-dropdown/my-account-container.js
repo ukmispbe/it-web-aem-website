@@ -3,6 +3,7 @@ import ReactSVG from 'react-svg';
 import { signOutRequest } from './services';
 import MyAccountUserDetails from './my-account-user-details';
 import MyAccountItemList from './my-account-item-list';
+import { setClickAnalytics } from "../analytics";
 
 const keys = {
     MyAccountContainer : 'my-account-dropdown'
@@ -31,11 +32,13 @@ const MyAccountContainer = props => {
     const onSignIn = (e) => {
         e.preventDefault();
         window.sessionStorage.setItem('signInRedirect', window.location.href);
+        setClickAnalytics('Account Dropdown', signIn.linkName, signIn.url);
         window.location.href = signIn.url;
     }
 
     const onSignOut = (e) => {
         e.preventDefault();
+        setClickAnalytics('Account Dropdown', signOut.linkName, signOut.url);
         signOutRequest(signOut.signOutEndpoint,signOut.url, homepageLink);
     }
 
@@ -62,7 +65,11 @@ const MyAccountContainer = props => {
             {notRegistered && createAccount.url && createAccount.text && (
                 <div className="my-account-dropdown__create-account">
                     {notRegistered}
-                    <a class="cmp-button" href={createAccount.url}>
+                    <a
+                        class="cmp-button"
+                        href={createAccount.url}
+                        onClick={(e)=>setClickAnalytics('Account Dropdown', createAccount.linkName, createAccount.url)}
+                    >
                         {createAccount.text}
                     </a>
                 </div>

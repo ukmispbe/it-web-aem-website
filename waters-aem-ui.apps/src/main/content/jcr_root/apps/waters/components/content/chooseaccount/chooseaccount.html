@@ -2,7 +2,8 @@
     <div class="cmp-form--attach" id="cmp-choose-account-form"></div>
     <script type="application/json" id="js-choose-account-form">
         {
-           "submitEndpoint": "${chooseAccount.chooseAccountEndpoint @ context='unsafe'}",
+            "formName": "chooseAccount",
+            "submitEndpoint": "${chooseAccount.chooseAccountEndpoint @ context='unsafe'}",
             "optionsEndpoint": "${chooseAccount.soldToEndpoint @ context='unsafe'}",
             "redirectUrl": "${chooseAccount.redirectLink.href @ context='unsafe'}",
             "buttonText": "${'Continue' @ i18n, context='text'}",

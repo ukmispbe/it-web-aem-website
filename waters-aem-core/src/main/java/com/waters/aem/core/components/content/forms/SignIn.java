@@ -22,7 +22,6 @@ import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 @Component(value = "Sign In Form",
     description = "This is the Sign In Form component for Waters site",
     path = WatersConstants.COMPONENT_PATH_FORMS)
@@ -61,11 +60,11 @@ public class SignIn implements ComponentExporter {
     private Link forcePasswordUpdateLink;
 
     public Link getForgotPasswordLink() {
-        return LinkUtils.getMappedLink(pageManager, forgotPasswordLink);
+        return LinkUtils.getExternalizedLink(pageManager, forgotPasswordLink);
     }
 
     public Link getForcePasswordUpdateLink() {
-        return LinkUtils.getMappedLink(pageManager, forcePasswordUpdateLink);
+        return LinkUtils.getExternalizedLink(pageManager, forcePasswordUpdateLink);
     }
 
     public Link getHomepageLink() {

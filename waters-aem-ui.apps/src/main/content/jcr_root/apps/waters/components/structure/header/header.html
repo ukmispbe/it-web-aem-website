@@ -9,6 +9,7 @@
     data-user-details-url="${header.userDetailsUrl}"
     data-signin-url="${header.signInLink.href}"
     data-register-url="${header.createAccountLink.href}"
+    data-switch-account-url="${header.switchAccountLink.href}"   
 >
     <div class="cmp-header__overlay overlay"></div>
     <div class="cmp-header__top-bar">
@@ -82,33 +83,39 @@
                                 "signIn": {
                                     "text": "${'Sign In' @ i18n, context='unsafe'}",
                                     "url": "${header.signInLink.href @ context='unsafe'}",
-                                    "class": "cmp-sign-in-link"
+                                    "class": "cmp-sign-in-link",
+                                    "linkName": "Sign In"
                                 },
                                 "signOut": {
                                     "text": "${'Sign Out' @ i18n, context='unsafe'}",
                                     "url": "${header.signOutLink.href @ context='unsafe'}",
-                                    "signOutEndpoint": "${header.signOutEndpoint @ context='unsafe'}"
+                                    "signOutEndpoint": "${header.signOutEndpoint @ context='unsafe'}",
+                                    "linkName": "Sign Out"
                                 },
                                 "switchAccount": {
                                     "text": "${'Switch Account' @ i18n, context='unsafe'}",
-                                    "url": "${header.switchAccountLink.href @ context='unsafe'}"
+                                    "url": "${header.switchAccountLink.href @ context='unsafe'}",
+                                    "linkName": "Switch Account"
                                 },
                                 "createAccount": {
                                     "text": "${'Create Account' @ i18n, context='unsafe'}",
-                                    "url": "${header.createAccountLink.href @ context='unsafe'}"
+                                    "url": "${header.createAccountLink.href @ context='unsafe'}",
+                                    "linkName": "Create Account"
                                 },
                                 "itemList": [
                                     {
                                         "text": "${'Profile' @ i18n, context='unsafe'}",
                                         "url": "${header.profileLink.href @ context='unsafe'}",
                                         "target": "_self",
-                                        "class": "dropdown__item-list__my-profile"
+                                        "class": "dropdown__item-list__my-profile",
+                                        "linkName": "Profile"
                                     },
                                     {
                                         "text": "${'Order History' @ i18n, context='unsafe'}",
                                         "url": "${header.ordersLink.href @ context='unsafe'}",
                                         "target": "_self",
-                                        "class": "dropdown__item-list__my-orders"
+                                        "class": "dropdown__item-list__my-orders",
+                                        "linkName": "Order History"
                                     }
                                 ]
                             }
