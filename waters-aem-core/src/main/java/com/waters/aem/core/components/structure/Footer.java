@@ -31,6 +31,7 @@ import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.waters.aem.core.utils.LinkUtils;
 import com.waters.aem.core.utils.LocaleUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -341,8 +342,9 @@ public final class Footer extends AbstractComponent implements ComponentExporter
 
             if (homepageLink != null) {
                 country.put("title", siteContext.getTranslation(item.getTitle()));
-                country.put("href", homepageLink.getHref() + "locale="+ getIsoCode());
-
+                PageDecorator countryPage = currentPage.getPageManager().getPage(homepageLink.getPath());
+                country.put("href", StringUtils.isBlank(item.getCountryLanguageCode(countryPage)) ? homepageLink.getHref() :
+                        homepageLink.getHref() + "?locale=" + item.getCountryLanguageCode(countryPage));
                 countries.add(country);
             }
         }
