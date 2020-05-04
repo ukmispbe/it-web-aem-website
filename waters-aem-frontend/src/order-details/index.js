@@ -16,6 +16,7 @@ class OrderDetails extends Component {
             orderId: this.getUrlParameter("id"),
             userLocale: GetLocale.getLocale(),
             detailsUrl: props.config.fetchDetailsEndPoint,
+            reorderUrl: props.config.fetchReorderUrlEndPoint,
             orderDetails: {},
             errorServiceError: false,
             errorOrderNotFound: false,
@@ -62,6 +63,10 @@ class OrderDetails extends Component {
         this.props.removeNotifications();
     }
 
+    addToCartReorder = () => {
+        return false;
+    }
+
     renderAddress = (addressType) => {
         const {orderDetails} = this.state;
         if (orderDetails.account){
@@ -75,6 +80,17 @@ class OrderDetails extends Component {
                     );
         }
         return null;
+    }
+
+    renderReorderButton = () => {
+        return (
+            <a
+                className="cmp-button"
+                onClick={this.addToCartReorder}
+            >
+                {this.props.config.reorderTitle}
+            </a>
+        )
     }
 
     renderOrderDetails = () => {
@@ -136,6 +152,9 @@ class OrderDetails extends Component {
                     <div className="cmp-order-details__order-total">
                         <div className="cmp-order-details__order-total_left">{this.props.config.orderTotal}</div>
                         <div className="cmp-order-details__order-total_right"><h1>{CurrencyFormatter.currencyFormatter(orderDetails.orderTotal, userLocale, orderDetails.currencyCode)}</h1></div>
+                    </div>
+                    <div className="cmp-order-details__reorder">
+                        {this.renderReorderButton()}
                     </div>
                 </div>
             </div>
