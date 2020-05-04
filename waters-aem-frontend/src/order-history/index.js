@@ -10,8 +10,6 @@ import OrderFilterDropdown from './components/order-filter-dropdown';
 import Tabs from '../navigation/tabs';
 import Spinner from '../utils/spinner';
 import Analytics, { analyticTypes, setClickAnalytics, setSelectDropdownAnalytics } from '../analytics';
-import loginStatus from '../scripts/loginStatus';
-import { notLoggedInRedirect } from '../utils/redirectFunctions';
 
 class OrderHistory extends Component {
     constructor(props) {
@@ -43,15 +41,6 @@ class OrderHistory extends Component {
     }
 
     componentDidMount() {
-        // Redirect if not logged in
-        const isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
-        if (!isInEditMode) {
-                if (!loginStatus.state()) {
-                    notLoggedInRedirect();
-                    return null;
-                }
-        }
-
         const {fromDate, toDate, poNumber, orderNumber, activeTabFilter} = this.state;
         this.retrieveData(fromDate, toDate, poNumber, orderNumber, activeTabFilter);
     }

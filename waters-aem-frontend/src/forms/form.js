@@ -63,16 +63,16 @@ const Form = ({
         }
     });
 
-        const checkIfDisabled = () => {
+    const checkIfDisabled = () => {
         const requiredFields = config.fields
             .filter(field => ('validation' in field && field.validation.required === true && ('active' in field ? field.active === true : true)));
         const values = getValues();
         const emptyRequiredFields = requiredFields
             .filter(field => {
-            return values[field.name] === "" || values[field.name] === false || values[field.name] === null || values[field.name] === undefined
+                return values[field.name] === "" || values[field.name] === false || values[field.name] === null || values[field.name] === undefined
             });
         const isConfirmPasswordFieldEmpty = 'confirmPassword' in values ? values['confirmPassword'] === "" : false;
-        return (emptyRequiredFields.length !== 0 || isConfirmPasswordFieldEmpty || Object.keys(errors).length>0);
+        return (emptyRequiredFields.length !== 0 || isConfirmPasswordFieldEmpty || Object.keys(errors).length > 0);
     };
 
     const cancelHandler = clear => {
@@ -93,7 +93,7 @@ const Form = ({
     const [countrySaved, setCountrySaved] = useState();
     const regionalConfig = config.regionalConfig;
     const [displayForm, setDisplayForm] = useState(false);
-    const [isInEditMode, setIsInEditMode ] = useState(document.getElementById("header").hasAttribute("data-is-edit-mode"));
+    const [isInEditMode, setIsInEditMode] = useState(document.getElementById("header").hasAttribute("data-is-edit-mode"));
     const captchaField = config.fields.filter(
         field => field.type === 'captcha'
     )[0];
@@ -155,24 +155,24 @@ const Form = ({
         }
     }, []);
 
-    useEffect( () => {
+    useEffect(() => {
         setFormAnalytics('load');
     }, []);
 
-    useEffect( () => {
+    useEffect(() => {
         // Configure Registration Form on "Loading"
         if (config.formName === "registration") {
             const countryRegion = digitalData.page.country.toLowerCase();
             // Get Regional config 
-            const countryOptionsConfig = regionalConfig;           
+            const countryOptionsConfig = regionalConfig;
             // Hide all country configurable fields
             const allCountryOptions = countryOptionsConfig.filter(p => p.country === "all")
-            if (allCountryOptions.length === 1){
+            if (allCountryOptions.length === 1) {
                 allCountryOptions[0].fields.map(fieldName => deactivateField(fieldName));
-            }          
+            }
             // Display Specific fields for the current country
             const selectedCountryOptions = countryOptionsConfig.filter(p => p.country === countryRegion)
-            if (selectedCountryOptions.length === 1){
+            if (selectedCountryOptions.length === 1) {
                 selectedCountryOptions[0].fields.map(fieldName => activateField(fieldName));
             }
         }
@@ -192,11 +192,11 @@ const Form = ({
         }
 
         retrieveData(config.optionsEndpoint).then(resp => {
-            
+
             // Only put this logic in for formName ==="chooseAccount"
-            if (config.formName ==="chooseAccount"){
+            if (config.formName === "chooseAccount") {
                 const store = new SessionStore();
-                store.setSoldToDetails(resp);               
+                store.setSoldToDetails(resp);
             }
 
             const tempArray = resp.map((item) => {
@@ -211,7 +211,7 @@ const Form = ({
 
             config.options = tempArray;
             config.fields[1].options = tempArray;
-            setDisplayForm(true);   
+            setDisplayForm(true);
             // PB Setting newConfig to triiger a reload
             setNewConfig(config);
         });
@@ -235,8 +235,8 @@ const Form = ({
         [errors]
     );
 
-    const setFormAnalytics = (event, detail={}) => {
-        if(config.formName){
+    const setFormAnalytics = (event, detail = {}) => {
+        if (config.formName) {
             const model = {
                 detail,
                 formName: config.formName,
@@ -297,11 +297,8 @@ const Form = ({
         );
     });
 
-    // if (displayForm || isInEditMode) {
-        return (
-            <>
-            {!isInEditMode &&  !displayForm && (<Spinner loading={!displayForm} />)}
-            <form
+    const renderForm = () => {
+            return (<form
                 className="cmp-form cmp-form--registration"
                 onSubmit={handleSubmit(
                     submitFn.bind({
@@ -339,13 +336,24 @@ const Form = ({
                         {config.cancelText}
                     </a>
                 )}
-            </form>
+            </form>);
+    }
+
+    if ((isInEditMode) || (config.getRadioOptions && config.options) || (displayForm && !config.getRadioOptions)) {
+        return (
+            <>
+                {renderForm()}
             </>
         );
-    // }
-    // else {
-    //     return (<Spinner loading={!displayForm} />);
-    // }
+    }
+    else {
+        return (
+            <>
+                <Spinner loading={!displayForm} />
+                {renderForm()}
+            </>
+        );
+    }
 };
 
 const ErrorBoundaryForm = props => (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
@@ -6,11 +6,28 @@ import Title from "../typography/title";
 import Ecommerce from "../scripts/ecommerce";
 import Breadcrumb from "./components/breadcrumb";
 import { setClickAnalytics } from "../analytics";
+import loginStatus from "../scripts/loginStatus";
+import { notLoggedInRedirect } from '../utils/redirectFunctions';
+import Spinner from "../utils/spinner";
 
 const Aside = props => {
+    console.log("Aside");
+    const [displayTile, setDisplayTile] = useState(false);
+    const [isInEditMode, setIsInEditMode] = useState(document.getElementById("header").hasAttribute("data-is-edit-mode"));
 
     const breadcrumbList = document.querySelector('.cmp-breadcrumb__list');
 
+    useEffect(() => {
+        if (!loginStatus.state()) {
+            if (!isInEditMode) {
+                notLoggedInRedirect();
+                return null;
+            }
+        }
+        setDisplayTile(true);
+    }, []);
+
+    if (isInEditMode || displayTile) {
     return (
         <div className="cmp-my-account__aside-wrapper">
             <Title text={getTitle(props.tiles, props.location.pathname)} />
@@ -23,6 +40,10 @@ const Aside = props => {
             {breadcrumbList && (<Breadcrumb path={props.location.pathname} config={props.breadcrumbs} />)}
         </div>
     );
+        }
+    else {
+        return (<Spinner loading={!displayTile} />);
+    }
 }
 
 const Tile = ({tile, pathname}) => {
