@@ -431,10 +431,16 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     }
 
     public String getAddToCartUrl() {
-        return siteContext.getAddToCartURL();
+        if (getCommerceApiMigrated()) {
+            return siteContext.getAddToCartURL();
+        } else {
+            return watersCommerceService.getAddToCartUrl();
+        }
     }
 
-    public boolean getCommerceApiMigrated() { return siteContext.isCommerceApiMigrated(); }
+    public boolean getCommerceApiMigrated() {
+        return siteContext.isCommerceApiMigrated();
+    }
 
     public String viewCartUrl() {
         return watersCommerceService.getViewCartUrl();

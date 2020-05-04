@@ -32,10 +32,7 @@ public final class SiteContext {
 
     @Inject
     private PageDecorator currentPage;
-
-    @Inject
-    private WatersCommerceService watersCommerceService;
-
+    
     private I18n i18n;
 
     public Locale getLocale() {
@@ -100,7 +97,7 @@ public final class SiteContext {
     }
 
     public String getAddToCartURL() {
-        return currentPage.getInherited("addToCartUrl", watersCommerceService.getAddToCartUrl());
+        return currentPage.getInherited("addToCartUrl", "");
     }
 
     public boolean isCommerceApiMigrated(){
