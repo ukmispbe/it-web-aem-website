@@ -11,7 +11,7 @@ import { notLoggedInRedirect } from '../utils/redirectFunctions';
 import Spinner from "../utils/spinner";
 
 const Aside = props => {
-    console.log("Aside");
+
     const [displayTile, setDisplayTile] = useState(false);
     const [isInEditMode, setIsInEditMode] = useState(document.getElementById("header").hasAttribute("data-is-edit-mode"));
 
