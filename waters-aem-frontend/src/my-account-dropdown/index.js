@@ -108,17 +108,23 @@ class MyAccountDropDown extends React.Component {
         if (hasBeenUpdated) {
             const savedUserDetails = store.getUserDetails();
             const savedSoldToDetails = store.getSoldToDetails();
-            let updatedAccount;
-    
-            savedSoldToDetails.map((soldTo) => {
-                if(soldTo.default_soldTo === 1) {
-                    updatedAccount = soldTo;
-                }
-            });
-        
             const updatedUserName = savedUserDetails.firstName && savedUserDetails.lastName ? `${savedUserDetails.firstName} ${savedUserDetails.lastName}` : '';
-            const updatedAccountName = updatedAccount.company ? updatedAccount.company : "";
-            const updatedAccountNumber = updatedAccount.soldTo ? updatedAccount.soldTo : "";
+
+            let updatedAccountName = "";
+            let updatedAccountNumber = "";
+
+            // Check that Sold to Exists
+            if (savedSoldToDetails.length !== 0) {
+                let updatedAccount; 
+                savedSoldToDetails.map((soldTo) => {
+                    if(soldTo.default_soldTo === 1) {
+                        updatedAccount = soldTo;
+                    }
+                });
+                updatedAccountName = updatedAccount.company ? updatedAccount.company : "";
+                updatedAccountNumber = updatedAccount.soldTo ? updatedAccount.soldTo : "";
+            }
+                       
             let currentState = this.state;
             currentState.config.userDetails.userName = updatedUserName;
             currentState.config.userDetails.accountName = updatedAccountName;
