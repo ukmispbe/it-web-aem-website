@@ -9,7 +9,7 @@
     data-user-details-url="${header.userDetailsUrl}"
     data-signin-url="${header.signInLink.href}"
     data-register-url="${header.createAccountLink.href}"
-    data-switch-account-url="${header.switchAccountLink.href}"   
+    data-switch-account-url="${header.switchAccountLink.href}"
 >
     <div class="cmp-header__overlay overlay"></div>
     <div class="cmp-header__top-bar">
@@ -105,14 +105,14 @@
                                 "itemList": [
                                     {
                                         "text": "${'Profile' @ i18n, context='unsafe'}",
-                                        "url": "${header.profileLink.href @ context='unsafe'}",
+                                        "url": "${header.profileLink @ context='unsafe'}",
                                         "target": "_self",
                                         "class": "dropdown__item-list__my-profile",
                                         "linkName": "Profile"
                                     },
                                     {
                                         "text": "${'Order History' @ i18n, context='unsafe'}",
-                                        "url": "${header.ordersLink.href @ context='unsafe'}",
+                                        "url": "${header.ordersLink @ context='unsafe'}",
                                         "target": "_self",
                                         "class": "dropdown__item-list__my-orders",
                                         "linkName": "Order History"
