@@ -15,16 +15,23 @@ const getData = async (url) => {
 const UserDetails = async (
     url = "https://test-www.waters.com:8443/api/waters/user/v1/details"
 ) => {
-    const response = await getData(url);
+    try {
+        const response = await getData(url);
 
-    if (response.status === 200) {
-        return response.json();
-    } else if (response.status === 401 && window.location.href.indexOf('my-account.html') !== -1) {
-        signInRedirect();
-    }
-    return {
-        failed: true,
-        error: response.status
+        if (response.status === 200) {
+            return response.json();
+        } else if (response.status === 401 && window.location.href.indexOf('my-account.html') !== -1) {
+            signInRedirect();
+        }
+        return {
+            failed: true,
+            error: response.status
+        }
+    } catch {
+        return {
+            failed: true,
+            error: response.status
+        }
     }
 }
 
