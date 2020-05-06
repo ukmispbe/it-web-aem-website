@@ -5,6 +5,7 @@ import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.structure.page.Commerce;
 import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
 import com.waters.aem.core.constants.WatersConstants;
+import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.waters.aem.core.utils.LocaleUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -31,7 +32,7 @@ public final class SiteContext {
 
     @Inject
     private PageDecorator currentPage;
-
+    
     private I18n i18n;
 
     public Locale getLocale() {
@@ -93,6 +94,14 @@ public final class SiteContext {
         }
 
         return locale;
+    }
+
+    public String getAddToCartURL() {
+        return currentPage.getInherited("addToCartUrl", "");
+    }
+
+    public boolean isCommerceApiMigrated(){
+        return currentPage.getInherited("commerceAPI", false);
     }
 
     public String getTranslation(final String key) {
