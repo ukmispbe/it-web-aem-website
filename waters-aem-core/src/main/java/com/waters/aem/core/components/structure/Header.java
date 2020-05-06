@@ -229,12 +229,14 @@ public final class Header extends AbstractComponent implements ComponentExporter
         return LinkUtils.getExternalizedLink(pageManager, createAccountLink);
     }
 
-    public Link getProfileLink() {
-        return LinkUtils.getExternalizedLink(pageManager, profileLink);
+    public String getProfileLink() {
+        String profileLinkPath = profileLink.getHref();
+        return profileLinkPath.replace(WatersConstants.ROOT_PATH,"/nextgen");
     }
 
-    public Link getOrdersLink() {
-        return LinkUtils.getExternalizedLink(pageManager, ordersLink);
+    public String getOrdersLink() {
+        String ordersLinkPath = ordersLink.getHref();
+        return ordersLinkPath.replace(WatersConstants.ROOT_PATH,"/nextgen");
     }
 
     public Boolean isHideIcons() { return hideIcons; }
