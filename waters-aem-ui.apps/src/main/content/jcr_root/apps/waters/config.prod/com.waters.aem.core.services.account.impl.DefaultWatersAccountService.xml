@@ -17,4 +17,5 @@
           updateProfileUrl="https://prodservices.waters.com/api/waters/user/v1/update/profile"
           orderDetailsUrl="https://prodservices.waters.com/api/waters/order/v1/details"
           searchUrl="https://prodservices.waters.com/api/waters/search"
-          orderListUrl="https://prodservices.waters.com/api/waters/order/v1/list"/>
+          orderListUrl="https://prodservices.waters.com/api/waters/order/v1/list"
+          changeAccountEndpoint="https://prodservices.waters.com/api/waters/user/v1/switchaccount"/>
