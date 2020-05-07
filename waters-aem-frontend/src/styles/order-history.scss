@@ -26,6 +26,7 @@
 
         @include tablet {
             width: calc(87vw - 270px);
+            text-align: right;
         }
         @include mobile {
             width: 100%;
@@ -33,8 +34,9 @@
 
         .cmp-order-list-timeperiod {
             float: right;
-            width: 190px;
+            width: 210px;
             margin-bottom: $space-xxs;
+            text-align: left;
 
             @include tablet-and-under {
                 float: none;
@@ -49,10 +51,11 @@
         }
         .cmp-order-list-orderfilters {
             display: none;
+            text-align: left;
 
             @include tablet-and-under {
                 display: inline-block;
-                width: 190px;
+                width: 200px;
                 margin-top: $space-xxs;
                 margin-bottom: $space-xxs;
             }
@@ -214,6 +217,10 @@
                         stroke: $color-gray-30;
                     }
                 }
+            }
+
+            @include mobile {
+                padding: $space-xl $space-s;
             }
         }
     }
