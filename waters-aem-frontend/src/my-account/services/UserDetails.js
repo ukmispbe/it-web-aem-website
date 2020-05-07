@@ -9,24 +9,30 @@ const getData = async (url) => {
             'Content-Type': 'application/json'
         }
     });
-    if (response.status === 401) {
-        signInRedirect();
-        return;
-    }
-    return response;
+    return await response;
 };
 
 const UserDetails = async (
     url = "https://test-www.waters.com:8443/api/waters/user/v1/details"
 ) => {
-    return getData(url).then(response => {
-        return response.json();
-    }).catch(error => {
+    try {
+        const response = await getData(url);
+
+        if (response.status === 200) {
+            return response.json();
+        } else if (response.status === 401 && window.location.href.indexOf('my-account.html') !== -1) {
+            signInRedirect();
+        }
         return {
             failed: true,
-            error: error
+            error: response.status
         }
-    });
+    } catch {
+        return {
+            failed: true,
+            error: response.status
+        }
+    }
 }
 
 export default UserDetails;
