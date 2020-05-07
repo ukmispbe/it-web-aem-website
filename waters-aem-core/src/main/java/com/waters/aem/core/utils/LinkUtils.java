@@ -42,6 +42,10 @@ public final class LinkUtils {
                 .orElse(null);
     }
 
+    public static Link getCurrentHomepageLink(final PageDecorator page) {
+       return page.getAbsoluteParent(WatersConstants.LEVEL_LANGUAGE_ROOT).getLink(true);
+    }
+
     private LinkUtils() {
         
     }

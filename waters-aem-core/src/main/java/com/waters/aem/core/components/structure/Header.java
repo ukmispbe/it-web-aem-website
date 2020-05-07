@@ -276,7 +276,7 @@ public final class Header extends AbstractComponent implements ComponentExporter
     }
 
     public Link getHomepageLink() {
-        return LinkUtils.getHomepageLink(currentPage);
+        return LinkUtils.getCurrentHomepageLink(currentPage);
     }
 
     public String getSignOutEndpoint() {
