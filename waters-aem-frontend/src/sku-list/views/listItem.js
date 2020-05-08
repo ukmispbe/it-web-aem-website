@@ -192,6 +192,7 @@ class ListItem extends React.Component {
                         skuNumber={this.props.relatedSku.code}
                         addToCartLabel={this.props.skuConfig.addToCartLabel}
                         addToCartUrl={this.props.skuConfig.addToCartUrl}
+                        isCommerceApiMigrated={this.props.skuConfig.isCommerceApiMigrated}
                         toggleErrorModal={this.toggleErrorModal}
                         analyticsConfig={this.state.analyticsConfig}
                     />

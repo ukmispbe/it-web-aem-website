@@ -185,6 +185,7 @@ class SkuDetails extends React.Component {
                         skuNumber={this.state.skuNumber}
                         addToCartLabel={this.props.config.addToCartLabel}
                         addToCartUrl={this.props.config.addToCartUrl}
+                        isCommerceApiMigrated={this.props.config.isCommerceApiMigrated}
                         toggleErrorModal={this.toggleErrorModal}
                         analyticsConfig={this.state.analyticsConfig}
                     ></AddToCart>
