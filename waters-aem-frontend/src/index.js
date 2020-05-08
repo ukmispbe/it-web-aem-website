@@ -331,7 +331,7 @@ if (registrationFormContainer) {
         }
     }
 
-    if (config.formName === "registration" && digitalData.page.country.toLowerCase() ==="jp") {
+    if (config.formName === "registration" && (digitalData.page.country.toLowerCase() ==="jp" || digitalData.page.country.toLowerCase() === "cn" || digitalData.page.country.toLowerCase() === "tw" || digitalData.page.country.toLowerCase() === "kr")) {
         swapFirstAndLastNames();
     }
 
