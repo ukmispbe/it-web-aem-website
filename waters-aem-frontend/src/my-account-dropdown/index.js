@@ -215,8 +215,13 @@ class MyAccountDropDown extends React.Component {
     retrieveUserDetails = async () => {
         const userDetails = await UserDetailsLazy(this.props.config.userDetailsUrl);
         const soldToDetails = await SoldToDetailsLazy(this.props.config.soldToDetailsUrl);
-
-        const userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
+        const localeCountry = userDetails.localeCountry.toLowerCase();
+        let userName = "";
+        if (localeCountry === 'jp' || localeCountry === 'cn' || localeCountry === 'kr' || localeCountry === 'tw') {
+            userName = userDetails.firstName && userDetails.lastName ? `${userDetails.lastName} ${userDetails.firstName}` : '';
+        } else {
+            userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
+        }
         // Fix to correct first soldTo being selected. It should be the default_soldTo === 1 selected
         let priorityAccount;
         let accountName = "";
