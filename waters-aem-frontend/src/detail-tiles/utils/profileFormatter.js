@@ -29,10 +29,15 @@ export const getCountryName = (countryCode, config) => {
 };
 
 export const getFullName = data => {
+    const localeCountry = data.localeCountry.toLowerCase();
     const firstName = data.firstName ? data.firstName.trim() : '';
     const lastName = data.lastName ? data.lastName.trim() : '';
 
-    return (firstName + ' ' + lastName).trim();
+    if (localeCountry === 'jp' || localeCountry === 'cn' || localeCountry === 'kr' || localeCountry === 'tw') {
+        return (lastName + ' ' + firstName).trim();
+    } else {
+        return (firstName + ' ' + lastName).trim();
+    }
 };
 
 export const getFullCompanyAddress = address => {
