@@ -215,8 +215,8 @@ class MyAccountDropDown extends React.Component {
     retrieveUserDetails = async () => {
         const userDetails = await UserDetailsLazy(this.props.config.userDetailsUrl);
         const soldToDetails = await SoldToDetailsLazy(this.props.config.soldToDetailsUrl);
-        const localeCountry = userDetails.localeCountry.toLowerCase();
-        let userName = "";
+        const localeCountry = userDetails.localeCountry ? userDetails.localeCountry.toLowerCase() : '';
+        let userName = '';
         if (localeCountry === 'jp' || localeCountry === 'cn' || localeCountry === 'kr' || localeCountry === 'tw') {
             userName = userDetails.firstName && userDetails.lastName ? `${userDetails.lastName} ${userDetails.firstName}` : '';
         } else {

@@ -335,8 +335,6 @@ if (registrationFormContainer) {
         swapFirstAndLastNames();
     }
 
-
-
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
         <Form
