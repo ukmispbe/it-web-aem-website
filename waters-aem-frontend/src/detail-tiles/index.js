@@ -25,6 +25,16 @@ const DetailTiles = ({
 }) => {
     const { tiles, setData } = useProfile(userDetailsUrl, soldToDetailsUrl, type, icons.refresh);
 
+    const swapFirstAndLastNames = () => {
+        const indexofFirstName = form.fields.map(e => e.name).indexOf('firstName');
+        const indexofLastName = form.fields.map(e => e.name).indexOf('lastName');
+        if (indexofFirstName !== -1 && indexofLastName!== -1) {
+            const temp = form.fields[indexofFirstName];
+            form.fields[indexofFirstName] = form.fields[indexofLastName];
+            form.fields[indexofLastName] = temp;
+        }
+    }
+
     const renderTiles = () => {
         switch (type) {
             case 'personal':
@@ -90,20 +100,25 @@ const DetailTiles = ({
             );
         }
 
-        return tiles.map((tile, key) => (
-            <ErrorBoundary>
-                <Tile
-                    {...tile}
-                    key={name + key}
-                    formMessage={formMessage}
-                    form={form}
-                    icon={icons.edit}
-                    editText={editText}
-                    canCreate={canCreate}
-                    setProfileData={setData}
-                />
-            </ErrorBoundary>
-        ));
+        return tiles.map((tile, key) => {
+            const country = tile.defaultValues.localeCountry ? tile.defaultValues.localeCountry.toLowerCase() : '';
+            if(tile.name === 'personalDetailsTile' && (country === 'kr' || country === 'jp' || country === 'tw' || country === 'cn')) {
+                swapFirstAndLastNames();
+            }
+
+            return <ErrorBoundary>
+                    <Tile
+                        {...tile}
+                        key={name + key}
+                        formMessage={formMessage}
+                        form={form}
+                        icon={icons.edit}
+                        editText={editText}
+                        canCreate={canCreate}
+                        setProfileData={setData}
+                    />
+                </ErrorBoundary>
+        });
     };
 
     return (
