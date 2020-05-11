@@ -101,7 +101,7 @@ const DetailTiles = ({
         }
 
         return tiles.map((tile, key) => {
-            const country = tile.defaultValues.localeCountry ? tile.defaultValues.localeCountry.toLowerCase() : '';
+            const country = tile.defaultValues && tile.defaultValues.localeCountry ? tile.defaultValues.localeCountry.toLowerCase() : '';
             if(tile.name === 'personalDetailsTile' && (country === 'kr' || country === 'jp' || country === 'tw' || country === 'cn')) {
                 swapFirstAndLastNames();
             }
