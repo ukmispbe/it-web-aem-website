@@ -29,7 +29,7 @@ export const getCountryName = (countryCode, config) => {
 };
 
 export const getFullName = data => {
-    const localeCountry = data.localeCountry.toLowerCase();
+    const localeCountry = data.localeCountry ? data.localeCountry.toLowerCase() : '';
     const firstName = data.firstName ? data.firstName.trim() : '';
     const lastName = data.lastName ? data.lastName.trim() : '';
 
