@@ -108,7 +108,15 @@ class MyAccountDropDown extends React.Component {
         if (hasBeenUpdated) {
             const savedUserDetails = store.getUserDetails();
             const savedSoldToDetails = store.getSoldToDetails();
-            const updatedUserName = savedUserDetails.firstName && savedUserDetails.lastName ? `${savedUserDetails.firstName} ${savedUserDetails.lastName}` : '';
+
+            const updatedLocaleCountry = savedUserDetails.localeCountry ? savedUserDetails.localeCountry.toLowerCase() : '';
+
+            let updatedUserName = '';
+            if (updatedLocaleCountry === 'jp' || updatedLocaleCountry === 'cn' || updatedLocaleCountry === 'kr' || updatedLocaleCountry === 'tw') {
+                updatedUserName = savedUserDetails.firstName && savedUserDetails.lastName ? `${savedUserDetails.lastName} ${savedUserDetails.firstName}` : '';
+            } else {
+                updatedUserName = savedUserDetails.firstName && savedUserDetails.lastName ? `${savedUserDetails.firstName} ${savedUserDetails.lastName}` : '';
+            }
 
             let updatedAccountName = "";
             let updatedAccountNumber = "";
@@ -260,7 +268,15 @@ class MyAccountDropDown extends React.Component {
         const userDetails = store.getUserDetails();
         const soldToDetails = store.getSoldToDetails();
 
-        const userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
+        const localeCountry = userDetails.localeCountry ? userDetails.localeCountry.toLowerCase() : '';
+
+        let userName = '';
+        if (localeCountry === 'jp' || localeCountry === 'cn' || localeCountry === 'kr' || localeCountry === 'tw') {
+            userName = userDetails.firstName && userDetails.lastName ? `${userDetails.lastName} ${userDetails.firstName}` : '';
+        } else {
+            userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
+        }
+
         const priorityAccount = soldToDetails && soldToDetails.length !== 0 ? soldToDetails[0] : {};
         const accountName = priorityAccount.company ? `${priorityAccount.company} ` : '';
         const accountNumber = priorityAccount.soldTo ? priorityAccount.soldTo : '';
