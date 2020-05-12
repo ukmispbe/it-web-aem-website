@@ -101,9 +101,12 @@ const DetailTiles = ({
         }
 
         return tiles.map((tile, key) => {
-            const country = tile.defaultValues && tile.defaultValues.localeCountry ? tile.defaultValues.localeCountry.toLowerCase() : '';
-            if(tile.name === 'personalDetailsTile' && (country === 'kr' || country === 'jp' || country === 'tw' || country === 'cn')) {
-                swapFirstAndLastNames();
+            if (tile.defaultValues){
+                const mailingAddress = tile.defaultValues.userAddress.filter(address => address.addressType === 'mailingAddress');
+                const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
+                if(tile.name === 'personalDetailsTile' && (userCountry === 'kr' || userCountry === 'jp' || userCountry === 'tw' || userCountry === 'cn')) {
+                    swapFirstAndLastNames();
+                }
             }
 
             return <ErrorBoundary>

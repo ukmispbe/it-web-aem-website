@@ -10,6 +10,7 @@ import loginStatus from '../scripts/loginStatus';
 import UserDetailsLazy from '../my-account/services/UserDetailsLazy';
 import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
 import SessionStore from '../stores/sessionStore';
+import { getAddressesByType } from '../detail-tiles/utils/profileFormatter';
 
 const myAccountModalTheme = 'my-account-dropdown';
 class MyAccountDropDown extends React.Component {
@@ -55,7 +56,7 @@ class MyAccountDropDown extends React.Component {
 
         window.addEventListener('resize', this.updateViewport, true);
 
-        if (loginStatus.state()) { 
+        if (loginStatus.state()) {
             this.retrieveUserDetails();
         }
     }
@@ -109,20 +110,25 @@ class MyAccountDropDown extends React.Component {
             const savedUserDetails = store.getUserDetails();
             const savedSoldToDetails = store.getSoldToDetails();
 
-            const updatedLocaleCountry = savedUserDetails.localeCountry ? savedUserDetails.localeCountry.toLowerCase() : '';
-
             let updatedUserName = '';
-            if (updatedLocaleCountry === 'jp' || updatedLocaleCountry === 'cn' || updatedLocaleCountry === 'kr' || updatedLocaleCountry === 'tw') {
-                updatedUserName = savedUserDetails.firstName && savedUserDetails.lastName ? `${savedUserDetails.lastName} ${savedUserDetails.firstName}` : '';
+            if(Object.keys(savedUserDetails).length !== 0) {
+                const mailingAddress = savedUserDetails.userAddress.filter(address => address.addressType === 'mailingAddress');
+                const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
+
+                if (userCountry === 'jp' || userCountry === 'cn' || userCountry === 'kr' || userCountry === 'tw') {
+                    updatedUserName = savedUserDetails.firstName && savedUserDetails.lastName ? `${savedUserDetails.lastName} ${savedUserDetails.firstName}` : '';
+                } else {
+                    updatedUserName = savedUserDetails.firstName && savedUserDetails.lastName ? `${savedUserDetails.firstName} ${savedUserDetails.lastName}` : '';
+                }
             } else {
-                updatedUserName = savedUserDetails.firstName && savedUserDetails.lastName ? `${savedUserDetails.firstName} ${savedUserDetails.lastName}` : '';
+                this.retrieveUserDetails();
             }
 
             let updatedAccountName = "";
             let updatedAccountNumber = "";
 
             // Check that Sold to Exists
-            if (savedSoldToDetails.length !== 0) {
+            if (savedSoldToDetails && savedSoldToDetails.length !== 0) {
                 let updatedAccount; 
                 savedSoldToDetails.map((soldTo) => {
                     if(soldTo.default_soldTo === 1) {
@@ -223,9 +229,11 @@ class MyAccountDropDown extends React.Component {
     retrieveUserDetails = async () => {
         const userDetails = await UserDetailsLazy(this.props.config.userDetailsUrl);
         const soldToDetails = await SoldToDetailsLazy(this.props.config.soldToDetailsUrl);
-        const localeCountry = userDetails.localeCountry ? userDetails.localeCountry.toLowerCase() : '';
+
+        const mailingAddress = userDetails.userAddress.filter(address => address.addressType === 'mailingAddress');
+        const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
         let userName = '';
-        if (localeCountry === 'jp' || localeCountry === 'cn' || localeCountry === 'kr' || localeCountry === 'tw') {
+        if (userCountry === 'jp' || userCountry === 'cn' || userCountry === 'kr' || userCountry === 'tw') {
             userName = userDetails.firstName && userDetails.lastName ? `${userDetails.lastName} ${userDetails.firstName}` : '';
         } else {
             userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
@@ -268,13 +276,16 @@ class MyAccountDropDown extends React.Component {
         const userDetails = store.getUserDetails();
         const soldToDetails = store.getSoldToDetails();
 
-        const localeCountry = userDetails.localeCountry ? userDetails.localeCountry.toLowerCase() : '';
-
         let userName = '';
-        if (localeCountry === 'jp' || localeCountry === 'cn' || localeCountry === 'kr' || localeCountry === 'tw') {
-            userName = userDetails.firstName && userDetails.lastName ? `${userDetails.lastName} ${userDetails.firstName}` : '';
-        } else {
-            userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
+        if(Object.keys(userDetails).length !== 0) {
+            const mailingAddress = userDetails.userAddress.filter(address => address.addressType === 'mailingAddress');
+            const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
+
+            if (userCountry === 'jp' || userCountry === 'cn' || userCountry === 'kr' || userCountry === 'tw') {
+                userName = userDetails.firstName && userDetails.lastName ? `${userDetails.lastName} ${userDetails.firstName}` : '';
+            } else {
+                userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
+            }
         }
 
         const priorityAccount = soldToDetails && soldToDetails.length !== 0 ? soldToDetails[0] : {};

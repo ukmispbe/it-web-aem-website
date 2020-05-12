@@ -29,11 +29,12 @@ export const getCountryName = (countryCode, config) => {
 };
 
 export const getFullName = data => {
-    const localeCountry = data.localeCountry ? data.localeCountry.toLowerCase() : '';
+    const mailingAddress = data.userAddress.filter(address => address.addressType === 'mailingAddress');
+    const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
     const firstName = data.firstName ? data.firstName.trim() : '';
     const lastName = data.lastName ? data.lastName.trim() : '';
 
-    if (localeCountry === 'jp' || localeCountry === 'cn' || localeCountry === 'kr' || localeCountry === 'tw') {
+    if (userCountry === 'jp' || userCountry === 'cn' || userCountry === 'kr' || userCountry === 'tw') {
         return (lastName + ' ' + firstName).trim();
     } else {
         return (firstName + ' ' + lastName).trim();
