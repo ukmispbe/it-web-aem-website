@@ -1,4 +1,7 @@
 import 'whatwg-fetch';
+import SessionStore from '../../stores/sessionStore';
+import loginStatus from '../../scripts/loginStatus';
+import DigitalData from "../../scripts/DigitalData";
 
 class SkuService {
     constructor(
@@ -40,10 +43,32 @@ class SkuService {
         return url;
     }
 
-    createCartUrl(partNo, quantity) {
+    createLegacyCartUrl(partNo, quantity) {
         const url = this.cartOptions.addToCart
             .replace('{partnumber}', partNo)
             .replace('{quantity}', quantity);
+
+        return url;
+    }
+
+    createCartUrl(partNo, quantity) {
+        console.log(this.cartOptions.addToCart);
+        // Get locale
+        const country = DigitalData.country ? DigitalData.country.toLowerCase() : '';
+        const language = DigitalData.language;
+        // Get user id
+        const store = new SessionStore();
+        const userDetails = store.getUserDetails();
+        const userId = loginStatus.state() && userDetails ? userDetails.userId : 'anonymous';
+
+        console.log(country);
+
+        const url = this.cartOptions.addToCart
+            .replace('{localeCountry}', country)
+            .replace('{localeLanguage}', language)
+            .replace('{userType}', userId)
+            .replace('{guid}', 'null')
+            .concat('', '?createCart=true')
 
         return url;
     }
@@ -62,7 +87,9 @@ class SkuService {
                 .fetch(url)
                 .then(this.checkFetch)
                 .then(response => {
-                    resolve(response.json());
+                    const json = response.json();
+                    console.log(json);
+                    resolve(json);
                 })
                 .catch(err => {
                     this.throwError(err);
@@ -86,7 +113,6 @@ class SkuService {
         });
     }
 
-
     // these functions are used by different views
     getAvailability(partNo) {
         return this.getData(this.createAvailabilityRequest(partNo));
@@ -96,17 +122,38 @@ class SkuService {
         return this.getData(this.createPriceRequest(partNo));
     }
 
-    addToCart(partNo, quantity) {
-        const options = {
-            method: 'post',
-            credentials: 'include',
-            body: JSON.stringify({
-                partNumbers: partNo,
-                quantity: quantity,
-            })
-        }
+    addToCart(isCommerceApiMigrated, partNo, quantity) {
+        if(isCommerceApiMigrated) {
+            const options = {
+                method: 'post',
+                credentials: 'include',
+                body: JSON.stringify({
+                    products: [
+                        {
+                            code: partNo,
+                            quantity: quantity,
+                        }
+                    ]
+                })
+            }
 
-        return this.postData(this.createCartUrl(partNo, quantity), options);
+            // Get cart id
+            // TODO: get cartId from localStorage
+            const cartId = '58aa6c9f-536b-4b7a-9ddc-52327b9047e8';
+
+
+            return this.getData(this.createCartUrl(partNo, quantity));
+        } else {
+            const options = {
+                method: 'post',
+                credentials: 'include',
+                body: JSON.stringify({
+                    partNumbers: partNo,
+                    quantity: quantity,
+                })
+            }
+            return this.postData(this.createLegacyCartUrl(partNo, quantity), options);
+        }
     }
 }
 

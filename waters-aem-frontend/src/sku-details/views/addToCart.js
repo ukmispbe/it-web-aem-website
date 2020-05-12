@@ -3,7 +3,6 @@ import SkuService from '../services/index';
 import SkuList from '../../scripts/skulist';
 import Analytics, { analyticTypes } from '../../analytics';
 
-
 class AddToCart extends React.Component {
     constructor(props) {
         super(props);
@@ -12,6 +11,7 @@ class AddToCart extends React.Component {
             addToCartLabel: this.props.addToCartLabel,
             addToCartQty: null,
             addToCartUrl: this.props.addToCartUrl,
+            isCommerceApiMigrated: this.props.isCommerceApiMigrated,
             toggleErrorModal: this.props.toggleErrorModal,
             toggleParentModal: this.props.toggleParentModal,
             errorObj: this.props.errorObj
@@ -48,7 +48,7 @@ class AddToCart extends React.Component {
 
     cartAPIRequest() {
         this.request
-            .addToCart(this.state.skuNumber, this.state.addToCartQty)
+            .addToCart(this.state.isCommerceApiMigrated, this.state.skuNumber, this.state.addToCartQty)
             .then(response => {
                 this.state.toggleParentModal(true);
                 this.addToCartAnalytics(response);
