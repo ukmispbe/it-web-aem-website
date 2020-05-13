@@ -25,8 +25,6 @@ class SkuService {
         this.throwError = throwError;
     }
 
-
-
     createAvailabilityRequest(partNo) {
         const url = this.skuOptions.availability
             .replace('{partnumber}', partNo)
