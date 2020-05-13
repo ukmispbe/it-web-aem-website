@@ -53,14 +53,14 @@
                 <div class="cmp-footer__selector__region">
                     <span>${footer.countryName @ i18n}</span>
                     <img class="inline-svg" src="/content/dam/waters/en/brand-assets/icons/modal.svg"
-                         alt="${'Country' @ i18n}" />
+                        alt="${'Country' @ i18n}" />
                 </div>
                 <div class="cmp-footer__selector__language ${footer.languagePages.size == 1 ? 'one-link' : ''}">
                     <a href="${footer.languagePages[0].page.href}">${footer.languagePages[0].languageTitle}</a>
                     <div class="cmp-footer__selector__language--options"
-                         data-sly-list.languageLink="${footer.languagePages}">
+                        data-sly-list.languageLink="${footer.languagePages}">
                         <a data-sly-test="${!languageLinkList.first}"
-                           href="${languageLink.languageHrefIsocode}">${languageLink.languageTitle} </a>
+                            href="${languageLink.languageHrefIsocode}">${languageLink.languageTitle} </a>
                     </div>
                 </div>
             </div>
@@ -161,6 +161,7 @@
             "refreshIcon": "/content/dam/waters/en/brand-assets/icons/refresh.svg",
             "discontinuedIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
             "nextIcon": "/content/dam/waters/en/brand-assets/icons/right.svg",
+            "noThumbnailImage": "/content/dam/waters/en/brand-assets/thumbnails/product-thumbnail.png",
             "maxAmount": 999
         },
         "modalInfo": {

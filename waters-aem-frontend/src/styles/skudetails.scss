@@ -566,6 +566,84 @@
     }
 }
 
+
+.cmp-order-details__order-shipment-list {
+    .cmp-sku-list {
+        &__container {
+            min-height: 185px;
+        }
+
+        &__right {
+        float: right;
+        width: 12em;
+        margin-left: 1.5em
+
+            img {
+                width: 100%;
+                margin-bottom: 1em;
+                background: #fff;
+                border: 1px solid #c6cdd2
+            }
+        }
+        
+        &__priceinfo {
+            .cmp-sku__price {
+                @include font-h3;
+                font-size: $font-size-h2;
+                margin-bottom: $space-xxxs;
+
+                @include mobile {
+                    @include font-h2;
+                    line-height: ($line-height-text + .1em);
+                    color: $color-font-dark;
+                    font-weight: $font-weight-regular;
+                    margin-bottom: $space-xxxs;
+                }
+            }
+        }
+    }
+    
+    .cmp-sku-details {    
+        &__code {
+            @include font-body;
+            @include font-utility;
+            margin-bottom: $space-xxs;
+        }
+
+        &__title {
+            @include font-h3;
+            margin-bottom: $space-xxs;
+
+            @include tablet-and-under {
+                margin-bottom: $space-s;
+            }
+        }        
+
+
+        &__quantitytext {
+            @include font-body;
+            @include font-utility;
+            display: flex;
+            align-items: center;
+            height: 1em;
+            border-left: $border-divider-small;
+            padding: 0 $space-s 0 $space-xs;
+            margin-bottom: $space-xxxs;
+            
+        }
+    }
+}
+
+
+@media screen and (max-width: 650px) {
+    .cmp-sku-list__right {
+        width:100%;
+        margin-bottom: 0;
+        margin-top: 1em;
+        display: none
+    }
+}
+
 // IE 11 CSS hacks
 @media all and (-ms-high-contrast: none) {
     .cmp-sku-details--sticky {
@@ -587,4 +665,3 @@
         }
     }
 }
-

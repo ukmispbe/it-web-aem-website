@@ -54,7 +54,6 @@ class DeliveryStatus extends Component {
                 } else {    
                     deliveryStatus = labels.completeShippedLabel + " " + shipped.shippedDate;
                 }
-                deliveryStatus = labels.completeLabel;
                 icon = icons.completeIcon;
                 iconClassName = "delivery-icon-complete";
             break;
