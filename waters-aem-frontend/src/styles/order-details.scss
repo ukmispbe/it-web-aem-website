@@ -158,6 +158,13 @@
             order: 2;
             width: 100%;
 
+            .order-shipment-list__hr {
+                margin: $space-l 0;
+                background-color: $color-border-medium;
+                border: none;
+                height: 1px;
+            }
+
             .cmp-order-details__shipment-title {
                 text-transform: capitalize;
             }

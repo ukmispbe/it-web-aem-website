@@ -59,7 +59,7 @@ class OrderDetails extends Component {
             )
         }
         return <>
-        <hr className="cmp-horizontal-rule"/>
+        <hr className="order-shipment-list__hr"/>
             {(Object.keys(airbills).length > 1) && (
                 <h2 className="cmp-order-details__shipment-title">
                     {orderDetails.lineItems && orderDetails.lineItems.length} {this.props.config.items}
