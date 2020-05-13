@@ -44,6 +44,7 @@ export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
             const isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
             if (!isInEditMode) {
                 notLoggedInRedirect();
+                return null;
             }
         }
     }, []);
