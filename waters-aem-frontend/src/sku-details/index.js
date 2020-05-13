@@ -4,7 +4,6 @@ import ReactSVG from "react-svg";
 import PropTypes from "prop-types";
 import Stock from "./views/stock";
 import Price from "./views/price";
-import SkuService from "./services";
 import AddToCart from "./views/addToCart";
 import AddToCartBody from '../sku-details/views/addToCartModal';
 import Modal, { Header, keys } from '../utils/modal';
@@ -13,6 +12,7 @@ import CheckOutStatus from "../scripts/checkOutStatus";
 import SkuMessage from "../sku-message";
 import Ecommerce from "../scripts/ecommerce";
 import { mainCartContext } from "../analytics";
+import { getAvailability } from "./services/index";
 
 class SkuDetails extends React.Component {
     constructor(props) {
@@ -29,6 +29,8 @@ class SkuDetails extends React.Component {
             skuNumber: this.props.skuNumber,
             userCountry: this.props.config.countryCode,
             availabilityAPI: this.props.config.availabilityUrl,
+            priceAPI: this.props.config.pricingUrl,
+            addToCartAPI: this.props.config.addToCartUrl,
             skuAvailability: {},
             addToCartQty: undefined,
             defaultPrice: this.props.price,
@@ -44,49 +46,29 @@ class SkuDetails extends React.Component {
             discontinued: this.props.discontinued == "true"
         };
 
-        this.request = new SkuService(
-            this.state.userCountry,
-            {
-                availability: this.props.config.availabilityUrl,
-                price: this.props.config.pricingUrl
-            },
-            {
-                addToCart: this.props.config.addToCartUrl,
-                getCart: ""
-            },
-            err => {
-                // Add Error Object to State
-                this.setState({
-                    errorObjCart: err,
-                    errorObjAvailability: err
-                });
-            }
-        );
-
         this.toggleModal = this.toggleModal.bind(this);
     }
 
     componentDidMount() {
-        this.request
-            .getAvailability(this.state.skuNumber)
-            .then(response => {
-                this.setState({
-                    skuAvailability: response,
-                    modalInfo: {
-                        ...this.props.config.modalInfo,
-                        textHeading: this.props.skuNumber,
-                        text: this.props.titleText
-                    },
-                    analyticsConfig: {
-                        ...this.state.analyticsConfig,
-                        ...response
-                    }
-                });
-            })
-            .catch(err => {
-                // Add Error Object to State
-                this.setState({ errorObjAvailability: err });
+        getAvailability(this.state.availabilityAPI, this.state.userCountry, this.state.skuNumber)
+        .then(response => {
+            this.setState({
+                skuAvailability: response,
+                modalInfo: {
+                    ...this.props.config.modalInfo,
+                    textHeading: this.props.skuNumber,
+                    text: this.props.titleText
+                },
+                analyticsConfig: {
+                    ...this.state.analyticsConfig,
+                    ...response
+                }
             });
+        })
+        .catch(err => {
+            // Add Error Object to State
+            this.setState({ errorObjAvailability: err });
+        });
     }
 
     toggleModal = () => {

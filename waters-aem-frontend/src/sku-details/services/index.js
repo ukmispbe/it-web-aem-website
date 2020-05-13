@@ -1,158 +1,144 @@
 import 'whatwg-fetch';
 import SessionStore from '../../stores/sessionStore';
+import LocalStore from '../../stores/localStore';
 import loginStatus from '../../scripts/loginStatus';
 import DigitalData from "../../scripts/DigitalData";
 
-class SkuService {
-    constructor(
-        // defaults that we override when constructing new instances of skuservices in the react components
-        isocode = 'us',
-        sku = {
-            availability:
-                'https://dev-www.waters.com:8443/api/waters/product/v1/availability/{partnumber}/{isocode}',
-            price:
-                'https://dev-www.waters.com:8443/api/waters/product/v1/customerprice', //This is not hooked up yet and will have path parameters, too
+const postData = async (url, data) => {
+    const response = await fetch(url, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
         },
-        cart = {
-            addToCart: 'https://dev-www.waters.com:8443/api/waters/product/v1/addtocart/{partnumber}/{quantity}',
-            getCart: ''
-        },
-        throwError //callback 
-    ) {
-        this.isocode = isocode;
-        this.skuOptions = sku;
-        this.cartOptions = cart;
-        this.throwError = throwError;
-    }
+        body: JSON.stringify(data)
+    });
 
-    createAvailabilityRequest(partNo) {
-        const url = this.skuOptions.availability
-            .replace('{partnumber}', partNo)
-            .replace('{countryCode}', this.isocode);
+    return await response;
+};
 
-        return url;
-    }
-    
-    createPriceRequest(partNo) {
-        const url = this.skuOptions.price
-            .replace('{partnumber}', partNo)
-            .replace('{countryCode}', this.isocode);
-
-        return url;
-    }
-
-    createLegacyCartUrl(partNo, quantity) {
-        const url = this.cartOptions.addToCart
-            .replace('{partnumber}', partNo)
-            .replace('{quantity}', quantity);
-
-        return url;
-    }
-
-    createCartUrl(partNo, quantity) {
-        console.log(this.cartOptions.addToCart);
-        // Get locale
-        const country = DigitalData.country ? DigitalData.country.toLowerCase() : '';
-        const language = DigitalData.language;
-        // Get user id
-        const store = new SessionStore();
-        const userDetails = store.getUserDetails();
-        const userId = loginStatus.state() && userDetails ? userDetails.userId : 'anonymous';
-
-        console.log(country);
-
-        const url = this.cartOptions.addToCart
-            .replace('{localeCountry}', country)
-            .replace('{localeLanguage}', language)
-            .replace('{userType}', userId)
-            .replace('{guid}', 'null')
-            .concat('', '?createCart=true')
-
-        return url;
-    }
-
-    checkFetch(response) {
-        if (!response.ok){
-            throw response;
+const getData = async (url) => {
+    const response = await fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
         }
-        return response;
-    }
+    });
 
-    getData(url){
-        // Should be logic for all get requests we have to send
-        return new Promise((resolve, reject) => {
-            window
-                .fetch(url)
-                .then(this.checkFetch)
-                .then(response => {
-                    const json = response.json();
-                    console.log(json);
-                    resolve(json);
-                })
-                .catch(err => {
-                    this.throwError(err);
-                    reject(err);
-                });
-        });
-    }
+    return await response;
+};
 
-    postData(url, options){
-        return new Promise((resolve, reject) => {
-            window
-                .fetch(url, {...options})
-                .then(this.checkFetch)
-                .then(response => {
-                    resolve(true);
-                })
-                .catch(err => {
-                    this.throwError(err);
-                    reject(err);
-                });
-        });
-    }
+const legacyAvailabilityUrlRequest = (url, countryCode, partNo) => {
+    url = url
+            .replace('{partnumber}', partNo)
+            .replace('{countryCode}', countryCode);
 
-    // these functions are used by different views
-    getAvailability(partNo) {
-        return this.getData(this.createAvailabilityRequest(partNo));
-    }
-
-    getPrice(partNo) {
-        return this.getData(this.createPriceRequest(partNo));
-    }
-
-    addToCart(isCommerceApiMigrated, partNo, quantity) {
-        if(isCommerceApiMigrated) {
-            const options = {
-                method: 'post',
-                credentials: 'include',
-                body: JSON.stringify({
-                    products: [
-                        {
-                            code: partNo,
-                            quantity: quantity,
-                        }
-                    ]
-                })
-            }
-
-            // Get cart id
-            // TODO: get cartId from localStorage
-            const cartId = '58aa6c9f-536b-4b7a-9ddc-52327b9047e8';
-
-
-            return this.getData(this.createCartUrl(partNo, quantity));
-        } else {
-            const options = {
-                method: 'post',
-                credentials: 'include',
-                body: JSON.stringify({
-                    partNumbers: partNo,
-                    quantity: quantity,
-                })
-            }
-            return this.postData(this.createLegacyCartUrl(partNo, quantity), options);
-        }
-    }
+    return url;
 }
 
-export default SkuService;
+const legacyPriceUrlRequest = (url, countryCode, partNo) => {
+    url = url
+        .replace('{partnumber}', partNo)
+        .replace('{countryCode}', countryCode);
+
+    return url;
+}
+
+const legacyCartUrlRequest = (url, partNo, quantity) => {
+    url = url
+        .replace('{partnumber}', partNo)
+        .replace('{quantity}', quantity);
+
+    return url;
+}
+
+const getCartId = () => {
+    const store = new LocalStore();
+    const cartId = store.getCartId() ? store.getCartId() : null;
+//    cartId = '58aa6c9f-536b-4b7a-9ddc-52327b9047e8'
+    return cartId;
+}
+
+const setCartId = (value) => {
+    // TODO: try/catch exception from storage
+    const store = new LocalStore();
+    const cartId = store.setCartId(value);
+    return true;
+}
+
+const getCountryCode = () => {
+    return DigitalData.country ? DigitalData.country.toLowerCase() : '';
+}
+
+const getLanguage = () => {
+    return DigitalData.language;
+}
+
+const getUserId = () => {
+    const store = new SessionStore();
+    const userDetails = store.getUserDetails();
+    const userId = loginStatus.state() && userDetails ? userDetails.userId : 'anonymous';
+    return userId;
+}
+
+const addToCartUrlRequest = (url, partNo, quantity, cartId) => {
+    console.log(url);
+    console.log(country);
+
+    url = url
+        .replace('{localeCountry}', getCountryCode())
+        .replace('{localeLanguage}', getLanguage())
+        .replace('{userType}', getUserId())
+        .replace('{guid}', cartId ? cartId : 'null');
+
+    url = cartId ? url : url.concat('', '?createCart=true');
+
+    return url;
+}
+
+export async function getAvailability(url, countryCode, partNo) {
+    console.log('availability', url)
+    const urlRequest = legacyAvailabilityUrlRequest(url, countryCode, partNo);
+    const response = await getData(urlRequest);
+    const json = await response.json();
+    console.log(json);
+    return json;
+}
+
+export async function getPrice(url, countryCode, partNo) {
+    const urlRequest = legacyPriceUrlRequest(url, countryCode, partNo);
+    const response = await postData(url, data);
+    const json = await response.json();
+    return json;
+}
+
+export async function addToCart(isCommerceApiMigrated, url, partNo, quantity) {
+    if(isCommerceApiMigrated) {
+        const data = {
+            products: [
+                    {
+                        code: partNo,
+                        quantity: quantity,
+                    }
+                ]
+        }
+
+        const cartId = getCartIdFromLocalStorage();
+
+        const urlRequest = addToCartUrlRequest(url, partNo, quantity, cartId);
+        const response = await postData(urlRequest, data);
+        const json = await response.json();
+        return json;
+
+    } else {
+        const data = {
+            partNumbers: partNo,
+            quantity: quantity,
+        }
+        const urlRequest = legacyCartUrlRequest(url, partNo, quantity, cartId);
+        const response = await postData(urlRequest, data);
+        const json = await response.json();
+        return json;
+    }
+}

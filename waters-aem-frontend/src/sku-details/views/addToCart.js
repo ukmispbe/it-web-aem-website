@@ -1,5 +1,5 @@
 import React from 'react';
-import SkuService from '../services/index';
+import { addToCart } from '../services/index';
 import SkuList from '../../scripts/skulist';
 import Analytics, { analyticTypes } from '../../analytics';
 
@@ -16,16 +16,6 @@ class AddToCart extends React.Component {
             toggleParentModal: this.props.toggleParentModal,
             errorObj: this.props.errorObj
         };
-        this.request = new SkuService(
-            '',
-            {},
-            {
-                addToCart: this.state.addToCartUrl,
-                getCart: ''
-            },
-            err => {
-                console.log(err);
-            });
 
         this.quantityInput = this.quantityInput.bind(this);
         this.skuRemoveNegative = this.skuRemoveNegative.bind(this);
@@ -47,16 +37,15 @@ class AddToCart extends React.Component {
     };
 
     cartAPIRequest() {
-        this.request
-            .addToCart(this.state.isCommerceApiMigrated, this.state.skuNumber, this.state.addToCartQty)
-            .then(response => {
-                this.state.toggleParentModal(true);
-                this.addToCartAnalytics(response);
-            })
-            .catch(err => {
-                this.setState({ errorObj: err });
-                this.state.toggleErrorModal(err);
-            });
+        addToCart(this.state.isCommerceApiMigrated, this.state.skuNumber, this.state.addToCartQty)
+        .then(response => {
+            this.state.toggleParentModal(true);
+            this.addToCartAnalytics(response);
+        })
+        .catch(err => {
+            this.setState({ errorObj: err });
+            this.state.toggleErrorModal(err);
+        });
     }
     addToCart = () => {
         if (this.state.addToCartQty > 0) {
