@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DeliveryStatus from './delivery-status'
 import DateFormatter from '../../utils/date-formatter'
-import CurrencyFormatter from '../../utils/currency-formatter'
 import GetLocale from '../../utils/get-locale'
 import { setClickAnalytics } from '../../analytics';
 
@@ -13,7 +12,7 @@ class OrderListItem extends Component {
     }
     render() {
         return (
-            <div className={'cmp-order-list__container'}>
+            <div className='cmp-order-list__container'>
                 <div className="cmp-order-list__left">
                     <div className="cmp-order-list__order-number">
                         <a
@@ -36,7 +35,7 @@ class OrderListItem extends Component {
                     />            
                 </div>
                 <div className="cmp-order-list__total">
-                    {CurrencyFormatter.currencyFormatter(this.props.data.orderTotal, this.userLocale, this.props.data.currencyCode)}
+                    {this.props.data.orderTotal}
                 </div>
             </div>
         );

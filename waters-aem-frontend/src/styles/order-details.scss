@@ -170,7 +170,12 @@
             }
 
             .order-shipment {
-                margin-top: 2em;
+                margin-top: 3em;
+
+                @include mobile {
+                    margin-top: 1.5em;
+                }
+
                 .order-shipment-header {
                     padding: 0;
                     width: 100%;
@@ -185,6 +190,7 @@
                     &__left {
                         display: inline-block;
                         width: 50%;
+                        vertical-align: bottom;
         
                         @include mobile {
                             width: 100%;
@@ -193,15 +199,16 @@
         
                         .order-shipment-header__shipment-count { 
                             @include font-h3;   
-                            height: 1.5em;
-                            padding-right: 1em;
-                            margin-right: 1em;
+                            line-height: 1.1em;
+                            height: 1.1em;
+                            padding-right: .75em;
+                            margin-right: .75em;
                             border-right: 1px solid $color-border-light;
                             display: inline-block;
                         }
         
                         .order-shipment-header__item-count { 
-                            height: 1.5em;
+                            height: 1.1em;
                             display: inline-block;
                         }
                     }

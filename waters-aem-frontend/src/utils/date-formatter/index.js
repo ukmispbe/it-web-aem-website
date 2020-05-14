@@ -1,5 +1,5 @@
 function dateFormatter(inputdate, userLocale = 'en-US') {
-    if (inputdate) {
+    if (inputdate && inputdate !== "0000-00-00") {
         let splitDate = inputdate.split('-');
         let constructedDate = new Date(
             Date.UTC(
@@ -20,7 +20,7 @@ function dateFormatter(inputdate, userLocale = 'en-US') {
 }
 
 function monthDayFormatter(inputdate, userLocale = 'en-US') {
-    if (inputdate) {
+    if (inputdate && inputdate !== "0000-00-00") {
         let splitDate = inputdate.split('-');
         let constructedDate = new Date(
             Date.UTC(

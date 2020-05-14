@@ -62,7 +62,6 @@ export const matchLineItems = (orderDetailsAPIResults, searchAPIResults) => {
     orderDetailsAPIResults.lineItems.forEach(soldItem => {
         for (let i = 0; i < searchAPIResults.length; i++) {
             if(soldItem.materialNumber === searchAPIResults[i].skucode) {
-            console.log("MATCH", soldItem.materialNumber);
                 soldItem.url = searchAPIResults[i].url;
                 soldItem.title = searchAPIResults[i].title;
                 soldItem.description = searchAPIResults[i].description;

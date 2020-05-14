@@ -18,15 +18,16 @@ class Shipment extends Component {
         let deliveryStatus = "Open";
         const {shippedDate} = this.props.data[0];
 
-        if(shippedDate !== ""){
+        if(shippedDate !== "" && shippedDate !== "0000-00-00"){
             deliveryStatus = "Complete";
         } 
         
         return deliveryStatus;
     } 
+
     orderShipped = () => {
         const {shippedDate, carrierUrl, carrier} = this.props.data[0];
-        if(shippedDate !== ""){
+        if(shippedDate !== "" && shippedDate !== "0000-00-00"){
             let shipped, formattedShippedDate;
             formattedShippedDate = DateFormatter.monthDayFormatter(shippedDate, this.userLocale);
             
@@ -39,14 +40,6 @@ class Shipment extends Component {
             return {}
         }
     } 
-
-    configureContent = () => {
-
-        this.setState({
-
-        });
-    }
-
     
     renderItemCount = (data, shipment) => {
         let label = "";
@@ -65,16 +58,6 @@ class Shipment extends Component {
         }
     }
 
-    componentDidMount() {
-        this.configureContent();
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.data[0].airbill !== this.props.data[0].airbill) {
-            this.configureContent();
-        }
-    }
-    // {this.props.data.length > 0 && ( //only return template if data exists
     render() {
         const {shipmentNumber, totalShipments, shipment, icons, data } = this.props
         return (
