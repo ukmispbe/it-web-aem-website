@@ -151,6 +151,23 @@
                         "label": "${'Credit Card' @ i18n, context='unsafe'}",
                         "icon": "/content/dam/waters/en/brand-assets/icons/creditcard.svg"
                     }
+                },
+                "modalInfo":{
+                    "icon":"/content/dam/waters/en/brand-assets/icons/cart.svg",
+                    "closeIcon":"/content/dam/waters/en/brand-assets/icons/close.svg",
+                    "title": "${'Reorder all items?' @ i18n, context='unsafe'}", 
+                    "isOrderDetails": true,
+                    "buttons":[
+                        {
+                            "text":"${'Continue to Shopping Cart' @ i18n, context='unsafe'}",
+                            "action":"https://wwwdt1.waters.com/waters/shoppingCart.htm"
+                        },
+                        {
+                            "text":"${'Cancel' @ i18n, context='unsafe'}",
+                            "action":"close"
+                        }
+                    ],
+                    "text":"${'This order will be added to your Shopping Cart' @ i18n, context='unsafe'}"
                 }
             }
         }

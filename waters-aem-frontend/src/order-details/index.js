@@ -6,12 +6,13 @@ import GetLocale from "../utils/get-locale";
 import Spinner from "../utils/spinner";
 import ReactSVG from 'react-svg';
 import ErrorBoundary from '../search/ErrorBoundary';
-
+import Modal, { Header, keys } from '../utils/modal';
+import AddToCartBody from '../sku-details/views/addToCartModal';
 class OrderDetails extends Component {
 
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
         super({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props});
-
+        
         this.state = {
             orderId: this.getUrlParameter("id"),
             userLocale: GetLocale.getLocale(),
@@ -20,9 +21,15 @@ class OrderDetails extends Component {
             orderDetails: {},
             errorServiceError: false,
             errorOrderNotFound: false,
-            isLoading: true
+            isLoading: true,
+            modalShown: false,
+            modalConfig: props.config.modalInfo
         }
     }
+    
+    toggleModal = () => {
+        this.setState({ modalShown: !this.state.modalShown });
+    };
 
     getUrlParameter = (name) => {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -64,6 +71,7 @@ class OrderDetails extends Component {
     }
 
     addToCartReorder = () => {
+        this.toggleModal();
         return false;
     }
 
@@ -188,6 +196,17 @@ class OrderDetails extends Component {
                 {!isLoading && errorOrderNotFound && this.renderOrderNotFoundError()}
                 {!errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderDetails()}
                 {!errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderShipmentList()}
+                <Modal isOpen={this.state.modalShown} onClose={this.toggleModal} className='cmp-add-to-cart-modal'>
+                    <Header
+                        title={this.state.modalConfig.title}
+                        icon={this.state.modalConfig.icon}
+                        className={keys.HeaderWithAddedMarginTop}
+                    />
+                    <AddToCartBody
+                        config={this.state.modalConfig}
+                        errorObjCart={this.state.errorObjCart}
+                    />
+                </Modal>
             </>
         )
     }
