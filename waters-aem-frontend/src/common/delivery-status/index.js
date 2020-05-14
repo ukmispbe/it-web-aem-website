@@ -1,3 +1,4 @@
+//for Order History and Order Details Shipments
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactSVG from 'react-svg';

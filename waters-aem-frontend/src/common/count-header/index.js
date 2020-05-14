@@ -1,5 +1,6 @@
-import React from 'react';
 //for Order History and Order Details Pagination; Search has a different format 
+import React from 'react';
+
 const CountHeader = (props) => {
     let getResultsText = "";
     if(props.count > 0){
