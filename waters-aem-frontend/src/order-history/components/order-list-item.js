@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import DeliveryStatus from './delivery-status'
+import DeliveryStatus from '../../common/delivery-status'
 import DateFormatter from '../../utils/date-formatter'
 import GetLocale from '../../utils/get-locale'
 import { setClickAnalytics } from '../../analytics';

@@ -49,12 +49,11 @@ class DeliveryStatus extends Component {
                 icon = icons.partialIcon;
             break;
             case "Complete":
-                if(shipped.shippedDate === ""){    
-                    deliveryStatus = labels.completeLabel;
-                } else {    
+                if(shipped.shippedDate && shipped.shippedDate !== ""){    
                     deliveryStatus = labels.completeShippedLabel + " " + shipped.shippedDate;
+                } else {  
+                    deliveryStatus = labels.completeLabel;  
                 }
-                deliveryStatus = labels.completeLabel;
                 icon = icons.completeIcon;
                 iconClassName = "delivery-icon-complete";
             break;

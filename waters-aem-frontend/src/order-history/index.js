@@ -4,7 +4,7 @@ import ReactSVG from 'react-svg';
 import PropTypes from 'prop-types';
 import OrderHistoryService from'./orderHistory.services';
 import OrderListItem from './components/order-list-item';
-import OrderCountHeader from './components/order-count-header';
+import CountHeader from '../common/count-header'
 import TimePeriodDropdown from './components/time-period-dropdown';
 import OrderFilterDropdown from './components/order-filter-dropdown';
 import Tabs from '../navigation/tabs';
@@ -218,7 +218,7 @@ class OrderHistory extends Component {
     
     renderOrderCountHeader = () => {
         return (
-            <OrderCountHeader
+            <CountHeader
                 rows={this.paginationDefaults.visibleRows}
                 count={this.state.listCount}
                 current={this.state.currentPage}
