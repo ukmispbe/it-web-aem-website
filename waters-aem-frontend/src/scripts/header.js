@@ -9,7 +9,8 @@ import inlineSVG from '../scripts/inlineSVG';
 
 const sessionStore = new SessionStore();
 
-let headerTB, headerTB_user,  headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, headerNavigation_mainUL;
+let headerTB, headerTB_user,  headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, 
+    headerNavigation_mainUL, headerNavigation_cartLI, eCommStatus;
 
 const headerInit = function() {
     domReferences();
@@ -26,6 +27,10 @@ function domReferences() {
 
     headerNavigation_comp = document.querySelector('.cmp-header__navigation nav.cmp-navigation');
     headerNavigation_mainUL = document.querySelector('.cmp-header__navigation nav.cmp-navigation');
+    headerNavigation_cartLI = document.querySelector('.top-bar__nav__cart');    
+    if (headerNavigation_cartLI) {
+        eCommStatus = headerNavigation_cartLI.attributes["data-ecommerce-state"].value.toUpperCase();
+    }
 }
 
 function addEventListeners() { 
@@ -39,6 +44,26 @@ function addEventListeners() {
 }
 
 function render() { 
+
+    const hideCartClass = "top-bar__nav__cart--hide"
+    if (eCommStatus === "DISABLED") {
+        domElements.addClass(headerNavigation_cartLI, hideCartClass);
+    }
+
+    if (eCommStatus === "PARTIAL_ENABLED") {
+        if (loginStatus.state()) { 
+            // Check if User has a Sold to
+            const store = new SessionStore();
+            const soldToDetails = store.getSoldToDetails();
+            if (!soldToDetails) {
+                domElements.addClass(headerNavigation_cartLI, hideCartClass);
+            }
+        }
+        else {
+            domElements.addClass(headerNavigation_cartLI, hideCartClass);
+        }
+    }
+
     const loggedInClass = 'loggedIn';
     if (loginStatus.state()) {
         domElements.addClass(headerTB_user, loggedInClass);
