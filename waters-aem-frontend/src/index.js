@@ -193,10 +193,14 @@ if (skuDetailsContainer) {
     const replacementSkuCode = skuData.dataset.replacementSkuCode;
     const replacementSkuHref = skuData.dataset.replacementSkuHref;
     
-    let accountModalConfig = {};
-    if (header) {
-         accountModalConfig = JSON.parse(document.getElementById('account-modal-configs-json').innerHTML);
+    if (skuDetailsConfig) {
+        let accountModalConfig = {};
+        if (header) {
+             accountModalConfig = JSON.parse(document.getElementById('account-modal-configs-json').innerHTML);
+        }
+        skuDetailsConfig.baseSignInUrl = accountModalConfig.signIn.url;
     }
+
 
     ReactDOM.render(
         <SkuDetails
@@ -208,7 +212,6 @@ if (skuDetailsContainer) {
             discontinued={skuDiscontinued}
             replacementSkuCode={replacementSkuCode}
             replacementSkuHref={replacementSkuHref}
-            baseSignInUrl={accountModalConfig.signIn.url}
         />,
         skuDetailsContainer
     );

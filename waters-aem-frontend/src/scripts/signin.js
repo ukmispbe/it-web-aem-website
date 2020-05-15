@@ -15,7 +15,6 @@ const SignIn = props => {
         <div className="cmp-sku-signin-wrapper">
             <div className="cmp-sku-signin">
                 <a className="signin-link" 
-                    href={props.signInUrl}
                     {...({ onClick: (e)=>onSignIn(e), rel: 'nofollow' })}
                 >    
                     <ReactSVG src={props.signInIcon} className="signin-icon" />                        

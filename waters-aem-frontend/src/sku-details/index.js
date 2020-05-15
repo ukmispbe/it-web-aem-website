@@ -218,7 +218,7 @@ class SkuDetails extends React.Component {
             ) {
                 return <>
                         {!LoginStatus.state() && (<SignIn 
-                                signInUrl={this.state.signInUrl} 
+                                signInUrl={this.props.config.baseSignInUrl} 
                                 signInIcon={this.state.skuConfig.signinIcon}
                                 signInText1={this.state.skuConfig.signInText1}
                                 signInText2={this.state.skuConfig.signInText2}
