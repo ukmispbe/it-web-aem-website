@@ -7,14 +7,13 @@ import DigitalData from "../../scripts/DigitalData";
 const postData = async (url, data) => {
     const response = await fetch(url, {
         method: 'POST',
-        credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
     });
 
-    return await response;
+    return response;
 };
 
 const getData = async (url) => {
@@ -26,7 +25,7 @@ const getData = async (url) => {
         }
     });
 
-    return await response;
+    return response;
 };
 
 const legacyAvailabilityUrlRequest = (url, countryCode, partNo) => {
@@ -83,49 +82,41 @@ const getUserId = () => {
 }
 
 const addToCartUrlRequest = (url, partNo, quantity, cartId) => {
-    console.log(url);
-    console.log(country);
-
     url = url
         .replace('{localeCountry}', getCountryCode())
         .replace('{localeLanguage}', getLanguage())
         .replace('{userType}', getUserId())
-        .replace('{guid}', cartId ? cartId : 'null');
-
-    url = cartId ? url : url.concat('', '?createCart=true');
+        .replace('{guid}', cartId ? cartId : 'null')
+        .concat('', '?successWithCart=true');
+    url = cartId ? url : url.concat('', '&createCart=true');
 
     return url;
 }
 
 export async function getAvailability(url, countryCode, partNo) {
-    console.log('availability', url)
     const urlRequest = legacyAvailabilityUrlRequest(url, countryCode, partNo);
-    const response = await getData(urlRequest);
-    const json = await response.json();
-    console.log(json);
-    return json;
+    return await getData(urlRequest);
 }
 
 export async function getPrice(url, countryCode, partNo) {
     const urlRequest = legacyPriceUrlRequest(url, countryCode, partNo);
-    const response = await postData(url, data);
-    const json = await response.json();
-    return json;
+    return await postData(url, data);
 }
 
 export async function addToCart(isCommerceApiMigrated, url, partNo, quantity) {
     if(isCommerceApiMigrated) {
         const data = {
             products: [
-                    {
-                        code: partNo,
-                        quantity: quantity,
-                    }
-                ]
+                {
+                    code: partNo,
+                    quantity: quantity,
+                }
+            ]
         }
 
-        const cartId = getCartIdFromLocalStorage();
-
+        const cartId = null;//getCartIdFromLocalStorage();
+        const guid = getCartIdFromLocalStorage();
+        console.log(guid);
         const urlRequest = addToCartUrlRequest(url, partNo, quantity, cartId);
         const response = await postData(urlRequest, data);
         const json = await response.json();

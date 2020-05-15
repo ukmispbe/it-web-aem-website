@@ -37,7 +37,7 @@ class AddToCart extends React.Component {
     };
 
     cartAPIRequest() {
-        addToCart(this.state.isCommerceApiMigrated, this.state.skuNumber, this.state.addToCartQty)
+        addToCart(this.state.isCommerceApiMigrated, this.props.addToCartUrl, this.state.skuNumber, this.state.addToCartQty)
         .then(response => {
             this.state.toggleParentModal(true);
             this.addToCartAnalytics(response);
