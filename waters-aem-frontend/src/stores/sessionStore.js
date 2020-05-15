@@ -9,7 +9,8 @@ const keys = {
     soldToDetails: 'waters.soldToDetails',
     continue: 'waters.continue',
     personalDetailsUpdated: 'waters.personalDetailsUpdated',
-    legacyToken: 'waters.legacyToken'
+    legacyToken: 'waters.legacyToken',
+    signInRedirect: 'waters.signInRedirect'
 }
 
 
@@ -56,6 +57,9 @@ const SessionStore = function () {
     this.setLegacyToken = value => window.sessionStorage.setItem(keys.legacyToken, value)
     this.getLegacyToken = () => window.sessionStorage.getItem(keys.legacyToken);
     this.removeLegacyToken = () => window.sessionStorage.removeItem(keys.legacyToken);
+    this.setSignInRedirect = value => window.sessionStorage.setItem(keys.signInRedirect, value)
+    this.getSignInRedirect = () => window.sessionStorage.getItem(keys.signInRedirect);
+    this.removeSignInRedirect = () => window.sessionStorage.removeItem(keys.signInRedirect);
 }
 
 export default SessionStore;

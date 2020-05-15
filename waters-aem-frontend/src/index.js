@@ -192,6 +192,11 @@ if (skuDetailsContainer) {
     const skuCountryRestricted = skuData.dataset.countryRestricted;
     const replacementSkuCode = skuData.dataset.replacementSkuCode;
     const replacementSkuHref = skuData.dataset.replacementSkuHref;
+    
+    let accountModalConfig = {};
+    if (header) {
+         accountModalConfig = JSON.parse(document.getElementById('account-modal-configs-json').innerHTML);
+    }
 
     ReactDOM.render(
         <SkuDetails
@@ -203,6 +208,7 @@ if (skuDetailsContainer) {
             discontinued={skuDiscontinued}
             replacementSkuCode={replacementSkuCode}
             replacementSkuHref={replacementSkuHref}
+            baseSignInUrl={accountModalConfig.signIn.url}
         />,
         skuDetailsContainer
     );
