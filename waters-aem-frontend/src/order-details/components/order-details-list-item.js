@@ -3,10 +3,6 @@ import React from 'react';
 class OrderDetailsListItem extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            userCountry: this.props.skuConfig.countryCode
-        };
     }
 
     render() {
