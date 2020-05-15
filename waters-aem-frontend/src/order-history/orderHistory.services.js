@@ -3,7 +3,7 @@ import { signInRedirect } from '../utils/redirectFunctions';
 
 class OrderHistoryService {
     constructor(
-        url = "https://test-www.waters.com:8443/api/waters/order/v1/list"
+        url = "https://test2-www.waters.com:8443/api/waters/order/v1/list"
     ) {
         this.url = url;
     }

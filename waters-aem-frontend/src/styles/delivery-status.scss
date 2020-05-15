@@ -1,0 +1,77 @@
+.delivery-status {
+    @include font-h3;   
+    text-align: right;
+    margin-bottom: $space-xxs;
+
+    @include mobile {  
+        text-align: left;
+    } 
+
+    .delivery-icon {
+        display: inline-block;  
+        line-height: $icon-m; 
+
+        svg {
+            height: $icon-m;
+            width: $icon-m;
+            .st0,
+            .st1 {
+                stroke-width: 1.0px;
+                stroke: $color-icon;
+            }
+        }
+        margin-right: $space-xxs;
+    }
+
+    .delivery-icon-complete {
+        display: inline-block;  
+        line-height: $icon-m; 
+        
+        svg {
+            height: $icon-m;
+            width: $icon-m;
+            .st0,
+            .st1 {
+                stroke-width: 1.5px;
+                stroke: $color-teal-30;
+            }
+        }
+        margin-right: $space-xxs;
+    }
+
+    .delivery-text {
+        display: inline-block; 
+        vertical-align: top;
+        line-height: $icon-m; 
+    }
+    .tracking-link {
+        @include font-body;
+        margin: 0;
+        color: $color-link;
+
+        .tracking-link__icon {
+            display: inline-block;
+            svg {
+                height: ($icon-m - $space-xxxs);
+                width: ($icon-m - $space-xxxs);
+                margin-left: $space-xxxs;
+                margin-bottom: -4px;
+                .st0,
+                .st1 {
+                    stroke: $color-link;
+                }
+            }
+        }
+    }
+    
+    .tracking-link:hover {
+        .tracking-link__icon {
+            svg {
+                .st0,
+                .st1 {
+                    stroke: $color-link-hover;
+                }
+            }
+        }
+    }
+}

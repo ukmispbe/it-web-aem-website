@@ -71,3 +71,16 @@ hr,
     height: $space-xxl;
     border: none;
     }
+
+// Vertical Dividers
+.vert-divider-s {
+    border-left: $border-divider-small;
+    height: 1em; 
+    margin: 0 $space-xxs;
+}
+
+.vert-divider-l {
+    border-left: $border-divider-large;
+    height: $height-medium; 
+    margin: 0 $space-xs;
+}

@@ -26,6 +26,7 @@
 
         @include tablet {
             width: calc(87vw - 270px);
+            text-align: right;
         }
         @include mobile {
             width: 100%;
@@ -33,8 +34,9 @@
 
         .cmp-order-list-timeperiod {
             float: right;
-            width: 190px;
+            width: 210px;
             margin-bottom: $space-xxs;
+            text-align: left;
 
             @include tablet-and-under {
                 float: none;
@@ -49,10 +51,11 @@
         }
         .cmp-order-list-orderfilters {
             display: none;
+            text-align: left;
 
             @include tablet-and-under {
                 display: inline-block;
-                width: 190px;
+                width: 200px;
                 margin-top: $space-xxs;
                 margin-bottom: $space-xxs;
             }
@@ -109,58 +112,6 @@
                 vertical-align:top;
                 width: 45%;
                 margin-left: 5%;
-                .cmp-order-list__del-status {
-                    @include font-h3;   
-                    text-align: right;
-                    margin-bottom: $space-xxs;
-
-                    @include mobile {  
-                        text-align: left;
-                    } 
-
-                    .cmp-order-list-delivery__icon {
-                        display: inline-block;  
-                        line-height: $icon-m; 
-
-                        svg {
-                            height: $icon-m;
-                            width: $icon-m;
-                            .st0,
-                            .st1 {
-                                stroke-width: 1.0px;
-                                stroke: $color-icon;
-                            }
-                        }
-                        margin-right: $space-xxs;
-                    }
-
-                    .cmp-order-list-delivery__icon__complete {
-                        display: inline-block;  
-                        line-height: $icon-m; 
-                        
-                        svg {
-                            height: $icon-m;
-                            width: $icon-m;
-                            .st0,
-                            .st1 {
-                                stroke-width: 1.5px;
-                                stroke: $color-teal-30;
-                            }
-                        }
-                        margin-right: $space-xxs;
-                    }
-
-                    .cmp-order-list-delivery__text {
-                        display: inline-block; 
-                        vertical-align: top;
-                        line-height: $icon-m; 
-                    }
-                }
-                .cmp-order-list__view-shipments {
-                    @include font-h3; 
-                    color: $color-link;
-                    margin-bottom: $space-xxs;
-                }
 
                 @include mobile {
                     float: left;
@@ -214,6 +165,10 @@
                         stroke: $color-gray-30;
                     }
                 }
+            }
+
+            @include mobile {
+                padding: $space-xl $space-s;
             }
         }
     }
