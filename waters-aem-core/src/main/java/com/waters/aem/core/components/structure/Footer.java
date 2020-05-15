@@ -201,6 +201,24 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     @LinkInject(inherit = true)
     private Link bPNSLegalLink;
 
+    @DialogField(fieldLabel = "Commercial Bureau Icon",
+            fieldDescription = "Select the legal icon to display on footer",
+            tab = 2,
+            ranking = 8
+    )
+    @PathField(rootPath = WatersConstants.DAM_PATH)
+    @Inject
+    private String cBLegalIcon;
+
+    @DialogField(fieldLabel = "Commercial Bureau Legal Link",
+            fieldDescription = "Select or enter the link URL",
+            tab = 2,
+            ranking = 7
+    )
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject(inherit = true)
+    private Link cBLegalLink;
+
     @DialogField(fieldLabel = "Cookies Link",
             fieldDescription = "Select or enter the link URL",
             tab = 3,
@@ -323,6 +341,16 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     @JsonProperty
     public Link getBPNSLegalLink() {
         return bPNSLegalLink;
+    }
+
+    @JsonProperty
+    public String getCBLegalIcon() {
+        return cBLegalIcon;
+    }
+
+    @JsonProperty
+    public Link getCBLegalLink() {
+        return cBLegalLink;
     }
 
     @JsonProperty
