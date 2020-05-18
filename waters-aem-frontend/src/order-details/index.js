@@ -63,6 +63,7 @@ class OrderDetails extends Component {
                     icons={this.props.config.icons}
                     shipmentNumber={i+1}
                     totalShipments={Object.keys(airbills).length}
+                    addToCartReorder= {this.addToCartReorder}
                 />
             )
         }

@@ -4,6 +4,8 @@ import DeliveryStatus from '../../common/delivery-status'
 import OrderDetailsListItem from './order-details-list-item';
 import DateFormatter from '../../utils/date-formatter'
 import GetLocale from '../../utils/get-locale'
+import Modal, { Header, keys } from '../../utils/modal';
+import AddToCartBody from '../../sku-details/views/addToCartModal';
 
 class Shipment extends Component {
     constructor(props) {
@@ -58,6 +60,17 @@ class Shipment extends Component {
         }
     }
 
+    addToCartReorder = () => {
+        this.props.addToCartReorder();
+        return false;
+    }
+
+    renderReorderButton = () => {
+        return (
+            <a className="cmp-button" onClick={this.addToCartReorder}>Reorder</a>
+        )
+    }
+
     render() {
         const {shipmentNumber, totalShipments, shipment, icons, data } = this.props
         return (
@@ -92,6 +105,9 @@ class Shipment extends Component {
                             skuConfig={this.skuConfig}
                         />
                     ))}
+                </div>
+                <div className="order-shipment__reorder">
+                    {this.renderReorderButton()}
                 </div>
             </div>
         );
