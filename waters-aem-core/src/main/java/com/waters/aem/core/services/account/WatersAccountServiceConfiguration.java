@@ -39,12 +39,18 @@ public @interface WatersAccountServiceConfiguration {
     @AttributeDefinition(name = "Update Profile API Url", description = "Url for update profile API")
     String updateProfileUrl() default "https://test-www.waters.com:8443/api/waters/user/v1/update/profile";
 
-    @AttributeDefinition(name = "Sign In  Endpoint", description = "The Endpoint for the Sign In API")
+    @AttributeDefinition(name = "Sign In Endpoint", description = "The Endpoint for the Sign In API")
     String signInEndpoint() default "https://test-www.waters.com:8443/api/waters/user/v1/login";
 
-    @AttributeDefinition(name = "Sign Out  Endpoint", description = "The Endpoint for the Sign Out API")
+    @AttributeDefinition(name = "Sign Out Endpoint", description = "The Endpoint for the Sign Out API")
     String signOutEndpoint() default "https://test-www.waters.com:8443/api/waters/user/v1/logout";
 
-    @AttributeDefinition(name = "Legacy Order History Url", description = "Url for Legacy order history page")
-    String legacyOrderHistoryUrl() default "https://wwwdt1.waters.com/waters/Order-History/nav.htm?cid=2243118";
+    @AttributeDefinition(name = "Choose Account Endpoint", description = "The Endpoint for the Choose Account API")
+    String chooseAccountEndpoint() default "https://test-www.waters.com:8443/api/waters/user/v1/switchaccount";
+
+    @AttributeDefinition(name = "Order Details API Url", description = "Url for Order Details API")
+    String orderDetailsUrl() default "https://test-www.waters.com:8443/api/waters/order/v1/details";
+
+    @AttributeDefinition(name = "Order List API Url", description = "Url for Order List API")
+    String orderListUrl() default "https://test-www.waters.com:8443/api/waters/order/v1/list";
 }

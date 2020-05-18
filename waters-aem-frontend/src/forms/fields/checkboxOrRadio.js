@@ -18,7 +18,9 @@ const CheckboxOrRadio = ({}) => {
         initialState,
         optionalLabel
     } = useContext(useFieldApi);
+
     const { register, setValue } = useContext(useFormApi);
+
     const errors = useErrorsContext();
 
     const [state, setState] = useState(() => {
@@ -57,6 +59,27 @@ const CheckboxOrRadio = ({}) => {
     const checkHandler = (event, thisName) => {
         if (!disabled) {
             const thisState = state[thisName];
+
+            if (config.getRadioOptions && options) {
+                for (let key of Object.keys(state)) {
+                    if (key === thisName) {
+                        state[key].isChecked = true;
+                    }
+                    else {
+                        state[key].isChecked = false;
+                    }
+                    setValue(key, state[key].isChecked, state[key].required);
+                }
+                setState({ ...state });
+                // Non Mobile has Link Wrapper
+                const submitControlArrayLength = document.getElementsByClassName("cmp-button").length;
+                if(submitControlArrayLength > 0) {
+                    document.getElementsByClassName("cmp-button")[submitControlArrayLength - 1].classList.remove("cmp-button--disabled");
+                    document.getElementsByClassName("cmp-button")[submitControlArrayLength - 1].disabled = false;
+                }
+                return;
+            }
+
             setValue(thisName, !thisState.isChecked, thisState.required);
             setState({
                 ...state,
@@ -74,7 +97,7 @@ const CheckboxOrRadio = ({}) => {
         <>
             {label + ' '}
             {renderAddOnLink(thisName)}
-            {!state[thisName].required && optionalLabel && (
+            {!state[thisName].required && type !== 'radio' && optionalLabel && (
                 <span className="cmp-form-field--optional">{optionalLabel}</span>
             )}
         </>
@@ -106,6 +129,7 @@ const CheckboxOrRadio = ({}) => {
                     type={type}
                     name={thisName}
                     id={thisName}
+                    aria-labelledby={thisName}
                     disabled={disabled}
                     checked={thisState.isChecked}
                     className={hasError(thisName) ? 'error' : 'valid'}
@@ -148,23 +172,33 @@ const CheckboxOrRadio = ({}) => {
             </>
         );
     };
+    try {
+        return !options ? (
+            renderType(name, label)
+        ) : (
+                <div id={name} className={`cmp-form-field-${type}--grouping`}>
+                    {options.map((option, i) => {
+                        return (
+                            <>
+                                <div style={{ paddingTop: "10px" }}
+                                    className={`cmp-form-field-${type}--grouping-item`}
+                                    key={`${type}-${name}-grouping-${i}`}
+                                >
+                                    {renderType(option.name, option.label)}
+                                </div>
+                                {option.accountStreet &&
+                                    <div className={`cmp-form-field-${type}--address1`}>{option.accountStreet}</div>}
+                                {option.accountCity &&
+                                    <div className={`cmp-form-field-${type}--address2`}>{option.accountCity + ", " + option.accountZip}</div>}
+                            </>
+                        );
+                    })}
+                </div>
+            );
+    } catch (error) {
+        console.log("error ", error);
+    }
 
-    return !options ? (
-        renderType(name, label)
-    ) : (
-        <div id={name} className={`cmp-form-field-${type}--grouping`}>
-            {options.map((option, i) => {
-                return (
-                    <div
-                        className={`cmp-form-field-${type}--grouping-item`}
-                        key={`${type}-${name}-grouping-${i}`}
-                    >
-                        {renderType(option.name, option.label)}
-                    </div>
-                );
-            })}
-        </div>
-    );
 };
 
 export default React.memo(CheckboxOrRadio);

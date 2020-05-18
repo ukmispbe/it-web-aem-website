@@ -24,10 +24,10 @@
     }
 
     &--submit {
-        font-family: $font-stack;
-        font-weight: var(--font-weight-light);
-        line-height: $line-height-text;
-        letter-spacing: 0.02em;
+        font-family: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+        letter-spacing: inherit;
         margin-bottom: $space-s;
         margin-top: $space-s;
         font-size: $font-size-body;
@@ -131,7 +131,10 @@
 
         input {
             border: $border-medium;
-            @include font-body;
+            font-family: inherit;
+            font-weight: inherit;
+            letter-spacing: inherit;
+            line-height: inherit;
             width: 100%;
             margin-bottom: 0;
             padding: $space-xs;
@@ -407,6 +410,16 @@
                 display: flex;
             }
 
+            &--address1 {
+                display: flex;
+                padding-left: 24px;
+            }
+
+            &--address2 {
+                display: flex;
+                padding-left: 24px;
+            }
+
             &--wrapper {
                 &.disabled {
                     label {
@@ -424,7 +437,7 @@
             display: none;
 
             &:checked ~ .checkbox {
-                border: 1px solid $color-background-dark;
+                border: $border-dark;
                 background-color: $color-background-dark;
                 svg {
                     display: block;
@@ -530,6 +543,11 @@
     .cmp-form-field-captcha {
         margin-top: $space-s;
         margin-bottom: $space-s;
+    }
+
+    .cmp-form-field-textwithlinks--privacy {
+        margin-top: $space-s;
+        @include font-small;
     }
 
     &__submission-error {

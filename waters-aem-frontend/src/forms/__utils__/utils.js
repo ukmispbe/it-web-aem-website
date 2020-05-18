@@ -37,6 +37,15 @@ export const checkRenderDivByClass = (wrapper, className, textValue) => {
     expect(div.first().text()).toContain(textValue);
 }
 
+export const checkRenderTextWithLinks = (wrapper, fieldName, textValue) => {
+    const div = wrapper.find(`.cmp-form-field-textwithlinks--${fieldName}`);
+    expect(div.exists()).toEqual(true);
+    expect(div.children().length).toBeGreaterThan(0);
+    expect(div.find('a').exists()).toEqual(true);
+    expect(div.text()).toContain(textValue);
+    expect(div.find('span').exists()).toEqual(false);
+}
+
 export const checkRenderPassword = (wrapper, fieldName, isValidation) => {
     const passwordDiv =  wrapper.find(".cmp-form-field-password");
     let innerPasswordDiv = passwordDiv.find(".cmp-form-field--input").first();

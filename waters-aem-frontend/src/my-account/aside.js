@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import Title from "../typography/title";
 import Ecommerce from "../scripts/ecommerce";
 import Breadcrumb from "./components/breadcrumb";
+import { setClickAnalytics } from "../analytics";
 
 const Aside = props => {
 
@@ -34,7 +35,16 @@ const Tile = ({tile, pathname}) => {
         <div className="tile">
             <div className="tile__title">{tile.title}</div>
             <div className="tile__links">
-                {tile.links.map(link => linkIsActive(pathname, link.url) ? <ActiveLink key={link.text} text={link.text} /> : <HyperLink key={link.text} link={link} />)}
+                {tile.links.map(link => {
+                        if( !link.isHidden ) {
+                            if(linkIsActive(pathname, link.url)) {
+                                    return <ActiveLink key={link.text} text={link.text} />
+                            } else {
+                                return <HyperLink key={link.text} link={link} linkName={link.linkName} />
+                            }
+                        }
+                    }
+                )}
             </div>
         </div>
     );
@@ -51,7 +61,9 @@ const linkIsActive = (pathname, url) => pathname.substring(1, pathname.length) =
 
 const ActiveLink = ({text}) => <span className="link--active">{text}</span>;
 
-const HyperLink = ({link}) => link.url.startsWith("#") ? <Link to={`/${link.url.substring(1, link.url.length)}`}>{link.text}</Link> : <a href={link.url}>{link.text}</a>
+const HyperLink = ({link}) => link.url.startsWith("#") ?
+                <Link to={`/${link.url.substring(1, link.url.length)}`} onClick={()=>setClickAnalytics("Side Navigation", link.linkName ? link.linkName : link.text, link.url)}>{link.text}</Link> :
+                <a href={link.url}  onClick={()=>setClickAnalytics("Side Navigation", link.linkName ? link.linkName : link.text, link.url)}>{link.text}</a>
 
 Aside.propTypes = {
     tiles: PropTypes.arrayOf(PropTypes.shape({

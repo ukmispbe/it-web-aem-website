@@ -243,10 +243,6 @@
                     float: none;
                 }
             }
-
-            &.hidden {
-                display: none;
-            }
         }
     }
 }
@@ -300,6 +296,23 @@
         &--title {
             @include font-h2;
             margin-bottom: 0;
+        }
+    }
+    .cmp-detail-tiles-list {
+        width: 100%;
+    } 
+}
+
+#my-account {
+    .cmp-my-account__aside-content {
+       // IE 11 Fix
+       @media screen and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+            width: calc(100vw - 37em);
+            max-width: 885px;
+            @include tablet-and-under {
+                width: 100%;
+                max-width: 100%;
+            }
         }
     }
 }

@@ -1,5 +1,3 @@
-// Stub our for shared utility functions
-
 function dateFormatter(inputdate, userLocale = 'en-US') {
     if (inputdate) {
         let splitDate = inputdate.split('-');

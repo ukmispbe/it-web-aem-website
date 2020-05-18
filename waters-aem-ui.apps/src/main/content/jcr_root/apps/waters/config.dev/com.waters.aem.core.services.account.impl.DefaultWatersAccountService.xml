@@ -15,4 +15,7 @@
           signInEndpoint="https://test-www.waters.com:8443/api/waters/user/v1/login"
           signOutEndpoint="https://test-www.waters.com:8443/api/waters/user/v1/logout"
           updateProfileUrl="https://test-www.waters.com:8443/api/waters/user/v1/update/profile"
-          legacyOrderHistoryUrl="https://wwwdt1.waters.com/waters/Order-History/nav.htm?cid=2243118"/>
+          orderDetailsUrl="https://test-www.waters.com:8443/api/waters/order/v1/details"
+          searchUrl="https://test-www.waters.com:8443/api/waters/search"
+          orderListUrl="https://test-www.waters.com:8443/api/waters/order/v1/list"
+          chooseAccountEndpoint="https://test-www.waters.com:8443/api/waters/user/v1/switchaccount"/>

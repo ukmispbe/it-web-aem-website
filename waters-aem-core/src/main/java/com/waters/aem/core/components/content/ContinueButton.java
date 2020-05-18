@@ -7,7 +7,6 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageDecorator;
-import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.utils.LinkUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -57,7 +56,7 @@ public class ContinueButton implements ComponentExporter {
     }
 
     public Link getHomePageLink() {
-        return LinkUtils.getHomepageLink(currentPage);
+        return LinkUtils.getCurrentHomepageLink(currentPage);
     }
 
     @Nonnull
