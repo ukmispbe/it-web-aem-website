@@ -8,7 +8,8 @@ import GetIsocode from "../utils/get-isocode";
 import Spinner from "../utils/spinner";
 import GroupBy from '../utils/group-by'
 import ErrorBoundary from '../search/ErrorBoundary';
-
+import Modal, { Header, keys } from '../utils/modal';
+import AddToCartBody from '../sku-details/views/addToCartModal';
 class OrderDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
         super({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props});
@@ -19,14 +20,21 @@ class OrderDetails extends Component {
             userIsocode: GetIsocode.getIsocode(),
             detailsUrl: props.config.fetchDetailsEndPoint,
             itemsUrl: props.config.fetchItemsEndPoint,
+            reorderUrl: props.config.fetchReorderUrlEndPoint,
             orderDetails: {},
             airbills: {},
             skusSoldCount: 0,
             errorServiceError: false,
             errorOrderNotFound: false,
-            isLoading: true
+            isLoading: true,
+            modalShown: false,
+            modalConfig: props.config.modalInfo
         }
     }
+
+    toggleModal = () => {
+        this.setState({ modalShown: !this.state.modalShown });
+    };
 
     getUrlParameter = (name) => {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -55,6 +63,7 @@ class OrderDetails extends Component {
                     icons={this.props.config.icons}
                     shipmentNumber={i+1}
                     totalShipments={Object.keys(airbills).length}
+                    addToCartReorder= {this.addToCartReorder}
                 />
             )
         }
@@ -87,7 +96,7 @@ class OrderDetails extends Component {
                                 });
                             }
                         })
-                        
+
                 } else {
                     this.setState({
                         errorOrderNotFound: true,
@@ -97,10 +106,14 @@ class OrderDetails extends Component {
             })
     }
 
-
     componentWillUnmount() {
         this.props.resetErrorBoundaryToFalse();
         this.props.removeNotifications();
+    }
+
+    addToCartReorder = () => {
+        this.toggleModal();
+        return false;
     }
 
     renderAddress = (addressType) => {
@@ -126,7 +139,7 @@ class OrderDetails extends Component {
                 label = this.props.config.items;
             } else if (orderDetails.lineItems.length === 1) {
                 label = this.props.config.item;
-            } 
+            }
 
             let itemCountLabel =  " (" + orderDetails.lineItems.length + " " + label + ")";
             return itemCountLabel;
@@ -134,6 +147,14 @@ class OrderDetails extends Component {
         } else {
             return false
         }
+    }
+
+    renderReorderButton = () => {
+        return (
+            <a className="cmp-button" onClick={this.addToCartReorder}>
+                {this.props.config.reorderTitle}
+            </a>
+        )
     }
 
     renderOrderDetails = () => {
@@ -196,6 +217,9 @@ class OrderDetails extends Component {
                         <div className="cmp-order-details__order-total_left">{this.props.config.orderTotal}</div>
                         <div className="cmp-order-details__order-total_right"><h1>{orderDetails.orderTotal}</h1></div>
                     </div>
+                    <div className="cmp-order-details__reorder">
+                        {this.renderReorderButton()}
+                    </div>
                 </div>
             </div>
         )
@@ -230,6 +254,17 @@ class OrderDetails extends Component {
                 {!isLoading && errorOrderNotFound && this.renderOrderNotFoundError()}
                 {!errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderDetails()}
                 {!errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderShipmentList()}
+                <Modal isOpen={this.state.modalShown} onClose={this.toggleModal} className='cmp-add-to-cart-modal'>
+                    <Header
+                        title={this.state.modalConfig.title}
+                        icon={this.state.modalConfig.icon}
+                        className={keys.HeaderWithAddedMarginTop}
+                    />
+                    <AddToCartBody
+                        config={this.state.modalConfig}
+                        errorObjCart={this.state.errorObjCart}
+                    />
+                </Modal>
             </>
         )
     }
