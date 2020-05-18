@@ -114,6 +114,14 @@ if (searchAppContainer) {
         document.getElementById('search-results-categories-json').innerHTML
     );
 
+        
+    let accountModalConfig = {};
+    let baseSignInUrlString = "";
+    if (header) {
+        accountModalConfig = JSON.parse(document.getElementById('account-modal-configs-json').innerHTML);
+        baseSignInUrlString = accountModalConfig.signIn.url;
+    }
+    
     const data = getAuthoredDataForSearchApp(searchAppContainer);
     ReactDOM.render(
         <Search
@@ -124,6 +132,7 @@ if (searchAppContainer) {
             searchText={text}
             filterMap={filterMap}
             isocode={data.isocode}
+            baseSignInUrl={baseSignInUrlString}
         />,
         searchAppContainer
     );
@@ -192,6 +201,15 @@ if (skuDetailsContainer) {
     const skuCountryRestricted = skuData.dataset.countryRestricted;
     const replacementSkuCode = skuData.dataset.replacementSkuCode;
     const replacementSkuHref = skuData.dataset.replacementSkuHref;
+
+    if (skuDetailsConfig) {
+        let accountModalConfig = {};
+        if (header) {
+             accountModalConfig = JSON.parse(document.getElementById('account-modal-configs-json').innerHTML);
+        }
+        skuDetailsConfig.baseSignInUrl = accountModalConfig.signIn.url;
+    }
+
 
     ReactDOM.render(
         <SkuDetails

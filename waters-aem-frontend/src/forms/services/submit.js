@@ -229,7 +229,9 @@ export async function signInSubmit(data) {
 
         this.setFormAnalytics('submit');
 
-        const signInRedirect = window.sessionStorage.getItem('signInRedirect');
+        const store = new SessionStore();
+        const signInRedirect = store.getSignInRedirect();
+        store.removeSignInRedirect();
         if (signInRedirect || this.redirect) {
             window.location.replace(
                 signInRedirect ? signInRedirect : this.redirect
