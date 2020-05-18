@@ -151,10 +151,7 @@ class OrderDetails extends Component {
 
     renderReorderButton = () => {
         return (
-            <a
-                className="cmp-button"
-                onClick={this.addToCartReorder}
-            >
+            <a className="cmp-button" onClick={this.addToCartReorder}>
                 {this.props.config.reorderTitle}
             </a>
         )
