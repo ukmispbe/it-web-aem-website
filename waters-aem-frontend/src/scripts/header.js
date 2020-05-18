@@ -44,18 +44,17 @@ function addEventListeners() {
 }
 
 function render() { 
-
+    // Hide the cart icon for DISABLED
     const hideCartClass = "top-bar__nav__cart--hide"
     if (eCommStatus === "DISABLED") {
         domElements.addClass(headerNavigation_cartLI, hideCartClass);
     }
-
+    // Show or Hide Cart Icon for PARTIAL_ENABLED dependent upon Sold To Details
     if (eCommStatus === "PARTIAL_ENABLED") {
         if (loginStatus.state()) { 
-            // Check if User has a Sold to
             const store = new SessionStore();
             const soldToDetails = store.getSoldToDetails();
-            if (!soldToDetails) {
+            if (!soldToDetails  || soldToDetails.length   === 0) {
                 domElements.addClass(headerNavigation_cartLI, hideCartClass);
             }
         }
