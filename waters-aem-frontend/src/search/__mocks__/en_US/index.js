@@ -4,7 +4,7 @@ import commerceConfigs from './commerce-configs-json';
 import facets from './facets';
 
 const props = {
-    searchServicePath: 'https://dev-www.waters.com:8443/api/waters/search',
+    searchServicePath: 'https://test-www.waters.com:8443/api/waters/search',
     searchLocale: 'en-US',
     isocode: 'en_US',
     searchText: searchResultsTranslationsJSON,

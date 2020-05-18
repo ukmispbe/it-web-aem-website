@@ -87,16 +87,17 @@
                 "resultsText": "${'Showing {0}-{1} of {2} Orders' @ format=['{startResults}', '{endResults}', '{count}'], i18n, context='unsafe'}",
                 "noOrdersFoundTitle": "${'Sorry, no orders found.' @ i18n, context='unsafe'}",
                 "noOrdersFoundText": "${'Check back after you shop on Waters.com for order information and shipment tracking.' @ i18n, context='unsafe'}",
-                "shopAllTitle": "${'Shop All Products' @ context='unsafe'}",
+                "shopAllTitle": "${'Shop All Products' @ i18n, context='unsafe'}",
                 "shopAllHref": "${myaccount.shopAllProductsHref @ context='unsafe'}",
-                "orderText": "${'Order Number: ' @ context='unsafe'}",
-                "itemsText": "${' Items' @ context='unsafe'}",
+                "orderText": "${'Order Number: ' @ i18n, context='unsafe'}",
+                "itemsText": "${' Items' @ i18n, context='unsafe'}",
                 "shipment": {
-                    "viewShipmentsText": "${'View Shipments' @ context='unsafe'}",
-                    "viewShipmentsURL": "${'#' @ context='unsafe'}",
+                    "shipmentText": "${'Shipment' @ i18n, context='unsafe'}",
+                    "trackShipmentText": "${'Track Shipment' @ i18n, context='unsafe'}",
                     "openLabel": "${'In Progress' @ i18n, context='unsafe'}",
                     "partialLabel": "${'Partially Shipped' @ i18n, context='unsafe'}",
-                    "completeLabel": "${'Shipped' @ i18n, context='unsafe'}"
+                    "completeLabel": "${'Shipped' @ i18n, context='unsafe'}",
+                    "completeShippedLabel": "${'Shipped on ' @ i18n, context='unsafe'}"
                 },
                 "icons": {
                     "openIcon": "/content/dam/waters/en/brand-assets/icons/refresh.svg",
@@ -123,9 +124,9 @@
             "orderDetails": {
                 "fetchDetailsEndPoint": "${myaccount.orderDetailsUrl @ context='unsafe'}",
                 "fetchItemsEndPoint": "${myaccount.searchUrl @ context='unsafe'}",
-                "fetchAddToCartEndPoint": "/api/addToCart",
                 "orderHistory": "${'Order History' @ i18n, context='unsafe'}",
                 "orderDetails": "${'Order Details' @ i18n, context='unsafe'}",
+                "resultsText": "${'Showing {0}-{1} of {2} Shipments' @ format=['{startResults}', '{endResults}', '{count}'], i18n, context='unsafe'}",
                 "orderNotFoundErrorTitle": "${'Sorry, order not found.' @ i18n, context='unsafe'}",
                 "serviceErrorNotificationTitle": "${'Sorry, something went wrong.' @ i18n, context='unsafe'}",
                 "serviceErrorNotificationText": "${'Please try again.' @ i18n, context='unsafe'}",
@@ -138,6 +139,7 @@
                 "shipmentMethod": "${'Shipment Method' @ i18n, context='unsafe'}",
                 "subTotal": "${'Subtotal' @ i18n, context='unsafe'}",
                 "items": "${'items' @ i18n, context='unsafe'}",
+                "item": "${'item' @ i18n, context='unsafe'}",
                 "shipping": "${'Shipping' @ i18n, context='unsafe'}",
                 "tax": "${'Tax' @ i18n, context='unsafe'}",
                 "orderTotal": "${'Order Total' @ i18n, context='unsafe'}",
@@ -152,10 +154,25 @@
                         "icon": "/content/dam/waters/en/brand-assets/icons/creditcard.svg"
                     }
                 },
+                "shipment": {
+                    "shipmentText": "${'Shipment' @ i18n, context='unsafe'}",
+                    "itemsText": "${'Items' @ i18n, context='unsafe'}",
+                    "itemText": "${'Item' @ i18n, context='unsafe'}",
+                    "trackShipmentText": "${'Track Shipment' @ i18n, context='unsafe'}",
+                    "openLabel": "${'In Progress' @ i18n, context='unsafe'}",
+                    "partialLabel": "${'Partially Shipped' @ i18n, context='unsafe'}",
+                    "completeLabel": "${'Shipped' @ i18n, context='unsafe'}",
+                    "completeShippedLabel": "${'Shipped on ' @ i18n, context='unsafe'}"
+                },
+                "icons": {
+                    "openIcon": "/content/dam/waters/en/brand-assets/icons/refresh.svg",
+                    "partialIcon": "/content/dam/waters/en/brand-assets/icons/success.svg",
+                    "completeIcon": "/content/dam/waters/en/brand-assets/icons/success.svg"
+                },
                 "modalInfo":{
                     "icon":"/content/dam/waters/en/brand-assets/icons/cart.svg",
                     "closeIcon":"/content/dam/waters/en/brand-assets/icons/close.svg",
-                    "title": "${'Reorder all items?' @ i18n, context='unsafe'}", 
+                    "title": "${'Reorder all items?' @ i18n, context='unsafe'}",
                     "isOrderDetails": true,
                     "buttons":[
                         {
