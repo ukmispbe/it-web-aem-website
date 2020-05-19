@@ -55,7 +55,6 @@ const legacyCartUrlRequest = (url, partNo, quantity) => {
 const getCartId = () => {
     const store = new LocalStore();
     const cartId = store.getCartId() ? store.getCartId() : null;
-//    cartId = '58aa6c9f-536b-4b7a-9ddc-52327b9047e8'
     return cartId;
 }
 
@@ -94,13 +93,18 @@ const addToCartUrlRequest = (url, partNo, quantity, cartId) => {
 }
 
 export async function getAvailability(url, countryCode, partNo) {
+    console.log(url, countryCode, partNo);
     const urlRequest = legacyAvailabilityUrlRequest(url, countryCode, partNo);
-    return await getData(urlRequest);
+    const response = await getData(urlRequest);
+    const json = await response.json();
+    return json;
 }
 
 export async function getPrice(url, countryCode, partNo) {
     const urlRequest = legacyPriceUrlRequest(url, countryCode, partNo);
-    return await postData(url, data);
+    const response = await getData(urlRequest);
+    const json = await response.json();
+    return json;
 }
 
 export async function addToCart(isCommerceApiMigrated, url, partNo, quantity) {
@@ -114,12 +118,15 @@ export async function addToCart(isCommerceApiMigrated, url, partNo, quantity) {
             ]
         }
 
-        const cartId = null;//getCartIdFromLocalStorage();
-        const guid = getCartIdFromLocalStorage();
-        console.log(guid);
+        const cartId = loginStatus.state() ? getCartId() : getGUID();
         const urlRequest = addToCartUrlRequest(url, partNo, quantity, cartId);
+        console.log(urlRequest);
         const response = await postData(urlRequest, data);
         const json = await response.json();
+        if(!cartId && json && json.cart.guid) {
+            setCartId(json.cart.guid);
+        }
+        console.log(json);
         return json;
 
     } else {
