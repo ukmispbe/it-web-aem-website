@@ -51,13 +51,14 @@ public class DefaultEmailTemplateClient implements EmailTemplateClient {
         final URI uri = buildUri(setTemplateEndpoint, Collections.emptyMap());
 
         LOG.info("sending request for URI : {}", uri.toString());
-
+        LOG.debug("Template map without encoding : {}", MAPPER.writeValueAsString(template.toMap()));
+        LOG.debug("Template map with encoding : {}", new StringEntity(MAPPER.writeValueAsString(template.toMap()),java.nio.charset.Charset.forName("UTF-8")));
         // create request object with body
         final HttpUriRequest request = RequestBuilder.post(uri)
                 .addHeader(HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType())
                 .addHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType())
                 .addHeader("X-Api-Key",apiKey)
-                .setEntity(new StringEntity(MAPPER.writeValueAsString(template.toMap())))
+                .setEntity(new StringEntity(MAPPER.writeValueAsString(template.toMap()),java.nio.charset.Charset.forName("UTF-8")))
                 .build();
 
         // execute request

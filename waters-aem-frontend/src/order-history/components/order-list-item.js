@@ -36,7 +36,7 @@ class OrderListItem extends Component {
                     />            
                 </div>
                 <div className="cmp-order-list__total">
-                    {CurrencyFormatter.currencyFormatter(this.props.data.orderTotal, this.userLocale, this.props.data.currencyCode)}
+                    {this.props.data.orderTotal}
                 </div>
             </div>
         );

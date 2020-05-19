@@ -68,7 +68,7 @@ public class SignIn implements ComponentExporter {
     }
 
     public Link getHomepageLink() {
-        return LinkUtils.getHomepageLink(currentPage);
+        return LinkUtils.getCurrentHomepageLink(currentPage);
     }
 
     public static final String RESOURCE_TYPE = "waters/components/content/forms/signin";

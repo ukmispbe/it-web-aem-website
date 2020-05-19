@@ -64,11 +64,6 @@ public class CountryLanguageSelectorItem {
                 .orElse(page.getTitle(TitleType.PAGE_TITLE).or(page.getTitle()));
     }
 
-    public String getCountryLangaugeIsoCode(){
-        return LocaleUtils.isGlobalRegionPage(page) ?
-                "" : LocaleUtils.getLocaleWithCountryForPage(page).toString();
-    }
-
     public PageDecorator getPage() {
         return page;
     }

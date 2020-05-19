@@ -123,19 +123,19 @@ class OrderDetails extends Component {
                     <h4>{this.props.config.orderSummary}</h4>
                     <div className="cmp-order-details__order-subtotal">
                         <div className="cmp-order-details__order-subtotal_left">{this.props.config.subTotal} ({orderDetails.lineItems && orderDetails.lineItems.length} {this.props.config.items})</div>
-                        <div className="cmp-order-details__order-subtotal_right">{CurrencyFormatter.currencyFormatter(orderDetails.itemsSubTotal, userLocale, orderDetails.currencyCode)}</div>
+                        <div className="cmp-order-details__order-subtotal_right">{orderDetails.itemsSubTotal}</div>
                     </div>
                     <div className="cmp-order-details__order-shipping">
                         <div className="cmp-order-details__order-shipping_left">{this.props.config.shipping}</div>
-                        <div className="cmp-order-details__order-shipping_right">{CurrencyFormatter.currencyFormatter(orderDetails.shippingAmount, userLocale, orderDetails.currencyCode)}</div>
+                        <div className="cmp-order-details__order-shipping_right">{orderDetails.shippingAmount}</div>
                     </div>
                     <div className="cmp-order-details__order-tax">
                         <div className="cmp-order-details__order-tax_left">{this.props.config.tax}</div>
-                        <div className="cmp-order-details__order-tax_right">{CurrencyFormatter.currencyFormatter(orderDetails.taxAmount, userLocale, orderDetails.currencyCode)}</div>
+                        <div className="cmp-order-details__order-tax_right">{orderDetails.taxAmount}</div>
                     </div>
                     <div className="cmp-order-details__order-total">
                         <div className="cmp-order-details__order-total_left">{this.props.config.orderTotal}</div>
-                        <div className="cmp-order-details__order-total_right"><h1>{CurrencyFormatter.currencyFormatter(orderDetails.orderTotal, userLocale, orderDetails.currencyCode)}</h1></div>
+                        <div className="cmp-order-details__order-total_right"><h1>{orderDetails.orderTotal}</h1></div>
                     </div>
                 </div>
             </div>
