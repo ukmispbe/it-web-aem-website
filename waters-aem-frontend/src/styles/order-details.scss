@@ -195,6 +195,7 @@
                         @include mobile {
                             width: 100%;
                             margin-left: 0;
+                            margin-bottom: $space-xxs;
                         }
         
                         .order-shipment-header__shipment-count { 
