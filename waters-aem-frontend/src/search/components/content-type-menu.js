@@ -11,7 +11,7 @@ const ContentTypeMenu = props => {
                             onClick={() => props.onClick(item)}>
                             
                             <div>
-                                <a href="javascript:{0}"
+                                <a href="#" onClick={(e) => {e.preventDefault(); return false;}}
                                     data-count={` (${item.count})`}>
                                     {item.facetTranslation}
                                 </a>
