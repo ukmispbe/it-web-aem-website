@@ -30,6 +30,9 @@ public final class SiteContext {
     @OSGiService(filter = "(component.name=org.apache.sling.i18n.impl.JcrResourceBundleProvider)")
     private ResourceBundleProvider resourceBundleProvider;
 
+    @OSGiService
+    private WatersCommerceService watersCommerceService;
+
     @Inject
     private PageDecorator currentPage;
     
@@ -97,7 +100,11 @@ public final class SiteContext {
     }
 
     public String getAddToCartURL() {
-        return currentPage.getInherited("addToCartUrl", "");
+        return currentPage.getInherited("addToCartUrl", watersCommerceService.getAddToCartUrl());
+    }
+
+    public String getViewCartURL() {
+        return currentPage.getInherited("viewCartUrl", watersCommerceService.getViewCartUrl());
     }
 
     public boolean isCommerceApiMigrated(){
