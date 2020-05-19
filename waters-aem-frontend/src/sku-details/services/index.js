@@ -138,7 +138,7 @@ export async function addToCart(isCommerceApiMigrated, url, partNo, quantity) {
         const json = await response.json();
         if(!cartId && json) {
             loginStatus.state() && json.cart.code && setCartId(json.cart.code);
-            !loginStatus.state() && json.cart.guid && setCartId(json.cart.guid);
+            !loginStatus.state() && json.cart.guid && setGUID(json.cart.guid);
         }
         console.log(json);
         return json;

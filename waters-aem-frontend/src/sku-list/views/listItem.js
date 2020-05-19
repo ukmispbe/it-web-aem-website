@@ -39,9 +39,6 @@ class ListItem extends React.Component {
             errorObjCart: {},
             errorObjAvailability: {},
         };
-
-        this.checkAvailability = this.checkAvailability.bind(this);
-        this.toggleModal = this.toggleModal.bind(this);
     }
 
     toggleErrorModal = (err) => {
