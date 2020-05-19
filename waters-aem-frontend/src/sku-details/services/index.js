@@ -4,27 +4,8 @@ import LocalStore from '../../stores/localStore';
 import loginStatus from '../../scripts/loginStatus';
 import DigitalData from "../../scripts/DigitalData";
 
-const postData = async (url, data) => {
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });
-
-    return response;
-};
-
-const getData = async (url) => {
-    const response = await fetch(url, {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
-
+const fetchData = async (url, options) => {
+    const response = await fetch(url, {...options});
     return response;
 };
 
@@ -107,34 +88,49 @@ const addToCartUrlRequest = (url, partNo, quantity, cartId) => {
 
 export async function getAvailability(url, countryCode, partNo) {
     console.log(url, countryCode, partNo);
+    const options = {
+        method: 'GET',
+        credentials: 'include'
+    }
     const urlRequest = availabilityUrlRequest(url, countryCode, partNo);
-    const response = await getData(urlRequest);
+    const response = await fetchData(urlRequest, options);
     const json = await response.json();
     return json;
 }
 
 export async function getPrice(url, countryCode, partNo) {
+    const options = {
+        method: 'GET',
+        credentials: 'include'
+    }
     const urlRequest = priceUrlRequest(url, countryCode, partNo);
-    const response = await getData(urlRequest);
+    const response = await fetchData(urlRequest, options);
     const json = await response.json();
     return json;
 }
 
 export async function addToCart(isCommerceApiMigrated, url, partNo, quantity) {
     if(isCommerceApiMigrated) {
-        const data = {
-            products: [
-                {
-                    code: partNo,
-                    quantity: quantity,
-                }
-            ]
+
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                products: [
+                    {
+                        code: partNo,
+                        quantity: quantity,
+                    }
+                ]
+            })
         }
 
         const cartId = loginStatus.state() ? getCartId() : getGUID();
         const urlRequest = addToCartUrlRequest(url, partNo, quantity, cartId);
         console.log(urlRequest);
-        const response = await postData(urlRequest, data);
+        const response = await fetchData(urlRequest, options);
         const json = await response.json();
         if(!cartId && json) {
             loginStatus.state() && json.cart.code && setCartId(json.cart.code);
@@ -144,12 +140,16 @@ export async function addToCart(isCommerceApiMigrated, url, partNo, quantity) {
         return json;
 
     } else {
-        const data = {
-            partNumbers: partNo,
-            quantity: quantity,
+        const options = {
+            method: 'post',
+            credentials: 'include',
+            body: JSON.stringify({
+                partNumbers: partNo,
+                quantity: quantity,
+            })
         }
         const urlRequest = legacyAddToCartUrlRequest(url, partNo, quantity);
-        const response = await postData(urlRequest, data);
+        const response = await fetchData(urlRequest, data);
         const json = await response.json();
         return json;
     }
