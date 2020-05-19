@@ -28,7 +28,7 @@ const getData = async (url) => {
     return response;
 };
 
-const legacyAvailabilityUrlRequest = (url, countryCode, partNo) => {
+const availabilityUrlRequest = (url, countryCode, partNo) => {
     url = url
             .replace('{partnumber}', partNo)
             .replace('{countryCode}', countryCode);
@@ -36,7 +36,7 @@ const legacyAvailabilityUrlRequest = (url, countryCode, partNo) => {
     return url;
 }
 
-const legacyPriceUrlRequest = (url, countryCode, partNo) => {
+const priceUrlRequest = (url, countryCode, partNo) => {
     url = url
         .replace('{partnumber}', partNo)
         .replace('{countryCode}', countryCode);
@@ -44,7 +44,7 @@ const legacyPriceUrlRequest = (url, countryCode, partNo) => {
     return url;
 }
 
-const legacyCartUrlRequest = (url, partNo, quantity) => {
+const legacyAddToCartUrlRequest = (url, partNo, quantity) => {
     url = url
         .replace('{partnumber}', partNo)
         .replace('{quantity}', quantity);
@@ -62,6 +62,19 @@ const setCartId = (value) => {
     // TODO: try/catch exception from storage
     const store = new LocalStore();
     const cartId = store.setCartId(value);
+    return true;
+}
+
+const getGUID = () => {
+    const store = new LocalStore();
+    const cartId = store.getGUID() ? store.getGUID() : null;
+    return cartId;
+}
+
+const setGUID = (value) => {
+    // TODO: try/catch exception from storage
+    const store = new LocalStore();
+    const cartId = store.setGUID(value);
     return true;
 }
 
@@ -94,14 +107,14 @@ const addToCartUrlRequest = (url, partNo, quantity, cartId) => {
 
 export async function getAvailability(url, countryCode, partNo) {
     console.log(url, countryCode, partNo);
-    const urlRequest = legacyAvailabilityUrlRequest(url, countryCode, partNo);
+    const urlRequest = availabilityUrlRequest(url, countryCode, partNo);
     const response = await getData(urlRequest);
     const json = await response.json();
     return json;
 }
 
 export async function getPrice(url, countryCode, partNo) {
-    const urlRequest = legacyPriceUrlRequest(url, countryCode, partNo);
+    const urlRequest = priceUrlRequest(url, countryCode, partNo);
     const response = await getData(urlRequest);
     const json = await response.json();
     return json;
@@ -123,8 +136,9 @@ export async function addToCart(isCommerceApiMigrated, url, partNo, quantity) {
         console.log(urlRequest);
         const response = await postData(urlRequest, data);
         const json = await response.json();
-        if(!cartId && json && json.cart.guid) {
-            setCartId(json.cart.guid);
+        if(!cartId && json) {
+            loginStatus.state() && json.cart.code && setCartId(json.cart.code);
+            !loginStatus.state() && json.cart.guid && setCartId(json.cart.guid);
         }
         console.log(json);
         return json;
@@ -134,7 +148,7 @@ export async function addToCart(isCommerceApiMigrated, url, partNo, quantity) {
             partNumbers: partNo,
             quantity: quantity,
         }
-        const urlRequest = legacyCartUrlRequest(url, partNo, quantity, cartId);
+        const urlRequest = legacyAddToCartUrlRequest(url, partNo, quantity);
         const response = await postData(urlRequest, data);
         const json = await response.json();
         return json;
