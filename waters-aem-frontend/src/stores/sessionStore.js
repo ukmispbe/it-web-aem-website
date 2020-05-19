@@ -1,4 +1,3 @@
-import domElements from '../scripts/domElements';
 const keys = {
     previousPagePosition: 'waters.previousPagePosition',
     previousPagePositionEnabled: 'waters.previousPagePositionEnabled',
