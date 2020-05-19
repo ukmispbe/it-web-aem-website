@@ -13,7 +13,7 @@ import CheckOutStatus from "../scripts/checkOutStatus";
 import SkuMessage from "../sku-message";
 import Ecommerce from "../scripts/ecommerce";
 import { mainCartContext } from "../scripts/analytics";
-import SignIn from '../scripts/sign-in';
+import SignIn from '../scripts/signIn';
 
 class SkuDetails extends React.Component {
     constructor(props) {
