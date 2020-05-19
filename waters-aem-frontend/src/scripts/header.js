@@ -6,11 +6,12 @@ import ServletService from '../element-creators/services/servletService';
 import SystemWideNotification from '../element-creators/systemWideNotification';
 import SessionStore from '../stores/sessionStore';
 import inlineSVG from '../scripts/inlineSVG';
+import { isCartHidden } from '../utils/eCommerceFunctions';
 
 const sessionStore = new SessionStore();
 
 let headerTB, headerTB_user,  headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, 
-    headerNavigation_mainUL, headerNavigation_cartLI, eCommStatus;
+    headerNavigation_mainUL, headerNavigation_cartLI;
 
 const headerInit = function() {
     domReferences();
@@ -28,9 +29,6 @@ function domReferences() {
     headerNavigation_comp = document.querySelector('.cmp-header__navigation nav.cmp-navigation');
     headerNavigation_mainUL = document.querySelector('.cmp-header__navigation nav.cmp-navigation');
     headerNavigation_cartLI = document.querySelector('.top-bar__nav__cart');    
-    if (headerNavigation_cartLI) {
-        eCommStatus = headerNavigation_cartLI.attributes["data-ecommerce-state"].value.toUpperCase();
-    }
 }
 
 function addEventListeners() { 
@@ -44,23 +42,13 @@ function addEventListeners() {
 }
 
 function render() { 
-    // Hide the cart icon for DISABLED
+    // Show or Hide Cart Icon dependent upon eCommerce Status
     const hideCartClass = "top-bar__nav__cart--hide"
-    if (eCommStatus === "DISABLED") {
+    if (isCartHidden()) {
         domElements.addClass(headerNavigation_cartLI, hideCartClass);
     }
-    // Show or Hide Cart Icon for PARTIAL_ENABLED dependent upon Sold To Details
-    if (eCommStatus === "PARTIAL_ENABLED") {
-        if (loginStatus.state()) { 
-            const store = new SessionStore();
-            const soldToDetails = store.getSoldToDetails();
-            if (!soldToDetails  || soldToDetails.length   === 0) {
-                domElements.addClass(headerNavigation_cartLI, hideCartClass);
-            }
-        }
-        else {
-            domElements.addClass(headerNavigation_cartLI, hideCartClass);
-        }
+    else {
+        domElements.removeClass(headerNavigation_cartLI, hideCartClass);
     }
 
     const loggedInClass = 'loggedIn';

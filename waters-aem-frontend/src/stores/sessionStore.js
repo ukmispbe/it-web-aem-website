@@ -25,23 +25,7 @@ const getJSONArray = key => {
 }
 
 const SessionStore = function () {
-    this.setSoldToDetails = value => {
-        window.sessionStorage.setItem(keys.soldToDetails, JSON.stringify(value));
-        // Show or Hide Cart Icon for PARTIAL_ENABLED dependent upon Sold To Details
-        const headerNavigation_cartLI = document.querySelector('.top-bar__nav__cart');
-        if (headerNavigation_cartLI) {
-            const eCommStatus = headerNavigation_cartLI.attributes["data-ecommerce-state"].value.toUpperCase();
-            if (eCommStatus === "PARTIAL_ENABLED") {
-                const hideCartClass = "top-bar__nav__cart--hide"
-                if (!value || value.length   === 0) {
-                    domElements.addClass(headerNavigation_cartLI, hideCartClass);
-                }
-                else {
-                    domElements.removeClass(headerNavigation_cartLI, hideCartClass);
-                }
-            }
-        }    
-    }
+    this.setSoldToDetails = value => window.sessionStorage.setItem(keys.soldToDetails, JSON.stringify(value));
     this.getSoldToDetails = () => getJSONArray(keys.soldToDetails);
     this.removeSoldToDetails = () => window.sessionStorage.removeItem(keys.soldToDetails);
     this.setUserDetails = value => window.sessionStorage.setItem(keys.userDetails, JSON.stringify(value));
