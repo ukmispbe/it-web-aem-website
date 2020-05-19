@@ -612,4 +612,15 @@
          padding-left: 10px;
       }
    }
+   &-cB {
+         position: relative;
+
+         @include tablet-and-under {
+            line-height: 1em!important;
+         }
+
+         span {
+            padding-left: 10px ;
+         }
+    }
 }
