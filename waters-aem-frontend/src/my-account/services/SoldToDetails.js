@@ -9,24 +9,32 @@ const getData = async (url) => {
         }
     });
 
-    return response;
+    return await response;
 };
 
 const SoldToDetails = async (
     url = "https://test-www.waters.com:8443/api/waters/user/v1/retrievesoldto"
 ) => {
-    return getData(url).then(async (response) => {
+    try {
+        const response = await getData(url);
         const json = await response.json();
 
-        const returnArray = Array.isArray(json) ? json : [];
-        return sortPriority(returnArray);
-        
-    }).catch(error => {
+        if (response.status === 200) {
+            const returnArray = Array.isArray(json) ? json : [];
+            return sortPriority(returnArray);
+        } else if (response.status === 401 && window.location.href.indexOf('my-account.html') !== -1) {
+            signInRedirect();
+        }
         return {
             failed: true,
-            error: error
+            error: response.status
         }
-    });
+    } catch (error) {
+        return {
+            failed: true,
+            error: response.status
+        }
+    }
 }
 
 const sortPriority = (soldToAccountsArray) => {

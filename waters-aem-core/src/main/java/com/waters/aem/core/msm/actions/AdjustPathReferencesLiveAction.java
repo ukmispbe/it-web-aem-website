@@ -112,7 +112,9 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
                 }
             }
         }
-        prop.setValue(adjustedValues.toArray(new String[0]));
+        if(adjustedValues.size() > 0) {
+            prop.setValue(adjustedValues.toArray(new String[0]));
+        }
     }
 
     private void adjustSingleValueProperty(final Property prop, final String destinationLanguageCode)
