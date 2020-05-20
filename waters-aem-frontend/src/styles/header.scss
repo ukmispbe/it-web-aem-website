@@ -142,9 +142,12 @@
             .top-bar__nav__search,
             .top-bar__nav__cart {
                 display: inline-flex;
+                &--hide {
+                    display: none;
+                }
                 @include mobile {
                     padding-top: $space-xxxs;
-                }
+                }               
             }
 
             .top-bar__nav__user {
