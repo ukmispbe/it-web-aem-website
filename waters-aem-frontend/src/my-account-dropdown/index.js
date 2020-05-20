@@ -10,17 +10,18 @@ import loginStatus from '../scripts/loginStatus';
 import UserDetailsLazy from '../my-account/services/UserDetailsLazy';
 import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
 import SessionStore from '../stores/sessionStore';
+import { getAddressesByType } from '../detail-tiles/utils/profileFormatter';
 
 const myAccountModalTheme = 'my-account-dropdown';
 class MyAccountDropDown extends React.Component {
     constructor(props) {
         super(props);
-        
+
         this.state = {
             isShown: false,
             isMobile: ScreenSizes.isMobile(),
             config: {
-                ... this.props.config, 
+                ... this.props.config,
                 loginState: loginStatus.state(),
                 userDetails: {
                     userName: '',
@@ -41,13 +42,13 @@ class MyAccountDropDown extends React.Component {
         this.header = document.querySelector('header.cmp-header');
         const hideOnClick = this.hideOnClick;
 
-        if (this.allNavItems) { 
-            Array.from(this.allNavItems).forEach(function (e) { 
+        if (this.allNavItems) {
+            Array.from(this.allNavItems).forEach(function (e) {
                 e.addEventListener('click', hideOnClick);
             })
         }
 
-        if (this.accountHeaderUser) { 
+        if (this.accountHeaderUser) {
             this.accountHeaderUser.addEventListener('mouseover', this.handleOutsideEvent);
             this.accountHeaderUser.addEventListener('mouseleave', this.handleOutsideEvent);
             this.accountHeaderUser.addEventListener('click', this.handleOutsideEvent);
@@ -55,20 +56,20 @@ class MyAccountDropDown extends React.Component {
 
         window.addEventListener('resize', this.updateViewport, true);
 
-        if (loginStatus.state()) { 
+        if (loginStatus.state()) {
             this.retrieveUserDetails();
         }
     }
 
     componentWillUnMount() {
         const hideOnClick = this.hideOnClick;
-        if (this.allNavItems) { 
-            Array.from(this.allNavItems).forEach(function (e) { 
+        if (this.allNavItems) {
+            Array.from(this.allNavItems).forEach(function (e) {
                 e.removeEventListener('click', hideOnClick);
             })
         }
 
-        if (this.accountHeaderUser) { 
+        if (this.accountHeaderUser) {
             this.accountHeaderUser.removeEventListener('mouseover', this.handleOutsideEvent);
             this.accountHeaderUser.removeEventListener('mouseleave', this.handleOutsideEvent);
             this.accountHeaderUser.removeEventListener('click', this.handleOutsideEvent);
@@ -77,8 +78,8 @@ class MyAccountDropDown extends React.Component {
         window.removeEventListener('resize', this.updateViewport, true);
     }
 
-    updateViewport = () => { 
-        if (!ScreenSizes.isMobile()) { 
+    updateViewport = () => {
+        if (!ScreenSizes.isMobile()) {
             if (this.state.isShown == true) {
                 this.willShow(false);
             }
@@ -95,27 +96,40 @@ class MyAccountDropDown extends React.Component {
 
     // TRIGGER CLOSE OF COMPONENT ON CLICK OF OTHER NAV ITEMS IN TOP BAR
     hideOnClick = (e) => {
-        if (this.state.isShown == true) { 
+        if (this.state.isShown == true) {
             this.willShow(false, e.currentTarget);
         }
     }
 
     willShow = (newState, caller = 'default') => {
-        
+
         // Check if Personal Details have been updated
         const store = new SessionStore();
         const hasBeenUpdated = store.getPersonalDetailsUpdated() === 'Y' ? true : false;
         if (hasBeenUpdated) {
             const savedUserDetails = store.getUserDetails();
             const savedSoldToDetails = store.getSoldToDetails();
-            const updatedUserName = savedUserDetails.firstName && savedUserDetails.lastName ? `${savedUserDetails.firstName} ${savedUserDetails.lastName}` : '';
+
+            let updatedUserName = '';
+            if(Object.keys(savedUserDetails).length !== 0) {
+                const mailingAddress = savedUserDetails.userAddress.filter(address => address.addressType === 'mailingAddress');
+                const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
+
+                if (userCountry === 'jp' || userCountry === 'cn' || userCountry === 'kr' || userCountry === 'tw') {
+                    updatedUserName = savedUserDetails.firstName && savedUserDetails.lastName ? `${savedUserDetails.lastName} ${savedUserDetails.firstName}` : '';
+                } else {
+                    updatedUserName = savedUserDetails.firstName && savedUserDetails.lastName ? `${savedUserDetails.firstName} ${savedUserDetails.lastName}` : '';
+                }
+            } else {
+                this.retrieveUserDetails();
+            }
 
             let updatedAccountName = "";
             let updatedAccountNumber = "";
 
             // Check that Sold to Exists
-            if (savedSoldToDetails.length !== 0) {
-                let updatedAccount; 
+            if (savedSoldToDetails && savedSoldToDetails.length !== 0) {
+                let updatedAccount;
                 savedSoldToDetails.map((soldTo) => {
                     if(soldTo.default_soldTo === 1) {
                         updatedAccount = soldTo;
@@ -124,15 +138,15 @@ class MyAccountDropDown extends React.Component {
                 updatedAccountName = updatedAccount.company ? updatedAccount.company : "";
                 updatedAccountNumber = updatedAccount.soldTo ? updatedAccount.soldTo : "";
             }
-                       
+
             let currentState = this.state;
             currentState.config.userDetails.userName = updatedUserName;
             currentState.config.userDetails.accountName = updatedAccountName;
             currentState.config.userDetails.accountNumber = updatedAccountNumber;
-            
+
             this.setState({
                 ... currentState
-            }); 
+            });
             store.removePersonalDetailsUpdated();
         }
 
@@ -145,7 +159,7 @@ class MyAccountDropDown extends React.Component {
             if (this.state.isShown) {
 
                 const mobileNav = MobileNav();
-                if (mobileNav) { 
+                if (mobileNav) {
                     mobileNav.hide();
                 }
 
@@ -154,7 +168,7 @@ class MyAccountDropDown extends React.Component {
                     headerOverlay.classList.add(activeOverlay);
                 } else {
                     domElements.noScroll(true);
-                    if (this.header) { 
+                    if (this.header) {
                         header.classList.add('is-fixed');
                     }
                 }
@@ -162,20 +176,20 @@ class MyAccountDropDown extends React.Component {
                 this.accountHeaderUser.classList.remove(activeDDClass);
                 if (!this.state.isMobile) {
                     headerOverlay.classList.remove(activeOverlay);
-                } else { 
+                } else {
                     if (caller != 'default') {
-                        if (caller instanceof HTMLElement) { 
-                            if (!caller.classList.contains('top-bar__nav__mobile')) { 
+                        if (caller instanceof HTMLElement) {
+                            if (!caller.classList.contains('top-bar__nav__mobile')) {
                                 // change scrolling unless needed next (ie hamburger menu)
                                 domElements.noScroll(false);
-                                if (this.header) { 
+                                if (this.header) {
                                     header.classList.remove('is-fixed');
                                 }
                             }
                         }
                     } else {
                         domElements.noScroll(false);
-                        if (this.header) { 
+                        if (this.header) {
                             header.classList.remove('is-fixed');
                         }
                     }
@@ -185,13 +199,13 @@ class MyAccountDropDown extends React.Component {
         });
     };
 
-    handleOutsideEvent = e => { 
+    handleOutsideEvent = e => {
         const domNode = ReactDOM.findDOMNode(this);
 
         if (!domNode || !domNode.contains(e.target)) {
 
             e.preventDefault();
-            switch (true) { 
+            switch (true) {
                 case e.type == 'mouseover' && !this.state.isMobile:
                         this.willShow(true);
                     break;
@@ -201,13 +215,13 @@ class MyAccountDropDown extends React.Component {
                     break;
                 case e.type == 'click' && !this.state.isMobile:
                         e.preventDefault();
-                        if (this.props.config.myAccount.url && this.props.config.myAccount.target) { 
+                        if (this.props.config.myAccount.url && this.props.config.myAccount.target) {
                             window.open(this.props.config.myAccount.url, this.props.config.myAccount.target);
                         }
                     break;
                 case e.type == 'mouseleave' && !this.state.isMobile:
                         this.willShow(false);
-                    break;            
+                    break;
             }
         }
     }
@@ -216,7 +230,14 @@ class MyAccountDropDown extends React.Component {
         const userDetails = await UserDetailsLazy(this.props.config.userDetailsUrl);
         const soldToDetails = await SoldToDetailsLazy(this.props.config.soldToDetailsUrl);
 
-        const userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
+        const mailingAddress = userDetails.userAddress.filter(address => address.addressType === 'mailingAddress');
+        const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
+        let userName = '';
+        if (userCountry === 'jp' || userCountry === 'cn' || userCountry === 'kr' || userCountry === 'tw') {
+            userName = userDetails.firstName && userDetails.lastName ? `${userDetails.lastName} ${userDetails.firstName}` : '';
+        } else {
+            userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
+        }
         // Fix to correct first soldTo being selected. It should be the default_soldTo === 1 selected
         let priorityAccount;
         let accountName = "";
@@ -231,7 +252,7 @@ class MyAccountDropDown extends React.Component {
             accountName = priorityAccount.company ? `${priorityAccount.company} ` : '';
             accountNumber = priorityAccount.soldTo ? priorityAccount.soldTo : '';
         }
-        
+
         this.setState({
             ... this.state,
             config: {
@@ -255,7 +276,18 @@ class MyAccountDropDown extends React.Component {
         const userDetails = store.getUserDetails();
         const soldToDetails = store.getSoldToDetails();
 
-        const userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
+        let userName = '';
+        if(Object.keys(userDetails).length !== 0) {
+            const mailingAddress = userDetails.userAddress.filter(address => address.addressType === 'mailingAddress');
+            const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
+
+            if (userCountry === 'jp' || userCountry === 'cn' || userCountry === 'kr' || userCountry === 'tw') {
+                userName = userDetails.firstName && userDetails.lastName ? `${userDetails.lastName} ${userDetails.firstName}` : '';
+            } else {
+                userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
+            }
+        }
+
         const priorityAccount = soldToDetails && soldToDetails.length !== 0 ? soldToDetails[0] : {};
         const accountName = priorityAccount.company ? `${priorityAccount.company} ` : '';
         const accountNumber = priorityAccount.soldTo ? priorityAccount.soldTo : '';

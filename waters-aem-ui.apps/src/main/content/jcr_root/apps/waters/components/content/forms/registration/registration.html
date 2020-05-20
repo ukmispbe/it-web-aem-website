@@ -34,17 +34,17 @@
                 },
                 {
                     "type": "dropdown",
-                    "name": "salutation",
+                    "name": "namePrefix",
                     "label": "${'Salutation (optional)' @ i18n, context='text'}",
                     "placeholder": "${'Select...' @ i18n, context='text'}",
                     "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
                     "options": [
-                        {"salutationCode":"PhD","displayName": "${'PhD' @ i18n, context='text'}"},
-                        {"salutationCode":"Mr.","displayName": "${'Mr.' @ i18n, context='text'}"},
-                        {"salutationCode":"Mrs.","displayName": "${'Mrs.' @ i18n, context='text'}"},
-                        {"salutationCode":"Ms.","displayName": "${'Ms.' @ i18n, context='text'}"},
-                        {"salutationCode":"Miss.","displayName": "${'Miss.' @ i18n, context='text'}"},
-                        {"salutationCode":"Prof.","displayName": "${'Prof.' @ i18n, context='text'}"}
+                        {"namePrefixCode":"PhD","displayName": "${'PhD' @ i18n, context='text'}"},
+                        {"namePrefixCode":"Mr.","displayName": "${'Mr.' @ i18n, context='text'}"},
+                        {"namePrefixCode":"Mrs.","displayName": "${'Mrs.' @ i18n, context='text'}"},
+                        {"namePrefixCode":"Ms.","displayName": "${'Ms.' @ i18n, context='text'}"},
+                        {"namePrefixCode":"Miss.","displayName": "${'Miss.' @ i18n, context='text'}"},
+                        {"namePrefixCode":"Prof.","displayName": "${'Prof.' @ i18n, context='text'}"}
                     ],
                     "active": false,
                     "validation": {
@@ -84,7 +84,7 @@
                 },
                 {
                     "type": "text",
-                    "name": "pronName",
+                    "name": "pronunciation",
                     "label": "${'Pronunciation (Name)' @ i18n, context='text'}",
                     "active": false,
                     "validation": {
@@ -152,12 +152,13 @@
                 },
                 {
                     "type": "checkbox",
-                    "name": "eCommerceAgreement",
+                    "name": "consentChinaShopTerms",
                     "label": "${'I confirm to open a China eShop account and agree to the terms and conditions. (We will contact you soon)' @ i18n, context='unsafe'}",
+                    "optionalLabel": "${' (optional)' @ i18n, context='text'}",
                     "active": false,
                     "validation": {
-                        "required": true,
-                        "validateFnName": "checkBoxOrRadio"
+                        "required": false,
+                        "validateFnName": "checkBoxOrRadio" 
                     }
                 },
                 {
@@ -199,28 +200,28 @@
             {
                 "country":"all",
                 "fields":[
-                        "salutation",
-                        "pronName",
-                        "eCommerceAgreement"
+                        "namePrefix",
+                        "pronunciation",
+                        "consentChinaShopTerms"
                     ]
                 },
                 {
                 "country":"jp",
                 "fields":[
-                        "pronName"
+                        "pronunciation"
                     ]
                 },
                 {
                 "country":"tw",
                 "fields":[
-                        "salutation"
+                        "namePrefix"
                     ]
                 },
                 {
                 "country":"cn",
                     "fields":[
-                        "salutation",
-                        "eCommerceAgreement"
+                        "namePrefix",
+                        "consentChinaShopTerms"
                     ]
                 }
             ]

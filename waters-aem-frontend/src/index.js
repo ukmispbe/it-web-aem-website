@@ -330,12 +330,10 @@ if (registrationFormContainer) {
             config.fields[indexofLastName] = temp;
         }
     }
-
-    if (config.formName === "registration" && digitalData.page.country.toLowerCase() ==="jp") {
+    const country = digitalData.page.country.toLowerCase();
+    if (config.formName === "registration" && (country ==="jp" || country === "cn" || country === "tw" || country === "kr")) {
         swapFirstAndLastNames();
     }
-
-
 
     ReactDOM.render(
         // replace isocode with a value supplied by AEM

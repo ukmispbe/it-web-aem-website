@@ -56,7 +56,7 @@ public class ContinueButton implements ComponentExporter {
     }
 
     public Link getHomePageLink() {
-        return LinkUtils.getHomepageLink(currentPage);
+        return LinkUtils.getCurrentHomepageLink(currentPage);
     }
 
     @Nonnull

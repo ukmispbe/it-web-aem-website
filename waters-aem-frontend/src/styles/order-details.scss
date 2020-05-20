@@ -143,6 +143,7 @@
                 &_left {
                     @include font-body;
                     padding-top: $space-xxs;
+                    max-width: 100px;
                     @include mobile {
                         padding-top: $space-xxxs;
                     }
