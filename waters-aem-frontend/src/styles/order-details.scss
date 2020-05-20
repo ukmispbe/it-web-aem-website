@@ -153,12 +153,139 @@
                 }
             }
 
+            .cmp-button {
+                width: 100%;
+            }
+
         }
 
         &__order-shipment-list {
             order: 2;
             width: 100%;
-        }
 
+            .order-shipment-list__hr {
+                margin: $space-l 0;
+                background-color: $color-border-medium;
+                border: none;
+                height: 1px;
+            }
+
+            .cmp-order-details__shipment-title {
+                text-transform: capitalize;
+            }
+
+            .order-shipment {
+                margin-top: $space-xl;
+
+                @include mobile {
+                    margin-top: $space-m;
+                }
+
+                .order-shipment-header {
+                    padding: 0;
+                    width: 100%;
+                    margin-bottom: $space-xxs;
+                    clear: both;
+            
+                    @include mobile {
+                        min-height: 0px;
+                        padding-bottom: $space-xxs;
+                    }
+        
+                    &__left {
+                        display: inline-block;
+                        width: 50%;
+                        vertical-align: bottom;
+        
+                        @include mobile {
+                            width: 100%;
+                            margin-left: 0;
+                            margin-bottom: $space-xxs;
+                        }
+        
+                        .order-shipment-header__shipment-count { 
+                            @include font-h3;   
+                            line-height: 1.1em;
+                            height: 1.1em;
+                            padding-right: $space-xs;
+                            margin-right: $space-xs;
+                            border-right: $border-light;
+                            display: inline-block;
+                        }
+        
+                        .order-shipment-header__item-count { 
+                            height: 1.1em;
+                            display: inline-block;
+                        }
+                    }
+        
+                    &__right {
+                        display: inline-block;  
+                        vertical-align:top;
+                        width: 45%;
+                        margin-left: 5%;
+                        .cmp-order-list__del-status {
+                            //@include font-h3;   
+                            @include font-utility;   
+                            text-align: right;
+                            margin-bottom: $space-xxs;
+        
+                            @include mobile {  
+                                text-align: left;
+                            } 
+        
+                            .cmp-order-list-delivery__icon {
+                                display: inline-block;  
+                                line-height: $icon-m; 
+        
+                                svg {
+                                    height: $icon-m;
+                                    width: $icon-m;
+                                    .st0,
+                                    .st1 {
+                                        stroke-width: 1.0px;
+                                        stroke: $color-icon;
+                                    }
+                                }
+                                margin-right: $space-xxs;
+                            }
+        
+                            .cmp-order-list-delivery__icon__complete {
+                                display: inline-block;  
+                                line-height: $icon-m; 
+                                
+                                svg {
+                                    height: $icon-m;
+                                    width: $icon-m;
+                                    .st0,
+                                    .st1 {
+                                        stroke-width: 1.5px;
+                                        stroke: $color-teal-30;
+                                    }
+                                }
+                                margin-right: $space-xxs;
+                            }
+        
+                            .cmp-order-list-delivery__text {
+                                display: inline-block; 
+                                vertical-align: top;
+                                line-height: $icon-m; 
+                            }
+                        }
+                        .cmp-order-list__view-shipments {
+                            @include font-h3; 
+                            color: $color-link;
+                            margin-bottom: $space-xxs;
+                        }
+        
+                        @include mobile {
+                            float: left;
+                            width: 100%;
+                            margin-left: 0;
+                        }
+                    }
+                }  
+            }
+        }
     }
 }
