@@ -12,7 +12,7 @@ import CheckOutStatus from '../../scripts/checkOutStatus';
 import Ecommerce from '../../scripts/ecommerce';
 import SkuDetails from '../../scripts/sku-details';
 import Sticky from '../../scripts/stickyService';
-import Analytics, { analyticTypes, searchCartContext, relatedCartContext } from '../../scripts/analytics';
+import Analytics, { analyticTypes, searchCartContext, relatedCartContext } from '../../analytics';
 
 
 

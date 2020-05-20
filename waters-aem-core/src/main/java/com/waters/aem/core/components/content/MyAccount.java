@@ -6,12 +6,17 @@ import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Listener;
 import com.citytechinc.cq.component.annotations.widgets.MultiField;
+import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
+import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.content.links.BasicLink;
+import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.account.WatersAccountService;
+import com.waters.aem.core.services.solr.SolrSearchService;
 import com.waters.aem.core.utils.MyAccountUtils;
 import com.waters.aem.core.utils.LinkUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -26,6 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_AFTER_COPY;
@@ -53,20 +59,32 @@ public class MyAccount implements ComponentExporter {
     @OSGiService
     private WatersAccountService accountService;
 
+    @OSGiService
+    private SolrSearchService searchService;
+
     @Inject
     private PageManagerDecorator pageManager;
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
+    @DialogField(fieldLabel = "Shop All Products path",
+            fieldDescription = "The path the Shop All Products page " +
+                    "displayed when there is no order history to show.",
+            required = true,
+            ranking = 1)
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject
+    private Link shopAllProductsLink;
+
     @DialogField(fieldLabel = "My Account Body Text",
             fieldDescription = "The body text to display below the My Account title on the My Account Home page",
-            ranking = 1)
+            ranking = 2)
     @TextField
     @Inject
     private String bodyText;
 
     @DialogField(fieldLabel = "Additional Resources",
-            ranking = 2)
+            ranking = 3)
     @MultiField(composite = true)
     @Inject
     private List<BasicLink> links = new ArrayList<>();
@@ -87,6 +105,12 @@ public class MyAccount implements ComponentExporter {
             .collect(Collectors.toList()));
 
         return MAPPER.writeValueAsString(additionalResources);
+    }
+
+    public String getShopAllProductsHref() {
+        return Optional.ofNullable(shopAllProductsLink)
+                .map(link -> LinkUtils.getMappedLink(pageManager, link).getHref())
+                .orElse(null);
     }
 
     public String getCountriesJson() throws JsonProcessingException {
@@ -119,9 +143,16 @@ public class MyAccount implements ComponentExporter {
         return accountService.getUpdatePasswordUrl();
     }
 
-    //TODO : Delete for Release: Myaccount-6.2.0
-    public String getLegacyOrderHistoryUrl() {
-        return accountService.getLegacyOrderHistoryUrl();
+    public String getOrderDetailsUrl() {
+        return accountService.getOrderDetailsUrl();
+    }
+
+    public String getOrderListUrl() {
+        return accountService.getOrderListUrl();
+    }
+
+    public String getSearchUrl() {
+        return searchService.getBaseUrl();
     }
 
     @Nonnull

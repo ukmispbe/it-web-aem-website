@@ -4,13 +4,10 @@
         display: flex;
         justify-content: center;
         background-color: $color-background-light;
+        border: $border-light;
         border-radius: $border-radius;
         padding: $space-s;
         margin-bottom: $space-l;
-
-        @include mobile {
-            padding: $space-m;
-        }
 
         svg {
             display: inline-block;
@@ -21,20 +18,6 @@
             .st0 {
                 stroke: $color-icon;
             }
-
-            @include mobile {
-                margin-bottom: $space-xxs;
-                padding-right: 0;
-            }
-        }
-
-        @include mobile {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            svg {
-                height: $icon-l;
-            }
         }
     }
 
@@ -42,6 +25,16 @@
         background-color: $color-blue-10;
         padding-left: 0px;
         padding-right: 0px;
+    }
+
+    &--my-account {
+        @include mobile {
+            margin-top: $space-l;
+
+            .cmp-notification-wrapper {
+                margin-bottom: 0;
+            }
+        }
     }
 
     &-dismiss {
@@ -55,14 +48,6 @@
         padding-left: $space-xxxs;
     }
 
-    &-body {
-        @include mobile {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-    }
-
     &-description {
         display: inline;
         text-align: center;
@@ -73,12 +58,6 @@
         font-weight: $font-weight-regular;
         padding-right: $space-xxxs;
         display: inline;
-
-        @include mobile {
-            padding-right:0;
-            text-align: center;
-            margin-bottom: $space-xxs;
-        }
     }
 
     &-links {
@@ -87,11 +66,6 @@
         padding-left: $space-xxxs;
         li {
             display: inline;
-        }
-
-        @include mobile {
-            display: block;
-            margin-top: $space-s;
         }
     }
 }
@@ -211,6 +185,32 @@
     }
 }
 
+.cmp-notification--inline {
+    .cmp-notification-wrapper {
+        padding: ($space-xxs - .1em) $space-xxs $space-xxs $space-xxs;
+        justify-content: left;
+        @include mobile {
+            padding: $space-xs;
+        }
+
+        svg {
+            height: ($icon-m - .25em);
+            padding-right: $space-xxxs;
+            margin-top: 0.1em;
+            padding-top: $space-xxxs;
+        }
+    }
+
+   
+
+    .cmp-notification-description {
+        @include font-small;
+    }
+    .cmp-notification-title {
+        @include font-small;
+    }
+}
+
 div[class*="cmp-notification--error"], div[class~="cmp-notification--error"]{
     .cmp-notification-wrapper {
         transition: transform 200ms ease-in-out;
@@ -227,4 +227,40 @@ div[class*="cmp-notification--error"], div[class~="cmp-notification--error"]{
 
 .container-sitewide-notification {
     background-color: $color-blue-10;
+}
+
+.cmp-notification--dark {
+    .cmp-notification-wrapper {
+        background-color: $color-background-dark;
+        border: none;
+        color: $color-font-light;
+
+        svg {
+            .st0 {
+                stroke: $color-white;
+            }
+        }
+    }
+
+    .cmp-notification-separator {
+        color: $color-gray-30;
+    }
+
+    .cmp-notification-description {
+        color: $color-font-light;
+    }
+
+    .cmp-notification-title {
+        color: $color-font-light;
+    }
+
+    .cmp-notification-links {
+        a {
+            color: $color-gray-20;
+
+            &:hover {
+                color: $color-white;
+            }
+        }
+    }
 }

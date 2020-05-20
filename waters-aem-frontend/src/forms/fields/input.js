@@ -59,11 +59,11 @@ const Input = ({
     );
 
     const renderInput = () => {
-
         return (
             <>
                 <label
                     htmlFor={name}
+                    id={name}
                     className={
                         validation.validateFnName === 'matching'
                             ? 'cmp-form-field--label-matching'
@@ -93,6 +93,8 @@ const Input = ({
                         onChange={updateReq}
                         placeholder=" "
                         disabled={disabled}
+                        aria-labelledby={name}
+                        aria-required={validation.required}
                         className={
                             !!errors[name]
                                 ? 'error'

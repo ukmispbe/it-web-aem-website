@@ -15,5 +15,8 @@
           signInEndpoint="https://stgservices.waters.com/api/waters/user/v1/login"
           signOutEndpoint="https://stgservices.waters.com/api/waters/user/v1/logout"
           updateProfileUrl="https://stgservices.waters.com/api/waters/user/v1/update/profile"
-          legacyOrderHistoryUrl="https://legacy-stage.waters.com/waters/Order-History/nav.htm?cid=2243118"/>
+          orderDetailsUrl="https://stgservices.waters.com/api/waters/order/v1/details"
+          searchUrl="https://stgservices.waters.com/api/waters/search"
+          orderListUrl="https://stgservices.waters.com/api/waters/order/v1/list"
+          chooseAccountEndpoint="https://stgservices.waters.com/api/waters/user/v1/switchaccount"/>
 

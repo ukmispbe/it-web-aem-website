@@ -132,13 +132,8 @@ const Tile = ({
             >
                 {isNoAddress ? renderBlank() : renderTile()}
             </div>
-            {form && (
-                <div
-                    className={
-                        'cmp-detail-tiles-list--form' +
-                        (formShown ? '' : ' hidden')
-                    }
-                >
+            {form && formShown && (
+                <div className='cmp-detail-tiles-list--form'>
                     {formMessage && (
                         <div className="cmp-detail-tiles-list--form-message">
                             {formMessage.text}

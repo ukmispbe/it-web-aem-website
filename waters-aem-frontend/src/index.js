@@ -15,7 +15,8 @@ import {
     registrationSubmit,
     resetPasswordSubmit,
     troubleSigningInSubmit,
-    signInSubmit
+    signInSubmit,
+    chooseAccountSubmit
 
 } from './forms/services/submit';
 import Video from './video/index';
@@ -347,6 +348,20 @@ if (registrationFormContainer) {
         document.getElementById('cmp-registration-form').innerHTML
     );
 
+    const swapFirstAndLastNames = () => {
+        const indexofFirstName = config.fields.map(e => e.name).indexOf('firstName');
+        const indexofLastName = config.fields.map(e => e.name).indexOf('lastName');
+        if (indexofFirstName !== -1 && indexofLastName!== -1) {
+            const temp = config.fields[indexofFirstName];
+            config.fields[indexofFirstName] = config.fields[indexofLastName];
+            config.fields[indexofLastName] = temp;
+        }
+    }
+    const country = digitalData.page.country.toLowerCase();
+    if (config.formName === "registration" && (country ==="jp" || country === "cn" || country === "tw" || country === "kr")) {
+        swapFirstAndLastNames();
+    }
+
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
         <Form
@@ -376,6 +391,26 @@ if (troubleSigningInFormContainer) {
             isocode={DigitalData.language}
         />,
         troubleSigningInFormContainer
+    );
+}
+
+const chooseAccountFormContainer = document.getElementById(
+    'cmp-choose-account-form'
+);
+
+if (chooseAccountFormContainer) {
+    let config = JSON.parse(
+        document.getElementById('js-choose-account-form').innerHTML
+    );
+
+    ReactDOM.render(
+        // replace isocode with a value supplied by AEM
+        <Form
+            config={config}
+            submitFn={chooseAccountSubmit}
+            isocode={DigitalData.language}
+        />,
+        chooseAccountFormContainer
     );
 }
 

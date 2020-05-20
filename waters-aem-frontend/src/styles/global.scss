@@ -32,7 +32,22 @@ body.no-scroll {
     @include tablet {
         padding: 0 12px;
     }
+
+    .fader-container {
+        &.fader-container {
+
+            &--right {
+                right: 0;
+                background: linear-gradient(
+                    to right,
+                    hsla(0, 0%, 100%, 0.2) 0%,
+                    hsla(0, 0%, 100%, 0.8) 100%
+                );
+            }
+        }
 }
+}
+
 
 .layoutcontainer > div {
     margin: 0 0 0 -14px;
@@ -44,12 +59,6 @@ body.no-scroll {
     @include tablet {
         margin: 0 0 0 -12px;
     }
-}
-
-.layoutcontainer--light {
-    background: $color-background-light;
-    padding: $space-l;
-    margin-bottom: $space-l;
 }
 
 .container {
@@ -82,6 +91,9 @@ body.no-scroll {
     @include tablet {
         padding: 0 40px;
     }
+}
+.experiencefragment {
+    padding: 0;
 }
 
 a {
@@ -220,4 +232,81 @@ input[type='number']::-webkit-outer-spin-button {
     width: auto;
     z-index: 100000;
   }
-  
+
+
+// Layout Container Style System
+
+
+.layoutcontainer--light .aem-Grid {
+    background: $color-background-light;
+    margin: 0 0 $space-l;
+}
+
+.layoutcontainer--dark .aem-Grid {
+    background: $color-background-dark;
+    margin: 0 0 $space-l;
+}
+
+.layoutcontainer--primary .aem-Grid {
+    background: $color-background-accent-primary;
+    margin: 0 0 $space-l;
+}
+
+.layoutcontainer--secondary .aem-Grid {
+    background: $color-background-accent-secondary;
+    margin: 0 0 $space-l;
+}
+
+.layoutcontainer--tile .aem-Grid {
+    background: $color-white;
+    box-shadow: $shadow;
+    margin: 0 0 $space-l;
+}
+
+.layoutcontainer--smallPadding .aem-Grid {
+    padding: $space-s;
+}
+
+.layoutcontainer--mediumPadding .aem-Grid {
+    padding: $space-m;
+}
+
+.layoutcontainer--largePadding .aem-Grid {
+    padding: $space-l;
+}
+
+.layoutcontainer--xlargePadding .aem-Grid {
+    padding: $space-xl;
+}
+
+.layoutcontainer--smallHeight .aem-Grid {
+    min-height: 12em;
+
+    @include mobile {
+        min-height: auto;
+    }
+}
+
+.layoutcontainer--mediumHeight .aem-Grid {
+    min-height: 16em;
+
+    @include mobile {
+        min-height: auto;
+    }
+}
+
+.layoutcontainer--largeHeight .aem-Grid {
+    min-height: 20em;
+
+    @include mobile {
+        min-height: auto;
+    }
+}
+
+.layoutcontainer--xlargeHeight .aem-Grid {
+    min-height: 24em;
+
+    @include mobile {
+        min-height: auto;
+    }
+}

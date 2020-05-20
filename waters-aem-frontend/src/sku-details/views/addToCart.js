@@ -1,7 +1,7 @@
 import React from 'react';
 import SkuService from '../services/index';
 import SkuList from '../../scripts/skulist';
-import Analytics, { analyticTypes } from '../../scripts/analytics';
+import Analytics, { analyticTypes } from '../../analytics';
 
 
 class AddToCart extends React.Component {

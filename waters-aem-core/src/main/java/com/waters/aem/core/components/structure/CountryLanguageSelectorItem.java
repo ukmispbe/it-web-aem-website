@@ -5,6 +5,7 @@ import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.enums.TitleType;
 import com.waters.aem.core.utils.LinkUtils;
+import com.waters.aem.core.utils.LocaleUtils;
 
 import java.util.Optional;
 
@@ -29,6 +30,16 @@ public class CountryLanguageSelectorItem {
 
     public Link getHomepageLink() {
         return LinkUtils.getHomepageLink(page);
+    }
+
+    public  String getCountryLanguageCode(final PageDecorator page) {
+        return LocaleUtils.isGlobalRegionPage(page) ? "" :
+                 LocaleUtils.getLocaleWithCountryForPage(page).toString();
+    }
+
+    public String getLanguageHrefIsocode() {
+        return LocaleUtils.isGlobalRegionPage(page) ? page.getHref() :
+                page.getHref()+"?locale="+LocaleUtils.getLocaleWithCountryForPage(page).toString();
     }
 
     /**

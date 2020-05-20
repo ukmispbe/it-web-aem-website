@@ -1,0 +1,345 @@
+#my-account {
+    .cmp-tabs {
+        margin-bottom: 0px;
+    }
+
+    .cmp-order-list__resultsCount-container {
+        position: inherit;
+        width: 270px;
+        float: left;
+        left: 0px;
+        margin-bottom: $space-xxs;
+        padding-top: $space-m;
+
+        @include mobile {
+            width: 100%;
+        }
+        .cmp-order-list__resultsCount {
+            margin-bottom: 0;
+            padding-bottom: $space-xs;
+        }
+    }
+    .cmp-order-list__dropdowns {
+        float: right;
+        width: 50%;
+        text-align: left;
+
+        @include tablet {
+            width: calc(87vw - 270px);
+            text-align: right;
+        }
+        @include mobile {
+            width: 100%;
+        }
+
+        .cmp-order-list-timeperiod {
+            float: right;
+            width: 210px;
+            margin-bottom: $space-xxs;
+            text-align: left;
+
+            @include tablet-and-under {
+                float: none;
+                display: inline-block;
+                margin-bottom: $space-xxs;
+                margin-left: $space-xxs;
+            }
+            @include mobile {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+        .cmp-order-list-orderfilters {
+            display: none;
+            text-align: left;
+
+            @include tablet-and-under {
+                display: inline-block;
+                width: 200px;
+                margin-top: $space-xxs;
+                margin-bottom: $space-xxs;
+            }
+            @include mobile {
+                width: 100%;
+            }
+        }
+    }
+    
+    .cmp-order-list {
+
+        &__container {
+            background-color: $color-background-light;
+            padding: $space-s $space-m 0 $space-m;
+            width: 100%;
+            margin-bottom: $space-xxs;
+            clear: both;
+            min-height: 130px;
+    
+            @include mobile {
+                min-height: 0px;
+                padding-bottom: $space-xxs;
+            }
+
+            .cmp-order-list__left {
+                display: inline-block;
+                width: 50%;
+
+                @include mobile {
+                    width: 100%;
+                    margin-left: 0;
+                }
+
+                .cmp-order-list__order-number { 
+                    a {
+                        @include font-h3; 
+                        color: $color-link;
+                        margin-bottom: 0;
+                        text-decoration: none;
+                    }
+                    a:hover {
+                        text-decoration: underline;
+                        color: $color-link-hover;
+                    }
+                }
+                .cmp-order-list__date {
+                    @include font-small; 
+                    color: $color-gray-50;
+                }
+            }
+
+            .cmp-order-list__right {
+                display: inline-block;  
+                vertical-align:top;
+                width: 45%;
+                margin-left: 5%;
+                .cmp-order-list__del-status {
+                    @include font-h3;   
+                    text-align: right;
+                    margin-bottom: $space-xxs;
+
+                    @include mobile {  
+                        text-align: left;
+                    } 
+
+                    .cmp-order-list-delivery__icon {
+                        display: inline-block;  
+                        line-height: $icon-m; 
+
+                        svg {
+                            height: $icon-m;
+                            width: $icon-m;
+                            .st0,
+                            .st1 {
+                                stroke-width: 1.0px;
+                                stroke: $color-icon;
+                            }
+                        }
+                        margin-right: $space-xxs;
+                    }
+
+                    .cmp-order-list-delivery__icon__complete {
+                        display: inline-block;  
+                        line-height: $icon-m; 
+                        
+                        svg {
+                            height: $icon-m;
+                            width: $icon-m;
+                            .st0,
+                            .st1 {
+                                stroke-width: 1.5px;
+                                stroke: $color-teal-30;
+                            }
+                        }
+                        margin-right: $space-xxs;
+                    }
+
+                    .cmp-order-list-delivery__text {
+                        display: inline-block; 
+                        vertical-align: top;
+                        line-height: $icon-m; 
+                    }
+                }
+                .cmp-order-list__view-shipments {
+                    @include font-h3; 
+                    color: $color-link;
+                    margin-bottom: $space-xxs;
+                }
+
+                @include mobile {
+                    float: left;
+                    width: 100%;
+                    margin-left: 0;
+                }
+            }
+
+            .cmp-order-list_hr {
+                display: none;
+                @include mobile {
+                    display: block;
+                    width: auto;
+                    margin: $space-xs  0;
+                }
+            }
+            .cmp-order-list__line-item-count {
+                @include font-small;
+                color: $color-gray-50;
+                width: 50%;
+                display: none;
+
+                @include mobile {
+                    display: block;
+                    width: 100%;
+                }
+            }
+            .cmp-order-list__total {
+                @include font-h1; 
+                width: 50%;
+                padding-bottom: $space-xxs;
+                margin-bottom: 0;
+                
+                @include mobile {
+                    width: 100%;
+                }
+            }
+        }  
+
+        &__no-results {
+            border: $border-empty;
+            text-align: center;
+            padding: $space-xl 0 $space-xl;
+            .icon {
+                margin: 0 auto $space-s auto;
+                height: $icon-xl;
+                width: $icon-xl;
+                svg {
+                    max-height: $icon-xl;
+                    .st0 {
+                        stroke: $color-gray-30;
+                    }
+                }
+            }
+
+            @include mobile {
+                padding: $space-xl $space-s;
+            }
+        }
+    }
+    
+    .paginate__container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: $space-m 0 $space-s 0;
+        clear: both;
+        @include mobile {
+            padding: $space-m;
+        }
+        li {
+            display: inline;
+            @include mobile {
+                display: none;
+            }
+            a {
+                cursor: pointer;
+                @include font-utility;
+                margin: 0 $space-xxs 0 0;
+                border: $border-medium;
+                border-radius: $border-radius;
+                float: left;
+                padding-top: $space-xxs;
+                text-decoration: none;
+                text-align: center;
+                height: $button-fixed;
+                width: $button-fixed;
+
+                &:hover {
+                    color: $color-link;
+                    border: $border-link;
+                }
+
+                &:active {
+                    color: $color-font-medium;
+                    border: $border-dark;
+                }
+            }
+            &.disabled {
+                a {
+                    border-color: $color-border-medium;
+                    color: $color-disabled;
+                    &:hover {
+                        color: $color-disabled;
+                    }
+                }
+            }
+            &.selected {
+                a {
+                    border: $border-selected;
+                    padding-top: ($space-xxs - .1em);
+                    font-weight: $font-weight-bold;
+                    cursor: default;
+
+                    &:hover {
+                        @include font-utility;
+                    }
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+                @include mobile {
+                    display: inline;
+                }
+            }
+            &.next,
+            &.previous {
+                a {
+                    border: none;
+                    &:hover {
+                        svg .st0 {
+                            stroke: $color-link;
+                        }
+                    }
+                }
+                > a > div {
+                    height: 24px;
+                    width: 15px;
+                }
+                svg {
+                    width: $icon-m;
+                    height: 24px;
+                    margin-left: ($space-xxs + 0.15em);
+                    margin-top: ($space-xxxs - 0.15em);
+                    @include mobile {
+                        height: 24px;
+                    }
+                    .st0 {
+                        stroke: $color-font-dark;
+                    }
+                }
+                @include mobile {
+                    display: inline;
+                }
+                &.disabled {
+                    a {
+                        cursor: default;
+                        svg .st0 {
+                            stroke: $color-disabled;
+                        }
+                        &:hover {
+                            svg .st0 {
+                                stroke: $color-disabled;
+                            }
+                        }
+                    }
+                }
+            }
+            &.break {
+                a {
+                    border: none;
+                    color: $color-gray-40;
+                }
+            }
+        }
+    } 
+}

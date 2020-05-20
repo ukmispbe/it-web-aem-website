@@ -7,7 +7,7 @@
 
     @include tablet-and-under {
         display: none;
-     }
+    }
 
     &-wrapper {
         position: relative;
@@ -38,7 +38,7 @@
 
         &:hover {
             cursor: pointer;
-            color: $color-link-hover;
+            color: $color-link;
         }
 
         &.active {

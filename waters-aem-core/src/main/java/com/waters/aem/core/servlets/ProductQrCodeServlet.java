@@ -74,7 +74,7 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
             final PageDecorator skuPage = skuRepository.getSkuPage(pageManager.getPage(languageRootPath), sku);
 
             if (skuPage != null) {
-                response.sendRedirect(skuPage.getHref(true));
+                response.sendRedirect(skuPage.getHref(true) + "?xcid=qr-gtin_" + gtin );
             } else {
                 sendDefaultRedirect(response, pageManager, languageRootPath);
             }

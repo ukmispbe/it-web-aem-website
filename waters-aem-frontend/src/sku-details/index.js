@@ -12,7 +12,7 @@ import LoginStatus from "../scripts/loginStatus";
 import CheckOutStatus from "../scripts/checkOutStatus";
 import SkuMessage from "../sku-message";
 import Ecommerce from "../scripts/ecommerce";
-import { mainCartContext } from "../scripts/analytics";
+import { mainCartContext } from "../analytics";
 import SignIn from '../scripts/signIn';
 
 class SkuDetails extends React.Component {
@@ -217,8 +217,8 @@ class SkuDetails extends React.Component {
                 (!Ecommerce.isPartialState() && !Ecommerce.isDisabledState())
             ) {
                 return <>
-                        {!LoginStatus.state() && (<SignIn 
-                                signInUrl={this.props.config.baseSignInUrl} 
+                        {!LoginStatus.state() && (<SignIn
+                                signInUrl={this.props.config.baseSignInUrl}
                                 signInIcon={this.state.skuConfig.signinIcon}
                                 signInText1={this.state.skuConfig.signInText1}
                                 signInText2={this.state.skuConfig.signInText2}

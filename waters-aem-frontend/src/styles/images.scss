@@ -48,6 +48,16 @@ div.image--noPadding {
     }
 }
 
+div.image--reverse {
+     h3 {
+        color: $color-font-light;
+    }
+    .cmp-image__title {
+        color: $color-font-light;
+    }
+
+}
+
 svg.inline-svg {
     display: block;
 }

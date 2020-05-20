@@ -12,6 +12,7 @@ import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.wcm.foundation.Image;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageDecorator;
+import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.icfolson.aem.library.core.components.AbstractComponent;
 import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.core.node.predicates.ComponentNodeResourceTypePredicate;
@@ -75,6 +76,10 @@ public final class Header extends AbstractComponent implements ComponentExporter
 
     @OSGiService
     private AdobeLaunchService adobeLaunchService;
+
+    @Inject
+    private PageManagerDecorator pageManager;
+    
 
     @DialogField(fieldLabel = "Header Logo",
         fieldDescription = "select header logo",
@@ -206,31 +211,33 @@ public final class Header extends AbstractComponent implements ComponentExporter
     }
 
     public Link getMyAccountLink() {
-        return myAccountLink;
+        return LinkUtils.getExternalizedLink(pageManager, myAccountLink);
     }
 
     public Link getSignInLink() {
-        return signInLink;
+        return LinkUtils.getExternalizedLink(pageManager, signInLink);
     }
 
     public Link getSignOutLink() {
-        return signOutLink;
+        return LinkUtils.getExternalizedLink(pageManager, signOutLink);
     }
 
     public Link getSwitchAccountLink() {
-        return switchAccountLink;
+        return LinkUtils.getExternalizedLink(pageManager, switchAccountLink);
     }
 
     public Link getCreateAccountLink() {
-        return createAccountLink;
+        return LinkUtils.getExternalizedLink(pageManager, createAccountLink);
     }
 
-    public Link getProfileLink() {
-        return profileLink;
+    public String getProfileLink() {
+        String profileLinkPath = profileLink.getHref();
+        return profileLinkPath.replace(WatersConstants.ROOT_PATH,"/nextgen");
     }
 
-    public Link getOrdersLink() {
-        return ordersLink;
+    public String getOrdersLink() {
+        String ordersLinkPath = ordersLink.getHref();
+        return ordersLinkPath.replace(WatersConstants.ROOT_PATH,"/nextgen");
     }
 
     public Boolean isHideIcons() { return hideIcons; }
@@ -270,7 +277,7 @@ public final class Header extends AbstractComponent implements ComponentExporter
     }
 
     public Link getHomepageLink() {
-        return LinkUtils.getHomepageLink(currentPage);
+        return LinkUtils.getCurrentHomepageLink(currentPage);
     }
 
     public String getSignOutEndpoint() {
