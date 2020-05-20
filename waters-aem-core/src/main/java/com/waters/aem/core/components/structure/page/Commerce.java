@@ -70,9 +70,16 @@ public class Commerce {
     @InheritInject
     private String addToCartUrl;
 
-    @DialogField(fieldDescription = "Enable this to make Add to Cart URL effective",
-            value = "true",
+    @DialogField(fieldLabel = "View Cart URL",
+            fieldDescription = "Enter the Commerce View Cart URL. This will override default url configured in OSGI service",
             ranking = 6)
+    @TextField
+    @InheritInject
+    private String viewCartUrl;
+
+    @DialogField(fieldDescription = "Enable this to make Add to Cart and View Cart URL effective",
+            value = "true",
+            ranking = 7)
     @CheckBox(title = "commerceAPI",
             text = "Commerce API Migrated")
     @Inject
