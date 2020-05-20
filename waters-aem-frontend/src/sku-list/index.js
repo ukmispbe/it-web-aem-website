@@ -2,6 +2,8 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import ListItem from './views/listItem';
+import LoginStatus from '../scripts/loginStatus';
+import SignIn from '../scripts/signIn';
 
 class SkuList extends React.Component {
     constructor(props) {
@@ -14,7 +16,28 @@ class SkuList extends React.Component {
         };
     }
 
+    renderSignIn() {
+        if (!LoginStatus.state()) {
+            return (
+                <SignIn
+                    signInUrl={this.props.skuConfig.baseSignInUrl}
+                    signInIcon={this.props.skuConfig.skuInfo.signinIcon}
+                    signInText1={this.props.skuConfig.skuInfo.signInText1}
+                    signInText2={this.props.skuConfig.skuInfo.signInText2}
+                    signInText3={this.props.skuConfig.skuInfo.signInText3}
+                />
+            );
+        }
+        else {
+            return (
+                <>
+                </>
+            );
+        }
+    }
+
     render() {
+        const signIn = this.renderSignIn();
         return (
             <>
                 {this.props.data.length > 0 && ( //only return template if data exists
@@ -24,11 +47,13 @@ class SkuList extends React.Component {
                                 {this.props.title}
                             </div>
                         )}
+                        {signIn}
                         {this.props.data.map((record, index) => (
                             <ListItem
                                 key={index}
                                 relatedSku={record}
                                 skuConfig={this.props.skuConfig}
+                                baseSignInUrl={this.props.baseSignInUrl}
                                 onItemClick={this.props.onItemClick}
                             />
                         ))}

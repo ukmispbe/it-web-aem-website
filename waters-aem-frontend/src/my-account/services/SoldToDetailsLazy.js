@@ -1,6 +1,8 @@
 import loginStatus from "../../scripts/loginStatus";
 import SessionStore from "../../stores/sessionStore";
 import SoldToDetails from "../services/SoldToDetails";
+import domElements from '../../scripts/domElements';
+import { isCartHidden } from '../../utils/eCommerceFunctions'
 
 export default async (soldToDetailsUrl, sessionStore = new SessionStore(), service = SoldToDetails) => {
     const currentPage = window.location.href;
@@ -19,7 +21,17 @@ export default async (soldToDetailsUrl, sessionStore = new SessionStore(), servi
 
     if (!response.failed) {
         sessionStore.setSoldToDetails(response);
-
+        // Show or Hide Cart Icon dependent upon eCommerce Status
+        const hideCartClass = "top-bar__nav__cart--hide";
+        const headerNavigation_cartLI = document.querySelector('.top-bar__nav__cart');  
+        if (headerNavigation_cartLI) {
+            if (isCartHidden()) {
+                domElements.addClass(headerNavigation_cartLI, hideCartClass);
+            }
+            else {
+                domElements.removeClass(headerNavigation_cartLI, hideCartClass);
+            }
+        }
         return response;
     }
 

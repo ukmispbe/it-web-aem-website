@@ -1,0 +1,56 @@
+.cmp-sku-signin-wrapper {
+    background-color: #ffffff;
+    padding-bottom: 19px;
+
+    .cmp-sku-signin {
+        height: 25px;
+        font-size: 16px;
+        line-height: 26px;
+        font-family: 'acumin-pro', arial, sans-serif;
+        display: inline-flex;
+        align-items: center;
+                
+        .signin-link {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .signin-part1 {
+            color: $color-blue-50;
+            font-weight: $font-weight-regular;
+            text-decoration: none solid rgb(0, 119, 187);
+            margin-right: 3px;
+        }
+
+        .signin-part2 {
+            color: $color-videothumbnail-overlay;
+            font-weight: $font-weight-light;
+            text-decoration: none solid rgb(45, 52, 57);
+            margin-right: 3px;
+        }
+
+        .signin-part3 {
+            color: $color-videothumbnail-overlay;
+            font-weight: $font-weight-bold;
+            text-decoration: none solid rgb(45, 52, 57);
+        }
+
+        .signin-icon {
+            display: inline;
+            div {
+                display: inline;
+                svg {
+                    height: 16px;
+                    width: 16px;
+                    margin-right: 6px;
+                    margin-top: 9px;
+                }
+            }
+        }
+    }
+}
+.cmp-sku-details--sticky {
+    .cmp-sku-signin-wrapper {
+        display: none;
+    }
+}

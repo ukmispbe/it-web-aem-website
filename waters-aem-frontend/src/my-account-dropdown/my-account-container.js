@@ -3,8 +3,8 @@ import ReactSVG from 'react-svg';
 import { signOutRequest } from './services';
 import MyAccountUserDetails from './my-account-user-details';
 import MyAccountItemList from './my-account-item-list';
+import SessionStore from '../stores/sessionStore';
 import { setClickAnalytics } from "../analytics";
-
 const keys = {
     MyAccountContainer : 'my-account-dropdown'
 }
@@ -31,7 +31,8 @@ const MyAccountContainer = props => {
 
     const onSignIn = (e) => {
         e.preventDefault();
-        window.sessionStorage.setItem('signInRedirect', window.location.href);
+        const store = new SessionStore();
+        store.setSignInRedirect(window.location.href);
         setClickAnalytics('Account Dropdown', signIn.linkName, signIn.url);
         window.location.href = signIn.url;
     }
