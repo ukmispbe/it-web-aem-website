@@ -4,6 +4,7 @@ import SessionStore from '../../stores/sessionStore';
 import DigitalData from '../../scripts/DigitalData';
 import UserDetails from '../../my-account/services/UserDetails';
 import { signInRedirect } from '../../utils/redirectFunctions';
+import { getNamedHeaderLink } from '../../utils/redirectFunctions';
 
 const postData = async (url, data) => {
     const response = await fetch(url, {
@@ -46,7 +47,7 @@ export async function registrationSubmit(data) {
 
     // remove all previous server error notifications
     this.setError();
-    
+
     if (response.status === 200) {
         if (this.callback) {
             const userDetails = await UserDetails(this.callback);
@@ -123,15 +124,24 @@ export async function resetPasswordSubmit(data) {
         // Use Call back to added userDetails to Session State
         if (this.callback) {
             const userDetails = await UserDetails(this.callback);
-
             if (!userDetails.failed) {
                 const store = new SessionStore();
                 store.setUserDetails(userDetails);
+
+                const needToChooseAccount = checkRedirectToChooseAccount(userDetails.soldToAccounts);
+                if(needToChooseAccount) {
+                    // Choose Account URL
+                    const switchAccountUrl = getNamedHeaderLink("data-switch-account-url");
+                    window.location.replace(switchAccountUrl);
+                    return;
+                }
+
                 store.removeSoldToDetails();
             }
-        } 
+        }
         if (this.redirect) {
             window.location.replace(this.redirect);
+            return;
         }
     } else if (response.status === 401) {
         signInRedirect();
@@ -174,28 +184,45 @@ export async function changePasswordSubmit(data) {
     }
 }
 
-
 export async function personalSubmit(data) {
 
     const response = await postData(this.url, data);
-
+    const responseBody = await response.json();
     // remove all previous server error notifications
     this.setError();
 
     if (response.status === 200) {
-        const submitResponse = await response.json();
         const store = new SessionStore();
-        store.setUserDetails(submitResponse);
+        store.setUserDetails(responseBody);
         store.setPersonalDetailsUpdated();
-        this.setProfileData(submitResponse);
+        this.setProfileData(responseBody);
+        const model = {
+            "communications":data.communications 
+        }
+        this.setFormAnalytics('submit', model);
 
         this.callback();
     } else if (response.status === 401) {
         signInRedirect();
     } else {
         this.setError(response);
+        this.setFormAnalytics('error', responseBody);
         scrollToY(0);
     }
+}
+
+const checkRedirectToChooseAccount = (soldToAccounts) => {
+    if (soldToAccounts === null || soldToAccounts === undefined || !soldToAccounts.length || soldToAccounts.length === 1 ) {
+        return false;
+    }
+    let defaultSoldTos = soldToAccounts.filter(function(i) {
+        return i.defaultFlag === 1;
+    });
+
+    if (defaultSoldTos.length > 1) {
+        return true;
+    }
+    return false;
 }
 
 export async function signInSubmit(data) {
@@ -212,6 +239,7 @@ export async function signInSubmit(data) {
     this.setError();
 
     if (response.status === 200) {
+        this.setFormAnalytics('submit');
         if(responseBody.migrated === "N") {
             const store = new SessionStore();
             store.setLegacyToken(responseBody.resetToken);
@@ -223,6 +251,13 @@ export async function signInSubmit(data) {
             if (!userDetails.failed) {
                 const store = new SessionStore();
                 store.setUserDetails(userDetails);
+                const needToChooseAccount = checkRedirectToChooseAccount(userDetails.soldToAccounts);
+                if(needToChooseAccount) {
+                    // Choose Account URL
+                    const switchAccountUrl = getNamedHeaderLink("data-switch-account-url");
+                    window.location.replace(switchAccountUrl);
+                    return;
+                }
                 store.removeSoldToDetails();
             }
         }
@@ -246,6 +281,36 @@ export async function signInSubmit(data) {
     }
 }
 
+const setNewSoldTo = (newSoldto) => {
+    const store = new SessionStore();
+    const soldToDetails = store.getSoldToDetails();
+    const user = store.getUserDetails();
+
+    const updatedSoldToDetails = soldToDetails.map(soldTo => {
+        if (soldTo.soldTo === newSoldto) {
+            soldTo.default_soldTo = 1;
+        }
+        else {
+            soldTo.default_soldTo = 0;
+        }         
+        return soldTo;
+    });
+    store.setSoldToDetails(updatedSoldToDetails);
+
+    const updatedUserDetailsSoldTos = user.soldToAccounts.map(soldTo => {
+        if (soldTo.soldTo === newSoldto) {
+            soldTo.defaultFlag = 1;
+        }
+        else {
+            soldTo.defaultFlag = 0;
+        }         
+        return soldTo;
+    });
+    user.soldToAccounts = updatedUserDetailsSoldTos;
+    store.setUserDetails(user);
+    store.setPersonalDetailsUpdated();
+}
+
 export async function chooseAccountSubmit(data) {
     // Determine the selercted Account
     let selectedAccount = "";
@@ -255,21 +320,40 @@ export async function chooseAccountSubmit(data) {
         }
     }
 
+    setNewSoldTo(selectedAccount);
+
     const response = await postData(this.url + "/" + selectedAccount, "");
     const responseBody = await response.json();
      // remove all previous server error notifications
     this.setError();
 
     if (response.status === 200) {
-        this.setFormAnalytics('submit');
-        if (this.redirect) {
-            window.location.replace(this.redirect);
+        // If accessed from My Account Drop Down - Return to same page
+        const queryString = location.search;
+        if(queryString === "?fromMenu=true") {
+            window.location.replace(document.referrer);
+            return;
         }
+
+        // If User had previously been directed to Sign in - Return to Original page
+        const store = new SessionStore();
+        const signInRedirectStore = store.getSignInRedirect();
+        store.removeSignInRedirect();
+
+        if (signInRedirectStore) {
+            window.location.replace(signInRedirectStore.replace(/"/g, ""));
+            return;
+        }
+
+        // If user has accessed directly from Sign in Page - Return to Home page
+        const homePageUrl = getNamedHeaderLink("data-homepage-url");
+        window.location.replace(homePageUrl);
+        return;
+
     } else if (response.status === 401) {
         signInRedirect();
     } else {
-        this.setFormAnalytics('error', responseBody);
         this.setError(responseBody);
         scrollToY(0);
-    }   
+    }
 }

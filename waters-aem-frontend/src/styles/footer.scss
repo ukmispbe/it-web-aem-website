@@ -6,30 +6,15 @@
 
     a {
         word-break: keep-all;
-        color: $color-font-light;
     }
 
     .cmp-button {
-        background-color: $color-background-dark;
         display: inline-block;
-        border: $border-light;
-        color: $color-font-light;
         width: 100%;
-        text-transform: uppercase;
-        &:hover {
-            background-color: $color-background-dark;
-            border: 1px solid $color-gray-20;
-            color: $color-gray-20;
-        }
-    }
-
-    h3 {
-        color: $color-white;
     }
 
     .links {
-        color: $color-white;
-        display:    inline-block;
+        display: inline-block;
     }
 
     .container1 {
@@ -115,7 +100,7 @@
     }
 
     a {
-        color: $color-gray-30;
+        color: $color-gray-20;
         margin-right: $space-l;
         display: inline;
         @include mobile {
@@ -131,6 +116,7 @@
 
         &:hover {
             text-decoration: underline;
+            color: $color-font-light;
         }
 
         &:first-of-type {
@@ -323,13 +309,6 @@
     }
 }
 
-.cmp-footer .cmp-links__external-link--true::after {	
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' width='16' height='16' viewBox='0 0 24 24' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-external-link'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E");	
-}	
-.cmp-footer .cmp-links__external-link--true:hover:after {	
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-external-link'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3'/%3E%3C/svg%3E");	
-}
-
 .cmp-footer__selector {
     margin-left: $space-s;
     width: fit-content;
@@ -474,6 +453,7 @@
                 @supports (display: inline-grid) {
                     display: inline-block;
                     white-space: normal;
+                    color: $color-font-light;
                 }
 
                 &:hover {

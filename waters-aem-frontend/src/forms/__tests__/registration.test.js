@@ -14,7 +14,8 @@ import { checkRenderInput,
         checkRenderReCAPTCHA,
         checkEventsReCAPTCHA,
         checkRenderSubmitButton,
-        checkEventsInput, 
+        checkEventsInput,
+        checkRenderTextWithLinks,
         checkEventsCheckbox } from '../__utils__/utils';
 
 const mockSubmitFn = jest.fn();
@@ -88,12 +89,12 @@ describe('Feature: Registration Form', () => {
                 checkRenderCheckbox(wrapper, "communications");
             });
 
-            it('Then it should render a privacy checkbox field', async () => {
-                checkRenderCheckbox(wrapper, "privacy");
-            });
-
             it('Then it should render a reCaptcha field', async () => {
                 checkRenderReCAPTCHA(wrapper, sitekey);
+            });
+
+            it('Then it should render a privacy textwithlinks field', async () => {
+                checkRenderTextWithLinks(wrapper, "privacy", "By clicking the CREATE ACCOUNT button, you are agreeing to our  Terms of Use  and understand that the information you have provided on this website will be used and processed by Waters in accordance with the  Waters Privacy Notice.");
             });
 
             const isDisabledButton = true;
@@ -136,10 +137,6 @@ describe('Feature: Registration Form', () => {
 
             it('Then it should check events on communications field', async () => {
                 checkEventsCheckbox(wrapper, "communications");
-            });
-
-            it('Then it should check events on privacy checkbox field', async () => {
-                checkEventsCheckbox(wrapper, "privacy");
             });
 
             it('Then it should check events on ReCAPTCHA field', async () => {

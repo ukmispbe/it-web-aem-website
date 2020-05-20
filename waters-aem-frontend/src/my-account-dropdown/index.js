@@ -10,6 +10,7 @@ import loginStatus from '../scripts/loginStatus';
 import UserDetailsLazy from '../my-account/services/UserDetailsLazy';
 import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
 import SessionStore from '../stores/sessionStore';
+import { getAddressesByType } from '../detail-tiles/utils/profileFormatter';
 
 const myAccountModalTheme = 'my-account-dropdown';
 class MyAccountDropDown extends React.Component {
@@ -55,7 +56,7 @@ class MyAccountDropDown extends React.Component {
 
         window.addEventListener('resize', this.updateViewport, true);
 
-        if (loginStatus.state()) { 
+        if (loginStatus.state()) {
             this.retrieveUserDetails();
         }
     }
@@ -107,9 +108,42 @@ class MyAccountDropDown extends React.Component {
         const hasBeenUpdated = store.getPersonalDetailsUpdated() === 'Y' ? true : false;
         if (hasBeenUpdated) {
             const savedUserDetails = store.getUserDetails();
-            const updatedUserName = savedUserDetails.firstName && savedUserDetails.lastName ? `${savedUserDetails.firstName} ${savedUserDetails.lastName}` : '';
+            const savedSoldToDetails = store.getSoldToDetails();
+
+            let updatedUserName = '';
+            if(Object.keys(savedUserDetails).length !== 0) {
+                const mailingAddress = savedUserDetails.userAddress.filter(address => address.addressType === 'mailingAddress');
+                const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
+
+                if (userCountry === 'jp' || userCountry === 'cn' || userCountry === 'kr' || userCountry === 'tw') {
+                    updatedUserName = savedUserDetails.firstName && savedUserDetails.lastName ? `${savedUserDetails.lastName} ${savedUserDetails.firstName}` : '';
+                } else {
+                    updatedUserName = savedUserDetails.firstName && savedUserDetails.lastName ? `${savedUserDetails.firstName} ${savedUserDetails.lastName}` : '';
+                }
+            } else {
+                this.retrieveUserDetails();
+            }
+
+            let updatedAccountName = "";
+            let updatedAccountNumber = "";
+
+            // Check that Sold to Exists
+            if (savedSoldToDetails && savedSoldToDetails.length !== 0) {
+                let updatedAccount; 
+                savedSoldToDetails.map((soldTo) => {
+                    if(soldTo.default_soldTo === 1) {
+                        updatedAccount = soldTo;
+                    }
+                });
+                updatedAccountName = updatedAccount.company ? updatedAccount.company : "";
+                updatedAccountNumber = updatedAccount.soldTo ? updatedAccount.soldTo : "";
+            }
+
             let currentState = this.state;
             currentState.config.userDetails.userName = updatedUserName;
+            currentState.config.userDetails.accountName = updatedAccountName;
+            currentState.config.userDetails.accountNumber = updatedAccountNumber;
+            
             this.setState({
                 ... currentState
             }); 
@@ -196,11 +230,29 @@ class MyAccountDropDown extends React.Component {
         const userDetails = await UserDetailsLazy(this.props.config.userDetailsUrl);
         const soldToDetails = await SoldToDetailsLazy(this.props.config.soldToDetailsUrl);
 
-        const userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
-        const priorityAccount = soldToDetails.length !== 0 ? soldToDetails[0] : {};
-        const accountName = priorityAccount.company ? `${priorityAccount.company} ` : '';
-        const accountNumber = priorityAccount.soldTo ? priorityAccount.soldTo : '';
+        const mailingAddress = userDetails.userAddress.filter(address => address.addressType === 'mailingAddress');
+        const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
+        let userName = '';
+        if (userCountry === 'jp' || userCountry === 'cn' || userCountry === 'kr' || userCountry === 'tw') {
+            userName = userDetails.firstName && userDetails.lastName ? `${userDetails.lastName} ${userDetails.firstName}` : '';
+        } else {
+            userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
+        }
+        // Fix to correct first soldTo being selected. It should be the default_soldTo === 1 selected
+        let priorityAccount;
+        let accountName = "";
+        let accountNumber = "";
+        soldToDetails.map((soldTo) => {
+            if(soldTo.default_soldTo === 1) {
+                priorityAccount = soldTo;
+            }
+        });
 
+        if (priorityAccount){
+            accountName = priorityAccount.company ? `${priorityAccount.company} ` : '';
+            accountNumber = priorityAccount.soldTo ? priorityAccount.soldTo : '';
+        }
+        
         this.setState({
             ... this.state,
             config: {
@@ -224,7 +276,18 @@ class MyAccountDropDown extends React.Component {
         const userDetails = store.getUserDetails();
         const soldToDetails = store.getSoldToDetails();
 
-        const userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
+        let userName = '';
+        if(Object.keys(userDetails).length !== 0) {
+            const mailingAddress = userDetails.userAddress.filter(address => address.addressType === 'mailingAddress');
+            const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
+
+            if (userCountry === 'jp' || userCountry === 'cn' || userCountry === 'kr' || userCountry === 'tw') {
+                userName = userDetails.firstName && userDetails.lastName ? `${userDetails.lastName} ${userDetails.firstName}` : '';
+            } else {
+                userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
+            }
+        }
+
         const priorityAccount = soldToDetails && soldToDetails.length !== 0 ? soldToDetails[0] : {};
         const accountName = priorityAccount.company ? `${priorityAccount.company} ` : '';
         const accountNumber = priorityAccount.soldTo ? priorityAccount.soldTo : '';

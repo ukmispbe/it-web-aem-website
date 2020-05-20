@@ -75,7 +75,7 @@ public final class SkuInjector implements Injector {
             return pageManager.getContainingPage(request.getResource());
         }
     }
-
+    @SuppressWarnings("squid:S1144")
     private PageDecorator getCurrentPage(final Resource resource) {
         final PageManagerDecorator pageManager = resource.getResourceResolver().adaptTo(PageManagerDecorator.class);
 
