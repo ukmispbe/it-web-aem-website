@@ -4,12 +4,16 @@ import UserDetails from "../services/UserDetails";
 
 export default async (userDetailsUrl, sessionStore = new SessionStore(), service = UserDetails) => {
 
-    const currentPage = window.location.href;
-
-    if (!loginStatus.state() || currentPage.indexOf('sign-in') !== -1 || currentPage.indexOf('create-account') !== -1 || currentPage.indexOf('trouble-signing-in') !== -1 || currentPage.indexOf('update-password') !== -1 || currentPage.indexOf('reset-password') !== -1) {
+    // Don't get User Details if My-Account Drop Down is not present
+    const navBarControls = document.getElementsByClassName("cmp-header__top-bar__nav");
+    if (navBarControls.length === 0) {
+        return {};
+    }    
+    // Don't get User Details if not logged in
+    if (!loginStatus.state()) {
         return {};
     }
-
+    
     const userDetails = sessionStore.getUserDetails();
 
     if (userDetails && Object.keys(userDetails).length !== 0) {

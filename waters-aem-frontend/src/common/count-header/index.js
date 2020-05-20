@@ -1,6 +1,7 @@
+//for Order History and Order Details Pagination; Search has a different format 
 import React from 'react';
 
-const OrderCountHeader = (props) => {
+const CountHeader = (props) => {
     let getResultsText = "";
     if(props.count > 0){
         const endResults = props.count > props.current * props.rows ? props.current * props.rows : props.count;
@@ -18,4 +19,4 @@ const OrderCountHeader = (props) => {
     </div>
 };
 
-export default OrderCountHeader;
+export default CountHeader;
