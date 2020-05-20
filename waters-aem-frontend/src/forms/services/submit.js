@@ -230,12 +230,13 @@ export async function signInSubmit(data) {
         this.setFormAnalytics('submit');
 
         const store = new SessionStore();
-        const signInRedirect = store.getSignInRedirect();
+        const signInRedirectStore = store.getSignInRedirect();
         store.removeSignInRedirect();
-        if (signInRedirect || this.redirect) {
+        if (signInRedirectStore || this.redirect) {
             window.location.replace(
-                signInRedirect ? signInRedirect : this.redirect
+                signInRedirectStore ? signInRedirectStore : this.redirect
             );
+            return;
         }
     } else {
         this.setFormAnalytics('error', responseBody);
