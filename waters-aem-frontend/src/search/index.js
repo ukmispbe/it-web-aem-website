@@ -31,6 +31,7 @@ const SearchApp = props => {
                                 filterMap={props.filterMap}
                                 isocode={props.isocode}
                                 search={search}
+                                baseSignInUrl={props.baseSignInUrl}
                             />
                         </ErrorBoundary>
                     )}
