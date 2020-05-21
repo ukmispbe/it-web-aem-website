@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          jcr:primaryType="sling:OsgiConfig"
+          clientToken="pub542cc1c3d9e8651f996cee0c27b4a2aa"
+          applicationId="558a35e1-f913-44cc-8c1c-6e7e770aae7a"
+/>

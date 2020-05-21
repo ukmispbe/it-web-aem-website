@@ -53,14 +53,14 @@
                 <div class="cmp-footer__selector__region">
                     <span>${footer.countryName @ i18n}</span>
                     <img class="inline-svg" src="/content/dam/waters/en/brand-assets/icons/modal.svg"
-                         alt="${'Country' @ i18n}" />
+                        alt="${'Country' @ i18n}" />
                 </div>
                 <div class="cmp-footer__selector__language ${footer.languagePages.size == 1 ? 'one-link' : ''}">
                     <a href="${footer.languagePages[0].page.href}">${footer.languagePages[0].languageTitle}</a>
                     <div class="cmp-footer__selector__language--options"
-                         data-sly-list.languageLink="${footer.languagePages}">
+                        data-sly-list.languageLink="${footer.languagePages}">
                         <a data-sly-test="${!languageLinkList.first}"
-                           href="${languageLink.languageHrefIsocode}">${languageLink.languageTitle} </a>
+                           href="${languageLink.page.href}">${languageLink.languageTitle} </a>
                     </div>
                 </div>
             </div>
@@ -82,6 +82,9 @@
                         <a href="${footer.bPNSLegalLink.href}" class="cmp-footer__china-legal-bPNS">
                             <img data-sly-test="${footer.bPNSLegalIcon}" src="${footer.bPNSLegalIcon}" alt="${'Beijing Public Network Security Number Legal Icon' @ i18n}"/>
                             <span data-sly-test="${footer.bPNSNumber}">京公网安备 ${footer.bPNSNumber}号</span>
+                        </a>
+                        <a href="${footer.cBLegalLink.href}" class="cmp-footer__china-legal-cB">
+                            <img data-sly-test="${footer.cBLegalIcon}" src="${footer.cBLegalIcon}" alt="${'Commercial Bureau Legal Icon' @ i18n}" />
                         </a>
                     </div>
                 </nav>
@@ -162,7 +165,12 @@
             "refreshIcon": "/content/dam/waters/en/brand-assets/icons/refresh.svg",
             "discontinuedIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
             "nextIcon": "/content/dam/waters/en/brand-assets/icons/right.svg",
-            "maxAmount": 999
+            "noThumbnailImage": "/content/dam/waters/en/brand-assets/thumbnails/product-thumbnail.png",
+            "maxAmount": 999,
+            "signInText1": "${'Sign in' @ i18n, context='text'}",
+            "signInText2": "${'to view ' @ i18n, context='text'}",
+            "signInText3": "${'Your Price' @ i18n, context='text'}",
+            "signinIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
         },
         "modalInfo": {
             "icon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",

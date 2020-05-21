@@ -26,8 +26,8 @@ const Select = (props) => {
                 return options.map(val => setupOptions(val.displayName, val.countryCode));
             case "state":
                 return options.map(val => setupOptions(val.displayName, val.stateCode));
-            case "salutation":
-                return options.map(val => setupOptions(val.displayName, val.salutationCode));           
+            case "namePrefix":
+                return options.map(val => setupOptions(val.displayName, val.namePrefixCode));           
             default:
                 return options.map(val => setupOptions(val.label, val.value));
         }

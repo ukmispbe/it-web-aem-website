@@ -1,27 +1,40 @@
 import React, { Component } from 'react';
-import { getOrderDetails } from './orderDetails.services';
-import DateFormatter from '../utils/date-formatter'
-import CurrencyFormatter from '../utils/currency-formatter'
-import GetLocale from "../utils/get-locale";
-import Spinner from "../utils/spinner";
 import ReactSVG from 'react-svg';
+import { getOrderDetails, getItemDetails, matchLineItems } from './orderDetails.services';
+import Shipment from './components/shipment'
+import DateFormatter from '../utils/date-formatter'
+import GetLocale from "../utils/get-locale";
+import GetIsocode from "../utils/get-isocode";
+import Spinner from "../utils/spinner";
+import GroupBy from '../utils/group-by'
 import ErrorBoundary from '../search/ErrorBoundary';
-
+import Modal, { Header, keys } from '../utils/modal';
+import AddToCartBody from '../sku-details/views/addToCartModal';
 class OrderDetails extends Component {
-
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
         super({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props});
 
         this.state = {
             orderId: this.getUrlParameter("id"),
             userLocale: GetLocale.getLocale(),
+            userIsocode: GetIsocode.getIsocode(),
             detailsUrl: props.config.fetchDetailsEndPoint,
+            itemsUrl: props.config.fetchItemsEndPoint,
+            reorderUrl: props.config.fetchReorderUrlEndPoint,
             orderDetails: {},
+            airbills: {},
+            skusSoldCount: 0,
             errorServiceError: false,
             errorOrderNotFound: false,
-            isLoading: true
+            isLoading: true,
+            modalShown: false,
+            modalConfig: props.config.modalInfo
         }
     }
+
+    toggleModal = () => {
+        this.setState({ modalShown: !this.state.modalShown });
+    };
 
     getUrlParameter = (name) => {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -39,8 +52,29 @@ class OrderDetails extends Component {
         }
     }
 
+    getShipmentList = (airbills, orderDetails) => {
+        let shipments = [];
+        for (let i = 0; i < Object.keys(airbills).length; i++) {
+            const values = Object.values(airbills)[i];
+            shipments.push(
+                <Shipment
+                    data={values}
+                    shipment={this.props.config.shipment}
+                    icons={this.props.config.icons}
+                    shipmentNumber={i+1}
+                    totalShipments={Object.keys(airbills).length}
+                    addToCartReorder= {this.addToCartReorder}
+                />
+            )
+        }
+        return <>
+            <hr className="order-shipment-list__hr"/>
+            {Object.keys(airbills).length > 0 && shipments}
+        </>;
+    }
+
     async componentDidMount() {
-        const { detailsUrl, orderId } = this.state;
+        const { detailsUrl, itemsUrl, orderId, userIsocode } = this.state;
         getOrderDetails(detailsUrl, orderId, this.setError)
             .then((data) => {
                 if(data && data.account.length) {
@@ -48,6 +82,21 @@ class OrderDetails extends Component {
                         isLoading: false,
                         orderDetails: data
                     });
+
+                    getItemDetails(itemsUrl, data.lineItems, this.setError, userIsocode)
+                        .then((itemData) => {
+                            if(itemData && itemData.documents && itemData.documents.length) {
+                                let mergedAPIs = matchLineItems(data, itemData.documents);
+                                this.setState({
+                                    airbills: GroupBy.groupBy(mergedAPIs.lineItems, 'airbill')
+                                });
+                            } else {
+                                this.setState({
+                                    airbills: GroupBy.groupBy(data.lineItems, 'airbill')
+                                });
+                            }
+                        })
+
                 } else {
                     this.setState({
                         errorOrderNotFound: true,
@@ -60,6 +109,11 @@ class OrderDetails extends Component {
     componentWillUnmount() {
         this.props.resetErrorBoundaryToFalse();
         this.props.removeNotifications();
+    }
+
+    addToCartReorder = () => {
+        this.toggleModal();
+        return false;
     }
 
     renderAddress = (addressType) => {
@@ -75,6 +129,32 @@ class OrderDetails extends Component {
                     );
         }
         return null;
+    }
+
+    renderItemCount = () => {
+        const { orderDetails } = this.state;
+        let label = "";
+        if (orderDetails.lineItems && orderDetails.lineItems.length) {
+            if (orderDetails.lineItems.length > 1) {
+                label = this.props.config.items;
+            } else if (orderDetails.lineItems.length === 1) {
+                label = this.props.config.item;
+            }
+
+            let itemCountLabel =  " (" + orderDetails.lineItems.length + " " + label + ")";
+            return itemCountLabel;
+
+        } else {
+            return false
+        }
+    }
+
+    renderReorderButton = () => {
+        return (
+            <a className="cmp-button" onClick={this.addToCartReorder}>
+                {this.props.config.reorderTitle}
+            </a>
+        )
     }
 
     renderOrderDetails = () => {
@@ -122,20 +202,23 @@ class OrderDetails extends Component {
                 <div className="cmp-order-details__order-summary">
                     <h4>{this.props.config.orderSummary}</h4>
                     <div className="cmp-order-details__order-subtotal">
-                        <div className="cmp-order-details__order-subtotal_left">{this.props.config.subTotal} ({orderDetails.lineItems && orderDetails.lineItems.length} {this.props.config.items})</div>
-                        <div className="cmp-order-details__order-subtotal_right">{CurrencyFormatter.currencyFormatter(orderDetails.itemsSubTotal, userLocale, orderDetails.currencyCode)}</div>
+                        <div className="cmp-order-details__order-subtotal_left">{this.props.config.subTotal} {this.renderItemCount()}</div>
+                        <div className="cmp-order-details__order-subtotal_right">{orderDetails.itemsSubTotal}</div>
                     </div>
                     <div className="cmp-order-details__order-shipping">
                         <div className="cmp-order-details__order-shipping_left">{this.props.config.shipping}</div>
-                        <div className="cmp-order-details__order-shipping_right">{CurrencyFormatter.currencyFormatter(orderDetails.shippingAmount, userLocale, orderDetails.currencyCode)}</div>
+                        <div className="cmp-order-details__order-shipping_right">{orderDetails.shippingAmount}</div>
                     </div>
                     <div className="cmp-order-details__order-tax">
                         <div className="cmp-order-details__order-tax_left">{this.props.config.tax}</div>
-                        <div className="cmp-order-details__order-tax_right">{CurrencyFormatter.currencyFormatter(orderDetails.taxAmount, userLocale, orderDetails.currencyCode)}</div>
+                        <div className="cmp-order-details__order-tax_right">{orderDetails.taxAmount}</div>
                     </div>
                     <div className="cmp-order-details__order-total">
                         <div className="cmp-order-details__order-total_left">{this.props.config.orderTotal}</div>
-                        <div className="cmp-order-details__order-total_right"><h1>{CurrencyFormatter.currencyFormatter(orderDetails.orderTotal, userLocale, orderDetails.currencyCode)}</h1></div>
+                        <div className="cmp-order-details__order-total_right"><h1>{orderDetails.orderTotal}</h1></div>
+                    </div>
+                    <div className="cmp-order-details__reorder">
+                        {this.renderReorderButton()}
                     </div>
                 </div>
             </div>
@@ -153,9 +236,11 @@ class OrderDetails extends Component {
     }
 
     renderOrderShipmentList = () => {
+        const { airbills, orderDetails } = this.state;
         return (
             <>
                 <div className="cmp-order-details__order-shipment-list">
+                    {Object.keys(airbills).length > 0 && this.getShipmentList(airbills, orderDetails)}
                 </div>
             </>
         )
@@ -169,6 +254,17 @@ class OrderDetails extends Component {
                 {!isLoading && errorOrderNotFound && this.renderOrderNotFoundError()}
                 {!errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderDetails()}
                 {!errorOrderNotFound && !errorServiceError && !isLoading && this.renderOrderShipmentList()}
+                <Modal isOpen={this.state.modalShown} onClose={this.toggleModal} className='cmp-add-to-cart-modal'>
+                    <Header
+                        title={this.state.modalConfig.title}
+                        icon={this.state.modalConfig.icon}
+                        className={keys.HeaderWithAddedMarginTop}
+                    />
+                    <AddToCartBody
+                        config={this.state.modalConfig}
+                        errorObjCart={this.state.errorObjCart}
+                    />
+                </Modal>
             </>
         )
     }

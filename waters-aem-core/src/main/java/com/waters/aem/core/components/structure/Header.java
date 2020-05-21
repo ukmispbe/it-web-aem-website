@@ -21,6 +21,7 @@ import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.components.content.CategoryListing;
+import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.account.WatersAccountService;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
@@ -229,12 +230,14 @@ public final class Header extends AbstractComponent implements ComponentExporter
         return LinkUtils.getExternalizedLink(pageManager, createAccountLink);
     }
 
-    public Link getProfileLink() {
-        return LinkUtils.getExternalizedLink(pageManager, profileLink);
+    public String getProfileLink() {
+        String profileLinkPath = profileLink.getHref();
+        return profileLinkPath.replace(WatersConstants.ROOT_PATH,"/nextgen");
     }
 
-    public Link getOrdersLink() {
-        return LinkUtils.getExternalizedLink(pageManager, ordersLink);
+    public String getOrdersLink() {
+        String ordersLinkPath = ordersLink.getHref();
+        return ordersLinkPath.replace(WatersConstants.ROOT_PATH,"/nextgen");
     }
 
     public Boolean isHideIcons() { return hideIcons; }
@@ -274,7 +277,7 @@ public final class Header extends AbstractComponent implements ComponentExporter
     }
 
     public Link getHomepageLink() {
-        return LinkUtils.getHomepageLink(currentPage);
+        return LinkUtils.getCurrentHomepageLink(currentPage);
     }
 
     public String getSignOutEndpoint() {
@@ -296,5 +299,9 @@ public final class Header extends AbstractComponent implements ComponentExporter
                 .map(componentNode -> modelFactory.getModelFromWrappedRequest(request,
                         componentNode.getResource(), CategoryListing.class))
                 .orElse(null);
+    }
+
+    public CountryCommerceConfig getCommerceConfig() {
+        return siteContext.getCountryCommerceConfig();
     }
 }

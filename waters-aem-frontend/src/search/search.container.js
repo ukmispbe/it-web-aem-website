@@ -107,6 +107,7 @@ class SearchContainer extends Component {
         );
 
         skuConfig.showBreadcrumbs = true;
+        skuConfig.baseSignInUrl = this.props.baseSignInUrl;
 
         return {
             forceCollapseFilters: true,

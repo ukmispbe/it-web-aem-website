@@ -231,7 +231,7 @@ export async function signInSubmit(data) {
         this.url = `${this.url}?captcha=${data.captcha}`;
         delete data.captcha;
     }
-
+    
     const response = await postData(this.url, data);
     const responseBody = await response.json();
 
@@ -240,20 +240,17 @@ export async function signInSubmit(data) {
 
     if (response.status === 200) {
         this.setFormAnalytics('submit');
-
         if(responseBody.migrated === "N") {
             const store = new SessionStore();
             store.setLegacyToken(responseBody.resetToken);
             window.location.replace(this.passwordUpdateUrl);
             return;
         }
-
         if (this.callback) {
             const userDetails = await UserDetails(this.callback);
             if (!userDetails.failed) {
                 const store = new SessionStore();
                 store.setUserDetails(userDetails);
-
                 const needToChooseAccount = checkRedirectToChooseAccount(userDetails.soldToAccounts);
                 if(needToChooseAccount) {
                     // Choose Account URL
@@ -261,16 +258,18 @@ export async function signInSubmit(data) {
                     window.location.replace(switchAccountUrl);
                     return;
                 }
-
                 store.removeSoldToDetails();
-
             }
         }
 
-        const signInRedirect = window.sessionStorage.getItem('signInRedirect');
-        if (signInRedirect || this.redirect) {
+        this.setFormAnalytics('submit');
+
+        const store = new SessionStore();
+        const signInRedirectStore = store.getSignInRedirect();
+        store.removeSignInRedirect();
+        if (signInRedirectStore || this.redirect) {
             window.location.replace(
-                signInRedirect ? signInRedirect : this.redirect
+                signInRedirectStore ? signInRedirectStore : this.redirect
             );
             return;
         }
@@ -337,9 +336,12 @@ export async function chooseAccountSubmit(data) {
         }
 
         // If User had previously been directed to Sign in - Return to Original page
-        const signInRedirect = window.sessionStorage.getItem('signInRedirect');
-        if (signInRedirect) {
-            window.location.replace(signInRedirect.replace(/"/g, ""));
+        const store = new SessionStore();
+        const signInRedirectStore = store.getSignInRedirect();
+        store.removeSignInRedirect();
+
+        if (signInRedirectStore) {
+            window.location.replace(signInRedirectStore.replace(/"/g, ""));
             return;
         }
 

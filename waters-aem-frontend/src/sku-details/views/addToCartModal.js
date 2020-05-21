@@ -25,11 +25,18 @@ const AddToCartModalBody = props => {
         text,
         textHeading,
         partNumberLabel,
-        buttons
+        buttons,
+        isOrderDetails
     } = state;
     
     const InfoTextWrapper = (props) => { 
-        if (!text || !textHeading) return <></>;
+        if (!isOrderDetails){
+            if (!text || !textHeading) return <></>;
+        }
+        else {
+            if (!text) return <></>;
+        }
+        
 
         return (
             <div className={keys.InfoTextWrapper}>
