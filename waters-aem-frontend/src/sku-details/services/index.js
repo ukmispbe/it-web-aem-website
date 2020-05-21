@@ -91,7 +91,7 @@ export async function getPrice(url, countryCode, partNo) {
 }
 
 export async function addToCart(isCommerceApiMigrated, url, partNo, quantity, throwError) {
-    if(isCommerceApiMigrated) {
+    if(isCommerceApiMigrated === 'true') {
 
         const options = {
             method: 'POST',
@@ -138,8 +138,9 @@ export async function addToCart(isCommerceApiMigrated, url, partNo, quantity, th
         }
 
     } else {
+
         const options = {
-            method: 'post',
+            method: 'POST',
             credentials: 'include',
             body: JSON.stringify({
                 partNumbers: partNo,
@@ -147,7 +148,7 @@ export async function addToCart(isCommerceApiMigrated, url, partNo, quantity, th
             })
         }
         const urlRequest = legacyAddToCartUrlRequest(url, partNo, quantity);
-        const response = await fetchData(urlRequest, data, throwError);
+        const response = await fetchData(urlRequest, options, throwError);
         const json = await response.json();
         return json;
     }
