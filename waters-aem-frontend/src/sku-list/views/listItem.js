@@ -2,7 +2,7 @@ import React from 'react';
 import ReactSVG from 'react-svg';
 import Stock from '../../sku-details/views/stock';
 import Price from '../../sku-details/views/price';
-import SkuService from '../../sku-details/services';
+import { getAvailability } from '../../sku-details/services';
 import AddToCart from '../../sku-details/views/addToCart';
 import AddToCartBody from '../../sku-details/views/addToCartModal';
 import Modal, { Header, keys } from '../../utils/modal';
@@ -13,8 +13,6 @@ import Ecommerce from '../../scripts/ecommerce';
 import SkuDetails from '../../scripts/sku-details';
 import Sticky from '../../scripts/stickyService';
 import Analytics, { analyticTypes, searchCartContext, relatedCartContext } from '../../analytics';
-
-
 
 class ListItem extends React.Component {
     constructor(props) {
@@ -28,7 +26,7 @@ class ListItem extends React.Component {
                 partNumberLabel: this.props.skuConfig.skuInfo.partNumberLabel
             },
             userCountry: this.props.skuConfig.countryCode,
-            availabilityAPI: this.props.skuConfig.availabilityUrl,
+            availabilityUrl: this.props.skuConfig.availabilityUrl,
             pricingUrl: this.props.skuConfig.pricingUrl,
             addToCartUrl: this.props.skuConfig.addToCartUrl,
             skuAvailability: {},
@@ -41,27 +39,6 @@ class ListItem extends React.Component {
             errorObjCart: {},
             errorObjAvailability: {},
         };
-        this.request = new SkuService(
-            this.state.userCountry,
-            {
-                availability: this.state.availabilityAPI,
-                price: this.state.pricingUrl,
-            },
-            {
-                addToCart: this.props.skuConfig.addToCartUrl,
-                getCart: '',
-            },
-            err => {
-                // Add Error Object to State
-                this.setState({
-                    errorObjCart: err,
-                    errorObjAvailability: err
-                });
-            }
-        );
-
-        this.checkAvailability = this.checkAvailability.bind(this);
-        this.toggleModal = this.toggleModal.bind(this);
     }
 
     toggleErrorModal = (err) => {
@@ -88,25 +65,24 @@ class ListItem extends React.Component {
     };
 
     checkAvailability = skuNumber => {
-        this.request
-            .getAvailability(skuNumber)
-            .then(response => {
-                this.setState({
-                    skuAvailability: response,
-                    analyticsConfig: {
-                        ...this.state.analyticsConfig,
-                        ...response
-                    }
-                }, () => {
-                        this.checkAvailabilityAnalytics();
-                });
-
-
-            })
-            .catch(err => {
-                // Add Error Object to State
-                this.setState({ errorObjAvailability: err });
+        getAvailability(this.state.availabilityUrl, this.state.userCountry, skuNumber)
+        .then(response => {
+            this.setState({
+                skuAvailability: response,
+                analyticsConfig: {
+                    ...this.state.analyticsConfig,
+                    ...response
+                }
+            }, () => {
+                    this.checkAvailabilityAnalytics();
             });
+
+
+        })
+        .catch(err => {
+            // Add Error Object to State
+            this.setState({ errorObjAvailability: err });
+        });
     };
 
     checkAvailabilityAnalytics = () => {
@@ -192,6 +168,7 @@ class ListItem extends React.Component {
                         skuNumber={this.props.relatedSku.code}
                         addToCartLabel={this.props.skuConfig.addToCartLabel}
                         addToCartUrl={this.props.skuConfig.addToCartUrl}
+                        isCommerceApiMigrated={this.props.skuConfig.isCommerceApiMigrated}
                         toggleErrorModal={this.toggleErrorModal}
                         analyticsConfig={this.state.analyticsConfig}
                     />
