@@ -4,9 +4,17 @@ import LocalStore from '../../stores/localStore';
 import loginStatus from '../../scripts/loginStatus';
 import DigitalData from "../../scripts/DigitalData";
 
-const fetchData = async (url, options) => {
-    const response = await fetch(url, {...options});
-    return response;
+const fetchData = async (url, options, throwError) => {
+    return new Promise((resolve, reject) => {
+            fetch(url, {...options})
+            .then(response => {
+                resolve(response);
+            })
+            .catch(err => {
+                throwError(err);
+                reject(err);
+            });
+    });
 };
 
 const availabilityUrlRequest = (url, countryCode, partNo) => {
@@ -31,32 +39,6 @@ const legacyAddToCartUrlRequest = (url, partNo, quantity) => {
         .replace('{quantity}', quantity);
 
     return url;
-}
-
-const getCartId = () => {
-    const store = new LocalStore();
-    const cartId = store.getCartId() ? store.getCartId() : null;
-    return cartId;
-}
-
-const setCartId = (value) => {
-    // TODO: try/catch exception from storage
-    const store = new LocalStore();
-    const cartId = store.setCartId(value);
-    return true;
-}
-
-const getGUID = () => {
-    const store = new LocalStore();
-    const cartId = store.getGUID() ? store.getGUID() : null;
-    return cartId;
-}
-
-const setGUID = (value) => {
-    // TODO: try/catch exception from storage
-    const store = new LocalStore();
-    const cartId = store.setGUID(value);
-    return true;
 }
 
 const getCountryCode = () => {
@@ -87,7 +69,6 @@ const addToCartUrlRequest = (url, partNo, quantity, cartId) => {
 }
 
 export async function getAvailability(url, countryCode, partNo) {
-    console.log(url, countryCode, partNo);
     const options = {
         method: 'GET',
         credentials: 'include'
@@ -109,7 +90,7 @@ export async function getPrice(url, countryCode, partNo) {
     return json;
 }
 
-export async function addToCart(isCommerceApiMigrated, url, partNo, quantity) {
+export async function addToCart(isCommerceApiMigrated, url, partNo, quantity, throwError) {
     if(isCommerceApiMigrated) {
 
         const options = {
@@ -126,18 +107,35 @@ export async function addToCart(isCommerceApiMigrated, url, partNo, quantity) {
                 ]
             })
         }
+        const localStore = new LocalStore();
+        const cartId = loginStatus.state() ? localStore.getCartId() : localStore.getGUID();
 
-        const cartId = loginStatus.state() ? getCartId() : getGUID();
         const urlRequest = addToCartUrlRequest(url, partNo, quantity, cartId);
-        console.log(urlRequest);
-        const response = await fetchData(urlRequest, options);
-        const json = await response.json();
-        if(!cartId && json) {
-            loginStatus.state() && json.cart.code && setCartId(json.cart.code);
-            !loginStatus.state() && json.cart.guid && setGUID(json.cart.guid);
+        const response = await fetchData(urlRequest, options, throwError);
+        if(response.status === 200) {
+            const json = await response.json();
+            if(!cartId && json) {
+                loginStatus.state() && json.cart.code && localStore.setCartId(json.cart.code);
+                !loginStatus.state() && json.cart.guid && localStore.setGUID(json.cart.guid);
+            }
+            return json;
+
+        } else if(response.status === 400) {
+            const json = await response.json();
+            // if cartId or guid is no longer valid
+            if(json && json.errors && json.errors.length && json.errors[0].type === 'CartError') {
+                loginStatus.state() && cartId && localStore.removeCartId();
+                !loginStatus.state() && cartId && localStore.removeGUID();
+                addToCart(isCommerceApiMigrated, url, partNo, quantity, throwError);
+            }
+            else{
+                throwError({status: 500, ok: false});
+                return response.status;
+            }
+        } else {
+            throwError({status: 500, ok: false});
+            return response.status;
         }
-        console.log(json);
-        return json;
 
     } else {
         const options = {
@@ -149,7 +147,7 @@ export async function addToCart(isCommerceApiMigrated, url, partNo, quantity) {
             })
         }
         const urlRequest = legacyAddToCartUrlRequest(url, partNo, quantity);
-        const response = await fetchData(urlRequest, data);
+        const response = await fetchData(urlRequest, data, throwError);
         const json = await response.json();
         return json;
     }

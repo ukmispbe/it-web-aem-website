@@ -16,10 +16,6 @@ class AddToCart extends React.Component {
             toggleParentModal: this.props.toggleParentModal,
             errorObj: this.props.errorObj
         };
-
-        this.quantityInput = this.quantityInput.bind(this);
-        this.skuRemoveNegative = this.skuRemoveNegative.bind(this);
-        this.skuQuantityInput = this.skuQuantityInput.bind(this);
     }
 
     quantityInput = e => {
@@ -37,7 +33,7 @@ class AddToCart extends React.Component {
     };
 
     cartAPIRequest() {
-        addToCart(this.state.isCommerceApiMigrated, this.props.addToCartUrl, this.state.skuNumber, this.state.addToCartQty)
+        addToCart(this.state.isCommerceApiMigrated, this.props.addToCartUrl, this.state.skuNumber, this.state.addToCartQty, this.state.toggleErrorModal)
         .then(response => {
             this.state.toggleParentModal(true);
             this.addToCartAnalytics(response);
