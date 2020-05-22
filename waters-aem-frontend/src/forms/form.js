@@ -186,7 +186,6 @@ const Form = ({
         }
 
         // Don't retrieve data in Edit Mode
-        const isInEditMode = document.getElementById("header").hasAttribute("data-is-edit-mode");
         if (isInEditMode) {
             return;
         }

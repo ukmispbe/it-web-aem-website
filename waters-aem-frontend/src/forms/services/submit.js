@@ -139,8 +139,13 @@ export async function resetPasswordSubmit(data) {
                 store.removeSoldToDetails();
             }
         }
-        if (this.redirect) {
-            window.location.replace(this.redirect);
+        const store = new SessionStore();
+        const signInRedirectStore = store.getSignInRedirect();
+        store.removeSignInRedirect();
+        if (signInRedirectStore || this.redirect) {
+            window.location.replace(
+                signInRedirectStore ? signInRedirectStore : this.redirect
+            );
             return;
         }
     } else if (response.status === 401) {
