@@ -98,10 +98,12 @@ public class WatersContentService extends SlingAllMethodsServlet {
                 //TODO:USE CompletableFuture API instead of sequence
                 pagePublishCaaSUrl = hostName.concat(path.concat("/jcr:content.caas.infinity.json")).replace(WatersConstants.CUSTOM_ROOT_PATH, WatersConstants.ROOT_PATH);
                 pageJsonResponse = getHttpResponseAsStringForURI(pagePublishCaaSUrl);
+                pageJsonResponse = pageJsonResponse.replaceAll("/content/waters","/nextgen");
                 if (StringUtils.isNotBlank(responseLevel) && responseLevel.equalsIgnoreCase("full")) {
                     final Resource resource = resourceResolver.getResource(path + "/jcr:content/header/par/navigation");
                     if (null != resource) {
                         navigationCompJsonResponse = getHttpResponseAsStringForURI(pagePublishCaaSUrl.replace("/jcr:content.caas.infinity.json", "/jcr:content/header/par/navigation.model.json"));
+                        navigationCompJsonResponse = navigationCompJsonResponse.replaceAll("/content/waters","/nextgen");
                         LOG.debug("JSON Content- {\"Page Content\": {} ,\"Navigation Content\": {} }", pageJsonResponse, navigationCompJsonResponse);
                         if (StringUtils.isNotBlank(navigationCompJsonResponse)) {
                             LOG.info("JSON returned with full page content for: {}", path);
