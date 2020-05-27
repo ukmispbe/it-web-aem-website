@@ -22,6 +22,7 @@ class OrderDetails extends Component {
             itemsUrl: props.config.fetchItemsEndPoint,
             reorderUrl: props.config.fetchReorderUrlEndPoint,
             orderDetails: {},
+            reorderData: {},
             airbills: {},
             skusSoldCount: 0,
             errorServiceError: false,
@@ -77,12 +78,16 @@ class OrderDetails extends Component {
         const { detailsUrl, itemsUrl, orderId, userIsocode } = this.state;
         getOrderDetails(detailsUrl, orderId, this.setError)
             .then((data) => {
-                if(data && data.account.length) {
+                if(data && data.account && data.account.length) {
                     this.setState({
                         isLoading: false,
                         orderDetails: data
                     });
-
+                    console.log('data', data);
+                    const reorderData = data.lineItems.map(item => {
+                        return {materialNumber: item.materialNumber, orderedQuantity: item.orderedQuantity};
+                    });
+                    console.log('reorderData', reorderData);
                     getItemDetails(itemsUrl, data.lineItems, this.setError, userIsocode)
                         .then((itemData) => {
                             if(itemData && itemData.documents && itemData.documents.length) {
