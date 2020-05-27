@@ -71,6 +71,9 @@ class OrderDetails extends Component {
         return <>
             <hr className="order-shipment-list__hr"/>
             {Object.keys(airbills).length > 0 && shipments}
+            <div className="order-shipment__reorder">
+                {this.renderReorderButton()}
+            </div>
         </>;
     }
 
