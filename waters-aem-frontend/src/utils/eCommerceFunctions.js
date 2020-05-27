@@ -27,3 +27,19 @@ export const isCartHidden = () => {
     }
     return false;
 }
+
+// Hide Sign In Component if If Partial or Disabled
+export const isSignInHidden = () => {
+    let eCommStatus;
+    const headerNavigation_cartLI = document.querySelector('.top-bar__nav__cart');    
+    if (headerNavigation_cartLI) {
+        eCommStatus = headerNavigation_cartLI.attributes["data-ecommerce-state"].value.toUpperCase();
+    }
+    if (eCommStatus === "DISABLED" || eCommStatus === "PARTIAL_ENABLED") {
+        return true;
+    }
+    if (eCommStatus === "FULL_ENABLED") {
+        return false;
+    }
+    return false;
+}
