@@ -2,20 +2,8 @@ import 'whatwg-fetch';
 import SessionStore from '../../stores/sessionStore';
 import LocalStore from '../../stores/localStore';
 import loginStatus from '../../scripts/loginStatus';
-import DigitalData from "../../scripts/DigitalData";
-
-const fetchData = async (url, options, throwError) => {
-    return new Promise((resolve, reject) => {
-            fetch(url, {...options})
-            .then(response => {
-                resolve(response);
-            })
-            .catch(err => {
-                throwError(err);
-                reject(err);
-            });
-    });
-};
+import DigitalData from '../../scripts/DigitalData';
+import { fetchData } from '../../utils/ServiceFunctions';
 
 const availabilityUrlRequest = (url, countryCode, partNo) => {
     url = url
@@ -25,12 +13,9 @@ const availabilityUrlRequest = (url, countryCode, partNo) => {
     return url;
 }
 
-const priceUrlRequest = (url, countryCode, partNo) => {
-    url = url
-        .replace('{partnumber}', partNo)
-        .replace('{countryCode}', countryCode);
-
-    return url;
+const priceUrlRequest = (endpoint, sku, customerNumber, isocode) => {
+    let url;
+    return url = `${endpoint}?productNumber=${sku}&customerNumber=${customerNumber}&locale=${isocode}`;
 }
 
 const legacyAddToCartUrlRequest = (url, partNo, quantity) => {
@@ -79,18 +64,29 @@ export async function getAvailability(url, countryCode, partNo) {
     return json;
 }
 
-export async function getPrice(url, countryCode, partNo) {
-    const options = {
-        method: 'GET',
-        credentials: 'include'
-    }
-    const urlRequest = priceUrlRequest(url, countryCode, partNo);
-    const response = await fetchData(urlRequest, options);
-    const json = await response.json();
-    return json;
+export async function getPricing(url, sku, customerNumber, isocode) {
+    // const options = {
+    //     method: 'GET',
+    //     credentials: 'include'
+    // }
+    
+    // const urlRequest = priceUrlRequest(url, sku, customerNumber, isocode);
+    // const response = await fetchData(urlRequest, options);
+    // const json = await response.json();
+
+    let tempJson = [
+        {
+            productNumber: "176001126",
+            customerNumber: "154488",
+            netPrice: "$2,318.00",
+            currencyCode: "USD"
+            }
+        ];
+
+    return tempJson[0];
 }
 
-export async function addToCart(isCommerceApiMigrated, url, partNo, quantity, throwError) {
+export async function addToCart(isCommerceApiMigrated, url, partNo, quantity) {
     if(isCommerceApiMigrated === 'true') {
 
         const options = {
@@ -111,7 +107,7 @@ export async function addToCart(isCommerceApiMigrated, url, partNo, quantity, th
         const cartId = loginStatus.state() ? localStore.getCartId() : localStore.getGUID();
 
         const urlRequest = addToCartUrlRequest(url, partNo, quantity, cartId);
-        const response = await fetchData(urlRequest, options, throwError);
+        const response = await fetchData(urlRequest, options);
         if(response.status === 200) {
             const json = await response.json();
             if(!cartId && json) {
@@ -126,7 +122,7 @@ export async function addToCart(isCommerceApiMigrated, url, partNo, quantity, th
             if(json && json.errors && json.errors.length && json.errors[0].type === 'CartError') {
                 loginStatus.state() && cartId && localStore.removeCartId();
                 !loginStatus.state() && cartId && localStore.removeGUID();
-                addToCart(isCommerceApiMigrated, url, partNo, quantity, throwError);
+                addToCart(isCommerceApiMigrated, url, partNo, quantity);
             }
             else{
                 throwError({status: 500, ok: false});
@@ -148,7 +144,7 @@ export async function addToCart(isCommerceApiMigrated, url, partNo, quantity, th
             })
         }
         const urlRequest = legacyAddToCartUrlRequest(url, partNo, quantity);
-        const response = await fetchData(urlRequest, options, throwError);
+        const response = await fetchData(urlRequest, options);
         const json = await response.json();
         return json;
     }

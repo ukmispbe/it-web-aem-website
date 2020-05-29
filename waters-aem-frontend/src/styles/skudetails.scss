@@ -50,6 +50,13 @@
             flex-wrap: wrap;
         }
 
+        &__list-price {
+            @include font-small;
+            width: 100%;
+            text-decoration: line-through;
+            margin-bottom: $space-xxs;
+        }
+
         &__priceinfo {
             padding-right: $space-xs;
             line-height: 1em;
@@ -529,8 +536,6 @@
         }
     }
 
-
-
     &__right {
         @include list-item-thumbnail;
         margin-left: $space-m;
@@ -565,7 +570,6 @@
         }
     }
 }
-
 
 .cmp-order-details__order-shipment-list {
     .cmp-sku-list {

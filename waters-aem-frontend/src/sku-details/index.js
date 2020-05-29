@@ -1,6 +1,5 @@
 // entry point for SKU. Move this up to global entry point if we want babel to polyfill everything we need at build time
 import React from "react";
-import ReactSVG from "react-svg";
 import PropTypes from "prop-types";
 import Stock from "./views/stock";
 import Price from "./views/price";
@@ -12,8 +11,9 @@ import CheckOutStatus from "../scripts/checkOutStatus";
 import SkuMessage from "../sku-message";
 import Ecommerce from "../scripts/ecommerce";
 import { mainCartContext } from "../analytics";
-import { getAvailability } from "./services/index";
+import { getAvailability, getPricing } from "./services/index";
 import SignIn from '../scripts/signIn';
+import GetIsocode from "../utils/get-isocode";
 
 class SkuDetails extends React.Component {
     constructor(props) {
@@ -26,16 +26,19 @@ class SkuDetails extends React.Component {
                 text: this.props.titleText,
                 partNumberLabel: this.props.config.skuInfo.partNumberLabel
             },
-            skuConfig: this.props.config.skuInfo,
+            custPrice: '',
+            customerNumber: "154488",
+            skuInfo: this.props.config.skuInfo,
             skuNumber: this.props.skuNumber,
             userCountry: this.props.config.countryCode,
-            availabilityAPI: this.props.config.availabilityUrl,
-            priceAPI: this.props.config.pricingUrl,
-            addToCartAPI: this.props.config.addToCartUrl,
+            userLocale: this.props.config.locale,
+            userIsocode: GetIsocode.getIsocode(),
+            availabilityUrl: this.props.config.availabilityUrl,
+            pricingUrl: this.props.config.pricingUrl,
+            addToCartUrl: this.props.config.addToCartUrl,
             skuAvailability: {},
             addToCartQty: undefined,
-            defaultPrice: this.props.price,
-            locale: this.props.config.locale,
+            listPrice: this.props.price,
             analyticsConfig: {
                 context: mainCartContext,
                 name: this.props.titleText,
@@ -44,6 +47,7 @@ class SkuDetails extends React.Component {
             },
             errorObjCart: {},
             errorObjAvailability: {},
+            errorObjPrice: {},
             discontinued: this.props.discontinued == "true",
             signInUrl: this.props.baseSignInUrl
         };
@@ -52,7 +56,24 @@ class SkuDetails extends React.Component {
     }
 
     componentDidMount() {
-        getAvailability(this.state.availabilityAPI, this.state.userCountry, this.state.skuNumber)
+        getPricing(this.state.pricingUrl, this.state.skuNumber, this.state.customerNumber, this.state.userIsocode)
+        .then(response => {
+            this.setState({
+                custPrice: response.netPrice,
+                analyticsConfig: {
+                    ...this.state.analyticsConfig,
+                    custPrice: response.netPrice
+                }
+            }, () => {
+                    //this.checkAvailabilityAnalytics();
+            });
+        })
+        .catch(err => {
+            // Add Error Object to State
+            this.setState({ errorObjPrice: err });
+        });
+
+        getAvailability(this.state.availabilityUrl, this.state.userCountry, this.state.skuNumber)
         .then(response => {
             this.setState({
                 skuAvailability: response,
@@ -87,7 +108,7 @@ class SkuDetails extends React.Component {
     renderCountryRestricted = () => {
         return (
             <SkuMessage
-                icon={this.state.skuConfig.lowStockIcon}
+                icon={this.state.skuInfo.lowStockIcon}
                 message={this.props.countryRestricted}
             />
         )
@@ -143,33 +164,42 @@ class SkuDetails extends React.Component {
             />
         );
     }
-
+// note to self: LoginStatus.state() conditions; CustPrice vs ListPrice passed to Price and right label
     renderBuyInfo = () => {
+        const { custPrice, listPrice, skuInfo, skuNumber, errorObjAvailability, skuAvailability } = this.state;
+        const { config } = this.props;
+        console.log("passed listPrice", listPrice);
+        console.log("custPrice", custPrice);
         return (
             <div className="cmp-sku-details__buyinfo">
+                {LoginStatus.state() && typeof listPrice !== 'undefined'
+                    && listPrice !== custPrice && (
+                    <div className="cmp-sku-details__list-price">
+                        {`${skuInfo.listPriceLabel} ${listPrice}`}
+                    </div>
+                )}
                 <div className="cmp-sku-details__priceinfo">
                     <Price
-                        skuConfig={this.state.skuConfig}
-                        price={this.state.defaultPrice}
+                        skuInfo={skuInfo}
+                        price={custPrice}
                     />
                 </div>
                 <div className="cmp-sku-details__availability">
                     <Stock
-                        skuConfig={this.state.skuConfig}
-                        skuNumber={this.state.skuNumber}
-                        skuAvailability={this.state.skuAvailability}
-                        locale={this.state.locale}
+                        skuInfo={skuInfo}
+                        skuNumber={skuNumber}
+                        skuAvailability={skuAvailability}
                         skuType="details"
-                        errorObj={this.state.errorObjAvailability}
+                        errorObj={errorObjAvailability}
                     />
                 </div>
                 <div className="cmp-sku-details__buttons">
                     <AddToCart
                         toggleParentModal={this.toggleModal}
-                        skuNumber={this.state.skuNumber}
-                        addToCartLabel={this.props.config.addToCartLabel}
-                        addToCartUrl={this.props.config.addToCartUrl}
-                        isCommerceApiMigrated={this.props.config.isCommerceApiMigrated}
+                        skuNumber={skuNumber}
+                        addToCartLabel={config.addToCartLabel}
+                        addToCartUrl={config.addToCartUrl}
+                        isCommerceApiMigrated={config.isCommerceApiMigrated}
                         toggleErrorModal={this.toggleErrorModal}
                         analyticsConfig={this.state.analyticsConfig}
                     ></AddToCart>
@@ -202,10 +232,10 @@ class SkuDetails extends React.Component {
                 return <>
                         {!LoginStatus.state() && (<SignIn
                                 signInUrl={this.props.config.baseSignInUrl}
-                                signInIcon={this.state.skuConfig.signinIcon}
-                                signInText1={this.state.skuConfig.signInText1}
-                                signInText2={this.state.skuConfig.signInText2}
-                                signInText3={this.state.skuConfig.signInText3}
+                                signInIcon={this.state.skuInfo.signinIcon}
+                                signInText1={this.state.skuInfo.signInText1}
+                                signInText2={this.state.skuInfo.signInText2}
+                                signInText3={this.state.skuInfo.signInText3}
                             />)}
                         {this.renderBuyInfo()}
                     </>;
@@ -216,7 +246,7 @@ class SkuDetails extends React.Component {
     };
 
     render() {
-        if(!this.state.defaultPrice){
+        if(!this.state.listPrice){
             return this.renderCountryRestricted();
         } else if (this.state.discontinued) {
             return this.renderDiscontinued();
