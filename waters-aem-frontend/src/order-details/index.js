@@ -29,7 +29,8 @@ class OrderDetails extends Component {
             errorOrderNotFound: false,
             isLoading: true,
             modalShown: false,
-            modalConfig: props.config.modalInfo
+            modalConfig: props.config.modalInfo,
+            isCommerceApiMigrated: ''
         }
     }
 
@@ -71,13 +72,15 @@ class OrderDetails extends Component {
         return <>
             <hr className="order-shipment-list__hr"/>
             {Object.keys(airbills).length > 0 && shipments}
-            <div className="order-shipment__reorder">
-                {this.renderReorderButton()}
-            </div>
         </>;
     }
 
     async componentDidMount() {
+        const commerceConfig = JSON.parse(
+            document.getElementById('commerce-configs-json').innerHTML
+        );
+
+        commerceConfig && this.setState({isCommerceApiMigrated: JSON.parse(commerceConfig.isCommerceApiMigrated.toLowerCase())});
         const { detailsUrl, itemsUrl, orderId, userIsocode } = this.state;
         getOrderDetails(detailsUrl, orderId, this.setError)
             .then((data) => {
@@ -225,9 +228,11 @@ class OrderDetails extends Component {
                         <div className="cmp-order-details__order-total_left">{this.props.config.orderTotal}</div>
                         <div className="cmp-order-details__order-total_right"><h1>{orderDetails.orderTotal}</h1></div>
                     </div>
-                    <div className="cmp-order-details__reorder">
-                        {this.renderReorderButton()}
-                    </div>
+                    {this.state.isCommerceApiMigrated && (
+                        <div className="cmp-order-details__reorder">
+                            {this.renderReorderButton()}
+                        </div>
+                    )}
                 </div>
             </div>
         )
@@ -250,6 +255,11 @@ class OrderDetails extends Component {
                 <div className="cmp-order-details__order-shipment-list">
                     {Object.keys(airbills).length > 0 && this.getShipmentList(airbills, orderDetails)}
                 </div>
+                {this.state.isCommerceApiMigrated && (
+                    <div className="order-shipment__reorder">
+                        {this.renderReorderButton()}
+                    </div>
+                )}
             </>
         )
     }
