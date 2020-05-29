@@ -137,13 +137,7 @@ const Form = ({
     // Hook to check the users's Authentication Status and redirect if needed
     useEffect(() => {
         if (!isInEditMode) {
-            const needsToBeSignedIn = config.needsToBeSignedIn;
-            if (needsToBeSignedIn) {
-                if (!loginStatus.state()) {
-                    notLoggedInRedirect();
-                    return null;
-                }
-            }
+            
             const needsToBeSignedOut = config.needsToBeSignedOut;
             if (needsToBeSignedOut) {
                 if (loginStatus.state()) {
