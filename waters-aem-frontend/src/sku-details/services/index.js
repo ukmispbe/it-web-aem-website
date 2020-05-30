@@ -91,21 +91,29 @@ export async function getPrice(url, countryCode, partNo) {
 }
 
 export async function addToCart(isCommerceApiMigrated, url, partNo, quantity, throwError) {
-    if(isCommerceApiMigrated === 'true') {
-
+    if(isCommerceApiMigrated === 'true' || isCommerceApiMigrated === true) {
+        // Check if partNo is a single product or an array
+        let products = '';
+        if(Array.isArray(partNo)) {
+            products = JSON.stringify({
+                                       products: partNo
+                                   })
+        } else {
+            products = JSON.stringify({
+                                       products: [
+                                           {
+                                               code: partNo,
+                                               quantity: quantity,
+                                           }
+                                       ]
+                                   })
+        }
         const options = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                products: [
-                    {
-                        code: partNo,
-                        quantity: quantity,
-                    }
-                ]
-            })
+            body: products
         }
         const localStore = new LocalStore();
         const cartId = loginStatus.state() ? localStore.getCartId() : localStore.getGUID();
