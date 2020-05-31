@@ -10,9 +10,21 @@ import GroupBy from '../utils/group-by'
 import ErrorBoundary from '../search/ErrorBoundary';
 import Modal, { Header, keys } from '../utils/modal';
 import AddToCartBody from '../sku-details/views/addToCartModal';
+import { addToCart } from '../sku-details/services'
 class OrderDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
         super({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props});
+
+        // Update modal config button with a callback
+        const buttons = [...props.config.modalInfo.buttons];
+        buttons[0] = {
+            ...buttons[0],
+            callback: this.addToCartReorder
+        }
+        const updatedModalConfig = {
+                ...props.config.modalInfo,
+                buttons: buttons
+        }
 
         this.state = {
             orderId: this.getUrlParameter("id"),
@@ -22,15 +34,18 @@ class OrderDetails extends Component {
             itemsUrl: props.config.fetchItemsEndPoint,
             reorderUrl: props.config.fetchReorderUrlEndPoint,
             orderDetails: {},
-            reorderData: {},
+            reorderData: [],
             airbills: {},
             skusSoldCount: 0,
             errorServiceError: false,
             errorOrderNotFound: false,
             isLoading: true,
             modalShown: false,
-            modalConfig: props.config.modalInfo,
-            isCommerceApiMigrated: ''
+            modalConfig: updatedModalConfig,
+            isCommerceApiMigrated: false,
+            addToCartUrl: '',
+            viewCartUrl: '',
+            errorObjCart: {}
         }
     }
 
@@ -75,12 +90,35 @@ class OrderDetails extends Component {
         </>;
     }
 
+    addToCartReorder = (e) => {
+        e.preventDefault();
+        const { isCommerceApiMigrated, addToCartUrl, reorderData } = this.state;
+        addToCart(isCommerceApiMigrated, addToCartUrl, reorderData, null, this.setError)
+        .then(response => {
+            console.log('redirect', this.state.viewCartUrl);
+            window.location.href = this.state.viewCartUrl;
+            //this.addToCartAnalytics(response);
+        })
+        .catch(err => {
+            console.log('error');
+            this.toggleModal(true);
+            this.setState({ errorObj: err });
+            //this.setError();
+        });
+    }
+
     async componentDidMount() {
         const commerceConfig = JSON.parse(
             document.getElementById('commerce-configs-json').innerHTML
         );
+        if(commerceConfig) {
+            this.setState({
+                isCommerceApiMigrated: JSON.parse(commerceConfig.isCommerceApiMigrated.toLowerCase()),
+                addToCartUrl: commerceConfig.addToCartUrl,
+                viewCartUrl: commerceConfig.viewCartUrl
+            });
+        }
 
-        commerceConfig && this.setState({isCommerceApiMigrated: JSON.parse(commerceConfig.isCommerceApiMigrated.toLowerCase())});
         const { detailsUrl, itemsUrl, orderId, userIsocode } = this.state;
         getOrderDetails(detailsUrl, orderId, this.setError)
             .then((data) => {
@@ -89,11 +127,12 @@ class OrderDetails extends Component {
                         isLoading: false,
                         orderDetails: data
                     });
-                    console.log('data', data);
                     const reorderData = data.lineItems.map(item => {
-                        return {materialNumber: item.materialNumber, orderedQuantity: item.orderedQuantity};
+                        return {code: item.materialNumber, quantity: item.orderedQuantity};
                     });
-                    console.log('reorderData', reorderData);
+                    this.setState({
+                        reorderData: [...reorderData]
+                    })
                     getItemDetails(itemsUrl, data.lineItems, this.setError, userIsocode)
                         .then((itemData) => {
                             if(itemData && itemData.documents && itemData.documents.length) {
@@ -120,11 +159,6 @@ class OrderDetails extends Component {
     componentWillUnmount() {
         this.props.resetErrorBoundaryToFalse();
         this.props.removeNotifications();
-    }
-
-    addToCartReorder = () => {
-        this.toggleModal();
-        return false;
     }
 
     renderAddress = (addressType) => {
@@ -162,7 +196,7 @@ class OrderDetails extends Component {
 
     renderReorderButton = () => {
         return (
-            <a className="cmp-button" onClick={this.addToCartReorder}>
+            <a className="cmp-button" onClick={() => this.toggleModal()}>
                 {this.props.config.reorderTitle}
             </a>
         )
