@@ -92,28 +92,28 @@ export async function getPrice(url, countryCode, partNo) {
 
 export async function addToCart(isCommerceApiMigrated, url, partNo, quantity, throwError) {
     if(isCommerceApiMigrated === 'true' || isCommerceApiMigrated === true) {
-        // Check if partNo is a single product or an array
+        // Check if partNo is a single product or an array of products
         let products = '';
         if(Array.isArray(partNo)) {
-            products = JSON.stringify({
-                                       products: partNo
-                                   })
+            products = {
+                           products: partNo
+                       }
         } else {
-            products = JSON.stringify({
-                                       products: [
-                                           {
-                                               code: partNo,
-                                               quantity: quantity,
-                                           }
-                                       ]
-                                   })
+            products = {
+                           products: [
+                               {
+                                   code: partNo,
+                                   quantity: quantity,
+                               }
+                           ]
+                       }
         }
         const options = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: products
+            body: JSON.stringify(products)
         }
         const localStore = new LocalStore();
         const cartId = loginStatus.state() ? localStore.getCartId() : localStore.getGUID();
