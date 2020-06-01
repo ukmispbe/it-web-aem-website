@@ -56,28 +56,36 @@ const addToCartUrlRequest = (url, partNo, quantity, cartId) => {
     return url;
 }
 
-export async function addToCart(isCommerceApiMigrated, url, partNo, quantity) {
-    if(isCommerceApiMigrated === 'true') {
-
+export async function addToCart(isCommerceApiMigrated, url, partNo, quantity, throwError) {
+    if(isCommerceApiMigrated === 'true' || isCommerceApiMigrated === true) {
+        // Check if partNo is a single product or an array of products
+        let products = '';
+        if(Array.isArray(partNo)) {
+            products = {
+                           products: partNo
+                       }
+        } else {
+            products = {
+                           products: [
+                               {
+                                   code: partNo,
+                                   quantity: quantity,
+                               }
+                           ]
+                       }
+        }
         const options = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                products: [
-                    {
-                        code: partNo,
-                        quantity: quantity,
-                    }
-                ]
-            })
+            body: JSON.stringify(products)
         }
         const localStore = new LocalStore();
         const cartId = loginStatus.state() ? localStore.getCartId() : localStore.getGUID();
 
         const urlRequest = addToCartUrlRequest(url, partNo, quantity, cartId);
-        const response = await fetchData(urlRequest, options);
+        const response = await fetchData(urlRequest, options, throwError);
         if(response.status === 200) {
             const json = await response.json();
             if(!cartId && json) {
@@ -92,7 +100,7 @@ export async function addToCart(isCommerceApiMigrated, url, partNo, quantity) {
             if(json && json.errors && json.errors.length && json.errors[0].type === 'CartError') {
                 loginStatus.state() && cartId && localStore.removeCartId();
                 !loginStatus.state() && cartId && localStore.removeGUID();
-                addToCart(isCommerceApiMigrated, url, partNo, quantity);
+                addToCart(isCommerceApiMigrated, url, partNo, quantity, throwError);
             }
             else{
                 throwError({status: 500, ok: false});
@@ -104,6 +112,7 @@ export async function addToCart(isCommerceApiMigrated, url, partNo, quantity) {
         }
 
     } else {
+
         const options = {
             method: 'POST',
             credentials: 'include',
@@ -113,7 +122,7 @@ export async function addToCart(isCommerceApiMigrated, url, partNo, quantity) {
             })
         }
         const urlRequest = legacyAddToCartUrlRequest(url, partNo, quantity);
-        const response = await fetchData(urlRequest, options);
+        const response = await fetchData(urlRequest, options, throwError);
         const json = await response.json();
         return json;
     }
