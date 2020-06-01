@@ -71,12 +71,11 @@
         }
 
             .cmp-modal__title-text {
-                @include font-h4;
-                display: inline-block;
-                margin-bottom: 0;
                 @include mobile {
+                    @include font-h4;
                     @include font-body;
                     @include font-utility;
+                    margin-bottom: 0;
                 }
             }
     }
