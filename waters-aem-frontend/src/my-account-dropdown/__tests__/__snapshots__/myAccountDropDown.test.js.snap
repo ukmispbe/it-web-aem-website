@@ -28,7 +28,8 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
     </div>
     <a
       className="my-account-dropdown__user-details__switch-account"
-      href="/content/waters/language-masters/en/switch.html"
+      href="/content/waters/language-masters/en/switch.html?fromMenu=true"
+      onClick={[Function]}
     >
       Switch Account
     </a>
@@ -42,6 +43,7 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
     <a
       className="my-account-dropdown__item-list--link dropdown__item-list__my-profile"
       href="/content/waters/language-masters/en/search.html"
+      onClick={[Function]}
       target="_self"
     >
       <span>
@@ -55,6 +57,7 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
     <a
       className="my-account-dropdown__item-list--link dropdown__item-list__my-orders"
       href="/content/waters/language-masters/en/library.html"
+      onClick={[Function]}
       target="_self"
     >
       <span>
@@ -100,6 +103,7 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
     <a
       className="my-account-dropdown__item-list--link dropdown__item-list__my-profile"
       href="/content/waters/language-masters/en/search.html"
+      onClick={[Function]}
       target="_self"
     >
       <span>
@@ -113,6 +117,7 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
     <a
       className="my-account-dropdown__item-list--link dropdown__item-list__my-orders"
       href="/content/waters/language-masters/en/library.html"
+      onClick={[Function]}
       target="_self"
     >
       <span>
@@ -172,6 +177,7 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
     <a
       className="my-account-dropdown__item-list--link dropdown__item-list__my-profile"
       href="/content/waters/language-masters/en/search.html"
+      onClick={[Function]}
       target="_self"
     >
       <span>
@@ -185,6 +191,7 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
     <a
       className="my-account-dropdown__item-list--link dropdown__item-list__my-orders"
       href="/content/waters/language-masters/en/library.html"
+      onClick={[Function]}
       target="_self"
     >
       <span>
@@ -218,6 +225,7 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
     <a
       className="my-account-dropdown__item-list--link dropdown__item-list__my-profile"
       href="/content/waters/language-masters/en/search.html"
+      onClick={[Function]}
       target="_self"
     >
       <span>
@@ -231,6 +239,7 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
     <a
       className="my-account-dropdown__item-list--link dropdown__item-list__my-orders"
       href="/content/waters/language-masters/en/library.html"
+      onClick={[Function]}
       target="_self"
     >
       <span>
@@ -259,6 +268,7 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
     <a
       class="cmp-button"
       href="/content/waters/language-masters/en/test.html"
+      onClick={[Function]}
     >
       Create Account
     </a>

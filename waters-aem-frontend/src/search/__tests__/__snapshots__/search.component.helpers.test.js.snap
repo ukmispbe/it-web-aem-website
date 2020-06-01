@@ -469,6 +469,33 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by most
 
 exports[`Feature: ResultsContent Component Scenario: Rendering When displaying the shop results Then it should match snapshot 1`] = `
 Array [
+  "",
+  <div
+    className="cmp-sku-signin-wrapper"
+  >
+    <div
+      className="cmp-sku-signin"
+    >
+      <a
+        className="signin-link"
+        onClick={[Function]}
+        rel="nofollow"
+      >
+        <div
+          className="signin-icon"
+        />
+        <span
+          className="signin-part1"
+        />
+      </a>
+      <span
+        className="signin-part2"
+      />
+      <span
+        className="signin-part3"
+      />
+    </div>
+  </div>,
   <div
     className="cmp-sku-list__container "
   >
@@ -1584,6 +1611,33 @@ exports[`Feature: SkuResults Component Scenario: Rendering When there are no res
 
 exports[`Feature: SkuResults Component Scenario: Rendering Where there are results Then it should match snapshot 1`] = `
 Array [
+  "",
+  <div
+    className="cmp-sku-signin-wrapper"
+  >
+    <div
+      className="cmp-sku-signin"
+    >
+      <a
+        className="signin-link"
+        onClick={[Function]}
+        rel="nofollow"
+      >
+        <div
+          className="signin-icon"
+        />
+        <span
+          className="signin-part1"
+        />
+      </a>
+      <span
+        className="signin-part2"
+      />
+      <span
+        className="signin-part3"
+      />
+    </div>
+  </div>,
   <div
     className="cmp-sku-list__container "
   >
