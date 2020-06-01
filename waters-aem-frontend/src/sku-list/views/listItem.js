@@ -26,7 +26,7 @@ class ListItem extends React.Component {
                 partNumberLabel: this.props.skuConfig.skuInfo.partNumberLabel
             },
             listPrice: this.props.relatedSku.formattedPrice,
-            custPrice: this.props.custPrice,
+            custPrice: this.props.relatedSku.custPrice,
             skuInfo: this.props.skuConfig.skuInfo,
             userCountry: this.props.skuConfig.countryCode,
             availabilityUrl: this.props.skuConfig.availabilityUrl,
@@ -88,7 +88,6 @@ class ListItem extends React.Component {
         });
     };
 
-
     checkAvailabilityAnalytics = () => {
         const availabilityModel = {
             name: this.state.analyticsConfig.name,
@@ -116,24 +115,56 @@ class ListItem extends React.Component {
         }
     };
 
+    renderPricing = () => {
+        const { custPrice, listPrice, skuInfo } = this.state;
+
+        if (LoginStatus.state()){
+            if (typeof custPrice !== 'undefined') {
+                return (
+                    <div className="cmp-sku-list__priceinfo">
+                        <Price
+                            label={skuInfo.custPriceLabel}
+                            price={custPrice}
+                        />
+                    </div>
+                )
+            } else if (typeof custPrice === 'undefined') {
+                return (
+                    <div className="cmp-sku-list__priceinfo">
+                        <Price
+                            label={skuInfo.listPriceLabel}
+                            price={listPrice}
+                        />
+                    </div>
+                )
+            }
+        } else {
+            if (typeof listPrice !== 'undefined') {
+                return (
+                    <div className="cmp-sku-list__priceinfo">
+                        <Price
+                            label={skuInfo.listPriceLabel}
+                            price={listPrice}
+                        />
+                    </div>
+                )
+            }
+        }
+    }
+
     renderBuyInfoPartial = () => {
         const { custPrice, listPrice, skuInfo, errorObjAvailability, skuAvailability } = this.state;
         const { relatedSku, skuConfig } = this.props;
-        console.log("passed listPrice", listPrice);
-        console.log("custPrice", custPrice);
         return (
             <div className="cmp-sku-details__buyinfo">
-                {typeof listPrice !== 'undefined' && listPrice !== custPrice && (
+                {LoginStatus.state() && typeof custPrice !== 'undefined'
+                    && custPrice !== listPrice && (
                     <div className="cmp-sku-list__list-price">
                         {`${skuInfo.listPriceLabel} ${listPrice}`}
                     </div>
                 )}
-                <div className="cmp-sku-list__priceinfo">
-                    <Price
-                        skuInfo={skuInfo}
-                        price={custPrice}
-                    />
-                </div>
+                {this.renderPricing()}
+
                 <div
                     className="cmp-sku-details__availability"
                     onClick={e =>
@@ -306,4 +337,5 @@ class ListItem extends React.Component {
         );
     }
 }
+
 export default ListItem;

@@ -9,7 +9,7 @@ class Price extends React.Component {
     render() {
         return (
             <>
-                <span>{this.props.skuInfo.custPriceLabel}</span>
+                <span>{this.props.label}</span>
                 {this.props.price &&
                     <div className="cmp-sku__price">{this.props.price}</div>
                 }
@@ -19,12 +19,12 @@ class Price extends React.Component {
 }
 
 Price.propTypes = {
-    skuInfo: PropTypes.object.isRequired,
+    label: PropTypes.string.isRequired,
     price: PropTypes.string.isRequired
 }
 
 Price.defaultProps = {
-    skuInfo: {},
+    label: '',
     price: ''
 }
 

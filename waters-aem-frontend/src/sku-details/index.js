@@ -11,9 +11,8 @@ import CheckOutStatus from "../scripts/checkOutStatus";
 import SkuMessage from "../sku-message";
 import Ecommerce from "../scripts/ecommerce";
 import { mainCartContext } from "../analytics";
-import { getAvailability, getPricing } from "./services/index";
+import { getAvailability, getPricing, matchListItems } from "./services/index";
 import SignIn from '../scripts/signIn';
-import GetIsocode from "../utils/get-isocode";
 
 class SkuDetails extends React.Component {
     constructor(props) {
@@ -26,13 +25,11 @@ class SkuDetails extends React.Component {
                 text: this.props.titleText,
                 partNumberLabel: this.props.config.skuInfo.partNumberLabel
             },
-            custPrice: '',
-            customerNumber: "154488",
+            code: this.props.skuNumber,
             skuInfo: this.props.config.skuInfo,
             skuNumber: this.props.skuNumber,
             userCountry: this.props.config.countryCode,
             userLocale: this.props.config.locale,
-            userIsocode: GetIsocode.getIsocode(),
             availabilityUrl: this.props.config.availabilityUrl,
             pricingUrl: this.props.config.pricingUrl,
             addToCartUrl: this.props.config.addToCartUrl,
@@ -49,29 +46,39 @@ class SkuDetails extends React.Component {
             errorObjAvailability: {},
             errorObjPrice: {},
             discontinued: this.props.discontinued == "true",
-            signInUrl: this.props.baseSignInUrl
+            signInUrl: this.props.baseSignInUrl,
+            skuData: [{
+                code: this.props.skuNumber
+            }]
         };
 
         this.toggleModal = this.toggleModal.bind(this);
     }
 
     componentDidMount() {
-        getPricing(this.state.pricingUrl, this.state.skuNumber, this.state.customerNumber, this.state.userIsocode)
-        .then(response => {
-            this.setState({
-                custPrice: response.netPrice,
-                analyticsConfig: {
-                    ...this.state.analyticsConfig,
-                    custPrice: response.netPrice
-                }
-            }, () => {
+        if (LoginStatus.state()) {
+            getPricing(this.state.pricingUrl, this.state.skuData)
+            .then(response => {
+                let match = matchListItems(this.state.skuData, response);
+                this.setState({
+                    skuData: match,
+                    custPrice: match[0].custPrice
+                }, () => {
                     //this.checkAvailabilityAnalytics();
+                });
+            })
+            .catch(err => {
+                // Add Error Object to State
+                this.setState({ errorObjPrice: err });
             });
-        })
-        .catch(err => {
-            // Add Error Object to State
-            this.setState({ errorObjPrice: err });
-        });
+        } else {
+            this.setState({
+                skuData: [{
+                    code: this.props.skuNumber,
+                    custPrice: undefined
+                }]
+            })
+        }
 
         getAvailability(this.state.availabilityUrl, this.state.userCountry, this.state.skuNumber)
         .then(response => {
@@ -164,26 +171,58 @@ class SkuDetails extends React.Component {
             />
         );
     }
-// note to self: LoginStatus.state() conditions; CustPrice vs ListPrice passed to Price and right label
+
+    renderPricing = () => {
+        const { custPrice, listPrice, skuInfo } = this.state;
+
+        if (LoginStatus.state()){
+            if (typeof custPrice !== 'undefined') {
+                return (
+                    <div className="cmp-sku-details__priceinfo">
+                        <Price
+                            label={skuInfo.custPriceLabel}
+                            price={custPrice}
+                        />
+                    </div>
+                )
+            } else if (typeof custPrice === 'undefined') {
+                return (
+                    <div className="cmp-sku-details__priceinfo">
+                        <Price
+                            label={skuInfo.listPriceLabel}
+                            price={listPrice}
+                        />
+                    </div>
+                )
+            }
+        } else {
+            if (typeof listPrice !== 'undefined') {
+                return (
+                    <div className="cmp-sku-details__priceinfo">
+                        <Price
+                            label={skuInfo.listPriceLabel}
+                            price={listPrice}
+                        />
+                    </div>
+                )
+            }
+        }
+    }
+
     renderBuyInfo = () => {
         const { custPrice, listPrice, skuInfo, skuNumber, errorObjAvailability, skuAvailability } = this.state;
         const { config } = this.props;
-        console.log("passed listPrice", listPrice);
-        console.log("custPrice", custPrice);
+
         return (
             <div className="cmp-sku-details__buyinfo">
-                {LoginStatus.state() && typeof listPrice !== 'undefined'
-                    && listPrice !== custPrice && (
-                    <div className="cmp-sku-details__list-price">
-                        {`${skuInfo.listPriceLabel} ${listPrice}`}
-                    </div>
+                {LoginStatus.state() && typeof custPrice !== 'undefined'
+                    && custPrice !== listPrice && (
+                        <div className="cmp-sku-details__list-price">
+                            {`${skuInfo.listPriceLabel} ${listPrice}`}
+                        </div>
                 )}
-                <div className="cmp-sku-details__priceinfo">
-                    <Price
-                        skuInfo={skuInfo}
-                        price={custPrice}
-                    />
-                </div>
+                {this.renderPricing()}
+
                 <div className="cmp-sku-details__availability">
                     <Stock
                         skuInfo={skuInfo}
@@ -257,7 +296,25 @@ class SkuDetails extends React.Component {
 }
 
 SkuDetails.propTypes = {
-    config: PropTypes.object.isRequired
+    config: PropTypes.object.isRequired,
+    price: PropTypes.string.isRequired,
+    countryRestricted: PropTypes.bool,
+    skuNumber: PropTypes.string.isRequired,
+    titleText: PropTypes.string.isRequired,
+    discontinued: PropTypes.bool,
+    replacementSkuCode: PropTypes.string,
+    replacementSkuHref: PropTypes.string
 };
+
+SkuDetails.defaultProps = {
+    config: {},
+    price: '',
+    countryRestricted: false,
+    skuNumber: '',
+    titleText: '',
+    discontinued: false,
+    replacementSkuCode: '',
+    replacementSkuHref: ''
+}
 
 export default SkuDetails;
