@@ -65,12 +65,6 @@ class Shipment extends Component {
         return false;
     }
 
-    renderReorderButton = () => {
-        return (
-            <a className="cmp-button" onClick={this.addToCartReorder}>Reorder</a>
-        )
-    }
-
     render() {
         const {shipmentNumber, totalShipments, shipment, icons, data } = this.props
         return (
@@ -105,9 +99,6 @@ class Shipment extends Component {
                             skuConfig={this.skuConfig}
                         />
                     ))}
-                </div>
-                <div className="order-shipment__reorder">
-                    {this.renderReorderButton()}
                 </div>
             </div>
         );

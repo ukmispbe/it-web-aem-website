@@ -34,8 +34,6 @@ class OrderHistoryService {
         })
         .catch(error => {
             setError(error);
-            this.throwError(error);
-            reject(error);
         });
     };
 

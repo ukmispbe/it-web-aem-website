@@ -10,6 +10,7 @@ import GroupBy from '../utils/group-by'
 import ErrorBoundary from '../search/ErrorBoundary';
 import Modal, { Header, keys } from '../utils/modal';
 import AddToCartBody from '../sku-details/views/addToCartModal';
+import { addToCart } from '../sku-details/services'
 class OrderDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
         super({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props});
@@ -22,13 +23,18 @@ class OrderDetails extends Component {
             itemsUrl: props.config.fetchItemsEndPoint,
             reorderUrl: props.config.fetchReorderUrlEndPoint,
             orderDetails: {},
+            reorderData: [],
             airbills: {},
             skusSoldCount: 0,
             errorServiceError: false,
             errorOrderNotFound: false,
             isLoading: true,
             modalShown: false,
-            modalConfig: props.config.modalInfo
+            modalConfig: props.config.modalInfo,
+            isCommerceApiMigrated: false,
+            addToCartUrl: '',
+            viewCartUrl: '',
+            errorCartErrors: []
         }
     }
 
@@ -73,16 +79,70 @@ class OrderDetails extends Component {
         </>;
     }
 
+    addToCartReorder = (e) => {
+        e.preventDefault();
+        const { isCommerceApiMigrated, addToCartUrl, reorderData } = this.state;
+        addToCart(isCommerceApiMigrated, addToCartUrl, reorderData, null, this.setError)
+        .then(response => {
+            // Redirect if at least one item was successfully added to the cart
+            if(response && response.cartModifications && response.cartModifications.length) {
+                window.location.href = this.state.viewCartUrl;
+            } else {
+                this.toggleModal();
+                response && response.errors && this.setState({ errorCartErrors: response.errors});
+                this.setError(response);
+                this.setState({ errorServiceError: false });
+            }
+            //this.addToCartAnalytics(response);
+        })
+        .catch(err => {
+            this.toggleModal();
+            this.setState({ errorServiceError: false });
+        });
+    }
+
     async componentDidMount() {
+        const commerceConfig = JSON.parse(
+            document.getElementById('commerce-configs-json').innerHTML
+        );
+        if(commerceConfig) {
+            this.setState({
+                isCommerceApiMigrated: JSON.parse(commerceConfig.isCommerceApiMigrated.toLowerCase()),
+                addToCartUrl: commerceConfig.addToCartUrl,
+                viewCartUrl: commerceConfig.viewCartUrl
+            });
+            if(commerceConfig.isCommerceApiMigrated.toLowerCase() === 'true') {
+                // Update modal config button with a callback and new cart url
+                const buttons = [...this.state.modalConfig.buttons];
+                buttons[0] = {
+                    ...buttons[0],
+                    action: commerceConfig.viewCartUrl,
+                    callback: this.addToCartReorder
+                }
+                const updatedModalConfig = {
+                    ...this.state.modalConfig,
+                    buttons: buttons
+                }
+                this.setState({
+                    modalConfig: updatedModalConfig
+                })
+            }
+        }
+
         const { detailsUrl, itemsUrl, orderId, userIsocode } = this.state;
         getOrderDetails(detailsUrl, orderId, this.setError)
             .then((data) => {
-                if(data && data.account.length) {
+                if(data && data.account && data.account.length) {
                     this.setState({
                         isLoading: false,
                         orderDetails: data
                     });
-
+                    const reorderData = data.lineItems.map(item => {
+                        return {code: item.materialNumber, quantity: item.orderedQuantity};
+                    });
+                    this.setState({
+                        reorderData: [...reorderData]
+                    })
                     getItemDetails(itemsUrl, data.lineItems, this.setError, userIsocode)
                         .then((itemData) => {
                             if(itemData && itemData.documents && itemData.documents.length) {
@@ -109,11 +169,6 @@ class OrderDetails extends Component {
     componentWillUnmount() {
         this.props.resetErrorBoundaryToFalse();
         this.props.removeNotifications();
-    }
-
-    addToCartReorder = () => {
-        this.toggleModal();
-        return false;
     }
 
     renderAddress = (addressType) => {
@@ -151,7 +206,7 @@ class OrderDetails extends Component {
 
     renderReorderButton = () => {
         return (
-            <a className="cmp-button" onClick={this.addToCartReorder}>
+            <a className="cmp-button" onClick={() => this.toggleModal()}>
                 {this.props.config.reorderTitle}
             </a>
         )
@@ -217,9 +272,11 @@ class OrderDetails extends Component {
                         <div className="cmp-order-details__order-total_left">{this.props.config.orderTotal}</div>
                         <div className="cmp-order-details__order-total_right"><h1>{orderDetails.orderTotal}</h1></div>
                     </div>
-                    <div className="cmp-order-details__reorder">
-                        {this.renderReorderButton()}
-                    </div>
+                    {this.state.isCommerceApiMigrated && (
+                        <div className="cmp-order-details__reorder">
+                            {this.renderReorderButton()}
+                        </div>
+                    )}
                 </div>
             </div>
         )
@@ -242,6 +299,11 @@ class OrderDetails extends Component {
                 <div className="cmp-order-details__order-shipment-list">
                     {Object.keys(airbills).length > 0 && this.getShipmentList(airbills, orderDetails)}
                 </div>
+                {this.state.isCommerceApiMigrated && (
+                    <div className="order-shipment__reorder">
+                        {this.renderReorderButton()}
+                    </div>
+                )}
             </>
         )
     }
