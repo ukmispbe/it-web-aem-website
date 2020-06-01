@@ -15,17 +15,6 @@ class OrderDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
         super({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props});
 
-        // Update modal config button with a callback
-        const buttons = [...props.config.modalInfo.buttons];
-        buttons[0] = {
-            ...buttons[0],
-            callback: this.addToCartReorder
-        }
-        const updatedModalConfig = {
-                ...props.config.modalInfo,
-                buttons: buttons
-        }
-
         this.state = {
             orderId: this.getUrlParameter("id"),
             userLocale: GetLocale.getLocale(),
@@ -41,7 +30,7 @@ class OrderDetails extends Component {
             errorOrderNotFound: false,
             isLoading: true,
             modalShown: false,
-            modalConfig: updatedModalConfig,
+            modalConfig: props.config.modalInfo,
             isCommerceApiMigrated: false,
             addToCartUrl: '',
             viewCartUrl: '',
@@ -117,6 +106,22 @@ class OrderDetails extends Component {
                 addToCartUrl: commerceConfig.addToCartUrl,
                 viewCartUrl: commerceConfig.viewCartUrl
             });
+            if(commerceConfig.isCommerceApiMigrated.toLowerCase() === 'true') {
+                // Update modal config button with a callback and new cart url
+                const buttons = [...this.state.modalConfig.buttons];
+                buttons[0] = {
+                    ...buttons[0],
+                    action: commerceConfig.viewCartUrl,
+                    callback: this.addToCartReorder
+                }
+                const updatedModalConfig = {
+                    ...this.state.modalConfig,
+                    buttons: buttons
+                }
+                this.setState({
+                    modalConfig: updatedModalConfig
+                })
+            }
         }
 
         const { detailsUrl, itemsUrl, orderId, userIsocode } = this.state;
