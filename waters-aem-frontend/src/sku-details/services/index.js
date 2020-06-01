@@ -5,6 +5,22 @@ import loginStatus from '../../scripts/loginStatus';
 import DigitalData from '../../scripts/DigitalData';
 import { fetchData } from '../../utils/ServiceFunctions';
 
+
+const getCountryCode = () => {
+    return DigitalData.country ? DigitalData.country.toLowerCase() : '';
+}
+
+const getLanguage = () => {
+    return DigitalData.language;
+}
+
+const getUserId = () => {
+    const store = new SessionStore();
+    const userDetails = store.getUserDetails();
+    const userId = loginStatus.state() && userDetails ? userDetails.userId : 'anonymous';
+    return userId;
+}
+
 const availabilityUrlRequest = (url, countryCode, partNo) => {
     url = url
             .replace('{partnumber}', partNo)
@@ -26,21 +42,6 @@ const legacyAddToCartUrlRequest = (url, partNo, quantity) => {
     return url;
 }
 
-const getCountryCode = () => {
-    return DigitalData.country ? DigitalData.country.toLowerCase() : '';
-}
-
-const getLanguage = () => {
-    return DigitalData.language;
-}
-
-const getUserId = () => {
-    const store = new SessionStore();
-    const userDetails = store.getUserDetails();
-    const userId = loginStatus.state() && userDetails ? userDetails.userId : 'anonymous';
-    return userId;
-}
-
 const addToCartUrlRequest = (url, partNo, quantity, cartId) => {
     url = url
         .replace('{localeCountry}', getCountryCode())
@@ -51,39 +52,6 @@ const addToCartUrlRequest = (url, partNo, quantity, cartId) => {
     url = cartId ? url : url.concat('', '&createCart=true');
 
     return url;
-}
-
-export async function getAvailability(url, countryCode, partNo) {
-    const options = {
-        method: 'GET',
-        credentials: 'include'
-    }
-    const urlRequest = availabilityUrlRequest(url, countryCode, partNo);
-    const response = await fetchData(urlRequest, options);
-    const json = await response.json();
-    return json;
-}
-
-export async function getPricing(url, sku, customerNumber, isocode) {
-    // const options = {
-    //     method: 'GET',
-    //     credentials: 'include'
-    // }
-    
-    // const urlRequest = priceUrlRequest(url, sku, customerNumber, isocode);
-    // const response = await fetchData(urlRequest, options);
-    // const json = await response.json();
-
-    let tempJson = [
-        {
-            productNumber: "176001126",
-            customerNumber: "154488",
-            netPrice: "$2,318.00",
-            currencyCode: "USD"
-            }
-        ];
-
-    return tempJson[0];
 }
 
 export async function addToCart(isCommerceApiMigrated, url, partNo, quantity) {
@@ -148,4 +116,65 @@ export async function addToCart(isCommerceApiMigrated, url, partNo, quantity) {
         const json = await response.json();
         return json;
     }
+}
+
+export async function getAvailability(url, countryCode, partNo) {
+    const options = {
+        method: 'GET',
+        credentials: 'include'
+    }
+    const urlRequest = availabilityUrlRequest(url, countryCode, partNo);
+    const response = await fetchData(urlRequest, options);
+    const json = await response.json();
+    return json;
+}
+
+export async function getPricing(url, sku, customerNumber, isocode) {
+    if (Array.isArray(sku) && sku.length) {
+        console.log("sku array", sku);
+        sku = sku[0].map(skuItem => skuItem.code).join(',');
+    }
+
+    if (typeof(sku) === "object" && sku.length) {
+        console.log("sku obj", sku);
+        sku = sku.map(skuItem => skuItem.code).join(',');
+    }
+
+    
+    console.log("typeof(sku)", typeof(sku));
+
+    const options = {
+        method: 'GET',
+        credentials: 'include'
+    }
+    
+    const urlRequest = priceUrlRequest(url, sku, customerNumber, isocode);
+    const response = await fetchData(urlRequest, options);
+    const json = await response.json();
+    return json;
+    // let tempJson = [
+    //     {
+    //         productNumber: "176001126",
+    //         customerNumber: "154488",
+    //         netPrice: "$2,318.00",
+    //         currencyCode: "USD"
+    //         }
+    //     ];
+
+    // return tempJson[0];
+}
+
+
+export const matchListItems = (skuListData, pricesAPIResults, label) => {
+    skuListData.forEach(skuListItem => {
+        for (let i = 0; i < pricesAPIResults.length; i++) {
+            if(skuListItem.materialNumber === pricesAPIResults[i].productNumber) {
+                skuListItem.custPrice = pricesAPIResults[i].netPrice;
+                skuListItem.currencyCode = pricesAPIResults[i].currencyCode;
+                skuListItem.priceLabel = label;
+            } 
+        }
+    });
+    
+    return skuListData;
 }

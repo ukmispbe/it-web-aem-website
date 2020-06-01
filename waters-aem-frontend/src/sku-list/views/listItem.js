@@ -6,7 +6,6 @@ import { getAvailability, getPricing } from '../../sku-details/services';
 import AddToCart from '../../sku-details/views/addToCart';
 import AddToCartBody from '../../sku-details/views/addToCartModal';
 import Modal, { Header, keys } from '../../utils/modal';
-import GetIsocode from "../../utils/get-isocode";
 import LoginStatus from '../../scripts/loginStatus';
 import SkuMessage from '../../sku-message';
 import CheckOutStatus from '../../scripts/checkOutStatus';
@@ -27,12 +26,9 @@ class ListItem extends React.Component {
                 partNumberLabel: this.props.skuConfig.skuInfo.partNumberLabel
             },
             listPrice: this.props.relatedSku.formattedPrice,
-            custPrice: '',
+            custPrice: this.props.custPrice,
             skuInfo: this.props.skuConfig.skuInfo,
-            customerNumber: '154488',
             userCountry: this.props.skuConfig.countryCode,
-            userLocale: this.props.skuConfig.locale,
-            userIsocode: GetIsocode.getIsocode(),
             availabilityUrl: this.props.skuConfig.availabilityUrl,
             pricingUrl: this.props.skuConfig.pricingUrl,
             addToCartUrl: this.props.skuConfig.addToCartUrl,
@@ -92,27 +88,6 @@ class ListItem extends React.Component {
         });
     };
 
-    checkPricing = skuNumber => {
-        getPricing(this.state.pricingUrl, skuNumber, this.state.customerNumber, this.state.userIsocode)
-        .then(response => {
-            
-        console.log("custPrice response", response);
-        console.log("custPrice response.netPrice", response.netPrice);
-            this.setState({
-                custPrice: response.netPrice,
-                analyticsConfig: {
-                    ...this.state.analyticsConfig,
-                    custPrice: response.netPrice
-                }
-            }, () => {
-                    //this.checkAvailabilityAnalytics();
-            });
-        })
-        .catch(err => {
-            // Add Error Object to State
-            this.setState({ errorObjPrice: err });
-        });
-    };
 
     checkAvailabilityAnalytics = () => {
         const availabilityModel = {
@@ -140,10 +115,6 @@ class ListItem extends React.Component {
             this.props.onItemClick();
         }
     };
-
-    renderListPrice = (custPrice) => {
-
-    }
 
     renderBuyInfoPartial = () => {
         const { custPrice, listPrice, skuInfo, errorObjAvailability, skuAvailability } = this.state;
@@ -293,10 +264,6 @@ class ListItem extends React.Component {
             return Ecommerce.isDisabledState();
         }
     };
-
-    componentDidMount() {
-        this.checkPricing(this.props.relatedSku.code);
-    }
 
     render() {
         const { relatedSku, skuConfig } = this.props;

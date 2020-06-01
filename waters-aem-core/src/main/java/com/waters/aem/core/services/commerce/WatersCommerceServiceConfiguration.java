@@ -10,7 +10,7 @@ public @interface WatersCommerceServiceConfiguration {
     String skuAvailabilityUrl() default "https://test-www.waters.com:8443/api/waters/product/v1/availability/{partnumber}/{countryCode}";
 
     @AttributeDefinition(name = "Customer Price Endpoint", description = "URL for the Sku Customer Price endpoint")
-    String skuCustomerPriceUrl() default "https://internal-api-dev.waters.com/dev-waters-products-sap-sys-api-v1/api/products/prices";
+    String skuCustomerPriceUrl() default "https://api-sbox.waters.com/uat-waters-product-exp-api-v1/api/products/prices";
 
     @AttributeDefinition(name = "Add to Cart Endpoint", description = "URL for the Add to Cart endpoint")
     String addToCartUrl() default "https://test-www.waters.com:8443/api/waters/product/v1/addtocart/{partnumber}/{quantity}";
