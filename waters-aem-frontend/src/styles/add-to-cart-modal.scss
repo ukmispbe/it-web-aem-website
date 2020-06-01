@@ -14,7 +14,7 @@
         }
 
         &-text {
-            @include font-h3;
+            @include font-body;
             color: $color-black;
         }
 
@@ -35,7 +35,6 @@
             float: none;
             outline: none;
             margin-bottom: $space-s;
-            border-radius: 0;
         }
 
         .cmp-atc-modal__btn-alt {
@@ -70,5 +69,15 @@
                 }
             }
         }
+
+            .cmp-modal__title-text {
+                @include font-h4;
+                display: inline-block;
+                margin-bottom: 0;
+                @include mobile {
+                    @include font-body;
+                    @include font-utility;
+                }
+            }
     }
 }
