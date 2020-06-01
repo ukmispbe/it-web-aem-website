@@ -34,6 +34,7 @@ class OrderDetails extends Component {
             isCommerceApiMigrated: false,
             addToCartUrl: '',
             viewCartUrl: '',
+            errorServiceCart: false,
             errorObjCart: {}
         }
     }
@@ -84,15 +85,12 @@ class OrderDetails extends Component {
         const { isCommerceApiMigrated, addToCartUrl, reorderData } = this.state;
         addToCart(isCommerceApiMigrated, addToCartUrl, reorderData, null, this.setError)
         .then(response => {
-            console.log('redirect', this.state.viewCartUrl);
             window.location.href = this.state.viewCartUrl;
             //this.addToCartAnalytics(response);
         })
         .catch(err => {
-            console.log('error');
-            this.toggleModal(true);
-            this.setState({ errorObj: err });
-            //this.setError();
+            this.toggleModal();
+            this.setState({ errorServiceError: false });
         });
     }
 
