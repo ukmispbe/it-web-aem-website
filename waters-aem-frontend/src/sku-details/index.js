@@ -189,7 +189,7 @@ class SkuDetails extends React.Component {
                 return (
                     <div className="cmp-sku-details__priceinfo">
                         <Price
-                            label={skuInfo.listPriceLabel}
+                            label={skuInfo.custPriceLabel}
                             price={listPrice}
                         />
                     </div>
