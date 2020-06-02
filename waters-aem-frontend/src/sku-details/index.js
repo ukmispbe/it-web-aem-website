@@ -1,6 +1,5 @@
 // entry point for SKU. Move this up to global entry point if we want babel to polyfill everything we need at build time
 import React from "react";
-import ReactSVG from "react-svg";
 import PropTypes from "prop-types";
 import Stock from "./views/stock";
 import Price from "./views/price";
@@ -12,7 +11,7 @@ import CheckOutStatus from "../scripts/checkOutStatus";
 import SkuMessage from "../sku-message";
 import Ecommerce from "../scripts/ecommerce";
 import { mainCartContext } from "../analytics";
-import { getAvailability } from "./services/index";
+import { getAvailability, getPricing, matchListItems } from "./services/index";
 import SignIn from '../scripts/signIn';
 
 class SkuDetails extends React.Component {
@@ -26,16 +25,17 @@ class SkuDetails extends React.Component {
                 text: this.props.titleText,
                 partNumberLabel: this.props.config.skuInfo.partNumberLabel
             },
-            skuConfig: this.props.config.skuInfo,
+            code: this.props.skuNumber,
+            skuInfo: this.props.config.skuInfo,
             skuNumber: this.props.skuNumber,
             userCountry: this.props.config.countryCode,
-            availabilityAPI: this.props.config.availabilityUrl,
-            priceAPI: this.props.config.pricingUrl,
-            addToCartAPI: this.props.config.addToCartUrl,
+            userLocale: this.props.config.locale,
+            availabilityUrl: this.props.config.availabilityUrl,
+            pricingUrl: this.props.config.pricingUrl,
+            addToCartUrl: this.props.config.addToCartUrl,
             skuAvailability: {},
             addToCartQty: undefined,
-            defaultPrice: this.props.price,
-            locale: this.props.config.locale,
+            listPrice: this.props.price,
             analyticsConfig: {
                 context: mainCartContext,
                 name: this.props.titleText,
@@ -44,15 +44,43 @@ class SkuDetails extends React.Component {
             },
             errorObjCart: {},
             errorObjAvailability: {},
+            errorObjPrice: {},
             discontinued: this.props.discontinued == "true",
-            signInUrl: this.props.baseSignInUrl
+            signInUrl: this.props.baseSignInUrl,
+            skuData: [{
+                code: this.props.skuNumber
+            }]
         };
 
         this.toggleModal = this.toggleModal.bind(this);
     }
 
     componentDidMount() {
-        getAvailability(this.state.availabilityAPI, this.state.userCountry, this.state.skuNumber)
+        if (LoginStatus.state()) {
+            getPricing(this.state.pricingUrl, this.state.skuData)
+            .then(response => {
+                let match = matchListItems(this.state.skuData, response);
+                this.setState({
+                    skuData: match,
+                    custPrice: match[0].custPrice
+                }, () => {
+                    //this.checkAvailabilityAnalytics();
+                });
+            })
+            .catch(err => {
+                // Add Error Object to State
+                this.setState({ errorObjPrice: err });
+            });
+        } else {
+            this.setState({
+                skuData: [{
+                    code: this.props.skuNumber,
+                    custPrice: undefined
+                }]
+            })
+        }
+
+        getAvailability(this.state.availabilityUrl, this.state.userCountry, this.state.skuNumber)
         .then(response => {
             this.setState({
                 skuAvailability: response,
@@ -87,7 +115,7 @@ class SkuDetails extends React.Component {
     renderCountryRestricted = () => {
         return (
             <SkuMessage
-                icon={this.state.skuConfig.lowStockIcon}
+                icon={this.state.skuInfo.lowStockIcon}
                 message={this.props.countryRestricted}
             />
         )
@@ -144,32 +172,73 @@ class SkuDetails extends React.Component {
         );
     }
 
+    renderPricing = () => {
+        const { custPrice, listPrice, skuInfo } = this.state;
+
+        if (LoginStatus.state()){
+            if (typeof custPrice !== 'undefined') {
+                return (
+                    <div className="cmp-sku-details__priceinfo">
+                        <Price
+                            label={skuInfo.custPriceLabel}
+                            price={custPrice}
+                        />
+                    </div>
+                )
+            } else if (typeof custPrice === 'undefined') {
+                return (
+                    <div className="cmp-sku-details__priceinfo">
+                        <Price
+                            label={skuInfo.listPriceLabel}
+                            price={listPrice}
+                        />
+                    </div>
+                )
+            }
+        } else {
+            if (typeof listPrice !== 'undefined') {
+                return (
+                    <div className="cmp-sku-details__priceinfo">
+                        <Price
+                            label={skuInfo.listPriceLabel}
+                            price={listPrice}
+                        />
+                    </div>
+                )
+            }
+        }
+    }
+
     renderBuyInfo = () => {
+        const { custPrice, listPrice, skuInfo, skuNumber, errorObjAvailability, skuAvailability } = this.state;
+        const { config } = this.props;
+
         return (
             <div className="cmp-sku-details__buyinfo">
-                <div className="cmp-sku-details__priceinfo">
-                    <Price
-                        skuConfig={this.state.skuConfig}
-                        price={this.state.defaultPrice}
-                    />
-                </div>
+                {LoginStatus.state() && typeof custPrice !== 'undefined'
+                    && custPrice !== listPrice && (
+                        <div className="cmp-sku-details__list-price">
+                            {`${skuInfo.listPriceLabel} ${listPrice}`}
+                        </div>
+                )}
+                {this.renderPricing()}
+
                 <div className="cmp-sku-details__availability">
                     <Stock
-                        skuConfig={this.state.skuConfig}
-                        skuNumber={this.state.skuNumber}
-                        skuAvailability={this.state.skuAvailability}
-                        locale={this.state.locale}
+                        skuInfo={skuInfo}
+                        skuNumber={skuNumber}
+                        skuAvailability={skuAvailability}
                         skuType="details"
-                        errorObj={this.state.errorObjAvailability}
+                        errorObj={errorObjAvailability}
                     />
                 </div>
                 <div className="cmp-sku-details__buttons">
                     <AddToCart
                         toggleParentModal={this.toggleModal}
-                        skuNumber={this.state.skuNumber}
-                        addToCartLabel={this.props.config.addToCartLabel}
-                        addToCartUrl={this.props.config.addToCartUrl}
-                        isCommerceApiMigrated={this.props.config.isCommerceApiMigrated}
+                        skuNumber={skuNumber}
+                        addToCartLabel={config.addToCartLabel}
+                        addToCartUrl={config.addToCartUrl}
+                        isCommerceApiMigrated={config.isCommerceApiMigrated}
                         toggleErrorModal={this.toggleErrorModal}
                         analyticsConfig={this.state.analyticsConfig}
                     ></AddToCart>
@@ -202,10 +271,10 @@ class SkuDetails extends React.Component {
                 return <>
                         {!LoginStatus.state() && (<SignIn
                                 signInUrl={this.props.config.baseSignInUrl}
-                                signInIcon={this.state.skuConfig.signinIcon}
-                                signInText1={this.state.skuConfig.signInText1}
-                                signInText2={this.state.skuConfig.signInText2}
-                                signInText3={this.state.skuConfig.signInText3}
+                                signInIcon={this.state.skuInfo.signinIcon}
+                                signInText1={this.state.skuInfo.signInText1}
+                                signInText2={this.state.skuInfo.signInText2}
+                                signInText3={this.state.skuInfo.signInText3}
                             />)}
                         {this.renderBuyInfo()}
                     </>;
@@ -216,7 +285,7 @@ class SkuDetails extends React.Component {
     };
 
     render() {
-        if(!this.state.defaultPrice){
+        if(!this.state.listPrice){
             return this.renderCountryRestricted();
         } else if (this.state.discontinued) {
             return this.renderDiscontinued();
@@ -227,7 +296,25 @@ class SkuDetails extends React.Component {
 }
 
 SkuDetails.propTypes = {
-    config: PropTypes.object.isRequired
+    config: PropTypes.object.isRequired,
+    price: PropTypes.string.isRequired,
+    countryRestricted: PropTypes.bool,
+    skuNumber: PropTypes.string.isRequired,
+    titleText: PropTypes.string.isRequired,
+    discontinued: PropTypes.bool,
+    replacementSkuCode: PropTypes.string,
+    replacementSkuHref: PropTypes.string
 };
+
+SkuDetails.defaultProps = {
+    config: {},
+    price: '',
+    countryRestricted: false,
+    skuNumber: '',
+    titleText: '',
+    discontinued: false,
+    replacementSkuCode: '',
+    replacementSkuHref: ''
+}
 
 export default SkuDetails;

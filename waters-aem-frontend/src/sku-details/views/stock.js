@@ -16,7 +16,7 @@ class Stock extends React.Component {
                             .serviceUnavailable
                     }
                     <ReactSVG
-                        src={this.props.skuConfig.lowStockIcon}
+                        src={this.props.skuInfo.lowStockIcon}
                         className={`cmp-sku-${this.props.skuType}__stockdetails--outofstock`}
                     />
                 </span>
@@ -34,14 +34,14 @@ class Stock extends React.Component {
         return (
             <span>
                 <span className={`cmp-sku-${this.props.skuType}__stockdetails`}>
-                    {this.props.skuConfig.inStockLabel}
+                    {this.props.skuInfo.inStockLabel}
                     <ReactSVG
-                        src={this.props.skuConfig.inStockIcon}
+                        src={this.props.skuInfo.inStockIcon}
                         className={`cmp-sku-${this.props.skuType}__stockdetails--instock`}
                     />
                 </span>
                 <div className={`cmp-sku-${this.props.skuType}__order`}>
-                    {this.props.skuConfig.orderNowLabel}
+                    {this.props.skuInfo.orderNowLabel}
                 </div>
             </span>
         );
@@ -50,13 +50,13 @@ class Stock extends React.Component {
     renderContactWaters() {
         return (
             <span>
-              <span className={`cmp-sku-${this.props.skuType}__stockdetails`}>
-                 {this.props.skuConfig.contactWatersLabel}
-              </span>
-              <div className={`cmp-sku-${this.props.skuType}__order`}>
-                {this.props.skuConfig.contactWatersInfoLabel}
-              </div>
-           </span>
+                <span className={`cmp-sku-${this.props.skuType}__stockdetails`}>
+                    {this.props.skuInfo.contactWatersLabel}
+                </span>
+                <div className={`cmp-sku-${this.props.skuType}__order`}>
+                    {this.props.skuInfo.contactWatersInfoLabel}
+                </div>
+            </span>
         );
     }
 
