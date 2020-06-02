@@ -132,7 +132,7 @@ class ListItem extends React.Component {
                 return (
                     <div className="cmp-sku-list__priceinfo">
                         <Price
-                            label={skuInfo.listPriceLabel}
+                            label={skuInfo.custPriceLabel}
                             price={listPrice}
                         />
                     </div>
