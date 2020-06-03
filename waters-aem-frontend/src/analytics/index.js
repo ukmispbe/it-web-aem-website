@@ -18,7 +18,7 @@ class Analytics {
             if(model.formName !== 'chooseAccount') {
                 thisAnalyticEvent = this.analyticTypes[eventType][model.formName][model.event];
             }
-        } else if (eventType === 'orderHistory') {
+        } else if (eventType === 'orderHistory' || eventType === 'orderDetails') {
             thisAnalyticEvent = this.analyticTypes[eventType][model.event];
         } else {
             thisAnalyticEvent = this.analyticTypes[eventType];
@@ -133,8 +133,8 @@ class Analytics {
 
     dispatchEvent = (eventName, obj) => {
     // Uncomment next two lines to test analytics
-//        console.log(obj);
-//        alert(eventName);
+        console.log(obj);
+        alert(eventName);
         document.dispatchEvent(new CustomEvent(eventName, obj));
     }
 
