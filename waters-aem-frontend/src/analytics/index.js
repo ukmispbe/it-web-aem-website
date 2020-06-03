@@ -68,7 +68,7 @@ class Analytics {
                 returnModel = this.mapFormModel(model);
                 break;
             default:
-                returnModel = this.getUserData(model);
+                returnModel = model;
                 break;
         }
 
