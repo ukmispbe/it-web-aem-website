@@ -133,8 +133,8 @@ class Analytics {
     dispatchEvent = (eventName, model) => {
         model = this.getUserData(model);
     // Uncomment next two lines to test analytics
-       console.log(eventName, model);
-       alert(eventName);
+//       console.log(eventName, model);
+//       alert(eventName);
         document.dispatchEvent(new CustomEvent(eventName, model));
     }
 
