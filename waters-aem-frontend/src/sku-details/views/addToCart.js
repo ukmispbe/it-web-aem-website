@@ -2,6 +2,8 @@ import React from 'react';
 import { addToCart } from '../services/index';
 import SkuList from '../../scripts/skulist';
 import Analytics, { analyticTypes } from '../../analytics';
+import LocalStore from '../../stores/localStore';
+import loginStatus from '../../scripts/loginStatus';
 
 class AddToCart extends React.Component {
     constructor(props) {
@@ -69,17 +71,20 @@ class AddToCart extends React.Component {
 
     addToCartAnalytics = (response) => { 
 
+        const localStore = new LocalStore();
+        const cartId = loginStatus.state() ? localStore.getCartId() : localStore.getGUID();
+
         const addToCartModel = {
             addContext: this.props.analyticsConfig.context,
             name: this.props.analyticsConfig.name,
             price: this.props.analyticsConfig.price,
             quantity: this.state.addToCartQty.toString(),
             sku: this.state.skuNumber,
-            
+            cartId
         };
 
-        if (typeof response == 'boolean') { 
-            addToCartModel.success = response.toString()
+        if (typeof response == 'boolean' || response.statusCode === 'success') {
+            addToCartModel.success = response.toString();
         }
 
         if (this.props.analyticsConfig.hasOwnProperty('availableDate')) {

@@ -90,7 +90,6 @@ class Analytics {
     }
 
     mapFormModel = model => {
-        model = this.getUserData(model);
         model.event = this.analyticTypes['form'][model.formName][model.event]['event'];
         model.formName = this.analyticTypes['form'][model.formName]['name'];
         return model;
@@ -131,11 +130,12 @@ class Analytics {
         }
     }
 
-    dispatchEvent = (eventName, obj) => {
+    dispatchEvent = (eventName, model) => {
+        model = this.getUserData(model);
     // Uncomment next two lines to test analytics
-//        console.log(obj);
+//        console.log(model);
 //        alert(eventName);
-        document.dispatchEvent(new CustomEvent(eventName, obj));
+        document.dispatchEvent(new CustomEvent(eventName, model));
     }
 
     siteLoad = () => {
