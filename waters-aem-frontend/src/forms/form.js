@@ -15,7 +15,7 @@ import { retrieveData } from '../forms/services/retrieve';
 import Analytics, { analyticTypes } from "../analytics";
 import SessionStore from '../stores/sessionStore';
 import loginStatus from '../scripts/loginStatus';
-import { notLoggedInRedirect, homePageRedirect } from '../utils/redirectFunctions';
+import { homePageRedirect } from '../utils/redirectFunctions';
 import Spinner from "../utils/spinner";
 
 const FormApi = createContext(null);
