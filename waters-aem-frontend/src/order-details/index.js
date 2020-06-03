@@ -60,7 +60,7 @@ class OrderDetails extends Component {
     };
 
     setError = (response) => {
-        this.setAnalytics('error', {response});
+        this.setAnalytics('error', {error: {...response}});
         if (response.status === 400 && response.code === 704) {
             this.setState({orderNotFoundError: true});
         } else {
