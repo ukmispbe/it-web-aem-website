@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactSVG from 'react-svg';
+import { setClickAnalytics } from '../../analytics';
+
 class DeliveryStatus extends Component {
     constructor(props) {
         super(props);
@@ -20,6 +22,7 @@ class DeliveryStatus extends Component {
                 <div>
                     <a className="tracking-link"
                         href={shipped.carrierUrl} target="_blank" title={labels.trackShipmentText}
+                        onClick={() => setClickAnalytics("Order Details", "Track Shipment", shipped.carrierUrl)}
                     >
                         {labels.trackShipmentText}
                         <ReactSVG 
