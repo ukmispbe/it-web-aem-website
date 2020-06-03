@@ -1,8 +1,8 @@
 const eventTypes = {
     cart: {
         name: 'cart',
-        event: 'cartAdd',
-        context: ['main', 'search', 'related']
+        event: 'scAddAEM',
+        context: ['Part Detail Page', 'Search: Global', 'Product Recommendation']
     },
     stock: {
         name: 'stock',
