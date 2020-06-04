@@ -115,6 +115,15 @@ const eventTypes = {
         error: {
             event: 'orderHistoryError'
         }
+    },
+    orderDetails: {
+        name: 'orderDetails',
+        load: {
+            event: 'orderDetailsPageLoad'
+        },
+        error: {
+            event: 'orderDetailsPageError'
+        }
     }
 }
 

@@ -18,7 +18,7 @@ class Analytics {
             if(model.formName !== 'chooseAccount') {
                 thisAnalyticEvent = this.analyticTypes[eventType][model.formName][model.event];
             }
-        } else if (eventType === 'orderHistory') {
+        } else if (eventType === 'orderHistory' || eventType === 'orderDetails') {
             thisAnalyticEvent = this.analyticTypes[eventType][model.event];
         } else {
             thisAnalyticEvent = this.analyticTypes[eventType];
@@ -68,7 +68,7 @@ class Analytics {
                 returnModel = this.mapFormModel(model);
                 break;
             default:
-                returnModel = this.getUserData(model);
+                returnModel = model;
                 break;
         }
 
@@ -133,8 +133,8 @@ class Analytics {
     dispatchEvent = (eventName, model) => {
         model = this.getUserData(model);
     // Uncomment next two lines to test analytics
-//        console.log(model);
-//        alert(eventName);
+//       console.log(eventName, model);
+//       alert(eventName);
         document.dispatchEvent(new CustomEvent(eventName, model));
     }
 

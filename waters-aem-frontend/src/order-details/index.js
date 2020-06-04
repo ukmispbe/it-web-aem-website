@@ -10,7 +10,9 @@ import GroupBy from '../utils/group-by'
 import ErrorBoundary from '../search/ErrorBoundary';
 import Modal, { Header, keys } from '../utils/modal';
 import AddToCartBody from '../sku-details/views/addToCartModal';
-import { addToCart } from '../sku-details/services'
+import { addToCart } from '../sku-details/services';
+import Analytics, { analyticTypes, setClickAnalytics, setSelectDropdownAnalytics } from '../analytics';
+
 class OrderDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
         super({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props});
@@ -38,6 +40,14 @@ class OrderDetails extends Component {
         }
     }
 
+    setAnalytics = (event, detail={}) => {
+        const model = {
+            detail,
+            event
+        };
+        Analytics.setAnalytics(analyticTypes['orderDetails'].name, model);
+    }
+
     toggleModal = () => {
         this.setState({ modalShown: !this.state.modalShown });
     };
@@ -50,6 +60,7 @@ class OrderDetails extends Component {
     };
 
     setError = (response) => {
+        this.setAnalytics('error', {error: {...response}});
         if (response.status === 400 && response.code === 704) {
             this.setState({orderNotFoundError: true});
         } else {
@@ -155,6 +166,7 @@ class OrderDetails extends Component {
                                     airbills: GroupBy.groupBy(data.lineItems, 'airbill')
                                 });
                             }
+                            this.setAnalytics('load');
                         })
 
                 } else {
