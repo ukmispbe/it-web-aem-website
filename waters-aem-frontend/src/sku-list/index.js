@@ -1,7 +1,6 @@
 // entry point for SKU. Move this up to global entry point if we want babel to polyfill everything we need at build time
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getPricing, matchListItems } from '../sku-details/services';
 import ListItem from './views/listItem';
 import LoginStatus from '../scripts/loginStatus';
 import SignIn from '../scripts/signIn';
@@ -15,32 +14,8 @@ class SkuList extends React.Component {
             skuAvailability: {},
             addToCartQty: undefined,
             skuInfo: this.props.skuConfig.skuInfo,
-            userCountry: this.props.skuConfig.countryCode,
-            pricingUrl: this.props.skuConfig.pricingUrl,
-            skuData: []
+            userCountry: this.props.skuConfig.countryCode
         };
-    }
-
-    componentDidMount() {
-        if (LoginStatus.state()) {
-            getPricing(this.state.pricingUrl, this.props.data)
-            .then(response => {
-                let match = matchListItems(this.props.data, response);
-                this.setState({
-                    skuData: match
-                }, () => {
-                    //this.checkAvailabilityAnalytics();
-                });
-            })
-            .catch(err => {
-                // Add Error Object to State
-                this.setState({ errorObjPrice: err });
-            });
-        } else {
-            this.setState({
-                skuData: this.props.data
-            })
-        }
     }
 
     renderSignIn() {
@@ -67,7 +42,7 @@ class SkuList extends React.Component {
         const signIn = this.renderSignIn();
         return (
             <>
-                {this.state.skuData.length > 0 && ( //only return template if data exists
+                {this.props.data.length > 0 && ( //only return template if data exists
                     <>
                         {this.props.title && (
                             <div className="cmp-sku-list__title">
@@ -75,7 +50,7 @@ class SkuList extends React.Component {
                             </div>
                         )}
                         {signIn}
-                        {this.state.skuData.map((record, index) => (
+                        {this.props.data.map((record, index) => (
                             <ListItem
                                 key={index}
                                 relatedSku={record}

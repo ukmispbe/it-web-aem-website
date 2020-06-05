@@ -35,6 +35,7 @@ class SkuDetails extends React.Component {
             addToCartUrl: this.props.config.addToCartUrl,
             skuAvailability: {},
             addToCartQty: undefined,
+            custPrice: undefined,
             listPrice: this.props.price,
             analyticsConfig: {
                 context: mainCartContext,
@@ -46,10 +47,7 @@ class SkuDetails extends React.Component {
             errorObjAvailability: {},
             errorObjPrice: {},
             discontinued: this.props.discontinued == "true",
-            signInUrl: this.props.baseSignInUrl,
-            skuData: [{
-                code: this.props.skuNumber
-            }]
+            signInUrl: this.props.baseSignInUrl
         };
 
         this.toggleModal = this.toggleModal.bind(this);
@@ -57,27 +55,26 @@ class SkuDetails extends React.Component {
 
     componentDidMount() {
         if (LoginStatus.state()) {
-            getPricing(this.state.pricingUrl, this.state.skuData)
+            getPricing(this.state.pricingUrl, this.props.skuNumber)
             .then(response => {
-                let match = matchListItems(this.state.skuData, response);
+            if (response.status && response.status === 200) {
+                let match = matchListItems(this.props.skuNumber, response);
                 this.setState({
                     skuData: match,
-                    custPrice: match[0].custPrice
+                    custPrice: match.custPrice,
+                    listPrice: match.listPrice
                 }, () => {
-                    //this.checkAvailabilityAnalytics();
+                    //this.checkPricingAnalytics();
                 });
+            } else {
+                // Add Error Object to State
+                this.setState({ errorObjPrice: response.errors });
+            }
             })
             .catch(err => {
                 // Add Error Object to State
                 this.setState({ errorObjPrice: err });
             });
-        } else {
-            this.setState({
-                skuData: [{
-                    code: this.props.skuNumber,
-                    custPrice: undefined
-                }]
-            })
         }
 
         getAvailability(this.state.availabilityUrl, this.state.userCountry, this.state.skuNumber)

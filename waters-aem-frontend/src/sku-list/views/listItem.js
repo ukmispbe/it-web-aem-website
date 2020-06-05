@@ -2,7 +2,7 @@ import React from 'react';
 import ReactSVG from 'react-svg';
 import Stock from '../../sku-details/views/stock';
 import Price from '../../sku-details/views/price';
-import { getAvailability, getPricing } from '../../sku-details/services';
+import { getAvailability, getPricing, matchListItems } from '../../sku-details/services';
 import AddToCart from '../../sku-details/views/addToCart';
 import AddToCartBody from '../../sku-details/views/addToCartModal';
 import Modal, { Header, keys } from '../../utils/modal';
@@ -26,13 +26,14 @@ class ListItem extends React.Component {
                 partNumberLabel: this.props.skuConfig.skuInfo.partNumberLabel
             },
             listPrice: this.props.relatedSku.formattedPrice,
-            custPrice: this.props.relatedSku.custPrice,
+            custPrice: undefined,
             skuInfo: this.props.skuConfig.skuInfo,
             userCountry: this.props.skuConfig.countryCode,
             availabilityUrl: this.props.skuConfig.availabilityUrl,
             pricingUrl: this.props.skuConfig.pricingUrl,
             addToCartUrl: this.props.skuConfig.addToCartUrl,
             skuAvailability: {},
+            skuData: this.props.relatedSku,
             analyticsConfig: {
                 context: SkuDetails.exists() ? relatedCartContext : searchCartContext,
                 name: this.props.relatedSku.title,
@@ -44,6 +45,31 @@ class ListItem extends React.Component {
             errorObjAvailability: {},
             errorObjPrice: {},
         };
+    }
+
+    componentDidMount() {
+        if (LoginStatus.state()) {
+            getPricing(this.state.pricingUrl, this.props.relatedSku.code)
+            .then(response => {
+                if (response.status && response.status === 200) {
+                    let match = matchListItems(this.state.skuData.code, response);
+                    this.setState({
+                        skuData: match,
+                        custPrice: match.custPrice,
+                        listPrice: match.listPrice
+                    }, () => {
+                        //this.checkAvailabilityAnalytics();
+                    });
+                } else {
+                    // Add Errors Object to State
+                    this.setState({ errorObjPrice: response.errors });
+                }
+            })
+            .catch(err => {
+                // Add Error Object to State
+                this.setState({ errorObjPrice: err });
+            });
+        }
     }
 
     toggleErrorModal = (err) => {
