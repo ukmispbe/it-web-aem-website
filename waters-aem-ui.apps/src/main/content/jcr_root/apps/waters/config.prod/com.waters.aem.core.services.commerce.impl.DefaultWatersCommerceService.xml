@@ -3,6 +3,6 @@
         xmlns:jcr="http://www.jcp.org/jcr/1.0"
         jcr:primaryType="sling:OsgiConfig"
         skuAvailabilityUrl="https://prodservices.waters.com/api/waters/product/v1/availability/{partnumber}/{countryCode}"
-        skuCustomerPriceUrl="https://prodservices.waters.com/api/waters/product/v1/customerprice"
+        skuCustomerPriceUrl="https://api.waters.com/waters-product-exp-api-v1/api/products/prices"
         addToCartUrl="https://prodservices.waters.com/api/waters/product/v1/addtocart/{partnumber}/{quantity}"
         viewCartUrl="https://www.waters.com/waters/shoppingCart.htm"/>
