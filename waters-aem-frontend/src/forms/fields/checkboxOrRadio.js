@@ -127,11 +127,15 @@ const CheckboxOrRadio = ({}) => {
             <>
                 <input
                     type={type}
+                    role={type}
                     name={thisName}
                     id={thisName}
                     aria-labelledby={thisName}
                     disabled={disabled}
+                    aria-disabled={disabled ? true : false}
                     checked={thisState.isChecked}
+                    aria-checked={thisState.isChecked}
+                    aria-required={thisState.required}
                     className={hasError(thisName) ? 'error' : 'valid'}
                     ref={register(thisState.required ? { required: true } : {})}
                     readOnly

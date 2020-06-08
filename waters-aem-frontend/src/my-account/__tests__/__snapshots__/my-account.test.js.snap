@@ -58,6 +58,7 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
             <a
               className="cmp-linktile--link"
               href="#profile"
+              onClick={[Function]}
             >
               Profile
             </a>
@@ -68,6 +69,7 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
             <a
               className="cmp-linktile--link"
               href="#changepassword"
+              onClick={[Function]}
             >
               Password
             </a>
@@ -98,6 +100,7 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
             <a
               className="cmp-linktile--link"
               href="#orderhistory"
+              onClick={[Function]}
             >
               Order History
             </a>
@@ -128,6 +131,7 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
             <a
               className="cmp-linktile--link"
               href="https://www.waters.com/waters/nav.htm?cid=10006027"
+              onClick={[Function]}
             >
               Request Technical Support
             </a>
@@ -138,6 +142,7 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
             <a
               className="cmp-linktile--link"
               href="https://www.waters.com/waters/nav.htm?cid=134614448"
+              onClick={[Function]}
             >
               Waters Knowledgebase
             </a>
@@ -148,6 +153,7 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
             <a
               className="cmp-linktile--link"
               href="https://www.waters.com/waters/nav.htm?cid=513247"
+              onClick={[Function]}
             >
               Training Courses
             </a>
@@ -158,6 +164,7 @@ exports[`Feature: My Account Component Scenario: Rendering When ecommerce is not
             <a
               className="cmp-linktile--link"
               href="https://www.waters.com/waters/localeRedirect.htm?type=contact_us"
+              onClick={[Function]}
             >
               Contact Waters
             </a>
@@ -227,6 +234,7 @@ exports[`Feature: My Account Component Scenario: Rendering when ecommerce is dis
             <a
               className="cmp-linktile--link"
               href="#profile"
+              onClick={[Function]}
             >
               Profile
             </a>
@@ -237,6 +245,7 @@ exports[`Feature: My Account Component Scenario: Rendering when ecommerce is dis
             <a
               className="cmp-linktile--link"
               href="#changepassword"
+              onClick={[Function]}
             >
               Password
             </a>
@@ -267,6 +276,7 @@ exports[`Feature: My Account Component Scenario: Rendering when ecommerce is dis
             <a
               className="cmp-linktile--link"
               href="https://www.waters.com/waters/nav.htm?cid=10006027"
+              onClick={[Function]}
             >
               Request Technical Support
             </a>
@@ -277,6 +287,7 @@ exports[`Feature: My Account Component Scenario: Rendering when ecommerce is dis
             <a
               className="cmp-linktile--link"
               href="https://www.waters.com/waters/nav.htm?cid=134614448"
+              onClick={[Function]}
             >
               Waters Knowledgebase
             </a>
@@ -287,6 +298,7 @@ exports[`Feature: My Account Component Scenario: Rendering when ecommerce is dis
             <a
               className="cmp-linktile--link"
               href="https://www.waters.com/waters/nav.htm?cid=513247"
+              onClick={[Function]}
             >
               Training Courses
             </a>
@@ -297,6 +309,7 @@ exports[`Feature: My Account Component Scenario: Rendering when ecommerce is dis
             <a
               className="cmp-linktile--link"
               href="https://www.waters.com/waters/localeRedirect.htm?type=contact_us"
+              onClick={[Function]}
             >
               Contact Waters
             </a>

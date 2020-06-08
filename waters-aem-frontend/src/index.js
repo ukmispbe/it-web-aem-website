@@ -206,7 +206,7 @@ if (skuDetailsContainer) {
     if (skuDetailsConfig) {
         let accountModalConfig = {};
         if (header) {
-             accountModalConfig = JSON.parse(document.getElementById('account-modal-configs-json').innerHTML);
+            accountModalConfig = JSON.parse(document.getElementById('account-modal-configs-json').innerHTML);
         }
         skuDetailsConfig.baseSignInUrl = accountModalConfig.signIn.url;
     }
@@ -215,7 +215,7 @@ if (skuDetailsContainer) {
     if (skuDetailsConfig) {
         let accountModalConfig = {};
         if (header) {
-             accountModalConfig = JSON.parse(document.getElementById('account-modal-configs-json').innerHTML);
+            accountModalConfig = JSON.parse(document.getElementById('account-modal-configs-json').innerHTML);
         }
         skuDetailsConfig.baseSignInUrl = accountModalConfig.signIn.url;
     }

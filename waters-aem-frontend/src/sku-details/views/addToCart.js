@@ -1,8 +1,9 @@
 import React from 'react';
-import SkuService from '../services/index';
+import { addToCart } from '../services/index';
 import SkuList from '../../scripts/skulist';
 import Analytics, { analyticTypes } from '../../analytics';
-
+import LocalStore from '../../stores/localStore';
+import loginStatus from '../../scripts/loginStatus';
 
 class AddToCart extends React.Component {
     constructor(props) {
@@ -12,24 +13,11 @@ class AddToCart extends React.Component {
             addToCartLabel: this.props.addToCartLabel,
             addToCartQty: null,
             addToCartUrl: this.props.addToCartUrl,
+            isCommerceApiMigrated: this.props.isCommerceApiMigrated,
             toggleErrorModal: this.props.toggleErrorModal,
             toggleParentModal: this.props.toggleParentModal,
             errorObj: this.props.errorObj
         };
-        this.request = new SkuService(
-            '',
-            {},
-            {
-                addToCart: this.state.addToCartUrl,
-                getCart: ''
-            },
-            err => {
-                console.log(err);
-            });
-
-        this.quantityInput = this.quantityInput.bind(this);
-        this.skuRemoveNegative = this.skuRemoveNegative.bind(this);
-        this.skuQuantityInput = this.skuQuantityInput.bind(this);
     }
 
     quantityInput = e => {
@@ -47,16 +35,15 @@ class AddToCart extends React.Component {
     };
 
     cartAPIRequest() {
-        this.request
-            .addToCart(this.state.skuNumber, this.state.addToCartQty)
-            .then(response => {
-                this.state.toggleParentModal(true);
-                this.addToCartAnalytics(response);
-            })
-            .catch(err => {
-                this.setState({ errorObj: err });
-                this.state.toggleErrorModal(err);
-            });
+        addToCart(this.props.isCommerceApiMigrated, this.props.addToCartUrl, this.state.skuNumber, this.state.addToCartQty, this.state.toggleErrorModal)
+        .then(response => {
+            this.state.toggleParentModal(true);
+            this.addToCartAnalytics(response);
+        })
+        .catch(err => {
+            this.setState({ errorObj: err });
+            this.state.toggleErrorModal(err);
+        });
     }
     addToCart = () => {
         if (this.state.addToCartQty > 0) {
@@ -84,17 +71,20 @@ class AddToCart extends React.Component {
 
     addToCartAnalytics = (response) => { 
 
+        const localStore = new LocalStore();
+        const cartId = loginStatus.state() ? localStore.getCartId() : localStore.getGUID();
+
         const addToCartModel = {
             addContext: this.props.analyticsConfig.context,
             name: this.props.analyticsConfig.name,
             price: this.props.analyticsConfig.price,
             quantity: this.state.addToCartQty.toString(),
             sku: this.state.skuNumber,
-            
+            cartId
         };
 
-        if (typeof response == 'boolean') { 
-            addToCartModel.success = response.toString()
+        if (typeof response == 'boolean' || response.statusCode === 'success') {
+            addToCartModel.success = response.toString();
         }
 
         if (this.props.analyticsConfig.hasOwnProperty('availableDate')) {

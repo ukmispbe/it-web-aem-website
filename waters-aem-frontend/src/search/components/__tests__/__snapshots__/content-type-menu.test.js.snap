@@ -19,7 +19,8 @@ exports[`Feature: ContentTypeMenu Component Scenario: Rendering When content typ
       <div>
         <a
           data-count=" (5)"
-          href="javascript:{0}"
+          href="#"
+          onClick={[Function]}
         >
           Application Note
         </a>

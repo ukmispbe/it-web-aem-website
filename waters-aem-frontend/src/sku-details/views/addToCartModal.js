@@ -86,6 +86,7 @@ const AddToCartModalBody = props => {
                     href={btn.action}
                     className={keys.MainButton}
                     target={btn.target || ''}
+                    {...(btn.callback && { onClick: (e)=>btn.callback(e) })}
                 >
                     {btn.text}
                 </a>
@@ -120,7 +121,7 @@ const AddToCartModalBody = props => {
         );
     }
 
-    const Body = () => { 
+    const Body = () => {
         return (
             <>
                 <InfoTextWrapper>

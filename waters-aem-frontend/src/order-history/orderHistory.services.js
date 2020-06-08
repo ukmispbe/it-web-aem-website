@@ -8,13 +8,6 @@ class OrderHistoryService {
         this.url = url;
     }
 
-    checkFetch(response) {
-        if (!response.ok){
-            throw response;
-        }
-        return response;
-    }
-
     postData(url, options, setError) {
         return fetch(url, {
             method: 'POST',
@@ -34,8 +27,6 @@ class OrderHistoryService {
         })
         .catch(error => {
             setError(error);
-            this.throwError(error);
-            reject(error);
         });
     };
 

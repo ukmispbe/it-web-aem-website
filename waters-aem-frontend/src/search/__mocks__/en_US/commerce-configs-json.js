@@ -1,5 +1,5 @@
 const commerceConfigs = {
-    "locale": "en",
+    "locale": "en_US",
     "commerceConfig": {
         "disabledIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
         "disabledLabel": "Disabled",
@@ -10,9 +10,9 @@ const commerceConfigs = {
         "partialDisabledLinkText": "contact your sales representative.",
         "partialDisabledHref": ""
     },
-    "availabilityUrl": "https://dev-www.waters.com:8443/api/waters/product/v1/availability/{partnumber}/{countryCode}",
-    "pricingUrl": "https://dev-www.waters.com:8443/api/waters/product/v1/customerprice/{partnumber}/{countryCode}",
-    "addToCartUrl": "https://dev-www.waters.com:8443/api/waters/product/v1/addtocart/{partnumber}/{quantity}",
+    "availabilityUrl": "https://test-www.waters.com:8443/api/waters/product/v1/availability/{partnumber}/{countryCode}",
+    "pricingUrl": "https://test-www.waters.com:8443/api/waters/product/v1/customerprice/{partnumber}/{countryCode}",
+    "addToCartUrl": "https://test-www.waters.com:8443/api/waters/product/v1/addtocart/{partnumber}/{quantity}",
     "countryCode": "US",
     "isoCode": "en",
     "addToCartLabel": "ADD TO CART",

@@ -1,6 +1,6 @@
 // entry point for SKU. Move this up to global entry point if we want babel to polyfill everything we need at build time
 import React from 'react';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import ListItem from './views/listItem';
 import LoginStatus from '../scripts/loginStatus';
 import SignIn from '../scripts/signIn';
@@ -13,6 +13,8 @@ class SkuList extends React.Component {
             skuConfig: this.props.skuConfig,
             skuAvailability: {},
             addToCartQty: undefined,
+            skuInfo: this.props.skuConfig.skuInfo,
+            userCountry: this.props.skuConfig.countryCode
         };
     }
 
@@ -68,6 +70,12 @@ SkuList.propTypes = {
     skuConfig: PropTypes.object.isRequired,
     data: PropTypes.array.isRequired,
     title: PropTypes.string
+};
+
+SkuList.defaultProps = {
+    skuConfig: {},
+    data: [],
+    title: ''
 };
 
 export default SkuList;
