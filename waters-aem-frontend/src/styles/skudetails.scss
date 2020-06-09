@@ -68,7 +68,6 @@
             padding: 0 $space-s 0 $space-xs;
             height: $space-xl;
             border-left: $border-medium;
-            margin-bottom: $space-s;
             min-width: 225px;
 
             @include mobile {
@@ -133,7 +132,7 @@
 
         &__buttons {
             display: flex;
-            margin-top: 0;
+            margin-top: $space-s;
 
             .cmp-button {
                 margin-bottom: $space-s;
@@ -310,7 +309,7 @@
             .cmp-sku-details__list-price {
                 display: none;
             }
-          
+
             .cmp-sku-details__buyinfo {
                 padding: 0;
                 margin-top: 0;
@@ -339,7 +338,6 @@
             .cmp-sku__price {
                 @include font-h3;
                 font-size: $font-size-h2;
-                margin-bottom: ($space-xxs - .1em);
             }
         }
 
@@ -354,7 +352,7 @@
         .cmp-sku-details__buttons {
 
             @include tablet {
-                margin-top: $space-xs;
+                margin-top: $space-s;
             }
             @include mobile {
                 width: 100%;
