@@ -46,7 +46,6 @@
         &__buyinfo {
             display: flex;
             flex-flow: row;
-            align-items: center;
             flex-wrap: wrap;
         }
 
@@ -54,15 +53,17 @@
             @include font-small;
             width: 100%;
             text-decoration: line-through;
-            margin-bottom: $space-xs;
-        }
-        &__price-label {
-            margin-top: $space-xs;
+            margin-bottom: $space-xxs;
         }
 
         &__priceinfo {
             padding-right: $space-xs;
             line-height: 1em;
+        }
+        
+        &__price-label {
+            font-weight: $font-weight-bold;
+            margin-top: 0;
         }
 
         &__availability {
@@ -71,6 +72,7 @@
             padding: 0 $space-s 0 $space-xs;
             height: $space-xl;
             border-left: $border-medium;
+            margin-bottom: $space-s;
             min-width: 225px;
 
             @include mobile {
@@ -135,7 +137,7 @@
 
         &__buttons {
             display: flex;
-            margin-top: $space-s;
+            margin-top: 0;
 
             .cmp-button {
                 margin-bottom: $space-s;
@@ -312,7 +314,7 @@
             .cmp-sku-details__list-price {
                 display: none;
             }
-
+          
             .cmp-sku-details__buyinfo {
                 padding: 0;
                 margin-top: 0;
@@ -341,6 +343,7 @@
             .cmp-sku__price {
                 @include font-h3;
                 font-size: $font-size-h2;
+                margin-bottom: ($space-xxs - .1em);
             }
         }
 
@@ -355,7 +358,7 @@
         .cmp-sku-details__buttons {
 
             @include tablet {
-                margin-top: $space-s;
+                margin-top: $space-xs;
             }
             @include mobile {
                 width: 100%;
@@ -388,7 +391,6 @@
     &__priceinfo {
         .cmp-sku__price {
             @include font-h1;
-            padding-top: $space-xxs;
             margin-bottom: $space-xxs;
 
             @include mobile {
@@ -427,11 +429,16 @@
         @include font-utility;
         height: $space-xl;
         padding-top: ($space-xxs + 0.1em);
+        margin-bottom: 0;
+    }
+    &__list-price {
+        margin-bottom: $space-xs;
     }
 
     &__priceinfo {
         padding-right: $space-xs;
         line-height: 1.2em;
+        height: $space-xl;
 
         span {
             margin-bottom: $space-xxxs;
@@ -440,7 +447,14 @@
         .cmp-sku__price {
             @include font-h3;
             font-size: $font-size-h2;
-            margin-bottom: $space-xxs;
+            margin-bottom: 0;
+        }
+    }
+    &__buttons { 
+        margin-top: $space-s;
+
+        @include tablet {
+            margin-top: $space-s;
         }
     }
 

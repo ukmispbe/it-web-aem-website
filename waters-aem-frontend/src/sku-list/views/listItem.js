@@ -184,7 +184,6 @@ class ListItem extends React.Component {
                         {`${skuInfo.listPriceLabel} ${listPrice}`}
                     </div>
                 )}
-
                 <div className="cmp-sku-list__priceinfo">
                     {loading ? ( <Spinner loading={loading} type='inline' /> ) : this.renderPricing()}
                 </div>
