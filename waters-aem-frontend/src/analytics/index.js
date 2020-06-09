@@ -22,7 +22,7 @@ class Analytics {
             thisAnalyticEvent = this.analyticTypes[eventType][model.event];
         } else {
             thisAnalyticEvent = this.analyticTypes[eventType];
-        };
+        }
         if (thisAnalyticEvent) {
             const newModel = this.buildModel(eventType, model);
             if (newModel) {
@@ -132,9 +132,9 @@ class Analytics {
 
     dispatchEvent = (eventName, model) => {
         model = this.getUserData(model);
-    // Uncomment next two lines to test analytics
-//       console.log(eventName, model);
-//       alert(eventName);
+        // Uncomment next two lines to test analytics
+        console.log(eventName, model);
+        // alert(eventName);
         document.dispatchEvent(new CustomEvent(eventName, model));
     }
 

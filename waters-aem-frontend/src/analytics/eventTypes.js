@@ -4,6 +4,11 @@ const eventTypes = {
         event: 'scAddAEM',
         context: ['Part Detail Page', 'Search: Global', 'Product Recommendation']
     },
+    reOrder: {
+        name: 'reOrder',
+        event: 'scAddReorder',
+        context: 'Order History: Reorder'
+    },
     stock: {
         name: 'stock',
         event: 'checkAvailability'

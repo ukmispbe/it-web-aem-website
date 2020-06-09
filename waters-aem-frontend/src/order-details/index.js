@@ -12,11 +12,12 @@ import Modal, { Header, keys } from '../utils/modal';
 import AddToCartBody from '../sku-details/views/addToCartModal';
 import { addToCart } from '../sku-details/services';
 import Analytics, { analyticTypes, setClickAnalytics, setSelectDropdownAnalytics } from '../analytics';
+import LocalStore from '../stores/localStore';
+import loginStatus from '../scripts/loginStatus';
 
 class OrderDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
         super({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props});
-
         this.state = {
             orderId: this.getUrlParameter("id"),
             userLocale: GetLocale.getLocale(),
@@ -90,14 +91,42 @@ class OrderDetails extends Component {
         </>;
     }
 
+    addReorderAnalytics = (response) => {
+        const localStore = new LocalStore();
+        const cartId = loginStatus.state() ? localStore.getCartId() : localStore.getGUID();
+        const cartModifications = response.cartModifications;
+        let items = {};
+        if (cartModifications) {
+            items = cartModifications.map((item) => {
+                return {
+                    "sku": item.entry.product.code,
+                    "qty": item.quantityAdded
+                }
+            })
+        }
+        //console.log("cartModifications, ", cartModifications, items);
+        let reOrderModel = {
+            detail: {
+                cartId,
+                "addContext": analyticTypes["reOrder"].context,
+                "name": analyticTypes["reOrder"].name,
+                items
+            }
+        };
+        //console.log("reOrderModel", reOrderModel, analyticTypes["reOrder"].event);
+        Analytics.setAnalytics(analyticTypes["reOrder"].name, reOrderModel);     
+    }
+
     addToCartReorder = (e) => {
         e.preventDefault();
         const { isCommerceApiMigrated, addToCartUrl, reorderData } = this.state;
-        addToCart(isCommerceApiMigrated, addToCartUrl, reorderData, null, this.setError)
+        addToCart(isCommerceApiMigrated, addToCartUrl, reorderData, null, this.setError)     
         .then(response => {
             // Redirect if at least one item was successfully added to the cart
             if(response && response.cartModifications && response.cartModifications.length) {
-                window.location.href = this.state.viewCartUrl;
+                // Add Analytics Logic Here
+                this.addReorderAnalytics(response);
+                //window.location.href = this.state.viewCartUrl;
             } else {
                 this.toggleModal();
                 response && response.errors && this.setState({ errorCartErrors: response.errors});
