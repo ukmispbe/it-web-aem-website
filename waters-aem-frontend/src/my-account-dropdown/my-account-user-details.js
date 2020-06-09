@@ -19,17 +19,12 @@ const renderAccountDetails = props => {
 
     return (
         <>
-            {(props.accountName || props.accountNumber) && (
+            {props.accountName && (
                 <div className="my-account-dropdown__user-details__account">
                     {props.accountName && (
                             <span className="my-account-dropdown__user-details__account__name">
                                 {props.accountName}
                             </span>
-                    )}
-                    {props.accountNumber && (
-                        <span className="my-account-dropdown__user-details__account__number">
-                            {props.accountNumber}
-                        </span>
                     )}
                 </div>
             )}
