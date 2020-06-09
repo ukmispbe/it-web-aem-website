@@ -54,7 +54,7 @@
             @include font-small;
             width: 100%;
             text-decoration: line-through;
-            margin-bottom: $space-xxs;
+            margin-bottom: $space-xs;
         }
 
         &__priceinfo {
@@ -385,6 +385,7 @@
     &__priceinfo {
         .cmp-sku__price {
             @include font-h1;
+            padding-top: $space-xxs;
             margin-bottom: $space-xxs;
 
             @include mobile {
