@@ -17,7 +17,7 @@ class OrderListItem extends Component {
                     <div className="cmp-order-list__order-number">
                         <a
                             href={'#orderdetails?id=' + this.props.data.orderNumber}
-                            onClick={() => setClickAnalytics("Order History", "Order Details", '#orderdetails?id=' + this.props.data.orderNumber)}
+                            onClick={() => setClickAnalytics("Order History", "Order Details, " + this.props.data.orderNumber, '#orderdetails?id=' + this.props.data.orderNumber)}
                         >
                             {this.props.orderText + " " + this.props.data.orderNumber}
                         </a>
