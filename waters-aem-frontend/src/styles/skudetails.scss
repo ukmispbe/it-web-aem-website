@@ -56,6 +56,9 @@
             text-decoration: line-through;
             margin-bottom: $space-xs;
         }
+        &__price-label {
+            margin-top: $space-xs;
+        }
 
         &__priceinfo {
             padding-right: $space-xs;
