@@ -61,10 +61,11 @@ class SkuDetails extends React.Component {
             .then(response => {
             if (response.status && response.status === 200) {
                 let match = matchListItems(this.props.skuNumber, response);
+                let listPriceValue = (match.listPrice !=='' && typeof match.listPrice != 'undefined') ? match.listPrice : this.props.price;
                 this.setState({
                     skuData: match,
                     custPrice: match.custPrice,
-                    listPrice: match.listPrice,
+                    listPrice: listPriceValue,
                     loading: false
                 }, () => {
                     //this.checkPricingAnalytics();
@@ -84,6 +85,10 @@ class SkuDetails extends React.Component {
                     loading: false
                 });
             });
+        } else {
+            this.setState({
+                loading: false
+            })
         }
 
         getAvailability(this.state.availabilityUrl, this.state.userCountry, this.state.skuNumber)
@@ -291,7 +296,7 @@ class SkuDetails extends React.Component {
 SkuDetails.propTypes = {
     config: PropTypes.object.isRequired,
     price: PropTypes.string.isRequired,
-    countryRestricted: PropTypes.bool,
+    countryRestricted: PropTypes.string,
     skuNumber: PropTypes.string.isRequired,
     titleText: PropTypes.string.isRequired,
     discontinued: PropTypes.bool,
@@ -302,7 +307,7 @@ SkuDetails.propTypes = {
 SkuDetails.defaultProps = {
     config: {},
     price: '',
-    countryRestricted: false,
+    countryRestricted: '',
     skuNumber: '',
     titleText: '',
     discontinued: false,
