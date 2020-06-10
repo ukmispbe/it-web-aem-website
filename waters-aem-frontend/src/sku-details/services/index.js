@@ -179,14 +179,10 @@ export async function getPricing(url, sku) {
     const response = await fetchData(urlRequest, options);
 	const json = await response.json();
 
-	if(json && json.errors && json.errors.length) {
-		if (json.errors.code = "WAT_VALIDATION_400") {
-			json.status = 400;
-		} else if (json.errors.code = "WAT_HTTP_500") {
-			json.status = 500;
-		}
+	if(response.status === 200) {
+        json.status = 200;	
 	} else {	
-		json.status = 200;
+		json.status = response.status;
 	}
 	return json;
 }

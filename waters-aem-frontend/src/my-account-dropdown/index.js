@@ -25,8 +25,7 @@ class MyAccountDropDown extends React.Component {
                 loginState: loginStatus.state(),
                 userDetails: {
                     userName: '',
-                    accountName: '',
-                    accountNumber: ''
+                    accountName: ''
                 }
             }
         };
@@ -125,7 +124,6 @@ class MyAccountDropDown extends React.Component {
             }
 
             let updatedAccountName = "";
-            let updatedAccountNumber = "";
 
             // Check that Sold to Exists
             if (savedSoldToDetails && savedSoldToDetails.length !== 0) {
@@ -136,13 +134,11 @@ class MyAccountDropDown extends React.Component {
                     }
                 });
                 updatedAccountName = updatedAccount.company ? updatedAccount.company : "";
-                updatedAccountNumber = updatedAccount.soldTo ? updatedAccount.soldTo : "";
             }
 
             let currentState = this.state;
             currentState.config.userDetails.userName = updatedUserName;
             currentState.config.userDetails.accountName = updatedAccountName;
-            currentState.config.userDetails.accountNumber = updatedAccountNumber;
 
             this.setState({
                 ... currentState
@@ -241,7 +237,6 @@ class MyAccountDropDown extends React.Component {
         // Fix to correct first soldTo being selected. It should be the default_soldTo === 1 selected
         let priorityAccount;
         let accountName = "";
-        let accountNumber = "";
         soldToDetails.map((soldTo) => {
             if(soldTo.default_soldTo === 1) {
                 priorityAccount = soldTo;
@@ -250,7 +245,6 @@ class MyAccountDropDown extends React.Component {
 
         if (priorityAccount){
             accountName = priorityAccount.company ? `${priorityAccount.company} ` : '';
-            accountNumber = priorityAccount.soldTo ? priorityAccount.soldTo : '';
         }
 
         this.setState({
@@ -260,8 +254,7 @@ class MyAccountDropDown extends React.Component {
                 loginState: loginStatus.state(),
                 userDetails: {
                     userName,
-                    accountName,
-                    accountNumber
+                    accountName
                 }
             }
         });
@@ -290,15 +283,13 @@ class MyAccountDropDown extends React.Component {
 
         const priorityAccount = soldToDetails && soldToDetails.length !== 0 ? soldToDetails[0] : {};
         const accountName = priorityAccount.company ? `${priorityAccount.company} ` : '';
-        const accountNumber = priorityAccount.soldTo ? priorityAccount.soldTo : '';
 
         return {
             ... this.props.config, 
             loginState: loginStatus.state(),
             userDetails: {
                 userName,
-                accountName,
-                accountNumber
+                accountName
             }
         }
     }
