@@ -46,7 +46,6 @@
         &__buyinfo {
             display: flex;
             flex-flow: row;
-            align-items: center;
             flex-wrap: wrap;
         }
 
@@ -60,6 +59,11 @@
         &__priceinfo {
             padding-right: $space-xs;
             line-height: 1em;
+        }
+        
+        &__price-label {
+            font-weight: $font-weight-bold;
+            margin-top: 0;
         }
 
         &__availability {
@@ -425,11 +429,16 @@
         @include font-utility;
         height: $space-xl;
         padding-top: ($space-xxs + 0.1em);
+        margin-bottom: 0;
+    }
+    &__list-price {
+        margin-bottom: $space-xs;
     }
 
     &__priceinfo {
         padding-right: $space-xs;
         line-height: 1.2em;
+        height: $space-xl;
 
         span {
             margin-bottom: $space-xxxs;
@@ -438,7 +447,14 @@
         .cmp-sku__price {
             @include font-h3;
             font-size: $font-size-h2;
-            margin-bottom: $space-xxs;
+            margin-bottom: 0;
+        }
+    }
+    &__buttons { 
+        margin-top: $space-s;
+
+        @include tablet {
+            margin-top: $space-s;
         }
     }
 

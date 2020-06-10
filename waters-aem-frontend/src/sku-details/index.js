@@ -6,6 +6,7 @@ import Price from "./views/price";
 import AddToCart from "./views/addToCart";
 import AddToCartBody from '../sku-details/views/addToCartModal';
 import Modal, { Header, keys } from '../utils/modal';
+import Spinner from '../utils/spinner';
 import LoginStatus from "../scripts/loginStatus";
 import CheckOutStatus from "../scripts/checkOutStatus";
 import SkuMessage from "../sku-message";
@@ -33,6 +34,7 @@ class SkuDetails extends React.Component {
             availabilityUrl: this.props.config.availabilityUrl,
             pricingUrl: this.props.config.pricingUrl,
             addToCartUrl: this.props.config.addToCartUrl,
+            loading: true,
             skuAvailability: {},
             addToCartQty: undefined,
             custPrice: undefined,
@@ -62,18 +64,25 @@ class SkuDetails extends React.Component {
                 this.setState({
                     skuData: match,
                     custPrice: match.custPrice,
-                    listPrice: match.listPrice
+                    listPrice: match.listPrice,
+                    loading: false
                 }, () => {
                     //this.checkPricingAnalytics();
                 });
             } else {
                 // Add Error Object to State
-                this.setState({ errorObjPrice: response.errors });
+                this.setState({
+                    errorObjPrice: response.errors,
+                    loading: false
+                });
             }
             })
             .catch(err => {
                 // Add Error Object to State
-                this.setState({ errorObjPrice: err });
+                this.setState({
+                    errorObjPrice: err,
+                    loading: false
+                });
             });
         }
 
@@ -173,41 +182,27 @@ class SkuDetails extends React.Component {
         const { custPrice, listPrice, skuInfo } = this.state;
 
         if (LoginStatus.state()){
-            if (typeof custPrice !== 'undefined') {
-                return (
-                    <div className="cmp-sku-details__priceinfo">
-                        <Price
-                            label={skuInfo.custPriceLabel}
-                            price={custPrice}
-                        />
-                    </div>
-                )
-            } else if (typeof custPrice === 'undefined') {
-                return (
-                    <div className="cmp-sku-details__priceinfo">
-                        <Price
-                            label={skuInfo.custPriceLabel}
-                            price={listPrice}
-                        />
-                    </div>
-                )
-            }
+            let price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
+            return (
+                <Price
+                    label={skuInfo.custPriceLabel}
+                    price={price}
+                />
+            )
         } else {
             if (typeof listPrice !== 'undefined') {
                 return (
-                    <div className="cmp-sku-details__priceinfo">
-                        <Price
-                            label={skuInfo.listPriceLabel}
-                            price={listPrice}
-                        />
-                    </div>
+                    <Price
+                        label={skuInfo.listPriceLabel}
+                        price={listPrice}
+                    />
                 )
             }
         }
     }
 
     renderBuyInfo = () => {
-        const { custPrice, listPrice, skuInfo, skuNumber, errorObjAvailability, skuAvailability } = this.state;
+        const { custPrice, listPrice, loading, skuInfo, skuNumber, errorObjAvailability, skuAvailability } = this.state;
         const { config } = this.props;
 
         return (
@@ -218,8 +213,9 @@ class SkuDetails extends React.Component {
                             {`${skuInfo.listPriceLabel} ${listPrice}`}
                         </div>
                 )}
-                {this.renderPricing()}
-
+                <div className="cmp-sku-details__priceinfo">
+                    {loading ? ( <Spinner loading={loading} type='inline' /> ) : this.renderPricing()}
+                </div>
                 <div className="cmp-sku-details__availability">
                     <Stock
                         skuInfo={skuInfo}
@@ -241,15 +237,15 @@ class SkuDetails extends React.Component {
                     ></AddToCart>
                 </div>
                 <Modal isOpen={this.state.modalShown} onClose={this.toggleModal} className='cmp-add-to-cart-modal'>
-                        <Header
-                            title={this.state.modalConfig.title}
-                            icon={this.state.modalConfig.icon}
-                            className={keys.HeaderWithAddedMarginTop}
-                        />
-                        <AddToCartBody
-                            config={this.state.modalConfig}
-                            errorObjCart={this.state.errorObjCart}
-                        ></AddToCartBody>
+                    <Header
+                        title={this.state.modalConfig.title}
+                        icon={this.state.modalConfig.icon}
+                        className={keys.HeaderWithAddedMarginTop}
+                    />
+                    <AddToCartBody
+                        config={this.state.modalConfig}
+                        errorObjCart={this.state.errorObjCart}
+                    ></AddToCartBody>
                 </Modal>
             </div>
         );
