@@ -104,16 +104,13 @@ class OrderDetails extends Component {
                 }
             })
         }
-        //console.log("cartModifications, ", cartModifications, items);
         let reOrderModel = {
             detail: {
                 cartId,
                 "addContext": analyticTypes["reOrder"].context,
-                "name": analyticTypes["reOrder"].name,
                 items
             }
         };
-        //console.log("reOrderModel", reOrderModel, analyticTypes["reOrder"].event);
         Analytics.setAnalytics(analyticTypes["reOrder"].name, reOrderModel);     
     }
 
@@ -124,9 +121,8 @@ class OrderDetails extends Component {
         .then(response => {
             // Redirect if at least one item was successfully added to the cart
             if(response && response.cartModifications && response.cartModifications.length) {
-                // Add Analytics Logic Here
                 this.addReorderAnalytics(response);
-                //window.location.href = this.state.viewCartUrl;
+                window.location.href = this.state.viewCartUrl;
             } else {
                 this.toggleModal();
                 response && response.errors && this.setState({ errorCartErrors: response.errors});
