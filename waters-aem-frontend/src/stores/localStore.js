@@ -1,5 +1,5 @@
 const keys = {
-    guid: 'waters.guid',
+    guid: 'waters.cartGuid',
     cartId: 'waters.cartId'
 }
 
