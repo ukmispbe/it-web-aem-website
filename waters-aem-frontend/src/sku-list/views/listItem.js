@@ -55,10 +55,11 @@ class ListItem extends React.Component {
             .then(response => {
                 if (response.status && response.status === 200) {
                     let match = matchListItems(this.state.skuData.code, response);
+                    let listPriceValue = (match.listPrice !=='' && typeof match.listPrice != 'undefined') ? match.listPrice : this.props.relatedSku.formattedPrice;
                     this.setState({
                         skuData: match,
                         custPrice: match.custPrice,
-                        listPrice: match.listPrice,
+                        listPrice: listPriceValue,
                         loading: false
                     }, () => {
                         //this.checkAvailabilityAnalytics();
@@ -78,6 +79,10 @@ class ListItem extends React.Component {
                     loading: false
                 });
             });
+        } else {
+            this.setState({
+                loading: false
+            })
         }
     }
 
