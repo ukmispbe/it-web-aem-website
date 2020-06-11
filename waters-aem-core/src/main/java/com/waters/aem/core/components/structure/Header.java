@@ -269,7 +269,11 @@ public final class Header extends AbstractComponent implements ComponentExporter
     }
 
     public String getViewCartUrl() {
-        return watersCommerceService.getViewCartUrl();
+        if (siteContext.isCommerceApiMigrated()) {
+            return siteContext.getViewCartURL();
+        } else {
+            return watersCommerceService.getViewCartUrl();
+        }
     }
 
     public String getLaunchScript() {

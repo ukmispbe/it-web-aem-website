@@ -9,7 +9,7 @@ class Price extends React.Component {
     render() {
         return (
             <>
-                <span>{this.props.label}</span>
+                <div className="cmp-sku-list__price-label">{this.props.label}</div>
                 {this.props.price &&
                     <div className="cmp-sku__price">{this.props.price}</div>
                 }

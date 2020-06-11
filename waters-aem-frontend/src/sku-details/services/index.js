@@ -20,7 +20,6 @@ const getUserId = () => {
     return userId;
 }
 
-
 const getSoldToId = () => {
 	if(loginStatus.state()) {
 		const store = new SessionStore();
@@ -101,6 +100,8 @@ export async function addToCart(isCommerceApiMigrated, url, partNo, quantity, th
         }
         const options = {
             method: 'POST',
+            credentials: 'include',
+            mode: 'cors',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -172,21 +173,18 @@ export async function getPricing(url, sku) {
 
     const options = {
         method: 'GET',
-        credentials: 'include'
+        credentials: 'include',
+        mode: 'cors'
     }
 
     const urlRequest = priceUrlRequest(url, sku);
     const response = await fetchData(urlRequest, options);
 	const json = await response.json();
 
-	if(json && json.errors && json.errors.length) {
-		if (json.errors.code = "WAT_VALIDATION_400") {
-			json.status = 400;
-		} else if (json.errors.code = "WAT_HTTP_500") {
-			json.status = 500;
-		}
+	if(response.status === 200) {
+        json.status = 200;	
 	} else {	
-		json.status = 200;
+		json.status = response.status;
 	}
 	return json;
 }
@@ -204,7 +202,6 @@ let skuListItem = {
 			skuListItem.currencyCode = pricesAPIResults[i].netPrice.currencyCode;
 		} 
 	}
-
 
     return skuListItem;
 }
