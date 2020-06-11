@@ -20,7 +20,6 @@ const getUserId = () => {
     return userId;
 }
 
-
 const getSoldToId = () => {
 	if(loginStatus.state()) {
 		const store = new SessionStore();
@@ -172,7 +171,8 @@ export async function getPricing(url, sku) {
 
     const options = {
         method: 'GET',
-        credentials: 'include'
+        credentials: 'include',
+        mode: 'cors'
     }
 
     const urlRequest = priceUrlRequest(url, sku);
@@ -200,7 +200,6 @@ let skuListItem = {
 			skuListItem.currencyCode = pricesAPIResults[i].netPrice.currencyCode;
 		} 
 	}
-
 
     return skuListItem;
 }
