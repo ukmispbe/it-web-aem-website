@@ -227,6 +227,37 @@
             ]
         }
     </script>
+    <script type="application/json" id="cmp-registration-form-kr">
+      {
+        "koreanDisclosures" : [
+            {
+                "type": "text",
+                "text": "${', ' @ i18n, context='text'}"
+            },
+            {
+                "type": "link",
+                "label": "${'Korea Privacy Disclosures' @ i18n, context='text'}",
+                "url": "${registration.privacyDisclosuresLink.href @ context='unsafe'}",
+                "blank": "${registration.newWindow @ context='unsafe'}"
+            },
+            {
+                "type": "text",
+                "text": "${', and ' @ i18n, context='text'}"
+            },
+
+            {
+                "type": "link",
+                "label": "${'Korea Consent Disclosures' @ i18n, context='text'}",
+                "url": "${registration.consentDisclosuresLink.href @ context='unsafe'}",
+                "blank": "${registration.newWindow @ context='unsafe'}"
+            },
+            {
+                "type": "text",
+                "text": "${'.' @ i18n, context='text'}"
+            }
+        ]
+      }
+    </script>
 </div>
 <sly
         data-sly-use.patterns="/apps/waters/components/content/patterns.html"
