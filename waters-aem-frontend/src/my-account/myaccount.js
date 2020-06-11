@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Title from "../typography/title";
 import LinkTile from '../link-tile';
-import Ecommerce from "../scripts/ecommerce";
 import loginStatus from "../scripts/loginStatus";
 import { notLoggedInRedirect } from '../utils/redirectFunctions';
 import Spinner from "../utils/spinner";
+import { isCartHidden } from '../utils/eCommerceFunctions';
 
 const Tile = ({ tile }) => {
-    if (tile.requiresEcommerce === "true" && Ecommerce.isDisabledState()) {
+    if (tile.requiresEcommerce === "true" && isCartHidden()) {
         return <></>;
     }
 
