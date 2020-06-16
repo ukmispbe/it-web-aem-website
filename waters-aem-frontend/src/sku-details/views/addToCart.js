@@ -37,8 +37,26 @@ class AddToCart extends React.Component {
     cartAPIRequest() {
         addToCart(this.props.isCommerceApiMigrated, this.props.addToCartUrl, this.state.skuNumber, this.state.addToCartQty, this.state.toggleErrorModal)
         .then(response => {
-            this.state.toggleParentModal(true);
-            this.addToCartAnalytics(response);
+            // Check for an errors object in the response. If present display the error modal instead of the View Cart
+            // Also check for the response. If anthother type of error eg 404 we're still getting to here but the 
+            // response object isn't returned just the status.
+            // const responseStatus = response.status;
+            // if (!responseStatus) {
+            //     return;
+            // }
+            const cartAPIError = response.errors;
+            
+            if (!response.errors) {
+                this.state.toggleParentModal(true);
+                this.addToCartAnalytics(response);        
+            }
+            else {
+                console.log("Error Returned ", cartAPIError);
+                const errTemp = {"ok": false, "status": 1099};
+                this.setState({ errorObj: errTemp });
+                this.state.toggleErrorModal(errTemp);
+            }
+           
         })
         .catch(err => {
             this.setState({ errorObj: err });
