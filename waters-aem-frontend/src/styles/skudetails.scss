@@ -66,6 +66,11 @@
             margin-top: 0;
         }
 
+        &__list-price-label {
+            font-weight: $font-weight-regular;
+            margin-top: 0;
+        }
+
         &__availability {
             display: flex;
             align-items: center;
