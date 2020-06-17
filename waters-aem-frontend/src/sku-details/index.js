@@ -49,7 +49,8 @@ class SkuDetails extends React.Component {
             errorObjAvailability: {},
             errorObjPrice: {},
             discontinued: this.props.discontinued == "true",
-            signInUrl: this.props.baseSignInUrl
+            signInUrl: this.props.baseSignInUrl,
+            errorInfo: this.props.config.errorInfo
         };
 
         this.toggleModal = this.toggleModal.bind(this);
@@ -207,9 +208,12 @@ class SkuDetails extends React.Component {
     }
 
     renderBuyInfo = () => {
-        const { custPrice, listPrice, loading, skuInfo, skuNumber, errorObjAvailability, skuAvailability } = this.state;
+        const { custPrice, listPrice, loading, skuInfo, skuNumber, errorObjAvailability, skuAvailability, errorObjCart } = this.state;
         const { config } = this.props;
-
+        let isErrorModal = false;
+        if (errorObjCart) {
+            isErrorModal = (Object.keys(errorObjCart).length !== 0);
+        }
         return (
             <div className="cmp-sku-details__buyinfo">
                 {LoginStatus.state() && typeof custPrice !== 'undefined'
@@ -242,11 +246,19 @@ class SkuDetails extends React.Component {
                     ></AddToCart>
                 </div>
                 <Modal isOpen={this.state.modalShown} onClose={this.toggleModal} className='cmp-add-to-cart-modal'>
-                    <Header
-                        title={this.state.modalConfig.title}
-                        icon={this.state.modalConfig.icon}
-                        className={keys.HeaderWithAddedMarginTop}
-                    />
+                    {!isErrorModal && (
+                        <Header
+                            title={this.state.modalConfig.title}
+                            icon={this.state.modalConfig.icon}
+                            className={keys.HeaderWithAddedMarginTop}                        />
+                    )}
+                    {isErrorModal && (
+                        <Header
+                            title={this.state.errorInfo.title}
+                            icon={this.state.errorInfo.icon}
+                            className={keys.HeaderWithAddedMarginTop}
+                        />
+                    )}
                     <AddToCartBody
                         config={this.state.modalConfig}
                         errorObjCart={this.state.errorObjCart}
