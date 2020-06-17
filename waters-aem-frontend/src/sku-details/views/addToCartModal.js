@@ -19,13 +19,7 @@ const AddToCartModalBody = props => {
     
     const errorObjCart = props.errorObjCart;
     const isErrorModal = (Object.keys(errorObjCart).length !== 0);
-    // If this is an Error Modal then overwrite Title and replace the icon
-    if (isErrorModal) {
-        props.config.title = "Sorry, something went wrong.";
-        //props.config.icon = "/content/dam/waters/en/brand-assets/icons/attention.svg";
-        props.config.icon = props.config.icon.replace("checkmark", "attention");
 
-    }
     const [state] = useState({ ...props.config })
     const { onClose } = useContext(useModalApi);
 
@@ -36,9 +30,6 @@ const AddToCartModalBody = props => {
         buttons,
         isOrderDetails
     } = state;
-
-    console.log("state", state);
-    console.log("props", props);
 
     const InfoTextWrapper = (props) => { 
         if (!isOrderDetails){

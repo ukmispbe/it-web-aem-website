@@ -191,6 +191,7 @@ class ListItem extends React.Component {
             errorObjCart, errorObjAvailability
         } = this.state;
         const { relatedSku, skuConfig } = this.props;
+        const isErrorModal = (Object.keys(errorObjCart).length !== 0);
         return (
             <div className="cmp-sku-details__buyinfo">
                 {LoginStatus.state() && typeof custPrice !== 'undefined'
@@ -251,7 +252,7 @@ class ListItem extends React.Component {
                         analyticsConfig={this.state.analyticsConfig}
                     />
                     <Modal isOpen={this.state.modalShown} onClose={this.toggleModal} className='cmp-add-to-cart-modal'>
-                        {!errorObjCart.length && (
+                        {!isErrorModal && (
                             <Header
                                 title={modalConfig.title}
                                 icon={modalConfig.icon}
@@ -259,14 +260,13 @@ class ListItem extends React.Component {
                             />
                         )}
 
-                        {errorObjCart.length && (
+                        {isErrorModal && (
                             <Header
                                 title={errorConfig.title}
                                 icon={errorConfig.icon}
                                 className={keys.HeaderWithAddedMarginTop}
                             />
                         )}
-
                         <AddToCartBody
                             config={modalConfig}
                             errorObjCart={errorObjCart}
