@@ -185,7 +185,11 @@ class ListItem extends React.Component {
     }
 
     renderBuyInfoPartial = () => {
-        const { custPrice, listPrice, loading, skuInfo, errorObjAvailability, skuAvailability } = this.state;
+        const {
+            custPrice, listPrice, loading, skuInfo, skuAvailability, 
+            errorConfig, modalConfig,
+            errorObjCart, errorObjAvailability
+        } = this.state;
         const { relatedSku, skuConfig } = this.props;
         return (
             <div className="cmp-sku-details__buyinfo">
@@ -249,23 +253,23 @@ class ListItem extends React.Component {
                     <Modal isOpen={this.state.modalShown} onClose={this.toggleModal} className='cmp-add-to-cart-modal'>
                         {!errorObjCart.length && (
                             <Header
-                                title={this.state.modalConfig.title}
-                                icon={this.state.modalConfig.icon}
+                                title={modalConfig.title}
+                                icon={modalConfig.icon}
                                 className={keys.HeaderWithAddedMarginTop}
                             />
                         )}
 
                         {errorObjCart.length && (
                             <Header
-                                title={this.state.errorConfig.title}
-                                icon={this.state.errorConfig.icon}
+                                title={errorConfig.title}
+                                icon={errorConfig.icon}
                                 className={keys.HeaderWithAddedMarginTop}
                             />
                         )}
 
                         <AddToCartBody
-                            config={this.state.modalConfig}
-                            errorObjCart={this.state.errorObjCart}
+                            config={modalConfig}
+                            errorObjCart={errorObjCart}
                         ></AddToCartBody>
                     </Modal>
                 </div>
