@@ -35,7 +35,7 @@ class AddToCart extends React.Component {
     };
 
     cartAPIRequest() {
-        addToCart(this.props.isCommerceApiMigrated, this.props.addToCartUrl, this.state.skuNumber + "XXX, this.state.addToCartQty, this.state.toggleErrorModal)
+        addToCart(this.props.isCommerceApiMigrated, this.props.addToCartUrl, this.state.skuNumber, this.state.addToCartQty, this.state.toggleErrorModal)
         .then(response => {
             
             // If any other type of error eg 400, 401, 404 return 
