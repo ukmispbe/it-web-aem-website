@@ -23,7 +23,7 @@ const AddToCartModalBody = props => {
     const [state] = useState({ ...props.config })
     const { onClose } = useContext(useModalApi);
 
-    let {
+    const {
         text,
         textHeading,
         partNumberLabel,
