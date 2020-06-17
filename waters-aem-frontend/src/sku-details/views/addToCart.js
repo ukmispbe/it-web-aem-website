@@ -70,7 +70,6 @@ class AddToCart extends React.Component {
     };
 
     addToCartAnalytics = (response) => { 
-
         const localStore = new LocalStore();
         const cartId = loginStatus.state() ? localStore.getCartId() : localStore.getGUID();
 

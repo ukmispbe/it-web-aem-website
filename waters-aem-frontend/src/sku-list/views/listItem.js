@@ -6,6 +6,7 @@ import { getAvailability, getPricing, matchListItems } from '../../sku-details/s
 import AddToCart from '../../sku-details/views/addToCart';
 import AddToCartBody from '../../sku-details/views/addToCartModal';
 import Modal, { Header, keys } from '../../utils/modal';
+import { getSoldToId } from '../../utils/userFunctions';
 import Spinner from '../../utils/spinner';
 import LoginStatus from '../../scripts/loginStatus';
 import SkuMessage from '../../sku-message';
@@ -50,8 +51,9 @@ class ListItem extends React.Component {
     }
 
     componentDidMount() {
-        if (LoginStatus.state()) {
-            getPricing(this.state.pricingUrl, this.props.relatedSku.code)
+        let soldToId = getSoldToId();
+        if (LoginStatus.state() && soldToId !== '') {
+            getPricing(this.state.pricingUrl, this.props.relatedSku.code, soldToId)
             .then(response => {
                 if (response.status && response.status === 200) {
                     let match = matchListItems(this.state.skuData.code, response);

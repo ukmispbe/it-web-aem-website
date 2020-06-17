@@ -6,6 +6,7 @@ import Price from "./views/price";
 import AddToCart from "./views/addToCart";
 import AddToCartBody from '../sku-details/views/addToCartModal';
 import Modal, { Header, keys } from '../utils/modal';
+import { getSoldToId } from '../utils/userFunctions';
 import Spinner from '../utils/spinner';
 import LoginStatus from "../scripts/loginStatus";
 import CheckOutStatus from "../scripts/checkOutStatus";
@@ -56,8 +57,9 @@ class SkuDetails extends React.Component {
     }
 
     componentDidMount() {
-        if (LoginStatus.state()) {
-            getPricing(this.state.pricingUrl, this.props.skuNumber)
+        let soldToId = getSoldToId();
+        if (LoginStatus.state() && soldToId !== '') {
+            getPricing(this.state.pricingUrl, this.props.skuNumber, soldToId)
             .then(response => {
             if (response.status && response.status === 200) {
                 let match = matchListItems(this.props.skuNumber, response);
