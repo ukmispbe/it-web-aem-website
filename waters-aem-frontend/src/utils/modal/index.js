@@ -78,7 +78,7 @@ Modal.propTypes = {
     onClose: PropTypes.func.isRequired,
     isOpen: PropTypes.bool.isRequired
 }
-  
+
 Modal.defaultProps = {
     onClose: () => { }
 }

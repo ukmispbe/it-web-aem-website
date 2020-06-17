@@ -39,7 +39,7 @@ const AddToCartModalBody = props => {
 
     console.log("state", state);
     console.log("props", props);
-   
+
     const InfoTextWrapper = (props) => { 
         if (!isOrderDetails){
             if (!text || !textHeading) return <></>;

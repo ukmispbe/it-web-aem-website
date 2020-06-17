@@ -38,7 +38,7 @@ class AddToCart extends React.Component {
         addToCart(this.props.isCommerceApiMigrated, this.props.addToCartUrl, this.state.skuNumber, this.state.addToCartQty, this.state.toggleErrorModal)
         .then(response => {
             // Check for an errors object in the response. If present display the error modal instead of the View Cart
-            // Also check for the response. If anthother type of error eg 404 we're still getting to here but the 
+            // Also check for the response. If any other type of error eg 404 we're still getting to here but the
             // response object isn't returned just the status.
             // const responseStatus = response.status;
             // if (!responseStatus) {
@@ -56,7 +56,6 @@ class AddToCart extends React.Component {
                 this.setState({ errorObj: errTemp });
                 this.state.toggleErrorModal(errTemp);
             }
-           
         })
         .catch(err => {
             this.setState({ errorObj: err });
@@ -88,7 +87,6 @@ class AddToCart extends React.Component {
     };
 
     addToCartAnalytics = (response) => { 
-
         const localStore = new LocalStore();
         const cartId = loginStatus.state() ? localStore.getCartId() : localStore.getGUID();
 

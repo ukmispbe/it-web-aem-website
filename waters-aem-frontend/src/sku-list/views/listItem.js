@@ -26,6 +26,12 @@ class ListItem extends React.Component {
                 text: this.props.relatedSku.title,
                 partNumberLabel: this.props.skuConfig.skuInfo.partNumberLabel
             },
+            errorConfig: {
+                ...this.props.skuConfig.errorInfo,
+                textHeading: this.props.relatedSku.code,
+                text: this.props.relatedSku.title,
+                partNumberLabel: this.props.skuConfig.skuInfo.partNumberLabel
+            },
             listPrice: this.props.relatedSku.formattedPrice,
             custPrice: undefined,
             skuInfo: this.props.skuConfig.skuInfo,
@@ -241,11 +247,22 @@ class ListItem extends React.Component {
                         analyticsConfig={this.state.analyticsConfig}
                     />
                     <Modal isOpen={this.state.modalShown} onClose={this.toggleModal} className='cmp-add-to-cart-modal'>
-                        <Header
-                            title={this.state.modalConfig.title}
-                            icon={this.state.modalConfig.icon}
-                            className={keys.HeaderWithAddedMarginTop}
-                        />
+                        {!errorObjCart.length && (
+                            <Header
+                                title={this.state.modalConfig.title}
+                                icon={this.state.modalConfig.icon}
+                                className={keys.HeaderWithAddedMarginTop}
+                            />
+                        )}
+
+                        {errorObjCart.length && (
+                            <Header
+                                title={this.state.errorConfig.title}
+                                icon={this.state.errorConfig.icon}
+                                className={keys.HeaderWithAddedMarginTop}
+                            />
+                        )}
+
                         <AddToCartBody
                             config={this.state.modalConfig}
                             errorObjCart={this.state.errorObjCart}

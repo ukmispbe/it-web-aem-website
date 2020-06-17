@@ -190,6 +190,19 @@
             ]
         },
         "errorInfo": {
+            "icon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
+            "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
+            "title": "${'Sorry, something went wrong.' @ i18n, context='text'}",
+            "buttons": [
+                {
+                    "text": "${'View Cart' @ i18n, context='text'}",
+                    "action": "${footer.viewCartUrl @ context='unsafe'}"
+                },
+                {
+                    "text": "${'Continue Shopping' @ i18n, context='text'}",
+                    "action": "close"
+                }
+            ]
             "serviceUnavailable": "${'Service Unavailable' @ i18n, context='text'}",
             "tryAgainLater": "${'Try again later' @ i18n, context='text'}",
             "anErrorHasOccurred": "${'An error has occurred' @ i18n, context='text'}",
