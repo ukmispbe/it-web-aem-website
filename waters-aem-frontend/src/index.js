@@ -362,6 +362,22 @@ if (registrationFormContainer) {
         swapFirstAndLastNames();
     }
 
+    // if (config.formName === "registration" && country !== "kr") {
+    //     AddExtraDisclosures(config);
+    // }
+
+    // const AddExtraDisclosures = (config) => {
+    //     const KRconfig = JSON.parse(
+    //         document.getElementById('cmp-registration-form-kr').innerHTML
+    //     );
+
+    //     console.log("merged config", config.pop().concat(KRconfig.koreanDisclosures));
+
+        
+    //     // Get rid of period
+    //     // read cmp-registration-form-kr add to textwith links (last json node already taken away the period)
+    // }
+
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
         <Form

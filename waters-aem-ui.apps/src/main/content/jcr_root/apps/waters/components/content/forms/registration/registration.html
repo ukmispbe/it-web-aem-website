@@ -189,9 +189,13 @@
                         },
                         {
                             "type": "link",
-                            "label": "${'Waters Privacy Notice.' @ i18n, context='text'}",
+                            "label": "${'Waters Privacy Notice' @ i18n, context='text'}",
                             "url": "${registration.privacyNoticeLink.href @ context='unsafe'}",
                             "blank": "${registration.newWindow @ context='unsafe'}"
+                        },
+                        {
+                            "type": "text",
+                            "text": "${'.' @ i18n, context='text'}"
                         }
                     ]
                 }
@@ -228,35 +232,35 @@
         }
     </script>
     <script type="application/json" id="cmp-registration-form-kr">
-      {
-        "koreanDisclosures" : [
-            {
-                "type": "text",
-                "text": "${', ' @ i18n, context='text'}"
-            },
-            {
-                "type": "link",
-                "label": "${'Korea Privacy Disclosures' @ i18n, context='text'}",
-                "url": "${registration.privacyDisclosuresLink.href @ context='unsafe'}",
-                "blank": "${registration.newWindow @ context='unsafe'}"
-            },
-            {
-                "type": "text",
-                "text": "${', and ' @ i18n, context='text'}"
-            },
+        {
+            "koreanDisclosures" : [
+                {
+                    "type": "text",
+                    "text": "${', ' @ i18n, context='text'}"
+                },
+                {
+                    "type": "link",
+                    "label": "${'Korea Privacy Disclosures' @ i18n, context='text'}",
+                    "url": "${registration.privacyDisclosuresLink.href @ context='unsafe'}",
+                    "blank": "${registration.newWindow @ context='unsafe'}"
+                },
+                {
+                    "type": "text",
+                    "text": "${', and ' @ i18n, context='text'}"
+                },
 
-            {
-                "type": "link",
-                "label": "${'Korea Consent Disclosures' @ i18n, context='text'}",
-                "url": "${registration.consentDisclosuresLink.href @ context='unsafe'}",
-                "blank": "${registration.newWindow @ context='unsafe'}"
-            },
-            {
-                "type": "text",
-                "text": "${'.' @ i18n, context='text'}"
-            }
-        ]
-      }
+                {
+                    "type": "link",
+                    "label": "${'Korea Consent Disclosures' @ i18n, context='text'}",
+                    "url": "${registration.consentDisclosuresLink.href @ context='unsafe'}",
+                    "blank": "${registration.newWindow @ context='unsafe'}"
+                },
+                {
+                    "type": "text",
+                    "text": "${'.' @ i18n, context='text'}"
+                }
+            ]
+        }
     </script>
 </div>
 <sly
