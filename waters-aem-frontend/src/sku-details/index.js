@@ -256,7 +256,7 @@ class SkuDetails extends React.Component {
                         <Header
                             title={this.state.errorInfo.title}
                             icon={this.state.errorInfo.icon}
-                            className={keys.HeaderWithAddedMarginTop}
+                            className={keys.HeaderWithAddedMarginTopError}
                         />
                     )}
                     <AddToCartBody

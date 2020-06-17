@@ -9,7 +9,8 @@ const keys = {
     ModalWithSiteNavOnMobile: 'cmp-modal-box__site-nav-on-mobile',
     HeaderTitleCentered: 'header-with-title-centered',
     HeaderWithTitle: 'header-with-title',
-    HeaderWithAddedMarginTop: 'header-with-added-margin-top'
+    HeaderWithAddedMarginTop: 'header-with-added-margin-top',
+    HeaderWithAddedMarginTopError: 'header-with-added-margin-top__error'
 }
 
 const ModalApi = createContext();
