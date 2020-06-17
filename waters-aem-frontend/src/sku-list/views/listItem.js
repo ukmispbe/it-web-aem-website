@@ -264,7 +264,7 @@ class ListItem extends React.Component {
                             <Header
                                 title={errorConfig.title}
                                 icon={errorConfig.icon}
-                                className={keys.HeaderWithAddedMarginTop}
+                                className={keys.HeaderWithAddedMarginTopError}
                             />
                         )}
                         <AddToCartBody
