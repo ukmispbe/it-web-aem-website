@@ -1,48 +1,8 @@
 import 'whatwg-fetch';
-import SessionStore from '../../stores/sessionStore';
 import LocalStore from '../../stores/localStore';
 import loginStatus from '../../scripts/loginStatus';
-import DigitalData from '../../scripts/DigitalData';
 import { fetchData } from '../../utils/serviceFunctions';
-
-const getCountryCode = () => {
-    return DigitalData.country ? DigitalData.country.toLowerCase() : '';
-}
-
-const getLanguage = () => {
-    return DigitalData.language;
-}
-
-const getUserId = () => {
-    const store = new SessionStore();
-    const userDetails = store.getUserDetails();
-    const userId = loginStatus.state() && userDetails ? userDetails.userId : '';
-    return userId;
-}
-
-const getSoldToId = () => {
-	if(loginStatus.state()) {
-		const store = new SessionStore();
-		const soldToDetails = store.getSoldToDetails();
-
-		let priorityAccount;
-		let accountNumber = "";
-
-		soldToDetails.map((soldTo) => {
-			if(soldTo.default_soldTo === 1) {
-				priorityAccount = soldTo;
-			}
-		});
-
-		if (priorityAccount){
-			accountNumber = priorityAccount.soldTo ? priorityAccount.soldTo : '';
-		}
-
-		return accountNumber;
-	}
-
-	return '';
-}
+import { getCountryCode, getLanguage, getUserId } from '../../utils/userFunctions';
 
 const availabilityUrlRequest = (url, countryCode, partNo) => {
     url = url
@@ -52,9 +12,9 @@ const availabilityUrlRequest = (url, countryCode, partNo) => {
     return url;
 }
 
-const priceUrlRequest = (endpoint, sku) => {
+const priceUrlRequest = (endpoint, sku, soldToId) => {
     let url;
-    return url = `${endpoint}?productNumber=${sku}&customerNumber=${getSoldToId()}`;
+    return url = `${endpoint}?productNumber=${sku}&customerNumber=${soldToId}`;
 }
 
 const legacyAddToCartUrlRequest = (url, partNo, quantity) => {
@@ -166,7 +126,7 @@ export async function getAvailability(url, countryCode, partNo) {
     return json;
 }
 
-export async function getPricing(url, sku) {
+export async function getPricing(url, sku, soldToId) {
     if (Array.isArray(sku)) {
         sku = sku.map(skuItem => skuItem.code).join(',');
     }
@@ -177,7 +137,7 @@ export async function getPricing(url, sku) {
         mode: 'cors'
     }
 
-    const urlRequest = priceUrlRequest(url, sku);
+    const urlRequest = priceUrlRequest(url, sku, soldToId);
     const response = await fetchData(urlRequest, options);
 	const json = await response.json();
 
