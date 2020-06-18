@@ -193,6 +193,7 @@ class SkuDetails extends React.Component {
                 <Price
                     label={skuInfo.custPriceLabel}
                     price={price}
+                    isListPrice={false}
                 />
             )
         } else {
@@ -201,6 +202,7 @@ class SkuDetails extends React.Component {
                     <Price
                         label={skuInfo.listPriceLabel}
                         price={listPrice}
+                        isListPrice={true}
                     />
                 )
             }

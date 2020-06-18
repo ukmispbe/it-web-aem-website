@@ -170,6 +170,7 @@ class ListItem extends React.Component {
                 <Price
                     label={skuInfo.custPriceLabel}
                     price={price}
+                    isListPrice={false}
                 />
             )
         } else {
@@ -178,6 +179,7 @@ class ListItem extends React.Component {
                     <Price
                         label={skuInfo.listPriceLabel}
                         price={listPrice}
+                        isListPrice={true}
                     />
                 )
             }
