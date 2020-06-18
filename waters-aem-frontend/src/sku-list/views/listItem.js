@@ -6,6 +6,7 @@ import { getAvailability, getPricing, matchListItems } from '../../sku-details/s
 import AddToCart from '../../sku-details/views/addToCart';
 import AddToCartBody from '../../sku-details/views/addToCartModal';
 import Modal, { Header, keys } from '../../utils/modal';
+import { getSoldToId } from '../../utils/userFunctions';
 import Spinner from '../../utils/spinner';
 import LoginStatus from '../../scripts/loginStatus';
 import SkuMessage from '../../sku-message';
@@ -22,6 +23,12 @@ class ListItem extends React.Component {
             modalShown: false,
             modalConfig: {
                 ...this.props.skuConfig.modalInfo,
+                textHeading: this.props.relatedSku.code,
+                text: this.props.relatedSku.title,
+                partNumberLabel: this.props.skuConfig.skuInfo.partNumberLabel
+            },
+            errorConfig: {
+                ...this.props.skuConfig.errorInfo,
                 textHeading: this.props.relatedSku.code,
                 text: this.props.relatedSku.title,
                 partNumberLabel: this.props.skuConfig.skuInfo.partNumberLabel
@@ -50,8 +57,9 @@ class ListItem extends React.Component {
     }
 
     componentDidMount() {
-        if (LoginStatus.state()) {
-            getPricing(this.state.pricingUrl, this.props.relatedSku.code)
+        let soldToId = getSoldToId();
+        if (LoginStatus.state() && soldToId !== '') {
+            getPricing(this.state.pricingUrl, this.props.relatedSku.code, soldToId)
             .then(response => {
                 if (response.status && response.status === 200) {
                     let match = matchListItems(this.state.skuData.code, response);
@@ -164,6 +172,7 @@ class ListItem extends React.Component {
                 <Price
                     label={skuInfo.custPriceLabel}
                     price={price}
+                    isListPrice={false}
                 />
             )
         } else {
@@ -172,6 +181,7 @@ class ListItem extends React.Component {
                     <Price
                         label={skuInfo.listPriceLabel}
                         price={listPrice}
+                        isListPrice={true}
                     />
                 )
             }
@@ -179,8 +189,13 @@ class ListItem extends React.Component {
     }
 
     renderBuyInfoPartial = () => {
-        const { custPrice, listPrice, loading, skuInfo, errorObjAvailability, skuAvailability } = this.state;
+        const {
+            custPrice, listPrice, loading, skuInfo, skuAvailability, 
+            errorConfig, modalConfig,
+            errorObjCart, errorObjAvailability
+        } = this.state;
         const { relatedSku, skuConfig } = this.props;
+        const isErrorModal = (Object.keys(errorObjCart).length !== 0);
         return (
             <div className="cmp-sku-details__buyinfo">
                 {LoginStatus.state() && typeof custPrice !== 'undefined'
@@ -241,14 +256,24 @@ class ListItem extends React.Component {
                         analyticsConfig={this.state.analyticsConfig}
                     />
                     <Modal isOpen={this.state.modalShown} onClose={this.toggleModal} className='cmp-add-to-cart-modal'>
-                        <Header
-                            title={this.state.modalConfig.title}
-                            icon={this.state.modalConfig.icon}
-                            className={keys.HeaderWithAddedMarginTop}
-                        />
+                        {!isErrorModal && (
+                            <Header
+                                title={modalConfig.title}
+                                icon={modalConfig.icon}
+                                className={keys.HeaderWithAddedMarginTop}
+                            />
+                        )}
+
+                        {isErrorModal && (
+                            <Header
+                                title={errorConfig.title}
+                                icon={errorConfig.icon}
+                                className={keys.HeaderWithAddedMarginTopError}
+                            />
+                        )}
                         <AddToCartBody
-                            config={this.state.modalConfig}
-                            errorObjCart={this.state.errorObjCart}
+                            config={modalConfig}
+                            errorObjCart={errorObjCart}
                         ></AddToCartBody>
                     </Modal>
                 </div>

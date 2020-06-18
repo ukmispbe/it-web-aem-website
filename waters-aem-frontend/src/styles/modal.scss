@@ -150,6 +150,19 @@
             @include tablet-and-over {
                 margin-top: 1em;
             }
+
+            &__error {
+                .cmp-modal__title {
+                    .cmp-modal__title-icon {
+                        svg {
+                            .st0, .st1, polyline {
+                                //this is the error modal icon color
+                                stroke: $color-error;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
