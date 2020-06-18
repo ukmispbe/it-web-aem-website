@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ListItem from './views/listItem';
 import LoginStatus from '../scripts/loginStatus';
 import SignIn from '../scripts/signIn';
+import { getSalesOrg, getSoldToId } from '../utils/userFunctions';
 
 class SkuList extends React.Component {
     constructor(props) {
@@ -14,7 +15,11 @@ class SkuList extends React.Component {
             skuAvailability: {},
             addToCartQty: undefined,
             skuInfo: this.props.skuConfig.skuInfo,
-            userCountry: this.props.skuConfig.countryCode
+            userCountry: this.props.skuConfig.countryCode,
+            userInfo: {
+                soldToId: getSoldToId(),
+                salesOrg: getSalesOrg()
+            }
         };
     }
 
@@ -57,6 +62,7 @@ class SkuList extends React.Component {
                                 skuConfig={this.props.skuConfig}
                                 baseSignInUrl={this.props.baseSignInUrl}
                                 onItemClick={this.props.onItemClick}
+                                userInfo={this.state.userInfo}
                             />
                         ))}
                     </>
