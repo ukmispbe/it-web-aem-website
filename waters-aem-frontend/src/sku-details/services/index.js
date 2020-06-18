@@ -12,9 +12,9 @@ const availabilityUrlRequest = (url, countryCode, partNo) => {
     return url;
 }
 
-const priceUrlRequest = (endpoint, sku, soldToId) => {
+const priceUrlRequest = (endpoint, sku, soldToId, salesOrg) => {
     let url;
-    return url = `${endpoint}?productNumber=${sku}&customerNumber=${soldToId}`;
+    return url = `${endpoint}?productNumber=${sku}&customerNumber=${soldToId}&salesOrg=${salesOrg}`;
 }
 
 const legacyAddToCartUrlRequest = (url, partNo, quantity) => {
@@ -126,7 +126,7 @@ export async function getAvailability(url, countryCode, partNo) {
     return json;
 }
 
-export async function getPricing(url, sku, soldToId) {
+export async function getPricing(url, sku, soldToId, salesOrg) {
     if (Array.isArray(sku)) {
         sku = sku.map(skuItem => skuItem.code).join(',');
     }
@@ -137,7 +137,7 @@ export async function getPricing(url, sku, soldToId) {
         mode: 'cors'
     }
 
-    const urlRequest = priceUrlRequest(url, sku, soldToId);
+    const urlRequest = priceUrlRequest(url, sku, soldToId, salesOrg);
     const response = await fetchData(urlRequest, options);
 	const json = await response.json();
 
