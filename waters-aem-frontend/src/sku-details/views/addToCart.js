@@ -37,8 +37,24 @@ class AddToCart extends React.Component {
     cartAPIRequest() {
         addToCart(this.props.isCommerceApiMigrated, this.props.addToCartUrl, this.state.skuNumber, this.state.addToCartQty, this.state.toggleErrorModal)
         .then(response => {
-            this.state.toggleParentModal(true);
-            this.addToCartAnalytics(response);
+            
+            // If any other type of error eg 400, 401, 404 return 
+            if (Object.keys(response).length === 0) {
+                return;
+            }
+
+            // Check for an errors object in the response. If present display the error modal instead of the View Cart
+            const cartAPIError = response.errors;          
+            if (!response.errors) {
+                this.state.toggleParentModal(true);
+                this.addToCartAnalytics(response);        
+            }
+            else {
+                let status = cartAPIError[0].code;
+                const errTemp = {"ok": false, "status": status};
+                this.setState({ errorObj: errTemp });
+                this.state.toggleErrorModal(errTemp);
+            }
         })
         .catch(err => {
             this.setState({ errorObj: err });
@@ -70,7 +86,6 @@ class AddToCart extends React.Component {
     };
 
     addToCartAnalytics = (response) => { 
-
         const localStore = new LocalStore();
         const cartId = loginStatus.state() ? localStore.getCartId() : localStore.getGUID();
 
