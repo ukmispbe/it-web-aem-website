@@ -75,6 +75,9 @@
                     <a data-sly-test="${footer.cookiesLink}" href="${footer.cookiesLink.href}">${'Cookies' @ i18n}</a>
                     <a class="optanon-toggle-display dl_Anchor" href="#">${'Cookie Preferences' @ i18n}</a>
                     <div data-sly-test="${isChinaPage}" class="cmp-footer__china-legal">
+						<a href="${footer.cBLegalLink.href}" class="cmp-footer__china-legal-cB">
+                            <img data-sly-test="${footer.cBLegalIcon}" src="${footer.cBLegalIcon}" alt="${'Commercial Bureau Legal Icon' @ i18n}" />
+                        </a>
                         <a href="${footer.sICPLegalLink.href}" class="cmp-footer__china-legal-sICP">
                             <img data-sly-test="${footer.sICPLegalIcon}" src="${footer.sICPLegalIcon}" alt="${'Shanghai ICP Number Legal Icon' @ i18n}" />
                             <span data-sly-test="${footer.sICPNumber}">沪ICP备${footer.sICPNumber}号-2</span>
@@ -82,9 +85,6 @@
                         <a href="${footer.bPNSLegalLink.href}" class="cmp-footer__china-legal-bPNS">
                             <img data-sly-test="${footer.bPNSLegalIcon}" src="${footer.bPNSLegalIcon}" alt="${'Beijing Public Network Security Number Legal Icon' @ i18n}"/>
                             <span data-sly-test="${footer.bPNSNumber}">京公网安备 ${footer.bPNSNumber}号</span>
-                        </a>
-                        <a href="${footer.cBLegalLink.href}" class="cmp-footer__china-legal-cB">
-                            <img data-sly-test="${footer.cBLegalIcon}" src="${footer.cBLegalIcon}" alt="${'Commercial Bureau Legal Icon' @ i18n}" />
                         </a>
                     </div>
                 </nav>
