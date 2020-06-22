@@ -59,7 +59,7 @@
                                                     rootPath="/">
                                                 <granite:data
                                                         jcr:primaryType="nt:unstructured"
-                                                        cq-msm-lockable="jcr:title"/>
+                                                        cq-msm-lockable="jcr:canonicalUrl"/>
                                             </canonicalUrl>
                                             <seoTitle
                                                     cq:hideOnEdit="{Boolean}false"
