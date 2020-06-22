@@ -360,15 +360,20 @@ if (registrationFormContainer) {
         }
     }
 
-    const AddExtraDisclosures = (config) => {
+    const AddExtraDisclosures = (config, addDisclosuresJSON) => {
+        const indexofPrivacy = config.fields.map(e => e.name).indexOf('privacy');
+        let privacyConfig = config.fields[indexofPrivacy].config;
+        privacyConfig.pop();
+        config.fields[indexofPrivacy].config = privacyConfig.concat(addDisclosuresJSON);
+    }
+
+    const changeDisclosures = (config) => {
         const KRconfig = JSON.parse(
             document.getElementById('cmp-registration-form-kr').innerHTML
         ).koreanDisclosures;
 
         const indexofPrivacy = config.fields.map(e => e.name).indexOf('privacy');
-        let privacyConfig = config.fields[indexofPrivacy].config;
-        privacyConfig.pop();
-        config.fields[indexofPrivacy].config = privacyConfig.concat(KRconfig);
+        config.fields[indexofPrivacy].config = KRconfig;
     }
 
     if (config.formName === "registration" && (country ==="jp" || country === "cn" || country === "tw" || country === "kr")) {
@@ -376,7 +381,7 @@ if (registrationFormContainer) {
     }
 
     if (config.formName === "registration" && country === "kr") {
-        AddExtraDisclosures(config);
+        changeDisclosures(config);
     }
 
     ReactDOM.render(
