@@ -59,7 +59,7 @@
                                                     rootPath="/">
                                                 <granite:data
                                                         jcr:primaryType="nt:unstructured"
-                                                        cq-msm-lockable="jcr:canonicalUrl"/>
+                                                        cq-msm-lockable="canonicalUrl"/>
                                             </canonicalUrl>
                                             <seoTitle
                                                     cq:hideOnEdit="{Boolean}false"
@@ -73,7 +73,7 @@
                                                     required="{Boolean}false">
                                                 <granite:data
                                                         jcr:primaryType="nt:unstructured"
-                                                        cq-msm-lockable="jcr:seoTitle"/>
+                                                        cq-msm-lockable="seoTitle"/>
                                             </seoTitle>
                                             <metaDescription
                                                     cq:hideOnEdit="{Boolean}false"
@@ -89,7 +89,7 @@
                                                     rows="5">
                                                 <granite:data
                                                         jcr:primaryType="nt:unstructured"
-                                                        cq-msm-lockable="jcr:metaDescription"/>
+                                                        cq-msm-lockable="metaDescription"/>
                                             </metaDescription>
                                             <noIndex
                                                     cq:hideOnEdit="{Boolean}false"
@@ -106,7 +106,7 @@
                                                     required="{Boolean}false">
                                                 <granite:data
                                                         jcr:primaryType="nt:unstructured"
-                                                        cq-msm-lockable="jcr:noIndex"/>
+                                                        cq-msm-lockable="noIndex"/>
                                             </noIndex>
                                             <noFollow
                                                     cq:hideOnEdit="{Boolean}false"
@@ -123,7 +123,7 @@
                                                     required="{Boolean}false">
                                                 <granite:data
                                                         jcr:primaryType="nt:unstructured"
-                                                        cq-msm-lockable="jcr:noFollow"/>
+                                                        cq-msm-lockable="noFollow"/>
                                             </noFollow>
                                             <ogType
                                                     cq:hideOnEdit="{Boolean}false"
@@ -205,7 +205,7 @@
                                                 </items>
                                                 <granite:data
                                                         jcr:primaryType="nt:unstructured"
-                                                        cq-msm-lockable="jcr:ogType"/>
+                                                        cq-msm-lockable="ogType"/>
                                             </ogType>
                                             <ogImage
                                                     cq:hideOnEdit="{Boolean}false"
@@ -222,7 +222,7 @@
                                                     rootPath="/content/dam/waters">
                                                 <granite:data
                                                         jcr:primaryType="nt:unstructured"
-                                                        cq-msm-lockable="jcr:ogImage"/>
+                                                        cq-msm-lockable="ogImage"/>
                                             </ogImage>
                                             <facebookAppId
                                                     cq:hideOnEdit="{Boolean}false"
@@ -236,7 +236,7 @@
                                                     required="{Boolean}false">
                                                 <granite:data
                                                         jcr:primaryType="nt:unstructured"
-                                                        cq-msm-lockable="jcr:facebookAppId"/>
+                                                        cq-msm-lockable="facebookAppId"/>
                                             </facebookAppId>
                                             <twitterPublisherHandle
                                                     cq:hideOnEdit="{Boolean}false"
@@ -250,7 +250,7 @@
                                                     required="{Boolean}false">
                                                 <granite:data
                                                         jcr:primaryType="nt:unstructured"
-                                                        cq-msm-lockable="jcr:twitterPublisherHandle"/>
+                                                        cq-msm-lockable="twitterPublisherHandle"/>
                                             </twitterPublisherHandle>
                                             <twitterCard
                                                     cq:hideOnEdit="{Boolean}false"
@@ -287,7 +287,7 @@
                                                 </items>
                                                 <granite:data
                                                         jcr:primaryType="nt:unstructured"
-                                                        cq-msm-lockable="jcr:twitterCard"/>
+                                                        cq-msm-lockable="twitterCard"/>
                                             </twitterCard>
                                             <twitterImage
                                                     cq:hideOnEdit="{Boolean}false"
@@ -304,7 +304,7 @@
                                                     rootPath="/content/dam/waters">
                                                 <granite:data
                                                         jcr:primaryType="nt:unstructured"
-                                                        cq-msm-lockable="jcr:twitterImage"/>
+                                                        cq-msm-lockable="twitterImage"/>
                                             </twitterImage>
                                         </items>
                                     </column>
