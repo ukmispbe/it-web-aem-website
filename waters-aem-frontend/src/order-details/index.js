@@ -14,6 +14,7 @@ import { addToCart } from '../sku-details/services';
 import Analytics, { analyticTypes, setClickAnalytics, setSelectDropdownAnalytics } from '../analytics';
 import LocalStore from '../stores/localStore';
 import loginStatus from '../scripts/loginStatus';
+import { getFullCompanyAddress, getCountryName } from '../utils/userFunctions'
 
 class OrderDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
@@ -169,6 +170,11 @@ class OrderDetails extends Component {
         getOrderDetails(detailsUrl, orderId, this.setError)
             .then((data) => {
                 if(data && data.account && data.account.length) {
+                    // Add Country Names to data
+                    data.account.map(account => {
+                        const countryName = getCountryName(account.country, this.config);
+                        account.countryName = countryName;
+                    });
                     this.setState({
                         isLoading: false,
                         orderDetails: data
@@ -208,17 +214,23 @@ class OrderDetails extends Component {
         this.props.removeNotifications();
     }
 
+    config = 
+         document.getElementById('json-config--cmp-detail-tiles--personal')
+        ? JSON.parse(document.getElementById('json-config--cmp-detail-tiles--personal').innerHTML) : '';
+
     renderAddress = (addressType) => {
         const {orderDetails} = this.state;
         if (orderDetails.account){
-            let account = orderDetails.account.filter(item => item.partnerType === addressType )[0];
-            return (
-                        <>
-                            <div className="cmp-order-details-address1">{account.partnerName}</div>
-                            <div className="cmp-order-details-address2">{account.street}</div>
-                            <div className="cmp-order-details-address3">{account.city + ", " + account.region} <span className="postalcode">{account.postalCd}</span></div>
-                        </>
-                    );
+            const account = orderDetails.account.filter(item => item.partnerType === addressType )[0];
+            if (account) {
+                const includeCountryName = true;
+                const addressArray = getFullCompanyAddress(account, includeCountryName);
+                return (
+                    <>
+                        {addressArray.map((addressLine) => <div className="cmp-order-details-address1">{addressLine}</div>)}
+                    </>
+                );
+            }
         }
         return null;
     }

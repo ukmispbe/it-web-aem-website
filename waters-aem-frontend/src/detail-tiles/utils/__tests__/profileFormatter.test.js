@@ -1,4 +1,4 @@
-import * as profileFormatter from '../profileFormatter';
+import * as profileFormatter from '../../../utils/userFunctions';
 import defaultData from '../__mocks__/en_US/index';
 
 describe('Scenario Capitalize Function', () => {
