@@ -18,7 +18,7 @@ import './scripts/header';
 import './scripts/collapsible';
 import './scripts/skulist';
 import './scripts/continueButton';
-import './scripts/textModifier';
+import './scripts/fetchUserDetails';
 import './index';
 
 import cssVars from 'css-vars-ponyfill';
