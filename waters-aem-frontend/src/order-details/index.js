@@ -294,7 +294,7 @@ class OrderDetails extends Component {
                                 <div className="text">{this.props.config.paymentType.creditCard.label}</div>
                                 </>
                             )}
-                            {!orderDetails.ccNum && (
+                            {!orderDetails.ccNum && orderDetails.purchaseOrderNumber && (
                                 <>
                                 <ReactSVG src={this.props.config.paymentType.purchaseOrder.icon}/>
                                 <div className="text">{this.props.config.paymentType.purchaseOrder.label}: {orderDetails.purchaseOrderNumber}</div>
