@@ -288,16 +288,16 @@ class OrderDetails extends Component {
                     <div className="cmp-order-details__payment-container">
                         <div className="cmp-order-details__payment-method">
                             <h4>{this.props.config.paymentMethod}</h4>
-                            {orderDetails.purchaseOrderNumber && (
-                                <>
-                                <ReactSVG src={this.props.config.paymentType.purchaseOrder.icon}/>
-                                <div className="text">{this.props.config.paymentType.purchaseOrder.label}: {orderDetails.purchaseOrderNumber}</div>
-                                </>
-                            )}
-                            {!orderDetails.purchaseOrderNumber && (
+                            {orderDetails.ccNum && (
                                 <>
                                 <ReactSVG src={this.props.config.paymentType.creditCard.icon}/>
                                 <div className="text">{this.props.config.paymentType.creditCard.label}</div>
+                                </>
+                            )}
+                            {!orderDetails.ccNum && orderDetails.purchaseOrderNumber && (
+                                <>
+                                <ReactSVG src={this.props.config.paymentType.purchaseOrder.icon}/>
+                                <div className="text">{this.props.config.paymentType.purchaseOrder.label}: {orderDetails.purchaseOrderNumber}</div>
                                 </>
                             )}
                         </div>
