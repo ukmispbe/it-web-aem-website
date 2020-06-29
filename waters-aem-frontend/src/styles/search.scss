@@ -17,7 +17,7 @@
 }
 .cmp-search__container {
     position: relative;
-    top: -55px;
+    // top: -55px;
     width: 75%;
     float: left;
     padding-left: 2%;
@@ -413,21 +413,22 @@ div.cmp-search__no-results {
 }
 
 .cmp-search__resultsCount-container {
-    position: relative;
-    left: 27%;
-    width: 70%;
 
-    @include tablet-and-under {
-        position: absolute;
-        top: ($space-s + $space-xxs);
-        width: 100%;
-        left: 0;
-    }
+    // position: relative;
+    // left: 27%;
+    // width: 70%;
 
-    @include mobile {
-        margin-bottom: $space-xl;
-        top: ($space-xxl * 2 + $space-m);
-    }
+    // @include tablet-and-under {
+    //     position: absolute;
+    //     top: ($space-s + $space-xxs);
+    //     width: 100%;
+    //     left: 0;
+    // }
+
+    // @include mobile {
+    //     margin-bottom: $space-xl;
+    //     top: ($space-xxl * 2 + $space-m);
+    // }
 }
 
 .cmp-search__resultsCount {
@@ -454,13 +455,17 @@ div.cmp-search__no-results {
         }
     }
 
+    @include mobile {
+        padding-bottom: $space-s;
+    }
+
     .text-strike {
         text-decoration: line-through;
     }
 }
 
 .cmp-search__related-suggestions {
-    position: relative;
+    // position: relative;
     @include font-body;
     color: $color-font-medium;
 
@@ -480,8 +485,8 @@ div.cmp-search__no-results {
     }
 
     @include tablet-and-under {
-        top: -13px;
-        margin-bottom: $space-xxl;
+        // top: -13px;
+        // margin-bottom: $space-xxl;
     }
 }
 
@@ -492,7 +497,7 @@ div.cmp-search__no-results {
 
         .cmp-search__sorted-by{
             order: 0;
-            padding-bottom: $space-xxl;
+            padding-bottom: $space-xs;
             padding-top: 0;
         }
         .cmp-search-filters__tag {

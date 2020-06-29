@@ -259,7 +259,8 @@
             display: block;
             float: left;
             padding: $space-xxxs $space-xs ($space-xxxs + .05em) ($space-l - $space-xxxs);
-            margin: ($space-m + 0.15em) $space-xxs ($space-s * -1) 0;
+            // margin: ($space-m + 0.15em) $space-xxs ($space-s * -1) 0;
+            margin: 0 .5em 0 0;
             text-decoration: none;
             background-color: $color-gray-20;
             position: relative;
@@ -415,7 +416,7 @@ $header-height: 74px;
 
 .cmp-search__sort-filter {
     position: relative;
-    top: -55px;
+    // top: -55px;
 
     .cmp-search-filters__tags {
         display: none;
