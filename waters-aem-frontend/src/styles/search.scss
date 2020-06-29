@@ -17,7 +17,6 @@
 }
 .cmp-search__container {
     position: relative;
-    // top: -55px;
     width: 75%;
     float: left;
     padding-left: 2%;
@@ -412,25 +411,6 @@ div.cmp-search__no-results {
     }
 }
 
-.cmp-search__resultsCount-container {
-
-    // position: relative;
-    // left: 27%;
-    // width: 70%;
-
-    // @include tablet-and-under {
-    //     position: absolute;
-    //     top: ($space-s + $space-xxs);
-    //     width: 100%;
-    //     left: 0;
-    // }
-
-    // @include mobile {
-    //     margin-bottom: $space-xl;
-    //     top: ($space-xxl * 2 + $space-m);
-    // }
-}
-
 .cmp-search__resultsCount {
     margin-bottom: 0;
 
@@ -465,7 +445,6 @@ div.cmp-search__no-results {
 }
 
 .cmp-search__related-suggestions {
-    // position: relative;
     @include font-body;
     color: $color-font-medium;
 
@@ -482,11 +461,6 @@ div.cmp-search__no-results {
 
     .vertical-bar {
         color: $color-border-medium;
-    }
-
-    @include tablet-and-under {
-        // top: -13px;
-        // margin-bottom: $space-xxl;
     }
 }
 
