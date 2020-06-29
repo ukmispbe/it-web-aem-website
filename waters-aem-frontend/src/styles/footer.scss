@@ -1,5 +1,5 @@
 .cmp-footer {
-    padding: 0;	
+    padding: 0;
     margin-top: 0;
     overflow: hidden;
     width: 100%;
@@ -33,13 +33,13 @@
         @include tablet {
             padding: $space-xl $space-l $space-l $space-l;
         }
-
     }
 
     .container1_wrapper {
         background-color: $color-background-dark;
         opacity: 0.95;
     }
+
     .container2 {
         background-color: $color-background-dark;
         max-width: 1480px;
@@ -56,10 +56,12 @@
         @include tablet {
             padding: $space-l;
         }
-        .cmp-footer__yamcontainer{
-             margin-top: $space-l;
+
+        .cmp-footer__yamcontainer {
+            margin-top: $space-l;
         }
     }
+
     .container2_wrapper {
         background-color: $color-background-dark;
     }
@@ -103,15 +105,18 @@
         color: $color-gray-20;
         margin-right: $space-l;
         display: inline;
+
         @include mobile {
             line-height: $line-height-text;
             padding: $space-s 0 0 0;
             display: block;
             width: 100%;
         }
+
         @include tablet {
             display: inline-block;
         }
+
         line-height: 2.5em;
 
         &:hover {
@@ -125,9 +130,9 @@
     }
 
     &.china-legal {
-       @include mobile {
-         margin-bottom: 150px;
-       }
+        @include mobile {
+            margin-bottom: 150px;
+        }
     }
 }
 
@@ -146,7 +151,6 @@
         color: $color-disabled;
         padding-right: $space-xxs;
         font-weight: $font-weight-bold;
-
     }
 
     a {
@@ -168,8 +172,9 @@
 }
 
 .cmp-footer__copyright {
-    float: left;	
+    float: left;
     margin: 0 0 $space-s $space-s;
+
     p {
         @include font-small;
         color: $color-gray-30;
@@ -200,7 +205,7 @@
     opacity: 0;
     border: $border-medium;
     border-radius: $border-radius;
-    padding: ($space-xxs + .05em);
+    padding: ($space-xxs + 0.05em);
     box-shadow: $shadow;
     transition: $fade-transition;
 
@@ -215,6 +220,7 @@
 
     &:hover {
         border: $border-link;
+
         svg {
             .st0 {
                 stroke: $color-link;
@@ -224,6 +230,7 @@
 
     &:active {
         border: $border-medium;
+
         svg {
             .st0 {
                 stroke: $color-icon;
@@ -251,6 +258,7 @@
     display: inline-block;
     float: right;
     margin-right: $space-s;
+
     @include mobile {
         margin-top: $space-m;
         float: none;
@@ -267,7 +275,6 @@
         @include mobile {
             text-align: left;
         }
-
     }
 
     .inline-svg {
@@ -276,10 +283,12 @@
 
     ul {
         float: right;
+
         @include mobile {
             float: left;
             padding-inline-start: 0;
         }
+
         li {
             list-style-type: none;
             display: inline-block;
@@ -342,12 +351,15 @@
 
         &:hover {
             color: $color-gray-20;
-            & > span:first-child {
+
+            &>span:first-child {
                 color: $color-gray-20;
             }
 
-            .inline-svg {    
-                line, polyline {
+            .inline-svg {
+
+                line,
+                polyline {
                     stroke: $color-gray-20;
                 }
             }
@@ -371,13 +383,14 @@
             height: $icon-m / 2;
             margin-bottom: 3px;
 
-            line, polyline {
+            line,
+            polyline {
                 stroke: $color-white;
                 stroke-width: 1px;
             }
 
             @supports (display: inline-grid) {
-               margin-bottom: 0;
+                margin-bottom: 0;
             }
         }
 
@@ -392,12 +405,15 @@
 
             &:hover {
                 color: $color-white;
-                & > span:first-child {
+
+                &>span:first-child {
                     color: $color-white;
                 }
-    
-                .inline-svg {    
-                    line, polyline {
+
+                .inline-svg {
+
+                    line,
+                    polyline {
                         stroke: $color-white;
                     }
                 }
@@ -420,7 +436,7 @@
         display: inline-table;
         position: absolute;
         border-radius: $border-radius;
-        
+
         @supports (display: inline-grid) {
             display: inline-flex;
             position: relative;
@@ -432,7 +448,8 @@
 
         &:hover {
             color: $color-gray-20;
-            & > a:first-child {
+
+            &>a:first-child {
                 color: $color-gray-20;
             }
 
@@ -441,8 +458,7 @@
             }
         }
 
-        & > a {
-
+        &>a {
             &:first-child {
                 white-space: pre-wrap;
                 pointer-events: none;
@@ -463,7 +479,7 @@
         }
 
         &::after {
-            content: '';
+            content: "";
             width: $icon-m;
             height: $icon-m;
             background-repeat: no-repeat;
@@ -494,7 +510,7 @@
             width: 100%;
             box-sizing: content-box;
 
-            & > a {
+            &>a {
                 display: flex;
                 padding: $space-xxs $space-xxs $space-xxs $space-s;
                 color: $color-white;
@@ -523,8 +539,8 @@
             border: none;
             cursor: text;
 
-            &:hover > a:first-child {
-               color: $color-white;
+            &:hover>a:first-child {
+                color: $color-white;
             }
 
             @include mobile {
@@ -548,59 +564,66 @@
 }
 
 .cmp-footer__china-legal {
-   font-size: $font-size-small;
-   font-weight: $font-weight-light;
-   margin-top: $space-s;
+    font-size: $font-size-small;
+    font-weight: $font-weight-light;
+    margin-top: $space-s;
 
-   @include tablet-and-under {
-      position: relative;
-      padding-top: $space-l + 0.5em;
-   }
+    @include tablet-and-under {
+        position: relative;
+        padding-top: $space-l + 0.5em;
+    }
 
-   @include mobile {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      margin-top: 0;
-      padding-top: $space-l;
-   }
+    @include mobile {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        margin-top: 0;
+        padding-top: $space-l;
+    }
 
-   &-sICP {
-      position: relative;
+    &-sICP {
+        position: relative;
 
-      @include tablet-and-under {
-         line-height: 1em!important;
-      }
+        @include tablet-and-under {
+            line-height: 1em !important;
+        }
 
-      span {
-         padding-left: 20px;
-      }
-   }
+        span {
+            padding-left: 20px;
+        }
 
-   &-bPNS {
-      position: relative;
+        @include mobile {
+            span {
+                padding-left: 0;
+            }
+        }
+    }
 
-      @include tablet-and-under {
-         line-height: 1em!important;
-      }
+    &-bPNS {
+        position: relative;
 
-      @include mobile {
-         padding-top: $space-l!important;
-      }
+        @include tablet-and-under {
+            line-height: 1em !important;
+        }
 
-      span {
-         padding-left: 10px;
-      }
-   }
-   &-cB {
-         position: relative;
+        @include mobile {
+            padding-top: $space-l !important;
+        }
 
-         @include tablet-and-under {
-            line-height: 1em!important;
-         }
+        span {
+            padding-left: 10px;
+        }
+    }
 
-         span {
-            padding-left: 10px ;
-         }
+    &-cB {
+        position: relative;
+
+        @include tablet-and-under {
+            line-height: 1em !important;
+        }
+
+        span {
+            padding-left: 10px;
+        }
     }
 }
