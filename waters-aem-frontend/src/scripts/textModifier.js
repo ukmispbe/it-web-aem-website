@@ -17,8 +17,8 @@ async function textModifier() {
             //  TODO, Error handling
         }
     }
-    const userDetailsUrl = document.getElementById('header').dataset;
-    const userDetails = await getUserDetails(userDetailsUrl, session);
+    const detailsUrl = document.getElementById('header').dataset.userDetailsUrl;
+    const userDetails = await getUserDetails(detailsUrl, session);
 
     const objMapping = {
         user: keys.userDetails,
