@@ -542,7 +542,8 @@ div.cmp-search__sorted-by {
 .cmp-search-inline {
     background-color: $overlay-dark;
     border-radius: $border-radius;
-    padding: $space-xxs $space-m;
+    padding: $space-xs $space-m;
+    height: $height-medium;
 }
 
 html.showing-spinner {
