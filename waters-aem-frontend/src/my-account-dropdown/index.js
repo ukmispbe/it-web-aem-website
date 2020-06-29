@@ -55,7 +55,7 @@ class MyAccountDropDown extends React.Component {
 
         window.addEventListener('resize', this.updateViewport, true);
 
-        if (loginStatus.state()) {
+        if (loginStatus.state() || this.props.config.isMyAccountDisabled) {
             this.retrieveUserDetails();
         }
     }
@@ -226,7 +226,7 @@ class MyAccountDropDown extends React.Component {
         const userDetails = await UserDetailsLazy(this.props.config.userDetailsUrl);
         const soldToDetails = await SoldToDetailsLazy(this.props.config.soldToDetailsUrl);
 
-        const mailingAddress = userDetails.userAddress.filter(address => address.addressType === 'mailingAddress');
+        const mailingAddress = Object.keys(userDetails).length > 0 && userDetails.userAddress.filter(address => address.addressType === 'mailingAddress');
         const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
         let userName = '';
         if (userCountry === 'jp' || userCountry === 'cn' || userCountry === 'kr' || userCountry === 'tw') {

@@ -2,26 +2,23 @@ import SessionStore, { keys } from './../stores/sessionStore';
 const session = new SessionStore();
 
 import getUserDetails from './../my-account/services/UserDetailsLazy';
-import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
-import userAuth from '../my-account/services/UserAuth';
+import punchoutLogin from '../my-account/services/PunchoutLogin';
 import parseQueryParams from '../utils/parse-query-params';
 
-async function fetchUserDetails() {
+async function textModifier() {
     const urlParams = parseQueryParams(window.location.search);
     const token = urlParams['1tu'] || '';
     if (token) {
-        const { response } = await userAuth('/data.json', token);
+        const { response } = await punchoutLogin({ token });
         if (
             response &&
-            (response.status === 400 ||response.status === 403 || response.status === 500 || response.status === 'BAD_REQUEST')
+            (response.status === 400 || response.status === 403 || response.status === 500 || response.status === 'BAD_REQUEST')
         ) {
             //  TODO, Error handling
-            return;
         }
     }
-    const { userDetailsUrl, soldToDetailsUrl } = document.getElementById('header').dataset;
+    const userDetailsUrl = document.getElementById('header').dataset;
     const userDetails = await getUserDetails(userDetailsUrl, session);
-    await SoldToDetailsLazy(soldToDetailsUrl); // stors soldToDetails in session storage
 
     const objMapping = {
         user: keys.userDetails,
@@ -49,4 +46,4 @@ async function fetchUserDetails() {
     }
 }
 
-fetchUserDetails();
+textModifier();
