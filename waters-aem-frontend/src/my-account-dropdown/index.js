@@ -11,6 +11,9 @@ import UserDetailsLazy from '../my-account/services/UserDetailsLazy';
 import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
 import SessionStore from '../stores/sessionStore';
 import { getAddressesByType } from '../detail-tiles/utils/profileFormatter';
+import punchoutLogin from '../my-account/services/PunchoutLogin';
+import parseQueryParams from '../utils/parse-query-params';
+import removeQString from '../utils/remove-query-string';
 
 const myAccountModalTheme = 'my-account-dropdown';
 class MyAccountDropDown extends React.Component {
@@ -35,7 +38,7 @@ class MyAccountDropDown extends React.Component {
         this.header = null;
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         this.accountHeaderUser = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
         this.allNavItems = document.querySelectorAll('.top-bar__nav__item:not(.top-bar__nav__user)');
         this.header = document.querySelector('header.cmp-header');
@@ -55,7 +58,11 @@ class MyAccountDropDown extends React.Component {
 
         window.addEventListener('resize', this.updateViewport, true);
 
-        if (loginStatus.state() || this.props.config.isMyAccountDisabled) {
+         // Validates 1TU token, once get from query string
+        await this.punchoutLogin();
+
+         // Need to update once get isEprocUser from OSGI
+        if (loginStatus.state() || (this.props.config.isEprocUser || true)) {
             this.retrieveUserDetails();
         }
     }
@@ -290,6 +297,19 @@ class MyAccountDropDown extends React.Component {
             userDetails: {
                 userName,
                 accountName
+            }
+        }
+    }
+
+    punchoutLogin = async () => {
+        const urlParams = parseQueryParams(window.location.search);
+        const token = urlParams['1tu'] || '';
+        if (token) {
+            const { response } = await punchoutLogin({ token });
+            if ( response && response.status !== 200) {
+                //  TODO, Error handling
+            } else {
+                removeQString();
             }
         }
     }

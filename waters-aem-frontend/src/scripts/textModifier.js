@@ -2,21 +2,8 @@ import SessionStore, { keys } from './../stores/sessionStore';
 const session = new SessionStore();
 
 import getUserDetails from './../my-account/services/UserDetailsLazy';
-import punchoutLogin from '../my-account/services/PunchoutLogin';
-import parseQueryParams from '../utils/parse-query-params';
 
 async function textModifier() {
-    const urlParams = parseQueryParams(window.location.search);
-    const token = urlParams['1tu'] || '';
-    if (token) {
-        const { response } = await punchoutLogin({ token });
-        if (
-            response &&
-            (response.status === 400 || response.status === 403 || response.status === 500 || response.status === 'BAD_REQUEST')
-        ) {
-            //  TODO, Error handling
-        }
-    }
     const detailsUrl = document.getElementById('header').dataset.userDetailsUrl;
     const userDetails = await getUserDetails(detailsUrl, session);
 
