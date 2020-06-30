@@ -24,6 +24,7 @@ import com.waters.aem.core.components.content.CategoryListing;
 import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.account.WatersAccountService;
+import com.waters.aem.core.services.account.WatersPunchoutServiceConfiguration;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.waters.aem.core.services.launch.AdobeLaunchService;
 import com.waters.aem.core.utils.LinkUtils;
@@ -70,6 +71,9 @@ public final class Header extends AbstractComponent implements ComponentExporter
 
     @OSGiService
     private WatersAccountService watersAccountService;
+
+    @OSGiService
+    private WatersPunchoutServiceConfiguration watersPunchoutService;
 
     @OSGiService
     private WatersCommerceService watersCommerceService;
@@ -287,6 +291,10 @@ public final class Header extends AbstractComponent implements ComponentExporter
     public String getSignOutEndpoint() {
         return watersAccountService.getSignOutEndpoint();
     }
+
+    public String getPunchOutSetupEndpoint() { return watersPunchoutService.setupUrl(); }
+
+    public String getPunchOutLoginEndpoint() { return watersPunchoutService.punchoutLogin(); }
 
     /**
      * Finds the first category listing component on this page.
