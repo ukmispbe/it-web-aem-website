@@ -11,6 +11,8 @@ public final class WatersConstants {
 
     public static final String CUSTOM_ROOT_PATH = "/nextgen";
 
+    public static final String ORDER_ROOT_PATH = "/content/order";
+
     public static final String ROOT_PATH_LANGUAGE_MASTERS = ROOT_PATH + "/language-masters";
 
     public static final String ROOT_PATH_GLOBAL_EXPERIENCE = ROOT_PATH + "/xg";
