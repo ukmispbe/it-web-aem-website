@@ -570,7 +570,7 @@
 
     @include tablet-and-under {
         position: relative;
-        padding-top: $space-l + 0.5em;
+        padding-top: $space-l + $space-xxs;
     }
 
     @include mobile {
@@ -585,7 +585,7 @@
         position: relative;
 
         @include tablet-and-under {
-            line-height: 1em !important;
+            line-height: $font-size-body !important;
         }
 
         span {
@@ -603,11 +603,7 @@
         position: relative;
 
         @include tablet-and-under {
-            line-height: 1em !important;
-        }
-
-        @include mobile {
-            padding-top: $space-l !important;
+            line-height: $font-size-body !important;
         }
 
         span {
@@ -619,7 +615,7 @@
         position: relative;
 
         @include tablet-and-under {
-            line-height: 1em !important;
+            line-height: $font-size-body !important;
         }
 
         span {
