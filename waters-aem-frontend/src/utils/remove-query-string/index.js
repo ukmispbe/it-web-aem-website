@@ -1,6 +1,6 @@
 function removeQString() {
     // get the string following the ?
-    const query = window.location.search.substring(1)
+    const query = window.location.search.substring(1);
 
     // is there anything there ?
     if (query.length) {
