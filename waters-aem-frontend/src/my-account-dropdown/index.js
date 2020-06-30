@@ -304,7 +304,7 @@ class MyAccountDropDown extends React.Component {
         const urlParams = parseQueryParams(window.location.search);
         const token = urlParams['1tu'] || '';
         if (token) {
-            const { response } = await punchoutLogin({ token });
+            const { response } = await punchoutLogin(this.props.config.punchoutLogin, { token });
             if ( response && response.status !== 200) {
                 //  TODO, Error handling
             } else {
