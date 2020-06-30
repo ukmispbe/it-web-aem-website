@@ -61,8 +61,7 @@ class MyAccountDropDown extends React.Component {
          // Validates 1TU token, once get from query string
         await this.punchoutLogin();
 
-         // Need to update once get isEprocUser from OSGI
-        if (loginStatus.state() || (this.props.config.isEprocUser || true)) {
+        if (loginStatus.state()) {
             this.retrieveUserDetails();
         }
     }
