@@ -10,10 +10,13 @@ import loginStatus from '../scripts/loginStatus';
 import UserDetailsLazy from '../my-account/services/UserDetailsLazy';
 import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
 import SessionStore from '../stores/sessionStore';
+import LocalStore from '../stores/localStore';
 import { getAddressesByType } from '../detail-tiles/utils/profileFormatter';
 import punchoutLogin from '../my-account/services/PunchoutLogin';
+import punchoutSetup from '../my-account/services/PunchoutSetup';
 import parseQueryParams from '../utils/parse-query-params';
 import removeQString from '../utils/remove-query-string';
+import buildUrl from '../utils/buildUrl';
 
 const myAccountModalTheme = 'my-account-dropdown';
 class MyAccountDropDown extends React.Component {
@@ -57,6 +60,8 @@ class MyAccountDropDown extends React.Component {
         }
 
         window.addEventListener('resize', this.updateViewport, true);
+
+        this.punchoutSetup();
 
          // Validates 1TU token, once get from query string
         await this.punchoutLogin();
@@ -309,6 +314,31 @@ class MyAccountDropDown extends React.Component {
                 //  TODO, Error handling
             } else {
                 removeQString();
+            }
+        }
+    }
+
+    punchoutSetup = async () => {
+        const urlParams = parseQueryParams(window.location.search);
+        const sid = urlParams['sid'] || '';
+        if (sid) {
+            const response = await punchoutSetup(buildUrl({
+                pathname: this.props.config.punchoutSetup,
+                query: {},
+                pathVars: {
+                    userId: "anonymous",
+                    sid: sid
+                }
+            }));
+            if (response && response.status !== 200) {
+                //  TODO, Error handling
+            } else {
+                (new SessionStore()).setPunchoutSetupDetails({
+                    returnUrl: response.return_url,
+                    redirectUrl: response.redirect_url,
+                    buyerOrgName: response.buyerOrgName
+                });
+                (new LocalStore()).setCartId(response.cartId);
             }
         }
     }
