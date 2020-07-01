@@ -99,6 +99,17 @@ class MyAccountDropDown extends React.Component {
         }
     }
 
+    formatUserName = (userDetails) => {
+        let userName = '';
+        if (userDetails.mailingAddressCountryCode === 'jp' || userDetails.mailingAddressCountryCode === 'cn' 
+            || userDetails.mailingAddressCountryCode === 'kr' || userDetails.mailingAddressCountryCode === 'tw') {
+            userName = userDetails.firstName && userDetails.lastName ? `${userDetails.lastName} ${userDetails.firstName}` : '';
+        } else {
+            userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
+        }
+        return userName;
+    }
+
     willShow = (newState, caller = 'default') => {
 
         // Check if Personal Details have been updated
@@ -110,14 +121,9 @@ class MyAccountDropDown extends React.Component {
 
             let updatedUserName = '';
             if(Object.keys(savedUserDetails).length !== 0) {
-                const mailingAddress = savedUserDetails.userAddress.filter(address => address.addressType === 'mailingAddress');
-                const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
 
-                if (userCountry === 'jp' || userCountry === 'cn' || userCountry === 'kr' || userCountry === 'tw') {
-                    updatedUserName = savedUserDetails.firstName && savedUserDetails.lastName ? `${savedUserDetails.lastName} ${savedUserDetails.firstName}` : '';
-                } else {
-                    updatedUserName = savedUserDetails.firstName && savedUserDetails.lastName ? `${savedUserDetails.firstName} ${savedUserDetails.lastName}` : '';
-                }
+                updatedUserName = this.formatUserName(savedUserDetails);
+
             } else {
                 this.retrieveUserDetails();
             }
@@ -222,17 +228,12 @@ class MyAccountDropDown extends React.Component {
     }
 
     retrieveUserDetails = async () => {
-        const userDetails = await UserDetailsLazy(this.props.config.userDetailsUrl);
+        const checkSessionStore = true;
+        const userDetails = await UserDetailsLazy(this.props.config.userDetailsUrl, checkSessionStore);
         const soldToDetails = await SoldToDetailsLazy(this.props.config.soldToDetailsUrl);
 
-        const mailingAddress = userDetails.userAddress.filter(address => address.addressType === 'mailingAddress');
-        const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
-        let userName = '';
-        if (userCountry === 'jp' || userCountry === 'cn' || userCountry === 'kr' || userCountry === 'tw') {
-            userName = userDetails.firstName && userDetails.lastName ? `${userDetails.lastName} ${userDetails.firstName}` : '';
-        } else {
-            userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
-        }
+        const userName = this.formatUserName(userDetails);
+
         // Fix to correct first soldTo being selected. It should be the default_soldTo === 1 selected
         let priorityAccount;
         let accountName = "";
@@ -268,17 +269,7 @@ class MyAccountDropDown extends React.Component {
         const userDetails = store.getUserDetails();
         const soldToDetails = store.getSoldToDetails();
 
-        let userName = '';
-        if(Object.keys(userDetails).length !== 0) {
-            const mailingAddress = userDetails.userAddress.filter(address => address.addressType === 'mailingAddress');
-            const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
-
-            if (userCountry === 'jp' || userCountry === 'cn' || userCountry === 'kr' || userCountry === 'tw') {
-                userName = userDetails.firstName && userDetails.lastName ? `${userDetails.lastName} ${userDetails.firstName}` : '';
-            } else {
-                userName = userDetails.firstName && userDetails.lastName ? `${userDetails.firstName} ${userDetails.lastName}` : '';
-            }
-        }
+        const userName = this.formatUserName(userDetails);
 
         const priorityAccount = soldToDetails && soldToDetails.length !== 0 ? soldToDetails[0] : {};
         const accountName = priorityAccount.company ? `${priorityAccount.company} ` : '';

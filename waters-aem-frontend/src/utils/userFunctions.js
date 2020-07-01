@@ -162,3 +162,25 @@ export const getDefaultSoldToAddresses = (soldToAccounts) => {
         }
     }
 }
+
+// Save only the User Details allowed
+export const filterUserDetails = (inputUser) => {
+    let filteredUser = {};
+    if (inputUser) {
+        filteredUser.firstName = inputUser.firstName;
+        filteredUser.lastName = inputUser.lastName;
+        filteredUser.dummySoldto = inputUser.dummySoldto;
+        filteredUser.localeCountry = inputUser.localeCountry;
+        filteredUser.localeLanguage = inputUser.localeLanguage;
+        filteredUser.sapWebUserId = inputUser.sapWebUserId;
+        filteredUser.userId = inputUser.userId;
+        filteredUser.salesOrg = inputUser.salesOrg;
+        filteredUser.mailingAddressCountryCode = '';
+        if (inputUser.userAddress.length !== 0) {
+            const mailingAddress = inputUser.userAddress.filter(address => address.addressType === 'mailingAddress');
+            const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
+            filteredUser.mailingAddressCountryCode = userCountry;
+        }
+    }
+    return filteredUser;
+}
