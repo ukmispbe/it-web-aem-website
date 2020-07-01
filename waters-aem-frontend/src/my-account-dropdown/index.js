@@ -336,7 +336,9 @@ class MyAccountDropDown extends React.Component {
                 (new SessionStore()).setPunchoutSetupDetails({
                     returnUrl: response.return_url,
                     redirectUrl: response.redirect_url,
-                    buyerOrgName: response.buyerOrgName
+                    buyerOrgName: response.buyerOrgName,
+                    currency: response.currency,
+                    country: response.country,
                 });
                 (new LocalStore()).setCartId(response.cartId);
             }
