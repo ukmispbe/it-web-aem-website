@@ -241,32 +241,56 @@
             "koreanDisclosures" : [
                 {
                     "type": "text",
-                    "text": "${',' @ i18n, context='text'}",
+                    "text": "${'나는 “회원계정 만들기” 버튼에 클릭함으로써,' @ i18n, context='text'}",
                     "rightSpace": "true"
                 },
                 {
                     "type": "link",
-                    "label": "${'Korea Privacy Disclosures' @ i18n, context='text'}",
-                    "url": "${registration.privacyDisclosuresLink.href @ context='unsafe'}",
+                    "label": "${'이용약관' @ i18n, context='text'}",
+                    "url": "${registration.termsOfUseLink.href @ context='unsafe'}",
                     "blank": "${registration.newWindow @ context='unsafe'}",
                     "rightSpace": "false"
                 },
                 {
                     "type": "text",
-                    "text": "${', and' @ i18n, context='text'}",
+                    "text": "${'에 동의하며, 본 웹사이트에 제공하는 정보를 워터스가' @ i18n, context='text'}",
+                    "rightSpace": "true"
+                },
+                {
+                    "type": "link",
+                    "label": "${'Waters Privacy Notice' @ i18n, context='text'}",
+                    "url": "${registration.privacyNoticeLink.href @ context='unsafe'}",
+                    "blank": "${registration.newWindow @ context='unsafe'}",
+                    "rightSpace": "false"
+                },
+                {
+                    "type": "text",
+                    "text": "${',' @ i18n, context='text'}",
+                    "rightSpace": "true"
+                },
+                {
+                    "type": "link",
+                    "label": "${'워터스코리아 개인정보처리방침' @ i18n, context='text'}",
+                    "url": "${registration.privacyDisclosuresLink.href @ context='unsafe'}",
+                    "blank": "${registration.newWindow @ context='unsafe'}",
+                    "rightSpace": "true"
+                },
+                {
+                    "type": "text",
+                    "text": "${'및' @ i18n, context='text'}",
                     "rightSpace": "true"
                 },
 
                 {
                     "type": "link",
-                    "label": "${'Korea Consent Disclosures' @ i18n, context='text'}",
+                    "label": "${'워터스코리아 개인정보 처리동의' @ i18n, context='text'}",
                     "url": "${registration.consentDisclosuresLink.href @ context='unsafe'}",
                     "blank": "${registration.newWindow @ context='unsafe'}",
                     "rightSpace": "false"
                 },
                 {
                     "type": "text",
-                    "text": "${'.' @ i18n, context='text'}",
+                    "text": "${'에 따라 이용하고 처리하는 것에 동의합니다.' @ i18n, context='text'}",
                     "rightSpace": "false"
                 }
             ]

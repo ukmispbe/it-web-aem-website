@@ -6,7 +6,6 @@ import { getAvailability, getPricing, matchListItems } from '../../sku-details/s
 import AddToCart from '../../sku-details/views/addToCart';
 import AddToCartBody from '../../sku-details/views/addToCartModal';
 import Modal, { Header, keys } from '../../utils/modal';
-import { getSoldToId } from '../../utils/userFunctions';
 import Spinner from '../../utils/spinner';
 import LoginStatus from '../../scripts/loginStatus';
 import SkuMessage from '../../sku-message';
@@ -36,6 +35,7 @@ class ListItem extends React.Component {
             listPrice: this.props.relatedSku.formattedPrice,
             custPrice: undefined,
             skuInfo: this.props.skuConfig.skuInfo,
+            skuNumber: this.props.relatedSku.code,
             userCountry: this.props.skuConfig.countryCode,
             availabilityUrl: this.props.skuConfig.availabilityUrl,
             pricingUrl: this.props.skuConfig.pricingUrl,
@@ -57,12 +57,12 @@ class ListItem extends React.Component {
     }
 
     componentDidMount() {
-        let soldToId = getSoldToId();
-        if (LoginStatus.state() && soldToId !== '') {
-            getPricing(this.state.pricingUrl, this.props.relatedSku.code, soldToId)
+        const { salesOrg, soldToId } = this.props.userInfo;
+        if (LoginStatus.state() && soldToId !== '' && salesOrg !== '') {
+            getPricing(this.state.pricingUrl, this.state.skuNumber, soldToId, salesOrg)
             .then(response => {
                 if (response.status && response.status === 200) {
-                    let match = matchListItems(this.state.skuData.code, response);
+                    let match = matchListItems(this.state.skuNumber, response);
                     let listPriceValue = (match.listPrice !=='' && typeof match.listPrice != 'undefined') ? match.listPrice : this.props.relatedSku.formattedPrice;
                     this.setState({
                         skuData: match,
@@ -387,5 +387,24 @@ class ListItem extends React.Component {
         );
     }
 }
+
+
+ListItem.propTypes = {
+    key: PropTypes.string.isRequired,
+    relatedSku: PropTypes.object.isRequired,
+    skuConfig: PropTypes.object.isRequired,
+    baseSignInUrl: PropTypes.string.isRequired,
+    onItemClick: PropTypes.func.isRequired,
+    userInfo: PropTypes.object.isRequired
+};
+
+ListItem.defaultProps = {
+    key: '',
+    relatedSku: {},
+    skuConfig: {},
+    baseSignInUrl: '',
+    onItemClick: () => {},
+    userInfo: {}
+};
 
 export default ListItem;

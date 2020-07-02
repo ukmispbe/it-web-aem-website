@@ -147,28 +147,37 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     @LinkInject(inherit = true)
     private Link contactLink;
 
+    @DialogField(fieldLabel = "Commercial Bureau Legal Link",
+            fieldDescription = "Select or enter the link URL",
+            tab = 2,
+            ranking = 1
+    )
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject(inherit = true)
+    private Link cBLegalLink;
+
+    @DialogField(fieldLabel = "Commercial Bureau Icon",
+            fieldDescription = "Select the legal icon to display on footer",
+            tab = 2,
+            ranking = 2
+    )
+    @PathField(rootPath = WatersConstants.DAM_PATH)
+    @Inject
+    private String cBLegalIcon;
+
     @DialogField(fieldLabel = "Shanghai ICP Number",
             fieldDescription = "Enter the Shanghai ICP Number",
             tab = 2,
-            ranking = 1
+            ranking = 3
     )
     @TextField
     @InheritInject
     private String sICPNumber;
 
-    @DialogField(fieldLabel = "Shanghai ICP Number Legal Icon",
-            fieldDescription = "Select the legal icon to display on footer",
-            tab = 2,
-            ranking = 3
-    )
-    @PathField(rootPath = WatersConstants.DAM_PATH)
-    @Inject
-    private String sICPLegalIcon;
-
     @DialogField(fieldLabel = "Shanghai ICP Number Legal Link",
             fieldDescription = "Select or enter the link URL",
             tab = 2,
-            ranking = 2
+            ranking = 4
     )
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
@@ -177,7 +186,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     @DialogField(fieldLabel = "Beijing Public Network Security Number",
             fieldDescription = "Enter the Beijing Public Network Security Number",
             tab = 2,
-            ranking = 4
+            ranking = 5
     )
     @TextField
     @InheritInject
@@ -186,7 +195,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     @DialogField(fieldLabel = "Beijing Public Network Security Number Legal Icon",
             fieldDescription = "Select the legal icon to display on footer",
             tab = 2,
-            ranking = 6
+            ranking = 7
     )
     @PathField(rootPath = WatersConstants.DAM_PATH)
     @Inject
@@ -195,29 +204,11 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     @DialogField(fieldLabel = "Beijing Public Network Security Number Legal Link",
             fieldDescription = "Select or enter the link URL",
             tab = 2,
-            ranking = 5
+            ranking = 6
     )
     @PathField(rootPath = WatersConstants.ROOT_PATH)
     @LinkInject(inherit = true)
     private Link bPNSLegalLink;
-
-    @DialogField(fieldLabel = "Commercial Bureau Icon",
-            fieldDescription = "Select the legal icon to display on footer",
-            tab = 2,
-            ranking = 8
-    )
-    @PathField(rootPath = WatersConstants.DAM_PATH)
-    @Inject
-    private String cBLegalIcon;
-
-    @DialogField(fieldLabel = "Commercial Bureau Legal Link",
-            fieldDescription = "Select or enter the link URL",
-            tab = 2,
-            ranking = 7
-    )
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
-    @LinkInject(inherit = true)
-    private Link cBLegalLink;
 
     @DialogField(fieldLabel = "Cookies Link",
             fieldDescription = "Select or enter the link URL",
@@ -316,11 +307,6 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     @JsonProperty
     public String getSICPNumber() {
         return sICPNumber;
-    }
-
-    @JsonProperty
-    public String getSICPLegalIcon() {
-        return sICPLegalIcon;
     }
 
     @JsonProperty

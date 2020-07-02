@@ -76,7 +76,7 @@
             align-items: center;
             padding: 0 $space-s 0 $space-xs;
             height: $space-xl;
-            border-left: $border-medium;
+            border-left: $border-divider-large;
             margin-bottom: $space-s;
             min-width: 225px;
 
@@ -389,7 +389,7 @@
     
     &__info-title {
         @include font-h1;
-        margin-bottom: 0;
+
     }
     
 
@@ -609,7 +609,7 @@
 
             img {
                 width: 100%;
-                margin-bottom: 1em;
+                margin-bottom: $space-s;
                 background: #fff;
                 border: 1px solid #c6cdd2
             }
@@ -668,7 +668,7 @@
     .cmp-sku-list__right {
         width:100%;
         margin-bottom: 0;
-        margin-top: 1em;
+        margin-top: $space-s;
         display: none
     }
 }

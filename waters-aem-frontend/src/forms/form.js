@@ -15,7 +15,7 @@ import { retrieveData } from '../forms/services/retrieve';
 import Analytics, { analyticTypes } from "../analytics";
 import SessionStore from '../stores/sessionStore';
 import loginStatus from '../scripts/loginStatus';
-import { notLoggedInRedirect, homePageRedirect } from '../utils/redirectFunctions';
+import { homePageRedirect } from '../utils/redirectFunctions';
 import Spinner from "../utils/spinner";
 
 const FormApi = createContext(null);
@@ -137,13 +137,7 @@ const Form = ({
     // Hook to check the users's Authentication Status and redirect if needed
     useEffect(() => {
         if (!isInEditMode) {
-            const needsToBeSignedIn = config.needsToBeSignedIn;
-            if (needsToBeSignedIn) {
-                if (!loginStatus.state()) {
-                    notLoggedInRedirect();
-                    return null;
-                }
-            }
+            
             const needsToBeSignedOut = config.needsToBeSignedOut;
             if (needsToBeSignedOut) {
                 if (loginStatus.state()) {
