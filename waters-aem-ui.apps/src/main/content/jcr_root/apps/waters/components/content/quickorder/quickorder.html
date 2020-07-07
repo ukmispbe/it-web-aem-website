@@ -1,0 +1,16 @@
+<div data-sly-use.quickOrder="com.waters.aem.core.components.content.QuickOrder">
+    <div class="cmp-quick-order--attach" id="quick-order"></div>
+    <script type="application/json" id="quick-order">
+        {
+            "buttonLabel": "${quickOrder.buttonLabel @ i18n, context="unsafe"}",
+            "searchPlaceHolder": "${quickOrder.searchPlaceHolder @ i18n, context="unsafe"}",
+            "addToCartUrl": "${quickOrder.addToCartUrl @ context="unsafe"}",
+            "additionalButtonLabel": "${quickOrder.additionalButtonLabel @ i18n, context="unsafe"}",
+            "additionalButtonLink": "${quickOrder.additionalButtonLink @ context="unsafe"}"
+        }
+    </script>
+</div>
+<sly
+    data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+    data-sly-call="${patterns.placeholder @ show=true, text=component.title}"
+/>
