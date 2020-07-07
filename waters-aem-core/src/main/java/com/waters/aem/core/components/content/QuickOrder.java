@@ -49,6 +49,7 @@ public class QuickOrder implements ComponentExporter {
 
     @DialogField(fieldLabel = "Button Label",
             fieldDescription = "The text to display on the Button",
+            defaultValue = "ADD TO CART",
             ranking = 1)
     @TextField
     @Inject
@@ -60,6 +61,7 @@ public class QuickOrder implements ComponentExporter {
 
     @DialogField(fieldLabel = "Search Placeholder",
             fieldDescription = "The text to display on the Button",
+            defaultValue = "SKU Number",
             ranking = 2)
     @TextField
     @Inject
