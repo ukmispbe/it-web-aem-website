@@ -1,8 +1,13 @@
 const eventTypes = {
     cart: {
         name: 'cart',
-        event: 'cartAdd',
-        context: ['main', 'search', 'related']
+        event: 'scAddAEM',
+        context: ['Part Detail Page', 'Search: Global', 'Related Products']
+    },
+    reOrder: {
+        name: 'reOrder',
+        event: 'scAddReorder',
+        context: 'Order History: Reorder'
     },
     stock: {
         name: 'stock',
@@ -114,6 +119,15 @@ const eventTypes = {
         },
         error: {
             event: 'orderHistoryError'
+        }
+    },
+    orderDetails: {
+        name: 'orderDetails',
+        load: {
+            event: 'orderDetailsPageLoad'
+        },
+        error: {
+            event: 'orderDetailsPageError'
         }
     }
 }

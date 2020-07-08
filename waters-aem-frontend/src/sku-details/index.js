@@ -1,18 +1,20 @@
 // entry point for SKU. Move this up to global entry point if we want babel to polyfill everything we need at build time
 import React from "react";
-import ReactSVG from "react-svg";
 import PropTypes from "prop-types";
 import Stock from "./views/stock";
 import Price from "./views/price";
-import SkuService from "./services";
 import AddToCart from "./views/addToCart";
 import AddToCartBody from '../sku-details/views/addToCartModal';
 import Modal, { Header, keys } from '../utils/modal';
+import { getSalesOrg, getSoldToId } from '../utils/userFunctions';
+import Spinner from '../utils/spinner';
 import LoginStatus from "../scripts/loginStatus";
 import CheckOutStatus from "../scripts/checkOutStatus";
 import SkuMessage from "../sku-message";
 import Ecommerce from "../scripts/ecommerce";
 import { mainCartContext } from "../analytics";
+import { getAvailability, getPricing, matchListItems } from "./services/index";
+import SignIn from '../scripts/signIn';
 
 class SkuDetails extends React.Component {
     constructor(props) {
@@ -25,14 +27,19 @@ class SkuDetails extends React.Component {
                 text: this.props.titleText,
                 partNumberLabel: this.props.config.skuInfo.partNumberLabel
             },
-            skuConfig: this.props.config.skuInfo,
+            code: this.props.skuNumber,
+            skuInfo: this.props.config.skuInfo,
             skuNumber: this.props.skuNumber,
             userCountry: this.props.config.countryCode,
-            availabilityAPI: this.props.config.availabilityUrl,
+            userLocale: this.props.config.locale,
+            availabilityUrl: this.props.config.availabilityUrl,
+            pricingUrl: this.props.config.pricingUrl,
+            addToCartUrl: this.props.config.addToCartUrl,
+            loading: true,
             skuAvailability: {},
             addToCartQty: undefined,
-            defaultPrice: this.props.price,
-            locale: this.props.config.locale,
+            custPrice: undefined,
+            listPrice: this.props.price,
             analyticsConfig: {
                 context: mainCartContext,
                 name: this.props.titleText,
@@ -41,52 +48,72 @@ class SkuDetails extends React.Component {
             },
             errorObjCart: {},
             errorObjAvailability: {},
-            discontinued: this.props.discontinued == "true"
+            errorObjPrice: {},
+            discontinued: this.props.discontinued == "true",
+            signInUrl: this.props.baseSignInUrl,
+            errorInfo: this.props.config.errorInfo
         };
-
-        this.request = new SkuService(
-            this.state.userCountry,
-            {
-                availability: this.props.config.availabilityUrl,
-                price: this.props.config.pricingUrl
-            },
-            {
-                addToCart: this.props.config.addToCartUrl,
-                getCart: ""
-            },
-            err => {
-                // Add Error Object to State
-                this.setState({
-                    errorObjCart: err,
-                    errorObjAvailability: err
-                });
-            }
-        );
 
         this.toggleModal = this.toggleModal.bind(this);
     }
 
     componentDidMount() {
-        this.request
-            .getAvailability(this.state.skuNumber)
+        let soldToId = getSoldToId();
+        let salesOrg = getSalesOrg();
+        if (LoginStatus.state() && soldToId !== '' && salesOrg !== '') {
+            getPricing(this.state.pricingUrl, this.state.skuNumber, soldToId, salesOrg)
             .then(response => {
+            if (response.status && response.status === 200) {
+                let match = matchListItems(this.state.skuNumber, response);
+                let listPriceValue = (match.listPrice !=='' && typeof match.listPrice != 'undefined') ? match.listPrice : this.props.price;
                 this.setState({
-                    skuAvailability: response,
-                    modalInfo: {
-                        ...this.props.config.modalInfo,
-                        textHeading: this.props.skuNumber,
-                        text: this.props.titleText
-                    },
-                    analyticsConfig: {
-                        ...this.state.analyticsConfig,
-                        ...response
-                    }
+                    skuData: match,
+                    custPrice: match.custPrice,
+                    listPrice: listPriceValue,
+                    loading: false
+                }, () => {
+                    //this.checkPricingAnalytics();
                 });
+            } else {
+                // Add Error Object to State
+                this.setState({
+                    errorObjPrice: response.errors,
+                    loading: false
+                });
+            }
             })
             .catch(err => {
                 // Add Error Object to State
-                this.setState({ errorObjAvailability: err });
+                this.setState({
+                    errorObjPrice: err,
+                    loading: false
+                });
             });
+        } else {
+            this.setState({
+                loading: false
+            })
+        }
+
+        getAvailability(this.state.availabilityUrl, this.state.userCountry, this.state.skuNumber)
+        .then(response => {
+            this.setState({
+                skuAvailability: response,
+                modalInfo: {
+                    ...this.props.config.modalInfo,
+                    textHeading: this.props.skuNumber,
+                    text: this.props.titleText
+                },
+                analyticsConfig: {
+                    ...this.state.analyticsConfig,
+                    ...response
+                }
+            });
+        })
+        .catch(err => {
+            // Add Error Object to State
+            this.setState({ errorObjAvailability: err });
+        });
     }
 
     toggleModal = () => {
@@ -103,7 +130,7 @@ class SkuDetails extends React.Component {
     renderCountryRestricted = () => {
         return (
             <SkuMessage
-                icon={this.state.skuConfig.lowStockIcon}
+                icon={this.state.skuInfo.lowStockIcon}
                 message={this.props.countryRestricted}
             />
         )
@@ -160,45 +187,87 @@ class SkuDetails extends React.Component {
         );
     }
 
+    renderPricing = () => {
+        const { custPrice, listPrice, skuInfo } = this.state;
+
+        if (LoginStatus.state()){
+            let price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
+            return (
+                <Price
+                    label={skuInfo.custPriceLabel}
+                    price={price}
+                    isListPrice={false}
+                />
+            )
+        } else {
+            if (typeof listPrice !== 'undefined') {
+                return (
+                    <Price
+                        label={skuInfo.listPriceLabel}
+                        price={listPrice}
+                        isListPrice={true}
+                    />
+                )
+            }
+        }
+    }
+
     renderBuyInfo = () => {
+        const { custPrice, listPrice, loading, skuInfo, skuNumber, errorObjAvailability, skuAvailability, errorObjCart } = this.state;
+        const { config } = this.props;
+        let isErrorModal = false;
+        if (errorObjCart) {
+            isErrorModal = (Object.keys(errorObjCart).length !== 0);
+        }
         return (
             <div className="cmp-sku-details__buyinfo">
+                {LoginStatus.state() && typeof custPrice !== 'undefined'
+                    && custPrice !== listPrice && (
+                        <div className="cmp-sku-details__list-price">
+                            {`${skuInfo.listPriceLabel} ${listPrice}`}
+                        </div>
+                )}
                 <div className="cmp-sku-details__priceinfo">
-                    <Price
-                        skuConfig={this.state.skuConfig}
-                        price={this.state.defaultPrice}
-                    />
+                    {loading ? ( <Spinner loading={loading} type='inline' /> ) : this.renderPricing()}
                 </div>
                 <div className="cmp-sku-details__availability">
                     <Stock
-                        skuConfig={this.state.skuConfig}
-                        skuNumber={this.state.skuNumber}
-                        skuAvailability={this.state.skuAvailability}
-                        locale={this.state.locale}
+                        skuInfo={skuInfo}
+                        skuNumber={skuNumber}
+                        skuAvailability={skuAvailability}
                         skuType="details"
-                        errorObj={this.state.errorObjAvailability}
+                        errorObj={errorObjAvailability}
                     />
                 </div>
                 <div className="cmp-sku-details__buttons">
                     <AddToCart
                         toggleParentModal={this.toggleModal}
-                        skuNumber={this.state.skuNumber}
-                        addToCartLabel={this.props.config.addToCartLabel}
-                        addToCartUrl={this.props.config.addToCartUrl}
+                        skuNumber={skuNumber}
+                        addToCartLabel={config.addToCartLabel}
+                        addToCartUrl={config.addToCartUrl}
+                        isCommerceApiMigrated={config.isCommerceApiMigrated}
                         toggleErrorModal={this.toggleErrorModal}
                         analyticsConfig={this.state.analyticsConfig}
                     ></AddToCart>
                 </div>
                 <Modal isOpen={this.state.modalShown} onClose={this.toggleModal} className='cmp-add-to-cart-modal'>
+                    {!isErrorModal && (
                         <Header
                             title={this.state.modalConfig.title}
                             icon={this.state.modalConfig.icon}
-                            className={keys.HeaderWithAddedMarginTop}
+                            className={keys.HeaderWithAddedMarginTop}                        />
+                    )}
+                    {isErrorModal && (
+                        <Header
+                            title={this.state.errorInfo.title}
+                            icon={this.state.errorInfo.icon}
+                            className={keys.HeaderWithAddedMarginTopError}
                         />
-                        <AddToCartBody
-                            config={this.state.modalConfig}
-                            errorObjCart={this.state.errorObjCart}
-                        ></AddToCartBody>
+                    )}
+                    <AddToCartBody
+                        config={this.state.modalConfig}
+                        errorObjCart={this.state.errorObjCart}
+                    ></AddToCartBody>
                 </Modal>
             </div>
         );
@@ -214,7 +283,16 @@ class SkuDetails extends React.Component {
                     CheckOutStatus.state()) ||
                 (!Ecommerce.isPartialState() && !Ecommerce.isDisabledState())
             ) {
-                return <>{this.renderBuyInfo()}</>;
+                return <>
+                        {!LoginStatus.state() && (<SignIn
+                                signInUrl={this.props.config.baseSignInUrl}
+                                signInIcon={this.state.skuInfo.signinIcon}
+                                signInText1={this.state.skuInfo.signInText1}
+                                signInText2={this.state.skuInfo.signInText2}
+                                signInText3={this.state.skuInfo.signInText3}
+                            />)}
+                        {this.renderBuyInfo()}
+                    </>;
             } else {
                 return this.renderEcommercePartialDisabled();
             }
@@ -222,7 +300,7 @@ class SkuDetails extends React.Component {
     };
 
     render() {
-        if(!this.state.defaultPrice){
+        if(!this.state.listPrice){
             return this.renderCountryRestricted();
         } else if (this.state.discontinued) {
             return this.renderDiscontinued();
@@ -233,7 +311,25 @@ class SkuDetails extends React.Component {
 }
 
 SkuDetails.propTypes = {
-    config: PropTypes.object.isRequired
+    config: PropTypes.object.isRequired,
+    price: PropTypes.string.isRequired,
+    countryRestricted: PropTypes.string,
+    skuNumber: PropTypes.string.isRequired,
+    titleText: PropTypes.string.isRequired,
+    discontinued: PropTypes.bool,
+    replacementSkuCode: PropTypes.string,
+    replacementSkuHref: PropTypes.string
 };
+
+SkuDetails.defaultProps = {
+    config: {},
+    price: '',
+    countryRestricted: '',
+    skuNumber: '',
+    titleText: '',
+    discontinued: false,
+    replacementSkuCode: '',
+    replacementSkuHref: ''
+}
 
 export default SkuDetails;

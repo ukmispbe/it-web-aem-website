@@ -63,7 +63,7 @@ const Input = ({
             <>
                 <label
                     htmlFor={name}
-                    id={name}
+
                     className={
                         validation.validateFnName === 'matching'
                             ? 'cmp-form-field--label-matching'
@@ -87,6 +87,7 @@ const Input = ({
                     <input
                         type={type}
                         name={name}
+                        id={name}
                         ref={ref => register(ref, getRegisterAttributes(ref))}
                         onBlur={toggleReq}
                         onFocus={toggleReq}

@@ -21,6 +21,7 @@ import com.icfolson.aem.library.models.annotations.InheritInject;
 import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.components.content.CategoryListing;
+import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.account.WatersAccountService;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
@@ -268,7 +269,11 @@ public final class Header extends AbstractComponent implements ComponentExporter
     }
 
     public String getViewCartUrl() {
-        return watersCommerceService.getViewCartUrl();
+        if (siteContext.isCommerceApiMigrated()) {
+            return siteContext.getViewCartURL();
+        } else {
+            return watersCommerceService.getViewCartUrl();
+        }
     }
 
     public String getLaunchScript() {
@@ -298,5 +303,9 @@ public final class Header extends AbstractComponent implements ComponentExporter
                 .map(componentNode -> modelFactory.getModelFromWrappedRequest(request,
                         componentNode.getResource(), CategoryListing.class))
                 .orElse(null);
+    }
+
+    public CountryCommerceConfig getCommerceConfig() {
+        return siteContext.getCountryCommerceConfig();
     }
 }

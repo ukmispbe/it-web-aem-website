@@ -21,8 +21,10 @@
     }
 
     &__user-details {
+        max-width: 200px;
         &__name {
             @include font-h3;
+            @include linewrap;
             margin-bottom: 0;
         }
         &__account {

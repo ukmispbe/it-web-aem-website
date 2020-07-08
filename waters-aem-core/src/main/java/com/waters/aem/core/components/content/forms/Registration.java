@@ -5,6 +5,7 @@ import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Listener;
+import com.citytechinc.cq.component.annotations.Tab;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -34,6 +35,10 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH
 @Component(value = "Registration Form",
     description = "This is the Registration Form component for Waters site",
     path = WatersConstants.COMPONENT_PATH_FORMS,
+        tabs = {
+                @Tab(title = "Registration"),
+                @Tab(title = "Legal (Korea)")
+        },
     listeners = {
         @Listener(name = EVENT_AFTER_EDIT, value = REFRESH_PAGE),
         @Listener(name = EVENT_AFTER_MOVE, value = REFRESH_PAGE),
@@ -99,6 +104,22 @@ public class Registration implements ComponentExporter {
     @Default(booleanValues = false)
     private Boolean newWindow;
 
+    @DialogField(fieldLabel = "Privacy Disclosures Link",
+            fieldDescription = "Select or enter the link URL for Privacy Disclosures",
+            tab = 2,
+            ranking = 1)
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject
+    private Link privacyDisclosuresLink;
+
+    @DialogField(fieldLabel = "Consent Disclosures Link",
+            fieldDescription = "Select or enter the link URL for Consent Disclosures",
+            tab = 2,
+            ranking = 2)
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject
+    private Link consentDisclosuresLink;
+
     public Link getLoginLink() {
         return loginLink;
     }
@@ -113,6 +134,14 @@ public class Registration implements ComponentExporter {
 
     public Link getTermsOfUseLink() {
         return termsOfUseLink;
+    }
+
+    public Link getPrivacyDisclosuresLink() {
+        return privacyDisclosuresLink;
+    }
+
+    public Link getConsentDisclosuresLink() {
+        return consentDisclosuresLink;
     }
 
     public Boolean isNewWindow() {

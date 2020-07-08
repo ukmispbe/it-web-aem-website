@@ -3,16 +3,9 @@ import { signInRedirect } from '../utils/redirectFunctions';
 
 class OrderHistoryService {
     constructor(
-        url = "https://test-www.waters.com:8443/api/waters/order/v1/list"
+        url = "https://test2-www.waters.com:8443/api/waters/order/v1/list"
     ) {
         this.url = url;
-    }
-
-    checkFetch(response) {
-        if (!response.ok){
-            throw response;
-        }
-        return response;
     }
 
     postData(url, options, setError) {
@@ -34,8 +27,6 @@ class OrderHistoryService {
         })
         .catch(error => {
             setError(error);
-            this.throwError(error);
-            reject(error);
         });
     };
 

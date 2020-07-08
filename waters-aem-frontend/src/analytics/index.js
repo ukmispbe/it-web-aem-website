@@ -18,11 +18,11 @@ class Analytics {
             if(model.formName !== 'chooseAccount') {
                 thisAnalyticEvent = this.analyticTypes[eventType][model.formName][model.event];
             }
-        } else if (eventType === 'orderHistory') {
+        } else if (eventType === 'orderHistory' || eventType === 'orderDetails') {
             thisAnalyticEvent = this.analyticTypes[eventType][model.event];
         } else {
             thisAnalyticEvent = this.analyticTypes[eventType];
-        };
+        }
         if (thisAnalyticEvent) {
             const newModel = this.buildModel(eventType, model);
             if (newModel) {
@@ -68,7 +68,7 @@ class Analytics {
                 returnModel = this.mapFormModel(model);
                 break;
             default:
-                returnModel = this.getUserData(model);
+                returnModel = model;
                 break;
         }
 
@@ -90,7 +90,6 @@ class Analytics {
     }
 
     mapFormModel = model => {
-        model = this.getUserData(model);
         model.event = this.analyticTypes['form'][model.formName][model.event]['event'];
         model.formName = this.analyticTypes['form'][model.formName]['name'];
         return model;
@@ -131,11 +130,12 @@ class Analytics {
         }
     }
 
-    dispatchEvent = (eventName, obj) => {
-    // Uncomment next two lines to test analytics
-//        console.log(obj);
-//        alert(eventName);
-        document.dispatchEvent(new CustomEvent(eventName, obj));
+    dispatchEvent = (eventName, model) => {
+        model = this.getUserData(model);
+        // Uncomment next two lines to test analytics
+        // console.log(eventName, model);
+        // alert(eventName);
+        document.dispatchEvent(new CustomEvent(eventName, model));
     }
 
     siteLoad = () => {

@@ -46,21 +46,37 @@
         &__buyinfo {
             display: flex;
             flex-flow: row;
-            align-items: center;
             flex-wrap: wrap;
+        }
+
+        &__list-price {
+            @include font-small;
+            width: 100%;
+            text-decoration: line-through;
+            margin-bottom: $space-xxs;
         }
 
         &__priceinfo {
             padding-right: $space-xs;
             line-height: 1em;
         }
+        
+        &__cust-price-label {
+            font-weight: $font-weight-bold;
+            margin-top: 0;
+        }
+
+        &__list-price-label {
+            font-weight: $font-weight-light;
+            margin-top: 0;
+        }
 
         &__availability {
             display: flex;
             align-items: center;
             padding: 0 $space-s 0 $space-xs;
-            height: 3em;
-            border-left: $border-medium;
+            height: $space-xl;
+            border-left: $border-divider-large;
             margin-bottom: $space-s;
             min-width: 225px;
 
@@ -300,10 +316,14 @@
                 width: 100%;
             }
 
+            .cmp-sku-details__list-price {
+                display: none;
+            }
+          
             .cmp-sku-details__buyinfo {
                 padding: 0;
                 margin-top: 0;
-                }
+            }
             
         }
 
@@ -369,7 +389,7 @@
     
     &__info-title {
         @include font-h1;
-        margin-bottom: 0;
+
     }
     
 
@@ -412,13 +432,18 @@
     &__availability {
         @include font-body;
         @include font-utility;
-        height: 3em;
+        height: $space-xl;
         padding-top: ($space-xxs + 0.1em);
+        margin-bottom: 0;
+    }
+    &__list-price {
+        margin-bottom: $space-xs;
     }
 
     &__priceinfo {
         padding-right: $space-xs;
         line-height: 1.2em;
+        height: $space-xl;
 
         span {
             margin-bottom: $space-xxxs;
@@ -427,7 +452,14 @@
         .cmp-sku__price {
             @include font-h3;
             font-size: $font-size-h2;
-            margin-bottom: $space-xxs;
+            margin-bottom: 0;
+        }
+    }
+    &__buttons { 
+        margin-top: $space-s;
+
+        @include tablet {
+            margin-top: $space-s;
         }
     }
 
@@ -508,9 +540,9 @@
 
     &__container {
         background-color: $color-background-light;
-        padding: $space-m $space-m 0 $space-m;
+        padding: $space-m;
         width: 100%;
-        margin-bottom: $space-xxs;
+        margin-bottom: $space-xs;
         clear: both;
 
         @include mobile {
@@ -528,8 +560,6 @@
             }
         }
     }
-
-
 
     &__right {
         @include list-item-thumbnail;
@@ -566,6 +596,83 @@
     }
 }
 
+.cmp-order-details__order-shipment-list {
+    .cmp-sku-list {
+        &__container {
+            min-height: 185px;
+        }
+
+        &__right {
+        float: right;
+        width: 12em;
+        margin-left: $space-m
+
+            img {
+                width: 100%;
+                margin-bottom: $space-s;
+                background: #fff;
+                border: 1px solid #c6cdd2
+            }
+        }
+        
+        &__priceinfo {
+            .cmp-sku__price {
+                @include font-h3;
+                font-size: $font-size-h2;
+                margin-bottom: $space-xxxs;
+
+                @include mobile {
+                    @include font-h2;
+                    line-height: ($line-height-text + .1em);
+                    color: $color-font-dark;
+                    font-weight: $font-weight-regular;
+                    margin-bottom: $space-xxxs;
+                }
+            }
+        }
+    }
+    
+    .cmp-sku-details {    
+        &__code {
+            @include font-body;
+            @include font-utility;
+            margin-bottom: $space-xxs;
+        }
+
+        &__title {
+            @include font-h3;
+            margin-bottom: $space-xxs;
+
+            @include tablet-and-under {
+                margin-bottom: $space-s;
+            }
+        }        
+
+
+        &__quantitytext {
+            @include font-body;
+            @include font-utility;
+            display: flex;
+            align-items: center;
+            height: 1em;
+            border-left: $border-divider-small;
+            padding: 0 $space-s 0 $space-xs;
+            margin-bottom: $space-xxxs;
+            
+        }
+    }
+}
+
+
+@media screen and (max-width: 650px) {
+    .cmp-sku-list__right {
+        width:100%;
+        margin-bottom: 0;
+        margin-top: $space-s;
+        display: none
+    }
+}
+
 // IE 11 CSS hacks
 @media all and (-ms-high-contrast: none) {
     .cmp-sku-details--sticky {
@@ -587,4 +694,3 @@
         }
     }
 }
-

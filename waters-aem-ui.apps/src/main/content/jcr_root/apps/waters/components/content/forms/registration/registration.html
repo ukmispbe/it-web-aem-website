@@ -1,6 +1,4 @@
-<div
-        data-sly-use.registration="com.waters.aem.core.components.content.forms.Registration"
->
+<div data-sly-use.registration="com.waters.aem.core.components.content.forms.Registration">
     <div class="cmp-form--attach" id="js-registration-form"></div>
     <script type="application/json" id="cmp-registration-form">
         {
@@ -8,6 +6,7 @@
             "submitEndpoint": "${registration.registrationSubmitUrl @ context='unsafe'}",
             "buttonText": "${'Create Account' @ i18n, context='text'}",
             "redirectUrl": "${registration.redirectLink.href @ context='unsafe'}",
+            "needsToBeSignedOut": true,
             "icons": {
                 "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
                 "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
@@ -176,23 +175,32 @@
                     "config": [
                         {
                             "type": "text",
-                            "text": "${'By clicking the CREATE ACCOUNT button, you are agreeing to our' @ i18n, context='text'}"
+                            "text": "${'By clicking the CREATE ACCOUNT button, you are agreeing to our' @ i18n, context='text'}",
+                            "rightSpace": "true"
                         },
                         {
                             "type": "link",
                             "label": "${'Terms of Use' @ i18n, context='text'}",
                             "url": "${registration.termsOfUseLink.href @ context='unsafe'}",
-                            "blank": "${registration.newWindow @ context='unsafe'}"
+                            "blank": "${registration.newWindow @ context='unsafe'}",
+                            "rightSpace": "true"
                         },
                         {
                             "type": "text",
-                            "text": "${'and understand that the information you have provided on this website will be used and processed by Waters in accordance with the' @ i18n, context='text'}"
+                            "text": "${'and understand that the information you have provided on this website will be used and processed by Waters in accordance with the' @ i18n, context='text'}",
+                            "rightSpace": "true"
                         },
                         {
                             "type": "link",
-                            "label": "${'Waters Privacy Notice.' @ i18n, context='text'}",
+                            "label": "${'Waters Privacy Notice' @ i18n, context='text'}",
                             "url": "${registration.privacyNoticeLink.href @ context='unsafe'}",
-                            "blank": "${registration.newWindow @ context='unsafe'}"
+                            "blank": "${registration.newWindow @ context='unsafe'}",
+                            "rightSpace": "false"
+                        },
+                        {
+                            "type": "text",
+                            "text": "${'.' @ i18n, context='text'}",
+                            "rightSpace": "false"
                         }
                     ]
                 }
@@ -224,6 +232,66 @@
                         "namePrefix",
                         "consentChinaShopTerms"
                     ]
+                }
+            ]
+        }
+    </script>
+    <script type="application/json" id="cmp-registration-form-kr">
+        {
+            "koreanDisclosures" : [
+                {
+                    "type": "text",
+                    "text": "${'나는 “회원계정 만들기” 버튼에 클릭함으로써,' @ i18n, context='text'}",
+                    "rightSpace": "true"
+                },
+                {
+                    "type": "link",
+                    "label": "${'이용약관' @ i18n, context='text'}",
+                    "url": "${registration.termsOfUseLink.href @ context='unsafe'}",
+                    "blank": "${registration.newWindow @ context='unsafe'}",
+                    "rightSpace": "false"
+                },
+                {
+                    "type": "text",
+                    "text": "${'에 동의하며, 본 웹사이트에 제공하는 정보를 워터스가' @ i18n, context='text'}",
+                    "rightSpace": "true"
+                },
+                {
+                    "type": "link",
+                    "label": "${'Waters Privacy Notice' @ i18n, context='text'}",
+                    "url": "${registration.privacyNoticeLink.href @ context='unsafe'}",
+                    "blank": "${registration.newWindow @ context='unsafe'}",
+                    "rightSpace": "false"
+                },
+                {
+                    "type": "text",
+                    "text": "${',' @ i18n, context='text'}",
+                    "rightSpace": "true"
+                },
+                {
+                    "type": "link",
+                    "label": "${'워터스코리아 개인정보처리방침' @ i18n, context='text'}",
+                    "url": "${registration.privacyDisclosuresLink.href @ context='unsafe'}",
+                    "blank": "${registration.newWindow @ context='unsafe'}",
+                    "rightSpace": "true"
+                },
+                {
+                    "type": "text",
+                    "text": "${'및' @ i18n, context='text'}",
+                    "rightSpace": "true"
+                },
+
+                {
+                    "type": "link",
+                    "label": "${'워터스코리아 개인정보 처리동의' @ i18n, context='text'}",
+                    "url": "${registration.consentDisclosuresLink.href @ context='unsafe'}",
+                    "blank": "${registration.newWindow @ context='unsafe'}",
+                    "rightSpace": "false"
+                },
+                {
+                    "type": "text",
+                    "text": "${'에 따라 이용하고 처리하는 것에 동의합니다.' @ i18n, context='text'}",
+                    "rightSpace": "false"
                 }
             ]
         }

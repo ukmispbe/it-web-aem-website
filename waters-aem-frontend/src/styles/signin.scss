@@ -1,0 +1,72 @@
+.cmp-sku-signin-wrapper {
+    background-color: $color-white;
+
+    .cmp-sku-signin {
+        height: 25px;
+       @include font-body;
+        display: inline-flex;
+        align-items: center;
+                
+        .signin-link {
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            &:hover {
+                .signin-part1 {
+                    color: $color-link-hover;
+                }
+                .signin-icon {
+                    div {
+                        svg {
+                            .st0,
+                            .st1 {
+                                stroke: $color-link-hover;
+                            }
+                            }
+                        }
+                    }
+            }
+        }
+
+        .signin-part1 {
+            color: $color-link;
+            font-weight: $font-weight-regular;
+            text-decoration: none solid rgb(0, 119, 187);
+            margin-right: $space-xxxs;
+        }
+
+        .signin-part2 {
+            font-weight: $font-weight-light;
+            text-decoration: none solid rgb(45, 52, 57);
+            margin-right: $space-xxxs;
+        }
+
+        .signin-part3 {
+            font-weight: $font-weight-bold;
+            text-decoration: none solid rgb(45, 52, 57);
+        }
+
+        .signin-icon {
+            display: inline;
+            div {
+                display: inline;
+                svg {
+                    .st0,
+                    .st1 {
+                        stroke: $color-link;
+                    }
+                    height: $icon-s;
+                    width: $icon-s;
+                    margin-right: $space-xxxs;
+                    margin-top: $space-xxs;
+
+                    }
+                }
+            }
+        }
+    }
+.cmp-sku-details--sticky {
+    .cmp-sku-signin-wrapper {
+        display: none;
+    }
+}

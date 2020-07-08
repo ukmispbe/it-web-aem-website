@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import DeliveryStatus from './delivery-status'
+import DeliveryStatus from '../../common/delivery-status'
 import DateFormatter from '../../utils/date-formatter'
-import CurrencyFormatter from '../../utils/currency-formatter'
 import GetLocale from '../../utils/get-locale'
 import { setClickAnalytics } from '../../analytics';
 
@@ -13,12 +12,12 @@ class OrderListItem extends Component {
     }
     render() {
         return (
-            <div className={'cmp-order-list__container'}>
+            <div className='cmp-order-list__container'>
                 <div className="cmp-order-list__left">
                     <div className="cmp-order-list__order-number">
                         <a
                             href={'#orderdetails?id=' + this.props.data.orderNumber}
-                            onClick={() => setClickAnalytics("Order History", "Order Details", '#orderdetails?id=' + this.props.data.orderNumber)}
+                            onClick={() => setClickAnalytics("Order History", "Order Details, " + this.props.data.orderNumber, '#orderdetails?id=' + this.props.data.orderNumber)}
                         >
                             {this.props.orderText + " " + this.props.data.orderNumber}
                         </a>

@@ -18,6 +18,7 @@ const keys = {
 const AddToCartModalBody = props => {
     
     const errorObjCart = props.errorObjCart;
+
     const [state] = useState({ ...props.config })
     const { onClose } = useContext(useModalApi);
 
@@ -25,11 +26,18 @@ const AddToCartModalBody = props => {
         text,
         textHeading,
         partNumberLabel,
-        buttons
+        buttons,
+        isOrderDetails
     } = state;
-    
+
     const InfoTextWrapper = (props) => { 
-        if (!text || !textHeading) return <></>;
+        if (!isOrderDetails){
+            if (!text || !textHeading) return <></>;
+        }
+        else {
+            if (!text) return <></>;
+        }
+        
 
         return (
             <div className={keys.InfoTextWrapper}>
@@ -79,6 +87,7 @@ const AddToCartModalBody = props => {
                     href={btn.action}
                     className={keys.MainButton}
                     target={btn.target || ''}
+                    {...(btn.callback && { onClick: (e)=>btn.callback(e) })}
                 >
                     {btn.text}
                 </a>
@@ -113,7 +122,7 @@ const AddToCartModalBody = props => {
         );
     }
 
-    const Body = () => { 
+    const Body = () => {
         return (
             <>
                 <InfoTextWrapper>

@@ -6,10 +6,12 @@ import ServletService from '../element-creators/services/servletService';
 import SystemWideNotification from '../element-creators/systemWideNotification';
 import SessionStore from '../stores/sessionStore';
 import inlineSVG from '../scripts/inlineSVG';
+import { isCartHidden } from '../utils/eCommerceFunctions';
 
 const sessionStore = new SessionStore();
 
-let headerTB, headerTB_user,  headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, headerNavigation_mainUL;
+let headerTB, headerTB_user,  headerTB_mobile, headerTB_mobile_btn, headerNavigation_comp, 
+    headerNavigation_mainUL, headerNavigation_cartLI;
 
 const headerInit = function() {
     domReferences();
@@ -26,6 +28,7 @@ function domReferences() {
 
     headerNavigation_comp = document.querySelector('.cmp-header__navigation nav.cmp-navigation');
     headerNavigation_mainUL = document.querySelector('.cmp-header__navigation nav.cmp-navigation');
+    headerNavigation_cartLI = document.querySelector('.top-bar__nav__cart');    
 }
 
 function addEventListeners() { 
@@ -39,6 +42,15 @@ function addEventListeners() {
 }
 
 function render() { 
+    // Show or Hide Cart Icon dependent upon eCommerce Status
+    const hideCartClass = "top-bar__nav__cart--hide"
+    if (isCartHidden()) {
+        domElements.addClass(headerNavigation_cartLI, hideCartClass);
+    }
+    else {
+        domElements.removeClass(headerNavigation_cartLI, hideCartClass);
+    }
+
     const loggedInClass = 'loggedIn';
     if (loginStatus.state()) {
         domElements.addClass(headerTB_user, loggedInClass);

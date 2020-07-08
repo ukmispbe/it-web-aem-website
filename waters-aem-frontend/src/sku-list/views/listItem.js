@@ -2,10 +2,11 @@ import React from 'react';
 import ReactSVG from 'react-svg';
 import Stock from '../../sku-details/views/stock';
 import Price from '../../sku-details/views/price';
-import SkuService from '../../sku-details/services';
+import { getAvailability, getPricing, matchListItems } from '../../sku-details/services';
 import AddToCart from '../../sku-details/views/addToCart';
 import AddToCartBody from '../../sku-details/views/addToCartModal';
 import Modal, { Header, keys } from '../../utils/modal';
+import Spinner from '../../utils/spinner';
 import LoginStatus from '../../scripts/loginStatus';
 import SkuMessage from '../../sku-message';
 import CheckOutStatus from '../../scripts/checkOutStatus';
@@ -13,8 +14,6 @@ import Ecommerce from '../../scripts/ecommerce';
 import SkuDetails from '../../scripts/sku-details';
 import Sticky from '../../scripts/stickyService';
 import Analytics, { analyticTypes, searchCartContext, relatedCartContext } from '../../analytics';
-
-
 
 class ListItem extends React.Component {
     constructor(props) {
@@ -27,41 +26,72 @@ class ListItem extends React.Component {
                 text: this.props.relatedSku.title,
                 partNumberLabel: this.props.skuConfig.skuInfo.partNumberLabel
             },
+            errorConfig: {
+                ...this.props.skuConfig.errorInfo,
+                textHeading: this.props.relatedSku.code,
+                text: this.props.relatedSku.title,
+                partNumberLabel: this.props.skuConfig.skuInfo.partNumberLabel
+            },
+            listPrice: this.props.relatedSku.formattedPrice,
+            custPrice: undefined,
+            skuInfo: this.props.skuConfig.skuInfo,
+            skuNumber: this.props.relatedSku.code,
             userCountry: this.props.skuConfig.countryCode,
-            availabilityAPI: this.props.skuConfig.availabilityUrl,
+            availabilityUrl: this.props.skuConfig.availabilityUrl,
             pricingUrl: this.props.skuConfig.pricingUrl,
             addToCartUrl: this.props.skuConfig.addToCartUrl,
+            loading: true,
             skuAvailability: {},
+            skuData: this.props.relatedSku,
             analyticsConfig: {
                 context: SkuDetails.exists() ? relatedCartContext : searchCartContext,
                 name: this.props.relatedSku.title,
                 price: this.props.relatedSku.formattedPrice,
+                custPrice: '',
                 sku: this.props.relatedSku.code,
             },
             errorObjCart: {},
             errorObjAvailability: {},
+            errorObjPrice: {},
         };
-        this.request = new SkuService(
-            this.state.userCountry,
-            {
-                availability: this.state.availabilityAPI,
-                price: this.state.pricingUrl,
-            },
-            {
-                addToCart: this.props.skuConfig.addToCartUrl,
-                getCart: '',
-            },
-            err => {
+    }
+
+    componentDidMount() {
+        const { salesOrg, soldToId } = this.props.userInfo;
+        if (LoginStatus.state() && soldToId !== '' && salesOrg !== '') {
+            getPricing(this.state.pricingUrl, this.state.skuNumber, soldToId, salesOrg)
+            .then(response => {
+                if (response.status && response.status === 200) {
+                    let match = matchListItems(this.state.skuNumber, response);
+                    let listPriceValue = (match.listPrice !=='' && typeof match.listPrice != 'undefined') ? match.listPrice : this.props.relatedSku.formattedPrice;
+                    this.setState({
+                        skuData: match,
+                        custPrice: match.custPrice,
+                        listPrice: listPriceValue,
+                        loading: false
+                    }, () => {
+                        //this.checkAvailabilityAnalytics();
+                    });
+                } else {
+                    // Add Errors Object to State
+                    this.setState({
+                        errorObjPrice: response.errors,
+                        loading: false
+                    });
+                }
+            })
+            .catch(err => {
                 // Add Error Object to State
                 this.setState({
-                    errorObjCart: err,
-                    errorObjAvailability: err
+                    errorObjPrice: err,
+                    loading: false
                 });
-            }
-        );
-
-        this.checkAvailability = this.checkAvailability.bind(this);
-        this.toggleModal = this.toggleModal.bind(this);
+            });
+        } else {
+            this.setState({
+                loading: false
+            })
+        }
     }
 
     toggleErrorModal = (err) => {
@@ -88,25 +118,22 @@ class ListItem extends React.Component {
     };
 
     checkAvailability = skuNumber => {
-        this.request
-            .getAvailability(skuNumber)
-            .then(response => {
-                this.setState({
-                    skuAvailability: response,
-                    analyticsConfig: {
-                        ...this.state.analyticsConfig,
-                        ...response
-                    }
-                }, () => {
-                        this.checkAvailabilityAnalytics();
-                });
-
-
-            })
-            .catch(err => {
-                // Add Error Object to State
-                this.setState({ errorObjAvailability: err });
+        getAvailability(this.state.availabilityUrl, this.state.userCountry, skuNumber)
+        .then(response => {
+            this.setState({
+                skuAvailability: response,
+                analyticsConfig: {
+                    ...this.state.analyticsConfig,
+                    ...response
+                }
+            }, () => {
+                    this.checkAvailabilityAnalytics();
             });
+        })
+        .catch(err => {
+            // Add Error Object to State
+            this.setState({ errorObjAvailability: err });
+        });
     };
 
     checkAvailabilityAnalytics = () => {
@@ -136,50 +163,82 @@ class ListItem extends React.Component {
         }
     };
 
+    renderPricing = () => {
+        const { custPrice, listPrice, skuInfo } = this.state;
+
+        if (LoginStatus.state()){
+            let price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
+            return (
+                <Price
+                    label={skuInfo.custPriceLabel}
+                    price={price}
+                    isListPrice={false}
+                />
+            )
+        } else {
+            if (typeof listPrice !== 'undefined') {
+                return (
+                    <Price
+                        label={skuInfo.listPriceLabel}
+                        price={listPrice}
+                        isListPrice={true}
+                    />
+                )
+            }
+        }
+    }
+
     renderBuyInfoPartial = () => {
+        const {
+            custPrice, listPrice, loading, skuInfo, skuAvailability, 
+            errorConfig, modalConfig,
+            errorObjCart, errorObjAvailability
+        } = this.state;
+        const { relatedSku, skuConfig } = this.props;
+        const isErrorModal = (Object.keys(errorObjCart).length !== 0);
         return (
             <div className="cmp-sku-details__buyinfo">
+                {LoginStatus.state() && typeof custPrice !== 'undefined'
+                    && custPrice !== listPrice && (
+                    <div className="cmp-sku-list__list-price">
+                        {`${skuInfo.listPriceLabel} ${listPrice}`}
+                    </div>
+                )}
                 <div className="cmp-sku-list__priceinfo">
-                    <Price
-                        skuConfig={this.props.skuConfig.skuInfo}
-                        price={this.props.relatedSku.formattedPrice}
-                    />
+                    {loading ? ( <Spinner loading={loading} type='inline' /> ) : this.renderPricing()}
                 </div>
                 <div
                     className="cmp-sku-details__availability"
                     onClick={e =>
-                        this.checkAvailability(
-                            this.props.relatedSku.code
-                        )
+                        this.checkAvailability(relatedSku.code)
                     }
                 >
-                    {(this.state.skuAvailability.productStatus ||
-                    (this.state && this.state.errorObjAvailability && this.state.errorObjAvailability.ok === false))
+                    {(skuAvailability.productStatus ||
+                    (this.state && errorObjAvailability && errorObjAvailability.ok === false))
                     && (
                         <Stock
-                            skuConfig={this.props.skuConfig.skuInfo}
-                            skuNumber={this.props.relatedSku.code}
-                            skuAvailability={this.state.skuAvailability}
-                            locale={this.props.skuConfig.locale}
+                            skuInfo={skuInfo}
+                            skuNumber={relatedSku.code}
+                            skuAvailability={skuAvailability}
                             skuType="details"
-                            errorObj={this.state.errorObjAvailability}
+                            errorObj={errorObjAvailability}
                         />
                     )}
-                    {(!this.state.skuAvailability.productStatus &&
-                    !(this.state && this.state.errorObjAvailability && this.state.errorObjAvailability.ok === false))
+                    {(!skuAvailability.productStatus &&
+                    !(this.state && errorObjAvailability && errorObjAvailability.ok === false))
                     && (
                         <span className="cmp-sku-list__checkavailability">
                             {
-                                this.props.skuConfig.skuInfo
+                                skuConfig.skuInfo
                                     .seeAvailabilityLabel
                             }
                             <ReactSVG
                                 alt={
-                                    this.props.skuConfig.skuInfo
+                                    skuConfig.skuInfo
                                         .seeAvailabilityLabel
                                 }
                                 src={
-                                    this.props.skuConfig.skuInfo
+                                    skuConfig.skuInfo
                                         .refreshIcon
                                 }
                             />
@@ -189,21 +248,32 @@ class ListItem extends React.Component {
                 <div className="cmp-sku-list__buttons">   
                     <AddToCart
                         toggleParentModal={this.toggleModal}
-                        skuNumber={this.props.relatedSku.code}
-                        addToCartLabel={this.props.skuConfig.addToCartLabel}
-                        addToCartUrl={this.props.skuConfig.addToCartUrl}
+                        skuNumber={relatedSku.code}
+                        addToCartLabel={skuConfig.addToCartLabel}
+                        addToCartUrl={skuConfig.addToCartUrl}
+                        isCommerceApiMigrated={skuConfig.isCommerceApiMigrated}
                         toggleErrorModal={this.toggleErrorModal}
                         analyticsConfig={this.state.analyticsConfig}
                     />
                     <Modal isOpen={this.state.modalShown} onClose={this.toggleModal} className='cmp-add-to-cart-modal'>
-                        <Header
-                            title={this.state.modalConfig.title}
-                            icon={this.state.modalConfig.icon}
-                            className={keys.HeaderWithAddedMarginTop}
-                        />
+                        {!isErrorModal && (
+                            <Header
+                                title={modalConfig.title}
+                                icon={modalConfig.icon}
+                                className={keys.HeaderWithAddedMarginTop}
+                            />
+                        )}
+
+                        {isErrorModal && (
+                            <Header
+                                title={errorConfig.title}
+                                icon={errorConfig.icon}
+                                className={keys.HeaderWithAddedMarginTopError}
+                            />
+                        )}
                         <AddToCartBody
-                            config={this.state.modalConfig}
-                            errorObjCart={this.state.errorObjCart}
+                            config={modalConfig}
+                            errorObjCart={errorObjCart}
                         ></AddToCartBody>
                     </Modal>
                 </div>
@@ -231,19 +301,20 @@ class ListItem extends React.Component {
 
     renderBuyInfo = () => {
         const buyInfoCommerceView = this.renderBuyInfoCommerceView();
+        const { relatedSku, skuConfig } = this.props;
 
-        if (this.props.relatedSku.discontinued) {
-            let discontinuedMessage = this.props.skuConfig.skuInfo.discontinuedWithReplacementWithCode;
-            if(!this.props.relatedSku.replacementskucode || !this.props.relatedSku.replacementskuurl){
-                discontinuedMessage = this.props.skuConfig.skuInfo.discontinuedNoReplacementCode
+        if (relatedSku.discontinued) {
+            let discontinuedMessage = skuConfig.skuInfo.discontinuedWithReplacementWithCode;
+            if(!relatedSku.replacementskucode || !relatedSku.replacementskuurl){
+                discontinuedMessage = skuConfig.skuInfo.discontinuedNoReplacementCode
             }
 
             return (
                 <SkuMessage
-                    icon={this.props.skuConfig.skuInfo.lowStockIcon}
+                    icon={skuConfig.skuInfo.lowStockIcon}
                     message={discontinuedMessage}
-                    link={this.props.relatedSku.replacementskuurl}
-                    linkMessage={this.props.relatedSku.replacementskucode}
+                    link={relatedSku.replacementskuurl}
+                    linkMessage={relatedSku.replacementskucode}
                 />
             );
         } else {
@@ -252,12 +323,13 @@ class ListItem extends React.Component {
     };
 
     renderBreadcrumb = () => {
-        if (this.props.skuConfig.showBreadcrumbs) {
+        const { relatedSku, skuConfig } = this.props;
+        if (skuConfig.showBreadcrumbs) {
             return (
                 <div className="cmp-search__results-item-breadcrumb skuitem">
-                    <div>{this.props.relatedSku.category_facet}</div>
-                    <ReactSVG src={this.props.skuConfig.skuInfo.nextIcon} />
-                    <div>{this.props.relatedSku.contenttype_facet}</div>
+                    <div>{relatedSku.category_facet}</div>
+                    <ReactSVG src={skuConfig.skuInfo.nextIcon} />
+                    <div>{relatedSku.contenttype_facet}</div>
                 </div>
             );
         }
@@ -275,34 +347,36 @@ class ListItem extends React.Component {
     };
 
     render() {
+        const { relatedSku, skuConfig } = this.props;
         const buyInfo = this.renderBuyInfo();
         const breadcrumbs = this.renderBreadcrumb();
         const disabledClass = this.isDisabled() ? 'disabled' : '';
-        const imageAltLabel = this.props.relatedSku.primaryImageAlt ? this.props.relatedSku.primaryImageAlt : this.props.relatedSku.title;
+        if (!relatedSku.primaryImageThumbnail || relatedSku.primaryImageThumbnail === "") {
+            relatedSku.primaryImageThumbnail = skuConfig.skuInfo.noThumbnailImage
+        }
+        const imageAltLabel = relatedSku.primaryImageAlt ? relatedSku.primaryImageAlt : relatedSku.title;
         return (
             <div className={'cmp-sku-list__container ' + disabledClass}>
                 <div className="cmp-sku-list__right">
-                    {this.props.relatedSku.primaryImageThumbnail && (
-                        <img
-                            src={this.props.relatedSku.primaryImageThumbnail}
-                            alt={imageAltLabel}
-                        />
-                    )}
+                <img
+                        src={relatedSku.primaryImageThumbnail}
+                        alt={relatedSku.title}
+                    />
                 </div>
                 <div className="cmp-sku-details__left">
                     <div className="cmp-sku-list__code">
-                        {this.props.skuConfig.skuInfo.partNumberLabel + " " + this.props.relatedSku.code}
+                        {skuConfig.skuInfo.partNumberLabel + " " + relatedSku.code}
                     </div>
                     <a
                         onClick={this.handleItemClick}
                         href={
-                            this.props.relatedSku.skuPageHref
-                                ? this.props.relatedSku.skuPageHref
+                            relatedSku.skuPageHref
+                                ? relatedSku.skuPageHref
                                 : null
                         }
                     >
                         <div className="cmp-sku-details__title">
-                            {this.props.relatedSku.title}
+                            {relatedSku.title}
                         </div>
                     </a>
 
@@ -313,4 +387,24 @@ class ListItem extends React.Component {
         );
     }
 }
+
+
+ListItem.propTypes = {
+    key: PropTypes.string.isRequired,
+    relatedSku: PropTypes.object.isRequired,
+    skuConfig: PropTypes.object.isRequired,
+    baseSignInUrl: PropTypes.string.isRequired,
+    onItemClick: PropTypes.func.isRequired,
+    userInfo: PropTypes.object.isRequired
+};
+
+ListItem.defaultProps = {
+    key: '',
+    relatedSku: {},
+    skuConfig: {},
+    baseSignInUrl: '',
+    onItemClick: () => {},
+    userInfo: {}
+};
+
 export default ListItem;
