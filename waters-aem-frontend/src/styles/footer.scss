@@ -555,6 +555,8 @@
     }
 
     &.one-link {
+        // IE 11 Fix for footer alignment
+        clear: both;
         .cmp-footer__selector__region {
             @include mobile {
                 border-right: $border-medium;
