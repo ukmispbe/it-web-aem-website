@@ -5,7 +5,11 @@ import com.adobe.cq.export.json.ExporterConstants;
 import com.citytechinc.cq.component.annotations.Component;
 import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Listener;
+import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.TextField;
+import com.icfolson.aem.library.api.link.Link;
+import com.icfolson.aem.library.models.annotations.LinkInject;
+import com.waters.aem.core.constants.WatersConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -24,7 +28,7 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.*;
                 @Listener(name = EVENT_AFTER_COPY, value = REFRESH_PAGE)
         })
 @Model(adaptables = SlingHttpServletRequest.class,
-        adapters = { UserGreetings.class, ComponentExporter.class },
+        adapters = {UserGreetings.class, ComponentExporter.class},
         resourceType = UserGreetings.RESOURCE_TYPE,
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
@@ -43,6 +47,17 @@ public class UserGreetings implements ComponentExporter {
 
     public String getGreetings() {
         return greetings;
+    }
+
+    @DialogField(fieldLabel = "Logo Directory Path",
+            fieldDescription = "The DAM path of eProc organization logos folder",
+            ranking = 2)
+    @PathField(rootPath = WatersConstants.DAM_PATH)
+    @LinkInject
+    private Link logoDirectoryPath;
+
+    public String getLogoDirectoryPath() {
+        return logoDirectoryPath.getPath();
     }
 
     @Nonnull
