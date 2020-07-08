@@ -427,3 +427,24 @@ nav.cmp-navigation {
       }
    }
 }
+
+.cmp-navigation-arrow {
+   & .cmp-navigation__item > .cmp-navigation__container {
+      display: flex !important;
+      & > .down-arrow {
+         display: inline-block !important;
+         justify-self: end;
+         align-self: center;
+         margin-left: 8px;
+
+         svg {
+            height: $space-s;
+            width: $space-s;
+         }
+
+         @include mobile {
+            display: none !important;
+         }
+      }
+   }
+}
