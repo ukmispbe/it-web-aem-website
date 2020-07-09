@@ -28,6 +28,10 @@ $level0MobileDisplay: flex;
          box-shadow: none;
       }
    }
+
+   & .down-arrow {
+      display: none;
+   }
 }
 
 nav.cmp-navigation {
