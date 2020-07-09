@@ -436,7 +436,7 @@ nav.cmp-navigation {
    & .cmp-navigation__item > .cmp-navigation__container {
       display: flex !important;
       & > .down-arrow {
-         display: inline-block !important;
+         display: inline-block;
          justify-self: end;
          align-self: center;
          margin-left: 8px;
@@ -447,7 +447,7 @@ nav.cmp-navigation {
          }
 
          @include mobile {
-            display: none !important;
+            display: none;
          }
       }
    }
