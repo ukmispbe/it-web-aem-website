@@ -6,6 +6,7 @@ import Search from './search/index';
 import TagCloud from './search/components/tagcloud';
 import ImageCarousel from './image-carousel';
 import MyAccountDropDown from './my-account-dropdown/index';
+import UserGreeting from './user-greetings/UserGreeting';
 
 import SkuDetails from './sku-details';
 import SkuList from './sku-list';
@@ -26,6 +27,7 @@ import DigitalData from './scripts/DigitalData';
 import WeChat from './wechat';
 import MyAccountRouter from './my-account';
 import CountrySelector from './country-selector';
+import SessionStore from './stores/sessionStore';
 
 if (process.env.NODE_ENV !== 'production') {
     const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -36,10 +38,10 @@ const globalTranslationsScript = document.getElementById('global-translations-js
 const globalTranslations = globalTranslationsScript ? JSON.parse(globalTranslationsScript.innerHTML) : {};
 
 const headerRef = document.getElementById("header");
-const headerData = headerRef 
+const headerData = headerRef
     ? {
         userDetailsUrl: headerRef.dataset.userDetailsUrl
-    } 
+    }
     : {
         userDetailsUrl: ""
     };
@@ -115,14 +117,14 @@ if (searchAppContainer) {
         document.getElementById('search-results-categories-json').innerHTML
     );
 
-        
+
     let accountModalConfig = {};
     let baseSignInUrlString = "";
     if (header) {
         accountModalConfig = JSON.parse(document.getElementById('account-modal-configs-json').innerHTML);
         baseSignInUrlString = accountModalConfig.signIn.url;
     }
-    
+
     const data = getAuthoredDataForSearchApp(searchAppContainer);
     ReactDOM.render(
         <Search
@@ -202,7 +204,7 @@ if (skuDetailsContainer) {
     const skuCountryRestricted = skuData.dataset.countryRestricted;
     const replacementSkuCode = skuData.dataset.replacementSkuCode;
     const replacementSkuHref = skuData.dataset.replacementSkuHref;
-    
+
     if (skuDetailsConfig) {
         let accountModalConfig = {};
         if (header) {
@@ -351,14 +353,14 @@ if (registrationFormContainer) {
     const swapFirstAndLastNames = () => {
         const indexofFirstName = config.fields.map(e => e.name).indexOf('firstName');
         const indexofLastName = config.fields.map(e => e.name).indexOf('lastName');
-        if (indexofFirstName !== -1 && indexofLastName!== -1) {
+        if (indexofFirstName !== -1 && indexofLastName !== -1) {
             const temp = config.fields[indexofFirstName];
             config.fields[indexofFirstName] = config.fields[indexofLastName];
             config.fields[indexofLastName] = temp;
         }
     }
     const country = digitalData.page.country.toLowerCase();
-    if (config.formName === "registration" && (country ==="jp" || country === "cn" || country === "tw" || country === "kr")) {
+    if (config.formName === "registration" && (country === "jp" || country === "cn" || country === "tw" || country === "kr")) {
         swapFirstAndLastNames();
     }
 
@@ -526,3 +528,39 @@ if (signInFormContainer) {
     );
 }
 
+// User Greeting Component
+const userGreetingContainer = document.getElementById("user-greetings");
+if (userGreetingContainer) {
+    const store = new SessionStore();
+    waitUntilUserExists(store, userGreetingContainer, userGreeting);
+}
+// Inject UserGreeting Component user-greetings container
+function userGreeting(userGreetingContainer) {
+    const props = JSON.parse(document.getElementById("cmp-user-greetings").innerHTML);
+    const selectors = document.querySelector('.usergreetings');
+    let config = '';
+    if (selectors) {
+        config = ["cmp_greeting_no_name", "cmp_greeting_no_logo", "cmp_greeting_no_logo_name"].reduce((acc, item) => {
+            if (selectors.classList.contains(item)) {
+                acc = item;
+            }
+            return acc;
+        }, '');
+    }
+
+    props.showName = ["cmp_greeting_no_name", "cmp_greeting_no_logo_name"].indexOf(config) === -1 ? true : false;
+    props.showLogo = ["cmp_greeting_no_logo", "cmp_greeting_no_logo_name"].indexOf(config) === -1 ? true : false;
+    ReactDOM.render(
+        <UserGreeting {...props} />,
+        userGreetingContainer
+    );
+}
+// Checks user set in session storage or not
+function waitUntilUserExists(store, container, callback) {
+    const savedUserDetails = store.getUserDetails();
+    if (Object.keys(savedUserDetails).length > 0) {
+        return callback(container);
+    }
+    setTimeout(function () { return waitUntilUserExists(store, container, callback) }, 1000);
+}
+// End User Greeting Component
