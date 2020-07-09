@@ -7,5 +7,8 @@
         <div data-sly-test="${item.level == 0}" class="arrow right">
             <img alt="${'Right Arrow' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/right.svg" class="inline-svg">
         </div>
+        <div data-sly-test="${item.level == 0 && item.children.size > 0}" class="down-arrow">
+            <img alt="${'Down Arrow' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/down.svg" class="inline-svg">
+        </div>
     </div>
 </template>
