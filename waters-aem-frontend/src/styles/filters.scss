@@ -308,7 +308,7 @@
         }
     }
     &__emptytags {
-        height: $space-xl;
+        height: $space-l;
 
         @include tablet-and-under {
             height: 0;
