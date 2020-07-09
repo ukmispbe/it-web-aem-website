@@ -1,8 +1,10 @@
-<div data-sly-use.signIn="com.waters.aem.core.components.content.forms.SignIn">
+<div data-sly-use.signIn="com.waters.aem.core.components.content.forms.SignIn"
+ data-sly-use.chooseAccount="com.waters.aem.core.components.content.ChooseAccount" >
     <div class="cmp-form--attach" id="js-signin-form"></div>
     <script type="application/json" id="cmp-signin-form">
         {
             "submitEndpoint": "${signIn.signInEndpoint @ context='unsafe'}",
+            "submitEndpointChooseAccount": "${chooseAccount.chooseAccountEndpoint @ context='unsafe'}",
             "redirectUrl": "${signIn.homepageLink.href @ context='unsafe'}",
             "passwordUpdateUrl": "${signIn.forcePasswordUpdateLink.href @ context='unsafe'}",
             "formName": "signin",
