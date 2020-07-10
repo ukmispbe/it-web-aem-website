@@ -304,7 +304,7 @@ const Form = ({
                         updateFailedAttempts: updateFailedAttempts,
                         setProfileData: setProfileData,
                         setFormAnalytics: setFormAnalytics,
-                        urlChooseAccount: config.submitEndpointChooseAccount
+                        urlChooseAccount: config.chooseAccountEndPoint
                     })
                 )}
             >
