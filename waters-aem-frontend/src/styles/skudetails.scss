@@ -144,10 +144,6 @@
             display: flex;
             margin-top: 0;
 
-            // .cmp-button {
-            //     margin-bottom: $space-s;
-            // }
-
             @include tablet {
                 margin-top: $space-xxxs;
             }
@@ -184,9 +180,6 @@
                 outline: 2px solid $color-focus;
             }
 
-            // @include mobile {
-            //     height: 2.9em;
-            // }
         }
 
         &__web-quote {
@@ -455,13 +448,6 @@
             margin-bottom: 0;
         }
     }
-    // &__buttons { 
-    //     margin-top: $space-s;
-
-    //     @include tablet {
-    //         margin-top: $space-s;
-    //     }
-    // }
 
     &__checkavailability {
         @include font-body;
