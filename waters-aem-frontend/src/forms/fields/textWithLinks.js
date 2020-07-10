@@ -23,14 +23,16 @@ const TextWithLinks = ({}) => {
     return (
         <>
             {
-                config.length>0 && (
+                config.length > 0 && (
                     <div className={`cmp-form-field-${type}--${name} ` + (addClass ? addClass : '')}>
                         {config.map((block, index) => {
-                            if(block.type === "link") {
-                                return <React.Fragment key={index}> {renderLink(block)} </React.Fragment>;
-                            } else {
-                                return <React.Fragment key={index}> {renderText(block)} </React.Fragment>;
+                            let itemToRender = block.type === "link" ? renderLink(block) : renderText(block);
+                            let space="";
+
+                            if(block.rightSpace !== "false" || typeof block.rightSpace == "undefined") {
+                                space = " ";
                             }
+                        return <React.Fragment key={index}>{itemToRender}{space}</React.Fragment>
                         })}
                     </div>
                 )

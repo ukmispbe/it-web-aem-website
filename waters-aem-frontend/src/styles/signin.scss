@@ -1,12 +1,9 @@
 .cmp-sku-signin-wrapper {
-    background-color: #ffffff;
-    padding-bottom: 19px;
+    background-color: $color-white;
 
     .cmp-sku-signin {
         height: 25px;
-        font-size: 16px;
-        line-height: 26px;
-        font-family: 'acumin-pro', arial, sans-serif;
+       @include font-body;
         display: inline-flex;
         align-items: center;
                 
@@ -14,24 +11,37 @@
             display: inline-flex;
             align-items: center;
             cursor: pointer;
+            &:hover {
+                .signin-part1 {
+                    color: $color-link-hover;
+                }
+                .signin-icon {
+                    div {
+                        svg {
+                            .st0,
+                            .st1 {
+                                stroke: $color-link-hover;
+                            }
+                            }
+                        }
+                    }
+            }
         }
 
         .signin-part1 {
-            color: $color-blue-50;
+            color: $color-link;
             font-weight: $font-weight-regular;
             text-decoration: none solid rgb(0, 119, 187);
-            margin-right: 3px;
+            margin-right: $space-xxxs;
         }
 
         .signin-part2 {
-            color: $color-videothumbnail-overlay;
             font-weight: $font-weight-light;
             text-decoration: none solid rgb(45, 52, 57);
-            margin-right: 3px;
+            margin-right: $space-xxxs;
         }
 
         .signin-part3 {
-            color: $color-videothumbnail-overlay;
             font-weight: $font-weight-bold;
             text-decoration: none solid rgb(45, 52, 57);
         }
@@ -41,15 +51,20 @@
             div {
                 display: inline;
                 svg {
-                    height: 16px;
-                    width: 16px;
-                    margin-right: 6px;
-                    margin-top: 9px;
+                    .st0,
+                    .st1 {
+                        stroke: $color-link;
+                    }
+                    height: $icon-s;
+                    width: $icon-s;
+                    margin-right: $space-xxxs;
+                    margin-top: $space-xxs;
+
+                    }
                 }
             }
         }
     }
-}
 .cmp-sku-details--sticky {
     .cmp-sku-signin-wrapper {
         display: none;

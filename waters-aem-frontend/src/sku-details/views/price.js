@@ -7,9 +7,10 @@ class Price extends React.Component {
     }
 
     render() {
+        const priceLabelClass = (this.props.isListPrice === true) ? "cmp-sku-list__list-price-label" : "cmp-sku-list__cust-price-label";
         return (
             <>
-                <div className="cmp-sku-list__price-label">{this.props.label}</div>
+                <div className={priceLabelClass}>{this.props.label}</div>
                 {this.props.price &&
                     <div className="cmp-sku__price">{this.props.price}</div>
                 }
