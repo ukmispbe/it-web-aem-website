@@ -83,6 +83,7 @@ class OrderDetails extends Component {
                     shipmentNumber={i+1}
                     totalShipments={Object.keys(airbills).length}
                     addToCartReorder= {this.addToCartReorder}
+                    totalItemsOrdered={orderDetails.totalItemsOrdered}
                 />
             )
         }
@@ -238,18 +239,18 @@ class OrderDetails extends Component {
     renderItemCount = () => {
         const { orderDetails } = this.state;
         let label = "";
-        if (orderDetails.lineItems && orderDetails.lineItems.length) {
-            if (orderDetails.lineItems.length > 1) {
+        if (orderDetails && orderDetails.totalItemsOrdered) {
+            if (parseInt(orderDetails.totalItemsOrdered) > 1) {
                 label = this.props.config.items;
-            } else if (orderDetails.lineItems.length === 1) {
+            } else if (parseInt(orderDetails.totalItemsOrdered) === 1) {
                 label = this.props.config.item;
             }
 
-            let itemCountLabel =  " (" + orderDetails.lineItems.length + " " + label + ")";
+            let itemCountLabel =  " (" + orderDetails.totalItemsOrdered + " " + label + ")";
             return itemCountLabel;
 
         } else {
-            return false
+            return label;
         }
     }
 
