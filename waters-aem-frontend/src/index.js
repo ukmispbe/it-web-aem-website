@@ -346,9 +346,11 @@ const registrationFormContainer = document.getElementById(
 );
 
 if (registrationFormContainer) {
-    const config = JSON.parse(
+    let config = JSON.parse(
         document.getElementById('cmp-registration-form').innerHTML
     );
+
+    const country = digitalData.page.country.toLowerCase();
 
     const swapFirstAndLastNames = () => {
         const indexofFirstName = config.fields.map(e => e.name).indexOf('firstName');
@@ -359,11 +361,30 @@ if (registrationFormContainer) {
             config.fields[indexofLastName] = temp;
         }
     }
-    const country = digitalData.page.country.toLowerCase();
-    if (config.formName === "registration" && (country === "jp" || country === "cn" || country === "tw" || country === "kr")) {
+
+    const AddExtraDisclosures = (config, addDisclosuresJSON) => {
+        const indexofPrivacy = config.fields.map(e => e.name).indexOf('privacy');
+        let privacyConfig = config.fields[indexofPrivacy].config;
+        privacyConfig.pop();
+        config.fields[indexofPrivacy].config = privacyConfig.concat(addDisclosuresJSON);
+    }
+
+    const changeDisclosures = (config) => {
+        const KRconfig = JSON.parse(
+            document.getElementById('cmp-registration-form-kr').innerHTML
+        ).koreanDisclosures;
+
+        const indexofPrivacy = config.fields.map(e => e.name).indexOf('privacy');
+        config.fields[indexofPrivacy].config = KRconfig;
+    }
+
+    if (config.formName === "registration" && (country ==="jp" || country === "cn" || country === "tw" || country === "kr")) {
         swapFirstAndLastNames();
     }
 
+    if (config.formName === "registration" && country === "kr") {
+        changeDisclosures(config);
+    }
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
         <Form

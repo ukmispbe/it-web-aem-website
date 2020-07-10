@@ -18,6 +18,7 @@ const keys = {
 const AddToCartModalBody = props => {
     
     const errorObjCart = props.errorObjCart;
+
     const [state] = useState({ ...props.config })
     const { onClose } = useContext(useModalApi);
 
@@ -28,7 +29,7 @@ const AddToCartModalBody = props => {
         buttons,
         isOrderDetails
     } = state;
-    
+
     const InfoTextWrapper = (props) => { 
         if (!isOrderDetails){
             if (!text || !textHeading) return <></>;

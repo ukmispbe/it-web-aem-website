@@ -75,17 +75,17 @@
                     <a data-sly-test="${footer.cookiesLink}" href="${footer.cookiesLink.href}">${'Cookies' @ i18n}</a>
                     <a class="optanon-toggle-display dl_Anchor" href="#">${'Cookie Preferences' @ i18n}</a>
                     <div data-sly-test="${isChinaPage}" class="cmp-footer__china-legal">
+                        <a href="${footer.cBLegalLink.href}" class="cmp-footer__china-legal-cB">
+                            <img data-sly-test="${footer.cBLegalIcon}" src="${footer.cBLegalIcon}" alt="${'Commercial Bureau Legal Icon' @ i18n}" />
+                        </a>
                         <a href="${footer.sICPLegalLink.href}" class="cmp-footer__china-legal-sICP">
-                            <img data-sly-test="${footer.sICPLegalIcon}" src="${footer.sICPLegalIcon}" alt="${'Shanghai ICP Number Legal Icon' @ i18n}" />
                             <span data-sly-test="${footer.sICPNumber}">沪ICP备${footer.sICPNumber}号-2</span>
                         </a>
                         <a href="${footer.bPNSLegalLink.href}" class="cmp-footer__china-legal-bPNS">
                             <img data-sly-test="${footer.bPNSLegalIcon}" src="${footer.bPNSLegalIcon}" alt="${'Beijing Public Network Security Number Legal Icon' @ i18n}"/>
                             <span data-sly-test="${footer.bPNSNumber}">京公网安备 ${footer.bPNSNumber}号</span>
                         </a>
-                        <a href="${footer.cBLegalLink.href}" class="cmp-footer__china-legal-cB">
-                            <img data-sly-test="${footer.cBLegalIcon}" src="${footer.cBLegalIcon}" alt="${'Commercial Bureau Legal Icon' @ i18n}" />
-                        </a>
+
                     </div>
                 </nav>
             </div>
@@ -190,10 +190,13 @@
             ]
         },
         "errorInfo": {
+            "icon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
+            "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
+            "title": "${'Sorry, something went wrong.' @ i18n, context='text'}",
             "serviceUnavailable": "${'Service Unavailable' @ i18n, context='text'}",
             "tryAgainLater": "${'Try again later' @ i18n, context='text'}",
             "anErrorHasOccurred": "${'An error has occurred' @ i18n, context='text'}",
-            "wereSorry": "${'We\'re sorry, but an error has occurred and your item was not added to the cart. Please try again.' @ i18n, context='unsafe'}"
+            "wereSorry": "${'An error has occurred and your item was not added to the Shopping Cart. Please try again.' @ i18n, context='unsafe'}"
         }
     }
 </script>
