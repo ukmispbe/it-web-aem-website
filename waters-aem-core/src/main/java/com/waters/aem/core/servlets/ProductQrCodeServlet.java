@@ -92,7 +92,7 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
         final PageDecorator countryRoot = siteRepository.getCountryRootPage(resourceResolver, locale.getCountry(),
                 true);
 
-        LOG.info("qrdebug returning countryRoot {}", countryRoot.toString());
+        LOG.info("qrdebug returning countryRoot {}", countryRoot);
 
         final PageDecorator languageRoot = siteRepository.getLanguageRootPage(resourceResolver, locale.getCountry(),
             locale.getLanguage(), true);
