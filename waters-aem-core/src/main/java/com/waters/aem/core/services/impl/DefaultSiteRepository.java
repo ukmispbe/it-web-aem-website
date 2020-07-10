@@ -94,8 +94,8 @@ public final class DefaultSiteRepository implements SiteRepository {
     public PageDecorator getCountryRootPage(final ResourceResolver resourceResolver, final String countryCode,
                                             final boolean matchNodeName) {
 
-            getCountryRootPages(resourceResolver)
-                    .forEach(page -> System.out.println("Language {} "+page.getLanguage(false).getCountry()+" name {}"+page.getName()));
+        getCountryRootPages(resourceResolver)
+                    .forEach(page -> LOG.info("qrdebug Language {} "+page.getLanguage(false).getCountry()+" name {}"+page.getName()));
 
         return getCountryRootPages(resourceResolver)
             .stream()
