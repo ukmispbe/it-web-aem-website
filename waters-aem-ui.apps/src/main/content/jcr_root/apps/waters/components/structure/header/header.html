@@ -47,7 +47,7 @@
                             />
                         </a>
                     </li>
-                    <li class="top-bar__nav__user top-bar__nav__item">
+                    <li class="top-bar__nav__user${header.eprocurement ? '--hide':''} top-bar__nav__item">
                         <a
                             class="top-bar__nav__user__link cmp-header-links__link"
                             href="javascript:;"
@@ -70,6 +70,7 @@
                             {
                                 "userDetailsUrl": "${header.userDetailsUrl @ context='unsafe'}",
                                 "soldToDetailsUrl": "${header.soldToDetailsUrl @ context='unsafe'}",
+                                "siteConfig": "${header.siteConfig @ context='unsafe'}",
                                 "homepageLink": "${header.homepageLink.href @ context='unsafe'}",
                                 "punchoutSetup": "${header.punchOutSetupEndpoint @ context='unsafe'}",
                                 "punchoutLogin": "${header.punchOutLoginEndpoint @ context='unsafe'}",
