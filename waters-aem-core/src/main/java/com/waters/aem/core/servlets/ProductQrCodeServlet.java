@@ -60,11 +60,14 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
         final PageManagerDecorator pageManager = request.getResourceResolver().adaptTo(PageManagerDecorator.class);
 
         final String gtin = Optional.ofNullable(request.getParameter(PARAMETER_GTIN)).orElse("");
+
         final String locale = Optional.ofNullable(request.getParameter(PARAMETER_LOCALE)).orElse(DEFAULT_LOCALE);
+        LOG.info("qrdebug returning locale {}", locale);
 
         final Stopwatch stopwatch = Stopwatch.createStarted();
 
         final Sku sku = skuRepository.getSkuForGtin(request.getResourceResolver(), gtin);
+        LOG.info("qrdebug sku url {}", sku.getPath());
 
         LOG.debug("traversed products for {} ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
 
@@ -88,6 +91,8 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
 
         final PageDecorator countryRoot = siteRepository.getCountryRootPage(resourceResolver, locale.getCountry(),
                 true);
+
+        LOG.info("qrdebug returning countryRoot {}", countryRoot.toString());
 
         final PageDecorator languageRoot = siteRepository.getLanguageRootPage(resourceResolver, locale.getCountry(),
             locale.getLanguage(), true);

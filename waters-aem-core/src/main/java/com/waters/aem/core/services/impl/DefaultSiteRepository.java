@@ -93,6 +93,10 @@ public final class DefaultSiteRepository implements SiteRepository {
     @Override
     public PageDecorator getCountryRootPage(final ResourceResolver resourceResolver, final String countryCode,
                                             final boolean matchNodeName) {
+
+            getCountryRootPages(resourceResolver)
+                    .forEach(page -> System.out.println("Language {} "+page.getLanguage(false).getCountry()+" name {}"+page.getName()));
+
         return getCountryRootPages(resourceResolver)
             .stream()
             .filter(page -> countryCode.equalsIgnoreCase(page.getLanguage(false).getCountry()))
