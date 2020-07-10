@@ -318,7 +318,14 @@ public final class Header extends AbstractComponent implements ComponentExporter
         return siteContext.getCountryCommerceConfig();
     }
 
-    public SiteConfig getSiteConfig() {
-        return siteContext.getSiteConfig();
+    public String getSiteConfig() {
+        String siteConfig = WatersConstants.ECOMMERCE;
+        if(siteContext.getSiteConfig().isEprocurement()){
+            siteConfig = WatersConstants.EPROCUREMENT;
+        }
+        return siteConfig;
+    }
+    public boolean isEprocurement() {
+        return siteContext.getSiteConfig().isEprocurement();
     }
 }

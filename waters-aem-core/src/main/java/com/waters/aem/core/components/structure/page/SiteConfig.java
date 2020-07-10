@@ -1,21 +1,22 @@
 package com.waters.aem.core.components.structure.page;
 
 import com.citytechinc.cq.component.annotations.Option;
+import com.waters.aem.core.constants.WatersConstants;
 
 public enum SiteConfig {
-    @Option(text = "eCommerce")
+    @Option(text = WatersConstants.ECOMMERCE)
     eCommerce,
 
-    @Option(text = "eProcurement")
+    @Option(text = WatersConstants.EPROCUREMENT)
     eProcurement;
 
 
     public boolean isEcommerce() {
-        return "eCommerce".equals(name());
+        return WatersConstants.ECOMMERCE.equals(name());
     }
 
     public boolean isEprocurement() {
-        return "eProcurement".equals(name());
+        return WatersConstants.EPROCUREMENT.equals(name());
     }
 
 }
