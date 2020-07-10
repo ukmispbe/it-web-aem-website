@@ -95,7 +95,7 @@ public final class DefaultSiteRepository implements SiteRepository {
                                             final boolean matchNodeName) {
 
         getCountryRootPages(resourceResolver)
-                    .forEach(page -> LOG.info("qrdebug Language {} "+page.getLanguage(false).getCountry()+" name {}"+page.getName()));
+                    .forEach(page -> LOG.info("qrdebug Language ="+page.getLanguage(false)+" :page country = "+page.getLanguage(false).getCountry()+" :page name ="+page.getName()));
 
         return getCountryRootPages(resourceResolver)
             .stream()
