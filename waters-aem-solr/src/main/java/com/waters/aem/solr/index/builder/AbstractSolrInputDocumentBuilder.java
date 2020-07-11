@@ -163,6 +163,8 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
 
             final DisplayableSku displayableSku = new DisplayableSku(sku, siteContext);
 
+            setDocumentStringField(document,"unspsc",sku.getUnspsc());
+
             setDocumentStringField(document, "skucode", sku.getCode());
 
             setDocumentStringField(document, "currencycode", siteContext.getCurrencyIsoCode());
