@@ -42,6 +42,7 @@ class MyAccountDropDown extends React.Component {
     }
 
     async componentDidMount() {
+        (new SessionStore()).setUserType(this.props.config.siteConfig);
         this.accountHeaderUser = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
         this.allNavItems = document.querySelectorAll('.top-bar__nav__item:not(.top-bar__nav__user)');
         this.header = document.querySelector('header.cmp-header');

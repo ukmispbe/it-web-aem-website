@@ -361,17 +361,18 @@ const ResultsBody = ({
     filterTagsProps,
     filterTagsEvents,
     resultsProps,
-    resultsEvents
+    resultsEvents,
+    isEprocurementUser
 }) => {
     return (
         <div className="cmp-search__container">
             <div className="cmp-search__container__header cleafix">
-                <CategoryDropdown
+                {!isEprocurementUser && <CategoryDropdown
                     categoryDownIcon={text.downIcon}
                     categoryIsSearchable={false}
                     categoryOnChange={categoryEvents.onCategoryDropdownChange}
                     categoryOptions={categoryProps.categories}
-                    categoryValue={categoryProps.activeIndex} />
+                    categoryValue={categoryProps.activeIndex} />}
 
                 <BtnShowSortFilter
                     text={text}

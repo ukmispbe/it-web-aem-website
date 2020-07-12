@@ -57,3 +57,20 @@ export const getSoldToId = () => {
 
 	return '';
 }
+
+export const getUsertype = () => {
+    const sessionStore = new SessionStore();
+    const userType = sessionStore.getUserType();
+
+    if(userType !== null) {
+        return userType;
+    }
+    const userConfig = document.getElementById('account-modal-configs-json')
+    const siteConfig = userConfig ? JSON.parse(
+        document.getElementById('account-modal-configs-json').innerHTML
+    ).siteConfig : '';
+    
+    siteConfig && sessionStore.setUserType(siteConfig || '');
+
+    return siteConfig;
+}
