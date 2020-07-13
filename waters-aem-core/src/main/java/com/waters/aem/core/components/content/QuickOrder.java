@@ -59,39 +59,39 @@ public class QuickOrder implements ComponentExporter {
         return buttonLabel;
     }
 
-    @DialogField(fieldLabel = "Search Placeholder",
-            fieldDescription = "The text to display on the Button",
+    @DialogField(fieldLabel = "Add to Cart Placeholder",
+            fieldDescription = "The text to display as placeholder",
             defaultValue = "SKU Number",
             ranking = 2)
     @TextField
     @Inject
-    private String searchPlaceHolder;
+    private String addToCartPlaceHolder;
 
-    public String getSearchPlaceHolder() {
-        return searchPlaceHolder;
+    public String getAddToCartPlaceHolder() {
+        return addToCartPlaceHolder;
     }
 
-    @DialogField(fieldLabel = "Additional Button Label",
-            fieldDescription = "The text to display on the additional link",
+    @DialogField(fieldLabel = "Multiple Items Label",
+            fieldDescription = "The text to display on the multiple items link",
             ranking = 3)
     @TextField
     @Inject
-    private String additionalButtonLabel;
+    private String multipleItemsLabel;
 
-    public String getAdditionalButtonLabel() {
-        return additionalButtonLabel;
+    public String getMultipleItemsLabel() {
+        return multipleItemsLabel;
     }
 
-    @DialogField(fieldLabel = "Additional Button Link",
-            fieldDescription = "The path of the additional button link",
+    @DialogField(fieldLabel = "Multiple Items Link",
+            fieldDescription = "The path of the multiple items link",
             required = true,
             ranking = 4)
     @PathField(rootPath = WatersConstants.ORDER_ROOT_PATH)
     @LinkInject
-    private Link additionalButtonLink;
+    private Link multipleItemsLink;
 
-    public String getAdditionalButtonLink() {
-        return additionalButtonLink.getPath();
+    public String getMultipleItemsLink() {
+        return multipleItemsLink.getPath();
     }
 
     public String getAddToCartUrl() {
