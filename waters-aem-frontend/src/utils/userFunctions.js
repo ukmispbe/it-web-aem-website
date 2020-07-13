@@ -66,11 +66,16 @@ export const getUsertype = () => {
         return userType;
     }
     const userConfig = document.getElementById('account-modal-configs-json')
-    const siteConfig = userConfig ? JSON.parse(
-        document.getElementById('account-modal-configs-json').innerHTML
-    ).siteConfig : '';
     
-    siteConfig && sessionStore.setUserType(siteConfig || '');
-
-    return siteConfig;
+    try {
+        const siteConfig = userConfig ? JSON.parse(
+            document.getElementById('account-modal-configs-json').innerHTML
+        ).siteConfig : '';
+        
+        siteConfig && sessionStore.setUserType(siteConfig || '');
+        
+        return siteConfig;
+    } catch (e) {
+        return '';
+    }
 }
