@@ -406,5 +406,6 @@
     "salesStatus": "Active",
     "summary": "Waters ACQUITY UPLC total solution for the analysis of Perfluorinated Compounds (PFCs).",
     "terminated": false,
+    "unspsc": "3435765",
     "url": "/waters/products/176001744"
 }
