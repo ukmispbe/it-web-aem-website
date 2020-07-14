@@ -110,6 +110,78 @@
             }
         }
     }
+
+    &.cmp-header-search-bar {
+        width: 302px;
+        margin-bottom: 0;
+        font-size: 1em;
+        .react-autosuggest__input {
+            font-family: inherit;
+            @include font-body;
+            font-size: 100%;
+            width: 100%;
+            height: 44px;
+            margin-bottom: 0;
+            border: $border-medium;
+            background: $color-white;
+            padding: $space-xxs $space-xxl $space-xxs $space-m;
+            -webkit-appearance: none;
+            -webkit-border-radius: $border-radius;
+            border-radius: $border-radius;
+    
+            &:focus {
+                outline: none;
+                border: 1px solid $color-focus;
+            }
+        }
+        .react-autosuggest__suggestions-container {
+            top: 44px;
+            padding: $space-xs $space-m;
+
+            .react-autosuggest__suggestions-list {
+                padding: 0;
+                margin-bottom: 0;
+                .react-autosuggest__suggestion {
+                    margin-bottom: $space-xxs;
+                }
+            }
+        }
+        .cmp-search-bar__icons {
+            top: 0;
+            right: 0;
+            height: 100%;
+            &-search, &-clear {
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                svg {
+                    width: $icon-m;
+                    height: $icon-m;
+                    cursor: pointer;
+                    .st0 {
+                        stroke: $color-icon;
+                    }
+                }
+                div {
+                    height: $icon-m;
+                }
+            }
+            &-search {
+                width: $height-medium;
+                background-color: $color-blue-50;
+                border-radius: 0 $border-radius $border-radius 0;
+                svg {
+                    .st0 {
+                        stroke: $color-white;
+                    }
+                }
+            }
+            &-clear {
+                margin-right: $space-xxs;
+            }
+        }
+    }
 }
 
 .cmp-search-bar--focus {
