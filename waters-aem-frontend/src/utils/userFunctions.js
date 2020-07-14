@@ -1,6 +1,5 @@
 import 'whatwg-fetch';
 import SessionStore from '../stores/sessionStore';
-import LocalStore from '../stores/localStore';
 import loginStatus from '../scripts/loginStatus';
 import DigitalData from '../scripts/DigitalData';
 
@@ -30,20 +29,18 @@ export const getSalesOrg = () => {
         return ''
     }
 }
-
+//Note: this method uses the USER Details API, not the SoldToDetailsAPI
 export const getSoldToId = () => {
 	if(loginStatus.state()) {
 		const store = new SessionStore();
-        const soldToDetails = store.getSoldToDetails();
-        if (!soldToDetails || soldToDetails.length === 0) {
-            return ''
-        } else {
+        const userDetails = store.getUserDetails();
+        if (userDetails || userDetails.length > 0) {
             let priorityAccount;
             let accountNumber = "";
 
-            soldToDetails.map((soldTo) => {
-                if(soldTo.default_soldTo === 1) {
-                    priorityAccount = soldTo;
+            userDetails.soldToAccounts.map((soldToAccount) => {
+                if(soldToAccount.defaultFlag === 1) {
+                    priorityAccount = soldToAccount;
                 }
             });
 
@@ -53,7 +50,9 @@ export const getSoldToId = () => {
 
             return accountNumber;
         }
-	}
+    } else {
+        return ''
+    }
 
 	return '';
 }
