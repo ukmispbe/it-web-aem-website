@@ -9,6 +9,7 @@ import screenSizes from '../scripts/screenSizes';
 import Analytics, { analyticTypes } from '../analytics';
 import Loading from './components/loading';
 import SearchComponent from './search.component';
+import {getUsertype} from '../utils/userFunctions';
 
 const SEARCH_TYPES = {
     INITIAL: 'initial',
@@ -32,12 +33,13 @@ class SearchContainer extends Component {
     componentDidMount() {
         this.addHistoryListener();
         this.addResizeListener();
-
+        
         const facetGroupsSelectedOrder = this.parseFacetsFromUrlToArray();
         const sessionStore = this.search.getSessionStore();
         this.setState({tabHistory: sessionStore.searchTabHistory, facetGroupsSelectedOrder}, () => {
             this.performSearch();
         });
+        this.setState({isEprocurementUser: (getUsertype() === 'eProcurement')});
     }
 
     parseFacetsFromUrlToArray = () => this.search.mapFacetGroupsToArray(parse(location.search).facet);
@@ -1171,6 +1173,7 @@ class SearchContainer extends Component {
         }
 
         return <SearchComponent
+                    isEprocurementUser={this.state.isEprocurementUser}
                     text={this.props.searchText}
                     filterMap={this.props.filterMap}
                     skuConfig={this.state.skuConfig}
