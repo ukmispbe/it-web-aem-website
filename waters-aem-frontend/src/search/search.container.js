@@ -239,7 +239,7 @@ class SearchContainer extends Component {
         !categories || !categories.facets || !categories.facets.category_facet
             ? []
             : categories.facets.category_facet
-                  .filter(category => category.value !== 0)
+                  .filter(category => category.count !== 0 && !!this.findFacetNameProperty(this.props.filterMap, category.value))
                   .map(category => {
                       return {
                           translation: this.findFacetTranslationProperty(this.props.filterMap, category.value),
@@ -381,7 +381,7 @@ class SearchContainer extends Component {
         );
 
         const categoryName = categoryIndex !== -1 ? this.state.categoryTabs[categoryIndex].name : '';
-
+        
         this.setState({ activeTabIndex: categoryIndex, category: categoryName });
     }
 

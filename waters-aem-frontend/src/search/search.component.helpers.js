@@ -21,6 +21,7 @@ import SkuList from '../sku-list';
 import Results from './components/results';
 import { propTypes, defaultProps } from './search.component.props';
 import PropTypes from 'prop-types';
+import { getUsertype } from '../utils/userFunctions';
 
 const FilterTagList = ({
     text,
@@ -223,13 +224,14 @@ const SkuResults = ({
     skuConfig,
     onItemClick
 }) => {
+    const isEprocurementUser = (getUsertype() === 'eProcurement');
     const skuData = Array.isArray(items)
         ? items.map(item => {
             return {
                 code: item.skucode,
                 category_facet: item.category_facet,
                 contenttype_facet: item.contenttype_facet,
-                skuPageHref: item.url,
+                skuPageHref: isEprocurementUser ? item.eprocUrl : item.url,
                 formattedPrice: item.displayprice,
                 primaryImageAlt: item.title,
                 primaryImageThumbnail: item.thumbnail,
