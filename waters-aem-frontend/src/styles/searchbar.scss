@@ -114,7 +114,7 @@
     &.cmp-header-search-bar {
         width: 302px;
         margin-bottom: 0;
-        font-size: 1em;
+        font-size: $font-size-body;
         .react-autosuggest__input {
             font-family: inherit;
             @include font-body;
