@@ -60,29 +60,38 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
         final PageManagerDecorator pageManager = request.getResourceResolver().adaptTo(PageManagerDecorator.class);
 
         final String gtin = Optional.ofNullable(request.getParameter(PARAMETER_GTIN)).orElse("");
-
         final String locale = Optional.ofNullable(request.getParameter(PARAMETER_LOCALE)).orElse(DEFAULT_LOCALE);
-        LOG.info("qrdebug returning locale {}", locale);
 
         final Stopwatch stopwatch = Stopwatch.createStarted();
 
         final Sku sku = skuRepository.getSkuForGtin(request.getResourceResolver(), gtin);
-        LOG.info("qrdebug sku url {}", sku.getPath());
 
-        LOG.debug("traversed products for {} ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
+        LOG.info("qrdebug pageManager" + pageManager);
+        LOG.info(" qrdebug gtin " + gtin);
+        LOG.info(" qrdebug locale " + locale);
+        LOG.info("qrdebug sku" + sku);
+
+        LOG.info("traversed products for {} ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
 
         final String languageRootPath = getRootLanguagePath(request.getResourceResolver(), locale);
 
+        LOG.info(" qrdebug languageRootPath " + languageRootPath);
+
         if (sku != null && languageRootPath != null) {
             final PageDecorator skuPage = skuRepository.getSkuPage(pageManager.getPage(languageRootPath), sku);
-
+            LOG.info(" qrdebug skupage " + skuPage.getHref() );
             if (skuPage != null) {
-                response.sendRedirect(skuPage.getHref(true) + "?xcid=qr-gtin_" + gtin );
+                //response.sendRedirect(skuPage.getHref(true) + "?xcid=qr-gtin_" + gtin );
+                response.sendRedirect(skuPage.getHref(true)  );
+                LOG.info(" qrdebug skuPage.getHref is " + skuPage.getHref() );
+                LOG.info(" qrdebug skuPage.getHref is " + skuPage.getHref(true) );
             } else {
                 sendDefaultRedirect(response, pageManager, languageRootPath);
+                LOG.info(" qrdebug skuPage.getHref else " + response + " " + pageManager + " " + languageRootPath ) ;
             }
         } else {
             sendDefaultRedirect(response, pageManager, defaultLanguageRootPath);
+            LOG.info(" qrdebug skuPage.getHref outerelse " + response + " " + pageManager + " " + defaultLanguageRootPath ) ;
         }
     }
 
@@ -92,10 +101,8 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
         final PageDecorator countryRoot = siteRepository.getCountryRootPage(resourceResolver, locale.getCountry(),
                 true);
 
-        LOG.info("qrdebug returning countryRoot {}", countryRoot);
-
         final PageDecorator languageRoot = siteRepository.getLanguageRootPage(resourceResolver, locale.getCountry(),
-            locale.getLanguage(), true);
+                locale.getLanguage(), true);
 
         final String languageRootPath;
 
@@ -104,19 +111,19 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
         } else {
             languageRootPath = languageRoot != null ? languageRoot.getPath() :
                     countryRoot.getChildren()
-                        .stream()
-                        .findFirst()
-                        .map(Page :: getPath)
-                        .orElse(defaultLanguageRootPath);
+                            .stream()
+                            .findFirst()
+                            .map(Page :: getPath)
+                            .orElse(defaultLanguageRootPath);
         }
 
-        LOG.debug("returning the language root path: {} for locale param {}", languageRootPath, localeStr);
+        LOG.info("returning the language root path: {} for locale param {}", languageRootPath, localeStr);
 
         return languageRootPath;
     }
 
     private void sendDefaultRedirect(final SlingHttpServletResponse response, final PageManagerDecorator pageManager,
-        final String languageRootPath) throws IOException {
+                                     final String languageRootPath) throws IOException {
         final PageDecorator shopAllProductsPage = pageManager.getPage(languageRootPath + shopAllProductsRelativePath);
 
         if (shopAllProductsPage != null) {
