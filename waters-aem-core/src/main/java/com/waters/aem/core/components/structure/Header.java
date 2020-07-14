@@ -28,6 +28,7 @@ import com.waters.aem.core.services.account.WatersAccountService;
 import com.waters.aem.core.services.account.WatersPunchoutService;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.waters.aem.core.services.launch.AdobeLaunchService;
+import com.waters.aem.core.services.solr.SolrSearchService;
 import com.waters.aem.core.utils.LinkUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -81,6 +82,9 @@ public final class Header extends AbstractComponent implements ComponentExporter
 
     @OSGiService
     private AdobeLaunchService adobeLaunchService;
+
+    @OSGiService
+    private SolrSearchService searchService;
 
     @Inject
     private PageManagerDecorator pageManager;
@@ -327,5 +331,23 @@ public final class Header extends AbstractComponent implements ComponentExporter
     }
     public boolean isEprocurement() {
         return siteContext.getSiteConfig().isEprocurement();
+    }
+
+    /**
+     * Get searchService url for searchbar in Header
+     *
+     * @return searchUrl
+     */
+    public String getSearchUrl() {
+        return searchService.getBaseUrl();
+    }
+
+    /**
+     * Get isocode to send to search service.
+     *
+     * @return isocode from page locale
+     */
+    public String getIsocode() {
+        return siteContext.getLocale().toString();
     }
 }
