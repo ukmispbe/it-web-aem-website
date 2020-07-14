@@ -130,6 +130,12 @@ export async function resetPasswordSubmit(data) {
 
                 const needToChooseAccount = checkRedirectToChooseAccount(userDetails.soldToAccounts);
                 if(needToChooseAccount) {
+                    // If there is only one account then set this as the default account
+                    if (userDetails.soldToAccounts.length === 1) {
+                        submitAccount(userDetails.soldToAccounts[0].soldTo, this.urlChooseAccount);
+                        return;
+                    }
+                    
                     // Choose Account URL
                     const switchAccountUrl = getNamedHeaderLink("data-switch-account-url");
                     window.location.replace(switchAccountUrl);
@@ -217,14 +223,14 @@ export async function personalSubmit(data) {
 }
 
 const checkRedirectToChooseAccount = (soldToAccounts) => {
-    if (soldToAccounts === null || soldToAccounts === undefined || !soldToAccounts.length || soldToAccounts.length === 1 ) {
+    if (soldToAccounts === null || soldToAccounts === undefined || !soldToAccounts.length) {
         return false;
     }
     let defaultSoldTos = soldToAccounts.filter(function(i) {
         return i.defaultFlag === 1;
     });
 
-    if (defaultSoldTos.length > 1) {
+    if (defaultSoldTos.length > 1 || defaultSoldTos.length === 0) {
         return true;
     }
     return false;
@@ -258,6 +264,12 @@ export async function signInSubmit(data) {
                 store.setUserDetails(userDetails);
                 const needToChooseAccount = checkRedirectToChooseAccount(userDetails.soldToAccounts);
                 if(needToChooseAccount) {
+                    // If there is only one account then set this as the default account
+                    if (userDetails.soldToAccounts.length === 1) {
+                        submitAccount(userDetails.soldToAccounts[0].soldTo, this.urlChooseAccount);
+                        return;
+                    }
+
                     // Choose Account URL
                     const switchAccountUrl = getNamedHeaderLink("data-switch-account-url");
                     window.location.replace(switchAccountUrl);
@@ -362,3 +374,37 @@ export async function chooseAccountSubmit(data) {
         scrollToY(0);
     }
 }
+
+
+export async function submitAccount(selectedAccount, urlChooseAccount) {
+
+    const response = await postData(urlChooseAccount + "/" + selectedAccount, "");
+    
+    if (response.status === 200) {
+        // If accessed from My Account Drop Down - Return to same page
+        const queryString = location.search;
+        if(queryString === "?fromMenu=true") {
+            window.location.replace(document.referrer);
+            return;
+        }
+
+        // If User had previously been directed to Sign in - Return to Original page
+        const store = new SessionStore();
+        const signInRedirectStore = store.getSignInRedirect();
+        store.removeSignInRedirect();
+
+        if (signInRedirectStore) {
+            window.location.replace(signInRedirectStore.replace(/"/g, ""));
+            return;
+        }
+
+        // If user has accessed directly from Sign in Page - Return to Home page
+        const homePageUrl = getNamedHeaderLink("data-homepage-url");
+        window.location.replace(homePageUrl);
+        return;
+
+    } else {
+        signInRedirect();
+    }
+}
+

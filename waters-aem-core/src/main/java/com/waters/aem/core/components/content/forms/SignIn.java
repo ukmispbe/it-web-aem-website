@@ -81,6 +81,10 @@ public class SignIn implements ComponentExporter {
         return captchaService.getSiteKey();
     }
 
+    public String getChooseAccountEndpoint() {
+        return accountService.getChooseAccountEndpoint();
+    }
+
     @Nonnull
     @Override
     public String getExportedType() {

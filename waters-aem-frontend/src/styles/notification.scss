@@ -29,7 +29,6 @@
 
     &--my-account {
         @include mobile {
-            margin-top: $space-l;
 
             .cmp-notification-wrapper {
                 margin-bottom: 0;
