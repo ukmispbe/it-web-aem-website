@@ -79,3 +79,5 @@ export const getUsertype = () => {
         return '';
     }
 }
+
+export const isEprocurementUser = () => (getUsertype() === 'eProcurement');

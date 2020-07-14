@@ -9,7 +9,7 @@ import screenSizes from '../scripts/screenSizes';
 import Analytics, { analyticTypes } from '../analytics';
 import Loading from './components/loading';
 import SearchComponent from './search.component';
-import {getUsertype} from '../utils/userFunctions';
+import { isEprocurementUser } from '../utils/userFunctions';
 
 const SEARCH_TYPES = {
     INITIAL: 'initial',
@@ -39,7 +39,7 @@ class SearchContainer extends Component {
         this.setState({tabHistory: sessionStore.searchTabHistory, facetGroupsSelectedOrder}, () => {
             this.performSearch();
         });
-        this.setState({isEprocurementUser: (getUsertype() === 'eProcurement')});
+        this.setState({isEprocurementUser: isEprocurementUser()});
     }
 
     parseFacetsFromUrlToArray = () => this.search.mapFacetGroupsToArray(parse(location.search).facet);
