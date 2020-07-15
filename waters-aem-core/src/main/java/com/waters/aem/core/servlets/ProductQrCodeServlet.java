@@ -79,17 +79,20 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
 
         if (sku != null && languageRootPath != null) {
             final PageDecorator skuPage = skuRepository.getSkuPage(pageManager.getPage(languageRootPath), sku);
-            LOG.info(" qrdebug skupage " + skuPage.getHref() );
+            LOG.info(" qrdebug skupage " + skuPage);
             if (skuPage != null) {
                 //response.sendRedirect(skuPage.getHref(true) + "?xcid=qr-gtin_" + gtin );
-                response.sendRedirect(skuPage.getHref(true)  );
                 LOG.info(" qrdebug skuPage.getHref is " + skuPage.getHref() );
                 LOG.info(" qrdebug skuPage.getHref is " + skuPage.getHref(true) );
+                response.sendRedirect(skuPage.getHref(true)  );
+
             } else {
+                LOG.info(" qrdebug skuPage.getHref else " + response + " " + pageManager + " " + languageRootPath ) ;
                 sendDefaultRedirect(response, pageManager, languageRootPath);
                 LOG.info(" qrdebug skuPage.getHref else " + response + " " + pageManager + " " + languageRootPath ) ;
             }
         } else {
+            LOG.info(" qrdebug skuPage.getHref outerelse " + response + " " + pageManager + " " + defaultLanguageRootPath ) ;
             sendDefaultRedirect(response, pageManager, defaultLanguageRootPath);
             LOG.info(" qrdebug skuPage.getHref outerelse " + response + " " + pageManager + " " + defaultLanguageRootPath ) ;
         }
@@ -100,15 +103,20 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
 
         final PageDecorator countryRoot = siteRepository.getCountryRootPage(resourceResolver, locale.getCountry(),
                 true);
+        LOG.info("getRootLanguagePath.countryRoot " + countryRoot ) ;
 
         final PageDecorator languageRoot = siteRepository.getLanguageRootPage(resourceResolver, locale.getCountry(),
                 locale.getLanguage(), true);
 
+        LOG.info("getRootLanguagePath.languageRoot " + languageRoot ) ;
+
         final String languageRootPath;
 
         if(countryRoot == null) {
+            LOG.info("country root is null pick global experience path " ) ;
             languageRootPath = globalExperienceRootPath;
         } else {
+            LOG.info("country root is not null pick lanuage paths " ) ;
             languageRootPath = languageRoot != null ? languageRoot.getPath() :
                     countryRoot.getChildren()
                             .stream()
