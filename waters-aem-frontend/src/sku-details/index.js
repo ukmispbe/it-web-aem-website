@@ -58,10 +58,9 @@ class SkuDetails extends React.Component {
     }
 
     componentDidMount() {
-        let soldToId = getSoldToId();
-        let salesOrg = getSalesOrg();
-        if (LoginStatus.state() && soldToId !== '' && salesOrg !== '') {
-            getPricing(this.state.pricingUrl, this.state.skuNumber, soldToId, salesOrg)
+        const { availabilityUrl, pricingUrl, skuNumber, userCountry, userInfo } = this.state;
+        if (LoginStatus.state() && userInfo.soldToId !== '' && userInfo.salesOrg !== '') {
+            getPricing(pricingUrl, skuNumber, userInfo.soldToId, userInfo.salesOrg)
             .then(response => {
             if (response.status && response.status === 200) {
                 let match = matchListItems(this.state.skuNumber, response);
@@ -95,7 +94,7 @@ class SkuDetails extends React.Component {
             })
         }
 
-        getAvailability(this.state.availabilityUrl, this.state.userCountry, this.state.skuNumber)
+        getAvailability(availabilityUrl, userCountry, skuNumber)
         .then(response => {
             this.setState({
                 skuAvailability: response,
