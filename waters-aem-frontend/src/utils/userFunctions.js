@@ -34,7 +34,7 @@ export const getSoldToId = () => {
 	if(loginStatus.state()) {
 		const store = new SessionStore();
         const userDetails = store.getUserDetails();
-        if (userDetails || userDetails.length > 0) {
+        if ((userDetails || userDetails.length > 0) && (userDetails.soldToAccounts || userDetails.soldToAccounts.length > 0)) {
             let priorityAccount;
             let accountNumber = "";
 
