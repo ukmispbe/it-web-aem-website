@@ -31,28 +31,25 @@ export const getSalesOrg = () => {
 }
 //Note: this method uses the USER Details API, not the SoldToDetailsAPI
 export const getSoldToId = () => {
+    let soldToId = "";
 	if(loginStatus.state()) {
 		const store = new SessionStore();
         const userDetails = store.getUserDetails();
-        if ((userDetails || userDetails.length > 0) && (userDetails.soldToAccounts || userDetails.soldToAccounts.length > 0)) {
-            let priorityAccount;
-            let accountNumber = "";
+        if (userDetails || userDetails.length > 0) {
+            if (userDetails.soldToAccounts || userDetails.soldToAccounts.length > 0) {
+                let priorityAccount;
 
-            userDetails.soldToAccounts.map((soldToAccount) => {
-                if(soldToAccount.defaultFlag === 1) {
-                    priorityAccount = soldToAccount;
+                userDetails.soldToAccounts.map((soldToAccount) => {
+                    if(soldToAccount.defaultFlag === 1) {
+                        priorityAccount = soldToAccount;
+                    }
+                });
+
+                if (priorityAccount){
+                    soldToId = priorityAccount.soldTo ? priorityAccount.soldTo : '';
                 }
-            });
-
-            if (priorityAccount){
-                accountNumber = priorityAccount.soldTo ? priorityAccount.soldTo : '';
             }
-
-            return accountNumber;
         }
-    } else {
-        return ''
     }
-
-	return '';
+    return soldToId
 }
