@@ -29,6 +29,7 @@ export const getSalesOrg = () => {
         return ''
     }
 }
+
 //Note: this method uses the USER Details API, not the SoldToDetailsAPI
 export const getSoldToId = () => {
     let soldToId = "";
@@ -51,5 +52,5 @@ export const getSoldToId = () => {
             }
         }
     }
-    return soldToId
+    return soldToId;
 }
