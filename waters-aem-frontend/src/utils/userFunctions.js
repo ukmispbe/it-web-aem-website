@@ -31,31 +31,29 @@ export const getSalesOrg = () => {
     }
 }
 
+//Note: this method uses the USER Details API, not the SoldToDetailsAPI
 export const getSoldToId = () => {
+    let soldToId = "";
 	if(loginStatus.state()) {
 		const store = new SessionStore();
-        const soldToDetails = store.getSoldToDetails();
-        if (!soldToDetails || soldToDetails.length === 0) {
-            return ''
-        } else {
-            let priorityAccount;
-            let accountNumber = "";
+        const userDetails = store.getUserDetails();
+        if (userDetails || userDetails.length > 0) {
+            if (userDetails.soldToAccounts || userDetails.soldToAccounts.length > 0) {
+                let priorityAccount;
 
-            soldToDetails.map((soldTo) => {
-                if(soldTo.default_soldTo === 1) {
-                    priorityAccount = soldTo;
+                userDetails.soldToAccounts.map((soldToAccount) => {
+                    if(soldToAccount.defaultFlag === 1) {
+                        priorityAccount = soldToAccount;
+                    }
+                });
+
+                if (priorityAccount){
+                    soldToId = priorityAccount.soldTo ? priorityAccount.soldTo : '';
                 }
-            });
-
-            if (priorityAccount){
-                accountNumber = priorityAccount.soldTo ? priorityAccount.soldTo : '';
             }
-
-            return accountNumber;
         }
-	}
-
-	return '';
+    }
+    return soldToId;
 }
 
 export const getFullCompanyAddress = (address, includeCountryName) => {
