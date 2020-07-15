@@ -55,7 +55,8 @@ function getAuthoredDataForSearchBar(c, h) {
         placeholderMobile: c.dataset.placeholderMobile,
         iconSearch: c.dataset.iconSearch,
         iconClear: c.dataset.iconClear,
-        isocode: c.dataset.isocode
+        isocode: c.dataset.isocode,
+        customStyle: c.dataset.customStyle || ''
     };
 }
 function getAuthoredDataForSearchApp(c, s) {
@@ -104,6 +105,25 @@ if (searchBarContainer && header) {
             isocode={data.isocode}
         />,
         searchBarContainer
+    );
+}
+
+const headerSearchBarContainer = document.getElementById('header-search-bar');
+
+if (headerSearchBarContainer && header) {
+    const data = getAuthoredDataForSearchBar(headerSearchBarContainer, header)
+    ReactDOM.render(
+        <SearchBar
+            iconSearch={data.iconSearch}
+            iconClear={data.iconClear}
+            searchPath={data.searchPath}
+            placeholderTablet={data.placeholderTablet}
+            placeholderMobile={data.placeholderMobile}
+            baseUrl={data.baseUrl}
+            isocode={data.isocode}
+            customStyle={data.customStyle}
+        />,
+        headerSearchBarContainer
     );
 }
 
