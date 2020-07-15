@@ -16,7 +16,7 @@ function UserGreeting(props) {
             </div>
             {showLogo &&
                 <ReactSVG
-                    src={`${logoDirectoryPath}/${savedUserDetails.company.trim().replace(/ /g, '-').toLowerCase()}.svg`}
+                    src={`${logoDirectoryPath.replace(/\/$/, '')}/${savedUserDetails.company.trim().replace(/ /g, '-').toLowerCase()}.svg`}
                     alt={savedUserDetails.company}
                     className="logo"
                 />
