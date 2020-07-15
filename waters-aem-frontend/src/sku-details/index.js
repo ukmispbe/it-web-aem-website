@@ -58,7 +58,7 @@ class SkuDetails extends React.Component {
     }
 
     componentDidMount() {
-        const { availabilityUrl, pricingUrl, skuNumber, userCountry, userInfo } = this.state;
+        const { availabilityUrl, pricingUrl, skuNumber, userCountry, userInfo} = this.state;
         if (LoginStatus.state() && userInfo.soldToId !== '' && userInfo.salesOrg !== '') {
             getPricing(pricingUrl, skuNumber, userInfo.soldToId, userInfo.salesOrg)
             .then(response => {
