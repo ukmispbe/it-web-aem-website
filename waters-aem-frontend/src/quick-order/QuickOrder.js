@@ -23,22 +23,27 @@ function QuickOrder(props) {
     } = props;
     const childRef = useRef();
     const [sku, setSku] = useState('');
-    const [modalShown, setModalShown] = useState(false);
-    const [errorObjCart, setErrorObjCart] = useState({});
+    const [errorObjCart, setErrorObjCart] = useState({});;
+    const [modalShown, setModalShown] = useState(false);;
     const [isMobile, setIsMobile] = useState(ScreenSizes.isMobile());
 
+    function onChange(value) {
+        setSku(value);
+        childRef.current.onChangeSku(value);
+    }
+
     // HideShow SKU Error
-    function skuErrorMgs(showError) {
+    function skuErrorMgs(showError, skuNumber = '') {
         try {
             const element = document.querySelector('.cmp-notification--error');
             if (element) {
                 if (showError) {
                     document.querySelector('.cmp-notification--error .cmp-notification-description')
-                        .innerText = `${sku} ${document.querySelector('.cmp-notification--error .cmp-notification-title').innerText}`;
-                    element.classList.remove('cmp-notification--dynnamic');
+                        .innerText = `${skuNumber} ${document.querySelector('.cmp-notification--error .cmp-notification-title').innerText}`;
+                    element.classList.remove('cmp-notification--dynamic');
                 } else {
                     document.querySelector('.cmp-notification--error .cmp-notification-description').innerText = '';
-                    element.classList.add('cmp-notification--dynnamic');
+                    element.classList.add('cmp-notification--dynamic');
                 }
             }
         } catch (error) { }
@@ -61,30 +66,30 @@ function QuickOrder(props) {
         window.addEventListener('resize', updateViewport, true);
     }, [updateViewport]);
 
-    // Trigger after getting error
     useEffect(() => {
-        skuErrorMgs(true);
-    }, [errorObjCart, skuErrorMgs]);
+        if (Object.keys(errorObjCart).length > 0) {
+            skuErrorMgs(true, sku);
+        }
+    }, [errorObjCart]);
 
     // Call during cart success response
-    const toggleModal = useCallback(() => {
+    function toggleModal() {
         // Will use for the modealbox
         setSku('');
         childRef.current.onChangeSku('');
         childRef.current.skuQuantityInput({ target: { value: 1 } });
+        setErrorObjCart({});
         setModalShown(!modalShown);
-    }, [setModalShown]);
+        skuErrorMgs(false);
+    }
 
     // Handle Error boundry
-    const toggleErrorModal = useCallback(err => {
+    function toggleErrorModal(err) {
         // Add Error Object to State
-        setErrorObjCart(err);
-        setModalShown(!modalShown);
-    }, [setErrorObjCart, setModalShown]);
-
-    function onChange(value) {
-        setSku(value);
-        childRef.current.onChangeSku(value);
+        if (Object.keys(err).length > 0) {
+            setErrorObjCart(err);
+            setModalShown(!modalShown);
+        }
     }
 
     return (
