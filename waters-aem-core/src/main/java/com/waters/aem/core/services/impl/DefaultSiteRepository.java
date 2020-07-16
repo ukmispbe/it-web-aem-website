@@ -125,10 +125,14 @@ public final class DefaultSiteRepository implements SiteRepository {
 
         final PageDecorator countryRootPage = getCountryRootPage(resourceResolver, countryCode, matchNodeName);
 
+        LOG.info("defaultSiteRepositroy.getLanguageRootPage.ountryRootPage " + countryRootPage ) ;
+
         final Predicate<PageDecorator> predicate = Predicates.and(
             languageRootPage -> isLiveCopy(languageRootPage, liveRelationshipManager),
             languageRootPage -> languageCode.equalsIgnoreCase(languageRootPage.getLanguage(false).getLanguage())
         );
+
+        LOG.info("defaultSiteRepositroy.getLanguageRootPage.languageCode " + languageCode ) ;
 
         return Optional.ofNullable(countryRootPage)
             .map(page -> page.getChildren(predicate)
