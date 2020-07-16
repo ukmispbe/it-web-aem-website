@@ -95,11 +95,11 @@ public final class DefaultSiteRepository implements SiteRepository {
                                             final boolean matchNodeName) {
 
         getCountryRootPages(resourceResolver)
-                    .forEach(page -> LOG.info("qrdebug Language ="+page.getLanguage(false)+" :page country = "+page.getLanguage(false).getCountry()+" :page name ="+page.getName()));
+                    .forEach(page -> LOG.info("qrdebug Language ="+page.getLanguage(true)+" :page country = "+page.getLanguage(true).getCountry()+" :page name ="+page.getName()));
 
         return getCountryRootPages(resourceResolver)
             .stream()
-            .filter(page -> countryCode.equalsIgnoreCase(page.getLanguage(false).getCountry()))
+            .filter(page -> countryCode.equalsIgnoreCase(page.getLanguage(true).getCountry()))
             .filter(page -> !matchNodeName || countryCode.equalsIgnoreCase(page.getName()))
             .findFirst()
             .orElse(null);
