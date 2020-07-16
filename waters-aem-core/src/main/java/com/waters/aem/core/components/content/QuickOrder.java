@@ -94,6 +94,24 @@ public class QuickOrder implements ComponentExporter {
         return multipleItemsLink.getPath();
     }
 
+    @DialogField(fieldLabel = "Multiple Items Icon",
+            fieldDescription = "Select or enter the icon URL",
+            ranking = 5)
+    @PathField(rootPath = WatersConstants.DAM_PATH)
+    @LinkInject(inherit = true)
+    private Link multipleItemsIcon;
+
+    public String getMultipleItemsIcon() { return multipleItemsIcon.getPath(); }
+
+    @DialogField(fieldLabel = "Add Items Icon",
+            fieldDescription = "Select or enter the icon URL",
+            ranking = 6)
+    @PathField(rootPath = WatersConstants.DAM_PATH)
+    @LinkInject(inherit = true)
+    private Link addItemsIcon;
+
+    public String getAddItemsIcon() { return addItemsIcon.getPath(); }
+
     public String getAddToCartUrl() {
         if (isCommerceApiMigrated()) {
             return siteContext.getAddToCartURL();

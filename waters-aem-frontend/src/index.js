@@ -7,6 +7,7 @@ import TagCloud from './search/components/tagcloud';
 import ImageCarousel from './image-carousel';
 import MyAccountDropDown from './my-account-dropdown/index';
 import UserGreeting from './user-greetings/UserGreeting';
+import QuickOrder from './quick-order/QuickOrder';
 
 import SkuDetails from './sku-details';
 import SkuList from './sku-list';
@@ -398,7 +399,7 @@ if (registrationFormContainer) {
         config.fields[indexofPrivacy].config = KRconfig;
     }
 
-    if (config.formName === "registration" && (country ==="jp" || country === "cn" || country === "tw" || country === "kr")) {
+    if (config.formName === "registration" && (country === "jp" || country === "cn" || country === "tw" || country === "kr")) {
         swapFirstAndLastNames();
     }
 
@@ -605,3 +606,18 @@ function waitUntilUserExists(store, container, callback) {
     setTimeout(function () { return waitUntilUserExists(store, container, callback) }, 1000);
 }
 // End User Greeting Component
+
+// Quick Order Component
+const quickOrderContainer = document.getElementById("quick-order");
+if (quickOrderContainer) {
+    const store = new SessionStore();
+    waitUntilUserExists(store, quickOrderContainer, quickOrder);
+}
+function quickOrder(container) {
+    const props = JSON.parse(document.getElementById("cmp-quick-order").innerHTML);
+    ReactDOM.render(
+        <QuickOrder {...props} />,
+        container
+    );
+}
+// End Quick Order Component
