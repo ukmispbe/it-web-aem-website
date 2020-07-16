@@ -30,15 +30,15 @@
             }
         }
 
-        &__ecom {
+		&__ecom {
             background: $color-background-light;
 
             .cmp-sku-details__buyinfo {
-                padding: $space-l $space-l $space-xs $space-l;
+                padding: $space-xs $space-l $space-xs $space-l;
                 margin-top: $space-m;
 
                 @include mobile {
-                    padding: $space-m $space-m $space-xxs $space-m;
+                    padding: $space-xxs $space-m $space-xxs $space-m;
                 }
             }
         }
@@ -540,7 +540,7 @@
 
     &__container {
         background-color: $color-background-light;
-        padding: $space-m;
+        padding: $space-m $space-m $space-xs $space-m;
         width: 100%;
         margin-bottom: $space-xs;
         clear: both;
