@@ -2,11 +2,13 @@ import React from 'react';
 import SearchContainer from './search.container';
 import { SearchService, parameterDefaults } from './services/index';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { isEprocurementUser, getIsoCode } from '../utils/userFunctions';
 import ErrorBoundary from './ErrorBoundary';
 
 const SearchApp = props => {
+    const isoCode = (isEprocurementUser() && getIsoCode()) || props.isocode;
     const search = new SearchService(
-        props.isocode,
+        isoCode,
         props.searchServicePath,
         parameterDefaults.page,
         props.searchDefaults.rows,
@@ -29,7 +31,7 @@ const SearchApp = props => {
                                 searchText={props.searchText}
                                 searchLocale={props.searchLocale}
                                 filterMap={props.filterMap}
-                                isocode={props.isocode}
+                                isocode={isoCode}
                                 search={search}
                                 baseSignInUrl={props.baseSignInUrl}
                             />
