@@ -58,6 +58,17 @@ export const getSoldToId = () => {
 	return '';
 }
 
+export const getIsoCode = () => {
+	const store = new SessionStore();
+    const userDetails = store.getUserDetails();
+
+    if (userDetails || userDetails.length > 0) {
+        return userDetails.isoCode || '';
+    } else {
+        return ''
+    }
+}
+
 export const getUsertype = () => {
     const sessionStore = new SessionStore();
     const userType = sessionStore.getUserType();
