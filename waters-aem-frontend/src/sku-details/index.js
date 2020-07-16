@@ -276,7 +276,7 @@ class SkuDetails extends React.Component {
         );
     };
 
-    renderActiveSku = () => {
+       renderActiveSku = () => {
         if (Ecommerce.isDisabledState()) {
             return this.renderEcommerceDisabled();
         } else {
@@ -293,7 +293,8 @@ class SkuDetails extends React.Component {
                                 signInText1={this.state.skuInfo.signInText1}
                                 signInText2={this.state.skuInfo.signInText2}
                                 signInText3={this.state.skuInfo.signInText3}
-                            />)}
+                            />)
+                            || LoginStatus.state() && (<div className="cmp-sku-signin-wrapper-not-displayed"></div>)}
                         {this.renderBuyInfo()}
                     </>;
             } else {
