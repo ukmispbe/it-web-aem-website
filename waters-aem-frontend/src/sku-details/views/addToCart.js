@@ -159,6 +159,7 @@ class AddToCart extends React.Component {
 
 AddToCart.defaultProps = {
     addToCartQty: null,
+    onRef: () => { }
 }
 
 export default AddToCart;
