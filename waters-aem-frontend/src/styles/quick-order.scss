@@ -29,16 +29,8 @@
         margin-right: 0;
       }
   }
-
-  #quickOrderQty {
-      width: 57px;
-      text-align: center;
-      margin: 0 $space-xxs 0 0;
-  }
-  .quick-order-submit-button {
-      @include mobile {
-        width: calc(100% - 73px);
-      }
+    .cmp-button{
+        margin-bottom: 0px;
     }
   }
   .quick-order-multiple-item{
