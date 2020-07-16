@@ -144,10 +144,6 @@
             display: flex;
             margin-top: 0;
 
-            .cmp-button {
-                margin-bottom: $space-s;
-            }
-
             @include tablet {
                 margin-top: $space-xxxs;
             }
@@ -182,10 +178,6 @@
 
             &:focus {
                 outline: 2px solid $color-focus;
-            }
-
-            @include mobile {
-                height: 2.9em;
             }
         }
 
@@ -453,13 +445,6 @@
             @include font-h3;
             font-size: $font-size-h2;
             margin-bottom: 0;
-        }
-    }
-    &__buttons { 
-        margin-top: $space-s;
-
-        @include tablet {
-            margin-top: $space-s;
         }
     }
 
