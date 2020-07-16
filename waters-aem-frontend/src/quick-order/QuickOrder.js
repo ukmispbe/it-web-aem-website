@@ -21,7 +21,7 @@ function QuickOrder(props) {
         titleText,
         price
     } = props;
-
+    console.log('PROPS =>>>', props);
     const childRef = useRef();
     const [sku, setSku] = useState('');
     const [modalShown, setModalShown] = useState(false);
