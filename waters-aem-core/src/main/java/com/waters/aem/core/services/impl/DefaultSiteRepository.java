@@ -99,7 +99,7 @@ public final class DefaultSiteRepository implements SiteRepository {
 
         return getCountryRootPages(resourceResolver)
             .stream()
-            .filter(page -> countryCode.equalsIgnoreCase(page.getLanguage(true).getCountry()))
+            //.filter(page -> countryCode.equalsIgnoreCase(page.getLanguage(true).getCountry()))
             .filter(page -> !matchNodeName || countryCode.equalsIgnoreCase(page.getName()))
             .findFirst()
             .orElse(null);
