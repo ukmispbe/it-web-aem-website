@@ -579,19 +579,6 @@ if (userGreetingContainer) {
 // Inject UserGreeting Component user-greetings container
 function userGreeting(userGreetingContainer) {
     const props = JSON.parse(document.getElementById("cmp-user-greetings").innerHTML);
-    const selectors = document.querySelector('.usergreetings');
-    let config = '';
-    if (selectors) {
-        config = ["cmp_greeting_no_name", "cmp_greeting_no_logo", "cmp_greeting_no_logo_name"].reduce((acc, item) => {
-            if (selectors.classList.contains(item)) {
-                acc = item;
-            }
-            return acc;
-        }, '');
-    }
-
-    props.showName = ["cmp_greeting_no_name", "cmp_greeting_no_logo_name"].indexOf(config) === -1 ? true : false;
-    props.showLogo = ["cmp_greeting_no_logo", "cmp_greeting_no_logo_name"].indexOf(config) === -1 ? true : false;
     ReactDOM.render(
         <UserGreeting {...props} />,
         userGreetingContainer
