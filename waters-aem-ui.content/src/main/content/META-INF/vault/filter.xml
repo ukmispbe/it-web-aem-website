@@ -4,6 +4,7 @@
     <filter root="/conf/waters" mode="merge"/>
     <filter root="/content/dam/waters/jcr:content" mode="update"/>
     <filter root="/content/waters" mode="merge"/>
+    <filter root="/content/order" mode="merge"/>
     <filter root="/etc/waters/notifications/system-notification" mode="merge"/>
 
     <!-- AC policy to block anonymous read access to published email templates -->

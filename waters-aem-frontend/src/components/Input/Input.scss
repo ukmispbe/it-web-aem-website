@@ -1,0 +1,85 @@
+@import '../../styles/index.scss';
+.atom-input {
+  background-color: $color-white;
+  background-size: cover;
+  border: $border-medium;
+  border-radius: $border-radius;
+  height: $height-medium;
+  padding-left: $space-xs;
+  padding-right: $space-xs;
+  padding-bottom: 2px;
+  &::placeholder {
+    color: $color-disabled;
+  }
+  &:hover {
+    border: $border-link;
+  }
+  &:active {
+    border: $border-focus;
+    box-shadow: $box-shadow-focus;
+  }
+  &:focus {
+    outline: none;
+    border: $border-focus;
+    box-shadow: $box-shadow-focus;
+    &::placeholder {
+      color: transparent;
+    }
+  }
+
+  &:disabled {
+    border: $border-disabled;
+  }
+  &.validation-error {
+    border: $border-error;
+  }
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.input-with-submit {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: flex;
+  width: 100%;
+  .atom-input {
+    display: block;
+    width: 100%;
+  }
+  button {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    margin-left: -45px;
+    width: $space-xl;
+    .submit-icon {
+      padding-top: $space-xxs;
+    }
+    svg {
+      vertical-align: middle;
+      width: $icon-m;
+      height: $icon-m;
+    }
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  /* CSS specific to iOS devices */ 
+  .input-with-submit {
+    button {
+      margin-left: -55px;
+    }
+  }
+}

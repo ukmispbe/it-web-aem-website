@@ -1,0 +1,51 @@
+#quick-order{
+    padding-left: $space-xxs;
+    margin-right: $space-xxs;
+    margin-bottom: $space-xxs;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    @include tablet {
+        flex-direction: column;
+        .quick-order-parent{
+            margin-bottom: $space-s;
+        }
+    }
+
+  .quick-order-parent {
+    display: flex;
+    flex-direction: row;
+
+    @include mobile {
+      display: none;
+    }
+
+  .quick-order-sku {
+      margin-right: $space-xxs;
+      width: 176px;
+      @include mobile {
+        width: 100%;
+        margin-right: 0;
+      }
+  }
+    .cmp-button{
+        margin-bottom: 0px;
+    }
+  }
+  .quick-order-multiple-item{
+      display: flex;
+      align-items: center;
+  }
+  a svg {
+      margin-left: 0.25em;
+      @include tablet {
+        margin-left: 0px;
+      }
+      
+      margin-right: 0.25em;
+      margin-bottom: -2px;
+      width: 1em;
+      height: 1em;
+  }
+}

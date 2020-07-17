@@ -11,10 +11,13 @@ public @interface SolrIndexServiceConfiguration {
     boolean enabled() default false;
 
     @AttributeDefinition(name = "Included Paths", description = "List of paths that should be indexed.")
-    String[] includedPaths() default { "/content/waters" };
+    String[] includedPaths() default { WatersConstants.ROOT_PATH };
 
     @AttributeDefinition(name = "Excluded Paths", description = "List of paths to exclude from indexing.")
-    String[] excludedPaths() default { "/content/waters/language-masters" };
+    String[] excludedPaths() default {
+        WatersConstants.ROOT_PATH_LANGUAGE_MASTERS,
+        WatersConstants.ORDER_ROOT_PATH
+    };
 
     @AttributeDefinition(name = "Included Templates", description = "List of templates that should be indexed.")
     String[] includedTemplates() default {

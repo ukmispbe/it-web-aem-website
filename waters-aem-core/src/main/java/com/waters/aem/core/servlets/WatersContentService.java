@@ -65,7 +65,7 @@ public class WatersContentService extends SlingAllMethodsServlet {
             final String responseLevel = request.getParameter("depth");
             if (settingsService.getRunModes().contains(Externalizer.PUBLISH)) {
                 if (StringUtils.isNotBlank(hostName)) {
-                    if (StringUtils.isNotBlank(pagePath) && (pagePath.startsWith(WatersConstants.ROOT_PATH) || pagePath.startsWith(WatersConstants.CUSTOM_ROOT_PATH))) {
+                    if (StringUtils.isNotBlank(pagePath) && (pagePath.startsWith(WatersConstants.ROOT_PATH) || pagePath.startsWith(WatersConstants.CUSTOM_ROOT_PATH) || pagePath.startsWith(WatersConstants.ORDER_ROOT_PATH))) {
                         String processedPath = getProcessedPath(pagePath);
                         response.getWriter().write(buildJsonForPage(processedPath, responseLevel, request));
                     } else {

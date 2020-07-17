@@ -22,10 +22,13 @@ import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.components.content.CategoryListing;
 import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
+import com.waters.aem.core.components.structure.page.SiteConfig;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.account.WatersAccountService;
+import com.waters.aem.core.services.account.WatersPunchoutService;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.waters.aem.core.services.launch.AdobeLaunchService;
+import com.waters.aem.core.services.solr.SolrSearchService;
 import com.waters.aem.core.utils.LinkUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -72,10 +75,16 @@ public final class Header extends AbstractComponent implements ComponentExporter
     private WatersAccountService watersAccountService;
 
     @OSGiService
+    private WatersPunchoutService watersPunchoutService;
+
+    @OSGiService
     private WatersCommerceService watersCommerceService;
 
     @OSGiService
     private AdobeLaunchService adobeLaunchService;
+
+    @OSGiService
+    private SolrSearchService searchService;
 
     @Inject
     private PageManagerDecorator pageManager;
@@ -288,6 +297,10 @@ public final class Header extends AbstractComponent implements ComponentExporter
         return watersAccountService.getSignOutEndpoint();
     }
 
+    public String getPunchOutSetupEndpoint() { return watersPunchoutService.getSetupUrl(); }
+
+    public String getPunchOutLoginEndpoint() { return watersPunchoutService.getPunchoutLogin(); }
+
     /**
      * Finds the first category listing component on this page.
      *
@@ -307,5 +320,34 @@ public final class Header extends AbstractComponent implements ComponentExporter
 
     public CountryCommerceConfig getCommerceConfig() {
         return siteContext.getCountryCommerceConfig();
+    }
+
+    public String getSiteConfig() {
+        String siteConfig = WatersConstants.ECOMMERCE;
+        if(siteContext.getSiteConfig().isEprocurement()){
+            siteConfig = WatersConstants.EPROCUREMENT;
+        }
+        return siteConfig;
+    }
+    public boolean isEprocurement() {
+        return siteContext.getSiteConfig().isEprocurement();
+    }
+
+    /**
+     * Get searchService url for searchbar in Header
+     *
+     * @return searchUrl
+     */
+    public String getSearchUrl() {
+        return searchService.getBaseUrl();
+    }
+
+    /**
+     * Get isocode to send to search service.
+     *
+     * @return isocode from page locale
+     */
+    public String getIsocode() {
+        return siteContext.getLocale().toString();
     }
 }

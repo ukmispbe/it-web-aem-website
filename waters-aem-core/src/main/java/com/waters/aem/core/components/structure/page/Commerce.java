@@ -31,6 +31,14 @@ public class Commerce {
 
     static final String FILE_NAME = "commerce";
 
+    @DialogField(fieldLabel = "Site Configuration",
+            fieldDescription = "Select the site configuration options",
+            ranking = 1,
+            additionalProperties = @Property(name = "emptyOption", value = "{Boolean}true"))
+    @Selection(type = Selection.SELECT)
+    @InheritInject
+    private SiteConfig siteConfig = SiteConfig.eCommerce;
+
     @DialogField(fieldLabel = "Country Commerce Configuration",
             fieldDescription = "Select the commerce configuration option to apply to this country.",
             ranking = 1,
@@ -87,6 +95,10 @@ public class Commerce {
 
     public String getAddToCartUrl() {
         return addToCartUrl;
+    }
+
+    public SiteConfig getSiteConfig() {
+        return siteConfig;
     }
 
     public CountryCommerceConfig getCountryCommerceConfig() {
