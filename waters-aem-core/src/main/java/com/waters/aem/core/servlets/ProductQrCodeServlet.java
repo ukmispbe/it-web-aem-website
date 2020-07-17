@@ -84,7 +84,7 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
                 response.sendRedirect(skuPage.getHref(true) + "?xcid=qr-gtin_" + gtin );
 
             } else {
-                LOG.info(" qrdebug skuPage.getHref else " + response + " " + pageManager + " " + languageRootPath )
+                LOG.info(" qrdebug skuPage.getHref else " + response + " " + pageManager + " " + languageRootPath );
                 sendDefaultRedirect(response, pageManager, languageRootPath);
 
             }
