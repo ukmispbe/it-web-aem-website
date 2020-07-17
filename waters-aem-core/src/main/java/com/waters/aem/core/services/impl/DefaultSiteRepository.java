@@ -150,6 +150,10 @@ public final class DefaultSiteRepository implements SiteRepository {
 
     private boolean isLiveCopy(final PageDecorator page, final LiveRelationshipManager liveRelationshipManager) {
         boolean liveCopy = false;
+        if(page != null){
+            LOG.info("islivecopy.PageLanguage: " + page.getLanguage(false).getLanguage() ) ;
+
+        }
 
         try {
             final Resource resource = page.getContentResource();
