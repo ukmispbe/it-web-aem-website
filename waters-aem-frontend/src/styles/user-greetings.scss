@@ -2,40 +2,30 @@
     display: flex;
     justify-content: flex-end;
 
+    @include mobile {
+        justify-content: space-between;
+      }
+
     .greetings {
         display: flex;
         flex-direction: column;
         align-items: flex-end;
-        font-family: $font-stack;
-        font-size: $font-size-h2;
-        line-height: $line-height-text;
+        @include mobile {
+            align-items: flex-start;
+          }
 
-        .greeting{
-            color: $color-gray-50;
-            text-decoration: none solid rgb(79, 91, 100);
-        }
-
-        .name{
-            font-weight: $font-weight-bold;
-        }
-
-        .company{
-            font-size: $font-size-h4;
-        }
-
-        .company,.name{
-            color: $color-videothumbnail-overlay;
-            text-decoration: none solid $overlay-dark;
+        h2{
+            margin-bottom: $space-xxs;
         }
     }
 
     .logo {
-        margin-left: 13px;
         display: flex;
         align-items: center;
 
         svg {
-            width: 90px;
+            margin-left: $space-s;
+            width: $thumbnail-s;
         }
     }
 }

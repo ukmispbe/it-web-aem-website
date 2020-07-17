@@ -26,47 +26,52 @@ describe('<UserGreeting />', () => {
     });
     it('should display greeting, name, company, and logo', () => {
         expect(enzymeWrapper.find('.greetings')).toHaveLength(1);
-        expect(enzymeWrapper.find('.greeting')).toHaveLength(1);
-        expect(enzymeWrapper.find('.name')).toHaveLength(1);
-        expect(enzymeWrapper.find('.company')).toHaveLength(1);
+        expect(enzymeWrapper.find('h2')).toHaveLength(1);
+        expect(enzymeWrapper.find('h3')).toHaveLength(1);
+        expect(enzymeWrapper.find('h4')).toHaveLength(1);
         expect(enzymeWrapper.find('.logo')).toHaveLength(1);
 
-        expect(enzymeWrapper.find('.greeting').text()).toBe(props.greetings);
-        expect(enzymeWrapper.find('.name').text()).toBe(`${userDetails.firstName} ${userDetails.lastName}`);
-        expect(enzymeWrapper.find('.company').text()).toBe(userDetails.company);
+        expect(enzymeWrapper.find('h2').text()).toBe(props.greetings);
+        expect(enzymeWrapper.find('h3').text()).toBe(`${userDetails.firstName} ${userDetails.lastName}`);
+        expect(enzymeWrapper.find('h4').text()).toBe(userDetails.company);
     });
-    it('should display greeting, company, and logo', () => {
-        enzymeWrapper.setProps({ showName: false });
+    it('should display greeting, firstname, company, and logo', () => {
+        window.sessionStorage.setItem('waters.userDetails', JSON.stringify({ ...userDetails, lastName: '' }));
+        enzymeWrapper.setProps({ greetings: 'Welcome' });
         enzymeWrapper.update();
-        expect(enzymeWrapper.find('.greeting')).toHaveLength(1);
-        expect(enzymeWrapper.find('.name')).toHaveLength(0);
-        expect(enzymeWrapper.find('.company')).toHaveLength(1);
+        expect(enzymeWrapper.find('h2')).toHaveLength(1);
+        expect(enzymeWrapper.find('h3')).toHaveLength(1);
+        expect(enzymeWrapper.find('h4')).toHaveLength(1);
         expect(enzymeWrapper.find('.logo')).toHaveLength(1);
 
-        expect(enzymeWrapper.find('.greeting').text()).toBe(props.greetings);
-        expect(enzymeWrapper.find('.company').text()).toBe(userDetails.company);
+        expect(enzymeWrapper.find('h2').text()).toBe('Welcome');
+        expect(enzymeWrapper.find('h3').text()).toBe(userDetails.firstName);
+        expect(enzymeWrapper.find('h4').text()).toBe(userDetails.company);
     });
-    it('should display greeting and company', () => {
-        enzymeWrapper.setProps({ showName: false, showLogo: false });
+    it('should display greeting, lastname and no company no logo', () => {
+        window.sessionStorage.setItem('waters.userDetails', JSON.stringify({ ...userDetails, firstName: '', company: '' }));
+        enzymeWrapper.setProps({ greetings: 'Welcome' });
         enzymeWrapper.update();
-        expect(enzymeWrapper.find('.greeting')).toHaveLength(1);
-        expect(enzymeWrapper.find('.name')).toHaveLength(0);
-        expect(enzymeWrapper.find('.company')).toHaveLength(1);
-        expect(enzymeWrapper.find('.logo')).toHaveLength(0);
+        expect(enzymeWrapper.find('h2')).toHaveLength(1);
+        expect(enzymeWrapper.find('h3')).toHaveLength(1);
+        expect(enzymeWrapper.find('h4')).toHaveLength(1);
+        expect(enzymeWrapper.find('.logo')).toHaveLength(1);
 
-        expect(enzymeWrapper.find('.greeting').text()).toBe(props.greetings);
-        expect(enzymeWrapper.find('.company').text()).toBe(userDetails.company);
+        expect(enzymeWrapper.find('h2').text()).toBe('Welcome');
+        expect(enzymeWrapper.find('h3').text()).toBe(userDetails.lastName);
+        expect(enzymeWrapper.find('h4').text()).not.toBe(userDetails.company);
     });
-    it('should display greeting, name and company', () => {
-        enzymeWrapper.setProps({ showName: true});
+    it('should display greeting, no name, no company and no logo', () => {
+        window.sessionStorage.setItem('waters.userDetails', JSON.stringify({ ...userDetails, firstName: '', lastName: '', company: '' }));
+        enzymeWrapper.setProps({ greetings: 'Welcome!' });
         enzymeWrapper.update();
-        expect(enzymeWrapper.find('.greeting')).toHaveLength(1);
-        expect(enzymeWrapper.find('.name')).toHaveLength(1);
-        expect(enzymeWrapper.find('.company')).toHaveLength(1);
-        expect(enzymeWrapper.find('.logo')).toHaveLength(0);
+        expect(enzymeWrapper.find('h2')).toHaveLength(1);
+        expect(enzymeWrapper.find('h3')).toHaveLength(1);
+        expect(enzymeWrapper.find('h4')).toHaveLength(1);
+        expect(enzymeWrapper.find('.logo')).toHaveLength(1);
 
-        expect(enzymeWrapper.find('.greeting').text()).toBe(props.greetings);
-        expect(enzymeWrapper.find('.name').text()).toBe(`${userDetails.firstName} ${userDetails.lastName}`);
-        expect(enzymeWrapper.find('.company').text()).toBe(userDetails.company);
+        expect(enzymeWrapper.find('h2').text()).toBe('Welcome!');
+        expect(enzymeWrapper.find('h3').text()).toBe('');
+        expect(enzymeWrapper.find('h4').text()).toBe('');
     });
 });
