@@ -23,8 +23,8 @@ function QuickOrder(props) {
     } = props;
     const childRef = useRef();
     const [sku, setSku] = useState('');
-    const [errorObjCart, setErrorObjCart] = useState({});;
-    const [modalShown, setModalShown] = useState(false);;
+    const [errorObjCart, setErrorObjCart] = useState({});
+    const [modalShown, setModalShown] = useState(false);
     const [isMobile, setIsMobile] = useState(ScreenSizes.isMobile());
 
     function onChange(value) {
