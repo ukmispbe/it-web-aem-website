@@ -114,7 +114,6 @@
         }
 
         &.skuitem {
-            padding-bottom: $space-m;
             margin-top: 0;
 
             @include mobile {
@@ -404,7 +403,7 @@ div.cmp-search__no-results {
     @include tablet {
         float: left;
         margin-bottom: 0;
-        padding-bottom: $space-xxl;
+        padding-bottom: $space-l;
     }
     @include mobile {
         padding-bottom: 0;
@@ -423,7 +422,7 @@ div.cmp-search__no-results {
     }
     @include tablet-and-under {
         margin: unset;
-        padding-bottom: $space-l;
+        padding-bottom: $space-s;
         overflow: visible;
         text-overflow: unset;
         white-space: normal;

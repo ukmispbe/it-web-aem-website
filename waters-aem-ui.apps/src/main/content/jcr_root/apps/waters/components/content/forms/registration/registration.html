@@ -151,17 +151,6 @@
                     "optionalLabel": "${'(optional)' @ i18n, context='text'}"
                 },
                 {
-                    "type": "checkbox",
-                    "name": "consentChinaShopTerms",
-                    "label": "${'I confirm to open a China eShop account and agree to the terms and conditions. (We will contact you soon)' @ i18n, context='unsafe'}",
-                    "optionalLabel": "${' (optional)' @ i18n, context='text'}",
-                    "active": false,
-                    "validation": {
-                        "required": false,
-                        "validateFnName": "checkBoxOrRadio" 
-                    }
-                },
-                {
                     "type": "captcha",
                     "name": "captcha",
                     "siteKey": "${registration.captchaSiteKey @ context='unsafe'}",
@@ -229,8 +218,7 @@
                 {
                 "country":"cn",
                     "fields":[
-                        "namePrefix",
-                        "consentChinaShopTerms"
+                        "namePrefix"
                     ]
                 }
             ]
