@@ -1,5 +1,6 @@
 package com.waters.aem.core.servlets;
 
+import com.day.cq.commons.Externalizer;
 import com.day.cq.wcm.api.Page;
 import com.google.common.base.Stopwatch;
 import com.icfolson.aem.library.api.page.PageDecorator;
@@ -54,6 +55,9 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
     @Reference
     private SiteRepository siteRepository;
 
+    @Reference
+    private Externalizer externalizer;
+
     @Override
     protected void doGet(final SlingHttpServletRequest request, final SlingHttpServletResponse response)
             throws IOException {
@@ -81,8 +85,8 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
             if (skuPage != null) {
 
                 LOG.info(" qrdebug skuPage.getHref if: " + skuPage.getHref() + " , "+ skuPage.getHref(true));
-                response.sendRedirect(skuPage.getHref(true) + "?xcid=qr-gtin_" + gtin );
-
+                final String path = skuPage.getHref(true) + "?xcid=qr-gtin_" + gtin;
+                response.sendRedirect(externalizer.externalLink(skuPage.getContentResource().getResourceResolver(), Externalizer.PUBLISH,path ));
             } else {
                 LOG.info(" qrdebug skuPage.getHref else " + response + " " + pageManager + " " + languageRootPath );
                 sendDefaultRedirect(response, pageManager, languageRootPath);
@@ -135,7 +139,7 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
         final PageDecorator shopAllProductsPage = pageManager.getPage(languageRootPath + shopAllProductsRelativePath);
 
         if (shopAllProductsPage != null) {
-            response.sendRedirect(shopAllProductsPage.getHref(true));
+            response.sendRedirect(externalizer.externalLink(shopAllProductsPage.getContentResource().getResourceResolver(), Externalizer.PUBLISH,shopAllProductsPage.getHref(true)));
         } else {
             LOG.warn("missing configured default redirect page at {}, redirecting to site root.",
                     languageRootPath + shopAllProductsRelativePath);
