@@ -314,7 +314,7 @@ class OrderDetails extends Component {
                     {notZeroDiscountFlag && 
                         <div className="cmp-order-details__order-savings">
                             <div className="cmp-order-details__order-savings_left">{this.props.config.savings}</div>
-                            <div className="cmp-order-details__order-savings_right">{orderDetails.orderDiscount}</div>
+                            <div className="cmp-order-details__order-savings_right">{this.props.config.minusSign}{orderDetails.orderDiscount}</div>
                         </div>
                     }
                     <div className="cmp-order-details__order-shipping">
