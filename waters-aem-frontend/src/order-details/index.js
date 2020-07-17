@@ -264,6 +264,7 @@ class OrderDetails extends Component {
 
     renderOrderDetails = () => {
         const { orderDetails, userLocale } = this.state;
+        const notZeroDiscountFlag = parseFloat(orderDetails.orderDiscountValue) !== 0 ? true : false;
         return (
             <div className="cmp-order-details__container">
                 <h2 className="cmp-order-details__title">
@@ -310,6 +311,12 @@ class OrderDetails extends Component {
                         <div className="cmp-order-details__order-subtotal_left">{this.props.config.subTotal} {this.renderItemCount()}</div>
                         <div className="cmp-order-details__order-subtotal_right">{orderDetails.itemsSubTotal}</div>
                     </div>
+                    {notZeroDiscountFlag && 
+                        <div className="cmp-order-details__order-savings">
+                            <div className="cmp-order-details__order-savings_left">{this.props.config.savings}</div>
+                            <div className="cmp-order-details__order-savings_right">{this.props.config.minusSign}{orderDetails.orderDiscount}</div>
+                        </div>
+                    }
                     <div className="cmp-order-details__order-shipping">
                         <div className="cmp-order-details__order-shipping_left">{this.props.config.shipping}</div>
                         <div className="cmp-order-details__order-shipping_right">{orderDetails.shippingAmount}</div>
