@@ -87,12 +87,16 @@ public final class DefaultSiteRepository implements SiteRepository {
         final PageDecorator rootPage = resourceResolver.adaptTo(PageManagerDecorator.class).getPage(
             WatersConstants.ROOT_PATH);
 
+        LOG.info(" qrdebug getCountryRootPages rootPage: " + rootPage +" WatersConstants.ROOT_PATH: "+ WatersConstants.ROOT_PATH );
+
         return rootPage.getChildren(page -> isLiveCopy(page, liveRelationshipManager));
     }
 
     @Override
     public PageDecorator getCountryRootPage(final ResourceResolver resourceResolver, final String countryCode,
                                             final boolean matchNodeName) {
+
+        LOG.info(" qrdebug getCountryRootPage countryCode: " + countryCode + " matchNodeName: "+matchNodeName );
 
         getCountryRootPages(resourceResolver)
                     .forEach(page -> LOG.info("qrdebug Language ="+page.getLanguage(true)+" :page country = "+page.getLanguage(true).getCountry()+" :page name ="+page.getName()));
@@ -110,6 +114,8 @@ public final class DefaultSiteRepository implements SiteRepository {
     public List<PageDecorator> getLanguageRootPages(final ResourceResolver resourceResolver) {
         final LiveRelationshipManager liveRelationshipManager = resourceResolver.adaptTo(LiveRelationshipManager.class);
 
+        LOG.info(" qrdebug getLanguageRootPages "  );
+
         return getCountryRootPages(resourceResolver)
             .stream()
             .map(countryRootPage -> countryRootPage.getChildren(page -> isLiveCopy(page, liveRelationshipManager)))
@@ -125,14 +131,14 @@ public final class DefaultSiteRepository implements SiteRepository {
 
         final PageDecorator countryRootPage = getCountryRootPage(resourceResolver, countryCode, matchNodeName);
 
-        LOG.info("defaultSiteRepositroy.getLanguageRootPage.ountryRootPage " + countryRootPage ) ;
+        LOG.info(" qrdebug getLanguageRootPage countryRootPage: " + countryRootPage + " languageCode: "+languageCode + "matchNodeName: "+ matchNodeName);
 
         final Predicate<PageDecorator> predicate = Predicates.and(
             languageRootPage -> isLiveCopy(languageRootPage, liveRelationshipManager),
             languageRootPage -> languageCode.equalsIgnoreCase(languageRootPage.getLanguage(false).getLanguage())
         );
 
-        LOG.info("defaultSiteRepositroy.getLanguageRootPage.languageCode " + languageCode ) ;
+        LOG.info(" qrdebug getLanguageRootPage predicate: "+ predicate );
 
         return Optional.ofNullable(countryRootPage)
             .map(page -> page.getChildren(predicate)

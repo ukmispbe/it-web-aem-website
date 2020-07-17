@@ -66,10 +66,7 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
 
         final Sku sku = skuRepository.getSkuForGtin(request.getResourceResolver(), gtin);
 
-        LOG.info("qrdebug pageManager" + pageManager);
-        LOG.info(" qrdebug gtin " + gtin);
-        LOG.info(" qrdebug locale " + locale);
-        LOG.info("qrdebug sku" + sku);
+        LOG.info(" start qrdebug gtin: " + gtin + " locale: " + locale + " sku: " + sku );
 
         LOG.info("traversed products for {} ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
 
@@ -80,16 +77,16 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
         if (sku != null && languageRootPath != null) {
             final PageDecorator skuPage = skuRepository.getSkuPage(pageManager.getPage(languageRootPath), sku);
             LOG.info(" qrdebug skupage " + skuPage);
+
             if (skuPage != null) {
-                //response.sendRedirect(skuPage.getHref(true) + "?xcid=qr-gtin_" + gtin );
-                LOG.info(" qrdebug skuPage.getHref is " + skuPage.getHref() );
-                LOG.info(" qrdebug skuPage.getHref is " + skuPage.getHref(true) );
-                response.sendRedirect(skuPage.getHref(true)  );
+
+                LOG.info(" qrdebug skuPage.getHref if: " + skuPage.getHref() + " , "+ skuPage.getHref(true));
+                response.sendRedirect(skuPage.getHref(true) + "?xcid=qr-gtin_" + gtin );
 
             } else {
-                LOG.info(" qrdebug skuPage.getHref else " + response + " " + pageManager + " " + languageRootPath ) ;
+                LOG.info(" qrdebug skuPage.getHref else " + response + " " + pageManager + " " + languageRootPath )
                 sendDefaultRedirect(response, pageManager, languageRootPath);
-                LOG.info(" qrdebug skuPage.getHref else " + response + " " + pageManager + " " + languageRootPath ) ;
+
             }
         } else {
             LOG.info(" qrdebug skuPage.getHref outerelse " + response + " " + pageManager + " " + defaultLanguageRootPath ) ;
@@ -101,14 +98,17 @@ public final class ProductQrCodeServlet extends AbstractJsonResponseServlet {
     private String getRootLanguagePath(final ResourceResolver resourceResolver, final String localeStr) {
         final Locale locale = LocaleUtils.toLocale(localeStr);
 
+        LOG.info(" qrdebug getRootLanguagePath " + resourceResolver + " localeStr " + localeStr +" locale: "+locale + " localeCountry: " + locale.getCountry() + "locale.Language:" +locale.getLanguage());
+
         final PageDecorator countryRoot = siteRepository.getCountryRootPage(resourceResolver, locale.getCountry(),
                 true);
-        LOG.info("getRootLanguagePath.countryRoot " + countryRoot ) ;
+
+        LOG.info(" qrdebug getRootLanguagePath.countryRoot " + countryRoot ) ;
 
         final PageDecorator languageRoot = siteRepository.getLanguageRootPage(resourceResolver, locale.getCountry(),
                 locale.getLanguage(), true);
 
-        LOG.info("getRootLanguagePath.languageRoot " + languageRoot ) ;
+        LOG.info(" qrdebug getRootLanguagePath.languageRoot " + languageRoot ) ;
 
         final String languageRootPath;
 
