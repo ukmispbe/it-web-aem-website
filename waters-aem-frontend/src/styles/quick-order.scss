@@ -24,28 +24,33 @@
   .quick-order-sku {
       margin-right: $space-xxs;
       width: 176px;
+      text-align: left;
       @include mobile {
         width: 100%;
         margin-right: 0;
       }
   }
     .cmp-button{
+        padding: $space-xs $space-m;
         margin-bottom: 0px;
     }
   }
   .quick-order-multiple-item{
       display: flex;
       align-items: center;
-  }
-  a svg {
-      margin-left: 0.25em;
+      color: $color-link;
+      margin-left: $space-m;
       @include tablet {
         margin-left: 0px;
       }
-      
-      margin-right: 0.25em;
-      margin-bottom: -2px;
-      width: 1em;
-      height: 1em;
+
+    svg {
+      margin-bottom: -3px;
+      margin-right: $space-xxxs;
+      .st0,
+      .st1 {
+        stroke: $color-link;
+      }
+    }
   }
 }
