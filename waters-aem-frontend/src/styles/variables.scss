@@ -49,6 +49,7 @@ $color-icon: $color-gray-50;
 $color-success: $color-teal-30;
 $color-error: $color-red-50;
 $color-focus: $color-blue-30;
+$color-videothumbnail-overlay: #2D3439;
 
 //FONTS
 
@@ -195,3 +196,6 @@ $thumbnail-l: 12em;
 $height-small: 2em;
 $height-medium: 3em;
 $height-large: 4em;
+
+// box shadow
+$box-shadow-focus: 0px 0px 0px 1px $color-focus;

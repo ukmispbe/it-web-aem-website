@@ -57,3 +57,38 @@ export const getSoldToId = () => {
 
 	return '';
 }
+
+export const getIsoCode = () => {
+	const store = new SessionStore();
+    const userDetails = store.getUserDetails();
+
+    if (userDetails || userDetails.length > 0) {
+        return userDetails.isoCode || '';
+    } else {
+        return ''
+    }
+}
+
+export const getUsertype = () => {
+    const sessionStore = new SessionStore();
+    const userType = sessionStore.getUserType();
+
+    if(userType !== null) {
+        return userType;
+    }
+    const userConfig = document.getElementById('account-modal-configs-json')
+    
+    try {
+        const siteConfig = userConfig ? JSON.parse(
+            document.getElementById('account-modal-configs-json').innerHTML
+        ).siteConfig : '';
+        
+        siteConfig && sessionStore.setUserType(siteConfig || '');
+        
+        return siteConfig;
+    } catch (e) {
+        return '';
+    }
+}
+
+export const isEprocurementUser = () => (getUsertype() === 'eProcurement');

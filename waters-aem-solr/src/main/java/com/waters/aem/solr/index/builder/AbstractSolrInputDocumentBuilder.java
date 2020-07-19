@@ -162,6 +162,9 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
             final Sku sku = skuOptional.get();
 
             final DisplayableSku displayableSku = new DisplayableSku(sku, siteContext);
+            document.setField("eprocUrl", page.getHref().replace(page.getParent(4).getPath(),""));
+
+            setDocumentStringField(document,"unspsc",sku.getUnspsc());
 
             setDocumentStringField(document, "skucode", sku.getCode());
 

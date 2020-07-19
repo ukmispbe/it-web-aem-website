@@ -49,6 +49,7 @@ class DefaultHybrisProductImporterSpec extends AbstractHybrisImporterSpec {
         def properties = getResource("/etc/commerce/products/176/176001744").valueMap
 
         properties.get(WatersCommerceConstants.PROPERTY_CODE, "") == "176001744"
+        properties.get(WatersCommerceConstants.PROPERTY_UNSPSC, "") == "3435765"
         properties.get(WatersCommerceConstants.PROPERTY_NAME, "") == "PFC Analysis Kit"
         properties.get(WatersCommerceConstants.PROPERTY_SHORT_DESCRIPTION,
                 "") == "Waters ACQUITY UPLC total solution for the analysis of Perfluorinated Compounds (PFCs)."

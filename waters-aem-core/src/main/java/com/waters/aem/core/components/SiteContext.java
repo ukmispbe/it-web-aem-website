@@ -4,6 +4,7 @@ import com.day.cq.i18n.I18n;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.structure.page.Commerce;
 import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
+import com.waters.aem.core.components.structure.page.SiteConfig;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.commerce.WatersCommerceService;
 import com.waters.aem.core.utils.LocaleUtils;
@@ -113,6 +114,12 @@ public final class SiteContext {
 
     public String getTranslation(final String key) {
         return getI18n().get(key);
+    }
+
+    public SiteConfig getSiteConfig() {
+        final Commerce commerce = currentPage.getContentResource().adaptTo(Commerce.class);
+
+        return commerce.getSiteConfig();
     }
 
     public String getTranslation(final String key, final String comment, final Object... args) {
