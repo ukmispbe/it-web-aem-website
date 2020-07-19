@@ -87,23 +87,14 @@ public final class DefaultSiteRepository implements SiteRepository {
         final PageDecorator rootPage = resourceResolver.adaptTo(PageManagerDecorator.class).getPage(
             WatersConstants.ROOT_PATH);
 
-        LOG.info(" qrdebug getCountryRootPages rootPage: " + rootPage +" WatersConstants.ROOT_PATH: "+ WatersConstants.ROOT_PATH );
-
         return rootPage.getChildren(page -> isLiveCopy(page, liveRelationshipManager));
     }
 
     @Override
     public PageDecorator getCountryRootPage(final ResourceResolver resourceResolver, final String countryCode,
                                             final boolean matchNodeName) {
-
-        LOG.info(" qrdebug getCountryRootPage countryCode: " + countryCode + " matchNodeName: "+matchNodeName );
-
-        getCountryRootPages(resourceResolver)
-                    .forEach(page -> LOG.info("qrdebug Language ="+page.getLanguage(true)+" :page country = "+page.getLanguage(true).getCountry()+" :page name ="+page.getName()));
-
         return getCountryRootPages(resourceResolver)
             .stream()
-            //.filter(page -> countryCode.equalsIgnoreCase(page.getLanguage(true).getCountry()))
             .filter(page -> !matchNodeName || countryCode.equalsIgnoreCase(page.getName()))
             .findFirst()
             .orElse(null);
@@ -113,8 +104,6 @@ public final class DefaultSiteRepository implements SiteRepository {
     @SuppressWarnings({"squid:S1481" })
     public List<PageDecorator> getLanguageRootPages(final ResourceResolver resourceResolver) {
         final LiveRelationshipManager liveRelationshipManager = resourceResolver.adaptTo(LiveRelationshipManager.class);
-
-        LOG.info(" qrdebug getLanguageRootPages "  );
 
         return getCountryRootPages(resourceResolver)
             .stream()
@@ -131,14 +120,12 @@ public final class DefaultSiteRepository implements SiteRepository {
 
         final PageDecorator countryRootPage = getCountryRootPage(resourceResolver, countryCode, matchNodeName);
 
-        LOG.info(" qrdebug getLanguageRootPage countryRootPage: " + countryRootPage + " languageCode: "+languageCode + "matchNodeName: "+ matchNodeName);
+        LOG.debug(" getLanguageRootPage countryRootPage: " + countryRootPage + " languageCode: "+languageCode + "matchNodeName: "+ matchNodeName);
 
         final Predicate<PageDecorator> predicate = Predicates.and(
             languageRootPage -> isLiveCopy(languageRootPage, liveRelationshipManager),
             languageRootPage -> languageCode.equalsIgnoreCase(languageRootPage.getLanguage(false).getLanguage())
         );
-
-        LOG.info(" qrdebug getLanguageRootPage predicate: "+ predicate );
 
         return Optional.ofNullable(countryRootPage)
             .map(page -> page.getChildren(predicate)
@@ -150,10 +137,6 @@ public final class DefaultSiteRepository implements SiteRepository {
 
     private boolean isLiveCopy(final PageDecorator page, final LiveRelationshipManager liveRelationshipManager) {
         boolean liveCopy = false;
-        if(page != null){
-            LOG.info("islivecopy.PageLanguage: " + page.getLanguage(false).getLanguage() ) ;
-
-        }
 
         try {
             final Resource resource = page.getContentResource();
