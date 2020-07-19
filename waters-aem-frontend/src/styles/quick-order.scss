@@ -38,19 +38,41 @@
   .quick-order-multiple-item{
       display: flex;
       align-items: center;
-      color: $color-link;
       margin-left: $space-m;
       @include tablet {
         margin-left: 0px;
       }
 
-    svg {
-      margin-bottom: -3px;
-      margin-right: $space-xxxs;
-      .st0,
-      .st1 {
-        stroke: $color-link;
+      svg {
+        margin-bottom: -3px;
+        margin-right: $space-xxxs;
+  
+        .st0{
+          stroke: $color-link;
+          &:hover {
+            stroke: $color-link-hover;
+          }
+        }
+  
+        .st1{
+          stroke: $color-link;
+          &:hover {
+            stroke: $color-link-hover;
+          }
+        }
+  
+        .st2{
+          stroke: $color-link;
+          &:hover {
+            stroke: $color-link-hover;
+          }
+        }
       }
-    }
+  
+      a {
+        &:hover {
+          color: $color-link-hover;
+        }
+      }
   }
 }
