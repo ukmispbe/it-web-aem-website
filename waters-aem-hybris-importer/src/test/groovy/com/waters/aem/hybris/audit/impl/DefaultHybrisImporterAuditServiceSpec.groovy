@@ -57,7 +57,7 @@ class DefaultHybrisImporterAuditServiceSpec extends AbstractHybrisImporterSpec {
 
         then: "audit record node is created"
         def date = Calendar.instance
-        def auditRecordNodePath = "/etc/waters/hybris-importer/jcr:content/audit/${date.format("yyyy/MM/dd")}/record"
+        def auditRecordNodePath = "/var/waters/hybris-importer/jcr:content/audit/${date.format("yyyy/MM/dd")}/record"
 
         session.nodeExists(auditRecordNodePath)
 
@@ -77,7 +77,7 @@ class DefaultHybrisImporterAuditServiceSpec extends AbstractHybrisImporterSpec {
 
         then: "audit record node is created"
         def date = Calendar.instance
-        def auditRecordNodePath = "/etc/waters/hybris-importer/jcr:content/audit/${date.format("yyyy/MM/dd")}/record"
+        def auditRecordNodePath = "/var/waters/hybris-importer/jcr:content/audit/${date.format("yyyy/MM/dd")}/record"
 
         session.nodeExists(auditRecordNodePath)
 
@@ -109,7 +109,7 @@ class DefaultHybrisImporterAuditServiceSpec extends AbstractHybrisImporterSpec {
 
         then: "audit record exists"
         def date = Calendar.instance
-        def auditRecordNodePath = "/etc/waters/hybris-importer/jcr:content/audit/${date.format("yyyy/MM/dd")}/record"
+        def auditRecordNodePath = "/var/waters/hybris-importer/jcr:content/audit/${date.format("yyyy/MM/dd")}/record"
 
         def auditRecord = auditService.getAuditRecord(auditRecordNodePath)
 
@@ -133,7 +133,7 @@ class DefaultHybrisImporterAuditServiceSpec extends AbstractHybrisImporterSpec {
 
         then: "audit record exists"
         def date = Calendar.instance
-        def auditRecordNodePath = "/etc/waters/hybris-importer/jcr:content/audit/${date.format("yyyy/MM/dd")}/record"
+        def auditRecordNodePath = "/var/waters/hybris-importer/jcr:content/audit/${date.format("yyyy/MM/dd")}/record"
 
         def auditRecord = auditService.getAuditRecord(auditRecordNodePath)
 

@@ -11,23 +11,23 @@ class TagListSpec extends WatersSpec {
         pageBuilder.content {
             waters {
                 "jcr:content"(
-                    matrix: ["/etc/tags/waters/matrix/first"],
-                    market: ["/etc/tags/waters/market/first", "/etc/tags/waters/market/second"]
+                    matrix: ["/content/cq:tags/waters/matrix/first"],
+                    market: ["/content/cq:tags/waters/market/first", "/content/cq:tags/waters/market/second"]
                 ) {
                     page(
                         tagListType: TagList.TAGS_FROM_CURRENT_PAGE,
-                        tags: ["/etc/tags/waters/matrix", "/etc/tags/waters/market"]
+                        tags: ["/content/cq:tags/waters/matrix", "/content/cq:tags/waters/market"]
                     )
                     fixed(
                         tagListType: TagList.FIXED_TAGS_LIST,
-                        tags: ["/etc/tags/waters/yearPublished/2018", "/etc/tags/waters/yearPublished/2019"]
+                        tags: ["/content/cq:tags/waters/yearPublished/2018", "/content/cq:tags/waters/yearPublished/2019"]
                     )
                 }
             }
         }
 
-        nodeBuilder.etc {
-            tags("sling:Folder") {
+        nodeBuilder.content {
+            cq:tags("sling:Folder") {
                 waters("cq:Tag") {
                     matrix("cq:Tag") {
                         first("cq:Tag", "jcr:title": "First Class")

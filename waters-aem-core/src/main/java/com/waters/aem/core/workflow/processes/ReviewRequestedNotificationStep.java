@@ -21,7 +21,7 @@ import org.osgi.service.component.annotations.Reference;
 })
 public class ReviewRequestedNotificationStep extends AbstractNotificationWorkflowProcess implements WorkflowProcess {
 
-    private static final String TEMPLATE_PATH = "/etc/notification/email/waters/design-review-email-template.html";
+    private static final String TEMPLATE_PATH = "/apps/settings/notification-templates/email/waters/design-review-email-template.html";
 
     @Reference
     private EmailService emailService;

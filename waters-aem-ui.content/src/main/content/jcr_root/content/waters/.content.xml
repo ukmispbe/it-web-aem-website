@@ -6,7 +6,7 @@
           jcr:primaryType="cq:Page">
     <jcr:content
         cq:allowedTemplates="[/conf/waters/settings/wcm/templates/.*]"
-        cq:deviceGroups="[/etc/mobile/groups/responsive]"
+        cq:deviceGroups="[/conf/global/settings/mobile/groups/responsive]"
         jcr:primaryType="nt:unstructured"
         jcr:title="Waters"
         sling:redirect="{Boolean}true"

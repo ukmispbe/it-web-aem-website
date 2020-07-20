@@ -3,7 +3,7 @@
     jcr:description="Waters System Notifications"
     jcr:primaryType="cq:Template"
     jcr:title="System Notification"
-    allowedPaths="[/etc/waters/notifications(/.*)?]"
+    allowedPaths="[/var/waters/notifications(/.*)?]"
     ranking="{Long}1">
     <jcr:content
         cq:designPath="/etc/designs/acs-commons"

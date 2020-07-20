@@ -12,26 +12,26 @@ class ApplicationNotesSpec extends WatersSpec {
                 "application-notes"() {
                     "jcr:content"(
                         literatureCode: "ABC",
-                        author: ["/etc/tags/waters/abc"],
-                        affiliations: ["/etc/tags/waters/abc"],
-                        category: ["/etc/tags/waters/abc"],
-                        contentType: ["/etc/tags/waters/abc"],
-                        instrumentTechnique: ["/etc/tags/waters/abc"],
-                        compoundAnalyte: ["/etc/tags/waters/abc"],
-                        separationMode: ["/etc/tags/waters/abc"],
-                        matrix: ["/etc/tags/waters/abc"],
-                        columnType: ["/etc/tags/waters/abc"],
-                        products: ["/etc/tags/waters/abc"],
-                        market: ["/etc/tags/waters/abc"],
-                        monthPublished: ["/etc/tags/waters/abc"],
-                        yearPublished: ["/etc/tags/waters/abc"]
+                        author: ["/content/cq:tags/waters/abc"],
+                        affiliations: ["/content/cq:tags/waters/abc"],
+                        category: ["/content/cq:tags/waters/abc"],
+                        contentType: ["/content/cq:tags/waters/abc"],
+                        instrumentTechnique: ["/content/cq:tags/waters/abc"],
+                        compoundAnalyte: ["/content/cq:tags/waters/abc"],
+                        separationMode: ["/content/cq:tags/waters/abc"],
+                        matrix: ["/content/cq:tags/waters/abc"],
+                        columnType: ["/content/cq:tags/waters/abc"],
+                        products: ["/content/cq:tags/waters/abc"],
+                        market: ["/content/cq:tags/waters/abc"],
+                        monthPublished: ["/content/cq:tags/waters/abc"],
+                        yearPublished: ["/content/cq:tags/waters/abc"]
                     )
                 }
             }
         }
 
-        nodeBuilder.etc {
-            tags("sling:Folder") {
+        nodeBuilder.content {
+            cq:tags("sling:Folder") {
                 waters("cq:Tag") {
                     abc("cq:Tag", "jcr:title": "ABC")
                 }
