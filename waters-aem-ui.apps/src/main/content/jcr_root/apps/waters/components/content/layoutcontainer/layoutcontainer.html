@@ -1,10 +1,12 @@
 <div data-sly-use.api="com.waters.aem.core.components.content.LayoutContainer"
-     data-sly-use.allowed="com.day.cq.wcm.foundation.AllowedComponentList"
+     data-sly-use.allowed="com.day.cq.wcm.foundation.model.AllowedComponents"
      class="${api.cssClass} ${allowed.cssClass}">
     <sly data-sly-test.isAllowedApplicable="${allowed.isApplicable}"
          data-sly-test="${isAllowedApplicable}"
          data-sly-use.allowedTemplate="/libs/wcm/foundation/components/parsys/allowedcomponents/allowedcomponents-tpl.html"
-         data-sly-call="${allowedTemplate.allowedcomponents @ title=allowed.title, components=allowed.components}"></sly>
+         data-sly-call="${allowedTemplate.allowedcomponents @ title=allowed.title, resourcesMap=allowed.resourcesMap,
+            placeholderCss=allowed.placeholderCssClass,
+            placeholderType=allowed.placeholderResourceType}"></sly>
     <sly data-sly-test="${!isAllowedApplicable}"
          data-sly-repeat.child="${api.paragraphs}"
          data-sly-resource="${child.path @ resourceType=child.resourceType, decoration='true', cssClassName=child.cssClass}"></sly>
