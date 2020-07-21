@@ -26,7 +26,7 @@
                 <area shape="${area.shape}" coords="${area.coordinates}" href="${area.href}" target="${area.target}" alt="${area.alt}"
                       data-cmp-hook-image="area" data-cmp-relcoords="${area.relativeCoordinates}">
             </map>
-        </sly>
+        </noscript>
     </a>
     <span class="cmp-image__title" itemprop="caption" data-sly-test="${!image.displayPopupTitle && image.title}">${image.title @ context='html'}</span>
     <meta itemprop="caption" content="${image.title @ context='html'}" data-sly-test="${image.displayPopupTitle && image.title}">

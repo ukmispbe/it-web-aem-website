@@ -215,8 +215,7 @@ class OrderDetails extends Component {
         this.props.removeNotifications();
     }
 
-    config = 
-         document.getElementById('json-config--cmp-detail-tiles--personal')
+    config = document.getElementById('json-config--cmp-detail-tiles--personal')
         ? JSON.parse(document.getElementById('json-config--cmp-detail-tiles--personal').innerHTML) : '';
 
     renderAddress = (addressType) => {
