@@ -25,10 +25,6 @@
 
             .react-autosuggest__suggestion {
                 @include font-body;
-
-                .formatted-suggestion {
-                    display: flex;
-                }
             }
 
             .react-autosuggest__suggestion:hover {
@@ -128,7 +124,7 @@
             -webkit-appearance: none;
             -webkit-border-radius: $border-radius;
             border-radius: $border-radius;
-    
+
             &:focus {
                 outline: none;
                 border: 1px solid $color-focus;
@@ -243,9 +239,9 @@ body.cmp-search-body__auto-suggest--open {
     }
 }
 
-// Edge CSS Hack 
+// Edge CSS Hack
 @supports (-ms-ime-align: auto) {
     .cmp-search-bar .react-autosuggest__suggestions-container {
-        top: 4.2em; 
+        top: 4.2em;
     }
-} 
+}
