@@ -21,9 +21,9 @@
     @include mobile {
       display: none;
     }
-
-    .cmp-sku-details_quantity{
-      margin: $space-xxs $space-xs $space-xxs;
+    
+    .cmp-sku-details__quantity{
+       padding: $space-xxs $space-xs $space-xxs;
     }
 
   .quick-order-sku {
