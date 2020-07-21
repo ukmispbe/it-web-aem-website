@@ -1,6 +1,7 @@
 import SessionStore from '../stores/sessionStore';
 import loginStatus from '../scripts/loginStatus';
-
+// This function determines the eCommerce Status of the User / Country combination
+// The eCommerce status is determined from the "data-ecommerce-state" which is returned in the header Navigation
 export const isCartHidden = () => {
     let eCommStatus;
     const headerNavigation_cartLI = document.querySelector('.top-bar__nav__cart');    

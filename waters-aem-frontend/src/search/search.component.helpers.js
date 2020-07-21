@@ -11,6 +11,7 @@ import BtnApplySortFilter from './components/btn-apply-sort-filter';
 import BtnDoneSortFilter from './components/btn-done-sort-filter';
 import Sort from './components/sort';
 import BtnShowSortFilter from './components/btn-show-sort-filter';
+import ResultsCount from './components/results-count';
 import {
     SubFacetTags,
     ContentTypeTag,
@@ -365,7 +366,7 @@ const ResultsBody = ({
 }) => {
     return (
         <div className="cmp-search__container">
-            <div className="cmp-search__container__header cleafix">
+            <div className="cmp-search__container__header clearfix">
                 <CategoryDropdown
                     categoryDownIcon={text.downIcon}
                     categoryIsSearchable={false}
@@ -388,20 +389,27 @@ const ResultsBody = ({
                         : text.sortByMostRecent}
                 </div>
 
+                <ResultsCount
+                    {...resultsProps}
+                    text={text}
+                    onRelatedSuggestionClick={resultsEvents.onRelatedSuggestionClick}  />
+
                 <FilterTagList 
                     text={text}
                     filterMap={filterMap}
                     filterTagsProps={filterTagsProps}
                     filterTagsEvents={filterTagsEvents} />
-            </div>
 
-            <ResultsContent
-                text={text}
-                filterMap={filterMap}
-                skuConfig={skuConfig}
-                searchParams={searchParams}
-                resultsProps={resultsProps}
-                resultsEvents={resultsEvents} />
+                <ResultsContent
+                    text={text}
+                    filterMap={filterMap}
+                    skuConfig={skuConfig}
+                    searchParams={searchParams}
+                    resultsProps={resultsProps}
+                    resultsEvents={resultsEvents} />
+
+
+            </div>
 
             <Pagination
                 resultsProps={resultsProps}

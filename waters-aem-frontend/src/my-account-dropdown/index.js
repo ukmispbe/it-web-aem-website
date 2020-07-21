@@ -10,7 +10,6 @@ import loginStatus from '../scripts/loginStatus';
 import UserDetailsLazy from '../my-account/services/UserDetailsLazy';
 import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
 import SessionStore from '../stores/sessionStore';
-import { getAddressesByType } from '../detail-tiles/utils/profileFormatter';
 
 const myAccountModalTheme = 'my-account-dropdown';
 class MyAccountDropDown extends React.Component {
