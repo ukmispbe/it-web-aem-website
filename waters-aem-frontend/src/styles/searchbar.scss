@@ -25,6 +25,11 @@
 
             .react-autosuggest__suggestion {
                 @include font-body;
+
+                .formatted-suggestion {
+                    display: flex;
+                    flex-wrap: wrap;
+                }
             }
 
             .react-autosuggest__suggestion:hover {
