@@ -28,6 +28,10 @@ $level0MobileDisplay: flex;
          box-shadow: none;
       }
    }
+
+   & .down-arrow {
+      display: none;
+   }
 }
 
 nav.cmp-navigation {
@@ -424,6 +428,27 @@ nav.cmp-navigation {
 
       @include mobile {
          display: none;
+      }
+   }
+}
+
+.cmp-navigation-arrow {
+   & .cmp-navigation__item > .cmp-navigation__container {
+      display: flex !important;
+      & > .down-arrow {
+         display: inline-block;
+         justify-self: end;
+         align-self: center;
+         margin-left: 8px;
+
+         svg {
+            height: $space-s;
+            width: $space-s;
+         }
+
+         @include mobile {
+            display: none;
+         }
       }
    }
 }

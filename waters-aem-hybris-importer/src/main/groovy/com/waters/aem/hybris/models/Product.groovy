@@ -24,6 +24,8 @@ class Product {
     Boolean terminated
 
     String ean
+    
+    String unspsc
 
     List<ProductCategory> categories = []
 

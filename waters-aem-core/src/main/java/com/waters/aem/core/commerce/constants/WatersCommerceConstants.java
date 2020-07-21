@@ -37,6 +37,8 @@ public final class WatersCommerceConstants {
     public static final String RESOURCE_NAME_PRODUCT_REFERENCES = "productreferences";
 
     public static final String PROPERTY_GTIN = "hybris:gtin";
+    
+    public static final String PROPERTY_UNSPSC = "hybris:unspsc";
 
     // price properties
 

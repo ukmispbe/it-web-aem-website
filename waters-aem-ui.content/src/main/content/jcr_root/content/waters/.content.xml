@@ -12,5 +12,5 @@
         sling:redirect="{Boolean}true"
         sling:redirectStatus="{Long}302"
         sling:resourceType="foundation/components/redirect"
-        redirectTarget="/content/waters/en"/>
+        redirectTarget="/content/waters/us/en"/>
 </jcr:root>
