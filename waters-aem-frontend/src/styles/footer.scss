@@ -69,14 +69,14 @@
 
 .cmp-footer__logo {
     max-width: 115px;
-    height: 32px;
+    height: 28px;
     margin-top: $space-l;
     margin-left: $space-s;
     display: inline-block;
 
     img {
-        height: 32px;
         max-width: 115px;
+        height: 28px;
     }
 
     @include mobile {
