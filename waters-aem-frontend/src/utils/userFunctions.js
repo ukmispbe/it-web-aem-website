@@ -171,11 +171,18 @@ export const filterUserDetails = (inputUser) => {
         filteredUser.sapWebUserId = inputUser.sapWebUserId;
         filteredUser.userId = inputUser.userId;
         filteredUser.salesOrg = inputUser.salesOrg;
-        filteredUser.mailingAddressCountryCode = '';
-        if (inputUser.userAddress.length !== 0) {
-            const mailingAddress = inputUser.userAddress.filter(address => address.addressType === 'mailingAddress');
-            const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
-            filteredUser.mailingAddressCountryCode = userCountry;
+        filteredUser.soldToAccounts = [];
+
+        if (inputUser.soldToAccounts && inputUser.soldToAccounts.length !== 0) {
+            filteredUser.soldToAccounts = inputUser.soldToAccounts;
+        }
+
+        if (!filteredUser.mailingAddressCountryCode){
+            if (inputUser.userAddress && inputUser.userAddress.length !== 0) {
+                const mailingAddress = inputUser.userAddress.filter(address => address.addressType === 'mailingAddress');
+                const userCountry = mailingAddress.length ? mailingAddress[0].countryCode.toLowerCase() : '';
+                filteredUser.mailingAddressCountryCode = userCountry;
+            }
         }
     }
     return filteredUser;
