@@ -24,8 +24,11 @@
         align-items: center;
 
         svg {
-            margin-left: $space-s;
-            width: $thumbnail-s;
+            margin-left: $space-xs;
+            max-width: $thumbnail-s;
+            max-height: $thumbnail-s;
+            height: 100%;
+            width: 100%;
         }
     }
 }
