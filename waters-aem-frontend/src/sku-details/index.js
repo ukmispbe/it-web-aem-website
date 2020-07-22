@@ -6,7 +6,7 @@ import Price from "./views/price";
 import AddToCart from "./views/addToCart";
 import AddToCartBody from '../sku-details/views/addToCartModal';
 import Modal, { Header, keys } from '../utils/modal';
-import { getSalesOrg, getSoldToId } from '../utils/userFunctions';
+import { setSKUUserInfo } from '../utils/userFunctions';
 import Spinner from '../utils/spinner';
 import LoginStatus from "../scripts/loginStatus";
 import CheckOutStatus from "../scripts/checkOutStatus";
@@ -52,23 +52,22 @@ class SkuDetails extends React.Component {
             discontinued: this.props.discontinued == "true",
             signInUrl: this.props.baseSignInUrl,
             errorInfo: this.props.config.errorInfo,
-            userInfo: {
-                soldToId: getSoldToId(),
-                salesOrg: getSalesOrg()
-            }
+            userInfo: setSKUUserInfo()
         };
 
         this.toggleModal = this.toggleModal.bind(this);
     }
 
     componentDidMount() {
-        const { availabilityUrl, pricingUrl, skuNumber, userCountry, userInfo} = this.state;
-        if (LoginStatus.state() && userInfo.soldToId !== '' && userInfo.salesOrg !== '') {
-            getPricing(pricingUrl, skuNumber, userInfo.soldToId, userInfo.salesOrg)
+        const { availabilityUrl, pricingUrl, skuNumber, userCountry} = this.state;
+        const { dynamicSoldTo, salesOrg} = this.state.userInfo;
+
+        if (LoginStatus.state() && dynamicSoldTo !== '' && salesOrg !== '') {
+            getPricing(pricingUrl, skuNumber, dynamicSoldTo, salesOrg)
             .then(response => {
             if (response.status && response.status === 200) {
                 let match = matchListItems(skuNumber, response);
-                let listPriceValue = (match.listPrice !=='' && typeof match.listPrice != 'undefined') ? match.listPrice : this.props.price;
+                let listPriceValue = (match.listPrice !== '' && match.listPrice != undefined) ? match.listPrice : this.props.price;
                 this.setState({
                     skuData: match,
                     custPrice: match.custPrice,
@@ -276,7 +275,7 @@ class SkuDetails extends React.Component {
         );
     };
 
-       renderActiveSku = () => {
+    renderActiveSku = () => {
         if (Ecommerce.isDisabledState()) {
             return this.renderEcommerceDisabled();
         } else {
