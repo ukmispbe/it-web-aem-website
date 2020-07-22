@@ -55,6 +55,16 @@
     @include tablet {
         margin-top: 0;
     }
+    
+    @include large-desktop {
+        margin: $space-l -50% $space-xl;
+        padding: 0 50%;  
+    }
+
+    @include extra-large-desktop {
+        margin: $space-l -80% $space-xl;
+        padding: 0 80%; 
+    }   
 }
 
 .is-author .cmp-banner {
@@ -152,6 +162,14 @@
         overflow-x: hidden;
     }
 
+    @include large-desktop {
+        padding-right: 100%;
+    }
+
+    @include extra-large-desktop {
+        padding-right: 130%;
+    }
+
     .cmp-banner__parsys {
         padding: $space-xl 0 ($space-xl + $space-xxs 0);
         margin: 0 $space-xl;
@@ -180,6 +198,14 @@
             left: 12%;
             height: 100%;
             top: 0;
+        }
+
+        @include large-desktop {
+            width: 25%;
+        }
+
+        @include extra-large-desktop {
+            width: 19%;
         }
     }
 }
