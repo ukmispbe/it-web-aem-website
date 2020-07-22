@@ -541,6 +541,10 @@
             border: none;
             cursor: text;
 
+            a:first-child {
+                color: $color-white;
+            }
+
             &:hover>a:first-child {
                 color: $color-white;
             }
