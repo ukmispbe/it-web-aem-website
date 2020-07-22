@@ -135,7 +135,7 @@ export async function resetPasswordSubmit(data) {
                         submitAccount(userDetails.soldToAccounts[0].soldTo, this.urlChooseAccount);
                         return;
                     }
-                    
+
                     // Choose Account URL
                     const switchAccountUrl = getNamedHeaderLink("data-switch-account-url");
                     window.location.replace(switchAccountUrl);
@@ -276,19 +276,27 @@ export async function signInSubmit(data) {
                     return;
                 }
                 store.removeSoldToDetails();
+                this.setFormAnalytics('submit');
+                const signInRedirectStore = store.getSignInRedirect();
+                store.removeSignInRedirect();
+                if (signInRedirectStore || this.redirect) {
+                    window.location.replace(
+                        signInRedirectStore ? signInRedirectStore : this.redirect
+                    );
+                    return;
+                }
             }
-        }
-
-        this.setFormAnalytics('submit');
-
-        const store = new SessionStore();
-        const signInRedirectStore = store.getSignInRedirect();
-        store.removeSignInRedirect();
-        if (signInRedirectStore || this.redirect) {
-            window.location.replace(
-                signInRedirectStore ? signInRedirectStore : this.redirect
-            );
-            return;
+        } else {
+            this.setFormAnalytics('submit');
+            const store = new SessionStore();
+            const signInRedirectStore = store.getSignInRedirect();
+            store.removeSignInRedirect();
+            if (signInRedirectStore || this.redirect) {
+                window.location.replace(
+                    signInRedirectStore ? signInRedirectStore : this.redirect
+                );
+                return;
+            }
         }
     } else {
         this.setFormAnalytics('error', responseBody);
@@ -297,6 +305,7 @@ export async function signInSubmit(data) {
         scrollToY(0);
     }
 }
+
 
 const setNewSoldTo = (newSoldto) => {
     const store = new SessionStore();

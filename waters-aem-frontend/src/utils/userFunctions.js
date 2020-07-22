@@ -1,6 +1,5 @@
 import 'whatwg-fetch';
 import SessionStore from '../stores/sessionStore';
-import LocalStore from '../stores/localStore';
 import loginStatus from '../scripts/loginStatus';
 import DigitalData from '../scripts/DigitalData';
 
@@ -63,7 +62,7 @@ export const getFullCompanyAddress = (address, includeCountryName) => {
     )
         return '';
 
-    let addressArray = []; 
+    let addressArray = [];
     const city = address.city ? capitalize(address.city).trim() + ', ' : '';
     const region = address.regio ? capitalize(address.regio).trim() + ' ' : '';
     const postalCd = address.postalCd ? capitalize(address.postalCd).trim() : '';
@@ -72,7 +71,7 @@ export const getFullCompanyAddress = (address, includeCountryName) => {
     }
     if (address.addr1) {
         address.addr1 ? addressArray.push(capitalize(address.addr1).trim()) : null;
-    }   
+    }
     address.addr2 ? addressArray.push(capitalize(address.addr2).trim()) : null;
     address.addr3 ? addressArray.push(capitalize(address.addr3).trim()) : null;
     address.addr4 ? addressArray.push(capitalize(address.addr4).trim()) : null;
@@ -99,7 +98,7 @@ export const capitalize = str => {
 export const getCountryName = (countryCode, config) => {
     if (!countryCode || countryCode.trim() === '') return '';
     const fields = config.form.fields;
-    
+
     const countryField = fields.filter(field => {
         return field.name === 'country';
     });
@@ -147,12 +146,11 @@ export const getDefaultSoldTo = (soldToAccounts) => {
 }
 
 export const getDefaultSoldToAddresses = (soldToAccounts) => {
-
     if (Array.isArray(soldToAccounts) && !soldToAccounts.length){
         return [];  
     } else {
         let defaultSoldTo = getDefaultSoldTo(soldToAccounts);
-        
+
         if (defaultSoldTo.addresses === null || defaultSoldTo.addresses === undefined || !defaultSoldTo.addresses.length) {
             return [];  
         } else {

@@ -276,7 +276,7 @@ class SkuDetails extends React.Component {
         );
     };
 
-    renderActiveSku = () => {
+       renderActiveSku = () => {
         if (Ecommerce.isDisabledState()) {
             return this.renderEcommerceDisabled();
         } else {

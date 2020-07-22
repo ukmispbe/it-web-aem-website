@@ -383,7 +383,6 @@ if (registrationFormContainer) {
     if (config.formName === "registration" && country === "kr") {
         changeDisclosures(config);
     }
-
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
         <Form

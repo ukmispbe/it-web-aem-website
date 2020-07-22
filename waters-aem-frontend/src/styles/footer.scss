@@ -68,15 +68,15 @@
 }
 
 .cmp-footer__logo {
-    max-width: 115px;
     height: 32px;
+    width: 115px;
     margin-top: $space-l;
     margin-left: $space-s;
     display: inline-block;
 
     img {
         height: 32px;
-        max-width: 115px;
+        width: 115px;
     }
 
     @include mobile {

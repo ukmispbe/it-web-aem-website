@@ -389,7 +389,7 @@ const ResultsBody = ({
                         : text.sortByMostRecent}
                 </div>
 
-                <ResultsCount 
+                <ResultsCount
                     {...resultsProps}
                     text={text}
                     onRelatedSuggestionClick={resultsEvents.onRelatedSuggestionClick}  />
