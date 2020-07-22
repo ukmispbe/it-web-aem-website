@@ -37,7 +37,7 @@ export const getSoldToId = () => {
 		const store = new SessionStore();
         const userDetails = store.getUserDetails();
         if (userDetails || userDetails.length > 0) {
-            if (userDetails.soldToAccounts || userDetails.soldToAccounts.length > 0) {
+            if (userDetails.soldToAccounts && userDetails.soldToAccounts.length > 0) {
                 let priorityAccount;
 
                 userDetails.soldToAccounts.map((soldToAccount) => {
@@ -53,6 +53,58 @@ export const getSoldToId = () => {
         }
     }
     return soldToId;
+}
+
+//Note: this method uses the USER Details API, not the SoldToDetailsAPI
+export const getDummySoldToId = () => {
+    let dummySoldto = "";
+	if(loginStatus.state()) {
+		const store = new SessionStore();
+        const userDetails = store.getUserDetails();
+        if (userDetails && userDetails.length > 0) {
+            dummySoldto = userDetails.dummySoldto != undefined ? userDetails.dummySoldto : '';
+        }
+    }
+
+    return dummySoldto;
+}
+
+export const getSoldToIdSource = (soldToId, dummySoldto) => {
+    let soldTo = '';
+    if (soldToId !== '' && dummySoldto === '') {
+        soldTo = soldToId;
+    } else if (soldToId === '' && dummySoldto !== '') {
+        soldTo = dummySoldto;
+    }
+
+    return soldTo;
+}
+
+//Note: Returning all possible soldTo values for debugging and in case of future needs
+export const setSKUUserInfo = () => {
+    let userInfo = {};
+    if (loginStatus.state()) {
+        let salesOrg = getSalesOrg();
+        let soldToId = getSoldToId();
+        let dummySoldto = getDummySoldToId();
+        let dynamicSoldTo = getSoldToIdSource(soldToId, dummySoldto);
+
+        userInfo = {
+            salesOrg: salesOrg,
+            soldToId: soldToId,
+            dummySoldto: dummySoldto,
+            dynamicSoldTo: dynamicSoldTo
+        }
+    }
+    else {
+        userInfo = {
+            soldToId: '',
+            salesOrg: '',
+            dummySoldto: '',
+            dynamicSoldTo: ''
+        }
+    }
+    return userInfo;
 }
 
 export const getFullCompanyAddress = (address, includeCountryName) => {
