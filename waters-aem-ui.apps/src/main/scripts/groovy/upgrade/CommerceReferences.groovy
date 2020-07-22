@@ -1,17 +1,12 @@
-//ContextHub Segments
-//Post running the script, check for the ContextHub Segments to be disabled, as before
+//Commerce Products References
+//Note - Please run the script only after importing the products into /var/commerce/products, through the Hybris Importer
 import com.day.cq.wcm.commons.ReferenceSearch
-
-//Move Context Hub.
-getNode("/conf/global/settings").addNode("wcm")
-session.save()
-copy  "/etc/segmentation/contexthub" to "/conf/global/settings/cloudsettings"
 
 def referenceSearch = new ReferenceSearch()
 
 referenceSearch.setSearchRoot("content/waters")
 
-def map = referenceSearch.search(resourceResolver, "/etc/segmentation/contexthub")
+def map = referenceSearch.search(resourceResolver, "/etc/commerce/products")
 def data = []
 
 map.each { path, info ->
@@ -25,17 +20,18 @@ map.each { path, info ->
             if (propertyValue.isMultiple()) {
                 def values = []
                 for (String s in propertyValue.getValues()) {
-                    values.add(s.replaceAll("/etc/segmentation/contexthub", "/conf/global/settings/wcm/segments"))
+                    values.add(s.replaceAll("/etc/commerce/products", "/var/commerce/products"))
                 }
                 parentNode.setProperty(name, values as String[])
             } else {
                 def stringValue = propertyValue.getString()
-                parentNode.setProperty(name, stringValue.replaceAll("/etc/segmentation/contexthub", "/conf/global/settings/wcm/segments"))
+                parentNode.setProperty(name, stringValue.replaceAll("/etc/commerce/products", "/var/commerce/products"))
             }
         }
     }
 }
 
+getNode("/etc/commerce/products").remove()
 session.save()
 
 table {
