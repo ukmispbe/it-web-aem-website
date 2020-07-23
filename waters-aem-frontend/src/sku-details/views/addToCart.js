@@ -148,7 +148,7 @@ class AddToCart extends React.Component {
                         onKeyPress={this.skuRemoveNegative}
                     />
                 </form>
-                <a className={`cmp-button ${!this.state.skuNumber.trim() && 'cmp-button--disabled'}`} onClick={() => this.addToCart()}>
+                <a className={`cmp-button ${!this.state.skuNumber.trim() && 'disabled'}`} onClick={() => this.addToCart()}>
                     {this.props.addToCartLabel}
                 </a>
             </>

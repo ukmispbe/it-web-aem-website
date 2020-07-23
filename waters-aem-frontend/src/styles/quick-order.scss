@@ -40,6 +40,11 @@
     .cmp-button{
         padding: $space-xs $space-m;
         margin-bottom: 0px;
+
+        &.disabled {
+          background-color: $color-disabled;
+          cursor: default;
+        }
     }
   }
   .quick-order-multiple-item{
