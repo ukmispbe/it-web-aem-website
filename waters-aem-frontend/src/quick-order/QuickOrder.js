@@ -101,7 +101,7 @@ function QuickOrder(props) {
                     name="quickOrder"
                     placeholder={addToCartPlaceHolder}
                     value={sku}
-                    className="quick-order-sku"
+                    className="cmp-sku-details__quantity quick-order-sku"
                     showLabel={showLabel}
                     onChange={onChange}
                     elementLocator="input-quick-order-sku"

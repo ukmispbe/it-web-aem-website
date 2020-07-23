@@ -1,7 +1,8 @@
 #quick-order{
-    padding-left: $space-xxs;
+    padding-left: 0;
     margin-right: $space-xxs;
     margin-bottom: $space-xxs;
+    width: max-content;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -20,32 +21,70 @@
     @include mobile {
       display: none;
     }
+    
+    .cmp-sku-details__quantity{
+       padding: $space-xxs $space-xs $space-xxs;
+    }
 
   .quick-order-sku {
-      margin-right: $space-xxs;
       width: 176px;
+      text-align: left;
+      &::placeholder{
+        color: $color-disabled;
+      }
       @include mobile {
         width: 100%;
         margin-right: 0;
       }
   }
     .cmp-button{
+        padding: $space-xs $space-m;
         margin-bottom: 0px;
     }
   }
   .quick-order-multiple-item{
       display: flex;
       align-items: center;
-  }
-  a svg {
-      margin-left: 0.25em;
+      margin-left: $space-m;
       @include tablet {
         margin-left: 0px;
       }
-      
-      margin-right: 0.25em;
-      margin-bottom: -2px;
-      width: 1em;
-      height: 1em;
+
+      @include mobile {
+        margin-left: 0px;
+      }
+
+      svg {
+        width: $icon-s;
+        margin-bottom: -3px;
+        margin-right: $space-xxxs;
+  
+        .st0{
+          stroke: $color-link;
+          &:hover {
+            stroke: $color-link-hover;
+          }
+        }
+  
+        .st1{
+          stroke: $color-link;
+          &:hover {
+            stroke: $color-link-hover;
+          }
+        }
+  
+        .st2{
+          stroke: $color-link;
+          &:hover {
+            stroke: $color-link-hover;
+          }
+        }
+      }
+  
+      a {
+        &:hover {
+          color: $color-link-hover;
+        }
+      }
   }
 }
