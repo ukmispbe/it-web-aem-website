@@ -3,4 +3,4 @@
           xmlns:jcr="http://www.jcp.org/jcr/1.0"
           jcr:primaryType="sling:OsgiConfig"
           setupUrl="https://api-sbox.waters.com/dev-waters-punchout-exp-api-v1/api/users/{userId}/punchout/setup/{sid}"
-          puchOutSignInUrl="https://test-www.waters.com:8443/api/waters/punchout/v1/login"/>
+          puchOutSignInUrl="https://dev-www.waters.com:8443/api/waters/punchout/v1/login"/>
