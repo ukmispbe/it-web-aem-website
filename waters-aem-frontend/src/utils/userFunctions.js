@@ -71,9 +71,9 @@ export const getDummySoldToId = () => {
 
 export const getSoldToIdSource = (soldToId, dummySoldto) => {
     let soldTo = '';
-    if (soldToId !== '' && dummySoldto === '') {
+    if (soldToId != '' && dummySoldto == '') {
         soldTo = soldToId;
-    } else if (soldToId === '' && dummySoldto !== '') {
+    } else if (soldToId == '' && dummySoldto != '') {
         soldTo = dummySoldto;
     }
 
@@ -83,11 +83,9 @@ export const getSoldToIdSource = (soldToId, dummySoldto) => {
 //Note: Returning all possible soldTo values for debugging and in case of future needs
 export const setSKUUserInfo = () => {
 	if(loginStatus.state()) {
-        const store = new SessionStore();
-        const userDetails = store.getUserDetails();
-        let salesOrg = userDetails.salesOrg;
+        let salesOrg = getSalesOrg();
         let soldToId = getSoldToId();
-        let dummySoldto = userDetails.dummySoldto;
+        let dummySoldto = getDummySoldToId();
         let dynamicSoldTo = getSoldToIdSource(soldToId, dummySoldto);
 
         let userInfo = {
@@ -96,6 +94,7 @@ export const setSKUUserInfo = () => {
             dummySoldto: dummySoldto,
             dynamicSoldTo: dynamicSoldTo
         }
+
         return userInfo;
     } else {
         let userInfo = {
@@ -104,6 +103,7 @@ export const setSKUUserInfo = () => {
             dummySoldto: '',
             dynamicSoldTo: ''
         }
+
         return userInfo;
     }
 }
