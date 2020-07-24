@@ -28,4 +28,4 @@ References for the bullet points from the Adobe docs, have been updated througho
 Hybris, Solr and System Notification pages have been moved out of `etc` and to `var`, necessary updates to filter.xml and rest of the code were made.
 
 ### Todo
-Commerce folder has not been covered as part of the current activity, Hybris Importer to be used for a fresh import.
+Commerce folder has not been covered as part of the current activity, Hybris Importer to be used for a fresh import (Although a script has been created to updated references and delete the old location)
