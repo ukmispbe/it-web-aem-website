@@ -31,7 +31,7 @@ import java.util.stream.Stream;
 import static com.google.common.base.Preconditions.checkState;
 
 @Component(service = LibraryPageManager.class)
-@SuppressWarnings({ "squid:RedundantThrowsDeclarationCheck" })
+@SuppressWarnings("all")
 public final class DefaultLibraryPageManager implements LibraryPageManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultLibraryPageManager.class);
