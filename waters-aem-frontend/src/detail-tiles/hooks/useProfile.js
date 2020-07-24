@@ -23,7 +23,8 @@ export default (userDetailsUrl, soldToDetailsUrl, type, icon) => {
     }
     
     function getData() {
-        let userDetailsAPICall = UserDetailsLazy(userDetailsUrl).then(response => {return response});
+        const checkSessionStore = false;
+        let userDetailsAPICall = UserDetailsLazy(userDetailsUrl, checkSessionStore).then(response => {return response});
         let soldToAPICall = SoldToDetailsLazy(soldToDetailsUrl).then(response => {return response});
 
         Promise.all([userDetailsAPICall, soldToAPICall])
