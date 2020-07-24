@@ -17,6 +17,7 @@ import java.util.List;
 
 import com.waters.aem.core.constants.WatersConstants;
 
+@SuppressWarnings("all")
 public class AdjustOrderPathReferencesLiveAction implements LiveAction {
 
     private static final Logger LOG = LoggerFactory.getLogger(AdjustOrderPathReferencesLiveAction.class);
