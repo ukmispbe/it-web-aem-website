@@ -1,6 +1,6 @@
 /**
  * For a list of SKU codes, print all live copy SKU pages and the associated price displayed on that page.
- * Also prints a list of any SKU codes not found under /etc/commerce/products
+ * Also prints a list of any SKU codes not found under /var/commerce/products
  */
 
 import com.day.cq.search.eval.JcrPropertyPredicateEvaluator

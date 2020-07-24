@@ -1,4 +1,4 @@
-getResource("/etc/commerce/products").children.each { folder ->
+getResource("/var/commerce/products").children.each { folder ->
     folder.children.each { skuResource ->
         def skuImages = skuResource.getChild("images")?.children
 

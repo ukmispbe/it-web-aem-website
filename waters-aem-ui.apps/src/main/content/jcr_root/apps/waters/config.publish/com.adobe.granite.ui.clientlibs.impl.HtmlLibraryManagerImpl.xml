@@ -16,7 +16,7 @@
           htmllibmanager.defaultuserthemename="default"
           htmllibmanager.clientmanager="granite.clientlibrarymanager"
           htmllibmanager.path.list="[/apps,/libs,/etc]"
-          htmllibmanager.excluded.path.list="[/etc/commerce/classifications,/etc/commerce/collections,/etc/commerce/payment-methods,/etc/commerce/products,/etc/commerce/shipping-methods,/etc/reports/auditreport,/etc/reports/compreport,/etc/segmentation,/var/taskmanagement,/var/workflow/instances]"
+          htmllibmanager.excluded.path.list="[/var/commerce/classifications,/var/commerce/collections,/var/commerce/payment-methods,/var/commerce/products,/var/commerce/shipping-methods,/etc/reports/auditreport,/etc/reports/compreport,/etc/segmentation,/var/taskmanagement,/var/workflow/instances]"
           htmllibmanager.processor.js="min:gcc"
           htmllibmanager.processor.css="min:yui"
           htmllibmanager.longcache.patterns="[]"

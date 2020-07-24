@@ -16,7 +16,7 @@ class DefaultHybrisImporterAuditServiceSpec extends AbstractHybrisImporterSpec {
     HybrisImporterAuditService auditService
 
     def setup() {
-        nodeBuilder.etc {
+        nodeBuilder.var {
             waters {
                 "hybris-importer" {
                     "jcr:content"()
@@ -39,12 +39,12 @@ class DefaultHybrisImporterAuditServiceSpec extends AbstractHybrisImporterSpec {
         setup:
         def results = [
             HybrisImporterResult.fromProduct(
-                getNode("/etc/commerce/products/176/176001744"),
+                getNode("/var/commerce/products/176/176001744"),
                 "PFC Analysis Kit",
                 HybrisImportStatus.CREATED
             ),
             HybrisImporterResult.fromProduct(
-                getNode("/etc/commerce/products/176/176001836"),
+                getNode("/var/commerce/products/176/176001836"),
                 "HPLC Therapeutic Peptide Method Development Kit",
                 HybrisImportStatus.UPDATED
             )
@@ -91,12 +91,12 @@ class DefaultHybrisImporterAuditServiceSpec extends AbstractHybrisImporterSpec {
         setup:
         def results = [
             HybrisImporterResult.fromProduct(
-                getNode("/etc/commerce/products/176/176001744"),
+                getNode("/var/commerce/products/176/176001744"),
                 "PFC Analysis Kit",
                 HybrisImportStatus.CREATED
             ),
             HybrisImporterResult.fromProduct(
-                getNode("/etc/commerce/products/176/176001836"),
+                getNode("/var/commerce/products/176/176001836"),
                 "HPLC Therapeutic Peptide Method Development Kit",
                 HybrisImportStatus.UPDATED
             )

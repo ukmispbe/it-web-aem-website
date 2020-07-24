@@ -110,7 +110,7 @@ public final class WatersCommerceConstants {
 
     public static final String PROPERTY_PRODUCT_RESOURCE_PATH = "hybris:productResourcePath";
 
-    public static final String PATH_COMMERCE_PRODUCTS = "/etc/commerce/products";
+    public static final String PATH_COMMERCE_PRODUCTS = "/var/commerce/products";
 
     public static final Integer PRODUCT_CODE_PREFIX_LENGTH = 3;
 
