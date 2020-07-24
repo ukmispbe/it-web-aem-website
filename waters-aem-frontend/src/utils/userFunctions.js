@@ -61,7 +61,7 @@ export const getDummySoldToId = () => {
 	if(loginStatus.state()) {
 		const store = new SessionStore();
         const userDetails = store.getUserDetails();
-        if (userDetails && userDetails.length > 0) {
+        if (userDetails || userDetails.length > 0) {
             dummySoldto = userDetails.dummySoldto != undefined ? userDetails.dummySoldto : '';
         }
     }
@@ -71,9 +71,9 @@ export const getDummySoldToId = () => {
 
 export const getSoldToIdSource = (soldToId, dummySoldto) => {
     let soldTo = '';
-    if (soldToId !== '' && dummySoldto === '') {
+    if (soldToId != '' && dummySoldto == '') {
         soldTo = soldToId;
-    } else if (soldToId === '' && dummySoldto !== '') {
+    } else if (soldToId == '' && dummySoldto != '') {
         soldTo = dummySoldto;
     }
 
@@ -82,29 +82,30 @@ export const getSoldToIdSource = (soldToId, dummySoldto) => {
 
 //Note: Returning all possible soldTo values for debugging and in case of future needs
 export const setSKUUserInfo = () => {
-    let userInfo = {};
-    if (loginStatus.state()) {
+	if(loginStatus.state()) {
         let salesOrg = getSalesOrg();
         let soldToId = getSoldToId();
         let dummySoldto = getDummySoldToId();
         let dynamicSoldTo = getSoldToIdSource(soldToId, dummySoldto);
 
-        userInfo = {
+        let userInfo = {
             salesOrg: salesOrg,
             soldToId: soldToId,
             dummySoldto: dummySoldto,
             dynamicSoldTo: dynamicSoldTo
         }
-    }
-    else {
-        userInfo = {
+
+        return userInfo;
+    } else {
+        let userInfo = {
             soldToId: '',
             salesOrg: '',
             dummySoldto: '',
             dynamicSoldTo: ''
         }
+
+        return userInfo;
     }
-    return userInfo;
 }
 
 export const getFullCompanyAddress = (address, includeCountryName) => {
