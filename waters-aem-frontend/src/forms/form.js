@@ -179,11 +179,6 @@ const Form = ({
             return;
         }
 
-        // Don't retrieve data in Edit Mode
-        if (isInEditMode) {
-            return;
-        }
-
         retrieveData(config.optionsEndpoint).then(resp => {
 
             // Only put this logic in for formName ==="chooseAccount"
@@ -302,7 +297,8 @@ const Form = ({
                         callback: callback,
                         updateFailedAttempts: updateFailedAttempts,
                         setProfileData: setProfileData,
-                        setFormAnalytics: setFormAnalytics
+                        setFormAnalytics: setFormAnalytics,
+                        urlChooseAccount: config.chooseAccountEndPoint
                     })
                 )}
             >

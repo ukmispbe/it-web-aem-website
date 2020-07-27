@@ -87,14 +87,15 @@
     .cmp-section-container–-light {
         margin-bottom: $space-s;
         .cmp-section-container__wrapper {
-            margin: 0 -30% 0;
-            padding: 2em 30%;
+            margin: 0 -80% 0;
+            padding: 2em 80%;
             position: relative;
             overflow-y: hidden;
             z-index: 0;
 
             @include mobile {
                 padding: $space-xxs 30%;
+                margin: 0 -30% 0;
             }
         }
 
@@ -128,14 +129,15 @@
 
     .cmp-section-container–-dark {
         .cmp-section-container__wrapper {
-            margin: 0 -30% 0;
-            padding: 2em 30%;
+            margin: 0 -80% 0;
+            padding: 2em 80%;
             position: relative;
             overflow-y: hidden;
             z-index: 0;
 
             @include mobile {
                 padding: $space-xxs 30%;
+                margin: 0 -30% 0;
             }
         }
 

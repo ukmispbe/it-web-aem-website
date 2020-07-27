@@ -79,7 +79,7 @@
             grid-template-columns: ($icon-l + $space-xs) 1fr;
 
             @include IE11-only {
-                display: block;
+                display: inline-flex;
             }
         }
 
