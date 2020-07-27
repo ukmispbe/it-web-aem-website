@@ -178,6 +178,13 @@
 }
 
 .cmp-notification--inline {
+    &.cmp-notification--inline-sku{
+        .cmp-notification-wrapper{
+            padding: $space-xxxs 0;
+            margin-bottom: 0;
+        }
+    }
+
     .cmp-notification-wrapper {
         padding: ($space-xxs - .1em) $space-xxs $space-xxs $space-xxs;
         justify-content: left;

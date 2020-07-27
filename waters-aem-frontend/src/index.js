@@ -602,8 +602,9 @@ if (quickOrderContainer) {
 }
 function quickOrder(container) {
     const props = JSON.parse(document.getElementById("cmp-quick-order").innerHTML);
+    const skuConfig = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
     ReactDOM.render(
-        <QuickOrder {...props} />,
+        <QuickOrder {...props} skuConfig={skuConfig} />,
         container
     );
 }
