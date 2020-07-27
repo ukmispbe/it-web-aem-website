@@ -94,6 +94,12 @@ class ListItem extends React.Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        const differentSoldToId = this.props.userInfo.soldToId !== nextProps.userInfo.soldToId;
+        const differentSalesOrg = this.props.userInfo.salesOrg !== nextProps.userInfo.salesOrg;
+        return differentSoldToId || differentSalesOrg;
+    }
+
     toggleErrorModal = (err) => {
         // Add Error Object to State
         this.setState({ errorObjCart: err });
