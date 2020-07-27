@@ -10,6 +10,12 @@ import loginStatus from '../scripts/loginStatus';
 import UserDetailsLazy from '../my-account/services/UserDetailsLazy';
 import SoldToDetailsLazy from '../my-account/services/SoldToDetailsLazy';
 import SessionStore from '../stores/sessionStore';
+import LocalStore from '../stores/localStore';
+import punchoutLogin from '../my-account/services/PunchoutLogin';
+import punchoutSetup from '../my-account/services/PunchoutSetup';
+import parseQueryParams from '../utils/parse-query-params';
+import removeQString from '../utils/remove-query-string';
+import buildUrl from '../utils/buildUrl';
 
 const myAccountModalTheme = 'my-account-dropdown';
 class MyAccountDropDown extends React.Component {
@@ -34,7 +40,8 @@ class MyAccountDropDown extends React.Component {
         this.header = null;
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        (new SessionStore()).setUserType(this.props.config.siteConfig);
         this.accountHeaderUser = document.querySelector('.cmp-header__top-bar__nav .top-bar__nav__user');
         this.allNavItems = document.querySelectorAll('.top-bar__nav__item:not(.top-bar__nav__user)');
         this.header = document.querySelector('header.cmp-header');
@@ -53,6 +60,11 @@ class MyAccountDropDown extends React.Component {
         }
 
         window.addEventListener('resize', this.updateViewport, true);
+
+        this.punchoutSetup();
+
+         // Validates 1TU token, once get from query string
+        await this.punchoutLogin();
 
         if (loginStatus.state()) {
             this.retrieveUserDetails();
@@ -280,6 +292,46 @@ class MyAccountDropDown extends React.Component {
             userDetails: {
                 userName,
                 accountName
+            }
+        }
+    }
+
+    punchoutLogin = async () => {
+        const urlParams = parseQueryParams(window.location.search);
+        const token = urlParams['1tu'] || '';
+        if (token) {
+            const { response } = await punchoutLogin(this.props.config.punchoutLogin, { token });
+            if ( response && response.status !== 200) {
+                //  TODO, Error handling
+            } else {
+                removeQString();
+            }
+        }
+    }
+
+    punchoutSetup = async () => {
+        const urlParams = parseQueryParams(window.location.search);
+        const sid = urlParams['sid'] || '';
+        if (sid) {
+            const response = await punchoutSetup(buildUrl({
+                pathname: this.props.config.punchoutSetup,
+                query: {},
+                pathVars: {
+                    userId: "anonymous",
+                    sid: sid
+                }
+            }));
+            if (response && response.status !== 200) {
+                //  TODO, Error handling
+            } else {
+                (new SessionStore()).setPunchoutSetupDetails({
+                    returnUrl: response.return_url,
+                    redirectUrl: response.redirect_url,
+                    buyerOrgName: response.buyerOrgName,
+                    currency: response.currency,
+                    country: response.country,
+                });
+                (new LocalStore()).setCartId(response.cartId);
             }
         }
     }

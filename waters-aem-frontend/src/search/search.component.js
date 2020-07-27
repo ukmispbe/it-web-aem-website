@@ -7,10 +7,10 @@ import ResultsCount from './components/results-count';
 const SearchComponent = props => {
     return (
         <>
-            <Tabs className="cmp-search__categories-tabs"
+            {!props.isEprocurementUser && <Tabs className="cmp-search__categories-tabs"
                 items={props.categoryProps.categories}
                 activeIndex={props.categoryProps.activeIndex}
-                onClick={props.categoryEvents.onCategoryTabClick} />
+                onClick={props.categoryEvents.onCategoryTabClick} />}
 
             <div>
                 <div className="overlay" />
@@ -48,7 +48,8 @@ const SearchComponent = props => {
                     filterTagsProps={props.filterTagsProps}
                     filterTagsEvents={props.filterTagsEvents}
                     resultsProps={props.resultsProps}
-                    resultsEvents={props.resultsEvents} />
+                    resultsEvents={props.resultsEvents}
+                    isEprocurementUser={props.isEprocurementUser} />
             </div>
         </>
     );
