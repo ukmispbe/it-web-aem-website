@@ -36,7 +36,7 @@ class MockHybrisClient implements HybrisClient {
     private <T> T getModel(String jsonFileName, Class<T> clazz) {
         LOG.debug("getting hybris model for file name : {}", jsonFileName)
 
-        def stream = this.class.getResourceAsStream("/$jsonFileName")
+        def stream = MockHybrisClient.getResourceAsStream("/$jsonFileName")
 
         MAPPER.readValue(stream, clazz)
     }
