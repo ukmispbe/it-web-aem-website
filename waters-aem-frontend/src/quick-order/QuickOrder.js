@@ -162,6 +162,7 @@ function QuickOrder(props) {
                 <AddToCartBody
                     config={modalConfig}
                     errorObjCart={errorObjCart}
+                    onClose={() => { }}
                 ></AddToCartBody>
             </Modal>
         </>
