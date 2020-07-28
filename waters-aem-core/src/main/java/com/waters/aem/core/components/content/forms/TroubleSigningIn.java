@@ -30,7 +30,6 @@ import javax.inject.Inject;
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
     extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-@SuppressWarnings("all")
 public class TroubleSigningIn implements ComponentExporter {
 
     public static final String RESOURCE_TYPE = "waters/components/content/forms/troublesigningin";
