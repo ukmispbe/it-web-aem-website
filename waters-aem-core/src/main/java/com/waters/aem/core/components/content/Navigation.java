@@ -49,4 +49,9 @@ public class Navigation implements com.adobe.cq.wcm.core.components.models.Navig
     public String getId() {
         return delegate.getId();
     }
+    
+    @Override
+    public String getAccessibilityLabel() {
+        return delegate.getAccessibilityLabel();
+    }
 }
