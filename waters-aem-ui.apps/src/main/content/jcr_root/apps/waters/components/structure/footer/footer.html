@@ -50,10 +50,12 @@
                 <p>${footer.copyrightText}</p>
             </div>
             <div class="cmp-footer__selector ${footer.languagePages.size == 1 ? 'one-link' : ''}">
-                <div class="cmp-footer__selector__region">
-                    <span>${footer.countryName @ i18n}</span>
-                    <img class="inline-svg" src="/content/dam/waters/en/brand-assets/icons/modal.svg"
-                        alt="${'Country' @ i18n}" />
+                <div data-sly-test="${!footer.eprocurement}">
+                    <div class="cmp-footer__selector__region">
+                        <span>${footer.countryName @ i18n}</span>
+                        <img class="inline-svg" src="/content/dam/waters/en/brand-assets/icons/modal.svg"
+                            alt="${'Country' @ i18n}" />
+                    </div>
                 </div>
                 <div class="cmp-footer__selector__language ${footer.languagePages.size == 1 ? 'one-link' : ''}">
                     <a href="${footer.languagePages[0].page.href}">${footer.languagePages[0].languageTitle}</a>
