@@ -16,6 +16,7 @@ import punchoutSetup from '../my-account/services/PunchoutSetup';
 import parseQueryParams from '../utils/parse-query-params';
 import removeQString from '../utils/remove-query-string';
 import buildUrl from '../utils/buildUrl';
+import EprocSetupFailure from '../eproc-setup-failure/EprocSetupFailure';
 
 const myAccountModalTheme = 'my-account-dropdown';
 class MyAccountDropDown extends React.Component {
@@ -32,6 +33,13 @@ class MyAccountDropDown extends React.Component {
                     userName: '',
                     accountName: ''
                 }
+            },
+            eprocSetupFailure: {
+                status: false,
+                title: '',
+                text: '',
+                icon: this.props.eProcSetupFailure.icon,
+                buttons: this.props.eProcSetupFailure.buttons
             }
         };
 
@@ -302,7 +310,29 @@ class MyAccountDropDown extends React.Component {
         if (token) {
             const { response } = await punchoutLogin(this.props.config.punchoutLogin, { token });
             if ( response && response.status !== 200) {
-                //  TODO, Error handling
+                const sessionStore = new SessionStore();
+                const responseJson = await response.json();
+                const { requestFailureTitle, requestFailureMessage, sessionTimeoutTitle, sessionTimeoutMessage } = this.props.eProcSetupFailure;
+                let punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
+                if(!this.state.eprocSetupFailure.status) {
+                    if(Object.keys(punchoutSetupDetails).length === 0) {
+                        await this.punchoutSetup(); // retrieve punchout setup
+                        punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
+                    }
+                    this.setState(prevState => ({
+                        eprocSetupFailure: {
+                            ...prevState.eprocSetupFailure,
+                            status: true,
+                            title: responseJson.code === 400 ? sessionTimeoutTitle : requestFailureTitle,
+                            text: responseJson.code === 400 ? sessionTimeoutMessage : requestFailureMessage,
+                            buttons: [{ 
+                                    text: prevState.eprocSetupFailure.buttons[0].text,
+                                    action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '#',
+                                    noAction: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? false : true
+                                }]
+                        }
+                    }));
+                }
             } else {
                 removeQString();
             }
@@ -322,7 +352,16 @@ class MyAccountDropDown extends React.Component {
                 }
             }));
             if (response && response.status !== 200) {
-                //  TODO, Error handling
+                const { requestFailureTitle, requestFailureMessage } = this.props.eProcSetupFailure;
+                this.setState(prevState => ({
+                    eprocSetupFailure: {
+                        ...prevState.eprocSetupFailure,
+                        status: true,
+                        title: requestFailureTitle,
+                        text: requestFailureMessage,
+                        buttons: [{ text: prevState.eprocSetupFailure.buttons[0].text, action: '#', noAction: true }]
+                    }
+                }));
             } else {
                 (new SessionStore()).setPunchoutSetupDetails({
                     returnUrl: response.return_url,
@@ -347,6 +386,7 @@ class MyAccountDropDown extends React.Component {
                 ) : (
                     <MyAccountContainer config={this.getConfig()} />
                 )}
+                <EprocSetupFailure {...this.state.eprocSetupFailure} />
             </>
         )
     }
@@ -354,7 +394,19 @@ class MyAccountDropDown extends React.Component {
 
 MyAccountDropDown.propTypes = {
     config: PropTypes.object.isRequired,
+    eProcSetupFailure: PropTypes.object,
 };
+
+MyAccountDropDown.defaultProps = {
+    eProcSetupFailure: {
+        requestFailureTitle: '',
+        requestFailureMessage: '',
+        sessionTimeoutTitle: '',
+        sessionTimeoutMessage: '',
+        icon: '',
+        buttons: [{ text: '' }]
+    }
+}
 
 export default MyAccountDropDown;
 export { myAccountModalTheme };

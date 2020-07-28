@@ -1,0 +1,9 @@
+@import '../../styles/variables.scss';
+
+.cmp-modal-box {
+    z-index: $header-top-bar-user-z-index;
+}
+
+a.cmp-button{
+    padding: $space-xs $space-xxs;
+}

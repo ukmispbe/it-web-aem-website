@@ -286,9 +286,14 @@ if (header && MyAccountDropDownContainer) {
     const config = JSON.parse(
         document.getElementById('account-modal-configs-json').innerHTML
     );
+    const commerceConfigs = document.getElementById('commerce-configs-json');
+    let eProcSetupFailure = {};
+    if (commerceConfigs) {
+        eProcSetupFailure = JSON.parse(commerceConfigs.innerHTML);
+    }
 
     ReactDOM.render(
-        <MyAccountDropDown config={config} />,
+        <MyAccountDropDown config={config} eProcSetupFailure={eProcSetupFailure.setupFailure || {}} />,
         MyAccountDropDownContainer
     );
 }

@@ -80,7 +80,8 @@ const AddToCartModalBody = props => {
             );
         } else if (
             btn.action.indexOf('://') >= 0 ||
-            btn.action.indexOf('.com') >= 0
+            btn.action.indexOf('.com') >= 0 ||
+            btn.noAction
         ) {
             return (
                 <a
