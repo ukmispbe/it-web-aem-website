@@ -194,6 +194,7 @@ const Form = ({
                 tempOption.accountStreet = item.partnerAddress[0].street;
                 tempOption.accountCity = item.partnerAddress[0].city;
                 tempOption.accountZip = item.partnerAddress[0].postalCd;
+                tempOption.region = item.partnerAddress[0].regio;
                 return tempOption;
             });
 
