@@ -50,7 +50,7 @@
                 <p>${footer.copyrightText}</p>
             </div>
             <div class="cmp-footer__selector ${footer.languagePages.size == 1 ? 'one-link' : ''}">
-                <div class="cmp-footer__selector__region">
+                <div data-sly-test="${!footer.eprocurement}" class="cmp-footer__selector__region">
                     <span>${footer.countryName @ i18n}</span>
                     <img class="inline-svg" src="/content/dam/waters/en/brand-assets/icons/modal.svg"
                         alt="${'Country' @ i18n}" />
