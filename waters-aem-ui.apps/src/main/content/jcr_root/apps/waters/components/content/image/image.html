@@ -8,6 +8,7 @@
      data-asset="${image.fileReference}"
      data-asset-id="${image.uuid}"
      data-title="${image.title || image.alt}"
+	 id="${image.id}"
      class="cmp-image${!wcmmode.disabled ? ' cq-dd-image' : ''}"
      itemscope itemtype="http://schema.org/ImageObject">
     <h3 data-sly-test="${image.imageTitle}" >${image.imageTitle}</h3>

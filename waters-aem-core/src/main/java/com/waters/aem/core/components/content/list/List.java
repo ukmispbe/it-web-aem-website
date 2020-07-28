@@ -120,4 +120,9 @@ public final class List implements com.adobe.cq.wcm.core.components.models.List 
     public String getDateFormatString() {
         return delegate.getDateFormatString();
     }
+    
+    @Override
+    public String getId() {
+        return delegate.getId();
+    }
 }

@@ -101,4 +101,9 @@ public final class Image implements com.adobe.cq.wcm.core.components.models.Imag
     public String getExportedType() {
         return delegate.getExportedType();
     }
+    
+    @Override
+    public String getId() {
+        return delegate.getId();
+    }
 }
