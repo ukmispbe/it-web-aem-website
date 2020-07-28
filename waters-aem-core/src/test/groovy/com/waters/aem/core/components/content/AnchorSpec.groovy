@@ -27,7 +27,7 @@ class AnchorSpec extends WatersSpec {
                         "jcr:content"(
                                 "cq:template": WatersConstants.TEMPLATE_SKU_PAGE,
                                 "hybris:code": "186007517",
-                                "hybris:productResourcePath": "/etc/commerce/products/186/186007517") {
+                                "hybris:productResourcePath": "/var/commerce/products/186/186007517") {
                             anchor()
                             section1("sling:resourceType": SectionContainer.RESOURCE_TYPE,
                                     title: "Product Description") {

@@ -50,7 +50,7 @@ public class WorkflowConstants {
 
     public static final String WORKFLOW_COMPLETED_EMAIL_SUBJECT = "Workflow notification: WorkflowCompleted";
 
-    public static final String WORKFLOW_ID = "/etc/workflow/models/request_for_activation/jcr:content/model";
+    public static final String WORKFLOW_ID = "/libs/settings/workflow/models/request_for_activation/jcr:content/model";
 
     private WorkflowConstants() {
 

@@ -33,8 +33,8 @@ class MethodFileButtonSpec extends WatersSpec {
             }
         }
 
-        nodeBuilder.etc {
-            tags("sling:Folder") {
+        nodeBuilder.content {
+            cq:tags("sling:Folder") {
                 waters("cq:Tag") {
                     yearPublished() {
                         "2018"("cq:Tag", "jcr:title": "2018")

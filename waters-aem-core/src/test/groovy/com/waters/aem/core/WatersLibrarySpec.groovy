@@ -32,8 +32,8 @@ abstract class WatersLibrarySpec extends WatersSpec {
             }
         }
 
-        nodeBuilder.etc {
-            tags("sling:Folder") {
+        nodeBuilder.content {
+            cq:tags("sling:Folder") {
                 waters("cq:Tag") {
                     category("cq:Tag") {
                         library("cq:Tag", "jcr:title": "Library")

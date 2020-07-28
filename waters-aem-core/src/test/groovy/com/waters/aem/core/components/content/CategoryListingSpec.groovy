@@ -55,7 +55,7 @@ class CategoryListingSpec extends WatersSpec {
             }
         }
 
-        nodeBuilder.etc {
+        nodeBuilder.var {
             commerce {
                 products {
                     "186" {

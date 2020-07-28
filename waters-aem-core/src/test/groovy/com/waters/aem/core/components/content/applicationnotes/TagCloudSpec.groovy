@@ -14,14 +14,14 @@ class TagCloudSpec extends WatersLibrarySpec {
             waters {
                 "jcr:content"(
                     "cq:template": WatersConstants.TEMPLATE_APPLICATION_NOTES_PAGE,
-                    contentType: ["/etc/tags/waters/contenttype/applicationnote"],
-                    category: ["/etc/tags/waters/category/library"],
-                    compoundMatrix: ["/etc/tags/waters/matrix/first"],
-                    market: ["/etc/tags/waters/market/first", "/etc/tags/waters/market/second"]
+                    contentType: ["/content/cq:tags/waters/contenttype/applicationnote"],
+                    category: ["/content/cq:tags/waters/category/library"],
+                    compoundMatrix: ["/content/cq:tags/waters/matrix/first"],
+                    market: ["/content/cq:tags/waters/market/first", "/content/cq:tags/waters/market/second"]
                 ) {
                     tagcloud(
                         title: "keywords",
-                        tags: ["/etc/tags/waters/matrix", "/etc/tags/waters/market"]
+                        tags: ["/content/cq:tags/waters/matrix", "/content/cq:tags/waters/market"]
                     )
                 }
                 library {
@@ -29,7 +29,7 @@ class TagCloudSpec extends WatersLibrarySpec {
                         "cq:template": WatersConstants.TEMPLATE_LIBRARY_PAGE,
                         (WatersConstants.PROPERTY_LIBRARY_ASSET_PATH): "/content/dam/waters/library/asset.pdf"
                     ) {
-                        tagcloud(tags: ["/etc/tags/waters/matrix", "/etc/tags/waters/market"])
+                        tagcloud(tags: ["/content/cq:tags/waters/matrix", "/content/cq:tags/waters/market"])
                     }
                 }
             }
