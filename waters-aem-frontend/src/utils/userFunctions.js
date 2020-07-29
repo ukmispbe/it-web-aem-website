@@ -218,6 +218,7 @@ export const filterUserDetails = (inputUser) => {
     if (inputUser) {
         filteredUser.firstName = inputUser.firstName;
         filteredUser.lastName = inputUser.lastName;
+        filteredUser.company = inputUser.company || '';
         filteredUser.dummySoldto = inputUser.dummySoldto;
         filteredUser.localeCountry = inputUser.localeCountry;
         filteredUser.localeLanguage = inputUser.localeLanguage;
