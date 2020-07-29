@@ -51,7 +51,9 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
 
             final String sourceLanguageCode = sourceLanguageRoot.substring(sourceLanguageRoot.lastIndexOf('/'));
 
-            if (shouldAdjustLanguage(sourceLanguageCode, destinationLanguageCode)) {
+            final String destinationUrl = target.getPath();
+
+            if (shouldAdjustLanguage(sourceLanguageCode, destinationLanguageCode) || destinationUrl.contains(WatersConstants.ORDER_ROOT_PATH)) {
                 try {
 
                     final PropertyIterator properties = target.adaptTo(Node.class).getProperties();
@@ -61,9 +63,9 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
 
                         if(prop.getType() == PropertyType.STRING) {
                             if (prop.isMultiple()) {
-                                adjustMultiValuedProperties(prop, destinationLanguageCode);
+                                adjustMultiValuedProperties(prop, destinationLanguageCode,destinationUrl);
                             } else {
-                                adjustSingleValueProperty(prop, destinationLanguageCode);
+                                adjustSingleValueProperty(prop, destinationLanguageCode,destinationUrl);
                             }
                         }
                     }
@@ -86,6 +88,10 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
         return !languageCode.equals(destinationLanguageCode);
     }
 
+    private boolean shouldAdjustReferences(final String destinationUrl) {
+        return destinationUrl.contains(WatersConstants.ORDER_ROOT_PATH);
+    }
+
     private String getPropertyLanguageCode(final String value) {
         final String lang = LanguageUtil.getLanguageRoot(value);
         return lang.substring(lang.lastIndexOf('/'));
@@ -95,7 +101,7 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
         return value.startsWith(WatersConstants.ROOT_PATH);
     }
 
-    private void adjustMultiValuedProperties(final Property prop, final String destinationLanguageCode)
+    private void adjustMultiValuedProperties(final Property prop, final String destinationLanguageCode, final String destinationUrl)
     throws RepositoryException {
         final  List<String> adjustedValues = new ArrayList<>();
 
@@ -107,6 +113,8 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
 
                 if (shouldAdjustLanguage(languageCode, destinationLanguageCode)) {
                     adjustedValues.add(valueString.replace(languageCode, destinationLanguageCode));
+                } else if (shouldAdjustReferences(destinationUrl)){
+                    adjustedValues.add(valueString.replace(WatersConstants.ROOT_PATH_LANGUAGE_MASTERS, WatersConstants.ORDER_ROOT_PATH));
                 } else {
                     adjustedValues.add(valueString);
                 }
@@ -117,7 +125,7 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
         }
     }
 
-    private void adjustSingleValueProperty(final Property prop, final String destinationLanguageCode)
+    private void adjustSingleValueProperty(final Property prop, final String destinationLanguageCode, final String destinationUrl)
     throws RepositoryException {
         final String value = prop.getString();
 
@@ -126,6 +134,9 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
 
             if (shouldAdjustLanguage(languageCode, destinationLanguageCode)) {
                 prop.setValue(value.replace(languageCode, destinationLanguageCode));
+            }
+            else if (shouldAdjustReferences(destinationUrl)){
+                prop.setValue(value.replace(WatersConstants.ROOT_PATH_LANGUAGE_MASTERS, WatersConstants.ORDER_ROOT_PATH));
             }
         }
     }

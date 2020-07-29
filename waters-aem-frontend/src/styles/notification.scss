@@ -29,7 +29,6 @@
 
     &--my-account {
         @include mobile {
-            margin-top: $space-l;
 
             .cmp-notification-wrapper {
                 margin-bottom: 0;
@@ -169,13 +168,6 @@
     }
 }
 
-.cmp-notification--left {
-    .cmp-notification-wrapper {
-        justify-content: left;
-        background-color: transparent;
-        padding: 0;
-    }
-}
 
 .cmp-notification--feature {
     .cmp-notification-wrapper {
@@ -186,6 +178,13 @@
 }
 
 .cmp-notification--inline {
+    &.cmp-notification--inline-sku{
+        .cmp-notification-wrapper{
+            padding: $space-xxxs 0;
+            margin-bottom: 0;
+        }
+    }
+
     .cmp-notification-wrapper {
         padding: ($space-xxs - .1em) $space-xxs $space-xxs $space-xxs;
         justify-content: left;
@@ -262,5 +261,32 @@ div[class*="cmp-notification--error"], div[class~="cmp-notification--error"]{
                 color: $color-white;
             }
         }
+    }
+}
+
+.cmp-notification--feature {
+    .cmp-notification-wrapper {
+        justify-content: center;
+        background-color: transparent;
+        border: unset;
+        border-top: 2px solid $color-teal-20;
+        border-bottom: 2px solid $color-teal-20;
+        border-radius: unset;
+    }
+}
+
+.cmp-notification--left {
+    .cmp-notification-wrapper {
+        justify-content: left;
+        background-color: transparent;
+        padding: 0;
+    }
+}
+
+.cmp-notification--center {
+    .cmp-notification-wrapper {;
+        border: unset;
+        background-color: transparent;
+        padding: 0;
     }
 }

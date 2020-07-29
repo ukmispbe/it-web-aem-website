@@ -9,6 +9,9 @@ public enum CountryCommerceConfig {
     @Option(text = "Partially Enabled")
     PARTIAL_ENABLED,
 
+    @Option(text = "CommerceCheckout Disabled")
+    COMMERCE_CHECKOUT_DISABLED,
+
     @Option(text = "Disabled")
     DISABLED;
 
@@ -22,5 +25,9 @@ public enum CountryCommerceConfig {
 
     public boolean isDisabled() {
         return "DISABLED".equals(name());
+    }
+
+    public boolean isCommerceCheckoutDisabled() {
+        return "COMMERCE_CHECKOUT_DISABLED".equals(name());
     }
 }

@@ -36,12 +36,12 @@
                 <ul class="cmp-header__top-bar__nav__ul">
                     <li class="top-bar__nav__search top-bar__nav__item">
                         <div data-sly-test="${header.eprocurement}" id="header-search-bar"
-                            data-baseUrl="${header.searchUrl}"
+                            data-base-url="${header.searchUrl}"
                             data-icon-clear="/content/dam/waters/en/brand-assets/icons/close.svg"
                             data-icon-search="/content/dam/waters/en/brand-assets/icons/search.svg"
                             data-isocode="${header.isocode}"
                             data-placeholder-mobile="${'Search' @ i18n}"
-                            data-placeholder-tablet="${'What do you want to search?' @ i18n}"
+                            data-placeholder-tablet="${'What are you looking for?' @ i18n}"
                             data-custom-style="cmp-header-search-bar">
                         </div>
                         
@@ -134,7 +134,7 @@
                             }
                         </script>
                     </li>
-                    <li class="top-bar__nav__cart top-bar__nav__item" data-ecommerce-state="${header.commerceConfig}">
+                    <li class="top-bar__nav__cart top-bar__nav__item top-bar__nav__cart--hide" data-ecommerce-state="${header.commerceConfig}">
                         <a
                             class="cmp-header-links__link"
                             href="${header.viewCartUrl}"

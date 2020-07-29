@@ -43,20 +43,20 @@ class Shipment extends Component {
         }
     } 
     
-    renderItemCount = (data, shipment) => {
+    renderItemCount = (totalItemsOrdered, shipment) => {
         let label = "";
-        if (data && data.length) {
-            if (data.length > 1) {
+        if (totalItemsOrdered) {
+            if (parseInt(totalItemsOrdered) > 1) {
                 label = shipment.itemsText;
-            } else if (data.length === 1) {
+            } else if (parseInt(totalItemsOrdered) === 1) {
                 label = shipment.itemText;
             } 
 
-            let itemCountLabel = data.length + " " + label;
+            let itemCountLabel = totalItemsOrdered + " " + label;
             return itemCountLabel;
 
         } else {
-            return false
+            return label;
         }
     }
 
@@ -66,7 +66,7 @@ class Shipment extends Component {
     }
 
     render() {
-        const {shipmentNumber, totalShipments, shipment, icons, data } = this.props
+        const {shipmentNumber, totalShipments, shipment, icons, data, totalItemsOrdered } = this.props
         return (
             <div className='order-shipment'>
                 <div className='order-shipment-header'>
@@ -79,7 +79,7 @@ class Shipment extends Component {
                         )}
 
                         <div className="order-shipment-header__item-count">
-                            {this.renderItemCount(data, shipment)}
+                            {this.renderItemCount(totalItemsOrdered, shipment)}
                         </div>
                     </div>
                     <div className="order-shipment-header__right">

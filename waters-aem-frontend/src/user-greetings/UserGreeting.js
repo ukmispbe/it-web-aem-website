@@ -4,25 +4,30 @@ import ReactSVG from 'react-svg';
 import SessionStore from '../stores/sessionStore';
 
 function UserGreeting(props) {
-    const { greetings, logoDirectoryPath, showName, showLogo } = props;
+    const { greetings, logoDirectoryPath } = props;
     const store = new SessionStore();
     const savedUserDetails = store.getUserDetails();
+    const name = `${savedUserDetails.firstName || ''} ${savedUserDetails.lastName || ''}`;
+    const company = savedUserDetails.company || '';
     return (
         <>
             <div className="greetings">
-                <div className="greeting">{greetings}</div>
-                {showName && <div className="name">{`${savedUserDetails.firstName} ${savedUserDetails.lastName}`}</div>}
-                <div className="company">{savedUserDetails.company}</div>
+                <h2>{greetings}</h2>
+                <h3>{name.trim()}</h3>
+                <h4>{company}</h4>
             </div>
-            {showLogo &&
-                <ReactSVG
-                    src={`${logoDirectoryPath.replace(/\/$/, '')}/${savedUserDetails.company.trim().replace(/ /g, '-').toLowerCase()}.svg`}
-                    alt={savedUserDetails.company}
-                    className="logo"
-                />
-            }
+            <ReactSVG
+                src={`${logoDirectoryPath.replace(/\/$/, '')}/${company.trim().replace(/ /g, '-').toLowerCase()}.svg`}
+                alt={savedUserDetails.company || ''}
+                className="logo"
+            />
         </>
     );
 }
+
+UserGreeting.defaultProps = {
+    greetings: '',
+    logoDirectoryPath: ''
+};
 
 export default UserGreeting;
