@@ -226,6 +226,7 @@ export const filterUserDetails = (inputUser) => {
         filteredUser.userId = inputUser.userId;
         filteredUser.salesOrg = inputUser.salesOrg;
         filteredUser.soldToAccounts = [];
+        filteredUser.approvalStatus = inputUser.approvalStatus;
 
         if (inputUser.soldToAccounts && inputUser.soldToAccounts.length !== 0) {
             filteredUser.soldToAccounts = inputUser.soldToAccounts;
