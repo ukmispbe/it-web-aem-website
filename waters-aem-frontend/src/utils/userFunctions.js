@@ -227,6 +227,8 @@ export const filterUserDetails = (inputUser) => {
         filteredUser.salesOrg = inputUser.salesOrg;
         filteredUser.soldToAccounts = [];
         filteredUser.approvalStatus = inputUser.approvalStatus;
+        filteredUser.userRole = inputUser.userRole;
+        filteredUser.isoCode = inputUser.isoCode;
 
         if (inputUser.soldToAccounts && inputUser.soldToAccounts.length !== 0) {
             filteredUser.soldToAccounts = inputUser.soldToAccounts;
