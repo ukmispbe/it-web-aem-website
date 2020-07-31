@@ -29,6 +29,7 @@ import WeChat from './wechat';
 import MyAccountRouter from './my-account';
 import CountrySelector from './country-selector';
 import SessionStore from './stores/sessionStore';
+import LoginStatus from "./scripts/loginStatus";
 
 if (process.env.NODE_ENV !== 'production') {
     const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -204,6 +205,7 @@ if (imageGalleryContainers) {
     });
 }
 
+// Start SKU Details Component
 const skuDetailsContainer = document.querySelector('.cmp-sku-details__ecom');
 const skuDetailsConfig = JSON.parse(
     document.getElementById('commerce-configs-json').innerHTML
@@ -234,31 +236,32 @@ if (skuDetailsContainer) {
         skuDetailsConfig.baseSignInUrl = accountModalConfig.signIn.url;
     }
 
-
-    if (skuDetailsConfig) {
-        let accountModalConfig = {};
-        if (header) {
-            accountModalConfig = JSON.parse(document.getElementById('account-modal-configs-json').innerHTML);
-        }
-        skuDetailsConfig.baseSignInUrl = accountModalConfig.signIn.url;
+    if (LoginStatus.state()) {
+        const store = new SessionStore();
+        waitUntilUserExists(store, skuDetailsContainer, skuDetailsRender);
+    } else {
+        skuDetailsRender(skuDetailsContainer)
     }
 
-
-    ReactDOM.render(
-        <SkuDetails
-            config={skuDetailsConfig}
-            price={skuDetailsListPrice}
-            countryRestricted={skuCountryRestricted}
-            skuNumber={skuNumber}
-            titleText={skuTitle}
-            discontinued={skuDiscontinued}
-            replacementSkuCode={replacementSkuCode}
-            replacementSkuHref={replacementSkuHref}
-        />,
-        skuDetailsContainer
-    );
+    function skuDetailsRender(skuDetailsContainer) {
+        ReactDOM.render(
+            <SkuDetails
+                config={skuDetailsConfig}
+                price={skuDetailsListPrice}
+                countryRestricted={skuCountryRestricted}
+                skuNumber={skuNumber}
+                titleText={skuTitle}
+                discontinued={skuDiscontinued}
+                replacementSkuCode={replacementSkuCode}
+                replacementSkuHref={replacementSkuHref}
+            />,
+            skuDetailsContainer
+        );
+    }
 }
+// End SKU Details Component
 
+// Start SKU List Component
 const skuListContainer = document.querySelector('.cmp-sku-list');
 
 if (skuListContainer) {
