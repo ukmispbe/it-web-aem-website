@@ -26,6 +26,6 @@ public @interface SolrIndexServiceConfiguration {
         WatersConstants.TEMPLATE_SKU_PAGE
     };
 
-    @AttributeDefinition(name = "Excluded Locales", description = "List of locales to exclude from indexing.(ex: de:en - sourcelocale:replacelocale)")
+    @AttributeDefinition(name = "Excluded Locales", description = "List of locales to exclude from indexing. Format is <sourcelocale>:<replacelocale> (ex: de:en)")
     String[] excludedLocales();
 }
