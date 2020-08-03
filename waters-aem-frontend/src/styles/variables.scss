@@ -140,27 +140,26 @@ $tablet-width: 650px;
 $mobile-width: 414px;
 
 // z-index catalog
-$header-mobile-z-index: 400;
-$header-overlay-z-index: 505;
-$header-top-bar-z-index: 505;
-$header-top-bar-user-z-index: 506;
-$cmp-banner-z-index: 99;
-$cmp-banner-active-overlay-z-index: 401;
-$navigation-z-index: 401;
-$navigation-overlay-z-index: 400;
-$navigation-group-z-index: 402;
-$navigation-level-0-z-index:402;
-$navigation-after-z-index: 405;
-$sku-details-sticky-index: 498;
-$cmp-modal-box-z-index: 499;
+$screen-reader-textfocus-z-index: 100000;
 $cmp-search-bar-z-index: 9999;
 $cmp-title-z-index: 9999;
 $cmp-search-overlay-z-index: 9999;
-$image-viewer-container__image-zoom-z-index: 99;
-$screen-reader-textfocus-z-index: 100000;
-$cmp-back-to-top-z-index: 98;
+$header-top-bar-user-z-index: 506;
+$header-overlay-z-index: 505;
+$header-top-bar-z-index: 505;
+$cmp-modal-box-z-index: 499;
+$sku-details-sticky-index: 498;
+$navigation-after-z-index: 405;
+$navigation-group-z-index: 402;
+$navigation-level-0-z-index:402;
+$cmp-banner-active-overlay-z-index: 401;
+$navigation-z-index: 401;
+$header-mobile-z-index: 400;
+$navigation-overlay-z-index: 400;
 $cmp-anchor--sticky-z-index: 100;
-
+$cmp-banner-z-index: 99;
+$image-viewer-container__image-zoom-z-index: 99;
+$cmp-back-to-top-z-index: 98;
 
 $border-radius: 4px;
 
