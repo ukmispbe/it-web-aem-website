@@ -7,11 +7,7 @@ import com.waters.aem.solr.client.SolrIndexClient;
 import com.waters.aem.solr.index.SkuSolrIndexContentPredicate;
 import com.waters.aem.solr.index.SolrIndexService;
 import com.waters.aem.solr.index.SolrIndexServiceConfiguration;
-import com.waters.aem.solr.index.builder.ApplicationNotesSolrInputDocumentBuilder;
-import com.waters.aem.solr.index.builder.DefaultSolrInputDocumentBuilder;
-import com.waters.aem.solr.index.builder.LibrarySolrInputDocumentBuilder;
-import com.waters.aem.solr.index.builder.SkuSolrInputDocumentBuilder;
-import com.waters.aem.solr.index.builder.SolrInputDocumentBuilder;
+import com.waters.aem.solr.index.builder.*;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
@@ -53,6 +49,8 @@ public class DefaultSolrIndexService implements SolrIndexService {
     private volatile List<String> excludedPaths;
 
     private volatile List<String> includedTemplates;
+
+    private volatile List<String> excludedLocales;
 
     @Override
     public boolean addPageToIndex(final String path) throws IOException, SolrServerException {
@@ -121,6 +119,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
         includedPaths = Arrays.asList(configuration.includedPaths());
         excludedPaths = Arrays.asList(configuration.excludedPaths());
         includedTemplates = Arrays.asList(configuration.includedTemplates());
+        excludedLocales = Arrays.asList(configuration.excludedLocales());
     }
 
     /**
@@ -175,5 +174,11 @@ public class DefaultSolrIndexService implements SolrIndexService {
             // re-throw as runtime exception to propagate up to the event framework
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public List<String> getExcludedLocales() {
+
+        return excludedLocales;
     }
 }

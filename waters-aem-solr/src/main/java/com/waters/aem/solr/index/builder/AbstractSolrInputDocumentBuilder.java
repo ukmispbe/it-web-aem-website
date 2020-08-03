@@ -15,6 +15,7 @@ import com.waters.aem.core.components.structure.page.Thumbnail;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.metadata.ContentClassification;
 import com.waters.aem.core.utils.SearchUtils;
+import com.waters.aem.solr.index.SolrIndexService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.AbstractResourceVisitor;
 import org.apache.sling.api.resource.Resource;
@@ -34,11 +35,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -83,6 +80,9 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
 
     @Inject
     private Externalizer externalizer;
+
+    @Inject
+    private SolrIndexService solrService;
 
     public final SolrInputDocument build() {
         final SolrInputDocument document = new SolrInputDocument();
@@ -162,8 +162,14 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
             final Sku sku = skuOptional.get();
 
             final DisplayableSku displayableSku = new DisplayableSku(sku, siteContext);
-            document.setField("eprocUrl", page.getHref().replace(page.getParent(4).getPath(),""));
+            List excludedLocales = solrService.getExcludedLocales();
+            if(!excludedLocales.isEmpty()){
+                String modifiedPagecUrl = modifyPageUrl(excludedLocales, page.getHref().replace(page.getParent(4).getPath(),""));
+                document.setField("eprocUrl", modifiedPagecUrl);
+            }else {
+                document.setField("eprocUrl", page.getHref().replace(page.getParent(4).getPath(),""));
 
+            }
             setDocumentStringField(document,"unspsc",sku.getUnspsc());
 
             setDocumentStringField(document, "skucode", sku.getCode());
@@ -288,6 +294,17 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         if (datePublished != null) {
             document.setField("datepublished", DateTimeFormatter.ISO_INSTANT.format(datePublished.toInstant()));
         }
+    }
+
+    private String modifyPageUrl(List<String> excludedLocales, String pageUrl) {
+        if (StringUtils.isNotBlank(pageUrl) && !excludedLocales.isEmpty()) {
+            for (String replaceLocale : excludedLocales) {
+                return pageUrl.split("/")[1].equals(replaceLocale.split(":")[0])
+                        ? pageUrl.replace(pageUrl.split("/")[1], replaceLocale.split(":")[1])
+                        : pageUrl;
+            }
+        }
+        return StringUtils.EMPTY;
     }
 
 }
