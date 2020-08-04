@@ -60,12 +60,10 @@ if (languageSelector) {
 }
 
 document.addEventListener('mopinion_will_show', e => {
-    console.log("mopinion_will_show");
     domElements.noScroll(true);
 });
 
 document.addEventListener('mopinion_will_hide', e => {
-    console.log("mopinion_will_hide");
     domElements.noScroll(false);
 });
   
