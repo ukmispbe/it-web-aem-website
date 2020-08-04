@@ -1,3 +1,5 @@
+import domElements from './domElements';
+
 const scriptElement = document.getElementById('country-list-json');
 const countries = scriptElement && scriptElement.innerHTML.trim() ? JSON.parse(scriptElement.innerHTML) : [];
 
@@ -56,3 +58,14 @@ if (languageSelector) {
         });
     }
 }
+
+document.addEventListener('mopinion_will_show', e => {
+    console.log("mopinion_will_show");
+    domElements.noScroll(true);
+});
+
+document.addEventListener('mopinion_will_hide', e => {
+    console.log("mopinion_will_hide");
+    domElements.noScroll(false);
+});
+  
