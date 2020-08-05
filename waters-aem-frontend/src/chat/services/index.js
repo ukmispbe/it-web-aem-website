@@ -3,7 +3,7 @@ import 'whatwg-fetch';
 class ChatService {
     constructor(
         countryCode = 'US',
-        statusApi = 'https://test-www.waters.com:8443/api/waters/v1/chat/enabled/{countryCode}'
+        statusApi = 'https://testservices.waters.com:8443/api/waters/v1/chat/enabled/{countryCode}'
     ) {
         this.countryCode = countryCode;
         this.statusApi = statusApi;
