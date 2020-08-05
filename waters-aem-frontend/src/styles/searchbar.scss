@@ -203,7 +203,7 @@
 */
 body.cmp-search-bar__auto-suggest--open {
     .cmp-search-bar {
-        z-index: 9999;
+        z-index: $cmp-search-bar-z-index;
     }
     .cmp-banner {
         -ms-overflow-y: visible;
@@ -213,7 +213,7 @@ body.cmp-search-bar__auto-suggest--open {
 
     .cmp-title {
         position: relative;
-        z-index: 9999;
+        z-index: $cmp-title-z-index;
     }
 }
 

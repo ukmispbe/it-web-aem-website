@@ -62,7 +62,7 @@ html.modalOpen .image-carousel {
     width: 4em;
     height: 4em;
     position: absolute;
-    z-index: 99;
+    z-index: $image-viewer-container__image-zoom-z-index;
     background: $color-white;
     opacity: .8;
     float: right;
