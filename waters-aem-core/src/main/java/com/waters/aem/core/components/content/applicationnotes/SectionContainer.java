@@ -194,6 +194,6 @@ public final class SectionContainer extends AbstractComponent implements Contain
             .map(componentNode ->
                     modelFactory.getModelFromWrappedRequest(request, componentNode.getResource(), EmptyComponent.class))
             .filter(Objects::nonNull)
-            .noneMatch(EmptyComponent::isEmpty);
+            .noneMatch(EmptyComponent::isEmpty) && !hideSectionContainer();
     }
 }
