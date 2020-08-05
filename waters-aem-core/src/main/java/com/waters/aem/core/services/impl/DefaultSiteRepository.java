@@ -95,7 +95,6 @@ public final class DefaultSiteRepository implements SiteRepository {
                                             final boolean matchNodeName) {
         return getCountryRootPages(resourceResolver)
             .stream()
-            .filter(page -> countryCode.equalsIgnoreCase(page.getLanguage(false).getCountry()))
             .filter(page -> !matchNodeName || countryCode.equalsIgnoreCase(page.getName()))
             .findFirst()
             .orElse(null);
@@ -120,6 +119,8 @@ public final class DefaultSiteRepository implements SiteRepository {
         final LiveRelationshipManager liveRelationshipManager = resourceResolver.adaptTo(LiveRelationshipManager.class);
 
         final PageDecorator countryRootPage = getCountryRootPage(resourceResolver, countryCode, matchNodeName);
+
+        LOG.debug(" getLanguageRootPage countryRootPage: " + countryRootPage + " languageCode: "+languageCode + "matchNodeName: "+ matchNodeName);
 
         final Predicate<PageDecorator> predicate = Predicates.and(
             languageRootPage -> isLiveCopy(languageRootPage, liveRelationshipManager),

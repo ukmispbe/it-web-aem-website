@@ -3,7 +3,7 @@
           xmlns:jcr="http://www.jcp.org/jcr/1.0"
           jcr:primaryType="sling:OsgiConfig"
           enabled="{Boolean}true"
-          vanity.dispatch.enabled="{Boolean}true"
+          vanity.dispatch.enabled="{Boolean}false"
           serve-authenticated-from-cache="{Boolean}true"
           ttl="{Long}300"
           error-page.system-path="/nextgen/us/en/errors/404"

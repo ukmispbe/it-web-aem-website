@@ -112,4 +112,9 @@ public final class Title implements com.adobe.cq.wcm.core.components.models.Titl
     public String getExportedType() {
         return RESOURCE_TYPE;
     }
+    
+    @Override
+    public String getId() {
+        return delegate.getId();
+    }
 }

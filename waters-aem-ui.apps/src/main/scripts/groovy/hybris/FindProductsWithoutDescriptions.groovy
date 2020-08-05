@@ -1,4 +1,4 @@
-getResource("/etc/commerce/products").children.each { folder ->
+getResource("/var/commerce/products").children.each { folder ->
     folder.children.each { skuResource ->
 
         if(!skuResource.valueMap.get("hybris:shortDescription") && !skuResource.valueMap.get("hybris:longDescription")){

@@ -1,8 +1,6 @@
 const props = {
   greetings: 'Welcome',
-  logoDirectoryPath: '/content/dam/waters/en/brand-assets/logos/',
-  showName: true,
-  showLogo: true
+  logoDirectoryPath: '/content/dam/waters/en/brand-assets/logos/'
 };
 
 export const userDetails = {

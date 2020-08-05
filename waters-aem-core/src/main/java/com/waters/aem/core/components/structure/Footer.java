@@ -522,4 +522,16 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     public String getExportedType() {
         return RESOURCE_TYPE;
     }
+
+    public String getSiteConfig() {
+        String siteConfig = WatersConstants.ECOMMERCE;
+        if(siteContext.getSiteConfig().isEprocurement()){
+            siteConfig = WatersConstants.EPROCUREMENT;
+        }
+        return siteConfig;
+    }
+   
+    public boolean isEprocurement() {
+        return siteContext.getSiteConfig().isEprocurement();
+    }
 }

@@ -26,9 +26,9 @@ import org.osgi.service.metatype.annotations.Designate;
 @Designate(ocd = SolrIndexJobCancelledEventHandlerConfiguration.class)
 public final class SolrIndexJobCancelledEventHandler extends AbstractJobCancelledEventHandler {
 
-    private static final String TEMPLATE_ADD = "/etc/notification/email/waters/solr-add.txt";
+    private static final String TEMPLATE_ADD = "/apps/settings/notification-templates/email/waters/solr-add.txt";
 
-    private static final String TEMPLATE_DELETE = "/etc/notification/email/waters/solr-delete.txt";
+    private static final String TEMPLATE_DELETE = "/apps/settings/notification-templates/email/waters/solr-delete.txt";
 
     @Reference
     private EmailService emailService;

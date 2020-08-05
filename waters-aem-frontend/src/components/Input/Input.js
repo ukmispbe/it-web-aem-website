@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import './Input.scss';
 
 class Input extends PureComponent {
   constructor(props) {
@@ -74,7 +73,7 @@ class Input extends PureComponent {
           id={id}
           type={type}
           name={name}
-          className={`atom-input ${className}`}
+          className={className}
           placeholder={placeholder}
           value={type !== 'file' ? value : undefined}
           readOnly={readOnly}

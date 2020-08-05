@@ -21,7 +21,7 @@ const Modal = props => {
 
     const getApi = useMemo(() => ({
         onClose: props.onClose,
-        closeIcon : props.closeIcon || "/content/dam/waters/en/brand-assets/icons/close.svg"
+        closeIcon : props.showCloseIcon && (props.closeIcon || "/content/dam/waters/en/brand-assets/icons/close.svg")
     }), []);
 
     const handleModalKeyDown = event => {
@@ -77,11 +77,13 @@ const Modal = props => {
 
 Modal.propTypes = {
     onClose: PropTypes.func.isRequired,
-    isOpen: PropTypes.bool.isRequired
+    isOpen: PropTypes.bool.isRequired,
+    showCloseIcon: PropTypes.bool,
 }
 
 Modal.defaultProps = {
-    onClose: () => { }
+    onClose: () => { },
+    showCloseIcon: true,
 }
 
 const Header = props => {

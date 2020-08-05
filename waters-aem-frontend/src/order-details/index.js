@@ -14,6 +14,7 @@ import { addToCart } from '../sku-details/services';
 import Analytics, { analyticTypes, setClickAnalytics, setSelectDropdownAnalytics } from '../analytics';
 import LocalStore from '../stores/localStore';
 import loginStatus from '../scripts/loginStatus';
+import { getFullCompanyAddress, getCountryName } from '../utils/userFunctions'
 
 class OrderDetails extends Component {
     constructor({setErrorBoundaryToTrue, resetErrorBoundaryToFalse, removeNotifications, ...props}) {
@@ -82,6 +83,7 @@ class OrderDetails extends Component {
                     shipmentNumber={i+1}
                     totalShipments={Object.keys(airbills).length}
                     addToCartReorder= {this.addToCartReorder}
+                    totalItemsOrdered={orderDetails.totalItemsOrdered}
                 />
             )
         }
@@ -169,6 +171,11 @@ class OrderDetails extends Component {
         getOrderDetails(detailsUrl, orderId, this.setError)
             .then((data) => {
                 if(data && data.account && data.account.length) {
+                    // Add Country Names to data
+                    data.account.map(account => {
+                        const countryName = getCountryName(account.country, this.config);
+                        account.countryName = countryName;
+                    });
                     this.setState({
                         isLoading: false,
                         orderDetails: data
@@ -208,17 +215,22 @@ class OrderDetails extends Component {
         this.props.removeNotifications();
     }
 
+    config = document.getElementById('json-config--cmp-detail-tiles--personal')
+        ? JSON.parse(document.getElementById('json-config--cmp-detail-tiles--personal').innerHTML) : '';
+
     renderAddress = (addressType) => {
         const {orderDetails} = this.state;
         if (orderDetails.account){
-            let account = orderDetails.account.filter(item => item.partnerType === addressType )[0];
-            return (
-                        <>
-                            <div className="cmp-order-details-address1">{account.partnerName}</div>
-                            <div className="cmp-order-details-address2">{account.street}</div>
-                            <div className="cmp-order-details-address3">{account.city + ", " + account.region} <span className="postalcode">{account.postalCd}</span></div>
-                        </>
-                    );
+            const account = orderDetails.account.filter(item => item.partnerType === addressType )[0];
+            if (account) {
+                const includeCountryName = true;
+                const addressArray = getFullCompanyAddress(account, includeCountryName);
+                return (
+                    <>
+                        {addressArray.map((addressLine) => <div className="cmp-order-details-address1">{addressLine}</div>)}
+                    </>
+                );
+            }
         }
         return null;
     }
@@ -226,18 +238,18 @@ class OrderDetails extends Component {
     renderItemCount = () => {
         const { orderDetails } = this.state;
         let label = "";
-        if (orderDetails.lineItems && orderDetails.lineItems.length) {
-            if (orderDetails.lineItems.length > 1) {
+        if (orderDetails && orderDetails.totalItemsOrdered) {
+            if (parseInt(orderDetails.totalItemsOrdered) > 1) {
                 label = this.props.config.items;
-            } else if (orderDetails.lineItems.length === 1) {
+            } else if (parseInt(orderDetails.totalItemsOrdered) === 1) {
                 label = this.props.config.item;
             }
 
-            let itemCountLabel =  " (" + orderDetails.lineItems.length + " " + label + ")";
+            let itemCountLabel =  " (" + orderDetails.totalItemsOrdered + " " + label + ")";
             return itemCountLabel;
 
         } else {
-            return false
+            return label;
         }
     }
 
@@ -251,6 +263,7 @@ class OrderDetails extends Component {
 
     renderOrderDetails = () => {
         const { orderDetails, userLocale } = this.state;
+        const notZeroDiscountFlag = parseFloat(orderDetails.orderDiscountValue) !== 0 ? true : false;
         return (
             <div className="cmp-order-details__container">
                 <h2 className="cmp-order-details__title">
@@ -276,16 +289,16 @@ class OrderDetails extends Component {
                     <div className="cmp-order-details__payment-container">
                         <div className="cmp-order-details__payment-method">
                             <h4>{this.props.config.paymentMethod}</h4>
-                            {orderDetails.purchaseOrderNumber && (
-                                <>
-                                <ReactSVG src={this.props.config.paymentType.purchaseOrder.icon}/>
-                                <div className="text">{this.props.config.paymentType.purchaseOrder.label}: {orderDetails.purchaseOrderNumber}</div>
-                                </>
-                            )}
-                            {!orderDetails.purchaseOrderNumber && (
+                            {orderDetails.ccNum && (
                                 <>
                                 <ReactSVG src={this.props.config.paymentType.creditCard.icon}/>
                                 <div className="text">{this.props.config.paymentType.creditCard.label}</div>
+                                </>
+                            )}
+                            {!orderDetails.ccNum && orderDetails.purchaseOrderNumber && (
+                                <>
+                                <ReactSVG src={this.props.config.paymentType.purchaseOrder.icon}/>
+                                <div className="text">{this.props.config.paymentType.purchaseOrder.label}: {orderDetails.purchaseOrderNumber}</div>
                                 </>
                             )}
                         </div>
@@ -297,6 +310,12 @@ class OrderDetails extends Component {
                         <div className="cmp-order-details__order-subtotal_left">{this.props.config.subTotal} {this.renderItemCount()}</div>
                         <div className="cmp-order-details__order-subtotal_right">{orderDetails.itemsSubTotal}</div>
                     </div>
+                    {notZeroDiscountFlag && 
+                        <div className="cmp-order-details__order-savings">
+                            <div className="cmp-order-details__order-savings_left">{this.props.config.savings}</div>
+                            <div className="cmp-order-details__order-savings_right">{this.props.config.minusSign}{orderDetails.orderDiscount}</div>
+                        </div>
+                    }
                     <div className="cmp-order-details__order-shipping">
                         <div className="cmp-order-details__order-shipping_left">{this.props.config.shipping}</div>
                         <div className="cmp-order-details__order-shipping_right">{orderDetails.shippingAmount}</div>

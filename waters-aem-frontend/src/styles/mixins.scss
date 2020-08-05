@@ -22,6 +22,18 @@
     }
 }
 
+@mixin large-desktop {
+    @media screen and (min-width: #{$large-desktop-width + 1px}) {
+        @content;
+    }
+}
+
+@mixin extra-large-desktop {
+    @media screen and (min-width: #{$extra-large-desktop-width + 1px}) {
+        @content;
+    }
+}
+
 @mixin mobile-xs {
     @media screen and (max-width: #{$mobile-width - 1px}) {
         @content;

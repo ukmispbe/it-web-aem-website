@@ -16,7 +16,8 @@ class AddToCart extends React.Component {
             isCommerceApiMigrated: this.props.isCommerceApiMigrated,
             toggleErrorModal: this.props.toggleErrorModal,
             toggleParentModal: this.props.toggleParentModal,
-            errorObj: this.props.errorObj
+            errorObj: this.props.errorObj,
+            skuResponse: this.props.skuResponse
         };
     }
 
@@ -58,6 +59,7 @@ class AddToCart extends React.Component {
                 // Check for an errors object in the response. If present display the error modal instead of the View Cart
                 const cartAPIError = response.errors;
                 if (!response.errors) {
+                    this.state.skuResponse(response);
                     this.state.toggleParentModal(true);
                     this.addToCartAnalytics(response);
                 }
@@ -148,7 +150,7 @@ class AddToCart extends React.Component {
                         onKeyPress={this.skuRemoveNegative}
                     />
                 </form>
-                <a className={`cmp-button ${!this.state.skuNumber.trim() && 'cmp-button--disabled'}`} onClick={() => this.addToCart()}>
+                <a className={`cmp-button ${!this.state.skuNumber.trim() && 'disabled'}`} onClick={() => this.addToCart()}>
                     {this.props.addToCartLabel}
                 </a>
             </>
@@ -159,7 +161,8 @@ class AddToCart extends React.Component {
 
 AddToCart.defaultProps = {
     addToCartQty: null,
-    onRef: () => { }
+    onRef: () => { },
+    skuResponse: () => { }
 }
 
 export default AddToCart;
