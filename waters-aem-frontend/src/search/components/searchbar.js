@@ -95,9 +95,9 @@ class SearchBar extends Component {
 
     renderHideClearIcon = () => (this.state.value) ? this.renderClearIcon() : <></>;
 
-    renderClearIcon = () => <ReactSVG src={this.props.iconClear} className="cmp-search-bar__icons-clear" onClick={e => this.handleClearIconClick(e)}/>
+    renderClearIcon = () => <ReactSVG src={this.props.iconClear} className="cmp-search-bar__icons-clear" onClick={e => this.handleClearIconClick(e)} onMouseDown={e => e.preventDefault()}/>
 
-    renderSearchIcon = () => <ReactSVG src={this.props.iconSearch} className="cmp-search-bar__icons-search" onClick={e => this.handleSearchIconClick(e)} />;
+    renderSearchIcon = () => <ReactSVG src={this.props.iconSearch} className="cmp-search-bar__icons-search" onClick={e => this.handleSearchIconClick(e)} onMouseDown={e => e.preventDefault()}/>;
 
     // Update searchbar placeholder message depending on the view and window size
     handleViewChange = () => {
