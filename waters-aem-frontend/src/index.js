@@ -7,6 +7,7 @@ import TagCloud from './search/components/tagcloud';
 import ImageCarousel from './image-carousel';
 import MyAccountDropDown from './my-account-dropdown/index';
 import UserGreeting from './user-greetings/UserGreeting';
+import QuickOrder from './quick-order/QuickOrder';
 
 import SkuDetails from './sku-details';
 import SkuList from './sku-list';
@@ -28,6 +29,7 @@ import WeChat from './wechat';
 import MyAccountRouter from './my-account';
 import CountrySelector from './country-selector';
 import SessionStore from './stores/sessionStore';
+import LoginStatus from "./scripts/loginStatus";
 
 if (process.env.NODE_ENV !== 'production') {
     const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -203,6 +205,7 @@ if (imageGalleryContainers) {
     });
 }
 
+// Start SKU Details Component
 const skuDetailsContainer = document.querySelector('.cmp-sku-details__ecom');
 const skuDetailsConfig = JSON.parse(
     document.getElementById('commerce-configs-json').innerHTML
@@ -233,31 +236,32 @@ if (skuDetailsContainer) {
         skuDetailsConfig.baseSignInUrl = accountModalConfig.signIn.url;
     }
 
-
-    if (skuDetailsConfig) {
-        let accountModalConfig = {};
-        if (header) {
-            accountModalConfig = JSON.parse(document.getElementById('account-modal-configs-json').innerHTML);
-        }
-        skuDetailsConfig.baseSignInUrl = accountModalConfig.signIn.url;
+    if (LoginStatus.state()) {
+        const store = new SessionStore();
+        waitUntilUserExists(store, skuDetailsContainer, skuDetailsRender);
+    } else {
+        skuDetailsRender(skuDetailsContainer)
     }
 
-
-    ReactDOM.render(
-        <SkuDetails
-            config={skuDetailsConfig}
-            price={skuDetailsListPrice}
-            countryRestricted={skuCountryRestricted}
-            skuNumber={skuNumber}
-            titleText={skuTitle}
-            discontinued={skuDiscontinued}
-            replacementSkuCode={replacementSkuCode}
-            replacementSkuHref={replacementSkuHref}
-        />,
-        skuDetailsContainer
-    );
+    function skuDetailsRender(skuDetailsContainer) {
+        ReactDOM.render(
+            <SkuDetails
+                config={skuDetailsConfig}
+                price={skuDetailsListPrice}
+                countryRestricted={skuCountryRestricted}
+                skuNumber={skuNumber}
+                titleText={skuTitle}
+                discontinued={skuDiscontinued}
+                replacementSkuCode={replacementSkuCode}
+                replacementSkuHref={replacementSkuHref}
+            />,
+            skuDetailsContainer
+        );
+    }
 }
+// End SKU Details Component
 
+// Start SKU List Component
 const skuListContainer = document.querySelector('.cmp-sku-list');
 
 if (skuListContainer) {
@@ -285,9 +289,14 @@ if (header && MyAccountDropDownContainer) {
     const config = JSON.parse(
         document.getElementById('account-modal-configs-json').innerHTML
     );
+    const commerceConfigs = document.getElementById('commerce-configs-json');
+    let eProcSetupFailure = {};
+    if (commerceConfigs) {
+        eProcSetupFailure = JSON.parse(commerceConfigs.innerHTML);
+    }
 
     ReactDOM.render(
-        <MyAccountDropDown config={config} />,
+        <MyAccountDropDown config={config} eProcSetupFailure={eProcSetupFailure.setupFailure || {}} />,
         MyAccountDropDownContainer
     );
 }
@@ -398,7 +407,7 @@ if (registrationFormContainer) {
         config.fields[indexofPrivacy].config = KRconfig;
     }
 
-    if (config.formName === "registration" && (country ==="jp" || country === "cn" || country === "tw" || country === "kr")) {
+    if (config.formName === "registration" && (country === "jp" || country === "cn" || country === "tw" || country === "kr")) {
         swapFirstAndLastNames();
     }
 
@@ -578,19 +587,6 @@ if (userGreetingContainer) {
 // Inject UserGreeting Component user-greetings container
 function userGreeting(userGreetingContainer) {
     const props = JSON.parse(document.getElementById("cmp-user-greetings").innerHTML);
-    const selectors = document.querySelector('.usergreetings');
-    let config = '';
-    if (selectors) {
-        config = ["cmp_greeting_no_name", "cmp_greeting_no_logo", "cmp_greeting_no_logo_name"].reduce((acc, item) => {
-            if (selectors.classList.contains(item)) {
-                acc = item;
-            }
-            return acc;
-        }, '');
-    }
-
-    props.showName = ["cmp_greeting_no_name", "cmp_greeting_no_logo_name"].indexOf(config) === -1 ? true : false;
-    props.showLogo = ["cmp_greeting_no_logo", "cmp_greeting_no_logo_name"].indexOf(config) === -1 ? true : false;
     ReactDOM.render(
         <UserGreeting {...props} />,
         userGreetingContainer
@@ -605,3 +601,19 @@ function waitUntilUserExists(store, container, callback) {
     setTimeout(function () { return waitUntilUserExists(store, container, callback) }, 1000);
 }
 // End User Greeting Component
+
+// Quick Order Component
+const quickOrderContainer = document.getElementById("quick-order");
+if (quickOrderContainer) {
+    const store = new SessionStore();
+    waitUntilUserExists(store, quickOrderContainer, quickOrder);
+}
+function quickOrder(container) {
+    const props = JSON.parse(document.getElementById("cmp-quick-order").innerHTML);
+    const skuConfig = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
+    ReactDOM.render(
+        <QuickOrder {...props} skuConfig={skuConfig} />,
+        container
+    );
+}
+// End Quick Order Component

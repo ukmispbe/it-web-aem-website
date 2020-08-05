@@ -14,10 +14,6 @@ const SearchComponent = props => {
 
             <div>
                 <div className="overlay" />
-                <ResultsCount 
-                    {...props.resultsProps}
-                    text={props.text}
-                    onRelatedSuggestionClick={props.resultsEvents.onRelatedSuggestionClick}  />
                 <Aside 
                     sortFilterIsPristine={props.asideProps.sortFilterIsPristine}
                     text={props.text}

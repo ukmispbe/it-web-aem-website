@@ -373,9 +373,8 @@ public final class Footer extends AbstractComponent implements ComponentExporter
             languagePages = new ArrayList<>();
 
             for (PageDecorator languagePage : LocaleUtils.getLanguagePages(currentPage)) {
-                final PageDecorator languageHomepage =
-                        languagePage.findAncestor(WatersConstants.PREDICATE_HOME_PAGE).orNull();
-
+                final PageDecorator languageHomepage = isEprocurement() ? languagePage.findAncestor(WatersConstants.PREDICATE_EPROC_HOME_PAGE).orNull()
+                        : languagePage.findAncestor(WatersConstants.PREDICATE_HOME_PAGE).orNull();
                 if (languageHomepage != null) {
                     languagePages.add(new CountryLanguageSelectorItem(languagePage));
                 }
@@ -521,5 +520,9 @@ public final class Footer extends AbstractComponent implements ComponentExporter
     @Override
     public String getExportedType() {
         return RESOURCE_TYPE;
+    }
+
+    public boolean isEprocurement() {
+        return siteContext.getSiteConfig().isEprocurement();
     }
 }

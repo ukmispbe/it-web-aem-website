@@ -28,6 +28,7 @@
 
                 .formatted-suggestion {
                     display: flex;
+                    flex-wrap: wrap;
                 }
             }
 
@@ -120,23 +121,22 @@
             @include font-body;
             font-size: 100%;
             width: 100%;
-            height: 44px;
+            height: $height-medium;
             margin-bottom: 0;
             border: $border-medium;
             background: $color-white;
-            padding: $space-xxs $space-xxl $space-xxs $space-m;
+            padding: $space-xxxs $space-xxl $space-xxs $space-s;
             -webkit-appearance: none;
             -webkit-border-radius: $border-radius;
             border-radius: $border-radius;
-    
             &:focus {
                 outline: none;
                 border: 1px solid $color-focus;
             }
         }
         .react-autosuggest__suggestions-container {
-            top: 44px;
-            padding: $space-xs $space-m;
+            top: $height-medium;
+            padding: $space-xs $space-s;
 
             .react-autosuggest__suggestions-list {
                 padding: 0;
@@ -173,6 +173,7 @@
                 border-radius: 0 $border-radius $border-radius 0;
                 svg {
                     .st0 {
+                        stroke-width: 2;
                         stroke: $color-white;
                     }
                 }
@@ -242,9 +243,9 @@ body.cmp-search-body__auto-suggest--open {
     }
 }
 
-// Edge CSS Hack 
+// Edge CSS Hack
 @supports (-ms-ime-align: auto) {
     .cmp-search-bar .react-autosuggest__suggestions-container {
-        top: 4.2em; 
+        top: 4.2em;
     }
-} 
+}

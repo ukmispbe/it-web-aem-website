@@ -6,7 +6,7 @@ import Price from "./views/price";
 import AddToCart from "./views/addToCart";
 import AddToCartBody from '../sku-details/views/addToCartModal';
 import Modal, { Header, keys } from '../utils/modal';
-import { getSalesOrg, getSoldToId } from '../utils/userFunctions';
+import { setSKUUserInfo } from '../utils/userFunctions';
 import Spinner from '../utils/spinner';
 import LoginStatus from "../scripts/loginStatus";
 import CheckOutStatus from "../scripts/checkOutStatus";
@@ -51,51 +51,36 @@ class SkuDetails extends React.Component {
             errorObjPrice: {},
             discontinued: this.props.discontinued == "true",
             signInUrl: this.props.baseSignInUrl,
-            errorInfo: this.props.config.errorInfo
+            errorInfo: this.props.config.errorInfo,
+            userInfo: {}
         };
 
         this.toggleModal = this.toggleModal.bind(this);
     }
 
     componentDidMount() {
-        let soldToId = getSoldToId();
-        let salesOrg = getSalesOrg();
-        if (LoginStatus.state() && soldToId !== '' && salesOrg !== '') {
-            getPricing(this.state.pricingUrl, this.state.skuNumber, soldToId, salesOrg)
-            .then(response => {
-            if (response.status && response.status === 200) {
-                let match = matchListItems(this.state.skuNumber, response);
-                let listPriceValue = (match.listPrice !=='' && typeof match.listPrice != 'undefined') ? match.listPrice : this.props.price;
+        const { availabilityUrl, pricingUrl, skuNumber, userCountry} = this.state;
+
+        if (LoginStatus.state()) {
+            let userInfo = setSKUUserInfo();
+            if (Object.keys(userInfo).length > 0 && userInfo.dynamicSoldTo !== '' && userInfo.salesOrg !== ''){
                 this.setState({
-                    skuData: match,
-                    custPrice: match.custPrice,
-                    listPrice: listPriceValue,
-                    loading: false
+                    userInfo: userInfo
                 }, () => {
-                    //this.checkPricingAnalytics();
+                    this.getCustPricing(pricingUrl, skuNumber, userInfo);
                 });
             } else {
-                // Add Error Object to State
                 this.setState({
-                    errorObjPrice: response.errors,
                     loading: false
-                });
+                })
             }
-            })
-            .catch(err => {
-                // Add Error Object to State
-                this.setState({
-                    errorObjPrice: err,
-                    loading: false
-                });
-            });
         } else {
             this.setState({
                 loading: false
             })
         }
 
-        getAvailability(this.state.availabilityUrl, this.state.userCountry, this.state.skuNumber)
+        getAvailability(availabilityUrl, userCountry, skuNumber)
         .then(response => {
             this.setState({
                 skuAvailability: response,
@@ -113,6 +98,37 @@ class SkuDetails extends React.Component {
         .catch(err => {
             // Add Error Object to State
             this.setState({ errorObjAvailability: err });
+        });
+    }
+
+    getCustPricing = (pricingUrl, skuNumber, userInfo) => {
+        getPricing(pricingUrl, skuNumber, userInfo.dynamicSoldTo, userInfo.salesOrg)
+        .then(response => {
+            if (response.status && response.status === 200) {
+                let match = matchListItems(skuNumber, response);
+                let listPriceValue = (match.listPrice !== '' && match.listPrice != undefined) ? match.listPrice : this.props.price;
+                this.setState({
+                    skuData: match,
+                    custPrice: match.custPrice,
+                    listPrice: listPriceValue,
+                    loading: false
+                }, () => {
+                    //this.checkPricingAnalytics();
+                });
+            } else {
+                // Add Error Object to State
+                this.setState({
+                    errorObjPrice: response.errors,
+                    loading: false
+                });
+            }
+        })
+        .catch(err => {
+            // Add Error Object to State
+            this.setState({
+                errorObjPrice: err,
+                loading: false
+            });
         });
     }
 
@@ -290,7 +306,8 @@ class SkuDetails extends React.Component {
                                 signInText1={this.state.skuInfo.signInText1}
                                 signInText2={this.state.skuInfo.signInText2}
                                 signInText3={this.state.skuInfo.signInText3}
-                            />)}
+                            />)
+                            || LoginStatus.state() && (<div className="cmp-sku-signin-wrapper-not-displayed"></div>)}
                         {this.renderBuyInfo()}
                     </>;
             } else {

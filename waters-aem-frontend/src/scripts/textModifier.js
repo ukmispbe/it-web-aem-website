@@ -5,7 +5,8 @@ import getUserDetails from './../my-account/services/UserDetailsLazy';
 
 async function textModifier() {
     const detailsUrl = document.getElementById('header').dataset.userDetailsUrl;
-    const userDetails = await getUserDetails(detailsUrl, session);
+    const checkSessionStore = false;
+    const userDetails = await getUserDetails(detailsUrl, checkSessionStore, session);
 
     const objMapping = {
         user: keys.userDetails,

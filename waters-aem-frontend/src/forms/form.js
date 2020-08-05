@@ -179,11 +179,6 @@ const Form = ({
             return;
         }
 
-        // Don't retrieve data in Edit Mode
-        if (isInEditMode) {
-            return;
-        }
-
         retrieveData(config.optionsEndpoint).then(resp => {
 
             // Only put this logic in for formName ==="chooseAccount"
@@ -199,6 +194,7 @@ const Form = ({
                 tempOption.accountStreet = item.partnerAddress[0].street;
                 tempOption.accountCity = item.partnerAddress[0].city;
                 tempOption.accountZip = item.partnerAddress[0].postalCd;
+                tempOption.region = item.partnerAddress[0].regio;
                 return tempOption;
             });
 
@@ -302,7 +298,8 @@ const Form = ({
                         callback: callback,
                         updateFailedAttempts: updateFailedAttempts,
                         setProfileData: setProfileData,
-                        setFormAnalytics: setFormAnalytics
+                        setFormAnalytics: setFormAnalytics,
+                        urlChooseAccount: config.chooseAccountEndPoint
                     })
                 )}
             >

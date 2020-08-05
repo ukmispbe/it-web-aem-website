@@ -1,13 +1,6 @@
 package com.waters.aem.core.components.structure.page;
 
 import com.citytechinc.cq.component.annotations.Component;
-import com.citytechinc.cq.component.annotations.DialogField;
-import com.citytechinc.cq.component.annotations.Option;
-import com.citytechinc.cq.component.annotations.widgets.PathField;
-import com.citytechinc.cq.component.annotations.widgets.Selection;
-import com.citytechinc.cq.component.annotations.widgets.Switch;
-import com.citytechinc.cq.component.annotations.widgets.TextArea;
-import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.commons.Externalizer;
 import com.day.cq.commons.LanguageUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -97,107 +90,44 @@ public final class Meta extends AbstractComponent {
         return currentPage.getDescription();
     }
 
-    @DialogField(fieldLabel = "Canonical URL",
-        fieldDescription = "Defaults to current page path.",
-        ranking = 1)
-    @PathField
     public String getCanonicalUrl() {
         return getAsHref(PROPERTY_CANONICAL_URL)
             .transform(this :: externalize)
             .or(externalize(currentPage.getHref()));
     }
 
-    @DialogField(fieldLabel = "SEO Title",
-            fieldDescription = "Used for SEO & title tag",
-            ranking = 2)
-    @TextField
     public String getSeoTitle() {
         return get(PROPERTY_SEO_TITLE, "");
     }
 
-    @DialogField(fieldLabel = "Description",
-            fieldDescription = "Default to inherited description",
-            ranking = 3)
-    @TextArea
     public String getMetaDescription() {
         return get(PROPERTY_META_DESCRIPTION, "");
     }
 
-    @DialogField(fieldLabel = "No Index",
-        fieldDescription = "Add NOINDEX metadata tag.",
-        ranking = 4)
-    @Switch(offText = "No", onText = "Yes")
     public Boolean isNoIndex() {
         return get(PROPERTY_NO_INDEX, false);
     }
 
-    @DialogField(fieldLabel = "No Follow",
-        fieldDescription = "Add NOFOLLOW metadata tag.",
-        ranking = 5)
-    @Switch(offText = "No", onText = "Yes")
     public Boolean isNoFollow() {
         return get(PROPERTY_NO_FOLLOW, false);
     }
 
-    @DialogField(fieldLabel = "Open Graph Type",
-        fieldDescription = "Select a type to include Open Graph metadata for the page.",
-        ranking = 6)
-    @Selection(
-        type = Selection.SELECT,
-        options = {
-            @Option(text = "None", value = DEFAULT_OG_TYPE),
-            @Option(text = "Article", value = "article"),
-            @Option(text = "Book", value = "book"),
-            @Option(text = "Profile", value = "profile"),
-            @Option(text = "Website", value = "website"),
-            @Option(text = "Movie", value = "video.movie"),
-            @Option(text = "Episode", value = "video.episode"),
-            @Option(text = "TV Show", value = "video.tv_show"),
-            @Option(text = "Video", value = "video.other"),
-            @Option(text = "Song", value = "music.song"),
-            @Option(text = "Album", value = "music.album"),
-            @Option(text = "Playlist", value = "music.playlist"),
-            @Option(text = "Radio Station", value = "music.radio_station")
-        }
-    )
     public String getOgType() {
         return get("ogType", DEFAULT_OG_TYPE);
     }
 
-    @DialogField(fieldLabel = "Open Graph Image",
-        fieldDescription = "Default to page thumbnail image.",
-        ranking = 7)
-    @PathField(rootPath = WatersConstants.DAM_PATH)
     public String getOgImage() {
         return getExternalizedImage("ogImage");
     }
 
-    @DialogField(fieldLabel = "Facebook App ID", ranking = 8)
-    @TextField
     public String getFacebookAppId() {
         return getInherited("facebookAppId", DEFAULT_FACEBOOK_APP_ID);
     }
 
-    @DialogField(fieldLabel = "Twitter Publisher Handle",
-        fieldDescription = "Defaults to @WatersCorp.",
-        ranking = 9)
-    @TextField
     public String getTwitterPublisherHandle() {
         return getInherited("twitterPublisherHandle", DEFAULT_TWITTER_PUBLISHER_HANDLE);
     }
 
-    @DialogField(fieldLabel = "Twitter Card",
-        fieldDescription = "Select the Twitter card type.",
-        ranking = 10)
-    @Selection(
-        type = Selection.SELECT,
-        options = {
-            @Option(text = "Summary Large Image", value = DEFAULT_TWITTER_CARD),
-            @Option(text = "Summary", value = "summary"),
-            @Option(text = "App", value = "app"),
-            @Option(text = "Player", value = "player")
-        }
-    )
     public String getTwitterCard() {
         return get("twitterCard", DEFAULT_TWITTER_CARD);
     }
@@ -206,10 +136,6 @@ public final class Meta extends AbstractComponent {
         return Optional.ofNullable(sku).map(Sku::getCode).orElse(null);
     }
 
-    @DialogField(fieldLabel = "Twitter Image",
-        fieldDescription = "Default to page thumbnail image.",
-        ranking = 11)
-    @PathField(rootPath = WatersConstants.DAM_PATH)
     public String getTwitterImage() {
         return getExternalizedImage("twitterImage");
     }

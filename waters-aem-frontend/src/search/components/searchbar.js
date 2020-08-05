@@ -7,6 +7,7 @@ import OverLay from './overlay';
 import PropTypes from 'prop-types';
 import './../../styles/index.scss';
 import screenSizes from "../../scripts/screenSizes";
+import { isEprocurementUser, getIsoCode } from '../../utils/userFunctions';
 
 const cssOverridesForSearchBar = "cmp-search-bar__auto-suggest--open";
 const cssOverridesForSearchBody = "cmp-search-body__auto-suggest--open";
@@ -18,9 +19,11 @@ class SearchBar extends Component {
 
         this.inputElement = null;
 
+        this.eprocIsoCode = '';
+
         this.searchBarRef = React.createRef();
 
-        this.search = new SearchService(this.props.isocode, this.props.baseUrl);
+        this.search = this.updateSearchService(isEprocurementUser() ? getIsoCode(): this.props.isocode);
 
         let searchValue = this.search.getUrlParameter('keyword', window.location.search.substring(1)); 
 
@@ -35,6 +38,10 @@ class SearchBar extends Component {
 
         this.handleSuggestionsFetchRequestedDebounce = debounce(250, this.handleSuggestionsFetchRequested);
         this.handleWindowResizeDebounce = debounce(150, this.handleViewChange);
+    }
+
+    updateSearchService = (isocode) => {
+        return new SearchService(isocode, this.props.baseUrl);
     }
 
     componentDidMount = () => {
@@ -70,6 +77,11 @@ class SearchBar extends Component {
             onKeyPress: this.handleSearchValuePress,
             onBlur: this.handleSearchValueBlur
         };
+        
+        if(isEprocurementUser() && !this.eprocIsoCode) {
+            this.eprocIsoCode = getIsoCode();
+            this.search = this.updateSearchService(this.eprocIsoCode);
+        }
 
         return <Autosuggest
                     suggestions={this.state.suggestions}

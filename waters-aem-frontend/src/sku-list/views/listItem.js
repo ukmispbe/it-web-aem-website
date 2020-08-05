@@ -57,13 +57,15 @@ class ListItem extends React.Component {
     }
 
     componentDidMount() {
-        const { salesOrg, soldToId } = this.props.userInfo;
-        if (LoginStatus.state() && soldToId !== '' && salesOrg !== '') {
-            getPricing(this.state.pricingUrl, this.state.skuNumber, soldToId, salesOrg)
+        const { dynamicSoldTo, salesOrg } = this.props.userInfo;
+        const { pricingUrl, skuNumber } = this.state;
+
+        if (LoginStatus.state() && dynamicSoldTo !== '' && salesOrg !== '') {
+            getPricing(pricingUrl, skuNumber, dynamicSoldTo, salesOrg)
             .then(response => {
                 if (response.status && response.status === 200) {
-                    let match = matchListItems(this.state.skuNumber, response);
-                    let listPriceValue = (match.listPrice !=='' && typeof match.listPrice != 'undefined') ? match.listPrice : this.props.relatedSku.formattedPrice;
+                    let match = matchListItems(skuNumber, response);
+                    let listPriceValue = (match.listPrice !=='' && match.listPrice != undefined) ? match.listPrice : this.props.relatedSku.formattedPrice;
                     this.setState({
                         skuData: match,
                         custPrice: match.custPrice,
@@ -92,6 +94,12 @@ class ListItem extends React.Component {
                 loading: false
             })
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const differentDynamicSoldToId = this.props.userInfo.dynamicSoldTo !== nextProps.userInfo.dynamicSoldTo;
+        const differentSalesOrg = this.props.userInfo.salesOrg !== nextProps.userInfo.salesOrg;
+        return differentDynamicSoldToId || differentSalesOrg;
     }
 
     toggleErrorModal = (err) => {
