@@ -6,13 +6,10 @@ const MyProfile = ({ configs }) => {
     const [userDetailsUrl, setUserDetailsUrl] = useState(configs.userDetailsUrl);
     const [soldToDetailsUrl, setSoldToDetailsUrl] = useState(configs.soldToDetailsUrl);
     const [submitEndpoint, setSubmitEndpoint] = useState(configs.submitEndpoint);
-    console.log();
 
     const setupConfig = (configId, abstractConfig={}) => {
         let config = {...abstractConfig, userDetailsUrl, soldToDetailsUrl, submitEndpoint};
 
-        console.log("configId", configId);
-        console.log("config", config);
         config = {
             ...config,
             ...JSON.parse(document.getElementById(configId).innerHTML)
