@@ -50,7 +50,7 @@
 
     &--sticky {
         position: fixed;
-        z-index: 100;
+        z-index: $cmp-anchor--sticky-z-index;
         width: 300%;
         margin: 0 -0% 0 -50%;
         padding: 0 162.5% 0 50%;

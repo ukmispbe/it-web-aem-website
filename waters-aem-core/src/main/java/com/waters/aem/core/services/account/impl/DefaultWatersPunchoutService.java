@@ -29,6 +29,6 @@ public class DefaultWatersPunchoutService implements WatersPunchoutService {
     @Modified
     protected void activate(final WatersPunchoutServiceConfiguration configuration) {
         setupUrl = configuration.setupUrl();
-        puchOutSignInUrl = configuration.punchoutLogin();
+        puchOutSignInUrl = configuration.puchOutSignInUrl();
     }
 }

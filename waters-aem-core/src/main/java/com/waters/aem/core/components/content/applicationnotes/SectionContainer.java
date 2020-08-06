@@ -20,6 +20,7 @@ import com.icfolson.aem.library.core.constants.ComponentConstants;
 import com.icfolson.aem.library.core.link.builders.factory.LinkBuilderFactory;
 import com.icfolson.aem.library.core.node.predicates.ComponentNodePropertyExistsPredicate;
 import com.waters.aem.core.components.EmptyComponent;
+import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.components.content.SkuList;
 import com.waters.aem.core.components.content.SpecificationsTable;
 import com.waters.aem.core.components.content.Text;
@@ -91,6 +92,9 @@ public final class SectionContainer extends AbstractComponent implements Contain
     @Inject
     private Resource resource;
 
+    @Self
+    private SiteContext siteContext;
+
     @Inject
     private PageDecorator currentPage;
 
@@ -110,6 +114,13 @@ public final class SectionContainer extends AbstractComponent implements Contain
     @Default(booleanValues = false)
     private Boolean collapseOnMobile;
 
+    @DialogField(fieldLabel = "Hide on Eproc",
+            ranking = 3)
+    @Switch(offText = "No", onText = "Yes")
+    @Inject
+    @Default(booleanValues = false)
+    private Boolean hideOnEproc;
+
     @JsonProperty
     public String getTitle() {
         return title;
@@ -119,12 +130,20 @@ public final class SectionContainer extends AbstractComponent implements Contain
         return collapseOnMobile;
     }
 
+    public Boolean isHideOnEproc() {
+        return hideOnEproc;
+    }
+
     public Boolean isDisplaySectionContainer() {
         if (Templates.isSkuPage(currentPage)) {
             return isComponentDataEmpty();
         } else {
             return true;
         }
+    }
+
+    public Boolean hideSectionContainer(){
+        return hideOnEproc && siteContext.getSiteConfig().isEprocurement();
     }
 
     @JsonProperty
@@ -175,6 +194,6 @@ public final class SectionContainer extends AbstractComponent implements Contain
             .map(componentNode ->
                     modelFactory.getModelFromWrappedRequest(request, componentNode.getResource(), EmptyComponent.class))
             .filter(Objects::nonNull)
-            .noneMatch(EmptyComponent::isEmpty);
+            .noneMatch(EmptyComponent::isEmpty) && !hideSectionContainer();
     }
 }

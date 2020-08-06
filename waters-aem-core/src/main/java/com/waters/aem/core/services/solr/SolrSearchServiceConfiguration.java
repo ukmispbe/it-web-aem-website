@@ -7,5 +7,5 @@ import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 public @interface SolrSearchServiceConfiguration {
 
     @AttributeDefinition(name = "Base URL", description = "Base URL for Waters Search Service.")
-    String baseUrl() default "https://dev-www.waters.com:8443/api/waters/search";
+    String baseUrl() default "https://devservices.waters.com:8443/api/waters/search";
 }

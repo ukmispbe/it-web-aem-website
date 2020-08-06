@@ -510,7 +510,7 @@ div.cmp-search__sorted-by {
     height: 130%;
     padding: 50% 80%;
     margin: -30%;
-    z-index: 9999;
+    z-index: $cmp-search-overlay-z-index;
 
     > div {
         margin-left: -32px;
