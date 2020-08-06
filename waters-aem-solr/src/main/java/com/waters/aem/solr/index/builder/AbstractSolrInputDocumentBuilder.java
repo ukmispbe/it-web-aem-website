@@ -35,7 +35,11 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -162,14 +166,8 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
             final Sku sku = skuOptional.get();
 
             final DisplayableSku displayableSku = new DisplayableSku(sku, siteContext);
-            List excludedLocales = solrService.getExcludedLocales();
-            if(!excludedLocales.isEmpty()){
-                String modifiedPagecUrl = modifyPageUrl(excludedLocales, page.getHref().replace(page.getParent(4).getPath(),""));
-                document.setField("eprocUrl", modifiedPagecUrl);
-            }else {
-                document.setField("eprocUrl", page.getHref().replace(page.getParent(4).getPath(),""));
-
-            }
+            List excludedLocales = solrService.getLocales();
+            document.setField("eprocUrl", updateUrlForEprocBasedOnLocaleConfig(excludedLocales, page.getHref().replace(page.getParent(4).getPath(),"")));
             setDocumentStringField(document,"unspsc",sku.getUnspsc());
 
             setDocumentStringField(document, "skucode", sku.getCode());
@@ -296,15 +294,14 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         }
     }
 
-    private String modifyPageUrl(List<String> excludedLocales, String pageUrl) {
-        if (StringUtils.isNotBlank(pageUrl) && !excludedLocales.isEmpty()) {
-            for (String replaceLocale : excludedLocales) {
-                return pageUrl.split("/")[1].equals(replaceLocale.split(":")[0])
-                        ? pageUrl.replace(pageUrl.split("/")[1], replaceLocale.split(":")[1])
-                        : pageUrl;
-            }
+    private String updateUrlForEprocBasedOnLocaleConfig(List<String> excludedLocales, String pageUrl) {
+        if(excludedLocales.isEmpty()) {
+            return pageUrl;
         }
-        return StringUtils.EMPTY;
+        String locale = StringUtils.substring(pageUrl, 1, 3);
+        if(excludedLocales.contains(locale)) {
+            return pageUrl.replace("/"+ locale, "/en");
+        }
+        return pageUrl;
     }
-
 }

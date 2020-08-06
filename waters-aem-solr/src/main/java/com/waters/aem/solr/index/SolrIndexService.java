@@ -65,5 +65,5 @@ public interface SolrIndexService extends PageEventHandlerConfiguration {
      *
      * @return excluded locales
      */
-    List<String> getExcludedLocales();
+    List<String> getLocales();
 }
