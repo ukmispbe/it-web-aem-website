@@ -2,8 +2,8 @@ export default {
     "name": "personal-details-tile",
     "type": "personal",
     "title": "Personal Details",
-    "userDetailsUrl": "https://test-www.waters.com:8443/api/waters/user/v1/details",
-    "soldToDetailsUrl": "https://test-www.waters.com:8443/api/waters/user/v1/retrievesoldto",
+    "userDetailsUrl": "https://stgservices.waters.com/api/waters/user/v1/details",
+    "soldToDetailsUrl": "https://stgservices.waters.com/api/waters/user/v1/retrievesoldto",
     "canCreate": false,
     "editText": "Edit",
     "formMessage": {
@@ -12,7 +12,7 @@ export default {
       "linkURL": "https://www.waters.com/waters/localeRedirect.htm?type=contact_us"
     },
     "form": {
-      "submitEndpoint": "https://test-www.waters.com:8443/api/waters/user/v1/update/profile",
+      "submitEndpoint": "https://stgservices.waters.com/api/waters/user/v1/update/profile",
       "buttonText": "Save Changes",
       "cancelText": "Cancel",
       "icons": {

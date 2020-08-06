@@ -2,7 +2,7 @@ import "whatwg-fetch";
 
 class EmailService {
     constructor(
-        url = "https://test-www.waters.com:8443/api/waters/user/v1/validate/{email}"
+        url = "https://stgservices.waters.com/api/waters/user/v1/validate/{email}"
     ) {
         this.url = url;
     }

@@ -15,7 +15,7 @@ export const emilConfig = {
 }
  
 export const registrationConfig = {
-    submitEndpoint: "https://test-www.waters.com:8443/api/waters/user/v1/registration",
+    submitEndpoint: "https://stgservices.waters.com/api/waters/user/v1/registration",
     buttonText: "Create Account",
     icons: {
         checkmarkIcon: "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
@@ -31,7 +31,7 @@ export const registrationConfig = {
             name: "email",
             label: "Email Address",
             description: "This will be your username.",
-            emailValidationEndpoint: "https://test-www.waters.com:8443/api/waters/user/v1/validate/{email}",
+            emailValidationEndpoint: "https://stgservices.waters.com/api/waters/user/v1/validate/{email}",
             validation: {
                 required: true,
                 requiredMsg: "Please enter a valid email address.",
@@ -153,7 +153,7 @@ export const registrationConfig = {
 }
 
 export const changePasswordConfig = {
-    submitEndpoint: "https://test-www.waters.com:8443/api/waters/user/v1/registration",
+    submitEndpoint: "https://stgservices.waters.com/api/waters/user/v1/registration",
     buttonText: "Change Password",
     cancelText: "Cancel",
     icons: {
@@ -201,8 +201,8 @@ export const changePasswordConfig = {
 }
 
 export const troubleSigningInConfig = {
-	submitEndpoint: "https://test-www.waters.com:8443/api/waters/user/v1/reset/password?email={email}",
-	changePasswordEndpoint: "https://test-www.waters.com:8443/api/waters/user/v1/change/password",
+	submitEndpoint: "https://stgservices.waters.com/api/waters/user/v1/reset/password?email={email}",
+	changePasswordEndpoint: "https://stgservices.waters.com/api/waters/user/v1/change/password",
 	buttonText: "RESET PASSWORD",
 	redirectUrl: "/content/waters/language-masters/en/reg-check-email.html",
 	icons: {
@@ -235,7 +235,7 @@ export const troubleSigningInConfig = {
 }
 
 export const personalConfig = {
-    submitEndpoint: "https://test-www.waters.com:8443/api/waters/user/v1/update/profile",
+    submitEndpoint: "https://stgservices.waters.com/api/waters/user/v1/update/profile",
     buttonText: "Save Changes",
     cancelText: "Cancel",
     icons: {
@@ -334,7 +334,7 @@ export const currentPasswordConfig =  {
 
 export const signInConfig =
 {
-    "submitEndpoint": "https://test-www.waters.com:8443/api/waters/user/v1/login",
+    "submitEndpoint": "https://stgservices.waters.com/api/waters/user/v1/login",
     "siteKey": "6Ld5WMIUAAAAACZQvEc7I75aEg5AC8YUUO0W7zRG",
     "formName": "signin",
     "buttonText": "SIGN IN",

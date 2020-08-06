@@ -1,25 +1,28 @@
 const commerceConfigs = {
-    "locale": "en_US",
+    "locale": "en",
     "commerceConfig": {
         "disabledIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
         "disabledLabel": "Disabled",
         "disabledText": "Online ordering is not available for your region. Please ",
         "disabledLinkText": "contact your sales representative.",
-        "disabledHref": "",
+        "disabledHref": "/content/waters/us/en/about-waters/contact-waters.html",
         "partialDisabledText": "Online ordering is not available. Please ",
         "partialDisabledLinkText": "contact your sales representative.",
-        "partialDisabledHref": ""
+        "partialDisabledHref": "/content/waters/us/en/about-waters/contact-waters.html"
     },
-    "availabilityUrl": "https://test-www.waters.com:8443/api/waters/product/v1/availability/{partnumber}/{countryCode}",
-    "pricingUrl": "https://test-www.waters.com:8443/api/waters/product/v1/customerprice/{partnumber}/{countryCode}",
-    "addToCartUrl": "https://test-www.waters.com:8443/api/waters/product/v1/addtocart/{partnumber}/{quantity}",
+    "availabilityUrl": "https://dev-www.waters.com:8443/api/waters/product/v1/availability/{partnumber}/{countryCode}",
+    "pricingUrl": "https://api-sbox.waters.com/dev-waters-product-exp-api-v1/api/products/prices",
+    "addToCartUrl": "https://api-sbox.waters.com/dev-waters-cart-proxy-api-v1/{localeCountry}/{localeLanguage}/users/{userType}/carts/{guid}/entries",
+    "viewCartUrl": "https://dev-cart.waters.com/store/us/en/cart",
+    "isCommerceApiMigrated": "true",
     "countryCode": "US",
     "isoCode": "en",
-    "addToCartLabel": "ADD TO CART",
+    "addToCartLabel": "Add to Cart",
     "qtyLabel": "Qty",
     "showBreadcrumbs": false,
     "skuInfo": {
         "listPriceLabel": "List Price",
+        "custPriceLabel": "Your Price",
         "inStockLabel": "In Stock",
         "outOfStockLabel": "Out of Stock",
         "orderNowLabel": "Order Now",
@@ -39,7 +42,12 @@ const commerceConfigs = {
         "refreshIcon": "/content/dam/waters/en/brand-assets/icons/refresh.svg",
         "discontinuedIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
         "nextIcon": "/content/dam/waters/en/brand-assets/icons/right.svg",
-        "maxAmount": 999           
+        "noThumbnailImage": "/content/dam/waters/en/brand-assets/thumbnails/product-thumbnail.png",
+        "maxAmount": 999,
+        "signInText1": "Sign in",
+        "signInText2": "to view ",
+        "signInText3": "Your Price",
+        "signinIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
     },
     "modalInfo": {
         "icon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
@@ -48,7 +56,7 @@ const commerceConfigs = {
         "buttons": [
             {
                 "text": "View Cart",
-                "action": "https://wwwdt1.waters.com/waters/shoppingCart.htm"
+                "action": "https://dev-cart.waters.com/store/us/en/cart"
             },
             {
                 "text": "Continue Shopping",
@@ -57,10 +65,26 @@ const commerceConfigs = {
         ]
     },
     "errorInfo": {
+        "icon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
+        "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
+        "title": "Sorry, something went wrong.",
         "serviceUnavailable": "Service Unavailable",
         "tryAgainLater": "Try again later",
         "anErrorHasOccurred": "An error has occurred",
-        "wereSorry": "We're sorry, but an error has occurred and your item was not added to the cart. Please try again."
+        "wereSorry": "An error has occurred and your item was not added to the Shopping Cart. Please try again."
+    },
+    "setupFailure":{
+        "icon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
+        "requestFailureTitle": "Sorry, something went wrong.",
+        "requestFailureMessage": "Please return to your procurement system and try again.",
+        "sessionTimeoutTitle": "Your session has expired.",
+        "sessionTimeoutMessage": "Please return to your procurement system and start a new session.",
+        "buttons": [
+            {
+                "text": "RETURN TO PROCUREMENT SYSTEM",
+                "action": ""
+            }
+        ]
     }
 };
 

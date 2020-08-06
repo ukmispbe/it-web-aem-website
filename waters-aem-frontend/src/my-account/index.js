@@ -22,7 +22,7 @@ const MyAccountRouter = (props) => {
                 </Route>
                 <Route exact path={routes.changePassword.path}>
                     <Aside tiles={props.tiles} breadcrumbs={props.breadcrumbs}>
-                        <ChangePassword configId={props.changePassword.config} />
+                        <ChangePassword configId={props.changePassword.config} configs={props.myProfile} />
                     </Aside>
                 </Route>
                 <Route exact path={routes.orderHistory.path} >
