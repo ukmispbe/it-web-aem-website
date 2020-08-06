@@ -1,6 +1,5 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
           jcr:primaryType="sling:OsgiConfig"
-          externalizer.domains="[local http://localhost:4502,author https://dev1-author.waters.com,publish https://dev1.waters.com]"
           externalizer.domains="[local http://localhost:4502,author https://dev-author.waters.com,author https://dev1-author.waters.com,publish https://dev1.waters.com,publish https://dev-www.waters.com,publish https://dev-order.waters.com]"
           externalizer.host=""
           externalizer.contextpath=""
