@@ -14,7 +14,7 @@ import LocalStore from '../stores/localStore';
 import punchoutLogin from '../my-account/services/PunchoutLogin';
 import punchoutSetup from '../my-account/services/PunchoutSetup';
 import parseQueryParams from '../utils/parse-query-params';
-import removeQString from '../utils/remove-query-string';
+import removeQueryString from '../utils/remove-query-string';
 import buildUrl from '../utils/buildUrl';
 import EprocSetupFailure from '../eproc-setup-failure/EprocSetupFailure';
 
@@ -327,14 +327,13 @@ class MyAccountDropDown extends React.Component {
                             text: responseJson.code === 804 ? sessionTimeoutMessage : requestFailureMessage,
                             buttons: [{ 
                                     text: prevState.eprocSetupFailure.buttons[0].text,
-                                    action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '#',
-                                    noAction: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? false : true
+                                    action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '',
                                 }]
                         }
                     }));
                 }
             } else {
-                removeQString();
+                removeQueryString(window.location.href, '1tu', true);
             }
         }
     }
@@ -353,13 +352,17 @@ class MyAccountDropDown extends React.Component {
             }));
             if (response && response.status !== 200) {
                 const { requestFailureTitle, requestFailureMessage } = this.props.eProcSetupFailure;
+                let punchoutSetupDetails =  (new SessionStore()).getPunchoutSetupDetails();
                 this.setState(prevState => ({
                     eprocSetupFailure: {
                         ...prevState.eprocSetupFailure,
                         status: true,
                         title: requestFailureTitle,
                         text: requestFailureMessage,
-                        buttons: [{ text: prevState.eprocSetupFailure.buttons[0].text, action: '#', noAction: true }]
+                        buttons: [{ 
+                            text: prevState.eprocSetupFailure.buttons[0].text, 
+                            action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '',
+                        }]
                     }
                 }));
             } else {
@@ -371,6 +374,7 @@ class MyAccountDropDown extends React.Component {
                     country: response.country,
                 });
                 (new LocalStore()).setCartId(response.cartId);
+                removeQueryString(window.location.href, 'sid', true);
             }
         }
     }
