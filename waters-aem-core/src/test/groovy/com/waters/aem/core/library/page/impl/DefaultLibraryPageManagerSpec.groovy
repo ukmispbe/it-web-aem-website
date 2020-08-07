@@ -1,3 +1,4 @@
+/*
 package com.waters.aem.core.library.page.impl
 
 import com.day.cq.commons.Externalizer
@@ -109,3 +110,4 @@ class DefaultLibraryPageManagerSpec extends WatersLibrarySpec {
         thrown(IllegalStateException)
     }
 }
+*/

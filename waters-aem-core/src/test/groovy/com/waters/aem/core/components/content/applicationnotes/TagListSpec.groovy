@@ -56,7 +56,7 @@ class TagListSpec extends WatersSpec {
         }.adaptTo(TagList)
 
         expect:
-        tagList.listItems.size() == 3
+        //tagList.listItems.size() == 3
 
         and:
         tagList.listItems == ["First Class","First Market", "Second Market"]
@@ -69,7 +69,7 @@ class TagListSpec extends WatersSpec {
         }.adaptTo(TagList)
 
         expect:
-        tagList.listItems.size() == 2
+        //tagList.listItems.size() == 2
 
         and:
         tagList.listItems == ["2018", "2019"]
