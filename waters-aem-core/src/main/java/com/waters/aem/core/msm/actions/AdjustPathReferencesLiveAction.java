@@ -139,6 +139,12 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
                 prop.setValue(value.replace(WatersConstants.ROOT_PATH_LANGUAGE_MASTERS, WatersConstants.ORDER_ROOT_PATH));
             }
         }
+
+        else if (shouldAdjustReferences(destinationUrl) && prop.getParent().getPath().contains("/footer/par/experiencefragment") && prop.getName().contentEquals("fragmentPath")){
+            prop.setValue("");
+        } else if (shouldAdjustReferences(destinationUrl) && prop.getParent().getName().equalsIgnoreCase("breadcrumb") && prop.getName().contentEquals("startLevel")){
+            prop.setValue("2");
+        }
     }
 
     // deprecated methods
