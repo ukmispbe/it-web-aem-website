@@ -1,4 +1,4 @@
-final def page = getPage('/content/waters/language-masters/en/application-notes')
+final def page = getPage('/content/waters/language-masters/en/library/application-notes')
 final def template = '/conf/waters/settings/wcm/templates/application-notes-page'
 final def query = buildQuery(page, template)
 final def slash = '/'
