@@ -71,7 +71,6 @@ class MyAccountDropDown extends React.Component {
         window.addEventListener('resize', this.updateViewport, true);
 
         if (isEprocurementUser()) {
-            console.log("Calling some stuff");
             this.punchoutSetup();
 
             // Validates 1TU token, once get from query string
