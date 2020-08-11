@@ -427,10 +427,10 @@ if (registrationFormContainer) {
 }
 
 // Contact Support
-const registrationFormContainer = document.getElementById('js-registration-form');
+const contactSupportFormContainer = document.getElementById('js-contact-support-form');
 
-if (registrationFormContainer) {
-    const config = JSON.parse(document.getElementById('cmp-registration-form').innerHTML);
+if (contactSupportFormContainer) {
+    const config = JSON.parse(document.getElementById('cmp-contact-support-form').innerHTML);
 
     ReactDOM.render(
         <Form
@@ -439,7 +439,7 @@ if (registrationFormContainer) {
             callback={headerData.userDetailsUrl}
             isocode={DigitalData.language}
         />,
-        registrationFormContainer
+        contactSupportFormContainer
     );
 }
 
