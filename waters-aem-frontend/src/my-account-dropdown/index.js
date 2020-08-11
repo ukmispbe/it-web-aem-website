@@ -336,7 +336,7 @@ class MyAccountDropDown extends React.Component {
                         title: responseJson.code === 804 ? sessionTimeoutTitle : requestFailureTitle,
                         text: responseJson.code === 804 ? sessionTimeoutMessage : requestFailureMessage,
                         buttons: [{ 
-                            text: prevState.eprocSetupFailure.buttons[0].text,
+                            text: this.state.eprocSetupFailure.buttons[0].text,
                             action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '',
                         }]
                     });
