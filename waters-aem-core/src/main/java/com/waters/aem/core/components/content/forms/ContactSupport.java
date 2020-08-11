@@ -31,7 +31,7 @@ import static com.icfolson.aem.library.core.constants.ComponentConstants.EVENT_A
 import static com.icfolson.aem.library.core.constants.ComponentConstants.REFRESH_PAGE;
 
 @Component(value = "Contact Support Form",
-    description = "This is the Registration Form component for Waters site",
+    description = "This is the Contact Support Form component for Waters site",
     path = WatersConstants.COMPONENT_PATH_FORMS,
         tabs = {
                 @Tab(title = "Contact Support")
