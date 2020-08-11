@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Contact Support Form"
+    sling:resourceType="cq/gui/components/authoring/dialog"
+    fileName="_cq_dialog.xml"
+    mode="edit">
+    <content
+        cq:hideOnEdit="{Boolean}false"
+        cq:showOnCreate="{Boolean}false"
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/container"
+        margin="{Boolean}false"
+        maximized="{Boolean}false">
+        <items jcr:primaryType="nt:unstructured">
+            <tabs
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/tabs"
+                maximized="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <ContactSupport
+                        cq:hideOnEdit="{Boolean}false"
+                        cq:showOnCreate="{Boolean}true"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Contact Support"
+                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                        margin="{Boolean}true"
+                        maximized="{Boolean}false">
+                        <items jcr:primaryType="nt:unstructured">
+                            <columns
+                                cq:hideOnEdit="{Boolean}false"
+                                cq:showOnCreate="{Boolean}false"
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <column
+                                        cq:hideOnEdit="{Boolean}false"
+                                        cq:showOnCreate="{Boolean}false"
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                                        margin="{Boolean}false"
+                                        maximized="{Boolean}false">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <watersPrivacyLink
+                                                cq:hideOnEdit="{Boolean}false"
+                                                cq:showOnCreate="{Boolean}true"
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                                disabled="{Boolean}false"
+                                                fieldDescription="Select or enter the link URL"
+                                                fieldLabel="Waters Privacy Link"
+                                                filter="hierarchyNotFile"
+                                                forceSelection="{Boolean}false"
+                                                name="./watersPrivacyLink"
+                                                renderReadOnly="{Boolean}true"
+                                                required="{Boolean}true"
+                                                rootPath="/content/order"/>
+                                            <termsOfUseLink
+                                                cq:hideOnEdit="{Boolean}false"
+                                                cq:showOnCreate="{Boolean}true"
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                                disabled="{Boolean}false"
+                                                fieldDescription="Select or enter the link URL for Terms of Use"
+                                                fieldLabel="Terms of Use Link"
+                                                filter="hierarchyNotFile"
+                                                forceSelection="{Boolean}false"
+                                                name="./termsOfUseLink"
+                                                renderReadOnly="{Boolean}true"
+                                                required="{Boolean}true"
+                                                rootPath="/content/order"/>
+                                            <redirectLink
+                                                cq:hideOnEdit="{Boolean}false"
+                                                cq:showOnCreate="{Boolean}true"
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                                disabled="{Boolean}false"
+                                                fieldDescription="Select or enter the redirect link URL. The destination page the user will be redirected to after successful submission"
+                                                fieldLabel="Redirect Link"
+                                                filter="hierarchyNotFile"
+                                                forceSelection="{Boolean}false"
+                                                name="./redirectLink"
+                                                renderReadOnly="{Boolean}true"
+                                                required="{Boolean}true"
+                                                rootPath="/content/order"/>
+                                            <newWindow
+                                                cq:hideOnEdit="{Boolean}false"
+                                                cq:showOnCreate="{Boolean}true"
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/switch"
+                                                disabled="{Boolean}false"
+                                                fieldDescription="Select this option to open 'Privacy Notice' in new window"
+                                                fieldLabel="Open in New Window"
+                                                ignoreData="{Boolean}false"
+                                                name="./newWindow"
+                                                offText="No"
+                                                onText="Yes"
+                                                renderReadOnly="{Boolean}true"
+                                                required="{Boolean}false"/>
+                                        </items>
+                                    </column>
+                                </items>
+                            </columns>
+                        </items>
+                    </ContactSupport>
+                </items>
+            </tabs>
+        </items>
+    </content>
+</jcr:root>
