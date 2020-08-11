@@ -6,6 +6,8 @@ import Search from './search/index';
 import TagCloud from './search/components/tagcloud';
 import ImageCarousel from './image-carousel';
 import MyAccountDropDown from './my-account-dropdown/index';
+import UserGreeting from './user-greetings/UserGreeting';
+import QuickOrder from './quick-order/QuickOrder';
 
 import SkuDetails from './sku-details';
 import SkuList from './sku-list';
@@ -26,6 +28,7 @@ import DigitalData from './scripts/DigitalData';
 import WeChat from './wechat';
 import MyAccountRouter from './my-account';
 import CountrySelector from './country-selector';
+import SessionStore from './stores/sessionStore';
 
 if (process.env.NODE_ENV !== 'production') {
     const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -36,10 +39,10 @@ const globalTranslationsScript = document.getElementById('global-translations-js
 const globalTranslations = globalTranslationsScript ? JSON.parse(globalTranslationsScript.innerHTML) : {};
 
 const headerRef = document.getElementById("header");
-const headerData = headerRef 
+const headerData = headerRef
     ? {
         userDetailsUrl: headerRef.dataset.userDetailsUrl
-    } 
+    }
     : {
         userDetailsUrl: ""
     };
@@ -52,7 +55,8 @@ function getAuthoredDataForSearchBar(c, h) {
         placeholderMobile: c.dataset.placeholderMobile,
         iconSearch: c.dataset.iconSearch,
         iconClear: c.dataset.iconClear,
-        isocode: c.dataset.isocode
+        isocode: c.dataset.isocode,
+        customStyle: c.dataset.customStyle || ''
     };
 }
 function getAuthoredDataForSearchApp(c, s) {
@@ -104,6 +108,25 @@ if (searchBarContainer && header) {
     );
 }
 
+const headerSearchBarContainer = document.getElementById('header-search-bar');
+
+if (headerSearchBarContainer && header) {
+    const data = getAuthoredDataForSearchBar(headerSearchBarContainer, header)
+    ReactDOM.render(
+        <SearchBar
+            iconSearch={data.iconSearch}
+            iconClear={data.iconClear}
+            searchPath={data.searchPath}
+            placeholderTablet={data.placeholderTablet}
+            placeholderMobile={data.placeholderMobile}
+            baseUrl={data.baseUrl}
+            isocode={data.isocode}
+            customStyle={data.customStyle}
+        />,
+        headerSearchBarContainer
+    );
+}
+
 const searchAppContainer = document.getElementById('js-search-app');
 
 if (searchAppContainer) {
@@ -115,14 +138,14 @@ if (searchAppContainer) {
         document.getElementById('search-results-categories-json').innerHTML
     );
 
-        
+
     let accountModalConfig = {};
     let baseSignInUrlString = "";
     if (header) {
         accountModalConfig = JSON.parse(document.getElementById('account-modal-configs-json').innerHTML);
         baseSignInUrlString = accountModalConfig.signIn.url;
     }
-    
+
     const data = getAuthoredDataForSearchApp(searchAppContainer);
     ReactDOM.render(
         <Search
@@ -202,7 +225,7 @@ if (skuDetailsContainer) {
     const skuCountryRestricted = skuData.dataset.countryRestricted;
     const replacementSkuCode = skuData.dataset.replacementSkuCode;
     const replacementSkuHref = skuData.dataset.replacementSkuHref;
-    
+
     if (skuDetailsConfig) {
         let accountModalConfig = {};
         if (header) {
@@ -353,7 +376,7 @@ if (registrationFormContainer) {
     const swapFirstAndLastNames = () => {
         const indexofFirstName = config.fields.map(e => e.name).indexOf('firstName');
         const indexofLastName = config.fields.map(e => e.name).indexOf('lastName');
-        if (indexofFirstName !== -1 && indexofLastName!== -1) {
+        if (indexofFirstName !== -1 && indexofLastName !== -1) {
             const temp = config.fields[indexofFirstName];
             config.fields[indexofFirstName] = config.fields[indexofLastName];
             config.fields[indexofLastName] = temp;
@@ -376,7 +399,7 @@ if (registrationFormContainer) {
         config.fields[indexofPrivacy].config = KRconfig;
     }
 
-    if (config.formName === "registration" && (country ==="jp" || country === "cn" || country === "tw" || country === "kr")) {
+    if (config.formName === "registration" && (country === "jp" || country === "cn" || country === "tw" || country === "kr")) {
         swapFirstAndLastNames();
     }
 
@@ -547,3 +570,42 @@ if (signInFormContainer) {
     );
 }
 
+// User Greeting Component
+const userGreetingContainer = document.getElementById("user-greetings");
+if (userGreetingContainer) {
+    const store = new SessionStore();
+    waitUntilUserExists(store, userGreetingContainer, userGreeting);
+}
+// Inject UserGreeting Component user-greetings container
+function userGreeting(userGreetingContainer) {
+    const props = JSON.parse(document.getElementById("cmp-user-greetings").innerHTML);
+    ReactDOM.render(
+        <UserGreeting {...props} />,
+        userGreetingContainer
+    );
+}
+// Checks user set in session storage or not
+function waitUntilUserExists(store, container, callback) {
+    const savedUserDetails = store.getUserDetails();
+    if (Object.keys(savedUserDetails).length > 0) {
+        return callback(container);
+    }
+    setTimeout(function () { return waitUntilUserExists(store, container, callback) }, 1000);
+}
+// End User Greeting Component
+
+// Quick Order Component
+const quickOrderContainer = document.getElementById("quick-order");
+if (quickOrderContainer) {
+    const store = new SessionStore();
+    waitUntilUserExists(store, quickOrderContainer, quickOrder);
+}
+function quickOrder(container) {
+    const props = JSON.parse(document.getElementById("cmp-quick-order").innerHTML);
+    const skuConfig = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
+    ReactDOM.render(
+        <QuickOrder {...props} skuConfig={skuConfig} />,
+        container
+    );
+}
+// End Quick Order Component

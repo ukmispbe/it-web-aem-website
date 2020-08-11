@@ -35,7 +35,17 @@
             >
                 <ul class="cmp-header__top-bar__nav__ul">
                     <li class="top-bar__nav__search top-bar__nav__item">
-                        <a
+                        <div data-sly-test="${header.eprocurement}" id="header-search-bar"
+                            data-base-url="${header.searchUrl}"
+                            data-icon-clear="/content/dam/waters/en/brand-assets/icons/close.svg"
+                            data-icon-search="/content/dam/waters/en/brand-assets/icons/search.svg"
+                            data-isocode="${header.isocode}"
+                            data-placeholder-mobile="${'Search' @ i18n}"
+                            data-placeholder-tablet="${'What are you looking for?' @ i18n}"
+                            data-custom-style="cmp-header-search-bar">
+                        </div>
+                        
+                        <a  data-sly-test="${!header.eprocurement}"
                             class="cmp-header-links__link"
                             href="${header.legacySearchUrl}"
                         >
@@ -47,7 +57,7 @@
                             />
                         </a>
                     </li>
-                    <li class="top-bar__nav__user top-bar__nav__item">
+                    <li class="top-bar__nav__user${header.eprocurement ? '--hide':''} top-bar__nav__item">
                         <a
                             class="top-bar__nav__user__link cmp-header-links__link"
                             href="javascript:;"
@@ -70,7 +80,10 @@
                             {
                                 "userDetailsUrl": "${header.userDetailsUrl @ context='unsafe'}",
                                 "soldToDetailsUrl": "${header.soldToDetailsUrl @ context='unsafe'}",
+                                "siteConfig": "${header.siteConfig @ context='unsafe'}",
                                 "homepageLink": "${header.homepageLink.href @ context='unsafe'}",
+                                "punchoutSetup": "${header.punchOutSetupEndpoint @ context='unsafe'}",
+                                "punchoutLogin": "${header.punchOutLoginEndpoint @ context='unsafe'}",
                                 "icon": "/content/dam/waters/en/brand-assets/icons/user.svg",
                                 "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
                                 "title": "${'My Account' @ i18n , context='unsafe' }",
@@ -121,7 +134,7 @@
                             }
                         </script>
                     </li>
-                    <li class="top-bar__nav__cart top-bar__nav__item" data-ecommerce-state="${header.commerceConfig}">
+                    <li class="top-bar__nav__cart top-bar__nav__item top-bar__nav__cart--hide" data-ecommerce-state="${header.commerceConfig}">
                         <a
                             class="cmp-header-links__link"
                             href="${header.viewCartUrl}"

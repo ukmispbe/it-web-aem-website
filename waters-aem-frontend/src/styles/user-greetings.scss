@@ -1,0 +1,34 @@
+#user-greetings {
+    display: flex;
+    justify-content: flex-end;
+
+    @include mobile {
+        justify-content: space-between;
+      }
+
+    .greetings {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        @include mobile {
+            align-items: flex-start;
+          }
+
+        h2{
+            margin-bottom: $space-xxs;
+        }
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+
+        svg {
+            margin-left: $space-xs;
+            max-width: $thumbnail-s;
+            max-height: $thumbnail-s;
+            height: 100%;
+            width: 100%;
+        }
+    }
+}

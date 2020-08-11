@@ -1071,6 +1071,7 @@
             "salesStatus": "Active",
             "summary": "The universal, silica-based bonded phase used for the ACQUITY HSS T3 sorbents is compatible with 100% aqueous mobile phase and should be your first choice when developing separations for polar and non-polar compounds. The ACQUITY HSS T3 UPLC columns exhibit ultra-low MS bleed and are fully scalable and transferable to HPLC separations.",
             "terminated": false,
+            "unspsc":"567890",
             "url": "/waters/products/176001815"
         },
         {
@@ -2121,6 +2122,7 @@
             "salesStatus": "Active",
             "summary": "ACQUITY UPLC HSS C18 chemistry is an ultra-performance general purpose C18 bonded phase that provides superior peak shape for bases, increased retention (vs. ACQUITY UPLC BEH C18 columns), and extremely long column lifetimes at low pH.  ACQUITY HSS C18 columns are fully scalable and transferable to HPLC separations.",
             "terminated": false,
+            "unspsc":"5490123",
             "url": "/waters/products/176001818"
         }
     ],

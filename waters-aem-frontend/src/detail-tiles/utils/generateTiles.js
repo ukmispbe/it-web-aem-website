@@ -5,7 +5,7 @@ import {
     getFullName,
     getCountryName,
     getDefaultSoldToAddresses
-} from './profileFormatter';
+} from '../../utils/userFunctions';
 
 const newNotification = (title, description, icon) => ({
     title: title,
@@ -14,7 +14,8 @@ const newNotification = (title, description, icon) => ({
 });
 
 const buildAddress = address => {
-    let addressArray = getFullCompanyAddress(address);
+    const includeCountryName = false;
+    let addressArray = getFullCompanyAddress(address, includeCountryName);
     return addressArray.map((x, i) => <div key={i + 1}>{x}</div>);
 }
 

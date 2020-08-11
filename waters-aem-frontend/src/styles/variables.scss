@@ -49,6 +49,7 @@ $color-icon: $color-gray-50;
 $color-success: $color-teal-30;
 $color-error: $color-red-50;
 $color-focus: $color-blue-30;
+$color-videothumbnail-overlay: #2D3439;
 
 //FONTS
 
@@ -132,6 +133,8 @@ $fade-transition: opacity 0.5s ease;
 
 // Breakpoints
 $max-width: 1460px;
+$extra-large-desktop-width: 2500px;
+$large-desktop-width: 2000px;
 $desktop-width: 1200px;
 $tablet-width: 650px;
 $mobile-width: 414px;

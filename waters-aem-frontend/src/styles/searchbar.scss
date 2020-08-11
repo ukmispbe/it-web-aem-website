@@ -28,6 +28,7 @@
 
                 .formatted-suggestion {
                     display: flex;
+                    flex-wrap: wrap;
                 }
             }
 
@@ -110,6 +111,78 @@
             }
         }
     }
+
+    &.cmp-header-search-bar {
+        width: 302px;
+        margin-bottom: 0;
+        font-size: $font-size-body;
+        .react-autosuggest__input {
+            font-family: inherit;
+            @include font-body;
+            font-size: 100%;
+            width: 100%;
+            height: $height-medium;
+            margin-bottom: 0;
+            border: $border-medium;
+            background: $color-white;
+            padding: $space-xxxs $space-xxl $space-xxs $space-s;
+            -webkit-appearance: none;
+            -webkit-border-radius: $border-radius;
+            border-radius: $border-radius;
+            &:focus {
+                outline: none;
+                border: 1px solid $color-focus;
+            }
+        }
+        .react-autosuggest__suggestions-container {
+            top: $height-medium;
+            padding: $space-xs $space-s;
+
+            .react-autosuggest__suggestions-list {
+                padding: 0;
+                margin-bottom: 0;
+                .react-autosuggest__suggestion {
+                    margin-bottom: $space-xxs;
+                }
+            }
+        }
+        .cmp-search-bar__icons {
+            top: 0;
+            right: 0;
+            height: 100%;
+            &-search, &-clear {
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                svg {
+                    width: $icon-m;
+                    height: $icon-m;
+                    cursor: pointer;
+                    .st0 {
+                        stroke: $color-icon;
+                    }
+                }
+                div {
+                    height: $icon-m;
+                }
+            }
+            &-search {
+                width: $height-medium;
+                background-color: $color-blue-50;
+                border-radius: 0 $border-radius $border-radius 0;
+                svg {
+                    .st0 {
+                        stroke-width: 2;
+                        stroke: $color-white;
+                    }
+                }
+            }
+            &-clear {
+                margin-right: $space-xxs;
+            }
+        }
+    }
 }
 
 .cmp-search-bar--focus {
@@ -170,9 +243,9 @@ body.cmp-search-body__auto-suggest--open {
     }
 }
 
-// Edge CSS Hack 
+// Edge CSS Hack
 @supports (-ms-ime-align: auto) {
     .cmp-search-bar .react-autosuggest__suggestions-container {
-        top: 4.2em; 
+        top: 4.2em;
     }
-} 
+}

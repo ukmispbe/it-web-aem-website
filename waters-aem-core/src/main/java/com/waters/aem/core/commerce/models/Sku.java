@@ -74,6 +74,9 @@ public final class Sku {
 
     @ValueMapValue(name = WatersCommerceConstants.PROPERTY_GTIN)
     private String gtin;
+    
+    @ValueMapValue(name = WatersCommerceConstants.PROPERTY_UNSPSC)
+    private String unspsc;
 
     public String getPath() {
         return resource.getPath();
@@ -125,6 +128,10 @@ public final class Sku {
 
     public String getGtin() {
         return gtin;
+    }
+    
+    public String getUnspsc() {
+        return unspsc;
     }
 
     public BigDecimal getPrice(final String country, final String currencyIso) {
