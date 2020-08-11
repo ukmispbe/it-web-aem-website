@@ -143,7 +143,7 @@ public class AdjustPathReferencesLiveAction implements LiveAction {
         else if (shouldAdjustReferences(destinationUrl) && prop.getParent().getPath().contains("/footer/par/experiencefragment") && prop.getName().contentEquals("fragmentPath")){
             prop.setValue("");
         } else if (shouldAdjustReferences(destinationUrl) && prop.getParent().getName().equalsIgnoreCase("breadcrumb") && prop.getName().contentEquals("startLevel")){
-            prop.setValue("2");
+            prop.setValue("3");
         }
     }
 
