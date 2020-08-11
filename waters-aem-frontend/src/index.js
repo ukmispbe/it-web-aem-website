@@ -426,6 +426,23 @@ if (registrationFormContainer) {
     );
 }
 
+// Contact Support
+const contactSupportFormContainer = document.getElementById('js-contact-support-form');
+
+if (contactSupportFormContainer) {
+    const config = JSON.parse(document.getElementById('cmp-contact-support-form').innerHTML);
+
+    ReactDOM.render(
+        <Form
+            config={config}
+            submitFn={registrationSubmit}
+            callback={headerData.userDetailsUrl}
+            isocode={DigitalData.language}
+        />,
+        contactSupportFormContainer
+    );
+}
+
 const troubleSigningInFormContainer = document.getElementById(
     'cmp-trouble-signing-in-form'
 );
