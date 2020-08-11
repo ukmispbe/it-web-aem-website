@@ -336,7 +336,7 @@ class MyAccountDropDown extends React.Component {
                         title: responseJson.code === 804 ? sessionTimeoutTitle : requestFailureTitle,
                         text: responseJson.code === 804 ? sessionTimeoutMessage : requestFailureMessage,
                         buttons: [{ 
-                            text: prevState.eprocSetupFailure.buttons[0].text,
+                            text: this.state.eprocSetupFailure.buttons[0].text,
                             action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '',
                         }]
                     });
@@ -347,10 +347,10 @@ class MyAccountDropDown extends React.Component {
     }
 
     punchoutSetup = async () => {
+        const sessionStore = new SessionStore();
         const urlParams = parseQueryParams(window.location.search);
         const sid = urlParams['sid'] || '';
         if (sid) {
-            const sessionStore = new SessionStore();
             sessionStore.removePunchoutSetupDetails();
             (new LocalStore()).removeCartId();
             const response = await punchoutSetup(buildUrl({
@@ -382,7 +382,7 @@ class MyAccountDropDown extends React.Component {
                 });
                 (new LocalStore()).setCartId(response.cartId);
             }
-        } else {
+        } else if (Object.keys(sessionStore.getPunchoutSetupDetails()).length === 0) {
             const { requestFailureTitle, requestFailureMessage } = this.props.eProcSetupFailure;
             this.setEprocFailure({
                 title: requestFailureTitle,
