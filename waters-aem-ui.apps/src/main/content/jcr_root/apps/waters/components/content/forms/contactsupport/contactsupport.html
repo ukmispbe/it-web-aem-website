@@ -1,8 +1,8 @@
 <div data-sly-use.contactSupport="com.waters.aem.core.components.content.forms.ContactSupport">
-    <div class="cmp-form--attach" id="js-registration-form"></div>
-    <script type="application/json" id="cmp-registration-form">
+    <div class="cmp-form--attach" id="js-contact-support-form"></div>
+    <script type="application/json" id="cmp-contact-support-form">
         {
-            "formName": "registration",
+            "formName": "contactsupport",
             "submitEndpoint": "${contactSupport.contactSupportUrl @ context='unsafe'}",
             "buttonText": "${'SEND MESSAGE' @ i18n, context='text'}",
             "redirectUrl": "${contactSupport.redirectLink.href @ context='unsafe'}",
@@ -19,7 +19,7 @@
                     "type": "dropdown",
                     "name": "namePrefix",
                     "label": "${'Select a Category' @ i18n, context='text'}",
-                    "placeholder": "${'Technical Order' @ i18n, context='text'}",
+                    "placeholder": "${'Select...' @ i18n, context='text'}",
                     "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
                     "options": [
                         {"namePrefixCode":"Technical Order", "displayName": "${'Technical Order' @ i18n, context='text'}"},
@@ -64,7 +64,6 @@
                     "type": "email",
                     "name": "email",
                     "label": "${'Email Address' @ i18n, context='text'}",
-                    "emailValidationEndpoint": "${contactSupport.emailValidationUrl @ context='unsafe'}",
                     "validation": {
                         "required": true,
                         "requiredMsg": "${'Please enter a valid email address.' @ i18n, context='text'}",
@@ -88,9 +87,11 @@
                     }
                 },                
                 {
-                    "type": "text",
+                    "type": "textarea",
                     "name": "message",
                     "label": "${'How can we help you?' @ i18n, context='text'}",
+                    "resize": false,
+                    "rows": 5,
                     "validation": {
                         "maxLength": {
                             "value": 100,
@@ -98,6 +99,12 @@
                         },
                         "required": true,
                         "requiredMsg": "${'Please enter a message.' @ i18n, context='unsafe'}"
+                    },
+                    "showTextInfo": {
+                        "remainingMoreTextMsg": "${'characters left' @i18n, context='unsafe'}",
+                        "remainingOneTextMsg": "${'character left' @i18n, context='unsafe'}",
+                        "overMoreTextMsg": "${'characters over' @i18n, context='unsafe'}",
+                        "overOneTextMsg": "${'character over' @i18n, context='unsafe'}"
                     }
                 },
                 {
@@ -143,8 +150,7 @@
                         }
                     ]
                 }
-            ],
-            "regionalConfig": []
+            ]
         }
     </script>
 </div>

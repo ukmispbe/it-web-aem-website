@@ -113,10 +113,6 @@ public class ContactSupport implements ComponentExporter {
         return accountService.getContactSupportUrl();
     }
 
-    public String getEmailValidationUrl() {
-        return accountService.getEmailValidationUrl();
-    }
-
     public String getCaptchaSiteKey() {
         return captchaService.getSiteKey();
     }
