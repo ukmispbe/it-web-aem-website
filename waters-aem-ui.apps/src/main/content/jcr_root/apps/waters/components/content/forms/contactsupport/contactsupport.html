@@ -18,12 +18,12 @@
                 {
                     "type": "dropdown",
                     "name": "namePrefix",
+                    "defaultValue": "technical order",
                     "label": "${'Select a Category' @ i18n, context='text'}",
-                    "placeholder": "${'Select...' @ i18n, context='text'}",
                     "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
                     "options": [
-                        {"namePrefixCode":"Technical Order", "displayName": "${'Technical Order' @ i18n, context='text'}"},
-                        {"namePrefixCode":"Support Order","displayName": "${'Support Order' @ i18n, context='text'}"}
+                        {"namePrefixCode":"technical order", "displayName": "${'Technical Order' @ i18n, context='text'}"},
+                        {"namePrefixCode":"support order","displayName": "${'Support Order' @ i18n, context='text'}"}
                     ],
                     "validation": {
                         "required": true,
@@ -128,7 +128,7 @@
                             "type": "link",
                             "label": "${'Terms of Use' @ i18n, context='text'}",
                             "url": "${contactSupport.termsOfUseLink.href @ context='unsafe'}",
-                            "blank": "${contactSupport.newWindow @ context='unsafe'}",
+                            "blank": ${contactSupport.newWindow @ context='unsafe'},
                             "rightSpace": "true"
                         },
                         {
@@ -139,8 +139,8 @@
                         {
                             "type": "link",
                             "label": "${'Waters Privacy' @ i18n, context='text'}",
-                            "url": "${contactSupport.watersPrivacyLink.href @ context='unsafe'}",
-                            "blank": "${contactSupport.newWindow @ context='unsafe'}",
+                            "url": "${contactSupport.privacyNoticeLink.href @ context='unsafe'}",
+                            "blank": ${contactSupport.newWindow @ context='unsafe'},
                             "rightSpace": "false"
                         },
                         {

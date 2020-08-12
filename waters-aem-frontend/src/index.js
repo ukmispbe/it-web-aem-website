@@ -18,7 +18,8 @@ import {
     resetPasswordSubmit,
     troubleSigningInSubmit,
     signInSubmit,
-    chooseAccountSubmit
+    chooseAccountSubmit,
+    contactSupportSubmit
 
 } from './forms/services/submit';
 import Video from './video/index';
@@ -435,7 +436,7 @@ if (contactSupportFormContainer) {
     ReactDOM.render(
         <Form
             config={config}
-            submitFn={registrationSubmit}
+            submitFn={contactSupportSubmit}
             callback={headerData.userDetailsUrl}
             isocode={DigitalData.language}
         />,
