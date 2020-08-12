@@ -55,7 +55,7 @@
                     }
                 }
     
-                &:last-child {
+                &:last-child:not(:nth-child(2)){
                     margin-left: $space-l;
     
                     @include tablet-and-under {
