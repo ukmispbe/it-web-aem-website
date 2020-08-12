@@ -16,7 +16,7 @@
         &-text {
             @include font-body;
             color: $color-black;
-            font-weight: 400;
+            font-weight: $font-weight-regular;
         }
 
         &-text.error{
