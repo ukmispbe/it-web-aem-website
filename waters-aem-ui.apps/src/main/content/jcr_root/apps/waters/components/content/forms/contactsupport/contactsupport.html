@@ -17,13 +17,13 @@
             "fields": [
                 {
                     "type": "dropdown",
-                    "name": "namePrefix",
+                    "name": "formCategory",
                     "defaultValue": "technical order",
                     "label": "${'Select a Category' @ i18n, context='text'}",
                     "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
                     "options": [
-                        {"namePrefixCode":"technical order", "displayName": "${'Technical Order' @ i18n, context='text'}"},
-                        {"namePrefixCode":"support order","displayName": "${'Support Order' @ i18n, context='text'}"}
+                        {"value":"technical order", "label": "${'Technical Order' @ i18n, context='text'}"},
+                        {"value":"support order","label": "${'Support Order' @ i18n, context='text'}"}
                     ],
                     "validation": {
                         "required": true,
@@ -88,7 +88,7 @@
                 },                
                 {
                     "type": "textarea",
-                    "name": "message",
+                    "name": "formDescription",
                     "label": "${'How can we help you?' @ i18n, context='text'}",
                     "resize": false,
                     "rows": 5,
