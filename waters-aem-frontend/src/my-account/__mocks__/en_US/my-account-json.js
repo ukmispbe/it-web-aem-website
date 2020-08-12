@@ -53,9 +53,9 @@ export default {
         }
       ],
       "myProfile": {
-        "userDetailsUrl": "https://testservices.waters.com:8443/api/waters/user/v1/details",
-        "soldToDetailsUrl": "https://testservices.waters.com:8443/api/waters/user/v1/retrievesoldto",
-        "submitEndpoint": "https://testservices.waters.com:8443/api/waters/user/v1/update/profile",
+        "userDetailsUrl": "https://devservices.waters.com:8443/api/waters/user/v1/details",
+        "soldToDetailsUrl": "https://devservices.waters.com:8443/api/waters/user/v1/retrievesoldto",
+        "submitEndpoint": "https://devservices.waters.com:8443/api/waters/user/v1/update/profile",
         "personalConfigId": "json-config--cmp-detail-tiles--personal",
         "addressConfig": {
           "abstractConfig": "json-config--cmp-detail-tiles--address",
