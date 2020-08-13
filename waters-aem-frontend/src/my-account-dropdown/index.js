@@ -320,10 +320,11 @@ class MyAccountDropDown extends React.Component {
     punchoutLogin = async () => {
         const urlParams = parseQueryParams(window.location.search);
         const token = urlParams['1tu'] || '';
+        const sessionStore = new SessionStore();
         if (token) {
+            sessionStore.removeUserDetails();
             const { response } = await punchoutLogin(this.props.config.punchoutLogin, { token });
             if ( response && response.status !== 200) {
-                const sessionStore = new SessionStore();
                 const responseJson = await response.json();
                 const { requestFailureTitle, requestFailureMessage, sessionTimeoutTitle, sessionTimeoutMessage } = this.props.eProcSetupFailure;
                 let punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
@@ -381,6 +382,7 @@ class MyAccountDropDown extends React.Component {
                     country: response.country,
                 });
                 (new LocalStore()).setCartId(response.cartId);
+                window.onbeforeunload = e => sessionStore.removePunchoutSetupDetails();
             }
         } else if (Object.keys(sessionStore.getPunchoutSetupDetails()).length === 0) {
             const { requestFailureTitle, requestFailureMessage } = this.props.eProcSetupFailure;
