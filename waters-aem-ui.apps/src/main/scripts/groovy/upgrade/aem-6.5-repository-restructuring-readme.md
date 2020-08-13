@@ -27,5 +27,6 @@ Although currently there are no workflow related scripts but if any are added in
 References for the bullet points from the Adobe docs, have been updated throughout the codebase. Comments have also been added to the groovy scripts, for items for which code changes are required, for future reference.
 Hybris, Solr and System Notification pages have been moved out of `etc` and to `var`, necessary updates to filter.xml and rest of the code were made.
 
-### Todo
-Commerce folder has not been covered as part of the current activity, Hybris Importer to be used for a fresh import (Although a script has been created to updated references and delete the old location)
+### ACS Commons
+- Bump permissions for ACS Commons Email System User and provide read access to `/apps/settings/notification-templates`
+- For any network calls failing related to ACS QR Code functionality, toggle the switch here `/etc/acs-commons/qr-code.html`
