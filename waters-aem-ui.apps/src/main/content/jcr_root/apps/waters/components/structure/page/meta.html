@@ -8,7 +8,7 @@
     <meta name="twitter:url" content="${metaPage.externalizedPageUrl}">
 
     <meta data-sly-test.description="${metaPage.metaDescription || metaPage.description}" name="description" content="${description}">
-    <meta data-sly-test.metaSchema="${metaPage.metaSchema}" name="metaSchema" content="${metaSchema}">
+    ${metaPage.metaSchema @ context='unsafe'}
 
     <sly data-sly-test="${metaPage.twitterImage}">
         <meta name="twitter:image" content="${metaPage.twitterImage}">
