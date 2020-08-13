@@ -55,5 +55,5 @@ public @interface WatersAccountServiceConfiguration {
     String orderListUrl() default "https://devservices.waters.com:8443/api/waters/order/v1/list";
 
     @AttributeDefinition(name = "Contact Support API Url", description = "Url for Contact Support API")
-    String contactSupportUrl() default ""; 
+    String contactSupportUrl() default "https://devservices.waters.com:8443/api/waters/contact/v1/support"; 
 }
