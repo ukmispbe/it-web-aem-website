@@ -638,7 +638,7 @@ function quickOrder(container) {
 // End Quick Order Component
 
 // Add Contact Waters Link
-const contactusContainer = document.querySelector('.cmp-footer__linksdiv');
+const contactusContainer = document.getElementById('contactWatersLink');
 if (contactusContainer) {
     const config = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
     let label;
