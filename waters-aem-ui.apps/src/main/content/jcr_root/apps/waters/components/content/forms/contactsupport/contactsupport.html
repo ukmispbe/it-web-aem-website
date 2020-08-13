@@ -1,0 +1,160 @@
+<div data-sly-use.contactSupport="com.waters.aem.core.components.content.forms.ContactSupport">
+    <div class="cmp-form--attach" id="js-contact-support-form"></div>
+    <script type="application/json" id="cmp-contact-support-form">
+        {
+            "formName": "contactsupport",
+            "submitEndpoint": "${contactSupport.contactSupportUrl @ context='unsafe'}",
+            "buttonText": "${'SEND MESSAGE' @ i18n, context='text'}",
+            "redirectUrl": "${contactSupport.redirectLink.href @ context='unsafe'}",
+            "icons": {
+                "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                "validIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
+                "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
+                "eyeIcon": "/content/dam/waters/en/brand-assets/icons/eye.svg",
+                "eyeOffIcon": "/content/dam/waters/en/brand-assets/icons/eye-off.svg",
+                "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
+            },
+            "fields": [
+                {
+                    "type": "dropdown",
+                    "name": "formCategoryType",
+                    "defaultValue": "technical order",
+                    "label": "${'Select a Category' @ i18n, context='text'}",
+                    "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
+                    "options": [
+                        {"value":"technical order", "label": "${'Technical Order' @ i18n, context='text'}"},
+                        {"value":"support order","label": "${'Support Order' @ i18n, context='text'}"}
+                    ],
+                    "validation": {
+                        "required": true,
+                        "requiredMsg": "${'Please select a category.' @ i18n, context='text'}"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "firstName",
+                    "label": "${'First Name' @ i18n, context='text'}",
+                    "validation": {
+                        "required": true,
+                        "maxLength": {
+                            "value": 40,
+                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                        },
+                        "validateFnName": "noWhitespaceOnly",
+                        "validationMsg": "${'Please enter a valid first name.' @ i18n, context='unsafe'}",
+                        "requiredMsg": "${'Please enter a first name.' @ i18n, context='unsafe'}"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "lastName",
+                    "label": "${'Last Name' @ i18n, context='text'}",
+                    "validation": {
+                        "required": true,
+                        "maxLength": {
+                            "value": 40,
+                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                        },
+                        "validateFnName": "noWhitespaceOnly",
+                        "validationMsg": "${'Please enter a valid last name.' @ i18n, context='unsafe'}",
+                        "requiredMsg": "${'Please enter a last name.' @ i18n, context='unsafe'}"
+                    }
+                },
+                {
+                    "type": "email",
+                    "name": "email",
+                    "label": "${'Email Address' @ i18n, context='text'}",
+                    "validation": {
+                        "required": true,
+                        "requiredMsg": "${'Please enter a valid email address.' @ i18n, context='text'}",
+                        "validateFnName": "email",
+                        "validationMsg": "${'Please enter a valid email address.' @ i18n, context='text'}"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "phone",
+                    "label": "${'Phone' @ i18n, context='text'}",
+                    "active": true,
+                    "validation": {
+                        "required": false,
+                        "maxLength": {
+                            "value": 40,
+                            "message": "${'Maximum 40 characters allowed' @i18n, context='unsafe'}"
+                        },
+                        "validateFnName": "blankOrNumbersOnly",
+                        "validationMsg": "${'Please enter a valid phone number.' @ i18n, context='unsafe'}"
+                    }
+                },                
+                {
+                    "type": "textarea",
+                    "name": "formDescription",
+                    "label": "${'How can we help you?' @ i18n, context='text'}",
+                    "resize": false,
+                    "rows": 5,
+                    "validation": {
+                        "maxLength": {
+                            "value": 100,
+                            "message": "${'Maximum 100 characters allowed' @i18n, context='unsafe'}"
+                        },
+                        "required": true,
+                        "requiredMsg": "${'Please enter a message.' @ i18n, context='unsafe'}"
+                    },
+                    "showTextInfo": {
+                        "remainingMoreTextMsg": "${'characters left' @i18n, context='unsafe'}",
+                        "remainingOneTextMsg": "${'character left' @i18n, context='unsafe'}",
+                        "overMoreTextMsg": "${'characters over' @i18n, context='unsafe'}",
+                        "overOneTextMsg": "${'character over' @i18n, context='unsafe'}"
+                    }
+                },
+                {
+                    "type": "captcha",
+                    "name": "captcha",
+                    "siteKey": "${contactSupport.captchaSiteKey @ context='unsafe'}",
+                    "validation": {
+                        "required": true
+                    }
+                },
+                {
+                    "type": "textwithlinks",
+                    "name": "privacy",
+                    "config": [
+                        {
+                            "type": "text",
+                            "text": "${'By clicking the SEND MESSAGE button, you are agreeing to our' @ i18n, context='text'}",
+                            "rightSpace": "true"
+                        },
+                        {
+                            "type": "link",
+                            "label": "${'Terms of Use' @ i18n, context='text'}",
+                            "url": "${contactSupport.termsOfUseLink.href @ context='unsafe'}",
+                            "blank": ${contactSupport.newWindow @ context='unsafe'},
+                            "rightSpace": "true"
+                        },
+                        {
+                            "type": "text",
+                            "text": "${'and understand that the information you have provided on this website will be used and processed by Waters in accordance with the' @ i18n, context='text'}",
+                            "rightSpace": "true"
+                        },
+                        {
+                            "type": "link",
+                            "label": "${'Waters Privacy' @ i18n, context='text'}",
+                            "url": "${contactSupport.privacyNoticeLink.href @ context='unsafe'}",
+                            "blank": ${contactSupport.newWindow @ context='unsafe'},
+                            "rightSpace": "false"
+                        },
+                        {
+                            "type": "text",
+                            "text": "${'.' @ i18n, context='text'}",
+                            "rightSpace": "false"
+                        }
+                    ]
+                }
+            ]
+        }
+    </script>
+</div>
+<sly
+        data-sly-use.patterns="/apps/waters/components/content/patterns.html"
+        data-sly-call="${patterns.placeholder @ show=true, text=component.title}"
+/>

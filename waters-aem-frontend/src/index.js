@@ -18,7 +18,8 @@ import {
     resetPasswordSubmit,
     troubleSigningInSubmit,
     signInSubmit,
-    chooseAccountSubmit
+    chooseAccountSubmit,
+    contactSupportSubmit
 
 } from './forms/services/submit';
 import Video from './video/index';
@@ -423,6 +424,23 @@ if (registrationFormContainer) {
             isocode={DigitalData.language}
         />,
         registrationFormContainer
+    );
+}
+
+// Contact Support
+const contactSupportFormContainer = document.getElementById('js-contact-support-form');
+
+if (contactSupportFormContainer) {
+    const config = JSON.parse(document.getElementById('cmp-contact-support-form').innerHTML);
+
+    ReactDOM.render(
+        <Form
+            config={config}
+            submitFn={contactSupportSubmit}
+            callback={headerData.userDetailsUrl}
+            isocode={DigitalData.language}
+        />,
+        contactSupportFormContainer
     );
 }
 

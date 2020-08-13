@@ -16,6 +16,7 @@ const DropdownIndicator = props => {
 const Select = (props) => {
     const { name, options, dropdownIndicator, placeholder, disabled } = useContext(useFieldApi);
     const { triggerValidation, setValue, getValue, activateField, deactivateField, setCountrySaved, regionalConfig } = useContext(useFormApi);
+    setValue(name, props.defaultValue, true);
     const [selectedValue, setSelectedValue] = useState(getValue(name) ? getValue(name).toLowerCase() : "");
 
     const setupOptions = (label, value) => ({ label: label, value: value });
