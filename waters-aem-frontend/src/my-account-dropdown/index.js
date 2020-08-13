@@ -382,6 +382,7 @@ class MyAccountDropDown extends React.Component {
                     country: response.country,
                 });
                 (new LocalStore()).setCartId(response.cartId);
+                window.onbeforeunload = e => sessionStore.removePunchoutSetupDetails();
             }
         } else if (Object.keys(sessionStore.getPunchoutSetupDetails()).length === 0) {
             const { requestFailureTitle, requestFailureMessage } = this.props.eProcSetupFailure;
