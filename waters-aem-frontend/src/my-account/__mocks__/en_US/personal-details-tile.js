@@ -56,6 +56,7 @@ export default {
           "type": "text",
           "name": "company",
           "label": "Company",
+          "disableForEprocUser": true,
           "validation": {
             "validateFnName": "noWhitespaceOnly",
             "maxLength": {
