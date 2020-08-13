@@ -7,7 +7,7 @@
 <div data-sly-use.footer="com.waters.aem.core.components.structure.Footer" id="footer" class="cmp-footer" data-ecommerce-state="${footer.commerceConfig}">
     <sly data-sly-test.isChinaPage="${footer.chinaPage}"/>
     <div class="container1_wrapper">
-        <div class="container1">
+        <div class="${footer.eprocurement ? 'container1 contactus-container': 'container1'}">
             <div class="cmp-footer__linksdiv">
                 <div class="cmp-footer__parsys"
                     data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
@@ -49,8 +49,8 @@
             <div class="cmp-footer__copyright">
                 <p>${footer.copyrightText}</p>
             </div>
-            <div class="cmp-footer__selector ${footer.languagePages.size == 1 ? 'one-link' : ''}">
-                <div data-sly-test="${!footer.eprocurement}" class="cmp-footer__selector__region">
+            <div data-sly-test="${!footer.eprocurement}" class="cmp-footer__selector ${footer.languagePages.size == 1 ? 'one-link' : ''}">
+                <div class="cmp-footer__selector__region">
                     <span>${footer.countryName @ i18n}</span>
                     <img class="inline-svg" src="/content/dam/waters/en/brand-assets/icons/modal.svg"
                         alt="${'Country' @ i18n}" />
@@ -132,7 +132,9 @@
             "disabledHref": "${footer.contactLink.href @ context='unsafe'}",
             "partialDisabledText": "${'Online ordering is not available. Please ' @ i18n, context='text'}",
             "partialDisabledLinkText": "${'contact your sales representative.' @ i18n, context='text'}",
-            "partialDisabledHref": "${footer.contactLink.href @ context='unsafe'}"
+            "partialDisabledHref": "${footer.contactLink.href @ context='unsafe'}",
+            "contactSupportLinkLabel": "${'CONTACT WATERS' @ i18n, context='text'}",
+            "contactSupportHref": "${footer.contactLink.href @ context='unsafe'}"
         },
         "availabilityUrl": "${footer.skuAvailabilityUrl @ context='unsafe'}",
         "pricingUrl": "${footer.skuCustomerPriceUrl @ context='unsafe'}",

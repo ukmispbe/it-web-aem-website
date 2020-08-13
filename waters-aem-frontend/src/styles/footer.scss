@@ -23,7 +23,7 @@
         //position: static;
         margin: -$space-xxs auto 0 auto;
         padding: $space-xl $space-xxl $space-m $space-xxl;
-        display: block;
+        display: flex;
         text-align: left;
 
         @include mobile {
@@ -32,6 +32,27 @@
 
         @include tablet {
             padding: $space-xl $space-l $space-l $space-l;
+        }
+
+        &.contactus-container{
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: space-between;
+
+            a{
+                &.cmp-button{
+                    background-color:$color-background-dark;
+                    opacity: 0.95;
+                    border: $border-white;
+                    color: $color-white;
+
+                    &:hover{
+                        background-color: $color-white;
+                        border: $border-white;
+                        color: $color-gray-50;
+                      }
+                }
+            }
         }
     }
 
