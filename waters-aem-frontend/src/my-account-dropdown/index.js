@@ -320,10 +320,11 @@ class MyAccountDropDown extends React.Component {
     punchoutLogin = async () => {
         const urlParams = parseQueryParams(window.location.search);
         const token = urlParams['1tu'] || '';
+        const sessionStore = new SessionStore();
         if (token) {
+            sessionStore.removeUserDetails();
             const { response } = await punchoutLogin(this.props.config.punchoutLogin, { token });
             if ( response && response.status !== 200) {
-                const sessionStore = new SessionStore();
                 const responseJson = await response.json();
                 const { requestFailureTitle, requestFailureMessage, sessionTimeoutTitle, sessionTimeoutMessage } = this.props.eProcSetupFailure;
                 let punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
