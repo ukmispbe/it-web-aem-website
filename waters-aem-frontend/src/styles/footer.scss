@@ -37,21 +37,6 @@
         #contactWatersLink{
             display: inline-block;
             float: right;
-
-            a{
-                &.cmp-button{
-                    background-color:$color-background-dark;
-                    opacity: 0.95;
-                    border: $border-white;
-                    color: $color-white;
-
-                    &:hover{
-                        background-color: $color-white;
-                        border: $border-white;
-                        color: $color-gray-50;
-                      }
-                }
-            }
         }
     }
 
