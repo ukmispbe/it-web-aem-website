@@ -8,7 +8,7 @@
     <sly data-sly-test.isChinaPage="${footer.chinaPage}"/>
     <div class="container1_wrapper">
         <div class="container1">
-            <div class="cmp-footer__linksdiv">
+            <div data-sly-test="${!footer.eprocurement}" class="cmp-footer__linksdiv">
                 <div class="cmp-footer__parsys"
                     data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
             </div>
@@ -17,7 +17,8 @@
                     <img src="${footer.logoImage.fileReference}" alt="${footer.logoAltText}" />
                 </a>
             </div>
-            <div class="cmp-footer__social-links" data-sly-test="${footer.socialLinks}">
+            <div data-sly-test="${footer.eprocurement && footer.contactLink}" class="cmp-button--reverse" id="contactWatersLink"></div>
+            <div class="cmp-footer__social-links" data-sly-test="${footer.socialLinks && !footer.eprocurement}">
                 <div class="social-links-text">${'Follow our channels' @ i18n}</div>
                 <ul>
                     <li data-sly-repeat="${footer.socialLinks}" class="cmp-footer__social-links__item">
@@ -49,8 +50,8 @@
             <div class="cmp-footer__copyright">
                 <p>${footer.copyrightText}</p>
             </div>
-            <div class="cmp-footer__selector ${footer.languagePages.size == 1 ? 'one-link' : ''}">
-                <div data-sly-test="${!footer.eprocurement}" class="cmp-footer__selector__region">
+            <div data-sly-test="${!footer.eprocurement}" class="cmp-footer__selector ${footer.languagePages.size == 1 ? 'one-link' : ''}">
+                <div class="cmp-footer__selector__region">
                     <span>${footer.countryName @ i18n}</span>
                     <img class="inline-svg" src="/content/dam/waters/en/brand-assets/icons/modal.svg"
                         alt="${'Country' @ i18n}" />
@@ -132,7 +133,9 @@
             "disabledHref": "${footer.contactLink.href @ context='unsafe'}",
             "partialDisabledText": "${'Online ordering is not available. Please ' @ i18n, context='text'}",
             "partialDisabledLinkText": "${'contact your sales representative.' @ i18n, context='text'}",
-            "partialDisabledHref": "${footer.contactLink.href @ context='unsafe'}"
+            "partialDisabledHref": "${footer.contactLink.href @ context='unsafe'}",
+            "contactSupportLinkLabel": "${'CONTACT WATERS' @ i18n, context='text'}",
+            "contactSupportHref": "${footer.contactLink.href @ context='unsafe'}"
         },
         "availabilityUrl": "${footer.skuAvailabilityUrl @ context='unsafe'}",
         "pricingUrl": "${footer.skuCustomerPriceUrl @ context='unsafe'}",

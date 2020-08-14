@@ -8,6 +8,7 @@ import ImageCarousel from './image-carousel';
 import MyAccountDropDown from './my-account-dropdown/index';
 import UserGreeting from './user-greetings/UserGreeting';
 import QuickOrder from './quick-order/QuickOrder';
+import LinkButton from './link-button/LinkButton';
 
 import SkuDetails from './sku-details';
 import SkuList from './sku-list';
@@ -635,3 +636,21 @@ function quickOrder(container) {
     );
 }
 // End Quick Order Component
+
+// Add Contact Waters Link
+const contactusContainer = document.getElementById('contactWatersLink');
+if (contactusContainer) {
+    const config = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
+    let label;
+    let url;
+
+    if(Object.keys(config.commerceConfig).length > 0) {
+        label = config.commerceConfig.contactSupportLinkLabel;
+        url = config.commerceConfig.contactSupportHref;
+    }
+
+    ReactDOM.render(
+        <LinkButton label={label} url={url} />,
+        contactusContainer
+    );
+}
