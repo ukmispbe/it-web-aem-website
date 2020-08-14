@@ -34,10 +34,9 @@
             padding: $space-xl $space-l $space-l $space-l;
         }
 
-        &.contactus-container{
-            display: flex;
-            flex-direction: row-reverse;
-            justify-content: space-between;
+        #contactWatersLink{
+            display: inline-block;
+            float: right;
 
             a{
                 &.cmp-button{
