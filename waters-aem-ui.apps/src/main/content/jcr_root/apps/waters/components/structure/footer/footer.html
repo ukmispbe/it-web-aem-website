@@ -7,18 +7,18 @@
 <div data-sly-use.footer="com.waters.aem.core.components.structure.Footer" id="footer" class="cmp-footer" data-ecommerce-state="${footer.commerceConfig}">
     <sly data-sly-test.isChinaPage="${footer.chinaPage}"/>
     <div class="container1_wrapper">
-        <div class="${footer.eprocurement ? 'container1 contactus-container': 'container1'}">
+        <div class="${footer.eprocurement && footer.contactLink ? 'container1 contactus-container': 'container1'}">
             <div data-sly-test="${!footer.eprocurement}" class="cmp-footer__linksdiv">
                 <div class="cmp-footer__parsys"
                     data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
             </div>
-            <div data-sly-test="${footer.eprocurement}" id="contactWatersLink"></div>
+            <div data-sly-test="${footer.eprocurement && footer.contactLink}" id="contactWatersLink"></div>
             <div class="cmp-footer__logo">
                 <a href="${footer.logoLink.href}" target="${footer.external ? '_blank' : ''}">
                     <img src="${footer.logoImage.fileReference}" alt="${footer.logoAltText}" />
                 </a>
             </div>
-            <div class="cmp-footer__social-links" data-sly-test="${footer.socialLinks}">
+            <div class="cmp-footer__social-links" data-sly-test="${footer.socialLinks && !footer.eprocurement}">
                 <div class="social-links-text">${'Follow our channels' @ i18n}</div>
                 <ul>
                     <li data-sly-repeat="${footer.socialLinks}" class="cmp-footer__social-links__item">

@@ -23,7 +23,7 @@
         //position: static;
         margin: -$space-xxs auto 0 auto;
         padding: $space-xl $space-xxl $space-m $space-xxl;
-        display: flex;
+        display: block;
         text-align: left;
 
         @include mobile {
