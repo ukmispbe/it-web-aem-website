@@ -6,6 +6,7 @@ import ErrorBoundary from './../search/ErrorBoundary';
 import useProfile from './hooks/useProfile';
 import Tile from './views/tile';
 import { personalSubmit, changePasswordSubmit } from '../forms/services/submit';
+import { isEprocurementUserRole } from '../utils/userFunctions';
 
 const DetailTiles = ({
     name,
@@ -33,6 +34,17 @@ const DetailTiles = ({
             form.fields[indexofFirstName] = form.fields[indexofLastName];
             form.fields[indexofLastName] = temp;
         }
+    }
+
+    const processFormData = () => {
+        form.fields = form.fields.map((field) => {
+            // Check if disableForEprocUser flag is true and userRole is eproc
+            if (field.disableForEprocUser && isEprocurementUserRole()) {
+                field.disabled = true;
+            }
+            delete field.disableForEprocUser;
+            return field;
+        });
     }
 
     const renderTiles = () => {
@@ -107,6 +119,7 @@ const DetailTiles = ({
             if(userCountry === 'kr' || userCountry === 'jp' || userCountry === 'tw' || userCountry === 'cn') {
                 swapFirstAndLastNames();
             }
+            processFormData();
         }
 
             return <ErrorBoundary>

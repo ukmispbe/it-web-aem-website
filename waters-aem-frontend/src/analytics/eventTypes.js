@@ -102,6 +102,18 @@ const eventTypes = {
             error: {
                 event: 'personalDetailsFormError'
             }
+        },
+        contactsupport: {
+            name: 'contactSupportForm',
+            load: {
+                event: 'contactSupportFormLoad'
+            },
+            submit: {
+                event: 'contactSupportFormSubmit'
+            },
+            error: {
+                event: 'contactSupportFormError'
+            }
         }
     },
     linkClick: {

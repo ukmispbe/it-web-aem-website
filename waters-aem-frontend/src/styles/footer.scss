@@ -33,6 +33,11 @@
         @include tablet {
             padding: $space-xl $space-l $space-l $space-l;
         }
+
+        #contactWatersLink{
+            display: inline-block;
+            float: right;
+        }
     }
 
     .container1_wrapper {

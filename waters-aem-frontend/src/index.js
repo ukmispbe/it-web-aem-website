@@ -8,6 +8,7 @@ import ImageCarousel from './image-carousel';
 import MyAccountDropDown from './my-account-dropdown/index';
 import UserGreeting from './user-greetings/UserGreeting';
 import QuickOrder from './quick-order/QuickOrder';
+import LinkButton from './link-button/LinkButton';
 
 import SkuDetails from './sku-details';
 import SkuList from './sku-list';
@@ -18,7 +19,8 @@ import {
     resetPasswordSubmit,
     troubleSigningInSubmit,
     signInSubmit,
-    chooseAccountSubmit
+    chooseAccountSubmit,
+    contactSupportSubmit
 
 } from './forms/services/submit';
 import Video from './video/index';
@@ -426,6 +428,23 @@ if (registrationFormContainer) {
     );
 }
 
+// Contact Support
+const contactSupportFormContainer = document.getElementById('js-contact-support-form');
+
+if (contactSupportFormContainer) {
+    const config = JSON.parse(document.getElementById('cmp-contact-support-form').innerHTML);
+
+    ReactDOM.render(
+        <Form
+            config={config}
+            submitFn={contactSupportSubmit}
+            callback={headerData.userDetailsUrl}
+            isocode={DigitalData.language}
+        />,
+        contactSupportFormContainer
+    );
+}
+
 const troubleSigningInFormContainer = document.getElementById(
     'cmp-trouble-signing-in-form'
 );
@@ -617,3 +636,21 @@ function quickOrder(container) {
     );
 }
 // End Quick Order Component
+
+// Add Contact Waters Link
+const contactusContainer = document.getElementById('contactWatersLink');
+if (contactusContainer) {
+    const config = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
+    let label;
+    let url;
+
+    if(Object.keys(config.commerceConfig).length > 0) {
+        label = config.commerceConfig.contactSupportLinkLabel;
+        url = config.commerceConfig.contactSupportHref;
+    }
+
+    ReactDOM.render(
+        <LinkButton label={label} url={url} />,
+        contactusContainer
+    );
+}
