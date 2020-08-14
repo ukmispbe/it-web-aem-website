@@ -1,0 +1,19 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+.cmp-add-to-cart-modal {
+  &.cmp-modal-box {
+    z-index: $header-top-bar-user-z-index;
+  }
+
+  .cmp-modal{
+    @include tablet-and-over {
+      padding: 3em;
+      width: 30em;
+    }
+}
+
+  a.cmp-button {
+    padding: $space-xs $space-xxs;
+  }
+}

@@ -14,25 +14,24 @@ export const getLanguage = () => {
 export const getUserId = () => {
     const store = new SessionStore();
     const userDetails = store.getUserDetails();
-    const userId = loginStatus.state() && userDetails ? userDetails.userId : '';
+    const userId = loginStatus.state() && userDetails && userDetails.userId != undefined ? userDetails.userId : '';
     return userId;
 }
 
 export const getSalesOrg = () => {
+    let salesOrg = '';
     const store = new SessionStore();
     const userDetails = store.getUserDetails();
-
     if (userDetails || userDetails.length > 0) {
-        const salesOrg = loginStatus.state() && userDetails ? userDetails.salesOrg : '';
-        return salesOrg;
-    } else {
-        return ''
+        salesOrg = loginStatus.state() && userDetails.salesOrg != undefined ? userDetails.salesOrg : '';
     }
+
+    return salesOrg;
 }
 
 //Note: this method uses the USER Details API, not the SoldToDetailsAPI
 export const getSoldToId = () => {
-    let soldToId = "";
+    let soldToId = '';
 	if(loginStatus.state()) {
 		const store = new SessionStore();
         const userDetails = store.getUserDetails();
@@ -57,13 +56,11 @@ export const getSoldToId = () => {
 
 //Note: this method uses the USER Details API, not the SoldToDetailsAPI
 export const getDummySoldToId = () => {
-    let dummySoldto = "";
-	if(loginStatus.state()) {
-		const store = new SessionStore();
-        const userDetails = store.getUserDetails();
-        if (userDetails || userDetails.length > 0) {
-            dummySoldto = userDetails.dummySoldto != undefined ? userDetails.dummySoldto : '';
-        }
+    let dummySoldto = '';
+    const store = new SessionStore();
+    const userDetails = store.getUserDetails();
+    if (userDetails || userDetails.length > 0) {
+        dummySoldto = userDetails.dummySoldto != undefined ? userDetails.dummySoldto : '';
     }
 
     return dummySoldto;
@@ -82,30 +79,18 @@ export const getSoldToIdSource = (soldToId, dummySoldto) => {
 
 //Note: Returning all possible soldTo values for debugging and in case of future needs
 export const setSKUUserInfo = () => {
-	if(loginStatus.state()) {
-        let salesOrg = getSalesOrg();
-        let soldToId = getSoldToId();
-        let dummySoldto = getDummySoldToId();
-        let dynamicSoldTo = getSoldToIdSource(soldToId, dummySoldto);
+    let salesOrg = getSalesOrg();
+    let soldToId = getSoldToId();
+    let dummySoldto = getDummySoldToId();
+    let dynamicSoldTo = getSoldToIdSource(soldToId, dummySoldto);
 
-        let userInfo = {
-            salesOrg: salesOrg,
-            soldToId: soldToId,
-            dummySoldto: dummySoldto,
-            dynamicSoldTo: dynamicSoldTo
-        }
-
-        return userInfo;
-    } else {
-        let userInfo = {
-            soldToId: '',
-            salesOrg: '',
-            dummySoldto: '',
-            dynamicSoldTo: ''
-        }
-
-        return userInfo;
+    let userInfo = {
+        salesOrg: salesOrg,
+        soldToId: soldToId,
+        dummySoldto: dummySoldto,
+        dynamicSoldTo: dynamicSoldTo
     }
+    return userInfo;
 }
 
 export const getFullCompanyAddress = (address, includeCountryName) => {
@@ -218,6 +203,7 @@ export const filterUserDetails = (inputUser) => {
     if (inputUser) {
         filteredUser.firstName = inputUser.firstName;
         filteredUser.lastName = inputUser.lastName;
+        filteredUser.company = inputUser.company || '';
         filteredUser.dummySoldto = inputUser.dummySoldto;
         filteredUser.localeCountry = inputUser.localeCountry;
         filteredUser.localeLanguage = inputUser.localeLanguage;
@@ -226,6 +212,8 @@ export const filterUserDetails = (inputUser) => {
         filteredUser.salesOrg = inputUser.salesOrg;
         filteredUser.soldToAccounts = [];
         filteredUser.approvalStatus = inputUser.approvalStatus;
+        filteredUser.userRole = inputUser.userRole;
+        filteredUser.isoCode = inputUser.isoCode;
 
         if (inputUser.soldToAccounts && inputUser.soldToAccounts.length !== 0) {
             filteredUser.soldToAccounts = inputUser.soldToAccounts;
@@ -252,6 +240,18 @@ export const getIsoCode = () => {
         return ''
     }
 }
+
+export const getUserRole = () => {
+	const store = new SessionStore();
+    const userDetails = store.getUserDetails();
+    if (userDetails || userDetails.length > 0) {
+        return (userDetails.userRole && userDetails.userRole.role) || '';
+    } else {
+        return ''
+    }
+}
+
+export const isEprocurementUserRole = () => (getUserRole() === 'EPROC');
 
 export const getUsertype = () => {
     const sessionStore = new SessionStore();

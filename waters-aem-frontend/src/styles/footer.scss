@@ -33,6 +33,11 @@
         @include tablet {
             padding: $space-xl $space-l $space-l $space-l;
         }
+
+        #contactWatersLink{
+            display: inline-block;
+            float: right;
+        }
     }
 
     .container1_wrapper {
@@ -196,7 +201,7 @@
     position: fixed;
     bottom: $space-m;
     right: $space-m;
-    z-index: 98;
+    z-index: $cmp-back-to-top-z-index;
     height: $button-fixed;
     width: $button-fixed;
     background: $color-white;

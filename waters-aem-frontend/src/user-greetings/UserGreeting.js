@@ -8,15 +8,16 @@ function UserGreeting(props) {
     const store = new SessionStore();
     const savedUserDetails = store.getUserDetails();
     const name = `${savedUserDetails.firstName || ''} ${savedUserDetails.lastName || ''}`;
+    const company = savedUserDetails.company || '';
     return (
         <>
             <div className="greetings">
                 <h2>{greetings}</h2>
                 <h3>{name.trim()}</h3>
-                <h4>{savedUserDetails.company}</h4>
+                <h4>{company}</h4>
             </div>
             <ReactSVG
-                src={`${logoDirectoryPath.replace(/\/$/, '')}/${savedUserDetails.company.trim().replace(/ /g, '-').toLowerCase()}.svg`}
+                src={`${logoDirectoryPath.replace(/\/$/, '')}/${company.trim().replace(/ /g, '-').toLowerCase()}.svg`}
                 alt={savedUserDetails.company || ''}
                 className="logo"
             />

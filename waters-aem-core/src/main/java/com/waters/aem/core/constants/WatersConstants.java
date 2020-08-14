@@ -61,6 +61,9 @@ public final class WatersConstants {
 
     public static final String TEMPLATE_SEARCH_PAGE = "/conf/waters/settings/wcm/templates/search-page";
 
+    public static final Predicate<PageDecorator> PREDICATE_EPROC_HOME_PAGE = page -> TEMPLATE_SHOP_HOME_PAGE.equals(
+            page.getTemplatePath());
+
     public static final Predicate<PageDecorator> PREDICATE_SKU_PAGE = page -> TEMPLATE_SKU_PAGE.equals(
         page.getTemplatePath());
 

@@ -43,6 +43,8 @@ public class DefaultWatersAccountService implements WatersAccountService {
 
     private volatile String orderListUrl;
 
+    private volatile String contactSupportUrl;
+
     @Override
     public String getSignOutUrl() {
         return signOutUrl;
@@ -123,6 +125,11 @@ public class DefaultWatersAccountService implements WatersAccountService {
         return orderListUrl;
     }
 
+    @Override
+     public String getContactSupportUrl() {
+         return contactSupportUrl;
+     }
+
     @Activate
     @Modified
     protected void activate(final WatersAccountServiceConfiguration configuration) {
@@ -142,5 +149,6 @@ public class DefaultWatersAccountService implements WatersAccountService {
         changeAccountEndpoint = configuration.chooseAccountEndpoint();
         orderDetailsUrl = configuration.orderDetailsUrl();
         orderListUrl = configuration.orderListUrl();
+        contactSupportUrl = configuration.contactSupportUrl();
     }
 }

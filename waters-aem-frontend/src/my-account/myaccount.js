@@ -5,9 +5,10 @@ import loginStatus from "../scripts/loginStatus";
 import { notLoggedInRedirect } from '../utils/redirectFunctions';
 import Spinner from "../utils/spinner";
 import { isCartHidden } from '../utils/eCommerceFunctions';
+import { isEprocurementUserRole } from '../utils/userFunctions';
 
 const Tile = ({ tile }) => {
-    if (tile.requiresEcommerce === "true" && isCartHidden()) {
+    if ((tile.requiresEcommerce === "true" && isCartHidden()) || (tile.isHiddenForEprocUser === "true" && isEprocurementUserRole())) {
         return <></>;
     }
 

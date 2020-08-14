@@ -417,3 +417,29 @@ export async function submitAccount(selectedAccount, urlChooseAccount) {
     }
 }
 
+export async function contactSupportSubmit(data) {
+    const isCaptcha = data.hasOwnProperty('captcha');
+    if (isCaptcha) {
+        this.url = `${this.url}?captcha=${data.captcha}`;
+        delete data.captcha;
+    }
+
+    const response = await postData(this.url, data);
+    const responseBody = await response.json();
+    
+    // remove all previous server error notifications
+    this.setError();
+
+    if (response.status === 200) {
+        this.setFormAnalytics('submit');
+
+        if (this.redirect) {
+            window.location.replace(this.redirect);
+        }
+    } else {
+        this.setFormAnalytics('error', responseBody);
+        this.setError(responseBody);
+        scrollToY(0);
+    }
+}
+
