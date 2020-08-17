@@ -177,10 +177,6 @@ class SkuDetails extends React.Component {
             <SkuMessage
                 icon={this.props.config.commerceConfig.disabledIcon}
                 message={this.props.config.commerceConfig.disabledText}
-                link={this.props.config.commerceConfig.disabledHref}
-                linkMessage={
-                    this.props.config.commerceConfig.disabledLinkText
-                }
             />
         );
     }
