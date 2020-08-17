@@ -342,6 +342,10 @@ class MyAccountDropDown extends React.Component {
                         }]
                     });
                 }
+            } else {
+                sessionStore.removeSoldToDetails();
+                await UserDetailsLazy(this.props.config.userDetailsUrl, false);
+                await SoldToDetailsLazy(this.props.config.soldToDetailsUrl);
             }
         }
         removeQueryString(window.location.href, '1tu', true);
