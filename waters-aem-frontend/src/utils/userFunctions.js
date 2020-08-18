@@ -93,6 +93,30 @@ export const setSKUUserInfo = () => {
     return userInfo;
 }
 
+export const callCustomerPriceApi = (custPriceApiDisabled) => {
+    let salesOrg = getSalesOrg();
+    let soldToId = getSoldToId();
+    let dummySoldto = getDummySoldToId();
+    let dynamicSoldTo = getSoldToIdSource(soldToId, dummySoldto);
+    let callCustApi = false;
+
+    if (dynamicSoldTo !== '' && salesOrg !== '' && custPriceApiDisabled !== true 
+        && custPriceApiDisabled !== "true"){
+            callCustApi = true;
+        }
+
+    let userInfo = {
+        salesOrg: salesOrg,
+        soldToId: soldToId,
+        dummySoldto: dummySoldto,
+        dynamicSoldTo: dynamicSoldTo,
+        callCustApi: callCustApi
+    }
+
+    return userInfo;
+}
+
+
 export const getFullCompanyAddress = (address, includeCountryName) => {
     if (
         !address ||

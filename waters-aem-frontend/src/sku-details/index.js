@@ -6,7 +6,7 @@ import Price from "./views/price";
 import AddToCart from "./views/addToCart";
 import AddToCartBody from '../sku-details/views/addToCartModal';
 import Modal, { Header, keys } from '../utils/modal';
-import { setSKUUserInfo } from '../utils/userFunctions';
+import { callCustomerPriceApi } from '../utils/userFunctions';
 import Spinner from '../utils/spinner';
 import LoginStatus from "../scripts/loginStatus";
 import CheckOutStatus from "../scripts/checkOutStatus";
@@ -39,6 +39,7 @@ class SkuDetails extends React.Component {
             skuAvailability: {},
             addToCartQty: undefined,
             custPrice: undefined,
+            custPriceApiDisabled: this.props.config.isCustomerPriceApiDisabled,
             listPrice: this.props.price,
             analyticsConfig: {
                 context: mainCartContext,
@@ -59,11 +60,11 @@ class SkuDetails extends React.Component {
     }
 
     componentDidMount() {
-        const { availabilityUrl, pricingUrl, skuNumber, userCountry} = this.state;
+        const { availabilityUrl, pricingUrl, skuNumber, userCountry } = this.state;
 
         if (LoginStatus.state()) {
-            let userInfo = setSKUUserInfo();
-            if (Object.keys(userInfo).length > 0 && userInfo.dynamicSoldTo !== '' && userInfo.salesOrg !== ''){
+            let userInfo = callCustomerPriceApi(this.state.custPriceApiDisabled);
+            if (Object.keys(userInfo).length > 0 && userInfo.callCustApi){
                 this.setState({
                     userInfo: userInfo
                 }, () => {
@@ -267,7 +268,8 @@ class SkuDetails extends React.Component {
                         <Header
                             title={this.state.modalConfig.title}
                             icon={this.state.modalConfig.icon}
-                            className={keys.HeaderWithAddedMarginTop}                        />
+                            className={keys.HeaderWithAddedMarginTop}
+                        />
                     )}
                     {isErrorModal && (
                         <Header
