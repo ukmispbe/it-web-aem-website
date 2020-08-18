@@ -463,7 +463,7 @@ public final class Footer extends AbstractComponent implements ComponentExporter
         }
     }
 
-    public boolean isCustomerPriceAPIDisabled() {
+    public boolean isCustomerPriceApiDisabled() {
         return siteContext.isCustomerPriceApiDisabled();
     }
 
