@@ -25,7 +25,7 @@ const parameterDefaults = {
 class SearchService {
     constructor(
         isocode,
-        path = 'https://testservices.waters.com:8443/api/waters/search',
+        path = 'https://stgservices.waters.com/api/waters/search',
         page = parameterDefaults.page,
         rows = parameterDefaults.rows,
         sort = parameterDefaults.sort,

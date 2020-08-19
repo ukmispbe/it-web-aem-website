@@ -4,6 +4,7 @@ import FieldValidationDisplay from './components/field-validation-display';
 import { useFieldApi } from '../form';
 
 import Input from './input';
+import TextArea from './textarea';
 import CheckboxOrRadio from './checkboxOrRadio';
 import Dropdown from './dropdown';
 import Hr from './hr';
@@ -14,6 +15,7 @@ import TextWithLinks from './textWithLinks';
 
 const formType = {
     text: Input,
+    textarea: TextArea,
     number: Input,
     password: Input,
     email: Input,

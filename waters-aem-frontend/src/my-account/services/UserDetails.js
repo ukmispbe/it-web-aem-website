@@ -13,7 +13,7 @@ const getData = async (url) => {
 };
 
 const UserDetails = async (
-    url = "https://testservices.waters.com:8443/api/waters/user/v1/details"
+    url = "https://stgservices.waters.com/api/waters/user/v1/details"
 ) => {
     try {
         const response = await getData(url);

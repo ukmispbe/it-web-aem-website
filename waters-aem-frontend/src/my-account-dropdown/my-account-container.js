@@ -5,6 +5,8 @@ import MyAccountUserDetails from './my-account-user-details';
 import MyAccountItemList from './my-account-item-list';
 import SessionStore from '../stores/sessionStore';
 import { setClickAnalytics } from "../analytics";
+import { isEprocurementUserRole } from '../utils/userFunctions';
+
 const keys = {
     MyAccountContainer : 'my-account-dropdown'
 }
@@ -42,6 +44,8 @@ const MyAccountContainer = props => {
         setClickAnalytics('Account Dropdown', signOut.linkName, signOut.url);
         signOutRequest(signOut.signOutEndpoint,signOut.url, homepageLink);
     }
+
+    const filterItemList = (list) => list.filter((item) => !(item.isHiddenForEprocUser === "true" && isEprocurementUserRole()));
 
     const signInOutLink = () => (
         <>
@@ -88,7 +92,7 @@ const MyAccountContainer = props => {
                     switchAccount={switchAccount}
                 />
             )}
-            {itemList && <MyAccountItemList itemList={itemList} />}
+            {itemList && <MyAccountItemList itemList={filterItemList(itemList)} />}
             {signInOutLink()}
             {!loginState && createAccountButton()}
         </div>

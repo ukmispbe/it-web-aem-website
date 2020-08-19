@@ -14,7 +14,8 @@ import LocalStore from '../stores/localStore';
 import punchoutLogin from '../my-account/services/PunchoutLogin';
 import punchoutSetup from '../my-account/services/PunchoutSetup';
 import parseQueryParams from '../utils/parse-query-params';
-import removeQString from '../utils/remove-query-string';
+import removeQueryString from '../utils/remove-query-string';
+import { isEprocurementUser } from '../utils/userFunctions';
 import buildUrl from '../utils/buildUrl';
 import EprocSetupFailure from '../eproc-setup-failure/EprocSetupFailure';
 
@@ -69,10 +70,12 @@ class MyAccountDropDown extends React.Component {
 
         window.addEventListener('resize', this.updateViewport, true);
 
-        this.punchoutSetup();
+        if (isEprocurementUser()) {
+            this.punchoutSetup();
 
-         // Validates 1TU token, once get from query string
-        await this.punchoutLogin();
+            // Validates 1TU token, once get from query string
+            await this.punchoutLogin();
+        }
 
         if (loginStatus.state()) {
             this.retrieveUserDetails();
@@ -304,13 +307,24 @@ class MyAccountDropDown extends React.Component {
         }
     }
 
+    setEprocFailure = (config) => {
+        this.setState(prevState => ({
+            eprocSetupFailure: {
+                ...prevState.eprocSetupFailure,
+                status: true,
+                ...config,
+            }
+        }));
+    }
+
     punchoutLogin = async () => {
         const urlParams = parseQueryParams(window.location.search);
         const token = urlParams['1tu'] || '';
+        const sessionStore = new SessionStore();
         if (token) {
+            sessionStore.removeUserDetails();
             const { response } = await punchoutLogin(this.props.config.punchoutLogin, { token });
             if ( response && response.status !== 200) {
-                const sessionStore = new SessionStore();
                 const responseJson = await response.json();
                 const { requestFailureTitle, requestFailureMessage, sessionTimeoutTitle, sessionTimeoutMessage } = this.props.eProcSetupFailure;
                 let punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
@@ -319,30 +333,31 @@ class MyAccountDropDown extends React.Component {
                         await this.punchoutSetup(); // retrieve punchout setup
                         punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
                     }
-                    this.setState(prevState => ({
-                        eprocSetupFailure: {
-                            ...prevState.eprocSetupFailure,
-                            status: true,
-                            title: responseJson.code === 804 ? sessionTimeoutTitle : requestFailureTitle,
-                            text: responseJson.code === 804 ? sessionTimeoutMessage : requestFailureMessage,
-                            buttons: [{ 
-                                    text: prevState.eprocSetupFailure.buttons[0].text,
-                                    action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '#',
-                                    noAction: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? false : true
-                                }]
-                        }
-                    }));
+                    this.setEprocFailure({
+                        title: responseJson.code === 804 ? sessionTimeoutTitle : requestFailureTitle,
+                        text: responseJson.code === 804 ? sessionTimeoutMessage : requestFailureMessage,
+                        buttons: [{ 
+                            text: this.state.eprocSetupFailure.buttons[0].text,
+                            action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '',
+                        }]
+                    });
                 }
             } else {
-                removeQString();
+                sessionStore.removeSoldToDetails();
+                await UserDetailsLazy(this.props.config.userDetailsUrl, false);
+                await SoldToDetailsLazy(this.props.config.soldToDetailsUrl);
             }
         }
+        removeQueryString(window.location.href, '1tu', true);
     }
 
     punchoutSetup = async () => {
+        const sessionStore = new SessionStore();
         const urlParams = parseQueryParams(window.location.search);
         const sid = urlParams['sid'] || '';
         if (sid) {
+            sessionStore.removePunchoutSetupDetails();
+            (new LocalStore()).removeCartId();
             const response = await punchoutSetup(buildUrl({
                 pathname: this.props.config.punchoutSetup,
                 query: {},
@@ -353,17 +368,17 @@ class MyAccountDropDown extends React.Component {
             }));
             if (response && response.status !== 200) {
                 const { requestFailureTitle, requestFailureMessage } = this.props.eProcSetupFailure;
-                this.setState(prevState => ({
-                    eprocSetupFailure: {
-                        ...prevState.eprocSetupFailure,
-                        status: true,
-                        title: requestFailureTitle,
-                        text: requestFailureMessage,
-                        buttons: [{ text: prevState.eprocSetupFailure.buttons[0].text, action: '#', noAction: true }]
-                    }
-                }));
+                const punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
+                this.setEprocFailure({
+                    title: requestFailureTitle,
+                    text: requestFailureMessage,
+                    buttons: [{ 
+                        text: prevState.eprocSetupFailure.buttons[0].text, 
+                        action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '',
+                    }]
+                });
             } else {
-                (new SessionStore()).setPunchoutSetupDetails({
+                sessionStore.setPunchoutSetupDetails({
                     returnUrl: response.return_url,
                     redirectUrl: response.redirect_url,
                     buyerOrgName: response.buyerOrgName,
@@ -372,7 +387,14 @@ class MyAccountDropDown extends React.Component {
                 });
                 (new LocalStore()).setCartId(response.cartId);
             }
+        } else if (Object.keys(sessionStore.getPunchoutSetupDetails()).length === 0) {
+            const { requestFailureTitle, requestFailureMessage } = this.props.eProcSetupFailure;
+            this.setEprocFailure({
+                title: requestFailureTitle,
+                text: requestFailureMessage
+            });
         }
+        removeQueryString(window.location.href, 'sid', true);
     }
 
     render() {

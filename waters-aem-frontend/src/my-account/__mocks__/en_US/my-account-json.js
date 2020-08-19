@@ -6,6 +6,7 @@ export default {
           "title": "Account Information",
           "icon": "/content/dam/waters/en/brand-assets/icons/user.svg",
           "requiresEcommerce": "false",
+          "isHiddenForEprocUser": "false",
           "links": [
             {
               "text": "Profile",
@@ -21,6 +22,7 @@ export default {
           "title": "Orders",
           "icon": "/content/dam/waters/en/brand-assets/icons/package.svg",
           "requiresEcommerce": "true",
+          "isHiddenForEprocUser": "true",
           "links": [
             {
               "text": "Order History",
@@ -32,6 +34,7 @@ export default {
           "title": "Additional Links",
           "icon": "/content/dam/waters/en/brand-assets/icons/link.svg",
           "requiresEcommerce": "false",
+          "isHiddenForEprocUser": "false",
           "links": [
             {
               "text": "Request Technical Support",
@@ -53,9 +56,9 @@ export default {
         }
       ],
       "myProfile": {
-        "userDetailsUrl": "https://testservices.waters.com:8443/api/waters/user/v1/details",
-        "soldToDetailsUrl": "https://testservices.waters.com:8443/api/waters/user/v1/retrievesoldto",
-        "submitEndpoint": "https://testservices.waters.com:8443/api/waters/user/v1/update/profile",
+        "userDetailsUrl": "https://stgservices.waters.com/api/waters/user/v1/details",
+        "soldToDetailsUrl": "https://stgservices.waters.com/api/waters/user/v1/retrievesoldto",
+        "submitEndpoint": "https://stgservices.waters.com/api/waters/user/v1/update/profile",
         "personalConfigId": "json-config--cmp-detail-tiles--personal",
         "addressConfig": {
           "abstractConfig": "json-config--cmp-detail-tiles--address",

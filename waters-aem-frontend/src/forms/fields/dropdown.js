@@ -7,7 +7,7 @@ import Icons from './components/icons';
 import { useFormApi, useFieldApi } from '../form';
 
 const Dropdown = ({}) => {
-    const { name, label, validation } = useContext(useFieldApi);
+    const { name, label, defaultValue, validation } = useContext(useFieldApi);
     const { register } = useContext(useFormApi);
 
     return (
@@ -16,6 +16,7 @@ const Dropdown = ({}) => {
             <div className={"cmp-form-field-dropdown--wrapper"}>
                 <Select
                     name={name}
+                    defaultValue={defaultValue}
                     ref={register({name: name}, validation)}
                 />
                 <Icons />

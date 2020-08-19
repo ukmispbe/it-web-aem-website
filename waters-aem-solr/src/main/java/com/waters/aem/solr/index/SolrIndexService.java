@@ -4,6 +4,7 @@ import com.waters.aem.core.services.PageEventHandlerConfiguration;
 import org.apache.solr.client.solrj.SolrServerException;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Service for adding/deleting pages and assets from the Solr index.
@@ -58,4 +59,11 @@ public interface SolrIndexService extends PageEventHandlerConfiguration {
      * @return true if path is indexed
      */
     boolean isIndexed(String path, boolean checkTemplate);
+
+    /**
+     * Get the configured list of excluded locales.
+     *
+     * @return excluded locales
+     */
+    List<String> getLocales();
 }

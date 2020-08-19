@@ -5,7 +5,7 @@ export default {
     "editText": "Edit",
     "canCreate": false,
     "form": {
-        "submitEndpoint": "https://testservices.waters.com:8443/api/waters/user/v1/update/password",
+        "submitEndpoint": "https://stgservices.waters.com/api/waters/user/v1/update/password",
         "buttonText": "Change Password",
         "cancelText": "Cancel",
         "icons": {
