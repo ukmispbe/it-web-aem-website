@@ -286,6 +286,7 @@ const Form = ({
     const renderForm = () => {
             return (<form
                 className={`cmp-form cmp-form--registration ${config.customFormClass || ''}`}
+                data-locator={`${config.elementLocator || 'form-component'}`}
                 onSubmit={handleSubmit(
                     submitFn.bind({
                         url: config.submitEndpoint,
