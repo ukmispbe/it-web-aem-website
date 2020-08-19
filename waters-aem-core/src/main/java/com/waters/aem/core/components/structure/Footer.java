@@ -463,8 +463,8 @@ public final class Footer extends AbstractComponent implements ComponentExporter
         }
     }
 
-    public boolean isCustomerPriceAPIDisabled() {
-        return siteContext.isCustomerPriceApiDisabled();
+    public boolean getCustomerPriceApi() {
+        return siteContext.isCustomerPriceApi();
     }
 
     public String getLocale() {

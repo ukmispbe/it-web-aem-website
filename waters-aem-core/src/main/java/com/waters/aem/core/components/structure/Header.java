@@ -22,7 +22,6 @@ import com.icfolson.aem.library.models.annotations.LinkInject;
 import com.waters.aem.core.components.SiteContext;
 import com.waters.aem.core.components.content.CategoryListing;
 import com.waters.aem.core.components.structure.page.CountryCommerceConfig;
-import com.waters.aem.core.components.structure.page.SiteConfig;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.services.account.WatersAccountService;
 import com.waters.aem.core.services.account.WatersPunchoutService;
@@ -286,7 +285,7 @@ public final class Header extends AbstractComponent implements ComponentExporter
     }
 
     public String getLaunchScript() {
-        return adobeLaunchService.getLaunchScript();
+        return isEprocurement() ? adobeLaunchService.getEprocLaunchScript() : adobeLaunchService.getEcommLaunchScript();
     }
 
     public Link getHomepageLink() {
