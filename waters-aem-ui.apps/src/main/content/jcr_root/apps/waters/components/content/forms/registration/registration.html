@@ -3,6 +3,9 @@
     <script type="application/json" id="cmp-check-email-form">
         {
             "formName": "checkEmail",
+            "customFormClass": "cmp-form--check-email",
+            "submitEndpoint": "${registration.passwordResetUrl @ context='unsafe'}",
+            "redirectUrl": "${registration.redirectResetPasswordLink @ context='unsafe'}",
             "buttonText": "${'CONTINUE' @ i18n, context='text'}",
             "icons": {
                 "checkmarkIcon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",

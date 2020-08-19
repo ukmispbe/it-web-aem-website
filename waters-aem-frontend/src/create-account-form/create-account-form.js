@@ -10,11 +10,21 @@ const CreateAccountForm = ({
   const [showRegistrationForm, setRegistrationFormVisibility] = useState(false);
   const [isEProcUser, setEProcUser] = useState(false);
 
-  window.addEventListener("setEProcUser", function(event) {
+  window.addEventListener("setEProcUser", function (event) {
     setEProcUser(true);
   });
 
-  const checkEmailSubmit = (data) => {setRegistrationFormVisibility(true);};
+  const resetPassword = (config, data) => {
+    //TODO: Send API call to reset password
+    if (config.redirectUrl) {
+      window.location.href = config.redirectUrl;
+    }
+  };
+
+  const checkEmailSubmit = (data) =>
+    isEProcUser
+      ? resetPassword(checkEmailFormConfig, data)
+      : setRegistrationFormVisibility(true);
 
   return showRegistrationForm ? (
     <Form {...registrationFormConfig} isocode={isocode} />

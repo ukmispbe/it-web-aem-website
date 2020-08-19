@@ -285,7 +285,7 @@ const Form = ({
 
     const renderForm = () => {
             return (<form
-                className="cmp-form cmp-form--registration"
+                className={`cmp-form cmp-form--registration ${config.customFormClass || ''}`}
                 onSubmit={handleSubmit(
                     submitFn.bind({
                         url: config.submitEndpoint,
