@@ -9,6 +9,7 @@ import MyAccountDropDown from './my-account-dropdown/index';
 import UserGreeting from './user-greetings/UserGreeting';
 import QuickOrder from './quick-order/QuickOrder';
 import LinkButton from './link-button/LinkButton';
+import LegalLinkModal from './legal-link-modal/LegalLinkModal';
 
 import SkuDetails from './sku-details';
 import SkuList from './sku-list';
@@ -435,12 +436,15 @@ if (contactSupportFormContainer) {
     const config = JSON.parse(document.getElementById('cmp-contact-support-form').innerHTML);
 
     ReactDOM.render(
-        <Form
-            config={config}
-            submitFn={contactSupportSubmit}
-            callback={headerData.userDetailsUrl}
-            isocode={DigitalData.language}
-        />,
+        <>
+            <Form
+                config={config}
+                submitFn={contactSupportSubmit}
+                callback={headerData.userDetailsUrl}
+                isocode={DigitalData.language}
+            />
+            <LegalLinkModal docIcon={config.icons.docIcon || ''} />
+        </>,
         contactSupportFormContainer
     );
 }
