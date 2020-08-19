@@ -3,6 +3,8 @@ package com.waters.aem.core.components.content;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.models.NavigationItem;
 import com.citytechinc.cq.component.annotations.Component;
+import com.waters.aem.core.components.SiteContext;
+
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -15,14 +17,14 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 @Component(value = "Navigation",
-    description = "Waters Navigation Component",
-    resourceSuperType = Navigation.RESOURCE_SUPER_TYPE,
-    editConfig = false)
+        description = "Waters Navigation Component",
+        resourceSuperType = Navigation.RESOURCE_SUPER_TYPE,
+        editConfig = false)
 @Model(adaptables = SlingHttpServletRequest.class,
-    resourceType = Navigation.RESOURCE_TYPE,
-    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+        resourceType = Navigation.RESOURCE_TYPE,
+        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
-    extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+        extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 
 @SuppressWarnings({"squid:S2176"})
 public class Navigation implements com.adobe.cq.wcm.core.components.models.Navigation {
@@ -35,6 +37,9 @@ public class Navigation implements com.adobe.cq.wcm.core.components.models.Navig
     @Via(type = ResourceSuperType.class)
     private com.adobe.cq.wcm.core.components.models.Navigation delegate; // delegate to core component class
 
+    @Self
+    private SiteContext siteContext;
+
     @Override
     public List<NavigationItem> getItems() {
         return delegate.getItems();
@@ -45,13 +50,17 @@ public class Navigation implements com.adobe.cq.wcm.core.components.models.Navig
     public String getExportedType() {
         return RESOURCE_TYPE;
     }
+
     @Override
     public String getId() {
         return delegate.getId();
     }
-    
+
     @Override
     public String getAccessibilityLabel() {
         return delegate.getAccessibilityLabel();
+    }
+    public boolean isEprocurement() {
+        return siteContext.getSiteConfig().isEprocurement();
     }
 }
