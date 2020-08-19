@@ -8,8 +8,14 @@ const CreateAccountForm = ({
   isocode,
 }) => {
   const [showRegistrationForm, setRegistrationFormVisibility] = useState(false);
+  const [isEProcUser, setEProcUser] = useState(false);
 
-  const checkEmailSubmit = (data) => {setRegistrationFormVisibility(true);console.log("Data", data)};
+  window.addEventListener("setEProcUser", function(event) {
+    setEProcUser(true);
+  });
+
+  const checkEmailSubmit = (data) => {setRegistrationFormVisibility(true);};
+
   return showRegistrationForm ? (
     <Form {...registrationFormConfig} isocode={isocode} />
   ) : (
