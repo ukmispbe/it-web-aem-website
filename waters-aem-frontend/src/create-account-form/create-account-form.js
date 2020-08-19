@@ -23,7 +23,7 @@ const CreateAccountForm = ({
 
   const checkEmailSubmit = (data) =>
     isEProcUser
-      ? resetPassword(checkEmailFormConfig, data)
+      ? resetPassword(checkEmailFormConfig.config, data)
       : setRegistrationFormVisibility(true);
 
   return showRegistrationForm ? (
