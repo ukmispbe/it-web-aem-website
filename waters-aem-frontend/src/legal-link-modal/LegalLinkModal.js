@@ -13,7 +13,7 @@ function LegalLinkModal(props) {
 
     const openModal = useCallback(event => {
         event.preventDefault();
-        const { href, innerText } = event.target;
+        const { href, title } = event.target;
         fetch(href, {
             method: 'GET',
             credentials: 'include',
@@ -24,7 +24,7 @@ function LegalLinkModal(props) {
         })
             .then(response => response.text())
             .then(content => {
-                setTitle(innerText)
+                setTitle(title)
                 setBodyContent(content);
                 setIsOpen(true);
             });

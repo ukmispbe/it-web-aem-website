@@ -5,13 +5,14 @@ const TextWithLinks = ({}) => {
 
     const { type, name, config, addClass } = useContext(useFieldApi);
 
-    const renderLink = ({ label, url, blank, className }) => {
+    const renderLink = ({ label, url, blank, className, title }) => {
         return (
             <a
                 href={url}
                 target={blank ? "_blank" : ""}
                 rel="noopener"
-                className={className || ''}>
+                className={className || ''}
+                title={title || ''}>
                 {label}
             </a>
             )

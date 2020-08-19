@@ -11,22 +11,11 @@
                 padding: 0 $space-xs;
             }
         }
-        // scroll
+
         .cmp-modal-body-legal-links{
             max-height: 75vh;
             overflow-y: auto;
             overflow-x: hidden;
-    
-            &.custom-scroll::-webkit-scrollbar
-            {
-                width: $space-xxxs;
-            }
-
-            &.custom-scroll::-webkit-scrollbar-thumb
-            {
-                background-color: $color-gray-40;
-                border-radius: $space-xxxs;
-            }
     
             @include mobile {
                 max-height: 100vh;
