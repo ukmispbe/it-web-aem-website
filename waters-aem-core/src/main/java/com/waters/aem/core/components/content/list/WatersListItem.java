@@ -1,12 +1,11 @@
 package com.waters.aem.core.components.content.list;
 
 import com.adobe.cq.wcm.core.components.models.ListItem;
+import com.day.cq.wcm.api.Page;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.waters.aem.core.components.structure.page.Thumbnail;
-import com.day.cq.wcm.api.Page;
 
 import javax.annotation.Nullable;
-import javax.annotation.Resource;
 import java.util.Calendar;
 
 public final class WatersListItem implements ListItem {
