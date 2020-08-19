@@ -27,10 +27,6 @@
                 background-color: $color-gray-40;
                 border-radius: $space-xxxs;
             }
-
-            @include tablet {
-                max-height: 45vh;
-            }
     
             @include mobile {
                 max-height: 100vh;
