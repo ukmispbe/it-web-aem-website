@@ -9,6 +9,7 @@ import loginStatus from "../scripts/loginStatus";
 import { notLoggedInRedirect } from '../utils/redirectFunctions';
 import Spinner from "../utils/spinner";
 import { isCartHidden } from '../utils/eCommerceFunctions';
+import { isEprocurementUserRole } from '../utils/userFunctions';
 
 const Aside = props => {
 
@@ -32,7 +33,14 @@ const Aside = props => {
         <div className="cmp-my-account__aside-wrapper">
             <Title text={getTitle(props.tiles, props.location.pathname)} />
             <div className="cmp-my-account__aside-links">
-                {props.tiles.map(tile => <Tile key={tile.title} tile={tile} requiresEcommerce={tile.requiresEcommerce} pathname={props.location.pathname} />)}
+                {props.tiles.map(tile => 
+                    <Tile 
+                        key={tile.title} 
+                        tile={tile} 
+                        requiresEcommerce={tile.requiresEcommerce} 
+                        isHiddenForEprocUser={tile.isHiddenForEprocUser} 
+                        pathname={props.location.pathname}
+                    />)}
             </div>
             <div className="cmp-my-account__aside-content">
                 {props.children}
@@ -48,7 +56,7 @@ const Aside = props => {
 
 const Tile = ({tile, pathname}) => {
 
-    if (tile.requiresEcommerce === "true" && isCartHidden()) {
+    if ((tile.requiresEcommerce === "true" && isCartHidden()) || (tile.isHiddenForEprocUser === "true" && isEprocurementUserRole())) {
         return <></>;
     }
 

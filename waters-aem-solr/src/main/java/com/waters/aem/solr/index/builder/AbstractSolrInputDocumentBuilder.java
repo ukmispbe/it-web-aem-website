@@ -15,6 +15,7 @@ import com.waters.aem.core.components.structure.page.Thumbnail;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.metadata.ContentClassification;
 import com.waters.aem.core.utils.SearchUtils;
+import com.waters.aem.solr.index.SolrIndexService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.AbstractResourceVisitor;
 import org.apache.sling.api.resource.Resource;
@@ -83,6 +84,9 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
 
     @Inject
     private Externalizer externalizer;
+
+    @Inject
+    private SolrIndexService solrService;
 
     public final SolrInputDocument build() {
         final SolrInputDocument document = new SolrInputDocument();
@@ -162,8 +166,8 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
             final Sku sku = skuOptional.get();
 
             final DisplayableSku displayableSku = new DisplayableSku(sku, siteContext);
-            document.setField("eprocUrl", page.getHref().replace(page.getParent(4).getPath(),""));
-
+            List excludedLocales = solrService.getLocales();
+            document.setField("eprocUrl", updateUrlForEprocBasedOnLocaleConfig(excludedLocales, page.getHref().replace(page.getParent(4).getPath(),"")));
             setDocumentStringField(document,"unspsc",sku.getUnspsc());
 
             setDocumentStringField(document, "skucode", sku.getCode());
@@ -290,4 +294,14 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         }
     }
 
+    private String updateUrlForEprocBasedOnLocaleConfig(List<String> excludedLocales, String pageUrl) {
+        if(excludedLocales.isEmpty()) {
+            return pageUrl;
+        }
+        String locale = StringUtils.substring(pageUrl, 1, 3);
+        if(excludedLocales.contains(locale)) {
+            return pageUrl.replace("/"+ locale, "/en");
+        }
+        return pageUrl;
+    }
 }

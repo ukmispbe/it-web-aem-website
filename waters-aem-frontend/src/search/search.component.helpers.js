@@ -350,7 +350,6 @@ Pagination.defaultProps = {
     previousIcon: ""
 };
 
-
 const ResultsBody = ({
     text, 
     filterMap,
@@ -384,15 +383,14 @@ const ResultsBody = ({
                     resetToSavedState={showSortFilterEvents.onResetToSavedState}
                     collapseFilters={showSortFilterProps.collapseFilters}
                     onClose={showSortFilterEvents.onClose} />  
-            </div>
-            <div className="cmp-search__sorted-container">
                 <div className="cmp-search__sorted-by">
                     {text.sortedBy}:{' '}
                     {asideProps.sortByText === 'most-relevant'
                         ? text.sortByBestMatch 
                         : text.sortByMostRecent}
                 </div>
-
+            </div>
+            <div className="cmp-search__sorted-container">
                 <ResultsCount
                     {...resultsProps}
                     text={text}

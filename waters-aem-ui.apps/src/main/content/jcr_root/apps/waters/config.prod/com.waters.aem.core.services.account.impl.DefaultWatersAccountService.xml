@@ -18,4 +18,5 @@
           orderDetailsUrl="https://prodservices.waters.com/api/waters/order/v1/details"
           searchUrl="https://prodservices.waters.com/api/waters/search"
           orderListUrl="https://prodservices.waters.com/api/waters/order/v1/list"
-          chooseAccountEndpoint="https://prodservices.waters.com/api/waters/user/v1/switchaccount"/>
+          chooseAccountEndpoint="https://prodservices.waters.com/api/waters/user/v1/switchaccount"
+          contactSupportUrl="https://prodservices.waters.com/api/waters/contact/v1/support"/>

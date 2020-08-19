@@ -1,7 +1,7 @@
 const props = {
         "config": {
-               "fetchDetailsEndPoint": "https://testservices.waters.com:8443/api/waters/order/v1/details/",
-               "fetchItemsEndPoint": "https://testservices.waters.com:8443/api/waters/order/v1/details/",
+               "fetchDetailsEndPoint": "https://stgservices.waters.com/api/waters/order/v1/details/",
+               "fetchItemsEndPoint": "https://stgservices.waters.com/api/waters/order/v1/details/",
                "orderHistory": "Order History",
                "orderDetails": "Order Details",
                "orderNotFoundErrorTitle": "Sorry, order not found.",

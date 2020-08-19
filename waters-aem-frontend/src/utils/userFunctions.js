@@ -241,6 +241,18 @@ export const getIsoCode = () => {
     }
 }
 
+export const getUserRole = () => {
+	const store = new SessionStore();
+    const userDetails = store.getUserDetails();
+    if (userDetails || userDetails.length > 0) {
+        return (userDetails.userRole && userDetails.userRole.role) || '';
+    } else {
+        return ''
+    }
+}
+
+export const isEprocurementUserRole = () => (getUserRole() === 'EPROC');
+
 export const getUsertype = () => {
     const sessionStore = new SessionStore();
     const userType = sessionStore.getUserType();

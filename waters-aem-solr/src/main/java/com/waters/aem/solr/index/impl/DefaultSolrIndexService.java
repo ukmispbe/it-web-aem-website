@@ -54,6 +54,8 @@ public class DefaultSolrIndexService implements SolrIndexService {
 
     private volatile List<String> includedTemplates;
 
+    private volatile List<String> locales;
+
     @Override
     public boolean addPageToIndex(final String path) throws IOException, SolrServerException {
         boolean success = true;
@@ -121,6 +123,7 @@ public class DefaultSolrIndexService implements SolrIndexService {
         includedPaths = Arrays.asList(configuration.includedPaths());
         excludedPaths = Arrays.asList(configuration.excludedPaths());
         includedTemplates = Arrays.asList(configuration.includedTemplates());
+        locales = Arrays.asList(configuration.locales());
     }
 
     /**
@@ -175,5 +178,11 @@ public class DefaultSolrIndexService implements SolrIndexService {
             // re-throw as runtime exception to propagate up to the event framework
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public List<String> getLocales() {
+
+        return locales;
     }
 }
