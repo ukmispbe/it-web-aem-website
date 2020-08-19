@@ -265,19 +265,16 @@ const Form = ({
     };
 
     const fields = config.fields.map((field, i) => {
-        const getFieldApi = useMemo(
-            () => ({
-                ...config,
-                config,
-                ...field,
-                field,
-                isocode,
-                initialState: defaultValues
-                    ? defaultValues[field.name]
-                    : undefined
-            }),
-            [field, field.active, newConfig]
-        );
+        const getFieldApi = {
+            ...config,
+            config,
+            ...field,
+            field,
+            isocode,
+            initialState: defaultValues
+                ? defaultValues[field.name]
+                : undefined
+        }
 
         return (
             <FieldApi.Provider value={getFieldApi} key={`field-${i}`}>
