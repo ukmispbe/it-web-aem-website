@@ -10,11 +10,13 @@ import com.citytechinc.cq.component.annotations.widgets.TextField;
 import com.day.cq.wcm.api.Page;
 import com.icfolson.aem.library.api.page.PageDecorator;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Via;
+import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.via.ResourceSuperType;
 
@@ -24,19 +26,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Component(value = "List",
-    description = "List component for Waters site",
-    resourceSuperType = List.RESOURCE_SUPER_TYPE,
-    editConfig = false,
-    tabs = {
-        @Tab(title = "List Settings", touchUINodeName = "listSettings"),
-        @Tab(title = "Item Settings", touchUINodeName = "itemSettings")
-    })
+        description = "List component for Waters site",
+        resourceSuperType = List.RESOURCE_SUPER_TYPE,
+        editConfig = false,
+        tabs = {
+                @Tab(title = "List Settings", touchUINodeName = "listSettings"),
+                @Tab(title = "Item Settings", touchUINodeName = "itemSettings")
+        })
 @Model(adaptables = SlingHttpServletRequest.class,
-    adapters = com.adobe.cq.wcm.core.components.models.List.class,
-    resourceType = List.RESOURCE_TYPE,
-    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+        adapters = com.adobe.cq.wcm.core.components.models.List.class,
+        resourceType = List.RESOURCE_TYPE,
+        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
-    extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+        extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public final class List implements com.adobe.cq.wcm.core.components.models.List {
 
     static final String RESOURCE_TYPE = "waters/components/content/list";
@@ -56,11 +58,11 @@ public final class List implements com.adobe.cq.wcm.core.components.models.List 
     private String title;
 
     @DialogField(fieldDescription = "Select this option to show thumbnail",
-        value = "true",
-        tab = 2,
-        ranking = 4)
+            value = "true",
+            tab = 2,
+            ranking = 4)
     @CheckBox(title = "showThumbNail",
-        text = "Show thumbnail")
+            text = "Show thumbnail")
     @Inject
     private Boolean showThumbNail;
 
@@ -77,7 +79,7 @@ public final class List implements com.adobe.cq.wcm.core.components.models.List 
     public Collection<ListItem> getListItems() {
         final Collection<ListItem> listItems = new ArrayList<>();
 
-        for (final ListItem listItem : delegate.getListItems()) {
+        for (final Page listItem : delegate.getItems()) {
             final PageDecorator page = pageManager.getPage(listItem.getPath());
 
             if (page != null) {
@@ -120,7 +122,7 @@ public final class List implements com.adobe.cq.wcm.core.components.models.List 
     public String getDateFormatString() {
         return delegate.getDateFormatString();
     }
-    
+
     @Override
     public String getId() {
         return delegate.getId();
