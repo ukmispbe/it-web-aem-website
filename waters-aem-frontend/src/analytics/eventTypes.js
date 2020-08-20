@@ -31,6 +31,18 @@ const eventTypes = {
                 event: 'registrationFormError'
             }
         },
+        checkEmail: {
+            name: 'checkEmailForm',
+            load: {
+                event: 'checkEmailFormLoad'
+            },
+            submit: {
+                event: 'checkEmailFormSubmit'
+            },
+            error: {
+                event: 'checkEmailFormError'
+            }
+        },
         signin: {
             name: 'signInForm',
             load: {
