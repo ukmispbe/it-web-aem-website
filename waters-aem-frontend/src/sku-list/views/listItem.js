@@ -258,6 +258,7 @@ class ListItem extends React.Component {
                         toggleParentModal={this.toggleModal}
                         skuNumber={relatedSku.code}
                         addToCartLabel={skuConfig.addToCartLabel}
+                        addToCartQty={skuConfig.defaultSkuQty}
                         addToCartUrl={skuConfig.addToCartUrl}
                         isCommerceApiMigrated={skuConfig.isCommerceApiMigrated}
                         toggleErrorModal={this.toggleErrorModal}
