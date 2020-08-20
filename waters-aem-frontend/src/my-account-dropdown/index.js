@@ -311,7 +311,7 @@ class MyAccountDropDown extends React.Component {
         this.setState(prevState => ({
             eprocSetupFailure: {
                 ...prevState.eprocSetupFailure,
-                status: true,
+                status: !this.props.isEditMode,
                 ...config,
             }
         }));
@@ -417,6 +417,7 @@ class MyAccountDropDown extends React.Component {
 MyAccountDropDown.propTypes = {
     config: PropTypes.object.isRequired,
     eProcSetupFailure: PropTypes.object,
+    isEditMode: PropTypes.bool
 };
 
 MyAccountDropDown.defaultProps = {
@@ -427,7 +428,8 @@ MyAccountDropDown.defaultProps = {
         sessionTimeoutMessage: '',
         icon: '',
         buttons: [{ text: '' }]
-    }
+    },
+    isEditMode: false
 }
 
 export default MyAccountDropDown;

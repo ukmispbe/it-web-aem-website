@@ -293,13 +293,14 @@ if (header && MyAccountDropDownContainer) {
         document.getElementById('account-modal-configs-json').innerHTML
     );
     const commerceConfigs = document.getElementById('commerce-configs-json');
+    const isEditMode = document.getElementById("header") ? document.getElementById("header").hasAttribute("data-is-edit-mode") : false;
     let eProcSetupFailure = {};
     if (commerceConfigs) {
         eProcSetupFailure = JSON.parse(commerceConfigs.innerHTML);
     }
 
     ReactDOM.render(
-        <MyAccountDropDown config={config} eProcSetupFailure={eProcSetupFailure.setupFailure || {}} />,
+        <MyAccountDropDown config={config} eProcSetupFailure={eProcSetupFailure.setupFailure || {}} isEditMode={isEditMode} />,
         MyAccountDropDownContainer
     );
 }
