@@ -1,6 +1,4 @@
 import React from 'react';
-import ReactSVG from 'react-svg';
-
 import SessionStore from '../stores/sessionStore';
 
 function UserGreeting(props) {
