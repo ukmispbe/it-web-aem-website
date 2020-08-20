@@ -639,7 +639,7 @@
             @include font-utility;
             display: flex;
             align-items: center;
-            height: 1.5em;
+            height: $space-m;
             border-left: $border-divider-small;
             padding: 0 $space-s 0 $space-xs;
             margin-bottom: $space-xxxs;
