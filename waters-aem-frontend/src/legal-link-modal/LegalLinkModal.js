@@ -12,10 +12,12 @@ function LegalLinkModal(props) {
     const [bodyContent, setBodyContent] = useState('');
 
     const openModal = useCallback(event => {
+        event.preventDefault();
+        console.log(event);
         try {
-            event.preventDefault();
             const { href, title } = event.target;
-            fetch(href, {
+            const url = href.substring(0, href.lastIndexOf('.'));
+            fetch(url, {
                 method: 'GET',
                 credentials: 'include',
                 headers: {
