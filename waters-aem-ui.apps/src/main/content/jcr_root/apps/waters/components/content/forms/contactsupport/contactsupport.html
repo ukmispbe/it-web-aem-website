@@ -12,7 +12,8 @@
                 "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
                 "eyeIcon": "/content/dam/waters/en/brand-assets/icons/eye.svg",
                 "eyeOffIcon": "/content/dam/waters/en/brand-assets/icons/eye-off.svg",
-                "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
+                "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg",
+                "docIcon": "/content/dam/waters/en/brand-assets/icons/document.svg"
             },
             "fields": [
                 {
@@ -127,9 +128,11 @@
                         {
                             "type": "link",
                             "label": "${'Terms of Use' @ i18n, context='text'}",
+                            "title": "${'Terms of Use' @ i18n, context='text'}",
                             "url": "${contactSupport.termsOfUseLink.href @ context='unsafe'}",
                             "blank": ${contactSupport.newWindow @ context='unsafe'},
-                            "rightSpace": "true"
+                            "rightSpace": "true",
+                            "className": "terms-of-use"
                         },
                         {
                             "type": "text",
@@ -139,9 +142,11 @@
                         {
                             "type": "link",
                             "label": "${'Waters Privacy' @ i18n, context='text'}",
+                            "title": "${'Privacy Policy' @ i18n, context='text'}",
                             "url": "${contactSupport.privacyNoticeLink.href @ context='unsafe'}",
                             "blank": ${contactSupport.newWindow @ context='unsafe'},
-                            "rightSpace": "false"
+                            "rightSpace": "false",
+                            "className": "waters-privacy"
                         },
                         {
                             "type": "text",
