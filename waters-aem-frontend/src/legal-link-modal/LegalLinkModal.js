@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useLayoutEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactHtmlParser from 'react-html-parser';
 
@@ -11,13 +11,12 @@ function LegalLinkModal(props) {
     const [title, setTitle] = useState('');
     const [bodyContent, setBodyContent] = useState('');
 
+    // Content Fragment
     const openModal = useCallback(event => {
         event.preventDefault();
-        console.log(event);
         try {
             const { href, title } = event.target;
-            const url = href.substring(0, href.lastIndexOf('.'));
-            fetch(url, {
+            fetch(href, {
                 method: 'GET',
                 credentials: 'include',
                 headers: {
@@ -36,15 +35,31 @@ function LegalLinkModal(props) {
         }
     }, [setTitle, setBodyContent, setIsOpen]);
 
-    useLayoutEffect(() => {
-        try {
-            document.querySelector('#js-contact-support-form a.terms-of-use').addEventListener('click', openModal);
-            document.querySelector('#js-contact-support-form a.waters-privacy').addEventListener('click', openModal);
-        } catch (error) {
-            console.log(error);
-        }
-    }, [openModal]);
+    // Add event on DOM
+    function addDOMEvent(container, callback) {
+        document.querySelector(container).addEventListener('click', callback);
+    }
 
+    // Wait untill selector is loaded
+    function waitUntilLinkExists(container, callback, addListner) {
+        if (document.querySelector(container)) {
+            return callback(container, addListner);
+        }
+        setTimeout(function () { return waitUntilLinkExists(container, callback, addListner) }, 1000);
+    }
+
+    // invoke waitUntilLinkExists method
+    useEffect(() => {
+        waitUntilLinkExists('#js-contact-support-form a.terms-of-use', addDOMEvent, openModal);
+        waitUntilLinkExists('#js-contact-support-form a.waters-privacy', addDOMEvent, openModal);
+
+        return () => {
+            document.querySelector('#js-contact-support-form a.terms-of-use').removeEventListener('click', openModal);
+            document.querySelector('#js-contact-support-form a.waters-privacy').removeEventListener('click', openModal);
+        }
+    }, [addDOMEvent]);
+
+    // Close Modal
     const onClose = useCallback(() => {
         setIsOpen(false);
     }, [isOpen, setIsOpen]);
