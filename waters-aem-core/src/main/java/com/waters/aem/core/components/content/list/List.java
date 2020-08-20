@@ -77,7 +77,7 @@ public final class List implements com.adobe.cq.wcm.core.components.models.List 
     public Collection<ListItem> getListItems() {
         final Collection<ListItem> listItems = new ArrayList<>();
 
-        for (final ListItem listItem : delegate.getListItems()) {
+        for (final Page listItem : delegate.getItems()) {
             final PageDecorator page = pageManager.getPage(listItem.getPath());
 
             if (page != null) {
@@ -120,7 +120,7 @@ public final class List implements com.adobe.cq.wcm.core.components.models.List 
     public String getDateFormatString() {
         return delegate.getDateFormatString();
     }
-    
+
     @Override
     public String getId() {
         return delegate.getId();
