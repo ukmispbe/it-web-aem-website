@@ -1,4 +1,8 @@
 .cmp-form {
+    &--check-email {
+        width: 100%;
+    }
+    
     .cmp-form-header {
         @include font-body;
         a {
