@@ -12,28 +12,35 @@ function LegalLinkModal(props) {
     const [bodyContent, setBodyContent] = useState('');
 
     const openModal = useCallback(event => {
-        event.preventDefault();
-        const { href, title } = event.target;
-        fetch(href, {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                'Accept': 'text/html',
-                'Content-Type': 'text/html'
-            }
-        })
-            .then(response => response.text())
-            .then(content => {
-                setTitle(title)
-                setBodyContent(content);
-                setIsOpen(true);
-            });
-
+        try {
+            event.preventDefault();
+            const { href, title } = event.target;
+            fetch(href, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Accept': 'text/html',
+                    'Content-Type': 'text/html'
+                }
+            })
+                .then(response => response.text())
+                .then(content => {
+                    setTitle(title)
+                    setBodyContent(content);
+                    setIsOpen(true);
+                });
+        } catch (error) {
+            console.error(error);
+        }
     }, [setTitle, setBodyContent, setIsOpen]);
 
     useLayoutEffect(() => {
-        document.querySelector('#js-contact-support-form a.terms-of-use').addEventListener('click', openModal);
-        document.querySelector('#js-contact-support-form a.waters-privacy').addEventListener('click', openModal);
+        try {
+            document.querySelector('#js-contact-support-form a.terms-of-use').addEventListener('click', openModal);
+            document.querySelector('#js-contact-support-form a.waters-privacy').addEventListener('click', openModal);
+        } catch (error) {
+            console.log(error);
+        }
     }, [openModal]);
 
     const onClose = useCallback(() => {

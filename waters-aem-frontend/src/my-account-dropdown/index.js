@@ -373,7 +373,7 @@ class MyAccountDropDown extends React.Component {
                     title: requestFailureTitle,
                     text: requestFailureMessage,
                     buttons: [{ 
-                        text: prevState.eprocSetupFailure.buttons[0].text, 
+                        text: this.state.eprocSetupFailure.buttons[0].text, 
                         action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '',
                     }]
                 });
