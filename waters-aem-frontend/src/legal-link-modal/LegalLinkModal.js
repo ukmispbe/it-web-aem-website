@@ -13,8 +13,8 @@ function LegalLinkModal(props) {
 
     // Content Fragment
     const openModal = useCallback(event => {
-        event.preventDefault();
         try {
+            event.preventDefault();
             const { href, title } = event.target;
             fetch(href, {
                 method: 'GET',
@@ -37,27 +37,29 @@ function LegalLinkModal(props) {
 
     // Add event on DOM
     function addDOMEvent(container, callback) {
-        document.querySelector(container).addEventListener('click', callback);
+        const link = document.getElementById(container);
+        if (window.addEventListener) {
+            link.addEventListener('click', callback, false);
+        } else {
+            link.attachEvent('onclick', callback);
+        }
     }
 
     // Wait untill selector is loaded
     function waitUntilLinkExists(container, callback, addListner) {
-        if (document.querySelector(container)) {
+        let instanceTimeOut;
+        if (document.getElementById(container)) {
+            clearTimeout(instanceTimeOut);
             return callback(container, addListner);
         }
-        setTimeout(function () { return waitUntilLinkExists(container, callback, addListner) }, 1000);
+        instanceTimeOut = setTimeout(function () { return waitUntilLinkExists(container, callback, addListner) }, 1000);
     }
 
     // invoke waitUntilLinkExists method
     useEffect(() => {
-        waitUntilLinkExists('#js-contact-support-form a.terms-of-use', addDOMEvent, openModal);
-        waitUntilLinkExists('#js-contact-support-form a.waters-privacy', addDOMEvent, openModal);
-
-        return () => {
-            document.querySelector('#js-contact-support-form a.terms-of-use').removeEventListener('click', openModal);
-            document.querySelector('#js-contact-support-form a.waters-privacy').removeEventListener('click', openModal);
-        }
-    }, [addDOMEvent]);
+        waitUntilLinkExists('contact-support-form-terms-of-use', addDOMEvent, openModal);
+        waitUntilLinkExists('contact-support-form-waters-privacy', addDOMEvent, openModal);
+    }, []);
 
     // Close Modal
     const onClose = useCallback(() => {

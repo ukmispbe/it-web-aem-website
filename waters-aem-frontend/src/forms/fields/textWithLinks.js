@@ -5,13 +5,14 @@ const TextWithLinks = ({}) => {
 
     const { type, name, config, addClass } = useContext(useFieldApi);
 
-    const renderLink = ({ label, url, blank, className, title }) => {
+    const renderLink = ({ label, url, blank, className, title, id }) => {
         return (
             <a
                 href={url}
                 target={blank ? "_blank" : ""}
                 rel="noopener"
                 className={className}
+                id={id}
                 title={title}>
                 {label}
             </a>
@@ -28,7 +29,7 @@ const TextWithLinks = ({}) => {
                 config.length > 0 && (
                     <div className={`cmp-form-field-${type}--${name} ` + (addClass ? addClass : '')}>
                         {config.map((block, index) => {
-                            let itemToRender = block.type === "link" ? renderLink({...block, className: block.className || '', title: block.title || ''}) : renderText(block);
+                            let itemToRender = block.type === "link" ? renderLink({...block, className: block.className || '', title: block.title || '', id: block.id || ''}) : renderText(block);
                             let space="";
 
                             if(block.rightSpace !== "false" || typeof block.rightSpace == "undefined") {
