@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useLayoutEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactHtmlParser from 'react-html-parser';
 
@@ -11,6 +11,7 @@ function LegalLinkModal(props) {
     const [title, setTitle] = useState('');
     const [bodyContent, setBodyContent] = useState('');
 
+    // Content Fragment
     const openModal = useCallback(event => {
         try {
             event.preventDefault();
@@ -34,15 +35,33 @@ function LegalLinkModal(props) {
         }
     }, [setTitle, setBodyContent, setIsOpen]);
 
-    useLayoutEffect(() => {
-        try {
-            document.querySelector('#js-contact-support-form a.terms-of-use').addEventListener('click', openModal);
-            document.querySelector('#js-contact-support-form a.waters-privacy').addEventListener('click', openModal);
-        } catch (error) {
-            console.log(error);
+    // Add event on DOM
+    function addDOMEvent(container, callback) {
+        const link = document.getElementById(container);
+        if (window.addEventListener) {
+            link.addEventListener('click', callback, false);
+        } else {
+            link.attachEvent('onclick', callback);
         }
-    }, [openModal]);
+    }
 
+    // Wait untill selector is loaded
+    function waitUntilLinkExists(container, callback, addListner) {
+        let instanceTimeOut;
+        if (document.getElementById(container)) {
+            clearTimeout(instanceTimeOut);
+            return callback(container, addListner);
+        }
+        instanceTimeOut = setTimeout(function () { return waitUntilLinkExists(container, callback, addListner) }, 1000);
+    }
+
+    // invoke waitUntilLinkExists method
+    useEffect(() => {
+        waitUntilLinkExists('contact-support-form-terms-of-use', addDOMEvent, openModal);
+        waitUntilLinkExists('contact-support-form-waters-privacy', addDOMEvent, openModal);
+    }, []);
+
+    // Close Modal
     const onClose = useCallback(() => {
         setIsOpen(false);
     }, [isOpen, setIsOpen]);
