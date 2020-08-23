@@ -70,6 +70,10 @@ export async function registrationSubmit(data) {
     }
 }
 
+export async function checkEmailResetPasswordSubmit(data) {
+    console.log(this, data);
+}
+
 export async function troubleSigningInSubmit(data) {
     const isCaptcha = data.hasOwnProperty('captcha');
 

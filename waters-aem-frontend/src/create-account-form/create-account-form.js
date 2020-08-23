@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-
-import Form from "../forms/form";
+import Form from '../forms/form';
+import { checkEmailResetPasswordSubmit } from '../forms/services/submit';
 
 const CreateAccountForm = ({
   registrationFormConfig,
@@ -14,17 +14,11 @@ const CreateAccountForm = ({
     setEProcUser(true);
   });
 
-  const resetPassword = (config, data) => {
-    //TODO: Send API call to reset password
-    if (config.redirectUrl) {
-      window.location.href = config.redirectUrl;
-    }
-  };
-
-  const checkEmailSubmit = (data) =>
+  function checkEmailSubmit(data) {
     isEProcUser
-      ? resetPassword(checkEmailFormConfig.config, data)
+      ? checkEmailResetPasswordSubmit.call(this, data)
       : setRegistrationFormVisibility(true);
+  };
 
   return showRegistrationForm ? (
     <Form {...registrationFormConfig} isocode={isocode} />
