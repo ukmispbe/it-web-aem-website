@@ -30,7 +30,7 @@ function LegalLinkModal(props) {
                     setBodyContent(content);
                     setIsOpen(true);
                 })
-                .catch(e => console.log(e));
+                .catch(e => console.error(e));
         } catch (error) {
             console.error(error);
         }
@@ -40,6 +40,7 @@ function LegalLinkModal(props) {
     function waitUntilLinkExists(container) {
         const elem = document.getElementById(container);
         if (elem) {
+            // Adds addEventListener event on terms-of-use' and privacy-policy link
             document.addEventListener('click', function (event) {
                 if (event.target.id === container) {
                     event.preventDefault();
