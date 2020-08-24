@@ -14,7 +14,6 @@ import Ecommerce from '../../scripts/ecommerce';
 import SkuDetails from '../../scripts/sku-details';
 import Sticky from '../../scripts/stickyService';
 import Analytics, { analyticTypes, searchCartContext, relatedCartContext } from '../../analytics';
-import {isEprocurementUser as isEprocurementApp, isEprocurementUserRole} from '../../utils/userFunctions'
 
 class ListItem extends React.Component {
     constructor(props) {
@@ -310,8 +309,7 @@ class ListItem extends React.Component {
     }
 
     renderBuyInfo = () => {
-
-        if (!isEprocurementApp() && isEprocurementUserRole()) {
+        if (this.props.isEProcurementUserRestricted) {
             return (null);
         }
 
@@ -410,7 +408,8 @@ ListItem.propTypes = {
     skuConfig: PropTypes.object.isRequired,
     baseSignInUrl: PropTypes.string.isRequired,
     onItemClick: PropTypes.func.isRequired,
-    userInfo: PropTypes.object.isRequired
+    userInfo: PropTypes.object.isRequired,
+    isEProcurementUserRestricted: PropTypes.bool.isRequired
 };
 
 ListItem.defaultProps = {
@@ -419,7 +418,8 @@ ListItem.defaultProps = {
     skuConfig: {},
     baseSignInUrl: '',
     onItemClick: () => {},
-    userInfo: {}
+    userInfo: {},
+    isEProcurementUserRestricted: false
 };
 
 export default ListItem;

@@ -5,6 +5,7 @@ import ListItem from './views/listItem';
 import LoginStatus from '../scripts/loginStatus';
 import SignIn from '../scripts/signIn';
 import { setSKUUserInfo } from '../utils/userFunctions';
+import {isEprocurementUser as isEprocurementApp, isEprocurementUserRole} from '../utils/userFunctions';
 
 class SkuList extends React.Component {
     constructor(props) {
@@ -16,7 +17,8 @@ class SkuList extends React.Component {
             addToCartQty: undefined,
             skuInfo: this.props.skuConfig.skuInfo,
             userCountry: this.props.skuConfig.countryCode,
-            userInfo: setSKUUserInfo()
+            userInfo: setSKUUserInfo(),
+            isEProcurementUserRestricted: (!isEprocurementApp() && isEprocurementUserRole())
         };
     }
 
@@ -60,6 +62,7 @@ class SkuList extends React.Component {
                                 baseSignInUrl={this.props.baseSignInUrl}
                                 onItemClick={this.props.onItemClick}
                                 userInfo={this.state.userInfo}
+                                isEProcurementUserRestricted={this.state.isEProcurementUserRestricted}
                             />
                         ))}
                     </>
