@@ -71,7 +71,24 @@ export async function registrationSubmit(data) {
 }
 
 export async function checkEmailResetPasswordSubmit(data) {
-    console.log(this, data);
+
+    this.url = `${this.url.replace('{email}', data.email)}&isEproc=true`;
+    const response = await postData(this.url, data);
+    const responseBody = await response.json();
+
+    // remove all previous server error notifications
+    this.setError();
+
+    if (response.status === 200) {
+        this.setFormAnalytics('submit');
+        if (this.redirect) {
+            window.location.href = this.redirect;
+        }
+    } else {
+        this.setFormAnalytics('error', responseBody);
+        this.setError(response);
+        scrollToY(0);
+    }
 }
 
 export async function troubleSigningInSubmit(data) {
