@@ -36,7 +36,7 @@ public class Navigation implements com.adobe.cq.wcm.core.components.models.Navig
     @Self
     @Via(type = ResourceSuperType.class)
     private com.adobe.cq.wcm.core.components.models.Navigation delegate; // delegate to core component class
-    
+
     @Self
     private SiteContext siteContext;
 
@@ -50,7 +50,16 @@ public class Navigation implements com.adobe.cq.wcm.core.components.models.Navig
     public String getExportedType() {
         return RESOURCE_TYPE;
     }
-    
+    @Override
+    public String getId() {
+        return delegate.getId();
+    }
+
+    @Override
+    public String getAccessibilityLabel() {
+        return delegate.getAccessibilityLabel();
+    }
+
     public boolean isEprocurement() {
         return siteContext.getSiteConfig().isEprocurement();
     }

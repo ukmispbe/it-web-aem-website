@@ -5,7 +5,7 @@
           xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="cq:Page">
     <jcr:content
-        cq:deviceGroups="[/etc/mobile/groups/responsive]"
+        cq:deviceGroups="[/conf/global/settings/mobile/groups/responsive]"
         cq:template="/conf/waters/settings/wcm/templates/library-page"
         jcr:primaryType="cq:PageContent"
         sling:resourceType="waters/components/structure/page">

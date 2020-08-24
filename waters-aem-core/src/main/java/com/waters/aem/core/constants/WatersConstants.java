@@ -9,6 +9,8 @@ public final class WatersConstants {
 
     public static final String ROOT_PATH = "/content/waters";
 
+    public static final String CONTENT_ROOT_PATH = "/content";
+
     public static final String CUSTOM_ROOT_PATH = "/nextgen";
 
     public static final String ORDER_ROOT_PATH = "/content/order";
@@ -33,7 +35,7 @@ public final class WatersConstants {
 
     public static final String EMAILS_DAM_PATH = DAM_PATH + "/emails";
 
-    public static final String SYSTEM_NOTIFICATION_PATH = "/etc/waters/notifications/system-notification";
+    public static final String SYSTEM_NOTIFICATION_PATH = "/var/waters/notifications/system-notification";
 
     public static final String DAM_PATH_APP_NOTES = "/content/dam/waters/en/app-notes/";
 
@@ -103,7 +105,7 @@ public final class WatersConstants {
 
     public static final String SEARCH_PAGE_PATH = ROOT_PATH_LANGUAGE_MASTERS + "/en/search.html";
 
-    public static final String DEFAULT_ROLLOUT_CONFIG_PATH = "/etc/msm/rolloutconfigs/default";
+    public static final String DEFAULT_ROLLOUT_CONFIG_PATH = "/apps/msm/wcm/rolloutconfigs/default";
 
     private WatersConstants() {
 

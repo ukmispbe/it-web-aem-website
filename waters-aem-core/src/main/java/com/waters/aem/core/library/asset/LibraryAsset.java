@@ -14,6 +14,7 @@ import com.google.common.collect.ImmutableMap;
 import com.waters.aem.core.constants.WatersConstants;
 import com.waters.aem.core.metadata.ContentClassification;
 import com.waters.aem.core.tagging.WatersTagInject;
+import org.apache.jackrabbit.api.security.user.User;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
@@ -26,6 +27,7 @@ import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.jcr.Binary;
 import javax.jcr.RepositoryException;
 import java.io.InputStream;
 import java.util.Calendar;
@@ -294,6 +296,11 @@ public final class LibraryAsset implements ContentClassification, Asset {
     }
 
     @Override
+    public Revision createRevision(String s, String s1, User user) throws Exception {
+        return null;
+    }
+
+    @Override
     public List<Rendition> getRenditions() {
         return asset.getRenditions();
     }
@@ -336,6 +343,16 @@ public final class LibraryAsset implements ContentClassification, Asset {
     @Override
     public Rendition addRendition(final String name, final InputStream is, final Map<String, Object> map) {
         return asset.addRendition(name, is, map);
+    }
+
+    @Override
+    public Rendition addRendition(String s, Binary binary, String s1) {
+        return null;
+    }
+
+    @Override
+    public Rendition addRendition(String s, Binary binary, Map<String, Object> map) {
+        return null;
     }
 
     @Override

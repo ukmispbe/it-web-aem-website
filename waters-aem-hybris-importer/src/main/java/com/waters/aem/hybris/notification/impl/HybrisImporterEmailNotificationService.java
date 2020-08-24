@@ -41,11 +41,11 @@ public class HybrisImporterEmailNotificationService implements HybrisImporterNot
 
     private static final String SUBJECT_IMPORTER_REPLICATE = "Hybris Importer Replication Required";
 
-    private static final String TEMPLATE_PATH_SUCCESS = "/etc/notification/email/waters/hybris-importer-success.html";
+    private static final String TEMPLATE_PATH_SUCCESS = "/apps/settings/notification-templates/email/waters/hybris-importer-success.html";
 
-    private static final String TEMPLATE_PATH_FAILURE = "/etc/notification/email/waters/hybris-importer-failure.html";
+    private static final String TEMPLATE_PATH_FAILURE = "/apps/settings/notification-templates/email/waters/hybris-importer-failure.html";
 
-    private static final String TEMPLATE_PATH_REPLICATE = "/etc/notification/email/waters/hybris-importer-replicate.html";
+    private static final String TEMPLATE_PATH_REPLICATE = "/apps/settings/notification-templates/email/waters/hybris-importer-replicate.html";
 
     private static final String PARAM_HREF = "href";
 

@@ -36,7 +36,7 @@ public class BasicLink {
         fieldDescription = "Enter or Select Link Item Path",
         required = true,
         ranking = 2)
-    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @PathField(rootPath = WatersConstants.CONTENT_ROOT_PATH)
     @LinkInject
     private Link link;
 
