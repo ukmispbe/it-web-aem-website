@@ -450,6 +450,7 @@ const contactSupportFormContainer = document.getElementById('js-contact-support-
 
 if (contactSupportFormContainer) {
     const config = JSON.parse(document.getElementById('cmp-contact-support-form').innerHTML);
+    const objData = config.fields.find(x => (x.type === 'dropdown' && x.name === 'formCategoryType' && Object.keys(x).includes('defaultValue')));
 
     ReactDOM.render(
         <>
@@ -458,6 +459,7 @@ if (contactSupportFormContainer) {
                 submitFn={contactSupportSubmit}
                 callback={headerData.userDetailsUrl}
                 isocode={DigitalData.language}
+                defaultValues={{ formCategoryType: objData.defaultValue || '' }}
             />
             <LegalLinkModal docIcon={config.icons.docIcon || ''} />
         </>,
