@@ -10,11 +10,11 @@ function LegalLinkModal(props) {
     const [isOpen, setIsOpen] = useState(false);
     const [title, setTitle] = useState('');
     const [bodyContent, setBodyContent] = useState('');
+    let instanceTimeOut;
 
     // Content Fragment
-    const openModal = useCallback(event => {
+    function openModal(event) {
         try {
-            event.preventDefault();
             const { href, title } = event.target;
             fetch(href, {
                 method: 'GET',
@@ -29,36 +29,36 @@ function LegalLinkModal(props) {
                     setTitle(title)
                     setBodyContent(content);
                     setIsOpen(true);
-                });
+                })
+                .catch(e => console.error(e));
         } catch (error) {
             console.error(error);
-        }
-    }, [setTitle, setBodyContent, setIsOpen]);
-
-    // Add event on DOM
-    function addDOMEvent(container, callback) {
-        const link = document.getElementById(container);
-        if (window.addEventListener) {
-            link.addEventListener('click', callback, false);
-        } else {
-            link.attachEvent('onclick', callback);
         }
     }
 
     // Wait untill selector is loaded
-    function waitUntilLinkExists(container, callback, addListner) {
-        let instanceTimeOut;
-        if (document.getElementById(container)) {
-            clearTimeout(instanceTimeOut);
-            return callback(container, addListner);
+    function waitUntilLinkExists(container) {
+        const elem = document.getElementById(container);
+        if (elem) {
+            // Adds addEventListener event on terms-of-use' and privacy-policy link
+            document.addEventListener('click', function (event) {
+                if (event.target.id === container) {
+                    event.preventDefault();
+                    openModal(event);
+                    clearTimeout(instanceTimeOut);
+                }
+            });
+        } else {
+            instanceTimeOut = setTimeout(function () {
+                waitUntilLinkExists(container);
+            }, 10);
         }
-        instanceTimeOut = setTimeout(function () { return waitUntilLinkExists(container, callback, addListner) }, 1000);
     }
 
-    // invoke waitUntilLinkExists method
+    // componentDidMount
     useEffect(() => {
-        waitUntilLinkExists('contact-support-form-terms-of-use', addDOMEvent, openModal);
-        waitUntilLinkExists('contact-support-form-waters-privacy', addDOMEvent, openModal);
+        waitUntilLinkExists('contact-support-form-terms-of-use');
+        waitUntilLinkExists('contact-support-form-waters-privacy');
     }, []);
 
     // Close Modal
