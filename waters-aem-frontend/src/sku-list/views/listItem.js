@@ -14,6 +14,7 @@ import Ecommerce from '../../scripts/ecommerce';
 import SkuDetails from '../../scripts/sku-details';
 import Sticky from '../../scripts/stickyService';
 import Analytics, { analyticTypes, searchCartContext, relatedCartContext } from '../../analytics';
+import {isEprocurementUser as isEprocurementApp, isEprocurementUserRole} from '../../utils/userFunctions'
 
 class ListItem extends React.Component {
     constructor(props) {
@@ -258,6 +259,7 @@ class ListItem extends React.Component {
                         toggleParentModal={this.toggleModal}
                         skuNumber={relatedSku.code}
                         addToCartLabel={skuConfig.addToCartLabel}
+                        addToCartQty={skuConfig.defaultSkuQty}
                         addToCartUrl={skuConfig.addToCartUrl}
                         isCommerceApiMigrated={skuConfig.isCommerceApiMigrated}
                         toggleErrorModal={this.toggleErrorModal}
@@ -308,6 +310,11 @@ class ListItem extends React.Component {
     }
 
     renderBuyInfo = () => {
+
+        if (!isEprocurementApp() && isEprocurementUserRole()) {
+            return (null);
+        }
+
         const buyInfoCommerceView = this.renderBuyInfoCommerceView();
         const { relatedSku, skuConfig } = this.props;
 

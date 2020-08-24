@@ -1,6 +1,4 @@
 import React from 'react';
-import ReactSVG from 'react-svg';
-
 import SessionStore from '../stores/sessionStore';
 
 function UserGreeting(props) {
@@ -16,7 +14,7 @@ function UserGreeting(props) {
                 <h3>{name.trim()}</h3>
                 <h4>{company}</h4>
             </div>
-            <ReactSVG
+            <img
                 src={`${logoDirectoryPath.replace(/\/$/, '')}/${company.trim().replace(/ /g, '-').toLowerCase()}.png`}
                 alt={savedUserDetails.company || ''}
                 className="logo"

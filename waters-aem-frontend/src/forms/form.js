@@ -265,19 +265,16 @@ const Form = ({
     };
 
     const fields = config.fields.map((field, i) => {
-        const getFieldApi = useMemo(
-            () => ({
-                ...config,
-                config,
-                ...field,
-                field,
-                isocode,
-                initialState: defaultValues
-                    ? defaultValues[field.name]
-                    : undefined
-            }),
-            [field, field.active, newConfig]
-        );
+        const getFieldApi = {
+            ...config,
+            config,
+            ...field,
+            field,
+            isocode,
+            initialState: defaultValues
+                ? defaultValues[field.name]
+                : undefined
+        }
 
         return (
             <FieldApi.Provider value={getFieldApi} key={`field-${i}`}>
@@ -288,7 +285,8 @@ const Form = ({
 
     const renderForm = () => {
             return (<form
-                className="cmp-form cmp-form--registration"
+                className={`cmp-form cmp-form--registration ${config.customFormClass || ''}`}
+                data-locator={`${config.elementLocator || 'form-component'}`}
                 onSubmit={handleSubmit(
                     submitFn.bind({
                         url: config.submitEndpoint,

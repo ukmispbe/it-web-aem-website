@@ -91,6 +91,21 @@
                                                         jcr:primaryType="nt:unstructured"
                                                         cq-msm-lockable="metaDescription"/>
                                             </metaDescription>
+                                            <metaSchema
+                                                    cq:hideOnEdit="{Boolean}false"
+                                                    cq:showOnCreate="{Boolean}true"
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                                                    disabled="{Boolean}false"
+                                                    fieldLabel="MetaSchema"
+                                                    name="./metaSchema"
+                                                    renderReadOnly="{Boolean}true"
+                                                    required="{Boolean}false"
+                                                    resize="none">
+                                                <granite:data
+                                                        jcr:primaryType="nt:unstructured"
+                                                        cq-msm-lockable="metaSchema"/>
+                                            </metaSchema>
                                             <noIndex
                                                     cq:hideOnEdit="{Boolean}false"
                                                     cq:showOnCreate="{Boolean}true"
