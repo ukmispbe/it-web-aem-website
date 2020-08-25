@@ -73,8 +73,10 @@ document.addEventListener('mopinion_will_hide', e => {
 
 const replaceTextOnEmailConfirmation = () => {
     const element = document.getElementById('check-your-email-confirmation-text');
-    const userEmail = parseQueryParams(window.location.search)['email'] || '';
-    replaceTextWith(element, { email: userEmail })
+    if (element) {
+        const userEmail = parseQueryParams(window.location.search)['email'] || '';
+        replaceTextWith(element, { email: userEmail });
+    }
 } 
 
 replaceTextOnEmailConfirmation();
