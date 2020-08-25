@@ -1,4 +1,6 @@
 import domElements from './domElements';
+import { replaceTextWith } from '../utils/textTransform';
+import parseQueryParams from '../utils/parse-query-params';
 
 const scriptElement = document.getElementById('country-list-json');
 const countries = scriptElement && scriptElement.innerHTML.trim() ? JSON.parse(scriptElement.innerHTML) : [];
@@ -68,4 +70,11 @@ document.addEventListener('mopinion_will_show', e => {
 document.addEventListener('mopinion_will_hide', e => {
     domElements.noScroll(false);
 });
-  
+
+const replaceTextOnEmailConfirmation = () => {
+    const element = document.getElementById('check-your-email-confirmation-text');
+    const userEmail = parseQueryParams(window.location.search)['email'] || '';
+    replaceTextWith(element, { email: userEmail })
+} 
+
+replaceTextOnEmailConfirmation();

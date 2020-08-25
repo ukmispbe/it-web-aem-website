@@ -82,7 +82,7 @@ export async function checkEmailResetPasswordSubmit(data) {
     if (response.status === 200) {
         this.setFormAnalytics('submit');
         if (this.redirect) {
-            window.location.href = this.redirect;
+            window.location.href = this.redirect + `?email=${data.email}`;
         }
     } else {
         this.setFormAnalytics('error', responseBody);
