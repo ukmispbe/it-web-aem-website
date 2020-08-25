@@ -17,6 +17,7 @@ result.nodes.each { node ->
         node.getProperty('redirectTarget').remove()
         println "Updated " + node.getPath() + "\n"
         count++
+		activate(node.getPath());
     }
 
     session.save()
