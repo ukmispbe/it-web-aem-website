@@ -237,6 +237,7 @@ const SkuResults = ({
                 primaryImageAlt: item.title,
                 primaryImageThumbnail: item.thumbnail,
                 discontinued: item.status !== 'Active', // covers DiscontinueNoReplacement, DiscontinueWithReplacement, ObsoleteNoReplacement, and ObsoleteWithReplacement
+                status: item.status,
                 replacementskuurl: item.replacementskuurl,
                 replacementskucode: item.replacementskucode,
                 title: item.title,

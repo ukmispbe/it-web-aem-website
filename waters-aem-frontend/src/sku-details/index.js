@@ -16,6 +16,9 @@ import { mainCartContext } from "../analytics";
 import { getAvailability, getPricing, matchListItems } from "./services/index";
 import SignIn from '../scripts/signIn';
 
+const SKU_VALIDATION_400 = 'WAT_VALIDATION_400';
+const SKU_INVALID_BOOLEAN = 'VALIDATION:INVALID_BOOLEAN';
+
 class SkuDetails extends React.Component {
     constructor(props) {
         super(props);
@@ -53,7 +56,8 @@ class SkuDetails extends React.Component {
             signInUrl: this.props.baseSignInUrl,
             errorInfo: this.props.config.errorInfo,
             userInfo: {},
-            isEProcurementUserRestricted: (!isEprocurementApp() && isEprocurementUserRole())
+            isEProcurementUserRestricted: (!isEprocurementApp() && isEprocurementUserRole()),
+            isSkuInvalidError: false
         };
 
         this.toggleModal = this.toggleModal.bind(this);
@@ -118,9 +122,12 @@ class SkuDetails extends React.Component {
                 });
             } else {
                 // Add Error Object to State
+
                 this.setState({
                     errorObjPrice: response.errors,
-                    loading: false
+                    loading: false,
+                    isSkuInvalidError: (Array.isArray(response.errors) && response.errors.length > 0
+                    && response.errors[0].code === SKU_VALIDATION_400 && response.errors[0].type === SKU_INVALID_BOOLEAN)
                 });
             }
         })
@@ -320,6 +327,16 @@ class SkuDetails extends React.Component {
                 icon={this.props.config.commerceConfig.disabledIcon}
                 message={this.props.config.commerceConfig.eProcurementRestrictedText}
             />
+        )
+    };
+
+    renderSkuInvalidErrorMsg = () => {
+        const skuInvalidErrorMsg = this.props.config.skuInvalidErrorMsg;
+        return (
+            <SkuMessage
+                icon={this.props.config.skuInfo.lowStockIcon}
+                message={skuInvalidErrorMsg}
+            />
         );
     }
 
@@ -331,6 +348,8 @@ class SkuDetails extends React.Component {
             return this.renderCountryRestricted();
         } else if (this.state.discontinued) {
             return this.renderDiscontinued();
+        } else if(this.state.isSkuInvalidError) {
+            return this.renderSkuInvalidErrorMsg();
         } else {
             return this.renderActiveSku();
         }

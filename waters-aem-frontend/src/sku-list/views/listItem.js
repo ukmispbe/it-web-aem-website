@@ -15,6 +15,9 @@ import SkuDetails from '../../scripts/sku-details';
 import Sticky from '../../scripts/stickyService';
 import Analytics, { analyticTypes, searchCartContext, relatedCartContext } from '../../analytics';
 
+const SKU_VALIDATION_400 = 'WAT_VALIDATION_400';
+const SKU_INVALID_BOOLEAN = 'VALIDATION:INVALID_BOOLEAN';
+
 class ListItem extends React.Component {
     constructor(props) {
         super(props);
@@ -53,6 +56,7 @@ class ListItem extends React.Component {
             errorObjCart: {},
             errorObjAvailability: {},
             errorObjPrice: {},
+            isSkuInvalidError: false
         };
     }
 
@@ -78,7 +82,9 @@ class ListItem extends React.Component {
                     // Add Errors Object to State
                     this.setState({
                         errorObjPrice: response.errors,
-                        loading: false
+                        loading: false,
+                        isSkuInvalidError: (Array.isArray(response.errors) && response.errors.length > 0
+                        && response.errors[0].code === SKU_VALIDATION_400 && response.errors[0].type === SKU_INVALID_BOOLEAN && this.props.relatedSku.status === 'Active')
                     });
                 }
             })
@@ -328,6 +334,13 @@ class ListItem extends React.Component {
                     message={discontinuedMessage}
                     link={relatedSku.replacementskuurl}
                     linkMessage={relatedSku.replacementskucode}
+                />
+            );
+        } else if(this.state.isSkuInvalidError) {
+            return (
+                <SkuMessage
+                    icon={skuConfig.skuInfo.lowStockIcon}
+                    message={skuConfig.skuInvalidErrorMsg}
                 />
             );
         } else {
