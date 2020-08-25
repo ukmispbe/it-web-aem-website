@@ -96,7 +96,7 @@ public class Registration implements ComponentExporter {
     @LinkInject
     private Link redirectLink;
 
-    @DialogField(fieldLabel = "Redirect Link",
+    @DialogField(fieldLabel = "Redirect Link (eProc User)",
             fieldDescription = "Select or enter the redirect link URL. The destination page the user will be redirected " +
                     "to after successful submission",
             required  = true,
