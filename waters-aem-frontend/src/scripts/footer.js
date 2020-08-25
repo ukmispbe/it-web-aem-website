@@ -71,6 +71,9 @@ document.addEventListener('mopinion_will_hide', e => {
     domElements.noScroll(false);
 });
 
+/**
+ * Function is used to replace the text on check-your-email confirmation page for eproc users
+ */
 const replaceTextOnEmailConfirmation = () => {
     const element = document.getElementById('check-your-email-confirmation-text');
     if (element) {
