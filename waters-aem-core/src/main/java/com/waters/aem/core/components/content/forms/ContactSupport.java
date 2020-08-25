@@ -93,6 +93,14 @@ public class ContactSupport implements ComponentExporter {
     @Default(booleanValues = false)
     private Boolean newWindow;
 
+    @DialogField(fieldLabel = "Open in Modal",
+            fieldDescription = "Select this option to open 'Privacy Notice' in new window",
+            ranking = 5)
+    @Switch(offText = "No", onText = "Yes")
+    @Inject
+    @Default(booleanValues = false)
+    private Boolean newModal;
+
     public Link getPrivacyNoticeLink() {
         return LinkUtils.getMappedLink(pageManager, watersPrivacyLink);
     }
@@ -102,11 +110,15 @@ public class ContactSupport implements ComponentExporter {
     }
 
     public Link getTermsOfUseLink() {
-        return termsOfUseLink;
+        return LinkUtils.getMappedLink(pageManager,termsOfUseLink);
     }
 
     public Boolean isNewWindow() {
         return newWindow;
+    }
+
+    public Boolean isNewModal() {
+        return newModal;
     }
 
     public String getContactSupportUrl() {
