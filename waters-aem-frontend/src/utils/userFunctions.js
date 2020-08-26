@@ -78,21 +78,6 @@ export const getSoldToIdSource = (soldToId, dummySoldto) => {
 }
 
 //Note: Returning all possible soldTo values for debugging and in case of future needs
-export const setSKUUserInfo = () => {
-    let salesOrg = getSalesOrg();
-    let soldToId = getSoldToId();
-    let dummySoldto = getDummySoldToId();
-    let dynamicSoldTo = getSoldToIdSource(soldToId, dummySoldto);
-
-    let userInfo = {
-        salesOrg: salesOrg,
-        soldToId: soldToId,
-        dummySoldto: dummySoldto,
-        dynamicSoldTo: dynamicSoldTo
-    }
-    return userInfo;
-}
-
 export const callCustomerPriceApi = (custPriceApiDisabled) => {
     let salesOrg = getSalesOrg();
     let soldToId = getSoldToId();
