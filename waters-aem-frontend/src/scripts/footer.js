@@ -1,4 +1,6 @@
 import domElements from './domElements';
+import { replaceTextWith } from '../utils/textTransform';
+import parseQueryParams from '../utils/parse-query-params';
 
 const scriptElement = document.getElementById('country-list-json');
 const countries = scriptElement && scriptElement.innerHTML.trim() ? JSON.parse(scriptElement.innerHTML) : [];
@@ -68,4 +70,16 @@ document.addEventListener('mopinion_will_show', e => {
 document.addEventListener('mopinion_will_hide', e => {
     domElements.noScroll(false);
 });
-  
+
+/**
+ * Function is used to replace the text on check-your-email confirmation page for eproc users
+ */
+const replaceTextOnEmailConfirmation = () => {
+    const element = document.getElementById('check-your-email-confirmation-text');
+    if (element) {
+        const userEmail = parseQueryParams(window.location.search)['email'] || '';
+        replaceTextWith(element, { email: userEmail });
+    }
+} 
+
+replaceTextOnEmailConfirmation();
