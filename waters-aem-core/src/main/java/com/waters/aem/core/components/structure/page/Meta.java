@@ -47,6 +47,8 @@ public final class Meta extends AbstractComponent {
 
     private static final String PROPERTY_META_DESCRIPTION = "metaDescription";
 
+    private static final String PROPERTY_META_SCHEMA = "metaSchema";
+
     private static final String PROPERTY_NO_INDEX = "noIndex";
 
     private static final String PROPERTY_NO_FOLLOW = "noFollow";
@@ -104,6 +106,9 @@ public final class Meta extends AbstractComponent {
         return get(PROPERTY_META_DESCRIPTION, "");
     }
 
+    public String getMetaSchema() {
+        return get(PROPERTY_META_SCHEMA, "");
+    }
     public Boolean isNoIndex() {
         return get(PROPERTY_NO_INDEX, false);
     }

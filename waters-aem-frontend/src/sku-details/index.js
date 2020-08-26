@@ -6,7 +6,7 @@ import Price from "./views/price";
 import AddToCart from "./views/addToCart";
 import AddToCartBody from '../sku-details/views/addToCartModal';
 import Modal, { Header, keys } from '../utils/modal';
-import { callCustomerPriceApi } from '../utils/userFunctions';
+import { callCustomerPriceApi, isEprocurementUser as isEprocurementApp, isEprocurementUserRole } from '../utils/userFunctions';
 import Spinner from '../utils/spinner';
 import LoginStatus from "../scripts/loginStatus";
 import CheckOutStatus from "../scripts/checkOutStatus";
@@ -53,7 +53,8 @@ class SkuDetails extends React.Component {
             discontinued: this.props.discontinued == "true",
             signInUrl: this.props.baseSignInUrl,
             errorInfo: this.props.config.errorInfo,
-            userInfo: {}
+            userInfo: {},
+            isEProcurementUserRestricted: (!isEprocurementApp() && isEprocurementUserRole())
         };
 
         this.toggleModal = this.toggleModal.bind(this);
@@ -257,6 +258,7 @@ class SkuDetails extends React.Component {
                         toggleParentModal={this.toggleModal}
                         skuNumber={skuNumber}
                         addToCartLabel={config.addToCartLabel}
+                        addToCartQty={config.defaultSkuQty}
                         addToCartUrl={config.addToCartUrl}
                         isCommerceApiMigrated={config.isCommerceApiMigrated}
                         toggleErrorModal={this.toggleErrorModal}
@@ -314,8 +316,20 @@ class SkuDetails extends React.Component {
         }
     };
 
+    renderEProcurementUserRestricted = () => {
+        return (
+            <SkuMessage
+                icon={this.props.config.commerceConfig.disabledIcon}
+                message={this.props.config.commerceConfig.eProcurementRestrictedText}
+            />
+        );
+    }
+
     render() {
-        if(!this.state.listPrice){
+        if (this.state.isEProcurementUserRestricted) {
+            return this.renderEProcurementUserRestricted();
+        }
+        else if (!this.state.listPrice){
             return this.renderCountryRestricted();
         } else if (this.state.discontinued) {
             return this.renderDiscontinued();

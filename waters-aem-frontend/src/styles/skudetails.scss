@@ -529,6 +529,7 @@
         width: 100%;
         margin-bottom: $space-xs;
         clear: both;
+        display: inline-block;
 
         @include mobile {
             padding-bottom: $space-xxs;
@@ -639,11 +640,11 @@
             @include font-utility;
             display: flex;
             align-items: center;
-            height: 1em;
+            height: $space-m;
             border-left: $border-divider-small;
             padding: 0 $space-s 0 $space-xs;
             margin-bottom: $space-xxxs;
-            
+            margin-top: $space-xxxs;       
         }
     }
 }

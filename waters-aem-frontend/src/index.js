@@ -9,6 +9,7 @@ import MyAccountDropDown from './my-account-dropdown/index';
 import UserGreeting from './user-greetings/UserGreeting';
 import QuickOrder from './quick-order/QuickOrder';
 import LinkButton from './link-button/LinkButton';
+import LegalLinkModal from './legal-link-modal/LegalLinkModal';
 
 import SkuDetails from './sku-details';
 import SkuList from './sku-list';
@@ -32,6 +33,7 @@ import MyAccountRouter from './my-account';
 import CountrySelector from './country-selector';
 import SessionStore from './stores/sessionStore';
 import LoginStatus from "./scripts/loginStatus";
+import CreateAccountForm from './create-account-form';
 
 if (process.env.NODE_ENV !== 'production') {
     const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -292,13 +294,14 @@ if (header && MyAccountDropDownContainer) {
         document.getElementById('account-modal-configs-json').innerHTML
     );
     const commerceConfigs = document.getElementById('commerce-configs-json');
+    const isEditMode = document.getElementById("header") ? document.getElementById("header").hasAttribute("data-is-edit-mode") : false;
     let eProcSetupFailure = {};
     if (commerceConfigs) {
         eProcSetupFailure = JSON.parse(commerceConfigs.innerHTML);
     }
 
     ReactDOM.render(
-        <MyAccountDropDown config={config} eProcSetupFailure={eProcSetupFailure.setupFailure || {}} />,
+        <MyAccountDropDown config={config} eProcSetupFailure={eProcSetupFailure.setupFailure || {}} isEditMode={isEditMode} />,
         MyAccountDropDownContainer
     );
 }
@@ -377,19 +380,23 @@ const registrationFormContainer = document.getElementById(
 );
 
 if (registrationFormContainer) {
-    let config = JSON.parse(
+    const configCheckEmailForm = JSON.parse(
+        document.getElementById('cmp-check-email-form').innerHTML
+    );
+
+    let configRegistrationForm = JSON.parse(
         document.getElementById('cmp-registration-form').innerHTML
     );
 
     const country = digitalData.page.country.toLowerCase();
 
     const swapFirstAndLastNames = () => {
-        const indexofFirstName = config.fields.map(e => e.name).indexOf('firstName');
-        const indexofLastName = config.fields.map(e => e.name).indexOf('lastName');
+        const indexofFirstName = configRegistrationForm.fields.map(e => e.name).indexOf('firstName');
+        const indexofLastName = configRegistrationForm.fields.map(e => e.name).indexOf('lastName');
         if (indexofFirstName !== -1 && indexofLastName !== -1) {
-            const temp = config.fields[indexofFirstName];
-            config.fields[indexofFirstName] = config.fields[indexofLastName];
-            config.fields[indexofLastName] = temp;
+            const temp = configRegistrationForm.fields[indexofFirstName];
+            configRegistrationForm.fields[indexofFirstName] = configRegistrationForm.fields[indexofLastName];
+            configRegistrationForm.fields[indexofLastName] = temp;
         }
     }
 
@@ -409,19 +416,29 @@ if (registrationFormContainer) {
         config.fields[indexofPrivacy].config = KRconfig;
     }
 
-    if (config.formName === "registration" && (country === "jp" || country === "cn" || country === "tw" || country === "kr")) {
+    if (configRegistrationForm.formName === "registration" && (country === "jp" || country === "cn" || country === "tw" || country === "kr")) {
         swapFirstAndLastNames();
     }
 
-    if (config.formName === "registration" && country === "kr") {
-        changeDisclosures(config);
+    if (configRegistrationForm.formName === "registration" && country === "kr") {
+        changeDisclosures(configRegistrationForm);
     }
+
+    const registrationForm = {
+        config: configRegistrationForm,
+        submitFn: registrationSubmit,
+        callback: headerData.userDetailsUrl,
+    }
+
+    const checkEmailForm = {
+        config: configCheckEmailForm,
+    }
+
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
-        <Form
-            config={config}
-            submitFn={registrationSubmit}
-            callback={headerData.userDetailsUrl}
+        <CreateAccountForm 
+            registrationFormConfig={registrationForm}
+            checkEmailFormConfig={checkEmailForm}
             isocode={DigitalData.language}
         />,
         registrationFormContainer
@@ -435,12 +452,15 @@ if (contactSupportFormContainer) {
     const config = JSON.parse(document.getElementById('cmp-contact-support-form').innerHTML);
 
     ReactDOM.render(
-        <Form
-            config={config}
-            submitFn={contactSupportSubmit}
-            callback={headerData.userDetailsUrl}
-            isocode={DigitalData.language}
-        />,
+        <>
+            <Form
+                config={config}
+                submitFn={contactSupportSubmit}
+                callback={headerData.userDetailsUrl}
+                isocode={DigitalData.language}
+            />
+            <LegalLinkModal docIcon={config.icons.docIcon || ''} />
+        </>,
         contactSupportFormContainer
     );
 }
