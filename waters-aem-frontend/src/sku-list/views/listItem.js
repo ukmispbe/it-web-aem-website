@@ -15,8 +15,8 @@ import SkuDetails from '../../scripts/sku-details';
 import Sticky from '../../scripts/stickyService';
 import Analytics, { analyticTypes, searchCartContext, relatedCartContext } from '../../analytics';
 
-const SKU_VALIDATION_400 = 'WAT_VALIDATION_400';
-const SKU_INVALID_BOOLEAN = 'VALIDATION:INVALID_BOOLEAN';
+const SKU_VALIDATION_400 = 'WAT_VALIDATION_400'; 
+const SKU_INVALID_BOOLEAN = 'VALIDATION:INVALID_BOOLEAN'; 
 
 class ListItem extends React.Component {
     constructor(props) {
@@ -56,7 +56,7 @@ class ListItem extends React.Component {
             errorObjCart: {},
             errorObjAvailability: {},
             errorObjPrice: {},
-            isSkuInvalidError: false
+            isSkuErrorMessage: false
         };
     }
 
@@ -83,8 +83,8 @@ class ListItem extends React.Component {
                     this.setState({
                         errorObjPrice: response.errors,
                         loading: false,
-                        isSkuInvalidError: (Array.isArray(response.errors) && response.errors.length > 0
-                        && response.errors[0].code === SKU_VALIDATION_400 && response.errors[0].type === SKU_INVALID_BOOLEAN && this.props.relatedSku.status === 'Active')
+                        isSkuErrorMessage: (Array.isArray(response.errors) && response.errors.length > 0
+                        && response.errors[0].code === SKU_VALIDATION_400 && response.errors[0].type === SKU_INVALID_BOOLEAN)
                     });
                 }
             })
@@ -336,11 +336,11 @@ class ListItem extends React.Component {
                     linkMessage={relatedSku.replacementskucode}
                 />
             );
-        } else if(this.state.isSkuInvalidError) {
+        } else if(this.state.isSkuErrorMessage) {
             return (
                 <SkuMessage
                     icon={skuConfig.skuInfo.lowStockIcon}
-                    message={skuConfig.skuInvalidErrorMsg}
+                    message={skuConfig.skuInfo.skuErrorMessage}
                 />
             );
         } else {

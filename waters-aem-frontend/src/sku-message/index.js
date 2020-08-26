@@ -49,7 +49,7 @@ class SkuMessage extends React.Component {
                 />
                 <div className="cmp-notification-body">
                     {Array.isArray(this.props.message) ? (
-                        <div className="cmp-notification-description-error">
+                        <div className="cmp-notification-description error-msg">
                             {this.displayError()}
                         </div>
                     ) : (

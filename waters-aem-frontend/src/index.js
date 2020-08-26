@@ -215,26 +215,6 @@ const skuDetailsConfig = JSON.parse(
     document.getElementById('commerce-configs-json').innerHTML
 );
 
-skuDetailsConfig.skuInvalidErrorMsg = [
-    {
-        "type": "text",
-        "text": "No applicable for sale to this procurement account.",
-        "rightSpace": "true"
-    },
-    {
-        "type": "link",
-        "label": "Contact Waters",
-        "url": "/content/order/en/legal/terms-of-use.html",
-        "blank": true,
-        "rightSpace": "true"
-    },
-    {
-        "type": "text",
-        "text": "for more information.",
-        "rightSpace": "true"
-    }
-];
-
 let skuData, skuDetailsListPrice;
 if (document.querySelector('.cmp-sku-details__ecom')) {
     // If a product is discontinued, the ecom class never gets added,

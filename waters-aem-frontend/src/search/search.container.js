@@ -544,9 +544,7 @@ class SearchContainer extends Component {
         newState.spell_suggestion = res.hasOwnProperty('spell_suggestion')
             ? res.spell_suggestion
             : '';
-
-        // newState.isSkuList = this.isSkuList(query.category);
-        newState.isSkuList = true;
+        newState.isSkuList = this.isSkuList(query.category);
 
         this.setState(Object.assign({}, this.state, newState), () => {
             // collapse all facet groups when flag is true and the device is tablet or mobile
