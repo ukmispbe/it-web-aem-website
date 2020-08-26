@@ -22,6 +22,7 @@
                     class="cmp-header__top-bar__logo__link cmp-header-links__link"
                     href="${header.logoLink.href}"
                     target="${header.external ? '_blank' :''}"
+                    data-locator="link-top-bar-logo"
                 >
                     <img
                         src="${header.logo.fileReference}"
@@ -65,6 +66,7 @@
                             class="top-bar__nav__user__link cmp-header-links__link"
                             href="javascript:;"
                             target="_self"
+                            data-locator="link-header-my-account-myAccount"
                         >
                             <span class="my-account-headline-text"
                                 >${'My Account' @ i18n}</span
@@ -73,6 +75,7 @@
                                 alt="${'My Account' @ i18n}"
                                 src="/content/dam/waters/en/brand-assets/icons/user.svg"
                                 class="inline-svg"
+                                data-locator="header-myAccount-icon"
                             />
                         </a>
                         <div class="top-bar__nav__user__dropdown"></div>
@@ -143,8 +146,9 @@
                         <a
                             class="cmp-header-links__link"
                             href="${header.viewCartUrl}"
+                            data-locator="link-header-my-account-cart"
                         >
-                            <span>${'Cart' @ i18n}</span>
+                            <span data-locator="header-label-Cart">${'Cart' @ i18n}</span>
                             <img
                                 alt="${'Cart' @ i18n}"
                                 src="/content/dam/waters/en/brand-assets/icons/cart.svg"
@@ -158,6 +162,7 @@
                         <button
                             class="hamburger hamburger--slider"
                             type="button"
+                            data-locator="button-header-hamburger"
                         >
                             <span class="hamburger-box">
                                 <span class="hamburger-inner"></span>
