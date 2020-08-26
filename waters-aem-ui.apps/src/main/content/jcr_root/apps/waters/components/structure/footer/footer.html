@@ -57,7 +57,7 @@
                         alt="${'Country' @ i18n}" />
                 </div>
                 <div class="cmp-footer__selector__language ${footer.languagePages.size == 1 ? 'one-link' : ''}" data-locator="footer-language-selector">
-                    <a href="${footer.languagePages[0].page.href}" data-locator="footer-language-pages">${footer.languagePages[0].languageTitle}</a>
+                    <a href="${footer.languagePages[0].page.href}" data-locator="footer-language-link">${footer.languagePages[0].languageTitle}</a>
                     <div class="cmp-footer__selector__language--options"
                         data-sly-list.languageLink="${footer.languagePages}">
                         <a data-sly-test="${!languageLinkList.first}"
