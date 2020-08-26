@@ -10,16 +10,16 @@ function UserGreeting(props) {
     const company = savedUserDetails.company || '';
     return (
         <>
-            <div className="greetings" data-locator="user-greeting">
-                <h2 data-locator="greeting">{greetings}</h2>
-                <h3 data-locator="name">{name.trim()}</h3>
-                <h4 data-locator="company">{company}</h4>
+            <div className="greetings" data-locator="user-greeting-sec">
+                <h2 data-locator="user-greeting">{greetings}</h2>
+                <h3 data-locator="user-greeting-name">{name.trim()}</h3>
+                <h4 data-locator="user-greeting-company">{company}</h4>
             </div>
             <img
                 src={`${logoDirectoryPath.replace(/\/$/, '')}/${company.trim().replace(/ /g, '-').toLowerCase()}.png`}
                 alt={company || ''}
                 className="logo"
-                data-locator={elementLocator(company || 'company logo')}
+                data-locator={elementLocator(company || 'user greeting logo')}
             />
         </>
     );
