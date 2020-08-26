@@ -2,12 +2,13 @@
          data-sly-test="${sectionContainer.title}"
          data-sly-test="${isAuthor || sectionContainer.displaySectionContainer}"
          data-sly-attribute.id="${sectionContainer.id}"
-         class="cmp-section-container ${sectionContainer.collapseOnMobile ? 'cmp-section-container--collapse' : ''} ${sectionContainer.hideSectionContainer ? 'cmp-section-container--hide' : ''}">
-    <div class="cmp-section-container__wrapper">
+         class="cmp-section-container ${sectionContainer.collapseOnMobile ? 'cmp-section-container--collapse' : ''} ${sectionContainer.hideSectionContainer ? 'cmp-section-container--hide' : ''}"
+         data-locator="section-container">
+    <div class="cmp-section-container__wrapper" data-locator="section-container-wrapper">
             <div class="cmp-section-container__background"></div>
-        <h2 class="cmp-section-container__title">${sectionContainer.title}</h2>
+        <h2 class="cmp-section-container__title" data-locator="section-container-title">${sectionContainer.title}</h2>
 
-        <div class="cmp-section-container__body" data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+        <div class="cmp-section-container__body" data-locator="section-container-body" data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
     </div>
 
 

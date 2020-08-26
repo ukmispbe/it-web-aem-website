@@ -44,3 +44,11 @@ export const isSignInHidden = () => {
     }
     return false;
 }
+
+export const elementLocator = str => {
+    try{
+        return str ? (str.trim()).replace(/ /g, '-').toLowerCase() : '';
+    } catch(e) {
+        return str;
+    }
+}

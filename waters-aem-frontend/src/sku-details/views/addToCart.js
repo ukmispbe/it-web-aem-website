@@ -148,9 +148,10 @@ class AddToCart extends React.Component {
                         value={this.state.addToCartQty}
                         onChange={this.skuQuantityInput}
                         onKeyPress={this.skuRemoveNegative}
+                        data-locator="input-sku-qty"
                     />
                 </form>
-                <a className={`cmp-button ${!this.state.skuNumber.trim() && 'disabled'}`} onClick={() => this.addToCart()}>
+                <a className={`cmp-button ${!this.state.skuNumber.trim() && 'disabled'}`} onClick={() => this.addToCart()} data-locator="link-add-to-cart">
                     {this.props.addToCartLabel}
                 </a>
             </>
