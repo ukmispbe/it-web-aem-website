@@ -103,6 +103,7 @@ class FilterSection extends Component {
                         href="javascript:void(0)"
                         className={'checkbox ' + (checked ? 'checked' : '')}
                         onClick={this.checkHandler.bind(this)}
+                        data-locator="search-filters-items"
                     >
                         <ReactSVG src={this.props.text.checkmarkIcon} />
                     </a>
