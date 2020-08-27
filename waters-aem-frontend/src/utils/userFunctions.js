@@ -106,6 +106,7 @@ const capitalize = str => {
 
 export const trimAndCapitalize = (item) => {
     if (item && typeof item === "string") {
+        item = item.replace("\\s","");
         item = item.trim();
         item = capitalize(item);
     }
