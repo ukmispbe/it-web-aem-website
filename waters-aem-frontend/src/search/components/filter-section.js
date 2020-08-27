@@ -175,12 +175,13 @@ class FilterSection extends Component {
         const className = `cmp-search-filters__filter ${props.isExpanded ? 'expanded' : ''}`
 
         return (
-            <li className={className}>
+            <li className={className} data-locator="search-filters">
                 <a
                     href="javascript:void(0);"
                     className="filter-toggle"
                     item={props.item}
                     onClick={e => props.handleInput(e, props.item)}
+                    data-locator="link-search-filters"
                 >
                     <ReactSVG
                         src={props.text.expandIcon}

@@ -64,7 +64,7 @@ const FilterTagList = ({
         : <></>;
 
     return (
-        <div className="cmp-search-filters__tags clearfix">
+        <div className="cmp-search-filters__tags clearfix" data-locator="search-filters-tags">
             <ClearAllTag
                 text={text}
                 onRemove={filterTagsEvents.onClearAll} />

@@ -339,7 +339,7 @@ class ListItem extends React.Component {
         const { relatedSku, skuConfig } = this.props;
         if (skuConfig.showBreadcrumbs) {
             return (
-                <div className="cmp-search__results-item-breadcrumb skuitem">
+                <div className="cmp-search__results-item-breadcrumb skuitem" data-locator="search-results-breadcrumb">
                     <div>{relatedSku.category_facet}</div>
                     <ReactSVG src={skuConfig.skuInfo.nextIcon} />
                     <div>{relatedSku.contenttype_facet}</div>
