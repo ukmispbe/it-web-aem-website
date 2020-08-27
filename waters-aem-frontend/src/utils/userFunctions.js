@@ -93,36 +93,7 @@ export const setSKUUserInfo = () => {
     return userInfo;
 }
 
-export const getFullCompanyAddress = (address, includeCountryName) => {
-    if (
-        !address ||
-        (Object.entries(address).length === 0 && address.constructor === Object)
-    )
-        return '';
-
-    let addressArray = [];
-    const city = address.city ? capitalize(address.city).trim() + ', ' : '';
-    const region = address.regio ? capitalize(address.regio).trim() + ' ' : '';
-    const postalCd = address.postalCd ? capitalize(address.postalCd).trim() : '';
-    if (address.partnerName) {
-        address.partnerName ? addressArray.push(capitalize(address.partnerName).trim()) : null;
-    }
-    if (address.addr1) {
-        address.addr1 ? addressArray.push(capitalize(address.addr1).trim()) : null;
-    }
-    address.addr2 ? addressArray.push(capitalize(address.addr2).trim()) : null;
-    address.addr3 ? addressArray.push(capitalize(address.addr3).trim()) : null;
-    address.addr4 ? addressArray.push(capitalize(address.addr4).trim()) : null;
-    address.street ? addressArray.push(capitalize(address.street).trim()) : null;
-    addressArray.push((city + region + postalCd).trim());
-    if (includeCountryName) {
-        address.countryName ? addressArray.push(capitalize(address.countryName).trim()) : address.country;
-    }
-
-    return addressArray;
-};
-
-export const capitalize = str => {
+const capitalize = str => {
     if (!str || str.trim() === '') return '';
 
     return str
@@ -131,6 +102,47 @@ export const capitalize = str => {
             return word[0].toUpperCase() + word.slice(1, word.length);
         })
         .join(' ');
+};
+
+export const trimAndCapitalize = (item) => {
+    if (item && typeof item === "string") {
+        item = item.trim();
+        item = capitalize(item);
+    }
+    return item;
+}
+
+export const getFullCompanyAddress = (address, includeCountryName) => {
+    if (
+        !address ||
+        (Object.entries(address).length === 0 && address.constructor === Object)
+    )
+        return '';
+
+    let addressArray = [];
+    const city = address.city ? trimAndCapitalize(address.city) + ', ' : '';
+    const region = address.regio ? trimAndCapitalize(address.regio) + ' ' : '';
+    const postalCd = address.postalCd ? trimAndCapitalize(address.postalCd) : '';
+
+    if (address.partnerName) {
+        address.partnerName ? addressArray.push(trimAndCapitalize(address.partnerName)) : null;
+    }
+
+    if (address.addr1) {
+        address.addr1 ? addressArray.push(trimAndCapitalize(address.addr1)) : null;
+    }
+
+    address.addr2 ? addressArray.push(trimAndCapitalize(address.addr2)) : null;
+    address.addr3 ? addressArray.push(trimAndCapitalize(address.addr3)) : null;
+    address.addr4 ? addressArray.push(trimAndCapitalize(address.addr4)) : null;
+    address.street ? addressArray.push(trimAndCapitalize(address.street)) : null;
+    addressArray.push((city + region + postalCd));
+
+    if (includeCountryName) {
+        address.countryName ? addressArray.push(trimAndCapitalize(address.countryName)) : address.country;
+    }
+
+    return addressArray;
 };
 
 export const getCountryName = (countryCode, config) => {
