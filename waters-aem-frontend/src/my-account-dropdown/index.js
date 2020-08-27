@@ -323,37 +323,48 @@ class MyAccountDropDown extends React.Component {
         const sessionStore = new SessionStore();
         const { requestFailureTitle, requestFailureMessage, sessionTimeoutTitle, sessionTimeoutMessage } = this.props.eProcSetupFailure;
         const checkAndSetError = async (responseJson = {}) => {
-            let punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
-            if (!this.state.eprocSetupFailure.status) {
-                if(Object.keys(punchoutSetupDetails).length === 0) {
-                    await this.punchoutSetup(); // retrieve punchout setup
-                    punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
+            try {
+                let punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
+                if (!this.state.eprocSetupFailure.status) {
+                    if (Object.keys(punchoutSetupDetails).length === 0) {
+                        await this.punchoutSetup(); // retrieve punchout setup
+                        punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
+                    }
+                    this.setEprocFailure({
+                        title: responseJson.code === 804 ? sessionTimeoutTitle : requestFailureTitle,
+                        text: responseJson.code === 804 ? sessionTimeoutMessage : requestFailureMessage,
+                        buttons: [{
+                            text: this.state.eprocSetupFailure.buttons[0].text,
+                            action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '',
+                        }]
+                    });
                 }
+            } catch (error) {
                 this.setEprocFailure({
-                    title: responseJson.code === 804 ? sessionTimeoutTitle : requestFailureTitle,
-                    text: responseJson.code === 804 ? sessionTimeoutMessage : requestFailureMessage,
-                    buttons: [{ 
-                        text: this.state.eprocSetupFailure.buttons[0].text,
-                        action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '',
-                    }]
+                    title: requestFailureTitle,
+                    text: requestFailureMessage
                 });
             }
         }
-        if (token) {
-            sessionStore.removeUserDetails();
-            const { response } = await punchoutLogin(this.props.config.punchoutLogin, { token });
-            if ( response && response.status !== 200) {
-                const responseJson = await response.json();
-                await checkAndSetError(responseJson);
-            } else {
+        try {
+            if (token) {
+                sessionStore.removeUserDetails();
+                const { response } = await punchoutLogin(this.props.config.punchoutLogin, { token });
+                if (response && response.status !== 200) {
+                    const responseJson = await response.json();
+                    await checkAndSetError(responseJson);
+                } else {
+                    sessionStore.removeSoldToDetails();
+                    await UserDetailsLazy(this.props.config.userDetailsUrl, false);
+                    await SoldToDetailsLazy(this.props.config.soldToDetailsUrl);
+                }
+            } else if (!loginStatus.state()) {
+                sessionStore.removeUserDetails();
                 sessionStore.removeSoldToDetails();
-                await UserDetailsLazy(this.props.config.userDetailsUrl, false);
-                await SoldToDetailsLazy(this.props.config.soldToDetailsUrl);
+                await checkAndSetError();
             }
-        } else if (!loginStatus.state()) {
-            sessionStore.removeUserDetails();
-            sessionStore.removeSoldToDetails();
-            await checkAndSetError();
+        } catch (e) {
+            checkAndSetError();
         }
         removeQueryString(window.location.href, '1tu', true);
     }
@@ -362,44 +373,50 @@ class MyAccountDropDown extends React.Component {
         const sessionStore = new SessionStore();
         const urlParams = parseQueryParams(window.location.search);
         const sid = urlParams['sid'] || '';
-        if (sid) {
-            sessionStore.removePunchoutSetupDetails();
-            (new LocalStore()).removeCartId();
-            const response = await punchoutSetup(buildUrl({
-                pathname: this.props.config.punchoutSetup,
-                query: {},
-                pathVars: {
-                    userId: "anonymous",
-                    sid: sid
-                }
-            }));
-            if (response && response.status !== 200) {
-                const { requestFailureTitle, requestFailureMessage } = this.props.eProcSetupFailure;
-                const punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
-                this.setEprocFailure({
-                    title: requestFailureTitle,
-                    text: requestFailureMessage,
-                    buttons: [{ 
-                        text: this.state.eprocSetupFailure.buttons[0].text, 
-                        action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '',
-                    }]
-                });
-            } else {
-                sessionStore.setPunchoutSetupDetails({
-                    returnUrl: response.return_url,
-                    redirectUrl: response.redirect_url,
-                    buyerOrgName: response.buyerOrgName,
-                    currency: response.currency,
-                    country: response.country,
-                });
-                (new LocalStore()).setCartId(response.cartId);
-            }
-        } else if (Object.keys(sessionStore.getPunchoutSetupDetails()).length === 0) {
-            const { requestFailureTitle, requestFailureMessage } = this.props.eProcSetupFailure;
+        const { requestFailureTitle, requestFailureMessage } = this.props.eProcSetupFailure;
+        const setPrunchoutError = () => {
             this.setEprocFailure({
                 title: requestFailureTitle,
                 text: requestFailureMessage
             });
+        }
+        try {
+            if (sid) {
+                sessionStore.removePunchoutSetupDetails();
+                (new LocalStore()).removeCartId();
+                const response = await punchoutSetup(buildUrl({
+                    pathname: this.props.config.punchoutSetup,
+                    query: {},
+                    pathVars: {
+                        userId: "anonymous",
+                        sid: sid
+                    }
+                }));
+                if (response && response.status !== 200) {
+                    const punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
+                    this.setEprocFailure({
+                        title: requestFailureTitle,
+                        text: requestFailureMessage,
+                        buttons: [{
+                            text: this.state.eprocSetupFailure.buttons[0].text,
+                            action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '',
+                        }]
+                    });
+                } else {
+                    sessionStore.setPunchoutSetupDetails({
+                        returnUrl: response.return_url,
+                        redirectUrl: response.redirect_url,
+                        buyerOrgName: response.buyerOrgName,
+                        currency: response.currency,
+                        country: response.country,
+                    });
+                    (new LocalStore()).setCartId(response.cartId);
+                }
+            } else if (Object.keys(sessionStore.getPunchoutSetupDetails()).length === 0) {
+                setPrunchoutError();
+            }
+        } catch (error) {
+            setPrunchoutError();
         }
         removeQueryString(window.location.href, 'sid', true);
     }
