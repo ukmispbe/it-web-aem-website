@@ -10,7 +10,7 @@ class Stock extends React.Component {
     renderStockError() {
         return (
             <span>
-                <span className={`cmp-sku-${this.props.skuType}__stockdetails`}>
+                <span className={`cmp-sku-${this.props.skuType}__stockdetails`} data-locator={`sku-${this.props.skuType}-stockdetails`}>
                     {
                         ErrorMessages.ErrorMessages(this.props.errorObj)
                             .serviceUnavailable
@@ -18,9 +18,10 @@ class Stock extends React.Component {
                     <ReactSVG
                         src={this.props.skuInfo.lowStockIcon}
                         className={`cmp-sku-${this.props.skuType}__stockdetails--outofstock`}
+                        data-locator={`sku-${this.props.skuType}-stockdetails-outofstock`}
                     />
                 </span>
-                <div className={`cmp-sku-${this.props.skuType}__order`}>
+                <div className={`cmp-sku-${this.props.skuType}__order`} data-locator={`sku-${this.props.skuType}-order`}>
                     {
                         ErrorMessages.ErrorMessages(this.props.errorObj)
                             .tryAgainLater
@@ -33,14 +34,15 @@ class Stock extends React.Component {
     renderInStock() {
         return (
             <span>
-                <span className={`cmp-sku-${this.props.skuType}__stockdetails`}>
+                <span className={`cmp-sku-${this.props.skuType}__stockdetails`} data-locator={`sku-${this.props.skuType}-stockdetails`}>
                     {this.props.skuInfo.inStockLabel}
                     <ReactSVG
                         src={this.props.skuInfo.inStockIcon}
                         className={`cmp-sku-${this.props.skuType}__stockdetails--instock`}
+                        data-locator={`sku-${this.props.skuType}-stockdetails-instock`}
                     />
                 </span>
-                <div className={`cmp-sku-${this.props.skuType}__order`}>
+                <div className={`cmp-sku-${this.props.skuType}__order`} data-locator={`sku-${this.props.skuType}-order`}>
                     {this.props.skuInfo.orderNowLabel}
                 </div>
             </span>
@@ -50,10 +52,10 @@ class Stock extends React.Component {
     renderContactWaters() {
         return (
             <span>
-                <span className={`cmp-sku-${this.props.skuType}__stockdetails`}>
+                <span className={`cmp-sku-${this.props.skuType}__stockdetails`} data-locator={`sku-${this.props.skuType}-stockdetails`}>
                     {this.props.skuInfo.contactWatersLabel}
                 </span>
-                <div className={`cmp-sku-${this.props.skuType}__order`}>
+                <div className={`cmp-sku-${this.props.skuType}__order`} data-locator={`sku-${this.props.skuType}-order`}>
                     {this.props.skuInfo.contactWatersInfoLabel}
                 </div>
             </span>

@@ -7,6 +7,7 @@ import DisplayMessage from './components/displaymessage';
 import Requirements from './components/requirements';
 
 import { getAttributes } from './utils/validations';
+import { elementLocator } from '../../utils/eCommerceFunctions';
 
 const Input = ({
     name,
@@ -69,6 +70,7 @@ const Input = ({
                             ? 'cmp-form-field--label-matching'
                             : ''
                     }
+                    data-locator={elementLocator(label) || 'form-field--label'}
                 >
                     {label}
                     {!validation.required && (
@@ -105,6 +107,7 @@ const Input = ({
                                     : ''
                                 : ''
                         }
+                        data-locator={elementLocator(name) || 'form-field-input'}
                     ></input>
                     <Icons />
                 </div>
