@@ -530,6 +530,9 @@
         margin-bottom: $space-xs;
         clear: both;
         display: inline-block;
+        .cmp-notification-wrapper {
+            border: none;
+        }
 
         @include mobile {
             padding-bottom: $space-xxs;

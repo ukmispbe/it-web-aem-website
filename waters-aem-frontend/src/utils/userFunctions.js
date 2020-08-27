@@ -131,7 +131,7 @@ export const getFullCompanyAddress = (address, includeCountryName) => {
     return addressArray;
 };
 
-export const capitalize = str => {
+const capitalize = str => {
     if (!str || str.trim() === '') return '';
 
     return str
@@ -141,6 +141,14 @@ export const capitalize = str => {
         })
         .join(' ');
 };
+
+export const trimAndCapitalize = (item) => {
+    if (item && typeof item === "string") {
+        item = item.trim();
+        item = capitalize(item);
+    }
+    return item;
+}
 
 export const getCountryName = (countryCode, config) => {
     if (!countryCode || countryCode.trim() === '') return '';
