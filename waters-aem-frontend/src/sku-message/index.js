@@ -9,13 +9,14 @@ class SkuMessage extends React.Component {
 
     render() {
         return(
-            <div className="cmp-notification-wrapper">
+            <div className="cmp-notification-wrapper" data-locator="sku-msg-notification-wrapper">
                 <ReactSVG
                     src={this.props.icon}
                     className={`cmp-notification-icon`}
+                    data-locator="sku-msg-notification-icon"
                 />
-                <div className="cmp-notification-body">
-                    <div className="cmp-notification-description">
+                <div className="cmp-notification-body" data-locator="sku-msg-notification-body">
+                    <div className="cmp-notification-description" data-locator="sku-msg-notification-description">
                             {this.props.message}
                             {(this.props.linkMessage && this.props.link) &&
                                 <a href={this.props.link}>{this.props.linkMessage}</a>

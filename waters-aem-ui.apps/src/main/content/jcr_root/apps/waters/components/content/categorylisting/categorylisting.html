@@ -2,25 +2,25 @@
 
     <div data-sly-repeat.sku="${categoryListing.displayableSkuSubList}">
 
-        <img src="${sku.primaryImageThumbnail}" alt="${sku.primaryImageAlt}" height="100" width="100">
+        <img src="${sku.primaryImageThumbnail}" alt="${sku.primaryImageAlt}" data-locator="category-image" height="100" width="100">
 
-        <div class="cmp-sku-list__code">SKU: ${sku.code}</div>
+        <div class="cmp-sku-list__code" data-locator="product-sku">SKU: ${sku.code}</div>
 
         <div class="cmp-sku-details__title">
-            <a href="${sku.skuPageHref}">${sku.title}</a></div>
+            <a href="${sku.skuPageHref}" data-locator="product-title">${sku.title}</a></div>
 
         <div class="cmp-sku-details__buyinfo">
             <div class="cmp-sku-list__priceinfo">
-                <span>List Price</span>
-                <div class="cmp-sku__price">${sku.formattedPrice}</div>
+                <span data-locator="list-price">List Price</span>
+                <div class="cmp-sku__price" data-locator="price-format">${sku.formattedPrice}</div>
             </div>
         </div>
 
-        <div class="cmp-search__results-item-breadcrumb skuitem">Category: ${sku.categories}</div>
+        <div class="cmp-search__results-item-breadcrumb skuitem" data-locator="search-results-item-breadcrumb">Category: ${sku.categories}</div>
 
-        <div>${sku.longDescription}</div>
+        <div data-locator="product-description">${sku.longDescription}</div>
         <div>
-            <div><strong>Part Number: ${sku.code}</strong></div>
+            <div data-locator="sku-number"><strong>Part Number: ${sku.code}</strong></div>
         </div>
 
         <div class="cmp-table--divide cmp-table" style="border: 5px solid #C5E182; width: 100%;">
@@ -30,10 +30,10 @@
                         <tbody>
                         <tr>
                             <td>
-                                <p><strong>${specification.title}</strong></p>
+                                <p data-locator="specification-title"><strong>${specification.title}</strong></p>
                             </td>
                             <td>
-                                <p>${specification.formattedFeatureValues}</p>
+                                <p data-locator="specification-formated-feature-values">${specification.formattedFeatureValues}</p>
                             </td>
                         </tr>
                         </tbody>
@@ -63,10 +63,10 @@
     </div>
 
     <div class="cmp-section-container__wrapper">
-        <h2 class="cmp-section-container__title">Related Categories</h2>
+        <h2 class="cmp-section-container__title" data-locator="category-section-container">Related Categories</h2>
 
         <div class="cmp-section-container__body" data-sly-repeat.category="${categoryListing.categoryLinks}">
-            <a href="${category.href}">${category.title}</a>
+            <a href="${category.href}" data-locator="related-category-title">${category.title}</a>
         </div>
     </div>
 

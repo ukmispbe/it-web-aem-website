@@ -5,6 +5,7 @@ import DisplayMessage from "./components/displaymessage";
 import Icons from './components/icons';
 
 import { useFormApi, useFieldApi } from '../form';
+import { elementLocator } from '../../utils/eCommerceFunctions';
 
 const Dropdown = ({}) => {
     const { name, label, defaultValue, validation } = useContext(useFieldApi);
@@ -12,8 +13,8 @@ const Dropdown = ({}) => {
 
     return (
         <div className="cmp-form-field-dropdown--wrapper">
-            <label htmlFor={name}>{label}</label>
-            <div className={"cmp-form-field-dropdown--wrapper"}>
+            <label htmlFor={name} data-locator={elementLocator(`${name} label`)}>{label}</label>
+            <div className={"cmp-form-field-dropdown--wrapper"} data-locator={elementLocator(name) || 'form-field-dropdown'}>
                 <Select
                     name={name}
                     defaultValue={defaultValue}

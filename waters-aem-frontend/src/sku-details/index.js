@@ -233,17 +233,17 @@ class SkuDetails extends React.Component {
             isErrorModal = (Object.keys(errorObjCart).length !== 0);
         }
         return (
-            <div className="cmp-sku-details__buyinfo">
+            <div className="cmp-sku-details__buyinfo" data-locator="sku-details-buyinfo">
                 {LoginStatus.state() && typeof custPrice !== 'undefined'
                     && custPrice !== listPrice && (
                         <div className="cmp-sku-details__list-price">
                             {`${skuInfo.listPriceLabel} ${listPrice}`}
                         </div>
                 )}
-                <div className="cmp-sku-details__priceinfo">
+                <div className="cmp-sku-details__priceinfo" data-locator="sku-details-priceinfo">
                     {loading ? ( <Spinner loading={loading} type='inline' /> ) : this.renderPricing()}
                 </div>
-                <div className="cmp-sku-details__availability">
+                <div className="cmp-sku-details__availability" data-locator="sku-details-availability">
                     <Stock
                         skuInfo={skuInfo}
                         skuNumber={skuNumber}
@@ -252,7 +252,7 @@ class SkuDetails extends React.Component {
                         errorObj={errorObjAvailability}
                     />
                 </div>
-                <div className="cmp-sku-details__buttons">
+                <div className="cmp-sku-details__buttons" data-locator="sku-details-add-to-cart-sec">
                     <AddToCart
                         toggleParentModal={this.toggleModal}
                         skuNumber={skuNumber}
@@ -269,13 +269,16 @@ class SkuDetails extends React.Component {
                         <Header
                             title={this.state.modalConfig.title}
                             icon={this.state.modalConfig.icon}
-                            className={keys.HeaderWithAddedMarginTop}                        />
+                            className={keys.HeaderWithAddedMarginTop}
+                            elementLocator="add-to-cart-modal-header"
+                        />
                     )}
                     {isErrorModal && (
                         <Header
                             title={this.state.errorInfo.title}
                             icon={this.state.errorInfo.icon}
                             className={keys.HeaderWithAddedMarginTopError}
+                            elementLocator="add-to-cart-modal-header"
                         />
                     )}
                     <AddToCartBody
@@ -305,7 +308,7 @@ class SkuDetails extends React.Component {
                                 signInText2={this.state.skuInfo.signInText2}
                                 signInText3={this.state.skuInfo.signInText3}
                             />)
-                            || LoginStatus.state() && (<div className="cmp-sku-signin-wrapper-not-displayed"></div>)}
+                            || LoginStatus.state() && (<div className="cmp-sku-signin-wrapper-not-displayed" data-locator="sku-signin-wrapper-not-displayed"></div>)}
                         {this.renderBuyInfo()}
                     </>;
             } else {
