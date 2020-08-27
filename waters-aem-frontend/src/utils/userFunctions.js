@@ -78,18 +78,26 @@ export const getSoldToIdSource = (soldToId, dummySoldto) => {
 }
 
 //Note: Returning all possible soldTo values for debugging and in case of future needs
-export const setSKUUserInfo = () => {
+export const callCustomerPriceApi = (custPriceApiDisabled) => {
     let salesOrg = getSalesOrg();
     let soldToId = getSoldToId();
     let dummySoldto = getDummySoldToId();
     let dynamicSoldTo = getSoldToIdSource(soldToId, dummySoldto);
+    let callCustApi = false;
+
+    if (dynamicSoldTo !== '' && salesOrg !== '' && custPriceApiDisabled !== true 
+        && custPriceApiDisabled !== "true"){
+            callCustApi = true;
+        }
 
     let userInfo = {
         salesOrg: salesOrg,
         soldToId: soldToId,
         dummySoldto: dummySoldto,
-        dynamicSoldTo: dynamicSoldTo
+        dynamicSoldTo: dynamicSoldTo,
+        callCustApi: callCustApi
     }
+
     return userInfo;
 }
 

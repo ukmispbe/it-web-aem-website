@@ -37,6 +37,7 @@ class ListItem extends React.Component {
             custPrice: undefined,
             skuInfo: this.props.skuConfig.skuInfo,
             skuNumber: this.props.relatedSku.code,
+            userInfo: this.props.userInfo,
             userCountry: this.props.skuConfig.countryCode,
             availabilityUrl: this.props.skuConfig.availabilityUrl,
             pricingUrl: this.props.skuConfig.pricingUrl,
@@ -53,48 +54,53 @@ class ListItem extends React.Component {
             },
             errorObjCart: {},
             errorObjAvailability: {},
-            errorObjPrice: {},
+            errorObjPrice: {}
         };
     }
 
     componentDidMount() {
-        const { dynamicSoldTo, salesOrg } = this.props.userInfo;
-        const { pricingUrl, skuNumber } = this.state;
+        const { pricingUrl, skuNumber, userInfo } = this.state;
+        if (LoginStatus.state()) {
+            if (Object.keys(userInfo).length > 0 && userInfo.callCustApi){
+                this.getCustPricing(pricingUrl, skuNumber, userInfo, this.props.relatedSku.formattedPrice);
+            } else {
+                this.setState({ loading: false });
+            }
+        } else {
+            this.setState({ loading: false });
+        }
+    }
 
-        if (LoginStatus.state() && dynamicSoldTo !== '' && salesOrg !== '') {
-            getPricing(pricingUrl, skuNumber, dynamicSoldTo, salesOrg)
-            .then(response => {
-                if (response.status && response.status === 200) {
-                    let match = matchListItems(skuNumber, response);
-                    let listPriceValue = (match.listPrice !=='' && match.listPrice != undefined) ? match.listPrice : this.props.relatedSku.formattedPrice;
-                    this.setState({
-                        skuData: match,
-                        custPrice: match.custPrice,
-                        listPrice: listPriceValue,
-                        loading: false
-                    }, () => {
-                        //this.checkAvailabilityAnalytics();
-                    });
-                } else {
-                    // Add Errors Object to State
-                    this.setState({
-                        errorObjPrice: response.errors,
-                        loading: false
-                    });
-                }
-            })
-            .catch(err => {
+//Note: getCustPricing Method should be an exact match between SKU Details and SKU List
+    getCustPricing = (pricingUrl, skuNumber, userInfo, propListPrice) => {
+        getPricing(pricingUrl, skuNumber, userInfo.dynamicSoldTo, userInfo.salesOrg)
+        .then(response => {
+            if (response.status && response.status === 200) {
+                let match = matchListItems(skuNumber, response);
+                let listPriceValue = (match.listPrice !== '' && match.listPrice != undefined) ? match.listPrice : propListPrice;
+                this.setState({
+                    skuData: match,
+                    custPrice: match.custPrice,
+                    listPrice: listPriceValue,
+                    loading: false
+                }, () => {
+                    //this.checkPricingAnalytics();
+                });
+            } else {
                 // Add Error Object to State
                 this.setState({
-                    errorObjPrice: err,
+                    errorObjPrice: response.errors,
                     loading: false
                 });
-            });
-        } else {
+            }
+        })
+        .catch(err => {
+            // Add Error Object to State
             this.setState({
+                errorObjPrice: err,
                 loading: false
-            })
-        }
+            });
+        });
     }
 
     componentWillReceiveProps(nextProps) {
