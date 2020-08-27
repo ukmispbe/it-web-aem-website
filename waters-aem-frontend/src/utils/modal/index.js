@@ -4,6 +4,7 @@ import ReactSVG from 'react-svg';
 import ModalPortal from './modal-portal';
 import FeedbackSurvey from '../../scripts/feedbackSurvey';
 import domElements from '../../scripts/domElements';
+import { elementLocator } from '../eCommerceFunctions';
 
 const keys = {
     ModalWithSiteNavOnMobile: 'cmp-modal-box__site-nav-on-mobile',
@@ -93,7 +94,7 @@ const Header = props => {
         if (!props.icon) return <></>;
 
         return (
-            <div className="cmp-modal__title-icon">
+            <div className="cmp-modal__title-icon"  data-locator="header-icon">
                 <ReactSVG src={props.icon} />
             </div>
         )
@@ -105,14 +106,16 @@ const Header = props => {
         return (
             <div className="cmp-modal__title">
                 <Icon/>
-                <div className="cmp-modal__title-text">{props.title}</div>
+                <div className="cmp-modal__title-text"  data-locator={elementLocator(props.title)}>{props.title}</div>
             </div>
             
         )
     }
 
     return (
-        <div className={`cmp-modal__header ${props.title ? keys.HeaderWithTitle : ''} ${props.className ? props.className : ''}` }>
+        <div
+        className={`cmp-modal__header ${props.title ? keys.HeaderWithTitle : ''} ${props.className ? props.className : ''}` }
+        data-locator={props.elementLocator || elementLocator(props.title || props.className)}>
             <Title />
             <div className="cmp-modal__close-icon">
                 <ReactSVG
@@ -126,7 +129,15 @@ const Header = props => {
 Header.propTypes = {
     icon: PropTypes.string,
     title: PropTypes.string,
-    className: PropTypes.string
+    className: PropTypes.string,
+    elementLocator: PropTypes.string
+}
+
+Header.defaultProps = {
+    icon: '',
+    title: '',
+    className: '',
+    elementLocator: ''
 }
 
 export default Modal;
