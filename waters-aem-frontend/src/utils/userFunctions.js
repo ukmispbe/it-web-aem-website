@@ -276,3 +276,15 @@ export const getUsertype = () => {
 }
 
 export const isEprocurementUser = () => (getUsertype() === 'eProcurement');
+
+export const getEprocUserCountryCode = () => {
+    const store = new SessionStore();
+    const userDetails = store.getUserDetails();
+    return userDetails.mailingAddressCountryCode || '';
+}
+
+export const getEprocUserLanguage = () => {
+    const store = new SessionStore();
+    const userDetails = store.getUserDetails();
+    return userDetails.localeLanguage || '';
+}
