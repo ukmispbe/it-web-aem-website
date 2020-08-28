@@ -8,7 +8,7 @@
     <sly data-sly-test.isChinaPage="${footer.chinaPage}"/>
     <div class="container1_wrapper">
         <div class="container1">
-            <div class="cmp-footer__linksdiv">
+            <div data-sly-test="${!footer.eprocurement}" class="cmp-footer__linksdiv">
                 <div class="cmp-footer__parsys"
                     data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
             </div>
@@ -17,9 +17,10 @@
                     <img src="${footer.logoImage.fileReference}" alt="${footer.logoAltText}" />
                 </a>
             </div>
-            <div class="cmp-footer__social-links">
+            <div data-sly-test="${footer.eprocurement && footer.contactLink}" class="cmp-button--reverse" id="contactWatersLink"></div>
+            <div class="cmp-footer__social-links" data-sly-test="${footer.socialLinks && !footer.eprocurement}">
                 <div class="social-links-text">${'Follow our channels' @ i18n}</div>
-                <ul data-sly-test="${footer.socialLinks}">
+                <ul>
                     <li data-sly-repeat="${footer.socialLinks}" class="cmp-footer__social-links__item">
                         <a class="cmp-footer-social-links__link" href="${item.link.href}" target="_blank">
                             <img class="${item.svg ? 'inline-svg' : ''}" data-sly-test="${item.linkIcon}"
@@ -49,7 +50,7 @@
             <div class="cmp-footer__copyright">
                 <p>${footer.copyrightText}</p>
             </div>
-            <div class="cmp-footer__selector ${footer.languagePages.size == 1 ? 'one-link' : ''}">
+            <div data-sly-test="${!footer.eprocurement}" class="cmp-footer__selector ${footer.languagePages.size == 1 ? 'one-link' : ''}">
                 <div class="cmp-footer__selector__region">
                     <span>${footer.countryName @ i18n}</span>
                     <img class="inline-svg" src="/content/dam/waters/en/brand-assets/icons/modal.svg"
@@ -127,12 +128,12 @@
         "commerceConfig": {
             "disabledIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
             "disabledLabel": "${'Disabled' @ i18n, context='text'}",
-            "disabledText": "${'Online ordering is not available for your region. Please ' @ i18n, context='text'}",
-            "disabledLinkText": "${'contact your sales representative.' @ i18n, context='text'}",
-            "disabledHref": "${footer.contactLink.href @ context='unsafe'}",
-            "partialDisabledText": "${'Online ordering is not available. Please ' @ i18n, context='text'}",
+            "disabledText": "${'Online ordering is not available in your country.' @ i18n, context='text'}",
+            "partialDisabledText": "${'Online ordering is limited to specific Distributors. Please sign in or ' @ i18n, context='text'}",
             "partialDisabledLinkText": "${'contact your sales representative.' @ i18n, context='text'}",
-            "partialDisabledHref": "${footer.contactLink.href @ context='unsafe'}"
+            "partialDisabledHref": "${footer.contactLink.href @ context='unsafe'}",
+            "contactSupportLinkLabel": "${'CONTACT WATERS' @ i18n, context='text'}",
+            "contactSupportHref": "${footer.contactLink.href @ context='unsafe'}"
         },
         "availabilityUrl": "${footer.skuAvailabilityUrl @ context='unsafe'}",
         "pricingUrl": "${footer.skuCustomerPriceUrl @ context='unsafe'}",
@@ -176,10 +177,10 @@
         "modalInfo": {
             "icon": "/content/dam/waters/en/brand-assets/icons/checkmark.svg",
             "closeIcon": "/content/dam/waters/en/brand-assets/icons/close.svg",
-            "title": "${'Item Added to Cart' @ i18n, context='text'}",
+            "title": "${'Item Added to Shopping Cart' @ i18n, context='text'}",
             "buttons": [
                 {
-                    "text": "${'View Cart' @ i18n, context='text'}",
+                    "text": "${'View Shopping Cart' @ i18n, context='text'}",
                     "action": "${footer.viewCartUrl @ context='unsafe'}"
                 },
                 {
@@ -196,6 +197,19 @@
             "tryAgainLater": "${'Try again later' @ i18n, context='text'}",
             "anErrorHasOccurred": "${'An error has occurred' @ i18n, context='text'}",
             "wereSorry": "${'An error has occurred and your item was not added to the Shopping Cart. Please try again.' @ i18n, context='unsafe'}"
+        },
+        "setupFailure":{
+            "icon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
+            "requestFailureTitle": "${'Sorry, something went wrong.' @ i18n, context='text'}",
+            "requestFailureMessage": "${'Please return to your procurement system and try again.' @ i18n, context='text'}",
+            "sessionTimeoutTitle": "${'Your session has expired.' @ i18n, context='text'}",
+            "sessionTimeoutMessage": "${'Please return to your procurement system and start a new session.' @ i18n, context='text'}",
+            "buttons": [
+                {
+                    "text": "${'RETURN TO PROCUREMENT SYSTEM' @ i18n, context='text'}",
+                    "action": ""
+                }
+            ]
         }
     }
 </script>

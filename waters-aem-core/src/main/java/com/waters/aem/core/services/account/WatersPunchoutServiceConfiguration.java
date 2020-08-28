@@ -10,5 +10,5 @@ public @interface WatersPunchoutServiceConfiguration {
     String setupUrl() default "https://api-sbox.waters.com/dev-waters-punchout-exp-api-v1/api/users/{userId}/punchout/setup/{sid}";
 
     @AttributeDefinition(name = "Punchout Login Url", description = "Url for Logging a Punchout user")
-    String punchoutLogin() default "https://dev-www.waters.com:8443/api/waters/punchout/v1/login";
+    String puchOutSignInUrl() default "https://devservices.waters.com:8443/api/waters/punchout/v1/login";
 }

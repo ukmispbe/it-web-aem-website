@@ -8,6 +8,7 @@ import ImageCarousel from './image-carousel';
 import MyAccountDropDown from './my-account-dropdown/index';
 import UserGreeting from './user-greetings/UserGreeting';
 import QuickOrder from './quick-order/QuickOrder';
+import LinkButton from './link-button/LinkButton';
 
 import SkuDetails from './sku-details';
 import SkuList from './sku-list';
@@ -18,7 +19,8 @@ import {
     resetPasswordSubmit,
     troubleSigningInSubmit,
     signInSubmit,
-    chooseAccountSubmit
+    chooseAccountSubmit,
+    contactSupportSubmit
 
 } from './forms/services/submit';
 import Video from './video/index';
@@ -29,6 +31,7 @@ import WeChat from './wechat';
 import MyAccountRouter from './my-account';
 import CountrySelector from './country-selector';
 import SessionStore from './stores/sessionStore';
+import LoginStatus from "./scripts/loginStatus";
 
 if (process.env.NODE_ENV !== 'production') {
     const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -204,6 +207,7 @@ if (imageGalleryContainers) {
     });
 }
 
+// Start SKU Details Component
 const skuDetailsContainer = document.querySelector('.cmp-sku-details__ecom');
 const skuDetailsConfig = JSON.parse(
     document.getElementById('commerce-configs-json').innerHTML
@@ -234,31 +238,32 @@ if (skuDetailsContainer) {
         skuDetailsConfig.baseSignInUrl = accountModalConfig.signIn.url;
     }
 
-
-    if (skuDetailsConfig) {
-        let accountModalConfig = {};
-        if (header) {
-            accountModalConfig = JSON.parse(document.getElementById('account-modal-configs-json').innerHTML);
-        }
-        skuDetailsConfig.baseSignInUrl = accountModalConfig.signIn.url;
+    if (LoginStatus.state()) {
+        const store = new SessionStore();
+        waitUntilUserExists(store, skuDetailsContainer, skuDetailsRender);
+    } else {
+        skuDetailsRender(skuDetailsContainer)
     }
 
-
-    ReactDOM.render(
-        <SkuDetails
-            config={skuDetailsConfig}
-            price={skuDetailsListPrice}
-            countryRestricted={skuCountryRestricted}
-            skuNumber={skuNumber}
-            titleText={skuTitle}
-            discontinued={skuDiscontinued}
-            replacementSkuCode={replacementSkuCode}
-            replacementSkuHref={replacementSkuHref}
-        />,
-        skuDetailsContainer
-    );
+    function skuDetailsRender(skuDetailsContainer) {
+        ReactDOM.render(
+            <SkuDetails
+                config={skuDetailsConfig}
+                price={skuDetailsListPrice}
+                countryRestricted={skuCountryRestricted}
+                skuNumber={skuNumber}
+                titleText={skuTitle}
+                discontinued={skuDiscontinued}
+                replacementSkuCode={replacementSkuCode}
+                replacementSkuHref={replacementSkuHref}
+            />,
+            skuDetailsContainer
+        );
+    }
 }
+// End SKU Details Component
 
+// Start SKU List Component
 const skuListContainer = document.querySelector('.cmp-sku-list');
 
 if (skuListContainer) {
@@ -286,9 +291,14 @@ if (header && MyAccountDropDownContainer) {
     const config = JSON.parse(
         document.getElementById('account-modal-configs-json').innerHTML
     );
+    const commerceConfigs = document.getElementById('commerce-configs-json');
+    let eProcSetupFailure = {};
+    if (commerceConfigs) {
+        eProcSetupFailure = JSON.parse(commerceConfigs.innerHTML);
+    }
 
     ReactDOM.render(
-        <MyAccountDropDown config={config} />,
+        <MyAccountDropDown config={config} eProcSetupFailure={eProcSetupFailure.setupFailure || {}} />,
         MyAccountDropDownContainer
     );
 }
@@ -415,6 +425,23 @@ if (registrationFormContainer) {
             isocode={DigitalData.language}
         />,
         registrationFormContainer
+    );
+}
+
+// Contact Support
+const contactSupportFormContainer = document.getElementById('js-contact-support-form');
+
+if (contactSupportFormContainer) {
+    const config = JSON.parse(document.getElementById('cmp-contact-support-form').innerHTML);
+
+    ReactDOM.render(
+        <Form
+            config={config}
+            submitFn={contactSupportSubmit}
+            callback={headerData.userDetailsUrl}
+            isocode={DigitalData.language}
+        />,
+        contactSupportFormContainer
     );
 }
 
@@ -609,3 +636,21 @@ function quickOrder(container) {
     );
 }
 // End Quick Order Component
+
+// Add Contact Waters Link
+const contactusContainer = document.getElementById('contactWatersLink');
+if (contactusContainer) {
+    const config = JSON.parse(document.getElementById('commerce-configs-json').innerHTML);
+    let label;
+    let url;
+
+    if(Object.keys(config.commerceConfig).length > 0) {
+        label = config.commerceConfig.contactSupportLinkLabel;
+        url = config.commerceConfig.contactSupportHref;
+    }
+
+    ReactDOM.render(
+        <LinkButton label={label} url={url} />,
+        contactusContainer
+    );
+}

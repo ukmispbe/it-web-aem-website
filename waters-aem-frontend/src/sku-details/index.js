@@ -52,7 +52,7 @@ class SkuDetails extends React.Component {
             discontinued: this.props.discontinued == "true",
             signInUrl: this.props.baseSignInUrl,
             errorInfo: this.props.config.errorInfo,
-            userInfo: setSKUUserInfo()
+            userInfo: {}
         };
 
         this.toggleModal = this.toggleModal.bind(this);
@@ -60,37 +60,20 @@ class SkuDetails extends React.Component {
 
     componentDidMount() {
         const { availabilityUrl, pricingUrl, skuNumber, userCountry} = this.state;
-        const { dynamicSoldTo, salesOrg} = this.state.userInfo;
 
-        if (LoginStatus.state() && dynamicSoldTo !== '' && salesOrg !== '') {
-            getPricing(pricingUrl, skuNumber, dynamicSoldTo, salesOrg)
-            .then(response => {
-            if (response.status && response.status === 200) {
-                let match = matchListItems(skuNumber, response);
-                let listPriceValue = (match.listPrice !== '' && match.listPrice != undefined) ? match.listPrice : this.props.price;
+        if (LoginStatus.state()) {
+            let userInfo = setSKUUserInfo();
+            if (Object.keys(userInfo).length > 0 && userInfo.dynamicSoldTo !== '' && userInfo.salesOrg !== ''){
                 this.setState({
-                    skuData: match,
-                    custPrice: match.custPrice,
-                    listPrice: listPriceValue,
-                    loading: false
+                    userInfo: userInfo
                 }, () => {
-                    //this.checkPricingAnalytics();
+                    this.getCustPricing(pricingUrl, skuNumber, userInfo);
                 });
             } else {
-                // Add Error Object to State
                 this.setState({
-                    errorObjPrice: response.errors,
                     loading: false
-                });
+                })
             }
-            })
-            .catch(err => {
-                // Add Error Object to State
-                this.setState({
-                    errorObjPrice: err,
-                    loading: false
-                });
-            });
         } else {
             this.setState({
                 loading: false
@@ -115,6 +98,37 @@ class SkuDetails extends React.Component {
         .catch(err => {
             // Add Error Object to State
             this.setState({ errorObjAvailability: err });
+        });
+    }
+
+    getCustPricing = (pricingUrl, skuNumber, userInfo) => {
+        getPricing(pricingUrl, skuNumber, userInfo.dynamicSoldTo, userInfo.salesOrg)
+        .then(response => {
+            if (response.status && response.status === 200) {
+                let match = matchListItems(skuNumber, response);
+                let listPriceValue = (match.listPrice !== '' && match.listPrice != undefined) ? match.listPrice : this.props.price;
+                this.setState({
+                    skuData: match,
+                    custPrice: match.custPrice,
+                    listPrice: listPriceValue,
+                    loading: false
+                }, () => {
+                    //this.checkPricingAnalytics();
+                });
+            } else {
+                // Add Error Object to State
+                this.setState({
+                    errorObjPrice: response.errors,
+                    loading: false
+                });
+            }
+        })
+        .catch(err => {
+            // Add Error Object to State
+            this.setState({
+                errorObjPrice: err,
+                loading: false
+            });
         });
     }
 
@@ -163,10 +177,6 @@ class SkuDetails extends React.Component {
             <SkuMessage
                 icon={this.props.config.commerceConfig.disabledIcon}
                 message={this.props.config.commerceConfig.disabledText}
-                link={this.props.config.commerceConfig.disabledHref}
-                linkMessage={
-                    this.props.config.commerceConfig.disabledLinkText
-                }
             />
         );
     }

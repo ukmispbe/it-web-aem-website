@@ -1,10 +1,14 @@
+import domElements from './domElements';
+
 const scriptElement = document.getElementById('country-list-json');
 const countries = scriptElement && scriptElement.innerHTML.trim() ? JSON.parse(scriptElement.innerHTML) : [];
 
 if (Array.isArray(countries) && countries.length === 0) {
     const regionSelector = document.querySelector('.cmp-footer__selector__region');
 
-    regionSelector.classList.add('one-country');
+    if(regionSelector) {
+        regionSelector.classList.add('one-country');
+    }
 }
 
 const languageSelector = document.querySelector('.cmp-footer__selector__language');
@@ -56,3 +60,12 @@ if (languageSelector) {
         });
     }
 }
+
+document.addEventListener('mopinion_will_show', e => {
+    domElements.noScroll(true);
+});
+
+document.addEventListener('mopinion_will_hide', e => {
+    domElements.noScroll(false);
+});
+  

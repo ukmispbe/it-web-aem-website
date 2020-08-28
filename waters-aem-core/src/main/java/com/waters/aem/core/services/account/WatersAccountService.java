@@ -113,4 +113,11 @@ public interface WatersAccountService {
      * @return orderList API URL
      */
     String getOrderListUrl();
+
+    /**
+      * Get the configured endpoint for contactSupportUrl API.
+      *
+      * @return contactSupport API URL
+      */
+      String getContactSupportUrl();
 }

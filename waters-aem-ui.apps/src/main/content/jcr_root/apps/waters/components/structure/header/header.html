@@ -121,14 +121,16 @@
                                         "url": "${header.profileLink @ context='unsafe'}",
                                         "target": "_self",
                                         "class": "dropdown__item-list__my-profile",
-                                        "linkName": "Profile"
+                                        "linkName": "Profile",
+                                        "isHiddenForEprocUser": "false"
                                     },
                                     {
                                         "text": "${'Order History' @ i18n, context='unsafe'}",
                                         "url": "${header.ordersLink @ context='unsafe'}",
                                         "target": "_self",
                                         "class": "dropdown__item-list__my-orders",
-                                        "linkName": "Order History"
+                                        "linkName": "Order History",
+                                        "isHiddenForEprocUser": "true"
                                     }
                                 ]
                             }

@@ -65,7 +65,7 @@ const SessionStore = function () {
     this.getSignInRedirect = () => window.sessionStorage.getItem(keys.signInRedirect);
     this.removeSignInRedirect = () => window.sessionStorage.removeItem(keys.signInRedirect);
     this.setPunchoutSetupDetails = value => window.sessionStorage.setItem(keys.punchoutSetupDetails, JSON.stringify(value))
-    this.getPunchoutSetupDetails = () => window.sessionStorage.getItem(keys.punchoutSetupDetails);
+    this.getPunchoutSetupDetails = () => getJSONObject(keys.punchoutSetupDetails);
     this.removePunchoutSetupDetails = () => window.sessionStorage.removeItem(keys.punchoutSetupDetails);
     this.setUserType = value => window.sessionStorage.setItem(keys.userType, value);
     this.getUserType = () => window.sessionStorage.getItem(keys.userType);
