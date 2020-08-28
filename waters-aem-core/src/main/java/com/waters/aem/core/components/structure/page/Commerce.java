@@ -96,10 +96,10 @@ public class Commerce {
     @DialogField(fieldDescription = "Enable this to disable Mule Customer Price URL",
             value = "true",
             ranking = 9)
-    @CheckBox(title = "customerPriceApi",
+    @CheckBox(title = "customerPriceApiDisabled",
             text = "Disable Mule CustomerPrice API")
     @Inject
-    private Boolean customerPriceApi;
+    private Boolean customerPriceApiDisabled;
 
     public String getAddToCartUrl() {
         return addToCartUrl;
