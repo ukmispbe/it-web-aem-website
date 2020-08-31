@@ -18,7 +18,6 @@ class OrderHistory extends Component {
         this.state = {
             orderList: "",
             fromDate: new Date(today.setDate(today.getDate() - 30)),
-            toDate: new Date(),
             poNumber: "",
             orderNumber: "",
             activeTabFilter: "All",
@@ -41,8 +40,8 @@ class OrderHistory extends Component {
     }
 
     componentDidMount() {
-        const {fromDate, toDate, poNumber, orderNumber, activeTabFilter} = this.state;
-        this.retrieveData(fromDate, toDate, poNumber, orderNumber, activeTabFilter);
+        const {fromDate, poNumber, orderNumber, activeTabFilter} = this.state;
+        this.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
     }
 
     setAnalytics = (event, detail={}) => {
@@ -74,8 +73,8 @@ class OrderHistory extends Component {
             activeTabFilter: activeTabFilter,
             activeIndex: tabId
         }, () => {
-            const {fromDate, toDate, poNumber, orderNumber, activeTabFilter} = this.state 
-            this.retrieveData(fromDate, toDate, poNumber, orderNumber, activeTabFilter);
+            const {fromDate, poNumber, orderNumber, activeTabFilter} = this.state 
+            this.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
         }); 
     }
 
@@ -90,11 +89,10 @@ class OrderHistory extends Component {
                 let thirtyDaysAgo = new Date(now.setDate(now.getDate() - 30));
                 this.setState({
                     fromDate: thirtyDaysAgo.toISOString(),
-                    toDate: currentDate.toISOString(),
                     activeTimePeriod: selectedTimeframe
                 },() => {
-                    const {fromDate, toDate, poNumber, orderNumber, activeTabFilter} = this.state 
-                    this.retrieveData(fromDate, toDate, poNumber, orderNumber, activeTabFilter);
+                    const {fromDate, poNumber, orderNumber, activeTabFilter} = this.state 
+                    this.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
                 });
                 break;
 
@@ -103,11 +101,10 @@ class OrderHistory extends Component {
                 let sixMonthsAgo = new Date(now.setMonth(now.getMonth() - 6));
                 this.setState({
                     fromDate: sixMonthsAgo.toISOString(),
-                    toDate: currentDate.toISOString(),
                     activeTimePeriod: selectedTimeframe
                 },() => {
-                    const {fromDate, toDate, poNumber, orderNumber, activeTabFilter} = this.state 
-                    this.retrieveData(fromDate, toDate, poNumber, orderNumber, activeTabFilter);
+                    const {fromDate, poNumber, orderNumber, activeTabFilter} = this.state 
+                    this.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
                 });
                 break;
 
@@ -116,11 +113,10 @@ class OrderHistory extends Component {
                 let twelveMonthsAgo = new Date(now.setMonth(now.getMonth() - 12));
                 this.setState({
                     fromDate: twelveMonthsAgo.toISOString(),
-                    toDate: currentDate.toISOString(),
                     activeTimePeriod: selectedTimeframe
                 },() => {
-                    const {fromDate, toDate, poNumber, orderNumber, activeTabFilter} = this.state 
-                    this.retrieveData(fromDate, toDate, poNumber, orderNumber, activeTabFilter);
+                    const {fromDate, poNumber, orderNumber, activeTabFilter} = this.state 
+                    this.retrieveData(fromDate, poNumber, orderNumber, activeTabFilter);
                 });
                 break;
 
@@ -129,16 +125,14 @@ class OrderHistory extends Component {
                 let showAllTimeframe = new Date(now.setMonth(now.getMonth() - 15));
                 this.setState({
                     fromDate: showAllTimeframe.toISOString(),
-                    toDate: currentDate.toISOString(),
                     activeTimePeriod: selectedTimeframe
                 },() => {
-                    const {fromDate, toDate, poNumber, orderNumber, activeTabFilter} = this.state 
-                    this.retrieveData(fromDate, toDate, poNumber, orderNumber, activeTabFilter);
+                    const {fromDate, poNumber, orderNumber, activeTabFilter} = this.state 
+                    this.retrieveData(fromDate,poNumber, orderNumber, activeTabFilter);
                 });
                 break;
             default:
         }
-        
     }
 
     setNoResultsState = () => {
@@ -163,10 +157,10 @@ class OrderHistory extends Component {
         });
     }
 
-    retrieveData = async (fromDate, toDate, poNumber, orderNumber, activeTabFilter) => {
+    retrieveData = async (fromDate, poNumber, orderNumber, activeTabFilter) => {
         const OrderHistoryServiceObj = new OrderHistoryService();
         const fetchEndPoint = this.props.configs.fetchEndPoint;
-        const orders = await OrderHistoryServiceObj.getOrderListPost(fetchEndPoint, fromDate, toDate, poNumber, orderNumber, this.setError);
+        const orders = await OrderHistoryServiceObj.getOrderListPost(fetchEndPoint, fromDate, poNumber, orderNumber, this.setError);
 
         if(orders && orders.length > 0){
             let filteredOrders = orders;
@@ -200,6 +194,7 @@ class OrderHistory extends Component {
             />
         );
     }
+
     renderDropDowns = () => {
         return (
             <div className="cmp-order-list__dropdowns">
@@ -215,7 +210,6 @@ class OrderHistory extends Component {
         );
     }
 
-    
     renderOrderCountHeader = () => {
         return (
             <CountHeader

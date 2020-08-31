@@ -3,7 +3,7 @@ import { signInRedirect } from '../utils/redirectFunctions';
 
 class OrderHistoryService {
     constructor(
-        url = "https://test2-www.waters.com:8443/api/waters/order/v1/list"
+        url = "https://stgservices.waters.com/api/waters/order/v1/list"
     ) {
         this.url = url;
     }
@@ -30,12 +30,11 @@ class OrderHistoryService {
         });
     };
 
-    getOrderListPost(url, fromDate, toDate, poNumber, orderNumber, setError) {
+    getOrderListPost(url, fromDate, poNumber, orderNumber, setError) {
         let options = {};
         options.orderNumber = orderNumber;
         options.purchaseOrderNumber = poNumber;
         options.fromDate = fromDate;
-        options.toDate = toDate;
         options.maxRecs = "";
 
         return this.postData(url, options, setError);
