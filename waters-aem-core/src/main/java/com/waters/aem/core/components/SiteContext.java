@@ -112,8 +112,8 @@ public final class SiteContext {
         return currentPage.getInherited("commerceAPI", false);
     }
 
-    public boolean isCustomerPriceApi(){
-        return currentPage.getInherited("customerPriceApi", false);
+    public boolean isCustomerPriceApiDisabled(){
+        return currentPage.getInherited("customerPriceApiDisabled", false);
     }
 
     public String getTranslation(final String key) {
