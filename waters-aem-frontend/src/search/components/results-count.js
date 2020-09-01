@@ -44,8 +44,8 @@ const ResultsCount = (props) => {
 
     const getResultsText = () => props.text.resultsText.replace(/[{]startResults[}]/, startResults.toLocaleString(undefined, {maximumFractionDigits:0})).replace(/[{]endResults[}]/, endResults.toLocaleString(undefined, {maximumFractionDigits:0})).replace(/[{]count[}]/, props.count.toLocaleString(undefined, {maximumFractionDigits:0}));
 
-    return <div className="cmp-search__resultsCount-container">
-        <h2 className="cmp-search__resultsCount">
+    return <div className="cmp-search__resultsCount-container" data-locator="results-count-container">
+        <h2 className="cmp-search__resultsCount" data-locator="results-count">
             {getResultsText()}
             {props.noQuery || props.query === '*:*' ? null : renderSearchTerm()}
         </h2>
