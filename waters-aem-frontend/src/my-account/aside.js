@@ -8,7 +8,7 @@ import { setClickAnalytics } from "../analytics";
 import loginStatus from "../scripts/loginStatus";
 import { notLoggedInRedirect } from '../utils/redirectFunctions';
 import Spinner from "../utils/spinner";
-import { isCartHidden } from '../utils/eCommerceFunctions';
+import { isCartHidden, elementLocator } from '../utils/eCommerceFunctions';
 import { isEprocurementUserRole } from '../utils/userFunctions';
 
 const Aside = props => {
@@ -88,11 +88,11 @@ const getTitle = (tiles, pathname) => {
 
 const linkIsActive = (pathname, url) => pathname.substring(1, pathname.length) === url.substring(1, url.length);
 
-const ActiveLink = ({text}) => <span className="link--active">{text}</span>;
+const ActiveLink = ({text}) => <span className="link--active" data-locator={elementLocator(text)}>{text}</span>;
 
 const HyperLink = ({link}) => link.url.startsWith("#") ?
-                <Link to={`/${link.url.substring(1, link.url.length)}`} onClick={()=>setClickAnalytics("Side Navigation", link.linkName ? link.linkName : link.text, link.url)}>{link.text}</Link> :
-                <a href={link.url}  onClick={()=>setClickAnalytics("Side Navigation", link.linkName ? link.linkName : link.text, link.url)}>{link.text}</a>
+                <Link to={`/${link.url.substring(1, link.url.length)}`} onClick={()=>setClickAnalytics("Side Navigation", link.linkName ? link.linkName : link.text, link.url)} data-locator={elementLocator(link.text)}>{link.text}</Link> :
+                <a href={link.url}  onClick={()=>setClickAnalytics("Side Navigation", link.linkName ? link.linkName : link.text, link.url)} data-locator={elementLocator(link.text)}>{link.text}</a>
 
 Aside.propTypes = {
     tiles: PropTypes.arrayOf(PropTypes.shape({

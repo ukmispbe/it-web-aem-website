@@ -13,7 +13,7 @@ const CountHeader = (props) => {
     }
     
     return <div className="cmp-order-list__resultsCount-container">
-        <h2 className="cmp-order-list__resultsCount">
+        <h2 className="cmp-order-list__resultsCount" data-locator="order-list-result-count">
             {getResultsText()}
         </h2>
     </div>

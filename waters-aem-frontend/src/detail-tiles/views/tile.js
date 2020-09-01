@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ReactSVG from 'react-svg';
 
 import Form from '../../forms/form';
+import { elementLocator } from '../../utils/eCommerceFunctions';
 
 const Tile = ({
     name,
@@ -32,8 +33,9 @@ const Tile = ({
                 <ReactSVG
                     src={icon}
                     className="cmp-detail-tiles-list--tile-edit--icon"
+                    data-locator="edit-icon"
                 />
-                <div className="cmp-detail-tiles-list--tile-edit--title">
+                <div className="cmp-detail-tiles-list--tile-edit--title" data-locator={elementLocator(editText)}>
                     {editText}
                 </div>
             </div>
@@ -46,10 +48,10 @@ const Tile = ({
                 <div
                     className={`cmp-detail-tiles-list--tile-column column-${key}`}
                     key={key}
-                    data-locator="detail-tile-list-column"
+                    data-locator={`detail-tile-list-column-${key}`}
                 >
                     {title && (
-                        <div className="cmp-detail-tiles-list--tile-column--title" data-locator="detail-tile-list-column-title">
+                        <div className="cmp-detail-tiles-list--tile-column--title" data-locator={`detail-tile-list-column-title-${key}`}>
                             {title}
                         </div>
                     )}
@@ -59,7 +61,7 @@ const Tile = ({
                                 <div
                                     className={`${row.class} cmp-detail-tiles-list--tile-column--text`}
                                     key={idx}
-                                    data-locator="detail-tile-list-column-text"  
+                                    data-locator={`detail-tile-list-column-text-${key}-${idx}`}
                                 >
                                     {row.text}
                                 </div>
@@ -77,6 +79,7 @@ const Tile = ({
                     <ReactSVG
                         src={notification.icon}
                         className="cmp-detail-tiles-list--tile-notification--icon"
+                        data-locator="tile-notification--icon"
                     />
                     <div className="cmp-detail-tiles-list--tile-notification--title" data-locator="detail-tiles-list-notification--title">
                         {notification.title}
@@ -138,9 +141,9 @@ const Tile = ({
             {form && formShown && (
                 <div className='cmp-detail-tiles-list--form'>
                     {formMessage && (
-                        <div className="cmp-detail-tiles-list--form-message">
+                        <div className="cmp-detail-tiles-list--form-message" data-locator="form-message">
                             {formMessage.text}
-                            <a href={formMessage.linkURL}>
+                            <a href={formMessage.linkURL} data-locator={elementLocator(formMessage.linkText)}>
                                 {formMessage.linkText}
                             </a>
                         </div>

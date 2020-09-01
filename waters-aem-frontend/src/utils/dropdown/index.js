@@ -78,6 +78,7 @@ const Dropdown = props => {
             classNamePrefix={'cmp-custom-dropdown'}
             components={{ DropdownIndicator }}
             theme={{ dropdownIndicator: props.text.downIcon }}
+            data-locator="cmp-custom-dropdown"
         />
     );
 };
