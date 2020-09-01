@@ -27,6 +27,7 @@ const Tile = ({
             <div
                 className="cmp-detail-tiles-list--tile-edit"
                 onClick={handleToggle}
+                data-locator="detail-tiles-tile-edit"
             >
                 <ReactSVG
                     src={icon}
@@ -45,9 +46,10 @@ const Tile = ({
                 <div
                     className={`cmp-detail-tiles-list--tile-column column-${key}`}
                     key={key}
+                    data-locator="detail-tile-list-column"
                 >
                     {title && (
-                        <div className="cmp-detail-tiles-list--tile-column--title">
+                        <div className="cmp-detail-tiles-list--tile-column--title" data-locator="detail-tile-list-column-title">
                             {title}
                         </div>
                     )}
@@ -57,6 +59,7 @@ const Tile = ({
                                 <div
                                     className={`${row.class} cmp-detail-tiles-list--tile-column--text`}
                                     key={idx}
+                                    data-locator="detail-tile-list-column-text"  
                                 >
                                     {row.text}
                                 </div>
@@ -69,16 +72,16 @@ const Tile = ({
 
     const renderNotification = () => {
         return (
-            <div className="cmp-detail-tiles-list--tile-notification-wrapper">
-                <div className="cmp-detail-tiles-list--tile-notification">
+            <div className="cmp-detail-tiles-list--tile-notification-wrapper" data-locator="detail-tiles-list-notification-wrapper">
+                <div className="cmp-detail-tiles-list--tile-notification" data-locator="detail-tiles-list-notification">
                     <ReactSVG
                         src={notification.icon}
                         className="cmp-detail-tiles-list--tile-notification--icon"
                     />
-                    <div className="cmp-detail-tiles-list--tile-notification--title">
+                    <div className="cmp-detail-tiles-list--tile-notification--title" data-locator="detail-tiles-list-notification--title">
                         {notification.title}
                     </div>
-                    <div className="cmp-detail-tiles-list--tile-notification--description">
+                    <div className="cmp-detail-tiles-list--tile-notification--description"data-locator="detail-tiles-list-notification-description">
                         {notification.description}
                     </div>
                 </div>
@@ -100,12 +103,12 @@ const Tile = ({
         let blank = columns[0];
         return (
             <>
-                <div className="cmp-detail-tiles-list--tile-noAddress">
-                    <div className="cmp-detail-tiles-list--tile-noAddress--title">
+                <div className="cmp-detail-tiles-list--tile-noAddress" data-locator="tile-no-address">
+                    <div className="cmp-detail-tiles-list--tile-noAddress--title" data-locator="no-address-blank-title">
                         {blank.title}
                     </div>
                     {canCreate && (
-                        <div className="cmp-detail-tiles--add">
+                        <div className="cmp-detail-tiles--add" data-locator="add-detail-tiles">
                             <ReactSVG
                                     src={blank.addIcon}
                                     className="cmp-detail-tiles--add-icon"

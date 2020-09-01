@@ -30,9 +30,9 @@ const Aside = props => {
 
     if (isInEditMode || displayTile) {
     return (
-        <div className="cmp-my-account__aside-wrapper">
+        <div className="cmp-my-account__aside-wrapper" data-locator="my-account-wrapper">
             <Title text={getTitle(props.tiles, props.location.pathname)} />
-            <div className="cmp-my-account__aside-links">
+            <div className="cmp-my-account__aside-links" data-locator="my-account-links">
                 {props.tiles.map(tile => 
                     <Tile 
                         key={tile.title} 
@@ -42,7 +42,7 @@ const Aside = props => {
                         pathname={props.location.pathname}
                     />)}
             </div>
-            <div className="cmp-my-account__aside-content">
+            <div className="cmp-my-account__aside-content" data-locator="my-account-aside-content">
                 {props.children}
             </div>
             {breadcrumbList && (<Breadcrumb path={props.location.pathname} config={props.breadcrumbs} />)}
@@ -61,9 +61,9 @@ const Tile = ({tile, pathname}) => {
     }
 
     return (
-        <div className="tile">
-            <div className="tile__title">{tile.title}</div>
-            <div className="tile__links">
+        <div className="tile" data-locator="my-account-tile">
+            <div className="tile__title" data-locator="my-account-title-tile">{tile.title}</div>
+            <div className="tile__links" data-locator="my-account-tile-links">
                 {tile.links.map(link => {
                         if( !link.isHidden ) {
                             if(linkIsActive(pathname, link.url)) {
@@ -99,8 +99,7 @@ Aside.propTypes = {
         title: PropTypes.string,
         links: PropTypes.arrayOf(PropTypes.shape({
             text: PropTypes.string,
-            url: PropTypes.string
-        }))
+            url: PropTypes.string        }))
     }))
 }
 

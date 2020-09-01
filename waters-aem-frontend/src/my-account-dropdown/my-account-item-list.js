@@ -26,7 +26,7 @@ const MyAccountItemList = props => {
         let target = list[key].target || '_self';
         let listItemClass = list[key].class;
         return (
-            <div key={key} className="my-account-dropdown__item-list">
+            <div key={key} className="my-account-dropdown__item-list" data-locator="my-account-dropdown-list">
                 {shouldRender(listItemClass) && (
                     <a
                         className={
@@ -36,6 +36,7 @@ const MyAccountItemList = props => {
                         href={url}
                         target={target}
                         onClick={()=> setClickAnalytics('Account Dropdown', linkName, url)}
+                        data-locator="my-account-dropdown-list-items"
                     >
                         <span>{text}</span>
                     </a>
