@@ -24,7 +24,7 @@ const getOptions = text => {
 
 const TimePeriod = props => {
     return (
-        <div className="cmp-order-list-timeperiod">
+        <div className="cmp-order-list-timeperiod" data-locator="cmp-order-list-timeperiod">
             <Dropdown
                 getOptions={getOptions}
                 onChange={e => props.onChange(e)}
