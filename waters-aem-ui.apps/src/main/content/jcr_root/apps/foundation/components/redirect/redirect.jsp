@@ -67,9 +67,9 @@
                     redirectPath = location;
                 } else if (protocolIndex == -1 && queryIndex > -1) {
                     // if this is an internal path (/content) and contains a query parameter, don't append .html at end
-                    redirectPath = externalizer.externalLink(resourceResolver, Externalizer.PUBLISH, location);
+                	redirectPath = externalizer.externalLink(resourceResolver, currentPage.getPath().contains("/content/order") ? "order" : Externalizer.PUBLISH, location);
                 } else {
-                    redirectPath = externalizer.externalLink(resourceResolver, Externalizer.PUBLISH, location + ".html");
+                	redirectPath = externalizer.externalLink(resourceResolver, currentPage.getPath().contains("/content/order") ? "order" : Externalizer.PUBLISH, location + ".html");
                 }
 
                 if (isWCMModeDisabledParameter) {

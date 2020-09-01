@@ -19,6 +19,7 @@ class DoneSortFilter extends Component {
                     href="javascript:void(0);"
                     onClick={this.handleInput}
                     className="btn-done-sort-filter"
+                    data-locator="link-done-sort-filter"
                 >
                     {props.text.doneButton}
                 </a>
