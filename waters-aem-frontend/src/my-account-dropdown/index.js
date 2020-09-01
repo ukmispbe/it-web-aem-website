@@ -330,13 +330,14 @@ class MyAccountDropDown extends React.Component {
                         await this.punchoutSetup(); // retrieve punchout setup
                         punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
                     }
+                    const buttonConfig = this.state.eprocSetupFailure.buttons && this.state.eprocSetupFailure.buttons[0] ? {
+                        text: this.state.eprocSetupFailure.buttons[0].text,
+                        action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '',
+                    } : {};
                     this.setEprocFailure({
                         title: responseJson.code === 804 ? sessionTimeoutTitle : requestFailureTitle,
                         text: responseJson.code === 804 ? sessionTimeoutMessage : requestFailureMessage,
-                        buttons: [{
-                            text: this.state.eprocSetupFailure.buttons[0].text,
-                            action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '',
-                        }]
+                        buttons: [buttonConfig]
                     });
                 }
             } catch (error) {
