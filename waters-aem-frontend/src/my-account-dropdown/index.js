@@ -374,7 +374,7 @@ class MyAccountDropDown extends React.Component {
         const urlParams = parseQueryParams(window.location.search);
         const sid = urlParams['sid'] || '';
         const { requestFailureTitle, requestFailureMessage } = this.props.eProcSetupFailure;
-        const setPrunchoutError = () => {
+        const setPunchoutError = () => {
             this.setEprocFailure({
                 title: requestFailureTitle,
                 text: requestFailureMessage
@@ -413,10 +413,10 @@ class MyAccountDropDown extends React.Component {
                     (new LocalStore()).setCartId(response.cartId);
                 }
             } else if (Object.keys(sessionStore.getPunchoutSetupDetails()).length === 0) {
-                setPrunchoutError();
+                setPunchoutError();
             }
         } catch (error) {
-            setPrunchoutError();
+            setPunchoutError();
         }
         removeQueryString(window.location.href, 'sid', true);
     }
