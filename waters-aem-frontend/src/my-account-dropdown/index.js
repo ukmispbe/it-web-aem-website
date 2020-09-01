@@ -354,9 +354,13 @@ class MyAccountDropDown extends React.Component {
                     const responseJson = await response.json();
                     await checkAndSetError(responseJson);
                 } else {
+                    const userDetailsUrl = (this.props.config && this.props.config.userDetailsUrl) || '';
+                    const soldToDetailsUrl = (this.props.config && this.props.config.soldToDetailsUrl) || '';
                     sessionStore.removeSoldToDetails();
-                    await UserDetailsLazy(this.props.config.userDetailsUrl, false);
-                    await SoldToDetailsLazy(this.props.config.soldToDetailsUrl);
+                    if (userDetailsUrl && soldToDetailsUrl) {
+                        await UserDetailsLazy(userDetailsUrl, false);
+                        await SoldToDetailsLazy(soldToDetailsUrl);
+                    }
                 }
             } else if (!loginStatus.state()) {
                 sessionStore.removeUserDetails();
@@ -394,13 +398,14 @@ class MyAccountDropDown extends React.Component {
                 }));
                 if (response && response.status !== 200) {
                     const punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
+                    const buttonConfig = this.state.eprocSetupFailure.buttons && this.state.eprocSetupFailure.buttons[0] ? {
+                        text: this.state.eprocSetupFailure.buttons[0].text,
+                        action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '',
+                    } : {};
                     this.setEprocFailure({
                         title: requestFailureTitle,
                         text: requestFailureMessage,
-                        buttons: [{
-                            text: this.state.eprocSetupFailure.buttons[0].text,
-                            action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '',
-                        }]
+                        buttons: [buttonConfig]
                     });
                 } else {
                     sessionStore.setPunchoutSetupDetails({
