@@ -5,7 +5,7 @@ export const emilConfig = {
     description: "This will be your username.",
     validation: {
         required: true,
-        requiredMsg: "Please enter a valid email address.",
+        requiredMsg: "Please enter an email address.",
         validateFnName: "email",
         validationMsg: "Please enter a valid email address.",
         alreadyRegisteredMsg: "There is an existing account with that email address.",
@@ -34,7 +34,7 @@ export const registrationConfig = {
             emailValidationEndpoint: "https://stgservices.waters.com/api/waters/user/v1/validate/{email}",
             validation: {
                 required: true,
-                requiredMsg: "Please enter a valid email address.",
+                requiredMsg: "Please enter an email address.",
                 validateFnName: "email",
                 validationMsg: "Please enter a valid email address.",
                 alreadyRegisteredMsg: "There is an existing account with that email address.",
@@ -218,7 +218,7 @@ export const troubleSigningInConfig = {
 			label: "Email Address}",
 			validation: {
 				required: true,
-				requiredMsg: "Please enter a valid email address.",
+				requiredMsg: "Please enter an email address.",
 				validateFnName: "email",
 				validationMsg: "Please enter a valid email address."
 			}
@@ -285,7 +285,7 @@ export const personalConfig = {
             label: "Email Address",
             validation: {
                 required: true,
-                requiredMsg: "Please enter a valid email address."
+                requiredMsg: "Please enter an email address."
             }
         },
         {
@@ -354,7 +354,7 @@ export const signInConfig =
             "validation": {
                 "required": true,
                 "validateFnName": "email",
-                "requiredMsg": "Please enter a valid email address.",
+                "requiredMsg": "Please enter an email address.",
                 "validationMsg": "Please enter a valid email address."
             }
         },
