@@ -10,7 +10,6 @@ import OrderFilterDropdown from './components/order-filter-dropdown';
 import Tabs from '../navigation/tabs';
 import Spinner from '../utils/spinner';
 import Analytics, { analyticTypes, setClickAnalytics, setSelectDropdownAnalytics } from '../analytics';
-import { elementLocator } from '../utils/eCommerceFunctions';
 
 class OrderHistory extends Component {
     constructor(props) {
@@ -281,7 +280,7 @@ class OrderHistory extends Component {
             <>
                 <div className="cmp-order-list__no-results">
                     <p data-locator="no-results">{this.props.configs.noOrdersFoundText}</p>
-                    <p><a href={this.props.configs.shopAllHref} data-locator={elementLocator(this.props.configs.shopAllTitle)}>{this.props.configs.shopAllTitle}</a></p>
+                    <p><a href={this.props.configs.shopAllHref} data-locator="shop-all">{this.props.configs.shopAllTitle}</a></p>
                 </div>
             </>
         );
@@ -294,7 +293,7 @@ class OrderHistory extends Component {
                 {!this.state.loading && (
                     <>   
                     {this.renderTabs()}
-                        <div className="cmp-order-list__header clearfix" data-locator="order-list__header clearfix">
+                        <div className="cmp-order-list__header clearfix" data-locator="order-list-header-clearfix">
                             {this.renderDropDowns()}
                             {this.renderOrderCountHeader()}
                         </div>

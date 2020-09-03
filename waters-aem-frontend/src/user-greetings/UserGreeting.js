@@ -1,6 +1,5 @@
 import React from 'react';
 import SessionStore from '../stores/sessionStore';
-import { elementLocator } from '../utils/eCommerceFunctions';
 
 function UserGreeting(props) {
     const { greetings, logoDirectoryPath } = props;
@@ -19,7 +18,7 @@ function UserGreeting(props) {
                 src={`${logoDirectoryPath.replace(/\/$/, '')}/${company.trim().replace(/ /g, '-').toLowerCase()}.png`}
                 alt={company}
                 className="logo"
-                data-locator={elementLocator(company || 'user greeting logo')}
+                data-locator="user-greeting-logo"
             />
         </>
     );

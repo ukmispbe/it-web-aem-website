@@ -21,29 +21,30 @@ class OrderDetailsListItem extends React.Component {
                     <img
                         src={relatedSku.thumbnail}
                         alt={relatedSku.title}
+                        data-locator="product-image"
                     />
                 </div>
                 <div className="cmp-sku-list__left">
-                    <div className="cmp-sku-list__code">
+                    <div className="cmp-sku-list__code" data-locator="product-number">
                         {skuConfig.skuInfo.partNumberLabel + " " + relatedSku.materialNumber}
                     </div>
                     {relatedSku.url && (
                         <a href={relatedSku.url}>
-                            <div className="cmp-sku-details__title">
+                            <div className="cmp-sku-details__title" data-locator="product-title">
                                 {relatedSku.title}
                             </div>
                         </a>
                     )}
                     {!relatedSku.url && (
-                        <div className="cmp-sku-details__title">
+                        <div className="cmp-sku-details__title" data-locator="product-title">
                             {relatedSku.title}
                         </div>
                     )}
                     <div className="cmp-sku-details__buyinfo">
                         <div className="cmp-sku-list__priceinfo">
-                            <div className="cmp-sku__price">{relatedSku.unitPrice}</div>
+                            <div className="cmp-sku__price" data-locator="sku-price">{relatedSku.unitPrice}</div>
                         </div>
-                        <div class="cmp-sku-details__quantitytext">{skuConfig.qtyLabel}: {relatedSku.orderedQuantity}</div>
+                        <div class="cmp-sku-details__quantitytext" data-locator="sku-qty">{skuConfig.qtyLabel}: {relatedSku.orderedQuantity}</div>
                     </div>
                 </div>
             </div>
