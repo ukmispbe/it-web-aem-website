@@ -214,7 +214,7 @@ class ListItem extends React.Component {
             <div className="cmp-sku-details__buyinfo">
                 {LoginStatus.state() && typeof custPrice !== 'undefined'
                     && custPrice !== listPrice && (
-                    <div className="cmp-sku-list__list-price">
+                    <div className="cmp-sku-list__list-price" data-locator="list-price-label">
                         {`${skuInfo.listPriceLabel} ${listPrice}`}
                     </div>
                 )}
@@ -255,6 +255,7 @@ class ListItem extends React.Component {
                                     skuConfig.skuInfo
                                         .refreshIcon
                                 }
+                                data-locator="check-availability"
                             />
                         </span>
                     )}
@@ -380,10 +381,11 @@ class ListItem extends React.Component {
                 <img
                         src={relatedSku.primaryImageThumbnail}
                         alt={relatedSku.title}
+                        data-locator="product-image"
                     />
                 </div>
                 <div className="cmp-sku-details__left">
-                    <div className="cmp-sku-list__code">
+                    <div className="cmp-sku-list__code" data-locator="product-number">
                         {skuConfig.skuInfo.partNumberLabel + " " + relatedSku.code}
                     </div>
                     <a
@@ -394,7 +396,7 @@ class ListItem extends React.Component {
                                 : null
                         }
                     >
-                        <div className="cmp-sku-details__title">
+                        <div className="cmp-sku-details__title" data-locator="product-title">
                             {relatedSku.title}
                         </div>
                     </a>

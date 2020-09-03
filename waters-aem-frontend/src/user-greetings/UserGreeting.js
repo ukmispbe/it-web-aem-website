@@ -19,7 +19,7 @@ function UserGreeting(props) {
                 src={`${logoDirectoryPath.replace(/\/$/, '')}/${company.trim().replace(/ /g, '-').toLowerCase()}.png`}
                 alt={company}
                 className="logo"
-                data-locator={elementLocator(company || 'user greeting logo')}
+                data-locator="user-greeting-logo"
             />
         </>
     );

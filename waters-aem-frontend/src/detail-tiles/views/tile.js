@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import ReactSVG from 'react-svg';
 
 import Form from '../../forms/form';
-import { elementLocator } from '../../utils/eCommerceFunctions';
 
 const Tile = ({
     name,
@@ -35,7 +34,7 @@ const Tile = ({
                     className="cmp-detail-tiles-list--tile-edit--icon"
                     data-locator="edit-icon"
                 />
-                <div className="cmp-detail-tiles-list--tile-edit--title" data-locator={elementLocator(editText)}>
+                <div className="cmp-detail-tiles-list--tile-edit--title" data-locator="tile-edit-title">
                     {editText}
                 </div>
             </div>
@@ -143,7 +142,7 @@ const Tile = ({
                     {formMessage && (
                         <div className="cmp-detail-tiles-list--form-message" data-locator="form-message">
                             {formMessage.text}
-                            <a href={formMessage.linkURL} data-locator={elementLocator(formMessage.linkText)}>
+                            <a href={formMessage.linkURL} data-locator="link-text">
                                 {formMessage.linkText}
                             </a>
                         </div>

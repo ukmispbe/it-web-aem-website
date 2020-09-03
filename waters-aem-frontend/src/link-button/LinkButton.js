@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { elementLocator } from '../utils/eCommerceFunctions';
+
 
 function LinkButton(props) {
     const { url, label } = props;
@@ -8,7 +10,7 @@ function LinkButton(props) {
             className="cmp-button"
             href={url}
             title={label}
-            data-locator={label}
+            data-locator={elementLocator(`link ${label}`)}
         >{label}</a>
     );
 }
