@@ -167,7 +167,7 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
 
             final DisplayableSku displayableSku = new DisplayableSku(sku, siteContext);
             List excludedLocales = solrService.getLocales();
-            document.setField("eprocUrl", updateUrlForEprocBasedOnLocaleConfig(excludedLocales, page.getHref().replace(page.getParent(4).getPath(),"")));
+            document.setField("eprocUrl", updateUrlForEprocBasedOnLocaleConfig(excludedLocales, page.getHref().replace(page.getParent(4).getPath(),WatersConstants.ORDER_ROOT_PATH)));
             setDocumentStringField(document,"unspsc",sku.getUnspsc());
 
             setDocumentStringField(document, "skucode", sku.getCode());
