@@ -43,7 +43,7 @@ public final class LinkUtils {
     }
 
     public static Link getCurrentHomepageLink(final PageDecorator page) {
-       return page.getAbsoluteParent(WatersConstants.LEVEL_LANGUAGE_ROOT).getLink(true);
+       return page.getPath().contains("/content/order") ? page.getAbsoluteParent(WatersConstants.ORDER_LANGUAGE_ROOT).getLink(true) : page.getAbsoluteParent(WatersConstants.LEVEL_LANGUAGE_ROOT).getLink(true);
     }
 
     private LinkUtils() {
