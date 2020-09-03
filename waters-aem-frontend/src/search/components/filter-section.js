@@ -103,6 +103,7 @@ class FilterSection extends Component {
                         href="javascript:void(0)"
                         className={'checkbox ' + (checked ? 'checked' : '')}
                         onClick={this.checkHandler.bind(this)}
+                        data-locator="search-filters-filter-item"
                     >
                         <ReactSVG src={this.props.text.checkmarkIcon} />
                     </a>
@@ -175,12 +176,13 @@ class FilterSection extends Component {
         const className = `cmp-search-filters__filter ${props.isExpanded ? 'expanded' : ''}`
 
         return (
-            <li className={className}>
+            <li className={className} data-locator="search-filters-filter">
                 <a
                     href="javascript:void(0);"
                     className="filter-toggle"
                     item={props.item}
                     onClick={e => props.handleInput(e, props.item)}
+                    data-locator="link-search-filter"
                 >
                     <ReactSVG
                         src={props.text.expandIcon}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { setClickAnalytics } from "../../analytics";
+import { elementLocator } from '../../utils/eCommerceFunctions';
 
 const Link = ({
     text,
@@ -12,6 +13,7 @@ const Link = ({
                 className="cmp-linktile--link"
                 href={url}
                 onClick={()=>setClickAnalytics("Account Home", linkName ? linkName : text, url)}
+                data-locator={elementLocator(text)}
              >
                 {text}
             </a>)
