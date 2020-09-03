@@ -432,6 +432,11 @@
                 @include font-small;
             }
         }
+        
+        &-label {
+            margin-top: $space-s;
+            @include font-small;
+        }
 
         input[type='checkbox'] {
             display: none;

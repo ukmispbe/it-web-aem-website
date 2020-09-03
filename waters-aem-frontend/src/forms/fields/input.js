@@ -7,6 +7,7 @@ import DisplayMessage from './components/displaymessage';
 import Requirements from './components/requirements';
 
 import { getAttributes } from './utils/validations';
+import DigitalData from '../../scripts/DigitalData';
 
 const Input = ({
     name,
@@ -19,7 +20,7 @@ const Input = ({
     const reqRef = useRef(null);
     const inputRef = useRef(null);
 
-    const { type, disabled, matchLabel, emailValidationEndpoint } = useContext(useFieldApi);
+    const { type, disabled, matchLabel, emailValidationEndpoint, optionalLabel } = useContext(useFieldApi);
     const { register, setError, clearError, formName } = useContext(useFormApi);
 
     const errors = useErrorsContext();
@@ -70,11 +71,21 @@ const Input = ({
                             : ''
                     }
                 >
+                    {validation.required && (DigitalData.page.country.toUpperCase() === "US") && (
+                        <span className="cmp-form-field--required">
+                            {'* '}
+                        </span>
+                    )}
                     {label}
                     {!validation.required && (
                         <span className="cmp-form-field--optional">
                             {' '}
-                            (optional)
+                            {optionalLabel}
+                        </span>
+                    )}
+                    {validation.required && (DigitalData.page.country.toUpperCase() !== "US") && (
+                        <span className="cmp-form-field--required">
+                            {' *'}
                         </span>
                     )}
                 </label>

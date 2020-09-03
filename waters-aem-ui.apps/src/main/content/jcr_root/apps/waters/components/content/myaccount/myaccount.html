@@ -225,6 +225,11 @@
                 },
                 "fields": [
                     {
+                        "type": "label",
+                        "name": "requiredLabel",
+                        "label": "${'*Required field' @ i18n, context='unsafe'}"
+                    },
+                    {
                         "type": "text",
                         "name": "firstName",
                         "label": "${'First Name' @ i18n, context='unsafe'}",
@@ -284,6 +289,7 @@
                         "type": "text",
                         "name": "phone",
                         "label": "${'Phone Number' @ i18n, context='unsafe'}",
+                        "optionalLabel": "${'(optional)' @ i18n, context='text'}",
                         "validation": {
                             "validateFnName": "blankOrNumbersOnly",
                             "required": false,
