@@ -41,7 +41,7 @@ public class Commerce {
 
     @DialogField(fieldLabel = "Country Commerce Configuration",
             fieldDescription = "Select the commerce configuration option to apply to this country.",
-            ranking = 1,
+            ranking = 2,
             additionalProperties = @Property(name = "emptyOption", value = "{Boolean}true"))
     @Selection(type = Selection.SELECT)
     @InheritInject
@@ -50,7 +50,7 @@ public class Commerce {
     @DialogField(fieldLabel = "Currency ISO Code",
             fieldDescription = "For countries using a non-standard ISO currency code (ISO-4217) " +
                     "in Waters SAP, provide the non-standard ISO code here.",
-            ranking = 2)
+            ranking = 3)
     @TextField
     @InheritInject
     private String currencyIsoCode;
@@ -58,7 +58,7 @@ public class Commerce {
     @DialogField(fieldLabel = "Currency Language Override",
             fieldDescription = "Two character language code used to format the currency display. Setting this will " +
                     "override the default.",
-            ranking = 3)
+            ranking = 4)
     @TextField
     @InheritInject
     private String currencyLanguageCode;
@@ -66,32 +66,40 @@ public class Commerce {
     @DialogField(fieldLabel = "Currency Country Override",
             fieldDescription = "Two character country code used to format the currency display. Setting this will " +
                     "override the default.",
-            ranking = 4)
+            ranking = 5)
     @TextField
     @InheritInject
     private String currencyCountryCode;
 
     @DialogField(fieldLabel = "Add To Cart URL",
             fieldDescription = "Enter the Commerce Add to Cart URL. This will override default url configured in OSGI service",
-            ranking = 5)
+            ranking = 6)
     @TextField
     @InheritInject
     private String addToCartUrl;
 
     @DialogField(fieldLabel = "View Cart URL",
             fieldDescription = "Enter the Commerce View Cart URL. This will override default url configured in OSGI service",
-            ranking = 6)
+            ranking = 7)
     @TextField
     @InheritInject
     private String viewCartUrl;
 
     @DialogField(fieldDescription = "Enable this to make Add to Cart and View Cart URL effective",
             value = "true",
-            ranking = 7)
+            ranking = 8)
     @CheckBox(title = "commerceAPI",
             text = "Commerce API Migrated")
     @Inject
     private Boolean commerceAPI;
+
+    @DialogField(fieldDescription = "Enable this to disable Mule Customer Price URL",
+            value = "true",
+            ranking = 9)
+    @CheckBox(title = "customerPriceApiDisabled",
+            text = "Disable Mule CustomerPrice API")
+    @Inject
+    private Boolean customerPriceApiDisabled;
 
     public String getAddToCartUrl() {
         return addToCartUrl;

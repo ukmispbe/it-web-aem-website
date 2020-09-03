@@ -112,6 +112,10 @@ public final class SiteContext {
         return currentPage.getInherited("commerceAPI", false);
     }
 
+    public boolean isCustomerPriceApiDisabled(){
+        return currentPage.getInherited("customerPriceApiDisabled", false);
+    }
+
     public String getTranslation(final String key) {
         return getI18n().get(key);
     }

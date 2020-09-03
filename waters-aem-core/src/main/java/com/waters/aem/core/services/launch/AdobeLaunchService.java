@@ -10,5 +10,12 @@ public interface AdobeLaunchService {
      *
      * @return launch script
      */
-    String getLaunchScript();
+    String getEcommLaunchScript();
+    
+    /**
+     * Get the configured Launch Service.
+     *
+     * @return launch script
+     */
+    String getEprocLaunchScript();
 }
