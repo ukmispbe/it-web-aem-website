@@ -318,11 +318,11 @@ class OrderDetails extends Component {
                     }
                     <div className="cmp-order-details__order-shipping">
                         <div className="cmp-order-details__order-shipping_left" data-locator="order-shipping-left">{this.props.config.shipping}</div>
-                        <div className="cmp-order-details__order-shipping_right" data-locator="order-shipping_right">{orderDetails.shippingAmount}</div>
+                        <div className="cmp-order-details__order-shipping_right" data-locator="order-shipping-right">{orderDetails.shippingAmount}</div>
                     </div>
                     <div className="cmp-order-details__order-tax">
                         <div className="cmp-order-details__order-tax_left" data-locator="order-tax-left">{this.props.config.tax}</div>
-                        <div className="cmp-order-details__order-tax_right" data-locator="order-tax_right">{orderDetails.taxAmount}</div>
+                        <div className="cmp-order-details__order-tax_right" data-locator="order-tax-right">{orderDetails.taxAmount}</div>
                     </div>
                     <div className="cmp-order-details__order-total">
                         <div className="cmp-order-details__order-total_left" data-locator="order-total-left">{this.props.config.orderTotal}</div>
