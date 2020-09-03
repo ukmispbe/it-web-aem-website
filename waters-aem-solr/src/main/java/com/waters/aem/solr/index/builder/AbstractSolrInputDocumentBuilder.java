@@ -298,7 +298,8 @@ public abstract class AbstractSolrInputDocumentBuilder implements SolrInputDocum
         if(excludedLocales.isEmpty()) {
             return pageUrl;
         }
-        String locale = StringUtils.substring(pageUrl, 1, 3);
+        String locale = StringUtils.substringBetween(pageUrl,
+                WatersConstants.ORDER_ROOT_PATH+"/","/shop");
         if(excludedLocales.contains(locale)) {
             return pageUrl.replace("/"+ locale, "/en");
         }
