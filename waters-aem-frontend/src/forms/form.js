@@ -56,8 +56,8 @@ const Form = ({
         getValues,
         reset
     } = useForm({
-        mode: 'onBlur',
-        reValidateMode: 'onBlur',
+        mode: 'all',
+        reValidateMode: 'onChange',
         defaultValues: {
             country: DigitalData.default,
             ...defaultValues

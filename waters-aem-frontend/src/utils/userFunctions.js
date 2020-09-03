@@ -114,7 +114,7 @@ const capitalize = str => {
 
 export const trimAndCapitalize = (item) => {
     if (item && typeof item === "string") {
-        item = item.replace("\\s","");
+        item = item.replace(/\s\s+/g, ' ');
         item = item.trim();
         item = capitalize(item);
     }
@@ -130,7 +130,7 @@ export const getFullCompanyAddress = (address, includeCountryName) => {
 
     let addressArray = [];
     const city = address.city ? trimAndCapitalize(address.city) + ', ' : '';
-    const region = address.regio ? trimAndCapitalize(address.regio) + ' ' : '';
+    const region = address.region ? trimAndCapitalize(address.region) + ' ' : '';
     const postalCd = address.postalCd ? trimAndCapitalize(address.postalCd) : '';
 
     if (address.partnerName) {

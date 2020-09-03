@@ -75,7 +75,7 @@ export default {
           "label": "Email Address",
           "validation": {
             "required": true,
-            "requiredMsg": "Please enter a valid email address."
+            "requiredMsg": "Please enter an email address."
           }
         },
         {
