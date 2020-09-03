@@ -1,6 +1,5 @@
 import React from 'react';
 import SessionStore from '../stores/sessionStore';
-import { elementLocator } from '../utils/eCommerceFunctions';
 
 function UserGreeting(props) {
     const { greetings, logoDirectoryPath } = props;
