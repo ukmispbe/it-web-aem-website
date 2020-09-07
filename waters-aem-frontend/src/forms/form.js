@@ -157,7 +157,6 @@ const Form = ({
         // Configure Registration Form on "Loading"
         if (config.formName === "registration" ) {
             const countryRegion = digitalData.page.country.toLowerCase();
-            //const countryRegion = "jp";
             // Get Regional config 
             const countryOptionsConfig = regionalConfig;
             // Hide all country configurable fields
@@ -171,7 +170,7 @@ const Form = ({
                 selectedCountryOptions[0].fields.map(fieldName => activateField(fieldName));
             }
         }
-    }, []);
+    }, [config.formName]);
 
     const [newConfig, setNewConfig] = useState();
 

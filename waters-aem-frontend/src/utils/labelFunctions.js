@@ -3,7 +3,7 @@ import DigitalData from '../scripts/DigitalData';
 
 export const renderFormattedLabel = (label, required, optionalLabel = '') => {
 
-    if (required && (DigitalData.page.country.toUpperCase() === "US")) {
+    if (required && (DigitalData.page.country.toUpperCase() === "JP")) {
         return (
             <>
                 <span className="cmp-form-field--required">
@@ -25,7 +25,7 @@ export const renderFormattedLabel = (label, required, optionalLabel = '') => {
         )
     }
 
-    if (required && (DigitalData.page.country.toUpperCase() !== "US")) {
+    if (required && (DigitalData.page.country.toUpperCase() !== "JP")) {
         return (
             <>
                 {label}
@@ -39,11 +39,11 @@ export const renderFormattedLabel = (label, required, optionalLabel = '') => {
 
 export const renderFormattedLabelText = (label, required, optionalLabel = '') => {
 
-    if (required && (DigitalData.page.country.toUpperCase() === "US")) {
+    if (required && (DigitalData.page.country.toUpperCase() === "JP")) {
         return '*' + label;
     }
 
-    if (required && (DigitalData.page.country.toUpperCase() !== "US")) {
+    if (required && (DigitalData.page.country.toUpperCase() !== "JP")) {
         return label + '*';
     }
 

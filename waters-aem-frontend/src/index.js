@@ -389,7 +389,6 @@ if (registrationFormContainer) {
     );
 
     const country = digitalData.page.country.toLowerCase();
-    //const country ="cn";
 
     const swapFirstAndLastNames = () => {
         const indexofFirstName = configRegistrationForm.fields.map(e => e.name).indexOf('firstName');
