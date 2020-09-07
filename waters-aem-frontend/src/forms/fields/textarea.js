@@ -53,7 +53,8 @@ const TextArea = ({
         reqRef.current
             ? reqRef.current.update(inputRef.current.value)
             : () => false;
-
+    }
+    
     const getMatchReq = useMemo(
         () => ({
             required: validation['required'],
