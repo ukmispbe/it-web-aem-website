@@ -7,7 +7,7 @@ import DisplayMessage from './components/displaymessage';
 import Requirements from './components/requirements';
 
 import { getAttributes } from './utils/validations';
-import DigitalData from '../../scripts/DigitalData';
+import { renderFormattedLabel } from '../../utils/labelFunctions';
 
 const Input = ({
     name,
@@ -71,23 +71,7 @@ const Input = ({
                             : ''
                     }
                 >
-                    {validation.required && (DigitalData.page.country.toUpperCase() === "US") && (
-                        <span className="cmp-form-field--required">
-                            {'* '}
-                        </span>
-                    )}
-                    {label}
-                    {!validation.required && (
-                        <span className="cmp-form-field--optional">
-                            {' '}
-                            {optionalLabel}
-                        </span>
-                    )}
-                    {validation.required && (DigitalData.page.country.toUpperCase() !== "US") && (
-                        <span className="cmp-form-field--required">
-                            {' *'}
-                        </span>
-                    )}
+                    {renderFormattedLabel(label, validation.required, optionalLabel)}
                 </label>
 
                 {description && (
