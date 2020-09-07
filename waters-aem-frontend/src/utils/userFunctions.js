@@ -130,7 +130,7 @@ export const getFullCompanyAddress = (address, includeCountryName) => {
 
     let addressArray = [];
     const city = address.city ? trimAndCapitalize(address.city) + ', ' : '';
-    const region = address.regio ? trimAndCapitalize(address.regio) + ' ' : '';
+    const region = address.region ? trimAndCapitalize(address.region) + ' ' : '';
     const postalCd = address.postalCd ? trimAndCapitalize(address.postalCd) : '';
 
     if (address.partnerName) {
