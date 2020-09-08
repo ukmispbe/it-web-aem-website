@@ -123,6 +123,7 @@ function QuickOrder(props) {
                     showLabel={showLabel}
                     onChange={onChange}
                     elementLocator="input-quick-order-sku"
+                    ariaLabel="SKU number"
                 />
                 <AddToCart
                     skuNumber={sku}
@@ -142,7 +143,7 @@ function QuickOrder(props) {
                 className="quick-order-multiple-item"
                 data-locator="link-quick-order-add-multiple-item"
             >
-                <ReactSVG src={isMobile ? addItemsIcon : multipleItemsIcon} wrapper='span' data-locator="add-multiple-item-icon" />
+                <ReactSVG aria-hidden="true" src={isMobile ? addItemsIcon : multipleItemsIcon} wrapper='span' data-locator="add-multiple-item-icon" />
                 {multipleItemsLabel}
             </a>
             <Modal isOpen={modalShown} onClose={toggleModal} className='cmp-add-to-cart-modal'>

@@ -75,7 +75,8 @@ class SearchBar extends Component {
             value: this.state.value,
             onChange: this.handleSearchValueChange ,
             onKeyPress: this.handleSearchValuePress,
-            onBlur: this.handleSearchValueBlur
+            onBlur: this.handleSearchValueBlur,
+            'aria-label': "Search box"
         };
         
         if(isEprocurementUser() && !this.eprocIsoCode) {
@@ -95,9 +96,9 @@ class SearchBar extends Component {
 
     renderHideClearIcon = () => (this.state.value) ? this.renderClearIcon() : <></>;
 
-    renderClearIcon = () => <ReactSVG src={this.props.iconClear} className="cmp-search-bar__icons-clear" onClick={e => this.handleClearIconClick(e)} onMouseDown={e => e.preventDefault()}/>
+    renderClearIcon = () => <button aria-label="Clear" onClick={e => this.handleClearIconClick(e)} onMouseDown={e => e.preventDefault()} className="clear-icon"><ReactSVG src={this.props.iconClear} className="cmp-search-bar__icons-clear" /></button>
 
-    renderSearchIcon = () => <ReactSVG src={this.props.iconSearch} className="cmp-search-bar__icons-search" onClick={e => this.handleSearchIconClick(e)} onMouseDown={e => e.preventDefault()}/>;
+    renderSearchIcon = () => <button aria-label="Search" onClick={e => this.handleSearchIconClick(e)} onMouseDown={e => e.preventDefault()} className="search-icon"><ReactSVG aria-hidden="true" src={this.props.iconSearch} className="cmp-search-bar__icons-search" /></button>;
 
     // Update searchbar placeholder message depending on the view and window size
     handleViewChange = () => {

@@ -147,13 +147,15 @@
                             class="cmp-header-links__link"
                             href="${header.viewCartUrl}"
                             data-locator="link-header-my-account-cart"
+                            id="title"
                         >
-                            <span data-locator="header-label-Cart">${'Cart' @ i18n}</span>
+                            <span data-locator="header-label-Cart" aria-label="Cart">${'Cart' @ i18n}</span>
                             <img
                                 alt="${'Cart' @ i18n}"
                                 src="/content/dam/waters/en/brand-assets/icons/cart.svg"
                                 class="inline-svg"
                                 data-locator="header-cart-icon"
+                                aria-hidden="true"
                             />
                         </a>
                     </li>
