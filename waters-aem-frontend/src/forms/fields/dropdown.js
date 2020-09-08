@@ -13,18 +13,6 @@ const Dropdown = ({}) => {
 
     let newLabel = renderFormattedLabelText(label, validation.required, optionalLabel)
 
-    // if (validation.required && (DigitalData.page.country.toUpperCase() === "JP")) {
-    //     newLabel = '*' + newLabel;
-    // }
-
-    // if (validation.required && (DigitalData.page.country.toUpperCase() !== "JP")) {
-    //     newLabel = newLabel + '*';
-    // }
-
-    // if (!validation.required) {
-    //     newLabel = newLabel + ' ' + optionalLabel;
-    // }
-
     return (
         <div className="cmp-form-field-dropdown--wrapper">
             <label htmlFor={name}>{newLabel}</label>
