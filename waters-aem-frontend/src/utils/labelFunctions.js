@@ -9,17 +9,18 @@ const isPrefix = () => {
 }
 
 export const renderFormattedLabel = (label, required, optionalLabel = '') => {
-
+    
     if (required) {
+        const isPrefixValue = isPrefix();
         return (
             <>
-                {isPrefix() && (
+                {isPrefixValue && (
                     <span className="cmp-form-field--required">
                         {'*'}
                     </span>
                 )} 
                 {label}
-                {!isPrefix() && (
+                {!isPrefixValue && (
                     <span className="cmp-form-field--required">
                         {'*'}
                     </span>
@@ -41,13 +42,15 @@ export const renderFormattedLabel = (label, required, optionalLabel = '') => {
 }
 
 export const renderFormattedLabelText = (label, required, optionalLabel = '') => {
-
-    if (required && isPrefix()) {
-        return '*' + label;
-    }
-
-    if (required && !isPrefix()) {
-        return label + '*';
+    if (required) {
+        const isPrefixValue = isPrefix();
+        if (isPrefixValue) {
+            return '*' + label;
+        }
+    
+        if (!isPrefixValue) {
+            return label + '*';
+        }
     }
 
     if (!required) {
