@@ -1,4 +1,4 @@
-const DefaultProps = {
+const defaultData = {
     name: 'detailTile',
     title: 'Detail Tile',
     type: 'personal',
@@ -101,4 +101,4 @@ const DefaultProps = {
     }
 };
 
-export default DefaultProps;
+export default defaultData;
