@@ -1,15 +1,29 @@
 import React from 'react';
 import DigitalData from '../scripts/DigitalData';
 
+// Array to hold countries with the Required "*" Asterisk before the label
+const countryArray = ["JP"];
+
+const isPrefix = () => {
+    return countryArray.indexOf(DigitalData.page.country.toUpperCase()) > -1;
+}
+
 export const renderFormattedLabel = (label, required, optionalLabel = '') => {
 
-    if (required && (DigitalData.page.country.toUpperCase() === "JP")) {
+    if (required) {
         return (
             <>
-                <span className="cmp-form-field--required">
-                    {'*'}
-                </span>
+                {isPrefix() && (
+                    <span className="cmp-form-field--required">
+                        {'*'}
+                    </span>
+                )} 
                 {label}
+                {!isPrefix() && (
+                    <span className="cmp-form-field--required">
+                        {'*'}
+                    </span>
+                )} 
             </>
         )
     }
@@ -24,26 +38,15 @@ export const renderFormattedLabel = (label, required, optionalLabel = '') => {
             </>
         )
     }
-
-    if (required && (DigitalData.page.country.toUpperCase() !== "JP")) {
-        return (
-            <>
-                {label}
-                <span className="cmp-form-field--required">
-                    {'*'}
-                </span>
-            </>
-        )
-    }
 }
 
 export const renderFormattedLabelText = (label, required, optionalLabel = '') => {
 
-    if (required && (DigitalData.page.country.toUpperCase() === "JP")) {
+    if (required && isPrefix()) {
         return '*' + label;
     }
 
-    if (required && (DigitalData.page.country.toUpperCase() !== "JP")) {
+    if (required && !isPrefix()) {
         return label + '*';
     }
 

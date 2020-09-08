@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Label = ({ addClass, label, name }) => {
+const Label = ({ addClass, label, name, htmlFor ="" }) => {
     return (
-        <span className={addClass}>
+        <label className={addClass} htmlFor={htmlFor}>
             {label} 
-        </span>   
+        </label>   
     );
 };
 
