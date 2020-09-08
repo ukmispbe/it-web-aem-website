@@ -165,7 +165,7 @@ AddToCart.defaultProps = {
     addToCartQty: null,
     onRef: () => { },
     skuResponse: () => { },
-    qtyLabel: 'Quantity'
+    qtyLabel: ''
 }
 
 export default AddToCart;

@@ -203,7 +203,7 @@ QuickOrder.defaultProps = {
     titleText: '',
     price: '',
     skuConfig: {},
-    qtyLabel:'Quantity'
+    qtyLabel:''
 }
 
 export default QuickOrder;
