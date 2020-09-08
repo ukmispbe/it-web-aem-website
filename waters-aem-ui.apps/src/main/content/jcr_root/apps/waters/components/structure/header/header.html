@@ -44,7 +44,8 @@
                             data-isocode="${header.isocode}"
                             data-placeholder-mobile="${'Search' @ i18n}"
                             data-placeholder-tablet="${'What are you looking for?' @ i18n}"
-                            data-custom-style="cmp-header-search-bar">
+                            data-custom-style="cmp-header-search-bar"
+                            data-auto-suggest-label="${'Search Box' @ i18n}">
                         </div>
                         
                         <a  data-sly-test="${!header.eprocurement}"
@@ -149,7 +150,7 @@
                             data-locator="link-header-my-account-cart"
                             id="title"
                         >
-                            <span data-locator="header-label-Cart" aria-label="Cart">${'Cart' @ i18n}</span>
+                            <span data-locator="header-label-Cart" aria-label="${'Cart' @ i18n}">${'Cart' @ i18n}</span>
                             <img
                                 alt="${'Cart' @ i18n}"
                                 src="/content/dam/waters/en/brand-assets/icons/cart.svg"

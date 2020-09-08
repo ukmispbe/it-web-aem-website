@@ -22,7 +22,8 @@ function QuickOrder(props) {
         showLabel,
         titleText,
         price,
-        skuConfig
+        skuConfig,
+        qtyLabel
     } = props;
     const childRef = useRef();
     const [sku, setSku] = useState('');
@@ -123,11 +124,12 @@ function QuickOrder(props) {
                     showLabel={showLabel}
                     onChange={onChange}
                     elementLocator="input-quick-order-sku"
-                    ariaLabel="SKU number"
+                    ariaLabel={addToCartPlaceHolder}
                 />
                 <AddToCart
                     skuNumber={sku}
                     addToCartQty={1}
+                    qtyLabel={qtyLabel}
                     addToCartLabel={buttonLabel}
                     addToCartUrl={addToCartUrl}
                     isCommerceApiMigrated={isCommerceApiMigrated}
@@ -185,6 +187,7 @@ QuickOrder.defaultProps = {
     titleText: PropTypes.string,
     price: PropTypes.string,
     skuConfig: PropTypes.object,
+    qtyLabel: PropTypes.string
 }
 
 QuickOrder.defaultProps = {
@@ -200,6 +203,7 @@ QuickOrder.defaultProps = {
     titleText: '',
     price: '',
     skuConfig: {},
+    qtyLabel:'Quantity'
 }
 
 export default QuickOrder;

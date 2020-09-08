@@ -76,7 +76,7 @@ class SearchBar extends Component {
             onChange: this.handleSearchValueChange ,
             onKeyPress: this.handleSearchValuePress,
             onBlur: this.handleSearchValueBlur,
-            'aria-label': "Search box"
+            'aria-label': this.props.autoSuggestLabel
         };
         
         if(isEprocurementUser() && !this.eprocIsoCode) {
@@ -250,13 +250,15 @@ SearchBar.propTypes = {
     searchPath: PropTypes.string,
     maxSuggestions: PropTypes.number.isRequired,
     minSearchCharacters: PropTypes.number.isRequired,
-    customStyle: PropTypes.string
+    customStyle: PropTypes.string,
+    autoSuggestLabel: PropTypes.string
 }
 
 SearchBar.defaultProps = {
     maxSuggestions: 10,
     minSearchCharacters: 1,
-    customStyle: ''
+    customStyle: '',
+    autoSuggestLabel: 'Search Box'
 }
 
 export default SearchBar;
