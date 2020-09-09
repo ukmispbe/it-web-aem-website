@@ -108,6 +108,7 @@ if (searchBarContainer && header) {
             placeholderMobile={data.placeholderMobile}
             baseUrl={data.baseUrl}
             isocode={data.isocode}
+            autoSuggestLabel={data.autoSuggestLabel}
         />,
         searchBarContainer
     );
