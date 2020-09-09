@@ -6,8 +6,9 @@ const CreateAccountForm = ({
   registrationFormConfig,
   checkEmailFormConfig,
   isocode,
+  isTwoStepRegistrationForm,
 }) => {
-  const [showRegistrationForm, setRegistrationFormVisibility] = useState(false);
+  const [showRegistrationForm, setRegistrationFormVisibility] = useState(!isTwoStepRegistrationForm);
   const [isEProcUser, setEProcUser] = useState(false);
 
   window.addEventListener("setEProcUser", function (event) {
