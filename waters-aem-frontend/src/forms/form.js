@@ -170,7 +170,7 @@ const Form = ({
                 selectedCountryOptions[0].fields.map(fieldName => activateField(fieldName));
             }
         }
-    }, []);
+    }, [config.formName]);
 
     const [newConfig, setNewConfig] = useState();
 
