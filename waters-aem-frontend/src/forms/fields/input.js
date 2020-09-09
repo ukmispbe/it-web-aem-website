@@ -7,6 +7,7 @@ import DisplayMessage from './components/displaymessage';
 import Requirements from './components/requirements';
 
 import { getAttributes } from './utils/validations';
+import { renderFormattedLabel } from '../../utils/labelFunctions';
 
 const Input = ({
     name,
@@ -19,7 +20,7 @@ const Input = ({
     const reqRef = useRef(null);
     const inputRef = useRef(null);
 
-    const { type, disabled, matchLabel, emailValidationEndpoint } = useContext(useFieldApi);
+    const { type, disabled, matchLabel, emailValidationEndpoint, optionalLabel } = useContext(useFieldApi);
     const { register, setError, setValue, clearError, formName } = useContext(useFormApi);
 
     const errors = useErrorsContext();
@@ -70,13 +71,7 @@ const Input = ({
                             : ''
                     }
                 >
-                    {label}
-                    {!validation.required && (
-                        <span className="cmp-form-field--optional">
-                            {' '}
-                            (optional)
-                        </span>
-                    )}
+                    {renderFormattedLabel(label, validation.required, optionalLabel)}
                 </label>
 
                 {description && (

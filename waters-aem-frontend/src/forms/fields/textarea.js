@@ -1,10 +1,9 @@
 import React, { useRef, useState, useContext, useMemo } from 'react';
-
 import { useFormApi, useFieldApi } from '../form';
 import { useErrorsContext } from './utils/stateWatcher';
 import DisplayMessage from './components/displaymessage';
-
 import { getAttributes } from './utils/validations';
+import { renderFormattedLabel } from '../../utils/labelFunctions';
 
 const TextArea = ({
     name,
@@ -26,9 +25,9 @@ const TextArea = ({
         isCharOver: false,
     });
 
-    const { disabled, matchLabel, emailValidationEndpoint } = useContext(useFieldApi);
+    const { disabled, matchLabel, emailValidationEndpoint, optionalLabel } = useContext(useFieldApi);
     const { register, setError, setValue, clearError } = useContext(useFormApi);
- 
+
     const errors = useErrorsContext();
 
     const getRegisterAttributes = ref => {
@@ -55,8 +54,7 @@ const TextArea = ({
             ? reqRef.current.update(inputRef.current.value)
             : () => false;
     }
-
-
+    
     const getMatchReq = useMemo(
         () => ({
             required: validation['required'],
@@ -100,13 +98,7 @@ const TextArea = ({
                             : ''
                     }
                 >
-                    {label}
-                    {!validation.required && (
-                        <span className="cmp-form-field--optional">
-                            {' '}
-                            (optional)
-                        </span>
-                    )}
+                    {renderFormattedLabel(label, validation.required, optionalLabel)}
                 </label>
 
                 {description && (

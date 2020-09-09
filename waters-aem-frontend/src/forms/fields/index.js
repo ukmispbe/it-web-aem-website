@@ -12,6 +12,7 @@ import Captcha from './captcha';
 import Body from './body';
 import Link from './link';
 import TextWithLinks from './textWithLinks';
+import Label from './label';
 
 const formType = {
     text: Input,
@@ -27,7 +28,8 @@ const formType = {
     captcha: Captcha,
     body: Body,
     link: Link,
-    textwithlinks: TextWithLinks
+    textwithlinks: TextWithLinks,
+    label: Label
 };
 
 const Field = ({}) => {
