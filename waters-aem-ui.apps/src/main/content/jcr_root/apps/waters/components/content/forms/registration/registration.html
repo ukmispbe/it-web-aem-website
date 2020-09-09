@@ -62,7 +62,7 @@
                     "label": "${'Email Address' @ i18n, context='text'}",
                     "description": "${'This will be your username.' @ i18n, context='text'}",
                     "emailValidationEndpoint": "${registration.emailValidationUrl @ context='unsafe'}",
-                    "disabled": true,
+                    "disabled": ${registration.twoStepRegistrationForm ? true : false @ context='unsafe'},
                     "validation": {
                         "required": true,
                         "requiredMsg": "${'Please enter a valid email address.' @ i18n, context='text'}",
