@@ -105,7 +105,7 @@ class SkuDetails extends React.Component {
     getCustPricing = (pricingUrl, skuNumber, userInfo, propListPrice) => {
         getPricing(pricingUrl, skuNumber, userInfo.dynamicSoldTo, userInfo.salesOrg)
         .then(response => {
-            if (response.status && response.status !== 200) {
+            if (response.status && response.status === 200) {
                 let match = matchListItems(skuNumber, response);
                 let listPriceValue = (match.listPrice !== '' && match.listPrice != undefined) ? match.listPrice : propListPrice;
                 this.setState({
