@@ -14,10 +14,10 @@
             </div>
             <div class="cmp-footer__logo">
                 <a href="${footer.logoLink.href}" target="${footer.external ? '_blank' : ''}">
-                    <img src="${footer.logoImage.fileReference}" alt="${footer.logoAltText}" />
+                    <img src="${footer.logoImage.fileReference}" alt="${footer.logoAltText}"  data-locator="footer-waters-logo"/>
                 </a>
             </div>
-            <div data-sly-test="${footer.eprocurement && footer.contactLink}" class="cmp-button--reverse" id="contactWatersLink"></div>
+            <div data-sly-test="${footer.eprocurement && footer.contactLink}" class="cmp-button--reverse" id="contactWatersLink" data-locator="contact-waters-link"></div>
             <div class="cmp-footer__social-links" data-sly-test="${footer.socialLinks && !footer.eprocurement}">
                 <div class="social-links-text">${'Follow our channels' @ i18n}</div>
                 <ul>
@@ -47,7 +47,7 @@
     </div>
     <div class="container2_wrapper">
         <div class="container2">
-            <div class="cmp-footer__copyright">
+            <div class="cmp-footer__copyright" data-locator="footer-copyright">
                 <p>${footer.copyrightText}</p>
             </div>
             <div data-sly-test="${!footer.eprocurement}" class="cmp-footer__selector ${footer.languagePages.size == 1 ? 'one-link' : ''}">
@@ -56,25 +56,25 @@
                     <img class="inline-svg" src="/content/dam/waters/en/brand-assets/icons/modal.svg"
                         alt="${'Country' @ i18n}" />
                 </div>
-                <div class="cmp-footer__selector__language ${footer.languagePages.size == 1 ? 'one-link' : ''}">
-                    <a href="${footer.languagePages[0].page.href}">${footer.languagePages[0].languageTitle}</a>
+                <div class="cmp-footer__selector__language ${footer.languagePages.size == 1 ? 'one-link' : ''}" data-locator="footer-language-selector">
+                    <a href="${footer.languagePages[0].page.href}" data-locator="footer-language-link">${footer.languagePages[0].languageTitle}</a>
                     <div class="cmp-footer__selector__language--options"
                         data-sly-list.languageLink="${footer.languagePages}">
                         <a data-sly-test="${!languageLinkList.first}"
-                            href="${languageLink.page.href}">${languageLink.languageTitle} </a>
+                            href="${languageLink.page.href}" data-locator="footer-language-options">${languageLink.languageTitle} </a>
                     </div>
                 </div>
             </div>
             <div class="cmp-footer__links ${isChinaPage ? 'china-legal' : ''}">
                 <nav data-sly-test="${footer.footerLinks || isChinaPage}">
                     <a data-sly-repeat="${footer.footerLinks}" href="${item.link.href}"
-                        target="${item.external ? '_blank' : ''}">
+                        target="${item.external ? '_blank' : ''}" data-locator="${item.text}">
                         ${item.text}
                         <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
                             data-sly-call="${patterns.linkIcon @ linkItem=item}" />
                     </a>
-                    <a data-sly-test="${footer.cookiesLink}" href="${footer.cookiesLink.href}">${'Cookies' @ i18n}</a>
-                    <a class="optanon-toggle-display dl_Anchor" href="#">${'Cookie Preferences' @ i18n}</a>
+                    <a data-sly-test="${footer.cookiesLink}" href="${footer.cookiesLink.href}" data-locator="link-cookies">${'Cookies' @ i18n}</a>
+                    <a class="optanon-toggle-display dl_Anchor" href="#" data-locator="link-cookie-preferences">${'Cookie Preferences' @ i18n}</a>
                     <div data-sly-test="${isChinaPage}" class="cmp-footer__china-legal">
                         <a href="${footer.cBLegalLink.href}" class="cmp-footer__china-legal-cB">
                             <img data-sly-test="${footer.cBLegalIcon}" src="${footer.cBLegalIcon}" alt="${'Commercial Bureau Legal Icon' @ i18n}" />
@@ -133,7 +133,7 @@
             "partialDisabledLinkText": "${'contact your sales representative.' @ i18n, context='text'}",
             "partialDisabledHref": "${footer.contactLink.href @ context='unsafe'}",
             "eProcurementRestrictedText": "${'Online ordering is not available for your account. Please order through your procurement system.' @ i18n, context='text'}",
-            "contactSupportLinkLabel": "${'CONTACT WATERS' @ i18n, context='text'}",
+            "contactSupportLinkLabel": "${'Contact Waters' @ i18n, context='text'}",
             "contactSupportHref": "${footer.contactLink.href @ context='unsafe'}"
         },
         "availabilityUrl": "${footer.skuAvailabilityUrl @ context='unsafe'}",
@@ -141,7 +141,7 @@
         "addToCartUrl": "${footer.addToCartUrl @ context='unsafe'}",
         "viewCartUrl": "${footer.viewCartUrl @ context='unsafe'}",
         "isCommerceApiMigrated": "${footer.commerceApiMigrated @ context='unsafe'}",
-        "isCustomerPriceApi": "${footer.customerPriceApi @ context='unsafe'}",
+        "isCustomerPriceApiDisabled": "${footer.customerPriceApiDisabled @ context='unsafe'}",
         "countryCode": "${footer.countryCode @ context='scriptString'}",
         "isoCode": "${footer.isoCode @ context='scriptString'}",
         "addToCartLabel": "${'Add to Cart' @ i18n, context='text'}",
@@ -229,7 +229,7 @@
             "sessionTimeoutMessage": "${'Please return to your procurement system and start a new session.' @ i18n, context='text'}",
             "buttons": [
                 {
-                    "text": "${'RETURN TO PROCUREMENT SYSTEM' @ i18n, context='text'}",
+                    "text": "${'Return to procurement system' @ i18n, context='text'}",
                     "action": ""
                 }
             ]

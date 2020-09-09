@@ -1,13 +1,23 @@
 import * as profileFormatter from '../userFunctions';
 import defaultData from '../__mocks__/en_US/index';
 
-describe('Scenario Capitalize Function', () => {
+describe('Scenario trimAndCapitalize Function', () => {
     describe('When Given a String', () => {
         const testStr = "this is a test string";
         const expectedStr = "This Is A Test String";
 
         it('Then it should return a string', () => {
-            const newStr = profileFormatter.capitalize(testStr);
+            const newStr = profileFormatter.trimAndCapitalize(testStr);
+            expect(newStr).toMatch(expectedStr);
+        });
+    });
+
+    describe('When Given a String with Leading, Middle and Trailing Spaces', () => {
+        const testStr = "     this     is   a    test     string      ";
+        const expectedStr = "This Is A Test String";
+
+        it('Then it should return a string', () => {
+            const newStr = profileFormatter.trimAndCapitalize(testStr);
             expect(newStr).toMatch(expectedStr);
         });
     });
@@ -17,7 +27,7 @@ describe('Scenario Capitalize Function', () => {
         const expectedStr = "";
 
         it('Then it should return a string', () => {
-            const newStr = profileFormatter.capitalize(testStr);
+            const newStr = profileFormatter.trimAndCapitalize(testStr);
             expect(newStr).toMatch(expectedStr);
         });
     });

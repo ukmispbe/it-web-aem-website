@@ -7,6 +7,7 @@ import DisplayMessage from './components/displaymessage';
 import Requirements from './components/requirements';
 
 import { getAttributes } from './utils/validations';
+import { elementLocator } from '../../utils/eCommerceFunctions';
 
 const Input = ({
     name,
@@ -20,7 +21,7 @@ const Input = ({
     const inputRef = useRef(null);
 
     const { type, disabled, matchLabel, emailValidationEndpoint } = useContext(useFieldApi);
-    const { register, setError, clearError, formName } = useContext(useFormApi);
+    const { register, setError, setValue, clearError, formName } = useContext(useFormApi);
 
     const errors = useErrorsContext();
 
@@ -42,10 +43,10 @@ const Input = ({
     const toggleReq = () =>
         reqRef.current ? reqRef.current.toggle() : () => false;
 
-    const updateReq = () =>
-        reqRef.current
-            ? reqRef.current.update(inputRef.current.value)
-            : () => false;
+    const updateReq = () => {
+        setValue(name, inputRef.current.value, true);
+        reqRef.current ? reqRef.current.update(inputRef.current.value) : () => false;
+    }
 
     const getMatchReq = useMemo(
         () => ({
@@ -69,6 +70,7 @@ const Input = ({
                             ? 'cmp-form-field--label-matching'
                             : ''
                     }
+                    data-locator={elementLocator(label) || 'form-field--label'}
                 >
                     {label}
                     {!validation.required && (
@@ -105,6 +107,7 @@ const Input = ({
                                     : ''
                                 : ''
                         }
+                        data-locator={elementLocator(name) || 'form-field-input'}
                     ></input>
                     <Icons />
                 </div>

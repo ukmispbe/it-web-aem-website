@@ -30,7 +30,8 @@ class ApplySortFilter extends Component {
                 <a
                     href="javascript:void(0);"
                     onClick={this.handleClick}
-                    className="btn-apply-sort-filter">
+                    className="btn-apply-sort-filter"
+                    data-locator="link-search-apply-button">
                     {this.buttonCaption()}
                 </a>
             </div>;

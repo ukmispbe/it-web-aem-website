@@ -112,7 +112,7 @@ function QuickOrder(props) {
 
     return (
         <>
-            <div className="quick-order-parent">
+            <div className="quick-order-parent" data-locator="quick-order">
                 <Input
                     id="code"
                     type="text"
@@ -142,7 +142,7 @@ function QuickOrder(props) {
                 className="quick-order-multiple-item"
                 data-locator="link-quick-order-add-multiple-item"
             >
-                <ReactSVG src={isMobile ? addItemsIcon : multipleItemsIcon} wrapper='span' />
+                <ReactSVG src={isMobile ? addItemsIcon : multipleItemsIcon} wrapper='span' data-locator="add-multiple-item-icon" />
                 {multipleItemsLabel}
             </a>
             <Modal isOpen={modalShown} onClose={toggleModal} className='cmp-add-to-cart-modal'>
@@ -150,13 +150,15 @@ function QuickOrder(props) {
                     <Header
                         title={modalConfig.title}
                         icon={modalConfig.icon}
-                        className={keys.HeaderWithAddedMarginTop} />
+                        className={keys.HeaderWithAddedMarginTop}
+                        elementLocator="quick-order-modal-header" />
                 )}
                 {(Object.keys(errorObjCart).length !== 0) && (
                     <Header
                         title={skuConfig.errorInfo.title}
                         icon={skuConfig.errorInfo.icon}
                         className={keys.HeaderWithAddedMarginTopError}
+                        elementLocator="quick-order-modal-header"
                     />
                 )}
                 <AddToCartBody

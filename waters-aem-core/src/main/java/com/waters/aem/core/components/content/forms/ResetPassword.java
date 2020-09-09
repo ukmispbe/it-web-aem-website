@@ -111,6 +111,14 @@ public class ResetPassword implements ComponentExporter {
     @Inject
     @Default(booleanValues = false)
     private Boolean newWindow;
+
+    @DialogField(fieldLabel = "Is this a eProc user flow",
+            fieldDescription = "Select this option if this is a Eproc flow",
+            ranking = 6)
+    @Switch(offText = "No", onText = "Yes")
+    @Inject
+    @Default(booleanValues = false)
+    private Boolean eProc;
         
     public Link getRedirectLink() {
         return LinkUtils.getExternalizedLink(pageManager, redirectLink);
@@ -167,6 +175,8 @@ public class ResetPassword implements ComponentExporter {
     public Boolean isNewWindow() {
         return newWindow;
     }
+
+    public Boolean isEproc() { return eProc; }
 
     @Nonnull
     @Override

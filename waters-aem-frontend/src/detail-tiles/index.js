@@ -138,16 +138,17 @@ const DetailTiles = ({
     };
 
     return (
-        <div className="cmp-detail-tiles" id={name}>
-            <div className="cmp-detail-tiles--title">{title}</div>
-            <div className="cmp-detail-tiles-list">{renderTiles()}</div>
+        <div className="cmp-detail-tiles" id={name} data-locator="detail-tiles">
+            <div className="cmp-detail-tiles--title" data-locator="detail-tiles-title">{title}</div>
+            <div className="cmp-detail-tiles-list" data-locator="details-tiles-list">{renderTiles()}</div>
             {canCreate && !!tiles.length && type !=="personal" && (
-                <div className="cmp-detail-tiles--add">
+                <div className="cmp-detail-tiles--add" data-locator="details-tile-add">
                     <ReactSVG
                         src={icons.add}
                         className="cmp-detail-tiles--add-icon"
+                        data-locator="details-tile-add-icon"
                     />
-                    <div className="cmp-detail-tiles--add-title">
+                    <div className="cmp-detail-tiles--add-title" data-locator="detail-tiles-add-title">
                         {addTitle}
                     </div>
                 </div>

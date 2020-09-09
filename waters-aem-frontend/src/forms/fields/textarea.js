@@ -5,6 +5,7 @@ import { useErrorsContext } from './utils/stateWatcher';
 import DisplayMessage from './components/displaymessage';
 
 import { getAttributes } from './utils/validations';
+import { elementLocator } from '../../utils/eCommerceFunctions';
 
 const TextArea = ({
     name,
@@ -27,8 +28,8 @@ const TextArea = ({
     });
 
     const { disabled, matchLabel, emailValidationEndpoint } = useContext(useFieldApi);
-    const { register, setError, clearError } = useContext(useFormApi);
-
+    const { register, setError, setValue, clearError } = useContext(useFormApi);
+ 
     const errors = useErrorsContext();
 
     const getRegisterAttributes = ref => {
@@ -49,10 +50,13 @@ const TextArea = ({
     const toggleReq = () =>
         reqRef.current ? reqRef.current.toggle() : () => false;
 
-    const updateReq = () =>
+    const updateReq = () => {
+        setValue(name, inputRef.current.value, true);
         reqRef.current
             ? reqRef.current.update(inputRef.current.value)
             : () => false;
+    }
+
 
     const getMatchReq = useMemo(
         () => ({
@@ -96,6 +100,7 @@ const TextArea = ({
                             ? 'cmp-form-field--label-matching'
                             : ''
                     }
+                    data-locator={elementLocator(label) || 'form-field--label'}
                 >
                     {label}
                     {!validation.required && (
@@ -134,11 +139,12 @@ const TextArea = ({
                                         : `${resize ? '' : 'disable-resize'}`
                                     : `${resize ? '' : 'disable-resize'}`
                         }
+                        data-locator={elementLocator(name) || 'form-field-textarea'}
                     ></textarea>
                 </div>
                 <div className="textarea-info">
                     <DisplayMessage name={name} validation={validation} />
-                    {showTextInfo && <div className={`text-info ${textInfo.isCharOver ? 'errorText' : ''}`}>{`${textInfo.remainingChar} ${textInfo.text}`}</div>}
+                    {showTextInfo && <div data-locator="text-info" className={`text-info ${textInfo.isCharOver ? 'errorText' : ''}`}>{`${textInfo.remainingChar} ${textInfo.text}`}</div>}
                 </div>
             </>
         );

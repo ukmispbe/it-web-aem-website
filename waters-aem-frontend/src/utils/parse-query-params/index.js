@@ -3,8 +3,8 @@ function parseQueryParams(pathname) {
     if (search) {
         const queryList = search.split('&');
         return queryList.reduce((accu, curr) => {
-            const [key, value] = curr.split('=');
-            return { ...accu, [key]: value.split('#')[0] };
+            const [key = '', value = ''] = curr.split('=');
+            return key ? { ...accu, [key]: (value && value.split('#')[0]) || '' } : { ...accu };
         }, {});
     }
     return {};

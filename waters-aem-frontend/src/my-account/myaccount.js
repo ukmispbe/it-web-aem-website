@@ -40,7 +40,7 @@ const MyAccount = ({ title, body, tiles }) => {
                 </div>
 
                 <div className="cmp-my-account__tiles">
-                    <div className="tile">
+                    <div className="tile" data-locator="my-account-tiles">
                         {tiles.map((tile, key) => <Tile tile={tile} key={key} />)}
                     </div>
                 </div>

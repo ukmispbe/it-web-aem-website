@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import Fader from '../../scripts/fade-x.js';
+import { elementLocator } from "../../utils/eCommerceFunctions.js";
 
 const Tabs = ({className, items, activeIndex, onClick, enableFading}) => {
     const tabsRef = React.useRef();
@@ -46,7 +47,7 @@ Tabs.defaultProps = {
 
 const Tab = ({index, name, isActive, onClick}) => 
     <div className={`cmp-tabs__tab${isActive ? " active" : ""}`} onClick={() => onClick(index)}>
-        <span className="cmp-tabs__tab-label">{name}</span>
+        <span className="cmp-tabs__tab-label" data-locator={elementLocator(name)}>{name}</span>
     </div>;
 
 Tab.propTypes = {

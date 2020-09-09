@@ -15,6 +15,7 @@ class HideSortFilter extends Component {
                     href="javascript:void(0);"
                     onClick={props.onClick}
                     className="btn-hide-sort-filter"
+                    data-locator="link-hide-search-button"
                 >
                     <ReactSVG src={props.text.closeIcon} />
                     {props.text.sortAndFilterButton}

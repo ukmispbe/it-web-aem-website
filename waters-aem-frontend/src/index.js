@@ -516,6 +516,8 @@ if (resetPasswordContainer) {
         document.getElementById('cmp-reset-password-form').innerHTML
     );
 
+    config.submitEndpoint = `${config.submitEndpoint}${config.isEproc === "true" ? '?isEproc=true' : ''}`;
+
     ReactDOM.render(
         <Form config={config} submitFn={resetPasswordSubmit} callback={headerData.userDetailsUrl} />,
         resetPasswordContainer

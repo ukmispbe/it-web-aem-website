@@ -8,7 +8,7 @@ import { setClickAnalytics } from "../analytics";
 import loginStatus from "../scripts/loginStatus";
 import { notLoggedInRedirect } from '../utils/redirectFunctions';
 import Spinner from "../utils/spinner";
-import { isCartHidden } from '../utils/eCommerceFunctions';
+import { isCartHidden, elementLocator } from '../utils/eCommerceFunctions';
 import { isEprocurementUserRole } from '../utils/userFunctions';
 
 const Aside = props => {
@@ -30,9 +30,9 @@ const Aside = props => {
 
     if (isInEditMode || displayTile) {
     return (
-        <div className="cmp-my-account__aside-wrapper">
+        <div className="cmp-my-account__aside-wrapper" data-locator="my-account-wrapper">
             <Title text={getTitle(props.tiles, props.location.pathname)} />
-            <div className="cmp-my-account__aside-links">
+            <div className="cmp-my-account__aside-links" data-locator="my-account-links">
                 {props.tiles.map(tile => 
                     <Tile 
                         key={tile.title} 
@@ -42,7 +42,7 @@ const Aside = props => {
                         pathname={props.location.pathname}
                     />)}
             </div>
-            <div className="cmp-my-account__aside-content">
+            <div className="cmp-my-account__aside-content" data-locator="my-account-aside-content">
                 {props.children}
             </div>
             {breadcrumbList && (<Breadcrumb path={props.location.pathname} config={props.breadcrumbs} />)}
@@ -61,9 +61,9 @@ const Tile = ({tile, pathname}) => {
     }
 
     return (
-        <div className="tile">
-            <div className="tile__title">{tile.title}</div>
-            <div className="tile__links">
+        <div className="tile" data-locator="my-account-tile">
+            <div className="tile__title" data-locator="my-account-title-tile">{tile.title}</div>
+            <div className="tile__links" data-locator="my-account-tile-links">
                 {tile.links.map(link => {
                         if( !link.isHidden ) {
                             if(linkIsActive(pathname, link.url)) {
@@ -88,19 +88,18 @@ const getTitle = (tiles, pathname) => {
 
 const linkIsActive = (pathname, url) => pathname.substring(1, pathname.length) === url.substring(1, url.length);
 
-const ActiveLink = ({text}) => <span className="link--active">{text}</span>;
+const ActiveLink = ({text}) => <span className="link--active" data-locator={elementLocator(text)}>{text}</span>;
 
 const HyperLink = ({link}) => link.url.startsWith("#") ?
-                <Link to={`/${link.url.substring(1, link.url.length)}`} onClick={()=>setClickAnalytics("Side Navigation", link.linkName ? link.linkName : link.text, link.url)}>{link.text}</Link> :
-                <a href={link.url}  onClick={()=>setClickAnalytics("Side Navigation", link.linkName ? link.linkName : link.text, link.url)}>{link.text}</a>
+                <Link to={`/${link.url.substring(1, link.url.length)}`} onClick={()=>setClickAnalytics("Side Navigation", link.linkName ? link.linkName : link.text, link.url)} data-locator={elementLocator(link.text)}>{link.text}</Link> :
+                <a href={link.url}  onClick={()=>setClickAnalytics("Side Navigation", link.linkName ? link.linkName : link.text, link.url)} data-locator={elementLocator(link.text)}>{link.text}</a>
 
 Aside.propTypes = {
     tiles: PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string,
         links: PropTypes.arrayOf(PropTypes.shape({
             text: PropTypes.string,
-            url: PropTypes.string
-        }))
+            url: PropTypes.string        }))
     }))
 }
 

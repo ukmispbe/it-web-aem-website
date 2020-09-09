@@ -6,7 +6,7 @@ import Price from "./views/price";
 import AddToCart from "./views/addToCart";
 import AddToCartBody from '../sku-details/views/addToCartModal';
 import Modal, { Header, keys } from '../utils/modal';
-import { setSKUUserInfo, isEprocurementUser as isEprocurementApp, isEprocurementUserRole } from '../utils/userFunctions';
+import { callCustomerPriceApi, isEprocurementUser as isEprocurementApp, isEprocurementUserRole } from '../utils/userFunctions';
 import Spinner from '../utils/spinner';
 import LoginStatus from "../scripts/loginStatus";
 import CheckOutStatus from "../scripts/checkOutStatus";
@@ -16,8 +16,7 @@ import { mainCartContext } from "../analytics";
 import { getAvailability, getPricing, matchListItems } from "./services/index";
 import SignIn from '../scripts/signIn';
 
-const SKU_VALIDATION_400 = 'WAT_VALIDATION_400'; 
-const SKU_INVALID_BOOLEAN = 'VALIDATION:INVALID_BOOLEAN'; 
+const SKU_VALIDATION_400 = 'WAT_VALIDATION_400';
 
 class SkuDetails extends React.Component {
     constructor(props) {
@@ -33,6 +32,7 @@ class SkuDetails extends React.Component {
             code: this.props.skuNumber,
             skuInfo: this.props.config.skuInfo,
             skuNumber: this.props.skuNumber,
+            userInfo: {},
             userCountry: this.props.config.countryCode,
             userLocale: this.props.config.locale,
             availabilityUrl: this.props.config.availabilityUrl,
@@ -42,6 +42,7 @@ class SkuDetails extends React.Component {
             skuAvailability: {},
             addToCartQty: undefined,
             custPrice: undefined,
+            custPriceApiDisabled: this.props.config.isCustomerPriceApiDisabled,
             listPrice: this.props.price,
             analyticsConfig: {
                 context: mainCartContext,
@@ -55,7 +56,6 @@ class SkuDetails extends React.Component {
             discontinued: this.props.discontinued == "true",
             signInUrl: this.props.baseSignInUrl,
             errorInfo: this.props.config.errorInfo,
-            userInfo: {},
             isEProcurementUserRestricted: (!isEprocurementApp() && isEprocurementUserRole()),
             isSkuErrorMessage: false
         };
@@ -64,25 +64,21 @@ class SkuDetails extends React.Component {
     }
 
     componentDidMount() {
-        const { availabilityUrl, pricingUrl, skuNumber, userCountry} = this.state;
+        const { availabilityUrl, custPriceApiDisabled, pricingUrl, skuNumber, userCountry } = this.state;
 
         if (LoginStatus.state()) {
-            let userInfo = setSKUUserInfo();
-            if (Object.keys(userInfo).length > 0 && userInfo.dynamicSoldTo !== '' && userInfo.salesOrg !== ''){
+            let userInfo = callCustomerPriceApi(custPriceApiDisabled);
+            if (Object.keys(userInfo).length > 0 && userInfo.callCustApi){
                 this.setState({
                     userInfo: userInfo
                 }, () => {
-                    this.getCustPricing(pricingUrl, skuNumber, userInfo);
+                    this.getCustPricing(pricingUrl, skuNumber, userInfo, this.props.price);
                 });
             } else {
-                this.setState({
-                    loading: false
-                })
+                this.setState({ loading: false });
             }
         } else {
-            this.setState({
-                loading: false
-            })
+            this.setState({ loading: false });
         }
 
         getAvailability(availabilityUrl, userCountry, skuNumber)
@@ -106,12 +102,13 @@ class SkuDetails extends React.Component {
         });
     }
 
-    getCustPricing = (pricingUrl, skuNumber, userInfo) => {
+//Note: getCustPricing Method should be an exact match between SKU Details and SKU List
+    getCustPricing = (pricingUrl, skuNumber, userInfo, propListPrice) => {
         getPricing(pricingUrl, skuNumber, userInfo.dynamicSoldTo, userInfo.salesOrg)
         .then(response => {
             if (response.status && response.status === 200) {
                 let match = matchListItems(skuNumber, response);
-                let listPriceValue = (match.listPrice !== '' && match.listPrice != undefined) ? match.listPrice : this.props.price;
+                let listPriceValue = (match.listPrice !== '' && match.listPrice != undefined) ? match.listPrice : propListPrice;
                 this.setState({
                     skuData: match,
                     custPrice: match.custPrice,
@@ -122,12 +119,11 @@ class SkuDetails extends React.Component {
                 });
             } else {
                 // Add Error Object to State
-
                 this.setState({
                     errorObjPrice: response.errors,
                     loading: false,
                     isSkuErrorMessage: (Array.isArray(response.errors) && response.errors.length > 0
-                    && response.errors[0].code === SKU_VALIDATION_400 && response.errors[0].type === SKU_INVALID_BOOLEAN)
+                    && response.errors[0].code === SKU_VALIDATION_400)
                 });
             }
         })
@@ -233,24 +229,25 @@ class SkuDetails extends React.Component {
     }
 
     renderBuyInfo = () => {
-        const { custPrice, listPrice, loading, skuInfo, skuNumber, errorObjAvailability, skuAvailability, errorObjCart } = this.state;
+        const { custPrice, listPrice, loading, skuInfo, skuNumber,
+                errorObjAvailability, skuAvailability, errorObjCart } = this.state;
         const { config } = this.props;
         let isErrorModal = false;
         if (errorObjCart) {
             isErrorModal = (Object.keys(errorObjCart).length !== 0);
         }
         return (
-            <div className="cmp-sku-details__buyinfo">
+            <div className="cmp-sku-details__buyinfo" data-locator="sku-details-buyinfo">
                 {LoginStatus.state() && typeof custPrice !== 'undefined'
                     && custPrice !== listPrice && (
                         <div className="cmp-sku-details__list-price">
                             {`${skuInfo.listPriceLabel} ${listPrice}`}
                         </div>
                 )}
-                <div className="cmp-sku-details__priceinfo">
+                <div className="cmp-sku-details__priceinfo" data-locator="sku-details-priceinfo">
                     {loading ? ( <Spinner loading={loading} type='inline' /> ) : this.renderPricing()}
                 </div>
-                <div className="cmp-sku-details__availability">
+                <div className="cmp-sku-details__availability" data-locator="sku-details-availability">
                     <Stock
                         skuInfo={skuInfo}
                         skuNumber={skuNumber}
@@ -259,7 +256,7 @@ class SkuDetails extends React.Component {
                         errorObj={errorObjAvailability}
                     />
                 </div>
-                <div className="cmp-sku-details__buttons">
+                <div className="cmp-sku-details__buttons" data-locator="sku-details-add-to-cart-sec">
                     <AddToCart
                         toggleParentModal={this.toggleModal}
                         skuNumber={skuNumber}
@@ -276,13 +273,16 @@ class SkuDetails extends React.Component {
                         <Header
                             title={this.state.modalConfig.title}
                             icon={this.state.modalConfig.icon}
-                            className={keys.HeaderWithAddedMarginTop}                        />
+                            className={keys.HeaderWithAddedMarginTop}
+                            elementLocator="add-to-cart-modal-header"
+                        />
                     )}
                     {isErrorModal && (
                         <Header
                             title={this.state.errorInfo.title}
                             icon={this.state.errorInfo.icon}
                             className={keys.HeaderWithAddedMarginTopError}
+                            elementLocator="add-to-cart-modal-header"
                         />
                     )}
                     <AddToCartBody
@@ -340,8 +340,7 @@ class SkuDetails extends React.Component {
     render() {
         if (this.state.isEProcurementUserRestricted) {
             return this.renderEProcurementUserRestricted();
-        }
-        else if (!this.state.listPrice){
+        } else if (!this.state.listPrice){
             return this.renderCountryRestricted();
         } else if (this.state.discontinued) {
             return this.renderDiscontinued();
