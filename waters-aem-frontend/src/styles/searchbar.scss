@@ -150,6 +150,14 @@
             top: 0;
             right: 0;
             height: 100%;
+            button.clear-icon {
+                background-color: transparent;
+                border: none;
+            }
+            button.search-icon {
+                background-color: $color-blue-50;
+                border: none;
+            }
             &-search, &-clear {
                 height: 100%;
                 display: flex;

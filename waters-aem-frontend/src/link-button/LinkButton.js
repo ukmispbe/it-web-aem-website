@@ -11,6 +11,7 @@ function LinkButton(props) {
             href={url}
             title={label}
             data-locator={elementLocator(`link ${label}`)}
+            aria-label={label}
         >{label}</a>
     );
 }
