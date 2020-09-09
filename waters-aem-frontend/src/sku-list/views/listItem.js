@@ -14,8 +14,7 @@ import Ecommerce from '../../scripts/ecommerce';
 import SkuDetails from '../../scripts/sku-details';
 import Sticky from '../../scripts/stickyService';
 import Analytics, { analyticTypes, searchCartContext, relatedCartContext } from '../../analytics';
-
-const SKU_VALIDATION_400 = 'WAT_VALIDATION_400'; 
+import { E_ERRORCODE } from '../../constants';
 
 class ListItem extends React.Component {
     constructor(props) {
@@ -56,7 +55,7 @@ class ListItem extends React.Component {
             errorObjCart: {},
             errorObjAvailability: {},
             errorObjPrice: {},
-            isSkuErrorMessage: false
+            isSkuErrorCode: false
         };
     }
 
@@ -93,13 +92,7 @@ class ListItem extends React.Component {
                 this.setState({
                     errorObjPrice: response.errors,
                     loading: false,
-                    isSkuErrorMessage: (Array.isArray(response.errors) && response.errors.length > 0
-                    && response.errors[0].code === SKU_VALIDATION_400)
-                });
-
-                this.setState({
-                    errorObjPrice: response.errors,
-                    loading: false
+                    isSkuErrorCode: (Array.isArray(response.errors) && response.errors.length > 0 && response.errors[0].code === E_ERRORCODE)
                 });
             }
         })
@@ -347,7 +340,7 @@ class ListItem extends React.Component {
                     linkMessage={relatedSku.replacementskucode}
                 />
             );
-        } else if(this.state.isSkuErrorMessage) {
+        } else if(this.state.isSkuErrorCode) {
             return (
                 <SkuMessage
                     icon={skuConfig.skuInfo.lowStockIcon}

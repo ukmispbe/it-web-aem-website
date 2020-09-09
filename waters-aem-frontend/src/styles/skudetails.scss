@@ -683,3 +683,12 @@
         }
     }
 }
+// Display Error message on sticky notification
+.sku-error-code {
+   justify-content: left;
+ }
+.cmp-sku-details--sticky{
+    .cmp-notification-wrapper.sku-error-code {
+      display: flex;
+  }
+}

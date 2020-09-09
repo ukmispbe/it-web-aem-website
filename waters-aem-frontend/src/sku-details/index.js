@@ -15,8 +15,7 @@ import Ecommerce from "../scripts/ecommerce";
 import { mainCartContext } from "../analytics";
 import { getAvailability, getPricing, matchListItems } from "./services/index";
 import SignIn from '../scripts/signIn';
-
-const SKU_VALIDATION_400 = 'WAT_VALIDATION_400';
+import { E_ERRORCODE } from '../constants';
 
 class SkuDetails extends React.Component {
     constructor(props) {
@@ -57,7 +56,7 @@ class SkuDetails extends React.Component {
             signInUrl: this.props.baseSignInUrl,
             errorInfo: this.props.config.errorInfo,
             isEProcurementUserRestricted: (!isEprocurementApp() && isEprocurementUserRole()),
-            isSkuErrorMessage: false
+            isSkuErrorCode: false
         };
 
         this.toggleModal = this.toggleModal.bind(this);
@@ -106,7 +105,7 @@ class SkuDetails extends React.Component {
     getCustPricing = (pricingUrl, skuNumber, userInfo, propListPrice) => {
         getPricing(pricingUrl, skuNumber, userInfo.dynamicSoldTo, userInfo.salesOrg)
         .then(response => {
-            if (response.status && response.status === 200) {
+            if (response.status && response.status !== 200) {
                 let match = matchListItems(skuNumber, response);
                 let listPriceValue = (match.listPrice !== '' && match.listPrice != undefined) ? match.listPrice : propListPrice;
                 this.setState({
@@ -122,8 +121,7 @@ class SkuDetails extends React.Component {
                 this.setState({
                     errorObjPrice: response.errors,
                     loading: false,
-                    isSkuErrorMessage: (Array.isArray(response.errors) && response.errors.length > 0
-                    && response.errors[0].code === SKU_VALIDATION_400)
+                    isSkuErrorCode: (Array.isArray(response.errors) && response.errors.length > 0 && response.errors[0].code === E_ERRORCODE)
                 });
             }
         })
@@ -344,7 +342,7 @@ class SkuDetails extends React.Component {
             return this.renderCountryRestricted();
         } else if (this.state.discontinued) {
             return this.renderDiscontinued();
-        } else if(this.state.isSkuErrorMessage) {
+        } else if(this.state.isSkuErrorCode) {
             return this.renderSkuErrorMsg();
         } else {
             return this.renderActiveSku();
