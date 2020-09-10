@@ -19,6 +19,7 @@ const Dropdown = ({}) => {
                     name={name}
                     defaultValue={defaultValue}
                     ref={register({name: name}, validation)}
+                    id={name}
                 />
                 <Icons />
             </div>
