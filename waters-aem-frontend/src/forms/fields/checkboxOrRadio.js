@@ -3,6 +3,7 @@ import ReactSVG from 'react-svg';
 
 import { useFormApi, useFieldApi } from '../form';
 import { useErrorsContext } from './utils/stateWatcher';
+import { renderFormattedLabelText } from '../../utils/labelFunctions';
 
 const CheckboxOrRadio = ({}) => {
     const {
@@ -93,15 +94,22 @@ const CheckboxOrRadio = ({}) => {
 
     const hasError = useCallback(name => !!errors[name], [errors]);
 
-    const renderLabel = (thisName, label) => (
-        <>
-            {label + ' '}
-            {renderAddOnLink(thisName)}
-            {!state[thisName].required && type !== 'radio' && optionalLabel && (
-                <span className="cmp-form-field--optional">{optionalLabel}</span>
-            )}
-        </>
-    );
+    const renderLabel = (thisName, lbl) => {
+        let formattedLabel = lbl;
+        // If a check Box and required add required indicator to label
+        if (state[thisName].required && type !== 'radio') {
+            formattedLabel = renderFormattedLabelText(label, true)
+        }
+        return (
+            <>
+                {formattedLabel + ' '}
+                {renderAddOnLink(thisName)}
+                {!state[thisName].required && type !== 'radio' && optionalLabel && (
+                    <span className="cmp-form-field--optional">{optionalLabel}</span>
+                )}
+            </>
+        )
+    }
 
     const renderAddOnLink = thisName => {
         const thisState = state[thisName];
