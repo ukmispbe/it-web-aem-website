@@ -434,8 +434,11 @@
         }
         
         &-label {
-            margin-top: 0;
-            @include font-small;
+            label{
+                margin-top: 0;
+                @include font-small;
+                font-weight: $font-weight-light;
+            }
         }
 
         input[type='checkbox'] {
