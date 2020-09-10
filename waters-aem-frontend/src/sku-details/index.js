@@ -15,6 +15,7 @@ import Ecommerce from "../scripts/ecommerce";
 import { mainCartContext } from "../analytics";
 import { getAvailability, getPricing, matchListItems } from "./services/index";
 import SignIn from '../scripts/signIn';
+import DigitalData from '../scripts/DigitalData'
 
 class SkuDetails extends React.Component {
     constructor(props) {
@@ -32,6 +33,7 @@ class SkuDetails extends React.Component {
             skuNumber: this.props.skuNumber,
             userInfo: {},
             userCountry: this.props.config.countryCode,
+            isGlobal: this.props.config.countryCode === DigitalData.globalExperience,
             userLocale: this.props.config.locale,
             availabilityUrl: this.props.config.availabilityUrl,
             pricingUrl: this.props.config.pricingUrl,
@@ -61,42 +63,45 @@ class SkuDetails extends React.Component {
     }
 
     componentDidMount() {
-        const { availabilityUrl, custPriceApiDisabled, pricingUrl, skuNumber, userCountry } = this.state;
+        const { availabilityUrl, custPriceApiDisabled, isGlobal,
+                pricingUrl, skuNumber, userCountry } = this.state;
 
-        if (LoginStatus.state()) {
-            let userInfo = callCustomerPriceApi(custPriceApiDisabled);
-            if (Object.keys(userInfo).length > 0 && userInfo.callCustApi){
-                this.setState({
-                    userInfo: userInfo
-                }, () => {
-                    this.getCustPricing(pricingUrl, skuNumber, userInfo, this.props.price);
-                });
+        if (!isGlobal) {
+            if (LoginStatus.state()) {
+                let userInfo = callCustomerPriceApi(custPriceApiDisabled);
+                if (Object.keys(userInfo).length > 0 && userInfo.callCustApi){
+                    this.setState({
+                        userInfo: userInfo
+                    }, () => {
+                        this.getCustPricing(pricingUrl, skuNumber, userInfo, this.props.price);
+                    });
+                } else {
+                    this.setState({ loading: false });
+                }
             } else {
                 this.setState({ loading: false });
             }
-        } else {
-            this.setState({ loading: false });
-        }
 
-        getAvailability(availabilityUrl, userCountry, skuNumber)
-        .then(response => {
-            this.setState({
-                skuAvailability: response,
-                modalInfo: {
-                    ...this.props.config.modalInfo,
-                    textHeading: this.props.skuNumber,
-                    text: this.props.titleText
-                },
-                analyticsConfig: {
-                    ...this.state.analyticsConfig,
-                    ...response
-                }
+            getAvailability(availabilityUrl, userCountry, skuNumber)
+            .then(response => {
+                this.setState({
+                    skuAvailability: response,
+                    modalInfo: {
+                        ...this.props.config.modalInfo,
+                        textHeading: this.props.skuNumber,
+                        text: this.props.titleText
+                    },
+                    analyticsConfig: {
+                        ...this.state.analyticsConfig,
+                        ...response
+                    }
+                });
+            })
+            .catch(err => {
+                // Add Error Object to State
+                this.setState({ errorObjAvailability: err });
             });
-        })
-        .catch(err => {
-            // Add Error Object to State
-            this.setState({ errorObjAvailability: err });
-        });
+        }
     }
 
 //Note: getCustPricing Method should be an exact match between SKU Details and SKU List
@@ -326,7 +331,7 @@ class SkuDetails extends React.Component {
     render() {
         if (this.state.isEProcurementUserRestricted) {
             return this.renderEProcurementUserRestricted();
-        } else if (!this.state.listPrice){
+        } else if (!this.state.listPrice || this.state.isGlobal){
             return this.renderCountryRestricted();
         } else if (this.state.discontinued) {
             return this.renderDiscontinued();
