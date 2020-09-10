@@ -225,6 +225,11 @@
                 },
                 "fields": [
                     {
+                        "type": "label",
+                        "name": "requiredLabel",
+                        "label": "${'*Required field' @ i18n, context='unsafe'}"
+                    },
+                    {
                         "type": "text",
                         "name": "firstName",
                         "label": "${'First Name' @ i18n, context='unsafe'}",
@@ -284,6 +289,7 @@
                         "type": "text",
                         "name": "phone",
                         "label": "${'Phone Number' @ i18n, context='unsafe'}",
+                        "optionalLabel": "${'(optional)' @ i18n, context='text'}",
                         "validation": {
                             "validateFnName": "blankOrNumbersOnly",
                             "required": false,
@@ -297,10 +303,10 @@
                         "placeholder": "${'Select...' @ i18n, context='unsafe'}",
                         "options": ${myaccount.countriesJson @ context='unsafe'},
                         "disabled": true,
-                    "validation": {
-                        "required": true,
-                        "requiredMsg": "${'Please select your country.' @ i18n, context='unsafe'}"
-                    }
+                        "validation": {
+                            "required": true,
+                            "requiredMsg": "${'Please select your country.' @ i18n, context='unsafe'}"
+                        }
                     },
                     {
                         "type": "checkbox",
@@ -462,6 +468,11 @@
                     "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
                 },
                 "fields": [
+                    {
+                        "type": "label",
+                        "name": "requiredLabel",
+                        "label": "${'*Required field' @ i18n, context='unsafe'}"
+                    },
                     {
                         "type": "password",
                         "name": "currentPassword",

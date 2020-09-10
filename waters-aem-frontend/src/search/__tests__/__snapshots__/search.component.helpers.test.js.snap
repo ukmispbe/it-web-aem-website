@@ -372,7 +372,7 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by best
   className="cmp-search__container"
 >
   <div
-    className="cmp-search__container__header cleafix"
+    className="cmp-search__container__header clearfix"
   >
     <div
       className="cmp-search-show-btn"
@@ -391,10 +391,6 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by best
         Sort and Filter
       </a>
     </div>
-  </div>
-  <div
-    className="cmp-search__sorted-container"
-  >
     <div
       className="cmp-search__sorted-by"
     >
@@ -403,16 +399,40 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by best
        
       Best Match
     </div>
+  </div>
+  <div
+    className="cmp-search__sorted-container"
+  >
+    <div
+      className="cmp-search__resultsCount-container"
+    >
+      <h2
+        className="cmp-search__resultsCount"
+      >
+        Showing 1-0 of 0 results 
+        <span>
+          for 
+          <strong>
+            <q
+              className="query"
+            >
+              
+            </q>
+            .
+          </strong>
+        </span>
+      </h2>
+    </div>
     <div
       className="cmp-search-filters__emptytags"
     />
-  </div>
-  <div
-    className="cmp-search__results-container"
-  >
-    <ul
-      className="cmp-search__results"
-    />
+    <div
+      className="cmp-search__results-container"
+    >
+      <ul
+        className="cmp-search__results"
+      />
+    </div>
   </div>
 </div>
 `;
@@ -422,7 +442,7 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by most
   className="cmp-search__container"
 >
   <div
-    className="cmp-search__container__header cleafix"
+    className="cmp-search__container__header clearfix"
   >
     <div
       className="cmp-search-show-btn"
@@ -441,10 +461,6 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by most
         Sort and Filter
       </a>
     </div>
-  </div>
-  <div
-    className="cmp-search__sorted-container"
-  >
     <div
       className="cmp-search__sorted-by"
     >
@@ -453,16 +469,40 @@ exports[`Feature: ResultsBody Component Scenario: Rendering When sorting by most
        
       Most Recent
     </div>
+  </div>
+  <div
+    className="cmp-search__sorted-container"
+  >
+    <div
+      className="cmp-search__resultsCount-container"
+    >
+      <h2
+        className="cmp-search__resultsCount"
+      >
+        Showing 1-0 of 0 results 
+        <span>
+          for 
+          <strong>
+            <q
+              className="query"
+            >
+              
+            </q>
+            .
+          </strong>
+        </span>
+      </h2>
+    </div>
     <div
       className="cmp-search-filters__emptytags"
     />
-  </div>
-  <div
-    className="cmp-search__results-container"
-  >
-    <ul
-      className="cmp-search__results"
-    />
+    <div
+      className="cmp-search__results-container"
+    >
+      <ul
+        className="cmp-search__results"
+      />
+    </div>
   </div>
 </div>
 `;
@@ -486,14 +526,20 @@ Array [
         />
         <span
           className="signin-part1"
-        />
+        >
+          Sign in
+        </span>
       </a>
       <span
         className="signin-part2"
-      />
+      >
+        to view 
+      </span>
       <span
         className="signin-part3"
-      />
+      >
+        Your Price
+      </span>
     </div>
   </div>,
   <div
@@ -531,9 +577,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -566,10 +614,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -610,9 +658,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -645,10 +695,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -689,9 +739,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -724,10 +776,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -768,9 +820,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -803,10 +857,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -847,9 +901,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -882,10 +938,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -926,9 +982,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -961,10 +1019,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -1005,9 +1063,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -1040,10 +1100,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -1084,9 +1144,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -1119,10 +1181,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -1163,9 +1225,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -1198,10 +1262,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -1242,9 +1306,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -1277,10 +1343,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -1321,9 +1387,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -1356,10 +1424,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -1400,9 +1468,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -1435,10 +1505,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -1479,9 +1549,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -1514,10 +1586,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -1558,9 +1630,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -1593,10 +1667,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -1628,14 +1702,20 @@ Array [
         />
         <span
           className="signin-part1"
-        />
+        >
+          Sign in
+        </span>
       </a>
       <span
         className="signin-part2"
-      />
+      >
+        to view 
+      </span>
       <span
         className="signin-part3"
-      />
+      >
+        Your Price
+      </span>
     </div>
   </div>,
   <div
@@ -1673,9 +1753,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -1708,10 +1790,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -1752,9 +1834,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -1787,10 +1871,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -1831,9 +1915,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -1866,10 +1952,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -1910,9 +1996,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -1945,10 +2033,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -1989,9 +2077,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -2024,10 +2114,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -2068,9 +2158,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -2103,10 +2195,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -2147,9 +2239,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -2182,10 +2276,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -2226,9 +2320,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -2261,10 +2357,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -2305,9 +2401,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -2340,10 +2438,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -2384,9 +2482,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -2419,10 +2519,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -2463,9 +2563,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -2498,10 +2600,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -2542,9 +2644,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -2577,10 +2681,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -2621,9 +2725,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -2656,10 +2762,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>
@@ -2700,9 +2806,11 @@ Array [
         <div
           className="cmp-sku-list__priceinfo"
         >
-          <span>
+          <div
+            className="cmp-sku-list__list-price-label"
+          >
             List Price
-          </span>
+          </div>
           <div
             className="cmp-sku__price"
           >
@@ -2735,10 +2843,10 @@ Array [
             />
           </form>
           <a
-            className="cmp-button"
+            className="cmp-button false"
             onClick={[Function]}
           >
-            ADD TO CART
+            Add to Cart
           </a>
         </div>
       </div>

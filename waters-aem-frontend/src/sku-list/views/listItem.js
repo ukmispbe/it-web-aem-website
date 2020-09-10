@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
+import PropTypes from 'prop-types';
 import Stock from '../../sku-details/views/stock';
 import Price from '../../sku-details/views/price';
 import { getAvailability, getPricing, matchListItems } from '../../sku-details/services';

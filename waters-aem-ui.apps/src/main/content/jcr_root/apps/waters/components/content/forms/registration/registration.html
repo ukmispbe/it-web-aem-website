@@ -17,7 +17,12 @@
                 "eyeOffIcon": "/content/dam/waters/en/brand-assets/icons/eye-off.svg",
                 "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
             },
-            "fields": [                
+            "fields": [
+                {
+                    "type": "label",
+                    "name": "requiredLabel",
+                    "label": "${'*Required field' @ i18n, context='unsafe'}"
+                },                
                 {
                     "type": "email",
                     "name": "email",
@@ -55,6 +60,11 @@
                 "lockIcon": "/content/dam/waters/en/brand-assets/icons/lock.svg"
             },
             "fields": [
+                {
+                    "type": "label",
+                    "name": "requiredLabel",
+                    "label": "${'*Required field' @ i18n, context='unsafe'}"
+                },
                 {
                     "type": "email",
                     "name": "email",

@@ -156,7 +156,7 @@ const Form = ({
 
     useEffect(() => {
         // Configure Registration Form on "Loading"
-        if (config.formName === "registration") {
+        if (config.formName === "registration" ) {
             const countryRegion = digitalData.page.country.toLowerCase();
             // Get Regional config 
             const countryOptionsConfig = regionalConfig;
@@ -171,7 +171,7 @@ const Form = ({
                 selectedCountryOptions[0].fields.map(fieldName => activateField(fieldName));
             }
         }
-    }, []);
+    }, [config.formName]);
 
     const [newConfig, setNewConfig] = useState();
 
