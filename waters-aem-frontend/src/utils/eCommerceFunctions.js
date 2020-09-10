@@ -11,7 +11,7 @@ export const isCartHidden = () => {
     if (eCommStatus === "DISABLED") {
         return true;
     }
-    if (eCommStatus === "FULL_ENABLED" || eCommStatus === "COMMERCE_CHECKOUT_DISABLED") {
+    if (eCommStatus === "FULL_ENABLED") {
         return false;
     }
     if (eCommStatus === "PARTIAL_ENABLED") {
@@ -39,7 +39,7 @@ export const isSignInHidden = () => {
     if (eCommStatus === "DISABLED" || eCommStatus === "PARTIAL_ENABLED") {
         return true;
     }
-    if (eCommStatus === "FULL_ENABLED" || eCommStatus === "COMMERCE_CHECKOUT_DISABLED") {
+    if (eCommStatus === "FULL_ENABLED") {
         return false;
     }
     return false;
