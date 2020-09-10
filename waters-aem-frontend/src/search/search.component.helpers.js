@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 import ReactSVG from 'react-svg';
+import PropTypes from 'prop-types';
 import { parameterDefaults } from './services/index';
 import ContentTypeMenu from './components/content-type-menu';
 import FacetMenu from './components/facet-menu';
@@ -21,7 +22,6 @@ import {
 import SkuList from '../sku-list';
 import Results from './components/results';
 import { propTypes, defaultProps } from './search.component.props';
-import PropTypes from 'prop-types';
 import { isEprocurementUser } from '../utils/userFunctions';
 
 const FilterTagList = ({
