@@ -101,6 +101,22 @@ public class Commerce {
     @Inject
     private Boolean customerPriceApiDisabled;
 
+    @DialogField(fieldDescription = "Enable this to make Checkout  Disable",
+            value = "true",
+            ranking = 10)
+    @CheckBox(title = "checkoutDisabled",
+            text = "Disable Checkout")
+    @Inject
+    private Boolean checkoutDisabled;
+
+    @DialogField(fieldDescription = "Enable this to make Quote  Disable",
+            value = "true",
+            ranking = 11)
+    @CheckBox(title = "quoteDisabled",
+            text = "Disable Quote")
+    @Inject
+    private Boolean quoteDisabled;
+
     public String getAddToCartUrl() {
         return addToCartUrl;
     }
