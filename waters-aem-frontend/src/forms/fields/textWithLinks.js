@@ -11,7 +11,7 @@ const TextWithLinks = ({}) => {
             <a
                 href={url}
                 target={blank ? "_blank" : ""}
-                rel="noopener"
+                rel="noopener noreferrer"
                 className={className}
                 id={id}
                 title={title}
