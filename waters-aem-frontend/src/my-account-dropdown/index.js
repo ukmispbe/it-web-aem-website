@@ -360,7 +360,7 @@ class MyAccountDropDown extends React.Component {
                     sessionStore.removeSoldToDetails();
                     if (userDetailsUrl && soldToDetailsUrl) {
                         const userDetails = await UserDetailsLazy(userDetailsUrl, false);
-                        if (!Object.keys(userDetails).length) {
+                        if (Object.keys(userDetails).length) {
                             await SoldToDetailsLazy(soldToDetailsUrl);
                         } else {
                             await checkAndSetError();
