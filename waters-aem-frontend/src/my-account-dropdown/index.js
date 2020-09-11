@@ -359,8 +359,12 @@ class MyAccountDropDown extends React.Component {
                     const soldToDetailsUrl = (this.props.config && this.props.config.soldToDetailsUrl) || '';
                     sessionStore.removeSoldToDetails();
                     if (userDetailsUrl && soldToDetailsUrl) {
-                        await UserDetailsLazy(userDetailsUrl, false);
-                        await SoldToDetailsLazy(soldToDetailsUrl);
+                        const userDetails = await UserDetailsLazy(userDetailsUrl, false);
+                        if (!Object.keys(userDetails).length) {
+                            await SoldToDetailsLazy(soldToDetailsUrl);
+                        } else {
+                            await checkAndSetError();
+                        }
                     }
                 }
             } else if (!loginStatus.state()) {
