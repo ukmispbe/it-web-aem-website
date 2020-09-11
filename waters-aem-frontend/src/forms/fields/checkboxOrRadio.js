@@ -121,7 +121,7 @@ const CheckboxOrRadio = ({}) => {
                 <a
                     href={thisState.link}
                     target={thisState ? '_blank' : ''}
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     data-locator={elementLocator(thisState.text || 'add-on-link')}
                 >
                     {thisState.text}
