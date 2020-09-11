@@ -106,7 +106,7 @@ const Header = props => {
         return (
             <div className="cmp-modal__title">
                 <Icon/>
-                <div className="cmp-modal__title-text"  data-locator={elementLocator(props.title)}>{props.title}</div>
+                <div className="cmp-modal__title-text" role="heading" aria-label={props.title} tabindex="0" data-locator={elementLocator(props.title)}>{props.title}</div>
             </div>
             
         )
@@ -117,11 +117,9 @@ const Header = props => {
         className={`cmp-modal__header ${props.title ? keys.HeaderWithTitle : ''} ${props.className ? props.className : ''}` }
         data-locator={props.elementLocator || elementLocator(props.title || props.className)}>
             <Title />
-            <div className="cmp-modal__close-icon">
-                <ReactSVG
-                    onClick={onClose}
-                    src={closeIcon} />
-            </div>
+            <button onClick={onClose} className="cmp-modal__close-icon">
+                <ReactSVG src={closeIcon} aria-hidden="true" />
+            </button>
         </div>
     );
 };
