@@ -14,6 +14,7 @@ getPage("/content/waters").iterator().each {
         propertiesMap.put("siteConfig", values.get("siteConfig"))
         propertiesMap.put("commerceAPI", values.get("commerceAPI"))
         propertiesMap.put("countryCommerceConfig", values.get("countryCommerceConfig"))
+        propertiesMap.put("viewCartUrl", values.get("viewCartUrl"))
 
         map.put(it.getPath(), propertiesMap)
     }
