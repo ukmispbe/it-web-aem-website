@@ -40,7 +40,7 @@ class Chat extends React.Component {
                     className={`cmp-button ${!isActive ? "cmp-button--disabled" : ""}`}
                     href={isActive ? this.props.url : "#"}
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     disabled={!isActive}
                     role="button"
                     aria-disabled={!isActive}

@@ -14,7 +14,7 @@ const Link = ({}) => {
                         <a
                             href={link}
                             target={blank ? "_blank" : ""}
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             data-locator={elementLocator(text)}>
                             {text}
                         </a>

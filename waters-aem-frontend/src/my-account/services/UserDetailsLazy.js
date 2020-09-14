@@ -7,11 +7,17 @@ export default async (userDetailsUrl, checkSessionStore, sessionStore = new Sess
     // Don't get User Details if My-Account Drop Down is not present
     const navBarControls = document.getElementsByClassName("cmp-header__top-bar__nav");
     if (navBarControls.length === 0) {
+        console.error(
+            "UserDetails API cannot be initiated due to nav bar controls"
+        );
         return {};
     }
 
     // Don't get User Details if not logged in
     if (!loginStatus.state()) {
+        console.error(
+            "UserDetails API cannot be initiated due to unavailibility of login cookie"
+        );
         return {};
     }
 

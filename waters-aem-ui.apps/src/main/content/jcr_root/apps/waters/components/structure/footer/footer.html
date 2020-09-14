@@ -68,7 +68,7 @@
             <div class="cmp-footer__links ${isChinaPage ? 'china-legal' : ''}">
                 <nav data-sly-test="${footer.footerLinks || isChinaPage}">
                     <a data-sly-repeat="${footer.footerLinks}" href="${item.link.href}"
-                        target="${item.external ? '_blank' : ''}" data-locator="${item.text}">
+                        target="${item.external ? '_blank' : ''}" rel="${item.external ? 'noopener noreferrer' : ''}" data-locator="${item.text}">
                         ${item.text}
                         <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
                             data-sly-call="${patterns.linkIcon @ linkItem=item}" />
