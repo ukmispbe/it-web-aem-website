@@ -20,9 +20,10 @@ getPage("/content/waters").iterator().each {
     }
 }
 
-//Comment the below lines if /tmp/waters exists
-getNode("/tmp").addNode("waters")
-save()
+if(getResource("/tmp/waters") == null) {
+    getNode("/tmp").addNode("waters")
+    save()
+}
 
 JcrUtils.putFile(getNode("/tmp/waters"), "commercePageProps.json", "application/json",
         IOUtils.toInputStream(JsonOutput.prettyPrint(JsonOutput.toJson(map)), Charset.defaultCharset()))
