@@ -22,7 +22,7 @@
                 <div class="social-links-text">${'Follow our channels' @ i18n}</div>
                 <ul>
                     <li data-sly-repeat="${footer.socialLinks}" class="cmp-footer__social-links__item">
-                        <a class="cmp-footer-social-links__link" href="${item.link.href}" target="_blank">
+                        <a class="cmp-footer-social-links__link" href="${item.link.href}" target="_blank" rel="noopener noreferrer">
                             <img class="${item.svg ? 'inline-svg' : ''}" data-sly-test="${item.linkIcon}"
                                 src="${item.linkIcon}" />
                         </a>
