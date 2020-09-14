@@ -104,7 +104,7 @@ if (spinnerContainer) {
             color: '#ffffff',
         }
         ReactDOM.render(
-            showLoader ? <Spinner {...props} /> : <></>,
+            showLoader ? <Spinner {...props} /> : null,
             container
         );
     }
