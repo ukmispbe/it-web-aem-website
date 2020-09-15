@@ -91,6 +91,7 @@ const AddToCartModalBody = props => {
                     target={btn.target || ''}
                     {...(btn.callback && { onClick: (e)=>btn.callback(e) })}
                     data-locator={elementLocator(btn.text)}
+                    role="button"
                 >
                     {btn.text}
                 </a>
