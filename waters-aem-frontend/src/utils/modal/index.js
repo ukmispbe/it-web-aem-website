@@ -128,7 +128,7 @@ Modal.propTypes = {
 Modal.defaultProps = {
     onClose: () => { },
     showCloseIcon: true,
-    focusableElements: 'button, [href], input, select, textarea, li, a, [tabindex]:not([tabindex="-1"])',
+    focusableElements: 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
 }
 
 const Header = props => {
@@ -150,7 +150,7 @@ const Header = props => {
         return (
             <div className="cmp-modal__title">
                 <Icon/>
-                <div className="cmp-modal__title-text" role="heading" aria-label={props.title} tabindex="0" data-locator={elementLocator(props.title)}>{props.title}</div>
+                <div className="cmp-modal__title-text" role="heading" aria-label={props.title} data-locator={elementLocator(props.title)}>{props.title}</div>
             </div>
             
         )
