@@ -224,6 +224,7 @@ class ListItem extends React.Component {
                 </div>
                 <div
                     className="cmp-sku-details__availability"
+                    tabIndex="-1"
                     onClick={e =>
                         this.checkAvailability(relatedSku.code)
                     }
@@ -348,9 +349,9 @@ class ListItem extends React.Component {
         if (skuConfig.showBreadcrumbs) {
             return (
                 <div className="cmp-search__results-item-breadcrumb skuitem" data-locator="search-results-breadcrumb">
-                    <div tabindex="0">{relatedSku.category_facet}</div>
+                    <div>{relatedSku.category_facet}</div>
                     <ReactSVG src={skuConfig.skuInfo.nextIcon} />
-                    <div tabindex="0">{relatedSku.contenttype_facet}</div>
+                    <div>{relatedSku.contenttype_facet}</div>
                 </div>
             );
         }
@@ -386,7 +387,7 @@ class ListItem extends React.Component {
                     />
                 </div>
                 <div className="cmp-sku-details__left">
-                    <div className="cmp-sku-list__code" data-locator="product-number">
+                    <div className="cmp-sku-list__code" data-locator="product-number" tabindex="0">
                         {skuConfig.skuInfo.partNumberLabel + " " + relatedSku.code}
                     </div>
                     <a
