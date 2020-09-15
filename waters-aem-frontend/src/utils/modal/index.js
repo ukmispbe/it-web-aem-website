@@ -106,7 +106,7 @@ const Header = props => {
         return (
             <div className="cmp-modal__title">
                 <Icon/>
-                <div className="cmp-modal__title-text" role="heading" aria-label={props.title} data-locator={elementLocator(props.title)}>{props.title}</div>
+                <div className="cmp-modal__title-text" role="heading" tabindex="0" aria-label={props.title} data-locator={elementLocator(props.title)}>{props.title}</div>
             </div>
             
         )
