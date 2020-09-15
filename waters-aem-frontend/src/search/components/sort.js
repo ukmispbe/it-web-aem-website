@@ -18,7 +18,7 @@ const getOptions = text => {
 const Sort = props => {
     return (
         <div className="cmp-search-sortby" data-locator="sortby-label">
-            <h3>{props.text.sortByHeading}</h3>
+            <h3 tabindex="0">{props.text.sortByHeading}</h3>
             <Dropdown
                 getOptions={getOptions}
                 sortValue={props.sortValue}
