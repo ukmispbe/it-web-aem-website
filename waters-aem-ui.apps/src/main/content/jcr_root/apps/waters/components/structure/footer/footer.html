@@ -2,7 +2,7 @@
 <a class="cmp-back-to-top" href="#" title="${'Back To Top' @ i18n}"><img alt="${'Back To Top' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/up.svg" class="inline-svg"></a>
 
 <!-- this second anchor has a relative position and will show on the page when the footer is visible during scrolling -->
-<a class="cmp-back-to-top--relative" href="#" title="${'Back To Top' @ i18n}"><img alt="${'Back To Top' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/up.svg" class="inline-svg"></a>
+<a class="cmp-back-to-top--relative" href="#" title="${'Back To Top' @ i18n}" aria-label="Back To Top"><img alt="${'Back To Top' @ i18n}" src="/content/dam/waters/en/brand-assets/icons/up.svg" class="inline-svg"></a>
 
 <div data-sly-use.footer="com.waters.aem.core.components.structure.Footer" id="footer" class="cmp-footer" data-ecommerce-state="${footer.commerceConfig}">
     <sly data-sly-test.isChinaPage="${footer.chinaPage}"/>
@@ -68,7 +68,7 @@
             <div class="cmp-footer__links ${isChinaPage ? 'china-legal' : ''}">
                 <nav data-sly-test="${footer.footerLinks || isChinaPage}">
                     <a data-sly-repeat="${footer.footerLinks}" href="${item.link.href}"
-                        target="${item.external ? '_blank' : ''}" rel="${item.external ? 'noopener noreferrer' : ''}" data-locator="${item.text}">
+                        target="${item.external ? '_blank' : ''}" data-locator="${item.text}">
                         ${item.text}
                         <sly data-sly-use.patterns="/apps/waters/components/content/patterns.html"
                             data-sly-call="${patterns.linkIcon @ linkItem=item}" />
@@ -142,8 +142,6 @@
         "viewCartUrl": "${footer.viewCartUrl @ context='unsafe'}",
         "isCommerceApiMigrated": "${footer.commerceApiMigrated @ context='unsafe'}",
         "isCustomerPriceApiDisabled": "${footer.customerPriceApiDisabled @ context='unsafe'}",
-        "isCheckoutDisabled": "${footer.checkoutDisabled @ context='unsafe'}",
-        "isQuoteDisabled": "${footer.quoteDisabled @ context='unsafe'}",
         "countryCode": "${footer.countryCode @ context='scriptString'}",
         "isoCode": "${footer.isoCode @ context='scriptString'}",
         "addToCartLabel": "${'Add to Cart' @ i18n, context='text'}",

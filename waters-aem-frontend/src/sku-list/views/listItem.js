@@ -348,9 +348,9 @@ class ListItem extends React.Component {
         if (skuConfig.showBreadcrumbs) {
             return (
                 <div className="cmp-search__results-item-breadcrumb skuitem" data-locator="search-results-breadcrumb">
-                    <div>{relatedSku.category_facet}</div>
+                    <div tabindex="0">{relatedSku.category_facet}</div>
                     <ReactSVG src={skuConfig.skuInfo.nextIcon} />
-                    <div>{relatedSku.contenttype_facet}</div>
+                    <div tabindex="0">{relatedSku.contenttype_facet}</div>
                 </div>
             );
         }
