@@ -104,6 +104,14 @@ public class Registration implements ComponentExporter {
     @Default(booleanValues = false)
     private Boolean newWindow;
 
+    @DialogField(fieldLabel = "Show Two Step Registration Form",
+        fieldDescription = "Select this option to show the new two step registration form",
+        ranking = 6)
+    @Switch(offText = "No", onText = "Yes")
+    @Inject
+    @Default(booleanValues = false)
+    private Boolean twoStepRegistrationForm;
+
     @DialogField(fieldLabel = "Privacy Disclosures Link",
             fieldDescription = "Select or enter the link URL for Privacy Disclosures",
             tab = 2,
@@ -162,6 +170,10 @@ public class Registration implements ComponentExporter {
 
     public String getCaptchaSiteKey() {
         return captchaService.getSiteKey();
+    }
+
+    public Boolean isTwoStepRegistrationForm() {
+        return twoStepRegistrationForm;
     }
 
     @Nonnull

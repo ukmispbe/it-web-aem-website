@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 import ReactSVG from 'react-svg';
+import PropTypes from 'prop-types';
 import { parameterDefaults } from './services/index';
 import ContentTypeMenu from './components/content-type-menu';
 import FacetMenu from './components/facet-menu';
@@ -21,7 +22,6 @@ import {
 import SkuList from '../sku-list';
 import Results from './components/results';
 import { propTypes, defaultProps } from './search.component.props';
-import PropTypes from 'prop-types';
 import { isEprocurementUser } from '../utils/userFunctions';
 
 const FilterTagList = ({
@@ -350,7 +350,6 @@ Pagination.defaultProps = {
     previousIcon: ""
 };
 
-
 const ResultsBody = ({
     text, 
     filterMap,
@@ -384,15 +383,14 @@ const ResultsBody = ({
                     resetToSavedState={showSortFilterEvents.onResetToSavedState}
                     collapseFilters={showSortFilterProps.collapseFilters}
                     onClose={showSortFilterEvents.onClose} />  
-            </div>
-            <div className="cmp-search__sorted-container">
                 <div className="cmp-search__sorted-by">
                     {text.sortedBy}:{' '}
                     {asideProps.sortByText === 'most-relevant'
                         ? text.sortByBestMatch 
                         : text.sortByMostRecent}
                 </div>
-
+            </div>
+            <div className="cmp-search__sorted-container">
                 <ResultsCount
                     {...resultsProps}
                     text={text}

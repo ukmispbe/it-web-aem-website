@@ -11,16 +11,24 @@ import org.osgi.service.metatype.annotations.Designate;
 @Designate(ocd = AdobeLaunchServiceConfiguration.class)
 public final class DefaultAdobeLaunchService implements AdobeLaunchService {
 
-    private volatile String launchScript;
+    private volatile String ecommLaunchScript;
+    
+    private volatile String eprocLaunchScript;
 
     @Override
-    public String getLaunchScript() {
-        return launchScript;
+    public String getEcommLaunchScript() {
+        return ecommLaunchScript;
+    }
+    
+    @Override
+    public String getEprocLaunchScript() {
+        return eprocLaunchScript;
     }
 
     @Activate
     @Modified
     protected void activate(final AdobeLaunchServiceConfiguration configuration) {
-        launchScript = configuration.launchScript();
+    	ecommLaunchScript = configuration.ecommLaunchScript();
+    	eprocLaunchScript = configuration.eprocLaunchScript();
     }
 }

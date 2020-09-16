@@ -176,7 +176,10 @@ export const functions = {
                 const newEmail = myService
                     .checkEmail(value)
                     .then(response => {
-                        if (response.isregistereduser) {
+
+                        if (response.isregistereduser && response.userRole === 'EPROC') {
+                            window.dispatchEvent(new CustomEvent("setEProcUser"));
+                        } else if (response.isregistereduser) {
                             // Display Sign In span
                             setError(
                                 "alreadyRegistered",
