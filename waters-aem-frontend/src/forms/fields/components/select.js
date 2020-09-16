@@ -69,8 +69,6 @@ const Select = (props) => {
             onBlur={() => triggerValidation({ name: name })}
             onChange={handleChange}
             value={getOptions().filter(o => o.value === selectedValue)}
-            aria-label={selectedValue}
-            aria-labelledby={selectedValue}
         />
     );
 };

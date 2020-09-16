@@ -34,6 +34,7 @@ import CountrySelector from './country-selector';
 import SessionStore from './stores/sessionStore';
 import LoginStatus from "./scripts/loginStatus";
 import CreateAccountForm from './create-account-form';
+import Spinner from './utils/spinner';
 
 if (process.env.NODE_ENV !== 'production') {
     const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -93,6 +94,29 @@ function getAuthoredDataForChat(c) {
         buttonText: c.dataset.chatButtonText
     };
 }
+
+// Bind Loader component on Demand
+const spinnerContainer = document.getElementById("cmp-header--loader");
+if (spinnerContainer) {
+    const bindLoaderToDom = (container, showLoader = false) => {
+        const props = {
+            loading: showLoader,
+            color: '#ffffff',
+        }
+        ReactDOM.render(
+            showLoader ? <Spinner {...props} /> : null,
+            container
+        );
+    }
+    window.addEventListener(
+        "showLoaderEproc",
+        ({ detail: data }) => {
+            bindLoaderToDom(spinnerContainer, data.showLoader);
+        },
+        false
+    ); 
+}
+// End Bind Loader component on Demand
 
 const searchBarContainer = document.getElementById('js-search-bar');
 const header = document.querySelector('.cmp-header');
