@@ -84,7 +84,7 @@ const ClearAllTag = props => {
     return <a href="javascript:void(0);"
             className="cmp-search-filters__tags__clear"
             data-locator="link-search-filters-tag-clear"
-            aria-label="search filter clear tag"
+            aria-label={props.text.clearAllFilters}
             onClick={props.onRemove}>
             <ReactSVG src={props.text.closeIcon} />
             <span>{props.text.clearAllFilters}</span>
@@ -93,7 +93,7 @@ const ClearAllTag = props => {
 
 const KeywordTag = props => {
     return <a href="javascript:void(0);"
-            aria-label="search keyword"
+            aria-label={`${props.text.keyWordLabel}: ${props.keyword}`}
             onClick={props.onRemove}>
             <ReactSVG src={props.text.closeIcon} />
             <span>{`${props.text.keyWordLabel}: ${props.keyword}`}</span>

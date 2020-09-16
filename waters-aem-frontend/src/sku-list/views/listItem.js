@@ -224,7 +224,6 @@ class ListItem extends React.Component {
                 </div>
                 <div
                     className="cmp-sku-details__availability"
-                    tabIndex="-1"
                     onClick={e =>
                         this.checkAvailability(relatedSku.code)
                     }
