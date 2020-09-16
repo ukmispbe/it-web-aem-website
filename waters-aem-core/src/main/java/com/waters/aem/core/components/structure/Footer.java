@@ -455,12 +455,24 @@ public final class Footer extends AbstractComponent implements ComponentExporter
         return siteContext.isCommerceApiMigrated();
     }
 
+    public boolean isCheckoutDisabled() {
+        return siteContext.isCheckoutDisabled();
+    }
+
+    public boolean isQuoteDisabled() {
+        return siteContext.isQuoteDisabled();
+    }
+
     public String viewCartUrl() {
         if (isCommerceApiMigrated()) {
             return siteContext.getViewCartURL();
         } else {
         return watersCommerceService.getViewCartUrl();
         }
+    }
+
+    public boolean getCustomerPriceApiDisabled() {
+        return siteContext.isCustomerPriceApiDisabled();
     }
 
     public String getLocale() {

@@ -31,7 +31,6 @@
             float: none;
             padding-left: 0;
             margin-left: 0;
-            margin-top: $space-xl;
         }
 
         @include mobile {
@@ -46,6 +45,7 @@
         width: 100%;
         float: none;
         padding-left: 0;
+        margin-top: 0;
     }
     @include mobile {
         width: 100%;
@@ -404,6 +404,7 @@ div.cmp-search__no-results {
         float: left;
         margin-bottom: 0;
         padding-bottom: $space-l;
+        min-width: 130px;
     }
     @include mobile {
         padding-bottom: 0;

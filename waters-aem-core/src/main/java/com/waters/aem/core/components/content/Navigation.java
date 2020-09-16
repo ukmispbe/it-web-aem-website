@@ -3,6 +3,8 @@ package com.waters.aem.core.components.content;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.models.NavigationItem;
 import com.citytechinc.cq.component.annotations.Component;
+import com.waters.aem.core.components.SiteContext;
+
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -34,6 +36,9 @@ public class Navigation implements com.adobe.cq.wcm.core.components.models.Navig
     @Self
     @Via(type = ResourceSuperType.class)
     private com.adobe.cq.wcm.core.components.models.Navigation delegate; // delegate to core component class
+    
+    @Self
+    private SiteContext siteContext;
 
     @Override
     public List<NavigationItem> getItems() {
@@ -44,5 +49,9 @@ public class Navigation implements com.adobe.cq.wcm.core.components.models.Navig
     @Override
     public String getExportedType() {
         return RESOURCE_TYPE;
+    }
+    
+    public boolean isEprocurement() {
+        return siteContext.getSiteConfig().isEprocurement();
     }
 }

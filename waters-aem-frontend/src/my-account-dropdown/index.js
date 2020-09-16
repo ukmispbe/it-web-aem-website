@@ -311,7 +311,7 @@ class MyAccountDropDown extends React.Component {
         this.setState(prevState => ({
             eprocSetupFailure: {
                 ...prevState.eprocSetupFailure,
-                status: true,
+                status: !this.props.isEditMode,
                 ...config,
             }
         }));
@@ -321,28 +321,39 @@ class MyAccountDropDown extends React.Component {
         const urlParams = parseQueryParams(window.location.search);
         const token = urlParams['1tu'] || '';
         const sessionStore = new SessionStore();
+        const { requestFailureTitle, requestFailureMessage, sessionTimeoutTitle, sessionTimeoutMessage } = this.props.eProcSetupFailure;
+        const checkAndSetError = async (responseJson = {}) => {
+            let punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
+            if (!this.state.eprocSetupFailure.status) {
+                if(Object.keys(punchoutSetupDetails).length === 0) {
+                    await this.punchoutSetup(); // retrieve punchout setup
+                    punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
+                }
+                this.setEprocFailure({
+                    title: responseJson.code === 804 ? sessionTimeoutTitle : requestFailureTitle,
+                    text: responseJson.code === 804 ? sessionTimeoutMessage : requestFailureMessage,
+                    buttons: [{ 
+                        text: this.state.eprocSetupFailure.buttons[0].text,
+                        action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '',
+                    }]
+                });
+            }
+        }
         if (token) {
             sessionStore.removeUserDetails();
             const { response } = await punchoutLogin(this.props.config.punchoutLogin, { token });
             if ( response && response.status !== 200) {
                 const responseJson = await response.json();
-                const { requestFailureTitle, requestFailureMessage, sessionTimeoutTitle, sessionTimeoutMessage } = this.props.eProcSetupFailure;
-                let punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
-                if(!this.state.eprocSetupFailure.status) {
-                    if(Object.keys(punchoutSetupDetails).length === 0) {
-                        await this.punchoutSetup(); // retrieve punchout setup
-                        punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
-                    }
-                    this.setEprocFailure({
-                        title: responseJson.code === 804 ? sessionTimeoutTitle : requestFailureTitle,
-                        text: responseJson.code === 804 ? sessionTimeoutMessage : requestFailureMessage,
-                        buttons: [{ 
-                            text: this.state.eprocSetupFailure.buttons[0].text,
-                            action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '',
-                        }]
-                    });
-                }
+                await checkAndSetError(responseJson);
+            } else {
+                sessionStore.removeSoldToDetails();
+                await UserDetailsLazy(this.props.config.userDetailsUrl, false);
+                await SoldToDetailsLazy(this.props.config.soldToDetailsUrl);
             }
+        } else if (!loginStatus.state()) {
+            sessionStore.removeUserDetails();
+            sessionStore.removeSoldToDetails();
+            await checkAndSetError();
         }
         removeQueryString(window.location.href, '1tu', true);
     }
@@ -369,7 +380,7 @@ class MyAccountDropDown extends React.Component {
                     title: requestFailureTitle,
                     text: requestFailureMessage,
                     buttons: [{ 
-                        text: prevState.eprocSetupFailure.buttons[0].text, 
+                        text: this.state.eprocSetupFailure.buttons[0].text, 
                         action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '',
                     }]
                 });
@@ -413,6 +424,7 @@ class MyAccountDropDown extends React.Component {
 MyAccountDropDown.propTypes = {
     config: PropTypes.object.isRequired,
     eProcSetupFailure: PropTypes.object,
+    isEditMode: PropTypes.bool
 };
 
 MyAccountDropDown.defaultProps = {
@@ -423,7 +435,8 @@ MyAccountDropDown.defaultProps = {
         sessionTimeoutMessage: '',
         icon: '',
         buttons: [{ text: '' }]
-    }
+    },
+    isEditMode: false
 }
 
 export default MyAccountDropDown;

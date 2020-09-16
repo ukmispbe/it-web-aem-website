@@ -22,13 +22,10 @@
     .logo {
         display: flex;
         align-items: center;
-
-        svg {
-            margin-left: $space-xs;
-            max-width: $thumbnail-s;
-            max-height: $thumbnail-s;
-            height: 100%;
-            width: 100%;
-        }
+        margin-left: $space-xs;
+        max-width: $thumbnail-s;
+        max-height: $thumbnail-s;
+        height: 100%;
+        width: 100%;
     }
 }

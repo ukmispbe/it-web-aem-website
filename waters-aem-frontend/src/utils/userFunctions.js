@@ -78,19 +78,47 @@ export const getSoldToIdSource = (soldToId, dummySoldto) => {
 }
 
 //Note: Returning all possible soldTo values for debugging and in case of future needs
-export const setSKUUserInfo = () => {
+export const callCustomerPriceApi = (custPriceApiDisabled) => {
     let salesOrg = getSalesOrg();
     let soldToId = getSoldToId();
     let dummySoldto = getDummySoldToId();
     let dynamicSoldTo = getSoldToIdSource(soldToId, dummySoldto);
+    let callCustApi = false;
+
+    if (dynamicSoldTo !== '' && salesOrg !== '' && custPriceApiDisabled !== true 
+        && custPriceApiDisabled !== "true"){
+            callCustApi = true;
+        }
 
     let userInfo = {
         salesOrg: salesOrg,
         soldToId: soldToId,
         dummySoldto: dummySoldto,
-        dynamicSoldTo: dynamicSoldTo
+        dynamicSoldTo: dynamicSoldTo,
+        callCustApi: callCustApi
     }
+
     return userInfo;
+}
+
+const capitalize = str => {
+    if (!str || str.trim() === '') return '';
+
+    return str
+        .split(' ')
+        .map(word => {
+            return word[0].toUpperCase() + word.slice(1, word.length);
+        })
+        .join(' ');
+};
+
+export const trimAndCapitalize = (item) => {
+    if (item && typeof item === "string") {
+        item = item.replace(/\s\s+/g, ' ');
+        item = item.trim();
+        item = capitalize(item);
+    }
+    return item;
 }
 
 export const getFullCompanyAddress = (address, includeCountryName) => {
@@ -101,36 +129,29 @@ export const getFullCompanyAddress = (address, includeCountryName) => {
         return '';
 
     let addressArray = [];
-    const city = address.city ? capitalize(address.city).trim() + ', ' : '';
-    const region = address.regio ? capitalize(address.regio).trim() + ' ' : '';
-    const postalCd = address.postalCd ? capitalize(address.postalCd).trim() : '';
+    const city = address.city ? trimAndCapitalize(address.city) + ', ' : '';
+    const region = address.region ? trimAndCapitalize(address.region) + ' ' : '';
+    const postalCd = address.postalCd ? trimAndCapitalize(address.postalCd) : '';
+
     if (address.partnerName) {
-        address.partnerName ? addressArray.push(capitalize(address.partnerName).trim()) : null;
+        address.partnerName ? addressArray.push(trimAndCapitalize(address.partnerName)) : null;
     }
+
     if (address.addr1) {
-        address.addr1 ? addressArray.push(capitalize(address.addr1).trim()) : null;
+        address.addr1 ? addressArray.push(trimAndCapitalize(address.addr1)) : null;
     }
-    address.addr2 ? addressArray.push(capitalize(address.addr2).trim()) : null;
-    address.addr3 ? addressArray.push(capitalize(address.addr3).trim()) : null;
-    address.addr4 ? addressArray.push(capitalize(address.addr4).trim()) : null;
-    address.street ? addressArray.push(capitalize(address.street).trim()) : null;
-    addressArray.push((city + region + postalCd).trim());
+
+    address.addr2 ? addressArray.push(trimAndCapitalize(address.addr2)) : null;
+    address.addr3 ? addressArray.push(trimAndCapitalize(address.addr3)) : null;
+    address.addr4 ? addressArray.push(trimAndCapitalize(address.addr4)) : null;
+    address.street ? addressArray.push(trimAndCapitalize(address.street)) : null;
+    addressArray.push((city + region + postalCd));
+
     if (includeCountryName) {
-        address.countryName ? addressArray.push(capitalize(address.countryName).trim()) : address.country;
+        address.countryName ? addressArray.push(trimAndCapitalize(address.countryName)) : address.country;
     }
 
     return addressArray;
-};
-
-export const capitalize = str => {
-    if (!str || str.trim() === '') return '';
-
-    return str
-        .split(' ')
-        .map(word => {
-            return word[0].toUpperCase() + word.slice(1, word.length);
-        })
-        .join(' ');
 };
 
 export const getCountryName = (countryCode, config) => {

@@ -12,18 +12,19 @@
                 "invalidIcon": "/content/dam/waters/en/brand-assets/icons/attention.svg",
                 "eyeIcon": "/content/dam/waters/en/brand-assets/icons/eye.svg",
                 "eyeOffIcon": "/content/dam/waters/en/brand-assets/icons/eye-off.svg",
-                "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg"
+                "signInIcon": "/content/dam/waters/en/brand-assets/icons/user.svg",
+                "docIcon": "/content/dam/waters/en/brand-assets/icons/document.svg"
             },
             "fields": [
                 {
                     "type": "dropdown",
                     "name": "formCategoryType",
-                    "defaultValue": "technical order",
+                    "defaultValue": "technical support",
                     "label": "${'Select a Category' @ i18n, context='text'}",
                     "dropdownIndicator": "/content/dam/waters/en/brand-assets/icons/down.svg",
                     "options": [
-                        {"value":"technical order", "label": "${'Technical Order' @ i18n, context='text'}"},
-                        {"value":"support order","label": "${'Support Order' @ i18n, context='text'}"}
+                        {"value":"technical support", "label": "${'Technical Support' @ i18n, context='text'}"},
+                        {"value":"order support","label": "${'Order Support' @ i18n, context='text'}"}
                     ],
                     "validation": {
                         "required": true,
@@ -118,6 +119,7 @@
                 {
                     "type": "textwithlinks",
                     "name": "privacy",
+                    "openModal": "contactSupport.newModal",
                     "config": [
                         {
                             "type": "text",
@@ -127,9 +129,12 @@
                         {
                             "type": "link",
                             "label": "${'Terms of Use' @ i18n, context='text'}",
-                            "url": "${contactSupport.termsOfUseLink.href @ context='unsafe'}",
+                            "title": "${'Terms of Use' @ i18n, context='text'}",
+                            "url": "${contactSupport.newModal ? contactSupport.termsOfUseLink.path : contactSupport.termsOfUseLink.href @ context='unsafe'}",
                             "blank": ${contactSupport.newWindow @ context='unsafe'},
-                            "rightSpace": "true"
+                            "rightSpace": "true",
+                            "className": "terms-of-use",
+                            "id": "contact-support-form-terms-of-use"
                         },
                         {
                             "type": "text",
@@ -139,9 +144,12 @@
                         {
                             "type": "link",
                             "label": "${'Waters Privacy' @ i18n, context='text'}",
-                            "url": "${contactSupport.privacyNoticeLink.href @ context='unsafe'}",
+                            "title": "${'Privacy Policy' @ i18n, context='text'}",
+                            "url": "${contactSupport.newModal ? contactSupport.privacyNoticeLink.path : contactSupport.privacyNoticeLink.href @ context='unsafe'}",
                             "blank": ${contactSupport.newWindow @ context='unsafe'},
-                            "rightSpace": "false"
+                            "rightSpace": "false",
+                            "className": "waters-privacy",
+                            "id": "contact-support-form-waters-privacy"
                         },
                         {
                             "type": "text",

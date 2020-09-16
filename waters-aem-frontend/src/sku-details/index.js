@@ -6,7 +6,7 @@ import Price from "./views/price";
 import AddToCart from "./views/addToCart";
 import AddToCartBody from '../sku-details/views/addToCartModal';
 import Modal, { Header, keys } from '../utils/modal';
-import { setSKUUserInfo } from '../utils/userFunctions';
+import { callCustomerPriceApi, isEprocurementUser as isEprocurementApp, isEprocurementUserRole } from '../utils/userFunctions';
 import Spinner from '../utils/spinner';
 import LoginStatus from "../scripts/loginStatus";
 import CheckOutStatus from "../scripts/checkOutStatus";
@@ -15,6 +15,7 @@ import Ecommerce from "../scripts/ecommerce";
 import { mainCartContext } from "../analytics";
 import { getAvailability, getPricing, matchListItems } from "./services/index";
 import SignIn from '../scripts/signIn';
+import DigitalData from '../scripts/DigitalData'
 
 class SkuDetails extends React.Component {
     constructor(props) {
@@ -30,7 +31,9 @@ class SkuDetails extends React.Component {
             code: this.props.skuNumber,
             skuInfo: this.props.config.skuInfo,
             skuNumber: this.props.skuNumber,
+            userInfo: {},
             userCountry: this.props.config.countryCode,
+            isGlobal: this.props.config.countryCode === DigitalData.globalExperience,
             userLocale: this.props.config.locale,
             availabilityUrl: this.props.config.availabilityUrl,
             pricingUrl: this.props.config.pricingUrl,
@@ -39,6 +42,7 @@ class SkuDetails extends React.Component {
             skuAvailability: {},
             addToCartQty: undefined,
             custPrice: undefined,
+            custPriceApiDisabled: this.props.config.isCustomerPriceApiDisabled,
             listPrice: this.props.price,
             analyticsConfig: {
                 context: mainCartContext,
@@ -52,61 +56,61 @@ class SkuDetails extends React.Component {
             discontinued: this.props.discontinued == "true",
             signInUrl: this.props.baseSignInUrl,
             errorInfo: this.props.config.errorInfo,
-            userInfo: {}
+            isEProcurementUserRestricted: (!isEprocurementApp() && isEprocurementUserRole())
         };
 
         this.toggleModal = this.toggleModal.bind(this);
     }
 
     componentDidMount() {
-        const { availabilityUrl, pricingUrl, skuNumber, userCountry} = this.state;
+        const { availabilityUrl, custPriceApiDisabled, isGlobal,
+                pricingUrl, skuNumber, userCountry } = this.state;
 
-        if (LoginStatus.state()) {
-            let userInfo = setSKUUserInfo();
-            if (Object.keys(userInfo).length > 0 && userInfo.dynamicSoldTo !== '' && userInfo.salesOrg !== ''){
-                this.setState({
-                    userInfo: userInfo
-                }, () => {
-                    this.getCustPricing(pricingUrl, skuNumber, userInfo);
-                });
-            } else {
-                this.setState({
-                    loading: false
-                })
-            }
-        } else {
-            this.setState({
-                loading: false
-            })
-        }
-
-        getAvailability(availabilityUrl, userCountry, skuNumber)
-        .then(response => {
-            this.setState({
-                skuAvailability: response,
-                modalInfo: {
-                    ...this.props.config.modalInfo,
-                    textHeading: this.props.skuNumber,
-                    text: this.props.titleText
-                },
-                analyticsConfig: {
-                    ...this.state.analyticsConfig,
-                    ...response
+        if (!isGlobal) {
+            if (LoginStatus.state()) {
+                let userInfo = callCustomerPriceApi(custPriceApiDisabled);
+                if (Object.keys(userInfo).length > 0 && userInfo.callCustApi){
+                    this.setState({
+                        userInfo: userInfo
+                    }, () => {
+                        this.getCustPricing(pricingUrl, skuNumber, userInfo, this.props.price);
+                    });
+                } else {
+                    this.setState({ loading: false });
                 }
+            } else {
+                this.setState({ loading: false });
+            }
+
+            getAvailability(availabilityUrl, userCountry, skuNumber)
+            .then(response => {
+                this.setState({
+                    skuAvailability: response,
+                    modalInfo: {
+                        ...this.props.config.modalInfo,
+                        textHeading: this.props.skuNumber,
+                        text: this.props.titleText
+                    },
+                    analyticsConfig: {
+                        ...this.state.analyticsConfig,
+                        ...response
+                    }
+                });
+            })
+            .catch(err => {
+                // Add Error Object to State
+                this.setState({ errorObjAvailability: err });
             });
-        })
-        .catch(err => {
-            // Add Error Object to State
-            this.setState({ errorObjAvailability: err });
-        });
+        }
     }
 
-    getCustPricing = (pricingUrl, skuNumber, userInfo) => {
+//Note: getCustPricing Method should be an exact match between SKU Details and SKU List
+    getCustPricing = (pricingUrl, skuNumber, userInfo, propListPrice) => {
         getPricing(pricingUrl, skuNumber, userInfo.dynamicSoldTo, userInfo.salesOrg)
         .then(response => {
             if (response.status && response.status === 200) {
                 let match = matchListItems(skuNumber, response);
-                let listPriceValue = (match.listPrice !== '' && match.listPrice != undefined) ? match.listPrice : this.props.price;
+                let listPriceValue = (match.listPrice !== '' && match.listPrice != undefined) ? match.listPrice : propListPrice;
                 this.setState({
                     skuData: match,
                     custPrice: match.custPrice,
@@ -225,7 +229,8 @@ class SkuDetails extends React.Component {
     }
 
     renderBuyInfo = () => {
-        const { custPrice, listPrice, loading, skuInfo, skuNumber, errorObjAvailability, skuAvailability, errorObjCart } = this.state;
+        const { custPrice, listPrice, loading, skuInfo, skuNumber,
+                errorObjAvailability, skuAvailability, errorObjCart } = this.state;
         const { config } = this.props;
         let isErrorModal = false;
         if (errorObjCart) {
@@ -256,6 +261,7 @@ class SkuDetails extends React.Component {
                         toggleParentModal={this.toggleModal}
                         skuNumber={skuNumber}
                         addToCartLabel={config.addToCartLabel}
+                        addToCartQty={config.defaultSkuQty}
                         addToCartUrl={config.addToCartUrl}
                         isCommerceApiMigrated={config.isCommerceApiMigrated}
                         toggleErrorModal={this.toggleErrorModal}
@@ -267,7 +273,8 @@ class SkuDetails extends React.Component {
                         <Header
                             title={this.state.modalConfig.title}
                             icon={this.state.modalConfig.icon}
-                            className={keys.HeaderWithAddedMarginTop}                        />
+                            className={keys.HeaderWithAddedMarginTop}
+                        />
                     )}
                     {isErrorModal && (
                         <Header
@@ -312,8 +319,19 @@ class SkuDetails extends React.Component {
         }
     };
 
+    renderEProcurementUserRestricted = () => {
+        return (
+            <SkuMessage
+                icon={this.props.config.commerceConfig.disabledIcon}
+                message={this.props.config.commerceConfig.eProcurementRestrictedText}
+            />
+        );
+    }
+
     render() {
-        if(!this.state.listPrice){
+        if (this.state.isEProcurementUserRestricted) {
+            return this.renderEProcurementUserRestricted();
+        } else if (!this.state.listPrice || this.state.isGlobal){
             return this.renderCountryRestricted();
         } else if (this.state.discontinued) {
             return this.renderDiscontinued();
