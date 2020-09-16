@@ -616,15 +616,8 @@
     }
 }
 
-.cmp-trouble-signing-in-form {
+.cmp-trouble-signing-in-form,#js-contact-support-form {
     .cmp-form {
-        margin-bottom: 0px;
-    }
-}
-
-#js-contact-support-form {
-    .cmp-form {
-        display: inline-block;
         margin-bottom: 0;
     }
 }
