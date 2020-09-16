@@ -215,7 +215,7 @@ class ListItem extends React.Component {
             <div className="cmp-sku-details__buyinfo">
                 {LoginStatus.state() && typeof custPrice !== 'undefined'
                     && custPrice !== listPrice && (
-                    <div className="cmp-sku-list__list-price" data-locator="list-price-label">
+                    <div className="cmp-sku-list__list-price" data-locator="list-price-label" aria-label={`${skuInfo.listPriceLabel} ${listPrice}`}>
                         {`${skuInfo.listPriceLabel} ${listPrice}`}
                     </div>
                 )}
@@ -349,9 +349,9 @@ class ListItem extends React.Component {
         if (skuConfig.showBreadcrumbs) {
             return (
                 <div className="cmp-search__results-item-breadcrumb skuitem" data-locator="search-results-breadcrumb">
-                    <div>{relatedSku.category_facet}</div>
+                    <div aria-label={relatedSku.category_facet}>{relatedSku.category_facet}</div>
                     <ReactSVG src={skuConfig.skuInfo.nextIcon} aria-hidden="true" />
-                    <div>{relatedSku.contenttype_facet}</div>
+                    <div aria-label={relatedSku.contenttype_facet}>{relatedSku.contenttype_facet}</div>
                 </div>
             );
         }
@@ -387,7 +387,7 @@ class ListItem extends React.Component {
                     />
                 </div>
                 <div className="cmp-sku-details__left">
-                    <div className="cmp-sku-list__code" data-locator="product-number">
+                    <div className="cmp-sku-list__code" data-locator="product-number" aria-label={skuConfig.skuInfo.partNumberLabel + " " + relatedSku.code}>
                         {skuConfig.skuInfo.partNumberLabel + " " + relatedSku.code}
                     </div>
                     <a
