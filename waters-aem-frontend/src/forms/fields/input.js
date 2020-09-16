@@ -90,6 +90,7 @@ const Input = ({
                         onFocus={toggleReq}
                         onChange={updateReq}
                         placeholder=" "
+                        aria-label={name}
                         disabled={disabled}
                         aria-labelledby={name}
                         aria-required={validation.required}
