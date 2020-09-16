@@ -76,6 +76,7 @@ const AddToCartModalBody = props => {
                     onClick={() => onClose()}
                     className={keys.AltButton}
                     data-locator={elementLocator(btn.text)}
+                    aria-label={btn.text}
                 >
                     {btn.text}
                 </button>
@@ -91,6 +92,8 @@ const AddToCartModalBody = props => {
                     target={btn.target || ''}
                     {...(btn.callback && { onClick: (e)=>btn.callback(e) })}
                     data-locator={elementLocator(btn.text)}
+                    role="button"
+                    aria-label={btn.text}
                 >
                     {btn.text}
                 </a>

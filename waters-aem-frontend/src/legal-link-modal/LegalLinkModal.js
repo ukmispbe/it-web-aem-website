@@ -66,16 +66,6 @@ function LegalLinkModal(props) {
         setIsOpen(false);
     }, [isOpen, setIsOpen]);
 
-    // title autofocus
-    useEffect(() => {
-        if(isOpen) {
-            const elem = document.querySelector('.cmp-modal__close-icon');
-            if(elem) {
-                elem.focus();
-            }
-        }
-    }, [isOpen]);
-
     return (
         <Modal isOpen={isOpen} onClose={onClose} className="cmp-modal-legal-links">
             <div className="cmp-modal-body-legal-links custom-scroll">
@@ -87,7 +77,7 @@ function LegalLinkModal(props) {
                 <AddToCartBody
                     config={{
                         isOrderDetails: true,
-                        text: ReactHtmlParser(`<main tabindex="0">${bodyContent}</main>`)
+                        text: ReactHtmlParser(`<main>${bodyContent}</main>`)
                     }}
                     errorObjCart={{}}
                     onClose={() => { }}
