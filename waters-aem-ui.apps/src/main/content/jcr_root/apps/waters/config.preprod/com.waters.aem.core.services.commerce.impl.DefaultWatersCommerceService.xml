@@ -5,4 +5,4 @@
         skuAvailabilityUrl="https://aempreprodservices.waters.com/api/waters/product/v1/availability/{partnumber}/{countryCode}"
         skuCustomerPriceUrl="https://api-sbox.waters.com/preprod-waters-product-exp-api-v1/api/products/prices"
         addToCartUrl="https://aempreprodservices.waters.com/api/waters/product/v1/addtocart/{partnumber}/{quantity}"
-        viewCartUrl="https://legacy-stage.waters.com/waters/shoppingCart.htm"/>
+        viewCartUrl="https://preprod1.waters.com/waters/shoppingCart.htm"/>
