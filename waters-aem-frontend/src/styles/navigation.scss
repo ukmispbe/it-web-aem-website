@@ -435,6 +435,8 @@ nav.cmp-navigation {
 .cmp-navigation-arrow {
    & .cmp-navigation__item > .cmp-navigation__container {
       display: flex !important;
+      height: inherit;
+      align-items: center;
       & > .down-arrow {
          display: inline-block;
          justify-self: end;
