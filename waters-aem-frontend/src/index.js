@@ -459,12 +459,15 @@ if (registrationFormContainer) {
         config: configCheckEmailForm,
     }
 
+	const isTwoStepRegistrationForm = configCheckEmailForm.isTwoStepRegistrationForm;
+
     ReactDOM.render(
         // replace isocode with a value supplied by AEM
         <CreateAccountForm 
             registrationFormConfig={registrationForm}
             checkEmailFormConfig={checkEmailForm}
             isocode={DigitalData.language}
+			isTwoStepRegistrationForm={isTwoStepRegistrationForm}
         />,
         registrationFormContainer
     );
