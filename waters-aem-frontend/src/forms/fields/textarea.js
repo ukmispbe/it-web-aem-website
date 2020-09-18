@@ -26,7 +26,7 @@ const TextArea = ({
     });
 
     const { disabled, matchLabel, emailValidationEndpoint, optionalLabel } = useContext(useFieldApi);
-    const { register, setError, clearError } = useContext(useFormApi);
+    const { register, setError, setValue, clearError } = useContext(useFormApi);
 
     const errors = useErrorsContext();
 
@@ -48,11 +48,13 @@ const TextArea = ({
     const toggleReq = () =>
         reqRef.current ? reqRef.current.toggle() : () => false;
 
-    const updateReq = () =>
+    const updateReq = () => {
+        setValue(name, inputRef.current.value, true);
         reqRef.current
             ? reqRef.current.update(inputRef.current.value)
             : () => false;
-
+    }
+    
     const getMatchReq = useMemo(
         () => ({
             required: validation['required'],

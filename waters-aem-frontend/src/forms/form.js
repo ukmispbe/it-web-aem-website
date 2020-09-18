@@ -55,8 +55,8 @@ const Form = ({
         getValues,
         reset
     } = useForm({
-        mode: 'onBlur',
-        reValidateMode: 'onBlur',
+        mode: 'all',
+        reValidateMode: 'onChange',
         defaultValues: {
             country: DigitalData.default,
             ...defaultValues
@@ -155,7 +155,7 @@ const Form = ({
 
     useEffect(() => {
         // Configure Registration Form on "Loading"
-        if (config.formName === "registration") {
+        if (config.formName === "registration" ) {
             const countryRegion = digitalData.page.country.toLowerCase();
             // Get Regional config 
             const countryOptionsConfig = regionalConfig;
