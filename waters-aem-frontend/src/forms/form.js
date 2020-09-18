@@ -156,7 +156,6 @@ const Form = ({
             for (var name in errors) {
                 if (errors.hasOwnProperty(name)) {
                     if (name !== "captcha") {
-                        console.log("error: ", name);
                         const control = document.getElementById(name);
                         if (control !== null) {
                             const mainControlDiv = control.parentElement.parentElement;
@@ -173,7 +172,6 @@ const Form = ({
                     }
                 }
             }
-            console.log("errors", errors);
         }
     });
 

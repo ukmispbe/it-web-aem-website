@@ -46,30 +46,25 @@ const Input = ({
 
     const updateReq = () => {
         switch (type) {
-            case "text": {
+            case "text": 
+            case "password": 
+            case "confirmPassword": {
                 // use react-hook-form validation
                 setValue(name, inputRef.current.value, true);
                 break;
             }
             case "email": {
                 console.log(validation.validateFnName, validator[validation.validateFnName](inputRef.current.value, inputRef.current, "Email Error", setError, clearError));
-                if (validator[validation.validateFnName](inputRef.current.value, inputRef.current, "Email Error", setError, clearError) === false) {
+                if (validator[validation.validateFnName](inputRef.current.value, inputRef.current, validation.requiredMsg, setError, clearError) === false) {
                     // Hide the Tick Icon as not a valid email and don't validate using react-hook-form mechanism
-                    console.log ("Invalid Email");
                     hideShowValidIcon(name, true);
+                    clearError(name);
                 }
                 else {
                     // Stop hiding the tick icon as email is now valid 
-                    console.log ("Valid Email");
                     hideShowValidIcon(name, false);
                     setValue(name, inputRef.current.value, true);
                 }
-                break;
-            }
-            case "password": 
-            case "confirmPassword": {
-                // use react-hook-form validation
-                setValue(name, inputRef.current.value, true);
                 break;
             }
         }
