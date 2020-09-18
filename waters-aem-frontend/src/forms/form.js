@@ -56,8 +56,8 @@ const Form = ({
         getValues,
         reset
     } = useForm({
-        mode: 'all',
-        reValidateMode: 'onChange',
+        mode: 'onBlur',
+        reValidateMode: 'onSubmit',
         defaultValues: {
             country: DigitalData.default,
             ...defaultValues
@@ -149,6 +149,33 @@ const Form = ({
             setDisplayForm(true);
         }
     }, []);
+ 
+    // Hook to add error styles if there are errors on Submitting
+    useEffect(() => {
+        if (Object.keys(errors).length !== 0) {
+            for (var name in errors) {
+                if (errors.hasOwnProperty(name)) {
+                    if (name !== "captcha") {
+                        console.log("error: ", name);
+                        const control = document.getElementById(name);
+                        if (control !== null) {
+                            const mainControlDiv = control.parentElement.parentElement;
+                            if (mainControlDiv !== null) {
+                                mainControlDiv.classList.add("cmp-form-field--invalid");
+                            }
+                        }
+                    }
+                    else {
+                        const captchaControl = document.getElementsByClassName("cmp-form-field-captcha")[0];
+                        if (captchaControl !== null) {
+                            captchaControl.classList.add("cmp-form-field--invalid");
+                        }
+                    }
+                }
+            }
+            console.log("errors", errors);
+        }
+    });
 
     useEffect(() => {
         setFormAnalytics('load');
@@ -309,11 +336,7 @@ const Form = ({
                 </FormApi.Provider>
                 <button
                     type="submit"
-                    className={
-                        'cmp-button cmp-button--no-border cmp-form--submit' +
-                        (checkIfDisabled() ? ' cmp-button--disabled' : '')
-                    }
-                    disabled={checkIfDisabled()}
+                    className={"cmp-button cmp-button--no-border cmp-form--submit"}
                     data-locator={elementLocator(config.buttonText || 'form-submit')}
                 >
                     {config.buttonText}

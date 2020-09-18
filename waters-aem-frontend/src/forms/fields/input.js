@@ -9,7 +9,7 @@ import Requirements from './components/requirements';
 import { getAttributes } from './utils/validations';
 import { elementLocator } from '../../utils/eCommerceFunctions';
 import { renderFormattedLabel } from '../../utils/labelFunctions';
-
+import {functions as validator } from './patterns/index';
 const Input = ({
     name,
     label,
@@ -45,8 +45,49 @@ const Input = ({
         reqRef.current ? reqRef.current.toggle() : () => false;
 
     const updateReq = () => {
-        setValue(name, inputRef.current.value, true);
+        switch (type) {
+            case "text": {
+                // use react-hook-form validation
+                setValue(name, inputRef.current.value, true);
+                break;
+            }
+            case "email": {
+                console.log(validation.validateFnName, validator[validation.validateFnName](inputRef.current.value, inputRef.current, "Email Error", setError, clearError));
+                if (validator[validation.validateFnName](inputRef.current.value, inputRef.current, "Email Error", setError, clearError) === false) {
+                    // Hide the Tick Icon as not a valid email and don't validate using react-hook-form mechanism
+                    console.log ("Invalid Email");
+                    hideShowValidIcon(name, true);
+                }
+                else {
+                    // Stop hiding the tick icon as email is now valid 
+                    console.log ("Valid Email");
+                    hideShowValidIcon(name, false);
+                    setValue(name, inputRef.current.value, true);
+                }
+                break;
+            }
+            case "password": 
+            case "confirmPassword": {
+                // use react-hook-form validation
+                setValue(name, inputRef.current.value, true);
+                break;
+            }
+        }
         reqRef.current ? reqRef.current.update(inputRef.current.value) : () => false;
+    }
+
+    const hideShowValidIcon = (controlName, isHidden) => {
+        const control = document.getElementById(controlName);       
+        let styleString = "inline-block";
+        if (isHidden === true) {
+            styleString = "none";
+        }
+        if (control !== null) {
+            const mainControlDiv = control.parentElement.parentElement;
+            if (mainControlDiv !== null) {
+                mainControlDiv.getElementsByClassName("valid-icon")[0].style.display = styleString;
+            }      
+        }      
     }
 
     const getMatchReq = useMemo(
