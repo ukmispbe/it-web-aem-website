@@ -45,4 +45,8 @@ public class Breadcrumb implements com.adobe.cq.wcm.core.components.models.Bread
     public String getExportedType() {
         return RESOURCE_TYPE;
     }
+    @Override
+    public String getId() {
+        return delegate.getId();
+    }
 }

@@ -7,6 +7,7 @@ import com.citytechinc.cq.component.annotations.DialogField;
 import com.citytechinc.cq.component.annotations.Option;
 import com.citytechinc.cq.component.annotations.widgets.PathField;
 import com.citytechinc.cq.component.annotations.widgets.Selection;
+import com.citytechinc.cq.component.annotations.widgets.Switch;
 import com.icfolson.aem.library.api.link.Link;
 import com.icfolson.aem.library.api.page.PageManagerDecorator;
 import com.icfolson.aem.library.models.annotations.LinkInject;
@@ -40,16 +41,22 @@ public class ResetPassword implements ComponentExporter {
     protected static final String RESET_OPTION = "reset";
 
     protected static final String UPDATE_OPTION = "update";
+    
+    protected static final String EPROC_CREATE_ACCOUNT_OPTION = "createAccount";
 
     protected static final String RESET_BUTTON_TEXT = "Reset Password";
 
     protected static final String UPDATE_BUTTON_TEXT = "Update Password";
+    
+    protected static final String EPROC_CREATE_ACCOUNT_BUTTON_TEXT = "Create Account";
 
     protected static final String RESET_TEXT = "You are resetting the password for the account associated with the email address";
 
     protected static final String UPDATE_TEXT = "In order to provide additional account security our password requirements have changed." +
         " Please create a new password for the account associated with the email address";
 
+    protected static final String EPROC_CREATE_ACCOUNT_TEXT = "Thanks for confirming your procurement account! You will need to create a password to create your Waters.com account.";
+    
     @OSGiService
     private WatersAccountService accountService;
 
@@ -73,13 +80,46 @@ public class ResetPassword implements ComponentExporter {
     type = Selection.SELECT,
     options = {
             @Option(text = RESET_BUTTON_TEXT, value = RESET_OPTION),
-            @Option(text = UPDATE_BUTTON_TEXT, value = UPDATE_OPTION)
+            @Option(text = UPDATE_BUTTON_TEXT, value = UPDATE_OPTION),
+            @Option(text = EPROC_CREATE_ACCOUNT_BUTTON_TEXT, value = EPROC_CREATE_ACCOUNT_OPTION)
         }
     )
     @Inject
     @Default(values = RESET_OPTION)
     private String formType;
+    
+    @DialogField(fieldLabel = "Privacy Notice Link",
+        fieldDescription = "Select or enter the link URL",
+        required  = true,
+        ranking = 3)
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject
+    private Link privacyNoticeLink;
 
+    @DialogField(fieldLabel = "Terms of Use Link",
+        fieldDescription = "Select or enter the link URL for Terms of Use",
+        required  = true,
+        ranking = 4)
+    @PathField(rootPath = WatersConstants.ROOT_PATH)
+    @LinkInject
+    private Link termsOfUseLink;
+
+    @DialogField(fieldLabel = "Open in New Window",
+        fieldDescription = "Select this option to open 'Privacy Notice' in new window",
+        ranking = 5)
+    @Switch(offText = "No", onText = "Yes")
+    @Inject
+    @Default(booleanValues = false)
+    private Boolean newWindow;
+
+    @DialogField(fieldLabel = "Is this a eProc user flow",
+            fieldDescription = "Select this option if this is a Eproc flow",
+            ranking = 6)
+    @Switch(offText = "No", onText = "Yes")
+    @Inject
+    @Default(booleanValues = false)
+    private Boolean eProc;
+        
     public Link getRedirectLink() {
         return LinkUtils.getExternalizedLink(pageManager, redirectLink);
     }
@@ -88,9 +128,17 @@ public class ResetPassword implements ComponentExporter {
         return formType;
     }
 
-    public String getFormText() {
-        return formType.equals(RESET_OPTION) ? RESET_TEXT : UPDATE_TEXT;
-    }
+	public String getFormText() {
+		String formText = "";
+		if (formType.equals(RESET_OPTION)) {
+			formText = RESET_TEXT;
+		} else if (formType.equals(UPDATE_OPTION)) {
+			formText = UPDATE_TEXT;
+		} else if (formType.equals(EPROC_CREATE_ACCOUNT_OPTION)) {
+			formText = EPROC_CREATE_ACCOUNT_TEXT;
+		}
+		return formText;
+	}
 
     public String getSubmitEndpoint() {
         return accountService.getChangePasswordUrl();
@@ -100,13 +148,35 @@ public class ResetPassword implements ComponentExporter {
         return accountService.getChooseAccountEndpoint();
     }
 
-    public String getButtonText() {
-        return formType.equals(RESET_OPTION) ? RESET_BUTTON_TEXT : UPDATE_BUTTON_TEXT;
-    }
+	public String getButtonText() {
+		String buttonText = "";
+		if (formType.equals(RESET_OPTION)) {
+			buttonText = RESET_BUTTON_TEXT;
+		} else if (formType.equals(UPDATE_OPTION)) {
+			buttonText = UPDATE_BUTTON_TEXT;
+		} else if (formType.equals(EPROC_CREATE_ACCOUNT_OPTION)) {
+			buttonText = EPROC_CREATE_ACCOUNT_BUTTON_TEXT;
+		}
+		return buttonText;
+	}
 
     public String getCaptchaSiteKey() {
         return captchaService.getSiteKey();
     }
+
+    public Link getPrivacyNoticeLink() {
+        return LinkUtils.getMappedLink(pageManager, privacyNoticeLink);
+    }
+
+    public Link getTermsOfUseLink() {
+        return termsOfUseLink;
+    }
+
+    public Boolean isNewWindow() {
+        return newWindow;
+    }
+
+    public Boolean isEproc() { return eProc; }
 
     @Nonnull
     @Override

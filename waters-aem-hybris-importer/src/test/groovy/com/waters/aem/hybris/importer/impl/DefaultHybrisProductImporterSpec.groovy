@@ -29,8 +29,8 @@ class DefaultHybrisProductImporterSpec extends AbstractHybrisImporterSpec {
 
         where:
         index | path                                   | title
-        0     | "/etc/commerce/products/176/176001744" | "PFC Analysis Kit"
-        1     | "/etc/commerce/products/186/186007362" | "Quad LCMS QC reference Material"
+        0     | "/var/commerce/products/176/176001744" | "PFC Analysis Kit"
+        1     | "/var/commerce/products/186/186007362" | "Quad LCMS QC reference Material"
     }
 
     def "import all products"() {
@@ -46,7 +46,7 @@ class DefaultHybrisProductImporterSpec extends AbstractHybrisImporterSpec {
         hybrisProductImporter.importProducts(["176001744"])
 
         expect:
-        def properties = getResource("/etc/commerce/products/176/176001744").valueMap
+        def properties = getResource("/var/commerce/products/176/176001744").valueMap
 
         properties.get(WatersCommerceConstants.PROPERTY_CODE, "") == "176001744"
         properties.get(WatersCommerceConstants.PROPERTY_UNSPSC, "") == "3435765"
@@ -73,7 +73,7 @@ class DefaultHybrisProductImporterSpec extends AbstractHybrisImporterSpec {
         hybrisProductImporter.importProducts(["176001744"])
 
         expect:
-        def sku = getResource("/etc/commerce/products/176/176001744").adaptTo(Sku)
+        def sku = getResource("/var/commerce/products/176/176001744").adaptTo(Sku)
 
         sku.images[0].imageType == SkuImageType.PRIMARY
     }

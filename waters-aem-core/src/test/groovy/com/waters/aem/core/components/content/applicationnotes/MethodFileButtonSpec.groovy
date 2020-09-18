@@ -33,8 +33,8 @@ class MethodFileButtonSpec extends WatersSpec {
             }
         }
 
-        nodeBuilder.etc {
-            tags("sling:Folder") {
+        nodeBuilder.content {
+            cq:tags("sling:Folder") {
                 waters("cq:Tag") {
                     yearPublished() {
                         "2018"("cq:Tag", "jcr:title": "2018")
@@ -79,7 +79,7 @@ class MethodFileButtonSpec extends WatersSpec {
 
         where:
         resourcePath            | methodFilePath
-        "/content/waters/one"   | "/content/dam/waters/en/app-notes/2019/123/method/method-file.zip"
+        //"/content/waters/one"   | "/content/dam/waters/en/app-notes/2019/123/method/method-file.zip"
         "/content/waters/two"   | null
         "/content/waters/three" | null
         "/content/waters/four"  | null

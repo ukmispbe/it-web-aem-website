@@ -2,9 +2,9 @@
      class="cmp-tiles">
     <ul class="cmp-tiles__list" data-sly-test="${tilesComponent.tiles}">
         <li class="cmp-tiles__tile" data-sly-repeat="${tilesComponent.tiles}">
-            <a data-sly-attribute.title="${item.title}" href="${item.link.href}" target="${item.external ? '_blank' : ''}">
-                <img class="${item.svg ? 'inline-svg' : ''}" data-sly-test="${item.icon}" src="${item.icon}"/>
-                <div>${item.title}</div>
+            <a data-sly-attribute.title="${item.title}" href="${item.link.href}" target="${item.external ? '_blank' : ''}" rel="${item.external ? 'noopener noreferrer' : ''}">
+                <img class="${item.svg ? 'inline-svg' : ''}" data-sly-test="${item.icon}" src="${item.icon}" data-locator="product-image"/>
+                <div data-locator="product-title">${item.title}</div>
             </a>
         </li>
     </ul>

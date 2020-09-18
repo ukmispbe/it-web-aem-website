@@ -56,6 +56,7 @@ const MyAccountContainer = props => {
                         href={loginState ? signOut.url : signIn.url}
                         {...(!loginState && { onClick: (e)=>onSignIn(e), rel: 'nofollow' })}
                         {...(loginState && { onClick: (e)=>onSignOut(e) })}
+                        data-locator="my-account-dropdown-sign-in-out"
                     >
                         <ReactSVG src={icon} className="sign-in-out__icon" />
                         {loginState ? signOut.text : signIn.text}
@@ -68,12 +69,13 @@ const MyAccountContainer = props => {
     const createAccountButton = () => (
         <>
             {notRegistered && createAccount.url && createAccount.text && (
-                <div className="my-account-dropdown__create-account">
+                <div className="my-account-dropdown__create-account" data-locator="my-account-dropdown-not-registered">
                     {notRegistered}
                     <a
                         class="cmp-button"
                         href={createAccount.url}
                         onClick={(e)=>setClickAnalytics('Account Dropdown', createAccount.linkName, createAccount.url)}
+                        data-locator="link-my-account-dropdown-create-account"
                     >
                         {createAccount.text}
                     </a>

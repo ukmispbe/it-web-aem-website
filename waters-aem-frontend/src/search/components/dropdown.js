@@ -63,22 +63,25 @@ const DropdownIndicator = props => {
 
 const Dropdown = props => {
     return (
-        <Select
-            defaultValue={props.getOptions(props.text)[1]}
-            options={props.getOptions(props.text)}
-            value={
-                props.sortValue && props.sortValue.value
-                    ? props.sortValue.value
-                    : props.getOptions(props.text)[props.sortValue - 1]
-            }
-            onChange={props.onChange}
-            isSearchable={props.isSearchable}
-            styles={customStyles}
-            placeholder={props.placeholder}
-            classNamePrefix={'cmp-custom-dropdown'}
-            components={{ DropdownIndicator }}
-            theme={{ dropdownIndicator: props.text.downIcon }}
-        />
+        <div aria-describedby="cmp-custom-dropdown__single-value" tabindex="0">
+            <Select
+                defaultValue={props.getOptions(props.text)[1]}
+                options={props.getOptions(props.text)}
+                value={
+                    props.sortValue && props.sortValue.value
+                        ? props.sortValue.value
+                        : props.getOptions(props.text)[props.sortValue - 1]
+                }
+                onChange={props.onChange}
+                isSearchable={props.isSearchable}
+                styles={customStyles}
+                placeholder={props.placeholder}
+                classNamePrefix={'cmp-custom-dropdown'}
+                components={{ DropdownIndicator }}
+                theme={{ dropdownIndicator: props.text.downIcon }}
+                tabIndex="-1"
+            />
+        </div>
     );
 };
 

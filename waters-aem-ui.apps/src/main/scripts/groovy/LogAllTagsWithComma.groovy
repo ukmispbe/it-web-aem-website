@@ -1,4 +1,4 @@
-final def rootPath = '/etc/tags/waters'
+final def rootPath = '/content/cq:tags/waters'
 final def query = buildQuery(rootPath)
 final def result = query.execute()
 

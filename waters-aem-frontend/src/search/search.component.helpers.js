@@ -64,7 +64,7 @@ const FilterTagList = ({
         : <></>;
 
     return (
-        <div className="cmp-search-filters__tags clearfix">
+        <div className="cmp-search-filters__tags clearfix" data-locator="search-filters-tags">
             <ClearAllTag
                 text={text}
                 onRemove={filterTagsEvents.onClearAll} />
@@ -97,7 +97,7 @@ const Aside = ({
     children
 }) => {
     return (
-        <div className="container__left cmp-search__sort-filter">
+        <div className="container__left cmp-search__sort-filter" data-locator="left-container-filter">
             <BtnHideSortFilter
                 text={text}
                 onClick={asideEvents.onHideSortFilterClick} />

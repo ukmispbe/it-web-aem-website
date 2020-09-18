@@ -7,9 +7,9 @@
     data-signout-endpoint="${header.signOutEndpoint}"
     data-search-path="${header.searchPath.href}"
     data-user-details-url="${header.userDetailsUrl}"
-    data-signin-url="${header.signInLink.href}"
-    data-register-url="${header.createAccountLink.href}"
-    data-switch-account-url="${header.switchAccountLink.href}"
+    data-signin-url="${!header.eprocurement ? header.signInLink.href : ''}"
+    data-register-url="${!header.eprocurement ? header.createAccountLink.href : ''}"
+    data-switch-account-url="${!header.eprocurement ? header.switchAccountLink.href : ''}"
 >
     <div class="cmp-header__overlay overlay"></div>
     <div class="cmp-header__top-bar">
@@ -22,10 +22,12 @@
                     class="cmp-header__top-bar__logo__link cmp-header-links__link"
                     href="${header.logoLink.href}"
                     target="${header.external ? '_blank' :''}"
+                    data-locator="link-top-bar-logo"
                 >
                     <img
                         src="${header.logo.fileReference}"
                         alt="${header.logoAltText}"
+                        data-locator="image-top-bar-logo"
                     />
                 </a>
             </div>
@@ -34,7 +36,7 @@
                 class="cmp-header__top-bar__nav"
             >
                 <ul class="cmp-header__top-bar__nav__ul">
-                    <li class="top-bar__nav__search top-bar__nav__item">
+                    <li class="top-bar__nav__search top-bar__nav__item" data-locator="header-section-search">
                         <div data-sly-test="${header.eprocurement}" id="header-search-bar"
                             data-base-url="${header.searchUrl}"
                             data-icon-clear="/content/dam/waters/en/brand-assets/icons/close.svg"
@@ -42,18 +44,21 @@
                             data-isocode="${header.isocode}"
                             data-placeholder-mobile="${'Search' @ i18n}"
                             data-placeholder-tablet="${'What are you looking for?' @ i18n}"
-                            data-custom-style="cmp-header-search-bar">
+                            data-custom-style="cmp-header-search-bar"
+                            data-auto-suggest-label="${'Search Box' @ i18n}">
                         </div>
                         
                         <a  data-sly-test="${!header.eprocurement}"
                             class="cmp-header-links__link"
                             href="${header.legacySearchUrl}"
+                            data-locator="link-header-my-account-search"
                         >
                             <span>${'Search' @ i18n}</span>
                             <img
                                 alt="${'Search' @ i18n}"
                                 src="/content/dam/waters/en/brand-assets/icons/search.svg"
                                 class="inline-svg"
+                                data-locator="header-search-icon"
                             />
                         </a>
                     </li>
@@ -62,14 +67,16 @@
                             class="top-bar__nav__user__link cmp-header-links__link"
                             href="javascript:;"
                             target="_self"
+                            data-locator="link-header-my-account"
                         >
-                            <span class="my-account-headline-text"
+                            <span class="my-account-headline-text" data-locator="my-account-headline-label"
                                 >${'My Account' @ i18n}</span
                             >
                             <img
                                 alt="${'My Account' @ i18n}"
                                 src="/content/dam/waters/en/brand-assets/icons/user.svg"
                                 class="inline-svg"
+                                data-locator="header-myAccount-icon"
                             />
                         </a>
                         <div class="top-bar__nav__user__dropdown"></div>
@@ -90,35 +97,35 @@
                                 "notRegistered": "${'Not registered yet?' @ i18n , context='unsafe' }",
                                 "myAccount": {
                                     "text": "${'My Account' @ i18n, context='unsafe'}",
-                                    "url": "${header.myAccountLink.href @ context='unsafe'}",
+                                    "url": "${!header.eprocurement ? header.myAccountLink.href : '' @ context='unsafe'}",
                                     "target": "_self"
                                 },
                                 "signIn": {
                                     "text": "${'Sign In' @ i18n, context='unsafe'}",
-                                    "url": "${header.signInLink.href @ context='unsafe'}",
+                                    "url": "${!header.eprocurement ? header.signInLink.href : '' @ context='unsafe'}",
                                     "class": "cmp-sign-in-link",
                                     "linkName": "Sign In"
                                 },
                                 "signOut": {
                                     "text": "${'Sign Out' @ i18n, context='unsafe'}",
-                                    "url": "${header.signOutLink.href @ context='unsafe'}",
+                                    "url": "${!header.eprocurement ? header.signOutLink.href : '' @ context='unsafe'}",
                                     "signOutEndpoint": "${header.signOutEndpoint @ context='unsafe'}",
                                     "linkName": "Sign Out"
                                 },
                                 "switchAccount": {
                                     "text": "${'Switch Account' @ i18n, context='unsafe'}",
-                                    "url": "${header.switchAccountLink.href @ context='unsafe'}",
+                                    "url": "${!header.eprocurement ? header.switchAccountLink.href : '' @ context='unsafe'}",
                                     "linkName": "Switch Account"
                                 },
                                 "createAccount": {
                                     "text": "${'Create Account' @ i18n, context='unsafe'}",
-                                    "url": "${header.createAccountLink.href @ context='unsafe'}",
+                                    "url": "${!header.eprocurement ? header.createAccountLink.href : '' @ context='unsafe'}",
                                     "linkName": "Create Account"
                                 },
                                 "itemList": [
                                     {
                                         "text": "${'Profile' @ i18n, context='unsafe'}",
-                                        "url": "${header.profileLink @ context='unsafe'}",
+                                        "url": "${!header.eprocurement ? header.profileLink : '' @ context='unsafe'}",
                                         "target": "_self",
                                         "class": "dropdown__item-list__my-profile",
                                         "linkName": "Profile",
@@ -126,7 +133,7 @@
                                     },
                                     {
                                         "text": "${'Order History' @ i18n, context='unsafe'}",
-                                        "url": "${header.ordersLink @ context='unsafe'}",
+                                        "url": "${!header.eprocurement ? header.ordersLink : '' @ context='unsafe'}",
                                         "target": "_self",
                                         "class": "dropdown__item-list__my-orders",
                                         "linkName": "Order History",
@@ -136,16 +143,21 @@
                             }
                         </script>
                     </li>
-                    <li class="top-bar__nav__cart top-bar__nav__item top-bar__nav__cart--hide" data-ecommerce-state="${header.commerceConfig}">
+                    <li class="top-bar__nav__cart top-bar__nav__item top-bar__nav__cart--hide" data-ecommerce-state="${header.commerceConfig}" data-locator="header-section-cart">
                         <a
                             class="cmp-header-links__link"
                             href="${header.viewCartUrl}"
+                            aria-label="${'Cart' @ i18n}"
+                            data-locator="link-header-my-account-cart"
+                            id="title"
                         >
-                            <span>${'Cart' @ i18n}</span>
+                            <span data-locator="header-label-Cart" aria-label="${'Cart' @ i18n}">${'Cart' @ i18n}</span>
                             <img
                                 alt="${'Cart' @ i18n}"
                                 src="/content/dam/waters/en/brand-assets/icons/cart.svg"
                                 class="inline-svg"
+                                data-locator="header-cart-icon"
+                                aria-hidden="true"
                             />
                         </a>
                     </li>
@@ -154,6 +166,7 @@
                         <button
                             class="hamburger hamburger--slider"
                             type="button"
+                            data-locator="button-header-hamburger"
                         >
                             <span class="hamburger-box">
                                 <span class="hamburger-inner"></span>
@@ -170,4 +183,5 @@
             data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"
         ></div>
     </div>
+    <div data-sly-test="${header.eprocurement}" id="cmp-header--loader"></div>
 </header>

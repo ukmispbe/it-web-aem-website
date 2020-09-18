@@ -8,7 +8,7 @@ import com.waters.aem.hybris.enums.HybrisImportContentType
 
 def auditService = getService(HybrisImporterAuditService)
 
-def auditPath = "/etc/waters/hybris-importer/jcr:content/audit/2020/02/04/record0"
+def auditPath = "/var/waters/hybris-importer/jcr:content/audit/2020/02/04/record0"
 
 def skus = [] as Set
 def duplicates = []

@@ -15,7 +15,6 @@ import Ecommerce from '../../scripts/ecommerce';
 import SkuDetails from '../../scripts/sku-details';
 import Sticky from '../../scripts/stickyService';
 import Analytics, { analyticTypes, searchCartContext, relatedCartContext } from '../../analytics';
-import {isEprocurementUser as isEprocurementApp, isEprocurementUserRole} from '../../utils/userFunctions'
 
 class ListItem extends React.Component {
     constructor(props) {
@@ -216,7 +215,7 @@ class ListItem extends React.Component {
             <div className="cmp-sku-details__buyinfo">
                 {LoginStatus.state() && typeof custPrice !== 'undefined'
                     && custPrice !== listPrice && (
-                    <div className="cmp-sku-list__list-price">
+                    <div className="cmp-sku-list__list-price" data-locator="list-price-label" aria-label={`${skuInfo.listPriceLabel} ${listPrice}`}>
                         {`${skuInfo.listPriceLabel} ${listPrice}`}
                     </div>
                 )}
@@ -257,6 +256,7 @@ class ListItem extends React.Component {
                                     skuConfig.skuInfo
                                         .refreshIcon
                                 }
+                                data-locator="check-availability"
                             />
                         </span>
                     )}
@@ -271,6 +271,7 @@ class ListItem extends React.Component {
                         isCommerceApiMigrated={skuConfig.isCommerceApiMigrated}
                         toggleErrorModal={this.toggleErrorModal}
                         analyticsConfig={this.state.analyticsConfig}
+                        qtyLabel={skuConfig.qtyAriaLabel}
                     />
                     <Modal isOpen={this.state.modalShown} onClose={this.toggleModal} className='cmp-add-to-cart-modal'>
                         {!isErrorModal && (
@@ -317,8 +318,7 @@ class ListItem extends React.Component {
     }
 
     renderBuyInfo = () => {
-
-        if (!isEprocurementApp() && isEprocurementUserRole()) {
+        if (this.props.isEProcurementUserRestricted) {
             return (null);
         }
 
@@ -348,10 +348,10 @@ class ListItem extends React.Component {
         const { relatedSku, skuConfig } = this.props;
         if (skuConfig.showBreadcrumbs) {
             return (
-                <div className="cmp-search__results-item-breadcrumb skuitem">
-                    <div>{relatedSku.category_facet}</div>
-                    <ReactSVG src={skuConfig.skuInfo.nextIcon} />
-                    <div>{relatedSku.contenttype_facet}</div>
+                <div className="cmp-search__results-item-breadcrumb skuitem" data-locator="search-results-breadcrumb">
+                    <div aria-label={relatedSku.category_facet}>{relatedSku.category_facet}</div>
+                    <ReactSVG src={skuConfig.skuInfo.nextIcon} aria-hidden="true" />
+                    <div aria-label={relatedSku.contenttype_facet}>{relatedSku.contenttype_facet}</div>
                 </div>
             );
         }
@@ -383,10 +383,11 @@ class ListItem extends React.Component {
                 <img
                         src={relatedSku.primaryImageThumbnail}
                         alt={relatedSku.title}
+                        data-locator="product-image"
                     />
                 </div>
                 <div className="cmp-sku-details__left">
-                    <div className="cmp-sku-list__code">
+                    <div className="cmp-sku-list__code" data-locator="product-number" aria-label={skuConfig.skuInfo.partNumberLabel + " " + relatedSku.code}>
                         {skuConfig.skuInfo.partNumberLabel + " " + relatedSku.code}
                     </div>
                     <a
@@ -397,7 +398,7 @@ class ListItem extends React.Component {
                                 : null
                         }
                     >
-                        <div className="cmp-sku-details__title">
+                        <div className="cmp-sku-details__title" data-locator="product-title">
                             {relatedSku.title}
                         </div>
                     </a>
@@ -417,7 +418,8 @@ ListItem.propTypes = {
     skuConfig: PropTypes.object.isRequired,
     baseSignInUrl: PropTypes.string.isRequired,
     onItemClick: PropTypes.func.isRequired,
-    userInfo: PropTypes.object.isRequired
+    userInfo: PropTypes.object.isRequired,
+    isEProcurementUserRestricted: PropTypes.bool.isRequired
 };
 
 ListItem.defaultProps = {
@@ -426,7 +428,8 @@ ListItem.defaultProps = {
     skuConfig: {},
     baseSignInUrl: '',
     onItemClick: () => {},
-    userInfo: {}
+    userInfo: {},
+    isEProcurementUserRestricted: false
 };
 
 export default ListItem;

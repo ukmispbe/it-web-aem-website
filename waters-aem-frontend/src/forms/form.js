@@ -17,6 +17,7 @@ import SessionStore from '../stores/sessionStore';
 import loginStatus from '../scripts/loginStatus';
 import { homePageRedirect } from '../utils/redirectFunctions';
 import Spinner from "../utils/spinner";
+import { elementLocator } from '../utils/eCommerceFunctions';
 
 const FormApi = createContext(null);
 FormApi.displayName = 'FormApi';
@@ -313,6 +314,7 @@ const Form = ({
                         (checkIfDisabled() ? ' cmp-button--disabled' : '')
                     }
                     disabled={checkIfDisabled()}
+                    data-locator={elementLocator(config.buttonText || 'form-submit')}
                 >
                     {config.buttonText}
                 </button>
@@ -320,6 +322,7 @@ const Form = ({
                     <a
                         className="cmp-button cmp-button--cancel"
                         onClick={cancelHandler}
+                        data-locator={elementLocator(config.cancelText || 'form-cancel')}
                     >
                         {config.cancelText}
                     </a>

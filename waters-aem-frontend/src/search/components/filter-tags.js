@@ -73,7 +73,8 @@ const ContentTypeTag = props => {
     if (!showTags) return <></>;
 
     return <a href="javascript:void(0);"
-            onClick={props.onRemove}>
+            onClick={props.onRemove}
+            data-locator="content-type-tag-hide">
             <ReactSVG src={props.text.closeIcon} />
             <span>{`${props.text['contentType']}: ${props.selected.facetTranslation}`}</span>
         </a>;
@@ -82,6 +83,8 @@ const ContentTypeTag = props => {
 const ClearAllTag = props => {
     return <a href="javascript:void(0);"
             className="cmp-search-filters__tags__clear"
+            data-locator="link-search-filters-tag-clear"
+            aria-label={props.text.clearAllFilters}
             onClick={props.onRemove}>
             <ReactSVG src={props.text.closeIcon} />
             <span>{props.text.clearAllFilters}</span>
@@ -90,6 +93,7 @@ const ClearAllTag = props => {
 
 const KeywordTag = props => {
     return <a href="javascript:void(0);"
+            aria-label={`${props.text.keyWordLabel}: ${props.keyword}`}
             onClick={props.onRemove}>
             <ReactSVG src={props.text.closeIcon} />
             <span>{`${props.text.keyWordLabel}: ${props.keyword}`}</span>

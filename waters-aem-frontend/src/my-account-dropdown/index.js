@@ -41,12 +41,19 @@ class MyAccountDropDown extends React.Component {
                 text: '',
                 icon: this.props.eProcSetupFailure.icon,
                 buttons: this.props.eProcSetupFailure.buttons
-            }
+            },
+            punchoutSetupCallCompleted: false,
+            eProcLoginCallCompleted: false,
         };
 
         this.accountHeaderUser = null;
         this.allNavItems = null;
         this.header = null;
+    }
+
+    showHideLoader() {
+        const {punchoutSetupCallCompleted, eProcLoginCallCompleted} = this.state;
+        window.dispatchEvent(new CustomEvent("showLoaderEproc", { detail: { showLoader: !(punchoutSetupCallCompleted && eProcLoginCallCompleted) }}));
     }
 
     async componentDidMount() {
@@ -71,6 +78,8 @@ class MyAccountDropDown extends React.Component {
         window.addEventListener('resize', this.updateViewport, true);
 
         if (isEprocurementUser()) {
+            // Show loader in case of eproc user
+            this.showHideLoader();
             this.punchoutSetup();
 
             // Validates 1TU token, once get from query string
@@ -323,38 +332,61 @@ class MyAccountDropDown extends React.Component {
         const sessionStore = new SessionStore();
         const { requestFailureTitle, requestFailureMessage, sessionTimeoutTitle, sessionTimeoutMessage } = this.props.eProcSetupFailure;
         const checkAndSetError = async (responseJson = {}) => {
-            let punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
-            if (!this.state.eprocSetupFailure.status) {
-                if(Object.keys(punchoutSetupDetails).length === 0) {
-                    await this.punchoutSetup(); // retrieve punchout setup
-                    punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
-                }
-                this.setEprocFailure({
-                    title: responseJson.code === 804 ? sessionTimeoutTitle : requestFailureTitle,
-                    text: responseJson.code === 804 ? sessionTimeoutMessage : requestFailureMessage,
-                    buttons: [{ 
+            try {
+                let punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
+                if (!this.state.eprocSetupFailure.status) {
+                    if (Object.keys(punchoutSetupDetails).length === 0) {
+                        await this.punchoutSetup(); // retrieve punchout setup
+                        punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
+                    }
+                    const buttonConfig = this.state.eprocSetupFailure.buttons && this.state.eprocSetupFailure.buttons[0] ? {
                         text: this.state.eprocSetupFailure.buttons[0].text,
                         action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '',
-                    }]
+                    } : {};
+                    this.setEprocFailure({
+                        title: responseJson.code === 804 ? sessionTimeoutTitle : requestFailureTitle,
+                        text: responseJson.code === 804 ? sessionTimeoutMessage : requestFailureMessage,
+                        buttons: [buttonConfig]
+                    });
+                }
+            } catch (error) {
+                this.setEprocFailure({
+                    title: requestFailureTitle,
+                    text: requestFailureMessage
                 });
             }
         }
-        if (token) {
-            sessionStore.removeUserDetails();
-            const { response } = await punchoutLogin(this.props.config.punchoutLogin, { token });
-            if ( response && response.status !== 200) {
-                const responseJson = await response.json();
-                await checkAndSetError(responseJson);
-            } else {
+        try {
+            if (token) {
+                sessionStore.removeUserDetails();
+                const { response } = await punchoutLogin(this.props.config.punchoutLogin, { token });
+                if (response && response.status !== 200) {
+                    const responseJson = await response.json();
+                    await checkAndSetError(responseJson);
+                } else {
+                    const userDetailsUrl = (this.props.config && this.props.config.userDetailsUrl) || '';
+                    const soldToDetailsUrl = (this.props.config && this.props.config.soldToDetailsUrl) || '';
+                    sessionStore.removeSoldToDetails();
+                    if (userDetailsUrl && soldToDetailsUrl) {
+                        const userDetails = await UserDetailsLazy(userDetailsUrl, false);
+                        if (Object.keys(userDetails).length) {
+                            await SoldToDetailsLazy(soldToDetailsUrl);
+                        } else {
+                            await checkAndSetError();
+                        }
+                    }
+                }
+            } else if (!loginStatus.state()) {
+                sessionStore.removeUserDetails();
                 sessionStore.removeSoldToDetails();
-                await UserDetailsLazy(this.props.config.userDetailsUrl, false);
-                await SoldToDetailsLazy(this.props.config.soldToDetailsUrl);
+                await checkAndSetError();
             }
-        } else if (!loginStatus.state()) {
-            sessionStore.removeUserDetails();
-            sessionStore.removeSoldToDetails();
-            await checkAndSetError();
+        } catch (e) {
+            checkAndSetError();
         }
+        this.setState({ eProcLoginCallCompleted: true }, () =>
+            this.showHideLoader()
+        );
         removeQueryString(window.location.href, '1tu', true);
     }
 
@@ -362,45 +394,55 @@ class MyAccountDropDown extends React.Component {
         const sessionStore = new SessionStore();
         const urlParams = parseQueryParams(window.location.search);
         const sid = urlParams['sid'] || '';
-        if (sid) {
-            sessionStore.removePunchoutSetupDetails();
-            (new LocalStore()).removeCartId();
-            const response = await punchoutSetup(buildUrl({
-                pathname: this.props.config.punchoutSetup,
-                query: {},
-                pathVars: {
-                    userId: "anonymous",
-                    sid: sid
-                }
-            }));
-            if (response && response.status !== 200) {
-                const { requestFailureTitle, requestFailureMessage } = this.props.eProcSetupFailure;
-                const punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
-                this.setEprocFailure({
-                    title: requestFailureTitle,
-                    text: requestFailureMessage,
-                    buttons: [{ 
-                        text: this.state.eprocSetupFailure.buttons[0].text, 
-                        action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '',
-                    }]
-                });
-            } else {
-                sessionStore.setPunchoutSetupDetails({
-                    returnUrl: response.return_url,
-                    redirectUrl: response.redirect_url,
-                    buyerOrgName: response.buyerOrgName,
-                    currency: response.currency,
-                    country: response.country,
-                });
-                (new LocalStore()).setCartId(response.cartId);
-            }
-        } else if (Object.keys(sessionStore.getPunchoutSetupDetails()).length === 0) {
-            const { requestFailureTitle, requestFailureMessage } = this.props.eProcSetupFailure;
+        const { requestFailureTitle, requestFailureMessage } = this.props.eProcSetupFailure;
+        const setPunchoutError = () => {
             this.setEprocFailure({
                 title: requestFailureTitle,
                 text: requestFailureMessage
             });
         }
+        try {
+            if (sid) {
+                sessionStore.removePunchoutSetupDetails();
+                (new LocalStore()).removeCartId();
+                const response = await punchoutSetup(buildUrl({
+                    pathname: this.props.config.punchoutSetup,
+                    query: {},
+                    pathVars: {
+                        userId: "anonymous",
+                        sid: sid
+                    }
+                }));
+                if (response && response.status !== 200) {
+                    const punchoutSetupDetails = sessionStore.getPunchoutSetupDetails();
+                    const buttonConfig = this.state.eprocSetupFailure.buttons && this.state.eprocSetupFailure.buttons[0] ? {
+                        text: this.state.eprocSetupFailure.buttons[0].text,
+                        action: Object.keys(punchoutSetupDetails).length > 0 && punchoutSetupDetails.redirectUrl ? punchoutSetupDetails.redirectUrl : '',
+                    } : {};
+                    this.setEprocFailure({
+                        title: requestFailureTitle,
+                        text: requestFailureMessage,
+                        buttons: [buttonConfig]
+                    });
+                } else {
+                    sessionStore.setPunchoutSetupDetails({
+                        returnUrl: response.return_url,
+                        redirectUrl: response.redirect_url,
+                        buyerOrgName: response.buyerOrgName,
+                        currency: response.currency,
+                        country: response.country,
+                    });
+                    (new LocalStore()).setCartId(response.cartId);
+                }
+            } else if (Object.keys(sessionStore.getPunchoutSetupDetails()).length === 0) {
+                setPunchoutError();
+            }
+        } catch (error) {
+            setPunchoutError();
+        }
+        this.setState({ punchoutSetupCallCompleted: true }, () =>
+            this.showHideLoader()
+        );
         removeQueryString(window.location.href, 'sid', true);
     }
 

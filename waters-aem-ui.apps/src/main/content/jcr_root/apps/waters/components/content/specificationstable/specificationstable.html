@@ -1,6 +1,7 @@
 <div data-sly-use.specificationsTable="com.waters.aem.core.components.content.SpecificationsTable"
      class="cmp-specification-table"
-     data-sly-test.specifications="${specificationsTable.specifications}">
+     data-sly-test.specifications="${specificationsTable.specifications}"
+     data-locator="specificationstable">
     <div class="cmp-table--divide cmp-table">
         <ul data-sly-repeat.specification="${specifications}">
             <li>
@@ -8,10 +9,10 @@
                     <tbody>
                     <tr>
                         <td>
-                            <p><strong>${specification.title}</strong></p>
+                            <p data-locator="specification-title"><strong>${specification.title}</strong></p>
                         </td>
                         <td>
-                            <p>${specification.formattedFeatureValues}</p>
+                            <p data-locator="specification-values">${specification.formattedFeatureValues}</p>
                         </td>
                     </tr>
                     </tbody>
@@ -22,21 +23,21 @@
 
     <div class="cmp-notification-wrapper" data-sly-test="${specificationsTable.sku.hazardous}">
         <div class="cmp-notification-icon">
-            <img class="inline-svg"  src="/content/dam/waters/en/brand-assets/icons/hazardous.svg"/>
+            <img class="inline-svg"  src="/content/dam/waters/en/brand-assets/icons/hazardous.svg" data-locator="notification-icon"/>
         </div>
         <div class="cmp-notification-body">
-            <span class="cmp-notification-title">${'Hazaradous Material' @ i18n}</span>
-            <span class="cmp-notification-description">${'This product contains hazardous material which requires special freight handling. Additional charges may apply.' @ i18n}</span>
+            <span class="cmp-notification-title" data-locator="notification-title">${'Hazaradous Material' @ i18n}</span>
+            <span class="cmp-notification-description" data-locator="notification-description">${'This product contains hazardous material which requires special freight handling. Additional charges may apply.' @ i18n}</span>
         </div>
     </div>
 
     <div class="cmp-notification-wrapper" data-sly-test="${specificationsTable.sku.coldChainShipping}">
         <div class="cmp-notification-icon">
-            <img class="inline-svg"  src="/content/dam/waters/en/brand-assets/icons/coldchain.svg"/>
+            <img class="inline-svg"  src="/content/dam/waters/en/brand-assets/icons/coldchain.svg" data-locator="notification-icon"/>
         </div>
         <div class="cmp-notification-body">
-            <span class="cmp-notification-title">${'Cold Shipping' @ i18n}</span>
-            <span class="cmp-notification-description">${'This part will be shipped cold and shipping and handling fees will be applied to your cart.' @ i18n}</span>
+            <span class="cmp-notification-title" data-locator="notification-title">${'Cold Shipping' @ i18n}</span>
+            <span class="cmp-notification-description" data-locator="notification-description">${'This part will be shipped cold and shipping and handling fees will be applied to your cart.' @ i18n}</span>
         </div>
     </div>
 

@@ -7,6 +7,7 @@ import DisplayMessage from './components/displaymessage';
 import Requirements from './components/requirements';
 
 import { getAttributes } from './utils/validations';
+import { elementLocator } from '../../utils/eCommerceFunctions';
 import { renderFormattedLabel } from '../../utils/labelFunctions';
 
 const Input = ({
@@ -70,6 +71,7 @@ const Input = ({
                             ? 'cmp-form-field--label-matching'
                             : ''
                     }
+                    data-locator={elementLocator(label) || 'form-field--label'}
                 >
                     {renderFormattedLabel(label, validation.required, optionalLabel)}
                 </label>
@@ -88,6 +90,7 @@ const Input = ({
                         onFocus={toggleReq}
                         onChange={updateReq}
                         placeholder=" "
+                        aria-label={name}
                         disabled={disabled}
                         aria-labelledby={name}
                         aria-required={validation.required}
@@ -100,6 +103,7 @@ const Input = ({
                                     : ''
                                 : ''
                         }
+                        data-locator={elementLocator(name) || 'form-field-input'}
                     ></input>
                     <Icons />
                 </div>
