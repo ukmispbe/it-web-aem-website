@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+import DisplayMessage from './components/displaymessage';
 
 import { useFieldApi, useFormApi } from '../form';
 
@@ -12,13 +13,16 @@ const Captcha = ({}) => {
     };
 
     return (
-        <ReCAPTCHA
-            sitekey={siteKey}
-            onChange={onChange}
-            ref={register({ name }, { required: validation.required })}
-            hl={isocode}
-            data-locator="captcha"
-        />
+        <>
+            <ReCAPTCHA
+                sitekey={siteKey}
+                onChange={onChange}
+                ref={register({ name }, { required: validation.required })}
+                hl={isocode}
+                data-locator="captcha"
+            />
+            <DisplayMessage name={name} validation={validation} />
+        </>
     );
 };
 

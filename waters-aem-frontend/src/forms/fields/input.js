@@ -9,7 +9,7 @@ import Requirements from './components/requirements';
 import { getAttributes } from './utils/validations';
 import { elementLocator } from '../../utils/eCommerceFunctions';
 import { renderFormattedLabel } from '../../utils/labelFunctions';
-
+import {functions as validator } from './patterns/index';
 const Input = ({
     name,
     label,
@@ -45,8 +45,75 @@ const Input = ({
         reqRef.current ? reqRef.current.toggle() : () => false;
 
     const updateReq = () => {
-        setValue(name, inputRef.current.value, true);
+        switch (type) {
+            case "text": {
+                // use react-hook-form validation
+                setValue(name, inputRef.current.value, true);
+                break;
+            }
+            case "email": {
+                if (validator[validation.validateFnName](inputRef.current.value, inputRef.current, validation.requiredMsg, setError, clearError) === false) {
+                    // Hide the Tick Icon as not a valid email and don't validate using react-hook-form mechanism
+                    hideShowValidIcon(name, true);
+                    clearError(name);
+                }
+                else {
+                    // Stop hiding the tick icon as email is now valid 
+                    hideShowValidIcon(name, false);
+                    setValue(name, inputRef.current.value, true);
+                }
+                break;
+            }
+            case "password": {
+                if (inputRef.current.name === "password") {
+                    // password: (value, ref, setError, clearError, throwErrors=true)
+                    if (validator[validation.validateFnName](inputRef.current.value, inputRef.current, setError, clearError) === false) {
+                        // Hide the Tick Icon as not a valid password and don't validate using react-hook-form mechanism
+                        hideShowValidIcon(name, true);
+                        clearError(name);
+                    }
+                    else {
+                        // Stop hiding the tick icon as password is now valid 
+                        hideShowValidIcon(name, false);
+                        setValue(name, inputRef.current.value, true);
+                    }
+
+                }
+                if (inputRef.current.name === "confirmPassword") {
+                    const passwordControl =document.getElementById("password"); 
+                    // matching: (value, matchRef, ref) 
+                    if (validator[validation.validateFnName](inputRef.current.value, passwordControl, inputRef.current) === false) {
+                        // Hide the Tick Icon as not a valid confirm password and don't validate using react-hook-form mechanism
+                        hideShowValidIcon(name, true, 1);
+                        clearError(name);
+                    }
+                    else {
+                        // Stop hiding the tick icon as confirm password is now valid 
+                        hideShowValidIcon(name, false, 1);
+                        setValue(name, inputRef.current.value, true);
+                    }
+                }               
+                break;
+            }
+            default: {
+                break;
+            }
+        }
         reqRef.current ? reqRef.current.update(inputRef.current.value) : () => false;
+    }
+
+    const hideShowValidIcon = (controlName, isHidden, index=0) => {
+        const control = document.getElementById(controlName);       
+        let styleString = "inline-block";
+        if (isHidden) {
+            styleString = "none";
+        }
+        if (control) {
+            const mainControlDiv = control.parentElement.parentElement;
+            if (mainControlDiv) {
+                mainControlDiv.getElementsByClassName("valid-icon")[index].style.display = styleString;
+            }      
+        }      
     }
 
     const getMatchReq = useMemo(

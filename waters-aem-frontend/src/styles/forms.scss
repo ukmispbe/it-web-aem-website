@@ -182,16 +182,6 @@
                 }
             }
 
-            &:placeholder-shown,
-            &:focus {
-                & ~ .cmp-form-field--icons .valid-icon {
-                    display: none;
-                    svg {
-                        display: none;
-                    }
-                }
-            }
-
             &::-moz-placeholder {
                 & ~ .cmp-form-field--icons .valid-icon {
                     display: none;
