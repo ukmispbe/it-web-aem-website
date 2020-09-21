@@ -62,7 +62,10 @@ function getAuthoredDataForSearchBar(c, h) {
         iconSearch: c.dataset.iconSearch,
         iconClear: c.dataset.iconClear,
         isocode: c.dataset.isocode,
-        customStyle: c.dataset.customStyle || ''
+        customStyle: c.dataset.customStyle || '',
+        clearLabel: c.dataset.clearLabel || '',
+        searchLabel: c.dataset.searchLabel || '',
+        autoSuggestLabel: c.dataset.autoSuggestLabel || ''
     };
 }
 function getAuthoredDataForSearchApp(c, s) {
@@ -123,6 +126,11 @@ const header = document.querySelector('.cmp-header');
 
 if (searchBarContainer && header) {
     const data = getAuthoredDataForSearchBar(searchBarContainer, header);
+    const searchLabels = {
+        clear: data.clearLabel,
+        search: data.searchLabel,
+        autoSuggest: data.autoSuggestLabel,
+    }
     ReactDOM.render(
         <SearchBar
             iconSearch={data.iconSearch}
@@ -132,7 +140,7 @@ if (searchBarContainer && header) {
             placeholderMobile={data.placeholderMobile}
             baseUrl={data.baseUrl}
             isocode={data.isocode}
-            autoSuggestLabel={data.autoSuggestLabel}
+            labels={searchLabels}
         />,
         searchBarContainer
     );
@@ -141,7 +149,12 @@ if (searchBarContainer && header) {
 const headerSearchBarContainer = document.getElementById('header-search-bar');
 
 if (headerSearchBarContainer && header) {
-    const data = getAuthoredDataForSearchBar(headerSearchBarContainer, header)
+    const data = getAuthoredDataForSearchBar(headerSearchBarContainer, header);
+    const searchLabels = {
+        clear: data.clearLabel,
+        search: data.searchLabel,
+        autoSuggest: data.autoSuggestLabel,
+    }
     ReactDOM.render(
         <SearchBar
             iconSearch={data.iconSearch}
@@ -152,6 +165,7 @@ if (headerSearchBarContainer && header) {
             baseUrl={data.baseUrl}
             isocode={data.isocode}
             customStyle={data.customStyle}
+            labels={searchLabels}
         />,
         headerSearchBarContainer
     );
