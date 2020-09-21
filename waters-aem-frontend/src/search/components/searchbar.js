@@ -251,7 +251,7 @@ SearchBar.propTypes = {
     maxSuggestions: PropTypes.number.isRequired,
     minSearchCharacters: PropTypes.number.isRequired,
     customStyle: PropTypes.string,
-    labels: PropTypes.shape({})
+    labels: PropTypes.objectOf(PropTypes.string)
 }
 
 SearchBar.defaultProps = {
