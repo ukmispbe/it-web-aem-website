@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          jcr:primaryType="sling:OsgiConfig"
+          signOutUrl="https://preprod1.waters.com/waters/logOut.htm"
+          myAccountUrl="https://preprod1.waters.com/waters/My-Account/nav.htm?cid=2243096"
+          legacySearchUrl="https://preprod1.waters.com/waters/keywordSearch.htm"
+          registrationSubmitUrl="https://aempreprodservices.waters.com/api/waters/user/v1/registration"
+          emailValidationUrl="https://aempreprodservices.waters.com/api/waters/user/v1/validate/{email}"
+          pwResetUrl="https://aempreprodservices.waters.com/api/waters/user/v1/reset/password?email={email}"
+          changePwUrl="https://aempreprodservices.waters.com/api/waters/user/v1/change/password"
+          updatePwUrl="https://aempreprodservices.waters.com/api/waters/user/v1/update/password"
+          userDetailsUrl="https://aempreprodservices.waters.com/api/waters/user/v1/details"
+          soldToDetailsUrl="https://aempreprodservices.waters.com/api/waters/user/v1/retrievesoldto"
+          signInEndpoint="https://aempreprodservices.waters.com/api/waters/user/v1/login"
+          signOutEndpoint="https://aempreprodservices.waters.com/api/waters/user/v1/logout"
+          updateProfileUrl="https://aempreprodservices.waters.com/api/waters/user/v1/update/profile"
+          orderDetailsUrl="https://aempreprodservices.waters.com/api/waters/order/v1/details"
+          searchUrl="https://aempreprodservices.waters.com/api/waters/search"
+          orderListUrl="https://aempreprodservices.waters.com/api/waters/order/v1/list"
+          chooseAccountEndpoint="https://aempreprodservices.waters.com/api/waters/user/v1/switchaccount"
+          contactSupportUrl="https://aempreprodservices.waters.com/api/waters/contact/v1/support"/>
+
