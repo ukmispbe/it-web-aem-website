@@ -157,16 +157,16 @@ const Form = ({
                 if (errors.hasOwnProperty(name)) {
                     if (name !== "captcha") {
                         const control = document.getElementById(name);
-                        if (control !== null) {
+                        if (control) {
                             const mainControlDiv = control.parentElement.parentElement;
-                            if (mainControlDiv !== null) {
+                            if (mainControlDiv) {
                                 mainControlDiv.classList.add("cmp-form-field--invalid");
                             }
                         }
                     }
                     else {
                         const captchaControl = document.getElementsByClassName("cmp-form-field-captcha")[0];
-                        if (captchaControl !== null) {
+                        if (captchaControl) {
                             captchaControl.classList.add("cmp-form-field--invalid");
                         }
                     }
