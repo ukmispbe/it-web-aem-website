@@ -19,6 +19,7 @@ const Captcha = ({}) => {
                 onChange={onChange}
                 ref={register({ name }, { required: validation.required })}
                 hl={isocode}
+                data-locator="captcha"
             />
             <DisplayMessage name={name} validation={validation} />
         </>

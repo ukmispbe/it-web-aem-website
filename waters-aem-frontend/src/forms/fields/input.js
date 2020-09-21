@@ -105,12 +105,12 @@ const Input = ({
     const hideShowValidIcon = (controlName, isHidden, index=0) => {
         const control = document.getElementById(controlName);       
         let styleString = "inline-block";
-        if (isHidden === true) {
+        if (isHidden) {
             styleString = "none";
         }
-        if (control !== null) {
+        if (control) {
             const mainControlDiv = control.parentElement.parentElement;
-            if (mainControlDiv !== null) {
+            if (mainControlDiv) {
                 mainControlDiv.getElementsByClassName("valid-icon")[index].style.display = styleString;
             }      
         }      
