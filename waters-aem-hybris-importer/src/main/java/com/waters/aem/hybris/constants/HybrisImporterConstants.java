@@ -24,7 +24,7 @@ public final class HybrisImporterConstants {
 
     public static final String IMPORTER_PAGE_PATH = "/var/waters/hybris-importer";
 
-    public static final String PROPERTY_REDIRECT_TARGET = "redirectTarget";
+    public static final String PROPERTY_REDIRECT_TARGET = "cq:redirectTarget";
 
     public static final String PROPERTY_REDIRECT_STATUS = "sling:redirectStatus";
 
