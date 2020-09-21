@@ -432,6 +432,14 @@
                 @include font-small;
             }
         }
+        
+        &-label {
+            label{
+                margin-top: 0;
+                @include font-small;
+                font-weight: $font-weight-light;
+            }
+        }
 
         input[type='checkbox'] {
             display: none;
@@ -611,8 +619,8 @@
     }
 }
 
-.cmp-trouble-signing-in-form {
+.cmp-trouble-signing-in-form,#js-contact-support-form {
     .cmp-form {
-        margin-bottom: 0px;
+        margin-bottom: 0;
     }
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { ClipLoader } from 'react-spinners';
 
 class LoadingSpinner extends Component {
@@ -23,16 +24,14 @@ class LoadingSpinner extends Component {
         const { color, loading, type, size } = this.props;
         let sType, sSize, sColor;
         
+        sType = type;
         if (type === 'overlay'){
-            sType = type;
             sSize = 64;
-            sColor = '#9CA7B0';
+            sColor = color;
         } else if (type === 'inline'){
-            sType = type;
             sSize = 22;
             sColor = '#ffffff';
         } else {
-            sType = type;
             sSize = parseInt(size);
             sColor = color;  
         }

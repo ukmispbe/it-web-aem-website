@@ -147,6 +147,7 @@
                         <a
                             class="cmp-header-links__link"
                             href="${header.viewCartUrl}"
+                            aria-label="${'Cart' @ i18n}"
                             data-locator="link-header-my-account-cart"
                             id="title"
                         >
@@ -182,4 +183,5 @@
             data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"
         ></div>
     </div>
+    <div data-sly-test="${header.eprocurement}" id="cmp-header--loader"></div>
 </header>

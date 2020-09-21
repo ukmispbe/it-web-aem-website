@@ -41,12 +41,19 @@ class MyAccountDropDown extends React.Component {
                 text: '',
                 icon: this.props.eProcSetupFailure.icon,
                 buttons: this.props.eProcSetupFailure.buttons
-            }
+            },
+            punchoutSetupCallCompleted: false,
+            eProcLoginCallCompleted: false,
         };
 
         this.accountHeaderUser = null;
         this.allNavItems = null;
         this.header = null;
+    }
+
+    showHideLoader() {
+        const {punchoutSetupCallCompleted, eProcLoginCallCompleted} = this.state;
+        window.dispatchEvent(new CustomEvent("showLoaderEproc", { detail: { showLoader: !(punchoutSetupCallCompleted && eProcLoginCallCompleted) }}));
     }
 
     async componentDidMount() {
@@ -71,6 +78,8 @@ class MyAccountDropDown extends React.Component {
         window.addEventListener('resize', this.updateViewport, true);
 
         if (isEprocurementUser()) {
+            // Show loader in case of eproc user
+            this.showHideLoader();
             this.punchoutSetup();
 
             // Validates 1TU token, once get from query string
@@ -359,8 +368,12 @@ class MyAccountDropDown extends React.Component {
                     const soldToDetailsUrl = (this.props.config && this.props.config.soldToDetailsUrl) || '';
                     sessionStore.removeSoldToDetails();
                     if (userDetailsUrl && soldToDetailsUrl) {
-                        await UserDetailsLazy(userDetailsUrl, false);
-                        await SoldToDetailsLazy(soldToDetailsUrl);
+                        const userDetails = await UserDetailsLazy(userDetailsUrl, false);
+                        if (Object.keys(userDetails).length) {
+                            await SoldToDetailsLazy(soldToDetailsUrl);
+                        } else {
+                            await checkAndSetError();
+                        }
                     }
                 }
             } else if (!loginStatus.state()) {
@@ -371,6 +384,9 @@ class MyAccountDropDown extends React.Component {
         } catch (e) {
             checkAndSetError();
         }
+        this.setState({ eProcLoginCallCompleted: true }, () =>
+            this.showHideLoader()
+        );
         removeQueryString(window.location.href, '1tu', true);
     }
 
@@ -424,6 +440,9 @@ class MyAccountDropDown extends React.Component {
         } catch (error) {
             setPunchoutError();
         }
+        this.setState({ punchoutSetupCallCompleted: true }, () =>
+            this.showHideLoader()
+        );
         removeQueryString(window.location.href, 'sid', true);
     }
 

@@ -107,10 +107,20 @@
             padding: 0;
             margin-bottom: $space-s;
             margin-left: auto;
+            border: none;
+            background-color: transparent;
             @include mobile {
                 padding-right: 1em;
                 margin-bottom: 0;
             }
+
+            @include tablet-and-over {
+                position: absolute;
+                top: $space-s;
+                right: $space-s;
+                float: right;
+            }
+
             svg {
                 cursor: pointer;
                 width: $icon-m;
@@ -119,13 +129,6 @@
                 .st0,
                 .st1 {
                     stroke: $color-icon;
-                }
-                
-                @include tablet-and-over {
-                    position: absolute;
-                    top: $space-s;
-                    right: $space-s;
-                    float: right;
                 }
 
                 @include mobile {

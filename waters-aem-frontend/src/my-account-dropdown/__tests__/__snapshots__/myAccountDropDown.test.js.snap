@@ -20,11 +20,6 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
       >
         Pfizer Randolf,
       </span>
-      <span
-        className="my-account-dropdown__user-details__account__number"
-      >
-        NJ 28264019282
-      </span>
     </div>
     <a
       className="my-account-dropdown__user-details__switch-account"
@@ -160,11 +155,6 @@ exports[`Feature: My Account Dropdown Component Scenario: Rendering My Account D
         className="my-account-dropdown__user-details__account__name"
       >
         Pfizer Randolf,
-      </span>
-      <span
-        className="my-account-dropdown__user-details__account__number"
-      >
-        NJ 28264019282
       </span>
     </div>
   </div>

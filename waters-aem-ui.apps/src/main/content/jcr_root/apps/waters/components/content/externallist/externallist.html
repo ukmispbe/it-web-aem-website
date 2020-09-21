@@ -7,7 +7,7 @@
     </div>
     <div class="cmp-external-list__link">
         <a class="cmp-links__external-link--${externalList.external}" href="${externalList.link.href}"
-           target="${externalList.external ? '_blank' : ''}">${externalList.text}</a>
+           target="${externalList.external ? '_blank' : ''}" rel="${externalList.external ? 'noopener noreferrer' : ''}">${externalList.text}</a>
     </div>
     <div class="cmp-external-list__description">${externalList.description}</div>
 

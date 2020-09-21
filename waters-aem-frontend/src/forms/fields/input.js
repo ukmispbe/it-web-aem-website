@@ -8,6 +8,7 @@ import Requirements from './components/requirements';
 
 import { getAttributes } from './utils/validations';
 import { elementLocator } from '../../utils/eCommerceFunctions';
+import { renderFormattedLabel } from '../../utils/labelFunctions';
 
 const Input = ({
     name,
@@ -20,7 +21,7 @@ const Input = ({
     const reqRef = useRef(null);
     const inputRef = useRef(null);
 
-    const { type, disabled, matchLabel, emailValidationEndpoint } = useContext(useFieldApi);
+    const { type, disabled, matchLabel, emailValidationEndpoint, optionalLabel } = useContext(useFieldApi);
     const { register, setError, setValue, clearError, formName } = useContext(useFormApi);
 
     const errors = useErrorsContext();
@@ -72,13 +73,7 @@ const Input = ({
                     }
                     data-locator={elementLocator(label) || 'form-field--label'}
                 >
-                    {label}
-                    {!validation.required && (
-                        <span className="cmp-form-field--optional">
-                            {' '}
-                            (optional)
-                        </span>
-                    )}
+                    {renderFormattedLabel(label, validation.required, optionalLabel)}
                 </label>
 
                 {description && (
@@ -95,6 +90,7 @@ const Input = ({
                         onFocus={toggleReq}
                         onChange={updateReq}
                         placeholder=" "
+                        aria-label={name}
                         disabled={disabled}
                         aria-labelledby={name}
                         aria-required={validation.required}

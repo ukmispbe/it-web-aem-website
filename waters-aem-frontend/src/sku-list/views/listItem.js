@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactSVG from 'react-svg';
+import PropTypes from 'prop-types';
 import Stock from '../../sku-details/views/stock';
 import Price from '../../sku-details/views/price';
 import { getAvailability, getPricing, matchListItems } from '../../sku-details/services';
@@ -217,7 +218,7 @@ class ListItem extends React.Component {
             <div className="cmp-sku-details__buyinfo">
                 {LoginStatus.state() && typeof custPrice !== 'undefined'
                     && custPrice !== listPrice && (
-                    <div className="cmp-sku-list__list-price" data-locator="list-price-label">
+                    <div className="cmp-sku-list__list-price" data-locator="list-price-label" aria-label={`${skuInfo.listPriceLabel} ${listPrice}`}>
                         {`${skuInfo.listPriceLabel} ${listPrice}`}
                     </div>
                 )}
@@ -273,6 +274,7 @@ class ListItem extends React.Component {
                         isCommerceApiMigrated={skuConfig.isCommerceApiMigrated}
                         toggleErrorModal={this.toggleErrorModal}
                         analyticsConfig={this.state.analyticsConfig}
+                        qtyLabel={skuConfig.qtyAriaLabel}
                     />
                     <Modal isOpen={this.state.modalShown} onClose={this.toggleModal} className='cmp-add-to-cart-modal'>
                         {!isErrorModal && (
@@ -357,9 +359,9 @@ class ListItem extends React.Component {
         if (skuConfig.showBreadcrumbs) {
             return (
                 <div className="cmp-search__results-item-breadcrumb skuitem" data-locator="search-results-breadcrumb">
-                    <div>{relatedSku.category_facet}</div>
-                    <ReactSVG src={skuConfig.skuInfo.nextIcon} />
-                    <div>{relatedSku.contenttype_facet}</div>
+                    <div aria-label={relatedSku.category_facet}>{relatedSku.category_facet}</div>
+                    <ReactSVG src={skuConfig.skuInfo.nextIcon} aria-hidden="true" />
+                    <div aria-label={relatedSku.contenttype_facet}>{relatedSku.contenttype_facet}</div>
                 </div>
             );
         }
@@ -395,7 +397,7 @@ class ListItem extends React.Component {
                     />
                 </div>
                 <div className="cmp-sku-details__left">
-                    <div className="cmp-sku-list__code" data-locator="product-number">
+                    <div className="cmp-sku-list__code" data-locator="product-number" aria-label={skuConfig.skuInfo.partNumberLabel + " " + relatedSku.code}>
                         {skuConfig.skuInfo.partNumberLabel + " " + relatedSku.code}
                     </div>
                     <a
