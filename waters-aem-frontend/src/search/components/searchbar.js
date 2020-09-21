@@ -76,7 +76,7 @@ class SearchBar extends Component {
             onChange: this.handleSearchValueChange ,
             onKeyPress: this.handleSearchValuePress,
             onBlur: this.handleSearchValueBlur,
-            'aria-label': this.props.autoSuggestLabel
+            'aria-label': this.props.labels.autoSuggest
         };
         
         if(isEprocurementUser() && !this.eprocIsoCode) {
@@ -96,9 +96,9 @@ class SearchBar extends Component {
 
     renderHideClearIcon = () => (this.state.value) ? this.renderClearIcon() : <></>;
 
-    renderClearIcon = () => <button aria-label="Clear" onClick={e => this.handleClearIconClick(e)} onMouseDown={e => e.preventDefault()} className="clear-icon"><ReactSVG src={this.props.iconClear} className="cmp-search-bar__icons-clear" /></button>
+    renderClearIcon = () => <button aria-label={this.props.labels.clear} onClick={e => this.handleClearIconClick(e)} onMouseDown={e => e.preventDefault()} className="clear-icon"><ReactSVG src={this.props.iconClear} className="cmp-search-bar__icons-clear" /></button>
 
-    renderSearchIcon = () => <button aria-label="Search" onClick={e => this.handleSearchIconClick(e)} onMouseDown={e => e.preventDefault()} className="search-icon"><ReactSVG aria-hidden="true" src={this.props.iconSearch} className="cmp-search-bar__icons-search" /></button>;
+    renderSearchIcon = () => <button aria-label={this.props.labels.search} onClick={e => this.handleSearchIconClick(e)} onMouseDown={e => e.preventDefault()} className="search-icon"><ReactSVG aria-hidden="true" src={this.props.iconSearch} className="cmp-search-bar__icons-search" /></button>;
 
     // Update searchbar placeholder message depending on the view and window size
     handleViewChange = () => {
@@ -251,14 +251,13 @@ SearchBar.propTypes = {
     maxSuggestions: PropTypes.number.isRequired,
     minSearchCharacters: PropTypes.number.isRequired,
     customStyle: PropTypes.string,
-    autoSuggestLabel: PropTypes.string
+    labels: PropTypes.shape({})
 }
 
 SearchBar.defaultProps = {
     maxSuggestions: 10,
     minSearchCharacters: 1,
-    customStyle: '',
-    autoSuggestLabel: 'Search Box'
+    customStyle: ''
 }
 
 export default SearchBar;
