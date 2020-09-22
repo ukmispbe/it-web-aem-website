@@ -122,7 +122,7 @@ export const functions = {
         }
 
         // Check for special character
-        if (!test(value, /^.*\W+.*$/)) {
+        if (!test(value, /^.*[^a-zA-Z0-9]+.*$/)) {
             newErrors.push({
                 name: "noSpecial",
                 type: "missingSpecial",
