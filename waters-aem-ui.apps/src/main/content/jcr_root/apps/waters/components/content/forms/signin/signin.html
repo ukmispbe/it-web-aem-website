@@ -57,7 +57,8 @@
                     "active": false,
                     "siteKey": "${signIn.captchaSiteKey @ context='unsafe'}",
                     "validation": {
-                        "required": true
+                        "required": true,
+                        "requiredMsg": "${'Please check the captcha.' @ i18n, context='text'}"
                     }
                 }
             ]

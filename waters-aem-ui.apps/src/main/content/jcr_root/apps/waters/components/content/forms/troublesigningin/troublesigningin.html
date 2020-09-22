@@ -40,7 +40,8 @@
                     "name": "captcha",
                     "siteKey": "${signinTrouble.captchaSiteKey @ context='unsafe'}",
                     "validation": {
-                        "required": true
+                        "required": true,
+                        "requiredMsg": "${'Please check the captcha.' @ i18n, context='text'}"
                     }
                 }
             ]
