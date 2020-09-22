@@ -32,7 +32,7 @@ const MyProfile = ({ configs }) => {
             const abstractAddress = JSON.parse(document.getElementById(configs.addressConfig.abstractConfig).innerHTML);
             configs.addressConfig.configs.map(id => {
                 const addressConfig = setupConfig(id, abstractAddress);              
-                addressConfig.profileTiles = generateTiles(personalConfig.data, addressConfig.type, addressConfig.icons ? addressConfig.icons.refresh : {});;
+                addressConfig.profileTiles = generateTiles(personalConfig.data, addressConfig.type, addressConfig.icons ? addressConfig.icons.refresh : {});
                 addressConfig.profileData = profileReturnData.setData;
                 addressConfig.data = profileReturnData.data;
                 detailTiles.push(addressConfig);

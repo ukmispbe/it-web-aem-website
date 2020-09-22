@@ -42,8 +42,6 @@ const DetailTiles = ({
         setData = profileData;
     }
 
-    //const { tiles, setData } = useProfile(userDetailsUrl, soldToDetailsUrl, type, icons.refresh);
-
     const swapFirstAndLastNames = () => {
         const indexofFirstName = form.fields.map(e => e.name).indexOf('firstName');
         const indexofLastName = form.fields.map(e => e.name).indexOf('lastName');
