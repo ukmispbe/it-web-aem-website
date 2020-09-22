@@ -185,6 +185,7 @@
             "signInText2": "${'to view ' @ i18n, context='text'}",
             "signInText3": "${'Your Price' @ i18n, context='text'}",
             "signinIcon": "/content/dam/waters/en/brand-assets/icons/user.svg",
+            "unavailablePriceLabel": "${'Unavailable' @ i18n, context='text'}",
             "skuErrorMessage": [
                 {
                     "type": "text",
@@ -195,7 +196,7 @@
                     "type": "link",
                     "label": "Contact Waters",
                     "title": "Contact Waters",
-                    "url": "${footer.contactLink.href @ context='unsafe'}",
+                    "url": "${footer.eprocurement ? footer.contactLink.href : footer.contactLink @ context='unsafe'}",
                     "blank": true,
                     "rightSpace": "true"
                 },
