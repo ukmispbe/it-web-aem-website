@@ -7,12 +7,13 @@ class SkuMessage extends React.Component {
         super(props);
     }
 
-    renderLink = ({ label, url, blank }) => {
+    renderLink = ({ label, title, url, blank }) => {
         return (
             <a
                 href={url}
                 target={blank ? "_blank" : ""}
-                rel="noopener">
+                rel="noopener"
+                title={title}>
                 {label}
             </a>
         )

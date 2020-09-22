@@ -9,7 +9,7 @@ function UnavailablePrice(props) {
     return (
         <>
             <div className="cmp-sku-list__cust-price-label" data-locator="sku-price-label" aria-label={label}>{label}</div>
-            <div className="cmp-sku-list__unavialable">
+            <div className="cmp-sku-list__unavailable">
                 <ReactSVG aria-hidden="true" src={icon} data-locator={elementLocator(`icon ${text}`)} />
                 <div aria-label={text} data-locator={elementLocator(text)}>{text}</div>
             </div>

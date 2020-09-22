@@ -189,20 +189,20 @@
             "skuErrorMessage": [
                 {
                     "type": "text",
-                    "text": "This item is not available for sale.",
+                    "text": "${'This item is not available for sale.' @ i18n, context='text'}",
                     "rightSpace": "true"
                 },
                 {
                     "type": "link",
-                    "label": "Contact Waters",
-                    "title": "Contact Waters",
+                    "label": "${'Contact Waters' @ i18n, context='text'}",
+                    "title": "${'Contact Waters' @ i18n, context='text'}",
                     "url": "${footer.eprocurement ? footer.contactLink.href : footer.contactLink @ context='unsafe'}",
                     "blank": true,
                     "rightSpace": "true"
                 },
                 {
                     "type": "text",
-                    "text": "for more information.",
+                    "text": "${'for more information.' @ i18n, context='text'}",
                     "rightSpace": "false"
                 }
             ]
