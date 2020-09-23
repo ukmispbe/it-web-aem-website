@@ -544,7 +544,6 @@ class SearchContainer extends Component {
         newState.spell_suggestion = res.hasOwnProperty('spell_suggestion')
             ? res.spell_suggestion
             : '';
-
         newState.isSkuList = this.isSkuList(query.category);
 
         this.setState(Object.assign({}, this.state, newState), () => {

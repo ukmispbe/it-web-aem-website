@@ -3,6 +3,7 @@ import ReactSVG from 'react-svg';
 import PropTypes from 'prop-types';
 import Stock from '../../sku-details/views/stock';
 import Price from '../../sku-details/views/price';
+import UnavailablePrice from '../../sku-details/views/unavailablePrice';
 import { getAvailability, getPricing, matchListItems } from '../../sku-details/services';
 import AddToCart from '../../sku-details/views/addToCart';
 import AddToCartBody from '../../sku-details/views/addToCartModal';
@@ -15,6 +16,14 @@ import Ecommerce from '../../scripts/ecommerce';
 import SkuDetails from '../../scripts/sku-details';
 import Sticky from '../../scripts/stickyService';
 import Analytics, { analyticTypes, searchCartContext, relatedCartContext } from '../../analytics';
+import { isEprocurementUser } from '../../utils/userFunctions';
+import {
+    BAD_REQUEST_CODE,
+    SERVER_ERROR_CODE,
+    UNAVAILABLE_PRICE_WITH_ADD_TO_CART,
+    LIST_PRICE_WITH_ADD_TO_CART,
+    NO_PRICE_NO_ADD_TO_CART,
+} from '../../constants';
 
 class ListItem extends React.Component {
     constructor(props) {
@@ -54,14 +63,14 @@ class ListItem extends React.Component {
             },
             errorObjCart: {},
             errorObjAvailability: {},
-            errorObjPrice: {}
+            errorPriceType: ''
         };
     }
 
     componentDidMount() {
         const { pricingUrl, skuNumber, userInfo } = this.state;
         if (LoginStatus.state()) {
-            if (Object.keys(userInfo).length > 0 && userInfo.callCustApi){
+            if (Object.keys(userInfo).length > 0 && userInfo.callCustApi) {
                 this.getCustPricing(pricingUrl, skuNumber, userInfo, this.props.relatedSku.formattedPrice);
             } else {
                 this.setState({ loading: false });
@@ -71,36 +80,37 @@ class ListItem extends React.Component {
         }
     }
 
-//Note: getCustPricing Method should be an exact match between SKU Details and SKU List
+    //Note: getCustPricing Method should be an exact match between SKU Details and SKU List
     getCustPricing = (pricingUrl, skuNumber, userInfo, propListPrice) => {
         getPricing(pricingUrl, skuNumber, userInfo.dynamicSoldTo, userInfo.salesOrg)
-        .then(response => {
-            if (response.status && response.status === 200) {
-                let match = matchListItems(skuNumber, response);
-                let listPriceValue = (match.listPrice !== '' && match.listPrice != undefined) ? match.listPrice : propListPrice;
-                this.setState({
-                    skuData: match,
-                    custPrice: match.custPrice,
-                    listPrice: listPriceValue,
-                    loading: false
-                }, () => {
-                    //this.checkPricingAnalytics();
-                });
-            } else {
+            .then(response => {
+                if (response.status && response.status === 200) {
+                    let match = matchListItems(skuNumber, response);
+                    let listPriceValue = (match.listPrice !== '' && match.listPrice != undefined) ? match.listPrice : propListPrice;
+                    this.setState({
+                        skuData: match,
+                        custPrice: match.custPrice,
+                        listPrice: listPriceValue,
+                        loading: false
+                    }, () => {
+                        //this.checkPricingAnalytics();
+                    });
+                } else {
+                    // Add Error Object to State
+                    this.setState({
+                        errorPriceType: [BAD_REQUEST_CODE, SERVER_ERROR_CODE].includes(response.status) ?
+                            (isEprocurementUser() ? UNAVAILABLE_PRICE_WITH_ADD_TO_CART : LIST_PRICE_WITH_ADD_TO_CART) : NO_PRICE_NO_ADD_TO_CART,
+                        loading: false
+                    });
+                }
+            })
+            .catch(err => {
                 // Add Error Object to State
                 this.setState({
-                    errorObjPrice: response.errors,
+                    errorPriceType: NO_PRICE_NO_ADD_TO_CART,
                     loading: false
                 });
-            }
-        })
-        .catch(err => {
-            // Add Error Object to State
-            this.setState({
-                errorObjPrice: err,
-                loading: false
             });
-        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -134,21 +144,21 @@ class ListItem extends React.Component {
 
     checkAvailability = skuNumber => {
         getAvailability(this.state.availabilityUrl, this.state.userCountry, skuNumber)
-        .then(response => {
-            this.setState({
-                skuAvailability: response,
-                analyticsConfig: {
-                    ...this.state.analyticsConfig,
-                    ...response
-                }
-            }, () => {
+            .then(response => {
+                this.setState({
+                    skuAvailability: response,
+                    analyticsConfig: {
+                        ...this.state.analyticsConfig,
+                        ...response
+                    }
+                }, () => {
                     this.checkAvailabilityAnalytics();
+                });
+            })
+            .catch(err => {
+                // Add Error Object to State
+                this.setState({ errorObjAvailability: err });
             });
-        })
-        .catch(err => {
-            // Add Error Object to State
-            this.setState({ errorObjAvailability: err });
-        });
     };
 
     checkAvailabilityAnalytics = () => {
@@ -178,18 +188,15 @@ class ListItem extends React.Component {
         }
     };
 
-    renderPricing = () => {
-        const { custPrice, listPrice, skuInfo } = this.state;
-
-        if (LoginStatus.state()){
-            let price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
+    renderListOrUnavailablePrice = () => {
+        const { listPrice, skuInfo, errorPriceType } = this.state;
+        if (errorPriceType === UNAVAILABLE_PRICE_WITH_ADD_TO_CART) {
             return (
-                <Price
+                <UnavailablePrice
                     label={skuInfo.custPriceLabel}
-                    price={price}
-                    isListPrice={false}
-                />
-            )
+                    icon={skuInfo.lowStockIcon}
+                    text={skuInfo.unavailablePriceLabel}
+                />);
         } else {
             if (typeof listPrice !== 'undefined') {
                 return (
@@ -197,15 +204,34 @@ class ListItem extends React.Component {
                         label={skuInfo.listPriceLabel}
                         price={listPrice}
                         isListPrice={true}
-                    />
-                )
+                    />);
             }
+        }
+    }
+
+    renderPricing = () => {
+        const { custPrice, listPrice, skuInfo, errorPriceType } = this.state;
+
+        if (LoginStatus.state()) {
+            let price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
+            if (errorPriceType !== '') {
+                return this.renderListOrUnavailablePrice();
+            } else {
+                return (
+                    <Price
+                        label={skuInfo.custPriceLabel}
+                        price={price}
+                        isListPrice={false}
+                    />);
+            }
+        } else {
+            return this.renderListOrUnavailablePrice();
         }
     }
 
     renderBuyInfoPartial = () => {
         const {
-            custPrice, listPrice, loading, skuInfo, skuAvailability, 
+            custPrice, listPrice, loading, skuInfo, skuAvailability,
             errorConfig, modalConfig,
             errorObjCart, errorObjAvailability
         } = this.state;
@@ -215,12 +241,12 @@ class ListItem extends React.Component {
             <div className="cmp-sku-details__buyinfo">
                 {LoginStatus.state() && typeof custPrice !== 'undefined'
                     && custPrice !== listPrice && (
-                    <div className="cmp-sku-list__list-price" data-locator="list-price-label" aria-label={`${skuInfo.listPriceLabel} ${listPrice}`}>
-                        {`${skuInfo.listPriceLabel} ${listPrice}`}
-                    </div>
-                )}
+                        <div className="cmp-sku-list__list-price" data-locator="list-price-label" aria-label={`${skuInfo.listPriceLabel} ${listPrice}`}>
+                            {`${skuInfo.listPriceLabel} ${listPrice}`}
+                        </div>
+                    )}
                 <div className="cmp-sku-list__priceinfo">
-                    {loading ? ( <Spinner loading={loading} type='inline' /> ) : this.renderPricing()}
+                    {loading ? (<Spinner loading={loading} type='inline' />) : this.renderPricing()}
                 </div>
                 <div
                     className="cmp-sku-details__availability"
@@ -229,39 +255,39 @@ class ListItem extends React.Component {
                     }
                 >
                     {(skuAvailability.productStatus ||
-                    (this.state && errorObjAvailability && errorObjAvailability.ok === false))
-                    && (
-                        <Stock
-                            skuInfo={skuInfo}
-                            skuNumber={relatedSku.code}
-                            skuAvailability={skuAvailability}
-                            skuType="details"
-                            errorObj={errorObjAvailability}
-                        />
-                    )}
+                        (this.state && errorObjAvailability && errorObjAvailability.ok === false))
+                        && (
+                            <Stock
+                                skuInfo={skuInfo}
+                                skuNumber={relatedSku.code}
+                                skuAvailability={skuAvailability}
+                                skuType="details"
+                                errorObj={errorObjAvailability}
+                            />
+                        )}
                     {(!skuAvailability.productStatus &&
-                    !(this.state && errorObjAvailability && errorObjAvailability.ok === false))
-                    && (
-                        <span className="cmp-sku-list__checkavailability">
-                            {
-                                skuConfig.skuInfo
-                                    .seeAvailabilityLabel
-                            }
-                            <ReactSVG
-                                alt={
+                        !(this.state && errorObjAvailability && errorObjAvailability.ok === false))
+                        && (
+                            <span className="cmp-sku-list__checkavailability">
+                                {
                                     skuConfig.skuInfo
                                         .seeAvailabilityLabel
                                 }
-                                src={
-                                    skuConfig.skuInfo
-                                        .refreshIcon
-                                }
-                                data-locator="check-availability"
-                            />
-                        </span>
-                    )}
+                                <ReactSVG
+                                    alt={
+                                        skuConfig.skuInfo
+                                            .seeAvailabilityLabel
+                                    }
+                                    src={
+                                        skuConfig.skuInfo
+                                            .refreshIcon
+                                    }
+                                    data-locator="check-availability"
+                                />
+                            </span>
+                        )}
                 </div>
-                <div className="cmp-sku-list__buttons">   
+                <div className="cmp-sku-list__buttons">
                     <AddToCart
                         toggleParentModal={this.toggleModal}
                         skuNumber={relatedSku.code}
@@ -305,15 +331,15 @@ class ListItem extends React.Component {
         } else {
             if ((Ecommerce.isPartialState() && LoginStatus.state()) && CheckOutStatus.state() ||
                 (!Ecommerce.isPartialState() && !Ecommerce.isDisabledState())
-                ) {
-                    return (
-                        <>
-                            {this.renderBuyInfoPartial()}
-                        </>
-                    );
-                } else {
-                    return (null);
-                }
+            ) {
+                return (
+                    <>
+                        {this.renderBuyInfoPartial()}
+                    </>
+                );
+            } else {
+                return (null);
+            }
         }
     }
 
@@ -327,7 +353,7 @@ class ListItem extends React.Component {
 
         if (relatedSku.discontinued) {
             let discontinuedMessage = skuConfig.skuInfo.discontinuedWithReplacementWithCode;
-            if(!relatedSku.replacementskucode || !relatedSku.replacementskuurl){
+            if (!relatedSku.replacementskucode || !relatedSku.replacementskuurl) {
                 discontinuedMessage = skuConfig.skuInfo.discontinuedNoReplacementCode
             }
 
@@ -337,6 +363,13 @@ class ListItem extends React.Component {
                     message={discontinuedMessage}
                     link={relatedSku.replacementskuurl}
                     linkMessage={relatedSku.replacementskucode}
+                />
+            );
+        } else if (this.state.errorPriceType === NO_PRICE_NO_ADD_TO_CART) {
+            return (
+                <SkuMessage
+                    icon={skuConfig.skuInfo.lowStockIcon}
+                    message={skuConfig.skuInfo.skuErrorMessage}
                 />
             );
         } else {
@@ -380,7 +413,7 @@ class ListItem extends React.Component {
         return (
             <div className={'cmp-sku-list__container ' + disabledClass}>
                 <div className="cmp-sku-list__right">
-                <img
+                    <img
                         src={relatedSku.primaryImageThumbnail}
                         alt={relatedSku.title}
                         data-locator="product-image"
@@ -427,7 +460,7 @@ ListItem.defaultProps = {
     relatedSku: {},
     skuConfig: {},
     baseSignInUrl: '',
-    onItemClick: () => {},
+    onItemClick: () => { },
     userInfo: {},
     isEProcurementUserRestricted: false
 };
