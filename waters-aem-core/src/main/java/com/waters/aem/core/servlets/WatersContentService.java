@@ -131,6 +131,7 @@ public class WatersContentService extends SlingAllMethodsServlet {
                 .addHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType())
                 .build();
         final SSLContextBuilder builder = new SSLContextBuilder().loadTrustMaterial(new TrustSelfSignedStrategy() {
+            @SuppressWarnings("deprecation")
             public boolean isTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
                 return true;
             }
