@@ -150,13 +150,10 @@
             top: 0;
             right: 0;
             height: 100%;
-            button.clear-icon {
+            button {
                 background-color: transparent;
                 border: none;
-            }
-            button.search-icon {
-                background-color: $color-blue-50;
-                border: none;
+                padding: 0;
             }
             &-search, &-clear {
                 height: 100%;
@@ -179,6 +176,11 @@
                 width: $height-medium;
                 background-color: $color-blue-50;
                 border-radius: 0 $border-radius $border-radius 0;
+                cursor: pointer;
+                &:hover {
+                    background-color: $color-link-hover;
+                    transition: $hover-transition;
+                }
                 svg {
                     .st0 {
                         stroke-width: 2;
