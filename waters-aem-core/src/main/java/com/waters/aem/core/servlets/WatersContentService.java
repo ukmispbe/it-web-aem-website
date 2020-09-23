@@ -95,7 +95,6 @@ public class WatersContentService extends SlingAllMethodsServlet {
         try {
             final ResourceResolver resourceResolver = request.getResourceResolver();
             if (null != resourceResolver.getResource(path)) {
-                //TODO:USE CompletableFuture API instead of sequence
                 pagePublishCaaSUrl = hostName.concat(path.concat("/_jcr_content.caas.infinity.json")).replace(WatersConstants.CUSTOM_ROOT_PATH, WatersConstants.ROOT_PATH);
                 pageJsonResponse = getHttpResponseAsStringForURI(pagePublishCaaSUrl);
                 pageJsonResponse = pageJsonResponse.replaceAll("/content/waters","/nextgen");
