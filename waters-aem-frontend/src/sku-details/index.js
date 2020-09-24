@@ -3,6 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Stock from "./views/stock";
 import Price from "./views/price";
+import UnavailablePrice from '../sku-details/views/unavailablePrice';
 import AddToCart from "./views/addToCart";
 import AddToCartBody from '../sku-details/views/addToCartModal';
 import Modal, { Header, keys } from '../utils/modal';
@@ -15,7 +16,14 @@ import Ecommerce from "../scripts/ecommerce";
 import { mainCartContext } from "../analytics";
 import { getAvailability, getPricing, matchListItems } from "./services/index";
 import SignIn from '../scripts/signIn';
-import DigitalData from '../scripts/DigitalData'
+import DigitalData from '../scripts/DigitalData';
+import {
+    BAD_REQUEST_CODE,
+    SERVER_ERROR_CODE,
+    UNAVAILABLE_PRICE_WITH_ADD_TO_CART,
+    LIST_PRICE_WITH_ADD_TO_CART,
+    NO_PRICE_NO_ADD_TO_CART,
+} from '../constants';
 
 class SkuDetails extends React.Component {
     constructor(props) {
@@ -52,11 +60,12 @@ class SkuDetails extends React.Component {
             },
             errorObjCart: {},
             errorObjAvailability: {},
-            errorObjPrice: {},
+            errorPriceType: '',
             discontinued: this.props.discontinued == "true",
             signInUrl: this.props.baseSignInUrl,
             errorInfo: this.props.config.errorInfo,
-            isEProcurementUserRestricted: (!isEprocurementApp() && isEprocurementUserRole())
+            isEProcurementUserRestricted: (!isEprocurementApp() && isEprocurementUserRole()),
+            isStickyAvailable: false
         };
 
         this.toggleModal = this.toggleModal.bind(this);
@@ -102,7 +111,34 @@ class SkuDetails extends React.Component {
                 this.setState({ errorObjAvailability: err });
             });
         }
+        window.addEventListener('scroll', this.handleScroll);
     }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
+    }
+
+    // Determines, cmp-sku-details--sticky class is added or not in the DOM
+    handleScroll = () => {
+        try {
+            const { isStickyAvailable } = this.state;
+            const elem = document.querySelector('.cmp-sku-details');
+            if (elem) {
+                if (elem.classList.contains('cmp-sku-details--sticky')) {
+                    if (!isStickyAvailable) {
+                        this.setState({ isStickyAvailable: true });
+                    }
+                } else {
+                    if (isStickyAvailable) {
+                        this.setState({ isStickyAvailable: false });
+                    }
+                }
+            }
+        } catch (err) {
+            console.error(err);
+
+        }
+    };
 
 //Note: getCustPricing Method should be an exact match between SKU Details and SKU List
     getCustPricing = (pricingUrl, skuNumber, userInfo, propListPrice) => {
@@ -122,15 +158,16 @@ class SkuDetails extends React.Component {
             } else {
                 // Add Error Object to State
                 this.setState({
-                    errorObjPrice: response.errors,
+                    errorPriceType: [BAD_REQUEST_CODE, SERVER_ERROR_CODE].includes(response.status) ?
+                        (isEprocurementApp() ? UNAVAILABLE_PRICE_WITH_ADD_TO_CART : LIST_PRICE_WITH_ADD_TO_CART) : NO_PRICE_NO_ADD_TO_CART,
                     loading: false
                 });
             }
         })
-        .catch(err => {
+        .catch(() => {
             // Add Error Object to State
             this.setState({
-                errorObjPrice: err,
+                errorPriceType: NO_PRICE_NO_ADD_TO_CART,
                 loading: false
             });
         });
@@ -203,18 +240,15 @@ class SkuDetails extends React.Component {
         );
     }
 
-    renderPricing = () => {
-        const { custPrice, listPrice, skuInfo } = this.state;
-
-        if (LoginStatus.state()){
-            let price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
+    renderListOrUnavailablePrice = () => {
+        const { listPrice, skuInfo, errorPriceType, isStickyAvailable } = this.state;
+        if (errorPriceType === UNAVAILABLE_PRICE_WITH_ADD_TO_CART && !isStickyAvailable) {
             return (
-                <Price
+                <UnavailablePrice
                     label={skuInfo.custPriceLabel}
-                    price={price}
-                    isListPrice={false}
-                />
-            )
+                    icon={skuInfo.lowStockIcon}
+                    text={skuInfo.unavailablePriceLabel}
+                />);
         } else {
             if (typeof listPrice !== 'undefined') {
                 return (
@@ -222,20 +256,41 @@ class SkuDetails extends React.Component {
                         label={skuInfo.listPriceLabel}
                         price={listPrice}
                         isListPrice={true}
-                    />
-                )
+                    />);
             }
+        }
+    }
+
+    renderPricing = () => {
+        const { custPrice, listPrice, skuInfo, errorPriceType } = this.state;
+
+        if (LoginStatus.state()) {
+            let price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
+            if (errorPriceType !== '') {
+                return this.renderListOrUnavailablePrice();
+            } else {
+                return (
+                    <Price
+                        label={skuInfo.custPriceLabel}
+                        price={price}
+                        isListPrice={false}
+                    />
+                );
+            }
+        } else {
+            return this.renderListOrUnavailablePrice();
         }
     }
 
     renderBuyInfo = () => {
         const { custPrice, listPrice, loading, skuInfo, skuNumber,
-                errorObjAvailability, skuAvailability, errorObjCart } = this.state;
+                errorObjAvailability, skuAvailability, errorObjCart, errorPriceType, isStickyAvailable } = this.state;
         const { config } = this.props;
         let isErrorModal = false;
         if (errorObjCart) {
             isErrorModal = (Object.keys(errorObjCart).length !== 0);
         }
+        const isHiddenAddToCart = (errorPriceType !== '' && isStickyAvailable) ? true : false;
         return (
             <div className="cmp-sku-details__buyinfo" data-locator="sku-details-buyinfo">
                 {LoginStatus.state() && typeof custPrice !== 'undefined'
@@ -256,7 +311,7 @@ class SkuDetails extends React.Component {
                         errorObj={errorObjAvailability}
                     />
                 </div>
-                <div className="cmp-sku-details__buttons" data-locator="sku-details-add-to-cart-sec">
+                <div className={`cmp-sku-details__buttons${isHiddenAddToCart ? ' cmp-sku-details__add-to-cart-hide' : ''}`} data-locator="sku-details-add-to-cart-sec">
                     <AddToCart
                         toggleParentModal={this.toggleModal}
                         skuNumber={skuNumber}
@@ -330,6 +385,15 @@ class SkuDetails extends React.Component {
         );
     }
 
+    renderSkuPriceErrorMsg = () => {
+        return (
+            <SkuMessage
+                icon={this.props.config.skuInfo.lowStockIcon}
+                message={this.props.config.skuInfo.skuErrorMessage}
+            />
+        );
+    }
+
     render() {
         if (this.state.isEProcurementUserRestricted) {
             return this.renderEProcurementUserRestricted();
@@ -337,6 +401,8 @@ class SkuDetails extends React.Component {
             return this.renderCountryRestricted();
         } else if (this.state.discontinued) {
             return this.renderDiscontinued();
+        } else if (this.state.errorPriceType === NO_PRICE_NO_ADD_TO_CART && !this.state.isStickyAvailable) {
+            return this.renderSkuPriceErrorMsg();
         } else {
             return this.renderActiveSku();
         }
