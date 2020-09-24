@@ -56,7 +56,9 @@ public final class DefaultAkamaiEdgeGridClient implements AkamaiEdgeGridClient {
     @Reference
     private Externalizer externalizer;
 
-    private volatile CloseableHttpClient httpClient;
+    private volatile CloseableHttpClient ecommHttpClient;
+    
+    private volatile CloseableHttpClient eprocHttpClient;
 
     private volatile boolean enabled;
 
@@ -77,18 +79,31 @@ public final class DefaultAkamaiEdgeGridClient implements AkamaiEdgeGridClient {
     @Activate
     @Modified
     protected void activate(final AkamaiEdgeGridClientConfiguration configuration) {
-        final ClientCredential credential = ClientCredential.builder()
-            .accessToken(configuration.accessToken())
-            .clientSecret(configuration.clientSecret())
-            .clientToken(configuration.clientToken())
+        final ClientCredential ecommCredential = ClientCredential.builder()
+            .accessToken(configuration.ecommAccessToken())
+            .clientSecret(configuration.ecommClientSecret())
+            .clientToken(configuration.ecommClientToken())
             .host(configuration.hostname())
             .build();
+        
+        final ClientCredential eprocCredential = ClientCredential.builder()
+                .accessToken(configuration.eprocAccessToken())
+                .clientSecret(configuration.eprocClientSecret())
+                .clientToken(configuration.eprocClientToken())
+                .host(configuration.hostname())
+                .build();
 
-        httpClient = HttpClientBuilder.create()
+        ecommHttpClient = HttpClientBuilder.create()
             .setConnectionManager(new PoolingHttpClientConnectionManager())
-            .addInterceptorFirst(new ApacheHttpClientEdgeGridInterceptor(credential))
-            .setRoutePlanner(new ApacheHttpClientEdgeGridRoutePlanner(credential))
+            .addInterceptorFirst(new ApacheHttpClientEdgeGridInterceptor(ecommCredential))
+            .setRoutePlanner(new ApacheHttpClientEdgeGridRoutePlanner(ecommCredential))
             .build();
+        
+        eprocHttpClient = HttpClientBuilder.create()
+                .setConnectionManager(new PoolingHttpClientConnectionManager())
+                .addInterceptorFirst(new ApacheHttpClientEdgeGridInterceptor(eprocCredential))
+                .setRoutePlanner(new ApacheHttpClientEdgeGridRoutePlanner(eprocCredential))
+                .build();
 
         enabled = configuration.enabled();
         network = configuration.network();
@@ -97,7 +112,8 @@ public final class DefaultAkamaiEdgeGridClient implements AkamaiEdgeGridClient {
 
     @Deactivate
     protected void deactivate() throws IOException {
-        httpClient.close();
+        ecommHttpClient.close();
+        eprocHttpClient.close();
     }
 
     private void purge(final String path, final String operation) throws IOException, URISyntaxException {
@@ -124,7 +140,7 @@ public final class DefaultAkamaiEdgeGridClient implements AkamaiEdgeGridClient {
                 .addHeader("Content-Type", JSON.getMimeType())
                 .build();
 
-            final HttpResponse response = httpClient.execute(request);
+            final HttpResponse response = path.contains("/content/order") ? eprocHttpClient.execute(request) : ecommHttpClient.execute(request);
 
             final StatusLine statusLine = response.getStatusLine();
             final String responseBody = EntityUtils.toString(response.getEntity());
