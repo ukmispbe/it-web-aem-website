@@ -82,6 +82,10 @@
     svg {
         height: 32px;
         width: 115px;
+        .st0 {
+            fill: $color-white;
+            stroke: transparent;
+        }
     }
 
     @include mobile {
