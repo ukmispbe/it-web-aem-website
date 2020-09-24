@@ -3,6 +3,7 @@ import ReactSVG from 'react-svg';
 import PropTypes from 'prop-types';
 import Stock from '../../sku-details/views/stock';
 import Price from '../../sku-details/views/price';
+import UnavailablePrice from '../../sku-details/views/unavailablePrice';
 import { getAvailability, getPricing, matchListItems } from '../../sku-details/services';
 import AddToCart from '../../sku-details/views/addToCart';
 import AddToCartBody from '../../sku-details/views/addToCartModal';
@@ -15,6 +16,14 @@ import Ecommerce from '../../scripts/ecommerce';
 import SkuDetails from '../../scripts/sku-details';
 import Sticky from '../../scripts/stickyService';
 import Analytics, { analyticTypes, searchCartContext, relatedCartContext } from '../../analytics';
+import { isEprocurementUser } from '../../utils/userFunctions';
+import {
+    BAD_REQUEST_CODE,
+    SERVER_ERROR_CODE,
+    UNAVAILABLE_PRICE_WITH_ADD_TO_CART,
+    LIST_PRICE_WITH_ADD_TO_CART,
+    NO_PRICE_NO_ADD_TO_CART,
+} from '../../constants';
 
 class ListItem extends React.Component {
     constructor(props) {
@@ -54,7 +63,7 @@ class ListItem extends React.Component {
             },
             errorObjCart: {},
             errorObjAvailability: {},
-            errorObjPrice: {}
+            errorPriceType: ''
         };
     }
 
@@ -89,15 +98,16 @@ class ListItem extends React.Component {
             } else {
                 // Add Error Object to State
                 this.setState({
-                    errorObjPrice: response.errors,
+                    errorPriceType: [BAD_REQUEST_CODE, SERVER_ERROR_CODE].includes(response.status) ?
+                        (isEprocurementUser() ? UNAVAILABLE_PRICE_WITH_ADD_TO_CART : LIST_PRICE_WITH_ADD_TO_CART) : NO_PRICE_NO_ADD_TO_CART,
                     loading: false
                 });
             }
         })
-        .catch(err => {
+        .catch(() => {
             // Add Error Object to State
             this.setState({
-                errorObjPrice: err,
+                errorPriceType: NO_PRICE_NO_ADD_TO_CART,
                 loading: false
             });
         });
@@ -178,18 +188,15 @@ class ListItem extends React.Component {
         }
     };
 
-    renderPricing = () => {
-        const { custPrice, listPrice, skuInfo } = this.state;
-
-        if (LoginStatus.state()){
-            let price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
+    renderListOrUnavailablePrice = () => {
+        const { listPrice, skuInfo, errorPriceType } = this.state;
+        if (errorPriceType === UNAVAILABLE_PRICE_WITH_ADD_TO_CART) {
             return (
-                <Price
+                <UnavailablePrice
                     label={skuInfo.custPriceLabel}
-                    price={price}
-                    isListPrice={false}
-                />
-            )
+                    icon={skuInfo.lowStockIcon}
+                    text={skuInfo.unavailablePriceLabel}
+                />);
         } else {
             if (typeof listPrice !== 'undefined') {
                 return (
@@ -197,9 +204,28 @@ class ListItem extends React.Component {
                         label={skuInfo.listPriceLabel}
                         price={listPrice}
                         isListPrice={true}
-                    />
-                )
+                    />);
             }
+        }
+    }
+
+    renderPricing = () => {
+        const { custPrice, listPrice, skuInfo, errorPriceType } = this.state;
+
+        if (LoginStatus.state()) {
+            let price = typeof custPrice !== 'undefined' ? custPrice : listPrice;
+            if (errorPriceType !== '') {
+                return this.renderListOrUnavailablePrice();
+            } else {
+                return (
+                    <Price
+                        label={skuInfo.custPriceLabel}
+                        price={price}
+                        isListPrice={false}
+                    />);
+            }
+        } else {
+            return this.renderListOrUnavailablePrice();
         }
     }
 
@@ -337,6 +363,13 @@ class ListItem extends React.Component {
                     message={discontinuedMessage}
                     link={relatedSku.replacementskuurl}
                     linkMessage={relatedSku.replacementskucode}
+                />
+            );
+        } else if (this.state.errorPriceType === NO_PRICE_NO_ADD_TO_CART) {
+            return (
+                <SkuMessage
+                    icon={skuConfig.skuInfo.lowStockIcon}
+                    message={skuConfig.skuInfo.skuErrorMessage}
                 />
             );
         } else {
